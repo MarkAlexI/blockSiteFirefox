@@ -1,0 +1,116 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+#header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#header h1 {
+  color: #0073e6;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#header p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+#rules-container {
+  margin-bottom: 20px;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.rule input {
+  max-width: 140px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.save-btn {
+  background-color: #28a745;
+}
+
+.save-btn:hover {
+  background-color: #218838;
+}
+
+.delete-btn {
+  background-color: #ff4d4d;
+}
+
+.delete-btn:hover {
+  background-color: #ff1a1a;
+}
+
+.rule button {
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 5px;
+}
+
+#add-rule {
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#add-rule:hover {
+  background-color: #005bb5;
+}
+
+#status {
+  display: block;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .rule {
+    flex-direction: column;
+    align-items: between;
+  }
+
+  .rule input {
+    width: 95%;
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .rule button {
+    width: 30%;
+    max-width: none;
+    margin-top: 10px;
+  }
+}
