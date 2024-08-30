@@ -31,13 +31,13 @@ async function storageUpdateHandler(changes) {
         },
         "priority": 1
       }`);
-      
+
     return newRule;
   });
 
   try {
-    const oldRules = await chrome.declarativeNetRequest.getDynamicRules();
-    await chrome.declarativeNetRequest.updateDynamicRules({
+    const oldRules = await browser.declarativeNetRequest.getDynamicRules();
+    await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: oldRules.map(rule => rule.id),
       addRules: newRules,
     });
@@ -46,4 +46,4 @@ async function storageUpdateHandler(changes) {
   }
 }
 
-chrome.storage.sync.onChanged.addListener(storageUpdateHandler);
+browser.storage.sync.onChanged.addListener(storageUpdateHandler);

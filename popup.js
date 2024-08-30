@@ -4,7 +4,7 @@ const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
 const statusOutput = document.getElementById('status');
 
-chrome.storage.sync.get('rules', ({ rules }) => {
+browser.storage.sync.get('rules', ({ rules }) => {
   if (rules) {
     rules.forEach(rule => {
       createRuleInputs(rule.blockURL, rule.redirectURL);
@@ -13,7 +13,6 @@ chrome.storage.sync.get('rules', ({ rules }) => {
 });
 
 function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
-  
   const ruleDiv = document.createElement('div');
   ruleDiv.className = 'rule';
 
@@ -37,8 +36,8 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
 
   saveButton.addEventListener('click', () => {
     if (blockURL.value === '') return;
-    
-    chrome.storage.sync.get('rules', ({ rules }) => {
+
+    browser.storage.sync.get('rules', ({ rules }) => {
       rules = rules || [];
 
       const ruleExists = rules.some(rule =>
@@ -49,7 +48,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
         alert('Rule now exist');
       } else {
         rules.push({ blockURL: blockURL.value, redirectURL: redirectURL.value });
-        chrome.storage.sync.set({ rules }, () => {
+        browser.storage.sync.set({ rules }, () => {
           createRuleInputs();
           statusOutput.value = `Saved ${rules.length} rules`;
         });
@@ -58,10 +57,10 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
   });
 
   deleteButton.addEventListener('click', () => {
-    chrome.storage.sync.get('rules', ({ rules }) => {
+    browser.storage.sync.get('rules', ({ rules }) => {
       rules = rules || [];
       rules = rules.filter((rule) => rule.blockURL !== blockURL.value);
-      chrome.storage.sync.set({ rules });
+      browser.storage.sync.set({ rules });
       statusOutput.value = `Saved ${rules.length} rules`;
     });
     ruleDiv.remove();
