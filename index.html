@@ -5,17 +5,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" type="text/css" href="popup.css">
+  <title data-i18n="defaulttitle"></title>
 </head>
 
 <body>
   <div id="header">
-    <h1>Site Blocker</h1>
-    <p>To block a resource, enter a part of its name in the left input field without specifying the protocol. For example, entering "youtube" will block all subdomains of this resource. In the right input field, enter the URL for redirection, fully specified with the protocol, e.g., "https://google.com". Then click the save button. If the redirect URL is left empty, the target site will simply be blocked. To modify a rule, delete the old rule and add a new one.</p>
+    <h1 data-i18n="header"></h1>
+    <p data-i18n="paragraph"></p>
   </div>
 
   <div id="rules-container"></div>
-  <button id="add-rule">Add new rule</button>
+  <button id="add-rule" data-i18n="addrule"></button>
   <output id="status"></output>
+
+  <script src="i18n.js"></script>
   <script src="popup.js"></script>
 </body>
 

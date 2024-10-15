@@ -1,9 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Block Site Extension",
-  "short_name": "Block Site Ext",
-  "description": "Effortlessly block and redirect websites with customizable rules to stay focused and productive.",
-  "version": "1.2",
+  "name": "__MSG_chromename__",
+  "short_name": "__MSG_shortname__",
+  "description": "__MSG_description__",
+  "author": "MarkAlexI",
+  "default_locale": "en",
+  "version": "1.3",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",
@@ -15,13 +17,16 @@
     "32": "images/icon-32.png",
     "192": "images/icon-192.png"
   },
-  "permissions": ["declarativeNetRequestWithHostAccess", "storage"],
+  "permissions": [
+    "declarativeNetRequestWithHostAccess",
+    "storage"
+  ],
   "host_permissions": ["*://*/"],
   "background": {
     "scripts": ["background.js"]
   },
   "action": {
     "default_popup": "index.html",
-    "default_title": "Block Site Extension"
+    "default_title": "__MSG_defaulttitle__"
   }
 }

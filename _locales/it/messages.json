@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Estensione per Bloccare i Siti" },
+  "shortname": { "message": "Blocca Sito" },
+  "description": { "message": "Blocca e reindirizza facilmente i siti web con regole personalizzate per rimanere concentrato e produttivo." },
+  "defaulttitle": { "message": "Rimani concentrato e produttivo" },
+  "header": { "message": "Bloccante Siti" },
+  "paragraph": { "message": "Per bloccare una risorsa, inserisci una parte del suo nome nel campo di input a sinistra senza indicare il protocollo. Ad esempio, inserendo \"youtube\" verranno bloccati tutti i sottodomini di quella risorsa. Nel campo a destra, inserisci l'URL di reindirizzamento completo di protocollo, ad esempio \"https:\/\/google.com\". Quindi fai clic sul pulsante Salva. Se l'URL di reindirizzamento viene lasciato vuoto, il sito di destinazione verrà semplicemente bloccato. Per modificare una regola, elimina la regola precedente e aggiungine una nuova." },
+  "addrule": { "message": "Aggiungi una nuova regola" },
+  "blockurl": { "message": "Inserisci l'indirizzo da bloccare" },
+  "redirecturl": { "message": "Inserisci l'indirizzo di reindirizzamento (facoltativo)" },
+  "savebtn": { "message": "Salva" },
+  "deletebtn": { "message": "Elimina" },
+  "alertruleexist": { "message": "La regola esiste già" },
+  "savedrules": {
+    "message": "Regole salvate: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}
