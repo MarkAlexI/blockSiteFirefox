@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Extensión para Bloquear Sitios Web" },
+  "shortname": { "message": "Bloquear Sitios" },
+  "description": { "message": "Bloquee y redirija fácilmente sitios web con reglas personalizadas para mantenerse enfocado y productivo." },
+  "defaulttitle": { "message": "Mantente enfocado y productivo" },
+  "header": { "message": "Bloqueador de Sitios" },
+  "paragraph": { "message": "Para bloquear un recurso, ingrese una parte de su nombre en el campo de entrada izquierdo sin indicar el protocolo. Por ejemplo, al ingresar \"youtube\" se bloquearán todos los subdominios de ese recurso. En el campo derecho, ingrese la URL de redirección completamente definida con el protocolo, por ejemplo, \"https:\/\/google.com\". Luego, haga clic en el botón Guardar. Si el campo de URL de redirección se deja vacío, el sitio objetivo simplemente se bloqueará. Para modificar una regla, elimine la regla anterior y agregue una nueva." },
+  "addrule": { "message": "Agregar nueva regla" },
+  "blockurl": { "message": "Ingrese la dirección para bloquear" },
+  "redirecturl": { "message": "Ingrese la dirección de redirección (opcional)" },
+  "savebtn": { "message": "Guardar" },
+  "deletebtn": { "message": "Eliminar" },
+  "alertruleexist": { "message": "La regla ya existe" },
+  "savedrules": {
+    "message": "Reglas guardadas: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

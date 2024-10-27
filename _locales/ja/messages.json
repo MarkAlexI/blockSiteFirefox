@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "サイトブロック拡張機能" },
+  "shortname": { "message": "サイトをブロック" },
+  "description": { "message": "カスタムルールを使用して、ウェブサイトを簡単にブロックおよびリダイレクトして集中力と生産性を維持しましょう。" },
+  "defaulttitle": { "message": "集中力と生産性を維持しましょう" },
+  "header": { "message": "サイトブロッカー" },
+  "paragraph": { "message": "リソースをブロックするには、プロトコルを指定せずに左側の入力フィールドに名前の一部を入力します。たとえば、「youtube」と入力すると、そのリソースのすべてのサブドメインがブロックされます。右側の入力フィールドに、プロトコルを含む完全なリダイレクトURLを入力します。たとえば「https:\/\/google.com」のように入力します。その後、保存ボタンをクリックします。リダイレクトURLフィールドが空白のままの場合、ターゲットサイトは単にブロックされます。ルールを変更するには、古いルールを削除して新しいルールを追加してください。" },
+  "addrule": { "message": "新しいルールを追加" },
+  "blockurl": { "message": "ブロックするアドレスを入力" },
+  "redirecturl": { "message": "リダイレクト先のアドレスを入力（オプション）" },
+  "savebtn": { "message": "保存" },
+  "deletebtn": { "message": "削除" },
+  "alertruleexist": { "message": "ルールはすでに存在します" },
+  "savedrules": {
+    "message": "保存されたルール: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

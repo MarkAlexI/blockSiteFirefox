@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Rozszerzenie do Blokowania Stron" },
+  "shortname": { "message": "Zablokuj Stronę" },
+  "description": { "message": "Blokuj i przekierowuj strony internetowe za pomocą niestandardowych reguł, aby pozostać skoncentrowanym i produktywnym." },
+  "defaulttitle": { "message": "Pozostań skoncentrowany i produktywny" },
+  "header": { "message": "Blokowanie Stron" },
+  "paragraph": { "message": "Aby zablokować zasób, wprowadź część jego nazwy w lewym polu bez podawania protokołu. Na przykład, wprowadzenie „youtube” zablokuje wszystkie subdomeny tego zasobu. W prawym polu wprowadź pełny adres URL przekierowania wraz z protokołem, na przykład „https:\/\/google.com”. Następnie kliknij przycisk Zapisz. Jeśli pole URL przekierowania zostanie pozostawione puste, docelowa strona zostanie po prostu zablokowana. Aby zmienić regułę, usuń starą regułę i dodaj nową." },
+  "addrule": { "message": "Dodaj nową regułę" },
+  "blockurl": { "message": "Wprowadź adres do zablokowania" },
+  "redirecturl": { "message": "Wprowadź adres przekierowania (opcjonalnie)" },
+  "savebtn": { "message": "Zapisz" },
+  "deletebtn": { "message": "Usuń" },
+  "alertruleexist": { "message": "Reguła już istnieje" },
+  "savedrules": {
+    "message": "Zapisane reguły: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}
