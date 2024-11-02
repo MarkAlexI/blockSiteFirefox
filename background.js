@@ -17,7 +17,7 @@ async function storageUpdateHandler(changes) {
           ]
         },
         "id": ${i + 1},
-        "priority": 1
+        "priority": 100
       }`) :
       JSON.parse(`{
         "id": ${i + 1},
@@ -29,7 +29,7 @@ async function storageUpdateHandler(changes) {
         "action": {
           "type": "block"
         },
-        "priority": 1
+        "priority": 100
       }`);
 
     return newRule;
@@ -37,12 +37,13 @@ async function storageUpdateHandler(changes) {
 
   try {
     const oldRules = await browser.declarativeNetRequest.getDynamicRules();
+    
     await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: oldRules.map(rule => rule.id),
       addRules: newRules,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
