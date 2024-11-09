@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Ekstensi Blokir Situs" },
+  "shortname": { "message": "Blokir Situs" },
+  "description": { "message": "Blokir dan alihkan situs web dengan mudah menggunakan aturan yang disesuaikan agar tetap fokus dan produktif." },
+  "defaulttitle": { "message": "Tetap fokus dan produktif" },
+  "header": { "message": "Pemblokir Situs" },
+  "paragraph": { "message": "Untuk memblokir sumber, masukkan sebagian nama situs di kolom kiri tanpa menyertakan protokol. Misalnya, memasukkan \"youtube\" akan memblokir semua subdomain dari sumber tersebut. Di kolom kanan, masukkan URL pengalihan lengkap dengan protokol, misalnya, \"https:\/\/google.com\". Kemudian, klik tombol simpan. Jika kolom URL pengalihan dibiarkan kosong, situs target hanya akan diblokir. Untuk mengubah aturan, hapus aturan lama dan tambahkan yang baru." },
+  "addrule": { "message": "Tambahkan aturan baru" },
+  "blockurl": { "message": "Masukkan alamat untuk diblokir" },
+  "redirecturl": { "message": "Masukkan alamat pengalihan (opsional)" },
+  "savebtn": { "message": "Simpan" },
+  "deletebtn": { "message": "Hapus" },
+  "alertruleexist": { "message": "Aturan sudah ada" },
+  "savedrules": {
+    "message": "Aturan tersimpan: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Extensie pentru Blocarea Site-urilor" },
+  "shortname": { "message": "Blochează Site" },
+  "description": { "message": "Blocați și redirecționați ușor site-urile web cu reguli personalizate pentru a rămâne concentrat și productiv." },
+  "defaulttitle": { "message": "Rămâi concentrat și productiv" },
+  "header": { "message": "Blocator de Site-uri" },
+  "paragraph": { "message": "Pentru a bloca o resursă, introduceți o parte din numele său în câmpul din stânga, fără a specifica protocolul. De exemplu, introducerea 'youtube' va bloca toate subdomeniile acestei resurse. În câmpul din dreapta, introduceți URL-ul de redirecționare, complet cu protocol, de exemplu, 'https:\/\/google.com'. Apoi apăsați butonul de salvare. Dacă lăsați câmpul URL de redirecționare gol, site-ul țintă va fi doar blocat. Pentru a modifica o regulă, ștergeți regula veche și adăugați una nouă." },
+  "addrule": { "message": "Adaugă o regulă nouă" },
+  "blockurl": { "message": "Introduceți adresa de blocat" },
+  "redirecturl": { "message": "Introduceți adresa de redirecționare (opțional)" },
+  "savebtn": { "message": "Salvează" },
+  "deletebtn": { "message": "Șterge" },
+  "alertruleexist": { "message": "Regula deja există" },
+  "savedrules": {
+    "message": "Reguli salvate: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

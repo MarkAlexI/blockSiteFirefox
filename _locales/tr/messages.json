@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Web Sitesi Engelleme Eklentisi" },
+  "shortname": { "message": "Siteyi Engelle" },
+  "description": { "message": "Odaklanmak ve verimli kalmak için özelleştirilmiş kurallarla web sitelerini kolayca engelleyin ve yönlendirin." },
+  "defaulttitle": { "message": "Odaklanın ve verimli kalın" },
+  "header": { "message": "Site Engelleyici" },
+  "paragraph": { "message": "Bir kaynağı engellemek için, protokol belirtmeden adının bir kısmını sol giriş alanına girin. Örneğin, 'youtube' girildiğinde bu kaynağın tüm alt alan adları engellenecektir. Sağ giriş alanına protokolüyle birlikte yönlendirme URL'sini tamamen girin, örneğin, 'https:\/\/google.com'. Ardından kaydet düğmesine tıklayın. Yönlendirme URL alanı boş bırakılırsa hedef site yalnızca engellenir. Bir kuralı değiştirmek için eski kuralı silin ve yenisini ekleyin." },
+  "addrule": { "message": "Yeni kural ekle" },
+  "blockurl": { "message": "Engellenecek adresi girin" },
+  "redirecturl": { "message": "Yönlendirme adresini girin (isteğe bağlı)" },
+  "savebtn": { "message": "Kaydet" },
+  "deletebtn": { "message": "Sil" },
+  "alertruleexist": { "message": "Kural zaten mevcut" },
+  "savedrules": {
+    "message": "Kaydedilen kurallar: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}
