@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Extensie voor Website Blokkeren" },
+  "shortname": { "message": "Blokkeer Website" },
+  "description": { "message": "Blokkeer en omleid eenvoudig websites met aangepaste regels om gefocust en productief te blijven." },
+  "defaulttitle": { "message": "Blijf gefocust en productief" },
+  "header": { "message": "Website Blokkeren" },
+  "paragraph": { "message": "Om een bron te blokkeren, voer een deel van de naam in het linker invoerveld in zonder het protocol op te geven. Bijvoorbeeld, door \"youtube\" in te voeren, worden alle subdomeinen van deze bron geblokkeerd. In het rechter invoerveld voert u de omleidings-URL in, compleet met protocol, bijvoorbeeld \"https:\/\/google.com\". Klik vervolgens op de knop opslaan. Als het omleidings-URL-veld leeg blijft, wordt de doelwebsite alleen geblokkeerd. Om een regel te wijzigen, verwijdert u de oude regel en voegt u een nieuwe toe." },
+  "addrule": { "message": "Nieuwe regel toevoegen" },
+  "blockurl": { "message": "Voer het adres in om te blokkeren" },
+  "redirecturl": { "message": "Voer omleidingsadres in (optioneel)" },
+  "savebtn": { "message": "Opslaan" },
+  "deletebtn": { "message": "Verwijderen" },
+  "alertruleexist": { "message": "Regel bestaat al" },
+  "savedrules": {
+    "message": "Opgeslagen regels: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

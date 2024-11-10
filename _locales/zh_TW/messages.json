@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "網站封鎖擴充功能" },
+  "shortname": { "message": "封鎖網站" },
+  "description": { "message": "透過自訂規則輕鬆封鎖和重新導向網站，保持專注和高效。" },
+  "defaulttitle": { "message": "保持專注與高效" },
+  "header": { "message": "網站封鎖器" },
+  "paragraph": { "message": "要封鎖資源，請在左側輸入框中輸入部分名稱，不需指定協議。例如，輸入「youtube」將封鎖該資源的所有子域。在右側輸入框中輸入完整的重新導向網址，包括協議，例如「https:\/\/google.com」。然後點擊儲存按鈕。如果重新導向網址框保持空白，目標網站將僅被封鎖。要修改規則，請刪除舊規則並新增新規則。" },
+  "addrule": { "message": "新增規則" },
+  "blockurl": { "message": "輸入要封鎖的地址" },
+  "redirecturl": { "message": "輸入重新導向的地址（選填）" },
+  "savebtn": { "message": "儲存" },
+  "deletebtn": { "message": "刪除" },
+  "alertruleexist": { "message": "規則已存在" },
+  "savedrules": {
+    "message": "已儲存規則數量：$ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}
