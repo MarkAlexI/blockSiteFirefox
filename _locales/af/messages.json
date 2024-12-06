@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Webwerfblokkeer-uitbreiding" },
+  "shortname": { "message": "Blokkeer Webwerf" },
+  "description": { "message": "Blokkeer en herlei webwerwe maklik met pasgemaakte reëls om gefokus en produktief te bly." },
+  "defaulttitle": { "message": "Bly gefokus en produktief" },
+  "header": { "message": "Webwerfblokkeerder" },
+  "paragraph": { "message": "Om 'n bron te blokkeer, voer 'n deel van sy naam in die linkerveld in sonder om die protokol te spesifiseer. Byvoorbeeld, as jy \"facebook\" invoer, sal al die subdomeine van hierdie bron geblokkeer word. Voer die volledige herleiding-URL met protokol in die regterveld in, byvoorbeeld \"https:\/\/google.com\". Klik dan op die stoor-knoppie. As die herleiding-URL-veld leeg gelaat word, sal die teikenterrein net geblokkeer word. Om 'n reël te verander, verwyder die ou reël en voeg 'n nuwe een by." },
+  "addrule": { "message": "Voeg nuwe reël by" },
+  "blockurl": { "message": "Voer die adres in om te blokkeer" },
+  "redirecturl": { "message": "Voer die herleidingadres in (opsioneel)" },
+  "savebtn": { "message": "Stoor" },
+  "deletebtn": { "message": "Verwyder" },
+  "alertruleexist": { "message": "Reël bestaan reeds" },
+  "savedrules": {
+    "message": "Gestoorde reëls: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

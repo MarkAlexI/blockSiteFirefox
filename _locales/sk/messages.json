@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Rozšírenie na blokovanie stránok" },
+  "shortname": { "message": "Blokovať stránku" },
+  "description": { "message": "Jednoducho blokujte a presmerovávajte webové stránky pomocou vlastných pravidiel, aby ste zostali sústredení a produktívni." },
+  "defaulttitle": { "message": "Zostaňte sústredení a produktívni" },
+  "header": { "message": "Blokovač stránok" },
+  "paragraph": { "message": "Ak chcete blokovať zdroj, zadajte časť jeho názvu do ľavého poľa bez uvedenia protokolu. Napríklad zadaním \"facebook\" sa zablokujú všetky subdomény tohto zdroja. Do pravého poľa zadajte úplnú URL adresu na presmerovanie vrátane protokolu, napríklad \"https:\/\/google.com\". Potom kliknite na tlačidlo uložiť. Ak ponecháte pole URL na presmerovanie prázdne, cieľová stránka bude iba zablokovaná. Ak chcete pravidlo upraviť, odstráňte staré pravidlo a pridajte nové." },
+  "addrule": { "message": "Pridať nové pravidlo" },
+  "blockurl": { "message": "Zadajte adresu na blokovanie" },
+  "redirecturl": { "message": "Zadajte adresu na presmerovanie (voliteľné)" },
+  "savebtn": { "message": "Uložiť" },
+  "deletebtn": { "message": "Odstrániť" },
+  "alertruleexist": { "message": "Pravidlo už existuje" },
+  "savedrules": {
+    "message": "Uložené pravidlá: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

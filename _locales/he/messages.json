@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "תוסף לחסימת אתרים" },
+  "shortname": { "message": "חסום אתר" },
+  "description": { "message": "חסום והפנה אתרים בקלות עם כללים מותאמים אישית כדי להישאר ממוקד ופרודוקטיבי." },
+  "defaulttitle": { "message": "הישאר ממוקד ופרודוקטיבי" },
+  "header": { "message": "חוסם אתרים" },
+  "paragraph": { "message": "כדי לחסום מקור, הזן חלק משמו בשדה ההזנה השמאלי ללא ציון פרוטוקול. לדוגמה, הזנת \"facebook\" תחסום את כל תתי-הדומיינים של אותו מקור. בשדה ההזנה הימני, הזן כתובת URL מלאה להפניה הכוללת פרוטוקול, לדוגמה \"https:\/\/google.com\". לאחר מכן לחץ על כפתור השמירה. אם תשאיר את שדה כתובת ה-URL של ההפניה ריק, האתר ייחסם בלבד. כדי לערוך כלל, מחק את הכלל הישן והוסף חדש." },
+  "addrule": { "message": "הוסף כלל חדש" },
+  "blockurl": { "message": "הזן כתובת לחסימה" },
+  "redirecturl": { "message": "הזן כתובת להפניה (אופציונלי)" },
+  "savebtn": { "message": "שמור" },
+  "deletebtn": { "message": "מחק" },
+  "alertruleexist": { "message": "הכלל כבר קיים" },
+  "savedrules": {
+    "message": "כללים שנשמרו: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}

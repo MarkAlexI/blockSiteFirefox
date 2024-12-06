@@ -1,0 +1,23 @@
+{
+  "chromename": { "message": "Kiendelezi cha Kuzuia Tovuti" },
+  "shortname": { "message": "Zuia Tovuti" },
+  "description": { "message": "Zuia na elekeza tovuti kwa urahisi ukitumia sheria maalum ili kubaki makini na kuongeza tija." },
+  "defaulttitle": { "message": "Baki Makini na Uongeze Tija" },
+  "header": { "message": "Kizuia Tovuti" },
+  "paragraph": { "message": "Ili kuzuia rasilimali, ingiza sehemu ya jina lake kwenye uwanja wa kuingiza wa kushoto bila kutaja itifaki. Kwa mfano, kuandika \"facebook\" kutazuia vikoa vidogo vyote vya rasilimali hiyo. Katika uwanja wa kuingiza wa kulia, weka URL kamili ya kuelekeza ikiwa ni pamoja na itifaki, kwa mfano \"https:\/\/google.com\". Kisha bonyeza kitufe cha kuhifadhi. Ukiacha uwanja wa URL ya kuelekeza wazi, tovuti lengwa itazuiwa tu. Ili kuhariri sheria, futa sheria ya zamani na ongeza mpya." },
+  "addrule": { "message": "Ongeza Sheria Mpya" },
+  "blockurl": { "message": "Ingiza Anwani ya Kuzuia" },
+  "redirecturl": { "message": "Ingiza Anwani ya Kuelekeza (Hiari)" },
+  "savebtn": { "message": "Hifadhi" },
+  "deletebtn": { "message": "Futa" },
+  "alertruleexist": { "message": "Sheria tayari ipo" },
+  "savedrules": {
+    "message": "Sheria Zilizohifadhiwa: $ruleslength$",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  }
+}
