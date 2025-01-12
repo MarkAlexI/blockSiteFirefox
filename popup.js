@@ -76,7 +76,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
   ruleDiv.appendChild(saveButton);
   ruleDiv.appendChild(deleteButton);
 
-  rulesContainer.appendChild(ruleDiv);
+  rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
 }
 
 addRuleButton.addEventListener('click', () => {
