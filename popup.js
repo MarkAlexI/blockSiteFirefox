@@ -1,4 +1,5 @@
 import { customAlert } from './scripts/customAlert.js';
+import { isValidURL } from './scripts/isValidURL.js';
 
 const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
@@ -51,6 +52,15 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
         blockURL.value = '';
         redirectURL.value = '';
       } else {
+        if (redirectURL.value) {
+          if (!isValidURL(redirectURL.value)) {
+            customAlert('Wrong redirect URL');
+            blockURL.value = '';
+            redirectURL.value = '';
+            return;
+          }
+        }
+
         rules.push({ blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
         browser.storage.sync.set({ rules }, () => {
           createRuleInputs();
