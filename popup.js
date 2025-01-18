@@ -1,4 +1,4 @@
-"use strict";
+import { customAlert } from './scripts/customAlert.js';
 
 const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
@@ -47,7 +47,9 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
 
       if (ruleExists) {
         const alertMessage = browser.i18n.getMessage('alertruleexist');
-        alert(alertMessage);
+        customAlert(alertMessage);
+        blockURL.value = '';
+        redirectURL.value = '';
       } else {
         rules.push({ blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
         browser.storage.sync.set({ rules }, () => {
