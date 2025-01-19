@@ -55,8 +55,6 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
         if (redirectURL.value) {
           if (!isValidURL(redirectURL.value)) {
             customAlert('Wrong redirect URL');
-            blockURL.value = '';
-            redirectURL.value = '';
             return;
           }
         }
@@ -66,6 +64,9 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
           createRuleInputs();
           const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
           statusOutput.value = outputText;
+          blockURL.readOnly = true;
+          redirectURL.readOnly = true;
+          saveButton.remove();
         });
       }
     });
@@ -86,7 +87,12 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
   setTimeout(function() {
     ruleDiv.appendChild(blockURL);
     ruleDiv.appendChild(redirectURL);
-    ruleDiv.appendChild(saveButton);
+    if (!blockURLValue) {
+      ruleDiv.appendChild(saveButton);
+    } else {
+      blockURL.readOnly = true;
+      redirectURL.readOnly = true;
+    }
     ruleDiv.appendChild(deleteButton);
 
     rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
