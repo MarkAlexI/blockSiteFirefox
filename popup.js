@@ -1,5 +1,6 @@
 import { customAlert } from './scripts/customAlert.js';
 import { isValidURL } from './scripts/isValidURL.js';
+import { isValidAscii } from './scripts/isValidAscii.js';
 
 const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
@@ -38,6 +39,10 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
 
   saveButton.addEventListener('click', () => {
     if (blockURL.value === '') return;
+    if (!isValidAscii(blockURL.value)) {
+      customAlert('Available only ASCII on block URL');
+      return;
+    }
 
     browser.storage.sync.get('rules', ({ rules }) => {
       rules = rules || [];
