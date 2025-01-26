@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "చెల్లని రీడైరెక్ట్ URL" },
+  "blockurlonlyascii": { "message": "URL బ్లాక్ చేయడానికి కేవలం ASCII మాత్రమే అందుబాటులో ఉంది" },
+  "blockurlonlylower": { "message": "URL బ్లాక్ చేయడానికి కేవలం చిన్న అక్షరాలు మాత్రమే అందుబాటులో ఉన్నాయి" }
 }

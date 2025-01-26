@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Неважећи URL за преусмеравање" },
+  "blockurlonlyascii": { "message": "Доступан је само ASCII за блокирање URL-ова" },
+  "blockurlonlylower": { "message": "Доступна су само мала слова за блокирање URL-ова" }
 }

@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Geçersiz yönlendirme URL'si" },
+  "blockurlonlyascii": { "message": "URL'leri engellemek için yalnızca ASCII kullanılabilir" },
+  "blockurlonlylower": { "message": "URL'leri engellemek için yalnızca küçük harfler kullanılabilir" }
 }

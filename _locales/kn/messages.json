@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "ಅಮಾನ್ಯವಾದ ಮರುನಿರ್ದೇಶನ URL" },
+  "blockurlonlyascii": { "message": "URL ತಡೆಗಟ್ಟಲು ಕೇವಲ ASCII ಲಭ್ಯವಿದೆ" },
+  "blockurlonlylower": { "message": "URL ತಡೆಗಟ್ಟಲು ಕೇವಲ ಸಣ್ಣ ಅಕ್ಷರಗಳು ಲಭ್ಯವಿದೆ" }
 }

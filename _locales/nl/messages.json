@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Ongeldige omleidings-URL" },
+  "blockurlonlyascii": { "message": "Alleen ASCII beschikbaar voor URL-blokkering" },
+  "blockurlonlylower": { "message": "Alleen kleine letters beschikbaar voor URL-blokkering" }
 }

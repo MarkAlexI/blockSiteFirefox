@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "URL ya uelekezaji si sahihi" },
+  "blockurlonlyascii": { "message": "Inapatikana tu ASCII kwa kuzuia URL" },
+  "blockurlonlylower": { "message": "Inapatikana tu herufi ndogo kwa kuzuia URL" }
 }

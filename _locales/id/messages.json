@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "URL pengalihan tidak valid" },
+  "blockurlonlyascii": { "message": "Hanya ASCII yang tersedia untuk memblokir URL" },
+  "blockurlonlylower": { "message": "Hanya huruf kecil yang tersedia untuk memblokir URL" }
 }

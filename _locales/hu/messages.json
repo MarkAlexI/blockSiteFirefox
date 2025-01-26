@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Érvénytelen átirányítási URL" },
+  "blockurlonlyascii": { "message": "Csak ASCII érhető el az URL blokkolásához" },
+  "blockurlonlylower": { "message": "Csak kisbetűk érhetők el az URL blokkolásához" }
 }

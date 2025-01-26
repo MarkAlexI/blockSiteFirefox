@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "유효하지 않은 리디렉션 URL" },
+  "blockurlonlyascii": { "message": "URL 차단에 ASCII만 사용할 수 있습니다" },
+  "blockurlonlylower": { "message": "URL 차단에 소문자만 사용할 수 있습니다" }
 }

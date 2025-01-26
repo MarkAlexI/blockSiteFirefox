@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "無效的重新導向URL" },
+  "blockurlonlyascii": { "message": "僅支援ASCII用於阻止URL" },
+  "blockurlonlylower": { "message": "僅支援小寫字母用於阻止URL" }
 }

@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "無効なリダイレクトURL" },
+  "blockurlonlyascii": { "message": "ブロックURLにはASCIIのみが使用可能" },
+  "blockurlonlylower": { "message": "ブロックURLには小文字のみが使用可能" }
 }

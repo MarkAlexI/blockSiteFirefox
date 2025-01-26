@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Neplatná přesměrovací URL" },
+  "blockurlonlyascii": { "message": "K dispozici jsou pouze znaky ASCII pro blokování URL" },
+  "blockurlonlylower": { "message": "K dispozici jsou pouze malá písmena pro blokování URL" }
 }

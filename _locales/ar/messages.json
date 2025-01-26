@@ -19,5 +19,9 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "عنوان URL لإعادة التوجيه غير صالح" },
+  "blockurlonlyascii": { "message": "متاح فقط ASCII لحظر URL" },
+  "blockurlonlylower": { "message": "متاح فقط الأحرف الصغيرة لحظر URL" }
+
 }

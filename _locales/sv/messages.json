@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Ogiltig omdirigerings-URL" },
+  "blockurlonlyascii": { "message": "Endast ASCII är tillgängligt för att blockera URL:er" },
+  "blockurlonlylower": { "message": "Endast gemener är tillgängliga för att blockera URL:er" }
 }

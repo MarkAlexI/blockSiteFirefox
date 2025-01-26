@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Μη έγκυρη διεύθυνση URL ανακατεύθυνσης" },
+  "blockurlonlyascii": { "message": "Διατίθεται μόνο ASCII για αποκλεισμό URL" },
+  "blockurlonlylower": { "message": "Διατίθενται μόνο πεζά γράμματα για αποκλεισμό URL" }
 }

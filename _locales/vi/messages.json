@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "URL chuyển hướng không hợp lệ" },
+  "blockurlonlyascii": { "message": "Chỉ có ASCII khả dụng để chặn URL" },
+  "blockurlonlylower": { "message": "Chỉ có chữ thường khả dụng để chặn URL" }
 }

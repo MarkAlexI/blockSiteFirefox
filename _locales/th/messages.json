@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "URL เปลี่ยนเส้นทางไม่ถูกต้อง" },
+  "blockurlonlyascii": { "message": "มีเฉพาะ ASCII สำหรับบล็อก URL" },
+  "blockurlonlylower": { "message": "มีเฉพาะตัวอักษรพิมพ์เล็กสำหรับบล็อก URL" }
 }

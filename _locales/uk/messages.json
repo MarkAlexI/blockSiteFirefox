@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Неприпустима URL-адреса переспрямування" },
+  "blockurlonlyascii": { "message": "Доступні лише ASCII для блокування URL" },
+  "blockurlonlylower": { "message": "Доступні лише малі літери для блокування URL" }
 }

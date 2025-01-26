@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "अमान्य पुनर्निर्देशन URL" },
+  "blockurlonlyascii": { "message": "ब्लॉक URL में केवल ASCII उपलब्ध है" },
+  "blockurlonlylower": { "message": "ब्लॉक URL में केवल लोअरकेस लेटर्स उपलब्ध हैं" }
 }

@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "כתובת URL להפניה מחדש לא חוקית" },
+  "blockurlonlyascii": { "message": "ASCII בלבד זמין לחסימת כתובת URL" },
+  "blockurlonlylower": { "message": "אותיות קטנות בלבד זמינות לחסימת כתובת URL" }
 }

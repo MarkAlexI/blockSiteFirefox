@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "தவறான மறைவழி URL" },
+  "blockurlonlyascii": { "message": "URL தடுக்கும் ASCII மட்டுமே கிடைக்கிறது" },
+  "blockurlonlylower": { "message": "URL தடுக்கும் சிறிய எழுத்துக்கள் மட்டுமே கிடைக்கின்றன" }
 }

@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "无效的重定向URL" },
+  "blockurlonlyascii": { "message": "仅支持ASCII用于阻止URL" },
+  "blockurlonlylower": { "message": "仅支持小写字母用于阻止URL" }
 }

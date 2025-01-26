@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "URL de redirecționare nevalid" },
+  "blockurlonlyascii": { "message": "Disponibil doar ASCII pentru blocarea URL-urilor" },
+  "blockurlonlylower": { "message": "Disponibile doar litere mici pentru blocarea URL-urilor" }
 }

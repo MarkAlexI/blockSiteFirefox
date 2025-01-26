@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "Virheellinen uudelleenohjaus-URL" },
+  "blockurlonlyascii": { "message": "Vain ASCII käytettävissä URL-estoa varten" },
+  "blockurlonlylower": { "message": "Vain pienet kirjaimet käytettävissä URL-estoa varten" }
 }

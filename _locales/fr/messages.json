@@ -19,5 +19,8 @@
         "example": "0"
       }
     }
-  }
+  },
+  "wrongredirecturl": { "message": "URL de redirection invalide" },
+  "blockurlonlyascii": { "message": "Seul l'ASCII est disponible pour bloquer les URL" },
+  "blockurlonlylower": { "message": "Seules les lettres minuscules sont disponibles pour bloquer les URL" }
 }
