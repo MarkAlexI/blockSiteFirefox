@@ -1,0 +1,26 @@
+{
+  "chromename": { "message": "የግብይት ስፍራ ማግበሪያ አቀማመጥ" },
+  "shortname": { "message": "ስፍራ ማግበሪያ" },
+  "description": { "message": "በቀላሉ ዌብሳይቶችን ይከሉና ይልወጡ እንዲሆን የተስተካከሉ ደንቦችን ይጠቀሙ።" },
+  "defaulttitle": { "message": "ተስፋ እና ምስጋና" },
+  "header": { "message": "የግብይት ስፍራ መከላከያ" },
+  "paragraph": { "message": "አንድ ምንዛሬ ለመከል በግምት ስሙን ያስገቡ ያንተን የግብይት ዕድሜ የሚያረጉትን ከሰሜን ግራ መስጫ ውስጥ። ለምሳሌ፣ \"youtube\" በማስገባት ይህን ምንዛሬ ሁሉንም ንዑስ ስም ይከለዋል። በቀኝ መስጫ ውስጥ የሚቀጥለውን ዩአርኤል ያስገቡ፣ ምሳሌ፣ \"https:\/\/google.com\"። ከዚያ የማስቀመጥ ቁልፍን ይጫኑ። የሚቀጥለው ዩአርኤል ባዶ ቢቀር፣ የታሰበው ስፍራ ብቻ ይከላል። ደንቡን ለማሻሻል የቆየውን ደንብ ይሰርዙና አዲሱን ያክሉ።" },
+  "addrule": { "message": "አዲስ ደንብ ያክሉ" },
+  "blockurl": { "message": "የሚከለውን ዩአርኤል ይተይቡ" },
+  "redirecturl": { "message": "የሚቀጥለውን ዩአርኤል ያስገቡ (አማራጭ)" },
+  "savebtn": { "message": "አስቀምጥ" },
+  "deletebtn": { "message": "ሰርዝ" },
+  "alertruleexist": { "message": "ይህ ደንብ ቀድሞውኑ አለ" },
+  "savedrules": {
+    "message": "$ruleslength$ የተቀመጡ ደንቦች",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "የተሳሳተ የሚቀጥለው ዩአርኤል" },
+  "blockurlonlyascii": { "message": "ለመከል የሚቻሉ ብቻ ASCII ናቸው" },
+  "blockurlonlylower": { "message": "የሚቻሉ ብቻ ትንሽ ፊደሎች ናቸው" }
+}
