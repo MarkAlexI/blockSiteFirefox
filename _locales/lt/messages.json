@@ -1,0 +1,26 @@
+{
+  "chromename": { "message": "Blokuoti svetainių plėtinys" },
+  "shortname": { "message": "Blokuoti svetaines" },
+  "description": { "message": "Lengvai blokuokite ir peradresuokite svetaines su pritaikomomis taisyklėmis, kad išliktumėte susikaupę ir produktyvūs." },
+  "defaulttitle": { "message": "Būkite susikaupę ir produktyvūs" },
+  "header": { "message": "Svetainių blokavimas" },
+  "paragraph": { "message": "Norėdami užblokuoti išteklius, įveskite dalį jų pavadinimo kairėje įvesties lauke, nenurodydami protokolo. Pavyzdžiui, įvedus „youtube“, bus užblokuoti visi šio ištekliaus subdomenai. Dešinėje įvesties laukelyje įveskite peradresavimo URL, visiškai nurodytą su protokolu, pvz., „https:\/\/google.com“. Tada paspauskite išsaugoti. Jei peradresavimo URL paliekamas tuščias, tikslinė svetainė bus tiesiog užblokuota. Norėdami pakeisti taisyklę, ištrinkite senąją ir pridėkite naują." },
+  "addrule": { "message": "Pridėti naują taisyklę" },
+  "blockurl": { "message": "Įveskite blokuojamą URL" },
+  "redirecturl": { "message": "Įveskite peradresavimo URL (pasirinktinai)" },
+  "savebtn": { "message": "Išsaugoti" },
+  "deletebtn": { "message": "Ištrinti" },
+  "alertruleexist": { "message": "Taisyklių jau egzistuoja" },
+  "savedrules": {
+    "message": "Išsaugotos $ruleslength$ taisyklės",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "Neteisingas peradresavimo URL" },
+  "blockurlonlyascii": { "message": "Galima naudoti tik ASCII simbolius blokuojamame URL" },
+  "blockurlonlylower": { "message": "Galima naudoti tik mažąsias raides blokuojamame URL" }
+}
