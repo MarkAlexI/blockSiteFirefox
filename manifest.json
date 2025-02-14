@@ -5,7 +5,7 @@
   "description": "__MSG_description__",
   "author": "MarkAlexI",
   "default_locale": "en",
-  "version": "1.24.0",
+  "version": "1.25.0",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",

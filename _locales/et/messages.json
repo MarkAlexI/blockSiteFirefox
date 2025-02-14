@@ -1,0 +1,26 @@
+{
+  "chromename": { "message": "Veebisaitide blokeerimise laiendus" },
+  "shortname": { "message": "Veebisaitide blokeerija" },
+  "description": { "message": "Blokeeri ja suuna veebisaidid hõlpsalt ümber kohandatavate reeglitega, et püsida keskendunud ja produktiivne." },
+  "defaulttitle": { "message": "Ole keskendunud ja produktiivne" },
+  "header": { "message": "Veebisaitide blokeerija" },
+  "paragraph": { "message": "Ressursi blokeerimiseks sisestage vasakpoolsesse sisestusväljale osa selle nimest ilma protokollita. Näiteks sisestades \"youtube\", blokeeritakse kõik selle ressursi alamdomeenid. Parempoolsesse sisestusväljale sisestage ümbersuunamise URL, täielikult määratud protokolliga, nt \"https:\/\/google.com\". Seejärel klõpsake salvestamise nuppu. Kui ümbersuunamise URL jäetakse tühjaks, blokeeritakse sihtsait lihtsalt. Reegli muutmiseks kustutage vana reegel ja lisage uus." },
+  "addrule": { "message": "Lisa uus reegel" },
+  "blockurl": { "message": "Sisesta blokeeritava saidi URL" },
+  "redirecturl": { "message": "Sisesta ümbersuunamise URL (valikuline)" },
+  "savebtn": { "message": "Salvesta" },
+  "deletebtn": { "message": "Kustuta" },
+  "alertruleexist": { "message": "Reegel on juba olemas" },
+  "savedrules": {
+    "message": "Salvestatud $ruleslength$ reegel(t)",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "Kehtetu ümbersuunamise URL" },
+  "blockurlonlyascii": { "message": "Blokeerimise URL-is on lubatud ainult ASCII tähemärgid" },
+  "blockurlonlylower": { "message": "Blokeerimise URL-is on lubatud ainult väiketähed" }
+}
