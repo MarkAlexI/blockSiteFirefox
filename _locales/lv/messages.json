@@ -1,0 +1,26 @@
+{
+  "chromename": { "message": "Vietnes Bloķēšanas Paplašinājums" },
+  "shortname": { "message": "Vietnes Bloķētājs" },
+  "description": { "message": "Bloķējiet un novirziet vietnes ar pielāgojamiem noteikumiem, lai saglabātu fokusu un produktivitāti." },
+  "defaulttitle": { "message": "Esi fokusēts un produktīvs" },
+  "header": { "message": "Vietnes bloķētājs" },
+  "paragraph": { "message": "Lai bloķētu resursu, kreisajā ievades laukā ievadiet daļu no tā nosaukuma, nenorādot protokolu. Piemēram, ievadot \"youtube\", tiks bloķēti visi šī resursa apakšdomēni. Labajā ievades laukā ievadiet novirzīšanas URL, pilnībā norādot protokolu, piemēram, \"https://google.com\". Pēc tam noklikšķiniet uz saglabāšanas pogas. Ja novirzīšanas URL paliek tukšs, mērķa vietne vienkārši tiks bloķēta. Lai mainītu noteikumu, dzēsiet veco un pievienojiet jaunu." },
+  "addrule": { "message": "Pievienot jaunu noteikumu" },
+  "blockurl": { "message": "Ievadiet bloķējamo URL" },
+  "redirecturl": { "message": "Ievadiet novirzīšanas URL (pēc izvēles)" },
+  "savebtn": { "message": "Saglabāt" },
+  "deletebtn": { "message": "Dzēst" },
+  "alertruleexist": { "message": "Noteikums jau pastāv" },
+  "savedrules": {
+    "message": "Saglabāti $ruleslength$ noteikumi",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "Nederīgs novirzīšanas URL" },
+  "blockurlonlyascii": { "message": "Bloķējamajam URL atļauti tikai ASCII simboli" },
+  "blockurlonlylower": { "message": "Atļautas tikai mazās latīņu burti" }
+}
