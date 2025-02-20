@@ -1,0 +1,26 @@
+{
+  "chromename": { "message": "Pagharang ng Site Extension" },
+  "shortname": { "message": "Pagharang ng Site" },
+  "description": { "message": "Madaling harangan at i-redirect ang mga website gamit ang mga nako-customize na patakaran upang manatiling nakatuon at produktibo." },
+  "defaulttitle": { "message": "Maging Pokus at Produktibo" },
+  "header": { "message": "Pangharang ng Site" },
+  "paragraph": { "message": "Upang harangan ang isang mapagkukunan, ipasok ang bahagi ng pangalan nito sa kaliwang input field nang hindi tinutukoy ang protocol. Halimbawa, ang pagpasok ng \"youtube\" ay haharang sa lahat ng subdomain ng mapagkukunang ito. Sa kanang input field, ipasok ang URL para sa pag-redirect, na ganap na tinukoy gamit ang protocol, hal. \"https://google.com\". Pagkatapos, i-click ang pindutan ng pag-save. Kung walang inilagay na URL para sa pag-redirect, ang target na site ay simpleng mahaharang. Upang baguhin ang isang patakaran, tanggalin ang lumang patakaran at magdagdag ng bago." },
+  "addrule": { "message": "Magdagdag ng bagong patakaran" },
+  "blockurl": { "message": "I-type ang URL na haharangin" },
+  "redirecturl": { "message": "I-type ang URL ng pag-redirect (opsyonal)" },
+  "savebtn": { "message": "I-save" },
+  "deletebtn": { "message": "Tanggalin" },
+  "alertruleexist": { "message": "Umiiral na ang patakaran" },
+  "savedrules": {
+    "message": "Naka-save na $ruleslength$ patakaran",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "Di-wastong URL ng pag-redirect" },
+  "blockurlonlyascii": { "message": "Tanging ASCII lamang ang pinapayagan sa URL na haharangin" },
+  "blockurlonlylower": { "message": "Tanging maliliit na titik lamang ang pinapayagan" }
+}
