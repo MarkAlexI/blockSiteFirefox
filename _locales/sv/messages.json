@@ -4,7 +4,7 @@
   "description": { "message": "Blockera och omdirigera enkelt webbplatser med anpassade regler för att hålla fokus och produktivitet." },
   "defaulttitle": { "message": "Håll dig fokuserad och produktiv" },
   "header": { "message": "Webbplatsblockerare" },
-  "paragraph": { "message": "För att blockera en resurs, skriv in en del av namnet i det vänstra fältet utan att ange protokollet. Till exempel kommer inmatning av 'youtube' att blockera alla underdomäner för den resursen. I det högra fältet anger du omdirigerings-URL:en, komplett med protokoll, till exempel 'https:\/\/google.com'. Klicka sedan på spara-knappen. Om omdirigeringsfältet lämnas tomt kommer målsidan bara att blockeras. För att ändra en regel, ta bort den gamla regeln och lägg till en ny." },
+  "paragraph": { "message": "För att blockera en resurs, skriv in en del av namnet i det vänstra fältet utan att ange protokollet. Till exempel kommer inmatning av 'facebook' att blockera alla underdomäner för den resursen. I det högra fältet anger du omdirigerings-URL:en, komplett med protokoll, till exempel 'https:\/\/google.com'. Klicka sedan på spara-knappen. Om omdirigeringsfältet lämnas tomt kommer målsidan bara att blockeras. För att ändra en regel, ta bort den gamla regeln och lägg till en ny." },
   "addrule": { "message": "Lägg till ny regel" },
   "blockurl": { "message": "Ange adress att blockera" },
   "redirecturl": { "message": "Ange adress för omdirigering (valfritt)" },

@@ -4,7 +4,7 @@
   "description": { "message": "Chặn và chuyển hướng các trang web dễ dàng với các quy tắc tùy chỉnh để duy trì sự tập trung và năng suất." },
   "defaulttitle": { "message": "Duy trì tập trung và năng suất" },
   "header": { "message": "Trình Chặn Trang web" },
-  "paragraph": { "message": "Để chặn một nguồn, hãy nhập một phần tên vào ô bên trái mà không cần chỉ định giao thức. Ví dụ, nhập \"youtube\" sẽ chặn tất cả các tên miền phụ của nguồn này. Trong ô bên phải, nhập URL chuyển hướng đầy đủ với giao thức, ví dụ: \"https:\/\/google.com\". Sau đó nhấp vào nút lưu. Nếu để trống trường URL chuyển hướng, trang web mục tiêu sẽ chỉ bị chặn. Để thay đổi quy tắc, hãy xóa quy tắc cũ và thêm quy tắc mới." },
+  "paragraph": { "message": "Để chặn một nguồn, hãy nhập một phần tên vào ô bên trái mà không cần chỉ định giao thức. Ví dụ, nhập \"facebook\" sẽ chặn tất cả các tên miền phụ của nguồn này. Trong ô bên phải, nhập URL chuyển hướng đầy đủ với giao thức, ví dụ: \"https:\/\/google.com\". Sau đó nhấp vào nút lưu. Nếu để trống trường URL chuyển hướng, trang web mục tiêu sẽ chỉ bị chặn. Để thay đổi quy tắc, hãy xóa quy tắc cũ và thêm quy tắc mới." },
   "addrule": { "message": "Thêm quy tắc mới" },
   "blockurl": { "message": "Nhập địa chỉ cần chặn" },
   "redirecturl": { "message": "Nhập địa chỉ chuyển hướng (tùy chọn)" },

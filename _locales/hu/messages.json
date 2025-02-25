@@ -4,7 +4,7 @@
   "description": { "message": "Blokkolja és irányítsa át könnyedén a webhelyeket egyéni szabályokkal, hogy fókuszált és produktív maradjon." },
   "defaulttitle": { "message": "Maradjon fókuszált és produktív" },
   "header": { "message": "Webhely Blokkoló" },
-  "paragraph": { "message": "Forrás blokkolásához adjon meg egy részét a nevének a bal oldali mezőben protokoll nélkül. Például, ha beírja a \"youtube\" szót, akkor az összes aldomain blokkolva lesz ennél a forrásnál. A jobb oldali mezőbe írja be az átirányítási URL-t teljes protokollal, például \"https:\/\/google.com\". Ezután kattintson a mentés gombra. Ha az átirányítási URL mező üres marad, a célwebhely csak blokkolva lesz. Szabály módosításához törölje a régi szabályt, és adjon hozzá újat." },
+  "paragraph": { "message": "Forrás blokkolásához adjon meg egy részét a nevének a bal oldali mezőben protokoll nélkül. Például, ha beírja a \"facebook\" szót, akkor az összes aldomain blokkolva lesz ennél a forrásnál. A jobb oldali mezőbe írja be az átirányítási URL-t teljes protokollal, például \"https:\/\/google.com\". Ezután kattintson a mentés gombra. Ha az átirányítási URL mező üres marad, a célwebhely csak blokkolva lesz. Szabály módosításához törölje a régi szabályt, és adjon hozzá újat." },
   "addrule": { "message": "Új szabály hozzáadása" },
   "blockurl": { "message": "Adja meg a blokkolni kívánt címet" },
   "redirecturl": { "message": "Adja meg az átirányítási címet (opcionális)" },

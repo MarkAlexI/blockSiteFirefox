@@ -4,7 +4,7 @@
   "description": { "message": "Bloquez et redirigez facilement les sites web avec des règles personnalisées pour rester concentré et productif." },
   "defaulttitle": { "message": "Restez concentré et productif" },
   "header": { "message": "Bloqueur de Sites" },
-  "paragraph": { "message": "Pour bloquer une ressource, saisissez une partie de son nom dans le champ de saisie de gauche sans indiquer le protocole. Par exemple, entrer \"youtube\" bloquera tous les sous-domaines de cette ressource. Dans le champ de droite, saisissez une URL de redirection entièrement définie avec son protocole, par exemple \"https:\/\/google.com\". Ensuite, cliquez sur le bouton de sauvegarde. Si l'URL de redirection est laissée vide, le site ciblé sera simplement bloqué. Pour modifier une règle, supprimez l'ancienne et ajoutez-en une nouvelle." },
+  "paragraph": { "message": "Pour bloquer une ressource, saisissez une partie de son nom dans le champ de saisie de gauche sans indiquer le protocole. Par exemple, entrer \"facebook\" bloquera tous les sous-domaines de cette ressource. Dans le champ de droite, saisissez une URL de redirection entièrement définie avec son protocole, par exemple \"https:\/\/google.com\". Ensuite, cliquez sur le bouton de sauvegarde. Si l'URL de redirection est laissée vide, le site ciblé sera simplement bloqué. Pour modifier une règle, supprimez l'ancienne et ajoutez-en une nouvelle." },
   "addrule": { "message": "Ajouter une nouvelle règle" },
   "blockurl": { "message": "Entrez l'adresse à bloquer" },
   "redirecturl": { "message": "Entrez l'adresse de redirection (facultatif)" },

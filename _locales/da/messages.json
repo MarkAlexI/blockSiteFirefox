@@ -4,7 +4,7 @@
   "description": { "message": "Bloker og omdiriger websites med tilpassede regler for at forblive fokuseret og produktiv." },
   "defaulttitle": { "message": "Forbliv fokuseret og produktiv" },
   "header": { "message": "Websiteblokering" },
-  "paragraph": { "message": "For at blokere en ressource skal du indtaste en del af dens navn i det venstre inputfelt uden at angive protokollen. For eksempel vil indtastning af \"youtube\" blokere alle underdomæner af denne ressource. I det højre inputfelt skal du indtaste den fuldt specificerede URL til omdirigering, inkl. protokollen, f.eks. \"https:\/\/google.com\". Klik derefter på gem-knappen. Hvis omdirigerings-URL'en er tom, vil det pågældende website blot blive blokeret. For at ændre en regel skal du slette den gamle regel og tilføje en ny." },
+  "paragraph": { "message": "For at blokere en ressource skal du indtaste en del af dens navn i det venstre inputfelt uden at angive protokollen. For eksempel vil indtastning af \"facebook\" blokere alle underdomæner af denne ressource. I det højre inputfelt skal du indtaste den fuldt specificerede URL til omdirigering, inkl. protokollen, f.eks. \"https:\/\/google.com\". Klik derefter på gem-knappen. Hvis omdirigerings-URL'en er tom, vil det pågældende website blot blive blokeret. For at ændre en regel skal du slette den gamle regel og tilføje en ny." },
   "addrule": { "message": "Tilføj ny regel" },
   "blockurl": { "message": "Indtast URL, der skal blokeres" },
   "redirecturl": { "message": "Indtast omdirigerings-URL (valgfrit)" },

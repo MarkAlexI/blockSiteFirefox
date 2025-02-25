@@ -4,7 +4,7 @@
   "description": { "message": "Sekat dan alihkan laman web dengan mudah menggunakan peraturan yang boleh disesuaikan untuk kekal fokus dan produktif." },
   "defaulttitle": { "message": "Kekal Fokus dan Produktif" },
   "header": { "message": "Penyekat Laman Web" },
-  "paragraph": { "message": "Untuk menyekat sumber, masukkan sebahagian daripada namanya dalam medan input kiri tanpa menyatakan protokol. Sebagai contoh, memasukkan \"youtube\" akan menyekat semua subdomain sumber tersebut. Dalam medan input kanan, masukkan URL untuk pengalihan, yang dinyatakan sepenuhnya dengan protokol, contohnya, \"https://google.com\". Kemudian klik butang simpan. Jika URL pengalihan dibiarkan kosong, laman sasaran hanya akan disekat. Untuk mengubah suai peraturan, padamkan peraturan lama dan tambahkan yang baharu." },
+  "paragraph": { "message": "Untuk menyekat sumber, masukkan sebahagian daripada namanya dalam medan input kiri tanpa menyatakan protokol. Sebagai contoh, memasukkan \"facebook\" akan menyekat semua subdomain sumber tersebut. Dalam medan input kanan, masukkan URL untuk pengalihan, yang dinyatakan sepenuhnya dengan protokol, contohnya, \"https://google.com\". Kemudian klik butang simpan. Jika URL pengalihan dibiarkan kosong, laman sasaran hanya akan disekat. Untuk mengubah suai peraturan, padamkan peraturan lama dan tambahkan yang baharu." },
   "addrule": { "message": "Tambah peraturan baharu" },
   "blockurl": { "message": "Taip URL sekatan" },
   "redirecturl": { "message": "Taip URL pengalihan (pilihan)" },

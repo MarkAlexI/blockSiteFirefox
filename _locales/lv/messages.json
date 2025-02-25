@@ -4,7 +4,7 @@
   "description": { "message": "Bloķējiet un novirziet vietnes ar pielāgojamiem noteikumiem, lai saglabātu fokusu un produktivitāti." },
   "defaulttitle": { "message": "Esi fokusēts un produktīvs" },
   "header": { "message": "Vietnes bloķētājs" },
-  "paragraph": { "message": "Lai bloķētu resursu, kreisajā ievades laukā ievadiet daļu no tā nosaukuma, nenorādot protokolu. Piemēram, ievadot \"youtube\", tiks bloķēti visi šī resursa apakšdomēni. Labajā ievades laukā ievadiet novirzīšanas URL, pilnībā norādot protokolu, piemēram, \"https://google.com\". Pēc tam noklikšķiniet uz saglabāšanas pogas. Ja novirzīšanas URL paliek tukšs, mērķa vietne vienkārši tiks bloķēta. Lai mainītu noteikumu, dzēsiet veco un pievienojiet jaunu." },
+  "paragraph": { "message": "Lai bloķētu resursu, kreisajā ievades laukā ievadiet daļu no tā nosaukuma, nenorādot protokolu. Piemēram, ievadot \"facebook\", tiks bloķēti visi šī resursa apakšdomēni. Labajā ievades laukā ievadiet novirzīšanas URL, pilnībā norādot protokolu, piemēram, \"https://google.com\". Pēc tam noklikšķiniet uz saglabāšanas pogas. Ja novirzīšanas URL paliek tukšs, mērķa vietne vienkārši tiks bloķēta. Lai mainītu noteikumu, dzēsiet veco un pievienojiet jaunu." },
   "addrule": { "message": "Pievienot jaunu noteikumu" },
   "blockurl": { "message": "Ievadiet bloķējamo URL" },
   "redirecturl": { "message": "Ievadiet novirzīšanas URL (pēc izvēles)" },

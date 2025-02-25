@@ -4,7 +4,7 @@
   "description": { "message": "Blokker og omdiriger nettsteder enkelt med tilpassbare regler for å holde deg fokusert og produktiv." },
   "defaulttitle": { "message": "Vær Fokusert og Produktiv" },
   "header": { "message": "Nettsted Blokker" },
-  "paragraph": { "message": "For å blokkere en ressurs, skriv inn en del av navnet i det venstre inndatafeltet uten å spesifisere protokollen. For eksempel vil \"youtube\" blokkere alle underdomener av denne ressursen. I det høyre inndatafeltet skriver du inn URL-en for omdirigering, fullstendig spesifisert med protokoll, f.eks. \"https:\/\/google.com\". Klikk deretter på lagre-knappen. Hvis omdirigerings-URL-en er tom, vil målnettstedet bare bli blokkert. For å endre en regel, slett den gamle regelen og legg til en ny." },
+  "paragraph": { "message": "For å blokkere en ressurs, skriv inn en del av navnet i det venstre inndatafeltet uten å spesifisere protokollen. For eksempel vil \"facebook\" blokkere alle underdomener av denne ressursen. I det høyre inndatafeltet skriver du inn URL-en for omdirigering, fullstendig spesifisert med protokoll, f.eks. \"https:\/\/google.com\". Klikk deretter på lagre-knappen. Hvis omdirigerings-URL-en er tom, vil målnettstedet bare bli blokkert. For å endre en regel, slett den gamle regelen og legg til en ny." },
   "addrule": { "message": "Legg til ny regel" },
   "blockurl": { "message": "Skriv inn blokkert URL" },
   "redirecturl": { "message": "Skriv inn omdirigerings-URL (valgfritt)" },

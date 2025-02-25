@@ -4,7 +4,7 @@
   "description": { "message": "Bloqueja i redirigeix llocs web fàcilment amb regles personalitzables per mantenir la concentració i la productivitat." },
   "defaulttitle": { "message": "Mantingues la concentració i sigues productiu" },
   "header": { "message": "Bloquejador de llocs web" },
-  "paragraph": { "message": "Per bloquejar un recurs, introdueix una part del seu nom al camp d'entrada de l'esquerra sense especificar el protocol. Per exemple, introduint \"youtube\" es bloquejaran tots els subdominis d'aquest recurs. Al camp de la dreta, introdueix l'URL de redirecció amb el protocol complet, per exemple, \"https:\/\/google.com\". A continuació, fes clic al botó de desament. Si deixes l'URL de redirecció buit, el lloc objectiu simplement es bloquejarà. Per modificar una regla, esborra-la i afegeix-ne una de nova." },
+  "paragraph": { "message": "Per bloquejar un recurs, introdueix una part del seu nom al camp d'entrada de l'esquerra sense especificar el protocol. Per exemple, introduint \"facebook\" es bloquejaran tots els subdominis d'aquest recurs. Al camp de la dreta, introdueix l'URL de redirecció amb el protocol complet, per exemple, \"https:\/\/google.com\". A continuació, fes clic al botó de desament. Si deixes l'URL de redirecció buit, el lloc objectiu simplement es bloquejarà. Per modificar una regla, esborra-la i afegeix-ne una de nova." },
   "addrule": { "message": "Afegeix una nova regla" },
   "blockurl": { "message": "Escriu l'URL a bloquejar" },
   "redirecturl": { "message": "Escriu l'URL de redirecció (opcional)" },

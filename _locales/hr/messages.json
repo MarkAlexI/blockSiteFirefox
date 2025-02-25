@@ -4,7 +4,7 @@
   "description": { "message": "Jednostavno blokirajte i preusmjerite web stranice pomoću prilagodljivih pravila kako biste ostali usredotočeni i produktivni." },
   "defaulttitle": { "message": "Budite usredotočeni i produktivni" },
   "header": { "message": "Blokator stranica" },
-  "paragraph": { "message": "Da biste blokirali resurs, unesite dio njegovog imena u lijevo polje bez navođenja protokola. Na primjer, unosom \"youtube\" blokirat će se sve poddomene tog resursa. U desno polje unesite URL za preusmjeravanje, potpuno specificiran s protokolom, npr. \"https://google.com\". Zatim kliknite gumb za spremanje. Ako je polje za preusmjeravanje prazno, ciljna stranica će biti jednostavno blokirana. Da biste izmijenili pravilo, izbrišite staro pravilo i dodajte novo." },
+  "paragraph": { "message": "Da biste blokirali resurs, unesite dio njegovog imena u lijevo polje bez navođenja protokola. Na primjer, unosom \"facebook\" blokirat će se sve poddomene tog resursa. U desno polje unesite URL za preusmjeravanje, potpuno specificiran s protokolom, npr. \"https://google.com\". Zatim kliknite gumb za spremanje. Ako je polje za preusmjeravanje prazno, ciljna stranica će biti jednostavno blokirana. Da biste izmijenili pravilo, izbrišite staro pravilo i dodajte novo." },
   "addrule": { "message": "Dodaj novo pravilo" },
   "blockurl": { "message": "Unesite URL za blokiranje" },
   "redirecturl": { "message": "Unesite URL za preusmjeravanje (neobavezno)" },

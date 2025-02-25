@@ -4,7 +4,7 @@
   "description": { "message": "Sperren und leiten Sie Websites mühelos mit benutzerdefinierten Regeln um, um fokussiert und produktiv zu bleiben." },
   "defaulttitle": { "message": "Bleiben Sie fokussiert und produktiv" },
   "header": { "message": "Webseitenblocker" },
-  "paragraph": { "message": "Um eine Ressource zu blockieren, geben Sie einen Teil des Namens ohne Protokoll im linken Eingabefeld ein. Zum Beispiel blockiert die Eingabe von \"youtube\" alle Subdomains dieser Ressource. Geben Sie im rechten Eingabefeld die vollständige URL für die Umleitung mit Protokoll ein, z. B. \"https:\/\/google.com\". Klicken Sie dann auf die Schaltfläche Speichern. Wenn das Umleitungs-URL-Feld leer bleibt, wird die Zielwebsite einfach blockiert. Um eine Regel zu ändern, löschen Sie die alte Regel und fügen Sie eine neue hinzu." },
+  "paragraph": { "message": "Um eine Ressource zu blockieren, geben Sie einen Teil des Namens ohne Protokoll im linken Eingabefeld ein. Zum Beispiel blockiert die Eingabe von \"facebook\" alle Subdomains dieser Ressource. Geben Sie im rechten Eingabefeld die vollständige URL für die Umleitung mit Protokoll ein, z. B. \"https:\/\/google.com\". Klicken Sie dann auf die Schaltfläche Speichern. Wenn das Umleitungs-URL-Feld leer bleibt, wird die Zielwebsite einfach blockiert. Um eine Regel zu ändern, löschen Sie die alte Regel und fügen Sie eine neue hinzu." },
   "addrule": { "message": "Neue Regel hinzufügen" },
   "blockurl": { "message": "Adresse zum Blockieren eingeben" },
   "redirecturl": { "message": "Umleitungsadresse eingeben (optional)" },

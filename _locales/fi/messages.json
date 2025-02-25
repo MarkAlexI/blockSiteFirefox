@@ -4,7 +4,7 @@
   "description": { "message": "Estä ja uudelleenohjaa verkkosivustoja helposti mukautettujen sääntöjen avulla pysyäksesi keskittyneenä ja tuottavana." },
   "defaulttitle": { "message": "Pysy keskittyneenä ja tuottavana" },
   "header": { "message": "Sivuston Estäjä" },
-  "paragraph": { "message": "Estääksesi resurssin, kirjoita sen nimen osa vasempaan kenttään ilman protokollaa. Esimerkiksi, kirjoittamalla \"youtube\" estät tämän resurssin kaikki aliverkkotunnukset. Oikeaan kenttään kirjoita uudelleenohjaus-URL, mukaan lukien protokolla, esimerkiksi \"https:\/\/google.com\". Klikkaa sitten Tallenna-painiketta. Jos uudelleenohjaus-URL-kenttä jätetään tyhjäksi, kohdesivusto estetään pelkästään. Muuttaaksesi sääntöä, poista vanha sääntö ja lisää uusi." },
+  "paragraph": { "message": "Estääksesi resurssin, kirjoita sen nimen osa vasempaan kenttään ilman protokollaa. Esimerkiksi, kirjoittamalla \"facebook\" estät tämän resurssin kaikki aliverkkotunnukset. Oikeaan kenttään kirjoita uudelleenohjaus-URL, mukaan lukien protokolla, esimerkiksi \"https:\/\/google.com\". Klikkaa sitten Tallenna-painiketta. Jos uudelleenohjaus-URL-kenttä jätetään tyhjäksi, kohdesivusto estetään pelkästään. Muuttaaksesi sääntöä, poista vanha sääntö ja lisää uusi." },
   "addrule": { "message": "Lisää uusi sääntö" },
   "blockurl": { "message": "Anna estettävä osoite" },
   "redirecturl": { "message": "Anna uudelleenohjausosoite (valinnainen)" },

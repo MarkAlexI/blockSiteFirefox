@@ -4,7 +4,7 @@
   "description": { "message": "Blokujte a přesměrujte webové stránky pomocí vlastních pravidel, abyste zůstali soustředění a produktivní." },
   "defaulttitle": { "message": "Zůstaňte soustředění a produktivní" },
   "header": { "message": "Blokátor Stránek" },
-  "paragraph": { "message": "Chcete-li zablokovat zdroj, zadejte část jeho názvu do levého pole bez uvedení protokolu. Například zadání „youtube“ zablokuje všechny subdomény tohoto zdroje. Do pravého pole zadejte úplnou adresu URL pro přesměrování, včetně protokolu, například „https:\/\/google.com“. Poté klikněte na tlačítko Uložit. Pokud necháte pole pro přesměrování prázdné, cílová stránka bude jednoduše zablokována. Chcete-li změnit pravidlo, odstraňte staré pravidlo a přidejte nové." },
+  "paragraph": { "message": "Chcete-li zablokovat zdroj, zadejte část jeho názvu do levého pole bez uvedení protokolu. Například zadání „facebook“ zablokuje všechny subdomény tohoto zdroje. Do pravého pole zadejte úplnou adresu URL pro přesměrování, včetně protokolu, například „https:\/\/google.com“. Poté klikněte na tlačítko Uložit. Pokud necháte pole pro přesměrování prázdné, cílová stránka bude jednoduše zablokována. Chcete-li změnit pravidlo, odstraňte staré pravidlo a přidejte nové." },
   "addrule": { "message": "Přidat nové pravidlo" },
   "blockurl": { "message": "Zadejte adresu k zablokování" },
   "redirecturl": { "message": "Zadejte adresu pro přesměrování (volitelné)" },
