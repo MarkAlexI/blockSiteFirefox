@@ -22,5 +22,7 @@
   },
   "wrongredirecturl": { "message": "无效的重定向URL" },
   "blockurlonlyascii": { "message": "仅支持ASCII用于阻止URL" },
-  "blockurlonlylower": { "message": "仅支持小写字母用于阻止URL" }
+  "blockurlonlylower": { "message": "仅支持小写字母用于阻止URL" },
+  "donatespantext": { "message": "喜欢这个扩展吗？支持其开发！" },
+  "donatebtntext": { "message": "捐赠" }
 }

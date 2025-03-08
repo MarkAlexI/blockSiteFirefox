@@ -22,5 +22,7 @@
   },
   "wrongredirecturl": { "message": "Invalid redirect URL" },
   "blockurlonlyascii": { "message": "Available only ASCII on block URL" },
-  "blockurlonlylower": { "message": "Available only lowercase letters" }
+  "blockurlonlylower": { "message": "Available only lowercase letters" },
+  "donatespantext": { "message": "Like this extension? Support its development!" },
+  "donatebtntext": { "message": "Donate" }
 }

@@ -3,6 +3,17 @@ import { isValidURL } from './scripts/isValidURL.js';
 import { isValidAscii } from './scripts/isValidAscii.js';
 import { isOnlyLowerCase } from './scripts/isOnlyLowerCase.js';
 
+const donateSpan = document.getElementById('donate-text');
+donateSpan.innerText = browser.i18n.getMessage('donatespantext');
+
+const donateButton = document.getElementById('donate-button');
+const donateURL = 'https://revolut.me/markalexi';
+donateButton.innerText = browser.i18n.getMessage('donatebtntext');
+donateButton.addEventListener('click', (e) => {
+  e.stopPropagation();
+  window.open(donateURL, '_blank');
+});
+
 const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
 const statusOutput = document.getElementById('status');
@@ -20,28 +31,28 @@ browser.storage.sync.get('rules', ({ rules }) => {
 });
 
 function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
-
+  
   const ruleDiv = document.createElement('div');
   ruleDiv.className = 'rule';
-
+  
   const blockURL = document.createElement('input');
   blockURL.type = 'text';
   blockURL.placeholder = browser.i18n.getMessage('blockurl');
   blockURL.value = blockURLValue;
-
+  
   const redirectURL = document.createElement('input');
   redirectURL.type = 'text';
   redirectURL.placeholder = browser.i18n.getMessage('redirecturl');
   redirectURL.value = redirectURLValue;
-
+  
   const saveButton = document.createElement('button');
   saveButton.className = 'save-btn';
   saveButton.textContent = browser.i18n.getMessage('savebtn');
-
+  
   const deleteButton = document.createElement('button');
   deleteButton.className = 'delete-btn';
   deleteButton.textContent = browser.i18n.getMessage('deletebtn');
-
+  
   saveButton.addEventListener('click', () => {
     if (blockURL.value === '') return;
     if (!isValidAscii(blockURL.value)) {
@@ -52,14 +63,14 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
       customAlert(blockUrlOnlyLower);
       return;
     }
-
+    
     browser.storage.sync.get('rules', ({ rules }) => {
       rules = rules || [];
-
+      
       const ruleExists = rules.some(rule =>
         rule.blockURL === blockURL.value && rule.redirectURL === redirectURL.value
       );
-
+      
       if (ruleExists) {
         const alertMessage = browser.i18n.getMessage('alertruleexist');
         customAlert(alertMessage);
@@ -72,7 +83,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
             return;
           }
         }
-
+        
         rules.push({ blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
         browser.storage.sync.set({ rules }, () => {
           createRuleInputs();
@@ -86,13 +97,13 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
       }
     });
   });
-
+  
   deleteButton.addEventListener('click', () => {
     browser.storage.sync.get('rules', ({ rules }) => {
       rules = rules || [];
       rules = rules.filter((rule) => rule.blockURL !== blockURL.value.trim() || rule.redirectURL !== redirectURL.value.trim());
       browser.storage.sync.set({ rules });
-
+      
       const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
       statusOutput.value = outputText;
     });
@@ -101,7 +112,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
     }
     ruleDiv.remove();
   });
-
+  
   setTimeout(function() {
     ruleDiv.appendChild(blockURL);
     ruleDiv.appendChild(redirectURL);
@@ -112,7 +123,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
       redirectURL.readOnly = true;
     }
     ruleDiv.appendChild(deleteButton);
-
+    
     rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
   }, 0);
 }

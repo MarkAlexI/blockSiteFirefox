@@ -22,5 +22,7 @@
   },
   "wrongredirecturl": { "message": "無効なリダイレクトURL" },
   "blockurlonlyascii": { "message": "ブロックURLにはASCIIのみが使用可能" },
-  "blockurlonlylower": { "message": "ブロックURLには小文字のみが使用可能" }
+  "blockurlonlylower": { "message": "ブロックURLには小文字のみが使用可能" },
+  "donatespantext": { "message": "この拡張機能が気に入りましたか？開発をサポートしてください！" },
+  "donatebtntext": { "message": "寄付する" }
 }

@@ -22,5 +22,7 @@
   },
   "wrongredirecturl": { "message": "Ungültige Weiterleitungs-URL" },
   "blockurlonlyascii": { "message": "Nur ASCII ist für die Blockierung von URLs verfügbar" },
-  "blockurlonlylower": { "message": "Nur Kleinbuchstaben sind für die Blockierung von URLs verfügbar" }
+  "blockurlonlylower": { "message": "Nur Kleinbuchstaben sind für die Blockierung von URLs verfügbar" },
+  "donatespantext": { "message": "Gefällt Ihnen diese Erweiterung? Unterstützen Sie ihre Entwicklung!" },
+  "donatebtntext": { "message": "Spenden" }
 }
