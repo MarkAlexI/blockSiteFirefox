@@ -131,3 +131,9 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
 addRuleButton.addEventListener('click', () => {
   createRuleInputs();
 });
+
+browser.runtime.getBrowserInfo().then(info => {
+  if (parseInt(info.version) < 128) {
+    document.getElementById("warning-info").classList.remove("hidden");
+  }
+});
