@@ -4,11 +4,18 @@ import { isValidAscii } from './scripts/isValidAscii.js';
 import { isOnlyLowerCase } from './scripts/isOnlyLowerCase.js';
 
 const donateSpan = document.getElementById('donate-text');
-donateSpan.innerText = browser.i18n.getMessage('donatespantext');
+const donateSpanText = browser.i18n.getMessage('donatespantext');
+if (donateSpanText) {
+  donateSpan.innerText = donateSpanText;
+}
 
 const donateButton = document.getElementById('donate-button');
 const donateURL = 'https://revolut.me/markalexi';
-donateButton.innerText = browser.i18n.getMessage('donatebtntext');
+const donateBtnText = browser.i18n.getMessage('donatebtntext');
+if (donateBtnText) {
+  donateButton.innerText = donateBtnText;
+}
+
 donateButton.addEventListener('click', (e) => {
   e.stopPropagation();
   window.open(donateURL, '_blank');
