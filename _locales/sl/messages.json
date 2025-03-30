@@ -1,0 +1,28 @@
+{
+  "chromename": { "message": "Razširitev za blokiranje spletnih mest" },
+  "shortname": { "message": "Blokiraj Spletno Mesto" },
+  "description": { "message": "Enostavno blokirajte in preusmerite spletna mesta s prilagodljivimi pravili za večjo osredotočenost in produktivnost." },
+  "defaulttitle": { "message": "Ostanite osredotočeni in produktivni" },
+  "header": { "message": "Blokator spletnih mest" },
+  "paragraph": { "message": "Za blokiranje vira vnesite del njegovega imena v levo vnosno polje brez določanja protokola. Na primer, vnos \"facebook\" bo blokiral vse poddomene tega vira. V desno vnosno polje vnesite URL za preusmeritev, vključno s protokolom, npr. \"https:\/\/google.com\". Nato kliknite gumb za shranjevanje. Če polje za preusmeritev pustite prazno, bo ciljna stran preprosto blokirana. Za spremembo pravila izbrišite staro pravilo in dodajte novo." },
+  "addrule": { "message": "Dodaj novo pravilo" },
+  "blockurl": { "message": "Vnesite blokirani URL" },
+  "redirecturl": { "message": "Vnesite URL za preusmeritev (neobvezno)" },
+  "savebtn": { "message": "Shrani" },
+  "deletebtn": { "message": "Izbriši" },
+  "alertruleexist": { "message": "Pravilo že obstaja" },
+  "savedrules": {
+    "message": "Shranjeno $ruleslength$ pravil(a)",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "Neveljaven URL za preusmeritev" },
+  "blockurlonlyascii": { "message": "Blokirani URL lahko vsebuje samo ASCII znake" },
+  "blockurlonlylower": { "message": "Blokirani URL lahko vsebuje samo male črke" },
+  "donatespantext": { "message": "Vam je ta razširitev všeč? Podprite njen razvoj!" },
+  "donatebtntext": { "message": "Donirajte" }
+}
