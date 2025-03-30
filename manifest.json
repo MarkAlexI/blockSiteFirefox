@@ -4,8 +4,9 @@
   "short_name": "__MSG_shortname__",
   "description": "__MSG_description__",
   "author": "MarkAlexI",
+  "homepage_url": "https://ext.pp.ua/blocksite.html",
   "default_locale": "en",
-  "version": "1.36.0",
+  "version": "1.36.1",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",

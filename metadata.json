@@ -3,7 +3,9 @@
     "en-US": "Effortlessly block and redirect websites with customizable rules to stay focused and productive."
   },
   "categories": [
-    "privacy-security"
+    "privacy-security",
+    "websites",
+    "social-communication"
   ],
   "version": {
     "license": "MIT"
