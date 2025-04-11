@@ -151,6 +151,10 @@ body {
   background-color: #e6b800;
 }
 
+.hidden {
+  display: none;
+}
+
 .browser-warning {
   background-color: #ffcc00;
   color: #000;
