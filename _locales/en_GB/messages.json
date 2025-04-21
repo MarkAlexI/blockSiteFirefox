@@ -1,0 +1,28 @@
+{
+  "chromename": { "message": "Block Site Extension" },
+  "shortname": { "message": "Block Site Ext" },
+  "description": { "message": "Easily block and redirect websites with customisable rules, helping you remain focused and productive." },
+  "defaulttitle": { "message": "Stay Focused and Productive" },
+  "header": { "message": "Site Blocker" },
+  "paragraph": { "message": "To block a website or resource, enter part of its name into the left input field, omitting the protocol. For instance, entering \"facebook\" will block all subdomains associated with this service. In the right input field, provide the full redirect URL, including the protocol, for example, \"https:\/\/google.com\". Then click the save button. If the redirect URL is left empty, the target site will simply be blocked. To amend a rule, delete the existing entry and add a new one." },
+  "addrule": { "message": "Add New Rule" },
+  "blockurl": { "message": "Type Block URL" },
+  "redirecturl": { "message": "Type Redirect URL (Optional)" },
+  "savebtn": { "message": "Save" },
+  "deletebtn": { "message": "Delete" },
+  "alertruleexist": { "message": "Rule already exists" },
+  "savedrules": {
+    "message": "Saved $ruleslength$ rule(s)",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "Invalid redirect URL" },
+  "blockurlonlyascii": { "message": "Only ASCII characters allowed in block URL" },
+  "blockurlonlylower": { "message": "Only lowercase letters allowed" },
+  "donatespantext": { "message": "Like this extension? Support its development!" },
+  "donatebtntext": { "message": "Donate" }
+}
