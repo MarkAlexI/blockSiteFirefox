@@ -49,6 +49,19 @@ body {
   margin-bottom: 10px;
 }
 
+.input-readonly {
+  background-color: #f9f9f9;
+  color: black;
+  cursor: text;
+  pointer-events: auto;
+  border: 1px dashed #bbb;
+}
+
+.input-readonly:focus {
+  outline: none;
+  border-color: #aaa;
+}
+
 .save-btn {
   background-color: #28a745;
 }

@@ -29,6 +29,13 @@ const wrongRedirectUrl = browser.i18n.getMessage('wrongredirecturl');
 const blockUrlOnlyAscii = browser.i18n.getMessage('blockurlonlyascii');
 const blockUrlOnlyLower = browser.i18n.getMessage('blockurlonlylower');
 
+function makeInputReadOnly(el) {
+  el.readOnly = true;
+  el.tabIndex = -1;
+  el.placeholder = '';
+  el.classList.add('input-readonly');
+}
+
 browser.storage.sync.get('rules', ({ rules }) => {
   if (rules) {
     rules.forEach(rule => {
@@ -96,8 +103,8 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
           createRuleInputs();
           const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
           statusOutput.value = outputText;
-          blockURL.readOnly = true;
-          redirectURL.readOnly = true;
+          makeInputReadOnly(blockURL);
+          makeInputReadOnly(redirectURL);
           saveButton.remove();
           customAlert('+ 1');
         });
@@ -126,8 +133,8 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
     if (!blockURLValue) {
       ruleDiv.appendChild(saveButton);
     } else {
-      blockURL.readOnly = true;
-      redirectURL.readOnly = true;
+      makeInputReadOnly(blockURL);
+      makeInputReadOnly(redirectURL);
     }
     ruleDiv.appendChild(deleteButton);
     
