@@ -59,58 +59,62 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
   redirectURL.placeholder = browser.i18n.getMessage('redirecturl');
   redirectURL.value = redirectURLValue;
   
-  const saveButton = document.createElement('button');
-  saveButton.className = 'save-btn';
-  saveButton.textContent = browser.i18n.getMessage('savebtn');
-  
   const deleteButton = document.createElement('button');
   deleteButton.className = 'delete-btn';
   deleteButton.textContent = browser.i18n.getMessage('deletebtn');
   
-  saveButton.addEventListener('click', () => {
-    if (blockURL.value === '') return;
-    if (!isValidAscii(blockURL.value)) {
-      customAlert(blockUrlOnlyAscii);
-      return;
-    }
-    if (!isOnlyLowerCase(blockURL.value)) {
-      customAlert(blockUrlOnlyLower);
-      return;
-    }
+  const createSaveButton = () => {
+    const saveButton = document.createElement('button');
+    saveButton.className = 'save-btn';
+    saveButton.textContent = chrome.i18n.getMessage('savebtn');
     
-    browser.storage.sync.get('rules', ({ rules }) => {
-      rules = rules || [];
-      
-      const ruleExists = rules.some(rule =>
-        rule.blockURL === blockURL.value && rule.redirectURL === redirectURL.value
-      );
-      
-      if (ruleExists) {
-        const alertMessage = browser.i18n.getMessage('alertruleexist');
-        customAlert(alertMessage);
-        blockURL.value = '';
-        redirectURL.value = '';
-      } else {
-        if (redirectURL.value) {
-          if (!isValidURL(redirectURL.value)) {
-            customAlert(wrongRedirectUrl);
-            return;
-          }
-        }
-        
-        rules.push({ blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
-        browser.storage.sync.set({ rules }, () => {
-          createRuleInputs();
-          const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
-          statusOutput.value = outputText;
-          makeInputReadOnly(blockURL);
-          makeInputReadOnly(redirectURL);
-          saveButton.remove();
-          customAlert('+ 1');
-        });
+    saveButton.addEventListener('click', () => {
+      if (blockURL.value === '') return;
+      if (!isValidAscii(blockURL.value)) {
+        customAlert(blockUrlOnlyAscii);
+        return;
       }
+      if (!isOnlyLowerCase(blockURL.value)) {
+        customAlert(blockUrlOnlyLower);
+        return;
+      }
+      
+      browser.storage.sync.get('rules', ({ rules }) => {
+        rules = rules || [];
+        
+        const ruleExists = rules.some(rule =>
+          rule.blockURL === blockURL.value && rule.redirectURL === redirectURL.value
+        );
+        
+        if (ruleExists) {
+          const alertMessage = browser.i18n.getMessage('alertruleexist');
+          customAlert(alertMessage);
+          blockURL.value = '';
+          redirectURL.value = '';
+        } else {
+          if (redirectURL.value) {
+            if (!isValidURL(redirectURL.value)) {
+              customAlert(wrongRedirectUrl);
+              return;
+            }
+          }
+          
+          rules.push({ blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
+          browser.storage.sync.set({ rules }, () => {
+            createRuleInputs();
+            const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
+            statusOutput.value = outputText;
+            makeInputReadOnly(blockURL);
+            makeInputReadOnly(redirectURL);
+            saveButton.remove();
+            customAlert('+ 1');
+          });
+        }
+      });
     });
-  });
+    
+    return saveButton;
+  };
   
   deleteButton.addEventListener('click', () => {
     browser.storage.sync.get('rules', ({ rules }) => {
@@ -131,6 +135,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
     ruleDiv.appendChild(blockURL);
     ruleDiv.appendChild(redirectURL);
     if (!blockURLValue) {
+      const saveButton = createSaveButton();
       ruleDiv.appendChild(saveButton);
     } else {
       makeInputReadOnly(blockURL);
