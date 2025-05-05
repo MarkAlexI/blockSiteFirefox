@@ -69,7 +69,10 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
     saveButton.textContent = chrome.i18n.getMessage('savebtn');
     
     saveButton.addEventListener('click', () => {
-      if (blockURL.value === '') return;
+      if (blockURL.value === '') {
+        customAlert(blockURL.placeholder);
+        return;
+      }
       if (!isValidAscii(blockURL.value)) {
         customAlert(blockUrlOnlyAscii);
         return;
