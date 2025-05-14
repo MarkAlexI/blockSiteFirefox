@@ -4,7 +4,7 @@
   "description": { "message": "Effortlessly block and redirect websites with customizable rules to stay focused and productive." },
   "defaulttitle": { "message": "Be Focused and Productive" },
   "header": { "message": "Site Blocker" },
-  "paragraph": { "message": "To block a resource, enter a part of its name in the left input field without specifying the protocol. For example, entering \"facebook\" will block all subdomains of this resource. In the right input field, enter the URL for redirection, fully specified with the protocol, e.g., \"https:\/\/google.com\". Then click the save button. If the redirect URL is left empty, the target site will simply be blocked. To modify a rule, delete the old rule and add a new one." },
+  "paragraph": { "message": "To block a website or resource, enter part of its name into the input field with the placeholder \"Type Block URL\" — for example, \"facebook\" will block all related subdomains. In the field with the placeholder \"Type Redirect URL\", enter the full redirect address including the protocol, such as \"https://google.com\". If the redirect field is left empty, the site will be blocked without redirection. Click the Save button to apply the rule. To update a rule, delete the old one and create a new entry." },
   "addrule": { "message": "Add new rule" },
   "blockurl": { "message": "Type block URL" },
   "redirecturl": { "message": "Type redirect URL (optional)" },
@@ -24,5 +24,6 @@
   "blockurlonlyascii": { "message": "Available only ASCII on block URL" },
   "blockurlonlylower": { "message": "Available only lowercase letters" },
   "donatespantext": { "message": "Like this extension? Support its development!" },
-  "donatebtntext": { "message": "Donate" }
+  "donatebtntext": { "message": "Donate" },
+  "blockthat": { "message": "Block This Site" }
 }

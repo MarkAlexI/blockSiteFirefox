@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v1.36.5-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v2.0.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -29,7 +29,7 @@ Both versions work on mobile browsers:
 
 ![blocker.png](/images/blocker.png "blocker")
 ## How to work with extension
-To block a resource, enter a part of its name in the left input field without specifying the protocol. For example, entering "facebook" will block all subdomains of this resource. In the right input field, enter the URL for redirection, fully specified with the protocol, e.g., "https://google.com". Then click the save button. If the redirect URL is left empty, the target site will simply be blocked. To modify a rule, delete the old rule and add a new one.
+To block a website or resource, enter part of its name into the input field with the placeholder "Type Block URL" — for example, "facebook" will block all related subdomains. In the field with the placeholder "Type Redirect URL", enter the full redirect address including the protocol, such as "https://google.com". If the redirect field is left empty, the site will be blocked without redirection. Click the Save button to apply the rule. To update a rule, delete the old one and create a new entry.
 ## Video Demo: [Block Site Extension](https://youtu.be/-z3pXiM_yv8?si=vEEBruG6XABppWQs)
 ### Project Description
 

@@ -5,6 +5,10 @@ body {
   color: #333;
 }
 
+.hidden {
+  display: none !important;
+}
+
 #header {
   min-width: 300px;
   margin-top: 64px;
@@ -88,19 +92,49 @@ body {
   margin-left: 5px;
 }
 
-#add-rule {
-  background-color: #0073e6;
-  color: white;
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.controls button {
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s;
+  flex: 1;
+  color: white;
+}
+
+#add-rule {
+  background-color: #0073e6;
 }
 
 #add-rule:hover {
   background-color: #005bb5;
+}
+
+#block-that {
+  background-color: #6f42c1;
+}
+
+#block-that:hover {
+  background-color: #5936a7;
+}
+
+@media (min-width: 601px) {
+  .controls {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .controls button {
+    max-width: 48%;
+  }
 }
 
 #status {
@@ -162,27 +196,4 @@ body {
 
 #donate-button:hover {
   background-color: #e6b800;
-}
-
-.hidden {
-  display: none;
-}
-
-.browser-warning {
-  background-color: #ffcc00;
-  color: #000;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.browser-warning a {
-  color: #d00;
-  text-decoration: underline;
-}
-
-.browser-warning a:hover {
-  text-decoration: none;
 }

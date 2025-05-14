@@ -1,49 +1,34 @@
 async function storageUpdateHandler(changes) {
   const template = changes.rules.newValue.slice();
-
+  
   const newRules = template.map((rule, i) => {
-    const newRule = rule.redirectURL !== '' ?
-      JSON.parse(`{
-        "action": {
-          "redirect": {
-            "url": "${rule.redirectURL}"
-          },
-          "type": "redirect"
-        },
-        "condition": {
-          "urlFilter": "||${rule.blockURL}",
-          "resourceTypes": [
-            "main_frame"
-          ]
-        },
-        "id": ${i + 1},
-        "priority": 100
-      }`) :
-      JSON.parse(`{
-        "id": ${i + 1},
-        "condition": {
-          "urlFilter": "||${rule.blockURL}",
-          "resourceTypes": ["main_frame"],
-          "excludedResourceTypes": []
-        },
-        "action": {
-          "type": "block"
-        },
-        "priority": 100
-      }`);
-
-    return newRule;
+    const filter = normalizeUrlFilter(rule.blockURL);
+    const urlFilter = `||${filter}`;
+    
+    const base = {
+      id: i + 1,
+      condition: {
+        urlFilter,
+        resourceTypes: ["main_frame"]
+      },
+      priority: 100
+    };
+    
+    base.action = rule.redirectURL ?
+      { type: "redirect", redirect: { url: rule.redirectURL } } :
+      { type: "block" };
+    
+    return base;
   });
-
+  
   try {
     const oldRules = await browser.declarativeNetRequest.getDynamicRules();
-    
     await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: oldRules.map(rule => rule.id),
-      addRules: newRules,
+      addRules: newRules
     });
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    console.error("DNR update error:", e);
   }
 }
 
