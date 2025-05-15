@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "网站拦截扩展" },
-  "shortname": { "message": "拦截网站" },
-  "description": { "message": "通过自定义规则轻松拦截和重定向网站，帮助您保持专注和高效。" },
-  "defaulttitle": { "message": "保持专注和高效" },
-  "header": { "message": "网站拦截器" },
-  "paragraph": { "message": "要拦截资源，请在左侧输入框中输入部分名称，不需要指定协议。例如，输入“facebook”将拦截该资源的所有子域。在右侧输入框中输入完整的重定向网址（包括协议），例如“https:\/\/google.com”。然后点击保存按钮。如果重定向网址框留空，目标网站将仅被拦截。要修改规则，请删除旧规则并添加新规则。" },
+  "chromename": { "message": "网站屏蔽扩展" },
+  "shortname": { "message": "网站屏蔽" },
+  "description": { "message": "通过自定义规则轻松屏蔽或重定向网站，帮助您集中注意力，提高效率。" },
+  "defaulttitle": { "message": "专注高效" },
+  "header": { "message": "网站屏蔽器" },
+  "paragraph": { "message": "要屏蔽某个网站或资源，请在“输入屏蔽网址”字段中输入其名称的一部分，例如输入“facebook”将屏蔽所有相关子域名。在“输入重定向网址”字段中输入完整的网址（包括协议），例如“https://google.com”。如果重定向字段为空，网站将被直接屏蔽而不会跳转。点击“保存”按钮应用该规则。如需修改规则，请先删除旧规则，再创建新条目。" },
   "addrule": { "message": "添加新规则" },
-  "blockurl": { "message": "输入要拦截的地址" },
-  "redirecturl": { "message": "输入重定向地址（可选）" },
+  "blockurl": { "message": "输入屏蔽网址" },
+  "redirecturl": { "message": "输入重定向网址（可选）" },
   "savebtn": { "message": "保存" },
   "deletebtn": { "message": "删除" },
-  "alertruleexist": { "message": "规则已存在" },
+  "alertruleexist": { "message": "该规则已存在" },
   "savedrules": {
-    "message": "已保存规则数量：$ruleslength$",
+    "message": "已保存 $ruleslength$ 条规则",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,9 +20,10 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "无效的重定向URL" },
-  "blockurlonlyascii": { "message": "仅支持ASCII用于阻止URL" },
-  "blockurlonlylower": { "message": "仅支持小写字母用于阻止URL" },
-  "donatespantext": { "message": "喜欢这个扩展吗？支持其开发！" },
-  "donatebtntext": { "message": "捐赠" }
+  "wrongredirecturl": { "message": "重定向网址无效" },
+  "blockurlonlyascii": { "message": "屏蔽网址仅支持 ASCII 字符" },
+  "blockurlonlylower": { "message": "仅支持小写字母" },
+  "donatespantext": { "message": "喜欢这个扩展？欢迎支持开发！" },
+  "donatebtntext": { "message": "赞助" },
+  "blockthat": { "message": "屏蔽该网站" }
 }

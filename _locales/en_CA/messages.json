@@ -1,18 +1,18 @@
 {
   "chromename": { "message": "Block Site Extension" },
   "shortname": { "message": "Block Site Ext" },
-  "description": { "message": "Effortlessly block and redirect websites with customisable rules to stay focused and productive." },
+  "description": { "message": "Easily block and redirect websites using customisable rules to help you stay focused and productive." },
   "defaulttitle": { "message": "Stay Focused and Productive" },
   "header": { "message": "Site Blocker" },
-  "paragraph": { "message": "To block a resource, enter part of its name in the left input field, without including the protocol. For example, entering \"facebook\" will block all subdomains of that website. In the right input field, enter the full URL for redirection, including the protocol, such as \"https:\/\/google.com\". Then click the Save button. If the redirect URL is left blank, the target site will simply be blocked. To change a rule, delete the old one and create a new entry." },
+  "paragraph": { "message": "To block a website or resource, type part of its name into the input field marked \"Type Block URL\" — for example, entering \"facebook\" will block all related subdomains. In the field marked \"Type Redirect URL\", enter the full redirect address, including the protocol, such as \"https://google.ca\". If the redirect field is left empty, the site will simply be blocked. Click the Save button to apply the rule. To update a rule, please delete the old one and add a new entry." },
   "addrule": { "message": "Add New Rule" },
-  "blockurl": { "message": "Enter Block URL" },
-  "redirecturl": { "message": "Enter Redirect URL (optional)" },
+  "blockurl": { "message": "Type Block URL" },
+  "redirecturl": { "message": "Type Redirect URL (optional)" },
   "savebtn": { "message": "Save" },
   "deletebtn": { "message": "Delete" },
-  "alertruleexist": { "message": "This rule already exists" },
+  "alertruleexist": { "message": "Rule already exists" },
   "savedrules": {
-    "message": "Saved $ruleslength$ rule(s)",
+    "message": "$ruleslength$ rule(s) saved",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -23,6 +23,7 @@
   "wrongredirecturl": { "message": "Invalid redirect URL" },
   "blockurlonlyascii": { "message": "Only ASCII characters are allowed in the block URL" },
   "blockurlonlylower": { "message": "Only lowercase letters are allowed" },
-  "donatespantext": { "message": "Enjoying this extension? Help support its development!" },
-  "donatebtntext": { "message": "Donate" }
+  "donatespantext": { "message": "Enjoying this extension? Support its development!" },
+  "donatebtntext": { "message": "Donate" },
+  "blockthat": { "message": "Block This Site" }
 }

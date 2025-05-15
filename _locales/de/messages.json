@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Erweiterung zur Webseitenblockierung" },
-  "shortname": { "message": "Webseite blockieren" },
-  "description": { "message": "Sperren und leiten Sie Websites mühelos mit benutzerdefinierten Regeln um, um fokussiert und produktiv zu bleiben." },
+  "chromename": { "message": "Website-Blocker-Erweiterung" },
+  "shortname": { "message": "Website-Blocker" },
+  "description": { "message": "Blockieren und umleiten von Websites ganz einfach mit anpassbaren Regeln – bleiben Sie fokussiert und produktiv." },
   "defaulttitle": { "message": "Bleiben Sie fokussiert und produktiv" },
-  "header": { "message": "Webseitenblocker" },
-  "paragraph": { "message": "Um eine Ressource zu blockieren, geben Sie einen Teil des Namens ohne Protokoll im linken Eingabefeld ein. Zum Beispiel blockiert die Eingabe von \"facebook\" alle Subdomains dieser Ressource. Geben Sie im rechten Eingabefeld die vollständige URL für die Umleitung mit Protokoll ein, z. B. \"https:\/\/google.com\". Klicken Sie dann auf die Schaltfläche Speichern. Wenn das Umleitungs-URL-Feld leer bleibt, wird die Zielwebsite einfach blockiert. Um eine Regel zu ändern, löschen Sie die alte Regel und fügen Sie eine neue hinzu." },
+  "header": { "message": "Website-Blocker" },
+  "paragraph": { "message": "Um eine Website oder Ressource zu blockieren, geben Sie einen Teil des Namens in das Eingabefeld mit dem Platzhalter „URL zum Blockieren eingeben“ ein – zum Beispiel blockiert „facebook“ alle zugehörigen Subdomains. Im Feld mit dem Platzhalter „URL zur Umleitung eingeben“ geben Sie die vollständige Weiterleitungsadresse inklusive Protokoll ein, z. B. „https://google.de“. Wenn das Weiterleitungsfeld leer bleibt, wird die Seite ohne Umleitung blockiert. Klicken Sie auf die Schaltfläche Speichern, um die Regel anzuwenden. Um eine Regel zu aktualisieren, löschen Sie die alte und erstellen Sie einen neuen Eintrag." },
   "addrule": { "message": "Neue Regel hinzufügen" },
-  "blockurl": { "message": "Adresse zum Blockieren eingeben" },
-  "redirecturl": { "message": "Umleitungsadresse eingeben (optional)" },
+  "blockurl": { "message": "URL zum Blockieren eingeben" },
+  "redirecturl": { "message": "URL zur Umleitung eingeben (optional)" },
   "savebtn": { "message": "Speichern" },
   "deletebtn": { "message": "Löschen" },
-  "alertruleexist": { "message": "Die Regel existiert bereits" },
+  "alertruleexist": { "message": "Regel existiert bereits" },
   "savedrules": {
-    "message": "Gespeicherte Regeln: $ruleslength$",
+    "message": "$ruleslength$ Regel(n) gespeichert",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,9 +20,10 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Ungültige Weiterleitungs-URL" },
-  "blockurlonlyascii": { "message": "Nur ASCII ist für die Blockierung von URLs verfügbar" },
-  "blockurlonlylower": { "message": "Nur Kleinbuchstaben sind für die Blockierung von URLs verfügbar" },
-  "donatespantext": { "message": "Gefällt Ihnen diese Erweiterung? Unterstützen Sie ihre Entwicklung!" },
-  "donatebtntext": { "message": "Spenden" }
+  "wrongredirecturl": { "message": "Ungültige Umleitungs-URL" },
+  "blockurlonlyascii": { "message": "Nur ASCII-Zeichen in der Block-URL erlaubt" },
+  "blockurlonlylower": { "message": "Nur Kleinbuchstaben erlaubt" },
+  "donatespantext": { "message": "Gefällt Ihnen diese Erweiterung? Unterstützen Sie die Weiterentwicklung!" },
+  "donatebtntext": { "message": "Spenden" },
+  "blockthat": { "message": "Diese Website blockieren" }
 }
