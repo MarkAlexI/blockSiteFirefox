@@ -27,6 +27,20 @@ const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
 const statusOutput = document.getElementById('status');
 
+const feedbackButton = document.getElementById('feedback-btn');
+
+feedbackButton.addEventListener('click', () => {
+  const email = 'aacsmi06@gmail.com';
+  const sendFeedbackSubject = browser.i18n.getMessage('sendfeedbacksubject');
+  const sendFeedbackBody = browser.i18n.getMessage('sendfeedbackbody');
+  const subject = encodeURIComponent(sendFeedbackSubject);
+  const body = encodeURIComponent(sendFeedbackBody);
+  
+  const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+  
+  window.open(mailtoLink, '_blank');
+});
+
 let thisTabs = [];
 
 (async () => {

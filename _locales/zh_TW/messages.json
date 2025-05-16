@@ -25,5 +25,8 @@
   "blockurlonlylower": { "message": "僅支援小寫英文字母" },
   "donatespantext": { "message": "喜歡這個擴充功能嗎？歡迎支持開發！" },
   "donatebtntext": { "message": "贊助" },
-  "blockthat": { "message": "封鎖此網站" }
+  "blockthat": { "message": "封鎖此網站" },
+  "sendfeedbackbutton": { "message": "發送回饋" },
+  "sendfeedbacksubject": { "message": "Block Site 擴充功能回饋意見" },
+  "sendfeedbackbody": { "message": "您好，我想提供以下回饋意見：\n\n" }
 }

@@ -25,5 +25,8 @@
   "blockurlonlylower": { "message": "Available only lowercase letters" },
   "donatespantext": { "message": "Like this extension? Support its development!" },
   "donatebtntext": { "message": "Donate" },
-  "blockthat": { "message": "Block This Site" }
+  "blockthat": { "message": "Block This Site" },
+  "sendfeedbackbutton": { "message": "Send Feedback" },
+  "sendfeedbacksubject": { "message": "Feedback for Block Site Extension" },
+  "sendfeedbackbody": { "message": "Hello, I would like to share the following feedback:\n\n" }
 }

@@ -25,5 +25,8 @@
   "blockurlonlylower": { "message": "仅支持小写字母" },
   "donatespantext": { "message": "喜欢这个扩展？欢迎支持开发！" },
   "donatebtntext": { "message": "赞助" },
-  "blockthat": { "message": "屏蔽该网站" }
+  "blockthat": { "message": "屏蔽该网站" },
+  "sendfeedbackbutton": { "message": "发送反馈" },
+  "sendfeedbacksubject": { "message": "Block Site 扩展反馈" },
+  "sendfeedbackbody": { "message": "您好，我想分享以下反馈内容：\n\n" }
 }

@@ -25,5 +25,8 @@
   "blockurlonlylower": { "message": "У URL для блокування дозволені лише малі літери" },
   "donatespantext": { "message": "Подобається розширення? Підтримайте його розробку!" },
   "donatebtntext": { "message": "Підтримати" },
-  "blockthat": { "message": "Заблокувати цей сайт" }
+  "blockthat": { "message": "Заблокувати цей сайт" },
+  "sendfeedbackbutton": { "message": "Надіслати відгук" },
+  "sendfeedbacksubject": { "message": "Відгук щодо розширення Block Site" },
+  "sendfeedbackbody": { "message": "Вітаю! Хочу поділитися таким відгуком:\n\n" }
 }

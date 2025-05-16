@@ -25,5 +25,8 @@
   "blockurlonlylower": { "message": "Допустимы только строчные буквы" },
   "donatespantext": { "message": "Нравится это расширение? Поддержите его разработку!" },
   "donatebtntext": { "message": "Поддержать" },
-  "blockthat": { "message": "Заблокировать этот сайт" }
+  "blockthat": { "message": "Заблокировать этот сайт" },
+  "sendfeedbackbutton": { "message": "Отправить отзыв" },
+  "sendfeedbacksubject": { "message": "Отзыв о расширении Block Site" },
+  "sendfeedbackbody": { "message": "Здравствуйте! Хотел(а) бы поделиться следующим отзывом:\n\n" }
 }

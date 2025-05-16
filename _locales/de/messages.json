@@ -25,5 +25,8 @@
   "blockurlonlylower": { "message": "Nur Kleinbuchstaben erlaubt" },
   "donatespantext": { "message": "Gefällt Ihnen diese Erweiterung? Unterstützen Sie die Weiterentwicklung!" },
   "donatebtntext": { "message": "Spenden" },
-  "blockthat": { "message": "Diese Website blockieren" }
+  "blockthat": { "message": "Diese Website blockieren" },
+  "sendfeedbackbutton": { "message": "Feedback senden" },
+  "sendfeedbacksubject": { "message": "Feedback zur Erweiterung Block Site" },
+  "sendfeedbackbody": { "message": "Hallo, ich möchte folgendes Feedback mitteilen:\n\n" }
 }

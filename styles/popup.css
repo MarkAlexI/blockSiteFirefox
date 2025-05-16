@@ -126,6 +126,20 @@ body {
   background-color: #5936a7;
 }
 
+#feedback-btn {
+  background-color: rebeccapurple;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#feedback-btn:hover {
+  background-color: #005bb5;
+  color: #ffcc00;
+}
+
 @media (min-width: 601px) {
   .controls {
     flex-direction: row;
