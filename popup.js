@@ -57,18 +57,27 @@ let thisTabs = [];
     const alreadyBlocked = rules.some(rule => rule.blockURL === currentUrl);
     
     if (!isBlockedURL(thisTabs) && !alreadyBlocked) {
-      createBlockThisSiteButton(currentUrl);
+      const favIcon = thisTabs[0]?.favIconUrl || 'images/icon-32.png';
+      createBlockThisSiteButton(currentUrl, favIcon);
     }
   });
 })();
 
-//add favicon
-const createBlockThisSiteButton = (url) => {
+const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
   if (!url || url.trim() === '') return;
-
+  
   const newButton = document.createElement('button');
   newButton.id = 'block-that';
   newButton.textContent = browser.i18n.getMessage('blockthat');
+  
+  const icon = document.createElement('img');
+  icon.src = favIconUrl;
+  icon.alt = 'favicon';
+  icon.style.width = '16px';
+  icon.style.height = '16px';
+  icon.style.marginLeft = '16px';
+  icon.style.verticalAlign = 'middle';
+  newButton.appendChild(icon);
   
   newButton.addEventListener('click', () => {
     browser.storage.sync.get('rules', ({ rules }) => {

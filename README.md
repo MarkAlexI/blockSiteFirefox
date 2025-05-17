@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v2.1.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v2.2.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -13,9 +13,7 @@ An extension that will block or redirect requests in browser used `declarativeNe
 
 ## Installation
 
-The `main` branch of this repository contains a ready-to-use package for installation in Google Chrome (Developer Mode) — simply click the "<> Code" button then click "Download ZIP" to download the package. No build or additional steps are required.
-
-The `firefoxversion` branch contains a package tailored for Mozilla Firefox.
+The `main` branch of this repository contains a ready-to-use package for installation in Mozilla Firefox (Developer Mode) — simply click the "<> Code" button then click "Download ZIP" to download the package. No build or additional steps are required.
 
 Alternatively, you can use the release packages provided.
 
