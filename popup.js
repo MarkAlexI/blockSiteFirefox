@@ -30,11 +30,14 @@ const statusOutput = document.getElementById('status');
 const feedbackButton = document.getElementById('feedback-btn');
 
 feedbackButton.addEventListener('click', () => {
+  const manifest = browser.runtime.getManifest();
+  const browserInfo = navigator.userAgent;
+  
   const email = 'aacsmi06@gmail.com';
   const sendFeedbackSubject = browser.i18n.getMessage('sendfeedbacksubject');
   const sendFeedbackBody = browser.i18n.getMessage('sendfeedbackbody');
   const subject = encodeURIComponent(sendFeedbackSubject);
-  const body = encodeURIComponent(sendFeedbackBody);
+  const body = encodeURIComponent(`Browser: ${browserInfo}\n\nExtension Version: ${manifest.version}\n\n${sendFeedbackBody}`);
   
   const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
   
