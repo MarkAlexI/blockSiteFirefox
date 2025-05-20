@@ -70,8 +70,10 @@ const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
   if (!url || url.trim() === '') return;
   
   const newButton = document.createElement('button');
+  const blockThat = browser.i18n.getMessage('blockthat');
   newButton.id = 'block-that';
-  newButton.textContent = browser.i18n.getMessage('blockthat');
+  newButton.title = `${blockThat} ${url}`;
+  newButton.textContent = blockThat;
   
   const icon = document.createElement('img');
   icon.src = favIconUrl;
