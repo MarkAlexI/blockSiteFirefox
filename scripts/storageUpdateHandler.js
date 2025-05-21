@@ -1,4 +1,4 @@
-async function storageUpdateHandler(changes) {
+export async function storageUpdateHandler(changes) {
   const template = changes.rules.newValue.slice();
   
   const newRules = template.map((rule, i) => {
@@ -31,5 +31,3 @@ async function storageUpdateHandler(changes) {
     console.error("DNR update error:", e);
   }
 }
-
-browser.storage.sync.onChanged.addListener(storageUpdateHandler);

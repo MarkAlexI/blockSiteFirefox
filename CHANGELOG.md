@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.3] - 2025-05-21
+
+### Changed
+- Refactored the creation of declarative rules into a separate asynchronous function to improve modularity and maintainability.
+
+### Fixed
+- Minor internal improvements and code cleanup.
+
 ## [2.2.2] - 2025-05-20
 
 ### Added
