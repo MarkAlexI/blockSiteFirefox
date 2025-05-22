@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "サイトブロック拡張機能" },
-  "shortname": { "message": "サイトをブロック" },
-  "description": { "message": "カスタムルールを使用して、ウェブサイトを簡単にブロックおよびリダイレクトして集中力と生産性を維持しましょう。" },
-  "defaulttitle": { "message": "集中力と生産性を維持しましょう" },
+  "chromename": { "message": "Block Site 拡張機能" },
+  "shortname": { "message": "Block Site 拡張" },
+  "description": { "message": "集中力と生産性を維持するために、ウェブサイトを簡単にブロックまたはリダイレクトできます。" },
+  "defaulttitle": { "message": "集中して生産的に" },
   "header": { "message": "サイトブロッカー" },
-  "paragraph": { "message": "リソースをブロックするには、プロトコルを指定せずに左側の入力フィールドに名前の一部を入力します。たとえば、「facebook」と入力すると、そのリソースのすべてのサブドメインがブロックされます。右側の入力フィールドに、プロトコルを含む完全なリダイレクトURLを入力します。たとえば「https:\/\/google.com」のように入力します。その後、保存ボタンをクリックします。リダイレクトURLフィールドが空白のままの場合、ターゲットサイトは単にブロックされます。ルールを変更するには、古いルールを削除して新しいルールを追加してください。" },
+  "paragraph": { "message": "ウェブサイトやリソースをブロックするには、「ブロック対象のURLを入力」と表示された入力欄に、その名前の一部を入力してください。例えば「facebook」と入力すると、関連するすべてのサブドメインがブロックされます。「リダイレクト先のURLを入力」と表示された欄には、「https://google.com」のようにプロトコルを含めた完全なURLを入力します。リダイレクト欄を空白のままにすると、サイトはリダイレクトされずに単にブロックされます。ルールを適用するには［保存］ボタンをクリックしてください。ルールを更新するには、古いものを削除して新しいエントリを作成してください。" },
   "addrule": { "message": "新しいルールを追加" },
-  "blockurl": { "message": "ブロックするアドレスを入力" },
-  "redirecturl": { "message": "リダイレクト先のアドレスを入力（オプション）" },
+  "blockurl": { "message": "ブロック対象のURLを入力" },
+  "redirecturl": { "message": "リダイレクト先のURLを入力（任意）" },
   "savebtn": { "message": "保存" },
   "deletebtn": { "message": "削除" },
-  "alertruleexist": { "message": "ルールはすでに存在します" },
+  "alertruleexist": { "message": "このルールはすでに存在します" },
   "savedrules": {
-    "message": "保存されたルール: $ruleslength$",
+    "message": "保存済みルール：$ruleslength$ 件",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,9 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "無効なリダイレクトURL" },
-  "blockurlonlyascii": { "message": "ブロックURLにはASCIIのみが使用可能" },
-  "blockurlonlylower": { "message": "ブロックURLには小文字のみが使用可能" },
-  "donatespantext": { "message": "この拡張機能が気に入りましたか？開発をサポートしてください！" },
-  "donatebtntext": { "message": "寄付する" }
+  "wrongredirecturl": { "message": "無効なリダイレクトURLです" },
+  "blockurlonlyascii": { "message": "ブロックURLにはASCII文字のみ使用できます" },
+  "blockurlonlylower": { "message": "小文字のみ使用できます" },
+  "donatespantext": { "message": "この拡張機能が気に入りましたか？開発を支援してください！" },
+  "donatebtntext": { "message": "寄付する" },
+  "blockthat": { "message": "このサイトをブロック" },
+  "sendfeedbackbutton": { "message": "フィードバックを送信" },
+  "sendfeedbacksubject": { "message": "Block Site 拡張機能へのフィードバック" },
+  "sendfeedbackbody": { "message": "こんにちは。以下のフィードバックを共有したいと思います：\n\n" }
 }

@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Extension pour Bloquer les Sites" },
-  "shortname": { "message": "Bloque Site" },
-  "description": { "message": "Bloquez et redirigez facilement les sites web avec des règles personnalisées pour rester concentré et productif." },
+  "chromename": { "message": "Extension Block Site" },
+  "shortname": { "message": "Ext. Block Site" },
+  "description": { "message": "Bloquez et redirigez facilement des sites web à l’aide de règles personnalisables pour rester concentré et productif." },
   "defaulttitle": { "message": "Restez concentré et productif" },
-  "header": { "message": "Bloqueur de Sites" },
-  "paragraph": { "message": "Pour bloquer une ressource, saisissez une partie de son nom dans le champ de saisie de gauche sans indiquer le protocole. Par exemple, entrer \"facebook\" bloquera tous les sous-domaines de cette ressource. Dans le champ de droite, saisissez une URL de redirection entièrement définie avec son protocole, par exemple \"https:\/\/google.com\". Ensuite, cliquez sur le bouton de sauvegarde. Si l'URL de redirection est laissée vide, le site ciblé sera simplement bloqué. Pour modifier une règle, supprimez l'ancienne et ajoutez-en une nouvelle." },
+  "header": { "message": "Bloqueur de sites" },
+  "paragraph": { "message": "Pour bloquer un site web ou une ressource, saisissez une partie de son nom dans le champ portant l’indication « Saisir l’URL à bloquer » — par exemple, « facebook » bloquera tous les sous-domaines associés. Dans le champ « Saisir l’URL de redirection », entrez l’adresse de redirection complète, y compris le protocole, comme « https://google.com ». Si ce champ est laissé vide, le site sera simplement bloqué sans redirection. Cliquez sur le bouton Enregistrer pour appliquer la règle. Pour mettre à jour une règle, supprimez l’ancienne puis ajoutez une nouvelle entrée." },
   "addrule": { "message": "Ajouter une nouvelle règle" },
-  "blockurl": { "message": "Entrez l'adresse à bloquer" },
-  "redirecturl": { "message": "Entrez l'adresse de redirection (facultatif)" },
+  "blockurl": { "message": "Saisir l’URL à bloquer" },
+  "redirecturl": { "message": "Saisir l’URL de redirection (facultatif)" },
   "savebtn": { "message": "Enregistrer" },
   "deletebtn": { "message": "Supprimer" },
-  "alertruleexist": { "message": "La règle existe déjà" },
+  "alertruleexist": { "message": "Cette règle existe déjà" },
   "savedrules": {
-    "message": "Règles enregistrées: $ruleslength$",
+    "message": "$ruleslength$ règle(s) enregistrée(s)",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,12 @@
     }
   },
   "wrongredirecturl": { "message": "URL de redirection invalide" },
-  "blockurlonlyascii": { "message": "Seul l'ASCII est disponible pour bloquer les URL" },
-  "blockurlonlylower": { "message": "Seules les lettres minuscules sont disponibles pour bloquer les URL" }
+  "blockurlonlyascii": { "message": "Seuls les caractères ASCII sont autorisés dans l’URL à bloquer" },
+  "blockurlonlylower": { "message": "Seules les lettres minuscules sont autorisées" },
+  "donatespantext": { "message": "Vous aimez cette extension ? Soutenez son développement !" },
+  "donatebtntext": { "message": "Faire un don" },
+  "blockthat": { "message": "Bloquer ce site" },
+  "sendfeedbackbutton": { "message": "Envoyer un commentaire" },
+  "sendfeedbacksubject": { "message": "Retour concernant l’extension Block Site" },
+  "sendfeedbackbody": { "message": "Bonjour, je souhaite partager le commentaire suivant :\n\n" }
 }

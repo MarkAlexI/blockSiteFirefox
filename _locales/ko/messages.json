@@ -1,18 +1,18 @@
 {
   "chromename": { "message": "사이트 차단 확장 프로그램" },
-  "shortname": { "message": "사이트 차단" },
-  "description": { "message": "사용자 정의 규칙으로 웹사이트를 쉽게 차단하고 리디렉션하여 집중력과 생산성을 유지하세요." },
-  "defaulttitle": { "message": "집중하고 생산성을 유지하세요" },
+  "shortname": { "message": "사이트 차단기" },
+  "description": { "message": "집중력과 생산성을 유지할 수 있도록 사용자 지정 규칙으로 웹사이트를 손쉽게 차단하고 리디렉션하세요." },
+  "defaulttitle": { "message": "집중하고 생산적으로" },
   "header": { "message": "사이트 차단기" },
-  "paragraph": { "message": "리소스를 차단하려면 프로토콜을 지정하지 않고 왼쪽 입력 필드에 이름의 일부를 입력하세요. 예를 들어, 'facebook'를 입력하면 해당 리소스의 모든 하위 도메인이 차단됩니다. 오른쪽 입력 필드에 프로토콜을 포함한 전체 리디렉션 URL을 입력하세요. 예: 'https:\/\/google.com'. 그런 다음 저장 버튼을 클릭하세요. 리디렉션 URL 필드를 비워두면 대상 사이트가 차단됩니다. 규칙을 수정하려면 기존 규칙을 삭제하고 새 규칙을 추가하세요." },
+  "paragraph": { "message": "\"차단할 URL 입력\" 입력 필드에 사이트 이름의 일부를 입력하면 해당 하위 도메인도 모두 차단됩니다. 예: \"facebook\". \"리디렉션 URL 입력\" 필드에는 프로토콜을 포함한 전체 주소를 입력하세요. 예: \"https://google.com\". 리디렉션 필드를 비워두면 사이트는 리디렉션 없이 차단됩니다. 저장 버튼을 클릭하면 규칙이 적용됩니다. 규칙을 업데이트하려면 기존 규칙을 삭제한 후 새 항목을 추가하세요." },
   "addrule": { "message": "새 규칙 추가" },
-  "blockurl": { "message": "차단할 주소 입력" },
-  "redirecturl": { "message": "리디렉션할 주소 입력 (선택 사항)" },
+  "blockurl": { "message": "차단할 URL 입력" },
+  "redirecturl": { "message": "리디렉션 URL 입력 (선택사항)" },
   "savebtn": { "message": "저장" },
   "deletebtn": { "message": "삭제" },
-  "alertruleexist": { "message": "규칙이 이미 존재합니다" },
+  "alertruleexist": { "message": "해당 규칙은 이미 존재합니다" },
   "savedrules": {
-    "message": "저장된 규칙: $ruleslength$",
+    "message": "$ruleslength$개의 규칙이 저장됨",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,9 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "유효하지 않은 리디렉션 URL" },
-  "blockurlonlyascii": { "message": "URL 차단에 ASCII만 사용할 수 있습니다" },
-  "blockurlonlylower": { "message": "URL 차단에 소문자만 사용할 수 있습니다" },
-  "donatespantext": { "message": "이 확장 프로그램이 마음에 드시나요? 개발을 지원해주세요!" },
-  "donatebtntext": { "message": "기부하기" }
+  "wrongredirecturl": { "message": "잘못된 리디렉션 URL" },
+  "blockurlonlyascii": { "message": "차단 URL은 ASCII 문자만 허용됩니다" },
+  "blockurlonlylower": { "message": "소문자만 허용됩니다" },
+  "donatespantext": { "message": "이 확장 프로그램이 마음에 드시나요? 개발을 후원해주세요!" },
+  "donatebtntext": { "message": "후원하기" },
+  "blockthat": { "message": "이 사이트 차단" },
+  "sendfeedbackbutton": { "message": "피드백 보내기" },
+  "sendfeedbacksubject": { "message": "사이트 차단 확장 프로그램에 대한 피드백" },
+  "sendfeedbackbody": { "message": "안녕하세요. 다음과 같은 피드백을 공유하고 싶습니다:\n\n" }
 }
