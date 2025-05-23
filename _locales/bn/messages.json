@@ -1,18 +1,20 @@
 {
-  "chromename": { "message": "ব্লক সাইট এক্সটেনশন" },
-  "shortname": { "message": "ব্লক সাইট এক্সট" },
-  "description": { "message": "স্বনির্ধারিত নিয়ম দিয়ে সহজেই ওয়েবসাইট ব্লক এবং পুনর্নির্দেশ করুন, ফোকাসড ও প্রোডাক্টিভ থাকুন।" },
-  "defaulttitle": { "message": "ফোকাসড ও প্রোডাক্টিভ থাকুন" },
+  "chromename": { "message": "সাইট ব্লক এক্সটেনশন" },
+  "shortname": { "message": "সাইট ব্লকার" },
+  "description": { "message": "স্বনির্ধারিত নিয়মের মাধ্যমে সহজেই ওয়েবসাইট ব্লক ও রিডিরেক্ট করুন, মনোযোগী ও উৎপাদনশীল থাকতে সাহায্য করে।" },
+  "defaulttitle": { "message": "মনোযোগী ও উৎপাদনশীল থাকুন" },
   "header": { "message": "সাইট ব্লকার" },
-  "paragraph": { "message": "একটি রিসোর্স ব্লক করতে, বাম ইনপুট ফিল্ডে এর নামের একটি অংশ লিখুন, তবে প্রোটোকল উল্লেখ করবেন না। উদাহরণস্বরূপ, \"facebook\" প্রবেশ করালে এই রিসোর্সের সমস্ত সাবডোমেইন ব্লক হবে। ডান ইনপুট ফিল্ডে পুনর্নির্দেশের জন্য সম্পূর্ণ URL লিখুন, যেখানে প্রোটোকলও থাকতে হবে, যেমন \"https:\/\/google.com\"। এরপর সংরক্ষণ বোতামে ক্লিক করুন। যদি পুনর্নির্দেশ URL খালি থাকে, তবে লক্ষ্য সাইটটি কেবলমাত্র ব্লক হবে। কোনো নিয়ম পরিবর্তন করতে চাইলে পুরানো নিয়ম মুছে নতুন নিয়ম যোগ করুন।" },
+  "paragraph": {
+    "message": "কোনো ওয়েবসাইট বা রিসোর্স ব্লক করতে, \"Type Block URL\" প্লেসহোল্ডার সহ ইনপুট ফিল্ডে এর নামের অংশ টাইপ করুন — যেমন \"facebook\" টাইপ করলে সংশ্লিষ্ট সব সাবডোমেইন ব্লক হবে। \"Type Redirect URL\" প্লেসহোল্ডারে সম্পূর্ণ রিডিরেক্ট ঠিকানা টাইপ করুন, যেমন \"https://google.com\"। যদি রিডিরেক্ট ফিল্ড ফাঁকা থাকে, তবে সাইটটি শুধুমাত্র ব্লক হবে। নিয়ম প্রয়োগ করতে Save বোতামে ক্লিক করুন। কোনো নিয়ম আপডেট করতে চাইলে পুরাতনটি মুছে নতুনটি যোগ করুন।"
+  },
   "addrule": { "message": "নতুন নিয়ম যোগ করুন" },
-  "blockurl": { "message": "ব্লক করার URL লিখুন" },
-  "redirecturl": { "message": "পুনর্নির্দেশের URL লিখুন (ঐচ্ছিক)" },
+  "blockurl": { "message": "ব্লক URL টাইপ করুন" },
+  "redirecturl": { "message": "রিডিরেক্ট URL টাইপ করুন (ঐচ্ছিক)" },
   "savebtn": { "message": "সংরক্ষণ করুন" },
   "deletebtn": { "message": "মুছে ফেলুন" },
-  "alertruleexist": { "message": "নিয়ম ইতিমধ্যে বিদ্যমান" },
+  "alertruleexist": { "message": "নিয়ম ইতোমধ্যে বিদ্যমান" },
   "savedrules": {
-    "message": "সংরক্ষিত $ruleslength$ নিয়ম(গুলি)",
+    "message": "$ruleslength$ টি নিয়ম সংরক্ষিত",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +22,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "অবৈধ পুনর্নির্দেশ URL" },
-  "blockurlonlyascii": { "message": "শুধুমাত্র ASCII অক্ষর ব্লক URL-এ ব্যবহারযোগ্য" },
-  "blockurlonlylower": { "message": "শুধুমাত্র ছোট হাতের অক্ষর ব্যবহারযোগ্য" }
+  "wrongredirecturl": { "message": "অবৈধ রিডিরেক্ট URL" },
+  "blockurlonlyascii": { "message": "শুধুমাত্র ASCII ব্লক URL-এ অনুমোদিত" },
+  "blockurlonlylower": { "message": "শুধুমাত্র ছোট হাতের অক্ষর অনুমোদিত" },
+  "donatespantext": { "message": "এই এক্সটেনশনটি পছন্দ হয়েছে? উন্নয়নের জন্য সমর্থন করুন!" },
+  "donatebtntext": { "message": "দান করুন" },
+  "blockthat": { "message": "এই সাইটটি ব্লক করুন" },
+  "sendfeedbackbutton": { "message": "মতামত পাঠান" },
+  "sendfeedbacksubject": { "message": "Block Site Extension এর জন্য মতামত" },
+  "sendfeedbackbody": { "message": "হ্যালো, আমি নিম্নলিখিত মতামত শেয়ার করতে চাই:\n\n" }
 }

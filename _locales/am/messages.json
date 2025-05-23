@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "የግብይት ስፍራ ማግበሪያ አቀማመጥ" },
-  "shortname": { "message": "ስፍራ ማግበሪያ" },
-  "description": { "message": "በቀላሉ ዌብሳይቶችን ይከሉና ይልወጡ እንዲሆን የተስተካከሉ ደንቦችን ይጠቀሙ።" },
-  "defaulttitle": { "message": "ተስፋ እና ምስጋና" },
-  "header": { "message": "የግብይት ስፍራ መከላከያ" },
-  "paragraph": { "message": "አንድ ምንዛሬ ለመከል በግምት ስሙን ያስገቡ ያንተን የግብይት ዕድሜ የሚያረጉትን ከሰሜን ግራ መስጫ ውስጥ። ለምሳሌ፣ \"facebook\" በማስገባት ይህን ምንዛሬ ሁሉንም ንዑስ ስም ይከለዋል። በቀኝ መስጫ ውስጥ የሚቀጥለውን ዩአርኤል ያስገቡ፣ ምሳሌ፣ \"https:\/\/google.com\"። ከዚያ የማስቀመጥ ቁልፍን ይጫኑ። የሚቀጥለው ዩአርኤል ባዶ ቢቀር፣ የታሰበው ስፍራ ብቻ ይከላል። ደንቡን ለማሻሻል የቆየውን ደንብ ይሰርዙና አዲሱን ያክሉ።" },
-  "addrule": { "message": "አዲስ ደንብ ያክሉ" },
-  "blockurl": { "message": "የሚከለውን ዩአርኤል ይተይቡ" },
-  "redirecturl": { "message": "የሚቀጥለውን ዩአርኤል ያስገቡ (አማራጭ)" },
+  "chromename": { "message": "የጣቢያ መከልከያ ኤክስቴንሽን" },
+  "shortname": { "message": "የጣቢያ መከልከያ" },
+  "description": { "message": "በቀላሉ ድህረ ገፆችን በተለያዩ ህጎች ይከልከሉ እና ይምልከቱ ፣ ለማትክከያና ስራ ፍሬ ተስማሚ ይሁኑ።" },
+  "defaulttitle": { "message": "ትኩረት እና አፈፃፀም ያስጠኑ" },
+  "header": { "message": "የጣቢያ መከልከያ" },
+  "paragraph": { "message": "ድህረ ገፅ ወይም ምንጭ ለመከልከል፣ በ“የሚከለከል ዩአርኤል ያስገቡ” ተመሳሳይ ቦታ ውስጥ የእቃውን አንድ ክፍል ያስገቡ — ለምሳሌ፣ “facebook” የሚለው ከእሱ ጋር የተያያዘ ሁሉንም ንዑስ ዶሜን ያጠፋል። በ“የመምረቻ ዩአርኤል ያስገቡ” ተመሳሳይ ቦታ ውስጥ የሙሉ መምረቻ አድራሻን ከፕሮቶኮሉ ጋር በመካተት ያስገቡ፣ ለምሳሌ፣ \"https://google.com\"። የመምረቻ ቦታ ባዶ ከተዉ ጣቢያው ምንም አያመልከትም። ህጉን ለማስኬድ የማስቀመጥ ቁልፍን ይጫኑ። ህጉን ለማዘመን አሮጌውን ያጥፉና አዲሱን ያከናውኑ።" },
+  "addrule": { "message": "አዲስ ህግ ያክሉ" },
+  "blockurl": { "message": "የሚከለከል ዩአርኤል ያስገቡ" },
+  "redirecturl": { "message": "የመምረቻ ዩአርኤል ያስገቡ (አማራጭ)" },
   "savebtn": { "message": "አስቀምጥ" },
   "deletebtn": { "message": "ሰርዝ" },
-  "alertruleexist": { "message": "ይህ ደንብ ቀድሞውኑ አለ" },
+  "alertruleexist": { "message": "ህጉ አሁንም አለ" },
   "savedrules": {
-    "message": "$ruleslength$ የተቀመጡ ደንቦች",
+    "message": "$ruleslength$ ህግ(ዎች) ተቀምጠዋል",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "የተሳሳተ የሚቀጥለው ዩአርኤል" },
-  "blockurlonlyascii": { "message": "ለመከል የሚቻሉ ብቻ ASCII ናቸው" },
-  "blockurlonlylower": { "message": "የሚቻሉ ብቻ ትንሽ ፊደሎች ናቸው" }
+  "wrongredirecturl": { "message": "የተሳሳተ መምረቻ ዩአርኤል" },
+  "blockurlonlyascii": { "message": "በሚከለከል ዩአርኤል ላይ የ ASCII ቃላት ብቻ ይፈቀዳሉ" },
+  "blockurlonlylower": { "message": "በታችኛው አንቀሳቃሽ የቃላት ብቻ ይፈቀዳሉ" },
+  "donatespantext": { "message": "ይህን ኤክስቴንሽን ወድዳችው? እድገቱን ይደግፉ!" },
+  "donatebtntext": { "message": "ያብሩ" },
+  "blockthat": { "message": "ይህን ጣቢያ ይከልከሉ" },
+  "sendfeedbackbutton": { "message": "አስተያየት ላክ" },
+  "sendfeedbacksubject": { "message": "ስለ የጣቢያ መከልከያ ኤክስቴንሽን አስተያየት" },
+  "sendfeedbackbody": { "message": "ሰላም፣ የሚከተለውን አስተያየት መካፈል እፈልጋለሁ፦\n\n" }
 }

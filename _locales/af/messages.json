@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Webwerfblokkeer-uitbreiding" },
-  "shortname": { "message": "Blokkeer Webwerf" },
-  "description": { "message": "Blokkeer en herlei webwerwe maklik met pasgemaakte reëls om gefokus en produktief te bly." },
-  "defaulttitle": { "message": "Bly gefokus en produktief" },
-  "header": { "message": "Webwerfblokkeerder" },
-  "paragraph": { "message": "Om 'n bron te blokkeer, voer 'n deel van sy naam in die linkerveld in sonder om die protokol te spesifiseer. Byvoorbeeld, as jy \"facebook\" invoer, sal al die subdomeine van hierdie bron geblokkeer word. Voer die volledige herleiding-URL met protokol in die regterveld in, byvoorbeeld \"https:\/\/google.com\". Klik dan op die stoor-knoppie. As die herleiding-URL-veld leeg gelaat word, sal die teikenterrein net geblokkeer word. Om 'n reël te verander, verwyder die ou reël en voeg 'n nuwe een by." },
+  "chromename": { "message": "Blok Webwerf Uitbreiding" },
+  "shortname": { "message": "Blok Webwerf Uitbr." },
+  "description": { "message": "Blokkeer en herlei webwerwe moeiteloos met aanpasbare reëls om gefokus en produktief te bly." },
+  "defaulttitle": { "message": "Bly Gefokus en Produktief" },
+  "header": { "message": "Webwerf Blokkeerder" },
+  "paragraph": { "message": "Om 'n webwerf of hulpbron te blokkeer, voer 'n deel van die naam in die veld met die plekhouer \"Tik Blok URL\" in — byvoorbeeld, \"facebook\" sal alle verwante subdomeine blokkeer. In die veld met die plekhouer \"Tik Herleiding-URL\", voer die volledige herleidingsadres in, insluitend die protokol, soos \"https://google.com\". As die herleidingsveld leeg gelaat word, sal die webwerf sonder herleiding geblokkeer word. Klik op die Stoor-knoppie om die reël toe te pas. Om 'n reël op te dateer, verwyder die ou een en skep 'n nuwe inskrywing." },
   "addrule": { "message": "Voeg nuwe reël by" },
-  "blockurl": { "message": "Voer die adres in om te blokkeer" },
-  "redirecturl": { "message": "Voer die herleidingadres in (opsioneel)" },
+  "blockurl": { "message": "Tik blok URL" },
+  "redirecturl": { "message": "Tik herleiding URL (opsioneel)" },
   "savebtn": { "message": "Stoor" },
   "deletebtn": { "message": "Verwyder" },
   "alertruleexist": { "message": "Reël bestaan reeds" },
   "savedrules": {
-    "message": "Gestoorde reëls: $ruleslength$",
+    "message": "$ruleslength$ reël(e) gestoor",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Ongeldige herleidings-URL" },
-  "blockurlonlyascii": { "message": "Slegs ASCII beskikbaar vir URL-blokkering" },
-  "blockurlonlylower": { "message": "Slegs kleinletters beskikbaar vir URL-blokkering" }
+  "wrongredirecturl": { "message": "Ongeldige herleiding URL" },
+  "blockurlonlyascii": { "message": "Slegs ASCII-karakters toegelaat in blok-URL" },
+  "blockurlonlylower": { "message": "Slegs kleinletters toegelaat" },
+  "donatespantext": { "message": "Hou jy van hierdie uitbreiding? Ondersteun die ontwikkeling daarvan!" },
+  "donatebtntext": { "message": "Skink" },
+  "blockthat": { "message": "Blokkeer Hierdie Webwerf" },
+  "sendfeedbackbutton": { "message": "Stuur Terugvoer" },
+  "sendfeedbacksubject": { "message": "Terugvoer oor Blok Webwerf Uitbreiding" },
+  "sendfeedbackbody": { "message": "Hallo, ek wil graag die volgende terugvoer deel:\n\n" }
 }
