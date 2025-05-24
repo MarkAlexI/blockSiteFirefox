@@ -1,18 +1,18 @@
 {
   "chromename": { "message": "Blokeringsudvidelse til websites" },
-  "shortname": { "message": "Blokeringsudv." },
-  "description": { "message": "Bloker og omdiriger websites med tilpassede regler for at forblive fokuseret og produktiv." },
-  "defaulttitle": { "message": "Forbliv fokuseret og produktiv" },
-  "header": { "message": "Websiteblokering" },
-  "paragraph": { "message": "For at blokere en ressource skal du indtaste en del af dens navn i det venstre inputfelt uden at angive protokollen. For eksempel vil indtastning af \"facebook\" blokere alle underdomæner af denne ressource. I det højre inputfelt skal du indtaste den fuldt specificerede URL til omdirigering, inkl. protokollen, f.eks. \"https:\/\/google.com\". Klik derefter på gem-knappen. Hvis omdirigerings-URL'en er tom, vil det pågældende website blot blive blokeret. For at ændre en regel skal du slette den gamle regel og tilføje en ny." },
+  "shortname": { "message": "Websiteblokker" },
+  "description": { "message": "Bloker og omdiriger websites nemt med tilpassede regler for at forblive fokuseret og produktiv." },
+  "defaulttitle": { "message": "Vær fokuseret og produktiv" },
+  "header": { "message": "Websiteblokker" },
+  "paragraph": { "message": "For at blokere et website eller en ressource skal du indtaste en del af dets navn i feltet med pladsholderen \"Skriv blok-URL\" — for eksempel vil \"facebook\" blokere alle relaterede underdomæner. I feltet med pladsholderen \"Skriv omdirigerings-URL\" skal du indtaste hele omdirigeringsadressen inklusive protokol, såsom \"https://google.com\". Hvis feltet for omdirigering efterlades tomt, vil siden blive blokeret uden omdirigering. Klik på Gem-knappen for at anvende reglen. For at opdatere en regel skal du slette den gamle og oprette en ny." },
   "addrule": { "message": "Tilføj ny regel" },
-  "blockurl": { "message": "Indtast URL, der skal blokeres" },
-  "redirecturl": { "message": "Indtast omdirigerings-URL (valgfrit)" },
+  "blockurl": { "message": "Skriv blok-URL" },
+  "redirecturl": { "message": "Skriv omdirigerings-URL (valgfrit)" },
   "savebtn": { "message": "Gem" },
   "deletebtn": { "message": "Slet" },
   "alertruleexist": { "message": "Reglen findes allerede" },
   "savedrules": {
-    "message": "Gemte $ruleslength$ regel(er)",
+    "message": "Gemt $ruleslength$ regel(-er)",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,12 @@
     }
   },
   "wrongredirecturl": { "message": "Ugyldig omdirigerings-URL" },
-  "blockurlonlyascii": { "message": "Kun ASCII-tegn er tilladt i blokerings-URL" },
-  "blockurlonlylower": { "message": "Kun små bogstaver er tilladt" }
+  "blockurlonlyascii": { "message": "Kun ASCII er tilladt i blok-URL" },
+  "blockurlonlylower": { "message": "Kun små bogstaver er tilladt" },
+  "donatespantext": { "message": "Kan du lide denne udvidelse? Støt udviklingen!" },
+  "donatebtntext": { "message": "Donér" },
+  "blockthat": { "message": "Bloker dette website" },
+  "sendfeedbackbutton": { "message": "Send feedback" },
+  "sendfeedbacksubject": { "message": "Feedback til Block Site Extension" },
+  "sendfeedbackbody": { "message": "Hej, jeg vil gerne dele følgende feedback:\n\n" }
 }

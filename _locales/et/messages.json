@@ -1,10 +1,10 @@
 {
-  "chromename": { "message": "Veebisaitide blokeerimise laiendus" },
-  "shortname": { "message": "Veebisaitide blokeerija" },
-  "description": { "message": "Blokeeri ja suuna veebisaidid hõlpsalt ümber kohandatavate reeglitega, et püsida keskendunud ja produktiivne." },
+  "chromename": { "message": "Veebisaitide Blokeerimise Laiendus" },
+  "shortname": { "message": "Saitide Blokeerija" },
+  "description": { "message": "Blokeeri ja suuna veebisaite kohandatavate reeglitega, et püsida keskendunud ja produktiivne." },
   "defaulttitle": { "message": "Ole keskendunud ja produktiivne" },
-  "header": { "message": "Veebisaitide blokeerija" },
-  "paragraph": { "message": "Ressursi blokeerimiseks sisestage vasakpoolsesse sisestusväljale osa selle nimest ilma protokollita. Näiteks sisestades \"facebook\", blokeeritakse kõik selle ressursi alamdomeenid. Parempoolsesse sisestusväljale sisestage ümbersuunamise URL, täielikult määratud protokolliga, nt \"https:\/\/google.com\". Seejärel klõpsake salvestamise nuppu. Kui ümbersuunamise URL jäetakse tühjaks, blokeeritakse sihtsait lihtsalt. Reegli muutmiseks kustutage vana reegel ja lisage uus." },
+  "header": { "message": "Saitide Blokeerija" },
+  "paragraph": { "message": "Veebisaidi või ressursi blokeerimiseks sisesta osa selle nimest väljale \"Sisesta blokeeritava saidi URL\" — näiteks \"facebook\" blokeerib kõik seotud alamdomeenid. Väljale \"Sisesta ümbersuunamise URL\" sisesta täielik URL koos protokolliga, näiteks \"https://google.com\". Kui see väli jääb tühjaks, blokeeritakse sait ilma ümbersuunamiseta. Klõpsa nupule Salvesta, et reegel rakendada. Reegli uuendamiseks kustuta vana ja loo uus kirje." },
   "addrule": { "message": "Lisa uus reegel" },
   "blockurl": { "message": "Sisesta blokeeritava saidi URL" },
   "redirecturl": { "message": "Sisesta ümbersuunamise URL (valikuline)" },
@@ -20,7 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Kehtetu ümbersuunamise URL" },
-  "blockurlonlyascii": { "message": "Blokeerimise URL-is on lubatud ainult ASCII tähemärgid" },
-  "blockurlonlylower": { "message": "Blokeerimise URL-is on lubatud ainult väiketähed" }
+  "wrongredirecturl": { "message": "Vigane ümbersuunamise URL" },
+  "blockurlonlyascii": { "message": "Blokeerimise URL-is on lubatud ainult ASCII märgid" },
+  "blockurlonlylower": { "message": "Lubatud on ainult väiketähed" },
+  "donatespantext": { "message": "Meeldib see laiendus? Toeta selle arendust!" },
+  "donatebtntext": { "message": "Anneta" },
+  "blockthat": { "message": "Blokeeri see sait" },
+  "sendfeedbackbutton": { "message": "Saada tagasiside" },
+  "sendfeedbacksubject": { "message": "Tagasiside Block Site Extensioni kohta" },
+  "sendfeedbackbody": { "message": "Tere, soovin jagada järgmist tagasisidet:\n\n" }
 }

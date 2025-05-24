@@ -1,18 +1,20 @@
 {
-  "chromename": { "message": "Rozšíření pro Blokování Stránek" },
-  "shortname": { "message": "Blokovat Stránky" },
-  "description": { "message": "Blokujte a přesměrujte webové stránky pomocí vlastních pravidel, abyste zůstali soustředění a produktivní." },
-  "defaulttitle": { "message": "Zůstaňte soustředění a produktivní" },
-  "header": { "message": "Blokátor Stránek" },
-  "paragraph": { "message": "Chcete-li zablokovat zdroj, zadejte část jeho názvu do levého pole bez uvedení protokolu. Například zadání „facebook“ zablokuje všechny subdomény tohoto zdroje. Do pravého pole zadejte úplnou adresu URL pro přesměrování, včetně protokolu, například „https:\/\/google.com“. Poté klikněte na tlačítko Uložit. Pokud necháte pole pro přesměrování prázdné, cílová stránka bude jednoduše zablokována. Chcete-li změnit pravidlo, odstraňte staré pravidlo a přidejte nové." },
+  "chromename": { "message": "Rozšíření pro blokování webů" },
+  "shortname": { "message": "Blokování webů" },
+  "description": { "message": "Snadno blokujte a přesměrovávejte weby pomocí přizpůsobitelných pravidel a zůstaňte soustředění a produktivní." },
+  "defaulttitle": { "message": "Buďte soustředění a produktivní" },
+  "header": { "message": "Blokátor webů" },
+  "paragraph": {
+    "message": "Chcete-li zablokovat web nebo zdroj, zadejte část jeho názvu do pole s popiskem „Zadejte URL k blokování“ — například „facebook“ zablokuje všechny související subdomény. Do pole s popiskem „Zadejte přesměrovací URL“ zadejte úplnou adresu včetně protokolu, například „https://google.com“. Pokud pole pro přesměrování necháte prázdné, web bude pouze zablokován bez přesměrování. Kliknutím na tlačítko Uložit pravidlo použijete. Chcete-li pravidlo aktualizovat, smažte staré a vytvořte nové."
+  },
   "addrule": { "message": "Přidat nové pravidlo" },
-  "blockurl": { "message": "Zadejte adresu k zablokování" },
-  "redirecturl": { "message": "Zadejte adresu pro přesměrování (volitelné)" },
+  "blockurl": { "message": "Zadejte URL k blokování" },
+  "redirecturl": { "message": "Zadejte přesměrovací URL (nepovinné)" },
   "savebtn": { "message": "Uložit" },
-  "deletebtn": { "message": "Odstranit" },
+  "deletebtn": { "message": "Smazat" },
   "alertruleexist": { "message": "Pravidlo již existuje" },
   "savedrules": {
-    "message": "Uložená pravidla: $ruleslength$",
+    "message": "Uloženo $ruleslength$ pravidel",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +23,12 @@
     }
   },
   "wrongredirecturl": { "message": "Neplatná přesměrovací URL" },
-  "blockurlonlyascii": { "message": "K dispozici jsou pouze znaky ASCII pro blokování URL" },
-  "blockurlonlylower": { "message": "K dispozici jsou pouze malá písmena pro blokování URL" }
+  "blockurlonlyascii": { "message": "URL k blokování může obsahovat pouze znaky ASCII" },
+  "blockurlonlylower": { "message": "Povolena pouze malá písmena" },
+  "donatespantext": { "message": "Líbí se vám toto rozšíření? Podpořte jeho vývoj!" },
+  "donatebtntext": { "message": "Přispět" },
+  "blockthat": { "message": "Zablokovat tento web" },
+  "sendfeedbackbutton": { "message": "Odeslat zpětnou vazbu" },
+  "sendfeedbacksubject": { "message": "Zpětná vazba k rozšíření Block Site" },
+  "sendfeedbackbody": { "message": "Dobrý den, rád bych se podělil o následující zpětnou vazbu:\n\n" }
 }

@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Sivuston Estolaajennus" },
-  "shortname": { "message": "Estä Sivusto" },
-  "description": { "message": "Estä ja uudelleenohjaa verkkosivustoja helposti mukautettujen sääntöjen avulla pysyäksesi keskittyneenä ja tuottavana." },
-  "defaulttitle": { "message": "Pysy keskittyneenä ja tuottavana" },
-  "header": { "message": "Sivuston Estäjä" },
-  "paragraph": { "message": "Estääksesi resurssin, kirjoita sen nimen osa vasempaan kenttään ilman protokollaa. Esimerkiksi, kirjoittamalla \"facebook\" estät tämän resurssin kaikki aliverkkotunnukset. Oikeaan kenttään kirjoita uudelleenohjaus-URL, mukaan lukien protokolla, esimerkiksi \"https:\/\/google.com\". Klikkaa sitten Tallenna-painiketta. Jos uudelleenohjaus-URL-kenttä jätetään tyhjäksi, kohdesivusto estetään pelkästään. Muuttaaksesi sääntöä, poista vanha sääntö ja lisää uusi." },
+  "chromename": { "message": "Sivustojen Estolaajennus" },
+  "shortname": { "message": "Sivustoesto" },
+  "description": { "message": "Estä ja uudelleenohjaa verkkosivustoja helposti mukautettavilla säännöillä pysyäksesi keskittyneenä ja tuottavana." },
+  "defaulttitle": { "message": "Keskity ja ole tuottava" },
+  "header": { "message": "Sivustoesto" },
+  "paragraph": { "message": "Estääksesi verkkosivuston tai resurssin, kirjoita osa sen nimestä kenttään, jossa lukee \"Kirjoita estettävä URL\" — esimerkiksi \"facebook\" estää kaikki siihen liittyvät aliverkkotunnukset. Kirjoita kenttään \"Kirjoita uudelleenohjaus-URL\" koko uudelleenohjausosoite, mukaan lukien protokolla, esimerkiksi \"https://google.com\". Jos uudelleenohjauskenttä jätetään tyhjäksi, sivusto estetään ilman uudelleenohjausta. Napsauta Tallenna-painiketta ottaaksesi säännön käyttöön. Päivittääksesi säännön, poista vanha ja luo uusi." },
   "addrule": { "message": "Lisää uusi sääntö" },
-  "blockurl": { "message": "Anna estettävä osoite" },
-  "redirecturl": { "message": "Anna uudelleenohjausosoite (valinnainen)" },
+  "blockurl": { "message": "Kirjoita estettävä URL" },
+  "redirecturl": { "message": "Kirjoita uudelleenohjaus-URL (valinnainen)" },
   "savebtn": { "message": "Tallenna" },
   "deletebtn": { "message": "Poista" },
   "alertruleexist": { "message": "Sääntö on jo olemassa" },
   "savedrules": {
-    "message": "Tallennettuja sääntöjä: $ruleslength$",
+    "message": "$ruleslength$ tallennettua sääntöä",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,12 @@
     }
   },
   "wrongredirecturl": { "message": "Virheellinen uudelleenohjaus-URL" },
-  "blockurlonlyascii": { "message": "Vain ASCII käytettävissä URL-estoa varten" },
-  "blockurlonlylower": { "message": "Vain pienet kirjaimet käytettävissä URL-estoa varten" }
+  "blockurlonlyascii": { "message": "Vain ASCII-merkit sallittu estettävässä URL-osoitteessa" },
+  "blockurlonlylower": { "message": "Vain pienet kirjaimet sallittu" },
+  "donatespantext": { "message": "Pidätkö tästä laajennuksesta? Tue sen kehitystä!" },
+  "donatebtntext": { "message": "Lahjoita" },
+  "blockthat": { "message": "Estä tämä sivusto" },
+  "sendfeedbackbutton": { "message": "Lähetä palautetta" },
+  "sendfeedbacksubject": { "message": "Palaute: Block Site -laajennus" },
+  "sendfeedbackbody": { "message": "Hei, haluaisin jakaa seuraavan palautteen:\n\n" }
 }
