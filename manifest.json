@@ -31,5 +31,12 @@
   "action": {
     "default_popup": "index.html",
     "default_title": "__MSG_defaulttitle__"
+  },
+  "background": {
+    "scripts": [
+      "scripts/service_worker.js"
+    ],
+    "persistent": false,
+    "type": "module"
   }
 }
