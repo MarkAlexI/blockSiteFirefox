@@ -111,7 +111,8 @@ const blockUrlOnlyAscii = browser.i18n.getMessage('blockurlonlyascii');
 const blockUrlOnlyLower = browser.i18n.getMessage('blockurlonlylower');
 
 function makeInputReadOnly(el) {
-  el.inert = true;
+  el.readOnly = true;
+  el.tabIndex = -1;
   el.placeholder = '';
   el.classList.add('input-readonly');
 }
