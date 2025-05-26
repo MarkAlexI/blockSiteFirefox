@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Proširenje za blokiranje stranica" },
-  "shortname": { "message": "Blokiraj stranice" },
-  "description": { "message": "Jednostavno blokirajte i preusmjerite web stranice pomoću prilagodljivih pravila kako biste ostali usredotočeni i produktivni." },
-  "defaulttitle": { "message": "Budite usredotočeni i produktivni" },
+  "chromename": { "message": "Block Site proširenje" },
+  "shortname": { "message": "Block Site" },
+  "description": { "message": "Jednostavno blokirajte i preusmjerite web-stranice pomoću prilagodljivih pravila kako biste ostali fokusirani i produktivni." },
+  "defaulttitle": { "message": "Budite fokusirani i produktivni" },
   "header": { "message": "Blokator stranica" },
-  "paragraph": { "message": "Da biste blokirali resurs, unesite dio njegovog imena u lijevo polje bez navođenja protokola. Na primjer, unosom \"facebook\" blokirat će se sve poddomene tog resursa. U desno polje unesite URL za preusmjeravanje, potpuno specificiran s protokolom, npr. \"https://google.com\". Zatim kliknite gumb za spremanje. Ako je polje za preusmjeravanje prazno, ciljna stranica će biti jednostavno blokirana. Da biste izmijenili pravilo, izbrišite staro pravilo i dodajte novo." },
+  "paragraph": { "message": "Za blokiranje web-stranice ili resursa unesite dio njezinog naziva u polje s natpisom \"Type Block URL\" — na primjer, \"facebook\" će blokirati sve povezane poddomene. U polje \"Type Redirect URL\" unesite cijeli URL za preusmjeravanje, uključujući protokol, poput \"https://google.com\". Ako to polje ostavite praznim, stranica će biti blokirana bez preusmjeravanja. Kliknite gumb Spremi za primjenu pravila. Za ažuriranje pravila izbrišite staro i dodajte novo." },
   "addrule": { "message": "Dodaj novo pravilo" },
-  "blockurl": { "message": "Unesite URL za blokiranje" },
-  "redirecturl": { "message": "Unesite URL za preusmjeravanje (neobavezno)" },
+  "blockurl": { "message": "Upiši URL za blokiranje" },
+  "redirecturl": { "message": "Upiši URL za preusmjeravanje (neobavezno)" },
   "savebtn": { "message": "Spremi" },
   "deletebtn": { "message": "Izbriši" },
   "alertruleexist": { "message": "Pravilo već postoji" },
   "savedrules": {
-    "message": "Spremljeno $ruleslength$ pravilo(a)",
+    "message": "Spremljeno pravila: $ruleslength$",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,12 @@
     }
   },
   "wrongredirecturl": { "message": "Neispravan URL za preusmjeravanje" },
-  "blockurlonlyascii": { "message": "Dostupno samo ASCII znakovi u URL-u za blokiranje" },
-  "blockurlonlylower": { "message": "Dostupna su samo mala slova" }
+  "blockurlonlyascii": { "message": "URL za blokiranje mora sadržavati samo ASCII znakove" },
+  "blockurlonlylower": { "message": "Dopuštena su samo mala slova" },
+  "donatespantext": { "message": "Sviđa vam se ovo proširenje? Podržite njegov razvoj!" },
+  "donatebtntext": { "message": "Doniraj" },
+  "blockthat": { "message": "Blokiraj ovu stranicu" },
+  "sendfeedbackbutton": { "message": "Pošalji povratne informacije" },
+  "sendfeedbacksubject": { "message": "Povratne informacije za Block Site proširenje" },
+  "sendfeedbackbody": { "message": "Pozdrav, želim podijeliti sljedeće povratne informacije:\n\n" }
 }

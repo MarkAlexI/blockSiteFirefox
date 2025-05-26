@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Webhely Blokkoló Kiegészítő" },
-  "shortname": { "message": "Webhely Blokkoló" },
-  "description": { "message": "Blokkolja és irányítsa át könnyedén a webhelyeket egyéni szabályokkal, hogy fókuszált és produktív maradjon." },
-  "defaulttitle": { "message": "Maradjon fókuszált és produktív" },
-  "header": { "message": "Webhely Blokkoló" },
-  "paragraph": { "message": "Forrás blokkolásához adjon meg egy részét a nevének a bal oldali mezőben protokoll nélkül. Például, ha beírja a \"facebook\" szót, akkor az összes aldomain blokkolva lesz ennél a forrásnál. A jobb oldali mezőbe írja be az átirányítási URL-t teljes protokollal, például \"https:\/\/google.com\". Ezután kattintson a mentés gombra. Ha az átirányítási URL mező üres marad, a célwebhely csak blokkolva lesz. Szabály módosításához törölje a régi szabályt, és adjon hozzá újat." },
+  "chromename": { "message": "Webhelyblokkoló bővítmény" },
+  "shortname": { "message": "Webhelyblokkoló" },
+  "description": { "message": "Weboldalak egyszerű blokkolása és átirányítása testreszabható szabályokkal a fókusz és a termelékenység megőrzéséhez." },
+  "defaulttitle": { "message": "Maradj fókuszált és produktív" },
+  "header": { "message": "Webhelyblokkoló" },
+  "paragraph": { "message": "Egy webhely vagy erőforrás blokkolásához írd be a nevének egy részét a \"Type Block URL\" mezőbe — például a \"facebook\" az összes kapcsolódó aldomain blokkolását eredményezi. Az \"Type Redirect URL\" mezőbe add meg a teljes átirányítási címet, beleértve a protokollt is, például: \"https://google.com\". Ha ezt a mezőt üresen hagyod, az oldal átirányítás nélkül kerül blokkolásra. A szabály alkalmazásához kattints a Mentés gombra. A szabály frissítéséhez töröld a régit, és hozz létre egy új bejegyzést." },
   "addrule": { "message": "Új szabály hozzáadása" },
-  "blockurl": { "message": "Adja meg a blokkolni kívánt címet" },
-  "redirecturl": { "message": "Adja meg az átirányítási címet (opcionális)" },
+  "blockurl": { "message": "Írd be a blokkolandó URL-t" },
+  "redirecturl": { "message": "Írd be az átirányítási URL-t (opcionális)" },
   "savebtn": { "message": "Mentés" },
   "deletebtn": { "message": "Törlés" },
   "alertruleexist": { "message": "A szabály már létezik" },
   "savedrules": {
-    "message": "Mentett szabályok száma: $ruleslength$",
+    "message": "$ruleslength$ mentett szabály",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,12 @@
     }
   },
   "wrongredirecturl": { "message": "Érvénytelen átirányítási URL" },
-  "blockurlonlyascii": { "message": "Csak ASCII érhető el az URL blokkolásához" },
-  "blockurlonlylower": { "message": "Csak kisbetűk érhetők el az URL blokkolásához" }
+  "blockurlonlyascii": { "message": "A blokkolandó URL csak ASCII karaktereket tartalmazhat" },
+  "blockurlonlylower": { "message": "Csak kisbetűk engedélyezettek" },
+  "donatespantext": { "message": "Tetszik ez a bővítmény? Támogasd a fejlesztését!" },
+  "donatebtntext": { "message": "Adományozás" },
+  "blockthat": { "message": "Webhely blokkolása" },
+  "sendfeedbackbutton": { "message": "Visszajelzés küldése" },
+  "sendfeedbacksubject": { "message": "Visszajelzés a Webhelyblokkoló bővítményhez" },
+  "sendfeedbackbody": { "message": "Helló, az alábbi visszajelzést szeretném megosztani:\n\n" }
 }

@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Pagharang ng Site Extension" },
-  "shortname": { "message": "Pagharang ng Site" },
-  "description": { "message": "Madaling harangan at i-redirect ang mga website gamit ang mga nako-customize na patakaran upang manatiling nakatuon at produktibo." },
-  "defaulttitle": { "message": "Maging Pokus at Produktibo" },
-  "header": { "message": "Pangharang ng Site" },
-  "paragraph": { "message": "Upang harangan ang isang mapagkukunan, ipasok ang bahagi ng pangalan nito sa kaliwang input field nang hindi tinutukoy ang protocol. Halimbawa, ang pagpasok ng \"facebook\" ay haharang sa lahat ng subdomain ng mapagkukunang ito. Sa kanang input field, ipasok ang URL para sa pag-redirect, na ganap na tinukoy gamit ang protocol, hal. \"https://google.com\". Pagkatapos, i-click ang pindutan ng pag-save. Kung walang inilagay na URL para sa pag-redirect, ang target na site ay simpleng mahaharang. Upang baguhin ang isang patakaran, tanggalin ang lumang patakaran at magdagdag ng bago." },
-  "addrule": { "message": "Magdagdag ng bagong patakaran" },
-  "blockurl": { "message": "I-type ang URL na haharangin" },
-  "redirecturl": { "message": "I-type ang URL ng pag-redirect (opsyonal)" },
+  "chromename": { "message": "Extension sa Pag-block ng Site" },
+  "shortname": { "message": "Block Site Ext" },
+  "description": { "message": "Madaling i-block at i-redirect ang mga website gamit ang mga nako-customize na panuntunan upang manatiling nakatutok at produktibo." },
+  "defaulttitle": { "message": "Maging Nakatutok at Produktibo" },
+  "header": { "message": "Site Blocker" },
+  "paragraph": { "message": "Para i-block ang isang website o resource, ilagay ang bahagi ng pangalan nito sa input field na may placeholder na \"Type Block URL\" — halimbawa, ang \"facebook\" ay magba-block sa lahat ng kaugnay na subdomain. Sa field na may placeholder na \"Type Redirect URL\", ilagay ang buong redirect address kasama ang protocol, gaya ng \"https://google.com\". Kung walang laman ang redirect field, ang site ay iba-block nang walang redirection. I-click ang Save button upang ilapat ang panuntunan. Para i-update ang panuntunan, burahin ang luma at gumawa ng panibagong entry." },
+  "addrule": { "message": "Magdagdag ng bagong panuntunan" },
+  "blockurl": { "message": "I-type ang Block URL" },
+  "redirecturl": { "message": "I-type ang Redirect URL (opsyonal)" },
   "savebtn": { "message": "I-save" },
-  "deletebtn": { "message": "Tanggalin" },
-  "alertruleexist": { "message": "Umiiral na ang patakaran" },
+  "deletebtn": { "message": "I-delete" },
+  "alertruleexist": { "message": "Umiiral na ang panuntunan" },
   "savedrules": {
-    "message": "Naka-save na $ruleslength$ patakaran",
+    "message": "Na-save na $ruleslength$ panuntunan",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Di-wastong URL ng pag-redirect" },
-  "blockurlonlyascii": { "message": "Tanging ASCII lamang ang pinapayagan sa URL na haharangin" },
-  "blockurlonlylower": { "message": "Tanging maliliit na titik lamang ang pinapayagan" }
+  "wrongredirecturl": { "message": "Di-wastong redirect URL" },
+  "blockurlonlyascii": { "message": "Tanging ASCII lang ang pinapayagan sa block URL" },
+  "blockurlonlylower": { "message": "Tanging maliliit na titik lamang ang pinapayagan" },
+  "donatespantext": { "message": "Nagustuhan mo ba ang extension na ito? Suportahan ang pag-develop nito!" },
+  "donatebtntext": { "message": "Mag-donate" },
+  "blockthat": { "message": "I-block ang Site na Ito" },
+  "sendfeedbackbutton": { "message": "Magpadala ng Feedback" },
+  "sendfeedbacksubject": { "message": "Feedback para sa Block Site Extension" },
+  "sendfeedbackbody": { "message": "Kamusta, nais kong ibahagi ang sumusunod na feedback:\n\n" }
 }

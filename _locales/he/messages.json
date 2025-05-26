@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "תוסף לחסימת אתרים" },
-  "shortname": { "message": "חסום אתר" },
-  "description": { "message": "חסום והפנה אתרים בקלות עם כללים מותאמים אישית כדי להישאר ממוקד ופרודוקטיבי." },
-  "defaulttitle": { "message": "הישאר ממוקד ופרודוקטיבי" },
+  "chromename": { "message": "הרחבת חסימת אתרים" },
+  "shortname": { "message": "חסימת אתרים" },
+  "description": { "message": "חסום והפנה אתרים בקלות עם חוקים מותאמים אישית כדי להישאר מרוכז ויעיל." },
+  "defaulttitle": { "message": "הישאר מרוכז ויעיל" },
   "header": { "message": "חוסם אתרים" },
-  "paragraph": { "message": "כדי לחסום מקור, הזן חלק משמו בשדה ההזנה השמאלי ללא ציון פרוטוקול. לדוגמה, הזנת \"facebook\" תחסום את כל תתי-הדומיינים של אותו מקור. בשדה ההזנה הימני, הזן כתובת URL מלאה להפניה הכוללת פרוטוקול, לדוגמה \"https:\/\/google.com\". לאחר מכן לחץ על כפתור השמירה. אם תשאיר את שדה כתובת ה-URL של ההפניה ריק, האתר ייחסם בלבד. כדי לערוך כלל, מחק את הכלל הישן והוסף חדש." },
-  "addrule": { "message": "הוסף כלל חדש" },
-  "blockurl": { "message": "הזן כתובת לחסימה" },
-  "redirecturl": { "message": "הזן כתובת להפניה (אופציונלי)" },
+  "paragraph": { "message": "כדי לחסום אתר או משאב, הזן חלק מהשם שלו בשדה עם התווית \"Type Block URL\" — לדוגמה, \"facebook\" יחסום את כל תתי-הדומיינים הקשורים. בשדה עם התווית \"Type Redirect URL\", הזן את כתובת ההפניה המלאה כולל הפרוטוקול, כגון \"https://google.com\". אם שדה ההפניה נשאר ריק, האתר יחסם ללא הפניה. לחץ על כפתור השמירה כדי להחיל את החוק. לעדכון חוק, מחק את הישן והזן חדש." },
+  "addrule": { "message": "הוסף חוק חדש" },
+  "blockurl": { "message": "כתוב כתובת URL לחסימה" },
+  "redirecturl": { "message": "כתוב כתובת URL להפניה (אופציונלי)" },
   "savebtn": { "message": "שמור" },
   "deletebtn": { "message": "מחק" },
-  "alertruleexist": { "message": "הכלל כבר קיים" },
+  "alertruleexist": { "message": "החוק כבר קיים" },
   "savedrules": {
-    "message": "כללים שנשמרו: $ruleslength$",
+    "message": "$ruleslength$ חוק(ים) נשמרו",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "כתובת URL להפניה מחדש לא חוקית" },
-  "blockurlonlyascii": { "message": "ASCII בלבד זמין לחסימת כתובת URL" },
-  "blockurlonlylower": { "message": "אותיות קטנות בלבד זמינות לחסימת כתובת URL" }
+  "wrongredirecturl": { "message": "כתובת ההפניה אינה תקינה" },
+  "blockurlonlyascii": { "message": "ניתן להשתמש רק בתווים מסוג ASCII בכתובת URL לחסימה" },
+  "blockurlonlylower": { "message": "ניתן להשתמש רק באותיות קטנות" },
+  "donatespantext": { "message": "אהבת את ההרחבה? תמוך בפיתוח שלה!" },
+  "donatebtntext": { "message": "תרום" },
+  "blockthat": { "message": "חסום את האתר הזה" },
+  "sendfeedbackbutton": { "message": "שלח משוב" },
+  "sendfeedbacksubject": { "message": "משוב עבור ההרחבה Block Site" },
+  "sendfeedbackbody": { "message": "שלום, ברצוני לשתף את המשוב הבא:\n\n" }
 }
