@@ -6,7 +6,7 @@
   "author": "MarkAlexI",
   "homepage_url": "https://ext.pp.ua/blocksite.html",
   "default_locale": "en",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",
