@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Ekstensi Blokir Situs" },
-  "shortname": { "message": "Blokir Situs" },
-  "description": { "message": "Blokir dan alihkan situs web dengan mudah menggunakan aturan yang disesuaikan agar tetap fokus dan produktif." },
-  "defaulttitle": { "message": "Tetap fokus dan produktif" },
+  "chromename": { "message": "Ekstensi Pemblokir Situs" },
+  "shortname": { "message": "Pemblokir Situs" },
+  "description": { "message": "Blokir dan alihkan situs web dengan mudah menggunakan aturan yang dapat disesuaikan untuk tetap fokus dan produktif." },
+  "defaulttitle": { "message": "Tetap Fokus dan Produktif" },
   "header": { "message": "Pemblokir Situs" },
-  "paragraph": { "message": "Untuk memblokir sumber, masukkan sebagian nama situs di kolom kiri tanpa menyertakan protokol. Misalnya, memasukkan \"facebook\" akan memblokir semua subdomain dari sumber tersebut. Di kolom kanan, masukkan URL pengalihan lengkap dengan protokol, misalnya, \"https:\/\/google.com\". Kemudian, klik tombol simpan. Jika kolom URL pengalihan dibiarkan kosong, situs target hanya akan diblokir. Untuk mengubah aturan, hapus aturan lama dan tambahkan yang baru." },
-  "addrule": { "message": "Tambahkan aturan baru" },
-  "blockurl": { "message": "Masukkan alamat untuk diblokir" },
-  "redirecturl": { "message": "Masukkan alamat pengalihan (opsional)" },
+  "paragraph": { "message": "Untuk memblokir situs atau sumber daya, masukkan sebagian nama ke dalam kolom isian dengan placeholder \"Type Block URL\" — misalnya, \"facebook\" akan memblokir semua subdomain terkait. Pada kolom dengan placeholder \"Type Redirect URL\", masukkan alamat pengalihan lengkap termasuk protokolnya, seperti \"https://google.com\". Jika kolom pengalihan dikosongkan, situs akan diblokir tanpa pengalihan. Klik tombol Simpan untuk menerapkan aturan. Untuk memperbarui aturan, hapus yang lama dan buat entri baru." },
+  "addrule": { "message": "Tambah aturan baru" },
+  "blockurl": { "message": "Ketik URL yang diblokir" },
+  "redirecturl": { "message": "Ketik URL pengalihan (opsional)" },
   "savebtn": { "message": "Simpan" },
   "deletebtn": { "message": "Hapus" },
   "alertruleexist": { "message": "Aturan sudah ada" },
   "savedrules": {
-    "message": "Aturan tersimpan: $ruleslength$",
+    "message": "$ruleslength$ aturan tersimpan",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,12 @@
     }
   },
   "wrongredirecturl": { "message": "URL pengalihan tidak valid" },
-  "blockurlonlyascii": { "message": "Hanya ASCII yang tersedia untuk memblokir URL" },
-  "blockurlonlylower": { "message": "Hanya huruf kecil yang tersedia untuk memblokir URL" }
+  "blockurlonlyascii": { "message": "Hanya karakter ASCII yang diperbolehkan di URL blok" },
+  "blockurlonlylower": { "message": "Hanya huruf kecil yang diperbolehkan" },
+  "donatespantext": { "message": "Suka ekstensi ini? Dukung pengembangannya!" },
+  "donatebtntext": { "message": "Donasi" },
+  "blockthat": { "message": "Blokir Situs Ini" },
+  "sendfeedbackbutton": { "message": "Kirim Masukan" },
+  "sendfeedbacksubject": { "message": "Masukan untuk Ekstensi Pemblokir Situs" },
+  "sendfeedbackbody": { "message": "Halo, saya ingin menyampaikan masukan berikut:\n\n" }
 }
