@@ -4,6 +4,7 @@ import { isValidAscii } from './scripts/isValidAscii.js';
 import { isOnlyLowerCase } from './scripts/isOnlyLowerCase.js';
 import { isBlockedURL } from './scripts/isBlockedURL.js';
 import { getCurrentTabs } from './scripts/getCurrentTabs.js';
+import { closeTabsMatchingRule } from './scripts/closeTabs.js';
 
 const donateSpan = document.getElementById('donate-text');
 const donateSpanText = browser.i18n.getMessage('donatespantext');
@@ -97,6 +98,8 @@ const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
           statusOutput.value = outputText;
           customAlert('+ 1');
           
+          closeTabsMatchingRule(url);
+          
           newButton.remove();
         });
       }
@@ -168,6 +171,8 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
           makeInputReadOnly(redirectURL);
           saveButton && saveButton.remove();
           customAlert('+ 1');
+          
+          closeTabsMatchingRule(newRule.blockURL);
         });
       }
     });
