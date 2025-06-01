@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Blokuoti svetainių plėtinys" },
-  "shortname": { "message": "Blokuoti svetaines" },
-  "description": { "message": "Lengvai blokuokite ir peradresuokite svetaines su pritaikomomis taisyklėmis, kad išliktumėte susikaupę ir produktyvūs." },
+  "chromename": { "message": "Svetainių blokavimo plėtinys" },
+  "shortname": { "message": "Svetainių blok." },
+  "description": { "message": "Lengvai blokuokite ir nukreipkite svetaines naudodami pritaikomas taisykles, kad išliktumėte susikaupę ir produktyvūs." },
   "defaulttitle": { "message": "Būkite susikaupę ir produktyvūs" },
-  "header": { "message": "Svetainių blokavimas" },
-  "paragraph": { "message": "Norėdami užblokuoti išteklius, įveskite dalį jų pavadinimo kairėje įvesties lauke, nenurodydami protokolo. Pavyzdžiui, įvedus „facebook“, bus užblokuoti visi šio ištekliaus subdomenai. Dešinėje įvesties laukelyje įveskite peradresavimo URL, visiškai nurodytą su protokolu, pvz., „https:\/\/google.com“. Tada paspauskite išsaugoti. Jei peradresavimo URL paliekamas tuščias, tikslinė svetainė bus tiesiog užblokuota. Norėdami pakeisti taisyklę, ištrinkite senąją ir pridėkite naują." },
+  "header": { "message": "Svetainių blokatorius" },
+  "paragraph": { "message": "Norėdami užblokuoti svetainę ar išteklių, įveskite jos pavadinimo dalį lauke su žyme „Įveskite blokuojamą URL“ — pavyzdžiui, „facebook“ užblokuos visus susijusius subdomenus. Lauke „Įveskite peradresavimo URL“ įveskite visą peradresavimo adresą su protokolu, pvz., „https://google.com“. Jei šis laukas paliekamas tuščias, svetainė bus užblokuota be peradresavimo. Spustelėkite mygtuką „Išsaugoti“, kad pritaikytumėte taisyklę. Norėdami atnaujinti taisyklę, ištrinkite senąją ir sukurkite naują." },
   "addrule": { "message": "Pridėti naują taisyklę" },
   "blockurl": { "message": "Įveskite blokuojamą URL" },
-  "redirecturl": { "message": "Įveskite peradresavimo URL (pasirinktinai)" },
+  "redirecturl": { "message": "Įveskite peradresavimo URL (nebūtina)" },
   "savebtn": { "message": "Išsaugoti" },
   "deletebtn": { "message": "Ištrinti" },
-  "alertruleexist": { "message": "Taisyklių jau egzistuoja" },
+  "alertruleexist": { "message": "Taisyklė jau egzistuoja" },
   "savedrules": {
-    "message": "Išsaugotos $ruleslength$ taisyklės",
+    "message": "Išsaugota taisyklių: $ruleslength$",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,13 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Neteisingas peradresavimo URL" },
-  "blockurlonlyascii": { "message": "Galima naudoti tik ASCII simbolius blokuojamame URL" },
-  "blockurlonlylower": { "message": "Galima naudoti tik mažąsias raides blokuojamame URL" }
+  "wrongredirecturl": { "message": "Netinkamas peradresavimo URL" },
+  "blockurlonlyascii": { "message": "Blokuojamam URL leidžiami tik ASCII simboliai" },
+  "blockurlonlylower": { "message": "Leidžiamos tik mažosios raidės" },
+  "donatespantext": { "message": "Patinka šis plėtinys? Paremkite jo kūrimą!" },
+  "donatebtntext": { "message": "Paaukoti" },
+  "blockthat": { "message": "Blokuoti šią svetainę" },
+  "sendfeedbackbutton": { "message": "Siųsti atsiliepimą" },
+  "sendfeedbacksubject": { "message": "Atsiliepimas apie „Block Site Extension“" },
+  "sendfeedbackbody": { "message": "Sveiki, norėčiau pasidalinti šiuo atsiliepimu:\n\n" }
 }
