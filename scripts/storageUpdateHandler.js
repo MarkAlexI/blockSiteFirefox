@@ -1,4 +1,5 @@
 export async function storageUpdateHandler(changes) {
+  const redirectURL = browser.runtime.getURL("blocked.html");
   const template = changes.rules.newValue.slice();
   
   const newRules = template.map((rule, i) => {
@@ -16,7 +17,7 @@ export async function storageUpdateHandler(changes) {
     
     base.action = rule.redirectURL ?
       { type: "redirect", redirect: { url: rule.redirectURL } } :
-      { type: "block" };
+      { type: "redirect", redirect: { url: redirectURL } };
     
     return base;
   });
