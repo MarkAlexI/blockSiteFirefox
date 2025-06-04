@@ -28,5 +28,15 @@
   "blockthat": { "message": "屏蔽该网站" },
   "sendfeedbackbutton": { "message": "发送反馈" },
   "sendfeedbacksubject": { "message": "Block Site 扩展反馈" },
-  "sendfeedbackbody": { "message": "您好，我想分享以下反馈内容：\n\n" }
+  "sendfeedbackbody": { "message": "您好，我想分享以下反馈内容：\n\n" },
+  "quote1": { "message": "永不放弃。" },
+  "quote2": { "message": "相信自己。" },
+  "quote3": { "message": "每天都是新的机会。" },
+  "quote4": { "message": "成功始于第一步。" },
+  "quote5": { "message": "梦想要大。" },
+  "quote6": { "message": "从错误中学习。" },
+  "quote7": { "message": "你比自己想象的更强大。" },
+  "quote8": { "message": "继续前进。" },
+  "quote9": { "message": "保持积极心态。" },
+  "quote10": { "message": "你的潜力是无限的。" }
 }

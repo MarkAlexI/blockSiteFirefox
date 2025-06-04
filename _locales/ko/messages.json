@@ -28,5 +28,15 @@
   "blockthat": { "message": "이 사이트 차단" },
   "sendfeedbackbutton": { "message": "피드백 보내기" },
   "sendfeedbacksubject": { "message": "사이트 차단 확장 프로그램에 대한 피드백" },
-  "sendfeedbackbody": { "message": "안녕하세요. 다음과 같은 피드백을 공유하고 싶습니다:\n\n" }
+  "sendfeedbackbody": { "message": "안녕하세요. 다음과 같은 피드백을 공유하고 싶습니다:\n\n" },
+  "quote1": { "message": "절대 포기하지 마세요." },
+  "quote2": { "message": "자신을 믿으세요." },
+  "quote3": { "message": "매일은 새로운 기회입니다." },
+  "quote4": { "message": "성공은 첫걸음에서 시작됩니다." },
+  "quote5": { "message": "크게 꿈꾸세요." },
+  "quote6": { "message": "실수로부터 배우세요." },
+  "quote7": { "message": "당신은 생각보다 강합니다." },
+  "quote8": { "message": "계속 나아가세요." },
+  "quote9": { "message": "긍정적인 마음을 유지하세요." },
+  "quote10": { "message": "당신의 가능성은 무한합니다." }
 }

@@ -28,5 +28,15 @@
   "blockthat": { "message": "Diese Website blockieren" },
   "sendfeedbackbutton": { "message": "Feedback senden" },
   "sendfeedbacksubject": { "message": "Feedback zur Erweiterung Block Site" },
-  "sendfeedbackbody": { "message": "Hallo, ich möchte folgendes Feedback mitteilen:\n\n" }
+  "sendfeedbackbody": { "message": "Hallo, ich möchte folgendes Feedback mitteilen:\n\n" },
+  "quote1": { "message": "Gib niemals auf." },
+  "quote2": { "message": "Glaube an dich selbst." },
+  "quote3": { "message": "Jeder Tag ist eine neue Chance." },
+  "quote4": { "message": "Erfolg beginnt mit dem ersten Schritt." },
+  "quote5": { "message": "Träume groß." },
+  "quote6": { "message": "Lerne aus Fehlern." },
+  "quote7": { "message": "Du bist stärker als du denkst." },
+  "quote8": { "message": "Mach einfach weiter." },
+  "quote9": { "message": "Bleibe positiv." },
+  "quote10": { "message": "Dein Potenzial ist unbegrenzt." }
 }

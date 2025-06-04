@@ -24,6 +24,15 @@ donateButton.addEventListener('click', (e) => {
   window.open(donateURL, '_blank');
 });
 
+const quoteElement = document.getElementById("motivational-quote");
+
+const totalQuotes = 10;
+const randomIndex = Math.floor(Math.random() * totalQuotes) + 1;
+const quoteKey = `quote${randomIndex}`;
+
+const message = browser.i18n.getMessage(quoteKey);
+quoteElement.textContent = message || "Stay motivated!";
+
 const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
 const statusOutput = document.getElementById('status');

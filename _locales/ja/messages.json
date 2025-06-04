@@ -28,5 +28,15 @@
   "blockthat": { "message": "このサイトをブロック" },
   "sendfeedbackbutton": { "message": "フィードバックを送信" },
   "sendfeedbacksubject": { "message": "Block Site 拡張機能へのフィードバック" },
-  "sendfeedbackbody": { "message": "こんにちは。以下のフィードバックを共有したいと思います：\n\n" }
+  "sendfeedbackbody": { "message": "こんにちは。以下のフィードバックを共有したいと思います：\n\n" },
+  "quote1": { "message": "決してあきらめないで。" },
+  "quote2": { "message": "自分を信じて。" },
+  "quote3": { "message": "毎日が新しいチャンスです。" },
+  "quote4": { "message": "成功は最初の一歩から始まります。" },
+  "quote5": { "message": "大きな夢を持とう。" },
+  "quote6": { "message": "失敗から学ぼう。" },
+  "quote7": { "message": "あなたは思っているより強い。" },
+  "quote8": { "message": "前に進み続けよう。" },
+  "quote9": { "message": "前向きな気持ちを持とう。" },
+  "quote10": { "message": "あなたの可能性は無限大です。" }
 }

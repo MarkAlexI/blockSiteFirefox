@@ -28,5 +28,15 @@
   "blockthat": { "message": "Bloquear este sitio" },
   "sendfeedbackbutton": { "message": "Enviar comentarios" },
   "sendfeedbacksubject": { "message": "Comentarios sobre la extensión Block Site" },
-  "sendfeedbackbody": { "message": "Hola, me gustaría compartir el siguiente comentario:\n\n" }
+  "sendfeedbackbody": { "message": "Hola, me gustaría compartir el siguiente comentario:\n\n" },
+  "quote1": { "message": "Nunca te rindas." },
+  "quote2": { "message": "Cree en ti mismo." },
+  "quote3": { "message": "Cada día es una nueva oportunidad." },
+  "quote4": { "message": "El éxito comienza con el primer paso." },
+  "quote5": { "message": "Sueña en grande." },
+  "quote6": { "message": "Aprende de los errores." },
+  "quote7": { "message": "Eres más fuerte de lo que crees." },
+  "quote8": { "message": "Sigue adelante." },
+  "quote9": { "message": "Mantén una actitud positiva." },
+  "quote10": { "message": "Tu potencial es ilimitado." }
 }

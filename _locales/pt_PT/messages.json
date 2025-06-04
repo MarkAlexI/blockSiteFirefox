@@ -28,5 +28,15 @@
   "blockthat": { "message": "Bloquear este site" },
   "sendfeedbackbutton": { "message": "Enviar feedback" },
   "sendfeedbacksubject": { "message": "Feedback sobre a extensão Block Site" },
-  "sendfeedbackbody": { "message": "Olá, gostaria de partilhar o seguinte feedback:\n\n" }
+  "sendfeedbackbody": { "message": "Olá, gostaria de partilhar o seguinte feedback:\n\n" },
+  "quote1": { "message": "Nunca desistas." },
+  "quote2": { "message": "Acredita em ti próprio." },
+  "quote3": { "message": "Cada dia é uma nova oportunidade." },
+  "quote4": { "message": "O sucesso começa com o primeiro passo." },
+  "quote5": { "message": "Sonha em grande." },
+  "quote6": { "message": "Aprende com os erros." },
+  "quote7": { "message": "És mais forte do que pensas." },
+  "quote8": { "message": "Continua a avançar." },
+  "quote9": { "message": "Mantém-te positivo." },
+  "quote10": { "message": "O teu potencial é ilimitado." }
 }

@@ -28,5 +28,15 @@
   "blockthat": { "message": "Blokir Situs Ini" },
   "sendfeedbackbutton": { "message": "Kirim Masukan" },
   "sendfeedbacksubject": { "message": "Masukan untuk Ekstensi Pemblokir Situs" },
-  "sendfeedbackbody": { "message": "Halo, saya ingin menyampaikan masukan berikut:\n\n" }
+  "sendfeedbackbody": { "message": "Halo, saya ingin menyampaikan masukan berikut:\n\n" },
+  "quote1": { "message": "Jangan pernah menyerah." },
+  "quote2": { "message": "Percayalah pada dirimu sendiri." },
+  "quote3": { "message": "Setiap hari adalah kesempatan baru." },
+  "quote4": { "message": "Kesuksesan dimulai dari langkah pertama." },
+  "quote5": { "message": "Bermimpilah besar." },
+  "quote6": { "message": "Belajar dari kesalahan." },
+  "quote7": { "message": "Kamu lebih kuat dari yang kamu pikirkan." },
+  "quote8": { "message": "Teruslah maju." },
+  "quote9": { "message": "Tetap positif." },
+  "quote10": { "message": "Potensimu tidak terbatas." }
 }

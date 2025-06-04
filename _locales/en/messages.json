@@ -28,5 +28,15 @@
   "blockthat": { "message": "Block This Site" },
   "sendfeedbackbutton": { "message": "Send Feedback" },
   "sendfeedbacksubject": { "message": "Feedback for Block Site Extension" },
-  "sendfeedbackbody": { "message": "Hello, I would like to share the following feedback:\n\n" }
+  "sendfeedbackbody": { "message": "Hello, I would like to share the following feedback:\n\n" },
+  "quote1": { "message": "Stay focused, stay strong." },
+  "quote2": { "message": "Your future is created by what you do today." },
+  "quote3": { "message": "Discipline is the bridge between goals and success." },
+  "quote4": { "message": "One site blocked, one step closer to your goal." },
+  "quote5": { "message": "Make every click count." },
+  "quote6": { "message": "Don’t watch the clock; do what it does. Keep going." },
+  "quote7": { "message": "Small steps every day lead to big results." },
+  "quote8": { "message": "Your only limit is your mind." },
+  "quote9": { "message": "Success is the sum of small efforts repeated daily." },
+  "quote10": { "message": "Focus on being productive, not busy." }
 }
