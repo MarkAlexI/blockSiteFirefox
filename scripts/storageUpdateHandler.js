@@ -1,3 +1,5 @@
+import { normalizeUrlFilter } from './normalizeUrlFilter.js';
+
 export async function storageUpdateHandler(changes) {
   const redirectURL = browser.runtime.getURL("blocked.html");
   const template = changes.rules.newValue.slice();

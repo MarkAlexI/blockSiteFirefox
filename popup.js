@@ -5,6 +5,7 @@ import { isOnlyLowerCase } from './scripts/isOnlyLowerCase.js';
 import { isBlockedURL } from './scripts/isBlockedURL.js';
 import { getCurrentTabs } from './scripts/getCurrentTabs.js';
 import { closeTabsMatchingRule } from './scripts/closeTabs.js';
+import { normalizeUrlFilter } from './scripts/normalizeUrlFilter.js';
 
 const donateSpan = document.getElementById('donate-text');
 const donateSpanText = browser.i18n.getMessage('donatespantext');
