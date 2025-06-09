@@ -1,18 +1,18 @@
 {
   "chromename": { "message": "Tiện ích Chặn Trang web" },
-  "shortname": { "message": "Chặn Trang web" },
-  "description": { "message": "Chặn và chuyển hướng các trang web dễ dàng với các quy tắc tùy chỉnh để duy trì sự tập trung và năng suất." },
-  "defaulttitle": { "message": "Duy trì tập trung và năng suất" },
+  "shortname": { "message": "Chặn Trang" },
+  "description": { "message": "Chặn và chuyển hướng trang web dễ dàng với các quy tắc tùy chỉnh để giữ sự tập trung và năng suất." },
+  "defaulttitle": { "message": "Tập trung và Hiệu quả" },
   "header": { "message": "Trình Chặn Trang web" },
-  "paragraph": { "message": "Để chặn một nguồn, hãy nhập một phần tên vào ô bên trái mà không cần chỉ định giao thức. Ví dụ, nhập \"facebook\" sẽ chặn tất cả các tên miền phụ của nguồn này. Trong ô bên phải, nhập URL chuyển hướng đầy đủ với giao thức, ví dụ: \"https:\/\/google.com\". Sau đó nhấp vào nút lưu. Nếu để trống trường URL chuyển hướng, trang web mục tiêu sẽ chỉ bị chặn. Để thay đổi quy tắc, hãy xóa quy tắc cũ và thêm quy tắc mới." },
+  "paragraph": { "message": "Để chặn một trang web hoặc tài nguyên, hãy nhập một phần tên của nó vào ô nhập có chú thích \"Nhập URL cần chặn\" — ví dụ, \"facebook\" sẽ chặn tất cả các tên miền con liên quan. Trong ô có chú thích \"Nhập URL chuyển hướng\", hãy nhập đầy đủ địa chỉ chuyển hướng bao gồm cả giao thức, chẳng hạn như \"https://google.com\". Nếu ô chuyển hướng để trống, trang web sẽ bị chặn mà không chuyển hướng. Nhấn nút Lưu để áp dụng quy tắc. Để cập nhật quy tắc, hãy xóa cái cũ và tạo quy tắc mới." },
   "addrule": { "message": "Thêm quy tắc mới" },
-  "blockurl": { "message": "Nhập địa chỉ cần chặn" },
-  "redirecturl": { "message": "Nhập địa chỉ chuyển hướng (tùy chọn)" },
+  "blockurl": { "message": "Nhập URL cần chặn" },
+  "redirecturl": { "message": "Nhập URL chuyển hướng (tùy chọn)" },
   "savebtn": { "message": "Lưu" },
   "deletebtn": { "message": "Xóa" },
   "alertruleexist": { "message": "Quy tắc đã tồn tại" },
   "savedrules": {
-    "message": "Số quy tắc đã lưu: $ruleslength$",
+    "message": "Đã lưu $ruleslength$ quy tắc",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,22 @@
     }
   },
   "wrongredirecturl": { "message": "URL chuyển hướng không hợp lệ" },
-  "blockurlonlyascii": { "message": "Chỉ có ASCII khả dụng để chặn URL" },
-  "blockurlonlylower": { "message": "Chỉ có chữ thường khả dụng để chặn URL" }
+  "blockurlonlyascii": { "message": "Chỉ cho phép ký tự ASCII trong URL chặn" },
+  "blockurlonlylower": { "message": "Chỉ cho phép chữ thường" },
+  "donatespantext": { "message": "Thích tiện ích này? Hãy ủng hộ việc phát triển nó!" },
+  "donatebtntext": { "message": "Ủng hộ" },
+  "blockthat": { "message": "Chặn trang này" },
+  "sendfeedbackbutton": { "message": "Gửi phản hồi" },
+  "sendfeedbacksubject": { "message": "Phản hồi về Tiện ích Chặn Trang web" },
+  "sendfeedbackbody": { "message": "Xin chào, tôi muốn chia sẻ phản hồi sau:\n\n" },
+  "quote1": { "message": "Tập trung, kiên định." },
+  "quote2": { "message": "Tương lai của bạn được tạo ra bởi những gì bạn làm hôm nay." },
+  "quote3": { "message": "Kỷ luật là cây cầu nối giữa mục tiêu và thành công." },
+  "quote4": { "message": "Chặn một trang, tiến gần một bước tới mục tiêu." },
+  "quote5": { "message": "Hãy để từng cú nhấp chuột có ý nghĩa." },
+  "quote6": { "message": "Đừng nhìn đồng hồ; hãy làm như nó. Tiếp tục tiến về phía trước." },
+  "quote7": { "message": "Từng bước nhỏ mỗi ngày tạo nên kết quả lớn." },
+  "quote8": { "message": "Giới hạn duy nhất là trong tâm trí bạn." },
+  "quote9": { "message": "Thành công là tổng hợp của những nỗ lực nhỏ được lặp đi lặp lại mỗi ngày." },
+  "quote10": { "message": "Tập trung vào hiệu quả, không phải sự bận rộn." }
 }
