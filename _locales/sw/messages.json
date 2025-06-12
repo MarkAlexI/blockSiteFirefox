@@ -1,18 +1,18 @@
 {
   "chromename": { "message": "Kiendelezi cha Kuzuia Tovuti" },
-  "shortname": { "message": "Zuia Tovuti" },
-  "description": { "message": "Zuia na elekeza tovuti kwa urahisi ukitumia sheria maalum ili kubaki makini na kuongeza tija." },
-  "defaulttitle": { "message": "Baki Makini na Uongeze Tija" },
-  "header": { "message": "Kizuia Tovuti" },
-  "paragraph": { "message": "Ili kuzuia rasilimali, ingiza sehemu ya jina lake kwenye uwanja wa kuingiza wa kushoto bila kutaja itifaki. Kwa mfano, kuandika \"facebook\" kutazuia vikoa vidogo vyote vya rasilimali hiyo. Katika uwanja wa kuingiza wa kulia, weka URL kamili ya kuelekeza ikiwa ni pamoja na itifaki, kwa mfano \"https:\/\/google.com\". Kisha bonyeza kitufe cha kuhifadhi. Ukiacha uwanja wa URL ya kuelekeza wazi, tovuti lengwa itazuiwa tu. Ili kuhariri sheria, futa sheria ya zamani na ongeza mpya." },
-  "addrule": { "message": "Ongeza Sheria Mpya" },
-  "blockurl": { "message": "Ingiza Anwani ya Kuzuia" },
-  "redirecturl": { "message": "Ingiza Anwani ya Kuelekeza (Hiari)" },
+  "shortname": { "message": "Kizuizi cha Tovuti" },
+  "description": { "message": "Zuia na elekeza upya tovuti kwa urahisi kwa kutumia sheria zinazoweza kubadilishwa ili ubaki makini na kuwa na tija." },
+  "defaulttitle": { "message": "Kuwa Makini na Mwenye Tija" },
+  "header": { "message": "Kizuizi cha Tovuti" },
+  "paragraph": { "message": "Ili kuzuia tovuti au rasilimali, ingiza sehemu ya jina lake katika sehemu ya maandishi iliyo na maandishi 'Type Block URL' — kwa mfano, 'facebook' itazuia vitovuti vyake vyote. Katika sehemu ya 'Type Redirect URL', ingiza anwani kamili ya kuelekeza upya ikiwa ni pamoja na itifaki kama vile 'https://google.com'. Ukiacha sehemu ya kuelekeza wazi, tovuti itazuiwa bila kuelekezwa. Bonyeza kitufe cha Hifadhi ili kutumia sheria. Ili kusasisha sheria, futa ile ya zamani na ongeza mpya." },
+  "addrule": { "message": "Ongeza sheria mpya" },
+  "blockurl": { "message": "Andika URL ya kuzuia" },
+  "redirecturl": { "message": "Andika URL ya kuelekeza (hiari)" },
   "savebtn": { "message": "Hifadhi" },
   "deletebtn": { "message": "Futa" },
   "alertruleexist": { "message": "Sheria tayari ipo" },
   "savedrules": {
-    "message": "Sheria Zilizohifadhiwa: $ruleslength$",
+    "message": "Sheria $ruleslength$ imehifadhiwa",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,23 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "URL ya uelekezaji si sahihi" },
-  "blockurlonlyascii": { "message": "Inapatikana tu ASCII kwa kuzuia URL" },
-  "blockurlonlylower": { "message": "Inapatikana tu herufi ndogo kwa kuzuia URL" }
+  "wrongredirecturl": { "message": "URL ya kuelekeza si sahihi" },
+  "blockurlonlyascii": { "message": "URL ya kuzuia inaruhusu herufi za ASCII pekee" },
+  "blockurlonlylower": { "message": "Inaruhusu herufi ndogo pekee" },
+  "donatespantext": { "message": "Unapenda kiendelezi hiki? Saidia maendeleo yake!" },
+  "donatebtntext": { "message": "Toa Mchango" },
+  "blockthat": { "message": "Zuia Tovuti Hii" },
+  "sendfeedbackbutton": { "message": "Tuma Maoni" },
+  "sendfeedbacksubject": { "message": "Maoni kuhusu Kiendelezi cha Kuzuia Tovuti" },
+  "sendfeedbackbody": { "message": "Habari, ningependa kushiriki maoni yafuatayo:\n\n" },
+  "quote1": { "message": "Kuwa makini, kuwa imara." },
+  "quote2": { "message": "Baadaye yako inatengenezwa na unachofanya leo." },
+  "quote3": { "message": "Nidhamu ni daraja kati ya malengo na mafanikio." },
+  "quote4": { "message": "Tovuti moja imezuiwa, hatua moja karibu na lengo lako." },
+  "quote5": { "message": "Hakikisha kila bonyezo lina umuhimu." },
+  "quote6": { "message": "Usiangalie saa; fanya kama inavyofanya. Endelea mbele." },
+  "quote7": { "message": "Hatua ndogo kila siku huleta matokeo makubwa." },
+  "quote8": { "message": "Kizuizi chako pekee ni akili yako." },
+  "quote9": { "message": "Mafanikio ni jumla ya juhudi ndogo zinazojirudia kila siku." },
+  "quote10": { "message": "Lenga kuwa na tija, si kuwa bize tu." }
 }
