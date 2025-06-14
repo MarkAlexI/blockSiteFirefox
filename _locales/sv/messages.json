@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Tillägg för att Blockera Webbplatser" },
-  "shortname": { "message": "Blockera Webbplats" },
-  "description": { "message": "Blockera och omdirigera enkelt webbplatser med anpassade regler för att hålla fokus och produktivitet." },
-  "defaulttitle": { "message": "Håll dig fokuserad och produktiv" },
+  "chromename": { "message": "Block Site Extension" },
+  "shortname": { "message": "Block Site Ext" },
+  "description": { "message": "Blockera och omdirigera webbplatser enkelt med anpassningsbara regler för att hålla fokus och vara produktiv." },
+  "defaulttitle": { "message": "Var fokuserad och produktiv" },
   "header": { "message": "Webbplatsblockerare" },
-  "paragraph": { "message": "För att blockera en resurs, skriv in en del av namnet i det vänstra fältet utan att ange protokollet. Till exempel kommer inmatning av 'facebook' att blockera alla underdomäner för den resursen. I det högra fältet anger du omdirigerings-URL:en, komplett med protokoll, till exempel 'https:\/\/google.com'. Klicka sedan på spara-knappen. Om omdirigeringsfältet lämnas tomt kommer målsidan bara att blockeras. För att ändra en regel, ta bort den gamla regeln och lägg till en ny." },
+  "paragraph": { "message": "För att blockera en webbplats eller resurs, skriv en del av dess namn i inmatningsfältet med texten \"Type Block URL\" — till exempel blockerar \"facebook\" alla relaterade subdomäner. I fältet \"Type Redirect URL\", skriv in den fullständiga omdirigeringsadressen inklusive protokoll, t.ex. \"https://google.com\". Om omdirigeringsfältet lämnas tomt kommer webbplatsen att blockeras utan omdirigering. Klicka på Spara för att tillämpa regeln. För att uppdatera en regel, ta bort den gamla och skapa en ny." },
   "addrule": { "message": "Lägg till ny regel" },
-  "blockurl": { "message": "Ange adress att blockera" },
-  "redirecturl": { "message": "Ange adress för omdirigering (valfritt)" },
+  "blockurl": { "message": "Skriv URL att blockera" },
+  "redirecturl": { "message": "Skriv omdirigerings-URL (valfritt)" },
   "savebtn": { "message": "Spara" },
-  "deletebtn": { "message": "Radera" },
+  "deletebtn": { "message": "Ta bort" },
   "alertruleexist": { "message": "Regeln finns redan" },
   "savedrules": {
-    "message": "Sparade regler: $ruleslength$",
+    "message": "$ruleslength$ regel/er sparad(e)",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,22 @@
     }
   },
   "wrongredirecturl": { "message": "Ogiltig omdirigerings-URL" },
-  "blockurlonlyascii": { "message": "Endast ASCII är tillgängligt för att blockera URL:er" },
-  "blockurlonlylower": { "message": "Endast gemener är tillgängliga för att blockera URL:er" }
+  "blockurlonlyascii": { "message": "Endast ASCII tillåts i blockerings-URL" },
+  "blockurlonlylower": { "message": "Endast gemener tillåtna" },
+  "donatespantext": { "message": "Gillar du detta tillägg? Stöd dess utveckling!" },
+  "donatebtntext": { "message": "Donera" },
+  "blockthat": { "message": "Blockera denna webbplats" },
+  "sendfeedbackbutton": { "message": "Skicka feedback" },
+  "sendfeedbacksubject": { "message": "Feedback för Block Site Extension" },
+  "sendfeedbackbody": { "message": "Hej, jag vill dela följande feedback:\n\n" },
+  "quote1": { "message": "Var fokuserad, var stark." },
+  "quote2": { "message": "Din framtid formas av vad du gör idag." },
+  "quote3": { "message": "Disciplin är bron mellan mål och framgång." },
+  "quote4": { "message": "En blockerad webbplats, ett steg närmare ditt mål." },
+  "quote5": { "message": "Låt varje klick räknas." },
+  "quote6": { "message": "Titta inte på klockan; gör som den. Fortsätt." },
+  "quote7": { "message": "Små steg varje dag leder till stora resultat." },
+  "quote8": { "message": "Din enda gräns är ditt sinne." },
+  "quote9": { "message": "Framgång är summan av små ansträngningar upprepade dagligen." },
+  "quote10": { "message": "Fokusera på att vara produktiv, inte bara upptagen." }
 }
