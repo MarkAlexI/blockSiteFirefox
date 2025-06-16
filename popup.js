@@ -6,16 +6,17 @@ import { isBlockedURL } from './scripts/isBlockedURL.js';
 import { getCurrentTabs } from './scripts/getCurrentTabs.js';
 import { closeTabsMatchingRule } from './scripts/closeTabs.js';
 import { normalizeUrlFilter } from './scripts/normalizeUrlFilter.js';
+import { t } from './scripts/t.js';
 
 const donateSpan = document.getElementById('donate-text');
-const donateSpanText = browser.i18n.getMessage('donatespantext');
+const donateSpanText = t('donatespantext');
 if (donateSpanText) {
   donateSpan.innerText = donateSpanText;
 }
 
 const donateButton = document.getElementById('donate-button');
 const donateURL = 'https://revolut.me/markalexi';
-const donateBtnText = browser.i18n.getMessage('donatebtntext');
+const donateBtnText = t('donatebtntext');
 if (donateBtnText) {
   donateButton.innerText = donateBtnText;
 }
@@ -25,14 +26,14 @@ donateButton.addEventListener('click', (e) => {
   window.open(donateURL, '_blank');
 });
 
-const quoteElement = document.getElementById("motivational-quote");
+const quoteElement = document.getElementById('motivational-quote');
 
 const totalQuotes = 10;
 const randomIndex = Math.floor(Math.random() * totalQuotes) + 1;
 const quoteKey = `quote${randomIndex}`;
 
-const message = browser.i18n.getMessage(quoteKey);
-quoteElement.textContent = message || "Stay motivated!";
+const message = t(quoteKey);
+quoteElement.textContent = message || 'Stay motivated!';
 
 const rulesContainer = document.getElementById('rules-container');
 const addRuleButton = document.getElementById('add-rule');
@@ -45,8 +46,8 @@ feedbackButton.addEventListener('click', () => {
   const browserInfo = navigator.userAgent;
   
   const email = 'aacsmi06@gmail.com';
-  const sendFeedbackSubject = browser.i18n.getMessage('sendfeedbacksubject');
-  const sendFeedbackBody = browser.i18n.getMessage('sendfeedbackbody');
+  const sendFeedbackSubject = t('sendfeedbacksubject');
+  const sendFeedbackBody = t('sendfeedbackbody');
   const subject = encodeURIComponent(sendFeedbackSubject);
   const body = encodeURIComponent(`Browser: ${browserInfo}\n\nExtension Version: ${manifest.version}\n\n${sendFeedbackBody}`);
   
@@ -81,7 +82,7 @@ const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
   if (!url || url.trim() === '') return;
   
   const newButton = document.createElement('button');
-  const blockThat = browser.i18n.getMessage('blockthat');
+  const blockThat = t('blockthat');
   newButton.id = 'block-that';
   newButton.title = `${blockThat} ${url}`;
   newButton.textContent = blockThat;
@@ -104,7 +105,7 @@ const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
         rules.push({ blockURL: url, redirectURL: '' });
         browser.storage.sync.set({ rules }, () => {
           createRuleInputs(url, '');
-          const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
+          const outputText = t('savedrules', ' ' + rules.length + ' ');
           statusOutput.value = outputText;
           customAlert('+ 1');
           
@@ -119,9 +120,9 @@ const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
   addRuleButton.insertAdjacentElement('afterend', newButton);
 };
 
-const wrongRedirectUrl = browser.i18n.getMessage('wrongredirecturl');
-const blockUrlOnlyAscii = browser.i18n.getMessage('blockurlonlyascii');
-const blockUrlOnlyLower = browser.i18n.getMessage('blockurlonlylower');
+const wrongRedirectUrl = t('wrongredirecturl');
+const blockUrlOnlyAscii = t('blockurlonlyascii');
+const blockUrlOnlyLower = t('blockurlonlylower');
 
 function makeInputReadOnly(el) {
   el.readOnly = true;
@@ -137,17 +138,17 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
   
   const blockURL = document.createElement('input');
   blockURL.type = 'text';
-  blockURL.placeholder = browser.i18n.getMessage('blockurl');
+  blockURL.placeholder = t('blockurl');
   blockURL.value = blockURLValue;
   
   const redirectURL = document.createElement('input');
   redirectURL.type = 'text';
-  redirectURL.placeholder = browser.i18n.getMessage('redirecturl');
+  redirectURL.placeholder = t('redirecturl');
   redirectURL.value = redirectURLValue;
   
   const deleteButton = document.createElement('button');
   deleteButton.className = 'delete-btn';
-  deleteButton.textContent = browser.i18n.getMessage('deletebtn');
+  deleteButton.textContent = t('deletebtn');
   
   let saveButton;
   
@@ -160,7 +161,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
       );
       
       if (ruleExists) {
-        const alertMessage = browser.i18n.getMessage('alertruleexist');
+        const alertMessage = t('alertruleexist');
         customAlert(alertMessage);
         blockURL.value = '';
         redirectURL.value = '';
@@ -175,7 +176,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
         rules.push({ blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
         browser.storage.sync.set({ rules }, () => {
           createRuleInputs();
-          const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
+          const outputText = t('savedrules', ' ' + rules.length + ' ');
           statusOutput.value = outputText;
           makeInputReadOnly(blockURL);
           makeInputReadOnly(redirectURL);
@@ -191,7 +192,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
   const createSaveButton = () => {
     saveButton = document.createElement('button');
     saveButton.className = 'save-btn';
-    saveButton.textContent = browser.i18n.getMessage('savebtn');
+    saveButton.textContent = t('savebtn');
     
     saveButton.addEventListener('click', () => {
       if (blockURL.value === '') {
@@ -219,7 +220,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
       rules = rules.filter((rule) => rule.blockURL !== blockURL.value.trim() || rule.redirectURL !== redirectURL.value.trim());
       browser.storage.sync.set({ rules });
       
-      const outputText = browser.i18n.getMessage('savedrules', ' ' + rules.length + ' ');
+      const outputText = t('savedrules', ' ' + rules.length + ' ');
       statusOutput.value = outputText;
     });
     if (blockURL.value) {
