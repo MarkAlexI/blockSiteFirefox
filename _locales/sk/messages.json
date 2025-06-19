@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Rozšírenie na blokovanie stránok" },
-  "shortname": { "message": "Blokovať stránku" },
-  "description": { "message": "Jednoducho blokujte a presmerovávajte webové stránky pomocou vlastných pravidiel, aby ste zostali sústredení a produktívni." },
-  "defaulttitle": { "message": "Zostaňte sústredení a produktívni" },
-  "header": { "message": "Blokovač stránok" },
-  "paragraph": { "message": "Ak chcete blokovať zdroj, zadajte časť jeho názvu do ľavého poľa bez uvedenia protokolu. Napríklad zadaním \"facebook\" sa zablokujú všetky subdomény tohto zdroja. Do pravého poľa zadajte úplnú URL adresu na presmerovanie vrátane protokolu, napríklad \"https:\/\/google.com\". Potom kliknite na tlačidlo uložiť. Ak ponecháte pole URL na presmerovanie prázdne, cieľová stránka bude iba zablokovaná. Ak chcete pravidlo upraviť, odstráňte staré pravidlo a pridajte nové." },
+  "chromename": { "message": "Block Site Extension" },
+  "shortname": { "message": "Block Site Ext" },
+  "description": { "message": "Jednoducho blokujte a presmerujte webové stránky pomocou prispôsobiteľných pravidiel, aby ste zostali sústredení a produktívni." },
+  "defaulttitle": { "message": "Buďte sústredení a produktívni" },
+  "header": { "message": "Blokovanie stránok" },
+  "paragraph": { "message": "Ak chcete zablokovať webovú stránku alebo zdroj, zadajte časť jej názvu do poľa s textom „Type Block URL“ — napríklad „facebook“ zablokuje všetky príbuzné subdomény. Do poľa s textom „Type Redirect URL“ zadajte úplnú adresu presmerovania vrátane protokolu, napríklad „https://google.com“. Ak ponecháte pole na presmerovanie prázdne, stránka bude jednoducho zablokovaná bez presmerovania. Kliknite na tlačidlo Uložiť na použitie pravidla. Ak chcete pravidlo aktualizovať, odstráňte staré a vytvorte nové." },
   "addrule": { "message": "Pridať nové pravidlo" },
-  "blockurl": { "message": "Zadajte adresu na blokovanie" },
-  "redirecturl": { "message": "Zadajte adresu na presmerovanie (voliteľné)" },
+  "blockurl": { "message": "Zadajte URL na blokovanie" },
+  "redirecturl": { "message": "Zadajte URL na presmerovanie (voliteľné)" },
   "savebtn": { "message": "Uložiť" },
   "deletebtn": { "message": "Odstrániť" },
   "alertruleexist": { "message": "Pravidlo už existuje" },
   "savedrules": {
-    "message": "Uložené pravidlá: $ruleslength$",
+    "message": "Uložených pravidiel: $ruleslength$",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,23 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Neplatná URL na presmerovanie" },
-  "blockurlonlyascii": { "message": "K dispozícii je iba ASCII na blokovanie URL" },
-  "blockurlonlylower": { "message": "K dispozícii sú iba malé písmená na blokovanie URL" }
+  "wrongredirecturl": { "message": "Neplatná adresa na presmerovanie" },
+  "blockurlonlyascii": { "message": "URL na blokovanie môže obsahovať len znaky ASCII" },
+  "blockurlonlylower": { "message": "Sú povolené iba malé písmená" },
+  "donatespantext": { "message": "Páči sa vám toto rozšírenie? Podporte jeho vývoj!" },
+  "donatebtntext": { "message": "Darovať" },
+  "blockthat": { "message": "Blokovať túto stránku" },
+  "sendfeedbackbutton": { "message": "Odoslať spätnú väzbu" },
+  "sendfeedbacksubject": { "message": "Spätná väzba na Block Site Extension" },
+  "sendfeedbackbody": { "message": "Dobrý deň, chcel by som sa podeliť o nasledovnú spätnú väzbu:\n\n" },
+  "quote1": { "message": "Zostaň sústredený, zostaň silný." },
+  "quote2": { "message": "Tvoja budúcnosť sa tvorí tým, čo robíš dnes." },
+  "quote3": { "message": "Disciplína je most medzi cieľmi a úspechom." },
+  "quote4": { "message": "Jedna zablokovaná stránka, jeden krok bližšie k cieľu." },
+  "quote5": { "message": "Každé kliknutie sa počíta." },
+  "quote6": { "message": "Nesleduj hodiny, rob ako ony. Pokračuj." },
+  "quote7": { "message": "Každodenné malé kroky vedú k veľkým výsledkom." },
+  "quote8": { "message": "Tvoja jediná hranica je tvoja myseľ." },
+  "quote9": { "message": "Úspech je súčtom malých snáh opakovaných denne." },
+  "quote10": { "message": "Sústreď sa na produktivitu, nie na zaneprázdnenosť." }
 }
