@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Extensie pentru Blocarea Site-urilor" },
-  "shortname": { "message": "Blochează Site" },
-  "description": { "message": "Blocați și redirecționați ușor site-urile web cu reguli personalizate pentru a rămâne concentrat și productiv." },
-  "defaulttitle": { "message": "Rămâi concentrat și productiv" },
-  "header": { "message": "Blocator de Site-uri" },
-  "paragraph": { "message": "Pentru a bloca o resursă, introduceți o parte din numele său în câmpul din stânga, fără a specifica protocolul. De exemplu, introducerea 'facebook' va bloca toate subdomeniile acestei resurse. În câmpul din dreapta, introduceți URL-ul de redirecționare, complet cu protocol, de exemplu, 'https:\/\/google.com'. Apoi apăsați butonul de salvare. Dacă lăsați câmpul URL de redirecționare gol, site-ul țintă va fi doar blocat. Pentru a modifica o regulă, ștergeți regula veche și adăugați una nouă." },
-  "addrule": { "message": "Adaugă o regulă nouă" },
-  "blockurl": { "message": "Introduceți adresa de blocat" },
-  "redirecturl": { "message": "Introduceți adresa de redirecționare (opțional)" },
+  "chromename": { "message": "Block Site Extension" },
+  "shortname": { "message": "Block Site Ext" },
+  "description": { "message": "Blochează și redirecționează site-uri web cu ușurință folosind reguli personalizabile pentru a rămâne concentrat și productiv." },
+  "defaulttitle": { "message": "Fii concentrat și productiv" },
+  "header": { "message": "Blocator de site-uri" },
+  "paragraph": { "message": "Pentru a bloca un site sau o resursă, introdu o parte din numele său în câmpul cu textul de substituție „Type Block URL” — de exemplu, „facebook” va bloca toate subdomeniile asociate. În câmpul cu textul de substituție „Type Redirect URL”, introdu adresa completă de redirecționare, inclusiv protocolul, cum ar fi „https://google.com”. Dacă câmpul de redirecționare este lăsat gol, site-ul va fi blocat fără redirecționare. Apasă butonul Salvare pentru a aplica regula. Pentru a actualiza o regulă, șterge-o pe cea veche și creează una nouă." },
+  "addrule": { "message": "Adaugă regulă nouă" },
+  "blockurl": { "message": "Scrie URL de blocat" },
+  "redirecturl": { "message": "Scrie URL de redirecționare (opțional)" },
   "savebtn": { "message": "Salvează" },
   "deletebtn": { "message": "Șterge" },
-  "alertruleexist": { "message": "Regula deja există" },
+  "alertruleexist": { "message": "Regula există deja" },
   "savedrules": {
-    "message": "Reguli salvate: $ruleslength$",
+    "message": "$ruleslength$ regulă(i) salvate",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,23 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "URL de redirecționare nevalid" },
-  "blockurlonlyascii": { "message": "Disponibil doar ASCII pentru blocarea URL-urilor" },
-  "blockurlonlylower": { "message": "Disponibile doar litere mici pentru blocarea URL-urilor" }
+  "wrongredirecturl": { "message": "URL de redirecționare invalid" },
+  "blockurlonlyascii": { "message": "Sunt permise doar caractere ASCII în URL-ul de blocare" },
+  "blockurlonlylower": { "message": "Sunt permise doar litere mici" },
+  "donatespantext": { "message": "Îți place această extensie? Susține dezvoltarea ei!" },
+  "donatebtntext": { "message": "Donează" },
+  "blockthat": { "message": "Blochează acest site" },
+  "sendfeedbackbutton": { "message": "Trimite feedback" },
+  "sendfeedbacksubject": { "message": "Feedback pentru Block Site Extension" },
+  "sendfeedbackbody": { "message": "Salut, aș dori să ofer următorul feedback:\n\n" },
+  "quote1": { "message": "Rămâi concentrat, rămâi puternic." },
+  "quote2": { "message": "Viitorul tău este creat de ceea ce faci azi." },
+  "quote3": { "message": "Disciplina este podul dintre obiective și succes." },
+  "quote4": { "message": "Un site blocat, un pas mai aproape de obiectivul tău." },
+  "quote5": { "message": "Fă ca fiecare clic să conteze." },
+  "quote6": { "message": "Nu privi ceasul; fă ceea ce face el. Continuă să mergi înainte." },
+  "quote7": { "message": "Pași mici în fiecare zi duc la rezultate mari." },
+  "quote8": { "message": "Singura ta limită este mintea ta." },
+  "quote9": { "message": "Succesul este suma eforturilor mici repetate zilnic." },
+  "quote10": { "message": "Concentrează-te pe a fi productiv, nu ocupat." }
 }
