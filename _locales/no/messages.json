@@ -1,10 +1,10 @@
 {
-  "chromename": { "message": "Blokker Nettsted Utvidelse" },
-  "shortname": { "message": "Blokker Nettsted Ext" },
-  "description": { "message": "Blokker og omdiriger nettsteder enkelt med tilpassbare regler for å holde deg fokusert og produktiv." },
-  "defaulttitle": { "message": "Vær Fokusert og Produktiv" },
-  "header": { "message": "Nettsted Blokker" },
-  "paragraph": { "message": "For å blokkere en ressurs, skriv inn en del av navnet i det venstre inndatafeltet uten å spesifisere protokollen. For eksempel vil \"facebook\" blokkere alle underdomener av denne ressursen. I det høyre inndatafeltet skriver du inn URL-en for omdirigering, fullstendig spesifisert med protokoll, f.eks. \"https:\/\/google.com\". Klikk deretter på lagre-knappen. Hvis omdirigerings-URL-en er tom, vil målnettstedet bare bli blokkert. For å endre en regel, slett den gamle regelen og legg til en ny." },
+  "chromename": { "message": "Block Site Extension" },
+  "shortname": { "message": "Block Site Ext" },
+  "description": { "message": "Blokker og omdiriger nettsteder enkelt med tilpassbare regler for å holde fokus og være produktiv." },
+  "defaulttitle": { "message": "Vær fokusert og produktiv" },
+  "header": { "message": "Nettstedsblokkerer" },
+  "paragraph": { "message": "For å blokkere et nettsted eller en ressurs, skriv inn en del av navnet i feltet med plassholderen «Type Block URL» — for eksempel vil «facebook» blokkere alle tilknyttede underdomener. I feltet med plassholderen «Type Redirect URL» skriver du inn hele omdirigeringsadressen inkludert protokollen, som for eksempel «https://google.com». Hvis omdirigeringsfeltet står tomt, blir nettstedet blokkert uten omdirigering. Klikk på Lagre-knappen for å bruke regelen. For å oppdatere en regel, slett den gamle og opprett en ny." },
   "addrule": { "message": "Legg til ny regel" },
   "blockurl": { "message": "Skriv inn blokkert URL" },
   "redirecturl": { "message": "Skriv inn omdirigerings-URL (valgfritt)" },
@@ -12,7 +12,7 @@
   "deletebtn": { "message": "Slett" },
   "alertruleexist": { "message": "Regelen finnes allerede" },
   "savedrules": {
-    "message": "Lagrede $ruleslength$ regel(er)",
+    "message": "$ruleslength$ lagrede regler",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,22 @@
     }
   },
   "wrongredirecturl": { "message": "Ugyldig omdirigerings-URL" },
-  "blockurlonlyascii": { "message": "Kun ASCII er tillatt i blokkert URL" },
-  "blockurlonlylower": { "message": "Kun små bokstaver er tillatt" }
+  "blockurlonlyascii": { "message": "Kun ASCII-tegn er tillatt i blokkerings-URL" },
+  "blockurlonlylower": { "message": "Kun små bokstaver er tillatt" },
+  "donatespantext": { "message": "Liker du denne utvidelsen? Støtt utviklingen!" },
+  "donatebtntext": { "message": "Donér" },
+  "blockthat": { "message": "Blokker dette nettstedet" },
+  "sendfeedbackbutton": { "message": "Send tilbakemelding" },
+  "sendfeedbacksubject": { "message": "Tilbakemelding om Block Site Extension" },
+  "sendfeedbackbody": { "message": "Hei, jeg ønsker å dele følgende tilbakemelding:\n\n" },
+  "quote1": { "message": "Hold fokus, vær sterk." },
+  "quote2": { "message": "Din fremtid skapes av det du gjør i dag." },
+  "quote3": { "message": "Disiplin er broen mellom mål og suksess." },
+  "quote4": { "message": "Ett nettsted blokkert, ett steg nærmere målet." },
+  "quote5": { "message": "Få hvert klikk til å telle." },
+  "quote6": { "message": "Ikke se på klokken; gjør som den. Fortsett." },
+  "quote7": { "message": "Små steg hver dag gir store resultater." },
+  "quote8": { "message": "Den eneste grensen er sinnet ditt." },
+  "quote9": { "message": "Suksess er summen av små anstrengelser gjentatt daglig." },
+  "quote10": { "message": "Fokuser på å være produktiv, ikke bare opptatt." }
 }
