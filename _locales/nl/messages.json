@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Extensie voor Website Blokkeren" },
-  "shortname": { "message": "Blokkeer Website" },
-  "description": { "message": "Blokkeer en omleid eenvoudig websites met aangepaste regels om gefocust en productief te blijven." },
+  "chromename": { "message": "Block Site Extension" },
+  "shortname": { "message": "Block Site Ext" },
+  "description": { "message": "Blokkeer en omleid websites moeiteloos met aanpasbare regels om gefocust en productief te blijven." },
   "defaulttitle": { "message": "Blijf gefocust en productief" },
-  "header": { "message": "Website Blokkeren" },
-  "paragraph": { "message": "Om een bron te blokkeren, voer een deel van de naam in het linker invoerveld in zonder het protocol op te geven. Bijvoorbeeld, door \"facebook\" in te voeren, worden alle subdomeinen van deze bron geblokkeerd. In het rechter invoerveld voert u de omleidings-URL in, compleet met protocol, bijvoorbeeld \"https:\/\/google.com\". Klik vervolgens op de knop opslaan. Als het omleidings-URL-veld leeg blijft, wordt de doelwebsite alleen geblokkeerd. Om een regel te wijzigen, verwijdert u de oude regel en voegt u een nieuwe toe." },
+  "header": { "message": "Websiteblokkeerder" },
+  "paragraph": { "message": "Om een website of bron te blokkeren, voer je een deel van de naam in het invoerveld met de placeholder \"Type Block URL\" in — bijvoorbeeld \"facebook\" zal alle gerelateerde subdomeinen blokkeren. In het veld met de placeholder \"Type Redirect URL\" voer je het volledige omleidingsadres in, inclusief het protocol, zoals \"https://google.com\". Als het omleidingsveld leeg blijft, wordt de site geblokkeerd zonder omleiding. Klik op de knop Opslaan om de regel toe te passen. Om een regel bij te werken, verwijder je de oude en maak je een nieuwe aan." },
   "addrule": { "message": "Nieuwe regel toevoegen" },
-  "blockurl": { "message": "Voer het adres in om te blokkeren" },
-  "redirecturl": { "message": "Voer omleidingsadres in (optioneel)" },
+  "blockurl": { "message": "Typ blokkeer-URL" },
+  "redirecturl": { "message": "Typ omleidings-URL (optioneel)" },
   "savebtn": { "message": "Opslaan" },
   "deletebtn": { "message": "Verwijderen" },
   "alertruleexist": { "message": "Regel bestaat al" },
   "savedrules": {
-    "message": "Opgeslagen regels: $ruleslength$",
+    "message": "$ruleslength$ opgeslagen regel(s)",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -21,6 +21,22 @@
     }
   },
   "wrongredirecturl": { "message": "Ongeldige omleidings-URL" },
-  "blockurlonlyascii": { "message": "Alleen ASCII beschikbaar voor URL-blokkering" },
-  "blockurlonlylower": { "message": "Alleen kleine letters beschikbaar voor URL-blokkering" }
+  "blockurlonlyascii": { "message": "Alleen ASCII-tekens toegestaan in blokkeer-URL" },
+  "blockurlonlylower": { "message": "Alleen kleine letters toegestaan" },
+  "donatespantext": { "message": "Vind je deze extensie leuk? Steun de ontwikkeling!" },
+  "donatebtntext": { "message": "Doneren" },
+  "blockthat": { "message": "Blokkeer deze site" },
+  "sendfeedbackbutton": { "message": "Feedback verzenden" },
+  "sendfeedbacksubject": { "message": "Feedback voor Block Site Extension" },
+  "sendfeedbackbody": { "message": "Hallo, ik wil graag de volgende feedback delen:\n\n" },
+  "quote1": { "message": "Blijf gefocust, blijf sterk." },
+  "quote2": { "message": "Je toekomst wordt gevormd door wat je vandaag doet." },
+  "quote3": { "message": "Discipline is de brug tussen doelen en succes." },
+  "quote4": { "message": "Eén site geblokkeerd, één stap dichter bij je doel." },
+  "quote5": { "message": "Laat elke klik tellen." },
+  "quote6": { "message": "Kijk niet naar de klok; doe wat hij doet. Ga door." },
+  "quote7": { "message": "Elke dag een kleine stap leidt tot grote resultaten." },
+  "quote8": { "message": "Je enige beperking is je geest." },
+  "quote9": { "message": "Succes is de som van kleine inspanningen, dagelijks herhaald." },
+  "quote10": { "message": "Richt je op productief zijn, niet op druk zijn." }
 }
