@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Vietnes Bloķēšanas Paplašinājums" },
-  "shortname": { "message": "Vietnes Bloķētājs" },
-  "description": { "message": "Bloķējiet un novirziet vietnes ar pielāgojamiem noteikumiem, lai saglabātu fokusu un produktivitāti." },
-  "defaulttitle": { "message": "Esi fokusēts un produktīvs" },
-  "header": { "message": "Vietnes bloķētājs" },
-  "paragraph": { "message": "Lai bloķētu resursu, kreisajā ievades laukā ievadiet daļu no tā nosaukuma, nenorādot protokolu. Piemēram, ievadot \"facebook\", tiks bloķēti visi šī resursa apakšdomēni. Labajā ievades laukā ievadiet novirzīšanas URL, pilnībā norādot protokolu, piemēram, \"https://google.com\". Pēc tam noklikšķiniet uz saglabāšanas pogas. Ja novirzīšanas URL paliek tukšs, mērķa vietne vienkārši tiks bloķēta. Lai mainītu noteikumu, dzēsiet veco un pievienojiet jaunu." },
+  "chromename": { "message": "Vietņu Bloķēšanas Paplašinājums" },
+  "shortname": { "message": "Bloķēt Vietnes" },
+  "description": { "message": "Bloķējiet un pāradresējiet vietnes bez piepūles, izmantojot pielāgojamus noteikumus, lai saglabātu fokusu un produktivitāti." },
+  "defaulttitle": { "message": "Esi koncentrēts un produktīvs" },
+  "header": { "message": "Vietņu Bloķētājs" },
+  "paragraph": { "message": "Lai bloķētu vietni vai resursu, ievadiet daļu no tā nosaukuma laukā ar vietturi \"Ievadiet bloķējamo URL\" — piemēram, \"facebook\" bloķēs visus saistītos apakšdomēnus. Laukā ar vietturi \"Ievadiet pāradresācijas URL\" ievadiet pilnu pāradresācijas adresi ar protokolu, piemēram, \"https://google.com\". Ja pāradresācijas lauks būs tukšs, vietne tiks vienkārši bloķēta bez pāradresācijas. Noklikšķiniet uz Saglabāt, lai piemērotu noteikumu. Lai atjauninātu noteikumu, izdzēsiet veco un izveidojiet jaunu ierakstu." },
   "addrule": { "message": "Pievienot jaunu noteikumu" },
   "blockurl": { "message": "Ievadiet bloķējamo URL" },
-  "redirecturl": { "message": "Ievadiet novirzīšanas URL (pēc izvēles)" },
+  "redirecturl": { "message": "Ievadiet pāradresācijas URL (nav obligāts)" },
   "savebtn": { "message": "Saglabāt" },
   "deletebtn": { "message": "Dzēst" },
   "alertruleexist": { "message": "Noteikums jau pastāv" },
   "savedrules": {
-    "message": "Saglabāti $ruleslength$ noteikumi",
+    "message": "Saglabāti $ruleslength$ noteikums(-i)",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,7 +20,23 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Nederīgs novirzīšanas URL" },
-  "blockurlonlyascii": { "message": "Bloķējamajam URL atļauti tikai ASCII simboli" },
-  "blockurlonlylower": { "message": "Atļautas tikai mazās latīņu burti" }
+  "wrongredirecturl": { "message": "Nederīgs pāradresācijas URL" },
+  "blockurlonlyascii": { "message": "Bloķēšanas URL drīkst saturēt tikai ASCII rakstzīmes" },
+  "blockurlonlylower": { "message": "Atļauti tikai mazie burti" },
+  "donatespantext": { "message": "Patīk šis paplašinājums? Atbalstiet tā izstrādi!" },
+  "donatebtntext": { "message": "Ziedot" },
+  "blockthat": { "message": "Bloķēt šo vietni" },
+  "sendfeedbackbutton": { "message": "Sūtīt atsauksmi" },
+  "sendfeedbacksubject": { "message": "Atsauksme par vietņu bloķēšanas paplašinājumu" },
+  "sendfeedbackbody": { "message": "Sveiki, vēlos sniegt šādu atsauksmi:\n\n" },
+  "quote1": { "message": "Esi koncentrēts, esi spēcīgs." },
+  "quote2": { "message": "Tava nākotne rodas no tā, ko dari šodien." },
+  "quote3": { "message": "Disciplīna ir tilts starp mērķiem un panākumiem." },
+  "quote4": { "message": "Viena vietne bloķēta — viens solis tuvāk mērķim." },
+  "quote5": { "message": "Liec katram klikšķim būt nozīmīgam." },
+  "quote6": { "message": "Neskaties pulkstenī; dari tāpat kā tas. Ej tālāk." },
+  "quote7": { "message": "Mazie soļi katru dienu noved pie lieliem rezultātiem." },
+  "quote8": { "message": "Vienīgais ierobežojums ir tavs prāts." },
+  "quote9": { "message": "Panākumi ir ikdienas pūļu summa." },
+  "quote10": { "message": "Koncentrējies uz produktivitāti, nevis aizņemtību." }
 }
