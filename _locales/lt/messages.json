@@ -1,10 +1,10 @@
 {
-  "chromename": { "message": "Svetainių blokavimo plėtinys" },
-  "shortname": { "message": "Svetainių blok." },
-  "description": { "message": "Lengvai blokuokite ir nukreipkite svetaines naudodami pritaikomas taisykles, kad išliktumėte susikaupę ir produktyvūs." },
-  "defaulttitle": { "message": "Būkite susikaupę ir produktyvūs" },
-  "header": { "message": "Svetainių blokatorius" },
-  "paragraph": { "message": "Norėdami užblokuoti svetainę ar išteklių, įveskite jos pavadinimo dalį lauke su žyme „Įveskite blokuojamą URL“ — pavyzdžiui, „facebook“ užblokuos visus susijusius subdomenus. Lauke „Įveskite peradresavimo URL“ įveskite visą peradresavimo adresą su protokolu, pvz., „https://google.com“. Jei šis laukas paliekamas tuščias, svetainė bus užblokuota be peradresavimo. Spustelėkite mygtuką „Išsaugoti“, kad pritaikytumėte taisyklę. Norėdami atnaujinti taisyklę, ištrinkite senąją ir sukurkite naują." },
+  "chromename": { "message": "Svetainių Blokavimo Plėtinys" },
+  "shortname": { "message": "Blokuoti Svetaines" },
+  "description": { "message": "Lengvai blokuokite ir peradresuokite svetaines naudodami pritaikomas taisykles, kad išliktumėte susikaupę ir produktyvūs." },
+  "defaulttitle": { "message": "Būk susikaupęs ir produktyvus" },
+  "header": { "message": "Svetainių Blokatorius" },
+  "paragraph": { "message": "Norėdami užblokuoti svetainę ar išteklių, įveskite dalį jo pavadinimo į lauką su užuomina „Įveskite blokuojamą URL“, pavyzdžiui, „facebook“ užblokuos visus susijusius subdomenus. Lauke su užuomina „Įveskite peradresavimo URL“ įveskite visą peradresavimo adresą su protokolu, pvz., „https://google.com“. Jei peradresavimo laukas paliekamas tuščias, svetainė bus tiesiog užblokuota. Spustelėkite mygtuką Išsaugoti, kad pritaikytumėte taisyklę. Norėdami atnaujinti taisyklę, ištrinkite seną ir sukurkite naują įrašą." },
   "addrule": { "message": "Pridėti naują taisyklę" },
   "blockurl": { "message": "Įveskite blokuojamą URL" },
   "redirecturl": { "message": "Įveskite peradresavimo URL (nebūtina)" },
@@ -12,7 +12,7 @@
   "deletebtn": { "message": "Ištrinti" },
   "alertruleexist": { "message": "Taisyklė jau egzistuoja" },
   "savedrules": {
-    "message": "Išsaugota taisyklių: $ruleslength$",
+    "message": "Išsaugota $ruleslength$ taisyklė(s)",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,13 +20,23 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Netinkamas peradresavimo URL" },
+  "wrongredirecturl": { "message": "Neteisingas peradresavimo URL" },
   "blockurlonlyascii": { "message": "Blokuojamam URL leidžiami tik ASCII simboliai" },
   "blockurlonlylower": { "message": "Leidžiamos tik mažosios raidės" },
   "donatespantext": { "message": "Patinka šis plėtinys? Paremkite jo kūrimą!" },
   "donatebtntext": { "message": "Paaukoti" },
   "blockthat": { "message": "Blokuoti šią svetainę" },
   "sendfeedbackbutton": { "message": "Siųsti atsiliepimą" },
-  "sendfeedbacksubject": { "message": "Atsiliepimas apie „Block Site Extension“" },
-  "sendfeedbackbody": { "message": "Sveiki, norėčiau pasidalinti šiuo atsiliepimu:\n\n" }
+  "sendfeedbacksubject": { "message": "Atsiliepimas apie svetainių blokavimo plėtinį" },
+  "sendfeedbackbody": { "message": "Sveiki, norėčiau pasidalyti tokiu atsiliepimu:\n\n" },
+  "quote1": { "message": "Būk susikaupęs, būk stiprus." },
+  "quote2": { "message": "Tavo ateitis priklauso nuo to, ką darai šiandien." },
+  "quote3": { "message": "Drausmė yra tiltas tarp tikslų ir sėkmės." },
+  "quote4": { "message": "Viena užblokuota svetainė – vienas žingsnis arčiau tikslo." },
+  "quote5": { "message": "Tegu kiekvienas paspaudimas turi prasmę." },
+  "quote6": { "message": "Nežiūrėk į laikrodį; daryk, kaip jis – eik toliau." },
+  "quote7": { "message": "Maži žingsniai kasdien atveda prie didelių rezultatų." },
+  "quote8": { "message": "Vienintelė riba – tavo protas." },
+  "quote9": { "message": "Sėkmė – tai mažų pastangų visuma, kartojama kasdien." },
+  "quote10": { "message": "Koncentruokis į produktyvumą, o ne į užimtumą." }
 }
