@@ -4,10 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    '🔧 Added motivational quotes.',
-    '⚡ Improved dynamic rule generation.',
-    '🌐 Added content security policy.',
-    '🐾 Added the updates page'
+    '📎 Update translation for the horvatian locale.'
   ];
   
   const ul = document.getElementById('features');

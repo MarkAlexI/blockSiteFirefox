@@ -1,18 +1,18 @@
 {
-  "chromename": { "message": "Block Site proširenje" },
-  "shortname": { "message": "Block Site" },
-  "description": { "message": "Jednostavno blokirajte i preusmjerite web-stranice pomoću prilagodljivih pravila kako biste ostali fokusirani i produktivni." },
-  "defaulttitle": { "message": "Budite fokusirani i produktivni" },
+  "chromename": { "message": "Proširenje za blokiranje stranica" },
+  "shortname": { "message": "Blokator stranica" },
+  "description": { "message": "Jednostavno blokirajte i preusmjerite web stranice pomoću prilagodljivih pravila kako biste ostali fokusirani i produktivni." },
+  "defaulttitle": { "message": "Budi fokusiran i produktivan" },
   "header": { "message": "Blokator stranica" },
-  "paragraph": { "message": "Za blokiranje web-stranice ili resursa unesite dio njezinog naziva u polje s natpisom \"Type Block URL\" — na primjer, \"facebook\" će blokirati sve povezane poddomene. U polje \"Type Redirect URL\" unesite cijeli URL za preusmjeravanje, uključujući protokol, poput \"https://google.com\". Ako to polje ostavite praznim, stranica će biti blokirana bez preusmjeravanja. Kliknite gumb Spremi za primjenu pravila. Za ažuriranje pravila izbrišite staro i dodajte novo." },
+  "paragraph": { "message": "Za blokiranje web stranice ili resursa unesite dio njenog naziva u polje s natpisom \"Upišite URL za blokiranje\" — na primjer, \"facebook\" će blokirati sve povezane poddomene. U polje s natpisom \"Upišite URL za preusmjeravanje\" unesite punu adresu preusmjeravanja uključujući protokol, poput \"https://google.com\". Ako polje za preusmjeravanje ostavite prazno, stranica će biti blokirana bez preusmjeravanja. Kliknite gumb Spremi za primjenu pravila. Za ažuriranje pravila obrišite staro i stvorite novi unos." },
   "addrule": { "message": "Dodaj novo pravilo" },
-  "blockurl": { "message": "Upiši URL za blokiranje" },
-  "redirecturl": { "message": "Upiši URL za preusmjeravanje (neobavezno)" },
+  "blockurl": { "message": "Upišite URL za blokiranje" },
+  "redirecturl": { "message": "Upišite URL za preusmjeravanje (nije obavezno)" },
   "savebtn": { "message": "Spremi" },
-  "deletebtn": { "message": "Izbriši" },
+  "deletebtn": { "message": "Obriši" },
   "alertruleexist": { "message": "Pravilo već postoji" },
   "savedrules": {
-    "message": "Spremljeno pravila: $ruleslength$",
+    "message": "Spremljeno $ruleslength$ pravilo(a)",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -20,13 +20,23 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Neispravan URL za preusmjeravanje" },
-  "blockurlonlyascii": { "message": "URL za blokiranje mora sadržavati samo ASCII znakove" },
+  "wrongredirecturl": { "message": "Nevažeći URL za preusmjeravanje" },
+  "blockurlonlyascii": { "message": "Dopušteni su samo ASCII znakovi u URL-u za blokiranje" },
   "blockurlonlylower": { "message": "Dopuštena su samo mala slova" },
   "donatespantext": { "message": "Sviđa vam se ovo proširenje? Podržite njegov razvoj!" },
-  "donatebtntext": { "message": "Doniraj" },
+  "donatebtntext": { "message": "Donirajte" },
   "blockthat": { "message": "Blokiraj ovu stranicu" },
-  "sendfeedbackbutton": { "message": "Pošalji povratne informacije" },
-  "sendfeedbacksubject": { "message": "Povratne informacije za Block Site proširenje" },
-  "sendfeedbackbody": { "message": "Pozdrav, želim podijeliti sljedeće povratne informacije:\n\n" }
+  "sendfeedbackbutton": { "message": "Pošaljite povratne informacije" },
+  "sendfeedbacksubject": { "message": "Povratne informacije za proširenje Blokator stranica" },
+  "sendfeedbackbody": { "message": "Pozdrav, želio/la bih podijeliti sljedeće povratne informacije:\n\n" },
+  "quote1": { "message": "Ostani fokusiran, ostani snažan." },
+  "quote2": { "message": "Tvoja budućnost stvara se onim što radiš danas." },
+  "quote3": { "message": "Disciplina je most između ciljeva i uspjeha." },
+  "quote4": { "message": "Jedna blokirana stranica, jedan korak bliže tvom cilju." },
+  "quote5": { "message": "Neka svaki klik bude važan." },
+  "quote6": { "message": "Ne gledaj na sat; radi ono što on radi. Nastavi." },
+  "quote7": { "message": "Mali koraci svaki dan vode do velikih rezultata." },
+  "quote8": { "message": "Tvoje jedino ograničenje je tvoj um." },
+  "quote9": { "message": "Uspjeh je zbroj malih napora ponavljanih svakodnevno." },
+  "quote10": { "message": "Fokusiraj se na produktivnost, ne na zauzetost." }
 }
