@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2025-08-16
+
+### Added
+- Options page for managing blocked sites with a full-screen interface.
+- View, edit, add, and delete rules directly from the options page.
+- Consistent styling with popup and localization support.
+- Reused validation logic from popup for block and redirect URLs.
+
+### Changed
+- Improved rule management by allowing edits without requiring deletion and re-creation.
+- Updated manifest.json to include options_ui configuration.
+
 ## [2.7.1] - 2025-08-10
 
 ### Changed

@@ -4,7 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    '📎 Update translation for the horvatian locale.'
+    'Added an options page for managing blocking rules in a full-screen interface.',
+    'Implemented viewing, editing, adding, and deleting rules on the options page.',
+    'Applied a consistent color scheme and localization support.',
+    'Reused URL validation logic from the popup.',
+    'Improved rule management by enabling editing without requiring deletion and re-creation.',
+    'Updated manifest.json to include options_ui configuration.'
   ];
   
   const ul = document.getElementById('features');

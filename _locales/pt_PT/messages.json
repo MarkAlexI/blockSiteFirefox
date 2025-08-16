@@ -38,5 +38,12 @@
   "quote7": { "message": "És mais forte do que pensas." },
   "quote8": { "message": "Continua a avançar." },
   "quote9": { "message": "Mantém-te positivo." },
-  "quote10": { "message": "O teu potencial é ilimitado." }
+  "quote10": { "message": "O teu potencial é ilimitado." },
+  "actionsheader": { "message": "Ações" },
+  "norules": { "message": "Nenhum site bloqueado" },
+  "editbtn": { "message": "Editar" },
+  "ruleddeleted": { "message": "Regra eliminada." },
+  "cancelbtn": { "message": "Cancelar" },
+  "ruleupdated": { "message": "Regra atualizada." },
+  "rulenewadded": { "message": "Nova regra adicionada." }
 }

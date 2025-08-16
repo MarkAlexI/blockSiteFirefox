@@ -38,5 +38,12 @@
   "quote7": { "message": "Small steps every day lead to big results." },
   "quote8": { "message": "Your only limit is your mind." },
   "quote9": { "message": "Success is the sum of small efforts repeated daily." },
-  "quote10": { "message": "Focus on being productive, not busy." }
+  "quote10": { "message": "Focus on being productive, not busy." },
+  "actionsheader": { "message": "Actions" },
+  "norules": { "message": "No blocked sites." },
+  "editbtn": { "message": "Edit" },
+  "ruleddeleted": { "message": "The rule has been deleted." },
+  "cancelbtn": { "message": "Cancel" },
+  "ruleupdated": { "message": "Rule updated." },
+  "rulenewadded": { "message": "New rule added." }
 }

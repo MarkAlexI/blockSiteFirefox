@@ -38,5 +38,12 @@
   "quote7": { "message": "你比自己想象的更强大。" },
   "quote8": { "message": "继续前进。" },
   "quote9": { "message": "保持积极心态。" },
-  "quote10": { "message": "你的潜力是无限的。" }
+  "quote10": { "message": "你的潜力是无限的。" },
+  "actionsheader": { "message": "操作" },
+  "norules": { "message": "没有被屏蔽的网站" },
+  "editbtn": { "message": "编辑" },
+  "ruleddeleted": { "message": "规则已删除。" },
+  "cancelbtn": { "message": "取消" },
+  "ruleupdated": { "message": "规则已更新。" },
+  "rulenewadded": { "message": "新规则已添加。" }
 }

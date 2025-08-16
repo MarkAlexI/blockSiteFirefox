@@ -38,5 +38,12 @@
   "quote7": { "message": "你比自己想的還要強大。" },
   "quote8": { "message": "持續前進。" },
   "quote9": { "message": "保持正向思考。" },
-  "quote10": { "message": "你的潛力是無限的。" }
+  "quote10": { "message": "你的潛力是無限的。" },
+  "actionsheader": { "message": "操作" },
+  "norules": { "message": "沒有被封鎖的網站" },
+  "editbtn": { "message": "編輯" },
+  "ruleddeleted": { "message": "規則已刪除。" },
+  "cancelbtn": { "message": "取消" },
+  "ruleupdated": { "message": "規則已更新。" },
+  "rulenewadded": { "message": "新規則已添加。" }
 }
