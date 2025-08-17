@@ -183,7 +183,7 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
           saveButton && saveButton.remove();
           customAlert('+ 1');
           
-          closeTabsMatchingRule(newRule.blockURL);
+          closeTabsMatchingRule(blockURL.value.trim());
         });
       }
     });
