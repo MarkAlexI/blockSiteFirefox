@@ -45,5 +45,7 @@
   "ruleddeleted": { "message": "规则已删除。" },
   "cancelbtn": { "message": "取消" },
   "ruleupdated": { "message": "规则已更新。" },
-  "rulenewadded": { "message": "新规则已添加。" }
+  "rulenewadded": { "message": "新规则已添加。" },
+  "gotooptions": { "message": "前往选项页面 ⚙️" },
+  "gotopopup": { "message": "点击扩展图标返回弹出窗口。" }
 }

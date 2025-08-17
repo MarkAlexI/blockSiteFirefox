@@ -45,5 +45,7 @@
   "ruleddeleted": { "message": "規則已刪除。" },
   "cancelbtn": { "message": "取消" },
   "ruleupdated": { "message": "規則已更新。" },
-  "rulenewadded": { "message": "新規則已添加。" }
+  "rulenewadded": { "message": "新規則已添加。" },
+  "gotooptions": { "message": "前往選項頁面 ⚙️" },
+  "gotopopup": { "message": "點擊擴充功能圖標返回彈出窗口。" }
 }

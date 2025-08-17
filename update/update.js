@@ -4,12 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'Added an options page for managing blocking rules in a full-screen interface.',
-    'Implemented viewing, editing, adding, and deleting rules on the options page.',
-    'Applied a consistent color scheme and localization support.',
-    'Reused URL validation logic from the popup.',
-    'Improved rule management by enabling editing without requiring deletion and re-creation.',
-    'Updated manifest.json to include options_ui configuration.'
+    'Implemented a new link in the popup UI that directs users to the web extension \'s settings page.',
+    'Enhanced user experience by providing faster access to extension settings.'
   ];
   
   const ul = document.getElementById('features');

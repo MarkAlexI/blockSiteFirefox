@@ -45,5 +45,7 @@
   "ruleddeleted": { "message": "Regel gelöscht." },
   "cancelbtn": { "message": "Abbrechen" },
   "ruleupdated": { "message": "Regel aktualisiert." },
-  "rulenewadded": { "message": "Neue Regel hinzugefügt." }
+  "rulenewadded": { "message": "Neue Regel hinzugefügt." },
+  "gotooptions": { "message": "Zur Einstellungsseite gehen ⚙️" },
+  "gotopopup": { "message": "Klicken Sie auf das Erweiterungssymbol, um zum Popup zurückzukehren." }
 }

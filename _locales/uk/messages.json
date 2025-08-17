@@ -45,5 +45,7 @@
   "ruleddeleted": { "message": "Правило видалено." },
   "cancelbtn": { "message": "Скасувати" },
   "ruleupdated": { "message": "Правило оновлено." },
-  "rulenewadded": { "message": "Нове правило додано." }
+  "rulenewadded": { "message": "Нове правило додано." },
+  "gotooptions": { "message": "Перейти до сторінки налаштувань ⚙️" },
+  "gotopopup": { "message": "Натисніть на іконку розширення, щоб повернутися до попапу." }
 }

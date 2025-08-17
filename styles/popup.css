@@ -28,6 +28,20 @@ body {
   margin-bottom: 20px;
 }
 
+#options-link {
+  display: block;
+  font-size: 14px;
+  color: #0073e6;
+  text-decoration: none;
+  margin-bottom: 15px;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+#options-link:hover {
+  color: #005bb5;
+  text-decoration: underline;
+}
+
 #rules-container {
   margin-bottom: 20px;
 }
