@@ -38,5 +38,14 @@
   "quote7": { "message": "Eres más fuerte de lo que crees." },
   "quote8": { "message": "Sigue adelante." },
   "quote9": { "message": "Mantén una actitud positiva." },
-  "quote10": { "message": "Tu potencial es ilimitado." }
+  "quote10": { "message": "Tu potencial es ilimitado." },
+  "actionsheader": { "message": "Acciones" },
+  "norules": { "message": "No hay sitios bloqueados." },
+  "editbtn": { "message": "Editar" },
+  "ruleddeleted": { "message": "La regla ha sido eliminada." },
+  "cancelbtn": { "message": "Cancelar" },
+  "ruleupdated": { "message": "Regla actualizada." },
+  "rulenewadded": { "message": "Nueva regla añadida." },
+  "gotooptions": { "message": "Ir a la página de opciones ⚙️" },
+  "gotopopup": { "message": "Haz clic en el icono de la extensión para volver al popup." }
 }

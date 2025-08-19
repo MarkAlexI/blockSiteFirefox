@@ -38,5 +38,14 @@
   "quote7": { "message": "Majhni koraki vsak dan vodijo do velikih rezultatov." },
   "quote8": { "message": "Edina omejitev je tvoj um." },
   "quote9": { "message": "Uspeh je vsota vsakodnevnih majhnih naporov." },
-  "quote10": { "message": "Osredotoči se na produktivnost, ne na zaposlenost." }
+  "quote10": { "message": "Osredotoči se na produktivnost, ne na zaposlenost." },
+  "actionsheader": { "message": "Dejanja" },
+  "norules": { "message": "Ni blokiranih spletnih mest." },
+  "editbtn": { "message": "Uredi" },
+  "ruleddeleted": { "message": "Pravilo je bilo izbrisano." },
+  "cancelbtn": { "message": "Prekliči" },
+  "ruleupdated": { "message": "Pravilo posodobljeno." },
+  "rulenewadded": { "message": "Novo pravilo dodano." },
+  "gotooptions": { "message": "Pojdi na stran z nastavitvami ⚙️" },
+  "gotopopup": { "message": "Kliknite ikono razširitve, da se vrnete v pojavno okno." }
 }

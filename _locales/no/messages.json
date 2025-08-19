@@ -38,5 +38,14 @@
   "quote7": { "message": "Små steg hver dag gir store resultater." },
   "quote8": { "message": "Den eneste grensen er sinnet ditt." },
   "quote9": { "message": "Suksess er summen av små anstrengelser gjentatt daglig." },
-  "quote10": { "message": "Fokuser på å være produktiv, ikke bare opptatt." }
+  "quote10": { "message": "Fokuser på å være produktiv, ikke bare opptatt." },
+  "actionsheader": { "message": "Handlinger" },
+  "norules": { "message": "Ingen blokkerte nettsteder." },
+  "editbtn": { "message": "Rediger" },
+  "ruleddeleted": { "message": "Regelen har blitt slettet." },
+  "cancelbtn": { "message": "Avbryt" },
+  "ruleupdated": { "message": "Regel oppdatert." },
+  "rulenewadded": { "message": "Ny regel lagt til." },
+  "gotooptions": { "message": "Gå til innstillingssiden ⚙️" },
+  "gotopopup": { "message": "Klikk på utvidelsesikonet for å gå tilbake til popup." }
 }

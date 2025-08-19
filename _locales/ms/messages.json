@@ -38,5 +38,14 @@
   "quote7": { "message": "Langkah kecil setiap hari membawa kepada hasil yang besar." },
   "quote8": { "message": "Satu-satunya had anda ialah minda anda." },
   "quote9": { "message": "Kejayaan adalah hasil usaha kecil yang diulang setiap hari." },
-  "quote10": { "message": "Fokus pada menjadi produktif, bukan sibuk." }
+  "quote10": { "message": "Fokus pada menjadi produktif, bukan sibuk." },
+  "actionsheader": { "message": "Tindakan" },
+  "norules": { "message": "Tiada laman web yang disekat." },
+  "editbtn": { "message": "Sunting" },
+  "ruleddeleted": { "message": "Peraturan telah dipadamkan." },
+  "cancelbtn": { "message": "Batal" },
+  "ruleupdated": { "message": "Peraturan dikemas kini." },
+  "rulenewadded": { "message": "Peraturan baru ditambahkan." },
+  "gotooptions": { "message": "Pergi ke halaman pilihan ⚙️" },
+  "gotopopup": { "message": "Klik ikon sambungan untuk kembali ke popup." }
 }

@@ -38,5 +38,14 @@
   "quote7": { "message": "A kis lépések naponta nagy eredményekhez vezetnek." },
   "quote8": { "message": "Az egyetlen korlátod az elméd." },
   "quote9": { "message": "A siker a napi ismételt kis erőfeszítések összege." },
-  "quote10": { "message": "A produktivitásra koncentrálj, ne a túlterheltségre." }
+  "quote10": { "message": "A produktivitásra koncentrálj, ne a túlterheltségre." },
+  "actionsheader": { "message": "Műveletek" },
+  "norules": { "message": "Nincsenek blokkolt oldalak." },
+  "editbtn": { "message": "Szerkesztés" },
+  "ruleddeleted": { "message": "A szabály törölve lett." },
+  "cancelbtn": { "message": "Mégse" },
+  "ruleupdated": { "message": "Szabály frissítve." },
+  "rulenewadded": { "message": "Új szabály hozzáadva." },
+  "gotooptions": { "message": "Ugrás a beállítások oldalra ⚙️" },
+  "gotopopup": { "message": "Kattints a bővítmény ikonjára a felugró ablakhoz való visszatéréshez." }
 }

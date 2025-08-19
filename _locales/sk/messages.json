@@ -38,5 +38,14 @@
   "quote7": { "message": "Každodenné malé kroky vedú k veľkým výsledkom." },
   "quote8": { "message": "Tvoja jediná hranica je tvoja myseľ." },
   "quote9": { "message": "Úspech je súčtom malých snáh opakovaných denne." },
-  "quote10": { "message": "Sústreď sa na produktivitu, nie na zaneprázdnenosť." }
+  "quote10": { "message": "Sústreď sa na produktivitu, nie na zaneprázdnenosť." },
+  "actionsheader": { "message": "Akcie" },
+  "norules": { "message": "Žiadne zablokované stránky." },
+  "editbtn": { "message": "Upraviť" },
+  "ruleddeleted": { "message": "Pravidlo bolo odstránené." },
+  "cancelbtn": { "message": "Zrušiť" },
+  "ruleupdated": { "message": "Pravidlo aktualizované." },
+  "rulenewadded": { "message": "Nové pravidlo pridané." },
+  "gotooptions": { "message": "Prejsť na stránku nastavení ⚙️" },
+  "gotopopup": { "message": "Kliknite na ikonu rozšírenia, aby ste sa vrátili k vyskakovaciemu oknu." }
 }

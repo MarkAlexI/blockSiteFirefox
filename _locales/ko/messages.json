@@ -38,5 +38,14 @@
   "quote7": { "message": "당신은 생각보다 강합니다." },
   "quote8": { "message": "계속 나아가세요." },
   "quote9": { "message": "긍정적인 마음을 유지하세요." },
-  "quote10": { "message": "당신의 가능성은 무한합니다." }
+  "quote10": { "message": "당신의 가능성은 무한합니다." },
+  "actionsheader": { "message": "작업" },
+  "norules": { "message": "차단된 사이트가 없습니다." },
+  "editbtn": { "message": "편집" },
+  "ruleddeleted": { "message": "규칙이 삭제되었습니다." },
+  "cancelbtn": { "message": "취소" },
+  "ruleupdated": { "message": "규칙이 업데이트되었습니다." },
+  "rulenewadded": { "message": "새 규칙이 추가되었습니다." },
+  "gotooptions": { "message": "옵션 페이지로 이동 ⚙️" },
+  "gotopopup": { "message": "확장 아이콘을 클릭하여 팝업으로 돌아가기." }
 }

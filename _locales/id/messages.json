@@ -38,5 +38,14 @@
   "quote7": { "message": "Kamu lebih kuat dari yang kamu pikirkan." },
   "quote8": { "message": "Teruslah maju." },
   "quote9": { "message": "Tetap positif." },
-  "quote10": { "message": "Potensimu tidak terbatas." }
+  "quote10": { "message": "Potensimu tidak terbatas." },
+  "actionsheader": { "message": "Tindakan" },
+  "norules": { "message": "Tidak ada situs yang diblokir." },
+  "editbtn": { "message": "Edit" },
+  "ruleddeleted": { "message": "Aturan telah dihapus." },
+  "cancelbtn": { "message": "Batal" },
+  "ruleupdated": { "message": "Aturan diperbarui." },
+  "rulenewadded": { "message": "Aturan baru ditambahkan." },
+  "gotooptions": { "message": "Pergi ke halaman opsi ⚙️" },
+  "gotopopup": { "message": "Klik ikon ekstensi untuk kembali ke popup." }
 }

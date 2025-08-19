@@ -38,5 +38,14 @@
   "quote7": { "message": "Hatua ndogo kila siku huleta matokeo makubwa." },
   "quote8": { "message": "Kizuizi chako pekee ni akili yako." },
   "quote9": { "message": "Mafanikio ni jumla ya juhudi ndogo zinazojirudia kila siku." },
-  "quote10": { "message": "Lenga kuwa na tija, si kuwa bize tu." }
+  "quote10": { "message": "Lenga kuwa na tija, si kuwa bize tu." },
+  "actionsheader": { "message": "Vitendo" },
+  "norules": { "message": "Hakuna tovuti zilizozuiwa." },
+  "editbtn": { "message": "Hariri" },
+  "ruleddeleted": { "message": "Sheria imefutwa." },
+  "cancelbtn": { "message": "Ghairi" },
+  "ruleupdated": { "message": "Sheria imesasishwa." },
+  "rulenewadded": { "message": "Sheria mpya imeongezwa." },
+  "gotooptions": { "message": "Nenda kwenye ukurasa wa chaguzi ⚙️" },
+  "gotopopup": { "message": "Bonyeza ikoni ya ugani ili kurudi kwenye dirisha ibukizi." }
 }

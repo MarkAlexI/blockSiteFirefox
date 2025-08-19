@@ -38,5 +38,14 @@
   "quote7": { "message": "Elke dag een kleine stap leidt tot grote resultaten." },
   "quote8": { "message": "Je enige beperking is je geest." },
   "quote9": { "message": "Succes is de som van kleine inspanningen, dagelijks herhaald." },
-  "quote10": { "message": "Richt je op productief zijn, niet op druk zijn." }
+  "quote10": { "message": "Richt je op productief zijn, niet op druk zijn." },
+  "actionsheader": { "message": "Acties" },
+  "norules": { "message": "Geen geblokkeerde sites." },
+  "editbtn": { "message": "Bewerken" },
+  "ruleddeleted": { "message": "De regel is verwijderd." },
+  "cancelbtn": { "message": "Annuleren" },
+  "ruleupdated": { "message": "Regel bijgewerkt." },
+  "rulenewadded": { "message": "Nieuwe regel toegevoegd." },
+  "gotooptions": { "message": "Ga naar de optiespagina ⚙️" },
+  "gotopopup": { "message": "Klik op het extensiepictogram om terug te keren naar de popup." }
 }

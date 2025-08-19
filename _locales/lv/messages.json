@@ -38,5 +38,14 @@
   "quote7": { "message": "Mazie soļi katru dienu noved pie lieliem rezultātiem." },
   "quote8": { "message": "Vienīgais ierobežojums ir tavs prāts." },
   "quote9": { "message": "Panākumi ir ikdienas pūļu summa." },
-  "quote10": { "message": "Koncentrējies uz produktivitāti, nevis aizņemtību." }
+  "quote10": { "message": "Koncentrējies uz produktivitāti, nevis aizņemtību." },
+  "actionsheader": { "message": "Darbības" },
+  "norules": { "message": "Nav bloķētu vietņu." },
+  "editbtn": { "message": "Rediģēt" },
+  "ruleddeleted": { "message": "Noteikums ir izdzēsts." },
+  "cancelbtn": { "message": "Atcelt" },
+  "ruleupdated": { "message": "Noteikums atjaunināts." },
+  "rulenewadded": { "message": "Jauns noteikums pievienots." },
+  "gotooptions": { "message": "Doties uz iestatījumu lapu ⚙️" },
+  "gotopopup": { "message": "Noklikšķiniet uz paplašinājuma ikonas, lai atgrieztos uz uznirstošo logu." }
 }

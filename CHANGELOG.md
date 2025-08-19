@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.5] - 2025-08-19
+
+### Fixed
+- Completed missing translation keys across multiple locales (es, fr, hr, hu, id, ja, kn, ko, lt, lv, mr, ms, nl, no, pl, ro, ru, sk, sl, sr, sv, sw, ta, te, th, tr, vi), ensuring consistent internationalization support.
+
 ## [2.8.4] - 2025-08-18
 
 ### Fixed

@@ -38,5 +38,14 @@
   "quote7": { "message": "あなたは思っているより強い。" },
   "quote8": { "message": "前に進み続けよう。" },
   "quote9": { "message": "前向きな気持ちを持とう。" },
-  "quote10": { "message": "あなたの可能性は無限大です。" }
+  "quote10": { "message": "あなたの可能性は無限大です。" },
+  "actionsheader": { "message": "アクション" },
+  "norules": { "message": "ブロックされたサイトはありません。" },
+  "editbtn": { "message": "編集" },
+  "ruleddeleted": { "message": "ルールが削除されました。" },
+  "cancelbtn": { "message": "キャンセル" },
+  "ruleupdated": { "message": "ルールが更新されました。" },
+  "rulenewadded": { "message": "新しいルールが追加されました。" },
+  "gotooptions": { "message": "オプション画面に移動 ⚙️" },
+  "gotopopup": { "message": "拡張機能のアイコンをクリックしてポップアップに戻ります。" }
 }

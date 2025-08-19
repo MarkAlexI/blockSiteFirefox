@@ -38,5 +38,14 @@
   "quote7": { "message": "Tu es plus fort que tu ne le crois." },
   "quote8": { "message": "Continue d’avancer." },
   "quote9": { "message": "Reste positif." },
-  "quote10": { "message": "Ton potentiel est illimité." }
+  "quote10": { "message": "Ton potentiel est illimité." },
+  "actionsheader": { "message": "Actions" },
+  "norules": { "message": "Aucun site bloqué." },
+  "editbtn": { "message": "Modifier" },
+  "ruleddeleted": { "message": "La règle a été supprimée." },
+  "cancelbtn": { "message": "Annuler" },
+  "ruleupdated": { "message": "Règle mise à jour." },
+  "rulenewadded": { "message": "Nouvelle règle ajoutée." },
+  "gotooptions": { "message": "Aller à la page des options ⚙️" },
+  "gotopopup": { "message": "Cliquez sur l'icône de l'extension pour revenir au popup." }
 }

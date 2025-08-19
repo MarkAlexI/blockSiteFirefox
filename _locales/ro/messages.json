@@ -38,5 +38,14 @@
   "quote7": { "message": "Pași mici în fiecare zi duc la rezultate mari." },
   "quote8": { "message": "Singura ta limită este mintea ta." },
   "quote9": { "message": "Succesul este suma eforturilor mici repetate zilnic." },
-  "quote10": { "message": "Concentrează-te pe a fi productiv, nu ocupat." }
+  "quote10": { "message": "Concentrează-te pe a fi productiv, nu ocupat." },
+  "actionsheader": { "message": "Acțiuni" },
+  "norules": { "message": "Niciun site blocat." },
+  "editbtn": { "message": "Editare" },
+  "ruleddeleted": { "message": "Regula a fost ștearsă." },
+  "cancelbtn": { "message": "Anulare" },
+  "ruleupdated": { "message": "Regulă actualizată." },
+  "rulenewadded": { "message": "Regulă nouă adăugată." },
+  "gotooptions": { "message": "Accesează pagina de opțiuni ⚙️" },
+  "gotopopup": { "message": "Fă clic pe pictograma extensiei pentru a reveni la fereastra pop-up." }
 }

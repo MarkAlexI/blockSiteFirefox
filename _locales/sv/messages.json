@@ -38,5 +38,14 @@
   "quote7": { "message": "Små steg varje dag leder till stora resultat." },
   "quote8": { "message": "Din enda gräns är ditt sinne." },
   "quote9": { "message": "Framgång är summan av små ansträngningar upprepade dagligen." },
-  "quote10": { "message": "Fokusera på att vara produktiv, inte bara upptagen." }
+  "quote10": { "message": "Fokusera på att vara produktiv, inte bara upptagen." },
+  "actionsheader": { "message": "Åtgärder" },
+  "norules": { "message": "Inga blockerade webbplatser." },
+  "editbtn": { "message": "Redigera" },
+  "ruleddeleted": { "message": "Regeln har tagits bort." },
+  "cancelbtn": { "message": "Avbryt" },
+  "ruleupdated": { "message": "Regel uppdaterad." },
+  "rulenewadded": { "message": "Ny regel tillagd." },
+  "gotooptions": { "message": "Gå till inställningssidan ⚙️" },
+  "gotopopup": { "message": "Klicka på tilläggsikonen för att återgå till popup-fönstret." }
 }

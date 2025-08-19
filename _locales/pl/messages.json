@@ -38,5 +38,14 @@
   "quote7": { "message": "Małe kroki każdego dnia prowadzą do wielkich rezultatów." },
   "quote8": { "message": "Twoim jedynym ograniczeniem jest Twój umysł." },
   "quote9": { "message": "Sukces to suma małych wysiłków powtarzanych codziennie." },
-  "quote10": { "message": "Skoncentruj się na byciu produktywnym, nie zajętym." }
+  "quote10": { "message": "Skoncentruj się na byciu produktywnym, nie zajętym." },
+  "actionsheader": { "message": "Akcje" },
+  "norules": { "message": "Brak zablokowanych stron." },
+  "editbtn": { "message": "Edytuj" },
+  "ruleddeleted": { "message": "Reguła została usunięta." },
+  "cancelbtn": { "message": "Anuluj" },
+  "ruleupdated": { "message": "Reguła zaktualizowana." },
+  "rulenewadded": { "message": "Nowa reguła dodana." },
+  "gotooptions": { "message": "Przejdź do strony opcji ⚙️" },
+  "gotopopup": { "message": "Kliknij ikonę rozszerzenia, aby wrócić do wyskakującego okna." }
 }

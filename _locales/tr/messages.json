@@ -38,5 +38,14 @@
   "quote7": { "message": "Her gün küçük adımlar, büyük sonuçlar getirir." },
   "quote8": { "message": "Tek sınırın zihnindir." },
   "quote9": { "message": "Başarı, günlük olarak tekrarlanan küçük çabaların toplamıdır." },
-  "quote10": { "message": "Meşgul olmak yerine üretken olmaya odaklan." }
+  "quote10": { "message": "Meşgul olmak yerine üretken olmaya odaklan." },
+  "actionsheader": { "message": "Eylemler" },
+  "norules": { "message": "Engellenmiş site yok." },
+  "editbtn": { "message": "Düzenle" },
+  "ruleddeleted": { "message": "Kural silindi." },
+  "cancelbtn": { "message": "İptal" },
+  "ruleupdated": { "message": "Kural güncellendi." },
+  "rulenewadded": { "message": "Yeni kural eklendi." },
+  "gotooptions": { "message": "Seçenekler sayfasına git ⚙️" },
+  "gotopopup": { "message": "Eklenti simgesine tıklayarak pop-up'a dönün." }
 }

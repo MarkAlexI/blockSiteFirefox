@@ -38,5 +38,14 @@
   "quote7": { "message": "Từng bước nhỏ mỗi ngày tạo nên kết quả lớn." },
   "quote8": { "message": "Giới hạn duy nhất là trong tâm trí bạn." },
   "quote9": { "message": "Thành công là tổng hợp của những nỗ lực nhỏ được lặp đi lặp lại mỗi ngày." },
-  "quote10": { "message": "Tập trung vào hiệu quả, không phải sự bận rộn." }
+  "quote10": { "message": "Tập trung vào hiệu quả, không phải sự bận rộn." },
+  "actionsheader": { "message": "Hành động" },
+  "norules": { "message": "Không có trang web bị chặn." },
+  "editbtn": { "message": "Chỉnh sửa" },
+  "ruleddeleted": { "message": "Quy tắc đã bị xóa." },
+  "cancelbtn": { "message": "Hủy" },
+  "ruleupdated": { "message": "Quy tắc đã được cập nhật." },
+  "rulenewadded": { "message": "Quy tắc mới đã được thêm." },
+  "gotooptions": { "message": "Đi đến trang tùy chọn ⚙️" },
+  "gotopopup": { "message": "Nhấp vào biểu tượng tiện ích mở rộng để trở lại popup." }
 }

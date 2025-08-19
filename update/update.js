@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'We’ve made several improvements to stability and accessibility.',
-    'The issue with closing tabs by rule has been fixed, and translations with placeholders now display correctly.',
-    'We also improved the handling of localized messages in the settings page and added accessibility attributes to form inputs and table headers.'
+    'We’ve improved language support by completing missing translations in many locales. This ensures a more consistent experience for users worldwide.'
   ];
   
   const ul = document.getElementById('features');

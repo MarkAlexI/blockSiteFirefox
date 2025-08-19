@@ -38,5 +38,14 @@
   "quote7": { "message": "Maži žingsniai kasdien atveda prie didelių rezultatų." },
   "quote8": { "message": "Vienintelė riba – tavo protas." },
   "quote9": { "message": "Sėkmė – tai mažų pastangų visuma, kartojama kasdien." },
-  "quote10": { "message": "Koncentruokis į produktyvumą, o ne į užimtumą." }
+  "quote10": { "message": "Koncentruokis į produktyvumą, o ne į užimtumą." },
+  "actionsheader": { "message": "Veiksmai" },
+  "norules": { "message": "Nėra užblokuotų svetainių." },
+  "editbtn": { "message": "Redaguoti" },
+  "ruleddeleted": { "message": "Taisyklė buvo pašalinta." },
+  "cancelbtn": { "message": "Atšaukti" },
+  "ruleupdated": { "message": "Taisyklė atnaujinta." },
+  "rulenewadded": { "message": "Nauja taisyklė pridėta." },
+  "gotooptions": { "message": "Eiti į nustatymų puslapį ⚙️" },
+  "gotopopup": { "message": "Spustelėkite plėtinio piktogramą, kad grįžtumėte į iššokantį langą." }
 }
