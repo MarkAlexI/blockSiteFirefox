@@ -1,7 +1,7 @@
 {
-  "chromename": { "message": "Block Site Extension" },
-  "shortname": { "message": "Block Site Ext" },
-  "description": { "message": "Effortlessly block and redirect websites with customizable rules to stay focused and productive." },
+  "chromename": { "message": "BlockDistraction — Block Site Extension" },
+  "shortname": { "message": "BlkDistract" },
+  "description": { "message": "Simple and reliable website blocker and redirect tool to help you stay focused." },
   "defaulttitle": { "message": "Be Focused and Productive" },
   "header": { "message": "Site Blocker" },
   "paragraph": { "message": "To block a website or resource, enter part of its name into the input field with the placeholder \"Type Block URL\" — for example, \"facebook\" will block all related subdomains. In the field with the placeholder \"Type Redirect URL\", enter the full redirect address including the protocol, such as \"https://google.com\". If the redirect field is left empty, the site will be blocked without redirection. Click the Save button to apply the rule. To update a rule, delete the old one and create a new entry." },
@@ -10,7 +10,7 @@
   "redirecturl": { "message": "Type redirect URL (optional)" },
   "savebtn": { "message": "Save" },
   "deletebtn": { "message": "Delete" },
-  "alertruleexist": { "message": "Rule now exist" },
+  "alertruleexist": { "message": "Rule already exist" },
   "savedrules": {
     "message": "Saved $ruleslength$ rule(s)",
     "placeholders": {
@@ -42,7 +42,7 @@
   "actionsheader": { "message": "Actions" },
   "norules": { "message": "No blocked sites." },
   "editbtn": { "message": "Edit" },
-  "ruleddeleted": { "message": "The rule has been deleted." },
+  "ruleddeleted": { "message": "Rule deleted." },
   "cancelbtn": { "message": "Cancel" },
   "ruleupdated": { "message": "Rule updated." },
   "rulenewadded": { "message": "New rule added." },

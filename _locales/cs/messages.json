@@ -1,20 +1,18 @@
 {
-  "chromename": { "message": "Rozšíření pro blokování webů" },
-  "shortname": { "message": "Blokování webů" },
-  "description": { "message": "Snadno blokujte a přesměrovávejte weby pomocí přizpůsobitelných pravidel a zůstaňte soustředění a produktivní." },
+  "chromename": { "message": "BlockDistraction — Blokátor webů" },
+  "shortname": { "message": "Blokátor" },
+  "description": { "message": "Jednoduchý a spolehlivý nástroj pro blokování a přesměrování webů, který vám pomůže zůstat soustředěný." },
   "defaulttitle": { "message": "Buďte soustředění a produktivní" },
   "header": { "message": "Blokátor webů" },
-  "paragraph": {
-    "message": "Chcete-li zablokovat web nebo zdroj, zadejte část jeho názvu do pole s popiskem „Zadejte URL k blokování“ — například „facebook“ zablokuje všechny související subdomény. Do pole s popiskem „Zadejte přesměrovací URL“ zadejte úplnou adresu včetně protokolu, například „https://google.com“. Pokud pole pro přesměrování necháte prázdné, web bude pouze zablokován bez přesměrování. Kliknutím na tlačítko Uložit pravidlo použijete. Chcete-li pravidlo aktualizovat, smažte staré a vytvořte nové."
-  },
+  "paragraph": { "message": "Chcete-li blokovat web nebo zdroj, zadejte část jeho názvu do pole s nápovědou \"Zadejte URL pro blokování\" — například \"facebook\" zablokuje všechny související subdomény. Do pole s nápovědou \"Zadejte URL pro přesměrování\" zadejte celou adresu včetně protokolu, například \"https://google.com\". Pokud pole pro přesměrování zůstane prázdné, web bude zablokován bez přesměrování. Klikněte na tlačítko Uložit pro použití pravidla. Chcete-li aktualizovat pravidlo, smažte staré a vytvořte nové." },
   "addrule": { "message": "Přidat nové pravidlo" },
-  "blockurl": { "message": "Zadejte URL k blokování" },
-  "redirecturl": { "message": "Zadejte přesměrovací URL (nepovinné)" },
+  "blockurl": { "message": "Zadejte URL pro blokování" },
+  "redirecturl": { "message": "Zadejte URL pro přesměrování (volitelné)" },
   "savebtn": { "message": "Uložit" },
   "deletebtn": { "message": "Smazat" },
   "alertruleexist": { "message": "Pravidlo již existuje" },
   "savedrules": {
-    "message": "Uloženo $ruleslength$ pravidel",
+    "message": "Uloženo $ruleslength$ pravidlo/ pravidla",
     "placeholders": {
       "ruleslength": {
         "content": "$1",
@@ -22,13 +20,32 @@
       }
     }
   },
-  "wrongredirecturl": { "message": "Neplatná přesměrovací URL" },
-  "blockurlonlyascii": { "message": "URL k blokování může obsahovat pouze znaky ASCII" },
-  "blockurlonlylower": { "message": "Povolena pouze malá písmena" },
+  "wrongredirecturl": { "message": "Neplatná URL pro přesměrování" },
+  "blockurlonlyascii": { "message": "V URL pro blokování jsou povoleny pouze znaky ASCII" },
+  "blockurlonlylower": { "message": "Povolené jsou pouze malé písmena" },
   "donatespantext": { "message": "Líbí se vám toto rozšíření? Podpořte jeho vývoj!" },
-  "donatebtntext": { "message": "Přispět" },
-  "blockthat": { "message": "Zablokovat tento web" },
+  "donatebtntext": { "message": "Darovat" },
+  "blockthat": { "message": "Zablokovat tuto stránku" },
   "sendfeedbackbutton": { "message": "Odeslat zpětnou vazbu" },
-  "sendfeedbacksubject": { "message": "Zpětná vazba k rozšíření Block Site" },
-  "sendfeedbackbody": { "message": "Dobrý den, rád bych se podělil o následující zpětnou vazbu:\n\n" }
+  "sendfeedbacksubject": { "message": "Zpětná vazba pro BlockDistraction" },
+  "sendfeedbackbody": { "message": "Dobrý den, rád bych sdílel následující zpětnou vazbu:\n\n" },
+  "quote1": { "message": "Zůstaňte soustředění, zůstaňte silní." },
+  "quote2": { "message": "Vaši budoucnost tvoří to, co děláte dnes." },
+  "quote3": { "message": "Disciplína je most mezi cíli a úspěchem." },
+  "quote4": { "message": "Jeden blokovaný web, jeden krok blíže k cíli." },
+  "quote5": { "message": "Každé kliknutí má význam." },
+  "quote6": { "message": "Nekoukejte na hodiny; dělejte, co ony. Pokračujte." },
+  "quote7": { "message": "Malé kroky každý den vedou k velkým výsledkům." },
+  "quote8": { "message": "Vaším jediným limitem je mysl." },
+  "quote9": { "message": "Úspěch je součet malých každodenních úsilí." },
+  "quote10": { "message": "Soustřeďte se na produktivitu, ne na zaneprázdnění." },
+  "actionsheader": { "message": "Akce" },
+  "norules": { "message": "Žádné zablokované weby." },
+  "editbtn": { "message": "Upravit" },
+  "ruleddeleted": { "message": "Pravidlo smazáno." },
+  "cancelbtn": { "message": "Zrušit" },
+  "ruleupdated": { "message": "Pravidlo aktualizováno." },
+  "rulenewadded": { "message": "Nové pravidlo přidáno." },
+  "gotooptions": { "message": "Přejít na stránku nastavení ⚙️" },
+  "gotopopup": { "message": "Klikněte na ikonu rozšíření pro návrat k popupu." }
 }

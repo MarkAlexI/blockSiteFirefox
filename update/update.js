@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'We’ve improved language support by completing missing translations in many locales. This ensures a more consistent experience for users worldwide.'
+    'We’ve updated all translations (53 locales) and refreshed the branding to give the extension a cleaner, more consistent look.',
+    'The interface now feels more polished and modern, no matter which language you use.'
   ];
   
   const ul = document.getElementById('features');
