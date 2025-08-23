@@ -1,23 +1,42 @@
-import { storageUpdateHandler } from './storageUpdateHandler.js';
+import { normalizeUrlFilter } from './normalizeUrlFilter.js'; 
 
-browser.runtime.onInstalled.addListener(async ({ reason }) => {
-  if (reason === 'install') {
-    const { rules } = await browser.storage.sync.get('rules');
-    if (rules && Array.isArray(rules)) {
-      const changes = {
-        rules: {
-          newValue: rules
-        }
-      };
-      try {
-        await storageUpdateHandler(changes);
-        console.log('DNR правила створено (Firefox)');
-      } catch (e) {
-        console.error('Помилка при створенні правил:', e);
-      }
+function createDnrRuleFromStored(storedRule) {
+  const filter = normalizeUrlFilter(storedRule.blockURL);
+  const urlFilter = `||${filter}`;
+  const action = storedRule.redirectURL ?
+    { type: "redirect", redirect: { url: storedRule.redirectURL } } :
+    { type: "redirect", redirect: { url: browser.runtime.getURL("blocked.html") } };
+  
+  return {
+    id: storedRule.id,
+    condition: { urlFilter, resourceTypes: ["main_frame"] },
+    priority: 100,
+    action
+  };
+}
+
+async function syncDnrFromStorage() {
+  try {
+    const { rules: storedRules } = await browser.storage.sync.get('rules');
+    if (!storedRules || !storedRules.length) return;
+    
+    const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
+    
+    const missing = storedRules.filter(sr => !dnrRules.some(dr => dr.id === sr.id));
+    if (missing.length) {
+      const addRules = missing.map(sr => createDnrRuleFromStored(sr));
+      await browser.declarativeNetRequest.updateDynamicRules({ addRules });
     }
+    
+    const extra = dnrRules.filter(dr => !storedRules.some(sr => sr.id === dr.id));
+    if (extra.length) {
+      const removeRuleIds = extra.map(dr => dr.id);
+      await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
+    }
+  } catch (e) {
+    console.error("DNR sync error:", e);
   }
-});
+}
 
 const showUpdates = (details) => {
   if (details.reason === 'update') {
@@ -28,6 +47,8 @@ const showUpdates = (details) => {
   }
 };
 
+browser.runtime.onStartup.addListener(syncDnrFromStorage);
+browser.runtime.onInstalled.addListener(syncDnrFromStorage);
 browser.runtime.onInstalled.addListener(showUpdates);
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {

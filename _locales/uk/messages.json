@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Правило оновлено." },
   "rulenewadded": { "message": "Додано нове правило." },
   "gotooptions": { "message": "Перейти на сторінку налаштувань ⚙️" },
-  "gotopopup": { "message": "Натисніть на іконку розширення, щоб повернутися до спливаючого вікна." }
+  "gotopopup": { "message": "Натисніть на іконку розширення, щоб повернутися до спливаючого вікна." },
+  "rulesmigrated": { "message": "Правила оновлено для сумісності" },
+  "errorupdatingrules": { "message": "Помилка оновлення правил" },
+  "erroraddingrule": { "message": "Помилка додавання правила" },
+  "errorremovingrule": { "message": "Помилка видалення правила" }
 }

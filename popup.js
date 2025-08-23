@@ -61,11 +61,48 @@ let thisTabs = [];
 (async () => {
   thisTabs = await getCurrentTabs();
   
-  browser.storage.sync.get('rules', ({ rules }) => {
+  browser.storage.sync.get('rules', async ({ rules }) => {
     rules = rules || [];
     
+    if (rules.some(rule => !rule.id)) {
+      try {
+        const oldDnrRules = await browser.declarativeNetRequest.getDynamicRules();
+        await browser.declarativeNetRequest.updateDynamicRules({
+          removeRuleIds: oldDnrRules.map(r => r.id)
+        });
+        
+        const redirectURL = browser.runtime.getURL("blocked.html");
+        const newDnrRules = rules.map((rule, i) => {
+          const filter = normalizeUrlFilter(rule.blockURL);
+          const urlFilter = `||${filter}`;
+          return {
+            id: i + 1,
+            condition: { urlFilter, resourceTypes: ["main_frame"] },
+            priority: 100,
+            action: rule.redirectURL ? { type: "redirect", redirect: { url: rule.redirectURL } } : { type: "redirect", redirect: { url: redirectURL } }
+          };
+        });
+        
+        await browser.declarativeNetRequest.updateDynamicRules({
+          addRules: newDnrRules
+        });
+        
+        rules = newDnrRules.map((dnrRule, i) => ({
+          id: dnrRule.id,
+          blockURL: rules[i].blockURL,
+          redirectURL: rules[i].redirectURL
+        }));
+        browser.storage.sync.set({ rules });
+        
+        customAlert(t('rulesmigrated'));
+      } catch (e) {
+        console.error("Migration error:", e);
+        customAlert(t('errorupdatingrules'));
+      }
+    }
+    
     rules.forEach(rule => {
-      createRuleInputs(rule.blockURL, rule.redirectURL);
+      createRuleInputs(rule.blockURL, rule.redirectURL, rule.id);
     });
     
     const currentUrl = normalizeUrlFilter(thisTabs[0]?.url || '');
@@ -96,23 +133,46 @@ const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
   icon.style.verticalAlign = 'middle';
   newButton.appendChild(icon);
   
-  newButton.addEventListener('click', () => {
-    browser.storage.sync.get('rules', ({ rules }) => {
+  newButton.addEventListener('click', async () => {
+    browser.storage.sync.get('rules', async ({ rules }) => {
       rules = rules || [];
       
       const alreadyExists = rules.some(rule => rule.blockURL === url);
       if (!alreadyExists) {
-        rules.push({ blockURL: url, redirectURL: '' });
-        browser.storage.sync.set({ rules }, () => {
-          createRuleInputs(url, '');
-          const outputText = t('savedrules', ' ' + rules.length + ' ');
-          statusOutput.value = outputText;
-          customAlert('+ 1');
+        try {
+          const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
+          const maxId = dnrRules.length ? Math.max(...dnrRules.map(r => r.id)) : 0;
+          const newId = maxId + 1;
           
-          closeTabsMatchingRule(url);
+          const filter = normalizeUrlFilter(url);
+          const urlFilter = `||${filter}`;
+          const redirectURL = browser.runtime.getURL("blocked.html");
+          const newDnrRule = {
+            id: newId,
+            condition: { urlFilter, resourceTypes: ["main_frame"] },
+            priority: 100,
+            action: { type: "redirect", redirect: { url: redirectURL } }
+          };
           
-          newButton.remove();
-        });
+          await browser.declarativeNetRequest.updateDynamicRules({
+            addRules: [newDnrRule]
+          });
+          
+          rules.push({ id: newId, blockURL: url, redirectURL: '' });
+          browser.storage.sync.set({ rules }, () => {
+            createRuleInputs(url, '', newId);
+            const outputText = t('savedrules', ' ' + rules.length + ' ');
+            statusOutput.value = outputText;
+            customAlert('+ 1');
+            
+            closeTabsMatchingRule(url);
+            
+            newButton.remove();
+          });
+        } catch (e) {
+          console.error("DNR add error:", e);
+          customAlert(t('erroraddingrule'));
+        }
       }
     });
   });
@@ -131,7 +191,7 @@ function makeInputReadOnly(el) {
   el.classList.add('input-readonly');
 }
 
-function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
+function createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null) {
   
   const ruleDiv = document.createElement('div');
   ruleDiv.className = 'rule';
@@ -152,8 +212,8 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
   
   let saveButton;
   
-  const createNewRule = () => {
-    browser.storage.sync.get('rules', ({ rules }) => {
+  const createNewRule = async () => {
+    browser.storage.sync.get('rules', async ({ rules }) => {
       rules = rules || [];
       
       const ruleExists = rules.some(rule =>
@@ -173,18 +233,42 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
           }
         }
         
-        rules.push({ blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
-        browser.storage.sync.set({ rules }, () => {
-          createRuleInputs();
-          const outputText = t('savedrules', ' ' + rules.length + ' ');
-          statusOutput.value = outputText;
-          makeInputReadOnly(blockURL);
-          makeInputReadOnly(redirectURL);
-          saveButton && saveButton.remove();
-          customAlert('+ 1');
+        try {
+          const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
+          const maxId = dnrRules.length ? Math.max(...dnrRules.map(r => r.id)) : 0;
+          const newId = maxId + 1;
           
-          closeTabsMatchingRule(blockURL.value.trim());
-        });
+          const filter = normalizeUrlFilter(blockURL.value.trim());
+          const urlFilter = `||${filter}`;
+          const action = redirectURL.value.trim() ? { type: "redirect", redirect: { url: redirectURL.value.trim() } } : { type: "redirect", redirect: { url: browser.runtime.getURL("blocked.html") } };
+          
+          const newDnrRule = {
+            id: newId,
+            condition: { urlFilter, resourceTypes: ["main_frame"] },
+            priority: 100,
+            action
+          };
+          
+          await browser.declarativeNetRequest.updateDynamicRules({
+            addRules: [newDnrRule]
+          });
+          
+          rules.push({ id: newId, blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
+          browser.storage.sync.set({ rules }, () => {
+            createRuleInputs();
+            const outputText = t('savedrules', ' ' + rules.length + ' ');
+            statusOutput.value = outputText;
+            makeInputReadOnly(blockURL);
+            makeInputReadOnly(redirectURL);
+            saveButton && saveButton.remove();
+            customAlert('+ 1');
+            
+            closeTabsMatchingRule(blockURL.value.trim());
+          });
+        } catch (e) {
+          console.error("DNR add error:", e);
+          customAlert(t('erroraddingrule'));
+        }
       }
     });
   }
@@ -214,24 +298,37 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '') {
     return saveButton;
   };
   
-  deleteButton.addEventListener('click', () => {
-    browser.storage.sync.get('rules', ({ rules }) => {
-      rules = rules || [];
-      rules = rules.filter((rule) => rule.blockURL !== blockURL.value.trim() || rule.redirectURL !== redirectURL.value.trim());
-      browser.storage.sync.set({ rules });
-      
-      const outputText = t('savedrules', ' ' + rules.length + ' ');
-      statusOutput.value = outputText;
-    });
+  deleteButton.addEventListener('click', async () => {
     if (blockURL.value) {
-      customAlert('- 1');
+      try {
+        await browser.declarativeNetRequest.updateDynamicRules({
+          removeRuleIds: [ruleId]
+        });
+        
+        browser.storage.sync.get('rules', ({ rules }) => {
+          rules = rules || [];
+          rules = rules.filter(rule => rule.id !== ruleId);
+          browser.storage.sync.set({ rules });
+          
+          const outputText = t('savedrules', ' ' + rules.length + ' ');
+          statusOutput.value = outputText;
+        });
+        customAlert('- 1');
+        ruleDiv.remove();
+      } catch (e) {
+        console.error("DNR remove error:", e);
+        customAlert(t('errorremovingrule'));
+      }
+    } else {
+      ruleDiv.remove();
     }
-    ruleDiv.remove();
   });
   
   setTimeout(function() {
     ruleDiv.appendChild(blockURL);
     ruleDiv.appendChild(redirectURL);
+    ruleDiv.dataset.ruleId = ruleId;
+    
     if (!blockURLValue) {
       const saveButton = createSaveButton();
       ruleDiv.appendChild(saveButton);
