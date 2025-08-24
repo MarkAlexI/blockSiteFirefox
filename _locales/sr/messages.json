@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Правило је ажурирано." },
   "rulenewadded": { "message": "Додато је ново правило." },
   "gotooptions": { "message": "Иди на страницу са подешавањима ⚙️" },
-  "gotopopup": { "message": "Кликните на икону проширења да бисте се вратили на искачући прозор." }
+  "gotopopup": { "message": "Кликните на икону проширења да бисте се вратили на искачући прозор." },
+  "rulesmigrated": { "message": "Правила ажурирана за компатибилност" },
+  "errorupdatingrules": { "message": "Грешка при ажурирању правила" },
+  "erroraddingrule": { "message": "Грешка при додавању правила" },
+  "errorremovingrule": { "message": "Грешка при уклањању правила" }
 }

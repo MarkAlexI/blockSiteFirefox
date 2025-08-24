@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "قانون بروزرسانی شد." },
   "rulenewadded": { "message": "قانون جدید اضافه شد." },
   "gotooptions": { "message": "رفتن به صفحه تنظیمات ⚙️" },
-  "gotopopup": { "message": "برای بازگشت به پنجره پاپاپ، روی آیکون افزونه کلیک کنید." }
+  "gotopopup": { "message": "برای بازگشت به پنجره پاپاپ، روی آیکون افزونه کلیک کنید." },
+  "rulesmigrated": { "message": "قوانین برای سازگاری به‌روزرسانی شدند" },
+  "errorupdatingrules": { "message": "خطا در به‌روزرسانی قوانین" },
+  "erroraddingrule": { "message": "خطا در افزودن قانون" },
+  "errorremovingrule": { "message": "خطا در حذف قانون" }
 }

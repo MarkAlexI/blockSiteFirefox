@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Aturan diperbarui." },
   "rulenewadded": { "message": "Aturan baru ditambahkan." },
   "gotooptions": { "message": "Buka halaman opsi ⚙️" },
-  "gotopopup": { "message": "Klik ikon ekstensi untuk kembali ke popup." }
+  "gotopopup": { "message": "Klik ikon ekstensi untuk kembali ke popup." },
+  "rulesmigrated": { "message": "Aturan diperbarui untuk kompatibilitas" },
+  "errorupdatingrules": { "message": "Kesalahan saat memperbarui aturan" },
+  "erroraddingrule": { "message": "Kesalahan saat menambahkan aturan" },
+  "errorremovingrule": { "message": "Kesalahan saat menghapus aturan" }
 }

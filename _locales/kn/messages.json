@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "ನಿಯಮವನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ." },
   "rulenewadded": { "message": "ಹೊಸ ನಿಯಮವನ್ನು ಸೇರಿಸಲಾಗಿದೆ." },
   "gotooptions": { "message": "ಆಪ್ಷನ್ ಪುಟಕ್ಕೆ ಹೋಗಿ ⚙️" },
-  "gotopopup": { "message": "ಪಾಪ್ ಅಪ್‌ಗೆ ಮರಳಲು ವಿಸ್ತರಣೆ ಐಕಾನ್ ಕ್ಲಿಕ್ ಮಾಡಿ." }
+  "gotopopup": { "message": "ಪಾಪ್ ಅಪ್‌ಗೆ ಮರಳಲು ವಿಸ್ತರಣೆ ಐಕಾನ್ ಕ್ಲಿಕ್ ಮಾಡಿ." },
+  "rulesmigrated": { "message": "ಹೊಂದಾಣಿಕೆಗಾಗಿ ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ" },
+  "errorupdatingrules": { "message": "ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸುವಲ್ಲಿ ದೋಷ" },
+  "erroraddingrule": { "message": "ನಿಯಮವನ್ನು ಸೇರಿಸುವಲ್ಲಿ ದೋಷ" },
+  "errorremovingrule": { "message": "ನಿಯಮವನ್ನು ತೆಗೆದುಹಾಕುವಲ್ಲಿ ದೋಷ" }
 }

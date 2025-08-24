@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Ο κανόνας ενημερώθηκε." },
   "rulenewadded": { "message": "Προστέθηκε νέος κανόνας." },
   "gotooptions": { "message": "Μετάβαση στη σελίδα ρυθμίσεων ⚙️" },
-  "gotopopup": { "message": "Κάντε κλικ στο εικονίδιο της επέκτασης για να επιστρέψετε στο popup." }
+  "gotopopup": { "message": "Κάντε κλικ στο εικονίδιο της επέκτασης για να επιστρέψετε στο popup." },
+  "rulesmigrated": { "message": "Οι κανόνες ενημερώθηκαν για συμβατότητα" },
+  "errorupdatingrules": { "message": "Σφάλμα κατά την ενημέρωση των κανόνων" },
+  "erroraddingrule": { "message": "Σφάλμα κατά την προσθήκη κανόνα" },
+  "errorremovingrule": { "message": "Σφάλμα κατά την αφαίρεση κανόνα" }
 }

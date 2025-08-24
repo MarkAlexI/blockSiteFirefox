@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Pravilo ažurirano." },
   "rulenewadded": { "message": "Novo pravilo dodano." },
   "gotooptions": { "message": "Idi na stranicu opcija ⚙️" },
-  "gotopopup": { "message": "Kliknite ikonu proširenja za povratak na skočni prozor." }
+  "gotopopup": { "message": "Kliknite ikonu proširenja za povratak na skočni prozor." },
+  "rulesmigrated": { "message": "Pravila ažurirana za kompatibilnost" },
+  "errorupdatingrules": { "message": "Pogreška pri ažuriranju pravila" },
+  "erroraddingrule": { "message": "Pogreška pri dodavanju pravila" },
+  "errorremovingrule": { "message": "Pogreška pri uklanjanju pravila" }
 }

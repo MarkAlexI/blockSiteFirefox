@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "ルールを更新しました。" },
   "rulenewadded": { "message": "新しいルールを追加しました。" },
   "gotooptions": { "message": "オプションページへ移動 ⚙️" },
-  "gotopopup": { "message": "拡張機能アイコンをクリックしてポップアップに戻る。" }
+  "gotopopup": { "message": "拡張機能アイコンをクリックしてポップアップに戻る。" },
+  "rulesmigrated": { "message": "互換性のためにルールが更新されました" },
+  "errorupdatingrules": { "message": "ルールの更新中にエラーが発生しました" },
+  "erroraddingrule": { "message": "ルールの追加中にエラーが発生しました" },
+  "errorremovingrule": { "message": "ルールの削除中にエラーが発生しました" }
 }

@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Reël opgedateer." },
   "rulenewadded": { "message": "Nuwe reël bygevoeg." },
   "gotooptions": { "message": "Gaan na opsies-blad ⚙️" },
-  "gotopopup": { "message": "Klik die uitbreiding-ikoon om na die opspringer terug te keer." }
+  "gotopopup": { "message": "Klik die uitbreiding-ikoon om na die opspringer terug te keer." },
+  "rulesmigrated": { "message": "Reëls opgedateer vir verenigbaarheid" },
+  "errorupdatingrules": { "message": "Fout tydens die opdatering van reëls" },
+  "erroraddingrule": { "message": "Fout tydens die byvoeging van 'n reël" },
+  "errorremovingrule": { "message": "Fout tydens die verwydering van 'n reël" }
 }

@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Pravilo je bilo posodobljeno." },
   "rulenewadded": { "message": "Dodano je bilo novo pravilo." },
   "gotooptions": { "message": "Pojdi na stran z nastavitvami ⚙️" },
-  "gotopopup": { "message": "Kliknite ikono razširitve, da se vrnete na pojavno okno." }
+  "gotopopup": { "message": "Kliknite ikono razširitve, da se vrnete na pojavno okno." },
+  "rulesmigrated": { "message": "Pravila posodobljena za združljivost" },
+  "errorupdatingrules": { "message": "Napaka pri posodabljanju pravil" },
+  "erroraddingrule": { "message": "Napaka pri dodajanju pravila" },
+  "errorremovingrule": { "message": "Napaka pri odstranjevanju pravila" }
 }

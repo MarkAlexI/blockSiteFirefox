@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "নিয়ম আপডেট হয়েছে।" },
   "rulenewadded": { "message": "নতুন নিয়ম যোগ করা হয়েছে।" },
   "gotooptions": { "message": "সেটিংস পৃষ্ঠায় যান ⚙️" },
-  "gotopopup": { "message": "পপআপে ফিরতে এক্সটেনশন আইকনে ক্লিক করুন।" }
+  "gotopopup": { "message": "পপআপে ফিরতে এক্সটেনশন আইকনে ক্লিক করুন।" },
+  "rulesmigrated": { "message": "সামঞ্জস্যের জন্য নিয়ম আপডেট করা হয়েছে" },
+  "errorupdatingrules": { "message": "নিয়ম আপডেট করতে ত্রুটি" },
+  "erroraddingrule": { "message": "নিয়ম যোগ করতে ত্রুটি" },
+  "errorremovingrule": { "message": "নিয়ম সরাতে ত্রুটি" }
 }

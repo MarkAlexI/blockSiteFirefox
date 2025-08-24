@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'We’ve updated all translations (53 locales) and refreshed the branding to give the extension a cleaner, more consistent look.',
-    'The interface now feels more polished and modern, no matter which language you use.'
+    'We’ ve updated the site blocking logic to make the extension faster and more reliable.',
+    'New rules are now added or removed directly in the popup or on the settings page— without reloading all rules.',
+    'Synchronization has also been improved: rules are automatically restored after restarting the browser and stay consistent across all your devices.'
   ];
   
   const ul = document.getElementById('features');

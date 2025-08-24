@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "تم تحديث القاعدة." },
   "rulenewadded": { "message": "تمت إضافة قاعدة جديدة." },
   "gotooptions": { "message": "اذهب إلى صفحة الخيارات ⚙️" },
-  "gotopopup": { "message": "انقر على أيقونة الامتداد للعودة إلى النافذة المنبثقة." }
+  "gotopopup": { "message": "انقر على أيقونة الامتداد للعودة إلى النافذة المنبثقة." },
+  "rulesmigrated": { "message": "تم تحديث القواعد للتوافق" },
+  "errorupdatingrules": { "message": "خطأ في تحديث القواعد" },
+  "erroraddingrule": { "message": "خطأ في إضافة القاعدة" },
+  "errorremovingrule": { "message": "خطأ في إزالة القاعدة" }
 }

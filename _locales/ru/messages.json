@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Правило обновлено." },
   "rulenewadded": { "message": "Добавлено новое правило." },
   "gotooptions": { "message": "Перейти на страницу настроек ⚙️" },
-  "gotopopup": { "message": "Нажмите на иконку расширения, чтобы вернуться к всплывающему окну." }
+  "gotopopup": { "message": "Нажмите на иконку расширения, чтобы вернуться к всплывающему окну." },
+  "rulesmigrated": { "message": "Правила обновлены для совместимости" },
+  "errorupdatingrules": { "message": "Ошибка при обновлении правил" },
+  "erroraddingrule": { "message": "Ошибка при добавлении правила" },
+  "errorremovingrule": { "message": "Ошибка при удалении правила" }
 }

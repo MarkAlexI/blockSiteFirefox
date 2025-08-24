@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Reegel uuendatud." },
   "rulenewadded": { "message": "Uus reegel lisatud." },
   "gotooptions": { "message": "Mine valikute lehele ⚙️" },
-  "gotopopup": { "message": "Klõpsa laienduse ikoonil, et naasta popup-i." }
+  "gotopopup": { "message": "Klõpsa laienduse ikoonil, et naasta popup-i." },
+  "rulesmigrated": { "message": "Reeglid on uuendatud ühilduvuse tagamiseks" },
+  "errorupdatingrules": { "message": "Viga reeglite uuendamisel" },
+  "erroraddingrule": { "message": "Viga reegli lisamisel" },
+  "errorremovingrule": { "message": "Viga reegli eemaldamisel" }
 }

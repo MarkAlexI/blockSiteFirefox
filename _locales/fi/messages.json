@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Sääntö päivitetty." },
   "rulenewadded": { "message": "Uusi sääntö lisätty." },
   "gotooptions": { "message": "Siirry asetussivulle ⚙️" },
-  "gotopopup": { "message": "Napsauta laajennuksen kuvaketta palataksesi ponnahdusikkunaan." }
+  "gotopopup": { "message": "Napsauta laajennuksen kuvaketta palataksesi ponnahdusikkunaan." },
+  "rulesmigrated": { "message": "Säännöt päivitetty yhteensopivuuden vuoksi" },
+  "errorupdatingrules": { "message": "Virhe sääntöjen päivittämisessä" },
+  "erroraddingrule": { "message": "Virhe säännön lisäämisessä" },
+  "errorremovingrule": { "message": "Virhe säännön poistamisessa" }
 }

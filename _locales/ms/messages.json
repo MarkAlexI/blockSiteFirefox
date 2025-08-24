@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Peraturan dikemas kini." },
   "rulenewadded": { "message": "Peraturan baru ditambah." },
   "gotooptions": { "message": "Pergi ke halaman pilihan ⚙️" },
-  "gotopopup": { "message": "Klik ikon peluasan untuk kembali ke popup." }
+  "gotopopup": { "message": "Klik ikon peluasan untuk kembali ke popup." },
+  "rulesmigrated": { "message": "Peraturan dikemas kini untuk keserasian" },
+  "errorupdatingrules": { "message": "Ralat semasa mengemas kini peraturan" },
+  "erroraddingrule": { "message": "Ralat semasa menambah peraturan" },
+  "errorremovingrule": { "message": "Ralat semasa mengalih keluar peraturan" }
 }

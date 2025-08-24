@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Noteikums atjaunināts." },
   "rulenewadded": { "message": "Pievienots jauns noteikums." },
   "gotooptions": { "message": "Dodieties uz opciju lapu ⚙️" },
-  "gotopopup": { "message": "Noklikšķiniet uz paplašinājuma ikonas, lai atgrieztos popup." }
+  "gotopopup": { "message": "Noklikšķiniet uz paplašinājuma ikonas, lai atgrieztos popup." },
+  "rulesmigrated": { "message": "Noteikumi atjaunināti saderībai" },
+  "errorupdatingrules": { "message": "Kļūda, atjauninot noteikumus" },
+  "erroraddingrule": { "message": "Kļūda, pievienojot noteikumu" },
+  "errorremovingrule": { "message": "Kļūda, noņemot noteikumu" }
 }

@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "규칙이 업데이트되었습니다." },
   "rulenewadded": { "message": "새 규칙이 추가되었습니다." },
   "gotooptions": { "message": "옵션 페이지로 이동 ⚙️" },
-  "gotopopup": { "message": "팝업으로 돌아가려면 확장 아이콘을 클릭하세요." }
+  "gotopopup": { "message": "팝업으로 돌아가려면 확장 아이콘을 클릭하세요." },
+  "rulesmigrated": { "message": "호환성을 위해 규칙이 업데이트되었습니다" },
+  "errorupdatingrules": { "message": "규칙 업데이트 중 오류" },
+  "erroraddingrule": { "message": "규칙 추가 중 오류" },
+  "errorremovingrule": { "message": "규칙 제거 중 오류" }
 }

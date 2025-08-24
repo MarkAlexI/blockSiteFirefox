@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Regel opdateret." },
   "rulenewadded": { "message": "Ny regel tilføjet." },
   "gotooptions": { "message": "Gå til indstillingssiden ⚙️" },
-  "gotopopup": { "message": "Klik på udvidelsesikonet for at vende tilbage til popup" }
+  "gotopopup": { "message": "Klik på udvidelsesikonet for at vende tilbage til popup" },
+  "rulesmigrated": { "message": "Regler opdateret for kompatibilitet" },
+  "errorupdatingrules": { "message": "Fejl ved opdatering af regler" },
+  "erroraddingrule": { "message": "Fejl ved tilføjelse af regel" },
+  "errorremovingrule": { "message": "Fejl ved fjernelse af regel" }
 }

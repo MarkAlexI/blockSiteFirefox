@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "הכלל עודכן." },
   "rulenewadded": { "message": "כלל חדש נוסף." },
   "gotooptions": { "message": "עבור לדף האפשרויות ⚙️" },
-  "gotopopup": { "message": "לחץ על סמל התוסף כדי לחזור לחלון הקופץ." }
+  "gotopopup": { "message": "לחץ על סמל התוסף כדי לחזור לחלון הקופץ." },
+  "rulesmigrated": { "message": "חוקים עודכנו לתאימות" },
+  "errorupdatingrules": { "message": "שגיאה בעדכון החוקים" },
+  "erroraddingrule": { "message": "שגיאה בהוספת חוק" },
+  "errorremovingrule": { "message": "שגיאה בהסרת חוק" }
 }

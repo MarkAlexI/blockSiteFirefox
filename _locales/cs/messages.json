@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Pravidlo aktualizováno." },
   "rulenewadded": { "message": "Nové pravidlo přidáno." },
   "gotooptions": { "message": "Přejít na stránku nastavení ⚙️" },
-  "gotopopup": { "message": "Klikněte na ikonu rozšíření pro návrat k popupu." }
+  "gotopopup": { "message": "Klikněte na ikonu rozšíření pro návrat k popupu." },
+  "rulesmigrated": { "message": "Pravidla byla aktualizována pro kompatibilitu" },
+  "errorupdatingrules": { "message": "Chyba při aktualizaci pravidel" },
+  "erroraddingrule": { "message": "Chyba při přidávání pravidla" },
+  "errorremovingrule": { "message": "Chyba při odstraňování pravidla" }
 }

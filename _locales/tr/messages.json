@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Kural güncellendi." },
   "rulenewadded": { "message": "Yeni kural eklendi." },
   "gotooptions": { "message": "Seçenekler sayfasına git ⚙️" },
-  "gotopopup": { "message": "Popup'a dönmek için uzantı simgesine tıklayın." }
+  "gotopopup": { "message": "Popup'a dönmek için uzantı simgesine tıklayın." },
+  "rulesmigrated": { "message": "Uyumluluk için kurallar güncellendi" },
+  "errorupdatingrules": { "message": "Kuralları güncellerken hata" },
+  "erroraddingrule": { "message": "Kural eklerken hata" },
+  "errorremovingrule": { "message": "Kural kaldırılırken hata" }
 }

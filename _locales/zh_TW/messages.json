@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "規則已更新。" },
   "rulenewadded": { "message": "新規則已新增。" },
   "gotooptions": { "message": "前往選項頁 ⚙️" },
-  "gotopopup": { "message": "點擊擴充功能圖示返回彈出視窗。" }
+  "gotopopup": { "message": "點擊擴充功能圖示返回彈出視窗。" },
+  "rulesmigrated": { "message": "規則已更新以確保相容性" },
+  "errorupdatingrules": { "message": "更新規則時發生錯誤" },
+  "erroraddingrule": { "message": "添加規則時發生錯誤" },
+  "errorremovingrule": { "message": "移除規則時發生錯誤" }
 }

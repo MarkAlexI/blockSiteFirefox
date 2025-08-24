@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Regra atualizada." },
   "rulenewadded": { "message": "Nova regra adicionada." },
   "gotooptions": { "message": "Ir para a página de opções ⚙️" },
-  "gotopopup": { "message": "Clique no ícone da extensão para voltar ao pop-up." }
+  "gotopopup": { "message": "Clique no ícone da extensão para voltar ao pop-up." },
+  "rulesmigrated": { "message": "Regras atualizadas para compatibilidade" },
+  "errorupdatingrules": { "message": "Erro ao atualizar as regras" },
+  "erroraddingrule": { "message": "Erro ao adicionar uma regra" },
+  "errorremovingrule": { "message": "Erro ao remover uma regra" }
 }

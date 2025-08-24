@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Rule na-update." },
   "rulenewadded": { "message": "Bagong rule naidagdag." },
   "gotooptions": { "message": "Pumunta sa options page ⚙️" },
-  "gotopopup": { "message": "I-click ang icon ng extension upang bumalik sa popup." }
+  "gotopopup": { "message": "I-click ang icon ng extension upang bumalik sa popup." },
+  "rulesmigrated": { "message": "Na-update ang mga patakaran para sa pagkakatugma" },
+  "errorupdatingrules": { "message": "Error sa pag-update ng mga patakaran" },
+  "erroraddingrule": { "message": "Error sa pagdaragdag ng patakaran" },
+  "errorremovingrule": { "message": "Error sa pag-alis ng patakaran" }
 }

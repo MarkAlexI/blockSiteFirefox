@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Quy tắc đã được cập nhật." },
   "rulenewadded": { "message": "Quy tắc mới đã được thêm." },
   "gotooptions": { "message": "Đi tới trang tùy chọn ⚙️" },
-  "gotopopup": { "message": "Nhấn biểu tượng tiện ích để quay lại popup." }
+  "gotopopup": { "message": "Nhấn biểu tượng tiện ích để quay lại popup." },
+  "rulesmigrated": { "message": "Quy tắc đã được cập nhật để tương thích" },
+  "errorupdatingrules": { "message": "Lỗi khi cập nhật quy tắc" },
+  "erroraddingrule": { "message": "Lỗi khi thêm quy tắc" },
+  "errorremovingrule": { "message": "Lỗi khi xóa quy tắc" }
 }

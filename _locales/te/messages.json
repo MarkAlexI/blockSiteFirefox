@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "నియమం నవీకరించబడింది." },
   "rulenewadded": { "message": "కొత్త నియమం జోడించబడింది." },
   "gotooptions": { "message": "ఆప్షన్స్ పేజీకి వెళ్లండి ⚙️" },
-  "gotopopup": { "message": "పాప్‌అప్‌కి తిరిగి వెళ్లడానికి విస్తరణ ఐకాన్‌పై క్లిక్ చేయండి." }
+  "gotopopup": { "message": "పాప్‌అప్‌కి తిరిగి వెళ్లడానికి విస్తరణ ఐకాన్‌పై క్లిక్ చేయండి." },
+  "rulesmigrated": { "message": "సామరస్యం కోసం నియమాలు నవీకరించబడ్డాయి" },
+  "errorupdatingrules": { "message": "నియమాలను నవీకరించడంలో లోపం" },
+  "erroraddingrule": { "message": "నియమాన్ని జోడించడంలో లోపం" },
+  "errorremovingrule": { "message": "నియమాన్ని తొలగించడంలో లోపం" }
 }

@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "ደንቡ ተዘመነ።" },
   "rulenewadded": { "message": "አዲስ ደንብ ታክሏል።" },
   "gotooptions": { "message": "ወደ አማራጮች ገፅ ሂድ ⚙️" },
-  "gotopopup": { "message": "ወደ ፖፕአፕ ለመመለስ የኤክስቴንሽን አዶ ጠቅ አድርግ።" }
+  "gotopopup": { "message": "ወደ ፖፕአፕ ለመመለስ የኤክስቴንሽን አዶ ጠቅ አድርግ።" },
+  "rulesmigrated": { "message": "ደንቦች ለተጣጣምነት ተዘምነዋል" },
+  "errorupdatingrules": { "message": "ደንቦችን በማዘመን ላይ ስህተት" },
+  "erroraddingrule": { "message": "ደንብ በመጨመር ላይ ስህተት" },
+  "errorremovingrule": { "message": "ደንብ በማስወገድ ላይ ስህተት" }
 }

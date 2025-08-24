@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Szabály frissítve." },
   "rulenewadded": { "message": "Új szabály hozzáadva." },
   "gotooptions": { "message": "Ugrás a beállítások oldalra ⚙️" },
-  "gotopopup": { "message": "Kattints a bővítmény ikonra a visszatéréshez a felugró ablakhoz." }
+  "gotopopup": { "message": "Kattints a bővítmény ikonra a visszatéréshez a felugró ablakhoz." },
+  "rulesmigrated": { "message": "Szabályok frissítve a kompatibilitás érdekében" },
+  "errorupdatingrules": { "message": "Hiba a szabályok frissítésekor" },
+  "erroraddingrule": { "message": "Hiba egy szabály hozzáadásakor" },
+  "errorremovingrule": { "message": "Hiba egy szabály törlésekor" }
 }

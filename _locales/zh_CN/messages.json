@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "规则已更新。" },
   "rulenewadded": { "message": "新规则已添加。" },
   "gotooptions": { "message": "前往选项页面 ⚙️" },
-  "gotopopup": { "message": "点击扩展图标返回弹出窗口。" }
+  "gotopopup": { "message": "点击扩展图标返回弹出窗口。" },
+  "rulesmigrated": { "message": "规则已更新以确保兼容性" },
+  "errorupdatingrules": { "message": "更新规则时出错" },
+  "erroraddingrule": { "message": "添加规则时出错" },
+  "errorremovingrule": { "message": "移除规则时出错" }
 }

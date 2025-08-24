@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Regula a fost actualizată." },
   "rulenewadded": { "message": "Regulă nouă adăugată." },
   "gotooptions": { "message": "Mergi la pagina de opțiuni ⚙️" },
-  "gotopopup": { "message": "Faceți clic pe pictograma extensiei pentru a reveni la pop-up." }
+  "gotopopup": { "message": "Faceți clic pe pictograma extensiei pentru a reveni la pop-up." },
+  "rulesmigrated": { "message": "Reguli actualizate pentru compatibilitate" },
+  "errorupdatingrules": { "message": "Eroare la actualizarea regulilor" },
+  "erroraddingrule": { "message": "Eroare la adăugarea unei reguli" },
+  "errorremovingrule": { "message": "Eroare la eliminarea unei reguli" }
 }

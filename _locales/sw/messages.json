@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Kanuni imesasishwa." },
   "rulenewadded": { "message": "Kanuni mpya imeongezwa." },
   "gotooptions": { "message": "Nenda kwenye ukurasa wa chaguzi ⚙️" },
-  "gotopopup": { "message": "Bonyeza ikoni ya upanuzi kurudi kwenye dirisha la popup." }
+  "gotopopup": { "message": "Bonyeza ikoni ya upanuzi kurudi kwenye dirisha la popup." },
+  "rulesmigrated": { "message": "Sheria zimesasishwa kwa ajili ya upatanifu" },
+  "errorupdatingrules": { "message": "Hitilafu wakati wa kusasisha sheria" },
+  "erroraddingrule": { "message": "Hitilafu wakati wa kuongeza sheria" },
+  "errorremovingrule": { "message": "Hitilafu wakati wa kuondoa sheria" }
 }

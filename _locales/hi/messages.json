@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "नियम अपडेट किया गया।" },
   "rulenewadded": { "message": "नया नियम जोड़ा गया।" },
   "gotooptions": { "message": "विकल्प पृष्ठ पर जाएँ ⚙️" },
-  "gotopopup": { "message": "पॉपअप पर वापस जाने के लिए एक्सटेंशन आइकन पर क्लिक करें।" }
+  "gotopopup": { "message": "पॉपअप पर वापस जाने के लिए एक्सटेंशन आइकन पर क्लिक करें।" },
+  "rulesmigrated": { "message": "संगतता के लिए नियम अपडेट किए गए" },
+  "errorupdatingrules": { "message": "नियम अपडेट करने में त्रुटि" },
+  "erroraddingrule": { "message": "नियम जोड़ने में त्रुटि" },
+  "errorremovingrule": { "message": "नियम हटाने में त्रुटि" }
 }

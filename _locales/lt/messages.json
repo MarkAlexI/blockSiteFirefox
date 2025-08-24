@@ -47,5 +47,9 @@
   "ruleupdated": { "message": "Taisyklė atnaujinta." },
   "rulenewadded": { "message": "Pridėta nauja taisyklė." },
   "gotooptions": { "message": "Eiti į parinkčių puslapį ⚙️" },
-  "gotopopup": { "message": "Spustelėkite plėtinio piktogramą, kad grįžtumėte į popup." }
+  "gotopopup": { "message": "Spustelėkite plėtinio piktogramą, kad grįžtumėte į popup." },
+  "rulesmigrated": { "message": "Taisyklės atnaujintos dėl suderinamumo" },
+  "errorupdatingrules": { "message": "Klaida atnaujinant taisykles" },
+  "erroraddingrule": { "message": "Klaida pridedant taisyklę" },
+  "errorremovingrule": { "message": "Klaida šalinant taisyklę" }
 }
