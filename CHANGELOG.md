@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0] - 2025-08-28
+### Added
+- **Strict mode** — prevents accidental deletion of rules.
+- **Option to disable update notifications** for the extension.
+- **Pro features groundwork** — import/export of rules now available.
+- **Basic statistics** on the options page (total rules, blocked sites count, etc.).
+
 ## [2.9.1] - 2025-08-24
 ### Fixed
 - Completed missing translation keys for all locales

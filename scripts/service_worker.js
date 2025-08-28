@@ -39,12 +39,16 @@ async function syncDnrFromStorage() {
 }
 
 const showUpdates = (details) => {
-  if (details.reason === 'update') {
-    const version = browser.runtime.getManifest().version;
-    browser.tabs.create({
-      url: browser.runtime.getURL(`update/update.html?version=${version}`)
-    });
-  }
+  browser.storage.sync.get(['settings'], ({ settings }) => {
+    const showNotifications = settings?.showNotifications === true;
+    
+    if (details.reason === 'update' && showNotifications === true) {
+      const version = browser.runtime.getManifest().version;
+      browser.tabs.create({
+        url: browser.runtime.getURL(`update/update.html?version=${version}`)
+      });
+    }
+  });
 };
 
 browser.runtime.onStartup.addListener(syncDnrFromStorage);

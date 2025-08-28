@@ -191,6 +191,92 @@ function makeInputReadOnly(el) {
   el.classList.add('input-readonly');
 }
 
+function handleRuleDeletion(deleteButton, blockURL, redirectURL, ruleDiv) {
+  browser.storage.sync.get(['settings'], ({ settings }) => {
+    const isStrictMode = settings?.mode === 'strict';
+    
+    if (isStrictMode) {
+      startDeleteCountdown(deleteButton, blockURL, redirectURL, ruleDiv);
+    } else {
+      deleteRule(deleteButton, blockURL, redirectURL, ruleDiv);
+    }
+  });
+}
+
+function startDeleteCountdown(deleteButton, blockURL, redirectURL, ruleDiv) {
+  let countdown = 10;
+  const originalText = deleteButton.textContent;
+  
+  deleteButton.disabled = true;
+  deleteButton.classList.add('countdown-active');
+  
+  const updateButton = () => {
+    deleteButton.textContent = `${originalText} (${countdown})`;
+  };
+  
+  updateButton();
+  
+  const countdownInterval = setInterval(() => {
+    countdown--;
+    
+    if (countdown > 0) {
+      updateButton();
+    } else {
+      clearInterval(countdownInterval);
+      deleteButton.disabled = false;
+      deleteButton.classList.remove('countdown-active');
+      deleteButton.classList.add('delete-ready');
+      deleteButton.textContent = `${originalText} ✓`;
+      
+      const deleteHandler = () => {
+        deleteRule(deleteButton, blockURL, redirectURL, ruleDiv);
+        deleteButton.removeEventListener('click', deleteHandler);
+      };
+      
+      deleteButton.addEventListener('click', deleteHandler);
+      
+      setTimeout(() => {
+        if (ruleDiv.parentNode) {
+          deleteButton.disabled = false;
+          deleteButton.classList.remove('delete-ready');
+          deleteButton.textContent = originalText;
+          deleteButton.removeEventListener('click', deleteHandler);
+        }
+      }, 5000);
+    }
+  }, 1000);
+  
+  const cancelHandler = (e) => {
+    if (e.detail === 2) {
+      clearInterval(countdownInterval);
+      deleteButton.disabled = false;
+      deleteButton.classList.remove('countdown-active');
+      deleteButton.textContent = originalText;
+      deleteButton.removeEventListener('click', cancelHandler);
+    }
+  };
+  
+  deleteButton.addEventListener('click', cancelHandler);
+}
+
+function deleteRule(deleteButton, blockURL, redirectURL, ruleDiv) {
+  browser.storage.sync.get('rules', ({ rules }) => {
+    rules = rules || [];
+    rules = rules.filter((rule) =>
+      rule.blockURL !== blockURL.trim() || rule.redirectURL !== redirectURL.trim()
+    );
+    browser.storage.sync.set({ rules });
+    
+    const outputText = t('savedrules', ' ' + rules.length + ' ');
+    statusOutput.value = outputText;
+  });
+  
+  if (blockURL) {
+    customAlert('- 1');
+  }
+  ruleDiv.remove();
+}
+
 function createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null) {
   
   const ruleDiv = document.createElement('div');
@@ -298,30 +384,8 @@ function createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = nu
     return saveButton;
   };
   
-  deleteButton.addEventListener('click', async () => {
-    if (blockURL.value) {
-      try {
-        await browser.declarativeNetRequest.updateDynamicRules({
-          removeRuleIds: [ruleId]
-        });
-        
-        browser.storage.sync.get('rules', ({ rules }) => {
-          rules = rules || [];
-          rules = rules.filter(rule => rule.id !== ruleId);
-          browser.storage.sync.set({ rules });
-          
-          const outputText = t('savedrules', ' ' + rules.length + ' ');
-          statusOutput.value = outputText;
-        });
-        customAlert('- 1');
-        ruleDiv.remove();
-      } catch (e) {
-        console.error("DNR remove error:", e);
-        customAlert(t('errorremovingrule'));
-      }
-    } else {
-      ruleDiv.remove();
-    }
+  deleteButton.addEventListener('click', () => {
+    handleRuleDeletion(deleteButton, blockURL.value, redirectURL.value, ruleDiv);
   });
   
   setTimeout(function() {

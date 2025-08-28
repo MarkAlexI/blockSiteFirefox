@@ -51,5 +51,67 @@
   "rulesmigrated": { "message": "Rules updated for compatibility" },
   "errorupdatingrules": { "message": "Error updating rules" },
   "erroraddingrule": { "message": "Error adding rule" },
-  "errorremovingrule": { "message": "Error removing rule" }
+  "errorremovingrule": { "message": "Error removing rule" },
+  "optionsheader": { "message": "Extension Settings" },
+  "optionsdescription": { "message": "Configure your extension behavior and security settings" },
+  "securitymodetitle": { "message": "Security Mode" },
+  "normalmodetitle": { "message": "Normal Mode" },
+  "normalmodedesc": { "message": "Rules can be deleted immediately with a single click" },
+  "strictmodetitle": { "message": "Strict Mode" },
+  "strictmodedesc": { "message": "Rules require a 10-second countdown before deletion to prevent accidental removal" },
+  "additionalsettingstitle": { "message": "Additional Settings" },
+  "confirmdeletetitle": { "message": "Confirm before deleting multiple rules" },
+  "confirmdeletedesc": { "message": "Show confirmation dialog when deleting multiple rules at once" },
+  "notificationstitle": { "message": "Show notifications" },
+  "notificationsdesc": { "message": "Display notifications when web-extention is updated" },
+  "rulesmanagementtitle": { "message": "Rules Management" },
+  "exportrulesbtn": { "message": "Export Rules" },
+  "importrulesbtn": { "message": "Import Rules" },
+  "clearallrulesbtn": { "message": "Clear All Rules" },
+  "totalruleslabel": { "message": "Total Rules" },
+  "blockedtodaylabel": { "message": "Blocked Today" },
+  "totalblockedlabel": { "message": "Total Blocked" },
+  "resetsettingsbtn": { "message": "Reset to Defaults" },
+  "backtopopup": { "message": "Back to Main" },
+  "errorloadingsettings": { "message": "Error loading settings" },
+  "settingssaved": { "message": "Settings saved successfully!" },
+  "errorsavingsettings": { "message": "Error saving settings" },
+  "rulesexported": { "message": "Rules exported successfully!" },
+  "errorexportingrules": { "message": "Error exporting rules" },
+  "willimportrules": {
+    "message": "This will import $ruleslength$ rules. ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Current rules will be replaced. Continue?" },
+  "importedrules": {
+    "message": "Successfully imported $ruleslength$ rule(s)!",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules: ": { "message": "Error importing rules: " },
+  "norulestoclear": { "message": "No rules to clear" },
+  "willdeleteallrules": {
+    "message": "This will permanently delete all $rulescount$ rules. ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "This action cannot be undone. Continue?" },
+  "allrulescleared": { "message": "All rules cleared successfully!" },
+  "errorclearingrules": { "message": "Error clearing rules" },
+  "willreset": { "message": "This will reset all settings to default values. Continue?" },
+  "resettodefaults": { "message": "Settings reset to defaults!" },
+  "errorresettingsettings": { "message": "Error resetting settings" }
 }

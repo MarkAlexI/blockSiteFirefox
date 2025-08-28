@@ -1,27 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../styles/options.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="../styles/controls.css" type="text/css" media="all" />
   <title id="options-title">Options page for Block Site Extension</title>
 </head>
-<body>
-  <h1 id="header-text"></h1>
-  <button id="add-rule"></button>
-  <table id="rules-table">
-    <thead>
-      <tr>
-        <th id="block-url-header" scope="col">Block URL</th>
-        <th id="redirect-url-header" scope="col">Redirect URL</th>
-        <th id="actions-header" scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody id="rules-body"></tbody>
-  </table>
-  <div id="status"></div>
-  <p data-i18n="gotopopup">Click the extension icon to return to popup.</p>
 
+<body>
+  <div class="container">
+    <header>
+      <h1 id="header-text">Site Blocker</h1>
+      <h2 data-i18n="optionsheader">Extension Settings</h2>
+      <p data-i18n="optionsdescription">Configure your extension behavior and security settings</p>
+    </header>
+    
+    <main class="settings-content">
+      <section class="setting-section">
+        <h2 data-i18n="securitymodetitle">Security Mode</h2>
+        <div class="setting-group">
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="mode-normal" name="securityMode" value="normal" checked>
+              <label for="mode-normal">
+                <div class="radio-content">
+                  <span class="radio-title" data-i18n="normalmodetitle">Normal Mode</span>
+                  <span class="radio-description" data-i18n="normalmodedesc">Rules can be deleted immediately with a single click</span>
+                </div>
+              </label>
+            </div>
+            
+            <div class="radio-option">
+              <input type="radio" id="mode-strict" name="securityMode" value="strict">
+              <label for="mode-strict">
+                <div class="radio-content">
+                  <span class="radio-title" data-i18n="strictmodetitle">Strict Mode</span>
+                  <span class="radio-description" data-i18n="strictmodedesc">Rules require a 10-second countdown before deletion to prevent accidental removal</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="setting-section hidden">
+        <h2 data-i18n="additionalsettingstitle">Additional Settings</h2>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <label for="confirmBeforeDelete" data-i18n="confirmdeletetitle">Confirm before deleting multiple rules</label>
+            <span class="setting-description" data-i18n="confirmdeletedesc">Show confirmation dialog when deleting multiple rules at once</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="confirmBeforeDelete" class="toggle-input">
+            <label for="confirmBeforeDelete" class="toggle-label">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <label for="showNotifications" data-i18n="notificationstitle">Show notifications</label>
+            <span class="setting-description" data-i18n="notificationsdesc">Display notifications when web-extention is updated</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="showNotifications" class="toggle-input" checked>
+            <label for="showNotifications" class="toggle-label">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+      
+      <section class="setting-section hidden">
+        <h2 data-i18n="rulesmanagementtitle">Rules Management</h2>
+        
+        <div class="action-buttons">
+          <button id="exportRules" class="action-btn secondary">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+            </svg>
+            <span data-i18n="exportrulesbtn">Export Rules</span>
+          </button>
+          
+          <button id="importRules" class="action-btn secondary">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+              <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+            </svg>
+            <span data-i18n="importrulesbtn">Import Rules</span>
+          </button>
+          
+          <button id="clearAllRules" class="action-btn danger">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+            </svg>
+            <span data-i18n="clearallrulesbtn">Clear All Rules</span>
+          </button>
+        </div>
+        
+        <input type="file" id="importFileInput" accept=".json" class="hidden">
+      </section>
+      
+      <section class="setting-section hidden">
+        <h2 data-i18n="statisticsTitle">Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number" id="totalRules">-</span>
+            <span class="stat-label" data-i18n="totalruleslabel">Total Rules</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="blockedToday">-</span>
+            <span class="stat-label" data-i18n="blockedtodaylabel">Blocked Today</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="totalBlocked">-</span>
+            <span class="stat-label" data-i18n="totalblockedlabel">Total Blocked</span>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <div class="hidden">
+      <footer>
+        <div class="status-message" id="statusMessage"></div>
+        <div class="footer-actions">
+          <button id="resetSettings" class="footer-btn" data-i18n="resetsettingsbtn">Reset to Defaults</button>
+          <a href="../index.html" class="footer-btn primary" data-i18n="backtopopup">Back to Main</a>
+        </div>
+      </footer>
+    </div>
+    
+    <button id="add-rule"></button>
+    <table id="rules-table">
+      <thead>
+        <tr>
+          <th id="block-url-header" scope="col">Block URL</th>
+          <th id="redirect-url-header" scope="col">Redirect URL</th>
+          <th id="actions-header" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="rules-body"></tbody>
+    </table>
+    <div id="status"></div>
+    <p data-i18n="gotopopup">Click the extension icon to return to popup.</p>
+  </div>
+  
   <script type="module" src="../scripts/i18n.js"></script>
   <script type="module" src="./options.js"></script>
 </body>
+
 </html>

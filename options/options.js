@@ -3,6 +3,9 @@ import { isValidAscii } from '../scripts/isValidAscii.js';
 import { isOnlyLowerCase } from '../scripts/isOnlyLowerCase.js';
 import { normalizeUrlFilter } from '../scripts/normalizeUrlFilter.js';
 import { t } from '../scripts/t.js';
+import { SettingsManager } from './settings.js';
+
+const settingsManager = new SettingsManager();
 
 const rulesBody = document.getElementById('rules-body');
 const addRuleButton = document.getElementById('add-rule');
@@ -104,11 +107,79 @@ function createRuleRow(rule, index) {
   const deleteBtn = document.createElement('button');
   deleteBtn.className = 'delete-btn';
   deleteBtn.textContent = t('deletebtn');
-  deleteBtn.addEventListener('click', () => deleteRule(index));
+  deleteBtn.addEventListener('click', () => handleRuleDeletion(deleteBtn, index, row));
   actionsCell.appendChild(deleteBtn);
   
   row.appendChild(actionsCell);
   return row;
+}
+
+function handleRuleDeletion(deleteButton, index, row) {
+  browser.storage.sync.get(['settings'], ({ settings }) => {
+    const isStrictMode = settings?.mode === 'strict';
+    
+    if (isStrictMode) {
+      startDeleteCountdown(deleteButton, index, row);
+    } else {
+      deleteRule(index);
+    }
+  });
+}
+
+function startDeleteCountdown(deleteButton, index, row) {
+  let countdown = 10;
+  const originalText = deleteButton.textContent;
+  
+  deleteButton.disabled = true;
+  deleteButton.classList.add('countdown-active');
+  
+  const updateButton = () => {
+    deleteButton.textContent = `${originalText} (${countdown})`;
+  };
+  
+  updateButton();
+  
+  const countdownInterval = setInterval(() => {
+    countdown--;
+    
+    if (countdown > 0) {
+      updateButton();
+    } else {
+      clearInterval(countdownInterval);
+      deleteButton.disabled = false;
+      deleteButton.classList.remove('countdown-active');
+      deleteButton.classList.add('delete-ready');
+      deleteButton.textContent = `${originalText} ✓`;
+      
+      const deleteHandler = () => {
+        deleteRule(index);
+        deleteButton.removeEventListener('click', deleteHandler);
+      };
+      
+      deleteButton.addEventListener('click', deleteHandler);
+      
+      setTimeout(() => {
+        if (row.parentNode) {
+          deleteButton.disabled = false;
+          deleteButton.classList.remove('delete-ready');
+          deleteButton.textContent = originalText;
+          deleteButton.removeEventListener('click', deleteHandler);
+        }
+      }, 5000);
+    }
+  }, 1000);
+  
+  const cancelHandler = (e) => {
+    if (e.detail === 2) {
+      clearInterval(countdownInterval);
+      deleteButton.disabled = false;
+      deleteButton.classList.remove('countdown-active');
+      deleteButton.textContent = originalText;
+      deleteButton.removeEventListener('click', cancelHandler);
+    }
+  };
+  
+  deleteButton.addEventListener('click', cancelHandler);
 }
 
 async function deleteRule(index) {
