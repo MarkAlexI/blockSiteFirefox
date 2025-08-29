@@ -15,6 +15,7 @@ class PopupPage {
     this.rulesContainer = document.getElementById('rules-container');
     this.addRuleButton = document.getElementById('add-rule');
     this.statusOutput = document.getElementById('status');
+    this.currentModeElement = document.getElementById('current-mode');
     
     this.thisTabs = [];
     
@@ -24,6 +25,7 @@ class PopupPage {
   async init() {
     this.initializeUI();
     this.setupEventListeners();
+    await this.loadSecurityMode();
     await this.loadCurrentTabs();
     await this.loadRules();
   }
@@ -40,7 +42,7 @@ class PopupPage {
     if (donateBtnText) {
       donateButton.innerText = donateBtnText;
     }
-
+    
     this.setupMotivationalQuote();
   }
   
@@ -53,6 +55,34 @@ class PopupPage {
     quoteElement.textContent = message || 'Stay motivated!';
   }
   
+  async loadSecurityMode() {
+    try {
+      const result = await browser.storage.sync.get(['settings']);
+      const settings = result.settings || {};
+      const mode = settings.mode || 'normal';
+      
+      if (this.currentModeElement) {
+        if (mode === 'strict') {
+          this.currentModeElement.setAttribute('data-i18n', 'strictmodetitle');
+          this.currentModeElement.textContent = t('strictmodetitle') || 'Strict Mode';
+          this.currentModeElement.className = 'strict-mode';
+        } else {
+          this.currentModeElement.setAttribute('data-i18n', 'normalmodetitle');
+          this.currentModeElement.textContent = t('normalmodetitle') || 'Normal Mode';
+          this.currentModeElement.className = 'normal-mode';
+        }
+      }
+      
+    } catch (error) {
+      console.error('Error loading security mode:', error);
+      if (this.currentModeElement) {
+        this.currentModeElement.setAttribute('data-i18n', 'normalmodetitle');
+        this.currentModeElement.textContent = t('normalmodetitle') || 'Normal Mode';
+        this.currentModeElement.className = 'normal-mode';
+      }
+    }
+  }
+  
   setupEventListeners() {
     const donateButton = document.getElementById('donate-button');
     const donateURL = 'https://revolut.me/markalexi';
@@ -61,14 +91,20 @@ class PopupPage {
       e.stopPropagation();
       window.open(donateURL, '_blank');
     });
-
+    
     const feedbackButton = document.getElementById('feedback-btn');
     feedbackButton.addEventListener('click', () => {
       this.openFeedbackEmail();
     });
-
+    
     this.addRuleButton.addEventListener('click', () => {
       this.createRuleInputs();
+    });
+    
+    browser.storage.onChanged.addListener((changes, namespace) => {
+      if (namespace === 'sync' && changes.settings) {
+        this.loadSecurityMode();
+      }
     });
   }
   
@@ -98,11 +134,11 @@ class PopupPage {
       }
       
       const rules = migrationResult.rules || await this.rulesManager.getRules();
-
+      
       rules.forEach(rule => {
         this.createRuleInputs(rule.blockURL, rule.redirectURL, rule.id);
       });
-
+      
       this.updateStatus(rules.length);
       this.showBlockThisSiteButton(rules);
       
@@ -189,7 +225,7 @@ class PopupPage {
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-btn';
     deleteButton.textContent = t('deletebtn');
-
+    
     deleteButton.addEventListener('click', async () => {
       await this.handleRuleDeletion(deleteButton, blockURL.value, redirectURL.value, ruleDiv);
     });
@@ -242,7 +278,7 @@ class PopupPage {
       const updatedRules = await this.rulesManager.getRules();
       this.createRuleInputs();
       this.updateStatus(updatedRules.length);
-
+      
       this.makeInputReadOnly(blockURL);
       this.makeInputReadOnly(redirectURL);
       saveButton.remove();
@@ -273,24 +309,24 @@ class PopupPage {
       this.rulesUI.handleRuleDeletion(
         deleteButton,
         async () => {
-          try {
-            await this.rulesManager.deleteRuleByData(blockURL, redirectURL);
-            
-            const updatedRules = await this.rulesManager.getRules();
-            this.updateStatus(updatedRules.length);
-            
-            if (blockURL) {
-              customAlert('- 1');
+            try {
+              await this.rulesManager.deleteRuleByData(blockURL, redirectURL);
+              
+              const updatedRules = await this.rulesManager.getRules();
+              this.updateStatus(updatedRules.length);
+              
+              if (blockURL) {
+                customAlert('- 1');
+              }
+              ruleDiv.remove();
+              
+            } catch (error) {
+              console.error("Delete rule error:", error);
+              customAlert(t('errorremovingrule'));
             }
-            ruleDiv.remove();
-            
-          } catch (error) {
-            console.error("Delete rule error:", error);
-            customAlert(t('errorremovingrule'));
-          }
-        },
-        isStrictMode,
-        t('deletebtn')
+          },
+          isStrictMode,
+          t('deletebtn')
       );
       
     } catch (error) {
@@ -313,6 +349,9 @@ class PopupPage {
   
   cleanup() {
     this.rulesUI.cleanup();
+    if (browser.storage && browser.storage.onChanged) {
+      browser.storage.onChanged.removeListener(this.storageChangeListener);
+    }
   }
 }
 

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.11.0] - 2025-08-29
+### Added
+- **Security Mode indicator** in the popup — always visible for quick reference.
+- Popup now **auto-updates** when extension settings change.
+
 ## [2.10.2] - 2025-08-29
 ### Added
 - New locale: **or**

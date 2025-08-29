@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'Improved settings page with more control and convenience.',
     'Technical improvements and stability update: cleaner codebase, fewer bugs.',
     'Better synchronization of blocking rules',
-    'Added support for a new language: Oriya (or).'
+    'Added support for a new language: Oriya (or).',
+    'Security Mode is now visible in the popup for quick reference.',
+    'Popup updates automatically when you change extension settings.'
   ];
   
   const ul = document.getElementById('features');
