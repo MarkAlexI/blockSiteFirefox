@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.1] - 2025-08-29
+### Changed
+- Refactored `popup.js` and `options.js` to class-based structure.
+- Moved rule creation logic into new **RulesManager** class.
+- Moved DOM interactions (inputs & buttons for rules) into new **RulesUI** class.
+- Updated background worker to use **RulesManager**.
+
+### Added
+- **validateDnrIntegrity()** — checks consistency between stored rules and DNR rules, detects desynchronization, and triggers resync if needed.
+
+### Improved
+- Reduced code duplication across scripts.
+- Increased overall stability and maintainability.
+
 ## [2.10.0] - 2025-08-28
 ### Added
 - **Strict mode** — prevents accidental deletion of rules.

@@ -97,7 +97,7 @@
       }
     }
   },
-  "errorimportingrules: ": { "message": "Error importing rules: " },
+  "errorimportingrules": { "message": "Error importing rules: " },
   "norulestoclear": { "message": "No rules to clear" },
   "willdeleteallrules": {
     "message": "This will permanently delete all $rulescount$ rules. ",

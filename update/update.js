@@ -4,9 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'We’ ve updated the site blocking logic to make the extension faster and more reliable.',
-    'New rules are now added or removed directly in the popup or on the settings page— without reloading all rules.',
-    'Synchronization has also been improved: rules are automatically restored after restarting the browser and stay consistent across all your devices.'
+    'Added Strict mode — prevents accidental deletion of rules.',
+    'New option to disable update notifications.',
+/*    'Added basic statistics on the options page: number of rules, total sites blocked, and today’ s blocked count.',*/
+    'Improved settings page with more control and convenience.',
+    'Technical improvements and stability update: cleaner codebase, fewer bugs.',
+    'Better synchronization of blocking rules'
   ];
   
   const ul = document.getElementById('features');

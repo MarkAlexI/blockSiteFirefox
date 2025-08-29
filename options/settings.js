@@ -1,3 +1,5 @@
+import { t } from '../scripts/t.js';
+
 const isPro = false;
 
 export class SettingsManager {

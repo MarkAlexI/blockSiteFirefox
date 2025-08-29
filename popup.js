@@ -1,413 +1,325 @@
 import { customAlert } from './scripts/customAlert.js';
-import { isValidURL } from './scripts/isValidURL.js';
-import { isValidAscii } from './scripts/isValidAscii.js';
-import { isOnlyLowerCase } from './scripts/isOnlyLowerCase.js';
 import { isBlockedURL } from './scripts/isBlockedURL.js';
 import { getCurrentTabs } from './scripts/getCurrentTabs.js';
 import { closeTabsMatchingRule } from './scripts/closeTabs.js';
 import { normalizeUrlFilter } from './scripts/normalizeUrlFilter.js';
 import { t } from './scripts/t.js';
+import { RulesManager } from './rules/rulesManager.js';
+import { RulesUI } from './rules/rulesUI.js';
 
-const donateSpan = document.getElementById('donate-text');
-const donateSpanText = t('donatespantext');
-if (donateSpanText) {
-  donateSpan.innerText = donateSpanText;
-}
-
-const donateButton = document.getElementById('donate-button');
-const donateURL = 'https://revolut.me/markalexi';
-const donateBtnText = t('donatebtntext');
-if (donateBtnText) {
-  donateButton.innerText = donateBtnText;
-}
-
-donateButton.addEventListener('click', (e) => {
-  e.stopPropagation();
-  window.open(donateURL, '_blank');
-});
-
-const quoteElement = document.getElementById('motivational-quote');
-
-const totalQuotes = 10;
-const randomIndex = Math.floor(Math.random() * totalQuotes) + 1;
-const quoteKey = `quote${randomIndex}`;
-
-const message = t(quoteKey);
-quoteElement.textContent = message || 'Stay motivated!';
-
-const rulesContainer = document.getElementById('rules-container');
-const addRuleButton = document.getElementById('add-rule');
-const statusOutput = document.getElementById('status');
-
-const feedbackButton = document.getElementById('feedback-btn');
-
-feedbackButton.addEventListener('click', () => {
-  const manifest = browser.runtime.getManifest();
-  const browserInfo = navigator.userAgent;
-  
-  const email = 'aacsmi06@gmail.com';
-  const sendFeedbackSubject = t('sendfeedbacksubject');
-  const sendFeedbackBody = t('sendfeedbackbody');
-  const subject = encodeURIComponent(sendFeedbackSubject);
-  const body = encodeURIComponent(`Browser: ${browserInfo}\n\nExtension Version: ${manifest.version}\n\n${sendFeedbackBody}`);
-  
-  const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-  
-  window.open(mailtoLink, '_blank');
-});
-
-let thisTabs = [];
-
-(async () => {
-  thisTabs = await getCurrentTabs();
-  
-  browser.storage.sync.get('rules', async ({ rules }) => {
-    rules = rules || [];
+class PopupPage {
+  constructor() {
+    this.rulesManager = new RulesManager();
+    this.rulesUI = new RulesUI();
     
-    if (rules.some(rule => !rule.id)) {
-      try {
-        const oldDnrRules = await browser.declarativeNetRequest.getDynamicRules();
-        await browser.declarativeNetRequest.updateDynamicRules({
-          removeRuleIds: oldDnrRules.map(r => r.id)
-        });
-        
-        const redirectURL = browser.runtime.getURL("blocked.html");
-        const newDnrRules = rules.map((rule, i) => {
-          const filter = normalizeUrlFilter(rule.blockURL);
-          const urlFilter = `||${filter}`;
-          return {
-            id: i + 1,
-            condition: { urlFilter, resourceTypes: ["main_frame"] },
-            priority: 100,
-            action: rule.redirectURL ? { type: "redirect", redirect: { url: rule.redirectURL } } : { type: "redirect", redirect: { url: redirectURL } }
-          };
-        });
-        
-        await browser.declarativeNetRequest.updateDynamicRules({
-          addRules: newDnrRules
-        });
-        
-        rules = newDnrRules.map((dnrRule, i) => ({
-          id: dnrRule.id,
-          blockURL: rules[i].blockURL,
-          redirectURL: rules[i].redirectURL
-        }));
-        browser.storage.sync.set({ rules });
-        
-        customAlert(t('rulesmigrated'));
-      } catch (e) {
-        console.error("Migration error:", e);
-        customAlert(t('errorupdatingrules'));
-      }
+    this.rulesContainer = document.getElementById('rules-container');
+    this.addRuleButton = document.getElementById('add-rule');
+    this.statusOutput = document.getElementById('status');
+    
+    this.thisTabs = [];
+    
+    this.init();
+  }
+  
+  async init() {
+    this.initializeUI();
+    this.setupEventListeners();
+    await this.loadCurrentTabs();
+    await this.loadRules();
+  }
+  
+  initializeUI() {
+    const donateSpan = document.getElementById('donate-text');
+    const donateSpanText = t('donatespantext');
+    if (donateSpanText) {
+      donateSpan.innerText = donateSpanText;
     }
     
-    rules.forEach(rule => {
-      createRuleInputs(rule.blockURL, rule.redirectURL, rule.id);
-    });
+    const donateButton = document.getElementById('donate-button');
+    const donateBtnText = t('donatebtntext');
+    if (donateBtnText) {
+      donateButton.innerText = donateBtnText;
+    }
+
+    this.setupMotivationalQuote();
+  }
+  
+  setupMotivationalQuote() {
+    const quoteElement = document.getElementById('motivational-quote');
+    const totalQuotes = 10;
+    const randomIndex = Math.floor(Math.random() * totalQuotes) + 1;
+    const quoteKey = `quote${randomIndex}`;
+    const message = t(quoteKey);
+    quoteElement.textContent = message || 'Stay motivated!';
+  }
+  
+  setupEventListeners() {
+    const donateButton = document.getElementById('donate-button');
+    const donateURL = 'https://revolut.me/markalexi';
     
-    const currentUrl = normalizeUrlFilter(thisTabs[0]?.url || '');
+    donateButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.open(donateURL, '_blank');
+    });
+
+    const feedbackButton = document.getElementById('feedback-btn');
+    feedbackButton.addEventListener('click', () => {
+      this.openFeedbackEmail();
+    });
+
+    this.addRuleButton.addEventListener('click', () => {
+      this.createRuleInputs();
+    });
+  }
+  
+  openFeedbackEmail() {
+    const manifest = browser.runtime.getManifest();
+    const browserInfo = navigator.userAgent;
+    
+    const email = 'aacsmi06@gmail.com';
+    const sendFeedbackSubject = t('sendfeedbacksubject');
+    const sendFeedbackBody = t('sendfeedbackbody');
+    const subject = encodeURIComponent(sendFeedbackSubject);
+    const body = encodeURIComponent(`Browser: ${browserInfo}\n\nExtension Version: ${manifest.version}\n\n${sendFeedbackBody}`);
+    
+    const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+    window.open(mailtoLink, '_blank');
+  }
+  
+  async loadCurrentTabs() {
+    this.thisTabs = await getCurrentTabs();
+  }
+  
+  async loadRules() {
+    try {
+      const migrationResult = await this.rulesManager.migrateRules();
+      if (migrationResult.migrated) {
+        customAlert(t('rulesmigrated'));
+      }
+      
+      const rules = migrationResult.rules || await this.rulesManager.getRules();
+
+      rules.forEach(rule => {
+        this.createRuleInputs(rule.blockURL, rule.redirectURL, rule.id);
+      });
+
+      this.updateStatus(rules.length);
+      this.showBlockThisSiteButton(rules);
+      
+    } catch (error) {
+      console.error("Load rules error:", error);
+      customAlert(t('errorupdatingrules'));
+    }
+  }
+  
+  showBlockThisSiteButton(rules) {
+    const currentUrl = normalizeUrlFilter(this.thisTabs[0]?.url || '');
     const alreadyBlocked = rules.some(rule => rule.blockURL === currentUrl);
     
-    if (!isBlockedURL(thisTabs) && !alreadyBlocked) {
-      const favIcon = thisTabs[0]?.favIconUrl || 'images/icon-32.png';
-      createBlockThisSiteButton(currentUrl, favIcon);
+    if (!isBlockedURL(this.thisTabs) && !alreadyBlocked && currentUrl) {
+      const favIcon = this.thisTabs[0]?.favIconUrl || 'images/icon-32.png';
+      this.createBlockThisSiteButton(currentUrl, favIcon);
     }
-  });
-})();
-
-const createBlockThisSiteButton = (url, favIconUrl = 'images/icon-32.png') => {
-  if (!url || url.trim() === '') return;
+  }
   
-  const newButton = document.createElement('button');
-  const blockThat = t('blockthat');
-  newButton.id = 'block-that';
-  newButton.title = `${blockThat} ${url}`;
-  newButton.textContent = blockThat;
+  createBlockThisSiteButton(url, favIconUrl = 'images/icon-32.png') {
+    if (!url || url.trim() === '') return;
+    
+    const newButton = document.createElement('button');
+    const blockThat = t('blockthat');
+    newButton.id = 'block-that';
+    newButton.title = `${blockThat} ${url}`;
+    newButton.textContent = blockThat;
+    
+    const icon = document.createElement('img');
+    icon.src = favIconUrl;
+    icon.alt = 'favicon';
+    icon.style.width = '16px';
+    icon.style.height = '16px';
+    icon.style.marginLeft = '16px';
+    icon.style.verticalAlign = 'middle';
+    newButton.appendChild(icon);
+    
+    newButton.addEventListener('click', async () => {
+      await this.blockCurrentSite(url, newButton);
+    });
+    
+    this.addRuleButton.insertAdjacentElement('afterend', newButton);
+  }
   
-  const icon = document.createElement('img');
-  icon.src = favIconUrl;
-  icon.alt = 'favicon';
-  icon.style.width = '16px';
-  icon.style.height = '16px';
-  icon.style.marginLeft = '16px';
-  icon.style.verticalAlign = 'middle';
-  newButton.appendChild(icon);
-  
-  newButton.addEventListener('click', async () => {
-    browser.storage.sync.get('rules', async ({ rules }) => {
-      rules = rules || [];
-      
+  async blockCurrentSite(url, button) {
+    try {
+      const rules = await this.rulesManager.getRules();
       const alreadyExists = rules.some(rule => rule.blockURL === url);
+      
       if (!alreadyExists) {
-        try {
-          const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
-          const maxId = dnrRules.length ? Math.max(...dnrRules.map(r => r.id)) : 0;
-          const newId = maxId + 1;
-          
-          const filter = normalizeUrlFilter(url);
-          const urlFilter = `||${filter}`;
-          const redirectURL = browser.runtime.getURL("blocked.html");
-          const newDnrRule = {
-            id: newId,
-            condition: { urlFilter, resourceTypes: ["main_frame"] },
-            priority: 100,
-            action: { type: "redirect", redirect: { url: redirectURL } }
-          };
-          
-          await browser.declarativeNetRequest.updateDynamicRules({
-            addRules: [newDnrRule]
-          });
-          
-          rules.push({ id: newId, blockURL: url, redirectURL: '' });
-          browser.storage.sync.set({ rules }, () => {
-            createRuleInputs(url, '', newId);
-            const outputText = t('savedrules', ' ' + rules.length + ' ');
-            statusOutput.value = outputText;
-            customAlert('+ 1');
-            
-            closeTabsMatchingRule(url);
-            
-            newButton.remove();
-          });
-        } catch (e) {
-          console.error("DNR add error:", e);
-          customAlert(t('erroraddingrule'));
-        }
-      }
-    });
-  });
-  
-  addRuleButton.insertAdjacentElement('afterend', newButton);
-};
-
-const wrongRedirectUrl = t('wrongredirecturl');
-const blockUrlOnlyAscii = t('blockurlonlyascii');
-const blockUrlOnlyLower = t('blockurlonlylower');
-
-function makeInputReadOnly(el) {
-  el.readOnly = true;
-  el.tabIndex = -1;
-  el.placeholder = '';
-  el.classList.add('input-readonly');
-}
-
-function handleRuleDeletion(deleteButton, blockURL, redirectURL, ruleDiv) {
-  browser.storage.sync.get(['settings'], ({ settings }) => {
-    const isStrictMode = settings?.mode === 'strict';
-    
-    if (isStrictMode) {
-      startDeleteCountdown(deleteButton, blockURL, redirectURL, ruleDiv);
-    } else {
-      deleteRule(deleteButton, blockURL, redirectURL, ruleDiv);
-    }
-  });
-}
-
-function startDeleteCountdown(deleteButton, blockURL, redirectURL, ruleDiv) {
-  let countdown = 10;
-  const originalText = deleteButton.textContent;
-  
-  deleteButton.disabled = true;
-  deleteButton.classList.add('countdown-active');
-  
-  const updateButton = () => {
-    deleteButton.textContent = `${originalText} (${countdown})`;
-  };
-  
-  updateButton();
-  
-  const countdownInterval = setInterval(() => {
-    countdown--;
-    
-    if (countdown > 0) {
-      updateButton();
-    } else {
-      clearInterval(countdownInterval);
-      deleteButton.disabled = false;
-      deleteButton.classList.remove('countdown-active');
-      deleteButton.classList.add('delete-ready');
-      deleteButton.textContent = `${originalText} ✓`;
-      
-      const deleteHandler = () => {
-        deleteRule(deleteButton, blockURL, redirectURL, ruleDiv);
-        deleteButton.removeEventListener('click', deleteHandler);
-      };
-      
-      deleteButton.addEventListener('click', deleteHandler);
-      
-      setTimeout(() => {
-        if (ruleDiv.parentNode) {
-          deleteButton.disabled = false;
-          deleteButton.classList.remove('delete-ready');
-          deleteButton.textContent = originalText;
-          deleteButton.removeEventListener('click', deleteHandler);
-        }
-      }, 5000);
-    }
-  }, 1000);
-  
-  const cancelHandler = (e) => {
-    if (e.detail === 2) {
-      clearInterval(countdownInterval);
-      deleteButton.disabled = false;
-      deleteButton.classList.remove('countdown-active');
-      deleteButton.textContent = originalText;
-      deleteButton.removeEventListener('click', cancelHandler);
-    }
-  };
-  
-  deleteButton.addEventListener('click', cancelHandler);
-}
-
-function deleteRule(deleteButton, blockURL, redirectURL, ruleDiv) {
-  browser.storage.sync.get('rules', ({ rules }) => {
-    rules = rules || [];
-    rules = rules.filter((rule) =>
-      rule.blockURL !== blockURL.trim() || rule.redirectURL !== redirectURL.trim()
-    );
-    browser.storage.sync.set({ rules });
-    
-    const outputText = t('savedrules', ' ' + rules.length + ' ');
-    statusOutput.value = outputText;
-  });
-  
-  if (blockURL) {
-    customAlert('- 1');
-  }
-  ruleDiv.remove();
-}
-
-function createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null) {
-  
-  const ruleDiv = document.createElement('div');
-  ruleDiv.className = 'rule';
-  
-  const blockURL = document.createElement('input');
-  blockURL.type = 'text';
-  blockURL.placeholder = t('blockurl');
-  blockURL.value = blockURLValue;
-  
-  const redirectURL = document.createElement('input');
-  redirectURL.type = 'text';
-  redirectURL.placeholder = t('redirecturl');
-  redirectURL.value = redirectURLValue;
-  
-  const deleteButton = document.createElement('button');
-  deleteButton.className = 'delete-btn';
-  deleteButton.textContent = t('deletebtn');
-  
-  let saveButton;
-  
-  const createNewRule = async () => {
-    browser.storage.sync.get('rules', async ({ rules }) => {
-      rules = rules || [];
-      
-      const ruleExists = rules.some(rule =>
-        rule.blockURL === blockURL.value && rule.redirectURL === redirectURL.value
-      );
-      
-      if (ruleExists) {
-        const alertMessage = t('alertruleexist');
-        customAlert(alertMessage);
-        blockURL.value = '';
-        redirectURL.value = '';
-      } else {
-        if (redirectURL.value) {
-          if (!isValidURL(redirectURL.value)) {
-            customAlert(wrongRedirectUrl);
-            return;
-          }
-        }
+        await this.rulesManager.addRule(url, '');
         
-        try {
-          const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
-          const maxId = dnrRules.length ? Math.max(...dnrRules.map(r => r.id)) : 0;
-          const newId = maxId + 1;
-          
-          const filter = normalizeUrlFilter(blockURL.value.trim());
-          const urlFilter = `||${filter}`;
-          const action = redirectURL.value.trim() ? { type: "redirect", redirect: { url: redirectURL.value.trim() } } : { type: "redirect", redirect: { url: browser.runtime.getURL("blocked.html") } };
-          
-          const newDnrRule = {
-            id: newId,
-            condition: { urlFilter, resourceTypes: ["main_frame"] },
-            priority: 100,
-            action
-          };
-          
-          await browser.declarativeNetRequest.updateDynamicRules({
-            addRules: [newDnrRule]
-          });
-          
-          rules.push({ id: newId, blockURL: blockURL.value.trim(), redirectURL: redirectURL.value.trim() });
-          browser.storage.sync.set({ rules }, () => {
-            createRuleInputs();
-            const outputText = t('savedrules', ' ' + rules.length + ' ');
-            statusOutput.value = outputText;
-            makeInputReadOnly(blockURL);
-            makeInputReadOnly(redirectURL);
-            saveButton && saveButton.remove();
-            customAlert('+ 1');
-            
-            closeTabsMatchingRule(blockURL.value.trim());
-          });
-        } catch (e) {
-          console.error("DNR add error:", e);
-          customAlert(t('erroraddingrule'));
-        }
+        const updatedRules = await this.rulesManager.getRules();
+        const newRule = updatedRules.find(rule => rule.blockURL === url);
+        
+        this.createRuleInputs(url, '', newRule.id);
+        this.updateStatus(updatedRules.length);
+        customAlert('+ 1');
+        
+        closeTabsMatchingRule(url);
+        button.remove();
       }
-    });
+    } catch (error) {
+      console.error("Block current site error:", error);
+      customAlert(t('erroraddingrule'));
+    }
   }
   
-  const createSaveButton = () => {
-    saveButton = document.createElement('button');
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null) {
+    const ruleDiv = document.createElement('div');
+    ruleDiv.className = 'rule';
+    ruleDiv.dataset.ruleId = ruleId;
+    
+    const blockURL = document.createElement('input');
+    blockURL.type = 'text';
+    blockURL.placeholder = t('blockurl');
+    blockURL.value = blockURLValue;
+    
+    const redirectURL = document.createElement('input');
+    redirectURL.type = 'text';
+    redirectURL.placeholder = t('redirecturl');
+    redirectURL.value = redirectURLValue;
+    
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'delete-btn';
+    deleteButton.textContent = t('deletebtn');
+
+    deleteButton.addEventListener('click', async () => {
+      await this.handleRuleDeletion(deleteButton, blockURL.value, redirectURL.value, ruleDiv);
+    });
+    
+    setTimeout(() => {
+      ruleDiv.appendChild(blockURL);
+      ruleDiv.appendChild(redirectURL);
+      
+      if (!blockURLValue) {
+        const saveButton = this.createSaveButton(blockURL, redirectURL, ruleDiv);
+        ruleDiv.appendChild(saveButton);
+      } else {
+        this.makeInputReadOnly(blockURL);
+        this.makeInputReadOnly(redirectURL);
+      }
+      
+      ruleDiv.appendChild(deleteButton);
+      this.rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
+    }, 0);
+  }
+  
+  createSaveButton(blockURL, redirectURL, ruleDiv) {
+    const saveButton = document.createElement('button');
     saveButton.className = 'save-btn';
     saveButton.textContent = t('savebtn');
     
-    saveButton.addEventListener('click', () => {
-      if (blockURL.value === '') {
-        customAlert(blockURL.placeholder);
-        return;
-      }
-      if (!isValidAscii(blockURL.value)) {
-        customAlert(blockUrlOnlyAscii);
-        return;
-      }
-      if (!isOnlyLowerCase(blockURL.value)) {
-        customAlert(blockUrlOnlyLower);
-        return;
-      }
-      
-      createNewRule();
+    saveButton.addEventListener('click', async () => {
+      await this.saveNewRule(blockURL, redirectURL, ruleDiv, saveButton);
     });
     
     return saveButton;
-  };
+  }
   
-  deleteButton.addEventListener('click', () => {
-    handleRuleDeletion(deleteButton, blockURL.value, redirectURL.value, ruleDiv);
-  });
-  
-  setTimeout(function() {
-    ruleDiv.appendChild(blockURL);
-    ruleDiv.appendChild(redirectURL);
-    ruleDiv.dataset.ruleId = ruleId;
-    
-    if (!blockURLValue) {
-      const saveButton = createSaveButton();
-      ruleDiv.appendChild(saveButton);
-    } else {
-      makeInputReadOnly(blockURL);
-      makeInputReadOnly(redirectURL);
+  async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton) {
+    try {
+      const rules = await this.rulesManager.getRules();
+      const ruleExists = rules.some(rule =>
+        rule.blockURL === blockURL.value.trim() && rule.redirectURL === redirectURL.value.trim()
+      );
+      
+      if (ruleExists) {
+        customAlert(t('alertruleexist'));
+        blockURL.value = '';
+        redirectURL.value = '';
+        return;
+      }
+      
+      await this.rulesManager.addRule(blockURL.value, redirectURL.value);
+      
+      const updatedRules = await this.rulesManager.getRules();
+      this.createRuleInputs();
+      this.updateStatus(updatedRules.length);
+
+      this.makeInputReadOnly(blockURL);
+      this.makeInputReadOnly(redirectURL);
+      saveButton.remove();
+      
+      customAlert('+ 1');
+      closeTabsMatchingRule(blockURL.value.trim());
+      
+    } catch (error) {
+      console.error("Save new rule error:", error);
+      
+      if (error.message.includes('Validation failed')) {
+        const errors = error.message.replace('Validation failed: ', '').split(', ');
+        this.rulesUI.showValidationErrors(errors);
+      } else if (error.message === 'Rule already exists') {
+        customAlert(t('alertruleexist'));
+        blockURL.value = '';
+        redirectURL.value = '';
+      } else {
+        customAlert(t('erroraddingrule'));
+      }
     }
-    ruleDiv.appendChild(deleteButton);
-    
-    rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
-  }, 0);
+  }
+  
+  async handleRuleDeletion(deleteButton, blockURL, redirectURL, ruleDiv) {
+    try {
+      const isStrictMode = await this.rulesManager.isStrictMode();
+      
+      this.rulesUI.handleRuleDeletion(
+        deleteButton,
+        async () => {
+          try {
+            await this.rulesManager.deleteRuleByData(blockURL, redirectURL);
+            
+            const updatedRules = await this.rulesManager.getRules();
+            this.updateStatus(updatedRules.length);
+            
+            if (blockURL) {
+              customAlert('- 1');
+            }
+            ruleDiv.remove();
+            
+          } catch (error) {
+            console.error("Delete rule error:", error);
+            customAlert(t('errorremovingrule'));
+          }
+        },
+        isStrictMode,
+        t('deletebtn')
+      );
+      
+    } catch (error) {
+      console.error("Handle deletion error:", error);
+      customAlert(t('errorremovingrule'));
+    }
+  }
+  
+  makeInputReadOnly(input) {
+    input.readOnly = true;
+    input.tabIndex = -1;
+    input.placeholder = '';
+    input.classList.add('input-readonly');
+  }
+  
+  updateStatus(count) {
+    const outputText = t('savedrules', ' ' + count + ' ');
+    this.statusOutput.value = outputText;
+  }
+  
+  cleanup() {
+    this.rulesUI.cleanup();
+  }
 }
 
-addRuleButton.addEventListener('click', () => {
-  createRuleInputs();
+const popupPage = new PopupPage();
+
+window.addEventListener('beforeunload', () => {
+  popupPage.cleanup();
 });
 
 browser.runtime.getBrowserInfo().then(info => {
