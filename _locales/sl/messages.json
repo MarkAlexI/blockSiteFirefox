@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Pravila posodobljena za združljivost" },
   "errorupdatingrules": { "message": "Napaka pri posodabljanju pravil" },
   "erroraddingrule": { "message": "Napaka pri dodajanju pravila" },
-  "errorremovingrule": { "message": "Napaka pri odstranjevanju pravila" }
+  "errorremovingrule": { "message": "Napaka pri odstranjevanju pravila" },
+  "optionsheader": { "message": "Nastavitve razširitve" },
+  "optionsdescription": { "message": "Konfigurirajte vedenje razširitve in varnostne nastavitve" },
+  "securitymodetitle": { "message": "Varnostni način" },
+  "normalmodetitle": { "message": "Navaden način" },
+  "normalmodedesc": { "message": "Pravila je mogoče izbrisati takoj z enim klikom" },
+  "strictmodetitle": { "message": "Strogi način" },
+  "strictmodedesc": { "message": "Pravila zahtevajo 10-sekundno odštevanje pred izbrisom, da se prepreči nenamerno brisanje" },
+  "additionalsettingstitle": { "message": "Dodatne nastavitve" },
+  "confirmdeletetitle": { "message": "Potrdite pred brisanjem več pravil" },
+  "confirmdeletedesc": { "message": "Prikaži pogovorno okno za potrditev pri brisanju več pravil hkrati" },
+  "notificationstitle": { "message": "Prikaži obvestila" },
+  "notificationsdesc": { "message": "Prikaži obvestila ob posodobitvi razširitve" },
+  "rulesmanagementtitle": { "message": "Upravljanje pravil" },
+  "exportrulesbtn": { "message": "Izvozi pravila" },
+  "importrulesbtn": { "message": "Uvozi pravila" },
+  "clearallrulesbtn": { "message": "Izbriši vsa pravila" },
+  "totalruleslabel": { "message": "Skupno pravil" },
+  "blockedtodaylabel": { "message": "Blokirano danes" },
+  "totalblockedlabel": { "message": "Skupno blokirano" },
+  "resetsettingsbtn": { "message": "Ponastavi na privzeto" },
+  "backtopopup": { "message": "Nazaj na glavni meni" },
+  "errorloadingsettings": { "message": "Napaka pri nalaganju nastavitev" },
+  "settingssaved": { "message": "Nastavitve so bile uspešno shranjene!" },
+  "errorsavingsettings": { "message": "Napaka pri shranjevanju nastavitev" },
+  "rulesexported": { "message": "Pravila so bila uspešno izvožena!" },
+  "errorexportingrules": { "message": "Napaka pri izvozu pravil" },
+  "willimportrules": {
+    "message": "Uvoženih bo $ruleslength$ pravil.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Trenutna pravila bodo zamenjana. Nadaljevati?" },
+  "importedrules": {
+    "message": "Uspešno uvoženo $ruleslength$ pravil!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Napaka pri uvozu pravil: " },
+  "norulestoclear": { "message": "Ni pravil za izbris" },
+  "willdeleteallrules": {
+    "message": "To bo trajno izbrisalo vseh $rulescount$ pravil.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Teh dejanj ni mogoče razveljaviti. Nadaljevati?" },
+  "allrulescleared": { "message": "Vsa pravila so bila uspešno izbrisana!" },
+  "errorclearingrules": { "message": "Napaka pri brisanju pravil" },
+  "willreset": { "message": "Vse nastavitve bodo ponastavljene na privzete vrednosti. Nadaljevati?" },
+  "resettodefaults": { "message": "Nastavitve so bile ponastavljene na privzete!" },
+  "errorresettingsettings": { "message": "Napaka pri ponastavitvi nastavitev" }
 }

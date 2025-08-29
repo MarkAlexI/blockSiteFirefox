@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Noteikumi atjaunināti saderībai" },
   "errorupdatingrules": { "message": "Kļūda, atjauninot noteikumus" },
   "erroraddingrule": { "message": "Kļūda, pievienojot noteikumu" },
-  "errorremovingrule": { "message": "Kļūda, noņemot noteikumu" }
+  "errorremovingrule": { "message": "Kļūda, noņemot noteikumu" },
+  "optionsheader": { "message": "Paplašinājuma iestatījumi" },
+  "optionsdescription": { "message": "Konfigurējiet paplašinājuma darbību un drošības iestatījumus" },
+  "securitymodetitle": { "message": "Drošības režīms" },
+  "normalmodetitle": { "message": "Normālais režīms" },
+  "normalmodedesc": { "message": "Noteikumus var izdzēst uzreiz ar vienu klikšķi" },
+  "strictmodetitle": { "message": "Stingrais režīms" },
+  "strictmodedesc": { "message": "Noteikumu dzēšanai nepieciešams 10 sekunžu atpakaļskaitīšana, lai novērstu nejaušu dzēšanu" },
+  "additionalsettingstitle": { "message": "Papildu iestatījumi" },
+  "confirmdeletetitle": { "message": "Apstiprināt pirms vairāku noteikumu dzēšanas" },
+  "confirmdeletedesc": { "message": "Rādīt apstiprinājuma dialogu, dzēšot vairākus noteikumus vienlaikus" },
+  "notificationstitle": { "message": "Rādīt paziņojumus" },
+  "notificationsdesc": { "message": "Rādīt paziņojumus, kad paplašinājums tiek atjaunināts" },
+  "rulesmanagementtitle": { "message": "Noteikumu pārvaldība" },
+  "exportrulesbtn": { "message": "Eksportēt noteikumus" },
+  "importrulesbtn": { "message": "Importēt noteikumus" },
+  "clearallrulesbtn": { "message": "Notīrīt visus noteikumus" },
+  "totalruleslabel": { "message": "Kopējie noteikumi" },
+  "blockedtodaylabel": { "message": "Šodien bloķēts" },
+  "totalblockedlabel": { "message": "Kopā bloķēts" },
+  "resetsettingsbtn": { "message": "Atiestatīt uz noklusējuma" },
+  "backtopopup": { "message": "Atpakaļ uz galveno" },
+  "errorloadingsettings": { "message": "Kļūda ielādējot iestatījumus" },
+  "settingssaved": { "message": "Iestatījumi veiksmīgi saglabāti!" },
+  "errorsavingsettings": { "message": "Kļūda saglabājot iestatījumus" },
+  "rulesexported": { "message": "Noteikumi veiksmīgi eksportēti!" },
+  "errorexportingrules": { "message": "Kļūda eksportējot noteikumus" },
+  "willimportrules": {
+    "message": "Tiks importēti $ruleslength$ noteikumi.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Pašreizējie noteikumi tiks aizvietoti. Turpināt?" },
+  "importedrules": {
+    "message": "Veiksmīgi importēti $ruleslength$ noteikumi!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Kļūda importējot noteikumus: " },
+  "norulestoclear": { "message": "Nav noteikumu, ko dzēst" },
+  "willdeleteallrules": {
+    "message": "Tas neatgriezeniski dzēsīs visus $rulescount$ noteikumus.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Šo darbību nevar atsaukt. Turpināt?" },
+  "allrulescleared": { "message": "Visi noteikumi veiksmīgi dzēsti!" },
+  "errorclearingrules": { "message": "Kļūda dzēšot noteikumus" },
+  "willreset": { "message": "Visi iestatījumi tiks atiestatīti uz noklusējuma vērtībām. Turpināt?" },
+  "resettodefaults": { "message": "Iestatījumi atiestatīti uz noklusējuma!" },
+  "errorresettingsettings": { "message": "Kļūda atiestatot iestatījumus" }
 }

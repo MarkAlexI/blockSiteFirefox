@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Quy tắc đã được cập nhật để tương thích" },
   "errorupdatingrules": { "message": "Lỗi khi cập nhật quy tắc" },
   "erroraddingrule": { "message": "Lỗi khi thêm quy tắc" },
-  "errorremovingrule": { "message": "Lỗi khi xóa quy tắc" }
+  "errorremovingrule": { "message": "Lỗi khi xóa quy tắc" },
+  "optionsheader": { "message": "Cài đặt tiện ích" },
+  "optionsdescription": { "message": "Cấu hình hành vi tiện ích và cài đặt bảo mật" },
+  "securitymodetitle": { "message": "Chế độ Bảo mật" },
+  "normalmodetitle": { "message": "Chế độ Thường" },
+  "normalmodedesc": { "message": "Các quy tắc có thể bị xóa ngay lập tức bằng một cú nhấp chuột" },
+  "strictmodetitle": { "message": "Chế độ Nghiêm ngặt" },
+  "strictmodedesc": { "message": "Các quy tắc yêu cầu đếm ngược 10 giây trước khi xóa để tránh xóa nhầm" },
+  "additionalsettingstitle": { "message": "Cài đặt Bổ sung" },
+  "confirmdeletetitle": { "message": "Xác nhận trước khi xóa nhiều quy tắc" },
+  "confirmdeletedesc": { "message": "Hiển thị hộp thoại xác nhận khi xóa nhiều quy tắc cùng lúc" },
+  "notificationstitle": { "message": "Hiển thị thông báo" },
+  "notificationsdesc": { "message": "Hiển thị thông báo khi tiện ích web được cập nhật" },
+  "rulesmanagementtitle": { "message": "Quản lý Quy tắc" },
+  "exportrulesbtn": { "message": "Xuất Quy tắc" },
+  "importrulesbtn": { "message": "Nhập Quy tắc" },
+  "clearallrulesbtn": { "message": "Xóa Tất cả Quy tắc" },
+  "totalruleslabel": { "message": "Tổng Số Quy tắc" },
+  "blockedtodaylabel": { "message": "Chặn Hôm nay" },
+  "totalblockedlabel": { "message": "Tổng Số Đã Chặn" },
+  "resetsettingsbtn": { "message": "Đặt lại Mặc định" },
+  "backtopopup": { "message": "Quay lại Trang Chính" },
+  "errorloadingsettings": { "message": "Lỗi khi tải cài đặt" },
+  "settingssaved": { "message": "Cài đặt đã được lưu thành công!" },
+  "errorsavingsettings": { "message": "Lỗi khi lưu cài đặt" },
+  "rulesexported": { "message": "Xuất quy tắc thành công!" },
+  "errorexportingrules": { "message": "Lỗi khi xuất quy tắc" },
+  "willimportrules": {
+    "message": "Sẽ nhập $ruleslength$ quy tắc.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Các quy tắc hiện tại sẽ bị thay thế. Tiếp tục?" },
+  "importedrules": {
+    "message": "Đã nhập thành công $ruleslength$ quy tắc!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Lỗi khi nhập quy tắc: " },
+  "norulestoclear": { "message": "Không có quy tắc nào để xóa" },
+  "willdeleteallrules": {
+    "message": "Hành động này sẽ xóa vĩnh viễn tất cả $rulescount$ quy tắc.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Hành động này không thể hoàn tác. Tiếp tục?" },
+  "allrulescleared": { "message": "Đã xóa tất cả quy tắc thành công!" },
+  "errorclearingrules": { "message": "Lỗi khi xóa quy tắc" },
+  "willreset": { "message": "Tất cả cài đặt sẽ được đặt lại về mặc định. Tiếp tục?" },
+  "resettodefaults": { "message": "Cài đặt đã được đặt lại về mặc định!" },
+  "errorresettingsettings": { "message": "Lỗi khi đặt lại cài đặt" }
 }

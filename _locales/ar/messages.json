@@ -51,5 +51,67 @@
   "rulesmigrated": { "message": "تم تحديث القواعد للتوافق" },
   "errorupdatingrules": { "message": "خطأ في تحديث القواعد" },
   "erroraddingrule": { "message": "خطأ في إضافة القاعدة" },
-  "errorremovingrule": { "message": "خطأ في إزالة القاعدة" }
+  "errorremovingrule": { "message": "خطأ في إزالة القاعدة" },
+  "optionsheader": { "message": "إعدادات الإضافة" },
+  "optionsdescription": { "message": "قم بتكوين سلوك الإضافة وإعدادات الأمان" },
+  "securitymodetitle": { "message": "وضع الأمان" },
+  "normalmodetitle": { "message": "الوضع العادي" },
+  "normalmodedesc": { "message": "يمكن حذف القواعد فورًا بنقرة واحدة" },
+  "strictmodetitle": { "message": "الوضع الصارم" },
+  "strictmodedesc": { "message": "تتطلب القواعد عد تنازلي لمدة 10 ثوانٍ قبل الحذف لمنع الحذف العرضي" },
+  "additionalsettingstitle": { "message": "إعدادات إضافية" },
+  "confirmdeletetitle": { "message": "التأكيد قبل حذف قواعد متعددة" },
+  "confirmdeletedesc": { "message": "عرض مربع حوار التأكيد عند حذف قواعد متعددة دفعة واحدة" },
+  "notificationstitle": { "message": "إظهار الإشعارات" },
+  "notificationsdesc": { "message": "عرض الإشعارات عند تحديث الإضافة الإلكترونية" },
+  "rulesmanagementtitle": { "message": "إدارة القواعد" },
+  "exportrulesbtn": { "message": "تصدير القواعد" },
+  "importrulesbtn": { "message": "استيراد القواعد" },
+  "clearallrulesbtn": { "message": "مسح جميع القواعد" },
+  "totalruleslabel": { "message": "إجمالي القواعد" },
+  "blockedtodaylabel": { "message": "محظور اليوم" },
+  "totalblockedlabel": { "message": "إجمالي المحظور" },
+  "resetsettingsbtn": { "message": "إعادة التعيين إلى الإعدادات الافتراضية" },
+  "backtopopup": { "message": "العودة إلى الرئيسية" },
+  "errorloadingsettings": { "message": "خطأ في تحميل الإعدادات" },
+  "settingssaved": { "message": "تم حفظ الإعدادات بنجاح!" },
+  "errorsavingsettings": { "message": "خطأ في حفظ الإعدادات" },
+  "rulesexported": { "message": "تم تصدير القواعد بنجاح!" },
+  "errorexportingrules": { "message": "خطأ في تصدير القواعد" },
+  "willimportrules": {
+    "message": "سيتم استيراد $ruleslength$ قواعد. ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": { "message": "سيتم استبدال القواعد الحالية. هل تريد المتابعة؟" },
+  "importedrules": {
+    "message": "تم استيراد $ruleslength$ قاعدة (قواعد) بنجاح!",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules": { "message": "خطأ في استيراد القواعد: " },
+  "norulestoclear": { "message": "لا توجد قواعد لمسحها" },
+  "willdeleteallrules": {
+    "message": "سيؤدي هذا إلى حذف جميع القواعد $rulescount$ نهائيًا. ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "لا يمكن التراجع عن هذا الإجراء. هل تريد المتابعة؟" },
+  "allrulescleared": { "message": "تم مسح جميع القواعد بنجاح!" },
+  "errorclearingrules": { "message": "خطأ في مسح القواعد" },
+  "willreset": { "message": "سيؤدي هذا إلى إعادة تعيين جميع الإعدادات إلى القيم الافتراضية. هل تريد المتابعة؟" },
+  "resettodefaults": { "message": "تم إعادة تعيين الإعدادات إلى الافتراضية!" },
+  "errorresettingsettings": { "message": "خطأ في إعادة تعيين الإعدادات" }
 }

@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Aturan diperbarui untuk kompatibilitas" },
   "errorupdatingrules": { "message": "Kesalahan saat memperbarui aturan" },
   "erroraddingrule": { "message": "Kesalahan saat menambahkan aturan" },
-  "errorremovingrule": { "message": "Kesalahan saat menghapus aturan" }
+  "errorremovingrule": { "message": "Kesalahan saat menghapus aturan" },
+  "optionsheader": { "message": "Pengaturan Ekstensi" },
+  "optionsdescription": { "message": "Konfigurasikan perilaku dan pengaturan keamanan ekstensi" },
+  "securitymodetitle": { "message": "Mode Keamanan" },
+  "normalmodetitle": { "message": "Mode Normal" },
+  "normalmodedesc": { "message": "Aturan dapat dihapus langsung dengan satu klik" },
+  "strictmodetitle": { "message": "Mode Ketat" },
+  "strictmodedesc": { "message": "Aturan membutuhkan hitungan mundur 10 detik sebelum dihapus untuk mencegah penghapusan tidak sengaja" },
+  "additionalsettingstitle": { "message": "Pengaturan Tambahan" },
+  "confirmdeletetitle": { "message": "Konfirmasi sebelum menghapus beberapa aturan" },
+  "confirmdeletedesc": { "message": "Tampilkan dialog konfirmasi saat menghapus beberapa aturan sekaligus" },
+  "notificationstitle": { "message": "Tampilkan notifikasi" },
+  "notificationsdesc": { "message": "Tampilkan notifikasi ketika ekstensi diperbarui" },
+  "rulesmanagementtitle": { "message": "Manajemen Aturan" },
+  "exportrulesbtn": { "message": "Ekspor Aturan" },
+  "importrulesbtn": { "message": "Impor Aturan" },
+  "clearallrulesbtn": { "message": "Hapus Semua Aturan" },
+  "totalruleslabel": { "message": "Total Aturan" },
+  "blockedtodaylabel": { "message": "Diblokir Hari Ini" },
+  "totalblockedlabel": { "message": "Total Diblokir" },
+  "resetsettingsbtn": { "message": "Reset ke Default" },
+  "backtopopup": { "message": "Kembali ke Menu Utama" },
+  "errorloadingsettings": { "message": "Kesalahan memuat pengaturan" },
+  "settingssaved": { "message": "Pengaturan berhasil disimpan!" },
+  "errorsavingsettings": { "message": "Kesalahan menyimpan pengaturan" },
+  "rulesexported": { "message": "Aturan berhasil diekspor!" },
+  "errorexportingrules": { "message": "Kesalahan mengekspor aturan" },
+  "willimportrules": {
+    "message": "$ruleslength$ aturan akan diimpor.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Aturan saat ini akan diganti. Lanjutkan?" },
+  "importedrules": {
+    "message": "$ruleslength$ aturan berhasil diimpor!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Kesalahan mengimpor aturan: " },
+  "norulestoclear": { "message": "Tidak ada aturan untuk dihapus" },
+  "willdeleteallrules": {
+    "message": "Ini akan menghapus semua $rulescount$ aturan secara permanen.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Tindakan ini tidak dapat dibatalkan. Lanjutkan?" },
+  "allrulescleared": { "message": "Semua aturan berhasil dihapus!" },
+  "errorclearingrules": { "message": "Kesalahan menghapus aturan" },
+  "willreset": { "message": "Semua pengaturan akan di-reset ke nilai default. Lanjutkan?" },
+  "resettodefaults": { "message": "Pengaturan berhasil di-reset ke default!" },
+  "errorresettingsettings": { "message": "Kesalahan mengatur ulang pengaturan" }
 }

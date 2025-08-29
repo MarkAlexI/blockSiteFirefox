@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Szabályok frissítve a kompatibilitás érdekében" },
   "errorupdatingrules": { "message": "Hiba a szabályok frissítésekor" },
   "erroraddingrule": { "message": "Hiba egy szabály hozzáadásakor" },
-  "errorremovingrule": { "message": "Hiba egy szabály törlésekor" }
+  "errorremovingrule": { "message": "Hiba egy szabály törlésekor" },
+  "optionsheader": { "message": "Bővítmény beállításai" },
+  "optionsdescription": { "message": "Állítsa be a bővítmény viselkedését és biztonsági beállításait" },
+  "securitymodetitle": { "message": "Biztonsági mód" },
+  "normalmodetitle": { "message": "Normál mód" },
+  "normalmodedesc": { "message": "A szabályok azonnal törölhetők egy kattintással" },
+  "strictmodetitle": { "message": "Szigorú mód" },
+  "strictmodedesc": { "message": "A szabályok törléséhez 10 másodperces visszaszámlálás szükséges, hogy elkerülje a véletlen törlést" },
+  "additionalsettingstitle": { "message": "További beállítások" },
+  "confirmdeletetitle": { "message": "Megerősítés több szabály törlése előtt" },
+  "confirmdeletedesc": { "message": "Megerősítő párbeszédablak megjelenítése, amikor egyszerre több szabályt töröl" },
+  "notificationstitle": { "message": "Értesítések megjelenítése" },
+  "notificationsdesc": { "message": "Értesítések megjelenítése a bővítmény frissítésekor" },
+  "rulesmanagementtitle": { "message": "Szabályok kezelése" },
+  "exportrulesbtn": { "message": "Szabályok exportálása" },
+  "importrulesbtn": { "message": "Szabályok importálása" },
+  "clearallrulesbtn": { "message": "Az összes szabály törlése" },
+  "totalruleslabel": { "message": "Összes szabály" },
+  "blockedtodaylabel": { "message": "Ma blokkolva" },
+  "totalblockedlabel": { "message": "Összes blokkolt" },
+  "resetsettingsbtn": { "message": "Alapértelmezett visszaállítása" },
+  "backtopopup": { "message": "Vissza a főmenübe" },
+  "errorloadingsettings": { "message": "Hiba a beállítások betöltésekor" },
+  "settingssaved": { "message": "Beállítások sikeresen mentve!" },
+  "errorsavingsettings": { "message": "Hiba a beállítások mentésekor" },
+  "rulesexported": { "message": "Szabályok sikeresen exportálva!" },
+  "errorexportingrules": { "message": "Hiba a szabályok exportálásakor" },
+  "willimportrules": {
+    "message": "$ruleslength$ szabály importálásra kerül.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "A jelenlegi szabályok felülírásra kerülnek. Folytatja?" },
+  "importedrules": {
+    "message": "$ruleslength$ szabály sikeresen importálva!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Hiba a szabályok importálásakor: " },
+  "norulestoclear": { "message": "Nincsenek törlendő szabályok" },
+  "willdeleteallrules": {
+    "message": "Ez véglegesen törli az összes $rulescount$ szabályt.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Ez a művelet nem visszavonható. Folytatja?" },
+  "allrulescleared": { "message": "Minden szabály sikeresen törölve!" },
+  "errorclearingrules": { "message": "Hiba a szabályok törlésekor" },
+  "willreset": { "message": "Minden beállítás alapértelmezettre áll vissza. Folytatja?" },
+  "resettodefaults": { "message": "Beállítások visszaállítva az alapértelmezettre!" },
+  "errorresettingsettings": { "message": "Hiba a beállítások visszaállításakor" }
 }

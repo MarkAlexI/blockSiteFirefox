@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Peraturan dikemas kini untuk keserasian" },
   "errorupdatingrules": { "message": "Ralat semasa mengemas kini peraturan" },
   "erroraddingrule": { "message": "Ralat semasa menambah peraturan" },
-  "errorremovingrule": { "message": "Ralat semasa mengalih keluar peraturan" }
+  "errorremovingrule": { "message": "Ralat semasa mengalih keluar peraturan" },
+  "optionsheader": { "message": "Tetapan Sambungan" },
+  "optionsdescription": { "message": "Konfigurasikan tingkah laku dan tetapan keselamatan sambungan anda" },
+  "securitymodetitle": { "message": "Mod Keselamatan" },
+  "normalmodetitle": { "message": "Mod Normal" },
+  "normalmodedesc": { "message": "Peraturan boleh dipadam serta-merta dengan satu klik" },
+  "strictmodetitle": { "message": "Mod Ketat" },
+  "strictmodedesc": { "message": "Peraturan memerlukan kiraan detik 10 sebelum dipadam untuk mengelakkan penghapusan tidak sengaja" },
+  "additionalsettingstitle": { "message": "Tetapan Tambahan" },
+  "confirmdeletetitle": { "message": "Sahkan sebelum memadam beberapa peraturan" },
+  "confirmdeletedesc": { "message": "Paparkan dialog pengesahan apabila memadam beberapa peraturan sekaligus" },
+  "notificationstitle": { "message": "Paparkan notifikasi" },
+  "notificationsdesc": { "message": "Paparkan notifikasi apabila sambungan dikemas kini" },
+  "rulesmanagementtitle": { "message": "Pengurusan Peraturan" },
+  "exportrulesbtn": { "message": "Eksport Peraturan" },
+  "importrulesbtn": { "message": "Import Peraturan" },
+  "clearallrulesbtn": { "message": "Padam Semua Peraturan" },
+  "totalruleslabel": { "message": "Jumlah Peraturan" },
+  "blockedtodaylabel": { "message": "Diblok Hari Ini" },
+  "totalblockedlabel": { "message": "Jumlah Diblok" },
+  "resetsettingsbtn": { "message": "Tetapkan Semula ke Lalai" },
+  "backtopopup": { "message": "Kembali ke Menu Utama" },
+  "errorloadingsettings": { "message": "Ralat memuatkan tetapan" },
+  "settingssaved": { "message": "Tetapan berjaya disimpan!" },
+  "errorsavingsettings": { "message": "Ralat menyimpan tetapan" },
+  "rulesexported": { "message": "Peraturan berjaya dieksport!" },
+  "errorexportingrules": { "message": "Ralat mengeksport peraturan" },
+  "willimportrules": {
+    "message": "$ruleslength$ peraturan akan diimport.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Peraturan sedia ada akan digantikan. Teruskan?" },
+  "importedrules": {
+    "message": "$ruleslength$ peraturan berjaya diimport!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Ralat mengimport peraturan: " },
+  "norulestoclear": { "message": "Tiada peraturan untuk dipadam" },
+  "willdeleteallrules": {
+    "message": "Ini akan memadamkan semua $rulescount$ peraturan secara kekal.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Tindakan ini tidak boleh dibatalkan. Teruskan?" },
+  "allrulescleared": { "message": "Semua peraturan berjaya dipadam!" },
+  "errorclearingrules": { "message": "Ralat memadam peraturan" },
+  "willreset": { "message": "Semua tetapan akan dikembalikan ke nilai lalai. Teruskan?" },
+  "resettodefaults": { "message": "Tetapan dikembalikan ke lalai!" },
+  "errorresettingsettings": { "message": "Ralat menetapkan semula tetapan" }
 }

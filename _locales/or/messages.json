@@ -1,0 +1,117 @@
+{
+  "chromename": { "message": "BlockDistraction — ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ" },
+  "shortname": { "message": "BlkDistract" },
+  "description": { "message": "ଆପଣଙ୍କୁ ଧ୍ୟାନ କେନ୍ଦ୍ରିତ ରହିବାରେ ସାହାଯ୍ୟ କରିବା ପାଇଁ ସରଳ ଏବଂ ନିର୍ଭରଯୋଗ୍ୟ ଓ୍ଵେବସାଇଟ ଅବରୋଧ ଏବଂ ପୁନଃନିର୍ଦେଶନ ଉପକରଣ।" },
+  "defaulttitle": { "message": "ଧ୍ୟାନ ଦିଅନ୍ତୁ ଏବଂ ଉତ୍ପାଦନଶୀଳ ରୁହନ୍ତୁ" },
+  "header": { "message": "ସାଇଟ ଅବରୋଧକ" },
+  "paragraph": { "message": "ଏକ ଓ୍ଵେବସାଇଟ କିମ୍ବା ସମ୍ବଳକୁ ଅବରୋଧ କରିବା ପାଇଁ, ଏହାର ନାମର ଏକ ଅଂଶ \"Type Block URL\" ପ୍ଲେସହୋଲ୍ଡର ସହିତ ଇନପୁଟ ଫିଲ୍ଡରେ ପ୍ରବେଶ କରନ୍ତୁ — ଉଦାହରଣ ସ୍ୱରୂପ, \"facebook\" ସମସ୍ତ ସମ୍ବନ୍ଧିତ ସବଡୋମେନକୁ ଅବରୋଧ କରିବ। \"Type Redirect URL\" ପ୍ଲେସହୋଲ୍ଡର ସହିତ ଫିଲ୍ଡରେ, ପ୍ରୋଟୋକଲ ସହିତ ପୂର୍ଣ୍ଣ ପୁନଃନିର୍ଦେଶନ ଠିକଣା ପ୍ରବେଶ କରନ୍ତୁ, ଯେପରିକି \"https://google.com\"। ଯଦି ପୁନଃନିର୍ଦେଶନ ଫିଲ୍ଡ ଖାଲି ରହେ, ସାଇଟ ପୁନଃନିର୍ଦେଶନ ବିନା ଅବରୋଧ ହେବ। ନିୟମ ପ୍ରୟୋଗ କରିବା ପାଇଁ Save ବଟନ କ୍ଲିକ କରନ୍ତୁ। ନିୟମ ଅପଡେଟ କରିବା ପାଇଁ, ପୁରୁଣା ନିୟମକୁ ଡିଲିଟ କରନ୍ତୁ ଏବଂ ଏକ ନୂଆ ଏଣ୍ଟ୍ରି ସୃଷ୍ଟି କରନ୍ତୁ।" },
+  "addrule": { "message": "ନୂଆ ନିୟମ ଯୋଡନ୍ତୁ" },
+  "blockurl": { "message": "ଅବରୋଧ URL ଟାଇପ କରନ୍ତୁ" },
+  "redirecturl": { "message": "ପୁନଃନିର୍ଦେଶନ URL ଟାଇପ କରନ୍ତୁ (ଐଚ୍ଛିକ)" },
+  "savebtn": { "message": "ସେଭ କରନ୍ତୁ" },
+  "deletebtn": { "message": "ଡିଲିଟ କରନ୍ତୁ" },
+  "alertruleexist": { "message": "ନିୟମ ପୂର୍ବରୁ ଅଛି" },
+  "savedrules": {
+    "message": "$ruleslength$ ନିୟମ(ଗୁଡିକ) ସେଭ ହୋଇଛି",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "wrongredirecturl": { "message": "ଅବୈଧ ପୁନଃନିର୍ଦେଶନ URL" },
+  "blockurlonlyascii": { "message": "ଅବରୋଧ URL ପାଇଁ କେବଳ ASCII ଉପଲବ୍ଧ" },
+  "blockurlonlylower": { "message": "କେବଳ ଛୋଟ ଅକ୍ଷର ଉପଲବ୍ଧ" },
+  "donatespantext": { "message": "ଏହି ଏକ୍ସଟେନସନ ପସନ୍ଦ କରୁଛନ୍ତି କି? ଏହାର ବିକାଶକୁ ସମର୍ଥନ କରନ୍ତୁ!" },
+  "donatebtntext": { "message": "ଦାନ କରନ୍ତୁ" },
+  "blockthat": { "message": "ଏହି ସାଇଟକୁ ଅବରୋଧ କରନ୍ତୁ" },
+  "sendfeedbackbutton": { "message": "ମତାମତ ପଠାନ୍ତୁ" },
+  "sendfeedbacksubject": { "message": "ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ ପାଇଁ ମତାମତ" },
+  "sendfeedbackbody": { "message": "ନମସ୍କାର, ମୁଁ ନିମ୍ନଲିଖିତ ମତାମତ ଅଂଶୀଦାର କରିବାକୁ ଚାହୁଁଛି:\n\n" },
+  "quote1": { "message": "ଧ୍ୟାନ ଦିଅନ୍ତୁ, ଶକ୍ତ ରୁହନ୍ତୁ।" },
+  "quote2": { "message": "ଆପଣଙ୍କର ଭବିଷ୍ୟତ ଆଜି ଆପଣ କ’ଣ କରୁଛନ୍ତି ତାହା ଦ୍ୱାରା ସୃଷ୍ଟ ହୁଏ।" },
+  "quote3": { "message": "ଶୃଙ୍ଖଳା ହେଉଛି ଲକ୍ଷ୍ୟ ଏବଂ ସଫଳତା ମଧ୍ୟରେ ସେତୁ।" },
+  "quote4": { "message": "ଏକ ସାଇଟ ଅବରୋଧ କଲେ, ଆପଣଙ୍କ ଲକ୍ଷ୍ୟ ଆଡ଼କୁ ଏକ ପାଦ ଆଗେଇ।" },
+  "quote5": { "message": "ପ୍ରତ୍ୟେକ କ୍ଲିକକୁ ଗଣନା କରନ୍ତୁ।" },
+  "quote6": { "message": "ଘଣ୍ଟାକୁ ନ ଦେଖନ୍ତୁ; ଏହା ଯାହା କରୁଛି ତାହା କରନ୍ତୁ। ଆଗେଇ ଚାଲନ୍ତୁ।" },
+  "quote7": { "message": "ପ୍ରତିଦିନ ଛୋଟ ପାଦଗୁଡ଼ିକ ବଡ଼ ଫଳାଫଳକୁ ନେଇଯାଏ।" },
+  "quote8": { "message": "ଆପଣଙ୍କର ଏକମାତ୍ର ସୀମା ହେଉଛି ଆପଣଙ୍କ ମନ।" },
+  "quote9": { "message": "ସଫଳତା ହେଉଛି ପ୍ରତିଦିନ ପୁନରାବୃତ୍ତି ହେଉଥିବା ଛୋଟ ପ୍ରୟାସର ସମଷ୍ଟି।" },
+  "quote10": { "message": "ବ୍ୟସ୍ତ ନୁହେଁ, ଉତ୍ପାଦନଶୀଳ ହେବା ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ।" },
+  "actionsheader": { "message": "କାର୍ଯ୍ୟଗୁଡ଼ିକ" },
+  "norules": { "message": "କୌଣସି ଅବରୋଧିତ ସାଇଟ ନାହିଁ।" },
+  "editbtn": { "message": "ସମ୍ପାଦନ କରନ୍ତୁ" },
+  "ruleddeleted": { "message": "ନିୟମ ଡିଲିଟ ହୋଇଛି।" },
+  "cancelbtn": { "message": "ବାତିଲ କରନ୍ତୁ" },
+  "ruleupdated": { "message": "ନିୟମ ଅପଡେଟ ହୋଇଛି।" },
+  "rulenewadded": { "message": "ନୂଆ ନିୟମ ଯୋଡ଼ା ଯାଇଛି।" },
+  "gotooptions": { "message": "ବିକଳ୍ପ ପୃଷ୍ଠାକୁ ଯାଆନ୍ତୁ ⚙️" },
+  "gotopopup": { "message": "ପପଅପକୁ ଫେରିବା ପାଇଁ ଏକ୍ସଟେନସନ ଆଇକନ କ୍ଲିକ କରନ୍ତୁ।" },
+  "rulesmigrated": { "message": "ସୁସଙ୍ଗତି ପାଇଁ ନିୟମଗୁଡ଼ିକ ଅପଡେଟ ହୋଇଛି" },
+  "errorupdatingrules": { "message": "ନିୟମ ଅପଡେଟ କରିବାରେ ତ୍ରୁଟି" },
+  "erroraddingrule": { "message": "ନିୟମ ଯୋଡ଼ିବାରେ ତ୍ରୁଟି" },
+  "errorremovingrule": { "message": "ନିୟମ ଅପସାରଣରେ ତ୍ରୁଟି" },
+  "optionsheader": { "message": "ଏକ୍ସଟେନସନ ସେଟିଂସ" },
+  "optionsdescription": { "message": "ଆପଣଙ୍କ ଏକ୍ସଟେନସନର ଆପଣଙ୍କ ବ୍ୟବହାର ଏବଂ ସୁରକ୍ଷା ସେଟିଂସ କନଫିଗର କରନ୍ତୁ" },
+  "securitymodetitle": { "message": "ସୁରକ୍ଷା ମୋଡ" },
+  "normalmodetitle": { "message": "ସାଧାରଣ ମୋଡ" },
+  "normalmodedesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ଏକ କ୍ଲିକରେ ତୁରନ୍ତ ଡିଲିଟ କରାଯାଇପାରେ" },
+  "strictmodetitle": { "message": "କଡ଼ା ମୋଡ" },
+  "strictmodedesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ଡିଲିଟ କରିବା ପୂର୍ବରୁ 10 ସେକେଣ୍ଡର କାଉଣ୍ଟଡାଉନ ଆବଶ୍ୟକ ହୁଏ ଯାହା ଅଜାଣତରେ ଅପସାରଣକୁ ରୋକିଥାଏ" },
+  "additionalsettingstitle": { "message": "ଅତିରିକ୍ତ ସେଟିଂସ" },
+  "confirmdeletetitle": { "message": "ଏକାଧିକ ନିୟମ ଡିଲିଟ କରିବା ପୂର୍ବରୁ ନିଶ୍ଚିତ କରନ୍ତୁ" },
+  "confirmdeletedesc": { "message": "ଏକାଧିକ ନିୟମକୁ ଏକକାଳୀନ ଡିଲିଟ କରିବା ସମୟରେ ନିଶ୍ଚିତକରଣ ଡାଏଲଗ ଦେଖାନ୍ତୁ" },
+  "notificationstitle": { "message": "ବିଜ୍ଞପ୍ତି ଦେଖାନ୍ତୁ" },
+  "notificationsdesc": { "message": "ଓ୍ଵେବ ଏକ୍ସଟେନସନ ଅପଡେଟ ହେଲେ ବିଜ୍ଞପ୍ତି ଦେଖାନ୍ତୁ" },
+  "rulesmanagementtitle": { "message": "ନିୟମ ପରିଚାଳନା" },
+  "exportrulesbtn": { "message": "ନିୟମ ରପ୍ତାନୀ କରନ୍ତୁ" },
+  "importrulesbtn": { "message": "ନିୟମ ଆମଦାନୀ କରନ୍ତୁ" },
+  "clearallrulesbtn": { "message": "ସମସ୍ତ ନିୟମ ସଫା କରନ୍ତୁ" },
+  "totalruleslabel": { "message": "ମୋଟ ନିୟମ" },
+  "blockedtodaylabel": { "message": "ଆଜି ଅବରୋଧିତ" },
+  "totalblockedlabel": { "message": "ମୋଟ ଅବରୋଧିତ" },
+  "resetsettingsbtn": { "message": "ଡିଫଲ୍ଟକୁ ରିସେଟ କରନ୍ତୁ" },
+  "backtopopup": { "message": "ମୁଖ୍ୟକୁ ଫେରନ୍ତୁ" },
+  "errorloadingsettings": { "message": "ସେଟିଂସ ଲୋଡ କରିବାରେ ତ୍ରୁଟି" },
+  "settingssaved": { "message": "ସେଟିଂସ ସଫଳତାରେ ସେଭ ହୋଇଛି!" },
+  "errorsavingsettings": { "message": "ସେଟିଂସ ସେଭ କରିବାରେ ତ୍ରୁଟି" },
+  "rulesexported": { "message": "ନିୟମଗୁଡ଼ିକ ସଫଳତାରେ ରପ୍ତାନୀ ହୋଇଛି!" },
+  "errorexportingrules": { "message": "ନିୟମ ରପ୍ତାନୀ କରିବାରେ ତ୍ରୁଟି" },
+  "willimportrules": {
+    "message": "ଏହା $ruleslength$ ନିୟମ ଆମଦାନୀ କରିବ। ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": { "message": "ବର୍ତମାନର ନିୟମଗୁଡ଼ିକ ବଦଳାଯିବ। ଜାରି ରଖିବେ କି?" },
+  "importedrules": {
+    "message": "$ruleslength$ ନିୟମ(ଗୁଡ଼ିକ) ସଫଳତାରେ ଆମଦାନୀ ହୋଇଛି!",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules": { "message": "ନିୟମ ଆମଦାନୀ କରିବାରେ ତ୍ରୁଟି: " },
+  "norulestoclear": { "message": "ସଫା କରିବା ପାଇଁ କୌଣସି ନିୟମ ନାହିଁ" },
+  "willdeleteallrules": {
+    "message": "ଏହା ସମସ୍ତ $rulescount$ ନିୟମକୁ ସ୍ଥାୟୀଭାବେ ଡିଲିଟ କରିବ। ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "ଏହି କାର୍ଯ୍ୟକୁ ପୂର୍ବବତ କରାଯାଇପାରିବ ନାହିଁ। ଜାରି ରଖିବେ କି?" },
+  "allrulescleared": { "message": "ସମସ୍ତ ନିୟମ ସଫଳତାରେ ସଫା ହୋଇଛି!" },
+  "errorclearingrules": { "message": "ନିୟମ ସଫା କରିବାରେ ତ୍ରୁଟି" },
+  "willreset": { "message": "ଏହା ସମସ୍ତ ସେଟିଂସକୁ ଡିଫଲ୍ଟ ମୂଲ୍ୟକୁ ରିସେଟ କରିବ। ଜାରି ରଖିବେ କି?" },
+  "resettodefaults": { "message": "ସେଟିଂସ ଡିଫଲ୍ଟକୁ ରିସେଟ ହୋଇଛି!" },
+  "errorresettingsettings": { "message": "ସେଟିଂସ ରିସେଟ କରିବାରେ ତ୍ରୁଟି" }
+}

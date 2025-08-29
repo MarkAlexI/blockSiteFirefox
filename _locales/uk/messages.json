@@ -51,5 +51,67 @@
   "rulesmigrated": { "message": "Правила оновлено для сумісності" },
   "errorupdatingrules": { "message": "Помилка оновлення правил" },
   "erroraddingrule": { "message": "Помилка додавання правила" },
-  "errorremovingrule": { "message": "Помилка видалення правила" }
+  "errorremovingrule": { "message": "Помилка видалення правила" },
+  "optionsheader": { "message": "Налаштування розширення" },
+  "optionsdescription": { "message": "Налаштуйте поведінку розширення та параметри безпеки" },
+  "securitymodetitle": { "message": "Режим безпеки" },
+  "normalmodetitle": { "message": "Звичайний режим" },
+  "normalmodedesc": { "message": "Правила можна видалити миттєво одним кліком" },
+  "strictmodetitle": { "message": "Суворий режим" },
+  "strictmodedesc": { "message": "Для видалення правил потрібен 10-секундний відлік, щоб запобігти випадковому видаленню" },
+  "additionalsettingstitle": { "message": "Додаткові налаштування" },
+  "confirmdeletetitle": { "message": "Підтвердження перед видаленням кількох правил" },
+  "confirmdeletedesc": { "message": "Показувати діалог підтвердження при видаленні кількох правил одночасно" },
+  "notificationstitle": { "message": "Показувати сповіщення" },
+  "notificationsdesc": { "message": "Відображати сповіщення при оновленні веб-розширення" },
+  "rulesmanagementtitle": { "message": "Керування правилами" },
+  "exportrulesbtn": { "message": "Експортувати правила" },
+  "importrulesbtn": { "message": "Імпортувати правила" },
+  "clearallrulesbtn": { "message": "Очистити всі правила" },
+  "totalruleslabel": { "message": "Загальна кількість правил" },
+  "blockedtodaylabel": { "message": "Заблоковано сьогодні" },
+  "totalblockedlabel": { "message": "Загалом заблоковано" },
+  "resetsettingsbtn": { "message": "Скинути до стандартних" },
+  "backtopopup": { "message": "Повернутися до головного" },
+  "errorloadingsettings": { "message": "Помилка завантаження налаштувань" },
+  "settingssaved": { "message": "Налаштування успішно збережено!" },
+  "errorsavingsettings": { "message": "Помилка збереження налаштувань" },
+  "rulesexported": { "message": "Правила успішно експортовано!" },
+  "errorexportingrules": { "message": "Помилка експортування правил" },
+  "willimportrules": {
+    "message": "Буде імпортовано $ruleslength$ правил. ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Поточні правила буде замінено. Продовжити?" },
+  "importedrules": {
+    "message": "Успішно імпортовано $ruleslength$ правило(а)!",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules": { "message": "Помилка імпортування правил: " },
+  "norulestoclear": { "message": "Немає правил для очищення" },
+  "willdeleteallrules": {
+    "message": "Це назавжди видалить усі $rulescount$ правила. ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "Цю дію неможливо скасувати. Продовжити?" },
+  "allrulescleared": { "message": "Усі правила успішно очищено!" },
+  "errorclearingrules": { "message": "Помилка очищення правил" },
+  "willreset": { "message": "Це скине всі налаштування до стандартних значень. Продовжити?" },
+  "resettodefaults": { "message": "Налаштування скинуто до стандартних!" },
+  "errorresettingsettings": { "message": "Помилка скидання налаштувань" }
 }

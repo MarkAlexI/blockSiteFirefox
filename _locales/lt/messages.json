@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Taisyklės atnaujintos dėl suderinamumo" },
   "errorupdatingrules": { "message": "Klaida atnaujinant taisykles" },
   "erroraddingrule": { "message": "Klaida pridedant taisyklę" },
-  "errorremovingrule": { "message": "Klaida šalinant taisyklę" }
+  "errorremovingrule": { "message": "Klaida šalinant taisyklę" },
+  "optionsheader": { "message": "Priedo nustatymai" },
+  "optionsdescription": { "message": "Konfigūruokite priedo elgesį ir saugumo nustatymus" },
+  "securitymodetitle": { "message": "Saugumo režimas" },
+  "normalmodetitle": { "message": "Įprastas režimas" },
+  "normalmodedesc": { "message": "Taisykles galima ištrinti iš karto vienu paspaudimu" },
+  "strictmodetitle": { "message": "Griežtas režimas" },
+  "strictmodedesc": { "message": "Taisyklėms ištrinti reikia 10 sekundžių atgalinės atskaitos, kad būtų išvengta atsitiktinio ištrynimo" },
+  "additionalsettingstitle": { "message": "Papildomi nustatymai" },
+  "confirmdeletetitle": { "message": "Patvirtinkite prieš ištrindami kelias taisykles" },
+  "confirmdeletedesc": { "message": "Rodyti patvirtinimo dialogą, kai ištrinamos kelios taisyklės vienu metu" },
+  "notificationstitle": { "message": "Rodyti pranešimus" },
+  "notificationsdesc": { "message": "Rodyti pranešimus, kai priedas atnaujinamas" },
+  "rulesmanagementtitle": { "message": "Taisyklių valdymas" },
+  "exportrulesbtn": { "message": "Eksportuoti taisykles" },
+  "importrulesbtn": { "message": "Importuoti taisykles" },
+  "clearallrulesbtn": { "message": "Išvalyti visas taisykles" },
+  "totalruleslabel": { "message": "Visos taisyklės" },
+  "blockedtodaylabel": { "message": "Užblokuota šiandien" },
+  "totalblockedlabel": { "message": "Iš viso užblokuota" },
+  "resetsettingsbtn": { "message": "Atstatyti numatytuosius" },
+  "backtopopup": { "message": "Grįžti į pagrindinį meniu" },
+  "errorloadingsettings": { "message": "Klaida įkeliant nustatymus" },
+  "settingssaved": { "message": "Nustatymai sėkmingai išsaugoti!" },
+  "errorsavingsettings": { "message": "Klaida išsaugant nustatymus" },
+  "rulesexported": { "message": "Taisyklės sėkmingai eksportuotos!" },
+  "errorexportingrules": { "message": "Klaida eksportuojant taisykles" },
+  "willimportrules": {
+    "message": "Bus importuotos $ruleslength$ taisyklės.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Esamos taisyklės bus pakeistos. Tęsti?" },
+  "importedrules": {
+    "message": "Sėkmingai importuotos $ruleslength$ taisyklės!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Klaida importuojant taisykles: " },
+  "norulestoclear": { "message": "Nėra taisyklių, kurias būtų galima išvalyti" },
+  "willdeleteallrules": {
+    "message": "Tai visam laikui ištrins visas $rulescount$ taisykles.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Šio veiksmo neįmanoma anuliuoti. Tęsti?" },
+  "allrulescleared": { "message": "Visos taisyklės sėkmingai ištrintos!" },
+  "errorclearingrules": { "message": "Klaida ištrinant taisykles" },
+  "willreset": { "message": "Visi nustatymai bus atstatyti į numatytąsias reikšmes. Tęsti?" },
+  "resettodefaults": { "message": "Nustatymai atstatyti į numatytąsias reikšmes!" },
+  "errorresettingsettings": { "message": "Klaida atstatant nustatymus" }
 }

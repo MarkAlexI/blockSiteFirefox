@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Na-update ang mga patakaran para sa pagkakatugma" },
   "errorupdatingrules": { "message": "Error sa pag-update ng mga patakaran" },
   "erroraddingrule": { "message": "Error sa pagdaragdag ng patakaran" },
-  "errorremovingrule": { "message": "Error sa pag-alis ng patakaran" }
+  "errorremovingrule": { "message": "Error sa pag-alis ng patakaran" },
+  "optionsheader": { "message": "Mga Setting ng Extension" },
+  "optionsdescription": { "message": "I-configure ang pag-uugali at mga setting ng seguridad ng extension" },
+  "securitymodetitle": { "message": "Mode ng Seguridad" },
+  "normalmodetitle": { "message": "Normal na Mode" },
+  "normalmodedesc": { "message": "Maaaring agad na tanggalin ang mga patakaran sa isang pag-click" },
+  "strictmodetitle": { "message": "Mahigpit na Mode" },
+  "strictmodedesc": { "message": "Kailangan ng 10-segundong countdown bago tanggalin ang mga patakaran upang maiwasan ang aksidenteng pagtanggal" },
+  "additionalsettingstitle": { "message": "Karagdagang Mga Setting" },
+  "confirmdeletetitle": { "message": "Kumpirmahin bago tanggalin ang maraming patakaran" },
+  "confirmdeletedesc": { "message": "Ipakita ang confirmation dialog kapag nagtatanggal ng maraming patakaran sabay-sabay" },
+  "notificationstitle": { "message": "Ipakita ang mga Notipikasyon" },
+  "notificationsdesc": { "message": "Ipakita ang mga notipikasyon kapag na-update ang extension" },
+  "rulesmanagementtitle": { "message": "Pamamahala ng Mga Patakaran" },
+  "exportrulesbtn": { "message": "I-export ang Mga Patakaran" },
+  "importrulesbtn": { "message": "I-import ang Mga Patakaran" },
+  "clearallrulesbtn": { "message": "Tanggalin Lahat ng Patakaran" },
+  "totalruleslabel": { "message": "Kabuuang Patakaran" },
+  "blockedtodaylabel": { "message": "Na-block Ngayon" },
+  "totalblockedlabel": { "message": "Kabuuang Na-block" },
+  "resetsettingsbtn": { "message": "I-reset sa Default" },
+  "backtopopup": { "message": "Bumalik sa Pangunahing Menu" },
+  "errorloadingsettings": { "message": "Error sa pag-load ng mga setting" },
+  "settingssaved": { "message": "Matagumpay na na-save ang mga setting!" },
+  "errorsavingsettings": { "message": "Error sa pag-save ng mga setting" },
+  "rulesexported": { "message": "Matagumpay na na-export ang mga patakaran!" },
+  "errorexportingrules": { "message": "Error sa pag-export ng mga patakaran" },
+  "willimportrules": {
+    "message": "Ia-import ang $ruleslength$ na patakaran.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Ang kasalukuyang mga patakaran ay mapapalitan. Magpatuloy?" },
+  "importedrules": {
+    "message": "Matagumpay na na-import ang $ruleslength$ na patakaran!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Error sa pag-import ng mga patakaran: " },
+  "norulestoclear": { "message": "Walang patakaran na tatanggalin" },
+  "willdeleteallrules": {
+    "message": "Ito ay permanenteng magtatanggal ng lahat ng $rulescount$ na patakaran.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Hindi maaaring bawiin ang aksyon na ito. Magpatuloy?" },
+  "allrulescleared": { "message": "Matagumpay na natanggal ang lahat ng patakaran!" },
+  "errorclearingrules": { "message": "Error sa pagtanggal ng mga patakaran" },
+  "willreset": { "message": "Ia-reset ang lahat ng mga setting sa default na mga halaga. Magpatuloy?" },
+  "resettodefaults": { "message": "Matagumpay na na-reset ang mga setting sa default!" },
+  "errorresettingsettings": { "message": "Error sa pag-reset ng mga setting" }
 }

@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Regras atualizadas para compatibilidade" },
   "errorupdatingrules": { "message": "Erro ao atualizar as regras" },
   "erroraddingrule": { "message": "Erro ao adicionar uma regra" },
-  "errorremovingrule": { "message": "Erro ao remover uma regra" }
+  "errorremovingrule": { "message": "Erro ao remover uma regra" },
+  "optionsheader": { "message": "Definições da Extensão" },
+  "optionsdescription": { "message": "Configure o comportamento e as definições de segurança da extensão" },
+  "securitymodetitle": { "message": "Modo de Segurança" },
+  "normalmodetitle": { "message": "Modo Normal" },
+  "normalmodedesc": { "message": "As regras podem ser eliminadas imediatamente com um clique" },
+  "strictmodetitle": { "message": "Modo Rigoroso" },
+  "strictmodedesc": { "message": "As regras requerem uma contagem regressiva de 10 segundos antes de serem eliminadas para evitar remoção acidental" },
+  "additionalsettingstitle": { "message": "Definições Adicionais" },
+  "confirmdeletetitle": { "message": "Confirmar antes de eliminar várias regras" },
+  "confirmdeletedesc": { "message": "Mostrar diálogo de confirmação ao eliminar várias regras de uma só vez" },
+  "notificationstitle": { "message": "Mostrar notificações" },
+  "notificationsdesc": { "message": "Mostrar notificações quando a extensão for atualizada" },
+  "rulesmanagementtitle": { "message": "Gestão de Regras" },
+  "exportrulesbtn": { "message": "Exportar Regras" },
+  "importrulesbtn": { "message": "Importar Regras" },
+  "clearallrulesbtn": { "message": "Eliminar Todas as Regras" },
+  "totalruleslabel": { "message": "Total de Regras" },
+  "blockedtodaylabel": { "message": "Bloqueado Hoje" },
+  "totalblockedlabel": { "message": "Total Bloqueado" },
+  "resetsettingsbtn": { "message": "Repor para Padrões" },
+  "backtopopup": { "message": "Voltar ao Menu Principal" },
+  "errorloadingsettings": { "message": "Erro ao carregar definições" },
+  "settingssaved": { "message": "Definições guardadas com sucesso!" },
+  "errorsavingsettings": { "message": "Erro ao guardar definições" },
+  "rulesexported": { "message": "Regras exportadas com sucesso!" },
+  "errorexportingrules": { "message": "Erro ao exportar regras" },
+  "willimportrules": {
+    "message": "Serão importadas $ruleslength$ regras.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "As regras atuais serão substituídas. Continuar?" },
+  "importedrules": {
+    "message": "$ruleslength$ regras importadas com sucesso!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Erro ao importar regras: " },
+  "norulestoclear": { "message": "Não há regras para eliminar" },
+  "willdeleteallrules": {
+    "message": "Isto eliminará permanentemente todas as $rulescount$ regras.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Esta ação não pode ser desfeita. Continuar?" },
+  "allrulescleared": { "message": "Todas as regras eliminadas com sucesso!" },
+  "errorclearingrules": { "message": "Erro ao eliminar regras" },
+  "willreset": { "message": "Todas as definições serão repostas para os valores padrão. Continuar?" },
+  "resettodefaults": { "message": "Definições repostas para os valores padrão!" },
+  "errorresettingsettings": { "message": "Erro ao repor definições" }
 }

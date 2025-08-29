@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "호환성을 위해 규칙이 업데이트되었습니다" },
   "errorupdatingrules": { "message": "규칙 업데이트 중 오류" },
   "erroraddingrule": { "message": "규칙 추가 중 오류" },
-  "errorremovingrule": { "message": "규칙 제거 중 오류" }
+  "errorremovingrule": { "message": "규칙 제거 중 오류" },
+  "optionsheader": { "message": "확장 프로그램 설정" },
+  "optionsdescription": { "message": "확장 프로그램의 동작 및 보안 설정을 구성합니다" },
+  "securitymodetitle": { "message": "보안 모드" },
+  "normalmodetitle": { "message": "일반 모드" },
+  "normalmodedesc": { "message": "규칙을 클릭 한 번으로 즉시 삭제할 수 있습니다" },
+  "strictmodetitle": { "message": "엄격 모드" },
+  "strictmodedesc": { "message": "실수로 삭제되는 것을 방지하기 위해 규칙 삭제 전에 10초 카운트다운이 필요합니다" },
+  "additionalsettingstitle": { "message": "추가 설정" },
+  "confirmdeletetitle": { "message": "여러 규칙을 삭제하기 전에 확인" },
+  "confirmdeletedesc": { "message": "여러 규칙을 한 번에 삭제할 때 확인 대화 상자를 표시합니다" },
+  "notificationstitle": { "message": "알림 표시" },
+  "notificationsdesc": { "message": "확장 프로그램이 업데이트될 때 알림 표시" },
+  "rulesmanagementtitle": { "message": "규칙 관리" },
+  "exportrulesbtn": { "message": "규칙 내보내기" },
+  "importrulesbtn": { "message": "규칙 가져오기" },
+  "clearallrulesbtn": { "message": "모든 규칙 삭제" },
+  "totalruleslabel": { "message": "총 규칙" },
+  "blockedtodaylabel": { "message": "오늘 차단됨" },
+  "totalblockedlabel": { "message": "총 차단됨" },
+  "resetsettingsbtn": { "message": "기본값으로 재설정" },
+  "backtopopup": { "message": "메인 메뉴로 돌아가기" },
+  "errorloadingsettings": { "message": "설정 로드 중 오류" },
+  "settingssaved": { "message": "설정이 성공적으로 저장되었습니다!" },
+  "errorsavingsettings": { "message": "설정 저장 중 오류" },
+  "rulesexported": { "message": "규칙이 성공적으로 내보내졌습니다!" },
+  "errorexportingrules": { "message": "규칙 내보내기 중 오류" },
+  "willimportrules": {
+    "message": "$ruleslength$개의 규칙이 가져와집니다.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "현재 규칙이 대체됩니다. 계속하시겠습니까?" },
+  "importedrules": {
+    "message": "$ruleslength$개의 규칙이 성공적으로 가져와졌습니다!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "규칙 가져오기 중 오류: " },
+  "norulestoclear": { "message": "삭제할 규칙이 없습니다" },
+  "willdeleteallrules": {
+    "message": "이 작업은 모든 $rulescount$ 규칙을 영구적으로 삭제합니다.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?" },
+  "allrulescleared": { "message": "모든 규칙이 성공적으로 삭제되었습니다!" },
+  "errorclearingrules": { "message": "규칙 삭제 중 오류" },
+  "willreset": { "message": "모든 설정이 기본값으로 재설정됩니다. 계속하시겠습니까?" },
+  "resettodefaults": { "message": "설정이 기본값으로 재설정되었습니다!" },
+  "errorresettingsettings": { "message": "설정 재설정 중 오류" }
 }

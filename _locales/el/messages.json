@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Οι κανόνες ενημερώθηκαν για συμβατότητα" },
   "errorupdatingrules": { "message": "Σφάλμα κατά την ενημέρωση των κανόνων" },
   "erroraddingrule": { "message": "Σφάλμα κατά την προσθήκη κανόνα" },
-  "errorremovingrule": { "message": "Σφάλμα κατά την αφαίρεση κανόνα" }
+  "errorremovingrule": { "message": "Σφάλμα κατά την αφαίρεση κανόνα" },
+  "optionsheader": { "message": "Ρυθμίσεις Επέκτασης" },
+  "optionsdescription": { "message": "Διαμορφώστε τη συμπεριφορά και τις ρυθμίσεις ασφαλείας της επέκτασης" },
+  "securitymodetitle": { "message": "Λειτουργία Ασφαλείας" },
+  "normalmodetitle": { "message": "Κανονική Λειτουργία" },
+  "normalmodedesc": { "message": "Οι κανόνες μπορούν να διαγραφούν άμεσα με ένα μόνο κλικ" },
+  "strictmodetitle": { "message": "Αυστηρή Λειτουργία" },
+  "strictmodedesc": { "message": "Οι κανόνες απαιτούν αντίστροφη μέτρηση 10 δευτερολέπτων πριν από τη διαγραφή για να αποτραπεί η τυχαία αφαίρεση" },
+  "additionalsettingstitle": { "message": "Επιπλέον Ρυθμίσεις" },
+  "confirmdeletetitle": { "message": "Επιβεβαίωση πριν από τη διαγραφή πολλών κανόνων" },
+  "confirmdeletedesc": { "message": "Εμφάνιση παραθύρου επιβεβαίωσης όταν διαγράφονται πολλοί κανόνες ταυτόχρονα" },
+  "notificationstitle": { "message": "Εμφάνιση ειδοποιήσεων" },
+  "notificationsdesc": { "message": "Εμφάνιση ειδοποιήσεων όταν ενημερώνεται η επέκταση" },
+  "rulesmanagementtitle": { "message": "Διαχείριση Κανόνων" },
+  "exportrulesbtn": { "message": "Εξαγωγή Κανόνων" },
+  "importrulesbtn": { "message": "Εισαγωγή Κανόνων" },
+  "clearallrulesbtn": { "message": "Διαγραφή Όλων των Κανόνων" },
+  "totalruleslabel": { "message": "Σύνολο Κανόνων" },
+  "blockedtodaylabel": { "message": "Αποκλείστηκαν Σήμερα" },
+  "totalblockedlabel": { "message": "Συνολικά Αποκλεισμένα" },
+  "resetsettingsbtn": { "message": "Επαναφορά στις Προεπιλογές" },
+  "backtopopup": { "message": "Επιστροφή στο Κύριο Μενού" },
+  "errorloadingsettings": { "message": "Σφάλμα φόρτωσης ρυθμίσεων" },
+  "settingssaved": { "message": "Οι ρυθμίσεις αποθηκεύτηκαν με επιτυχία!" },
+  "errorsavingsettings": { "message": "Σφάλμα κατά την αποθήκευση των ρυθμίσεων" },
+  "rulesexported": { "message": "Η εξαγωγή κανόνων ολοκληρώθηκε με επιτυχία!" },
+  "errorexportingrules": { "message": "Σφάλμα κατά την εξαγωγή κανόνων" },
+  "willimportrules": {
+    "message": "Θα εισαχθούν $ruleslength$ κανόνες. ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Οι τρέχοντες κανόνες θα αντικατασταθούν. Συνέχεια;" },
+  "importedrules": {
+    "message": "Εισήχθησαν επιτυχώς $ruleslength$ κανόνες!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Σφάλμα κατά την εισαγωγή κανόνων: " },
+  "norulestoclear": { "message": "Δεν υπάρχουν κανόνες για διαγραφή" },
+  "willdeleteallrules": {
+    "message": "Αυτό θα διαγράψει μόνιμα όλους τους $rulescount$ κανόνες. ",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Συνέχεια;" },
+  "allrulescleared": { "message": "Όλοι οι κανόνες διαγράφηκαν με επιτυχία!" },
+  "errorclearingrules": { "message": "Σφάλμα κατά τη διαγραφή κανόνων" },
+  "willreset": { "message": "Αυτό θα επαναφέρει όλες τις ρυθμίσεις στις προεπιλεγμένες τιμές. Συνέχεια;" },
+  "resettodefaults": { "message": "Οι ρυθμίσεις επαναφέρθηκαν στις προεπιλογές!" },
+  "errorresettingsettings": { "message": "Σφάλμα κατά την επαναφορά ρυθμίσεων" }
 }

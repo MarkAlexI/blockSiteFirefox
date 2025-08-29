@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Regels bijgewerkt voor compatibiliteit" },
   "errorupdatingrules": { "message": "Fout bij het bijwerken van regels" },
   "erroraddingrule": { "message": "Fout bij het toevoegen van een regel" },
-  "errorremovingrule": { "message": "Fout bij het verwijderen van een regel" }
+  "errorremovingrule": { "message": "Fout bij het verwijderen van een regel" },
+  "optionsheader": { "message": "Extensie-instellingen" },
+  "optionsdescription": { "message": "Configureer het gedrag en de beveiligingsinstellingen van uw extensie" },
+  "securitymodetitle": { "message": "Beveiligingsmodus" },
+  "normalmodetitle": { "message": "Normale modus" },
+  "normalmodedesc": { "message": "Regels kunnen direct met één klik worden verwijderd" },
+  "strictmodetitle": { "message": "Strikte modus" },
+  "strictmodedesc": { "message": "Regels vereisen een aftelling van 10 seconden voordat ze worden verwijderd om per ongeluk verwijderen te voorkomen" },
+  "additionalsettingstitle": { "message": "Extra instellingen" },
+  "confirmdeletetitle": { "message": "Bevestigen voordat meerdere regels worden verwijderd" },
+  "confirmdeletedesc": { "message": "Toon bevestigingsdialoog bij het verwijderen van meerdere regels tegelijk" },
+  "notificationstitle": { "message": "Toon meldingen" },
+  "notificationsdesc": { "message": "Toon meldingen wanneer de extensie wordt bijgewerkt" },
+  "rulesmanagementtitle": { "message": "Regelbeheer" },
+  "exportrulesbtn": { "message": "Regels exporteren" },
+  "importrulesbtn": { "message": "Regels importeren" },
+  "clearallrulesbtn": { "message": "Alle regels wissen" },
+  "totalruleslabel": { "message": "Totaal aantal regels" },
+  "blockedtodaylabel": { "message": "Vandaag geblokkeerd" },
+  "totalblockedlabel": { "message": "Totaal geblokkeerd" },
+  "resetsettingsbtn": { "message": "Herstellen naar standaard" },
+  "backtopopup": { "message": "Terug naar hoofdmenu" },
+  "errorloadingsettings": { "message": "Fout bij het laden van instellingen" },
+  "settingssaved": { "message": "Instellingen succesvol opgeslagen!" },
+  "errorsavingsettings": { "message": "Fout bij het opslaan van instellingen" },
+  "rulesexported": { "message": "Regels succesvol geëxporteerd!" },
+  "errorexportingrules": { "message": "Fout bij het exporteren van regels" },
+  "willimportrules": {
+    "message": "$ruleslength$ regels worden geïmporteerd.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Huidige regels worden vervangen. Doorgaan?" },
+  "importedrules": {
+    "message": "$ruleslength$ regels succesvol geïmporteerd!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Fout bij het importeren van regels: " },
+  "norulestoclear": { "message": "Geen regels om te wissen" },
+  "willdeleteallrules": {
+    "message": "Dit zal permanent alle $rulescount$ regels verwijderen.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Deze actie kan niet ongedaan worden gemaakt. Doorgaan?" },
+  "allrulescleared": { "message": "Alle regels succesvol gewist!" },
+  "errorclearingrules": { "message": "Fout bij het wissen van regels" },
+  "willreset": { "message": "Alle instellingen worden teruggezet naar standaardwaarden. Doorgaan?" },
+  "resettodefaults": { "message": "Instellingen teruggezet naar standaardwaarden!" },
+  "errorresettingsettings": { "message": "Fout bij het terugzetten van instellingen" }
 }

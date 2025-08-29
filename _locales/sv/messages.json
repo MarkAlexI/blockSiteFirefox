@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Regler uppdaterade för kompatibilitet" },
   "errorupdatingrules": { "message": "Fel vid uppdatering av regler" },
   "erroraddingrule": { "message": "Fel vid tillägg av regel" },
-  "errorremovingrule": { "message": "Fel vid borttagning av regel" }
+  "errorremovingrule": { "message": "Fel vid borttagning av regel" },
+  "optionsheader": { "message": "Inställningar för tillägget" },
+  "optionsdescription": { "message": "Konfigurera tilläggets beteende och säkerhetsinställningar" },
+  "securitymodetitle": { "message": "Säkerhetsläge" },
+  "normalmodetitle": { "message": "Normalläge" },
+  "normalmodedesc": { "message": "Regler kan raderas omedelbart med ett klick" },
+  "strictmodetitle": { "message": "Strikt läge" },
+  "strictmodedesc": { "message": "Regler kräver en 10-sekunders nedräkning innan de raderas för att förhindra oavsiktlig borttagning" },
+  "additionalsettingstitle": { "message": "Ytterligare inställningar" },
+  "confirmdeletetitle": { "message": "Bekräfta innan du raderar flera regler" },
+  "confirmdeletedesc": { "message": "Visa bekräftelsedialog när flera regler raderas samtidigt" },
+  "notificationstitle": { "message": "Visa aviseringar" },
+  "notificationsdesc": { "message": "Visa aviseringar när tillägget uppdateras" },
+  "rulesmanagementtitle": { "message": "Regelhantering" },
+  "exportrulesbtn": { "message": "Exportera regler" },
+  "importrulesbtn": { "message": "Importera regler" },
+  "clearallrulesbtn": { "message": "Radera alla regler" },
+  "totalruleslabel": { "message": "Totalt antal regler" },
+  "blockedtodaylabel": { "message": "Blockerat idag" },
+  "totalblockedlabel": { "message": "Totalt blockerat" },
+  "resetsettingsbtn": { "message": "Återställ till standard" },
+  "backtopopup": { "message": "Tillbaka till huvudmenyn" },
+  "errorloadingsettings": { "message": "Fel vid laddning av inställningar" },
+  "settingssaved": { "message": "Inställningarna har sparats!" },
+  "errorsavingsettings": { "message": "Fel vid sparande av inställningar" },
+  "rulesexported": { "message": "Reglerna exporterades!" },
+  "errorexportingrules": { "message": "Fel vid export av regler" },
+  "willimportrules": {
+    "message": "$ruleslength$ regler kommer att importeras.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Nuvarande regler kommer att ersättas. Fortsätt?" },
+  "importedrules": {
+    "message": "$ruleslength$ regler importerades framgångsrikt!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Fel vid import av regler: " },
+  "norulestoclear": { "message": "Inga regler att radera" },
+  "willdeleteallrules": {
+    "message": "Detta kommer permanent radera alla $rulescount$ regler.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Denna åtgärd kan inte ångras. Fortsätt?" },
+  "allrulescleared": { "message": "Alla regler raderades!" },
+  "errorclearingrules": { "message": "Fel vid radering av regler" },
+  "willreset": { "message": "Alla inställningar kommer att återställas till standardvärden. Fortsätt?" },
+  "resettodefaults": { "message": "Inställningarna återställdes till standard!" },
+  "errorresettingsettings": { "message": "Fel vid återställning av inställningar" }
 }

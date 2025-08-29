@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "กฎได้รับการอัปเดตเพื่อความเข้ากันได้" },
   "errorupdatingrules": { "message": "เกิดข้อผิดพลาดขณะอัปเดตกฎ" },
   "erroraddingrule": { "message": "เกิดข้อผิดพลาดขณะเพิ่มกฎ" },
-  "errorremovingrule": { "message": "เกิดข้อผิดพลาดขณะลบกฎ" }
+  "errorremovingrule": { "message": "เกิดข้อผิดพลาดขณะลบกฎ" },
+  "optionsheader": { "message": "การตั้งค่าส่วนขยาย" },
+  "optionsdescription": { "message": "กำหนดพฤติกรรมของส่วนขยายและการตั้งค่าความปลอดภัย" },
+  "securitymodetitle": { "message": "โหมดความปลอดภัย" },
+  "normalmodetitle": { "message": "โหมดปกติ" },
+  "normalmodedesc": { "message": "สามารถลบกฎได้ทันทีด้วยการคลิกเพียงครั้งเดียว" },
+  "strictmodetitle": { "message": "โหมดเข้มงวด" },
+  "strictmodedesc": { "message": "การลบกฎต้องมีการนับถอยหลัง 10 วินาทีก่อนเพื่อป้องกันการลบโดยไม่ตั้งใจ" },
+  "additionalsettingstitle": { "message": "การตั้งค่าเพิ่มเติม" },
+  "confirmdeletetitle": { "message": "ยืนยันก่อนลบหลายกฎ" },
+  "confirmdeletedesc": { "message": "แสดงกล่องยืนยันเมื่อทำการลบกฎหลายกฎพร้อมกัน" },
+  "notificationstitle": { "message": "แสดงการแจ้งเตือน" },
+  "notificationsdesc": { "message": "แสดงการแจ้งเตือนเมื่อส่วนขยายมีการอัปเดต" },
+  "rulesmanagementtitle": { "message": "การจัดการกฎ" },
+  "exportrulesbtn": { "message": "ส่งออกกฎ" },
+  "importrulesbtn": { "message": "นำเข้ากฎ" },
+  "clearallrulesbtn": { "message": "ลบกฎทั้งหมด" },
+  "totalruleslabel": { "message": "จำนวนกฎทั้งหมด" },
+  "blockedtodaylabel": { "message": "บล็อกวันนี้" },
+  "totalblockedlabel": { "message": "บล็อกทั้งหมด" },
+  "resetsettingsbtn": { "message": "รีเซ็ตเป็นค่าเริ่มต้น" },
+  "backtopopup": { "message": "กลับไปเมนูหลัก" },
+  "errorloadingsettings": { "message": "เกิดข้อผิดพลาดในการโหลดการตั้งค่า" },
+  "settingssaved": { "message": "บันทึกการตั้งค่าเรียบร้อยแล้ว!" },
+  "errorsavingsettings": { "message": "เกิดข้อผิดพลาดในการบันทึกการตั้งค่า" },
+  "rulesexported": { "message": "ส่งออกกฎเรียบร้อยแล้ว!" },
+  "errorexportingrules": { "message": "เกิดข้อผิดพลาดในการส่งออกกฎ" },
+  "willimportrules": {
+    "message": "จะนำเข้า $ruleslength$ กฎ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "กฎปัจจุบันจะถูกแทนที่ ดำเนินการต่อหรือไม่?" },
+  "importedrules": {
+    "message": "นำเข้า $ruleslength$ กฎสำเร็จแล้ว!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "เกิดข้อผิดพลาดในการนำเข้ากฎ: " },
+  "norulestoclear": { "message": "ไม่มี กฎ ให้ลบ" },
+  "willdeleteallrules": {
+    "message": "นี่จะลบกฎทั้งหมด $rulescount$ อย่างถาวร",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "ไม่สามารถย้อนกลับการกระทำนี้ได้ ดำเนินการต่อหรือไม่?" },
+  "allrulescleared": { "message": "ลบกฎทั้งหมดเรียบร้อยแล้ว!" },
+  "errorclearingrules": { "message": "เกิดข้อผิดพลาดในการลบกฎ" },
+  "willreset": { "message": "การตั้งค่าทั้งหมดจะถูกรีเซ็ตเป็นค่าเริ่มต้น ดำเนินการต่อหรือไม่?" },
+  "resettodefaults": { "message": "รีเซ็ตการตั้งค่าเป็นค่าเริ่มต้นเรียบร้อยแล้ว!" },
+  "errorresettingsettings": { "message": "เกิดข้อผิดพลาดในการรีเซ็ตการตั้งค่า" }
 }

@@ -51,5 +51,67 @@
   "rulesmigrated": { "message": "规则已更新以确保兼容性" },
   "errorupdatingrules": { "message": "更新规则时出错" },
   "erroraddingrule": { "message": "添加规则时出错" },
-  "errorremovingrule": { "message": "移除规则时出错" }
+  "errorremovingrule": { "message": "移除规则时出错" },
+  "optionsheader": { "message": "扩展设置" },
+  "optionsdescription": { "message": "配置扩展的行为和安全设置" },
+  "securitymodetitle": { "message": "安全模式" },
+  "normalmodetitle": { "message": "普通模式" },
+  "normalmodedesc": { "message": "规则可通过单击立即删除" },
+  "strictmodetitle": { "message": "严格模式" },
+  "strictmodedesc": { "message": "删除规则前需要10秒倒计时，以防止意外删除" },
+  "additionalsettingstitle": { "message": "附加设置" },
+  "confirmdeletetitle": { "message": "删除多条规则前确认" },
+  "confirmdeletedesc": { "message": "删除多条规则时显示确认对话框" },
+  "notificationstitle": { "message": "显示通知" },
+  "notificationsdesc": { "message": "在扩展更新时显示通知" },
+  "rulesmanagementtitle": { "message": "规则管理" },
+  "exportrulesbtn": { "message": "导出规则" },
+  "importrulesbtn": { "message": "导入规则" },
+  "clearallrulesbtn": { "message": "清除所有规则" },
+  "totalruleslabel": { "message": "规则总数" },
+  "blockedtodaylabel": { "message": "今日拦截" },
+  "totalblockedlabel": { "message": "总计拦截" },
+  "resetsettingsbtn": { "message": "重置为默认值" },
+  "backtopopup": { "message": "返回主界面" },
+  "errorloadingsettings": { "message": "加载设置时出错" },
+  "settingssaved": { "message": "设置保存成功！" },
+  "errorsavingsettings": { "message": "保存设置时出错" },
+  "rulesexported": { "message": "规则导出成功！" },
+  "errorexportingrules": { "message": "导出规则时出错" },
+  "willimportrules": {
+    "message": "将导入$ruleslength$条规则。 ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": { "message": "当前规则将被替换。继续吗？" },
+  "importedrules": {
+    "message": "成功导入$ruleslength$条规则！",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules": { "message": "导入规则时出错：" },
+  "norulestoclear": { "message": "没有规则可清除" },
+  "willdeleteallrules": {
+    "message": "这将永久删除所有$rulescount$条规则。 ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "此操作无法撤销。继续吗？" },
+  "allrulescleared": { "message": "所有规则已成功清除！" },
+  "errorclearingrules": { "message": "清除规则时出错" },
+  "willreset": { "message": "这将重置所有设置为默认值。继续吗？" },
+  "resettodefaults": { "message": "设置已重置为默认值！" },
+  "errorresettingsettings": { "message": "重置设置时出错" }
 }

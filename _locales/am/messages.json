@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "ደንቦች ለተጣጣምነት ተዘምነዋል" },
   "errorupdatingrules": { "message": "ደንቦችን በማዘመን ላይ ስህተት" },
   "erroraddingrule": { "message": "ደንብ በመጨመር ላይ ስህተት" },
-  "errorremovingrule": { "message": "ደንብ በማስወገድ ላይ ስህተት" }
+  "errorremovingrule": { "message": "ደንብ በማስወገድ ላይ ስህተት" },
+  "optionsheader": { "message": "የተጨማሪ ቅንብሮች" },
+  "optionsdescription": { "message": "የተጨማሪውን እንዴት እንዲሰራ እና የደህንነት ቅንብሮችን ያቀናብሩ" },
+  "securitymodetitle": { "message": "የደህንነት ሁነታ" },
+  "normalmodetitle": { "message": "መደበኛ ሁነታ" },
+  "normalmodedesc": { "message": "ህጎችን በአንድ ጠቅታ በድንገት ማስወገድ ይችላሉ" },
+  "strictmodetitle": { "message": "ጥብቅ ሁነታ" },
+  "strictmodedesc": { "message": "ህጎች ከመሰረዝ በፊት 10 ሰከንድ መቆጣጠሪያ ይጠየቃሉ" },
+  "additionalsettingstitle": { "message": "ተጨማሪ ቅንብሮች" },
+  "confirmdeletetitle": { "message": "በአንድ ጊዜ ከሚሰረዙ ብዙ ህጎች በፊት አረጋግጥ" },
+  "confirmdeletedesc": { "message": "በአንድ ጊዜ ብዙ ህጎች ሲሰረዙ የማረጋገጫ ንግግር አሳይ" },
+  "notificationstitle": { "message": "ማሳወቂያዎችን አሳይ" },
+  "notificationsdesc": { "message": "ድር-ቅጥ ተሰርቷል ሲታወቅ ማሳወቂያዎችን አሳይ" },
+  "rulesmanagementtitle": { "message": "የህጎች አስተዳደር" },
+  "exportrulesbtn": { "message": "ህጎችን አውጣ" },
+  "importrulesbtn": { "message": "ህጎችን አስገባ" },
+  "clearallrulesbtn": { "message": "ሁሉንም ህጎች አጽዳ" },
+  "totalruleslabel": { "message": "ጠቅላላ ህጎች" },
+  "blockedtodaylabel": { "message": "ዛሬ የተከለከሉ" },
+  "totalblockedlabel": { "message": "ጠቅላላ የተከለከሉ" },
+  "resetsettingsbtn": { "message": "ወደ ነባሪ አስመልስ" },
+  "backtopopup": { "message": "ወደ ዋናው ተመለስ" },
+  "errorloadingsettings": { "message": "ቅንብሮች በመጫን ላይ ስህተት" },
+  "settingssaved": { "message": "ቅንብሮች በተሳካ ሁኔታ ተቀምጠዋል!" },
+  "errorsavingsettings": { "message": "ቅንብሮችን በማስቀመጥ ላይ ስህተት" },
+  "rulesexported": { "message": "ህጎች በተሳካ ሁኔታ ተወግደዋል!" },
+  "errorexportingrules": { "message": "ህጎችን በመላክ ላይ ስህተት" },
+  "willimportrules": {
+    "message": "ይህ  $ruleslength$ ህጎችን ያስገባል። ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "የአሁኑ ህጎች ይተካሉ። ቀጥል?" },
+  "importedrules": {
+    "message": "$ruleslength$ ህጎች በተሳካ ሁኔታ ተገብተዋል!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "ህጎችን በማስገባት ላይ ስህተት፡ " },
+  "norulestoclear": { "message": "ለማጽዳት ህጎች የሉም" },
+  "willdeleteallrules": {
+    "message": "ይህ በዘላቂነት ሁሉንም $rulescount$ ህጎች ያስወግዳል። ",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "ይህ ተግባር አይቀርበውም። ቀጥል?" },
+  "allrulescleared": { "message": "ሁሉም ህጎች በተሳካ ሁኔታ ተጸዱ!" },
+  "errorclearingrules": { "message": "ህጎችን በማጽዳት ላይ ስህተት" },
+  "willreset": { "message": "ይህ ሁሉንም ቅንብሮች ወደ ነባሪ ይመልሳል። ቀጥል?" },
+  "resettodefaults": { "message": "ቅንብሮች ወደ ነባሪ ተመልሰዋል!" },
+  "errorresettingsettings": { "message": "ቅንብሮችን በማዘመን ላይ ስህተት" }
 }

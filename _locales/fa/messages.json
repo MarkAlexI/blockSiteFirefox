@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "قوانین برای سازگاری به‌روزرسانی شدند" },
   "errorupdatingrules": { "message": "خطا در به‌روزرسانی قوانین" },
   "erroraddingrule": { "message": "خطا در افزودن قانون" },
-  "errorremovingrule": { "message": "خطا در حذف قانون" }
+  "errorremovingrule": { "message": "خطا در حذف قانون" },
+  "optionsheader": { "message": "تنظیمات افزونه" },
+  "optionsdescription": { "message": "رفتار افزونه و تنظیمات امنیتی را پیکربندی کنید" },
+  "securitymodetitle": { "message": "حالت امنیتی" },
+  "normalmodetitle": { "message": "حالت عادی" },
+  "normalmodedesc": { "message": "قوانین را می‌توان فوراً با یک کلیک حذف کرد" },
+  "strictmodetitle": { "message": "حالت سختگیرانه" },
+  "strictmodedesc": { "message": "برای حذف قوانین نیاز به شمارش معکوس ۱۰ ثانیه‌ای است تا از حذف تصادفی جلوگیری شود" },
+  "additionalsettingstitle": { "message": "تنظیمات اضافی" },
+  "confirmdeletetitle": { "message": "تأیید قبل از حذف چند قانون" },
+  "confirmdeletedesc": { "message": "نمایش گفتگوی تأیید هنگام حذف چندین قانون به طور همزمان" },
+  "notificationstitle": { "message": "نمایش اعلان‌ها" },
+  "notificationsdesc": { "message": "هنگام به‌روزرسانی افزونه اعلان‌ها را نمایش بده" },
+  "rulesmanagementtitle": { "message": "مدیریت قوانین" },
+  "exportrulesbtn": { "message": "صدور قوانین" },
+  "importrulesbtn": { "message": "وارد کردن قوانین" },
+  "clearallrulesbtn": { "message": "حذف همه قوانین" },
+  "totalruleslabel": { "message": "مجموع قوانین" },
+  "blockedtodaylabel": { "message": "مسدود شده امروز" },
+  "totalblockedlabel": { "message": "مجموع مسدود شده‌ها" },
+  "resetsettingsbtn": { "message": "بازنشانی به پیش‌فرض‌ها" },
+  "backtopopup": { "message": "بازگشت به منو اصلی" },
+  "errorloadingsettings": { "message": "خطا در بارگذاری تنظیمات" },
+  "settingssaved": { "message": "تنظیمات با موفقیت ذخیره شد!" },
+  "errorsavingsettings": { "message": "خطا در ذخیره تنظیمات" },
+  "rulesexported": { "message": "قوانین با موفقیت صادر شدند!" },
+  "errorexportingrules": { "message": "خطا در صدور قوانین" },
+  "willimportrules": {
+    "message": "$ruleslength$ قانون وارد خواهد شد.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "قوانین فعلی جایگزین خواهند شد. ادامه دهید؟" },
+  "importedrules": {
+    "message": "$ruleslength$ قانون با موفقیت وارد شد!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "خطا در وارد کردن قوانین: " },
+  "norulestoclear": { "message": "قوانینی برای حذف وجود ندارد" },
+  "willdeleteallrules": {
+    "message": "این کار همه $rulescount$ قانون را برای همیشه حذف خواهد کرد.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "این عمل قابل بازگشت نیست. ادامه دهید؟" },
+  "allrulescleared": { "message": "همه قوانین با موفقیت حذف شدند!" },
+  "errorclearingrules": { "message": "خطا در حذف قوانین" },
+  "willreset": { "message": "همه تنظیمات به پیش‌فرض‌ها بازنشانی خواهند شد. ادامه دهید؟" },
+  "resettodefaults": { "message": "تنظیمات به پیش‌فرض‌ها بازنشانی شدند!" },
+  "errorresettingsettings": { "message": "خطا در بازنشانی تنظیمات" }
 }

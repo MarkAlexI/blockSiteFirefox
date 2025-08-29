@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Reguły zaktualizowane dla kompatybilności" },
   "errorupdatingrules": { "message": "Błąd podczas aktualizacji reguł" },
   "erroraddingrule": { "message": "Błąd podczas dodawania reguły" },
-  "errorremovingrule": { "message": "Błąd podczas usuwania reguły" }
+  "errorremovingrule": { "message": "Błąd podczas usuwania reguły" },
+  "optionsheader": { "message": "Ustawienia rozszerzenia" },
+  "optionsdescription": { "message": "Skonfiguruj zachowanie rozszerzenia i ustawienia bezpieczeństwa" },
+  "securitymodetitle": { "message": "Tryb bezpieczeństwa" },
+  "normalmodetitle": { "message": "Tryb normalny" },
+  "normalmodedesc": { "message": "Reguły można usuwać natychmiast jednym kliknięciem" },
+  "strictmodetitle": { "message": "Tryb ścisły" },
+  "strictmodedesc": { "message": "Usuwanie reguł wymaga 10-sekundowego odliczania, aby zapobiec przypadkowemu usunięciu" },
+  "additionalsettingstitle": { "message": "Dodatkowe ustawienia" },
+  "confirmdeletetitle": { "message": "Potwierdź przed usunięciem wielu reguł" },
+  "confirmdeletedesc": { "message": "Pokaż okno potwierdzenia przy usuwaniu wielu reguł jednocześnie" },
+  "notificationstitle": { "message": "Pokaż powiadomienia" },
+  "notificationsdesc": { "message": "Wyświetl powiadomienia po aktualizacji rozszerzenia" },
+  "rulesmanagementtitle": { "message": "Zarządzanie regułami" },
+  "exportrulesbtn": { "message": "Eksportuj reguły" },
+  "importrulesbtn": { "message": "Importuj reguły" },
+  "clearallrulesbtn": { "message": "Usuń wszystkie reguły" },
+  "totalruleslabel": { "message": "Łączna liczba reguł" },
+  "blockedtodaylabel": { "message": "Zablokowane dziś" },
+  "totalblockedlabel": { "message": "Łącznie zablokowane" },
+  "resetsettingsbtn": { "message": "Przywróć domyślne" },
+  "backtopopup": { "message": "Powrót do głównego menu" },
+  "errorloadingsettings": { "message": "Błąd podczas ładowania ustawień" },
+  "settingssaved": { "message": "Ustawienia zapisane pomyślnie!" },
+  "errorsavingsettings": { "message": "Błąd podczas zapisywania ustawień" },
+  "rulesexported": { "message": "Reguły wyeksportowane pomyślnie!" },
+  "errorexportingrules": { "message": "Błąd podczas eksportu reguł" },
+  "willimportrules": {
+    "message": "Zostanie zaimportowanych $ruleslength$ reguł.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Obecne reguły zostaną zastąpione. Kontynuować?" },
+  "importedrules": {
+    "message": "Pomyślnie zaimportowano $ruleslength$ reguł!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Błąd podczas importowania reguł: " },
+  "norulestoclear": { "message": "Brak reguł do usunięcia" },
+  "willdeleteallrules": {
+    "message": "To trwale usunie wszystkie $rulescount$ reguły.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Nie można cofnąć tej akcji. Kontynuować?" },
+  "allrulescleared": { "message": "Wszystkie reguły zostały pomyślnie usunięte!" },
+  "errorclearingrules": { "message": "Błąd podczas usuwania reguł" },
+  "willreset": { "message": "Wszystkie ustawienia zostaną przywrócone do wartości domyślnych. Kontynuować?" },
+  "resettodefaults": { "message": "Ustawienia przywrócone do wartości domyślnych!" },
+  "errorresettingsettings": { "message": "Błąd podczas przywracania ustawień" }
 }

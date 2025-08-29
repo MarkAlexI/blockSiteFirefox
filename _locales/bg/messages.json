@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Правилата са актуализирани за съвместимост" },
   "errorupdatingrules": { "message": "Грешка при актуализиране на правилата" },
   "erroraddingrule": { "message": "Грешка при добавяне на правило" },
-  "errorremovingrule": { "message": "Грешка при премахване на правило" }
+  "errorremovingrule": { "message": "Грешка при премахване на правило" },
+  "optionsheader": { "message": "Настройки на разширението" },
+  "optionsdescription": { "message": "Конфигурирайте поведението и настройките за сигурност" },
+  "securitymodetitle": { "message": "Режим на сигурност" },
+  "normalmodetitle": { "message": "Нормален режим" },
+  "normalmodedesc": { "message": "Правилата могат да се изтрият веднага с едно щракване" },
+  "strictmodetitle": { "message": "Строг режим" },
+  "strictmodedesc": { "message": "Изтриването на правила изисква обратно броене от 10 секунди, за да се предотврати случайно премахване" },
+  "additionalsettingstitle": { "message": "Допълнителни настройки" },
+  "confirmdeletetitle": { "message": "Потвърждение преди изтриване на няколко правила" },
+  "confirmdeletedesc": { "message": "Показване на диалог за потвърждение при изтриване на няколко правила наведнъж" },
+  "notificationstitle": { "message": "Показване на известия" },
+  "notificationsdesc": { "message": "Показвай известия при актуализиране на разширението" },
+  "rulesmanagementtitle": { "message": "Управление на правила" },
+  "exportrulesbtn": { "message": "Експортиране на правила" },
+  "importrulesbtn": { "message": "Импортиране на правила" },
+  "clearallrulesbtn": { "message": "Изчистване на всички правила" },
+  "totalruleslabel": { "message": "Общо правила" },
+  "blockedtodaylabel": { "message": "Блокирани днес" },
+  "totalblockedlabel": { "message": "Общо блокирани" },
+  "resetsettingsbtn": { "message": "Нулиране по подразбиране" },
+  "backtopopup": { "message": "Назад към основното" },
+  "errorloadingsettings": { "message": "Грешка при зареждане на настройките" },
+  "settingssaved": { "message": "Настройките са запазени успешно!" },
+  "errorsavingsettings": { "message": "Грешка при запазване на настройките" },
+  "rulesexported": { "message": "Правилата бяха експортирани успешно!" },
+  "errorexportingrules": { "message": "Грешка при експортиране на правилата" },
+  "willimportrules": {
+    "message": "Ще бъдат импортирани $ruleslength$ правила. ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Текущите правила ще бъдат заменени. Продължавате ли?" },
+  "importedrules": {
+    "message": "Успешно импортирани $ruleslength$ правила!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Грешка при импортиране на правилата: " },
+  "norulestoclear": { "message": "Няма правила за изчистване" },
+  "willdeleteallrules": {
+    "message": "Това ще изтрие окончателно всички $rulescount$ правила. ",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Това действие не може да бъде отменено. Продължавате ли?" },
+  "allrulescleared": { "message": "Всички правила бяха изчистени успешно!" },
+  "errorclearingrules": { "message": "Грешка при изчистване на правилата" },
+  "willreset": { "message": "Това ще върне всички настройки към стойности по подразбиране. Продължавате ли?" },
+  "resettodefaults": { "message": "Настройките са върнати по подразбиране!" },
+  "errorresettingsettings": { "message": "Грешка при нулиране на настройките" }
 }

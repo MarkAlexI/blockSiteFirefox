@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Reeglid on uuendatud ühilduvuse tagamiseks" },
   "errorupdatingrules": { "message": "Viga reeglite uuendamisel" },
   "erroraddingrule": { "message": "Viga reegli lisamisel" },
-  "errorremovingrule": { "message": "Viga reegli eemaldamisel" }
+  "errorremovingrule": { "message": "Viga reegli eemaldamisel" },
+  "optionsheader": { "message": "Laienduse seaded" },
+  "optionsdescription": { "message": "Seadista laienduse käitumine ja turvaseaded" },
+  "securitymodetitle": { "message": "Turvarežiim" },
+  "normalmodetitle": { "message": "Tavaline režiim" },
+  "normalmodedesc": { "message": "Reegleid saab ühe klõpsuga kohe kustutada" },
+  "strictmodetitle": { "message": "Range režiim" },
+  "strictmodedesc": { "message": "Reeglite kustutamiseks on vaja 10-sekundilist loendust, et vältida juhuslikku eemaldamist" },
+  "additionalsettingstitle": { "message": "Täiendavad seaded" },
+  "confirmdeletetitle": { "message": "Kinnita enne mitme reegli kustutamist" },
+  "confirmdeletedesc": { "message": "Näita kinnituse dialoogi mitme reegli korraga kustutamisel" },
+  "notificationstitle": { "message": "Kuva teavitused" },
+  "notificationsdesc": { "message": "Kuva teavitused, kui veebilaiend on uuendatud" },
+  "rulesmanagementtitle": { "message": "Reeglite haldamine" },
+  "exportrulesbtn": { "message": "Ekspordi reeglid" },
+  "importrulesbtn": { "message": "Impordi reeglid" },
+  "clearallrulesbtn": { "message": "Kustuta kõik reeglid" },
+  "totalruleslabel": { "message": "Reegleid kokku" },
+  "blockedtodaylabel": { "message": "Täna blokeeritud" },
+  "totalblockedlabel": { "message": "Blokeeritud kokku" },
+  "resetsettingsbtn": { "message": "Lähtesta vaikeväärtustele" },
+  "backtopopup": { "message": "Tagasi põhimenüüsse" },
+  "errorloadingsettings": { "message": "Seadete laadimisel tekkis viga" },
+  "settingssaved": { "message": "Seaded salvestati edukalt!" },
+  "errorsavingsettings": { "message": "Seadete salvestamisel tekkis viga" },
+  "rulesexported": { "message": "Reeglid eksporditi edukalt!" },
+  "errorexportingrules": { "message": "Reeglite eksportimisel tekkis viga" },
+  "willimportrules": {
+    "message": "Imporditakse $ruleslength$ reeglit.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Praegused reeglid asendatakse. Kas jätkata?" },
+  "importedrules": {
+    "message": "$ruleslength$ reeglit imporditi edukalt!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Reeglite importimisel tekkis viga: " },
+  "norulestoclear": { "message": "Pole reegleid kustutamiseks" },
+  "willdeleteallrules": {
+    "message": "See kustutab jäädavalt kõik $rulescount$ reeglid.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Seda toimingut ei saa tagasi võtta. Kas jätkata?" },
+  "allrulescleared": { "message": "Kõik reeglid kustutati edukalt!" },
+  "errorclearingrules": { "message": "Reeglite kustutamisel tekkis viga" },
+  "willreset": { "message": "Kõik seaded lähtestatakse vaikeväärtustele. Kas jätkata?" },
+  "resettodefaults": { "message": "Seaded lähtestati vaikeväärtustele!" },
+  "errorresettingsettings": { "message": "Seadete lähtestamisel tekkis viga" }
 }

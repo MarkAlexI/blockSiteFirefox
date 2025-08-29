@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Uyumluluk için kurallar güncellendi" },
   "errorupdatingrules": { "message": "Kuralları güncellerken hata" },
   "erroraddingrule": { "message": "Kural eklerken hata" },
-  "errorremovingrule": { "message": "Kural kaldırılırken hata" }
+  "errorremovingrule": { "message": "Kural kaldırılırken hata" },
+  "optionsheader": { "message": "Uzantı Ayarları" },
+  "optionsdescription": { "message": "Uzantınızın davranışını ve güvenlik ayarlarını yapılandırın" },
+  "securitymodetitle": { "message": "Güvenlik Modu" },
+  "normalmodetitle": { "message": "Normal Mod" },
+  "normalmodedesc": { "message": "Kurallar tek tıkla hemen silinebilir" },
+  "strictmodetitle": { "message": "Sıkı Mod" },
+  "strictmodedesc": { "message": "Kuralların yanlışlıkla silinmesini önlemek için silmeden önce 10 saniyelik geri sayım gerektirir" },
+  "additionalsettingstitle": { "message": "Ek Ayarlar" },
+  "confirmdeletetitle": { "message": "Birden fazla kural silmeden önce onaylayın" },
+  "confirmdeletedesc": { "message": "Birden fazla kural aynı anda silinirken onay iletişim kutusunu göster" },
+  "notificationstitle": { "message": "Bildirimleri Göster" },
+  "notificationsdesc": { "message": "Uzantı güncellendiğinde bildirimleri göster" },
+  "rulesmanagementtitle": { "message": "Kural Yönetimi" },
+  "exportrulesbtn": { "message": "Kuralları Dışa Aktar" },
+  "importrulesbtn": { "message": "Kuralları İçe Aktar" },
+  "clearallrulesbtn": { "message": "Tüm Kuralları Temizle" },
+  "totalruleslabel": { "message": "Toplam Kurallar" },
+  "blockedtodaylabel": { "message": "Bugün Engellenen" },
+  "totalblockedlabel": { "message": "Toplam Engellenen" },
+  "resetsettingsbtn": { "message": "Varsayılana Sıfırla" },
+  "backtopopup": { "message": "Ana Menüye Dön" },
+  "errorloadingsettings": { "message": "Ayarlar yüklenirken hata oluştu" },
+  "settingssaved": { "message": "Ayarlar başarıyla kaydedildi!" },
+  "errorsavingsettings": { "message": "Ayarları kaydederken hata oluştu" },
+  "rulesexported": { "message": "Kurallar başarıyla dışa aktarıldı!" },
+  "errorexportingrules": { "message": "Kuralları dışa aktarırken hata oluştu" },
+  "willimportrules": {
+    "message": "$ruleslength$ kural içe aktarılacak.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Mevcut kurallar değiştirilecek. Devam edilsin mi?" },
+  "importedrules": {
+    "message": "$ruleslength$ kural başarıyla içe aktarıldı!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Kuralları içe aktarırken hata oluştu: " },
+  "norulestoclear": { "message": "Temizlenecek kural yok" },
+  "willdeleteallrules": {
+    "message": "Bu, tüm $rulescount$ kuralları kalıcı olarak silecek.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Bu işlem geri alınamaz. Devam edilsin mi?" },
+  "allrulescleared": { "message": "Tüm kurallar başarıyla temizlendi!" },
+  "errorclearingrules": { "message": "Kuralları temizlerken hata oluştu" },
+  "willreset": { "message": "Tüm ayarlar varsayılan değerlere sıfırlanacak. Devam edilsin mi?" },
+  "resettodefaults": { "message": "Ayarlar varsayılan değerlere sıfırlandı!" },
+  "errorresettingsettings": { "message": "Ayarları sıfırlarken hata oluştu" }
 }

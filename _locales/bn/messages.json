@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "সামঞ্জস্যের জন্য নিয়ম আপডেট করা হয়েছে" },
   "errorupdatingrules": { "message": "নিয়ম আপডেট করতে ত্রুটি" },
   "erroraddingrule": { "message": "নিয়ম যোগ করতে ত্রুটি" },
-  "errorremovingrule": { "message": "নিয়ম সরাতে ত্রুটি" }
+  "errorremovingrule": { "message": "নিয়ম সরাতে ত্রুটি" },
+  "optionsheader": { "message": "এক্সটেনশন সেটিংস" },
+  "optionsdescription": { "message": "এক্সটেনশনের আচরণ এবং সুরক্ষা সেটিংস কনফিগার করুন" },
+  "securitymodetitle": { "message": "নিরাপত্তা মোড" },
+  "normalmodetitle": { "message": "সাধারণ মোড" },
+  "normalmodedesc": { "message": "একটি ক্লিকে নিয়ম অবিলম্বে মুছে ফেলা যেতে পারে" },
+  "strictmodetitle": { "message": "কঠোর মোড" },
+  "strictmodedesc": { "message": "অজান্তে মুছে ফেলা রোধ করতে নিয়ম মুছতে ১০ সেকেন্ড কাউন্টডাউন প্রয়োজন" },
+  "additionalsettingstitle": { "message": "অতিরিক্ত সেটিংস" },
+  "confirmdeletetitle": { "message": "একাধিক নিয়ম মুছে ফেলার আগে নিশ্চিত করুন" },
+  "confirmdeletedesc": { "message": "একসাথে একাধিক নিয়ম মুছে ফেলার সময় নিশ্চিতকরণ ডায়ালগ দেখান" },
+  "notificationstitle": { "message": "বিজ্ঞপ্তি দেখান" },
+  "notificationsdesc": { "message": "এক্সটেনশন আপডেট হলে বিজ্ঞপ্তি প্রদর্শন করুন" },
+  "rulesmanagementtitle": { "message": "নিয়ম ব্যবস্থাপনা" },
+  "exportrulesbtn": { "message": "নিয়ম রপ্তানি করুন" },
+  "importrulesbtn": { "message": "নিয়ম আমদানি করুন" },
+  "clearallrulesbtn": { "message": "সব নিয়ম মুছে ফেলুন" },
+  "totalruleslabel": { "message": "মোট নিয়ম" },
+  "blockedtodaylabel": { "message": "আজ ব্লক করা হয়েছে" },
+  "totalblockedlabel": { "message": "মোট ব্লক" },
+  "resetsettingsbtn": { "message": "ডিফল্টে রিসেট করুন" },
+  "backtopopup": { "message": "প্রধান মেনুতে ফিরে যান" },
+  "errorloadingsettings": { "message": "সেটিংস লোড করতে সমস্যা" },
+  "settingssaved": { "message": "সেটিংস সফলভাবে সংরক্ষিত হয়েছে!" },
+  "errorsavingsettings": { "message": "সেটিংস সংরক্ষণে ত্রুটি" },
+  "rulesexported": { "message": "নিয়ম সফলভাবে রপ্তানি হয়েছে!" },
+  "errorexportingrules": { "message": "নিয়ম রপ্তানিতে ত্রুটি" },
+  "willimportrules": {
+    "message": "এটি $ruleslength$ নিয়ম আমদানি করবে। ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "বর্তমান নিয়ম প্রতিস্থাপিত হবে। চালিয়ে যাবেন?" },
+  "importedrules": {
+    "message": "$ruleslength$ নিয়ম সফলভাবে আমদানি হয়েছে!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "নিয়ম আমদানিতে ত্রুটি: " },
+  "norulestoclear": { "message": "মুছে ফেলার মতো কোনো নিয়ম নেই" },
+  "willdeleteallrules": {
+    "message": "এটি স্থায়ীভাবে সমস্ত $rulescount$ নিয়ম মুছে ফেলবে। ",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না। চালিয়ে যাবেন?" },
+  "allrulescleared": { "message": "সব নিয়ম সফলভাবে মুছে ফেলা হয়েছে!" },
+  "errorclearingrules": { "message": "নিয়ম মুছে ফেলতে ত্রুটি" },
+  "willreset": { "message": "এটি সমস্ত সেটিংস ডিফল্ট মানে রিসেট করবে। চালিয়ে যাবেন?" },
+  "resettodefaults": { "message": "সেটিংস ডিফল্টে রিসেট হয়েছে!" },
+  "errorresettingsettings": { "message": "সেটিংস রিসেট করতে ত্রুটি" }
 }

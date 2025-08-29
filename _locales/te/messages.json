@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "సామరస్యం కోసం నియమాలు నవీకరించబడ్డాయి" },
   "errorupdatingrules": { "message": "నియమాలను నవీకరించడంలో లోపం" },
   "erroraddingrule": { "message": "నియమాన్ని జోడించడంలో లోపం" },
-  "errorremovingrule": { "message": "నియమాన్ని తొలగించడంలో లోపం" }
+  "errorremovingrule": { "message": "నియమాన్ని తొలగించడంలో లోపం" },
+  "optionsheader": { "message": "విస్తరణ సెట్టింగులు" },
+  "optionsdescription": { "message": "మీ విస్తరణ ప్రవర్తన మరియు భద్రతా సెట్టింగులను కాంఫిగర్ చేయండి" },
+  "securitymodetitle": { "message": "భద్రతా మోడ్" },
+  "normalmodetitle": { "message": "సాధారణ మోడ్" },
+  "normalmodedesc": { "message": "నిబంధనలను ఒక క్లిక్‌తో వెంటనే తొలగించవచ్చు" },
+  "strictmodetitle": { "message": "కఠిన మోడ్" },
+  "strictmodedesc": { "message": "దుర్లభంగా తొలగింపును నివారించడానికి నిబంధనలను తొలగించడానికి 10 సెకన్ల కౌంట్ డౌన్ అవసరం" },
+  "additionalsettingstitle": { "message": "అతిరేక సెట్టింగులు" },
+  "confirmdeletetitle": { "message": "చాలా నిబంధనలను తొలగించే ముందు ధృవీకరించండి" },
+  "confirmdeletedesc": { "message": "ఒకేసారి అనేక నిబంధనలను తొలగించినప్పుడు ధృవీకరణ డైలాగ్ చూపించండి" },
+  "notificationstitle": { "message": "నోటిఫికేషన్లు చూపించండి" },
+  "notificationsdesc": { "message": "వెబ్ విస్తరణ నవీకరించబడినప్పుడు నోటిఫికేషన్లు చూపించండి" },
+  "rulesmanagementtitle": { "message": "నిబంధనల నిర్వహణ" },
+  "exportrulesbtn": { "message": "నిబంధనలను ఎగుమతి చేయండి" },
+  "importrulesbtn": { "message": "నిబంధనలను దిగుమతి చేయండి" },
+  "clearallrulesbtn": { "message": "అన్ని నిబంధనలను తొలగించండి" },
+  "totalruleslabel": { "message": "మొత్తం నిబంధనలు" },
+  "blockedtodaylabel": { "message": "నేడు బ్లాక్ చేయబడింది" },
+  "totalblockedlabel": { "message": "మొత్తం బ్లాక్ చేయబడింది" },
+  "resetsettingsbtn": { "message": "డిఫాల్ట్‌కి రీసెట్ చేయండి" },
+  "backtopopup": { "message": "ప్రధాన మెనూ కి తిరిగి వెళ్ళండి" },
+  "errorloadingsettings": { "message": "సెట్టింగ్స్ లోడ్ చేయడంలో లోపం" },
+  "settingssaved": { "message": "సెట్టింగ్స్ విజయవంతంగా సేవ్ అయ్యాయి!" },
+  "errorsavingsettings": { "message": "సెట్టింగ్స్ సేవ్ చేయడంలో లోపం" },
+  "rulesexported": { "message": "నిబంధనలు విజయవంతంగా ఎగుమతి చేయబడ్డాయి!" },
+  "errorexportingrules": { "message": "నిబంధనలను ఎగుమతి చేయడంలో లోపం" },
+  "willimportrules": {
+    "message": "$ruleslength$ నిబంధనలను దిగుమతి చేయబడుతుంది.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "ప్రస్తుత నిబంధనలు మార్చబడతాయి. కొనసాగించాలా?" },
+  "importedrules": {
+    "message": "$ruleslength$ నిబంధనలు విజయవంతంగా దిగుమతి చేయబడ్డాయి!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "నిబంధనలను దిగుమతి చేయడంలో లోపం: " },
+  "norulestoclear": { "message": "తొలగించడానికి ఏ నిబంధనలు లేవు" },
+  "willdeleteallrules": {
+    "message": "ఇది అన్ని $rulescount$ నిబంధనలను శాశ్వతంగా తొలగిస్తుంది.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "ఈ చర్యను రద్దు చేయలేము. కొనసాగించాలా?" },
+  "allrulescleared": { "message": "అన్ని నిబంధనలు విజయవంతంగా తొలగించబడ్డాయి!" },
+  "errorclearingrules": { "message": "నిబంధనలను తొలగించడంలో లోపం" },
+  "willreset": { "message": "అన్ని సెట్టింగ్స్ డిఫాల్ట్ విలువలకు రీసెట్ చేయబడతాయి. కొనసాగించాలా?" },
+  "resettodefaults": { "message": "సెట్టింగ్స్ డిఫాల్ట్‌కు రీసెట్ చేయబడ్డాయి!" },
+  "errorresettingsettings": { "message": "సెట్టింగ్స్ రీసెట్ చేయడంలో లోపం" }
 }

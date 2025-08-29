@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Regler oppdatert for kompatibilitet" },
   "errorupdatingrules": { "message": "Feil ved oppdatering av regler" },
   "erroraddingrule": { "message": "Feil ved tillegging av regel" },
-  "errorremovingrule": { "message": "Feil ved fjerning av regel" }
+  "errorremovingrule": { "message": "Feil ved fjerning av regel" },
+  "optionsheader": { "message": "Utvidelsesinnstillinger" },
+  "optionsdescription": { "message": "Konfigurer utvidelsens oppførsel og sikkerhetsinnstillinger" },
+  "securitymodetitle": { "message": "Sikkerhetsmodus" },
+  "normalmodetitle": { "message": "Normal modus" },
+  "normalmodedesc": { "message": "Regler kan slettes umiddelbart med ett klikk" },
+  "strictmodetitle": { "message": "Streng modus" },
+  "strictmodedesc": { "message": "Regler krever en 10 sekunders nedtelling før sletting for å forhindre utilsiktet fjerning" },
+  "additionalsettingstitle": { "message": "Ekstra innstillinger" },
+  "confirmdeletetitle": { "message": "Bekreft før du sletter flere regler" },
+  "confirmdeletedesc": { "message": "Vis bekreftelsesdialog når du sletter flere regler samtidig" },
+  "notificationstitle": { "message": "Vis varsler" },
+  "notificationsdesc": { "message": "Vis varsler når utvidelsen oppdateres" },
+  "rulesmanagementtitle": { "message": "Regelhåndtering" },
+  "exportrulesbtn": { "message": "Eksporter regler" },
+  "importrulesbtn": { "message": "Importer regler" },
+  "clearallrulesbtn": { "message": "Slett alle regler" },
+  "totalruleslabel": { "message": "Totale regler" },
+  "blockedtodaylabel": { "message": "Blokkert i dag" },
+  "totalblockedlabel": { "message": "Totalt blokkert" },
+  "resetsettingsbtn": { "message": "Tilbakestill til standard" },
+  "backtopopup": { "message": "Tilbake til hovedmenyen" },
+  "errorloadingsettings": { "message": "Feil ved lasting av innstillinger" },
+  "settingssaved": { "message": "Innstillinger lagret!" },
+  "errorsavingsettings": { "message": "Feil ved lagring av innstillinger" },
+  "rulesexported": { "message": "Regler eksportert!" },
+  "errorexportingrules": { "message": "Feil ved eksport av regler" },
+  "willimportrules": {
+    "message": "$ruleslength$ regler vil bli importert.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Gjeldende regler vil bli erstattet. Fortsette?" },
+  "importedrules": {
+    "message": "$ruleslength$ regler importert!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Feil ved import av regler: " },
+  "norulestoclear": { "message": "Ingen regler å slette" },
+  "willdeleteallrules": {
+    "message": "Dette vil permanent slette alle $rulescount$ regler.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Denne handlingen kan ikke angres. Fortsette?" },
+  "allrulescleared": { "message": "Alle regler slettet!" },
+  "errorclearingrules": { "message": "Feil ved sletting av regler" },
+  "willreset": { "message": "Alle innstillinger vil bli tilbakestilt til standardverdier. Fortsette?" },
+  "resettodefaults": { "message": "Innstillinger tilbakestilt til standard!" },
+  "errorresettingsettings": { "message": "Feil ved tilbakestilling av innstillinger" }
 }

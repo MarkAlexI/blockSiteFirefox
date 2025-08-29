@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Reëls opgedateer vir verenigbaarheid" },
   "errorupdatingrules": { "message": "Fout tydens die opdatering van reëls" },
   "erroraddingrule": { "message": "Fout tydens die byvoeging van 'n reël" },
-  "errorremovingrule": { "message": "Fout tydens die verwydering van 'n reël" }
+  "errorremovingrule": { "message": "Fout tydens die verwydering van 'n reël" },
+  "optionsheader": { "message": "Uitbreidingsinstellings" },
+  "optionsdescription": { "message": "Konfigureer die uitbreiding se gedrag en sekuriteitsinstellings" },
+  "securitymodetitle": { "message": "Sekuriteitsmodus" },
+  "normalmodetitle": { "message": "Normale modus" },
+  "normalmodedesc": { "message": "Reëls kan onmiddellik met een enkele klik verwyder word" },
+  "strictmodetitle": { "message": "Streng modus" },
+  "strictmodedesc": { "message": "Reëls vereis 'n 10-sekonde aftelling voor verwydering om toevallige verwydering te voorkom" },
+  "additionalsettingstitle": { "message": "Bykomende instellings" },
+  "confirmdeletetitle": { "message": "Bevestig voordat u veel reëls verwyder" },
+  "confirmdeletedesc": { "message": "Wys bevestigingsdialoog wanneer u veel reëls gelyktydig verwyder" },
+  "notificationstitle": { "message": "Wys kennisgewings" },
+  "notificationsdesc": { "message": "Wys kennisgewings wanneer die webuitbreiding opgedateer word" },
+  "rulesmanagementtitle": { "message": "Reëlsbestuur" },
+  "exportrulesbtn": { "message": "Voer reëls uit" },
+  "importrulesbtn": { "message": "Voer reëls in" },
+  "clearallrulesbtn": { "message": "Verwyder alle reëls" },
+  "totalruleslabel": { "message": "Totale reëls" },
+  "blockedtodaylabel": { "message": "Vandag geblokkeer" },
+  "totalblockedlabel": { "message": "Totale geblokkeer" },
+  "resetsettingsbtn": { "message": "Herstel na verstek" },
+  "backtopopup": { "message": "Terug na hoofmenu" },
+  "errorloadingsettings": { "message": "Fout tydens laai van instellings" },
+  "settingssaved": { "message": "Instellings suksesvol gestoor!" },
+  "errorsavingsettings": { "message": "Fout tydens stoor van instellings" },
+  "rulesexported": { "message": "Reëls suksesvol uitgevoer!" },
+  "errorexportingrules": { "message": "Fout tydens uitvoer van reëls" },
+  "willimportrules": {
+    "message": "Hierdie sal $ruleslength$ reëls invoer. ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Huidige reëls sal vervang word. Gaan voort?" },
+  "importedrules": {
+    "message": "Suksesvol $ruleslength$ reël(e) ingevoer!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Fout tydens invoer van reëls: " },
+  "norulestoclear": { "message": "Geen reëls om te verwyder nie" },
+  "willdeleteallrules": {
+    "message": "Hierdie sal permanent al die $rulescount$ reëls verwyder. ",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Hierdie aksie kan nie ongedaan gemaak word nie. Gaan voort?" },
+  "allrulescleared": { "message": "Alle reëls suksesvol verwyder!" },
+  "errorclearingrules": { "message": "Fout tydens verwydering van reëls" },
+  "willreset": { "message": "Hierdie sal alle instellings na verstek terugstel. Gaan voort?" },
+  "resettodefaults": { "message": "Instellings is na verstek herstel!" },
+  "errorresettingsettings": { "message": "Fout tydens herstel van instellings" }
 }

@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Säännöt päivitetty yhteensopivuuden vuoksi" },
   "errorupdatingrules": { "message": "Virhe sääntöjen päivittämisessä" },
   "erroraddingrule": { "message": "Virhe säännön lisäämisessä" },
-  "errorremovingrule": { "message": "Virhe säännön poistamisessa" }
+  "errorremovingrule": { "message": "Virhe säännön poistamisessa" },
+  "optionsheader": { "message": "Laajennuksen asetukset" },
+  "optionsdescription": { "message": "Määritä laajennuksen toiminta ja suojausasetukset" },
+  "securitymodetitle": { "message": "Turvatila" },
+  "normalmodetitle": { "message": "Normaalitila" },
+  "normalmodedesc": { "message": "Säännöt voidaan poistaa heti yhdellä napsautuksella" },
+  "strictmodetitle": { "message": "Tiukka tila" },
+  "strictmodedesc": { "message": "Sääntöjen poistaminen vaatii 10 sekunnin laskennan vahingossa poistamisen estämiseksi" },
+  "additionalsettingstitle": { "message": "Lisäasetukset" },
+  "confirmdeletetitle": { "message": "Vahvista ennen useiden sääntöjen poistamista" },
+  "confirmdeletedesc": { "message": "Näytä vahvistusikkuna, kun poistetaan useita sääntöjä kerralla" },
+  "notificationstitle": { "message": "Näytä ilmoitukset" },
+  "notificationsdesc": { "message": "Näytä ilmoitukset, kun laajennusta päivitetään" },
+  "rulesmanagementtitle": { "message": "Sääntöjen hallinta" },
+  "exportrulesbtn": { "message": "Vie säännöt" },
+  "importrulesbtn": { "message": "Tuo säännöt" },
+  "clearallrulesbtn": { "message": "Poista kaikki säännöt" },
+  "totalruleslabel": { "message": "Sääntöjä yhteensä" },
+  "blockedtodaylabel": { "message": "Estetty tänään" },
+  "totalblockedlabel": { "message": "Estetty yhteensä" },
+  "resetsettingsbtn": { "message": "Palauta oletusasetukset" },
+  "backtopopup": { "message": "Takaisin päävalikkoon" },
+  "errorloadingsettings": { "message": "Virhe asetusten lataamisessa" },
+  "settingssaved": { "message": "Asetukset tallennettu onnistuneesti!" },
+  "errorsavingsettings": { "message": "Virhe asetuksia tallennettaessa" },
+  "rulesexported": { "message": "Säännöt viety onnistuneesti!" },
+  "errorexportingrules": { "message": "Virhe sääntöjä vietäessä" },
+  "willimportrules": {
+    "message": "$ruleslength$ sääntöä tuodaan.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Nykyiset säännöt korvataan. Jatketaanko?" },
+  "importedrules": {
+    "message": "$ruleslength$ sääntöä tuotu onnistuneesti!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Virhe sääntöjä tuotaessa: " },
+  "norulestoclear": { "message": "Ei sääntöjä poistettavaksi" },
+  "willdeleteallrules": {
+    "message": "Tämä poistaa pysyvästi kaikki $rulescount$ sääntöä.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Tätä toimintoa ei voi perua. Jatketaanko?" },
+  "allrulescleared": { "message": "Kaikki säännöt poistettu onnistuneesti!" },
+  "errorclearingrules": { "message": "Virhe sääntöjä poistettaessa" },
+  "willreset": { "message": "Kaikki asetukset palautetaan oletuksiin. Jatketaanko?" },
+  "resettodefaults": { "message": "Asetukset palautettu oletuksiin!" },
+  "errorresettingsettings": { "message": "Virhe asetuksia palautettaessa" }
 }

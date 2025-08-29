@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Reguli actualizate pentru compatibilitate" },
   "errorupdatingrules": { "message": "Eroare la actualizarea regulilor" },
   "erroraddingrule": { "message": "Eroare la adăugarea unei reguli" },
-  "errorremovingrule": { "message": "Eroare la eliminarea unei reguli" }
+  "errorremovingrule": { "message": "Eroare la eliminarea unei reguli" },
+  "optionsheader": { "message": "Setările extensiei" },
+  "optionsdescription": { "message": "Configurează comportamentul și setările de securitate ale extensiei" },
+  "securitymodetitle": { "message": "Mod de securitate" },
+  "normalmodetitle": { "message": "Mod normal" },
+  "normalmodedesc": { "message": "Regulile pot fi șterse imediat cu un singur clic" },
+  "strictmodetitle": { "message": "Mod strict" },
+  "strictmodedesc": { "message": "Regulile necesită o numărătoare inversă de 10 secunde înainte de ștergere pentru a preveni eliminarea accidentală" },
+  "additionalsettingstitle": { "message": "Setări suplimentare" },
+  "confirmdeletetitle": { "message": "Confirmă înainte de a șterge mai multe reguli" },
+  "confirmdeletedesc": { "message": "Afișează dialogul de confirmare la ștergerea mai multor reguli simultan" },
+  "notificationstitle": { "message": "Afișează notificări" },
+  "notificationsdesc": { "message": "Afișează notificări când extensia este actualizată" },
+  "rulesmanagementtitle": { "message": "Gestionarea regulilor" },
+  "exportrulesbtn": { "message": "Exportă reguli" },
+  "importrulesbtn": { "message": "Importă reguli" },
+  "clearallrulesbtn": { "message": "Șterge toate regulile" },
+  "totalruleslabel": { "message": "Total reguli" },
+  "blockedtodaylabel": { "message": "Blocat astăzi" },
+  "totalblockedlabel": { "message": "Total blocat" },
+  "resetsettingsbtn": { "message": "Resetează la valorile implicite" },
+  "backtopopup": { "message": "Înapoi la meniul principal" },
+  "errorloadingsettings": { "message": "Eroare la încărcarea setărilor" },
+  "settingssaved": { "message": "Setările au fost salvate cu succes!" },
+  "errorsavingsettings": { "message": "Eroare la salvarea setărilor" },
+  "rulesexported": { "message": "Regulile au fost exportate cu succes!" },
+  "errorexportingrules": { "message": "Eroare la exportarea regulilor" },
+  "willimportrules": {
+    "message": "$ruleslength$ reguli vor fi importate.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Regulile curente vor fi înlocuite. Continuă?" },
+  "importedrules": {
+    "message": "$ruleslength$ reguli importate cu succes!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Eroare la importarea regulilor: " },
+  "norulestoclear": { "message": "Nu există reguli de șters" },
+  "willdeleteallrules": {
+    "message": "Acest lucru va șterge permanent toate cele $rulescount$ reguli.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Această acțiune nu poate fi anulată. Continuă?" },
+  "allrulescleared": { "message": "Toate regulile au fost șterse cu succes!" },
+  "errorclearingrules": { "message": "Eroare la ștergerea regulilor" },
+  "willreset": { "message": "Toate setările vor fi resetate la valorile implicite. Continuă?" },
+  "resettodefaults": { "message": "Setările au fost resetate la valorile implicite!" },
+  "errorresettingsettings": { "message": "Eroare la resetarea setărilor" }
 }

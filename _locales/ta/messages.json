@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "பொருந்துதலுக்காக விதிகள் புதுப்பிக்கப்பட்டன" },
   "errorupdatingrules": { "message": "விதிகளைப் புதுப்பிக்கும்போது பிழை" },
   "erroraddingrule": { "message": "விதியைச் சேர்க்கும்போது பிழை" },
-  "errorremovingrule": { "message": "விதியை அகற்றும்போது பிழை" }
+  "errorremovingrule": { "message": "விதியை அகற்றும்போது பிழை" },
+  "optionsheader": { "message": "விரிவாக்க அமைப்புகள்" },
+  "optionsdescription": { "message": "உங்கள் விரிவாக்கத்தின் நடத்தையும் பாதுகாப்பு அமைப்புகளையும் உள்ளமைக்கவும்" },
+  "securitymodetitle": { "message": "பாதுகாப்பு முறை" },
+  "normalmodetitle": { "message": "சாதாரண முறை" },
+  "normalmodedesc": { "message": "கொள்கைகளை ஒரு கிளிக்கில் உடனடியாக நீக்கலாம்" },
+  "strictmodetitle": { "message": "கடுமையான முறை" },
+  "strictmodedesc": { "message": "தற்செயலாக நீக்கப்படுவதைத் தடுக்கும் வகையில் கொள்கைகளை நீக்குவதற்கு 10-சொனிக்குச் கணக்கெடுப்பு தேவை" },
+  "additionalsettingstitle": { "message": "கூடுதல் அமைப்புகள்" },
+  "confirmdeletetitle": { "message": "பல கொள்கைகளை நீக்கும் முன்னர் உறுதிப்படுத்தவும்" },
+  "confirmdeletedesc": { "message": "பல கொள்கைகளை ஒரே நேரத்தில் நீக்கும் போது உறுதிப்படுத்தல் போட்டியை காட்டவும்" },
+  "notificationstitle": { "message": "அறிவிப்புகளை காண்பிக்கவும்" },
+  "notificationsdesc": { "message": "விரிவாக்கம் புதுப்பிக்கப்பட்டபோது அறிவிப்புகளை காட்டவும்" },
+  "rulesmanagementtitle": { "message": "கொள்கை மேலாண்மை" },
+  "exportrulesbtn": { "message": "கொள்கைகளை ஏற்றுமதி செய்" },
+  "importrulesbtn": { "message": "கொள்கைகளை இறக்குமதி செய்" },
+  "clearallrulesbtn": { "message": "அனைத்து கொள்கைகளையும் அழி" },
+  "totalruleslabel": { "message": "மொத்த கொள்கைகள்" },
+  "blockedtodaylabel": { "message": "இன்று தடையீடு செய்யப்பட்டது" },
+  "totalblockedlabel": { "message": "மொத்த தடையீடு" },
+  "resetsettingsbtn": { "message": "மூல அமைப்புக்கு திருப்பவும்" },
+  "backtopopup": { "message": "முக்கிய பட்டிக்கு திரும்பவும்" },
+  "errorloadingsettings": { "message": "அமைப்புகளை ஏற்றும்போது பிழை ஏற்பட்டது" },
+  "settingssaved": { "message": "அமைப்புகள் வெற்றிகரமாக சேமிக்கப்பட்டன!" },
+  "errorsavingsettings": { "message": "அமைப்புகளைச் சேமிக்கும்போது பிழை ஏற்பட்டது" },
+  "rulesexported": { "message": "கொள்கைகள் வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டன!" },
+  "errorexportingrules": { "message": "கொள்கைகளை ஏற்றுமதி செய்யும்போது பிழை ஏற்பட்டது" },
+  "willimportrules": {
+    "message": "$ruleslength$ கொள்கைகள் இறக்குமதி செய்யப்படும்.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "தற்போதைய கொள்கைகள் மாற்றப்படும். தொடரவா?" },
+  "importedrules": {
+    "message": "$ruleslength$ கொள்கைகள் வெற்றிகரமாக இறக்குமதி செய்யப்பட்டன!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "கொள்கைகளை இறக்குமதி செய்யும்போது பிழை: " },
+  "norulestoclear": { "message": "அழிக்க எந்த கொள்கைகளும் இல்லை" },
+  "willdeleteallrules": {
+    "message": "இது மொத்த $rulescount$ கொள்கைகளையும் நிரந்தரமாக அழிக்கும்.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "இந்த செயலை மறு செய்ய முடியாது. தொடரவா?" },
+  "allrulescleared": { "message": "அனைத்து கொள்கைகளும் வெற்றிகரமாக அழிக்கப்பட்டன!" },
+  "errorclearingrules": { "message": "கொள்கைகளை அழிக்கும் போது பிழை ஏற்பட்டது" },
+  "willreset": { "message": "அனைத்து அமைப்புகளும் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கப்படும். தொடரவா?" },
+  "resettodefaults": { "message": "அமைப்புகள் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கப்பட்டன!" },
+  "errorresettingsettings": { "message": "அமைப்புகளை மீட்டமைக்கும்போது பிழை ஏற்பட்டது" }
 }

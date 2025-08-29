@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Pravidla byla aktualizována pro kompatibilitu" },
   "errorupdatingrules": { "message": "Chyba při aktualizaci pravidel" },
   "erroraddingrule": { "message": "Chyba při přidávání pravidla" },
-  "errorremovingrule": { "message": "Chyba při odstraňování pravidla" }
+  "errorremovingrule": { "message": "Chyba při odstraňování pravidla" },
+  "optionsheader": { "message": "Nastavení rozšíření" },
+  "optionsdescription": { "message": "Nakonfigurujte chování rozšíření a nastavení zabezpečení" },
+  "securitymodetitle": { "message": "Režim zabezpečení" },
+  "normalmodetitle": { "message": "Normální režim" },
+  "normalmodedesc": { "message": "Pravidla lze okamžitě odstranit jedním kliknutím" },
+  "strictmodetitle": { "message": "Přísný režim" },
+  "strictmodedesc": { "message": "Pravidla vyžadují před odstraněním 10sekundové odpočítávání, aby se předešlo náhodnému smazání" },
+  "additionalsettingstitle": { "message": "Další nastavení" },
+  "confirmdeletetitle": { "message": "Potvrdit před odstraněním více pravidel" },
+  "confirmdeletedesc": { "message": "Zobrazit potvrzovací dialog při mazání více pravidel najednou" },
+  "notificationstitle": { "message": "Zobrazovat oznámení" },
+  "notificationsdesc": { "message": "Zobrazit oznámení, když je webové rozšíření aktualizováno" },
+  "rulesmanagementtitle": { "message": "Správa pravidel" },
+  "exportrulesbtn": { "message": "Exportovat pravidla" },
+  "importrulesbtn": { "message": "Importovat pravidla" },
+  "clearallrulesbtn": { "message": "Vymazat všechna pravidla" },
+  "totalruleslabel": { "message": "Celkem pravidel" },
+  "blockedtodaylabel": { "message": "Dnes zablokováno" },
+  "totalblockedlabel": { "message": "Celkem zablokováno" },
+  "resetsettingsbtn": { "message": "Obnovit výchozí" },
+  "backtopopup": { "message": "Zpět na hlavní stránku" },
+  "errorloadingsettings": { "message": "Chyba při načítání nastavení" },
+  "settingssaved": { "message": "Nastavení bylo úspěšně uloženo!" },
+  "errorsavingsettings": { "message": "Chyba při ukládání nastavení" },
+  "rulesexported": { "message": "Pravidla byla úspěšně exportována!" },
+  "errorexportingrules": { "message": "Chyba při exportu pravidel" },
+  "willimportrules": {
+    "message": "Tímto se importuje $ruleslength$ pravidel. ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Aktuální pravidla budou nahrazena. Pokračovat?" },
+  "importedrules": {
+    "message": "Úspěšně importováno $ruleslength$ pravidel!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Chyba při importu pravidel: " },
+  "norulestoclear": { "message": "Žádná pravidla k vymazání" },
+  "willdeleteallrules": {
+    "message": "Tímto budou trvale odstraněna všechna $rulescount$ pravidla. ",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Tuto akci nelze vrátit zpět. Pokračovat?" },
+  "allrulescleared": { "message": "Všechna pravidla byla úspěšně vymazána!" },
+  "errorclearingrules": { "message": "Chyba při mazání pravidel" },
+  "willreset": { "message": "Tímto se obnoví všechna nastavení na výchozí hodnoty. Pokračovat?" },
+  "resettodefaults": { "message": "Nastavení byla obnovena na výchozí!" },
+  "errorresettingsettings": { "message": "Chyba při obnovování nastavení" }
 }

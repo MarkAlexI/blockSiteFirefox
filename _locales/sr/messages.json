@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Правила ажурирана за компатибилност" },
   "errorupdatingrules": { "message": "Грешка при ажурирању правила" },
   "erroraddingrule": { "message": "Грешка при додавању правила" },
-  "errorremovingrule": { "message": "Грешка при уклањању правила" }
+  "errorremovingrule": { "message": "Грешка при уклањању правила" },
+  "optionsheader": { "message": "Подешавања проширења" },
+  "optionsdescription": { "message": "Конфигуришите понашање и безбедносна подешавања проширења" },
+  "securitymodetitle": { "message": "Безбедносни режим" },
+  "normalmodetitle": { "message": "Нормални режим" },
+  "normalmodedesc": { "message": "Правила се могу одмах обрисати једним кликом" },
+  "strictmodetitle": { "message": "Строги режим" },
+  "strictmodedesc": { "message": "За брисање правила потребан је одбројавање од 10 секунди како би се спречило случајно брисање" },
+  "additionalsettingstitle": { "message": "Додатна подешавања" },
+  "confirmdeletetitle": { "message": "Потврдите пре брисања више правила" },
+  "confirmdeletedesc": { "message": "Прикажи дијалог за потврду при брисању више правила одједном" },
+  "notificationstitle": { "message": "Прикажи обавештења" },
+  "notificationsdesc": { "message": "Прикажи обавештења када се проширење ажурира" },
+  "rulesmanagementtitle": { "message": "Управљање правилима" },
+  "exportrulesbtn": { "message": "Извези правила" },
+  "importrulesbtn": { "message": "Увези правила" },
+  "clearallrulesbtn": { "message": "Обриши сва правила" },
+  "totalruleslabel": { "message": "Укупно правила" },
+  "blockedtodaylabel": { "message": "Блокирано данас" },
+  "totalblockedlabel": { "message": "Укупно блокирано" },
+  "resetsettingsbtn": { "message": "Врати на подразумеване" },
+  "backtopopup": { "message": "Назад на главни мени" },
+  "errorloadingsettings": { "message": "Грешка при учитавању подешавања" },
+  "settingssaved": { "message": "Подешавања успешно сачувана!" },
+  "errorsavingsettings": { "message": "Грешка при чувању подешавања" },
+  "rulesexported": { "message": "Правила успешно извезена!" },
+  "errorexportingrules": { "message": "Грешка при извозу правила" },
+  "willimportrules": {
+    "message": "Биће увезено $ruleslength$ правила.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Тренутна правила ће бити замењена. Наставити?" },
+  "importedrules": {
+    "message": "Успешно увезено $ruleslength$ правила!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Грешка при увозу правила: " },
+  "norulestoclear": { "message": "Нема правила за брисање" },
+  "willdeleteallrules": {
+    "message": "Ово ће трајно обрисати свих $rulescount$ правила.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Ова акција се не може поништити. Наставити?" },
+  "allrulescleared": { "message": "Сва правила успешно обрисана!" },
+  "errorclearingrules": { "message": "Грешка при брисању правила" },
+  "willreset": { "message": "Сва подешавања ће бити враћена на подразумеване вредности. Наставити?" },
+  "resettodefaults": { "message": "Подешавања враћена на подразумеване вредности!" },
+  "errorresettingsettings": { "message": "Грешка при враћању подешавања" }
 }

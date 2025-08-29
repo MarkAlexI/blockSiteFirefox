@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Pravila ažurirana za kompatibilnost" },
   "errorupdatingrules": { "message": "Pogreška pri ažuriranju pravila" },
   "erroraddingrule": { "message": "Pogreška pri dodavanju pravila" },
-  "errorremovingrule": { "message": "Pogreška pri uklanjanju pravila" }
+  "errorremovingrule": { "message": "Pogreška pri uklanjanju pravila" },
+  "optionsheader": { "message": "Postavke proširenja" },
+  "optionsdescription": { "message": "Konfigurirajte ponašanje proširenja i sigurnosne postavke" },
+  "securitymodetitle": { "message": "Sigurnosni način" },
+  "normalmodetitle": { "message": "Normalni način" },
+  "normalmodedesc": { "message": "Pravila se mogu odmah izbrisati jednim klikom" },
+  "strictmodetitle": { "message": "Strogi način" },
+  "strictmodedesc": { "message": "Brisanje pravila zahtijeva 10-sekundno odbrojavanje kako bi se spriječilo slučajno uklanjanje" },
+  "additionalsettingstitle": { "message": "Dodatne postavke" },
+  "confirmdeletetitle": { "message": "Potvrdi prije brisanja više pravila" },
+  "confirmdeletedesc": { "message": "Prikaži dijalog za potvrdu pri brisanju više pravila odjednom" },
+  "notificationstitle": { "message": "Prikaži obavijesti" },
+  "notificationsdesc": { "message": "Prikaži obavijesti kada se proširenje ažurira" },
+  "rulesmanagementtitle": { "message": "Upravljanje pravilima" },
+  "exportrulesbtn": { "message": "Izvezi pravila" },
+  "importrulesbtn": { "message": "Uvezi pravila" },
+  "clearallrulesbtn": { "message": "Izbriši sva pravila" },
+  "totalruleslabel": { "message": "Ukupno pravila" },
+  "blockedtodaylabel": { "message": "Blokirano danas" },
+  "totalblockedlabel": { "message": "Ukupno blokirano" },
+  "resetsettingsbtn": { "message": "Vrati na zadane postavke" },
+  "backtopopup": { "message": "Povratak na glavni izbornik" },
+  "errorloadingsettings": { "message": "Pogreška pri učitavanju postavki" },
+  "settingssaved": { "message": "Postavke su uspješno spremljene!" },
+  "errorsavingsettings": { "message": "Pogreška pri spremanju postavki" },
+  "rulesexported": { "message": "Pravila su uspješno izvezena!" },
+  "errorexportingrules": { "message": "Pogreška pri izvozu pravila" },
+  "willimportrules": {
+    "message": "$ruleslength$ pravila će biti uvezena.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Trenutna pravila bit će zamijenjena. Nastaviti?" },
+  "importedrules": {
+    "message": "$ruleslength$ pravila su uspješno uvezena!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Pogreška pri uvozu pravila: " },
+  "norulestoclear": { "message": "Nema pravila za brisanje" },
+  "willdeleteallrules": {
+    "message": "Ovo će trajno izbrisati svih $rulescount$ pravila.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Ova akcija se ne može opozvati. Nastaviti?" },
+  "allrulescleared": { "message": "Sva pravila su uspješno izbrisana!" },
+  "errorclearingrules": { "message": "Pogreška pri brisanju pravila" },
+  "willreset": { "message": "Sve postavke će se vratiti na zadane vrijednosti. Nastaviti?" },
+  "resettodefaults": { "message": "Postavke su vraćene na zadane vrijednosti!" },
+  "errorresettingsettings": { "message": "Pogreška pri vraćanju postavki" }
 }

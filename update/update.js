@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /*    'Added basic statistics on the options page: number of rules, total sites blocked, and today’ s blocked count.',*/
     'Improved settings page with more control and convenience.',
     'Technical improvements and stability update: cleaner codebase, fewer bugs.',
-    'Better synchronization of blocking rules'
+    'Better synchronization of blocking rules',
+    'Added support for a new language: Oriya (or).'
   ];
   
   const ul = document.getElementById('features');

@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "ಹೊಂದಾಣಿಕೆಗಾಗಿ ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ" },
   "errorupdatingrules": { "message": "ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸುವಲ್ಲಿ ದೋಷ" },
   "erroraddingrule": { "message": "ನಿಯಮವನ್ನು ಸೇರಿಸುವಲ್ಲಿ ದೋಷ" },
-  "errorremovingrule": { "message": "ನಿಯಮವನ್ನು ತೆಗೆದುಹಾಕುವಲ್ಲಿ ದೋಷ" }
+  "errorremovingrule": { "message": "ನಿಯಮವನ್ನು ತೆಗೆದುಹಾಕುವಲ್ಲಿ ದೋಷ" },
+  "optionsheader": { "message": "ವಿಸ್ತರಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
+  "optionsdescription": { "message": "ನಿಮ್ಮ ವಿಸ್ತರಣೆಯ ವರ್ತನೆ ಮತ್ತು ಸುರಕ್ಷತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸಂರಚಿಸಿ" },
+  "securitymodetitle": { "message": "ಸುರಕ್ಷತಾ ಮೋಡ್" },
+  "normalmodetitle": { "message": "ಸಾಮಾನ್ಯ ಮೋಡ್" },
+  "normalmodedesc": { "message": "ನಿಯಮಗಳನ್ನು ಒಂದು ಕ್ಲಿಕ್‌ನಲ್ಲಿ ತಕ್ಷಣ ಅಳಿಸಬಹುದು" },
+  "strictmodetitle": { "message": "ಕಠಿಣ ಮೋಡ್" },
+  "strictmodedesc": { "message": "ತಪ್ಪಾಗಿ ಅಳಿಸುವುದನ್ನು ತಪ್ಪಿಸಲು ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು 10-ಸೆಕೆಂಡ್ ಕೌಂಟ್‌ಡೌನ್ ಅಗತ್ಯವಿದೆ" },
+  "additionalsettingstitle": { "message": "ಅತಿರಿಕ್ತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
+  "confirmdeletetitle": { "message": "ಹೆಚ್ಚಿನ ನಿಯಮಗಳನ್ನು ಅಳಿಸುವ ಮೊದಲು ದೃಢೀಕರಿಸಿ" },
+  "confirmdeletedesc": { "message": "ಒಂದುಗೂ ಹೆಚ್ಚು ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೃಢೀಕರಣ ಸಂವಾದವನ್ನು ತೋರಿಸಿ" },
+  "notificationstitle": { "message": "ಅಧಿಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ" },
+  "notificationsdesc": { "message": "ವೆಬ್ ವಿಸ್ತರಣೆ ನವೀಕರಿಸಿದಾಗ ಅಧಿಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ" },
+  "rulesmanagementtitle": { "message": "ನಿಯಮ ನಿರ್ವಹಣೆ" },
+  "exportrulesbtn": { "message": "ನಿಯಮಗಳನ್ನು ರಫ್ತು ಮಾಡಿ" },
+  "importrulesbtn": { "message": "ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡಿ" },
+  "clearallrulesbtn": { "message": "ಎಲ್ಲಾ ನಿಯಮಗಳನ್ನು ಅಳಿಸಿ" },
+  "totalruleslabel": { "message": "ಒಟ್ಟು ನಿಯಮಗಳು" },
+  "blockedtodaylabel": { "message": "ಇಂದು ತಡೆಹಿಡಿದಿದೆ" },
+  "totalblockedlabel": { "message": "ಒಟ್ಟು ತಡೆಹಿಡಿದಿದೆ" },
+  "resetsettingsbtn": { "message": "ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಿ" },
+  "backtopopup": { "message": "ಮುಖ್ಯ ಮೆನುಗೆ ಹಿಂತಿರುಗಿ" },
+  "errorloadingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ" },
+  "settingssaved": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ!" },
+  "errorsavingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸುವಾಗ ದೋಷ" },
+  "rulesexported": { "message": "ನಿಯಮಗಳು ಯಶಸ್ವಿಯಾಗಿ ರಫ್ತು ಮಾಡಲಾಗಿದೆ!" },
+  "errorexportingrules": { "message": "ನಿಯಮಗಳನ್ನು ರಫ್ತು ಮಾಡುವಾಗ ದೋಷ" },
+  "willimportrules": {
+    "message": "$ruleslength$ ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "ಪ್ರಸ್ತುತ ನಿಯಮಗಳನ್ನು ಬದಲಿಸಲಾಗುವುದು. ಮುಂದುವರೆಯಲಾಗುವುದೆ?" },
+  "importedrules": {
+    "message": "$ruleslength$ ನಿಯಮಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಆಮದು ಮಾಡಲಾಗಿದೆ!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡುವಾಗ ದೋಷ: " },
+  "norulestoclear": { "message": "ಅಳಿಸಲು ಯಾವುದೇ ನಿಯಮಗಳಿಲ್ಲ" },
+  "willdeleteallrules": {
+    "message": "ಇದು ಎಲ್ಲಾ $rulescount$ ನಿಯಮಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "ಈ ಕ್ರಮವನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಮುಂದುವರಿಯುತ್ತೀರಾ?" },
+  "allrulescleared": { "message": "ಎಲ್ಲಾ ನಿಯಮಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ!" },
+  "errorclearingrules": { "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೋಷ" },
+  "willreset": { "message": "ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್ ಮೌಲ್ಯಗಳಿಗೆ ಮರುಹೊಂದಿಸಲಾಗುವುದು. ಮುಂದುವರೆಯುತ್ತೀರಾ?" },
+  "resettodefaults": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಲ್ಪಟ್ಟಿವೆ!" },
+  "errorresettingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸುವಾಗ ದೋಷ" }
 }

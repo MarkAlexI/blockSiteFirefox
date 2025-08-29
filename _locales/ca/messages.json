@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Les regles s'han actualitzat per a la compatibilitat" },
   "errorupdatingrules": { "message": "Error en actualitzar les regles" },
   "erroraddingrule": { "message": "Error en afegir una regla" },
-  "errorremovingrule": { "message": "Error en eliminar una regla" }
+  "errorremovingrule": { "message": "Error en eliminar una regla" },
+  "optionsheader": { "message": "Configuració de l'extensió" },
+  "optionsdescription": { "message": "Configura el comportament i els paràmetres de seguretat de l'extensió" },
+  "securitymodetitle": { "message": "Mode de seguretat" },
+  "normalmodetitle": { "message": "Mode normal" },
+  "normalmodedesc": { "message": "Les regles es poden suprimir immediatament amb un sol clic" },
+  "strictmodetitle": { "message": "Mode estricte" },
+  "strictmodedesc": { "message": "Per eliminar regles cal un compte enrere de 10 segons per evitar eliminacions accidentals" },
+  "additionalsettingstitle": { "message": "Configuració addicional" },
+  "confirmdeletetitle": { "message": "Confirmar abans de suprimir diverses regles" },
+  "confirmdeletedesc": { "message": "Mostra un diàleg de confirmació quan se suprimeixin diverses regles alhora" },
+  "notificationstitle": { "message": "Mostrar notificacions" },
+  "notificationsdesc": { "message": "Mostra notificacions quan s’actualitzi l’extensió" },
+  "rulesmanagementtitle": { "message": "Gestió de regles" },
+  "exportrulesbtn": { "message": "Exporta regles" },
+  "importrulesbtn": { "message": "Importa regles" },
+  "clearallrulesbtn": { "message": "Esborra totes les regles" },
+  "totalruleslabel": { "message": "Total de regles" },
+  "blockedtodaylabel": { "message": "Blocat avui" },
+  "totalblockedlabel": { "message": "Total blocats" },
+  "resetsettingsbtn": { "message": "Restableix a valors per defecte" },
+  "backtopopup": { "message": "Torna al menú principal" },
+  "errorloadingsettings": { "message": "Error en carregar la configuració" },
+  "settingssaved": { "message": "Configuració desada correctament!" },
+  "errorsavingsettings": { "message": "Error en desar la configuració" },
+  "rulesexported": { "message": "Les regles s'han exportat correctament!" },
+  "errorexportingrules": { "message": "Error en exportar les regles" },
+  "willimportrules": {
+    "message": "S'importaran $ruleslength$ regles. ",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Les regles actuals es reemplaçaran. Voleu continuar?" },
+  "importedrules": {
+    "message": "$ruleslength$ regles importades correctament!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Error en importar les regles: " },
+  "norulestoclear": { "message": "No hi ha regles per esborrar" },
+  "willdeleteallrules": {
+    "message": "Això eliminarà permanentment totes les $rulescount$ regles. ",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Aquesta acció no es pot desfer. Voleu continuar?" },
+  "allrulescleared": { "message": "Totes les regles s'han esborrat correctament!" },
+  "errorclearingrules": { "message": "Error en esborrar les regles" },
+  "willreset": { "message": "Això restablirà tota la configuració als valors predeterminats. Voleu continuar?" },
+  "resettodefaults": { "message": "La configuració s'ha restablert als valors per defecte!" },
+  "errorresettingsettings": { "message": "Error en restablir la configuració" }
 }

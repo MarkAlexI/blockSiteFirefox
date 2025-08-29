@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "חוקים עודכנו לתאימות" },
   "errorupdatingrules": { "message": "שגיאה בעדכון החוקים" },
   "erroraddingrule": { "message": "שגיאה בהוספת חוק" },
-  "errorremovingrule": { "message": "שגיאה בהסרת חוק" }
+  "errorremovingrule": { "message": "שגיאה בהסרת חוק" },
+  "optionsheader": { "message": "הגדרות התוסף" },
+  "optionsdescription": { "message": "הגדר את התנהגות התוסף והגדרות האבטחה" },
+  "securitymodetitle": { "message": "מצב אבטחה" },
+  "normalmodetitle": { "message": "מצב רגיל" },
+  "normalmodedesc": { "message": "ניתן למחוק כללים מייד בלחיצה אחת" },
+  "strictmodetitle": { "message": "מצב קפדני" },
+  "strictmodedesc": { "message": "מחיקת כללים דורשת נספר לאחור של 10 שניות כדי למנוע מחיקה בטעות" },
+  "additionalsettingstitle": { "message": "הגדרות נוספות" },
+  "confirmdeletetitle": { "message": "אשר לפני מחיקת מספר כללים" },
+  "confirmdeletedesc": { "message": "הצג תיבת אישור בעת מחיקת מספר כללים בבת אחת" },
+  "notificationstitle": { "message": "הצג התראות" },
+  "notificationsdesc": { "message": "הצג התראות כאשר התוסף עודכן" },
+  "rulesmanagementtitle": { "message": "ניהול כללים" },
+  "exportrulesbtn": { "message": "ייצוא כללים" },
+  "importrulesbtn": { "message": "ייבוא כללים" },
+  "clearallrulesbtn": { "message": "נקה את כל הכללים" },
+  "totalruleslabel": { "message": "סה״כ כללים" },
+  "blockedtodaylabel": { "message": "חסומים היום" },
+  "totalblockedlabel": { "message": "סה״כ חסומים" },
+  "resetsettingsbtn": { "message": "איפוס לברירות מחדל" },
+  "backtopopup": { "message": "חזרה לתפריט הראשי" },
+  "errorloadingsettings": { "message": "שגיאה בטעינת ההגדרות" },
+  "settingssaved": { "message": "ההגדרות נשמרו בהצלחה!" },
+  "errorsavingsettings": { "message": "שגיאה בשמירת ההגדרות" },
+  "rulesexported": { "message": "הכללים יוצאו בהצלחה!" },
+  "errorexportingrules": { "message": "שגיאה ביצוא הכללים" },
+  "willimportrules": {
+    "message": "$ruleslength$ כללים ייובאו.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "הכללים הנוכחיים יוחלפו. להמשיך?" },
+  "importedrules": {
+    "message": "$ruleslength$ כללים ייובאו בהצלחה!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "שגיאה בייבוא הכללים: " },
+  "norulestoclear": { "message": "אין כללים למחיקה" },
+  "willdeleteallrules": {
+    "message": "פעולה זו תמחק לצמיתות את כל $rulescount$ הכללים.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "פעולה זו אינה ניתנת לביטול. להמשיך?" },
+  "allrulescleared": { "message": "כל הכללים נמחקו בהצלחה!" },
+  "errorclearingrules": { "message": "שגיאה במחיקת הכללים" },
+  "willreset": { "message": "כל ההגדרות יאותחו לערכי ברירת המחדל. להמשיך?" },
+  "resettodefaults": { "message": "ההגדרות אושרו לברירות המחדל!" },
+  "errorresettingsettings": { "message": "שגיאה באיפוס ההגדרות" }
 }

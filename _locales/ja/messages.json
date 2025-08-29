@@ -51,5 +51,67 @@
   "rulesmigrated": { "message": "互換性のためにルールが更新されました" },
   "errorupdatingrules": { "message": "ルールの更新中にエラーが発生しました" },
   "erroraddingrule": { "message": "ルールの追加中にエラーが発生しました" },
-  "errorremovingrule": { "message": "ルールの削除中にエラーが発生しました" }
+  "errorremovingrule": { "message": "ルールの削除中にエラーが発生しました" },
+  "optionsheader": { "message": "拡張機能の設定" },
+  "optionsdescription": { "message": "拡張機能の動作とセキュリティ設定を構成します" },
+  "securitymodetitle": { "message": "セキュリティモード" },
+  "normalmodetitle": { "message": "通常モード" },
+  "normalmodedesc": { "message": "ルールはワンクリックで即座に削除できます" },
+  "strictmodetitle": { "message": "厳格モード" },
+  "strictmodedesc": { "message": "ルールの削除には、誤削除を防ぐため10秒のカウントダウンが必要です" },
+  "additionalsettingstitle": { "message": "追加設定" },
+  "confirmdeletetitle": { "message": "複数のルールを削除する前に確認" },
+  "confirmdeletedesc": { "message": "複数のルールを一度に削除する際に確認ダイアログを表示します" },
+  "notificationstitle": { "message": "通知を表示" },
+  "notificationsdesc": { "message": "ウェブ拡張機能が更新されたときに通知を表示します" },
+  "rulesmanagementtitle": { "message": "ルール管理" },
+  "exportrulesbtn": { "message": "ルールをエクスポート" },
+  "importrulesbtn": { "message": "ルールをインポート" },
+  "clearallrulesbtn": { "message": "すべてのルールをクリア" },
+  "totalruleslabel": { "message": "ルールの総数" },
+  "blockedtodaylabel": { "message": "今日ブロックされた数" },
+  "totalblockedlabel": { "message": "合計ブロック数" },
+  "resetsettingsbtn": { "message": "デフォルトにリセット" },
+  "backtopopup": { "message": "メインに戻る" },
+  "errorloadingsettings": { "message": "設定の読み込みエラー" },
+  "settingssaved": { "message": "設定が正常に保存されました！" },
+  "errorsavingsettings": { "message": "設定の保存エラー" },
+  "rulesexported": { "message": "ルールが正常にエクスポートされました！" },
+  "errorexportingrules": { "message": "ルールのエクスポートエラー" },
+  "willimportrules": {
+    "message": "$ruleslength$個のルールをインポートします。 ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": { "message": "現在のルールが置き換えられます。続行しますか？" },
+  "importedrules": {
+    "message": "$ruleslength$個のルールが正常にインポートされました！",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules": { "message": "ルールのインポートエラー：" },
+  "norulestoclear": { "message": "クリアするルールがありません" },
+  "willdeleteallrules": {
+    "message": "これにより、すべての$rulescount$個のルールが完全に削除されます。 ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "この操作は元に戻せません。続行しますか？" },
+  "allrulescleared": { "message": "すべてのルールが正常にクリアされました！" },
+  "errorclearingrules": { "message": "ルールのクリアエラー" },
+  "willreset": { "message": "これにより、すべての設定がデフォルト値にリセットされます。続行しますか？" },
+  "resettodefaults": { "message": "設定がデフォルトにリセットされました！" },
+  "errorresettingsettings": { "message": "設定のリセットエラー" }
 }

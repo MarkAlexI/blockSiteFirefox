@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "संगतता के लिए नियम अपडेट किए गए" },
   "errorupdatingrules": { "message": "नियम अपडेट करने में त्रुटि" },
   "erroraddingrule": { "message": "नियम जोड़ने में त्रुटि" },
-  "errorremovingrule": { "message": "नियम हटाने में त्रुटि" }
+  "errorremovingrule": { "message": "नियम हटाने में त्रुटि" },
+  "optionsheader": { "message": "एक्सटेंशन सेटिंग्स" },
+  "optionsdescription": { "message": "अपने एक्सटेंशन के व्यवहार और सुरक्षा सेटिंग्स कॉन्फ़िगर करें" },
+  "securitymodetitle": { "message": "सुरक्षा मोड" },
+  "normalmodetitle": { "message": "साधारण मोड" },
+  "normalmodedesc": { "message": "नियमों को एक क्लिक में तुरंत हटाया जा सकता है" },
+  "strictmodetitle": { "message": "कठोर मोड" },
+  "strictmodedesc": { "message": "अनजाने में हटाने से बचने के लिए नियमों को हटाने से पहले 10 सेकंड का काउंटडाउन आवश्यक है" },
+  "additionalsettingstitle": { "message": "अतिरिक्त सेटिंग्स" },
+  "confirmdeletetitle": { "message": "कई नियमों को हटाने से पहले पुष्टि करें" },
+  "confirmdeletedesc": { "message": "एक साथ कई नियम हटाते समय पुष्टि संवाद दिखाएँ" },
+  "notificationstitle": { "message": "सूचनाएँ दिखाएँ" },
+  "notificationsdesc": { "message": "एक्सटेंशन अपडेट होने पर सूचनाएँ दिखाएँ" },
+  "rulesmanagementtitle": { "message": "नियम प्रबंधन" },
+  "exportrulesbtn": { "message": "नियम निर्यात करें" },
+  "importrulesbtn": { "message": "नियम आयात करें" },
+  "clearallrulesbtn": { "message": "सभी नियम साफ़ करें" },
+  "totalruleslabel": { "message": "कुल नियम" },
+  "blockedtodaylabel": { "message": "आज अवरुद्ध" },
+  "totalblockedlabel": { "message": "कुल अवरुद्ध" },
+  "resetsettingsbtn": { "message": "डिफ़ॉल्ट पर रीसेट करें" },
+  "backtopopup": { "message": "मुख्य मेनू पर वापस जाएँ" },
+  "errorloadingsettings": { "message": "सेटिंग्स लोड करने में त्रुटि" },
+  "settingssaved": { "message": "सेटिंग्स सफलतापूर्वक सहेजी गईं!" },
+  "errorsavingsettings": { "message": "सेटिंग्स सहेजने में त्रुटि" },
+  "rulesexported": { "message": "नियम सफलतापूर्वक निर्यात किए गए!" },
+  "errorexportingrules": { "message": "नियमों को निर्यात करते समय त्रुटि" },
+  "willimportrules": {
+    "message": "$ruleslength$ नियम आयात किए जाएंगे।",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "वर्तमान नियम बदल दिए जाएंगे। जारी रखें?" },
+  "importedrules": {
+    "message": "$ruleslength$ नियम सफलतापूर्वक आयात किए गए!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "नियम आयात करने में त्रुटि: " },
+  "norulestoclear": { "message": "साफ़ करने के लिए कोई नियम नहीं है" },
+  "willdeleteallrules": {
+    "message": "यह सभी $rulescount$ नियम स्थायी रूप से हटा देगा।",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "यह क्रिया पूर्ववत नहीं की जा सकती। जारी रखें?" },
+  "allrulescleared": { "message": "सभी नियम सफलतापूर्वक हटा दिए गए!" },
+  "errorclearingrules": { "message": "नियमों को हटाने में त्रुटि" },
+  "willreset": { "message": "सभी सेटिंग्स डिफ़ॉल्ट मानों पर रीसेट हो जाएँगी। जारी रखें?" },
+  "resettodefaults": { "message": "सेटिंग्स डिफ़ॉल्ट पर रीसेट हो गईं!" },
+  "errorresettingsettings": { "message": "सेटिंग्स रीसेट करते समय त्रुटि" }
 }

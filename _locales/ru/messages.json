@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Правила обновлены для совместимости" },
   "errorupdatingrules": { "message": "Ошибка при обновлении правил" },
   "erroraddingrule": { "message": "Ошибка при добавлении правила" },
-  "errorremovingrule": { "message": "Ошибка при удалении правила" }
+  "errorremovingrule": { "message": "Ошибка при удалении правила" },
+  "optionsheader": { "message": "Настройки расширения" },
+  "optionsdescription": { "message": "Настройте поведение расширения и параметры безопасности" },
+  "securitymodetitle": { "message": "Режим безопасности" },
+  "normalmodetitle": { "message": "Обычный режим" },
+  "normalmodedesc": { "message": "Правила можно удалять сразу одним кликом" },
+  "strictmodetitle": { "message": "Строгий режим" },
+  "strictmodedesc": { "message": "Для удаления правил требуется 10-секундный отсчет, чтобы избежать случайного удаления" },
+  "additionalsettingstitle": { "message": "Дополнительные настройки" },
+  "confirmdeletetitle": { "message": "Подтвердите перед удалением нескольких правил" },
+  "confirmdeletedesc": { "message": "Показывать диалог подтверждения при удалении нескольких правил одновременно" },
+  "notificationstitle": { "message": "Показывать уведомления" },
+  "notificationsdesc": { "message": "Отображать уведомления при обновлении расширения" },
+  "rulesmanagementtitle": { "message": "Управление правилами" },
+  "exportrulesbtn": { "message": "Экспортировать правила" },
+  "importrulesbtn": { "message": "Импортировать правила" },
+  "clearallrulesbtn": { "message": "Удалить все правила" },
+  "totalruleslabel": { "message": "Всего правил" },
+  "blockedtodaylabel": { "message": "Заблокировано сегодня" },
+  "totalblockedlabel": { "message": "Всего заблокировано" },
+  "resetsettingsbtn": { "message": "Сбросить настройки" },
+  "backtopopup": { "message": "Назад в главное меню" },
+  "errorloadingsettings": { "message": "Ошибка при загрузке настроек" },
+  "settingssaved": { "message": "Настройки успешно сохранены!" },
+  "errorsavingsettings": { "message": "Ошибка при сохранении настроек" },
+  "rulesexported": { "message": "Правила успешно экспортированы!" },
+  "errorexportingrules": { "message": "Ошибка при экспорте правил" },
+  "willimportrules": {
+    "message": "Будет импортировано $ruleslength$ правил.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Текущие правила будут заменены. Продолжить?" },
+  "importedrules": {
+    "message": "Успешно импортировано $ruleslength$ правил!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Ошибка при импорте правил: " },
+  "norulestoclear": { "message": "Нет правил для удаления" },
+  "willdeleteallrules": {
+    "message": "Это навсегда удалит все $rulescount$ правил.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Это действие нельзя отменить. Продолжить?" },
+  "allrulescleared": { "message": "Все правила успешно удалены!" },
+  "errorclearingrules": { "message": "Ошибка при удалении правил" },
+  "willreset": { "message": "Все настройки будут сброшены к значениям по умолчанию. Продолжить?" },
+  "resettodefaults": { "message": "Настройки сброшены к значениям по умолчанию!" },
+  "errorresettingsettings": { "message": "Ошибка при сбросе настроек" }
 }

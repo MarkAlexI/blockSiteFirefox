@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Sheria zimesasishwa kwa ajili ya upatanifu" },
   "errorupdatingrules": { "message": "Hitilafu wakati wa kusasisha sheria" },
   "erroraddingrule": { "message": "Hitilafu wakati wa kuongeza sheria" },
-  "errorremovingrule": { "message": "Hitilafu wakati wa kuondoa sheria" }
+  "errorremovingrule": { "message": "Hitilafu wakati wa kuondoa sheria" },
+  "optionsheader": { "message": "Mipangilio ya Kiongezi" },
+  "optionsdescription": { "message": "Sanidi tabia ya kiongezi na mipangilio ya usalama" },
+  "securitymodetitle": { "message": "Hali ya Usalama" },
+  "normalmodetitle": { "message": "Hali ya Kawaida" },
+  "normalmodedesc": { "message": "Sheria zinaweza kufutwa mara moja kwa kubofya moja" },
+  "strictmodetitle": { "message": "Hali Mkali" },
+  "strictmodedesc": { "message": "Sheria zinahitaji kuhesabiwa sekunde 10 kabla ya kufutwa ili kuzuia kufutwa kwa bahati mbaya" },
+  "additionalsettingstitle": { "message": "Mipangilio ya Ziada" },
+  "confirmdeletetitle": { "message": "Thibitisha kabla ya kufuta sheria nyingi" },
+  "confirmdeletedesc": { "message": "Onyesha sanduku la uthibitisho wakati wa kufuta sheria nyingi kwa pamoja" },
+  "notificationstitle": { "message": "Onyesha taarifa" },
+  "notificationsdesc": { "message": "Onyesha taarifa wakati kiongezi kinaposasishwa" },
+  "rulesmanagementtitle": { "message": "Usimamizi wa Sheria" },
+  "exportrulesbtn": { "message": "Hamisha Sheria" },
+  "importrulesbtn": { "message": "Ingiza Sheria" },
+  "clearallrulesbtn": { "message": "Futa Sheria Zote" },
+  "totalruleslabel": { "message": "Jumla ya Sheria" },
+  "blockedtodaylabel": { "message": "Imezuiliwa Leo" },
+  "totalblockedlabel": { "message": "Jumla Imezuiliwa" },
+  "resetsettingsbtn": { "message": "Rudisha Chaguo La Chini" },
+  "backtopopup": { "message": "Rudi kwenye Menyu Kuu" },
+  "errorloadingsettings": { "message": "Hitilafu wakati wa kupakia mipangilio" },
+  "settingssaved": { "message": "Mipangilio imehifadhiwa kwa mafanikio!" },
+  "errorsavingsettings": { "message": "Hitilafu wakati wa kuhifadhi mipangilio" },
+  "rulesexported": { "message": "Sheria zimehamishwa kwa mafanikio!" },
+  "errorexportingrules": { "message": "Hitilafu wakati wa kuhamisha sheria" },
+  "willimportrules": {
+    "message": "Sheria $ruleslength$ zitaingizwa.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Sheria za sasa zitatataliwa. Endelea?" },
+  "importedrules": {
+    "message": "Sheria $ruleslength$ zingeingizwa kwa mafanikio!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Hitilafu wakati wa kuingiza sheria: " },
+  "norulestoclear": { "message": "Hakuna sheria za kufuta" },
+  "willdeleteallrules": {
+    "message": "Hii itafuta mara moja zote $rulescount$ sheria.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Kitendo hiki hakiwezi kutenduliwa. Endelea?" },
+  "allrulescleared": { "message": "Sheria zote zimefutwa kwa mafanikio!" },
+  "errorclearingrules": { "message": "Hitilafu wakati wa kufuta sheria" },
+  "willreset": { "message": "Mipangilio yote itarudishwa kwenye chaguo la asili. Endelea?" },
+  "resettodefaults": { "message": "Mipangilio imerudishwa kwenye chaguo la asili!" },
+  "errorresettingsettings": { "message": "Hitilafu wakati wa kurudisha mipangilio" }
 }

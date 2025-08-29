@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "સુસંગતતા માટે નિયમો અપડેટ કરવામાં આવ્યા" },
   "errorupdatingrules": { "message": "નિયમો અપડેટ કરવામાં ભૂલ" },
   "erroraddingrule": { "message": "નિયમ ઉમેરવામાં ભૂલ" },
-  "errorremovingrule": { "message": "નિયમ દૂર કરવામાં ભૂલ" }
+  "errorremovingrule": { "message": "નિયમ દૂર કરવામાં ભૂલ" },
+  "optionsheader": { "message": "વિસ્તાર સેટિંગ્સ" },
+  "optionsdescription": { "message": "તમારા એક્સ્ટેન્શનનું વર્તન અને સુરક્ષા સેટિંગ્સ કન્ફિગર કરો" },
+  "securitymodetitle": { "message": "સુરક્ષા મોડ" },
+  "normalmodetitle": { "message": "સાધારણ મોડ" },
+  "normalmodedesc": { "message": "નિયમો એક ક્લિકથી તરત જ કાઢી શકાય છે" },
+  "strictmodetitle": { "message": "કઠોર મોડ" },
+  "strictmodedesc": { "message": "અચાનક દૂર કરવા રોકવા માટે નિયમોને કાઢવા પહેલા 10-સેકંડની કાઉન્ટડાઉન જરૂરી છે" },
+  "additionalsettingstitle": { "message": "વધારાના સેટિંગ્સ" },
+  "confirmdeletetitle": { "message": "એકથી વધુ નિયમો કાઢવા પહેલા ખાતરી કરો" },
+  "confirmdeletedesc": { "message": "એકસાથે એકથી વધુ નિયમો કાઢતી વખતે ખાતરી સંવાદ બતાવો" },
+  "notificationstitle": { "message": "સૂચનાઓ બતાવો" },
+  "notificationsdesc": { "message": "જ્યારે એક્સ્ટેન્શન અપડેટ થાય ત્યારે સૂચનાઓ દર્શાવો" },
+  "rulesmanagementtitle": { "message": "નિયમ વ્યવસ્થાપન" },
+  "exportrulesbtn": { "message": "નિયમો નિકાસ કરો" },
+  "importrulesbtn": { "message": "નિયમો આયાત કરો" },
+  "clearallrulesbtn": { "message": "બધા નિયમો સાફ કરો" },
+  "totalruleslabel": { "message": "કુલ નિયમો" },
+  "blockedtodaylabel": { "message": "આજ બ્લોક થયું" },
+  "totalblockedlabel": { "message": "કુલ બ્લોક" },
+  "resetsettingsbtn": { "message": "ડિફોલ્ટ પર રીસેટ કરો" },
+  "backtopopup": { "message": "મેઇન મેન્યુ પર પાછા જાઓ" },
+  "errorloadingsettings": { "message": "સેટિંગ્સ લોડ કરતી વખતે ભૂલ" },
+  "settingssaved": { "message": "સેટિંગ્સ સફળતાપૂર્વક સંગ્રહિત થઈ ગયા!" },
+  "errorsavingsettings": { "message": "સેટિંગ્સ સાચવવામાં ભૂલ" },
+  "rulesexported": { "message": "નિયમો સફળતાપૂર્વક નિકાસ થયા!" },
+  "errorexportingrules": { "message": "નિયમો નિકાસ કરતી વખતે ભૂલ" },
+  "willimportrules": {
+    "message": "$ruleslength$ નિયમો આયાત થવાની છે.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "વર્તમાન નિયમો બદલાઈ જશે. ચાલુ રાખશો?" },
+  "importedrules": {
+    "message": "$ruleslength$ નિયમો સફળતાપૂર્વક આયાત થયા!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "નિયમો આયાત કરતી વખતે ભૂલ: " },
+  "norulestoclear": { "message": "કાઢવા માટે નિયમો નથી" },
+  "willdeleteallrules": {
+    "message": "આ બધા $rulescount$ નિયમો કાયમી રીતે કાઢી નાખશે.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "આ ક્રિયા પાછી લેવાઈ શકતી નથી. ચાલુ રાખશો?" },
+  "allrulescleared": { "message": "બધા નિયમો સફળતાપૂર્વક કાઢી નાખ્યા!" },
+  "errorclearingrules": { "message": "નિયમો કાઢતી વખતે ભૂલ" },
+  "willreset": { "message": "બધા સેટિંગ્સ ડિફોલ્ટ મૂલ્યો પર રીસેટ કરવામાં આવશે. ચાલુ રાખશો?" },
+  "resettodefaults": { "message": "સેટિંગ્સ ડિફોલ્ટ પર રીસેટ થઈ ગયા!" },
+  "errorresettingsettings": { "message": "સેટિંગ્સ રીસેટ કરતી વખતે ભૂલ" }
 }

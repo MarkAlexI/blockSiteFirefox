@@ -51,5 +51,58 @@
   "rulesmigrated": { "message": "Regole aggiornate per la compatibilità" },
   "errorupdatingrules": { "message": "Errore durante l'aggiornamento delle regole" },
   "erroraddingrule": { "message": "Errore durante l'aggiunta di una regola" },
-  "errorremovingrule": { "message": "Errore durante la rimozione di una regola" }
+  "errorremovingrule": { "message": "Errore durante la rimozione di una regola" },
+  "optionsheader": { "message": "Impostazioni Estensione" },
+  "optionsdescription": { "message": "Configura il comportamento e le impostazioni di sicurezza dell'estensione" },
+  "securitymodetitle": { "message": "Modalità Sicurezza" },
+  "normalmodetitle": { "message": "Modalità Normale" },
+  "normalmodedesc": { "message": "Le regole possono essere eliminate immediatamente con un clic" },
+  "strictmodetitle": { "message": "Modalità Rigida" },
+  "strictmodedesc": { "message": "Le regole richiedono un conto alla rovescia di 10 secondi prima dell'eliminazione per evitare rimozioni accidentali" },
+  "additionalsettingstitle": { "message": "Impostazioni Aggiuntive" },
+  "confirmdeletetitle": { "message": "Conferma prima di eliminare più regole" },
+  "confirmdeletedesc": { "message": "Mostra una finestra di conferma quando si eliminano più regole contemporaneamente" },
+  "notificationstitle": { "message": "Mostra notifiche" },
+  "notificationsdesc": { "message": "Mostra notifiche quando l'estensione viene aggiornata" },
+  "rulesmanagementtitle": { "message": "Gestione Regole" },
+  "exportrulesbtn": { "message": "Esporta Regole" },
+  "importrulesbtn": { "message": "Importa Regole" },
+  "clearallrulesbtn": { "message": "Cancella Tutte le Regole" },
+  "totalruleslabel": { "message": "Totale Regole" },
+  "blockedtodaylabel": { "message": "Bloccati Oggi" },
+  "totalblockedlabel": { "message": "Totale Bloccati" },
+  "resetsettingsbtn": { "message": "Ripristina Default" },
+  "backtopopup": { "message": "Torna al Menu Principale" },
+  "errorloadingsettings": { "message": "Errore nel caricamento delle impostazioni" },
+  "settingssaved": { "message": "Impostazioni salvate con successo!" },
+  "errorsavingsettings": { "message": "Errore nel salvataggio delle impostazioni" },
+  "rulesexported": { "message": "Regole esportate con successo!" },
+  "errorexportingrules": { "message": "Errore nell'esportazione delle regole" },
+  "willimportrules": {
+    "message": "Saranno importate $ruleslength$ regole.",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Le regole correnti saranno sostituite. Continuare?" },
+  "importedrules": {
+    "message": "$ruleslength$ regole importate con successo!",
+    "placeholders": {
+      "ruleslength": { "content": "$1", "example": "0" }
+    }
+  },
+  "errorimportingrules": { "message": "Errore nell'importazione delle regole: " },
+  "norulestoclear": { "message": "Nessuna regola da cancellare" },
+  "willdeleteallrules": {
+    "message": "Questo eliminerà permanentemente tutte le $rulescount$ regole.",
+    "placeholders": {
+      "rulescount": { "content": "$1", "example": "0" }
+    }
+  },
+  "cannotbeundone": { "message": "Questa azione non può essere annullata. Continuare?" },
+  "allrulescleared": { "message": "Tutte le regole sono state cancellate con successo!" },
+  "errorclearingrules": { "message": "Errore nella cancellazione delle regole" },
+  "willreset": { "message": "Tutte le impostazioni saranno ripristinate ai valori predefiniti. Continuare?" },
+  "resettodefaults": { "message": "Impostazioni ripristinate ai valori predefiniti!" },
+  "errorresettingsettings": { "message": "Errore nel ripristino delle impostazioni" }
 }
