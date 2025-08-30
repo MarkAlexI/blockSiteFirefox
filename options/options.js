@@ -62,7 +62,7 @@ class OptionsPage {
     
     rules.forEach((rule, index) => {
       const row = this.createRuleRow(rule, index);
-      this.rulesBody.appendChild(row);
+      this.rulesBody.prepend(row);
     });
   }
   
@@ -118,7 +118,7 @@ class OptionsPage {
       this.statusElement.textContent = t('ruleupdated');
       this.loadRules();
     } catch (error) {
-      console.error("Save edited rule error:", error);
+      console.info("Save edited rule error:", error);
       
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');
@@ -146,7 +146,7 @@ class OptionsPage {
       this.statusElement.textContent = t('rulenewadded');
       this.loadRules();
     } catch (error) {
-      console.error("Save new rule error:", error);
+      console.info("Save new rule error:", error);
       
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');

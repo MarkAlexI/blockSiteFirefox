@@ -44,8 +44,25 @@
         </div>
       </section>
       
-      <section class="setting-section hidden">
-        <h2 data-i18n="additionalsettingstitle">Additional Settings</h2>
+      <section class="setting-section">
+        <h2 data-i18n="basicsettingstitle">Basic Settings</h2>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <label for="showNotifications" data-i18n="notificationstitle">Show notifications</label>
+            <span class="setting-description" data-i18n="notificationsdesc">Display notifications when web-extension is updated</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="showNotifications" class="toggle-input" checked>
+            <label for="showNotifications" class="toggle-label">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+      
+      <section class="setting-section hidden pro-feature">
+        <h2 data-i18n="advancedsettingstitle">Advanced Settings</h2>
         
         <div class="setting-item">
           <div class="setting-info">
@@ -59,22 +76,9 @@
             </label>
           </div>
         </div>
-        
-        <div class="setting-item">
-          <div class="setting-info">
-            <label for="showNotifications" data-i18n="notificationstitle">Show notifications</label>
-            <span class="setting-description" data-i18n="notificationsdesc">Display notifications when web-extention is updated</span>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="showNotifications" class="toggle-input" checked>
-            <label for="showNotifications" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
       </section>
       
-      <section class="setting-section hidden">
+      <section class="setting-section hidden pro-feature">
         <h2 data-i18n="rulesmanagementtitle">Rules Management</h2>
         
         <div class="action-buttons">
@@ -106,7 +110,7 @@
         <input type="file" id="importFileInput" accept=".json" class="hidden">
       </section>
       
-      <section class="setting-section hidden">
+      <section class="setting-section hidden pro-feature">
         <h2 data-i18n="statisticsTitle">Statistics</h2>
         <div class="stats-grid">
           <div class="stat-item">
@@ -128,7 +132,7 @@
     <div class="hidden">
       <footer>
         <div class="status-message" id="statusMessage"></div>
-        <div class="footer-actions">
+        <div class="footer-actions hidden pro-feature">
           <button id="resetSettings" class="footer-btn" data-i18n="resetsettingsbtn">Reset to Defaults</button>
           <a href="../index.html" class="footer-btn primary" data-i18n="backtopopup">Back to Main</a>
         </div>
