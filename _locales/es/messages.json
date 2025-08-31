@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Las reglas se pueden eliminar inmediatamente con un solo clic" },
   "strictmodetitle": { "message": "Modo estricto" },
   "strictmodedesc": { "message": "Las reglas requieren una cuenta regresiva de 10 segundos antes de su eliminación para evitar borrados accidentales" },
-  "additionalsettingstitle": { "message": "Configuraciones adicionales" },
   "confirmdeletetitle": { "message": "Confirmar antes de eliminar varias reglas" },
   "confirmdeletedesc": { "message": "Mostrar un diálogo de confirmación al eliminar varias reglas a la vez" },
   "notificationstitle": { "message": "Mostrar notificaciones" },
@@ -113,5 +112,7 @@
   "errorclearingrules": { "message": "Error al borrar las reglas" },
   "willreset": { "message": "Esto restablecerá todas las configuraciones a los valores predeterminados. ¿Continuar?" },
   "resettodefaults": { "message": "¡Configuración restablecida a los valores predeterminados!" },
-  "errorresettingsettings": { "message": "Error al restablecer la configuración" }
+  "errorresettingsettings": { "message": "Error al restablecer la configuración" },
+  "basicsettingstitle": { "message": "Configuraciones básicas" },
+  "advancedsettingstitle": { "message": "Configuraciones avanzadas" }
 }

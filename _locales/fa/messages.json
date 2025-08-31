@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "قوانین را می‌توان فوراً با یک کلیک حذف کرد" },
   "strictmodetitle": { "message": "حالت سختگیرانه" },
   "strictmodedesc": { "message": "برای حذف قوانین نیاز به شمارش معکوس ۱۰ ثانیه‌ای است تا از حذف تصادفی جلوگیری شود" },
-  "additionalsettingstitle": { "message": "تنظیمات اضافی" },
   "confirmdeletetitle": { "message": "تأیید قبل از حذف چند قانون" },
   "confirmdeletedesc": { "message": "نمایش گفتگوی تأیید هنگام حذف چندین قانون به طور همزمان" },
   "notificationstitle": { "message": "نمایش اعلان‌ها" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "خطا در حذف قوانین" },
   "willreset": { "message": "همه تنظیمات به پیش‌فرض‌ها بازنشانی خواهند شد. ادامه دهید؟" },
   "resettodefaults": { "message": "تنظیمات به پیش‌فرض‌ها بازنشانی شدند!" },
-  "errorresettingsettings": { "message": "خطا در بازنشانی تنظیمات" }
+  "errorresettingsettings": { "message": "خطا در بازنشانی تنظیمات" },
+  "basicsettingstitle": { "message": "تنظیمات پایه" },
+  "advancedsettingstitle": { "message": "تنظیمات پیشرفته" }
 }

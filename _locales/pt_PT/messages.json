@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "As regras podem ser eliminadas imediatamente com um clique" },
   "strictmodetitle": { "message": "Modo Rigoroso" },
   "strictmodedesc": { "message": "As regras requerem uma contagem regressiva de 10 segundos antes de serem eliminadas para evitar remoção acidental" },
-  "additionalsettingstitle": { "message": "Definições Adicionais" },
   "confirmdeletetitle": { "message": "Confirmar antes de eliminar várias regras" },
   "confirmdeletedesc": { "message": "Mostrar diálogo de confirmação ao eliminar várias regras de uma só vez" },
   "notificationstitle": { "message": "Mostrar notificações" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Erro ao eliminar regras" },
   "willreset": { "message": "Todas as definições serão repostas para os valores padrão. Continuar?" },
   "resettodefaults": { "message": "Definições repostas para os valores padrão!" },
-  "errorresettingsettings": { "message": "Erro ao repor definições" }
+  "errorresettingsettings": { "message": "Erro ao repor definições" },
+  "basicsettingstitle": { "message": "Definições básicas" },
+  "advancedsettingstitle": { "message": "Definições avançadas" }
 }

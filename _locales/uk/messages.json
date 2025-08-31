@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Правила можна видалити миттєво одним кліком" },
   "strictmodetitle": { "message": "Суворий режим" },
   "strictmodedesc": { "message": "Для видалення правил потрібен 10-секундний відлік, щоб запобігти випадковому видаленню" },
-  "additionalsettingstitle": { "message": "Додаткові налаштування" },
   "confirmdeletetitle": { "message": "Підтвердження перед видаленням кількох правил" },
   "confirmdeletedesc": { "message": "Показувати діалог підтвердження при видаленні кількох правил одночасно" },
   "notificationstitle": { "message": "Показувати сповіщення" },
@@ -113,5 +112,7 @@
   "errorclearingrules": { "message": "Помилка очищення правил" },
   "willreset": { "message": "Це скине всі налаштування до стандартних значень. Продовжити?" },
   "resettodefaults": { "message": "Налаштування скинуто до стандартних!" },
-  "errorresettingsettings": { "message": "Помилка скидання налаштувань" }
+  "errorresettingsettings": { "message": "Помилка скидання налаштувань" },
+  "basicsettingstitle": { "message": "Основні налаштування" },
+  "advancedsettingstitle": { "message": "Розширені налаштування" }
 }

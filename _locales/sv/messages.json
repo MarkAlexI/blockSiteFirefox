@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Regler kan raderas omedelbart med ett klick" },
   "strictmodetitle": { "message": "Strikt läge" },
   "strictmodedesc": { "message": "Regler kräver en 10-sekunders nedräkning innan de raderas för att förhindra oavsiktlig borttagning" },
-  "additionalsettingstitle": { "message": "Ytterligare inställningar" },
   "confirmdeletetitle": { "message": "Bekräfta innan du raderar flera regler" },
   "confirmdeletedesc": { "message": "Visa bekräftelsedialog när flera regler raderas samtidigt" },
   "notificationstitle": { "message": "Visa aviseringar" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Fel vid radering av regler" },
   "willreset": { "message": "Alla inställningar kommer att återställas till standardvärden. Fortsätt?" },
   "resettodefaults": { "message": "Inställningarna återställdes till standard!" },
-  "errorresettingsettings": { "message": "Fel vid återställning av inställningar" }
+  "errorresettingsettings": { "message": "Fel vid återställning av inställningar" },
+  "basicsettingstitle": { "message": "Grundinställningar" },
+  "advancedsettingstitle": { "message": "Avancerade inställningar" }
 }

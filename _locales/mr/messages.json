@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "नियम एका क्लिकमध्ये लगेच हटवता येतात" },
   "strictmodetitle": { "message": "कठोर मोड" },
   "strictmodedesc": { "message": "चुकीने हटवणे टाळण्यासाठी नियम हटवण्यासाठी 10 सेकंदांचा काउंटडाऊन आवश्यक आहे" },
-  "additionalsettingstitle": { "message": "अतिरिक्त सेटिंग्ज" },
   "confirmdeletetitle": { "message": "एकाधिक नियम हटवण्यापूर्वी पुष्टी करा" },
   "confirmdeletedesc": { "message": "एकावेळी एकाधिक नियम हटवताना पुष्टीकरण संवाद दर्शवा" },
   "notificationstitle": { "message": "सूचना दाखवा" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "नियम हटवताना त्रुटी" },
   "willreset": { "message": "सर्व सेटिंग्ज मुळ किंमतींवर रीसेट केल्या जातील. सुरू ठेवायचे का?" },
   "resettodefaults": { "message": "सेटिंग्ज मुळ सेटिंग्जवर रीसेट केल्या!" },
-  "errorresettingsettings": { "message": "सेटिंग्ज रीसेट करताना त्रुटी" }
+  "errorresettingsettings": { "message": "सेटिंग्ज रीसेट करताना त्रुटी" },
+  "basicsettingstitle": { "message": "मूलभूत सेटिंग्ज" },
+  "advancedsettingstitle": { "message": "प्रगत सेटिंग्ज" }
 }

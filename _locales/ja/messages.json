@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "ルールはワンクリックで即座に削除できます" },
   "strictmodetitle": { "message": "厳格モード" },
   "strictmodedesc": { "message": "ルールの削除には、誤削除を防ぐため10秒のカウントダウンが必要です" },
-  "additionalsettingstitle": { "message": "追加設定" },
   "confirmdeletetitle": { "message": "複数のルールを削除する前に確認" },
   "confirmdeletedesc": { "message": "複数のルールを一度に削除する際に確認ダイアログを表示します" },
   "notificationstitle": { "message": "通知を表示" },
@@ -113,5 +112,7 @@
   "errorclearingrules": { "message": "ルールのクリアエラー" },
   "willreset": { "message": "これにより、すべての設定がデフォルト値にリセットされます。続行しますか？" },
   "resettodefaults": { "message": "設定がデフォルトにリセットされました！" },
-  "errorresettingsettings": { "message": "設定のリセットエラー" }
+  "errorresettingsettings": { "message": "設定のリセットエラー" },
+  "basicsettingstitle": { "message": "基本設定" },
+  "advancedsettingstitle": { "message": "高度な設定" }
 }

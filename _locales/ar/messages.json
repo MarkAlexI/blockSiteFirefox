@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "يمكن حذف القواعد فورًا بنقرة واحدة" },
   "strictmodetitle": { "message": "الوضع الصارم" },
   "strictmodedesc": { "message": "تتطلب القواعد عد تنازلي لمدة 10 ثوانٍ قبل الحذف لمنع الحذف العرضي" },
-  "additionalsettingstitle": { "message": "إعدادات إضافية" },
   "confirmdeletetitle": { "message": "التأكيد قبل حذف قواعد متعددة" },
   "confirmdeletedesc": { "message": "عرض مربع حوار التأكيد عند حذف قواعد متعددة دفعة واحدة" },
   "notificationstitle": { "message": "إظهار الإشعارات" },
@@ -113,5 +112,7 @@
   "errorclearingrules": { "message": "خطأ في مسح القواعد" },
   "willreset": { "message": "سيؤدي هذا إلى إعادة تعيين جميع الإعدادات إلى القيم الافتراضية. هل تريد المتابعة؟" },
   "resettodefaults": { "message": "تم إعادة تعيين الإعدادات إلى الافتراضية!" },
-  "errorresettingsettings": { "message": "خطأ في إعادة تعيين الإعدادات" }
+  "errorresettingsettings": { "message": "خطأ في إعادة تعيين الإعدادات" },
+  "basicsettingstitle": { "message": "الإعدادات الأساسية" },
+  "advancedsettingstitle": { "message": "الإعدادات المتقدمة" }
 }

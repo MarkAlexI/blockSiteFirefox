@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Les regles es poden suprimir immediatament amb un sol clic" },
   "strictmodetitle": { "message": "Mode estricte" },
   "strictmodedesc": { "message": "Per eliminar regles cal un compte enrere de 10 segons per evitar eliminacions accidentals" },
-  "additionalsettingstitle": { "message": "Configuració addicional" },
   "confirmdeletetitle": { "message": "Confirmar abans de suprimir diverses regles" },
   "confirmdeletedesc": { "message": "Mostra un diàleg de confirmació quan se suprimeixin diverses regles alhora" },
   "notificationstitle": { "message": "Mostrar notificacions" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Error en esborrar les regles" },
   "willreset": { "message": "Això restablirà tota la configuració als valors predeterminats. Voleu continuar?" },
   "resettodefaults": { "message": "La configuració s'ha restablert als valors per defecte!" },
-  "errorresettingsettings": { "message": "Error en restablir la configuració" }
+  "errorresettingsettings": { "message": "Error en restablir la configuració" },
+  "basicsettingstitle": { "message": "Configuració bàsica" },
+  "advancedsettingstitle": { "message": "Configuració avançada" }
 }

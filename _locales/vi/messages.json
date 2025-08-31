@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Các quy tắc có thể bị xóa ngay lập tức bằng một cú nhấp chuột" },
   "strictmodetitle": { "message": "Chế độ Nghiêm ngặt" },
   "strictmodedesc": { "message": "Các quy tắc yêu cầu đếm ngược 10 giây trước khi xóa để tránh xóa nhầm" },
-  "additionalsettingstitle": { "message": "Cài đặt Bổ sung" },
   "confirmdeletetitle": { "message": "Xác nhận trước khi xóa nhiều quy tắc" },
   "confirmdeletedesc": { "message": "Hiển thị hộp thoại xác nhận khi xóa nhiều quy tắc cùng lúc" },
   "notificationstitle": { "message": "Hiển thị thông báo" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Lỗi khi xóa quy tắc" },
   "willreset": { "message": "Tất cả cài đặt sẽ được đặt lại về mặc định. Tiếp tục?" },
   "resettodefaults": { "message": "Cài đặt đã được đặt lại về mặc định!" },
-  "errorresettingsettings": { "message": "Lỗi khi đặt lại cài đặt" }
+  "errorresettingsettings": { "message": "Lỗi khi đặt lại cài đặt" },
+  "basicsettingstitle": { "message": "Cài đặt cơ bản" },
+  "advancedsettingstitle": { "message": "Cài đặt nâng cao" }
 }

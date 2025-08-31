@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Säännöt voidaan poistaa heti yhdellä napsautuksella" },
   "strictmodetitle": { "message": "Tiukka tila" },
   "strictmodedesc": { "message": "Sääntöjen poistaminen vaatii 10 sekunnin laskennan vahingossa poistamisen estämiseksi" },
-  "additionalsettingstitle": { "message": "Lisäasetukset" },
   "confirmdeletetitle": { "message": "Vahvista ennen useiden sääntöjen poistamista" },
   "confirmdeletedesc": { "message": "Näytä vahvistusikkuna, kun poistetaan useita sääntöjä kerralla" },
   "notificationstitle": { "message": "Näytä ilmoitukset" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Virhe sääntöjä poistettaessa" },
   "willreset": { "message": "Kaikki asetukset palautetaan oletuksiin. Jatketaanko?" },
   "resettodefaults": { "message": "Asetukset palautettu oletuksiin!" },
-  "errorresettingsettings": { "message": "Virhe asetuksia palautettaessa" }
+  "errorresettingsettings": { "message": "Virhe asetuksia palautettaessa" },
+  "basicsettingstitle": { "message": "Perusasetukset" },
+  "advancedsettingstitle": { "message": "Lisäasetukset" }
 }

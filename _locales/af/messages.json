@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Reëls kan onmiddellik met een enkele klik verwyder word" },
   "strictmodetitle": { "message": "Streng modus" },
   "strictmodedesc": { "message": "Reëls vereis 'n 10-sekonde aftelling voor verwydering om toevallige verwydering te voorkom" },
-  "additionalsettingstitle": { "message": "Bykomende instellings" },
   "confirmdeletetitle": { "message": "Bevestig voordat u veel reëls verwyder" },
   "confirmdeletedesc": { "message": "Wys bevestigingsdialoog wanneer u veel reëls gelyktydig verwyder" },
   "notificationstitle": { "message": "Wys kennisgewings" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Fout tydens verwydering van reëls" },
   "willreset": { "message": "Hierdie sal alle instellings na verstek terugstel. Gaan voort?" },
   "resettodefaults": { "message": "Instellings is na verstek herstel!" },
-  "errorresettingsettings": { "message": "Fout tydens herstel van instellings" }
+  "errorresettingsettings": { "message": "Fout tydens herstel van instellings" },
+  "basicsettingstitle": { "message": "Basiese Instellings" },
+  "advancedsettingstitle": { "message": "Gevorderde Instellings" }
 }

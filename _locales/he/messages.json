@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "ניתן למחוק כללים מייד בלחיצה אחת" },
   "strictmodetitle": { "message": "מצב קפדני" },
   "strictmodedesc": { "message": "מחיקת כללים דורשת נספר לאחור של 10 שניות כדי למנוע מחיקה בטעות" },
-  "additionalsettingstitle": { "message": "הגדרות נוספות" },
   "confirmdeletetitle": { "message": "אשר לפני מחיקת מספר כללים" },
   "confirmdeletedesc": { "message": "הצג תיבת אישור בעת מחיקת מספר כללים בבת אחת" },
   "notificationstitle": { "message": "הצג התראות" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "שגיאה במחיקת הכללים" },
   "willreset": { "message": "כל ההגדרות יאותחו לערכי ברירת המחדל. להמשיך?" },
   "resettodefaults": { "message": "ההגדרות אושרו לברירות המחדל!" },
-  "errorresettingsettings": { "message": "שגיאה באיפוס ההגדרות" }
+  "errorresettingsettings": { "message": "שגיאה באיפוס ההגדרות" },
+  "basicsettingstitle": { "message": "הגדרות בסיסיות" },
+  "advancedsettingstitle": { "message": "הגדרות מתקדמות" }
 }

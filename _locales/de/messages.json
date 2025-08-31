@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Regeln können sofort mit einem Klick gelöscht werden" },
   "strictmodetitle": { "message": "Strikter Modus" },
   "strictmodedesc": { "message": "Regeln erfordern einen 10-Sekunden-Countdown vor dem Löschen, um ein versehentliches Entfernen zu verhindern" },
-  "additionalsettingstitle": { "message": "Zusätzliche Einstellungen" },
   "confirmdeletetitle": { "message": "Bestätigung vor dem Löschen mehrerer Regeln" },
   "confirmdeletedesc": { "message": "Zeige ein Bestätigungsdialog an, wenn mehrere Regeln gleichzeitig gelöscht werden" },
   "notificationstitle": { "message": "Benachrichtigungen anzeigen" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Fehler beim Löschen der Regeln" },
   "willreset": { "message": "Alle Einstellungen werden auf die Standardwerte zurückgesetzt. Fortfahren?" },
   "resettodefaults": { "message": "Einstellungen erfolgreich auf Standard zurückgesetzt!" },
-  "errorresettingsettings": { "message": "Fehler beim Zurücksetzen der Einstellungen" }
+  "errorresettingsettings": { "message": "Fehler beim Zurücksetzen der Einstellungen" },
+  "basicsettingstitle": { "message": "Grundeinstellungen" },
+  "advancedsettingstitle": { "message": "Erweiterte Einstellungen" }
 }

@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Regels kunnen direct met één klik worden verwijderd" },
   "strictmodetitle": { "message": "Strikte modus" },
   "strictmodedesc": { "message": "Regels vereisen een aftelling van 10 seconden voordat ze worden verwijderd om per ongeluk verwijderen te voorkomen" },
-  "additionalsettingstitle": { "message": "Extra instellingen" },
   "confirmdeletetitle": { "message": "Bevestigen voordat meerdere regels worden verwijderd" },
   "confirmdeletedesc": { "message": "Toon bevestigingsdialoog bij het verwijderen van meerdere regels tegelijk" },
   "notificationstitle": { "message": "Toon meldingen" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Fout bij het wissen van regels" },
   "willreset": { "message": "Alle instellingen worden teruggezet naar standaardwaarden. Doorgaan?" },
   "resettodefaults": { "message": "Instellingen teruggezet naar standaardwaarden!" },
-  "errorresettingsettings": { "message": "Fout bij het terugzetten van instellingen" }
+  "errorresettingsettings": { "message": "Fout bij het terugzetten van instellingen" },
+  "basicsettingstitle": { "message": "Basisinstellingen" },
+  "advancedsettingstitle": { "message": "Geavanceerde instellingen" }
 }

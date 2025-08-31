@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Правила можно удалять сразу одним кликом" },
   "strictmodetitle": { "message": "Строгий режим" },
   "strictmodedesc": { "message": "Для удаления правил требуется 10-секундный отсчет, чтобы избежать случайного удаления" },
-  "additionalsettingstitle": { "message": "Дополнительные настройки" },
   "confirmdeletetitle": { "message": "Подтвердите перед удалением нескольких правил" },
   "confirmdeletedesc": { "message": "Показывать диалог подтверждения при удалении нескольких правил одновременно" },
   "notificationstitle": { "message": "Показывать уведомления" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Ошибка при удалении правил" },
   "willreset": { "message": "Все настройки будут сброшены к значениям по умолчанию. Продолжить?" },
   "resettodefaults": { "message": "Настройки сброшены к значениям по умолчанию!" },
-  "errorresettingsettings": { "message": "Ошибка при сбросе настроек" }
+  "errorresettingsettings": { "message": "Ошибка при сбросе настроек" },
+  "basicsettingstitle": { "message": "Основные настройки" },
+  "advancedsettingstitle": { "message": "Расширенные настройки" }
 }

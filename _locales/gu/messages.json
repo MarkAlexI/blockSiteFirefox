@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "નિયમો એક ક્લિકથી તરત જ કાઢી શકાય છે" },
   "strictmodetitle": { "message": "કઠોર મોડ" },
   "strictmodedesc": { "message": "અચાનક દૂર કરવા રોકવા માટે નિયમોને કાઢવા પહેલા 10-સેકંડની કાઉન્ટડાઉન જરૂરી છે" },
-  "additionalsettingstitle": { "message": "વધારાના સેટિંગ્સ" },
   "confirmdeletetitle": { "message": "એકથી વધુ નિયમો કાઢવા પહેલા ખાતરી કરો" },
   "confirmdeletedesc": { "message": "એકસાથે એકથી વધુ નિયમો કાઢતી વખતે ખાતરી સંવાદ બતાવો" },
   "notificationstitle": { "message": "સૂચનાઓ બતાવો" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "નિયમો કાઢતી વખતે ભૂલ" },
   "willreset": { "message": "બધા સેટિંગ્સ ડિફોલ્ટ મૂલ્યો પર રીસેટ કરવામાં આવશે. ચાલુ રાખશો?" },
   "resettodefaults": { "message": "સેટિંગ્સ ડિફોલ્ટ પર રીસેટ થઈ ગયા!" },
-  "errorresettingsettings": { "message": "સેટિંગ્સ રીસેટ કરતી વખતે ભૂલ" }
+  "errorresettingsettings": { "message": "સેટિંગ્સ રીસેટ કરતી વખતે ભૂલ" },
+  "basicsettingstitle": { "message": "મૂળભૂત સેટિંગ્સ" },
+  "advancedsettingstitle": { "message": "ઉન્નત સેટિંગ્સ" }
 }

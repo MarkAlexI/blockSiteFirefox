@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Maaaring agad na tanggalin ang mga patakaran sa isang pag-click" },
   "strictmodetitle": { "message": "Mahigpit na Mode" },
   "strictmodedesc": { "message": "Kailangan ng 10-segundong countdown bago tanggalin ang mga patakaran upang maiwasan ang aksidenteng pagtanggal" },
-  "additionalsettingstitle": { "message": "Karagdagang Mga Setting" },
   "confirmdeletetitle": { "message": "Kumpirmahin bago tanggalin ang maraming patakaran" },
   "confirmdeletedesc": { "message": "Ipakita ang confirmation dialog kapag nagtatanggal ng maraming patakaran sabay-sabay" },
   "notificationstitle": { "message": "Ipakita ang mga Notipikasyon" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Error sa pagtanggal ng mga patakaran" },
   "willreset": { "message": "Ia-reset ang lahat ng mga setting sa default na mga halaga. Magpatuloy?" },
   "resettodefaults": { "message": "Matagumpay na na-reset ang mga setting sa default!" },
-  "errorresettingsettings": { "message": "Error sa pag-reset ng mga setting" }
+  "errorresettingsettings": { "message": "Error sa pag-reset ng mga setting" },
+  "basicsettingstitle": { "message": "Mga Pangunahing Setting" },
+  "advancedsettingstitle": { "message": "Mga Advanced na Setting" }
 }

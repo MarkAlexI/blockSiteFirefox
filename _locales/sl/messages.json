@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Pravila je mogoče izbrisati takoj z enim klikom" },
   "strictmodetitle": { "message": "Strogi način" },
   "strictmodedesc": { "message": "Pravila zahtevajo 10-sekundno odštevanje pred izbrisom, da se prepreči nenamerno brisanje" },
-  "additionalsettingstitle": { "message": "Dodatne nastavitve" },
   "confirmdeletetitle": { "message": "Potrdite pred brisanjem več pravil" },
   "confirmdeletedesc": { "message": "Prikaži pogovorno okno za potrditev pri brisanju več pravil hkrati" },
   "notificationstitle": { "message": "Prikaži obvestila" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Napaka pri brisanju pravil" },
   "willreset": { "message": "Vse nastavitve bodo ponastavljene na privzete vrednosti. Nadaljevati?" },
   "resettodefaults": { "message": "Nastavitve so bile ponastavljene na privzete!" },
-  "errorresettingsettings": { "message": "Napaka pri ponastavitvi nastavitev" }
+  "errorresettingsettings": { "message": "Napaka pri ponastavitvi nastavitev" },
+  "basicsettingstitle": { "message": "Osnovne nastavitve" },
+  "advancedsettingstitle": { "message": "Napredne nastavitve" }
 }

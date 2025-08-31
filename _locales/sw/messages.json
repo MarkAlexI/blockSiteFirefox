@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Sheria zinaweza kufutwa mara moja kwa kubofya moja" },
   "strictmodetitle": { "message": "Hali Mkali" },
   "strictmodedesc": { "message": "Sheria zinahitaji kuhesabiwa sekunde 10 kabla ya kufutwa ili kuzuia kufutwa kwa bahati mbaya" },
-  "additionalsettingstitle": { "message": "Mipangilio ya Ziada" },
   "confirmdeletetitle": { "message": "Thibitisha kabla ya kufuta sheria nyingi" },
   "confirmdeletedesc": { "message": "Onyesha sanduku la uthibitisho wakati wa kufuta sheria nyingi kwa pamoja" },
   "notificationstitle": { "message": "Onyesha taarifa" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Hitilafu wakati wa kufuta sheria" },
   "willreset": { "message": "Mipangilio yote itarudishwa kwenye chaguo la asili. Endelea?" },
   "resettodefaults": { "message": "Mipangilio imerudishwa kwenye chaguo la asili!" },
-  "errorresettingsettings": { "message": "Hitilafu wakati wa kurudisha mipangilio" }
+  "errorresettingsettings": { "message": "Hitilafu wakati wa kurudisha mipangilio" },
+  "basicsettingstitle": { "message": "Mipangilio ya Msingi" },
+  "advancedsettingstitle": { "message": "Mipangilio ya Juu" }
 }

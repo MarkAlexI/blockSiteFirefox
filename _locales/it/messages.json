@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Le regole possono essere eliminate immediatamente con un clic" },
   "strictmodetitle": { "message": "Modalità Rigida" },
   "strictmodedesc": { "message": "Le regole richiedono un conto alla rovescia di 10 secondi prima dell'eliminazione per evitare rimozioni accidentali" },
-  "additionalsettingstitle": { "message": "Impostazioni Aggiuntive" },
   "confirmdeletetitle": { "message": "Conferma prima di eliminare più regole" },
   "confirmdeletedesc": { "message": "Mostra una finestra di conferma quando si eliminano più regole contemporaneamente" },
   "notificationstitle": { "message": "Mostra notifiche" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Errore nella cancellazione delle regole" },
   "willreset": { "message": "Tutte le impostazioni saranno ripristinate ai valori predefiniti. Continuare?" },
   "resettodefaults": { "message": "Impostazioni ripristinate ai valori predefiniti!" },
-  "errorresettingsettings": { "message": "Errore nel ripristino delle impostazioni" }
+  "errorresettingsettings": { "message": "Errore nel ripristino delle impostazioni" },
+  "basicsettingstitle": { "message": "Impostazioni di base" },
+  "advancedsettingstitle": { "message": "Impostazioni avanzate" }
 }

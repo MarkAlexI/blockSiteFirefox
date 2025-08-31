@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "As regras podem ser excluídas imediatamente com um clique" },
   "strictmodetitle": { "message": "Modo Rigoroso" },
   "strictmodedesc": { "message": "As regras exigem uma contagem regressiva de 10 segundos antes de serem excluídas para evitar remoção acidental" },
-  "additionalsettingstitle": { "message": "Configurações Adicionais" },
   "confirmdeletetitle": { "message": "Confirmar antes de excluir várias regras" },
   "confirmdeletedesc": { "message": "Exibir caixa de confirmação ao excluir várias regras de uma vez" },
   "notificationstitle": { "message": "Exibir notificações" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Erro ao excluir regras" },
   "willreset": { "message": "Todas as configurações serão restauradas para os valores padrão. Continuar?" },
   "resettodefaults": { "message": "Configurações restauradas para os valores padrão!" },
-  "errorresettingsettings": { "message": "Erro ao restaurar configurações" }
+  "errorresettingsettings": { "message": "Erro ao restaurar configurações" },
+  "basicsettingstitle": { "message": "Configurações básicas" },
+  "advancedsettingstitle": { "message": "Configurações avançadas" }
 }

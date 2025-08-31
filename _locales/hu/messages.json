@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "A szabályok azonnal törölhetők egy kattintással" },
   "strictmodetitle": { "message": "Szigorú mód" },
   "strictmodedesc": { "message": "A szabályok törléséhez 10 másodperces visszaszámlálás szükséges, hogy elkerülje a véletlen törlést" },
-  "additionalsettingstitle": { "message": "További beállítások" },
   "confirmdeletetitle": { "message": "Megerősítés több szabály törlése előtt" },
   "confirmdeletedesc": { "message": "Megerősítő párbeszédablak megjelenítése, amikor egyszerre több szabályt töröl" },
   "notificationstitle": { "message": "Értesítések megjelenítése" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Hiba a szabályok törlésekor" },
   "willreset": { "message": "Minden beállítás alapértelmezettre áll vissza. Folytatja?" },
   "resettodefaults": { "message": "Beállítások visszaállítva az alapértelmezettre!" },
-  "errorresettingsettings": { "message": "Hiba a beállítások visszaállításakor" }
+  "errorresettingsettings": { "message": "Hiba a beállítások visszaállításakor" },
+  "basicsettingstitle": { "message": "Alapbeállítások" },
+  "advancedsettingstitle": { "message": "Haladó beállítások" }
 }

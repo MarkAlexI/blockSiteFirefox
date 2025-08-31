@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Regler kan fjernes med ét klik" },
   "strictmodetitle": { "message": "Streng tilstand" },
   "strictmodedesc": { "message": "Regler kræver en 10 sekunders nedtælling før de kan fjernes for at undgå utilsigtet sletning" },
-  "additionalsettingstitle": { "message": "Yderligere indstillinger" },
   "confirmdeletetitle": { "message": "Bekræft før sletning af flere regler" },
   "confirmdeletedesc": { "message": "Vis en bekræftelsesdialog, når du sletter flere regler på én gang" },
   "notificationstitle": { "message": "Vis meddelelser" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Fejl ved sletning af regler" },
   "willreset": { "message": "Dette vil nulstille alle indstillinger til standard. Fortsæt?" },
   "resettodefaults": { "message": "Indstillingerne er nulstillet til standard!" },
-  "errorresettingsettings": { "message": "Fejl ved nulstilling af indstillinger" }
+  "errorresettingsettings": { "message": "Fejl ved nulstilling af indstillinger" },
+  "basicsettingstitle": { "message": "Grundlæggende indstillinger" },
+  "advancedsettingstitle": { "message": "Avancerede indstillinger" }
 }

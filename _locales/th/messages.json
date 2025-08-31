@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "สามารถลบกฎได้ทันทีด้วยการคลิกเพียงครั้งเดียว" },
   "strictmodetitle": { "message": "โหมดเข้มงวด" },
   "strictmodedesc": { "message": "การลบกฎต้องมีการนับถอยหลัง 10 วินาทีก่อนเพื่อป้องกันการลบโดยไม่ตั้งใจ" },
-  "additionalsettingstitle": { "message": "การตั้งค่าเพิ่มเติม" },
   "confirmdeletetitle": { "message": "ยืนยันก่อนลบหลายกฎ" },
   "confirmdeletedesc": { "message": "แสดงกล่องยืนยันเมื่อทำการลบกฎหลายกฎพร้อมกัน" },
   "notificationstitle": { "message": "แสดงการแจ้งเตือน" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "เกิดข้อผิดพลาดในการลบกฎ" },
   "willreset": { "message": "การตั้งค่าทั้งหมดจะถูกรีเซ็ตเป็นค่าเริ่มต้น ดำเนินการต่อหรือไม่?" },
   "resettodefaults": { "message": "รีเซ็ตการตั้งค่าเป็นค่าเริ่มต้นเรียบร้อยแล้ว!" },
-  "errorresettingsettings": { "message": "เกิดข้อผิดพลาดในการรีเซ็ตการตั้งค่า" }
+  "errorresettingsettings": { "message": "เกิดข้อผิดพลาดในการรีเซ็ตการตั้งค่า" },
+  "basicsettingstitle": { "message": "การตั้งค่าพื้นฐาน" },
+  "advancedsettingstitle": { "message": "การตั้งค่าขั้นสูง" }
 }

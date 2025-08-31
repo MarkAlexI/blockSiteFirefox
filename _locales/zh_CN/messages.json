@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "规则可通过单击立即删除" },
   "strictmodetitle": { "message": "严格模式" },
   "strictmodedesc": { "message": "删除规则前需要10秒倒计时，以防止意外删除" },
-  "additionalsettingstitle": { "message": "附加设置" },
   "confirmdeletetitle": { "message": "删除多条规则前确认" },
   "confirmdeletedesc": { "message": "删除多条规则时显示确认对话框" },
   "notificationstitle": { "message": "显示通知" },
@@ -113,5 +112,7 @@
   "errorclearingrules": { "message": "清除规则时出错" },
   "willreset": { "message": "这将重置所有设置为默认值。继续吗？" },
   "resettodefaults": { "message": "设置已重置为默认值！" },
-  "errorresettingsettings": { "message": "重置设置时出错" }
+  "errorresettingsettings": { "message": "重置设置时出错" },
+  "basicsettingstitle": { "message": "基本设置" },
+  "advancedsettingstitle": { "message": "高级设置" }
 }

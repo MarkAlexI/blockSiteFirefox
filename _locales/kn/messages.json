@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "ನಿಯಮಗಳನ್ನು ಒಂದು ಕ್ಲಿಕ್‌ನಲ್ಲಿ ತಕ್ಷಣ ಅಳಿಸಬಹುದು" },
   "strictmodetitle": { "message": "ಕಠಿಣ ಮೋಡ್" },
   "strictmodedesc": { "message": "ತಪ್ಪಾಗಿ ಅಳಿಸುವುದನ್ನು ತಪ್ಪಿಸಲು ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು 10-ಸೆಕೆಂಡ್ ಕೌಂಟ್‌ಡೌನ್ ಅಗತ್ಯವಿದೆ" },
-  "additionalsettingstitle": { "message": "ಅತಿರಿಕ್ತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
   "confirmdeletetitle": { "message": "ಹೆಚ್ಚಿನ ನಿಯಮಗಳನ್ನು ಅಳಿಸುವ ಮೊದಲು ದೃಢೀಕರಿಸಿ" },
   "confirmdeletedesc": { "message": "ಒಂದುಗೂ ಹೆಚ್ಚು ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೃಢೀಕರಣ ಸಂವಾದವನ್ನು ತೋರಿಸಿ" },
   "notificationstitle": { "message": "ಅಧಿಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೋಷ" },
   "willreset": { "message": "ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್ ಮೌಲ್ಯಗಳಿಗೆ ಮರುಹೊಂದಿಸಲಾಗುವುದು. ಮುಂದುವರೆಯುತ್ತೀರಾ?" },
   "resettodefaults": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಲ್ಪಟ್ಟಿವೆ!" },
-  "errorresettingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸುವಾಗ ದೋಷ" }
+  "errorresettingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸುವಾಗ ದೋಷ" },
+  "basicsettingstitle": { "message": "ಮೂಲಭೂತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
+  "advancedsettingstitle": { "message": "ಸುಧಾರಿತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" }
 }

@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Rules can be deleted instantly with a single click" },
   "strictmodetitle": { "message": "Strict Mode" },
   "strictmodedesc": { "message": "Rules require a 10-second countdown before deletion to prevent accidental removal" },
-  "additionalsettingstitle": { "message": "Additional Settings" },
   "confirmdeletetitle": { "message": "Confirm before deleting multiple rules" },
   "confirmdeletedesc": { "message": "Show a confirmation dialogue when deleting multiple rules at once" },
   "notificationstitle": { "message": "Show Notifications" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Error clearing rules" },
   "willreset": { "message": "This will reset all settings to their default values. Continue?" },
   "resettodefaults": { "message": "Settings reset to defaults!" },
-  "errorresettingsettings": { "message": "Error resetting settings" }
+  "errorresettingsettings": { "message": "Error resetting settings" },
+  "basicsettingstitle": { "message": "Basic Settings" },
+  "advancedsettingstitle": { "message": "Advanced Settings" }
 }

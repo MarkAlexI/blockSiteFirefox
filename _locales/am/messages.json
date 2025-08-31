@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "ህጎችን በአንድ ጠቅታ በድንገት ማስወገድ ይችላሉ" },
   "strictmodetitle": { "message": "ጥብቅ ሁነታ" },
   "strictmodedesc": { "message": "ህጎች ከመሰረዝ በፊት 10 ሰከንድ መቆጣጠሪያ ይጠየቃሉ" },
-  "additionalsettingstitle": { "message": "ተጨማሪ ቅንብሮች" },
   "confirmdeletetitle": { "message": "በአንድ ጊዜ ከሚሰረዙ ብዙ ህጎች በፊት አረጋግጥ" },
   "confirmdeletedesc": { "message": "በአንድ ጊዜ ብዙ ህጎች ሲሰረዙ የማረጋገጫ ንግግር አሳይ" },
   "notificationstitle": { "message": "ማሳወቂያዎችን አሳይ" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "ህጎችን በማጽዳት ላይ ስህተት" },
   "willreset": { "message": "ይህ ሁሉንም ቅንብሮች ወደ ነባሪ ይመልሳል። ቀጥል?" },
   "resettodefaults": { "message": "ቅንብሮች ወደ ነባሪ ተመልሰዋል!" },
-  "errorresettingsettings": { "message": "ቅንብሮችን በማዘመን ላይ ስህተት" }
+  "errorresettingsettings": { "message": "ቅንብሮችን በማዘመን ላይ ስህተት" },
+  "basicsettingstitle": { "message": "መሠረታዊ ቅንብሮች" },
+  "advancedsettingstitle": { "message": "የላቁ ቅንብሮች" }
 }

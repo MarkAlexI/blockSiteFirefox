@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Правила се могу одмах обрисати једним кликом" },
   "strictmodetitle": { "message": "Строги режим" },
   "strictmodedesc": { "message": "За брисање правила потребан је одбројавање од 10 секунди како би се спречило случајно брисање" },
-  "additionalsettingstitle": { "message": "Додатна подешавања" },
   "confirmdeletetitle": { "message": "Потврдите пре брисања више правила" },
   "confirmdeletedesc": { "message": "Прикажи дијалог за потврду при брисању више правила одједном" },
   "notificationstitle": { "message": "Прикажи обавештења" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Грешка при брисању правила" },
   "willreset": { "message": "Сва подешавања ће бити враћена на подразумеване вредности. Наставити?" },
   "resettodefaults": { "message": "Подешавања враћена на подразумеване вредности!" },
-  "errorresettingsettings": { "message": "Грешка при враћању подешавања" }
+  "errorresettingsettings": { "message": "Грешка при враћању подешавања" },
+  "basicsettingstitle": { "message": "Osnovna podešavanja" },
+  "advancedsettingstitle": { "message": "Napredna podešavanja" }
 }

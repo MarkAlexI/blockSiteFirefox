@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "கொள்கைகளை ஒரு கிளிக்கில் உடனடியாக நீக்கலாம்" },
   "strictmodetitle": { "message": "கடுமையான முறை" },
   "strictmodedesc": { "message": "தற்செயலாக நீக்கப்படுவதைத் தடுக்கும் வகையில் கொள்கைகளை நீக்குவதற்கு 10-சொனிக்குச் கணக்கெடுப்பு தேவை" },
-  "additionalsettingstitle": { "message": "கூடுதல் அமைப்புகள்" },
   "confirmdeletetitle": { "message": "பல கொள்கைகளை நீக்கும் முன்னர் உறுதிப்படுத்தவும்" },
   "confirmdeletedesc": { "message": "பல கொள்கைகளை ஒரே நேரத்தில் நீக்கும் போது உறுதிப்படுத்தல் போட்டியை காட்டவும்" },
   "notificationstitle": { "message": "அறிவிப்புகளை காண்பிக்கவும்" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "கொள்கைகளை அழிக்கும் போது பிழை ஏற்பட்டது" },
   "willreset": { "message": "அனைத்து அமைப்புகளும் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கப்படும். தொடரவா?" },
   "resettodefaults": { "message": "அமைப்புகள் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கப்பட்டன!" },
-  "errorresettingsettings": { "message": "அமைப்புகளை மீட்டமைக்கும்போது பிழை ஏற்பட்டது" }
+  "errorresettingsettings": { "message": "அமைப்புகளை மீட்டமைக்கும்போது பிழை ஏற்பட்டது" },
+  "basicsettingstitle": { "message": "அடிப்படை அமைப்புகள்" },
+  "advancedsettingstitle": { "message": "மேம்பட்ட அமைப்புகள்" }
 }

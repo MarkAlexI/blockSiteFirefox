@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "నిబంధనలను ఒక క్లిక్‌తో వెంటనే తొలగించవచ్చు" },
   "strictmodetitle": { "message": "కఠిన మోడ్" },
   "strictmodedesc": { "message": "దుర్లభంగా తొలగింపును నివారించడానికి నిబంధనలను తొలగించడానికి 10 సెకన్ల కౌంట్ డౌన్ అవసరం" },
-  "additionalsettingstitle": { "message": "అతిరేక సెట్టింగులు" },
   "confirmdeletetitle": { "message": "చాలా నిబంధనలను తొలగించే ముందు ధృవీకరించండి" },
   "confirmdeletedesc": { "message": "ఒకేసారి అనేక నిబంధనలను తొలగించినప్పుడు ధృవీకరణ డైలాగ్ చూపించండి" },
   "notificationstitle": { "message": "నోటిఫికేషన్లు చూపించండి" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "నిబంధనలను తొలగించడంలో లోపం" },
   "willreset": { "message": "అన్ని సెట్టింగ్స్ డిఫాల్ట్ విలువలకు రీసెట్ చేయబడతాయి. కొనసాగించాలా?" },
   "resettodefaults": { "message": "సెట్టింగ్స్ డిఫాల్ట్‌కు రీసెట్ చేయబడ్డాయి!" },
-  "errorresettingsettings": { "message": "సెట్టింగ్స్ రీసెట్ చేయడంలో లోపం" }
+  "errorresettingsettings": { "message": "సెట్టింగ్స్ రీసెట్ చేయడంలో లోపం" },
+  "basicsettingstitle": { "message": "ప్రాథమిక సెట్టింగ్‌లు" },
+  "advancedsettingstitle": { "message": "అధునాతన సెట్టింగ్‌లు" }
 }

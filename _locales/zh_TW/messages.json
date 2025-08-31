@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "規則可以透過單擊立即刪除" },
   "strictmodetitle": { "message": "嚴格模式" },
   "strictmodedesc": { "message": "刪除規則前需 10 秒倒數，以防誤刪" },
-  "additionalsettingstitle": { "message": "其他設定" },
   "confirmdeletetitle": { "message": "刪除多個規則前請確認" },
   "confirmdeletedesc": { "message": "刪除多個規則時顯示確認對話框" },
   "notificationstitle": { "message": "顯示通知" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "清除規則時發生錯誤" },
   "willreset": { "message": "所有設定將恢復為預設值，是否繼續？" },
   "resettodefaults": { "message": "設定已恢復為預設值！" },
-  "errorresettingsettings": { "message": "重置設定時發生錯誤" }
+  "errorresettingsettings": { "message": "重置設定時發生錯誤" },
+  "basicsettingstitle": { "message": "基本設定" },
+  "advancedsettingstitle": { "message": "進階設定" }
 }

@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Regulile pot fi șterse imediat cu un singur clic" },
   "strictmodetitle": { "message": "Mod strict" },
   "strictmodedesc": { "message": "Regulile necesită o numărătoare inversă de 10 secunde înainte de ștergere pentru a preveni eliminarea accidentală" },
-  "additionalsettingstitle": { "message": "Setări suplimentare" },
   "confirmdeletetitle": { "message": "Confirmă înainte de a șterge mai multe reguli" },
   "confirmdeletedesc": { "message": "Afișează dialogul de confirmare la ștergerea mai multor reguli simultan" },
   "notificationstitle": { "message": "Afișează notificări" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Eroare la ștergerea regulilor" },
   "willreset": { "message": "Toate setările vor fi resetate la valorile implicite. Continuă?" },
   "resettodefaults": { "message": "Setările au fost resetate la valorile implicite!" },
-  "errorresettingsettings": { "message": "Eroare la resetarea setărilor" }
+  "errorresettingsettings": { "message": "Eroare la resetarea setărilor" },
+  "basicsettingstitle": { "message": "Setări de bază" },
+  "advancedsettingstitle": { "message": "Setări avansate" }
 }

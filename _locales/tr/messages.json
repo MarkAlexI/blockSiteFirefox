@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Kurallar tek tıkla hemen silinebilir" },
   "strictmodetitle": { "message": "Sıkı Mod" },
   "strictmodedesc": { "message": "Kuralların yanlışlıkla silinmesini önlemek için silmeden önce 10 saniyelik geri sayım gerektirir" },
-  "additionalsettingstitle": { "message": "Ek Ayarlar" },
   "confirmdeletetitle": { "message": "Birden fazla kural silmeden önce onaylayın" },
   "confirmdeletedesc": { "message": "Birden fazla kural aynı anda silinirken onay iletişim kutusunu göster" },
   "notificationstitle": { "message": "Bildirimleri Göster" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Kuralları temizlerken hata oluştu" },
   "willreset": { "message": "Tüm ayarlar varsayılan değerlere sıfırlanacak. Devam edilsin mi?" },
   "resettodefaults": { "message": "Ayarlar varsayılan değerlere sıfırlandı!" },
-  "errorresettingsettings": { "message": "Ayarları sıfırlarken hata oluştu" }
+  "errorresettingsettings": { "message": "Ayarları sıfırlarken hata oluştu" },
+  "basicsettingstitle": { "message": "Temel Ayarlar" },
+  "advancedsettingstitle": { "message": "Gelişmiş Ayarlar" }
 }

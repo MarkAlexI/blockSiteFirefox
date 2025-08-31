@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Reegleid saab ühe klõpsuga kohe kustutada" },
   "strictmodetitle": { "message": "Range režiim" },
   "strictmodedesc": { "message": "Reeglite kustutamiseks on vaja 10-sekundilist loendust, et vältida juhuslikku eemaldamist" },
-  "additionalsettingstitle": { "message": "Täiendavad seaded" },
   "confirmdeletetitle": { "message": "Kinnita enne mitme reegli kustutamist" },
   "confirmdeletedesc": { "message": "Näita kinnituse dialoogi mitme reegli korraga kustutamisel" },
   "notificationstitle": { "message": "Kuva teavitused" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Reeglite kustutamisel tekkis viga" },
   "willreset": { "message": "Kõik seaded lähtestatakse vaikeväärtustele. Kas jätkata?" },
   "resettodefaults": { "message": "Seaded lähtestati vaikeväärtustele!" },
-  "errorresettingsettings": { "message": "Seadete lähtestamisel tekkis viga" }
+  "errorresettingsettings": { "message": "Seadete lähtestamisel tekkis viga" },
+  "basicsettingstitle": { "message": "Põhiseaded" },
+  "advancedsettingstitle": { "message": "Täpsemad seaded" }
 }

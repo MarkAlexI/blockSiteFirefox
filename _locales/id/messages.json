@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Aturan dapat dihapus langsung dengan satu klik" },
   "strictmodetitle": { "message": "Mode Ketat" },
   "strictmodedesc": { "message": "Aturan membutuhkan hitungan mundur 10 detik sebelum dihapus untuk mencegah penghapusan tidak sengaja" },
-  "additionalsettingstitle": { "message": "Pengaturan Tambahan" },
   "confirmdeletetitle": { "message": "Konfirmasi sebelum menghapus beberapa aturan" },
   "confirmdeletedesc": { "message": "Tampilkan dialog konfirmasi saat menghapus beberapa aturan sekaligus" },
   "notificationstitle": { "message": "Tampilkan notifikasi" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Kesalahan menghapus aturan" },
   "willreset": { "message": "Semua pengaturan akan di-reset ke nilai default. Lanjutkan?" },
   "resettodefaults": { "message": "Pengaturan berhasil di-reset ke default!" },
-  "errorresettingsettings": { "message": "Kesalahan mengatur ulang pengaturan" }
+  "errorresettingsettings": { "message": "Kesalahan mengatur ulang pengaturan" },
+  "basicsettingstitle": { "message": "Pengaturan Dasar" },
+  "advancedsettingstitle": { "message": "Pengaturan Lanjutan" }
 }

@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Taisykles galima ištrinti iš karto vienu paspaudimu" },
   "strictmodetitle": { "message": "Griežtas režimas" },
   "strictmodedesc": { "message": "Taisyklėms ištrinti reikia 10 sekundžių atgalinės atskaitos, kad būtų išvengta atsitiktinio ištrynimo" },
-  "additionalsettingstitle": { "message": "Papildomi nustatymai" },
   "confirmdeletetitle": { "message": "Patvirtinkite prieš ištrindami kelias taisykles" },
   "confirmdeletedesc": { "message": "Rodyti patvirtinimo dialogą, kai ištrinamos kelios taisyklės vienu metu" },
   "notificationstitle": { "message": "Rodyti pranešimus" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Klaida ištrinant taisykles" },
   "willreset": { "message": "Visi nustatymai bus atstatyti į numatytąsias reikšmes. Tęsti?" },
   "resettodefaults": { "message": "Nustatymai atstatyti į numatytąsias reikšmes!" },
-  "errorresettingsettings": { "message": "Klaida atstatant nustatymus" }
+  "errorresettingsettings": { "message": "Klaida atstatant nustatymus" },
+  "basicsettingstitle": { "message": "Pagrindiniai nustatymai" },
+  "advancedsettingstitle": { "message": "Išplėstiniai nustatymai" }
 }

@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Οι κανόνες μπορούν να διαγραφούν άμεσα με ένα μόνο κλικ" },
   "strictmodetitle": { "message": "Αυστηρή Λειτουργία" },
   "strictmodedesc": { "message": "Οι κανόνες απαιτούν αντίστροφη μέτρηση 10 δευτερολέπτων πριν από τη διαγραφή για να αποτραπεί η τυχαία αφαίρεση" },
-  "additionalsettingstitle": { "message": "Επιπλέον Ρυθμίσεις" },
   "confirmdeletetitle": { "message": "Επιβεβαίωση πριν από τη διαγραφή πολλών κανόνων" },
   "confirmdeletedesc": { "message": "Εμφάνιση παραθύρου επιβεβαίωσης όταν διαγράφονται πολλοί κανόνες ταυτόχρονα" },
   "notificationstitle": { "message": "Εμφάνιση ειδοποιήσεων" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Σφάλμα κατά τη διαγραφή κανόνων" },
   "willreset": { "message": "Αυτό θα επαναφέρει όλες τις ρυθμίσεις στις προεπιλεγμένες τιμές. Συνέχεια;" },
   "resettodefaults": { "message": "Οι ρυθμίσεις επαναφέρθηκαν στις προεπιλογές!" },
-  "errorresettingsettings": { "message": "Σφάλμα κατά την επαναφορά ρυθμίσεων" }
+  "errorresettingsettings": { "message": "Σφάλμα κατά την επαναφορά ρυθμίσεων" },
+  "basicsettingstitle": { "message": "Βασικές ρυθμίσεις" },
+  "advancedsettingstitle": { "message": "Προηγμένες ρυθμίσεις" }
 }

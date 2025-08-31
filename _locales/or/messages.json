@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ଏକ କ୍ଲିକରେ ତୁରନ୍ତ ଡିଲିଟ କରାଯାଇପାରେ" },
   "strictmodetitle": { "message": "କଡ଼ା ମୋଡ" },
   "strictmodedesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ଡିଲିଟ କରିବା ପୂର୍ବରୁ 10 ସେକେଣ୍ଡର କାଉଣ୍ଟଡାଉନ ଆବଶ୍ୟକ ହୁଏ ଯାହା ଅଜାଣତରେ ଅପସାରଣକୁ ରୋକିଥାଏ" },
-  "additionalsettingstitle": { "message": "ଅତିରିକ୍ତ ସେଟିଂସ" },
   "confirmdeletetitle": { "message": "ଏକାଧିକ ନିୟମ ଡିଲିଟ କରିବା ପୂର୍ବରୁ ନିଶ୍ଚିତ କରନ୍ତୁ" },
   "confirmdeletedesc": { "message": "ଏକାଧିକ ନିୟମକୁ ଏକକାଳୀନ ଡିଲିଟ କରିବା ସମୟରେ ନିଶ୍ଚିତକରଣ ଡାଏଲଗ ଦେଖାନ୍ତୁ" },
   "notificationstitle": { "message": "ବିଜ୍ଞପ୍ତି ଦେଖାନ୍ତୁ" },
@@ -113,5 +112,7 @@
   "errorclearingrules": { "message": "ନିୟମ ସଫା କରିବାରେ ତ୍ରୁଟି" },
   "willreset": { "message": "ଏହା ସମସ୍ତ ସେଟିଂସକୁ ଡିଫଲ୍ଟ ମୂଲ୍ୟକୁ ରିସେଟ କରିବ। ଜାରି ରଖିବେ କି?" },
   "resettodefaults": { "message": "ସେଟିଂସ ଡିଫଲ୍ଟକୁ ରିସେଟ ହୋଇଛି!" },
-  "errorresettingsettings": { "message": "ସେଟିଂସ ରିସେଟ କରିବାରେ ତ୍ରୁଟି" }
+  "errorresettingsettings": { "message": "ସେଟିଂସ ରିସେଟ କରିବାରେ ତ୍ରୁଟି" },
+  "basicsettingstitle": { "message": "ମୌଳିକ ସେଟିଂସ୍" },
+  "advancedsettingstitle": { "message": "ଉନ୍ନତ ସେଟିଂସ୍" }
 }

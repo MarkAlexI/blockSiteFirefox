@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Pravidlá je možné okamžite vymazať jedným kliknutím" },
   "strictmodetitle": { "message": "Prísny režim" },
   "strictmodedesc": { "message": "Na odstránenie pravidiel je potrebný 10-sekundový odpočet, aby sa zabránilo náhodnému vymazaniu" },
-  "additionalsettingstitle": { "message": "Ďalšie nastavenia" },
   "confirmdeletetitle": { "message": "Potvrďte pred odstránením viacerých pravidiel" },
   "confirmdeletedesc": { "message": "Zobraziť dialógové okno potvrdenia pri odstránení viacerých pravidiel naraz" },
   "notificationstitle": { "message": "Zobraziť oznámenia" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Chyba pri vymazávaní pravidiel" },
   "willreset": { "message": "Všetky nastavenia budú obnovené na predvolené hodnoty. Pokračovať?" },
   "resettodefaults": { "message": "Nastavenia obnovené na predvolené hodnoty!" },
-  "errorresettingsettings": { "message": "Chyba pri obnove nastavení" }
+  "errorresettingsettings": { "message": "Chyba pri obnove nastavení" },
+  "basicsettingstitle": { "message": "Základné nastavenia" },
+  "advancedsettingstitle": { "message": "Pokročilé nastavenia" }
 }

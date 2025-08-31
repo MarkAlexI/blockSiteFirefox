@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Les règles peuvent être supprimées immédiatement d'un seul clic" },
   "strictmodetitle": { "message": "Mode strict" },
   "strictmodedesc": { "message": "Les règles nécessitent un compte à rebours de 10 secondes avant la suppression pour éviter une suppression accidentelle" },
-  "additionalsettingstitle": { "message": "Paramètres supplémentaires" },
   "confirmdeletetitle": { "message": "Confirmer avant de supprimer plusieurs règles" },
   "confirmdeletedesc": { "message": "Afficher une boîte de dialogue de confirmation lors de la suppression de plusieurs règles à la fois" },
   "notificationstitle": { "message": "Afficher les notifications" },
@@ -113,5 +112,7 @@
   "errorclearingrules": { "message": "Erreur lors de l'effacement des règles" },
   "willreset": { "message": "Cela réinitialisera tous les paramètres aux valeurs par défaut. Continuer ?" },
   "resettodefaults": { "message": "Paramètres réinitialisés aux valeurs par défaut !" },
-  "errorresettingsettings": { "message": "Erreur lors de la réinitialisation des paramètres" }
+  "errorresettingsettings": { "message": "Erreur lors de la réinitialisation des paramètres" },
+  "basicsettingstitle": { "message": "Paramètres de base" },
+  "advancedsettingstitle": { "message": "Paramètres avancés" }
 }

@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Правилата могат да се изтрият веднага с едно щракване" },
   "strictmodetitle": { "message": "Строг режим" },
   "strictmodedesc": { "message": "Изтриването на правила изисква обратно броене от 10 секунди, за да се предотврати случайно премахване" },
-  "additionalsettingstitle": { "message": "Допълнителни настройки" },
   "confirmdeletetitle": { "message": "Потвърждение преди изтриване на няколко правила" },
   "confirmdeletedesc": { "message": "Показване на диалог за потвърждение при изтриване на няколко правила наведнъж" },
   "notificationstitle": { "message": "Показване на известия" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Грешка при изчистване на правилата" },
   "willreset": { "message": "Това ще върне всички настройки към стойности по подразбиране. Продължавате ли?" },
   "resettodefaults": { "message": "Настройките са върнати по подразбиране!" },
-  "errorresettingsettings": { "message": "Грешка при нулиране на настройките" }
+  "errorresettingsettings": { "message": "Грешка при нулиране на настройките" },
+  "basicsettingstitle": { "message": "Основни настройки" },
+  "advancedsettingstitle": { "message": "Разширени настройки" }
 }

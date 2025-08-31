@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Reguły można usuwać natychmiast jednym kliknięciem" },
   "strictmodetitle": { "message": "Tryb ścisły" },
   "strictmodedesc": { "message": "Usuwanie reguł wymaga 10-sekundowego odliczania, aby zapobiec przypadkowemu usunięciu" },
-  "additionalsettingstitle": { "message": "Dodatkowe ustawienia" },
   "confirmdeletetitle": { "message": "Potwierdź przed usunięciem wielu reguł" },
   "confirmdeletedesc": { "message": "Pokaż okno potwierdzenia przy usuwaniu wielu reguł jednocześnie" },
   "notificationstitle": { "message": "Pokaż powiadomienia" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Błąd podczas usuwania reguł" },
   "willreset": { "message": "Wszystkie ustawienia zostaną przywrócone do wartości domyślnych. Kontynuować?" },
   "resettodefaults": { "message": "Ustawienia przywrócone do wartości domyślnych!" },
-  "errorresettingsettings": { "message": "Błąd podczas przywracania ustawień" }
+  "errorresettingsettings": { "message": "Błąd podczas przywracania ustawień" },
+  "basicsettingstitle": { "message": "Ustawienia podstawowe" },
+  "advancedsettingstitle": { "message": "Ustawienia zaawansowane" }
 }

@@ -59,7 +59,6 @@
   "normalmodedesc": { "message": "Noteikumus var izdzēst uzreiz ar vienu klikšķi" },
   "strictmodetitle": { "message": "Stingrais režīms" },
   "strictmodedesc": { "message": "Noteikumu dzēšanai nepieciešams 10 sekunžu atpakaļskaitīšana, lai novērstu nejaušu dzēšanu" },
-  "additionalsettingstitle": { "message": "Papildu iestatījumi" },
   "confirmdeletetitle": { "message": "Apstiprināt pirms vairāku noteikumu dzēšanas" },
   "confirmdeletedesc": { "message": "Rādīt apstiprinājuma dialogu, dzēšot vairākus noteikumus vienlaikus" },
   "notificationstitle": { "message": "Rādīt paziņojumus" },
@@ -104,5 +103,7 @@
   "errorclearingrules": { "message": "Kļūda dzēšot noteikumus" },
   "willreset": { "message": "Visi iestatījumi tiks atiestatīti uz noklusējuma vērtībām. Turpināt?" },
   "resettodefaults": { "message": "Iestatījumi atiestatīti uz noklusējuma!" },
-  "errorresettingsettings": { "message": "Kļūda atiestatot iestatījumus" }
+  "errorresettingsettings": { "message": "Kļūda atiestatot iestatījumus" },
+  "basicsettingstitle": { "message": "Pamata iestatījumi" },
+  "advancedsettingstitle": { "message": "Papildu iestatījumi" }
 }
