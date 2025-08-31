@@ -1,4 +1,5 @@
 import { RulesManager } from '../rules/rulesManager.js';
+import { SettingsManager } from '../options/settings.js';
 
 const rulesManager = new RulesManager();
 
@@ -70,17 +71,25 @@ async function clearAllDnrRules() {
   }
 }
 
-function showUpdates(details) {
-  browser.storage.sync.get(['settings'], ({ settings }) => {
-    const showNotifications = settings?.showNotifications === true;
-    
-    if (details.reason === 'update' && showNotifications === true) {
+async function showUpdates(details) {
+  try {
+    const settings = await SettingsManager.getSettings();
+
+    if (details.reason === 'update' && settings.showNotifications === true) {
       const version = browser.runtime.getManifest().version;
       browser.tabs.create({
         url: browser.runtime.getURL(`update/update.html?version=${version}`)
       });
     }
-  });
+  } catch (error) {
+    console.error('Error showing updates:', error);
+    if (details.reason === 'update') {
+      const version = browser.runtime.getManifest().version;
+      browser.tabs.create({
+        url: browser.runtime.getURL(`update/update.html?version=${version}`)
+      });
+    }
+  }
 }
 
 async function validateDnrIntegrity() {
@@ -118,7 +127,8 @@ browser.runtime.onStartup.addListener(async () => {
 browser.runtime.onInstalled.addListener(async (details) => {
   console.log("Extension installed/updated - syncing DNR rules");
   await syncDnrFromStorage();
-  showUpdates(details);
+  await SettingsManager.getSettings();
+  await showUpdates(details);
 });
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {

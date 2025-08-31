@@ -14,19 +14,61 @@ export class SettingsManager {
   }
   
   async init() {
-    await this.loadSettings();
+    await this.initializeSettings();
     this.setupEventListeners();
     this.loadStatistics();
   }
   
-  async loadSettings() {
+  async initializeSettings() {
     try {
       const result = await browser.storage.sync.get(['settings']);
-      const settings = { ...this.defaultSettings, ...result.settings };
-      this.applySettingsToUI(settings);
+      
+      if (!result.settings) {
+        await browser.storage.sync.set({ settings: this.defaultSettings });
+        this.applySettingsToUI(this.defaultSettings);
+        console.log('Default settings initialized');
+      } else {
+        const mergedSettings = { ...this.defaultSettings, ...result.settings };
+        const hasNewFields = Object.keys(this.defaultSettings).some(
+          key => !(key in result.settings)
+        );
+        
+        if (hasNewFields) {
+          await browser.storage.sync.set({ settings: mergedSettings });
+          console.log('Settings updated with new fields');
+        }
+        
+        this.applySettingsToUI(mergedSettings);
+      }
     } catch (error) {
-      console.error('Error loading settings:', error);
+      console.error('Error initializing settings:', error);
+      this.applySettingsToUI(this.defaultSettings);
       this.showStatus(t('errorloadingsettings'), 'error');
+    }
+  }
+  
+  static async getSettings() {
+    try {
+      const result = await browser.storage.sync.get(['settings']);
+      const defaultSettings = {
+        mode: 'normal',
+        confirmBeforeDelete: false,
+        showNotifications: true
+      };
+      
+      if (!result.settings) {
+        await browser.storage.sync.set({ settings: defaultSettings });
+        return defaultSettings;
+      }
+      
+      return { ...defaultSettings, ...result.settings };
+    } catch (error) {
+      console.error('Error getting settings:', error);
+      return {
+        mode: 'normal',
+        confirmBeforeDelete: false,
+        showNotifications: true
+      };
     }
   }
   

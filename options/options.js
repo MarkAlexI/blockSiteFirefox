@@ -1,5 +1,6 @@
 import { t } from '../scripts/t.js';
 import { SettingsManager } from './settings.js';
+import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
 import { RulesUI } from '../rules/rulesUI.js';
 
@@ -16,9 +17,10 @@ class OptionsPage {
     this.init();
   }
   
-  init() {
+  async init() {
     this.initializeUI();
     this.setupEventListeners();
+    await ProManager.initializeProFeatures();
     this.loadRules();
   }
   
