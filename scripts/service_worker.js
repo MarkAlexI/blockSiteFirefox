@@ -1,5 +1,6 @@
 import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
+import { StatisticsManager } from '../pro/statisticsManager.js';
 
 const rulesManager = new RulesManager();
 
@@ -13,15 +14,15 @@ async function syncDnrFromStorage() {
     }
     
     const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
-
-    const missing = rules.filter(storedRule => 
+    
+    const missing = rules.filter(storedRule =>
       !dnrRules.some(dnrRule => dnrRule.id === storedRule.id)
     );
-
-    const extra = dnrRules.filter(dnrRule => 
+    
+    const extra = dnrRules.filter(dnrRule =>
       !rules.some(storedRule => storedRule.id === dnrRule.id)
     );
-
+    
     if (missing.length) {
       const addRules = [];
       for (const rule of missing) {
@@ -39,7 +40,7 @@ async function syncDnrFromStorage() {
         console.log(`Synced ${addRules.length} missing DNR rules`);
       }
     }
-
+    
     if (extra.length) {
       const removeRuleIds = extra.map(rule => rule.id);
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
@@ -48,7 +49,7 @@ async function syncDnrFromStorage() {
     
   } catch (error) {
     console.error("DNR sync error:", error);
-
+    
     try {
       console.log("Attempting full migration...");
       await rulesManager.migrateRules();
@@ -74,7 +75,7 @@ async function clearAllDnrRules() {
 async function showUpdates(details) {
   try {
     const settings = await SettingsManager.getSettings();
-
+    
     if (details.reason === 'update' && settings.showNotifications === true) {
       const version = browser.runtime.getManifest().version;
       browser.tabs.create({
@@ -100,8 +101,7 @@ async function validateDnrIntegrity() {
     const storageIds = new Set(rules.map(r => r.id));
     const dnrIds = new Set(dnrRules.map(r => r.id));
     
-    const isInSync = storageIds.size === dnrIds.size && 
-                   [...storageIds].every(id => dnrIds.has(id));
+    const isInSync = storageIds.size === dnrIds.size && [...storageIds].every(id => dnrIds.has(id));
     
     if (!isInSync) {
       console.warn("DNR rules out of sync, triggering sync...");
@@ -115,10 +115,42 @@ async function validateDnrIntegrity() {
   }
 }
 
+async function trackBlockedPage(url) {
+  try {
+    const extensionUrl = browser.runtime.getURL('');
+    
+    if (url.startsWith(extensionUrl) && url.includes('blocked.html')) {
+      const urlObj = new URL(url);
+      const blockedUrl = urlObj.searchParams.get('url') ||
+        urlObj.searchParams.get('blocked') ||
+        urlObj.searchParams.get('site');
+      
+      if (blockedUrl) {
+        console.log(`Recording block: ${blockedUrl}`);
+        await StatisticsManager.recordBlock(blockedUrl);
+      }
+    }
+  } catch (error) {
+    console.error('Error tracking blocked page:', error);
+  }
+}
+
+browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete' && changeInfo.url) {
+    await trackBlockedPage(changeInfo.url);
+  }
+});
+
+browser.tabs.onCreated.addListener(async (tab) => {
+  if (tab.url && tab.url !== 'about:blank' && tab.url !== 'chrome://newtab/') {
+    await trackBlockedPage(tab.url);
+  }
+});
+
 browser.runtime.onStartup.addListener(async () => {
   console.log("Extension startup - syncing DNR rules");
   await syncDnrFromStorage();
-
+  
   setTimeout(async () => {
     await validateDnrIntegrity();
   }, 5000);
@@ -128,6 +160,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
   console.log("Extension installed/updated - syncing DNR rules");
   await syncDnrFromStorage();
   await SettingsManager.getSettings();
+  await StatisticsManager.getStatistics();
   await showUpdates(details);
 });
 
@@ -136,5 +169,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.tab && sender.tab.id) {
       browser.tabs.remove(sender.tab.id);
     }
+  }
+  
+  if (message.type === 'record_block') {
+    StatisticsManager.recordBlock(message.url);
   }
 });

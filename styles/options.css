@@ -313,6 +313,7 @@ button:hover {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .action-btn {

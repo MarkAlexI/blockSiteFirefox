@@ -1,6 +1,7 @@
 import { t } from '../scripts/t.js';
+import { ProManager } from '../pro/proManager.js';
 
-const isPro = false;
+const isPro = ProManager.isPro();
 
 export class SettingsManager {
   constructor() {

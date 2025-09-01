@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0] - 2025-09-01
+### Added
+- New **Statistics system**:
+  - Collects data via `tabs` API for accurate tracking.
+  - Stored in `storage.local` for speed and reliability.
+  - Automatically displayed on the settings page.
+  - Daily auto-reset of statistics.
+  - Integration with import/export system.
+  - Clear statistics (Pro mode only).
+
 ## [2.11.3] - 2025-08-31
 ### Changed
 - Rewritten initialization of settings for more reliable startup.
