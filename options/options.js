@@ -20,8 +20,19 @@ class OptionsPage {
   async init() {
     this.initializeUI();
     this.setupEventListeners();
+    
+    this.settingsManager.setRulesUpdatedCallback(() => {
+      this.loadRules();
+    });
+    
     await ProManager.initializeProFeatures();
     this.loadRules();
+    
+    browser.runtime.onMessage.addListener((message) => {
+      if (message.type === 'reload_rules') {
+        this.loadRules();
+      }
+    });
   }
   
   initializeUI() {

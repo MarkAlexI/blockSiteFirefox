@@ -11,7 +11,13 @@ export class SettingsManager {
       showNotifications: true
     };
     
+    this.onRulesUpdated = null;
+    
     this.init();
+  }
+  
+  setRulesUpdatedCallback(callback) {
+    this.onRulesUpdated = callback;
   }
   
   async init() {
@@ -218,6 +224,11 @@ export class SettingsManager {
       
       document.getElementById('importFileInput').value = '';
       
+      if (this.onRulesUpdated) {
+        this.onRulesUpdated();
+      }
+      
+      this.notifyOptionsReload();
     } catch (error) {
       console.error('Error importing rules:', error);
       this.showStatus(t('errorimportingrules') + error.message, 'error');
@@ -244,6 +255,11 @@ export class SettingsManager {
       await browser.storage.sync.set({ rules: [] });
       await this.loadStatistics();
       this.showStatus(t('allrulescleared'), 'success');
+      
+      if (this.onRulesUpdated) {
+        this.onRulesUpdated();
+      }
+      this.notifyOptionsReload();
     } catch (error) {
       console.error('Error clearing rules:', error);
       this.showStatus(t('errorclearingrules'), 'error');
@@ -273,5 +289,12 @@ export class SettingsManager {
     setTimeout(() => {
       statusElement.classList.remove('show');
     }, 3000);
+  }
+  
+  notifyOptionsReload() {
+    browser.runtime.sendMessage({
+      type: 'reload_rules',
+      excludeCurrentTab: true
+    });
   }
 }

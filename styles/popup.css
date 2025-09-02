@@ -41,6 +41,8 @@ body {
 }
 
 #current-mode {
+  white-space: nowrap;
+  display: inline-block;
   font-size: 14px;
   font-weight: bold;
   padding: 4px 8px;
