@@ -191,11 +191,35 @@ class PopupPage {
     icon.style.verticalAlign = 'middle';
     newButton.appendChild(icon);
     
+    if (this.isTouchDevice()) {
+      const domain = this.extractDomain(url);
+      const domainDiv = document.createElement('div');
+      domainDiv.className = 'site-domain';
+      domainDiv.textContent = `(${domain})`;
+      newButton.appendChild(domainDiv);
+    }
+    
     newButton.addEventListener('click', async () => {
       await this.blockCurrentSite(url, newButton);
     });
     
     this.addRuleButton.insertAdjacentElement('afterend', newButton);
+  }
+  
+  isTouchDevice() {
+    return ('ontouchstart' in window) ||
+      (navigator.maxTouchPoints > 0) ||
+      (navigator.msMaxTouchPoints > 0);
+  }
+  
+  extractDomain(url) {
+    try {
+      let domain = url.replace(/^https?:\/\//i, '').replace(/^www\./i, '');
+      domain = domain.split('/')[0];
+      return domain.length > 20 ? domain.substring(0, 17) + '...' : domain;
+    } catch (error) {
+      return url.substring(0, 20) + (url.length > 20 ? '...' : '');
+    }
   }
   
   async blockCurrentSite(url, button) {

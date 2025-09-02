@@ -225,6 +225,10 @@ body {
   }
 }
 
+.site-domain {
+  color: gold;
+}
+
 #donate-container {
   position: absolute;
   top: 10px;
