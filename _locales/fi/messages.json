@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Asetukset palautettu oletuksiin!" },
   "errorresettingsettings": { "message": "Virhe asetuksia palautettaessa" },
   "basicsettingstitle": { "message": "Perusasetukset" },
-  "advancedsettingstitle": { "message": "Lisäasetukset" }
+  "advancedsettingstitle": { "message": "Lisäasetukset" },
+  "statisticstitle": { "message": "Tilastot" }
 }

@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "सेटिंग्स डिफ़ॉल्ट पर रीसेट हो गईं!" },
   "errorresettingsettings": { "message": "सेटिंग्स रीसेट करते समय त्रुटि" },
   "basicsettingstitle": { "message": "मूल सेटिंग्स" },
-  "advancedsettingstitle": { "message": "उन्नत सेटिंग्स" }
+  "advancedsettingstitle": { "message": "उन्नत सेटिंग्स" },
+  "statisticstitle": { "message": "आंकड़े" }
 }

@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "La configuració s'ha restablert als valors per defecte!" },
   "errorresettingsettings": { "message": "Error en restablir la configuració" },
   "basicsettingstitle": { "message": "Configuració bàsica" },
-  "advancedsettingstitle": { "message": "Configuració avançada" }
+  "advancedsettingstitle": { "message": "Configuració avançada" },
+  "statisticstitle": { "message": "Estadístiques" }
 }

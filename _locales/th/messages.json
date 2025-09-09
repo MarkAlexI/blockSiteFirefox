@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "รีเซ็ตการตั้งค่าเป็นค่าเริ่มต้นเรียบร้อยแล้ว!" },
   "errorresettingsettings": { "message": "เกิดข้อผิดพลาดในการรีเซ็ตการตั้งค่า" },
   "basicsettingstitle": { "message": "การตั้งค่าพื้นฐาน" },
-  "advancedsettingstitle": { "message": "การตั้งค่าขั้นสูง" }
+  "advancedsettingstitle": { "message": "การตั้งค่าขั้นสูง" },
+  "statisticstitle": { "message": "สถิติ" }
 }

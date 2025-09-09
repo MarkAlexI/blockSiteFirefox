@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಲ್ಪಟ್ಟಿವೆ!" },
   "errorresettingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸುವಾಗ ದೋಷ" },
   "basicsettingstitle": { "message": "ಮೂಲಭೂತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
-  "advancedsettingstitle": { "message": "ಸುಧಾರಿತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" }
+  "advancedsettingstitle": { "message": "ಸುಧಾರಿತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
+  "statisticstitle": { "message": "ಅಂಕಿಅಂಶಗಳು" }
 }

@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "ቅንብሮች ወደ ነባሪ ተመልሰዋል!" },
   "errorresettingsettings": { "message": "ቅንብሮችን በማዘመን ላይ ስህተት" },
   "basicsettingstitle": { "message": "መሠረታዊ ቅንብሮች" },
-  "advancedsettingstitle": { "message": "የላቁ ቅንብሮች" }
+  "advancedsettingstitle": { "message": "የላቁ ቅንብሮች" },
+  "statisticstitle": { "message": "ስታቲስቲክስ" }
 }

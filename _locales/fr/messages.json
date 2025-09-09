@@ -114,5 +114,6 @@
   "resettodefaults": { "message": "Paramètres réinitialisés aux valeurs par défaut !" },
   "errorresettingsettings": { "message": "Erreur lors de la réinitialisation des paramètres" },
   "basicsettingstitle": { "message": "Paramètres de base" },
-  "advancedsettingstitle": { "message": "Paramètres avancés" }
+  "advancedsettingstitle": { "message": "Paramètres avancés" },
+  "statisticstitle": { "message": "Statistiques" }
 }

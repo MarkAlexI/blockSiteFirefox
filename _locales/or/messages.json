@@ -114,5 +114,6 @@
   "resettodefaults": { "message": "ସେଟିଂସ ଡିଫଲ୍ଟକୁ ରିସେଟ ହୋଇଛି!" },
   "errorresettingsettings": { "message": "ସେଟିଂସ ରିସେଟ କରିବାରେ ତ୍ରୁଟି" },
   "basicsettingstitle": { "message": "ମୌଳିକ ସେଟିଂସ୍" },
-  "advancedsettingstitle": { "message": "ଉନ୍ନତ ସେଟିଂସ୍" }
+  "advancedsettingstitle": { "message": "ଉନ୍ନତ ସେଟିଂସ୍" },
+  "statisticstitle": { "message": "ସଂଖ୍ୟାତ୍ମକ ତଥ୍ୟ" }
 }

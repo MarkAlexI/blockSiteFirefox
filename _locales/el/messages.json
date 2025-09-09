@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Οι ρυθμίσεις επαναφέρθηκαν στις προεπιλογές!" },
   "errorresettingsettings": { "message": "Σφάλμα κατά την επαναφορά ρυθμίσεων" },
   "basicsettingstitle": { "message": "Βασικές ρυθμίσεις" },
-  "advancedsettingstitle": { "message": "Προηγμένες ρυθμίσεις" }
+  "advancedsettingstitle": { "message": "Προηγμένες ρυθμίσεις" },
+  "statisticstitle": { "message": "Στατιστικά" }
 }

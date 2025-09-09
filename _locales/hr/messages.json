@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Postavke su vraćene na zadane vrijednosti!" },
   "errorresettingsettings": { "message": "Pogreška pri vraćanju postavki" },
   "basicsettingstitle": { "message": "Osnovne postavke" },
-  "advancedsettingstitle": { "message": "Napredne postavke" }
+  "advancedsettingstitle": { "message": "Napredne postavke" },
+  "statisticstitle": { "message": "Statistike" }
 }

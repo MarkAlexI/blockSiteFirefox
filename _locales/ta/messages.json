@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "அமைப்புகள் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கப்பட்டன!" },
   "errorresettingsettings": { "message": "அமைப்புகளை மீட்டமைக்கும்போது பிழை ஏற்பட்டது" },
   "basicsettingstitle": { "message": "அடிப்படை அமைப்புகள்" },
-  "advancedsettingstitle": { "message": "மேம்பட்ட அமைப்புகள்" }
+  "advancedsettingstitle": { "message": "மேம்பட்ட அமைப்புகள்" },
+  "statisticstitle": { "message": "புள்ளிவிவரங்கள்" }
 }

@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "ההגדרות אושרו לברירות המחדל!" },
   "errorresettingsettings": { "message": "שגיאה באיפוס ההגדרות" },
   "basicsettingstitle": { "message": "הגדרות בסיסיות" },
-  "advancedsettingstitle": { "message": "הגדרות מתקדמות" }
+  "advancedsettingstitle": { "message": "הגדרות מתקדמות" },
+  "statisticstitle": { "message": "סטטיסטיקות" }
 }

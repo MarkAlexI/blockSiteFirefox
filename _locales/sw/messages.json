@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Mipangilio imerudishwa kwenye chaguo la asili!" },
   "errorresettingsettings": { "message": "Hitilafu wakati wa kurudisha mipangilio" },
   "basicsettingstitle": { "message": "Mipangilio ya Msingi" },
-  "advancedsettingstitle": { "message": "Mipangilio ya Juu" }
+  "advancedsettingstitle": { "message": "Mipangilio ya Juu" },
+  "statisticstitle": { "message": "Takwimu" }
 }

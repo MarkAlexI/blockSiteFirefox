@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Matagumpay na na-reset ang mga setting sa default!" },
   "errorresettingsettings": { "message": "Error sa pag-reset ng mga setting" },
   "basicsettingstitle": { "message": "Mga Pangunahing Setting" },
-  "advancedsettingstitle": { "message": "Mga Advanced na Setting" }
+  "advancedsettingstitle": { "message": "Mga Advanced na Setting" },
+  "statisticstitle": { "message": "Estadistika" }
 }

@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Ayarlar varsayılan değerlere sıfırlandı!" },
   "errorresettingsettings": { "message": "Ayarları sıfırlarken hata oluştu" },
   "basicsettingstitle": { "message": "Temel Ayarlar" },
-  "advancedsettingstitle": { "message": "Gelişmiş Ayarlar" }
+  "advancedsettingstitle": { "message": "Gelişmiş Ayarlar" },
+  "statisticstitle": { "message": "İstatistikler" }
 }

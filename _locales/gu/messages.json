@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "સેટિંગ્સ ડિફોલ્ટ પર રીસેટ થઈ ગયા!" },
   "errorresettingsettings": { "message": "સેટિંગ્સ રીસેટ કરતી વખતે ભૂલ" },
   "basicsettingstitle": { "message": "મૂળભૂત સેટિંગ્સ" },
-  "advancedsettingstitle": { "message": "ઉન્નત સેટિંગ્સ" }
+  "advancedsettingstitle": { "message": "ઉન્નત સેટિંગ્સ" },
+  "statisticstitle": { "message": "આંકડા" }
 }

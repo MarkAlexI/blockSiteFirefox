@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Seaded lähtestati vaikeväärtustele!" },
   "errorresettingsettings": { "message": "Seadete lähtestamisel tekkis viga" },
   "basicsettingstitle": { "message": "Põhiseaded" },
-  "advancedsettingstitle": { "message": "Täpsemad seaded" }
+  "advancedsettingstitle": { "message": "Täpsemad seaded" },
+  "statisticstitle": { "message": "Statistika" }
 }

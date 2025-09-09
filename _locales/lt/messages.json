@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Nustatymai atstatyti į numatytąsias reikšmes!" },
   "errorresettingsettings": { "message": "Klaida atstatant nustatymus" },
   "basicsettingstitle": { "message": "Pagrindiniai nustatymai" },
-  "advancedsettingstitle": { "message": "Išplėstiniai nustatymai" }
+  "advancedsettingstitle": { "message": "Išplėstiniai nustatymai" },
+  "statisticstitle": { "message": "Statistika" }
 }

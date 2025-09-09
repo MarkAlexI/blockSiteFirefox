@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Beállítások visszaállítva az alapértelmezettre!" },
   "errorresettingsettings": { "message": "Hiba a beállítások visszaállításakor" },
   "basicsettingstitle": { "message": "Alapbeállítások" },
-  "advancedsettingstitle": { "message": "Haladó beállítások" }
+  "advancedsettingstitle": { "message": "Haladó beállítások" },
+  "statisticstitle": { "message": "Statisztikák" }
 }

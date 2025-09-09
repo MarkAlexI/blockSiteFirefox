@@ -114,5 +114,6 @@
   "resettodefaults": { "message": "Налаштування скинуто до стандартних!" },
   "errorresettingsettings": { "message": "Помилка скидання налаштувань" },
   "basicsettingstitle": { "message": "Основні налаштування" },
-  "advancedsettingstitle": { "message": "Розширені налаштування" }
+  "advancedsettingstitle": { "message": "Розширені налаштування" },
+  "statisticstitle": { "message": "Статистика" }
 }

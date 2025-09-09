@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Instellingen teruggezet naar standaardwaarden!" },
   "errorresettingsettings": { "message": "Fout bij het terugzetten van instellingen" },
   "basicsettingstitle": { "message": "Basisinstellingen" },
-  "advancedsettingstitle": { "message": "Geavanceerde instellingen" }
+  "advancedsettingstitle": { "message": "Geavanceerde instellingen" },
+  "statisticstitle": { "message": "Statistieken" }
 }

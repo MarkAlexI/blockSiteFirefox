@@ -114,5 +114,6 @@
   "resettodefaults": { "message": "設定がデフォルトにリセットされました！" },
   "errorresettingsettings": { "message": "設定のリセットエラー" },
   "basicsettingstitle": { "message": "基本設定" },
-  "advancedsettingstitle": { "message": "高度な設定" }
+  "advancedsettingstitle": { "message": "高度な設定" },
+  "statisticstitle": { "message": "統計" }
 }

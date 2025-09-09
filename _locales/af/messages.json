@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Instellings is na verstek herstel!" },
   "errorresettingsettings": { "message": "Fout tydens herstel van instellings" },
   "basicsettingstitle": { "message": "Basiese Instellings" },
-  "advancedsettingstitle": { "message": "Gevorderde Instellings" }
+  "advancedsettingstitle": { "message": "Gevorderde Instellings" },
+  "statisticstitle": { "message": "Statistieke" }
 }

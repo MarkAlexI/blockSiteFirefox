@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Cài đặt đã được đặt lại về mặc định!" },
   "errorresettingsettings": { "message": "Lỗi khi đặt lại cài đặt" },
   "basicsettingstitle": { "message": "Cài đặt cơ bản" },
-  "advancedsettingstitle": { "message": "Cài đặt nâng cao" }
+  "advancedsettingstitle": { "message": "Cài đặt nâng cao" },
+  "statisticstitle": { "message": "Thống kê" }
 }

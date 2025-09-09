@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Iestatījumi atiestatīti uz noklusējuma!" },
   "errorresettingsettings": { "message": "Kļūda atiestatot iestatījumus" },
   "basicsettingstitle": { "message": "Pamata iestatījumi" },
-  "advancedsettingstitle": { "message": "Papildu iestatījumi" }
+  "advancedsettingstitle": { "message": "Papildu iestatījumi" },
+  "statisticstitle": { "message": "Statistika" }
 }

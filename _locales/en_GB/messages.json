@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Settings reset to defaults!" },
   "errorresettingsettings": { "message": "Error resetting settings" },
   "basicsettingstitle": { "message": "Basic Settings" },
-  "advancedsettingstitle": { "message": "Advanced Settings" }
+  "advancedsettingstitle": { "message": "Advanced Settings" },
+  "statisticstitle": { "message": "Statistics" }
 }

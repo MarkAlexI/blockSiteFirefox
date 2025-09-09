@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Tetapan dikembalikan ke lalai!" },
   "errorresettingsettings": { "message": "Ralat menetapkan semula tetapan" },
   "basicsettingstitle": { "message": "Tetapan Asas" },
-  "advancedsettingstitle": { "message": "Tetapan Lanjutan" }
+  "advancedsettingstitle": { "message": "Tetapan Lanjutan" },
+  "statisticstitle": { "message": "Statistik" }
 }

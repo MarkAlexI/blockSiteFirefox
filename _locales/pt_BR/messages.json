@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Configurações restauradas para os valores padrão!" },
   "errorresettingsettings": { "message": "Erro ao restaurar configurações" },
   "basicsettingstitle": { "message": "Configurações básicas" },
-  "advancedsettingstitle": { "message": "Configurações avançadas" }
+  "advancedsettingstitle": { "message": "Configurações avançadas" },
+  "statisticstitle": { "message": "Estatísticas" }
 }

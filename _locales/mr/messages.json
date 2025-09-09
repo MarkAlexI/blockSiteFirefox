@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "सेटिंग्ज मुळ सेटिंग्जवर रीसेट केल्या!" },
   "errorresettingsettings": { "message": "सेटिंग्ज रीसेट करताना त्रुटी" },
   "basicsettingstitle": { "message": "मूलभूत सेटिंग्ज" },
-  "advancedsettingstitle": { "message": "प्रगत सेटिंग्ज" }
+  "advancedsettingstitle": { "message": "प्रगत सेटिंग्ज" },
+  "statisticstitle": { "message": "सांख्यिकी" }
 }

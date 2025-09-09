@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "تنظیمات به پیش‌فرض‌ها بازنشانی شدند!" },
   "errorresettingsettings": { "message": "خطا در بازنشانی تنظیمات" },
   "basicsettingstitle": { "message": "تنظیمات پایه" },
-  "advancedsettingstitle": { "message": "تنظیمات پیشرفته" }
+  "advancedsettingstitle": { "message": "تنظیمات پیشرفته" },
+  "statisticstitle": { "message": "آمار" }
 }

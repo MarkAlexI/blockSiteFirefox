@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Definições repostas para os valores padrão!" },
   "errorresettingsettings": { "message": "Erro ao repor definições" },
   "basicsettingstitle": { "message": "Definições básicas" },
-  "advancedsettingstitle": { "message": "Definições avançadas" }
+  "advancedsettingstitle": { "message": "Definições avançadas" },
+  "statisticstitle": { "message": "Estatísticas" }
 }

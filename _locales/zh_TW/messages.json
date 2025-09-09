@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "設定已恢復為預設值！" },
   "errorresettingsettings": { "message": "重置設定時發生錯誤" },
   "basicsettingstitle": { "message": "基本設定" },
-  "advancedsettingstitle": { "message": "進階設定" }
+  "advancedsettingstitle": { "message": "進階設定" },
+  "statisticstitle": { "message": "統計" }
 }

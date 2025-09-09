@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Nastavení byla obnovena na výchozí!" },
   "errorresettingsettings": { "message": "Chyba při obnovování nastavení" },
   "basicsettingstitle": { "message": "Základní nastavení" },
-  "advancedsettingstitle": { "message": "Pokročilá nastavení" }
+  "advancedsettingstitle": { "message": "Pokročilá nastavení" },
+  "statisticstitle": { "message": "Statistiky" }
 }

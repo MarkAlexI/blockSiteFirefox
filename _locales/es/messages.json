@@ -114,5 +114,6 @@
   "resettodefaults": { "message": "¡Configuración restablecida a los valores predeterminados!" },
   "errorresettingsettings": { "message": "Error al restablecer la configuración" },
   "basicsettingstitle": { "message": "Configuraciones básicas" },
-  "advancedsettingstitle": { "message": "Configuraciones avanzadas" }
+  "advancedsettingstitle": { "message": "Configuraciones avanzadas" },
+  "statisticstitle": { "message": "Estadísticas" }
 }

@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Nastavitve so bile ponastavljene na privzete!" },
   "errorresettingsettings": { "message": "Napaka pri ponastavitvi nastavitev" },
   "basicsettingstitle": { "message": "Osnovne nastavitve" },
-  "advancedsettingstitle": { "message": "Napredne nastavitve" }
+  "advancedsettingstitle": { "message": "Napredne nastavitve" },
+  "statisticstitle": { "message": "Statistika" }
 }

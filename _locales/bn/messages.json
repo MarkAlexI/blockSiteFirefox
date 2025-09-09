@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "সেটিংস ডিফল্টে রিসেট হয়েছে!" },
   "errorresettingsettings": { "message": "সেটিংস রিসেট করতে ত্রুটি" },
   "basicsettingstitle": { "message": "মৌলিক সেটিংস" },
-  "advancedsettingstitle": { "message": "উন্নত সেটিংস" }
+  "advancedsettingstitle": { "message": "উন্নত সেটিংস" },
+  "statisticstitle": { "message": "পরিসংখ্যান" }
 }

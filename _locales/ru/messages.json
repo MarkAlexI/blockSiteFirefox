@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Настройки сброшены к значениям по умолчанию!" },
   "errorresettingsettings": { "message": "Ошибка при сбросе настроек" },
   "basicsettingstitle": { "message": "Основные настройки" },
-  "advancedsettingstitle": { "message": "Расширенные настройки" }
+  "advancedsettingstitle": { "message": "Расширенные настройки" },
+  "statisticstitle": { "message": "Статистика" }
 }

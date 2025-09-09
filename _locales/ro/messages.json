@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Setările au fost resetate la valorile implicite!" },
   "errorresettingsettings": { "message": "Eroare la resetarea setărilor" },
   "basicsettingstitle": { "message": "Setări de bază" },
-  "advancedsettingstitle": { "message": "Setări avansate" }
+  "advancedsettingstitle": { "message": "Setări avansate" },
+  "statisticstitle": { "message": "Statistici" }
 }

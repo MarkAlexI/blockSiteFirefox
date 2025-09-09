@@ -114,5 +114,6 @@
   "resettodefaults": { "message": "تم إعادة تعيين الإعدادات إلى الافتراضية!" },
   "errorresettingsettings": { "message": "خطأ في إعادة تعيين الإعدادات" },
   "basicsettingstitle": { "message": "الإعدادات الأساسية" },
-  "advancedsettingstitle": { "message": "الإعدادات المتقدمة" }
+  "advancedsettingstitle": { "message": "الإعدادات المتقدمة" },
+  "statisticstitle": { "message": "الإحصائيات" } 
 }

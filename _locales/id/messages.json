@@ -105,5 +105,6 @@
   "resettodefaults": { "message": "Pengaturan berhasil di-reset ke default!" },
   "errorresettingsettings": { "message": "Kesalahan mengatur ulang pengaturan" },
   "basicsettingstitle": { "message": "Pengaturan Dasar" },
-  "advancedsettingstitle": { "message": "Pengaturan Lanjutan" }
+  "advancedsettingstitle": { "message": "Pengaturan Lanjutan" },
+  "statisticstitle": { "message": "Statistik" }
 }

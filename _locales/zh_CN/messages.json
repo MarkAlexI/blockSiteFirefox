@@ -114,5 +114,6 @@
   "resettodefaults": { "message": "设置已重置为默认值！" },
   "errorresettingsettings": { "message": "重置设置时出错" },
   "basicsettingstitle": { "message": "基本设置" },
-  "advancedsettingstitle": { "message": "高级设置" }
+  "advancedsettingstitle": { "message": "高级设置" },
+  "statisticstitle": { "message": "统计" }
 }
