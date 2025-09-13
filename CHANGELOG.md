@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.9] - 2025-09-13
+### Fixed
+- The popup now closes automatically when the settings page is opened.
+
 ## [2.12.8] - 2025-09-13
 ### Fixed
 - Resolved an issue where the "Block This Site" button in the popup could duplicate after rules were updated on the settings page.
