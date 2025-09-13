@@ -17,6 +17,10 @@ export class RulesManager {
   }
   
   async saveRules(rules) {
+    browser.runtime.sendMessage({
+      type: 'reload_rules'
+    });
+    
     return new Promise((resolve) => {
       browser.storage.sync.set({ rules }, resolve);
     });

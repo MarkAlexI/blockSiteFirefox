@@ -245,6 +245,10 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
     return true;
   }
+  
+  if (message.type === 'reload_rules') {
+    console.log('Rules updated.');
+  }
 });
 
 browser.alarms.onAlarm.addListener(async (alarm) => {
