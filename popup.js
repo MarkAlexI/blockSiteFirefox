@@ -405,3 +405,13 @@ browser.runtime.getBrowserInfo().then(info => {
     document.getElementById('warning-info').classList.remove('hidden');
   }
 });
+
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'pro_status_changed') {
+    console.log(`Pro status changed: ${message.isPro}`);
+
+    ProManager.updateProFeaturesVisibility(message.isPro);
+
+    sendResponse({ received: true });
+  }
+});

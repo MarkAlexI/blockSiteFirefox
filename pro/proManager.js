@@ -5,7 +5,11 @@ export class ProManager {
     subscriptionDate: null,
     expiryDate: null
   };
-
+  
+  static get hasDOM() {
+    return typeof document !== 'undefined' && document !== null;
+  }
+  
   static async isPro() {
     try {
       const result = await browser.storage.sync.get(['credentials']);
@@ -16,7 +20,7 @@ export class ProManager {
       }
       
       const credentials = { ...this.defaultCredentials, ...result.credentials };
-
+      
       if (credentials.isPro && credentials.expiryDate) {
         const isExpired = new Date() > new Date(credentials.expiryDate);
         if (isExpired) {
@@ -31,7 +35,7 @@ export class ProManager {
       return false;
     }
   }
-
+  
   static async getCredentials() {
     try {
       const result = await browser.storage.sync.get(['credentials']);
@@ -47,7 +51,7 @@ export class ProManager {
       return this.defaultCredentials;
     }
   }
-
+  
   static async updateProStatus(isPro, subscriptionData = {}) {
     try {
       const currentCredentials = await this.getCredentials();
@@ -61,8 +65,12 @@ export class ProManager {
       };
       
       await browser.storage.sync.set({ credentials: updatedCredentials });
-
-      this.updateProFeaturesVisibility(isPro);
+      
+      if (this.hasDOM) {
+        this.updateProFeaturesVisibility(isPro);
+      }
+      
+      this.notifyProStatusChange(isPro);
       
       return updatedCredentials;
     } catch (error) {
@@ -70,8 +78,13 @@ export class ProManager {
       throw error;
     }
   }
-
+  
   static updateProFeaturesVisibility(isPro) {
+    if (!this.hasDOM) {
+      console.log(`Pro status updated to: ${isPro} (no DOM available)`);
+      return;
+    }
+    
     try {
       const proFeatures = document.querySelectorAll('.pro-feature');
       
@@ -88,15 +101,41 @@ export class ProManager {
       console.error('Error updating Pro features visibility:', error);
     }
   }
+  
+  static async notifyProStatusChange(isPro) {
+    try {
+      browser.runtime.sendMessage({
+        type: 'pro_status_changed',
+        isPro: isPro
+      }).catch(() => {
 
+      });
+      
+    } catch (error) {
+      console.error('Error notifying Pro status change:', error);
+    }
+  }
+  
   static async initializeProFeatures() {
     try {
       const isPro = await this.isPro();
-      this.updateProFeaturesVisibility(isPro);
+      if (this.hasDOM) {
+        this.updateProFeaturesVisibility(isPro);
+      }
       return isPro;
     } catch (error) {
       console.error('Error initializing Pro features:', error);
       return false;
+    }
+  }
+  
+  static async setProStatusFromWorker(isPro, subscriptionData = {}) {
+    try {
+      console.log(`Service worker updating Pro status to: ${isPro}`);
+      return await this.updateProStatus(isPro, subscriptionData);
+    } catch (error) {
+      console.error('Error updating Pro status from service worker:', error);
+      throw error;
     }
   }
 }

@@ -27,12 +27,6 @@ class OptionsPage {
     
     await ProManager.initializeProFeatures();
     this.loadRules();
-    
-    browser.runtime.onMessage.addListener((message) => {
-      if (message.type === 'reload_rules') {
-        this.loadRules();
-      }
-    });
   }
   
   initializeUI() {
@@ -181,4 +175,18 @@ const optionsPage = new OptionsPage();
 
 window.addEventListener('beforeunload', () => {
   optionsPage.cleanup();
+});
+
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'reload_rules') {
+    optionsPage.loadRules();
+  }
+  
+  if (message.type === 'pro_status_changed') {
+    console.log(`Pro status changed: ${message.isPro}`);
+    
+    ProManager.updateProFeaturesVisibility(message.isPro);
+    
+    sendResponse({ received: true });
+  }
 });
