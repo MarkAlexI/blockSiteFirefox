@@ -166,6 +166,11 @@ class PopupPage {
   }
   
   showBlockThisSiteButton(rules) {
+    const existingButton = document.getElementById('block-that');
+    if (existingButton) {
+      existingButton.remove();
+    }
+    
     const currentUrl = normalizeUrlFilter(this.thisTabs[0]?.url || '');
     const alreadyBlocked = rules.some(rule => rule.blockURL === currentUrl);
     
