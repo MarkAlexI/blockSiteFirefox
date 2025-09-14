@@ -1,9 +1,13 @@
 export class ProManager {
+  static RESTRICTION_START_DATE = '2025-10-14T00:00:00Z';
+  
   static defaultCredentials = {
     isPro: false,
     subscriptionEmail: null,
     subscriptionDate: null,
-    expiryDate: null
+    expiryDate: null,
+    isLegacyUser: true,
+    installationDate: null
   };
   
   static get hasDOM() {
@@ -36,13 +40,28 @@ export class ProManager {
     }
   }
   
+  static async isLegacyUser() {
+    try {
+      const credentials = await this.getCredentials();
+      if (credentials.installationDate) {
+        return new Date(credentials.installationDate) < new Date(this.RESTRICTION_START_DATE);
+      }
+      return true;
+    } catch (error) {
+      console.info('Error checking legacy status:', error);
+      return true;
+    }
+  }
+  
   static async getCredentials() {
     try {
       const result = await browser.storage.sync.get(['credentials']);
       
       if (!result.credentials) {
-        await browser.storage.sync.set({ credentials: this.defaultCredentials });
-        return this.defaultCredentials;
+        const newCredentials = { ...this.defaultCredentials, installationDate: new Date().toISOString() };
+        newCredentials.isLegacyUser = new Date() < new Date(this.RESTRICTION_START_DATE);
+        await browser.storage.sync.set({ credentials: newCredentials });
+        return newCredentials;
       }
       
       return { ...this.defaultCredentials, ...result.credentials };
@@ -61,7 +80,9 @@ export class ProManager {
         isPro: isPro,
         subscriptionEmail: isPro ? subscriptionData.email || currentCredentials.subscriptionEmail : null,
         subscriptionDate: isPro ? subscriptionData.subscriptionDate || currentCredentials.subscriptionDate : null,
-        expiryDate: isPro ? subscriptionData.expiryDate || currentCredentials.expiryDate : null
+        expiryDate: isPro ? subscriptionData.expiryDate || currentCredentials.expiryDate : null,
+        isLegacyUser: subscriptionData.isLegacyUser !== undefined ? subscriptionData.isLegacyUser : currentCredentials.isLegacyUser,
+        installationDate: subscriptionData.installationDate || currentCredentials.installationDate
       };
       
       await browser.storage.sync.set({ credentials: updatedCredentials });
@@ -108,7 +129,7 @@ export class ProManager {
         type: 'pro_status_changed',
         isPro: isPro
       }).catch(() => {
-
+        
       });
       
     } catch (error) {

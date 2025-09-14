@@ -200,6 +200,32 @@ browser.runtime.onInstalled.addListener(async (details) => {
   await SettingsManager.getSettings();
   await StatisticsManager.getStatistics();
   await showUpdates(details);
+  
+  try {
+    const credentials = await ProManager.getCredentials();
+    
+    if (details.reason === 'install') {
+      const installDate = new Date().toISOString();
+      const isLegacy = new Date() < new Date(ProManager.RESTRICTION_START_DATE);
+      await ProManager.updateProStatus(credentials.isPro, {
+        ...credentials,
+        installationDate: installDate,
+        isLegacyUser: isLegacy
+      });
+      console.log(`New install: isLegacyUser set to ${isLegacy}`);
+    } else if (details.reason === 'update') {
+      if (credentials.installationDate === null || credentials.isLegacyUser === undefined) {
+        await ProManager.updateProStatus(credentials.isPro, {
+          ...credentials,
+          installationDate: credentials.installationDate || new Date(0).toISOString(),
+          isLegacyUser: true
+        });
+        console.log('Migrated existing users to legacy status');
+      }
+    }
+  } catch (error) {
+    console.info('Error handling install/update for legacy:', error);
+  }
 });
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
