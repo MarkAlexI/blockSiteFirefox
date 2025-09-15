@@ -117,7 +117,7 @@ class PopupPage {
       this.openFeedbackEmail();
     });
     
-    this.addRuleButton.addEventListener('click', () => {
+    this.addRuleButton.addEventListener('click', async () => {
       if (!this.isPro && !this.isLegacyUser) {
         const rules = await this.rulesManager.getRules();
         if (rules.length >= MAX_RULES_LIMIT) {
@@ -424,12 +424,11 @@ class PopupPage {
         deleteButton,
         async () => {
             try {
-              await this.rulesManager.deleteRuleByData(blockURL, redirectURL);
-              
-              const updatedRules = await this.rulesManager.getRules();
-              this.updateStatus(updatedRules.length);
-              
               if (blockURL) {
+                await this.rulesManager.deleteRuleByData(blockURL, redirectURL);
+                
+                const updatedRules = await this.rulesManager.getRules();
+                this.updateStatus(updatedRules.length);
                 customAlert('- 1');
               }
               ruleDiv.remove();
