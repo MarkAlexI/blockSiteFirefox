@@ -115,5 +115,15 @@
   "errorresettingsettings": { "message": "Помилка скидання налаштувань" },
   "basicsettingstitle": { "message": "Основні налаштування" },
   "advancedsettingstitle": { "message": "Розширені налаштування" },
-  "statisticstitle": { "message": "Статистика" }
+  "statisticstitle": { "message": "Статистика" },
+  "rulelimitreached": {
+    "message": "Досягнуто ліміт правил ($limit$) для базової версії. Оновіть до Pro для необмеженої кількості правил.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Потрібен Pro для редагування." }
 }

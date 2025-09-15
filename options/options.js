@@ -4,6 +4,8 @@ import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
 import { RulesUI } from '../rules/rulesUI.js';
 
+const MAX_RULES_LIMIT = 5;
+
 class OptionsPage {
   constructor() {
     this.settingsManager = new SettingsManager();
@@ -13,6 +15,9 @@ class OptionsPage {
     this.rulesBody = document.getElementById('rules-body');
     this.addRuleButton = document.getElementById('add-rule');
     this.statusElement = document.getElementById('status');
+    
+    this.isPro = false;
+    this.isLegacyUser = true;
     
     this.init();
   }
@@ -24,6 +29,13 @@ class OptionsPage {
     this.settingsManager.setRulesUpdatedCallback(() => {
       this.loadRules();
     });
+    
+    try {
+      this.isPro = await ProManager.isPro();
+      this.isLegacyUser = await ProManager.isLegacyUser();
+    } catch (error) {
+      console.info('Error initializing Pro/Legacy status:', error);
+    }
     
     await ProManager.initializeProFeatures();
     this.loadRules();
@@ -78,7 +90,8 @@ class OptionsPage {
       rule,
       index,
       (row, index, rule) => this.toggleEditMode(row, index, rule),
-      (e, index) => this.handleRuleDeletion(e, index)
+      (e, index) => this.handleRuleDeletion(e, index),
+      this.isPro || this.isLegacyUser
     );
   }
   
@@ -138,13 +151,26 @@ class OptionsPage {
     }
   }
   
-  showAddRuleForm() {
-    const newRow = this.rulesUI.createAddRuleRow(
-      (blockValue, redirectValue, row) => this.saveNewRule(blockValue, redirectValue, row),
-      (row) => row.remove()
-    );
-    
-    this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
+  async showAddRuleForm() {
+    try {
+      if (!this.isPro && !this.isLegacyUser) {
+        const rules = await this.rulesManager.getRules();
+        if (rules.length >= MAX_RULES_LIMIT) {
+          this.rulesUI.showErrorMessage(t('rulelimitreached', MAX_RULES_LIMIT));
+          return;
+        }
+      }
+      
+      const newRow = this.rulesUI.createAddRuleRow(
+        (blockValue, redirectValue, row) => this.saveNewRule(blockValue, redirectValue, row),
+        (row) => row.remove()
+      );
+      
+      this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
+    } catch (error) {
+      console.info('Error checking rule limit:', error);
+      this.rulesUI.showErrorMessage(t('erroraddingrule'));
+    }
   }
   
   async saveNewRule(newBlock, newRedirect, row) {

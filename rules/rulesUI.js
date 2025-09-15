@@ -89,33 +89,37 @@ export class RulesUI {
     
     deleteButton.addEventListener('click', cancelHandler);
   }
-
-  createRuleDisplayRow(rule, index, onEdit, onDelete) {
+  
+  createRuleDisplayRow(rule, index, onEdit, onDelete, showButtons = true) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     row.dataset.ruleId = rule.id;
-
+    
     const blockCell = document.createElement('td');
     blockCell.textContent = rule.blockURL;
     row.appendChild(blockCell);
-
+    
     const redirectCell = document.createElement('td');
     redirectCell.textContent = rule.redirectURL || '—';
     row.appendChild(redirectCell);
-
+    
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
-
-    const editBtn = document.createElement('button');
-    editBtn.textContent = t('editbtn');
-    editBtn.addEventListener('click', () => onEdit(row, index, rule));
-    actionsCell.appendChild(editBtn);
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'delete-btn';
-    deleteBtn.textContent = t('deletebtn');
-    deleteBtn.addEventListener('click', (e) => onDelete(e, index));
-    actionsCell.appendChild(deleteBtn);
+    
+    if (showButtons) {
+      const editBtn = document.createElement('button');
+      editBtn.textContent = t('editbtn');
+      editBtn.addEventListener('click', () => onEdit(row, index, rule));
+      actionsCell.appendChild(editBtn);
+      
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.textContent = t('deletebtn');
+      deleteBtn.addEventListener('click', (e) => onDelete(e, index));
+      actionsCell.appendChild(deleteBtn);
+    } else {
+      actionsCell.textContent = t('proonlyactions') || 'Need Pro for editing.';
+    }
     
     row.appendChild(actionsCell);
     return row;
@@ -124,7 +128,7 @@ export class RulesUI {
   createRuleEditRow(rule, index, onSave, onCancel) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
-
+    
     const blockInput = document.createElement('input');
     blockInput.type = 'text';
     blockInput.value = rule.blockURL;
@@ -133,7 +137,7 @@ export class RulesUI {
     blockCell.className = 'edit-mode';
     blockCell.appendChild(blockInput);
     row.appendChild(blockCell);
-
+    
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
     redirectInput.value = rule.redirectURL || '';
@@ -142,7 +146,7 @@ export class RulesUI {
     redirectCell.className = 'edit-mode';
     redirectCell.appendChild(redirectInput);
     row.appendChild(redirectCell);
-
+    
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
     
@@ -164,7 +168,7 @@ export class RulesUI {
   createAddRuleRow(onSave, onCancel) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
-
+    
     const blockInput = document.createElement('input');
     blockInput.type = 'text';
     blockInput.placeholder = t('blockurl');
@@ -172,7 +176,7 @@ export class RulesUI {
     blockCell.className = 'edit-mode';
     blockCell.appendChild(blockInput);
     row.appendChild(blockCell);
-
+    
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
     redirectInput.placeholder = t('redirecturl');
@@ -180,7 +184,7 @@ export class RulesUI {
     redirectCell.className = 'edit-mode';
     redirectCell.appendChild(redirectInput);
     row.appendChild(redirectCell);
-
+    
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
     

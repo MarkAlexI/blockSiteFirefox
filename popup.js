@@ -6,6 +6,9 @@ import { normalizeUrlFilter } from './scripts/normalizeUrlFilter.js';
 import { t } from './scripts/t.js';
 import { RulesManager } from './rules/rulesManager.js';
 import { RulesUI } from './rules/rulesUI.js';
+import { ProManager } from './pro/proManager.js';
+
+const MAX_RULES_LIMIT = 5;
 
 class PopupPage {
   constructor() {
@@ -19,6 +22,9 @@ class PopupPage {
     
     this.thisTabs = [];
     
+    this.isPro = false;
+    this.isLegacyUser = true;
+    
     this.init();
   }
   
@@ -27,6 +33,14 @@ class PopupPage {
     this.setupEventListeners();
     await this.loadSecurityMode();
     await this.loadCurrentTabs();
+    
+    try {
+      this.isPro = await ProManager.isPro();
+      this.isLegacyUser = await ProManager.isLegacyUser();
+    } catch (error) {
+      console.info('Error initializing Pro/Legacy status:', error);
+    }
+    
     await this.loadRules();
   }
   
@@ -104,6 +118,13 @@ class PopupPage {
     });
     
     this.addRuleButton.addEventListener('click', () => {
+      if (!this.isPro && !this.isLegacyUser) {
+        const rules = await this.rulesManager.getRules();
+        if (rules.length >= MAX_RULES_LIMIT) {
+          customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
+          return;
+        }
+      }
       this.createRuleInputs();
     });
     
@@ -120,7 +141,7 @@ class PopupPage {
     if (browser && browser.runtime && browser.runtime.openOptionsPage) {
       try {
         await browser.runtime.openOptionsPage();
-
+        
         const tabs = await browser.tabs.query({ currentWindow: true });
         const optionsTab = tabs[tabs.length - 1];
         if (optionsTab && optionsTab.url.includes('options.html')) {
@@ -128,7 +149,7 @@ class PopupPage {
         }
       } catch (error) {
         console.info('Error with openOptionsPage:', error);
-
+        
         const optionsUrl = browser.runtime.getURL('options/options.html');
         const newTab = await browser.tabs.create({ url: optionsUrl });
         await browser.tabs.update(newTab.id, { active: true });
@@ -138,7 +159,7 @@ class PopupPage {
       const newTab = await browser.tabs.create({ url: optionsUrl });
       await browser.tabs.update(newTab.id, { active: true });
     }
-
+    
     if (currentTab && currentTab.id) {
       setTimeout(() => {
         browser.tabs.remove(currentTab.id).catch(err => console.error('Error closing popup tab:', err));
@@ -230,6 +251,13 @@ class PopupPage {
     }
     
     newButton.addEventListener('click', async () => {
+      if (!this.isPro && !this.isLegacyUser) {
+        const rules = await this.rulesManager.getRules();
+        if (rules.length >= MAX_RULES_LIMIT) {
+          customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
+          return;
+        }
+      }
       await this.blockCurrentSite(url, newButton);
     });
     
@@ -291,27 +319,44 @@ class PopupPage {
     redirectURL.placeholder = t('redirecturl');
     redirectURL.value = redirectURLValue;
     
-    const deleteButton = document.createElement('button');
-    deleteButton.className = 'delete-btn';
-    deleteButton.textContent = t('deletebtn');
-    
-    deleteButton.addEventListener('click', async () => {
-      await this.handleRuleDeletion(deleteButton, blockURL.value, redirectURL.value, ruleDiv);
-    });
+    const showButtons = this.isPro || this.isLegacyUser;
     
     setTimeout(() => {
       ruleDiv.appendChild(blockURL);
       ruleDiv.appendChild(redirectURL);
       
       if (!blockURLValue) {
-        const saveButton = this.createSaveButton(blockURL, redirectURL, ruleDiv);
-        ruleDiv.appendChild(saveButton);
+        if (showButtons) {
+          const saveButton = this.createSaveButton(blockURL, redirectURL, ruleDiv);
+          ruleDiv.appendChild(saveButton);
+        } else {
+          const proMessage = document.createElement('span');
+          proMessage.textContent = t('proonlyactions');
+          proMessage.className = 'pro-message';
+          ruleDiv.appendChild(proMessage);
+        }
       } else {
         this.makeInputReadOnly(blockURL);
         this.makeInputReadOnly(redirectURL);
       }
       
-      ruleDiv.appendChild(deleteButton);
+      if (showButtons) {
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-btn';
+        deleteButton.textContent = t('deletebtn');
+        
+        deleteButton.addEventListener('click', async () => {
+          await this.handleRuleDeletion(deleteButton, blockURL.value, redirectURL.value, ruleDiv);
+        });
+        
+        ruleDiv.appendChild(deleteButton);
+      } else {
+        const proMessage = document.createElement('span');
+        proMessage.textContent = t('proonlyactions');
+        proMessage.className = 'pro-message';
+        ruleDiv.appendChild(proMessage);
+      }
+      
       this.rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
     }, 0);
   }

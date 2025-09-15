@@ -116,5 +116,15 @@
   "errorresettingsettings": { "message": "Error resetting settings" },
   "basicsettingstitle": { "message": "Basic Settings" },
   "advancedsettingstitle": { "message": "Advanced Settings" },
-  "statisticstitle": { "message": "Statistics" }
+  "statisticstitle": { "message": "Statistics" },
+  "rulelimitreached": {
+    "message": "You have reached the rule limit ($limit$) for the basic version. Upgrade to Pro for unlimited rules.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Need Pro for Editing." }
 }
