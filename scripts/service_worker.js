@@ -5,6 +5,49 @@ import { ProManager } from '../pro/proManager.js';
 
 const rulesManager = new RulesManager();
 
+async function updateContextMenu(isPro) {
+  if (!chrome.contextMenus) {
+    console.log('contextMenus API not available on this platform');
+    return;
+  }
+  
+  try {
+    await chrome.contextMenus.remove('blockDistraction').catch(() => {});
+    
+    if (isPro) {
+      await chrome.contextMenus.create({
+        id: 'blockDistraction',
+        title: 'BlockDistraction',
+        contexts: ['link']
+      });
+      console.log('BlockDistraction context menu created');
+    } else {
+      console.log('BlockDistraction context menu removed (non-pro mode)');
+    }
+  } catch (error) {
+    console.info('Error updating context menu:', error);
+  }
+}
+
+if (chrome.contextMenus) {
+  chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+    if (info.menuItemId === 'blockDistraction' && info.linkUrl) {
+      const isPro = await ProManager.isPro();
+      if (!isPro) {
+        console.warn('Attempted to block while not in pro mode');
+        return;
+      }
+      
+      try {
+        await rulesManager.addRule(info.linkUrl, '');
+        console.log('Blocked URL:', info.linkUrl);
+      } catch (error) {
+        console.info('Error blocking URL:', error);
+      }
+    }
+  });
+}
+
 async function syncDnrFromStorage() {
   try {
     const rules = await rulesManager.getRules();
@@ -142,6 +185,7 @@ async function handleProStatusUpdate(isPro, subscriptionData = {}) {
     console.log(`Service worker received Pro status update: ${isPro}`);
     const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
     console.log('Pro status updated successfully:', updatedCredentials);
+    await updateContextMenu(isPro);
     return updatedCredentials;
   } catch (error) {
     console.error('Error handling Pro status update:', error);
@@ -223,6 +267,9 @@ browser.runtime.onInstalled.addListener(async (details) => {
         console.log('Migrated existing users to legacy status');
       }
     }
+    
+    const isPro = await ProManager.isPro();
+    await updateContextMenu(isPro);
   } catch (error) {
     console.info('Error handling install/update for legacy:', error);
   }
@@ -275,11 +322,16 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'reload_rules') {
     console.log('Rules updated.');
   }
+  
+  if (message.type === 'pro_status_changed') {
+    updateContextMenu(message.isPro);
+  }
 });
 
 browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'check_pro_expiry') {
-    await checkProStatusExpiry();
+    const isPro = await checkProStatusExpiry();
+    await updateContextMenu(isPro);
   }
 });
 
