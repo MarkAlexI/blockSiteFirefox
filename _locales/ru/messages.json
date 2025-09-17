@@ -1,5 +1,5 @@
 {
-  "chromename": { "message": "BlockDistraction — Блокировка сайтов" },
+  "chromename": { "message": "BlockDistraction – Блокировка сайтов" },
   "shortname": { "message": "БлокСайт" },
   "description": { "message": "Простой и надёжный инструмент для блокировки и перенаправления сайтов, чтобы оставаться сосредоточенным." },
   "defaulttitle": { "message": "Будь сосредоточенным и продуктивным" },

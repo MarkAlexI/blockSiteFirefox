@@ -1,5 +1,5 @@
 {
-  "chromename": { "message": "BlockDistraction — 사이트 차단기" },
+  "chromename": { "message": "BlockDistraction – 사이트 차단기" },
   "shortname": { "message": "차단기" },
   "description": { "message": "집중력을 유지하도록 웹사이트를 차단하고 리디렉션하는 간단하고 신뢰할 수 있는 도구입니다." },
   "defaulttitle": { "message": "집중하고 생산적으로" },
