@@ -444,8 +444,8 @@ class PopupPage {
               ruleDiv.remove();
               
             } catch (error) {
-              console.error("Delete rule error:", error);
-              customAlert(t('errorremovingrule'));
+              console.info("Delete rule error:", error);
+              ruleDiv.remove();
             }
           },
           isStrictMode,
