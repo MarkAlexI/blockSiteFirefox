@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Fout tydens herstel van instellings" },
   "basicsettingstitle": { "message": "Basiese Instellings" },
   "advancedsettingstitle": { "message": "Gevorderde Instellings" },
-  "statisticstitle": { "message": "Statistieke" }
+  "statisticstitle": { "message": "Statistieke" },
+  "rulelimitreached": {
+    "message": "Jy het die reël-limiet ($limit$) vir die basiese weergawe bereik. Gradeer op na Pro vir onbeperkte reëls.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro benodig vir redigering." },
+  "invalidpassword": { "message": "Ongeldige wagwoord" },
+  "setpassword": { "message": "Stel wagwoord" },
+  "enterpassword": { "message": "Voer wagwoord in" },
+  "passwordmismatch": { "message": "Wagwoorde stem nie ooreen nie" },
+  "passwordtooshort": { "message": "Wagwoord moet ten minste 6 karakters wees" },
+  "resetpasswordconfirm": { "message": "Die herstel van die wagwoord sal beskerming deaktiveer. Gaan voort?" },
+  "passwordset": { "message": "Wagwoord suksesvol gestel" },
+  "passworddisabled": { "message": "Wagwoordbeskerming gedeaktiveer" },
+  "prorequired": { "message": "Pro-modus vereis vir hierdie funksie" },
+  "enablepasswordtitle": { "message": "Aktiveer wagwoordbeskerming" },
+  "enablepassworddesc": { "message": "Vereis 'n wagwoord om reëls te verwyder of te wysig (versterk streng modus)" },
+  "passwordprotectiontitle": { "message": "Wagwoordbeskerming" }
 }

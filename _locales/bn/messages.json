@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "সেটিংস রিসেট করতে ত্রুটি" },
   "basicsettingstitle": { "message": "মৌলিক সেটিংস" },
   "advancedsettingstitle": { "message": "উন্নত সেটিংস" },
-  "statisticstitle": { "message": "পরিসংখ্যান" }
+  "statisticstitle": { "message": "পরিসংখ্যান" },
+  "rulelimitreached": {
+    "message": "আপনি মৌলিক সংস্করণের জন্য নিয়মের সীমা ($limit$) পৌঁছে গেছেন। সীমাহীন নিয়মের জন্য প্রো-তে আপগ্রেড করুন।",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "সম্পাদনার জন্য প্রো প্রয়োজন।" },
+  "invalidpassword": { "message": "অবৈধ পাসওয়ার্ড" },
+  "setpassword": { "message": "পাসওয়ার্ড সেট করুন" },
+  "enterpassword": { "message": "পাসওয়ার্ড লিখুন" },
+  "passwordmismatch": { "message": "পাসওয়ার্ডগুলি মেলেনি" },
+  "passwordtooshort": { "message": "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে" },
+  "resetpasswordconfirm": { "message": "পাসওয়ার্ড রিসেট করলে সুরক্ষা নিষ্ক্রিয় হবে। চালিয়ে যেতে চান?" },
+  "passwordset": { "message": "পাসওয়ার্ড সফলভাবে সেট করা হয়েছে" },
+  "passworddisabled": { "message": "পাসওয়ার্ড সুরক্ষা নিষ্ক্রিয় করা হয়েছে" },
+  "prorequired": { "message": "এই বৈশিষ্ট্যের জন্য প্রো মোড প্রয়োজন" },
+  "enablepasswordtitle": { "message": "পাসওয়ার্ড সুরক্ষা সক্ষম করুন" },
+  "enablepassworddesc": { "message": "নিয়ম মুছে ফেলা বা সম্পাদনার জন্য পাসওয়ার্ড প্রয়োজন (কঠোর মোড উন্নত করে)" },
+  "passwordprotectiontitle": { "message": "পাসওয়ার্ড সুরক্ষা" }
 }

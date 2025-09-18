@@ -115,5 +115,27 @@
   "errorresettingsettings": { "message": "重置设置时出错" },
   "basicsettingstitle": { "message": "基本设置" },
   "advancedsettingstitle": { "message": "高级设置" },
-  "statisticstitle": { "message": "统计" }
+  "statisticstitle": { "message": "统计" },
+  "rulelimitreached": {
+    "message": "您已达到基本版的规则限制 ($limit$)。升级到 Pro 以获得无限规则。",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "编辑需要 Pro 版本。" },
+  "invalidpassword": { "message": "无效密码" },
+  "setpassword": { "message": "设置密码" },
+  "enterpassword": { "message": "输入密码" },
+  "passwordmismatch": { "message": "密码不匹配" },
+  "passwordtooshort": { "message": "密码必须至少包含 6 个字符" },
+  "resetpasswordconfirm": { "message": "重置密码将禁用保护。继续吗？" },
+  "passwordset": { "message": "密码设置成功" },
+  "passworddisabled": { "message": "密码保护已禁用" },
+  "prorequired": { "message": "此功能需要 Pro 模式" },
+  "enablepasswordtitle": { "message": "启用密码保护" },
+  "enablepassworddesc": { "message": "删除或编辑规则需要密码（增强严格模式）" },
+  "passwordprotectiontitle": { "message": "密码保护" }
 }

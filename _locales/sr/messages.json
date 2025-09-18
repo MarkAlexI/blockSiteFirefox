@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Грешка при враћању подешавања" },
   "basicsettingstitle": { "message": "Osnovna podešavanja" },
   "advancedsettingstitle": { "message": "Napredna podešavanja" },
-  "statisticstitle": { "message": "Статистика" }
+  "statisticstitle": { "message": "Статистика" },
+  "rulelimitreached": {
+    "message": "Достигли сте ограничење правила ($limit$) у основној верзији. Надоградите на Про за неограничена правила.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Про је потребан за уређивање." },
+  "invalidpassword": { "message": "Неважећа лозинка" },
+  "setpassword": { "message": "Постави лозинку" },
+  "enterpassword": { "message": "Унеси лозинку" },
+  "passwordmismatch": { "message": "Лозинке се не подударају" },
+  "passwordtooshort": { "message": "Лозинка мора имати најмање 6 карактера" },
+  "resetpasswordconfirm": { "message": "Ресетовање лозинке ће онемогућити заштиту. Наставити?" },
+  "passwordset": { "message": "Лозинка је успешно постављена" },
+  "passworddisabled": { "message": "Заштита лозинком је онемогућена" },
+  "prorequired": { "message": "Про режим је потребан за ову функцију" },
+  "enablepasswordtitle": { "message": "Омогући заштиту лозинком" },
+  "enablepassworddesc": { "message": "Захтева лозинку за брисање или уређивање правила (побољшава строги режим)" },
+  "passwordprotectiontitle": { "message": "Заштита лозинком" }
 }

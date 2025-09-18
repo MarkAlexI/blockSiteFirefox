@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Seadete lähtestamisel tekkis viga" },
   "basicsettingstitle": { "message": "Põhiseaded" },
   "advancedsettingstitle": { "message": "Täpsemad seaded" },
-  "statisticstitle": { "message": "Statistika" }
+  "statisticstitle": { "message": "Statistika" },
+  "rulelimitreached": {
+    "message": "Olete jõudnud põhipaketi reeglite piiranguni ($limit$). Uuendage Pro versioonile piiramatute reeglite jaoks.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Redigeerimiseks on vaja Pro versiooni." },
+  "invalidpassword": { "message": "Vale parool" },
+  "setpassword": { "message": "Määra parool" },
+  "enterpassword": { "message": "Sisesta parool" },
+  "passwordmismatch": { "message": "Paroolid ei ühti" },
+  "passwordtooshort": { "message": "Parool peab olema vähemalt 6 tähemärki pikk" },
+  "resetpasswordconfirm": { "message": "Parooli lähtestamine deaktiveerib kaitse. Kas jätkata?" },
+  "passwordset": { "message": "Parool on edukalt määratud" },
+  "passworddisabled": { "message": "Paroolikaitse on deaktiveeritud" },
+  "prorequired": { "message": "Selle funktsiooni jaoks on vaja Pro režiimi" },
+  "enablepasswordtitle": { "message": "Aktiveeri paroolikaitse" },
+  "enablepassworddesc": { "message": "Nõuab parooli reeglite kustutamiseks või muutmiseks (täiustab ranget režiimi)" },
+  "passwordprotectiontitle": { "message": "Paroolikaitse" }
 }

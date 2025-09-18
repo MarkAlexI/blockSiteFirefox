@@ -115,5 +115,27 @@
   "errorresettingsettings": { "message": "Erreur lors de la réinitialisation des paramètres" },
   "basicsettingstitle": { "message": "Paramètres de base" },
   "advancedsettingstitle": { "message": "Paramètres avancés" },
-  "statisticstitle": { "message": "Statistiques" }
+  "statisticstitle": { "message": "Statistiques" },
+  "rulelimitreached": {
+    "message": "Vous avez atteint la limite de règles ($limit$) pour la version de base. Passez à la version Pro pour des règles illimitées.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro requis pour la modification." },
+  "invalidpassword": { "message": "Mot de passe invalide" },
+  "setpassword": { "message": "Définir un mot de passe" },
+  "enterpassword": { "message": "Saisir le mot de passe" },
+  "passwordmismatch": { "message": "Les mots de passe ne correspondent pas" },
+  "passwordtooshort": { "message": "Le mot de passe doit comporter au moins 6 caractères" },
+  "resetpasswordconfirm": { "message": "La réinitialisation du mot de passe désactivera la protection. Continuer ?" },
+  "passwordset": { "message": "Mot de passe défini avec succès" },
+  "passworddisabled": { "message": "Protection par mot de passe désactivée" },
+  "prorequired": { "message": "Mode Pro requis pour cette fonctionnalité" },
+  "enablepasswordtitle": { "message": "Activer la protection par mot de passe" },
+  "enablepassworddesc": { "message": "Exige un mot de passe pour supprimer ou modifier des règles (renforce le mode strict)" },
+  "passwordprotectiontitle": { "message": "Protection par mot de passe" }
 }

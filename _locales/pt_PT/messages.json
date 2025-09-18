@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Erro ao repor definições" },
   "basicsettingstitle": { "message": "Definições básicas" },
   "advancedsettingstitle": { "message": "Definições avançadas" },
-  "statisticstitle": { "message": "Estatísticas" }
+  "statisticstitle": { "message": "Estatísticas" },
+  "rulelimitreached": {
+    "message": "Atingiu o limite de regras ($limit$) na versão básica. Atualize para o Pro para regras ilimitadas.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro necessário para edição." },
+  "invalidpassword": { "message": "Palavra-passe inválida" },
+  "setpassword": { "message": "Definir palavra-passe" },
+  "enterpassword": { "message": "Introduzir palavra-passe" },
+  "passwordmismatch": { "message": "As palavras-passe não coincidem" },
+  "passwordtooshort": { "message": "A palavra-passe deve ter pelo menos 6 caracteres" },
+  "resetpasswordconfirm": { "message": "Redefinir a palavra-passe desativará a proteção. Continuar?" },
+  "passwordset": { "message": "Palavra-passe definida com sucesso" },
+  "passworddisabled": { "message": "Proteção por palavra-passe desativada" },
+  "prorequired": { "message": "Modo Pro necessário para esta funcionalidade" },
+  "enablepasswordtitle": { "message": "Ativar proteção por palavra-passe" },
+  "enablepassworddesc": { "message": "Requer uma palavra-passe para eliminar ou editar regras (melhora o modo estrito)" },
+  "passwordprotectiontitle": { "message": "Proteção por palavra-passe" }
 }

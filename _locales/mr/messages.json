@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "सेटिंग्ज रीसेट करताना त्रुटी" },
   "basicsettingstitle": { "message": "मूलभूत सेटिंग्ज" },
   "advancedsettingstitle": { "message": "प्रगत सेटिंग्ज" },
-  "statisticstitle": { "message": "सांख्यिकी" }
+  "statisticstitle": { "message": "सांख्यिकी" },
+  "rulelimitreached": {
+    "message": "तुम्ही मूलभूत आवृत्तीसाठी नियमांची मर्यादा ($limit$) गाठली आहे. अमर्यादित नियमांसाठी प्रो वर अपग्रेड करा.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "संपादनासाठी प्रो आवश्यक आहे." },
+  "invalidpassword": { "message": "अवैध पासवर्ड" },
+  "setpassword": { "message": "पासवर्ड सेट करा" },
+  "enterpassword": { "message": "पासवर्ड प्रविष्ट करा" },
+  "passwordmismatch": { "message": "पासवर्ड जुळत नाहीत" },
+  "passwordtooshort": { "message": "पासवर्ड किमान 6 अक्षरांचा असावा" },
+  "resetpasswordconfirm": { "message": "पासवर्ड रीसेट केल्याने संरक्षण अक्षम होईल. पुढे जायचे?" },
+  "passwordset": { "message": "पासवर्ड यशस्वीरित्या सेट केला" },
+  "passworddisabled": { "message": "पासवर्ड संरक्षण अक्षम केले" },
+  "prorequired": { "message": "या वैशिष्ट्यासाठी प्रो मोड आवश्यक आहे" },
+  "enablepasswordtitle": { "message": "पासवर्ड संरक्षण सक्षम करा" },
+  "enablepassworddesc": { "message": "नियम हटवण्यासाठी किंवा संपादित करण्यासाठी पासवर्ड आवश्यक आहे (कठोर मोड सुधारते)" },
+  "passwordprotectiontitle": { "message": "पासवर्ड संरक्षण" }
 }

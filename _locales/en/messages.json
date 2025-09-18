@@ -126,5 +126,17 @@
       }
     }
   },
-  "proonlyactions": { "message": "Need Pro for Editing." }
+  "proonlyactions": { "message": "Need Pro for Editing." },
+  "invalidpassword": { "message": "Invalid password" },
+  "setpassword": { "message": "Set Password" },
+  "enterpassword": { "message": "Enter Password" },
+  "passwordmismatch": { "message": "Passwords do not match" },
+  "passwordtooshort": { "message": "Password must be at least 6 characters" },
+  "resetpasswordconfirm": { "message": "Resetting the password will disable protection. Continue?" },
+  "passwordset": { "message": "Password set successfully" },
+  "passworddisabled": { "message": "Password protection disabled" },
+  "prorequired": { "message": "Pro mode required for this feature" },
+  "enablepasswordtitle": { "message": "Enable Password Protection" },
+  "enablepassworddesc": { "message": "Require a password to delete or edit rules (enhances strict mode)" },
+  "passwordprotectiontitle": { "message": "Password Protection" }
 }

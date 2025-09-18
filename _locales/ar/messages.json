@@ -115,5 +115,27 @@
   "errorresettingsettings": { "message": "خطأ في إعادة تعيين الإعدادات" },
   "basicsettingstitle": { "message": "الإعدادات الأساسية" },
   "advancedsettingstitle": { "message": "الإعدادات المتقدمة" },
-  "statisticstitle": { "message": "الإحصائيات" } 
+  "statisticstitle": { "message": "الإحصائيات" },
+  "rulelimitreached": {
+    "message": "لقد وصلت إلى الحد الأقصى للقواعد ($limit$) في النسخة الأساسية. قم بالترقية إلى Pro للحصول على قواعد غير محدودة.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "يلزم الاشتراك في Pro للتعديل." },
+  "invalidpassword": { "message": "كلمة مرور غير صالحة" },
+  "setpassword": { "message": "تعيين كلمة المرور" },
+  "enterpassword": { "message": "أدخل كلمة المرور" },
+  "passwordmismatch": { "message": "كلمتا المرور غير متطابقتين" },
+  "passwordtooshort": { "message": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل" },
+  "resetpasswordconfirm": { "message": "إعادة تعيين كلمة المرور ستعطل الحماية. هل تريد المتابعة؟" },
+  "passwordset": { "message": "تم تعيين كلمة المرور بنجاح" },
+  "passworddisabled": { "message": "تم تعطيل حماية كلمة المرور" },
+  "prorequired": { "message": "يتطلب هذا الميزة وضع Pro" },
+  "enablepasswordtitle": { "message": "تفعيل حماية كلمة المرور" },
+  "enablepassworddesc": { "message": "يتطلب كلمة مرور لحذف أو تعديل القواعد (يعزز الوضع الصارم)" },
+  "passwordprotectiontitle": { "message": "حماية كلمة المرور" }
 }

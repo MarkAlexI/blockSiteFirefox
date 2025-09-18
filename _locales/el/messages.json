@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Σφάλμα κατά την επαναφορά ρυθμίσεων" },
   "basicsettingstitle": { "message": "Βασικές ρυθμίσεις" },
   "advancedsettingstitle": { "message": "Προηγμένες ρυθμίσεις" },
-  "statisticstitle": { "message": "Στατιστικά" }
+  "statisticstitle": { "message": "Στατιστικά" },
+  "rulelimitreached": {
+    "message": "Έχετε φτάσει το όριο κανόνων ($limit$) για την βασική έκδοση. Αναβαθμίστε σε Pro για απεριόριστους κανόνες.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Απαιτείται Pro για επεξεργασία." },
+  "invalidpassword": { "message": "Μη έγκυρος κωδικός πρόσβασης" },
+  "setpassword": { "message": "Ορισμός κωδικού πρόσβασης" },
+  "enterpassword": { "message": "Εισαγωγή κωδικού πρόσβασης" },
+  "passwordmismatch": { "message": "Οι κωδικοί πρόσβασης δεν ταιριάζουν" },
+  "passwordtooshort": { "message": "Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες" },
+  "resetpasswordconfirm": { "message": "Η επαναφορά του κωδικού πρόσβασης θα απενεργοποιήσει την προστασία. Συνεχίζετε;" },
+  "passwordset": { "message": "Ο κωδικός πρόσβασης ορίστηκε επιτυχώς" },
+  "passworddisabled": { "message": "Η προστασία κωδικού πρόσβασης απενεργοποιήθηκε" },
+  "prorequired": { "message": "Απαιτείται λειτουργία Pro για αυτή τη δυνατότητα" },
+  "enablepasswordtitle": { "message": "Ενεργοποίηση προστασίας κωδικού πρόσβασης" },
+  "enablepassworddesc": { "message": "Απαιτεί κωδικό πρόσβασης για διαγραφή ή επεξεργασία κανόνων (ενισχύει τη λειτουργία αυστηρότητας)" },
+  "passwordprotectiontitle": { "message": "Προστασία κωδικού πρόσβασης" }
 }

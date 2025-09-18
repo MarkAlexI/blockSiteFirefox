@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Chyba při obnovování nastavení" },
   "basicsettingstitle": { "message": "Základní nastavení" },
   "advancedsettingstitle": { "message": "Pokročilá nastavení" },
-  "statisticstitle": { "message": "Statistiky" }
+  "statisticstitle": { "message": "Statistiky" },
+  "rulelimitreached": {
+    "message": "Dosáhli jste limitu pravidel ($limit$) v základní verzi. Upgradujte na Pro pro neomezená pravidla.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro úpravy je vyžadován Pro." },
+  "invalidpassword": { "message": "Neplatné heslo" },
+  "setpassword": { "message": "Nastavit heslo" },
+  "enterpassword": { "message": "Zadejte heslo" },
+  "passwordmismatch": { "message": "Hesla se neshodují" },
+  "passwordtooshort": { "message": "Heslo musí mít alespoň 6 znaků" },
+  "resetpasswordconfirm": { "message": "Resetování hesla deaktivuje ochranu. Pokračovat?" },
+  "passwordset": { "message": "Heslo úspěšně nastaveno" },
+  "passworddisabled": { "message": "Ochrana heslem deaktivována" },
+  "prorequired": { "message": "Pro tuto funkci je vyžadován režim Pro" },
+  "enablepasswordtitle": { "message": "Povolit ochranu heslem" },
+  "enablepassworddesc": { "message": "Vyžaduje heslo pro smazání nebo úpravu pravidel (vylepšuje přísný režim)" },
+  "passwordprotectiontitle": { "message": "Ochrana heslem" }
 }

@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Ralat menetapkan semula tetapan" },
   "basicsettingstitle": { "message": "Tetapan Asas" },
   "advancedsettingstitle": { "message": "Tetapan Lanjutan" },
-  "statisticstitle": { "message": "Statistik" }
+  "statisticstitle": { "message": "Statistik" },
+  "rulelimitreached": {
+    "message": "Anda telah mencapai had peraturan ($limit$) untuk versi asas. Naik taraf ke Pro untuk peraturan tanpa had.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro diperlukan untuk penyuntingan." },
+  "invalidpassword": { "message": "Kata laluan tidak sah" },
+  "setpassword": { "message": "Tetapkan kata laluan" },
+  "enterpassword": { "message": "Masukkan kata laluan" },
+  "passwordmismatch": { "message": "Kata laluan tidak sepadan" },
+  "passwordtooshort": { "message": "Kata laluan mesti sekurang-kurangnya 6 aksara" },
+  "resetpasswordconfirm": { "message": "Menetapkan semula kata laluan akan mematikan perlindungan. Teruskan?" },
+  "passwordset": { "message": "Kata laluan berjaya ditetapkan" },
+  "passworddisabled": { "message": "Perlindungan kata laluan dimatikan" },
+  "prorequired": { "message": "Mod Pro diperlukan untuk ciri ini" },
+  "enablepasswordtitle": { "message": "Aktifkan perlindungan kata laluan" },
+  "enablepassworddesc": { "message": "Memerlukan kata laluan untuk memadam atau menyunting peraturan (meningkatkan mod ketat)" },
+  "passwordprotectiontitle": { "message": "Perlindungan kata laluan" }
 }

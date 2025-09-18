@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Kļūda atiestatot iestatījumus" },
   "basicsettingstitle": { "message": "Pamata iestatījumi" },
   "advancedsettingstitle": { "message": "Papildu iestatījumi" },
-  "statisticstitle": { "message": "Statistika" }
+  "statisticstitle": { "message": "Statistika" },
+  "rulelimitreached": {
+    "message": "Jūs esat sasniedzis noteikumu limitu ($limit$) pamatversijā. Uzlabojiet uz Pro, lai iegūtu neierobežotu noteikumu skaitu.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro nepieciešams rediģēšanai." },
+  "invalidpassword": { "message": "Nepareiza parole" },
+  "setpassword": { "message": "Iestatīt paroli" },
+  "enterpassword": { "message": "Ievadīt paroli" },
+  "passwordmismatch": { "message": "Paroles nesakrīt" },
+  "passwordtooshort": { "message": "Parolei jābūt vismaz 6 simbolu garai" },
+  "resetpasswordconfirm": { "message": "Paroles atiestatīšana atspējos aizsardzību. Turpināt?" },
+  "passwordset": { "message": "Parole veiksmīgi iestatīta" },
+  "passworddisabled": { "message": "Paroles aizsardzība atspējota" },
+  "prorequired": { "message": "Šai funkcijai nepieciešams Pro režīms" },
+  "enablepasswordtitle": { "message": "Iespējot paroles aizsardzību" },
+  "enablepassworddesc": { "message": "Nepieciešama parole, lai dzēstu vai rediģētu noteikumus (uzlabo stingro režīmu)" },
+  "passwordprotectiontitle": { "message": "Paroles aizsardzība" }
 }

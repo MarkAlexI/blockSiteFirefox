@@ -115,5 +115,27 @@
   "errorresettingsettings": { "message": "Error al restablecer la configuración" },
   "basicsettingstitle": { "message": "Configuraciones básicas" },
   "advancedsettingstitle": { "message": "Configuraciones avanzadas" },
-  "statisticstitle": { "message": "Estadísticas" }
+  "statisticstitle": { "message": "Estadísticas" },
+  "rulelimitreached": {
+    "message": "Has alcanzado el límite de reglas ($limit$) en la versión básica. Actualiza a Pro para reglas ilimitadas.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Se requiere Pro para editar." },
+  "invalidpassword": { "message": "Contraseña no válida" },
+  "setpassword": { "message": "Establecer contraseña" },
+  "enterpassword": { "message": "Introducir contraseña" },
+  "passwordmismatch": { "message": "Las contraseñas no coinciden" },
+  "passwordtooshort": { "message": "La contraseña debe tener al menos 6 caracteres" },
+  "resetpasswordconfirm": { "message": "Restablecer la contraseña desactivará la protección. ¿Continuar?" },
+  "passwordset": { "message": "Contraseña establecida con éxito" },
+  "passworddisabled": { "message": "Protección con contraseña desactivada" },
+  "prorequired": { "message": "Se requiere el modo Pro para esta función" },
+  "enablepasswordtitle": { "message": "Activar protección con contraseña" },
+  "enablepassworddesc": { "message": "Requiere una contraseña para eliminar o editar reglas (mejora el modo estricto)" },
+  "passwordprotectiontitle": { "message": "Protección con contraseña" }
 }

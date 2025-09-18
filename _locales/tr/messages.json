@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Ayarları sıfırlarken hata oluştu" },
   "basicsettingstitle": { "message": "Temel Ayarlar" },
   "advancedsettingstitle": { "message": "Gelişmiş Ayarlar" },
-  "statisticstitle": { "message": "İstatistikler" }
+  "statisticstitle": { "message": "İstatistikler" },
+  "rulelimitreached": {
+    "message": "Temel sürüm için kural sınırına ($limit$) ulaştınız. Sınırsız kurallar için Pro'ya yükseltin.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Düzenleme için Pro gereklidir." },
+  "invalidpassword": { "message": "Geçersiz şifre" },
+  "setpassword": { "message": "Şifre belirle" },
+  "enterpassword": { "message": "Şifreyi gir" },
+  "passwordmismatch": { "message": "Şifreler uyuşmuyor" },
+  "passwordtooshort": { "message": "Şifre en az 6 karakter olmalıdır" },
+  "resetpasswordconfirm": { "message": "Şifreyi sıfırlamak korumayı devre dışı bırakır. Devam etmek ister misiniz?" },
+  "passwordset": { "message": "Şifre başarıyla belirlendi" },
+  "passworddisabled": { "message": "Şifre koruması devre dışı bırakıldı" },
+  "prorequired": { "message": "Bu özellik için Pro modu gereklidir" },
+  "enablepasswordtitle": { "message": "Şifre korumasını etkinleştir" },
+  "enablepassworddesc": { "message": "Kuralları silmek veya düzenlemek için şifre gerekir (katı modu geliştirir)" },
+  "passwordprotectiontitle": { "message": "Şifre koruması" }
 }

@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Fehler beim Zurücksetzen der Einstellungen" },
   "basicsettingstitle": { "message": "Grundeinstellungen" },
   "advancedsettingstitle": { "message": "Erweiterte Einstellungen" },
-  "statisticstitle": { "message": "Statistiken" }
+  "statisticstitle": { "message": "Statistiken" },
+  "rulelimitreached": {
+    "message": "Sie haben das Regel-Limit ($limit$) der Basisversion erreicht. Upgraden Sie auf Pro für unbegrenzte Regeln.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro erforderlich für Bearbeitung." },
+  "invalidpassword": { "message": "Ungültiges Passwort" },
+  "setpassword": { "message": "Passwort festlegen" },
+  "enterpassword": { "message": "Passwort eingeben" },
+  "passwordmismatch": { "message": "Passwörter stimmen nicht überein" },
+  "passwordtooshort": { "message": "Das Passwort muss mindestens 6 Zeichen lang sein" },
+  "resetpasswordconfirm": { "message": "Das Zurücksetzen des Passworts deaktiviert den Schutz. Fortfahren?" },
+  "passwordset": { "message": "Passwort erfolgreich festgelegt" },
+  "passworddisabled": { "message": "Passwortschutz deaktiviert" },
+  "prorequired": { "message": "Pro-Modus erforderlich für diese Funktion" },
+  "enablepasswordtitle": { "message": "Passwortschutz aktivieren" },
+  "enablepassworddesc": { "message": "Erfordert ein Passwort zum Löschen oder Bearbeiten von Regeln (verbessert den strikten Modus)" },
+  "passwordprotectiontitle": { "message": "Passwortschutz" }
 }

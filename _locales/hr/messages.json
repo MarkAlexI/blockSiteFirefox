@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Pogreška pri vraćanju postavki" },
   "basicsettingstitle": { "message": "Osnovne postavke" },
   "advancedsettingstitle": { "message": "Napredne postavke" },
-  "statisticstitle": { "message": "Statistike" }
+  "statisticstitle": { "message": "Statistike" },
+  "rulelimitreached": {
+    "message": "Dosegli ste ograničenje pravila ($limit$) za osnovnu verziju. Nadogradite na Pro za neograničena pravila.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro je potreban za uređivanje." },
+  "invalidpassword": { "message": "Nevažeća lozinka" },
+  "setpassword": { "message": "Postavi lozinku" },
+  "enterpassword": { "message": "Unesi lozinku" },
+  "passwordmismatch": { "message": "Lozinke se ne podudaraju" },
+  "passwordtooshort": { "message": "Lozinka mora imati najmanje 6 znakova" },
+  "resetpasswordconfirm": { "message": "Poništavanje lozinke će onemogućiti zaštitu. Nastaviti?" },
+  "passwordset": { "message": "Lozinka uspješno postavljena" },
+  "passworddisabled": { "message": "Zaštita lozinkom onemogućena" },
+  "prorequired": { "message": "Pro način rada potreban je za ovu značajku" },
+  "enablepasswordtitle": { "message": "Omogući zaštitu lozinkom" },
+  "enablepassworddesc": { "message": "Zahtijeva lozinku za brisanje ili uređivanje pravila (poboljšava strogi način rada)" },
+  "passwordprotectiontitle": { "message": "Zaštita lozinkom" }
 }

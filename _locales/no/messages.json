@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Feil ved tilbakestilling av innstillinger" },
   "basicsettingstitle": { "message": "Grunnleggende innstillinger" },
   "advancedsettingstitle": { "message": "Avanserte innstillinger" },
-  "statisticstitle": { "message": "Statistikk" }
+  "statisticstitle": { "message": "Statistikk" },
+  "rulelimitreached": {
+    "message": "Du har nådd grensen for regler ($limit$) i basisversjonen. Oppgrader til Pro for ubegrensede regler.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro kreves for redigering." },
+  "invalidpassword": { "message": "Ugyldig passord" },
+  "setpassword": { "message": "Sett passord" },
+  "enterpassword": { "message": "Skriv inn passord" },
+  "passwordmismatch": { "message": "Passordene samsvarer ikke" },
+  "passwordtooshort": { "message": "Passordet må være minst 6 tegn" },
+  "resetpasswordconfirm": { "message": "Tilbakestilling av passordet vil deaktivere beskyttelsen. Fortsette?" },
+  "passwordset": { "message": "Passordet ble satt" },
+  "passworddisabled": { "message": "Passordbeskyttelse deaktivert" },
+  "prorequired": { "message": "Pro-modus kreves for denne funksjonen" },
+  "enablepasswordtitle": { "message": "Aktiver passordbeskyttelse" },
+  "enablepassworddesc": { "message": "Krever et passord for å slette eller redigere regler (forbedrer streng modus)" },
+  "passwordprotectiontitle": { "message": "Passordbeskyttelse" }
 }

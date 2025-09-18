@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Eroare la resetarea setărilor" },
   "basicsettingstitle": { "message": "Setări de bază" },
   "advancedsettingstitle": { "message": "Setări avansate" },
-  "statisticstitle": { "message": "Statistici" }
+  "statisticstitle": { "message": "Statistici" },
+  "rulelimitreached": {
+    "message": "Ați atins limita de reguli ($limit$) pentru versiunea de bază. Treceți la Pro pentru reguli nelimitate.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro necesar pentru editare." },
+  "invalidpassword": { "message": "Parolă invalidă" },
+  "setpassword": { "message": "Setați parola" },
+  "enterpassword": { "message": "Introduceți parola" },
+  "passwordmismatch": { "message": "Parolele nu se potrivesc" },
+  "passwordtooshort": { "message": "Parola trebuie să aibă cel puțin 6 caractere" },
+  "resetpasswordconfirm": { "message": "Resetarea parolei va dezactiva protecția. Continuați?" },
+  "passwordset": { "message": "Parola a fost setată cu succes" },
+  "passworddisabled": { "message": "Protecția prin parolă a fost dezactivată" },
+  "prorequired": { "message": "Modul Pro este necesar pentru această funcție" },
+  "enablepasswordtitle": { "message": "Activați protecția prin parolă" },
+  "enablepassworddesc": { "message": "Necesită o parolă pentru a șterge sau edita reguli (îmbunătățește modul strict)" },
+  "passwordprotectiontitle": { "message": "Protecție prin parolă" }
 }

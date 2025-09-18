@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Klaida atstatant nustatymus" },
   "basicsettingstitle": { "message": "Pagrindiniai nustatymai" },
   "advancedsettingstitle": { "message": "Išplėstiniai nustatymai" },
-  "statisticstitle": { "message": "Statistika" }
+  "statisticstitle": { "message": "Statistika" },
+  "rulelimitreached": {
+    "message": "Pasiekėte taisyklių limitą ($limit$) pagrindinėje versijoje. Atnaujinkite į Pro, kad gautumėte neribotą taisyklių skaičių.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro reikalingas redagavimui." },
+  "invalidpassword": { "message": "Neteisingas slaptažodis" },
+  "setpassword": { "message": "Nustatyti slaptažodį" },
+  "enterpassword": { "message": "Įvesti slaptažodį" },
+  "passwordmismatch": { "message": "Slaptažodžiai nesutampa" },
+  "passwordtooshort": { "message": "Slaptažodis turi būti bent 6 simbolių" },
+  "resetpasswordconfirm": { "message": "Slaptažodžio atstatymas išjungs apsaugą. Tęsti?" },
+  "passwordset": { "message": "Slaptažodis sėkmingai nustatytas" },
+  "passworddisabled": { "message": "Slaptažodžio apsauga išjungta" },
+  "prorequired": { "message": "Šiai funkcijai reikalingas Pro režimas" },
+  "enablepasswordtitle": { "message": "Įjungti slaptažodžio apsaugą" },
+  "enablepassworddesc": { "message": "Reikalauja slaptažodžio norint ištrinti ar redaguoti taisykles (pagerina griežtą režimą)" },
+  "passwordprotectiontitle": { "message": "Slaptažodžio apsauga" }
 }

@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "خطا در بازنشانی تنظیمات" },
   "basicsettingstitle": { "message": "تنظیمات پایه" },
   "advancedsettingstitle": { "message": "تنظیمات پیشرفته" },
-  "statisticstitle": { "message": "آمار" }
+  "statisticstitle": { "message": "آمار" },
+  "rulelimitreached": {
+    "message": "شما به حد مجاز قوانین ($limit$) در نسخه پایه رسیده‌اید. برای قوانین نامحدود به نسخه حرفه‌ای ارتقا دهید.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "برای ویرایش نیاز به نسخه حرفه‌ای است." },
+  "invalidpassword": { "message": "رمز عبور نامعتبر" },
+  "setpassword": { "message": "تنظیم رمز عبور" },
+  "enterpassword": { "message": "رمز عبور را وارد کنید" },
+  "passwordmismatch": { "message": "رمزهای عبور مطابقت ندارند" },
+  "passwordtooshort": { "message": "رمز عبور باید حداقل ۶ کاراکتر باشد" },
+  "resetpasswordconfirm": { "message": "بازنشانی رمز عبور، حفاظت را غیرفعال می‌کند. ادامه می‌دهید؟" },
+  "passwordset": { "message": "رمز عبور با موفقیت تنظیم شد" },
+  "passworddisabled": { "message": "حفاظت رمز عبور غیرفعال شد" },
+  "prorequired": { "message": "برای این ویژگی نیاز به حالت حرفه‌ای است" },
+  "enablepasswordtitle": { "message": "فعال‌سازی حفاظت رمز عبور" },
+  "enablepassworddesc": { "message": "نیاز به رمز عبور برای حذف یا ویرایش قوانین دارد (حالت سخت‌گیرانه را تقویت می‌کند)" },
+  "passwordprotectiontitle": { "message": "حفاظت رمز عبور" }
 }

@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Error en restablir la configuració" },
   "basicsettingstitle": { "message": "Configuració bàsica" },
   "advancedsettingstitle": { "message": "Configuració avançada" },
-  "statisticstitle": { "message": "Estadístiques" }
+  "statisticstitle": { "message": "Estadístiques" },
+  "rulelimitreached": {
+    "message": "Has arribat al límit de regles ($limit$) per a la versió bàsica. Actualitza a Pro per a regles il·limitades.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Cal Pro per a l'edició." },
+  "invalidpassword": { "message": "Contrasenya no vàlida" },
+  "setpassword": { "message": "Estableix una contrasenya" },
+  "enterpassword": { "message": "Introdueix la contrasenya" },
+  "passwordmismatch": { "message": "Les contrasenyes no coincideixen" },
+  "passwordtooshort": { "message": "La contrasenya ha de tenir almenys 6 caràcters" },
+  "resetpasswordconfirm": { "message": "Restablir la contrasenya desactivarà la protecció. Continuar?" },
+  "passwordset": { "message": "Contrasenya establerta correctament" },
+  "passworddisabled": { "message": "Protecció amb contrasenya desactivada" },
+  "prorequired": { "message": "Es requereix el mode Pro per a aquesta funció" },
+  "enablepasswordtitle": { "message": "Activa la protecció amb contrasenya" },
+  "enablepassworddesc": { "message": "Requereix una contrasenya per eliminar o editar regles (millora el mode estricte)" },
+  "passwordprotectiontitle": { "message": "Protecció amb contrasenya" }
 }

@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "सेटिंग्स रीसेट करते समय त्रुटि" },
   "basicsettingstitle": { "message": "मूल सेटिंग्स" },
   "advancedsettingstitle": { "message": "उन्नत सेटिंग्स" },
-  "statisticstitle": { "message": "आंकड़े" }
+  "statisticstitle": { "message": "आंकड़े" },
+  "rulelimitreached": {
+    "message": "आपने मूल संस्करण के लिए नियम सीमा ($limit$) तक पहुंच गए हैं। असीमित नियमों के लिए प्रो में अपग्रेड करें।",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "संपादन के लिए प्रो की आवश्यकता है।" },
+  "invalidpassword": { "message": "अमान्य पासवर्ड" },
+  "setpassword": { "message": "पासवर्ड सेट करें" },
+  "enterpassword": { "message": "पासवर्ड दर्ज करें" },
+  "passwordmismatch": { "message": "पासवर्ड मेल नहीं खाते" },
+  "passwordtooshort": { "message": "पासवर्ड कम से कम 6 अक्षरों का होना चाहिए" },
+  "resetpasswordconfirm": { "message": "पासवर्ड रीसेट करने से सुरक्षा निष्क्रिय हो जाएगी। जारी रखें?" },
+  "passwordset": { "message": "पासवर्ड सफलतापूर्वक सेट किया गया" },
+  "passworddisabled": { "message": "पासवर्ड सुरक्षा निष्क्रिय कर दी गई" },
+  "prorequired": { "message": "इस सुविधा के लिए प्रो मोड की आवश्यकता है" },
+  "enablepasswordtitle": { "message": "पासवर्ड सुरक्षा सक्षम करें" },
+  "enablepassworddesc": { "message": "नियमों को हटाने या संपादित करने के लिए पासवर्ड की आवश्यकता होती है (सख्त मोड को बढ़ाता है)" },
+  "passwordprotectiontitle": { "message": "पासवर्ड सुरक्षा" }
 }

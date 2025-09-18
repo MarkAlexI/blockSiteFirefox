@@ -115,5 +115,27 @@
   "errorresettingsettings": { "message": "設定のリセットエラー" },
   "basicsettingstitle": { "message": "基本設定" },
   "advancedsettingstitle": { "message": "高度な設定" },
-  "statisticstitle": { "message": "統計" }
+  "statisticstitle": { "message": "統計" },
+  "rulelimitreached": {
+    "message": "基本バージョンのルール制限（$limit$）に達しました。無制限のルールにはProにアップグレードしてください。",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "編集にはProが必要です。" },
+  "invalidpassword": { "message": "無効なパスワード" },
+  "setpassword": { "message": "パスワードを設定" },
+  "enterpassword": { "message": "パスワードを入力" },
+  "passwordmismatch": { "message": "パスワードが一致しません" },
+  "passwordtooshort": { "message": "パスワードは6文字以上である必要があります" },
+  "resetpasswordconfirm": { "message": "パスワードをリセットすると保護が無効になります。続行しますか？" },
+  "passwordset": { "message": "パスワードが正常に設定されました" },
+  "passworddisabled": { "message": "パスワード保護が無効化されました" },
+  "prorequired": { "message": "この機能にはProモードが必要です" },
+  "enablepasswordtitle": { "message": "パスワード保護を有効にする" },
+  "enablepassworddesc": { "message": "ルールの削除または編集にはパスワードが必要です（厳格モードを強化します）" },
+  "passwordprotectiontitle": { "message": "パスワード保護" }
 }

@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "重置設定時發生錯誤" },
   "basicsettingstitle": { "message": "基本設定" },
   "advancedsettingstitle": { "message": "進階設定" },
-  "statisticstitle": { "message": "統計" }
+  "statisticstitle": { "message": "統計" },
+  "rulelimitreached": {
+    "message": "您已達到基本版的規則限制 ($limit$)。升級至 Pro 以獲得無限規則。",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "編輯需要 Pro 版本。" },
+  "invalidpassword": { "message": "無效密碼" },
+  "setpassword": { "message": "設定密碼" },
+  "enterpassword": { "message": "輸入密碼" },
+  "passwordmismatch": { "message": "密碼不符" },
+  "passwordtooshort": { "message": "密碼必須至少包含 6 個字符" },
+  "resetpasswordconfirm": { "message": "重設密碼將禁用保護。是否繼續？" },
+  "passwordset": { "message": "密碼設定成功" },
+  "passworddisabled": { "message": "密碼保護已禁用" },
+  "prorequired": { "message": "此功能需要 Pro 模式" },
+  "enablepasswordtitle": { "message": "啟用密碼保護" },
+  "enablepassworddesc": { "message": "刪除或編輯規則需要密碼（增強嚴格模式）" },
+  "passwordprotectiontitle": { "message": "密碼保護" }
 }

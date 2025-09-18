@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Napaka pri ponastavitvi nastavitev" },
   "basicsettingstitle": { "message": "Osnovne nastavitve" },
   "advancedsettingstitle": { "message": "Napredne nastavitve" },
-  "statisticstitle": { "message": "Statistika" }
+  "statisticstitle": { "message": "Statistika" },
+  "rulelimitreached": {
+    "message": "Dosegli ste omejitev pravil ($limit$) v osnovni različici. Nadgradite na Pro za neomejena pravila.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro je potreben za urejanje." },
+  "invalidpassword": { "message": "Neveljavno geslo" },
+  "setpassword": { "message": "Nastavi geslo" },
+  "enterpassword": { "message": "Vnesi geslo" },
+  "passwordmismatch": { "message": "Gesli se ne ujemata" },
+  "passwordtooshort": { "message": "Geslo mora imeti vsaj 6 znakov" },
+  "resetpasswordconfirm": { "message": "Ponastavitev gesla bo onemogočila zaščito. Nadaljuj?" },
+  "passwordset": { "message": "Geslo je bilo uspešno nastavljeno" },
+  "passworddisabled": { "message": "Zaščita z geslom onemogočena" },
+  "prorequired": { "message": "Za to funkcijo je potreben način Pro" },
+  "enablepasswordtitle": { "message": "Omogoči zaščito z geslom" },
+  "enablepassworddesc": { "message": "Zahteva geslo za brisanje ali urejanje pravil (izboljša strogi način)" },
+  "passwordprotectiontitle": { "message": "Zaščita z geslom" }
 }

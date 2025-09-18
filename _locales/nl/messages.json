@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Fout bij het terugzetten van instellingen" },
   "basicsettingstitle": { "message": "Basisinstellingen" },
   "advancedsettingstitle": { "message": "Geavanceerde instellingen" },
-  "statisticstitle": { "message": "Statistieken" }
+  "statisticstitle": { "message": "Statistieken" },
+  "rulelimitreached": {
+    "message": "Je hebt de limiet van regels ($limit$) bereikt voor de basisversie. Upgrade naar Pro voor onbeperkte regels.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro vereist voor bewerken." },
+  "invalidpassword": { "message": "Ongeldig wachtwoord" },
+  "setpassword": { "message": "Wachtwoord instellen" },
+  "enterpassword": { "message": "Wachtwoord invoeren" },
+  "passwordmismatch": { "message": "Wachtwoorden komen niet overeen" },
+  "passwordtooshort": { "message": "Wachtwoord moet minimaal 6 tekens bevatten" },
+  "resetpasswordconfirm": { "message": "Het resetten van het wachtwoord schakelt de beveiliging uit. Doorgaan?" },
+  "passwordset": { "message": "Wachtwoord succesvol ingesteld" },
+  "passworddisabled": { "message": "Wachtwoordbeveiliging uitgeschakeld" },
+  "prorequired": { "message": "Pro-modus vereist voor deze functie" },
+  "enablepasswordtitle": { "message": "Wachtwoordbeveiliging inschakelen" },
+  "enablepassworddesc": { "message": "Vereist een wachtwoord om regels te verwijderen of te bewerken (verbetert de strikte modus)" },
+  "passwordprotectiontitle": { "message": "Wachtwoordbeveiliging" }
 }

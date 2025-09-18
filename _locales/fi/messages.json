@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Virhe asetuksia palautettaessa" },
   "basicsettingstitle": { "message": "Perusasetukset" },
   "advancedsettingstitle": { "message": "Lisäasetukset" },
-  "statisticstitle": { "message": "Tilastot" }
+  "statisticstitle": { "message": "Tilastot" },
+  "rulelimitreached": {
+    "message": "Olet saavuttanut sääntöjen rajan ($limit$) perusversiossa. Päivitä Pro-versioon rajattomien sääntöjen saamiseksi.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro vaaditaan muokkaamiseen." },
+  "invalidpassword": { "message": "Virheellinen salasana" },
+  "setpassword": { "message": "Aseta salasana" },
+  "enterpassword": { "message": "Syötä salasana" },
+  "passwordmismatch": { "message": "Salasanat eivät täsmää" },
+  "passwordtooshort": { "message": "Salasanan on oltava vähintään 6 merkkiä pitkä" },
+  "resetpasswordconfirm": { "message": "Salasanan nollaaminen poistaa suojauksen käytöstä. Jatkatko?" },
+  "passwordset": { "message": "Salasana asetettu onnistuneesti" },
+  "passworddisabled": { "message": "Salasanasuojaus poistettu käytöstä" },
+  "prorequired": { "message": "Tämä ominaisuus vaatii Pro-tilan" },
+  "enablepasswordtitle": { "message": "Ota salasanasuojaus käyttöön" },
+  "enablepassworddesc": { "message": "Vaaditaan salasana sääntöjen poistamiseen tai muokkaamiseen (parantaa tiukkaa tilaa)" },
+  "passwordprotectiontitle": { "message": "Salasanasuojaus" }
 }

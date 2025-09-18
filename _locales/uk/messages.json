@@ -117,7 +117,7 @@
   "advancedsettingstitle": { "message": "Розширені налаштування" },
   "statisticstitle": { "message": "Статистика" },
   "rulelimitreached": {
-    "message": "Досягнуто ліміт правил ($limit$) для базової версії. Оновіть до Pro для необмеженої кількості правил.",
+    "message": "Ви досягли ліміту правил ($limit$) у базовій версії. Оновіть до Pro для необмеженої кількості правил.",
     "placeholders": {
       "limit": {
         "content": "$1",
@@ -125,5 +125,17 @@
       }
     }
   },
-  "proonlyactions": { "message": "Потрібен Pro для редагування." }
+  "proonlyactions": { "message": "Pro потрібен для редагування." },
+  "invalidpassword": { "message": "Неправильний пароль" },
+  "setpassword": { "message": "Встановити пароль" },
+  "enterpassword": { "message": "Введіть пароль" },
+  "passwordmismatch": { "message": "Паролі не збігаються" },
+  "passwordtooshort": { "message": "Пароль має містити принаймні 6 символів" },
+  "resetpasswordconfirm": { "message": "Скидання пароля вимкне захист. Продовжити?" },
+  "passwordset": { "message": "Пароль успішно встановлено" },
+  "passworddisabled": { "message": "Захист паролем відключено" },
+  "prorequired": { "message": "Для цієї функції потрібен режим Pro" },
+  "enablepasswordtitle": { "message": "Увімкнути захист паролем" },
+  "enablepassworddesc": { "message": "Потрібен пароль для видалення або редагування правил (покращує суворий режим)" },
+  "passwordprotectiontitle": { "message": "Захист паролем" }
 }

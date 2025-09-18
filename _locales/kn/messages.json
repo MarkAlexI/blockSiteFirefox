@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸುವಾಗ ದೋಷ" },
   "basicsettingstitle": { "message": "ಮೂಲಭೂತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
   "advancedsettingstitle": { "message": "ಸುಧಾರಿತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
-  "statisticstitle": { "message": "ಅಂಕಿಅಂಶಗಳು" }
+  "statisticstitle": { "message": "ಅಂಕಿಅಂಶಗಳು" },
+  "rulelimitreached": {
+    "message": "ನೀವು ಮೂಲ ಆವೃತ್ತಿಗೆ ನಿಯಮಗಳ ಮಿತಿಯನ್ನು ($limit$) ತಲುಪಿದ್ದೀರಿ. ಅನಿಯಮಿತ ನಿಯಮಗಳಿಗಾಗಿ ಪ್ರೊಗೆ ಅಪ್‌ಗ್ರೇಡ್ ಮಾಡಿ.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "ಸಂಪಾದನೆಗೆ ಪ್ರೊ ಅಗತ್ಯ." },
+  "invalidpassword": { "message": "ಅಮಾನ್ಯ ಪಾಸ್‌ವರ್ಡ್" },
+  "setpassword": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಸಿ" },
+  "enterpassword": { "message": "ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ" },
+  "passwordmismatch": { "message": "ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ" },
+  "passwordtooshort": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳನ್ನು ಹೊಂದಿರಬೇಕು" },
+  "resetpasswordconfirm": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸುವುದರಿಂದ ರಕ್ಷಣೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗುವುದು. ಮುಂದುವರಿಯುವುದೇ?" },
+  "passwordset": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಯಶಸ್ವಿಯಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ" },
+  "passworddisabled": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ" },
+  "prorequired": { "message": "ಈ ವೈಶಿಷ್ಟ್ಯಕ್ಕೆ ಪ್ರೊ ಮೋಡ್ ಅಗತ್ಯ" },
+  "enablepasswordtitle": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ" },
+  "enablepassworddesc": { "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು ಅಥವಾ ಸಂಪಾದಿಸಲು ಪಾಸ್‌ವರ್ಡ್ ಅಗತ್ಯ (ಕಟ್ಟುನಿಟ್ಟಾದ ಮೋಡ್ ಅನ್ನು ಸುಧಾರಿಸುತ್ತದೆ)" },
+  "passwordprotectiontitle": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ" }
 }

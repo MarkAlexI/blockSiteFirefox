@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Kesalahan mengatur ulang pengaturan" },
   "basicsettingstitle": { "message": "Pengaturan Dasar" },
   "advancedsettingstitle": { "message": "Pengaturan Lanjutan" },
-  "statisticstitle": { "message": "Statistik" }
+  "statisticstitle": { "message": "Statistik" },
+  "rulelimitreached": {
+    "message": "Anda telah mencapai batas aturan ($limit$) untuk versi dasar. Tingkatkan ke Pro untuk aturan tanpa batas.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro diperlukan untuk pengeditan." },
+  "invalidpassword": { "message": "Kata sandi tidak valid" },
+  "setpassword": { "message": "Atur kata sandi" },
+  "enterpassword": { "message": "Masukkan kata sandi" },
+  "passwordmismatch": { "message": "Kata sandi tidak cocok" },
+  "passwordtooshort": { "message": "Kata sandi harus terdiri dari minimal 6 karakter" },
+  "resetpasswordconfirm": { "message": "Mereset kata sandi akan menonaktifkan perlindungan. Lanjutkan?" },
+  "passwordset": { "message": "Kata sandi berhasil diatur" },
+  "passworddisabled": { "message": "Perlindungan kata sandi dinonaktifkan" },
+  "prorequired": { "message": "Mode Pro diperlukan untuk fitur ini" },
+  "enablepasswordtitle": { "message": "Aktifkan perlindungan kata sandi" },
+  "enablepassworddesc": { "message": "Memerlukan kata sandi untuk menghapus atau mengedit aturan (meningkatkan mode ketat)" },
+  "passwordprotectiontitle": { "message": "Perlindungan kata sandi" }
 }

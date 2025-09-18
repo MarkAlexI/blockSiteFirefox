@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "సెట్టింగ్స్ రీసెట్ చేయడంలో లోపం" },
   "basicsettingstitle": { "message": "ప్రాథమిక సెట్టింగ్‌లు" },
   "advancedsettingstitle": { "message": "అధునాతన సెట్టింగ్‌లు" },
-  "statisticstitle": { "message": "గణాంకాలు" }
+  "statisticstitle": { "message": "గణాంకాలు" },
+  "rulelimitreached": {
+    "message": "మీరు ప్రాథమిక వెర్షన్ కోసం నియమాల పరిమితిని ($limit$) చేరుకున్నారు. అపరిమిత నియమాల కోసం ప్రోకు అప్‌గ్రేడ్ చేయండి.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "సవరణ కోసం ప్రో అవసరం." },
+  "invalidpassword": { "message": "చెల్లని పాస్‌వర్డ్" },
+  "setpassword": { "message": "పాస్‌వర్డ్ సెట్ చేయండి" },
+  "enterpassword": { "message": "పాస్‌వర్డ్ ఎంటర్ చేయండి" },
+  "passwordmismatch": { "message": "పాస్‌వర్డ్‌లు సరిపోలడం లేదు" },
+  "passwordtooshort": { "message": "పాస్‌వర్డ్ కనీసం 6 అక్షరాలు ఉండాలి" },
+  "resetpasswordconfirm": { "message": "పాస్‌వర్డ్ రీసెట్ చేయడం రక్షణను నిలిపివేస్తుంది. కొనసాగించాలా?" },
+  "passwordset": { "message": "పాస్‌వర్డ్ విజయవంతంగా సెట్ చేయబడింది" },
+  "passworddisabled": { "message": "పాస్‌వర్డ్ రక్షణ నిలిపివేయబడింది" },
+  "prorequired": { "message": "ఈ ఫీచర్ కోసం ప్రో మోడ్ అవసరం" },
+  "enablepasswordtitle": { "message": "పాస్‌వర్డ్ రక్షణను సక్రియం చేయండి" },
+  "enablepassworddesc": { "message": "నియమాలను తొలగించడానికి లేదా సవరించడానికి పాస్‌వర్డ్ అవసరం (కఠినమైన మోడ్‌ను మెరుగుపరుస్తుంది)" },
+  "passwordprotectiontitle": { "message": "పాస్‌వర్డ్ రక్షణ" }
 }

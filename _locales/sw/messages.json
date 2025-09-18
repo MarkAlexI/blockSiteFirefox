@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Hitilafu wakati wa kurudisha mipangilio" },
   "basicsettingstitle": { "message": "Mipangilio ya Msingi" },
   "advancedsettingstitle": { "message": "Mipangilio ya Juu" },
-  "statisticstitle": { "message": "Takwimu" }
+  "statisticstitle": { "message": "Takwimu" },
+  "rulelimitreached": {
+    "message": "Umefikia kikomo cha sheria ($limit$) kwa toleo la msingi. Boresha hadi Pro kwa sheria zisizo na kikomo.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro inahitajika kwa uhariri." },
+  "invalidpassword": { "message": "Nenosiri batili" },
+  "setpassword": { "message": "Weka nenosiri" },
+  "enterpassword": { "message": "Ingiza nenosiri" },
+  "passwordmismatch": { "message": "Manenosiri hayalingani" },
+  "passwordtooshort": { "message": "Nenosiri linapaswa kuwa na angalau herufi 6" },
+  "resetpasswordconfirm": { "message": "Kuseti upya nenosiri kutaondoa ulinzi. Endelea?" },
+  "passwordset": { "message": "Nenosiri limewekwa kwa mafanikio" },
+  "passworddisabled": { "message": "Ulinzi wa nenosiri umezimwa" },
+  "prorequired": { "message": "Hali ya Pro inahitajika kwa kipengele hiki" },
+  "enablepasswordtitle": { "message": "Wezesha ulinzi wa nenosiri" },
+  "enablepassworddesc": { "message": "Inahitaji nenosiri ili kufuta au kuhariri sheria (inaboresha hali ya kali)" },
+  "passwordprotectiontitle": { "message": "Ulinzi wa nenosiri" }
 }

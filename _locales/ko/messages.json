@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "설정 재설정 중 오류" },
   "basicsettingstitle": { "message": "기본 설정" },
   "advancedsettingstitle": { "message": "고급 설정" },
-  "statisticstitle": { "message": "통계" }
+  "statisticstitle": { "message": "통계" },
+  "rulelimitreached": {
+    "message": "기본 버전의 규칙 제한($limit$)에 도달했습니다. 무제한 규칙을 위해 Pro로 업그레이드하세요.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "편집하려면 Pro가 필요합니다." },
+  "invalidpassword": { "message": "잘못된 비밀번호" },
+  "setpassword": { "message": "비밀번호 설정" },
+  "enterpassword": { "message": "비밀번호 입력" },
+  "passwordmismatch": { "message": "비밀번호가 일치하지 않습니다" },
+  "passwordtooshort": { "message": "비밀번호는 최소 6자 이상이어야 합니다" },
+  "resetpasswordconfirm": { "message": "비밀번호를 재설정하면 보호 기능이 비활성화됩니다. 계속하시겠습니까?" },
+  "passwordset": { "message": "비밀번호가 성공적으로 설정되었습니다" },
+  "passworddisabled": { "message": "비밀번호 보호가 비활성화되었습니다" },
+  "prorequired": { "message": "이 기능에는 Pro 모드가 필요합니다" },
+  "enablepasswordtitle": { "message": "비밀번호 보호 활성화" },
+  "enablepassworddesc": { "message": "규칙을 삭제하거나 수정하려면 비밀번호가 필요합니다 (엄격 모드를 강화합니다)" },
+  "passwordprotectiontitle": { "message": "비밀번호 보호" }
 }

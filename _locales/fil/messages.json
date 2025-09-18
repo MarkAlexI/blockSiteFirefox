@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Error sa pag-reset ng mga setting" },
   "basicsettingstitle": { "message": "Mga Pangunahing Setting" },
   "advancedsettingstitle": { "message": "Mga Advanced na Setting" },
-  "statisticstitle": { "message": "Estadistika" }
+  "statisticstitle": { "message": "Estadistika" },
+  "rulelimitreached": {
+    "message": "Naabot mo na ang limitasyon ng mga panuntunan ($limit$) para sa pangunahing bersyon. Mag-upgrade sa Pro para sa walang limitasyong mga panuntunan.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Kailangan ng Pro para sa pag-edit." },
+  "invalidpassword": { "message": "Hindi wastong password" },
+  "setpassword": { "message": "Itakda ang password" },
+  "enterpassword": { "message": "Ilagay ang password" },
+  "passwordmismatch": { "message": "Hindi tugma ang mga password" },
+  "passwordtooshort": { "message": "Ang password ay dapat na hindi bababa sa 6 na karakter" },
+  "resetpasswordconfirm": { "message": "Ang pag-reset ng password ay magdedeaktibeyt ng proteksyon. Magpatuloy?" },
+  "passwordset": { "message": "Matagumpay na naitakda ang password" },
+  "passworddisabled": { "message": "Na-deaktibeyt ang proteksyon ng password" },
+  "prorequired": { "message": "Kailangan ng Pro mode para sa feature na ito" },
+  "enablepasswordtitle": { "message": "Paganahin ang proteksyon ng password" },
+  "enablepassworddesc": { "message": "Kailangan ng password para magbura o mag-edit ng mga panuntunan (pinapahusay ang mahigpit na mode)" },
+  "passwordprotectiontitle": { "message": "Proteksyon ng password" }
 }

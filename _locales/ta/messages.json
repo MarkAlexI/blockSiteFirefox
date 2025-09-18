@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "அமைப்புகளை மீட்டமைக்கும்போது பிழை ஏற்பட்டது" },
   "basicsettingstitle": { "message": "அடிப்படை அமைப்புகள்" },
   "advancedsettingstitle": { "message": "மேம்பட்ட அமைப்புகள்" },
-  "statisticstitle": { "message": "புள்ளிவிவரங்கள்" }
+  "statisticstitle": { "message": "புள்ளிவிவரங்கள்" },
+  "rulelimitreached": {
+    "message": "நீங்கள் அடிப்படை பதிப்பிற்கான விதிகளின் எல்லையை ($limit$) அடைந்துவிட்டீர்கள். வரம்பற்ற விதிகளுக்கு Pro க்கு மேம்படுத்தவும்.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "திருத்துவதற்கு Pro தேவை." },
+  "invalidpassword": { "message": "தவறான கடவுச்சொல்" },
+  "setpassword": { "message": "கடவுச்சொல்லை அமைக்கவும்" },
+  "enterpassword": { "message": "கடவுச்சொல்லை உள்ளிடவும்" },
+  "passwordmismatch": { "message": "கடவுச்சொற்கள் பொருந்தவில்லை" },
+  "passwordtooshort": { "message": "கடவுச்சொல் குறைந்தபட்சம் 6 எழுத்துக்களாக இருக்க வேண்டும்" },
+  "resetpasswordconfirm": { "message": "கடவுச்சொல்லை மீட்டமைப்பது பாதுகாப்பை முடக்கிவிடும். தொடரவா?" },
+  "passwordset": { "message": "கடவுச்சொல் வெற்றிகரமாக அமைக்கப்பட்டது" },
+  "passworddisabled": { "message": "கடவுச்சொல் பாதுகாப்பு முடக்கப்பட்டது" },
+  "prorequired": { "message": "இந்த அம்சத்திற்கு Pro முறை தேவை" },
+  "enablepasswordtitle": { "message": "கடவுச்சொல் பாதுகாப்பை இயக்கவும்" },
+  "enablepassworddesc": { "message": "விதிகளை நீக்க அல்லது திருத்த கடவுச்சொல் தேவை (கடுமையான முறையை மேம்படுத்துகிறது)" },
+  "passwordprotectiontitle": { "message": "கடவுச்சொல் பாதுகாப்பு" }
 }

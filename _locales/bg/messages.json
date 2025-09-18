@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Грешка при нулиране на настройките" },
   "basicsettingstitle": { "message": "Основни настройки" },
   "advancedsettingstitle": { "message": "Разширени настройки" },
-  "statisticstitle": { "message": "Статистика" }
+  "statisticstitle": { "message": "Статистика" },
+  "rulelimitreached": {
+    "message": "Достигнахте лимита за правила ($limit$) в основната версия. Надстройте до Pro за неограничени правила.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Изисква се Pro за редактиране." },
+  "invalidpassword": { "message": "Невалидна парола" },
+  "setpassword": { "message": "Задаване на парола" },
+  "enterpassword": { "message": "Въведете парола" },
+  "passwordmismatch": { "message": "Паролите не съвпадат" },
+  "passwordtooshort": { "message": "Паролата трябва да е поне 6 символа" },
+  "resetpasswordconfirm": { "message": "Нулирането на паролата ще деактивира защитата. Продължавате ли?" },
+  "passwordset": { "message": "Паролата е зададена успешно" },
+  "passworddisabled": { "message": "Защитата с парола е деактивирана" },
+  "prorequired": { "message": "Изисква се Pro режим за тази функция" },
+  "enablepasswordtitle": { "message": "Активиране на защита с парола" },
+  "enablepassworddesc": { "message": "Изисква парола за изтриване или редактиране на правила (усилва стриктния режим)" },
+  "passwordprotectiontitle": { "message": "Защита с парола" }
 }

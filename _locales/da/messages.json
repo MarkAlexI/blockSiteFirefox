@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Fejl ved nulstilling af indstillinger" },
   "basicsettingstitle": { "message": "Grundlæggende indstillinger" },
   "advancedsettingstitle": { "message": "Avancerede indstillinger" },
-  "statisticstitle": { "message": "Statistikker" }
+  "statisticstitle": { "message": "Statistikker" },
+  "rulelimitreached": {
+    "message": "Du har nået grænsen for regler ($limit$) i basisversionen. Opgrader til Pro for ubegrænsede regler.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro kræves til redigering." },
+  "invalidpassword": { "message": "Ugyldig adgangskode" },
+  "setpassword": { "message": "Udstyr adgangskode" },
+  "enterpassword": { "message": "Indtast adgangskode" },
+  "passwordmismatch": { "message": "Adgangskoderne stemmer ikke overens" },
+  "passwordtooshort": { "message": "Adgangskoden skal være på mindst 6 tegn" },
+  "resetpasswordconfirm": { "message": "Nulstilling af adgangskoden vil deaktivere beskyttelsen. Fortsæt?" },
+  "passwordset": { "message": "Adgangskode sat med succes" },
+  "passworddisabled": { "message": "Adgangskodebeskyttelse deaktiveret" },
+  "prorequired": { "message": "Pro-tilstand kræves til denne funktion" },
+  "enablepasswordtitle": { "message": "Aktivér adgangskodebeskyttelse" },
+  "enablepassworddesc": { "message": "Kræver en adgangskode for at slette eller redigere regler (forbedrer streng tilstand)" },
+  "passwordprotectiontitle": { "message": "Adgangskodebeskyttelse" }
 }

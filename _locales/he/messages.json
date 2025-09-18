@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "שגיאה באיפוס ההגדרות" },
   "basicsettingstitle": { "message": "הגדרות בסיסיות" },
   "advancedsettingstitle": { "message": "הגדרות מתקדמות" },
-  "statisticstitle": { "message": "סטטיסטיקות" }
+  "statisticstitle": { "message": "סטטיסטיקות" },
+  "rulelimitreached": {
+    "message": "הגעת למגבלת הכללים ($limit$) בגרסה הבסיסית. שדרג ל-Pro עבור כללים ללא הגבלה.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "נדרש Pro לעריכה." },
+  "invalidpassword": { "message": "סיסמה לא חוקית" },
+  "setpassword": { "message": "הגדר סיסמה" },
+  "enterpassword": { "message": "הזן סיסמה" },
+  "passwordmismatch": { "message": "הסיסמאות אינן תואמות" },
+  "passwordtooshort": { "message": "הסיסמה חייבת להכיל לפחות 6 תווים" },
+  "resetpasswordconfirm": { "message": "איפוס הסיסמה יבטל את ההגנה. להמשיך?" },
+  "passwordset": { "message": "הסיסמה הוגדרה בהצלחה" },
+  "passworddisabled": { "message": "הגנת הסיסמה בוטלה" },
+  "prorequired": { "message": "נדרש מצב Pro עבור תכונה זו" },
+  "enablepasswordtitle": { "message": "הפעל הגנת סיסמה" },
+  "enablepassworddesc": { "message": "דורש סיסמה למחיקה או עריכה של כללים (משפר את מצב קפדני)" },
+  "passwordprotectiontitle": { "message": "הגנת סיסמה" }
 }

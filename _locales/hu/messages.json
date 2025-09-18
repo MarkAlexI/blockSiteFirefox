@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Hiba a beállítások visszaállításakor" },
   "basicsettingstitle": { "message": "Alapbeállítások" },
   "advancedsettingstitle": { "message": "Haladó beállítások" },
-  "statisticstitle": { "message": "Statisztikák" }
+  "statisticstitle": { "message": "Statisztikák" },
+  "rulelimitreached": {
+    "message": "Elérted a szabályok korlátját ($limit$) az alapverzióban. Frissíts Pro-ra a korlátlan szabályokért.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro szükséges a szerkesztéshez." },
+  "invalidpassword": { "message": "Érvénytelen jelszó" },
+  "setpassword": { "message": "Jelszó beállítása" },
+  "enterpassword": { "message": "Jelszó megadása" },
+  "passwordmismatch": { "message": "A jelszavak nem egyeznek" },
+  "passwordtooshort": { "message": "A jelszónak legalább 6 karakterből kell állnia" },
+  "resetpasswordconfirm": { "message": "A jelszó visszaállítása letiltja a védelmet. Folytatod?" },
+  "passwordset": { "message": "Jelszó sikeresen beállítva" },
+  "passworddisabled": { "message": "Jelszóvédelem letiltva" },
+  "prorequired": { "message": "Ehhez a funkcióhoz Pro mód szükséges" },
+  "enablepasswordtitle": { "message": "Jelszóvédelem engedélyezése" },
+  "enablepassworddesc": { "message": "Jelszó szükséges a szabályok törléséhez vagy szerkesztéséhez (erősíti a szigorú módot)" },
+  "passwordprotectiontitle": { "message": "Jelszóvédelem" }
 }

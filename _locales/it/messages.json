@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Errore nel ripristino delle impostazioni" },
   "basicsettingstitle": { "message": "Impostazioni di base" },
   "advancedsettingstitle": { "message": "Impostazioni avanzate" },
-  "statisticstitle": { "message": "Statistiche" }
+  "statisticstitle": { "message": "Statistiche" },
+  "rulelimitreached": {
+    "message": "Hai raggiunto il limite di regole ($limit$) per la versione base. Passa a Pro per regole illimitate.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro richiesto per la modifica." },
+  "invalidpassword": { "message": "Password non valida" },
+  "setpassword": { "message": "Imposta password" },
+  "enterpassword": { "message": "Inserisci password" },
+  "passwordmismatch": { "message": "Le password non corrispondono" },
+  "passwordtooshort": { "message": "La password deve essere di almeno 6 caratteri" },
+  "resetpasswordconfirm": { "message": "Il ripristino della password disattiverà la protezione. Continuare?" },
+  "passwordset": { "message": "Password impostata con successo" },
+  "passworddisabled": { "message": "Protezione con password disattivata" },
+  "prorequired": { "message": "Modalità Pro richiesta per questa funzione" },
+  "enablepasswordtitle": { "message": "Attiva protezione con password" },
+  "enablepassworddesc": { "message": "Richiede una password per eliminare o modificare regole (migliora la modalità rigorosa)" },
+  "passwordprotectiontitle": { "message": "Protezione con password" }
 }

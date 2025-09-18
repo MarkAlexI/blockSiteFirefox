@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Fel vid återställning av inställningar" },
   "basicsettingstitle": { "message": "Grundinställningar" },
   "advancedsettingstitle": { "message": "Avancerade inställningar" },
-  "statisticstitle": { "message": "Statistik" }
+  "statisticstitle": { "message": "Statistik" },
+  "rulelimitreached": {
+    "message": "Du har nått gränsen för regler ($limit$) i grundversionen. Uppgradera till Pro för obegränsade regler.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro krävs för redigering." },
+  "invalidpassword": { "message": "Ogiltigt lösenord" },
+  "setpassword": { "message": "Ange lösenord" },
+  "enterpassword": { "message": "Skriv in lösenord" },
+  "passwordmismatch": { "message": "Lösenorden matchar inte" },
+  "passwordtooshort": { "message": "Lösenordet måste vara minst 6 tecken" },
+  "resetpasswordconfirm": { "message": "Återställning av lösenordet kommer att inaktivera skyddet. Fortsätta?" },
+  "passwordset": { "message": "Lösenordet har angetts framgångsrikt" },
+  "passworddisabled": { "message": "Lösenordsskydd inaktiverat" },
+  "prorequired": { "message": "Pro-läge krävs för denna funktion" },
+  "enablepasswordtitle": { "message": "Aktivera lösenordsskydd" },
+  "enablepassworddesc": { "message": "Kräver ett lösenord för att ta bort eller redigera regler (förbättrar strikt läge)" },
+  "passwordprotectiontitle": { "message": "Lösenordsskydd" }
 }

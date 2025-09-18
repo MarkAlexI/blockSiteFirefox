@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "સેટિંગ્સ રીસેટ કરતી વખતે ભૂલ" },
   "basicsettingstitle": { "message": "મૂળભૂત સેટિંગ્સ" },
   "advancedsettingstitle": { "message": "ઉન્નત સેટિંગ્સ" },
-  "statisticstitle": { "message": "આંકડા" }
+  "statisticstitle": { "message": "આંકડા" },
+  "rulelimitreached": {
+    "message": "તમે મૂળભૂત સંસ્કરણ માટે નિયમોની મર્યાદા ($limit$) સુધી પહોંચી ગયા છો. અમર્યાદિત નિયમો માટે પ્રોમાં અપગ્રેડ કરો.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "સંપાદન માટે પ્રોની જરૂર છે." },
+  "invalidpassword": { "message": "અમાન્ય પાસવર્ડ" },
+  "setpassword": { "message": "પાસવર્ડ સેટ કરો" },
+  "enterpassword": { "message": "પાસવર્ડ દાખલ કરો" },
+  "passwordmismatch": { "message": "પાસવર્ડ્સ મેળ ખાતા નથી" },
+  "passwordtooshort": { "message": "પાસવર્ડ ઓછામાં ઓછો 6 અક્ષરોનો હોવો જોઈએ" },
+  "resetpasswordconfirm": { "message": "પાસવર્ડ રીસેટ કરવાથી સુરક્ષા નિષ્ક્રિય થશે. ચાલુ રાખવું?" },
+  "passwordset": { "message": "પાસવર્ડ સફળતાપૂર્વક સેટ થયો" },
+  "passworddisabled": { "message": "પાસવર્ડ સુરક્ષા નિષ્ક્રિય કરવામાં આવી" },
+  "prorequired": { "message": "આ સુવિધા માટે પ્રો મોડની જરૂર છે" },
+  "enablepasswordtitle": { "message": "પાસવર્ડ સુરક્ષા સક્રિય કરો" },
+  "enablepassworddesc": { "message": "નિયમોને ડિલીટ કરવા અથવા સંપાદન કરવા માટે પાસવર્ડની જરૂર છે (સખત મોડને વધારે છે)" },
+  "passwordprotectiontitle": { "message": "પાસવર્ડ સુરક્ષા" }
 }

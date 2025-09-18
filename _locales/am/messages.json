@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "ቅንብሮችን በማዘመን ላይ ስህተት" },
   "basicsettingstitle": { "message": "መሠረታዊ ቅንብሮች" },
   "advancedsettingstitle": { "message": "የላቁ ቅንብሮች" },
-  "statisticstitle": { "message": "ስታቲስቲክስ" }
+  "statisticstitle": { "message": "ስታቲስቲክስ" },
+  "rulelimitreached": {
+    "message": "በመሠረታዊው ስሪት ውስጥ ያለውን የደንብ ገደብ ($limit$) ደርሰዋል። ለተገደብ ያልሆኑ ደንቦች ወደ ፕሮ ያሻሽሉ።",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "ለአርትዖት ፕሮ ያስፈልጋል።" },
+  "invalidpassword": { "message": "የተሳሳተ የይለፍ ቃል" },
+  "setpassword": { "message": "የይለፍ ቃል ያዘጋጁ" },
+  "enterpassword": { "message": "የይለፍ ቃል ያስገቡ" },
+  "passwordmismatch": { "message": "የይለፍ ቃሎች አይመሳሰሉም" },
+  "passwordtooshort": { "message": "የይለፍ ቃል ቢያንስ 6 ቁምፊዎች መሆን አለበት" },
+  "resetpasswordconfirm": { "message": "የይለፍ ቃሉን መቀየር ጥበቃን ያሰናክላል። መቀጠል ይፈልጋሉ?" },
+  "passwordset": { "message": "የይለፍ ቃል በተሳካ ሁኔታ ተዘጋጅቷል" },
+  "passworddisabled": { "message": "የይለፍ ቃል ጥበቃ ተሰናክሏል" },
+  "prorequired": { "message": "ለዚህ ባህሪ ፕሮ ሞድ ያስፈልጋል" },
+  "enablepasswordtitle": { "message": "የይለፍ ቃል ጥበቃን አንቃ" },
+  "enablepassworddesc": { "message": "ደንቦችን ለመሰረዝ ወይም ለማስተካከል የይለፍ ቃል ይጠይቁ (ጥብቅ ሞድን ያጠናክራል)" },
+  "passwordprotectiontitle": { "message": "የይለፍ ቃል ጥበቃ" }
 }

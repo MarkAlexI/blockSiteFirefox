@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Błąd podczas przywracania ustawień" },
   "basicsettingstitle": { "message": "Ustawienia podstawowe" },
   "advancedsettingstitle": { "message": "Ustawienia zaawansowane" },
-  "statisticstitle": { "message": "Statystyki" }
+  "statisticstitle": { "message": "Statystyki" },
+  "rulelimitreached": {
+    "message": "Osiągnąłeś limit reguł ($limit$) w wersji podstawowej. Uaktualnij do Pro, aby uzyskać nieograniczone reguły.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro wymagane do edycji." },
+  "invalidpassword": { "message": "Nieprawidłowe hasło" },
+  "setpassword": { "message": "Ustaw hasło" },
+  "enterpassword": { "message": "Wprowadź hasło" },
+  "passwordmismatch": { "message": "Hasła nie są zgodne" },
+  "passwordtooshort": { "message": "Hasło musi mieć co najmniej 6 znaków" },
+  "resetpasswordconfirm": { "message": "Zresetowanie hasła wyłączy ochronę. Kontynuować?" },
+  "passwordset": { "message": "Hasło ustawiono pomyślnie" },
+  "passworddisabled": { "message": "Ochrona hasłem wyłączona" },
+  "prorequired": { "message": "Tryb Pro wymagany dla tej funkcji" },
+  "enablepasswordtitle": { "message": "Włącz ochronę hasłem" },
+  "enablepassworddesc": { "message": "Wymaga hasła do usuwania lub edycji reguł (zwiększa tryb ścisły)" },
+  "passwordprotectiontitle": { "message": "Ochrona hasłem" }
 }

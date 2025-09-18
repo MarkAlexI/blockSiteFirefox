@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Error resetting settings" },
   "basicsettingstitle": { "message": "Basic Settings" },
   "advancedsettingstitle": { "message": "Advanced Settings" },
-  "statisticstitle": { "message": "Statistics" }
+  "statisticstitle": { "message": "Statistics" },
+  "rulelimitreached": {
+    "message": "You have reached the rule limit ($limit$) for the basic version. Upgrade to Pro for unlimited rules.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro required for editing." },
+  "invalidpassword": { "message": "Invalid password" },
+  "setpassword": { "message": "Set password" },
+  "enterpassword": { "message": "Enter password" },
+  "passwordmismatch": { "message": "Passwords do not match" },
+  "passwordtooshort": { "message": "Password must be at least 6 characters" },
+  "resetpasswordconfirm": { "message": "Resetting the password will disable protection. Continue?" },
+  "passwordset": { "message": "Password set successfully" },
+  "passworddisabled": { "message": "Password protection disabled" },
+  "prorequired": { "message": "Pro mode required for this feature" },
+  "enablepasswordtitle": { "message": "Enable password protection" },
+  "enablepassworddesc": { "message": "Require a password to delete or edit rules (enhances strict mode)" },
+  "passwordprotectiontitle": { "message": "Password protection" }
 }

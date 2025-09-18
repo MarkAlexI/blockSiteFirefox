@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Lỗi khi đặt lại cài đặt" },
   "basicsettingstitle": { "message": "Cài đặt cơ bản" },
   "advancedsettingstitle": { "message": "Cài đặt nâng cao" },
-  "statisticstitle": { "message": "Thống kê" }
+  "statisticstitle": { "message": "Thống kê" },
+  "rulelimitreached": {
+    "message": "Bạn đã đạt đến giới hạn quy tắc ($limit$) trong phiên bản cơ bản. Nâng cấp lên Pro để có quy tắc không giới hạn.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Cần Pro để chỉnh sửa." },
+  "invalidpassword": { "message": "Mật khẩu không hợp lệ" },
+  "setpassword": { "message": "Đặt mật khẩu" },
+  "enterpassword": { "message": "Nhập mật khẩu" },
+  "passwordmismatch": { "message": "Mật khẩu không khớp" },
+  "passwordtooshort": { "message": "Mật khẩu phải có ít nhất 6 ký tự" },
+  "resetpasswordconfirm": { "message": "Đặt lại mật khẩu sẽ tắt bảo vệ. Tiếp tục?" },
+  "passwordset": { "message": "Mật khẩu đã được đặt thành công" },
+  "passworddisabled": { "message": "Bảo vệ bằng mật khẩu đã bị tắt" },
+  "prorequired": { "message": "Chế độ Pro cần thiết cho tính năng này" },
+  "enablepasswordtitle": { "message": "Kích hoạt bảo vệ bằng mật khẩu" },
+  "enablepassworddesc": { "message": "Yêu cầu mật khẩu để xóa hoặc chỉnh sửa quy tắc (tăng cường chế độ nghiêm ngặt)" },
+  "passwordprotectiontitle": { "message": "Bảo vệ bằng mật khẩu" }
 }

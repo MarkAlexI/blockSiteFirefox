@@ -115,5 +115,27 @@
   "errorresettingsettings": { "message": "ସେଟିଂସ ରିସେଟ କରିବାରେ ତ୍ରୁଟି" },
   "basicsettingstitle": { "message": "ମୌଳିକ ସେଟିଂସ୍" },
   "advancedsettingstitle": { "message": "ଉନ୍ନତ ସେଟିଂସ୍" },
-  "statisticstitle": { "message": "ସଂଖ୍ୟାତ୍ମକ ତଥ୍ୟ" }
+  "statisticstitle": { "message": "ସଂଖ୍ୟାତ୍ମକ ତଥ୍ୟ" },
+  "rulelimitreached": {
+    "message": "ଆପଣ ମୌଳିକ ସଂସ୍କରଣ ପାଇଁ ନିୟମ ସୀମା ($limit$) ପାଖରେ ପହଞ୍ଚିଛନ୍ତି। ଅସୀମିତ ନିୟମ ପାଇଁ ପ୍ରୋକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ।",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "ସମ୍ପାଦନ ପାଇଁ ପ୍ରୋ ଆବଶ୍ୟକ।" },
+  "invalidpassword": { "message": "ଅବୈଧ ପାସୱାର୍ଡ" },
+  "setpassword": { "message": "ପାସୱାର୍ଡ ସେଟ କରନ୍ତୁ" },
+  "enterpassword": { "message": "ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ" },
+  "passwordmismatch": { "message": "ପାସୱାର୍ଡଗୁଡ଼ିକ ମେଳ ଖାଉନାହିଁ" },
+  "passwordtooshort": { "message": "ପାସୱାର୍ଡ ଅତିକମରେ ୬ ଅକ୍ଷର ହେବା ଆବଶ୍ୟକ" },
+  "resetpasswordconfirm": { "message": "ପାସୱାର୍ଡ ରିସେଟ କରିବା ସୁରକ୍ଷାକୁ ଅକ୍ଷମ କରିବ। ଜାରି ରଖିବେ?" },
+  "passwordset": { "message": "ପାସୱାର୍ଡ ସଫଳତାର ସହିତ ସେଟ ହୋଇଛି" },
+  "passworddisabled": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ଅକ୍ଷମ କରାଯାଇଛି" },
+  "prorequired": { "message": "ଏହି ବୈଶିଷ୍ଟ୍ୟ ପାଇଁ ପ୍ରୋ ମୋଡ୍ ଆବଶ୍ୟକ" },
+  "enablepasswordtitle": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ସକ୍ରିୟ କରନ୍ତୁ" },
+  "enablepassworddesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ହଟାଇବା କିମ୍ବା ସମ୍ପାଦନ କରିବା ପାଇଁ ପାସୱାର୍ଡ ଆବଶ୍ୟକ (କଠୋର ମୋଡକୁ ଉନ୍ନତ କରେ)" },
+  "passwordprotectiontitle": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା" }
 }

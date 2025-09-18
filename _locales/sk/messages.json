@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Chyba pri obnove nastavení" },
   "basicsettingstitle": { "message": "Základné nastavenia" },
   "advancedsettingstitle": { "message": "Pokročilé nastavenia" },
-  "statisticstitle": { "message": "Štatistiky" }
+  "statisticstitle": { "message": "Štatistiky" },
+  "rulelimitreached": {
+    "message": "Dosiahli ste limit pravidiel ($limit$) v základnej verzii. Prejdite na Pro pre neobmedzené pravidlá.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro je potrebné na úpravy." },
+  "invalidpassword": { "message": "Neplatné heslo" },
+  "setpassword": { "message": "Nastaviť heslo" },
+  "enterpassword": { "message": "Zadať heslo" },
+  "passwordmismatch": { "message": "Heslá sa nezhodujú" },
+  "passwordtooshort": { "message": "Heslo musí mať aspoň 6 znakov" },
+  "resetpasswordconfirm": { "message": "Obnovenie hesla deaktivuje ochranu. Pokračovať?" },
+  "passwordset": { "message": "Heslo bolo úspešne nastavené" },
+  "passworddisabled": { "message": "Ochrana heslom deaktivovaná" },
+  "prorequired": { "message": "Pre túto funkciu je potrebný režim Pro" },
+  "enablepasswordtitle": { "message": "Povoliť ochranu heslom" },
+  "enablepassworddesc": { "message": "Vyžaduje heslo na odstránenie alebo úpravu pravidiel (zlepšuje prísny režim)" },
+  "passwordprotectiontitle": { "message": "Ochrana heslom" }
 }

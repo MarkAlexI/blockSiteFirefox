@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "เกิดข้อผิดพลาดในการรีเซ็ตการตั้งค่า" },
   "basicsettingstitle": { "message": "การตั้งค่าพื้นฐาน" },
   "advancedsettingstitle": { "message": "การตั้งค่าขั้นสูง" },
-  "statisticstitle": { "message": "สถิติ" }
+  "statisticstitle": { "message": "สถิติ" },
+  "rulelimitreached": {
+    "message": "คุณถึงขีดจำกัดของกฎ ($limit$) สำหรับรุ่นพื้นฐานแล้ว อัปเกรดเป็น Pro เพื่อรับกฎไม่จำกัด",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "ต้องใช้ Pro สำหรับการแก้ไข" },
+  "invalidpassword": { "message": "รหัสผ่านไม่ถูกต้อง" },
+  "setpassword": { "message": "ตั้งรหัสผ่าน" },
+  "enterpassword": { "message": "ป้อนรหัสผ่าน" },
+  "passwordmismatch": { "message": "รหัสผ่านไม่ตรงกัน" },
+  "passwordtooshort": { "message": "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร" },
+  "resetpasswordconfirm": { "message": "การรีเซ็ตรหัสผ่านจะปิดการป้องกัน ต้องการดำเนินการต่อหรือไม่?" },
+  "passwordset": { "message": "ตั้งรหัสผ่านสำเร็จ" },
+  "passworddisabled": { "message": "ปิดการป้องกันด้วยรหัสผ่านแล้ว" },
+  "prorequired": { "message": "ต้องใช้โหมด Pro สำหรับฟีเจอร์นี้" },
+  "enablepasswordtitle": { "message": "เปิดใช้งานการป้องกันด้วยรหัสผ่าน" },
+  "enablepassworddesc": { "message": "ต้องใช้รหัสผ่านเพื่อลบหรือแก้ไขกฎ (ปรับปรุงโหมดเข้มงวด)" },
+  "passwordprotectiontitle": { "message": "การป้องกันด้วยรหัสผ่าน" }
 }

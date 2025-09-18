@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Ошибка при сбросе настроек" },
   "basicsettingstitle": { "message": "Основные настройки" },
   "advancedsettingstitle": { "message": "Расширенные настройки" },
-  "statisticstitle": { "message": "Статистика" }
+  "statisticstitle": { "message": "Статистика" },
+  "rulelimitreached": {
+    "message": "Вы достигли лимита правил ($limit$) в базовой версии. Перейдите на Pro для неограниченного количества правил.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro требуется для редактирования." },
+  "invalidpassword": { "message": "Неверный пароль" },
+  "setpassword": { "message": "Установить пароль" },
+  "enterpassword": { "message": "Введите пароль" },
+  "passwordmismatch": { "message": "Пароли не совпадают" },
+  "passwordtooshort": { "message": "Пароль должен содержать не менее 6 символов" },
+  "resetpasswordconfirm": { "message": "Сброс пароля отключит защиту. Продолжить?" },
+  "passwordset": { "message": "Пароль успешно установлен" },
+  "passworddisabled": { "message": "Защита паролем отключена" },
+  "prorequired": { "message": "Для этой функции требуется режим Pro" },
+  "enablepasswordtitle": { "message": "Включить защиту паролем" },
+  "enablepassworddesc": { "message": "Требуется пароль для удаления или редактирования правил (улучшает строгий режим)" },
+  "passwordprotectiontitle": { "message": "Защита паролем" }
 }

@@ -106,5 +106,27 @@
   "errorresettingsettings": { "message": "Erro ao restaurar configurações" },
   "basicsettingstitle": { "message": "Configurações básicas" },
   "advancedsettingstitle": { "message": "Configurações avançadas" },
-  "statisticstitle": { "message": "Estatísticas" }
+  "statisticstitle": { "message": "Estatísticas" },
+  "rulelimitreached": {
+    "message": "Você atingiu o limite de regras ($limit$) na versão básica. Atualize para o Pro para regras ilimitadas.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Pro necessário para edição." },
+  "invalidpassword": { "message": "Senha inválida" },
+  "setpassword": { "message": "Definir senha" },
+  "enterpassword": { "message": "Inserir senha" },
+  "passwordmismatch": { "message": "As senhas não coincidem" },
+  "passwordtooshort": { "message": "A senha deve ter pelo menos 6 caracteres" },
+  "resetpasswordconfirm": { "message": "Redefinir a senha desativará a proteção. Continuar?" },
+  "passwordset": { "message": "Senha definida com sucesso" },
+  "passworddisabled": { "message": "Proteção por senha desativada" },
+  "prorequired": { "message": "Modo Pro necessário para este recurso" },
+  "enablepasswordtitle": { "message": "Ativar proteção por senha" },
+  "enablepassworddesc": { "message": "Requer uma senha para excluir ou editar regras (melhora o modo estrito)" },
+  "passwordprotectiontitle": { "message": "Proteção por senha" }
 }
