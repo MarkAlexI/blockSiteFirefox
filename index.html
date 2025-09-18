@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" type="text/css" href="styles/popup.css">
   <link rel="stylesheet" type="text/css" href="styles/controls.css">
+  <link rel="stylesheet" href="styles/modal.css" type="text/css" media="all" />
   <title data-i18n="defaulttitle"></title>
 </head>
 
@@ -49,6 +50,18 @@
   </div>
   <output id="status"></output>
   <div id="rules-container"></div>
+  
+  <div id="passwordModal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modalTitle">Set Password</h3>
+      <input type="password" id="passwordInput1" placeholder="Enter password">
+      <input type="password" id="passwordInput2" placeholder="Confirm password">
+      <button id="confirmPassword">Confirm</button>
+      <button id="cancelPassword">Cancel</button>
+      <p id="passwordError" class="error hidden"></p>
+      <a id="forgotPassword" class="hidden" href="#">Forgot password? Reset (will clear protection)</a>
+    </div>
+  </div>
   
   <script type="module" src="scripts/i18n.js"></script>
   <script type="module" src="popup.js"></script>

@@ -1,5 +1,6 @@
 import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
+import { PasswordUtils } from '../pro/password.js';
 
 const isPro = ProManager.isPro();
 
@@ -8,7 +9,9 @@ export class SettingsManager {
     this.defaultSettings = {
       mode: 'normal',
       confirmBeforeDelete: false,
-      showNotifications: true
+      showNotifications: true,
+      enablePassword: false,
+      passwordHash: null
     };
     
     this.onRulesUpdated = null;
@@ -87,6 +90,7 @@ export class SettingsManager {
     
     document.getElementById('confirmBeforeDelete').checked = settings.confirmBeforeDelete;
     document.getElementById('showNotifications').checked = settings.showNotifications;
+    document.getElementById('enablePassword').checked = settings.enablePassword;
   }
   
   async saveSettings() {
@@ -104,11 +108,13 @@ export class SettingsManager {
     const mode = document.querySelector('input[name="securityMode"]:checked')?.value || 'normal';
     const confirmBeforeDelete = document.getElementById('confirmBeforeDelete').checked;
     const showNotifications = document.getElementById('showNotifications').checked;
+    const enablePassword = document.getElementById('enablePassword').checked;
     
     return {
       mode,
       confirmBeforeDelete,
-      showNotifications
+      showNotifications,
+      enablePassword
     };
   }
   
@@ -121,6 +127,36 @@ export class SettingsManager {
     });
     
     if (isPro) {
+      document.getElementById('enablePassword').addEventListener('change', async () => {
+        const enable = document.getElementById('enablePassword').checked;
+        if (!await ProManager.isPro()) {
+          this.showStatus(t('prorequired'), 'error');
+          document.getElementById('enablePassword').checked = false;
+          return;
+        }
+        if (enable) {
+          PasswordUtils.showPasswordModal('set', async (hash) => {
+            const settings = this.getSettingsFromUI();
+            settings.enablePassword = true;
+            settings.passwordHash = hash;
+            await browser.storage.sync.set({ settings });
+            this.showStatus(t('passwordset'), 'success');
+          }, t);
+        } else {
+          PasswordUtils.showPasswordModal('verify', async (isValid) => {
+            if (isValid) {
+              const settings = this.getSettingsFromUI();
+              settings.enablePassword = false;
+              settings.passwordHash = null;
+              await browser.storage.sync.set({ settings });
+              this.showStatus(t('passworddisabled'), 'success');
+            } else {
+              document.getElementById('enablePassword').checked = true;
+            }
+          }, t);
+        }
+      });
+      
       document.getElementById('exportRules').addEventListener('click', () => {
         this.exportRules();
       });

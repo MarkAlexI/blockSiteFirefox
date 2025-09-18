@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../styles/options.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/controls.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="../styles/modal.css" type="text/css" media="all" />
   <title id="options-title">Options page for Block Site Extension</title>
 </head>
 
@@ -72,6 +73,23 @@
           <div class="toggle-switch">
             <input type="checkbox" id="confirmBeforeDelete" class="toggle-input">
             <label for="confirmBeforeDelete" class="toggle-label">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+      
+      <section class="setting-section hidden pro-feature">
+        <h2 data-i18n="passwordprotectiontitle">Password Protection</h2>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <label for="enablePassword" data-i18n="enablepasswordtitle">Enable password for rule changes</label>
+            <span class="setting-description" data-i18n="enablepassworddesc">Require password to delete or edit rules (enhances strict mode)</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="enablePassword" class="toggle-input">
+            <label for="enablePassword" class="toggle-label">
               <span class="toggle-slider"></span>
             </label>
           </div>
@@ -161,6 +179,18 @@
     </table>
     <div id="status"></div>
     <p data-i18n="gotopopup">Click the extension icon to return to popup.</p>
+  </div>
+  
+  <div id="passwordModal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modalTitle">Set Password</h3>
+      <input type="password" id="passwordInput1" placeholder="Enter password">
+      <input type="password" id="passwordInput2" placeholder="Confirm password">
+      <button id="confirmPassword">Confirm</button>
+      <button id="cancelPassword">Cancel</button>
+      <p id="passwordError" class="error hidden"></p>
+      <a id="forgotPassword" class="hidden" href="#">Forgot password? Reset (will clear protection)</a>
+    </div>
   </div>
   
   <script type="module" src="../scripts/i18n.js"></script>

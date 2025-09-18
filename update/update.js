@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const features = [
     /*    'Added basic statistics on the options page: number of rules, total sites blocked, and today’ s blocked count.',
     'In Pro mode, a context menu is now available that lets you block sites from links with a single click.',*/
+    'Added password protection for rule deletion in Pro mode',
     'Technical improvements and stability update: cleaner codebase, fewer bugs.',
     'On mobile devices, the "Block This Site" button now shows the domain of the open page for convenience.'
   ];

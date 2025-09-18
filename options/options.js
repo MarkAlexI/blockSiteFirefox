@@ -3,6 +3,7 @@ import { SettingsManager } from './settings.js';
 import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
 import { RulesUI } from '../rules/rulesUI.js';
+import { PasswordUtils } from '../pro/password.js';
 
 const MAX_RULES_LIMIT = 5;
 
@@ -99,6 +100,14 @@ class OptionsPage {
     try {
       const isStrictMode = await this.rulesManager.isStrictMode();
       const deleteButton = event.target;
+      const settings = await SettingsManager.getSettings();
+      if (settings.enablePassword) {
+        const isValid = await this.promptForPassword();
+        if (!isValid) {
+          this.rulesUI.showErrorMessage(t('invalidpassword'));
+          return;
+        }
+      }
       
       this.rulesUI.handleRuleDeletion(
         deleteButton,
@@ -121,7 +130,7 @@ class OptionsPage {
     }
   }
   
-  toggleEditMode(row, index, rule) {
+  async toggleEditMode(row, index, rule) {
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
       index,
@@ -129,7 +138,24 @@ class OptionsPage {
       () => this.loadRules()
     );
     
+    const settings = await SettingsManager.getSettings();
+    if (settings.enablePassword) {
+      const isValid = await this.promptForPassword();
+      if (!isValid) {
+        this.rulesUI.showErrorMessage(t('invalidpassword'));
+        return;
+      }
+    }
+    
     row.replaceWith(editRow);
+  }
+  
+  async promptForPassword() {
+    return new Promise((resolve) => {
+      PasswordUtils.showPasswordModal('verify', (isValid) => {
+        resolve(isValid);
+      }, t);
+    });
   }
   
   async saveEditedRule(index, newBlock, newRedirect, oldRuleId) {

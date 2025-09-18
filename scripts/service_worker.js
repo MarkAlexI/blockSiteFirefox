@@ -6,16 +6,16 @@ import { ProManager } from '../pro/proManager.js';
 const rulesManager = new RulesManager();
 
 async function updateContextMenu(isPro) {
-  if (!chrome.contextMenus) {
+  if (!browser.contextMenus) {
     console.log('contextMenus API not available on this platform');
     return;
   }
   
   try {
-    await chrome.contextMenus.remove('blockDistraction').catch(() => {});
+    await browser.contextMenus.remove('blockDistraction').catch(() => {});
     
     if (isPro) {
-      await chrome.contextMenus.create({
+      await browser.contextMenus.create({
         id: 'blockDistraction',
         title: 'BlockDistraction',
         contexts: ['link']
@@ -29,8 +29,8 @@ async function updateContextMenu(isPro) {
   }
 }
 
-if (chrome.contextMenus) {
-  chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+if (browser.contextMenus) {
+  browser.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === 'blockDistraction' && info.linkUrl) {
       const isPro = await ProManager.isPro();
       if (!isPro) {

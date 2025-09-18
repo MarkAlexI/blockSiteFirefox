@@ -7,6 +7,7 @@ import { t } from './scripts/t.js';
 import { RulesManager } from './rules/rulesManager.js';
 import { RulesUI } from './rules/rulesUI.js';
 import { ProManager } from './pro/proManager.js';
+import { PasswordUtils } from './pro/password.js';
 
 const MAX_RULES_LIMIT = 5;
 
@@ -24,6 +25,7 @@ class PopupPage {
     
     this.isPro = false;
     this.isLegacyUser = true;
+    this.settings = {};
     
     this.init();
   }
@@ -31,7 +33,7 @@ class PopupPage {
   async init() {
     this.initializeUI();
     this.setupEventListeners();
-    await this.loadSecurityMode();
+    await this.loadSettings();
     await this.loadCurrentTabs();
     
     try {
@@ -69,11 +71,11 @@ class PopupPage {
     quoteElement.textContent = message || 'Stay motivated!';
   }
   
-  async loadSecurityMode() {
+  async loadSettings() {
     try {
       const result = await browser.storage.sync.get(['settings']);
-      const settings = result.settings || {};
-      const mode = settings.mode || 'normal';
+      this.settings = result.settings || {};
+      const mode = this.settings.mode || 'normal';
       
       if (this.currentModeElement) {
         if (mode === 'strict') {
@@ -130,7 +132,7 @@ class PopupPage {
     
     browser.storage.onChanged.addListener((changes, namespace) => {
       if (namespace === 'sync' && changes.settings) {
-        this.loadSecurityMode();
+        this.loadSettings();
       }
     });
   }
@@ -418,6 +420,14 @@ class PopupPage {
   
   async handleRuleDeletion(deleteButton, blockURL, redirectURL, ruleDiv) {
     try {
+      if (this.settings.enablePassword && this.isPro) {
+        const isValid = await this.promptForPassword();
+        if (!isValid) {
+          customAlert(t('invalidpassword'));
+          return;
+        }
+      }
+      
       const isStrictMode = await this.rulesManager.isStrictMode();
       
       this.rulesUI.handleRuleDeletion(
@@ -446,6 +456,14 @@ class PopupPage {
       console.error("Handle deletion error:", error);
       customAlert(t('errorremovingrule'));
     }
+  }
+  
+  async promptForPassword() {
+    return new Promise((resolve) => {
+      PasswordUtils.showPasswordModal('verify', (isValid) => {
+        resolve(isValid);
+      }, t);
+    });
   }
   
   makeInputReadOnly(input) {
