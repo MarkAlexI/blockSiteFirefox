@@ -26,7 +26,7 @@ export class RulesManager {
     });
   }
   
-  validateRule(blockURL, redirectURL) {
+  validateRule(blockURL, redirectURL, schedule) {
     const errors = [];
     
     if (!blockURL || blockURL.trim() === '') {
@@ -43,6 +43,20 @@ export class RulesManager {
     
     if (redirectURL && !isValidURL(redirectURL)) {
       errors.push('redirect_invalid');
+    }
+    
+    if (schedule) {
+      if (!Array.isArray(schedule.days) || schedule.days.some(d => d < 0 || d > 6 || !Number.isInteger(d))) {
+        errors.push('invalid_days');
+      }
+      if (!/^([01]\d|2[0-3]):([0-5]\d)$/.test(schedule.startTime) || !/^([01]\d|2[0-3]):([0-5]\d)$/.test(schedule.endTime)) {
+        errors.push('invalid_time_format');
+      }
+      const [startH, startM] = schedule.startTime.split(':').map(Number);
+      const [endH, endM] = schedule.endTime.split(':').map(Number);
+      if (startH * 60 + startM >= endH * 60 + endM) {
+        errors.push('start_after_end');
+      }
     }
     
     return {
@@ -67,9 +81,7 @@ export class RulesManager {
     
     const filter = normalizeUrlFilter(blockURL.trim());
     const urlFilter = `||${filter}`;
-    const action = redirectURL.trim() ?
-      { type: "redirect", redirect: { url: redirectURL.trim() } } :
-      { type: "redirect", redirect: { url: this.defaultRedirectURL } };
+    const action = redirectURL.trim() ? { type: "redirect", redirect: { url: redirectURL.trim() } } : { type: "redirect", redirect: { url: this.defaultRedirectURL } };
     
     return {
       id: newId,
@@ -79,8 +91,8 @@ export class RulesManager {
     };
   }
   
-  async addRule(blockURL, redirectURL) {
-    const validation = this.validateRule(blockURL, redirectURL);
+  async addRule(blockURL, redirectURL, schedule = null) {
+    const validation = this.validateRule(blockURL, redirectURL, schedule);
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
     }
@@ -101,7 +113,8 @@ export class RulesManager {
       const newRule = {
         id: newDnrRule.id,
         blockURL: blockURL.trim(),
-        redirectURL: redirectURL.trim()
+        redirectURL: redirectURL.trim(),
+        schedule
       };
       
       rules.push(newRule);
@@ -114,8 +127,8 @@ export class RulesManager {
     }
   }
   
-  async updateRule(index, newBlockURL, newRedirectURL) {
-    const validation = this.validateRule(newBlockURL, newRedirectURL);
+  async updateRule(index, newBlockURL, newRedirectURL, schedule = null) {
+    const validation = this.validateRule(newBlockURL, newRedirectURL, schedule);
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
     }
@@ -135,17 +148,18 @@ export class RulesManager {
       await browser.declarativeNetRequest.updateDynamicRules({
         removeRuleIds: [oldRule.id]
       });
-
+      
       const newDnrRule = await this.createDNRRule(newBlockURL, newRedirectURL);
       
       await browser.declarativeNetRequest.updateDynamicRules({
         addRules: [newDnrRule]
       });
-
+      
       rules[index] = {
         id: newDnrRule.id,
         blockURL: newBlockURL.trim(),
-        redirectURL: newRedirectURL.trim()
+        redirectURL: newRedirectURL.trim(),
+        schedule
       };
       
       await this.saveRules(rules);
@@ -195,7 +209,7 @@ export class RulesManager {
   
   async migrateRules() {
     const rules = await this.getRules();
-
+    
     if (!rules.some(rule => !rule.id)) {
       return { migrated: false, rules };
     }
@@ -205,13 +219,11 @@ export class RulesManager {
       await browser.declarativeNetRequest.updateDynamicRules({
         removeRuleIds: oldDnrRules.map(r => r.id)
       });
-
+      
       const newDnrRules = rules.map((rule, i) => {
         const filter = normalizeUrlFilter(rule.blockURL);
         const urlFilter = `||${filter}`;
-        const action = rule.redirectURL ?
-          { type: "redirect", redirect: { url: rule.redirectURL } } :
-          { type: "redirect", redirect: { url: this.defaultRedirectURL } };
+        const action = rule.redirectURL ? { type: "redirect", redirect: { url: rule.redirectURL } } : { type: "redirect", redirect: { url: this.defaultRedirectURL } };
         
         return {
           id: i + 1,
@@ -224,11 +236,12 @@ export class RulesManager {
       await browser.declarativeNetRequest.updateDynamicRules({
         addRules: newDnrRules
       });
-
+      
       const migratedRules = newDnrRules.map((dnrRule, i) => ({
         id: dnrRule.id,
         blockURL: rules[i].blockURL,
-        redirectURL: rules[i].redirectURL
+        redirectURL: rules[i].redirectURL,
+        schedule: null
       }));
       
       await this.saveRules(migratedRules);
@@ -251,5 +264,21 @@ export class RulesManager {
   async isStrictMode() {
     const settings = await this.getSettings();
     return settings.mode === 'strict';
+  }
+  
+  isRuleActiveNow(rule) {
+    if (!rule.schedule) return true;
+    
+    const now = new Date();
+    const currentDay = now.getDay();
+    if (!rule.schedule.days.includes(currentDay)) return false;
+    
+    const [startH, startM] = rule.schedule.startTime.split(':').map(Number);
+    const [endH, endM] = rule.schedule.endTime.split(':').map(Number);
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const startMinutes = startH * 60 + startM;
+    const endMinutes = endH * 60 + endM;
+    
+    return currentMinutes >= startMinutes && currentMinutes < endMinutes;
   }
 }

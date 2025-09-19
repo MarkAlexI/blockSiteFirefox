@@ -103,6 +103,15 @@ export class RulesUI {
     redirectCell.textContent = rule.redirectURL || '—';
     row.appendChild(redirectCell);
     
+    const scheduleCell = document.createElement('td');
+    if (rule.schedule) {
+      const daysStr = rule.schedule.days.map(d => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d]).join(', ');
+      scheduleCell.textContent = `${daysStr}, ${rule.schedule.startTime}-${rule.schedule.endTime}`;
+    } else {
+      scheduleCell.textContent = t('alwaysActive') || 'Always active';
+    }
+    row.appendChild(scheduleCell);
+    
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
     
@@ -125,7 +134,7 @@ export class RulesUI {
     return row;
   }
   
-  createRuleEditRow(rule, index, onSave, onCancel) {
+  createRuleEditRow(rule, index, onSave, onCancel, isPro = false) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     
@@ -147,13 +156,29 @@ export class RulesUI {
     redirectCell.appendChild(redirectInput);
     row.appendChild(redirectCell);
     
+    const scheduleCell = document.createElement('td');
+    scheduleCell.className = 'edit-mode';
+    
+    const scheduleSection = this.createScheduleSection(rule.schedule, isPro);
+    scheduleCell.appendChild(scheduleSection);
+    row.appendChild(scheduleCell);
+    
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
     
     const saveBtn = document.createElement('button');
     saveBtn.className = 'save-btn';
     saveBtn.textContent = t('savebtn');
-    saveBtn.addEventListener('click', () => onSave(index, blockInput.value, redirectInput.value, rule.id));
+    saveBtn.addEventListener('click', () => {
+      try {
+        const schedule = this.getScheduleFromSection(scheduleSection);
+        console.log('Edit: Extracted schedule:', schedule);
+        onSave(index, blockInput.value, redirectInput.value, schedule, rule.id);
+      } catch (error) {
+        console.error('Edit: Schedule error:', error.message);
+        this.showErrorMessage(t('invalidSchedule') || 'Invalid schedule: please select days and times');
+      }
+    });
     actionsCell.appendChild(saveBtn);
     
     const cancelBtn = document.createElement('button');
@@ -165,7 +190,7 @@ export class RulesUI {
     return row;
   }
   
-  createAddRuleRow(onSave, onCancel) {
+  createAddRuleRow(onSave, onCancel, isPro = false) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     
@@ -185,13 +210,29 @@ export class RulesUI {
     redirectCell.appendChild(redirectInput);
     row.appendChild(redirectCell);
     
+    const scheduleCell = document.createElement('td');
+    scheduleCell.className = 'edit-mode';
+    
+    const scheduleSection = this.createScheduleSection(null, isPro);
+    scheduleCell.appendChild(scheduleSection);
+    row.appendChild(scheduleCell);
+    
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
     
     const saveBtn = document.createElement('button');
     saveBtn.className = 'save-btn';
     saveBtn.textContent = t('savebtn');
-    saveBtn.addEventListener('click', () => onSave(blockInput.value, redirectInput.value, row));
+    saveBtn.addEventListener('click', () => {
+      try {
+        const schedule = this.getScheduleFromSection(scheduleSection);
+        console.log('Add: Extracted schedule:', schedule);
+        onSave(blockInput.value, redirectInput.value, schedule, row);
+      } catch (error) {
+        console.error('Add: Schedule error:', error.message);
+        this.showErrorMessage(t('invalidSchedule') || 'Invalid schedule: please select days and times');
+      }
+    });
     actionsCell.appendChild(saveBtn);
     
     const cancelBtn = document.createElement('button');
@@ -231,12 +272,124 @@ export class RulesUI {
     }
   }
   
+  createScheduleSection(existingSchedule, isPro) {
+    const section = document.createElement('div');
+    section.className = `schedule-section ${isPro ? 'pro-feature' : 'non-pro'}`;
+    
+    if (!isPro) {
+      section.textContent = t('proFeatureSchedule') || 'Schedule available in Pro';
+      return section;
+    }
+    
+    const enableCheckbox = document.createElement('input');
+    enableCheckbox.type = 'checkbox';
+    enableCheckbox.id = 'enable-schedule';
+    enableCheckbox.checked = !!existingSchedule;
+    section.appendChild(enableCheckbox);
+    section.appendChild(document.createTextNode(t('enableSchedule') || 'Enable schedule'));
+    
+    const daysContainer = document.createElement('div');
+    daysContainer.className = 'days-container';
+    daysContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
+    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach((day, i) => {
+      const label = document.createElement('label');
+      const chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.value = i;
+      if (existingSchedule?.days?.includes(i)) chk.checked = true;
+      label.appendChild(chk);
+      label.appendChild(document.createTextNode(day));
+      daysContainer.appendChild(label);
+    });
+    section.appendChild(daysContainer);
+    
+    const timeContainer = document.createElement('div');
+    timeContainer.className = 'time-container';
+    timeContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
+    
+    const startLabel = document.createElement('label');
+    startLabel.textContent = t('startTime') || 'Start:';
+    const startTime = document.createElement('input');
+    startTime.type = 'time';
+    startTime.className = 'start-time'; // Додаємо клас
+    startTime.required = true; // Додаємо required
+    startTime.value = existingSchedule?.startTime || '09:00';
+    startLabel.appendChild(startTime);
+    timeContainer.appendChild(startLabel);
+    
+    const endLabel = document.createElement('label');
+    endLabel.textContent = t('endTime') || 'End:';
+    const endTime = document.createElement('input');
+    endTime.type = 'time';
+    endTime.className = 'end-time'; // Додаємо клас
+    endTime.required = true; // Додаємо required
+    endTime.value = existingSchedule?.endTime || '17:00';
+    endLabel.appendChild(endTime);
+    timeContainer.appendChild(endLabel);
+    
+    section.appendChild(timeContainer);
+    
+    enableCheckbox.addEventListener('change', () => {
+      daysContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
+      timeContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
+    });
+    
+    console.log('Created schedule section:', {
+      enableChecked: enableCheckbox.checked,
+      days: existingSchedule?.days,
+      startTime: startTime.value,
+      endTime: endTime.value
+    });
+    
+    return section;
+  }
+  
+  getScheduleFromSection(section) {
+    const enableCheckbox = section.querySelector('#enable-schedule');
+    console.log('Enable checkbox found:', !!enableCheckbox, 'Checked:', enableCheckbox?.checked);
+    if (!enableCheckbox?.checked) {
+      console.log('Schedule disabled, returning null');
+      return null;
+    }
+    
+    const days = Array.from(section.querySelectorAll('.days-container input[type="checkbox"]:checked'))
+      .map(chk => parseInt(chk.value));
+    console.log('Selected days:', days);
+    
+    const startTimeInput = section.querySelector('.time-container input.start-time');
+    const endTimeInput = section.querySelector('.time-container input.end-time');
+    console.log('Start time input found:', !!startTimeInput, 'Value:', startTimeInput?.value);
+    console.log('End time input found:', !!endTimeInput, 'Value:', endTimeInput?.value);
+    
+    const startTime = startTimeInput?.value;
+    const endTime = endTimeInput?.value;
+    
+    if (days.length === 0) {
+      throw new Error('invalidSchedule: no days selected');
+    }
+    if (!startTime) {
+      throw new Error('invalidSchedule: start time is empty');
+    }
+    if (!endTime) {
+      throw new Error('invalidSchedule: end time is empty');
+    }
+    
+    return { days, startTime, endTime };
+  }
+  
   getValidationMessage(errorType) {
     const messages = {
       'blockurl_empty': t('blockurl'),
       'blockurl_ascii': t('blockurlonlyascii'),
       'blockurl_lowercase': t('blockurlonlylower'),
-      'redirect_invalid': t('wrongredirecturl')
+      'redirect_invalid': t('wrongredirecturl'),
+      'invalid_days': t('invalidDays') || 'Invalid days selected',
+      'invalid_time_format': t('invalidTimeFormat') || 'Invalid time format (HH:MM)',
+      'start_after_end': t('startAfterEnd') || 'Start time must be before end time',
+      'invalidSchedule: no days selected': t('invalidScheduleDays') || 'Invalid schedule: please select at least one day',
+      'invalidSchedule: start time is empty': t('invalidScheduleStartTime') || 'Invalid schedule: please set a start time',
+      'invalidSchedule: end time is empty': t('invalidScheduleEndTime') || 'Invalid schedule: please set an end time',
+      'invalidSchedule': t('invalidSchedule') || 'Invalid schedule: please select days and times'
     };
     
     return messages[errorType] || errorType;

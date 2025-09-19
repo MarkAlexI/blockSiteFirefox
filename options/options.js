@@ -35,7 +35,7 @@ class OptionsPage {
       this.isPro = await ProManager.isPro();
       this.isLegacyUser = await ProManager.isLegacyUser();
     } catch (error) {
-      console.info('Error initializing Pro/Legacy status:', error);
+      console.error('Error initializing Pro/Legacy status:', error);
     }
     
     await ProManager.initializeProFeatures();
@@ -92,7 +92,7 @@ class OptionsPage {
       index,
       (row, index, rule) => this.toggleEditMode(row, index, rule),
       (e, index) => this.handleRuleDeletion(e, index),
-      this.isPro || this.isLegacyUser
+      this.isPro
     );
   }
   
@@ -134,8 +134,9 @@ class OptionsPage {
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
       index,
-      (index, blockValue, redirectValue, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, ruleId),
-      () => this.loadRules()
+      (index, blockValue, redirectValue, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, schedule, ruleId),
+      () => this.loadRules(),
+      this.isPro
     );
     
     const settings = await SettingsManager.getSettings();
@@ -158,9 +159,10 @@ class OptionsPage {
     });
   }
   
-  async saveEditedRule(index, newBlock, newRedirect, oldRuleId) {
+  async saveEditedRule(index, newBlock, newRedirect, newSchedule, oldRuleId) {
+    console.log('Saving edited rule with schedule:', newSchedule);
     try {
-      await this.rulesManager.updateRule(index, newBlock, newRedirect);
+      await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule);
       this.statusElement.textContent = t('ruleupdated');
       this.loadRules();
     } catch (error) {
@@ -188,8 +190,9 @@ class OptionsPage {
       }
       
       const newRow = this.rulesUI.createAddRuleRow(
-        (blockValue, redirectValue, row) => this.saveNewRule(blockValue, redirectValue, row),
-        (row) => row.remove()
+        (blockValue, redirectValue, schedule, row) => this.saveNewRule(blockValue, redirectValue, schedule, row),
+        (row) => row.remove(),
+        this.isPro || this.isLegacyUser
       );
       
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
@@ -199,9 +202,10 @@ class OptionsPage {
     }
   }
   
-  async saveNewRule(newBlock, newRedirect, row) {
+  async saveNewRule(newBlock, newRedirect, newSchedule, row) {
+    console.log('Saving edited rule with schedule:', newSchedule);
     try {
-      await this.rulesManager.addRule(newBlock, newRedirect);
+      await this.rulesManager.addRule(newBlock, newRedirect, newSchedule);
       this.statusElement.textContent = t('rulenewadded');
       this.loadRules();
     } catch (error) {
@@ -229,7 +233,7 @@ window.addEventListener('beforeunload', () => {
   optionsPage.cleanup();
 });
 
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((message) => {
   if (message.type === 'reload_rules') {
     optionsPage.loadRules();
   }

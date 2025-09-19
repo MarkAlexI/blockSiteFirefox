@@ -458,6 +458,48 @@ button:not(:last-of-type) {
   margin-right: .6rem;
 }
 
+.schedule-section {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.days-container {
+  display: flex;
+  gap: 10px;
+}
+
+.days-container input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.time-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.time-container input[type="time"] {
+  width: 120px;
+}
+
+.pro-feature .schedule-section {
+  display: block;
+}
+
+.non-pro .schedule-section {
+  display: none;
+}
+
+.time-container input.start-time,
+.time-container input.end-time {
+  display: inline-block;
+  width: 120px;
+  margin-left: 5px;
+}
+
 @media (max-width: 768px) {
   body {
     padding: .4rem;

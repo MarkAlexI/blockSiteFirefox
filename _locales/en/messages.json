@@ -138,5 +138,58 @@
   "prorequired": { "message": "Pro mode required for this feature" },
   "enablepasswordtitle": { "message": "Enable Password Protection" },
   "enablepassworddesc": { "message": "Require a password to delete or edit rules (enhances strict mode)" },
-  "passwordprotectiontitle": { "message": "Password Protection" }
+  "passwordprotectiontitle": { "message": "Password Protection" },
+  "scheduleheader": {
+    "message": "Schedule",
+    "description": "Header for the schedule column in the rules table"
+  },
+  "enableSchedule": {
+    "message": "Enable schedule",
+    "description": "Label for the checkbox to enable/disable scheduling for a rule"
+  },
+  "alwaysActive": {
+    "message": "Always active",
+    "description": "Displayed in the schedule column when a rule has no schedule and is always active"
+  },
+  "proFeatureSchedule": {
+    "message": "Schedule available in Pro",
+    "description": "Message shown in the schedule section for non-Pro users"
+  },
+  "days": {
+    "message": "Days",
+    "description": "Label for the days selection in the schedule section"
+  },
+  "startTime": {
+    "message": "Start time:",
+    "description": "Label for the start time input in the schedule section"
+  },
+  "endTime": {
+    "message": "End time:",
+    "description": "Label for the end time input in the schedule section"
+  },
+  "invalidDays": {
+    "message": "Invalid days selected",
+    "description": "Error message when selected days are invalid (e.g., not 0-6 or empty)"
+  },
+  "invalidTimeFormat": {
+    "message": "Invalid time format (use HH:MM)",
+    "description": "Error message when the time format is incorrect"
+  },
+  "startAfterEnd": {
+    "message": "Start time must be before end time",
+    "description": "Error message when the start time is after or equal to the end time"
+  },
+  "invalidSchedule": { "message": "Invalid schedule: please select days and times." },
+  "invalidScheduleDays": {
+    "message": "Invalid schedule: please select at least one day.",
+    "description": "Error message when no days are selected in the schedule"
+  },
+  "invalidScheduleStartTime": {
+    "message": "Invalid schedule: please set a start time.",
+    "description": "Error message when start time is empty in the schedule"
+  },
+  "invalidScheduleEndTime": {
+    "message": "Invalid schedule: please set an end time.",
+    "description": "Error message when end time is empty in the schedule"
+  }
 }
