@@ -90,7 +90,7 @@ export class RulesUI {
     deleteButton.addEventListener('click', cancelHandler);
   }
   
-  createRuleDisplayRow(rule, index, onEdit, onDelete, showButtons = true) {
+  createRuleDisplayRow(rule, index, onEdit, onDelete, showEditButtons = true) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     row.dataset.ruleId = rule.id;
@@ -115,26 +115,24 @@ export class RulesUI {
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
     
-    if (showButtons) {
+    if (showEditButtons) {
       const editBtn = document.createElement('button');
       editBtn.textContent = t('editbtn');
       editBtn.addEventListener('click', () => onEdit(row, index, rule));
       actionsCell.appendChild(editBtn);
-      
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'delete-btn';
-      deleteBtn.textContent = t('deletebtn');
-      deleteBtn.addEventListener('click', (e) => onDelete(e, index));
-      actionsCell.appendChild(deleteBtn);
-    } else {
-      actionsCell.textContent = t('proonlyactions') || 'Need Pro for editing.';
     }
+    
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.textContent = t('deletebtn');
+    deleteBtn.addEventListener('click', (e) => onDelete(e, index));
+    actionsCell.appendChild(deleteBtn);
     
     row.appendChild(actionsCell);
     return row;
   }
   
-  createRuleEditRow(rule, index, onSave, onCancel, isPro = false) {
+  createRuleEditRow(rule, index, onSave, onCancel, enableSchedule = false) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     
@@ -159,7 +157,7 @@ export class RulesUI {
     const scheduleCell = document.createElement('td');
     scheduleCell.className = 'edit-mode';
     
-    const scheduleSection = this.createScheduleSection(rule.schedule, isPro);
+    const scheduleSection = this.createScheduleSection(rule.schedule, enableSchedule);
     scheduleCell.appendChild(scheduleSection);
     row.appendChild(scheduleCell);
     
@@ -172,10 +170,9 @@ export class RulesUI {
     saveBtn.addEventListener('click', () => {
       try {
         const schedule = this.getScheduleFromSection(scheduleSection);
-        console.log('Edit: Extracted schedule:', schedule);
         onSave(index, blockInput.value, redirectInput.value, schedule, rule.id);
       } catch (error) {
-        console.error('Edit: Schedule error:', error.message);
+        console.info('Edit: Schedule error:', error.message);
         this.showErrorMessage(t('invalidSchedule') || 'Invalid schedule: please select days and times');
       }
     });
@@ -190,7 +187,7 @@ export class RulesUI {
     return row;
   }
   
-  createAddRuleRow(onSave, onCancel, isPro = false) {
+  createAddRuleRow(onSave, onCancel, enableSchedule = false) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     
@@ -213,7 +210,7 @@ export class RulesUI {
     const scheduleCell = document.createElement('td');
     scheduleCell.className = 'edit-mode';
     
-    const scheduleSection = this.createScheduleSection(null, isPro);
+    const scheduleSection = this.createScheduleSection(null, enableSchedule);
     scheduleCell.appendChild(scheduleSection);
     row.appendChild(scheduleCell);
     
@@ -226,10 +223,9 @@ export class RulesUI {
     saveBtn.addEventListener('click', () => {
       try {
         const schedule = this.getScheduleFromSection(scheduleSection);
-        console.log('Add: Extracted schedule:', schedule);
         onSave(blockInput.value, redirectInput.value, schedule, row);
       } catch (error) {
-        console.error('Add: Schedule error:', error.message);
+        console.info('Add: Schedule error:', error.message);
         this.showErrorMessage(t('invalidSchedule') || 'Invalid schedule: please select days and times');
       }
     });
@@ -272,12 +268,12 @@ export class RulesUI {
     }
   }
   
-  createScheduleSection(existingSchedule, isPro) {
+  createScheduleSection(existingSchedule, enableSchedule) {
     const section = document.createElement('div');
-    section.className = `schedule-section ${isPro ? 'pro-feature' : 'non-pro'}`;
+    section.className = `schedule-section ${enableSchedule ? 'pro-feature' : 'non-pro'}`;
     
-    if (!isPro) {
-      section.textContent = t('proFeatureSchedule') || 'Schedule available in Pro';
+    if (!enableSchedule) {
+      //section.textContent = t('proFeatureSchedule') || 'Schedule available in Pro';
       return section;
     }
     
@@ -311,8 +307,8 @@ export class RulesUI {
     startLabel.textContent = t('startTime') || 'Start:';
     const startTime = document.createElement('input');
     startTime.type = 'time';
-    startTime.className = 'start-time'; // Додаємо клас
-    startTime.required = true; // Додаємо required
+    startTime.className = 'start-time';
+    startTime.required = true;
     startTime.value = existingSchedule?.startTime || '09:00';
     startLabel.appendChild(startTime);
     timeContainer.appendChild(startLabel);
@@ -321,8 +317,8 @@ export class RulesUI {
     endLabel.textContent = t('endTime') || 'End:';
     const endTime = document.createElement('input');
     endTime.type = 'time';
-    endTime.className = 'end-time'; // Додаємо клас
-    endTime.required = true; // Додаємо required
+    endTime.className = 'end-time';
+    endTime.required = true;
     endTime.value = existingSchedule?.endTime || '17:00';
     endLabel.appendChild(endTime);
     timeContainer.appendChild(endLabel);
@@ -346,20 +342,15 @@ export class RulesUI {
   
   getScheduleFromSection(section) {
     const enableCheckbox = section.querySelector('#enable-schedule');
-    console.log('Enable checkbox found:', !!enableCheckbox, 'Checked:', enableCheckbox?.checked);
     if (!enableCheckbox?.checked) {
-      console.log('Schedule disabled, returning null');
       return null;
     }
     
     const days = Array.from(section.querySelectorAll('.days-container input[type="checkbox"]:checked'))
       .map(chk => parseInt(chk.value));
-    console.log('Selected days:', days);
     
     const startTimeInput = section.querySelector('.time-container input.start-time');
     const endTimeInput = section.querySelector('.time-container input.end-time');
-    console.log('Start time input found:', !!startTimeInput, 'Value:', startTimeInput?.value);
-    console.log('End time input found:', !!endTimeInput, 'Value:', endTimeInput?.value);
     
     const startTime = startTimeInput?.value;
     const endTime = endTimeInput?.value;

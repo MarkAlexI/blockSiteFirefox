@@ -122,7 +122,7 @@ export class RulesManager {
       
       return newRule;
     } catch (error) {
-      console.error("DNR add error:", error);
+      console.info("DNR add error:", error);
       throw new Error('Failed to add rule');
     }
   }
@@ -166,7 +166,7 @@ export class RulesManager {
       
       return rules[index];
     } catch (error) {
-      console.error("DNR update error:", error);
+      console.info("DNR update error:", error);
       throw new Error('Failed to update rule');
     }
   }
@@ -189,7 +189,7 @@ export class RulesManager {
       
       return ruleToDelete;
     } catch (error) {
-      console.error("DNR remove error:", error);
+      console.info("DNR remove error:", error);
       throw new Error('Failed to delete rule');
     }
   }
@@ -248,7 +248,7 @@ export class RulesManager {
       
       return { migrated: true, rules: migratedRules };
     } catch (error) {
-      console.error("Migration error:", error);
+      console.info("Migration error:", error);
       throw new Error('Failed to migrate rules');
     }
   }

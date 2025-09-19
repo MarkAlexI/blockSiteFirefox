@@ -63,7 +63,8 @@ class OptionsPage {
       }
       
       const rules = migrationResult.rules || await this.rulesManager.getRules();
-      this.renderRules(rules);
+      const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
+      this.renderRules(rules, canEdit);
       this.rulesUI.updateStatus(this.statusElement, rules.length);
     } catch (error) {
       console.error("Load rules error:", error);
@@ -71,7 +72,7 @@ class OptionsPage {
     }
   }
   
-  renderRules(rules) {
+  renderRules(rules, canEdit) {
     this.rulesBody.innerHTML = '';
     
     if (rules.length === 0) {
@@ -81,18 +82,18 @@ class OptionsPage {
     }
     
     rules.forEach((rule, index) => {
-      const row = this.createRuleRow(rule, index);
+      const row = this.createRuleRow(rule, index, canEdit);
       this.rulesBody.prepend(row);
     });
   }
   
-  createRuleRow(rule, index) {
+  createRuleRow(rule, index, canEdit) {
     return this.rulesUI.createRuleDisplayRow(
       rule,
       index,
       (row, index, rule) => this.toggleEditMode(row, index, rule),
       (e, index) => this.handleRuleDeletion(e, index),
-      this.isPro
+      canEdit
     );
   }
   
@@ -192,7 +193,7 @@ class OptionsPage {
       const newRow = this.rulesUI.createAddRuleRow(
         (blockValue, redirectValue, schedule, row) => this.saveNewRule(blockValue, redirectValue, schedule, row),
         (row) => row.remove(),
-        this.isPro || this.isLegacyUser
+        this.isPro
       );
       
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
@@ -203,7 +204,6 @@ class OptionsPage {
   }
   
   async saveNewRule(newBlock, newRedirect, newSchedule, row) {
-    console.log('Saving edited rule with schedule:', newSchedule);
     try {
       await this.rulesManager.addRule(newBlock, newRedirect, newSchedule);
       this.statusElement.textContent = t('rulenewadded');

@@ -191,5 +191,13 @@
   "invalidScheduleEndTime": {
     "message": "Invalid schedule: please set an end time.",
     "description": "Error message when end time is empty in the schedule"
+  },
+  "editDisabledNonPro": {
+    "message": "Editing disabled: too many rules for non-Pro users.",
+    "description": "Error message when a non-Pro/non-Legacy user tries to edit/delete rules beyond the limit"
+  },
+  "errorloadingstatus": {
+    "message": "Error loading user status.",
+    "description": "Error message when Pro/Legacy status fails to load"
   }
 }
