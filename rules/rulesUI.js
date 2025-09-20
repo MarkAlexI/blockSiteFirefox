@@ -108,7 +108,7 @@ export class RulesUI {
       const daysStr = rule.schedule.days.map(d => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d]).join(', ');
       scheduleCell.textContent = `${daysStr}, ${rule.schedule.startTime}-${rule.schedule.endTime}`;
     } else {
-      scheduleCell.textContent = t('alwaysActive') || 'Always active';
+      scheduleCell.textContent = t('alwaysactive') || 'Always active';
     }
     row.appendChild(scheduleCell);
     
@@ -173,7 +173,7 @@ export class RulesUI {
         onSave(index, blockInput.value, redirectInput.value, schedule, rule.id);
       } catch (error) {
         console.info('Edit: Schedule error:', error.message);
-        this.showErrorMessage(t('invalidSchedule') || 'Invalid schedule: please select days and times');
+        this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
       }
     });
     actionsCell.appendChild(saveBtn);
@@ -226,7 +226,7 @@ export class RulesUI {
         onSave(blockInput.value, redirectInput.value, schedule, row);
       } catch (error) {
         console.info('Add: Schedule error:', error.message);
-        this.showErrorMessage(t('invalidSchedule') || 'Invalid schedule: please select days and times');
+        this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
       }
     });
     actionsCell.appendChild(saveBtn);
@@ -273,7 +273,7 @@ export class RulesUI {
     section.className = `schedule-section ${enableSchedule ? 'pro-feature' : 'non-pro'}`;
     
     if (!enableSchedule) {
-      //section.textContent = t('proFeatureSchedule') || 'Schedule available in Pro';
+      //section.textContent = t('profeatureschedule') || 'Schedule available in Pro';
       return section;
     }
     
@@ -282,7 +282,7 @@ export class RulesUI {
     enableCheckbox.id = 'enable-schedule';
     enableCheckbox.checked = !!existingSchedule;
     section.appendChild(enableCheckbox);
-    section.appendChild(document.createTextNode(t('enableSchedule') || 'Enable schedule'));
+    section.appendChild(document.createTextNode(t('enableschedule') || 'Enable schedule'));
     
     const daysContainer = document.createElement('div');
     daysContainer.className = 'days-container';
@@ -304,7 +304,7 @@ export class RulesUI {
     timeContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
     
     const startLabel = document.createElement('label');
-    startLabel.textContent = t('startTime') || 'Start:';
+    startLabel.textContent = t('starttime') || 'Start:';
     const startTime = document.createElement('input');
     startTime.type = 'time';
     startTime.className = 'start-time';
@@ -314,7 +314,7 @@ export class RulesUI {
     timeContainer.appendChild(startLabel);
     
     const endLabel = document.createElement('label');
-    endLabel.textContent = t('endTime') || 'End:';
+    endLabel.textContent = t('endtime') || 'End:';
     const endTime = document.createElement('input');
     endTime.type = 'time';
     endTime.className = 'end-time';
@@ -374,13 +374,13 @@ export class RulesUI {
       'blockurl_ascii': t('blockurlonlyascii'),
       'blockurl_lowercase': t('blockurlonlylower'),
       'redirect_invalid': t('wrongredirecturl'),
-      'invalid_days': t('invalidDays') || 'Invalid days selected',
-      'invalid_time_format': t('invalidTimeFormat') || 'Invalid time format (HH:MM)',
-      'start_after_end': t('startAfterEnd') || 'Start time must be before end time',
-      'invalidSchedule: no days selected': t('invalidScheduleDays') || 'Invalid schedule: please select at least one day',
-      'invalidSchedule: start time is empty': t('invalidScheduleStartTime') || 'Invalid schedule: please set a start time',
-      'invalidSchedule: end time is empty': t('invalidScheduleEndTime') || 'Invalid schedule: please set an end time',
-      'invalidSchedule': t('invalidSchedule') || 'Invalid schedule: please select days and times'
+      'invalid_days': t('invaliddays') || 'Invalid days selected',
+      'invalid_time_format': t('invalidtimeformat') || 'Invalid time format (HH:MM)',
+      'start_after_end': t('startafterend') || 'Start time must be before end time',
+      'invalidSchedule: no days selected': t('invalidscheduledays') || 'Invalid schedule: please select at least one day',
+      'invalidSchedule: start time is empty': t('invalidschedulestarttime') || 'Invalid schedule: please set a start time',
+      'invalidSchedule: end time is empty': t('invalidscheduleendtime') || 'Invalid schedule: please set an end time',
+      'invalidSchedule': t('invalidschedule') || 'Invalid schedule: please select days and times'
     };
     
     return messages[errorType] || errorType;
