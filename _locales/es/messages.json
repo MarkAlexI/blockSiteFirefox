@@ -137,5 +137,21 @@
   "prorequired": { "message": "Se requiere el modo Pro para esta función" },
   "enablepasswordtitle": { "message": "Activar protección con contraseña" },
   "enablepassworddesc": { "message": "Requiere una contraseña para eliminar o editar reglas (mejora el modo estricto)" },
-  "passwordprotectiontitle": { "message": "Protección con contraseña" }
+  "passwordprotectiontitle": { "message": "Protección con contraseña" },
+  "scheduleheader": { "message": "Horario" },
+  "enableschedule": { "message": "Activar horario" },
+  "alwaysactive": { "message": "Siempre activo" },
+  "profeatureschedule": { "message": "Horario disponible en la versión Pro" },
+  "days": { "message": "Días" },
+  "starttime": { "message": "Hora de inicio:" },
+  "endtime": { "message": "Hora de fin:" },
+  "invaliddays": { "message": "Días seleccionados no válidos" },
+  "invalidtimeformat": { "message": "Formato de hora no válido (use HH:MM)" },
+  "startafterend": { "message": "La hora de inicio debe ser anterior a la hora de fin" },
+  "invalidschedule": { "message": "Horario no válido: seleccione días y horas." },
+  "invalidscheduledays": { "message": "Horario no válido: seleccione al menos un día." },
+  "invalidschedulestarttime": { "message": "Horario no válido: establezca una hora de inicio." },
+  "invalidscheduleendtime": { "message": "Horario no válido: establezca una hora de fin." },
+  "editdisablednonpro": { "message": "Edición desactivada: demasiadas reglas para usuarios no Pro." },
+  "errorloadingstatus": { "message": "Error al cargar el estado del usuario." }
 }

@@ -128,5 +128,21 @@
   "prorequired": { "message": "이 기능에는 Pro 모드가 필요합니다" },
   "enablepasswordtitle": { "message": "비밀번호 보호 활성화" },
   "enablepassworddesc": { "message": "규칙을 삭제하거나 수정하려면 비밀번호가 필요합니다 (엄격 모드를 강화합니다)" },
-  "passwordprotectiontitle": { "message": "비밀번호 보호" }
+  "passwordprotectiontitle": { "message": "비밀번호 보호" },
+  "scheduleheader": { "message": "일정" },
+  "enableschedule": { "message": "일정 활성화" },
+  "alwaysactive": { "message": "항상 활성" },
+  "profeatureschedule": { "message": "일정 기능은 Pro 버전에서만 사용 가능합니다" },
+  "days": { "message": "요일" },
+  "starttime": { "message": "시작 시간:" },
+  "endtime": { "message": "종료 시간:" },
+  "invaliddays": { "message": "잘못된 요일이 선택되었습니다" },
+  "invalidtimeformat": { "message": "잘못된 시간 형식 (HH:MM 사용)" },
+  "startafterend": { "message": "시작 시간은 종료 시간보다 빨라야 합니다" },
+  "invalidschedule": { "message": "잘못된 일정: 요일과 시간을 선택해주세요." },
+  "invalidscheduledays": { "message": "잘못된 일정: 최소 한 개 이상의 요일을 선택해주세요." },
+  "invalidschedulestarttime": { "message": "잘못된 일정: 시작 시간을 설정해주세요." },
+  "invalidscheduleendtime": { "message": "잘못된 일정: 종료 시간을 설정해주세요." },
+  "editdisablednonpro": { "message": "편집 불가: 비 Pro 사용자에게 규칙이 너무 많습니다." },
+  "errorloadingstatus": { "message": "사용자 상태를 불러오는 중 오류가 발생했습니다." }
 }

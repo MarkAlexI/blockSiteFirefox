@@ -128,5 +128,21 @@
   "prorequired": { "message": "Pro tuto funkci je vyžadován režim Pro" },
   "enablepasswordtitle": { "message": "Povolit ochranu heslem" },
   "enablepassworddesc": { "message": "Vyžaduje heslo pro smazání nebo úpravu pravidel (vylepšuje přísný režim)" },
-  "passwordprotectiontitle": { "message": "Ochrana heslem" }
+  "passwordprotectiontitle": { "message": "Ochrana heslem" },
+  "scheduleheader": { "message": "Plán" },
+  "enableschedule": { "message": "Povolit plán" },
+  "alwaysactive": { "message": "Vždy aktivní" },
+  "profeatureschedule": { "message": "Plán je k dispozici v Pro verzi" },
+  "days": { "message": "Dny" },
+  "starttime": { "message": "Čas začátku:" },
+  "endtime": { "message": "Čas ukončení:" },
+  "invaliddays": { "message": "Vybrány neplatné dny" },
+  "invalidtimeformat": { "message": "Neplatný formát času (použijte HH:MM)" },
+  "startafterend": { "message": "Čas začátku musí být před časem ukončení" },
+  "invalidschedule": { "message": "Neplatný plán: vyberte dny a časy." },
+  "invalidscheduledays": { "message": "Neplatný plán: vyberte alespoň jeden den." },
+  "invalidschedulestarttime": { "message": "Neplatný plán: nastavte čas začátku." },
+  "invalidscheduleendtime": { "message": "Neplatný plán: nastavte čas ukončení." },
+  "editdisablednonpro": { "message": "Úpravy zakázány: příliš mnoho pravidel pro ne-Pro uživatele." },
+  "errorloadingstatus": { "message": "Chyba při načítání stavu uživatele." }
 }

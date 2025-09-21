@@ -128,5 +128,21 @@
   "prorequired": { "message": "Для этой функции требуется режим Pro" },
   "enablepasswordtitle": { "message": "Включить защиту паролем" },
   "enablepassworddesc": { "message": "Требуется пароль для удаления или редактирования правил (улучшает строгий режим)" },
-  "passwordprotectiontitle": { "message": "Защита паролем" }
+  "passwordprotectiontitle": { "message": "Защита паролем" },
+  "scheduleheader": { "message": "Расписание" },
+  "enableschedule": { "message": "Включить расписание" },
+  "alwaysactive": { "message": "Всегда активно" },
+  "profeatureschedule": { "message": "Расписание доступно в Pro-версии" },
+  "days": { "message": "Дни" },
+  "starttime": { "message": "Время начала:" },
+  "endtime": { "message": "Время окончания:" },
+  "invaliddays": { "message": "Выбраны недопустимые дни" },
+  "invalidtimeformat": { "message": "Неверный формат времени (используйте ЧЧ:ММ)" },
+  "startafterend": { "message": "Время начала должно быть раньше времени окончания" },
+  "invalidschedule": { "message": "Недопустимое расписание: выберите дни и время." },
+  "invalidscheduledays": { "message": "Недопустимое расписание: выберите хотя бы один день." },
+  "invalidschedulestarttime": { "message": "Недопустимое расписание: укажите время начала." },
+  "invalidscheduleendtime": { "message": "Недопустимое расписание: укажите время окончания." },
+  "editdisablednonpro": { "message": "Редактирование отключено: слишком много правил для пользователей без Pro." },
+  "errorloadingstatus": { "message": "Ошибка загрузки статуса пользователя." }
 }

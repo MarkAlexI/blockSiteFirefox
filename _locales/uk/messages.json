@@ -137,5 +137,21 @@
   "prorequired": { "message": "Для цієї функції потрібен режим Pro" },
   "enablepasswordtitle": { "message": "Увімкнути захист паролем" },
   "enablepassworddesc": { "message": "Потрібен пароль для видалення або редагування правил (покращує суворий режим)" },
-  "passwordprotectiontitle": { "message": "Захист паролем" }
+  "passwordprotectiontitle": { "message": "Захист паролем" },
+  "scheduleheader": { "message": "Розклад" },
+  "enableschedule": { "message": "Увімкнути розклад" },
+  "alwaysactive": { "message": "Завжди активний" },
+  "profeatureschedule": { "message": "Розклад доступний у Pro-версії" },
+  "days": { "message": "Дні" },
+  "starttime": { "message": "Час початку:" },
+  "endtime": { "message": "Час завершення:" },
+  "invaliddays": { "message": "Обрано некоректні дні" },
+  "invalidtimeformat": { "message": "Неправильний формат часу (використовуйте ГГ:ХХ)" },
+  "startafterend": { "message": "Час початку має бути раніше за час завершення" },
+  "invalidschedule": { "message": "Некоректний розклад: виберіть дні та час." },
+  "invalidscheduledays": { "message": "Некоректний розклад: виберіть принаймні один день." },
+  "invalidschedulestarttime": { "message": "Некоректний розклад: вкажіть час початку." },
+  "invalidscheduleendtime": { "message": "Некоректний розклад: вкажіть час завершення." },
+  "editdisablednonpro": { "message": "Редагування вимкнене: забагато правил для користувачів без Pro." },
+  "errorloadingstatus": { "message": "Помилка завантаження статусу користувача." }
 }

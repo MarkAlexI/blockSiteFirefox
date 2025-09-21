@@ -137,5 +137,21 @@
   "prorequired": { "message": "この機能にはProモードが必要です" },
   "enablepasswordtitle": { "message": "パスワード保護を有効にする" },
   "enablepassworddesc": { "message": "ルールの削除または編集にはパスワードが必要です（厳格モードを強化します）" },
-  "passwordprotectiontitle": { "message": "パスワード保護" }
+  "passwordprotectiontitle": { "message": "パスワード保護" },
+  "scheduleheader": { "message": "スケジュール" },
+  "enableschedule": { "message": "スケジュールを有効にする" },
+  "alwaysactive": { "message": "常に有効" },
+  "profeatureschedule": { "message": "スケジュールは Pro 版で利用可能です" },
+  "days": { "message": "曜日" },
+  "starttime": { "message": "開始時刻:" },
+  "endtime": { "message": "終了時刻:" },
+  "invaliddays": { "message": "無効な曜日が選択されました" },
+  "invalidtimeformat": { "message": "時刻の形式が無効です（HH:MM を使用してください）" },
+  "startafterend": { "message": "開始時刻は終了時刻より前でなければなりません" },
+  "invalidschedule": { "message": "無効なスケジュール: 曜日と時刻を選択してください。" },
+  "invalidscheduledays": { "message": "無効なスケジュール: 少なくとも 1 日を選択してください。" },
+  "invalidschedulestarttime": { "message": "無効なスケジュール: 開始時刻を設定してください。" },
+  "invalidscheduleendtime": { "message": "無効なスケジュール: 終了時刻を設定してください。" },
+  "editdisablednonpro": { "message": "編集は無効です: Pro 版以外のユーザーにはルールが多すぎます。" },
+  "errorloadingstatus": { "message": "ユーザーのステータスを読み込み中にエラーが発生しました。" }
 }

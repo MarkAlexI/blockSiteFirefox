@@ -128,5 +128,21 @@
   "prorequired": { "message": "Modalità Pro richiesta per questa funzione" },
   "enablepasswordtitle": { "message": "Attiva protezione con password" },
   "enablepassworddesc": { "message": "Richiede una password per eliminare o modificare regole (migliora la modalità rigorosa)" },
-  "passwordprotectiontitle": { "message": "Protezione con password" }
+  "passwordprotectiontitle": { "message": "Protezione con password" },
+  "scheduleheader": { "message": "Programma" },
+  "enableschedule": { "message": "Abilita programma" },
+  "alwaysactive": { "message": "Sempre attivo" },
+  "profeatureschedule": { "message": "Il programma è disponibile nella versione Pro" },
+  "days": { "message": "Giorni" },
+  "starttime": { "message": "Ora di inizio:" },
+  "endtime": { "message": "Ora di fine:" },
+  "invaliddays": { "message": "Giorni selezionati non validi" },
+  "invalidtimeformat": { "message": "Formato orario non valido (usa HH:MM)" },
+  "startafterend": { "message": "L'orario di inizio deve essere prima dell'orario di fine" },
+  "invalidschedule": { "message": "Programma non valido: seleziona giorni e orari." },
+  "invalidscheduledays": { "message": "Programma non valido: seleziona almeno un giorno." },
+  "invalidschedulestarttime": { "message": "Programma non valido: imposta un orario di inizio." },
+  "invalidscheduleendtime": { "message": "Programma non valido: imposta un orario di fine." },
+  "editdisablednonpro": { "message": "Modifica disabilitata: troppe regole per gli utenti non Pro." },
+  "errorloadingstatus": { "message": "Errore durante il caricamento dello stato dell'utente." }
 }

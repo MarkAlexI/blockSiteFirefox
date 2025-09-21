@@ -128,5 +128,21 @@
   "prorequired": { "message": "Pro mode required for this feature" },
   "enablepasswordtitle": { "message": "Enable password protection" },
   "enablepassworddesc": { "message": "Require a password to delete or edit rules (enhances strict mode)" },
-  "passwordprotectiontitle": { "message": "Password protection" }
+  "passwordprotectiontitle": { "message": "Password protection" },
+  "scheduleheader": { "message": "Schedule" },
+  "enableschedule": { "message": "Enable schedule" },
+  "alwaysactive": { "message": "Always active" },
+  "profeatureschedule": { "message": "Schedule available in Pro" },
+  "days": { "message": "Days" },
+  "starttime": { "message": "Start time:" },
+  "endtime": { "message": "End time:" },
+  "invaliddays": { "message": "Invalid days selected" },
+  "invalidtimeformat": { "message": "Invalid time format (use HH:MM)" },
+  "startafterend": { "message": "Start time must be before end time" },
+  "invalidschedule": { "message": "Invalid schedule: please select days and times." },
+  "invalidscheduledays": { "message": "Invalid schedule: please select at least one day." },
+  "invalidschedulestarttime": { "message": "Invalid schedule: please set a start time." },
+  "invalidscheduleendtime": { "message": "Invalid schedule: please set an end time." },
+  "editdisablednonpro": { "message": "Editing disabled: too many rules for non-Pro users." },
+  "errorloadingstatus": { "message": "Error loading user status." }
 }

@@ -128,5 +128,21 @@
   "prorequired": { "message": "Pro-Modus erforderlich für diese Funktion" },
   "enablepasswordtitle": { "message": "Passwortschutz aktivieren" },
   "enablepassworddesc": { "message": "Erfordert ein Passwort zum Löschen oder Bearbeiten von Regeln (verbessert den strikten Modus)" },
-  "passwordprotectiontitle": { "message": "Passwortschutz" }
+  "passwordprotectiontitle": { "message": "Passwortschutz" },
+  "scheduleheader": { "message": "Zeitplan" },
+  "enableschedule": { "message": "Zeitplan aktivieren" },
+  "alwaysactive": { "message": "Immer aktiv" },
+  "profeatureschedule": { "message": "Zeitplan nur in Pro verfügbar" },
+  "days": { "message": "Tage" },
+  "starttime": { "message": "Startzeit:" },
+  "endtime": { "message": "Endzeit:" },
+  "invaliddays": { "message": "Ungültige Tage ausgewählt" },
+  "invalidtimeformat": { "message": "Ungültiges Zeitformat (verwenden Sie HH:MM)" },
+  "startafterend": { "message": "Die Startzeit muss vor der Endzeit liegen" },
+  "invalidschedule": { "message": "Ungültiger Zeitplan: Bitte wählen Sie Tage und Zeiten aus." },
+  "invalidscheduledays": { "message": "Ungültiger Zeitplan: Bitte wählen Sie mindestens einen Tag aus." },
+  "invalidschedulestarttime": { "message": "Ungültiger Zeitplan: Bitte legen Sie eine Startzeit fest." },
+  "invalidscheduleendtime": { "message": "Ungültiger Zeitplan: Bitte legen Sie eine Endzeit fest." },
+  "editdisablednonpro": { "message": "Bearbeitung deaktiviert: Zu viele Regeln für Nicht-Pro-Benutzer." },
+  "errorloadingstatus": { "message": "Fehler beim Laden des Benutzerstatus." }
 }

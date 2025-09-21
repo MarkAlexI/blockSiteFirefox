@@ -137,5 +137,21 @@
   "prorequired": { "message": "Mode Pro requis pour cette fonctionnalité" },
   "enablepasswordtitle": { "message": "Activer la protection par mot de passe" },
   "enablepassworddesc": { "message": "Exige un mot de passe pour supprimer ou modifier des règles (renforce le mode strict)" },
-  "passwordprotectiontitle": { "message": "Protection par mot de passe" }
+  "passwordprotectiontitle": { "message": "Protection par mot de passe" },
+  "scheduleheader": { "message": "Planification" },
+  "enableschedule": { "message": "Activer la planification" },
+  "alwaysactive": { "message": "Toujours actif" },
+  "profeatureschedule": { "message": "La planification est disponible dans la version Pro" },
+  "days": { "message": "Jours" },
+  "starttime": { "message": "Heure de début:" },
+  "endtime": { "message": "Heure de fin:" },
+  "invaliddays": { "message": "Jours sélectionnés invalides" },
+  "invalidtimeformat": { "message": "Format de l'heure invalide (utilisez HH:MM)" },
+  "startafterend": { "message": "L'heure de début doit être avant l'heure de fin" },
+  "invalidschedule": { "message": "Planification invalide : veuillez sélectionner des jours et des heures." },
+  "invalidscheduledays": { "message": "Planification invalide : veuillez sélectionner au moins un jour." },
+  "invalidschedulestarttime": { "message": "Planification invalide : veuillez définir une heure de début." },
+  "invalidscheduleendtime": { "message": "Planification invalide : veuillez définir une heure de fin." },
+  "editdisablednonpro": { "message": "Édition désactivée : trop de règles pour les utilisateurs non-Pro." },
+  "errorloadingstatus": { "message": "Erreur lors du chargement du statut de l'utilisateur." }
 }

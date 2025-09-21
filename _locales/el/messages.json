@@ -128,5 +128,21 @@
   "prorequired": { "message": "Απαιτείται λειτουργία Pro για αυτή τη δυνατότητα" },
   "enablepasswordtitle": { "message": "Ενεργοποίηση προστασίας κωδικού πρόσβασης" },
   "enablepassworddesc": { "message": "Απαιτεί κωδικό πρόσβασης για διαγραφή ή επεξεργασία κανόνων (ενισχύει τη λειτουργία αυστηρότητας)" },
-  "passwordprotectiontitle": { "message": "Προστασία κωδικού πρόσβασης" }
+  "passwordprotectiontitle": { "message": "Προστασία κωδικού πρόσβασης" },
+  "scheduleheader": { "message": "Πρόγραμμα" },
+  "enableschedule": { "message": "Ενεργοποίηση προγράμματος" },
+  "alwaysactive": { "message": "Πάντα ενεργό" },
+  "profeatureschedule": { "message": "Το πρόγραμμα είναι διαθέσιμο στην έκδοση Pro" },
+  "days": { "message": "Ημέρες" },
+  "starttime": { "message": "Ώρα έναρξης:" },
+  "endtime": { "message": "Ώρα λήξης:" },
+  "invaliddays": { "message": "Επιλεγμένες μη έγκυρες ημέρες" },
+  "invalidtimeformat": { "message": "Μη έγκυρη μορφή ώρας (χρησιμοποιήστε ΩΩ:ΛΛ)" },
+  "startafterend": { "message": "Η ώρα έναρξης πρέπει να είναι πριν από την ώρα λήξης" },
+  "invalidschedule": { "message": "Μη έγκυρο πρόγραμμα: επιλέξτε ημέρες και ώρες." },
+  "invalidscheduledays": { "message": "Μη έγκυρο πρόγραμμα: επιλέξτε τουλάχιστον μία ημέρα." },
+  "invalidschedulestarttime": { "message": "Μη έγκυρο πρόγραμμα: ορίστε ώρα έναρξης." },
+  "invalidscheduleendtime": { "message": "Μη έγκυρο πρόγραμμα: ορίστε ώρα λήξης." },
+  "editdisablednonpro": { "message": "Επεξεργασία απενεργοποιημένη: πάρα πολλοί κανόνες για χρήστες χωρίς Pro." },
+  "errorloadingstatus": { "message": "Σφάλμα κατά τη φόρτωση της κατάστασης χρήστη." }
 }

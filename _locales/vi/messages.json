@@ -128,5 +128,21 @@
   "prorequired": { "message": "Chế độ Pro cần thiết cho tính năng này" },
   "enablepasswordtitle": { "message": "Kích hoạt bảo vệ bằng mật khẩu" },
   "enablepassworddesc": { "message": "Yêu cầu mật khẩu để xóa hoặc chỉnh sửa quy tắc (tăng cường chế độ nghiêm ngặt)" },
-  "passwordprotectiontitle": { "message": "Bảo vệ bằng mật khẩu" }
+  "passwordprotectiontitle": { "message": "Bảo vệ bằng mật khẩu" },
+  "scheduleheader": { "message": "Lịch trình" },
+  "enableschedule": { "message": "Bật lịch trình" },
+  "alwaysactive": { "message": "Luôn hoạt động" },
+  "profeatureschedule": { "message": "Lịch trình chỉ khả dụng trong phiên bản Pro" },
+  "days": { "message": "Các ngày" },
+  "starttime": { "message": "Thời gian bắt đầu:" },
+  "endtime": { "message": "Thời gian kết thúc:" },
+  "invaliddays": { "message": "Ngày đã chọn không hợp lệ" },
+  "invalidtimeformat": { "message": "Định dạng thời gian không hợp lệ (sử dụng HH:MM)" },
+  "startafterend": { "message": "Thời gian bắt đầu phải trước thời gian kết thúc" },
+  "invalidschedule": { "message": "Lịch trình không hợp lệ: vui lòng chọn ngày và giờ." },
+  "invalidscheduledays": { "message": "Lịch trình không hợp lệ: vui lòng chọn ít nhất một ngày." },
+  "invalidschedulestarttime": { "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian bắt đầu." },
+  "invalidscheduleendtime": { "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian kết thúc." },
+  "editdisablednonpro": { "message": "Chỉnh sửa bị vô hiệu: quá nhiều quy tắc cho người dùng không Pro." },
+  "errorloadingstatus": { "message": "Lỗi khi tải trạng thái người dùng." }
 }

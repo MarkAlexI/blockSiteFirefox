@@ -137,5 +137,21 @@
   "prorequired": { "message": "此功能需要 Pro 模式" },
   "enablepasswordtitle": { "message": "启用密码保护" },
   "enablepassworddesc": { "message": "删除或编辑规则需要密码（增强严格模式）" },
-  "passwordprotectiontitle": { "message": "密码保护" }
+  "passwordprotectiontitle": { "message": "密码保护" },
+  "scheduleheader": { "message": "日程" },
+  "enableschedule": { "message": "启用日程" },
+  "alwaysactive": { "message": "始终启用" },
+  "profeatureschedule": { "message": "日程功能仅在 Pro 版中可用" },
+  "days": { "message": "天数" },
+  "starttime": { "message": "开始时间：" },
+  "endtime": { "message": "结束时间：" },
+  "invaliddays": { "message": "选择的天数无效" },
+  "invalidtimeformat": { "message": "时间格式无效（请使用 HH:MM）" },
+  "startafterend": { "message": "开始时间必须早于结束时间" },
+  "invalidschedule": { "message": "无效的日程：请选择天数和时间。" },
+  "invalidscheduledays": { "message": "无效的日程：请至少选择一天。" },
+  "invalidschedulestarttime": { "message": "无效的日程：请设置开始时间。" },
+  "invalidscheduleendtime": { "message": "无效的日程：请设置结束时间。" },
+  "editdisablednonpro": { "message": "编辑已禁用：非 Pro 用户的规则过多。" },
+  "errorloadingstatus": { "message": "加载用户状态时出错。" }
 }

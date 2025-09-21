@@ -128,5 +128,21 @@
   "prorequired": { "message": "此功能需要 Pro 模式" },
   "enablepasswordtitle": { "message": "啟用密碼保護" },
   "enablepassworddesc": { "message": "刪除或編輯規則需要密碼（增強嚴格模式）" },
-  "passwordprotectiontitle": { "message": "密碼保護" }
+  "passwordprotectiontitle": { "message": "密碼保護" },
+  "scheduleheader": { "message": "行程" },
+  "enableschedule": { "message": "啟用行程" },
+  "alwaysactive": { "message": "始終啟用" },
+  "profeatureschedule": { "message": "行程功能僅在 Pro 版中可用" },
+  "days": { "message": "天數" },
+  "starttime": { "message": "開始時間：" },
+  "endtime": { "message": "結束時間：" },
+  "invaliddays": { "message": "所選天數無效" },
+  "invalidtimeformat": { "message": "時間格式無效（請使用 HH:MM）" },
+  "startafterend": { "message": "開始時間必須早於結束時間" },
+  "invalidschedule": { "message": "無效的行程：請選擇天數和時間。" },
+  "invalidscheduledays": { "message": "無效的行程：請至少選擇一天。" },
+  "invalidschedulestarttime": { "message": "無效的行程：請設定開始時間。" },
+  "invalidscheduleendtime": { "message": "無效的行程：請設定結束時間。" },
+  "editdisablednonpro": { "message": "編輯已停用：非 Pro 使用者的規則過多。" },
+  "errorloadingstatus": { "message": "載入使用者狀態時發生錯誤。" }
 }

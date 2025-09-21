@@ -128,5 +128,21 @@
   "prorequired": { "message": "Modo Pro necessário para este recurso" },
   "enablepasswordtitle": { "message": "Ativar proteção por senha" },
   "enablepassworddesc": { "message": "Requer uma senha para excluir ou editar regras (melhora o modo estrito)" },
-  "passwordprotectiontitle": { "message": "Proteção por senha" }
+  "passwordprotectiontitle": { "message": "Proteção por senha" },
+  "scheduleheader": { "message": "Agendamento" },
+  "enableschedule": { "message": "Ativar agendamento" },
+  "alwaysactive": { "message": "Sempre ativo" },
+  "profeatureschedule": { "message": "Agendamento disponível no Pro" },
+  "days": { "message": "Dias" },
+  "starttime": { "message": "Hora de início:" },
+  "endtime": { "message": "Hora de término:" },
+  "invaliddays": { "message": "Dias selecionados inválidos" },
+  "invalidtimeformat": { "message": "Formato de hora inválido (use HH:MM)" },
+  "startafterend": { "message": "A hora de início deve ser anterior à hora de término" },
+  "invalidschedule": { "message": "Agendamento inválido: selecione dias e horários." },
+  "invalidscheduledays": { "message": "Agendamento inválido: selecione pelo menos um dia." },
+  "invalidschedulestarttime": { "message": "Agendamento inválido: defina uma hora de início." },
+  "invalidscheduleendtime": { "message": "Agendamento inválido: defina uma hora de término." },
+  "editdisablednonpro": { "message": "Edição desativada: regras demais para usuários não-Pro." },
+  "errorloadingstatus": { "message": "Erro ao carregar o status do usuário." }
 }

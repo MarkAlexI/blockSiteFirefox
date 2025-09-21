@@ -128,5 +128,21 @@
   "prorequired": { "message": "Tryb Pro wymagany dla tej funkcji" },
   "enablepasswordtitle": { "message": "Włącz ochronę hasłem" },
   "enablepassworddesc": { "message": "Wymaga hasła do usuwania lub edycji reguł (zwiększa tryb ścisły)" },
-  "passwordprotectiontitle": { "message": "Ochrona hasłem" }
+  "passwordprotectiontitle": { "message": "Ochrona hasłem" },
+  "scheduleheader": { "message": "Harmonogram" },
+  "enableschedule": { "message": "Włącz harmonogram" },
+  "alwaysactive": { "message": "Zawsze aktywny" },
+  "profeatureschedule": { "message": "Harmonogram dostępny w wersji Pro" },
+  "days": { "message": "Dni" },
+  "starttime": { "message": "Godzina rozpoczęcia:" },
+  "endtime": { "message": "Godzina zakończenia:" },
+  "invaliddays": { "message": "Wybrano nieprawidłowe dni" },
+  "invalidtimeformat": { "message": "Nieprawidłowy format czasu (użyj HH:MM)" },
+  "startafterend": { "message": "Godzina rozpoczęcia musi być wcześniejsza niż godzina zakończenia" },
+  "invalidschedule": { "message": "Nieprawidłowy harmonogram: wybierz dni i godziny." },
+  "invalidscheduledays": { "message": "Nieprawidłowy harmonogram: wybierz przynajmniej jeden dzień." },
+  "invalidschedulestarttime": { "message": "Nieprawidłowy harmonogram: ustaw godzinę rozpoczęcia." },
+  "invalidscheduleendtime": { "message": "Nieprawidłowy harmonogram: ustaw godzinę zakończenia." },
+  "editdisablednonpro": { "message": "Edycja wyłączona: zbyt wiele zasad dla użytkowników bez Pro." },
+  "errorloadingstatus": { "message": "Błąd podczas ładowania statusu użytkownika." }
 }
