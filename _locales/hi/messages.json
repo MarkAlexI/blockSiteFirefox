@@ -128,5 +128,21 @@
   "prorequired": { "message": "इस सुविधा के लिए प्रो मोड की आवश्यकता है" },
   "enablepasswordtitle": { "message": "पासवर्ड सुरक्षा सक्षम करें" },
   "enablepassworddesc": { "message": "नियमों को हटाने या संपादित करने के लिए पासवर्ड की आवश्यकता होती है (सख्त मोड को बढ़ाता है)" },
-  "passwordprotectiontitle": { "message": "पासवर्ड सुरक्षा" }
+  "passwordprotectiontitle": { "message": "पासवर्ड सुरक्षा" },
+  "scheduleheader": { "message": "समय-सारणी" },
+  "enableschedule": { "message": "समय-सारणी सक्षम करें" },
+  "alwaysactive": { "message": "हमेशा सक्रिय" },
+  "profeatureschedule": { "message": "समय-सारणी केवल Pro संस्करण में उपलब्ध है" },
+  "days": { "message": "दिन" },
+  "starttime": { "message": "आरंभ समय:" },
+  "endtime": { "message": "समाप्ति समय:" },
+  "invaliddays": { "message": "अमान्य दिन चुने गए हैं" },
+  "invalidtimeformat": { "message": "अमान्य समय प्रारूप (HH:MM का उपयोग करें)" },
+  "startafterend": { "message": "आरंभ समय समाप्ति समय से पहले होना चाहिए" },
+  "invalidschedule": { "message": "अमान्य समय-सारणी: कृपया दिन और समय चुनें।" },
+  "invalidscheduledays": { "message": "अमान्य समय-सारणी: कम से कम एक दिन चुनें।" },
+  "invalidschedulestarttime": { "message": "अमान्य समय-सारणी: कृपया आरंभ समय सेट करें।" },
+  "invalidscheduleendtime": { "message": "अमान्य समय-सारणी: कृपया समाप्ति समय सेट करें।" },
+  "editdisablednonpro": { "message": "संपादन अक्षम: गैर-Pro उपयोगकर्ताओं के लिए बहुत अधिक नियम।" },
+  "errorloadingstatus": { "message": "उपयोगकर्ता स्थिति लोड करने में त्रुटि।" }
 }

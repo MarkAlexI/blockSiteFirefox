@@ -128,5 +128,21 @@
   "prorequired": { "message": "ఈ ఫీచర్ కోసం ప్రో మోడ్ అవసరం" },
   "enablepasswordtitle": { "message": "పాస్‌వర్డ్ రక్షణను సక్రియం చేయండి" },
   "enablepassworddesc": { "message": "నియమాలను తొలగించడానికి లేదా సవరించడానికి పాస్‌వర్డ్ అవసరం (కఠినమైన మోడ్‌ను మెరుగుపరుస్తుంది)" },
-  "passwordprotectiontitle": { "message": "పాస్‌వర్డ్ రక్షణ" }
+  "passwordprotectiontitle": { "message": "పాస్‌వర్డ్ రక్షణ" },
+  "scheduleheader": { "message": "సమీక్షా షెడ్యూల్" },
+  "enableschedule": { "message": "షెడ్యూల్ సక్రియం చేయండి" },
+  "alwaysactive": { "message": "ఎల్లప్పుడూ సక్రియంగా ఉంది" },
+  "profeatureschedule": { "message": "షెడ్యూల్ Pro వెర్షన్‌లో అందుబాటులో ఉంది" },
+  "days": { "message": "రోజులు" },
+  "starttime": { "message": "ప్రారంభ సమయం:" },
+  "endtime": { "message": "ముగింపు సమయం:" },
+  "invaliddays": { "message": "చేసుకున్న రోజులలో తప్పు ఉంది" },
+  "invalidtimeformat": { "message": "తప్పు సమయ ఫార్మాట్ (HH:MM ఉపయోగించండి)" },
+  "startafterend": { "message": "ప్రారంభ సమయం ముగింపు సమయానికి ముందు ఉండాలి" },
+  "invalidschedule": { "message": "తప్పు షెడ్యూల్: దయచేసి రోజులు మరియు సమయాలను ఎంచుకోండి." },
+  "invalidscheduledays": { "message": "తప్పు షెడ్యూల్: కనీసం ఒక రోజు ఎంచుకోండి." },
+  "invalidschedulestarttime": { "message": "తప్పు షెడ్యూల్: ప్రారంభ సమయాన్ని సెట్ చేయండి." },
+  "invalidscheduleendtime": { "message": "తప్పు షెడ్యూల్: ముగింపు సమయాన్ని సెట్ చేయండి." },
+  "editdisablednonpro": { "message": "సంపాదన నిలిపివేయబడింది: non-Pro వినియోగదారుల కోసం ఎక్కువ నియమాలు ఉన్నాయి." },
+  "errorloadingstatus": { "message": "వినియోగదారు స్థితిని లోడ్ చేయడంలో లోపం." }
 }

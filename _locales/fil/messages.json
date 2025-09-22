@@ -128,5 +128,21 @@
   "prorequired": { "message": "Kailangan ng Pro mode para sa feature na ito" },
   "enablepasswordtitle": { "message": "Paganahin ang proteksyon ng password" },
   "enablepassworddesc": { "message": "Kailangan ng password para magbura o mag-edit ng mga panuntunan (pinapahusay ang mahigpit na mode)" },
-  "passwordprotectiontitle": { "message": "Proteksyon ng password" }
+  "passwordprotectiontitle": { "message": "Proteksyon ng password" },
+  "scheduleheader": { "message": "Iskedyul" },
+  "enableschedule": { "message": "Paganahin ang iskedyul" },
+  "alwaysactive": { "message": "Laging aktibo" },
+  "profeatureschedule": { "message": "Magagamit ang iskedyul sa Pro na bersyon" },
+  "days": { "message": "Mga Araw" },
+  "starttime": { "message": "Oras ng Simula:" },
+  "endtime": { "message": "Oras ng Pagtatapos:" },
+  "invaliddays": { "message": "Hindi wastong napiling araw" },
+  "invalidtimeformat": { "message": "Hindi wastong format ng oras (gamitin ang HH:MM)" },
+  "startafterend": { "message": "Ang oras ng pagsisimula ay dapat na mas maaga kaysa oras ng pagtatapos" },
+  "invalidschedule": { "message": "Hindi wastong iskedyul: mangyaring pumili ng mga araw at oras." },
+  "invalidscheduledays": { "message": "Hindi wastong iskedyul: pumili ng hindi bababa sa isang araw." },
+  "invalidschedulestarttime": { "message": "Hindi wastong iskedyul: itakda ang oras ng pagsisimula." },
+  "invalidscheduleendtime": { "message": "Hindi wastong iskedyul: itakda ang oras ng pagtatapos." },
+  "editdisablednonpro": { "message": "Hindi pinagana ang pag-edit: masyadong maraming patakaran para sa hindi Pro na mga gumagamit." },
+  "errorloadingstatus": { "message": "Error sa pag-load ng status ng gumagamit." }
 }

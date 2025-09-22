@@ -128,5 +128,21 @@
   "prorequired": { "message": "Pro način rada potreban je za ovu značajku" },
   "enablepasswordtitle": { "message": "Omogući zaštitu lozinkom" },
   "enablepassworddesc": { "message": "Zahtijeva lozinku za brisanje ili uređivanje pravila (poboljšava strogi način rada)" },
-  "passwordprotectiontitle": { "message": "Zaštita lozinkom" }
+  "passwordprotectiontitle": { "message": "Zaštita lozinkom" },
+  "scheduleheader": { "message": "Raspored" },
+  "enableschedule": { "message": "Omogući raspored" },
+  "alwaysactive": { "message": "Uvijek aktivno" },
+  "profeatureschedule": { "message": "Raspored je dostupan u Pro verziji" },
+  "days": { "message": "Dani" },
+  "starttime": { "message": "Vrijeme početka:" },
+  "endtime": { "message": "Vrijeme završetka:" },
+  "invaliddays": { "message": "Odabrani dani nisu valjani" },
+  "invalidtimeformat": { "message": "Neispravan format vremena (koristite HH:MM)" },
+  "startafterend": { "message": "Vrijeme početka mora biti prije vremena završetka" },
+  "invalidschedule": { "message": "Neispravan raspored: odaberite dane i vrijeme." },
+  "invalidscheduledays": { "message": "Neispravan raspored: odaberite barem jedan dan." },
+  "invalidschedulestarttime": { "message": "Neispravan raspored: postavite vrijeme početka." },
+  "invalidscheduleendtime": { "message": "Neispravan raspored: postavite vrijeme završetka." },
+  "editdisablednonpro": { "message": "Uređivanje onemogućeno: previše pravila za korisnike bez Pro." },
+  "errorloadingstatus": { "message": "Pogreška pri učitavanju statusa korisnika." }
 }

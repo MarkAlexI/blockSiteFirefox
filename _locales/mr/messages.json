@@ -128,5 +128,21 @@
   "prorequired": { "message": "या वैशिष्ट्यासाठी प्रो मोड आवश्यक आहे" },
   "enablepasswordtitle": { "message": "पासवर्ड संरक्षण सक्षम करा" },
   "enablepassworddesc": { "message": "नियम हटवण्यासाठी किंवा संपादित करण्यासाठी पासवर्ड आवश्यक आहे (कठोर मोड सुधारते)" },
-  "passwordprotectiontitle": { "message": "पासवर्ड संरक्षण" }
+  "passwordprotectiontitle": { "message": "पासवर्ड संरक्षण" },
+  "scheduleheader": { "message": "अनुसूची" },
+  "enableschedule": { "message": "अनुसूची सक्रिय करा" },
+  "alwaysactive": { "message": "नेहमी सक्रिय" },
+  "profeatureschedule": { "message": "अनुसूची फक्त Pro आवृत्तीत उपलब्ध आहे" },
+  "days": { "message": "दिवस" },
+  "starttime": { "message": "सुरवातीचा वेळ:" },
+  "endtime": { "message": "समाप्ती वेळ:" },
+  "invaliddays": { "message": "अवैध दिवस निवडले आहेत" },
+  "invalidtimeformat": { "message": "अवैध वेळ स्वरूप (HH:MM वापरा)" },
+  "startafterend": { "message": "सुरवातीचा वेळ समाप्तीपूर्वी असावा" },
+  "invalidschedule": { "message": "अवैध अनुसूची: कृपया दिवस आणि वेळ निवडा." },
+  "invalidscheduledays": { "message": "अवैध अनुसूची: कृपया कमीतकमी एक दिवस निवडा." },
+  "invalidschedulestarttime": { "message": "अवैध अनुसूची: कृपया सुरवातीचा वेळ सेट करा." },
+  "invalidscheduleendtime": { "message": "अवैध अनुसूची: कृपया समाप्ती वेळ सेट करा." },
+  "editdisablednonpro": { "message": "संपादन अक्षम: गैर-Pro वापरकर्त्यांसाठी नियम खूप आहेत." },
+  "errorloadingstatus": { "message": "वापरकर्त्याची स्थिती लोड करताना त्रुटी." }
 }

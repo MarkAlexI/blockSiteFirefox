@@ -128,5 +128,21 @@
   "prorequired": { "message": "Pro-modus vereist voor deze functie" },
   "enablepasswordtitle": { "message": "Wachtwoordbeveiliging inschakelen" },
   "enablepassworddesc": { "message": "Vereist een wachtwoord om regels te verwijderen of te bewerken (verbetert de strikte modus)" },
-  "passwordprotectiontitle": { "message": "Wachtwoordbeveiliging" }
+  "passwordprotectiontitle": { "message": "Wachtwoordbeveiliging" },
+  "scheduleheader": { "message": "Schema" },
+  "enableschedule": { "message": "Schema inschakelen" },
+  "alwaysactive": { "message": "Altijd actief" },
+  "profeatureschedule": { "message": "Schema beschikbaar in Pro-versie" },
+  "days": { "message": "Dagen" },
+  "starttime": { "message": "Starttijd:" },
+  "endtime": { "message": "Eindtijd:" },
+  "invaliddays": { "message": "Ongeldige dagen geselecteerd" },
+  "invalidtimeformat": { "message": "Ongeldig tijdformaat (gebruik HH:MM)" },
+  "startafterend": { "message": "Starttijd moet vóór eindtijd zijn" },
+  "invalidschedule": { "message": "Ongeldig schema: selecteer dagen en tijden." },
+  "invalidscheduledays": { "message": "Ongeldig schema: selecteer minstens één dag." },
+  "invalidschedulestarttime": { "message": "Ongeldig schema: stel een starttijd in." },
+  "invalidscheduleendtime": { "message": "Ongeldig schema: stel een eindtijd in." },
+  "editdisablednonpro": { "message": "Bewerken uitgeschakeld: te veel regels voor niet-Pro gebruikers." },
+  "errorloadingstatus": { "message": "Fout bij het laden van de gebruikersstatus." }
 }

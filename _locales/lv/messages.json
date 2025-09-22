@@ -128,5 +128,21 @@
   "prorequired": { "message": "Šai funkcijai nepieciešams Pro režīms" },
   "enablepasswordtitle": { "message": "Iespējot paroles aizsardzību" },
   "enablepassworddesc": { "message": "Nepieciešama parole, lai dzēstu vai rediģētu noteikumus (uzlabo stingro režīmu)" },
-  "passwordprotectiontitle": { "message": "Paroles aizsardzība" }
+  "passwordprotectiontitle": { "message": "Paroles aizsardzība" },
+  "scheduleheader": { "message": "Grafiks" },
+  "enableschedule": { "message": "Iespējot grafiku" },
+  "alwaysactive": { "message": "Vienmēr aktīvs" },
+  "profeatureschedule": { "message": "Grafiks pieejams tikai Pro versijā" },
+  "days": { "message": "Dienas" },
+  "starttime": { "message": "Sākuma laiks:" },
+  "endtime": { "message": "Beigu laiks:" },
+  "invaliddays": { "message": "Izvēlētas nederīgas dienas" },
+  "invalidtimeformat": { "message": "Nederīgs laika formāts (izmantojiet HH:MM)" },
+  "startafterend": { "message": "Sākuma laiks jābūt pirms beigu laika" },
+  "invalidschedule": { "message": "Nederīgs grafiks: lūdzu, izvēlieties dienas un laikus." },
+  "invalidscheduledays": { "message": "Nederīgs grafiks: izvēlieties vismaz vienu dienu." },
+  "invalidschedulestarttime": { "message": "Nederīgs grafiks: lūdzu, iestatiet sākuma laiku." },
+  "invalidscheduleendtime": { "message": "Nederīgs grafiks: lūdzu, iestatiet beigu laiku." },
+  "editdisablednonpro": { "message": "Rediģēšana atspējota: pārāk daudz noteikumu ne-Pro lietotājiem." },
+  "errorloadingstatus": { "message": "Kļūda ielādējot lietotāja statusu." }
 }

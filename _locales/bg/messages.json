@@ -128,5 +128,21 @@
   "prorequired": { "message": "Изисква се Pro режим за тази функция" },
   "enablepasswordtitle": { "message": "Активиране на защита с парола" },
   "enablepassworddesc": { "message": "Изисква парола за изтриване или редактиране на правила (усилва стриктния режим)" },
-  "passwordprotectiontitle": { "message": "Защита с парола" }
+  "passwordprotectiontitle": { "message": "Защита с парола" },
+  "scheduleheader": { "message": "График" },
+  "enableschedule": { "message": "Активирай график" },
+  "alwaysactive": { "message": "Винаги активно" },
+  "profeatureschedule": { "message": "Графикът е наличен в Pro версията" },
+  "days": { "message": "Дни" },
+  "starttime": { "message": "Начален час:" },
+  "endtime": { "message": "Краен час:" },
+  "invaliddays": { "message": "Избрани са невалидни дни" },
+  "invalidtimeformat": { "message": "Невалиден формат на час (използвайте ЧЧ:ММ)" },
+  "startafterend": { "message": "Началният час трябва да е преди крайния" },
+  "invalidschedule": { "message": "Невалиден график: моля, изберете дни и часове." },
+  "invalidscheduledays": { "message": "Невалиден график: моля, изберете поне един ден." },
+  "invalidschedulestarttime": { "message": "Невалиден график: моля, задайте начален час." },
+  "invalidscheduleendtime": { "message": "Невалиден график: моля, задайте краен час." },
+  "editdisablednonpro": { "message": "Редактирането е изключено: твърде много правила за потребители без Pro." },
+  "errorloadingstatus": { "message": "Грешка при зареждане на потребителския статус." }
 }

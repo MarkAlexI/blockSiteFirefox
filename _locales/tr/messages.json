@@ -128,5 +128,21 @@
   "prorequired": { "message": "Bu özellik için Pro modu gereklidir" },
   "enablepasswordtitle": { "message": "Şifre korumasını etkinleştir" },
   "enablepassworddesc": { "message": "Kuralları silmek veya düzenlemek için şifre gerekir (katı modu geliştirir)" },
-  "passwordprotectiontitle": { "message": "Şifre koruması" }
+  "passwordprotectiontitle": { "message": "Şifre koruması" },
+  "scheduleheader": { "message": "Zamanlama" },
+  "enableschedule": { "message": "Zamanlamayı etkinleştir" },
+  "alwaysactive": { "message": "Her zaman aktif" },
+  "profeatureschedule": { "message": "Zamanlama Pro sürümünde mevcut" },
+  "days": { "message": "Günler" },
+  "starttime": { "message": "Başlangıç saati:" },
+  "endtime": { "message": "Bitiş saati:" },
+  "invaliddays": { "message": "Geçersiz günler seçildi" },
+  "invalidtimeformat": { "message": "Geçersiz saat formatı (HH:MM kullanın)" },
+  "startafterend": { "message": "Başlangıç saati, bitiş saatinden önce olmalıdır" },
+  "invalidschedule": { "message": "Geçersiz zamanlama: lütfen günleri ve saatleri seçin." },
+  "invalidscheduledays": { "message": "Geçersiz zamanlama: en az bir gün seçin." },
+  "invalidschedulestarttime": { "message": "Geçersiz zamanlama: başlangıç saatini ayarlayın." },
+  "invalidscheduleendtime": { "message": "Geçersiz zamanlama: bitiş saatini ayarlayın." },
+  "editdisablednonpro": { "message": "Düzenleme devre dışı: Pro olmayan kullanıcılar için çok fazla kural." },
+  "errorloadingstatus": { "message": "Kullanıcı durumu yüklenirken hata oluştu." }
 }

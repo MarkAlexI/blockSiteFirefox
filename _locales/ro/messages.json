@@ -128,5 +128,21 @@
   "prorequired": { "message": "Modul Pro este necesar pentru această funcție" },
   "enablepasswordtitle": { "message": "Activați protecția prin parolă" },
   "enablepassworddesc": { "message": "Necesită o parolă pentru a șterge sau edita reguli (îmbunătățește modul strict)" },
-  "passwordprotectiontitle": { "message": "Protecție prin parolă" }
+  "passwordprotectiontitle": { "message": "Protecție prin parolă" },
+  "scheduleheader": { "message": "Program" },
+  "enableschedule": { "message": "Activează programul" },
+  "alwaysactive": { "message": "Întotdeauna activ" },
+  "profeatureschedule": { "message": "Programul este disponibil în versiunea Pro" },
+  "days": { "message": "Zile" },
+  "starttime": { "message": "Ora de început:" },
+  "endtime": { "message": "Ora de sfârșit:" },
+  "invaliddays": { "message": "Zilele selectate nu sunt valide" },
+  "invalidtimeformat": { "message": "Format de oră invalid (folosește HH:MM)" },
+  "startafterend": { "message": "Ora de început trebuie să fie înainte de ora de sfârșit" },
+  "invalidschedule": { "message": "Program invalid: vă rugăm să selectați zile și ore." },
+  "invalidscheduledays": { "message": "Program invalid: selectați cel puțin o zi." },
+  "invalidschedulestarttime": { "message": "Program invalid: setați ora de început." },
+  "invalidscheduleendtime": { "message": "Program invalid: setați ora de sfârșit." },
+  "editdisablednonpro": { "message": "Editarea este dezactivată: prea multe reguli pentru utilizatorii non-Pro." },
+  "errorloadingstatus": { "message": "Eroare la încărcarea stării utilizatorului." }
 }

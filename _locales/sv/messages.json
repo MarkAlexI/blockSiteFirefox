@@ -128,5 +128,21 @@
   "prorequired": { "message": "Pro-läge krävs för denna funktion" },
   "enablepasswordtitle": { "message": "Aktivera lösenordsskydd" },
   "enablepassworddesc": { "message": "Kräver ett lösenord för att ta bort eller redigera regler (förbättrar strikt läge)" },
-  "passwordprotectiontitle": { "message": "Lösenordsskydd" }
+  "passwordprotectiontitle": { "message": "Lösenordsskydd" },
+  "scheduleheader": { "message": "Schema" },
+  "enableschedule": { "message": "Aktivera schema" },
+  "alwaysactive": { "message": "Alltid aktiv" },
+  "profeatureschedule": { "message": "Schema tillgängligt i Pro-versionen" },
+  "days": { "message": "Dagar" },
+  "starttime": { "message": "Starttid:" },
+  "endtime": { "message": "Sluttid:" },
+  "invaliddays": { "message": "Ogiltiga dagar valda" },
+  "invalidtimeformat": { "message": "Ogiltigt tidsformat (använd HH:MM)" },
+  "startafterend": { "message": "Starttid måste vara före sluttid" },
+  "invalidschedule": { "message": "Ogiltigt schema: vänligen välj dagar och tider." },
+  "invalidscheduledays": { "message": "Ogiltigt schema: välj minst en dag." },
+  "invalidschedulestarttime": { "message": "Ogiltigt schema: ange starttid." },
+  "invalidscheduleendtime": { "message": "Ogiltigt schema: ange sluttid." },
+  "editdisablednonpro": { "message": "Redigering inaktiverad: för många regler för icke-Pro användare." },
+  "errorloadingstatus": { "message": "Fel vid laddning av användarstatus." }
 }

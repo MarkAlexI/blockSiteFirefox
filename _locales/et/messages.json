@@ -128,5 +128,21 @@
   "prorequired": { "message": "Selle funktsiooni jaoks on vaja Pro režiimi" },
   "enablepasswordtitle": { "message": "Aktiveeri paroolikaitse" },
   "enablepassworddesc": { "message": "Nõuab parooli reeglite kustutamiseks või muutmiseks (täiustab ranget režiimi)" },
-  "passwordprotectiontitle": { "message": "Paroolikaitse" }
+  "passwordprotectiontitle": { "message": "Paroolikaitse" },
+  "scheduleheader": { "message": "Ajakava" },
+  "enableschedule": { "message": "Luba ajakava" },
+  "alwaysactive": { "message": "Alati aktiivne" },
+  "profeatureschedule": { "message": "Ajakava on saadaval ainult Pro versioonis" },
+  "days": { "message": "Päevad" },
+  "starttime": { "message": "Algusaeg:" },
+  "endtime": { "message": "Lõpuaeg:" },
+  "invaliddays": { "message": "Valitud päevad on vigased" },
+  "invalidtimeformat": { "message": "Vale ajaformaat (kasuta HH:MM)" },
+  "startafterend": { "message": "Algusaeg peab olema enne lõppaega" },
+  "invalidschedule": { "message": "Vigane ajakava: palun vali päevad ja kellaajad." },
+  "invalidscheduledays": { "message": "Vigane ajakava: vali vähemalt üks päev." },
+  "invalidschedulestarttime": { "message": "Vigane ajakava: palun määra algusaeg." },
+  "invalidscheduleendtime": { "message": "Vigane ajakava: palun määra lõpuaeg." },
+  "editdisablednonpro": { "message": "Redigeerimine keelatud: liiga palju reegleid mitte-Pro kasutajatele." },
+  "errorloadingstatus": { "message": "Viga kasutaja oleku laadimisel." }
 }

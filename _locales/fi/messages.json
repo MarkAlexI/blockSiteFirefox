@@ -128,5 +128,21 @@
   "prorequired": { "message": "Tämä ominaisuus vaatii Pro-tilan" },
   "enablepasswordtitle": { "message": "Ota salasanasuojaus käyttöön" },
   "enablepassworddesc": { "message": "Vaaditaan salasana sääntöjen poistamiseen tai muokkaamiseen (parantaa tiukkaa tilaa)" },
-  "passwordprotectiontitle": { "message": "Salasanasuojaus" }
+  "passwordprotectiontitle": { "message": "Salasanasuojaus" },
+  "scheduleheader": { "message": "Aikataulu" },
+  "enableschedule": { "message": "Ota aikataulu käyttöön" },
+  "alwaysactive": { "message": "Aina aktiivinen" },
+  "profeatureschedule": { "message": "Aikataulu on saatavilla Pro-versiossa" },
+  "days": { "message": "Päivät" },
+  "starttime": { "message": "Alkuaika:" },
+  "endtime": { "message": "Loppuaika:" },
+  "invaliddays": { "message": "Valitut päivät ovat virheellisiä" },
+  "invalidtimeformat": { "message": "Virheellinen aikaformaatti (käytä HH:MM)" },
+  "startafterend": { "message": "Alkuaika on oltava ennen loppuaikaa" },
+  "invalidschedule": { "message": "Virheellinen aikataulu: valitse päivät ja ajat." },
+  "invalidscheduledays": { "message": "Virheellinen aikataulu: valitse vähintään yksi päivä." },
+  "invalidschedulestarttime": { "message": "Virheellinen aikataulu: aseta alkuaika." },
+  "invalidscheduleendtime": { "message": "Virheellinen aikataulu: aseta loppuaika." },
+  "editdisablednonpro": { "message": "Muokkaus pois käytöstä: liian monta sääntöä ei-Pro-käyttäjille." },
+  "errorloadingstatus": { "message": "Virhe käyttäjän tilan lataamisessa." }
 }

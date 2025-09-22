@@ -128,5 +128,21 @@
   "prorequired": { "message": "Mode Pro diperlukan untuk fitur ini" },
   "enablepasswordtitle": { "message": "Aktifkan perlindungan kata sandi" },
   "enablepassworddesc": { "message": "Memerlukan kata sandi untuk menghapus atau mengedit aturan (meningkatkan mode ketat)" },
-  "passwordprotectiontitle": { "message": "Perlindungan kata sandi" }
+  "passwordprotectiontitle": { "message": "Perlindungan kata sandi" },
+  "scheduleheader": { "message": "Jadwal" },
+  "enableschedule": { "message": "Aktifkan jadwal" },
+  "alwaysactive": { "message": "Selalu aktif" },
+  "profeatureschedule": { "message": "Jadwal tersedia di versi Pro" },
+  "days": { "message": "Hari" },
+  "starttime": { "message": "Waktu mulai:" },
+  "endtime": { "message": "Waktu selesai:" },
+  "invaliddays": { "message": "Hari yang dipilih tidak valid" },
+  "invalidtimeformat": { "message": "Format waktu tidak valid (gunakan HH:MM)" },
+  "startafterend": { "message": "Waktu mulai harus sebelum waktu selesai" },
+  "invalidschedule": { "message": "Jadwal tidak valid: silakan pilih hari dan waktu." },
+  "invalidscheduledays": { "message": "Jadwal tidak valid: pilih setidaknya satu hari." },
+  "invalidschedulestarttime": { "message": "Jadwal tidak valid: atur waktu mulai." },
+  "invalidscheduleendtime": { "message": "Jadwal tidak valid: atur waktu selesai." },
+  "editdisablednonpro": { "message": "Pengeditan dinonaktifkan: terlalu banyak aturan untuk pengguna non-Pro." },
+  "errorloadingstatus": { "message": "Kesalahan saat memuat status pengguna." }
 }

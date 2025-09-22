@@ -128,5 +128,21 @@
   "prorequired": { "message": "برای این ویژگی نیاز به حالت حرفه‌ای است" },
   "enablepasswordtitle": { "message": "فعال‌سازی حفاظت رمز عبور" },
   "enablepassworddesc": { "message": "نیاز به رمز عبور برای حذف یا ویرایش قوانین دارد (حالت سخت‌گیرانه را تقویت می‌کند)" },
-  "passwordprotectiontitle": { "message": "حفاظت رمز عبور" }
+  "passwordprotectiontitle": { "message": "حفاظت رمز عبور" },
+  "scheduleheader": { "message": "برنامه‌ زمان‌بندی" },
+  "enableschedule": { "message": "فعال‌سازی برنامه‌ زمان‌بندی" },
+  "alwaysactive": { "message": "همیشه فعال" },
+  "profeatureschedule": { "message": "برنامه‌ زمان‌بندی فقط در نسخه Pro در دسترس است" },
+  "days": { "message": "روزها" },
+  "starttime": { "message": "زمان شروع:" },
+  "endtime": { "message": "زمان پایان:" },
+  "invaliddays": { "message": "روزهای انتخاب‌شده نامعتبر هستند" },
+  "invalidtimeformat": { "message": "قالب زمان نامعتبر است (از HH:MM استفاده کنید)" },
+  "startafterend": { "message": "زمان شروع باید قبل از زمان پایان باشد" },
+  "invalidschedule": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً روزها و زمان‌ها را انتخاب کنید." },
+  "invalidscheduledays": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً حداقل یک روز را انتخاب کنید." },
+  "invalidschedulestarttime": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان شروع را تنظیم کنید." },
+  "invalidscheduleendtime": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان پایان را تنظیم کنید." },
+  "editdisablednonpro": { "message": "ویرایش غیرفعال است: قوانین بیش از حد برای کاربران غیر Pro." },
+  "errorloadingstatus": { "message": "خطا در بارگذاری وضعیت کاربر." }
 }

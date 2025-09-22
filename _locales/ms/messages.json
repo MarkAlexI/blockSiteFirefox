@@ -128,5 +128,21 @@
   "prorequired": { "message": "Mod Pro diperlukan untuk ciri ini" },
   "enablepasswordtitle": { "message": "Aktifkan perlindungan kata laluan" },
   "enablepassworddesc": { "message": "Memerlukan kata laluan untuk memadam atau menyunting peraturan (meningkatkan mod ketat)" },
-  "passwordprotectiontitle": { "message": "Perlindungan kata laluan" }
+  "passwordprotectiontitle": { "message": "Perlindungan kata laluan" },
+  "scheduleheader": { "message": "Jadual" },
+  "enableschedule": { "message": "Dayakan jadual" },
+  "alwaysactive": { "message": "Sentiasa aktif" },
+  "profeatureschedule": { "message": "Jadual tersedia dalam versi Pro" },
+  "days": { "message": "Hari" },
+  "starttime": { "message": "Masa mula:" },
+  "endtime": { "message": "Masa tamat:" },
+  "invaliddays": { "message": "Hari yang dipilih tidak sah" },
+  "invalidtimeformat": { "message": "Format masa tidak sah (gunakan HH:MM)" },
+  "startafterend": { "message": "Masa mula mesti sebelum masa tamat" },
+  "invalidschedule": { "message": "Jadual tidak sah: sila pilih hari dan masa." },
+  "invalidscheduledays": { "message": "Jadual tidak sah: sila pilih sekurang-kurangnya satu hari." },
+  "invalidschedulestarttime": { "message": "Jadual tidak sah: sila tetapkan masa mula." },
+  "invalidscheduleendtime": { "message": "Jadual tidak sah: sila tetapkan masa tamat." },
+  "editdisablednonpro": { "message": "Penyuntingan dilumpuhkan: terlalu banyak peraturan untuk pengguna bukan Pro." },
+  "errorloadingstatus": { "message": "Ralat semasa memuatkan status pengguna." }
 }

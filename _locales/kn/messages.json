@@ -128,5 +128,21 @@
   "prorequired": { "message": "ಈ ವೈಶಿಷ್ಟ್ಯಕ್ಕೆ ಪ್ರೊ ಮೋಡ್ ಅಗತ್ಯ" },
   "enablepasswordtitle": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ" },
   "enablepassworddesc": { "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು ಅಥವಾ ಸಂಪಾದಿಸಲು ಪಾಸ್‌ವರ್ಡ್ ಅಗತ್ಯ (ಕಟ್ಟುನಿಟ್ಟಾದ ಮೋಡ್ ಅನ್ನು ಸುಧಾರಿಸುತ್ತದೆ)" },
-  "passwordprotectiontitle": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ" }
+  "passwordprotectiontitle": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ" },
+  "scheduleheader": { "message": "ಶೆಡ್ಯೂಲ್" },
+  "enableschedule": { "message": "ಶೆಡ್ಯೂಲ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
+  "alwaysactive": { "message": "ಎಂದೆಂದಿಗೂ ಸಕ್ರಿಯ" },
+  "profeatureschedule": { "message": "ಶೆಡ್ಯೂಲ್ Pro ಆವೃತ್ತಿಯಲ್ಲಿ ಲಭ್ಯವಿದೆ" },
+  "days": { "message": "ದಿನಗಳು" },
+  "starttime": { "message": "ಪ್ರಾರಂಭ ಸಮಯ:" },
+  "endtime": { "message": "ಅಂತಿಮ ಸಮಯ:" },
+  "invaliddays": { "message": "ಅಮಾನ್ಯ ದಿನಗಳನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ" },
+  "invalidtimeformat": { "message": "ಅಮಾನ್ಯ ಸಮಯ ಫಾರ್ಮ್ಯಾಟ್ (HH:MM ಬಳಸಿ)" },
+  "startafterend": { "message": "ಪ್ರಾರಂಭ ಸಮಯ ಅಂತಿಮ ಸಮಯಕ್ಕಿಂತ ಮೊದಲು ಇರಬೇಕು" },
+  "invalidschedule": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ದಿನಗಳು ಮತ್ತು ಸಮಯಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ." },
+  "invalidscheduledays": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ಕನಿಷ್ಠ ಒಂದು ದಿನ ಆಯ್ಕೆಮಾಡಿ." },
+  "invalidschedulestarttime": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಪ್ರಾರಂಭ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ." },
+  "invalidscheduleendtime": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಅಂತಿಮ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ." },
+  "editdisablednonpro": { "message": "ಸಂಪಾದನೆ ಅक्षमವಾಗಿದೆ: non-Pro ಬಳಕೆದಾರರಿಗೆ ನಿಯಮಗಳು ತುಂಬಾ ಹೆಚ್ಚಾಗಿದೆ." },
+  "errorloadingstatus": { "message": "ಬಳಕೆದಾರ ಸ್ಥಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿದೆ." }
 }

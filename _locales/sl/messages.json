@@ -128,5 +128,21 @@
   "prorequired": { "message": "Za to funkcijo je potreben način Pro" },
   "enablepasswordtitle": { "message": "Omogoči zaščito z geslom" },
   "enablepassworddesc": { "message": "Zahteva geslo za brisanje ali urejanje pravil (izboljša strogi način)" },
-  "passwordprotectiontitle": { "message": "Zaščita z geslom" }
+  "passwordprotectiontitle": { "message": "Zaščita z geslom" },
+  "scheduleheader": { "message": "Razpored" },
+  "enableschedule": { "message": "Omogoči razpored" },
+  "alwaysactive": { "message": "Vedno aktiven" },
+  "profeatureschedule": { "message": "Razpored je na voljo v Pro različici" },
+  "days": { "message": "Dnevi" },
+  "starttime": { "message": "Začetni čas:" },
+  "endtime": { "message": "Končni čas:" },
+  "invaliddays": { "message": "Izbrani dnevi niso veljavni" },
+  "invalidtimeformat": { "message": "Neveljavna oblika časa (uporabite UU:MM)" },
+  "startafterend": { "message": "Začetni čas mora biti pred končnim časom" },
+  "invalidschedule": { "message": "Neveljaven razpored: izberite dneve in ure." },
+  "invalidscheduledays": { "message": "Neveljaven razpored: izberite vsaj en dan." },
+  "invalidschedulestarttime": { "message": "Neveljaven razpored: nastavite začetni čas." },
+  "invalidscheduleendtime": { "message": "Neveljaven razpored: nastavite končni čas." },
+  "editdisablednonpro": { "message": "Urejanje onemogočeno: preveč pravil za ne-Pro uporabnike." },
+  "errorloadingstatus": { "message": "Napaka pri nalaganju stanja uporabnika." }
 }

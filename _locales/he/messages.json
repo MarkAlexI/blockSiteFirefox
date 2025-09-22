@@ -128,5 +128,21 @@
   "prorequired": { "message": "נדרש מצב Pro עבור תכונה זו" },
   "enablepasswordtitle": { "message": "הפעל הגנת סיסמה" },
   "enablepassworddesc": { "message": "דורש סיסמה למחיקה או עריכה של כללים (משפר את מצב קפדני)" },
-  "passwordprotectiontitle": { "message": "הגנת סיסמה" }
+  "passwordprotectiontitle": { "message": "הגנת סיסמה" },
+  "scheduleheader": { "message": "לוח זמנים" },
+  "enableschedule": { "message": "הפעלת לוח זמנים" },
+  "alwaysactive": { "message": "פעיל תמיד" },
+  "profeatureschedule": { "message": "לוח הזמנים זמין בגרסת Pro" },
+  "days": { "message": "ימים" },
+  "starttime": { "message": "שעת התחלה:" },
+  "endtime": { "message": "שעת סיום:" },
+  "invaliddays": { "message": "נבחרו ימים לא תקינים" },
+  "invalidtimeformat": { "message": "פורמט זמן לא תקין (השתמש HH:MM)" },
+  "startafterend": { "message": "שעת ההתחלה חייבת להיות לפני שעת הסיום" },
+  "invalidschedule": { "message": "לוח זמנים לא תקין: בחר בבקשה ימים ושעות." },
+  "invalidscheduledays": { "message": "לוח זמנים לא תקין: בחר לפחות יום אחד." },
+  "invalidschedulestarttime": { "message": "לוח זמנים לא תקין: הגדר שעת התחלה." },
+  "invalidscheduleendtime": { "message": "לוח זמנים לא תקין: הגדר שעת סיום." },
+  "editdisablednonpro": { "message": "עריכה מושבתת: יותר מדי כללים למשתמשים שאינם Pro." },
+  "errorloadingstatus": { "message": "שגיאה בטעינת מצב המשתמש." }
 }

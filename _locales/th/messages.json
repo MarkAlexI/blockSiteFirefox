@@ -128,5 +128,21 @@
   "prorequired": { "message": "ต้องใช้โหมด Pro สำหรับฟีเจอร์นี้" },
   "enablepasswordtitle": { "message": "เปิดใช้งานการป้องกันด้วยรหัสผ่าน" },
   "enablepassworddesc": { "message": "ต้องใช้รหัสผ่านเพื่อลบหรือแก้ไขกฎ (ปรับปรุงโหมดเข้มงวด)" },
-  "passwordprotectiontitle": { "message": "การป้องกันด้วยรหัสผ่าน" }
+  "passwordprotectiontitle": { "message": "การป้องกันด้วยรหัสผ่าน" },
+  "scheduleheader": { "message": "ตารางเวลา" },
+  "enableschedule": { "message": "เปิดใช้งานตารางเวลา" },
+  "alwaysactive": { "message": "ใช้งานตลอดเวลา" },
+  "profeatureschedule": { "message": "ตารางเวลามีให้ใช้งานในเวอร์ชัน Pro" },
+  "days": { "message": "วัน" },
+  "starttime": { "message": "เวลาเริ่มต้น:" },
+  "endtime": { "message": "เวลาสิ้นสุด:" },
+  "invaliddays": { "message": "วันที่เลือกไม่ถูกต้อง" },
+  "invalidtimeformat": { "message": "รูปแบบเวลาไม่ถูกต้อง (ใช้ HH:MM)" },
+  "startafterend": { "message": "เวลาเริ่มต้นต้องก่อนเวลาสิ้นสุด" },
+  "invalidschedule": { "message": "ตารางเวลาไม่ถูกต้อง: โปรดเลือกวันและเวลา." },
+  "invalidscheduledays": { "message": "ตารางเวลาไม่ถูกต้อง: โปรดเลือกวันอย่างน้อยหนึ่งวัน." },
+  "invalidschedulestarttime": { "message": "ตารางเวลาไม่ถูกต้อง: โปรดตั้งเวลาเริ่มต้น." },
+  "invalidscheduleendtime": { "message": "ตารางเวลาไม่ถูกต้อง: โปรดตั้งเวลาสิ้นสุด." },
+  "editdisablednonpro": { "message": "การแก้ไขถูกปิดใช้งาน: มีกฎมากเกินไปสำหรับผู้ใช้ที่ไม่ใช่ Pro." },
+  "errorloadingstatus": { "message": "เกิดข้อผิดพลาดในการโหลดสถานะผู้ใช้." }
 }

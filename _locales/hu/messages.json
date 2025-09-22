@@ -128,5 +128,21 @@
   "prorequired": { "message": "Ehhez a funkcióhoz Pro mód szükséges" },
   "enablepasswordtitle": { "message": "Jelszóvédelem engedélyezése" },
   "enablepassworddesc": { "message": "Jelszó szükséges a szabályok törléséhez vagy szerkesztéséhez (erősíti a szigorú módot)" },
-  "passwordprotectiontitle": { "message": "Jelszóvédelem" }
+  "passwordprotectiontitle": { "message": "Jelszóvédelem" },
+  "scheduleheader": { "message": "Ütemezés" },
+  "enableschedule": { "message": "Ütemezés engedélyezése" },
+  "alwaysactive": { "message": "Mindig aktív" },
+  "profeatureschedule": { "message": "Az ütemezés a Pro verzióban érhető el" },
+  "days": { "message": "Napok" },
+  "starttime": { "message": "Kezdési idő:" },
+  "endtime": { "message": "Befejezési idő:" },
+  "invaliddays": { "message": "Érvénytelen napok kiválasztva" },
+  "invalidtimeformat": { "message": "Érvénytelen időformátum (HH:MM használata)" },
+  "startafterend": { "message": "A kezdési időnek a befejezési idő előtt kell lennie" },
+  "invalidschedule": { "message": "Érvénytelen ütemezés: kérjük, válasszon napokat és időpontokat." },
+  "invalidscheduledays": { "message": "Érvénytelen ütemezés: válasszon legalább egy napot." },
+  "invalidschedulestarttime": { "message": "Érvénytelen ütemezés: állítsa be a kezdési időt." },
+  "invalidscheduleendtime": { "message": "Érvénytelen ütemezés: állítsa be a befejezési időt." },
+  "editdisablednonpro": { "message": "Szerkesztés letiltva: túl sok szabály nem Pro felhasználók számára." },
+  "errorloadingstatus": { "message": "Hiba a felhasználói állapot betöltése közben." }
 }

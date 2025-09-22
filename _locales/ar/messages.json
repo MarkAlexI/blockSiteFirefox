@@ -137,5 +137,21 @@
   "prorequired": { "message": "يتطلب هذا الميزة وضع Pro" },
   "enablepasswordtitle": { "message": "تفعيل حماية كلمة المرور" },
   "enablepassworddesc": { "message": "يتطلب كلمة مرور لحذف أو تعديل القواعد (يعزز الوضع الصارم)" },
-  "passwordprotectiontitle": { "message": "حماية كلمة المرور" }
+  "passwordprotectiontitle": { "message": "حماية كلمة المرور" },
+  "scheduleheader": { "message": "الجدول الزمني" },
+  "enableschedule": { "message": "تفعيل الجدول الزمني" },
+  "alwaysactive": { "message": "نشط دائمًا" },
+  "profeatureschedule": { "message": "الجدول الزمني متاح في النسخة Pro" },
+  "days": { "message": "الأيام" },
+  "starttime": { "message": "وقت البدء:" },
+  "endtime": { "message": "وقت الانتهاء:" },
+  "invaliddays": { "message": "أيام غير صالحة محددة" },
+  "invalidtimeformat": { "message": "تنسيق وقت غير صالح (استخدم HH:MM)" },
+  "startafterend": { "message": "يجب أن يكون وقت البدء قبل وقت الانتهاء" },
+  "invalidschedule": { "message": "جدول زمني غير صالح: يرجى اختيار الأيام والأوقات." },
+  "invalidscheduledays": { "message": "جدول زمني غير صالح: يرجى اختيار يوم واحد على الأقل." },
+  "invalidschedulestarttime": { "message": "جدول زمني غير صالح: يرجى تحديد وقت البدء." },
+  "invalidscheduleendtime": { "message": "جدول زمني غير صالح: يرجى تحديد وقت الانتهاء." },
+  "editdisablednonpro": { "message": "تم تعطيل التعديل: عدد كبير جدًا من القواعد للمستخدمين غير Pro." },
+  "errorloadingstatus": { "message": "خطأ في تحميل حالة المستخدم." }
 }

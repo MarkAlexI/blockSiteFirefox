@@ -128,5 +128,21 @@
   "prorequired": { "message": "Es requereix el mode Pro per a aquesta funció" },
   "enablepasswordtitle": { "message": "Activa la protecció amb contrasenya" },
   "enablepassworddesc": { "message": "Requereix una contrasenya per eliminar o editar regles (millora el mode estricte)" },
-  "passwordprotectiontitle": { "message": "Protecció amb contrasenya" }
+  "passwordprotectiontitle": { "message": "Protecció amb contrasenya" },
+  "scheduleheader": { "message": "Horari" },
+  "enableschedule": { "message": "Habilita l'horari" },
+  "alwaysactive": { "message": "Sempre actiu" },
+  "profeatureschedule": { "message": "L'horari està disponible a la versió Pro" },
+  "days": { "message": "Dies" },
+  "starttime": { "message": "Hora d'inici:" },
+  "endtime": { "message": "Hora de finalització:" },
+  "invaliddays": { "message": "Dies seleccionats no vàlids" },
+  "invalidtimeformat": { "message": "Format d'hora no vàlid (utilitza HH:MM)" },
+  "startafterend": { "message": "L'hora d'inici ha de ser abans de l'hora de finalització" },
+  "invalidschedule": { "message": "Horari no vàlid: si us plau, seleccioneu dies i hores." },
+  "invalidscheduledays": { "message": "Horari no vàlid: seleccioneu com a mínim un dia." },
+  "invalidschedulestarttime": { "message": "Horari no vàlid: definiu una hora d'inici." },
+  "invalidscheduleendtime": { "message": "Horari no vàlid: definiu una hora de finalització." },
+  "editdisablednonpro": { "message": "Edició desactivada: massa regles per a usuaris no Pro." },
+  "errorloadingstatus": { "message": "Error en carregar l'estat de l'usuari." }
 }

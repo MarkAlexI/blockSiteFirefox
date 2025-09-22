@@ -128,5 +128,21 @@
   "prorequired": { "message": "Hali ya Pro inahitajika kwa kipengele hiki" },
   "enablepasswordtitle": { "message": "Wezesha ulinzi wa nenosiri" },
   "enablepassworddesc": { "message": "Inahitaji nenosiri ili kufuta au kuhariri sheria (inaboresha hali ya kali)" },
-  "passwordprotectiontitle": { "message": "Ulinzi wa nenosiri" }
+  "passwordprotectiontitle": { "message": "Ulinzi wa nenosiri" },
+  "scheduleheader": { "message": "Ratiba" },
+  "enableschedule": { "message": "Washa ratiba" },
+  "alwaysactive": { "message": "Daima hai" },
+  "profeatureschedule": { "message": "Ratiba inapatikana katika toleo la Pro" },
+  "days": { "message": "Siku" },
+  "starttime": { "message": "Muda wa kuanza:" },
+  "endtime": { "message": "Muda wa kumaliza:" },
+  "invaliddays": { "message": "Siku zilizochaguliwa si sahihi" },
+  "invalidtimeformat": { "message": "Muundo wa muda si sahihi (tumia HH:MM)" },
+  "startafterend": { "message": "Muda wa kuanza lazima uwe kabla ya muda wa kumaliza" },
+  "invalidschedule": { "message": "Ratiba si sahihi: tafadhali chagua siku na muda." },
+  "invalidscheduledays": { "message": "Ratiba si sahihi: tafadhali chagua angalau siku moja." },
+  "invalidschedulestarttime": { "message": "Ratiba si sahihi: tafadhali weka muda wa kuanza." },
+  "invalidscheduleendtime": { "message": "Ratiba si sahihi: tafadhali weka muda wa kumaliza." },
+  "editdisablednonpro": { "message": "Uhariri umezimwa: sheria nyingi sana kwa watumiaji wasio Pro." },
+  "errorloadingstatus": { "message": "Hitilafu wakati wa kupakia hali ya mtumiaji." }
 }

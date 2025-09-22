@@ -128,5 +128,21 @@
   "prorequired": { "message": "આ સુવિધા માટે પ્રો મોડની જરૂર છે" },
   "enablepasswordtitle": { "message": "પાસવર્ડ સુરક્ષા સક્રિય કરો" },
   "enablepassworddesc": { "message": "નિયમોને ડિલીટ કરવા અથવા સંપાદન કરવા માટે પાસવર્ડની જરૂર છે (સખત મોડને વધારે છે)" },
-  "passwordprotectiontitle": { "message": "પાસવર્ડ સુરક્ષા" }
+  "passwordprotectiontitle": { "message": "પાસવર્ડ સુરક્ષા" },
+  "scheduleheader": { "message": "અનુસૂચિ" },
+  "enableschedule": { "message": "અનુસૂચિ સક્રિય કરો" },
+  "alwaysactive": { "message": "હંમેશા સક્રિય" },
+  "profeatureschedule": { "message": "અનુસૂચિ ફક્ત Pro સંસ્કરણમાં ઉપલબ્ધ છે" },
+  "days": { "message": "દિવસો" },
+  "starttime": { "message": "પ્રારંભ સમય:" },
+  "endtime": { "message": "અંત સમય:" },
+  "invaliddays": { "message": "અમાન્ય દિવસો પસંદ કર્યા گئے છે" },
+  "invalidtimeformat": { "message": "અમાન્ય સમય ફોર્મેટ (HH:MM વાપરો)" },
+  "startafterend": { "message": "પ્રારંભ સમય અંત સમય પહેલાં હોવો જોઈએ" },
+  "invalidschedule": { "message": "અમાન્ય અનુસૂચિ: કૃપા કરીને દિવસો અને સમય પસંદ કરો." },
+  "invalidscheduledays": { "message": "અમાન્ય અનુસૂચિ: કૃપા કરીને ઓછામાં ઓછો એક દિવસ પસંદ કરો." },
+  "invalidschedulestarttime": { "message": "અમાન્ય અનુસૂચિ: કૃપા કરીને પ્રારંભ સમય સેટ કરો." },
+  "invalidscheduleendtime": { "message": "અમાન્ય અનુસૂચિ: કૃપા કરીને અંત સમય સેટ કરો." },
+  "editdisablednonpro": { "message": "સંપાદન અક્ષમ: Pro ન વપરાશકર્તાઓ માટે નિયમો બહુ છે." },
+  "errorloadingstatus": { "message": "વપરાશકર્તા સ્થિતિ લોડ કરવામાં ત્રુટિ." }
 }

@@ -128,5 +128,21 @@
   "prorequired": { "message": "Pro-tilstand kræves til denne funktion" },
   "enablepasswordtitle": { "message": "Aktivér adgangskodebeskyttelse" },
   "enablepassworddesc": { "message": "Kræver en adgangskode for at slette eller redigere regler (forbedrer streng tilstand)" },
-  "passwordprotectiontitle": { "message": "Adgangskodebeskyttelse" }
+  "passwordprotectiontitle": { "message": "Adgangskodebeskyttelse" },
+  "scheduleheader": { "message": "Tidsplan" },
+  "enableschedule": { "message": "Aktivér tidsplan" },
+  "alwaysactive": { "message": "Altid aktiv" },
+  "profeatureschedule": { "message": "Tidsplan er tilgængelig i Pro-versionen" },
+  "days": { "message": "Dage" },
+  "starttime": { "message": "Starttid:" },
+  "endtime": { "message": "Sluttid:" },
+  "invaliddays": { "message": "Ugyldige dage valgt" },
+  "invalidtimeformat": { "message": "Ugyldigt tidsformat (brug TT:MM)" },
+  "startafterend": { "message": "Starttid skal være før sluttid" },
+  "invalidschedule": { "message": "Ugyldig tidsplan: vælg venligst dage og tidspunkter." },
+  "invalidscheduledays": { "message": "Ugyldig tidsplan: vælg venligst mindst én dag." },
+  "invalidschedulestarttime": { "message": "Ugyldig tidsplan: angiv venligst en starttid." },
+  "invalidscheduleendtime": { "message": "Ugyldig tidsplan: angiv venligst en sluttid." },
+  "editdisablednonpro": { "message": "Redigering deaktiveret: for mange regler for ikke-Pro brugere." },
+  "errorloadingstatus": { "message": "Fejl under indlæsning af brugerstatus." }
 }

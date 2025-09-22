@@ -128,5 +128,21 @@
   "prorequired": { "message": "এই বৈশিষ্ট্যের জন্য প্রো মোড প্রয়োজন" },
   "enablepasswordtitle": { "message": "পাসওয়ার্ড সুরক্ষা সক্ষম করুন" },
   "enablepassworddesc": { "message": "নিয়ম মুছে ফেলা বা সম্পাদনার জন্য পাসওয়ার্ড প্রয়োজন (কঠোর মোড উন্নত করে)" },
-  "passwordprotectiontitle": { "message": "পাসওয়ার্ড সুরক্ষা" }
+  "passwordprotectiontitle": { "message": "পাসওয়ার্ড সুরক্ষা" },
+  "scheduleheader": { "message": "সময়সূচি" },
+  "enableschedule": { "message": "সময়সূচি সক্রিয় করুন" },
+  "alwaysactive": { "message": "সর্বদা সক্রিয়" },
+  "profeatureschedule": { "message": "সময়সূচি শুধুমাত্র Pro সংস্করণে পাওয়া যাবে" },
+  "days": { "message": "দিন" },
+  "starttime": { "message": "শুরুর সময়:" },
+  "endtime": { "message": "শেষের সময়:" },
+  "invaliddays": { "message": "অবৈধ দিন নির্বাচন করা হয়েছে" },
+  "invalidtimeformat": { "message": "অবৈধ সময় ফরম্যাট (HH:MM ব্যবহার করুন)" },
+  "startafterend": { "message": "শুরুর সময় শেষের সময়ের আগে হতে হবে" },
+  "invalidschedule": { "message": "অবৈধ সময়সূচি: অনুগ্রহ করে দিন এবং সময় নির্বাচন করুন।" },
+  "invalidscheduledays": { "message": "অবৈধ সময়সূচি: অন্তত একটি দিন নির্বাচন করুন।" },
+  "invalidschedulestarttime": { "message": "অবৈধ সময়সূচি: শুরুর সময় নির্ধারণ করুন।" },
+  "invalidscheduleendtime": { "message": "অবৈধ সময়সূচি: শেষের সময় নির্ধারণ করুন।" },
+  "editdisablednonpro": { "message": "সম্পাদনা অক্ষম: Pro নয় এমন ব্যবহারকারীদের জন্য অতিরিক্ত নিয়ম।" },
+  "errorloadingstatus": { "message": "ব্যবহারকারীর স্থিতি লোড করতে ত্রুটি।" }
 }

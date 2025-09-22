@@ -128,5 +128,21 @@
   "prorequired": { "message": "ለዚህ ባህሪ ፕሮ ሞድ ያስፈልጋል" },
   "enablepasswordtitle": { "message": "የይለፍ ቃል ጥበቃን አንቃ" },
   "enablepassworddesc": { "message": "ደንቦችን ለመሰረዝ ወይም ለማስተካከል የይለፍ ቃል ይጠይቁ (ጥብቅ ሞድን ያጠናክራል)" },
-  "passwordprotectiontitle": { "message": "የይለፍ ቃል ጥበቃ" }
+  "passwordprotectiontitle": { "message": "የይለፍ ቃል ጥበቃ" },
+  "scheduleheader": { "message": "መርሐግብር" },
+  "enableschedule": { "message": "መርሐግብር አንቃ" },
+  "alwaysactive": { "message": "ሁልጊዜ ንቁ" },
+  "profeatureschedule": { "message": "መርሐግብር በPro ስሪት ብቻ ይገኛል" },
+  "days": { "message": "ቀናት" },
+  "starttime": { "message": "መጀመሪያ ሰዓት:" },
+  "endtime": { "message": "መጨረሻ ሰዓት:" },
+  "invaliddays": { "message": "የተመረጡት ቀናት የተሳሉ ናቸው" },
+  "invalidtimeformat": { "message": "የሰዓት ቅርጸት የተሳለ (HH:MM ይጠቀሙ)" },
+  "startafterend": { "message": "መጀመሪያ ሰዓት ከመጨረሻ በፊት መሆን አለበት" },
+  "invalidschedule": { "message": "የተሳለ መርሐግብር: እባኮትን ቀናትን እና ሰዓቶችን ይምረጡ።" },
+  "invalidscheduledays": { "message": "የተሳለ መርሐግብር: እባኮትን ቢያንስ አንድ ቀን ይምረጡ።" },
+  "invalidschedulestarttime": { "message": "የተሳለ መርሐግብር: እባኮትን መጀመሪያ ሰዓት ያስቀምጡ።" },
+  "invalidscheduleendtime": { "message": "የተሳለ መርሐግብር: እባኮትን መጨረሻ ሰዓት ያስቀምጡ።" },
+  "editdisablednonpro": { "message": "ማረም ተሰናክሏል፡ ለPro አልሆኑ ተጠቃሚዎች ብዙ ደንቦች አሉ።" },
+  "errorloadingstatus": { "message": "የተጠቃሚ ሁኔታን በመጫን ላይ ስህተት ተፈጥሯል።" }
 }

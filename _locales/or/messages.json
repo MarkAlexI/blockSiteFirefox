@@ -137,5 +137,21 @@
   "prorequired": { "message": "ଏହି ବୈଶିଷ୍ଟ୍ୟ ପାଇଁ ପ୍ରୋ ମୋଡ୍ ଆବଶ୍ୟକ" },
   "enablepasswordtitle": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ସକ୍ରିୟ କରନ୍ତୁ" },
   "enablepassworddesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ହଟାଇବା କିମ୍ବା ସମ୍ପାଦନ କରିବା ପାଇଁ ପାସୱାର୍ଡ ଆବଶ୍ୟକ (କଠୋର ମୋଡକୁ ଉନ୍ନତ କରେ)" },
-  "passwordprotectiontitle": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା" }
+  "passwordprotectiontitle": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା" },
+  "scheduleheader": { "message": "ସୂଚୀ" },
+  "enableschedule": { "message": "ସୂଚୀ ସକ୍ରିୟ କରନ୍ତୁ" },
+  "alwaysactive": { "message": "ସଦା ସକ୍ରିୟ" },
+  "profeatureschedule": { "message": "ସୂଚୀ କେବଳ Pro ସଂସ୍କରଣରେ ଉପଲବ୍ଧ" },
+  "days": { "message": "ଦିନଗୁଡିକ" },
+  "starttime": { "message": "ଆରମ୍ଭ ସମୟ:" },
+  "endtime": { "message": "ସମାପ୍ତ ସମୟ:" },
+  "invaliddays": { "message": "ଅବୈଧ ଦିନଗୁଡିକ ଚୟନ ହୋଇଛି" },
+  "invalidtimeformat": { "message": "ଅବୈଧ ସମୟ ଫର୍ମାଟ (HH:MM ବ୍ୟବହାର କରନ୍ତୁ)" },
+  "startafterend": { "message": "ଆରମ୍ଭ ସମୟ ସମାପ୍ତ ସମୟ ପୂର୍ବରୁ ହେବା ଦରକାର" },
+  "invalidschedule": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ଦିନ ଏବଂ ସମୟ ଚୟନ କରନ୍ତୁ।" },
+  "invalidscheduledays": { "message": "ଅବୈଧ ସୂଚୀ: କମ୍ ସେ କମ୍ ଗୋଟିଏ ଦିନ ଚୟନ କରନ୍ତୁ।" },
+  "invalidschedulestarttime": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ଆରମ୍ଭ ସମୟ ସେଟ୍ କରନ୍ତୁ।" },
+  "invalidscheduleendtime": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ସମାପ୍ତ ସମୟ ସେଟ୍ କରନ୍ତୁ।" },
+  "editdisablednonpro": { "message": "ସମ୍ପାଦନା ଅସକ୍ରିୟ: non-Pro ବ୍ୟବହାରକାରୀଙ୍କ ପାଇଁ ନିୟମ ବେଶୀ ଅଛି।" },
+  "errorloadingstatus": { "message": "ବ୍ୟବହାରକାରୀ ସ୍ଥିତି ଲୋଡ୍ କରିବାରେ ତ୍ରୁଟି।" }
 }

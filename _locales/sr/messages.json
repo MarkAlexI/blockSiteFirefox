@@ -128,5 +128,21 @@
   "prorequired": { "message": "Про режим је потребан за ову функцију" },
   "enablepasswordtitle": { "message": "Омогући заштиту лозинком" },
   "enablepassworddesc": { "message": "Захтева лозинку за брисање или уређивање правила (побољшава строги режим)" },
-  "passwordprotectiontitle": { "message": "Заштита лозинком" }
+  "passwordprotectiontitle": { "message": "Заштита лозинком" },
+  "scheduleheader": { "message": "Распоред" },
+  "enableschedule": { "message": "Омогући распоред" },
+  "alwaysactive": { "message": "Увек активан" },
+  "profeatureschedule": { "message": "Распоред је доступан у Pro верзији" },
+  "days": { "message": "Дани" },
+  "starttime": { "message": "Време почетка:" },
+  "endtime": { "message": "Време завршетка:" },
+  "invaliddays": { "message": "Изабрани дани нису важећи" },
+  "invalidtimeformat": { "message": "Неважећи формат времена (користите HH:MM)" },
+  "startafterend": { "message": "Време почетка мора бити пре времена завршетка" },
+  "invalidschedule": { "message": "Неважећи распоред: изаберите дане и време." },
+  "invalidscheduledays": { "message": "Неважећи распоред: изаберите бар један дан." },
+  "invalidschedulestarttime": { "message": "Неважећи распоред: подесите време почетка." },
+  "invalidscheduleendtime": { "message": "Неважећи распоред: подесите време завршетка." },
+  "editdisablednonpro": { "message": "Уређивање онемогућено: превише правила за кориснике који нису Pro." },
+  "errorloadingstatus": { "message": "Грешка приликом учитавања статуса корисника." }
 }
