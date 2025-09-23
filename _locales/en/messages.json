@@ -154,5 +154,12 @@
   "invalidschedulestarttime": { "message": "Invalid schedule: please set a start time." },
   "invalidscheduleendtime": { "message": "Invalid schedule: please set an end time." },
   "editdisablednonpro": { "message": "Editing disabled: too many rules for non-Pro users." },
-  "errorloadingstatus": { "message": "Error loading user status." }
+  "errorloadingstatus": { "message": "Error loading user status." },
+  "schedule_day_sun": { "message": "Sun" },
+  "schedule_day_mon": { "message": "Mon" },
+  "schedule_day_tue": { "message": "Tue" },
+  "schedule_day_wed": { "message": "Wed" },
+  "schedule_day_thu": { "message": "Thu" },
+  "schedule_day_fri": { "message": "Fri" },
+  "schedule_day_sat": { "message": "Sat" }
 }

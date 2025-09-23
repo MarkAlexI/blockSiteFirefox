@@ -153,5 +153,12 @@
   "invalidschedulestarttime": { "message": "Некоректний розклад: вкажіть час початку." },
   "invalidscheduleendtime": { "message": "Некоректний розклад: вкажіть час завершення." },
   "editdisablednonpro": { "message": "Редагування вимкнене: забагато правил для користувачів без Pro." },
-  "errorloadingstatus": { "message": "Помилка завантаження статусу користувача." }
+  "errorloadingstatus": { "message": "Помилка завантаження статусу користувача." },
+  "schedule_day_sun": { "message": "Нд" },
+  "schedule_day_mon": { "message": "Пн" },
+  "schedule_day_tue": { "message": "Вт" },
+  "schedule_day_wed": { "message": "Ср" },
+  "schedule_day_thu": { "message": "Чт" },
+  "schedule_day_fri": { "message": "Пт" },
+  "schedule_day_sat": { "message": "Сб" }
 }

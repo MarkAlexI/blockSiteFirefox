@@ -153,5 +153,12 @@
   "invalidschedulestarttime": { "message": "無効なスケジュール: 開始時刻を設定してください。" },
   "invalidscheduleendtime": { "message": "無効なスケジュール: 終了時刻を設定してください。" },
   "editdisablednonpro": { "message": "編集は無効です: Pro 版以外のユーザーにはルールが多すぎます。" },
-  "errorloadingstatus": { "message": "ユーザーのステータスを読み込み中にエラーが発生しました。" }
+  "errorloadingstatus": { "message": "ユーザーのステータスを読み込み中にエラーが発生しました。" },
+  "schedule_day_sun": { "message": "日" },
+  "schedule_day_mon": { "message": "月" },
+  "schedule_day_tue": { "message": "火" },
+  "schedule_day_wed": { "message": "水" },
+  "schedule_day_thu": { "message": "木" },
+  "schedule_day_fri": { "message": "金" },
+  "schedule_day_sat": { "message": "土" }
 }

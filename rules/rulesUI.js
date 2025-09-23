@@ -294,7 +294,7 @@ export class RulesUI {
       chk.value = i;
       if (existingSchedule?.days?.includes(i)) chk.checked = true;
       label.appendChild(chk);
-      label.appendChild(document.createTextNode(day));
+      label.appendChild(document.createTextNode(t(`schedule_day_${day.toLowerCase()}`)));
       daysContainer.appendChild(label);
     });
     section.appendChild(daysContainer);
