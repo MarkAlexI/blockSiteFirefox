@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "తప్పు షెడ్యూల్: ప్రారంభ సమయాన్ని సెట్ చేయండి." },
   "invalidscheduleendtime": { "message": "తప్పు షెడ్యూల్: ముగింపు సమయాన్ని సెట్ చేయండి." },
   "editdisablednonpro": { "message": "సంపాదన నిలిపివేయబడింది: non-Pro వినియోగదారుల కోసం ఎక్కువ నియమాలు ఉన్నాయి." },
-  "errorloadingstatus": { "message": "వినియోగదారు స్థితిని లోడ్ చేయడంలో లోపం." }
+  "errorloadingstatus": { "message": "వినియోగదారు స్థితిని లోడ్ చేయడంలో లోపం." },
+  "schedule_day_sun": { "message": "ఆది" },
+  "schedule_day_mon": { "message": "సోమ" },
+  "schedule_day_tue": { "message": "మం" },
+  "schedule_day_wed": { "message": "బుధ" },
+  "schedule_day_thu": { "message": "గురు" },
+  "schedule_day_fri": { "message": "శుక్ర" },
+  "schedule_day_sat": { "message": "శని" }
 }

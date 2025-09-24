@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "অবৈধ সময়সূচি: শুরুর সময় নির্ধারণ করুন।" },
   "invalidscheduleendtime": { "message": "অবৈধ সময়সূচি: শেষের সময় নির্ধারণ করুন।" },
   "editdisablednonpro": { "message": "সম্পাদনা অক্ষম: Pro নয় এমন ব্যবহারকারীদের জন্য অতিরিক্ত নিয়ম।" },
-  "errorloadingstatus": { "message": "ব্যবহারকারীর স্থিতি লোড করতে ত্রুটি।" }
+  "errorloadingstatus": { "message": "ব্যবহারকারীর স্থিতি লোড করতে ত্রুটি।" },
+  "schedule_day_sun": { "message": "রবি" },
+  "schedule_day_mon": { "message": "সোম" },
+  "schedule_day_tue": { "message": "মঙ্গল" },
+  "schedule_day_wed": { "message": "বুধ" },
+  "schedule_day_thu": { "message": "বৃহস্পতি" },
+  "schedule_day_fri": { "message": "শুক্র" },
+  "schedule_day_sat": { "message": "শনি" }
 }

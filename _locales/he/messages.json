@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "לוח זמנים לא תקין: הגדר שעת התחלה." },
   "invalidscheduleendtime": { "message": "לוח זמנים לא תקין: הגדר שעת סיום." },
   "editdisablednonpro": { "message": "עריכה מושבתת: יותר מדי כללים למשתמשים שאינם Pro." },
-  "errorloadingstatus": { "message": "שגיאה בטעינת מצב המשתמש." }
+  "errorloadingstatus": { "message": "שגיאה בטעינת מצב המשתמש." },
+  "schedule_day_sun": { "message": "א'" },
+  "schedule_day_mon": { "message": "ב'" },
+  "schedule_day_tue": { "message": "ג'" },
+  "schedule_day_wed": { "message": "ד'" },
+  "schedule_day_thu": { "message": "ה'" },
+  "schedule_day_fri": { "message": "ו'" },
+  "schedule_day_sat": { "message": "ש'" }
 }

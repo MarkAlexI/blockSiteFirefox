@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Érvénytelen ütemezés: állítsa be a kezdési időt." },
   "invalidscheduleendtime": { "message": "Érvénytelen ütemezés: állítsa be a befejezési időt." },
   "editdisablednonpro": { "message": "Szerkesztés letiltva: túl sok szabály nem Pro felhasználók számára." },
-  "errorloadingstatus": { "message": "Hiba a felhasználói állapot betöltése közben." }
+  "errorloadingstatus": { "message": "Hiba a felhasználói állapot betöltése közben." },
+  "schedule_day_sun": { "message": "Vas" },
+  "schedule_day_mon": { "message": "Hét" },
+  "schedule_day_tue": { "message": "Ked" },
+  "schedule_day_wed": { "message": "Sze" },
+  "schedule_day_thu": { "message": "Csü" },
+  "schedule_day_fri": { "message": "Pén" },
+  "schedule_day_sat": { "message": "Szo" }
 }

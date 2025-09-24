@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Program invalid: setați ora de început." },
   "invalidscheduleendtime": { "message": "Program invalid: setați ora de sfârșit." },
   "editdisablednonpro": { "message": "Editarea este dezactivată: prea multe reguli pentru utilizatorii non-Pro." },
-  "errorloadingstatus": { "message": "Eroare la încărcarea stării utilizatorului." }
+  "errorloadingstatus": { "message": "Eroare la încărcarea stării utilizatorului." },
+  "schedule_day_sun": { "message": "Dum" },
+  "schedule_day_mon": { "message": "Lun" },
+  "schedule_day_tue": { "message": "Mar" },
+  "schedule_day_wed": { "message": "Mie" },
+  "schedule_day_thu": { "message": "Joi" },
+  "schedule_day_fri": { "message": "Vin" },
+  "schedule_day_sat": { "message": "Sâm" }
 }

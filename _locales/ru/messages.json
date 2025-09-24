@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Недопустимое расписание: укажите время начала." },
   "invalidscheduleendtime": { "message": "Недопустимое расписание: укажите время окончания." },
   "editdisablednonpro": { "message": "Редактирование отключено: слишком много правил для пользователей без Pro." },
-  "errorloadingstatus": { "message": "Ошибка загрузки статуса пользователя." }
+  "errorloadingstatus": { "message": "Ошибка загрузки статуса пользователя." },
+  "schedule_day_sun": { "message": "Вс" },
+  "schedule_day_mon": { "message": "Пн" },
+  "schedule_day_tue": { "message": "Вт" },
+  "schedule_day_wed": { "message": "Ср" },
+  "schedule_day_thu": { "message": "Чт" },
+  "schedule_day_fri": { "message": "Пт" },
+  "schedule_day_sat": { "message": "Сб" }
 }

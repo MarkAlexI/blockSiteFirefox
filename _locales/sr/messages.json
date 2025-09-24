@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Неважећи распоред: подесите време почетка." },
   "invalidscheduleendtime": { "message": "Неважећи распоред: подесите време завршетка." },
   "editdisablednonpro": { "message": "Уређивање онемогућено: превише правила за кориснике који нису Pro." },
-  "errorloadingstatus": { "message": "Грешка приликом учитавања статуса корисника." }
+  "errorloadingstatus": { "message": "Грешка приликом учитавања статуса корисника." },
+  "schedule_day_sun": { "message": "Нед" },
+  "schedule_day_mon": { "message": "Пон" },
+  "schedule_day_tue": { "message": "Уто" },
+  "schedule_day_wed": { "message": "Сре" },
+  "schedule_day_thu": { "message": "Чет" },
+  "schedule_day_fri": { "message": "Пет" },
+  "schedule_day_sat": { "message": "Суб" }
 }

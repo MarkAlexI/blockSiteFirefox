@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "ตารางเวลาไม่ถูกต้อง: โปรดตั้งเวลาเริ่มต้น." },
   "invalidscheduleendtime": { "message": "ตารางเวลาไม่ถูกต้อง: โปรดตั้งเวลาสิ้นสุด." },
   "editdisablednonpro": { "message": "การแก้ไขถูกปิดใช้งาน: มีกฎมากเกินไปสำหรับผู้ใช้ที่ไม่ใช่ Pro." },
-  "errorloadingstatus": { "message": "เกิดข้อผิดพลาดในการโหลดสถานะผู้ใช้." }
+  "errorloadingstatus": { "message": "เกิดข้อผิดพลาดในการโหลดสถานะผู้ใช้." },
+  "schedule_day_sun": { "message": "อา." },
+  "schedule_day_mon": { "message": "จ." },
+  "schedule_day_tue": { "message": "อ." },
+  "schedule_day_wed": { "message": "พ." },
+  "schedule_day_thu": { "message": "พฤ." },
+  "schedule_day_fri": { "message": "ศ." },
+  "schedule_day_sat": { "message": "ส." }
 }

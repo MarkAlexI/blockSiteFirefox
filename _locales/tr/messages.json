@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Geçersiz zamanlama: başlangıç saatini ayarlayın." },
   "invalidscheduleendtime": { "message": "Geçersiz zamanlama: bitiş saatini ayarlayın." },
   "editdisablednonpro": { "message": "Düzenleme devre dışı: Pro olmayan kullanıcılar için çok fazla kural." },
-  "errorloadingstatus": { "message": "Kullanıcı durumu yüklenirken hata oluştu." }
+  "errorloadingstatus": { "message": "Kullanıcı durumu yüklenirken hata oluştu." },
+  "schedule_day_sun": { "message": "Paz" },
+  "schedule_day_mon": { "message": "Pts" },
+  "schedule_day_tue": { "message": "Sal" },
+  "schedule_day_wed": { "message": "Çar" },
+  "schedule_day_thu": { "message": "Per" },
+  "schedule_day_fri": { "message": "Cum" },
+  "schedule_day_sat": { "message": "Cmt" }
 }

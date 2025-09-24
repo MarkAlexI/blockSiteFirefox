@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Jadwal tidak valid: atur waktu mulai." },
   "invalidscheduleendtime": { "message": "Jadwal tidak valid: atur waktu selesai." },
   "editdisablednonpro": { "message": "Pengeditan dinonaktifkan: terlalu banyak aturan untuk pengguna non-Pro." },
-  "errorloadingstatus": { "message": "Kesalahan saat memuat status pengguna." }
+  "errorloadingstatus": { "message": "Kesalahan saat memuat status pengguna." },
+  "schedule_day_sun": { "message": "Min" },
+  "schedule_day_mon": { "message": "Sen" },
+  "schedule_day_tue": { "message": "Sel" },
+  "schedule_day_wed": { "message": "Rab" },
+  "schedule_day_thu": { "message": "Kam" },
+  "schedule_day_fri": { "message": "Jum" },
+  "schedule_day_sat": { "message": "Sab" }
 }

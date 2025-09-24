@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Ugyldig tidsplan: sett starttid." },
   "invalidscheduleendtime": { "message": "Ugyldig tidsplan: sett sluttid." },
   "editdisablednonpro": { "message": "Redigering deaktivert: for mange regler for ikke-Pro brukere." },
-  "errorloadingstatus": { "message": "Feil ved lasting av brukerstatus." }
+  "errorloadingstatus": { "message": "Feil ved lasting av brukerstatus." },
+  "schedule_day_sun": { "message": "Søn" },
+  "schedule_day_mon": { "message": "Man" },
+  "schedule_day_tue": { "message": "Tir" },
+  "schedule_day_wed": { "message": "Ons" },
+  "schedule_day_thu": { "message": "Tor" },
+  "schedule_day_fri": { "message": "Fre" },
+  "schedule_day_sat": { "message": "Lør" }
 }

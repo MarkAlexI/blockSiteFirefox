@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Ongeldig schema: stel een starttijd in." },
   "invalidscheduleendtime": { "message": "Ongeldig schema: stel een eindtijd in." },
   "editdisablednonpro": { "message": "Bewerken uitgeschakeld: te veel regels voor niet-Pro gebruikers." },
-  "errorloadingstatus": { "message": "Fout bij het laden van de gebruikersstatus." }
+  "errorloadingstatus": { "message": "Fout bij het laden van de gebruikersstatus." },
+  "schedule_day_sun": { "message": "Zon" },
+  "schedule_day_mon": { "message": "Maa" },
+  "schedule_day_tue": { "message": "Din" },
+  "schedule_day_wed": { "message": "Woe" },
+  "schedule_day_thu": { "message": "Don" },
+  "schedule_day_fri": { "message": "Vrij" },
+  "schedule_day_sat": { "message": "Zat" }
 }

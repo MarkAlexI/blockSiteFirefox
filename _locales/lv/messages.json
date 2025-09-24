@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Nederīgs grafiks: lūdzu, iestatiet sākuma laiku." },
   "invalidscheduleendtime": { "message": "Nederīgs grafiks: lūdzu, iestatiet beigu laiku." },
   "editdisablednonpro": { "message": "Rediģēšana atspējota: pārāk daudz noteikumu ne-Pro lietotājiem." },
-  "errorloadingstatus": { "message": "Kļūda ielādējot lietotāja statusu." }
+  "errorloadingstatus": { "message": "Kļūda ielādējot lietotāja statusu." },
+  "schedule_day_sun": { "message": "Sv" },
+  "schedule_day_mon": { "message": "Pr" },
+  "schedule_day_tue": { "message": "Ot" },
+  "schedule_day_wed": { "message": "Tr" },
+  "schedule_day_thu": { "message": "Ce" },
+  "schedule_day_fri": { "message": "Pk" },
+  "schedule_day_sat": { "message": "Se" }
 }

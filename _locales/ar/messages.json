@@ -153,5 +153,12 @@
   "invalidschedulestarttime": { "message": "جدول زمني غير صالح: يرجى تحديد وقت البدء." },
   "invalidscheduleendtime": { "message": "جدول زمني غير صالح: يرجى تحديد وقت الانتهاء." },
   "editdisablednonpro": { "message": "تم تعطيل التعديل: عدد كبير جدًا من القواعد للمستخدمين غير Pro." },
-  "errorloadingstatus": { "message": "خطأ في تحميل حالة المستخدم." }
+  "errorloadingstatus": { "message": "خطأ في تحميل حالة المستخدم." },
+  "schedule_day_sun": { "message": "الأحد" },
+  "schedule_day_mon": { "message": "الإثنين" },
+  "schedule_day_tue": { "message": "الثلاثاء" },
+  "schedule_day_wed": { "message": "الأربعاء" },
+  "schedule_day_thu": { "message": "الخميس" },
+  "schedule_day_fri": { "message": "الجمعة" },
+  "schedule_day_sat": { "message": "السبت" }
 }

@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان شروع را تنظیم کنید." },
   "invalidscheduleendtime": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان پایان را تنظیم کنید." },
   "editdisablednonpro": { "message": "ویرایش غیرفعال است: قوانین بیش از حد برای کاربران غیر Pro." },
-  "errorloadingstatus": { "message": "خطا در بارگذاری وضعیت کاربر." }
+  "errorloadingstatus": { "message": "خطا در بارگذاری وضعیت کاربر." },
+  "schedule_day_sun": { "message": "یک" },
+  "schedule_day_mon": { "message": "دوش" },
+  "schedule_day_tue": { "message": "سه‌شنبه" },
+  "schedule_day_wed": { "message": "چهار" },
+  "schedule_day_thu": { "message": "پنج" },
+  "schedule_day_fri": { "message": "جمعه" },
+  "schedule_day_sat": { "message": "شنبه" }
 }

@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Agendamento inválido: defina uma hora de início." },
   "invalidscheduleendtime": { "message": "Agendamento inválido: defina uma hora de fim." },
   "editdisablednonpro": { "message": "Edição desativada: demasiadas regras para utilizadores não-Pro." },
-  "errorloadingstatus": { "message": "Erro ao carregar o estado do utilizador." }
+  "errorloadingstatus": { "message": "Erro ao carregar o estado do utilizador." },
+  "schedule_day_sun": { "message": "Dom" },
+  "schedule_day_mon": { "message": "Seg" },
+  "schedule_day_tue": { "message": "Ter" },
+  "schedule_day_wed": { "message": "Qua" },
+  "schedule_day_thu": { "message": "Qui" },
+  "schedule_day_fri": { "message": "Sex" },
+  "schedule_day_sat": { "message": "Sáb" }
 }

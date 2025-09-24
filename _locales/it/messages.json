@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Programma non valido: imposta un orario di inizio." },
   "invalidscheduleendtime": { "message": "Programma non valido: imposta un orario di fine." },
   "editdisablednonpro": { "message": "Modifica disabilitata: troppe regole per gli utenti non Pro." },
-  "errorloadingstatus": { "message": "Errore durante il caricamento dello stato dell'utente." }
+  "errorloadingstatus": { "message": "Errore durante il caricamento dello stato dell'utente." },
+  "schedule_day_sun": { "message": "Dom" },
+  "schedule_day_mon": { "message": "Lun" },
+  "schedule_day_tue": { "message": "Mar" },
+  "schedule_day_wed": { "message": "Mer" },
+  "schedule_day_thu": { "message": "Gio" },
+  "schedule_day_fri": { "message": "Ven" },
+  "schedule_day_sat": { "message": "Sab" }
 }

@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "अमान्य समय-सारणी: कृपया आरंभ समय सेट करें।" },
   "invalidscheduleendtime": { "message": "अमान्य समय-सारणी: कृपया समाप्ति समय सेट करें।" },
   "editdisablednonpro": { "message": "संपादन अक्षम: गैर-Pro उपयोगकर्ताओं के लिए बहुत अधिक नियम।" },
-  "errorloadingstatus": { "message": "उपयोगकर्ता स्थिति लोड करने में त्रुटि।" }
+  "errorloadingstatus": { "message": "उपयोगकर्ता स्थिति लोड करने में त्रुटि।" },
+  "schedule_day_sun": { "message": "रवि" },
+  "schedule_day_mon": { "message": "सोम" },
+  "schedule_day_tue": { "message": "मंगल" },
+  "schedule_day_wed": { "message": "बुध" },
+  "schedule_day_thu": { "message": "गुरु" },
+  "schedule_day_fri": { "message": "शुक्र" },
+  "schedule_day_sat": { "message": "शनि" }
 }

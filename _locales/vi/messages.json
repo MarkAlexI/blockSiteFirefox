@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian bắt đầu." },
   "invalidscheduleendtime": { "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian kết thúc." },
   "editdisablednonpro": { "message": "Chỉnh sửa bị vô hiệu: quá nhiều quy tắc cho người dùng không Pro." },
-  "errorloadingstatus": { "message": "Lỗi khi tải trạng thái người dùng." }
+  "errorloadingstatus": { "message": "Lỗi khi tải trạng thái người dùng." },
+  "schedule_day_sun": { "message": "CN" },
+  "schedule_day_mon": { "message": "T2" },
+  "schedule_day_tue": { "message": "T3" },
+  "schedule_day_wed": { "message": "T4" },
+  "schedule_day_thu": { "message": "T5" },
+  "schedule_day_fri": { "message": "T6" },
+  "schedule_day_sat": { "message": "T7" }
 }

@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Μη έγκυρο πρόγραμμα: ορίστε ώρα έναρξης." },
   "invalidscheduleendtime": { "message": "Μη έγκυρο πρόγραμμα: ορίστε ώρα λήξης." },
   "editdisablednonpro": { "message": "Επεξεργασία απενεργοποιημένη: πάρα πολλοί κανόνες για χρήστες χωρίς Pro." },
-  "errorloadingstatus": { "message": "Σφάλμα κατά τη φόρτωση της κατάστασης χρήστη." }
+  "errorloadingstatus": { "message": "Σφάλμα κατά τη φόρτωση της κατάστασης χρήστη." },
+  "schedule_day_sun": { "message": "Κυρ" },
+  "schedule_day_mon": { "message": "Δευ" },
+  "schedule_day_tue": { "message": "Τρί" },
+  "schedule_day_wed": { "message": "Τετ" },
+  "schedule_day_thu": { "message": "Πέμ" },
+  "schedule_day_fri": { "message": "Παρ" },
+  "schedule_day_sat": { "message": "Σάβ" }
 }

@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Horari no vàlid: definiu una hora d'inici." },
   "invalidscheduleendtime": { "message": "Horari no vàlid: definiu una hora de finalització." },
   "editdisablednonpro": { "message": "Edició desactivada: massa regles per a usuaris no Pro." },
-  "errorloadingstatus": { "message": "Error en carregar l'estat de l'usuari." }
+  "errorloadingstatus": { "message": "Error en carregar l'estat de l'usuari." },
+  "schedule_day_sun": { "message": "Dg" },
+  "schedule_day_mon": { "message": "Dl" },
+  "schedule_day_tue": { "message": "Dt" },
+  "schedule_day_wed": { "message": "Dc" },
+  "schedule_day_thu": { "message": "Dj" },
+  "schedule_day_fri": { "message": "Dv" },
+  "schedule_day_sat": { "message": "Ds" }
 }

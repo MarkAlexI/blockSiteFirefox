@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Jadual tidak sah: sila tetapkan masa mula." },
   "invalidscheduleendtime": { "message": "Jadual tidak sah: sila tetapkan masa tamat." },
   "editdisablednonpro": { "message": "Penyuntingan dilumpuhkan: terlalu banyak peraturan untuk pengguna bukan Pro." },
-  "errorloadingstatus": { "message": "Ralat semasa memuatkan status pengguna." }
+  "errorloadingstatus": { "message": "Ralat semasa memuatkan status pengguna." },
+  "schedule_day_sun": { "message": "Ahd" },
+  "schedule_day_mon": { "message": "Isn" },
+  "schedule_day_tue": { "message": "Sel" },
+  "schedule_day_wed": { "message": "Rab" },
+  "schedule_day_thu": { "message": "Kha" },
+  "schedule_day_fri": { "message": "Jum" },
+  "schedule_day_sat": { "message": "Sab" }
 }

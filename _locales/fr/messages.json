@@ -153,5 +153,12 @@
   "invalidschedulestarttime": { "message": "Planification invalide : veuillez définir une heure de début." },
   "invalidscheduleendtime": { "message": "Planification invalide : veuillez définir une heure de fin." },
   "editdisablednonpro": { "message": "Édition désactivée : trop de règles pour les utilisateurs non-Pro." },
-  "errorloadingstatus": { "message": "Erreur lors du chargement du statut de l'utilisateur." }
+  "errorloadingstatus": { "message": "Erreur lors du chargement du statut de l'utilisateur." },
+  "schedule_day_sun": { "message": "Dim" },
+  "schedule_day_mon": { "message": "Lun" },
+  "schedule_day_tue": { "message": "Mar" },
+  "schedule_day_wed": { "message": "Mer" },
+  "schedule_day_thu": { "message": "Jeu" },
+  "schedule_day_fri": { "message": "Ven" },
+  "schedule_day_sat": { "message": "Sam" }
 }

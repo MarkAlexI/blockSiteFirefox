@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Neteisingas tvarkaraštis: nustatykite pradžios laiką." },
   "invalidscheduleendtime": { "message": "Neteisingas tvarkaraštis: nustatykite pabaigos laiką." },
   "editdisablednonpro": { "message": "Redagavimas išjungtas: per daug taisyklių ne-Pro vartotojams." },
-  "errorloadingstatus": { "message": "Klaida įkeliant vartotojo būseną." }
+  "errorloadingstatus": { "message": "Klaida įkeliant vartotojo būseną." },
+  "schedule_day_sun": { "message": "Sek" },
+  "schedule_day_mon": { "message": "Pir" },
+  "schedule_day_tue": { "message": "Ant" },
+  "schedule_day_wed": { "message": "Tre" },
+  "schedule_day_thu": { "message": "Ket" },
+  "schedule_day_fri": { "message": "Pen" },
+  "schedule_day_sat": { "message": "Šeš" }
 }

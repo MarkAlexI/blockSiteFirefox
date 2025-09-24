@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Ratiba si sahihi: tafadhali weka muda wa kuanza." },
   "invalidscheduleendtime": { "message": "Ratiba si sahihi: tafadhali weka muda wa kumaliza." },
   "editdisablednonpro": { "message": "Uhariri umezimwa: sheria nyingi sana kwa watumiaji wasio Pro." },
-  "errorloadingstatus": { "message": "Hitilafu wakati wa kupakia hali ya mtumiaji." }
+  "errorloadingstatus": { "message": "Hitilafu wakati wa kupakia hali ya mtumiaji." },
+  "schedule_day_sun": { "message": "Jum" },
+  "schedule_day_mon": { "message": "Jtt" },
+  "schedule_day_tue": { "message": "Jnn" },
+  "schedule_day_wed": { "message": "Jtn" },
+  "schedule_day_thu": { "message": "Alh" },
+  "schedule_day_fri": { "message": "Ijm" },
+  "schedule_day_sat": { "message": "Jms" }
 }

@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "የተሳለ መርሐግብር: እባኮትን መጀመሪያ ሰዓት ያስቀምጡ።" },
   "invalidscheduleendtime": { "message": "የተሳለ መርሐግብር: እባኮትን መጨረሻ ሰዓት ያስቀምጡ።" },
   "editdisablednonpro": { "message": "ማረም ተሰናክሏል፡ ለPro አልሆኑ ተጠቃሚዎች ብዙ ደንቦች አሉ።" },
-  "errorloadingstatus": { "message": "የተጠቃሚ ሁኔታን በመጫን ላይ ስህተት ተፈጥሯል።" }
+  "errorloadingstatus": { "message": "የተጠቃሚ ሁኔታን በመጫን ላይ ስህተት ተፈጥሯል።" },
+  "schedule_day_sun": { "message": "እሑድ" },
+  "schedule_day_mon": { "message": "ሰኞ" },
+  "schedule_day_tue": { "message": "ማክሰ" },
+  "schedule_day_wed": { "message": "ረቡዕ" },
+  "schedule_day_thu": { "message": "ሐሙስ" },
+  "schedule_day_fri": { "message": "አርብ" },
+  "schedule_day_sat": { "message": "ቅዳሜ" }
 }

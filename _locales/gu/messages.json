@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "અમાન્ય અનુસૂચિ: કૃપા કરીને પ્રારંભ સમય સેટ કરો." },
   "invalidscheduleendtime": { "message": "અમાન્ય અનુસૂચિ: કૃપા કરીને અંત સમય સેટ કરો." },
   "editdisablednonpro": { "message": "સંપાદન અક્ષમ: Pro ન વપરાશકર્તાઓ માટે નિયમો બહુ છે." },
-  "errorloadingstatus": { "message": "વપરાશકર્તા સ્થિતિ લોડ કરવામાં ત્રુટિ." }
+  "errorloadingstatus": { "message": "વપરાશકર્તા સ્થિતિ લોડ કરવામાં ત્રુટિ." },
+  "schedule_day_sun": { "message": "રવિ" },
+  "schedule_day_mon": { "message": "સોમ" },
+  "schedule_day_tue": { "message": "મંગળ" },
+  "schedule_day_wed": { "message": "બુધ" },
+  "schedule_day_thu": { "message": "ગુરુ" },
+  "schedule_day_fri": { "message": "શુક્ર" },
+  "schedule_day_sat": { "message": "શનિ" }
 }

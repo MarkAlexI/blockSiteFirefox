@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Neplatný plán: nastavte čas začiatku." },
   "invalidscheduleendtime": { "message": "Neplatný plán: nastavte čas ukončenia." },
   "editdisablednonpro": { "message": "Úprava je zakázaná: príliš veľa pravidiel pre ne-Pro používateľov." },
-  "errorloadingstatus": { "message": "Chyba pri načítaní stavu používateľa." }
+  "errorloadingstatus": { "message": "Chyba pri načítaní stavu používateľa." },
+  "schedule_day_sun": { "message": "Ne" },
+  "schedule_day_mon": { "message": "Po" },
+  "schedule_day_tue": { "message": "Ut" },
+  "schedule_day_wed": { "message": "St" },
+  "schedule_day_thu": { "message": "Št" },
+  "schedule_day_fri": { "message": "Pi" },
+  "schedule_day_sat": { "message": "So" }
 }

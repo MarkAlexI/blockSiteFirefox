@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಪ್ರಾರಂಭ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ." },
   "invalidscheduleendtime": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಅಂತಿಮ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ." },
   "editdisablednonpro": { "message": "ಸಂಪಾದನೆ ಅक्षमವಾಗಿದೆ: non-Pro ಬಳಕೆದಾರರಿಗೆ ನಿಯಮಗಳು ತುಂಬಾ ಹೆಚ್ಚಾಗಿದೆ." },
-  "errorloadingstatus": { "message": "ಬಳಕೆದಾರ ಸ್ಥಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿದೆ." }
+  "errorloadingstatus": { "message": "ಬಳಕೆದಾರ ಸ್ಥಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿದೆ." },
+  "schedule_day_sun": { "message": "ಭಾನು" },
+  "schedule_day_mon": { "message": "ಸೋಮ" },
+  "schedule_day_tue": { "message": "ಮಂಗಳ" },
+  "schedule_day_wed": { "message": "ಬುಧ" },
+  "schedule_day_thu": { "message": "ಗುರು" },
+  "schedule_day_fri": { "message": "ಶುಕ್ರ" },
+  "schedule_day_sat": { "message": "ಶನಿ" }
 }

@@ -143,5 +143,12 @@
   "invalidschedulestarttime": { "message": "தவறான அட்டவணை: தொடக்க நேரத்தை அமைக்கவும்." },
   "invalidscheduleendtime": { "message": "தவறான அட்டவணை: முடிவு நேரத்தை அமைக்கவும்." },
   "editdisablednonpro": { "message": "தொகுத்தல் முடக்கப்பட்டுள்ளது: Pro அல்லாத பயனர்களுக்கு அதிகமான விதிகள்." },
-  "errorloadingstatus": { "message": "பயனர் நிலையை ஏற்றும்போது பிழை ஏற்பட்டது." }
+  "errorloadingstatus": { "message": "பயனர் நிலையை ஏற்றும்போது பிழை ஏற்பட்டது." },
+  "schedule_day_sun": { "message": "ஞா" },
+  "schedule_day_mon": { "message": "தி" },
+  "schedule_day_tue": { "message": "செ" },
+  "schedule_day_wed": { "message": "பு" },
+  "schedule_day_thu": { "message": "வி" },
+  "schedule_day_fri": { "message": "வெ" },
+  "schedule_day_sat": { "message": "ச" }
 }

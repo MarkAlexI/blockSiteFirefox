@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "無效的行程：請設定開始時間。" },
   "invalidscheduleendtime": { "message": "無效的行程：請設定結束時間。" },
   "editdisablednonpro": { "message": "編輯已停用：非 Pro 使用者的規則過多。" },
-  "errorloadingstatus": { "message": "載入使用者狀態時發生錯誤。" }
+  "errorloadingstatus": { "message": "載入使用者狀態時發生錯誤。" },
+  "schedule_day_sun": { "message": "週日" },
+  "schedule_day_mon": { "message": "週一" },
+  "schedule_day_tue": { "message": "週二" },
+  "schedule_day_wed": { "message": "週三" },
+  "schedule_day_thu": { "message": "週四" },
+  "schedule_day_fri": { "message": "週五" },
+  "schedule_day_sat": { "message": "週六" }
 }

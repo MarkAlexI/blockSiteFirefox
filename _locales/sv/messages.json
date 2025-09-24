@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Ogiltigt schema: ange starttid." },
   "invalidscheduleendtime": { "message": "Ogiltigt schema: ange sluttid." },
   "editdisablednonpro": { "message": "Redigering inaktiverad: för många regler för icke-Pro användare." },
-  "errorloadingstatus": { "message": "Fel vid laddning av användarstatus." }
+  "errorloadingstatus": { "message": "Fel vid laddning av användarstatus." },
+  "schedule_day_sun": { "message": "Sön" },
+  "schedule_day_mon": { "message": "Mån" },
+  "schedule_day_tue": { "message": "Tis" },
+  "schedule_day_wed": { "message": "Ons" },
+  "schedule_day_thu": { "message": "Tor" },
+  "schedule_day_fri": { "message": "Fre" },
+  "schedule_day_sat": { "message": "Lör" }
 }

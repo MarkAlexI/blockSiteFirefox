@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Ongeldige skedule: stel asseblief ’n begintyd." },
   "invalidscheduleendtime": { "message": "Ongeldige skedule: stel asseblief ’n eindtyd." },
   "editdisablednonpro": { "message": "Redigering gedeaktiveer: te veel reëls vir nie-Pro gebruikers." },
-  "errorloadingstatus": { "message": "Fout tydens laai van gebruikerstatus." }
+  "errorloadingstatus": { "message": "Fout tydens laai van gebruikerstatus." },
+  "schedule_day_sun": { "message": "Son" },
+  "schedule_day_mon": { "message": "Maa" },
+  "schedule_day_tue": { "message": "Din" },
+  "schedule_day_wed": { "message": "Woe" },
+  "schedule_day_thu": { "message": "Don" },
+  "schedule_day_fri": { "message": "Vry" },
+  "schedule_day_sat": { "message": "Sat" }
 }

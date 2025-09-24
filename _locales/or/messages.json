@@ -153,5 +153,12 @@
   "invalidschedulestarttime": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ଆରମ୍ଭ ସମୟ ସେଟ୍ କରନ୍ତୁ।" },
   "invalidscheduleendtime": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ସମାପ୍ତ ସମୟ ସେଟ୍ କରନ୍ତୁ।" },
   "editdisablednonpro": { "message": "ସମ୍ପାଦନା ଅସକ୍ରିୟ: non-Pro ବ୍ୟବହାରକାରୀଙ୍କ ପାଇଁ ନିୟମ ବେଶୀ ଅଛି।" },
-  "errorloadingstatus": { "message": "ବ୍ୟବହାରକାରୀ ସ୍ଥିତି ଲୋଡ୍ କରିବାରେ ତ୍ରୁଟି।" }
+  "errorloadingstatus": { "message": "ବ୍ୟବହାରକାରୀ ସ୍ଥିତି ଲୋଡ୍ କରିବାରେ ତ୍ରୁଟି।" },
+  "schedule_day_sun": { "message": "ରବି" },
+  "schedule_day_mon": { "message": "ସୋମ" },
+  "schedule_day_tue": { "message": "ମଙ୍ଗଳ" },
+  "schedule_day_wed": { "message": "ବୁଧ" },
+  "schedule_day_thu": { "message": "ଗୁରୁ" },
+  "schedule_day_fri": { "message": "ଶୁକ୍ର" },
+  "schedule_day_sat": { "message": "ଶନି" }
 }

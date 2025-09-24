@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Hindi wastong iskedyul: itakda ang oras ng pagsisimula." },
   "invalidscheduleendtime": { "message": "Hindi wastong iskedyul: itakda ang oras ng pagtatapos." },
   "editdisablednonpro": { "message": "Hindi pinagana ang pag-edit: masyadong maraming patakaran para sa hindi Pro na mga gumagamit." },
-  "errorloadingstatus": { "message": "Error sa pag-load ng status ng gumagamit." }
+  "errorloadingstatus": { "message": "Error sa pag-load ng status ng gumagamit." },
+  "schedule_day_sun": { "message": "Lin" },
+  "schedule_day_mon": { "message": "Lun" },
+  "schedule_day_tue": { "message": "Mar" },
+  "schedule_day_wed": { "message": "Miy" },
+  "schedule_day_thu": { "message": "Huw" },
+  "schedule_day_fri": { "message": "Biy" },
+  "schedule_day_sat": { "message": "Sab" }
 }

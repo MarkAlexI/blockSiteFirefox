@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Nieprawidłowy harmonogram: ustaw godzinę rozpoczęcia." },
   "invalidscheduleendtime": { "message": "Nieprawidłowy harmonogram: ustaw godzinę zakończenia." },
   "editdisablednonpro": { "message": "Edycja wyłączona: zbyt wiele zasad dla użytkowników bez Pro." },
-  "errorloadingstatus": { "message": "Błąd podczas ładowania statusu użytkownika." }
+  "errorloadingstatus": { "message": "Błąd podczas ładowania statusu użytkownika." },
+  "schedule_day_sun": { "message": "Nie" },
+  "schedule_day_mon": { "message": "Pon" },
+  "schedule_day_tue": { "message": "Wto" },
+  "schedule_day_wed": { "message": "Śro" },
+  "schedule_day_thu": { "message": "Czw" },
+  "schedule_day_fri": { "message": "Pią" },
+  "schedule_day_sat": { "message": "Sob" }
 }

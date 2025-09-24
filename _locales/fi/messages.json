@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Virheellinen aikataulu: aseta alkuaika." },
   "invalidscheduleendtime": { "message": "Virheellinen aikataulu: aseta loppuaika." },
   "editdisablednonpro": { "message": "Muokkaus pois käytöstä: liian monta sääntöä ei-Pro-käyttäjille." },
-  "errorloadingstatus": { "message": "Virhe käyttäjän tilan lataamisessa." }
+  "errorloadingstatus": { "message": "Virhe käyttäjän tilan lataamisessa." },
+  "schedule_day_sun": { "message": "Sun" },
+  "schedule_day_mon": { "message": "Maan" },
+  "schedule_day_tue": { "message": "Tiis" },
+  "schedule_day_wed": { "message": "Kesk" },
+  "schedule_day_thu": { "message": "Tors" },
+  "schedule_day_fri": { "message": "Perj" },
+  "schedule_day_sat": { "message": "Lau" }
 }

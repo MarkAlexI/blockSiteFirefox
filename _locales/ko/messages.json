@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "잘못된 일정: 시작 시간을 설정해주세요." },
   "invalidscheduleendtime": { "message": "잘못된 일정: 종료 시간을 설정해주세요." },
   "editdisablednonpro": { "message": "편집 불가: 비 Pro 사용자에게 규칙이 너무 많습니다." },
-  "errorloadingstatus": { "message": "사용자 상태를 불러오는 중 오류가 발생했습니다." }
+  "errorloadingstatus": { "message": "사용자 상태를 불러오는 중 오류가 발생했습니다." },
+  "schedule_day_sun": { "message": "일" },
+  "schedule_day_mon": { "message": "월" },
+  "schedule_day_tue": { "message": "화" },
+  "schedule_day_wed": { "message": "수" },
+  "schedule_day_thu": { "message": "목" },
+  "schedule_day_fri": { "message": "금" },
+  "schedule_day_sat": { "message": "토" }
 }

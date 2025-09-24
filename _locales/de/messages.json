@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Ungültiger Zeitplan: Bitte legen Sie eine Startzeit fest." },
   "invalidscheduleendtime": { "message": "Ungültiger Zeitplan: Bitte legen Sie eine Endzeit fest." },
   "editdisablednonpro": { "message": "Bearbeitung deaktiviert: Zu viele Regeln für Nicht-Pro-Benutzer." },
-  "errorloadingstatus": { "message": "Fehler beim Laden des Benutzerstatus." }
+  "errorloadingstatus": { "message": "Fehler beim Laden des Benutzerstatus." },
+  "schedule_day_sun": { "message": "So" },
+  "schedule_day_mon": { "message": "Mo" },
+  "schedule_day_tue": { "message": "Di" },
+  "schedule_day_wed": { "message": "Mi" },
+  "schedule_day_thu": { "message": "Do" },
+  "schedule_day_fri": { "message": "Fr" },
+  "schedule_day_sat": { "message": "Sa" }
 }

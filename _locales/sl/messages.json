@@ -144,5 +144,12 @@
   "invalidschedulestarttime": { "message": "Neveljaven razpored: nastavite začetni čas." },
   "invalidscheduleendtime": { "message": "Neveljaven razpored: nastavite končni čas." },
   "editdisablednonpro": { "message": "Urejanje onemogočeno: preveč pravil za ne-Pro uporabnike." },
-  "errorloadingstatus": { "message": "Napaka pri nalaganju stanja uporabnika." }
+  "errorloadingstatus": { "message": "Napaka pri nalaganju stanja uporabnika." },
+  "schedule_day_sun": { "message": "Ned" },
+  "schedule_day_mon": { "message": "Pon" },
+  "schedule_day_tue": { "message": "Tor" },
+  "schedule_day_wed": { "message": "Sre" },
+  "schedule_day_thu": { "message": "Čet" },
+  "schedule_day_fri": { "message": "Pet" },
+  "schedule_day_sat": { "message": "Sob" }
 }
