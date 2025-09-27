@@ -48,7 +48,8 @@ class OptionsPage {
     this.addRuleButton.textContent = t('addrule');
     document.getElementById('block-url-header').textContent = t('blockurl');
     document.getElementById('redirect-url-header').textContent = t('redirecturl');
-    document.getElementById('actions-header').textContent = t('actionsheader') || 'Дії';
+    document.getElementById('category-header').textContent = t('category_header');
+    document.getElementById('actions-header').textContent = t('actionsheader');
   }
   
   setupEventListeners() {
@@ -135,7 +136,7 @@ class OptionsPage {
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
       index,
-      (index, blockValue, redirectValue, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, schedule, ruleId),
+      (index, blockValue, redirectValue, category, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, category, schedule, ruleId),
       () => this.loadRules(),
       this.isPro
     );
@@ -160,10 +161,10 @@ class OptionsPage {
     });
   }
   
-  async saveEditedRule(index, newBlock, newRedirect, newSchedule, oldRuleId) {
+  async saveEditedRule(index, newBlock, newRedirect, newCategory, newSchedule, oldRuleId) {
     console.log('Saving edited rule with schedule:', newSchedule);
     try {
-      await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule);
+      await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule, newCategory);
       this.statusElement.textContent = t('ruleupdated');
       this.loadRules();
     } catch (error) {
@@ -191,7 +192,7 @@ class OptionsPage {
       }
       
       const newRow = this.rulesUI.createAddRuleRow(
-        (blockValue, redirectValue, schedule, row) => this.saveNewRule(blockValue, redirectValue, schedule, row),
+        (blockValue, redirectValue, category, schedule, row) => this.saveNewRule(blockValue, redirectValue, category, schedule, row),
         (row) => row.remove(),
         this.isPro
       );
@@ -203,9 +204,9 @@ class OptionsPage {
     }
   }
   
-  async saveNewRule(newBlock, newRedirect, newSchedule, row) {
+  async saveNewRule(newBlock, newRedirect, newCategory, newSchedule, row) {
     try {
-      await this.rulesManager.addRule(newBlock, newRedirect, newSchedule);
+      await this.rulesManager.addRule(newBlock, newRedirect, newSchedule, newCategory);
       this.statusElement.textContent = t('rulenewadded');
       this.loadRules();
     } catch (error) {

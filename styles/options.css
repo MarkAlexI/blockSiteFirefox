@@ -500,6 +500,69 @@ button:not(:last-of-type) {
   margin-left: 5px;
 }
 
+/* Style for category text in the rules table */
+.category-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px; /* Rounded corners for tag-like look */
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  min-width: 80px; /* Ensure consistent tag width */
+  color: #fff; /* White text for contrast */
+  transition: background-color 0.2s ease;
+}
+
+/* Category-specific colors */
+.category-tag.social {
+  background-color: #007bff; /* Blue for social media */
+}
+.category-tag.news {
+  background-color: #ff6f00; /* Orange for news */
+}
+.category-tag.entertainment {
+  background-color: #6f00ff; /* Purple for entertainment */
+}
+.category-tag.shopping {
+  background-color: #28a745; /* Green for shopping */
+}
+.category-tag.work {
+  background-color: #dc3545; /* Red for work */
+}
+.category-tag.uncategorized {
+  background-color: #6c757d;
+}
+
+.category-tag:hover {
+  filter: brightness(1.1);
+}
+
+.rule-row td:nth-child(3) {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.category-select {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  font-size: 14px;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%200%200%2016%2016%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M12%205l-4%204-4-4H2l6%206%206-6z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+  cursor: pointer;
+}
+.category-select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
 @media (max-width: 768px) {
   body {
     padding: .4rem;

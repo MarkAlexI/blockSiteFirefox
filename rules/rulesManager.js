@@ -26,7 +26,7 @@ export class RulesManager {
     });
   }
   
-  validateRule(blockURL, redirectURL, schedule) {
+  validateRule(blockURL, redirectURL, schedule, category) {
     const errors = [];
     
     if (!blockURL || blockURL.trim() === '') {
@@ -57,6 +57,10 @@ export class RulesManager {
       if (startH * 60 + startM >= endH * 60 + endM) {
         errors.push('start_after_end');
       }
+    }
+    
+    if (!category) {
+      errors.push('category_required');
     }
     
     return {
@@ -91,8 +95,8 @@ export class RulesManager {
     };
   }
   
-  async addRule(blockURL, redirectURL, schedule = null) {
-    const validation = this.validateRule(blockURL, redirectURL, schedule);
+  async addRule(blockURL, redirectURL, schedule = null, category = 'social') {
+    const validation = this.validateRule(blockURL, redirectURL, schedule, category);
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
     }
@@ -114,7 +118,8 @@ export class RulesManager {
         id: newDnrRule.id,
         blockURL: blockURL.trim(),
         redirectURL: redirectURL.trim(),
-        schedule
+        schedule,
+        category
       };
       
       rules.push(newRule);
@@ -127,8 +132,8 @@ export class RulesManager {
     }
   }
   
-  async updateRule(index, newBlockURL, newRedirectURL, schedule = null) {
-    const validation = this.validateRule(newBlockURL, newRedirectURL, schedule);
+  async updateRule(index, newBlockURL, newRedirectURL, schedule = null, category) {
+    const validation = this.validateRule(newBlockURL, newRedirectURL, schedule, category);
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
     }
@@ -159,7 +164,8 @@ export class RulesManager {
         id: newDnrRule.id,
         blockURL: newBlockURL.trim(),
         redirectURL: newRedirectURL.trim(),
-        schedule
+        schedule,
+        category
       };
       
       await this.saveRules(rules);
@@ -209,48 +215,70 @@ export class RulesManager {
   
   async migrateRules() {
     const rules = await this.getRules();
+    let needsFullMigration = false;
+    let needsSave = false;
     
-    if (!rules.some(rule => !rule.id)) {
-      return { migrated: false, rules };
-    }
-    
-    try {
-      const oldDnrRules = await browser.declarativeNetRequest.getDynamicRules();
-      await browser.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: oldDnrRules.map(r => r.id)
-      });
+    const migratedRules = rules.map((rule, i) => {
+      const newRule = { ...rule };
       
-      const newDnrRules = rules.map((rule, i) => {
-        const filter = normalizeUrlFilter(rule.blockURL);
-        const urlFilter = `||${filter}`;
-        const action = rule.redirectURL ? { type: "redirect", redirect: { url: rule.redirectURL } } : { type: "redirect", redirect: { url: this.defaultRedirectURL } };
+      if (!rule.id) {
+        needsFullMigration = true;
+        needsSave = true;
+      }
+      
+      if (!rule.category) {
+        newRule.category = 'uncategorized';
+        needsSave = true;
+      }
+      
+      return newRule;
+    });
+    
+    if (needsFullMigration) {
+      try {
+        const oldDnrRules = await browser.declarativeNetRequest.getDynamicRules();
+        await browser.declarativeNetRequest.updateDynamicRules({
+          removeRuleIds: oldDnrRules.map(r => r.id)
+        });
         
-        return {
-          id: i + 1,
-          condition: { urlFilter, resourceTypes: ["main_frame"] },
-          priority: 100,
-          action
-        };
-      });
-      
-      await browser.declarativeNetRequest.updateDynamicRules({
-        addRules: newDnrRules
-      });
-      
-      const migratedRules = newDnrRules.map((dnrRule, i) => ({
-        id: dnrRule.id,
-        blockURL: rules[i].blockURL,
-        redirectURL: rules[i].redirectURL,
-        schedule: null
-      }));
-      
+        const newDnrRules = migratedRules.map((rule, i) => {
+          const filter = normalizeUrlFilter(rule.blockURL);
+          const urlFilter = `||${filter}`;
+          const action = rule.redirectURL ? { type: "redirect", redirect: { url: rule.redirectURL } } : { type: "redirect", redirect: { url: this.defaultRedirectURL } };
+          
+          return {
+            id: i + 1,
+            condition: { urlFilter, resourceTypes: ["main_frame"] },
+            priority: 100,
+            action
+          };
+        });
+        
+        await browser.declarativeNetRequest.updateDynamicRules({
+          addRules: newDnrRules
+        });
+        
+        const finalRules = newDnrRules.map((dnrRule, i) => ({
+          id: dnrRule.id,
+          blockURL: migratedRules[i].blockURL,
+          redirectURL: migratedRules[i].redirectURL,
+          schedule: migratedRules[i].schedule,
+          category: migratedRules[i].category
+        }));
+        
+        await this.saveRules(finalRules);
+        
+        return { migrated: true, rules: finalRules };
+      } catch (error) {
+        console.info("Migration error:", error);
+        throw new Error('Failed to migrate rules');
+      }
+    } else if (needsSave) {
       await this.saveRules(migratedRules);
-      
       return { migrated: true, rules: migratedRules };
-    } catch (error) {
-      console.info("Migration error:", error);
-      throw new Error('Failed to migrate rules');
     }
+    
+    return { migrated: false, rules };
   }
   
   async getSettings() {

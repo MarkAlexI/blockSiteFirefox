@@ -103,6 +103,13 @@ export class RulesUI {
     redirectCell.textContent = rule.redirectURL || '—';
     row.appendChild(redirectCell);
     
+    const categoryCell = document.createElement('td');
+    const categorySpan = document.createElement('span');
+    categorySpan.className = `category-tag ${rule.category || 'uncategorized'}`;
+    categorySpan.textContent = t(`category_${rule.category}`) || rule.category || t('category_uncategorized');
+    categoryCell.appendChild(categorySpan);
+    row.appendChild(categoryCell);
+    
     const scheduleCell = document.createElement('td');
     if (rule.schedule) {
       const daysStr = rule.schedule.days.map(d => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d]).join(', ');
@@ -154,6 +161,26 @@ export class RulesUI {
     redirectCell.appendChild(redirectInput);
     row.appendChild(redirectCell);
     
+    const categoryCell = document.createElement('td');
+    categoryCell.className = 'edit-mode';
+    const categorySelect = document.createElement('select');
+    categorySelect.className = 'category-select';
+    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'uncategorized'];
+    categories.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat;
+      option.textContent = t(`category_${cat}`) || cat;
+      categorySelect.appendChild(option);
+    });
+    categorySelect.value = rule.category || 'social';
+    categorySelect.classList.add(categorySelect.value);
+    categorySelect.addEventListener('change', () => {
+      categorySelect.className = 'category-select';
+      categorySelect.classList.add(categorySelect.value);
+    });
+    categoryCell.appendChild(categorySelect);
+    row.appendChild(categoryCell);
+    
     const scheduleCell = document.createElement('td');
     scheduleCell.className = 'edit-mode';
     
@@ -169,8 +196,9 @@ export class RulesUI {
     saveBtn.textContent = t('savebtn');
     saveBtn.addEventListener('click', () => {
       try {
+        const category = categorySelect.value;
         const schedule = this.getScheduleFromSection(scheduleSection);
-        onSave(index, blockInput.value, redirectInput.value, schedule, rule.id);
+        onSave(index, blockInput.value, redirectInput.value, category, schedule, rule.id);
       } catch (error) {
         console.info('Edit: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
@@ -207,6 +235,26 @@ export class RulesUI {
     redirectCell.appendChild(redirectInput);
     row.appendChild(redirectCell);
     
+    const categoryCell = document.createElement('td');
+    categoryCell.className = 'edit-mode';
+    const categorySelect = document.createElement('select');
+    categorySelect.className = 'category-select';
+    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'uncategorized'];
+    categories.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat;
+      option.textContent = t(`category_${cat}`) || cat;
+      categorySelect.appendChild(option);
+    });
+    categorySelect.value = 'social';
+    categorySelect.classList.add(categorySelect.value);
+    categorySelect.addEventListener('change', () => {
+      categorySelect.className = 'category-select';
+      categorySelect.classList.add(categorySelect.value);
+    });
+    categoryCell.appendChild(categorySelect);
+    row.appendChild(categoryCell);
+    
     const scheduleCell = document.createElement('td');
     scheduleCell.className = 'edit-mode';
     
@@ -222,8 +270,9 @@ export class RulesUI {
     saveBtn.textContent = t('savebtn');
     saveBtn.addEventListener('click', () => {
       try {
+        const category = categorySelect.value;
         const schedule = this.getScheduleFromSection(scheduleSection);
-        onSave(blockInput.value, redirectInput.value, schedule, row);
+        onSave(blockInput.value, redirectInput.value, category, schedule, row);
       } catch (error) {
         console.info('Add: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
@@ -377,6 +426,7 @@ export class RulesUI {
       'invalid_days': t('invaliddays') || 'Invalid days selected',
       'invalid_time_format': t('invalidtimeformat') || 'Invalid time format (HH:MM)',
       'start_after_end': t('startafterend') || 'Start time must be before end time',
+      'category_required': t('categoryrequired') || 'Category is required',
       'invalidSchedule: no days selected': t('invalidscheduledays') || 'Invalid schedule: please select at least one day',
       'invalidSchedule: start time is empty': t('invalidschedulestarttime') || 'Invalid schedule: please set a start time',
       'invalidSchedule: end time is empty': t('invalidscheduleendtime') || 'Invalid schedule: please set an end time',
