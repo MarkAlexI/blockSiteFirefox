@@ -500,38 +500,54 @@ button:not(:last-of-type) {
   margin-left: 5px;
 }
 
-/* Style for category text in the rules table */
+/* Category */
 .category-tag {
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 12px; /* Rounded corners for tag-like look */
+  padding: .5rem;
+  border-radius: .5rem;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.2;
   text-align: center;
-  min-width: 80px; /* Ensure consistent tag width */
-  color: #fff; /* White text for contrast */
+  min-width: 4.5rem;
+  background-color: #e5e7eb;
+  color: #374151;
   transition: background-color 0.2s ease;
 }
 
-/* Category-specific colors */
 .category-tag.social {
-  background-color: #007bff; /* Blue for social media */
+  background-color: #dbeafe;
+  color: #1d4ed8;
 }
+
 .category-tag.news {
-  background-color: #ff6f00; /* Orange for news */
+  background-color: #c7d2fe;
+  color: #3730a3;
 }
+
 .category-tag.entertainment {
-  background-color: #6f00ff; /* Purple for entertainment */
+  background-color: #fde68a;
+  color: #92400e;
 }
+
 .category-tag.shopping {
-  background-color: #28a745; /* Green for shopping */
+  background-color: #bbf7d0;
+  color: #166534;
 }
+
 .category-tag.work {
-  background-color: #dc3545; /* Red for work */
+  background-color: #a5f3fc;
+  color: #155e75;
 }
-.category-tag.uncategorized {
-  background-color: #6c757d;
+
+.category-tag.gaming {
+  background-color: #fcd34d;
+  color: #78350f;
+}
+
+.category-tag.adult {
+  background-color: #fecaca;
+  color: #991b1b;
 }
 
 .category-tag:hover {
@@ -557,10 +573,20 @@ button:not(:last-of-type) {
   background-size: 12px;
   cursor: pointer;
 }
+
 .category-select:focus {
   border-color: #007bff;
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+#search-input {
+  margin: .7rem 0;
+  padding-left: .5rem;
+  height: 1.5rem;
+  width: 66%;
+  border: 1px solid #0056b3;
+  border-radius: 7px;
 }
 
 @media (max-width: 768px) {

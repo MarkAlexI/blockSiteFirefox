@@ -27,7 +27,7 @@
   "donatebtntext": { "message": "Donate" },
   "blockthat": { "message": "Block This Site" },
   "sendfeedbackbutton": { "message": "Send Feedback" },
-  "sendfeedbacksubject": { "message": "Feedback for Block Site Extension" },
+  "sendfeedbacksubject": { "message": "Feedback for BlockDistraction" },
   "sendfeedbackbody": { "message": "Hello, I would like to share the following feedback:\n\n" },
   "quote1": { "message": "Stay focused, stay strong." },
   "quote2": { "message": "Your future is created by what you do today." },
@@ -164,10 +164,15 @@
   "schedule_day_sat": { "message": "Sat" },
   "category_header": { "message": "Category" },
   "category_required": { "message": "Category is required" },
+  "allcategories": { "message": "All categories" },
   "category_social": { "message": "Social Media" },
   "category_news": { "message": "News" },
   "category_entertainment": { "message": "Entertainment" },
   "category_shopping": { "message": "Shopping" },
   "category_work": { "message": "Work" },
-  "category_uncategorized": { "message": "Uncategorized" }
+  "category_gaming": { "message": "Gaming" },
+  "category_adult": { "message": "Adult" },
+  "category_uncategorized": { "message": "Uncategorized" },
+  "searchfordomain": { "message": "Search for domain name" },
+  "norulesforcategory": { "message": "No blocked sites for this category." }
 }

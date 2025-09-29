@@ -16,6 +16,8 @@ class OptionsPage {
     this.rulesBody = document.getElementById('rules-body');
     this.addRuleButton = document.getElementById('add-rule');
     this.statusElement = document.getElementById('status');
+    this.searchInput = document.getElementById('search-input');
+    this.categoryFilter = document.getElementById('category-filter');
     
     this.isPro = false;
     this.isLegacyUser = true;
@@ -50,10 +52,31 @@ class OptionsPage {
     document.getElementById('redirect-url-header').textContent = t('redirecturl');
     document.getElementById('category-header').textContent = t('category_header');
     document.getElementById('actions-header').textContent = t('actionsheader');
+    this.searchInput.placeholder = t('searchfordomain');
+    const allOption = this.categoryFilter.querySelector('option[value="all"]');
+    allOption.textContent = t('allcategories');
+    const socialOption = this.categoryFilter.querySelector('option[value="social"]');
+    socialOption.textContent = t('category_social');
+    const newsOption = this.categoryFilter.querySelector('option[value="news"]');
+    newsOption.textContent = t('category_news');
+    const entertainmentOption = this.categoryFilter.querySelector('option[value="entertainment"]');
+    entertainmentOption.textContent = t('category_entertainment');
+    const shoppingOption = this.categoryFilter.querySelector('option[value="shopping"]');
+    shoppingOption.textContent = t('category_shopping');
+    const workOption = this.categoryFilter.querySelector('option[value="work"]');
+    workOption.textContent = t('category_work');
+    const gamingOption = this.categoryFilter.querySelector('option[value="gaming"]');
+    gamingOption.textContent = t('category_gaming');
+    const adultOption = this.categoryFilter.querySelector('option[value="adult"]');
+    adultOption.textContent = t('category_adult');
+    const uncategorizedOption = this.categoryFilter.querySelector('option[value="uncategorized"]');
+    uncategorizedOption.textContent = t('category_uncategorized');
   }
   
   setupEventListeners() {
     this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
+    this.searchInput.addEventListener('input', () => this.loadRules());
+    this.categoryFilter.addEventListener('change', () => this.loadRules());
   }
   
   async loadRules() {
@@ -63,21 +86,37 @@ class OptionsPage {
         this.rulesUI.showAlert(t('rulesmigrated'));
       }
       
-      const rules = migrationResult.rules || await this.rulesManager.getRules();
+      let rules = migrationResult.rules || await this.rulesManager.getRules();
+      let filteredRules = rules;
+      let isFiltered = false;
+      
+      const searchTerm = this.searchInput.value.trim().toLowerCase();
+      if (searchTerm) {
+        filteredRules = filteredRules.filter(rule => rule.blockURL.toLowerCase().includes(searchTerm));
+        isFiltered = true;
+      }
+      
+      const selectedCategory = this.categoryFilter.value;
+      if (selectedCategory !== 'all') {
+        filteredRules = filteredRules.filter(rule => rule.category === selectedCategory);
+        isFiltered = true;
+      }
+      
       const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
-      this.renderRules(rules, canEdit);
-      this.rulesUI.updateStatus(this.statusElement, rules.length);
+      this.renderRules(filteredRules, canEdit, isFiltered);
+      this.rulesUI.updateStatus(this.statusElement, filteredRules.length);
     } catch (error) {
       console.error("Load rules error:", error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     }
   }
   
-  renderRules(rules, canEdit) {
+  renderRules(rules, canEdit, isFiltered = false) {
     this.rulesBody.innerHTML = '';
+    const noRulesMessage = isFiltered ? t('norulesforcategory') : t('norules');
     
     if (rules.length === 0) {
-      const emptyRow = this.rulesUI.createEmptyRow(t('norules'), 3);
+      const emptyRow = this.rulesUI.createEmptyRow(noRulesMessage, 5);
       this.rulesBody.appendChild(emptyRow);
       return;
     }

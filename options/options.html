@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../styles/options.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/controls.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/modal.css" type="text/css" media="all" />
-  <title id="options-title">Options page for BlockDistraction</title>
+  <title id="options-title">Options page for Block Site Extension</title>
 </head>
 
 <body>
@@ -167,6 +167,22 @@
     </div>
     
     <button id="add-rule"></button>
+    <div
+      id="search-filter-container"
+      >
+      <input type="text" id="search-input" data-i18n-placeholder="searchblockurl">
+      <select id="category-filter" class="category-select">
+        <option value="all" data-i18n="allcategories">All Categories</option>
+        <option value="social" data-i18n="category_social">Social Media</option>
+        <option value="news" data-i18n="category_news">News</option>
+        <option value="entertainment" data-i18n="category_entertainment">Entertainment</option>
+        <option value="shopping" data-i18n="category_shopping">Shopping</option>
+        <option value="work" data-i18n="category_work">Work</option>
+        <option value="gaming" data-i18n="category_gaming">Gaming</option>
+        <option value="adult" data-i18n="category_adult">Adult</option>
+        <option value="uncategorized" data-i18n="category_uncategorized">Uncategorized</option>
+      </select>
+    </div>
     <table id="rules-table">
       <thead>
         <tr>

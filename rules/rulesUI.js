@@ -115,7 +115,7 @@ export class RulesUI {
       const daysStr = rule.schedule.days.map(d => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d]).join(', ');
       scheduleCell.textContent = `${daysStr}, ${rule.schedule.startTime}-${rule.schedule.endTime}`;
     } else {
-      scheduleCell.textContent = t('alwaysactive') || 'Always active';
+      scheduleCell.textContent = t('alwaysactive');
     }
     row.appendChild(scheduleCell);
     
@@ -165,7 +165,7 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
-    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'uncategorized'];
+    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'gaming', 'adult', 'uncategorized'];
     categories.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat;
@@ -173,11 +173,6 @@ export class RulesUI {
       categorySelect.appendChild(option);
     });
     categorySelect.value = rule.category || 'social';
-    categorySelect.classList.add(categorySelect.value);
-    categorySelect.addEventListener('change', () => {
-      categorySelect.className = 'category-select';
-      categorySelect.classList.add(categorySelect.value);
-    });
     categoryCell.appendChild(categorySelect);
     row.appendChild(categoryCell);
     
@@ -239,7 +234,7 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
-    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'uncategorized'];
+    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'gaming', 'adult', 'uncategorized'];
     categories.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat;
@@ -247,11 +242,6 @@ export class RulesUI {
       categorySelect.appendChild(option);
     });
     categorySelect.value = 'social';
-    categorySelect.classList.add(categorySelect.value);
-    categorySelect.addEventListener('change', () => {
-      categorySelect.className = 'category-select';
-      categorySelect.classList.add(categorySelect.value);
-    });
     categoryCell.appendChild(categorySelect);
     row.appendChild(categoryCell);
     
@@ -289,7 +279,7 @@ export class RulesUI {
     return row;
   }
   
-  createEmptyRow(message, colSpan = 3) {
+  createEmptyRow(message, colSpan = 5) {
     const row = document.createElement('tr');
     const cell = document.createElement('td');
     cell.colSpan = colSpan;
@@ -426,7 +416,7 @@ export class RulesUI {
       'invalid_days': t('invaliddays') || 'Invalid days selected',
       'invalid_time_format': t('invalidtimeformat') || 'Invalid time format (HH:MM)',
       'start_after_end': t('startafterend') || 'Start time must be before end time',
-      'category_required': t('categoryrequired') || 'Category is required',
+      'category_required': t('category_required') || 'Category is required',
       'invalidSchedule: no days selected': t('invalidscheduledays') || 'Invalid schedule: please select at least one day',
       'invalidSchedule: start time is empty': t('invalidschedulestarttime') || 'Invalid schedule: please set a start time',
       'invalidSchedule: end time is empty': t('invalidscheduleendtime') || 'Invalid schedule: please set an end time',
