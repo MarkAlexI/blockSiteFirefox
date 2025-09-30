@@ -8,6 +8,7 @@ import { RulesManager } from './rules/rulesManager.js';
 import { RulesUI } from './rules/rulesUI.js';
 import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
+import { initializeNoSpaceInputs } from './utils/noSpaces.js';
 
 const MAX_RULES_LIMIT = 5;
 
@@ -510,4 +511,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     
     sendResponse({ received: true });
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  initializeNoSpaceInputs();
 });

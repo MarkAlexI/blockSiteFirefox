@@ -4,6 +4,7 @@ import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
 import { RulesUI } from '../rules/rulesUI.js';
 import { PasswordUtils } from '../pro/password.js';
+import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 
 const MAX_RULES_LIMIT = 5;
 
@@ -13,7 +14,7 @@ class OptionsPage {
     this.rulesManager = new RulesManager();
     this.rulesUI = new RulesUI();
     
-    this.rulesBody = document.getElementById('rules-body');
+    this.rulesBody = document.getElementById('rules-container');
     this.addRuleButton = document.getElementById('add-rule');
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
@@ -285,4 +286,8 @@ browser.runtime.onMessage.addListener((message) => {
     
     sendResponse({ received: true });
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  initializeNoSpaceInputs();
 });
