@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Kol" },
   "schedule_day_thu": { "message": "Nel" },
   "schedule_day_fri": { "message": "Ree" },
-  "schedule_day_sat": { "message": "Lau" }
+  "schedule_day_sat": { "message": "Lau" },
+  "category_header": { "message": "Kategooria" },
+  "category_required": { "message": "Kategooria on kohustuslik" },
+  "allcategories": { "message": "Kõik kategooriad" },
+  "category_social": { "message": "Sotsiaalmeedia" },
+  "category_news": { "message": "Uudised" },
+  "category_entertainment": { "message": "Meelelahutus" },
+  "category_shopping": { "message": "Ostlemine" },
+  "category_work": { "message": "Töö" },
+  "category_gaming": { "message": "Mängud" },
+  "category_adult": { "message": "Täiskasvanutele" },
+  "category_uncategorized": { "message": "Kategooriateta" },
+  "searchfordomain": { "message": "Otsi domeeninime" },
+  "norulesforcategory": { "message": "Selle kategooria jaoks pole blokeeritud saite." }
 }

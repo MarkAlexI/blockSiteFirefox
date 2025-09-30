@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Jtn" },
   "schedule_day_thu": { "message": "Alh" },
   "schedule_day_fri": { "message": "Ijm" },
-  "schedule_day_sat": { "message": "Jms" }
+  "schedule_day_sat": { "message": "Jms" },
+  "category_header": { "message": "Kategoria" },
+  "category_required": { "message": "Kategoria inahitajika" },
+  "allcategories": { "message": "Kategoria zote" },
+  "category_social": { "message": "Mitandao ya Kijamii" },
+  "category_news": { "message": "Habari" },
+  "category_entertainment": { "message": "Burudani" },
+  "category_shopping": { "message": "Ununuzi" },
+  "category_work": { "message": "Kazi" },
+  "category_gaming": { "message": "Michezo" },
+  "category_adult": { "message": "Yaliyomo kwa Watu Wakuze" },
+  "category_uncategorized": { "message": "Haijapangwa" },
+  "searchfordomain": { "message": "Tafuta jina la kikoa" },
+  "norulesforcategory": { "message": "Hakuna tovuti zilizozuiwa kwa kategoria hii." }
 }

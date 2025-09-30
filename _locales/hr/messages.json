@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Sri" },
   "schedule_day_thu": { "message": "Čet" },
   "schedule_day_fri": { "message": "Pet" },
-  "schedule_day_sat": { "message": "Sub" }
+  "schedule_day_sat": { "message": "Sub" },
+  "category_header": { "message": "Kategorija" },
+  "category_required": { "message": "Kategorija je obavezna" },
+  "allcategories": { "message": "Sve kategorije" },
+  "category_social": { "message": "Društveni mediji" },
+  "category_news": { "message": "Novosti" },
+  "category_entertainment": { "message": "Zabava" },
+  "category_shopping": { "message": "Kupovina" },
+  "category_work": { "message": "Rad" },
+  "category_gaming": { "message": "Igre" },
+  "category_adult": { "message": "Sadržaj za odrasle" },
+  "category_uncategorized": { "message": "Nekategorizirano" },
+  "searchfordomain": { "message": "Pretraži naziv domene" },
+  "norulesforcategory": { "message": "Nema blokiranih stranica za ovu kategoriju." }
 }

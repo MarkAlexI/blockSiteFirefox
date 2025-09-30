@@ -160,5 +160,18 @@
   "schedule_day_wed": { "message": "Mié" },
   "schedule_day_thu": { "message": "Jue" },
   "schedule_day_fri": { "message": "Vie" },
-  "schedule_day_sat": { "message": "Sáb" }
+  "schedule_day_sat": { "message": "Sáb" },
+  "category_header": { "message": "Categoría" },
+  "category_required": { "message": "La categoría es obligatoria" },
+  "allcategories": { "message": "Todas las categorías" },
+  "category_social": { "message": "Redes sociales" },
+  "category_news": { "message": "Noticias" },
+  "category_entertainment": { "message": "Entretenimiento" },
+  "category_shopping": { "message": "Compras" },
+  "category_work": { "message": "Trabajo" },
+  "category_gaming": { "message": "Juegos" },
+  "category_adult": { "message": "Contenido para adultos" },
+  "category_uncategorized": { "message": "Sin categorizar" },
+  "searchfordomain": { "message": "Buscar nombre de dominio" },
+  "norulesforcategory": { "message": "No hay sitios bloqueados para esta categoría." }
 }

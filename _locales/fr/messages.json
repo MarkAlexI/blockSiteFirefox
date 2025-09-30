@@ -160,5 +160,18 @@
   "schedule_day_wed": { "message": "Mer" },
   "schedule_day_thu": { "message": "Jeu" },
   "schedule_day_fri": { "message": "Ven" },
-  "schedule_day_sat": { "message": "Sam" }
+  "schedule_day_sat": { "message": "Sam" },
+  "category_header": { "message": "Catégorie" },
+  "category_required": { "message": "La catégorie est obligatoire" },
+  "allcategories": { "message": "Toutes les catégories" },
+  "category_social": { "message": "Réseaux sociaux" },
+  "category_news": { "message": "Actualités" },
+  "category_entertainment": { "message": "Divertissement" },
+  "category_shopping": { "message": "Shopping" },
+  "category_work": { "message": "Travail" },
+  "category_gaming": { "message": "Jeux" },
+  "category_adult": { "message": "Contenu pour adultes" },
+  "category_uncategorized": { "message": "Non catégorisé" },
+  "searchfordomain": { "message": "Rechercher un nom de domaine" },
+  "norulesforcategory": { "message": "Aucun site bloqué pour cette catégorie." }
 }

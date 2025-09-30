@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Ср" },
   "schedule_day_thu": { "message": "Чт" },
   "schedule_day_fri": { "message": "Пт" },
-  "schedule_day_sat": { "message": "Сб" }
+  "schedule_day_sat": { "message": "Сб" },
+  "category_header": { "message": "Категория" },
+  "category_required": { "message": "Категория обязательна" },
+  "allcategories": { "message": "Все категории" },
+  "category_social": { "message": "Социальные сети" },
+  "category_news": { "message": "Новости" },
+  "category_entertainment": { "message": "Развлечения" },
+  "category_shopping": { "message": "Покупки" },
+  "category_work": { "message": "Работа" },
+  "category_gaming": { "message": "Игры" },
+  "category_adult": { "message": "Контент для взрослых" },
+  "category_uncategorized": { "message": "Без категории" },
+  "searchfordomain": { "message": "Поиск по доменному имени" },
+  "norulesforcategory": { "message": "Для этой категории нет заблокированных сайтов." }
 }

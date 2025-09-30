@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Mie" },
   "schedule_day_thu": { "message": "Joi" },
   "schedule_day_fri": { "message": "Vin" },
-  "schedule_day_sat": { "message": "Sâm" }
+  "schedule_day_sat": { "message": "Sâm" },
+  "category_header": { "message": "Categorie" },
+  "category_required": { "message": "Categoria este obligatorie" },
+  "allcategories": { "message": "Toate categoriile" },
+  "category_social": { "message": "Rețele sociale" },
+  "category_news": { "message": "Știri" },
+  "category_entertainment": { "message": "Divertisment" },
+  "category_shopping": { "message": "Cumpărături" },
+  "category_work": { "message": "Muncă" },
+  "category_gaming": { "message": "Jocuri" },
+  "category_adult": { "message": "Conținut pentru adulți" },
+  "category_uncategorized": { "message": "Necategorizat" },
+  "searchfordomain": { "message": "Caută nume de domeniu" },
+  "norulesforcategory": { "message": "Nu există site-uri blocate pentru această categorie." }
 }

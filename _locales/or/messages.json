@@ -160,5 +160,18 @@
   "schedule_day_wed": { "message": "ବୁଧ" },
   "schedule_day_thu": { "message": "ଗୁରୁ" },
   "schedule_day_fri": { "message": "ଶୁକ୍ର" },
-  "schedule_day_sat": { "message": "ଶନି" }
+  "schedule_day_sat": { "message": "ଶନି" },
+  "category_header": { "message": "ଶ୍ରେଣୀ" },
+  "category_required": { "message": "ଶ୍ରେଣୀ ଆବଶ୍ୟକ" },
+  "allcategories": { "message": "ସମସ୍ତ ଶ୍ରେଣୀ" },
+  "category_social": { "message": "ସୋସିଆଲ୍ ମିଡିଆ" },
+  "category_news": { "message": "ସମ୍ବାଦ" },
+  "category_entertainment": { "message": "ମନୋରଞ୍ଜନ" },
+  "category_shopping": { "message": "କ୍ରୟ" },
+  "category_work": { "message": "କାମ" },
+  "category_gaming": { "message": "ଗେମିଂ" },
+  "category_adult": { "message": "ବୟସ୍କ ସାମଗ୍ରୀ" },
+  "category_uncategorized": { "message": "ଶ୍ରେଣୀବିହୀନ" },
+  "searchfordomain": { "message": "ଡୋମେନ୍ ନାମ ସନ୍ଧାନ କରନ୍ତୁ" },
+  "norulesforcategory": { "message": "ଏହି ଶ୍ରେଣୀ ପାଇଁ କoi ବ୍ଲକ୍ କରାଯାଇଥିବା ସାଇଟ୍ ନାହିଁ।" }
 }

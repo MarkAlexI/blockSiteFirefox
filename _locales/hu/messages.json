@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Sze" },
   "schedule_day_thu": { "message": "Csü" },
   "schedule_day_fri": { "message": "Pén" },
-  "schedule_day_sat": { "message": "Szo" }
+  "schedule_day_sat": { "message": "Szo" },
+  "category_header": { "message": "Kategória" },
+  "category_required": { "message": "A kategória megadása kötelező" },
+  "allcategories": { "message": "Minden kategória" },
+  "category_social": { "message": "Közösségi média" },
+  "category_news": { "message": "Hírek" },
+  "category_entertainment": { "message": "Szórakozás" },
+  "category_shopping": { "message": "Vásárlás" },
+  "category_work": { "message": "Munka" },
+  "category_gaming": { "message": "Játékok" },
+  "category_adult": { "message": "Felnőtt tartalom" },
+  "category_uncategorized": { "message": "Kategorizálatlan" },
+  "searchfordomain": { "message": "Domain név keresése" },
+  "norulesforcategory": { "message": "Ehhez a kategóriához nincs blokkolt oldal." }
 }

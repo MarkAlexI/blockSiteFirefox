@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Rab" },
   "schedule_day_thu": { "message": "Kam" },
   "schedule_day_fri": { "message": "Jum" },
-  "schedule_day_sat": { "message": "Sab" }
+  "schedule_day_sat": { "message": "Sab" },
+  "category_header": { "message": "Kategori" },
+  "category_required": { "message": "Kategori wajib diisi" },
+  "allcategories": { "message": "Semua kategori" },
+  "category_social": { "message": "Media Sosial" },
+  "category_news": { "message": "Berita" },
+  "category_entertainment": { "message": "Hiburan" },
+  "category_shopping": { "message": "Belanja" },
+  "category_work": { "message": "Pekerjaan" },
+  "category_gaming": { "message": "Permainan" },
+  "category_adult": { "message": "Konten Dewasa" },
+  "category_uncategorized": { "message": "Belum Dikategorikan" },
+  "searchfordomain": { "message": "Cari nama domain" },
+  "norulesforcategory": { "message": "Tidak ada situs yang diblokir untuk kategori ini." }
 }

@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "چهار" },
   "schedule_day_thu": { "message": "پنج" },
   "schedule_day_fri": { "message": "جمعه" },
-  "schedule_day_sat": { "message": "شنبه" }
+  "schedule_day_sat": { "message": "شنبه" },
+  "category_header": { "message": "دسته‌بندی" },
+  "category_required": { "message": "دسته‌بندی الزامی است" },
+  "allcategories": { "message": "تمام دسته‌ها" },
+  "category_social": { "message": "رسانه‌های اجتماعی" },
+  "category_news": { "message": "اخبار" },
+  "category_entertainment": { "message": "سرگرمی" },
+  "category_shopping": { "message": "خرید" },
+  "category_work": { "message": "کار" },
+  "category_gaming": { "message": "بازی‌ها" },
+  "category_adult": { "message": "محتوای بزرگسالان" },
+  "category_uncategorized": { "message": "بدون دسته‌بندی" },
+  "searchfordomain": { "message": "جستجوی نام دامنه" },
+  "norulesforcategory": { "message": "هیچ سایتی برای این دسته‌بندی مسدود نشده است." }
 }

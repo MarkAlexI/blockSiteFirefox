@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Śro" },
   "schedule_day_thu": { "message": "Czw" },
   "schedule_day_fri": { "message": "Pią" },
-  "schedule_day_sat": { "message": "Sob" }
+  "schedule_day_sat": { "message": "Sob" },
+  "category_header": { "message": "Kategoria" },
+  "category_required": { "message": "Kategoria jest wymagana" },
+  "allcategories": { "message": "Wszystkie kategorie" },
+  "category_social": { "message": "Media społecznościowe" },
+  "category_news": { "message": "Wiadomości" },
+  "category_entertainment": { "message": "Rozrywka" },
+  "category_shopping": { "message": "Zakupy" },
+  "category_work": { "message": "Praca" },
+  "category_gaming": { "message": "Gry" },
+  "category_adult": { "message": "Treści dla dorosłych" },
+  "category_uncategorized": { "message": "Nieprzypisane" },
+  "searchfordomain": { "message": "Szukaj nazwy domeny" },
+  "norulesforcategory": { "message": "Brak zablokowanych witryn dla tej kategorii." }
 }

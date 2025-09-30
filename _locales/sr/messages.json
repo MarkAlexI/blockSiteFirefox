@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Сре" },
   "schedule_day_thu": { "message": "Чет" },
   "schedule_day_fri": { "message": "Пет" },
-  "schedule_day_sat": { "message": "Суб" }
+  "schedule_day_sat": { "message": "Суб" },
+  "category_header": { "message": "Категорија" },
+  "category_required": { "message": "Категорија је обавезна" },
+  "allcategories": { "message": "Све категорије" },
+  "category_social": { "message": "Друштвене мреже" },
+  "category_news": { "message": "Вести" },
+  "category_entertainment": { "message": "Забава" },
+  "category_shopping": { "message": "Шопинг" },
+  "category_work": { "message": "Посао" },
+  "category_gaming": { "message": "Игре" },
+  "category_adult": { "message": "Садржај за одрасле" },
+  "category_uncategorized": { "message": "Некатегорисано" },
+  "searchfordomain": { "message": "Претражи име домена" },
+  "norulesforcategory": { "message": "За ову категорију нема блокираних сајтова." }
 }

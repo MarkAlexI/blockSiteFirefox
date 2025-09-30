@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "बुध" },
   "schedule_day_thu": { "message": "गुरु" },
   "schedule_day_fri": { "message": "शुक्र" },
-  "schedule_day_sat": { "message": "शनि" }
+  "schedule_day_sat": { "message": "शनि" },
+  "category_header": { "message": "श्रेणी" },
+  "category_required": { "message": "श्रेणी आवश्यक है" },
+  "allcategories": { "message": "सभी श्रेणियाँ" },
+  "category_social": { "message": "सोशल मीडिया" },
+  "category_news": { "message": "समाचार" },
+  "category_entertainment": { "message": "मनोरंजन" },
+  "category_shopping": { "message": "खरीदारी" },
+  "category_work": { "message": "काम" },
+  "category_gaming": { "message": "गेमिंग" },
+  "category_adult": { "message": "वयस्क सामग्री" },
+  "category_uncategorized": { "message": "अवर्गीकृत" },
+  "searchfordomain": { "message": "डोमेन नाम खोजें" },
+  "norulesforcategory": { "message": "इस श्रेणी के लिए कोई ब्लॉक की गई साइट नहीं है।" }
 }

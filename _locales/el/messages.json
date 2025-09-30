@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Τετ" },
   "schedule_day_thu": { "message": "Πέμ" },
   "schedule_day_fri": { "message": "Παρ" },
-  "schedule_day_sat": { "message": "Σάβ" }
+  "schedule_day_sat": { "message": "Σάβ" },
+  "category_header": { "message": "Κατηγορία" },
+  "category_required": { "message": "Η κατηγορία είναι υποχρεωτική" },
+  "allcategories": { "message": "Όλες οι κατηγορίες" },
+  "category_social": { "message": "Κοινωνικά δίκτυα" },
+  "category_news": { "message": "Ειδήσεις" },
+  "category_entertainment": { "message": "Ψυχαγωγία" },
+  "category_shopping": { "message": "Αγορές" },
+  "category_work": { "message": "Εργασία" },
+  "category_gaming": { "message": "Παιχνίδια" },
+  "category_adult": { "message": "Περιεχόμενο ενηλίκων" },
+  "category_uncategorized": { "message": "Μη κατηγοριοποιημένο" },
+  "searchfordomain": { "message": "Αναζήτηση ονόματος τομέα" },
+  "norulesforcategory": { "message": "Δεν υπάρχουν αποκλεισμένοι ιστότοποι για αυτήν την κατηγορία." }
 }

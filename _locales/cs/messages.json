@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "St" },
   "schedule_day_thu": { "message": "Čt" },
   "schedule_day_fri": { "message": "Pá" },
-  "schedule_day_sat": { "message": "So" }
+  "schedule_day_sat": { "message": "So" },
+  "category_header": { "message": "Kategorie" },
+  "category_required": { "message": "Kategorie je povinná" },
+  "allcategories": { "message": "Všechny kategorie" },
+  "category_social": { "message": "Sociální sítě" },
+  "category_news": { "message": "Zprávy" },
+  "category_entertainment": { "message": "Zábava" },
+  "category_shopping": { "message": "Nákupy" },
+  "category_work": { "message": "Práce" },
+  "category_gaming": { "message": "Hry" },
+  "category_adult": { "message": "Pro dospělé" },
+  "category_uncategorized": { "message": "Nezařazeno" },
+  "searchfordomain": { "message": "Hledat název domény" },
+  "norulesforcategory": { "message": "Pro tuto kategorii nejsou žádné blokované weby." }
 }

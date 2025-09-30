@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "週三" },
   "schedule_day_thu": { "message": "週四" },
   "schedule_day_fri": { "message": "週五" },
-  "schedule_day_sat": { "message": "週六" }
+  "schedule_day_sat": { "message": "週六" },
+  "category_header": { "message": "類別" },
+  "category_required": { "message": "類別為必填項" },
+  "allcategories": { "message": "所有類別" },
+  "category_social": { "message": "社群媒體" },
+  "category_news": { "message": "新聞" },
+  "category_entertainment": { "message": "娛樂" },
+  "category_shopping": { "message": "購物" },
+  "category_work": { "message": "工作" },
+  "category_gaming": { "message": "遊戲" },
+  "category_adult": { "message": "成人內容" },
+  "category_uncategorized": { "message": "未分類" },
+  "searchfordomain": { "message": "搜尋網域名稱" },
+  "norulesforcategory": { "message": "此類別沒有被封鎖的網站。" }
 }

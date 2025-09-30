@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Ons" },
   "schedule_day_thu": { "message": "Tor" },
   "schedule_day_fri": { "message": "Fre" },
-  "schedule_day_sat": { "message": "Lör" }
+  "schedule_day_sat": { "message": "Lör" },
+  "category_header": { "message": "Kategori" },
+  "category_required": { "message": "Kategori krävs" },
+  "allcategories": { "message": "Alla kategorier" },
+  "category_social": { "message": "Sociala medier" },
+  "category_news": { "message": "Nyheter" },
+  "category_entertainment": { "message": "Underhållning" },
+  "category_shopping": { "message": "Shopping" },
+  "category_work": { "message": "Arbete" },
+  "category_gaming": { "message": "Spel" },
+  "category_adult": { "message": "Vuxeninnehåll" },
+  "category_uncategorized": { "message": "Okategoriserad" },
+  "searchfordomain": { "message": "Sök efter domännamn" },
+  "norulesforcategory": { "message": "Inga blockerade webbplatser för denna kategori." }
 }

@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "ד'" },
   "schedule_day_thu": { "message": "ה'" },
   "schedule_day_fri": { "message": "ו'" },
-  "schedule_day_sat": { "message": "ש'" }
+  "schedule_day_sat": { "message": "ש'" },
+  "category_header": { "message": "קטגוריה" },
+  "category_required": { "message": "קטגוריה נדרשת" },
+  "allcategories": { "message": "כל הקטגוריות" },
+  "category_social": { "message": "רשתות חברתיות" },
+  "category_news": { "message": "חדשות" },
+  "category_entertainment": { "message": "בידור" },
+  "category_shopping": { "message": "קניות" },
+  "category_work": { "message": "עבודה" },
+  "category_gaming": { "message": "משחקים" },
+  "category_adult": { "message": "תוכן למבוגרים" },
+  "category_uncategorized": { "message": "ללא קטגוריה" },
+  "searchfordomain": { "message": "חפש שם דומיין" },
+  "norulesforcategory": { "message": "אין אתרים חסומים עבור קטגוריה זו." }
 }

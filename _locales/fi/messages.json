@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Kesk" },
   "schedule_day_thu": { "message": "Tors" },
   "schedule_day_fri": { "message": "Perj" },
-  "schedule_day_sat": { "message": "Lau" }
+  "schedule_day_sat": { "message": "Lau" },
+  "category_header": { "message": "Kategoria" },
+  "category_required": { "message": "Kategoria on pakollinen" },
+  "allcategories": { "message": "Kaikki kategoriat" },
+  "category_social": { "message": "Sosiaalinen media" },
+  "category_news": { "message": "Uutiset" },
+  "category_entertainment": { "message": "Viihde" },
+  "category_shopping": { "message": "Ostokset" },
+  "category_work": { "message": "Työ" },
+  "category_gaming": { "message": "Pelien pelaaminen" },
+  "category_adult": { "message": "Aikuisille" },
+  "category_uncategorized": { "message": "Luokittelematon" },
+  "searchfordomain": { "message": "Etsi verkkotunnusta" },
+  "norulesforcategory": { "message": "Tälle kategoriolle ei ole estettyjä sivustoja." }
 }

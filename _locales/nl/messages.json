@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Woe" },
   "schedule_day_thu": { "message": "Don" },
   "schedule_day_fri": { "message": "Vrij" },
-  "schedule_day_sat": { "message": "Zat" }
+  "schedule_day_sat": { "message": "Zat" },
+  "category_header": { "message": "Categorie" },
+  "category_required": { "message": "Categorie is verplicht" },
+  "allcategories": { "message": "Alle categorieën" },
+  "category_social": { "message": "Sociale media" },
+  "category_news": { "message": "Nieuws" },
+  "category_entertainment": { "message": "Entertainment" },
+  "category_shopping": { "message": "Winkelen" },
+  "category_work": { "message": "Werk" },
+  "category_gaming": { "message": "Spellen" },
+  "category_adult": { "message": "Volwasseneninhoud" },
+  "category_uncategorized": { "message": "Niet gecategoriseerd" },
+  "searchfordomain": { "message": "Zoek naar domeinnaam" },
+  "norulesforcategory": { "message": "Geen geblokkeerde sites voor deze categorie." }
 }

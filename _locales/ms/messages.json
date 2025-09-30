@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Rab" },
   "schedule_day_thu": { "message": "Kha" },
   "schedule_day_fri": { "message": "Jum" },
-  "schedule_day_sat": { "message": "Sab" }
+  "schedule_day_sat": { "message": "Sab" },
+  "category_header": { "message": "Kategori" },
+  "category_required": { "message": "Kategori diperlukan" },
+  "allcategories": { "message": "Semua kategori" },
+  "category_social": { "message": "Media Sosial" },
+  "category_news": { "message": "Berita" },
+  "category_entertainment": { "message": "Hiburan" },
+  "category_shopping": { "message": "Membeli-belah" },
+  "category_work": { "message": "Kerja" },
+  "category_gaming": { "message": "Permainan" },
+  "category_adult": { "message": "Kandungan Dewasa" },
+  "category_uncategorized": { "message": "Tidak Dikategorikan" },
+  "searchfordomain": { "message": "Cari nama domain" },
+  "norulesforcategory": { "message": "Tiada laman disekat untuk kategori ini." }
 }

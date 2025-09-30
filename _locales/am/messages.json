@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "ረቡዕ" },
   "schedule_day_thu": { "message": "ሐሙስ" },
   "schedule_day_fri": { "message": "አርብ" },
-  "schedule_day_sat": { "message": "ቅዳሜ" }
+  "schedule_day_sat": { "message": "ቅዳሜ" },
+  "category_header": { "message": "ክፍል" },
+  "category_required": { "message": "ክፍል አስፈላጊ ነው" },
+  "allcategories": { "message": "ሁሉንም ክፍሎች" },
+  "category_social": { "message": "ማህበራዊ ሚዲያ" },
+  "category_news": { "message": "ዜና" },
+  "category_entertainment": { "message": "መዝናኛ" },
+  "category_shopping": { "message": "ግዢ" },
+  "category_work": { "message": "ሥራ" },
+  "category_gaming": { "message": "ጨዋታ" },
+  "category_adult": { "message": "የአዋቂ ይዘት" },
+  "category_uncategorized": { "message": "ያልተመደበ" },
+  "searchfordomain": { "message": "የዶሜይን ስም ፈልግ" },
+  "norulesforcategory": { "message": "ለዚህ ክፍል ምንም የታገዱ ድህረገፆች የሉም።" }
 }

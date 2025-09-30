@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Dc" },
   "schedule_day_thu": { "message": "Dj" },
   "schedule_day_fri": { "message": "Dv" },
-  "schedule_day_sat": { "message": "Ds" }
+  "schedule_day_sat": { "message": "Ds" },
+  "category_header": { "message": "Categoria" },
+  "category_required": { "message": "La categoria és obligatòria" },
+  "allcategories": { "message": "Totes les categories" },
+  "category_social": { "message": "Xarxes socials" },
+  "category_news": { "message": "Notícies" },
+  "category_entertainment": { "message": "Entreteniment" },
+  "category_shopping": { "message": "Compres" },
+  "category_work": { "message": "Feina" },
+  "category_gaming": { "message": "Jocs" },
+  "category_adult": { "message": "Per a adults" },
+  "category_uncategorized": { "message": "Sense categoria" },
+  "searchfordomain": { "message": "Cerca un nom de domini" },
+  "norulesforcategory": { "message": "No hi ha llocs web bloquejats per a aquesta categoria." }
 }

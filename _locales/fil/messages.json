@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Miy" },
   "schedule_day_thu": { "message": "Huw" },
   "schedule_day_fri": { "message": "Biy" },
-  "schedule_day_sat": { "message": "Sab" }
+  "schedule_day_sat": { "message": "Sab" },
+  "category_header": { "message": "Kategorya" },
+  "category_required": { "message": "Kinakailangan ang kategorya" },
+  "allcategories": { "message": "Lahat ng kategorya" },
+  "category_social": { "message": "Social Media" },
+  "category_news": { "message": "Balita" },
+  "category_entertainment": { "message": "Libangan" },
+  "category_shopping": { "message": "Pamimili" },
+  "category_work": { "message": "Trabaho" },
+  "category_gaming": { "message": "Paglalaro" },
+  "category_adult": { "message": "Nilalaman para sa matatanda" },
+  "category_uncategorized": { "message": "Hindi nakategorya" },
+  "searchfordomain": { "message": "Maghanap ng pangalan ng domain" },
+  "norulesforcategory": { "message": "Walang naka-block na site para sa kategoryang ito." }
 }

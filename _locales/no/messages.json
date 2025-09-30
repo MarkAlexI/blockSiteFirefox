@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Ons" },
   "schedule_day_thu": { "message": "Tor" },
   "schedule_day_fri": { "message": "Fre" },
-  "schedule_day_sat": { "message": "Lør" }
+  "schedule_day_sat": { "message": "Lør" },
+  "category_header": { "message": "Kategori" },
+  "category_required": { "message": "Kategori er påkrevd" },
+  "allcategories": { "message": "Alle kategorier" },
+  "category_social": { "message": "Sosiale medier" },
+  "category_news": { "message": "Nyheter" },
+  "category_entertainment": { "message": "Underholdning" },
+  "category_shopping": { "message": "Shopping" },
+  "category_work": { "message": "Arbeid" },
+  "category_gaming": { "message": "Spill" },
+  "category_adult": { "message": "Vokseninnhold" },
+  "category_uncategorized": { "message": "Uklassifisert" },
+  "searchfordomain": { "message": "Søk etter domenenavn" },
+  "norulesforcategory": { "message": "Ingen blokkerte nettsteder for denne kategorien." }
 }

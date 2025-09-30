@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Wed" },
   "schedule_day_thu": { "message": "Thu" },
   "schedule_day_fri": { "message": "Fri" },
-  "schedule_day_sat": { "message": "Sat" }
+  "schedule_day_sat": { "message": "Sat" },
+  "category_header": { "message": "Category" },
+  "category_required": { "message": "Category is required" },
+  "allcategories": { "message": "All categories" },
+  "category_social": { "message": "Social Media" },
+  "category_news": { "message": "News" },
+  "category_entertainment": { "message": "Entertainment" },
+  "category_shopping": { "message": "Shopping" },
+  "category_work": { "message": "Work" },
+  "category_gaming": { "message": "Gaming" },
+  "category_adult": { "message": "Adult" },
+  "category_uncategorized": { "message": "Uncategorised" },
+  "searchfordomain": { "message": "Search for domain name" },
+  "norulesforcategory": { "message": "No blocked sites for this category." }
 }

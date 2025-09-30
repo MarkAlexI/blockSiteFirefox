@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "수" },
   "schedule_day_thu": { "message": "목" },
   "schedule_day_fri": { "message": "금" },
-  "schedule_day_sat": { "message": "토" }
+  "schedule_day_sat": { "message": "토" },
+  "category_header": { "message": "카테고리" },
+  "category_required": { "message": "카테고리는 필수입니다" },
+  "allcategories": { "message": "모든 카테고리" },
+  "category_social": { "message": "소셜 미디어" },
+  "category_news": { "message": "뉴스" },
+  "category_entertainment": { "message": "엔터테인먼트" },
+  "category_shopping": { "message": "쇼핑" },
+  "category_work": { "message": "업무" },
+  "category_gaming": { "message": "게임" },
+  "category_adult": { "message": "성인 콘텐츠" },
+  "category_uncategorized": { "message": "분류되지 않음" },
+  "searchfordomain": { "message": "도메인 이름 검색" },
+  "norulesforcategory": { "message": "이 카테고리에 차단된 사이트가 없습니다." }
 }

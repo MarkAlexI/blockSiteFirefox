@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "বুধ" },
   "schedule_day_thu": { "message": "বৃহস্পতি" },
   "schedule_day_fri": { "message": "শুক্র" },
-  "schedule_day_sat": { "message": "শনি" }
+  "schedule_day_sat": { "message": "শনি" },
+  "category_header": { "message": "শ্রেণী" },
+  "category_required": { "message": "শ্রেণী আবশ্যক" },
+  "allcategories": { "message": "সমস্ত শ্রেণী" },
+  "category_social": { "message": "সামাজিক মাধ্যম" },
+  "category_news": { "message": "সংবাদ" },
+  "category_entertainment": { "message": "বিনোদন" },
+  "category_shopping": { "message": "কেনাকাটা" },
+  "category_work": { "message": "কাজ" },
+  "category_gaming": { "message": "গেমস" },
+  "category_adult": { "message": "প্রাপ্তবয়স্ক বিষয়বস্তু" },
+  "category_uncategorized": { "message": "শ্রেণীবিহীন" },
+  "searchfordomain": { "message": "ডোমেইন নাম অনুসন্ধান করুন" },
+  "norulesforcategory": { "message": "এই শ্রেণীর জন্য কোনো ব্লক করা সাইট নেই।" }
 }

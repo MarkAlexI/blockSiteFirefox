@@ -160,5 +160,18 @@
   "schedule_day_wed": { "message": "Ср" },
   "schedule_day_thu": { "message": "Чт" },
   "schedule_day_fri": { "message": "Пт" },
-  "schedule_day_sat": { "message": "Сб" }
+  "schedule_day_sat": { "message": "Сб" },
+  "category_header": { "message": "Категорія" },
+  "category_required": { "message": "Категорія обов’язкова" },
+  "allcategories": { "message": "Всі категорії" },
+  "category_social": { "message": "Соціальні мережі" },
+  "category_news": { "message": "Новини" },
+  "category_entertainment": { "message": "Розваги" },
+  "category_shopping": { "message": "Покупки" },
+  "category_work": { "message": "Робота" },
+  "category_gaming": { "message": "Ігри" },
+  "category_adult": { "message": "Контент для дорослих" },
+  "category_uncategorized": { "message": "Без категорії" },
+  "searchfordomain": { "message": "Пошук за доменом" },
+  "norulesforcategory": { "message": "Для цієї категорії немає заблокованих сайтів." }
 }

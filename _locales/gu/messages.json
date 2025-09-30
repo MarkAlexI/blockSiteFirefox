@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "બુધ" },
   "schedule_day_thu": { "message": "ગુરુ" },
   "schedule_day_fri": { "message": "શુક્ર" },
-  "schedule_day_sat": { "message": "શનિ" }
+  "schedule_day_sat": { "message": "શનિ" },
+  "category_header": { "message": "શ્રેણી" },
+  "category_required": { "message": "શ્રેણી જરૂરી છે" },
+  "allcategories": { "message": "બધી શ્રેણીઓ" },
+  "category_social": { "message": "સોશિયલ મીડીયા" },
+  "category_news": { "message": "સમાચાર" },
+  "category_entertainment": { "message": "મનોરંજન" },
+  "category_shopping": { "message": "ખરીદી" },
+  "category_work": { "message": "કામ" },
+  "category_gaming": { "message": "ગેમિંગ" },
+  "category_adult": { "message": "વયસ્ક સામગ્રી" },
+  "category_uncategorized": { "message": "અવર્ગીકૃત" },
+  "searchfordomain": { "message": "ડોમેન નામ માટે શોધો" },
+  "norulesforcategory": { "message": "આ શ્રેણી માટે કોઈ અવરોધિત સાઇટ્સ નથી." }
 }

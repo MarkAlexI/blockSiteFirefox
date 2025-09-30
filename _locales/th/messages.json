@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "พ." },
   "schedule_day_thu": { "message": "พฤ." },
   "schedule_day_fri": { "message": "ศ." },
-  "schedule_day_sat": { "message": "ส." }
+  "schedule_day_sat": { "message": "ส." },
+  "category_header": { "message": "หมวดหมู่" },
+  "category_required": { "message": "จำเป็นต้องระบุหมวดหมู่" },
+  "allcategories": { "message": "หมวดหมู่ทั้งหมด" },
+  "category_social": { "message": "โซเชียลมีเดีย" },
+  "category_news": { "message": "ข่าว" },
+  "category_entertainment": { "message": "ความบันเทิง" },
+  "category_shopping": { "message": "ช้อปปิ้ง" },
+  "category_work": { "message": "งาน" },
+  "category_gaming": { "message": "เกม" },
+  "category_adult": { "message": "เนื้อหาผู้ใหญ่" },
+  "category_uncategorized": { "message": "ไม่ได้จัดหมวดหมู่" },
+  "searchfordomain": { "message": "ค้นหาชื่อโดเมน" },
+  "norulesforcategory": { "message": "ไม่มีเว็บไซต์ที่ถูกบล็อกสำหรับหมวดหมู่นี้" }
 }

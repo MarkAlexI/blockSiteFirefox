@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Tr" },
   "schedule_day_thu": { "message": "Ce" },
   "schedule_day_fri": { "message": "Pk" },
-  "schedule_day_sat": { "message": "Se" }
+  "schedule_day_sat": { "message": "Se" },
+  "category_header": { "message": "Kategorija" },
+  "category_required": { "message": "Kategorija ir obligāta" },
+  "allcategories": { "message": "Visas kategorijas" },
+  "category_social": { "message": "Sociālie mediji" },
+  "category_news": { "message": "Ziņas" },
+  "category_entertainment": { "message": "Izklaide" },
+  "category_shopping": { "message": "Iepirkšanās" },
+  "category_work": { "message": "Darbs" },
+  "category_gaming": { "message": "Spēles" },
+  "category_adult": { "message": "Pieaugušo saturs" },
+  "category_uncategorized": { "message": "Nekategorizēts" },
+  "searchfordomain": { "message": "Meklēt domēna nosaukumu" },
+  "norulesforcategory": { "message": "Šai kategorijai nav bloķētu vietņu." }
 }

@@ -150,5 +150,18 @@
   "schedule_day_wed": { "message": "பு" },
   "schedule_day_thu": { "message": "வி" },
   "schedule_day_fri": { "message": "வெ" },
-  "schedule_day_sat": { "message": "ச" }
+  "schedule_day_sat": { "message": "ச" },
+  "category_header": { "message": "வகை" },
+  "category_required": { "message": "வகை கட்டாயம்" },
+  "allcategories": { "message": "அனைத்து வகைகளும்" },
+  "category_social": { "message": "சமூக ஊடகம்" },
+  "category_news": { "message": "செய்திகள்" },
+  "category_entertainment": { "message": "பொழிவு" },
+  "category_shopping": { "message": "ஷாப்பிங்" },
+  "category_work": { "message": "வேலை" },
+  "category_gaming": { "message": "விளையாட்டுகள்" },
+  "category_adult": { "message": "நிர்வயவயது உள்ளடக்கம்" },
+  "category_uncategorized": { "message": "வகைப்படுத்தப்படாதது" },
+  "searchfordomain": { "message": "டொமைன் பெயரைத் தேடுக" },
+  "norulesforcategory": { "message": "இந்த வகைக்கான எந்தத் தடைசெய்யப்பட்ட தளங்களும் இல்லை." }
 }

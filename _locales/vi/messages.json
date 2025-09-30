@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "T4" },
   "schedule_day_thu": { "message": "T5" },
   "schedule_day_fri": { "message": "T6" },
-  "schedule_day_sat": { "message": "T7" }
+  "schedule_day_sat": { "message": "T7" },
+  "category_header": { "message": "Danh mục" },
+  "category_required": { "message": "Danh mục là bắt buộc" },
+  "allcategories": { "message": "Tất cả danh mục" },
+  "category_social": { "message": "Mạng xã hội" },
+  "category_news": { "message": "Tin tức" },
+  "category_entertainment": { "message": "Giải trí" },
+  "category_shopping": { "message": "Mua sắm" },
+  "category_work": { "message": "Công việc" },
+  "category_gaming": { "message": "Trò chơi" },
+  "category_adult": { "message": "Nội dung người lớn" },
+  "category_uncategorized": { "message": "Chưa phân loại" },
+  "searchfordomain": { "message": "Tìm kiếm tên miền" },
+  "norulesforcategory": { "message": "Không có trang web bị chặn cho danh mục này." }
 }

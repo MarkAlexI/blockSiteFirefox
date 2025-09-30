@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "St" },
   "schedule_day_thu": { "message": "Št" },
   "schedule_day_fri": { "message": "Pi" },
-  "schedule_day_sat": { "message": "So" }
+  "schedule_day_sat": { "message": "So" },
+  "category_header": { "message": "Kategória" },
+  "category_required": { "message": "Kategória je povinná" },
+  "allcategories": { "message": "Všetky kategórie" },
+  "category_social": { "message": "Sociálne siete" },
+  "category_news": { "message": "Správy" },
+  "category_entertainment": { "message": "Zábava" },
+  "category_shopping": { "message": "Nakupovanie" },
+  "category_work": { "message": "Práca" },
+  "category_gaming": { "message": "Hry" },
+  "category_adult": { "message": "Pre dospelých" },
+  "category_uncategorized": { "message": "Nezaradené" },
+  "searchfordomain": { "message": "Hľadať názov domény" },
+  "norulesforcategory": { "message": "Pre túto kategóriu nie sú žiadne blokované stránky." }
 }

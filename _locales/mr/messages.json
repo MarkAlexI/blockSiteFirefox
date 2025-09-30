@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "बुध" },
   "schedule_day_thu": { "message": "गुरु" },
   "schedule_day_fri": { "message": "शुक्र" },
-  "schedule_day_sat": { "message": "शनि" }
+  "schedule_day_sat": { "message": "शनि" },
+  "category_header": { "message": "वर्ग" },
+  "category_required": { "message": "वर्ग आवश्यक आहे" },
+  "allcategories": { "message": "सर्व वर्ग" },
+  "category_social": { "message": "सोशल मीडिया" },
+  "category_news": { "message": "बातम्या" },
+  "category_entertainment": { "message": "मनोरंजन" },
+  "category_shopping": { "message": "खरेदी" },
+  "category_work": { "message": "काम" },
+  "category_gaming": { "message": "खेळ" },
+  "category_adult": { "message": "प्रौढ सामग्री" },
+  "category_uncategorized": { "message": "वर्गीकरण केलेले नाही" },
+  "searchfordomain": { "message": "डोमेन नाव शोधा" },
+  "norulesforcategory": { "message": "या वर्गासाठी कोणतीही अवरोधित साइट नाही." }
 }

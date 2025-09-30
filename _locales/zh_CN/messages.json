@@ -160,5 +160,18 @@
   "schedule_day_wed": { "message": "周三" },
   "schedule_day_thu": { "message": "周四" },
   "schedule_day_fri": { "message": "周五" },
-  "schedule_day_sat": { "message": "周六" }
+  "schedule_day_sat": { "message": "周六" },
+  "category_header": { "message": "类别" },
+  "category_required": { "message": "类别为必填项" },
+  "allcategories": { "message": "所有类别" },
+  "category_social": { "message": "社交媒体" },
+  "category_news": { "message": "新闻" },
+  "category_entertainment": { "message": "娱乐" },
+  "category_shopping": { "message": "购物" },
+  "category_work": { "message": "工作" },
+  "category_gaming": { "message": "游戏" },
+  "category_adult": { "message": "成人内容" },
+  "category_uncategorized": { "message": "未分类" },
+  "searchfordomain": { "message": "搜索域名" },
+  "norulesforcategory": { "message": "该类别没有被屏蔽的网站。" }
 }

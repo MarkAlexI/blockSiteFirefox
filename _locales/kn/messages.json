@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "ಬುಧ" },
   "schedule_day_thu": { "message": "ಗುರು" },
   "schedule_day_fri": { "message": "ಶುಕ್ರ" },
-  "schedule_day_sat": { "message": "ಶನಿ" }
+  "schedule_day_sat": { "message": "ಶನಿ" },
+  "category_header": { "message": "ವರ್ಗ" },
+  "category_required": { "message": "ವರ್ಗ ಅಗತ್ಯ" },
+  "allcategories": { "message": "ಎಲ್ಲಾ ವರ್ಗಗಳು" },
+  "category_social": { "message": "ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ" },
+  "category_news": { "message": "ಸುದ್ದಿ" },
+  "category_entertainment": { "message": "ಮನರಂಜನೆ" },
+  "category_shopping": { "message": "ಖರೀದಿ" },
+  "category_work": { "message": "ಕೆಲಸ" },
+  "category_gaming": { "message": "ಆಟಗಳು" },
+  "category_adult": { "message": "ಮೇಚ್ಚಿನ ವಿಷಯ" },
+  "category_uncategorized": { "message": "ವರ್ಗೀಕರಿಸದ" },
+  "searchfordomain": { "message": "ಡೊಮೇನ್ ಹೆಸರು ಹುಡುಕಿ" },
+  "norulesforcategory": { "message": "ಈ ವರ್ಗಕ್ಕಾಗಿ ಯಾವುದೇ ತಡೆಸಿದ ತಾಣಗಳಿಲ್ಲ." }
 }

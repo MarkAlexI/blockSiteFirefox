@@ -164,7 +164,7 @@
   "schedule_day_sat": { "message": "Sat" },
   "category_header": { "message": "Category" },
   "category_required": { "message": "Category is required" },
-  "allcategories": { "message": "All categories" },
+  "allcategories": { "message": "All categories"},
   "category_social": { "message": "Social Media" },
   "category_news": { "message": "News" },
   "category_entertainment": { "message": "Entertainment" },

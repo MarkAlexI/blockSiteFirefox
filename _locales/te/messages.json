@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "బుధ" },
   "schedule_day_thu": { "message": "గురు" },
   "schedule_day_fri": { "message": "శుక్ర" },
-  "schedule_day_sat": { "message": "శని" }
+  "schedule_day_sat": { "message": "శని" },
+  "category_header": { "message": "వర్గం" },
+  "category_required": { "message": "వర్గం తప్పనిసరి" },
+  "allcategories": { "message": "అన్ని వర్గాలు" },
+  "category_social": { "message": "సోషల్ మీడియా" },
+  "category_news": { "message": "సమాచారం" },
+  "category_entertainment": { "message": "వినోదం" },
+  "category_shopping": { "message": "కొనుగోలు" },
+  "category_work": { "message": "పని" },
+  "category_gaming": { "message": "ఆటలు" },
+  "category_adult": { "message": "వయస్కులకు కంటెంట్" },
+  "category_uncategorized": { "message": "వర్గీకరించబడని" },
+  "searchfordomain": { "message": "డొమైన్ పేరును వెతకండి" },
+  "norulesforcategory": { "message": "ఈ వర్గానికి ఏ బ్లాక్ చేసిన సైట్లూ లేవు." }
 }

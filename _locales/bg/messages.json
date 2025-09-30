@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Сря" },
   "schedule_day_thu": { "message": "Чет" },
   "schedule_day_fri": { "message": "Пет" },
-  "schedule_day_sat": { "message": "Съб" }
+  "schedule_day_sat": { "message": "Съб" },
+  "category_header": { "message": "Категория" },
+  "category_required": { "message": "Категорията е задължителна" },
+  "allcategories": { "message": "Всички категории" },
+  "category_social": { "message": "Социални мрежи" },
+  "category_news": { "message": "Новини" },
+  "category_entertainment": { "message": "Забавление" },
+  "category_shopping": { "message": "Пазаруване" },
+  "category_work": { "message": "Работа" },
+  "category_gaming": { "message": "Игри" },
+  "category_adult": { "message": "Съдържание за възрастни" },
+  "category_uncategorized": { "message": "Некатегоризирано" },
+  "searchfordomain": { "message": "Търсене на домейн име" },
+  "norulesforcategory": { "message": "Няма блокирани сайтове за тази категория." }
 }

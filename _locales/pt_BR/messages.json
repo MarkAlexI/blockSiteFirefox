@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Qua" },
   "schedule_day_thu": { "message": "Qui" },
   "schedule_day_fri": { "message": "Sex" },
-  "schedule_day_sat": { "message": "Sáb" }
+  "schedule_day_sat": { "message": "Sáb" },
+  "category_header": { "message": "Categoria" },
+  "category_required": { "message": "Categoria é obrigatória" },
+  "allcategories": { "message": "Todas as categorias" },
+  "category_social": { "message": "Mídias Sociais" },
+  "category_news": { "message": "Notícias" },
+  "category_entertainment": { "message": "Entretenimento" },
+  "category_shopping": { "message": "Compras" },
+  "category_work": { "message": "Trabalho" },
+  "category_gaming": { "message": "Jogos" },
+  "category_adult": { "message": "Conteúdo adulto" },
+  "category_uncategorized": { "message": "Sem categoria" },
+  "searchfordomain": { "message": "Pesquisar nome de domínio" },
+  "norulesforcategory": { "message": "Não há sites bloqueados para esta categoria." }
 }

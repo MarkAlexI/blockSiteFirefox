@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Çar" },
   "schedule_day_thu": { "message": "Per" },
   "schedule_day_fri": { "message": "Cum" },
-  "schedule_day_sat": { "message": "Cmt" }
+  "schedule_day_sat": { "message": "Cmt" },
+  "category_header": { "message": "Kategori" },
+  "category_required": { "message": "Kategori gereklidir" },
+  "allcategories": { "message": "Tüm kategoriler" },
+  "category_social": { "message": "Sosyal Medya" },
+  "category_news": { "message": "Haberler" },
+  "category_entertainment": { "message": "Eğlence" },
+  "category_shopping": { "message": "Alışveriş" },
+  "category_work": { "message": "İş" },
+  "category_gaming": { "message": "Oyunlar" },
+  "category_adult": { "message": "Yetişkin içeriği" },
+  "category_uncategorized": { "message": "Kategoriye ayrılmamış" },
+  "searchfordomain": { "message": "Alan adı ara" },
+  "norulesforcategory": { "message": "Bu kategori için engellenmiş site yok." }
 }

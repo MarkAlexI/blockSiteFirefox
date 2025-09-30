@@ -160,5 +160,18 @@
   "schedule_day_wed": { "message": "الأربعاء" },
   "schedule_day_thu": { "message": "الخميس" },
   "schedule_day_fri": { "message": "الجمعة" },
-  "schedule_day_sat": { "message": "السبت" }
+  "schedule_day_sat": { "message": "السبت" },
+  "category_header": { "message": "الفئة" },
+  "category_required": { "message": "الفئة مطلوبة" },
+  "allcategories": { "message": "جميع الفئات" },
+  "category_social": { "message": "وسائل التواصل الاجتماعي" },
+  "category_news": { "message": "الأخبار" },
+  "category_entertainment": { "message": "ترفيه" },
+  "category_shopping": { "message": "تسوق" },
+  "category_work": { "message": "عمل" },
+  "category_gaming": { "message": "ألعاب" },
+  "category_adult": { "message": "للكبار فقط" },
+  "category_uncategorized": { "message": "غير مصنفة" },
+  "searchfordomain": { "message": "ابحث عن اسم النطاق" },
+  "norulesforcategory": { "message": "لا توجد مواقع محجوبة لهذه الفئة." }
 }

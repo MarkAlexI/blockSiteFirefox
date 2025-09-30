@@ -151,5 +151,18 @@
   "schedule_day_wed": { "message": "Mi" },
   "schedule_day_thu": { "message": "Do" },
   "schedule_day_fri": { "message": "Fr" },
-  "schedule_day_sat": { "message": "Sa" }
+  "schedule_day_sat": { "message": "Sa" },
+  "category_header": { "message": "Kategorie" },
+  "category_required": { "message": "Kategorie ist erforderlich" },
+  "allcategories": { "message": "Alle Kategorien" },
+  "category_social": { "message": "Soziale Medien" },
+  "category_news": { "message": "Nachrichten" },
+  "category_entertainment": { "message": "Unterhaltung" },
+  "category_shopping": { "message": "Einkaufen" },
+  "category_work": { "message": "Arbeit" },
+  "category_gaming": { "message": "Spiele" },
+  "category_adult": { "message": "Erwachseneninhalt" },
+  "category_uncategorized": { "message": "Nicht kategorisiert" },
+  "searchfordomain": { "message": "Domainnamen suchen" },
+  "norulesforcategory": { "message": "Keine blockierten Websites für diese Kategorie." }
 }
