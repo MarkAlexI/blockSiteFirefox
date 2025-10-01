@@ -167,10 +167,7 @@
     </div>
     
     <button id="add-rule"></button>
-    <div
-      id="search-filter-container"
-      class="hidden pro-feature"
-      >
+    <div id="search-filter-container" class="hidden pro-feature">
       <input type="text" id="search-input" data-i18n-placeholder="searchblockurl">
       <select id="category-filter" class="category-select">
         <option value="all" data-i18n="allcategories">All Categories</option>
@@ -184,18 +181,22 @@
         <option value="uncategorized" data-i18n="category_uncategorized">Uncategorized</option>
       </select>
     </div>
-    <table id="rules-table">
-      <thead>
-        <tr>
-          <th id="block-url-header" scope="col">Block URL</th>
-          <th id="redirect-url-header" scope="col">Redirect URL</th>
-          <th id="category-header" scope="col" data-i18n="categoryheader">Category</th>
-          <th id="schedule-header" scope="col" data-i18n="scheduleheader">Schedule</th>
-          <th id="actions-header" scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="rules-container"></tbody>
-    </table>
+    
+    <div class="table-wrapper">
+      <table id="rules-table">
+        <thead>
+          <tr>
+            <th id="block-url-header" scope="col">Block URL</th>
+            <th id="redirect-url-header" scope="col">Redirect URL</th>
+            <th id="category-header" scope="col" data-i18n="categoryheader">Category</th>
+            <th id="schedule-header" scope="col" data-i18n="scheduleheader">Schedule</th>
+            <th id="actions-header" scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="rules-container"></tbody>
+      </table>
+    </div>
+    
     <div id="status"></div>
     <p data-i18n="gotopopup">Click the extension icon to return to popup.</p>
   </div>

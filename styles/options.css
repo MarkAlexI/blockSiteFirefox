@@ -22,7 +22,7 @@ body {
 
 .container {
   max-width: 800px;
-  min-width: 300px;
+  min-width: 400px;
   margin: 0 auto;
   padding: 20px;
   display: flex;
@@ -235,10 +235,38 @@ h1 {
   color: #007bff;
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 2px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 0 0 1px 1px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 1px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.table-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #667eea #f1f1f1;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   margin-top: .9rem;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);

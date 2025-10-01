@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.4] - 2025-10-02
+### Fixed
+- Fixed styles for the rules table on the options page.
+
 ## [2.16.3] - 2025-09-30
 ### Fixed
 - Text inputs no longer accept spaces, preventing errors when creating rules.
