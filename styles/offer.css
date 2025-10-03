@@ -1,0 +1,77 @@
+.go-pro {
+  margin-bottom: 1rem;
+}
+
+.pro-toggle {
+  max-width: 50%;
+  background-color: #1e3a8a;
+  color: gold;
+  font-weight: bold;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+
+.pro-toggle:hover {
+  background-color: #274bb5;
+}
+
+.chevron {
+  border: solid gold;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  transform: rotate(45deg);
+  transition: transform 0.3s;
+}
+
+.chevron.up {
+  transform: rotate(-135deg);
+}
+
+.pro-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  margin-top: 10px;
+}
+
+.pro-content {
+  padding: 20px;
+  border: 2px solid #1e3a8a;
+  border-radius: 10px;
+  background: #f9f9ff;
+  max-width: 500px;
+}
+
+.pro-content p::first-line {
+  color: green;
+}
+
+.pro-content p,
+.pro-content a {
+  margin: 16px 0;
+}
+
+.pro-content a {
+  color: darksalmon;
+}
+
+.pro-content input {
+  margin: 1rem 0;
+  height: 2rem;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}

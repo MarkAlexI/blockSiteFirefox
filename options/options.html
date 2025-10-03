@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="../styles/options.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/controls.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/modal.css" type="text/css" media="all" />
-  <title id="options-title">Options page for Block Site Extension</title>
+  <link rel="stylesheet" href="../styles/offer.css" type="text/css" media="all" />
+  <title id="options-title">Options page for BlockDistraction</title>
 </head>
 
 <body>
@@ -16,6 +17,45 @@
       <h2 data-i18n="optionsheader">Extension Settings</h2>
       <p data-i18n="optionsdescription">Configure your extension behavior and security settings</p>
     </header>
+    
+    <div class="go-pro hidden">
+      <button class="pro-toggle" id="proBtn">
+        <span data-i18n="getpro">Get Pro</span>
+        <i class="chevron"></i>
+      </button>
+      
+      <div class="pro-wrapper" id="proWrapper">
+        <div class="pro-content" id="proContent">
+          <h2 data-i18n="chromename">BlockDistraction</h2>
+          
+          <div class="pro-locked">
+            <p data-i18n="profunctionstext">
+              Pro features include: scheduled blocking, password protection, rule filtering and search, rule export/import, and cross-browser sync. To unlock Pro, first purchase a subscription at blockdistraction.com. After payment, return to this page and enter your email below to activate Pro.
+            </p>
+            
+            <a href="https://blockdistraction.com/upgrade.html" target="_blank" data-i18n="upgradenow">Upgrade Now</a>
+          </div>
+          
+          <hr />
+          
+          <form id="login-form">
+            <input type="email" id="email" placeholder="Enter your email" required data-i18n-placeholder="enteremail">
+            
+            <button type="submit">
+              <span data-i18n="activatepro">Activate Pro</span>
+            </button>
+          </form>
+          
+          <hr />
+          
+          <p id="message" class="error" data-i18n="errormessage"></p>
+          
+          <p>
+            <a href="https://blockdistraction.com/restore.html" target="_blank" data-i18n="restoreaccess">Restore Access</a>
+          </p>
+        </div>
+      </div>
+    </div>
     
     <main class="settings-content">
       <section class="setting-section">
@@ -215,6 +255,7 @@
   
   <script type="module" src="../scripts/i18n.js"></script>
   <script type="module" src="./options.js"></script>
+  <script type="module" src="./goPro.js"></script>
 </body>
 
 </html>

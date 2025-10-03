@@ -1,5 +1,5 @@
 export class ProManager {
-  static RESTRICTION_START_DATE = '2025-10-14T00:00:00Z';
+  static RESTRICTION_START_DATE = '2025-11-14T00:00:00Z';
   
   static defaultCredentials = {
     isPro: false,

@@ -27,7 +27,7 @@
   "donatebtntext": { "message": "Donate" },
   "blockthat": { "message": "Block This Site" },
   "sendfeedbackbutton": { "message": "Send Feedback" },
-  "sendfeedbacksubject": { "message": "Feedback for Block Site Extension" },
+  "sendfeedbacksubject": { "message": "Feedback for BlockDistraction" },
   "sendfeedbackbody": { "message": "Hello, I’d like to share the following feedback:\n\n" },
   "quote1": { "message": "Stay focused, stay strong." },
   "quote2": { "message": "Your future is created by what you do today." },

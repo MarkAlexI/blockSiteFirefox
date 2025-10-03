@@ -27,7 +27,7 @@
   "donatebtntext": { "message": "ይለግሱ" },
   "blockthat": { "message": "ይህን ጣቢያ ከልክል" },
   "sendfeedbackbutton": { "message": "ግብረመልስ ላክ" },
-  "sendfeedbacksubject": { "message": "ለ Block Site Extension ግብረመልስ" },
+  "sendfeedbacksubject": { "message": "ለ BlockDistraction ግብረመልስ" },
   "sendfeedbackbody": { "message": "ሰላም፣ የሚከተለውን ግብረመልስ ማካፈል እፈልጋለሁ፦\n\n" },
   "quote1": { "message": "ትኩረት አድርግ፣ ጠንክር።" },
   "quote2": { "message": "የአንተ ወደፊት ዛሬ በምታደርገው ይፈጠራል።" },
