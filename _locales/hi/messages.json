@@ -164,5 +164,18 @@
   "category_adult": { "message": "वयस्क सामग्री" },
   "category_uncategorized": { "message": "अवर्गीकृत" },
   "searchfordomain": { "message": "डोमेन नाम खोजें" },
-  "norulesforcategory": { "message": "इस श्रेणी के लिए कोई ब्लॉक की गई साइट नहीं है।" }
+  "norulesforcategory": { "message": "इस श्रेणी के लिए कोई ब्लॉक की गई साइट नहीं है।" },
+  "getpro": { "message": "प्रो प्राप्त करें" },
+  "profunctionstext": { "message": "प्रो सुविधाओं में शामिल हैं: अनुसूचित ब्लॉकिंग, पासवर्ड सुरक्षा, नियम फ़िल्टरिंग और खोज, नियम निर्यात/आयात, और क्रॉस-ब्राउज़र सिंक। प्रो को अनलॉक करने के लिए, पहले blockdistraction.com पर सदस्यता खरीदें। भुगतान के बाद, इस पृष्ठ पर लौटें और प्रो सक्रिय करने के लिए नीचे अपना ईमेल दर्ज करें।" },
+  "upgradenow": { "message": "अब अपग्रेड करें" },
+  "enteremail": { "message": "अपना ईमेल दर्ज करें" },
+  "activatepro": { "message": "प्रो सक्रिय करें" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "पहुँच पुनर्स्थापित करें" },
+  "pleaseenteremail": { "message": "कृपया अपना ईमेल दर्ज करें" },
+  "checking": { "message": "जाँच हो रही है..." },
+  "proactivated": { "message": "प्रो सुविधाएँ सक्रिय हो गई हैं!" },
+  "subscriptionnotfound": { "message": "सदस्यता सक्रिय नहीं है या ईमेल नहीं मिला।" },
+  "servererror": { "message": "सर्वर त्रुटि। कृपया पुनः प्रयास करें।" },
+  "proactivatedfor": { "message": "प्रो सक्रिय किया गया है के लिए" }
 }

@@ -164,5 +164,18 @@
   "category_adult": { "message": "Kandungan Dewasa" },
   "category_uncategorized": { "message": "Tidak Dikategorikan" },
   "searchfordomain": { "message": "Cari nama domain" },
-  "norulesforcategory": { "message": "Tiada laman disekat untuk kategori ini." }
+  "norulesforcategory": { "message": "Tiada laman disekat untuk kategori ini." },
+  "getpro": { "message": "Dapatkan Pro" },
+  "profunctionstext": { "message": "Ciri Pro termasuk: penyekatan berjadual, perlindungan kata laluan, penapisan dan carian peraturan, eksport/import peraturan, dan penyegerakan antara pelayar. Untuk membuka kunci Pro, pertama beli langganan di blockdistraction.com. Selepas pembayaran, kembali ke halaman ini dan masukkan emel anda di bawah untuk mengaktifkan Pro." },
+  "upgradenow": { "message": "Tingkatkan Sekarang" },
+  "enteremail": { "message": "Masukkan emel anda" },
+  "activatepro": { "message": "Aktifkan Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Pulihkan Akses" },
+  "pleaseenteremail": { "message": "Sila masukkan emel anda" },
+  "checking": { "message": "Sedang menyemak..." },
+  "proactivated": { "message": "Ciri Pro telah diaktifkan!" },
+  "subscriptionnotfound": { "message": "Langganan tidak aktif atau emel tidak ditemui." },
+  "servererror": { "message": "Ralat pelayan. Sila cuba lagi." },
+  "proactivatedfor": { "message": "Pro diaktifkan untuk" }
 }

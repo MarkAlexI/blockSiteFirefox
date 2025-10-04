@@ -164,5 +164,18 @@
   "category_adult": { "message": "የአዋቂ ይዘት" },
   "category_uncategorized": { "message": "ያልተመደበ" },
   "searchfordomain": { "message": "የዶሜይን ስም ፈልግ" },
-  "norulesforcategory": { "message": "ለዚህ ክፍል ምንም የታገዱ ድህረገፆች የሉም።" }
+  "norulesforcategory": { "message": "ለዚህ ክፍል ምንም የታገዱ ድህረገፆች የሉም።" },
+  "getpro": { "message": "ፕሮ ያግኙ" },
+  "profunctionstext": { "message": "የፕሮ ባህሪዎች የሚካተቱት፡ በጊዜ ማስያዣ መከልከል፣ የይለፍ ቃል ጥበቃ፣ የደንብ ማጣሪያ እና ፍለጋ፣ የደንብ መላኪያ/መግቢያ፣ እና በተለያዩ አሳሾች መስማማት ናቸው። ፕሮን ለመክፈት፣ መጀመሪያ በ blockdistraction.com በመግዛት አባልነት ያግኙ። ክፍያ ካደረጉ በኋላ ወደዚህ ገጽ ተመልሰው ኢሜይልዎን ከታች ያስገቡ ፕሮ ለማንቃት።" },
+  "upgradenow": { "message": "አሁን ያሻሽሉ" },
+  "enteremail": { "message": "ኢሜይልዎን ያስገቡ" },
+  "activatepro": { "message": "ፕሮ ያንቁ" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "መዳረሻ ይመልሱ" },
+  "pleaseenteremail": { "message": "እባኮትን ኢሜይልዎን ያስገቡ" },
+  "checking": { "message": "በመፈተሽ ላይ..." },
+  "proactivated": { "message": "የፕሮ ባህሪዎች ተነቃቁ!" },
+  "subscriptionnotfound": { "message": "አባልነት አልተገኘም ወይም ኢሜይል አልተገኘም።" },
+  "servererror": { "message": "የአገልጋይ ስህተት። እባኮትን ደግመው ይሞክሩ።" },
+  "proactivatedfor": { "message": "ፕሮ ተነቃቆልናል ለ" }
 }

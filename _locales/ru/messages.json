@@ -164,5 +164,18 @@
   "category_adult": { "message": "Контент для взрослых" },
   "category_uncategorized": { "message": "Без категории" },
   "searchfordomain": { "message": "Поиск по доменному имени" },
-  "norulesforcategory": { "message": "Для этой категории нет заблокированных сайтов." }
+  "norulesforcategory": { "message": "Для этой категории нет заблокированных сайтов." },
+  "getpro": { "message": "Получить Pro" },
+  "profunctionstext": { "message": "Функции Pro включают: плановое блокирование, защиту паролем, фильтрацию и поиск правил, экспорт/импорт правил и синхронизацию между браузерами. Чтобы разблокировать Pro, сначала приобретите подписку на blockdistraction.com. После оплаты вернитесь на эту страницу и введите свой e-mail ниже, чтобы активировать Pro." },
+  "upgradenow": { "message": "Обновить сейчас" },
+  "enteremail": { "message": "Введите ваш e-mail" },
+  "activatepro": { "message": "Активировать Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Восстановить доступ" },
+  "pleaseenteremail": { "message": "Пожалуйста, введите ваш e-mail" },
+  "checking": { "message": "Проверка..." },
+  "proactivated": { "message": "Функции Pro активированы!" },
+  "subscriptionnotfound": { "message": "Подписка не активна или e-mail не найден." },
+  "servererror": { "message": "Ошибка сервера. Пожалуйста, попробуйте снова." },
+  "proactivatedfor": { "message": "Pro активирован для" }
 }

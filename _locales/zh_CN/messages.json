@@ -173,5 +173,18 @@
   "category_adult": { "message": "成人内容" },
   "category_uncategorized": { "message": "未分类" },
   "searchfordomain": { "message": "搜索域名" },
-  "norulesforcategory": { "message": "该类别没有被屏蔽的网站。" }
+  "norulesforcategory": { "message": "该类别没有被屏蔽的网站。" },
+  "getpro": { "message": "获取 Pro" },
+  "profunctionstext": { "message": "Pro 功能包括：计划阻止、密码保护、规则筛选和搜索、规则导出/导入以及跨浏览器同步。要解锁 Pro，请先在 blockdistraction.com 购买订阅。付款后返回此页面并在下方输入您的电子邮箱以激活 Pro。" },
+  "upgradenow": { "message": "立即升级" },
+  "enteremail": { "message": "请输入您的电子邮箱" },
+  "activatepro": { "message": "激活 Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "恢复访问" },
+  "pleaseenteremail": { "message": "请输入您的电子邮箱" },
+  "checking": { "message": "正在检查..." },
+  "proactivated": { "message": "Pro 功能已激活！" },
+  "subscriptionnotfound": { "message": "订阅未激活或未找到电子邮箱。" },
+  "servererror": { "message": "服务器错误。请重试。" },
+  "proactivatedfor": { "message": "已为以下邮箱激活 Pro：" }
 }

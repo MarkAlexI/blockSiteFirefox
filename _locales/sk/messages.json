@@ -164,5 +164,18 @@
   "category_adult": { "message": "Pre dospelých" },
   "category_uncategorized": { "message": "Nezaradené" },
   "searchfordomain": { "message": "Hľadať názov domény" },
-  "norulesforcategory": { "message": "Pre túto kategóriu nie sú žiadne blokované stránky." }
+  "norulesforcategory": { "message": "Pre túto kategóriu nie sú žiadne blokované stránky." },
+  "getpro": { "message": "Získajte Pro" },
+  "profunctionstext": { "message": "Funkcie Pro zahŕňajú: plánované blokovanie, ochranu heslom, filtrovanie a vyhľadávanie pravidiel, export/import pravidiel a synchronizáciu medzi prehliadačmi. Ak chcete odomknúť Pro, najprv si kúpte predplatné na blockdistraction.com. Po zaplatení sa vráťte na túto stránku a zadajte nižšie svoj e-mail, aby ste aktivovali Pro." },
+  "upgradenow": { "message": "Aktualizovať teraz" },
+  "enteremail": { "message": "Zadajte svoj e-mail" },
+  "activatepro": { "message": "Aktivovať Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Obnoviť prístup" },
+  "pleaseenteremail": { "message": "Prosím, zadajte svoj e-mail" },
+  "checking": { "message": "Kontrola..." },
+  "proactivated": { "message": "Funkcie Pro aktivované!" },
+  "subscriptionnotfound": { "message": "Predplatné nie je aktívne alebo e-mail nebol nájdený." },
+  "servererror": { "message": "Chyba servera. Skúste to znova." },
+  "proactivatedfor": { "message": "Pro aktivované pre" }
 }

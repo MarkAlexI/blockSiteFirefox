@@ -164,5 +164,18 @@
   "category_adult": { "message": "Felnőtt tartalom" },
   "category_uncategorized": { "message": "Kategorizálatlan" },
   "searchfordomain": { "message": "Domain név keresése" },
-  "norulesforcategory": { "message": "Ehhez a kategóriához nincs blokkolt oldal." }
+  "norulesforcategory": { "message": "Ehhez a kategóriához nincs blokkolt oldal." },
+  "getpro": { "message": "Szerezd meg a Pro-t" },
+  "profunctionstext": { "message": "A Pro funkciók közé tartozik: ütemezett blokkolás, jelszóvédelem, szabályok szűrése és keresése, szabályok exportálása/importálása, valamint böngészők közötti szinkronizáció. A Pro feloldásához először vásárolj előfizetést a blockdistraction.com oldalon. Fizetés után térj vissza erre az oldalra, és add meg alul az e-mail címed a Pro aktiválásához." },
+  "upgradenow": { "message": "Frissítés most" },
+  "enteremail": { "message": "Add meg az e-mail címed" },
+  "activatepro": { "message": "Pro aktiválása" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Hozzáférés visszaállítása" },
+  "pleaseenteremail": { "message": "Kérjük, add meg az e-mail címed" },
+  "checking": { "message": "Ellenőrzés..." },
+  "proactivated": { "message": "A Pro funkciók aktiválva!" },
+  "subscriptionnotfound": { "message": "Az előfizetés nem aktív vagy az e-mail nem található." },
+  "servererror": { "message": "Szerverhiba. Kérjük, próbáld újra." },
+  "proactivatedfor": { "message": "A Pro aktiválva a következőhöz:" }
 }

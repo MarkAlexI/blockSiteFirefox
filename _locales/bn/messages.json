@@ -164,5 +164,18 @@
   "category_adult": { "message": "প্রাপ্তবয়স্ক বিষয়বস্তু" },
   "category_uncategorized": { "message": "শ্রেণীবিহীন" },
   "searchfordomain": { "message": "ডোমেইন নাম অনুসন্ধান করুন" },
-  "norulesforcategory": { "message": "এই শ্রেণীর জন্য কোনো ব্লক করা সাইট নেই।" }
+  "norulesforcategory": { "message": "এই শ্রেণীর জন্য কোনো ব্লক করা সাইট নেই।" },
+  "getpro": { "message": "প্রো নিন" },
+  "profunctionstext": { "message": "প্রো বৈশিষ্ট্যগুলির মধ্যে রয়েছে: নির্ধারিত ব্লকিং, পাসওয়ার্ড সুরক্ষা, নিয়ম ফিল্টারিং এবং অনুসন্ধান, নিয়ম এক্সপোর্ট/ইমপোর্ট এবং ক্রস-ব্রাউজার সিঙ্ক। প্রো আনলক করতে, প্রথমে blockdistraction.com থেকে একটি সাবস্ক্রিপশন কিনুন। অর্থপ্রদান সম্পন্ন করার পরে, এই পৃষ্ঠায় ফিরে আসুন এবং প্রো সক্রিয় করতে নীচে আপনার ইমেল লিখুন।" },
+  "upgradenow": { "message": "এখন আপগ্রেড করুন" },
+  "enteremail": { "message": "আপনার ইমেল লিখুন" },
+  "activatepro": { "message": "প্রো সক্রিয় করুন" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "অ্যাক্সেস পুনরুদ্ধার করুন" },
+  "pleaseenteremail": { "message": "অনুগ্রহ করে আপনার ইমেল লিখুন" },
+  "checking": { "message": "পরীক্ষা করা হচ্ছে..." },
+  "proactivated": { "message": "প্রো বৈশিষ্ট্য সক্রিয় হয়েছে!" },
+  "subscriptionnotfound": { "message": "সাবস্ক্রিপশন সক্রিয় নয় বা ইমেল পাওয়া যায়নি।" },
+  "servererror": { "message": "সার্ভার ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।" },
+  "proactivatedfor": { "message": "প্রো সক্রিয় হয়েছে:" }
 }

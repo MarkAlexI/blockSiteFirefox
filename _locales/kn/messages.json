@@ -164,5 +164,18 @@
   "category_adult": { "message": "ಮೇಚ್ಚಿನ ವಿಷಯ" },
   "category_uncategorized": { "message": "ವರ್ಗೀಕರಿಸದ" },
   "searchfordomain": { "message": "ಡೊಮೇನ್ ಹೆಸರು ಹುಡುಕಿ" },
-  "norulesforcategory": { "message": "ಈ ವರ್ಗಕ್ಕಾಗಿ ಯಾವುದೇ ತಡೆಸಿದ ತಾಣಗಳಿಲ್ಲ." }
+  "norulesforcategory": { "message": "ಈ ವರ್ಗಕ್ಕಾಗಿ ಯಾವುದೇ ತಡೆಸಿದ ತಾಣಗಳಿಲ್ಲ." },
+  "getpro": { "message": "ಪ್ರೋ ಪಡೆಯಿರಿ" },
+  "profunctionstext": { "message": "ಪ್ರೋ ವೈಶಿಷ್ಟ್ಯಗಳಲ್ಲಿ ಸಮಯನಿಯೋಜಿತ ತಡೆ, ಪಾಸ್ವರ್ಡ್ ರಕ್ಷಣೆ, ನಿಯಮ ಫಿಲ್ಟರಿಂಗ್ ಮತ್ತು ಶೋಧನೆ, ನಿಯಮ ರಫ್ತು/ಆಮದು, ಮತ್ತು ಬ್ರೌಸರ್ ನಡುವಿನ ಸಿಂಕ್ ಒಳಗೊಂಡಿವೆ. ಪ್ರೋ ಅನ್ನು ಅನ್ಲಾಕ್ ಮಾಡಲು ಮೊದಲು blockdistraction.com ನಲ್ಲಿ ಚಂದಾದಾರಿಕೆಯನ್ನು ಖರೀದಿಸಿ. ಪಾವತಿಯ ನಂತರ, ಈ ಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ ಕೆಳಗೆ ನಿಮ್ಮ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಲು." },
+  "upgradenow": { "message": "ಈಗ ಅಪ್ಗ್ರೇಡ್ ಮಾಡಿ" },
+  "enteremail": { "message": "ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ" },
+  "activatepro": { "message": "ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "ಪ್ರವೇಶವನ್ನು ಮರುಸ್ಥಾಪಿಸಿ" },
+  "pleaseenteremail": { "message": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ" },
+  "checking": { "message": "ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ..." },
+  "proactivated": { "message": "ಪ್ರೋ ವೈಶಿಷ್ಟ್ಯಗಳು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ!" },
+  "subscriptionnotfound": { "message": "ಚಂದಾದಾರಿಕೆ ಸಕ್ರಿಯವಿಲ್ಲ ಅಥವಾ ಇಮೇಲ್ ಕಂಡುಬರುವುದಿಲ್ಲ." },
+  "servererror": { "message": "ಸರ್ವರ್ ದೋಷ. ದಯವಿಟ್ಟು ಮರುಪ್ರಯತ್ನಿಸಿ." },
+  "proactivatedfor": { "message": "ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ:" }
 }

@@ -173,5 +173,18 @@
   "category_adult": { "message": "للكبار فقط" },
   "category_uncategorized": { "message": "غير مصنفة" },
   "searchfordomain": { "message": "ابحث عن اسم النطاق" },
-  "norulesforcategory": { "message": "لا توجد مواقع محجوبة لهذه الفئة." }
+  "norulesforcategory": { "message": "لا توجد مواقع محجوبة لهذه الفئة." },
+  "getpro": { "message": "احصل على برو" },
+  "profunctionstext": { "message": "تشمل ميزات برو: الحظر المجدول، الحماية بكلمة مرور، تصفية القواعد والبحث، استيراد/تصدير القواعد، والمزامنة عبر المتصفحات. لفتح برو، قم أولاً بشراء اشتراك من blockdistraction.com. بعد الدفع، عد إلى هذه الصفحة وأدخل بريدك الإلكتروني أدناه لتفعيل برو." },
+  "upgradenow": { "message": "الترقية الآن" },
+  "enteremail": { "message": "أدخل بريدك الإلكتروني" },
+  "activatepro": { "message": "تفعيل برو" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "استعادة الوصول" },
+  "pleaseenteremail": { "message": "يرجى إدخال بريدك الإلكتروني" },
+  "checking": { "message": "جارٍ التحقق..." },
+  "proactivated": { "message": "تم تفعيل ميزات برو!" },
+  "subscriptionnotfound": { "message": "الاشتراك غير نشط أو البريد الإلكتروني غير موجود." },
+  "servererror": { "message": "خطأ في الخادم. يرجى المحاولة مرة أخرى." },
+  "proactivatedfor": { "message": "تم تفعيل برو لـ" }
 }

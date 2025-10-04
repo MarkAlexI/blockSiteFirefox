@@ -164,5 +164,18 @@
   "category_adult": { "message": "Contenuto per adulti" },
   "category_uncategorized": { "message": "Non categorizzato" },
   "searchfordomain": { "message": "Cerca un nome di dominio" },
-  "norulesforcategory": { "message": "Nessun sito bloccato per questa categoria." }
+  "norulesforcategory": { "message": "Nessun sito bloccato per questa categoria." },
+  "getpro": { "message": "Dapatkan Pro" },
+  "profunctionstext": { "message": "Fitur Pro termasuk: pemblokiran terjadwal, perlindungan kata sandi, penyaringan dan pencarian aturan, ekspor/impor aturan, dan sinkronisasi lintas browser. Untuk membuka Pro, pertama beli langganan di blockdistraction.com. Setelah pembayaran, kembali ke halaman ini dan masukkan email Anda di bawah untuk mengaktifkan Pro." },
+  "upgradenow": { "message": "Tingkatkan Sekarang" },
+  "enteremail": { "message": "Masukkan email Anda" },
+  "activatepro": { "message": "Aktifkan Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Pulihkan Akses" },
+  "pleaseenteremail": { "message": "Silakan masukkan email Anda" },
+  "checking": { "message": "Memeriksa..." },
+  "proactivated": { "message": "Fitur Pro diaktifkan!" },
+  "subscriptionnotfound": { "message": "Langganan tidak aktif atau email tidak ditemukan." },
+  "servererror": { "message": "Kesalahan server. Silakan coba lagi." },
+  "proactivatedfor": { "message": "Pro diaktifkan untuk" }
 }

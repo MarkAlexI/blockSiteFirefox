@@ -173,5 +173,18 @@
   "category_adult": { "message": "Contenuto per adulti" },
   "category_uncategorized": { "message": "Non categorizzato" },
   "searchfordomain": { "message": "Cerca un nome di dominio" },
-  "norulesforcategory": { "message": "Nessun sito bloccato per questa categoria." }
+  "norulesforcategory": { "message": "Nessun sito bloccato per questa categoria." },
+  "getpro": { "message": "Pro を入手" },
+  "profunctionstext": { "message": "Pro の機能には、スケジュールされたブロック、パスワード保護、ルールのフィルタリングと検索、ルールのエクスポート/インポート、クロスブラウザ同期が含まれます。Pro を解除するには、まず blockdistraction.com でサブスクリプションを購入してください。支払い後、このページに戻り、下にメールアドレスを入力して Pro を有効化してください。" },
+  "upgradenow": { "message": "今すぐアップグレード" },
+  "enteremail": { "message": "メールアドレスを入力" },
+  "activatepro": { "message": "Pro を有効化" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "アクセスを復元" },
+  "pleaseenteremail": { "message": "メールアドレスを入力してください" },
+  "checking": { "message": "確認中..." },
+  "proactivated": { "message": "Pro 機能が有効化されました！" },
+  "subscriptionnotfound": { "message": "サブスクリプションがアクティブでないか、メールアドレスが見つかりません。" },
+  "servererror": { "message": "サーバーエラー。もう一度お試しください。" },
+  "proactivatedfor": { "message": "Pro が有効化されました：" }
 }

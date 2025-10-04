@@ -164,5 +164,18 @@
   "category_adult": { "message": "Conținut pentru adulți" },
   "category_uncategorized": { "message": "Necategorizat" },
   "searchfordomain": { "message": "Caută nume de domeniu" },
-  "norulesforcategory": { "message": "Nu există site-uri blocate pentru această categorie." }
+  "norulesforcategory": { "message": "Nu există site-uri blocate pentru această categorie." },
+  "getpro": { "message": "Obține Pro" },
+  "profunctionstext": { "message": "Funcțiile Pro includ: blocare programată, protecție cu parolă, filtrare și căutare reguli, export/import de reguli și sincronizare între browsere. Pentru a debloca Pro, achiziționează mai întâi un abonament pe blockdistraction.com. După plată, revino pe această pagină și introdu adresa ta de e-mail mai jos pentru a activa Pro." },
+  "upgradenow": { "message": "Actualizează acum" },
+  "enteremail": { "message": "Introdu adresa ta de e-mail" },
+  "activatepro": { "message": "Activează Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Restaurează accesul" },
+  "pleaseenteremail": { "message": "Te rugăm să introduci adresa ta de e-mail" },
+  "checking": { "message": "Se verifică..." },
+  "proactivated": { "message": "Funcțiile Pro au fost activate!" },
+  "subscriptionnotfound": { "message": "Abonament inactiv sau e-mailul nu a fost găsit." },
+  "servererror": { "message": "Eroare de server. Te rugăm să încerci din nou." },
+  "proactivatedfor": { "message": "Pro activat pentru" }
 }

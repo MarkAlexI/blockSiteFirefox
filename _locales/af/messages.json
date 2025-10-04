@@ -27,7 +27,7 @@
   "donatebtntext": { "message": "Skenk" },
   "blockthat": { "message": "Blokkeer Hierdie Werf" },
   "sendfeedbackbutton": { "message": "Stuur Terugvoer" },
-  "sendfeedbacksubject": { "message": "Terugvoer vir BlockDistractionp" },
+  "sendfeedbacksubject": { "message": "Terugvoer vir BlockDistraction" },
   "sendfeedbackbody": { "message": "Hallo, ek wil graag die volgende terugvoer deel:\n\n" },
   "quote1": { "message": "Bly gefokus, bly sterk." },
   "quote2": { "message": "Jou toekoms word geskep deur wat jy vandag doen." },
@@ -164,5 +164,18 @@
   "category_adult": { "message": "Volwasse" },
   "category_uncategorized": { "message": "Ongekategoriseer" },
   "searchfordomain": { "message": "Soek na domeinnaam" },
-  "norulesforcategory": { "message": "Geen geblokkeerde webwerwe vir hierdie kategorie nie." }
+  "norulesforcategory": { "message": "Geen geblokkeerde webwerwe vir hierdie kategorie nie." },
+  "getpro": { "message": "Kry Pro" },
+  "profunctionstext": { "message": "Pro-funksies sluit in: geskeduleerde blokkering, wagwoordbeskerming, reël-filtrering en soektog, reël-uitvoer/invoer, en kruis-blaaier-sinkronisasie. Om Pro te ontsluit, koop eers 'n intekening by blockdistraction.com. Nadat jy betaal het, kom terug na hierdie bladsy en voer jou e-pos hieronder in om Pro te aktiveer." },
+  "upgradenow": { "message": "Gradeer Nou Op" },
+  "enteremail": { "message": "Voer jou e-pos in" },
+  "activatepro": { "message": "Aktiveer Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Herstel Toegang" },
+  "pleaseenteremail": { "message": "Voer asseblief jou e-pos in" },
+  "checking": { "message": "Kontroleer..." },
+  "proactivated": { "message": "Pro-funksies geaktiveer!" },
+  "subscriptionnotfound": { "message": "Intekening nie aktief of e-pos nie gevind nie." },
+  "servererror": { "message": "Bedienerfout. Probeer asseblief weer." },
+  "proactivatedfor": { "message": "Pro geaktiveer vir" }
 }

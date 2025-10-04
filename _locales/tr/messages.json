@@ -164,5 +164,18 @@
   "category_adult": { "message": "Yetişkin içeriği" },
   "category_uncategorized": { "message": "Kategoriye ayrılmamış" },
   "searchfordomain": { "message": "Alan adı ara" },
-  "norulesforcategory": { "message": "Bu kategori için engellenmiş site yok." }
+  "norulesforcategory": { "message": "Bu kategori için engellenmiş site yok." },
+  "getpro": { "message": "Pro Al" },
+  "profunctionstext": { "message": "Pro özellikler şunları içerir: zamanlanmış engelleme, parola koruması, kural filtreleme ve arama, kural dışa/içe aktarma ve tarayıcılar arası senkronizasyon. Pro'yu açmak için önce blockdistraction.com adresinden bir abonelik satın alın. Ödeme yaptıktan sonra bu sayfaya dönün ve Pro'yu etkinleştirmek için aşağıya e-postanızı girin." },
+  "upgradenow": { "message": "Şimdi Yükselt" },
+  "enteremail": { "message": "E-postanızı girin" },
+  "activatepro": { "message": "Pro'yu Etkinleştir" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Erişimi Geri Yükle" },
+  "pleaseenteremail": { "message": "Lütfen e-postanızı girin" },
+  "checking": { "message": "Kontrol ediliyor..." },
+  "proactivated": { "message": "Pro özellikleri etkinleştirildi!" },
+  "subscriptionnotfound": { "message": "Abonelik aktif değil veya e-posta bulunamadı." },
+  "servererror": { "message": "Sunucu hatası. Lütfen tekrar deneyin." },
+  "proactivatedfor": { "message": "Pro etkinleştirildi:" }
 }

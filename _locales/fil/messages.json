@@ -164,5 +164,18 @@
   "category_adult": { "message": "Nilalaman para sa matatanda" },
   "category_uncategorized": { "message": "Hindi nakategorya" },
   "searchfordomain": { "message": "Maghanap ng pangalan ng domain" },
-  "norulesforcategory": { "message": "Walang naka-block na site para sa kategoryang ito." }
+  "norulesforcategory": { "message": "Walang naka-block na site para sa kategoryang ito." },
+  "getpro": { "message": "Kunin ang Pro" },
+  "profunctionstext": { "message": "Kasama sa mga tampok ng Pro: naka-schedule na pag-block, proteksyon gamit ang password, pagsala at paghahanap ng mga patakaran, pag-export/import ng mga patakaran, at cross-browser sync. Upang ma-unlock ang Pro, bumili muna ng subscription sa blockdistraction.com. Pagkatapos magbayad, bumalik sa pahinang ito at ilagay ang iyong email sa ibaba upang i-activate ang Pro." },
+  "upgradenow": { "message": "Mag-upgrade Ngayon" },
+  "enteremail": { "message": "Ilagay ang iyong email" },
+  "activatepro": { "message": "I-activate ang Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "I-restore ang Access" },
+  "pleaseenteremail": { "message": "Pakilagay ang iyong email" },
+  "checking": { "message": "Tinitingnan..." },
+  "proactivated": { "message": "Na-activate na ang mga tampok ng Pro!" },
+  "subscriptionnotfound": { "message": "Hindi aktibo ang subscription o hindi nakita ang email." },
+  "servererror": { "message": "Error sa server. Pakisubukang muli." },
+  "proactivatedfor": { "message": "Na-activate ang Pro para sa" }
 }

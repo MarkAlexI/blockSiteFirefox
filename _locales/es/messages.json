@@ -173,5 +173,18 @@
   "category_adult": { "message": "Contenido para adultos" },
   "category_uncategorized": { "message": "Sin categorizar" },
   "searchfordomain": { "message": "Buscar nombre de dominio" },
-  "norulesforcategory": { "message": "No hay sitios bloqueados para esta categoría." }
+  "norulesforcategory": { "message": "No hay sitios bloqueados para esta categoría." },
+  "getpro": { "message": "Obtener Pro" },
+  "profunctionstext": { "message": "Las funciones Pro incluyen: bloqueo programado, protección con contraseña, filtrado y búsqueda de reglas, exportación/importación de reglas y sincronización entre navegadores. Para desbloquear Pro, primero adquiere una suscripción en blockdistraction.com. Después del pago, vuelve a esta página e introduce tu correo electrónico a continuación para activar Pro." },
+  "upgradenow": { "message": "Actualizar ahora" },
+  "enteremail": { "message": "Introduce tu correo electrónico" },
+  "activatepro": { "message": "Activar Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Restaurar acceso" },
+  "pleaseenteremail": { "message": "Por favor, introduce tu correo electrónico" },
+  "checking": { "message": "Comprobando..." },
+  "proactivated": { "message": "¡Funciones Pro activadas!" },
+  "subscriptionnotfound": { "message": "Suscripción no activa o correo electrónico no encontrado." },
+  "servererror": { "message": "Error del servidor. Por favor, inténtalo de nuevo." },
+  "proactivatedfor": { "message": "Pro activado para" }
 }

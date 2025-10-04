@@ -164,5 +164,18 @@
   "category_adult": { "message": "Садржај за одрасле" },
   "category_uncategorized": { "message": "Некатегорисано" },
   "searchfordomain": { "message": "Претражи име домена" },
-  "norulesforcategory": { "message": "За ову категорију нема блокираних сајтова." }
+  "norulesforcategory": { "message": "За ову категорију нема блокираних сајтова." },
+  "getpro": { "message": "Набави Pro" },
+  "profunctionstext": { "message": "Pro функције укључују: заказано блокирање, заштиту лозинком, филтрирање и претрагу правила, извоз/увоз правила и синхронизацију између прегледача. Да бисте откључали Pro, прво купите претплату на blockdistraction.com. Након плаћања, вратите се на ову страницу и унесите свој е-маил испод како бисте активирали Pro." },
+  "upgradenow": { "message": "Надогради сада" },
+  "enteremail": { "message": "Унесите свој е-маил" },
+  "activatepro": { "message": "Активирај Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Врати приступ" },
+  "pleaseenteremail": { "message": "Молимо унесите свој е-маил" },
+  "checking": { "message": "Проверавање..." },
+  "proactivated": { "message": "Pro функције активиране!" },
+  "subscriptionnotfound": { "message": "Претплата није активна или е-маил није пронађен." },
+  "servererror": { "message": "Грешка сервера. Покушајте поново." },
+  "proactivatedfor": { "message": "Pro активиран за" }
 }

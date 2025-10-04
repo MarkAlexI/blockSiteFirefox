@@ -164,5 +164,18 @@
   "category_adult": { "message": "Pieaugušo saturs" },
   "category_uncategorized": { "message": "Nekategorizēts" },
   "searchfordomain": { "message": "Meklēt domēna nosaukumu" },
-  "norulesforcategory": { "message": "Šai kategorijai nav bloķētu vietņu." }
+  "norulesforcategory": { "message": "Šai kategorijai nav bloķētu vietņu." },
+  "getpro": { "message": "Iegūt Pro" },
+  "profunctionstext": { "message": "Pro funkcijas ietver: plānoto bloķēšanu, aizsardzību ar paroli, noteikumu filtrēšanu un meklēšanu, noteikumu eksportēšanu/ importēšanu un sinhronizāciju starp pārlūkprogrammām. Lai atbloķētu Pro, vispirms iegādājieties abonementu blockdistraction.com. Pēc maksājuma atgriezieties šajā lapā un zemāk ievadiet savu e-pastu, lai aktivizētu Pro." },
+  "upgradenow": { "message": "Jaunināt tagad" },
+  "enteremail": { "message": "Ievadiet savu e-pastu" },
+  "activatepro": { "message": "Aktivizēt Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Atjaunot piekļuvi" },
+  "pleaseenteremail": { "message": "Lūdzu, ievadiet savu e-pastu" },
+  "checking": { "message": "Pārbauda..." },
+  "proactivated": { "message": "Pro funkcijas aktivizētas!" },
+  "subscriptionnotfound": { "message": "Abonements nav aktīvs vai e-pasts nav atrasts." },
+  "servererror": { "message": "Servera kļūda. Lūdzu, mēģiniet vēlreiz." },
+  "proactivatedfor": { "message": "Pro aktivizēts priekš" }
 }

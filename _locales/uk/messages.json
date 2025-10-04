@@ -173,5 +173,18 @@
   "category_adult": { "message": "Контент для дорослих" },
   "category_uncategorized": { "message": "Без категорії" },
   "searchfordomain": { "message": "Пошук за доменом" },
-  "norulesforcategory": { "message": "Для цієї категорії немає заблокованих сайтів." }
+  "norulesforcategory": { "message": "Для цієї категорії немає заблокованих сайтів." },
+  "getpro": { "message": "Отримати Pro" },
+  "profunctionstext": { "message": "Функції Pro включають: блокування за розкладом, захист паролем, фільтрацію та пошук правил, експорт/імпорт правил і синхронізацію між браузерами. Щоб розблокувати Pro, спершу придбайте підписку на blockdistraction.com. Після оплати поверніться на цю сторінку та введіть свою електронну пошту нижче, щоб активувати Pro." },
+  "upgradenow": { "message": "Оновити зараз" },
+  "enteremail": { "message": "Введіть свою електронну пошту" },
+  "activatepro": { "message": "Активувати Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Відновити доступ" },
+  "pleaseenteremail": { "message": "Будь ласка, введіть свою електронну пошту" },
+  "checking": { "message": "Перевірка..." },
+  "proactivated": { "message": "Функції Pro активовано!" },
+  "subscriptionnotfound": { "message": "Підписка не активна або електронну пошту не знайдено." },
+  "servererror": { "message": "Помилка сервера. Спробуйте ще раз." },
+  "proactivatedfor": { "message": "Pro активовано для" }
 }

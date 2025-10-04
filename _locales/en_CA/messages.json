@@ -164,5 +164,18 @@
   "category_adult": { "message": "Adult" },
   "category_uncategorized": { "message": "Uncategorized" },
   "searchfordomain": { "message": "Search for domain name" },
-  "norulesforcategory": { "message": "No blocked sites for this category." }
+  "norulesforcategory": { "message": "No blocked sites for this category." },
+  "getpro": { "message": "Get Pro" },
+  "profunctionstext": { "message": "Pro features include: scheduled blocking, password protection, rule filtering and search, rule export/import, and cross-browser sync. To unlock Pro, first purchase a subscription at blockdistraction.com. After payment, return to this page and enter your email below to activate Pro." },
+  "upgradenow": { "message": "Upgrade Now" },
+  "enteremail": { "message": "Enter your email" },
+  "activatepro": { "message": "Activate Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Restore Access" },
+  "pleaseenteremail": { "message": "Please enter your email" },
+  "checking": { "message": "Checking..." },
+  "proactivated": { "message": "Pro features activated!" },
+  "subscriptionnotfound": { "message": "Subscription not active or email not found." },
+  "servererror": { "message": "Server error. Please try again." },
+  "proactivatedfor": { "message": "Pro activated for" }
 }

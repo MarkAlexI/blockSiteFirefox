@@ -164,5 +164,18 @@
   "category_adult": { "message": "Aikuisille" },
   "category_uncategorized": { "message": "Luokittelematon" },
   "searchfordomain": { "message": "Etsi verkkotunnusta" },
-  "norulesforcategory": { "message": "Tälle kategoriolle ei ole estettyjä sivustoja." }
+  "norulesforcategory": { "message": "Tälle kategoriolle ei ole estettyjä sivustoja." },
+  "getpro": { "message": "Hanki Pro" },
+  "profunctionstext": { "message": "Pro-ominaisuuksiin kuuluu: aikataulutettu esto, salasanasuojaus, sääntöjen suodatus ja haku, sääntöjen vienti/tuonti sekä selainvälien synkronointi. Pro:n avaamiseksi osta ensin tilaus osoitteesta blockdistraction.com. Maksun jälkeen palaa tälle sivulle ja syötä sähköpostiosoitteesi alla Pro:n aktivoimiseksi." },
+  "upgradenow": { "message": "Päivitä nyt" },
+  "enteremail": { "message": "Syötä sähköpostisi" },
+  "activatepro": { "message": "Aktivoi Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Palauta käyttöoikeus" },
+  "pleaseenteremail": { "message": "Syötä sähköpostisi" },
+  "checking": { "message": "Tarkistetaan..." },
+  "proactivated": { "message": "Pro-ominaisuudet aktivoitu!" },
+  "subscriptionnotfound": { "message": "Tilaus ei ole aktiivinen tai sähköpostia ei löytynyt." },
+  "servererror": { "message": "Palvelinvirhe. Yritä uudelleen." },
+  "proactivatedfor": { "message": "Pro aktivoitu käyttäjälle" }
 }

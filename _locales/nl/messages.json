@@ -164,5 +164,18 @@
   "category_adult": { "message": "Volwasseneninhoud" },
   "category_uncategorized": { "message": "Niet gecategoriseerd" },
   "searchfordomain": { "message": "Zoek naar domeinnaam" },
-  "norulesforcategory": { "message": "Geen geblokkeerde sites voor deze categorie." }
+  "norulesforcategory": { "message": "Geen geblokkeerde sites voor deze categorie." },
+  "getpro": { "message": "Pro verkrijgen" },
+  "profunctionstext": { "message": "Pro-functies omvatten: geplande blokkering, wachtwoordbeveiliging, regels filteren en doorzoeken, regels exporteren/importeren en synchronisatie tussen browsers. Om Pro te ontgrendelen, koop eerst een abonnement op blockdistraction.com. Na betaling keert u terug naar deze pagina en voert u hieronder uw e-mailadres in om Pro te activeren." },
+  "upgradenow": { "message": "Nu upgraden" },
+  "enteremail": { "message": "Voer uw e-mailadres in" },
+  "activatepro": { "message": "Activeer Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Toegang herstellen" },
+  "pleaseenteremail": { "message": "Voer alstublieft uw e-mailadres in" },
+  "checking": { "message": "Bezig met controleren..." },
+  "proactivated": { "message": "Pro-functies geactiveerd!" },
+  "subscriptionnotfound": { "message": "Abonnement niet actief of e-mailadres niet gevonden." },
+  "servererror": { "message": "Serverfout. Probeer het opnieuw." },
+  "proactivatedfor": { "message": "Pro geactiveerd voor" }
 }

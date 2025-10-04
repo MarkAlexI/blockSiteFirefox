@@ -164,5 +164,18 @@
   "category_adult": { "message": "Съдържание за възрастни" },
   "category_uncategorized": { "message": "Некатегоризирано" },
   "searchfordomain": { "message": "Търсене на домейн име" },
-  "norulesforcategory": { "message": "Няма блокирани сайтове за тази категория." }
+  "norulesforcategory": { "message": "Няма блокирани сайтове за тази категория." },
+  "getpro": { "message": "Вземи Pro" },
+  "profunctionstext": { "message": "Pro функциите включват: планирано блокиране, защита с парола, филтриране и търсене на правила, експортиране/импортиране на правила и синхронизация между различни браузъри. За да отключите Pro, първо закупете абонамент на blockdistraction.com. След плащане се върнете на тази страница и въведете имейла си по-долу, за да активирате Pro." },
+  "upgradenow": { "message": "Надгради сега" },
+  "enteremail": { "message": "Въведете имейла си" },
+  "activatepro": { "message": "Активирай Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Възстанови достъп" },
+  "pleaseenteremail": { "message": "Моля, въведете имейла си" },
+  "checking": { "message": "Проверяване..." },
+  "proactivated": { "message": "Pro функциите са активирани!" },
+  "subscriptionnotfound": { "message": "Абонаментът не е активен или имейлът не е намерен." },
+  "servererror": { "message": "Грешка в сървъра. Моля, опитайте отново." },
+  "proactivatedfor": { "message": "Pro е активиран за" }
 }

@@ -164,5 +164,18 @@
   "category_adult": { "message": "成人內容" },
   "category_uncategorized": { "message": "未分類" },
   "searchfordomain": { "message": "搜尋網域名稱" },
-  "norulesforcategory": { "message": "此類別沒有被封鎖的網站。" }
+  "norulesforcategory": { "message": "此類別沒有被封鎖的網站。" },
+  "getpro": { "message": "取得 Pro" },
+  "profunctionstext": { "message": "Pro 功能包括：排程封鎖、密碼保護、規則篩選與搜尋、規則匯出/匯入，以及跨瀏覽器同步。要解鎖 Pro，請先在 blockdistraction.com 購買訂閱。付款後返回此頁面，並在下方輸入您的電子郵件以啟用 Pro。" },
+  "upgradenow": { "message": "立即升級" },
+  "enteremail": { "message": "輸入您的電子郵件" },
+  "activatepro": { "message": "啟用 Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "恢復存取" },
+  "pleaseenteremail": { "message": "請輸入您的電子郵件" },
+  "checking": { "message": "正在檢查..." },
+  "proactivated": { "message": "Pro 功能已啟用！" },
+  "subscriptionnotfound": { "message": "訂閱未啟用或找不到電子郵件。" },
+  "servererror": { "message": "伺服器錯誤。請重試。" },
+  "proactivatedfor": { "message": "已為以下帳號啟用 Pro：" }
 }

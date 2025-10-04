@@ -164,5 +164,18 @@
   "category_adult": { "message": "성인 콘텐츠" },
   "category_uncategorized": { "message": "분류되지 않음" },
   "searchfordomain": { "message": "도메인 이름 검색" },
-  "norulesforcategory": { "message": "이 카테고리에 차단된 사이트가 없습니다." }
+  "norulesforcategory": { "message": "이 카테고리에 차단된 사이트가 없습니다." },
+  "getpro": { "message": "Pro 받기" },
+  "profunctionstext": { "message": "Pro 기능에는 예약 차단, 비밀번호 보호, 규칙 필터링 및 검색, 규칙 내보내기/가져오기, 브라우저 간 동기화가 포함됩니다. Pro를 잠금 해제하려면 먼저 blockdistraction.com에서 구독을 구매하세요. 결제 후 이 페이지로 돌아와 아래에 이메일을 입력하여 Pro를 활성화하세요." },
+  "upgradenow": { "message": "지금 업그레이드" },
+  "enteremail": { "message": "이메일 입력" },
+  "activatepro": { "message": "Pro 활성화" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "액세스 복원" },
+  "pleaseenteremail": { "message": "이메일을 입력해주세요" },
+  "checking": { "message": "확인 중..." },
+  "proactivated": { "message": "Pro 기능이 활성화되었습니다!" },
+  "subscriptionnotfound": { "message": "구독이 활성화되어 있지 않거나 이메일을 찾을 수 없습니다." },
+  "servererror": { "message": "서버 오류. 다시 시도해주세요." },
+  "proactivatedfor": { "message": "Pro가 활성화됨:" }
 }

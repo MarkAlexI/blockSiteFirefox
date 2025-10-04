@@ -164,5 +164,18 @@
   "category_adult": { "message": "Nội dung người lớn" },
   "category_uncategorized": { "message": "Chưa phân loại" },
   "searchfordomain": { "message": "Tìm kiếm tên miền" },
-  "norulesforcategory": { "message": "Không có trang web bị chặn cho danh mục này." }
+  "norulesforcategory": { "message": "Không có trang web bị chặn cho danh mục này." },
+  "getpro": { "message": "Nhận Pro" },
+  "profunctionstext": { "message": "Các tính năng Pro bao gồm: chặn theo lịch, bảo vệ bằng mật khẩu, lọc và tìm kiếm quy tắc, xuất/nhập quy tắc và đồng bộ hóa giữa các trình duyệt. Để mở khóa Pro, trước tiên hãy mua gói đăng ký tại blockdistraction.com. Sau khi thanh toán, quay lại trang này và nhập email của bạn bên dưới để kích hoạt Pro." },
+  "upgradenow": { "message": "Nâng cấp ngay" },
+  "enteremail": { "message": "Nhập email của bạn" },
+  "activatepro": { "message": "Kích hoạt Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Khôi phục quyền truy cập" },
+  "pleaseenteremail": { "message": "Vui lòng nhập email của bạn" },
+  "checking": { "message": "Đang kiểm tra..." },
+  "proactivated": { "message": "Tính năng Pro đã được kích hoạt!" },
+  "subscriptionnotfound": { "message": "Gói đăng ký chưa hoạt động hoặc không tìm thấy email." },
+  "servererror": { "message": "Lỗi máy chủ. Vui lòng thử lại." },
+  "proactivatedfor": { "message": "Pro đã được kích hoạt cho" }
 }

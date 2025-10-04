@@ -164,5 +164,18 @@
   "category_adult": { "message": "Vokseninnhold" },
   "category_uncategorized": { "message": "Uklassifisert" },
   "searchfordomain": { "message": "Søk etter domenenavn" },
-  "norulesforcategory": { "message": "Ingen blokkerte nettsteder for denne kategorien." }
+  "norulesforcategory": { "message": "Ingen blokkerte nettsteder for denne kategorien." },
+  "getpro": { "message": "Få Pro" },
+  "profunctionstext": { "message": "Pro-funksjoner inkluderer: planlagt blokkering, passordbeskyttelse, regel-filtrering og søk, regel-eksport/import og synkronisering mellom nettlesere. For å låse opp Pro, kjøp først et abonnement på blockdistraction.com. Etter betaling, gå tilbake til denne siden og skriv inn e-posten din nedenfor for å aktivere Pro." },
+  "upgradenow": { "message": "Oppgrader nå" },
+  "enteremail": { "message": "Skriv inn e-posten din" },
+  "activatepro": { "message": "Aktiver Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Gjenopprett tilgang" },
+  "pleaseenteremail": { "message": "Vennligst skriv inn e-posten din" },
+  "checking": { "message": "Sjekker..." },
+  "proactivated": { "message": "Pro-funksjoner aktivert!" },
+  "subscriptionnotfound": { "message": "Abonnement ikke aktivt eller e-post ikke funnet." },
+  "servererror": { "message": "Serverfeil. Vennligst prøv igjen." },
+  "proactivatedfor": { "message": "Pro aktivert for" }
 }

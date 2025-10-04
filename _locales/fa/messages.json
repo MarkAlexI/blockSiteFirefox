@@ -164,5 +164,18 @@
   "category_adult": { "message": "محتوای بزرگسالان" },
   "category_uncategorized": { "message": "بدون دسته‌بندی" },
   "searchfordomain": { "message": "جستجوی نام دامنه" },
-  "norulesforcategory": { "message": "هیچ سایتی برای این دسته‌بندی مسدود نشده است." }
+  "norulesforcategory": { "message": "هیچ سایتی برای این دسته‌بندی مسدود نشده است." },
+  "getpro": { "message": "دریافت Pro" },
+  "profunctionstext": { "message": "ویژگی‌های Pro شامل: مسدودسازی زمان‌بندی‌شده، محافظت با رمز عبور، فیلتر و جستجوی قوانین، صادرات/واردات قوانین و همگام‌سازی بین مرورگرها است. برای فعال‌سازی Pro، ابتدا یک اشتراک در blockdistraction.com خریداری کنید. پس از پرداخت، به این صفحه بازگردید و ایمیل خود را در زیر وارد کنید تا Pro فعال شود." },
+  "upgradenow": { "message": "اکنون ارتقا دهید" },
+  "enteremail": { "message": "ایمیل خود را وارد کنید" },
+  "activatepro": { "message": "فعال‌سازی Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "بازیابی دسترسی" },
+  "pleaseenteremail": { "message": "لطفاً ایمیل خود را وارد کنید" },
+  "checking": { "message": "در حال بررسی..." },
+  "proactivated": { "message": "ویژگی‌های Pro فعال شد!" },
+  "subscriptionnotfound": { "message": "اشتراک فعال نیست یا ایمیل یافت نشد." },
+  "servererror": { "message": "خطای سرور. لطفاً دوباره تلاش کنید." },
+  "proactivatedfor": { "message": "Pro فعال شد برای" }
 }

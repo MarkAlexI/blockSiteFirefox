@@ -164,5 +164,18 @@
   "category_adult": { "message": "เนื้อหาผู้ใหญ่" },
   "category_uncategorized": { "message": "ไม่ได้จัดหมวดหมู่" },
   "searchfordomain": { "message": "ค้นหาชื่อโดเมน" },
-  "norulesforcategory": { "message": "ไม่มีเว็บไซต์ที่ถูกบล็อกสำหรับหมวดหมู่นี้" }
+  "norulesforcategory": { "message": "ไม่มีเว็บไซต์ที่ถูกบล็อกสำหรับหมวดหมู่นี้" },
+  "getpro": { "message": "รับ Pro" },
+  "profunctionstext": { "message": "คุณสมบัติ Pro ได้แก่: การบล็อกตามกำหนดเวลา การป้องกันด้วยรหัสผ่าน การกรองและค้นหากฎ การส่งออก/นำเข้ากฎ และการซิงก์ข้ามเบราว์เซอร์ หากต้องการปลดล็อก Pro โปรดซื้อการสมัครสมาชิกที่ blockdistraction.com ก่อน หลังจากชำระเงินแล้ว กลับมาที่หน้านี้และป้อนอีเมลของคุณด้านล่างเพื่อเปิดใช้งาน Pro" },
+  "upgradenow": { "message": "อัปเกรดทันที" },
+  "enteremail": { "message": "กรอกอีเมลของคุณ" },
+  "activatepro": { "message": "เปิดใช้งาน Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "กู้คืนการเข้าถึง" },
+  "pleaseenteremail": { "message": "กรุณากรอกอีเมลของคุณ" },
+  "checking": { "message": "กำลังตรวจสอบ..." },
+  "proactivated": { "message": "เปิดใช้งานคุณสมบัติ Pro แล้ว!" },
+  "subscriptionnotfound": { "message": "การสมัครไม่เปิดใช้งานหรือไม่พบบัญชีอีเมล" },
+  "servererror": { "message": "เกิดข้อผิดพลาดของเซิร์ฟเวอร์ กรุณาลองใหม่อีกครั้ง" },
+  "proactivatedfor": { "message": "Pro เปิดใช้งานสำหรับ" }
 }

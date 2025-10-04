@@ -164,5 +164,18 @@
   "category_adult": { "message": "Pro dospělé" },
   "category_uncategorized": { "message": "Nezařazeno" },
   "searchfordomain": { "message": "Hledat název domény" },
-  "norulesforcategory": { "message": "Pro tuto kategorii nejsou žádné blokované weby." }
+  "norulesforcategory": { "message": "Pro tuto kategorii nejsou žádné blokované weby." },
+  "getpro": { "message": "Získat Pro" },
+  "profunctionstext": { "message": "Funkce Pro zahrnují: plánované blokování, ochranu heslem, filtrování a vyhledávání pravidel, export/import pravidel a synchronizaci mezi prohlížeči. Chcete-li odemknout Pro, nejprve si zakupte předplatné na blockdistraction.com. Po zaplacení se vraťte na tuto stránku a zadejte svůj e-mail níže pro aktivaci Pro." },
+  "upgradenow": { "message": "Upgradovat nyní" },
+  "enteremail": { "message": "Zadejte svůj e-mail" },
+  "activatepro": { "message": "Aktivovat Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Obnovit přístup" },
+  "pleaseenteremail": { "message": "Zadejte prosím svůj e-mail" },
+  "checking": { "message": "Kontroluji..." },
+  "proactivated": { "message": "Funkce Pro byly aktivovány!" },
+  "subscriptionnotfound": { "message": "Předplatné není aktivní nebo e-mail nebyl nalezen." },
+  "servererror": { "message": "Chyba serveru. Zkuste to prosím znovu." },
+  "proactivatedfor": { "message": "Pro bylo aktivováno pro" }
 }

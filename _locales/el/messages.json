@@ -164,5 +164,18 @@
   "category_adult": { "message": "Περιεχόμενο ενηλίκων" },
   "category_uncategorized": { "message": "Μη κατηγοριοποιημένο" },
   "searchfordomain": { "message": "Αναζήτηση ονόματος τομέα" },
-  "norulesforcategory": { "message": "Δεν υπάρχουν αποκλεισμένοι ιστότοποι για αυτήν την κατηγορία." }
+  "norulesforcategory": { "message": "Δεν υπάρχουν αποκλεισμένοι ιστότοποι για αυτήν την κατηγορία." },
+  "getpro": { "message": "Απόκτησε Pro" },
+  "profunctionstext": { "message": "Οι λειτουργίες Pro περιλαμβάνουν: προγραμματισμένο αποκλεισμό, προστασία με κωδικό, φιλτράρισμα και αναζήτηση κανόνων, εξαγωγή/εισαγωγή κανόνων και συγχρονισμό μεταξύ περιηγητών. Για να ξεκλειδώσετε το Pro, αγοράστε πρώτα μια συνδρομή στο blockdistraction.com. Μετά την πληρωμή, επιστρέψτε σε αυτή τη σελίδα και εισάγετε το email σας παρακάτω για να ενεργοποιήσετε το Pro." },
+  "upgradenow": { "message": "Αναβάθμιση τώρα" },
+  "enteremail": { "message": "Εισάγετε το email σας" },
+  "activatepro": { "message": "Ενεργοποίηση Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Επαναφορά πρόσβασης" },
+  "pleaseenteremail": { "message": "Παρακαλώ εισάγετε το email σας" },
+  "checking": { "message": "Έλεγχος..." },
+  "proactivated": { "message": "Οι λειτουργίες Pro ενεργοποιήθηκαν!" },
+  "subscriptionnotfound": { "message": "Η συνδρομή δεν είναι ενεργή ή το email δεν βρέθηκε." },
+  "servererror": { "message": "Σφάλμα διακομιστή. Προσπαθήστε ξανά." },
+  "proactivatedfor": { "message": "Το Pro ενεργοποιήθηκε για" }
 }

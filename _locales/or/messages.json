@@ -173,5 +173,18 @@
   "category_adult": { "message": "ବୟସ୍କ ସାମଗ୍ରୀ" },
   "category_uncategorized": { "message": "ଶ୍ରେଣୀବିହୀନ" },
   "searchfordomain": { "message": "ଡୋମେନ୍ ନାମ ସନ୍ଧାନ କରନ୍ତୁ" },
-  "norulesforcategory": { "message": "ଏହି ଶ୍ରେଣୀ ପାଇଁ କoi ବ୍ଲକ୍ କରାଯାଇଥିବା ସାଇଟ୍ ନାହିଁ।" }
+  "norulesforcategory": { "message": "ଏହି ଶ୍ରେଣୀ ପାଇଁ କoi ବ୍ଲକ୍ କରାଯାଇଥିବା ସାଇଟ୍ ନାହିଁ।" },
+  "getpro": { "message": "ପ୍ରୋ ପାଆନ୍ତୁ" },
+  "profunctionstext": { "message": "ପ୍ରୋ ବୈଶିଷ୍ଟ୍ୟଗୁଡିକରେ ସୂଚିଭୁକ୍ତ ବ୍ଲକିଂ, ପାସୱାର୍ଡ ସୁରକ୍ଷା, ନିୟମ ଫିଲ୍ଟରିଂ ଏବଂ ସନ୍ଧାନ, ନିୟମ ଏକ୍ସପୋର୍ଟ/ଇମ୍ପୋର୍ଟ ଏବଂ ବ୍ରାଉଜର-ମଧ୍ୟରେ ସିଙ୍କ୍ ଅନ୍ତର୍ଭୁକ୍ତ। ପ୍ରୋ ଅନଲକ କରିବାକୁ, ପ୍ରଥମେ blockdistraction.com ରେ ଏକ ସବସ୍କ୍ରିପ୍ସନ କିଣନ୍ତୁ। ପେମେଣ୍ଟ ପରେ, ଏହି ପୃଷ୍ଠାକୁ ଫେରନ୍ତୁ ଏବଂ ପ୍ରୋ ସକ୍ରିୟ କରିବା ପାଇଁ ନିମ୍ନରେ ଆପଣଙ୍କ ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ।" },
+  "upgradenow": { "message": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ" },
+  "enteremail": { "message": "ଆପଣଙ୍କ ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ" },
+  "activatepro": { "message": "ପ୍ରୋ ସକ୍ରିୟ କରନ୍ତୁ" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "ଅଭିଗମ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ" },
+  "pleaseenteremail": { "message": "ଦୟାକରି ଆପଣଙ୍କ ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ" },
+  "checking": { "message": "ଯାଞ୍ଚ ହେଉଛି..." },
+  "proactivated": { "message": "ପ୍ରୋ ବୈଶିଷ୍ଟ୍ୟଗୁଡିକ ସକ୍ରିୟ ହୋଇଛି!" },
+  "subscriptionnotfound": { "message": "ସବସ୍କ୍ରିପ୍ସନ ସକ୍ରିୟ ନୁହେଁ କିମ୍ବା ଇମେଲ୍ ମିଳିଲା ନାହିଁ।" },
+  "servererror": { "message": "ସର୍ଭର ତ୍ରୁଟି। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।" },
+  "proactivatedfor": { "message": "ପ୍ରୋ ସକ୍ରିୟ ହୋଇଛି:" }
 }

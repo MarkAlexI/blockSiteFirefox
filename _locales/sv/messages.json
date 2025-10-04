@@ -164,5 +164,18 @@
   "category_adult": { "message": "Vuxeninnehåll" },
   "category_uncategorized": { "message": "Okategoriserad" },
   "searchfordomain": { "message": "Sök efter domännamn" },
-  "norulesforcategory": { "message": "Inga blockerade webbplatser för denna kategori." }
+  "norulesforcategory": { "message": "Inga blockerade webbplatser för denna kategori." },
+  "getpro": { "message": "Skaffa Pro" },
+  "profunctionstext": { "message": "Pro-funktionerna inkluderar: schemalagd blockering, lösenordsskydd, filtrering och sökning av regler, export/import av regler samt synkronisering mellan webbläsare. För att låsa upp Pro, köp först en prenumeration på blockdistraction.com. Efter betalning, återvänd till denna sida och ange din e-postadress nedan för att aktivera Pro." },
+  "upgradenow": { "message": "Uppgradera nu" },
+  "enteremail": { "message": "Ange din e-postadress" },
+  "activatepro": { "message": "Aktivera Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Återställ åtkomst" },
+  "pleaseenteremail": { "message": "Vänligen ange din e-postadress" },
+  "checking": { "message": "Kontrollerar..." },
+  "proactivated": { "message": "Pro-funktionerna har aktiverats!" },
+  "subscriptionnotfound": { "message": "Prenumerationen är inte aktiv eller e-postadressen hittades inte." },
+  "servererror": { "message": "Serverfel. Försök igen." },
+  "proactivatedfor": { "message": "Pro aktiverat för" }
 }

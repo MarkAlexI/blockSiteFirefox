@@ -164,5 +164,18 @@
   "category_adult": { "message": "Täiskasvanutele" },
   "category_uncategorized": { "message": "Kategooriateta" },
   "searchfordomain": { "message": "Otsi domeeninime" },
-  "norulesforcategory": { "message": "Selle kategooria jaoks pole blokeeritud saite." }
+  "norulesforcategory": { "message": "Selle kategooria jaoks pole blokeeritud saite." },
+  "getpro": { "message": "Hangi Pro" },
+  "profunctionstext": { "message": "Pro funktsioonid hõlmavad: ajastatud blokeerimist, paroolikaitset, reeglite filtreerimist ja otsingut, reeglite eksporti/importi ning brauseritevahelist sünkroonimist. Pro avamiseks osta esmalt tellimus aadressil blockdistraction.com. Pärast makse sooritamist naase sellele lehele ja sisesta oma e-posti aadress allpool Pro aktiveerimiseks." },
+  "upgradenow": { "message": "Uuenda kohe" },
+  "enteremail": { "message": "Sisesta oma e-post" },
+  "activatepro": { "message": "Aktiveeri Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Taasta juurdepääs" },
+  "pleaseenteremail": { "message": "Palun sisesta oma e-post" },
+  "checking": { "message": "Kontrollin..." },
+  "proactivated": { "message": "Pro funktsioonid aktiveeritud!" },
+  "subscriptionnotfound": { "message": "Tellimus pole aktiivne või e-posti aadressi ei leitud." },
+  "servererror": { "message": "Serveri viga. Palun proovi uuesti." },
+  "proactivatedfor": { "message": "Pro aktiveeritud kasutajale" }
 }

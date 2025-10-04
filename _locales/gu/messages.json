@@ -164,5 +164,18 @@
   "category_adult": { "message": "વયસ્ક સામગ્રી" },
   "category_uncategorized": { "message": "અવર્ગીકૃત" },
   "searchfordomain": { "message": "ડોમેન નામ માટે શોધો" },
-  "norulesforcategory": { "message": "આ શ્રેણી માટે કોઈ અવરોધિત સાઇટ્સ નથી." }
+  "norulesforcategory": { "message": "આ શ્રેણી માટે કોઈ અવરોધિત સાઇટ્સ નથી." },
+  "getpro": { "message": "પ્રો મેળવો" },
+  "profunctionstext": { "message": "પ્રો સુવિધાઓમાં સમાવિષ્ટ છે: નિર્ધારિત બ્લોકિંગ, પાસવર્ડ સુરક્ષા, નિયમ ફિલ્ટરિંગ અને શોધ, નિયમ નિકાસ/આયાત, અને ક્રોસ-બ્રાઉઝર સિંક. પ્રો અનલોક કરવા માટે, પહેલાં blockdistraction.com પર સબ્સ્ક્રિપ્શન ખરીદો. ચુકવણી પછી, આ પેજ પર પાછા ફરો અને પ્રો સક્રિય કરવા માટે નીચે તમારો ઈમેલ દાખલ કરો." },
+  "upgradenow": { "message": "હવે અપગ્રેડ કરો" },
+  "enteremail": { "message": "તમારો ઈમેલ દાખલ કરો" },
+  "activatepro": { "message": "પ્રો સક્રિય કરો" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "ઍક્સેસ પુનઃપ્રાપ્ત કરો" },
+  "pleaseenteremail": { "message": "કૃપા કરીને તમારો ઈમેલ દાખલ કરો" },
+  "checking": { "message": "ચકાસણી થઈ રહી છે..." },
+  "proactivated": { "message": "પ્રો સુવિધાઓ સક્રિય થઈ ગઈ છે!" },
+  "subscriptionnotfound": { "message": "સબ્સ્ક્રિપ્શન સક્રિય નથી અથવા ઈમેલ મળ્યો નથી." },
+  "servererror": { "message": "સર્વર ભૂલ. કૃપા કરીને ફરીથી પ્રયત્ન કરો." },
+  "proactivatedfor": { "message": "પ્રો સક્રિય કરાયું છે માટે" }
 }

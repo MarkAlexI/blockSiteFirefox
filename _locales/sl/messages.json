@@ -164,5 +164,18 @@
   "category_adult": { "message": "Vsebine za odrasle" },
   "category_uncategorized": { "message": "Nekategorizirano" },
   "searchfordomain": { "message": "Išči ime domene" },
-  "norulesforcategory": { "message": "Za to kategorijo ni blokiranih spletnih mest." }
+  "norulesforcategory": { "message": "Za to kategorijo ni blokiranih spletnih mest." },
+  "getpro": { "message": "Pridobi Pro" },
+  "profunctionstext": { "message": "Funkcije Pro vključujejo: načrtovano blokiranje, zaščito z geslom, filtriranje in iskanje pravil, izvoz/uvoz pravil ter sinhronizacijo med brskalniki. Za odklep Pro najprej kupite naročnino na blockdistraction.com. Po plačilu se vrnite na to stran in spodaj vnesite svoj e-poštni naslov, da aktivirate Pro." },
+  "upgradenow": { "message": "Nadgradi zdaj" },
+  "enteremail": { "message": "Vnesite svoj e-poštni naslov" },
+  "activatepro": { "message": "Aktiviraj Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Obnovi dostop" },
+  "pleaseenteremail": { "message": "Prosimo, vnesite svoj e-poštni naslov" },
+  "checking": { "message": "Preverjanje..." },
+  "proactivated": { "message": "Funkcije Pro so aktivirane!" },
+  "subscriptionnotfound": { "message": "Naročnina ni aktivna ali e-pošta ni bila najdena." },
+  "servererror": { "message": "Napaka strežnika. Poskusite znova." },
+  "proactivatedfor": { "message": "Pro aktiviran za" }
 }

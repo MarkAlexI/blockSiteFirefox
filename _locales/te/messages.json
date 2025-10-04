@@ -164,5 +164,18 @@
   "category_adult": { "message": "వయస్కులకు కంటెంట్" },
   "category_uncategorized": { "message": "వర్గీకరించబడని" },
   "searchfordomain": { "message": "డొమైన్ పేరును వెతకండి" },
-  "norulesforcategory": { "message": "ఈ వర్గానికి ఏ బ్లాక్ చేసిన సైట్లూ లేవు." }
+  "norulesforcategory": { "message": "ఈ వర్గానికి ఏ బ్లాక్ చేసిన సైట్లూ లేవు." },
+  "getpro": { "message": "ప్రో పొందండి" },
+  "profunctionstext": { "message": "ప్రో లక్షణాలలో: షెడ్యూల్ చేసిన నిరోధం, పాస్‌వర్డ్ రక్షణ, నియమాల వడపోత మరియు శోధన, నియమాల ఎగుమతి/దిగుమతి మరియు బ్రౌజర్ల మధ్య సమకాలీకరణ ఉంటాయి. ప్రోను అన్‌లాక్ చేయడానికి, ముందుగా blockdistraction.com లో ఒక సభ్యత్వాన్ని కొనుగోలు చేయండి. చెల్లింపు తర్వాత, ఈ పేజీకి తిరిగి వచ్చి ప్రోను సక్రియం చేయడానికి క్రింద మీ ఇమెయిల్‌ని నమోదు చేయండి." },
+  "upgradenow": { "message": "ఇప్పుడే అప్‌గ్రేడ్ చేయండి" },
+  "enteremail": { "message": "మీ ఇమెయిల్‌ని నమోదు చేయండి" },
+  "activatepro": { "message": "ప్రోను సక్రియం చేయండి" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "ప్రవేశాన్ని పునరుద్ధరించండి" },
+  "pleaseenteremail": { "message": "దయచేసి మీ ఇమెయిల్‌ని నమోదు చేయండి" },
+  "checking": { "message": "పరిశీలిస్తోంది..." },
+  "proactivated": { "message": "ప్రో లక్షణాలు సక్రియం అయ్యాయి!" },
+  "subscriptionnotfound": { "message": "సభ్యత్వం క్రియాశీలంగా లేదు లేదా ఇమెయిల్ కనుగొనబడలేదు." },
+  "servererror": { "message": "సర్వర్ లోపం. దయచేసి మళ్లీ ప్రయత్నించండి." },
+  "proactivatedfor": { "message": "ప్రో సక్రియం చేయబడింది:" }
 }

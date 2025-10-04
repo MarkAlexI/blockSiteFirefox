@@ -164,5 +164,18 @@
   "category_adult": { "message": "Treści dla dorosłych" },
   "category_uncategorized": { "message": "Nieprzypisane" },
   "searchfordomain": { "message": "Szukaj nazwy domeny" },
-  "norulesforcategory": { "message": "Brak zablokowanych witryn dla tej kategorii." }
+  "norulesforcategory": { "message": "Brak zablokowanych witryn dla tej kategorii." },
+  "getpro": { "message": "Uzyskaj Pro" },
+  "profunctionstext": { "message": "Funkcje Pro obejmują: blokowanie według harmonogramu, ochronę hasłem, filtrowanie i wyszukiwanie reguł, eksport/import reguł oraz synchronizację między przeglądarkami. Aby odblokować Pro, najpierw wykup subskrypcję na blockdistraction.com. Po dokonaniu płatności wróć na tę stronę i wprowadź swój adres e-mail poniżej, aby aktywować Pro." },
+  "upgradenow": { "message": "Uaktualnij teraz" },
+  "enteremail": { "message": "Wpisz swój e-mail" },
+  "activatepro": { "message": "Aktywuj Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Przywróć dostęp" },
+  "pleaseenteremail": { "message": "Proszę podać swój adres e-mail" },
+  "checking": { "message": "Sprawdzanie..." },
+  "proactivated": { "message": "Funkcje Pro zostały aktywowane!" },
+  "subscriptionnotfound": { "message": "Subskrypcja nieaktywna lub e-mail nie został znaleziony." },
+  "servererror": { "message": "Błąd serwera. Spróbuj ponownie." },
+  "proactivatedfor": { "message": "Pro zostało aktywowane dla" }
 }

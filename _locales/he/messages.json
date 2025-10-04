@@ -164,5 +164,18 @@
   "category_adult": { "message": "תוכן למבוגרים" },
   "category_uncategorized": { "message": "ללא קטגוריה" },
   "searchfordomain": { "message": "חפש שם דומיין" },
-  "norulesforcategory": { "message": "אין אתרים חסומים עבור קטגוריה זו." }
+  "norulesforcategory": { "message": "אין אתרים חסומים עבור קטגוריה זו." },
+  "getpro": { "message": "קבל Pro" },
+  "profunctionstext": { "message": "תכונות Pro כוללות: חסימה מתוזמנת, הגנה בסיסמה, סינון וחיפוש חוקים, ייצוא/יבוא חוקים, וסנכרון בין דפדפנים. כדי לפתוח את Pro, רכש תחילה מנוי ב-blockdistraction.com. לאחר התשלום, חזור לעמוד זה והזן את הדואר האלקטרוני שלך למטה כדי להפעיל את Pro." },
+  "upgradenow": { "message": "שדרג עכשיו" },
+  "enteremail": { "message": "הזן את הדואר האלקטרוני שלך" },
+  "activatepro": { "message": "הפעל Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "שחזר גישה" },
+  "pleaseenteremail": { "message": "אנא הזן את הדואר האלקטרוני שלך" },
+  "checking": { "message": "בודק..." },
+  "proactivated": { "message": "תכונות Pro הופעלו!" },
+  "subscriptionnotfound": { "message": "המנוי אינו פעיל או שהדואר האלקטרוני לא נמצא." },
+  "servererror": { "message": "שגיאת שרת. אנא נסה שוב." },
+  "proactivatedfor": { "message": "Pro הופעל עבור" }
 }

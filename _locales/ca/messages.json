@@ -164,5 +164,18 @@
   "category_adult": { "message": "Per a adults" },
   "category_uncategorized": { "message": "Sense categoria" },
   "searchfordomain": { "message": "Cerca un nom de domini" },
-  "norulesforcategory": { "message": "No hi ha llocs web bloquejats per a aquesta categoria." }
+  "norulesforcategory": { "message": "No hi ha llocs web bloquejats per a aquesta categoria." },
+  "getpro": { "message": "Obtén Pro" },
+  "profunctionstext": { "message": "Les funcions Pro inclouen: bloqueig programat, protecció amb contrasenya, filtratge i cerca de regles, exportació/importació de regles i sincronització entre navegadors. Per desbloquejar Pro, primer compra una subscripció a blockdistraction.com. Després del pagament, torna a aquesta pàgina i introdueix el teu correu electrònic a continuació per activar Pro." },
+  "upgradenow": { "message": "Actualitza ara" },
+  "enteremail": { "message": "Introdueix el teu correu electrònic" },
+  "activatepro": { "message": "Activa Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Restaura l'accés" },
+  "pleaseenteremail": { "message": "Si us plau, introdueix el teu correu electrònic" },
+  "checking": { "message": "Comprovant..." },
+  "proactivated": { "message": "Funcions Pro activades!" },
+  "subscriptionnotfound": { "message": "Subscripció no activa o correu electrònic no trobat." },
+  "servererror": { "message": "Error del servidor. Torna-ho a provar si us plau." },
+  "proactivatedfor": { "message": "Pro activat per a" }
 }

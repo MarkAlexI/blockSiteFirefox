@@ -164,5 +164,18 @@
   "category_adult": { "message": "Yaliyomo kwa Watu Wakuze" },
   "category_uncategorized": { "message": "Haijapangwa" },
   "searchfordomain": { "message": "Tafuta jina la kikoa" },
-  "norulesforcategory": { "message": "Hakuna tovuti zilizozuiwa kwa kategoria hii." }
+  "norulesforcategory": { "message": "Hakuna tovuti zilizozuiwa kwa kategoria hii." },
+  "getpro": { "message": "Pata Pro" },
+  "profunctionstext": { "message": "Vipengele vya Pro vinajumuisha: kuzuia kwa ratiba, ulinzi wa nenosiri, kuchuja na kutafuta sheria, kusafirisha/kuletewa sheria na usawazishaji kati ya vivinjari. Ili kufungua Pro, kwanza nunua usajili kwenye blockdistraction.com. Baada ya malipo, rudi kwenye ukurasa huu na ingiza barua pepe yako hapa chini ili kuamsha Pro." },
+  "upgradenow": { "message": "Boresha sasa" },
+  "enteremail": { "message": "Weka barua pepe yako" },
+  "activatepro": { "message": "Washa Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Rejesha Ufikiaji" },
+  "pleaseenteremail": { "message": "Tafadhali weka barua pepe yako" },
+  "checking": { "message": "Inakagua..." },
+  "proactivated": { "message": "Vipengele vya Pro vimewashwa!" },
+  "subscriptionnotfound": { "message": "Usajili hauko hai au barua pepe haikupatikana." },
+  "servererror": { "message": "Hitilafu ya seva. Tafadhali jaribu tena." },
+  "proactivatedfor": { "message": "Pro imewashwa kwa" }
 }
