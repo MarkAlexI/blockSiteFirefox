@@ -129,7 +129,7 @@ async function validateDnrIntegrity() {
     
     if (!isInSync) {
       console.warn("DNR rules out of sync, triggering sync...");
-      await syncDnrFromStorage();
+      await updateActiveRules();
     }
     
     return isInSync;
