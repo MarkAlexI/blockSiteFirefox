@@ -4,6 +4,49 @@ import { StatisticsManager } from '../pro/statisticsManager.js';
 import { ProManager } from '../pro/proManager.js';
 
 const rulesManager = new RulesManager();
+const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
+
+async function syncLicenseKeyStatus() {
+  const credentials = await ProManager.getCredentials();
+  const currentKey = credentials.licenseKey;
+  
+  if (!currentKey) {
+    console.log('License Sync: No key stored, skipping sync.');
+    if (credentials.isPro) {
+      await handleProStatusUpdate(false, { licenseKey: null, expiryDate: null, subscriptionEmail: null });
+    }
+    return { success: false, isPro: false };
+  }
+  
+  console.log('License Sync: Checking stored key...');
+  try {
+    const response = await fetch(VERIFY_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: currentKey })
+    });
+    
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.error || 'Invalid key');
+    }
+    
+    await handleProStatusUpdate(data.isPro, {
+      licenseKey: currentKey,
+      subscriptionEmail: data.email,
+      expiryDate: data.expiryDate
+    });
+    
+    console.log('License Sync: Status updated from server. isPro:', data.isPro);
+    return { success: true, isPro: data.isPro };
+    
+  } catch (error) {
+    console.error('License Sync: Error:', error.message);
+    
+    return { success: false, isPro: credentials.isPro };
+  }
+}
 
 async function updateContextMenu(isPro) {
   if (!browser.contextMenus) {
@@ -304,12 +347,20 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   if (message.type === 'pro_status_changed') {
     updateContextMenu(message.isPro);
   }
+  
+  if (message.type === 'force_sync') {
+    syncLicenseKeyStatus()
+      .then(result => sendResponse(result))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
 });
 
 browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'check_pro_expiry') {
-    const isPro = await checkProStatusExpiry();
-    await updateContextMenu(isPro);
+    const isProLocally = await checkProStatusExpiry();
+    //    const syncResult = await syncLicenseKeyStatus();
+    await updateContextMenu(isProLocally); //syncResult.isPro);
   }
   
   if (alarm.name === 'update_scheduled_rules') {
@@ -319,7 +370,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 
 browser.alarms.create('check_pro_expiry', {
   delayInMinutes: 30,
-  periodInMinutes: 30
+  periodInMinutes: 1440
 });
 
 browser.alarms.create('update_scheduled_rules', {

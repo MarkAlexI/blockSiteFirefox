@@ -20,39 +20,49 @@
     
     <div class="go-pro hidden">
       <button class="pro-toggle" id="proBtn">
-        <span data-i18n="getpro">Get Pro</span>
+        <span id="proBtnText" data-i18n="getpro">Get Pro</span>
         <i class="chevron"></i>
       </button>
       
       <div class="pro-wrapper" id="proWrapper">
         <div class="pro-content" id="proContent">
-          <h2 data-i18n="chromename">BlockDistraction</h2>
-          
-          <div class="pro-locked">
-            <p data-i18n="profunctionstext">
-              Pro features include: scheduled blocking, password protection, rule filtering and search, rule export/import, and cross-browser sync. To unlock Pro, first purchase a subscription at blockdistraction.com. After payment, return to this page and enter your email below to activate Pro.
-            </p>
+          <div id="pro-activate-view">
+            <h2 data-i18n="chromename">BlockDistraction Pro</h2>
+            <div class="pro-locked">
+              <p data-i18n="profunctionstext">
+                To unlock Pro, first purchase a subscription at blockdistraction.com. After payment, find your License Key on your "My Account" page.
+              </p>
+              <a href="https://blockdistraction.com/upgrade.html" target="_blank" data-i18n="upgradenow">Upgrade Now</a>
+            </div>
             
-            <a href="https://blockdistraction.com/upgrade.html" target="_blank" data-i18n="upgradenow">Upgrade Now</a>
+            <hr />
+            
+            <form id="license-form">
+              <label for="license-key-input" data-i18n="pastekeylabel">Paste your License Key here:</label>
+              <input type_="text" id="license-key-input" placeholder="BD-PRO-..." required>
+              
+              <button type="submit" id="license-submit-btn">
+                <span data-i18n="activatepro">Activate Pro</span>
+              </button>
+            </form>
+            
+            <p id="license-message" class="error hidden"></p>
           </div>
           
-          <hr />
-          
-          <form id="login-form">
-            <input type="email" id="email" placeholder="Enter your email" required data-i18n-placeholder="enteremail">
+          <div id="pro-active-view hidden">
+            <h2 data-i18n="proactive">Pro Status: Active</h2>
+            <p>Thank you for your support! All Pro features are unlocked.</p>
+            <p class="synced">
+              Your license is synced with your account. If you lose access, you can retrieve your key from:
+            </p>
+            <a href="https://blockdistraction.com/account.html" target="_blank">blockdistraction.com/account.html</a>
             
-            <button type="submit">
-              <span data-i18n="activatepro">Activate Pro</span>
+            <hr />
+            <button id="force-sync-btn" class="link-button">
+              Force Sync / Check Status
             </button>
-          </form>
+          </div>
           
-          <hr />
-          
-          <p id="message" class="error" data-i18n="errormessage"></p>
-          
-          <p>
-            <a href="https://blockdistraction.com/restore.html" target="_blank" data-i18n="restoreaccess">Restore Access</a>
-          </p>
         </div>
       </div>
     </div>
@@ -255,7 +265,7 @@
   
   <script type="module" src="../scripts/i18n.js"></script>
   <script type="module" src="./options.js"></script>
-  <script type="module" src="./goPro.js"></script>
+  <!-- <script type="module" src="./goPro.js"></script> -->
 </body>
 
 </html>

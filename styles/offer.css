@@ -79,3 +79,16 @@
 .success {
   color: green;
 }
+
+.synced {
+  font-size: 0.9em;
+  color: #555;
+}
+
+#force-sync-btn {
+  background: none;
+  border: none;
+  color: #007aff;
+  text-decoration: underline;
+  cursor: pointer;
+}
