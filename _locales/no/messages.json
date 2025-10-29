@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro-funksjoner aktivert!" },
   "subscriptionnotfound": { "message": "Abonnement ikke aktivt eller e-post ikke funnet." },
   "servererror": { "message": "Serverfeil. Vennligst prøv igjen." },
-  "proactivatedfor": { "message": "Pro aktivert for" }
+  "proactivatedfor": { "message": "Pro aktivert for" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro-aktivering og status"
+  },
+  "options_pro_key_label": {
+    "message": "Lisensnøkkel"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Skriv inn lisensnøkkelen din her"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktiver Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Logg inn på blockdistraction.com for å finne nøkkelen din."
+  },
+  "options_pro_status_checking": {
+    "message": "Sjekker nøkkel..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Lisensnøkkelen er ugyldig eller har utløpt."
+  },
+  "options_pro_status_error": {
+    "message": "En feil oppstod. Vennligst sjekk internettforbindelsen din."
+  },
+  "options_pro_status_success": {
+    "message": "Pro-status aktivert!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro-status: Aktiv"
+  },
+  "options_pro_view_email_label": {
+    "message": "Konto-e-post"
+  },
+  "options_pro_view_key_label": {
+    "message": "Lisensnøkkel"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Fornyes"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Administrer abonnement på nettsiden"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopier"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopiert!"
+  },
+  "onboarding_title": {
+    "message": "Velkommen til BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Velkommen til BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Takk for at du installerte utvidelsen vår. Bare ett steg gjenstår for å aktivere beskyttelsen din."
+  },
+  "onboarding_box_title": {
+    "message": "Handling kreves: Gi tillatelse"
+  },
+  "onboarding_box_p1": {
+    "message": "For å blokkere nettsteder må utvidelsen ha tilgang til fanene dine. Siden dette er en kraftig tillatelse, <strong>må du gi den manuelt.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klikk på knappen nedenfor. Et nettleservindu vil dukke opp og be deg om å klikke «Tillat»."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktiver full beskyttelse"
+  },
+  "onboarding_status_success": {
+    "message": "Ferdig! Beskyttelsen er nå aktiv. Du kan lukke denne fanen."
+  },
+  "onboarding_status_denied": {
+    "message": "Tillatelse nektet. Utvidelsen vil ikke fungere korrekt. Prøv igjen eller gi tillatelse fra innstillingene."
+  },
+  "onboarding_status_error": {
+    "message": "En feil oppstod. Vennligst gi tillatelse fra utvidelsesinnstillingene."
+  },
+  "onboarding_status_api_error": {
+    "message": "Forespørsel om tillatelse mislyktes (kan skje på mobil). Prøv igjen, eller gi tillatelse manuelt fra innstillingene."
+  }
 }

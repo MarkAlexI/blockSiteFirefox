@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro funkcijos suaktyvintos!" },
   "subscriptionnotfound": { "message": "Prenumerata nėra aktyvi arba el. paštas nerastas." },
   "servererror": { "message": "Serverio klaida. Bandykite dar kartą." },
-  "proactivatedfor": { "message": "Pro suaktyvintas vartotojui" }
+  "proactivatedfor": { "message": "Pro suaktyvintas vartotojui" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro aktyvavimas ir būsena"
+  },
+  "options_pro_key_label": {
+    "message": "Licencijos raktas"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Įveskite savo licencijos raktą čia"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktyvuoti Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Prisijunkite prie blockdistraction.com, kad surastumėte savo raktą."
+  },
+  "options_pro_status_checking": {
+    "message": "Tikrinamas raktas..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licencijos raktas yra negaliojantis arba pasibaigęs."
+  },
+  "options_pro_status_error": {
+    "message": "Įvyko klaida. Patikrinkite savo interneto ryšį."
+  },
+  "options_pro_status_success": {
+    "message": "Pro būsena sėkmingai aktyvuota!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro būsena: Aktyvi"
+  },
+  "options_pro_view_email_label": {
+    "message": "Paskyros el. paštas"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licencijos raktas"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Atnaujinama"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Valdyti prenumeratą svetainėje"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopijuoti"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Nukopijuota!"
+  },
+  "onboarding_title": {
+    "message": "Sveiki atvykę į BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Sveiki atvykę į BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Dėkojame, kad įdiegėte mūsų plėtinį. Liko tik paskutinis žingsnis, kad įjungtumėte savo apsaugą."
+  },
+  "onboarding_box_title": {
+    "message": "Veiksmas reikalingas: suteikite leidimą"
+  },
+  "onboarding_box_p1": {
+    "message": "Norint blokuoti svetaines, plėtinys turi prieigą prie jūsų skirtukų. Kadangi tai yra galingas leidimas, <strong>turite suteikti jį rankiniu būdu.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Paspauskite žemiau esantį mygtuką. Atsiras naršyklės iššokantis langas, kuris paprašys spustelėti „Leisti“."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktyvuoti pilną apsaugą"
+  },
+  "onboarding_status_success": {
+    "message": "Sėkmė! Apsauga dabar aktyvi. Galite uždaryti šį skirtuką."
+  },
+  "onboarding_status_denied": {
+    "message": "Leidimas atmestas. Plėtinys negalės tinkamai veikti. Bandykite dar kartą arba suteikite leidimą per nustatymus."
+  },
+  "onboarding_status_error": {
+    "message": "Įvyko klaida. Prašome suteikti leidimą per plėtinio nustatymus."
+  },
+  "onboarding_status_api_error": {
+    "message": "Leidimo prašymas nepavyko (gali atsitikti mobiliajame įrenginyje). Bandykite dar kartą arba suteikite leidimą rankiniu būdu per nustatymus."
+  }
 }

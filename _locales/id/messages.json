@@ -177,5 +177,89 @@
   "proactivated": { "message": "Fitur Pro diaktifkan!" },
   "subscriptionnotfound": { "message": "Langganan tidak aktif atau email tidak ditemukan." },
   "servererror": { "message": "Kesalahan server. Silakan coba lagi." },
-  "proactivatedfor": { "message": "Pro diaktifkan untuk" }
+  "proactivatedfor": { "message": "Pro diaktifkan untuk" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Aktivasi & Status Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Kunci Lisensi"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Masukkan kunci lisensi Anda di sini"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktifkan Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Masuk ke blockdistraction.com untuk menemukan kunci Anda."
+  },
+  "options_pro_status_checking": {
+    "message": "Memeriksa kunci..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Kunci lisensi tidak valid atau telah kedaluwarsa."
+  },
+  "options_pro_status_error": {
+    "message": "Terjadi kesalahan. Periksa koneksi internet Anda."
+  },
+  "options_pro_status_success": {
+    "message": "Status Pro berhasil diaktifkan!"
+  },
+  "options_pro_view_title": {
+    "message": "Status Pro: Aktif"
+  },
+  "options_pro_view_email_label": {
+    "message": "Email Akun"
+  },
+  "options_pro_view_key_label": {
+    "message": "Kunci Lisensi"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Diperbarui Pada"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Kelola Langganan di Situs Web"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Salin"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Tersalin!"
+  },
+  "onboarding_title": {
+    "message": "Selamat Datang di BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Selamat datang di BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Terima kasih telah memasang ekstensi kami. Hanya ada satu langkah lagi untuk mengaktifkan perlindungan Anda."
+  },
+  "onboarding_box_title": {
+    "message": "Tindakan Diperlukan: Berikan Izin"
+  },
+  "onboarding_box_p1": {
+    "message": "Untuk memblokir situs, ekstensi perlu mendapatkan izin untuk mengakses tab Anda. Karena ini adalah izin yang kuat, <strong>Anda harus memberikannya secara manual.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klik tombol di bawah ini. Jendela pop-up browser akan muncul meminta Anda untuk mengklik \"Izinkan\"."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktifkan Perlindungan Penuh"
+  },
+  "onboarding_status_success": {
+    "message": "Berhasil! Perlindungan sekarang aktif. Anda dapat menutup tab ini."
+  },
+  "onboarding_status_denied": {
+    "message": "Izin ditolak. Ekstensi tidak dapat berfungsi dengan benar. Coba lagi atau berikan izin dari pengaturan ekstensi."
+  },
+  "onboarding_status_error": {
+    "message": "Terjadi kesalahan. Harap berikan izin dari pengaturan ekstensi."
+  },
+  "onboarding_status_api_error": {
+    "message": "Permintaan izin gagal (ini bisa terjadi di perangkat seluler). Coba lagi, atau berikan izin secara manual dari pengaturan ekstensi."
+  }
 }

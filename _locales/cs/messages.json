@@ -177,5 +177,89 @@
   "proactivated": { "message": "Funkce Pro byly aktivovány!" },
   "subscriptionnotfound": { "message": "Předplatné není aktivní nebo e-mail nebyl nalezen." },
   "servererror": { "message": "Chyba serveru. Zkuste to prosím znovu." },
-  "proactivatedfor": { "message": "Pro bylo aktivováno pro" }
+  "proactivatedfor": { "message": "Pro bylo aktivováno pro" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Aktivace Pro a stav"
+  },
+  "options_pro_key_label": {
+    "message": "Licenční klíč"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Zadejte svůj licenční klíč sem"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktivovat Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Přihlaste se na blockdistraction.com, abyste našli svůj klíč."
+  },
+  "options_pro_status_checking": {
+    "message": "Kontrola klíče..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licenční klíč je neplatný nebo vypršel."
+  },
+  "options_pro_status_error": {
+    "message": "Došlo k chybě. Zkontrolujte své připojení k internetu."
+  },
+  "options_pro_status_success": {
+    "message": "Stav Pro byl úspěšně aktivován!"
+  },
+  "options_pro_view_title": {
+    "message": "Stav Pro: Aktivní"
+  },
+  "options_pro_view_email_label": {
+    "message": "E-mail účtu"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licenční klíč"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Obnoví se"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Spravovat předplatné na webu"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopírovat"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Zkopírováno!"
+  },
+  "onboarding_title": {
+    "message": "Vítejte v BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Vítejte v BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Děkujeme, že jste nainstalovali naše rozšíření. Zbývá pouze jeden krok k aktivaci ochrany."
+  },
+  "onboarding_box_title": {
+    "message": "Požadovaná akce: Udělit oprávnění"
+  },
+  "onboarding_box_p1": {
+    "message": "Aby bylo možné blokovat weby, rozšíření potřebuje přístup k vašim záložkám. Protože se jedná o silné oprávnění, <strong>musíte jej udělit ručně.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klikněte prosím na tlačítko níže. Zobrazí se vyskakovací okno prohlížeče, které vás vyzve k kliknutí na „Povolit“."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktivovat plnou ochranu"
+  },
+  "onboarding_status_success": {
+    "message": "Úspěch! Ochrana je nyní aktivní. Tento panel můžete zavřít."
+  },
+  "onboarding_status_denied": {
+    "message": "Oprávnění bylo zamítnuto. Rozšíření nebude fungovat správně. Zkuste to znovu nebo udělte oprávnění v nastavení."
+  },
+  "onboarding_status_error": {
+    "message": "Došlo k chybě. Udělte oprávnění v nastavení rozšíření."
+  },
+  "onboarding_status_api_error": {
+    "message": "Požadavek na oprávnění selhal (může se stát na mobilu). Zkuste to znovu nebo udělte oprávnění ručně v nastavení."
+  }
 }

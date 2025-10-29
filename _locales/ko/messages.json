@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro 기능이 활성화되었습니다!" },
   "subscriptionnotfound": { "message": "구독이 활성화되어 있지 않거나 이메일을 찾을 수 없습니다." },
   "servererror": { "message": "서버 오류. 다시 시도해주세요." },
-  "proactivatedfor": { "message": "Pro가 활성화됨:" }
+  "proactivatedfor": { "message": "Pro가 활성화됨:" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro 활성화 및 상태"
+  },
+  "options_pro_key_label": {
+    "message": "라이선스 키"
+  },
+  "options_pro_key_placeholder": {
+    "message": "여기에 라이선스 키를 입력하세요"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Pro 활성화"
+  },
+  "options_pro_key_instructions": {
+    "message": "blockdistraction.com에 로그인하여 키를 확인하세요."
+  },
+  "options_pro_status_checking": {
+    "message": "키 확인 중..."
+  },
+  "options_pro_status_invalid": {
+    "message": "라이선스 키가 잘못되었거나 만료되었습니다."
+  },
+  "options_pro_status_error": {
+    "message": "오류가 발생했습니다. 인터넷 연결을 확인하세요."
+  },
+  "options_pro_status_success": {
+    "message": "Pro 상태가 성공적으로 활성화되었습니다!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro 상태: 활성"
+  },
+  "options_pro_view_email_label": {
+    "message": "계정 이메일"
+  },
+  "options_pro_view_key_label": {
+    "message": "라이선스 키"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "갱신일"
+  },
+  "options_pro_view_manage_link": {
+    "message": "웹사이트에서 구독 관리"
+  },
+  "options_pro_key_copy_button": {
+    "message": "복사"
+  },
+  "options_pro_key_copied_button": {
+    "message": "복사됨!"
+  },
+  "onboarding_title": {
+    "message": "BlockDistraction에 오신 것을 환영합니다"
+  },
+  "onboarding_welcome": {
+    "message": "👋 BlockDistraction에 오신 것을 환영합니다!"
+  },
+  "onboarding_intro": {
+    "message": "확장 프로그램을 설치해 주셔서 감사합니다. 보호 기능을 활성화하려면 마지막 단계가 남아 있습니다."
+  },
+  "onboarding_box_title": {
+    "message": "필요한 작업: 권한 부여"
+  },
+  "onboarding_box_p1": {
+    "message": "사이트를 차단하려면 확장 프로그램에 탭 접근 권한이 필요합니다. 이 권한은 강력한 권한이므로, <strong>직접 수동으로 허용해야 합니다.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "아래 버튼을 클릭하세요. 브라우저 팝업이 표시되면 ‘허용’을 클릭하면 됩니다."
+  },
+  "onboarding_button_activate": {
+    "message": "전체 보호 활성화"
+  },
+  "onboarding_status_success": {
+    "message": "성공했습니다! 보호 기능이 활성화되었습니다. 이제 이 탭을 닫아도 됩니다."
+  },
+  "onboarding_status_denied": {
+    "message": "권한이 거부되었습니다. 확장 프로그램이 올바르게 작동하지 않습니다. 다시 시도하거나 확장 프로그램 설정에서 권한을 허용하세요."
+  },
+  "onboarding_status_error": {
+    "message": "오류가 발생했습니다. 확장 프로그램 설정에서 권한을 허용하세요."
+  },
+  "onboarding_status_api_error": {
+    "message": "권한 요청에 실패했습니다 (모바일 기기에서는 발생할 수 있습니다). 다시 시도하거나 설정에서 직접 권한을 허용하세요."
+  }
 }

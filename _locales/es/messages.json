@@ -186,5 +186,89 @@
   "proactivated": { "message": "¡Funciones Pro activadas!" },
   "subscriptionnotfound": { "message": "Suscripción no activa o correo electrónico no encontrado." },
   "servererror": { "message": "Error del servidor. Por favor, inténtalo de nuevo." },
-  "proactivatedfor": { "message": "Pro activado para" }
+  "proactivatedfor": { "message": "Pro activado para" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Activación y estado Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Clave de licencia"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Introduce tu clave de licencia aquí"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Activar Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Inicia sesión en blockdistraction.com para encontrar tu clave."
+  },
+  "options_pro_status_checking": {
+    "message": "Comprobando la clave..."
+  },
+  "options_pro_status_invalid": {
+    "message": "La clave de licencia no es válida o ha expirado."
+  },
+  "options_pro_status_error": {
+    "message": "Ocurrió un error. Verifica tu conexión a Internet."
+  },
+  "options_pro_status_success": {
+    "message": "¡El estado Pro se activó correctamente!"
+  },
+  "options_pro_view_title": {
+    "message": "Estado Pro: Activo"
+  },
+  "options_pro_view_email_label": {
+    "message": "Correo electrónico de la cuenta"
+  },
+  "options_pro_view_key_label": {
+    "message": "Clave de licencia"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Renueva el"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Gestionar suscripción en el sitio web"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Copiar"
+  },
+  "options_pro_key_copied_button": {
+    "message": "¡Copiado!"
+  },
+  "onboarding_title": {
+    "message": "Bienvenido a BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 ¡Bienvenido a BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Gracias por instalar nuestra extensión. Solo falta un paso para activar la protección."
+  },
+  "onboarding_box_title": {
+    "message": "Acción requerida: otorgar permiso"
+  },
+  "onboarding_box_p1": {
+    "message": "Para bloquear sitios web, la extensión necesita permiso para acceder a tus pestañas. Como es un permiso potente, <strong>debes otorgarlo manualmente.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Haz clic en el botón de abajo. Aparecerá una ventana emergente del navegador pidiéndote que selecciones «Permitir»."
+  },
+  "onboarding_button_activate": {
+    "message": "Activar protección completa"
+  },
+  "onboarding_status_success": {
+    "message": "¡Listo! La protección ahora está activa. Puedes cerrar esta pestaña."
+  },
+  "onboarding_status_denied": {
+    "message": "Permiso denegado. La extensión no puede funcionar correctamente. Intenta nuevamente o concede el permiso desde la configuración."
+  },
+  "onboarding_status_error": {
+    "message": "Ocurrió un error. Por favor, concede el permiso desde la configuración de la extensión."
+  },
+  "onboarding_status_api_error": {
+    "message": "La solicitud de permiso falló (esto puede suceder en dispositivos móviles). Inténtalo de nuevo o concédelo manualmente desde la configuración."
+  }
 }

@@ -177,5 +177,89 @@
   "proactivated": { "message": "Vipengele vya Pro vimewashwa!" },
   "subscriptionnotfound": { "message": "Usajili hauko hai au barua pepe haikupatikana." },
   "servererror": { "message": "Hitilafu ya seva. Tafadhali jaribu tena." },
-  "proactivatedfor": { "message": "Pro imewashwa kwa" }
+  "proactivatedfor": { "message": "Pro imewashwa kwa" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Uanzishaji wa Pro na Hali"
+  },
+  "options_pro_key_label": {
+    "message": "Ufunguo wa Leseni"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Weka ufunguo wako wa leseni hapa"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Washa Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Ingia kwenye blockdistraction.com kupata ufunguo wako."
+  },
+  "options_pro_status_checking": {
+    "message": "Inakagua ufunguo..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Ufunguo wa leseni si sahihi au umeisha muda wake."
+  },
+  "options_pro_status_error": {
+    "message": "Hitilafu imetokea. Tafadhali angalia muunganisho wako wa intaneti."
+  },
+  "options_pro_status_success": {
+    "message": "Hali ya Pro imewashwa kwa mafanikio!"
+  },
+  "options_pro_view_title": {
+    "message": "Hali ya Pro: Imewashwa"
+  },
+  "options_pro_view_email_label": {
+    "message": "Barua pepe ya Akaunti"
+  },
+  "options_pro_view_key_label": {
+    "message": "Ufunguo wa Leseni"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Upya tarehe"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Dhibiti usajili kwenye tovuti"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Nakili"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Imenakiliwa!"
+  },
+  "onboarding_title": {
+    "message": "Karibu kwenye BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Karibu kwenye BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Asante kwa kusakinisha programu-jalizi yetu. Kuna hatua moja ya mwisho ili kuwasha ulinzi wako."
+  },
+  "onboarding_box_title": {
+    "message": "Hatua Inahitajika: Toa Ruhusa"
+  },
+  "onboarding_box_p1": {
+    "message": "Ili kuzuia tovuti, programu-jalizi inahitaji ufikiaji wa vichupo vyako. Kwa kuwa hii ni ruhusa yenye nguvu, <strong>unapaswa kuiruhusu mwenyewe.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Bonyeza kitufe kilicho hapa chini. Dirisha la kivinjari litaonekana likikuomba kubonyeza 'Ruhusu'."
+  },
+  "onboarding_button_activate": {
+    "message": "Washa Ulinzi Kamili"
+  },
+  "onboarding_status_success": {
+    "message": "Imefanikiwa! Ulinzi sasa umewezeshwa. Unaweza kufunga kichupo hiki."
+  },
+  "onboarding_status_denied": {
+    "message": "Ruhusa imekataliwa. Programu-jalizi haiwezi kufanya kazi ipasavyo. Tafadhali jaribu tena au toa ruhusa kupitia mipangilio."
+  },
+  "onboarding_status_error": {
+    "message": "Hitilafu imetokea. Tafadhali toa ruhusa kupitia mipangilio ya programu-jalizi."
+  },
+  "onboarding_status_api_error": {
+    "message": "Ombi la ruhusa limefeli (inaweza kutokea kwenye simu). Tafadhali jaribu tena au toa ruhusa mwenyewe kupitia mipangilio ya programu-jalizi."
+  }
 }

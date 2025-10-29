@@ -1,0 +1,62 @@
+body {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  color: #555;
+}
+
+.permission-box {
+  background: #fff8e1;
+  border: 1px solid #ffecb3;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.permission-box h2 {
+  margin-top: 0;
+  color: #6f4f00;
+}
+
+.permission-btn {
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 15px 30px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.2s;
+}
+
+.permission-btn:hover {
+  background-color: #218838;
+}
+
+.permission-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+#status-message {
+  font-weight: bold;
+  display: none;
+  margin-top: 15px;
+}
+#status-message.success {
+  color: #28a745;
+}
+#status-message.error {
+  color: #dc3545;
+}

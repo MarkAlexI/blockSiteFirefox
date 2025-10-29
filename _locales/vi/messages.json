@@ -177,5 +177,89 @@
   "proactivated": { "message": "Tính năng Pro đã được kích hoạt!" },
   "subscriptionnotfound": { "message": "Gói đăng ký chưa hoạt động hoặc không tìm thấy email." },
   "servererror": { "message": "Lỗi máy chủ. Vui lòng thử lại." },
-  "proactivatedfor": { "message": "Pro đã được kích hoạt cho" }
+  "proactivatedfor": { "message": "Pro đã được kích hoạt cho" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Kích hoạt và trạng thái Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Khóa bản quyền"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Nhập khóa bản quyền tại đây"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Kích hoạt Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Đăng nhập vào blockdistraction.com để tìm khóa của bạn."
+  },
+  "options_pro_status_checking": {
+    "message": "Đang kiểm tra khóa..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Khóa bản quyền không hợp lệ hoặc đã hết hạn."
+  },
+  "options_pro_status_error": {
+    "message": "Đã xảy ra lỗi. Vui lòng kiểm tra kết nối Internet của bạn."
+  },
+  "options_pro_status_success": {
+    "message": "Trạng thái Pro đã được kích hoạt thành công!"
+  },
+  "options_pro_view_title": {
+    "message": "Trạng thái Pro: Đã kích hoạt"
+  },
+  "options_pro_view_email_label": {
+    "message": "Email tài khoản"
+  },
+  "options_pro_view_key_label": {
+    "message": "Khóa bản quyền"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Gia hạn vào"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Quản lý đăng ký trên website"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Sao chép"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Đã sao chép!"
+  },
+  "onboarding_title": {
+    "message": "Chào mừng đến với BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Chào mừng đến với BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Cảm ơn bạn đã cài đặt tiện ích mở rộng của chúng tôi. Chỉ còn một bước nữa để kích hoạt bảo vệ."
+  },
+  "onboarding_box_title": {
+    "message": "Yêu cầu hành động: Cấp quyền"
+  },
+  "onboarding_box_p1": {
+    "message": "Để chặn các trang web, tiện ích cần quyền truy cập vào các tab của bạn. Vì đây là quyền mạnh, <strong>bạn cần cấp thủ công.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Vui lòng nhấn nút bên dưới. Một cửa sổ bật lên của trình duyệt sẽ xuất hiện, yêu cầu bạn nhấn “Cho phép”."
+  },
+  "onboarding_button_activate": {
+    "message": "Kích hoạt bảo vệ đầy đủ"
+  },
+  "onboarding_status_success": {
+    "message": "Thành công! Bảo vệ đã được kích hoạt. Bạn có thể đóng tab này."
+  },
+  "onboarding_status_denied": {
+    "message": "Quyền bị từ chối. Tiện ích sẽ không hoạt động đúng. Vui lòng thử lại hoặc cấp quyền từ cài đặt tiện ích."
+  },
+  "onboarding_status_error": {
+    "message": "Đã xảy ra lỗi. Vui lòng cấp quyền từ cài đặt tiện ích."
+  },
+  "onboarding_status_api_error": {
+    "message": "Yêu cầu quyền thất bại (có thể xảy ra trên thiết bị di động). Hãy thử lại hoặc cấp quyền thủ công từ cài đặt tiện ích."
+  }
 }

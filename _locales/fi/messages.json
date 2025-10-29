@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro-ominaisuudet aktivoitu!" },
   "subscriptionnotfound": { "message": "Tilaus ei ole aktiivinen tai sähköpostia ei löytynyt." },
   "servererror": { "message": "Palvelinvirhe. Yritä uudelleen." },
-  "proactivatedfor": { "message": "Pro aktivoitu käyttäjälle" }
+  "proactivatedfor": { "message": "Pro aktivoitu käyttäjälle" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro-aktivointi ja tila"
+  },
+  "options_pro_key_label": {
+    "message": "Lisenssiavain"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Syötä lisenssiavaimesi tähän"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktivoi Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Kirjaudu sisään osoitteessa blockdistraction.com löytääksesi avaimesi."
+  },
+  "options_pro_status_checking": {
+    "message": "Tarkistetaan avainta..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Lisenssiavain on virheellinen tai sen voimassaolo on päättynyt."
+  },
+  "options_pro_status_error": {
+    "message": "Tapahtui virhe. Tarkista internet-yhteytesi."
+  },
+  "options_pro_status_success": {
+    "message": "Pro-tila aktivoitu onnistuneesti!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro-tila: Aktiivinen"
+  },
+  "options_pro_view_email_label": {
+    "message": "Tilin sähköposti"
+  },
+  "options_pro_view_key_label": {
+    "message": "Lisenssiavain"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Uusiutuu"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Hallitse tilausta verkkosivulla"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopioi"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopioitu!"
+  },
+  "onboarding_title": {
+    "message": "Tervetuloa BlockDistractioniin"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Tervetuloa BlockDistractioniin!"
+  },
+  "onboarding_intro": {
+    "message": "Kiitos, että asensit laajennuksemme. Vain yksi vaihe on jäljellä suojauksen aktivoimiseksi."
+  },
+  "onboarding_box_title": {
+    "message": "Toiminta vaaditaan: Myönnä lupa"
+  },
+  "onboarding_box_p1": {
+    "message": "Sivustojen estämiseksi laajennus tarvitsee pääsyn välilehtiin. Koska kyseessä on voimakas lupa, <strong>sinun on myönnettävä se manuaalisesti.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klikkaa alla olevaa painiketta. Selainikkuna ilmestyy ja pyytää sinua klikkaamaan \"Salli\"."
+  },
+  "onboarding_button_activate": {
+    "message": "Ota täydellinen suojaus käyttöön"
+  },
+  "onboarding_status_success": {
+    "message": "Onnistui! Suojaus on nyt aktiivinen. Voit sulkea tämän välilehden."
+  },
+  "onboarding_status_denied": {
+    "message": "Lupa evättiin. Laajennus ei toimi oikein. Yritä uudelleen tai myönnä lupa asetuksista."
+  },
+  "onboarding_status_error": {
+    "message": "Tapahtui virhe. Myönnä lupa laajennuksen asetuksista."
+  },
+  "onboarding_status_api_error": {
+    "message": "Lupapyyntö epäonnistui (tämä voi tapahtua mobiilissa). Yritä uudelleen tai myönnä lupa manuaalisesti asetuksista."
+  }
 }

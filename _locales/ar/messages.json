@@ -186,5 +186,89 @@
   "proactivated": { "message": "تم تفعيل ميزات برو!" },
   "subscriptionnotfound": { "message": "الاشتراك غير نشط أو البريد الإلكتروني غير موجود." },
   "servererror": { "message": "خطأ في الخادم. يرجى المحاولة مرة أخرى." },
-  "proactivatedfor": { "message": "تم تفعيل برو لـ" }
+  "proactivatedfor": { "message": "تم تفعيل برو لـ" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "تفعيل Pro والحالة"
+  },
+  "options_pro_key_label": {
+    "message": "مفتاح الترخيص"
+  },
+  "options_pro_key_placeholder": {
+    "message": "أدخل مفتاح الترخيص هنا"
+  },
+  "options_pro_key_button_activate": {
+    "message": "تفعيل Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "قم بتسجيل الدخول إلى blockdistraction.com للعثور على مفتاحك."
+  },
+  "options_pro_status_checking": {
+    "message": "جارٍ التحقق من المفتاح..."
+  },
+  "options_pro_status_invalid": {
+    "message": "مفتاح الترخيص غير صالح أو منتهي الصلاحية."
+  },
+  "options_pro_status_error": {
+    "message": "حدث خطأ. يرجى التحقق من اتصال الإنترنت."
+  },
+  "options_pro_status_success": {
+    "message": "تم تفعيل حالة Pro بنجاح!"
+  },
+  "options_pro_view_title": {
+    "message": "حالة Pro: نشط"
+  },
+  "options_pro_view_email_label": {
+    "message": "بريد الحساب الإلكتروني"
+  },
+  "options_pro_view_key_label": {
+    "message": "مفتاح الترخيص"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "تجدد في"
+  },
+  "options_pro_view_manage_link": {
+    "message": "إدارة الاشتراك على الموقع"
+  },
+  "options_pro_key_copy_button": {
+    "message": "نسخ"
+  },
+  "options_pro_key_copied_button": {
+    "message": "تم النسخ!"
+  },
+  "onboarding_title": {
+    "message": "مرحبًا بك في BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 مرحبًا بك في BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "شكرًا لتثبيت الإضافة الخاصة بنا. تبقى خطوة واحدة فقط لتفعيل الحماية."
+  },
+  "onboarding_box_title": {
+    "message": "إجراء مطلوب: منح الإذن"
+  },
+  "onboarding_box_p1": {
+    "message": "لكي تقوم الإضافة بحظر المواقع، تحتاج إلى الوصول إلى علامات التبويب الخاصة بك. نظرًا لأن هذا إذن قوي، <strong>يجب منحه يدويًا.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "يرجى النقر على الزر أدناه. سيظهر مربع حوار من المتصفح يطلب منك النقر على \"السماح\"."
+  },
+  "onboarding_button_activate": {
+    "message": "تفعيل الحماية الكاملة"
+  },
+  "onboarding_status_success": {
+    "message": "تم! الحماية الآن نشطة. يمكنك إغلاق هذه النافذة."
+  },
+  "onboarding_status_denied": {
+    "message": "تم رفض الإذن. لن تعمل الإضافة بشكل صحيح. حاول مرة أخرى أو امنح الإذن من الإعدادات."
+  },
+  "onboarding_status_error": {
+    "message": "حدث خطأ. يرجى منح الإذن من إعدادات الإضافة."
+  },
+  "onboarding_status_api_error": {
+    "message": "فشل طلب الإذن (قد يحدث على الهواتف). حاول مرة أخرى أو منح الإذن يدويًا من الإعدادات."
+  }
 }

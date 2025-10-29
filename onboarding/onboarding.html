@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title data-i18n="onboarding_title">Welcome to BlockDistraction</title>
+  <link rel="stylesheet" href="./onboarding.css">
+</head>
+<body>
+  <h1 data-i18n="onboarding_welcome">👋 Welcome to BlockDistraction!</h1>
+  <p data-i18n="onboarding_intro">Thank you for installing our extension. There is one final step to activate your protection.</p>
+  
+  <div class="permission-box">
+    <h2 data-i18n="onboarding_box_title">Action Required: Grant Permission</h2>
+    <p data-i18n="onboarding_box_p1">
+      To block sites, the extension needs your permission to access your tabs. 
+      Because this is a powerful permission, <strong>you must grant it manually.</strong>
+    </p>
+    <p data-i18n="onboarding_box_p2">
+      Please click the button below. A browser pop-up will appear asking you to "Allow" this permission.
+    </p>
+    
+    <button id="grant-permission-btn" class="permission-btn">
+      <span data-i18n="onboarding_button_activate">Activate Full Protection</span>
+    </button>
+    
+    <p id="status-message"></p>
+  </div>
+</body>
+<script type="module" src="./onboarding.js"></script>
+</html>
+

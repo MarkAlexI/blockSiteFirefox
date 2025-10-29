@@ -177,5 +177,89 @@
   "proactivated": { "message": "Funcions Pro activades!" },
   "subscriptionnotfound": { "message": "Subscripció no activa o correu electrònic no trobat." },
   "servererror": { "message": "Error del servidor. Torna-ho a provar si us plau." },
-  "proactivatedfor": { "message": "Pro activat per a" }
+  "proactivatedfor": { "message": "Pro activat per a" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Activació de Pro i estat"
+  },
+  "options_pro_key_label": {
+    "message": "Clau de llicència"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Introdueix la teva clau de llicència aquí"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Activa Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Inicia sessió a blockdistraction.com per trobar la teva clau."
+  },
+  "options_pro_status_checking": {
+    "message": "Comprovant la clau..."
+  },
+  "options_pro_status_invalid": {
+    "message": "La clau de llicència no és vàlida o ha caducat."
+  },
+  "options_pro_status_error": {
+    "message": "S'ha produït un error. Comprova la teva connexió a Internet."
+  },
+  "options_pro_status_success": {
+    "message": "Estat Pro activat correctament!"
+  },
+  "options_pro_view_title": {
+    "message": "Estat Pro: Actiu"
+  },
+  "options_pro_view_email_label": {
+    "message": "Correu electrònic del compte"
+  },
+  "options_pro_view_key_label": {
+    "message": "Clau de llicència"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Renova el"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Gestiona la subscripció al lloc web"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Copia"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Copiat!"
+  },
+  "onboarding_title": {
+    "message": "Benvingut a BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Benvingut a BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Gràcies per instal·lar la nostra extensió. Només queda un últim pas per activar la teva protecció."
+  },
+  "onboarding_box_title": {
+    "message": "Acció necessària: Concedir permís"
+  },
+  "onboarding_box_p1": {
+    "message": "Per bloquejar llocs, l'extensió necessita accés a les teves pestanyes. Com que és un permís potent, <strong>cal concedir-lo manualment.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Fes clic al botó següent. Apareixerà una finestra emergent del navegador que et demanarà que facis clic a “Permet”."
+  },
+  "onboarding_button_activate": {
+    "message": "Activa la protecció completa"
+  },
+  "onboarding_status_success": {
+    "message": "Èxit! La protecció està activada. Pots tancar aquesta pestanya."
+  },
+  "onboarding_status_denied": {
+    "message": "S'ha denegat el permís. L'extensió no funcionarà correctament. Torna-ho a provar o concedeix el permís des de la configuració."
+  },
+  "onboarding_status_error": {
+    "message": "S'ha produït un error. Concedeix el permís des de la configuració de l'extensió."
+  },
+  "onboarding_status_api_error": {
+    "message": "La sol·licitud de permís ha fallat (pot passar al mòbil). Torna-ho a provar o concedeix el permís manualment des de la configuració."
+  }
 }

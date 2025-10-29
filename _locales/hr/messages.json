@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro značajke aktivirane!" },
   "subscriptionnotfound": { "message": "Pretplata nije aktivna ili e-pošta nije pronađena." },
   "servererror": { "message": "Pogreška poslužitelja. Pokušajte ponovno." },
-  "proactivatedfor": { "message": "Pro aktiviran za" }
+  "proactivatedfor": { "message": "Pro aktiviran za" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Aktivacija i Pro status"
+  },
+  "options_pro_key_label": {
+    "message": "Licencijski ključ"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Unesite ovdje svoj licencijski ključ"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktiviraj Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Prijavite se na blockdistraction.com da pronađete svoj ključ."
+  },
+  "options_pro_status_checking": {
+    "message": "Provjera ključa..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licencijski ključ nije valjan ili je istekao."
+  },
+  "options_pro_status_error": {
+    "message": "Došlo je do pogreške. Provjerite internetsku vezu."
+  },
+  "options_pro_status_success": {
+    "message": "Pro status je uspješno aktiviran!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro status: Aktivno"
+  },
+  "options_pro_view_email_label": {
+    "message": "Email računa"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licencijski ključ"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Obnavlja se"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Upravljaj pretplatom na webu"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopiraj"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopirano!"
+  },
+  "onboarding_title": {
+    "message": "Dobrodošli u BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Dobrodošli u BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Hvala što ste instalirali našu ekstenziju. Preostao je samo jedan korak za aktivaciju zaštite."
+  },
+  "onboarding_box_title": {
+    "message": "Potrebna radnja: Dodijelite dozvolu"
+  },
+  "onboarding_box_p1": {
+    "message": "Da bi blokirao stranice, ekstenzija treba pristup vašim karticama. Budući da je ovo moćna dozvola, <strong>morate je dodijeliti ručno.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Kliknite donji gumb. Pojavit će se skočni prozor preglednika koji će od vas tražiti da kliknete \"Dopusti\"."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktiviraj punu zaštitu"
+  },
+  "onboarding_status_success": {
+    "message": "Uspjeh! Zaštita je sada aktivna. Možete zatvoriti ovu karticu."
+  },
+  "onboarding_status_denied": {
+    "message": "Dozvola je odbijena. Ekstenzija neće raditi ispravno. Pokušajte ponovno ili dodijelite dozvolu u postavkama."
+  },
+  "onboarding_status_error": {
+    "message": "Došlo je do pogreške. Molimo dodijelite dozvolu iz postavki ekstenzije."
+  },
+  "onboarding_status_api_error": {
+    "message": "Zahtjev za dozvolom nije uspio (može se dogoditi na mobilnim uređajima). Pokušajte ponovno ili ručno dodijelite dozvolu iz postavki."
+  }
 }

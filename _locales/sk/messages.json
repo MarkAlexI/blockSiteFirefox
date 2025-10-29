@@ -177,5 +177,89 @@
   "proactivated": { "message": "Funkcie Pro aktivované!" },
   "subscriptionnotfound": { "message": "Predplatné nie je aktívne alebo e-mail nebol nájdený." },
   "servererror": { "message": "Chyba servera. Skúste to znova." },
-  "proactivatedfor": { "message": "Pro aktivované pre" }
+  "proactivatedfor": { "message": "Pro aktivované pre" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Aktivácia a stav Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Licenčný kľúč"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Zadajte svoj licenčný kľúč sem"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktivovať Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Prihláste sa na blockdistraction.com, aby ste našli svoj kľúč."
+  },
+  "options_pro_status_checking": {
+    "message": "Kontrola kľúča..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licenčný kľúč je neplatný alebo expiroval."
+  },
+  "options_pro_status_error": {
+    "message": "Došlo k chybe. Skontrolujte svoje internetové pripojenie."
+  },
+  "options_pro_status_success": {
+    "message": "Stav Pro bol úspešne aktivovaný!"
+  },
+  "options_pro_view_title": {
+    "message": "Stav Pro: Aktívny"
+  },
+  "options_pro_view_email_label": {
+    "message": "Email účtu"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licenčný kľúč"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Obnoví sa"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Spravovať predplatné na webovej stránke"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopírovať"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Skopírované!"
+  },
+  "onboarding_title": {
+    "message": "Vitajte v BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Vitajte v BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Ďakujeme, že ste nainštalovali naše rozšírenie. Zostáva už len jeden krok na aktiváciu vašej ochrany."
+  },
+  "onboarding_box_title": {
+    "message": "Požadovaná akcia: Poskytnúť povolenie"
+  },
+  "onboarding_box_p1": {
+    "message": "Na blokovanie stránok potrebuje rozšírenie prístup k vašim záložkám. Keďže ide o silné povolenie, <strong>musíte ho udeliť manuálne.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Kliknite na tlačidlo nižšie. Zobrazí sa vyskakovacie okno prehliadača, ktoré vás požiada o kliknutie na „Povoliť“."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktivovať plnú ochranu"
+  },
+  "onboarding_status_success": {
+    "message": "Úspech! Ochrana je teraz aktívna. Môžete zavrieť túto kartu."
+  },
+  "onboarding_status_denied": {
+    "message": "Povolenie bolo zamietnuté. Rozšírenie nebude fungovať správne. Skúste to znova alebo poskytnite povolenie v nastaveniach rozšírenia."
+  },
+  "onboarding_status_error": {
+    "message": "Došlo k chybe. Poskytnite povolenie v nastaveniach rozšírenia."
+  },
+  "onboarding_status_api_error": {
+    "message": "Požiadavka na povolenie zlyhala (môže sa stať na mobile). Skúste to znova alebo poskytnite povolenie manuálne v nastaveniach rozšírenia."
+  }
 }

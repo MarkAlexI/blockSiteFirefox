@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro-functies geactiveerd!" },
   "subscriptionnotfound": { "message": "Abonnement niet actief of e-mailadres niet gevonden." },
   "servererror": { "message": "Serverfout. Probeer het opnieuw." },
-  "proactivatedfor": { "message": "Pro geactiveerd voor" }
+  "proactivatedfor": { "message": "Pro geactiveerd voor" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro-activering en status"
+  },
+  "options_pro_key_label": {
+    "message": "Licentiesleutel"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Voer hier je licentiesleutel in"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Activeer Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Ga naar blockdistraction.com om je sleutel te vinden."
+  },
+  "options_pro_status_checking": {
+    "message": "Licentiesleutel wordt gecontroleerd..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Ongeldige of verlopen licentiesleutel."
+  },
+  "options_pro_status_error": {
+    "message": "Er is een fout opgetreden. Controleer je internetverbinding."
+  },
+  "options_pro_status_success": {
+    "message": "Pro-status succesvol geactiveerd!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro-status: Actief"
+  },
+  "options_pro_view_email_label": {
+    "message": "Account-e-mail"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licentiesleutel"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Verloopt op"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Beheer je abonnement op de website"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopiëren"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Gekopieerd!"
+  },
+  "onboarding_title": {
+    "message": "Welkom bij BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Welkom bij BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Bedankt voor het installeren van onze extensie. Er is nog één stap om de bescherming te activeren."
+  },
+  "onboarding_box_title": {
+    "message": "Actie vereist: toestemming geven"
+  },
+  "onboarding_box_p1": {
+    "message": "Om websites te blokkeren heeft de extensie toestemming nodig om toegang te krijgen tot je tabbladen. Omdat dit een geavanceerde machtiging is, moet je <strong>deze handmatig toestaan.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klik op de knop hieronder. Er verschijnt een browservenster waarin je op ‘Toestaan’ moet klikken."
+  },
+  "onboarding_button_activate": {
+    "message": "Volledige bescherming inschakelen"
+  },
+  "onboarding_status_success": {
+    "message": "Klaar! De bescherming is nu actief. Je kunt dit tabblad sluiten."
+  },
+  "onboarding_status_denied": {
+    "message": "Toestemming geweigerd. De extensie kan niet correct werken. Probeer opnieuw of geef toestemming via de instellingen."
+  },
+  "onboarding_status_error": {
+    "message": "Er is een fout opgetreden. Geef toestemming via de extensie-instellingen."
+  },
+  "onboarding_status_api_error": {
+    "message": "Het toestemmingsverzoek is mislukt (dit kan gebeuren op mobiele apparaten). Probeer opnieuw of geef handmatig toestemming in de instellingen."
+  }
 }

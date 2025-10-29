@@ -177,5 +177,89 @@
   "proactivated": { "message": "Funkcje Pro zostały aktywowane!" },
   "subscriptionnotfound": { "message": "Subskrypcja nieaktywna lub e-mail nie został znaleziony." },
   "servererror": { "message": "Błąd serwera. Spróbuj ponownie." },
-  "proactivatedfor": { "message": "Pro zostało aktywowane dla" }
+  "proactivatedfor": { "message": "Pro zostało aktywowane dla" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Aktywacja i status Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Klucz licencyjny"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Wpisz tutaj swój klucz licencyjny"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktywuj Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Zaloguj się na blockdistraction.com, aby znaleźć swój klucz."
+  },
+  "options_pro_status_checking": {
+    "message": "Sprawdzanie klucza..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Klucz licencyjny jest nieprawidłowy lub wygasł."
+  },
+  "options_pro_status_error": {
+    "message": "Wystąpił błąd. Sprawdź swoje połączenie z internetem."
+  },
+  "options_pro_status_success": {
+    "message": "Status Pro został pomyślnie aktywowany!"
+  },
+  "options_pro_view_title": {
+    "message": "Status Pro: Aktywny"
+  },
+  "options_pro_view_email_label": {
+    "message": "Adres e-mail konta"
+  },
+  "options_pro_view_key_label": {
+    "message": "Klucz licencyjny"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Odnowienie"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Zarządzaj subskrypcją na stronie internetowej"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopiuj"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Skopiowano!"
+  },
+  "onboarding_title": {
+    "message": "Witamy w BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Witamy w BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Dziękujemy za zainstalowanie naszego rozszerzenia. Pozostał tylko jeden krok, aby włączyć ochronę."
+  },
+  "onboarding_box_title": {
+    "message": "Wymagane działanie: przyznaj uprawnienia"
+  },
+  "onboarding_box_p1": {
+    "message": "Aby blokować strony, rozszerzenie potrzebuje dostępu do Twoich kart. Ponieważ jest to uprawnienie o wysokim poziomie, <strong>musisz je przyznać ręcznie.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Kliknij przycisk poniżej. Pojawi się okno przeglądarki z prośbą o kliknięcie „Zezwól”."
+  },
+  "onboarding_button_activate": {
+    "message": "Włącz pełną ochronę"
+  },
+  "onboarding_status_success": {
+    "message": "Sukces! Ochrona jest teraz aktywna. Możesz zamknąć tę kartę."
+  },
+  "onboarding_status_denied": {
+    "message": "Uprawnienie zostało odrzucone. Rozszerzenie nie może działać poprawnie. Spróbuj ponownie lub przyznaj uprawnienia w ustawieniach."
+  },
+  "onboarding_status_error": {
+    "message": "Wystąpił błąd. Przyznaj uprawnienia w ustawieniach rozszerzenia."
+  },
+  "onboarding_status_api_error": {
+    "message": "Żądanie uprawnień nie powiodło się (może się to zdarzyć na urządzeniach mobilnych). Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach."
+  }
 }

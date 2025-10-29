@@ -186,5 +186,89 @@
   "proactivated": { "message": "Fonctionnalités Pro activées !" },
   "subscriptionnotfound": { "message": "Abonnement non actif ou e-mail non trouvé." },
   "servererror": { "message": "Erreur du serveur. Veuillez réessayer." },
-  "proactivatedfor": { "message": "Pro activé pour" }
+  "proactivatedfor": { "message": "Pro activé pour" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Activation et statut Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Clé de licence"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Saisissez votre clé de licence ici"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Activer Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Connectez-vous sur blockdistraction.com pour trouver votre clé."
+  },
+  "options_pro_status_checking": {
+    "message": "Vérification de la clé..."
+  },
+  "options_pro_status_invalid": {
+    "message": "La clé de licence est invalide ou expirée."
+  },
+  "options_pro_status_error": {
+    "message": "Une erreur s’est produite. Veuillez vérifier votre connexion Internet."
+  },
+  "options_pro_status_success": {
+    "message": "Statut Pro activé avec succès !"
+  },
+  "options_pro_view_title": {
+    "message": "Statut Pro : Actif"
+  },
+  "options_pro_view_email_label": {
+    "message": "Adresse e-mail du compte"
+  },
+  "options_pro_view_key_label": {
+    "message": "Clé de licence"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Renouvellement le"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Gérer l’abonnement sur le site web"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Copier"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Copié !"
+  },
+  "onboarding_title": {
+    "message": "Bienvenue dans BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Bienvenue dans BlockDistraction !"
+  },
+  "onboarding_intro": {
+    "message": "Merci d’avoir installé notre extension. Il ne reste qu’une étape pour activer votre protection."
+  },
+  "onboarding_box_title": {
+    "message": "Action requise : accorder l’autorisation"
+  },
+  "onboarding_box_p1": {
+    "message": "Pour bloquer des sites web, l’extension doit pouvoir accéder à vos onglets. Comme il s’agit d’une autorisation sensible, <strong>vous devez l’accorder manuellement.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Cliquez sur le bouton ci-dessous. Une fenêtre contextuelle du navigateur apparaîtra pour vous demander de cliquer sur « Autoriser »."
+  },
+  "onboarding_button_activate": {
+    "message": "Activer la protection complète"
+  },
+  "onboarding_status_success": {
+    "message": "Succès ! La protection est maintenant active. Vous pouvez fermer cet onglet."
+  },
+  "onboarding_status_denied": {
+    "message": "Autorisation refusée. L’extension ne peut pas fonctionner correctement. Veuillez réessayer ou accorder l’autorisation depuis les paramètres."
+  },
+  "onboarding_status_error": {
+    "message": "Une erreur s’est produite. Veuillez accorder l’autorisation dans les paramètres de l’extension."
+  },
+  "onboarding_status_api_error": {
+    "message": "La demande d’autorisation a échoué (cela peut arriver sur mobile). Réessayez ou accordez l’autorisation manuellement dans les paramètres."
+  }
 }

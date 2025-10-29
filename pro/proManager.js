@@ -6,6 +6,7 @@ export class ProManager {
     subscriptionEmail: null,
     subscriptionDate: null,
     expiryDate: null,
+    licenseKey: null,
     isLegacyUser: true,
     installationDate: null
   };
@@ -24,14 +25,6 @@ export class ProManager {
       }
       
       const credentials = { ...this.defaultCredentials, ...result.credentials };
-      
-      if (credentials.isPro && credentials.expiryDate) {
-        const isExpired = new Date() > new Date(credentials.expiryDate);
-        if (isExpired) {
-          await this.updateProStatus(false);
-          return false;
-        }
-      }
       
       return credentials.isPro === true;
     } catch (error) {
@@ -78,9 +71,11 @@ export class ProManager {
       const updatedCredentials = {
         ...currentCredentials,
         isPro: isPro,
-        subscriptionEmail: isPro ? subscriptionData.email || currentCredentials.subscriptionEmail : null,
-        subscriptionDate: isPro ? subscriptionData.subscriptionDate || currentCredentials.subscriptionDate : null,
-        expiryDate: isPro ? subscriptionData.expiryDate || currentCredentials.expiryDate : null,
+        subscriptionEmail: isPro ? (subscriptionData.subscriptionEmail || currentCredentials.subscriptionEmail) : null,
+        subscriptionDate: isPro ? (subscriptionData.subscriptionDate || currentCredentials.subscriptionDate) : null,
+        expiryDate: isPro ? (subscriptionData.expiryDate || currentCredentials.expiryDate) : null,
+        licenseKey: isPro ? (subscriptionData.licenseKey || currentCredentials.licenseKey) : null,
+        
         isLegacyUser: subscriptionData.isLegacyUser !== undefined ? subscriptionData.isLegacyUser : currentCredentials.isLegacyUser,
         installationDate: subscriptionData.installationDate || currentCredentials.installationDate
       };

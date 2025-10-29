@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro 功能已啟用！" },
   "subscriptionnotfound": { "message": "訂閱未啟用或找不到電子郵件。" },
   "servererror": { "message": "伺服器錯誤。請重試。" },
-  "proactivatedfor": { "message": "已為以下帳號啟用 Pro：" }
+  "proactivatedfor": { "message": "已為以下帳號啟用 Pro：" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro 啟用與狀態"
+  },
+  "options_pro_key_label": {
+    "message": "授權金鑰"
+  },
+  "options_pro_key_placeholder": {
+    "message": "在此輸入您的授權金鑰"
+  },
+  "options_pro_key_button_activate": {
+    "message": "啟用 Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "請登入 blockdistraction.com 以取得您的金鑰。"
+  },
+  "options_pro_status_checking": {
+    "message": "正在驗證金鑰..."
+  },
+  "options_pro_status_invalid": {
+    "message": "授權金鑰無效或已過期。"
+  },
+  "options_pro_status_error": {
+    "message": "發生錯誤，請檢查您的網路連線。"
+  },
+  "options_pro_status_success": {
+    "message": "Pro 狀態已成功啟用！"
+  },
+  "options_pro_view_title": {
+    "message": "Pro 狀態：已啟用"
+  },
+  "options_pro_view_email_label": {
+    "message": "帳戶電子郵件"
+  },
+  "options_pro_view_key_label": {
+    "message": "授權金鑰"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "續訂日期"
+  },
+  "options_pro_view_manage_link": {
+    "message": "在網站上管理訂閱"
+  },
+  "options_pro_key_copy_button": {
+    "message": "複製"
+  },
+  "options_pro_key_copied_button": {
+    "message": "已複製！"
+  },
+  "onboarding_title": {
+    "message": "歡迎使用 BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 歡迎使用 BlockDistraction！"
+  },
+  "onboarding_intro": {
+    "message": "感謝您安裝本擴充功能。只剩最後一步即可啟用完整防護。"
+  },
+  "onboarding_box_title": {
+    "message": "需要操作：授予權限"
+  },
+  "onboarding_box_p1": {
+    "message": "為了封鎖網站，擴充功能需要存取您的分頁權限。由於這是高權限，<strong>您必須手動授予。</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "請按下方按鈕。瀏覽器將跳出提示視窗，請選擇「允許」。"
+  },
+  "onboarding_button_activate": {
+    "message": "啟用完整防護"
+  },
+  "onboarding_status_success": {
+    "message": "成功！防護功能已啟用。您可以關閉此分頁。"
+  },
+  "onboarding_status_denied": {
+    "message": "權限被拒絕。擴充功能將無法正常運作。請重試或在擴充設定中授權。"
+  },
+  "onboarding_status_error": {
+    "message": "發生錯誤。請在擴充設定中授權。"
+  },
+  "onboarding_status_api_error": {
+    "message": "權限請求失敗（行動裝置上可能會發生）。請重試，或在設定中手動授權。"
+  }
 }

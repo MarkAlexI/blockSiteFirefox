@@ -177,5 +177,89 @@
   "proactivated": { "message": "Ciri Pro telah diaktifkan!" },
   "subscriptionnotfound": { "message": "Langganan tidak aktif atau emel tidak ditemui." },
   "servererror": { "message": "Ralat pelayan. Sila cuba lagi." },
-  "proactivatedfor": { "message": "Pro diaktifkan untuk" }
+  "proactivatedfor": { "message": "Pro diaktifkan untuk" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pengaktifan & Status Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Kunci Lesen"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Masukkan kunci lesen anda di sini"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktifkan Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Log masuk ke blockdistraction.com untuk mencari kunci anda."
+  },
+  "options_pro_status_checking": {
+    "message": "Menyemak kunci..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Kunci lesen tidak sah atau telah tamat tempoh."
+  },
+  "options_pro_status_error": {
+    "message": "Ralat berlaku. Sila semak sambungan internet anda."
+  },
+  "options_pro_status_success": {
+    "message": "Status Pro berjaya diaktifkan!"
+  },
+  "options_pro_view_title": {
+    "message": "Status Pro: Aktif"
+  },
+  "options_pro_view_email_label": {
+    "message": "E-mel Akaun"
+  },
+  "options_pro_view_key_label": {
+    "message": "Kunci Lesen"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Diperbaharui Pada"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Urus Langganan di Laman Web"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Salin"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Disalin!"
+  },
+  "onboarding_title": {
+    "message": "Selamat Datang ke BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Selamat Datang ke BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Terima kasih kerana memasang sambungan kami. Hanya tinggal satu langkah terakhir untuk mengaktifkan perlindungan anda."
+  },
+  "onboarding_box_title": {
+    "message": "Tindakan Diperlukan: Berikan Kebenaran"
+  },
+  "onboarding_box_p1": {
+    "message": "Untuk menyekat laman web, sambungan memerlukan akses ke tab anda. Oleh kerana ini adalah kebenaran yang berkuasa, <strong>anda mesti memberikannya secara manual.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Sila klik butang di bawah. Pop-up pelayar akan muncul meminta anda untuk “Allow” kebenaran ini."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktifkan Perlindungan Penuh"
+  },
+  "onboarding_status_success": {
+    "message": "Berjaya! Perlindungan kini aktif. Anda boleh menutup tab ini."
+  },
+  "onboarding_status_denied": {
+    "message": "Kebenaran ditolak. Sambungan tidak boleh berfungsi dengan betul. Sila cuba lagi atau berikan kebenaran melalui tetapan sambungan."
+  },
+  "onboarding_status_error": {
+    "message": "Ralat berlaku. Sila berikan kebenaran melalui tetapan sambungan."
+  },
+  "onboarding_status_api_error": {
+    "message": "Permintaan kebenaran gagal (ini boleh berlaku di mudah alih). Sila cuba lagi atau berikan kebenaran secara manual melalui tetapan sambungan."
+  }
 }

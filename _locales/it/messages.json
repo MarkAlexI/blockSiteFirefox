@@ -177,5 +177,89 @@
   "proactivated": { "message": "Fitur Pro diaktifkan!" },
   "subscriptionnotfound": { "message": "Langganan tidak aktif atau email tidak ditemukan." },
   "servererror": { "message": "Kesalahan server. Silakan coba lagi." },
-  "proactivatedfor": { "message": "Pro diaktifkan untuk" }
+  "proactivatedfor": { "message": "Pro diaktifkan untuk" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Attivazione e stato Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Chiave di licenza"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Inserisci qui la tua chiave di licenza"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Attiva Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Accedi a blockdistraction.com per trovare la tua chiave."
+  },
+  "options_pro_status_checking": {
+    "message": "Verifica della chiave in corso..."
+  },
+  "options_pro_status_invalid": {
+    "message": "La chiave di licenza non è valida o è scaduta."
+  },
+  "options_pro_status_error": {
+    "message": "Si è verificato un errore. Controlla la connessione a Internet."
+  },
+  "options_pro_status_success": {
+    "message": "Stato Pro attivato con successo!"
+  },
+  "options_pro_view_title": {
+    "message": "Stato Pro: Attivo"
+  },
+  "options_pro_view_email_label": {
+    "message": "Email dell’account"
+  },
+  "options_pro_view_key_label": {
+    "message": "Chiave di licenza"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Rinnovo il"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Gestisci l’abbonamento sul sito web"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Copia"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Copiato!"
+  },
+  "onboarding_title": {
+    "message": "Benvenuto in BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Benvenuto in BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Grazie per aver installato la nostra estensione. Manca solo un passaggio per attivare la protezione."
+  },
+  "onboarding_box_title": {
+    "message": "Azione richiesta: concedi l’autorizzazione"
+  },
+  "onboarding_box_p1": {
+    "message": "Per bloccare i siti web, l’estensione deve avere il permesso di accedere alle tue schede. Poiché si tratta di un’autorizzazione avanzata, <strong>devi concederla manualmente.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Fai clic sul pulsante qui sotto. Apparirà una finestra del browser che ti chiederà di fare clic su «Consenti»."
+  },
+  "onboarding_button_activate": {
+    "message": "Attiva protezione completa"
+  },
+  "onboarding_status_success": {
+    "message": "Fatto! La protezione è ora attiva. Puoi chiudere questa scheda."
+  },
+  "onboarding_status_denied": {
+    "message": "Autorizzazione negata. L’estensione non può funzionare correttamente. Riprova o concedi l’autorizzazione dalle impostazioni."
+  },
+  "onboarding_status_error": {
+    "message": "Si è verificato un errore. Concedi l’autorizzazione dalle impostazioni dell’estensione."
+  },
+  "onboarding_status_api_error": {
+    "message": "La richiesta di autorizzazione non è riuscita (può accadere sui dispositivi mobili). Riprova o concedi l’autorizzazione manualmente dalle impostazioni."
+  }
 }

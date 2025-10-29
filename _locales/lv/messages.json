@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro funkcijas aktivizētas!" },
   "subscriptionnotfound": { "message": "Abonements nav aktīvs vai e-pasts nav atrasts." },
   "servererror": { "message": "Servera kļūda. Lūdzu, mēģiniet vēlreiz." },
-  "proactivatedfor": { "message": "Pro aktivizēts priekš" }
+  "proactivatedfor": { "message": "Pro aktivizēts priekš" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro aktivizācija un statuss"
+  },
+  "options_pro_key_label": {
+    "message": "Licence atslēga"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Ievadiet savu licences atslēgu šeit"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktivizēt Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Pierakstieties blockdistraction.com, lai atrastu savu atslēgu."
+  },
+  "options_pro_status_checking": {
+    "message": "Tiek pārbaudīta atslēga..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licence atslēga ir nederīga vai ir beidzies tās termiņš."
+  },
+  "options_pro_status_error": {
+    "message": "Radās kļūda. Lūdzu, pārbaudiet savu interneta savienojumu."
+  },
+  "options_pro_status_success": {
+    "message": "Pro statuss veiksmīgi aktivizēts!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro statuss: Aktīvs"
+  },
+  "options_pro_view_email_label": {
+    "message": "Konts e-pasts"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licence atslēga"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Atjaunošana"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Pārvaldīt abonementu vietnē"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopēt"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Nokopēts!"
+  },
+  "onboarding_title": {
+    "message": "Laipni lūdzam BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Laipni lūdzam BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Paldies, ka instalējāt mūsu paplašinājumu. Lai aktivizētu jūsu aizsardzību, ir atlicis tikai viens pēdējais solis."
+  },
+  "onboarding_box_title": {
+    "message": "Nepieciešamā darbība: Piešķirt atļauju"
+  },
+  "onboarding_box_p1": {
+    "message": "Lai bloķētu vietnes, paplašinājumam nepieciešama piekļuve jūsu cilnēm. Tā kā tas ir jaudīgs atļaujas veids, <strong>jums tas jāpiešķir manuāli.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Lūdzu, noklikšķiniet uz zemāk esošās pogas. Tiks parādīts pārlūkprogrammas uznirstošais logs, kas lūgs noklikšķināt uz “Allow”."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktivizēt pilnu aizsardzību"
+  },
+  "onboarding_status_success": {
+    "message": "Veiksmīgi! Aizsardzība tagad ir aktīva. Jūs varat aizvērt šo cilni."
+  },
+  "onboarding_status_denied": {
+    "message": "Atļauja tika noraidīta. Paplašinājums nedarbosies pareizi. Lūdzu, mēģiniet vēlreiz vai piešķiriet atļauju no iestatījumiem."
+  },
+  "onboarding_status_error": {
+    "message": "Radās kļūda. Lūdzu, piešķiriet atļauju no paplašinājuma iestatījumiem."
+  },
+  "onboarding_status_api_error": {
+    "message": "Atļaujas pieprasījums neizdevās (tas var notikt mobilajā ierīcē). Lūdzu, mēģiniet vēlreiz vai piešķiriet atļauju manuāli no iestatījumiem."
+  }
 }

@@ -177,5 +177,89 @@
   "proactivated": { "message": "A Pro funkciók aktiválva!" },
   "subscriptionnotfound": { "message": "Az előfizetés nem aktív vagy az e-mail nem található." },
   "servererror": { "message": "Szerverhiba. Kérjük, próbáld újra." },
-  "proactivatedfor": { "message": "A Pro aktiválva a következőhöz:" }
+  "proactivatedfor": { "message": "A Pro aktiválva a következőhöz:" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro aktiválás és státusz"
+  },
+  "options_pro_key_label": {
+    "message": "Licenckulcs"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Ide írja be a licenckulcsát"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Pro aktiválása"
+  },
+  "options_pro_key_instructions": {
+    "message": "Jelentkezzen be a blockdistraction.com oldalon a kulcs megtekintéséhez."
+  },
+  "options_pro_status_checking": {
+    "message": "Kulcs ellenőrzése..."
+  },
+  "options_pro_status_invalid": {
+    "message": "A licenckulcs érvénytelen vagy lejárt."
+  },
+  "options_pro_status_error": {
+    "message": "Hiba történt. Ellenőrizze internetkapcsolatát."
+  },
+  "options_pro_status_success": {
+    "message": "A Pro státusz sikeresen aktiválva!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro státusz: Aktív"
+  },
+  "options_pro_view_email_label": {
+    "message": "Fiók e-mail"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licenckulcs"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Megújul"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Előfizetés kezelése a weboldalon"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Másolás"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Másolva!"
+  },
+  "onboarding_title": {
+    "message": "Üdvözöljük a BlockDistraction-ben"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Üdvözöljük a BlockDistraction-ben!"
+  },
+  "onboarding_intro": {
+    "message": "Köszönjük, hogy telepítette bővítményünket. Már csak egy lépés van hátra a védelem aktiválásához."
+  },
+  "onboarding_box_title": {
+    "message": "Szükséges lépés: Engedély megadása"
+  },
+  "onboarding_box_p1": {
+    "message": "Az oldalak blokkolásához a bővítménynek hozzáférésre van szüksége a lapjaihoz. Mivel ez egy erős engedély, <strong>kézzel kell megadnia.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Kattintson az alábbi gombra. Megjelenik egy böngésző felugró ablak, amely kéri az engedély megadását."
+  },
+  "onboarding_button_activate": {
+    "message": "Teljes védelem aktiválása"
+  },
+  "onboarding_status_success": {
+    "message": "Siker! A védelem most aktív. Bezárhatja ezt a lapot."
+  },
+  "onboarding_status_denied": {
+    "message": "Az engedélyt elutasították. A bővítmény nem fog megfelelően működni. Próbálja újra, vagy adja meg az engedélyt a beállításokban."
+  },
+  "onboarding_status_error": {
+    "message": "Hiba történt. Kérjük, adja meg az engedélyt a bővítmény beállításaiban."
+  },
+  "onboarding_status_api_error": {
+    "message": "Az engedélykérés sikertelen volt (mobilon előfordulhat). Próbálja újra, vagy adja meg az engedélyt manuálisan a beállításokból."
+  }
 }

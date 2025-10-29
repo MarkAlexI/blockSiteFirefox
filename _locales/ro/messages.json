@@ -177,5 +177,89 @@
   "proactivated": { "message": "Funcțiile Pro au fost activate!" },
   "subscriptionnotfound": { "message": "Abonament inactiv sau e-mailul nu a fost găsit." },
   "servererror": { "message": "Eroare de server. Te rugăm să încerci din nou." },
-  "proactivatedfor": { "message": "Pro activat pentru" }
+  "proactivatedfor": { "message": "Pro activat pentru" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Activare și stare Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Cheie de licență"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Introduceți cheia de licență aici"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Activează Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Conectați-vă la blockdistraction.com pentru a găsi cheia dvs."
+  },
+  "options_pro_status_checking": {
+    "message": "Se verifică cheia..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Cheia de licență nu este validă sau a expirat."
+  },
+  "options_pro_status_error": {
+    "message": "A apărut o eroare. Verificați conexiunea la internet."
+  },
+  "options_pro_status_success": {
+    "message": "Starea Pro a fost activată cu succes!"
+  },
+  "options_pro_view_title": {
+    "message": "Stare Pro: Activ"
+  },
+  "options_pro_view_email_label": {
+    "message": "Email cont"
+  },
+  "options_pro_view_key_label": {
+    "message": "Cheie de licență"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Reînnoire la"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Gestionează abonamentul pe site"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Copiază"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Copiat!"
+  },
+  "onboarding_title": {
+    "message": "Bine ați venit la BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Bine ați venit la BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Mulțumim pentru instalarea extensiei noastre. Mai este un singur pas pentru a activa protecția."
+  },
+  "onboarding_box_title": {
+    "message": "Acțiune necesară: acordați permisiunea"
+  },
+  "onboarding_box_p1": {
+    "message": "Pentru a bloca site-uri, extensia trebuie să aibă acces la filele dvs. Deoarece este o permisiune puternică, <strong>trebuie să o acordați manual.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Faceți clic pe butonul de mai jos. Va apărea o fereastră pop-up a browserului care vă va cere să faceți clic pe „Permiteți”."
+  },
+  "onboarding_button_activate": {
+    "message": "Activează protecția completă"
+  },
+  "onboarding_status_success": {
+    "message": "Succes! Protecția este acum activă. Puteți închide această filă."
+  },
+  "onboarding_status_denied": {
+    "message": "Permisiunea a fost refuzată. Extensia nu poate funcționa corect. Încercați din nou sau acordați permisiunea din setări."
+  },
+  "onboarding_status_error": {
+    "message": "A apărut o eroare. Vă rugăm să acordați permisiunea din setările extensiei."
+  },
+  "onboarding_status_api_error": {
+    "message": "Cererea de permisiune a eșuat (acest lucru se poate întâmpla pe mobil). Încercați din nou sau acordați permisiunea manual din setări."
+  }
 }

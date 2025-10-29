@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro funktsioonid aktiveeritud!" },
   "subscriptionnotfound": { "message": "Tellimus pole aktiivne või e-posti aadressi ei leitud." },
   "servererror": { "message": "Serveri viga. Palun proovi uuesti." },
-  "proactivatedfor": { "message": "Pro aktiveeritud kasutajale" }
+  "proactivatedfor": { "message": "Pro aktiveeritud kasutajale" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro aktiveerimine ja olek"
+  },
+  "options_pro_key_label": {
+    "message": "Litsentsivõti"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Sisestage siia oma litsentsivõti"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktiveeri Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Otsi oma võti aadressilt blockdistraction.com."
+  },
+  "options_pro_status_checking": {
+    "message": "Võtit kontrollitakse..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Litsentsivõti on kehtetu või aegunud."
+  },
+  "options_pro_status_error": {
+    "message": "Tekkis viga. Kontrolli oma internetiühendust."
+  },
+  "options_pro_status_success": {
+    "message": "Pro-olek aktiveeriti edukalt!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro-olek: Aktiivne"
+  },
+  "options_pro_view_email_label": {
+    "message": "Konto e-post"
+  },
+  "options_pro_view_key_label": {
+    "message": "Litsentsivõti"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Uueneb"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Halda tellimust veebis"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopeeri"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopeeritud!"
+  },
+  "onboarding_title": {
+    "message": "Tere tulemast BlockDistractioni"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Tere tulemast BlockDistractioni!"
+  },
+  "onboarding_intro": {
+    "message": "Täname, et installisite meie laienduse. Ainult üks samm on jäänud, et aktiveerida teie kaitse."
+  },
+  "onboarding_box_title": {
+    "message": "Toiming nõutud: andke luba"
+  },
+  "onboarding_box_p1": {
+    "message": "Veebisaitide blokeerimiseks vajab laiendus juurdepääsu teie vahelehtedele. Kuna see on tugev luba, <strong>peate selle andma käsitsi.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klõpsake alloleval nupul. Kuvatakse brauseri hüpikaken, mis palub teil klõpsata „Luba“."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktiveeri täielik kaitse"
+  },
+  "onboarding_status_success": {
+    "message": "Õnnestus! Kaitse on nüüd aktiivne. Võite selle vahelehe sulgeda."
+  },
+  "onboarding_status_denied": {
+    "message": "Luba keelduti. Laiendus ei saa õigesti töötada. Proovige uuesti või andke luba seadete kaudu."
+  },
+  "onboarding_status_error": {
+    "message": "Tekkis viga. Palun andke luba laienduse seadete kaudu."
+  },
+  "onboarding_status_api_error": {
+    "message": "Luba taotlus ebaõnnestus (see võib juhtuda mobiilseadmetes). Proovige uuesti või andke luba käsitsi seadete kaudu."
+  }
 }

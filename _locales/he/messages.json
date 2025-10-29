@@ -177,5 +177,89 @@
   "proactivated": { "message": "תכונות Pro הופעלו!" },
   "subscriptionnotfound": { "message": "המנוי אינו פעיל או שהדואר האלקטרוני לא נמצא." },
   "servererror": { "message": "שגיאת שרת. אנא נסה שוב." },
-  "proactivatedfor": { "message": "Pro הופעל עבור" }
+  "proactivatedfor": { "message": "Pro הופעל עבור" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "הפעלה ומצב Pro"
+  },
+  "options_pro_key_label": {
+    "message": "מפתח רישיון"
+  },
+  "options_pro_key_placeholder": {
+    "message": "הזן כאן את מפתח הרישיון שלך"
+  },
+  "options_pro_key_button_activate": {
+    "message": "הפעל Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "התחבר ל-blockdistraction.com כדי למצוא את המפתח שלך."
+  },
+  "options_pro_status_checking": {
+    "message": "בודק את המפתח..."
+  },
+  "options_pro_status_invalid": {
+    "message": "מפתח הרישיון שגוי או שפג תוקפו."
+  },
+  "options_pro_status_error": {
+    "message": "אירעה שגיאה. בדוק את חיבור האינטרנט שלך."
+  },
+  "options_pro_status_success": {
+    "message": "מצב Pro הופעל בהצלחה!"
+  },
+  "options_pro_view_title": {
+    "message": "מצב Pro: פעיל"
+  },
+  "options_pro_view_email_label": {
+    "message": "אימייל החשבון"
+  },
+  "options_pro_view_key_label": {
+    "message": "מפתח רישיון"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "מועד חידוש"
+  },
+  "options_pro_view_manage_link": {
+    "message": "נהל את המנוי באתר"
+  },
+  "options_pro_key_copy_button": {
+    "message": "העתק"
+  },
+  "options_pro_key_copied_button": {
+    "message": "הועתק!"
+  },
+  "onboarding_title": {
+    "message": "ברוך הבא ל-BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 ברוך הבא ל-BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "תודה שהתקנת את ההרחבה שלנו. נשאר רק שלב אחד כדי להפעיל את ההגנה שלך."
+  },
+  "onboarding_box_title": {
+    "message": "נדרש פעולה: הענקת הרשאה"
+  },
+  "onboarding_box_p1": {
+    "message": "כדי לחסום אתרים, ההרחבה צריכה גישה ללשוניות שלך. מאחר שזו הרשאה חזקה, <strong>יש להעניק אותה באופן ידני.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "לחץ על הכפתור למטה. תופיע חלונית דפדפן שתבקש ממך לאשר את ההרשאה."
+  },
+  "onboarding_button_activate": {
+    "message": "הפעל הגנה מלאה"
+  },
+  "onboarding_status_success": {
+    "message": "הצלחה! ההגנה הופעלה. ניתן לסגור את הלשונית הזו."
+  },
+  "onboarding_status_denied": {
+    "message": "ההרשאה נדחתה. ההרחבה לא תוכל לפעול כראוי. נסה שוב או הענק הרשאה דרך ההגדרות."
+  },
+  "onboarding_status_error": {
+    "message": "אירעה שגיאה. הענק הרשאה דרך הגדרות ההרחבה."
+  },
+  "onboarding_status_api_error": {
+    "message": "בקשת ההרשאה נכשלה (ייתכן שזה קורה במובייל). נסה שוב או הענק הרשאה ידנית דרך ההגדרות."
+  }
 }

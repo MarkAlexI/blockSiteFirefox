@@ -186,5 +186,89 @@
   "proactivated": { "message": "Pro 功能已激活！" },
   "subscriptionnotfound": { "message": "订阅未激活或未找到电子邮箱。" },
   "servererror": { "message": "服务器错误。请重试。" },
-  "proactivatedfor": { "message": "已为以下邮箱激活 Pro：" }
+  "proactivatedfor": { "message": "已为以下邮箱激活 Pro：" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro 激活与状态"
+  },
+  "options_pro_key_label": {
+    "message": "许可证密钥"
+  },
+  "options_pro_key_placeholder": {
+    "message": "在此输入您的许可证密钥"
+  },
+  "options_pro_key_button_activate": {
+    "message": "激活 Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "登录 blockdistraction.com 获取您的密钥。"
+  },
+  "options_pro_status_checking": {
+    "message": "正在验证密钥..."
+  },
+  "options_pro_status_invalid": {
+    "message": "许可证密钥无效或已过期。"
+  },
+  "options_pro_status_error": {
+    "message": "发生错误，请检查您的网络连接。"
+  },
+  "options_pro_status_success": {
+    "message": "Pro 状态已成功激活！"
+  },
+  "options_pro_view_title": {
+    "message": "Pro 状态：已激活"
+  },
+  "options_pro_view_email_label": {
+    "message": "账户邮箱"
+  },
+  "options_pro_view_key_label": {
+    "message": "许可证密钥"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "续订日期"
+  },
+  "options_pro_view_manage_link": {
+    "message": "在网站上管理订阅"
+  },
+  "options_pro_key_copy_button": {
+    "message": "复制"
+  },
+  "options_pro_key_copied_button": {
+    "message": "已复制！"
+  },
+  "onboarding_title": {
+    "message": "欢迎使用 BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 欢迎使用 BlockDistraction！"
+  },
+  "onboarding_intro": {
+    "message": "感谢您安装我们的扩展程序。激活保护功能只差最后一步。"
+  },
+  "onboarding_box_title": {
+    "message": "需要操作：授权权限"
+  },
+  "onboarding_box_p1": {
+    "message": "为了屏蔽网站，扩展程序需要访问您的标签页权限。由于这是高级权限，<strong>您需要手动授权。</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "请点击下面的按钮。浏览器会弹出提示，请选择“允许”。"
+  },
+  "onboarding_button_activate": {
+    "message": "启用完整保护"
+  },
+  "onboarding_status_success": {
+    "message": "成功！保护功能已启用。您可以关闭此标签页。"
+  },
+  "onboarding_status_denied": {
+    "message": "权限被拒绝。扩展程序无法正常工作。请重试或在扩展设置中授权。"
+  },
+  "onboarding_status_error": {
+    "message": "发生错误。请在扩展设置中授权。"
+  },
+  "onboarding_status_api_error": {
+    "message": "权限请求失败（移动设备上可能发生）。请重试，或在设置中手动授权。"
+  }
 }

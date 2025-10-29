@@ -177,5 +177,89 @@
   "proactivated": { "message": "Funkcije Pro so aktivirane!" },
   "subscriptionnotfound": { "message": "Naročnina ni aktivna ali e-pošta ni bila najdena." },
   "servererror": { "message": "Napaka strežnika. Poskusite znova." },
-  "proactivatedfor": { "message": "Pro aktiviran za" }
+  "proactivatedfor": { "message": "Pro aktiviran za" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Aktivacija Pro in status"
+  },
+  "options_pro_key_label": {
+    "message": "Licenčna ključ"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Vnesite svoj licenčni ključ tukaj"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktiviraj Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Prijavite se na blockdistraction.com, da poiščete svoj ključ."
+  },
+  "options_pro_status_checking": {
+    "message": "Preverjanje ključa..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licenčna ključ je neveljaven ali je potekel."
+  },
+  "options_pro_status_error": {
+    "message": "Prišlo je do napake. Preverite svojo internetno povezavo."
+  },
+  "options_pro_status_success": {
+    "message": "Status Pro je uspešno aktiviran!"
+  },
+  "options_pro_view_title": {
+    "message": "Status Pro: Aktiven"
+  },
+  "options_pro_view_email_label": {
+    "message": "E-pošta računa"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licenčna ključ"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Obnavlja se"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Upravljajte naročnino na spletni strani"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopiraj"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopirano!"
+  },
+  "onboarding_title": {
+    "message": "Dobrodošli v BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Dobrodošli v BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Hvala, ker ste namestili naše razširitev. Ostal je le še en korak, da aktivirate svojo zaščito."
+  },
+  "onboarding_box_title": {
+    "message": "Potrebna dejanja: Dodelite dovoljenje"
+  },
+  "onboarding_box_p1": {
+    "message": "Za blokiranje spletnih strani razširitev potrebuje dostop do vaših zavihkov. Ker gre za močno dovoljenje, <strong>ga morate dodeliti ročno.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Kliknite spodnji gumb. Pojavil se bo pojavna okna brskalnika, ki vas bo prosila, da kliknete “Allow”."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktiviraj popolno zaščito"
+  },
+  "onboarding_status_success": {
+    "message": "Uspeh! Zaščita je zdaj aktivna. Ta zavihek lahko zaprete."
+  },
+  "onboarding_status_denied": {
+    "message": "Dovoljenje je bilo zavrnjeno. Razširitev ne bo delovala pravilno. Poskusite znova ali dodelite dovoljenje v nastavitvah razširitve."
+  },
+  "onboarding_status_error": {
+    "message": "Prišlo je do napake. Dovoljenje dodelite v nastavitvah razširitve."
+  },
+  "onboarding_status_api_error": {
+    "message": "Zahteva za dovoljenje ni uspela (lahko se zgodi na mobilnih napravah). Poskusite znova ali dodelite dovoljenje ročno v nastavitvah razširitve."
+  }
 }

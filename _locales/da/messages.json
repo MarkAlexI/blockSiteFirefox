@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro-funktioner aktiveret!" },
   "subscriptionnotfound": { "message": "Abonnement ikke aktivt eller e-mail ikke fundet." },
   "servererror": { "message": "Serverfejl. Prøv venligst igen." },
-  "proactivatedfor": { "message": "Pro aktiveret for" }
+  "proactivatedfor": { "message": "Pro aktiveret for" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro aktivering og status"
+  },
+  "options_pro_key_label": {
+    "message": "Licensnøgle"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Indtast din licensnøgle her"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktivér Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Log ind på blockdistraction.com for at finde din nøgle."
+  },
+  "options_pro_status_checking": {
+    "message": "Tjekker nøgle..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licensnøglen er ugyldig eller udløbet."
+  },
+  "options_pro_status_error": {
+    "message": "Der opstod en fejl. Kontroller din internetforbindelse."
+  },
+  "options_pro_status_success": {
+    "message": "Pro-status aktiveret succesfuldt!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro-status: Aktiv"
+  },
+  "options_pro_view_email_label": {
+    "message": "Konto e-mail"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licensnøgle"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Fornyes den"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Administrer abonnement på websitet"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopiér"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopieret!"
+  },
+  "onboarding_title": {
+    "message": "Velkommen til BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Velkommen til BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Tak fordi du installerede vores udvidelse. Der er kun ét trin tilbage for at aktivere din beskyttelse."
+  },
+  "onboarding_box_title": {
+    "message": "Handling kræves: Giv tilladelse"
+  },
+  "onboarding_box_p1": {
+    "message": "For at blokere sider skal udvidelsen have adgang til dine faner. Da dette er en kraftig tilladelse, <strong>skal du give den manuelt.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klik venligst på knappen nedenfor. En browser-popup vises, som beder dig om at klikke på “Tillad”."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktivér fuld beskyttelse"
+  },
+  "onboarding_status_success": {
+    "message": "Succes! Beskyttelsen er nu aktiv. Du kan lukke denne fane."
+  },
+  "onboarding_status_denied": {
+    "message": "Tilladelsen blev afvist. Udvidelsen vil ikke fungere korrekt. Prøv igen eller giv tilladelse fra indstillingerne."
+  },
+  "onboarding_status_error": {
+    "message": "Der opstod en fejl. Giv venligst tilladelse fra udvidelsens indstillinger."
+  },
+  "onboarding_status_api_error": {
+    "message": "Tilladelsesanmodningen mislykkedes (kan ske på mobil). Prøv igen, eller giv tilladelse manuelt fra indstillingerne."
+  }
 }

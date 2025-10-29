@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro özellikleri etkinleştirildi!" },
   "subscriptionnotfound": { "message": "Abonelik aktif değil veya e-posta bulunamadı." },
   "servererror": { "message": "Sunucu hatası. Lütfen tekrar deneyin." },
-  "proactivatedfor": { "message": "Pro etkinleştirildi:" }
+  "proactivatedfor": { "message": "Pro etkinleştirildi:" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro Etkinleştirme ve Durum"
+  },
+  "options_pro_key_label": {
+    "message": "Lisans Anahtarı"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Lisans anahtarınızı buraya girin"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Pro’yu Etkinleştir"
+  },
+  "options_pro_key_instructions": {
+    "message": "Anahtarınızı bulmak için blockdistraction.com adresine giriş yapın."
+  },
+  "options_pro_status_checking": {
+    "message": "Anahtar kontrol ediliyor..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Lisans anahtarı geçersiz veya süresi dolmuş."
+  },
+  "options_pro_status_error": {
+    "message": "Bir hata oluştu. Lütfen internet bağlantınızı kontrol edin."
+  },
+  "options_pro_status_success": {
+    "message": "Pro durumu başarıyla etkinleştirildi!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro Durumu: Aktif"
+  },
+  "options_pro_view_email_label": {
+    "message": "Hesap E-postası"
+  },
+  "options_pro_view_key_label": {
+    "message": "Lisans Anahtarı"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Yenilenme Tarihi"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Aboneliği Web Sitesinde Yönet"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopyala"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopyalandı!"
+  },
+  "onboarding_title": {
+    "message": "BlockDistraction’a Hoş Geldiniz"
+  },
+  "onboarding_welcome": {
+    "message": "👋 BlockDistraction’a hoş geldiniz!"
+  },
+  "onboarding_intro": {
+    "message": "Eklentimizi yüklediğiniz için teşekkürler. Korumanızı etkinleştirmek için son bir adım kaldı."
+  },
+  "onboarding_box_title": {
+    "message": "Eylem Gerekli: İzin Verin"
+  },
+  "onboarding_box_p1": {
+    "message": "Siteleri engellemek için eklentinin sekmelerinize erişim izni gerekir. Bu güçlü bir izin olduğundan, <strong>onu manuel olarak vermeniz gerekir.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Lütfen aşağıdaki düğmeye tıklayın. Tarayıcınızda 'İzin Ver' seçeneğini onaylamanız istenecektir."
+  },
+  "onboarding_button_activate": {
+    "message": "Tam Korumayı Etkinleştir"
+  },
+  "onboarding_status_success": {
+    "message": "Başarılı! Koruma artık etkin. Bu sekmeyi kapatabilirsiniz."
+  },
+  "onboarding_status_denied": {
+    "message": "İzin reddedildi. Eklenti düzgün çalışamaz. Lütfen tekrar deneyin veya ayarlardan izin verin."
+  },
+  "onboarding_status_error": {
+    "message": "Bir hata oluştu. Lütfen eklenti ayarlarından izin verin."
+  },
+  "onboarding_status_api_error": {
+    "message": "İzin isteği başarısız oldu (mobilde bu durum gerçekleşebilir). Lütfen tekrar deneyin veya ayarlardan manuel olarak izin verin."
+  }
 }

@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro features activated!" },
   "subscriptionnotfound": { "message": "Subscription not active or email not found." },
   "servererror": { "message": "Server error. Please try again." },
-  "proactivatedfor": { "message": "Pro activated for" }
+  "proactivatedfor": { "message": "Pro activated for" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro Activation & Status"
+  },
+  "options_pro_key_label": {
+    "message": "Licence Key"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Enter your licence key here"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Activate Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Log in to blockdistraction.com to find your key."
+  },
+  "options_pro_status_checking": {
+    "message": "Checking key..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licence key is invalid or has expired."
+  },
+  "options_pro_status_error": {
+    "message": "An error occurred. Please check your internet connection."
+  },
+  "options_pro_status_success": {
+    "message": "Pro status successfully activated!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro Status: Active"
+  },
+  "options_pro_view_email_label": {
+    "message": "Account Email"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licence Key"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Renews On"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Manage Subscription on Website"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Copy"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Copied!"
+  },
+  "onboarding_title": {
+    "message": "Welcome to BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Welcome to BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Thank you for installing our extension. There's one last step to activate your protection."
+  },
+  "onboarding_box_title": {
+    "message": "Action Required: Grant Permission"
+  },
+  "onboarding_box_p1": {
+    "message": "To block sites, the extension needs access to your tabs. Because this is a powerful permission, <strong>you must grant it manually.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Please click the button below. A browser pop-up will appear asking you to \"Allow\" this permission."
+  },
+  "onboarding_button_activate": {
+    "message": "Activate Full Protection"
+  },
+  "onboarding_status_success": {
+    "message": "Success! Protection is now active. You may close this tab."
+  },
+  "onboarding_status_denied": {
+    "message": "Permission was denied. The extension cannot function properly. Please try again or grant permission from the extension settings."
+  },
+  "onboarding_status_error": {
+    "message": "An error occurred. Please grant permission from the extension settings."
+  },
+  "onboarding_status_api_error": {
+    "message": "The permission request failed (this can happen on mobile). Please try again, or grant permission manually from the extension settings."
+  }
 }

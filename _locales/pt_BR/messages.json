@@ -177,5 +177,89 @@
   "proactivated": { "message": "Recursos Pro ativados!" },
   "subscriptionnotfound": { "message": "Assinatura não ativa ou e-mail não encontrado." },
   "servererror": { "message": "Erro no servidor. Tente novamente." },
-  "proactivatedfor": { "message": "Pro ativado para" }
+  "proactivatedfor": { "message": "Pro ativado para" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Ativação e Status do Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Chave de licença"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Insira sua chave de licença aqui"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Ativar Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Acesse blockdistraction.com para encontrar sua chave."
+  },
+  "options_pro_status_checking": {
+    "message": "Verificando chave..."
+  },
+  "options_pro_status_invalid": {
+    "message": "A chave de licença é inválida ou expirou."
+  },
+  "options_pro_status_error": {
+    "message": "Ocorreu um erro. Verifique sua conexão com a Internet."
+  },
+  "options_pro_status_success": {
+    "message": "Status Pro ativado com sucesso!"
+  },
+  "options_pro_view_title": {
+    "message": "Status Pro: ativo"
+  },
+  "options_pro_view_email_label": {
+    "message": "E-mail da conta"
+  },
+  "options_pro_view_key_label": {
+    "message": "Chave de licença"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Renova em"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Gerenciar assinatura no site"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Copiar"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Copiado!"
+  },
+  "onboarding_title": {
+    "message": "Bem-vindo ao BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Bem-vindo ao BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Obrigado por instalar nossa extensão. Falta apenas uma etapa para ativar sua proteção."
+  },
+  "onboarding_box_title": {
+    "message": "Ação necessária: conceder permissão"
+  },
+  "onboarding_box_p1": {
+    "message": "Para bloquear sites, a extensão precisa de permissão para acessar suas abas. Como essa é uma permissão poderosa, <strong>você deve concedê-la manualmente.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Clique no botão abaixo. Uma janela pop-up do navegador aparecerá pedindo para você clicar em \"Permitir\"."
+  },
+  "onboarding_button_activate": {
+    "message": "Ativar proteção completa"
+  },
+  "onboarding_status_success": {
+    "message": "Sucesso! A proteção agora está ativa. Você pode fechar esta aba."
+  },
+  "onboarding_status_denied": {
+    "message": "Permissão negada. A extensão não funcionará corretamente. Tente novamente ou conceda permissão nas configurações da extensão."
+  },
+  "onboarding_status_error": {
+    "message": "Ocorreu um erro. Conceda a permissão nas configurações da extensão."
+  },
+  "onboarding_status_api_error": {
+    "message": "Falha ao solicitar permissão (isso pode acontecer em dispositivos móveis). Tente novamente ou conceda a permissão manualmente nas configurações da extensão."
+  }
 }

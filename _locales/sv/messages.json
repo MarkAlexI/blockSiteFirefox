@@ -177,5 +177,89 @@
   "proactivated": { "message": "Pro-funktionerna har aktiverats!" },
   "subscriptionnotfound": { "message": "Prenumerationen är inte aktiv eller e-postadressen hittades inte." },
   "servererror": { "message": "Serverfel. Försök igen." },
-  "proactivatedfor": { "message": "Pro aktiverat för" }
+  "proactivatedfor": { "message": "Pro aktiverat för" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Pro-aktivering och status"
+  },
+  "options_pro_key_label": {
+    "message": "Licensnyckel"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Ange din licensnyckel här"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Aktivera Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Logga in på blockdistraction.com för att hitta din nyckel."
+  },
+  "options_pro_status_checking": {
+    "message": "Kontrollerar nyckel..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Licensnyckeln är ogiltig eller har gått ut."
+  },
+  "options_pro_status_error": {
+    "message": "Ett fel uppstod. Kontrollera din internetanslutning."
+  },
+  "options_pro_status_success": {
+    "message": "Pro-status har aktiverats!"
+  },
+  "options_pro_view_title": {
+    "message": "Pro-status: Aktiv"
+  },
+  "options_pro_view_email_label": {
+    "message": "Kontots e-post"
+  },
+  "options_pro_view_key_label": {
+    "message": "Licensnyckel"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Förnyas den"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Hantera prenumeration på webbplatsen"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Kopiera"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Kopierad!"
+  },
+  "onboarding_title": {
+    "message": "Välkommen till BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Välkommen till BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Tack för att du installerade vårt tillägg. Det finns ett sista steg för att aktivera ditt skydd."
+  },
+  "onboarding_box_title": {
+    "message": "Åtgärd krävs: Ge behörighet"
+  },
+  "onboarding_box_p1": {
+    "message": "För att blockera webbplatser behöver tillägget åtkomst till dina flikar. Eftersom detta är en kraftfull behörighet måste du <strong>ge den manuellt.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Klicka på knappen nedan. En popup visas i webbläsaren där du ombeds att klicka på ”Tillåt”."
+  },
+  "onboarding_button_activate": {
+    "message": "Aktivera fullt skydd"
+  },
+  "onboarding_status_success": {
+    "message": "Klart! Skyddet är nu aktivt. Du kan stänga den här fliken."
+  },
+  "onboarding_status_denied": {
+    "message": "Behörigheten nekades. Tillägget kan inte fungera korrekt. Försök igen eller ge behörighet i tilläggets inställningar."
+  },
+  "onboarding_status_error": {
+    "message": "Ett fel uppstod. Ge behörighet i tilläggets inställningar."
+  },
+  "onboarding_status_api_error": {
+    "message": "Begäran om behörighet misslyckades (detta kan hända på mobila enheter). Försök igen eller ge behörighet manuellt i tilläggets inställningar."
+  }
 }

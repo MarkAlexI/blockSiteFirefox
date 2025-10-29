@@ -177,5 +177,89 @@
   "proactivated": { "message": "Οι λειτουργίες Pro ενεργοποιήθηκαν!" },
   "subscriptionnotfound": { "message": "Η συνδρομή δεν είναι ενεργή ή το email δεν βρέθηκε." },
   "servererror": { "message": "Σφάλμα διακομιστή. Προσπαθήστε ξανά." },
-  "proactivatedfor": { "message": "Το Pro ενεργοποιήθηκε για" }
+  "proactivatedfor": { "message": "Το Pro ενεργοποιήθηκε για" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "options_pro_title": {
+    "message": "Ενεργοποίηση και κατάσταση Pro"
+  },
+  "options_pro_key_label": {
+    "message": "Κλειδί άδειας"
+  },
+  "options_pro_key_placeholder": {
+    "message": "Εισάγετε εδώ το κλειδί άδειάς σας"
+  },
+  "options_pro_key_button_activate": {
+    "message": "Ενεργοποίηση Pro"
+  },
+  "options_pro_key_instructions": {
+    "message": "Συνδεθείτε στο blockdistraction.com για να βρείτε το κλειδί σας."
+  },
+  "options_pro_status_checking": {
+    "message": "Έλεγχος κλειδιού..."
+  },
+  "options_pro_status_invalid": {
+    "message": "Το κλειδί άδειας δεν είναι έγκυρο ή έχει λήξει."
+  },
+  "options_pro_status_error": {
+    "message": "Παρουσιάστηκε σφάλμα. Ελέγξτε τη σύνδεση στο Internet."
+  },
+  "options_pro_status_success": {
+    "message": "Η κατάσταση Pro ενεργοποιήθηκε με επιτυχία!"
+  },
+  "options_pro_view_title": {
+    "message": "Κατάσταση Pro: Ενεργή"
+  },
+  "options_pro_view_email_label": {
+    "message": "Email λογαριασμού"
+  },
+  "options_pro_view_key_label": {
+    "message": "Κλειδί άδειας"
+  },
+  "options_pro_view_expiry_label": {
+    "message": "Ανανέωση στις"
+  },
+  "options_pro_view_manage_link": {
+    "message": "Διαχείριση συνδρομής στον ιστότοπο"
+  },
+  "options_pro_key_copy_button": {
+    "message": "Αντιγραφή"
+  },
+  "options_pro_key_copied_button": {
+    "message": "Αντιγράφηκε!"
+  },
+  "onboarding_title": {
+    "message": "Καλώς ήρθατε στο BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 Καλώς ήρθατε στο BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Σας ευχαριστούμε που εγκαταστήσατε την επέκτασή μας. Απομένει μόνο ένα βήμα για να ενεργοποιήσετε την προστασία σας."
+  },
+  "onboarding_box_title": {
+    "message": "Απαιτείται ενέργεια: Χορήγηση άδειας"
+  },
+  "onboarding_box_p1": {
+    "message": "Για να μπλοκάρει ιστοσελίδες, η επέκταση χρειάζεται πρόσβαση στις καρτέλες σας. Δεδομένου ότι πρόκειται για ισχυρή άδεια, <strong>πρέπει να την χορηγήσετε χειροκίνητα.</strong>"
+  },
+  "onboarding_box_p2": {
+    "message": "Πατήστε το κουμπί παρακάτω. Θα εμφανιστεί ένα παράθυρο του προγράμματος περιήγησης που θα σας ζητά να κάνετε κλικ στο «Επιτρέπεται»."
+  },
+  "onboarding_button_activate": {
+    "message": "Ενεργοποίηση πλήρους προστασίας"
+  },
+  "onboarding_status_success": {
+    "message": "Επιτυχία! Η προστασία είναι πλέον ενεργή. Μπορείτε να κλείσετε αυτήν την καρτέλα."
+  },
+  "onboarding_status_denied": {
+    "message": "Η άδεια απορρίφθηκε. Η επέκταση δεν μπορεί να λειτουργήσει σωστά. Δοκιμάστε ξανά ή χορηγήστε άδεια από τις ρυθμίσεις."
+  },
+  "onboarding_status_error": {
+    "message": "Παρουσιάστηκε σφάλμα. Παρακαλώ χορηγήστε άδεια από τις ρυθμίσεις της επέκτασης."
+  },
+  "onboarding_status_api_error": {
+    "message": "Η αίτηση άδειας απέτυχε (μπορεί να συμβεί σε κινητές συσκευές). Δοκιμάστε ξανά ή χορηγήστε άδεια χειροκίνητα από τις ρυθμίσεις."
+  }
 }
