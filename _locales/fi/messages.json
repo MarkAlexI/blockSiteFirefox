@@ -242,7 +242,7 @@
     "message": "Toiminta vaaditaan: Myönnä lupa"
   },
   "onboarding_box_p1": {
-    "message": "Sivustojen estämiseksi laajennus tarvitsee pääsyn välilehtiin. Koska kyseessä on voimakas lupa, <strong>sinun on myönnettävä se manuaalisesti.</strong>"
+    "message": "Sivustojen estämiseksi laajennus tarvitsee pääsyn välilehtiin. Koska kyseessä on voimakas lupa, sinun on myönnettävä se manuaalisesti."
   },
   "onboarding_box_p2": {
     "message": "Klikkaa alla olevaa painiketta. Selainikkuna ilmestyy ja pyytää sinua klikkaamaan \"Salli\"."

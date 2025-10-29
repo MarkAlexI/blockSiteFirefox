@@ -242,7 +242,7 @@
     "message": "Wymagane działanie: przyznaj uprawnienia"
   },
   "onboarding_box_p1": {
-    "message": "Aby blokować strony, rozszerzenie potrzebuje dostępu do Twoich kart. Ponieważ jest to uprawnienie o wysokim poziomie, <strong>musisz je przyznać ręcznie.</strong>"
+    "message": "Aby blokować strony, rozszerzenie potrzebuje dostępu do Twoich kart. Ponieważ jest to uprawnienie o wysokim poziomie, musisz je przyznać ręcznie."
   },
   "onboarding_box_p2": {
     "message": "Kliknij przycisk poniżej. Pojawi się okno przeglądarki z prośbą o kliknięcie „Zezwól”."

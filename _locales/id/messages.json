@@ -242,7 +242,7 @@
     "message": "Tindakan Diperlukan: Berikan Izin"
   },
   "onboarding_box_p1": {
-    "message": "Untuk memblokir situs, ekstensi perlu mendapatkan izin untuk mengakses tab Anda. Karena ini adalah izin yang kuat, <strong>Anda harus memberikannya secara manual.</strong>"
+    "message": "Untuk memblokir situs, ekstensi perlu mendapatkan izin untuk mengakses tab Anda. Karena ini adalah izin yang kuat, Anda harus memberikannya secara manual."
   },
   "onboarding_box_p2": {
     "message": "Klik tombol di bawah ini. Jendela pop-up browser akan muncul meminta Anda untuk mengklik \"Izinkan\"."

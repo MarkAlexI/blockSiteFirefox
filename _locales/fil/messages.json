@@ -242,7 +242,7 @@
     "message": "Kinakailangang Aksyon: Bigyan ng Pahintulot"
   },
   "onboarding_box_p1": {
-    "message": "Upang ma-block ang mga site, kailangan ng extension ng access sa iyong mga tab. Dahil ito ay isang malakas na pahintulot, <strong>kailangan mo itong ibigay nang manu-mano.</strong>"
+    "message": "Upang ma-block ang mga site, kailangan ng extension ng access sa iyong mga tab. Dahil ito ay isang malakas na pahintulot, kailangan mo itong ibigay nang manu-mano."
   },
   "onboarding_box_p2": {
     "message": "Paki-click ang button sa ibaba. Lalabas ang pop-up ng browser na hihilingin sa iyo na i-click ang \"Payagan\"."

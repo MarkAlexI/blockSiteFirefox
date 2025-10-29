@@ -242,7 +242,7 @@
     "message": "Action Required: Grant Permission"
   },
   "onboarding_box_p1": {
-    "message": "To block sites, the extension requires access to your tabs. Because this is a powerful permission, <strong>you must grant it manually.</strong>"
+    "message": "To block sites, the extension requires access to your tabs. Because this is a powerful permission, you must grant it manually."
   },
   "onboarding_box_p2": {
     "message": "Please click the button below. A browser pop-up will appear asking you to \"Allow\" this permission."

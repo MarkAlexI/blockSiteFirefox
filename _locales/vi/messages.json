@@ -242,7 +242,7 @@
     "message": "Yêu cầu hành động: Cấp quyền"
   },
   "onboarding_box_p1": {
-    "message": "Để chặn các trang web, tiện ích cần quyền truy cập vào các tab của bạn. Vì đây là quyền mạnh, <strong>bạn cần cấp thủ công.</strong>"
+    "message": "Để chặn các trang web, tiện ích cần quyền truy cập vào các tab của bạn. Vì đây là quyền mạnh, bạn cần cấp thủ công."
   },
   "onboarding_box_p2": {
     "message": "Vui lòng nhấn nút bên dưới. Một cửa sổ bật lên của trình duyệt sẽ xuất hiện, yêu cầu bạn nhấn “Cho phép”."

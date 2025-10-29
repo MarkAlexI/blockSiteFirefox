@@ -242,7 +242,7 @@
     "message": "Potrebna dejanja: Dodelite dovoljenje"
   },
   "onboarding_box_p1": {
-    "message": "Za blokiranje spletnih strani razširitev potrebuje dostop do vaših zavihkov. Ker gre za močno dovoljenje, <strong>ga morate dodeliti ročno.</strong>"
+    "message": "Za blokiranje spletnih strani razširitev potrebuje dostop do vaših zavihkov. Ker gre za močno dovoljenje, ga morate dodeliti ročno."
   },
   "onboarding_box_p2": {
     "message": "Kliknite spodnji gumb. Pojavil se bo pojavna okna brskalnika, ki vas bo prosila, da kliknete “Allow”."

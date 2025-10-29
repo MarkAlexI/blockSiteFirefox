@@ -242,7 +242,7 @@
     "message": "Handling kreves: Gi tillatelse"
   },
   "onboarding_box_p1": {
-    "message": "For å blokkere nettsteder må utvidelsen ha tilgang til fanene dine. Siden dette er en kraftig tillatelse, <strong>må du gi den manuelt.</strong>"
+    "message": "For å blokkere nettsteder må utvidelsen ha tilgang til fanene dine. Siden dette er en kraftig tillatelse, må du gi den manuelt."
   },
   "onboarding_box_p2": {
     "message": "Klikk på knappen nedenfor. Et nettleservindu vil dukke opp og be deg om å klikke «Tillat»."

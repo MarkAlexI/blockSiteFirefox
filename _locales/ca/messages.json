@@ -242,7 +242,7 @@
     "message": "Acció necessària: Concedir permís"
   },
   "onboarding_box_p1": {
-    "message": "Per bloquejar llocs, l'extensió necessita accés a les teves pestanyes. Com que és un permís potent, <strong>cal concedir-lo manualment.</strong>"
+    "message": "Per bloquejar llocs, l'extensió necessita accés a les teves pestanyes. Com que és un permís potent, cal concedir-lo manualment."
   },
   "onboarding_box_p2": {
     "message": "Fes clic al botó següent. Apareixerà una finestra emergent del navegador que et demanarà que facis clic a “Permet”."

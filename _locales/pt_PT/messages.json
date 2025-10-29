@@ -242,7 +242,7 @@
     "message": "Ação necessária: conceder permissão"
   },
   "onboarding_box_p1": {
-    "message": "Para bloquear sites, a extensão necessita de permissão para aceder aos seus separadores. Como esta é uma permissão sensível, <strong>deve concedê-la manualmente.</strong>"
+    "message": "Para bloquear sites, a extensão necessita de permissão para aceder aos seus separadores. Como esta é uma permissão sensível, deve concedê-la manualmente."
   },
   "onboarding_box_p2": {
     "message": "Clique no botão abaixo. Surgirá uma janela do navegador a pedir que clique em \"Permitir\"."

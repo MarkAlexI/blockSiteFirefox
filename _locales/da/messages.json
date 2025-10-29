@@ -242,7 +242,7 @@
     "message": "Handling kræves: Giv tilladelse"
   },
   "onboarding_box_p1": {
-    "message": "For at blokere sider skal udvidelsen have adgang til dine faner. Da dette er en kraftig tilladelse, <strong>skal du give den manuelt.</strong>"
+    "message": "For at blokere sider skal udvidelsen have adgang til dine faner. Da dette er en kraftig tilladelse, skal du give den manuelt."
   },
   "onboarding_box_p2": {
     "message": "Klik venligst på knappen nedenfor. En browser-popup vises, som beder dig om at klikke på “Tillad”."

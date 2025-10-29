@@ -251,7 +251,7 @@
     "message": "Action requise : accorder l’autorisation"
   },
   "onboarding_box_p1": {
-    "message": "Pour bloquer des sites web, l’extension doit pouvoir accéder à vos onglets. Comme il s’agit d’une autorisation sensible, <strong>vous devez l’accorder manuellement.</strong>"
+    "message": "Pour bloquer des sites web, l’extension doit pouvoir accéder à vos onglets. Comme il s’agit d’une autorisation sensible, vous devez l’accorder manuellement."
   },
   "onboarding_box_p2": {
     "message": "Cliquez sur le bouton ci-dessous. Une fenêtre contextuelle du navigateur apparaîtra pour vous demander de cliquer sur « Autoriser »."

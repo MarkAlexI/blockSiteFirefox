@@ -242,7 +242,7 @@
     "message": "Aktion erforderlich: Berechtigung erteilen"
   },
   "onboarding_box_p1": {
-    "message": "Um Websites zu blockieren, benötigt die Erweiterung Ihre Erlaubnis, auf Ihre Tabs zuzugreifen. Da dies eine leistungsstarke Berechtigung ist, <strong>müssen Sie sie manuell gewähren.</strong>"
+    "message": "Um Websites zu blockieren, benötigt die Erweiterung Ihre Erlaubnis, auf Ihre Tabs zuzugreifen. Da dies eine leistungsstarke Berechtigung ist, müssen Sie sie manuell gewähren."
   },
   "onboarding_box_p2": {
     "message": "Bitte klicken Sie auf die Schaltfläche unten. Ein Browser-Popup wird erscheinen, in dem Sie aufgefordert werden, diese Berechtigung zu \"Zulassen\"."

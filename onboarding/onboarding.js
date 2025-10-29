@@ -22,28 +22,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const grantBtn = document.getElementById('grant-permission-btn');
   const statusMsg = document.getElementById('status-message');
   
-  browser.permissions.contains({ origins: ["*://*/"] }, (hasPermissions) => {
-    if (hasPermissions) {
-      statusMsg.textContent = t('onboarding_status_success');
-      statusMsg.className = 'success';
-      statusMsg.style.display = 'block';
-      grantBtn.style.display = 'none';
-      
-      browser.runtime.sendMessage({ type: 'permissions_granted' }, () => {
-        setTimeout(() => {
-          window.close();
-        }, 3000);
-      });
-    }
-  });
+  if (browser.permissions) {
+    browser.permissions.contains({ origins: ["*://*/"] }, (hasPermissions) => {
+      if (hasPermissions) {
+        statusMsg.textContent = t('onboarding_status_success');
+        statusMsg.className = 'success';
+        statusMsg.style.display = 'block';
+        grantBtn.style.display = 'none';
+        
+        browser.runtime.sendMessage({ type: 'permissions_granted' }, () => {
+          setTimeout(() => {
+            browser.runtime.sendMessage({
+              type: 'close_current_tab'
+            });
+          }, 3000);
+        });
+      }
+    });
+  }
   
   grantBtn.addEventListener('click', async () => {
     grantBtn.disabled = true;
     
     try {
-      const granted = await browser.permissions.request({
-        origins: ["*://*/"]
-      });
+      let granted;
+      if (browser.permissions) {
+        granted = await browser.permissions.request({
+          origins: ["*://*/"]
+        });
+      }
       
       if (granted) {
         statusMsg.textContent = t('onboarding_status_success');

@@ -242,7 +242,7 @@
     "message": "Szükséges lépés: Engedély megadása"
   },
   "onboarding_box_p1": {
-    "message": "Az oldalak blokkolásához a bővítménynek hozzáférésre van szüksége a lapjaihoz. Mivel ez egy erős engedély, <strong>kézzel kell megadnia.</strong>"
+    "message": "Az oldalak blokkolásához a bővítménynek hozzáférésre van szüksége a lapjaihoz. Mivel ez egy erős engedély, kézzel kell megadnia."
   },
   "onboarding_box_p2": {
     "message": "Kattintson az alábbi gombra. Megjelenik egy böngésző felugró ablak, amely kéri az engedély megadását."

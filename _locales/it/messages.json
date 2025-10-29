@@ -242,7 +242,7 @@
     "message": "Azione richiesta: concedi l’autorizzazione"
   },
   "onboarding_box_p1": {
-    "message": "Per bloccare i siti web, l’estensione deve avere il permesso di accedere alle tue schede. Poiché si tratta di un’autorizzazione avanzata, <strong>devi concederla manualmente.</strong>"
+    "message": "Per bloccare i siti web, l’estensione deve avere il permesso di accedere alle tue schede. Poiché si tratta di un’autorizzazione avanzata, devi concederla manualmente."
   },
   "onboarding_box_p2": {
     "message": "Fai clic sul pulsante qui sotto. Apparirà una finestra del browser che ti chiederà di fare clic su «Consenti»."

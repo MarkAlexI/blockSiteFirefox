@@ -242,7 +242,7 @@
     "message": "Toiming nõutud: andke luba"
   },
   "onboarding_box_p1": {
-    "message": "Veebisaitide blokeerimiseks vajab laiendus juurdepääsu teie vahelehtedele. Kuna see on tugev luba, <strong>peate selle andma käsitsi.</strong>"
+    "message": "Veebisaitide blokeerimiseks vajab laiendus juurdepääsu teie vahelehtedele. Kuna see on tugev luba, peate selle andma käsitsi."
   },
   "onboarding_box_p2": {
     "message": "Klõpsake alloleval nupul. Kuvatakse brauseri hüpikaken, mis palub teil klõpsata „Luba“."

@@ -242,7 +242,7 @@
     "message": "Požadovaná akce: Udělit oprávnění"
   },
   "onboarding_box_p1": {
-    "message": "Aby bylo možné blokovat weby, rozšíření potřebuje přístup k vašim záložkám. Protože se jedná o silné oprávnění, <strong>musíte jej udělit ručně.</strong>"
+    "message": "Aby bylo možné blokovat weby, rozšíření potřebuje přístup k vašim záložkám. Protože se jedná o silné oprávnění, musíte jej udělit ručně."
   },
   "onboarding_box_p2": {
     "message": "Klikněte prosím na tlačítko níže. Zobrazí se vyskakovací okno prohlížeče, které vás vyzve k kliknutí na „Povolit“."

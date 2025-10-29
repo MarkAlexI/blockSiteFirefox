@@ -251,7 +251,7 @@
     "message": "Acción requerida: otorgar permiso"
   },
   "onboarding_box_p1": {
-    "message": "Para bloquear sitios web, la extensión necesita permiso para acceder a tus pestañas. Como es un permiso potente, <strong>debes otorgarlo manualmente.</strong>"
+    "message": "Para bloquear sitios web, la extensión necesita permiso para acceder a tus pestañas. Como es un permiso potente, debes otorgarlo manualmente."
   },
   "onboarding_box_p2": {
     "message": "Haz clic en el botón de abajo. Aparecerá una ventana emergente del navegador pidiéndote que selecciones «Permitir»."

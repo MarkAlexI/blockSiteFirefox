@@ -242,7 +242,7 @@
     "message": "Eylem Gerekli: İzin Verin"
   },
   "onboarding_box_p1": {
-    "message": "Siteleri engellemek için eklentinin sekmelerinize erişim izni gerekir. Bu güçlü bir izin olduğundan, <strong>onu manuel olarak vermeniz gerekir.</strong>"
+    "message": "Siteleri engellemek için eklentinin sekmelerinize erişim izni gerekir. Bu güçlü bir izin olduğundan, onu manuel olarak vermeniz gerekir."
   },
   "onboarding_box_p2": {
     "message": "Lütfen aşağıdaki düğmeye tıklayın. Tarayıcınızda 'İzin Ver' seçeneğini onaylamanız istenecektir."

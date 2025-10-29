@@ -242,7 +242,7 @@
     "message": "Åtgärd krävs: Ge behörighet"
   },
   "onboarding_box_p1": {
-    "message": "För att blockera webbplatser behöver tillägget åtkomst till dina flikar. Eftersom detta är en kraftfull behörighet måste du <strong>ge den manuellt.</strong>"
+    "message": "För att blockera webbplatser behöver tillägget åtkomst till dina flikar. Eftersom detta är en kraftfull behörighet måste du ge den manuellt."
   },
   "onboarding_box_p2": {
     "message": "Klicka på knappen nedan. En popup visas i webbläsaren där du ombeds att klicka på ”Tillåt”."

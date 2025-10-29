@@ -242,7 +242,7 @@
     "message": "Actie vereist: toestemming geven"
   },
   "onboarding_box_p1": {
-    "message": "Om websites te blokkeren heeft de extensie toestemming nodig om toegang te krijgen tot je tabbladen. Omdat dit een geavanceerde machtiging is, moet je <strong>deze handmatig toestaan.</strong>"
+    "message": "Om websites te blokkeren heeft de extensie toestemming nodig om toegang te krijgen tot je tabbladen. Omdat dit een geavanceerde machtiging is, moet je deze handmatig toestaan."
   },
   "onboarding_box_p2": {
     "message": "Klik op de knop hieronder. Er verschijnt een browservenster waarin je op ‘Toestaan’ moet klikken."

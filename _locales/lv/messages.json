@@ -242,7 +242,7 @@
     "message": "Nepieciešamā darbība: Piešķirt atļauju"
   },
   "onboarding_box_p1": {
-    "message": "Lai bloķētu vietnes, paplašinājumam nepieciešama piekļuve jūsu cilnēm. Tā kā tas ir jaudīgs atļaujas veids, <strong>jums tas jāpiešķir manuāli.</strong>"
+    "message": "Lai bloķētu vietnes, paplašinājumam nepieciešama piekļuve jūsu cilnēm. Tā kā tas ir jaudīgs atļaujas veids, jums tas jāpiešķir manuāli."
   },
   "onboarding_box_p2": {
     "message": "Lūdzu, noklikšķiniet uz zemāk esošās pogas. Tiks parādīts pārlūkprogrammas uznirstošais logs, kas lūgs noklikšķināt uz “Allow”."

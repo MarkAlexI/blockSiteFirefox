@@ -242,7 +242,7 @@
     "message": "Veiksmas reikalingas: suteikite leidimą"
   },
   "onboarding_box_p1": {
-    "message": "Norint blokuoti svetaines, plėtinys turi prieigą prie jūsų skirtukų. Kadangi tai yra galingas leidimas, <strong>turite suteikti jį rankiniu būdu.</strong>"
+    "message": "Norint blokuoti svetaines, plėtinys turi prieigą prie jūsų skirtukų. Kadangi tai yra galingas leidimas, turite suteikti jį rankiniu būdu."
   },
   "onboarding_box_p2": {
     "message": "Paspauskite žemiau esantį mygtuką. Atsiras naršyklės iššokantis langas, kuris paprašys spustelėti „Leisti“."

@@ -242,7 +242,7 @@
     "message": "Požadovaná akcia: Poskytnúť povolenie"
   },
   "onboarding_box_p1": {
-    "message": "Na blokovanie stránok potrebuje rozšírenie prístup k vašim záložkám. Keďže ide o silné povolenie, <strong>musíte ho udeliť manuálne.</strong>"
+    "message": "Na blokovanie stránok potrebuje rozšírenie prístup k vašim záložkám. Keďže ide o silné povolenie, musíte ho udeliť manuálne."
   },
   "onboarding_box_p2": {
     "message": "Kliknite na tlačidlo nižšie. Zobrazí sa vyskakovacie okno prehliadača, ktoré vás požiada o kliknutie na „Povoliť“."

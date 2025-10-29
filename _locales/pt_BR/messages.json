@@ -242,7 +242,7 @@
     "message": "Ação necessária: conceder permissão"
   },
   "onboarding_box_p1": {
-    "message": "Para bloquear sites, a extensão precisa de permissão para acessar suas abas. Como essa é uma permissão poderosa, <strong>você deve concedê-la manualmente.</strong>"
+    "message": "Para bloquear sites, a extensão precisa de permissão para acessar suas abas. Como essa é uma permissão poderosa, você deve concedê-la manualmente."
   },
   "onboarding_box_p2": {
     "message": "Clique no botão abaixo. Uma janela pop-up do navegador aparecerá pedindo para você clicar em \"Permitir\"."

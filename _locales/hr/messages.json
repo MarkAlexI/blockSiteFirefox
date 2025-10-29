@@ -242,7 +242,7 @@
     "message": "Potrebna radnja: Dodijelite dozvolu"
   },
   "onboarding_box_p1": {
-    "message": "Da bi blokirao stranice, ekstenzija treba pristup vašim karticama. Budući da je ovo moćna dozvola, <strong>morate je dodijeliti ručno.</strong>"
+    "message": "Da bi blokirao stranice, ekstenzija treba pristup vašim karticama. Budući da je ovo moćna dozvola, morate je dodijeliti ručno."
   },
   "onboarding_box_p2": {
     "message": "Kliknite donji gumb. Pojavit će se skočni prozor preglednika koji će od vas tražiti da kliknete \"Dopusti\"."

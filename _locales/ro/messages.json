@@ -242,7 +242,7 @@
     "message": "Acțiune necesară: acordați permisiunea"
   },
   "onboarding_box_p1": {
-    "message": "Pentru a bloca site-uri, extensia trebuie să aibă acces la filele dvs. Deoarece este o permisiune puternică, <strong>trebuie să o acordați manual.</strong>"
+    "message": "Pentru a bloca site-uri, extensia trebuie să aibă acces la filele dvs. Deoarece este o permisiune puternică, trebuie să o acordați manual."
   },
   "onboarding_box_p2": {
     "message": "Faceți clic pe butonul de mai jos. Va apărea o fereastră pop-up a browserului care vă va cere să faceți clic pe „Permiteți”."

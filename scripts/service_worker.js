@@ -302,9 +302,12 @@ browser.runtime.onInstalled.addListener(async (details) => {
   if (details.reason === 'install') {
     console.log("This is a fresh install. Checking permissions...");
     try {
-      const granted = await browser.permissions.contains({
-        origins: ["*://*/"]
-      });
+      let granted;
+      if (browser.permissions) {
+        granted = await browser.permissions.contains({
+          origins: ["*://*/"]
+        });
+      }
       
       if (granted) {
         console.log("Host permission already granted.");

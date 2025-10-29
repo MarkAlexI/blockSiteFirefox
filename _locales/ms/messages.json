@@ -242,7 +242,7 @@
     "message": "Tindakan Diperlukan: Berikan Kebenaran"
   },
   "onboarding_box_p1": {
-    "message": "Untuk menyekat laman web, sambungan memerlukan akses ke tab anda. Oleh kerana ini adalah kebenaran yang berkuasa, <strong>anda mesti memberikannya secara manual.</strong>"
+    "message": "Untuk menyekat laman web, sambungan memerlukan akses ke tab anda. Oleh kerana ini adalah kebenaran yang berkuasa, anda mesti memberikannya secara manual."
   },
   "onboarding_box_p2": {
     "message": "Sila klik butang di bawah. Pop-up pelayar akan muncul meminta anda untuk “Allow” kebenaran ini."
