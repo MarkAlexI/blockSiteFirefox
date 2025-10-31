@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.17] - 2025-10-31
+### Fixed
+- Improved the `onInstalled` event logic in the background worker:
+  - Prevents the updates page from appearing unnecessarily after installation or update.
+  - Ensures settings are properly refreshed even if the data access permission was previously revoked.
+
 ## [2.16.16] - 2025-10-29
 ### Fixed
 - Added conditional checks to prevent calling APIs that may be unavailable in older browser versions, improving compatibility.
