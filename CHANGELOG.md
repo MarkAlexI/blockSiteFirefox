@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.18] - 2025-11-02
+### Fixed
+- Improved styles and markup for the Pro activation section on the settings page.
+- Added a missing localization key in `messages.json`.
+- Updated `content_security_policy` to allow the background worker to communicate with **blockdistraction.com** for license verification.
+
 ## [2.16.17] - 2025-10-31
 ### Fixed
 - Improved the `onInstalled` event logic in the background worker:

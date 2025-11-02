@@ -271,5 +271,6 @@
   },
   "onboarding_status_api_error": {
     "message": "The permission request failed (this can happen on mobile). Please try again, or grant permission manually from the extension settings."
-  }
+  },
+  "pastekeylabel": { "message": "Paste your License Key here:" }
 }
