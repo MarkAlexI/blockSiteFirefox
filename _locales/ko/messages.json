@@ -261,5 +261,6 @@
   },
   "onboarding_status_api_error": {
     "message": "권한 요청에 실패했습니다 (모바일 기기에서는 발생할 수 있습니다). 다시 시도하거나 설정에서 직접 권한을 허용하세요."
-  }
+  },
+  "pastekeylabel": { "message": "여기에 라이선스 키를 붙여넣으세요:" }
 }

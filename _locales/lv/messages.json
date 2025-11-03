@@ -261,5 +261,6 @@
   },
   "onboarding_status_api_error": {
     "message": "Atļaujas pieprasījums neizdevās (tas var notikt mobilajā ierīcē). Lūdzu, mēģiniet vēlreiz vai piešķiriet atļauju manuāli no iestatījumiem."
-  }
+  },
+  "pastekeylabel": { "message": "Ielīmējiet savu licences atslēgu šeit:" }
 }

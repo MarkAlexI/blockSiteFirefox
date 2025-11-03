@@ -261,5 +261,6 @@
   },
   "onboarding_status_api_error": {
     "message": "Yêu cầu quyền thất bại (có thể xảy ra trên thiết bị di động). Hãy thử lại hoặc cấp quyền thủ công từ cài đặt tiện ích."
-  }
+  },
+  "pastekeylabel": { "message": "Dán khóa bản quyền của bạn vào đây:" }
 }

@@ -270,5 +270,6 @@
   },
   "onboarding_status_api_error": {
     "message": "权限请求失败（移动设备上可能发生）。请重试，或在设置中手动授权。"
-  }
+  },
+  "pastekeylabel": { "message": "在此粘贴您的许可证密钥：" }
 }

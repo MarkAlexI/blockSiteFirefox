@@ -270,5 +270,6 @@
   },
   "onboarding_status_api_error": {
     "message": "La demande d’autorisation a échoué (cela peut arriver sur mobile). Réessayez ou accordez l’autorisation manuellement dans les paramètres."
-  }
+  },
+  "pastekeylabel": { "message": "Collez votre clé de licence ici :" }
 }

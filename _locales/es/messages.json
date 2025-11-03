@@ -270,5 +270,6 @@
   },
   "onboarding_status_api_error": {
     "message": "La solicitud de permiso falló (esto puede suceder en dispositivos móviles). Inténtalo de nuevo o concédelo manualmente desde la configuración."
-  }
+  },
+  "pastekeylabel": { "message": "Pega tu clave de licencia aquí:" }
 }

@@ -261,5 +261,6 @@
   },
   "onboarding_status_api_error": {
     "message": "Tilladelsesanmodningen mislykkedes (kan ske på mobil). Prøv igen, eller giv tilladelse manuelt fra indstillingerne."
-  }
+  },
+  "pastekeylabel": { "message": "Indsæt din licensnøgle her:" }
 }
