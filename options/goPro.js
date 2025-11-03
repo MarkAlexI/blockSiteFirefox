@@ -52,7 +52,7 @@ async function updateUI() {
   if (isPro) {
     activateView.style.display = 'none';
     activeView.classList.remove('hidden');
-    proBtnText.textContent = t('proactive') || 'Pro Active';
+    proBtnText.textContent = 'Pro';
   } else {
     activateView.style.display = 'block';
     activeView.style.display = 'none';

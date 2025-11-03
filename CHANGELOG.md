@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.20] - 2025-11-03
+### Fixed
+- Corrected several inaccurate translations in the Japanese locale.
+- Fixed a delay in updating the UI after activating Pro — changes now apply instantly.
+
 ## [2.16.19] - 2025-11-03
 ### Fixed
 - Completed all missing translation keys for all locales.
