@@ -195,6 +195,8 @@ async function trackBlockedPage(url) {
       if (blockedUrl) {
         console.log(`Recording block: ${blockedUrl}`);
         await StatisticsManager.recordBlock(blockedUrl);
+      } else {
+        console.log(`Tracked blocked.html, but no URL parameter found.`);
       }
     }
   } catch (error) {
@@ -237,8 +239,8 @@ async function checkProStatusExpiry() {
 }
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  if (changeInfo.status === 'complete' && changeInfo.url) {
-    await trackBlockedPage(changeInfo.url);
+  if (changeInfo.status === 'complete' && tab.url) {
+    await trackBlockedPage(tab.url);
   }
 });
 

@@ -1,8 +1,7 @@
 import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
 import { PasswordUtils } from '../pro/password.js';
-
-const isPro = ProManager.isPro();
+import { StatisticsManager } from '../pro/statisticsManager.js';
 
 export class SettingsManager {
   constructor() {
@@ -26,6 +25,7 @@ export class SettingsManager {
   async init() {
     await this.initializeSettings();
     this.setupEventListeners();
+    this.loadRuleCount();
     this.loadStatistics();
   }
   
@@ -195,15 +195,54 @@ export class SettingsManager {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
       this.resetSettings();
     });
+
+    const clearStatsBtn = document.getElementById('clearStatistics');
+    if (clearStatsBtn) {
+      clearStatsBtn.addEventListener('click', async () => {
+        if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+        if (confirm(t('confirmclearstats'))) { 
+          await StatisticsManager.reset();
+          await this.loadStatistics(); 
+          this.showStatus(t('statscleared'), 'success');
+        }
+      });
+    }
+
+    browser.storage.onChanged.addListener(this.handleStorageChange.bind(this));
   }
-  
+
+  handleStorageChange(changes, namespace) {
+    if (namespace === 'local' && changes.statistics) {
+      console.log('Statistics changed in storage, reloading stats UI...');
+      this.loadStatistics(); 
+    }
+  }
+
+  async loadRuleCount(rules_from_message = null) {
+    try {
+      let rules;
+      if (rules_from_message) {
+        rules = rules_from_message;
+      } else {
+        const rulesResult = await browser.storage.sync.get(['rules']);
+        rules = rulesResult.rules || [];
+      }
+      document.getElementById('totalRules').textContent = rules.length;
+    } catch (error) {
+      console.error('Error loading rule count:', error);
+    }
+  }
+
   async loadStatistics() {
     try {
-      const result = await browser.storage.sync.get(['rules', 'statistics']);
-      const rules = result.rules || [];
-      const stats = result.statistics || { totalBlocked: 0, blockedToday: 0 };
+      const statsResult = await browser.storage.local.get(['statistics']);
+      const stats = statsResult.statistics || StatisticsManager.defaultStats;
       
-      document.getElementById('totalRules').textContent = rules.length;
+      const today = new Date().toDateString();
+      if (stats.lastResetDate !== today) {
+        stats.blockedToday = 0;
+      }
+      
       document.getElementById('totalBlocked').textContent = stats.totalBlocked || 0;
       document.getElementById('blockedToday').textContent = stats.blockedToday || 0;
     } catch (error) {
@@ -272,8 +311,10 @@ export class SettingsManager {
       if (saveData.settings) {
         this.applySettingsToUI(saveData.settings);
       }
+
+      await this.loadRuleCount(saveData.rules);
+      await this.loadStatistics(); 
       
-      await this.loadStatistics();
       this.showStatus(t('importedrules', `${importData.rules.length}`), 'success');
       
       document.getElementById('importFileInput').value = '';
@@ -307,7 +348,7 @@ export class SettingsManager {
     
     try {
       await browser.storage.sync.set({ rules: [] });
-      await this.loadStatistics();
+      await this.loadRuleCount([]);
       this.showStatus(t('allrulescleared'), 'success');
       
       if (this.onRulesUpdated) {

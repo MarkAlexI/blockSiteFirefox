@@ -17,12 +17,12 @@ export class RulesManager {
   }
   
   async saveRules(rules) {
+    await new Promise((resolve) => {
+      browser.storage.sync.set({ rules }, resolve);
+    });
+
     browser.runtime.sendMessage({
       type: 'reload_rules'
-    });
-    
-    return new Promise((resolve) => {
-      browser.storage.sync.set({ rules }, resolve);
     });
   }
   
@@ -85,7 +85,15 @@ export class RulesManager {
     
     const filter = normalizeUrlFilter(blockURL.trim());
     const urlFilter = `||${filter}`;
-    const action = redirectURL.trim() ? { type: "redirect", redirect: { url: redirectURL.trim() } } : { type: "redirect", redirect: { url: this.defaultRedirectURL } };
+    
+    const redirectUrlBase = redirectURL.trim() ? redirectURL.trim() : this.defaultRedirectURL;
+    const finalRedirectUrl = new URL(redirectUrlBase);
+    
+    if (redirectUrlBase === this.defaultRedirectURL) {
+      finalRedirectUrl.searchParams.set('url', blockURL.trim());
+    }
+
+    const action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
     
     return {
       id: newId,
@@ -244,7 +252,13 @@ export class RulesManager {
         const newDnrRules = migratedRules.map((rule, i) => {
           const filter = normalizeUrlFilter(rule.blockURL);
           const urlFilter = `||${filter}`;
-          const action = rule.redirectURL ? { type: "redirect", redirect: { url: rule.redirectURL } } : { type: "redirect", redirect: { url: this.defaultRedirectURL } };
+          
+          const redirectUrlBase = rule.redirectURL ? rule.redirectURL : this.defaultRedirectURL;
+          const finalRedirectUrl = new URL(redirectUrlBase);
+          if (redirectUrlBase === this.defaultRedirectURL) {
+            finalRedirectUrl.searchParams.set('url', rule.blockURL);
+          }
+          const action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
           
           return {
             id: i + 1,
