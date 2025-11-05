@@ -338,63 +338,77 @@ browser.runtime.onInstalled.addListener(async (details) => {
   }
 });
 
-browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'close_current_tab') {
     if (sender.tab && sender.tab.id) {
       browser.tabs.remove(sender.tab.id);
     }
+    return;
   }
   
   if (message.type === 'record_block') {
     StatisticsManager.recordBlock(message.url);
+    return;
   }
   
   if (message.type === 'update_pro_status') {
-    handleProStatusUpdate(message.isPro, message.subscriptionData)
-      .then(result => {
+    (async () => {
+      try {
+        const result = await handleProStatusUpdate(message.isPro, message.subscriptionData);
         sendResponse({ success: true, credentials: result });
-      })
-      .catch(error => {
+      } catch (error) {
         sendResponse({ success: false, error: error.message });
-      });
+      }
+    })();
     return true;
   }
   
   if (message.type === 'check_pro_status') {
-    ProManager.isPro()
-      .then(isPro => {
+    (async () => {
+      try {
+        const isPro = await ProManager.isPro();
         sendResponse({ isPro });
-      })
-      .catch(error => {
+      } catch (error) {
         sendResponse({ isPro: false, error: error.message });
-      });
+      }
+    })();
     return true;
   }
   
   if (message.type === 'get_pro_credentials') {
-    ProManager.getCredentials()
-      .then(credentials => {
+    (async () => {
+      try {
+        const credentials = await ProManager.getCredentials();
         sendResponse({ credentials });
-      })
-      .catch(error => {
+      } catch (error) {
         sendResponse({ credentials: ProManager.defaultCredentials, error: error.message });
-      });
+      }
+    })();
     return true;
   }
   
   if (message.type === 'reload_rules') {
-    await updateActiveRules();
-    console.log('Rules updated.');
+    (async () => {
+      await updateActiveRules();
+      console.log('Rules updated.');
+    })();
+    return;
   }
   
   if (message.type === 'pro_status_changed') {
     updateContextMenu(message.isPro);
+    return;
   }
   
   if (message.type === 'force_sync') {
-    syncLicenseKeyStatus()
-      .then(result => sendResponse(result))
-      .catch(error => sendResponse({ success: false, error: error.message }));
+    (async () => {
+      try {
+        const result = await syncLicenseKeyStatus();
+        sendResponse(result);
+      } catch (error) {
+        sendResponse({ success: false, error: error.message });
+      }
+    })();
     return true;
   }
 });

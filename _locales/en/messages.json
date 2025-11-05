@@ -272,5 +272,6 @@
   "onboarding_status_api_error": {
     "message": "The permission request failed (this can happen on mobile). Please try again, or grant permission manually from the extension settings."
   },
-  "pastekeylabel": { "message": "Paste your License Key here:" }
+  "pastekeylabel": { "message": "Paste your License Key here:" },
+  "forgotpasswordinstructions": { "message": "To reset your password, please re-activate your Pro status. Just paste your License Key in the 'Pro' section on this page, and the protection will be removed." }
 }

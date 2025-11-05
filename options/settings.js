@@ -93,10 +93,13 @@ export class SettingsManager {
     document.getElementById('enablePassword').checked = settings.enablePassword;
   }
   
-  async saveSettings() {
+  async saveSettings(settingsToSave) {
     try {
-      const settings = this.getSettingsFromUI();
-      await browser.storage.sync.set({ settings });
+      const result = await browser.storage.sync.get(['settings']);
+      const currentSettings = result.settings || this.defaultSettings;
+      const newSettings = { ...currentSettings, ...settingsToSave };
+      
+      await browser.storage.sync.set({ settings: newSettings });
       this.showStatus(t('settingssaved'), 'success');
     } catch (error) {
       console.error('Error saving settings:', error);
@@ -119,64 +122,79 @@ export class SettingsManager {
   }
   
   setupEventListeners() {
-    const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+    const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword)');
     inputs.forEach(input => {
-      input.addEventListener('change', () => {
-        this.saveSettings();
+      input.addEventListener('change', async (e) => {
+        const settingsToSave = {};
+        if (e.target.name === 'securityMode') {
+          settingsToSave.mode = e.target.value;
+        } else {
+          settingsToSave[e.target.id] = e.target.checked;
+        }
+
+        await this.saveSettings(settingsToSave);
       });
     });
-    
-    if (isPro) {
-      document.getElementById('enablePassword').addEventListener('change', async () => {
-        const enable = document.getElementById('enablePassword').checked;
+
+    const enablePasswordToggle = document.getElementById('enablePassword');
+    if (enablePasswordToggle) {
+      enablePasswordToggle.addEventListener('click', async (event) => {
+        event.preventDefault();
+
         if (!await ProManager.isPro()) {
           this.showStatus(t('prorequired'), 'error');
-          document.getElementById('enablePassword').checked = false;
           return;
         }
+        
+        const enable = !event.target.checked;
+        
         if (enable) {
           PasswordUtils.showPasswordModal('set', async (hash) => {
-            const settings = this.getSettingsFromUI();
-            settings.enablePassword = true;
-            settings.passwordHash = hash;
-            await browser.storage.sync.set({ settings });
-            this.showStatus(t('passwordset'), 'success');
+            if (hash) {
+              await this.saveSettings({ enablePassword: true, passwordHash: hash });
+              event.target.checked = true;
+              this.showStatus(t('passwordset'), 'success');
+            } else {
+              event.target.checked = false;
+            }
           }, t);
         } else {
           PasswordUtils.showPasswordModal('verify', async (isValid) => {
             if (isValid) {
-              const settings = this.getSettingsFromUI();
-              settings.enablePassword = false;
-              settings.passwordHash = null;
-              await browser.storage.sync.set({ settings });
+              await this.saveSettings({ enablePassword: false, passwordHash: null });
+              event.target.checked = false;
               this.showStatus(t('passworddisabled'), 'success');
             } else {
-              document.getElementById('enablePassword').checked = true;
+              event.target.checked = true;
             }
           }, t);
         }
       });
-      
-      document.getElementById('exportRules').addEventListener('click', () => {
-        this.exportRules();
-      });
-      
-      document.getElementById('importRules').addEventListener('click', () => {
-        document.getElementById('importFileInput').click();
-      });
-      
-      document.getElementById('importFileInput').addEventListener('change', (e) => {
-        this.importRules(e.target.files[0]);
-      });
-      
-      document.getElementById('clearAllRules').addEventListener('click', () => {
-        this.clearAllRules();
-      });
-      
-      document.getElementById('resetSettings').addEventListener('click', () => {
-        this.resetSettings();
-      });
     }
+
+    document.getElementById('exportRules').addEventListener('click', async () => {
+      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      this.exportRules();
+    });
+    
+    document.getElementById('importRules').addEventListener('click', async () => {
+      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      document.getElementById('importFileInput').click();
+    });
+    
+    document.getElementById('importFileInput').addEventListener('change', (e) => {
+      this.importRules(e.target.files[0]);
+    });
+    
+    document.getElementById('clearAllRules').addEventListener('click', async () => {
+      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      this.clearAllRules();
+    });
+    
+    document.getElementById('resetSettings').addEventListener('click', async () => {
+      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      this.resetSettings();
+    });
   }
   
   async loadStatistics() {
@@ -329,8 +347,7 @@ export class SettingsManager {
   
   notifyOptionsReload() {
     browser.runtime.sendMessage({
-      type: 'reload_rules',
-      excludeCurrentTab: true
+      type: 'reload_rules'
     });
   }
 }

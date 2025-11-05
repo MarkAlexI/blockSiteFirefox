@@ -51,7 +51,7 @@ async function updateUI() {
   
   if (isPro) {
     activateView.style.display = 'none';
-    activeView.classList.remove('hidden');
+    activeView.style.display = 'block'; 
     proBtnText.textContent = 'Pro';
   } else {
     activateView.style.display = 'block';
@@ -72,12 +72,12 @@ if (licenseForm) {
     
     if (!key) {
       licenseMessage.textContent = t('pleaseenterkey') || 'Please enter a key.';
-      licenseMessage.classList.remove('hidden');
+      licenseMessage.className = 'error-message show'; 
       return;
     }
     
     licenseMessage.textContent = t('checking') || 'Checking...';
-    licenseMessage.className = '';
+    licenseMessage.className = 'status-message success show'; 
     licenseSubmitBtn.disabled = true;
     
     try {
@@ -98,33 +98,77 @@ if (licenseForm) {
         subscriptionEmail: data.email,
         expiryDate: data.expiryDate
       });
-      
+
+      try {
+        const settingsResult = await browser.storage.sync.get(['settings']);
+        if (settingsResult.settings && settingsResult.settings.enablePassword) {
+          console.log("Password protection was on. Resetting due to re-activation...");
+          const newSettings = {
+            ...settingsResult.settings,
+            enablePassword: false,
+            passwordHash: null
+          };
+          await browser.storage.sync.set({ settings: newSettings });
+
+          const enablePasswordToggle = document.getElementById('enablePassword');
+          if (enablePasswordToggle) {
+            enablePasswordToggle.checked = false;
+          }
+        }
+      } catch (err) {
+        console.error("Failed to reset password during re-activation:", err);
+      }
       licenseMessage.textContent = t('proactivated') || 'Pro activated!';
-      licenseMessage.className = 'success';
+      licenseMessage.className = 'status-message success show';
       await updateUI();
       
     } catch (error) {
       console.error('Activation Error:', error);
       licenseMessage.textContent = t('subscriptionnotfound') || 'Subscription not found or key is invalid.';
-      licenseMessage.className = 'error';
+      licenseMessage.className = 'error-message show';
     } finally {
       licenseSubmitBtn.disabled = false;
+
+      setTimeout(() => {
+        licenseMessage.className = 'hidden';
+      }, 3000);
     }
   });
 }
 
 if (forceSyncBtn) {
   forceSyncBtn.addEventListener('click', () => {
+    forceSyncBtn.disabled = true;
     forceSyncBtn.textContent = 'Syncing...';
+
+    licenseMessage.textContent = t('syncing');
+    licenseMessage.className = 'status-message success show';
+
     browser.runtime.sendMessage({ type: 'force_sync' }, (response) => {
+      forceSyncBtn.disabled = false;
       forceSyncBtn.textContent = 'Force Sync / Check Status';
+      
       if (response && response.success) {
-        alert('Sync complete. Status: ' + (response.isPro ? 'Pro Active' : 'Free'));
+        licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ' (Free)');
+        licenseMessage.className = 'status-message success show';
+        updateUI();
       } else {
-        alert('Sync failed. Please check your connection or key.');
+        licenseMessage.textContent = t('syncfailed') + (response.error ? `: ${response.error}` : '');
+        licenseMessage.className = 'error-message show';
       }
+      
+      setTimeout(() => {
+        licenseMessage.className = 'hidden';
+      }, 3000);
     });
   });
 }
+
+browser.runtime.onMessage.addListener((message) => {
+  if (message.type === 'pro_status_changed') {
+    console.log('Pro status changed message received, updating UI.');
+    updateUI();
+  }
+});
 
 updateUI();

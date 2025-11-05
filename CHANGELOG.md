@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.17.0] - 2025-11-05
+### Added
+- Added the ability to reset the blocking password (Pro feature).
+### Fixed
+- Improved modal styles and fixed issues affecting its behavior.
+- Rewritten message listener in the background worker to prevent premature closure of the communication channel.
+
 ## [2.16.20] - 2025-11-03
 ### Fixed
 - Corrected several inaccurate translations in the Japanese locale.

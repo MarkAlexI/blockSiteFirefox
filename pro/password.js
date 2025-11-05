@@ -32,10 +32,20 @@ export class PasswordUtils {
     const confirmBtn = document.getElementById('confirmPassword');
     const cancelBtn = document.getElementById('cancelPassword');
 
-    title.textContent = type === 'set' ? t('setpassword') : t('enterpassword');
-    input2.classList.toggle('hidden', type !== 'set');
-    forgot.classList.toggle('hidden', type !== 'set');
     modal.classList.remove('hidden');
+    error.classList.add('hidden');
+    input1.value = '';
+    input2.value = '';
+
+    if (type === 'set') {
+      title.textContent = t('setpassword');
+      input2.classList.remove('hidden');
+      forgot.classList.remove('hidden');
+    } else {
+      title.textContent = t('enterpassword');
+      input2.classList.add('hidden');
+      forgot.classList.add('hidden');
+    }
 
     const closeModal = () => {
       modal.classList.add('hidden');
