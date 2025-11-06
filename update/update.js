@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const features = [
     /*    'Added basic statistics on the options page: number of rules, total sites blocked, and today’ s blocked count.',
     'In Pro mode, a context menu is now available that lets you block sites from links with a single click.',
-    'Added password protection for rule deletion in Pro mode',*/
+    'Added password protection for rule deletion in Pro mode',
+    'Improved the statistics system — it now tracks not only site blocks but also redirects.',
+    'This helps make analytics more complete and accurate, so future improvements can be even smarter.', */
     'Technical improvements and stability update: cleaner codebase, fewer bugs.',
     'On mobile devices, the "Block This Site" button now shows the domain of the open page for convenience.',
     'We’ve added categories to help you better organize your rules. Now you can group rules into: Social, News, Entertainment, Shopping, Work, Gaming, Adult or Uncategorized.',

@@ -6,6 +6,7 @@ import { isOnlyLowerCase } from '../scripts/isOnlyLowerCase.js';
 export class RulesManager {
   constructor() {
     this.defaultRedirectURL = browser.runtime.getURL("blocked.html");
+    this.intermediaryRedirectURL = browser.runtime.getURL("redirect.html");
   }
   
   async getRules() {
@@ -20,7 +21,7 @@ export class RulesManager {
     await new Promise((resolve) => {
       browser.storage.sync.set({ rules }, resolve);
     });
-
+    
     browser.runtime.sendMessage({
       type: 'reload_rules'
     });
@@ -86,14 +87,18 @@ export class RulesManager {
     const filter = normalizeUrlFilter(blockURL.trim());
     const urlFilter = `||${filter}`;
     
-    const redirectUrlBase = redirectURL.trim() ? redirectURL.trim() : this.defaultRedirectURL;
-    const finalRedirectUrl = new URL(redirectUrlBase);
-    
-    if (redirectUrlBase === this.defaultRedirectURL) {
-      finalRedirectUrl.searchParams.set('url', blockURL.trim());
-    }
+    let action;
 
-    const action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
+    if (redirectURL && redirectURL.trim() !== '') {
+      const finalRedirectUrl = new URL(this.intermediaryRedirectURL);
+      finalRedirectUrl.searchParams.set('from', blockURL.trim());
+      finalRedirectUrl.searchParams.set('to', redirectURL.trim());
+      action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
+    } else {
+      const finalRedirectUrl = new URL(this.defaultRedirectURL);
+      finalRedirectUrl.searchParams.set('url', blockURL.trim());
+      action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
+    }
     
     return {
       id: newId,
@@ -253,12 +258,17 @@ export class RulesManager {
           const filter = normalizeUrlFilter(rule.blockURL);
           const urlFilter = `||${filter}`;
           
-          const redirectUrlBase = rule.redirectURL ? rule.redirectURL : this.defaultRedirectURL;
-          const finalRedirectUrl = new URL(redirectUrlBase);
-          if (redirectUrlBase === this.defaultRedirectURL) {
+          let action;
+          if (rule.redirectURL && rule.redirectURL.trim() !== '') {
+            const finalRedirectUrl = new URL(this.intermediaryRedirectURL);
+            finalRedirectUrl.searchParams.set('from', rule.blockURL);
+            finalRedirectUrl.searchParams.set('to', rule.redirectURL);
+            action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
+          } else {
+            const finalRedirectUrl = new URL(this.defaultRedirectURL);
             finalRedirectUrl.searchParams.set('url', rule.blockURL);
+            action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
           }
-          const action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
           
           return {
             id: i + 1,

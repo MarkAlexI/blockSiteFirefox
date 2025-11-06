@@ -188,15 +188,11 @@ async function trackBlockedPage(url) {
     
     if (url.startsWith(extensionUrl) && url.includes('blocked.html')) {
       const urlObj = new URL(url);
-      const blockedUrl = urlObj.searchParams.get('url') ||
-        urlObj.searchParams.get('blocked') ||
-        urlObj.searchParams.get('site');
+      const blockedUrl = urlObj.searchParams.get('url');
       
       if (blockedUrl) {
         console.log(`Recording block: ${blockedUrl}`);
         await StatisticsManager.recordBlock(blockedUrl);
-      } else {
-        console.log(`Tracked blocked.html, but no URL parameter found.`);
       }
     }
   } catch (error) {
@@ -350,6 +346,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   if (message.type === 'record_block') {
     StatisticsManager.recordBlock(message.url);
+    return;
+  }
+  
+  if (message.type === 'record_redirect') {
+    StatisticsManager.recordRedirect(message.from, message.to);
     return;
   }
   

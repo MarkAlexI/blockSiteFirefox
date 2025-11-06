@@ -25,8 +25,8 @@ export class SettingsManager {
   async init() {
     await this.initializeSettings();
     this.setupEventListeners();
-    this.loadRuleCount();
-    this.loadStatistics();
+    this.loadRuleCount(); 
+    this.loadStatistics(); 
   }
   
   async initializeSettings() {
@@ -232,7 +232,7 @@ export class SettingsManager {
       console.error('Error loading rule count:', error);
     }
   }
-
+  
   async loadStatistics() {
     try {
       const statsResult = await browser.storage.local.get(['statistics']);
@@ -241,10 +241,13 @@ export class SettingsManager {
       const today = new Date().toDateString();
       if (stats.lastResetDate !== today) {
         stats.blockedToday = 0;
+        stats.redirectsToday = 0;
       }
       
       document.getElementById('totalBlocked').textContent = stats.totalBlocked || 0;
       document.getElementById('blockedToday').textContent = stats.blockedToday || 0;
+      document.getElementById('totalRedirects').textContent = stats.totalRedirects || 0;
+      document.getElementById('redirectsToday').textContent = stats.redirectsToday || 0;
     } catch (error) {
       console.error('Error loading statistics:', error);
     }
@@ -311,7 +314,7 @@ export class SettingsManager {
       if (saveData.settings) {
         this.applySettingsToUI(saveData.settings);
       }
-
+      
       await this.loadRuleCount(saveData.rules);
       await this.loadStatistics(); 
       
@@ -348,7 +351,7 @@ export class SettingsManager {
     
     try {
       await browser.storage.sync.set({ rules: [] });
-      await this.loadRuleCount([]);
+      await this.loadRuleCount([]); 
       this.showStatus(t('allrulescleared'), 'success');
       
       if (this.onRulesUpdated) {
