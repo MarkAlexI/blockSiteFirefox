@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.17.3] - 2025-11-07
+### Fixed
+- Improved styles on the settings page for a cleaner look.
+- Fixed the logout functionality — it now works as expected.
+
 ## [2.17.2] - 2025-11-06
 ### Fixed
 - Expanded the statistics system — it now collects data not only about blocked sites but also about redirects.

@@ -15,6 +15,7 @@ const licenseSubmitBtn = document.getElementById('license-submit-btn');
 const licenseMessage = document.getElementById('license-message');
 
 const forceSyncBtn = document.getElementById('force-sync-btn');
+const logOutBtn = document.getElementById('log-out-btn');
 
 const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
 
@@ -51,11 +52,13 @@ async function updateUI() {
   
   if (isPro) {
     activateView.style.display = 'none';
-    activeView.style.display = 'block'; 
+    activeView.classList.remove('hidden');
+    activeView.style.display = 'block';
     proBtnText.textContent = 'Pro';
   } else {
     activateView.style.display = 'block';
     activeView.style.display = 'none';
+    activeView.classList.add('hidden');
     proBtnText.textContent = t('getpro') || 'Get Pro';
   }
   
@@ -72,12 +75,12 @@ if (licenseForm) {
     
     if (!key) {
       licenseMessage.textContent = t('pleaseenterkey') || 'Please enter a key.';
-      licenseMessage.className = 'error-message show'; 
+      licenseMessage.className = 'error-message show';
       return;
     }
     
     licenseMessage.textContent = t('checking') || 'Checking...';
-    licenseMessage.className = 'status-message success show'; 
+    licenseMessage.className = 'status-message success show';
     licenseSubmitBtn.disabled = true;
     
     try {
@@ -98,7 +101,7 @@ if (licenseForm) {
         subscriptionEmail: data.email,
         expiryDate: data.expiryDate
       });
-
+      
       try {
         const settingsResult = await browser.storage.sync.get(['settings']);
         if (settingsResult.settings && settingsResult.settings.enablePassword) {
@@ -109,7 +112,7 @@ if (licenseForm) {
             passwordHash: null
           };
           await browser.storage.sync.set({ settings: newSettings });
-
+          
           const enablePasswordToggle = document.getElementById('enablePassword');
           if (enablePasswordToggle) {
             enablePasswordToggle.checked = false;
@@ -118,6 +121,7 @@ if (licenseForm) {
       } catch (err) {
         console.error("Failed to reset password during re-activation:", err);
       }
+      
       licenseMessage.textContent = t('proactivated') || 'Pro activated!';
       licenseMessage.className = 'status-message success show';
       await updateUI();
@@ -128,7 +132,7 @@ if (licenseForm) {
       licenseMessage.className = 'error-message show';
     } finally {
       licenseSubmitBtn.disabled = false;
-
+      
       setTimeout(() => {
         licenseMessage.className = 'hidden';
       }, 3000);
@@ -140,13 +144,13 @@ if (forceSyncBtn) {
   forceSyncBtn.addEventListener('click', () => {
     forceSyncBtn.disabled = true;
     forceSyncBtn.textContent = 'Syncing...';
-
+    
     licenseMessage.textContent = t('syncing');
     licenseMessage.className = 'status-message success show';
-
+    
     browser.runtime.sendMessage({ type: 'force_sync' }, (response) => {
       forceSyncBtn.disabled = false;
-      forceSyncBtn.textContent = 'Force Sync / Check Status';
+      forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
       
       if (response && response.success) {
         licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ' (Free)');
@@ -161,6 +165,31 @@ if (forceSyncBtn) {
         licenseMessage.className = 'hidden';
       }, 3000);
     });
+  });
+}
+
+if (logOutBtn) {
+  logOutBtn.addEventListener('click', async () => {
+    try {
+      await ProManager.updateProStatus(false, {
+        licenseKey: null,
+        subscriptionEmail: null,
+        expiryDate: null
+      });
+      
+      await updateUI();
+      
+      licenseMessage.textContent = t('loggedoutsuccess');
+      licenseMessage.className = 'status-message success show';
+    } catch (error) {
+      console.error('Log out error:', error);
+      licenseMessage.textContent = t('loggedouterror');
+      licenseMessage.className = 'error-message show';
+    } finally {
+      setTimeout(() => {
+        licenseMessage.className = 'hidden';
+      }, 3000);
+    }
   });
 }
 

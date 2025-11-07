@@ -273,5 +273,9 @@
     "message": "The permission request failed (this can happen on mobile). Please try again, or grant permission manually from the extension settings."
   },
   "pastekeylabel": { "message": "Paste your License Key here:" },
-  "forgotpasswordinstructions": { "message": "To reset your password, please re-activate your Pro status. Just paste your License Key in the 'Pro' section on this page, and the protection will be removed." }
+  "forgotpasswordinstructions": { "message": "To reset your password, please re-activate your Pro status. Just paste your License Key in the 'Pro' section on this page, and the protection will be removed." },
+  "confirmclearstats": { "message": "Are you sure you want to clear all statistics? This cannot be undone." },
+  "statscleared": { "message": "Statistics cleared successfully." },
+  "redirectstodaylabel": { "message": "Redirects Today" },
+  "totalredirectslabel": { "message": "Total Redirects" }
 }
