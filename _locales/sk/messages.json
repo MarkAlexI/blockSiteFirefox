@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Požiadavka na povolenie zlyhala (môže sa stať na mobile). Skúste to znova alebo poskytnite povolenie manuálne v nastaveniach rozšírenia."
   },
-  "pastekeylabel": { "message": "Vložte sem svoj licenčný kľúč:" }
+  "pastekeylabel": { "message": "Vložte sem svoj licenčný kľúč:" },
+  "confirmclearstats": { "message": "Naozaj chcete vymazať všetky štatistiky? Túto akciu nie je možné vrátiť späť." },
+  "statscleared": { "message": "Štatistiky boli úspešne vymazané." },
+  "redirectstodaylabel": { "message": "Presmerovania dnes" },
+  "totalredirectslabel": { "message": "Celkový počet presmerovaní" },
+  "logout": { "message": "Odhlásiť sa" },
+  "loggedoutsuccess": { "message": "Boli ste úspešne odhlásený." },
+  "loggedouterror": { "message": "Pri odhlasovaní sa vyskytla chyba." },
+  "forcesync": { "message": "Vynútiť synchronizáciu / Skontrolovať stav" },
+  "forgotpasswordinstructions": { "message": "Ak chcete obnoviť svoje heslo, prejdite do sekcie 'Pro', kliknite na 'Odhlásiť sa' a potom znova aktivujte vložením vášho licenčného kľúča." }
 }

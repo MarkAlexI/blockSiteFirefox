@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Die Berechtigungsanfrage ist fehlgeschlagen (dies kann auf Mobilgeräten passieren). Bitte versuchen Sie es erneut oder gewähren Sie die Berechtigung manuell in den Erweiterungseinstellungen."
   },
-  "pastekeylabel": { "message": "Fügen Sie hier Ihren Lizenzschlüssel ein:" }
+  "pastekeylabel": { "message": "Fügen Sie hier Ihren Lizenzschlüssel ein:" },
+  "confirmclearstats": { "message": "Bist du sicher, dass du alle Statistiken löschen möchtest? Dies kann nicht rückgängig gemacht werden." },
+  "statscleared": { "message": "Statistiken wurden erfolgreich gelöscht." },
+  "redirectstodaylabel": { "message": "Weiterleitungen heute" },
+  "totalredirectslabel": { "message": "Gesamtanzahl der Weiterleitungen" },
+  "logout": { "message": "Abmelden" },
+  "loggedoutsuccess": { "message": "Du wurdest erfolgreich abgemeldet." },
+  "loggedouterror": { "message": "Beim Abmelden ist ein Fehler aufgetreten." },
+  "forcesync": { "message": "Synchronisierung erzwingen / Status prüfen" },
+  "forgotpasswordinstructions": { "message": "Um dein Passwort zurückzusetzen, gehe bitte zum Bereich 'Pro', klicke auf 'Abmelden' und aktiviere anschließend erneut, indem du deinen Lizenzschlüssel einfügst." }
 }

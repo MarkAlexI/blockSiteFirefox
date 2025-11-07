@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Cererea de permisiune a eșuat (acest lucru se poate întâmpla pe mobil). Încercați din nou sau acordați permisiunea manual din setări."
   },
-  "pastekeylabel": { "message": "Lipește cheia ta de licență aici:" }
+  "pastekeylabel": { "message": "Lipește cheia ta de licență aici:" },
+  "confirmclearstats": { "message": "Ești sigur că vrei să ștergi toate statisticile? Această acțiune nu poate fi anulată." },
+  "statscleared": { "message": "Statisticile au fost șterse cu succes." },
+  "redirectstodaylabel": { "message": "Redirecționări astăzi" },
+  "totalredirectslabel": { "message": "Total redirecționări" },
+  "logout": { "message": "Deconectare" },
+  "loggedoutsuccess": { "message": "Te-ai deconectat cu succes." },
+  "loggedouterror": { "message": "A apărut o eroare la deconectare." },
+  "forcesync": { "message": "Forțează sincronizarea / Verifică starea" },
+  "forgotpasswordinstructions": { "message": "Pentru a reseta parola, mergi la secțiunea 'Pro', apasă 'Deconectare', apoi reactivează lipind cheia ta de licență." }
 }

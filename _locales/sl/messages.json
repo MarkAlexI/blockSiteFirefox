@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Zahteva za dovoljenje ni uspela (lahko se zgodi na mobilnih napravah). Poskusite znova ali dodelite dovoljenje ročno v nastavitvah razširitve."
   },
-  "pastekeylabel": { "message": "Prilepite svojo licenčno ključ tukaj:" }
+  "pastekeylabel": { "message": "Prilepite svojo licenčno ključ tukaj:" },
+  "confirmclearstats": { "message": "Ali ste prepričani, da želite izbrisati vse statistike? Tega dejanja ni mogoče razveljaviti." },
+  "statscleared": { "message": "Statistika je bila uspešno izbrisana." },
+  "redirectstodaylabel": { "message": "Preusmeritve danes" },
+  "totalredirectslabel": { "message": "Skupno število preusmeritev" },
+  "logout": { "message": "Odjava" },
+  "loggedoutsuccess": { "message": "Uspešno ste bili odjavljeni." },
+  "loggedouterror": { "message": "Pri odjavi je prišlo do napake." },
+  "forcesync": { "message": "Vsili sinhronizacijo / Preveri stanje" },
+  "forgotpasswordinstructions": { "message": "Če želite ponastaviti geslo, pojdite v razdelek 'Pro', kliknite 'Odjava' in nato ponovno aktivirajte z lepljenjem svojega licenčnega ključa." }
 }

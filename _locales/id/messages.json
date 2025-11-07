@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Permintaan izin gagal (ini bisa terjadi di perangkat seluler). Coba lagi, atau berikan izin secara manual dari pengaturan ekstensi."
   },
-  "pastekeylabel": { "message": "Tempelkan kunci lisensi Anda di sini:" }
+  "pastekeylabel": { "message": "Tempelkan kunci lisensi Anda di sini:" },
+  "confirmclearstats": { "message": "Apakah Anda yakin ingin menghapus semua statistik? Tindakan ini tidak dapat dibatalkan." },
+  "statscleared": { "message": "Statistik berhasil dihapus." },
+  "redirectstodaylabel": { "message": "Pengalihan Hari Ini" },
+  "totalredirectslabel": { "message": "Total Pengalihan" },
+  "logout": { "message": "Keluar" },
+  "loggedoutsuccess": { "message": "Anda telah berhasil keluar." },
+  "loggedouterror": { "message": "Terjadi kesalahan saat keluar." },
+  "forcesync": { "message": "Sinkronisasi Paksa / Periksa Status" },
+  "forgotpasswordinstructions": { "message": "Untuk mengatur ulang kata sandi Anda, buka bagian 'Pro', klik 'Keluar', lalu aktifkan kembali dengan menempelkan Kunci Lisensi Anda." }
 }

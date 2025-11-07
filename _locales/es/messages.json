@@ -271,5 +271,14 @@
   "onboarding_status_api_error": {
     "message": "La solicitud de permiso falló (esto puede suceder en dispositivos móviles). Inténtalo de nuevo o concédelo manualmente desde la configuración."
   },
-  "pastekeylabel": { "message": "Pega tu clave de licencia aquí:" }
+  "pastekeylabel": { "message": "Pega tu clave de licencia aquí:" },
+  "confirmclearstats": { "message": "¿Estás seguro de que quieres borrar todas las estadísticas? Esta acción no se puede deshacer." },
+  "statscleared": { "message": "Las estadísticas se han borrado correctamente." },
+  "redirectstodaylabel": { "message": "Redirecciones de hoy" },
+  "totalredirectslabel": { "message": "Redirecciones totales" },
+  "logout": { "message": "Cerrar sesión" },
+  "loggedoutsuccess": { "message": "Has cerrado sesión correctamente." },
+  "loggedouterror": { "message": "Se produjo un error al cerrar sesión." },
+  "forcesync": { "message": "Forzar sincronización / Comprobar estado" },
+  "forgotpasswordinstructions": { "message": "Para restablecer tu contraseña, ve a la sección 'Pro', haz clic en 'Cerrar sesión' y luego vuelve a activar pegando tu clave de licencia." }
 }

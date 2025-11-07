@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Zahtjev za dozvolom nije uspio (može se dogoditi na mobilnim uređajima). Pokušajte ponovno ili ručno dodijelite dozvolu iz postavki."
   },
-  "pastekeylabel": { "message": "Zalijepite svoj licencni ključ ovdje:" }
+  "pastekeylabel": { "message": "Zalijepite svoj licencni ključ ovdje:" },
+  "confirmclearstats": { "message": "Jeste li sigurni da želite izbrisati sve statistike? Ova radnja se ne može poništiti." },
+  "statscleared": { "message": "Statistike su uspješno izbrisane." },
+  "redirectstodaylabel": { "message": "Preusmjeravanja danas" },
+  "totalredirectslabel": { "message": "Ukupno preusmjeravanja" },
+  "logout": { "message": "Odjava" },
+  "loggedoutsuccess": { "message": "Uspješno ste se odjavili." },
+  "loggedouterror": { "message": "Došlo je do pogreške prilikom odjave." },
+  "forcesync": { "message": "Prisilna sinkronizacija / Provjeri status" },
+  "forgotpasswordinstructions": { "message": "Za poništavanje lozinke idite na odjeljak 'Pro', kliknite 'Odjava', a zatim ponovno aktivirajte tako da zalijepite svoj licencni ključ." }
 }

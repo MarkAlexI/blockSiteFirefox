@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "คำขอสิทธิ์ล้มเหลว (อาจเกิดขึ้นบนมือถือ) โปรดลองอีกครั้ง หรืออนุญาตด้วยตนเองจากการตั้งค่าส่วนขยาย"
   },
-  "pastekeylabel": { "message": "วางรหัสใบอนุญาตของคุณที่นี่:" }
+  "pastekeylabel": { "message": "วางรหัสใบอนุญาตของคุณที่นี่:" },
+  "confirmclearstats": { "message": "คุณแน่ใจหรือไม่ว่าต้องการลบสถิติทั้งหมด? การกระทำนี้ไม่สามารถย้อนกลับได้" },
+  "statscleared": { "message": "ลบสถิติเรียบร้อยแล้ว" },
+  "redirectstodaylabel": { "message": "การเปลี่ยนเส้นทางวันนี้" },
+  "totalredirectslabel": { "message": "รวมการเปลี่ยนเส้นทาง" },
+  "logout": { "message": "ออกจากระบบ" },
+  "loggedoutsuccess": { "message": "คุณออกจากระบบเรียบร้อยแล้ว" },
+  "loggedouterror": { "message": "เกิดข้อผิดพลาดระหว่างการออกจากระบบ" },
+  "forcesync": { "message": "บังคับซิงค์ / ตรวจสอบสถานะ" },
+  "forgotpasswordinstructions": { "message": "เพื่อรีเซ็ตรหัสผ่านของคุณ ไปที่ส่วน 'Pro' คลิก 'ออกจากระบบ' จากนั้นเปิดใช้งานใหม่โดยวางคีย์ใบอนุญาตของคุณ" }
 }

@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "בקשת ההרשאה נכשלה (ייתכן שזה קורה במובייל). נסה שוב או הענק הרשאה ידנית דרך ההגדרות."
   },
-  "pastekeylabel": { "message": "הדבק כאן את מפתח הרישיון שלך:" }
+  "pastekeylabel": { "message": "הדבק כאן את מפתח הרישיון שלך:" },
+  "confirmclearstats": { "message": "האם אתה בטוח שברצונך למחוק את כל הסטטיסטיקות? פעולה זו אינה ניתנת לביטול." },
+  "statscleared": { "message": "הסטטיסטיקות נמחקו בהצלחה." },
+  "redirectstodaylabel": { "message": "הפניות היום" },
+  "totalredirectslabel": { "message": "סה״כ הפניות" },
+  "logout": { "message": "התנתק" },
+  "loggedoutsuccess": { "message": "התנתקת בהצלחה." },
+  "loggedouterror": { "message": "אירעה שגיאה בעת ההתנתקות." },
+  "forcesync": { "message": "כפה סנכרון / בדוק מצב" },
+  "forgotpasswordinstructions": { "message": "כדי לאפס את הסיסמה שלך, עבור לסעיף 'Pro', לחץ על 'התנתק', ולאחר מכן הפעל מחדש על ידי הדבקת מפתח הרישיון שלך." }
 }

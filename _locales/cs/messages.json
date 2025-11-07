@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Požadavek na oprávnění selhal (může se stát na mobilu). Zkuste to znovu nebo udělte oprávnění ručně v nastavení."
   },
-  "pastekeylabel": { "message": "Vložte sem svůj licenční klíč:" }
+  "pastekeylabel": { "message": "Vložte sem svůj licenční klíč:" },
+  "confirmclearstats": { "message": "Opravdu chcete vymazat všechny statistiky? Tuto akci nelze vrátit zpět." },
+  "statscleared": { "message": "Statistiky byly úspěšně vymazány." },
+  "redirectstodaylabel": { "message": "Přesměrování dnes" },
+  "totalredirectslabel": { "message": "Celkem přesměrování" },
+  "logout": { "message": "Odhlásit se" },
+  "loggedoutsuccess": { "message": "Byli jste úspěšně odhlášeni." },
+  "loggedouterror": { "message": "Při odhlašování došlo k chybě." },
+  "forcesync": { "message": "Vynutit synchronizaci / Zkontrolovat stav" },
+  "forgotpasswordinstructions": { "message": "Chcete-li obnovit heslo, přejděte do sekce 'Pro', klikněte na 'Odhlásit se' a poté znovu aktivujte vložením svého licenčního klíče." }
 }

@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Żądanie uprawnień nie powiodło się (może się to zdarzyć na urządzeniach mobilnych). Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach."
   },
-  "pastekeylabel": { "message": "Wklej tutaj swój klucz licencyjny:" }
+  "pastekeylabel": { "message": "Wklej tutaj swój klucz licencyjny:" },
+  "confirmclearstats": { "message": "Czy na pewno chcesz usunąć wszystkie statystyki? Tej operacji nie można cofnąć." },
+  "statscleared": { "message": "Statystyki zostały pomyślnie usunięte." },
+  "redirectstodaylabel": { "message": "Dzisiejsze przekierowania" },
+  "totalredirectslabel": { "message": "Łączna liczba przekierowań" },
+  "logout": { "message": "Wyloguj się" },
+  "loggedoutsuccess": { "message": "Pomyślnie wylogowano." },
+  "loggedouterror": { "message": "Wystąpił błąd podczas wylogowywania." },
+  "forcesync": { "message": "Wymuś synchronizację / Sprawdź status" },
+  "forgotpasswordinstructions": { "message": "Aby zresetować hasło, przejdź do sekcji 'Pro', kliknij 'Wyloguj się', a następnie ponownie aktywuj, wklejając swój klucz licencyjny." }
 }

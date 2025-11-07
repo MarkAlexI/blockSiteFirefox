@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "अनुमति अनुरोध असफल रहा (यह मोबाइल पर हो सकता है)। कृपया पुनः प्रयास करें या सेटिंग्स से मैन्युअली अनुमति दें।"
   },
-  "pastekeylabel": { "message": "अपनी लाइसेंस कुंजी यहाँ चिपकाएँ:" }
+  "pastekeylabel": { "message": "अपनी लाइसेंस कुंजी यहाँ चिपकाएँ:" },
+  "confirmclearstats": { "message": "क्या आप वाकई सभी आँकड़े साफ़ करना चाहते हैं? इसे पूर्ववत नहीं किया जा सकता।" },
+  "statscleared": { "message": "आँकड़े सफलतापूर्वक साफ़ कर दिए गए।" },
+  "redirectstodaylabel": { "message": "आज के पुनर्निर्देशन" },
+  "totalredirectslabel": { "message": "कुल पुनर्निर्देशन" },
+  "logout": { "message": "लॉग आउट करें" },
+  "loggedoutsuccess": { "message": "आप सफलतापूर्वक लॉग आउट हो गए हैं।" },
+  "loggedouterror": { "message": "लॉग आउट करते समय एक त्रुटि हुई।" },
+  "forcesync": { "message": "सिंक को मजबूर करें / स्थिति जांचें" },
+  "forgotpasswordinstructions": { "message": "अपना पासवर्ड रीसेट करने के लिए, 'Pro' अनुभाग में जाएं, 'लॉग आउट' पर क्लिक करें, और फिर अपना लाइसेंस कुंजी चिपकाकर पुनः सक्रिय करें।" }
 }

@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Leidimo prašymas nepavyko (gali atsitikti mobiliajame įrenginyje). Bandykite dar kartą arba suteikite leidimą rankiniu būdu per nustatymus."
   },
-  "pastekeylabel": { "message": "Įklijuokite čia savo licencijos raktą:" }
+  "pastekeylabel": { "message": "Įklijuokite čia savo licencijos raktą:" },
+  "confirmclearstats": { "message": "Ar tikrai norite išvalyti visą statistiką? Šio veiksmo nebus galima atšaukti." },
+  "statscleared": { "message": "Statistika sėkmingai išvalyta." },
+  "redirectstodaylabel": { "message": "Peradresavimai šiandien" },
+  "totalredirectslabel": { "message": "Iš viso peradresavimų" },
+  "logout": { "message": "Atsijungti" },
+  "loggedoutsuccess": { "message": "Sėkmingai atsijungėte." },
+  "loggedouterror": { "message": "Atsijungiant įvyko klaida." },
+  "forcesync": { "message": "Priverstinė sinchronizacija / Patikrinti būseną" },
+  "forgotpasswordinstructions": { "message": "Norėdami iš naujo nustatyti slaptažodį, eikite į skiltį „Pro“, spustelėkite „Atsijungti“ ir tada iš naujo suaktyvinkite įklijuodami savo licencijos raktą." }
 }

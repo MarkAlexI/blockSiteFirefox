@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Atļaujas pieprasījums neizdevās (tas var notikt mobilajā ierīcē). Lūdzu, mēģiniet vēlreiz vai piešķiriet atļauju manuāli no iestatījumiem."
   },
-  "pastekeylabel": { "message": "Ielīmējiet savu licences atslēgu šeit:" }
+  "pastekeylabel": { "message": "Ielīmējiet savu licences atslēgu šeit:" },
+  "confirmclearstats": { "message": "Vai tiešām vēlaties dzēst visus statistikas datus? Šo darbību nevar atsaukt." },
+  "statscleared": { "message": "Statistika veiksmīgi izdzēsta." },
+  "redirectstodaylabel": { "message": "Pāradresācijas šodien" },
+  "totalredirectslabel": { "message": "Kopējais pāradresāciju skaits" },
+  "logout": { "message": "Izrakstīties" },
+  "loggedoutsuccess": { "message": "Jūs veiksmīgi izrakstījāties." },
+  "loggedouterror": { "message": "Radās kļūda, mēģinot izrakstīties." },
+  "forcesync": { "message": "Piespiedu sinhronizācija / Pārbaudīt statusu" },
+  "forgotpasswordinstructions": { "message": "Lai atiestatītu paroli, dodieties uz sadaļu “Pro”, noklikšķiniet uz “Izrakstīties” un pēc tam atkārtoti aktivizējiet, ielīmējot savu licences atslēgu." }
 }

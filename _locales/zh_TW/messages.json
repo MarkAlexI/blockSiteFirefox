@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "權限請求失敗（行動裝置上可能會發生）。請重試，或在設定中手動授權。"
   },
-  "pastekeylabel": { "message": "在此貼上您的授權金鑰：" }
+  "pastekeylabel": { "message": "在此貼上您的授權金鑰：" },
+  "confirmclearstats": { "message": "您確定要清除所有統計資料嗎？此操作無法復原。" },
+  "statscleared": { "message": "統計資料已成功清除。" },
+  "redirectstodaylabel": { "message": "今日重新導向次數" },
+  "totalredirectslabel": { "message": "重新導向總次數" },
+  "logout": { "message": "登出" },
+  "loggedoutsuccess": { "message": "您已成功登出。" },
+  "loggedouterror": { "message": "登出時發生錯誤。" },
+  "forcesync": { "message": "強制同步 / 檢查狀態" },
+  "forgotpasswordinstructions": { "message": "若要重設密碼，請前往「Pro」區域，點選「登出」，然後貼上您的授權金鑰以重新啟用。" }
 }

@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "권한 요청에 실패했습니다 (모바일 기기에서는 발생할 수 있습니다). 다시 시도하거나 설정에서 직접 권한을 허용하세요."
   },
-  "pastekeylabel": { "message": "여기에 라이선스 키를 붙여넣으세요:" }
+  "pastekeylabel": { "message": "여기에 라이선스 키를 붙여넣으세요:" },
+  "confirmclearstats": { "message": "모든 통계를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다." },
+  "statscleared": { "message": "통계가 성공적으로 삭제되었습니다." },
+  "redirectstodaylabel": { "message": "오늘의 리디렉션" },
+  "totalredirectslabel": { "message": "전체 리디렉션 수" },
+  "logout": { "message": "로그아웃" },
+  "loggedoutsuccess": { "message": "성공적으로 로그아웃되었습니다." },
+  "loggedouterror": { "message": "로그아웃 중 오류가 발생했습니다." },
+  "forcesync": { "message": "강제 동기화 / 상태 확인" },
+  "forgotpasswordinstructions": { "message": "비밀번호를 재설정하려면 'Pro' 섹션으로 이동하여 '로그아웃'을 클릭한 다음, 라이선스 키를 붙여넣어 다시 활성화하세요." }
 }

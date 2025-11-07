@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Tilladelsesanmodningen mislykkedes (kan ske på mobil). Prøv igen, eller giv tilladelse manuelt fra indstillingerne."
   },
-  "pastekeylabel": { "message": "Indsæt din licensnøgle her:" }
+  "pastekeylabel": { "message": "Indsæt din licensnøgle her:" },
+  "confirmclearstats": { "message": "Er du sikker på, at du vil slette alle statistikker? Denne handling kan ikke fortrydes." },
+  "statscleared": { "message": "Statistikkerne blev slettet med succes." },
+  "redirectstodaylabel": { "message": "Omdirigeringer i dag" },
+  "totalredirectslabel": { "message": "Samlede omdirigeringer" },
+  "logout": { "message": "Log ud" },
+  "loggedoutsuccess": { "message": "Du er logget ud med succes." },
+  "loggedouterror": { "message": "Der opstod en fejl under udlogning." },
+  "forcesync": { "message": "Gennemtving synkronisering / Tjek status" },
+  "forgotpasswordinstructions": { "message": "For at nulstille din adgangskode skal du gå til afsnittet 'Pro', klikke på 'Log ud' og derefter genaktivere ved at indsætte din licensnøgle." }
 }

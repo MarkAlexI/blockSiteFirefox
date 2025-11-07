@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Nabigo ang request para sa pahintulot (maaaring mangyari sa mobile). Subukang muli o bigyan ng pahintulot nang manu-mano mula sa settings."
   },
-  "pastekeylabel": { "message": "Idikit ang iyong Lisensya Key dito:" }
+  "pastekeylabel": { "message": "Idikit ang iyong Lisensya Key dito:" },
+  "confirmclearstats": { "message": "Sigurado ka bang gusto mong burahin ang lahat ng estadistika? Hindi na ito maaaring ibalik." },
+  "statscleared": { "message": "Matagumpay na nabura ang mga estadistika." },
+  "redirectstodaylabel": { "message": "Mga pag-redirect ngayon" },
+  "totalredirectslabel": { "message": "Kabuuang mga pag-redirect" },
+  "logout": { "message": "Mag-log out" },
+  "loggedoutsuccess": { "message": "Matagumpay kang naka-log out." },
+  "loggedouterror": { "message": "Nagkaroon ng error habang nagla-log out." },
+  "forcesync": { "message": "Pilitin ang Sync / Suriin ang Katayuan" },
+  "forgotpasswordinstructions": { "message": "Upang i-reset ang iyong password, pumunta sa seksyong 'Pro', i-click ang 'Mag-log out', at pagkatapos ay muling i-activate sa pamamagitan ng pag-paste ng iyong License Key." }
 }

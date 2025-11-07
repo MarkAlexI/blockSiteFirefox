@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Begäran om behörighet misslyckades (detta kan hända på mobila enheter). Försök igen eller ge behörighet manuellt i tilläggets inställningar."
   },
-  "pastekeylabel": { "message": "Klistra in din licensnyckel här:" }
+  "pastekeylabel": { "message": "Klistra in din licensnyckel här:" },
+  "confirmclearstats": { "message": "Är du säker på att du vill rensa all statistik? Detta kan inte ångras." },
+  "statscleared": { "message": "Statistiken har rensats." },
+  "redirectstodaylabel": { "message": "Omdirigeringar idag" },
+  "totalredirectslabel": { "message": "Totalt antal omdirigeringar" },
+  "logout": { "message": "Logga ut" },
+  "loggedoutsuccess": { "message": "Du har loggats ut." },
+  "loggedouterror": { "message": "Ett fel uppstod vid utloggning." },
+  "forcesync": { "message": "Tvinga synkronisering / Kontrollera status" },
+  "forgotpasswordinstructions": { "message": "För att återställa ditt lösenord, gå till avsnittet 'Pro', klicka på 'Logga ut' och aktivera sedan igen genom att klistra in din licensnyckel." }
 }

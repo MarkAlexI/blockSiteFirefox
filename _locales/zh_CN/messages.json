@@ -271,5 +271,14 @@
   "onboarding_status_api_error": {
     "message": "权限请求失败（移动设备上可能发生）。请重试，或在设置中手动授权。"
   },
-  "pastekeylabel": { "message": "在此粘贴您的许可证密钥：" }
+  "pastekeylabel": { "message": "在此粘贴您的许可证密钥：" },
+  "confirmclearstats": { "message": "您确定要清除所有统计数据吗？此操作无法撤销。" },
+  "statscleared": { "message": "统计数据已成功清除。" },
+  "redirectstodaylabel": { "message": "今日重定向次数" },
+  "totalredirectslabel": { "message": "重定向总次数" },
+  "logout": { "message": "退出登录" },
+  "loggedoutsuccess": { "message": "您已成功退出登录。" },
+  "loggedouterror": { "message": "退出登录时发生错误。" },
+  "forcesync": { "message": "强制同步 / 检查状态" },
+  "forgotpasswordinstructions": { "message": "要重置密码，请转到“Pro”部分，点击“退出登录”，然后通过粘贴您的许可证密钥重新激活。" }
 }

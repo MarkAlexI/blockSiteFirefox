@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "La richiesta di autorizzazione non è riuscita (può accadere sui dispositivi mobili). Riprova o concedi l’autorizzazione manualmente dalle impostazioni."
   },
-  "pastekeylabel": { "message": "Incolla qui la tua chiave di licenza:" }
+  "pastekeylabel": { "message": "Incolla qui la tua chiave di licenza:" },
+  "confirmclearstats": { "message": "Sei sicuro di voler cancellare tutte le statistiche? Questa azione non può essere annullata." },
+  "statscleared": { "message": "Statistiche cancellate con successo." },
+  "redirectstodaylabel": { "message": "Reindirizzamenti di oggi" },
+  "totalredirectslabel": { "message": "Totale reindirizzamenti" },
+  "logout": { "message": "Disconnetti" },
+  "loggedoutsuccess": { "message": "Disconnessione avvenuta con successo." },
+  "loggedouterror": { "message": "Si è verificato un errore durante la disconnessione." },
+  "forcesync": { "message": "Forza sincronizzazione / Controlla stato" },
+  "forgotpasswordinstructions": { "message": "Per reimpostare la password, vai alla sezione 'Pro', fai clic su 'Disconnetti' e poi riattiva incollando la tua chiave di licenza." }
 }

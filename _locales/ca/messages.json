@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "La sol·licitud de permís ha fallat (pot passar al mòbil). Torna-ho a provar o concedeix el permís manualment des de la configuració."
   },
-  "pastekeylabel": { "message": "Enganxa la teva clau de llicència aquí:" }
+  "pastekeylabel": { "message": "Enganxa la teva clau de llicència aquí:" },
+  "confirmclearstats": { "message": "Estàs segur que vols esborrar totes les estadístiques? Aquesta acció no es pot desfer." },
+  "statscleared": { "message": "Les estadístiques s’han esborrat correctament." },
+  "redirectstodaylabel": { "message": "Redireccions d’avui" },
+  "totalredirectslabel": { "message": "Total de redireccions" },
+  "logout": { "message": "Tanca la sessió" },
+  "loggedoutsuccess": { "message": "Has tancat la sessió correctament." },
+  "loggedouterror": { "message": "S’ha produït un error en tancar la sessió." },
+  "forcesync": { "message": "Força la sincronització / Comprova l’estat" },
+  "forgotpasswordinstructions": { "message": "Per restablir la teva contrasenya, ves a la secció 'Pro', fes clic a 'Tanca la sessió' i després reactiva enganxant la teva clau de llicència." }
 }

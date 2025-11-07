@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Ombi la ruhusa limefeli (inaweza kutokea kwenye simu). Tafadhali jaribu tena au toa ruhusa mwenyewe kupitia mipangilio ya programu-jalizi."
   },
-  "pastekeylabel": { "message": "Bandika ufunguo wa leseni hapa:" }
+  "pastekeylabel": { "message": "Bandika ufunguo wa leseni hapa:" },
+  "confirmclearstats": { "message": "Una uhakika unataka kufuta takwimu zote? Hili haliwezi kubatilishwa." },
+  "statscleared": { "message": "Takwimu zimefutwa kwa mafanikio." },
+  "redirectstodaylabel": { "message": "Mielekeo Leo" },
+  "totalredirectslabel": { "message": "Jumla ya Mielekeo" },
+  "logout": { "message": "Ondoka" },
+  "loggedoutsuccess": { "message": "Umeondoka kwa mafanikio." },
+  "loggedouterror": { "message": "Hitilafu imetokea wakati wa kutoka." },
+  "forcesync": { "message": "Lazimisha Usawazishaji / Angalia Hali" },
+  "forgotpasswordinstructions": { "message": "Ili kuweka upya nenosiri lako, nenda kwenye sehemu ya 'Pro', bofya 'Ondoka', kisha washa tena kwa kubandika Ufunguo wako wa Leseni." }
 }

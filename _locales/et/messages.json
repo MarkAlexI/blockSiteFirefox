@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Luba taotlus ebaõnnestus (see võib juhtuda mobiilseadmetes). Proovige uuesti või andke luba käsitsi seadete kaudu."
   },
-  "pastekeylabel": { "message": "Kleebi siia oma litsentsivõti:" }
+  "pastekeylabel": { "message": "Kleebi siia oma litsentsivõti:" },
+  "confirmclearstats": { "message": "Kas olete kindel, et soovite kõik statistika kustutada? Seda toimingut ei saa tagasi võtta." },
+  "statscleared": { "message": "Statistika on edukalt kustutatud." },
+  "redirectstodaylabel": { "message": "Ümbersuunamisi täna" },
+  "totalredirectslabel": { "message": "Ümbersuunamisi kokku" },
+  "logout": { "message": "Logi välja" },
+  "loggedoutsuccess": { "message": "Olete edukalt välja logitud." },
+  "loggedouterror": { "message": "Väljalogimisel tekkis viga." },
+  "forcesync": { "message": "Sunni sünkroonimist / Kontrolli olekut" },
+  "forgotpasswordinstructions": { "message": "Parooli lähtestamiseks avage jaotis 'Pro', klõpsake 'Logi välja' ja aktiveerige uuesti, kleepides oma litsentsivõtme." }
 }

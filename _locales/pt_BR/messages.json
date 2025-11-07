@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Falha ao solicitar permissão (isso pode acontecer em dispositivos móveis). Tente novamente ou conceda a permissão manualmente nas configurações da extensão."
   },
-  "pastekeylabel": { "message": "Cole sua chave de licença aqui:" }
+  "pastekeylabel": { "message": "Cole sua chave de licença aqui:" },
+  "confirmclearstats": { "message": "Tem certeza de que deseja limpar todas as estatísticas? Isso não pode ser desfeito." },
+  "statscleared": { "message": "Estatísticas limpas com sucesso." },
+  "redirectstodaylabel": { "message": "Redirecionamentos de hoje" },
+  "totalredirectslabel": { "message": "Total de redirecionamentos" },
+  "logout": { "message": "Sair" },
+  "loggedoutsuccess": { "message": "Você saiu com sucesso." },
+  "loggedouterror": { "message": "Ocorreu um erro ao sair." },
+  "forcesync": { "message": "Forçar sincronização / Verificar status" },
+  "forgotpasswordinstructions": { "message": "Para redefinir sua senha, vá até a seção 'Pro', clique em 'Sair' e depois reative colando sua chave de licença." }
 }

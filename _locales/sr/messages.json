@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Захтев за дозволу није успео (може се десити на мобилним уређајима). Покушајте поново или ручно дозволите приступ у подешавањима проширења."
   },
-  "pastekeylabel": { "message": "Zalepite ovde svoj licencni ključ:" }
+  "pastekeylabel": { "message": "Zalepite ovde svoj licencni ključ:" },
+  "confirmclearstats": { "message": "Да ли сте сигурни да желите да обришете све статистике? Ово се не може поништити." },
+  "statscleared": { "message": "Статистика је успешно обрисана." },
+  "redirectstodaylabel": { "message": "Преусмеравања данас" },
+  "totalredirectslabel": { "message": "Укупно преусмеравања" },
+  "logout": { "message": "Одјава" },
+  "loggedoutsuccess": { "message": "Успешно сте одјављени." },
+  "loggedouterror": { "message": "Дошло је до грешке приликом одјаве." },
+  "forcesync": { "message": "Приморај синхронизацију / Провери статус" },
+  "forgotpasswordinstructions": { "message": "Да бисте ресетовали лозинку, идите у одељак 'Pro', кликните на 'Одјава', а затим поново активирајте тако што ћете налепити свој лиценцни кључ." }
 }

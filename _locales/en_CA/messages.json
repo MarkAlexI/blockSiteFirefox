@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "The permission request failed (this can happen on mobile). Please try again, or grant permission manually from the extension settings."
   },
-  "pastekeylabel": { "message": "Paste your license key here:" }
+  "pastekeylabel": { "message": "Paste your license key here:" },
+  "confirmclearstats": { "message": "Are you sure you want to clear all statistics? This action cannot be undone." },
+  "statscleared": { "message": "Statistics cleared successfully." },
+  "redirectstodaylabel": { "message": "Redirects Today" },
+  "totalredirectslabel": { "message": "Total Redirects" },
+  "logout": { "message": "Log Out" },
+  "loggedoutsuccess": { "message": "You have successfully logged out." },
+  "loggedouterror": { "message": "An error occurred while logging out." },
+  "forcesync": { "message": "Force Sync / Check Status" },
+  "forgotpasswordinstructions": { "message": "To reset your password, go to the 'Pro' section, click 'Log Out', and then re-activate by pasting your Licence Key." }
 }

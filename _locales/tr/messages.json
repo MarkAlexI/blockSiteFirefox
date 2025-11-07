@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "İzin isteği başarısız oldu (mobilde bu durum gerçekleşebilir). Lütfen tekrar deneyin veya ayarlardan manuel olarak izin verin."
   },
-  "pastekeylabel": { "message": "Lisans anahtarınızı buraya yapıştırın:" }
+  "pastekeylabel": { "message": "Lisans anahtarınızı buraya yapıştırın:" },
+  "confirmclearstats": { "message": "Tüm istatistikleri temizlemek istediğinizden emin misiniz? Bu işlem geri alınamaz." },
+  "statscleared": { "message": "İstatistikler başarıyla temizlendi." },
+  "redirectstodaylabel": { "message": "Bugünkü Yönlendirmeler" },
+  "totalredirectslabel": { "message": "Toplam Yönlendirmeler" },
+  "logout": { "message": "Çıkış Yap" },
+  "loggedoutsuccess": { "message": "Başarıyla çıkış yaptınız." },
+  "loggedouterror": { "message": "Çıkış yaparken bir hata oluştu." },
+  "forcesync": { "message": "Zorla Senkronize Et / Durumu Kontrol Et" },
+  "forgotpasswordinstructions": { "message": "Şifrenizi sıfırlamak için 'Pro' bölümüne gidin, 'Çıkış Yap'ı tıklayın ve ardından Lisans Anahtarınızı yapıştırarak tekrar etkinleştirin." }
 }

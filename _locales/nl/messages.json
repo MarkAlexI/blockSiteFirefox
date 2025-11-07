@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Het toestemmingsverzoek is mislukt (dit kan gebeuren op mobiele apparaten). Probeer opnieuw of geef handmatig toestemming in de instellingen."
   },
-  "pastekeylabel": { "message": "Plak hier je licentiesleutel:" }
+  "pastekeylabel": { "message": "Plak hier je licentiesleutel:" },
+  "confirmclearstats": { "message": "Weet je zeker dat je alle statistieken wilt wissen? Dit kan niet ongedaan worden gemaakt." },
+  "statscleared": { "message": "Statistieken zijn succesvol gewist." },
+  "redirectstodaylabel": { "message": "Omleidingen Vandaag" },
+  "totalredirectslabel": { "message": "Totaal Aantal Omleidingen" },
+  "logout": { "message": "Afmelden" },
+  "loggedoutsuccess": { "message": "Je bent succesvol afgemeld." },
+  "loggedouterror": { "message": "Er is een fout opgetreden bij het afmelden." },
+  "forcesync": { "message": "Synchronisatie Forceren / Status Controleren" },
+  "forgotpasswordinstructions": { "message": "Om je wachtwoord opnieuw in te stellen, ga naar het gedeelte 'Pro', klik op 'Afmelden' en activeer vervolgens opnieuw door je Licentiesleutel te plakken." }
 }

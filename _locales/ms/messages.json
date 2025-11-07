@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Permintaan kebenaran gagal (ini boleh berlaku di mudah alih). Sila cuba lagi atau berikan kebenaran secara manual melalui tetapan sambungan."
   },
-  "pastekeylabel": { "message": "Tampal kunci lesen anda di sini:" }
+  "pastekeylabel": { "message": "Tampal kunci lesen anda di sini:" },
+  "confirmclearstats": { "message": "Adakah anda pasti ingin memadam semua statistik? Tindakan ini tidak boleh dibuat asal." },
+  "statscleared": { "message": "Statistik berjaya dipadam." },
+  "redirectstodaylabel": { "message": "Pengalihan Hari Ini" },
+  "totalredirectslabel": { "message": "Jumlah Pengalihan" },
+  "logout": { "message": "Log Keluar" },
+  "loggedoutsuccess": { "message": "Anda telah berjaya log keluar." },
+  "loggedouterror": { "message": "Ralat berlaku semasa log keluar." },
+  "forcesync": { "message": "Paksa Segerak / Semak Status" },
+  "forgotpasswordinstructions": { "message": "Untuk menetapkan semula kata laluan anda, pergi ke bahagian 'Pro', klik 'Log Keluar', dan kemudian aktifkan semula dengan menampal Kunci Lesen anda." }
 }

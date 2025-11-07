@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Toestemmingsversoek het misluk (kan op mobiele toestelle gebeur). Probeer weer of gee toestemming handmatig in die instellings."
   },
-  "pastekeylabel": { "message": "Plak jou lisensiesleutel hier:" }
+  "pastekeylabel": { "message": "Plak jou lisensiesleutel hier:" },
+  "confirmclearstats": { "message": "Is jy seker jy wil al die statistieke uitvee? Dit kan nie ongedaan gemaak word nie." },
+  "statscleared": { "message": "Statistieke is suksesvol uitgevee." },
+  "redirectstodaylabel": { "message": "Herleidings vandag" },
+  "totalredirectslabel": { "message": "Totale herleidings" },
+  "logout": { "message": "Teken uit" },
+  "loggedoutsuccess": { "message": "Jy is suksesvol uitgeteken." },
+  "loggedouterror": { "message": "’n Fout het voorgekom tydens uitteken." },
+  "forcesync": { "message": "Forseer sinchronisasie / Kontroleer status" },
+  "forgotpasswordinstructions": { "message": "Om jou wagwoord te herstel, gaan asseblief na die 'Pro'-afdeling, klik op 'Teken uit', en aktiveer dan weer deur jou lisensiesleutel te plak." }
 }

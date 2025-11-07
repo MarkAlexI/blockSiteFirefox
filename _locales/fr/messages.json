@@ -271,5 +271,14 @@
   "onboarding_status_api_error": {
     "message": "La demande d’autorisation a échoué (cela peut arriver sur mobile). Réessayez ou accordez l’autorisation manuellement dans les paramètres."
   },
-  "pastekeylabel": { "message": "Collez votre clé de licence ici :" }
+  "pastekeylabel": { "message": "Collez votre clé de licence ici :" },
+  "confirmclearstats": { "message": "Êtes-vous sûr de vouloir effacer toutes les statistiques ? Cette action est irréversible." },
+  "statscleared": { "message": "Les statistiques ont été effacées avec succès." },
+  "redirectstodaylabel": { "message": "Redirections aujourd’hui" },
+  "totalredirectslabel": { "message": "Redirections totales" },
+  "logout": { "message": "Se déconnecter" },
+  "loggedoutsuccess": { "message": "Vous vous êtes déconnecté avec succès." },
+  "loggedouterror": { "message": "Une erreur est survenue lors de la déconnexion." },
+  "forcesync": { "message": "Forcer la synchronisation / Vérifier l’état" },
+  "forgotpasswordinstructions": { "message": "Pour réinitialiser votre mot de passe, accédez à la section « Pro », cliquez sur « Se déconnecter », puis réactivez en collant votre clé de licence." }
 }

@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "درخواست دسترسی ناموفق بود (ممکن است در موبایل رخ دهد). دوباره تلاش کنید یا به صورت دستی دسترسی را از تنظیمات اعطا کنید."
   },
-  "pastekeylabel": { "message": "کلید مجوز خود را اینجا بچسبانید:" }
+  "pastekeylabel": { "message": "کلید مجوز خود را اینجا بچسبانید:" },
+  "confirmclearstats": { "message": "آیا مطمئن هستید که می‌خواهید تمام آمار را پاک کنید؟ این عمل قابل بازگشت نیست." },
+  "statscleared": { "message": "آمار با موفقیت پاک شد." },
+  "redirectstodaylabel": { "message": "تغییر مسیرهای امروز" },
+  "totalredirectslabel": { "message": "مجموع تغییر مسیرها" },
+  "logout": { "message": "خروج" },
+  "loggedoutsuccess": { "message": "شما با موفقیت خارج شدید." },
+  "loggedouterror": { "message": "هنگام خروج خطایی رخ داد." },
+  "forcesync": { "message": "همگام‌سازی اجباری / بررسی وضعیت" },
+  "forgotpasswordinstructions": { "message": "برای بازنشانی گذرواژه، به بخش «Pro» بروید، روی «خروج» کلیک کنید و سپس با چسباندن کلید مجوز خود دوباره فعال کنید." }
 }

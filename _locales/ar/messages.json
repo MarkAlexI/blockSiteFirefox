@@ -271,5 +271,14 @@
   "onboarding_status_api_error": {
     "message": "فشل طلب الإذن (قد يحدث على الهواتف). حاول مرة أخرى أو منح الإذن يدويًا من الإعدادات."
   },
-  "pastekeylabel": { "message": "ألصق مفتاح الترخيص الخاص بك هنا:" }
+  "pastekeylabel": { "message": "ألصق مفتاح الترخيص الخاص بك هنا:" },
+  "confirmclearstats": { "message": "هل أنت متأكد أنك تريد مسح جميع الإحصائيات؟ لا يمكن التراجع عن هذا الإجراء." },
+  "statscleared": { "message": "تم مسح الإحصائيات بنجاح." },
+  "redirectstodaylabel": { "message": "إعادة التوجيهات اليوم" },
+  "totalredirectslabel": { "message": "إجمالي عمليات إعادة التوجيه" },
+  "logout": { "message": "تسجيل الخروج" },
+  "loggedoutsuccess": { "message": "تم تسجيل الخروج بنجاح." },
+  "loggedouterror": { "message": "حدث خطأ أثناء تسجيل الخروج." },
+  "forcesync": { "message": "مزامنة إجبارية / التحقق من الحالة" },
+  "forgotpasswordinstructions": { "message": "لإعادة تعيين كلمة المرور، انتقل إلى قسم 'Pro'، وانقر على 'تسجيل الخروج'، ثم أعد التفعيل عن طريق لصق مفتاح الترخيص الخاص بك." }
 }

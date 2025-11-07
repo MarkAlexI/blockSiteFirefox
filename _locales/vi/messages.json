@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Yêu cầu quyền thất bại (có thể xảy ra trên thiết bị di động). Hãy thử lại hoặc cấp quyền thủ công từ cài đặt tiện ích."
   },
-  "pastekeylabel": { "message": "Dán khóa bản quyền của bạn vào đây:" }
+  "pastekeylabel": { "message": "Dán khóa bản quyền của bạn vào đây:" },
+  "confirmclearstats": { "message": "Bạn có chắc chắn muốn xóa tất cả thống kê không? Hành động này không thể hoàn tác." },
+  "statscleared": { "message": "Đã xóa thống kê thành công." },
+  "redirectstodaylabel": { "message": "Chuyển hướng hôm nay" },
+  "totalredirectslabel": { "message": "Tổng số chuyển hướng" },
+  "logout": { "message": "Đăng xuất" },
+  "loggedoutsuccess": { "message": "Bạn đã đăng xuất thành công." },
+  "loggedouterror": { "message": "Đã xảy ra lỗi khi đăng xuất." },
+  "forcesync": { "message": "Ép đồng bộ / Kiểm tra trạng thái" },
+  "forgotpasswordinstructions": { "message": "Để đặt lại mật khẩu, vui lòng vào phần 'Pro', nhấn 'Đăng xuất', sau đó kích hoạt lại bằng cách dán Khóa Bản quyền của bạn." }
 }

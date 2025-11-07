@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "የፈቃድ ጥያቄ አልተሳካም (በሞባይል ላይ ሊደርስ ይችላል)። እባክዎ ደግመው ይሞክሩ ወይም በእጅ ከማስተካከያ ፈቃድ ይስጡ።"
   },
-  "pastekeylabel": { "message": "የፈቃድ ቁልፍዎን እዚህ ይጥቀሱ:" }
+  "pastekeylabel": { "message": "የፈቃድ ቁልፍዎን እዚህ ይጥቀሱ:" },
+  "confirmclearstats": { "message": "ሁሉንም ቆጠራዎች መሰረዝ እንደምትፈልጉ እርግጠኛ ነዎት? ይህን ተግባር መተው አይቻልም።" },
+  "statscleared": { "message": "ቆጠራዎች በተሳካ ሁኔታ ተሰርዘዋል።" },
+  "redirectstodaylabel": { "message": "ዛሬ የተመለሱ ጊዜያት" },
+  "totalredirectslabel": { "message": "አጠቃላይ መመለሻዎች" },
+  "logout": { "message": "ውጣ" },
+  "loggedoutsuccess": { "message": "በተሳካ ሁኔታ ወጥተዋል።" },
+  "loggedouterror": { "message": "ከመውጣት ጋር ችግር ተፈጥሯል።" },
+  "forcesync": { "message": "አስገዳጅ ማስማሚያ / ሁኔታን ያረጋግጡ" },
+  "forgotpasswordinstructions": { "message": "የይለፍ ቃልዎን ለመቀየር፣ ወደ 'Pro' ክፍል ይሂዱ፣ 'ውጣ' ይምረጡ እና በኋላ የፈቃድ መክፈቻ ቁልፎትን በመለጠፍ እንደገና ያንቁ።" }
 }

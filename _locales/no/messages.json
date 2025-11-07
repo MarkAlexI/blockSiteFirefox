@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Forespørsel om tillatelse mislyktes (kan skje på mobil). Prøv igjen, eller gi tillatelse manuelt fra innstillingene."
   },
-  "pastekeylabel": { "message": "Lim inn lisensnøkkelen din her:" }
+  "pastekeylabel": { "message": "Lim inn lisensnøkkelen din her:" },
+  "confirmclearstats": { "message": "Er du sikker på at du vil slette all statistikk? Dette kan ikke angres." },
+  "statscleared": { "message": "Statistikken ble slettet." },
+  "redirectstodaylabel": { "message": "Omdirigeringer i dag" },
+  "totalredirectslabel": { "message": "Totale omdirigeringer" },
+  "logout": { "message": "Logg ut" },
+  "loggedoutsuccess": { "message": "Du har blitt logget ut." },
+  "loggedouterror": { "message": "Det oppstod en feil under utlogging." },
+  "forcesync": { "message": "Tving synkronisering / Sjekk status" },
+  "forgotpasswordinstructions": { "message": "For å tilbakestille passordet, gå til 'Pro'-delen, klikk 'Logg ut', og aktiver deretter på nytt ved å lime inn lisensnøkkelen din." }
 }

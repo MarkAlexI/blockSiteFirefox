@@ -262,5 +262,14 @@
   "onboarding_status_api_error": {
     "message": "Lupapyyntö epäonnistui (tämä voi tapahtua mobiilissa). Yritä uudelleen tai myönnä lupa manuaalisesti asetuksista."
   },
-  "pastekeylabel": { "message": "Liitä lisenssiavaimesi tähän:" }
+  "pastekeylabel": { "message": "Liitä lisenssiavaimesi tähän:" },
+  "confirmclearstats": { "message": "Haluatko varmasti tyhjentää kaikki tilastot? Tätä toimintoa ei voi perua." },
+  "statscleared": { "message": "Tilastot tyhjennettiin onnistuneesti." },
+  "redirectstodaylabel": { "message": "Uudelleenohjauksia tänään" },
+  "totalredirectslabel": { "message": "Uudelleenohjauksia yhteensä" },
+  "logout": { "message": "Kirjaudu ulos" },
+  "loggedoutsuccess": { "message": "Olet kirjautunut ulos onnistuneesti." },
+  "loggedouterror": { "message": "Uloskirjautumisessa tapahtui virhe." },
+  "forcesync": { "message": "Pakota synkronointi / Tarkista tila" },
+  "forgotpasswordinstructions": { "message": "Nollataksesi salasanasi siirry kohtaan 'Pro', napsauta 'Kirjaudu ulos' ja aktivoi sitten uudelleen liittämällä lisenssiavaimesi." }
 }
