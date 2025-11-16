@@ -281,5 +281,9 @@
   "loggedoutsuccess": { "message": "You have been successfully logged out." },
   "loggedouterror": { "message": "An error occurred while logging out." },
   "forcesync": { "message": "Force Sync / Check Status" },
-  "forgotpasswordinstructions": { "message": "To reset your password, please go to the 'Pro' section, click 'Log Out', and then re-activate by pasting your License Key." }
+  "forgotpasswordinstructions": { "message": "To reset your password, please go to the 'Pro' section, click 'Log Out', and then re-activate by pasting your License Key." },
+  "blockedtitle": { "message": "Site unavailable" },
+  "blockedheader": { "message": "This site is currently unavailable" },
+  "blockedtext": { "message": "This content cannot be displayed." },
+  "blockedbutton": { "message": "Close Tab" }
 }

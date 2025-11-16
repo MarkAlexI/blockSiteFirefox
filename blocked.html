@@ -4,17 +4,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Site unavailable</title>
+  <title data-i18n="blockedtitle">Site unavailable</title>
   <link rel="stylesheet" href="styles/blocked.css" />
 </head>
 
 <body>
   <div class="container">
-    <h1>This site is currently unavailable</h1>
-    <p>This content cannot be displayed.</p>
-    <button id="closeBtn">Close Tab</button>
+    <h1 data-i18n="blockedheader">This site is currently unavailable</h1>
+    <p data-i18n="blockedtext">This content cannot be displayed.</p>
+    <button
+      id="closeBtn"
+      data-i18n="blockedbutton"
+    >Close Tab</button>
   </div>
-  
+
+  <script type="module" src="scripts/i18n.js"></script>
   <script src="scripts/blocked.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
