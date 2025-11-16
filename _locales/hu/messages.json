@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Sikeresen kijelentkezett." },
   "loggedouterror": { "message": "Hiba történt a kijelentkezés során." },
   "forcesync": { "message": "Szinkronizálás kényszerítése / Állapot ellenőrzése" },
-  "forgotpasswordinstructions": { "message": "A jelszó visszaállításához lépjen a 'Pro' szakaszba, kattintson a 'Kijelentkezés' gombra, majd aktiválja újra a licenckulcs beillesztésével." }
+  "forgotpasswordinstructions": { "message": "A jelszó visszaállításához lépjen a 'Pro' szakaszba, kattintson a 'Kijelentkezés' gombra, majd aktiválja újra a licenckulcs beillesztésével." },
+  "blockedtitle": { "message": "Az oldal nem elérhető" },
+  "blockedheader": { "message": "Ez az oldal jelenleg nem elérhető" },
+  "blockedtext": { "message": "A tartalom nem jeleníthető meg." },
+  "blockedbutton": { "message": "Bezárás" }
 }

@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Pomyślnie wylogowano." },
   "loggedouterror": { "message": "Wystąpił błąd podczas wylogowywania." },
   "forcesync": { "message": "Wymuś synchronizację / Sprawdź status" },
-  "forgotpasswordinstructions": { "message": "Aby zresetować hasło, przejdź do sekcji 'Pro', kliknij 'Wyloguj się', a następnie ponownie aktywuj, wklejając swój klucz licencyjny." }
+  "forgotpasswordinstructions": { "message": "Aby zresetować hasło, przejdź do sekcji 'Pro', kliknij 'Wyloguj się', a następnie ponownie aktywuj, wklejając swój klucz licencyjny." },
+  "blockedtitle": { "message": "Strona niedostępna" },
+  "blockedheader": { "message": "Ta strona jest obecnie niedostępna" },
+  "blockedtext": { "message": "Tej treści nie można wyświetlić." },
+  "blockedbutton": { "message": "Zamknij kartę" }
 }

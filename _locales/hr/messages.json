@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Uspješno ste se odjavili." },
   "loggedouterror": { "message": "Došlo je do pogreške prilikom odjave." },
   "forcesync": { "message": "Prisilna sinkronizacija / Provjeri status" },
-  "forgotpasswordinstructions": { "message": "Za poništavanje lozinke idite na odjeljak 'Pro', kliknite 'Odjava', a zatim ponovno aktivirajte tako da zalijepite svoj licencni ključ." }
+  "forgotpasswordinstructions": { "message": "Za poništavanje lozinke idite na odjeljak 'Pro', kliknite 'Odjava', a zatim ponovno aktivirajte tako da zalijepite svoj licencni ključ." },
+  "blockedtitle": { "message": "Stranica nije dostupna" },
+  "blockedheader": { "message": "Ova stranica trenutno nije dostupna" },
+  "blockedtext": { "message": "Ovaj sadržaj se ne može prikazati." },
+  "blockedbutton": { "message": "Zatvori karticu" }
 }

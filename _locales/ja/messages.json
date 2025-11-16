@@ -280,5 +280,9 @@
   "loggedoutsuccess": { "message": "正常にログアウトしました。" },
   "loggedouterror": { "message": "ログアウト中にエラーが発生しました。" },
   "forcesync": { "message": "強制同期 / ステータス確認" },
-  "forgotpasswordinstructions": { "message": "パスワードをリセットするには、「Pro」セクションに移動し、「ログアウト」をクリックしてから、ライセンスキーを貼り付けて再アクティブ化してください。" }
+  "forgotpasswordinstructions": { "message": "パスワードをリセットするには、「Pro」セクションに移動し、「ログアウト」をクリックしてから、ライセンスキーを貼り付けて再アクティブ化してください。" },
+  "blockedtitle": { "message": "サイトは利用できません" },
+  "blockedheader": { "message": "このサイトは現在利用できません" },
+  "blockedtext": { "message": "このコンテンツは表示できません。" },
+  "blockedbutton": { "message": "タブを閉じる" }
 }

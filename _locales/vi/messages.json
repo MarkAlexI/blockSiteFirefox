@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Bạn đã đăng xuất thành công." },
   "loggedouterror": { "message": "Đã xảy ra lỗi khi đăng xuất." },
   "forcesync": { "message": "Ép đồng bộ / Kiểm tra trạng thái" },
-  "forgotpasswordinstructions": { "message": "Để đặt lại mật khẩu, vui lòng vào phần 'Pro', nhấn 'Đăng xuất', sau đó kích hoạt lại bằng cách dán Khóa Bản quyền của bạn." }
+  "forgotpasswordinstructions": { "message": "Để đặt lại mật khẩu, vui lòng vào phần 'Pro', nhấn 'Đăng xuất', sau đó kích hoạt lại bằng cách dán Khóa Bản quyền của bạn." },
+  "blockedtitle": { "message": "Trang web không khả dụng" },
+  "blockedheader": { "message": "Trang web này hiện không khả dụng" },
+  "blockedtext": { "message": "Nội dung này không thể hiển thị." },
+  "blockedbutton": { "message": "Đóng Tab" }
 }

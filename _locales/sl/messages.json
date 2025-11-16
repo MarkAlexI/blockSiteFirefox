@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Uspešno ste bili odjavljeni." },
   "loggedouterror": { "message": "Pri odjavi je prišlo do napake." },
   "forcesync": { "message": "Vsili sinhronizacijo / Preveri stanje" },
-  "forgotpasswordinstructions": { "message": "Če želite ponastaviti geslo, pojdite v razdelek 'Pro', kliknite 'Odjava' in nato ponovno aktivirajte z lepljenjem svojega licenčnega ključa." }
+  "forgotpasswordinstructions": { "message": "Če želite ponastaviti geslo, pojdite v razdelek 'Pro', kliknite 'Odjava' in nato ponovno aktivirajte z lepljenjem svojega licenčnega ključa." },
+  "blockedtitle": { "message": "Spletna stran ni na voljo" },
+  "blockedheader": { "message": "Ta stran trenutno ni na voljo" },
+  "blockedtext": { "message": "Te vsebine ni mogoče prikazati." },
+  "blockedbutton": { "message": "Zapri zavihek" }
 }

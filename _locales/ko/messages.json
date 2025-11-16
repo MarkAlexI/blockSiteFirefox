@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "성공적으로 로그아웃되었습니다." },
   "loggedouterror": { "message": "로그아웃 중 오류가 발생했습니다." },
   "forcesync": { "message": "강제 동기화 / 상태 확인" },
-  "forgotpasswordinstructions": { "message": "비밀번호를 재설정하려면 'Pro' 섹션으로 이동하여 '로그아웃'을 클릭한 다음, 라이선스 키를 붙여넣어 다시 활성화하세요." }
+  "forgotpasswordinstructions": { "message": "비밀번호를 재설정하려면 'Pro' 섹션으로 이동하여 '로그아웃'을 클릭한 다음, 라이선스 키를 붙여넣어 다시 활성화하세요." },
+  "blockedtitle": { "message": "사이트를 사용할 수 없음" },
+  "blockedheader": { "message": "이 사이트는 현재 이용할 수 없습니다" },
+  "blockedtext": { "message": "이 콘텐츠를 표시할 수 없습니다." },
+  "blockedbutton": { "message": "탭 닫기" }
 }

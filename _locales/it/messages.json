@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Disconnessione avvenuta con successo." },
   "loggedouterror": { "message": "Si è verificato un errore durante la disconnessione." },
   "forcesync": { "message": "Forza sincronizzazione / Controlla stato" },
-  "forgotpasswordinstructions": { "message": "Per reimpostare la password, vai alla sezione 'Pro', fai clic su 'Disconnetti' e poi riattiva incollando la tua chiave di licenza." }
+  "forgotpasswordinstructions": { "message": "Per reimpostare la password, vai alla sezione 'Pro', fai clic su 'Disconnetti' e poi riattiva incollando la tua chiave di licenza." },
+  "blockedtitle": { "message": "Sito non disponibile" },
+  "blockedheader": { "message": "Questo sito non è attualmente disponibile" },
+  "blockedtext": { "message": "Questo contenuto non può essere visualizzato." },
+  "blockedbutton": { "message": "Chiudi scheda" }
 }

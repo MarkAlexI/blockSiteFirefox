@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "आपण यशस्वीरित्या लॉग आऊट केले आहे." },
   "loggedouterror": { "message": "लॉग आऊट करताना एक त्रुटी आली." },
   "forcesync": { "message": "सिंक सक्तीने करा / स्थिती तपासा" },
-  "forgotpasswordinstructions": { "message": "आपला संकेतशब्द रीसेट करण्यासाठी, 'Pro' विभागात जा, 'लॉग आऊट' क्लिक करा आणि नंतर आपली परवाना की पेस्ट करून पुन्हा सक्रिय करा." }
+  "forgotpasswordinstructions": { "message": "आपला संकेतशब्द रीसेट करण्यासाठी, 'Pro' विभागात जा, 'लॉग आऊट' क्लिक करा आणि नंतर आपली परवाना की पेस्ट करून पुन्हा सक्रिय करा." },
+  "blockedtitle": { "message": "साइट उपलब्ध नाही" },
+  "blockedheader": { "message": "हा साइट सध्या उपलब्ध नाही" },
+  "blockedtext": { "message": "हा मजकूर दाखवता येणार नाही." },
+  "blockedbutton": { "message": "टॅब बंद करा" }
 }

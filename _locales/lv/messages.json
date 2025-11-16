@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Jūs veiksmīgi izrakstījāties." },
   "loggedouterror": { "message": "Radās kļūda, mēģinot izrakstīties." },
   "forcesync": { "message": "Piespiedu sinhronizācija / Pārbaudīt statusu" },
-  "forgotpasswordinstructions": { "message": "Lai atiestatītu paroli, dodieties uz sadaļu “Pro”, noklikšķiniet uz “Izrakstīties” un pēc tam atkārtoti aktivizējiet, ielīmējot savu licences atslēgu." }
+  "forgotpasswordinstructions": { "message": "Lai atiestatītu paroli, dodieties uz sadaļu “Pro”, noklikšķiniet uz “Izrakstīties” un pēc tam atkārtoti aktivizējiet, ielīmējot savu licences atslēgu." },
+  "blockedtitle": { "message": "Tīmekļa vietne nav pieejama" },
+  "blockedheader": { "message": "Šī vietne pašlaik nav pieejama" },
+  "blockedtext": { "message": "Šo saturu nevar parādīt." },
+  "blockedbutton": { "message": "Aizvērt cilni" }
 }

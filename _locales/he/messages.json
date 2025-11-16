@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "התנתקת בהצלחה." },
   "loggedouterror": { "message": "אירעה שגיאה בעת ההתנתקות." },
   "forcesync": { "message": "כפה סנכרון / בדוק מצב" },
-  "forgotpasswordinstructions": { "message": "כדי לאפס את הסיסמה שלך, עבור לסעיף 'Pro', לחץ על 'התנתק', ולאחר מכן הפעל מחדש על ידי הדבקת מפתח הרישיון שלך." }
+  "forgotpasswordinstructions": { "message": "כדי לאפס את הסיסמה שלך, עבור לסעיף 'Pro', לחץ על 'התנתק', ולאחר מכן הפעל מחדש על ידי הדבקת מפתח הרישיון שלך." },
+  "blockedtitle": { "message": "האתר אינו זמין" },
+  "blockedheader": { "message": "אתר זה אינו זמין כרגע" },
+  "blockedtext": { "message": "תוכן זה אינו ניתן להצגה." },
+  "blockedbutton": { "message": "סגור כרטיסייה" }
 }

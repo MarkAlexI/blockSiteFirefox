@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "A sessão foi terminada com sucesso." },
   "loggedouterror": { "message": "Ocorreu um erro ao terminar a sessão." },
   "forcesync": { "message": "Forçar sincronização / Verificar estado" },
-  "forgotpasswordinstructions": { "message": "Para redefinir a sua palavra-passe, vá à secção 'Pro', clique em 'Terminar sessão' e reative colando a sua chave de licença." }
+  "forgotpasswordinstructions": { "message": "Para redefinir a sua palavra-passe, vá à secção 'Pro', clique em 'Terminar sessão' e reative colando a sua chave de licença." },
+  "blockedtitle": { "message": "Site indisponível" },
+  "blockedheader": { "message": "Este site não está disponível neste momento" },
+  "blockedtext": { "message": "Este conteúdo não pode ser exibido." },
+  "blockedbutton": { "message": "Fechar separador" }
 }

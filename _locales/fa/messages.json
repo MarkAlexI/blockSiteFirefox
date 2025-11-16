@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "شما با موفقیت خارج شدید." },
   "loggedouterror": { "message": "هنگام خروج خطایی رخ داد." },
   "forcesync": { "message": "همگام‌سازی اجباری / بررسی وضعیت" },
-  "forgotpasswordinstructions": { "message": "برای بازنشانی گذرواژه، به بخش «Pro» بروید، روی «خروج» کلیک کنید و سپس با چسباندن کلید مجوز خود دوباره فعال کنید." }
+  "forgotpasswordinstructions": { "message": "برای بازنشانی گذرواژه، به بخش «Pro» بروید، روی «خروج» کلیک کنید و سپس با چسباندن کلید مجوز خود دوباره فعال کنید." },
+  "blockedtitle": { "message": "سایت در دسترس نیست" },
+  "blockedheader": { "message": "این سایت در حال حاضر در دسترس نیست" },
+  "blockedtext": { "message": "این محتوا قابل نمایش نیست." },
+  "blockedbutton": { "message": "بستن تب" }
 }

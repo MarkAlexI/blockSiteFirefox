@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Du er logget ud med succes." },
   "loggedouterror": { "message": "Der opstod en fejl under udlogning." },
   "forcesync": { "message": "Gennemtving synkronisering / Tjek status" },
-  "forgotpasswordinstructions": { "message": "For at nulstille din adgangskode skal du gå til afsnittet 'Pro', klikke på 'Log ud' og derefter genaktivere ved at indsætte din licensnøgle." }
+  "forgotpasswordinstructions": { "message": "For at nulstille din adgangskode skal du gå til afsnittet 'Pro', klikke på 'Log ud' og derefter genaktivere ved at indsætte din licensnøgle." },
+  "blockedtitle": { "message": "Websted utilgængeligt" },
+  "blockedheader": { "message": "Dette websted er i øjeblikket utilgængeligt" },
+  "blockedtext": { "message": "Dette indhold kan ikke vises." },
+  "blockedbutton": { "message": "Luk fanen" }
 }

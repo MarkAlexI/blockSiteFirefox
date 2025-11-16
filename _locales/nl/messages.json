@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Je bent succesvol afgemeld." },
   "loggedouterror": { "message": "Er is een fout opgetreden bij het afmelden." },
   "forcesync": { "message": "Synchronisatie Forceren / Status Controleren" },
-  "forgotpasswordinstructions": { "message": "Om je wachtwoord opnieuw in te stellen, ga naar het gedeelte 'Pro', klik op 'Afmelden' en activeer vervolgens opnieuw door je Licentiesleutel te plakken." }
+  "forgotpasswordinstructions": { "message": "Om je wachtwoord opnieuw in te stellen, ga naar het gedeelte 'Pro', klik op 'Afmelden' en activeer vervolgens opnieuw door je Licentiesleutel te plakken." },
+  "blockedtitle": { "message": "Site niet beschikbaar" },
+  "blockedheader": { "message": "Deze site is momenteel niet beschikbaar" },
+  "blockedtext": { "message": "Deze inhoud kan niet worden weergegeven." },
+  "blockedbutton": { "message": "Tabblad sluiten" }
 }

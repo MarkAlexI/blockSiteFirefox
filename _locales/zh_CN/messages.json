@@ -280,5 +280,9 @@
   "loggedoutsuccess": { "message": "您已成功退出登录。" },
   "loggedouterror": { "message": "退出登录时发生错误。" },
   "forcesync": { "message": "强制同步 / 检查状态" },
-  "forgotpasswordinstructions": { "message": "要重置密码，请转到“Pro”部分，点击“退出登录”，然后通过粘贴您的许可证密钥重新激活。" }
+  "forgotpasswordinstructions": { "message": "要重置密码，请转到“Pro”部分，点击“退出登录”，然后通过粘贴您的许可证密钥重新激活。" },
+  "blockedtitle": { "message": "网站不可用" },
+  "blockedheader": { "message": "此网站当前不可用" },
+  "blockedtext": { "message": "此内容无法显示。" },
+  "blockedbutton": { "message": "关闭标签页" }
 }

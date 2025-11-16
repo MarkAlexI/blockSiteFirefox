@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Du har blitt logget ut." },
   "loggedouterror": { "message": "Det oppstod en feil under utlogging." },
   "forcesync": { "message": "Tving synkronisering / Sjekk status" },
-  "forgotpasswordinstructions": { "message": "For å tilbakestille passordet, gå til 'Pro'-delen, klikk 'Logg ut', og aktiver deretter på nytt ved å lime inn lisensnøkkelen din." }
+  "forgotpasswordinstructions": { "message": "For å tilbakestille passordet, gå til 'Pro'-delen, klikk 'Logg ut', og aktiver deretter på nytt ved å lime inn lisensnøkkelen din." },
+  "blockedtitle": { "message": "Siden er utilgjengelig" },
+  "blockedheader": { "message": "Denne siden er for øyeblikket utilgjengelig" },
+  "blockedtext": { "message": "Dette innholdet kan ikke vises." },
+  "blockedbutton": { "message": "Lukk fane" }
 }

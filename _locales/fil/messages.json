@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Matagumpay kang naka-log out." },
   "loggedouterror": { "message": "Nagkaroon ng error habang nagla-log out." },
   "forcesync": { "message": "Pilitin ang Sync / Suriin ang Katayuan" },
-  "forgotpasswordinstructions": { "message": "Upang i-reset ang iyong password, pumunta sa seksyong 'Pro', i-click ang 'Mag-log out', at pagkatapos ay muling i-activate sa pamamagitan ng pag-paste ng iyong License Key." }
+  "forgotpasswordinstructions": { "message": "Upang i-reset ang iyong password, pumunta sa seksyong 'Pro', i-click ang 'Mag-log out', at pagkatapos ay muling i-activate sa pamamagitan ng pag-paste ng iyong License Key." },
+  "blockedtitle": { "message": "Hindi magagamit ang site" },
+  "blockedheader": { "message": "Ang site na ito ay kasalukuyang hindi magagamit" },
+  "blockedtext": { "message": "Hindi maipapakita ang nilalamang ito." },
+  "blockedbutton": { "message": "Isara ang Tab" }
 }

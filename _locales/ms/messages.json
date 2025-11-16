@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Anda telah berjaya log keluar." },
   "loggedouterror": { "message": "Ralat berlaku semasa log keluar." },
   "forcesync": { "message": "Paksa Segerak / Semak Status" },
-  "forgotpasswordinstructions": { "message": "Untuk menetapkan semula kata laluan anda, pergi ke bahagian 'Pro', klik 'Log Keluar', dan kemudian aktifkan semula dengan menampal Kunci Lesen anda." }
+  "forgotpasswordinstructions": { "message": "Untuk menetapkan semula kata laluan anda, pergi ke bahagian 'Pro', klik 'Log Keluar', dan kemudian aktifkan semula dengan menampal Kunci Lesen anda." },
+  "blockedtitle": { "message": "Laman tidak tersedia" },
+  "blockedheader": { "message": "Laman ini tidak tersedia buat masa ini" },
+  "blockedtext": { "message": "Kandungan ini tidak dapat dipaparkan." },
+  "blockedbutton": { "message": "Tutup Tab" }
 }

@@ -280,5 +280,9 @@
   "loggedoutsuccess": { "message": "Has cerrado sesión correctamente." },
   "loggedouterror": { "message": "Se produjo un error al cerrar sesión." },
   "forcesync": { "message": "Forzar sincronización / Comprobar estado" },
-  "forgotpasswordinstructions": { "message": "Para restablecer tu contraseña, ve a la sección 'Pro', haz clic en 'Cerrar sesión' y luego vuelve a activar pegando tu clave de licencia." }
+  "forgotpasswordinstructions": { "message": "Para restablecer tu contraseña, ve a la sección 'Pro', haz clic en 'Cerrar sesión' y luego vuelve a activar pegando tu clave de licencia." },
+  "blockedtitle": { "message": "Sitio no disponible" },
+  "blockedheader": { "message": "Este sitio no está disponible actualmente" },
+  "blockedtext": { "message": "Este contenido no se puede mostrar." },
+  "blockedbutton": { "message": "Cerrar pestaña" }
 }

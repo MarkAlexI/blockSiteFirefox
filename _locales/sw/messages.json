@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Umeondoka kwa mafanikio." },
   "loggedouterror": { "message": "Hitilafu imetokea wakati wa kutoka." },
   "forcesync": { "message": "Lazimisha Usawazishaji / Angalia Hali" },
-  "forgotpasswordinstructions": { "message": "Ili kuweka upya nenosiri lako, nenda kwenye sehemu ya 'Pro', bofya 'Ondoka', kisha washa tena kwa kubandika Ufunguo wako wa Leseni." }
+  "forgotpasswordinstructions": { "message": "Ili kuweka upya nenosiri lako, nenda kwenye sehemu ya 'Pro', bofya 'Ondoka', kisha washa tena kwa kubandika Ufunguo wako wa Leseni." },
+  "blockedtitle": { "message": "Tovuti haipatikani" },
+  "blockedheader": { "message": "Tovuti hii haipatikani kwa sasa" },
+  "blockedtext": { "message": "Yaliyomo haya hayawezi kuonyeshwa." },
+  "blockedbutton": { "message": "Funga Kifaa" }
 }

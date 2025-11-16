@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Du wurdest erfolgreich abgemeldet." },
   "loggedouterror": { "message": "Beim Abmelden ist ein Fehler aufgetreten." },
   "forcesync": { "message": "Synchronisierung erzwingen / Status prüfen" },
-  "forgotpasswordinstructions": { "message": "Um dein Passwort zurückzusetzen, gehe bitte zum Bereich 'Pro', klicke auf 'Abmelden' und aktiviere anschließend erneut, indem du deinen Lizenzschlüssel einfügst." }
+  "forgotpasswordinstructions": { "message": "Um dein Passwort zurückzusetzen, gehe bitte zum Bereich 'Pro', klicke auf 'Abmelden' und aktiviere anschließend erneut, indem du deinen Lizenzschlüssel einfügst." },
+  "blockedtitle": { "message": "Seite nicht verfügbar" },
+  "blockedheader": { "message": "Diese Seite ist derzeit nicht verfügbar" },
+  "blockedtext": { "message": "Dieser Inhalt kann nicht angezeigt werden." },
+  "blockedbutton": { "message": "Tab schließen" }
 }

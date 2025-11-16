@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Anda telah berhasil keluar." },
   "loggedouterror": { "message": "Terjadi kesalahan saat keluar." },
   "forcesync": { "message": "Sinkronisasi Paksa / Periksa Status" },
-  "forgotpasswordinstructions": { "message": "Untuk mengatur ulang kata sandi Anda, buka bagian 'Pro', klik 'Keluar', lalu aktifkan kembali dengan menempelkan Kunci Lisensi Anda." }
+  "forgotpasswordinstructions": { "message": "Untuk mengatur ulang kata sandi Anda, buka bagian 'Pro', klik 'Keluar', lalu aktifkan kembali dengan menempelkan Kunci Lisensi Anda." },
+  "blockedtitle": { "message": "Situs tidak tersedia" },
+  "blockedheader": { "message": "Situs ini saat ini tidak tersedia" },
+  "blockedtext": { "message": "Konten ini tidak dapat ditampilkan." },
+  "blockedbutton": { "message": "Tutup Tab" }
 }

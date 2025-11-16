@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Olet kirjautunut ulos onnistuneesti." },
   "loggedouterror": { "message": "Uloskirjautumisessa tapahtui virhe." },
   "forcesync": { "message": "Pakota synkronointi / Tarkista tila" },
-  "forgotpasswordinstructions": { "message": "Nollataksesi salasanasi siirry kohtaan 'Pro', napsauta 'Kirjaudu ulos' ja aktivoi sitten uudelleen liittämällä lisenssiavaimesi." }
+  "forgotpasswordinstructions": { "message": "Nollataksesi salasanasi siirry kohtaan 'Pro', napsauta 'Kirjaudu ulos' ja aktivoi sitten uudelleen liittämällä lisenssiavaimesi." },
+  "blockedtitle": { "message": "Sivusto ei ole saatavilla" },
+  "blockedheader": { "message": "Tämä sivusto ei ole tällä hetkellä saatavilla" },
+  "blockedtext": { "message": "Tätä sisältöä ei voida näyttää." },
+  "blockedbutton": { "message": "Sulje välilehti" }
 }

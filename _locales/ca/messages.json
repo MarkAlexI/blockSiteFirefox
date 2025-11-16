@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Has tancat la sessió correctament." },
   "loggedouterror": { "message": "S’ha produït un error en tancar la sessió." },
   "forcesync": { "message": "Força la sincronització / Comprova l’estat" },
-  "forgotpasswordinstructions": { "message": "Per restablir la teva contrasenya, ves a la secció 'Pro', fes clic a 'Tanca la sessió' i després reactiva enganxant la teva clau de llicència." }
+  "forgotpasswordinstructions": { "message": "Per restablir la teva contrasenya, ves a la secció 'Pro', fes clic a 'Tanca la sessió' i després reactiva enganxant la teva clau de llicència." },
+  "blockedtitle": { "message": "Lloc no disponible" },
+  "blockedheader": { "message": "Aquest lloc web no està disponible actualment" },
+  "blockedtext": { "message": "Aquest contingut no es pot mostrar." },
+  "blockedbutton": { "message": "Tanca la pestanya" }
 }

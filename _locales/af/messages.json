@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Jy is suksesvol uitgeteken." },
   "loggedouterror": { "message": "’n Fout het voorgekom tydens uitteken." },
   "forcesync": { "message": "Forseer sinchronisasie / Kontroleer status" },
-  "forgotpasswordinstructions": { "message": "Om jou wagwoord te herstel, gaan asseblief na die 'Pro'-afdeling, klik op 'Teken uit', en aktiveer dan weer deur jou lisensiesleutel te plak." }
+  "forgotpasswordinstructions": { "message": "Om jou wagwoord te herstel, gaan asseblief na die 'Pro'-afdeling, klik op 'Teken uit', en aktiveer dan weer deur jou lisensiesleutel te plak." },
+  "blockedtitle": { "message": "Werf nie beskikbaar nie" },
+  "blockedheader": { "message": "Hierdie webwerf is tans nie beskikbaar nie" },
+  "blockedtext": { "message": "Hierdie inhoud kan nie vertoon word nie." },
+  "blockedbutton": { "message": "Sluit oortjie" }
 }

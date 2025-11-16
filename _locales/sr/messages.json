@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Успешно сте одјављени." },
   "loggedouterror": { "message": "Дошло је до грешке приликом одјаве." },
   "forcesync": { "message": "Приморај синхронизацију / Провери статус" },
-  "forgotpasswordinstructions": { "message": "Да бисте ресетовали лозинку, идите у одељак 'Pro', кликните на 'Одјава', а затим поново активирајте тако што ћете налепити свој лиценцни кључ." }
+  "forgotpasswordinstructions": { "message": "Да бисте ресетовали лозинку, идите у одељак 'Pro', кликните на 'Одјава', а затим поново активирајте тако што ћете налепити свој лиценцни кључ." },
+  "blockedtitle": { "message": "Saјt nije dostupan" },
+  "blockedheader": { "message": "Ovaj saјt trenutno nije dostupan" },
+  "blockedtext": { "message": "Ovaj sadržaj se ne može prikazati." },
+  "blockedbutton": { "message": "Zatvori karticu" }
 }

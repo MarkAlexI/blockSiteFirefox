@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "በተሳካ ሁኔታ ወጥተዋል።" },
   "loggedouterror": { "message": "ከመውጣት ጋር ችግር ተፈጥሯል።" },
   "forcesync": { "message": "አስገዳጅ ማስማሚያ / ሁኔታን ያረጋግጡ" },
-  "forgotpasswordinstructions": { "message": "የይለፍ ቃልዎን ለመቀየር፣ ወደ 'Pro' ክፍል ይሂዱ፣ 'ውጣ' ይምረጡ እና በኋላ የፈቃድ መክፈቻ ቁልፎትን በመለጠፍ እንደገና ያንቁ።" }
+  "forgotpasswordinstructions": { "message": "የይለፍ ቃልዎን ለመቀየር፣ ወደ 'Pro' ክፍል ይሂዱ፣ 'ውጣ' ይምረጡ እና በኋላ የፈቃድ መክፈቻ ቁልፎትን በመለጠፍ እንደገና ያንቁ።" },
+  "blockedtitle": { "message": "ጣቢያው አይገኝም" },
+  "blockedheader": { "message": "ይህ ጣቢያ በአሁኑ ጊዜ አይገኝም" },
+  "blockedtext": { "message": "ይህ ይዘት ማሳየት አይቻልም።" },
+  "blockedbutton": { "message": "ትር ዝጋ" }
 }

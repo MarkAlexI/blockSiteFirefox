@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Sėkmingai atsijungėte." },
   "loggedouterror": { "message": "Atsijungiant įvyko klaida." },
   "forcesync": { "message": "Priverstinė sinchronizacija / Patikrinti būseną" },
-  "forgotpasswordinstructions": { "message": "Norėdami iš naujo nustatyti slaptažodį, eikite į skiltį „Pro“, spustelėkite „Atsijungti“ ir tada iš naujo suaktyvinkite įklijuodami savo licencijos raktą." }
+  "forgotpasswordinstructions": { "message": "Norėdami iš naujo nustatyti slaptažodį, eikite į skiltį „Pro“, spustelėkite „Atsijungti“ ir tada iš naujo suaktyvinkite įklijuodami savo licencijos raktą." },
+  "blockedtitle": { "message": "Svetainė nepasiekiama" },
+  "blockedheader": { "message": "Ši svetainė šiuo metu nepasiekiama" },
+  "blockedtext": { "message": "Šio turinio negalima rodyti." },
+  "blockedbutton": { "message": "Užverti skirtuką" }
 }

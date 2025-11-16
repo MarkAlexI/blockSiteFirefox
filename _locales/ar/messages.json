@@ -280,5 +280,9 @@
   "loggedoutsuccess": { "message": "تم تسجيل الخروج بنجاح." },
   "loggedouterror": { "message": "حدث خطأ أثناء تسجيل الخروج." },
   "forcesync": { "message": "مزامنة إجبارية / التحقق من الحالة" },
-  "forgotpasswordinstructions": { "message": "لإعادة تعيين كلمة المرور، انتقل إلى قسم 'Pro'، وانقر على 'تسجيل الخروج'، ثم أعد التفعيل عن طريق لصق مفتاح الترخيص الخاص بك." }
+  "forgotpasswordinstructions": { "message": "لإعادة تعيين كلمة المرور، انتقل إلى قسم 'Pro'، وانقر على 'تسجيل الخروج'، ثم أعد التفعيل عن طريق لصق مفتاح الترخيص الخاص بك." },
+  "blockedtitle": { "message": "الموقع غير متاح" },
+  "blockedheader": { "message": "هذا الموقع غير متاح حالياً" },
+  "blockedtext": { "message": "لا يمكن عرض هذا المحتوى." },
+  "blockedbutton": { "message": "إغلاق علامة التبويب" }
 }

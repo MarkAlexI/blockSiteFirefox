@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Você saiu com sucesso." },
   "loggedouterror": { "message": "Ocorreu um erro ao sair." },
   "forcesync": { "message": "Forçar sincronização / Verificar status" },
-  "forgotpasswordinstructions": { "message": "Para redefinir sua senha, vá até a seção 'Pro', clique em 'Sair' e depois reative colando sua chave de licença." }
+  "forgotpasswordinstructions": { "message": "Para redefinir sua senha, vá até a seção 'Pro', clique em 'Sair' e depois reative colando sua chave de licença." },
+  "blockedtitle": { "message": "Site indisponível" },
+  "blockedheader": { "message": "Este site está indisponível no momento" },
+  "blockedtext": { "message": "Este conteúdo não pode ser exibido." },
+  "blockedbutton": { "message": "Fechar Aba" }
 }

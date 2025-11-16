@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "તમે સફળતાપૂર્વક લોગ આઉટ થઈ ગયા છો." },
   "loggedouterror": { "message": "લોગ આઉટ કરતી વખતે ભૂલ આવી હતી." },
   "forcesync": { "message": "ફોર્સ સિંક / સ્થિતિ તપાસો" },
-  "forgotpasswordinstructions": { "message": "તમારો પાસવર્ડ રીસેટ કરવા માટે, 'Pro' વિભાગમાં જાઓ, 'લોગ આઉટ' પર ક્લિક કરો અને પછી તમારી લાઇસન્સ કી પેસ્ટ કરીને ફરીથી સક્રિય કરો." }
+  "forgotpasswordinstructions": { "message": "તમારો પાસવર્ડ રીસેટ કરવા માટે, 'Pro' વિભાગમાં જાઓ, 'લોગ આઉટ' પર ક્લિક કરો અને પછી તમારી લાઇસન્સ કી પેસ્ટ કરીને ફરીથી સક્રિય કરો." },
+  "blockedtitle": { "message": "સાઈટ ઉપલબ્ધ નથી" },
+  "blockedheader": { "message": "આ સાઇટ હાલમાં ઉપલબ્ધ નથી" },
+  "blockedtext": { "message": "આ સામગ્રી દર્શાવી શકાતી નથી." },
+  "blockedbutton": { "message": "ટૅબ બંધ કરો" }
 }

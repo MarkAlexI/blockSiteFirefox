@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Te-ai deconectat cu succes." },
   "loggedouterror": { "message": "A apărut o eroare la deconectare." },
   "forcesync": { "message": "Forțează sincronizarea / Verifică starea" },
-  "forgotpasswordinstructions": { "message": "Pentru a reseta parola, mergi la secțiunea 'Pro', apasă 'Deconectare', apoi reactivează lipind cheia ta de licență." }
+  "forgotpasswordinstructions": { "message": "Pentru a reseta parola, mergi la secțiunea 'Pro', apasă 'Deconectare', apoi reactivează lipind cheia ta de licență." },
+  "blockedtitle": { "message": "Site indisponibil" },
+  "blockedheader": { "message": "Acest site nu este disponibil în acest moment" },
+  "blockedtext": { "message": "Acest conținut nu poate fi afișat." },
+  "blockedbutton": { "message": "Închide fila" }
 }

@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Olete edukalt välja logitud." },
   "loggedouterror": { "message": "Väljalogimisel tekkis viga." },
   "forcesync": { "message": "Sunni sünkroonimist / Kontrolli olekut" },
-  "forgotpasswordinstructions": { "message": "Parooli lähtestamiseks avage jaotis 'Pro', klõpsake 'Logi välja' ja aktiveerige uuesti, kleepides oma litsentsivõtme." }
+  "forgotpasswordinstructions": { "message": "Parooli lähtestamiseks avage jaotis 'Pro', klõpsake 'Logi välja' ja aktiveerige uuesti, kleepides oma litsentsivõtme." },
+  "blockedtitle": { "message": "Veebisait ei ole saadaval" },
+  "blockedheader": { "message": "See veebisait ei ole praegu saadaval" },
+  "blockedtext": { "message": "Seda sisu ei saa kuvada." },
+  "blockedbutton": { "message": "Sule vaheleht" }
 }

@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "您已成功登出。" },
   "loggedouterror": { "message": "登出時發生錯誤。" },
   "forcesync": { "message": "強制同步 / 檢查狀態" },
-  "forgotpasswordinstructions": { "message": "若要重設密碼，請前往「Pro」區域，點選「登出」，然後貼上您的授權金鑰以重新啟用。" }
+  "forgotpasswordinstructions": { "message": "若要重設密碼，請前往「Pro」區域，點選「登出」，然後貼上您的授權金鑰以重新啟用。" },
+  "blockedtitle": { "message": "網站無法使用" },
+  "blockedheader": { "message": "此網站目前無法使用" },
+  "blockedtext": { "message": "此內容無法顯示。" },
+  "blockedbutton": { "message": "關閉分頁" }
 }

@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Du har loggats ut." },
   "loggedouterror": { "message": "Ett fel uppstod vid utloggning." },
   "forcesync": { "message": "Tvinga synkronisering / Kontrollera status" },
-  "forgotpasswordinstructions": { "message": "För att återställa ditt lösenord, gå till avsnittet 'Pro', klicka på 'Logga ut' och aktivera sedan igen genom att klistra in din licensnyckel." }
+  "forgotpasswordinstructions": { "message": "För att återställa ditt lösenord, gå till avsnittet 'Pro', klicka på 'Logga ut' och aktivera sedan igen genom att klistra in din licensnyckel." },
+  "blockedtitle": { "message": "Webbplatsen är otillgänglig" },
+  "blockedheader": { "message": "Denna webbplats är för närvarande otillgänglig" },
+  "blockedtext": { "message": "Detta innehåll kan inte visas." },
+  "blockedbutton": { "message": "Stäng flik" }
 }

@@ -271,5 +271,9 @@
   "loggedoutsuccess": { "message": "Boli ste úspešne odhlásený." },
   "loggedouterror": { "message": "Pri odhlasovaní sa vyskytla chyba." },
   "forcesync": { "message": "Vynútiť synchronizáciu / Skontrolovať stav" },
-  "forgotpasswordinstructions": { "message": "Ak chcete obnoviť svoje heslo, prejdite do sekcie 'Pro', kliknite na 'Odhlásiť sa' a potom znova aktivujte vložením vášho licenčného kľúča." }
+  "forgotpasswordinstructions": { "message": "Ak chcete obnoviť svoje heslo, prejdite do sekcie 'Pro', kliknite na 'Odhlásiť sa' a potom znova aktivujte vložením vášho licenčného kľúča." },
+  "blockedtitle": { "message": "Stránka nie je dostupná" },
+  "blockedheader": { "message": "Táto stránka momentálne nie je dostupná" },
+  "blockedtext": { "message": "Tento obsah nie je možné zobraziť." },
+  "blockedbutton": { "message": "Zatvoriť kartu" }
 }
