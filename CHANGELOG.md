@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.17.8] - 2025-11-19
+### Fixed
+- Updated the logic for rule limits for free (non-legacy) users in the popup.  
+  Rule deletion is now always allowed; only creation of new rules is restricted.
+
 ## [2.17.7] - 2025-11-17
 ### Added
 - Added 10 new motivational quotes.
