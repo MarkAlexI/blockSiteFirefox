@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Cerca un nom de domini" },
   "norulesforcategory": { "message": "No hi ha llocs web bloquejats per a aquesta categoria." },
   "getpro": { "message": "Obtén Pro" },
-  "profunctionstext": { "message": "Les funcions Pro inclouen: bloqueig programat, protecció amb contrasenya, filtratge i cerca de regles, exportació/importació de regles i sincronització entre navegadors. Per desbloquejar Pro, primer compra una subscripció a blockdistraction.com. Després del pagament, torna a aquesta pàgina i introdueix el teu correu electrònic a continuació per activar Pro." },
+  "profunctionstext": { "message": "Les funcions Pro inclouen: bloqueig programat, protecció amb contrasenya, filtratge de regles i exportació/importació de regles. Gaudeix de la nostra Llicència Universal: una subscripció activa el Pro en tots els teus navegadors (Chrome, Firefox, Edge, Kiwi). Per activar-ho, compra una subscripció a blockdistraction.com, després copia la teva clau de llicència del tauler del compte i enganxa-la a continuació." },
   "upgradenow": { "message": "Actualitza ara" },
   "enteremail": { "message": "Introdueix el teu correu electrònic" },
   "activatepro": { "message": "Activa Pro" },

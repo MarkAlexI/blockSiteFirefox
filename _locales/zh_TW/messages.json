@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "搜尋網域名稱" },
   "norulesforcategory": { "message": "此類別沒有被封鎖的網站。" },
   "getpro": { "message": "取得 Pro" },
-  "profunctionstext": { "message": "Pro 功能包括：排程封鎖、密碼保護、規則篩選與搜尋、規則匯出/匯入，以及跨瀏覽器同步。要解鎖 Pro，請先在 blockdistraction.com 購買訂閱。付款後返回此頁面，並在下方輸入您的電子郵件以啟用 Pro。" },
+  "profunctionstext": { "message": "Pro 功能包括：依排程阻擋、密碼保護、規則篩選以及規則匯入/匯出。享受我們的通用授權：一個訂閱即可在您所有的瀏覽器（Chrome、Firefox、Edge、Kiwi）上啟用 Pro。要啟用，請在 blockdistraction.com 購買訂閱，然後從您的帳戶儀表板複製授權金鑰並貼到下方。" },
   "upgradenow": { "message": "立即升級" },
   "enteremail": { "message": "輸入您的電子郵件" },
   "activatepro": { "message": "啟用 Pro" },

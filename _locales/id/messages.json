@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Cari nama domain" },
   "norulesforcategory": { "message": "Tidak ada situs yang diblokir untuk kategori ini." },
   "getpro": { "message": "Dapatkan Pro" },
-  "profunctionstext": { "message": "Fitur Pro termasuk: pemblokiran terjadwal, perlindungan kata sandi, penyaringan dan pencarian aturan, ekspor/impor aturan, dan sinkronisasi lintas browser. Untuk membuka Pro, pertama beli langganan di blockdistraction.com. Setelah pembayaran, kembali ke halaman ini dan masukkan email Anda di bawah untuk mengaktifkan Pro." },
+  "profunctionstext": { "message": "Fitur Pro meliputi: pemblokiran terjadwal, perlindungan kata sandi, penyaringan aturan, dan ekspor/impor aturan. Nikmati Lisensi Universal kami: satu langganan membuka Pro di semua browser Anda (Chrome, Firefox, Edge, Kiwi). Untuk mengaktifkan, beli langganan di blockdistraction.com, kemudian salin Kunci Lisensi Anda dari dasbor akun dan tempel di bawah ini." },
   "upgradenow": { "message": "Tingkatkan Sekarang" },
   "enteremail": { "message": "Masukkan email Anda" },
   "activatepro": { "message": "Aktifkan Pro" },

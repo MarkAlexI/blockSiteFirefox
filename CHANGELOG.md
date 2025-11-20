@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.17.9] - 2025-11-20
+### Updated
+- Updated the "profunctionstext" translation key across all locales.
+
 ## [2.17.8] - 2025-11-19
 ### Fixed
 - Updated the logic for rule limits for free (non-legacy) users in the popup.  

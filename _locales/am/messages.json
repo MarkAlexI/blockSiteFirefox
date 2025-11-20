@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "የዶሜይን ስም ፈልግ" },
   "norulesforcategory": { "message": "ለዚህ ክፍል ምንም የታገዱ ድህረገፆች የሉም።" },
   "getpro": { "message": "ፕሮ ያግኙ" },
-  "profunctionstext": { "message": "የፕሮ ባህሪዎች የሚካተቱት፡ በጊዜ ማስያዣ መከልከል፣ የይለፍ ቃል ጥበቃ፣ የደንብ ማጣሪያ እና ፍለጋ፣ የደንብ መላኪያ/መግቢያ፣ እና በተለያዩ አሳሾች መስማማት ናቸው። ፕሮን ለመክፈት፣ መጀመሪያ በ blockdistraction.com በመግዛት አባልነት ያግኙ። ክፍያ ካደረጉ በኋላ ወደዚህ ገጽ ተመልሰው ኢሜይልዎን ከታች ያስገቡ ፕሮ ለማንቃት።" },
+  "profunctionstext": { "message": "የPro ባህሪዎች የተያያዙ ባህሪዎችን ይዟሉ፡ በጊዜ ሰሌዳ መከልከል፣ በይለፍ ቃል ጥበቃ፣ የደንብ ማጣሪያ እና የደንብ ላክ/መግቢያ። የኛን ዩኒቨርሳል ፍቃድ ይዝናኑ፤ አንድ መዝገብ በሁሉም መቃኛዎችዎ (Chrome, Firefox, Edge, Kiwi) Pro ያከፍታል። ለማንቃት blockdistraction.com ላይ መዝገብ ይግዙ፣ ከመለያ ዳሽቦርድዎ የፍቃድ ቁልፎን ቅዳት እዚህ ታትሙት።" },
   "upgradenow": { "message": "አሁን ያሻሽሉ" },
   "enteremail": { "message": "ኢሜይልዎን ያስገቡ" },
   "activatepro": { "message": "ፕሮ ያንቁ" },

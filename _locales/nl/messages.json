@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Zoek naar domeinnaam" },
   "norulesforcategory": { "message": "Geen geblokkeerde sites voor deze categorie." },
   "getpro": { "message": "Pro verkrijgen" },
-  "profunctionstext": { "message": "Pro-functies omvatten: geplande blokkering, wachtwoordbeveiliging, regels filteren en doorzoeken, regels exporteren/importeren en synchronisatie tussen browsers. Om Pro te ontgrendelen, koop eerst een abonnement op blockdistraction.com. Na betaling keert u terug naar deze pagina en voert u hieronder uw e-mailadres in om Pro te activeren." },
+  "profunctionstext": { "message": "Pro-functies omvatten: gepland blokkeren, wachtwoordbeveiliging, het filteren van regels en het exporteren/importeren van regels. Geniet van onze Universele Licentie: één abonnement ontgrendelt Pro in al je browsers (Chrome, Firefox, Edge, Kiwi). Om te activeren, koop een abonnement op blockdistraction.com, kopieer vervolgens je licentiesleutel uit het dashboard van je account en plak deze hieronder." },
   "upgradenow": { "message": "Nu upgraden" },
   "enteremail": { "message": "Voer uw e-mailadres in" },
   "activatepro": { "message": "Activeer Pro" },

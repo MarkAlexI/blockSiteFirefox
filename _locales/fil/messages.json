@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Maghanap ng pangalan ng domain" },
   "norulesforcategory": { "message": "Walang naka-block na site para sa kategoryang ito." },
   "getpro": { "message": "Kunin ang Pro" },
-  "profunctionstext": { "message": "Kasama sa mga tampok ng Pro: naka-schedule na pag-block, proteksyon gamit ang password, pagsala at paghahanap ng mga patakaran, pag-export/import ng mga patakaran, at cross-browser sync. Upang ma-unlock ang Pro, bumili muna ng subscription sa blockdistraction.com. Pagkatapos magbayad, bumalik sa pahinang ito at ilagay ang iyong email sa ibaba upang i-activate ang Pro." },
+  "profunctionstext": { "message": "Kasama sa mga Pro na tampok ang: naka-schedule na pag-block, proteksyon sa password, pag-filter ng mga patakaran, at pag-export/import ng mga patakaran. Masiyahan sa aming Universal License: isang subscription lang ang nagbubukas ng Pro sa lahat ng iyong browser (Chrome, Firefox, Edge, Kiwi). Upang i-activate, bumili ng subscription sa blockdistraction.com, pagkatapos kopyahin ang iyong License Key mula sa dashboard ng iyong account at i-paste ito sa ibaba." },
   "upgradenow": { "message": "Mag-upgrade Ngayon" },
   "enteremail": { "message": "Ilagay ang iyong email" },
   "activatepro": { "message": "I-activate ang Pro" },

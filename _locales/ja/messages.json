@@ -185,7 +185,7 @@
   "searchfordomain": { "message": "ドメイン名を検索" },
   "norulesforcategory": { "message": "このカテゴリにはブロックされたサイトがありません。" },
   "getpro": { "message": "Pro を入手" },
-  "profunctionstext": { "message": "Pro の機能には、スケジュールされたブロック、パスワード保護、ルールのフィルタリングと検索、ルールのエクスポート/インポート、クロスブラウザ同期が含まれます。Pro を解除するには、まず blockdistraction.com でサブスクリプションを購入してください。支払い後、このページに戻り、下にメールアドレスを入力して Pro を有効化してください。" },
+  "profunctionstext": { "message": "Pro 機能には、スケジュールブロック、パスワード保護、ルールのフィルタリング、ルールのエクスポート／インポートが含まれます。ユニバーサルライセンスをご利用いただけます：1つのサブスクリプションで、すべてのブラウザ（Chrome、Firefox、Edge、Kiwi）でProが有効になります。有効化するには、blockdistraction.comでサブスクリプションを購入し、アカウントダッシュボードからライセンスキーをコピーして下に貼り付けてください。" },
   "upgradenow": { "message": "今すぐアップグレード" },
   "enteremail": { "message": "メールアドレスを入力" },
   "activatepro": { "message": "Pro を有効化" },

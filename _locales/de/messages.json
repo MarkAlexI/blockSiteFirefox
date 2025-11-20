@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Domainnamen suchen" },
   "norulesforcategory": { "message": "Keine blockierten Websites für diese Kategorie." },
   "getpro": { "message": "Pro holen" },
-  "profunctionstext": { "message": "Pro-Funktionen beinhalten: geplantes Blockieren, Passwortschutz, Regel-Filterung und -Suche, Export/Import von Regeln sowie Synchronisierung zwischen verschiedenen Browsern. Um Pro freizuschalten, kaufen Sie zuerst ein Abonnement auf blockdistraction.com. Nach der Zahlung kehren Sie bitte auf diese Seite zurück und geben unten Ihre E-Mail-Adresse ein, um Pro zu aktivieren." },
+  "profunctionstext": { "message": "Zu den Pro-Funktionen gehören: geplantes Blockieren, Passwortschutz, Regelfilterung sowie Export/Import von Regeln. Genieße unsere universelle Lizenz: Ein einziges Abonnement schaltet Pro in all deinen Browsern frei (Chrome, Firefox, Edge, Kiwi). Um zu aktivieren, kaufe ein Abonnement auf blockdistraction.com, kopiere anschließend deinen Lizenzschlüssel aus deinem Kontodashboard und füge ihn unten ein." },
   "upgradenow": { "message": "Jetzt upgraden" },
   "enteremail": { "message": "E-Mail-Adresse eingeben" },
   "activatepro": { "message": "Pro aktivieren" },

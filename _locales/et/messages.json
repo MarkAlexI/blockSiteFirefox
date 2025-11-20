@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Otsi domeeninime" },
   "norulesforcategory": { "message": "Selle kategooria jaoks pole blokeeritud saite." },
   "getpro": { "message": "Hangi Pro" },
-  "profunctionstext": { "message": "Pro funktsioonid hõlmavad: ajastatud blokeerimist, paroolikaitset, reeglite filtreerimist ja otsingut, reeglite eksporti/importi ning brauseritevahelist sünkroonimist. Pro avamiseks osta esmalt tellimus aadressil blockdistraction.com. Pärast makse sooritamist naase sellele lehele ja sisesta oma e-posti aadress allpool Pro aktiveerimiseks." },
+  "profunctionstext": { "message": "Pro-funktsioonid hõlmavad: ajastatud blokeerimist, paroolikaitset, reeglite filtreerimist ja reeglite eksporti/importi. Nautige meie Universaalset Litsentsi: üks tellimus avab Pro kõigis teie brauserites (Chrome, Firefox, Edge, Kiwi). Aktiveerimiseks ostke tellimus blockdistraction.com, seejärel kopeerige oma litsentsivõti konto juhtpaneelilt ja kleepige see allpool." },
   "upgradenow": { "message": "Uuenda kohe" },
   "enteremail": { "message": "Sisesta oma e-post" },
   "activatepro": { "message": "Aktiveeri Pro" },

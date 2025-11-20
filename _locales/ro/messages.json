@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Caută nume de domeniu" },
   "norulesforcategory": { "message": "Nu există site-uri blocate pentru această categorie." },
   "getpro": { "message": "Obține Pro" },
-  "profunctionstext": { "message": "Funcțiile Pro includ: blocare programată, protecție cu parolă, filtrare și căutare reguli, export/import de reguli și sincronizare între browsere. Pentru a debloca Pro, achiziționează mai întâi un abonament pe blockdistraction.com. După plată, revino pe această pagină și introdu adresa ta de e-mail mai jos pentru a activa Pro." },
+  "profunctionstext": { "message": "Funcțiile Pro includ: blocare programată, protecție prin parolă, filtrarea regulilor și export/import de reguli. Bucurați-vă de Licența Universală: un singur abonament deblochează Pro pe toate browserele dvs. (Chrome, Firefox, Edge, Kiwi). Pentru a activa, achiziționați un abonament pe blockdistraction.com, apoi copiați cheia de licență din panoul contului și lipiți-o mai jos." },
   "upgradenow": { "message": "Actualizează acum" },
   "enteremail": { "message": "Introdu adresa ta de e-mail" },
   "activatepro": { "message": "Activează Pro" },

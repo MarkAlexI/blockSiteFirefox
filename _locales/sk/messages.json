@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Hľadať názov domény" },
   "norulesforcategory": { "message": "Pre túto kategóriu nie sú žiadne blokované stránky." },
   "getpro": { "message": "Získajte Pro" },
-  "profunctionstext": { "message": "Funkcie Pro zahŕňajú: plánované blokovanie, ochranu heslom, filtrovanie a vyhľadávanie pravidiel, export/import pravidiel a synchronizáciu medzi prehliadačmi. Ak chcete odomknúť Pro, najprv si kúpte predplatné na blockdistraction.com. Po zaplatení sa vráťte na túto stránku a zadajte nižšie svoj e-mail, aby ste aktivovali Pro." },
+  "profunctionstext": { "message": "Funkcie Pro zahŕňajú: blokovanie podľa plánu, ochranu heslom, filtrovanie pravidiel a export/import pravidiel. Využite našu Univerzálnu licenciu: jedno predplatné odomkne Pro vo všetkých vašich prehliadačoch (Chrome, Firefox, Edge, Kiwi). Na aktiváciu si zakúpte predplatné na blockdistraction.com, potom skopírujte svoj licenčný kľúč z ovládacieho panela účtu a vložte ho nižšie." },
   "upgradenow": { "message": "Aktualizovať teraz" },
   "enteremail": { "message": "Zadajte svoj e-mail" },
   "activatepro": { "message": "Aktivovať Pro" },

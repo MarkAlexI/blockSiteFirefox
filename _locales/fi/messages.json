@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Etsi verkkotunnusta" },
   "norulesforcategory": { "message": "Tälle kategoriolle ei ole estettyjä sivustoja." },
   "getpro": { "message": "Hanki Pro" },
-  "profunctionstext": { "message": "Pro-ominaisuuksiin kuuluu: aikataulutettu esto, salasanasuojaus, sääntöjen suodatus ja haku, sääntöjen vienti/tuonti sekä selainvälien synkronointi. Pro:n avaamiseksi osta ensin tilaus osoitteesta blockdistraction.com. Maksun jälkeen palaa tälle sivulle ja syötä sähköpostiosoitteesi alla Pro:n aktivoimiseksi." },
+  "profunctionstext": { "message": "Pro-ominaisuuksiin kuuluu: ajoitettu estäminen, salasanalla suojaaminen, sääntöjen suodatus sekä sääntöjen vienti/tuonti. Nauti universaalista lisenssistämme: yksi tilaus avaa Pro-ominaisuudet kaikissa selaimissasi (Chrome, Firefox, Edge, Kiwi). Aktivointia varten osta tilaus blockdistraction.com-sivustolta, kopioi sitten lisenssiavaimesi tilisi hallintapaneelista ja liitä se alla." },
   "upgradenow": { "message": "Päivitä nyt" },
   "enteremail": { "message": "Syötä sähköpostisi" },
   "activatepro": { "message": "Aktivoi Pro" },

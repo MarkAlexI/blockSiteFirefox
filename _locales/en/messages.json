@@ -186,7 +186,7 @@
   "searchfordomain": { "message": "Search for domain name" },
   "norulesforcategory": { "message": "No blocked sites for this category." },
   "getpro": { "message": "Get Pro" },
-  "profunctionstext": { "message": "Pro features include: scheduled blocking, password protection, rule filtering, rule export/import, and cloud sync. One subscription covers all your browsers. To unlock Pro, purchase a subscription at blockdistraction.com. After payment, copy your License Key from your account dashboard and paste it below." },
+  "profunctionstext": { "message": "Pro features include: scheduled blocking, password protection, rule filtering, and rule export/import. Enjoy our Universal License: one subscription unlocks Pro on all your browsers (Chrome, Firefox, Edge, Kiwi). To activate, purchase a subscription at blockdistraction.com, then copy your License Key from your account dashboard and paste it below." },
   "upgradenow": { "message": "Upgrade Now" },
   "enteremail": { "message": "Enter your email" },
   "activatepro": { "message": "Activate Pro" },

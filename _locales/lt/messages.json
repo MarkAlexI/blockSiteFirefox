@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Ieškoti domeno pavadinimo" },
   "norulesforcategory": { "message": "Šiai kategorijai nėra užblokuotų svetainių." },
   "getpro": { "message": "Gauk Pro" },
-  "profunctionstext": { "message": "Pro funkcijos apima: suplanuotą blokavimą, slaptažodžio apsaugą, taisyklių filtravimą ir paiešką, taisyklių eksportavimą/importavimą bei sinchronizavimą tarp naršyklių. Norėdami atrakinti Pro, pirmiausia įsigykite prenumeratą blockdistraction.com. Po apmokėjimo grįžkite į šį puslapį ir įveskite savo el. paštą žemiau, kad suaktyvintumėte Pro." },
+  "profunctionstext": { "message": "Pro funkcijos apima: planuojamą blokavimą, apsaugą slaptažodžiu, taisyklių filtravimą ir taisyklių eksportą/importą. Mėgaukitės mūsų universalia licencija: vienas prenumeratos planas atrakina Pro visuose jūsų naršyklėse (Chrome, Firefox, Edge, Kiwi). Norėdami suaktyvinti, įsigykite prenumeratą blockdistraction.com svetainėje, tada nukopijuokite savo licencijos raktą iš paskyros skydelio ir įklijuokite jį žemiau." },
   "upgradenow": { "message": "Atnaujinti dabar" },
   "enteremail": { "message": "Įveskite savo el. paštą" },
   "activatepro": { "message": "Aktyvuoti Pro" },

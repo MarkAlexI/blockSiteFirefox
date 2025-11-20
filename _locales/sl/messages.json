@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Išči ime domene" },
   "norulesforcategory": { "message": "Za to kategorijo ni blokiranih spletnih mest." },
   "getpro": { "message": "Pridobi Pro" },
-  "profunctionstext": { "message": "Funkcije Pro vključujejo: načrtovano blokiranje, zaščito z geslom, filtriranje in iskanje pravil, izvoz/uvoz pravil ter sinhronizacijo med brskalniki. Za odklep Pro najprej kupite naročnino na blockdistraction.com. Po plačilu se vrnite na to stran in spodaj vnesite svoj e-poštni naslov, da aktivirate Pro." },
+  "profunctionstext": { "message": "Funkcije Pro vključujejo: blokiranje po urniku, zaščito z geslom, filtriranje pravil in izvoz/uvoz pravil. Uživajte v naši Univerzalni licenci: ena naročnina odklene Pro v vseh vaših brskalnikih (Chrome, Firefox, Edge, Kiwi). Za aktivacijo kupite naročnino na blockdistraction.com, nato kopirajte svojo licenčno ključ iz nadzorne plošče računa in ga prilepite spodaj." },
   "upgradenow": { "message": "Nadgradi zdaj" },
   "enteremail": { "message": "Vnesite svoj e-poštni naslov" },
   "activatepro": { "message": "Aktiviraj Pro" },

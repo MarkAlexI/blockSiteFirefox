@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Søg efter domænenavn" },
   "norulesforcategory": { "message": "Ingen blokerede websteder for denne kategori." },
   "getpro": { "message": "Få Pro" },
-  "profunctionstext": { "message": "Pro-funktioner inkluderer: planlagt blokering, adgangskodebeskyttelse, regel-filtrering og søgning, eksport/import af regler og synkronisering på tværs af browsere. For at låse Pro op skal du først købe et abonnement på blockdistraction.com. Efter betaling skal du vende tilbage til denne side og indtaste din e-mail nedenfor for at aktivere Pro." },
+  "profunctionstext": { "message": "Pro-funktioner inkluderer: planlagt blokering, adgangskodebeskyttelse, regel­filtrering og eksport/import af regler. Nyd vores universelle licens: ét abonnement låser Pro op på alle dine browsere (Chrome, Firefox, Edge, Kiwi). For at aktivere skal du købe et abonnement på blockdistraction.com, derefter kopiere din licensnøgle fra din kontotavle og indsætte den nedenfor." },
   "upgradenow": { "message": "Opgrader nu" },
   "enteremail": { "message": "Indtast din e-mail" },
   "activatepro": { "message": "Aktivér Pro" },

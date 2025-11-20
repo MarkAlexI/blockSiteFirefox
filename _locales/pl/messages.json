@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Szukaj nazwy domeny" },
   "norulesforcategory": { "message": "Brak zablokowanych witryn dla tej kategorii." },
   "getpro": { "message": "Uzyskaj Pro" },
-  "profunctionstext": { "message": "Funkcje Pro obejmują: blokowanie według harmonogramu, ochronę hasłem, filtrowanie i wyszukiwanie reguł, eksport/import reguł oraz synchronizację między przeglądarkami. Aby odblokować Pro, najpierw wykup subskrypcję na blockdistraction.com. Po dokonaniu płatności wróć na tę stronę i wprowadź swój adres e-mail poniżej, aby aktywować Pro." },
+  "profunctionstext": { "message": "Funkcje Pro obejmują: blokowanie według harmonogramu, ochronę hasłem, filtrowanie reguł oraz eksport/import reguł. Skorzystaj z naszej Uniwersalnej Licencji: jedno subskrypcja odblokowuje Pro we wszystkich Twoich przeglądarkach (Chrome, Firefox, Edge, Kiwi). Aby aktywować, wykup subskrypcję na blockdistraction.com, następnie skopiuj Klucz Licencyjny z panelu konta i wklej go poniżej." },
   "upgradenow": { "message": "Uaktualnij teraz" },
   "enteremail": { "message": "Wpisz swój e-mail" },
   "activatepro": { "message": "Aktywuj Pro" },

@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Meklēt domēna nosaukumu" },
   "norulesforcategory": { "message": "Šai kategorijai nav bloķētu vietņu." },
   "getpro": { "message": "Iegūt Pro" },
-  "profunctionstext": { "message": "Pro funkcijas ietver: plānoto bloķēšanu, aizsardzību ar paroli, noteikumu filtrēšanu un meklēšanu, noteikumu eksportēšanu/ importēšanu un sinhronizāciju starp pārlūkprogrammām. Lai atbloķētu Pro, vispirms iegādājieties abonementu blockdistraction.com. Pēc maksājuma atgriezieties šajā lapā un zemāk ievadiet savu e-pastu, lai aktivizētu Pro." },
+  "profunctionstext": { "message": "Pro funkcijas ietver: bloķēšanu pēc grafika, paroļu aizsardzību, noteikumu filtrēšanu un noteikumu eksportēšanu/importēšanu. Izbaudiet mūsu Universālo licenci: viens abonements atbloķē Pro visās jūsu pārlūkprogrammās (Chrome, Firefox, Edge, Kiwi). Lai aktivizētu, iegādājieties abonementu vietnē blockdistraction.com, pēc tam nokopējiet sava licences atslēgu no konta paneļa un ielīmējiet to zemāk." },
   "upgradenow": { "message": "Jaunināt tagad" },
   "enteremail": { "message": "Ievadiet savu e-pastu" },
   "activatepro": { "message": "Aktivizēt Pro" },

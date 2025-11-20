@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Tìm kiếm tên miền" },
   "norulesforcategory": { "message": "Không có trang web bị chặn cho danh mục này." },
   "getpro": { "message": "Nhận Pro" },
-  "profunctionstext": { "message": "Các tính năng Pro bao gồm: chặn theo lịch, bảo vệ bằng mật khẩu, lọc và tìm kiếm quy tắc, xuất/nhập quy tắc và đồng bộ hóa giữa các trình duyệt. Để mở khóa Pro, trước tiên hãy mua gói đăng ký tại blockdistraction.com. Sau khi thanh toán, quay lại trang này và nhập email của bạn bên dưới để kích hoạt Pro." },
+  "profunctionstext": { "message": "Các tính năng Pro bao gồm: chặn theo lịch, bảo vệ bằng mật khẩu, lọc quy tắc và xuất/nhập quy tắc. Hãy tận hưởng Giấy phép Toàn cầu của chúng tôi: một đăng ký mở khóa Pro trên tất cả trình duyệt của bạn (Chrome, Firefox, Edge, Kiwi). Để kích hoạt, hãy mua đăng ký tại blockdistraction.com, sau đó sao chép Mã Giấy phép từ bảng điều khiển tài khoản của bạn và dán vào bên dưới." },
   "upgradenow": { "message": "Nâng cấp ngay" },
   "enteremail": { "message": "Nhập email của bạn" },
   "activatepro": { "message": "Kích hoạt Pro" },

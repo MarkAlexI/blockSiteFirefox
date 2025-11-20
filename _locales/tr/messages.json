@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Alan adı ara" },
   "norulesforcategory": { "message": "Bu kategori için engellenmiş site yok." },
   "getpro": { "message": "Pro Al" },
-  "profunctionstext": { "message": "Pro özellikler şunları içerir: zamanlanmış engelleme, parola koruması, kural filtreleme ve arama, kural dışa/içe aktarma ve tarayıcılar arası senkronizasyon. Pro'yu açmak için önce blockdistraction.com adresinden bir abonelik satın alın. Ödeme yaptıktan sonra bu sayfaya dönün ve Pro'yu etkinleştirmek için aşağıya e-postanızı girin." },
+  "profunctionstext": { "message": "Pro özellikleri şunları içerir: zamanlanmış engelleme, parola koruması, kural filtreleme ve kural dışa/içe aktarma. Evrensel Lisansımızın keyfini çıkarın: tek bir abonelik tüm tarayıcılarınızda (Chrome, Firefox, Edge, Kiwi) Pro’yu açar. Etkinleştirmek için blockdistraction.com üzerinden abonelik satın alın, ardından hesap panonuzdan Lisans Anahtarınızı kopyalayıp aşağıya yapıştırın." },
   "upgradenow": { "message": "Şimdi Yükselt" },
   "enteremail": { "message": "E-postanızı girin" },
   "activatepro": { "message": "Pro'yu Etkinleştir" },

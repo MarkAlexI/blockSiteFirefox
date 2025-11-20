@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Pretraži naziv domene" },
   "norulesforcategory": { "message": "Nema blokiranih stranica za ovu kategoriju." },
   "getpro": { "message": "Nabavite Pro" },
-  "profunctionstext": { "message": "Pro značajke uključuju: planirano blokiranje, zaštitu lozinkom, filtriranje i pretraživanje pravila, izvoz/uvoz pravila te sinkronizaciju između preglednika. Za otključavanje Pro, prvo kupite pretplatu na blockdistraction.com. Nakon plaćanja, vratite se na ovu stranicu i unesite svoju e-poštu u nastavku kako biste aktivirali Pro." },
+  "profunctionstext": { "message": "Pro značajke uključuju: blokiranje po rasporedu, zaštitu lozinkom, filtriranje pravila i izvoz/uvoz pravila. Uživajte u našoj Univerzalnoj licenci: jedna pretplata otključava Pro na svim vašim preglednicima (Chrome, Firefox, Edge, Kiwi). Za aktivaciju, kupite pretplatu na blockdistraction.com, zatim kopirajte svoj licencni ključ s nadzorne ploče računa i zalijepite ga dolje." },
   "upgradenow": { "message": "Nadogradi sada" },
   "enteremail": { "message": "Unesite svoju e-poštu" },
   "activatepro": { "message": "Aktiviraj Pro" },

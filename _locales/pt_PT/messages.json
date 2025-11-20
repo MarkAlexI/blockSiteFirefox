@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Pesquisar nome de domínio" },
   "norulesforcategory": { "message": "Não existem sites bloqueados para esta categoria." },
   "getpro": { "message": "Obter Pro" },
-  "profunctionstext": { "message": "As funcionalidades Pro incluem: bloqueio programado, proteção por palavra-passe, filtragem e pesquisa de regras, exportação/importação de regras e sincronização entre navegadores. Para desbloquear o Pro, primeiro adquira uma subscrição em blockdistraction.com. Após o pagamento, volte a esta página e introduza o seu e-mail abaixo para ativar o Pro." },
+  "profunctionstext": { "message": "As funcionalidades Pro incluem: bloqueio programado, proteção por palavra-passe, filtragem de regras e exportação/importação de regras. Aproveite a nossa Licença Universal: uma única subscrição desbloqueia o Pro em todos os seus navegadores (Chrome, Firefox, Edge, Kiwi). Para ativar, adquira uma subscrição em blockdistraction.com, depois copie a sua Chave de Licença a partir do painel da conta e cole-a abaixo." },
   "upgradenow": { "message": "Atualizar agora" },
   "enteremail": { "message": "Introduza o seu e-mail" },
   "activatepro": { "message": "Ativar Pro" },

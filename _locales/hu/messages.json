@@ -176,7 +176,7 @@
   "searchfordomain": { "message": "Domain név keresése" },
   "norulesforcategory": { "message": "Ehhez a kategóriához nincs blokkolt oldal." },
   "getpro": { "message": "Szerezd meg a Pro-t" },
-  "profunctionstext": { "message": "A Pro funkciók közé tartozik: ütemezett blokkolás, jelszóvédelem, szabályok szűrése és keresése, szabályok exportálása/importálása, valamint böngészők közötti szinkronizáció. A Pro feloldásához először vásárolj előfizetést a blockdistraction.com oldalon. Fizetés után térj vissza erre az oldalra, és add meg alul az e-mail címed a Pro aktiválásához." },
+  "profunctionstext": { "message": "A Pro funkciók közé tartozik: ütemezett blokkolás, jelszóvédelem, szabályszűrés és szabályok exportálása/importálása. Élvezze Univerzális Licenciánkat: egy előfizetés minden böngészőben (Chrome, Firefox, Edge, Kiwi) aktiválja a Pro-t. Aktiváláshoz vásároljon előfizetést a blockdistraction.com oldalon, majd másolja ki a Licenckulcsot a fiókja kezelőpultjáról, és illessze be alább." },
   "upgradenow": { "message": "Frissítés most" },
   "enteremail": { "message": "Add meg az e-mail címed" },
   "activatepro": { "message": "Pro aktiválása" },

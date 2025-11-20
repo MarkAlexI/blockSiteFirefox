@@ -185,7 +185,7 @@
   "searchfordomain": { "message": "搜索域名" },
   "norulesforcategory": { "message": "该类别没有被屏蔽的网站。" },
   "getpro": { "message": "获取 Pro" },
-  "profunctionstext": { "message": "Pro 功能包括：计划阻止、密码保护、规则筛选和搜索、规则导出/导入以及跨浏览器同步。要解锁 Pro，请先在 blockdistraction.com 购买订阅。付款后返回此页面并在下方输入您的电子邮箱以激活 Pro。" },
+  "profunctionstext": { "message": "Pro 功能包括：按计划阻止、密码保护、规则过滤以及规则导入/导出。享受我们的通用许可证：一个订阅即可在您所有的浏览器（Chrome、Firefox、Edge、Kiwi）上解锁 Pro。要激活，请在 blockdistraction.com 购买订阅，然后从您的账户仪表板复制许可证密钥并粘贴到下方。" },
   "upgradenow": { "message": "立即升级" },
   "enteremail": { "message": "请输入您的电子邮箱" },
   "activatepro": { "message": "激活 Pro" },
