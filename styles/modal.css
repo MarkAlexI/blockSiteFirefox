@@ -31,3 +31,7 @@
 .hidden {
   display: none;
 }
+
+.modal-content input.hidden {
+  display: none !important;
+}
