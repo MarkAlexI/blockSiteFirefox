@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Seite nicht verfügbar" },
   "blockedheader": { "message": "Diese Seite ist derzeit nicht verfügbar" },
   "blockedtext": { "message": "Dieser Inhalt kann nicht angezeigt werden." },
-  "blockedbutton": { "message": "Tab schließen" }
+  "blockedbutton": { "message": "Tab schließen" },
+  "confirmpassword": { "message": "Passwort bestätigen" },
+  "modalconfirm": { "message": "Bestätigen" },
+  "modalcancel": { "message": "Abbrechen" },
+  "forgotpassword": { "message": "Passwort vergessen? Zurücksetzen (entfernt den Schutz)" }
 }

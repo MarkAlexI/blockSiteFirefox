@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "ಸೈಟ್ ಲಭ್ಯವಿಲ್ಲ" },
   "blockedheader": { "message": "ಈ ಸೈಟ್ ಪ್ರಸ್ತುತ ಲಭ್ಯವಿಲ್ಲ" },
   "blockedtext": { "message": "ಈ ವಿಷಯವನ್ನು ತೋರಿಸಲಾಗುವುದಿಲ್ಲ." },
-  "blockedbutton": { "message": "ಟ್ಯಾಬ್ ಮುಚ್ಚಿ" }
+  "blockedbutton": { "message": "ಟ್ಯಾಬ್ ಮುಚ್ಚಿ" },
+  "confirmpassword": { "message": "ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ" },
+  "modalconfirm": { "message": "ದೃಢೀಕರಿಸಿ" },
+  "modalcancel": { "message": "ರದ್ದುಮಾಡಿ" },
+  "forgotpassword": { "message": "ಪಾಸ್ವರ್ಡ್ ಮರೆತೀರಾ? ಮರುಹೊಂದಿಸಿ (ರಕ್ಷಣೆಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ)" }
 }

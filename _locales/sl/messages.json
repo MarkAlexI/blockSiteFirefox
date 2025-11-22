@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Spletna stran ni na voljo" },
   "blockedheader": { "message": "Ta stran trenutno ni na voljo" },
   "blockedtext": { "message": "Te vsebine ni mogoče prikazati." },
-  "blockedbutton": { "message": "Zapri zavihek" }
+  "blockedbutton": { "message": "Zapri zavihek" },
+  "confirmpassword": { "message": "Potrdite geslo" },
+  "modalconfirm": { "message": "Potrdi" },
+  "modalcancel": { "message": "Prekliči" },
+  "forgotpassword": { "message": "Ste pozabili geslo? Ponastavi (dejanje bo odstranilo zaščito)" }
 }

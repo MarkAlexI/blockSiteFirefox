@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Az oldal nem elérhető" },
   "blockedheader": { "message": "Ez az oldal jelenleg nem elérhető" },
   "blockedtext": { "message": "A tartalom nem jeleníthető meg." },
-  "blockedbutton": { "message": "Bezárás" }
+  "blockedbutton": { "message": "Bezárás" },
+  "confirmpassword": { "message": "Jelszó megerősítése" },
+  "modalconfirm": { "message": "Megerősítés" },
+  "modalcancel": { "message": "Mégse" },
+  "forgotpassword": { "message": "Elfelejtette a jelszót? Visszaállítás (eltávolítja a védelmet)" }
 }

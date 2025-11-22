@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Websted utilgængeligt" },
   "blockedheader": { "message": "Dette websted er i øjeblikket utilgængeligt" },
   "blockedtext": { "message": "Dette indhold kan ikke vises." },
-  "blockedbutton": { "message": "Luk fanen" }
+  "blockedbutton": { "message": "Luk fanen" },
+  "confirmpassword": { "message": "Bekræft adgangskode" },
+  "modalconfirm": { "message": "Bekræft" },
+  "modalcancel": { "message": "Annuller" },
+  "forgotpassword": { "message": "Glemt adgangskode? Nulstil (fjerner beskyttelsen)" }
 }

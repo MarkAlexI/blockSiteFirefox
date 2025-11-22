@@ -294,5 +294,9 @@
   "blockedtitle": { "message": "サイトは利用できません" },
   "blockedheader": { "message": "このサイトは現在利用できません" },
   "blockedtext": { "message": "このコンテンツは表示できません。" },
-  "blockedbutton": { "message": "タブを閉じる" }
+  "blockedbutton": { "message": "タブを閉じる" },
+  "confirmpassword": { "message": "パスワードを確認" },
+  "modalconfirm": { "message": "確認" },
+  "modalcancel": { "message": "キャンセル" },
+  "forgotpassword": { "message": "パスワードをお忘れですか？リセット（保護が解除されます）" }
 }

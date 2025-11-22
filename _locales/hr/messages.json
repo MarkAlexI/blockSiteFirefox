@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Stranica nije dostupna" },
   "blockedheader": { "message": "Ova stranica trenutno nije dostupna" },
   "blockedtext": { "message": "Ovaj sadržaj se ne može prikazati." },
-  "blockedbutton": { "message": "Zatvori karticu" }
+  "blockedbutton": { "message": "Zatvori karticu" },
+  "confirmpassword": { "message": "Potvrdite lozinku" },
+  "modalconfirm": { "message": "Potvrdi" },
+  "modalcancel": { "message": "Odustani" },
+  "forgotpassword": { "message": "Zaboravili ste lozinku? Poništi (uklonit će zaštitu)" }
 }

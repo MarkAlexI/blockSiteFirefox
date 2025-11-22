@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Trang web không khả dụng" },
   "blockedheader": { "message": "Trang web này hiện không khả dụng" },
   "blockedtext": { "message": "Nội dung này không thể hiển thị." },
-  "blockedbutton": { "message": "Đóng Tab" }
+  "blockedbutton": { "message": "Đóng Tab" },
+  "confirmpassword": { "message": "Xác nhận mật khẩu" },
+  "modalconfirm": { "message": "Xác nhận" },
+  "modalcancel": { "message": "Hủy" },
+  "forgotpassword": { "message": "Quên mật khẩu? Đặt lại (hành động sẽ xóa bảo vệ)" }
 }

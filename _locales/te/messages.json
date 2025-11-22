@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "సైట్ అందుబాటులో లేదు" },
   "blockedheader": { "message": "ఈ సైట్ ప్రస్తుతానికి అందుబాటులో లేదు" },
   "blockedtext": { "message": "ఈ కంటెంట్ ను చూపించలేము." },
-  "blockedbutton": { "message": "ట్యాబ్ మూసివేయండి" }
+  "blockedbutton": { "message": "ట్యాబ్ మూసివేయండి" },
+  "confirmpassword": { "message": "పాస్‌వర్డ్‌ను నిర్ధారించండి" },
+  "modalconfirm": { "message": "నిర్ధారించండి" },
+  "modalcancel": { "message": "రద్దు" },
+  "forgotpassword": { "message": "పాస్‌వర్డ్ మరిచిపోయారా? రీసెట్ చేయండి (చర్య రక్షణను తొలగిస్తుంది)" }
 }

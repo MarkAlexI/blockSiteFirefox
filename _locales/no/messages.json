@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Siden er utilgjengelig" },
   "blockedheader": { "message": "Denne siden er for øyeblikket utilgjengelig" },
   "blockedtext": { "message": "Dette innholdet kan ikke vises." },
-  "blockedbutton": { "message": "Lukk fane" }
+  "blockedbutton": { "message": "Lukk fane" },
+  "confirmpassword": { "message": "Bekreft passord" },
+  "modalconfirm": { "message": "Bekreft" },
+  "modalcancel": { "message": "Avbryt" },
+  "forgotpassword": { "message": "Glemt passord? Tilbakestill (vil fjerne beskyttelsen)" }
 }

@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "سایت در دسترس نیست" },
   "blockedheader": { "message": "این سایت در حال حاضر در دسترس نیست" },
   "blockedtext": { "message": "این محتوا قابل نمایش نیست." },
-  "blockedbutton": { "message": "بستن تب" }
+  "blockedbutton": { "message": "بستن تب" },
+  "confirmpassword": { "message": "تأیید رمز عبور" },
+  "modalconfirm": { "message": "تأیید" },
+  "modalcancel": { "message": "لغو" },
+  "forgotpassword": { "message": "رمز عبور را فراموش کرده‌اید؟ بازنشانی (محافظت پاک خواهد شد)" }
 }

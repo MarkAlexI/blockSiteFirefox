@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Svetainė nepasiekiama" },
   "blockedheader": { "message": "Ši svetainė šiuo metu nepasiekiama" },
   "blockedtext": { "message": "Šio turinio negalima rodyti." },
-  "blockedbutton": { "message": "Užverti skirtuką" }
+  "blockedbutton": { "message": "Užverti skirtuką" },
+  "confirmpassword": { "message": "Patvirtinkite slaptažodį" },
+  "modalconfirm": { "message": "Patvirtinti" },
+  "modalcancel": { "message": "Atšaukti" },
+  "forgotpassword": { "message": "Pamiršote slaptažodį? Atstatyti (pašalins apsaugą)" }
 }

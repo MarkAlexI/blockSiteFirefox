@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Webbplatsen är otillgänglig" },
   "blockedheader": { "message": "Denna webbplats är för närvarande otillgänglig" },
   "blockedtext": { "message": "Detta innehåll kan inte visas." },
-  "blockedbutton": { "message": "Stäng flik" }
+  "blockedbutton": { "message": "Stäng flik" },
+  "confirmpassword": { "message": "Bekräfta lösenord" },
+  "modalconfirm": { "message": "Bekräfta" },
+  "modalcancel": { "message": "Avbryt" },
+  "forgotpassword": { "message": "Glömt lösenordet? Återställ (åtgärden tar bort skyddet)" }
 }

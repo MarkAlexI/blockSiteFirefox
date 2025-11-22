@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Tīmekļa vietne nav pieejama" },
   "blockedheader": { "message": "Šī vietne pašlaik nav pieejama" },
   "blockedtext": { "message": "Šo saturu nevar parādīt." },
-  "blockedbutton": { "message": "Aizvērt cilni" }
+  "blockedbutton": { "message": "Aizvērt cilni" },
+  "confirmpassword": { "message": "Apstipriniet paroli" },
+  "modalconfirm": { "message": "Apstiprināt" },
+  "modalcancel": { "message": "Atcelt" },
+  "forgotpassword": { "message": "Aizmirsāt paroli? Atiestatīt (noņems aizsardzību)" }
 }

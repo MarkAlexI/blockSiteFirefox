@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Site kullanılamıyor" },
   "blockedheader": { "message": "Bu site şu anda kullanılamıyor" },
   "blockedtext": { "message": "Bu içerik görüntülenemiyor." },
-  "blockedbutton": { "message": "Sekmeyi Kapat" }
+  "blockedbutton": { "message": "Sekmeyi Kapat" },
+  "confirmpassword": { "message": "Parolayı onayla" },
+  "modalconfirm": { "message": "Onayla" },
+  "modalcancel": { "message": "İptal" },
+  "forgotpassword": { "message": "Parolayı mı unuttunuz? Sıfırla (bu işlem korumayı kaldırır)" }
 }

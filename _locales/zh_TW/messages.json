@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "網站無法使用" },
   "blockedheader": { "message": "此網站目前無法使用" },
   "blockedtext": { "message": "此內容無法顯示。" },
-  "blockedbutton": { "message": "關閉分頁" }
+  "blockedbutton": { "message": "關閉分頁" },
+  "confirmpassword": { "message": "確認密碼" },
+  "modalconfirm": { "message": "確認" },
+  "modalcancel": { "message": "取消" },
+  "forgotpassword": { "message": "忘記密碼？重設（此操作將移除保護）" }
 }

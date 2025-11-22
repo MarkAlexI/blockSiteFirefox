@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "ጣቢያው አይገኝም" },
   "blockedheader": { "message": "ይህ ጣቢያ በአሁኑ ጊዜ አይገኝም" },
   "blockedtext": { "message": "ይህ ይዘት ማሳየት አይቻልም።" },
-  "blockedbutton": { "message": "ትር ዝጋ" }
+  "blockedbutton": { "message": "ትር ዝጋ" },
+  "confirmpassword": { "message": "የይለፍ ቃል ያረጋግጡ" },
+  "modalconfirm": { "message": "ያረጋግጡ" },
+  "modalcancel": { "message": "ይቅር" },
+  "forgotpassword": { "message": "የይለፍ ቃል ረስተዋል? ዳግም ያዘጋጁ (ጥበቃው ይሰረዛል)" }
 }

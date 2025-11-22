@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Laman tidak tersedia" },
   "blockedheader": { "message": "Laman ini tidak tersedia buat masa ini" },
   "blockedtext": { "message": "Kandungan ini tidak dapat dipaparkan." },
-  "blockedbutton": { "message": "Tutup Tab" }
+  "blockedbutton": { "message": "Tutup Tab" },
+  "confirmpassword": { "message": "Sahkan kata laluan" },
+  "modalconfirm": { "message": "Sahkan" },
+  "modalcancel": { "message": "Batal" },
+  "forgotpassword": { "message": "Lupa kata laluan? Tetapkan semula (akan mengalih keluar perlindungan)" }
 }

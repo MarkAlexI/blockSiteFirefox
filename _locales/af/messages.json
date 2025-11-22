@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Werf nie beskikbaar nie" },
   "blockedheader": { "message": "Hierdie webwerf is tans nie beskikbaar nie" },
   "blockedtext": { "message": "Hierdie inhoud kan nie vertoon word nie." },
-  "blockedbutton": { "message": "Sluit oortjie" }
+  "blockedbutton": { "message": "Sluit oortjie" },
+  "confirmpassword": { "message": "Bevestig wagwoord" },
+  "modalconfirm": { "message": "Bevestig" },
+  "modalcancel": { "message": "Kanselleer" },
+  "forgotpassword": { "message": "Wagwoord vergeet? Stel weer (sal beskerming verwyder)" }
 }

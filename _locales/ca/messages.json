@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Lloc no disponible" },
   "blockedheader": { "message": "Aquest lloc web no està disponible actualment" },
   "blockedtext": { "message": "Aquest contingut no es pot mostrar." },
-  "blockedbutton": { "message": "Tanca la pestanya" }
+  "blockedbutton": { "message": "Tanca la pestanya" },
+  "confirmpassword": { "message": "Confirma la contrasenya" },
+  "modalconfirm": { "message": "Confirmar" },
+  "modalcancel": { "message": "Cancel·lar" },
+  "forgotpassword": { "message": "Has oblidat la contrasenya? Restableix (eliminarà la protecció)" }
 }

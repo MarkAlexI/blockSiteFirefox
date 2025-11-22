@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Stránka není dostupná" },
   "blockedheader": { "message": "Tato stránka momentálně není dostupná" },
   "blockedtext": { "message": "Tento obsah nelze zobrazit." },
-  "blockedbutton": { "message": "Zavřít kartu" }
+  "blockedbutton": { "message": "Zavřít kartu" },
+  "confirmpassword": { "message": "Potvrďte heslo" },
+  "modalconfirm": { "message": "Potvrdit" },
+  "modalcancel": { "message": "Zrušit" },
+  "forgotpassword": { "message": "Zapomněli jste heslo? Obnovit (odstraní ochranu)" }
 }

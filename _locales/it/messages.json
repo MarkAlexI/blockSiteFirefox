@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Sito non disponibile" },
   "blockedheader": { "message": "Questo sito non è attualmente disponibile" },
   "blockedtext": { "message": "Questo contenuto non può essere visualizzato." },
-  "blockedbutton": { "message": "Chiudi scheda" }
+  "blockedbutton": { "message": "Chiudi scheda" },
+  "confirmpassword": { "message": "Conferma password" },
+  "modalconfirm": { "message": "Conferma" },
+  "modalcancel": { "message": "Annulla" },
+  "forgotpassword": { "message": "Password dimenticata? Reimposta (rimuoverà la protezione)" }
 }

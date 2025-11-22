@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Η σελίδα δεν είναι διαθέσιμη" },
   "blockedheader": { "message": "Αυτή η σελίδα δεν είναι διαθέσιμη αυτήν τη στιγμή" },
   "blockedtext": { "message": "Αυτό το περιεχόμενο δεν μπορεί να εμφανιστεί." },
-  "blockedbutton": { "message": "Κλείσιμο καρτέλας" }
+  "blockedbutton": { "message": "Κλείσιμο καρτέλας" },
+  "confirmpassword": { "message": "Επιβεβαίωση κωδικού" },
+  "modalconfirm": { "message": "Επιβεβαίωση" },
+  "modalcancel": { "message": "Ακύρωση" },
+  "forgotpassword": { "message": "Ξεχάσατε τον κωδικό; Επαναφορά (θα αφαιρέσει την προστασία)" }
 }

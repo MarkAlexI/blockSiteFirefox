@@ -284,5 +284,9 @@
   "blockedtitle": { "message": "இணையதளம் கிடைக்கவில்லை" },
   "blockedheader": { "message": "இந்த இணையதளம் தற்போது கிடைக்கவில்லை" },
   "blockedtext": { "message": "இந்த உள்ளடக்கத்தை காட்ட முடியாது." },
-  "blockedbutton": { "message": "தாவலை மூடு" }
+  "blockedbutton": { "message": "தாவலை மூடு" },
+  "confirmpassword": { "message": "கடவுச்சொல்லை உறுதிப்படுத்தவும்" },
+  "modalconfirm": { "message": "உறுதிப்படுத்து" },
+  "modalcancel": { "message": "ரத்து செய்" },
+  "forgotpassword": { "message": "கடவுச்சொல்லை மறந்துவிட்டீர்களா? மீட்டமை (செயல் பாதுகாப்பை நீக்கும்)" }
 }

@@ -294,5 +294,9 @@
   "blockedtitle": { "message": "网站不可用" },
   "blockedheader": { "message": "此网站当前不可用" },
   "blockedtext": { "message": "此内容无法显示。" },
-  "blockedbutton": { "message": "关闭标签页" }
+  "blockedbutton": { "message": "关闭标签页" },
+  "confirmpassword": { "message": "确认密码" },
+  "modalconfirm": { "message": "确认" },
+  "modalcancel": { "message": "取消" },
+  "forgotpassword": { "message": "忘记密码？重置（此操作将清除保护）" }
 }

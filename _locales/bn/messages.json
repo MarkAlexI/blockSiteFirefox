@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "সাইটটি অনুপলব্ধ" },
   "blockedheader": { "message": "এই সাইটটি বর্তমানে অনুপলব্ধ" },
   "blockedtext": { "message": "এই বিষয়বস্তু প্রদর্শন করা সম্ভব নয়।" },
-  "blockedbutton": { "message": "ট্যাব বন্ধ করুন" }
+  "blockedbutton": { "message": "ট্যাব বন্ধ করুন" },
+  "confirmpassword": { "message": "পাসওয়ার্ড নিশ্চিত করুন" },
+  "modalconfirm": { "message": "নিশ্চিত করুন" },
+  "modalcancel": { "message": "বাতিল" },
+  "forgotpassword": { "message": "পাসওয়ার্ড ভুলে গেছেন? রিসেট করুন (এটি সুরক্ষা মুছে দেবে)" }
 }

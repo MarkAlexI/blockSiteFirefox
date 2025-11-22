@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "사이트를 사용할 수 없음" },
   "blockedheader": { "message": "이 사이트는 현재 이용할 수 없습니다" },
   "blockedtext": { "message": "이 콘텐츠를 표시할 수 없습니다." },
-  "blockedbutton": { "message": "탭 닫기" }
+  "blockedbutton": { "message": "탭 닫기" },
+  "confirmpassword": { "message": "비밀번호 확인" },
+  "modalconfirm": { "message": "확인" },
+  "modalcancel": { "message": "취소" },
+  "forgotpassword": { "message": "비밀번호를 잊으셨나요? 재설정 (보호가 해제됩니다)" }
 }

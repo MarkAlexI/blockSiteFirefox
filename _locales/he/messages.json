@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "האתר אינו זמין" },
   "blockedheader": { "message": "אתר זה אינו זמין כרגע" },
   "blockedtext": { "message": "תוכן זה אינו ניתן להצגה." },
-  "blockedbutton": { "message": "סגור כרטיסייה" }
+  "blockedbutton": { "message": "סגור כרטיסייה" },
+  "confirmpassword": { "message": "אשר סיסמה" },
+  "modalconfirm": { "message": "אשר" },
+  "modalcancel": { "message": "ביטול" },
+  "forgotpassword": { "message": "שכחת את הסיסמה? איפוס (ימחק את ההגנה)" }
 }

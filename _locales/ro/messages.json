@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Site indisponibil" },
   "blockedheader": { "message": "Acest site nu este disponibil în acest moment" },
   "blockedtext": { "message": "Acest conținut nu poate fi afișat." },
-  "blockedbutton": { "message": "Închide fila" }
+  "blockedbutton": { "message": "Închide fila" },
+  "confirmpassword": { "message": "Confirmă parola" },
+  "modalconfirm": { "message": "Confirmă" },
+  "modalcancel": { "message": "Anulează" },
+  "forgotpassword": { "message": "Ai uitat parola? Resetează (va elimina protecția)" }
 }

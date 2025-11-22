@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Strona niedostępna" },
   "blockedheader": { "message": "Ta strona jest obecnie niedostępna" },
   "blockedtext": { "message": "Tej treści nie można wyświetlić." },
-  "blockedbutton": { "message": "Zamknij kartę" }
+  "blockedbutton": { "message": "Zamknij kartę" },
+  "confirmpassword": { "message": "Potwierdź hasło" },
+  "modalconfirm": { "message": "Potwierdź" },
+  "modalcancel": { "message": "Anuluj" },
+  "forgotpassword": { "message": "Zapomniałeś hasła? Zresetuj (usunie ochronę)" }
 }

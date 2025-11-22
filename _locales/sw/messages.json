@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Tovuti haipatikani" },
   "blockedheader": { "message": "Tovuti hii haipatikani kwa sasa" },
   "blockedtext": { "message": "Yaliyomo haya hayawezi kuonyeshwa." },
-  "blockedbutton": { "message": "Funga Kifaa" }
+  "blockedbutton": { "message": "Funga Kifaa" },
+  "confirmpassword": { "message": "Thibitisha nenosiri" },
+  "modalconfirm": { "message": "Thibitisha" },
+  "modalcancel": { "message": "Ghairi" },
+  "forgotpassword": { "message": "Umesahau nenosiri? Weka upya (kitendo kitaondoa ulinzi)" }
 }

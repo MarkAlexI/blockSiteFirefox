@@ -285,5 +285,8 @@
   "blockedtitle": { "message": "साइट उपलब्ध नाही" },
   "blockedheader": { "message": "हा साइट सध्या उपलब्ध नाही" },
   "blockedtext": { "message": "हा मजकूर दाखवता येणार नाही." },
-  "blockedbutton": { "message": "टॅब बंद करा" }
+  "confirmpassword": { "message": "पासवर्ड पुष्टी करा" },
+  "modalconfirm": { "message": "पुष्टी करा" },
+  "modalcancel": { "message": "रद्द करा" },
+  "forgotpassword": { "message": "पासवर्ड विसरलात? रीसेट करा (सुरक्षा हटवेल)" }
 }

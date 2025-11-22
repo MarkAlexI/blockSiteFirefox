@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "เว็บไซต์ไม่สามารถเข้าถึงได้" },
   "blockedheader": { "message": "เว็บไซต์นี้ไม่สามารถเข้าถึงได้ในขณะนี้" },
   "blockedtext": { "message": "ไม่สามารถแสดงเนื้อหานี้ได้" },
-  "blockedbutton": { "message": "ปิดแท็บ" }
+  "blockedbutton": { "message": "ปิดแท็บ" },
+  "confirmpassword": { "message": "ยืนยันรหัสผ่าน" },
+  "modalconfirm": { "message": "ยืนยัน" },
+  "modalcancel": { "message": "ยกเลิก" },
+  "forgotpassword": { "message": "ลืมรหัสผ่าน? รีเซ็ต (การกระทำนี้จะลบการป้องกัน)" }
 }

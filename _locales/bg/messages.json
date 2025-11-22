@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Сайтът е недостъпен" },
   "blockedheader": { "message": "Този сайт в момента е недостъпен" },
   "blockedtext": { "message": "Това съдържание не може да бъде показано." },
-  "blockedbutton": { "message": "Затвори раздела" }
+  "blockedbutton": { "message": "Затвори раздела" },
+  "confirmpassword": { "message": "Потвърдете паролата" },
+  "modalconfirm": { "message": "Потвърди" },
+  "modalcancel": { "message": "Отказ" },
+  "forgotpassword": { "message": "Забравена парола? Нулиране (ще премахне защитата)" }
 }

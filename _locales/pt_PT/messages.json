@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Site indisponível" },
   "blockedheader": { "message": "Este site não está disponível neste momento" },
   "blockedtext": { "message": "Este conteúdo não pode ser exibido." },
-  "blockedbutton": { "message": "Fechar separador" }
+  "blockedbutton": { "message": "Fechar separador" },
+  "confirmpassword": { "message": "Confirme a palavra-passe" },
+  "modalconfirm": { "message": "Confirmar" },
+  "modalcancel": { "message": "Cancelar" },
+  "forgotpassword": { "message": "Esqueceu a palavra-passe? Repor (removerá a proteção)" }
 }

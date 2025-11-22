@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Situs tidak tersedia" },
   "blockedheader": { "message": "Situs ini saat ini tidak tersedia" },
   "blockedtext": { "message": "Konten ini tidak dapat ditampilkan." },
-  "blockedbutton": { "message": "Tutup Tab" }
+  "blockedbutton": { "message": "Tutup Tab" },
+  "confirmpassword": { "message": "Konfirmasi kata sandi" },
+  "modalconfirm": { "message": "Konfirmasi" },
+  "modalcancel": { "message": "Batal" },
+  "forgotpassword": { "message": "Lupa kata sandi? Atur ulang (akan menghapus perlindungan)" }
 }

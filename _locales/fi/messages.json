@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Sivusto ei ole saatavilla" },
   "blockedheader": { "message": "Tämä sivusto ei ole tällä hetkellä saatavilla" },
   "blockedtext": { "message": "Tätä sisältöä ei voida näyttää." },
-  "blockedbutton": { "message": "Sulje välilehti" }
+  "blockedbutton": { "message": "Sulje välilehti" },
+  "confirmpassword": { "message": "Vahvista salasana" },
+  "modalconfirm": { "message": "Vahvista" },
+  "modalcancel": { "message": "Peruuta" },
+  "forgotpassword": { "message": "Unohditko salasanan? Nollaa (poistaa suojauksen)" }
 }

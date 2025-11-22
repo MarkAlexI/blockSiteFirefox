@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Site unavailable" },
   "blockedheader": { "message": "This site is currently unavailable" },
   "blockedtext": { "message": "This content cannot be displayed." },
-  "blockedbutton": { "message": "Close Tab" }
+  "blockedbutton": { "message": "Close Tab" },
+  "confirmpassword": { "message": "Confirm password" },
+  "modalconfirm": { "message": "Confirm" },
+  "modalcancel": { "message": "Cancel" },
+  "forgotpassword": { "message": "Forgotten password? Reset (will remove protection)" }
 }

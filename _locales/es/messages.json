@@ -294,5 +294,9 @@
   "blockedtitle": { "message": "Sitio no disponible" },
   "blockedheader": { "message": "Este sitio no está disponible actualmente" },
   "blockedtext": { "message": "Este contenido no se puede mostrar." },
-  "blockedbutton": { "message": "Cerrar pestaña" }
+  "blockedbutton": { "message": "Cerrar pestaña" },
+  "confirmpassword": { "message": "Confirmar contraseña" },
+  "modalconfirm": { "message": "Confirmar" },
+  "modalcancel": { "message": "Cancelar" },
+  "forgotpassword": { "message": "¿Olvidaste la contraseña? Restablecer (eliminará la protección)" }
 }

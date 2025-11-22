@@ -294,5 +294,9 @@
   "blockedtitle": { "message": "الموقع غير متاح" },
   "blockedheader": { "message": "هذا الموقع غير متاح حالياً" },
   "blockedtext": { "message": "لا يمكن عرض هذا المحتوى." },
-  "blockedbutton": { "message": "إغلاق علامة التبويب" }
+  "blockedbutton": { "message": "إغلاق علامة التبويب" },
+  "confirmpassword": { "message": "تأكيد كلمة المرور" },
+  "modalconfirm": { "message": "تأكيد" },
+  "modalcancel": { "message": "إلغاء" },
+  "forgotpassword": { "message": "نسيت كلمة المرور؟ إعادة التعيين (سيؤدي إلى إزالة الحماية)" }
 }

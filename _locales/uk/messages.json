@@ -294,5 +294,9 @@
   "blockedtitle": { "message": "Сайт недоступний" },
   "blockedheader": { "message": "Цей сайт наразі недоступний" },
   "blockedtext": { "message": "Цей вміст неможливо відобразити." },
-  "blockedbutton": { "message": "Закрити вкладку" }
+  "blockedbutton": { "message": "Закрити вкладку" },
+  "confirmpassword": { "message": "Підтвердьте пароль" },
+  "modalconfirm": { "message": "Підтвердити" },
+  "modalcancel": { "message": "Скасувати" },
+  "forgotpassword": { "message": "Забули пароль? Скинути (це видалить захист)" }
 }

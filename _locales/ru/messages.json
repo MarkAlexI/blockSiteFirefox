@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Сайт недоступен" },
   "blockedheader": { "message": "Этот сайт в настоящее время недоступен" },
   "blockedtext": { "message": "Этот контент не может быть отображен." },
-  "blockedbutton": { "message": "Закрыть вкладку" }
+  "blockedbutton": { "message": "Закрыть вкладку" },
+  "confirmpassword": { "message": "Подтвердите пароль" },
+  "modalconfirm": { "message": "Подтвердить" },
+  "modalcancel": { "message": "Отмена" },
+  "forgotpassword": { "message": "Забыли пароль? Сбросить (действие удалит защиту)" }
 }

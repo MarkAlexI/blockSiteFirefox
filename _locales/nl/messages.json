@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Site niet beschikbaar" },
   "blockedheader": { "message": "Deze site is momenteel niet beschikbaar" },
   "blockedtext": { "message": "Deze inhoud kan niet worden weergegeven." },
-  "blockedbutton": { "message": "Tabblad sluiten" }
+  "blockedbutton": { "message": "Tabblad sluiten" },
+  "confirmpassword": { "message": "Bevestig wachtwoord" },
+  "modalconfirm": { "message": "Bevestigen" },
+  "modalcancel": { "message": "Annuleren" },
+  "forgotpassword": { "message": "Wachtwoord vergeten? Resetten (verwijdert de bescherming)" }
 }

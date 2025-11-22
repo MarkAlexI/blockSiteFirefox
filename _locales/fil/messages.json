@@ -285,5 +285,9 @@
   "blockedtitle": { "message": "Hindi magagamit ang site" },
   "blockedheader": { "message": "Ang site na ito ay kasalukuyang hindi magagamit" },
   "blockedtext": { "message": "Hindi maipapakita ang nilalamang ito." },
-  "blockedbutton": { "message": "Isara ang Tab" }
+  "blockedbutton": { "message": "Isara ang Tab" },
+  "confirmpassword": { "message": "Kumpirmahin ang password" },
+  "modalconfirm": { "message": "Kumpirmahin" },
+  "modalcancel": { "message": "Kanselahin" },
+  "forgotpassword": { "message": "Nakalimutan ang password? I-reset (tatanggalin ang proteksyon)" }
 }

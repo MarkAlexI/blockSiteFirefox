@@ -294,5 +294,9 @@
   "blockedtitle": { "message": "ସାଇଟ୍ ଉପଲବ୍ଧ ନୁହେଁ" },
   "blockedheader": { "message": "ଏହି ସାଇଟ୍ ବର୍ତ୍ତମାନ ଉପଲବ୍ଧ ନୁହେଁ" },
   "blockedtext": { "message": "ଏହି ସାମଗ୍ରୀ ଦେଖାଇ ପାରିବା ନୁହେଁ।" },
-  "blockedbutton": { "message": "ଟ୍ୟାବ୍ ବନ୍ଦ କରନ୍ତୁ" }
+  "blockedbutton": { "message": "ଟ୍ୟାବ୍ ବନ୍ଦ କରନ୍ତୁ" },
+  "confirmpassword": { "message": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ" },
+  "modalconfirm": { "message": "ନିଶ୍ଚିତ କରନ୍ତୁ" },
+  "modalcancel": { "message": "ବାତିଲ୍ କରନ୍ତୁ" },
+  "forgotpassword": { "message": "ପାସୱାର୍ଡ ଭୁଲିଗଲେ? ପୁନଃସେଟ୍ କରନ୍ତୁ (ସୁରକ୍ଷା ହଟିଯିବ)" }
 }
