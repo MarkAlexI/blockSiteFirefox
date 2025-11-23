@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Thibitisha nenosiri" },
   "modalconfirm": { "message": "Thibitisha" },
   "modalcancel": { "message": "Ghairi" },
-  "forgotpassword": { "message": "Umesahau nenosiri? Weka upya (kitendo kitaondoa ulinzi)" }
+  "forgotpassword": { "message": "Umesahau nenosiri? Weka upya (kitendo kitaondoa ulinzi)" },
+  "prounlocked": { "message": "Asante kwa msaada wako! Vipengele vyote vya Pro vimefunguliwa." },
+  "licensesynced": { "message": "Leseni yako imeunganishwa na akaunti yako. Ikiwa utapoteza ufikiaji, unaweza kupata tena ufunguo wako hapa: " }
 }

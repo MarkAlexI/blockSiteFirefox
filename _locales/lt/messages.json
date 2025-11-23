@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Patvirtinkite slaptažodį" },
   "modalconfirm": { "message": "Patvirtinti" },
   "modalcancel": { "message": "Atšaukti" },
-  "forgotpassword": { "message": "Pamiršote slaptažodį? Atstatyti (pašalins apsaugą)" }
+  "forgotpassword": { "message": "Pamiršote slaptažodį? Atstatyti (pašalins apsaugą)" },
+  "prounlocked": { "message": "Ačiū už jūsų palaikymą! Visos Pro funkcijos atrakintos." },
+  "licensesynced": { "message": "Jūsų licencija sinchronizuota su jūsų paskyra. Jei prarasite prieigą, galite atgauti savo raktą čia: " }
 }

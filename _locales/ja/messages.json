@@ -298,5 +298,7 @@
   "confirmpassword": { "message": "パスワードを確認" },
   "modalconfirm": { "message": "確認" },
   "modalcancel": { "message": "キャンセル" },
-  "forgotpassword": { "message": "パスワードをお忘れですか？リセット（保護が解除されます）" }
+  "forgotpassword": { "message": "パスワードをお忘れですか？リセット（保護が解除されます）" },
+  "prounlocked": { "message": "サポートありがとうございます！すべてのPro機能がアンロックされました。" },
+  "licensesynced": { "message": "ライセンスはアカウントと同期されています。アクセスを失った場合は、こちらからキーを取得できます： " }
 }

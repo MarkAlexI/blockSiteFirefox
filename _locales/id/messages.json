@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Konfirmasi kata sandi" },
   "modalconfirm": { "message": "Konfirmasi" },
   "modalcancel": { "message": "Batal" },
-  "forgotpassword": { "message": "Lupa kata sandi? Atur ulang (akan menghapus perlindungan)" }
+  "forgotpassword": { "message": "Lupa kata sandi? Atur ulang (akan menghapus perlindungan)" },
+  "prounlocked": { "message": "Terima kasih atas dukungan Anda! Semua fitur Pro telah dibuka." },
+  "licensesynced": { "message": "Lisensi Anda telah disinkronkan dengan akun Anda. Jika kehilangan akses, Anda dapat mengambil kunci Anda dari: " }
 }

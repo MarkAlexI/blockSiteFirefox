@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "የይለፍ ቃል ያረጋግጡ" },
   "modalconfirm": { "message": "ያረጋግጡ" },
   "modalcancel": { "message": "ይቅር" },
-  "forgotpassword": { "message": "የይለፍ ቃል ረስተዋል? ዳግም ያዘጋጁ (ጥበቃው ይሰረዛል)" }
+  "forgotpassword": { "message": "የይለፍ ቃል ረስተዋል? ዳግም ያዘጋጁ (ጥበቃው ይሰረዛል)" },
+  "prounlocked": { "message": "ለግልጽ ድጋፍዎ እናመሰግናለን! ሁሉም Pro ባህሪዎች ተከፍተዋል።" },
+  "licensesynced": { "message": "ፈቃድዎ ከመለያዎ ጋር ተዛመደ። መዳረሻ ካጣችሁ ቁልፎን ከዚህ መመለስ ትችላላችሁ፦ " }
 }

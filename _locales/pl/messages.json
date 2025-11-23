@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Potwierdź hasło" },
   "modalconfirm": { "message": "Potwierdź" },
   "modalcancel": { "message": "Anuluj" },
-  "forgotpassword": { "message": "Zapomniałeś hasła? Zresetuj (usunie ochronę)" }
+  "forgotpassword": { "message": "Zapomniałeś hasła? Zresetuj (usunie ochronę)" },
+  "prounlocked": { "message": "Dziękujemy za wsparcie! Wszystkie funkcje Pro są odblokowane." },
+  "licensesynced": { "message": "Twoja licencja jest zsynchronizowana z kontem. Jeśli utracisz dostęp, możesz odzyskać swój klucz stąd: " }
 }

@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Kinnita parool" },
   "modalconfirm": { "message": "Kinnita" },
   "modalcancel": { "message": "Tühista" },
-  "forgotpassword": { "message": "Unustasid parooli? Lähtesta (eemaldab kaitse)" }
+  "forgotpassword": { "message": "Unustasid parooli? Lähtesta (eemaldab kaitse)" },
+  "prounlocked": { "message": "Täname toetuse eest! Kõik Pro-funktsioonid on avatud." },
+  "licensesynced": { "message": "Teie litsents on teie kontoga sünkroonitud. Kui kaotate juurdepääsu, saate oma võtme taastada siit: " }
 }

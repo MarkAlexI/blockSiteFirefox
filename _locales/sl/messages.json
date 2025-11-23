@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Potrdite geslo" },
   "modalconfirm": { "message": "Potrdi" },
   "modalcancel": { "message": "Prekliči" },
-  "forgotpassword": { "message": "Ste pozabili geslo? Ponastavi (dejanje bo odstranilo zaščito)" }
+  "forgotpassword": { "message": "Ste pozabili geslo? Ponastavi (dejanje bo odstranilo zaščito)" },
+  "prounlocked": { "message": "Hvala za vašo podporo! Vse Pro funkcije so odklenjene." },
+  "licensesynced": { "message": "Vaša licenca je sinhronizirana z vašim računom. Če izgubite dostop, lahko svoj ključ pridobite tukaj: " }
 }

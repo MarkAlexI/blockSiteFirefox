@@ -298,5 +298,7 @@
   "confirmpassword": { "message": "确认密码" },
   "modalconfirm": { "message": "确认" },
   "modalcancel": { "message": "取消" },
-  "forgotpassword": { "message": "忘记密码？重置（此操作将清除保护）" }
+  "forgotpassword": { "message": "忘记密码？重置（此操作将清除保护）" },
+  "prounlocked": { "message": "感谢您的支持！所有 Pro 功能已解锁。" },
+  "licensesynced": { "message": "您的许可证已与您的账户同步。如果您丢失访问权限，可以从这里找回您的密钥： " }
 }

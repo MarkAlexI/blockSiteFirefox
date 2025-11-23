@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Bekræft adgangskode" },
   "modalconfirm": { "message": "Bekræft" },
   "modalcancel": { "message": "Annuller" },
-  "forgotpassword": { "message": "Glemt adgangskode? Nulstil (fjerner beskyttelsen)" }
+  "forgotpassword": { "message": "Glemt adgangskode? Nulstil (fjerner beskyttelsen)" },
+  "prounlocked": { "message": "Tak for din støtte! Alle Pro-funktioner er låst op." },
+  "licensesynced": { "message": "Din licens er synkroniseret med din konto. Hvis du mister adgangen, kan du hente din nøgle her: " }
 }

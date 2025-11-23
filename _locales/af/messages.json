@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Bevestig wagwoord" },
   "modalconfirm": { "message": "Bevestig" },
   "modalcancel": { "message": "Kanselleer" },
-  "forgotpassword": { "message": "Wagwoord vergeet? Stel weer (sal beskerming verwyder)" }
+  "forgotpassword": { "message": "Wagwoord vergeet? Stel weer (sal beskerming verwyder)" },
+  "prounlocked": { "message": "Dankie vir jou ondersteuning! Alle Pro-funksies is ontsluit." },
+  "licensesynced": { "message": "Jou lisensie is met jou rekening gesinkroniseer. As jy toegang verloor, kan jy jou sleutel hier herwin: " }
 }

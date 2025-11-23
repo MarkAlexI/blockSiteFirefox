@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Xác nhận mật khẩu" },
   "modalconfirm": { "message": "Xác nhận" },
   "modalcancel": { "message": "Hủy" },
-  "forgotpassword": { "message": "Quên mật khẩu? Đặt lại (hành động sẽ xóa bảo vệ)" }
+  "forgotpassword": { "message": "Quên mật khẩu? Đặt lại (hành động sẽ xóa bảo vệ)" },
+  "prounlocked": { "message": "Cảm ơn bạn đã ủng hộ! Tất cả tính năng Pro đã được mở khóa." },
+  "licensesynced": { "message": "Giấy phép của bạn đã được đồng bộ với tài khoản của bạn. Nếu bạn mất quyền truy cập, bạn có thể lấy lại khóa tại: " }
 }

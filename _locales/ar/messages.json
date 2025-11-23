@@ -298,5 +298,7 @@
   "confirmpassword": { "message": "تأكيد كلمة المرور" },
   "modalconfirm": { "message": "تأكيد" },
   "modalcancel": { "message": "إلغاء" },
-  "forgotpassword": { "message": "نسيت كلمة المرور؟ إعادة التعيين (سيؤدي إلى إزالة الحماية)" }
+  "forgotpassword": { "message": "نسيت كلمة المرور؟ إعادة التعيين (سيؤدي إلى إزالة الحماية)" },
+  "prounlocked": { "message": "شكرًا لك على دعمك! تم فتح جميع ميزات Pro." },
+  "licensesynced": { "message": "تمت مزامنة ترخيصك مع حسابك. إذا فقدت الوصول، يمكنك استعادة مفتاحك من: " }
 }

@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Potvrdite lozinku" },
   "modalconfirm": { "message": "Potvrdi" },
   "modalcancel": { "message": "Odustani" },
-  "forgotpassword": { "message": "Zaboravili ste lozinku? Poništi (uklonit će zaštitu)" }
+  "forgotpassword": { "message": "Zaboravili ste lozinku? Poništi (uklonit će zaštitu)" },
+  "prounlocked": { "message": "Hvala na vašoj podršci! Sve Pro značajke su otključane." },
+  "licensesynced": { "message": "Vaša licenca je sinkronizirana s vašim računom. Ako izgubite pristup, možete vratiti svoj ključ s: " }
 }

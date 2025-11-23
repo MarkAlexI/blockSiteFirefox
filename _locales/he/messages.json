@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "אשר סיסמה" },
   "modalconfirm": { "message": "אשר" },
   "modalcancel": { "message": "ביטול" },
-  "forgotpassword": { "message": "שכחת את הסיסמה? איפוס (ימחק את ההגנה)" }
+  "forgotpassword": { "message": "שכחת את הסיסמה? איפוס (ימחק את ההגנה)" },
+  "prounlocked": { "message": "תודה על התמיכה שלך! כל הפיצ'רים של Pro נפתחים." },
+  "licensesynced": { "message": "הרישיון שלך מסונכרן עם החשבון שלך. אם תאבד גישה, תוכל לשחזר את המפתח שלך מ: " }
 }

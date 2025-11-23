@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Apstipriniet paroli" },
   "modalconfirm": { "message": "Apstiprināt" },
   "modalcancel": { "message": "Atcelt" },
-  "forgotpassword": { "message": "Aizmirsāt paroli? Atiestatīt (noņems aizsardzību)" }
+  "forgotpassword": { "message": "Aizmirsāt paroli? Atiestatīt (noņems aizsardzību)" },
+  "prounlocked": { "message": "Paldies par jūsu atbalstu! Visas Pro funkcijas ir atbloķētas." },
+  "licensesynced": { "message": "Jūsu licence ir sinhronizēta ar jūsu kontu. Ja zaudēsiet piekļuvi, savu atslēgu varat atgūt šeit: " }
 }

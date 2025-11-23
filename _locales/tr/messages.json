@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Parolayı onayla" },
   "modalconfirm": { "message": "Onayla" },
   "modalcancel": { "message": "İptal" },
-  "forgotpassword": { "message": "Parolayı mı unuttunuz? Sıfırla (bu işlem korumayı kaldırır)" }
+  "forgotpassword": { "message": "Parolayı mı unuttunuz? Sıfırla (bu işlem korumayı kaldırır)" },
+  "prounlocked": { "message": "Desteğiniz için teşekkürler! Tüm Pro özellikleri açıldı." },
+  "licensesynced": { "message": "Lisansınız hesabınızla senkronize edildi. Erişimi kaybederseniz, anahtarınızı buradan alabilirsiniz: " }
 }

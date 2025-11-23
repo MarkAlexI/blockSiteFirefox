@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Confirma la contrasenya" },
   "modalconfirm": { "message": "Confirmar" },
   "modalcancel": { "message": "Cancel·lar" },
-  "forgotpassword": { "message": "Has oblidat la contrasenya? Restableix (eliminarà la protecció)" }
+  "forgotpassword": { "message": "Has oblidat la contrasenya? Restableix (eliminarà la protecció)" },
+  "prounlocked": { "message": "Gràcies pel teu suport! Totes les funcions Pro estan desbloquejades." },
+  "licensesynced": { "message": "La teva llicència està sincronitzada amb el teu compte. Si en perds l’accés, pots recuperar la teva clau des de: " }
 }

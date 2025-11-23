@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "비밀번호 확인" },
   "modalconfirm": { "message": "확인" },
   "modalcancel": { "message": "취소" },
-  "forgotpassword": { "message": "비밀번호를 잊으셨나요? 재설정 (보호가 해제됩니다)" }
+  "forgotpassword": { "message": "비밀번호를 잊으셨나요? 재설정 (보호가 해제됩니다)" },
+  "prounlocked": { "message": "지원해 주셔서 감사합니다! 모든 Pro 기능이 잠금 해제되었습니다." },
+  "licensesynced": { "message": "라이선스가 계정과 동기화되었습니다. 접근 권한을 잃은 경우, 다음에서 키를 복구할 수 있습니다: " }
 }

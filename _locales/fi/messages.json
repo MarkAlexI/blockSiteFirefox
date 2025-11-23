@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Vahvista salasana" },
   "modalconfirm": { "message": "Vahvista" },
   "modalcancel": { "message": "Peruuta" },
-  "forgotpassword": { "message": "Unohditko salasanan? Nollaa (poistaa suojauksen)" }
+  "forgotpassword": { "message": "Unohditko salasanan? Nollaa (poistaa suojauksen)" },
+  "prounlocked": { "message": "Kiitos tuestasi! Kaikki Pro-ominaisuudet on avattu." },
+  "licensesynced": { "message": "Lisenssisi on synkronoitu tilisi kanssa. Jos menetät pääsyn, voit hakea avaimen täältä: " }
 }

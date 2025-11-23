@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Potvrďte heslo" },
   "modalconfirm": { "message": "Potvrdiť" },
   "modalcancel": { "message": "Zrušiť" },
-  "forgotpassword": { "message": "Zabudli ste heslo? Obnoviť (akcia odstráni ochranu)" }
+  "forgotpassword": { "message": "Zabudli ste heslo? Obnoviť (akcia odstráni ochranu)" },
+  "prounlocked": { "message": "Ďakujeme za vašu podporu! Všetky Pro funkcie sú odomknuté." },
+  "licensesynced": { "message": "Vaša licencia je synchronizovaná s vaším účtom. Ak stratíte prístup, svoj kľúč si môžete získať tu: " }
 }

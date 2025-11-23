@@ -289,5 +289,7 @@
   "confirmpassword": { "message": "Bevestig wachtwoord" },
   "modalconfirm": { "message": "Bevestigen" },
   "modalcancel": { "message": "Annuleren" },
-  "forgotpassword": { "message": "Wachtwoord vergeten? Resetten (verwijdert de bescherming)" }
+  "forgotpassword": { "message": "Wachtwoord vergeten? Resetten (verwijdert de bescherming)" },
+  "prounlocked": { "message": "Bedankt voor je steun! Alle Pro-functies zijn ontgrendeld." },
+  "licensesynced": { "message": "Je licentie is gesynchroniseerd met je account. Als je de toegang verliest, kun je je sleutel hier terughalen: " }
 }
