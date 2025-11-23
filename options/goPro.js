@@ -19,6 +19,20 @@ const logOutBtn = document.getElementById('log-out-btn');
 
 const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
 
+function sendMessageToWorker(message) {
+  return new Promise((resolve) => {
+    try {
+      browser.runtime.sendMessage(message, (response) => {
+        void browser.runtime.lastError;
+        resolve(response);
+      });
+    } catch (e) {
+      console.warn("Message sending failed:", e);
+      resolve(null);
+    }
+  });
+}
+
 if (wrapper) {
   wrapper.style.maxHeight = '0px';
 }
@@ -101,18 +115,15 @@ if (licenseForm) {
         subscriptionEmail: data.email,
         expiryDate: data.expiryDate
       };
-
+      
       await ProManager.updateProStatus(true, subscriptionData);
-
-      browser.runtime.sendMessage({ 
-        type: 'update_pro_status', 
-        isPro: true, 
-        subscriptionData: subscriptionData 
-      }).then(() => {
-        console.log("Background worker notified of Pro activation");
-      }).catch(err => {
-        console.warn("Could not send message to background (Firefox):", err);
+      
+      await sendMessageToWorker({
+        type: 'update_pro_status',
+        isPro: true,
+        subscriptionData: subscriptionData
       });
+      console.log("Background worker notified.");
       
       try {
         const settingsResult = await browser.storage.sync.get(['settings']);
@@ -153,38 +164,31 @@ if (licenseForm) {
 }
 
 if (forceSyncBtn) {
-  forceSyncBtn.addEventListener('click', () => {
+  forceSyncBtn.addEventListener('click', async () => {
     forceSyncBtn.disabled = true;
     forceSyncBtn.textContent = 'Syncing...';
     
     licenseMessage.textContent = t('syncing');
     licenseMessage.className = 'status-message success show';
-
-    browser.runtime.sendMessage({ type: 'force_sync' })
-      .then((response) => {
-        forceSyncBtn.disabled = false;
-        forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
-        
-        if (response && response.success) {
-          licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ' (Free)');
-          licenseMessage.className = 'status-message success show';
-          updateUI();
-        } else {
-          licenseMessage.textContent = t('syncfailed') + (response && response.error ? `: ${response.error}` : '');
-          licenseMessage.className = 'error-message show';
-        }
-        
-        setTimeout(() => {
-          licenseMessage.className = 'hidden';
-        }, 3000);
-      })
-      .catch((error) => {
-        console.error("Force sync message failed:", error);
-        forceSyncBtn.disabled = false;
-        forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
-        licenseMessage.textContent = t('syncfailed');
-        licenseMessage.className = 'error-message show';
-      });
+    
+    const response = await sendMessageToWorker({ type: 'force_sync' });
+    
+    forceSyncBtn.disabled = false;
+    forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
+    
+    if (response && response.success) {
+      licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ' (Free)');
+      licenseMessage.className = 'status-message success show';
+      updateUI();
+    } else {
+      const errorMsg = (response && response.error) ? response.error : 'No response';
+      licenseMessage.textContent = t('syncfailed') + `: ${errorMsg}`;
+      licenseMessage.className = 'error-message show';
+    }
+    
+    setTimeout(() => {
+      licenseMessage.className = 'hidden';
+    }, 3000);
   });
 }
 
@@ -196,15 +200,13 @@ if (logOutBtn) {
         subscriptionEmail: null,
         expiryDate: null
       };
-
+      
       await ProManager.updateProStatus(false, emptyData);
-
-      browser.runtime.sendMessage({ 
-        type: 'update_pro_status', 
-        isPro: false, 
-        subscriptionData: emptyData 
-      }).catch(err => {
-        console.warn("Background notification failed on logout:", err);
+      
+      await sendMessageToWorker({
+        type: 'update_pro_status',
+        isPro: false,
+        subscriptionData: emptyData
       });
       
       await updateUI();
