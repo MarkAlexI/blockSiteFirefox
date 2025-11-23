@@ -96,10 +96,22 @@ if (licenseForm) {
         throw new Error(data.error || 'Invalid key');
       }
       
-      await ProManager.updateProStatus(true, {
+      const subscriptionData = {
         licenseKey: key,
         subscriptionEmail: data.email,
         expiryDate: data.expiryDate
+      };
+
+      await ProManager.updateProStatus(true, subscriptionData);
+
+      browser.runtime.sendMessage({ 
+        type: 'update_pro_status', 
+        isPro: true, 
+        subscriptionData: subscriptionData 
+      }).then(() => {
+        console.log("Background worker notified of Pro activation");
+      }).catch(err => {
+        console.warn("Could not send message to background (Firefox):", err);
       });
       
       try {
@@ -147,34 +159,52 @@ if (forceSyncBtn) {
     
     licenseMessage.textContent = t('syncing');
     licenseMessage.className = 'status-message success show';
-    
-    browser.runtime.sendMessage({ type: 'force_sync' }, (response) => {
-      forceSyncBtn.disabled = false;
-      forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
-      
-      if (response && response.success) {
-        licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ' (Free)');
-        licenseMessage.className = 'status-message success show';
-        updateUI();
-      } else {
-        licenseMessage.textContent = t('syncfailed') + (response.error ? `: ${response.error}` : '');
+
+    browser.runtime.sendMessage({ type: 'force_sync' })
+      .then((response) => {
+        forceSyncBtn.disabled = false;
+        forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
+        
+        if (response && response.success) {
+          licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ' (Free)');
+          licenseMessage.className = 'status-message success show';
+          updateUI();
+        } else {
+          licenseMessage.textContent = t('syncfailed') + (response && response.error ? `: ${response.error}` : '');
+          licenseMessage.className = 'error-message show';
+        }
+        
+        setTimeout(() => {
+          licenseMessage.className = 'hidden';
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Force sync message failed:", error);
+        forceSyncBtn.disabled = false;
+        forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
+        licenseMessage.textContent = t('syncfailed');
         licenseMessage.className = 'error-message show';
-      }
-      
-      setTimeout(() => {
-        licenseMessage.className = 'hidden';
-      }, 3000);
-    });
+      });
   });
 }
 
 if (logOutBtn) {
   logOutBtn.addEventListener('click', async () => {
     try {
-      await ProManager.updateProStatus(false, {
+      const emptyData = {
         licenseKey: null,
         subscriptionEmail: null,
         expiryDate: null
+      };
+
+      await ProManager.updateProStatus(false, emptyData);
+
+      browser.runtime.sendMessage({ 
+        type: 'update_pro_status', 
+        isPro: false, 
+        subscriptionData: emptyData 
+      }).catch(err => {
+        console.warn("Background notification failed on logout:", err);
       });
       
       await updateUI();

@@ -29,6 +29,11 @@ async function syncLicenseKeyStatus() {
     const data = await response.json();
     
     if (!response.ok) {
+      await handleProStatusUpdate(false, {
+        licenseKey: null,
+        expiryDate: null,
+        subscriptionEmail: null
+      });
       throw new Error(data.error || 'Invalid key');
     }
     
@@ -43,7 +48,6 @@ async function syncLicenseKeyStatus() {
     
   } catch (error) {
     console.error('License Sync: Error:', error.message);
-    
     return { success: false, isPro: credentials.isPro };
   }
 }
@@ -83,6 +87,7 @@ if (browser.contextMenus) {
       
       try {
         await rulesManager.addRule(info.linkUrl, '');
+        await updateActiveRules();
         console.log('Blocked URL:', info.linkUrl);
       } catch (error) {
         console.info('Error blocking URL:', error);
@@ -248,8 +253,11 @@ browser.tabs.onCreated.addListener(async (tab) => {
 
 browser.runtime.onStartup.addListener(async () => {
   console.log("Extension startup - syncing DNR rules");
-  await checkProStatusExpiry();
   await updateActiveRules();
+  
+  const isPro = await checkProStatusExpiry();
+  console.log('Startup: Pro status is', isPro, '- updating context menu...');
+  await updateContextMenu(isPro);
   
   setTimeout(async () => {
     await validateDnrIntegrity();
