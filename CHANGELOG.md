@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.17.16] - 2025-11-25
+### Changed
+- Tab closing for newly created blocking rules is now handled from the worker for more consistent behavior.
+
 ## [2.17.15] - 2025-11-24
 ### Fixed
 - Fixed the translation function so that the second parameter is now handled correctly.

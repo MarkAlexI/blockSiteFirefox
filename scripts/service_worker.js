@@ -2,6 +2,8 @@ import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import { ProManager } from '../pro/proManager.js';
+import { closeTabsMatchingRule } from './closeTabs.js';
+import { normalizeUrlFilter } from './normalizeUrlFilter.js';
 
 const rulesManager = new RulesManager();
 const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
@@ -61,8 +63,8 @@ async function updateContextMenu(isPro) {
     if (isPro) {
       browser.contextMenus.create({
         id: 'blockDistraction',
-        title: 'Block this Link',
-        contexts: ['link']
+        title: 'Block this Site',
+        contexts: ['page', 'link']
       }, () => {
         void browser.runtime.lastError;
         console.log('BlockDistraction context menu created');
@@ -82,12 +84,18 @@ if (browser.contextMenus) {
         return;
       }
       
+      const rawUrl = info.linkUrl || info.pageUrl || tab.url;
+      if (!rawUrl) return;
+      
       try {
-        await rulesManager.addRule(info.linkUrl, '');
-        await updateActiveRules();
-        console.log('Blocked URL:', info.linkUrl);
+        const urlToBlock = normalizeUrlFilter(rawUrl);
+        
+        await rulesManager.addRule(urlToBlock, '');
+        console.log('Blocked URL via Context Menu:', urlToBlock);
+        
+        await closeTabsMatchingRule(urlToBlock);
       } catch (error) {
-        console.info('Error blocking URL:', error);
+        console.info('Error processing context menu block:', error);
       }
     }
   });
@@ -349,6 +357,16 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return;
   }
   
+  if (message.type === 'CLOSE_MATCHING_TABS') {
+    closeTabsMatchingRule(message.url)
+      .then(() => sendResponse({ success: true }))
+      .catch((err) => {
+        console.error("Close tabs error:", err);
+        sendResponse({ success: false });
+      });
+    return true;
+  }
+  
   if (message.type === 'record_block') {
     StatisticsManager.recordBlock(message.url);
     return;
@@ -418,6 +436,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
     })();
     return true;
+  }
+  
+  if (message.type === 'permissions_granted') {
+    console.log("Permissions granted via onboarding.");
+    updateActiveRules();
   }
 });
 

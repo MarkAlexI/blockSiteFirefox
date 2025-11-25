@@ -1,36 +1,31 @@
 /**
- * Closes all tabs whose URL contains the given blockURL string.
- * If all tabs are matched to be closed, it first creates a new tab
- * to prevent the browser window from closing.
- * @param {string} blockURL — The full or partial URL used to match and close tabs.
+ * Closes tabs matching the blockURL.
+ * Prevents browser window closure if all tabs match.
+ * @param {string} blockURL - URL pattern to match
  */
-export function closeTabsMatchingRule(blockURL) {
+export async function closeTabsMatchingRule(blockURL) {
   if (!blockURL || blockURL.trim() === '') return;
-
-  browser.tabs.query({}, (tabs) => {
-    const tabsToRemoveIds = [];
-    tabs.forEach((tab) => {
-      try {
-        if (tab.url && tab.url.includes(blockURL)) {
-          tabsToRemoveIds.push(tab.id);
-        }
-      } catch (e) {
-        console.info("Error on tab handling:", e);
+  
+  const tabs = await browser.tabs.query({});
+  const tabsToRemoveIds = [];
+  
+  for (const tab of tabs) {
+    try {
+      if (tab.url && tab.url.toLowerCase().includes(blockURL.toLowerCase())) {
+        tabsToRemoveIds.push(tab.id);
       }
-    });
-
-    if (tabsToRemoveIds.length === 0) {
-      return;
+    } catch (e) {
+      console.warn("Error checking tab:", tab, e);
     }
-    
-    const allTabsWillBeClosed = tabs.length === tabsToRemoveIds.length;
-
-    if (allTabsWillBeClosed) {
-      browser.tabs.create({}, () => {
-        browser.tabs.remove(tabsToRemoveIds);
-      });
-    } else {
-      browser.tabs.remove(tabsToRemoveIds);
-    }
-  });
+  }
+  
+  if (tabsToRemoveIds.length === 0) return;
+  
+  const allTabsWillBeClosed = tabs.length === tabsToRemoveIds.length;
+  
+  if (allTabsWillBeClosed) {
+    await browser.tabs.create({});
+  }
+  
+  await browser.tabs.remove(tabsToRemoveIds);
 }
