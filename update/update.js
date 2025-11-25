@@ -9,11 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'Added password protection for rule deletion in Pro mode',
     'Improved the statistics system — it now tracks not only site blocks but also redirects.',
     'This helps make analytics more complete and accurate, so future improvements can be even smarter.', */
-    'Technical improvements and stability update: cleaner codebase, fewer bugs.',
-    'On mobile devices, the "Block This Site" button now shows the domain of the open page for convenience.',
-    'We’ve added categories to help you better organize your rules. Now you can group rules into: Social, News, Entertainment, Shopping, Work, Gaming, Adult or Uncategorized.',
-    'During the update, all your existing rules were automatically migrated and assigned a category (by default: Uncategorized). You can edit them anytime to fit your workflow.',
-    'This makes it easier to manage rules as your list grows.'
+    'This update improves how rule changes take effect. Now, whenever you add or edit a blocking rule on the settings page, any open tabs that match the rule’ s URL are closed immediately — no need to reload or wait.This makes rule management faster, cleaner, and more intuitive.'
   ];
   
   const ul = document.getElementById('features');

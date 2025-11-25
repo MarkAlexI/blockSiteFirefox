@@ -29,7 +29,7 @@ class OptionsPage {
   async init() {
     this.initializeUI();
     this.setupEventListeners();
-
+    
     this.settingsManager.setRulesUpdatedCallback(() => {
       this.loadRules();
     });
@@ -84,7 +84,7 @@ class OptionsPage {
     try {
       let rules;
       let migrationResult = { migrated: false };
-
+      
       if (rules_from_message) {
         rules = rules_from_message;
         console.log("Options: Loading rules from message.");
@@ -93,7 +93,7 @@ class OptionsPage {
         migrationResult = await this.rulesManager.migrateRules();
         rules = migrationResult.rules || await this.rulesManager.getRules();
       }
-
+      
       if (migrationResult.migrated && !rules_from_message) {
         this.rulesUI.showAlert(t('rulesmigrated'));
       }
@@ -116,11 +116,11 @@ class OptionsPage {
       const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
       this.renderRules(filteredRules, canEdit, isFiltered);
       this.rulesUI.updateStatus(this.statusElement, filteredRules.length);
-
+      
       if (this.settingsManager) {
         this.settingsManager.loadRuleCount(rules);
       }
-
+      
     } catch (error) {
       console.error("Load rules error:", error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
@@ -172,8 +172,8 @@ class OptionsPage {
             try {
               await this.rulesManager.deleteRule(index);
               this.rulesUI.showSuccessMessage(t('ruleddeleted'), this.statusElement);
-
-              this.loadRules(); 
+              
+              this.loadRules();
             } catch (error) {
               console.error("Delete rule error:", error);
               this.rulesUI.showErrorMessage(t('errorremovingrule'));
@@ -221,8 +221,16 @@ class OptionsPage {
     console.log('Saving edited rule with schedule:', newSchedule);
     try {
       await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule, newCategory);
+      
+      if (newBlock) {
+        browser.runtime.sendMessage({
+          type: 'CLOSE_MATCHING_TABS',
+          url: newBlock.trim()
+        });
+      }
+      
       this.statusElement.textContent = t('ruleupdated');
-
+      
       this.loadRules();
     } catch (error) {
       console.info("Save edited rule error:", error);
@@ -264,8 +272,16 @@ class OptionsPage {
   async saveNewRule(newBlock, newRedirect, newCategory, newSchedule, row) {
     try {
       await this.rulesManager.addRule(newBlock, newRedirect, newSchedule, newCategory);
+      
+      if (newBlock) {
+        browser.runtime.sendMessage({
+          type: 'CLOSE_MATCHING_TABS',
+          url: newBlock.trim()
+        });
+      }
+      
       this.statusElement.textContent = t('rulenewadded');
-
+      
       this.loadRules();
     } catch (error) {
       console.info("Save new rule error:", error);
@@ -294,10 +310,10 @@ window.addEventListener('beforeunload', () => {
 
 browser.runtime.onMessage.addListener((message) => {
   if (message.type === 'reload_rules') {
-    optionsPage.loadRules(message.rules); 
-
+    optionsPage.loadRules(message.rules);
+    
     if (optionsPage.settingsManager) {
-      optionsPage.settingsManager.loadRuleCount(message.rules); 
+      optionsPage.settingsManager.loadRuleCount(message.rules);
     }
   }
   
