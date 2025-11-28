@@ -4,7 +4,7 @@
   "description": { "message": "Odağınızı korumanıza yardımcı olmak için basit ve güvenilir bir web sitesi engelleme ve yönlendirme aracı." },
   "defaulttitle": { "message": "Odaklanın ve Üretken Olun" },
   "header": { "message": "Site Engelleyici" },
-  "paragraph": { "message": "Bir web sitesini veya kaynağı engellemek için 'Type Block URL' alanına adının bir kısmını yazın – örneğin, 'facebook' tüm alt alan adlarını engelleyecektir. 'Type Redirect URL' alanına tam yönlendirme adresini protokolle birlikte yazın, örneğin 'https://google.com'. Yönlendirme alanı boş bırakılırsa site sadece engellenir. Kuralları uygulamak için Kaydet düğmesine tıklayın. Bir kuralı güncellemek için eskiyi silip yenisini oluşturun." },
+  "paragraph": { "message": "Bir web sitesini veya kaynağı engellemek için 'Engellenecek URL'i yazın' alanına adının bir kısmını yazın – örneğin, 'facebook' tüm alt alan adlarını engelleyecektir. 'Yönlendirme URL'si yazın' alanına tam yönlendirme adresini protokolle birlikte yazın, örneğin 'https://google.com'. Yönlendirme alanı boş bırakılırsa site sadece engellenir. Kuralları uygulamak için Kaydet düğmesine tıklayın. Bir kuralı güncellemek için eskiyi silip yenisini oluşturun." },
   "addrule": { "message": "Yeni kural ekle" },
   "blockurl": { "message": "Engellenecek URL'i yazın" },
   "redirecturl": { "message": "Yönlendirme URL'si yazın (isteğe bağlı)" },

@@ -4,7 +4,7 @@
   "description": { "message": "Jednostavan i pouzdan alat za blokiranje i preusmjeravanje web stranica kako biste ostali fokusirani." },
   "defaulttitle": { "message": "Ostanite fokusirani i produktivni" },
   "header": { "message": "Blokator stranica" },
-  "paragraph": { "message": "Da biste blokirali web stranicu ili resurs, unesite dio njenog imena u polje s tekstom 'Type Block URL' – na primjer, 'facebook' će blokirati sve povezane poddomene. U polje s tekstom 'Type Redirect URL' unesite punu adresu za preusmjeravanje uključujući protokol, npr. 'https://google.com'. Ako polje za preusmjeravanje ostane prazno, stranica će biti blokirana bez preusmjeravanja. Kliknite gumb Spremi za primjenu pravila. Za ažuriranje pravila, obrišite staro i stvorite novo." },
+  "paragraph": { "message": "Da biste blokirali web stranicu ili resurs, unesite dio njenog imena u polje s tekstom 'Unesite URL za blokiranje' – na primjer, 'facebook' će blokirati sve povezane poddomene. U polje s tekstom 'Unesite URL za preusmjeravanje' unesite punu adresu za preusmjeravanje uključujući protokol, npr. 'https://google.com'. Ako polje za preusmjeravanje ostane prazno, stranica će biti blokirana bez preusmjeravanja. Kliknite gumb Spremi za primjenu pravila. Za ažuriranje pravila, obrišite staro i stvorite novo." },
   "addrule": { "message": "Dodaj novo pravilo" },
   "blockurl": { "message": "Unesite URL za blokiranje" },
   "redirecturl": { "message": "Unesite URL za preusmjeravanje (opcionalno)" },

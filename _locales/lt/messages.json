@@ -4,7 +4,7 @@
   "description": { "message": "Paprasta ir patikima priemonė svetainėms blokuoti ir peradresuoti, kad išliktumėte susikoncentravę." },
   "defaulttitle": { "message": "Išlaikykite koncentraciją ir produktyvumą" },
   "header": { "message": "Svetainių Blokatorius" },
-  "paragraph": { "message": "Norėdami užblokuoti svetainę ar išteklius, įveskite jos pavadinimo dalį į laukelį su vietos ženklu 'Type Block URL' – pvz., 'facebook' užblokuos visus susijusius subdomenus. Lauke su vietos ženklu 'Type Redirect URL' įveskite pilną peradresavimo adresą su protokolu, pvz., 'https://google.com'. Jei peradresavimo laukas tuščias, svetainė bus užblokuota be peradresavimo. Norėdami pritaikyti taisyklę, spustelėkite mygtuką Išsaugoti. Norėdami atnaujinti taisyklę, ištrinkite seną ir sukurkite naują." },
+  "paragraph": { "message": "Norėdami užblokuoti svetainę ar išteklius, įveskite jos pavadinimo dalį į laukelį su vietos ženklu 'Įveskite blokuojamą URL' – pvz., 'facebook' užblokuos visus susijusius subdomenus. Lauke su vietos ženklu 'Įveskite peradresavimo URL' įveskite pilną peradresavimo adresą su protokolu, pvz., 'https://google.com'. Jei peradresavimo laukas tuščias, svetainė bus užblokuota be peradresavimo. Norėdami pritaikyti taisyklę, spustelėkite mygtuką Išsaugoti. Norėdami atnaujinti taisyklę, ištrinkite seną ir sukurkite naują." },
   "addrule": { "message": "Pridėti naują taisyklę" },
   "blockurl": { "message": "Įveskite blokuojamą URL" },
   "redirecturl": { "message": "Įveskite peradresavimo URL (nebūtina)" },

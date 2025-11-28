@@ -4,7 +4,7 @@
   "description": { "message": "Alat mudah dan boleh dipercayai untuk menyekat dan mengalihkan laman web agar anda kekal fokus." },
   "defaulttitle": { "message": "Fokus dan Produktif" },
   "header": { "message": "Pemblokir Laman" },
-  "paragraph": { "message": "Untuk menyekat laman web atau sumber, masukkan sebahagian nama ke dalam medan input dengan tempat letak 'Type Block URL' – contohnya, 'facebook' akan menyekat semua subdomain berkaitan. Dalam medan dengan tempat letak 'Type Redirect URL', masukkan alamat pengalihan penuh termasuk protokol, contohnya 'https://google.com'. Jika medan pengalihan dibiarkan kosong, laman akan disekat tanpa pengalihan. Klik butang Simpan untuk menerapkan peraturan. Untuk mengemas kini peraturan, padamkan yang lama dan buat yang baru." },
+  "paragraph": { "message": "Untuk menyekat laman web atau sumber, masukkan sebahagian nama ke dalam medan input dengan tempat letak 'Taip URL untuk disekat' – contohnya, 'facebook' akan menyekat semua subdomain berkaitan. Dalam medan dengan tempat letak 'Taip URL pengalihan', masukkan alamat pengalihan penuh termasuk protokol, contohnya 'https://google.com'. Jika medan pengalihan dibiarkan kosong, laman akan disekat tanpa pengalihan. Klik butang Simpan untuk menerapkan peraturan. Untuk mengemas kini peraturan, padamkan yang lama dan buat yang baru." },
   "addrule": { "message": "Tambah peraturan baru" },
   "blockurl": { "message": "Taip URL untuk disekat" },
   "redirecturl": { "message": "Taip URL pengalihan (pilihan)" },

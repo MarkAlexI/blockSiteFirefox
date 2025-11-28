@@ -4,7 +4,7 @@
   "description": { "message": "Proste i niezawodne narzędzie do blokowania i przekierowywania stron, abyś pozostał skupiony." },
   "defaulttitle": { "message": "Bądź skupiony i produktywny" },
   "header": { "message": "Blokada stron" },
-  "paragraph": { "message": "Aby zablokować stronę lub zasób, wpisz fragment nazwy w polu z podpowiedzią 'Type Block URL' – np. 'facebook' zablokuje wszystkie powiązane subdomeny. W polu z podpowiedzią 'Type Redirect URL' wpisz pełny adres przekierowania z protokołem, np. 'https://google.com'. Jeśli pole przekierowania pozostanie puste, strona zostanie zablokowana bez przekierowania. Kliknij Zapisz, aby zastosować regułę. Aby zaktualizować regułę, usuń starą i dodaj nową." },
+  "paragraph": { "message": "Aby zablokować stronę lub zasób, wpisz fragment nazwy w polu z podpowiedzią 'Wpisz blokowany URL' – np. 'facebook' zablokuje wszystkie powiązane subdomeny. W polu z podpowiedzią 'Wpisz URL przekierowania' wpisz pełny adres przekierowania z protokołem, np. 'https://google.com'. Jeśli pole przekierowania pozostanie puste, strona zostanie zablokowana bez przekierowania. Kliknij Zapisz, aby zastosować regułę. Aby zaktualizować regułę, usuń starą i dodaj nową." },
   "addrule": { "message": "Dodaj nową regułę" },
   "blockurl": { "message": "Wpisz blokowany URL" },
   "redirecturl": { "message": "Wpisz URL przekierowania (opcjonalnie)" },

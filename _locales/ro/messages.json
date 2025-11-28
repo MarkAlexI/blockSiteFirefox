@@ -4,7 +4,7 @@
   "description": { "message": "Instrument simplu și de încredere pentru a bloca și redirecționa site-uri, ajutându-te să rămâi concentrat." },
   "defaulttitle": { "message": "Rămâi concentrat și productiv" },
   "header": { "message": "Blocator de site-uri" },
-  "paragraph": { "message": "Pentru a bloca un site sau o resursă, introduceți o parte din numele acestuia în câmpul cu indiciul 'Type Block URL' – de exemplu, 'facebook' va bloca toate subdomeniile asociate. În câmpul cu indiciul 'Type Redirect URL', introduceți adresa completă de redirecționare cu protocol, cum ar fi 'https://google.com'. Dacă lăsați câmpul de redirecționare gol, site-ul va fi blocat fără redirecționare. Faceți clic pe Salvare pentru a aplica regula. Pentru a actualiza o regulă, ștergeți-o pe cea veche și adăugați una nouă." },
+  "paragraph": { "message": "Pentru a bloca un site sau o resursă, introduceți o parte din numele acestuia în câmpul cu indiciul 'Introduceți URL-ul de blocat' – de exemplu, 'facebook' va bloca toate subdomeniile asociate. În câmpul cu indiciul 'Introduceți URL-ul de redirecționare', introduceți adresa completă de redirecționare cu protocol, cum ar fi 'https://google.com'. Dacă lăsați câmpul de redirecționare gol, site-ul va fi blocat fără redirecționare. Faceți clic pe Salvare pentru a aplica regula. Pentru a actualiza o regulă, ștergeți-o pe cea veche și adăugați una nouă." },
   "addrule": { "message": "Adăugați regulă nouă" },
   "blockurl": { "message": "Introduceți URL-ul de blocat" },
   "redirecturl": { "message": "Introduceți URL-ul de redirecționare (opțional)" },

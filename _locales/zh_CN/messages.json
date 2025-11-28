@@ -4,7 +4,7 @@
   "description": { "message": "一个简单可靠的工具，用于屏蔽和重定向网站，帮助您保持专注。" },
   "defaulttitle": { "message": "保持专注，高效工作" },
   "header": { "message": "网站屏蔽器" },
-  "paragraph": { "message": "要屏蔽网站或资源，请在“Type Block URL”输入框中输入其名称的一部分––例如，“facebook”将屏蔽所有相关子域。在“Type Redirect URL”字段中输入完整的重定向地址，包括协议，例如“https://google.com”。如果重定向字段为空，网站将仅被屏蔽而不重定向。点击“保存”应用规则。要更新规则，请删除旧规则并创建新规则。" },
+  "paragraph": { "message": "要屏蔽网站或资源，请在“输入要屏蔽的URL”输入框中输入其名称的一部分––例如，“facebook”将屏蔽所有相关子域。在“输入重定向URL”字段中输入完整的重定向地址，包括协议，例如“https://google.com”。如果重定向字段为空，网站将仅被屏蔽而不重定向。点击“保存”应用规则。要更新规则，请删除旧规则并创建新规则。" },
   "addrule": { "message": "添加新规则" },
   "blockurl": { "message": "输入要屏蔽的URL" },
   "redirecturl": { "message": "输入重定向URL（可选）" },

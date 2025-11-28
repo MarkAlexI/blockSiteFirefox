@@ -4,7 +4,7 @@
   "description": { "message": "Công cụ đơn giản và đáng tin cậy để chặn và chuyển hướng các trang web, giúp bạn duy trì tập trung." },
   "defaulttitle": { "message": "Tập trung và năng suất" },
   "header": { "message": "Trình chặn trang" },
-  "paragraph": { "message": "Để chặn một trang web hoặc tài nguyên, nhập một phần tên của nó vào ô 'Type Block URL' – ví dụ, 'facebook' sẽ chặn tất cả các tên miền phụ liên quan. Trong ô 'Type Redirect URL', nhập địa chỉ chuyển hướng đầy đủ bao gồm giao thức, ví dụ 'https://google.com'. Nếu ô chuyển hướng để trống, trang sẽ chỉ bị chặn mà không chuyển hướng. Nhấn Lưu để áp dụng quy tắc. Để cập nhật quy tắc, xóa quy tắc cũ và tạo quy tắc mới." },
+  "paragraph": { "message": "Để chặn một trang web hoặc tài nguyên, nhập một phần tên của nó vào ô 'Nhập URL cần chặn' – ví dụ, 'facebook' sẽ chặn tất cả các tên miền phụ liên quan. Trong ô 'Nhập URL chuyển hướng', nhập địa chỉ chuyển hướng đầy đủ bao gồm giao thức, ví dụ 'https://google.com'. Nếu ô chuyển hướng để trống, trang sẽ chỉ bị chặn mà không chuyển hướng. Nhấn Lưu để áp dụng quy tắc. Để cập nhật quy tắc, xóa quy tắc cũ và tạo quy tắc mới." },
   "addrule": { "message": "Thêm quy tắc mới" },
   "blockurl": { "message": "Nhập URL cần chặn" },
   "redirecturl": { "message": "Nhập URL chuyển hướng (tùy chọn)" },

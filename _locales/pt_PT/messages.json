@@ -4,7 +4,7 @@
   "description": { "message": "Ferramenta simples e fiável para bloquear e redirecionar sites, ajudando-o a manter-se focado." },
   "defaulttitle": { "message": "Mantenha-se focado e produtivo" },
   "header": { "message": "Bloqueador de sites" },
-  "paragraph": { "message": "Para bloquear um site ou recurso, escreva parte do nome no campo com a dica 'Type Block URL' – por exemplo, 'facebook' bloqueará todos os subdomínios relacionados. No campo com a dica 'Type Redirect URL', insira o endereço completo de redirecionamento com o protocolo, como 'https://google.com'. Se o campo de redirecionamento for deixado vazio, o site será bloqueado sem redirecionamento. Clique em Guardar para aplicar a regra. Para atualizar uma regra, elimine a antiga e adicione uma nova." },
+  "paragraph": { "message": "Para bloquear um site ou recurso, escreva parte do nome no campo com a dica 'Introduza o URL a bloquear' – por exemplo, 'facebook' bloqueará todos os subdomínios relacionados. No campo com a dica 'Introduza o URL de redirecionamento', insira o endereço completo de redirecionamento com o protocolo, como 'https://google.com'. Se o campo de redirecionamento for deixado vazio, o site será bloqueado sem redirecionamento. Clique em Guardar para aplicar a regra. Para atualizar uma regra, elimine a antiga e adicione uma nova." },
   "addrule": { "message": "Adicionar nova regra" },
   "blockurl": { "message": "Introduza o URL a bloquear" },
   "redirecturl": { "message": "Introduza o URL de redirecionamento (opcional)" },

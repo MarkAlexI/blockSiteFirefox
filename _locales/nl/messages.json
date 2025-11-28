@@ -4,7 +4,7 @@
   "description": { "message": "Eenvoudige en betrouwbare tool om websites te blokkeren en door te sturen zodat je gefocust blijft." },
   "defaulttitle": { "message": "Blijf gefocust en productief" },
   "header": { "message": "Siteblokker" },
-  "paragraph": { "message": "Om een website of bron te blokkeren, voer een deel van de naam in het invoerveld met de placeholder 'Type Block URL' in – bijvoorbeeld 'facebook' blokkeert alle gerelateerde subdomeinen. In het veld met de placeholder 'Type Redirect URL' voer je het volledige doorstuuradres in inclusief het protocol, zoals 'https://google.com'. Als het doorstuurveld leeg blijft, wordt de site geblokkeerd zonder doorsturing. Klik op de knop Opslaan om de regel toe te passen. Om een regel bij te werken, verwijder je de oude en maak je een nieuwe aan." },
+  "paragraph": { "message": "Om een website of bron te blokkeren, voer een deel van de naam in het invoerveld met de placeholder 'Typ te blokkeren URL' in – bijvoorbeeld 'facebook' blokkeert alle gerelateerde subdomeinen. In het veld met de placeholder 'Typ doorstuur-URL' voer je het volledige doorstuuradres in inclusief het protocol, zoals 'https://google.com'. Als het doorstuurveld leeg blijft, wordt de site geblokkeerd zonder doorsturing. Klik op de knop Opslaan om de regel toe te passen. Om een regel bij te werken, verwijder je de oude en maak je een nieuwe aan." },
   "addrule": { "message": "Nieuwe regel toevoegen" },
   "blockurl": { "message": "Typ te blokkeren URL" },
   "redirecturl": { "message": "Typ doorstuur-URL (optioneel)" },

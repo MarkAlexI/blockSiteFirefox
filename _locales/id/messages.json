@@ -4,7 +4,7 @@
   "description": { "message": "Alat sederhana dan andal untuk memblokir dan mengarahkan ulang situs web agar tetap fokus." },
   "defaulttitle": { "message": "Tetap Fokus dan Produktif" },
   "header": { "message": "Pemblokir Situs" },
-  "paragraph": { "message": "Untuk memblokir situs atau sumber daya, masukkan sebagian namanya ke dalam kolom input dengan placeholder 'Type Block URL' – misalnya, 'facebook' akan memblokir semua subdomain terkait. Di kolom dengan placeholder 'Type Redirect URL', masukkan alamat redirect lengkap termasuk protokol, seperti 'https://google.com'. Jika kolom redirect dibiarkan kosong, situs akan diblokir tanpa redirect. Klik tombol Simpan untuk menerapkan aturan. Untuk memperbarui aturan, hapus yang lama dan buat yang baru." },
+  "paragraph": { "message": "Untuk memblokir situs atau sumber daya, masukkan sebagian namanya ke dalam kolom input dengan placeholder 'Ketik URL blokir' – misalnya, 'facebook' akan memblokir semua subdomain terkait. Di kolom dengan placeholder 'Ketik URL redirect', masukkan alamat redirect lengkap termasuk protokol, seperti 'https://google.com'. Jika kolom redirect dibiarkan kosong, situs akan diblokir tanpa redirect. Klik tombol Simpan untuk menerapkan aturan. Untuk memperbarui aturan, hapus yang lama dan buat yang baru." },
   "addrule": { "message": "Tambah aturan baru" },
   "blockurl": { "message": "Ketik URL blokir" },
   "redirecturl": { "message": "Ketik URL redirect (opsional)" },

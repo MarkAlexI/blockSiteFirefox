@@ -4,7 +4,7 @@
   "description": { "message": "Jednoduchý a spoľahlivý nástroj na blokovanie a presmerovanie webov, aby ste zostali sústredení." },
   "defaulttitle": { "message": "Buď sústredený a produktívny" },
   "header": { "message": "Blokovač stránok" },
-  "paragraph": { "message": "Ak chcete zablokovať web alebo zdroj, zadajte časť jeho názvu do poľa s nápovedou 'Type Block URL' – napríklad 'facebook' zablokuje všetky súvisiace subdomény. Do poľa 'Type Redirect URL' zadajte úplnú adresu presmerovania s protokolom, napríklad 'https://google.com'. Ak ponecháte pole prázdne, stránka sa iba zablokuje bez presmerovania. Kliknite na Uložiť, aby sa pravidlo použilo. Ak chcete pravidlo aktualizovať, odstráňte staré a pridajte nové." },
+  "paragraph": { "message": "Ak chcete zablokovať web alebo zdroj, zadajte časť jeho názvu do poľa s nápovedou 'Zadajte URL na blokovanie' – napríklad 'facebook' zablokuje všetky súvisiace subdomény. Do poľa 'Zadajte URL presmerovania' zadajte úplnú adresu presmerovania s protokolom, napríklad 'https://google.com'. Ak ponecháte pole prázdne, stránka sa iba zablokuje bez presmerovania. Kliknite na Uložiť, aby sa pravidlo použilo. Ak chcete pravidlo aktualizovať, odstráňte staré a pridajte nové." },
   "addrule": { "message": "Pridať nové pravidlo" },
   "blockurl": { "message": "Zadajte URL na blokovanie" },
   "redirecturl": { "message": "Zadajte URL presmerovania (voliteľné)" },

@@ -4,7 +4,7 @@
   "description": { "message": "Vienkāršs un uzticams rīks vietņu bloķēšanai un pāradresācijai, lai saglabātu koncentrēšanos." },
   "defaulttitle": { "message": "Saglabājiet koncentrēšanos un produktivitāti" },
   "header": { "message": "Vietņu Bloķētājs" },
-  "paragraph": { "message": "Lai bloķētu vietni vai resursus, ievadiet tās nosaukuma daļu laukā ar vietturī 'Type Block URL' – piemēram, 'facebook' bloķēs visus saistītos apakšdomēnus. Laukā ar vietturī 'Type Redirect URL' ievadiet pilnu pāradresācijas adresi ar protokolu, piemēram, 'https://google.com'. Ja pāradresācijas lauks ir tukšs, vietne tiks bloķēta bez pāradresācijas. Lai piemērotu noteikumu, noklikšķiniet uz Saglabāt. Lai atjauninātu noteikumu, izdzēsiet veco un izveidojiet jaunu." },
+  "paragraph": { "message": "Lai bloķētu vietni vai resursus, ievadiet tās nosaukuma daļu laukā ar vietturī 'Ievadiet bloķējamo URL' – piemēram, 'facebook' bloķēs visus saistītos apakšdomēnus. Laukā ar vietturī 'Ievadiet pāradresācijas URL' ievadiet pilnu pāradresācijas adresi ar protokolu, piemēram, 'https://google.com'. Ja pāradresācijas lauks ir tukšs, vietne tiks bloķēta bez pāradresācijas. Lai piemērotu noteikumu, noklikšķiniet uz Saglabāt. Lai atjauninātu noteikumu, izdzēsiet veco un izveidojiet jaunu." },
   "addrule": { "message": "Pievienot jaunu noteikumu" },
   "blockurl": { "message": "Ievadiet bloķējamo URL" },
   "redirecturl": { "message": "Ievadiet pāradresācijas URL (neobligāti)" },

@@ -4,7 +4,7 @@
   "description": { "message": "Strumento semplice e affidabile per bloccare e reindirizzare siti web per rimanere concentrati." },
   "defaulttitle": { "message": "Rimani concentrato e produttivo" },
   "header": { "message": "Blocco Siti" },
-  "paragraph": { "message": "Per bloccare un sito o una risorsa, inserisci parte del suo nome nel campo con il placeholder 'Type Block URL' – ad esempio, 'facebook' bloccherà tutti i sottodomini correlati. Nel campo con il placeholder 'Type Redirect URL', inserisci l'indirizzo completo di reindirizzamento incluso il protocollo, come 'https://google.com'. Se il campo redirect è vuoto, il sito verrà bloccato senza reindirizzamento. Clicca il pulsante Salva per applicare la regola. Per aggiornare una regola, elimina quella vecchia e crea una nuova." },
+  "paragraph": { "message": "Per bloccare un sito o una risorsa, inserisci parte del suo nome nel campo con il placeholder 'Inserisci URL da bloccare' – ad esempio, 'facebook' bloccherà tutti i sottodomini correlati. Nel campo con il placeholder 'Inserisci URL di reindirizzamento', inserisci l'indirizzo completo di reindirizzamento incluso il protocollo, come 'https://google.com'. Se il campo redirect è vuoto, il sito verrà bloccato senza reindirizzamento. Clicca il pulsante Salva per applicare la regola. Per aggiornare una regola, elimina quella vecchia e crea una nuova." },
   "addrule": { "message": "Aggiungi nuova regola" },
   "blockurl": { "message": "Inserisci URL da bloccare" },
   "redirecturl": { "message": "Inserisci URL di reindirizzamento (opzionale)" },

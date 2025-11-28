@@ -4,7 +4,7 @@
   "description": { "message": "Chombo rahisi na cha kuaminika cha kuzuia na kuelekeza tena tovuti ili kubaki umakini." },
   "defaulttitle": { "message": "Kaa makini na kuwa na tija" },
   "header": { "message": "Kizuizi cha Tovuti" },
-  "paragraph": { "message": "Ili kuzuia tovuti au rasilimali, andika sehemu ya jina lake kwenye kisanduku chenye maandishi 'Type Block URL' – mfano, 'facebook' itazuia subdomains zote zinazohusiana. Katika kisanduku cha 'Type Redirect URL', andika URL kamili ya kuelekeza pamoja na itifaki, mfano 'https://google.com'. Ikiwa kisanduku kitabaki tupu, tovuti itazuia bila kuelekeza. Bonyeza Hifadhi ili kutekeleza kanuni. Ili kusasisha kanuni, futa ile ya zamani na uongeze mpya." },
+  "paragraph": { "message": "Ili kuzuia tovuti au rasilimali, andika sehemu ya jina lake kwenye kisanduku chenye maandishi 'Andika URL ya kuzuia' – mfano, 'facebook' itazuia subdomains zote zinazohusiana. Katika kisanduku cha 'Andika URL ya kuelekeza', andika URL kamili ya kuelekeza pamoja na itifaki, mfano 'https://google.com'. Ikiwa kisanduku kitabaki tupu, tovuti itazuia bila kuelekeza. Bonyeza Hifadhi ili kutekeleza kanuni. Ili kusasisha kanuni, futa ile ya zamani na uongeze mpya." },
   "addrule": { "message": "Ongeza kanuni mpya" },
   "blockurl": { "message": "Andika URL ya kuzuia" },
   "redirecturl": { "message": "Andika URL ya kuelekeza (hiari)" },
