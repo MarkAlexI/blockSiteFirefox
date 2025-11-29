@@ -1,5 +1,7 @@
 import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
+import { SettingsManager } from './settings.js';
+import { PasswordUtils } from '../pro/password.js';
 
 const btn = document.getElementById('proBtn');
 const wrapper = document.getElementById('proWrapper');
@@ -140,6 +142,8 @@ if (licenseForm) {
           if (enablePasswordToggle) {
             enablePasswordToggle.checked = false;
           }
+          
+          licenseInput.value = '';
         }
       } catch (err) {
         console.error("Failed to reset password during re-activation:", err);
