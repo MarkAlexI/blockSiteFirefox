@@ -199,6 +199,24 @@ if (forceSyncBtn) {
 if (logOutBtn) {
   logOutBtn.addEventListener('click', async () => {
     try {
+      const settings = await SettingsManager.getSettings();
+      
+      if (settings.enablePassword) {
+        const isAuthorized = await new Promise((resolve) => {
+          PasswordUtils.showPasswordModal('verify', (isValid) => {
+            resolve(isValid);
+          }, t);
+        });
+        
+        if (!isAuthorized) {
+          return;
+        }
+      }
+    } catch (error) {
+      console.error("Error checking settings before logout:", error);
+    }
+    
+    try {
       const emptyData = {
         licenseKey: null,
         subscriptionEmail: null,
@@ -214,6 +232,16 @@ if (logOutBtn) {
       });
       
       await updateUI();
+      
+      const settings = await SettingsManager.getSettings();
+      if (settings.enablePassword) {
+        await SettingsManager.saveSettings({
+          ...settings,
+          enablePassword: false
+        });
+        window.location.reload();
+        return;
+      }
       
       licenseMessage.textContent = t('loggedoutsuccess');
       licenseMessage.className = 'status-message success show';

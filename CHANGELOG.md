@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.18.3] - 2025-11-30
+### Fixed
+- Added mandatory password check before logout to prevent disabling parental control without authorization.
+- When a password is set, logging out now always requires password confirmation.
+
 ## [2.18.2] - 2025-11-29
 ### Fixed
 - Fixed an issue where the Pro activation input permanently retained the entered license key.
