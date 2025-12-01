@@ -274,6 +274,37 @@ button:disabled {
   opacity: 0.9;
 }
 
+.privacy-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.privacy-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+  padding: 6px 12px;
+  margin: 0 auto;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.privacy-badge:hover {
+  background-color: #c8e6c9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
 @media (min-width: 601px) {
   .controls {
     flex-direction: row;

@@ -306,5 +306,6 @@
   "pleaseenterkey": { "message": "Please enter a key." },
   "syncsuccess": { "message": "Successful synchronization" },
   "syncfailed": { "message": "Sync failed." },
-  "passwordreset": { "message": "Password protection has been reset." }
+  "passwordreset": { "message": "Password protection has been reset." },
+  "privacysecured": { "message": "Privacy Secured" }
 }
