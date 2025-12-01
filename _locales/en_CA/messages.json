@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Cancel" },
   "forgotpassword": { "message": "Forgot password? Reset (will clear protection)" },
   "prounlocked": { "message": "Thank you for your support! All Pro features are unlocked." },
-  "licensesynced": { "message": "Your license is synced with your account. If you lose access, you can retrieve your key from: " }
+  "licensesynced": { "message": "Your license is synced with your account. If you lose access, you can retrieve your key from: " },
+  "syncing": { "message": "Syncing..." },
+  "pleaseenterkey": { "message": "Please enter a key." },
+  "syncsuccess": { "message": "Successful synchronization" },
+  "syncfailed": { "message": "Sync failed." },
+  "passwordreset": { "message": "Password protection has been reset." },
+  "privacysecured": { "message": "Privacy Secured" }
 }

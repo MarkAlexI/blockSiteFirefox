@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Abbrechen" },
   "forgotpassword": { "message": "Passwort vergessen? Zurücksetzen (entfernt den Schutz)" },
   "prounlocked": { "message": "Vielen Dank für deine Unterstützung! Alle Pro-Funktionen sind freigeschaltet." },
-  "licensesynced": { "message": "Deine Lizenz ist mit deinem Konto synchronisiert. Wenn du den Zugriff verlierst, kannst du deinen Schlüssel hier wiederherstellen: " }
+  "licensesynced": { "message": "Deine Lizenz ist mit deinem Konto synchronisiert. Wenn du den Zugriff verlierst, kannst du deinen Schlüssel hier wiederherstellen: " },
+  "syncing": { "message": "Synchronisiere..." },
+  "pleaseenterkey": { "message": "Bitte geben Sie einen Schlüssel ein." },
+  "syncsuccess": { "message": "Erfolgreiche Synchronisation" },
+  "syncfailed": { "message": "Synchronisation fehlgeschlagen." },
+  "passwordreset": { "message": "Passwortschutz wurde zurückgesetzt." },
+  "privacysecured": { "message": "Privatsphäre gesichert" }
 }

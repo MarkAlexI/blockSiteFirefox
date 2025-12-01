@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Zrušiť" },
   "forgotpassword": { "message": "Zabudli ste heslo? Obnoviť (akcia odstráni ochranu)" },
   "prounlocked": { "message": "Ďakujeme za vašu podporu! Všetky Pro funkcie sú odomknuté." },
-  "licensesynced": { "message": "Vaša licencia je synchronizovaná s vaším účtom. Ak stratíte prístup, svoj kľúč si môžete získať tu: " }
+  "licensesynced": { "message": "Vaša licencia je synchronizovaná s vaším účtom. Ak stratíte prístup, svoj kľúč si môžete získať tu: " },
+  "syncing": { "message": "Synchronizácia prebieha..." },
+  "pleaseenterkey": { "message": "Prosím, zadajte kľúč." },
+  "syncsuccess": { "message": "Synchronizácia bola úspešná" },
+  "syncfailed": { "message": "Synchronizácia zlyhala." },
+  "passwordreset": { "message": "Ochrana heslom bola resetovaná." },
+  "privacysecured": { "message": "Súkromie zabezpečené" }
 }

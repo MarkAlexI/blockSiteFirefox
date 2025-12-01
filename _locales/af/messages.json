@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Kanselleer" },
   "forgotpassword": { "message": "Wagwoord vergeet? Stel weer (sal beskerming verwyder)" },
   "prounlocked": { "message": "Dankie vir jou ondersteuning! Alle Pro-funksies is ontsluit." },
-  "licensesynced": { "message": "Jou lisensie is met jou rekening gesinkroniseer. As jy toegang verloor, kan jy jou sleutel hier herwin: " }
+  "licensesynced": { "message": "Jou lisensie is met jou rekening gesinkroniseer. As jy toegang verloor, kan jy jou sleutel hier herwin: " },
+  "syncing": { "message": "Sinkroniseer..." },
+  "pleaseenterkey": { "message": "Voer asseblief ’n sleutel in." },
+  "syncsuccess": { "message": "Sinkronisering suksesvol" },
+  "syncfailed": { "message": "Sinkronisering het misluk." },
+  "passwordreset": { "message": "Wagwoordbeskerming is teruggestel." },
+  "privacysecured": { "message": "Privaatheid Beveilig" }
 }

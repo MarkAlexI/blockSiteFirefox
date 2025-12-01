@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Annuller" },
   "forgotpassword": { "message": "Glemt adgangskode? Nulstil (fjerner beskyttelsen)" },
   "prounlocked": { "message": "Tak for din støtte! Alle Pro-funktioner er låst op." },
-  "licensesynced": { "message": "Din licens er synkroniseret med din konto. Hvis du mister adgangen, kan du hente din nøgle her: " }
+  "licensesynced": { "message": "Din licens er synkroniseret med din konto. Hvis du mister adgangen, kan du hente din nøgle her: " },
+  "syncing": { "message": "Synkroniserer..." },
+  "pleaseenterkey": { "message": "Indtast venligst en nøgle." },
+  "syncsuccess": { "message": "Synkronisering fuldført" },
+  "syncfailed": { "message": "Synkronisering mislykkedes." },
+  "passwordreset": { "message": "Adgangskodebeskyttelsen er nulstillet." },
+  "privacysecured": { "message": "Privatliv sikret" }
 }

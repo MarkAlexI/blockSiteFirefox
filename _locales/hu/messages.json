@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Mégse" },
   "forgotpassword": { "message": "Elfelejtette a jelszót? Visszaállítás (eltávolítja a védelmet)" },
   "prounlocked": { "message": "Köszönjük a támogatást! Minden Pro funkció feloldva." },
-  "licensesynced": { "message": "A licenced szinkronizálva van a fiókoddal. Ha elveszíted a hozzáférést, a kulcsodat innen tudod visszaszerezni: " }
+  "licensesynced": { "message": "A licenced szinkronizálva van a fiókoddal. Ha elveszíted a hozzáférést, a kulcsodat innen tudod visszaszerezni: " },
+  "syncing": { "message": "Szinkronizálás..." },
+  "pleaseenterkey": { "message": "Kérjük, adjon meg egy kulcsot." },
+  "syncsuccess": { "message": "Sikeres szinkronizáció" },
+  "syncfailed": { "message": "A szinkronizáció sikertelen." },
+  "passwordreset": { "message": "A jelszóvédelem visszaállítva." },
+  "privacysecured": { "message": "Adatvédelem biztosítva" }
 }

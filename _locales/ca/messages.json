@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Cancel·lar" },
   "forgotpassword": { "message": "Has oblidat la contrasenya? Restableix (eliminarà la protecció)" },
   "prounlocked": { "message": "Gràcies pel teu suport! Totes les funcions Pro estan desbloquejades." },
-  "licensesynced": { "message": "La teva llicència està sincronitzada amb el teu compte. Si en perds l’accés, pots recuperar la teva clau des de: " }
+  "licensesynced": { "message": "La teva llicència està sincronitzada amb el teu compte. Si en perds l’accés, pots recuperar la teva clau des de: " },
+  "syncing": { "message": "Sincronitzant..." },
+  "pleaseenterkey": { "message": "Si us plau, introduïu una clau." },
+  "syncsuccess": { "message": "Sincronització correcta" },
+  "syncfailed": { "message": "La sincronització ha fallat." },
+  "passwordreset": { "message": "La protecció amb contrasenya s'ha restablert." },
+  "privacysecured": { "message": "Privadesa protegida" }
 }

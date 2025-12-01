@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Ghairi" },
   "forgotpassword": { "message": "Umesahau nenosiri? Weka upya (kitendo kitaondoa ulinzi)" },
   "prounlocked": { "message": "Asante kwa msaada wako! Vipengele vyote vya Pro vimefunguliwa." },
-  "licensesynced": { "message": "Leseni yako imeunganishwa na akaunti yako. Ikiwa utapoteza ufikiaji, unaweza kupata tena ufunguo wako hapa: " }
+  "licensesynced": { "message": "Leseni yako imeunganishwa na akaunti yako. Ikiwa utapoteza ufikiaji, unaweza kupata tena ufunguo wako hapa: " },
+  "syncing": { "message": "Inasawazisha..." },
+  "pleaseenterkey": { "message": "Tafadhali ingiza ufunguo." },
+  "syncsuccess": { "message": "Ulinganifu umefanikiwa" },
+  "syncfailed": { "message": "Ulinganifu umefeli." },
+  "passwordreset": { "message": "Ulinzi wa nywila umeanzishwa upya." },
+  "privacysecured": { "message": "Faragha imedhaminiwa" }
 }

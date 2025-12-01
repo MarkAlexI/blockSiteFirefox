@@ -300,5 +300,11 @@
   "modalcancel": { "message": "Cancelar" },
   "forgotpassword": { "message": "¿Olvidaste la contraseña? Restablecer (eliminará la protección)" },
   "prounlocked": { "message": "¡Gracias por tu apoyo! Todas las funciones Pro están desbloqueadas." },
-  "licensesynced": { "message": "Tu licencia está sincronizada con tu cuenta. Si pierdes el acceso, puedes recuperar tu clave desde: " }
+  "licensesynced": { "message": "Tu licencia está sincronizada con tu cuenta. Si pierdes el acceso, puedes recuperar tu clave desde: " },
+  "syncing": { "message": "Sincronizando..." },
+  "pleaseenterkey": { "message": "Por favor, introduce una clave." },
+  "syncsuccess": { "message": "Sincronización exitosa" },
+  "syncfailed": { "message": "La sincronización falló." },
+  "passwordreset": { "message": "La protección con contraseña ha sido restablecida." },
+  "privacysecured": { "message": "Privacidad asegurada" }
 }

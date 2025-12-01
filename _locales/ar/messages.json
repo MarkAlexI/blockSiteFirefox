@@ -300,5 +300,11 @@
   "modalcancel": { "message": "إلغاء" },
   "forgotpassword": { "message": "نسيت كلمة المرور؟ إعادة التعيين (سيؤدي إلى إزالة الحماية)" },
   "prounlocked": { "message": "شكرًا لك على دعمك! تم فتح جميع ميزات Pro." },
-  "licensesynced": { "message": "تمت مزامنة ترخيصك مع حسابك. إذا فقدت الوصول، يمكنك استعادة مفتاحك من: " }
+  "licensesynced": { "message": "تمت مزامنة ترخيصك مع حسابك. إذا فقدت الوصول، يمكنك استعادة مفتاحك من: " },
+  "syncing": { "message": "جارٍ المزامنة..." },
+  "pleaseenterkey": { "message": "يرجى إدخال المفتاح." },
+  "syncsuccess": { "message": "تمت المزامنة بنجاح" },
+  "syncfailed": { "message": "فشلت المزامنة." },
+  "passwordreset": { "message": "تمت إعادة تعيين حماية كلمة المرور." },
+  "privacysecured": { "message": "الخصوصية آمنة" }
 }

@@ -291,5 +291,11 @@
   "modalcancel": { "message": "İptal" },
   "forgotpassword": { "message": "Parolayı mı unuttunuz? Sıfırla (bu işlem korumayı kaldırır)" },
   "prounlocked": { "message": "Desteğiniz için teşekkürler! Tüm Pro özellikleri açıldı." },
-  "licensesynced": { "message": "Lisansınız hesabınızla senkronize edildi. Erişimi kaybederseniz, anahtarınızı buradan alabilirsiniz: " }
+  "licensesynced": { "message": "Lisansınız hesabınızla senkronize edildi. Erişimi kaybederseniz, anahtarınızı buradan alabilirsiniz: " },
+  "syncing": { "message": "Senkronize ediliyor..." },
+  "pleaseenterkey": { "message": "Lütfen bir anahtar girin." },
+  "syncsuccess": { "message": "Senkronizasyon başarılı" },
+  "syncfailed": { "message": "Senkronizasyon başarısız." },
+  "passwordreset": { "message": "Parola koruması sıfırlandı." },
+  "privacysecured": { "message": "Gizlilik güvence altında" }
 }

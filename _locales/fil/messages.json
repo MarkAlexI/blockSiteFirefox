@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Kanselahin" },
   "forgotpassword": { "message": "Nakalimutan ang password? I-reset (tatanggalin ang proteksyon)" },
   "prounlocked": { "message": "Salamat sa iyong suporta! Lahat ng Pro na tampok ay naka-unlock." },
-  "licensesynced": { "message": "Ang iyong lisensya ay naka-sync sa iyong account. Kung mawalan ka ng access, maaari mong makuha muli ang iyong key mula sa: " }
+  "licensesynced": { "message": "Ang iyong lisensya ay naka-sync sa iyong account. Kung mawalan ka ng access, maaari mong makuha muli ang iyong key mula sa: " },
+  "syncing": { "message": "Isinasabay..." },
+  "pleaseenterkey": { "message": "Mangyaring ipasok ang isang key." },
+  "syncsuccess": { "message": "Matagumpay na pagsabay" },
+  "syncfailed": { "message": "Nabigo ang pagsabay." },
+  "passwordreset": { "message": "Na-reset ang proteksyon ng password." },
+  "privacysecured": { "message": "Pribadong protektado" }
 }

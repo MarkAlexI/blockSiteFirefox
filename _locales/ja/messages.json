@@ -300,5 +300,11 @@
   "modalcancel": { "message": "キャンセル" },
   "forgotpassword": { "message": "パスワードをお忘れですか？リセット（保護が解除されます）" },
   "prounlocked": { "message": "サポートありがとうございます！すべてのPro機能がアンロックされました。" },
-  "licensesynced": { "message": "ライセンスはアカウントと同期されています。アクセスを失った場合は、こちらからキーを取得できます： " }
+  "licensesynced": { "message": "ライセンスはアカウントと同期されています。アクセスを失った場合は、こちらからキーを取得できます： " },
+  "syncing": { "message": "同期中..." },
+  "pleaseenterkey": { "message": "キーを入力してください。" },
+  "syncsuccess": { "message": "同期に成功しました" },
+  "syncfailed": { "message": "同期に失敗しました。" },
+  "passwordreset": { "message": "パスワード保護がリセットされました。" },
+  "privacysecured": { "message": "プライバシーは保護されています" }
 }

@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Hủy" },
   "forgotpassword": { "message": "Quên mật khẩu? Đặt lại (hành động sẽ xóa bảo vệ)" },
   "prounlocked": { "message": "Cảm ơn bạn đã ủng hộ! Tất cả tính năng Pro đã được mở khóa." },
-  "licensesynced": { "message": "Giấy phép của bạn đã được đồng bộ với tài khoản của bạn. Nếu bạn mất quyền truy cập, bạn có thể lấy lại khóa tại: " }
+  "licensesynced": { "message": "Giấy phép của bạn đã được đồng bộ với tài khoản của bạn. Nếu bạn mất quyền truy cập, bạn có thể lấy lại khóa tại: " },
+  "syncing": { "message": "Đang đồng bộ..." },
+  "pleaseenterkey": { "message": "Vui lòng nhập khóa." },
+  "syncsuccess": { "message": "Đồng bộ thành công" },
+  "syncfailed": { "message": "Đồng bộ thất bại." },
+  "passwordreset": { "message": "Bảo vệ mật khẩu đã được đặt lại." },
+  "privacysecured": { "message": "Quyền riêng tư được bảo vệ" }
 }

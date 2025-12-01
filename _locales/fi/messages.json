@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Peruuta" },
   "forgotpassword": { "message": "Unohditko salasanan? Nollaa (poistaa suojauksen)" },
   "prounlocked": { "message": "Kiitos tuestasi! Kaikki Pro-ominaisuudet on avattu." },
-  "licensesynced": { "message": "Lisenssisi on synkronoitu tilisi kanssa. Jos menetät pääsyn, voit hakea avaimen täältä: " }
+  "licensesynced": { "message": "Lisenssisi on synkronoitu tilisi kanssa. Jos menetät pääsyn, voit hakea avaimen täältä: " },
+  "syncing": { "message": "Synkronoidaan..." },
+  "pleaseenterkey": { "message": "Syötä avain." },
+  "syncsuccess": { "message": "Synkronointi onnistui" },
+  "syncfailed": { "message": "Synkronointi epäonnistui." },
+  "passwordreset": { "message": "Salasanasuoja on palautettu." },
+  "privacysecured": { "message": "Yksityisyys suojattu" }
 }

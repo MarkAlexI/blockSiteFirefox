@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Prekliči" },
   "forgotpassword": { "message": "Ste pozabili geslo? Ponastavi (dejanje bo odstranilo zaščito)" },
   "prounlocked": { "message": "Hvala za vašo podporo! Vse Pro funkcije so odklenjene." },
-  "licensesynced": { "message": "Vaša licenca je sinhronizirana z vašim računom. Če izgubite dostop, lahko svoj ključ pridobite tukaj: " }
+  "licensesynced": { "message": "Vaša licenca je sinhronizirana z vašim računom. Če izgubite dostop, lahko svoj ključ pridobite tukaj: " },
+  "syncing": { "message": "Sinhronizacija poteka..." },
+  "pleaseenterkey": { "message": "Prosimo, vnesite ključ." },
+  "syncsuccess": { "message": "Sinhronizacija je bila uspešna" },
+  "syncfailed": { "message": "Sinhronizacija ni uspela." },
+  "passwordreset": { "message": "Zaščita z geslom je bila ponastavljena." },
+  "privacysecured": { "message": "Zasebnost zagotovljena" }
 }

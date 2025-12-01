@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Batal" },
   "forgotpassword": { "message": "Lupa kata laluan? Tetapkan semula (akan mengalih keluar perlindungan)" },
   "prounlocked": { "message": "Terima kasih atas sokongan anda! Semua ciri Pro telah dibuka." },
-  "licensesynced": { "message": "Lesen anda diselaraskan dengan akaun anda. Jika anda kehilangan akses, anda boleh mendapatkan semula kunci anda dari: " }
+  "licensesynced": { "message": "Lesen anda diselaraskan dengan akaun anda. Jika anda kehilangan akses, anda boleh mendapatkan semula kunci anda dari: " },
+  "syncing": { "message": "Menyelaras..." },
+  "pleaseenterkey": { "message": "Sila masukkan kunci." },
+  "syncsuccess": { "message": "Penyelarasan berjaya" },
+  "syncfailed": { "message": "Penyelarasan gagal." },
+  "passwordreset": { "message": "Perlindungan kata laluan telah diset semula." },
+  "privacysecured": { "message": "Privasi Terjamin" }
 }

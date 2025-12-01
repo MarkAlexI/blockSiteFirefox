@@ -300,5 +300,11 @@
   "modalcancel": { "message": "取消" },
   "forgotpassword": { "message": "忘记密码？重置（此操作将清除保护）" },
   "prounlocked": { "message": "感谢您的支持！所有 Pro 功能已解锁。" },
-  "licensesynced": { "message": "您的许可证已与您的账户同步。如果您丢失访问权限，可以从这里找回您的密钥： " }
+  "licensesynced": { "message": "您的许可证已与您的账户同步。如果您丢失访问权限，可以从这里找回您的密钥： " },
+  "syncing": { "message": "正在同步..." },
+  "pleaseenterkey": { "message": "请输入密钥。" },
+  "syncsuccess": { "message": "同步成功" },
+  "syncfailed": { "message": "同步失败。" },
+  "passwordreset": { "message": "密码保护已重置。" },
+  "privacysecured": { "message": "隐私已保护" }
 }

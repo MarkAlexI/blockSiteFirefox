@@ -291,5 +291,11 @@
   "modalcancel": { "message": "ይቅር" },
   "forgotpassword": { "message": "የይለፍ ቃል ረስተዋል? ዳግም ያዘጋጁ (ጥበቃው ይሰረዛል)" },
   "prounlocked": { "message": "ለግልጽ ድጋፍዎ እናመሰግናለን! ሁሉም Pro ባህሪዎች ተከፍተዋል።" },
-  "licensesynced": { "message": "ፈቃድዎ ከመለያዎ ጋር ተዛመደ። መዳረሻ ካጣችሁ ቁልፎን ከዚህ መመለስ ትችላላችሁ፦ " }
+  "licensesynced": { "message": "ፈቃድዎ ከመለያዎ ጋር ተዛመደ። መዳረሻ ካጣችሁ ቁልፎን ከዚህ መመለስ ትችላላችሁ፦ " },
+  "syncing": { "message": "ማስማማት በመካሄድ ላይ..." },
+  "pleaseenterkey": { "message": "እባክዎን ቁልፍ ያስገቡ።" },
+  "syncsuccess": { "message": "ማስማማቱ ተሳክቷል" },
+  "syncfailed": { "message": "ማስማማት  실패 ሆኗል።" },
+  "passwordreset": { "message": "የይለፍ ቃል ጥበቃ ተዘምሯል።" },
+  "privacysecured": { "message": "ግላዊነት ተጠብቆአል" }
 }

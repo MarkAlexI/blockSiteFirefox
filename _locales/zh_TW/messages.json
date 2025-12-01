@@ -291,5 +291,11 @@
   "modalcancel": { "message": "取消" },
   "forgotpassword": { "message": "忘記密碼？重設（此操作將移除保護）" },
   "prounlocked": { "message": "感謝您的支持！所有 Pro 功能已解鎖。" },
-  "licensesynced": { "message": "您的授權已與您的帳戶同步。如果您失去存取權，您可以從這裡取回您的金鑰： " }
+  "licensesynced": { "message": "您的授權已與您的帳戶同步。如果您失去存取權，您可以從這裡取回您的金鑰： " },
+  "syncing": { "message": "正在同步..." },
+  "pleaseenterkey": { "message": "請輸入金鑰。" },
+  "syncsuccess": { "message": "同步成功" },
+  "syncfailed": { "message": "同步失敗。" },
+  "passwordreset": { "message": "密碼保護已重置。" },
+  "privacysecured": { "message": "隱私已保護" }
 }

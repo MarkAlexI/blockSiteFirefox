@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Atšaukti" },
   "forgotpassword": { "message": "Pamiršote slaptažodį? Atstatyti (pašalins apsaugą)" },
   "prounlocked": { "message": "Ačiū už jūsų palaikymą! Visos Pro funkcijos atrakintos." },
-  "licensesynced": { "message": "Jūsų licencija sinchronizuota su jūsų paskyra. Jei prarasite prieigą, galite atgauti savo raktą čia: " }
+  "licensesynced": { "message": "Jūsų licencija sinchronizuota su jūsų paskyra. Jei prarasite prieigą, galite atgauti savo raktą čia: " },
+  "syncing": { "message": "Sinchronizuojama..." },
+  "pleaseenterkey": { "message": "Įveskite raktą." },
+  "syncsuccess": { "message": "Sinchronizacija sėkminga" },
+  "syncfailed": { "message": "Sinchronizavimas nepavyko." },
+  "passwordreset": { "message": "Slaptažodžio apsauga buvo atstatyta." },
+  "privacysecured": { "message": "Privatumas užtikrintas" }
 }

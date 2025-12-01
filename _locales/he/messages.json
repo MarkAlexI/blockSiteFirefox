@@ -291,5 +291,11 @@
   "modalcancel": { "message": "ביטול" },
   "forgotpassword": { "message": "שכחת את הסיסמה? איפוס (ימחק את ההגנה)" },
   "prounlocked": { "message": "תודה על התמיכה שלך! כל הפיצ'רים של Pro נפתחים." },
-  "licensesynced": { "message": "הרישיון שלך מסונכרן עם החשבון שלך. אם תאבד גישה, תוכל לשחזר את המפתח שלך מ: " }
+  "licensesynced": { "message": "הרישיון שלך מסונכרן עם החשבון שלך. אם תאבד גישה, תוכל לשחזר את המפתח שלך מ: " },
+  "syncing": { "message": "מסנכרן..." },
+  "pleaseenterkey": { "message": "אנא הזן מפתח." },
+  "syncsuccess": { "message": "סנכרון הצליח" },
+  "syncfailed": { "message": "הסנכרון נכשל." },
+  "passwordreset": { "message": "הגנת הסיסמה הוחזרה לברירת המחדל." },
+  "privacysecured": { "message": "הפרטיות מובטחת" }
 }

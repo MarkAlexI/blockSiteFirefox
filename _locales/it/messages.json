@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Annulla" },
   "forgotpassword": { "message": "Password dimenticata? Reimposta (rimuoverà la protezione)" },
   "prounlocked": { "message": "Grazie per il tuo supporto! Tutte le funzionalità Pro sono sbloccate." },
-  "licensesynced": { "message": "La tua licenza è sincronizzata con il tuo account. Se perdi l'accesso, puoi recuperare la tua chiave da: " }
+  "licensesynced": { "message": "La tua licenza è sincronizzata con il tuo account. Se perdi l'accesso, puoi recuperare la tua chiave da: " },
+  "syncing": { "message": "Sincronizzazione in corso..." },
+  "pleaseenterkey": { "message": "Per favore, inserisci una chiave." },
+  "syncsuccess": { "message": "Sincronizzazione riuscita" },
+  "syncfailed": { "message": "Sincronizzazione fallita." },
+  "passwordreset": { "message": "La protezione con password è stata reimpostata." },
+  "privacysecured": { "message": "Privacy garantita" }
 }

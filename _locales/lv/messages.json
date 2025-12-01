@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Atcelt" },
   "forgotpassword": { "message": "Aizmirsāt paroli? Atiestatīt (noņems aizsardzību)" },
   "prounlocked": { "message": "Paldies par jūsu atbalstu! Visas Pro funkcijas ir atbloķētas." },
-  "licensesynced": { "message": "Jūsu licence ir sinhronizēta ar jūsu kontu. Ja zaudēsiet piekļuvi, savu atslēgu varat atgūt šeit: " }
+  "licensesynced": { "message": "Jūsu licence ir sinhronizēta ar jūsu kontu. Ja zaudēsiet piekļuvi, savu atslēgu varat atgūt šeit: " },
+  "syncing": { "message": "Sinhronizē..." },
+  "pleaseenterkey": { "message": "Lūdzu, ievadiet atslēgu." },
+  "syncsuccess": { "message": "Sinhronizācija veiksmīga" },
+  "syncfailed": { "message": "Sinhronizācija neizdevās." },
+  "passwordreset": { "message": "Paroles aizsardzība ir atiestatīta." },
+  "privacysecured": { "message": "Privātums nodrošināts" }
 }

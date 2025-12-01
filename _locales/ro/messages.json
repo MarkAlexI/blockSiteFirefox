@@ -291,5 +291,11 @@
   "modalcancel": { "message": "Anulează" },
   "forgotpassword": { "message": "Ai uitat parola? Resetează (va elimina protecția)" },
   "prounlocked": { "message": "Mulțumim pentru suport! Toate funcțiile Pro sunt deblocate." },
-  "licensesynced": { "message": "Licența ta este sincronizată cu contul tău. Dacă pierzi accesul, îți poți recupera cheia de la: " }
+  "licensesynced": { "message": "Licența ta este sincronizată cu contul tău. Dacă pierzi accesul, îți poți recupera cheia de la: " },
+  "syncing": { "message": "Se sincronizează..." },
+  "pleaseenterkey": { "message": "Vă rugăm să introduceți o cheie." },
+  "syncsuccess": { "message": "Sincronizare reușită" },
+  "syncfailed": { "message": "Sincronizarea a eșuat." },
+  "passwordreset": { "message": "Protecția prin parolă a fost resetată." },
+  "privacysecured": { "message": "Confidențialitatea este asigurată" }
 }
