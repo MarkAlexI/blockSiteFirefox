@@ -36,6 +36,10 @@
   display: none !important;
 }
 
+#forgotPassword {
+  margin-top: 1rem;
+}
+
 @keyframes shake {
   0% { transform: translateX(0); }
   25% { transform: translateX(-5px); }

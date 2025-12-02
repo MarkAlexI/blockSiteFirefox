@@ -305,6 +305,14 @@ button:disabled {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+.modal button {
+  background-color: var(--primary-color);
+}
+
+.modal button:hover {
+  background-color: var(--primary-hover);
+}
+
 @media (min-width: 601px) {
   .controls {
     flex-direction: row;
