@@ -265,3 +265,53 @@ browser.runtime.onMessage.addListener((message) => {
 });
 
 updateUI();
+
+const proSection = document.getElementById('pro-section');
+
+document.addEventListener('DOMContentLoaded', () => {
+  browser.storage.local.get(['is_reviewer_mode'], (result) => {
+    if (result.is_reviewer_mode) {
+      proSection.classList.remove('hidden');
+      console.log('Dev/Reviewer mode is active (loaded from storage)');
+    }
+  });
+});
+
+window.unlockPro = () => {
+  proSection.classList.remove('hidden');
+  
+  browser.storage.local.set({ is_reviewer_mode: true }, () => {
+    console.log('✅ Pro Section Unlocked & Saved!');
+    console.log('To lock it back, run: window.lockPro()');
+  });
+};
+
+window.lockPro = () => {
+  proSection.classList.add('hidden');
+  browser.storage.local.remove('is_reviewer_mode', () => {
+    console.log('🔒 Pro Section Locked (Storage cleared)');
+  });
+};
+
+const logo = document.getElementById('header-text');
+let pressTimer;
+
+const cancelTimer = () => {
+  if (pressTimer) {
+    clearTimeout(pressTimer);
+    pressTimer = null;
+  }
+};
+
+logo.addEventListener('pointerdown', (e) => {
+  if (e.button === 0) {
+    pressTimer = setTimeout(() => {
+      window.unlockPro();
+      if (navigator.vibrate) navigator.vibrate(200);
+    }, 7000);
+  }
+});
+
+logo.addEventListener('pointerup', cancelTimer);
+
+logo.addEventListener('pointerleave', cancelTimer);
