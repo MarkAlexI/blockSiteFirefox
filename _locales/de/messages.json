@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Pro-Aktivierung & Status"
-  },
-  "options_pro_key_label": {
-    "message": "Lizenzschlüssel"
-  },
-  "options_pro_key_placeholder": {
-    "message": "Geben Sie hier Ihren Lizenzschlüssel ein"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Pro aktivieren"
-  },
-  "options_pro_key_instructions": {
-    "message": "Melden Sie sich auf blockdistraction.com an, um Ihren Schlüssel zu finden."
-  },
-  "options_pro_status_checking": {
-    "message": "Lizenzschlüssel wird überprüft..."
-  },
-  "options_pro_status_invalid": {
-    "message": "Der Lizenzschlüssel ist ungültig oder abgelaufen."
-  },
-  "options_pro_status_error": {
-    "message": "Ein Fehler ist aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung."
-  },
-  "options_pro_status_success": {
-    "message": "Pro-Status erfolgreich aktiviert!"
-  },
-  "options_pro_view_title": {
-    "message": "Pro-Status: Aktiv"
-  },
-  "options_pro_view_email_label": {
-    "message": "Kontoinhaber-E-Mail"
-  },
-  "options_pro_view_key_label": {
-    "message": "Lizenzschlüssel"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "Verlängerungsdatum"
-  },
-  "options_pro_view_manage_link": {
-    "message": "Abonnement auf der Website verwalten"
-  },
-  "options_pro_key_copy_button": {
-    "message": "Kopieren"
-  },
-  "options_pro_key_copied_button": {
-    "message": "Kopiert!"
-  },
   "onboarding_title": {
     "message": "Willkommen bei BlockDistraction"
   },

@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "ప్రో యాక్టివేషన్ & స్థితి"
-  },
-  "options_pro_key_label": {
-    "message": "లైసెన్స్ కీ"
-  },
-  "options_pro_key_placeholder": {
-    "message": "మీ లైసెన్స్ కీని ఇక్కడ నమోదు చేయండి"
-  },
-  "options_pro_key_button_activate": {
-    "message": "ప్రోను సక్రియం చేయండి"
-  },
-  "options_pro_key_instructions": {
-    "message": "మీ కీని కనుగొనడానికి blockdistraction.com లో లాగిన్ అవ్వండి."
-  },
-  "options_pro_status_checking": {
-    "message": "కీని తనిఖీ చేస్తోంది..."
-  },
-  "options_pro_status_invalid": {
-    "message": "లైసెన్స్ కీ చెల్లదు లేదా గడువు ముగిసింది."
-  },
-  "options_pro_status_error": {
-    "message": "లోపం సంభవించింది. దయచేసి మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేయండి."
-  },
-  "options_pro_status_success": {
-    "message": "ప్రో స్థితి విజయవంతంగా సక్రియం చేయబడింది!"
-  },
-  "options_pro_view_title": {
-    "message": "ప్రో స్థితి: యాక్టివ్"
-  },
-  "options_pro_view_email_label": {
-    "message": "ఖాతా ఇమెయిల్"
-  },
-  "options_pro_view_key_label": {
-    "message": "లైసెన్స్ కీ"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "పునరుద్ధరించే తేదీ"
-  },
-  "options_pro_view_manage_link": {
-    "message": "వెబ్‌సైట్‌లో సబ్‌స్క్రిప్షన్‌ని నిర్వహించండి"
-  },
-  "options_pro_key_copy_button": {
-    "message": "కాపీ చేయండి"
-  },
-  "options_pro_key_copied_button": {
-    "message": "కాపీ అయింది!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction కు స్వాగతం"
   },

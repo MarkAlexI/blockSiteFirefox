@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Pro 啟用與狀態"
-  },
-  "options_pro_key_label": {
-    "message": "授權金鑰"
-  },
-  "options_pro_key_placeholder": {
-    "message": "在此輸入您的授權金鑰"
-  },
-  "options_pro_key_button_activate": {
-    "message": "啟用 Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "請登入 blockdistraction.com 以取得您的金鑰。"
-  },
-  "options_pro_status_checking": {
-    "message": "正在驗證金鑰..."
-  },
-  "options_pro_status_invalid": {
-    "message": "授權金鑰無效或已過期。"
-  },
-  "options_pro_status_error": {
-    "message": "發生錯誤，請檢查您的網路連線。"
-  },
-  "options_pro_status_success": {
-    "message": "Pro 狀態已成功啟用！"
-  },
-  "options_pro_view_title": {
-    "message": "Pro 狀態：已啟用"
-  },
-  "options_pro_view_email_label": {
-    "message": "帳戶電子郵件"
-  },
-  "options_pro_view_key_label": {
-    "message": "授權金鑰"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "續訂日期"
-  },
-  "options_pro_view_manage_link": {
-    "message": "在網站上管理訂閱"
-  },
-  "options_pro_key_copy_button": {
-    "message": "複製"
-  },
-  "options_pro_key_copied_button": {
-    "message": "已複製！"
-  },
   "onboarding_title": {
     "message": "歡迎使用 BlockDistraction"
   },

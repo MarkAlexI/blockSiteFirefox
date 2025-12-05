@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Pro 활성화 및 상태"
-  },
-  "options_pro_key_label": {
-    "message": "라이선스 키"
-  },
-  "options_pro_key_placeholder": {
-    "message": "여기에 라이선스 키를 입력하세요"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Pro 활성화"
-  },
-  "options_pro_key_instructions": {
-    "message": "blockdistraction.com에 로그인하여 키를 확인하세요."
-  },
-  "options_pro_status_checking": {
-    "message": "키 확인 중..."
-  },
-  "options_pro_status_invalid": {
-    "message": "라이선스 키가 잘못되었거나 만료되었습니다."
-  },
-  "options_pro_status_error": {
-    "message": "오류가 발생했습니다. 인터넷 연결을 확인하세요."
-  },
-  "options_pro_status_success": {
-    "message": "Pro 상태가 성공적으로 활성화되었습니다!"
-  },
-  "options_pro_view_title": {
-    "message": "Pro 상태: 활성"
-  },
-  "options_pro_view_email_label": {
-    "message": "계정 이메일"
-  },
-  "options_pro_view_key_label": {
-    "message": "라이선스 키"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "갱신일"
-  },
-  "options_pro_view_manage_link": {
-    "message": "웹사이트에서 구독 관리"
-  },
-  "options_pro_key_copy_button": {
-    "message": "복사"
-  },
-  "options_pro_key_copied_button": {
-    "message": "복사됨!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction에 오신 것을 환영합니다"
   },

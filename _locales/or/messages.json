@@ -200,54 +200,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "ପ୍ରୋ ସକ୍ରିୟତା ଏବଂ ସ୍ଥିତି"
-  },
-  "options_pro_key_label": {
-    "message": "ଲାଇସେନ୍ସ କୀ"
-  },
-  "options_pro_key_placeholder": {
-    "message": "ଏଠାରେ ଆପଣଙ୍କର ଲାଇସେନ୍ସ କୀ ଦାଖଲ କରନ୍ତୁ"
-  },
-  "options_pro_key_button_activate": {
-    "message": "ପ୍ରୋ ସକ୍ରିୟ କରନ୍ତୁ"
-  },
-  "options_pro_key_instructions": {
-    "message": "ଆପଣଙ୍କର କୀ ପାଇଁ blockdistraction.com ରେ ଲଗଇନ୍ କରନ୍ତୁ।"
-  },
-  "options_pro_status_checking": {
-    "message": "କୀ ଯାଞ୍ଚ ହେଉଛି..."
-  },
-  "options_pro_status_invalid": {
-    "message": "ଲାଇସେନ୍ସ କୀ ଅବୈଧ କିମ୍ବା ସମୟସୀମା ଶେଷ ହୋଇଛି।"
-  },
-  "options_pro_status_error": {
-    "message": "ଏକ ତ୍ରୁଟି ଘଟିଛି। ଦୟାକରି ଆପଣଙ୍କର ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ଯାଞ୍ଚ କରନ୍ତୁ।"
-  },
-  "options_pro_status_success": {
-    "message": "ପ୍ରୋ ସ୍ଥିତି ସଫଳତାର ସହିତ ସକ୍ରିୟ ହୋଇଛି!"
-  },
-  "options_pro_view_title": {
-    "message": "ପ୍ରୋ ସ୍ଥିତି: ସକ୍ରିୟ"
-  },
-  "options_pro_view_email_label": {
-    "message": "ଖାତା ଇମେଲ୍"
-  },
-  "options_pro_view_key_label": {
-    "message": "ଲାଇସେନ୍ସ କୀ"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "ପୁନଃନବୀକରଣ ହେବାର ତାରିଖ"
-  },
-  "options_pro_view_manage_link": {
-    "message": "ୱେବସାଇଟ୍ ରେ ସବସ୍କ୍ରିପ୍ସନ୍ ପରିଚାଳନା କରନ୍ତୁ"
-  },
-  "options_pro_key_copy_button": {
-    "message": "କପି କରନ୍ତୁ"
-  },
-  "options_pro_key_copied_button": {
-    "message": "କପି ହୋଇଛି!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction କୁ ସ୍ୱାଗତ"
   },

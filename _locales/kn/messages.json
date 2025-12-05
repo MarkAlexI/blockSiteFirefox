@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "ಪ್ರೋ ಸಕ್ರಿಯತೆ ಮತ್ತು ಸ್ಥಿತಿ"
-  },
-  "options_pro_key_label": {
-    "message": "ಲೈಸೆನ್ಸ್ ಕೀ"
-  },
-  "options_pro_key_placeholder": {
-    "message": "ಇಲ್ಲಿ ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ಕೀ ನಮೂದಿಸಿ"
-  },
-  "options_pro_key_button_activate": {
-    "message": "ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಿ"
-  },
-  "options_pro_key_instructions": {
-    "message": "ನಿಮ್ಮ ಕೀ ಹುಡುಕಲು blockdistraction.com ಗೆ ಲಾಗಿನ್ ಮಾಡಿ."
-  },
-  "options_pro_status_checking": {
-    "message": "ಕೀ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ..."
-  },
-  "options_pro_status_invalid": {
-    "message": "ಲೈಸೆನ್ಸ್ ಕೀ ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಅವಧಿ ಮೀರಿದಿದೆ."
-  },
-  "options_pro_status_error": {
-    "message": "ಎರರ್ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ."
-  },
-  "options_pro_status_success": {
-    "message": "ಪ್ರೋ ಸ್ಥಿತಿ ಯಶಸ್ವಿಯಾಗಿ ಸಕ್ರಿಯಗೊಂಡಿದೆ!"
-  },
-  "options_pro_view_title": {
-    "message": "ಪ್ರೋ ಸ್ಥಿತಿ: ಸಕ್ರಿಯ"
-  },
-  "options_pro_view_email_label": {
-    "message": "ಖಾತೆ ಇಮೇಲ್"
-  },
-  "options_pro_view_key_label": {
-    "message": "ಲೈಸೆನ್ಸ್ ಕೀ"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "ಮರುನವೀಕರಣ ದಿನಾಂಕ"
-  },
-  "options_pro_view_manage_link": {
-    "message": "ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಸಬ್ಸ್ಕ್ರಿಪ್ಷನ್ ನಿರ್ವಹಿಸಿ"
-  },
-  "options_pro_key_copy_button": {
-    "message": "ನಕಲಿ ಮಾಡಿ"
-  },
-  "options_pro_key_copied_button": {
-    "message": "ನಕಲಿ ಮಾಡಲಾಗಿದೆ!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction ಗೆ ಸ್ವಾಗತ"
   },

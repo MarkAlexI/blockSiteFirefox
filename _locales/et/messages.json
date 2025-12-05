@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Pro aktiveerimine ja olek"
-  },
-  "options_pro_key_label": {
-    "message": "Litsentsivõti"
-  },
-  "options_pro_key_placeholder": {
-    "message": "Sisestage siia oma litsentsivõti"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Aktiveeri Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "Otsi oma võti aadressilt blockdistraction.com."
-  },
-  "options_pro_status_checking": {
-    "message": "Võtit kontrollitakse..."
-  },
-  "options_pro_status_invalid": {
-    "message": "Litsentsivõti on kehtetu või aegunud."
-  },
-  "options_pro_status_error": {
-    "message": "Tekkis viga. Kontrolli oma internetiühendust."
-  },
-  "options_pro_status_success": {
-    "message": "Pro-olek aktiveeriti edukalt!"
-  },
-  "options_pro_view_title": {
-    "message": "Pro-olek: Aktiivne"
-  },
-  "options_pro_view_email_label": {
-    "message": "Konto e-post"
-  },
-  "options_pro_view_key_label": {
-    "message": "Litsentsivõti"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "Uueneb"
-  },
-  "options_pro_view_manage_link": {
-    "message": "Halda tellimust veebis"
-  },
-  "options_pro_key_copy_button": {
-    "message": "Kopeeri"
-  },
-  "options_pro_key_copied_button": {
-    "message": "Kopeeritud!"
-  },
   "onboarding_title": {
     "message": "Tere tulemast BlockDistractioni"
   },

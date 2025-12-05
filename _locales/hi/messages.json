@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Pro सक्रियण और स्थिति"
-  },
-  "options_pro_key_label": {
-    "message": "लाइसेंस कुंजी"
-  },
-  "options_pro_key_placeholder": {
-    "message": "यहाँ अपनी लाइसेंस कुंजी दर्ज करें"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Pro सक्रिय करें"
-  },
-  "options_pro_key_instructions": {
-    "message": "अपनी कुंजी खोजने के लिए blockdistraction.com पर लॉग इन करें।"
-  },
-  "options_pro_status_checking": {
-    "message": "कुंजी की जाँच हो रही है..."
-  },
-  "options_pro_status_invalid": {
-    "message": "लाइसेंस कुंजी अमान्य है या समाप्त हो गई है।"
-  },
-  "options_pro_status_error": {
-    "message": "एक त्रुटि हुई। कृपया अपना इंटरनेट कनेक्शन जाँचें।"
-  },
-  "options_pro_status_success": {
-    "message": "Pro स्थिति सफलतापूर्वक सक्रिय हो गई!"
-  },
-  "options_pro_view_title": {
-    "message": "Pro स्थिति: सक्रिय"
-  },
-  "options_pro_view_email_label": {
-    "message": "खाता ईमेल"
-  },
-  "options_pro_view_key_label": {
-    "message": "लाइसेंस कुंजी"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "नवीनीकरण तिथि"
-  },
-  "options_pro_view_manage_link": {
-    "message": "वेबसाइट पर सदस्यता प्रबंधित करें"
-  },
-  "options_pro_key_copy_button": {
-    "message": "कॉपी करें"
-  },
-  "options_pro_key_copied_button": {
-    "message": "कॉपी हो गया!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction में आपका स्वागत है"
   },

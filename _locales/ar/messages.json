@@ -200,54 +200,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "تفعيل Pro والحالة"
-  },
-  "options_pro_key_label": {
-    "message": "مفتاح الترخيص"
-  },
-  "options_pro_key_placeholder": {
-    "message": "أدخل مفتاح الترخيص هنا"
-  },
-  "options_pro_key_button_activate": {
-    "message": "تفعيل Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "قم بتسجيل الدخول إلى blockdistraction.com للعثور على مفتاحك."
-  },
-  "options_pro_status_checking": {
-    "message": "جارٍ التحقق من المفتاح..."
-  },
-  "options_pro_status_invalid": {
-    "message": "مفتاح الترخيص غير صالح أو منتهي الصلاحية."
-  },
-  "options_pro_status_error": {
-    "message": "حدث خطأ. يرجى التحقق من اتصال الإنترنت."
-  },
-  "options_pro_status_success": {
-    "message": "تم تفعيل حالة Pro بنجاح!"
-  },
-  "options_pro_view_title": {
-    "message": "حالة Pro: نشط"
-  },
-  "options_pro_view_email_label": {
-    "message": "بريد الحساب الإلكتروني"
-  },
-  "options_pro_view_key_label": {
-    "message": "مفتاح الترخيص"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "تجدد في"
-  },
-  "options_pro_view_manage_link": {
-    "message": "إدارة الاشتراك على الموقع"
-  },
-  "options_pro_key_copy_button": {
-    "message": "نسخ"
-  },
-  "options_pro_key_copied_button": {
-    "message": "تم النسخ!"
-  },
   "onboarding_title": {
     "message": "مرحبًا بك في BlockDistraction"
   },

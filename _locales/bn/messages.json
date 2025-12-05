@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Pro সক্রিয়করণ ও অবস্থা"
-  },
-  "options_pro_key_label": {
-    "message": "লাইসেন্স কী"
-  },
-  "options_pro_key_placeholder": {
-    "message": "এখানে আপনার লাইসেন্স কী লিখুন"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Pro সক্রিয় করুন"
-  },
-  "options_pro_key_instructions": {
-    "message": "আপনার কী খুঁজে পেতে blockdistraction.com-এ লগইন করুন।"
-  },
-  "options_pro_status_checking": {
-    "message": "কী যাচাই করা হচ্ছে..."
-  },
-  "options_pro_status_invalid": {
-    "message": "লাইসেন্স কী অবৈধ বা মেয়াদোত্তীর্ণ।"
-  },
-  "options_pro_status_error": {
-    "message": "একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।"
-  },
-  "options_pro_status_success": {
-    "message": "Pro অবস্থা সফলভাবে সক্রিয় হয়েছে!"
-  },
-  "options_pro_view_title": {
-    "message": "Pro অবস্থা: সক্রিয়"
-  },
-  "options_pro_view_email_label": {
-    "message": "অ্যাকাউন্ট ইমেল"
-  },
-  "options_pro_view_key_label": {
-    "message": "লাইসেন্স কী"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "নবায়ন হবে"
-  },
-  "options_pro_view_manage_link": {
-    "message": "ওয়েবসাইটে সাবস্ক্রিপশন পরিচালনা করুন"
-  },
-  "options_pro_key_copy_button": {
-    "message": "কপি করুন"
-  },
-  "options_pro_key_copied_button": {
-    "message": "কপি হয়েছে!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction-এ স্বাগতম"
   },

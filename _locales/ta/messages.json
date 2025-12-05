@@ -190,54 +190,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "ப்ரோ செயல்படுத்தல் மற்றும் நிலை"
-  },
-  "options_pro_key_label": {
-    "message": "உரிமச் சாவி"
-  },
-  "options_pro_key_placeholder": {
-    "message": "உங்கள் உரிமச் சாவியை இங்கே உள்ளிடவும்"
-  },
-  "options_pro_key_button_activate": {
-    "message": "ப்ரோவை செயல்படுத்தவும்"
-  },
-  "options_pro_key_instructions": {
-    "message": "உங்கள் சாவியை காண blockdistraction.com இல் உள்நுழைக."
-  },
-  "options_pro_status_checking": {
-    "message": "சாவி சரிபார்க்கப்படுகிறது..."
-  },
-  "options_pro_status_invalid": {
-    "message": "உரிமச் சாவி தவறானது அல்லது காலாவதியானது."
-  },
-  "options_pro_status_error": {
-    "message": "பிழை ஏற்பட்டது. உங்கள் இணைய இணைப்பைச் சரிபார்க்கவும்."
-  },
-  "options_pro_status_success": {
-    "message": "ப்ரோ நிலை வெற்றிகரமாக செயல்படுத்தப்பட்டது!"
-  },
-  "options_pro_view_title": {
-    "message": "ப்ரோ நிலை: செயலில்"
-  },
-  "options_pro_view_email_label": {
-    "message": "கணக்கு மின்னஞ்சல்"
-  },
-  "options_pro_view_key_label": {
-    "message": "உரிமச் சாவி"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "மீண்டும் புதுப்பிக்கும் தேதி"
-  },
-  "options_pro_view_manage_link": {
-    "message": "வலைத்தளத்தில் சந்தாவை நிர்வகிக்கவும்"
-  },
-  "options_pro_key_copy_button": {
-    "message": "நகலெடுக்கவும்"
-  },
-  "options_pro_key_copied_button": {
-    "message": "நகலெடுக்கப்பட்டது!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction க்கு வரவேற்கிறோம்"
   },

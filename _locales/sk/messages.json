@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Aktivácia a stav Pro"
-  },
-  "options_pro_key_label": {
-    "message": "Licenčný kľúč"
-  },
-  "options_pro_key_placeholder": {
-    "message": "Zadajte svoj licenčný kľúč sem"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Aktivovať Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "Prihláste sa na blockdistraction.com, aby ste našli svoj kľúč."
-  },
-  "options_pro_status_checking": {
-    "message": "Kontrola kľúča..."
-  },
-  "options_pro_status_invalid": {
-    "message": "Licenčný kľúč je neplatný alebo expiroval."
-  },
-  "options_pro_status_error": {
-    "message": "Došlo k chybe. Skontrolujte svoje internetové pripojenie."
-  },
-  "options_pro_status_success": {
-    "message": "Stav Pro bol úspešne aktivovaný!"
-  },
-  "options_pro_view_title": {
-    "message": "Stav Pro: Aktívny"
-  },
-  "options_pro_view_email_label": {
-    "message": "Email účtu"
-  },
-  "options_pro_view_key_label": {
-    "message": "Licenčný kľúč"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "Obnoví sa"
-  },
-  "options_pro_view_manage_link": {
-    "message": "Spravovať predplatné na webovej stránke"
-  },
-  "options_pro_key_copy_button": {
-    "message": "Kopírovať"
-  },
-  "options_pro_key_copied_button": {
-    "message": "Skopírované!"
-  },
   "onboarding_title": {
     "message": "Vitajte v BlockDistraction"
   },

@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "प्रो सक्रियता आणि स्थिती"
-  },
-  "options_pro_key_label": {
-    "message": "लायसन्स की"
-  },
-  "options_pro_key_placeholder": {
-    "message": "आपली लायसन्स की येथे प्रविष्ट करा"
-  },
-  "options_pro_key_button_activate": {
-    "message": "प्रो सक्रिय करा"
-  },
-  "options_pro_key_instructions": {
-    "message": "आपली की शोधण्यासाठी blockdistraction.com वर लॉगिन करा."
-  },
-  "options_pro_status_checking": {
-    "message": "की तपासली जात आहे..."
-  },
-  "options_pro_status_invalid": {
-    "message": "लायसन्स की अवैध आहे किंवा कालबाह्य झाली आहे."
-  },
-  "options_pro_status_error": {
-    "message": "त्रुटी झाली. कृपया आपले इंटरनेट कनेक्शन तपासा."
-  },
-  "options_pro_status_success": {
-    "message": "प्रो स्थिती यशस्वीरित्या सक्रिय झाली!"
-  },
-  "options_pro_view_title": {
-    "message": "प्रो स्थिती: सक्रिय"
-  },
-  "options_pro_view_email_label": {
-    "message": "खाते ईमेल"
-  },
-  "options_pro_view_key_label": {
-    "message": "लायसन्स की"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "नवीन करण्यात येईल"
-  },
-  "options_pro_view_manage_link": {
-    "message": "वेबसाईटवर सदस्यत्व व्यवस्थापित करा"
-  },
-  "options_pro_key_copy_button": {
-    "message": "कॉपी करा"
-  },
-  "options_pro_key_copied_button": {
-    "message": "कॉपी झाले!"
-  },
   "onboarding_title": {
     "message": "BlockDistraction मध्ये आपले स्वागत आहे"
   },

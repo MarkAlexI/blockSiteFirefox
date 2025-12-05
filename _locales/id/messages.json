@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Aktivasi & Status Pro"
-  },
-  "options_pro_key_label": {
-    "message": "Kunci Lisensi"
-  },
-  "options_pro_key_placeholder": {
-    "message": "Masukkan kunci lisensi Anda di sini"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Aktifkan Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "Masuk ke blockdistraction.com untuk menemukan kunci Anda."
-  },
-  "options_pro_status_checking": {
-    "message": "Memeriksa kunci..."
-  },
-  "options_pro_status_invalid": {
-    "message": "Kunci lisensi tidak valid atau telah kedaluwarsa."
-  },
-  "options_pro_status_error": {
-    "message": "Terjadi kesalahan. Periksa koneksi internet Anda."
-  },
-  "options_pro_status_success": {
-    "message": "Status Pro berhasil diaktifkan!"
-  },
-  "options_pro_view_title": {
-    "message": "Status Pro: Aktif"
-  },
-  "options_pro_view_email_label": {
-    "message": "Email Akun"
-  },
-  "options_pro_view_key_label": {
-    "message": "Kunci Lisensi"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "Diperbarui Pada"
-  },
-  "options_pro_view_manage_link": {
-    "message": "Kelola Langganan di Situs Web"
-  },
-  "options_pro_key_copy_button": {
-    "message": "Salin"
-  },
-  "options_pro_key_copied_button": {
-    "message": "Tersalin!"
-  },
   "onboarding_title": {
     "message": "Selamat Datang di BlockDistraction"
   },

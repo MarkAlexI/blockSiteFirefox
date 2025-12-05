@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Активиране на Pro и статус"
-  },
-  "options_pro_key_label": {
-    "message": "Лицензионен ключ"
-  },
-  "options_pro_key_placeholder": {
-    "message": "Въведете лицензионния си ключ тук"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Активирай Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "Влезте в blockdistraction.com, за да намерите своя ключ."
-  },
-  "options_pro_status_checking": {
-    "message": "Проверка на ключа..."
-  },
-  "options_pro_status_invalid": {
-    "message": "Лицензионният ключ е невалиден или изтекъл."
-  },
-  "options_pro_status_error": {
-    "message": "Възникна грешка. Моля, проверете интернет връзката си."
-  },
-  "options_pro_status_success": {
-    "message": "Pro статусът е успешно активиран!"
-  },
-  "options_pro_view_title": {
-    "message": "Pro статус: Активен"
-  },
-  "options_pro_view_email_label": {
-    "message": "Имейл на акаунта"
-  },
-  "options_pro_view_key_label": {
-    "message": "Лицензионен ключ"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "Подновява се на"
-  },
-  "options_pro_view_manage_link": {
-    "message": "Управление на абонамента в сайта"
-  },
-  "options_pro_key_copy_button": {
-    "message": "Копирай"
-  },
-  "options_pro_key_copied_button": {
-    "message": "Копирано!"
-  },
   "onboarding_title": {
     "message": "Добре дошли в BlockDistraction"
   },

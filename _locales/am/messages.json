@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Pro እንደገና መነሳት እና ሁኔታ"
-  },
-  "options_pro_key_label": {
-    "message": "የፈቃድ ቁልፍ"
-  },
-  "options_pro_key_placeholder": {
-    "message": "የፈቃድ ቁልፍዎን እዚህ ያስገቡ"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Pro አክቲቭ ላይ ያድርጉ"
-  },
-  "options_pro_key_instructions": {
-    "message": "የቁልፍዎን ለማግኘት ወደ blockdistraction.com ይግቡ።"
-  },
-  "options_pro_status_checking": {
-    "message": "ቁልፍ በመምረጥ ላይ..."
-  },
-  "options_pro_status_invalid": {
-    "message": "የፈቃድ ቁልፍ የተሳሳተ ነው ወይም ማቅረብ ጊዜው ገብሷል።"
-  },
-  "options_pro_status_error": {
-    "message": "ስህተት አጋጥሟል። የኢንተርኔት ግንኙነትዎን ይከታተሉ።"
-  },
-  "options_pro_status_success": {
-    "message": "Pro ሁኔታ በተሳካ ሁኔታ ተክቷል!"
-  },
-  "options_pro_view_title": {
-    "message": "Pro ሁኔታ: ንቁ"
-  },
-  "options_pro_view_email_label": {
-    "message": "ኢሜይል መለያ"
-  },
-  "options_pro_view_key_label": {
-    "message": "የፈቃድ ቁልፍ"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "በመቼ ይደገፋል"
-  },
-  "options_pro_view_manage_link": {
-    "message": "የማስተዳደር እቅድ በድህረ ገጽ ይከታተሉ"
-  },
-  "options_pro_key_copy_button": {
-    "message": "ቅዳ"
-  },
-  "options_pro_key_copied_button": {
-    "message": "ተቅዳል!"
-  },
   "onboarding_title": {
     "message": "እንኳን ወደ BlockDistraction በደህና መጡ"
   },

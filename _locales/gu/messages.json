@@ -158,7 +158,6 @@
   "schedule_day_sun": { "message": "રવિ" },
   "schedule_day_mon": { "message": "સોમ" },
   "schedule_day_tue": { "message": "મંગળ" },
-  "schedule_day_wed": { "message": "બુધ" },
   "schedule_day_thu": { "message": "ગુરુ" },
   "schedule_day_fri": { "message": "શુક્ર" },
   "schedule_day_sat": { "message": "શનિ" },
@@ -190,54 +189,6 @@
   "proactivatedfor": { "message": "પ્રો સક્રિય કરાયું છે માટે" },
   "appName": {
     "message": "BlockDistraction"
-  },
-  "options_pro_title": {
-    "message": "પ્રો સક્રિયતા અને સ્થિતિ"
-  },
-  "options_pro_key_label": {
-    "message": "લાયસન્સ કી"
-  },
-  "options_pro_key_placeholder": {
-    "message": "તમારી લાયસન્સ કી અહીં દાખલ કરો"
-  },
-  "options_pro_key_button_activate": {
-    "message": "પ્રો સક્રિય કરો"
-  },
-  "options_pro_key_instructions": {
-    "message": "તમારી કી શોધવા માટે blockdistraction.com પર લૉગ ઇન કરો."
-  },
-  "options_pro_status_checking": {
-    "message": "કી ચકાસાઈ રહી છે..."
-  },
-  "options_pro_status_invalid": {
-    "message": "લાયસન્સ કી અમાન્ય છે અથવા સમય સમાપ્ત થઈ ગયો છે."
-  },
-  "options_pro_status_error": {
-    "message": "કોઈ ત્રુટિ થઈ છે. કૃપા કરીને તમારી ઇન્ટરનેટ કનેક્શન તપાસો."
-  },
-  "options_pro_status_success": {
-    "message": "પ્રો સ્થિતિ સફળતાપૂર્વક સક્રિય થઈ ગઈ છે!"
-  },
-  "options_pro_view_title": {
-    "message": "પ્રો સ્થિતિ: સક્રિય"
-  },
-  "options_pro_view_email_label": {
-    "message": "એકાઉન્ટ ઈમેઈલ"
-  },
-  "options_pro_view_key_label": {
-    "message": "લાયસન્સ કી"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "નવું અપડેટ થશે"
-  },
-  "options_pro_view_manage_link": {
-    "message": "સબ્સ્ક્રિપ્શન વેબસાઈટ પર મેનેજ કરો"
-  },
-  "options_pro_key_copy_button": {
-    "message": "નકલ કરો"
-  },
-  "options_pro_key_copied_button": {
-    "message": "નકલ થયું!"
   },
   "onboarding_title": {
     "message": "BlockDistraction માં આપનું સ્વાગત છે"

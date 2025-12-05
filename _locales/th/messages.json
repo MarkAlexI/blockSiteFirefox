@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "เปิดใช้งาน Pro และสถานะ"
-  },
-  "options_pro_key_label": {
-    "message": "รหัสใบอนุญาต"
-  },
-  "options_pro_key_placeholder": {
-    "message": "กรอกรหัสใบอนุญาตของคุณที่นี่"
-  },
-  "options_pro_key_button_activate": {
-    "message": "เปิดใช้งาน Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "เข้าสู่ระบบที่ blockdistraction.com เพื่อค้นหารหัสของคุณ"
-  },
-  "options_pro_status_checking": {
-    "message": "กำลังตรวจสอบรหัส..."
-  },
-  "options_pro_status_invalid": {
-    "message": "รหัสใบอนุญาตไม่ถูกต้องหรือหมดอายุแล้ว"
-  },
-  "options_pro_status_error": {
-    "message": "เกิดข้อผิดพลาด โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ"
-  },
-  "options_pro_status_success": {
-    "message": "เปิดใช้งานสถานะ Pro สำเร็จแล้ว!"
-  },
-  "options_pro_view_title": {
-    "message": "สถานะ Pro: ใช้งานอยู่"
-  },
-  "options_pro_view_email_label": {
-    "message": "อีเมลบัญชี"
-  },
-  "options_pro_view_key_label": {
-    "message": "รหัสใบอนุญาต"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "ต่ออายุในวันที่"
-  },
-  "options_pro_view_manage_link": {
-    "message": "จัดการการสมัครสมาชิกบนเว็บไซต์"
-  },
-  "options_pro_key_copy_button": {
-    "message": "คัดลอก"
-  },
-  "options_pro_key_copied_button": {
-    "message": "คัดลอกแล้ว!"
-  },
   "onboarding_title": {
     "message": "ยินดีต้อนรับสู่ BlockDistraction"
   },

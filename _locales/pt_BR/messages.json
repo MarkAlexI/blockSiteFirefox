@@ -191,54 +191,6 @@
   "appName": {
     "message": "BlockDistraction"
   },
-  "options_pro_title": {
-    "message": "Ativação e Status do Pro"
-  },
-  "options_pro_key_label": {
-    "message": "Chave de licença"
-  },
-  "options_pro_key_placeholder": {
-    "message": "Insira sua chave de licença aqui"
-  },
-  "options_pro_key_button_activate": {
-    "message": "Ativar Pro"
-  },
-  "options_pro_key_instructions": {
-    "message": "Acesse blockdistraction.com para encontrar sua chave."
-  },
-  "options_pro_status_checking": {
-    "message": "Verificando chave..."
-  },
-  "options_pro_status_invalid": {
-    "message": "A chave de licença é inválida ou expirou."
-  },
-  "options_pro_status_error": {
-    "message": "Ocorreu um erro. Verifique sua conexão com a Internet."
-  },
-  "options_pro_status_success": {
-    "message": "Status Pro ativado com sucesso!"
-  },
-  "options_pro_view_title": {
-    "message": "Status Pro: ativo"
-  },
-  "options_pro_view_email_label": {
-    "message": "E-mail da conta"
-  },
-  "options_pro_view_key_label": {
-    "message": "Chave de licença"
-  },
-  "options_pro_view_expiry_label": {
-    "message": "Renova em"
-  },
-  "options_pro_view_manage_link": {
-    "message": "Gerenciar assinatura no site"
-  },
-  "options_pro_key_copy_button": {
-    "message": "Copiar"
-  },
-  "options_pro_key_copied_button": {
-    "message": "Copiado!"
-  },
   "onboarding_title": {
     "message": "Bem-vindo ao BlockDistraction"
   },
