@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.18.10] - 2025-12-06
+### Added
+- Added password protection (when a password is set) to prevent bulk deletion of rules and clearing of statistics in the settings page under Pro mode.
+
 ## [2.18.9] - 2025-12-06
 ### Removed
 - Removed outdated and unused translation keys from all locales.

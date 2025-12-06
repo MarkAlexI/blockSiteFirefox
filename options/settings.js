@@ -63,7 +63,9 @@ export class SettingsManager {
       const defaultSettings = {
         mode: 'normal',
         confirmBeforeDelete: false,
-        showNotifications: true
+        showNotifications: true,
+        enablePassword: false,
+        passwordHash: null
       };
       
       if (!result.settings) {
@@ -77,7 +79,9 @@ export class SettingsManager {
       return {
         mode: 'normal',
         confirmBeforeDelete: false,
-        showNotifications: true
+        showNotifications: true,
+        enablePassword: false,
+        passwordHash: null
       };
     }
   }
@@ -88,9 +92,14 @@ export class SettingsManager {
       radio.checked = radio.value === settings.mode;
     });
     
-    document.getElementById('confirmBeforeDelete').checked = settings.confirmBeforeDelete;
-    document.getElementById('showNotifications').checked = settings.showNotifications;
-    document.getElementById('enablePassword').checked = settings.enablePassword;
+    const confirmBox = document.getElementById('confirmBeforeDelete');
+    if (confirmBox) confirmBox.checked = settings.confirmBeforeDelete;
+    
+    const notifBox = document.getElementById('showNotifications');
+    if (notifBox) notifBox.checked = settings.showNotifications;
+    
+    const passBox = document.getElementById('enablePassword');
+    if (passBox) passBox.checked = settings.enablePassword;
   }
   
   async saveSettings(settingsToSave) {
@@ -120,6 +129,18 @@ export class SettingsManager {
       enablePassword
     };
   }
+
+  async checkPasswordProtection() {
+    const settings = await SettingsManager.getSettings();
+    if (settings.enablePassword) {
+      return new Promise((resolve) => {
+        PasswordUtils.showPasswordModal('verify', (isValid) => {
+          resolve(isValid);
+        }, t);
+      });
+    }
+    return true;
+  }
   
   setupEventListeners() {
     const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword)');
@@ -146,26 +167,22 @@ export class SettingsManager {
           return;
         }
         
-        const enable = !event.target.checked;
+        const enable = !enablePasswordToggle.checked;
         
         if (enable) {
           PasswordUtils.showPasswordModal('set', async (hash) => {
             if (hash) {
               await this.saveSettings({ enablePassword: true, passwordHash: hash });
-              event.target.checked = true;
+              enablePasswordToggle.checked = true;
               this.showStatus(t('passwordset'), 'success');
-            } else {
-              event.target.checked = false;
             }
           }, t);
         } else {
           PasswordUtils.showPasswordModal('verify', async (isValid) => {
             if (isValid) {
               await this.saveSettings({ enablePassword: false, passwordHash: null });
-              event.target.checked = false;
+              enablePasswordToggle.checked = false;
               this.showStatus(t('passworddisabled'), 'success');
-            } else {
-              event.target.checked = true;
             }
           }, t);
         }
@@ -176,7 +193,7 @@ export class SettingsManager {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
       this.exportRules();
     });
-    
+
     document.getElementById('importRules').addEventListener('click', async () => {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
       document.getElementById('importFileInput').click();
@@ -185,14 +202,22 @@ export class SettingsManager {
     document.getElementById('importFileInput').addEventListener('change', (e) => {
       this.importRules(e.target.files[0]);
     });
-    
+
     document.getElementById('clearAllRules').addEventListener('click', async () => {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+
+      const isAuthorized = await this.checkPasswordProtection();
+      if (!isAuthorized) return;
+
       this.clearAllRules();
     });
-    
+
     document.getElementById('resetSettings').addEventListener('click', async () => {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+
+      const isAuthorized = await this.checkPasswordProtection();
+      if (!isAuthorized) return;
+
       this.resetSettings();
     });
 
@@ -200,6 +225,10 @@ export class SettingsManager {
     if (clearStatsBtn) {
       clearStatsBtn.addEventListener('click', async () => {
         if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+
+        const isAuthorized = await this.checkPasswordProtection();
+        if (!isAuthorized) return;
+
         if (confirm(t('confirmclearstats'))) { 
           await StatisticsManager.reset();
           await this.loadStatistics(); 
@@ -227,7 +256,8 @@ export class SettingsManager {
         const rulesResult = await browser.storage.sync.get(['rules']);
         rules = rulesResult.rules || [];
       }
-      document.getElementById('totalRules').textContent = rules.length;
+      const el = document.getElementById('totalRules');
+      if (el) el.textContent = rules.length;
     } catch (error) {
       console.error('Error loading rule count:', error);
     }
@@ -244,10 +274,15 @@ export class SettingsManager {
         stats.redirectsToday = 0;
       }
       
-      document.getElementById('totalBlocked').textContent = stats.totalBlocked || 0;
-      document.getElementById('blockedToday').textContent = stats.blockedToday || 0;
-      document.getElementById('totalRedirects').textContent = stats.totalRedirects || 0;
-      document.getElementById('redirectsToday').textContent = stats.redirectsToday || 0;
+      const setStatsText = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = val;
+      };
+
+      setStatsText('totalBlocked', stats.totalBlocked || 0);
+      setStatsText('blockedToday', stats.blockedToday || 0);
+      setStatsText('totalRedirects', stats.totalRedirects || 0);
+      setStatsText('redirectsToday', stats.redirectsToday || 0);
     } catch (error) {
       console.error('Error loading statistics:', error);
     }
@@ -373,6 +408,8 @@ export class SettingsManager {
       await browser.storage.sync.set({ settings: this.defaultSettings });
       this.applySettingsToUI(this.defaultSettings);
       this.showStatus(t('resettodefaults'), 'success');
+
+      setTimeout(() => window.location.reload(), 1000);
     } catch (error) {
       console.error('Error resetting settings:', error);
       this.showStatus(t('errorresettingsettings'), 'error');
@@ -381,6 +418,8 @@ export class SettingsManager {
   
   showStatus(message, type = 'success') {
     const statusElement = document.getElementById('statusMessage');
+    if (!statusElement) return;
+    
     statusElement.textContent = message;
     statusElement.className = `status-message ${type} show`;
     
@@ -390,8 +429,12 @@ export class SettingsManager {
   }
   
   notifyOptionsReload() {
-    browser.runtime.sendMessage({
-      type: 'reload_rules'
-    });
+    try {
+      browser.runtime.sendMessage({
+        type: 'reload_rules'
+      });
+    } catch(e) {
+      console.log("Could not send reload message (maybe background inactive)", e);
+    }
   }
 }
