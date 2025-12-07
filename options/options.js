@@ -19,17 +19,13 @@ class OptionsPage {
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
     this.categoryFilter = document.getElementById('category-filter');
-    
-    this.isPro = false;
-    this.isLegacyUser = true;
-    
+
     this.init();
   }
   
   async init() {
     this.initializeUI();
     this.setupEventListeners();
-    
     this.settingsManager.setRulesUpdatedCallback(() => {
       this.loadRules();
     });
@@ -46,38 +42,49 @@ class OptionsPage {
   }
   
   initializeUI() {
-    document.getElementById('options-title').textContent = t('header');
-    document.getElementById('header-text').textContent = t('header');
-    this.addRuleButton.textContent = t('addrule');
-    document.getElementById('block-url-header').textContent = t('blockurl');
-    document.getElementById('redirect-url-header').textContent = t('redirecturl');
-    document.getElementById('category-header').textContent = t('category_header');
-    document.getElementById('actions-header').textContent = t('actionsheader');
-    this.searchInput.placeholder = t('searchfordomain');
-    const allOption = this.categoryFilter.querySelector('option[value="all"]');
-    allOption.textContent = t('allcategories');
-    const socialOption = this.categoryFilter.querySelector('option[value="social"]');
-    socialOption.textContent = t('category_social');
-    const newsOption = this.categoryFilter.querySelector('option[value="news"]');
-    newsOption.textContent = t('category_news');
-    const entertainmentOption = this.categoryFilter.querySelector('option[value="entertainment"]');
-    entertainmentOption.textContent = t('category_entertainment');
-    const shoppingOption = this.categoryFilter.querySelector('option[value="shopping"]');
-    shoppingOption.textContent = t('category_shopping');
-    const workOption = this.categoryFilter.querySelector('option[value="work"]');
-    workOption.textContent = t('category_work');
-    const gamingOption = this.categoryFilter.querySelector('option[value="gaming"]');
-    gamingOption.textContent = t('category_gaming');
-    const adultOption = this.categoryFilter.querySelector('option[value="adult"]');
-    adultOption.textContent = t('category_adult');
-    const uncategorizedOption = this.categoryFilter.querySelector('option[value="uncategorized"]');
-    uncategorizedOption.textContent = t('category_uncategorized');
+    const setContent = (id, key) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = t(key);
+    };
+
+    setContent('options-title', 'header');
+    setContent('header-text', 'header');
+    if(this.addRuleButton) this.addRuleButton.textContent = t('addrule');
+    setContent('block-url-header', 'blockurl');
+    setContent('redirect-url-header', 'redirecturl');
+    setContent('category-header', 'category_header');
+    setContent('actions-header', 'actionsheader');
+    
+    if(this.searchInput) this.searchInput.placeholder = t('searchfordomain');
+
+    const translateOption = (val, key) => {
+        const opt = this.categoryFilter.querySelector(`option[value="${val}"]`);
+        if(opt) opt.textContent = t(key);
+    };
+
+    translateOption('all', 'allcategories');
+    translateOption('social', 'category_social');
+    translateOption('news', 'category_news');
+    translateOption('entertainment', 'category_entertainment');
+    translateOption('shopping', 'category_shopping');
+    translateOption('work', 'category_work');
+    translateOption('gaming', 'category_gaming');
+    translateOption('adult', 'category_adult');
+    translateOption('uncategorized', 'category_uncategorized');
   }
   
   setupEventListeners() {
-    this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
-    this.searchInput.addEventListener('input', () => this.loadRules());
-    this.categoryFilter.addEventListener('change', () => this.loadRules());
+    if(this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
+    if(this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
+    if(this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
+  }
+
+  async promptForPassword() {
+    return new Promise((resolve) => {
+      PasswordUtils.showPasswordModal('verify', (isValid) => {
+        resolve(isValid);
+      }, t);
+    });
   }
   
   async loadRules(rules_from_message = null) {
@@ -157,13 +164,11 @@ class OptionsPage {
     try {
       const isStrictMode = await this.rulesManager.isStrictMode();
       const deleteButton = event.target;
+
       const settings = await SettingsManager.getSettings();
       if (settings.enablePassword) {
         const isValid = await this.promptForPassword();
-        if (!isValid) {
-          this.rulesUI.showErrorMessage(t('invalidpassword'));
-          return;
-        }
+        if (!isValid) return;
       }
       
       this.rulesUI.handleRuleDeletion(
@@ -172,7 +177,6 @@ class OptionsPage {
             try {
               await this.rulesManager.deleteRule(index);
               this.rulesUI.showSuccessMessage(t('ruleddeleted'), this.statusElement);
-              
               this.loadRules();
             } catch (error) {
               console.error("Delete rule error:", error);
@@ -200,25 +204,13 @@ class OptionsPage {
     const settings = await SettingsManager.getSettings();
     if (settings.enablePassword) {
       const isValid = await this.promptForPassword();
-      if (!isValid) {
-        this.rulesUI.showErrorMessage(t('invalidpassword'));
-        return;
-      }
+      if (!isValid) return;
     }
     
     row.replaceWith(editRow);
   }
   
-  async promptForPassword() {
-    return new Promise((resolve) => {
-      PasswordUtils.showPasswordModal('verify', (isValid) => {
-        resolve(isValid);
-      }, t);
-    });
-  }
-  
   async saveEditedRule(index, newBlock, newRedirect, newCategory, newSchedule, oldRuleId) {
-    console.log('Saving edited rule with schedule:', newSchedule);
     try {
       await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule, newCategory);
       
@@ -230,11 +222,9 @@ class OptionsPage {
       }
       
       this.statusElement.textContent = t('ruleupdated');
-      
       this.loadRules();
     } catch (error) {
       console.info("Save edited rule error:", error);
-      
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');
         this.rulesUI.showValidationErrors(errors);
@@ -281,11 +271,9 @@ class OptionsPage {
       }
       
       this.statusElement.textContent = t('rulenewadded');
-      
       this.loadRules();
     } catch (error) {
       console.info("Save new rule error:", error);
-      
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');
         this.rulesUI.showValidationErrors(errors);
@@ -311,7 +299,6 @@ window.addEventListener('beforeunload', () => {
 browser.runtime.onMessage.addListener((message) => {
   if (message.type === 'reload_rules') {
     optionsPage.loadRules(message.rules);
-    
     if (optionsPage.settingsManager) {
       optionsPage.settingsManager.loadRuleCount(message.rules);
     }
@@ -319,9 +306,7 @@ browser.runtime.onMessage.addListener((message) => {
   
   if (message.type === 'pro_status_changed') {
     console.log(`Pro status changed: ${message.isPro}`);
-    
     ProManager.updateProFeaturesVisibility(message.isPro);
-    
     optionsPage.isPro = message.isPro;
     optionsPage.loadRules();
   }
