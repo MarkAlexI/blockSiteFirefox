@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.18.14] - 2025-12-09
+### Changed
+- Rewritten the logic for opening the options page from the popup to ensure more consistent and reliable behavior.
+
 ## [2.18.13] - 2025-12-09
 ### Added
 - Added default icons to the "action" key in the manifest.

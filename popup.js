@@ -22,9 +22,6 @@ class PopupPage {
     this.currentModeElement = document.getElementById('current-mode');
     
     this.thisTabs = [];
-    
-    this.isPro = false;
-    this.isLegacyUser = true;
     this.settings = {};
     
     this.currentRuleCount = 0;
@@ -141,35 +138,21 @@ class PopupPage {
     });
   }
   
-  async openOptionsPage() {
-    const currentTab = await browser.tabs.getCurrent();
-    
-    if (browser && browser.runtime && browser.runtime.openOptionsPage) {
-      try {
-        await browser.runtime.openOptionsPage();
-        
-        const tabs = await browser.tabs.query({ currentWindow: true });
-        const optionsTab = tabs[tabs.length - 1];
-        if (optionsTab && optionsTab.url.includes('options.html')) {
-          await browser.tabs.update(optionsTab.id, { active: true });
-        }
-      } catch (error) {
-        console.info('Error with openOptionsPage:', error);
-        
-        const optionsUrl = browser.runtime.getURL('options/options.html');
-        const newTab = await browser.tabs.create({ url: optionsUrl });
-        await browser.tabs.update(newTab.id, { active: true });
-      }
-    } else {
-      const optionsUrl = browser.runtime.getURL('options/options.html');
-      const newTab = await browser.tabs.create({ url: optionsUrl });
-      await browser.tabs.update(newTab.id, { active: true });
-    }
-    
-    if (currentTab && currentTab.id) {
+  openOptionsPage() {
+    const closePopup = () => {
       setTimeout(() => {
-        browser.tabs.remove(currentTab.id).catch(err => console.error('Error closing popup tab:', err));
-      }, 200);
+        window.close();
+      }, 100);
+    };
+    
+    if (browser.runtime.openOptionsPage) {
+      browser.runtime.openOptionsPage(() => {
+        closePopup();
+      });
+    } else {
+      browser.tabs.create({ url: browser.runtime.getURL('options/options.html') }, () => {
+        closePopup();
+      });
     }
   }
   
