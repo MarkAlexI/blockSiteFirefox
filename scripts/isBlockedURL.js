@@ -6,6 +6,7 @@ export function isBlockedURL(tabs) {
     /^about:/,
     /^moz-extension:\/\//,
     /^https:\/\/addons\.mozilla\.org\//,
+    /^devtools:/
   ];
   
   return blockedPatterns.some(pattern => pattern.test(url));
