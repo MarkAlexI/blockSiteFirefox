@@ -243,6 +243,7 @@ if (logOutBtn) {
         return;
       }
       
+      licenseInput.value = '';
       licenseMessage.textContent = t('loggedoutsuccess');
       licenseMessage.className = 'status-message success show';
     } catch (error) {
