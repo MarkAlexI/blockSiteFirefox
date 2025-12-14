@@ -223,27 +223,6 @@ async function handleProStatusUpdate(isPro, subscriptionData = {}) {
   }
 }
 
-async function checkProStatusExpiry() {
-  try {
-    const credentials = await ProManager.getCredentials();
-    
-    if (credentials.isPro && credentials.expiryDate) {
-      const isExpired = new Date() > new Date(credentials.expiryDate);
-      
-      if (isExpired) {
-        console.log('Pro subscription expired, updating status');
-        await ProManager.setProStatusFromWorker(false);
-        return false;
-      }
-    }
-    
-    return credentials.isPro;
-  } catch (error) {
-    console.error('Error checking Pro status expiry:', error);
-    return false;
-  }
-}
-
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.url) {
     await trackBlockedPage(tab.url);
@@ -260,8 +239,8 @@ browser.runtime.onStartup.addListener(async () => {
   console.log("Extension startup - syncing DNR rules");
   await updateActiveRules();
   
-  const isPro = await checkProStatusExpiry();
-  console.log('Startup: Pro status is', isPro, '- updating context menu...');
+  const result = await syncLicenseKeyStatus();
+  console.log('Startup: Pro status is', result.isPro, '- updating context menu...');
   await updateContextMenu(isPro);
   
   setTimeout(async () => {
@@ -446,9 +425,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'check_pro_expiry') {
-    const isProLocally = await checkProStatusExpiry();
-    //    const syncResult = await syncLicenseKeyStatus();
-    await updateContextMenu(isProLocally); //syncResult.isPro);
+    const syncResult = await syncLicenseKeyStatus();
+    await updateContextMenu(syncResult.isPro);
   }
   
   if (alarm.name === 'update_scheduled_rules') {
