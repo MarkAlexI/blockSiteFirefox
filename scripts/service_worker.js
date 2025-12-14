@@ -241,7 +241,7 @@ browser.runtime.onStartup.addListener(async () => {
   
   const result = await syncLicenseKeyStatus();
   console.log('Startup: Pro status is', result.isPro, '- updating context menu...');
-  await updateContextMenu(isPro);
+  await updateContextMenu(result.isPro);
   
   setTimeout(async () => {
     await validateDnrIntegrity();
