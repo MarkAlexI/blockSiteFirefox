@@ -1,4 +1,5 @@
 import { t } from '../scripts/t.js';
+import Logger from '../utils/logger.js';
 
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         grantBtn.disabled = false;
       }
     } catch (err) {
-      console.error('Error requesting permission:', err);
+      Logger.error('Error requesting permission:', err);
       statusMsg.textContent = t('onboarding_status_api_error');
       statusMsg.className = 'error';
       statusMsg.style.display = 'block';

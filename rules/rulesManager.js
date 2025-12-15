@@ -2,6 +2,7 @@ import { normalizeUrlFilter } from '../scripts/normalizeUrlFilter.js';
 import { isValidURL } from '../scripts/isValidURL.js';
 import { isValidAscii } from '../scripts/isValidAscii.js';
 import { isOnlyLowerCase } from '../scripts/isOnlyLowerCase.js';
+import Logger from '../utils/logger.js';
 
 export class RulesManager {
   constructor() {
@@ -140,7 +141,7 @@ export class RulesManager {
       
       return newRule;
     } catch (error) {
-      console.info("DNR add error:", error);
+      Logger.info("DNR add error:", error);
       throw new Error('Failed to add rule');
     }
   }
@@ -185,7 +186,7 @@ export class RulesManager {
       
       return rules[index];
     } catch (error) {
-      console.info("DNR update error:", error);
+      Logger.info("DNR update error:", error);
       throw new Error('Failed to update rule');
     }
   }
@@ -208,7 +209,7 @@ export class RulesManager {
       
       return ruleToDelete;
     } catch (error) {
-      console.info("DNR remove error:", error);
+      Logger.info("DNR remove error:", error);
       throw new Error('Failed to delete rule');
     }
   }
@@ -294,7 +295,7 @@ export class RulesManager {
         
         return { migrated: true, rules: finalRules };
       } catch (error) {
-        console.info("Migration error:", error);
+        Logger.info("Migration error:", error);
         throw new Error('Failed to migrate rules');
       }
     } else if (needsSave) {

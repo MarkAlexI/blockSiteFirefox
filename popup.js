@@ -8,6 +8,7 @@ import { RulesUI } from './rules/rulesUI.js';
 import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
 import { initializeNoSpaceInputs } from './utils/noSpaces.js';
+import Logger from '../utils/logger.js';
 
 const MAX_RULES_LIMIT = 5;
 
@@ -39,7 +40,7 @@ class PopupPage {
       this.isPro = await ProManager.isPro();
       this.isLegacyUser = await ProManager.isLegacyUser();
     } catch (error) {
-      console.info('Error initializing Pro/Legacy status:', error);
+      Logger.info('Error initializing Pro/Legacy status:', error);
     }
     
     await this.loadRules();
@@ -89,7 +90,7 @@ class PopupPage {
       }
       
     } catch (error) {
-      console.error('Error loading security mode:', error);
+      Logger.error('Error loading security mode:', error);
       if (this.currentModeElement) {
         this.currentModeElement.setAttribute('data-i18n', 'normalmodetitle');
         this.currentModeElement.textContent = t('normalmodetitle') || 'Normal Mode';
@@ -195,7 +196,7 @@ class PopupPage {
       this.showBlockThisSiteButton(rules);
       
     } catch (error) {
-      console.error("Load rules error:", error);
+      Logger.error("Load rules error:", error);
       customAlert(t('errorupdatingrules'));
     }
   }
@@ -296,7 +297,7 @@ class PopupPage {
         button.remove();
       }
     } catch (error) {
-      console.error("Block current site error:", error);
+      Logger.error("Block current site error:", error);
       customAlert(t('erroraddingrule'));
     }
   }
@@ -419,7 +420,7 @@ class PopupPage {
         url: blockURL.value.trim()
       });
     } catch (error) {
-      console.error("Save new rule error:", error);
+      Logger.error("Save new rule error:", error);
       
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');
@@ -476,7 +477,7 @@ class PopupPage {
               }
               
             } catch (error) {
-              console.info("Delete rule error:", error);
+              Logger.info("Delete rule error:", error);
               ruleDiv.remove();
             }
           },
@@ -485,7 +486,7 @@ class PopupPage {
       );
       
     } catch (error) {
-      console.error("Handle deletion error:", error);
+      Logger.error("Handle deletion error:", error);
       customAlert(t('errorremovingrule'));
     }
   }
@@ -536,7 +537,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'pro_status_changed') {
-    console.log(`Pro status changed: ${message.isPro}`);
+    Logger.log(`Pro status changed: ${message.isPro}`);
     
     ProManager.updateProFeaturesVisibility(message.isPro);
     popupPage.isPro = message.isPro;

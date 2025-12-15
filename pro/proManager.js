@@ -1,3 +1,5 @@
+import Logger from '../utils/logger.js';
+
 export class ProManager {
   static RESTRICTION_START_DATE = '2026-12-14T00:00:00Z';
   
@@ -28,7 +30,7 @@ export class ProManager {
       
       return credentials.isPro === true;
     } catch (error) {
-      console.error('Error checking Pro status:', error);
+      Logger.error('Error checking Pro status:', error);
       return false;
     }
   }
@@ -41,7 +43,7 @@ export class ProManager {
       }
       return true;
     } catch (error) {
-      console.info('Error checking legacy status:', error);
+      Logger.info('Error checking legacy status:', error);
       return true;
     }
   }
@@ -59,7 +61,7 @@ export class ProManager {
       
       return { ...this.defaultCredentials, ...result.credentials };
     } catch (error) {
-      console.error('Error getting credentials:', error);
+      Logger.error('Error getting credentials:', error);
       return this.defaultCredentials;
     }
   }
@@ -90,14 +92,14 @@ export class ProManager {
       
       return updatedCredentials;
     } catch (error) {
-      console.error('Error updating Pro status:', error);
+      Logger.error('Error updating Pro status:', error);
       throw error;
     }
   }
   
   static updateProFeaturesVisibility(isPro) {
     if (!this.hasDOM) {
-      console.log(`Pro status updated to: ${isPro} (no DOM available)`);
+      Logger.log(`Pro status updated to: ${isPro} (no DOM available)`);
       return;
     }
     
@@ -112,9 +114,9 @@ export class ProManager {
         }
       });
       
-      console.log(`Pro features ${isPro ? 'enabled' : 'disabled'}`);
+      Logger.log(`Pro features ${isPro ? 'enabled' : 'disabled'}`);
     } catch (error) {
-      console.error('Error updating Pro features visibility:', error);
+      Logger.error('Error updating Pro features visibility:', error);
     }
   }
   
@@ -128,7 +130,7 @@ export class ProManager {
       });
       
     } catch (error) {
-      console.error('Error notifying Pro status change:', error);
+      Logger.error('Error notifying Pro status change:', error);
     }
   }
   
@@ -140,17 +142,17 @@ export class ProManager {
       }
       return isPro;
     } catch (error) {
-      console.error('Error initializing Pro features:', error);
+      Logger.error('Error initializing Pro features:', error);
       return false;
     }
   }
   
   static async setProStatusFromWorker(isPro, subscriptionData = {}) {
     try {
-      console.log(`Service worker updating Pro status to: ${isPro}`);
+      Logger.log(`Service worker updating Pro status to: ${isPro}`);
       return await this.updateProStatus(isPro, subscriptionData);
     } catch (error) {
-      console.error('Error updating Pro status from service worker:', error);
+      Logger.error('Error updating Pro status from service worker:', error);
       throw error;
     }
   }

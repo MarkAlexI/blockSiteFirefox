@@ -2,6 +2,7 @@ import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
 import { SettingsManager } from './settings.js';
 import { PasswordUtils } from '../pro/password.js';
+import Logger from '../utils/logger.js';
 
 const btn = document.getElementById('proBtn');
 const wrapper = document.getElementById('proWrapper');
@@ -29,7 +30,7 @@ function sendMessageToWorker(message) {
         resolve(response);
       });
     } catch (e) {
-      console.warn("Message sending failed:", e);
+      Logger.warn("Message sending failed:", e);
       resolve(null);
     }
   });
@@ -125,12 +126,12 @@ if (licenseForm) {
         isPro: true,
         subscriptionData: subscriptionData
       });
-      console.log("Background worker notified.");
+      Logger.log("Background worker notified.");
       
       try {
         const settingsResult = await browser.storage.sync.get(['settings']);
         if (settingsResult.settings && settingsResult.settings.enablePassword) {
-          console.log("Password protection was on. Resetting due to re-activation...");
+          Logger.log("Password protection was on. Resetting due to re-activation...");
           const newSettings = {
             ...settingsResult.settings,
             enablePassword: false,
@@ -146,7 +147,7 @@ if (licenseForm) {
           licenseInput.value = '';
         }
       } catch (err) {
-        console.error("Failed to reset password during re-activation:", err);
+        Logger.error("Failed to reset password during re-activation:", err);
       }
       
       licenseMessage.textContent = t('proactivated') || 'Pro activated!';
@@ -154,7 +155,7 @@ if (licenseForm) {
       await updateUI();
       
     } catch (error) {
-      console.error('Activation Error:', error);
+      Logger.error('Activation Error:', error);
       licenseMessage.textContent = t('subscriptionnotfound') || 'Subscription not found or key is invalid.';
       licenseMessage.className = 'error-message show';
     } finally {
@@ -213,7 +214,7 @@ if (logOutBtn) {
         }
       }
     } catch (error) {
-      console.error("Error checking settings before logout:", error);
+      Logger.error("Error checking settings before logout:", error);
     }
     
     try {
@@ -247,7 +248,7 @@ if (logOutBtn) {
       licenseMessage.textContent = t('loggedoutsuccess');
       licenseMessage.className = 'status-message success show';
     } catch (error) {
-      console.error('Log out error:', error);
+      Logger.error('Log out error:', error);
       licenseMessage.textContent = t('loggedouterror');
       licenseMessage.className = 'error-message show';
     } finally {
@@ -260,7 +261,7 @@ if (logOutBtn) {
 
 browser.runtime.onMessage.addListener((message) => {
   if (message.type === 'pro_status_changed') {
-    console.log('Pro status changed message received, updating UI.');
+    Logger.log('Pro status changed message received, updating UI.');
     updateUI();
   }
 });
@@ -273,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
   browser.storage.local.get(['is_reviewer_mode'], (result) => {
     if (result.is_reviewer_mode) {
       proSection.classList.remove('hidden');
-      console.log('Dev/Reviewer mode is active (loaded from storage)');
+      Logger.log('Dev/Reviewer mode is active (loaded from storage)');
     }
   });
 });
@@ -282,15 +283,15 @@ window.unlockPro = () => {
   proSection.classList.remove('hidden');
   
   browser.storage.local.set({ is_reviewer_mode: true }, () => {
-    console.log('✅ Pro Section Unlocked & Saved!');
-    console.log('To lock it back, run: window.lockPro()');
+    Logger.log('✅ Pro Section Unlocked & Saved!');
+    Logger.log('To lock it back, run: window.lockPro()');
   });
 };
 
 window.lockPro = () => {
   proSection.classList.add('hidden');
   browser.storage.local.remove('is_reviewer_mode', () => {
-    console.log('🔒 Pro Section Locked (Storage cleared)');
+    Logger.log('🔒 Pro Section Locked (Storage cleared)');
   });
 };
 

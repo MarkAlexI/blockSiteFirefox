@@ -5,6 +5,7 @@ import { RulesManager } from '../rules/rulesManager.js';
 import { RulesUI } from '../rules/rulesUI.js';
 import { PasswordUtils } from '../pro/password.js';
 import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
+import Logger from '../utils/logger.js';
 
 const MAX_RULES_LIMIT = 5;
 
@@ -34,7 +35,7 @@ class OptionsPage {
       this.isPro = await ProManager.isPro();
       this.isLegacyUser = await ProManager.isLegacyUser();
     } catch (error) {
-      console.error('Error initializing Pro/Legacy status:', error);
+      Logger.error('Error initializing Pro/Legacy status:', error);
     }
     
     await ProManager.initializeProFeatures();
@@ -94,9 +95,9 @@ class OptionsPage {
       
       if (rules_from_message) {
         rules = rules_from_message;
-        console.log("Options: Loading rules from message.");
+        Logger.log("Options: Loading rules from message.");
       } else {
-        console.log("Options: Fetching rules from storage.");
+        Logger.log("Options: Fetching rules from storage.");
         migrationResult = await this.rulesManager.migrateRules();
         rules = migrationResult.rules || await this.rulesManager.getRules();
       }
@@ -129,7 +130,7 @@ class OptionsPage {
       }
       
     } catch (error) {
-      console.error("Load rules error:", error);
+      Logger.error("Load rules error:", error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     }
   }
@@ -179,7 +180,7 @@ class OptionsPage {
               this.rulesUI.showSuccessMessage(t('ruleddeleted'), this.statusElement);
               this.loadRules();
             } catch (error) {
-              console.error("Delete rule error:", error);
+              Logger.error("Delete rule error:", error);
               this.rulesUI.showErrorMessage(t('errorremovingrule'));
             }
           },
@@ -187,7 +188,7 @@ class OptionsPage {
           t('deletebtn')
       );
     } catch (error) {
-      console.error("Handle deletion error:", error);
+      Logger.error("Handle deletion error:", error);
       this.rulesUI.showErrorMessage(t('errorremovingrule'));
     }
   }
@@ -224,7 +225,7 @@ class OptionsPage {
       this.statusElement.textContent = t('ruleupdated');
       this.loadRules();
     } catch (error) {
-      console.info("Save edited rule error:", error);
+      Logger.info("Save edited rule error:", error);
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');
         this.rulesUI.showValidationErrors(errors);
@@ -254,7 +255,7 @@ class OptionsPage {
       
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
     } catch (error) {
-      console.info('Error checking rule limit:', error);
+      Logger.info('Error checking rule limit:', error);
       this.rulesUI.showErrorMessage(t('erroraddingrule'));
     }
   }
@@ -273,7 +274,7 @@ class OptionsPage {
       this.statusElement.textContent = t('rulenewadded');
       this.loadRules();
     } catch (error) {
-      console.info("Save new rule error:", error);
+      Logger.info("Save new rule error:", error);
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');
         this.rulesUI.showValidationErrors(errors);
@@ -305,7 +306,7 @@ browser.runtime.onMessage.addListener((message) => {
   }
   
   if (message.type === 'pro_status_changed') {
-    console.log(`Pro status changed: ${message.isPro}`);
+    Logger.log(`Pro status changed: ${message.isPro}`);
     ProManager.updateProFeaturesVisibility(message.isPro);
     optionsPage.isPro = message.isPro;
     optionsPage.loadRules();

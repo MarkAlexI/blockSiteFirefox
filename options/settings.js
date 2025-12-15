@@ -2,6 +2,7 @@ import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
 import { PasswordUtils } from '../pro/password.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
+import Logger from '../utils/logger.js';
 
 export class SettingsManager {
   constructor() {
@@ -36,7 +37,7 @@ export class SettingsManager {
       if (!result.settings) {
         await browser.storage.sync.set({ settings: this.defaultSettings });
         this.applySettingsToUI(this.defaultSettings);
-        console.log('Default settings initialized');
+        Logger.log('Default settings initialized');
       } else {
         const mergedSettings = { ...this.defaultSettings, ...result.settings };
         const hasNewFields = Object.keys(this.defaultSettings).some(
@@ -45,13 +46,13 @@ export class SettingsManager {
         
         if (hasNewFields) {
           await browser.storage.sync.set({ settings: mergedSettings });
-          console.log('Settings updated with new fields');
+          Logger.log('Settings updated with new fields');
         }
         
         this.applySettingsToUI(mergedSettings);
       }
     } catch (error) {
-      console.error('Error initializing settings:', error);
+      Logger.error('Error initializing settings:', error);
       this.applySettingsToUI(this.defaultSettings);
       this.showStatus(t('errorloadingsettings'), 'error');
     }
@@ -75,7 +76,7 @@ export class SettingsManager {
       
       return { ...defaultSettings, ...result.settings };
     } catch (error) {
-      console.error('Error getting settings:', error);
+      Logger.error('Error getting settings:', error);
       return {
         mode: 'normal',
         confirmBeforeDelete: false,
@@ -111,7 +112,7 @@ export class SettingsManager {
       await browser.storage.sync.set({ settings: newSettings });
       this.showStatus(t('settingssaved'), 'success');
     } catch (error) {
-      console.error('Error saving settings:', error);
+      Logger.error('Error saving settings:', error);
       this.showStatus(t('errorsavingsettings'), 'error');
     }
   }
@@ -242,7 +243,7 @@ export class SettingsManager {
 
   handleStorageChange(changes, namespace) {
     if (namespace === 'local' && changes.statistics) {
-      console.log('Statistics changed in storage, reloading stats UI...');
+      Logger.log('Statistics changed in storage, reloading stats UI...');
       this.loadStatistics(); 
     }
   }
@@ -259,7 +260,7 @@ export class SettingsManager {
       const el = document.getElementById('totalRules');
       if (el) el.textContent = rules.length;
     } catch (error) {
-      console.error('Error loading rule count:', error);
+      Logger.error('Error loading rule count:', error);
     }
   }
   
@@ -284,7 +285,7 @@ export class SettingsManager {
       setStatsText('totalRedirects', stats.totalRedirects || 0);
       setStatsText('redirectsToday', stats.redirectsToday || 0);
     } catch (error) {
-      console.error('Error loading statistics:', error);
+      Logger.error('Error loading statistics:', error);
     }
   }
   
@@ -313,7 +314,7 @@ export class SettingsManager {
       
       this.showStatus(t('rulesexported'), 'success');
     } catch (error) {
-      console.error('Error exporting rules:', error);
+      Logger.error('Error exporting rules:', error);
       this.showStatus(t('errorexportingrules'), 'error');
     }
   }
@@ -363,7 +364,7 @@ export class SettingsManager {
       
       this.notifyOptionsReload();
     } catch (error) {
-      console.error('Error importing rules:', error);
+      Logger.error('Error importing rules:', error);
       this.showStatus(t('errorimportingrules') + error.message, 'error');
     }
   }
@@ -394,7 +395,7 @@ export class SettingsManager {
       }
       this.notifyOptionsReload();
     } catch (error) {
-      console.error('Error clearing rules:', error);
+      Logger.error('Error clearing rules:', error);
       this.showStatus(t('errorclearingrules'), 'error');
     }
   }
@@ -411,7 +412,7 @@ export class SettingsManager {
 
       setTimeout(() => window.location.reload(), 1000);
     } catch (error) {
-      console.error('Error resetting settings:', error);
+      Logger.error('Error resetting settings:', error);
       this.showStatus(t('errorresettingsettings'), 'error');
     }
   }
@@ -434,7 +435,7 @@ export class SettingsManager {
         type: 'reload_rules'
       });
     } catch(e) {
-      console.log("Could not send reload message (maybe background inactive)", e);
+      Logger.log("Could not send reload message (maybe background inactive)", e);
     }
   }
 }

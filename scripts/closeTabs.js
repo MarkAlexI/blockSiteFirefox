@@ -3,6 +3,8 @@
  * Prevents browser window closure if all tabs match.
  * @param {string} blockURL - URL pattern to match
  */
+import Logger from '../utils/logger.js';
+
 export async function closeTabsMatchingRule(blockURL) {
   if (!blockURL || blockURL.trim() === '') return;
   
@@ -15,7 +17,7 @@ export async function closeTabsMatchingRule(blockURL) {
         tabsToRemoveIds.push(tab.id);
       }
     } catch (e) {
-      console.warn("Error checking tab:", tab, e);
+      Logger.warn("Error checking tab:", tab.id, e);
     }
   }
   

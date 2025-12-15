@@ -4,6 +4,7 @@ import { StatisticsManager } from '../pro/statisticsManager.js';
 import { ProManager } from '../pro/proManager.js';
 import { closeTabsMatchingRule } from './closeTabs.js';
 import { normalizeUrlFilter } from './normalizeUrlFilter.js';
+import Logger from '../utils/logger.js';
 
 const rulesManager = new RulesManager();
 const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
@@ -13,14 +14,14 @@ async function syncLicenseKeyStatus() {
   const currentKey = credentials.licenseKey;
   
   if (!currentKey) {
-    console.log('License Sync: No key stored, skipping sync.');
+    Logger.log('License Sync: No key stored, skipping sync.');
     if (credentials.isPro) {
       await handleProStatusUpdate(false, { licenseKey: null, expiryDate: null, subscriptionEmail: null });
     }
     return { success: false, isPro: false };
   }
   
-  console.log('License Sync: Checking stored key...');
+  Logger.log('License Sync: Checking stored key...');
   try {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
@@ -45,11 +46,11 @@ async function syncLicenseKeyStatus() {
       expiryDate: data.expiryDate
     });
     
-    console.log('License Sync: Status updated from server. isPro:', data.isPro);
+    Logger.log('License Sync: Status updated from server. isPro:', data.isPro);
     return { success: true, isPro: data.isPro };
     
   } catch (error) {
-    console.error('License Sync: Error:', error.message);
+    Logger.error('License Sync: Error:', error.message);
     return { success: false, isPro: credentials.isPro };
   }
 }
@@ -67,10 +68,10 @@ async function updateContextMenu(isPro) {
         contexts: ['page', 'link']
       }, () => {
         void browser.runtime.lastError;
-        console.log('BlockDistraction context menu created');
+        Logger.log('BlockDistraction context menu created');
       });
     } else {
-      console.log('BlockDistraction context menu removed (non-pro mode)');
+      Logger.log('BlockDistraction context menu removed (non-pro mode)');
     }
   });
 }
@@ -80,7 +81,7 @@ if (browser.contextMenus) {
     if (info.menuItemId === 'blockDistraction' && info.linkUrl) {
       const isPro = await ProManager.isPro();
       if (!isPro) {
-        console.warn('Attempted to block while not in pro mode');
+        Logger.warn('Attempted to block while not in pro mode');
         return;
       }
       
@@ -91,11 +92,11 @@ if (browser.contextMenus) {
         const urlToBlock = normalizeUrlFilter(rawUrl);
         
         await rulesManager.addRule(urlToBlock, '');
-        console.log('Blocked URL via Context Menu:', urlToBlock);
+        Logger.log('Blocked URL via Context Menu:', urlToBlock);
         
         await closeTabsMatchingRule(urlToBlock);
       } catch (error) {
-        console.info('Error processing context menu block:', error);
+        Logger.info('Error processing context menu block:', error);
       }
     }
   });
@@ -114,7 +115,7 @@ async function updateActiveRules() {
       .filter(id => currentDnrRules.some(dnr => dnr.id === id));
     if (removeRuleIds.length) {
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
-      console.log(`Removed ${removeRuleIds.length} inactive scheduled rules`);
+      Logger.log(`Removed ${removeRuleIds.length} inactive scheduled rules`);
     }
     
     const addRules = [];
@@ -127,11 +128,11 @@ async function updateActiveRules() {
     }
     if (addRules.length) {
       await browser.declarativeNetRequest.updateDynamicRules({ addRules });
-      console.log(`Added ${addRules.length} active scheduled rules`);
+      Logger.log(`Added ${addRules.length} active scheduled rules`);
     }
     
   } catch (error) {
-    console.error("Error updating active rules:", error);
+    Logger.error("Error updating active rules:", error);
   }
 }
 
@@ -141,10 +142,10 @@ async function clearAllDnrRules() {
     if (dnrRules.length) {
       const removeRuleIds = dnrRules.map(rule => rule.id);
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
-      console.log(`Cleared ${removeRuleIds.length} DNR rules`);
+      Logger.log(`Cleared ${removeRuleIds.length} DNR rules`);
     }
   } catch (error) {
-    console.error("Failed to clear DNR rules:", error);
+    Logger.error("Failed to clear DNR rules:", error);
   }
 }
 
@@ -160,7 +161,7 @@ async function showUpdates(details) {
       });
     }
   } catch (error) {
-    console.error('Error showing updates:', error);
+    Logger.error('Error showing updates:', error);
     if (details.reason === 'update') {
       const version = browser.runtime.getManifest().version;
       browser.tabs.create({
@@ -181,13 +182,13 @@ async function validateDnrIntegrity() {
     const isInSync = storageIds.size === dnrIds.size && [...storageIds].every(id => dnrIds.has(id));
     
     if (!isInSync) {
-      console.warn("DNR rules out of sync, triggering sync...");
+      Logger.warn("DNR rules out of sync, triggering sync...");
       await updateActiveRules();
     }
     
     return isInSync;
   } catch (error) {
-    console.error("DNR integrity check failed:", error);
+    Logger.error("DNR integrity check failed:", error);
     return false;
   }
 }
@@ -201,24 +202,24 @@ async function trackBlockedPage(url) {
       const blockedUrl = urlObj.searchParams.get('url');
       
       if (blockedUrl) {
-        console.log(`Recording block: ${blockedUrl}`);
+        Logger.log(`Recording block: ${blockedUrl}`);
         await StatisticsManager.recordBlock(blockedUrl);
       }
     }
   } catch (error) {
-    console.error('Error tracking blocked page:', error);
+    Logger.error('Error tracking blocked page:', error);
   }
 }
 
 async function handleProStatusUpdate(isPro, subscriptionData = {}) {
   try {
-    console.log(`Service worker received Pro status update: ${isPro}`);
+    Logger.log(`Service worker received Pro status update: ${isPro}`);
     const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
-    console.log('Pro status updated successfully:', updatedCredentials);
+    Logger.log('Pro status updated successfully');
     await updateContextMenu(isPro);
     return updatedCredentials;
   } catch (error) {
-    console.error('Error handling Pro status update:', error);
+    Logger.error('Error handling Pro status update:', error);
     throw error;
   }
 }
@@ -236,11 +237,11 @@ browser.tabs.onCreated.addListener(async (tab) => {
 });
 
 browser.runtime.onStartup.addListener(async () => {
-  console.log("Extension startup - syncing DNR rules");
+  Logger.log("Extension startup - syncing DNR rules");
   await updateActiveRules();
   
   const result = await syncLicenseKeyStatus();
-  console.log('Startup: Pro status is', result.isPro, '- updating context menu...');
+  Logger.log('Startup: Pro status is', result.isPro, '- updating context menu...');
   await updateContextMenu(result.isPro);
   
   setTimeout(async () => {
@@ -249,7 +250,7 @@ browser.runtime.onStartup.addListener(async () => {
 });
 
 async function initializeExtension(details) {
-  console.log("Initializing extension state (rules, settings, legacy status)...");
+  Logger.log("Initializing extension state (rules, settings, legacy status)...");
   
   await updateActiveRules();
   await SettingsManager.getSettings();
@@ -267,7 +268,7 @@ async function initializeExtension(details) {
         installationDate: installDate,
         isLegacyUser: isLegacy
       });
-      console.log(`New install: isLegacyUser set to ${isLegacy}`);
+      Logger.log(`New install: isLegacyUser set to ${isLegacy}`);
     } else if (details.reason === 'update') {
       if (credentials.installationDate === null || credentials.isLegacyUser === undefined) {
         await ProManager.updateProStatus(credentials.isPro, {
@@ -275,14 +276,14 @@ async function initializeExtension(details) {
           installationDate: credentials.installationDate || new Date(0).toISOString(),
           isLegacyUser: true
         });
-        console.log('Migrated existing users to legacy status');
+        Logger.log('Migrated existing users to legacy status');
       }
     }
     
     const isPro = await ProManager.isPro();
     await updateContextMenu(isPro);
   } catch (error) {
-    console.info('Error handling install/update for legacy:', error);
+    Logger.info('Error handling install/update for legacy:', error);
   }
 }
 
@@ -296,35 +297,35 @@ async function checkAndRequestPermissions() {
     }
     
     if (granted) {
-      console.log("Host permission already granted.");
+      Logger.log("Host permission already granted.");
       await initializeExtension(details);
     } else {
-      console.log("Host permission NOT granted. Opening onboarding page.");
+      Logger.log("Host permission NOT granted. Opening onboarding page.");
       browser.tabs.create({
         url: browser.runtime.getURL('onboarding/onboarding.html')
       });
     }
   } catch (err) {
-    console.error("Error checking permissions:", err);
+    Logger.error("Error checking permissions:", err);
   }
 }
 
 browser.runtime.onInstalled.addListener(async (details) => {
-  console.log(`Extension event: ${details.reason}`);
+  Logger.log(`Extension event: ${details.reason}`);
   
   if (details.reason === 'install') {
-    console.log("This is a fresh install. Checking permissions...");
+    Logger.log("This is a fresh install. Checking permissions...");
     await initializeExtension(details);
     await checkAndRequestPermissions();
   } else if (details.reason === 'update') {
-    console.log("This is an update. Assuming permissions are granted.");
+    Logger.log("This is an update. Assuming permissions are granted.");
     await initializeExtension(details);
     await checkAndRequestPermissions();
   } else if (details.reason === 'chrome_update' || details.reason === 'browser_update') {
-    console.log("Browser updated.");
+    Logger.log("Browser updated.");
     await validateDnrIntegrity();
   } else if (details.reason === 'shared_module_update') {
-    console.log("Shared module updated.");
+    Logger.log("Shared module updated.");
   }
 });
 
@@ -340,7 +341,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     closeTabsMatchingRule(message.url)
       .then(() => sendResponse({ success: true }))
       .catch((err) => {
-        console.error("Close tabs error:", err);
+        Logger.error("Close tabs error:", err);
         sendResponse({ success: false });
       });
     return true;
@@ -395,7 +396,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'reload_rules') {
     (async () => {
       await updateActiveRules();
-      console.log('Rules updated.');
+      Logger.log('Rules updated.');
     })();
     return;
   }
@@ -418,7 +419,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'permissions_granted') {
-    console.log("Permissions granted via onboarding.");
+    Logger.log("Permissions granted via onboarding.");
     updateActiveRules();
   }
 });

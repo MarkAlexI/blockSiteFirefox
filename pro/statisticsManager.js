@@ -1,3 +1,5 @@
+import Logger from '../utils/logger.js';
+
 export class StatisticsManager {
   static defaultStats = {
     totalBlocked: 0,
@@ -29,7 +31,7 @@ export class StatisticsManager {
       
       return stats;
     } catch (error) {
-      console.error('Error getting statistics:', error);
+      Logger.error('Error getting statistics:', error);
       return this.defaultStats;
     }
   }
@@ -42,11 +44,11 @@ export class StatisticsManager {
       stats.blockedToday = (stats.blockedToday || 0) + 1;
       
       await browser.storage.local.set({ statistics: stats });
-      
-      console.log(`Block recorded: ${url}. Total: ${stats.totalBlocked}, Today: ${stats.blockedToday}`);
+
+      Logger.log(`Block recorded: ${url}. Total: ${stats.totalBlocked}, Today: ${stats.blockedToday}`);
       return stats;
     } catch (error) {
-      console.error('Error recording block:', error);
+      Logger.error('Error recording block:', error);
       return await this.getStatistics();
     }
   }
@@ -59,11 +61,12 @@ export class StatisticsManager {
       stats.redirectsToday = (stats.redirectsToday || 0) + 1;
       
       await browser.storage.local.set({ statistics: stats });
-      
-      console.log(`Redirect recorded: ${fromUrl} -> ${toUrl}. Total: ${stats.totalRedirects}, Today: ${stats.redirectsToday}`);
+
+      const to = new URL(toUrl);
+      Logger.log(`Redirect recorded: from -> ${to.hostname}. Total: ${stats.totalRedirects}, Today: ${stats.redirectsToday}`);
       return stats;
     } catch (error) {
-      console.error('Error recording redirect:', error);
+      Logger.error('Error recording redirect:', error);
       return await this.getStatistics();
     }
   }
@@ -82,7 +85,7 @@ export class StatisticsManager {
         redirectsToday: stats.redirectsToday
       };
     } catch (error) {
-      console.error('Error getting UI data:', error);
+      Logger.error('Error getting UI data:', error);
       return {
         totalRules: 0,
         totalBlocked: 0,
@@ -102,7 +105,7 @@ export class StatisticsManager {
       await browser.storage.local.set({ statistics: newStats });
       return newStats;
     } catch (error) {
-      console.error('Error resetting statistics:', error);
+      Logger.error('Error resetting statistics:', error);
       throw error;
     }
   }
