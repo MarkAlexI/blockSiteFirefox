@@ -168,7 +168,7 @@ class PopupPage {
     const body = encodeURIComponent(`Browser: ${browserInfo}\n\nExtension Version: ${manifest.version}\n\n${sendFeedbackBody}`);
     
     const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-    window.open(mailtoLink, '_blank');
+    window.location.href = mailtoLink;
   }
   
   async loadCurrentTabs() {
