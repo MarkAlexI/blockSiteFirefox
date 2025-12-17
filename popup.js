@@ -161,14 +161,32 @@ class PopupPage {
     const manifest = browser.runtime.getManifest();
     const browserInfo = navigator.userAgent;
     
-    const email = 'aacsmi06@gmail.com';
-    const sendFeedbackSubject = t('sendfeedbacksubject');
-    const sendFeedbackBody = t('sendfeedbackbody');
-    const subject = encodeURIComponent(sendFeedbackSubject);
-    const body = encodeURIComponent(`Browser: ${browserInfo}\n\nExtension Version: ${manifest.version}\n\n${sendFeedbackBody}`);
+    const isFirefoxAndroid =
+      /Android/i.test(browserInfo) &&
+      /Firefox/i.test(browserInfo) &&
+      !/Mobile Safari/i.test(browserInfo);
+    
+    const email = 'support@blockdistraction.com';
+    const subject = encodeURIComponent(t('sendfeedbacksubject'));
+    const body = encodeURIComponent(
+      `Browser: ${browserInfo}\n\nExtension Version: ${manifest.version}\n\n${t('sendfeedbackbody')}`
+    );
     
     const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
+    
+    if (isFirefoxAndroid && document.body) {
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = mailtoLink;
+      
+      document.body.appendChild(iframe);
+
+      setTimeout(() => {
+        iframe.remove();
+      }, 1000);
+    } else {
+      window.location.href = mailtoLink;
+    }
   }
   
   async loadCurrentTabs() {

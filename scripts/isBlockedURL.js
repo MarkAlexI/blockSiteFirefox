@@ -19,7 +19,9 @@ export function isBlockedURL(tabs) {
     /^about:/,
     /^moz-extension:\/\//,
     /^https:\/\/addons\.mozilla\.org\//,
-    /^devtools:/
+    /^devtools:/,
+    /^view-source:/,
+    /^data:/
   ];
   
   return blockedPatterns.some(pattern => pattern.test(url));
