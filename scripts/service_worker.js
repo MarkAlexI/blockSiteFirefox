@@ -5,6 +5,7 @@ import { ProManager } from '../pro/proManager.js';
 import { closeTabsMatchingRule } from './closeTabs.js';
 import { normalizeUrlFilter } from './normalizeUrlFilter.js';
 import Logger from '../utils/logger.js';
+import { resolveContextTarget } from '../utils/resolveContextTarget.js';
 
 const rulesManager = new RulesManager();
 const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
@@ -55,6 +56,8 @@ async function syncLicenseKeyStatus() {
   }
 }
 
+const IS_FIREFOX = typeof browser !== 'undefined';
+
 async function updateContextMenu(isPro) {
   if (!browser.contextMenus) return;
   
@@ -65,7 +68,7 @@ async function updateContextMenu(isPro) {
       browser.contextMenus.create({
         id: 'blockDistraction',
         title: 'Block this Site',
-        contexts: ['page', 'link']
+        contexts: IS_FIREFOX ? ['link'] : ['page', 'link']
       }, () => {
         void browser.runtime.lastError;
         Logger.log('BlockDistraction context menu created');
@@ -78,31 +81,37 @@ async function updateContextMenu(isPro) {
 
 if (browser.contextMenus) {
   browser.contextMenus.onClicked.addListener(async (info, tab) => {
-    if (info.menuItemId === 'blockDistraction') {
-      const isPro = await ProManager.isPro();
-      if (!isPro) {
-        Logger.warn('Attempted to block while not in pro mode');
-        return;
-      }
-      
-      const rawUrl = info.linkUrl || info.pageUrl || tab.url;
-      if (!rawUrl) return;
-      
-      if (!/^https?:/i.test(rawUrl)) {
-        Logger.warn('Unsupported URL scheme:', rawUrl);
-        return;
-      }
-      
-      try {
-        const urlToBlock = normalizeUrlFilter(rawUrl);
-        
-        await rulesManager.addRule(urlToBlock, '');
-        Logger.log('Blocked URL via Context Menu:', urlToBlock);
-        
-        await closeTabsMatchingRule(urlToBlock);
-      } catch (error) {
-        Logger.info('Error processing context menu block:', error);
-      }
+    if (info.menuItemId !== 'blockDistraction') return;
+
+    const isPro = await ProManager.isPro();
+    if (!isPro) {
+      Logger.warn('Attempted to block while not in pro mode');
+      return;
+    }
+
+    const target = resolveContextTarget(info, tab);
+    if (!target) {
+      Logger.debug('No safe context target resolved');
+      return;
+    }
+
+    if (!/^https?:/i.test(target.url)) {
+      Logger.warn('Unsupported URL scheme:', target.url);
+      return;
+    }
+
+    try {
+      const urlToBlock = normalizeUrlFilter(target.url);
+
+      await rulesManager.addRule(urlToBlock, '');
+      Logger.log(
+        `Blocked ${target.type} via Context Menu:`,
+        urlToBlock
+      );
+
+      await closeTabsMatchingRule(urlToBlock);
+    } catch (error) {
+      Logger.info('Error processing context menu block:', error);
     }
   });
 }
