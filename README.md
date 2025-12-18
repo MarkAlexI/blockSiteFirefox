@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v2.19.2-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v2.19.3-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -80,6 +80,13 @@ The extension supports multiple languages through the `chrome.i18n` API. Current
 
 ### 5. Dynamic Rule Management
 The background script, in combination with the `declarativeNetRequest` API, ensures that rules are enforced dynamically. When a user adds a site to be blocked, the extension immediately registers the rule without needing to restart the browser or reload the page.
+
+### 6. Context Menu Design Rationale
+The context menu is intentionally minimalistic and silent by design.
+It provides a single action — blocking the current site or a selected link — without any confirmations, notifications, or visible feedback.
+This behavior is deliberate: the extension acts as an infrastructure tool rather than an interactive assistant. A user-initiated click is treated as a final decision, and the effect (blocking and closing matching tabs) is applied immediately.
+On mobile platforms, context menus are not supported by browsers; therefore, this functionality is unavailable there by design. This limitation is documented on the support page, and no fallback UI is shown to avoid feature duplication or user confusion.
+The context menu logic supports both page-level and link-level blocking through a single menu item, ensuring consistent behavior and avoiding silent no-op actions.
 
 ---
 

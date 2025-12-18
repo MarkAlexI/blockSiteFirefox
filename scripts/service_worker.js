@@ -78,7 +78,7 @@ async function updateContextMenu(isPro) {
 
 if (browser.contextMenus) {
   browser.contextMenus.onClicked.addListener(async (info, tab) => {
-    if (info.menuItemId === 'blockDistraction' && info.linkUrl) {
+    if (info.menuItemId === 'blockDistraction') {
       const isPro = await ProManager.isPro();
       if (!isPro) {
         Logger.warn('Attempted to block while not in pro mode');
@@ -87,6 +87,11 @@ if (browser.contextMenus) {
       
       const rawUrl = info.linkUrl || info.pageUrl || tab.url;
       if (!rawUrl) return;
+      
+      if (!/^https?:/i.test(rawUrl)) {
+        Logger.warn('Unsupported URL scheme:', rawUrl);
+        return;
+      }
       
       try {
         const urlToBlock = normalizeUrlFilter(rawUrl);
