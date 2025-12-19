@@ -3,7 +3,8 @@ import { SettingsManager } from '../options/settings.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import { ProManager } from '../pro/proManager.js';
 import { closeTabsMatchingRule } from './closeTabs.js';
-import { normalizeUrlFilter } from './normalizeUrlFilter.js';
+import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
+import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
 
@@ -82,34 +83,46 @@ async function updateContextMenu(isPro) {
 if (browser.contextMenus) {
   browser.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId !== 'blockDistraction') return;
-
+    
     const isPro = await ProManager.isPro();
     if (!isPro) {
       Logger.warn('Attempted to block while not in pro mode');
       return;
     }
-
+    
     const target = resolveContextTarget(info, tab);
     if (!target) {
-      Logger.debug('No safe context target resolved');
+      Logger.info('No safe context target resolved');
       return;
     }
-
+    
     if (!/^https?:/i.test(target.url)) {
       Logger.warn('Unsupported URL scheme:', target.url);
       return;
     }
-
+    
+    let ruleValue = null;
+    
+    if (target.type === 'link') {
+      ruleValue = normalizePathRule(target.url);
+    } else if (target.type === 'page') {
+      ruleValue = normalizeDomainRule(target.url);
+    }
+    
+    if (!ruleValue) {
+      Logger.info('Failed to normalize context target:', target);
+      return;
+    }
+    
     try {
-      const urlToBlock = normalizeUrlFilter(target.url);
-
-      await rulesManager.addRule(urlToBlock, '');
+      await rulesManager.addRule(ruleValue, '');
+      
       Logger.log(
         `Blocked ${target.type} via Context Menu:`,
-        urlToBlock
+        ruleValue
       );
-
-      await closeTabsMatchingRule(urlToBlock);
+      
+      await closeTabsMatchingRule(ruleValue);
     } catch (error) {
       Logger.info('Error processing context menu block:', error);
     }

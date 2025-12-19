@@ -11,7 +11,7 @@
  * @returns {{ type: 'link' | 'page', url: string } | null}
  */
 export function resolveContextTarget(info, tab) {
-  // 1. Explicit link blocking (safe in all browsers)
+  // 1. Explicit link blocking
   if (typeof info.linkUrl === 'string' && info.linkUrl.length > 0) {
     return {
       type: 'link',
@@ -19,18 +19,20 @@ export function resolveContextTarget(info, tab) {
     };
   }
   
-  // 2. Explicit page blocking (only if page context is present)
-  if (
-    typeof info.pageUrl === 'string' &&
-    Array.isArray(info.contexts) &&
-    info.contexts.includes('page')
-  ) {
+  // 2. Page blocking (pageUrl OR tab.url)
+  if (typeof info.pageUrl === 'string' && info.pageUrl.length > 0) {
     return {
       type: 'page',
       url: info.pageUrl
     };
   }
   
-  // 3. Nothing safe to block
+  if (tab?.url) {
+    return {
+      type: 'page',
+      url: tab.url
+    };
+  }
+  
   return null;
 }

@@ -1,4 +1,4 @@
-import { normalizeUrlFilter } from '../scripts/normalizeUrlFilter.js';
+import { normalizePathRule } from './normalizePathRule.js';
 import { isValidURL } from '../scripts/isValidURL.js';
 import { isValidAscii } from '../scripts/isValidAscii.js';
 import { isOnlyLowerCase } from '../scripts/isOnlyLowerCase.js';
@@ -85,7 +85,7 @@ export class RulesManager {
     const maxId = dnrRules.length ? Math.max(...dnrRules.map(r => r.id)) : 0;
     const newId = maxId + 1;
     
-    const filter = normalizeUrlFilter(blockURL.trim());
+    const filter = normalizePathRule(blockURL.trim());
     const urlFilter = `||${filter}`;
     
     let action;
@@ -256,7 +256,7 @@ export class RulesManager {
         });
         
         const newDnrRules = migratedRules.map((rule, i) => {
-          const filter = normalizeUrlFilter(rule.blockURL);
+          const filter = normalizePathRule(rule.blockURL);
           const urlFilter = `||${filter}`;
           
           let action;

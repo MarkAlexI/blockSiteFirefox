@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.19.6] - 2025-12-19
+### Changed
+- Updated the logic for creating blocking rules:
+  - Manually entered rules now preserve the path as fully as possible.
+  - Rules created via the instant block button are limited to the domain.
+  - When blocking via the context menu:
+    - Links are blocked using the full URL (same as manual input).
+    - Pages are blocked at the domain level (same as instant block).
+
 ## [2.19.5] - 2025-12-19
 ### Changed
 - Simplified the feedback sending logic: it is now unified for all browsers and uses a direct link click instead of an iframe.

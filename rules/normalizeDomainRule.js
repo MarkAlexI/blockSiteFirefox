@@ -1,4 +1,4 @@
-export function normalizeUrlFilter(input) {
+export function normalizeDomainRule(input) {
   try {
     const url = new URL(input);
     return url.hostname.replace(/^www\./, '');

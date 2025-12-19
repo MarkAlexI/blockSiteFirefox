@@ -1,7 +1,7 @@
 import { customAlert } from './scripts/customAlert.js';
 import { isBlockedURL } from './scripts/isBlockedURL.js';
 import { getCurrentTabs } from './scripts/getCurrentTabs.js';
-import { normalizeUrlFilter } from './scripts/normalizeUrlFilter.js';
+import { normalizeDomainRule } from './rules/normalizeDomainRule.js';
 import { t } from './scripts/t.js';
 import { RulesManager } from './rules/rulesManager.js';
 import { RulesUI } from './rules/rulesUI.js';
@@ -213,7 +213,7 @@ class PopupPage {
       existingButton.remove();
     }
     
-    const currentUrl = normalizeUrlFilter(this.thisTabs[0]?.url || '');
+    const currentUrl = normalizeDomainRule(this.thisTabs[0]?.url || '');
     const alreadyBlocked = rules.some(rule => rule.blockURL === currentUrl);
     
     if (!isBlockedURL(this.thisTabs) && !alreadyBlocked && currentUrl) {
