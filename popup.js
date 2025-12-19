@@ -161,11 +161,6 @@ class PopupPage {
     const manifest = browser.runtime.getManifest();
     const browserInfo = navigator.userAgent;
     
-    const isFirefoxAndroid =
-      /Android/i.test(browserInfo) &&
-      /Firefox/i.test(browserInfo) &&
-      !/Mobile Safari/i.test(browserInfo);
-    
     const email = 'support@blockdistraction.com';
     const subject = encodeURIComponent(t('sendfeedbacksubject'));
     const body = encodeURIComponent(
@@ -174,19 +169,12 @@ class PopupPage {
     
     const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
     
-    if (isFirefoxAndroid && document.body) {
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = mailtoLink;
-      
-      document.body.appendChild(iframe);
-
-      setTimeout(() => {
-        iframe.remove();
-      }, 1000);
-    } else {
-      window.location.href = mailtoLink;
-    }
+    const link = document.createElement('a');
+    link.href = mailtoLink;
+    link.target = "_top";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
   
   async loadCurrentTabs() {

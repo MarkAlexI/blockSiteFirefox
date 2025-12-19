@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.19.5] - 2025-12-19
+### Changed
+- Simplified the feedback sending logic: it is now unified for all browsers and uses a direct link click instead of an iframe.
+
 ## [2.19.4] - 2025-12-18
 ### Fixed
 - Fixed an issue in Pro mode where blocking a link from the context menu could incorrectly block the current page instead of the link URL.
