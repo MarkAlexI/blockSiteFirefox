@@ -1,8 +1,11 @@
 import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
+import { RulesManager } from '../rules/rulesManager.js';
 import { PasswordUtils } from '../pro/password.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import Logger from '../utils/logger.js';
+
+const rulesManager = new RulesManager();
 
 export class SettingsManager {
   constructor() {
@@ -386,7 +389,7 @@ export class SettingsManager {
     if (!confirmClear) return;
     
     try {
-      await browser.storage.sync.set({ rules: [] });
+      await rulesManager.deleteAllRules();
       await this.loadRuleCount([]); 
       this.showStatus(t('allrulescleared'), 'success');
       

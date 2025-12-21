@@ -89,7 +89,7 @@ export class RulesManager {
     const urlFilter = `||${filter}`;
     
     let action;
-
+    
     if (redirectURL && redirectURL.trim() !== '') {
       const finalRedirectUrl = new URL(this.intermediaryRedirectURL);
       finalRedirectUrl.searchParams.set('from', blockURL.trim());
@@ -225,6 +225,25 @@ export class RulesManager {
     }
     
     return await this.deleteRule(index);
+  }
+  
+  async deleteAllRules() {
+    try {
+      const activeRules = await browser.declarativeNetRequest.getDynamicRules();
+      const ruleIdsToRemove = activeRules.map(rule => rule.id);
+      
+      if (ruleIdsToRemove.length > 0) {
+        await browser.declarativeNetRequest.updateDynamicRules({
+          removeRuleIds: ruleIdsToRemove,
+          addRules: []
+        });
+      }
+      
+      await this.saveRules([]);
+    } catch (error) {
+      Logger.error("Delete all rules error:", error);
+      throw new Error('Failed to delete all rules');
+    }
   }
   
   async migrateRules() {
