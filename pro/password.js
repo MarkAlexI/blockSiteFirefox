@@ -117,8 +117,8 @@ export class PasswordUtils {
         const enteredKey = input1.value.trim();
         if (!enteredKey) return;
 
-        const storage = await browser.storage.sync.get(['proStatus', 'settings']);
-        const actualKey = storage.proStatus?.licenseKey;
+        const storage = await browser.storage.sync.get(['credentials', 'settings']);
+        const actualKey = storage.credentials?.licenseKey;
         
         if (actualKey && enteredKey === actualKey) {
           const newSettings = {
