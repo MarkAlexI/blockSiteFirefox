@@ -1,7 +1,7 @@
 import Logger from '../utils/logger.js';
 
 export class ProManager {
-  static RESTRICTION_START_DATE = '2026-12-14T00:00:00Z';
+  static RESTRICTION_START_DATE = '2026-01-01T00:00:00Z';
   
   static defaultCredentials = {
     isPro: false,
@@ -9,7 +9,7 @@ export class ProManager {
     subscriptionDate: null,
     expiryDate: null,
     licenseKey: null,
-    isLegacyUser: true,
+    isLegacyUser: false,
     installationDate: null
   };
   
