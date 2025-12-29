@@ -1,11 +1,8 @@
 import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
-import { RulesManager } from '../rules/rulesManager.js';
 import { PasswordUtils } from '../pro/password.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import Logger from '../utils/logger.js';
-
-const rulesManager = new RulesManager();
 
 export class SettingsManager {
   constructor() {
@@ -29,8 +26,8 @@ export class SettingsManager {
   async init() {
     await this.initializeSettings();
     this.setupEventListeners();
-    this.loadRuleCount(); 
-    this.loadStatistics(); 
+    this.loadRuleCount();
+    this.loadStatistics();
   }
   
   async initializeSettings() {
@@ -133,7 +130,7 @@ export class SettingsManager {
       enablePassword
     };
   }
-
+  
   async checkPasswordProtection() {
     const settings = await SettingsManager.getSettings();
     if (settings.enablePassword) {
@@ -156,16 +153,16 @@ export class SettingsManager {
         } else {
           settingsToSave[e.target.id] = e.target.checked;
         }
-
+        
         await this.saveSettings(settingsToSave);
       });
     });
-
+    
     const enablePasswordToggle = document.getElementById('enablePassword');
     if (enablePasswordToggle) {
       enablePasswordToggle.addEventListener('click', async (event) => {
         event.preventDefault();
-
+        
         if (!await ProManager.isPro()) {
           this.showStatus(t('prorequired'), 'error');
           return;
@@ -192,12 +189,12 @@ export class SettingsManager {
         }
       });
     }
-
+    
     document.getElementById('exportRules').addEventListener('click', async () => {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
       this.exportRules();
     });
-
+    
     document.getElementById('importRules').addEventListener('click', async () => {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
       document.getElementById('importFileInput').click();
@@ -206,51 +203,51 @@ export class SettingsManager {
     document.getElementById('importFileInput').addEventListener('change', (e) => {
       this.importRules(e.target.files[0]);
     });
-
+    
     document.getElementById('clearAllRules').addEventListener('click', async () => {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
-
+      
       const isAuthorized = await this.checkPasswordProtection();
       if (!isAuthorized) return;
-
+      
       this.clearAllRules();
     });
-
+    
     document.getElementById('resetSettings').addEventListener('click', async () => {
       if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
-
+      
       const isAuthorized = await this.checkPasswordProtection();
       if (!isAuthorized) return;
-
+      
       this.resetSettings();
     });
-
+    
     const clearStatsBtn = document.getElementById('clearStatistics');
     if (clearStatsBtn) {
       clearStatsBtn.addEventListener('click', async () => {
         if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
-
+        
         const isAuthorized = await this.checkPasswordProtection();
         if (!isAuthorized) return;
-
-        if (confirm(t('confirmclearstats'))) { 
+        
+        if (confirm(t('confirmclearstats'))) {
           await StatisticsManager.reset();
-          await this.loadStatistics(); 
+          await this.loadStatistics();
           this.showStatus(t('statscleared'), 'success');
         }
       });
     }
-
+    
     browser.storage.onChanged.addListener(this.handleStorageChange.bind(this));
   }
-
+  
   handleStorageChange(changes, namespace) {
     if (namespace === 'local' && changes.statistics) {
       Logger.log('Statistics changed in storage, reloading stats UI...');
-      this.loadStatistics(); 
+      this.loadStatistics();
     }
   }
-
+  
   async loadRuleCount(rules_from_message = null) {
     try {
       let rules;
@@ -279,10 +276,10 @@ export class SettingsManager {
       }
       
       const setStatsText = (id, val) => {
-          const el = document.getElementById(id);
-          if (el) el.textContent = val;
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
       };
-
+      
       setStatsText('totalBlocked', stats.totalBlocked || 0);
       setStatsText('blockedToday', stats.blockedToday || 0);
       setStatsText('totalRedirects', stats.totalRedirects || 0);
@@ -355,7 +352,7 @@ export class SettingsManager {
       }
       
       await this.loadRuleCount(saveData.rules);
-      await this.loadStatistics(); 
+      await this.loadStatistics();
       
       this.showStatus(t('importedrules', `${importData.rules.length}`), 'success');
       
@@ -389,8 +386,11 @@ export class SettingsManager {
     if (!confirmClear) return;
     
     try {
-      await rulesManager.deleteAllRules();
-      await this.loadRuleCount([]); 
+      browser.runtime.sendMessage({
+        type: 'delete_all_rules'
+      });
+      
+      await this.loadRuleCount([]);
       this.showStatus(t('allrulescleared'), 'success');
       
       if (this.onRulesUpdated) {
@@ -412,7 +412,7 @@ export class SettingsManager {
       await browser.storage.sync.set({ settings: this.defaultSettings });
       this.applySettingsToUI(this.defaultSettings);
       this.showStatus(t('resettodefaults'), 'success');
-
+      
       setTimeout(() => window.location.reload(), 1000);
     } catch (error) {
       Logger.error('Error resetting settings:', error);
@@ -437,7 +437,7 @@ export class SettingsManager {
       browser.runtime.sendMessage({
         type: 'reload_rules'
       });
-    } catch(e) {
+    } catch (e) {
       Logger.log("Could not send reload message (maybe background inactive)", e);
     }
   }

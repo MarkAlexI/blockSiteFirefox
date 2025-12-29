@@ -177,7 +177,7 @@ async function clearAllDnrRules() {
 }
 
 async function showUpdates(details) {
-  // return true;
+  return true;
   try {
     const settings = await SettingsManager.getSettings();
     
@@ -454,6 +454,10 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'permissions_granted') {
     Logger.log("Permissions granted via onboarding.");
     updateActiveRules();
+  }
+  
+  if (message.type === 'delete_all_rules') {
+    rulesManager.deleteAllRules();
   }
 });
 
