@@ -313,7 +313,7 @@ export class RulesUI {
     section.className = `schedule-section ${enableSchedule ? 'pro-feature' : 'non-pro'}`;
     
     if (!enableSchedule) {
-      //section.textContent = t('profeatureschedule') || 'Schedule available in Pro';
+      section.textContent = t('profeatureschedule') || 'Schedule available in Pro';
       return section;
     }
     
