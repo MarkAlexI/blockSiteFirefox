@@ -322,9 +322,20 @@ export class SettingsManager {
   async importRules(file) {
     if (!file) return;
     
+    if (!file.name.toLowerCase().endsWith('.json')) {
+      this.showStatus(t('errorinvalidfiletype'), 'error');
+      return;
+    }
+    
     try {
       const text = await file.text();
-      const importData = JSON.parse(text);
+      
+      let importData;
+      try {
+        importData = JSON.parse(text);
+      } catch (error) {
+        throw new Error('File content is not valid JSON', { cause: error });
+      }
       
       if (!importData.rules || !Array.isArray(importData.rules)) {
         throw new Error('Invalid file format: missing rules array');

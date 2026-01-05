@@ -258,5 +258,6 @@
   "syncsuccess": { "message": "Синхронізацію успішно завершено" },
   "syncfailed": { "message": "Не вдалося виконати синхронізацію." },
   "passwordreset": { "message": "Захист паролем було скинуто." },
-  "privacysecured": { "message": "Конфіденційність захищено" }
+  "privacysecured": { "message": "Конфіденційність захищено" },
+  "errorinvalidfiletype": { "message": "Будь ласка, оберіть .json файл" }
 }
