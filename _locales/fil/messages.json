@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Matagumpay na pagsabay" },
   "syncfailed": { "message": "Nabigo ang pagsabay." },
   "passwordreset": { "message": "Na-reset ang proteksyon ng password." },
-  "privacysecured": { "message": "Pribadong protektado" }
+  "privacysecured": { "message": "Pribadong protektado" },
+  "errorinvalidfiletype": { "message": "Pakiusap pumili ng .json na file" }
 }

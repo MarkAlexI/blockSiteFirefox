@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sincronització correcta" },
   "syncfailed": { "message": "La sincronització ha fallat." },
   "passwordreset": { "message": "La protecció amb contrasenya s'ha restablert." },
-  "privacysecured": { "message": "Privadesa protegida" }
+  "privacysecured": { "message": "Privadesa protegida" },
+  "errorinvalidfiletype": { "message": "Si us plau, seleccioneu un fitxer .json" }
 }

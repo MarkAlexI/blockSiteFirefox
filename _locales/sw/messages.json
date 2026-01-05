@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Ulinganifu umefanikiwa" },
   "syncfailed": { "message": "Ulinganifu umefeli." },
   "passwordreset": { "message": "Ulinzi wa nywila umeanzishwa upya." },
-  "privacysecured": { "message": "Faragha imedhaminiwa" }
+  "privacysecured": { "message": "Faragha imedhaminiwa" },
+  "errorinvalidfiletype": { "message": "Tafadhali chagua faili la .json" }
 }

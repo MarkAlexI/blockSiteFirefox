@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sinkronizacija uspješna" },
   "syncfailed": { "message": "Sinkronizacija nije uspjela." },
   "passwordreset": { "message": "Zaštita lozinkom je resetirana." },
-  "privacysecured": { "message": "Privatnost osigurana" }
+  "privacysecured": { "message": "Privatnost osigurana" },
+  "errorinvalidfiletype": { "message": "Molimo odaberite .json datoteku" }
 }

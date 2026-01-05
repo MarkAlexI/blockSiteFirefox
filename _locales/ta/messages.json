@@ -248,5 +248,6 @@
   "syncsuccess": { "message": "இணைப்பு வெற்றிகரமாக நடந்தது" },
   "syncfailed": { "message": "இணைப்பு தோல்வியடைந்தது." },
   "passwordreset": { "message": "கடவுச்சொல் பாதுகாப்பு மீட்டமைக்கப்பட்டது." },
-  "privacysecured": { "message": "தனிப்பட்ட தகவல்கள் பாதுகாக்கப்பட்டவை" }
+  "privacysecured": { "message": "தனிப்பட்ட தகவல்கள் பாதுகாக்கப்பட்டவை" },
+  "errorinvalidfiletype": { "message": "தயவுசெய்து ஒரு .json கோப்பை தேர்ந்தெடுக்கவும்" }
 }

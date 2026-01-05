@@ -258,5 +258,6 @@
   "syncsuccess": { "message": "同期に成功しました" },
   "syncfailed": { "message": "同期に失敗しました。" },
   "passwordreset": { "message": "パスワード保護がリセットされました。" },
-  "privacysecured": { "message": "プライバシーは保護されています" }
+  "privacysecured": { "message": "プライバシーは保護されています" },
+  "errorinvalidfiletype": { "message": ".jsonファイルを選択してください" }
 }

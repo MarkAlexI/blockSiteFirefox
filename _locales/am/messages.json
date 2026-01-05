@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "ማስማማቱ ተሳክቷል" },
   "syncfailed": { "message": "ማስማማት  실패 ሆኗል።" },
   "passwordreset": { "message": "የይለፍ ቃል ጥበቃ ተዘምሯል።" },
-  "privacysecured": { "message": "ግላዊነት ተጠብቆአል" }
+  "privacysecured": { "message": "ግላዊነት ተጠብቆአል" },
+  "errorinvalidfiletype": { "message": "እባክዎን .json ፋይል ይምረጡ" }
 }

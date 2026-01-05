@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Senkronizasyon başarılı" },
   "syncfailed": { "message": "Senkronizasyon başarısız." },
   "passwordreset": { "message": "Parola koruması sıfırlandı." },
-  "privacysecured": { "message": "Gizlilik güvence altında" }
+  "privacysecured": { "message": "Gizlilik güvence altında" },
+  "errorinvalidfiletype": { "message": "Lütfen bir .json dosyası seçin" }
 }

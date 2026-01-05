@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sincronizare reușită" },
   "syncfailed": { "message": "Sincronizarea a eșuat." },
   "passwordreset": { "message": "Protecția prin parolă a fost resetată." },
-  "privacysecured": { "message": "Confidențialitatea este asigurată" }
+  "privacysecured": { "message": "Confidențialitatea este asigurată" },
+  "errorinvalidfiletype": { "message": "Vă rugăm să selectați un fișier .json" }
 }

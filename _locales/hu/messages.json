@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sikeres szinkronizáció" },
   "syncfailed": { "message": "A szinkronizáció sikertelen." },
   "passwordreset": { "message": "A jelszóvédelem visszaállítva." },
-  "privacysecured": { "message": "Adatvédelem biztosítva" }
+  "privacysecured": { "message": "Adatvédelem biztosítva" },
+  "errorinvalidfiletype": { "message": "Kérjük, válasszon egy .json fájlt" }
 }

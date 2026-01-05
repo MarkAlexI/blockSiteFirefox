@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Synkronisering fuldført" },
   "syncfailed": { "message": "Synkronisering mislykkedes." },
   "passwordreset": { "message": "Adgangskodebeskyttelsen er nulstillet." },
-  "privacysecured": { "message": "Privatliv sikret" }
+  "privacysecured": { "message": "Privatliv sikret" },
+  "errorinvalidfiletype": { "message": "Vælg venligst en .json-fil" }
 }

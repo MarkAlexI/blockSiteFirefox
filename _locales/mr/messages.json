@@ -248,5 +248,6 @@
   "syncsuccess": { "message": "सिंक्रोनायझेशन यशस्वी" },
   "syncfailed": { "message": "सिंक्रोनायझेशन अयशस्वी." },
   "passwordreset": { "message": "पासवर्ड संरक्षण रीसेट केले गेले आहे." },
-  "privacysecured": { "message": "गोपनीयता सुरक्षित आहे" }
+  "privacysecured": { "message": "गोपनीयता सुरक्षित आहे" },
+  "errorinvalidfiletype": { "message": "कृपया .json फाइल निवडा" }
 }

@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sinchronizacija sėkminga" },
   "syncfailed": { "message": "Sinchronizavimas nepavyko." },
   "passwordreset": { "message": "Slaptažodžio apsauga buvo atstatyta." },
-  "privacysecured": { "message": "Privatumas užtikrintas" }
+  "privacysecured": { "message": "Privatumas užtikrintas" },
+  "errorinvalidfiletype": { "message": "Pasirinkite .json failą" }
 }

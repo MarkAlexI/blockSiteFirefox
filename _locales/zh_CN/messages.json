@@ -258,5 +258,6 @@
   "syncsuccess": { "message": "同步成功" },
   "syncfailed": { "message": "同步失败。" },
   "passwordreset": { "message": "密码保护已重置。" },
-  "privacysecured": { "message": "隐私已保护" }
+  "privacysecured": { "message": "隐私已保护" },
+  "errorinvalidfiletype": { "message": "请选择一个 .json 文件" }
 }

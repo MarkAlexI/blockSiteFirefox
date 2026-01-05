@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "సింక్రోనైజేషన్ విజయవంతమైంది" },
   "syncfailed": { "message": "సింక్రోనైజేషన్ విఫలమైంది." },
   "passwordreset": { "message": "పాస్‌వర్డ్ రక్షణను రీసెట్ చేశారు." },
-  "privacysecured": { "message": "గోప్యత రక్షించబడింది" }
+  "privacysecured": { "message": "గోప్యత రక్షించబడింది" },
+  "errorinvalidfiletype": { "message": "దయచేసి .json ఫైల్‌ని ఎంచుకోండి" }
 }

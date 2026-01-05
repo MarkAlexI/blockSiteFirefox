@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "סנכרון הצליח" },
   "syncfailed": { "message": "הסנכרון נכשל." },
   "passwordreset": { "message": "הגנת הסיסמה הוחזרה לברירת המחדל." },
-  "privacysecured": { "message": "הפרטיות מובטחת" }
+  "privacysecured": { "message": "הפרטיות מובטחת" },
+  "errorinvalidfiletype": { "message": "אנא בחר קובץ .json" }
 }

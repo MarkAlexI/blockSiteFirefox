@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sinkronisasi berhasil" },
   "syncfailed": { "message": "Sinkronisasi gagal." },
   "passwordreset": { "message": "Perlindungan kata sandi telah direset." },
-  "privacysecured": { "message": "Privasi Terjamin" }
+  "privacysecured": { "message": "Privasi Terjamin" },
+  "errorinvalidfiletype": { "message": "Silakan pilih file .json" }
 }

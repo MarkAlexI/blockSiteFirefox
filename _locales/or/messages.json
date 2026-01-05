@@ -258,5 +258,6 @@
   "syncsuccess": { "message": "ସିଙ୍କ୍ ସଫଳ ହେଲା" },
   "syncfailed": { "message": "ସିଙ୍କ୍ ବିଫଳ ହେଲା।" },
   "passwordreset": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ପୁନରାରମ୍ଭ କରାଯାଇଛି।" },
-  "privacysecured": { "message": "ଗୋପନୀୟତା ସୁରକ୍ଷିତ" }
+  "privacysecured": { "message": "ଗୋପନୀୟତା ସୁରକ୍ଷିତ" },
+  "errorinvalidfiletype": { "message": "ଦୟାକରି .json ଫାଇଲ୍ ଚୟନ କରନ୍ତୁ" }
 }

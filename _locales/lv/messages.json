@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sinhronizācija veiksmīga" },
   "syncfailed": { "message": "Sinhronizācija neizdevās." },
   "passwordreset": { "message": "Paroles aizsardzība ir atiestatīta." },
-  "privacysecured": { "message": "Privātums nodrošināts" }
+  "privacysecured": { "message": "Privātums nodrošināts" },
+  "errorinvalidfiletype": { "message": "Lūdzu, izvēlieties .json failu" }
 }

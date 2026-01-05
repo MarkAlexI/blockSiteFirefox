@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "ಸಿಂಕ್ರೋನೈಜೇಶನ್ ಯಶಸ್ವಿ" },
   "syncfailed": { "message": "ಸಿಂಕ್ರೋನೈಜೇಶನ್ ವಿಫಲವಾಗಿದೆ." },
   "passwordreset": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ರೀಸೆಟ್ ಮಾಡಲಾಗಿದೆ." },
-  "privacysecured": { "message": "ಗೌಪ್ಯತೆ ಸುರಕ್ಷಿತವಾಗಿದೆ" }
+  "privacysecured": { "message": "ಗೌಪ್ಯತೆ ಸುರಕ್ಷಿತವಾಗಿದೆ" },
+  "errorinvalidfiletype": { "message": "ದಯವಿಟ್ಟು .json ಫೈಲ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ" }
 }

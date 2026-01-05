@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.1] - 2025-01-05
+### Added
+- Added a new translation key "errorinvalidfiletype" across all locales.
+
 ## [3.1.0] - 2025-01-05
 ### Improved
 - Enhanced the rule import functionality with file extension validation to prevent loading binary or unsupported files.

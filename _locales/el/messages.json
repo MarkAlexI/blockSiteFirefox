@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Επιτυχής συγχρονισμός" },
   "syncfailed": { "message": "Απέτυχε ο συγχρονισμός." },
   "passwordreset": { "message": "Η προστασία με κωδικό επαναφέρθηκε." },
-  "privacysecured": { "message": "Το απόρρητο προστατεύεται" }
+  "privacysecured": { "message": "Το απόρρητο προστατεύεται" },
+  "errorinvalidfiletype": { "message": "Παρακαλώ επιλέξτε ένα αρχείο .json" }
 }

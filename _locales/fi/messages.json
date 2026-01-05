@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Synkronointi onnistui" },
   "syncfailed": { "message": "Synkronointi epäonnistui." },
   "passwordreset": { "message": "Salasanasuoja on palautettu." },
-  "privacysecured": { "message": "Yksityisyys suojattu" }
+  "privacysecured": { "message": "Yksityisyys suojattu" },
+  "errorinvalidfiletype": { "message": "Valitse .json-tiedosto" }
 }

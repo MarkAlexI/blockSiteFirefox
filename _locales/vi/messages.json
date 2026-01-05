@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Đồng bộ thành công" },
   "syncfailed": { "message": "Đồng bộ thất bại." },
   "passwordreset": { "message": "Bảo vệ mật khẩu đã được đặt lại." },
-  "privacysecured": { "message": "Quyền riêng tư được bảo vệ" }
+  "privacysecured": { "message": "Quyền riêng tư được bảo vệ" },
+  "errorinvalidfiletype": { "message": "Vui lòng chọn tệp .json" }
 }

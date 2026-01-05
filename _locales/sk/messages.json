@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Synchronizácia bola úspešná" },
   "syncfailed": { "message": "Synchronizácia zlyhala." },
   "passwordreset": { "message": "Ochrana heslom bola resetovaná." },
-  "privacysecured": { "message": "Súkromie zabezpečené" }
+  "privacysecured": { "message": "Súkromie zabezpečené" },
+  "errorinvalidfiletype": { "message": "Vyberte prosím súbor .json" }
 }

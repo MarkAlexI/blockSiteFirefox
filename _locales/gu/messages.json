@@ -248,5 +248,6 @@
   "syncsuccess": { "message": "સિંક સફળ થયું" },
   "syncfailed": { "message": "સિંક નિષ્ફળ થયું." },
   "passwordreset": { "message": "પાસવર્ડ સુરક્ષા રીસેટ થઈ ગઈ છે." },
-  "privacysecured": { "message": "ગોપનીયતા સુરક્ષિત" }
+  "privacysecured": { "message": "ગોપનીયતા સુરક્ષિત" },
+  "errorinvalidfiletype": { "message": "કૃપા કરીને એક .json ફાઇલ પસંદ કરો" }
 }

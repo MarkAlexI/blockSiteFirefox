@@ -258,5 +258,6 @@
   "syncsuccess": { "message": "تمت المزامنة بنجاح" },
   "syncfailed": { "message": "فشلت المزامنة." },
   "passwordreset": { "message": "تمت إعادة تعيين حماية كلمة المرور." },
-  "privacysecured": { "message": "الخصوصية آمنة" }
+  "privacysecured": { "message": "الخصوصية آمنة" },
+  "errorinvalidfiletype": { "message": "يرجى اختيار ملف ‎.json" }
 }

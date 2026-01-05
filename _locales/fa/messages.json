@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "همگام‌سازی موفقیت‌آمیز بود" },
   "syncfailed": { "message": "همگام‌سازی ناموفق بود." },
   "passwordreset": { "message": "محافظت با رمز عبور بازنشانی شد." },
-  "privacysecured": { "message": "حریم خصوصی ایمن شد" }
+  "privacysecured": { "message": "حریم خصوصی ایمن شد" },
+  "errorinvalidfiletype": { "message": "لطفاً یک فایل .json انتخاب کنید" }
 }

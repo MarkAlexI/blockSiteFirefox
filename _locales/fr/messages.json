@@ -258,5 +258,6 @@
   "syncsuccess": { "message": "Synchronisation réussie" },
   "syncfailed": { "message": "Échec de la synchronisation." },
   "passwordreset": { "message": "La protection par mot de passe a été réinitialisée." },
-  "privacysecured": { "message": "Confidentialité sécurisée" }
+  "privacysecured": { "message": "Confidentialité sécurisée" },
+  "errorinvalidfiletype": { "message": "Veuillez sélectionner un fichier .json" }
 }

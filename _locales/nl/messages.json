@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Synchronisatie geslaagd" },
   "syncfailed": { "message": "Synchronisatie mislukt." },
   "passwordreset": { "message": "Wachtwoordbeveiliging is opnieuw ingesteld." },
-  "privacysecured": { "message": "Privacy beveiligd" }
+  "privacysecured": { "message": "Privacy beveiligd" },
+  "errorinvalidfiletype": { "message": "Selecteer een .json-bestand" }
 }

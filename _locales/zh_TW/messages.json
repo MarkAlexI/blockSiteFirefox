@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "同步成功" },
   "syncfailed": { "message": "同步失敗。" },
   "passwordreset": { "message": "密碼保護已重置。" },
-  "privacysecured": { "message": "隱私已保護" }
+  "privacysecured": { "message": "隱私已保護" },
+  "errorinvalidfiletype": { "message": "請選擇一個 .json 檔案" }
 }

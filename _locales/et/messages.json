@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "Sünkroonimine õnnestus" },
   "syncfailed": { "message": "Sünkroonimine ebaõnnestus." },
   "passwordreset": { "message": "Paroolikaitse on lähtestatud." },
-  "privacysecured": { "message": "Privaatsus kaitstud" }
+  "privacysecured": { "message": "Privaatsus kaitstud" },
+  "errorinvalidfiletype": { "message": "Palun valige .json-fail" }
 }

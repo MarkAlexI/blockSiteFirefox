@@ -249,5 +249,6 @@
   "syncsuccess": { "message": "ซิงค์สำเร็จ" },
   "syncfailed": { "message": "ซิงค์ล้มเหลว" },
   "passwordreset": { "message": "การป้องกันรหัสผ่านถูกรีเซ็ตแล้ว" },
-  "privacysecured": { "message": "ความเป็นส่วนตัวได้รับการปกป้อง" }
+  "privacysecured": { "message": "ความเป็นส่วนตัวได้รับการปกป้อง" },
+  "errorinvalidfiletype": { "message": "โปรดเลือกไฟล์ .json" }
 }
