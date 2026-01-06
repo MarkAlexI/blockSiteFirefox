@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.2] - 2025-01-06
+### Changed
+- Reworked the rules and settings import implementation for better reliability.
+- Made the "delete_all_rules" message listener in the worker asynchronous for improved control flow.
+
 ## [3.1.1] - 2025-01-05
 ### Added
 - Added a new translation key "errorinvalidfiletype" across all locales.

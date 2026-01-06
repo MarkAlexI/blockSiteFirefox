@@ -159,7 +159,7 @@ async function updateActiveRules() {
     }
     
   } catch (error) {
-    Logger.error("Error updating active rules:", error);
+    Logger.info("Error updating active rules:", error);
   }
 }
 
@@ -457,7 +457,17 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'delete_all_rules') {
-    rulesManager.deleteAllRules();
+    rulesManager.deleteAllRules()
+      .then(() => {
+        Logger.log('All rules deleted via message request');
+        sendResponse({ success: true });
+      })
+      .catch((error) => {
+        Logger.error('Failed to delete rules via message:', error);
+        sendResponse({ success: false, error: error.message });
+      });
+    
+    return true;
   }
 });
 

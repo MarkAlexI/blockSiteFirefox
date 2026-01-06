@@ -348,8 +348,30 @@ export class SettingsManager {
       
       if (!confirmImport) return;
       
+      try {
+        const response = await browser.runtime.sendMessage({
+          type: 'delete_all_rules'
+        });
+        
+        if (!response || !response.success) {
+          throw new Error(response?.error || 'Failed to clear old rules via Worker');
+        }
+      } catch (err) {
+        Logger.error('Communication error:', err);
+        this.showStatus('Error communicating with background service', 'error');
+        return;
+      }
+      
+      const rulesToSave = importData.rules.map((rule, index) => ({
+        ...rule,
+        id: index + 1,
+        blockURL: rule.blockURL ? rule.blockURL.trim() : '',
+        redirectURL: rule.redirectURL ? rule.redirectURL.trim() : '',
+        category: rule.category || 'uncategorized'
+      }));
+      
       const saveData = {
-        rules: importData.rules
+        rules: rulesToSave
       };
       
       if (importData.settings) {
@@ -361,6 +383,10 @@ export class SettingsManager {
       if (saveData.settings) {
         this.applySettingsToUI(saveData.settings);
       }
+      
+      browser.runtime.sendMessage({
+        type: 'reload_rules'
+      });
       
       await this.loadRuleCount(saveData.rules);
       await this.loadStatistics();
@@ -397,7 +423,7 @@ export class SettingsManager {
     if (!confirmClear) return;
     
     try {
-      browser.runtime.sendMessage({
+      await browser.runtime.sendMessage({
         type: 'delete_all_rules'
       });
       
