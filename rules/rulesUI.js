@@ -3,6 +3,7 @@ import Logger from '../utils/logger.js';
 
 export class RulesUI {
   constructor() {
+    this.logger = new Logger('RulesUI');
     this.countdownTimers = new Map();
   }
   
@@ -196,7 +197,7 @@ export class RulesUI {
         const schedule = this.getScheduleFromSection(scheduleSection);
         onSave(index, blockInput.value, redirectInput.value, category, schedule, rule.id);
       } catch (error) {
-        Logger.info('Edit: Schedule error:', error.message);
+        this.logger.info('Edit: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
       }
     });
@@ -265,7 +266,7 @@ export class RulesUI {
         const schedule = this.getScheduleFromSection(scheduleSection);
         onSave(blockInput.value, redirectInput.value, category, schedule, row);
       } catch (error) {
-        Logger.info('Add: Schedule error:', error.message);
+        this.logger.info('Add: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
       }
     });
@@ -370,7 +371,7 @@ export class RulesUI {
       timeContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
     });
     
-    Logger.log('Created schedule section:', {
+    this.logger.log('Created schedule section:', {
       enableChecked: enableCheckbox.checked,
       days: existingSchedule?.days,
       startTime: startTime.value,

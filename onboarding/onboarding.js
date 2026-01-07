@@ -1,6 +1,8 @@
 import { t } from '../scripts/t.js';
 import Logger from '../utils/logger.js';
 
+const logger = new Logger('Onboarding');
+
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -73,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         grantBtn.disabled = false;
       }
     } catch (err) {
-      Logger.error('Error requesting permission:', err);
+      logger.error('Error requesting permission:', err);
       statusMsg.textContent = t('onboarding_status_api_error');
       statusMsg.className = 'error';
       statusMsg.style.display = 'block';

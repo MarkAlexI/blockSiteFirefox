@@ -6,6 +6,8 @@
 import Logger from '../utils/logger.js';
 
 export async function closeTabsMatchingRule(blockURL) {
+  const logger = new Logger('CloseTabs');
+  
   if (!blockURL || blockURL.trim() === '') return;
   
   const tabs = await browser.tabs.query({});
@@ -17,7 +19,7 @@ export async function closeTabsMatchingRule(blockURL) {
         tabsToRemoveIds.push(tab.id);
       }
     } catch (e) {
-      Logger.warn("Error checking tab:", tab.id, e);
+      logger.warn("Error checking tab:", tab.id, e);
     }
   }
   

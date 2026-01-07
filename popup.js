@@ -11,9 +11,11 @@ import { initializeNoSpaceInputs } from './utils/noSpaces.js';
 import Logger from '../utils/logger.js';
 
 const MAX_RULES_LIMIT = 5;
+const logger = new Logger('Popup');
 
 class PopupPage {
   constructor() {
+    this.logger = logger;
     this.rulesManager = new RulesManager();
     this.rulesUI = new RulesUI();
     
@@ -40,7 +42,7 @@ class PopupPage {
       this.isPro = await ProManager.isPro();
       this.isLegacyUser = await ProManager.isLegacyUser();
     } catch (error) {
-      Logger.info('Error initializing Pro/Legacy status:', error);
+      this.logger.info('Error initializing Pro/Legacy status:', error);
     }
     
     await this.loadRules();
@@ -90,7 +92,7 @@ class PopupPage {
       }
       
     } catch (error) {
-      Logger.error('Error loading security mode:', error);
+      this.logger.error('Error loading security mode:', error);
       if (this.currentModeElement) {
         this.currentModeElement.setAttribute('data-i18n', 'normalmodetitle');
         this.currentModeElement.textContent = t('normalmodetitle') || 'Normal Mode';
@@ -202,7 +204,7 @@ class PopupPage {
       this.showBlockThisSiteButton(rules);
       
     } catch (error) {
-      Logger.error("Load rules error:", error);
+      this.logger.error("Load rules error:", error);
       customAlert(t('errorupdatingrules'));
     }
   }
@@ -303,7 +305,7 @@ class PopupPage {
         button.remove();
       }
     } catch (error) {
-      Logger.error("Block current site error:", error);
+      this.logger.error("Block current site error:", error);
       customAlert(t('erroraddingrule'));
     }
   }
@@ -426,7 +428,7 @@ class PopupPage {
         url: blockURL.value.trim()
       });
     } catch (error) {
-      Logger.error("Save new rule error:", error);
+      this.logger.error("Save new rule error:", error);
       
       if (error.message.includes('Validation failed')) {
         const errors = error.message.replace('Validation failed: ', '').split(', ');
@@ -483,7 +485,7 @@ class PopupPage {
               }
               
             } catch (error) {
-              Logger.info("Delete rule error:", error);
+              this.logger.info("Delete rule error:", error);
               ruleDiv.remove();
             }
           },
@@ -492,7 +494,7 @@ class PopupPage {
       );
       
     } catch (error) {
-      Logger.error("Handle deletion error:", error);
+      this.logger.error("Handle deletion error:", error);
       customAlert(t('errorremovingrule'));
     }
   }
@@ -543,7 +545,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'pro_status_changed') {
-    Logger.log(`Pro status changed: ${message.isPro}`);
+    logger.log(`Pro status changed: ${message.isPro}`);
     
     ProManager.updateProFeaturesVisibility(message.isPro);
     popupPage.isPro = message.isPro;

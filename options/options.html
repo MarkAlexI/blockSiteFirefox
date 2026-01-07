@@ -39,13 +39,7 @@
             
             <form id="license-form">
               <label for="license-key-input" data-i18n="pastekeylabel">Paste your License Key here:</label>
-              <input
-                type_="text"
-                id="license-key-input"
-                placeholder="BD-PRO-..."
-                required
-                autocomplete="off"
-              >
+              <input type_="text" id="license-key-input" placeholder="BD-PRO-..." required autocomplete="off">
               <button type="submit" id="license-submit-btn">
                 <span data-i18n="activatepro">Activate Pro</span>
               </button>
@@ -150,6 +144,23 @@
           <div class="toggle-switch">
             <input type="checkbox" id="enablePassword" class="toggle-input">
             <label for="enablePassword" class="toggle-label">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+      
+      <section class="setting-section hidden pro-feature">
+        <h2 data-i18n="debugsettingstitle">Debug Settings</h2>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <label for="enableDebug" data-i18n="enabledebugtitle">Enable Debug Mode</label>
+            <span class="setting-description" data-i18n="enabledebugdesc">Enable detailed logging to console for troubleshooting</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="enableDebug" class="toggle-input">
+            <label for="enableDebug" class="toggle-label">
               <span class="toggle-slider"></span>
             </label>
           </div>

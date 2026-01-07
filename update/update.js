@@ -4,11 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'A Pro mode has been developed to improve the experience with restrictions. Basic features remain available and free.',
-    'Added basic statistics on the options page in Pro mode: number of rules, total sites blocked, and today’ s blocked count.',
-    'In Pro mode, a context menu is now available that lets you block sites from links with a single click.',
-    'Added password protection for rule deletion in Pro mode',
-    'Improved the statistics system for Pro mode — it now tracks not only site blocks but also redirects. This helps make analytics more complete and accurate, so future improvements can be even smarter.',
+    'This update introduces Debug Mode for Pro users on the settings page, making it easier to diagnose issues and understand how the extension behaves.',
+    'We’ve also improved internal loggingfor Pro users: logs are now clearer and more structured, with timestamps and visual context in the browser console. This helps with faster troubleshooting and more transparent behavior during advanced usage.',
   ];
   
   const ul = document.getElementById('features');

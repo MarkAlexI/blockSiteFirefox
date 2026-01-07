@@ -3,6 +3,8 @@ import Logger from '../utils/logger.js';
 export class ProManager {
   static RESTRICTION_START_DATE = '2026-01-01T00:00:00Z';
   
+  static logger = new Logger('ProManager');
+  
   static defaultCredentials = {
     isPro: false,
     subscriptionEmail: null,
@@ -30,7 +32,7 @@ export class ProManager {
       
       return credentials.isPro === true;
     } catch (error) {
-      Logger.error('Error checking Pro status:', error);
+      this.logger.error('Error checking Pro status:', error);
       return false;
     }
   }
@@ -43,7 +45,7 @@ export class ProManager {
       }
       return true;
     } catch (error) {
-      Logger.info('Error checking legacy status:', error);
+      this.logger.info('Error checking legacy status:', error);
       return true;
     }
   }
@@ -61,7 +63,7 @@ export class ProManager {
       
       return { ...this.defaultCredentials, ...result.credentials };
     } catch (error) {
-      Logger.error('Error getting credentials:', error);
+      this.logger.error('Error getting credentials:', error);
       return this.defaultCredentials;
     }
   }
@@ -92,14 +94,14 @@ export class ProManager {
       
       return updatedCredentials;
     } catch (error) {
-      Logger.error('Error updating Pro status:', error);
+      this.logger.error('Error updating Pro status:', error);
       throw error;
     }
   }
   
   static updateProFeaturesVisibility(isPro) {
     if (!this.hasDOM) {
-      Logger.log(`Pro status updated to: ${isPro} (no DOM available)`);
+      this.logger.log(`Pro status updated to: ${isPro} (no DOM available)`);
       return;
     }
     
@@ -114,9 +116,9 @@ export class ProManager {
         }
       });
       
-      Logger.log(`Pro features ${isPro ? 'enabled' : 'disabled'}`);
+      this.logger.log(`Pro features ${isPro ? 'enabled' : 'disabled'}`);
     } catch (error) {
-      Logger.error('Error updating Pro features visibility:', error);
+      this.logger.error('Error updating Pro features visibility:', error);
     }
   }
   
@@ -130,7 +132,7 @@ export class ProManager {
       });
       
     } catch (error) {
-      Logger.error('Error notifying Pro status change:', error);
+      this.logger.error('Error notifying Pro status change:', error);
     }
   }
   
@@ -142,17 +144,17 @@ export class ProManager {
       }
       return isPro;
     } catch (error) {
-      Logger.error('Error initializing Pro features:', error);
+      this.logger.error('Error initializing Pro features:', error);
       return false;
     }
   }
   
   static async setProStatusFromWorker(isPro, subscriptionData = {}) {
     try {
-      Logger.log(`Service worker updating Pro status to: ${isPro}`);
+      this.logger.log(`Service worker updating Pro status to: ${isPro}`);
       return await this.updateProStatus(isPro, subscriptionData);
     } catch (error) {
-      Logger.error('Error updating Pro status from service worker:', error);
+      this.logger.error('Error updating Pro status from service worker:', error);
       throw error;
     }
   }

@@ -8,6 +8,7 @@ import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
 
+const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
 const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
 
@@ -16,14 +17,14 @@ async function syncLicenseKeyStatus() {
   const currentKey = credentials.licenseKey;
   
   if (!currentKey) {
-    Logger.log('License Sync: No key stored, skipping sync.');
+    logger.log('License Sync: No key stored, skipping sync.');
     if (credentials.isPro) {
       await handleProStatusUpdate(false, { licenseKey: null, expiryDate: null, subscriptionEmail: null });
     }
     return { success: false, isPro: false };
   }
   
-  Logger.log('License Sync: Checking stored key...');
+  logger.log('License Sync: Checking stored key...');
   try {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
@@ -48,11 +49,11 @@ async function syncLicenseKeyStatus() {
       expiryDate: data.expiryDate
     });
     
-    Logger.log('License Sync: Status updated from server. isPro:', data.isPro);
+    logger.log('License Sync: Status updated from server. isPro:', data.isPro);
     return { success: true, isPro: data.isPro };
     
   } catch (error) {
-    Logger.error('License Sync: Error:', error.message);
+    logger.error('License Sync: Error:', error.message);
     return { success: false, isPro: credentials.isPro };
   }
 }
@@ -72,10 +73,10 @@ async function updateContextMenu(isPro) {
         contexts: IS_FIREFOX ? ['link'] : ['page', 'link']
       }, () => {
         void browser.runtime.lastError;
-        Logger.log('BlockDistraction context menu created');
+        logger.log('BlockDistraction context menu created');
       });
     } else {
-      Logger.log('BlockDistraction context menu removed (non-pro mode)');
+      logger.log('BlockDistraction context menu removed (non-pro mode)');
     }
   });
 }
@@ -86,18 +87,18 @@ if (browser.contextMenus) {
     
     const isPro = await ProManager.isPro();
     if (!isPro) {
-      Logger.warn('Attempted to block while not in pro mode');
+      logger.warn('Attempted to block while not in pro mode');
       return;
     }
     
     const target = resolveContextTarget(info, tab);
     if (!target) {
-      Logger.info('No safe context target resolved');
+      logger.info('No safe context target resolved');
       return;
     }
     
     if (!/^https?:/i.test(target.url)) {
-      Logger.warn('Unsupported URL scheme:', target.url);
+      logger.warn('Unsupported URL scheme:', target.url);
       return;
     }
     
@@ -110,21 +111,21 @@ if (browser.contextMenus) {
     }
     
     if (!ruleValue) {
-      Logger.info('Failed to normalize context target:', target);
+      logger.info('Failed to normalize context target:', target);
       return;
     }
     
     try {
       await rulesManager.addRule(ruleValue, '');
       
-      Logger.log(
+      logger.log(
         `Blocked ${target.type} via Context Menu:`,
         ruleValue
       );
       
       await closeTabsMatchingRule(ruleValue);
     } catch (error) {
-      Logger.info('Error processing context menu block:', error);
+      logger.info('Error processing context menu block:', error);
     }
   });
 }
@@ -142,7 +143,7 @@ async function updateActiveRules() {
       .filter(id => currentDnrRules.some(dnr => dnr.id === id));
     if (removeRuleIds.length) {
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
-      Logger.log(`Removed ${removeRuleIds.length} inactive scheduled rules`);
+      logger.log(`Removed ${removeRuleIds.length} inactive scheduled rules`);
     }
     
     const addRules = [];
@@ -155,11 +156,11 @@ async function updateActiveRules() {
     }
     if (addRules.length) {
       await browser.declarativeNetRequest.updateDynamicRules({ addRules });
-      Logger.log(`Added ${addRules.length} active scheduled rules`);
+      logger.log(`Added ${addRules.length} active scheduled rules`);
     }
     
   } catch (error) {
-    Logger.info("Error updating active rules:", error);
+    logger.info("Error updating active rules:", error);
   }
 }
 
@@ -169,15 +170,15 @@ async function clearAllDnrRules() {
     if (dnrRules.length) {
       const removeRuleIds = dnrRules.map(rule => rule.id);
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
-      Logger.log(`Cleared ${removeRuleIds.length} DNR rules`);
+      logger.log(`Cleared ${removeRuleIds.length} DNR rules`);
     }
   } catch (error) {
-    Logger.error("Failed to clear DNR rules:", error);
+    logger.error("Failed to clear DNR rules:", error);
   }
 }
 
 async function showUpdates(details) {
-  return true;
+  // return true;
   try {
     const settings = await SettingsManager.getSettings();
     
@@ -188,7 +189,7 @@ async function showUpdates(details) {
       });
     }
   } catch (error) {
-    Logger.error('Error showing updates:', error);
+    logger.error('Error showing updates:', error);
     if (details.reason === 'update') {
       const version = browser.runtime.getManifest().version;
       browser.tabs.create({
@@ -209,13 +210,13 @@ async function validateDnrIntegrity() {
     const isInSync = storageIds.size === dnrIds.size && [...storageIds].every(id => dnrIds.has(id));
     
     if (!isInSync) {
-      Logger.warn("DNR rules out of sync, triggering sync...");
+      logger.warn("DNR rules out of sync, triggering sync...");
       await updateActiveRules();
     }
     
     return isInSync;
   } catch (error) {
-    Logger.error("DNR integrity check failed:", error);
+    logger.error("DNR integrity check failed:", error);
     return false;
   }
 }
@@ -229,24 +230,24 @@ async function trackBlockedPage(url) {
       const blockedUrl = urlObj.searchParams.get('url');
       
       if (blockedUrl) {
-        Logger.log(`Recording block: ${blockedUrl}`);
+        logger.log(`Recording block: ${blockedUrl}`);
         await StatisticsManager.recordBlock(blockedUrl);
       }
     }
   } catch (error) {
-    Logger.error('Error tracking blocked page:', error);
+    logger.error('Error tracking blocked page:', error);
   }
 }
 
 async function handleProStatusUpdate(isPro, subscriptionData = {}) {
   try {
-    Logger.log(`Service worker received Pro status update: ${isPro}`);
+    logger.log(`Service worker received Pro status update: ${isPro}`);
     const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
-    Logger.log('Pro status updated successfully');
+    logger.log('Pro status updated successfully');
     await updateContextMenu(isPro);
     return updatedCredentials;
   } catch (error) {
-    Logger.error('Error handling Pro status update:', error);
+    logger.error('Error handling Pro status update:', error);
     throw error;
   }
 }
@@ -264,11 +265,11 @@ browser.tabs.onCreated.addListener(async (tab) => {
 });
 
 browser.runtime.onStartup.addListener(async () => {
-  Logger.log("Extension startup - syncing DNR rules");
+  logger.log("Extension startup - syncing DNR rules");
   await updateActiveRules();
   
   const result = await syncLicenseKeyStatus();
-  Logger.log('Startup: Pro status is', result.isPro, '- updating context menu...');
+  logger.log('Startup: Pro status is', result.isPro, '- updating context menu...');
   await updateContextMenu(result.isPro);
   
   setTimeout(async () => {
@@ -277,7 +278,7 @@ browser.runtime.onStartup.addListener(async () => {
 });
 
 async function initializeExtension(details) {
-  Logger.log("Initializing extension state (rules, settings, legacy status)...");
+  logger.log("Initializing extension state (rules, settings, legacy status)...");
   
   await updateActiveRules();
   await SettingsManager.getSettings();
@@ -295,7 +296,7 @@ async function initializeExtension(details) {
         installationDate: installDate,
         isLegacyUser: isLegacy
       });
-      Logger.log(`New install: isLegacyUser set to ${isLegacy}`);
+      logger.log(`New install: isLegacyUser set to ${isLegacy}`);
     } else if (details.reason === 'update') {
       if (credentials.installationDate === null || credentials.isLegacyUser === undefined) {
         await ProManager.updateProStatus(credentials.isPro, {
@@ -303,14 +304,14 @@ async function initializeExtension(details) {
           installationDate: credentials.installationDate || new Date(0).toISOString(),
           isLegacyUser: true
         });
-        Logger.log('Migrated existing users to legacy status');
+        logger.log('Migrated existing users to legacy status');
       }
     }
     
     const isPro = await ProManager.isPro();
     await updateContextMenu(isPro);
   } catch (error) {
-    Logger.info('Error handling install/update for legacy:', error);
+    logger.info('Error handling install/update for legacy:', error);
   }
 }
 
@@ -324,24 +325,24 @@ async function checkAndRequestPermissions() {
     }
     
     if (granted) {
-      Logger.log("Host permission already granted.");
+      logger.log("Host permission already granted.");
       await initializeExtension(details);
     } else {
-      Logger.log("Host permission NOT granted. Opening onboarding page.");
+      logger.log("Host permission NOT granted. Opening onboarding page.");
       browser.tabs.create({
         url: browser.runtime.getURL('onboarding/onboarding.html')
       });
     }
   } catch (err) {
-    Logger.error("Error checking permissions:", err);
+    logger.error("Error checking permissions:", err);
   }
 }
 
 browser.runtime.onInstalled.addListener(async (details) => {
-  Logger.log(`Extension event: ${details.reason}`);
+  logger.log(`Extension event: ${details.reason}`);
   
   if (details.reason === 'install') {
-    Logger.log("This is a fresh install. Checking permissions...");
+    logger.log("This is a fresh install. Checking permissions...");
     await initializeExtension(details);
     await checkAndRequestPermissions();
     
@@ -351,14 +352,14 @@ browser.runtime.onInstalled.addListener(async (details) => {
     });
     
   } else if (details.reason === 'update') {
-    Logger.log("This is an update. Assuming permissions are granted.");
+    logger.log("This is an update. Assuming permissions are granted.");
     await initializeExtension(details);
     await checkAndRequestPermissions();
   } else if (details.reason === 'chrome_update' || details.reason === 'browser_update') {
-    Logger.log("Browser updated.");
+    logger.log("Browser updated.");
     await validateDnrIntegrity();
   } else if (details.reason === 'shared_module_update') {
-    Logger.log("Shared module updated.");
+    logger.log("Shared module updated.");
   }
 });
 
@@ -374,7 +375,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     closeTabsMatchingRule(message.url)
       .then(() => sendResponse({ success: true }))
       .catch((err) => {
-        Logger.error("Close tabs error:", err);
+        logger.error("Close tabs error:", err);
         sendResponse({ success: false });
       });
     return true;
@@ -429,7 +430,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'reload_rules') {
     (async () => {
       await updateActiveRules();
-      Logger.log('Rules updated.');
+      logger.log('Rules updated.');
     })();
     return;
   }
@@ -452,18 +453,18 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'permissions_granted') {
-    Logger.log("Permissions granted via onboarding.");
+    logger.log("Permissions granted via onboarding.");
     updateActiveRules();
   }
   
   if (message.type === 'delete_all_rules') {
     rulesManager.deleteAllRules()
       .then(() => {
-        Logger.log('All rules deleted via message request');
+        logger.log('All rules deleted via message request');
         sendResponse({ success: true });
       })
       .catch((error) => {
-        Logger.error('Failed to delete rules via message:', error);
+        logger.error('Failed to delete rules via message:', error);
         sendResponse({ success: false, error: error.message });
       });
     

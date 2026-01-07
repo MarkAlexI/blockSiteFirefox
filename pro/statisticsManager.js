@@ -1,6 +1,8 @@
 import Logger from '../utils/logger.js';
 
 export class StatisticsManager {
+  static logger = new Logger('Stats');
+  
   static defaultStats = {
     totalBlocked: 0,
     blockedToday: 0,
@@ -27,11 +29,12 @@ export class StatisticsManager {
         stats.redirectsToday = 0;
         stats.lastResetDate = today;
         await browser.storage.local.set({ statistics: stats });
+        this.logger.log('Daily stats reset');
       }
       
       return stats;
     } catch (error) {
-      Logger.error('Error getting statistics:', error);
+      this.logger.error('Error getting statistics:', error);
       return this.defaultStats;
     }
   }
@@ -44,11 +47,11 @@ export class StatisticsManager {
       stats.blockedToday = (stats.blockedToday || 0) + 1;
       
       await browser.storage.local.set({ statistics: stats });
-
-      Logger.log(`Block recorded: ${url}. Total: ${stats.totalBlocked}, Today: ${stats.blockedToday}`);
+      
+      this.logger.log(`Block recorded: ${url}. Total: ${stats.totalBlocked}, Today: ${stats.blockedToday}`);
       return stats;
     } catch (error) {
-      Logger.error('Error recording block:', error);
+      this.logger.error('Error recording block:', error);
       return await this.getStatistics();
     }
   }
@@ -61,12 +64,12 @@ export class StatisticsManager {
       stats.redirectsToday = (stats.redirectsToday || 0) + 1;
       
       await browser.storage.local.set({ statistics: stats });
-
+      
       const to = new URL(toUrl);
-      Logger.log(`Redirect recorded: from -> ${to.hostname}. Total: ${stats.totalRedirects}, Today: ${stats.redirectsToday}`);
+      this.logger.log(`Redirect recorded: from -> ${to.hostname}. Total: ${stats.totalRedirects}, Today: ${stats.redirectsToday}`);
       return stats;
     } catch (error) {
-      Logger.error('Error recording redirect:', error);
+      this.logger.error('Error recording redirect:', error);
       return await this.getStatistics();
     }
   }
@@ -85,7 +88,7 @@ export class StatisticsManager {
         redirectsToday: stats.redirectsToday
       };
     } catch (error) {
-      Logger.error('Error getting UI data:', error);
+      this.logger.error('Error getting UI data:', error);
       return {
         totalRules: 0,
         totalBlocked: 0,
@@ -105,7 +108,7 @@ export class StatisticsManager {
       await browser.storage.local.set({ statistics: newStats });
       return newStats;
     } catch (error) {
-      Logger.error('Error resetting statistics:', error);
+      this.logger.error('Error resetting statistics:', error);
       throw error;
     }
   }

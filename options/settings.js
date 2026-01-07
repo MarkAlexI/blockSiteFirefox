@@ -6,12 +6,14 @@ import Logger from '../utils/logger.js';
 
 export class SettingsManager {
   constructor() {
+    this.logger = new Logger('SettingsManager');
     this.defaultSettings = {
       mode: 'normal',
       confirmBeforeDelete: false,
       showNotifications: true,
       enablePassword: false,
-      passwordHash: null
+      passwordHash: null,
+      debugMode: false
     };
     
     this.onRulesUpdated = null;
@@ -37,28 +39,30 @@ export class SettingsManager {
       if (!result.settings) {
         await browser.storage.sync.set({ settings: this.defaultSettings });
         this.applySettingsToUI(this.defaultSettings);
-        Logger.log('Default settings initialized');
+        this.logger.log('Default settings initialized');
       } else {
         const mergedSettings = { ...this.defaultSettings, ...result.settings };
+
         const hasNewFields = Object.keys(this.defaultSettings).some(
           key => !(key in result.settings)
         );
         
         if (hasNewFields) {
           await browser.storage.sync.set({ settings: mergedSettings });
-          Logger.log('Settings updated with new fields');
+          this.logger.log('Settings updated with new fields');
         }
         
         this.applySettingsToUI(mergedSettings);
       }
     } catch (error) {
-      Logger.error('Error initializing settings:', error);
+      this.logger.error('Error initializing settings:', error);
       this.applySettingsToUI(this.defaultSettings);
       this.showStatus(t('errorloadingsettings'), 'error');
     }
   }
   
   static async getSettings() {
+    const logger = new Logger('SettingsManager:Static');
     try {
       const result = await browser.storage.sync.get(['settings']);
       const defaultSettings = {
@@ -66,7 +70,8 @@ export class SettingsManager {
         confirmBeforeDelete: false,
         showNotifications: true,
         enablePassword: false,
-        passwordHash: null
+        passwordHash: null,
+        debugMode: false
       };
       
       if (!result.settings) {
@@ -76,13 +81,14 @@ export class SettingsManager {
       
       return { ...defaultSettings, ...result.settings };
     } catch (error) {
-      Logger.error('Error getting settings:', error);
+      logger.error('Error getting settings:', error);
       return {
         mode: 'normal',
         confirmBeforeDelete: false,
         showNotifications: true,
         enablePassword: false,
-        passwordHash: null
+        passwordHash: null,
+        debugMode: false
       };
     }
   }
@@ -101,6 +107,9 @@ export class SettingsManager {
     
     const passBox = document.getElementById('enablePassword');
     if (passBox) passBox.checked = settings.enablePassword;
+
+    const debugBox = document.getElementById('enableDebug');
+    if (debugBox) debugBox.checked = settings.debugMode;
   }
   
   async saveSettings(settingsToSave) {
@@ -112,7 +121,7 @@ export class SettingsManager {
       await browser.storage.sync.set({ settings: newSettings });
       this.showStatus(t('settingssaved'), 'success');
     } catch (error) {
-      Logger.error('Error saving settings:', error);
+      this.logger.error('Error saving settings:', error);
       this.showStatus(t('errorsavingsettings'), 'error');
     }
   }
@@ -122,12 +131,14 @@ export class SettingsManager {
     const confirmBeforeDelete = document.getElementById('confirmBeforeDelete').checked;
     const showNotifications = document.getElementById('showNotifications').checked;
     const enablePassword = document.getElementById('enablePassword').checked;
+    const debugMode = document.getElementById('enableDebug')?.checked || false;
     
     return {
       mode,
       confirmBeforeDelete,
       showNotifications,
-      enablePassword
+      enablePassword,
+      debugMode
     };
   }
   
@@ -145,11 +156,15 @@ export class SettingsManager {
   
   setupEventListeners() {
     const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword)');
+    
     inputs.forEach(input => {
       input.addEventListener('change', async (e) => {
         const settingsToSave = {};
         if (e.target.name === 'securityMode') {
           settingsToSave.mode = e.target.value;
+        } else if (e.target.id === 'enableDebug') {
+            settingsToSave.debugMode = e.target.checked;
+            this.logger.info(`Debug mode changed to: ${e.target.checked}`);
         } else {
           settingsToSave[e.target.id] = e.target.checked;
         }
@@ -243,7 +258,7 @@ export class SettingsManager {
   
   handleStorageChange(changes, namespace) {
     if (namespace === 'local' && changes.statistics) {
-      Logger.log('Statistics changed in storage, reloading stats UI...');
+      this.logger.log('Statistics changed in storage, reloading stats UI...');
       this.loadStatistics();
     }
   }
@@ -260,7 +275,7 @@ export class SettingsManager {
       const el = document.getElementById('totalRules');
       if (el) el.textContent = rules.length;
     } catch (error) {
-      Logger.error('Error loading rule count:', error);
+      this.logger.error('Error loading rule count:', error);
     }
   }
   
@@ -285,7 +300,7 @@ export class SettingsManager {
       setStatsText('totalRedirects', stats.totalRedirects || 0);
       setStatsText('redirectsToday', stats.redirectsToday || 0);
     } catch (error) {
-      Logger.error('Error loading statistics:', error);
+      this.logger.error('Error loading statistics:', error);
     }
   }
   
@@ -314,7 +329,7 @@ export class SettingsManager {
       
       this.showStatus(t('rulesexported'), 'success');
     } catch (error) {
-      Logger.error('Error exporting rules:', error);
+      this.logger.error('Error exporting rules:', error);
       this.showStatus(t('errorexportingrules'), 'error');
     }
   }
@@ -357,11 +372,11 @@ export class SettingsManager {
           throw new Error(response?.error || 'Failed to clear old rules via Worker');
         }
       } catch (err) {
-        Logger.error('Communication error:', err);
+        this.logger.error('Communication error:', err);
         this.showStatus('Error communicating with background service', 'error');
         return;
       }
-      
+
       const rulesToSave = importData.rules.map((rule, index) => ({
         ...rule,
         id: index + 1,
@@ -401,7 +416,7 @@ export class SettingsManager {
       
       this.notifyOptionsReload();
     } catch (error) {
-      Logger.error('Error importing rules:', error);
+      this.logger.error('Error importing rules:', error);
       this.showStatus(t('errorimportingrules') + error.message, 'error');
     }
   }
@@ -435,7 +450,7 @@ export class SettingsManager {
       }
       this.notifyOptionsReload();
     } catch (error) {
-      Logger.error('Error clearing rules:', error);
+      this.logger.error('Error clearing rules:', error);
       this.showStatus(t('errorclearingrules'), 'error');
     }
   }
@@ -452,7 +467,7 @@ export class SettingsManager {
       
       setTimeout(() => window.location.reload(), 1000);
     } catch (error) {
-      Logger.error('Error resetting settings:', error);
+      this.logger.error('Error resetting settings:', error);
       this.showStatus(t('errorresettingsettings'), 'error');
     }
   }
@@ -475,7 +490,7 @@ export class SettingsManager {
         type: 'reload_rules'
       });
     } catch (e) {
-      Logger.log("Could not send reload message (maybe background inactive)", e);
+      this.logger.log("Could not send reload message (maybe background inactive)", e);
     }
   }
 }

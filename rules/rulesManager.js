@@ -6,6 +6,7 @@ import Logger from '../utils/logger.js';
 
 export class RulesManager {
   constructor() {
+    this.logger = new Logger('RulesManager');
     this.defaultRedirectURL = browser.runtime.getURL("blocked.html");
     this.intermediaryRedirectURL = browser.runtime.getURL("redirect.html");
   }
@@ -141,7 +142,7 @@ export class RulesManager {
       
       return newRule;
     } catch (error) {
-      Logger.info("DNR add error:", error);
+      this.logger.info("DNR add error:", error);
       throw new Error('Failed to add rule');
     }
   }
@@ -186,7 +187,7 @@ export class RulesManager {
       
       return rules[index];
     } catch (error) {
-      Logger.info("DNR update error:", error);
+      this.logger.info("DNR update error:", error);
       throw new Error('Failed to update rule');
     }
   }
@@ -209,7 +210,7 @@ export class RulesManager {
       
       return ruleToDelete;
     } catch (error) {
-      Logger.info("DNR remove error:", error);
+      this.logger.info("DNR remove error:", error);
       throw new Error('Failed to delete rule');
     }
   }
@@ -231,17 +232,17 @@ export class RulesManager {
     try {
       const activeRules = await browser.declarativeNetRequest.getDynamicRules();
       const ruleIdsToRemove = activeRules.map(rule => rule.id);
-      
+
       if (ruleIdsToRemove.length > 0) {
         await browser.declarativeNetRequest.updateDynamicRules({
           removeRuleIds: ruleIdsToRemove,
           addRules: []
         });
       }
-      
+
       await this.saveRules([]);
     } catch (error) {
-      Logger.error("Delete all rules error:", error);
+      this.logger.error("Delete all rules error:", error);
       throw new Error('Failed to delete all rules');
     }
   }
@@ -314,7 +315,7 @@ export class RulesManager {
         
         return { migrated: true, rules: finalRules };
       } catch (error) {
-        Logger.info("Migration error:", error);
+        this.logger.info("Migration error:", error);
         throw new Error('Failed to migrate rules');
       }
     } else if (needsSave) {

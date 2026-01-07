@@ -5,16 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.2] - 2025-01-06
+## [3.2.0] - 2026-01-07
+### Added
+- Added Debug Mode on the settings page for Pro users.
+
+### Changed
+- Refactored the logger into a class-based implementation.
+- Logger now includes contextual information and timestamps.
+- Improved console output formatting with colored context labels for better readability during debugging.
+
+## [3.1.2] - 2026-01-06
 ### Changed
 - Reworked the rules and settings import implementation for better reliability.
 - Made the "delete_all_rules" message listener in the worker asynchronous for improved control flow.
 
-## [3.1.1] - 2025-01-05
+## [3.1.1] - 2026-01-05
 ### Added
 - Added a new translation key "errorinvalidfiletype" across all locales.
 
-## [3.1.0] - 2025-01-05
+## [3.1.0] - 2026-01-05
 ### Improved
 - Enhanced the rule import functionality with file extension validation to prevent loading binary or unsupported files.
 - Added explicit error generation for invalid file types to improve clarity.

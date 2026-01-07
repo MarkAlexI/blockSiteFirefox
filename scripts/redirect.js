@@ -1,5 +1,7 @@
 import Logger from '../utils/logger.js';
 
+const logger = new Logger('Redirect');
+
 try {
   const url = new URL(window.location.href);
   const fromUrl = url.searchParams.get('from');
@@ -13,16 +15,16 @@ try {
         to: toUrl
       });
     } catch (error) {
-      Logger.error('Error sending redirect record message:', error);
+      logger.error('Error sending redirect record message:', error);
     }
     
     location.replace(toUrl);
     
   } else {
-    Logger.warn('Redirect page called without "from" or "to" params.');
+    logger.warn('Redirect page called without "from" or "to" params.');
     location.replace(browser.runtime.getURL("blocked.html"));
   }
 } catch (error) {
-  Logger.error('Error in redirect script:', error);
+  logger.error('Error in redirect script:', error);
   location.replace(browser.runtime.getURL("blocked.html"));
 }
