@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sync failed." },
   "passwordreset": { "message": "Password protection has been reset." },
   "privacysecured": { "message": "Privacy Secured" },
-  "errorinvalidfiletype": { "message": "Please select a .json file" }
+  "errorinvalidfiletype": { "message": "Please select a .json file" },
+  "debugsettingstitle": { "message": "Debug Settings" },
+  "enabledebugtitle": { "message": "Enable Debug Mode" },
+  "enabledebugdesc": { "message": "Enable detailed console logging for troubleshooting" },
+  "errorcommunication": { "message": "Error communicating with background service" }
 }

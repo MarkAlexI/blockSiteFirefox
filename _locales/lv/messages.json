@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sinhronizācija neizdevās." },
   "passwordreset": { "message": "Paroles aizsardzība ir atiestatīta." },
   "privacysecured": { "message": "Privātums nodrošināts" },
-  "errorinvalidfiletype": { "message": "Lūdzu, izvēlieties .json failu" }
+  "errorinvalidfiletype": { "message": "Lūdzu, izvēlieties .json failu" },
+  "debugsettingstitle": { "message": "Atkļūdošanas iestatījumi" },
+  "enabledebugtitle": { "message": "Iespējot atkļūdošanas režīmu" },
+  "enabledebugdesc": { "message": "Iespējot detalizētu žurnālu konsolē problēmu novēršanai" },
+  "errorcommunication": { "message": "Kļūda sazinoties ar fona pakalpojumu" }
 }

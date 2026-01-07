@@ -259,5 +259,9 @@
   "syncfailed": { "message": "La sincronización falló." },
   "passwordreset": { "message": "La protección con contraseña ha sido restablecida." },
   "privacysecured": { "message": "Privacidad asegurada" },
-  "errorinvalidfiletype": { "message": "Por favor, seleccione un archivo .json" }
+  "errorinvalidfiletype": { "message": "Por favor, seleccione un archivo .json" },
+  "debugsettingstitle": { "message": "Ajustes de depuración" },
+  "enabledebugtitle": { "message": "Activar modo de depuración" },
+  "enabledebugdesc": { "message": "Activar registro detallado en la consola para solucionar problemas" },
+  "errorcommunication": { "message": "Error al comunicarse con el servicio en segundo plano" }
 }

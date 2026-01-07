@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Synchronizácia zlyhala." },
   "passwordreset": { "message": "Ochrana heslom bola resetovaná." },
   "privacysecured": { "message": "Súkromie zabezpečené" },
-  "errorinvalidfiletype": { "message": "Vyberte prosím súbor .json" }
+  "errorinvalidfiletype": { "message": "Vyberte prosím súbor .json" },
+  "debugsettingstitle": { "message": "Nastavenia ladenia" },
+  "enabledebugtitle": { "message": "Povoliť režim ladenia" },
+  "enabledebugdesc": { "message": "Povoliť podrobné zapisovanie do konzoly pre riešenie problémov" },
+  "errorcommunication": { "message": "Chyba pri komunikácii so službou na pozadí" }
 }

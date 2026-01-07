@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Falha na sincronização." },
   "passwordreset": { "message": "A protecção por palavra-passe foi reiniciada." },
   "privacysecured": { "message": "Privacidade assegurada" },
-  "errorinvalidfiletype": { "message": "Por favor, selecione um ficheiro .json" }
+  "errorinvalidfiletype": { "message": "Por favor, selecione um ficheiro .json" },
+  "debugsettingstitle": { "message": "Definições de Depuração" },
+  "enabledebugtitle": { "message": "Ativar Modo de Depuração" },
+  "enabledebugdesc": { "message": "Ativar registo detalhado na consola para resolução de problemas" },
+  "errorcommunication": { "message": "Erro ao comunicar com o serviço em segundo plano" }
 }

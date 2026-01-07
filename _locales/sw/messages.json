@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Ulinganifu umefeli." },
   "passwordreset": { "message": "Ulinzi wa nywila umeanzishwa upya." },
   "privacysecured": { "message": "Faragha imedhaminiwa" },
-  "errorinvalidfiletype": { "message": "Tafadhali chagua faili la .json" }
+  "errorinvalidfiletype": { "message": "Tafadhali chagua faili la .json" },
+  "debugsettingstitle": { "message": "Mipangilio ya Kurekebisha Hitilafu" },
+  "enabledebugtitle": { "message": "Washa Hali ya Kurekebisha Hitilafu" },
+  "enabledebugdesc": { "message": "Washa uchapishaji wa kina kwenye console kwa kutatua matatizo" },
+  "errorcommunication": { "message": "Hitilafu wakati wa kuwasiliana na huduma ya background" }
 }

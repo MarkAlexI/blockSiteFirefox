@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Synchronisation fehlgeschlagen." },
   "passwordreset": { "message": "Passwortschutz wurde zurückgesetzt." },
   "privacysecured": { "message": "Privatsphäre gesichert" },
-  "errorinvalidfiletype": { "message": "Bitte wählen Sie eine .json-Datei aus" }
+  "errorinvalidfiletype": { "message": "Bitte wählen Sie eine .json-Datei aus" },
+  "debugsettingstitle": { "message": "Debug-Einstellungen" },
+  "enabledebugtitle": { "message": "Debug-Modus aktivieren" },
+  "enabledebugdesc": { "message": "Detaillierte Konsolenprotokollierung zur Fehlerbehebung aktivieren" },
+  "errorcommunication": { "message": "Fehler bei der Kommunikation mit dem Hintergrunddienst" }
 }

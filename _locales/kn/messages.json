@@ -250,5 +250,9 @@
   "syncfailed": { "message": "ಸಿಂಕ್ರೋನೈಜೇಶನ್ ವಿಫಲವಾಗಿದೆ." },
   "passwordreset": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ರೀಸೆಟ್ ಮಾಡಲಾಗಿದೆ." },
   "privacysecured": { "message": "ಗೌಪ್ಯತೆ ಸುರಕ್ಷಿತವಾಗಿದೆ" },
-  "errorinvalidfiletype": { "message": "ದಯವಿಟ್ಟು .json ಫೈಲ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ" }
+  "errorinvalidfiletype": { "message": "ದಯವಿಟ್ಟು .json ಫೈಲ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ" },
+  "debugsettingstitle": { "message": "ಡಿಬಗ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
+  "enabledebugtitle": { "message": "ಡಿಬಗ್ ಮೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
+  "enabledebugdesc": { "message": "ಸಮಸ್ಯೆ ಪರಿಹಾರದಿಗಾಗಿ ಕಾನ್ಸೋಲ್‌ನಲ್ಲಿ ವಿವರವಾದ ಲಾಗಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
+  "errorcommunication": { "message": "ಹಿನ್ನೆಲೆ ಸೇವೆಯೊಂದಿಗೆ ಸಂವಹನದಲ್ಲಿ ದೋಷ" }
 }

@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Senkronizasyon başarısız." },
   "passwordreset": { "message": "Parola koruması sıfırlandı." },
   "privacysecured": { "message": "Gizlilik güvence altında" },
-  "errorinvalidfiletype": { "message": "Lütfen bir .json dosyası seçin" }
+  "errorinvalidfiletype": { "message": "Lütfen bir .json dosyası seçin" },
+  "debugsettingstitle": { "message": "Hata Ayıklama Ayarları" },
+  "enabledebugtitle": { "message": "Hata Ayıklama Modunu Etkinleştir" },
+  "enabledebugdesc": { "message": "Sorun giderme için konsolda ayrıntılı günlüklemeyi etkinleştir" },
+  "errorcommunication": { "message": "Arka plan hizmeti ile iletişim hatası" }
 }

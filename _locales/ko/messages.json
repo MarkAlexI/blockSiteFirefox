@@ -250,5 +250,9 @@
   "syncfailed": { "message": "동기화 실패." },
   "passwordreset": { "message": "비밀번호 보호가 초기화되었습니다." },
   "privacysecured": { "message": "개인정보 보호됨" },
-  "errorinvalidfiletype": { "message": ".json 파일을 선택하세요" }
+  "errorinvalidfiletype": { "message": ".json 파일을 선택하세요" },
+  "debugsettingstitle": { "message": "디버그 설정" },
+  "enabledebugtitle": { "message": "디버그 모드 활성화" },
+  "enabledebugdesc": { "message": "문제 해결을 위해 콘솔에서 상세 로그 활성화" },
+  "errorcommunication": { "message": "백그라운드 서비스와 통신 중 오류 발생" }
 }

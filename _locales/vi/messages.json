@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Đồng bộ thất bại." },
   "passwordreset": { "message": "Bảo vệ mật khẩu đã được đặt lại." },
   "privacysecured": { "message": "Quyền riêng tư được bảo vệ" },
-  "errorinvalidfiletype": { "message": "Vui lòng chọn tệp .json" }
+  "errorinvalidfiletype": { "message": "Vui lòng chọn tệp .json" },
+  "debugsettingstitle": { "message": "Cài đặt Gỡ lỗi" },
+  "enabledebugtitle": { "message": "Bật Chế độ Gỡ lỗi" },
+  "enabledebugdesc": { "message": "Bật ghi nhật ký chi tiết trên bảng điều khiển để khắc phục sự cố" },
+  "errorcommunication": { "message": "Lỗi khi giao tiếp với dịch vụ nền" }
 }

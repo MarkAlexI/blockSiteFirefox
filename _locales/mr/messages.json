@@ -249,5 +249,9 @@
   "syncfailed": { "message": "सिंक्रोनायझेशन अयशस्वी." },
   "passwordreset": { "message": "पासवर्ड संरक्षण रीसेट केले गेले आहे." },
   "privacysecured": { "message": "गोपनीयता सुरक्षित आहे" },
-  "errorinvalidfiletype": { "message": "कृपया .json फाइल निवडा" }
+  "errorinvalidfiletype": { "message": "कृपया .json फाइल निवडा" },
+  "debugsettingstitle": { "message": "डिबग सेटिंग्ज" },
+  "enabledebugtitle": { "message": "डिबग मोड सक्षम करा" },
+  "enabledebugdesc": { "message": "समस्या निवारणासाठी कन्सोलमध्ये सविस्तर लॉगिंग सक्षम करा" },
+  "errorcommunication": { "message": "बॅकग्राउंड सेवेशी संवादात त्रुटी" }
 }

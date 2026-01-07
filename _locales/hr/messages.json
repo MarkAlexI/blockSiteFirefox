@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sinkronizacija nije uspjela." },
   "passwordreset": { "message": "Zaštita lozinkom je resetirana." },
   "privacysecured": { "message": "Privatnost osigurana" },
-  "errorinvalidfiletype": { "message": "Molimo odaberite .json datoteku" }
+  "errorinvalidfiletype": { "message": "Molimo odaberite .json datoteku" },
+  "debugsettingstitle": { "message": "Postavke za ispravljanje pogrešaka" },
+  "enabledebugtitle": { "message": "Omogući način ispravljanja pogrešaka" },
+  "enabledebugdesc": { "message": "Omogući detaljno zapisivanje u konzolu za otklanjanje problema" },
+  "errorcommunication": { "message": "Pogreška pri komunikaciji s pozadinskom uslugom" }
 }

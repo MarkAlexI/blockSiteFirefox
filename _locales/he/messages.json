@@ -250,5 +250,9 @@
   "syncfailed": { "message": "הסנכרון נכשל." },
   "passwordreset": { "message": "הגנת הסיסמה הוחזרה לברירת המחדל." },
   "privacysecured": { "message": "הפרטיות מובטחת" },
-  "errorinvalidfiletype": { "message": "אנא בחר קובץ .json" }
+  "errorinvalidfiletype": { "message": "אנא בחר קובץ .json" },
+  "debugsettingstitle": { "message": "הגדרות ניפוי שגיאות" },
+  "enabledebugtitle": { "message": "הפעל מצב ניפוי שגיאות" },
+  "enabledebugdesc": { "message": "הפעל רישום מפורט בקונסול לצורך פתרון בעיות" },
+  "errorcommunication": { "message": "שגיאה בתקשורת עם שירות הרקע" }
 }

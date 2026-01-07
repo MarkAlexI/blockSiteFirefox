@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sinkronisasi gagal." },
   "passwordreset": { "message": "Perlindungan kata sandi telah direset." },
   "privacysecured": { "message": "Privasi Terjamin" },
-  "errorinvalidfiletype": { "message": "Silakan pilih file .json" }
+  "errorinvalidfiletype": { "message": "Silakan pilih file .json" },
+  "debugsettingstitle": { "message": "Pengaturan Debug" },
+  "enabledebugtitle": { "message": "Aktifkan Mode Debug" },
+  "enabledebugdesc": { "message": "Aktifkan pencatatan rinci di konsol untuk pemecahan masalah" },
+  "errorcommunication": { "message": "Kesalahan saat berkomunikasi dengan layanan latar belakang" }
 }

@@ -250,5 +250,9 @@
   "syncfailed": { "message": "A szinkronizáció sikertelen." },
   "passwordreset": { "message": "A jelszóvédelem visszaállítva." },
   "privacysecured": { "message": "Adatvédelem biztosítva" },
-  "errorinvalidfiletype": { "message": "Kérjük, válasszon egy .json fájlt" }
+  "errorinvalidfiletype": { "message": "Kérjük, válasszon egy .json fájlt" },
+  "debugsettingstitle": { "message": "Hibakeresési beállítások" },
+  "enabledebugtitle": { "message": "Hibakeresési mód engedélyezése" },
+  "enabledebugdesc": { "message": "Részletes naplózás engedélyezése a konzolon a hibakereséshez" },
+  "errorcommunication": { "message": "Hiba a háttérszolgáltatással való kommunikáció során" }
 }

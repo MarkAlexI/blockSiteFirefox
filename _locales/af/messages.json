@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sinkronisering het misluk." },
   "passwordreset": { "message": "Wagwoordbeskerming is teruggestel." },
   "privacysecured": { "message": "Privaatheid Beveilig" },
-  "errorinvalidfiletype": { "message": "Kies asseblief ’n .json-lêer" }
+  "errorinvalidfiletype": { "message": "Kies asseblief ’n .json-lêer" },
+  "debugsettingstitle": { "message": "Ontfoutinstellings" },
+  "enabledebugtitle": { "message": "Aktiveer ontfoutmodus" },
+  "enabledebugdesc": { "message": "Aktiveer gedetailleerde konsolelogboeke vir foutopsporing" },
+  "errorcommunication": { "message": "Fout tydens kommunikasie met die agtergronddiens" }
 }

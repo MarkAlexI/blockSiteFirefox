@@ -250,5 +250,9 @@
   "syncfailed": { "message": "సింక్రోనైజేషన్ విఫలమైంది." },
   "passwordreset": { "message": "పాస్‌వర్డ్ రక్షణను రీసెట్ చేశారు." },
   "privacysecured": { "message": "గోప్యత రక్షించబడింది" },
-  "errorinvalidfiletype": { "message": "దయచేసి .json ఫైల్‌ని ఎంచుకోండి" }
+  "errorinvalidfiletype": { "message": "దయచేసి .json ఫైల్‌ని ఎంచుకోండి" },
+  "debugsettingstitle": { "message": "డీబగ్ సెట్టింగులు" },
+  "enabledebugtitle": { "message": "డీబగ్ మోడ్ ఎనేబుల్ చేయండి" },
+  "enabledebugdesc": { "message": "సమస్యల పరిష్కారానికి కన్సోల్‌లో విస్తృత లాగింగ్ ఎనేబుల్ చేయండి" },
+  "errorcommunication": { "message": "బ్యాక్‌గ్రౌండ్ సర్వీస్‌తో కమ్యూనికేషన్ లో లోపం" }
 }

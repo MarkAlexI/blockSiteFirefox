@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Synkronisering mislykkedes." },
   "passwordreset": { "message": "Adgangskodebeskyttelsen er nulstillet." },
   "privacysecured": { "message": "Privatliv sikret" },
-  "errorinvalidfiletype": { "message": "Vælg venligst en .json-fil" }
+  "errorinvalidfiletype": { "message": "Vælg venligst en .json-fil" },
+  "debugsettingstitle": { "message": "Fejlfindingsindstillinger" },
+  "enabledebugtitle": { "message": "Aktivér fejlfindningstilstand" },
+  "enabledebugdesc": { "message": "Aktivér detaljeret logning i konsollen til fejlfinding" },
+  "errorcommunication": { "message": "Fejl ved kommunikation med baggrundstjenesten" }
 }

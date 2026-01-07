@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Απέτυχε ο συγχρονισμός." },
   "passwordreset": { "message": "Η προστασία με κωδικό επαναφέρθηκε." },
   "privacysecured": { "message": "Το απόρρητο προστατεύεται" },
-  "errorinvalidfiletype": { "message": "Παρακαλώ επιλέξτε ένα αρχείο .json" }
+  "errorinvalidfiletype": { "message": "Παρακαλώ επιλέξτε ένα αρχείο .json" },
+  "debugsettingstitle": { "message": "Ρυθμίσεις αποσφαλμάτωσης" },
+  "enabledebugtitle": { "message": "Ενεργοποίηση λειτουργίας αποσφαλμάτωσης" },
+  "enabledebugdesc": { "message": "Ενεργοποίηση λεπτομερούς καταγραφής στην κονσόλα για αντιμετώπιση προβλημάτων" },
+  "errorcommunication": { "message": "Σφάλμα κατά την επικοινωνία με την υπηρεσία παρασκηνίου" }
 }

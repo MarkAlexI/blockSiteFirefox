@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sinchronizavimas nepavyko." },
   "passwordreset": { "message": "Slaptažodžio apsauga buvo atstatyta." },
   "privacysecured": { "message": "Privatumas užtikrintas" },
-  "errorinvalidfiletype": { "message": "Pasirinkite .json failą" }
+  "errorinvalidfiletype": { "message": "Pasirinkite .json failą" },
+  "debugsettingstitle": { "message": "Derinimo nustatymai" },
+  "enabledebugtitle": { "message": "Įjungti derinimo režimą" },
+  "enabledebugdesc": { "message": "Įjungti išsamų konsolės žurnalavimą trikčių šalinimui" },
+  "errorcommunication": { "message": "Klaida bendraujant su fonine paslauga" }
 }

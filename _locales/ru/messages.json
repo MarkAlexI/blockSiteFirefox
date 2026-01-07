@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Синхронизация не удалась." },
   "passwordreset": { "message": "Защита паролем была сброшена." },
   "privacysecured": { "message": "Конфиденциальность обеспечена" },
-  "errorinvalidfiletype": { "message": "Пожалуйста, выберите файл .json" }
+  "errorinvalidfiletype": { "message": "Пожалуйста, выберите файл .json" },
+  "debugsettingstitle": { "message": "Настройки отладки" },
+  "enabledebugtitle": { "message": "Включить режим отладки" },
+  "enabledebugdesc": { "message": "Включить подробное логирование в консоль для устранения проблем" },
+  "errorcommunication": { "message": "Ошибка при связи с фоновой службой" }
 }

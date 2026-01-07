@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Синхронизацията не бе успешна." },
   "passwordreset": { "message": "Защитата с парола беше нулирана." },
   "privacysecured": { "message": "Поверителността е защитена" },
-  "errorinvalidfiletype": { "message": "Моля, изберете файл .json" }
+  "errorinvalidfiletype": { "message": "Моля, изберете файл .json" },
+  "debugsettingstitle": { "message": "Настройки за дебъгване" },
+  "enabledebugtitle": { "message": "Активиране на режим за дебъгване" },
+  "enabledebugdesc": { "message": "Активиране на подробно логване в конзолата за отстраняване на проблеми" },
+  "errorcommunication": { "message": "Грешка при комуникация с фоновата услуга" }
 }

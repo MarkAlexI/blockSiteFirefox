@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Nabigo ang pagsabay." },
   "passwordreset": { "message": "Na-reset ang proteksyon ng password." },
   "privacysecured": { "message": "Pribadong protektado" },
-  "errorinvalidfiletype": { "message": "Pakiusap pumili ng .json na file" }
+  "errorinvalidfiletype": { "message": "Pakiusap pumili ng .json na file" },
+  "debugsettingstitle": { "message": "Mga Setting ng Debug" },
+  "enabledebugtitle": { "message": "Paganahin ang Debug Mode" },
+  "enabledebugdesc": { "message": "Paganahin ang detalyadong pag-log sa console para sa pag-troubleshoot" },
+  "errorcommunication": { "message": "Error sa pakikipag-ugnayan sa background service" }
 }

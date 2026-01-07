@@ -259,5 +259,9 @@
   "syncfailed": { "message": "Échec de la synchronisation." },
   "passwordreset": { "message": "La protection par mot de passe a été réinitialisée." },
   "privacysecured": { "message": "Confidentialité sécurisée" },
-  "errorinvalidfiletype": { "message": "Veuillez sélectionner un fichier .json" }
+  "errorinvalidfiletype": { "message": "Veuillez sélectionner un fichier .json" },
+  "debugsettingstitle": { "message": "Paramètres de débogage" },
+  "enabledebugtitle": { "message": "Activer le mode débogage" },
+  "enabledebugdesc": { "message": "Activer la journalisation détaillée dans la console pour le dépannage" },
+  "errorcommunication": { "message": "Erreur de communication avec le service en arrière-plan" }
 }

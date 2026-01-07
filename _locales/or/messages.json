@@ -259,5 +259,9 @@
   "syncfailed": { "message": "ସିଙ୍କ୍ ବିଫଳ ହେଲା।" },
   "passwordreset": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ପୁନରାରମ୍ଭ କରାଯାଇଛି।" },
   "privacysecured": { "message": "ଗୋପନୀୟତା ସୁରକ୍ଷିତ" },
-  "errorinvalidfiletype": { "message": "ଦୟାକରି .json ଫାଇଲ୍ ଚୟନ କରନ୍ତୁ" }
+  "errorinvalidfiletype": { "message": "ଦୟାକରି .json ଫାଇଲ୍ ଚୟନ କରନ୍ତୁ" },
+  "debugsettingstitle": { "message": "ଡିବଗ୍ ସେଟିଂସ୍" },
+  "enabledebugtitle": { "message": "ଡିବଗ୍ ମୋଡ୍ ସକ୍ରିୟ କରନ୍ତୁ" },
+  "enabledebugdesc": { "message": "ସମସ୍ୟା ସମାଧାନ ପାଇଁ କନସୋଲ୍‌ରେ ବିସ୍ତୃତ ଲଗ୍ ସକ୍ରିୟ କରନ୍ତୁ" },
+  "errorcommunication": { "message": "ବ୍ୟାକଗ୍ରାଉଣ୍ଡ ସେବା ସହିତ ସଂପ୍ରେଷଣରେ ତ୍ରୁଟି" }
 }

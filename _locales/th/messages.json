@@ -250,5 +250,9 @@
   "syncfailed": { "message": "ซิงค์ล้มเหลว" },
   "passwordreset": { "message": "การป้องกันรหัสผ่านถูกรีเซ็ตแล้ว" },
   "privacysecured": { "message": "ความเป็นส่วนตัวได้รับการปกป้อง" },
-  "errorinvalidfiletype": { "message": "โปรดเลือกไฟล์ .json" }
+  "errorinvalidfiletype": { "message": "โปรดเลือกไฟล์ .json" },
+  "debugsettingstitle": { "message": "การตั้งค่าดีบัก" },
+  "enabledebugtitle": { "message": "เปิดโหมดดีบัก" },
+  "enabledebugdesc": { "message": "เปิดการบันทึกรายละเอียดในคอนโซลเพื่อแก้ไขปัญหา" },
+  "errorcommunication": { "message": "เกิดข้อผิดพลาดในการสื่อสารกับบริการพื้นหลัง" }
 }

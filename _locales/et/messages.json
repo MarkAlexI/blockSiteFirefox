@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sünkroonimine ebaõnnestus." },
   "passwordreset": { "message": "Paroolikaitse on lähtestatud." },
   "privacysecured": { "message": "Privaatsus kaitstud" },
-  "errorinvalidfiletype": { "message": "Palun valige .json-fail" }
+  "errorinvalidfiletype": { "message": "Palun valige .json-fail" },
+  "debugsettingstitle": { "message": "Silumiseaded" },
+  "enabledebugtitle": { "message": "Luba silumisrežiim" },
+  "enabledebugdesc": { "message": "Luba tõrkeotsingu jaoks konsoolis üksikasjalik logimine" },
+  "errorcommunication": { "message": "Viga taustateenusega suhtlemisel" }
 }

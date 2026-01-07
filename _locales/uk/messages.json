@@ -262,5 +262,6 @@
   "errorinvalidfiletype": { "message": "Будь ласка, оберіть .json файл" },
   "debugsettingstitle": { "message": "Налаштування налагодження" },
   "enabledebugtitle": { "message": "Увімкнути режим налагодження" },
-  "enabledebugdesc": { "message": "Увімкнути детальне логування в консоль для пошуку помилок" }
+  "enabledebugdesc": { "message": "Увімкнути детальне логування в консоль для пошуку помилок" },
+  "errorcommunication": { "message": "Помилка при спілкуванні з фоновою службою" }
 }

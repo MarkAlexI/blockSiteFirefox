@@ -250,5 +250,9 @@
   "syncfailed": { "message": "همگام‌سازی ناموفق بود." },
   "passwordreset": { "message": "محافظت با رمز عبور بازنشانی شد." },
   "privacysecured": { "message": "حریم خصوصی ایمن شد" },
-  "errorinvalidfiletype": { "message": "لطفاً یک فایل .json انتخاب کنید" }
+  "errorinvalidfiletype": { "message": "لطفاً یک فایل .json انتخاب کنید" },
+  "debugsettingstitle": { "message": "تنظیمات رفع اشکال" },
+  "enabledebugtitle": { "message": "فعال‌سازی حالت دیباگ" },
+  "enabledebugdesc": { "message": "فعال‌سازی ثبت جزئیات در کنسول برای عیب‌یابی" },
+  "errorcommunication": { "message": "خطا در ارتباط با سرویس پس‌زمینه" }
 }

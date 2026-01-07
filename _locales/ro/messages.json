@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sincronizarea a eșuat." },
   "passwordreset": { "message": "Protecția prin parolă a fost resetată." },
   "privacysecured": { "message": "Confidențialitatea este asigurată" },
-  "errorinvalidfiletype": { "message": "Vă rugăm să selectați un fișier .json" }
+  "errorinvalidfiletype": { "message": "Vă rugăm să selectați un fișier .json" },
+  "debugsettingstitle": { "message": "Setări de depanare" },
+  "enabledebugtitle": { "message": "Activează modul de depanare" },
+  "enabledebugdesc": { "message": "Activează logare detaliată în consolă pentru depanare" },
+  "errorcommunication": { "message": "Eroare la comunicarea cu serviciul de fundal" }
 }

@@ -250,5 +250,9 @@
   "syncfailed": { "message": "ማስማማት  실패 ሆኗል።" },
   "passwordreset": { "message": "የይለፍ ቃል ጥበቃ ተዘምሯል።" },
   "privacysecured": { "message": "ግላዊነት ተጠብቆአል" },
-  "errorinvalidfiletype": { "message": "እባክዎን .json ፋይል ይምረጡ" }
+  "errorinvalidfiletype": { "message": "እባክዎን .json ፋይል ይምረጡ" },
+  "debugsettingstitle": { "message": "ዲባግ ቅንብሮች" },
+  "enabledebugtitle": { "message": "ዲባግ ሁነታን አንቃ" },
+  "enabledebugdesc": { "message": "ለችግኝ መፍታት ወደ ኮንሶል ዝርዝር ሎጎችን አንቃ" },
+  "errorcommunication": { "message": "ከየጀርባ አገልግሎት ጋር በመገናኘት ላይ ስህተት" }
 }

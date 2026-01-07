@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Penyelarasan gagal." },
   "passwordreset": { "message": "Perlindungan kata laluan telah diset semula." },
   "privacysecured": { "message": "Privasi Terjamin" },
-  "errorinvalidfiletype": { "message": "Sila pilih fail .json" }
+  "errorinvalidfiletype": { "message": "Sila pilih fail .json" },
+  "debugsettingstitle": { "message": "Tetapan Debug" },
+  "enabledebugtitle": { "message": "Dayakan Mod Debug" },
+  "enabledebugdesc": { "message": "Dayakan log terperinci di konsol untuk penyelesaian masalah" },
+  "errorcommunication": { "message": "Ralat semasa berkomunikasi dengan perkhidmatan latar belakang" }
 }

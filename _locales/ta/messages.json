@@ -249,5 +249,9 @@
   "syncfailed": { "message": "இணைப்பு தோல்வியடைந்தது." },
   "passwordreset": { "message": "கடவுச்சொல் பாதுகாப்பு மீட்டமைக்கப்பட்டது." },
   "privacysecured": { "message": "தனிப்பட்ட தகவல்கள் பாதுகாக்கப்பட்டவை" },
-  "errorinvalidfiletype": { "message": "தயவுசெய்து ஒரு .json கோப்பை தேர்ந்தெடுக்கவும்" }
+  "errorinvalidfiletype": { "message": "தயவுசெய்து ஒரு .json கோப்பை தேர்ந்தெடுக்கவும்" },
+  "debugsettingstitle": { "message": "டீபக் அமைப்புகள்" },
+  "enabledebugtitle": { "message": "டீபக் மோட் இயக்கு" },
+  "enabledebugdesc": { "message": "பிரச்சனைகளை தீர்க்க கன்சோலில் விரிவான பதிவேற்றத்தை இயக்கு" },
+  "errorcommunication": { "message": "பின்னணி சேவையுடன் தொடர்பில் பிழை" }
 }

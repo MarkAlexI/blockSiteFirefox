@@ -249,5 +249,9 @@
   "syncfailed": { "message": "સિંક નિષ્ફળ થયું." },
   "passwordreset": { "message": "પાસવર્ડ સુરક્ષા રીસેટ થઈ ગઈ છે." },
   "privacysecured": { "message": "ગોપનીયતા સુરક્ષિત" },
-  "errorinvalidfiletype": { "message": "કૃપા કરીને એક .json ફાઇલ પસંદ કરો" }
+  "errorinvalidfiletype": { "message": "કૃપા કરીને એક .json ફાઇલ પસંદ કરો" },
+  "debugsettingstitle": { "message": "ડિબગ સેટિંગ્સ" },
+  "enabledebugtitle": { "message": "ડિબગ મોડ સક્રિય કરો" },
+  "enabledebugdesc": { "message": "ટ્રબલશૂટિંગ માટે કન્સોલમાં વિગતવાર લોગિંગ સક્રિય કરો" },
+  "errorcommunication": { "message": "બેકગ્રાઉન્ડ સર્વિસ સાથે સંચારમાં ભૂલ" }
 }

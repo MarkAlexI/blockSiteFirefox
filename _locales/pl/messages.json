@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Synchronizacja nie powiodła się." },
   "passwordreset": { "message": "Ochrona hasłem została zresetowana." },
   "privacysecured": { "message": "Prywatność zabezpieczona" },
-  "errorinvalidfiletype": { "message": "Proszę wybrać plik .json" }
+  "errorinvalidfiletype": { "message": "Proszę wybrać plik .json" },
+  "debugsettingstitle": { "message": "Ustawienia debugowania" },
+  "enabledebugtitle": { "message": "Włącz tryb debugowania" },
+  "enabledebugdesc": { "message": "Włącz szczegółowe logowanie w konsoli w celu rozwiązywania problemów" },
+  "errorcommunication": { "message": "Błąd komunikacji z usługą w tle" }
 }

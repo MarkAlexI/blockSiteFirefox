@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Synchronisatie mislukt." },
   "passwordreset": { "message": "Wachtwoordbeveiliging is opnieuw ingesteld." },
   "privacysecured": { "message": "Privacy beveiligd" },
-  "errorinvalidfiletype": { "message": "Selecteer een .json-bestand" }
+  "errorinvalidfiletype": { "message": "Selecteer een .json-bestand" },
+  "debugsettingstitle": { "message": "Debug-instellingen" },
+  "enabledebugtitle": { "message": "Debugmodus inschakelen" },
+  "enabledebugdesc": { "message": "Gedetailleerde consolelogboeken inschakelen voor probleemoplossing" },
+  "errorcommunication": { "message": "Fout bij communicatie met achtergrondservice" }
 }

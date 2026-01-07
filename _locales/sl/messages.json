@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Sinhronizacija ni uspela." },
   "passwordreset": { "message": "Zaščita z geslom je bila ponastavljena." },
   "privacysecured": { "message": "Zasebnost zagotovljena" },
-  "errorinvalidfiletype": { "message": "Prosimo, izberite datoteko .json" }
+  "errorinvalidfiletype": { "message": "Prosimo, izberite datoteko .json" },
+  "debugsettingstitle": { "message": "Nastavitve odpravljanja napak" },
+  "enabledebugtitle": { "message": "Omogoči način odpravljanja napak" },
+  "enabledebugdesc": { "message": "Omogoči podrobno beleženje v konzoli za odpravljanje težav" },
+  "errorcommunication": { "message": "Napaka pri komunikaciji z ozadno storitvijo" }
 }

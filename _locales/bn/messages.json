@@ -250,5 +250,9 @@
   "syncfailed": { "message": "সিঙ্ক ব্যর্থ হয়েছে।" },
   "passwordreset": { "message": "পাসওয়ার্ড সুরক্ষা রিসেট করা হয়েছে।" },
   "privacysecured": { "message": "গোপনীয়তা সুরক্ষিত" },
-  "errorinvalidfiletype": { "message": "অনুগ্রহ করে একটি .json ফাইল নির্বাচন করুন" }
+  "errorinvalidfiletype": { "message": "অনুগ্রহ করে একটি .json ফাইল নির্বাচন করুন" },
+  "debugsettingstitle": { "message": "ডিবাগ সেটিংস" },
+  "enabledebugtitle": { "message": "ডিবাগ মোড সক্রিয় করুন" },
+  "enabledebugdesc": { "message": "সমস্যা সমাধানের জন্য কনসোলে বিস্তারিত লগিং সক্রিয় করুন" },
+  "errorcommunication": { "message": "ব্যাকগ্রাউন্ড পরিষেবার সাথে যোগাযোগে ত্রুটি" }
 }

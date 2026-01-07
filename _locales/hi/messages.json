@@ -250,5 +250,9 @@
   "syncfailed": { "message": "सिंक विफल रहा।" },
   "passwordreset": { "message": "पासवर्ड सुरक्षा रीसेट कर दी गई है।" },
   "privacysecured": { "message": "गोपनीयता सुरक्षित है" },
-  "errorinvalidfiletype": { "message": "कृपया एक .json फ़ाइल चुनें" }
+  "errorinvalidfiletype": { "message": "कृपया एक .json फ़ाइल चुनें" },
+  "debugsettingstitle": { "message": "डिबग सेटिंग्स" },
+  "enabledebugtitle": { "message": "डिबग मोड सक्षम करें" },
+  "enabledebugdesc": { "message": "समस्या निवारण के लिए कंसोल में विस्तृत लॉगिंग सक्षम करें" },
+  "errorcommunication": { "message": "बैकग्राउंड सेवा के साथ संचार में त्रुटि" }
 }

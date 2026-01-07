@@ -259,5 +259,9 @@
   "syncfailed": { "message": "同期に失敗しました。" },
   "passwordreset": { "message": "パスワード保護がリセットされました。" },
   "privacysecured": { "message": "プライバシーは保護されています" },
-  "errorinvalidfiletype": { "message": ".jsonファイルを選択してください" }
+  "errorinvalidfiletype": { "message": ".jsonファイルを選択してください" },
+  "debugsettingstitle": { "message": "デバッグ設定" },
+  "enabledebugtitle": { "message": "デバッグモードを有効にする" },
+  "enabledebugdesc": { "message": "トラブルシューティングのためにコンソールで詳細なログを有効にする" },
+  "errorcommunication": { "message": "バックグラウンドサービスとの通信エラー" }
 }

@@ -250,5 +250,9 @@
   "syncfailed": { "message": "La sincronització ha fallat." },
   "passwordreset": { "message": "La protecció amb contrasenya s'ha restablert." },
   "privacysecured": { "message": "Privadesa protegida" },
-  "errorinvalidfiletype": { "message": "Si us plau, seleccioneu un fitxer .json" }
+  "errorinvalidfiletype": { "message": "Si us plau, seleccioneu un fitxer .json" },
+  "debugsettingstitle": { "message": "Configuració de depuració" },
+  "enabledebugtitle": { "message": "Activa el mode de depuració" },
+  "enabledebugdesc": { "message": "Activa el registre detallat a la consola per a la resolució de problemes" },
+  "errorcommunication": { "message": "Error en comunicar-se amb el servei en segon pla" }
 }

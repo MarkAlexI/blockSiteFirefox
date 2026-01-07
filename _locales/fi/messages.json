@@ -250,5 +250,9 @@
   "syncfailed": { "message": "Synkronointi epäonnistui." },
   "passwordreset": { "message": "Salasanasuoja on palautettu." },
   "privacysecured": { "message": "Yksityisyys suojattu" },
-  "errorinvalidfiletype": { "message": "Valitse .json-tiedosto" }
+  "errorinvalidfiletype": { "message": "Valitse .json-tiedosto" },
+  "debugsettingstitle": { "message": "Debug-asetukset" },
+  "enabledebugtitle": { "message": "Ota debug-tila käyttöön" },
+  "enabledebugdesc": { "message": "Ota käyttöön yksityiskohtainen konsoliloki vianmääritystä varten" },
+  "errorcommunication": { "message": "Virhe kommunikoitaessa taustapalvelun kanssa" }
 }
