@@ -373,7 +373,7 @@ export class SettingsManager {
         }
       } catch (err) {
         this.logger.error('Communication error:', err);
-        this.showStatus('Error communicating with background service', 'error');
+        this.showStatus(t('errorcommunication'), 'error');
         return;
       }
 
