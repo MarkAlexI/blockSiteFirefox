@@ -6,7 +6,7 @@
   "author": "MarkAlexI",
   "homepage_url": "https://blockdistraction.com",
   "default_locale": "en",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",

@@ -173,7 +173,7 @@ if (licenseForm) {
 if (forceSyncBtn) {
   forceSyncBtn.addEventListener('click', async () => {
     forceSyncBtn.disabled = true;
-    forceSyncBtn.textContent = 'Syncing...';
+    forceSyncBtn.textContent = t('syncing');
     
     licenseMessage.textContent = t('syncing');
     licenseMessage.className = 'status-message success show';
