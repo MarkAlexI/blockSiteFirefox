@@ -7,7 +7,7 @@ import { PasswordUtils } from '../pro/password.js';
 import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 import Logger from '../utils/logger.js';
 
-const MAX_RULES_LIMIT = 5;
+const MAX_RULES_LIMIT = 3;
 const logger = new Logger('OptionsPage');
 
 class OptionsPage {
