@@ -219,6 +219,11 @@ export class RulesUI {
     const blockInput = document.createElement('input');
     blockInput.type = 'text';
     blockInput.placeholder = t('blockurl');
+    
+    setTimeout(() => {
+      blockInput.focus();
+    }, 100);
+    
     const blockCell = document.createElement('td');
     blockCell.className = 'edit-mode';
     blockCell.appendChild(blockInput);
