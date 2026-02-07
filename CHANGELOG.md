@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.6] - 2026-02-07
+### Added
+- Added a new `constants.js` file to the `utils` directory to centralize shared constants.
+
 ## [3.2.5] - 2026-02-05
 ### Improved
 - When creating a new blocking/redirect rule, focus is automatically set to the URL input field for faster input.

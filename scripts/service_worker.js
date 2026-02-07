@@ -7,10 +7,10 @@ import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
+import { VERIFY_API_URL } from '../utils/constants.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
-const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
 
 async function syncLicenseKeyStatus() {
   const credentials = await ProManager.getCredentials();
