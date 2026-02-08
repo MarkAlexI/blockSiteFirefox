@@ -320,6 +320,8 @@ class PopupPage {
     blockURL.placeholder = t('blockurl');
     blockURL.value = blockURLValue;
     
+    requestAnimationFrame(() => blockURL.focus());
+    
     const redirectURL = document.createElement('input');
     redirectURL.type = 'text';
     redirectURL.placeholder = t('redirecturl');
