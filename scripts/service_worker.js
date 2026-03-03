@@ -340,7 +340,9 @@ async function checkAndRequestPermissions() {
 
 browser.runtime.onInstalled.addListener(async (details) => {
   logger.log(`Extension event: ${details.reason}`);
-  
+
+  browser.runtime.setUninstallURL("https://blockdistraction.com/uninstall.html");
+
   if (details.reason === 'install') {
     logger.log("This is a fresh install. Checking permissions...");
     await initializeExtension(details);
