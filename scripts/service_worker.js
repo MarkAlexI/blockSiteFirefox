@@ -7,7 +7,7 @@ import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
-import { VERIFY_API_URL } from '../utils/constants.js';
+import { VERIFY_API_URL, IS_FIREFOX } from '../utils/constants.js';
 import { updateUninstallURL } from '../utils/updateUninstallURL.js';
 
 const logger = new Logger('Worker');
@@ -58,8 +58,6 @@ async function syncLicenseKeyStatus() {
     return { success: false, isPro: credentials.isPro };
   }
 }
-
-const IS_FIREFOX = typeof browser !== 'undefined';
 
 async function updateContextMenu(isPro) {
   if (!browser.contextMenus) return;
