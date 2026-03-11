@@ -486,7 +486,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 });
 
 browser.alarms.create('check_pro_expiry', {
-  delayInMinutes: 3,
+  delayInMinutes: .5,
   periodInMinutes: 1440
 });
 
