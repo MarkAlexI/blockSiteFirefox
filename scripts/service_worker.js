@@ -9,6 +9,7 @@ import Logger from '../utils/logger.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
 import { VERIFY_API_URL, IS_FIREFOX } from '../utils/constants.js';
 import { updateUninstallURL } from '../utils/updateUninstallURL.js';
+import { createInstallURL } from '../utils/createInstallURL.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -348,7 +349,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
     await checkAndRequestPermissions();
     
     browser.tabs.create({
-      url: "https://blockdistraction.com",
+      url: createInstallURL(),
       active: true
     });
     
