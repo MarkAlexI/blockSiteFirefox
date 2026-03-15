@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Felsökningsinställningar" },
   "enabledebugtitle": { "message": "Aktivera felsökningsläge" },
   "enabledebugdesc": { "message": "Aktivera detaljerad loggning i konsolen för felsökning" },
-  "errorcommunication": { "message": "Fel vid kommunikation med bakgrundstjänst" }
+  "errorcommunication": { "message": "Fel vid kommunikation med bakgrundstjänst" },
+  "clearstats": { "message": "Rensa statistik" }
 }

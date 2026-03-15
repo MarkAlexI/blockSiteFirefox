@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Fejlfindingsindstillinger" },
   "enabledebugtitle": { "message": "Aktivér fejlfindningstilstand" },
   "enabledebugdesc": { "message": "Aktivér detaljeret logning i konsollen til fejlfinding" },
-  "errorcommunication": { "message": "Fejl ved kommunikation med baggrundstjenesten" }
+  "errorcommunication": { "message": "Fejl ved kommunikation med baggrundstjenesten" },
+  "clearstats": { "message": "Ryd statistik" }
 }

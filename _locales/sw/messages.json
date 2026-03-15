@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Mipangilio ya Kurekebisha Hitilafu" },
   "enabledebugtitle": { "message": "Washa Hali ya Kurekebisha Hitilafu" },
   "enabledebugdesc": { "message": "Washa uchapishaji wa kina kwenye console kwa kutatua matatizo" },
-  "errorcommunication": { "message": "Hitilafu wakati wa kuwasiliana na huduma ya background" }
+  "errorcommunication": { "message": "Hitilafu wakati wa kuwasiliana na huduma ya background" },
+  "clearstats": { "message": "Futa takwimu" }
 }

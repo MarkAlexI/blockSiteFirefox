@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Подешавања за отклањање грешака" },
   "enabledebugtitle": { "message": "Омогући режим отклањања грешака" },
   "enabledebugdesc": { "message": "Омогући детаљно евидентирање у конзоли за решавање проблема" },
-  "errorcommunication": { "message": "Грешка у комуникацији са позадинском услугом" }
+  "errorcommunication": { "message": "Грешка у комуникацији са позадинском услугом" },
+  "clearstats": { "message": "Обриши статистику" }
 }

@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "הגדרות ניפוי שגיאות" },
   "enabledebugtitle": { "message": "הפעל מצב ניפוי שגיאות" },
   "enabledebugdesc": { "message": "הפעל רישום מפורט בקונסול לצורך פתרון בעיות" },
-  "errorcommunication": { "message": "שגיאה בתקשורת עם שירות הרקע" }
+  "errorcommunication": { "message": "שגיאה בתקשורת עם שירות הרקע" },
+  "clearstats": { "message": "נקה סטטיסטיקה" }
 }

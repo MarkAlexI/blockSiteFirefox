@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "การตั้งค่าดีบัก" },
   "enabledebugtitle": { "message": "เปิดโหมดดีบัก" },
   "enabledebugdesc": { "message": "เปิดการบันทึกรายละเอียดในคอนโซลเพื่อแก้ไขปัญหา" },
-  "errorcommunication": { "message": "เกิดข้อผิดพลาดในการสื่อสารกับบริการพื้นหลัง" }
+  "errorcommunication": { "message": "เกิดข้อผิดพลาดในการสื่อสารกับบริการพื้นหลัง" },
+  "clearstats": { "message": "ล้างสถิติ" }
 }

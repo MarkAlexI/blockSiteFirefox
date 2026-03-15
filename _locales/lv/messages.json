@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Atkļūdošanas iestatījumi" },
   "enabledebugtitle": { "message": "Iespējot atkļūdošanas režīmu" },
   "enabledebugdesc": { "message": "Iespējot detalizētu žurnālu konsolē problēmu novēršanai" },
-  "errorcommunication": { "message": "Kļūda sazinoties ar fona pakalpojumu" }
+  "errorcommunication": { "message": "Kļūda sazinoties ar fona pakalpojumu" },
+  "clearstats": { "message": "Notīrīt statistiku" }
 }

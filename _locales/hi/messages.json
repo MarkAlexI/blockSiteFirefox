@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "डिबग सेटिंग्स" },
   "enabledebugtitle": { "message": "डिबग मोड सक्षम करें" },
   "enabledebugdesc": { "message": "समस्या निवारण के लिए कंसोल में विस्तृत लॉगिंग सक्षम करें" },
-  "errorcommunication": { "message": "बैकग्राउंड सेवा के साथ संचार में त्रुटि" }
+  "errorcommunication": { "message": "बैकग्राउंड सेवा के साथ संचार में त्रुटि" },
+  "clearstats": { "message": "आँकड़े साफ़ करें" }
 }

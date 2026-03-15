@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Pengaturan Debug" },
   "enabledebugtitle": { "message": "Aktifkan Mode Debug" },
   "enabledebugdesc": { "message": "Aktifkan pencatatan rinci di konsol untuk pemecahan masalah" },
-  "errorcommunication": { "message": "Kesalahan saat berkomunikasi dengan layanan latar belakang" }
+  "errorcommunication": { "message": "Kesalahan saat berkomunikasi dengan layanan latar belakang" },
+  "clearstats": { "message": "Hapus statistik" }
 }

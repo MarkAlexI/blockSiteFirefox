@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Debug Settings" },
   "enabledebugtitle": { "message": "Enable Debug Mode" },
   "enabledebugdesc": { "message": "Enable detailed console logging for troubleshooting" },
-  "errorcommunication": { "message": "Error communicating with background service" }
+  "errorcommunication": { "message": "Error communicating with background service" },
+  "clearstats": { "message": "Clear Statistics" }
 }

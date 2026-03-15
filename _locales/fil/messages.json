@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Mga Setting ng Debug" },
   "enabledebugtitle": { "message": "Paganahin ang Debug Mode" },
   "enabledebugdesc": { "message": "Paganahin ang detalyadong pag-log sa console para sa pag-troubleshoot" },
-  "errorcommunication": { "message": "Error sa pakikipag-ugnayan sa background service" }
+  "errorcommunication": { "message": "Error sa pakikipag-ugnayan sa background service" },
+  "clearstats": { "message": "I-clear ang Estadistika" }
 }

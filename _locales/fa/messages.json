@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "تنظیمات رفع اشکال" },
   "enabledebugtitle": { "message": "فعال‌سازی حالت دیباگ" },
   "enabledebugdesc": { "message": "فعال‌سازی ثبت جزئیات در کنسول برای عیب‌یابی" },
-  "errorcommunication": { "message": "خطا در ارتباط با سرویس پس‌زمینه" }
+  "errorcommunication": { "message": "خطا در ارتباط با سرویس پس‌زمینه" },
+  "clearstats": { "message": "پاک کردن آمار" }
 }

@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "ዲባግ ቅንብሮች" },
   "enabledebugtitle": { "message": "ዲባግ ሁነታን አንቃ" },
   "enabledebugdesc": { "message": "ለችግኝ መፍታት ወደ ኮንሶል ዝርዝር ሎጎችን አንቃ" },
-  "errorcommunication": { "message": "ከየጀርባ አገልግሎት ጋር በመገናኘት ላይ ስህተት" }
+  "errorcommunication": { "message": "ከየጀርባ አገልግሎት ጋር በመገናኘት ላይ ስህተት" },
+  "clearstats": { "message": "ስታቲስቲክስን አጥፋ" }
 }

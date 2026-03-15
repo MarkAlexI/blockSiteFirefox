@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Tetapan Debug" },
   "enabledebugtitle": { "message": "Dayakan Mod Debug" },
   "enabledebugdesc": { "message": "Dayakan log terperinci di konsol untuk penyelesaian masalah" },
-  "errorcommunication": { "message": "Ralat semasa berkomunikasi dengan perkhidmatan latar belakang" }
+  "errorcommunication": { "message": "Ralat semasa berkomunikasi dengan perkhidmatan latar belakang" },
+  "clearstats": { "message": "Kosongkan Statistik" }
 }

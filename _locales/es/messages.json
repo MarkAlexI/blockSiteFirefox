@@ -263,5 +263,6 @@
   "debugsettingstitle": { "message": "Ajustes de depuración" },
   "enabledebugtitle": { "message": "Activar modo de depuración" },
   "enabledebugdesc": { "message": "Activar registro detallado en la consola para solucionar problemas" },
-  "errorcommunication": { "message": "Error al comunicarse con el servicio en segundo plano" }
+  "errorcommunication": { "message": "Error al comunicarse con el servicio en segundo plano" },
+  "clearstats": { "message": "Borrar estadísticas" }
 }

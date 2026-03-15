@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Ontfoutinstellings" },
   "enabledebugtitle": { "message": "Aktiveer ontfoutmodus" },
   "enabledebugdesc": { "message": "Aktiveer gedetailleerde konsolelogboeke vir foutopsporing" },
-  "errorcommunication": { "message": "Fout tydens kommunikasie met die agtergronddiens" }
+  "errorcommunication": { "message": "Fout tydens kommunikasie met die agtergronddiens" },
+  "clearstats": { "message": "Vee statistiek uit" }
 }

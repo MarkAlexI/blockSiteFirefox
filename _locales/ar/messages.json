@@ -263,5 +263,6 @@
   "debugsettingstitle": { "message": "إعدادات التصحيح" },
   "enabledebugtitle": { "message": "تفعيل وضع التصحيح" },
   "enabledebugdesc": { "message": "تفعيل التسجيل التفصيلي في وحدة التحكم لاستكشاف الأخطاء" },
-  "errorcommunication": { "message": "خطأ في الاتصال بخدمة الخلفية" }
+  "errorcommunication": { "message": "خطأ في الاتصال بخدمة الخلفية" },
+  "clearstats": { "message": "مسح الإحصاءات" }
 }

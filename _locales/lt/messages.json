@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Derinimo nustatymai" },
   "enabledebugtitle": { "message": "Įjungti derinimo režimą" },
   "enabledebugdesc": { "message": "Įjungti išsamų konsolės žurnalavimą trikčių šalinimui" },
-  "errorcommunication": { "message": "Klaida bendraujant su fonine paslauga" }
+  "errorcommunication": { "message": "Klaida bendraujant su fonine paslauga" },
+  "clearstats": { "message": "Išvalyti statistiką" }
 }

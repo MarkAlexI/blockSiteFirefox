@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "ಡಿಬಗ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
   "enabledebugtitle": { "message": "ಡಿಬಗ್ ಮೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
   "enabledebugdesc": { "message": "ಸಮಸ್ಯೆ ಪರಿಹಾರದಿಗಾಗಿ ಕಾನ್ಸೋಲ್‌ನಲ್ಲಿ ವಿವರವಾದ ಲಾಗಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
-  "errorcommunication": { "message": "ಹಿನ್ನೆಲೆ ಸೇವೆಯೊಂದಿಗೆ ಸಂವಹನದಲ್ಲಿ ದೋಷ" }
+  "errorcommunication": { "message": "ಹಿನ್ನೆಲೆ ಸೇವೆಯೊಂದಿಗೆ ಸಂವಹನದಲ್ಲಿ ದೋಷ" },
+  "clearstats": { "message": "ಅಂಕಿಅಂಶಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ" }
 }

@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Postavke za ispravljanje pogrešaka" },
   "enabledebugtitle": { "message": "Omogući način ispravljanja pogrešaka" },
   "enabledebugdesc": { "message": "Omogući detaljno zapisivanje u konzolu za otklanjanje problema" },
-  "errorcommunication": { "message": "Pogreška pri komunikaciji s pozadinskom uslugom" }
+  "errorcommunication": { "message": "Pogreška pri komunikaciji s pozadinskom uslugom" },
+  "clearstats": { "message": "Obriši statistiku" }
 }

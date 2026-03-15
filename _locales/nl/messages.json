@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Debug-instellingen" },
   "enabledebugtitle": { "message": "Debugmodus inschakelen" },
   "enabledebugdesc": { "message": "Gedetailleerde consolelogboeken inschakelen voor probleemoplossing" },
-  "errorcommunication": { "message": "Fout bij communicatie met achtergrondservice" }
+  "errorcommunication": { "message": "Fout bij communicatie met achtergrondservice" },
+  "clearstats": { "message": "Statistieken wissen" }
 }

@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Silumiseaded" },
   "enabledebugtitle": { "message": "Luba silumisrežiim" },
   "enabledebugdesc": { "message": "Luba tõrkeotsingu jaoks konsoolis üksikasjalik logimine" },
-  "errorcommunication": { "message": "Viga taustateenusega suhtlemisel" }
+  "errorcommunication": { "message": "Viga taustateenusega suhtlemisel" },
+  "clearstats": { "message": "Tühjenda statistika" }
 }

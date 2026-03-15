@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Nastavitve odpravljanja napak" },
   "enabledebugtitle": { "message": "Omogoči način odpravljanja napak" },
   "enabledebugdesc": { "message": "Omogoči podrobno beleženje v konzoli za odpravljanje težav" },
-  "errorcommunication": { "message": "Napaka pri komunikaciji z ozadno storitvijo" }
+  "errorcommunication": { "message": "Napaka pri komunikaciji z ozadno storitvijo" },
+  "clearstats": { "message": "Počisti statistiko" }
 }

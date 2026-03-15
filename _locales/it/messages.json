@@ -254,5 +254,6 @@
   "debugsettingstitle": { "message": "Impostazioni di debug" },
   "enabledebugtitle": { "message": "Abilita modalità debug" },
   "enabledebugdesc": { "message": "Abilita la registrazione dettagliata nella console per la risoluzione dei problemi" },
-  "errorcommunication": { "message": "Errore nella comunicazione con il servizio in background" }
+  "errorcommunication": { "message": "Errore nella comunicazione con il servizio in background" },
+  "clearstats": { "message": "Cancella statistiche" }
 }

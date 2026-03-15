@@ -263,5 +263,6 @@
   "debugsettingstitle": { "message": "デバッグ設定" },
   "enabledebugtitle": { "message": "デバッグモードを有効にする" },
   "enabledebugdesc": { "message": "トラブルシューティングのためにコンソールで詳細なログを有効にする" },
-  "errorcommunication": { "message": "バックグラウンドサービスとの通信エラー" }
+  "errorcommunication": { "message": "バックグラウンドサービスとの通信エラー" },
+  "clearstats": { "message": "統計をクリア" }
 }
