@@ -324,7 +324,7 @@ async function initializeExtension(details) {
   }
 }
 
-async function checkAndRequestPermissions() {
+async function checkAndRequestPermissions(details) {
   try {
     let granted;
     if (browser.permissions) {
@@ -355,7 +355,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
   if (details.reason === 'install') {
     logger.log("This is a fresh install. Checking permissions...");
     await initializeExtension(details);
-    await checkAndRequestPermissions();
+    await checkAndRequestPermissions(details);
     
     browser.tabs.create({
       url: createInstallURL(),
@@ -365,7 +365,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
   } else if (details.reason === 'update') {
     logger.log("This is an update. Assuming permissions are granted.");
     await initializeExtension(details);
-    await checkAndRequestPermissions();
+    await checkAndRequestPermissions(details);
   } else if (details.reason === 'chrome_update' || details.reason === 'browser_update') {
     logger.log("Browser updated.");
     await validateDnrIntegrity();
