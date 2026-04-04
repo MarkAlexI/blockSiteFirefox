@@ -254,5 +254,7 @@
   "enabledebugtitle": { "message": "डिबग मोड सक्षम करा" },
   "enabledebugdesc": { "message": "समस्या निवारणासाठी कन्सोलमध्ये सविस्तर लॉगिंग सक्षम करा" },
   "errorcommunication": { "message": "बॅकग्राउंड सेवेशी संवादात त्रुटी" },
-  "clearstats": { "message": "सांख्यिकी साफ करा" }
+  "clearstats": { "message": "सांख्यिकी साफ करा" },
+  "rule_enabled": { "message": "सक्रिय" },
+  "rule_disabled": { "message": "निष्क्रिय" }
 }

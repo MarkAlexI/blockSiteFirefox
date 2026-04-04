@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Hata Ayıklama Modunu Etkinleştir" },
   "enabledebugdesc": { "message": "Sorun giderme için konsolda ayrıntılı günlüklemeyi etkinleştir" },
   "errorcommunication": { "message": "Arka plan hizmeti ile iletişim hatası" },
-  "clearstats": { "message": "İstatistikleri Temizle" }
+  "clearstats": { "message": "İstatistikleri Temizle" },
+  "rule_enabled": { "message": "Etkin" },
+  "rule_disabled": { "message": "Devre Dışı" }
 }

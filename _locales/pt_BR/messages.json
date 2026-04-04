@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Ativar Modo de Depuração" },
   "enabledebugdesc": { "message": "Ativar registro detalhado no console para solução de problemas" },
   "errorcommunication": { "message": "Erro ao se comunicar com o serviço em segundo plano" },
-  "clearstats": { "message": "Limpar estatísticas" }
+  "clearstats": { "message": "Limpar estatísticas" },
+  "rule_enabled": { "message": "Ativado" },
+  "rule_disabled": { "message": "Desativado" }
 }

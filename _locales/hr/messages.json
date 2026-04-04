@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Omogući način ispravljanja pogrešaka" },
   "enabledebugdesc": { "message": "Omogući detaljno zapisivanje u konzolu za otklanjanje problema" },
   "errorcommunication": { "message": "Pogreška pri komunikaciji s pozadinskom uslugom" },
-  "clearstats": { "message": "Obriši statistiku" }
+  "clearstats": { "message": "Obriši statistiku" },
+  "rule_enabled": { "message": "Omogućeno" },
+  "rule_disabled": { "message": "Onemogućeno" }
 }

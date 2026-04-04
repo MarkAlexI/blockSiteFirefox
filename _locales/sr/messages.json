@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Омогући режим отклањања грешака" },
   "enabledebugdesc": { "message": "Омогући детаљно евидентирање у конзоли за решавање проблема" },
   "errorcommunication": { "message": "Грешка у комуникацији са позадинском услугом" },
-  "clearstats": { "message": "Обриши статистику" }
+  "clearstats": { "message": "Обриши статистику" },
+  "rule_enabled": { "message": "Укључено" },
+  "rule_disabled": { "message": "Искључено" }
 }

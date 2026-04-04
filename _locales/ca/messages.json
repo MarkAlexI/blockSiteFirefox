@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Activa el mode de depuració" },
   "enabledebugdesc": { "message": "Activa el registre detallat a la consola per a la resolució de problemes" },
   "errorcommunication": { "message": "Error en comunicar-se amb el servei en segon pla" },
-  "clearstats": { "message": "Esborra les estadístiques" }
+  "clearstats": { "message": "Esborra les estadístiques" },
+  "rule_enabled": { "message": "Activat" },
+  "rule_disabled": { "message": "Desactivat" }
 }

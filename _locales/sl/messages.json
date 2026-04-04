@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Omogoči način odpravljanja napak" },
   "enabledebugdesc": { "message": "Omogoči podrobno beleženje v konzoli za odpravljanje težav" },
   "errorcommunication": { "message": "Napaka pri komunikaciji z ozadno storitvijo" },
-  "clearstats": { "message": "Počisti statistiko" }
+  "clearstats": { "message": "Počisti statistiko" },
+  "rule_enabled": { "message": "Omogočeno" },
+  "rule_disabled": { "message": "Onemogočeno" }
 }

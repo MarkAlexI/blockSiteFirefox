@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Luba silumisrežiim" },
   "enabledebugdesc": { "message": "Luba tõrkeotsingu jaoks konsoolis üksikasjalik logimine" },
   "errorcommunication": { "message": "Viga taustateenusega suhtlemisel" },
-  "clearstats": { "message": "Tühjenda statistika" }
+  "clearstats": { "message": "Tühjenda statistika" },
+  "rule_enabled": { "message": "Lubatud" },
+  "rule_disabled": { "message": "Keelatud" }
 }

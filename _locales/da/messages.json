@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Aktivér fejlfindningstilstand" },
   "enabledebugdesc": { "message": "Aktivér detaljeret logning i konsollen til fejlfinding" },
   "errorcommunication": { "message": "Fejl ved kommunikation med baggrundstjenesten" },
-  "clearstats": { "message": "Ryd statistik" }
+  "clearstats": { "message": "Ryd statistik" },
+  "rule_enabled": { "message": "Aktiveret" },
+  "rule_disabled": { "message": "Deaktiveret" }
 }

@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Washa Hali ya Kurekebisha Hitilafu" },
   "enabledebugdesc": { "message": "Washa uchapishaji wa kina kwenye console kwa kutatua matatizo" },
   "errorcommunication": { "message": "Hitilafu wakati wa kuwasiliana na huduma ya background" },
-  "clearstats": { "message": "Futa takwimu" }
+  "clearstats": { "message": "Futa takwimu" },
+  "rule_enabled": { "message": "Imeshashwa" },
+  "rule_disabled": { "message": "Imezimwa" }
 }

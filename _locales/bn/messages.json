@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "ডিবাগ মোড সক্রিয় করুন" },
   "enabledebugdesc": { "message": "সমস্যা সমাধানের জন্য কনসোলে বিস্তারিত লগিং সক্রিয় করুন" },
   "errorcommunication": { "message": "ব্যাকগ্রাউন্ড পরিষেবার সাথে যোগাযোগে ত্রুটি" },
-  "clearstats": { "message": "পরিসংখ্যান মুছুন" }
+  "clearstats": { "message": "পরিসংখ্যান মুছুন" },
+  "rule_enabled": { "message": "সক্রিয়" },
+  "rule_disabled": { "message": "নিষ্ক্রিয়" }
 }

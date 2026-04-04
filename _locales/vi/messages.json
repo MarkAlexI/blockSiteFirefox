@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Bật Chế độ Gỡ lỗi" },
   "enabledebugdesc": { "message": "Bật ghi nhật ký chi tiết trên bảng điều khiển để khắc phục sự cố" },
   "errorcommunication": { "message": "Lỗi khi giao tiếp với dịch vụ nền" },
-  "clearstats": { "message": "Xóa thống kê" }
+  "clearstats": { "message": "Xóa thống kê" },
+  "rule_enabled": { "message": "Đã bật" },
+  "rule_disabled": { "message": "Đã tắt" }
 }

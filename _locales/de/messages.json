@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Debug-Modus aktivieren" },
   "enabledebugdesc": { "message": "Detaillierte Konsolenprotokollierung zur Fehlerbehebung aktivieren" },
   "errorcommunication": { "message": "Fehler bei der Kommunikation mit dem Hintergrunddienst" },
-  "clearstats": { "message": "Statistiken löschen" }
+  "clearstats": { "message": "Statistiken löschen" },
+  "rule_enabled": { "message": "Aktiviert" },
+  "rule_disabled": { "message": "Deaktiviert" }
 }

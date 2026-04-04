@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Aktiver feilsøkingsmodus" },
   "enabledebugdesc": { "message": "Aktiver detaljert loggføring i konsollen for feilsøking" },
   "errorcommunication": { "message": "Feil ved kommunikasjon med bakgrunnstjenesten" },
-  "clearstats": { "message": "Tøm statistikk" }
+  "clearstats": { "message": "Tøm statistikk" },
+  "rule_enabled": { "message": "Aktivert" },
+  "rule_disabled": { "message": "Deaktivert" }
 }

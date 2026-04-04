@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Aktifkan Mode Debug" },
   "enabledebugdesc": { "message": "Aktifkan pencatatan rinci di konsol untuk pemecahan masalah" },
   "errorcommunication": { "message": "Kesalahan saat berkomunikasi dengan layanan latar belakang" },
-  "clearstats": { "message": "Hapus statistik" }
+  "clearstats": { "message": "Hapus statistik" },
+  "rule_enabled": { "message": "Diaktifkan" },
+  "rule_disabled": { "message": "Dinonaktifkan" }
 }

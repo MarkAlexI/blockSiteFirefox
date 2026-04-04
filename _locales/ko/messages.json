@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "디버그 모드 활성화" },
   "enabledebugdesc": { "message": "문제 해결을 위해 콘솔에서 상세 로그 활성화" },
   "errorcommunication": { "message": "백그라운드 서비스와 통신 중 오류 발생" },
-  "clearstats": { "message": "통계 지우기" }
+  "clearstats": { "message": "통계 지우기" },
+  "rule_enabled": { "message": "활성화됨" },
+  "rule_disabled": { "message": "비활성화됨" }
 }

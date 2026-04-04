@@ -264,5 +264,7 @@
   "enabledebugtitle": { "message": "Activer le mode débogage" },
   "enabledebugdesc": { "message": "Activer la journalisation détaillée dans la console pour le dépannage" },
   "errorcommunication": { "message": "Erreur de communication avec le service en arrière-plan" },
-  "clearstats": { "message": "Effacer les statistiques" }
+  "clearstats": { "message": "Effacer les statistiques" },
+  "rule_enabled": { "message": "Activé" },
+  "rule_disabled": { "message": "Désactivé" }
 }

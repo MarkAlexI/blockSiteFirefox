@@ -179,7 +179,7 @@ async function clearAllDnrRules() {
 }
 
 async function showUpdates(details) {
-  // return true;
+  return true;
   try {
     const settings = await SettingsManager.getSettings();
     

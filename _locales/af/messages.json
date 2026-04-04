@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Aktiveer ontfoutmodus" },
   "enabledebugdesc": { "message": "Aktiveer gedetailleerde konsolelogboeke vir foutopsporing" },
   "errorcommunication": { "message": "Fout tydens kommunikasie met die agtergronddiens" },
-  "clearstats": { "message": "Vee statistiek uit" }
+  "clearstats": { "message": "Vee statistiek uit" },
+  "rule_enabled": { "message": "Geaktiveer" },
+  "rule_disabled": { "message": "Gedeaktiveer" }
 }

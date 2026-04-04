@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Povolit režim ladění" },
   "enabledebugdesc": { "message": "Povolit podrobné protokolování do konzole pro řešení problémů" },
   "errorcommunication": { "message": "Chyba při komunikaci se službou na pozadí" },
-  "clearstats": { "message": "Vymazat statistiky" }
+  "clearstats": { "message": "Vymazat statistiky" },
+  "rule_enabled": { "message": "Povoleno" },
+  "rule_disabled": { "message": "Zakázáno" }
 }

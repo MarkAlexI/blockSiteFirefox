@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Activează modul de depanare" },
   "enabledebugdesc": { "message": "Activează logare detaliată în consolă pentru depanare" },
   "errorcommunication": { "message": "Eroare la comunicarea cu serviciul de fundal" },
-  "clearstats": { "message": "Șterge statisticile" }
+  "clearstats": { "message": "Șterge statisticile" },
+  "rule_enabled": { "message": "Activat" },
+  "rule_disabled": { "message": "Dezactivat" }
 }

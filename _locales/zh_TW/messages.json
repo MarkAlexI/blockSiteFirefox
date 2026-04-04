@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "啟用除錯模式" },
   "enabledebugdesc": { "message": "啟用控制台詳細記錄以進行除錯" },
   "errorcommunication": { "message": "與背景服務通訊時發生錯誤" },
-  "clearstats": { "message": "清除統計資料" }
+  "clearstats": { "message": "清除統計資料" },
+  "rule_enabled": { "message": "已啟用" },
+  "rule_disabled": { "message": "已停用" }
 }

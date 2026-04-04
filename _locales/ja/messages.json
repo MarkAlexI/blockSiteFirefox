@@ -264,5 +264,7 @@
   "enabledebugtitle": { "message": "デバッグモードを有効にする" },
   "enabledebugdesc": { "message": "トラブルシューティングのためにコンソールで詳細なログを有効にする" },
   "errorcommunication": { "message": "バックグラウンドサービスとの通信エラー" },
-  "clearstats": { "message": "統計をクリア" }
+  "clearstats": { "message": "統計をクリア" },
+  "rule_enabled": { "message": "有効" },
+  "rule_disabled": { "message": "無効" }
 }

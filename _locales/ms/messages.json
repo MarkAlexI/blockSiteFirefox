@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Dayakan Mod Debug" },
   "enabledebugdesc": { "message": "Dayakan log terperinci di konsol untuk penyelesaian masalah" },
   "errorcommunication": { "message": "Ralat semasa berkomunikasi dengan perkhidmatan latar belakang" },
-  "clearstats": { "message": "Kosongkan Statistik" }
+  "clearstats": { "message": "Kosongkan Statistik" },
+  "rule_enabled": { "message": "Diaktifkan" },
+  "rule_disabled": { "message": "Dinonaktifkan" }
 }

@@ -264,5 +264,7 @@
   "enabledebugtitle": { "message": "启用调试模式" },
   "enabledebugdesc": { "message": "启用控制台详细日志以进行故障排除" },
   "errorcommunication": { "message": "与后台服务通信时出错" },
-  "clearstats": { "message": "清除统计" }
+  "clearstats": { "message": "清除统计" },
+  "rule_enabled": { "message": "已启用" },
+  "rule_disabled": { "message": "已禁用" }
 }

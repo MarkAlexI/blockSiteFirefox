@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Hibakeresési mód engedélyezése" },
   "enabledebugdesc": { "message": "Részletes naplózás engedélyezése a konzolon a hibakereséshez" },
   "errorcommunication": { "message": "Hiba a háttérszolgáltatással való kommunikáció során" },
-  "clearstats": { "message": "Statisztika törlése" }
+  "clearstats": { "message": "Statisztika törlése" },
+  "rule_enabled": { "message": "Engedélyezve" },
+  "rule_disabled": { "message": "Letiltva" }
 }

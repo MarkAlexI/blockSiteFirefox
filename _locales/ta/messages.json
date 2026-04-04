@@ -254,5 +254,7 @@
   "enabledebugtitle": { "message": "டீபக் மோட் இயக்கு" },
   "enabledebugdesc": { "message": "பிரச்சனைகளை தீர்க்க கன்சோலில் விரிவான பதிவேற்றத்தை இயக்கு" },
   "errorcommunication": { "message": "பின்னணி சேவையுடன் தொடர்பில் பிழை" },
-  "clearstats": { "message": "புள்ளிவிவரங்களை அழி" }
+  "clearstats": { "message": "புள்ளிவிவரங்களை அழி" },
+  "rule_enabled": { "message": "செயலில் உள்ளது" },
+  "rule_disabled": { "message": "செயலிலில்லை" }
 }

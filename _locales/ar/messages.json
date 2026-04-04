@@ -264,5 +264,7 @@
   "enabledebugtitle": { "message": "تفعيل وضع التصحيح" },
   "enabledebugdesc": { "message": "تفعيل التسجيل التفصيلي في وحدة التحكم لاستكشاف الأخطاء" },
   "errorcommunication": { "message": "خطأ في الاتصال بخدمة الخلفية" },
-  "clearstats": { "message": "مسح الإحصاءات" }
+  "clearstats": { "message": "مسح الإحصاءات" },
+  "rule_enabled": { "message": "مفعّل" },
+  "rule_disabled": { "message": "معطّل" }
 }

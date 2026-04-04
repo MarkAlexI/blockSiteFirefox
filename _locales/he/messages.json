@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "הפעל מצב ניפוי שגיאות" },
   "enabledebugdesc": { "message": "הפעל רישום מפורט בקונסול לצורך פתרון בעיות" },
   "errorcommunication": { "message": "שגיאה בתקשורת עם שירות הרקע" },
-  "clearstats": { "message": "נקה סטטיסטיקה" }
+  "clearstats": { "message": "נקה סטטיסטיקה" },
+  "rule_enabled": { "message": "מופעל" },
+  "rule_disabled": { "message": "מושבת" }
 }

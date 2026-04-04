@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Iespējot atkļūdošanas režīmu" },
   "enabledebugdesc": { "message": "Iespējot detalizētu žurnālu konsolē problēmu novēršanai" },
   "errorcommunication": { "message": "Kļūda sazinoties ar fona pakalpojumu" },
-  "clearstats": { "message": "Notīrīt statistiku" }
+  "clearstats": { "message": "Notīrīt statistiku" },
+  "rule_enabled": { "message": "Ieslēgts" },
+  "rule_disabled": { "message": "Izslēgts" }
 }

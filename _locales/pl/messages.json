@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Włącz tryb debugowania" },
   "enabledebugdesc": { "message": "Włącz szczegółowe logowanie w konsoli w celu rozwiązywania problemów" },
   "errorcommunication": { "message": "Błąd komunikacji z usługą w tle" },
-  "clearstats": { "message": "Wyczyść statystyki" }
+  "clearstats": { "message": "Wyczyść statystyki" },
+  "rule_enabled": { "message": "Włączone" },
+  "rule_disabled": { "message": "Wyłączone" }
 }

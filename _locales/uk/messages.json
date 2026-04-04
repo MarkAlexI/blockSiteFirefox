@@ -264,5 +264,7 @@
   "enabledebugtitle": { "message": "Увімкнути режим налагодження" },
   "enabledebugdesc": { "message": "Увімкнути детальне логування в консоль для пошуку помилок" },
   "errorcommunication": { "message": "Помилка при спілкуванні з фоновою службою" },
-  "clearstats": { "message": "Очистити статистику" }
+  "clearstats": { "message": "Очистити статистику" },
+  "rule_enabled": { "message": "Увімкнено" },
+  "rule_disabled": { "message": "Вимкнено" }
 }

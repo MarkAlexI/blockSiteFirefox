@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "ዲባግ ሁነታን አንቃ" },
   "enabledebugdesc": { "message": "ለችግኝ መፍታት ወደ ኮንሶል ዝርዝር ሎጎችን አንቃ" },
   "errorcommunication": { "message": "ከየጀርባ አገልግሎት ጋር በመገናኘት ላይ ስህተት" },
-  "clearstats": { "message": "ስታቲስቲክስን አጥፋ" }
+  "clearstats": { "message": "ስታቲስቲክስን አጥፋ" },
+  "rule_enabled": { "message": "ነቅቷል" },
+  "rule_disabled": { "message": "ተዘግቷል" }
 }

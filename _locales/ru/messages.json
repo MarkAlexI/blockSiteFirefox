@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Включить режим отладки" },
   "enabledebugdesc": { "message": "Включить подробное логирование в консоль для устранения проблем" },
   "errorcommunication": { "message": "Ошибка при связи с фоновой службой" },
-  "clearstats": { "message": "Очистить статистику" }
+  "clearstats": { "message": "Очистить статистику" },
+  "rule_enabled": { "message": "Включено" },
+  "rule_disabled": { "message": "Выключено" }
 }

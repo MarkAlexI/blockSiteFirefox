@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "Įjungti derinimo režimą" },
   "enabledebugdesc": { "message": "Įjungti išsamų konsolės žurnalavimą trikčių šalinimui" },
   "errorcommunication": { "message": "Klaida bendraujant su fonine paslauga" },
-  "clearstats": { "message": "Išvalyti statistiką" }
+  "clearstats": { "message": "Išvalyti statistiką" },
+  "rule_enabled": { "message": "Įjungta" },
+  "rule_disabled": { "message": "Išjungta" }
 }

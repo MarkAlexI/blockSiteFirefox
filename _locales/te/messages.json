@@ -255,5 +255,7 @@
   "enabledebugtitle": { "message": "డీబగ్ మోడ్ ఎనేబుల్ చేయండి" },
   "enabledebugdesc": { "message": "సమస్యల పరిష్కారానికి కన్సోల్‌లో విస్తృత లాగింగ్ ఎనేబుల్ చేయండి" },
   "errorcommunication": { "message": "బ్యాక్‌గ్రౌండ్ సర్వీస్‌తో కమ్యూనికేషన్ లో లోపం" },
-  "clearstats": { "message": "పరుగులను తొలగించండి" }
+  "clearstats": { "message": "పరుగులను తొలగించండి" },
+  "rule_enabled": { "message": "సక్రియం" },
+  "rule_disabled": { "message": "నిష్క్రియం" }
 }
