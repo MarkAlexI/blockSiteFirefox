@@ -159,6 +159,10 @@ class OptionsPage {
       index,
       (row, index, rule) => this.toggleEditMode(row, index, rule),
       (e, index) => this.handleRuleDeletion(e, index),
+      async (index) => {
+        await this.rulesManager.toggleRuleDisabled(index);
+        this.loadRules();
+      },
       canEdit
     );
   }
@@ -199,9 +203,10 @@ class OptionsPage {
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
       index,
-      (index, blockValue, redirectValue, category, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, category, schedule, ruleId),
+      (index, blockValue, redirectValue, category, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, category, schedule, ruleId, rule.disabledByUser),
       () => this.loadRules(),
-      this.isPro
+      this.isPro,
+      rule.disabledByUser
     );
     
     const settings = await SettingsManager.getSettings();
@@ -213,9 +218,9 @@ class OptionsPage {
     row.replaceWith(editRow);
   }
   
-  async saveEditedRule(index, newBlock, newRedirect, newCategory, newSchedule, oldRuleId) {
+  async saveEditedRule(index, newBlock, newRedirect, newCategory, newSchedule, oldRuleId, disabledByUser) {
     try {
-      await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule, newCategory);
+      await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule, newCategory, null);
       
       if (newBlock) {
         browser.runtime.sendMessage({

@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'This update introduces Debug Mode for Pro users on the settings page, making it easier to diagnose issues and understand how the extension behaves.',
-    'We’ve also improved internal loggingfor Pro users: logs are now clearer and more structured, with timestamps and visual context in the browser console. This helps with faster troubleshooting and more transparent behavior during advanced usage.',
+    'Introducing intelligent rule pausing—disable any website block with a single click, then reactivate whenever you need to refocus. Keep your rules intact, take control whenever you need flexibility.',
+    'When you create a schedule for a blocked website, the rule automatically becomes active so your timetable works immediately. Perfect for scheduling focus sessions without friction.',
+    'Free users can now create up to 10 rules instead of 5—more flexibility for everyone to stay productive without distractions.',
   ];
   
   const ul = document.getElementById('features');

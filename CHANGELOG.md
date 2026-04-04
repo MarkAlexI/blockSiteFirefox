@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-04-04
+### Added
+- Added ability to disable/enable individual rules with a single click without deleting them. Each rule now displays a toggle indicator (✓ for active, ✗ for disabled) in the schedule column, allowing flexible rule management.
+- When creating a schedule for a rule, it automatically becomes active to ensure the schedule works as expected.
+### Changed
+- Enhanced rule management UI with clearer visual feedback for rule status.
+- Increased the maximum number of rules available for free users from 5 to 10.
+
 ### [3.4.4] - 2026-03-29
 ### Patch
 - Fixed permission check function call in the worker.

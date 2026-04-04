@@ -134,7 +134,8 @@ export class RulesManager {
         blockURL: blockURL.trim(),
         redirectURL: redirectURL.trim(),
         schedule,
-        category
+        category,
+        disabledByUser: false
       };
       
       rules.push(newRule);
@@ -147,7 +148,7 @@ export class RulesManager {
     }
   }
   
-  async updateRule(index, newBlockURL, newRedirectURL, schedule = null, category) {
+  async updateRule(index, newBlockURL, newRedirectURL, schedule = null, category, disabledByUser = null) {
     const validation = this.validateRule(newBlockURL, newRedirectURL, schedule, category);
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
@@ -162,6 +163,11 @@ export class RulesManager {
     
     if (this.ruleExists(rules, newBlockURL, newRedirectURL, index)) {
       throw new Error('Rule already exists');
+    }
+    
+    let finalDisabledByUser = disabledByUser !== null ? disabledByUser : oldRule.disabledByUser || false;
+    if (disabledByUser === null && !oldRule.schedule && schedule) {
+      finalDisabledByUser = false;
     }
     
     try {
@@ -180,7 +186,8 @@ export class RulesManager {
         blockURL: newBlockURL.trim(),
         redirectURL: newRedirectURL.trim(),
         schedule,
-        category
+        category,
+        disabledByUser: finalDisabledByUser
       };
       
       await this.saveRules(rules);
@@ -247,6 +254,38 @@ export class RulesManager {
     }
   }
   
+  async toggleRuleDisabled(index) {
+    const rules = await this.getRules();
+    const rule = rules[index];
+    
+    if (!rule) {
+      throw new Error('Rule not found');
+    }
+    
+    rule.disabledByUser = !rule.disabledByUser;
+    await this.saveRules(rules);
+    
+    await this.updateActiveRules();
+    
+    return rule;
+  }
+  
+  async toggleRuleDisabled(index) {
+    const rules = await this.getRules();
+    const rule = rules[index];
+    
+    if (!rule) {
+      throw new Error('Rule not found');
+    }
+    
+    rule.disabledByUser = !rule.disabledByUser;
+    await this.saveRules(rules);
+    
+    await this.updateActiveRules();
+    
+    return rule;
+  }
+  
   async migrateRules() {
     const rules = await this.getRules();
     let needsFullMigration = false;
@@ -262,6 +301,11 @@ export class RulesManager {
       
       if (!rule.category) {
         newRule.category = 'uncategorized';
+        needsSave = true;
+      }
+      
+      if (rule.disabledByUser === undefined) {
+        newRule.disabledByUser = false;
         needsSave = true;
       }
       
@@ -308,7 +352,8 @@ export class RulesManager {
           blockURL: migratedRules[i].blockURL,
           redirectURL: migratedRules[i].redirectURL,
           schedule: migratedRules[i].schedule,
-          category: migratedRules[i].category
+          category: migratedRules[i].category,
+          disabledByUser: migratedRules[i].disabledByUser
         }));
         
         await this.saveRules(finalRules);
@@ -340,6 +385,7 @@ export class RulesManager {
   }
   
   isRuleActiveNow(rule) {
+    if (rule.disabledByUser) return false;
     if (!rule.schedule) return true;
     
     const now = new Date();
@@ -353,5 +399,35 @@ export class RulesManager {
     const endMinutes = endH * 60 + endM;
     
     return currentMinutes >= startMinutes && currentMinutes < endMinutes;
+  }
+
+  async toggleRuleDisabled(index) {
+    const rules = await this.getRules();
+    if (!rules[index]) {
+      throw new Error('Rule not found');
+    }
+    rules[index].disabledByUser = !rules[index].disabledByUser;
+    await this.saveRules(rules);
+    return rules[index];
+  }
+  
+  async enableRulesByCategory(category) {
+    const rules = await this.getRules();
+    rules.forEach(rule => {
+      if (rule.category === category && rule.disabledByUser) {
+        rule.disabledByUser = false;
+      }
+    });
+    await this.saveRules(rules);
+  }
+  
+  async disableRulesByCategory(category) {
+    const rules = await this.getRules();
+    rules.forEach(rule => {
+      if (rule.category === category) {
+        rule.disabledByUser = true;
+      }
+    });
+    await this.saveRules(rules);
   }
 }

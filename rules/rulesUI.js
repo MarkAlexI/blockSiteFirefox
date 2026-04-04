@@ -92,7 +92,7 @@ export class RulesUI {
     deleteButton.addEventListener('click', cancelHandler);
   }
   
-  createRuleDisplayRow(rule, index, onEdit, onDelete, showEditButtons = true) {
+  createRuleDisplayRow(rule, index, onEdit, onDelete, onToggle, showEditButtons = true) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     row.dataset.ruleId = rule.id;
@@ -117,7 +117,21 @@ export class RulesUI {
       const daysStr = rule.schedule.days.map(d => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d]).join(', ');
       scheduleCell.textContent = `${daysStr}, ${rule.schedule.startTime}-${rule.schedule.endTime}`;
     } else {
-      scheduleCell.textContent = t('alwaysactive');
+      const toggleElement = document.createElement('span');
+      toggleElement.className = 'rule-toggle';
+      toggleElement.textContent = rule.disabledByUser ? '✗' : '✓';
+      toggleElement.title = rule.disabledByUser ? t('rule_disabled') || 'Disabled' : t('rule_enabled') || 'Enabled';
+      toggleElement.style.cursor = 'pointer';
+      toggleElement.addEventListener('click', async () => {
+        try {
+          await onToggle(index);
+          toggleElement.textContent = toggleElement.textContent === '✓' ? '✗' : '✓';
+          toggleElement.title = toggleElement.title === (t('rule_enabled') || 'Enabled') ? (t('rule_disabled') || 'Disabled') : (t('rule_enabled') || 'Enabled');
+        } catch (error) {
+          this.logger.error('Toggle rule error:', error);
+        }
+      });
+      scheduleCell.appendChild(toggleElement);
     }
     row.appendChild(scheduleCell);
     
@@ -141,7 +155,7 @@ export class RulesUI {
     return row;
   }
   
-  createRuleEditRow(rule, index, onSave, onCancel, enableSchedule = false) {
+  createRuleEditRow(rule, index, onSave, onCancel, enableSchedule = false, currentDisabledByUser = false) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     
@@ -195,7 +209,7 @@ export class RulesUI {
       try {
         const category = categorySelect.value;
         const schedule = this.getScheduleFromSection(scheduleSection);
-        onSave(index, blockInput.value, redirectInput.value, category, schedule, rule.id);
+        onSave(index, blockInput.value, redirectInput.value, category, schedule, rule.id, null);
       } catch (error) {
         this.logger.info('Edit: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');

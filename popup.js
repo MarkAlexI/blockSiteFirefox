@@ -197,7 +197,7 @@ class PopupPage {
       this.rulesContainer.innerHTML = '';
       
       rules.forEach(rule => {
-        this.createRuleInputs(rule.blockURL, rule.redirectURL, rule.id);
+        this.createRuleInputs(rule.blockURL, rule.redirectURL, rule.id, rule.disabledByUser ?? false);
       });
       
       this.updateStatus(rules.length);
@@ -310,7 +310,7 @@ class PopupPage {
     }
   }
   
-  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null) {
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false) {
     const ruleDiv = document.createElement('div');
     ruleDiv.className = 'rule';
     ruleDiv.dataset.ruleId = ruleId;
@@ -353,6 +353,28 @@ class PopupPage {
       } else {
         this.makeInputReadOnly(blockURL);
         this.makeInputReadOnly(redirectURL);
+        
+        // Add toggle for existing rules
+        const toggleElement = document.createElement('span');
+        toggleElement.className = 'rule-toggle-popup';
+        toggleElement.textContent = disabledByUser ? '✗' : '✓';
+        toggleElement.title = disabledByUser ? t('rule_disabled') || 'Disabled' : t('rule_enabled') || 'Enabled';
+        toggleElement.style.cursor = 'pointer';
+        toggleElement.style.marginLeft = '10px';
+        toggleElement.addEventListener('click', async () => {
+          try {
+            const rules = await this.rulesManager.getRules();
+            const index = rules.findIndex(r => r.id === ruleId);
+            if (index !== -1) {
+              await this.rulesManager.toggleRuleDisabled(index);
+              toggleElement.textContent = toggleElement.textContent === '✓' ? '✗' : '✓';
+              toggleElement.title = toggleElement.title === (t('rule_enabled') || 'Enabled') ? (t('rule_disabled') || 'Disabled') : (t('rule_enabled') || 'Enabled');
+            }
+          } catch (error) {
+            this.logger.error('Toggle rule error:', error);
+          }
+        });
+        ruleDiv.appendChild(toggleElement);
       }
       
       if (blockURLValue || (showButtons && !blockURLValue)) {
@@ -415,7 +437,7 @@ class PopupPage {
       
       const newRule = updatedRules.find(r => r.blockURL === blockURL.value.trim());
       if (newRule) {
-        this.createRuleInputs(newRule.blockURL, newRule.redirectURL, newRule.id);
+        this.createRuleInputs(newRule.blockURL, newRule.redirectURL, newRule.id, newRule.disabledByUser ?? false);
       }
       
       const canAddMore = this.isPro || this.isLegacyUser || (updatedRules.length < MAX_RULES_LIMIT);

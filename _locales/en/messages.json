@@ -265,5 +265,7 @@
   "enabledebugtitle": { "message": "Enable Debug Mode" },
   "enabledebugdesc": { "message": "Enable detailed logging to console for troubleshooting" },
   "errorcommunication": { "message": "Error communicating with background service" },
-  "clearstats": { "message": "Clear Statistics" }
+  "clearstats": { "message": "Clear Statistics" },
+  "rule_enabled": { "message": "Enabled" },
+  "rule_disabled": { "message": "Disabled" }
 }
