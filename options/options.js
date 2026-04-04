@@ -7,6 +7,7 @@ import { PasswordUtils } from '../pro/password.js';
 import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 import Logger from '../utils/logger.js';
 import { MAX_RULES_LIMIT } from '../utils/constants.js';
+import { checkDNR } from '../utils/dnrDebug.js';
 
 const logger = new Logger('OptionsPage');
 
@@ -22,8 +23,9 @@ class OptionsPage {
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
     this.categoryFilter = document.getElementById('category-filter');
-
+    
     this.init();
+    this.exposeDebugTools();
   }
   
   async init() {
@@ -44,27 +46,31 @@ class OptionsPage {
     this.loadRules();
   }
   
+  exposeDebugTools() {
+    window.checkDNR = checkDNR;
+  }
+  
   initializeUI() {
     const setContent = (id, key) => {
       const el = document.getElementById(id);
       if (el) el.textContent = t(key);
     };
-
+    
     setContent('options-title', 'header');
     setContent('header-text', 'header');
-    if(this.addRuleButton) this.addRuleButton.textContent = t('addrule');
+    if (this.addRuleButton) this.addRuleButton.textContent = t('addrule');
     setContent('block-url-header', 'blockurl');
     setContent('redirect-url-header', 'redirecturl');
     setContent('category-header', 'category_header');
     setContent('actions-header', 'actionsheader');
     
-    if(this.searchInput) this.searchInput.placeholder = t('searchfordomain');
-
+    if (this.searchInput) this.searchInput.placeholder = t('searchfordomain');
+    
     const translateOption = (val, key) => {
-        const opt = this.categoryFilter.querySelector(`option[value="${val}"]`);
-        if(opt) opt.textContent = t(key);
+      const opt = this.categoryFilter.querySelector(`option[value="${val}"]`);
+      if (opt) opt.textContent = t(key);
     };
-
+    
     translateOption('all', 'allcategories');
     translateOption('social', 'category_social');
     translateOption('news', 'category_news');
@@ -77,11 +83,11 @@ class OptionsPage {
   }
   
   setupEventListeners() {
-    if(this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
-    if(this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
-    if(this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
+    if (this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
+    if (this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
+    if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
   }
-
+  
   async promptForPassword() {
     return new Promise((resolve) => {
       PasswordUtils.showPasswordModal('verify', (isValid) => {
@@ -160,10 +166,10 @@ class OptionsPage {
       (row, index, rule) => this.toggleEditMode(row, index, rule),
       (e, index) => this.handleRuleDeletion(e, index),
       async (index) => {
-        await this.rulesManager.toggleRuleDisabled(index);
-        this.loadRules();
-      },
-      canEdit
+          await this.rulesManager.toggleRuleDisabled(index);
+          this.loadRules();
+        },
+        canEdit
     );
   }
   
@@ -171,7 +177,7 @@ class OptionsPage {
     try {
       const isStrictMode = await this.rulesManager.isStrictMode();
       const deleteButton = event.target;
-
+      
       const settings = await SettingsManager.getSettings();
       if (settings.enablePassword) {
         const isValid = await this.promptForPassword();

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.0] - 2026-04-04
+### Added
+- **Developer Tools**: Introduced `checkDNR()` command in the Options page console. This allows real-time inspection of active `declarativeNetRequest` rules directly in the browser.
+- New `utils/dnrDebug.js` module to handle internal rule diagnostics.
+### Improved
+- **Rule Inspection**: Enhanced the display of active rules in the console; nested objects are now flattened into a readable table format for easier debugging.
+- Internal code organization and better separation of concerns between UI and utility functions.
+
 ## [3.5.1] – 2026-04-04
 ### Patch
 - Added two new localization keys across all supported languages.
