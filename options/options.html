@@ -72,133 +72,136 @@
     </div>
     
     <main class="settings-content">
-      <section class="setting-section">
-        <h2 data-i18n="securitymodetitle">Security Mode</h2>
-        <div class="setting-group">
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" id="mode-normal" name="securityMode" value="normal" checked>
-              <label for="mode-normal">
-                <div class="radio-content">
-                  <span class="radio-title" data-i18n="normalmodetitle">Normal Mode</span>
-                  <span class="radio-description" data-i18n="normalmodedesc">Rules can be deleted immediately with a single click</span>
-                </div>
+      <section class="setting-section collapsible-section">
+        <h2 data-i18n="securitymodetitle" class="collapsible-header">Security Mode</h2>
+        <div class="collapsible-content">
+          <div class="setting-group">
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="mode-normal" name="securityMode" value="normal" checked>
+                <label for="mode-normal">
+                  <div class="radio-content">
+                    <span class="radio-title" data-i18n="normalmodetitle">Normal Mode</span>
+                    <span class="radio-description" data-i18n="normalmodedesc">Rules can be deleted immediately with a single click</span>
+                  </div>
+                </label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="mode-strict" name="securityMode" value="strict">
+                <label for="mode-strict">
+                  <div class="radio-content">
+                    <span class="radio-title" data-i18n="strictmodetitle">Strict Mode</span>
+                    <span class="radio-description" data-i18n="strictmodedesc">Rules require a 10-second countdown before deletion to prevent accidental removal</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="setting-section collapsible-section">
+        <h2 data-i18n="basicsettingstitle" class="collapsible-header">Basic Settings</h2>
+        <div class="collapsible-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="showNotifications" data-i18n="notificationstitle">Show notifications</label>
+              <span class="setting-description" data-i18n="notificationsdesc">Display notifications when web-extension is updated</span>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="showNotifications" class="toggle-input" checked>
+              <label for="showNotifications" class="toggle-label">
+                <span class="toggle-slider"></span>
               </label>
             </div>
-            
-            <div class="radio-option">
-              <input type="radio" id="mode-strict" name="securityMode" value="strict">
-              <label for="mode-strict">
-                <div class="radio-content">
-                  <span class="radio-title" data-i18n="strictmodetitle">Strict Mode</span>
-                  <span class="radio-description" data-i18n="strictmodedesc">Rules require a 10-second countdown before deletion to prevent accidental removal</span>
-                </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="setting-section hidden pro-feature collapsible-section">
+        <h2 data-i18n="advancedsettingstitle" class="collapsible-header">Advanced Settings</h2>
+        <div class="collapsible-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="confirmBeforeDelete" data-i18n="confirmdeletetitle">Confirm before deleting multiple rules</label>
+              <span class="setting-description" data-i18n="confirmdeletedesc">Show confirmation dialog when deleting multiple rules at once</span>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="confirmBeforeDelete" class="toggle-input">
+              <label for="confirmBeforeDelete" class="toggle-label">
+                <span class="toggle-slider"></span>
               </label>
             </div>
           </div>
         </div>
       </section>
-      
-      <section class="setting-section">
-        <h2 data-i18n="basicsettingstitle">Basic Settings</h2>
-        
-        <div class="setting-item">
-          <div class="setting-info">
-            <label for="showNotifications" data-i18n="notificationstitle">Show notifications</label>
-            <span class="setting-description" data-i18n="notificationsdesc">Display notifications when web-extension is updated</span>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="showNotifications" class="toggle-input" checked>
-            <label for="showNotifications" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-      </section>
-      
-      <section class="setting-section hidden pro-feature">
-        <h2 data-i18n="advancedsettingstitle">Advanced Settings</h2>
-        
-        <div class="setting-item">
-          <div class="setting-info">
-            <label for="confirmBeforeDelete" data-i18n="confirmdeletetitle">Confirm before deleting multiple rules</label>
-            <span class="setting-description" data-i18n="confirmdeletedesc">Show confirmation dialog when deleting multiple rules at once</span>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="confirmBeforeDelete" class="toggle-input">
-            <label for="confirmBeforeDelete" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
+
+      <section class="setting-section hidden pro-feature collapsible-section">
+        <h2 data-i18n="passwordprotectiontitle" class="collapsible-header">Password Protection</h2>
+        <div class="collapsible-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="enablePassword" data-i18n="enablepasswordtitle">Enable password for rule changes</label>
+              <span class="setting-description" data-i18n="enablepassworddesc">Require password to delete or edit rules (enhances strict mode)</span>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enablePassword" class="toggle-input">
+              <label for="enablePassword" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
           </div>
         </div>
       </section>
-      
-      <section class="setting-section hidden pro-feature">
-        <h2 data-i18n="passwordprotectiontitle">Password Protection</h2>
-        
-        <div class="setting-item">
-          <div class="setting-info">
-            <label for="enablePassword" data-i18n="enablepasswordtitle">Enable password for rule changes</label>
-            <span class="setting-description" data-i18n="enablepassworddesc">Require password to delete or edit rules (enhances strict mode)</span>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="enablePassword" class="toggle-input">
-            <label for="enablePassword" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-      </section>
-      
-      <section class="setting-section hidden pro-feature">
-        <h2 data-i18n="debugsettingstitle">Debug Settings</h2>
-        
-        <div class="setting-item">
-          <div class="setting-info">
-            <label for="enableDebug" data-i18n="enabledebugtitle">Enable Debug Mode</label>
-            <span class="setting-description" data-i18n="enabledebugdesc">Enable detailed logging to console for troubleshooting</span>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="enableDebug" class="toggle-input">
-            <label for="enableDebug" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
+
+      <section class="setting-section hidden pro-feature collapsible-section">
+        <h2 data-i18n="debugsettingstitle" class="collapsible-header">Debug Settings</h2>
+        <div class="collapsible-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="enableDebug" data-i18n="enabledebugtitle">Enable Debug Mode</label>
+              <span class="setting-description" data-i18n="enabledebugdesc">Enable detailed logging to console for troubleshooting</span>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enableDebug" class="toggle-input">
+              <label for="enableDebug" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
           </div>
         </div>
       </section>
-      
-      <section class="setting-section hidden pro-feature">
-        <h2 data-i18n="rulesmanagementtitle">Rules Management</h2>
-        
-        <div class="action-buttons">
-          <button id="exportRules" class="action-btn secondary">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-            </svg>
-            <span data-i18n="exportrulesbtn">Export Rules</span>
-          </button>
-          
-          <button id="importRules" class="action-btn secondary">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-              <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
-            </svg>
-            <span data-i18n="importrulesbtn">Import Rules</span>
-          </button>
-          
-          <button id="clearAllRules" class="action-btn danger">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-            </svg>
-            <span data-i18n="clearallrulesbtn">Clear All Rules</span>
-          </button>
+
+      <section class="setting-section hidden pro-feature collapsible-section">
+        <h2 data-i18n="rulesmanagementtitle" class="collapsible-header">Rules Management</h2>
+        <div class="collapsible-content">
+          <div class="action-buttons">
+            <button id="exportRules" class="action-btn secondary">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+              </svg>
+              <span data-i18n="exportrulesbtn">Export Rules</span>
+            </button>
+            <button id="importRules" class="action-btn secondary">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+              </svg>
+              <span data-i18n="importrulesbtn">Import Rules</span>
+            </button>
+            <button id="clearAllRules" class="action-btn danger">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+              </svg>
+              <span data-i18n="clearallrulesbtn">Clear All Rules</span>
+            </button>
+          </div>
+          <input type="file" id="importFileInput" accept=".json" class="hidden">
         </div>
-        
-        <input type="file" id="importFileInput" accept=".json" class="hidden">
       </section>
-      
+
       <section class="setting-section hidden pro-feature">
         <h2 data-i18n="statisticstitle">Statistics</h2>
         <div class="stats-grid">
@@ -246,8 +249,18 @@
       </footer>
     </div>
     
-    <button id="add-rule"></button>
     <div id="search-filter-container" class="hidden pro-feature">
+      <section class="category-management-mini collapsible-section expanded">
+        <h3 class="collapsible-header" data-i18n="categorymanagementtitle">Category Blocking</h3>
+        <div class="collapsible-content">
+          <div id="categories-container" class="category-grid">
+          </div>
+          <div class="setting-info">
+            <span class="setting-description" data-i18n="category_disabled_desc">Mute categories to pause blocking. Individual rule settings are preserved.</span>
+          </div>
+        </div>
+      </section>
+      <hr class="divider">
       <input type="text" id="search-input" data-i18n-placeholder="searchblockurl">
       <select id="category-filter" class="category-select">
         <option value="all" data-i18n="allcategories">All Categories</option>
@@ -262,6 +275,7 @@
       </select>
     </div>
     
+    <button id="add-rule"></button>
     <div class="table-wrapper">
       <table id="rules-table">
         <thead>

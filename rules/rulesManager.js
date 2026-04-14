@@ -123,14 +123,8 @@ export class RulesManager {
     }
     
     try {
-      const newDnrRule = await this.createDNRRule(blockURL, redirectURL);
-      
-      await browser.declarativeNetRequest.updateDynamicRules({
-        addRules: [newDnrRule]
-      });
-      
       const newRule = {
-        id: newDnrRule.id,
+        id: Date.now(), // Стабільний унікальний ID
         blockURL: blockURL.trim(),
         redirectURL: redirectURL.trim(),
         schedule,
@@ -143,7 +137,6 @@ export class RulesManager {
       
       return newRule;
     } catch (error) {
-      this.logger.info("DNR add error:", error);
       throw new Error('Failed to add rule');
     }
   }
@@ -171,18 +164,8 @@ export class RulesManager {
     }
     
     try {
-      await browser.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: [oldRule.id]
-      });
-      
-      const newDnrRule = await this.createDNRRule(newBlockURL, newRedirectURL);
-      
-      await browser.declarativeNetRequest.updateDynamicRules({
-        addRules: [newDnrRule]
-      });
-      
       rules[index] = {
-        id: newDnrRule.id,
+        id: oldRule.id,
         blockURL: newBlockURL.trim(),
         redirectURL: newRedirectURL.trim(),
         schedule,
@@ -194,7 +177,6 @@ export class RulesManager {
       
       return rules[index];
     } catch (error) {
-      this.logger.info("DNR update error:", error);
       throw new Error('Failed to update rule');
     }
   }
@@ -208,16 +190,11 @@ export class RulesManager {
     }
     
     try {
-      await browser.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: [ruleToDelete.id]
-      });
-      
       rules.splice(index, 1);
       await this.saveRules(rules);
       
       return ruleToDelete;
     } catch (error) {
-      this.logger.info("DNR remove error:", error);
       throw new Error('Failed to delete rule');
     }
   }
@@ -265,25 +242,24 @@ export class RulesManager {
     rule.disabledByUser = !rule.disabledByUser;
     await this.saveRules(rules);
     
-    await this.updateActiveRules();
-    
     return rule;
   }
-  
-  async toggleRuleDisabled(index) {
-    const rules = await this.getRules();
-    const rule = rules[index];
+
+  async toggleCategoryDisabled(category) {
+    const settings = await this.getSettings();
+    let disabledCategories = settings.disabledCategories || [];
     
-    if (!rule) {
-      throw new Error('Rule not found');
+    if (disabledCategories.includes(category)) {
+      disabledCategories = disabledCategories.filter(c => c !== category);
+    } else {
+      disabledCategories.push(category);
     }
     
-    rule.disabledByUser = !rule.disabledByUser;
-    await this.saveRules(rules);
+    await browser.storage.sync.set({ 
+      settings: { ...settings, disabledCategories } 
+    });
     
-    await this.updateActiveRules();
-    
-    return rule;
+    browser.runtime.sendMessage({ type: 'reload_rules' });
   }
   
   async migrateRules() {
@@ -384,8 +360,9 @@ export class RulesManager {
     return settings.mode === 'strict';
   }
   
-  isRuleActiveNow(rule) {
+  isRuleActiveNow(rule, disabledCategories = []) {
     if (rule.disabledByUser) return false;
+    if (disabledCategories.includes(rule.category)) return false;
     if (!rule.schedule) return true;
     
     const now = new Date();

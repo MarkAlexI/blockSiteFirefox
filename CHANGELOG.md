@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.0] — 2026-04-14
+### Added
+- **Category Blocking**: New functionality that allows pausing or resuming the blocking of entire groups of sites (Social Media, News, Games, etc.) with a single click.
+- **Hierarchical Management**: Rules now automatically become inactive (Read-only) if their parent category is unlocked.
+- **Visual Indicators**: Added dashed borders and a "frozen" effect (grayscale) for rules currently inactive due to category settings.
+- **Animations**: Smooth transitions when expanding and collapsing settings sections.
+### Improved
+- **UI Update**: Settings sections (Security, Advanced, Rules Management) are now collapsed by default for a cleaner look.
+- **Options Page UX**: The "Add New Rule" button has been moved closer to the table for easier access.
+- **Popup Synchronization**: The popup now instantly reflects changes in category statuses and blocks interaction with "muted" rules.
+### Fixed
+- `TypeError` error when quickly switching rule statuses. - Issue with the lack of reactivity of rule counters in category "chips".
+
 ## [3.6.0] - 2026-04-04
 ### Added
 - **Developer Tools**: Introduced `checkDNR()` command in the Options page console. This allows real-time inspection of active `declarativeNetRequest` rules directly in the browser.

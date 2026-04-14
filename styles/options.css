@@ -628,6 +628,143 @@ footer {
   justify-content: flex-start;
 }
 
+.category-management-mini {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius);
+}
+
+.collapsible-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--transition);
+}
+
+.collapsible-header::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-primary);
+  border-bottom: 2px solid var(--text-primary);
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  margin-right: 10px;
+}
+
+.collapsible-section.expanded .collapsible-header::after {
+  transform: rotate(-135deg);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+}
+
+.collapsible-section.expanded .collapsible-content {
+  max-height: 2000px;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+.category-management-mini .collapsible-header {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.divider {
+  margin: 15px 0;
+  border: none;
+  border-top: 1px solid var(--border-light);
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.category-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+  font-size: 13px;
+}
+
+.category-card:hover {
+  border-color: var(--primary-color);
+  background-color: var(--bg-secondary);
+}
+
+/* Стан для вимкнених категорій */
+.category-card.muted {
+  background-color: #eee;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.category-card.muted:hover {
+  opacity: 0.85;
+}
+
+.category-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: #202124;
+  text-align: center;
+}
+
+.category-count {
+  font-size: 12px;
+  color: #5f6368;
+  background: #f1f3f4;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+#rules-container tr.category-muted {
+  transition: all 0.3s ease;
+  outline: 1px dashed #ccc;
+  outline-offset: -2px;
+  pointer-events: none;
+}
+
+#rules-container tr.category-muted td {
+  color: #888;
+  background-color: rgba(245, 245, 245, 0.5);
+  cursor: not-allowed;
+}
+
+#rules-container tr.category-muted .status-cell,
+#rules-container tr.category-muted .actions button {
+  opacity: 0.2;
+  filter: grayscale(1);
+}
+
+#rules-container tr.category-muted .category-tag {
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .category-grid {
+    gap: 6px;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     min-width: auto;

@@ -126,6 +126,7 @@
   "basicsettingstitle": { "message": "Основні налаштування" },
   "advancedsettingstitle": { "message": "Розширені налаштування" },
   "statisticstitle": { "message": "Статистика" },
+  "categorymanagementtitle": { "message": "Блокування за категоріями" },
   "rulelimitreached": {
     "message": "Ви досягли ліміту правил ($limit$) у базовій версії. Оновіть до Pro для необмеженої кількості правил.",
     "placeholders": {
@@ -266,5 +267,9 @@
   "errorcommunication": { "message": "Помилка при спілкуванні з фоновою службою" },
   "clearstats": { "message": "Очистити статистику" },
   "rule_enabled": { "message": "Увімкнено" },
-  "rule_disabled": { "message": "Вимкнено" }
+  "rule_disabled": { "message": "Вимкнено" },
+  "filter_only_hint": { "message": "Цей список лише фільтрує відображення у таблиці" },
+  "category_disabled_desc": { "message": "Натисніть на категорію, щоб активувати або призупинити її блокування. Правила в призупинених категоріях позначаються пунктирною рамкою та недоступні для зміни." },
+  "toggle_category_blocking": { "message": "Перемкнути блокування для всієї категорії" },
+  "category_muted_no_edit": { "message": "Керування неможливе: категорію розблоковано в налаштуваннях" }
 }

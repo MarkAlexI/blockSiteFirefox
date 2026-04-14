@@ -134,17 +134,19 @@ if (browser.contextMenus) {
 async function updateActiveRules() {
   try {
     const rules = await rulesManager.getRules();
+    const settings = await SettingsManager.getSettings();
+    const disabledCategories = settings.disabledCategories || [];
     const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
     
-    const activeRules = rules.filter(rule => rulesManager.isRuleActiveNow(rule));
-    const inactiveRules = rules.filter(rule => !rulesManager.isRuleActiveNow(rule));
+    const activeRules = rules.filter(rule => rulesManager.isRuleActiveNow(rule, disabledCategories));
+    const activeIds = new Set(activeRules.map(r => r.id));
     
-    const removeRuleIds = inactiveRules
-      .map(rule => rule.id)
-      .filter(id => currentDnrRules.some(dnr => dnr.id === id));
+    const removeRuleIds = currentDnrRules
+      .map(r => r.id)
+      .filter(id => !activeIds.has(id));
+
     if (removeRuleIds.length) {
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
-      logger.log(`Removed ${removeRuleIds.length} inactive scheduled rules`);
     }
     
     const addRules = [];

@@ -257,5 +257,10 @@
   "errorcommunication": { "message": "Грешка у комуникацији са позадинском услугом" },
   "clearstats": { "message": "Обриши статистику" },
   "rule_enabled": { "message": "Укључено" },
-  "rule_disabled": { "message": "Искључено" }
+  "rule_disabled": { "message": "Искључено" },
+  "categorymanagementtitle": { "message": "Блокирање по категоријама" },
+  "filter_only_hint": { "message": "Ова листа само филтрира приказ у табели" },
+  "category_disabled_desc": { "message": "Искључите категорију да бисте привремено дозволили приступ свим њеним сајтовима. Подешавања појединачних правила се чувају." },
+  "toggle_category_blocking": { "message": "Промени блокирање за целу категорију" },
+  "category_muted_no_edit": { "message": "Управљање није могуће: категорија је одблокирана" }
 }

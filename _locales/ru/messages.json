@@ -257,5 +257,10 @@
   "errorcommunication": { "message": "Ошибка при связи с фоновой службой" },
   "clearstats": { "message": "Очистить статистику" },
   "rule_enabled": { "message": "Включено" },
-  "rule_disabled": { "message": "Выключено" }
+  "rule_disabled": { "message": "Выключено" },
+  "categorymanagementtitle": { "message": "Эти категории заблокированы" },
+  "filter_only_hint": { "message": "Этот список только фильтрует отображение в таблице" },
+  "category_disabled_desc": { "message": "Нажмите на категорию, чтобы активировать или приостановить её блокировку. Правила в приостановленных категориях выделяются пунктирной рамкой и недоступны для изменения." },
+  "toggle_category_blocking": { "message": "Переключить блокировку для всей категории" },
+  "category_muted_no_edit": { "message": "Управление невозможно: категория разблокирована в настройках" }
 }

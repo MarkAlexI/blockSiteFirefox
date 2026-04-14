@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'Introducing intelligent rule pausing—disable any website block with a single click, then reactivate whenever you need to refocus. Keep your rules intact, take control whenever you need flexibility.',
-    'When you create a schedule for a blocked website, the rule automatically becomes active so your timetable works immediately. Perfect for scheduling focus sessions without friction.',
-    'Free users can now create up to 10 rules instead of 5—more flexibility for everyone to stay productive without distractions.',
+    'Introducing Category Blocking for Pro users - effortlessly pause or resume blocking for entire groups like Social Media, News, or Games with a single click.',
+    'Rules now feature Hierarchical Management: they automatically become inactive and read-only when their parent category is unblocked, providing better visual clarity.',
+    'Enjoy a redesigned, cleaner interface with smooth animations and collapsible settings sections, ensuring that advanced options stay out of your way until you need them.',
   ];
   
   const ul = document.getElementById('features');

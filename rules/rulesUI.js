@@ -1,5 +1,6 @@
 import { t } from '../scripts/t.js';
 import Logger from '../utils/logger.js';
+import { CATEGORIES } from './categoryManager.js';
 
 export class RulesUI {
   constructor() {
@@ -92,10 +93,15 @@ export class RulesUI {
     deleteButton.addEventListener('click', cancelHandler);
   }
   
-  createRuleDisplayRow(rule, index, onEdit, onDelete, onToggle, showEditButtons = true) {
+  createRuleDisplayRow(rule, index, onEdit, onDelete, onToggle, showEditButtons = true, disabledCategories = []) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     row.dataset.ruleId = rule.id;
+
+    if (disabledCategories.includes(rule.category)) {
+      row.classList.add('category-muted');
+      row.title = t('category_disabled_desc') || 'This category is currently muted in settings';
+    }
     
     const blockCell = document.createElement('td');
     blockCell.textContent = rule.blockURL;
@@ -181,8 +187,7 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
-    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'gaming', 'adult', 'uncategorized'];
-    categories.forEach(cat => {
+    CATEGORIES.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat;
       option.textContent = t(`category_${cat}`) || cat;
@@ -255,8 +260,7 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
-    const categories = ['social', 'news', 'entertainment', 'shopping', 'work', 'gaming', 'adult', 'uncategorized'];
-    categories.forEach(cat => {
+    CATEGORIES.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat;
       option.textContent = t(`category_${cat}`) || cat;

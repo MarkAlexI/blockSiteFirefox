@@ -257,5 +257,8 @@
   "errorcommunication": { "message": "Error communicating with background service" },
   "clearstats": { "message": "Clear Statistics" },
   "rule_enabled": { "message": "Enabled" },
-  "rule_disabled": { "message": "Disabled" }
+  "rule_disabled": { "message": "Disabled" },
+  "filter_only_hint": { "message": "This list only filters the display in the table" },
+  "category_disabled_desc": { "message": "This category is currently disabled in settings" },
+  "toggle_category_blocking": { "message": "Toggle blocking for the entire category" }
 }
