@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Pogreška pri komunikaciji s pozadinskom uslugom" },
   "clearstats": { "message": "Obriši statistiku" },
   "rule_enabled": { "message": "Omogućeno" },
-  "rule_disabled": { "message": "Onemogućeno" }
+  "rule_disabled": { "message": "Onemogućeno" },
+  "filter_only_hint": { "message": "Ovaj popis samo filtrira prikaz u tablici" },
+  "category_disabled_desc": { "message": "Utišajte kategoriju kako biste privremeno omogućili pristup svim njezinim web stranicama. Postavke pojedinačnih pravila ostaju sačuvane." },
+  "toggle_category_blocking": { "message": "Uključi ili isključi blokiranje za cijelu kategoriju" },
+  "category_muted_no_edit": { "message": "Upravljanje nije moguće: blokiranje kategorije je pauzirano" }
 }

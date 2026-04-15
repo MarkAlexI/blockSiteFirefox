@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "백그라운드 서비스와 통신 중 오류 발생" },
   "clearstats": { "message": "통계 지우기" },
   "rule_enabled": { "message": "활성화됨" },
-  "rule_disabled": { "message": "비활성화됨" }
+  "rule_disabled": { "message": "비활성화됨" },
+  "filter_only_hint": { "message": "이 목록은 표에 표시되는 내용만 필터링합니다" },
+  "category_disabled_desc": { "message": "카테고리를 음소거하면 해당 사이트 전체에 일시적으로 접근이 허용됩니다. 개별 규칙 설정은 유지됩니다." },
+  "toggle_category_blocking": { "message": "전체 카테고리 차단 전환" },
+  "category_muted_no_edit": { "message": "관리할 수 없음: 카테고리 차단이 일시 중지됨" }
 }

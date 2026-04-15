@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Kļūda sazinoties ar fona pakalpojumu" },
   "clearstats": { "message": "Notīrīt statistiku" },
   "rule_enabled": { "message": "Ieslēgts" },
-  "rule_disabled": { "message": "Izslēgts" }
+  "rule_disabled": { "message": "Izslēgts" },
+  "filter_only_hint": { "message": "Šis saraksts tikai filtrē attēlojumu tabulā" },
+  "category_disabled_desc": { "message": "Apklusiniet kategoriju, lai uz laiku atļautu piekļuvi visām tās vietnēm. Individuālie noteikumu iestatījumi tiek saglabāti." },
+  "toggle_category_blocking": { "message": "Ieslēgt vai izslēgt bloķēšanu visai kategorijai" },
+  "category_muted_no_edit": { "message": "Nav iespējams pārvaldīt: kategorijas bloķēšana ir apturēta" }
 }

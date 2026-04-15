@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Fout bij communicatie met achtergrondservice" },
   "clearstats": { "message": "Statistieken wissen" },
   "rule_enabled": { "message": "Ingeschakeld" },
-  "rule_disabled": { "message": "Uitgeschakeld" }
+  "rule_disabled": { "message": "Uitgeschakeld" },
+  "filter_only_hint": { "message": "Deze lijst filtert alleen de weergave in de tabel" },
+  "category_disabled_desc": { "message": "Dempen een categorie om tijdelijk toegang tot alle bijbehorende sites toe te staan. Individuele regelinstellingen blijven behouden." },
+  "toggle_category_blocking": { "message": "Blokkering voor de hele categorie in- of uitschakelen" },
+  "category_muted_no_edit": { "message": "Kan niet worden beheerd: categoriebescherming is gepauzeerd" }
 }

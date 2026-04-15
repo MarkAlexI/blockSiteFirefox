@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Error communicating with background service" },
   "clearstats": { "message": "Clear statistics" },
   "rule_enabled": { "message": "Enabled" },
-  "rule_disabled": { "message": "Disabled" }
+  "rule_disabled": { "message": "Disabled" },
+  "filter_only_hint": { "message": "This list only filters what is shown in the table" },
+  "category_disabled_desc": { "message": "Mute a category to temporarily allow access to all its sites. Individual rule settings are preserved." },
+  "toggle_category_blocking": { "message": "Toggle blocking for the entire category" },
+  "category_muted_no_edit": { "message": "Cannot manage: category blocking is paused" }
 }

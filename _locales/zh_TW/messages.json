@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "與背景服務通訊時發生錯誤" },
   "clearstats": { "message": "清除統計資料" },
   "rule_enabled": { "message": "已啟用" },
-  "rule_disabled": { "message": "已停用" }
+  "rule_disabled": { "message": "已停用" },
+  "filter_only_hint": { "message": "此清單僅過濾表格中的顯示內容" },
+  "category_disabled_desc": { "message": "將某個類別靜音以暫時允許存取其所有網站。個別規則設定將會保留。" },
+  "toggle_category_blocking": { "message": "切換整個類別的封鎖狀態" },
+  "category_muted_no_edit": { "message": "無法管理：類別封鎖已暫停" }
 }

@@ -256,5 +256,9 @@
   "errorcommunication": { "message": "બેકગ્રાઉન્ડ સર્વિસ સાથે સંચારમાં ભૂલ" },
   "clearstats": { "message": "આંકડા સાફ કરો" },
   "rule_enabled": { "message": "સક્રિય" },
-  "rule_disabled": { "message": "નિષ્ક્રિય" }
+  "rule_disabled": { "message": "નિષ્ક્રિય" },
+  "filter_only_hint": { "message": "આ સૂચિ માત્ર કોષ્ટકમાં દર્શાવેલ સામગ્રીને ફિલ્ટર કરે છે" },
+  "category_disabled_desc": { "message": "કેટેગરીને મ્યૂટ કરો જેથી તેના તમામ સાઇટ્સને તાત્કાલિક ઍક્સેસ મળી શકે. વ્યક્તિગત નિયમોની સેટિંગ્સ જાળવવામાં આવે છે." },
+  "toggle_category_blocking": { "message": "પૂર્ણ કેટેગરી માટે બ્લોકિંગ ચાલુ/બંધ કરો" },
+  "category_muted_no_edit": { "message": "મેનેજ કરી શકાતું નથી: કેટેગરી બ્લોકિંગ રોકી દેવામાં આવ્યું છે" }
 }

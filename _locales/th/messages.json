@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "เกิดข้อผิดพลาดในการสื่อสารกับบริการพื้นหลัง" },
   "clearstats": { "message": "ล้างสถิติ" },
   "rule_enabled": { "message": "เปิดใช้งาน" },
-  "rule_disabled": { "message": "ปิดใช้งาน" }
+  "rule_disabled": { "message": "ปิดใช้งาน" },
+  "filter_only_hint": { "message": "รายการนี้ใช้กรองเฉพาะสิ่งที่แสดงในตารางเท่านั้น" },
+  "category_disabled_desc": { "message": "ปิดเสียงหมวดหมู่เพื่ออนุญาตให้เข้าถึงเว็บไซต์ทั้งหมดชั่วคราว การตั้งค่ากฎแต่ละรายการยังคงถูกเก็บไว้" },
+  "toggle_category_blocking": { "message": "สลับการบล็อกสำหรับทั้งหมวดหมู่" },
+  "category_muted_no_edit": { "message": "ไม่สามารถจัดการได้: การบล็อกหมวดหมู่ถูกพักไว้" }
 }

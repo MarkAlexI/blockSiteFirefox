@@ -266,5 +266,9 @@
   "errorcommunication": { "message": "ବ୍ୟାକଗ୍ରାଉଣ୍ଡ ସେବା ସହିତ ସଂପ୍ରେଷଣରେ ତ୍ରୁଟି" },
   "clearstats": { "message": "ସଂଖ୍ୟାନ ମିଟାନ୍ତୁ" },
   "rule_enabled": { "message": "ସକ୍ରିୟ" },
-  "rule_disabled": { "message": "ନିଷ୍କ୍ରିୟ" }
+  "rule_disabled": { "message": "ନିଷ୍କ୍ରିୟ" },
+  "filter_only_hint": { "message": "ଏହି ତାଲିକା କେବଳ ତାଲିକାରେ ପ୍ରଦର୍ଶନକୁ ଫିଲ୍ଟର କରେ" },
+  "category_disabled_desc": { "message": "ଏକ ବର୍ଗକୁ ମ୍ୟୁଟ୍ କରନ୍ତୁ ଯାହାଦ୍ୱାରା ତାହାର ସମସ୍ତ ସାଇଟ୍‌ଗୁଡ଼ିକୁ ଅସ୍ଥାୟୀ ଭାବେ ଅନୁମତି ମିଳିବ। ବ୍ୟକ୍ତିଗତ ନିୟମ ସେଟିଂଗୁଡ଼ିକ ରଖାଯାଏ।" },
+  "toggle_category_blocking": { "message": "ସମ୍ପୂର୍ଣ୍ଣ ବର୍ଗ ପାଇଁ ବ୍ଲକିଂ ଚାଲୁ/ବନ୍ଦ କରନ୍ତୁ" },
+  "category_muted_no_edit": { "message": "ପରିଚାଳନା କରିପାରିବେ ନାହିଁ: ବର୍ଗ ବ୍ଲକିଂ ଥୋପା ଯାଇଛି" }
 }

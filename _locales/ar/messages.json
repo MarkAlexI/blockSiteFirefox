@@ -266,5 +266,9 @@
   "errorcommunication": { "message": "خطأ في الاتصال بخدمة الخلفية" },
   "clearstats": { "message": "مسح الإحصاءات" },
   "rule_enabled": { "message": "مفعّل" },
-  "rule_disabled": { "message": "معطّل" }
+  "rule_disabled": { "message": "معطّل" },
+  "filter_only_hint": { "message": "تُستخدم هذه القائمة فقط لتصفية العرض في الجدول" },
+  "category_disabled_desc": { "message": "قم بكتم فئة للسماح مؤقتًا بالوصول إلى جميع مواقعها. يتم الاحتفاظ بإعدادات القواعد الفردية." },
+  "toggle_category_blocking": { "message": "تبديل حظر الفئة بالكامل" },
+  "category_muted_no_edit": { "message": "لا يمكن الإدارة: تم إيقاف حظر الفئة مؤقتًا" }
 }

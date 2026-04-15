@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Błąd komunikacji z usługą w tle" },
   "clearstats": { "message": "Wyczyść statystyki" },
   "rule_enabled": { "message": "Włączone" },
-  "rule_disabled": { "message": "Wyłączone" }
+  "rule_disabled": { "message": "Wyłączone" },
+  "filter_only_hint": { "message": "Ta lista tylko filtruje wyświetlanie w tabeli" },
+  "category_disabled_desc": { "message": "Wycisz kategorię, aby tymczasowo umożliwić dostęp do wszystkich jej stron. Ustawienia indywidualnych reguł są zachowane." },
+  "toggle_category_blocking": { "message": "Włącz lub wyłącz blokowanie całej kategorii" },
+  "category_muted_no_edit": { "message": "Nie można zarządzać: blokowanie kategorii jest wstrzymane" }
 }

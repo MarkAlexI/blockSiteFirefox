@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Napaka pri komunikaciji z ozadno storitvijo" },
   "clearstats": { "message": "Počisti statistiko" },
   "rule_enabled": { "message": "Omogočeno" },
-  "rule_disabled": { "message": "Onemogočeno" }
+  "rule_disabled": { "message": "Onemogočeno" },
+  "filter_only_hint": { "message": "Ta seznam samo filtrira prikaz v tabeli" },
+  "category_disabled_desc": { "message": "Utišajte kategorijo, da začasno omogočite dostop do vseh njenih spletnih mest. Nastavitve posameznih pravil se ohranijo." },
+  "toggle_category_blocking": { "message": "Vklopi ali izklopi blokiranje za celotno kategorijo" },
+  "category_muted_no_edit": { "message": "Upravljanje ni mogoče: blokiranje kategorije je začasno ustavljeno" }
 }

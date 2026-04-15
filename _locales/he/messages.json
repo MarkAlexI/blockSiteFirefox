@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "שגיאה בתקשורת עם שירות הרקע" },
   "clearstats": { "message": "נקה סטטיסטיקה" },
   "rule_enabled": { "message": "מופעל" },
-  "rule_disabled": { "message": "מושבת" }
+  "rule_disabled": { "message": "מושבת" },
+  "filter_only_hint": { "message": "רשימה זו מסננת רק את התצוגה בטבלה" },
+  "category_disabled_desc": { "message": "השתיקו קטגוריה כדי לאפשר זמנית גישה לכל האתרים שלה. הגדרות הכללים האישיים נשמרות." },
+  "toggle_category_blocking": { "message": "הפעל או כבה חסימה עבור כל הקטגוריה" },
+  "category_muted_no_edit": { "message": "לא ניתן לנהל: חסימת הקטגוריה מושהית" }
 }

@@ -266,5 +266,9 @@
   "errorcommunication": { "message": "Error al comunicarse con el servicio en segundo plano" },
   "clearstats": { "message": "Borrar estadísticas" },
   "rule_enabled": { "message": "Activado" },
-  "rule_disabled": { "message": "Desactivado" }
+  "rule_disabled": { "message": "Desactivado" },
+  "filter_only_hint": { "message": "Esta lista solo filtra la visualización en la tabla" },
+  "category_disabled_desc": { "message": "Silencia una categoría para permitir temporalmente el acceso a todos sus sitios. La configuración individual de las reglas se conserva." },
+  "toggle_category_blocking": { "message": "Activar o desactivar el bloqueo para toda la categoría" },
+  "category_muted_no_edit": { "message": "No se puede gestionar: el bloqueo de la categoría está en pausa" }
 }

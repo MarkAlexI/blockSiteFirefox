@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Fel vid kommunikation med bakgrundstjänst" },
   "clearstats": { "message": "Rensa statistik" },
   "rule_enabled": { "message": "Aktiverad" },
-  "rule_disabled": { "message": "Inaktiverad" }
+  "rule_disabled": { "message": "Inaktiverad" },
+  "filter_only_hint": { "message": "Den här listan filtrerar endast visningen i tabellen" },
+  "category_disabled_desc": { "message": "Stäng av ljudet för en kategori för att tillfälligt tillåta åtkomst till alla dess webbplatser. Individuella regelinställningar behålls." },
+  "toggle_category_blocking": { "message": "Slå på eller av blockering för hela kategorin" },
+  "category_muted_no_edit": { "message": "Kan inte hanteras: kategoriblockering är pausad" }
 }

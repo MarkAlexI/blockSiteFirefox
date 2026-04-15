@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Arka plan hizmeti ile iletişim hatası" },
   "clearstats": { "message": "İstatistikleri Temizle" },
   "rule_enabled": { "message": "Etkin" },
-  "rule_disabled": { "message": "Devre Dışı" }
+  "rule_disabled": { "message": "Devre Dışı" },
+  "filter_only_hint": { "message": "Bu liste yalnızca tabloda gösterilenleri filtreler" },
+  "category_disabled_desc": { "message": "Bir kategoriyi sessize alarak tüm sitelerine geçici erişim izni verin. Bireysel kural ayarları korunur." },
+  "toggle_category_blocking": { "message": "Tüm kategori için engellemeyi aç/kapat" },
+  "category_muted_no_edit": { "message": "Yönetilemez: kategori engellemesi duraklatıldı" }
 }

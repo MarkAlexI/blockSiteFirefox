@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "ከየጀርባ አገልግሎት ጋር በመገናኘት ላይ ስህተት" },
   "clearstats": { "message": "ስታቲስቲክስን አጥፋ" },
   "rule_enabled": { "message": "ነቅቷል" },
-  "rule_disabled": { "message": "ተዘግቷል" }
+  "rule_disabled": { "message": "ተዘግቷል" },
+  "filter_only_hint": { "message": "ይህ ዝርዝር በሰንጠረዥ ውስጥ ማሳየትን ብቻ ይጣራል" },
+  "category_disabled_desc": { "message": "ሁሉንም ድር ጣቢያዎቹን ለጊዜው እንዲገኙ አንድ ምድብን ዝም አድርጉ። የግለሰብ ህግ ቅንብሮች ይጠበቃሉ።" },
+  "toggle_category_blocking": { "message": "ለሙሉ ምድብ እገዳን አብራ/አጥፋ" },
+  "category_muted_no_edit": { "message": "ማስተዳደር አይቻልም፦ የምድብ እገዳ ተዘግቷል" }
 }

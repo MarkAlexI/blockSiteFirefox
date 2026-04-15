@@ -266,5 +266,9 @@
   "errorcommunication": { "message": "与后台服务通信时出错" },
   "clearstats": { "message": "清除统计" },
   "rule_enabled": { "message": "已启用" },
-  "rule_disabled": { "message": "已禁用" }
+  "rule_disabled": { "message": "已禁用" },
+  "filter_only_hint": { "message": "此列表仅过滤表格中的显示内容" },
+  "category_disabled_desc": { "message": "静音某个类别以临时允许访问其所有网站。单独规则设置将被保留。" },
+  "toggle_category_blocking": { "message": "切换整个类别的阻止状态" },
+  "category_muted_no_edit": { "message": "无法管理：类别阻止已暂停" }
 }

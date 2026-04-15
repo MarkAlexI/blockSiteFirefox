@@ -124,7 +124,7 @@ export class RulesManager {
     
     try {
       const newRule = {
-        id: Date.now(), // Стабільний унікальний ID
+        id: Date.now(),
         blockURL: blockURL.trim(),
         redirectURL: redirectURL.trim(),
         schedule,

@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Eroare la comunicarea cu serviciul de fundal" },
   "clearstats": { "message": "Șterge statisticile" },
   "rule_enabled": { "message": "Activat" },
-  "rule_disabled": { "message": "Dezactivat" }
+  "rule_disabled": { "message": "Dezactivat" },
+  "filter_only_hint": { "message": "Această listă filtrează doar afișarea din tabel" },
+  "category_disabled_desc": { "message": "Mutați o categorie pentru a permite temporar accesul la toate site-urile acesteia. Setările regulilor individuale sunt păstrate." },
+  "toggle_category_blocking": { "message": "Activați sau dezactivați blocarea pentru întreaga categorie" },
+  "category_muted_no_edit": { "message": "Nu se poate gestiona: blocarea categoriei este întreruptă" }
 }

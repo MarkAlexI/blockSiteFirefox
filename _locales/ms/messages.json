@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Ralat semasa berkomunikasi dengan perkhidmatan latar belakang" },
   "clearstats": { "message": "Kosongkan Statistik" },
   "rule_enabled": { "message": "Diaktifkan" },
-  "rule_disabled": { "message": "Dinonaktifkan" }
+  "rule_disabled": { "message": "Dinonaktifkan" },
+  "filter_only_hint": { "message": "Senarai ini hanya menapis paparan dalam jadual" },
+  "category_disabled_desc": { "message": "Redamkan kategori untuk membenarkan akses sementara kepada semua tapak webnya. Tetapan peraturan individu dikekalkan." },
+  "toggle_category_blocking": { "message": "Togol sekatan untuk keseluruhan kategori" },
+  "category_muted_no_edit": { "message": "Tidak dapat diurus: sekatan kategori sedang dijeda" }
 }

@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Viga taustateenusega suhtlemisel" },
   "clearstats": { "message": "Tühjenda statistika" },
   "rule_enabled": { "message": "Lubatud" },
-  "rule_disabled": { "message": "Keelatud" }
+  "rule_disabled": { "message": "Keelatud" },
+  "filter_only_hint": { "message": "See loend filtreerib ainult tabelis kuvatavat" },
+  "category_disabled_desc": { "message": "Vaigista kategooria, et ajutiselt lubada juurdepääs kõigile selle veebisaitidele. Üksikute reeglite seaded säilivad." },
+  "toggle_category_blocking": { "message": "Lülita kogu kategooria blokeerimine sisse või välja" },
+  "category_muted_no_edit": { "message": "Ei saa hallata: kategooria blokeerimine on peatatud" }
 }

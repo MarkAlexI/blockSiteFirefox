@@ -709,7 +709,6 @@ footer {
   background-color: var(--bg-secondary);
 }
 
-/* Стан для вимкнених категорій */
 .category-card.muted {
   background-color: #eee;
   color: var(--text-secondary);

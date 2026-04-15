@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Virhe kommunikoitaessa taustapalvelun kanssa" },
   "clearstats": { "message": "Tyhjennä tilastot" },
   "rule_enabled": { "message": "Käytössä" },
-  "rule_disabled": { "message": "Pois käytöstä" }
+  "rule_disabled": { "message": "Pois käytöstä" },
+  "filter_only_hint": { "message": "Tämä lista vain suodattaa näkymää taulukossa" },
+  "category_disabled_desc": { "message": "Mykistä kategoria, jotta voit tilapäisesti sallia pääsyn kaikkiin sen sivustoihin. Yksittäisten sääntöjen asetukset säilyvät." },
+  "toggle_category_blocking": { "message": "Kytke koko kategorian esto päälle tai pois" },
+  "category_muted_no_edit": { "message": "Ei voida hallita: kategorian esto on keskeytetty" }
 }

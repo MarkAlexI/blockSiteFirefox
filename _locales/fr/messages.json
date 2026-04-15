@@ -266,5 +266,9 @@
   "errorcommunication": { "message": "Erreur de communication avec le service en arrière-plan" },
   "clearstats": { "message": "Effacer les statistiques" },
   "rule_enabled": { "message": "Activé" },
-  "rule_disabled": { "message": "Désactivé" }
+  "rule_disabled": { "message": "Désactivé" },
+  "filter_only_hint": { "message": "Cette liste filtre uniquement l’affichage dans le tableau" },
+  "category_disabled_desc": { "message": "Coupez une catégorie pour autoriser temporairement l’accès à tous ses sites. Les paramètres de règles individuels sont conservés." },
+  "toggle_category_blocking": { "message": "Activer ou désactiver le blocage pour toute la catégorie" },
+  "category_muted_no_edit": { "message": "Impossible de gérer : le blocage de la catégorie est en pause" }
 }

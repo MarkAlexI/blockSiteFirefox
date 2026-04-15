@@ -256,5 +256,9 @@
   "errorcommunication": { "message": "बॅकग्राउंड सेवेशी संवादात त्रुटी" },
   "clearstats": { "message": "सांख्यिकी साफ करा" },
   "rule_enabled": { "message": "सक्रिय" },
-  "rule_disabled": { "message": "निष्क्रिय" }
+  "rule_disabled": { "message": "निष्क्रिय" },
+  "filter_only_hint": { "message": "ही यादी फक्त तक्त्यातील प्रदर्शन फिल्टर करते" },
+  "category_disabled_desc": { "message": "एखादी श्रेणी म्यूट करा जेणेकरून तिच्या सर्व साइट्सना तात्पुरता प्रवेश मिळू शकेल. वैयक्तिक नियम सेटिंग्ज जतन केल्या जातात." },
+  "toggle_category_blocking": { "message": "संपूर्ण श्रेणीसाठी ब्लॉकिंग चालू/बंद करा" },
+  "category_muted_no_edit": { "message": "व्यवस्थापन शक्य नाही: श्रेणी ब्लॉकिंग तात्पुरते थांबवले आहे" }
 }

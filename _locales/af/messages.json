@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Fout tydens kommunikasie met die agtergronddiens" },
   "clearstats": { "message": "Vee statistiek uit" },
   "rule_enabled": { "message": "Geaktiveer" },
-  "rule_disabled": { "message": "Gedeaktiveer" }
+  "rule_disabled": { "message": "Gedeaktiveer" },
+  "filter_only_hint": { "message": "Hierdie lys filter slegs die vertoning in die tabel" },
+  "category_disabled_desc": { "message": "Demp 'n kategorie om tydelik toegang tot al sy webwerwe toe te laat. Individuele reëlinstellings bly behoue." },
+  "toggle_category_blocking": { "message": "Skakel blokkering vir die hele kategorie aan of af" },
+  "category_muted_no_edit": { "message": "Kan nie bestuur nie: kategoriebeskerming is gepouseer" }
 }

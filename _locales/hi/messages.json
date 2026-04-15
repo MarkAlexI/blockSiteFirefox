@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "बैकग्राउंड सेवा के साथ संचार में त्रुटि" },
   "clearstats": { "message": "आँकड़े साफ़ करें" },
   "rule_enabled": { "message": "सक्रिय" },
-  "rule_disabled": { "message": "असक्रिय" }
+  "rule_disabled": { "message": "असक्रिय" },
+  "filter_only_hint": { "message": "यह सूची केवल तालिका में दिखाई देने वाली सामग्री को फ़िल्टर करती है" },
+  "category_disabled_desc": { "message": "किसी श्रेणी को म्यूट करें ताकि उसके सभी साइट्स तक अस्थायी रूप से पहुँच की अनुमति मिल सके। व्यक्तिगत नियमों की सेटिंग्स सुरक्षित रहती हैं।" },
+  "toggle_category_blocking": { "message": "पूरी श्रेणी के लिए ब्लॉकिंग चालू या बंद करें" },
+  "category_muted_no_edit": { "message": "प्रबंधन संभव नहीं: श्रेणी ब्लॉकिंग रोक दी गई है" }
 }

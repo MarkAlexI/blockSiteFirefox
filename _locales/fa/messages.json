@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "خطا در ارتباط با سرویس پس‌زمینه" },
   "clearstats": { "message": "پاک کردن آمار" },
   "rule_enabled": { "message": "فعال" },
-  "rule_disabled": { "message": "غیرفعال" }
+  "rule_disabled": { "message": "غیرفعال" },
+  "filter_only_hint": { "message": "این فهرست فقط نمایش در جدول را فیلتر می‌کند" },
+  "category_disabled_desc": { "message": "یک دسته را بی‌صدا کنید تا به‌طور موقت دسترسی به همه سایت‌های آن مجاز شود. تنظیمات قوانین فردی حفظ می‌شوند." },
+  "toggle_category_blocking": { "message": "تغییر وضعیت مسدودسازی برای کل دسته" },
+  "category_muted_no_edit": { "message": "قابل مدیریت نیست: مسدودسازی دسته موقتاً متوقف شده است" }
 }

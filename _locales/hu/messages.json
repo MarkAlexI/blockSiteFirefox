@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Hiba a háttérszolgáltatással való kommunikáció során" },
   "clearstats": { "message": "Statisztika törlése" },
   "rule_enabled": { "message": "Engedélyezve" },
-  "rule_disabled": { "message": "Letiltva" }
+  "rule_disabled": { "message": "Letiltva" },
+  "filter_only_hint": { "message": "Ez a lista csak a táblázatban megjelenő elemeket szűri" },
+  "category_disabled_desc": { "message": "Némíts egy kategóriát, hogy ideiglenesen engedélyezd az összes webhelyhez való hozzáférést. Az egyedi szabálybeállítások megmaradnak." },
+  "toggle_category_blocking": { "message": "A teljes kategória blokkolásának ki- vagy bekapcsolása" },
+  "category_muted_no_edit": { "message": "Nem kezelhető: a kategóriablokkolás szünetel" }
 }

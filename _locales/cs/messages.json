@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Chyba při komunikaci se službou na pozadí" },
   "clearstats": { "message": "Vymazat statistiky" },
   "rule_enabled": { "message": "Povoleno" },
-  "rule_disabled": { "message": "Zakázáno" }
+  "rule_disabled": { "message": "Zakázáno" },
+  "filter_only_hint": { "message": "Tento seznam pouze filtruje zobrazení v tabulce" },
+  "category_disabled_desc": { "message": "Ztlumte kategorii, abyste dočasně povolili přístup ke všem jejím webům. Individuální nastavení pravidel zůstávají zachována." },
+  "toggle_category_blocking": { "message": "Zapnout nebo vypnout blokování pro celou kategorii" },
+  "category_muted_no_edit": { "message": "Nelze spravovat: blokování kategorie je pozastaveno" }
 }

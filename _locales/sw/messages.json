@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Hitilafu wakati wa kuwasiliana na huduma ya background" },
   "clearstats": { "message": "Futa takwimu" },
   "rule_enabled": { "message": "Imeshashwa" },
-  "rule_disabled": { "message": "Imezimwa" }
+  "rule_disabled": { "message": "Imezimwa" },
+  "filter_only_hint": { "message": "Orodha hii huchuja tu kinachoonyeshwa kwenye jedwali" },
+  "category_disabled_desc": { "message": "Nyamazisha kategoria ili kuruhusu kwa muda ufikiaji wa tovuti zake zote. Mipangilio ya sheria za kibinafsi inahifadhiwa." },
+  "toggle_category_blocking": { "message": "Washa au zima uzuiaji wa kategoria nzima" },
+  "category_muted_no_edit": { "message": "Haiwezi kusimamiwa: uzuiaji wa kategoria umesitishwa" }
 }

@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "ব্যাকগ্রাউন্ড পরিষেবার সাথে যোগাযোগে ত্রুটি" },
   "clearstats": { "message": "পরিসংখ্যান মুছুন" },
   "rule_enabled": { "message": "সক্রিয়" },
-  "rule_disabled": { "message": "নিষ্ক্রিয়" }
+  "rule_disabled": { "message": "নিষ্ক্রিয়" },
+  "filter_only_hint": { "message": "এই তালিকাটি শুধু টেবিলে প্রদর্শন ফিল্টার করে" },
+  "category_disabled_desc": { "message": "একটি ক্যাটাগরি মিউট করুন, যাতে সাময়িকভাবে এর সব সাইটে প্রবেশের অনুমতি পাওয়া যায়। পৃথক নিয়মের সেটিংস সংরক্ষিত থাকে।" },
+  "toggle_category_blocking": { "message": "পুরো ক্যাটাগরির জন্য ব্লকিং চালু বা বন্ধ করুন" },
+  "category_muted_no_edit": { "message": "পরিচালনা করা যাবে না: ক্যাটাগরি ব্লকিং সাময়িকভাবে বিরতি দেওয়া হয়েছে" }
 }

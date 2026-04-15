@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Lỗi khi giao tiếp với dịch vụ nền" },
   "clearstats": { "message": "Xóa thống kê" },
   "rule_enabled": { "message": "Đã bật" },
-  "rule_disabled": { "message": "Đã tắt" }
+  "rule_disabled": { "message": "Đã tắt" },
+  "filter_only_hint": { "message": "Danh sách này chỉ lọc những gì hiển thị trong bảng" },
+  "category_disabled_desc": { "message": "Tắt tiếng một danh mục để tạm thời cho phép truy cập tất cả các trang web của nó. Các cài đặt quy tắc riêng vẫn được giữ nguyên." },
+  "toggle_category_blocking": { "message": "Bật hoặc tắt chặn cho toàn bộ danh mục" },
+  "category_muted_no_edit": { "message": "Không thể quản lý: chức năng chặn danh mục đang tạm dừng" }
 }

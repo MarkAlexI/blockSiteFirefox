@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Error en comunicar-se amb el servei en segon pla" },
   "clearstats": { "message": "Esborra les estadístiques" },
   "rule_enabled": { "message": "Activat" },
-  "rule_disabled": { "message": "Desactivat" }
+  "rule_disabled": { "message": "Desactivat" },
+  "filter_only_hint": { "message": "Aquesta llista només filtra la visualització a la taula" },
+  "category_disabled_desc": { "message": "Silencia una categoria per permetre temporalment l'accés a tots els seus llocs web. La configuració individual de les regles es conserva." },
+  "toggle_category_blocking": { "message": "Activa o desactiva el bloqueig per a tota la categoria" },
+  "category_muted_no_edit": { "message": "No es pot gestionar: el bloqueig de la categoria està en pausa" }
 }

@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Kesalahan saat berkomunikasi dengan layanan latar belakang" },
   "clearstats": { "message": "Hapus statistik" },
   "rule_enabled": { "message": "Diaktifkan" },
-  "rule_disabled": { "message": "Dinonaktifkan" }
+  "rule_disabled": { "message": "Dinonaktifkan" },
+  "filter_only_hint": { "message": "Daftar ini hanya memfilter tampilan di tabel" },
+  "category_disabled_desc": { "message": "Bisukan kategori untuk sementara mengizinkan akses ke semua situsnya. Pengaturan aturan individual tetap dipertahankan." },
+  "toggle_category_blocking": { "message": "Aktifkan atau nonaktifkan pemblokiran untuk seluruh kategori" },
+  "category_muted_no_edit": { "message": "Tidak dapat dikelola: pemblokiran kategori sedang dijeda" }
 }

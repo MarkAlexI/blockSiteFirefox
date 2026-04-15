@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Fejl ved kommunikation med baggrundstjenesten" },
   "clearstats": { "message": "Ryd statistik" },
   "rule_enabled": { "message": "Aktiveret" },
-  "rule_disabled": { "message": "Deaktiveret" }
+  "rule_disabled": { "message": "Deaktiveret" },
+  "filter_only_hint": { "message": "Denne liste filtrerer kun visningen i tabellen" },
+  "category_disabled_desc": { "message": "Slå en kategori fra for midlertidigt at give adgang til alle dens websteder. Individuelle regelindstillinger bevares." },
+  "toggle_category_blocking": { "message": "Slå blokering for hele kategorien til eller fra" },
+  "category_muted_no_edit": { "message": "Kan ikke administreres: kategoriblokering er sat på pause" }
 }

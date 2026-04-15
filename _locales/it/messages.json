@@ -257,5 +257,9 @@
   "errorcommunication": { "message": "Errore nella comunicazione con il servizio in background" },
   "clearstats": { "message": "Cancella statistiche" },
   "rule_enabled": { "message": "Abilitato" },
-  "rule_disabled": { "message": "Disabilitato" }
+  "rule_disabled": { "message": "Disabilitato" },
+  "filter_only_hint": { "message": "Questo elenco filtra solo la visualizzazione nella tabella" },
+  "category_disabled_desc": { "message": "Disattiva l’audio di una categoria per consentire temporaneamente l’accesso a tutti i suoi siti. Le impostazioni delle singole regole vengono mantenute." },
+  "toggle_category_blocking": { "message": "Attiva o disattiva il blocco per l’intera categoria" },
+  "category_muted_no_edit": { "message": "Impossibile gestire: il blocco della categoria è in pausa" }
 }
