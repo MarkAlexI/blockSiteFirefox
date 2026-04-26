@@ -31,6 +31,10 @@ class OptionsPage {
     this.exposeDebugTools();
   }
   
+  exposeDebugTools() {
+    window.checkDNR = checkDNR;
+  }
+  
   async init() {
     this.initializeUI();
     this.setupEventListeners();
@@ -51,10 +55,6 @@ class OptionsPage {
     this.loadCategories();
   }
   
-  exposeDebugTools() {
-    window.checkDNR = checkDNR;
-  }
-  
   initializeUI() {
     const setContent = (id, key) => {
       const el = document.getElementById(id);
@@ -68,6 +68,7 @@ class OptionsPage {
     setContent('redirect-url-header', 'redirecturl');
     setContent('category-header', 'category_header');
     setContent('actions-header', 'actionsheader');
+    
     if (this.categoryFilter) {
       this.categoryFilter.title = t('filter_only_hint') || 'This dropdown only filters the list below';
     }
@@ -93,12 +94,9 @@ class OptionsPage {
     if (this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
     if (this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
     if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
+  
     document.querySelectorAll('.collapsible-header').forEach(header => {
       header.addEventListener('click', () => header.parentElement.classList.toggle('expanded'));
-    });
-
-    browser.storage.onChanged.addListener((changes) => {
-      if (changes.rules) this.loadCategories();
     });
   }
   
@@ -243,6 +241,7 @@ class OptionsPage {
       this.isPro,
       rule.disabledByUser
     );
+    
     if (settings.enablePassword) {
       const isValid = await this.promptForPassword();
       if (!isValid) return;
@@ -325,7 +324,6 @@ class OptionsPage {
       }
     }
   }
-  
   async loadCategories() {
     try {
       const rules = await this.rulesManager.getRules();

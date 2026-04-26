@@ -144,7 +144,6 @@ async function updateActiveRules() {
     const removeRuleIds = currentDnrRules
       .map(r => r.id)
       .filter(id => !activeIds.has(id));
-
     if (removeRuleIds.length) {
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
     }

@@ -23,10 +23,44 @@ export class RulesManager {
     await new Promise((resolve) => {
       browser.storage.sync.set({ rules }, resolve);
     });
+    await this.syncDnrRules();
     
     browser.runtime.sendMessage({
       type: 'reload_rules'
     });
+  }
+
+  async syncDnrRules() {
+    try {
+      const rules = await this.getRules();
+      const settings = await this.getSettings();
+      const disabledCategories = settings.disabledCategories || [];
+      
+      const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
+      const currentDnrIds = currentDnrRules.map(r => r.id);
+
+      const activeRules = rules.filter(rule => this.isRuleActiveNow(rule, disabledCategories));
+      const addRules = [];
+      const seenIds = new Set();
+
+      for (const rule of activeRules) {
+        const id = Math.floor(Number(rule.id));
+        if (id > 0 && !seenIds.has(id)) {
+          const dnrRule = await this.createDNRRule(id, rule.blockURL, rule.redirectURL);
+          addRules.push(dnrRule);
+          seenIds.add(id);
+        }
+      }
+
+      await browser.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: currentDnrIds,
+        addRules: addRules
+      });
+
+      this.logger.log(`DNR Synced: ${addRules.length} rules active.`);
+    } catch (error) {
+      this.logger.error("DNR Sync error:", error);
+    }
   }
   
   validateRule(blockURL, redirectURL, schedule, category) {
@@ -81,11 +115,7 @@ export class RulesManager {
     });
   }
   
-  async createDNRRule(blockURL, redirectURL) {
-    const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
-    const maxId = dnrRules.length ? Math.max(...dnrRules.map(r => r.id)) : 0;
-    const newId = maxId + 1;
-    
+  async createDNRRule(id, blockURL, redirectURL) {
     const filter = normalizePathRule(blockURL.trim());
     const urlFilter = `||${filter}`;
     
@@ -103,7 +133,7 @@ export class RulesManager {
     }
     
     return {
-      id: newId,
+      id: Math.floor(Number(id)),
       condition: { urlFilter, resourceTypes: ["main_frame"] },
       priority: 100,
       action
@@ -123,8 +153,17 @@ export class RulesManager {
     }
     
     try {
+      const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
+      const occupiedIds = new Set([
+        ...rules.map(r => Math.floor(Number(r.id))),
+        ...dnrRules.map(r => r.id)
+      ]);
+
+      let safeId = 1;
+      while (occupiedIds.has(safeId)) safeId++;
+
       const newRule = {
-        id: Date.now(),
+        id: safeId,
         blockURL: blockURL.trim(),
         redirectURL: redirectURL.trim(),
         schedule,
@@ -233,16 +272,12 @@ export class RulesManager {
   
   async toggleRuleDisabled(index) {
     const rules = await this.getRules();
-    const rule = rules[index];
-    
-    if (!rule) {
+    if (!rules[index]) {
       throw new Error('Rule not found');
     }
-    
-    rule.disabledByUser = !rule.disabledByUser;
+    rules[index].disabledByUser = !rules[index].disabledByUser;
     await this.saveRules(rules);
-    
-    return rule;
+    return rules[index];
   }
 
   async toggleCategoryDisabled(category) {
@@ -254,11 +289,11 @@ export class RulesManager {
     } else {
       disabledCategories.push(category);
     }
-    
+
     await browser.storage.sync.set({ 
       settings: { ...settings, disabledCategories } 
     });
-    
+    await this.syncDnrRules();
     browser.runtime.sendMessage({ type: 'reload_rules' });
   }
   
@@ -267,10 +302,15 @@ export class RulesManager {
     let needsFullMigration = false;
     let needsSave = false;
     
+    const hasInvalidId = rules.some(r => !r.id || typeof r.id !== 'number' || r.id > 2000000000);
+    const hasDuplicates = !hasInvalidId && new Set(rules.map(r => r.id)).size !== rules.length;
+    const shouldResetAllIds = hasInvalidId || hasDuplicates;
+
     const migratedRules = rules.map((rule, i) => {
       const newRule = { ...rule };
       
-      if (!rule.id) {
+      if (shouldResetAllIds) {
+        newRule.id = i + 1;
         needsFullMigration = true;
         needsSave = true;
       }
@@ -289,56 +329,8 @@ export class RulesManager {
     });
     
     if (needsFullMigration) {
-      try {
-        const oldDnrRules = await browser.declarativeNetRequest.getDynamicRules();
-        await browser.declarativeNetRequest.updateDynamicRules({
-          removeRuleIds: oldDnrRules.map(r => r.id)
-        });
-        
-        const newDnrRules = migratedRules.map((rule, i) => {
-          const filter = normalizePathRule(rule.blockURL);
-          const urlFilter = `||${filter}`;
-          
-          let action;
-          if (rule.redirectURL && rule.redirectURL.trim() !== '') {
-            const finalRedirectUrl = new URL(this.intermediaryRedirectURL);
-            finalRedirectUrl.searchParams.set('from', rule.blockURL);
-            finalRedirectUrl.searchParams.set('to', rule.redirectURL);
-            action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
-          } else {
-            const finalRedirectUrl = new URL(this.defaultRedirectURL);
-            finalRedirectUrl.searchParams.set('url', rule.blockURL);
-            action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
-          }
-          
-          return {
-            id: i + 1,
-            condition: { urlFilter, resourceTypes: ["main_frame"] },
-            priority: 100,
-            action
-          };
-        });
-        
-        await browser.declarativeNetRequest.updateDynamicRules({
-          addRules: newDnrRules
-        });
-        
-        const finalRules = newDnrRules.map((dnrRule, i) => ({
-          id: dnrRule.id,
-          blockURL: migratedRules[i].blockURL,
-          redirectURL: migratedRules[i].redirectURL,
-          schedule: migratedRules[i].schedule,
-          category: migratedRules[i].category,
-          disabledByUser: migratedRules[i].disabledByUser
-        }));
-        
-        await this.saveRules(finalRules);
-        
-        return { migrated: true, rules: finalRules };
-      } catch (error) {
-        this.logger.info("Migration error:", error);
-        throw new Error('Failed to migrate rules');
-      }
+      await this.saveRules(migratedRules);
+      return { migrated: true, rules: migratedRules };
     } else if (needsSave) {
       await this.saveRules(migratedRules);
       return { migrated: true, rules: migratedRules };
@@ -378,15 +370,6 @@ export class RulesManager {
     return currentMinutes >= startMinutes && currentMinutes < endMinutes;
   }
 
-  async toggleRuleDisabled(index) {
-    const rules = await this.getRules();
-    if (!rules[index]) {
-      throw new Error('Rule not found');
-    }
-    rules[index].disabledByUser = !rules[index].disabledByUser;
-    await this.saveRules(rules);
-    return rules[index];
-  }
   
   async enableRulesByCategory(category) {
     const rules = await this.getRules();

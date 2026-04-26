@@ -133,13 +133,6 @@ class PopupPage {
       }
       this.createRuleInputs();
     });
-    
-    browser.storage.onChanged.addListener(async (changes, namespace) => {
-      if (namespace === 'sync' && (changes.settings || changes.rules)) {
-        await this.loadSettings();
-        await this.loadRules();
-      }
-    });
   }
   
   openOptionsPage() {
@@ -295,6 +288,7 @@ class PopupPage {
         }
         
         await this.rulesManager.addRule(url, '');
+        await this.loadRules();
         customAlert('+ 1');
         browser.runtime.sendMessage({
           type: 'CLOSE_MATCHING_TABS',
@@ -370,6 +364,7 @@ class PopupPage {
             const index = rules.findIndex(r => r.id === ruleId);
             if (index !== -1) {
               await this.rulesManager.toggleRuleDisabled(index);
+              await this.loadRules();
               toggleElement.textContent = toggleElement.textContent === '✓' ? '✗' : '✓';
               toggleElement.title = toggleElement.title === (t('rule_enabled') || 'Enabled') ? (t('rule_disabled') || 'Disabled') : (t('rule_enabled') || 'Enabled');
             }
@@ -432,6 +427,7 @@ class PopupPage {
       }
       
       await this.rulesManager.addRule(blockURL.value, redirectURL.value);
+      await this.loadRules();
       
       ruleDiv.remove();
       
@@ -479,6 +475,7 @@ class PopupPage {
             try {
               if (blockURL) {
                 await this.rulesManager.deleteRuleByData(blockURL, redirectURL);
+                await this.loadRules();
                 customAlert('- 1');
               } else {
                 ruleDiv.remove();
@@ -521,9 +518,6 @@ class PopupPage {
   
   cleanup() {
     this.rulesUI.cleanup();
-    if (browser.storage && browser.storage.onChanged) {
-      browser.storage.onChanged.removeListener(this.storageChangeListener);
-    }
   }
 }
 
