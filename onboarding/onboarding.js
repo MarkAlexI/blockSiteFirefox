@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusMsg = document.getElementById('status-message');
   
   if (browser.permissions) {
-    browser.permissions.contains({ origins: ["*://*/"] }, (hasPermissions) => {
+    browser.permissions.contains({ origins: ["*://*/*"] }, (hasPermissions) => {
       if (hasPermissions) {
         statusMsg.textContent = t('onboarding_status_success');
         statusMsg.className = 'success';
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let granted;
       if (browser.permissions) {
         granted = await browser.permissions.request({
-          origins: ["*://*/"]
+          origins: ["*://*/*"]
         });
       }
       

@@ -6,7 +6,7 @@
   "author": "MarkAlexI",
   "homepage_url": "https://blockdistraction.com",
   "default_locale": "en",
-  "version": "3.7.3",
+  "version": "3.7.4",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",
@@ -29,7 +29,7 @@
     "alarms",
     "contextMenus"
   ],
-  "host_permissions": ["*://*/"],
+  "host_permissions": ["*://*/*"],
   "action": {
     "default_icon": {
       "16": "images/icon-16.png",
