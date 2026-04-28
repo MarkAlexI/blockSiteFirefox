@@ -254,7 +254,7 @@ class OptionsPage {
     try {
       await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule, newCategory, disabledByUser);
       
-      if (newBlock) {
+      if (newBlock && !disabledByUser) {
         browser.runtime.sendMessage({
           type: 'CLOSE_MATCHING_TABS',
           url: newBlock.trim()
