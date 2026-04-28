@@ -17,7 +17,8 @@ export function isBlockedURL(tabs) {
   
   const blockedPatterns = [
     /^about:/,
-    /^moz-extension:\/\//,
+    /extension:\/\//,
+    /^file:\/\//,
     /^https:\/\/addons\.mozilla\.org\//,
     /^devtools:/,
     /^view-source:/,
