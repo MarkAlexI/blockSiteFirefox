@@ -29,7 +29,7 @@ export class RulesManager {
       type: 'reload_rules'
     });
   }
-
+  
   async syncDnrRules() {
     try {
       const rules = await this.getRules();
@@ -38,11 +38,11 @@ export class RulesManager {
       
       const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
       const currentDnrIds = currentDnrRules.map(r => r.id);
-
+      
       const activeRules = rules.filter(rule => this.isRuleActiveNow(rule, disabledCategories));
       const addRules = [];
       const seenIds = new Set();
-
+      
       for (const rule of activeRules) {
         const id = Math.floor(Number(rule.id));
         if (id > 0 && !seenIds.has(id)) {
@@ -50,13 +50,20 @@ export class RulesManager {
           addRules.push(dnrRule);
           seenIds.add(id);
         }
+        
+        if (!rule.disabledByUser) {
+          browser.runtime.sendMessage({
+            type: 'CLOSE_MATCHING_TABS',
+            url: rule.blockURL
+          });
+        }
       }
-
+      
       await browser.declarativeNetRequest.updateDynamicRules({
         removeRuleIds: currentDnrIds,
         addRules: addRules
       });
-
+      
       this.logger.log(`DNR Synced: ${addRules.length} rules active.`);
     } catch (error) {
       this.logger.error("DNR Sync error:", error);
@@ -158,10 +165,10 @@ export class RulesManager {
         ...rules.map(r => Math.floor(Number(r.id))),
         ...dnrRules.map(r => r.id)
       ]);
-
+      
       let safeId = 1;
       while (occupiedIds.has(safeId)) safeId++;
-
+      
       const newRule = {
         id: safeId,
         blockURL: blockURL.trim(),
@@ -255,14 +262,14 @@ export class RulesManager {
     try {
       const activeRules = await browser.declarativeNetRequest.getDynamicRules();
       const ruleIdsToRemove = activeRules.map(rule => rule.id);
-
+      
       if (ruleIdsToRemove.length > 0) {
         await browser.declarativeNetRequest.updateDynamicRules({
           removeRuleIds: ruleIdsToRemove,
           addRules: []
         });
       }
-
+      
       await this.saveRules([]);
     } catch (error) {
       this.logger.error("Delete all rules error:", error);
@@ -279,7 +286,7 @@ export class RulesManager {
     await this.saveRules(rules);
     return rules[index];
   }
-
+  
   async toggleCategoryDisabled(category) {
     const settings = await this.getSettings();
     let disabledCategories = settings.disabledCategories || [];
@@ -289,9 +296,9 @@ export class RulesManager {
     } else {
       disabledCategories.push(category);
     }
-
-    await browser.storage.sync.set({ 
-      settings: { ...settings, disabledCategories } 
+    
+    await browser.storage.sync.set({
+      settings: { ...settings, disabledCategories }
     });
     await this.syncDnrRules();
     browser.runtime.sendMessage({ type: 'reload_rules' });
@@ -305,7 +312,7 @@ export class RulesManager {
     const hasInvalidId = rules.some(r => !r.id || typeof r.id !== 'number' || r.id > 2000000000);
     const hasDuplicates = !hasInvalidId && new Set(rules.map(r => r.id)).size !== rules.length;
     const shouldResetAllIds = hasInvalidId || hasDuplicates;
-
+    
     const migratedRules = rules.map((rule, i) => {
       const newRule = { ...rule };
       
@@ -369,7 +376,7 @@ export class RulesManager {
     
     return currentMinutes >= startMinutes && currentMinutes < endMinutes;
   }
-
+  
   
   async enableRulesByCategory(category) {
     const rules = await this.getRules();
