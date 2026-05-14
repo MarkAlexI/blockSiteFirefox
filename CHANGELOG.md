@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.8] — 2026-05-14
+### Patch
+- Added app version display to the options page.
+
 ## [3.7.7] — 2026-05-13
 ### Patch
 - Category blocking now closes tabs related to active rules that were opened while the rule was disabled.

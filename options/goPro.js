@@ -6,6 +6,7 @@ import Logger from '../utils/logger.js';
 
 const logger = new Logger('GoPro');
 
+const versionText = document.getElementById('ext-version');
 const btn = document.getElementById('proBtn');
 const wrapper = document.getElementById('proWrapper');
 const content = document.getElementById('proContent');
@@ -36,6 +37,13 @@ function sendMessageToWorker(message) {
       resolve(null);
     }
   });
+}
+
+if (versionText) {
+  const version = browser.runtime.getManifest().version;
+  if (version) {
+    versionText.innerText = `v${version}`;
+  }
 }
 
 if (wrapper) {

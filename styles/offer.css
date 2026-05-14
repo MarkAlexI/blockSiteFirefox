@@ -9,6 +9,16 @@
   --pro-bg-color: #f8f9fa;
   --pro-text-primary: #202124;
   --pro-text-secondary: #5f6368;
+  
+  & div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+p#ext-version {
+  margin-right: 1em;
 }
 
 .pro-toggle {
