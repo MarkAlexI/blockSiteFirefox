@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Questo elenco filtra solo la visualizzazione nella tabella" },
   "category_disabled_desc": { "message": "Disattiva l’audio di una categoria per consentire temporaneamente l’accesso a tutti i suoi siti. Le impostazioni delle singole regole vengono mantenute." },
   "toggle_category_blocking": { "message": "Attiva o disattiva il blocco per l’intera categoria" },
-  "category_muted_no_edit": { "message": "Impossibile gestire: il blocco della categoria è in pausa" }
+  "category_muted_no_edit": { "message": "Impossibile gestire: il blocco della categoria è in pausa" },
+  "feedback_title": { "message": "Ti piace BlockDistraction?" },
+  "feedback_desc": { "message": "Il tuo feedback ci aiuta molto a migliorare l'estensione." },
+  "feedback_like": { "message": "Sì, funziona alla grande!" },
+  "feedback_dislike": { "message": "Ho problemi / suggerimenti" }
 }

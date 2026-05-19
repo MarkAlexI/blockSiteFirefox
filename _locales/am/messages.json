@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "ይህ ዝርዝር በሰንጠረዥ ውስጥ ማሳየትን ብቻ ይጣራል" },
   "category_disabled_desc": { "message": "ሁሉንም ድር ጣቢያዎቹን ለጊዜው እንዲገኙ አንድ ምድብን ዝም አድርጉ። የግለሰብ ህግ ቅንብሮች ይጠበቃሉ።" },
   "toggle_category_blocking": { "message": "ለሙሉ ምድብ እገዳን አብራ/አጥፋ" },
-  "category_muted_no_edit": { "message": "ማስተዳደር አይቻልም፦ የምድብ እገዳ ተዘግቷል" }
+  "category_muted_no_edit": { "message": "ማስተዳደር አይቻልም፦ የምድብ እገዳ ተዘግቷል" },
+  "feedback_title": { "message": "BlockDistraction ይወዳሉ?" },
+  "feedback_desc": { "message": "አስተያየትዎ ቅጥያውን ለማሻሻል በጣም ይረዳናል።" },
+  "feedback_like": { "message": "አዎ፣ በጣም ጥሩ ይሰራል!" },
+  "feedback_dislike": { "message": "ችግሮች / ጥቆማዎች አሉኝ" }
 }

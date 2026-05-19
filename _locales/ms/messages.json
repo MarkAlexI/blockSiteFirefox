@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Senarai ini hanya menapis paparan dalam jadual" },
   "category_disabled_desc": { "message": "Redamkan kategori untuk membenarkan akses sementara kepada semua tapak webnya. Tetapan peraturan individu dikekalkan." },
   "toggle_category_blocking": { "message": "Togol sekatan untuk keseluruhan kategori" },
-  "category_muted_no_edit": { "message": "Tidak dapat diurus: sekatan kategori sedang dijeda" }
+  "category_muted_no_edit": { "message": "Tidak dapat diurus: sekatan kategori sedang dijeda" },
+  "feedback_title": { "message": "Adakah anda suka BlockDistraction?" },
+  "feedback_desc": { "message": "Maklum balas anda sangat membantu kami menambah baik sambungan ini." },
+  "feedback_like": { "message": "Ya, ia berfungsi dengan baik!" },
+  "feedback_dislike": { "message": "Saya ada masalah / cadangan" }
 }

@@ -10,6 +10,7 @@ import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 import Logger from '../utils/logger.js';
 import { MAX_RULES_LIMIT } from '../utils/constants.js';
 import { checkDNR } from '../utils/dnrDebug.js';
+import { initFeedbackPopup } from './feedback.js';
 
 const logger = new Logger('OptionsPage');
 
@@ -387,4 +388,5 @@ browser.runtime.onMessage.addListener((message) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeNoSpaceInputs();
+  initFeedbackPopup();
 });

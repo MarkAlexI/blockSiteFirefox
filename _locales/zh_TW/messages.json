@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "此清單僅過濾表格中的顯示內容" },
   "category_disabled_desc": { "message": "將某個類別靜音以暫時允許存取其所有網站。個別規則設定將會保留。" },
   "toggle_category_blocking": { "message": "切換整個類別的封鎖狀態" },
-  "category_muted_no_edit": { "message": "無法管理：類別封鎖已暫停" }
+  "category_muted_no_edit": { "message": "無法管理：類別封鎖已暫停" },
+  "feedback_title": { "message": "你喜歡 BlockDistraction 嗎？" },
+  "feedback_desc": { "message": "你的回饋對我們改進這個擴充功能非常有幫助。" },
+  "feedback_like": { "message": "是的，它運作得很好！" },
+  "feedback_dislike": { "message": "我有問題 / 建議" }
 }

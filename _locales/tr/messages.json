@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Bu liste yalnızca tabloda gösterilenleri filtreler" },
   "category_disabled_desc": { "message": "Bir kategoriyi sessize alarak tüm sitelerine geçici erişim izni verin. Bireysel kural ayarları korunur." },
   "toggle_category_blocking": { "message": "Tüm kategori için engellemeyi aç/kapat" },
-  "category_muted_no_edit": { "message": "Yönetilemez: kategori engellemesi duraklatıldı" }
+  "category_muted_no_edit": { "message": "Yönetilemez: kategori engellemesi duraklatıldı" },
+  "feedback_title": { "message": "BlockDistraction hoşunuza gidiyor mu?" },
+  "feedback_desc": { "message": "Geri bildiriminiz uzantıyı geliştirmemize çok yardımcı oluyor." },
+  "feedback_like": { "message": "Evet, harika çalışıyor!" },
+  "feedback_dislike": { "message": "Sorunlarım / önerilerim var" }
 }

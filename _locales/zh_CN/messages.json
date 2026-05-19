@@ -270,5 +270,9 @@
   "filter_only_hint": { "message": "此列表仅过滤表格中的显示内容" },
   "category_disabled_desc": { "message": "静音某个类别以临时允许访问其所有网站。单独规则设置将被保留。" },
   "toggle_category_blocking": { "message": "切换整个类别的阻止状态" },
-  "category_muted_no_edit": { "message": "无法管理：类别阻止已暂停" }
+  "category_muted_no_edit": { "message": "无法管理：类别阻止已暂停" },
+  "feedback_title": { "message": "你喜欢 BlockDistraction 吗？" },
+  "feedback_desc": { "message": "你的反馈对我们改进该扩展非常有帮助。" },
+  "feedback_like": { "message": "是的，它运行得很好！" },
+  "feedback_dislike": { "message": "我有问题 / 建议" }
 }

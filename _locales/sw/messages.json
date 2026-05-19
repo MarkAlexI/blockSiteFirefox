@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Orodha hii huchuja tu kinachoonyeshwa kwenye jedwali" },
   "category_disabled_desc": { "message": "Nyamazisha kategoria ili kuruhusu kwa muda ufikiaji wa tovuti zake zote. Mipangilio ya sheria za kibinafsi inahifadhiwa." },
   "toggle_category_blocking": { "message": "Washa au zima uzuiaji wa kategoria nzima" },
-  "category_muted_no_edit": { "message": "Haiwezi kusimamiwa: uzuiaji wa kategoria umesitishwa" }
+  "category_muted_no_edit": { "message": "Haiwezi kusimamiwa: uzuiaji wa kategoria umesitishwa" },
+  "feedback_title": { "message": "Je, unapenda BlockDistraction?" },
+  "feedback_desc": { "message": "Maoni yako yanatusaidia sana kuboresha kiendelezi hiki." },
+  "feedback_like": { "message": "Ndiyo, inafanya kazi vizuri sana!" },
+  "feedback_dislike": { "message": "Nina matatizo / mapendekezo" }
 }

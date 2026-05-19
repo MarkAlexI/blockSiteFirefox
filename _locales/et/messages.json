@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "See loend filtreerib ainult tabelis kuvatavat" },
   "category_disabled_desc": { "message": "Vaigista kategooria, et ajutiselt lubada juurdepääs kõigile selle veebisaitidele. Üksikute reeglite seaded säilivad." },
   "toggle_category_blocking": { "message": "Lülita kogu kategooria blokeerimine sisse või välja" },
-  "category_muted_no_edit": { "message": "Ei saa hallata: kategooria blokeerimine on peatatud" }
+  "category_muted_no_edit": { "message": "Ei saa hallata: kategooria blokeerimine on peatatud" },
+  "feedback_title": { "message": "Kas sulle meeldib BlockDistraction?" },
+  "feedback_desc": { "message": "Sinu tagasiside aitab meil laiendust oluliselt parandada." },
+  "feedback_like": { "message": "Jah, see töötab suurepäraselt!" },
+  "feedback_dislike": { "message": "Mul on probleeme / ettepanekuid" }
 }

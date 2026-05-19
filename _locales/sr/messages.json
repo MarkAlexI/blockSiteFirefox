@@ -262,5 +262,9 @@
   "filter_only_hint": { "message": "Ова листа само филтрира приказ у табели" },
   "category_disabled_desc": { "message": "Искључите категорију да бисте привремено дозволили приступ свим њеним сајтовима. Подешавања појединачних правила се чувају." },
   "toggle_category_blocking": { "message": "Промени блокирање за целу категорију" },
-  "category_muted_no_edit": { "message": "Управљање није могуће: категорија је одблокирана" }
+  "category_muted_no_edit": { "message": "Управљање није могуће: категорија је одблокирана" },
+  "feedback_title": { "message": "Да ли вам се свиђа BlockDistraction?" },
+  "feedback_desc": { "message": "Ваше повратне информације нам много помажу да побољшамо проширење." },
+  "feedback_like": { "message": "Да, ради одлично!" },
+  "feedback_dislike": { "message": "Имам проблеме / предлоге" }
 }

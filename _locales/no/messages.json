@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Denne listen filtrerer bare visningen i tabellen" },
   "category_disabled_desc": { "message": "Demp en kategori for midlertidig å tillate tilgang til alle nettstedene. Individuelle regelinnstillinger beholdes." },
   "toggle_category_blocking": { "message": "Slå blokkering for hele kategorien av eller på" },
-  "category_muted_no_edit": { "message": "Kan ikke administreres: kategoriblokkering er satt på pause" }
+  "category_muted_no_edit": { "message": "Kan ikke administreres: kategoriblokkering er satt på pause" },
+  "feedback_title": { "message": "Liker du BlockDistraction?" },
+  "feedback_desc": { "message": "Din tilbakemelding hjelper oss mye med å forbedre utvidelsen." },
+  "feedback_like": { "message": "Ja, det fungerer veldig bra!" },
+  "feedback_dislike": { "message": "Jeg har problemer / forslag" }
 }

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../styles/controls.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/modal.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/offer.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="../styles/feedback-modal.css" type="text/css" media="all" />
   <title id="options-title">Options page for BlockDistraction</title>
 </head>
 
@@ -297,6 +298,25 @@
     <div id="status"></div>
     <p data-i18n="gotopopup">Click the extension icon to return to popup.</p>
   </div>
+  
+  <dialog id="feedback-dialog" class="native-dialog">
+    <div class="dialog-content">
+      <button id="feedback-close-btn" class="dialog-close-btn" aria-label="Close" title="Close">&times;</button>
+      <h3 data-i18n="feedback_title">Вам подобається BlockDistraction?</h3>
+      <p data-i18n="feedback_desc">Ваш відгук дуже допоможе нам розвивати розширення.</p>
+      
+      <div class="dialog-actions">
+        <button id="feedback-like-btn" class="action-btn primary">
+          <span class="feedback-finger">👍</span>
+          <span data-i18n="feedback_like">Так, чудово працює!</span>
+        </button>
+        <button id="feedback-dislike-btn" class="action-btn secondary">
+          <span class="feedback-finger">👎</span>
+          <span data-i18n="feedback_dislike">Є проблеми / побажання</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
   
   <div id="passwordModal" class="modal hidden">
     <div class="modal-content">

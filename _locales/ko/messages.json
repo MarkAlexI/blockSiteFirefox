@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "이 목록은 표에 표시되는 내용만 필터링합니다" },
   "category_disabled_desc": { "message": "카테고리를 음소거하면 해당 사이트 전체에 일시적으로 접근이 허용됩니다. 개별 규칙 설정은 유지됩니다." },
   "toggle_category_blocking": { "message": "전체 카테고리 차단 전환" },
-  "category_muted_no_edit": { "message": "관리할 수 없음: 카테고리 차단이 일시 중지됨" }
+  "category_muted_no_edit": { "message": "관리할 수 없음: 카테고리 차단이 일시 중지됨" },
+  "feedback_title": { "message": "BlockDistraction이 마음에 드시나요?" },
+  "feedback_desc": { "message": "여러분의 피드백은 확장 프로그램을 개선하는 데 큰 도움이 됩니다." },
+  "feedback_like": { "message": "네, 아주 잘 작동합니다!" },
+  "feedback_dislike": { "message": "문제 / 제안이 있습니다" }
 }

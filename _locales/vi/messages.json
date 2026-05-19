@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Danh sách này chỉ lọc những gì hiển thị trong bảng" },
   "category_disabled_desc": { "message": "Tắt tiếng một danh mục để tạm thời cho phép truy cập tất cả các trang web của nó. Các cài đặt quy tắc riêng vẫn được giữ nguyên." },
   "toggle_category_blocking": { "message": "Bật hoặc tắt chặn cho toàn bộ danh mục" },
-  "category_muted_no_edit": { "message": "Không thể quản lý: chức năng chặn danh mục đang tạm dừng" }
+  "category_muted_no_edit": { "message": "Không thể quản lý: chức năng chặn danh mục đang tạm dừng" },
+  "feedback_title": { "message": "Bạn có thích BlockDistraction không?" },
+  "feedback_desc": { "message": "Phản hồi của bạn giúp chúng tôi cải thiện tiện ích mở rộng rất nhiều." },
+  "feedback_like": { "message": "Có, nó hoạt động rất tốt!" },
+  "feedback_dislike": { "message": "Tôi có vấn đề / đề xuất" }
 }

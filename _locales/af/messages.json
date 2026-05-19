@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Hierdie lys filter slegs die vertoning in die tabel" },
   "category_disabled_desc": { "message": "Demp 'n kategorie om tydelik toegang tot al sy webwerwe toe te laat. Individuele reëlinstellings bly behoue." },
   "toggle_category_blocking": { "message": "Skakel blokkering vir die hele kategorie aan of af" },
-  "category_muted_no_edit": { "message": "Kan nie bestuur nie: kategoriebeskerming is gepouseer" }
+  "category_muted_no_edit": { "message": "Kan nie bestuur nie: kategoriebeskerming is gepouseer" },
+  "feedback_title": { "message": "Hou jy van BlockDistraction?" },
+  "feedback_desc": { "message": "Jou terugvoer help ons baie om die uitbreiding te verbeter." },
+  "feedback_like": { "message": "Ja, dit werk uitstekend!" },
+  "feedback_dislike": { "message": "Ek het probleme / voorstelle" }
 }

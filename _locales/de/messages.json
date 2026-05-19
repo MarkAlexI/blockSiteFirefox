@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Diese Liste filtert nur die Anzeige in der Tabelle" },
   "category_disabled_desc": { "message": "Deaktivieren Sie eine Kategorie, um vorübergehend den Zugriff auf alle zugehörigen Websites zu erlauben. Individuelle Regeleinstellungen bleiben erhalten." },
   "toggle_category_blocking": { "message": "Blockierung für die gesamte Kategorie ein- oder ausschalten" },
-  "category_muted_no_edit": { "message": "Kann nicht verwaltet werden: Die Kategorienblockierung ist pausiert" }
+  "category_muted_no_edit": { "message": "Kann nicht verwaltet werden: Die Kategorienblockierung ist pausiert" },
+  "feedback_title": { "message": "Gefällt Ihnen BlockDistraction?" },
+  "feedback_desc": { "message": "Ihr Feedback hilft uns sehr dabei, die Erweiterung weiterzuentwickeln." },
+  "feedback_like": { "message": "Ja, funktioniert großartig!" },
+  "feedback_dislike": { "message": "Ich habe Probleme / Vorschläge" }
 }

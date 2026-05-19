@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "רשימה זו מסננת רק את התצוגה בטבלה" },
   "category_disabled_desc": { "message": "השתיקו קטגוריה כדי לאפשר זמנית גישה לכל האתרים שלה. הגדרות הכללים האישיים נשמרות." },
   "toggle_category_blocking": { "message": "הפעל או כבה חסימה עבור כל הקטגוריה" },
-  "category_muted_no_edit": { "message": "לא ניתן לנהל: חסימת הקטגוריה מושהית" }
+  "category_muted_no_edit": { "message": "לא ניתן לנהל: חסימת הקטגוריה מושהית" },
+  "feedback_title": { "message": "האם אתם אוהבים את BlockDistraction?" },
+  "feedback_desc": { "message": "המשוב שלכם עוזר לנו מאוד לשפר את התוסף." },
+  "feedback_like": { "message": "כן, זה עובד מצוין!" },
+  "feedback_dislike": { "message": "יש לי בעיות / הצעות" }
 }

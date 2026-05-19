@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Tämä lista vain suodattaa näkymää taulukossa" },
   "category_disabled_desc": { "message": "Mykistä kategoria, jotta voit tilapäisesti sallia pääsyn kaikkiin sen sivustoihin. Yksittäisten sääntöjen asetukset säilyvät." },
   "toggle_category_blocking": { "message": "Kytke koko kategorian esto päälle tai pois" },
-  "category_muted_no_edit": { "message": "Ei voida hallita: kategorian esto on keskeytetty" }
+  "category_muted_no_edit": { "message": "Ei voida hallita: kategorian esto on keskeytetty" },
+  "feedback_title": { "message": "Pidätkö BlockDistractionista?" },
+  "feedback_desc": { "message": "Palautteesi auttaa meitä parantamaan laajennusta paljon." },
+  "feedback_like": { "message": "Kyllä, se toimii erinomaisesti!" },
+  "feedback_dislike": { "message": "Minulla on ongelmia / ehdotuksia" }
 }

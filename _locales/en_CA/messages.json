@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "This list only filters what’s shown in the table" },
   "category_disabled_desc": { "message": "Mute a category to temporarily allow access to all its sites. Individual rule settings are preserved." },
   "toggle_category_blocking": { "message": "Toggle blocking for the entire category" },
-  "category_muted_no_edit": { "message": "Cannot manage: category blocking is paused" }
+  "category_muted_no_edit": { "message": "Cannot manage: category blocking is paused" },
+  "feedback_title": { "message": "Do you like BlockDistraction?" },
+  "feedback_desc": { "message": "Your feedback really helps us improve the extension." },
+  "feedback_like": { "message": "Yes, it works great!" },
+  "feedback_dislike": { "message": "I have issues / suggestions" }
 }

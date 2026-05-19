@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Šis sąrašas tik filtruoja rodymą lentelėje" },
   "category_disabled_desc": { "message": "Nutildykite kategoriją, kad laikinai būtų leidžiama prieiga prie visų jos svetainių. Atskiros taisyklių nuostatos išlieka." },
   "toggle_category_blocking": { "message": "Įjungti arba išjungti visos kategorijos blokavimą" },
-  "category_muted_no_edit": { "message": "Negalima valdyti: kategorijos blokavimas pristabdytas" }
+  "category_muted_no_edit": { "message": "Negalima valdyti: kategorijos blokavimas pristabdytas" },
+  "feedback_title": { "message": "Ar jums patinka BlockDistraction?" },
+  "feedback_desc": { "message": "Jūsų atsiliepimai labai padeda mums tobulinti plėtinį." },
+  "feedback_like": { "message": "Taip, jis veikia puikiai!" },
+  "feedback_dislike": { "message": "Turiu problemų / pasiūlymų" }
 }

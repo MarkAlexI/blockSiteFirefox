@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Ang listahang ito ay nagfi-filter lamang ng ipinapakita sa talahanayan" },
   "category_disabled_desc": { "message": "I-mute ang isang kategorya upang pansamantalang payagan ang access sa lahat ng mga site nito. Nananatili ang mga indibidwal na setting ng mga patakaran." },
   "toggle_category_blocking": { "message": "I-toggle ang pag-block para sa buong kategorya" },
-  "category_muted_no_edit": { "message": "Hindi maaaring pamahalaan: naka-pause ang pag-block ng kategorya" }
+  "category_muted_no_edit": { "message": "Hindi maaaring pamahalaan: naka-pause ang pag-block ng kategorya" },
+  "feedback_title": { "message": "Gusto mo ba ang BlockDistraction?" },
+  "feedback_desc": { "message": "Malaki ang naitutulong ng iyong feedback sa pagpapabuti ng extension." },
+  "feedback_like": { "message": "Oo, gumagana ito nang mahusay!" },
+  "feedback_dislike": { "message": "May mga problema / mungkahi ako" }
 }

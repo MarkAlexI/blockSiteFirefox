@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Daftar ini hanya memfilter tampilan di tabel" },
   "category_disabled_desc": { "message": "Bisukan kategori untuk sementara mengizinkan akses ke semua situsnya. Pengaturan aturan individual tetap dipertahankan." },
   "toggle_category_blocking": { "message": "Aktifkan atau nonaktifkan pemblokiran untuk seluruh kategori" },
-  "category_muted_no_edit": { "message": "Tidak dapat dikelola: pemblokiran kategori sedang dijeda" }
+  "category_muted_no_edit": { "message": "Tidak dapat dikelola: pemblokiran kategori sedang dijeda" },
+  "feedback_title": { "message": "Apakah Anda menyukai BlockDistraction?" },
+  "feedback_desc": { "message": "Umpan balik Anda sangat membantu kami dalam mengembangkan ekstensi ini." },
+  "feedback_like": { "message": "Ya, berfungsi dengan sangat baik!" },
+  "feedback_dislike": { "message": "Saya punya masalah / saran" }
 }

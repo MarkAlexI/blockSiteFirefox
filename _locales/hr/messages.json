@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Ovaj popis samo filtrira prikaz u tablici" },
   "category_disabled_desc": { "message": "Utišajte kategoriju kako biste privremeno omogućili pristup svim njezinim web stranicama. Postavke pojedinačnih pravila ostaju sačuvane." },
   "toggle_category_blocking": { "message": "Uključi ili isključi blokiranje za cijelu kategoriju" },
-  "category_muted_no_edit": { "message": "Upravljanje nije moguće: blokiranje kategorije je pauzirano" }
+  "category_muted_no_edit": { "message": "Upravljanje nije moguće: blokiranje kategorije je pauzirano" },
+  "feedback_title": { "message": "Sviđa li vam se BlockDistraction?" },
+  "feedback_desc": { "message": "Vaše povratne informacije nam puno pomažu u poboljšanju proširenja." },
+  "feedback_like": { "message": "Da, radi odlično!" },
+  "feedback_dislike": { "message": "Imam problema / prijedloga" }
 }

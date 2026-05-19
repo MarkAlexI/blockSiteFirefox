@@ -270,5 +270,9 @@
   "filter_only_hint": { "message": "تُستخدم هذه القائمة فقط لتصفية العرض في الجدول" },
   "category_disabled_desc": { "message": "قم بكتم فئة للسماح مؤقتًا بالوصول إلى جميع مواقعها. يتم الاحتفاظ بإعدادات القواعد الفردية." },
   "toggle_category_blocking": { "message": "تبديل حظر الفئة بالكامل" },
-  "category_muted_no_edit": { "message": "لا يمكن الإدارة: تم إيقاف حظر الفئة مؤقتًا" }
+  "category_muted_no_edit": { "message": "لا يمكن الإدارة: تم إيقاف حظر الفئة مؤقتًا" },
+  "feedback_title": { "message": "هل يعجبك BlockDistraction؟" },
+  "feedback_desc": { "message": "ملاحظاتك تساعدنا كثيرًا في تطوير الإضافة." },
+  "feedback_like": { "message": "نعم، يعمل بشكل رائع!" },
+  "feedback_dislike": { "message": "لدي مشاكل / اقتراحات" }
 }

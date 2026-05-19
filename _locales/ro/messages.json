@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Această listă filtrează doar afișarea din tabel" },
   "category_disabled_desc": { "message": "Mutați o categorie pentru a permite temporar accesul la toate site-urile acesteia. Setările regulilor individuale sunt păstrate." },
   "toggle_category_blocking": { "message": "Activați sau dezactivați blocarea pentru întreaga categorie" },
-  "category_muted_no_edit": { "message": "Nu se poate gestiona: blocarea categoriei este întreruptă" }
+  "category_muted_no_edit": { "message": "Nu se poate gestiona: blocarea categoriei este întreruptă" },
+  "feedback_title": { "message": "Îți place BlockDistraction?" },
+  "feedback_desc": { "message": "Feedback-ul tău ne ajută foarte mult să îmbunătățim extensia." },
+  "feedback_like": { "message": "Da, funcționează foarte bine!" },
+  "feedback_dislike": { "message": "Am probleme / sugestii" }
 }

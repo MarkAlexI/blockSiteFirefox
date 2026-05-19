@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Ez a lista csak a táblázatban megjelenő elemeket szűri" },
   "category_disabled_desc": { "message": "Némíts egy kategóriát, hogy ideiglenesen engedélyezd az összes webhelyhez való hozzáférést. Az egyedi szabálybeállítások megmaradnak." },
   "toggle_category_blocking": { "message": "A teljes kategória blokkolásának ki- vagy bekapcsolása" },
-  "category_muted_no_edit": { "message": "Nem kezelhető: a kategóriablokkolás szünetel" }
+  "category_muted_no_edit": { "message": "Nem kezelhető: a kategóriablokkolás szünetel" },
+  "feedback_title": { "message": "Tetszik a BlockDistraction?" },
+  "feedback_desc": { "message": "Visszajelzésed nagyban segít nekünk a bővítmény fejlesztésében." },
+  "feedback_like": { "message": "Igen, remekül működik!" },
+  "feedback_dislike": { "message": "Problémáim / javaslataim vannak" }
 }

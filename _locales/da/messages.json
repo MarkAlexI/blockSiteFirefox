@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Denne liste filtrerer kun visningen i tabellen" },
   "category_disabled_desc": { "message": "Slå en kategori fra for midlertidigt at give adgang til alle dens websteder. Individuelle regelindstillinger bevares." },
   "toggle_category_blocking": { "message": "Slå blokering for hele kategorien til eller fra" },
-  "category_muted_no_edit": { "message": "Kan ikke administreres: kategoriblokering er sat på pause" }
+  "category_muted_no_edit": { "message": "Kan ikke administreres: kategoriblokering er sat på pause" },
+  "feedback_title": { "message": "Kan du lide BlockDistraction?" },
+  "feedback_desc": { "message": "Din feedback hjælper os meget med at forbedre udvidelsen." },
+  "feedback_like": { "message": "Ja, det virker rigtig godt!" },
+  "feedback_dislike": { "message": "Jeg har problemer / forslag" }
 }

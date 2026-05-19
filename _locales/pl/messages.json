@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Ta lista tylko filtruje wyświetlanie w tabeli" },
   "category_disabled_desc": { "message": "Wycisz kategorię, aby tymczasowo umożliwić dostęp do wszystkich jej stron. Ustawienia indywidualnych reguł są zachowane." },
   "toggle_category_blocking": { "message": "Włącz lub wyłącz blokowanie całej kategorii" },
-  "category_muted_no_edit": { "message": "Nie można zarządzać: blokowanie kategorii jest wstrzymane" }
+  "category_muted_no_edit": { "message": "Nie można zarządzać: blokowanie kategorii jest wstrzymane" },
+  "feedback_title": { "message": "Czy podoba Ci się BlockDistraction?" },
+  "feedback_desc": { "message": "Twoja opinia bardzo pomaga nam ulepszać rozszerzenie." },
+  "feedback_like": { "message": "Tak, działa świetnie!" },
+  "feedback_dislike": { "message": "Mam problemy / sugestie" }
 }

@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Aquesta llista només filtra la visualització a la taula" },
   "category_disabled_desc": { "message": "Silencia una categoria per permetre temporalment l'accés a tots els seus llocs web. La configuració individual de les regles es conserva." },
   "toggle_category_blocking": { "message": "Activa o desactiva el bloqueig per a tota la categoria" },
-  "category_muted_no_edit": { "message": "No es pot gestionar: el bloqueig de la categoria està en pausa" }
+  "category_muted_no_edit": { "message": "No es pot gestionar: el bloqueig de la categoria està en pausa" },
+  "feedback_title": { "message": "T'agrada BlockDistraction?" },
+  "feedback_desc": { "message": "El teu feedback ens ajuda molt a millorar l'extensió." },
+  "feedback_like": { "message": "Sí, funciona molt bé!" },
+  "feedback_dislike": { "message": "Tinc problemes / suggeriments" }
 }

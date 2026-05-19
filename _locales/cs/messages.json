@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Tento seznam pouze filtruje zobrazení v tabulce" },
   "category_disabled_desc": { "message": "Ztlumte kategorii, abyste dočasně povolili přístup ke všem jejím webům. Individuální nastavení pravidel zůstávají zachována." },
   "toggle_category_blocking": { "message": "Zapnout nebo vypnout blokování pro celou kategorii" },
-  "category_muted_no_edit": { "message": "Nelze spravovat: blokování kategorie je pozastaveno" }
+  "category_muted_no_edit": { "message": "Nelze spravovat: blokování kategorie je pozastaveno" },
+  "feedback_title": { "message": "Líbí se vám BlockDistraction?" },
+  "feedback_desc": { "message": "Vaše zpětná vazba nám velmi pomáhá zlepšovat rozšíření." },
+  "feedback_like": { "message": "Ano, funguje skvěle!" },
+  "feedback_dislike": { "message": "Mám problémy / návrhy" }
 }

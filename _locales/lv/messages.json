@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Šis saraksts tikai filtrē attēlojumu tabulā" },
   "category_disabled_desc": { "message": "Apklusiniet kategoriju, lai uz laiku atļautu piekļuvi visām tās vietnēm. Individuālie noteikumu iestatījumi tiek saglabāti." },
   "toggle_category_blocking": { "message": "Ieslēgt vai izslēgt bloķēšanu visai kategorijai" },
-  "category_muted_no_edit": { "message": "Nav iespējams pārvaldīt: kategorijas bloķēšana ir apturēta" }
+  "category_muted_no_edit": { "message": "Nav iespējams pārvaldīt: kategorijas bloķēšana ir apturēta" },
+  "feedback_title": { "message": "Vai jums patīk BlockDistraction?" },
+  "feedback_desc": { "message": "Jūsu atsauksmes mums ļoti palīdz uzlabot paplašinājumu." },
+  "feedback_like": { "message": "Jā, tas darbojas lieliski!" },
+  "feedback_dislike": { "message": "Man ir problēmas / ieteikumi" }
 }

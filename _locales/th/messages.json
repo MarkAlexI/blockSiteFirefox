@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "รายการนี้ใช้กรองเฉพาะสิ่งที่แสดงในตารางเท่านั้น" },
   "category_disabled_desc": { "message": "ปิดเสียงหมวดหมู่เพื่ออนุญาตให้เข้าถึงเว็บไซต์ทั้งหมดชั่วคราว การตั้งค่ากฎแต่ละรายการยังคงถูกเก็บไว้" },
   "toggle_category_blocking": { "message": "สลับการบล็อกสำหรับทั้งหมวดหมู่" },
-  "category_muted_no_edit": { "message": "ไม่สามารถจัดการได้: การบล็อกหมวดหมู่ถูกพักไว้" }
+  "category_muted_no_edit": { "message": "ไม่สามารถจัดการได้: การบล็อกหมวดหมู่ถูกพักไว้" },
+  "feedback_title": { "message": "คุณชอบ BlockDistraction ไหม?" },
+  "feedback_desc": { "message": "ความคิดเห็นของคุณช่วยให้เราปรับปรุงส่วนขยายนี้ได้มาก" },
+  "feedback_like": { "message": "ใช่ มันทำงานได้ดีมาก!" },
+  "feedback_dislike": { "message": "ฉันมีปัญหา / ข้อเสนอแนะ" }
 }

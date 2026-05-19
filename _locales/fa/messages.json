@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "این فهرست فقط نمایش در جدول را فیلتر می‌کند" },
   "category_disabled_desc": { "message": "یک دسته را بی‌صدا کنید تا به‌طور موقت دسترسی به همه سایت‌های آن مجاز شود. تنظیمات قوانین فردی حفظ می‌شوند." },
   "toggle_category_blocking": { "message": "تغییر وضعیت مسدودسازی برای کل دسته" },
-  "category_muted_no_edit": { "message": "قابل مدیریت نیست: مسدودسازی دسته موقتاً متوقف شده است" }
+  "category_muted_no_edit": { "message": "قابل مدیریت نیست: مسدودسازی دسته موقتاً متوقف شده است" },
+  "feedback_title": { "message": "آیا BlockDistraction را دوست دارید؟" },
+  "feedback_desc": { "message": "بازخورد شما کمک زیادی به بهبود افزونه می‌کند." },
+  "feedback_like": { "message": "بله، خیلی خوب کار می‌کند!" },
+  "feedback_dislike": { "message": "مشکل / پیشنهاد دارم" }
 }

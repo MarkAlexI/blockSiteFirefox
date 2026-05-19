@@ -270,5 +270,9 @@
   "filter_only_hint": { "message": "このリストはテーブル内の表示のみをフィルタします" },
   "category_disabled_desc": { "message": "カテゴリをミュートすると、一時的にそのすべてのサイトへのアクセスが許可されます。個別ルールの設定は保持されます。" },
   "toggle_category_blocking": { "message": "カテゴリ全体のブロックを切り替え" },
-  "category_muted_no_edit": { "message": "管理できません：カテゴリのブロックは一時停止されています" }
+  "category_muted_no_edit": { "message": "管理できません：カテゴリのブロックは一時停止されています" },
+  "feedback_title": { "message": "BlockDistractionは気に入っていますか？" },
+  "feedback_desc": { "message": "あなたのフィードバックは拡張機能の改善にとても役立ちます。" },
+  "feedback_like": { "message": "はい、とても良く動作します！" },
+  "feedback_dislike": { "message": "問題 / 提案があります" }
 }

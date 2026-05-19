@@ -261,5 +261,9 @@
   "filter_only_hint": { "message": "Esta lista apenas filtra o que é exibido na tabela" },
   "category_disabled_desc": { "message": "Silencie uma categoria para permitir temporariamente o acesso a todos os seus sites. As configurações individuais de regras são mantidas." },
   "toggle_category_blocking": { "message": "Ativar ou desativar o bloqueio para toda a categoria" },
-  "category_muted_no_edit": { "message": "Não é possível gerenciar: o bloqueio da categoria está pausado" }
+  "category_muted_no_edit": { "message": "Não é possível gerenciar: o bloqueio da categoria está pausado" },
+  "feedback_title": { "message": "Você gosta do BlockDistraction?" },
+  "feedback_desc": { "message": "Seu feedback nos ajuda muito a melhorar a extensão." },
+  "feedback_like": { "message": "Sim, funciona muito bem!" },
+  "feedback_dislike": { "message": "Tenho problemas / sugestões" }
 }
