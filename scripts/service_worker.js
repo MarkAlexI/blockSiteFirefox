@@ -151,9 +151,11 @@ async function updateActiveRules() {
     const addRules = [];
     for (const rule of activeRules) {
       if (!currentDnrRules.some(dnr => dnr.id === rule.id)) {
-        const dnrRule = await rulesManager.createDNRRule(rule.blockURL, rule.redirectURL);
-        dnrRule.id = rule.id;
-        addRules.push(dnrRule);
+        const dnrRule = await rulesManager.createDNRRule(rule.id, rule.blockURL, rule.redirectURL);
+        
+        if (dnrRule) {
+          addRules.push(dnrRule);
+        }
       }
     }
     if (addRules.length) {
