@@ -265,5 +265,7 @@
   "feedback_title": { "message": "คุณชอบ BlockDistraction ไหม?" },
   "feedback_desc": { "message": "ความคิดเห็นของคุณช่วยให้เราปรับปรุงส่วนขยายนี้ได้มาก" },
   "feedback_like": { "message": "ใช่ มันทำงานได้ดีมาก!" },
-  "feedback_dislike": { "message": "ฉันมีปัญหา / ข้อเสนอแนะ" }
+  "feedback_dislike": { "message": "ฉันมีปัญหา / ข้อเสนอแนะ" },
+  "trialproheader": { "message": "ทดลองใช้ฟรี 7 วัน" },
+  "trialprotext": { "message": "ยกเลิกได้ตลอดเวลา ชำระเงินปลอดภัย" }
 }

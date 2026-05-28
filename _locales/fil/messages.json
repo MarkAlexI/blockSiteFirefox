@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Gusto mo ba ang BlockDistraction?" },
   "feedback_desc": { "message": "Malaki ang naitutulong ng iyong feedback sa pagpapabuti ng extension." },
   "feedback_like": { "message": "Oo, gumagana ito nang mahusay!" },
-  "feedback_dislike": { "message": "May mga problema / mungkahi ako" }
+  "feedback_dislike": { "message": "May mga problema / mungkahi ako" },
+  "trialproheader": { "message": "Simulan ang iyong 7-araw na free trial" },
+  "trialprotext": { "message": "I-cancel anumang oras. Ligtas at protektado ang iyong mga bayad." }
 }

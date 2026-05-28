@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Ar jums patinka BlockDistraction?" },
   "feedback_desc": { "message": "Jūsų atsiliepimai labai padeda mums tobulinti plėtinį." },
   "feedback_like": { "message": "Taip, jis veikia puikiai!" },
-  "feedback_dislike": { "message": "Turiu problemų / pasiūlymų" }
+  "feedback_dislike": { "message": "Turiu problemų / pasiūlymų" },
+  "trialproheader": { "message": "Išbandykite 7 dienas nemokamai" },
+  "trialprotext": { "message": "Galite atšaukti bet kada. Saugus atsiskaitymas." }
 }

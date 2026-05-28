@@ -109,6 +109,16 @@ p#ext-version {
   border: 1px solid var(--pro-border-color);
 }
 
+.badge-text {
+  display: inline-block;
+  background-color: color-mix(in oklab, var(--pro-color-success), white 70%);
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
 #pro-activate-view .pro-locked a {
   display: inline-block;
   text-decoration: none;

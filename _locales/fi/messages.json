@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Pidätkö BlockDistractionista?" },
   "feedback_desc": { "message": "Palautteesi auttaa meitä parantamaan laajennusta paljon." },
   "feedback_like": { "message": "Kyllä, se toimii erinomaisesti!" },
-  "feedback_dislike": { "message": "Minulla on ongelmia / ehdotuksia" }
+  "feedback_dislike": { "message": "Minulla on ongelmia / ehdotuksia" },
+  "trialproheader": { "message": "Aloita 7 päivän ilmainen kokeilujakso" },
+  "trialprotext": { "message": "Peruuta milloin tahansa. Maksusi on suojattu turvallisesti." }
 }

@@ -274,5 +274,7 @@
   "feedback_title": { "message": "BlockDistractionは気に入っていますか？" },
   "feedback_desc": { "message": "あなたのフィードバックは拡張機能の改善にとても役立ちます。" },
   "feedback_like": { "message": "はい、とても良く動作します！" },
-  "feedback_dislike": { "message": "問題 / 提案があります" }
+  "feedback_dislike": { "message": "問題 / 提案があります" },
+  "trialproheader": { "message": "7日間の無料トライアルを始める" },
+  "trialprotext": { "message": " いつでも解約可能。 決済は安全に保護されます。" }
 }

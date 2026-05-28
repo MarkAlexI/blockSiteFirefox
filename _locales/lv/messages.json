@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Vai jums patīk BlockDistraction?" },
   "feedback_desc": { "message": "Jūsu atsauksmes mums ļoti palīdz uzlabot paplašinājumu." },
   "feedback_like": { "message": "Jā, tas darbojas lieliski!" },
-  "feedback_dislike": { "message": "Man ir problēmas / ieteikumi" }
+  "feedback_dislike": { "message": "Man ir problēmas / ieteikumi" },
+  "trialproheader": { "message": "Izmēģiniet 7 dienas bez maksas" },
+  "trialprotext": { "message": "Atcelšana jebkurā laikā. Droši maksājumi." }
 }

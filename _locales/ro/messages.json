@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Îți place BlockDistraction?" },
   "feedback_desc": { "message": "Feedback-ul tău ne ajută foarte mult să îmbunătățim extensia." },
   "feedback_like": { "message": "Da, funcționează foarte bine!" },
-  "feedback_dislike": { "message": "Am probleme / sugestii" }
+  "feedback_dislike": { "message": "Am probleme / sugestii" },
+  "trialproheader": { "message": "Încearcă 7 zile gratuit" },
+  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." }
 }

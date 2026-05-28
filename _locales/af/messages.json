@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Hou jy van BlockDistraction?" },
   "feedback_desc": { "message": "Jou terugvoer help ons baie om die uitbreiding te verbeter." },
   "feedback_like": { "message": "Ja, dit werk uitstekend!" },
-  "feedback_dislike": { "message": "Ek het probleme / voorstelle" }
+  "feedback_dislike": { "message": "Ek het probleme / voorstelle" },
+  "trialproheader": { "message": "Begin jou gratis proeftydperk van 7 dae" },
+  "trialprotext": { "message": "Kanselleer enige tyd. Jou betalings is veilig beskerm." }
 }

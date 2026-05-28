@@ -274,5 +274,7 @@
   "feedback_title": { "message": "BlockDistraction ଆପଣଙ୍କୁ ପସନ୍ଦ କି?" },
   "feedback_desc": { "message": "ଆପଣଙ୍କର ପ୍ରତିକ୍ରିୟା ଆମକୁ ଏହି ଏକ୍ସଟେନ୍ସନ୍‌କୁ ଉନ୍ନତ କରିବାରେ ବହୁତ ସାହାଯ୍ୟ କରେ।" },
   "feedback_like": { "message": "ହଁ, ଏହା ବହୁତ ଭଲ କାମ କରୁଛି!" },
-  "feedback_dislike": { "message": "ମୋର ସମସ୍ୟା / ପ୍ରସ୍ତାବ ଅଛି" }
+  "feedback_dislike": { "message": "ମୋର ସମସ୍ୟା / ପ୍ରସ୍ତାବ ଅଛି" },
+  "trialproheader": { "message": "ଆପଣଙ୍କର 7 ଦିନର ଫ୍ରି ଟ୍ରାଏଲ୍ ଆରମ୍ଭ କରନ୍ତୁ" },
+  "trialprotext": { "message": "ଯେକୌଣସି ସମୟରେ ବାତିଲ୍ କରନ୍ତୁ। ଆପଣଙ୍କର ପେମେଣ୍ଟ ସମ୍ପୂର୍ଣ୍ଣ ସୁରକ୍ଷିତ।" }
 }

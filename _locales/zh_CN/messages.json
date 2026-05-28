@@ -274,5 +274,7 @@
   "feedback_title": { "message": "你喜欢 BlockDistraction 吗？" },
   "feedback_desc": { "message": "你的反馈对我们改进该扩展非常有帮助。" },
   "feedback_like": { "message": "是的，它运行得很好！" },
-  "feedback_dislike": { "message": "我有问题 / 建议" }
+  "feedback_dislike": { "message": "我有问题 / 建议" },
+  "trialproheader": { "message": "开启 7 天免费试用" },
+  "trialprotext": { "message": "随时可取消。交易安全有保障。" }
 }

@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Liker du BlockDistraction?" },
   "feedback_desc": { "message": "Din tilbakemelding hjelper oss mye med å forbedre utvidelsen." },
   "feedback_like": { "message": "Ja, det fungerer veldig bra!" },
-  "feedback_dislike": { "message": "Jeg har problemer / forslag" }
+  "feedback_dislike": { "message": "Jeg har problemer / forslag" },
+  "trialproheader": { "message": "Start din 7-dagers gratis prøveperiode" },
+  "trialprotext": { "message": "Avslutt når som helst. Dine betalinger er trygt beskyttet." }
 }

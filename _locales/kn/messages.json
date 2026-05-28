@@ -265,5 +265,7 @@
   "feedback_title": { "message": "BlockDistraction ನಿಮಗೆ ಇಷ್ಟವೇ?" },
   "feedback_desc": { "message": "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ವಿಸ್ತರಣೆಯನ್ನು ಸುಧಾರಿಸಲು ನಮಗೆ ಬಹಳ ಸಹಾಯ ಮಾಡುತ್ತದೆ." },
   "feedback_like": { "message": "ಹೌದು, ಇದು ತುಂಬಾ ಚೆನ್ನಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ!" },
-  "feedback_dislike": { "message": "ನನಗೆ ಸಮಸ್ಯೆಗಳು / ಸಲಹೆಗಳು ಇವೆ" }
+  "feedback_dislike": { "message": "ನನಗೆ ಸಮಸ್ಯೆಗಳು / ಸಲಹೆಗಳು ಇವೆ" },
+  "trialproheader": { "message": "ನಿಮ್ಮ 7 ದಿನಗಳ ಉಚಿತ ಟ್ರಯಲ್ ಪ್ರಾರಂಭಿಸಿ" },
+  "trialprotext": { "message": "ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಗೊಳಿಸಿ. ನಿಮ್ಮ ಪಾವತಿಗಳು ಸಂಪೂರ್ಣವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿವೆ." }
 }

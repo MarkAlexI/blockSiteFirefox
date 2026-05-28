@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Gefällt Ihnen BlockDistraction?" },
   "feedback_desc": { "message": "Ihr Feedback hilft uns sehr dabei, die Erweiterung weiterzuentwickeln." },
   "feedback_like": { "message": "Ja, funktioniert großartig!" },
-  "feedback_dislike": { "message": "Ich habe Probleme / Vorschläge" }
+  "feedback_dislike": { "message": "Ich habe Probleme / Vorschläge" },
+  "trialproheader": { "message": "Jetzt 7 Tage kostenlos testen" },
+  "trialprotext": { "message": "Jederzeit kündbar. Ihre Zahlungen sind sicher geschützt." }
 }

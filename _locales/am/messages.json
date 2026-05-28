@@ -265,5 +265,7 @@
   "feedback_title": { "message": "BlockDistraction ይወዳሉ?" },
   "feedback_desc": { "message": "አስተያየትዎ ቅጥያውን ለማሻሻል በጣም ይረዳናል።" },
   "feedback_like": { "message": "አዎ፣ በጣም ጥሩ ይሰራል!" },
-  "feedback_dislike": { "message": "ችግሮች / ጥቆማዎች አሉኝ" }
+  "feedback_dislike": { "message": "ችግሮች / ጥቆማዎች አሉኝ" },
+  "trialproheader": { "message": "የ 7 ቀናት ነፃ ሙከራዎን ይጀምሩ" },
+  "trialprotext": { "message": "በማንኛውም ጊዜ መሰረዝ ይችላሉ። ክፍያዎ በደህንነት የተጠበቀ ነው።" }
 }

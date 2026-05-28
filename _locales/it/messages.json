@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Ti piace BlockDistraction?" },
   "feedback_desc": { "message": "Il tuo feedback ci aiuta molto a migliorare l'estensione." },
   "feedback_like": { "message": "Sì, funziona alla grande!" },
-  "feedback_dislike": { "message": "Ho problemi / suggerimenti" }
+  "feedback_dislike": { "message": "Ho problemi / suggerimenti" },
+  "trialproheader": { "message": "Inizia la tua prova gratuita di 7 giorni" },
+  "trialprotext": { "message": "Cancella in qualsiasi momento. I tuoi pagamenti sono completamente protetti." }
 }

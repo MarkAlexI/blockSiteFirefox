@@ -265,5 +265,7 @@
   "feedback_title": { "message": "আপনার কি BlockDistraction পছন্দ হয়েছে?" },
   "feedback_desc": { "message": "আপনার মতামত এক্সটেনশনটি উন্নত করতে আমাদের অনেক সাহায্য করে।" },
   "feedback_like": { "message": "হ্যাঁ, দারুণ কাজ করে!" },
-  "feedback_dislike": { "message": "আমার সমস্যা / পরামর্শ আছে" }
+  "feedback_dislike": { "message": "আমার সমস্যা / পরামর্শ আছে" },
+  "trialproheader": { "message": "আপনার ৭ দিনের ফ্রি ট্রায়াল শুরু করুন" },
+  "trialprotext": { "message": "যেকোনো সময় বাতিল করতে পারবেন। আপনার পেমেন্ট সম্পূর্ণ সুরক্ষিত।" }
 }

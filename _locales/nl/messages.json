@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Vind je BlockDistraction leuk?" },
   "feedback_desc": { "message": "Jouw feedback helpt ons enorm om de extensie te verbeteren." },
   "feedback_like": { "message": "Ja, het werkt geweldig!" },
-  "feedback_dislike": { "message": "Ik heb problemen / suggesties" }
+  "feedback_dislike": { "message": "Ik heb problemen / suggesties" },
+  "trialproheader": { "message": "Probeer 7 dagen gratis" },
+  "trialprotext": { "message": "Annuleer wanneer je wilt. Veilig betalen." }
 }

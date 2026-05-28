@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Je, unapenda BlockDistraction?" },
   "feedback_desc": { "message": "Maoni yako yanatusaidia sana kuboresha kiendelezi hiki." },
   "feedback_like": { "message": "Ndiyo, inafanya kazi vizuri sana!" },
-  "feedback_dislike": { "message": "Nina matatizo / mapendekezo" }
+  "feedback_dislike": { "message": "Nina matatizo / mapendekezo" },
+  "trialproheader": { "message": "Anza jaribio lako la bure la siku 7" },
+  "trialprotext": { "message": "Ghairi wakati wowote. Malipo yako yanalindwa kwa usalama." }
 }

@@ -274,5 +274,7 @@
   "feedback_title": { "message": "هل يعجبك BlockDistraction؟" },
   "feedback_desc": { "message": "ملاحظاتك تساعدنا كثيرًا في تطوير الإضافة." },
   "feedback_like": { "message": "نعم، يعمل بشكل رائع!" },
-  "feedback_dislike": { "message": "لدي مشاكل / اقتراحات" }
+  "feedback_dislike": { "message": "لدي مشاكل / اقتراحات" },
+  "trialproheader": { "message": "ابدأ تجربتك المجانية لمدة 7 أيام" },
+  "trialprotext": { "message": "يمكنك الإلغاء في أي وقت. مدفوعاتك محمية وآمنة تماماً." }
 }

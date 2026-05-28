@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Σας αρέσει το BlockDistraction;" },
   "feedback_desc": { "message": "Τα σχόλιά σας μας βοηθούν πολύ να βελτιώσουμε την επέκταση." },
   "feedback_like": { "message": "Ναι, λειτουργεί εξαιρετικά!" },
-  "feedback_dislike": { "message": "Έχω προβλήματα / προτάσεις" }
+  "feedback_dislike": { "message": "Έχω προβλήματα / προτάσεις" },
+  "trialproheader": { "message": "Δοκιμάστε 7 ημέρες δωρεάν" },
+  "trialprotext": { "message": "Ακυρώστε όποτε θέλετε. Ασφαλείς συναλλαγές." }
 }

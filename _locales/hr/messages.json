@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Sviđa li vam se BlockDistraction?" },
   "feedback_desc": { "message": "Vaše povratne informacije nam puno pomažu u poboljšanju proširenja." },
   "feedback_like": { "message": "Da, radi odlično!" },
-  "feedback_dislike": { "message": "Imam problema / prijedloga" }
+  "feedback_dislike": { "message": "Imam problema / prijedloga" },
+  "trialproheader": { "message": "Isprobajte 7 dana besplatno" },
+  "trialprotext": { "message": "Otkazivanje bilo kada. Vaša plaćanja su sigurna." }
 }

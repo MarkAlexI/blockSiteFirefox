@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Tetszik a BlockDistraction?" },
   "feedback_desc": { "message": "Visszajelzésed nagyban segít nekünk a bővítmény fejlesztésében." },
   "feedback_like": { "message": "Igen, remekül működik!" },
-  "feedback_dislike": { "message": "Problémáim / javaslataim vannak" }
+  "feedback_dislike": { "message": "Problémáim / javaslataim vannak" },
+  "trialproheader": { "message": "Indítsd el a 7 napos ingyenes próbaidőszakot" },
+  "trialprotext": { "message": "Bármikor lemondható. A fizetésed teljes biztonságban van." }
 }

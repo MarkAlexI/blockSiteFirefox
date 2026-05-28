@@ -265,5 +265,7 @@
   "feedback_title": { "message": "BlockDistraction hoşunuza gidiyor mu?" },
   "feedback_desc": { "message": "Geri bildiriminiz uzantıyı geliştirmemize çok yardımcı oluyor." },
   "feedback_like": { "message": "Evet, harika çalışıyor!" },
-  "feedback_dislike": { "message": "Sorunlarım / önerilerim var" }
+  "feedback_dislike": { "message": "Sorunlarım / önerilerim var" },
+  "trialproheader": { "message": "7 gün ücretsiz deneyin" },
+  "trialprotext": { "message": "Dilediğiniz zaman iptal edin. Güvenli ödeme." }
 }

@@ -265,5 +265,7 @@
   "feedback_title": { "message": "BlockDistraction이 마음에 드시나요?" },
   "feedback_desc": { "message": "여러분의 피드백은 확장 프로그램을 개선하는 데 큰 도움이 됩니다." },
   "feedback_like": { "message": "네, 아주 잘 작동합니다!" },
-  "feedback_dislike": { "message": "문제 / 제안이 있습니다" }
+  "feedback_dislike": { "message": "문제 / 제안이 있습니다" },
+  "trialproheader": { "message": "7일 무료 체험 시작하기" },
+  "trialprotext": { "message": "언제든지 해지 가능. 결제 정보는 안전하게 보호됩니다." }
 }

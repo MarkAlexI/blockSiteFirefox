@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Gillar du BlockDistraction?" },
   "feedback_desc": { "message": "Din feedback hjälper oss mycket att förbättra tillägget." },
   "feedback_like": { "message": "Ja, det fungerar jättebra!" },
-  "feedback_dislike": { "message": "Jag har problem / förslag" }
+  "feedback_dislike": { "message": "Jag har problem / förslag" },
+  "trialproheader": { "message": "Prova 7 dagar gratis" },
+  "trialprotext": { "message": "Avsluta när du vill. Säkra betalningar." }
 }

@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Apakah Anda menyukai BlockDistraction?" },
   "feedback_desc": { "message": "Umpan balik Anda sangat membantu kami dalam mengembangkan ekstensi ini." },
   "feedback_like": { "message": "Ya, berfungsi dengan sangat baik!" },
-  "feedback_dislike": { "message": "Saya punya masalah / saran" }
+  "feedback_dislike": { "message": "Saya punya masalah / saran" },
+  "trialproheader": { "message": "Coba 7 hari gratis" },
+  "trialprotext": { "message": "Bisa batal kapan saja. Pembayaran aman terjamin." }
 }

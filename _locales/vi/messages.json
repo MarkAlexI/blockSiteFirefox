@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Bạn có thích BlockDistraction không?" },
   "feedback_desc": { "message": "Phản hồi của bạn giúp chúng tôi cải thiện tiện ích mở rộng rất nhiều." },
   "feedback_like": { "message": "Có, nó hoạt động rất tốt!" },
-  "feedback_dislike": { "message": "Tôi có vấn đề / đề xuất" }
+  "feedback_dislike": { "message": "Tôi có vấn đề / đề xuất" },
+  "trialproheader": { "message": "Dùng thử 7 ngày miễn phí" },
+  "trialprotext": { "message": "Hủy bất kỳ lúc nào. Thanh toán an toàn." }
 }

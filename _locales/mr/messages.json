@@ -264,5 +264,7 @@
   "feedback_title": { "message": "तुम्हाला BlockDistraction आवडते का?" },
   "feedback_desc": { "message": "तुमचा अभिप्राय आम्हाला हे विस्तार सुधारण्यास खूप मदत करतो." },
   "feedback_like": { "message": "होय, हे खूप छान काम करते!" },
-  "feedback_dislike": { "message": "मला समस्या / सूचना आहेत" }
+  "feedback_dislike": { "message": "मला समस्या / सूचना आहेत" },
+  "trialproheader": { "message": "तुमचा 7 दिवसांचा फ्री ट्रायल सुरू करा" },
+  "trialprotext": { "message": "कधीही कॅन्सल करा. तुमचे पेमेंट पूर्णपणे सुरक्षित आहे." }
 }

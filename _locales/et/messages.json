@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Kas sulle meeldib BlockDistraction?" },
   "feedback_desc": { "message": "Sinu tagasiside aitab meil laiendust oluliselt parandada." },
   "feedback_like": { "message": "Jah, see töötab suurepäraselt!" },
-  "feedback_dislike": { "message": "Mul on probleeme / ettepanekuid" }
+  "feedback_dislike": { "message": "Mul on probleeme / ettepanekuid" },
+  "trialproheader": { "message": "Alusta oma 7-päevast tasuta prooviperioodi" },
+  "trialprotext": { "message": "Tühista igal ajal. Sinu maksed on turvaliselt kaitstud." }
 }

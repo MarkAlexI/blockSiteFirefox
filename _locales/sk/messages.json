@@ -265,5 +265,7 @@
   "feedback_title": { "message": "Páči sa vám BlockDistraction?" },
   "feedback_desc": { "message": "Vaša spätná väzba nám veľmi pomáha zlepšovať rozšírenie." },
   "feedback_like": { "message": "Áno, funguje skvele!" },
-  "feedback_dislike": { "message": "Mám problémy / návrhy" }
+  "feedback_dislike": { "message": "Mám problémy / návrhy" },
+  "trialproheader": { "message": "Încearcă 7 zile gratuit" },
+  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." }
 }
