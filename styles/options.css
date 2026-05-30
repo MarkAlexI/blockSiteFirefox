@@ -278,6 +278,25 @@ header p {
   background: var(--secondary-gradient);
 }
 
+#rules-table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+#rules-table td:nth-child(1),
+#rules-table td:nth-child(2) {
+  max-width: 200px; 
+  word-break: break-all;
+}
+
+#rules-table td:last-child {
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -384,8 +403,13 @@ button:focus {
   background: #c82333;
 }
 
-.edit-mode input {
+.edit-mode input, 
+.edit-mode select {
   width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-mode input {
   padding: 0.25rem;
   border: 1px solid var(--border-light);
   border-radius: 4px;
@@ -503,16 +527,31 @@ footer {
 }
 
 .schedule-section {
-  margin-top: 0.625rem;
-  padding: 0.625rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-small);
+  border-left: 4px solid var(--primary-color);
+  width: 160px;
+  flex-shrink: 0;
 }
 
 .days-container {
   display: flex;
-  gap: 0.625rem;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.days-container label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 .days-container input[type="checkbox"] {
@@ -521,12 +560,16 @@ footer {
 
 .time-container {
   display: flex;
-  gap: 0.625rem;
-  margin-top: 0.625rem;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .time-container input[type="time"] {
-  width: 120px;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  background: var(--bg-secondary);
 }
 
 .pro-feature .schedule-section {

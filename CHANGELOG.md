@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.3] - 2026-05-30
+### Fixed
+- **Options Page:** Resolved a critical UI bug where the rule editing interface would break on desktop devices. Previously, long content in rules or the schedule container would push the "Save/Cancel" buttons off-screen or make them unreachable.
+- **Schedule Layout:** Converted the schedule grid to a compact vertical stack, preventing horizontal layout overflow.
+- **Action Buttons:** Enhanced layout stability to ensure action buttons remain accessible within the viewport during rule editing, regardless of content length or localization.
+- **UI/UX:** Added improved visual styling to schedule blocks (shadows, borders) for better consistency with the overall design.
+
 ## [3.8.2] — 2026-05-28
 ### Added
 - **Localization:** Added informative 7-day free trial notes (`trialproheader` and `trialprotext`) inside the Pro access section on the settings page, fully localized across all supported languages.
