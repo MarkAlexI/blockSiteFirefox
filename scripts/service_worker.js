@@ -28,11 +28,15 @@ async function syncLicenseKeyStatus() {
   }
   
   logger.log('License Sync: Checking stored key...');
+  const version = browser.runtime.getManifest().version;
   try {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key: currentKey })
+      body: JSON.stringify({
+        key: currentKey,
+        version
+      })
     });
     
     const data = await response.json();
