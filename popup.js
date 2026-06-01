@@ -49,18 +49,6 @@ class PopupPage {
   }
   
   initializeUI() {
-    const donateSpan = document.getElementById('donate-text');
-    const donateSpanText = t('donatespantext');
-    if (donateSpanText) {
-      donateSpan.innerText = donateSpanText;
-    }
-    
-    const donateButton = document.getElementById('donate-button');
-    const donateBtnText = t('donatebtntext');
-    if (donateBtnText) {
-      donateButton.innerText = donateBtnText;
-    }
-    
     this.setupMotivationalQuote();
   }
   
@@ -106,14 +94,6 @@ class PopupPage {
     optionsLink.addEventListener('click', (e) => {
       e.preventDefault();
       this.openOptionsPage();
-    });
-    
-    const donateButton = document.getElementById('donate-button');
-    const donateURL = 'https://revolut.me/markalexi';
-    
-    donateButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      window.open(donateURL, '_blank');
     });
     
     const feedbackButton = document.getElementById('feedback-btn');

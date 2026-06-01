@@ -3,6 +3,7 @@ import { ProManager } from '../pro/proManager.js';
 import { SettingsManager } from './settings.js';
 import { PasswordUtils } from '../pro/password.js';
 import Logger from '../utils/logger.js';
+import { VERIFY_API_URL } from '../utils/constants.js';
 
 const logger = new Logger('GoPro');
 
@@ -22,8 +23,6 @@ const licenseMessage = document.getElementById('license-message');
 
 const forceSyncBtn = document.getElementById('force-sync-btn');
 const logOutBtn = document.getElementById('log-out-btn');
-
-const VERIFY_API_URL = 'https://blockdistraction.com/api/verifyKey';
 
 function sendMessageToWorker(message) {
   return new Promise((resolve) => {
@@ -110,11 +109,15 @@ if (licenseForm) {
     licenseMessage.className = 'status-message success show';
     licenseSubmitBtn.disabled = true;
     
+    const version = browser.runtime.getManifest().version;
     try {
       const response = await fetch(VERIFY_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: key })
+        body: JSON.stringify({
+          key: key,
+          version
+        })
       });
       
       const data = await response.json();
