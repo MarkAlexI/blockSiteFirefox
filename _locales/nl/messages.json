@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Ongeldige doorstuur-URL" },
   "blockurlonlyascii": { "message": "Alleen ASCII toegestaan in blok-URL" },
   "blockurlonlylower": { "message": "Alleen kleine letters toegestaan" },
-  "donatespantext": { "message": "Vind je deze extensie leuk? Ondersteun de ontwikkeling!" },
-  "donatebtntext": { "message": "Doneren" },
   "blockthat": { "message": "Blokkeer deze site" },
   "sendfeedbackbutton": { "message": "Feedback verzenden" },
   "sendfeedbacksubject": { "message": "Feedback voor BlockDistraction" },

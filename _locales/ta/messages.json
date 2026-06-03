@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "தவறான மாற்ற URL" },
   "blockurlonlyascii": { "message": "தடுக்கும் URL இல் ASCII எழுத்துகள் மட்டுமே அனுமதிக்கப்படுகின்றன" },
   "blockurlonlylower": { "message": "கீழ் எழுத்துகள் மட்டுமே அனுமதிக்கப்படுகின்றன" },
-  "donatespantext": { "message": "இந்த விரிவாக்கம் பிடித்ததா? அதன் மேம்பாட்டுக்கு ஆதரவளியுங்கள்!" },
-  "donatebtntext": { "message": "தானம் செய்" },
   "blockthat": { "message": "இந்த தளத்தைத் தடுப்பு" },
   "sendfeedbackbutton": { "message": "பின்சுட்டி அனுப்பு" },
   "sendfeedbacksubject": { "message": "BlockDistraction க்கு பின்சுட்டி" },

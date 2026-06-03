@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Neteisingas peradresavimo URL" },
   "blockurlonlyascii": { "message": "Blokuojamame URL galima naudoti tik ASCII simbolius" },
   "blockurlonlylower": { "message": "Galimi tik mažieji raidės" },
-  "donatespantext": { "message": "Patinka ši plėtinys? Paremkite jo kūrimą!" },
-  "donatebtntext": { "message": "Paaukoti" },
   "blockthat": { "message": "Blokuoti šią svetainę" },
   "sendfeedbackbutton": { "message": "Siųsti atsiliepimą" },
   "sendfeedbacksubject": { "message": "Atsiliepimas apie BlockDistraction" },

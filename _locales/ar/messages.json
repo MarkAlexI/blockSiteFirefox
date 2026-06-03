@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "رابط إعادة التوجيه غير صالح" },
   "blockurlonlyascii": { "message": "يسمح فقط بأحرف ASCII في رابط الحظر" },
   "blockurlonlylower": { "message": "يسمح فقط بالأحرف الصغيرة" },
-  "donatespantext": { "message": "هل أعجبك الامتداد؟ ادعم تطويره!" },
-  "donatebtntext": { "message": "تبرع" },
   "blockthat": { "message": "احظر هذا الموقع" },
   "sendfeedbackbutton": { "message": "إرسال ملاحظات" },
   "sendfeedbacksubject": { "message": "ملاحظات حول BlockDistraction" },

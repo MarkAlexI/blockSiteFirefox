@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Ungültige Weiterleitungs-URL" },
   "blockurlonlyascii": { "message": "In der Block-URL sind nur ASCII-Zeichen erlaubt" },
   "blockurlonlylower": { "message": "Nur Kleinbuchstaben erlaubt" },
-  "donatespantext": { "message": "Gefällt Ihnen diese Erweiterung? Unterstützen Sie die Entwicklung!" },
-  "donatebtntext": { "message": "Spenden" },
   "blockthat": { "message": "Diese Seite blockieren" },
   "sendfeedbackbutton": { "message": "Feedback senden" },
   "sendfeedbacksubject": { "message": "Feedback für BlockDistraction" },

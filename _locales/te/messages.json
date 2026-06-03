@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "తప్పుడు రీడైరెక్ట్ URL" },
   "blockurlonlyascii": { "message": "బ్లాక్ URL లో కేవలం ASCII అక్షరాలు మాత్రమే ఉండాలి" },
   "blockurlonlylower": { "message": "కేవలం చిన్న అక్షరాలు అనుమతించబడతాయి" },
-  "donatespantext": { "message": "ఈ విస్తరణ మీకు ఇష్టం అయితే, దాని అభివృద్ధికి మద్దతు ఇవ్వండి!" },
-  "donatebtntext": { "message": "దానం చేయండి" },
   "blockthat": { "message": "ఈ సైట్‌ని బ్లాక్ చేయండి" },
   "sendfeedbackbutton": { "message": "ప్రతిక్రియ పంపండి" },
   "sendfeedbacksubject": { "message": "BlockDistraction కోసం ప్రతిక్రియ" },

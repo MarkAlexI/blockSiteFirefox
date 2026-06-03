@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "અમાન્ય રીડાયરેક્ટ URL" },
   "blockurlonlyascii": { "message": "Block URL માં ફક્ત ASCII મંજૂર છે" },
   "blockurlonlylower": { "message": "ફક્ત લોઅરકેસ અક્ષરો મંજૂર છે" },
-  "donatespantext": { "message": "આ એક્સ્ટેન્શન ગમે છે? તેનો વિકાસ સપોર્ટ કરો!" },
-  "donatebtntext": { "message": "દાન કરો" },
   "blockthat": { "message": "આ સાઇટ બ્લોક કરો" },
   "sendfeedbackbutton": { "message": "પ્રતિસાદ મોકલો" },
   "sendfeedbacksubject": { "message": "BlockDistraction માટે પ્રતિસાદ" },

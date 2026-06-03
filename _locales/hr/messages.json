@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Nevažeći URL preusmjeravanja" },
   "blockurlonlyascii": { "message": "Samo ASCII znakovi su dopušteni u URL-u za blokiranje" },
   "blockurlonlylower": { "message": "Dopuštena su samo mala slova" },
-  "donatespantext": { "message": "Sviđa vam se ovo proširenje? Podržite njegov razvoj!" },
-  "donatebtntext": { "message": "Doniraj" },
   "blockthat": { "message": "Blokiraj ovu stranicu" },
   "sendfeedbackbutton": { "message": "Pošalji povratnu informaciju" },
   "sendfeedbacksubject": { "message": "Povratna informacija za BlockDistraction" },

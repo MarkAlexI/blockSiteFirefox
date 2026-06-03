@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Invalid na Redirect URL" },
   "blockurlonlyascii": { "message": "ASCII lamang ang pinapayagan sa Block URL" },
   "blockurlonlylower": { "message": "Maliliit na letra lamang ang pinapayagan" },
-  "donatespantext": { "message": "Gusto mo ba ang extension na ito? Suportahan ang development nito!" },
-  "donatebtntext": { "message": "Mag-donate" },
   "blockthat": { "message": "Harangan ang Site na ito" },
   "sendfeedbackbutton": { "message": "Magpadala ng Feedback" },
   "sendfeedbacksubject": { "message": "Feedback para sa BlockDistraction" },

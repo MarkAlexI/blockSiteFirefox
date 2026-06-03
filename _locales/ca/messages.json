@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "URL de redirecció no vàlid" },
   "blockurlonlyascii": { "message": "Només es permet ASCII a l'URL de bloqueig" },
   "blockurlonlylower": { "message": "Només es permeten lletres minúscules" },
-  "donatespantext": { "message": "T'agrada aquesta extensió? Dona suport al seu desenvolupament!" },
-  "donatebtntext": { "message": "Dona" },
   "blockthat": { "message": "Bloqueja aquest lloc" },
   "sendfeedbackbutton": { "message": "Envia comentaris" },
   "sendfeedbacksubject": { "message": "Comentaris sobre BlockDistraction" },

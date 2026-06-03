@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "כתובת הפנייה לא חוקית" },
   "blockurlonlyascii": { "message": "רק תווים ASCII מותרים בכתובת החסימה" },
   "blockurlonlylower": { "message": "רק אותיות קטנות מותרים" },
-  "donatespantext": { "message": "אוהבים את התוסף הזה? תמכו בפיתוחו!" },
-  "donatebtntext": { "message": "תרמו" },
   "blockthat": { "message": "חסום אתר זה" },
   "sendfeedbackbutton": { "message": "שלח משוב" },
   "sendfeedbacksubject": { "message": "משוב עבור BlockDistraction" },

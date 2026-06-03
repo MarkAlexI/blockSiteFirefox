@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Geçersiz yönlendirme URL'si" },
   "blockurlonlyascii": { "message": "Engelleme URL'si yalnızca ASCII karakterler içerebilir" },
   "blockurlonlylower": { "message": "Yalnızca küçük harflere izin verilir" },
-  "donatespantext": { "message": "Bu uzantıyı beğendiniz mi? Geliştirmeyi destekleyin!" },
-  "donatebtntext": { "message": "Bağış Yap" },
   "blockthat": { "message": "Bu Siteyi Engelle" },
   "sendfeedbackbutton": { "message": "Geri Bildirim Gönder" },
   "sendfeedbacksubject": { "message": "BlockDistraction için Geri Bildirim" },

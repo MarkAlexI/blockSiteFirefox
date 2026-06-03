@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "ଅବୈଧ ପୁନଃନିର୍ଦେଶନ URL" },
   "blockurlonlyascii": { "message": "ଅବରୋଧ URL ପାଇଁ କେବଳ ASCII ଉପଲବ୍ଧ" },
   "blockurlonlylower": { "message": "କେବଳ ଛୋଟ ଅକ୍ଷର ଉପଲବ୍ଧ" },
-  "donatespantext": { "message": "ଏହି ଏକ୍ସଟେନସନ ପସନ୍ଦ କରୁଛନ୍ତି କି? ଏହାର ବିକାଶକୁ ସମର୍ଥନ କରନ୍ତୁ!" },
-  "donatebtntext": { "message": "ଦାନ କରନ୍ତୁ" },
   "blockthat": { "message": "ଏହି ସାଇଟକୁ ଅବରୋଧ କରନ୍ତୁ" },
   "sendfeedbackbutton": { "message": "ମତାମତ ପଠାନ୍ତୁ" },
   "sendfeedbacksubject": { "message": "ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ ପାଇଁ ମତାମତ" },

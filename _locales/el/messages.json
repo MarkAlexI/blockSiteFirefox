@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Μη έγκυρο URL ανακατεύθυνσης" },
   "blockurlonlyascii": { "message": "Επιτρέπεται μόνο ASCII στο URL αποκλεισμού" },
   "blockurlonlylower": { "message": "Επιτρέπονται μόνο πεζά γράμματα" },
-  "donatespantext": { "message": "Σας αρέσει αυτή η επέκταση; Υποστηρίξτε την ανάπτυξή της!" },
-  "donatebtntext": { "message": "Δωρεά" },
   "blockthat": { "message": "Αποκλεισμός αυτής της σελίδας" },
   "sendfeedbackbutton": { "message": "Αποστολή σχολίων" },
   "sendfeedbacksubject": { "message": "Σχόλια για το BlockDistraction" },

@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Nesprávna URL adresa presmerovania" },
   "blockurlonlyascii": { "message": "URL na blokovanie môže obsahovať iba ASCII znaky" },
   "blockurlonlylower": { "message": "Povolené sú iba malé písmená" },
-  "donatespantext": { "message": "Páči sa vám toto rozšírenie? Podporte jeho vývoj!" },
-  "donatebtntext": { "message": "Podporiť" },
   "blockthat": { "message": "Zablokovať túto stránku" },
   "sendfeedbackbutton": { "message": "Odoslať spätnú väzbu" },
   "sendfeedbacksubject": { "message": "Spätná väzba na BlockDistraction" },

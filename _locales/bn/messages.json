@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "অবৈধ রিডাইরেক্ট URL" },
   "blockurlonlyascii": { "message": "ব্লক করার URL-এ কেবল ASCII অক্ষর অনুমোদিত" },
   "blockurlonlylower": { "message": "শুধুমাত্র ছোট হাতের অক্ষর অনুমোদিত" },
-  "donatespantext": { "message": "এক্সটেনশনটি কি আপনার ভালো লেগেছে? এর উন্নয়নকে সমর্থন করুন!" },
-  "donatebtntext": { "message": "দান করুন" },
   "blockthat": { "message": "এই সাইট ব্লক করুন" },
   "sendfeedbackbutton": { "message": "মতামত পাঠান" },
   "sendfeedbacksubject": { "message": "BlockDistraction নিয়ে মতামত" },

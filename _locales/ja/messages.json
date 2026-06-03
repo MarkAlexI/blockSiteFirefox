@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "無効なリダイレクトURL" },
   "blockurlonlyascii": { "message": "ブロックURLはASCIIのみ使用可能" },
   "blockurlonlylower": { "message": "小文字のみ使用可能" },
-  "donatespantext": { "message": "この拡張機能が気に入ったら、開発をサポートしてください！" },
-  "donatebtntext": { "message": "寄付" },
   "blockthat": { "message": "このサイトをブロック" },
   "sendfeedbackbutton": { "message": "フィードバックを送信" },
   "sendfeedbacksubject": { "message": "BlockDistractionへのフィードバック" },

@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "ಅಮಾನ್ಯ ರೀಡೈರೆಕ್ಟ್ URL" },
   "blockurlonlyascii": { "message": "ಬ್ಲಾಕ್ URL ನಲ್ಲಿ ಕೇವಲ ASCII ಲಭ್ಯವಿದೆ" },
   "blockurlonlylower": { "message": "ಕೇವಲ ಚಿಕ್ಕ ಅಕ್ಷರಗಳು ಲಭ್ಯವಿವೆ" },
-  "donatespantext": { "message": "ಈ ವಿಸ್ತರಣೆ ನಿಮಗೆ ಇಷ್ಟವಿದ್ದರೆ, ಅದರ ಅಭಿವೃದ್ಧಿಯನ್ನು ಬೆಂಬಲಿಸಿ!" },
-  "donatebtntext": { "message": "ದಾನ ಮಾಡಿ" },
   "blockthat": { "message": "ಈ ಸೈಟ್ ಅನ್ನು ತಡೆಯಿರಿ" },
   "sendfeedbackbutton": { "message": "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ" },
   "sendfeedbacksubject": { "message": "BlockDistraction ಗೆ ಪ್ರತಿಕ್ರಿಯೆ" },

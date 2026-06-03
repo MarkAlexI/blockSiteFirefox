@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "잘못된 리디렉션 URL" },
   "blockurlonlyascii": { "message": "차단 URL에는 ASCII만 허용됩니다" },
   "blockurlonlylower": { "message": "소문자만 허용됩니다" },
-  "donatespantext": { "message": "이 확장 기능이 마음에 드시나요? 개발을 지원해주세요!" },
-  "donatebtntext": { "message": "기부" },
   "blockthat": { "message": "이 사이트 차단" },
   "sendfeedbackbutton": { "message": "피드백 보내기" },
   "sendfeedbacksubject": { "message": "BlockDistraction 피드백" },

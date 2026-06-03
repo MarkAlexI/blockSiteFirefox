@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Неверный URL перенаправления" },
   "blockurlonlyascii": { "message": "В URL для блокировки допускаются только ASCII-символы" },
   "blockurlonlylower": { "message": "Разрешены только строчные буквы" },
-  "donatespantext": { "message": "Нравится это расширение? Поддержите разработку!" },
-  "donatebtntext": { "message": "Поддержать" },
   "blockthat": { "message": "Заблокировать этот сайт" },
   "sendfeedbackbutton": { "message": "Отправить отзыв" },
   "sendfeedbacksubject": { "message": "Отзыв о BlockDistraction" },

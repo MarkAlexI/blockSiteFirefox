@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Vale suunamise URL" },
   "blockurlonlyascii": { "message": "Blokeeritavas URL-is lubatud ainult ASCII" },
   "blockurlonlylower": { "message": "Lubatud ainult väiketähed" },
-  "donatespantext": { "message": "Kas sulle meeldib see laiendus? Toeta selle arengut!" },
-  "donatebtntext": { "message": "Toeta" },
   "blockthat": { "message": "Blokeeri see sait" },
   "sendfeedbackbutton": { "message": "Saada tagasisidet" },
   "sendfeedbacksubject": { "message": "Tagasiside BlockDistractionile" },

@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Ongeldige herlei-URL" },
   "blockurlonlyascii": { "message": "Blok-URL ondersteun net ASCII" },
   "blockurlonlylower": { "message": "Blok-URL ondersteun net kleinletters" },
-  "donatespantext": { "message": "Hou jy van hierdie uitbreiding? Steun die ontwikkeling daarvan!" },
-  "donatebtntext": { "message": "Skenk" },
   "blockthat": { "message": "Blokkeer Hierdie Werf" },
   "sendfeedbackbutton": { "message": "Stuur Terugvoer" },
   "sendfeedbacksubject": { "message": "Terugvoer vir BlockDistraction" },

@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Nieprawidłowy URL przekierowania" },
   "blockurlonlyascii": { "message": "Dozwolone tylko znaki ASCII w blokowanym URL" },
   "blockurlonlylower": { "message": "Dozwolone tylko małe litery" },
-  "donatespantext": { "message": "Podoba Ci się to rozszerzenie? Wesprzyj rozwój!" },
-  "donatebtntext": { "message": "Wesprzyj" },
   "blockthat": { "message": "Zablokuj tę stronę" },
   "sendfeedbackbutton": { "message": "Prześlij opinię" },
   "sendfeedbacksubject": { "message": "Opinia o BlockDistraction" },

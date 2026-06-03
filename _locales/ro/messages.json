@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "URL de redirecționare invalid" },
   "blockurlonlyascii": { "message": "Sunt permise doar caractere ASCII în URL-ul de blocare" },
   "blockurlonlylower": { "message": "Sunt permise doar litere mici" },
-  "donatespantext": { "message": "Îți place această extensie? Sprijină dezvoltarea!" },
-  "donatebtntext": { "message": "Sprijină" },
   "blockthat": { "message": "Blochează acest site" },
   "sendfeedbackbutton": { "message": "Trimite feedback" },
   "sendfeedbacksubject": { "message": "Feedback pentru BlockDistraction" },

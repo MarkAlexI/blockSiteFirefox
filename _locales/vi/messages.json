@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "URL chuyển hướng không hợp lệ" },
   "blockurlonlyascii": { "message": "URL chặn chỉ được phép ký tự ASCII" },
   "blockurlonlylower": { "message": "Chỉ cho phép chữ thường" },
-  "donatespantext": { "message": "Thích tiện ích này? Hỗ trợ phát triển nó!" },
-  "donatebtntext": { "message": "Quyên góp" },
   "blockthat": { "message": "Chặn trang này" },
   "sendfeedbackbutton": { "message": "Gửi phản hồi" },
   "sendfeedbacksubject": { "message": "Phản hồi cho BlockDistraction" },

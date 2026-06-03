@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Felaktig omdirigerings-URL" },
   "blockurlonlyascii": { "message": "Blockerad URL kan endast innehålla ASCII-tecken" },
   "blockurlonlylower": { "message": "Endast små bokstäver är tillåtna" },
-  "donatespantext": { "message": "Gillar du detta tillägg? Stöd utvecklingen!" },
-  "donatebtntext": { "message": "Donera" },
   "blockthat": { "message": "Blockera den här webbplatsen" },
   "sendfeedbackbutton": { "message": "Skicka feedback" },
   "sendfeedbacksubject": { "message": "Feedback för BlockDistraction" },

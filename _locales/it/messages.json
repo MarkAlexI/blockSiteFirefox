@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "URL di reindirizzamento non valido" },
   "blockurlonlyascii": { "message": "Solo caratteri ASCII consentiti nell'URL da bloccare" },
   "blockurlonlylower": { "message": "Consentite solo lettere minuscole" },
-  "donatespantext": { "message": "Ti piace questa estensione? Supporta lo sviluppo!" },
-  "donatebtntext": { "message": "Dona" },
   "blockthat": { "message": "Blocca questo sito" },
   "sendfeedbackbutton": { "message": "Invia Feedback" },
   "sendfeedbacksubject": { "message": "Feedback per BlockDistraction" },

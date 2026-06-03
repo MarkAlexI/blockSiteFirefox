@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Napačen preusmeritveni URL" },
   "blockurlonlyascii": { "message": "Blokirni URL lahko vsebuje samo znake ASCII" },
   "blockurlonlylower": { "message": "Dovoljene so le male črke" },
-  "donatespantext": { "message": "Vam je to razširitev všeč? Podprite njen razvoj!" },
-  "donatebtntext": { "message": "Podpri" },
   "blockthat": { "message": "Blokiraj to spletno mesto" },
   "sendfeedbackbutton": { "message": "Pošlji povratne informacije" },
   "sendfeedbacksubject": { "message": "Povratne informacije za BlockDistraction" },

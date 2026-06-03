@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "URL pengalihan tidak sah" },
   "blockurlonlyascii": { "message": "Hanya ASCII dibenarkan dalam URL blok" },
   "blockurlonlylower": { "message": "Hanya huruf kecil dibenarkan" },
-  "donatespantext": { "message": "Suka peluasan ini? Sokong pembangunannya!" },
-  "donatebtntext": { "message": "Derma" },
   "blockthat": { "message": "Sekat Laman Ini" },
   "sendfeedbackbutton": { "message": "Hantar Maklum Balas" },
   "sendfeedbacksubject": { "message": "Maklum Balas untuk BlockDistraction" },

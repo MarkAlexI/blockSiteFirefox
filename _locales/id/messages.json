@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "URL redirect tidak valid" },
   "blockurlonlyascii": { "message": "Hanya ASCII yang diperbolehkan di URL blokir" },
   "blockurlonlylower": { "message": "Hanya huruf kecil yang diperbolehkan" },
-  "donatespantext": { "message": "Suka ekstensi ini? Dukung pengembangannya!" },
-  "donatebtntext": { "message": "Donasi" },
   "blockthat": { "message": "Blokir Situs Ini" },
   "sendfeedbackbutton": { "message": "Kirim Masukan" },
   "sendfeedbacksubject": { "message": "Masukan untuk BlockDistraction" },

@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Invalid redirect URL" },
   "blockurlonlyascii": { "message": "Available only ASCII on block URL" },
   "blockurlonlylower": { "message": "Available only lowercase letters" },
-  "donatespantext": { "message": "Like this extension? Support its development!" },
-  "donatebtntext": { "message": "Donate" },
   "blockthat": { "message": "Block This Site" },
   "sendfeedbackbutton": { "message": "Send Feedback" },
   "sendfeedbacksubject": { "message": "Feedback for BlockDistraction" },

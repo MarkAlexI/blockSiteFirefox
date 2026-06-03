@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Nederīgs pāradresācijas URL" },
   "blockurlonlyascii": { "message": "Bloķējamajā URL iespējami tikai ASCII simboli" },
   "blockurlonlylower": { "message": "Pieejamas tikai mazas burtu rakstzīmes" },
-  "donatespantext": { "message": "Patīk šis paplašinājums? Atbalsti tā izstrādi!" },
-  "donatebtntext": { "message": "Ziedot" },
   "blockthat": { "message": "Bloķēt šo vietni" },
   "sendfeedbackbutton": { "message": "Sūtīt atsauksmi" },
   "sendfeedbacksubject": { "message": "Atsauksme par BlockDistraction" },

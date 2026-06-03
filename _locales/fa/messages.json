@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "آدرس هدایت مجدد نامعتبر است" },
   "blockurlonlyascii": { "message": "فقط حروف ASCII در آدرس وب مجاز است" },
   "blockurlonlylower": { "message": "فقط حروف کوچک مجاز است" },
-  "donatespantext": { "message": "این افزونه را دوست دارید؟ از توسعه آن حمایت کنید!" },
-  "donatebtntext": { "message": "حمایت" },
   "blockthat": { "message": "این سایت را مسدود کن" },
   "sendfeedbackbutton": { "message": "ارسال بازخورد" },
   "sendfeedbacksubject": { "message": "بازخورد برای BlockDistraction" },

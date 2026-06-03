@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "የተሳሳተ የመልሶ መምሪያ URL" },
   "blockurlonlyascii": { "message": "የመከልከያ URL ለ ASCII ብቻ ይደገፋል" },
   "blockurlonlylower": { "message": "የመከልከያ URL ለትንሽ ፊደሎች ብቻ ይደገፋል" },
-  "donatespantext": { "message": "ይህን ኤክስቴንሽን ወደዱ? ልማቱን ይደግፉ!" },
-  "donatebtntext": { "message": "ይለግሱ" },
   "blockthat": { "message": "ይህን ጣቢያ ከልክል" },
   "sendfeedbackbutton": { "message": "ግብረመልስ ላክ" },
   "sendfeedbacksubject": { "message": "ለ BlockDistraction ግብረመልስ" },

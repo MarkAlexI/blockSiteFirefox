@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Невалиден URL за пренасочване" },
   "blockurlonlyascii": { "message": "Разрешени са само ASCII символи в URL за блокиране" },
   "blockurlonlylower": { "message": "Разрешени са само малки букви" },
-  "donatespantext": { "message": "Харесва ли ви разширението? Подкрепете развитието му!" },
-  "donatebtntext": { "message": "Дарете" },
   "blockthat": { "message": "Блокирай този сайт" },
   "sendfeedbackbutton": { "message": "Изпратете обратна връзка" },
   "sendfeedbacksubject": { "message": "Обратна връзка за BlockDistraction" },

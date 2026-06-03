@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Ugyldig omdirigerings-URL" },
   "blockurlonlyascii": { "message": "Kun ASCII er tilladt i blok-URL" },
   "blockurlonlylower": { "message": "Kun små bogstaver er tilladt" },
-  "donatespantext": { "message": "Kan du lide denne udvidelse? Støt udviklingen!" },
-  "donatebtntext": { "message": "Doner" },
   "blockthat": { "message": "Bloker dette websted" },
   "sendfeedbackbutton": { "message": "Send feedback" },
   "sendfeedbacksubject": { "message": "Feedback til BlockDistraction" },

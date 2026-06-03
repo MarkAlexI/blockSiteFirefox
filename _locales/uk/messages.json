@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Неправильний URL перенаправлення" },
   "blockurlonlyascii": { "message": "У URL для блокування можна використовувати лише ASCII" },
   "blockurlonlylower": { "message": "Дозволені лише малі літери" },
-  "donatespantext": { "message": "Подобається розширення? Підтримайте його розвиток!" },
-  "donatebtntext": { "message": "Пожертвувати" },
   "blockthat": { "message": "Заблокувати цей сайт" },
   "sendfeedbackbutton": { "message": "Надіслати відгук" },
   "sendfeedbacksubject": { "message": "Відгук для BlockDistraction" },

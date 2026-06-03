@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Neplatná URL pro přesměrování" },
   "blockurlonlyascii": { "message": "V URL pro blokování jsou povoleny pouze znaky ASCII" },
   "blockurlonlylower": { "message": "Povolené jsou pouze malé písmena" },
-  "donatespantext": { "message": "Líbí se vám toto rozšíření? Podpořte jeho vývoj!" },
-  "donatebtntext": { "message": "Darovat" },
   "blockthat": { "message": "Zablokovat tuto stránku" },
   "sendfeedbackbutton": { "message": "Odeslat zpětnou vazbu" },
   "sendfeedbacksubject": { "message": "Zpětná vazba pro BlockDistraction" },

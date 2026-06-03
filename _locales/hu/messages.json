@@ -23,8 +23,6 @@
   "wrongredirecturl": { "message": "Érvénytelen átirányítási URL" },
   "blockurlonlyascii": { "message": "Csak ASCII karakterek engedélyezettek a blokkolási URL-ben" },
   "blockurlonlylower": { "message": "Csak kisbetűk engedélyezettek" },
-  "donatespantext": { "message": "Tetszik ez a kiegészítő? Támogasd a fejlesztést!" },
-  "donatebtntext": { "message": "Adományozás" },
   "blockthat": { "message": "Blokkolja ezt az oldalt" },
   "sendfeedbackbutton": { "message": "Visszajelzés küldése" },
   "sendfeedbacksubject": { "message": "Visszajelzés a BlockDistraction-hoz" },
