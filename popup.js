@@ -54,7 +54,7 @@ class PopupPage {
   
   setupMotivationalQuote() {
     const quoteElement = document.getElementById('motivational-quote');
-    const totalQuotes = 30;
+    const totalQuotes = 40;
     const randomIndex = Math.floor(Math.random() * totalQuotes) + 1;
     const quoteKey = `quote${randomIndex}`;
     const message = t(quoteKey);
