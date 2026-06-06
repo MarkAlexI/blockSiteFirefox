@@ -247,47 +247,13 @@ button:disabled {
   text-align: center;
 }
 
-#donate-container {
-  position: absolute;
-  top: 0.625rem;
-  right: 0.625rem;
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 0.3125rem 0.625rem;
-  border-radius: 8px;
-  box-shadow: var(--shadow-small);
-}
-
-#donate-text {
-  font-size: 0.75rem;
-  margin-right: 0.5rem;
-  color: var(--text-secondary);
-}
-
-#donate-button {
-  background-color: #ffcc00;
-  color: var(--text-primary);
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: bold;
-  transition: var(--transition);
-}
-
-#donate-button:hover {
-  background-color: #e6b800;
-}
-
 #motivational-quote {
   font-style: italic;
   font-size: clamp(0.875rem, 2vw, 1rem);
-  color: #444;
   text-align: center;
   margin-bottom: 0.9375rem;
   padding: 0 clamp(0.625rem, 2vw, 0.625rem);
-  opacity: 0.9;
+  font-weight: bold;
 }
 
 .privacy-container {
