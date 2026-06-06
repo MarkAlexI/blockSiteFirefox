@@ -25,6 +25,14 @@ body {
   background-color: var(--bg-light);
   color: var(--text-primary);
   line-height: 1.5;
+  opacity: 0;
+  overflow-y: hidden;
+  transition: opacity 0.1s ease-in-out;
+}
+
+body.ready {
+  opacity: 1;
+  overflow-y: auto;
 }
 
 .hidden {

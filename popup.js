@@ -292,7 +292,7 @@ class PopupPage {
     if (isMuted) {
       ruleDiv.title = t('category_muted_no_edit');
     }
-
+    
     const blockURL = document.createElement('input');
     blockURL.type = 'text';
     blockURL.placeholder = t('blockurl');
@@ -532,4 +532,14 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeNoSpaceInputs();
+  
+  setTimeout(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+    
+    document.body.classList.add('ready')
+  }, 50);
 });
