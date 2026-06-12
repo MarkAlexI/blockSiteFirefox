@@ -10,6 +10,7 @@ import { PasswordUtils } from './pro/password.js';
 import { initializeNoSpaceInputs } from './utils/noSpaces.js';
 import Logger from './utils/logger.js';
 import { MAX_RULES_LIMIT } from './utils/constants.js';
+import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 
 const logger = new Logger('Popup');
 
@@ -23,6 +24,7 @@ class PopupPage {
     this.addRuleButton = document.getElementById('add-rule');
     this.statusOutput = document.getElementById('status');
     this.currentModeElement = document.getElementById('current-mode');
+    this.scrollToTopBtn = document.getElementById('scrollToTopBtn');
     
     this.thisTabs = [];
     this.settings = {};
@@ -37,6 +39,7 @@ class PopupPage {
     this.setupEventListeners();
     await this.loadSettings();
     await this.loadCurrentTabs();
+    mountScroll(this.currentModeElement, this.scrollToTopBtn);
     
     try {
       this.isPro = await ProManager.isPro();
@@ -113,6 +116,8 @@ class PopupPage {
       }
       this.createRuleInputs();
     });
+    
+    this.scrollToTopBtn.addEventListener('click', () => scrollToTop());
   }
   
   openOptionsPage() {
@@ -541,5 +546,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     document.body.classList.add('ready')
-  }, 50);
+  }, 75);
 });

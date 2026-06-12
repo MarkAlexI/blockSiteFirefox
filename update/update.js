@@ -4,9 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'Introducing Category Blocking for Pro users - effortlessly pause or resume blocking for entire groups like Social Media, News, or Games with a single click.',
-    'Rules now feature Hierarchical Management: they automatically become inactive and read-only when their parent category is unblocked, providing better visual clarity.',
-    'Enjoy a redesigned, cleaner interface with smooth animations and collapsible settings sections, ensuring that advanced options stay out of your way until you need them.',
+    'Added a scroll-to-top button for faster navigation inside the popup.',
+    'Improved popup usability when working with longer content.',
+    'Fixed multiple issues related to saving and updating blocking rules.',
+    'General stability and reliability improvements.'
   ];
   
   const ul = document.getElementById('features');

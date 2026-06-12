@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.9.0] - 2026-06-12
+### Added
+- Added a scroll-to-top button that appears when the popup content is scrolled down.
+
 ## [3.8.11] - 2026-06-11
 ### Improved
 - Added localization support for Pro mode context menu entries.
