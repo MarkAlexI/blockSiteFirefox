@@ -47,13 +47,11 @@
   line-height: .9rem;
   height: 3rem;
   width: 3rem;
-  
   position: fixed;
-  bottom: 8rem;
+  bottom: 3rem;
   right: 2rem;
   z-index: 100;
   opacity: 0;
-  transform: translateY(100px);
   transition: all 0.5s ease;
 }
 
