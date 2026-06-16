@@ -76,15 +76,7 @@ export class RulesManager {
     if (!blockURL || blockURL.trim() === '') {
       errors.push('blockurl_empty');
     }
-    
-    if (blockURL && !isValidAscii(blockURL)) {
-      errors.push('blockurl_ascii');
-    }
-    
-    if (blockURL && !isOnlyLowerCase(blockURL)) {
-      errors.push('blockurl_lowercase');
-    }
-    
+
     if (redirectURL && !isValidURL(redirectURL)) {
       errors.push('redirect_invalid');
     }
