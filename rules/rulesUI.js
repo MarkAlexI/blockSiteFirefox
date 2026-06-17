@@ -435,8 +435,7 @@ export class RulesUI {
   getValidationMessage(errorType) {
     const messages = {
       'blockurl_empty': t('blockurl'),
-      'blockurl_ascii': t('blockurlonlyascii'),
-      'blockurl_lowercase': t('blockurlonlylower'),
+      'blockurl_invalid': t('wrongblockurl'),
       'redirect_invalid': t('wrongredirecturl'),
       'invalid_days': t('invaliddays') || 'Invalid days selected',
       'invalid_time_format': t('invalidtimeformat') || 'Invalid time format (HH:MM)',

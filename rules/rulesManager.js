@@ -1,7 +1,7 @@
 import { normalizePathRule } from './normalizePathRule.js';
+import { normalizePathSegment } from './normalizePathSegment.js';
 import { isValidURL } from '../scripts/isValidURL.js';
-import { isValidAscii } from '../scripts/isValidAscii.js';
-import { isOnlyLowerCase } from '../scripts/isOnlyLowerCase.js';
+import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
 import Logger from '../utils/logger.js';
 
 export class RulesManager {
@@ -77,6 +77,10 @@ export class RulesManager {
       errors.push('blockurl_empty');
     }
 
+    if (blockURL &&  !isValidPathSegment(blockURL)) {
+      errors.push('blockurl_invalid');
+    }
+    
     if (redirectURL && !isValidURL(redirectURL)) {
       errors.push('redirect_invalid');
     }
@@ -115,29 +119,31 @@ export class RulesManager {
   }
   
   async createDNRRule(id, blockURL, redirectURL) {
-    const filter = normalizePathRule(blockURL.trim());
-    const urlFilter = `||${filter}`;
-    
-    let action;
-    
-    if (redirectURL && redirectURL.trim() !== '') {
-      const finalRedirectUrl = new URL(this.intermediaryRedirectURL);
-      finalRedirectUrl.searchParams.set('from', blockURL.trim());
-      finalRedirectUrl.searchParams.set('to', redirectURL.trim());
-      action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
-    } else {
-      const finalRedirectUrl = new URL(this.defaultRedirectURL);
-      finalRedirectUrl.searchParams.set('url', blockURL.trim());
-      action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
-    }
-    
-    return {
-      id: Math.floor(Number(id)),
-      condition: { urlFilter, resourceTypes: ["main_frame"] },
-      priority: 100,
-      action
-    };
+  const normalizedBlockURL = normalizePathSegment(blockURL.trim());
+  const normalizedRedirectURL = normalizePathSegment(redirectURL.trim());
+  let action;
+  
+  const filter = normalizePathRule(normalizedBlockURL);
+  const urlFilter = `||${filter}`;
+  
+  if (normalizedRedirectURL) {
+    const finalRedirectUrl = new URL(this.intermediaryRedirectURL);
+    finalRedirectUrl.searchParams.set('from', normalizedBlockURL);
+    finalRedirectUrl.searchParams.set('to', normalizedRedirectURL);
+    action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
+  } else {
+    const finalRedirectUrl = new URL(this.defaultRedirectURL);
+    finalRedirectUrl.searchParams.set('url', normalizedBlockURL);
+    action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
   }
+  
+  return {
+    id: Math.floor(Number(id)),
+    condition: { urlFilter, resourceTypes: ["main_frame"] },
+    priority: 100,
+    action
+  };
+}
   
   async addRule(blockURL, redirectURL, schedule = null, category = 'social') {
     const validation = this.validateRule(blockURL, redirectURL, schedule, category);

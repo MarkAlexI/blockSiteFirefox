@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.9.4] - 2026-06-17
+### Fixed
+- Added URL normalization before creating declarativeNetRequest rules.
+- Fixed rule creation failures caused by unsupported characters in urlFilter values.
+
 ## [3.9.3] - 2026-06-16
 ### Fixed
 - Fixed URL validation for blocked websites. Non-ASCII characters and uppercase letters are now supported.
