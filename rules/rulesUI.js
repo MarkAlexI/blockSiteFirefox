@@ -97,7 +97,7 @@ export class RulesUI {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     row.dataset.ruleId = rule.id;
-
+    
     if (disabledCategories.includes(rule.category)) {
       row.classList.add('category-muted');
       row.title = t('category_disabled_desc') || 'This category is currently muted in settings';
@@ -435,6 +435,7 @@ export class RulesUI {
   getValidationMessage(errorType) {
     const messages = {
       'blockurl_empty': t('blockurl'),
+      'blockurl_restrict': t('restrictedblockurl'),
       'blockurl_invalid': t('wrongblockurl'),
       'redirect_invalid': t('wrongredirecturl'),
       'invalid_days': t('invaliddays') || 'Invalid days selected',

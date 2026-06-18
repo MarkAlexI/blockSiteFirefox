@@ -11,6 +11,7 @@ import { VERIFY_API_URL, IS_FIREFOX } from '../utils/constants.js';
 import { updateUninstallURL } from '../utils/updateUninstallURL.js';
 import { createInstallURL } from '../utils/createInstallURL.js';
 import { shouldSkipSync } from '../utils/shouldSkipSync.js';
+import { isBlockedURL } from './isBlockedURL.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -104,7 +105,7 @@ if (browser.contextMenus) {
       return;
     }
     
-    if (!/^https?:/i.test(target.url)) {
+    if (isBlockedURL([target])) {
       logger.warn('Unsupported URL scheme:', target.url);
       return;
     }

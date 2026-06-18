@@ -18,11 +18,10 @@ export function isBlockedURL(tabs) {
   const blockedPatterns = [
     /^about:/,
     /extension:\/\//,
-    /^file:\/\//,
     /^https:\/\/addons\.mozilla\.org\//,
     /^devtools:/,
     /^view-source:/,
-    /^data:/
+    /blockdistraction/
   ];
   
   return blockedPatterns.some(pattern => pattern.test(url));
