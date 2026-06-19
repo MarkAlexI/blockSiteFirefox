@@ -124,7 +124,7 @@ if (browser.contextMenus) {
     }
     
     try {
-      await rulesManager.addRule(ruleValue, '');
+      await rulesManager.addRule(decodeURIComponent(ruleValue), '');
       
       logger.log(
         `Blocked ${target.type} via Context Menu:`,
