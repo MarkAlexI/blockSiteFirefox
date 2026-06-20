@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "このリソースはブロックできません。" },
+  "wrongblockurl": { "message": "ブロック用のURLが無効です。" },
   "wrongredirecturl": { "message": "無効なリダイレクトURL" },
   "blockurlonlyascii": { "message": "ブロックURLはASCIIのみ使用可能" },
   "blockurlonlylower": { "message": "小文字のみ使用可能" },

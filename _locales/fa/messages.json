@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "این منبع قابل مسدود کردن نیست." },
+  "wrongblockurl": { "message": "نشانی اینترنتی نامعتبر برای مسدودسازی" },
   "wrongredirecturl": { "message": "آدرس هدایت مجدد نامعتبر است" },
   "blockurlonlyascii": { "message": "فقط حروف ASCII در آدرس وب مجاز است" },
   "blockurlonlylower": { "message": "فقط حروف کوچک مجاز است" },

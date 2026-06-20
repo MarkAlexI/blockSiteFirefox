@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Aquest recurs no es pot bloquejar." },
+  "wrongblockurl": { "message": "URL de bloqueig no vàlida" },
   "wrongredirecturl": { "message": "URL de redirecció no vàlid" },
   "blockurlonlyascii": { "message": "Només es permet ASCII a l'URL de bloqueig" },
   "blockurlonlylower": { "message": "Només es permeten lletres minúscules" },

@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Seda ressurssi ei saa blokeerida." },
+  "wrongblockurl": { "message": "Kehtetu blokeerimise URL" },
   "wrongredirecturl": { "message": "Vale suunamise URL" },
   "blockurlonlyascii": { "message": "Blokeeritavas URL-is lubatud ainult ASCII" },
   "blockurlonlylower": { "message": "Lubatud ainult väiketähed" },

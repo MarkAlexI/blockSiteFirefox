@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Hindi maaaring i-block ang resource na ito." },
+  "wrongblockurl": { "message": "Di-wastong URL para sa pag-block" },
   "wrongredirecturl": { "message": "Invalid na Redirect URL" },
   "blockurlonlyascii": { "message": "ASCII lamang ang pinapayagan sa Block URL" },
   "blockurlonlylower": { "message": "Maliliit na letra lamang ang pinapayagan" },

@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "無法封鎖此資源。" },
+  "wrongblockurl": { "message": "無效的封鎖網址" },
   "wrongredirecturl": { "message": "無效的重新導向 URL" },
   "blockurlonlyascii": { "message": "封鎖的 URL 只能使用 ASCII 字元" },
   "blockurlonlylower": { "message": "僅允許小寫字母" },

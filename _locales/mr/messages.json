@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "हे संसाधन ब्लॉक केले जाऊ शकत नाही." },
+  "wrongblockurl": { "message": "ब्लॉक करण्यासाठी अवैध URL" },
   "wrongredirecturl": { "message": "अवैध रीडायरेक्ट URL" },
   "blockurlonlyascii": { "message": "ब्लॉक URL मध्ये फक्त ASCII उपलब्ध आहे" },
   "blockurlonlylower": { "message": "फक्त लहान अक्षरे उपलब्ध" },

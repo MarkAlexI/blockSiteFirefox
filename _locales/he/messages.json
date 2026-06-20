@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "לא ניתן לחסום משאב זה." },
+  "wrongblockurl": { "message": "כתובת URL לא חוקית לחסימה" },
   "wrongredirecturl": { "message": "כתובת הפנייה לא חוקית" },
   "blockurlonlyascii": { "message": "רק תווים ASCII מותרים בכתובת החסימה" },
   "blockurlonlylower": { "message": "רק אותיות קטנות מותרים" },

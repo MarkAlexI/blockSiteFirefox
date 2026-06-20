@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Sumber daya ini tidak dapat diblokir." },
+  "wrongblockurl": { "message": "URL pemblokiran tidak valid" },
   "wrongredirecturl": { "message": "URL redirect tidak valid" },
   "blockurlonlyascii": { "message": "Hanya ASCII yang diperbolehkan di URL blokir" },
   "blockurlonlylower": { "message": "Hanya huruf kecil yang diperbolehkan" },

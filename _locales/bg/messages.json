@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Този ресурс не може да бъде блокиран." },
+  "wrongblockurl": { "message": "Невалиден URL адрес за блокиране" },
   "wrongredirecturl": { "message": "Невалиден URL за пренасочване" },
   "blockurlonlyascii": { "message": "Разрешени са само ASCII символи в URL за блокиране" },
   "blockurlonlylower": { "message": "Разрешени са само малки букви" },

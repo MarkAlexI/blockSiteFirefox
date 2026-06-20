@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Tätä resurssia ei voi estää." },
+  "wrongblockurl": { "message": "Virheellinen eston URL-osoite" },
   "wrongredirecturl": { "message": "Virheellinen uudelleenohjaus-URL" },
   "blockurlonlyascii": { "message": "Estettävässä URL-osoitteessa sallitaan vain ASCII" },
   "blockurlonlylower": { "message": "Vain pienet kirjaimet sallittu" },

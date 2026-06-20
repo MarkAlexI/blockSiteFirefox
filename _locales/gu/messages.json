@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "આ સંસાધનને બ્લોક કરી શકાતું નથી." },
+  "wrongblockurl": { "message": "બ્લોક કરવા માટે અમાન્ય URL" },
   "wrongredirecturl": { "message": "અમાન્ય રીડાયરેક્ટ URL" },
   "blockurlonlyascii": { "message": "Block URL માં ફક્ત ASCII મંજૂર છે" },
   "blockurlonlylower": { "message": "ફક્ત લોઅરકેસ અક્ષરો મંજૂર છે" },

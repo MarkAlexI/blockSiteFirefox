@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "இந்த வளத்தைத் தடுக்க முடியாது." },
+  "wrongblockurl": { "message": "தடுப்பதற்கான தவறான URL" },
   "wrongredirecturl": { "message": "தவறான மாற்ற URL" },
   "blockurlonlyascii": { "message": "தடுக்கும் URL இல் ASCII எழுத்துகள் மட்டுமே அனுமதிக்கப்படுகின்றன" },
   "blockurlonlylower": { "message": "கீழ் எழுத்துகள் மட்டுமே அனுமதிக்கப்படுகின்றன" },

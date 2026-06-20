@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Deze bron kan niet worden geblokkeerd." },
+  "wrongblockurl": { "message": "Ongeldige blokkeer-URL" },
   "wrongredirecturl": { "message": "Ongeldige doorstuur-URL" },
   "blockurlonlyascii": { "message": "Alleen ASCII toegestaan in blok-URL" },
   "blockurlonlylower": { "message": "Alleen kleine letters toegestaan" },

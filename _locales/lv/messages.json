@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Šo resursu nevar bloķēt." },
+  "wrongblockurl": { "message": "Nederīgs bloķēšanas URL" },
   "wrongredirecturl": { "message": "Nederīgs pāradresācijas URL" },
   "blockurlonlyascii": { "message": "Bloķējamajā URL iespējami tikai ASCII simboli" },
   "blockurlonlylower": { "message": "Pieejamas tikai mazas burtu rakstzīmes" },

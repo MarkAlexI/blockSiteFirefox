@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Tento zdroj nelze zablokovat." },
+  "wrongblockurl": { "message": "Neplatná adresa URL pro blokování" },
   "wrongredirecturl": { "message": "Neplatná URL pro přesměrování" },
   "blockurlonlyascii": { "message": "V URL pro blokování jsou povoleny pouze znaky ASCII" },
   "blockurlonlylower": { "message": "Povolené jsou pouze malé písmena" },

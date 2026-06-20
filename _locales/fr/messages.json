@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Cette ressource ne peut pas être bloquée." },
+  "wrongblockurl": { "message": "URL de blocage invalide" },
   "wrongredirecturl": { "message": "URL de redirection invalide" },
   "blockurlonlyascii": { "message": "Seuls les caractères ASCII sont autorisés dans l'URL de blocage" },
   "blockurlonlylower": { "message": "Seules les lettres minuscules sont autorisées" },

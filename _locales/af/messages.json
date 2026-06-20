@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Hierdie hulpbron kan nie geblokkeer word nie." },
+  "wrongblockurl": { "message": "Ongeldige blokkeer-URL" },
   "wrongredirecturl": { "message": "Ongeldige herlei-URL" },
   "blockurlonlyascii": { "message": "Blok-URL ondersteun net ASCII" },
   "blockurlonlylower": { "message": "Blok-URL ondersteun net kleinletters" },

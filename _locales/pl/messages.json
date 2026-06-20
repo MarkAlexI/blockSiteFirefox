@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Tego zasobu nie można zablokować." },
+  "wrongblockurl": { "message": "Nieprawidłowy adres URL blokowania" },
   "wrongredirecturl": { "message": "Nieprawidłowy URL przekierowania" },
   "blockurlonlyascii": { "message": "Dozwolone tylko znaki ASCII w blokowanym URL" },
   "blockurlonlylower": { "message": "Dozwolone tylko małe litery" },

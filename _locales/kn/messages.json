@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "ಈ ಸಂಪನ್ಮೂಲವನ್ನು ನಿರ್ಬಂಧಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ." },
+  "wrongblockurl": { "message": "ನಿರ್ಬಂಧಿಸಲು ಅಮಾನ್ಯವಾದ URL" },
   "wrongredirecturl": { "message": "ಅಮಾನ್ಯ ರೀಡೈರೆಕ್ಟ್ URL" },
   "blockurlonlyascii": { "message": "ಬ್ಲಾಕ್ URL ನಲ್ಲಿ ಕೇವಲ ASCII ಲಭ್ಯವಿದೆ" },
   "blockurlonlylower": { "message": "ಕೇವಲ ಚಿಕ್ಕ ಅಕ್ಷರಗಳು ಲಭ್ಯವಿವೆ" },

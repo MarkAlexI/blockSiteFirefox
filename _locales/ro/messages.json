@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Această resursă nu poate fi blocată." },
+  "wrongblockurl": { "message": "Adresă URL de blocare nevalidă" },
   "wrongredirecturl": { "message": "URL de redirecționare invalid" },
   "blockurlonlyascii": { "message": "Sunt permise doar caractere ASCII în URL-ul de blocare" },
   "blockurlonlylower": { "message": "Sunt permise doar litere mici" },

@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Rasilimali hii haiwezi kuzuiwa." },
+  "wrongblockurl": { "message": "URL batili ya kuzuia" },
   "wrongredirecturl": { "message": "URL ya kuelekeza si sahihi" },
   "blockurlonlyascii": { "message": "URL ya kuzuia inaweza kuwa na herufi za ASCII pekee" },
   "blockurlonlylower": { "message": "Herufi ndogo pekee zinaruhusiwa" },

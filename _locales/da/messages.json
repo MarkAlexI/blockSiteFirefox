@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Denne ressource kan ikke blokeres." },
+  "wrongblockurl": { "message": "Ugyldig blokerings-URL" },
   "wrongredirecturl": { "message": "Ugyldig omdirigerings-URL" },
   "blockurlonlyascii": { "message": "Kun ASCII er tilladt i blok-URL" },
   "blockurlonlylower": { "message": "Kun små bogstaver er tilladt" },

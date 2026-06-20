@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "এই রিসোর্সটি ব্লক করা যাবে না।" },
+  "wrongblockurl": { "message": "ব্লক করার জন্য অবৈধ URL" },
   "wrongredirecturl": { "message": "অবৈধ রিডাইরেক্ট URL" },
   "blockurlonlyascii": { "message": "ব্লক করার URL-এ কেবল ASCII অক্ষর অনুমোদিত" },
   "blockurlonlylower": { "message": "শুধুমাত্র ছোট হাতের অক্ষর অনুমোদিত" },

@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "Цей ресурс неможливо заблокувати." },
+  "wrongblockurl": { "message": "Недійсна URL-адреса для блокування" },
   "wrongredirecturl": { "message": "Неправильний URL перенаправлення" },
   "blockurlonlyascii": { "message": "У URL для блокування можна використовувати лише ASCII" },
   "blockurlonlylower": { "message": "Дозволені лише малі літери" },

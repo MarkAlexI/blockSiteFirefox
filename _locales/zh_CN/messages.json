@@ -20,6 +20,8 @@
       }
     }
   },
+  "restrictedblockurl": { "message": "无法屏蔽此资源。" },
+  "wrongblockurl": { "message": "无效的屏蔽网址" },
   "wrongredirecturl": { "message": "无效的重定向URL" },
   "blockurlonlyascii": { "message": "屏蔽URL只能使用ASCII字符" },
   "blockurlonlylower": { "message": "仅允许小写字母" },
