@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Không thể chặn tài nguyên này." },
   "wrongblockurl": { "message": "URL chặn không hợp lệ" },
   "wrongredirecturl": { "message": "URL chuyển hướng không hợp lệ" },
-  "blockurlonlyascii": { "message": "URL chặn chỉ được phép ký tự ASCII" },
-  "blockurlonlylower": { "message": "Chỉ cho phép chữ thường" },
   "blockthat": { "message": "Chặn trang này" },
   "sendfeedbackbutton": { "message": "Gửi phản hồi" },
   "sendfeedbacksubject": { "message": "Phản hồi cho BlockDistraction" },

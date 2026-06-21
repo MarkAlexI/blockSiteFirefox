@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Овај ресурс није могуће блокирати." },
   "wrongblockurl": { "message": "Неважећи URL за блокирање" },
   "wrongredirecturl": { "message": "Погрешан URL за преусмеравање" },
-  "blockurlonlyascii": { "message": "URL за блокирање може садржати само ASCII знакове" },
-  "blockurlonlylower": { "message": "Дозвољена су само мала слова" },
   "blockthat": { "message": "Блокирај овај сајт" },
   "sendfeedbackbutton": { "message": "Пошаљи повратне информације" },
   "sendfeedbacksubject": { "message": "Повратне информације за BlockDistraction" },

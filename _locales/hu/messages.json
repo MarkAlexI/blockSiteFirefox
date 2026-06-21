@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Ez az erőforrás nem blokkolható." },
   "wrongblockurl": { "message": "Érvénytelen blokkolási URL" },
   "wrongredirecturl": { "message": "Érvénytelen átirányítási URL" },
-  "blockurlonlyascii": { "message": "Csak ASCII karakterek engedélyezettek a blokkolási URL-ben" },
-  "blockurlonlylower": { "message": "Csak kisbetűk engedélyezettek" },
   "blockthat": { "message": "Blokkolja ezt az oldalt" },
   "sendfeedbackbutton": { "message": "Visszajelzés küldése" },
   "sendfeedbacksubject": { "message": "Visszajelzés a BlockDistraction-hoz" },

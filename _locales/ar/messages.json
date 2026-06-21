@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "لا يمكن حظر هذا المورد." },
   "wrongblockurl": { "message": "عنوان URL غير صالح للحظر" },
   "wrongredirecturl": { "message": "رابط إعادة التوجيه غير صالح" },
-  "blockurlonlyascii": { "message": "يسمح فقط بأحرف ASCII في رابط الحظر" },
-  "blockurlonlylower": { "message": "يسمح فقط بالأحرف الصغيرة" },
   "blockthat": { "message": "احظر هذا الموقع" },
   "sendfeedbackbutton": { "message": "إرسال ملاحظات" },
   "sendfeedbacksubject": { "message": "ملاحظات حول BlockDistraction" },

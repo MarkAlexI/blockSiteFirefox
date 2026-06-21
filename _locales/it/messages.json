@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Questa risorsa non può essere bloccata." },
   "wrongblockurl": { "message": "URL di blocco non valido" },
   "wrongredirecturl": { "message": "URL di reindirizzamento non valido" },
-  "blockurlonlyascii": { "message": "Solo caratteri ASCII consentiti nell'URL da bloccare" },
-  "blockurlonlylower": { "message": "Consentite solo lettere minuscole" },
   "blockthat": { "message": "Blocca questo sito" },
   "sendfeedbackbutton": { "message": "Invia Feedback" },
   "sendfeedbacksubject": { "message": "Feedback per BlockDistraction" },

@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Hindi maaaring i-block ang resource na ito." },
   "wrongblockurl": { "message": "Di-wastong URL para sa pag-block" },
   "wrongredirecturl": { "message": "Invalid na Redirect URL" },
-  "blockurlonlyascii": { "message": "ASCII lamang ang pinapayagan sa Block URL" },
-  "blockurlonlylower": { "message": "Maliliit na letra lamang ang pinapayagan" },
   "blockthat": { "message": "Harangan ang Site na ito" },
   "sendfeedbackbutton": { "message": "Magpadala ng Feedback" },
   "sendfeedbacksubject": { "message": "Feedback para sa BlockDistraction" },

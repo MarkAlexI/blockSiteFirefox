@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Denne ressursen kan ikke blokkeres." },
   "wrongblockurl": { "message": "Ugyldig blokkerings-URL" },
   "wrongredirecturl": { "message": "Ugyldig omdirigerings-URL" },
-  "blockurlonlyascii": { "message": "Kun ASCII er tillatt i blokk-URL" },
-  "blockurlonlylower": { "message": "Kun små bokstaver er tillatt" },
   "blockthat": { "message": "Blokker dette nettstedet" },
   "sendfeedbackbutton": { "message": "Send tilbakemelding" },
   "sendfeedbacksubject": { "message": "Tilbakemelding for BlockDistraction" },

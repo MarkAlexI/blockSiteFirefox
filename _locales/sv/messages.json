@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Den här resursen kan inte blockeras." },
   "wrongblockurl": { "message": "Ogiltig blockerings-URL" },
   "wrongredirecturl": { "message": "Felaktig omdirigerings-URL" },
-  "blockurlonlyascii": { "message": "Blockerad URL kan endast innehålla ASCII-tecken" },
-  "blockurlonlylower": { "message": "Endast små bokstäver är tillåtna" },
   "blockthat": { "message": "Blockera den här webbplatsen" },
   "sendfeedbackbutton": { "message": "Skicka feedback" },
   "sendfeedbacksubject": { "message": "Feedback för BlockDistraction" },

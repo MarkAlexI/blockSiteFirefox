@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "이 리소스는 차단할 수 없습니다." },
   "wrongblockurl": { "message": "차단할 URL이 올바르지 않습니다." },
   "wrongredirecturl": { "message": "잘못된 리디렉션 URL" },
-  "blockurlonlyascii": { "message": "차단 URL에는 ASCII만 허용됩니다" },
-  "blockurlonlylower": { "message": "소문자만 허용됩니다" },
   "blockthat": { "message": "이 사이트 차단" },
   "sendfeedbackbutton": { "message": "피드백 보내기" },
   "sendfeedbacksubject": { "message": "BlockDistraction 피드백" },

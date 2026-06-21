@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "ଏହି ସମ୍ପଦକୁ ଅବରୋଧ କରାଯାଇପାରିବ ନାହିଁ।" },
   "wrongblockurl": { "message": "ଅବରୋଧ ପାଇଁ ଅବୈଧ URL" },
   "wrongredirecturl": { "message": "ଅବୈଧ ପୁନଃନିର୍ଦେଶନ URL" },
-  "blockurlonlyascii": { "message": "ଅବରୋଧ URL ପାଇଁ କେବଳ ASCII ଉପଲବ୍ଧ" },
-  "blockurlonlylower": { "message": "କେବଳ ଛୋଟ ଅକ୍ଷର ଉପଲବ୍ଧ" },
   "blockthat": { "message": "ଏହି ସାଇଟକୁ ଅବରୋଧ କରନ୍ତୁ" },
   "sendfeedbackbutton": { "message": "ମତାମତ ପଠାନ୍ତୁ" },
   "sendfeedbacksubject": { "message": "ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ ପାଇଁ ମତାମତ" },

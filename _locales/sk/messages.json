@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Tento zdroj nie je možné zablokovať." },
   "wrongblockurl": { "message": "Neplatná adresa URL na blokovanie" },
   "wrongredirecturl": { "message": "Nesprávna URL adresa presmerovania" },
-  "blockurlonlyascii": { "message": "URL na blokovanie môže obsahovať iba ASCII znaky" },
-  "blockurlonlylower": { "message": "Povolené sú iba malé písmená" },
   "blockthat": { "message": "Zablokovať túto stránku" },
   "sendfeedbackbutton": { "message": "Odoslať spätnú väzbu" },
   "sendfeedbacksubject": { "message": "Spätná väzba na BlockDistraction" },

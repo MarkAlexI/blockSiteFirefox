@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "ไม่สามารถบล็อกทรัพยากรนี้ได้" },
   "wrongblockurl": { "message": "URL สำหรับบล็อกไม่ถูกต้อง" },
   "wrongredirecturl": { "message": "URL สำหรับเปลี่ยนเส้นทางไม่ถูกต้อง" },
-  "blockurlonlyascii": { "message": "URL สำหรับบล็อกสามารถมีตัวอักษร ASCII เท่านั้น" },
-  "blockurlonlylower": { "message": "อนุญาตเฉพาะตัวอักษรพิมพ์เล็ก" },
   "blockthat": { "message": "บล็อกเว็บไซต์นี้" },
   "sendfeedbackbutton": { "message": "ส่งข้อเสนอแนะ" },
   "sendfeedbacksubject": { "message": "ข้อเสนอแนะสำหรับ BlockDistraction" },

@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Sumber ini tidak boleh disekat." },
   "wrongblockurl": { "message": "URL sekatan tidak sah" },
   "wrongredirecturl": { "message": "URL pengalihan tidak sah" },
-  "blockurlonlyascii": { "message": "Hanya ASCII dibenarkan dalam URL blok" },
-  "blockurlonlylower": { "message": "Hanya huruf kecil dibenarkan" },
   "blockthat": { "message": "Sekat Laman Ini" },
   "sendfeedbackbutton": { "message": "Hantar Maklum Balas" },
   "sendfeedbacksubject": { "message": "Maklum Balas untuk BlockDistraction" },

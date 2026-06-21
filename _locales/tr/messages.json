@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Bu kaynak engellenemez." },
   "wrongblockurl": { "message": "Geçersiz engelleme URL'si" },
   "wrongredirecturl": { "message": "Geçersiz yönlendirme URL'si" },
-  "blockurlonlyascii": { "message": "Engelleme URL'si yalnızca ASCII karakterler içerebilir" },
-  "blockurlonlylower": { "message": "Yalnızca küçük harflere izin verilir" },
   "blockthat": { "message": "Bu Siteyi Engelle" },
   "sendfeedbackbutton": { "message": "Geri Bildirim Gönder" },
   "sendfeedbacksubject": { "message": "BlockDistraction için Geri Bildirim" },

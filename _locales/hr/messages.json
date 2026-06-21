@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Ovaj resurs nije moguće blokirati." },
   "wrongblockurl": { "message": "Nevažeći URL za blokiranje" },
   "wrongredirecturl": { "message": "Nevažeći URL preusmjeravanja" },
-  "blockurlonlyascii": { "message": "Samo ASCII znakovi su dopušteni u URL-u za blokiranje" },
-  "blockurlonlylower": { "message": "Dopuštena su samo mala slova" },
   "blockthat": { "message": "Blokiraj ovu stranicu" },
   "sendfeedbackbutton": { "message": "Pošalji povratnu informaciju" },
   "sendfeedbacksubject": { "message": "Povratna informacija za BlockDistraction" },

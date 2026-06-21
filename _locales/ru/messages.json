@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Этот ресурс нельзя заблокировать." },
   "wrongblockurl": { "message": "Недействительный URL для блокировки" },
   "wrongredirecturl": { "message": "Неверный URL перенаправления" },
-  "blockurlonlyascii": { "message": "В URL для блокировки допускаются только ASCII-символы" },
-  "blockurlonlylower": { "message": "Разрешены только строчные буквы" },
   "blockthat": { "message": "Заблокировать этот сайт" },
   "sendfeedbackbutton": { "message": "Отправить отзыв" },
   "sendfeedbacksubject": { "message": "Отзыв о BlockDistraction" },

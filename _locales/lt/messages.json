@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Šio ištekliaus negalima užblokuoti." },
   "wrongblockurl": { "message": "Neteisingas blokavimo URL" },
   "wrongredirecturl": { "message": "Neteisingas peradresavimo URL" },
-  "blockurlonlyascii": { "message": "Blokuojamame URL galima naudoti tik ASCII simbolius" },
-  "blockurlonlylower": { "message": "Galimi tik mažieji raidės" },
   "blockthat": { "message": "Blokuoti šią svetainę" },
   "sendfeedbackbutton": { "message": "Siųsti atsiliepimą" },
   "sendfeedbacksubject": { "message": "Atsiliepimas apie BlockDistraction" },

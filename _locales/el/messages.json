@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "Αυτός ο πόρος δεν μπορεί να αποκλειστεί." },
   "wrongblockurl": { "message": "Μη έγκυρη διεύθυνση URL αποκλεισμού" },
   "wrongredirecturl": { "message": "Μη έγκυρο URL ανακατεύθυνσης" },
-  "blockurlonlyascii": { "message": "Επιτρέπεται μόνο ASCII στο URL αποκλεισμού" },
-  "blockurlonlylower": { "message": "Επιτρέπονται μόνο πεζά γράμματα" },
   "blockthat": { "message": "Αποκλεισμός αυτής της σελίδας" },
   "sendfeedbackbutton": { "message": "Αποστολή σχολίων" },
   "sendfeedbacksubject": { "message": "Σχόλια για το BlockDistraction" },

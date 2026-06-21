@@ -23,8 +23,6 @@
   "restrictedblockurl": { "message": "ይህ ምንጭ ሊታገድ አይችልም።" },
   "wrongblockurl": { "message": "ልክ ያልሆነ የማገጃ URL" },
   "wrongredirecturl": { "message": "የተሳሳተ የመልሶ መምሪያ URL" },
-  "blockurlonlyascii": { "message": "የመከልከያ URL ለ ASCII ብቻ ይደገፋል" },
-  "blockurlonlylower": { "message": "የመከልከያ URL ለትንሽ ፊደሎች ብቻ ይደገፋል" },
   "blockthat": { "message": "ይህን ጣቢያ ከልክል" },
   "sendfeedbackbutton": { "message": "ግብረመልስ ላክ" },
   "sendfeedbacksubject": { "message": "ለ BlockDistraction ግብረመልስ" },
