@@ -1,0 +1,390 @@
+{
+  "chromename": { "message": "BlockDistraction – Extensión para bloquear sitios web" },
+  "shortname": { "message": "BlkDistract" },
+  "description": { "message": "Bloqueador de sitios web y herramienta de redirección simple y confiable para ayudarte a mantener el enfoque." },
+  "defaulttitle": { "message": "Mantente enfocado y productivo" },
+  "header": { "message": "Bloqueador de sitios" },
+  "paragraph": { "message": "Para bloquear un sitio web o recurso, escribe parte de su nombre en el campo con el marcador de posición \"Escribe la URL a bloquear\". Por ejemplo, \"facebook\" bloqueará todos los subdominios relacionados. En el campo con el marcador de posición \"Escribe la URL de redirección\", introduce la dirección completa, incluido el protocolo, por ejemplo \"https://google.com\". Si el campo de redirección se deja vacío, el sitio se bloqueará sin redireccionar. Haz clic en el botón Guardar para aplicar la regla. Para actualizar una regla, elimina la anterior y crea una nueva." },
+  "addrule": { "message": "Agregar nueva regla" },
+  "blockurl": { "message": "Escribe la URL a bloquear" },
+  "redirecturl": { "message": "Escribe la URL de redirección (opcional)" },
+  "savebtn": { "message": "Guardar" },
+  "deletebtn": { "message": "Eliminar" },
+  "alertruleexist": { "message": "La regla ya existe" },
+  "savedrules": {
+    "message": "$ruleslength$ regla(s) guardada(s)",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "restrictedblockurl": { "message": "Este recurso no se puede bloquear." },
+  "wrongblockurl": { "message": "URL para bloquear no válida" },
+  "wrongredirecturl": { "message": "URL de redirección no válida" },
+  "blockthat": { "message": "Bloquear este sitio" },
+  "sendfeedbackbutton": { "message": "Enviar comentarios" },
+  "sendfeedbacksubject": { "message": "Comentarios sobre BlockDistraction" },
+  "sendfeedbackbody": { "message": "Hola, me gustaría compartir los siguientes comentarios:\n\n" },
+  "quote1": { "message": "Mantente enfocado, mantente fuerte." },
+  "quote2": { "message": "Tu futuro se construye con lo que haces hoy." },
+  "quote3": { "message": "La disciplina es el puente entre las metas y el éxito." },
+  "quote4": { "message": "Un sitio bloqueado, un paso más cerca de tu meta." },
+  "quote5": { "message": "Haz que cada clic cuente." },
+  "quote6": { "message": "No mires el reloj; haz lo que él hace. Sigue adelante." },
+  "quote7": { "message": "Los pequeños pasos diarios llevan a grandes resultados." },
+  "quote8": { "message": "Tu único límite es tu mente." },
+  "quote9": { "message": "El éxito es la suma de pequeños esfuerzos repetidos cada día." },
+  "quote10": { "message": "Concéntrate en ser productivo, no en estar ocupado." },
+  "quote11": { "message": "Protege tu atención: es tu recurso más valioso." },
+  "quote12": { "message": "Cada distracción bloqueada es tiempo recuperado." },
+  "quote13": { "message": "Baja el ruido; aumenta tu productividad." },
+  "quote14": { "message": "Las pequeñas rutinas crean un impulso imparable." },
+  "quote15": { "message": "La claridad vence al caos: enfócate en lo importante." },
+  "quote16": { "message": "Di no a las distracciones; di sí al progreso." },
+  "quote17": { "message": "Una hora de concentración hoy multiplica tus resultados mañana." },
+  "quote18": { "message": "Crea más consumiendo menos." },
+  "quote19": { "message": "La disciplina elige las victorias a largo plazo por encima de los impulsos momentáneos." },
+  "quote20": { "message": "Cierra una pestaña y abre espacio para nuevas ideas." },
+  "quote21": { "message": "El trabajo que evitas hoy se convierte en el estrés de mañana." },
+  "quote22": { "message": "Enfocarse no es hacer más; es hacer lo que realmente importa." },
+  "quote23": { "message": "Tus metas merecen más atención que tus distracciones." },
+  "quote24": { "message": "Cada minuto que ahorras evitando distracciones es una inversión en ti mismo." },
+  "quote25": { "message": "La constancia supera a la intensidad cuando se trata de resultados duraderos." },
+  "quote26": { "message": "El mejor momento para empezar fue ayer. El segundo mejor momento es ahora." },
+  "quote27": { "message": "El progreso ocurre cuando eliges la acción en lugar de la distracción." },
+  "quote28": { "message": "Un momento sin distracciones puede cambiar el rumbo de tu día." },
+  "quote29": { "message": "No necesitas más tiempo; necesitas menos distracciones." },
+  "quote30": { "message": "Cada decisión enfocada fortalece a tu yo del futuro." },
+  "quote31": { "message": "Este bloqueo es temporal; tus metas son a largo plazo." },
+  "quote32": { "message": "Cada distracción bloqueada es una victoria para tu yo del futuro." },
+  "quote33": { "message": "Internet es infinito; tu tiempo no." },
+  "quote34": { "message": "Elige tus prioridades antes de que la web las elija por ti." },
+  "quote35": { "message": "Menos desplazamiento, más creación." },
+  "quote36": { "message": "Tu atención define tus logros." },
+  "quote37": { "message": "Sigue por el buen camino; la distracción puede esperar." },
+  "quote38": { "message": "Toda decisión productiva comienza con una mente enfocada." },
+  "quote39": { "message": "Bloqueaste un sitio web, no tu potencial." },
+  "quote40": { "message": "El camino al éxito está construido con decisiones enfocadas." },
+  "actionsheader": { "message": "Acciones" },
+  "norules": { "message": "No hay sitios bloqueados." },
+  "editbtn": { "message": "Editar" },
+  "ruleddeleted": { "message": "Regla eliminada." },
+  "cancelbtn": { "message": "Cancelar" },
+  "ruleupdated": { "message": "Regla actualizada." },
+  "rulenewadded": { "message": "Nueva regla agregada." },
+  "gotooptions": { "message": "Ir a la página de configuración ⚙️" },
+  "gotopopup": { "message": "Haz clic en el ícono de la extensión para volver a la ventana emergente." },
+  "rulesmigrated": { "message": "Las reglas se actualizaron para garantizar la compatibilidad." },
+  "errorupdatingrules": { "message": "Error al actualizar las reglas" },
+  "erroraddingrule": { "message": "Error al agregar la regla" },
+  "errorremovingrule": { "message": "Error al eliminar la regla" },
+  "optionsheader": { "message": "Configuración de la extensión" },
+  "optionsdescription": { "message": "Configura el comportamiento de la extensión y los ajustes de seguridad" },
+  "securitymodetitle": { "message": "Modo de seguridad" },
+  "normalmodetitle": { "message": "Modo normal" },
+  "normalmodedesc": { "message": "Las reglas se pueden eliminar inmediatamente con un solo clic." },
+  "strictmodetitle": { "message": "Modo estricto" },
+  "strictmodedesc": { "message": "Las reglas requieren una cuenta regresiva de 10 segundos antes de eliminarse para evitar eliminaciones accidentales." },
+  "additionalsettingstitle": { "message": "Configuración adicional" },
+  "confirmdeletetitle": { "message": "Confirmar antes de eliminar varias reglas" },
+  "confirmdeletedesc": { "message": "Mostrar un cuadro de confirmación al eliminar varias reglas a la vez." },
+  "notificationstitle": { "message": "Mostrar notificaciones" },
+  "notificationsdesc": { "message": "Mostrar notificaciones cuando la extensión se actualice." },
+  "rulesmanagementtitle": { "message": "Administración de reglas" },
+  "exportrulesbtn": { "message": "Exportar reglas" },
+  "importrulesbtn": { "message": "Importar reglas" },
+  "clearallrulesbtn": { "message": "Eliminar todas las reglas" },
+  "totalruleslabel": { "message": "Total de reglas" },
+  "blockedtodaylabel": { "message": "Bloqueos de hoy" },
+  "totalblockedlabel": { "message": "Bloqueos totales" },
+  "resetsettingsbtn": { "message": "Restablecer valores predeterminados" },
+  "backtopopup": { "message": "Volver al inicio" },
+  "errorloadingsettings": { "message": "Error al cargar la configuración" },
+  "settingssaved": { "message": "¡Configuración guardada correctamente!" },
+  "errorsavingsettings": { "message": "Error al guardar la configuración" },
+  "rulesexported": { "message": "¡Reglas exportadas correctamente!" },
+  "errorexportingrules": { "message": "Error al exportar las reglas" },
+  "willimportrules": {
+    "message": "Se importarán $ruleslength$ regla(s). ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": { "message": "Las reglas actuales serán reemplazadas. ¿Deseas continuar?" },
+  "importedrules": {
+    "message": "¡Se importaron correctamente $ruleslength$ regla(s)!",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules": { "message": "Error al importar las reglas: " },
+  "norulestoclear": { "message": "No hay reglas para eliminar" },
+  "willdeleteallrules": {
+    "message": "Esto eliminará permanentemente las $rulescount$ regla(s). ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "Esta acción no se puede deshacer. ¿Deseas continuar?" },
+  "allrulescleared": { "message": "¡Todas las reglas se eliminaron correctamente!" },
+  "errorclearingrules": { "message": "Error al eliminar las reglas" },
+  "willreset": { "message": "Esto restablecerá toda la configuración a sus valores predeterminados. ¿Deseas continuar?" },
+  "resettodefaults": { "message": "¡La configuración se restableció a los valores predeterminados!" },
+  "errorresettingsettings": { "message": "Error al restablecer la configuración" },
+  "basicsettingstitle": { "message": "Configuración básica" },
+  "advancedsettingstitle": { "message": "Configuración avanzada" },
+  "statisticstitle": { "message": "Estadísticas" },
+  "categorymanagementtitle": { "message": "Bloqueo por categorías" },
+  "rulelimitreached": {
+    "message": "Has alcanzado el límite de reglas ($limit$) de la versión básica. Actualiza a Pro para obtener reglas ilimitadas.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "Se requiere Pro para editar." },
+  "invalidpassword": { "message": "Contraseña incorrecta" },
+  "setpassword": { "message": "Establecer contraseña" },
+  "enterpassword": { "message": "Ingresa la contraseña" },
+  "passwordmismatch": { "message": "Las contraseñas no coinciden" },
+  "passwordtooshort": { "message": "La contraseña debe tener al menos 6 caracteres" },
+  "resetpasswordconfirm": { "message": "Restablecer la contraseña desactivará la protección. ¿Deseas continuar?" },
+  "passwordset": { "message": "Contraseña establecida correctamente" },
+  "passworddisabled": { "message": "La protección con contraseña se ha desactivado" },
+  "prorequired": { "message": "Se requiere la versión Pro para esta función" },
+  "enablepasswordtitle": { "message": "Activar protección con contraseña" },
+  "enablepassworddesc": { "message": "Solicitar una contraseña para editar o eliminar reglas (mejora el modo estricto)." },
+  "passwordprotectiontitle": { "message": "Protección con contraseña" },
+  "scheduleheader": { "message": "Horario" },
+  "enableschedule": { "message": "Activar horario" },
+  "alwaysactive": { "message": "Siempre activo" },
+  "profeatureschedule": { "message": "La programación de horarios está disponible en Pro" },
+  "days": { "message": "Días" },
+  "starttime": { "message": "Hora de inicio:" },
+  "endtime": { "message": "Hora de finalización:" },
+  "invaliddays": { "message": "Los días seleccionados no son válidos" },
+  "invalidtimeformat": { "message": "Formato de hora no válido (usa HH:MM)" },
+  "startafterend": { "message": "La hora de inicio debe ser anterior a la hora de finalización" },
+  "invalidschedule": { "message": "Horario no válido: selecciona los días y los horarios." },
+  "invalidscheduledays": { "message": "Horario no válido: selecciona al menos un día." },
+  "invalidschedulestarttime": { "message": "Horario no válido: establece una hora de inicio." },
+  "invalidscheduleendtime": { "message": "Horario no válido: establece una hora de finalización." },
+  "editdisablednonpro": { "message": "Edición deshabilitada: demasiadas reglas para usuarios sin Pro." },
+  "errorloadingstatus": { "message": "Error al cargar el estado del usuario." },
+  "schedule_day_sun": { "message": "Dom" },
+  "schedule_day_mon": { "message": "Lun" },
+  "schedule_day_tue": { "message": "Mar" },
+  "schedule_day_wed": { "message": "Mié" },
+  "schedule_day_thu": { "message": "Jue" },
+  "schedule_day_fri": { "message": "Vie" },
+  "schedule_day_sat": { "message": "Sáb" },
+  "category_header": { "message": "Categoría" },
+  "category_required": { "message": "La categoría es obligatoria" },
+  "allcategories": { "message": "Todas las categorías" },
+  "category_social": { "message": "Redes sociales" },
+  "category_news": { "message": "Noticias" },
+  "category_entertainment": { "message": "Entretenimiento" },
+  "category_shopping": { "message": "Compras" },
+  "category_work": { "message": "Trabajo" },
+  "category_gaming": { "message": "Juegos" },
+  "category_adult": { "message": "Contenido para adultos" },
+  "category_uncategorized": { "message": "Sin categoría" },
+  "searchfordomain": { "message": "Buscar un nombre de dominio" },
+  "norulesforcategory": { "message": "No hay sitios bloqueados en esta categoría." },
+  "getpro": { "message": "Obtener Pro" },
+  "profunctionstext": {
+    "message": "Las funciones Pro incluyen: bloqueo programado, protección con contraseña, filtrado de reglas y exportación/importación de reglas. Disfruta de nuestra Licencia Universal: una sola suscripción desbloquea Pro en todos tus navegadores (Chrome, Firefox, Edge y Kiwi). Para activarla, compra una suscripción en blockdistraction.com y luego copia tu clave de licencia desde el panel de tu cuenta y pégala a continuación."
+  },
+  "upgradenow": { "message": "Actualizar ahora" },
+  "enteremail": { "message": "Ingresa tu correo electrónico" },
+  "activatepro": { "message": "Activar Pro" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "Restaurar acceso" },
+  "pleaseenteremail": { "message": "Ingresa tu correo electrónico" },
+  "checking": { "message": "Comprobando..." },
+  "proactivated": { "message": "¡Las funciones Pro se han activado!" },
+  "subscriptionnotfound": { "message": "La suscripción no está activa o no se encontró el correo electrónico." },
+  "servererror": { "message": "Error del servidor. Inténtalo de nuevo." },
+  "proactivatedfor": { "message": "Pro activado para" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "onboarding_title": {
+    "message": "Bienvenido a BlockDistraction"
+  },
+  "onboarding_welcome": {
+    "message": "👋 ¡Bienvenido a BlockDistraction!"
+  },
+  "onboarding_intro": {
+    "message": "Gracias por instalar nuestra extensión. Hay un último paso para activar tu protección."
+  },
+  "onboarding_box_title": {
+    "message": "Acción requerida: conceder permiso"
+  },
+  "onboarding_box_p1": {
+    "message": "Para bloquear sitios, la extensión necesita permiso para acceder a tus pestañas. Debido a que este permiso es importante, debes concederlo manualmente."
+  },
+  "onboarding_box_p2": {
+    "message": "Haz clic en el botón de abajo. Aparecerá una ventana del navegador solicitando que \"Permitas\" este permiso."
+  },
+  "onboarding_button_activate": {
+    "message": "Activar protección completa"
+  },
+  "onboarding_status_success": {
+    "message": "¡Éxito! La protección está activa. Puedes cerrar esta pestaña."
+  },
+  "onboarding_status_denied": {
+    "message": "El permiso fue rechazado. La extensión no puede funcionar correctamente. Inténtalo nuevamente o concede el permiso desde la configuración de la extensión."
+  },
+  "onboarding_status_error": {
+    "message": "Ocurrió un error. Concede el permiso desde la configuración de la extensión."
+  },
+  "onboarding_status_api_error": {
+    "message": "La solicitud de permiso falló (esto puede ocurrir en dispositivos móviles). Inténtalo nuevamente o concede el permiso manualmente desde la configuración de la extensión."
+  },
+  "pastekeylabel": {
+    "message": "Pega aquí tu clave de licencia:"
+  },
+  "confirmclearstats": {
+    "message": "¿Estás seguro de que deseas borrar todas las estadísticas? Esta acción no se puede deshacer."
+  },
+  "statscleared": {
+    "message": "Las estadísticas se borraron correctamente."
+  },
+  "redirectstodaylabel": {
+    "message": "Redirecciones de hoy"
+  },
+  "totalredirectslabel": {
+    "message": "Redirecciones totales"
+  },
+  "logout": {
+    "message": "Cerrar sesión"
+  },
+  "loggedoutsuccess": {
+    "message": "Has cerrado sesión correctamente."
+  },
+  "loggedouterror": {
+    "message": "Ocurrió un error al cerrar sesión."
+  },
+  "forcesync": {
+    "message": "Forzar sincronización / Comprobar estado"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Para restablecer tu contraseña, ve a la sección \"Pro\", haz clic en \"Cerrar sesión\" y luego vuelve a activar la cuenta pegando tu clave de licencia."
+  },
+  "blockedtitle": {
+    "message": "Sitio no disponible"
+  },
+  "blockedheader": {
+    "message": "Este sitio no está disponible actualmente"
+  },
+  "blockedtext": {
+    "message": "Este contenido no puede mostrarse."
+  },
+  "blockedbutton": {
+    "message": "Cerrar pestaña"
+  },
+  "confirmpassword": {
+    "message": "Confirmar contraseña"
+  },
+  "modalconfirm": {
+    "message": "Confirmar"
+  },
+  "modalcancel": {
+    "message": "Cancelar"
+  },
+  "forgotpassword": {
+    "message": "¿Olvidaste la contraseña? Restablecer (desactivará la protección)"
+  },
+  "prounlocked": {
+    "message": "¡Gracias por tu apoyo! Todas las funciones Pro están desbloqueadas."
+  },
+  "licensesynced": {
+    "message": "Tu licencia está sincronizada con tu cuenta. Si pierdes el acceso, puedes recuperar tu clave desde: "
+  },
+  "syncing": {
+    "message": "Sincronizando..."
+  },
+  "pleaseenterkey": {
+    "message": "Introduce una clave."
+  },
+  "syncsuccess": {
+    "message": "Sincronización exitosa"
+  },
+  "syncfailed": {
+    "message": "Error de sincronización."
+  },
+  "passwordreset": {
+    "message": "La protección con contraseña se restableció."
+  },
+  "privacysecured": {
+    "message": "Privacidad protegida"
+  },
+  "errorinvalidfiletype": {
+    "message": "Selecciona un archivo .json"
+  },
+  "debugsettingstitle": {
+    "message": "Configuración de depuración"
+  },
+  "enabledebugtitle": {
+    "message": "Activar modo de depuración"
+  },
+  "enabledebugdesc": {
+    "message": "Activa registros detallados en la consola para solucionar problemas"
+  },
+  "errorcommunication": {
+    "message": "Error al comunicarse con el servicio en segundo plano"
+  },
+  "clearstats": {
+    "message": "Borrar estadísticas"
+  },
+  "rule_enabled": {
+    "message": "Activada"
+  },
+  "rule_disabled": {
+    "message": "Desactivada"
+  },
+  "filter_only_hint": {
+    "message": "Esta lista solo filtra la visualización en la tabla"
+  },
+  "category_disabled_desc": {
+    "message": "Silencia una categoría temporalmente para permitir el acceso a todos sus sitios. La configuración de cada regla individual se conserva."
+  },
+  "toggle_category_blocking": {
+    "message": "Activar o desactivar el bloqueo de toda la categoría"
+  },
+  "category_muted_no_edit": {
+    "message": "No se puede administrar: el bloqueo de categoría está pausado"
+  },
+  "feedback_title": {
+    "message": "¿Te gusta BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Tus comentarios realmente nos ayudan a mejorar la extensión."
+  },
+  "feedback_like": {
+    "message": "¡Sí, funciona muy bien!"
+  },
+  "feedback_dislike": {
+    "message": "Tengo problemas o sugerencias"
+  },
+  "trialproheader": {
+    "message": "Comienza tu prueba gratuita de 7 días"
+  },
+  "trialprotext": {
+    "message": "Cancela cuando quieras. Pago seguro."
+  }
+}
