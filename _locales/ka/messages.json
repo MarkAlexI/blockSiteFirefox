@@ -1,0 +1,397 @@
+{
+  "chromename": { "message": "BlockDistraction – ვებსაიტების დაბლოკვის გაფართოება" },
+  "shortname": { "message": "BlkDistract" },
+  "description": { "message": "მარტივი და საიმედო ვებსაიტების ბლოკირების და გადამისამართების ინსტრუმენტი, რომელიც დაგეხმარებათ კონცენტრაციის შენარჩუნებაში." },
+  "defaulttitle": { "message": "იყავით კონცენტრირებული და პროდუქტიული" },
+  "header": { "message": "ვებსაიტების ბლოკირება" },
+  "paragraph": { "message": "ვებსაიტის ან რესურსის დასაბლოკად, შეიყვანეთ მისი სახელის ნაწილი ველში, რომელსაც აქვს მინიშნება „შეიყვანეთ დასაბლოკი URL“. მაგალითად, „facebook“ დაბლოკავს მასთან დაკავშირებულ ყველა ქვედომენს. ველში „შეიყვანეთ გადამისამართების URL“ შეიყვანეთ სრული მისამართი პროტოკოლის ჩათვლით, მაგალითად „https://google.com“. თუ გადამისამართების ველი ცარიელი დარჩება, საიტი მხოლოდ დაიბლოკება. წესის გამოსაყენებლად დააჭირეთ ღილაკს „შენახვა“. წესის შესაცვლელად წაშალეთ ძველი და შექმენით ახალი." },
+  "addrule": { "message": "ახალი წესის დამატება" },
+  "blockurl": { "message": "შეიყვანეთ დასაბლოკი URL" },
+  "redirecturl": { "message": "შეიყვანეთ გადამისამართების URL (არასავალდებულო)" },
+  "savebtn": { "message": "შენახვა" },
+  "deletebtn": { "message": "წაშლა" },
+  "alertruleexist": { "message": "წესი უკვე არსებობს" },
+  "savedrules": {
+    "message": "შენახულია $ruleslength$ წესი",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "restrictedblockurl": { "message": "ამ რესურსის დაბლოკვა შეუძლებელია." },
+  "wrongblockurl": { "message": "დასაბლოკი URL არასწორია" },
+  "wrongredirecturl": { "message": "გადამისამართების URL არასწორია" },
+  "blockthat": { "message": "ამ საიტის დაბლოკვა" },
+  "sendfeedbackbutton": { "message": "უკუკავშირის გაგზავნა" },
+  "sendfeedbacksubject": { "message": "უკუკავშირი BlockDistraction-ის შესახებ" },
+  "sendfeedbackbody": { "message": "გამარჯობა, მსურს გაგიზიაროთ შემდეგი უკუკავშირი:\n\n" },
+  "quote1": { "message": "იყავით კონცენტრირებული, იყავით ძლიერი." },
+  "quote2": { "message": "თქვენი მომავალი იქმნება იმით, რასაც დღეს აკეთებთ." },
+  "quote3": { "message": "დისციპლინა არის ხიდი მიზნებსა და წარმატებას შორის." },
+  "quote4": { "message": "ერთი დაბლოკილი საიტი — ერთი ნაბიჯით უფრო ახლოს მიზანთან." },
+  "quote5": { "message": "ყოველი დაწკაპუნება მნიშვნელოვნად გამოიყენეთ." },
+  "quote6": { "message": "საათს ნუ უყურებთ — გააკეთეთ ის, რასაც ის აკეთებს. განაგრძეთ." },
+  "quote7": { "message": "ყოველდღიური მცირე ნაბიჯები დიდ შედეგებამდე მიგიყვანთ." },
+  "quote8": { "message": "თქვენი ერთადერთი შეზღუდვა თქვენი გონებაა." },
+  "quote9": { "message": "წარმატება ყოველდღიურად განმეორებული მცირე ძალისხმევის ჯამია." },
+  "quote10": { "message": "კონცენტრირდით პროდუქტიულობაზე და არა მხოლოდ დაკავებულობაზე." },
+  "quote11": { "message": "დაიცავით თქვენი ყურადღება — ეს თქვენი ყველაზე ღირებული რესურსია." },
+  "quote12": { "message": "ყოველი დაბლოკილი ყურადღების გამფანტველი ფაქტორი დაბრუნებული დროა." },
+  "quote13": { "message": "შეამცირეთ ხმაური და გაზარდეთ პროდუქტიულობა." },
+  "quote14": { "message": "მცირე ჩვევები შეუჩერებელ პროგრესს ქმნის." },
+  "quote15": { "message": "სიცხადე ქაოსზე ძლიერია — კონცენტრირდით მთავარზე." },
+  "quote16": { "message": "უთხარით არა ყურადღების გაფანტვას და დიახ პროგრესს." },
+  "quote17": { "message": "დღევანდელი ერთი კონცენტრირებული საათი ხვალინდელ შედეგებს ზრდის." },
+  "quote18": { "message": "შექმენით მეტი, მოიხმარეთ ნაკლები." },
+  "quote19": { "message": "დისციპლინა მოკლევადიან იმპულსებზე მეტად გრძელვადიან წარმატებას ირჩევს." },
+  "quote20": { "message": "დახურეთ ერთი ჩანართი და ადგილი დაუთმეთ ახალ იდეებს." },
+  "quote21": { "message": "სამუშაო, რომელსაც დღეს გაურბიხართ, ხვალ სტრესად დაგიბრუნდებათ." },
+  "quote22": { "message": "კონცენტრაცია ნიშნავს არა მეტის გაკეთებას, არამედ იმის გაკეთებას, რაც ნამდვილად მნიშვნელოვანია." },
+  "quote23": { "message": "თქვენი მიზნები უფრო მეტ ყურადღებას იმსახურებს, ვიდრე ყურადღების გამფანტველი ფაქტორები." },
+  "quote24": { "message": "ყოველი წუთი, რომელიც ყურადღების გაფანტვას აარიდეთ, საკუთარ თავში ჩადებული ინვესტიციაა." },
+  "quote25": { "message": "გრძელვადიან შედეგებში მუდმივობა ინტენსივობაზე ძლიერია." },
+  "quote26": { "message": "დასაწყებად საუკეთესო დრო გუშინ იყო. შემდეგი საუკეთესო დრო — ახლაა." },
+  "quote27": { "message": "პროგრესი იწყება მაშინ, როდესაც მოქმედებას ირჩევთ და არა ყურადღების გაფანტვას." },
+  "quote28": { "message": "ერთი წუთი ყურადღების გაფანტვის გარეშე შეიძლება მთელი დღის მიმართულება შეცვალოს." },
+  "quote29": { "message": "თქვენ მეტი დრო არ გჭირდებათ — ნაკლები ყურადღების გამფანტველი ფაქტორი გჭირდებათ." },
+  "quote30": { "message": "ყოველი გააზრებული გადაწყვეტილება თქვენს მომავალს აძლიერებს." },
+  "quote31": { "message": "ეს ბლოკირება დროებითია, თქვენი მიზნები კი — გრძელვადიანი." },
+  "quote32": { "message": "ყოველი დაბლოკილი ყურადღების გამფანტველი ფაქტორი გამარჯვებაა თქვენი მომავალი თავისთვის." },
+  "quote33": { "message": "ინტერნეტი უსასრულოა, თქვენი დრო — არა." },
+  "quote34": { "message": "აირჩიეთ თქვენი პრიორიტეტები, სანამ ვები აირჩევს მათ თქვენთვის." },
+  "quote35": { "message": "ნაკლები უსასრულო გადახვევა, მეტი შემოქმედება." },
+  "quote36": { "message": "თქვენი ყურადღება განსაზღვრავს თქვენს მიღწევებს." },
+  "quote37": { "message": "დარჩით სწორ გზაზე — ყურადღების გაფანტვა მოიცდის." },
+  "quote38": { "message": "ყოველი პროდუქტიული არჩევანი კონცენტრირებული გონებით იწყება." },
+  "quote39": { "message": "თქვენ დაბლოკეთ ვებსაიტი და არა თქვენი შესაძლებლობები." },
+  "quote40": { "message": "წარმატების გზა კონცენტრირებული გადაწყვეტილებებით იგება." },
+  "actionsheader": { "message": "ქმედებები" },
+  "norules": { "message": "დაბლოკილი საიტები არ არის." },
+  "editbtn": { "message": "რედაქტირება" },
+  "ruleddeleted": { "message": "წესი წაიშალა." },
+  "cancelbtn": { "message": "გაუქმება" },
+  "ruleupdated": { "message": "წესი განახლდა." },
+  "rulenewadded": { "message": "ახალი წესი დაემატა." },
+  "gotooptions": { "message": "გადადით პარამეტრების გვერდზე ⚙️" },
+  "gotopopup": { "message": "ამომხტარ ფანჯარაში დასაბრუნებლად დააწკაპუნეთ გაფართოების ხატულაზე." },
+  "rulesmigrated": { "message": "წესები განახლდა თავსებადობისთვის" },
+  "errorupdatingrules": { "message": "წესების განახლების შეცდომა" },
+  "erroraddingrule": { "message": "წესის დამატების შეცდომა" },
+  "errorremovingrule": { "message": "წესის წაშლის შეცდომა" },
+  "optionsheader": { "message": "გაფართოების პარამეტრები" },
+  "optionsdescription": { "message": "დააკონფიგურირეთ გაფართოების მუშაობა და უსაფრთხოების პარამეტრები" },
+  "securitymodetitle": { "message": "უსაფრთხოების რეჟიმი" },
+  "normalmodetitle": { "message": "ჩვეულებრივი რეჟიმი" },
+  "normalmodedesc": { "message": "წესების წაშლა შესაძლებელია ერთი დაწკაპუნებით" },
+  "strictmodetitle": { "message": "მკაცრი რეჟიმი" },
+  "strictmodedesc": { "message": "წესის წასაშლელად საჭიროა 10-წამიანი უკუთვლა შემთხვევითი წაშლის თავიდან ასაცილებლად" },
+  "additionalsettingstitle": { "message": "დამატებითი პარამეტრები" },
+  "confirmdeletetitle": { "message": "დაადასტურეთ რამდენიმე წესის წაშლა" },
+  "confirmdeletedesc": { "message": "რამდენიმე წესის ერთდროულად წაშლისას დადასტურების ფანჯრის ჩვენება" },
+  "notificationstitle": { "message": "შეტყობინებების ჩვენება" },
+  "notificationsdesc": { "message": "შეტყობინებების ჩვენება გაფართოების განახლებისას" },
+  "rulesmanagementtitle": { "message": "წესების მართვა" },
+  "exportrulesbtn": { "message": "წესების ექსპორტი" },
+  "importrulesbtn": { "message": "წესების იმპორტი" },
+  "clearallrulesbtn": { "message": "ყველა წესის წაშლა" },
+  "totalruleslabel": { "message": "სულ წესები" },
+  "blockedtodaylabel": { "message": "დღეს დაბლოკილი" },
+  "totalblockedlabel": { "message": "სულ დაბლოკილი" },
+  "resetsettingsbtn": { "message": "ნაგულისხმევზე აღდგენა" },
+  "backtopopup": { "message": "მთავარ გვერდზე დაბრუნება" },
+  "errorloadingsettings": { "message": "პარამეტრების ჩატვირთვის შეცდომა" },
+  "settingssaved": { "message": "პარამეტრები წარმატებით შეინახა!" },
+  "errorsavingsettings": { "message": "პარამეტრების შენახვის შეცდომა" },
+  "rulesexported": { "message": "წესები წარმატებით იქნა ექსპორტირებული!" },
+  "errorexportingrules": { "message": "წესების ექსპორტის შეცდომა" },
+  "willimportrules": {
+    "message": "იმპორტირდება $ruleslength$ წესი. ",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "ruleswillbereplaced": {
+    "message": "არსებული წესები ჩანაცვლდება. გაგრძელება?"
+  },
+  "importedrules": {
+    "message": "$ruleslength$ წესი წარმატებით იქნა იმპორტირებული!",
+    "placeholders": {
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "errorimportingrules": { "message": "წესების იმპორტის შეცდომა: " },
+  "norulestoclear": { "message": "წასაშლელი წესები არ არის" },
+  "willdeleteallrules": {
+    "message": "ეს სამუდამოდ წაშლის $rulescount$ წესს. ",
+    "placeholders": {
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
+    }
+  },
+  "cannotbeundone": { "message": "ამ მოქმედების გაუქმება შეუძლებელია. გაგრძელება?" },
+  "allrulescleared": { "message": "ყველა წესი წარმატებით წაიშალა!" },
+  "errorclearingrules": { "message": "წესების წაშლის შეცდომა" },
+  "willreset": { "message": "ყველა პარამეტრი ნაგულისხმევ მნიშვნელობებზე აღდგება. გაგრძელება?" },
+  "resettodefaults": { "message": "პარამეტრები ნაგულისხმევ მნიშვნელობებზე აღდგა!" },
+  "errorresettingsettings": { "message": "პარამეტრების აღდგენის შეცდომა" },
+  "basicsettingstitle": { "message": "ძირითადი პარამეტრები" },
+  "advancedsettingstitle": { "message": "დამატებითი პარამეტრები" },
+  "statisticstitle": { "message": "სტატისტიკა" },
+  "categorymanagementtitle": { "message": "კატეგორიების ბლოკირება" },
+  "rulelimitreached": {
+    "message": "თქვენ მიაღწიეთ ძირითადი ვერსიის წესების ლიმიტს ($limit$). განაახლეთ Pro ვერსიაზე, რათა მიიღოთ შეუზღუდავი რაოდენობის წესები.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "proonlyactions": { "message": "რედაქტირებისთვის საჭიროა Pro." },
+  "invalidpassword": { "message": "არასწორი პაროლი" },
+  "setpassword": { "message": "პაროლის დაყენება" },
+  "enterpassword": { "message": "შეიყვანეთ პაროლი" },
+  "passwordmismatch": { "message": "პაროლები არ ემთხვევა" },
+  "passwordtooshort": { "message": "პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს" },
+  "resetpasswordconfirm": { "message": "პაროლის აღდგენის შემდეგ დაცვა გამოირთვება. გაგრძელება?" },
+  "passwordset": { "message": "პაროლი წარმატებით დაყენდა" },
+  "passworddisabled": { "message": "პაროლით დაცვა გამორთულია" },
+  "prorequired": { "message": "ამ ფუნქციისთვის საჭიროა Pro ვერსია" },
+  "enablepasswordtitle": { "message": "პაროლით დაცვის ჩართვა" },
+  "enablepassworddesc": {
+    "message": "წესების წაშლის ან რედაქტირებისას პაროლის მოთხოვნა (აძლიერებს მკაცრ რეჟიმს)"
+  },
+  "passwordprotectiontitle": { "message": "პაროლით დაცვა" },
+  "scheduleheader": { "message": "განრიგი" },
+  "enableschedule": { "message": "განრიგის ჩართვა" },
+  "alwaysactive": { "message": "ყოველთვის აქტიური" },
+  "profeatureschedule": { "message": "განრიგი ხელმისაწვდომია Pro ვერსიაში" },
+  
+  "days": { "message": "დღეები" },
+  "starttime": { "message": "დაწყების დრო:" },
+  "endtime": { "message": "დასრულების დრო:" },
+  "invaliddays": { "message": "არჩეული დღეები არასწორია" },
+  "invalidtimeformat": { "message": "დროის ფორმატი არასწორია (გამოიყენეთ HH:MM)" },
+  "startafterend": { "message": "დაწყების დრო დასრულების დროზე ადრე უნდა იყოს" },
+  "invalidschedule": { "message": "არასწორი განრიგი: აირჩიეთ დღეები და დრო." },
+  "invalidscheduledays": { "message": "არასწორი განრიგი: აირჩიეთ მინიმუმ ერთი დღე." },
+  "invalidschedulestarttime": { "message": "არასწორი განრიგი: მიუთითეთ დაწყების დრო." },
+  "invalidscheduleendtime": { "message": "არასწორი განრიგი: მიუთითეთ დასრულების დრო." },
+  "editdisablednonpro": {
+    "message": "რედაქტირება გამორთულია: უფასო ვერსიისთვის წესების რაოდენობა მეტისმეტად დიდია."
+  },
+  "errorloadingstatus": { "message": "მომხმარებლის სტატუსის ჩატვირთვის შეცდომა." },
+  "schedule_day_sun": { "message": "კვ" },
+  "schedule_day_mon": { "message": "ორ" },
+  "schedule_day_tue": { "message": "სამ" },
+  "schedule_day_wed": { "message": "ოთხ" },
+  "schedule_day_thu": { "message": "ხუთ" },
+  "schedule_day_fri": { "message": "პარ" },
+  "schedule_day_sat": { "message": "შაბ" },
+  "category_header": { "message": "კატეგორია" },
+  "category_required": { "message": "კატეგორია სავალდებულოა" },
+  "allcategories": { "message": "ყველა კატეგორია" },
+  "category_social": { "message": "სოციალური ქსელები" },
+  "category_news": { "message": "სიახლეები" },
+  "category_entertainment": { "message": "გართობა" },
+  "category_shopping": { "message": "შოპინგი" },
+  "category_work": { "message": "სამუშაო" },
+  "category_gaming": { "message": "თამაშები" },
+  "category_adult": { "message": "18+ კონტენტი" },
+  "category_uncategorized": { "message": "კატეგორიის გარეშე" },
+  "searchfordomain": { "message": "დომენის სახელის ძიება" },
+  "norulesforcategory": { "message": "ამ კატეგორიაში დაბლოკილი საიტები არ არის." },
+  "getpro": { "message": "Pro-ის მიღება" },
+  "profunctionstext": {
+    "message": "Pro ფუნქციებში შედის: განრიგით ბლოკირება, პაროლით დაცვა, წესების ფილტრაცია და წესების ექსპორტი/იმპორტი. ისარგებლეთ ჩვენი უნივერსალური ლიცენზიით — ერთი გამოწერა ხსნის Pro ფუნქციებს ყველა თქვენს ბრაუზერში (Chrome, Firefox, Edge და Kiwi). გასააქტიურებლად შეიძინეთ გამოწერა blockdistraction.com-ზე, შემდეგ თქვენი ანგარიშიდან დააკოპირეთ ლიცენზიის გასაღები და ჩასვით ქვემოთ."
+  },
+  "upgradenow": { "message": "განახლება ახლავე" },
+  "enteremail": { "message": "შეიყვანეთ ელფოსტა" },
+  "activatepro": { "message": "Pro-ის გააქტიურება" },
+  "errormessage": { "message": "" },
+  "restoreaccess": { "message": "წვდომის აღდგენა" },
+  "pleaseenteremail": { "message": "გთხოვთ, შეიყვანოთ ელფოსტა" },
+  "checking": { "message": "მოწმდება..." },
+  "proactivated": { "message": "Pro ფუნქციები გააქტიურდა!" },
+  "subscriptionnotfound": { "message": "გამოწერა არ არის აქტიური ან ელფოსტა ვერ მოიძებნა." },
+  "servererror": { "message": "სერვერის შეცდომა. გთხოვთ, სცადოთ მოგვიანებით." },
+  "proactivatedfor": { "message": "Pro გააქტიურებულია:" },
+  "appName": {
+    "message": "BlockDistraction"
+  },
+  "onboarding_title": {
+    "message": "მოგესალმებით BlockDistraction-ში"
+  },
+  "onboarding_welcome": {
+    "message": "👋 კეთილი იყოს თქვენი მობრძანება BlockDistraction-ში!"
+  },
+  "onboarding_intro": {
+    "message": "გმადლობთ ჩვენი გაფართოების ინსტალაციისთვის. დაცვის გასააქტიურებლად მხოლოდ ერთი ნაბიჯი დარჩა."
+  },
+  "onboarding_box_title": {
+    "message": "საჭიროა მოქმედება: მიანიჭეთ ნებართვა"
+  },
+  "onboarding_box_p1": {
+    "message": "ვებსაიტების დასაბლოკად გაფართოებას სჭირდება თქვენს ჩანართებზე წვდომის ნებართვა. რადგან ეს მნიშვნელოვანი ნებართვაა, მისი მინიჭება ხელით არის საჭირო."
+  },
+  "onboarding_box_p2": {
+    "message": "დააჭირეთ ქვემოთ მოცემულ ღილაკს. ბრაუზერი გაჩვენებთ ფანჯარას, სადაც უნდა აირჩიოთ „დაშვება“."
+  },
+  "onboarding_button_activate": {
+    "message": "სრული დაცვის გააქტიურება"
+  },
+  "onboarding_status_success": {
+    "message": "წარმატებულია! დაცვა უკვე აქტიურია. შეგიძლიათ ეს ჩანართი დახუროთ."
+  },
+  "onboarding_status_denied": {
+    "message": "ნებართვა არ გაიცა. გაფართოება სწორად ვერ იმუშავებს. სცადეთ ხელახლა ან მიანიჭეთ ნებართვა გაფართოების პარამეტრებიდან."
+  },
+  "onboarding_status_error": {
+    "message": "დაფიქსირდა შეცდომა. გთხოვთ, მიანიჭოთ ნებართვა გაფართოების პარამეტრებიდან."
+  },
+  "onboarding_status_api_error": {
+    "message": "ნებართვის მოთხოვნა ვერ შესრულდა (ეს შეიძლება მოხდეს მობილურ მოწყობილობებზე). სცადეთ ხელახლა ან მიანიჭეთ ნებართვა ხელით გაფართოების პარამეტრებიდან."
+  },
+  "pastekeylabel": {
+    "message": "ჩასვით თქვენი ლიცენზიის გასაღები აქ:"
+  },
+  "confirmclearstats": {
+    "message": "ნამდვილად გსურთ მთელი სტატისტიკის გასუფთავება? ამ მოქმედების გაუქმება შეუძლებელია."
+  },
+  "statscleared": {
+    "message": "სტატისტიკა წარმატებით გასუფთავდა."
+  },
+  "redirectstodaylabel": {
+    "message": "დღევანდელი გადამისამართებები"
+  },
+  "totalredirectslabel": {
+    "message": "სულ გადამისამართებები"
+  },
+  "logout": {
+    "message": "გასვლა"
+  },
+  "loggedoutsuccess": {
+    "message": "თქვენ წარმატებით გამოხვედით ანგარიშიდან."
+  },
+  "loggedouterror": {
+    "message": "ანგარიშიდან გასვლისას მოხდა შეცდომა."
+  },
+  "forcesync": {
+    "message": "იძულებითი სინქრონიზაცია / სტატუსის შემოწმება"
+  },
+  "forgotpasswordinstructions": {
+    "message": "პაროლის აღსადგენად გადადით „Pro“ განყოფილებაში, დააჭირეთ „გასვლა“, შემდეგ კი ხელახლა გაააქტიურეთ Pro თქვენი ლიცენზიის გასაღების ჩასმით."
+  },
+  "blockedtitle": {
+    "message": "საიტი მიუწვდომელია"
+  },
+  "blockedheader": {
+    "message": "ეს საიტი ამჟამად მიუწვდომელია"
+  },
+  "blockedtext": {
+    "message": "ამ შინაარსის ჩვენება შეუძლებელია."
+  },
+  "blockedbutton": {
+    "message": "ჩანართის დახურვა"
+  },
+  "confirmpassword": {
+    "message": "დაადასტურეთ პაროლი"
+  },
+  "modalconfirm": {
+    "message": "დადასტურება"
+  },
+  "modalcancel": {
+    "message": "გაუქმება"
+  },
+  "forgotpassword": {
+    "message": "დაგავიწყდათ პაროლი? აღდგენა (დაცვა გამოირთვება)"
+  },
+  "prounlocked": {
+    "message": "გმადლობთ მხარდაჭერისთვის! ყველა Pro ფუნქცია განბლოკილია."
+  },
+  "licensesynced": {
+    "message": "თქვენი ლიცენზია სინქრონიზებულია თქვენს ანგარიშთან. თუ წვდომას დაკარგავთ, გასაღების მიღება შეგიძლიათ აქედან: "
+  },
+  "syncing": {
+    "message": "სინქრონიზაცია..."
+  },
+  "pleaseenterkey": {
+    "message": "გთხოვთ, შეიყვანოთ გასაღები."
+  },
+  "syncsuccess": {
+    "message": "სინქრონიზაცია წარმატებით დასრულდა"
+  },
+  "syncfailed": {
+    "message": "სინქრონიზაცია ვერ შესრულდა."
+  },
+  "passwordreset": {
+    "message": "პაროლით დაცვა აღდგა."
+  },
+  "privacysecured": {
+    "message": "კონფიდენციალურობა დაცულია"
+  },
+  "errorinvalidfiletype": {
+    "message": "გთხოვთ, აირჩიოთ .json ფაილი"
+  },
+  "debugsettingstitle": {
+    "message": "გამართვის პარამეტრები"
+  },
+  "enabledebugtitle": {
+    "message": "გამართვის რეჟიმის ჩართვა"
+  },
+  "enabledebugdesc": {
+    "message": "პრობლემების დიაგნოსტიკისთვის ჩართეთ დეტალური ჟურნალის ჩანაწერები კონსოლში"
+  },
+  "errorcommunication": {
+    "message": "შეცდომა ფონურ სერვისთან დაკავშირებისას"
+  },
+  "clearstats": {
+    "message": "სტატისტიკის გასუფთავება"
+  },
+  "rule_enabled": {
+    "message": "ჩართულია"
+  },
+  "rule_disabled": {
+    "message": "გამორთულია"
+  },
+  "filter_only_hint": {
+    "message": "ეს სია მხოლოდ ცხრილში ნაჩვენებ ელემენტებს ფილტრავს"
+  },
+  "category_disabled_desc": {
+    "message": "კატეგორიის დროებით დადუმება საშუალებას იძლევა ყველა მის საიტზე წვდომა აღდგეს. ცალკეული წესების პარამეტრები უცვლელი დარჩება."
+  },
+  "toggle_category_blocking": {
+    "message": "კატეგორიის სრული ბლოკირების ჩართვა/გამორთვა"
+  },
+  "category_muted_no_edit": {
+    "message": "მართვა შეუძლებელია: კატეგორიის ბლოკირება შეჩერებულია"
+  },
+  "feedback_title": {
+    "message": "მოგწონთ BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "თქვენი შეფასება და გამოხმაურება ძალიან გვეხმარება გაფართოების გაუმჯობესებაში."
+  },
+  "feedback_like": {
+    "message": "დიახ, შესანიშნავად მუშაობს!"
+  },
+  "feedback_dislike": {
+    "message": "მაქვს პრობლემები / შემოთავაზებები"
+  },
+  "trialproheader": {
+    "message": "დაიწყეთ 7-დღიანი უფასო საცდელი პერიოდი"
+  },
+  "trialprotext": {
+    "message": "გააუქმეთ ნებისმიერ დროს. უსაფრთხო გადახდა."
+  }
+}
