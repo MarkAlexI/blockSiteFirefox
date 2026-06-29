@@ -346,7 +346,6 @@ button:disabled {
   }
 }
 
-/* Focus Session Section */
 .focus-section {
   background-color: var(--bg-white);
   border: 1px solid var(--border-light);
@@ -434,7 +433,7 @@ button:disabled {
 }
 
 .delete-btn:hover {
-  background-color: #5a2d82; /* Darker rebeccapurple */
+  background-color: #5a2d82;
 }
 
 .hardcore-control {
