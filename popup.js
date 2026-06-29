@@ -132,7 +132,6 @@ class PopupPage {
     });
     
     this.scrollToTopBtn.addEventListener('click', () => scrollToTop());
-    this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
   }
   
   openOptionsPage() {
