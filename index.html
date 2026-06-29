@@ -32,6 +32,31 @@
     <p data-i18n="paragraph"></p>
   </div>
   
+  <div id="focus-session-section" class="focus-section">
+    <div class="focus-header">
+      <h3 data-i18n="focussessionheader"></h3>
+      <span class="focus-info" data-i18n="focussessioninfo"></span>
+    </div>
+    <div id="focus-controls">
+      <div id="focus-start-view">
+        <div class="duration-control">
+          <label for="focus-duration" data-i18n="focussessionduration"></label>
+          <input type="number" id="focus-duration" value="25" min="1" max="240">
+          <small id="focus-pro-note" class="pro-note hidden" data-i18n="focussessionprofeature"></small>
+        </div>
+        <div id="hardcore-mode-control" class="hardcore-control hidden">
+          <input type="checkbox" id="focus-hardcore-mode">
+          <label for="focus-hardcore-mode" data-i18n="focussessionhardcore"></label>
+        </div>
+        <button id="start-focus-btn" class="action-btn" data-i18n="focussessionstart"></button>
+      </div>
+      <div id="focus-active-view" class="hidden">
+        <div id="focus-timer-display">00:00</div>
+        <button id="stop-focus-btn" class="action-btn delete-btn" data-i18n="focussessionstop"></button>
+      </div>
+    </div>
+  </div>
+  
   <div class="controls">
     <button id="add-rule" title="Add new rule" data-i18n="addrule"></button>
     <button id="feedback-btn" title="Send feedback">

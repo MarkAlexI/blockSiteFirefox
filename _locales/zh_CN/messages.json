@@ -294,5 +294,16 @@
   "feedback_like": { "message": "是的，它运行得很好！" },
   "feedback_dislike": { "message": "我有问题 / 建议" },
   "trialproheader": { "message": "开启 7 天免费试用" },
-  "trialprotext": { "message": "随时可取消。交易安全有保障。" }
+  "trialprotext": { "message": "随时可取消。交易安全有保障。" },
+  "focussessionheader": { "message": "专注时段" },
+  "focussessionstart": { "message": "开始" },
+  "focussessionstop": { "message": "停止" },
+  "focussessionduration": { "message": "时长 (分钟):" },
+  "focussessioninfo": { "message": "在设定的时间内激活您所有的屏蔽规则，忽略其当前设置和计划。以实现最大程度的专注。" },
+  "focussessionprofeature": { "message": "自定义时长和“硬核模式”是专业版功能。" },
+  "focussessionended": { "message": "专注时段已结束！休息一下吧。" },
+  "focussessionhardcore": { "message": "硬核模式 (无“停止”按钮)" },
+  "focussessionactivebanner": { "message": "专注时段进行中！剩余时间：" },
+  "focussessioninvalidduration": { "message": "请输入有效的时长 (1-240 分钟)。" },
+  "successfulfocussessionslabel": { "message": "成功的专注时段" }
 }

@@ -284,5 +284,16 @@
   "feedback_like": { "message": "Kyllä, se toimii erinomaisesti!" },
   "feedback_dislike": { "message": "Minulla on ongelmia / ehdotuksia" },
   "trialproheader": { "message": "Aloita 7 päivän ilmainen kokeilujakso" },
-  "trialprotext": { "message": "Peruuta milloin tahansa. Maksusi on suojattu turvallisesti." }
+  "trialprotext": { "message": "Peruuta milloin tahansa. Maksusi on suojattu turvallisesti." },
+  "focussessionheader": { "message": "Keskittymisistunto" },
+  "focussessionstart": { "message": "Aloita" },
+  "focussessionstop": { "message": "Pysäytä" },
+  "focussessionduration": { "message": "Kesto (min):" },
+  "focussessioninfo": { "message": "Aktivoi kaikki estossääntösi määritetyksi ajaksi, ohittaen niiden nykyiset asetukset ja aikataulut. Maksimaaliseen keskittymiseen." },
+  "focussessionprofeature": { "message": "Mukautettu kesto ja Hardcore-tila ovat Pro-ominaisuuksia." },
+  "focussessionended": { "message": "Keskittymisistunto päättyi! Pidä tauko." },
+  "focussessionhardcore": { "message": "Hardcore-tila (ei 'Pysäytä'-painiketta)" },
+  "focussessionactivebanner": { "message": "Keskittymisistunto aktiivinen! Jäljellä oleva aika:" },
+  "focussessioninvalidduration": { "message": "Anna kelvollinen kesto (1-240 minuuttia)." },
+  "successfulfocussessionslabel": { "message": "Onnistuneet keskittymisistunnot" }
 }

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.10.0] - 2026-06-29
+### Added
+- **Focus Session:** A new powerful tool designed for maximum concentration when you need it most.
+- **Hardcore Mode:** A new feature for **Pro** users that hides the "Stop" button during an active session.
+- **Status Banner:** Added a visual banner to the settings page that displays the currently active focus session and the remaining time.
+### Changed
+- **UI Locking:** During an active Focus Session, the rule management UI is now locked to prevent impulsive changes.
+
 ## [3.9.11] - 2026-06-28
 ### Added
 - Added Malayalam language support.

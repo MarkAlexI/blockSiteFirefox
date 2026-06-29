@@ -2,6 +2,7 @@ import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
 import { PasswordUtils } from '../pro/password.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
+import { getFocusSessionState } from '../utils/focusSession.js';
 import Logger from '../utils/logger.js';
 
 export class SettingsManager {
@@ -13,8 +14,13 @@ export class SettingsManager {
       showNotifications: true,
       enablePassword: false,
       passwordHash: null,
-      debugMode: false
+      debugMode: false,
+      focusSessionSound: true
     };
+
+    this.focusBanner = document.getElementById('focus-session-banner');
+    this.focusBannerTimer = document.getElementById('focus-banner-timer');
+    this.focusTimerInterval = null;
     
     this.onRulesUpdated = null;
     
@@ -30,6 +36,7 @@ export class SettingsManager {
     this.setupEventListeners();
     this.loadRuleCount();
     this.loadStatistics();
+    await this.initFocusSessionBanner();
   }
   
   async initializeSettings() {
@@ -71,7 +78,8 @@ export class SettingsManager {
         showNotifications: true,
         enablePassword: false,
         passwordHash: null,
-        debugMode: false
+        debugMode: false,
+        focusSessionSound: true
       };
       
       if (!result.settings) {
@@ -88,7 +96,8 @@ export class SettingsManager {
         showNotifications: true,
         enablePassword: false,
         passwordHash: null,
-        debugMode: false
+        debugMode: false,
+        focusSessionSound: true
       };
     }
   }
@@ -110,6 +119,9 @@ export class SettingsManager {
 
     const debugBox = document.getElementById('enableDebug');
     if (debugBox) debugBox.checked = settings.debugMode;
+
+    const focusSoundBox = document.getElementById('focusSessionSound');
+    if (focusSoundBox) focusSoundBox.checked = settings.focusSessionSound;
   }
   
   async saveSettings(settingsToSave) {
@@ -132,16 +144,70 @@ export class SettingsManager {
     const showNotifications = document.getElementById('showNotifications').checked;
     const enablePassword = document.getElementById('enablePassword').checked;
     const debugMode = document.getElementById('enableDebug')?.checked || false;
+    const focusSessionSound = document.getElementById('focusSessionSound')?.checked || false;
     
     return {
       mode,
       confirmBeforeDelete,
       showNotifications,
       enablePassword,
-      debugMode
+      debugMode,
+      focusSessionSound
     };
   }
   
+  toggleUIAccessibility(locked) {
+    const elementsToLock = [
+      ...document.querySelectorAll('.collapsible-section'),
+      document.getElementById('search-filter-container'),
+      document.getElementById('add-rule'),
+      document.querySelector('.table-wrapper')
+    ];
+
+    elementsToLock.forEach(el => {
+      if (el) {
+        el.classList.toggle('focus-lock-active', locked);
+      }
+    });
+  }
+
+  async initFocusSessionBanner() {
+    if (this.focusTimerInterval) {
+      clearInterval(this.focusTimerInterval);
+      this.focusTimerInterval = null;
+    }
+
+    const { focusActive, focusEndTime } = await getFocusSessionState();
+
+    if (focusActive && focusEndTime > Date.now()) {
+      this.focusBanner.classList.remove('hidden');
+      this.toggleUIAccessibility(true);
+      this.updateBannerTimer(focusEndTime);
+      this.focusTimerInterval = setInterval(() => this.updateBannerTimer(focusEndTime), 1000);
+    } else {
+      this.focusBanner.classList.add('hidden');
+      this.toggleUIAccessibility(false);
+    }
+  }
+
+  updateBannerTimer(endTime) {
+    const now = Date.now();
+    const remaining = endTime - now;
+
+    if (remaining <= 0) {
+      this.focusBannerTimer.textContent = '00:00';
+      clearInterval(this.focusTimerInterval);
+      this.focusTimerInterval = null;
+      this.focusBanner.classList.add('hidden');
+      this.toggleUIAccessibility(false);
+      return;
+    }
+
+    const minutes = Math.floor((remaining / 1000 / 60) % 60).toString().padStart(2, '0');
+    const seconds = Math.floor((remaining / 1000) % 60).toString().padStart(2, '0');
+    this.focusBannerTimer.textContent = `${minutes}:${seconds}`;
+  }
+
   async checkPasswordProtection() {
     const settings = await SettingsManager.getSettings();
     if (settings.enablePassword) {
@@ -155,7 +221,7 @@ export class SettingsManager {
   }
   
   setupEventListeners() {
-    const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword)');
+    const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword):not(#focusSessionSound)');
     
     inputs.forEach(input => {
       input.addEventListener('change', async (e) => {
@@ -173,6 +239,13 @@ export class SettingsManager {
       });
     });
     
+    const focusSoundCheckbox = document.getElementById('focusSessionSound');
+    if (focusSoundCheckbox) {
+      focusSoundCheckbox.addEventListener('change', async (e) => {
+        await this.saveSettings({ focusSessionSound: e.target.checked });
+      });
+    }
+
     const enablePasswordToggle = document.getElementById('enablePassword');
     if (enablePasswordToggle) {
       enablePasswordToggle.addEventListener('click', async (event) => {
@@ -299,6 +372,7 @@ export class SettingsManager {
       setStatsText('blockedToday', stats.blockedToday || 0);
       setStatsText('totalRedirects', stats.totalRedirects || 0);
       setStatsText('redirectsToday', stats.redirectsToday || 0);
+      setStatsText('successfulFocusSessions', stats.successfulFocusSessions || 0);
     } catch (error) {
       this.logger.error('Error loading statistics:', error);
     }

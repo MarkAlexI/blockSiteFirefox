@@ -12,6 +12,7 @@ import { updateUninstallURL } from '../utils/updateUninstallURL.js';
 import { createInstallURL } from '../utils/createInstallURL.js';
 import { shouldSkipSync } from '../utils/shouldSkipSync.js';
 import { isBlockedURL } from './isBlockedURL.js';
+import { getFocusSessionState } from '../utils/focusSession.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -142,10 +143,11 @@ async function updateActiveRules() {
   try {
     const rules = await rulesManager.getRules();
     const settings = await SettingsManager.getSettings();
+    const { focusActive } = await getFocusSessionState();
     const disabledCategories = settings.disabledCategories || [];
     const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
     
-    const activeRules = rules.filter(rule => rulesManager.isRuleActiveNow(rule, disabledCategories));
+    const activeRules = rules.filter(rule => rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive));
     const activeIds = new Set(activeRules.map(r => r.id));
     
     const removeRuleIds = currentDnrRules
@@ -500,6 +502,49 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
   
+  if (message.type === 'start_focus_session') {
+    (async () => {
+      try {
+        const durationMinutes = message.duration || 25;
+        const isHardcore = message.isHardcore || false;
+        const endTime = Date.now() + durationMinutes * 60 * 1000;
+        
+        await browser.storage.local.set({
+          focusSession: { focusActive: true, focusEndTime: endTime, isHardcore }
+        });
+        
+        browser.alarms.create('end_focus_session', { delayInMinutes: durationMinutes });
+        
+        await updateActiveRules();
+        
+        logger.log(`Focus Session: Started for ${durationMinutes} minutes.`);
+        sendResponse({ success: true });
+      } catch (error) {
+        logger.error('Focus Session: Error starting session:', error);
+        sendResponse({ success: false, error: error.message });
+      }
+    })();
+    return true;
+  }
+  
+  if (message.type === 'stop_focus_session') {
+    (async () => {
+      try {
+        await browser.storage.local.set({
+          focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false }
+        });
+        await browser.alarms.clear('end_focus_session');
+        await updateActiveRules();
+        logger.log('Focus Session: Stopped by user.');
+        sendResponse({ success: true });
+      } catch (error) {
+        logger.error('Focus Session: Error stopping session:', error);
+        sendResponse({ success: false, error: error.message });
+      }
+    })();
+    return true;
+  }
+  
   if (message.type === 'permissions_granted') {
     logger.log("Permissions granted via onboarding.");
     updateActiveRules();
@@ -529,6 +574,28 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
     await updateUninstallURL();
     const syncResult = await syncLicenseKeyStatus();
     await updateContextMenu(syncResult.isPro);
+  }
+  
+  if (alarm.name === 'end_focus_session') {
+    logger.log('Focus Session: Alarm triggered, ending session.');
+    await browser.storage.local.set({
+      focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false }
+    });
+    await updateActiveRules();
+    await StatisticsManager.recordFocusSession();
+    
+    const settings = await SettingsManager.getSettings();
+    const playSound = settings.focusSessionSound;
+    
+    if (browser.notifications) {
+      browser.notifications.create('focus_session_ended', {
+        type: 'basic',
+        iconUrl: browser.runtime.getURL('images/icon-192.png'),
+        title: browser.i18n.getMessage('focussessionheader'),
+        message: browser.i18n.getMessage('focussessionended'),
+        silent: !playSound
+      });
+    }
   }
   
   if (alarm.name === 'update_scheduled_rules') {

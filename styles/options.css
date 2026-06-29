@@ -213,7 +213,6 @@ header p {
 
 .toggle-switch {
   position: relative;
-  margin-top: -0.3125rem;
 }
 
 .toggle-input {
@@ -805,6 +804,13 @@ footer {
   .category-grid {
     gap: 6px;
   }
+}
+
+.focus-lock-active {
+  pointer-events: none;
+  opacity: 0.5;
+  filter: grayscale(80%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
 @media (max-width: 768px) {

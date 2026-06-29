@@ -345,3 +345,115 @@ button:disabled {
     max-width: none;
   }
 }
+
+/* Focus Session Section */
+.focus-section {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin: 1.25rem 0;
+  box-shadow: var(--shadow-small);
+  text-align: center;
+}
+
+.focus-header h3 {
+  margin: 0 0 0.5rem;
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+}
+
+.focus-info {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+#focus-controls .duration-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#focus-controls label {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+#focus-controls input[type="number"] {
+  width: 60px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+#focus-controls input[type="number"]:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.pro-note {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+}
+
+#focus-active-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#focus-timer-display {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#start-focus-btn,
+#stop-focus-btn {
+  width: 100%;
+}
+
+#start-focus-btn {
+  background-color: var(--secondary-color);
+}
+
+#start-focus-btn:hover {
+  background-color: var(--secondary-hover);
+}
+
+.delete-btn {
+  background-color: var(--danger-color);
+}
+
+.delete-btn:hover {
+  background-color: #5a2d82; /* Darker rebeccapurple */
+}
+
+.hardcore-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.hardcore-control label {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.focus-lock-active {
+  pointer-events: none;
+  opacity: 0.5;
+  filter: grayscale(80%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}

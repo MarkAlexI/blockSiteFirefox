@@ -294,5 +294,16 @@
   "feedback_like": { "message": "はい、とても良く動作します！" },
   "feedback_dislike": { "message": "問題 / 提案があります" },
   "trialproheader": { "message": "7日間の無料トライアルを始める" },
-  "trialprotext": { "message": " いつでも解約可能。 決済は安全に保護されます。" }
+  "trialprotext": { "message": " いつでも解約可能。 決済は安全に保護されます。" },
+  "focussessionheader": { "message": "集中セッション" },
+  "focussessionstart": { "message": "開始" },
+  "focussessionstop": { "message": "停止" },
+  "focussessionduration": { "message": "期間 (分):" },
+  "focussessioninfo": { "message": "設定された時間、現在の設定やスケジュールを無視して、すべてのブロックルールを有効にします。最大限の集中力を発揮するためです。" },
+  "focussessionprofeature": { "message": "カスタム期間とハードコアモードはProの機能です。" },
+  "focussessionended": { "message": "集中セッションが終了しました！休憩してください。" },
+  "focussessionhardcore": { "message": "ハードコアモード (「停止」ボタンなし)" },
+  "focussessionactivebanner": { "message": "集中セッションがアクティブです！残り時間：" },
+  "focussessioninvalidduration": { "message": "有効な期間 (1-240分) を入力してください。" },
+  "successfulfocussessionslabel": { "message": "成功した集中セッション" }
 }

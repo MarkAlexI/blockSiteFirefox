@@ -9,6 +9,7 @@ import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
 import { initializeNoSpaceInputs } from './utils/noSpaces.js';
 import Logger from './utils/logger.js';
+import { getFocusSessionState } from './utils/focusSession.js';
 import { MAX_RULES_LIMIT } from './utils/constants.js';
 import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 
@@ -25,6 +26,18 @@ class PopupPage {
     this.statusOutput = document.getElementById('status');
     this.currentModeElement = document.getElementById('current-mode');
     this.scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    this.focusSection = document.getElementById('focus-session-section');
+    this.startFocusBtn = document.getElementById('start-focus-btn');
+    this.stopFocusBtn = document.getElementById('stop-focus-btn');
+    this.focusDurationInput = document.getElementById('focus-duration');
+    this.focusTimerDisplay = document.getElementById('focus-timer-display');
+    this.focusStartView = document.getElementById('focus-start-view');
+    this.focusActiveView = document.getElementById('focus-active-view');
+    this.focusProNote = document.getElementById('focus-pro-note');
+    this.hardcoreModeControl = document.getElementById('hardcore-mode-control');
+    this.hardcoreModeCheckbox = document.getElementById('focus-hardcore-mode');
+    this.focusTimerInterval = null;
     
     this.thisTabs = [];
     this.settings = {};
@@ -49,6 +62,7 @@ class PopupPage {
     }
     
     await this.loadRules();
+    await this.initFocusSession();
   }
   
   initializeUI() {
@@ -118,6 +132,7 @@ class PopupPage {
     });
     
     this.scrollToTopBtn.addEventListener('click', () => scrollToTop());
+    this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
   }
   
   openOptionsPage() {
@@ -389,6 +404,96 @@ class PopupPage {
     return saveButton;
   }
   
+  async initFocusSession() {
+    this.startFocusBtn.addEventListener('click', () => this.startFocusSession());
+    this.stopFocusBtn.addEventListener('click', () => this.stopFocusSession());
+    await this.updateFocusUI();
+  }
+
+  toggleUIAccessibility(locked) {
+    const elementsToLock = [
+      document.querySelector('.controls'),
+      this.rulesContainer
+    ];
+
+    elementsToLock.forEach(el => {
+      if (el) {
+        el.classList.toggle('focus-lock-active', locked);
+      }
+    });
+  }
+
+  async updateFocusUI() {
+    if (this.focusTimerInterval) {
+      clearInterval(this.focusTimerInterval);
+      this.focusTimerInterval = null;
+    }
+
+    const { focusActive, focusEndTime, isHardcore } = await getFocusSessionState();
+
+    if (focusActive && focusEndTime > Date.now()) {
+      this.focusStartView.classList.add('hidden');
+      this.focusActiveView.classList.remove('hidden');
+      this.toggleUIAccessibility(true);
+
+      this.stopFocusBtn.classList.toggle('hidden', isHardcore);
+
+      this.updateTimerDisplay(focusEndTime);
+      this.focusTimerInterval = setInterval(() => this.updateTimerDisplay(focusEndTime), 1000);
+    } else {
+      this.focusStartView.classList.remove('hidden');
+      this.focusActiveView.classList.add('hidden');
+      this.toggleUIAccessibility(false);
+
+      if (this.isPro || this.isLegacyUser) {
+        this.focusDurationInput.disabled = false;
+        this.focusProNote.classList.add('hidden');
+        this.hardcoreModeControl.classList.remove('hidden');
+      } else {
+        this.focusDurationInput.disabled = true;
+        this.focusDurationInput.value = 25;
+        this.focusProNote.classList.remove('hidden');
+        this.hardcoreModeControl.classList.add('hidden');
+      }
+    }
+  }
+
+  updateTimerDisplay(endTime) {
+    const now = Date.now();
+    const remaining = endTime - now;
+
+    if (remaining <= 0) {
+      this.focusTimerDisplay.textContent = '00:00';
+      clearInterval(this.focusTimerInterval);
+      this.focusTimerInterval = null;
+      this.toggleUIAccessibility(false);
+      setTimeout(() => this.updateFocusUI(), 1000);
+      return;
+    }
+
+    const minutes = Math.floor((remaining / 1000 / 60) % 60).toString().padStart(2, '0');
+    const seconds = Math.floor((remaining / 1000) % 60).toString().padStart(2, '0');
+    this.focusTimerDisplay.textContent = `${minutes}:${seconds}`;
+  }
+
+  async startFocusSession() {
+    const duration = parseInt(this.focusDurationInput.value, 10);
+    if (isNaN(duration) || duration < 1 || duration > 240) {
+      customAlert(t('focussessioninvalidduration'));
+      return;
+    }
+
+    const isHardcore = (this.isPro || this.isLegacyUser) && this.hardcoreModeCheckbox.checked;
+
+    await browser.runtime.sendMessage({ type: 'start_focus_session', duration, isHardcore });
+    await this.updateFocusUI();
+  }
+
+  async stopFocusSession() {
+    await browser.runtime.sendMessage({ type: 'stop_focus_session' });
+    await this.updateFocusUI();
+  }
+
   async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton) {
     try {
       if (!this.isPro && !this.isLegacyUser) {
@@ -503,6 +608,9 @@ class PopupPage {
   
   cleanup() {
     this.rulesUI.cleanup();
+    if (this.focusTimerInterval) {
+      clearInterval(this.focusTimerInterval);
+    }
   }
 }
 

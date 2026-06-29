@@ -285,5 +285,16 @@
   "feedback_like": { "message": "Sim, funciona muito bem!" },
   "feedback_dislike": { "message": "Tenho problemas / sugestões" },
   "trialproheader": { "message": "Comece seu teste grátis de 7 dias" },
-  "trialprotext": { "message": "Cancele a qualquer momento. Seus pagamentos estão totalmente seguros." }
+  "trialprotext": { "message": "Cancele a qualquer momento. Seus pagamentos estão totalmente seguros." },
+  "focussessionheader": { "message": "Sessão de Foco" },
+  "focussessionstart": { "message": "Iniciar" },
+  "focussessionstop": { "message": "Parar" },
+  "focussessionduration": { "message": "Duração (min):" },
+  "focussessioninfo": { "message": "Ativa todas as suas regras de bloqueio por um tempo definido, ignorando as configurações e agendamentos atuais. Para concentração máxima." },
+  "focussessionprofeature": { "message": "Duração personalizada e modo Hardcore são recursos Pro." },
+  "focussessionended": { "message": "Sessão de foco terminada! Faça uma pausa." },
+  "focussessionhardcore": { "message": "Modo Hardcore (sem botão 'Parar')" },
+  "focussessionactivebanner": { "message": "Sessão de Foco Ativa! Tempo restante:" },
+  "focussessioninvalidduration": { "message": "Por favor, insira uma duração válida (1-240 minutos)." },
+  "successfulfocussessionslabel": { "message": "Sessões de Foco Bem-sucedidas" }
 }

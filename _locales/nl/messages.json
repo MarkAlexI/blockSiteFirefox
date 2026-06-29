@@ -285,5 +285,16 @@
   "feedback_like": { "message": "Ja, het werkt geweldig!" },
   "feedback_dislike": { "message": "Ik heb problemen / suggesties" },
   "trialproheader": { "message": "Probeer 7 dagen gratis" },
-  "trialprotext": { "message": "Annuleer wanneer je wilt. Veilig betalen." }
+  "trialprotext": { "message": "Annuleer wanneer je wilt. Veilig betalen." },
+  "focussessionheader": { "message": "Focussessie" },
+  "focussessionstart": { "message": "Start" },
+  "focussessionstop": { "message": "Stop" },
+  "focussessionduration": { "message": "Duur (min):" },
+  "focussessioninfo": { "message": "Activeert al je blokkeerregels voor een ingestelde tijd, waarbij de huidige instellingen en schema's worden genegeerd. Voor maximale concentratie." },
+  "focussessionprofeature": { "message": "Aangepaste duur en Hardcore-modus zijn Pro-functies." },
+  "focussessionended": { "message": "Focussessie beëindigd! Neem een pauze." },
+  "focussessionhardcore": { "message": "Hardcore-modus (geen 'Stop'-knop)" },
+  "focussessionactivebanner": { "message": "Focussessie actief! Resterende tijd:" },
+  "focussessioninvalidduration": { "message": "Voer een geldige duur in (1-240 minuten)." },
+  "successfulfocussessionslabel": { "message": "Succesvolle Focussessies" }
 }

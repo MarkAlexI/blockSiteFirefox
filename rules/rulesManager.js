@@ -4,6 +4,7 @@ import { isValidURL } from '../scripts/isValidURL.js';
 import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
 import Logger from '../utils/logger.js';
 import { isBlockedURL } from '../scripts/isBlockedURL.js';
+import { getFocusSessionState } from '../utils/focusSession.js';
 
 export class RulesManager {
   constructor() {
@@ -36,11 +37,12 @@ export class RulesManager {
       const rules = await this.getRules();
       const settings = await this.getSettings();
       const disabledCategories = settings.disabledCategories || [];
+      const { focusActive } = await getFocusSessionState();
       
       const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
       const currentDnrIds = currentDnrRules.map(r => r.id);
       
-      const activeRules = rules.filter(rule => this.isRuleActiveNow(rule, disabledCategories));
+      const activeRules = rules.filter(rule => this.isRuleActiveNow(rule, disabledCategories, focusActive));
       const addRules = [];
       const seenIds = new Set();
       
@@ -362,7 +364,10 @@ export class RulesManager {
     return settings.mode === 'strict';
   }
   
-  isRuleActiveNow(rule, disabledCategories = []) {
+  isRuleActiveNow(rule, disabledCategories = [], focusSessionActive = false) {
+    if (focusSessionActive) {
+      return true;
+    }
     if (rule.disabledByUser) return false;
     if (disabledCategories.includes(rule.category)) return false;
     if (!rule.schedule) return true;
