@@ -334,6 +334,11 @@ export class SettingsManager {
       this.logger.log('Statistics changed in storage, reloading stats UI...');
       this.loadStatistics();
     }
+
+    if (changes.focusSession) {
+      this.logger.log('Focus session state changed, updating Banner and UI...');
+      this.initFocusSessionBanner();
+    }
   }
   
   async loadRuleCount(rules_from_message = null) {
