@@ -270,25 +270,6 @@
   "totalredirectslabel": {
     "message": "Redirecciones totales"
   },
-   "focussessionheader": { "message": "Sesión de Enfoque" },
-  "focussessionstart": { "message": "Iniciar" },
-  "focussessionstop": { "message": "Detener" },
-  "focussessionduration": { "message": "Duración (min):" },
-  "focussessioninfo": { "message": "Activa todas tus reglas de bloqueo por un tiempo determinado, ignorando su configuración y horarios actuales. Para una máxima concentración." },
-  "focussessionprofeature": { "message": "La duración personalizada y el modo Hardcore son funciones Pro." },
-  "focussessionended": { "message": "¡Sesión de enfoque finalizada! Tómate un descanso." },
-  "focussessionhardcore": { "message": "Modo Hardcore (sin botón de 'Detener')" },
-  "focussessionsoundtitle": { "message": "Notificación de Sonido de Sesión de Enfoque" },
-  "focussessionsounddesc": { "message": "Reproducir un sonido cuando la sesión de enfoque termina." },
-  "focussessioncustomsoundtitle": { "message": "Sonido Personalizado de Sesión de Enfoque" },
-  "focussessioncustomsounddesc": { "message": "Elige un sonido para cuando la sesión termine." },
-  "focussounddefault": { "message": "Predeterminado" },
-  "focussoundchime": { "message": "Campanilla" },
-  "focussoundbell": { "message": "Campana" },
-  "focussoundgong": { "message": "Gong" },
-  "focussessionactivebanner": { "message": "¡Sesión de Enfoque Activa! Tiempo restante:" },
-  "focussessioninvalidduration": { "message": "Por favor, ingresa una duración válida (1-240 minutos)." },
-  "successfulfocussessionslabel": { "message": "Sesiones de Enfoque Exitosas" },
   "logout": {
     "message": "Cerrar sesión"
   },
@@ -405,5 +386,24 @@
   },
   "trialprotext": {
     "message": "Cancela cuando quieras. Pago seguro."
-  }
+  },
+  "focussessionheader": { "message": "Sesión de Enfoque" },
+  "focussessionstart": { "message": "Iniciar" },
+  "focussessionstop": { "message": "Detener" },
+  "focussessionduration": { "message": "Duración (min):" },
+  "focussessioninfo": { "message": "Activa todas tus reglas de bloqueo por un tiempo determinado, ignorando su configuración y horarios actuales. Para una máxima concentración." },
+  "focussessionprofeature": { "message": "La duración personalizada y el modo Hardcore son funciones Pro." },
+  "focussessionended": { "message": "¡Sesión de enfoque finalizada! Tómate un descanso." },
+  "focussessionhardcore": { "message": "Modo Hardcore (sin botón de 'Detener')" },
+  "focussessionsoundtitle": { "message": "Notificación de Sonido de Sesión de Enfoque" },
+  "focussessionsounddesc": { "message": "Reproducir un sonido cuando la sesión de enfoque termina." },
+  "focussessioncustomsoundtitle": { "message": "Sonido Personalizado de Sesión de Enfoque" },
+  "focussessioncustomsounddesc": { "message": "Elige un sonido para cuando la sesión termine." },
+  "focussounddefault": { "message": "Predeterminado" },
+  "focussoundchime": { "message": "Campanilla" },
+  "focussoundbell": { "message": "Campana" },
+  "focussoundgong": { "message": "Gong" },
+  "focussessionactivebanner": { "message": "¡Sesión de Enfoque Activa! Tiempo restante:" },
+  "focussessioninvalidduration": { "message": "Por favor, ingresa una duración válida (1-240 minutos)." },
+  "successfulfocussessionslabel": { "message": "Sesiones de Enfoque Exitosas" }
 }

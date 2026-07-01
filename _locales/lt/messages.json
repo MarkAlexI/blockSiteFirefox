@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Taip, jis veikia puikiai!" },
   "feedback_dislike": { "message": "Turiu problemų / pasiūlymų" },
   "trialproheader": { "message": "Išbandykite 7 dienas nemokamai" },
-  "trialprotext": { "message": "Galite atšaukti bet kada. Saugus atsiskaitymas." }
+  "trialprotext": { "message": "Galite atšaukti bet kada. Saugus atsiskaitymas." },
+  "focussessionheader": { "message": "Fokusavimosi sesija" },
+  "focussessionstart": { "message": "Pradėti" },
+  "focussessionstop": { "message": "Stabdyti" },
+  "focussessionduration": { "message": "Trukmė (min.):" },
+  "focussessioninfo": { "message": "Nustatytam laikui aktyvuoja visas jūsų blokavimo taisykles, nepaisant esamų nustatymų ir tvarkaraščių. Maksimaliai koncentracijai." },
+  "focussessionprofeature": { "message": "Pasirinktinė trukmė ir „Hardcore“ režimas yra „Pro“ funkcijos." },
+  "focussessionended": { "message": "Fokusavimosi sesija baigėsi! Padarykite pertrauką." },
+  "focussessionhardcore": { "message": "„Hardcore“ režimas (be mygtuko „Stabdyti“)" },
+  "focussessionsoundtitle": { "message": "Fokusavimosi sesijos garsinis pranešimas" },
+  "focussessionsounddesc": { "message": "Paleisti garsą, kai fokusavimosi sesija baigiasi." },
+  "focussessionactivebanner": { "message": "Fokusavimosi sesija aktyvi! Likęs laikas:" },
+  "focussessioninvalidduration": { "message": "Įveskite galiojančią trukmę (1–240 min.)." },
+  "successfulfocussessionslabel": { "message": "Sėkmingos fokusavimosi sesijos" }
 }

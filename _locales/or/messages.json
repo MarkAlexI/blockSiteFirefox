@@ -294,5 +294,18 @@
   "feedback_like": { "message": "ହଁ, ଏହା ବହୁତ ଭଲ କାମ କରୁଛି!" },
   "feedback_dislike": { "message": "ମୋର ସମସ୍ୟା / ପ୍ରସ୍ତାବ ଅଛି" },
   "trialproheader": { "message": "ଆପଣଙ୍କର 7 ଦିନର ଫ୍ରି ଟ୍ରାଏଲ୍ ଆରମ୍ଭ କରନ୍ତୁ" },
-  "trialprotext": { "message": "ଯେକୌଣସି ସମୟରେ ବାତିଲ୍ କରନ୍ତୁ। ଆପଣଙ୍କର ପେମେଣ୍ଟ ସମ୍ପୂର୍ଣ୍ଣ ସୁରକ୍ଷିତ।" }
+  "trialprotext": { "message": "ଯେକୌଣସି ସମୟରେ ବାତିଲ୍ କରନ୍ତୁ। ଆପଣଙ୍କର ପେମେଣ୍ଟ ସମ୍ପୂର୍ଣ୍ଣ ସୁରକ୍ଷିତ।" },
+  "focussessionheader": { "message": "ଫୋକସ୍ ସେସନ୍" },
+  "focussessionstart": { "message": "ଆରମ୍ଭ କରନ୍ତୁ" },
+  "focussessionstop": { "message": "ବନ୍ଦ କରନ୍ତୁ" },
+  "focussessionduration": { "message": "ଅବଧି (ମିନିଟ୍):" },
+  "focussessioninfo": { "message": "ଆପଣଙ୍କର ସମସ୍ତ ବ୍ଲକିଂ ନିୟମକୁ ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ସମୟ ପାଇଁ ସକ୍ରିୟ କରେ, ସେଗୁଡ଼ିକର ବର୍ତ୍ତମାନର ସେଟିଂସ ଏବଂ ସୂଚୀକୁ ଅବହେଳା କରି | ସର୍ବାଧିକ ଏକାଗ୍ରତା ପାଇଁ |" },
+  "focussessionprofeature": { "message": "କଷ୍ଟମ୍ ଅବଧି ଏବଂ ହାର୍ଡକୋର-ମୋଡ୍ ହେଉଛି ପ୍ରୋ (Pro) ଫିଚର୍ସ |" },
+  "focussessionended": { "message": "ଫୋକସ୍ ସେସନ୍ ଶେଷ ହୋଇଛି! ଟିକେ ବିରତି ନିଅନ୍ତୁ |" },
+  "focussessionhardcore": { "message": "ହାର୍ଡକୋର ମୋଡ୍ (କୌଣସି 'ବନ୍ଦ କରନ୍ତୁ' ବଟନ୍ ନାହିଁ)" },
+  "focussessionsoundtitle": { "message": "ଫୋକସ୍ ସେସନ୍ ଶବ୍ଦ ବିଜ୍ଞପ୍ତି" },
+  "focussessionsounddesc": { "message": "ଫୋକସ୍ ସେସନ୍ ଶେଷ ହେବା ପରେ ଏକ ଶବ୍ଦ ବଜାନ୍ତୁ |" },
+  "focussessionactivebanner": { "message": "ଫୋକସ୍ ସେସନ୍ ସକ୍ରିୟ ଅଛି! ବାକି ସମୟ:" },
+  "focussessioninvalidduration": { "message": "ଦୟାକରି ଏକ ବୈଧ ଅବଧି ପ୍ରବେଶ କରନ୍ତୁ (୧-୨୪୦ ମିନିଟ୍) |" },
+  "successfulfocussessionslabel": { "message": "ସଫଳ ଫୋକସ୍ ସେସନ୍" }
 }

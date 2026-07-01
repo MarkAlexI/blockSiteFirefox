@@ -284,5 +284,18 @@
   "feedback_like": { "message": "होय, हे खूप छान काम करते!" },
   "feedback_dislike": { "message": "मला समस्या / सूचना आहेत" },
   "trialproheader": { "message": "तुमचा 7 दिवसांचा फ्री ट्रायल सुरू करा" },
-  "trialprotext": { "message": "कधीही कॅन्सल करा. तुमचे पेमेंट पूर्णपणे सुरक्षित आहे." }
+  "trialprotext": { "message": "कधीही कॅन्सल करा. तुमचे पेमेंट पूर्णपणे सुरक्षित आहे." },
+  "focussessionheader": { "message": "फोकस सेशन" },
+  "focussessionstart": { "message": "सुरू करा" },
+  "focussessionstop": { "message": "थांबवा" },
+  "focussessionduration": { "message": "कालावधी (मिनिटे):" },
+  "focussessioninfo": { "message": "तुमचे सर्व ब्लॉकिंग नियम एका निश्चित वेळेसाठी सक्रिय करते, त्यांचे सध्याचे सेटिंग्ज आणि वेळापत्रक यांकडे दुर्लक्ष करून. जास्तीत जास्त एकाग्रतेसाठी." },
+  "focussessionprofeature": { "message": "कस्टम कालावधी आणि हार्डकोर-मोड ही प्रो (Pro) वैशिष्ट्ये आहेत." },
+  "focussessionended": { "message": "फोकस सेशन संपले आहे! थोडा वेळ विश्रांती घ्या." },
+  "focussessionhardcore": { "message": "हार्डकोर मोड (कोणतेही 'थांबवा' बटण नाही)" },
+  "focussessionsoundtitle": { "message": "फोकस सेशन ध्वनी सूचना" },
+  "focussessionsounddesc": { "message": "फोकस सेशन संपल्यावर एक ध्वनी वाजवा." },
+  "focussessionactivebanner": { "message": "फोकस सेशन सक्रिय आहे! उर्वरित वेळ:" },
+  "focussessioninvalidduration": { "message": "कृपया एक वैध कालावधी प्रविष्ट करा (१-२४० मिनिटे)." },
+  "successfulfocussessionslabel": { "message": "यशस्वी फोकस सेशन्स" }
 }

@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ndiyo, inafanya kazi vizuri sana!" },
   "feedback_dislike": { "message": "Nina matatizo / mapendekezo" },
   "trialproheader": { "message": "Anza jaribio lako la bure la siku 7" },
-  "trialprotext": { "message": "Ghairi wakati wowote. Malipo yako yanalindwa kwa usalama." }
+  "trialprotext": { "message": "Ghairi wakati wowote. Malipo yako yanalindwa kwa usalama." },
+  "focussessionheader": { "message": "Kipindi cha Kulenga" },
+  "focussessionstart": { "message": "Anza" },
+  "focussessionstop": { "message": "Simamisha" },
+  "focussessionduration": { "message": "Muda (dakika):" },
+  "focussessioninfo": { "message": "Huvitisha sheria zako zote za kuzuia kwa muda uliowekwa, ikipuuza mipangilio na ratiba zao za sasa. Kwa umakini wa hali ya juu." },
+  "focussessionprofeature": { "message": "Muda maalum na Hali ya Hardcore ni vipengele vya Pro." },
+  "focussessionended": { "message": "Kipindi cha kulenga kimeisha! Chukua mapumziko kidogo." },
+  "focussessionhardcore": { "message": "Hali ya Hardcore (hakuna kitufe cha 'Simamisha')" },
+  "focussessionsoundtitle": { "message": "Arifa ya Sauti ya Kipindi cha Kulenga" },
+  "focussessionsounddesc": { "message": "Cheza sauti wakati kipindi cha kulenga kinapoisha." },
+  "focussessionactivebanner": { "message": "Kipindi cha Kulenga Kinafanya Kazi! Muda uliobaki:" },
+  "focussessioninvalidduration": { "message": "Tafadhali weka muda unaofaa (dakika 1-240)." },
+  "successfulfocussessionslabel": { "message": "Vipindi Vilivyofungwa kwa Mafanikio" }
 }

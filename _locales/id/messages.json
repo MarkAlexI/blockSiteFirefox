@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ya, berfungsi dengan sangat baik!" },
   "feedback_dislike": { "message": "Saya punya masalah / saran" },
   "trialproheader": { "message": "Coba 7 hari gratis" },
-  "trialprotext": { "message": "Bisa batal kapan saja. Pembayaran aman terjamin." }
+  "trialprotext": { "message": "Bisa batal kapan saja. Pembayaran aman terjamin." },
+  "focussessionheader": { "message": "Sesi Fokus" },
+  "focussessionstart": { "message": "Mulai" },
+  "focussessionstop": { "message": "Berhenti" },
+  "focussessionduration": { "message": "Durasi (menit):" },
+  "focussessioninfo": { "message": "Mengaktifkan semua aturan pemblokiran Anda untuk waktu yang ditentukan, mengabaikan pengaturan dan jadwal saat ini. Untuk konsentrasi maksimal." },
+  "focussessionprofeature": { "message": "Durasi kustom dan Mode Hardcore adalah fitur Pro." },
+  "focussessionended": { "message": "Sesi fokus telah berakhir! Istirahatlah sejenak." },
+  "focussessionhardcore": { "message": "Mode Hardcore (tanpa tombol 'Berhenti')" },
+  "focussessionsoundtitle": { "message": "Notifikasi Suara Sesi Fokus" },
+  "focussessionsounddesc": { "message": "Putar suara saat sesi fokus berakhir." },
+  "focussessionactivebanner": { "message": "Sesi Fokus Aktif! Sisa waktu:" },
+  "focussessioninvalidduration": { "message": "Silakan masukkan durasi yang valid (1-240 menit)." },
+  "successfulfocussessionslabel": { "message": "Sesi Fokus yang Sukses" }
 }

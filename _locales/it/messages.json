@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Sì, funziona alla grande!" },
   "feedback_dislike": { "message": "Ho problemi / suggerimenti" },
   "trialproheader": { "message": "Inizia la tua prova gratuita di 7 giorni" },
-  "trialprotext": { "message": "Cancella in qualsiasi momento. I tuoi pagamenti sono completamente protetti." }
+  "trialprotext": { "message": "Cancella in qualsiasi momento. I tuoi pagamenti sono completamente protetti." },
+  "focussessionheader": { "message": "Sessione di focus" },
+  "focussessionstart": { "message": "Avvia" },
+  "focussessionstop": { "message": "Interrompi" },
+  "focussessionduration": { "message": "Durata (min):" },
+  "focussessioninfo": { "message": "Attiva tutte le tue regole di blocco per un tempo stabilito, ignorando le loro impostazioni e pianificazioni attuali. Per la massima concentrazione." },
+  "focussessionprofeature": { "message": "La durata personalizzata e la modalità Hardcore sono funzionalità Pro." },
+  "focussessionended": { "message": "Sessione di focus terminata! Fai una pausa." },
+  "focussessionhardcore": { "message": "Modalità Hardcore (nessun pulsante 'Interrompi')" },
+  "focussessionsoundtitle": { "message": "Notifica sonora della sessione di focus" },
+  "focussessionsounddesc": { "message": "Riproduci un suono al termine della sessione di focus." },
+  "focussessionactivebanner": { "message": "Sessione di focus attiva! Tempo rimanente:" },
+  "focussessioninvalidduration": { "message": "Inserisci una durata valida (1-240 minuti)." },
+  "successfulfocussessionslabel": { "message": "Sessioni di focus completate con successo" }
 }

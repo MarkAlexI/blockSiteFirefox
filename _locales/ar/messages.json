@@ -294,5 +294,18 @@
   "feedback_like": { "message": "نعم، يعمل بشكل رائع!" },
   "feedback_dislike": { "message": "لدي مشاكل / اقتراحات" },
   "trialproheader": { "message": "ابدأ تجربتك المجانية لمدة 7 أيام" },
-  "trialprotext": { "message": "يمكنك الإلغاء في أي وقت. مدفوعاتك محمية وآمنة تماماً." }
+  "trialprotext": { "message": "يمكنك الإلغاء في أي وقت. مدفوعاتك محمية وآمنة تماماً." },
+  "focussessionheader": { "message": "جلسة التركيز" },
+  "focussessionstart": { "message": "ابدأ" },
+  "focussessionstop": { "message": "إيقاف" },
+  "focussessionduration": { "message": "المدة (بالدقائق):" },
+  "focussessioninfo": { "message": "تفعيل جميع قواعد الحظر الخاصة بك لوقت محدد، مع تجاهل إعداداتها وجداولها الحالية. لتحقيق أقصى درجات التركيز." },
+  "focussessionprofeature": { "message": "تخصيص المدة والوضع الصارم (Hardcore) هي ميزات مدفوعة (Pro)." },
+  "focussessionended": { "message": "انتهت جلسة التركيز! خذ قسطاً من الراحة." },
+  "focussessionhardcore": { "message": "الوضع الصارم (بدون زر 'إيقاف')" },
+  "focussessionsoundtitle": { "message": "إشعار صوتي لجلسة التركيز" },
+  "focussessionsounddesc": { "message": "تشغيل صوت عند انتهاء جلسة التركيز." },
+  "focussessionactivebanner": { "message": "جلسة التركيز نشطة حالياً! الوقت المتبقي:" },
+  "focussessioninvalidduration": { "message": "يرجى إدخال مدة صالحة (من 1 إلى 240 دقيقة)." },
+  "successfulfocussessionslabel": { "message": "جلسات التركيز الناجحة" }
 }

@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ja, dit werk uitstekend!" },
   "feedback_dislike": { "message": "Ek het probleme / voorstelle" },
   "trialproheader": { "message": "Begin jou gratis proeftydperk van 7 dae" },
-  "trialprotext": { "message": "Kanselleer enige tyd. Jou betalings is veilig beskerm." }
+  "trialprotext": { "message": "Kanselleer enige tyd. Jou betalings is veilig beskerm." },
+  "focussessionheader": { "message": "Fokus-sessie" },
+  "focussessionstart": { "message": "Begin" },
+  "focussessionstop": { "message": "Stop" },
+  "focussessionduration": { "message": "Duur (min):" },
+  "focussessioninfo": { "message": "Aktiveer al jou blokkeringsreëls vir 'n vasgestelde tyd, en ignoreer hul huidige instellings en skedules. Vir maksimum konsentrasie." },
+  "focussessionprofeature": { "message": "Gepasmaakte duur en Hardcore-modus is Pro-kenmerke." },
+  "focussessionended": { "message": "Fokus-sessie het geëindig! Neem 'n breek." },
+  "focussessionhardcore": { "message": "Hardcore-modus (geen 'Stop'-knoppie)" },
+  "focussessionsoundtitle": { "message": "Fokus-sessie Klankkennisgewing" },
+  "focussessionsounddesc": { "message": "Speel 'n klank wanneer die fokus-sessie eindig." },
+  "focussessionactivebanner": { "message": "Fokus-sessie Aktief! Tyd oor:" },
+  "focussessioninvalidduration": { "message": "Voer asseblief 'n geldige duur in (1-240 minute)." },
+  "successfulfocussessionslabel": { "message": "Suksesvolle Fokus-sessies" }
 }

@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ya, ia berfungsi dengan baik!" },
   "feedback_dislike": { "message": "Saya ada masalah / cadangan" },
   "trialproheader": { "message": "Cuba 7 hari percuma" },
-  "trialprotext": { "message": "Boleh batal bila-bila masa. Pembayaran selamat." }
+  "trialprotext": { "message": "Boleh batal bila-bila masa. Pembayaran selamat." },
+  "focussessionheader": { "message": "Sesi Fokus" },
+  "focussessionstart": { "message": "Mula" },
+  "focussessionstop": { "message": "Henti" },
+  "focussessionduration": { "message": "Durasi (min):" },
+  "focussessioninfo": { "message": "Mengaktifkan semua peraturan sekatan anda untuk masa yang ditetapkan, mengabaikan tetapan dan jadual semasa mereka. Untuk tumpuan maksimum." },
+  "focussessionprofeature": { "message": "Durasi tersuai dan mod Hardcore adalah ciri Pro." },
+  "focussessionended": { "message": "Sesi fokus telah tamat! Ambil rehat sebentar." },
+  "focussessionhardcore": { "message": "Mod Hardcore (tiada butang 'Henti')" },
+  "focussessionsoundtitle": { "message": "Notifikasi Bunyi Sesi Fokus" },
+  "focussessionsounddesc": { "message": "Mainkan bunyi apabila sesi fokus tamat." },
+  "focussessionactivebanner": { "message": "Sesi Fokus Aktif! Masa berbaki:" },
+  "focussessioninvalidduration": { "message": "Sila masukkan durasi yang sah (1-240 minit)." },
+  "successfulfocussessionslabel": { "message": "Sesi Fokus yang Berjaya" }
 }

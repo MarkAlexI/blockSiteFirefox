@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ja, det fungerar jättebra!" },
   "feedback_dislike": { "message": "Jag har problem / förslag" },
   "trialproheader": { "message": "Prova 7 dagar gratis" },
-  "trialprotext": { "message": "Avsluta när du vill. Säkra betalningar." }
+  "trialprotext": { "message": "Avsluta när du vill. Säkra betalningar." },
+  "focussessionheader": { "message": "Fokussession" },
+  "focussessionstart": { "message": "Starta" },
+  "focussessionstop": { "message": "Stoppa" },
+  "focussessionduration": { "message": "Varaktighet (min):" },
+  "focussessioninfo": { "message": "Aktiverar alla dina blockeringsregler under en viss tid och ignorerar deras nuvarande inställningar och scheman. För maximal koncentration." },
+  "focussessionprofeature": { "message": "Anpassad varaktighet och Hardcore-läge är Pro-funktioner." },
+  "focussessionended": { "message": "Fokussessionen har avslutats! Ta en paus." },
+  "focussessionhardcore": { "message": "Hardcore-läge (ingen 'Stoppa'-knapp)" },
+  "focussessionsoundtitle": { "message": "Ljudavisering för fokussession" },
+  "focussessionsounddesc": { "message": "Spela upp ett ljud när fokussessionen avslutas." },
+  "focussessionactivebanner": { "message": "Fokussession aktiv! Återstående tid:" },
+  "focussessioninvalidduration": { "message": "Ange en giltig varaktighet (1–240 minuter)." },
+  "successfulfocussessionslabel": { "message": "Lyckade fokussessioner" }
 }

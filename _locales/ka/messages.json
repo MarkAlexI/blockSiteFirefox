@@ -387,5 +387,18 @@
   },
   "trialprotext": {
     "message": "გააუქმეთ ნებისმიერ დროს. უსაფრთხო გადახდა."
-  }
+  },
+  "focussessionheader": { "message": "ფოკუსის სესია" },
+  "focussessionstart": { "message": "დაწყება" },
+  "focussessionstop": { "message": "შეწყვეტა" },
+  "focussessionduration": { "message": "ხანგრძლივობა (წთ):" },
+  "focussessioninfo": { "message": "აქტიურებს დაბლოკვის ყველა წესს მითითებული დროით, მათი მიმდინარე პარამეტრებისა და განრიგების იგნორირებით. მაქსიმალური კონცენტრაციისთვის." },
+  "focussessionprofeature": { "message": "ხანგრძლივობის მორგება და Hardcore რეჟიმი ხელმისაწვდომია Pro ვერსიაში." },
+  "focussessionended": { "message": "ფოკუსის სესია დასრულდა! შეისვენეთ." },
+  "focussessionhardcore": { "message": "Hardcore რეჟიმი (ღილაკი 'შეწყვეტა' არ არის)" },
+  "focussessionsoundtitle": { "message": "ფოკუსის სესიის ხმოვანი შეტყობინება" },
+  "focussessionsounddesc": { "message": "ხმის გამოცემა ფოკუსის სესიის დასრულებისას." },
+  "focussessionactivebanner": { "message": "ფოკუსის სესია აქტიურია! დარჩენილი დრო:" },
+  "focussessioninvalidduration": { "message": "გთხოვთ, მიუთითოთ ვალიდური ხანგრძლივობა (1-240 წუთი)." },
+  "successfulfocussessionslabel": { "message": "წარმატებული ფოკუსის სესიები" }
 }

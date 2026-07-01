@@ -284,5 +284,18 @@
   "feedback_like": { "message": "હા, તે ખૂબ સારું કામ કરે છે!" },
   "feedback_dislike": { "message": "મને સમસ્યાઓ / સૂચનો છે" },
   "trialproheader": { "message": "તમારી 7 દિવસની ફ્રી ટ્રાયલ શરૂ કરો" },
-  "trialprotext": { "message": "ગમે ત્યારે કેન્સલ કરો. તમારી ચૂકવણી સંપૂર્ણપણે સુરક્ષિત છે." }
+  "trialprotext": { "message": "ગમે ત્યારે કેન્સલ કરો. તમારી ચૂકવણી સંપૂર્ણપણે સુરક્ષિત છે." },
+  "focussessionheader": { "message": "ફોકસ સેશન" },
+  "focussessionstart": { "message": "શરૂ કરો" },
+  "focussessionstop": { "message": "બંધ કરો" },
+  "focussessionduration": { "message": "સમયગાળો (મિનિટ):" },
+  "focussessioninfo": { "message": "તમારા બધા બ્લોકિંગ નિયમોને સેટ કરેલા સમય માટે સક્રિય કરે છે, તેમના વર્તમાન સેટિંગ્સ અને સમયપત્રકને અવગણીને. મહત્તમ એકાગ્રતા માટે." },
+  "focussessionprofeature": { "message": "કસ્ટમ સમયગાળો અને હાર્ડકોર-મોડ એ પ્રો (Pro) ફીચર્સ છે." },
+  "focussessionended": { "message": "ફોકસ સેશન સમાપ્ત થયું! થોડો વિરામ લો." },
+  "focussessionhardcore": { "message": "હાર્ડકોર મોડ ('બંધ કરો' બટન નથી)" },
+  "focussessionsoundtitle": { "message": "ફોકસ સેશન સાઉન્ડ નોટિફિકેશન" },
+  "focussessionsounddesc": { "message": "જ્યારે ફોકસ સેશન સમાપ્ત થાય ત્યારે અવાજ વગાડો." },
+  "focussessionactivebanner": { "message": "ફોકસ સેશન સક્રિય છે! બાકીનો સમય:" },
+  "focussessioninvalidduration": { "message": "કૃપા કરીને માન્ય સમયગાળો દાખલ કરો (1-240 મિનિટ)." },
+  "successfulfocussessionslabel": { "message": "સફળ ફોકસ સેશન્સ" }
 }

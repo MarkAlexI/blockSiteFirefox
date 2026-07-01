@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Tak, działa świetnie!" },
   "feedback_dislike": { "message": "Mam problemy / sugestie" },
   "trialproheader": { "message": "Wypróbuj 7 dni za darmo" },
-  "trialprotext": { "message": "Możesz anulować kiedy chcesz. Bezpieczna płatność." }
+  "trialprotext": { "message": "Możesz anulować kiedy chcesz. Bezpieczna płatność." },
+  "focussessionheader": { "message": "Sesja skupienia" },
+  "focussessionstart": { "message": "Uruchom" },
+  "focussessionstop": { "message": "Zatrzymaj" },
+  "focussessionduration": { "message": "Czas trwania (min):" },
+  "focussessioninfo": { "message": "Aktywuje wszystkie reguły blokowania na określony czas, ignorując ich bieżące ustawienia i harmonogramy. Dla maksymalnej koncentracji." },
+  "focussessionprofeature": { "message": "Niestandardowy czas trwania oraz tryb Hardcore są funkcjami Pro." },
+  "focussessionended": { "message": "Sesja skupienia dobiegła końca! Zrób sobie przerwę." },
+  "focussessionhardcore": { "message": "Tryb Hardcore (brak przycisku 'Zatrzymaj')" },
+  "focussessionsoundtitle": { "message": "Powiadomienie dźwiękowe sesji skupienia" },
+  "focussessionsounddesc": { "message": "Odtwórz dźwięk, gdy sesja skupienia się zakończy." },
+  "focussessionactivebanner": { "message": "Sesja skupienia jest aktywna! Pozostały czas:" },
+  "focussessioninvalidduration": { "message": "Wprowadź prawidłowy czas trwania (1–240 minut)." },
+  "successfulfocussessionslabel": { "message": "Ukończone sesje skupienia" }
 }

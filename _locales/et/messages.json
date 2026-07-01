@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Jah, see töötab suurepäraselt!" },
   "feedback_dislike": { "message": "Mul on probleeme / ettepanekuid" },
   "trialproheader": { "message": "Alusta oma 7-päevast tasuta prooviperioodi" },
-  "trialprotext": { "message": "Tühista igal ajal. Sinu maksed on turvaliselt kaitstud." }
+  "trialprotext": { "message": "Tühista igal ajal. Sinu maksed on turvaliselt kaitstud." },
+  "focussessionheader": { "message": "Fookusseanss" },
+  "focussessionstart": { "message": "Alusta" },
+  "focussessionstop": { "message": "Peata" },
+  "focussessionduration": { "message": "Kestus (min):" },
+  "focussessioninfo": { "message": "Aktiveerib määratud ajaks kõik sinu blokeerimisreeglid, eirates nende praeguseid seadeid ja ajakavasid. Maksimaalseks kontsentreerumiseks." },
+  "focussessionprofeature": { "message": "Kohandatud kestus ja Hardcore-režiim on Pro-funktsioonid." },
+  "focussessionended": { "message": "Fookusseanss on lõppenud! Tee üks paus." },
+  "focussessionhardcore": { "message": "Hardcore-režiim (ilma nuputa 'Peata')" },
+  "focussessionsoundtitle": { "message": "Fookusseansi heli-teavitus" },
+  "focussessionsounddesc": { "message": "Mängi heli, kui fookusseanss lõppeb." },
+  "focussessionactivebanner": { "message": "Fookusseanss on aktiivne! Aeg jäänud:" },
+  "focussessioninvalidduration": { "message": "Palun sisesta kehtiv kestus (1–240 minutit)." },
+  "successfulfocussessionslabel": { "message": "Edukad fookusseansid" }
 }

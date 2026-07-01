@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ano, funguje skvěle!" },
   "feedback_dislike": { "message": "Mám problémy / návrhy" },
   "trialproheader": { "message": "Začněte 7 dní zdarma" },
-  "trialprotext": { "message": "Zrušit můžete kdykoli. Vaše platby jsou bezpečně chráněny." }
+  "trialprotext": { "message": "Zrušit můžete kdykoli. Vaše platby jsou bezpečně chráněny." },
+  "focussessionheader": { "message": "Soustředění" },
+  "focussessionstart": { "message": "Spustit" },
+  "focussessionstop": { "message": "Zastavit" },
+  "focussessionduration": { "message": "Doba trvání (min):" },
+  "focussessioninfo": { "message": "Aktivuje všechna vaše pravidla blokování na nastavený čas a ignoruje jejich aktuální nastavení a plány. Pro maximální koncentraci." },
+  "focussessionprofeature": { "message": "Vlastní doba trvání a Hardcore režim jsou funkce Pro." },
+  "focussessionended": { "message": "Soustředění skončilo! Dejte si pauzu." },
+  "focussessionhardcore": { "message": "Hardcore režim (bez tlačítka 'Zastavit')" },
+  "focussessionsoundtitle": { "message": "Zvukové upozornění na konec soustředění" },
+  "focussessionsounddesc": { "message": "Přehrát zvuk po skončení soustředění." },
+  "focussessionactivebanner": { "message": "Soustředění je aktivní! Zbývající čas:" },
+  "focussessioninvalidduration": { "message": "Zadejte prosím platnou dobu trvání (1–240 minut)." },
+  "successfulfocussessionslabel": { "message": "Úspěšná soustředění" }
 }

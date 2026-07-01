@@ -285,5 +285,18 @@
   "feedback_like": { "message": "ಹೌದು, ಇದು ತುಂಬಾ ಚೆನ್ನಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ!" },
   "feedback_dislike": { "message": "ನನಗೆ ಸಮಸ್ಯೆಗಳು / ಸಲಹೆಗಳು ಇವೆ" },
   "trialproheader": { "message": "ನಿಮ್ಮ 7 ದಿನಗಳ ಉಚಿತ ಟ್ರಯಲ್ ಪ್ರಾರಂಭಿಸಿ" },
-  "trialprotext": { "message": "ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಗೊಳಿಸಿ. ನಿಮ್ಮ ಪಾವತಿಗಳು ಸಂಪೂರ್ಣವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿವೆ." }
+  "trialprotext": { "message": "ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಗೊಳಿಸಿ. ನಿಮ್ಮ ಪಾವತಿಗಳು ಸಂಪೂರ್ಣವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿವೆ." },
+  "focussessionheader": { "message": "ಫೋಕಸ್ ಸೆಷನ್" },
+  "focussessionstart": { "message": "ಪ್ರಾರಂಭಿಸಿ" },
+  "focussessionstop": { "message": "ನಿಲ್ಲಿಸಿ" },
+  "focussessionduration": { "message": "ಅವಧಿ (ನಿಮಿಷಗಳು):" },
+  "focussessioninfo": { "message": "ನಿಮ್ಮ ಎಲ್ಲಾ ಬ್ಲಾಕಿಂಗ್ ನಿಯಮಗಳನ್ನು ನಿಗದಿತ ಸಮಯದವರೆಗೆ ಸಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ, ಅವುಗಳ ಪ್ರಸ್ತುತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಮತ್ತು ವೇಳಾಪಟ್ಟಿಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸುತ್ತದೆ. ಗರಿಷ್ಠ ಏಕಾಗ್ರತೆಗಾಗಿ." },
+  "focussessionprofeature": { "message": "ಕಸ್ಟಮ್ ಅವಧಿ ಮತ್ತು ಹಾರ್ಡ್‌ಕೋರ್ ಮೋಡ್ ಪ್ರೊ (Pro) ವೈಶಿಷ್ಟ್ಯಗಳಾಗಿವೆ." },
+  "focussessionended": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಮುಕ್ತಾಯಗೊಂಡಿದೆ! ಸ್ವಲ್ಪ ವಿರಾಮ ತೆಗೆದುಕೊಳ್ಳಿ." },
+  "focussessionhardcore": { "message": "ಹಾರ್ಡ್‌ಕೋರ್ ಮೋಡ್ ('ನಿಲ್ಲಿಸಿ' ಬಟನ್ ಇರುವುದಿಲ್ಲ)" },
+  "focussessionsoundtitle": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಧ್ವನಿ ಅಧಿಸೂಚನೆ" },
+  "focussessionsounddesc": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಕೊನೆಗೊಂಡಾಗ ಧ್ವನಿಯನ್ನು ಪ್ಲೇ ಮಾಡಿ." },
+  "focussessionactivebanner": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಸಕ್ರಿಯವಾಗಿದೆ! ಉಳಿದಿರುವ ಸಮಯ:" },
+  "focussessioninvalidduration": { "message": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಅವಧಿಯನ್ನು ನಮೂದಿಸಿ (1-240 ನಿಮಿಷಗಳು)." },
+  "successfulfocussessionslabel": { "message": "ಯಶಸ್ವಿ ಫೋಕಸ್ ಸೆಷನ್‌ಗಳು" }
 }

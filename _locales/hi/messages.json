@@ -285,5 +285,18 @@
   "feedback_like": { "message": "हाँ, यह बहुत अच्छा काम करता है!" },
   "feedback_dislike": { "message": "मुझे समस्याएँ / सुझाव हैं" },
   "trialproheader": { "message": "अपना 7 दिनों का फ्री ट्रायल शुरू करें" },
-  "trialprotext": { "message": "इसे कभी भी कैंसल करें। आपके पेमेंट पूरी तरह सुरक्षित हैं।" }
+  "trialprotext": { "message": "इसे कभी भी कैंसल करें। आपके पेमेंट पूरी तरह सुरक्षित हैं।" },
+  "focussessionheader": { "message": "फोकस सेशन" },
+  "focussessionstart": { "message": "शुरू करें" },
+  "focussessionstop": { "message": "रोकें" },
+  "focussessionduration": { "message": "अवधि (मिनट):" },
+  "focussessioninfo": { "message": "आपके सभी ब्लॉकिंग नियमों को एक निश्चित समय के लिए सक्रिय करता है, उनके वर्तमान सेटिंग्स और शेड्यूल को अनदेखा करते हुए। अधिकतम एकाग्रता के लिए।" },
+  "focussessionprofeature": { "message": "कस्टम अवधि और हार्डकोर-मोड प्रो (Pro) फीचर्स हैं।" },
+  "focussessionended": { "message": "फोकस सेशन समाप्त हो गया! थोड़ा ब्रेक लें।" },
+  "focussessionhardcore": { "message": "हार्डकोर मोड (कोई 'रोकें' बटन नहीं)" },
+  "focussessionsoundtitle": { "message": "फोकस सेशन ध्वनि अधिसूचना" },
+  "focussessionsounddesc": { "message": "फोकस सेशन समाप्त होने पर एक ध्वनि बजाएं।" },
+  "focussessionactivebanner": { "message": "फोकस सेशन सक्रिय है! शेष समय:" },
+  "focussessioninvalidduration": { "message": "कृपया एक मान्य अवधि दर्ज करें (1-240 मिनट)।" },
+  "successfulfocussessionslabel": { "message": "सफल फोकस सेशन" }
 }

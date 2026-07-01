@@ -299,5 +299,18 @@
   "feedback_like": { "message": "Да, работи чудесно!" },
   "feedback_dislike": { "message": "Имам проблеми / предложения" },
   "trialproheader": { "message": "Започнете вашия 7-дневен безплатен пробен период" },
-  "trialprotext": { "message": "Отказ по всяко време. Вашите плащания са надеждно защитени." }
+  "trialprotext": { "message": "Отказ по всяко време. Вашите плащания са надеждно защитени." },
+  "focussessionheader": { "message": "Фокус сесия" },
+  "focussessionstart": { "message": "Старт" },
+  "focussessionstop": { "message": "Стоп" },
+  "focussessionduration": { "message": "Продължителност (мин):" },
+  "focussessioninfo": { "message": "Активира всички ваши правила за блокиране за определено време, като игнорира текущите им настройки и графици. За максимална концентрация." },
+  "focussessionprofeature": { "message": "Персонализираната продължителност и Hardcore режимът са Pro функции." },
+  "focussessionended": { "message": "Фокус сесията приключи! Вземете си почивка." },
+  "focussessionhardcore": { "message": "Hardcore режим (без бутон 'Стоп')" },
+  "focussessionsoundtitle": { "message": "Звуково известие за фокус сесия" },
+  "focussessionsounddesc": { "message": "Възпроизвеждане на звук при приключване на фокус сесията." },
+  "focussessionactivebanner": { "message": "Активна фокус сесия! Оставащо време:" },
+  "focussessioninvalidduration": { "message": "Моля, въведете валидна продължителност (1-240 минути)." },
+  "successfulfocussessionslabel": { "message": "Успешни фокус сесии" }
 }

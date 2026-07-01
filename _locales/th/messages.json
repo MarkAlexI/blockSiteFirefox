@@ -285,5 +285,18 @@
   "feedback_like": { "message": "ใช่ มันทำงานได้ดีมาก!" },
   "feedback_dislike": { "message": "ฉันมีปัญหา / ข้อเสนอแนะ" },
   "trialproheader": { "message": "ทดลองใช้ฟรี 7 วัน" },
-  "trialprotext": { "message": "ยกเลิกได้ตลอดเวลา ชำระเงินปลอดภัย" }
+  "trialprotext": { "message": "ยกเลิกได้ตลอดเวลา ชำระเงินปลอดภัย" },
+  "focussessionheader": { "message": "ช่วงเวลาโฟกัส" },
+  "focussessionstart": { "message": "เริ่ม" },
+  "focussessionstop": { "message": "หยุด" },
+  "focussessionduration": { "message": "ระยะเวลา (นาที):" },
+  "focussessioninfo": { "message": "เปิดใช้งานกฎการบล็อกทั้งหมดของคุณตามเวลาที่กำหนด โดยละเว้นการตั้งค่าและตารางเวลาปัจจุบัน เพื่อสมาธิสูงสุด" },
+  "focussessionprofeature": { "message": "การกำหนดระยะเวลาเองและโหมดฮาร์ดคอร์เป็นฟีเจอร์ระดับ Pro" },
+  "focussessionended": { "message": "ช่วงเวลาโฟกัสสิ้นสุดลงแล้ว! พักสายตาสักครู่" },
+  "focussessionhardcore": { "message": "โหมดฮาร์ดคอร์ (ไม่มีปุ่ม 'หยุด')" },
+  "focussessionsoundtitle": { "message": "การแจ้งเตือนด้วยเสียงช่วงเวลาโฟกัส" },
+  "focussessionsounddesc": { "message": "เล่นเสียงเมื่อสิ้นสุดช่วงเวลาโฟกัส" },
+  "focussessionactivebanner": { "message": "อยู่ระหว่างช่วงเวลาโฟกัส! เวลาที่เหลือ:" },
+  "focussessioninvalidduration": { "message": "โปรดระบุระยะเวลาที่ถูกต้อง (1-240 นาที)" },
+  "successfulfocussessionslabel": { "message": "ช่วงเวลาโฟกัสที่สำเร็จ" }
 }

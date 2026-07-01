@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Sí, funciona molt bé!" },
   "feedback_dislike": { "message": "Tinc problemes / suggeriments" },
   "trialproheader": { "message": "Comença la teva prova gratuïta de 7 dies" },
-  "trialprotext": { "message": "Cancel·la en qualsevol moment. Els teus pagaments estan totalment protegits." }
+  "trialprotext": { "message": "Cancel·la en qualsevol moment. Els teus pagaments estan totalment protegits." },
+  "focussessionheader": { "message": "Sessió de focus" },
+  "focussessionstart": { "message": "Inicia" },
+  "focussessionstop": { "message": "Atura" },
+  "focussessionduration": { "message": "Durada (min):" },
+  "focussessioninfo": { "message": "Activa totes les teves regles de bloqueig durant un temps determinat, ignorant la seva configuració i horaris actuals. Per a una màxima concentració." },
+  "focussessionprofeature": { "message": "La durada personalitzada i el mode Hardcore són funcions Pro." },
+  "focussessionended": { "message": "La sessió de focus ha acabat! Pren-te un descans." },
+  "focussessionhardcore": { "message": "Mode Hardcore (sense botó d'Atura)" },
+  "focussessionsoundtitle": { "message": "Notificació de so de la sessió de focus" },
+  "focussessionsounddesc": { "message": "Reprodueix un so quan acabi la sessió de focus." },
+  "focussessionactivebanner": { "message": "Sessió de focus activa! Temps restant:" },
+  "focussessioninvalidduration": { "message": "Si us plau, introdueix una durada vàlida (1-240 minuts)." },
+  "successfulfocussessionslabel": { "message": "Sessions de focus amb èxit" }
 }

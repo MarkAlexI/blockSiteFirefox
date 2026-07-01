@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Da, funcționează foarte bine!" },
   "feedback_dislike": { "message": "Am probleme / sugestii" },
   "trialproheader": { "message": "Încearcă 7 zile gratuit" },
-  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." }
+  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." },
+  "focussessionheader": { "message": "Sesiune de focus" },
+  "focussessionstart": { "message": "Pornește" },
+  "focussessionstop": { "message": "Oprește" },
+  "focussessionduration": { "message": "Durată (min):" },
+  "focussessioninfo": { "message": "Activează toate regulile tale de blocare pentru un timp setat, ignorând setările și programările lor actuale. Pentru concentrare maximă." },
+  "focussessionprofeature": { "message": "Durata personalizată și modul Hardcore sunt funcții Pro." },
+  "focussessionended": { "message": "Sesiunea de focus s-a încheiat! Ia o pauză." },
+  "focussessionhardcore": { "message": "Modul Hardcore (fără butonul 'Oprește')" },
+  "focussessionsoundtitle": { "message": "Notificare sonoră sesiune de focus" },
+  "focussessionsounddesc": { "message": "Redă un sunet atunci când sesiunea de focus se termină." },
+  "focussessionactivebanner": { "message": "Sesiune de focus activă! Timp rămas:" },
+  "focussessioninvalidduration": { "message": "Te rugăm să introduci o durată validă (1-240 minute)." },
+  "successfulfocussessionslabel": { "message": "Sesiuni de focus reușite" }
 }

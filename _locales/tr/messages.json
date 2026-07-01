@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Evet, harika çalışıyor!" },
   "feedback_dislike": { "message": "Sorunlarım / önerilerim var" },
   "trialproheader": { "message": "7 gün ücretsiz deneyin" },
-  "trialprotext": { "message": "Dilediğiniz zaman iptal edin. Güvenli ödeme." }
+  "trialprotext": { "message": "Dilediğiniz zaman iptal edin. Güvenli ödeme." },
+  "focussessionheader": { "message": "Odaklanma Seansı" },
+  "focussessionstart": { "message": "Başlat" },
+  "focussessionstop": { "message": "Durdur" },
+  "focussessionduration": { "message": "Süre (dk):" },
+  "focussessioninfo": { "message": "Mevcut ayarlarını ve programlarını yok sayarak tüm engelleme kurallarınızı belirlenen süre boyunca etkinleştirir. Maksimum konsantrasyon için." },
+  "focussessionprofeature": { "message": "Özel süre ve Hardcore modu Pro özellikleridir." },
+  "focussessionended": { "message": "Odaklanma seansı bitti! Bir ara verin." },
+  "focussessionhardcore": { "message": "Hardcore Modu ('Durdur' butonu yoktur)" },
+  "focussessionsoundtitle": { "message": "Odaklanma Seansı Sesli Bildirimi" },
+  "focussessionsounddesc": { "message": "Odaklanma seansı sona erdiğinde bir ses çal." },
+  "focussessionactivebanner": { "message": "Odaklanma seansı aktif! Kalan süre:" },
+  "focussessioninvalidduration": { "message": "Lütfen geçerli bir süre girin (1-240 dakika)." },
+  "successfulfocussessionslabel": { "message": "Başarıyla Tamamlanan Odaklanma Seansları" }
 }

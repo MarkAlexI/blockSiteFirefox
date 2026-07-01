@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Có, nó hoạt động rất tốt!" },
   "feedback_dislike": { "message": "Tôi có vấn đề / đề xuất" },
   "trialproheader": { "message": "Dùng thử 7 ngày miễn phí" },
-  "trialprotext": { "message": "Hủy bất kỳ lúc nào. Thanh toán an toàn." }
+  "trialprotext": { "message": "Hủy bất kỳ lúc nào. Thanh toán an toàn." },
+  "focussessionheader": { "message": "Phiên tập trung" },
+  "focussessionstart": { "message": "Bắt đầu" },
+  "focussessionstop": { "message": "Dừng" },
+  "focussessionduration": { "message": "Thời lượng (phút):" },
+  "focussessioninfo": { "message": "Kích hoạt tất cả các quy tắc chặn của bạn trong một khoảng thời gian định sẵn, bỏ qua các cài đặt và lịch trình hiện tại của chúng. Mang lại sự tập trung tối đa." },
+  "focussessionprofeature": { "message": "Thời lượng tùy chỉnh và Chế độ Hardcore là các tính năng Pro." },
+  "focussessionended": { "message": "Phiên tập trung đã kết thúc! Hãy nghỉ ngơi một lát." },
+  "focussessionhardcore": { "message": "Chế độ Hardcore (không có nút 'Dừng')" },
+  "focussessionsoundtitle": { "message": "Thông báo âm thanh phiên tập trung" },
+  "focussessionsounddesc": { "message": "Phát âm thanh khi phiên tập trung kết thúc." },
+  "focussessionactivebanner": { "message": "Phiên tập trung đang hoạt động! Thời gian còn lại:" },
+  "focussessioninvalidduration": { "message": "Vui lòng nhập thời lượng hợp lệ (1-240 phút)." },
+  "successfulfocussessionslabel": { "message": "Số phiên tập trung thành công" }
 }

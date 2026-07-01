@@ -285,5 +285,18 @@
   "feedback_like": { "message": "አዎ፣ በጣም ጥሩ ይሰራል!" },
   "feedback_dislike": { "message": "ችግሮች / ጥቆማዎች አሉኝ" },
   "trialproheader": { "message": "የ 7 ቀናት ነፃ ሙከራዎን ይጀምሩ" },
-  "trialprotext": { "message": "በማንኛውም ጊዜ መሰረዝ ይችላሉ። ክፍያዎ በደህንነት የተጠበቀ ነው።" }
+  "trialprotext": { "message": "በማንኛውም ጊዜ መሰረዝ ይችላሉ። ክፍያዎ በደህንነት የተጠበቀ ነው።" },
+  "focussessionheader": { "message": "የትኩረት ክፍለ-ጊዜ" },
+  "focussessionstart": { "message": "ጀምር" },
+  "focussessionstop": { "message": "አቁም" },
+  "focussessionduration": { "message": "ቆይታ (ደቂቃ):" },
+  "focussessioninfo": { "message": "የአሁኑን ቅንብሮቻቸውን እና መርሃ ግብሮቻቸውን ችላ በማለት ሁሉንም የማገጃ ህጎችዎን ለተወሰነ ጊዜ ያነቃቃል። ለከፍተኛ ትኩረት።" },
+  "focussessionprofeature": { "message": "ብጁ ቆይታ እና የሃርድኮር ሞድ የፕሮ (Pro) ባህሪያት ናቸው።" },
+  "focussessionended": { "message": "የትኩረት ክፍለ-ጊዜው ተጠናቋል! እረፍት ይውሰዱ።" },
+  "focussessionhardcore": { "message": "ሃርድኮር ሞድ (የ'ማቆሚያ' ቁልፍ የለም)" },
+  "focussessionsoundtitle": { "message": "የትኩረት ክፍለ-ጊዜ የድምፅ ማሳወቂያ" },
+  "focussessionsounddesc": { "message": "የትኩረት ክፍለ-ጊዜው ሲያበቃ ድምጽ ያጫውቱ።" },
+  "focussessionactivebanner": { "message": "የትኩረት ክፍለ-ጊዜው ገባሪ ነው! የቀረው ጊዜ፦" },
+  "focussessioninvalidduration": { "message": "እባክዎን ትክክለኛ ቆይታ ያስገቡ (ከ1-240 ደቂቃዎች)።" },
+  "successfulfocussessionslabel": { "message": "ስኬታማ የትኩረት ክፍለ-ጊዜዎች" }
 }

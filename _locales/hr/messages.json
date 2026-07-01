@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Da, radi odlično!" },
   "feedback_dislike": { "message": "Imam problema / prijedloga" },
   "trialproheader": { "message": "Isprobajte 7 dana besplatno" },
-  "trialprotext": { "message": "Otkazivanje bilo kada. Vaša plaćanja su sigurna." }
+  "trialprotext": { "message": "Otkazivanje bilo kada. Vaša plaćanja su sigurna." },
+  "focussessionheader": { "message": "Sesija fokusiranja" },
+  "focussessionstart": { "message": "Pokreni" },
+  "focussessionstop": { "message": "Zaustavi" },
+  "focussessionduration": { "message": "Trajanje (min):" },
+  "focussessioninfo": { "message": "Aktivira sva vaša pravila blokiranja na određeno vrijeme, zanemarujući njihove trenutne postavke i rasporede. Za maksimalnu koncentraciju." },
+  "focussessionprofeature": { "message": "Prilagođeno trajanje i Hardcore način rada su Pro značajke." },
+  "focussessionended": { "message": "Sesija fokusiranja je završila! Uzmite pauzu." },
+  "focussessionhardcore": { "message": "Hardcore način rada (bez gumba 'Zaustavi')" },
+  "focussessionsoundtitle": { "message": "Zvučna obavijest sesije fokusiranja" },
+  "focussessionsounddesc": { "message": "Reproduciraj zvuk kada sesija fokusiranja završi." },
+  "focussessionactivebanner": { "message": "Sesija fokusiranja je aktivna! Preostalo vrijeme:" },
+  "focussessioninvalidduration": { "message": "Molimo unesite valjano trajanje (1-240 minuta)." },
+  "successfulfocussessionslabel": { "message": "Uspješne sesije fokusiranja" }
 }

@@ -285,5 +285,18 @@
   "feedback_like": { "message": "అవును, ఇది చాలా బాగా పనిచేస్తుంది!" },
   "feedback_dislike": { "message": "నాకు సమస్యలు / సూచనలు ఉన్నాయి" },
   "trialproheader": { "message": "మీ 7 రోజుల ఉచిత ట్రయల్‌ని ప్రారంభించండి" },
-  "trialprotext": { "message": "ఎప్పుడైనా రద్దు చేసుకోవచ్చు. మీ పేమెంట్లు పూర్తిగా సురక్షితం." }
+  "trialprotext": { "message": "ఎప్పుడైనా రద్దు చేసుకోవచ్చు. మీ పేమెంట్లు పూర్తిగా సురక్షితం." },
+  "focussessionheader": { "message": "ఫోకస్ సెషన్" },
+  "focussessionstart": { "message": "ప్రారంభించు" },
+  "focussessionstop": { "message": "ఆపివేయి" },
+  "focussessionduration": { "message": "వ్యవధి (నిమిషాలు):" },
+  "focussessioninfo": { "message": "మీ ప్రస్తుత సెట్టింగ్‌లు మరియు షెడ్యూల్‌లను విస్మరించి, నిర్ణీత సమయం వరకు మీ అన్ని బ్లాకింగ్ నియమాలను సక్రియం చేస్తుంది. గరిష్ట ఏకాగ్రత కోసం." },
+  "focussessionprofeature": { "message": "కస్టమ్ వ్యవధి మరియు హార్డ్‌కోర్ మోడ్ అనేవి ప్రో (Pro) ఫీచర్లు." },
+  "focussessionended": { "message": "ఫోకస్ సెషన్ ముగిసింది! కాసేపు విరామం తీసుకోండి." },
+  "focussessionhardcore": { "message": "హార్డ్‌కోర్ మోడ్ ('ఆపివేయి' బటన్ ఉండదు)" },
+  "focussessionsoundtitle": { "message": "ఫోకస్ సెషన్ ధ్వని నోటిఫికేషన్" },
+  "focussessionsounddesc": { "message": "ఫోకస్ సెషన్ ముగిసినప్పుడు ధ్వనిని ప్లే చేయి." },
+  "focussessionactivebanner": { "message": "ఫోకస్ సెషన్ యాక్టివ్‌గా ఉంది! మిగిలి ఉన్న సమయం:" },
+  "focussessioninvalidduration": { "message": "దయచేసి సరైన వ్యవధిని నమోదు చేయండి (1-240 నిమిషాలు)." },
+  "successfulfocussessionslabel": { "message": "విజయవంతమైన ఫోకస్ సెషన్‌లు" }
 }

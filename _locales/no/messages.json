@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ja, det fungerer veldig bra!" },
   "feedback_dislike": { "message": "Jeg har problemer / forslag" },
   "trialproheader": { "message": "Start din 7-dagers gratis prøveperiode" },
-  "trialprotext": { "message": "Avslutt når som helst. Dine betalinger er trygt beskyttet." }
+  "trialprotext": { "message": "Avslutt når som helst. Dine betalinger er trygt beskyttet." },
+  "focussessionheader": { "message": "Fokussession" },
+  "focussessionstart": { "message": "Start" },
+  "focussessionstop": { "message": "Stopp" },
+  "focussessionduration": { "message": "Varighet (min):" },
+  "focussessioninfo": { "message": "Aktiverer alle blokkeringsreglene dine i et angitt tidsrom, og ignorerer gjeldende innstillinger og tidsplaner. For maksimal konsentrasjon." },
+  "focussessionprofeature": { "message": "Egendefinert varighet og Hardcore-modus er Pro-funksjoner." },
+  "focussessionended": { "message": "Fokussessionen er ferdig! Ta en pause." },
+  "focussessionhardcore": { "message": "Hardcore-modus (ingen 'Stopp'-knapp)" },
+  "focussessionsoundtitle": { "message": "Lydvarsel for fokussession" },
+  "focussessionsounddesc": { "message": "Spill av en lyd når fokussessionen avsluttes." },
+  "focussessionactivebanner": { "message": "Fokussession aktiv! Gjenstående tid:" },
+  "focussessioninvalidduration": { "message": "Vennligst skriv inn en gyldig varighet (1–240 minutter)." },
+  "successfulfocussessionslabel": { "message": "Vellykkede fokussessioner" }
 }

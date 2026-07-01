@@ -284,5 +284,18 @@
   "feedback_like": { "message": "ஆம், இது மிகவும் நன்றாக வேலை செய்கிறது!" },
   "feedback_dislike": { "message": "எனக்கு சிக்கல்கள் / பரிந்துரைகள் உள்ளன" },
   "trialproheader": { "message": "உங்கள் 7 நாள் இலவச ட்ரையலைத் தொடங்குங்கள்" },
-  "trialprotext": { "message": "எப்போது வேண்டுமானாலும் ரத்து செய்யலாம். உங்கள் கட்டணங்கள் பாதுகாப்பாக உள்ளன." }
+  "trialprotext": { "message": "எப்போது வேண்டுமானாலும் ரத்து செய்யலாம். உங்கள் கட்டணங்கள் பாதுகாப்பாக உள்ளன." },
+  "focussessionheader": { "message": "கவனம் செலுத்தும் அமர்வு" },
+  "focussessionstart": { "message": "தொடங்கு" },
+  "focussessionstop": { "message": "நிறுத்து" },
+  "focussessionduration": { "message": "கால அளவு (நிமிடங்கள்):" },
+  "focussessioninfo": { "message": "உங்களின் தற்போதைய அமைப்புகள் மற்றும் அட்டவணைகளைப் புறக்கணித்து, குறிப்பிட்ட நேரத்திற்கு உங்களின் அனைத்து தடுப்பு விதிகளையும் செயல்படுத்துகிறது. அதிகபட்ச கவனத்திற்காக." },
+  "focussessionprofeature": { "message": "தனிப்பயன் கால அளவு மற்றும் ஹார்ட்கோர் பயன்முறை (Hardcore Mode) ஆகியவை ப்ரோ (Pro) அம்சங்களாகும்." },
+  "focussessionended": { "message": "கவனம் செலுத்தும் அமர்வு முடிந்தது! சிறிது ஓய்வு எடுங்கள்." },
+  "focussessionhardcore": { "message": "ஹார்ட்கோர் பயன்முறை ('நிறுத்து' பொத்தான் இருக்காது)" },
+  "focussessionsoundtitle": { "message": "அமர்வு ஒலி அறிவிப்பு" },
+  "focussessionsounddesc": { "message": "கவனம் செலுத்தும் அமர்வு முடியும் போது ஒலியை இயக்கு." },
+  "focussessionactivebanner": { "message": "அமர்வு செயல்பாட்டில் உள்ளது! மீதமுள்ள நேரம்:" },
+  "focussessioninvalidduration": { "message": "தயவுசெய்து சரியான கால அளவை உள்ளிடவும் (1-240 நிமிடங்கள்)." },
+  "successfulfocussessionslabel": { "message": "வெற்றிகரமான கவனம் செலுத்தும் அமர்வுகள்" }
 }

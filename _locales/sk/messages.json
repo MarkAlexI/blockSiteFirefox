@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Áno, funguje skvele!" },
   "feedback_dislike": { "message": "Mám problémy / návrhy" },
   "trialproheader": { "message": "Încearcă 7 zile gratuit" },
-  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." }
+  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." },
+  "focussessionheader": { "message": "Relácia sústredenia" },
+  "focussessionstart": { "message": "Spustiť" },
+  "focussessionstop": { "message": "Zastaviť" },
+  "focussessionduration": { "message": "Trvanie (min):" },
+  "focussessioninfo": { "message": "Aktivuje všetky vaše pravidlá blokovania na stanovený čas, pričom ignoruje ich aktuálne nastavenia a rozvrhy. Pre maximálnu koncentráciu." },
+  "focussessionprofeature": { "message": "Vlastné trvanie a Hardcore režim sú Pro funkcie." },
+  "focussessionended": { "message": "Relácia sústredenia sa skončila! Dajte si prestávku." },
+  "focussessionhardcore": { "message": "Hardcore režim (bez tlačidla 'Zastaviť')" },
+  "focussessionsoundtitle": { "message": "Zvukové upozornenie relácie sústredenia" },
+  "focussessionsounddesc": { "message": "Prehrať zvuk po skončení relácie sústredenia." },
+  "focussessionactivebanner": { "message": "Relácia sústredenia je aktívna! Zostávajúci čas:" },
+  "focussessioninvalidduration": { "message": "Zadajte platné trvanie (1 – 240 minút)." },
+  "successfulfocussessionslabel": { "message": "Úspešné relácie sústredenia" }
 }

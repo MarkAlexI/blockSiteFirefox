@@ -285,5 +285,18 @@
   "feedback_like": { "message": "Ναι, λειτουργεί εξαιρετικά!" },
   "feedback_dislike": { "message": "Έχω προβλήματα / προτάσεις" },
   "trialproheader": { "message": "Δοκιμάστε 7 ημέρες δωρεάν" },
-  "trialprotext": { "message": "Ακυρώστε όποτε θέλετε. Ασφαλείς συναλλαγές." }
+  "trialprotext": { "message": "Ακυρώστε όποτε θέλετε. Ασφαλείς συναλλαγές." },
+  "focussessionheader": { "message": "Συνεδρία Εστίασης" },
+  "focussessionstart": { "message": "Έναρξη" },
+  "focussessionstop": { "message": "Διακοπή" },
+  "focussessionduration": { "message": "Διάρκεια (λεπτά):" },
+  "focussessioninfo": { "message": "Ενεργοποιεί όλους τους κανόνες αποκλεισμού σας για ένα καθορισμένο χρονικό διάστημα, παραβλέποντας τις τρέχουσες ρυθμίσεις και τα χρονοδιαγράμματά τους. Για μέγιστη συγκέντρωση." },
+  "focussessionprofeature": { "message": "Η προσαρμοσμένη διάρκεια και η Λειτουργία Hardcore είναι λειτουργίες Pro." },
+  "focussessionended": { "message": "Η συνεδρία εστίασης έληξε! Κάντε ένα διάλειμμα." },
+  "focussessionhardcore": { "message": "Λειτουργία Hardcore (χωρίς κουμπί 'Διακοπή')" },
+  "focussessionsoundtitle": { "message": "Ηχητική Ειδοποίηση Συνεδρίας Εστίασης" },
+  "focussessionsounddesc": { "message": "Αναπαραγωγή ήχου όταν τελειώνει η συνεδρία εστίασης." },
+  "focussessionactivebanner": { "message": "Η Συνεδρία Εστίασης είναι ενεργή! Υπολειπόμενος χρόνος:" },
+  "focussessioninvalidduration": { "message": "Παρακαλώ εισαγάγετε μια έγκυρη διάρκεια (1-240 λεπτά)." },
+  "successfulfocussessionslabel": { "message": "Επιτυχημένες Συνεδρίες Εστίασης" }
 }

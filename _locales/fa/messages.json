@@ -285,5 +285,18 @@
   "feedback_like": { "message": "بله، خیلی خوب کار می‌کند!" },
   "feedback_dislike": { "message": "مشکل / پیشنهاد دارم" },
   "trialproheader": { "message": "دوره آزمایشی ۷ روزه رایگان خود را شروع کنید" },
-  "trialprotext": { "message": "لغو در هر زمان. پرداخت‌های شما کاملاً ایمن و محفوظ است." }
+  "trialprotext": { "message": "لغو در هر زمان. پرداخت‌های شما کاملاً ایمن و محفوظ است." },
+  "focussessionheader": { "message": "جلسه تمرکز" },
+  "focussessionstart": { "message": "شروع" },
+  "focussessionstop": { "message": "توقف" },
+  "focussessionduration": { "message": "مدت زمان (دقیقه):" },
+  "focussessioninfo": { "message": "فعال‌سازی تمام قوانین مسدودسازی شما برای یک زمان مشخص، با نادیده گرفتن تنظیمات و زمان‌بندی‌های فعلی آن‌ها. برای حداکثر تمرکز." },
+  "focussessionprofeature": { "message": "مدت زمان سفارشی و حالت سخت‌گیرانه (Hardcore) از ویژگی‌های نسخه پرو (Pro) هستند." },
+  "focussessionended": { "message": "جلسه تمرکز به پایان رسید! کمی استراحت کنید." },
+  "focussessionhardcore": { "message": "حالت سخت‌گیرانه (بدون دکمه «توقف»)" },
+  "focussessionsoundtitle": { "message": "اعلان صوتی جلسه تمرکز" },
+  "focussessionsounddesc": { "message": "پخش صدا هنگام به پایان رسیدن جلسه تمرکز." },
+  "focussessionactivebanner": { "message": "جلسه تمرکز فعال است! زمان باقی‌مانده:" },
+  "focussessioninvalidduration": { "message": "لطفاً یک مدت زمان معتبر وارد کنید (۱ تا ۲۴۰ دقیقه)." },
+  "successfulfocussessionslabel": { "message": "جلسات تمرکز موفق" }
 }

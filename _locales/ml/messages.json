@@ -296,5 +296,18 @@
   "feedback_like": { "message": "അതെ, ഇത് നന്നായി പ്രവർത്തിക്കുന്നു!" },
   "feedback_dislike": { "message": "എനിക്ക് ചില പ്രശ്നങ്ങൾ / നിർദ്ദേശങ്ങൾ ഉണ്ട്" },
   "trialproheader": { "message": "നിങ്ങളുടെ 7 ദിവസത്തെ സൗജന്യ ട്രയൽ ആരംഭിക്കുക" },
-  "trialprotext": { "message": "എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കാം. സുരക്ഷിതമായ ചെക്കൗട്ട്." }
+  "trialprotext": { "message": "എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കാം. സുരക്ഷിതമായ ചെക്കൗട്ട്." },
+  "focussessionheader": { "message": "ഫോക്കസ് സെഷൻ" },
+  "focussessionstart": { "message": "തുടങ്ങുക" },
+  "focussessionstop": { "message": "നിർത്തുക" },
+  "focussessionduration": { "message": "ദൈർഘ്യം (മിനിറ്റ്):" },
+  "focussessioninfo": { "message": "നിങ്ങളുടെ നിലവിലെ ക്രമീകരണങ്ങളും ഷെഡ്യൂളുകളും അവഗണിച്ച്, നിശ്ചിത സമയത്തേക്ക് എല്ലാ ബ്ലോക്കിംഗ് നിയമങ്ങളും സജീവമാക്കുന്നു. പരമാവധി ഏകാഗ്രതയ്ക്കായി." },
+  "focussessionprofeature": { "message": "ഇഷ്‌ടാനുസൃത ദൈർഘ്യവും ഹാർഡ്‌കോർ മോഡും പ്രോ (Pro) ഫീച്ചറുകളാണ്." },
+  "focussessionended": { "message": "ഫോക്കസ് സെഷൻ അവസാനിച്ചു! ചെറിയൊരു ഇടവേള എടുക്കൂ." },
+  "focussessionhardcore": { "message": "ഹാർഡ്‌കോർ മോഡ് ('നിർത്തുക' ബട്ടൺ ഉണ്ടായിരിക്കില്ല)" },
+  "focussessionsoundtitle": { "message": "ഫോക്കസ് സെഷൻ ശബ്ദ അറിയിപ്പ്" },
+  "focussessionsounddesc": { "message": "ഫോക്കസ് സെഷൻ അവസാനിക്കുമ്പോൾ ഒരു ശബ്ദം കേൾപ്പിക്കുക." },
+  "focussessionactivebanner": { "message": "ഫോക്കസ് സെഷൻ സജീവമാണ്! ബാക്കി സമയം:" },
+  "focussessioninvalidduration": { "message": "ദയവായി സാധുവായ ഒരു ദൈർഘ്യം രേഖപ്പെടുത്തുക (1-240 മിനിറ്റ്)." },
+  "successfulfocussessionslabel": { "message": "വിജയകരമായ ഫോക്കസ് സെഷനുകൾ" }
 }

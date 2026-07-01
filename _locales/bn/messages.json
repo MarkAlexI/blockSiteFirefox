@@ -285,5 +285,18 @@
   "feedback_like": { "message": "হ্যাঁ, দারুণ কাজ করে!" },
   "feedback_dislike": { "message": "আমার সমস্যা / পরামর্শ আছে" },
   "trialproheader": { "message": "আপনার ৭ দিনের ফ্রি ট্রায়াল শুরু করুন" },
-  "trialprotext": { "message": "যেকোনো সময় বাতিল করতে পারবেন। আপনার পেমেন্ট সম্পূর্ণ সুরক্ষিত।" }
+  "trialprotext": { "message": "যেকোনো সময় বাতিল করতে পারবেন। আপনার পেমেন্ট সম্পূর্ণ সুরক্ষিত।" },
+  "focussessionheader": { "message": "ফোকাস সেশন" },
+  "focussessionstart": { "message": "শুরু" },
+  "focussessionstop": { "message": "বন্ধ" },
+  "focussessionduration": { "message": "সময়কাল (মিনিট):" },
+  "focussessioninfo": { "message": "আপনার সমস্ত ব্লকিং নিয়ম একটি নির্দিষ্ট সময়ের জন্য সক্রিয় করে, তাদের বর্তমান সেটিংস এবং সময়সূচীকে উপেক্ষা করে। সর্বাধিক মনোযোগের জন্য।" },
+  "focussessionprofeature": { "message": "কাস্টম সময়কাল এবং হার্ডকোর-মোড হলো প্রো (Pro) ফিচার।" },
+  "focussessionended": { "message": "ফোকাস সেশন শেষ হয়েছে! একটু বিরতি নিন।" },
+  "focussessionhardcore": { "message": "হার্ডকোর মোড ('বন্ধ' বোতাম নেই)" },
+  "focussessionsoundtitle": { "message": "ফোকাস সেশন শব্দ বিজ্ঞপ্তি" },
+  "focussessionsounddesc": { "message": "ফোকাস সেশন শেষ হলে একটি শব্দ বাজান।" },
+  "focussessionactivebanner": { "message": "ফোকাস সেশন সক্রিয়! বাকি সময়:" },
+  "focussessioninvalidduration": { "message": "অনুগ্রহ করে একটি সঠিক সময়কাল লিখুন (১-২৪০ মিনিট)।" },
+  "successfulfocussessionslabel": { "message": "সফল ফোকাস সেশন" }
 }
