@@ -159,6 +159,7 @@ async function updateActiveRules() {
     
     const addRules = [];
     for (const rule of activeRules) {
+      await closeTabsMatchingRule(rule.blockURL);
       if (!currentDnrRules.some(dnr => dnr.id === rule.id)) {
         const dnrRule = await rulesManager.createDNRRule(rule.id, rule.blockURL, rule.redirectURL);
         
