@@ -159,7 +159,7 @@ async function updateActiveRules() {
     
     const addRules = [];
     for (const rule of activeRules) {
-      await closeTabsMatchingRule(rule.blockURL);
+      closeTabsMatchingRule(rule.blockURL);
       if (!currentDnrRules.some(dnr => dnr.id === rule.id)) {
         const dnrRule = await rulesManager.createDNRRule(rule.id, rule.blockURL, rule.redirectURL);
         
@@ -594,6 +594,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
         iconUrl: browser.runtime.getURL('images/icon-192.png'),
         title: browser.i18n.getMessage('focussessionheader'),
         message: browser.i18n.getMessage('focussessionended'),
+        priority: 2,
         silent: !playSound
       });
     }
