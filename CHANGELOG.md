@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.10.5] - 2026-07-07
+### Fixed
+- **Restored redirect functionality:** Fixed a critical bug where `normalizePathSegment` incorrectly applied `encodeURIComponent` to the entire redirect URL, transforming `https://` into `https%3A%2F%2F` and causing `new URL()` and `location.replace()` to fail in `redirect.js`.
+- **Flexible keyword blocking:** Separated the normalization logic for path segments/domains from full redirect URLs. Keyword-based matching (e.g., entering `tube` to block `youtube.com`) remains fully functional.
+- **Parameter security:** Improved validation for incoming `from` and `to` query parameters inside `redirect.js` to prevent crashes when handling malformed strings.
+
 ## [3.10.4] - 2026-07-03
 ### Added
 - Added an option to disable the notification sound when a focus session ends. Availability may vary depending on your browser and operating system.

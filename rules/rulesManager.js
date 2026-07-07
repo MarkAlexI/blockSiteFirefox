@@ -126,17 +126,25 @@ export class RulesManager {
   }
   
   async createDNRRule(id, blockURL, redirectURL) {
-    const normalizedBlockURL = normalizePathSegment(blockURL.trim());
-    const normalizedRedirectURL = normalizePathSegment(redirectURL.trim());
-    let action;
-    
-    const filter = normalizePathRule(normalizedBlockURL);
+    const trimmedBlock = blockURL.trim();
+    const filter = normalizePathRule(trimmedBlock);
     const urlFilter = `||${filter}`;
     
-    if (normalizedRedirectURL) {
+    const normalizedBlockURL = normalizePathSegment(trimmedBlock);
+    let action;
+    
+    if (redirectURL && redirectURL.trim() !== '') {
       const finalRedirectUrl = new URL(this.intermediaryRedirectURL);
+      
       finalRedirectUrl.searchParams.set('from', normalizedBlockURL);
-      finalRedirectUrl.searchParams.set('to', normalizedRedirectURL);
+      
+      try {
+        const parsedRedirect = new URL(redirectURL.trim());
+        finalRedirectUrl.searchParams.set('to', parsedRedirect.href);
+      } catch (e) {
+        finalRedirectUrl.searchParams.set('to', redirectURL.trim());
+      }
+      
       action = { type: "redirect", redirect: { url: finalRedirectUrl.href } };
     } else {
       const finalRedirectUrl = new URL(this.defaultRedirectURL);

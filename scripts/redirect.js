@@ -11,19 +11,20 @@ try {
     try {
       browser.runtime.sendMessage({
         type: 'record_redirect',
-        from: fromUrl,
+        from: decodeURIComponent(fromUrl),
         to: toUrl
       });
     } catch (error) {
       logger.error('Error sending redirect record message:', error);
     }
     
-    location.replace(toUrl);
-    
-  } else {
-    logger.warn('Redirect page called without "from" or "to" params.');
-    location.replace(browser.runtime.getURL("blocked.html"));
+    if (toUrl.startsWith('http://') || toUrl.startsWith('https://')) {
+      location.replace(toUrl);
+    } else {
+      location.replace('https://' + toUrl);
+    }
   }
+  
 } catch (error) {
   logger.error('Error in redirect script:', error);
   location.replace(browser.runtime.getURL("blocked.html"));
