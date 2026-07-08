@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.10.6] - 2026-07-08
+### Changed
+- **Batch tab closure optimization:** Replaced individual, loop-bound `chrome.tabs.query` operations with a unified batch function. The extension now queries open tabs exactly once and checks them against all active patterns simultaneously, reducing browser API overhead and fixing noticeable delays during focus session activation.
+- **Centralized DNR synchronization:** Removed the redundant `syncDnrRules` method from `RulesManager`. The service worker is now established as the single source of truth for all `declarativeNetRequest` updates, preventing double-syncing resource consumption when rules are saved.
+- **Streamlined rule saving:** Refactored popup and options actions to strictly handle data storage and trigger a single background reload event, ensuring smooth, non-blocking UI transitions.
+
 ## [3.10.5] - 2026-07-07
 ### Fixed
 - **Restored redirect functionality:** Fixed a critical bug where `normalizePathSegment` incorrectly applied `encodeURIComponent` to the entire redirect URL, transforming `https://` into `https%3A%2F%2F` and causing `new URL()` and `location.replace()` to fail in `redirect.js`.

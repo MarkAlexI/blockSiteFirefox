@@ -20,57 +20,15 @@ export class RulesManager {
       });
     });
   }
-  
+
   async saveRules(rules) {
     await new Promise((resolve) => {
       browser.storage.sync.set({ rules }, resolve);
     });
-    await this.syncDnrRules();
-    
+
     browser.runtime.sendMessage({
       type: 'reload_rules'
     });
-  }
-  
-  async syncDnrRules() {
-    try {
-      const rules = await this.getRules();
-      const settings = await this.getSettings();
-      const disabledCategories = settings.disabledCategories || [];
-      const { focusActive } = await getFocusSessionState();
-      
-      const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
-      const currentDnrIds = currentDnrRules.map(r => r.id);
-      
-      const activeRules = rules.filter(rule => this.isRuleActiveNow(rule, disabledCategories, focusActive));
-      const addRules = [];
-      const seenIds = new Set();
-      
-      for (const rule of activeRules) {
-        const id = Math.floor(Number(rule.id));
-        if (id > 0 && !seenIds.has(id)) {
-          const dnrRule = await this.createDNRRule(id, rule.blockURL, rule.redirectURL);
-          addRules.push(dnrRule);
-          seenIds.add(id);
-        }
-        
-        if (!rule.disabledByUser) {
-          browser.runtime.sendMessage({
-            type: 'CLOSE_MATCHING_TABS',
-            url: rule.blockURL
-          });
-        }
-      }
-      
-      await browser.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: currentDnrIds,
-        addRules: addRules
-      });
-      
-      this.logger.log(`DNR Synced: ${addRules.length} rules active.`);
-    } catch (error) {
-      this.logger.error("DNR Sync error:", error);
-    }
   }
   
   validateRule(blockURL, redirectURL, schedule, category) {
@@ -299,7 +257,7 @@ export class RulesManager {
     await this.saveRules(rules);
     return rules[index];
   }
-  
+
   async toggleCategoryDisabled(category) {
     const settings = await this.getSettings();
     let disabledCategories = settings.disabledCategories || [];
@@ -313,7 +271,7 @@ export class RulesManager {
     await browser.storage.sync.set({
       settings: { ...settings, disabledCategories }
     });
-    await this.syncDnrRules();
+
     browser.runtime.sendMessage({ type: 'reload_rules' });
   }
   

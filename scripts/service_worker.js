@@ -2,7 +2,7 @@ import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import { ProManager } from '../pro/proManager.js';
-import { closeTabsMatchingRule } from './closeTabs.js';
+import { closeTabsMatchingRules } from './closeTabs.js';
 import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
@@ -132,7 +132,7 @@ if (browser.contextMenus) {
         ruleValue
       );
       
-      await closeTabsMatchingRule(ruleValue);
+      await closeTabsMatchingRules([ruleValue]);
     } catch (error) {
       logger.info('Error processing context menu block:', error);
     }
@@ -157,20 +157,29 @@ async function updateActiveRules() {
       await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
     }
     
+    const currentDnrIdSet = new Set(currentDnrRules.map(dnr => dnr.id));
+    
     const addRules = [];
+    const urlsToClose = [];
+    
     for (const rule of activeRules) {
-      closeTabsMatchingRule(rule.blockURL);
-      if (!currentDnrRules.some(dnr => dnr.id === rule.id)) {
+      urlsToClose.push(rule.blockURL);
+      
+      if (!currentDnrIdSet.has(rule.id)) {
         const dnrRule = await rulesManager.createDNRRule(rule.id, rule.blockURL, rule.redirectURL);
-        
         if (dnrRule) {
           addRules.push(dnrRule);
         }
       }
     }
+    
     if (addRules.length) {
       await browser.declarativeNetRequest.updateDynamicRules({ addRules });
       logger.log(`Added ${addRules.length} active scheduled rules`);
+    }
+    
+    if (urlsToClose.length > 0) {
+      await closeTabsMatchingRules(urlsToClose);
     }
     
   } catch (error) {
@@ -423,7 +432,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'CLOSE_MATCHING_TABS') {
-    closeTabsMatchingRule(message.url)
+    closeTabsMatchingRules([message.url])
       .then(() => sendResponse({ success: true }))
       .catch((err) => {
         logger.error("Close tabs error:", err);
