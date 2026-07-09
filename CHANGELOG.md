@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.10.7] - 2026-07-09
+### Changed
+- **Dynamic focus session visibility:** Enhanced the popup UX by dynamically toggling the focus session section based on the user's rules list. The focus section is now hidden by default if no blocking rules exist, keeping the interface clean and clutter-free for fresh installs.
+- **Reactive UI state handling:** Integrated visibility logic directly into the central `updateStatus` routine. The focus control panel now automatically reveals itself the moment a rule is added (via the popup or the "Block this site" button) and seamlessly hides if all rules are deleted.
+- **Layout shift prevention:** Added the `hidden` utility class directly to the HTML structure to prevent any visual flickering or layout shifts during the popup's initialization phase.
+
 ## [3.10.6] - 2026-07-08
 ### Changed
 - **Batch tab closure optimization:** Replaced individual, loop-bound `chrome.tabs.query` operations with a unified batch function. The extension now queries open tabs exactly once and checks them against all active patterns simultaneously, reducing browser API overhead and fixing noticeable delays during focus session activation.

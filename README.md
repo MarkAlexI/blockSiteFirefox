@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v3.10.6-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v3.10.7-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -20,10 +20,12 @@ Alternatively, you can use the release packages provided.
 For a more convenient installation, use the official stores:
 - [Chrome Web Store](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 - [Mozilla Add-ons (AMO)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
+- [Edge Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/ilmfjlfmilmafofbanphijmbklbmolhi)
 
 Both versions work on mobile browsers:
 - **Kiwi Browser** for the Chrome version
 - **Firefox Mobile** for the Firefox version
+- **Edge Mobile** for the Edge version
 
 ![blocker.png](/images/blocker.png "blocker")
 ## How to work with extension
@@ -121,13 +123,13 @@ The `activeTab` permission allows the extension to interact with the currently o
 
 While the current version of the extension is fully functional, several ideas for enhancements are under consideration:
 
-- **Custom Time Limits**:  
+- **Custom Time Limits** (implemented):  
    Implementing time-based blocking, where users can set specific time windows during which access to certain websites is restricted.
 
-- **Category-based Blocking**:  
+- **Category-based Blocking** (implemented):  
    Grouping websites into categories (e.g., social media, news) to allow bulk blocking or redirection by category.
 
-- **Detailed Statistics**:  
+- **Detailed Statistics** (implemented):  
    Providing insights into users’ browsing habits by tracking time spent on blocked sites and offering reports that help users understand and improve their time management.
 
 - **User Accounts and Profiles**:  

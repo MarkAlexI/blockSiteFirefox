@@ -26,7 +26,7 @@ class PopupPage {
     this.statusOutput = document.getElementById('status');
     this.currentModeElement = document.getElementById('current-mode');
     this.scrollToTopBtn = document.getElementById('scrollToTopBtn');
-
+    
     this.focusSection = document.getElementById('focus-session-section');
     this.startFocusBtn = document.getElementById('start-focus-btn');
     this.stopFocusBtn = document.getElementById('stop-focus-btn');
@@ -408,42 +408,42 @@ class PopupPage {
     this.stopFocusBtn.addEventListener('click', () => this.stopFocusSession());
     await this.updateFocusUI();
   }
-
+  
   toggleUIAccessibility(locked) {
     const elementsToLock = [
       document.querySelector('.controls'),
       this.rulesContainer
     ];
-
+    
     elementsToLock.forEach(el => {
       if (el) {
         el.classList.toggle('focus-lock-active', locked);
       }
     });
   }
-
+  
   async updateFocusUI() {
     if (this.focusTimerInterval) {
       clearInterval(this.focusTimerInterval);
       this.focusTimerInterval = null;
     }
-
+    
     const { focusActive, focusEndTime, isHardcore } = await getFocusSessionState();
-
+    
     if (focusActive && focusEndTime > Date.now()) {
       this.focusStartView.classList.add('hidden');
       this.focusActiveView.classList.remove('hidden');
       this.toggleUIAccessibility(true);
-
+      
       this.stopFocusBtn.classList.toggle('hidden', isHardcore);
-
+      
       this.updateTimerDisplay(focusEndTime);
       this.focusTimerInterval = setInterval(() => this.updateTimerDisplay(focusEndTime), 1000);
     } else {
       this.focusStartView.classList.remove('hidden');
       this.focusActiveView.classList.add('hidden');
       this.toggleUIAccessibility(false);
-
+      
       if (this.isPro || this.isLegacyUser) {
         this.focusDurationInput.disabled = false;
         this.focusProNote.classList.add('hidden');
@@ -456,11 +456,11 @@ class PopupPage {
       }
     }
   }
-
+  
   updateTimerDisplay(endTime) {
     const now = Date.now();
     const remaining = endTime - now;
-
+    
     if (remaining <= 0) {
       this.focusTimerDisplay.textContent = '00:00';
       clearInterval(this.focusTimerInterval);
@@ -469,30 +469,30 @@ class PopupPage {
       setTimeout(() => this.updateFocusUI(), 1000);
       return;
     }
-
+    
     const minutes = Math.floor((remaining / 1000 / 60) % 60).toString().padStart(2, '0');
     const seconds = Math.floor((remaining / 1000) % 60).toString().padStart(2, '0');
     this.focusTimerDisplay.textContent = `${minutes}:${seconds}`;
   }
-
+  
   async startFocusSession() {
     const duration = parseInt(this.focusDurationInput.value, 10);
     if (isNaN(duration) || duration < 1 || duration > 240) {
       customAlert(t('focussessioninvalidduration'));
       return;
     }
-
+    
     const isHardcore = (this.isPro || this.isLegacyUser) && this.hardcoreModeCheckbox.checked;
-
+    
     await browser.runtime.sendMessage({ type: 'start_focus_session', duration, isHardcore });
     await this.updateFocusUI();
   }
-
+  
   async stopFocusSession() {
     await browser.runtime.sendMessage({ type: 'stop_focus_session' });
     await this.updateFocusUI();
   }
-
+  
   async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton) {
     try {
       if (!this.isPro && !this.isLegacyUser) {
@@ -603,6 +603,10 @@ class PopupPage {
   updateStatus(count) {
     const outputText = t('savedrules', ' ' + count + ' ');
     this.statusOutput.value = outputText;
+    
+    if (this.focusSection) {
+      this.focusSection.classList.toggle('hidden', count === 0);
+    }
   }
   
   cleanup() {
