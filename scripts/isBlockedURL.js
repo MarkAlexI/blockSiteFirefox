@@ -21,7 +21,10 @@ export function isBlockedURL(tabs) {
     /^https:\/\/addons\.mozilla\.org\//,
     /^devtools:/,
     /^view-source:/,
-    /blockdistraction/
+    /blockdistraction/,
+    /markdigital/,
+    /ext\.pp\.ua/,
+    /\/\/newtab/
   ];
   
   return blockedPatterns.some(pattern => pattern.test(url));
