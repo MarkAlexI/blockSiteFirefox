@@ -6,6 +6,15 @@ export class RulesUI {
   constructor() {
     this.logger = new Logger('RulesUI');
     this.countdownTimers = new Map();
+    this.scheduleDays = [
+      t("schedule_day_sun"),
+      t("schedule_day_mon"),
+      t("schedule_day_tue"),
+      t("schedule_day_wed"),
+      t("schedule_day_thu"),
+      t("schedule_day_fri"),
+      t("schedule_day_sat")
+    ];
   }
   
   handleRuleDeletion(deleteButton, onDelete, isStrictMode = false, buttonText = null) {
@@ -120,7 +129,7 @@ export class RulesUI {
     
     const scheduleCell = document.createElement('td');
     if (rule.schedule) {
-      const daysStr = rule.schedule.days.map(d => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d]).join(', ');
+      const daysStr = rule.schedule.days.map(d => this.scheduleDays[d]).join(', ');
       scheduleCell.textContent = `${daysStr}, ${rule.schedule.startTime}-${rule.schedule.endTime}`;
     } else {
       const toggleElement = document.createElement('span');
