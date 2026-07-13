@@ -291,8 +291,11 @@ browser.runtime.onStartup.addListener(async () => {
   const skip = await shouldSkipSync();
   if (skip) return;
   
-  logger.log("Extension startup - syncing DNR rules");
+  ensureAlarmsCreated();
+  
   await checkAndRequestPermissions({ reason: 'startup' });
+  
+  logger.log("Extension startup - syncing DNR rules");
   await updateActiveRules();
   
   try {
@@ -302,17 +305,15 @@ browser.runtime.onStartup.addListener(async () => {
     await browser.storage.local.set({ lastCheck: Date.now() });
   } catch (error) {
     logger.error('Error syncing:', error);
-  };
+  }
   
-  setTimeout(async () => {
-    await validateDnrIntegrity();
-  }, 5000);
+  await validateDnrIntegrity();
 });
 
 async function initializeExtension(details) {
   logger.log("Initializing extension state (rules, settings, legacy status)...");
   
-  await updateActiveRules();
+  await rulesManager.migrateRules();
   await SettingsManager.getSettings();
   await StatisticsManager.getStatistics();
   await showUpdates(details);
@@ -355,15 +356,20 @@ async function checkAndRequestPermissions(details) {
   
   try {
     let granted;
-    if (browser.permissions) {
+    if (typeof browser.permissions?.contains === 'function') {
       granted = await browser.permissions.contains({
         origins: ["*://*/*"]
       });
+    } else {
+      logger.warn("Permissions API not available. Assuming granted.");
+      granted = true;
     }
     
     if (granted) {
       logger.log("Host permission already granted.");
-      await initializeExtension(details);
+      if (details && details.reason !== 'tab_activated') {
+        await initializeExtension(details);
+      }
     } else {
       logger.log("Host permission NOT granted. Opening onboarding page.");
       const onboardingUrl = browser.runtime.getURL('onboarding/onboarding.html');
@@ -376,7 +382,7 @@ async function checkAndRequestPermissions(details) {
   } catch (err) {
     logger.error("Error checking permissions:", err);
   } finally {
-    setTimeout(() => { isCheckingPermissions = false; }, 2000);
+    isCheckingPermissions = false;
   }
 }
 
@@ -400,6 +406,8 @@ browser.runtime.onInstalled.addListener(async (details) => {
   
   browser.runtime.setUninstallURL("https://blockdistraction.com/uninstall.html");
   
+  ensureAlarmsCreated();
+  
   if (details.reason === 'install') {
     logger.log("This is a fresh install. Checking permissions...");
     await initializeExtension(details);
@@ -409,7 +417,6 @@ browser.runtime.onInstalled.addListener(async (details) => {
       url: createInstallURL(),
       active: true
     });
-    
   } else if (details.reason === 'update') {
     logger.log("This is an update. Assuming permissions are granted.");
     await initializeExtension(details);
@@ -614,11 +621,23 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   }
 });
 
-browser.alarms.create('check_pro_expiry', {
-  delayInMinutes: .5,
-  periodInMinutes: 1440
-});
+function ensureAlarmsCreated() {
+  browser.alarms.get('check_pro_expiry', (alarm) => {
+    if (!alarm) {
+      browser.alarms.create('check_pro_expiry', {
+        delayInMinutes: 0.5,
+        periodInMinutes: 1440
+      });
+    }
+  });
 
-browser.alarms.create('update_scheduled_rules', {
-  periodInMinutes: 1
-});
+  browser.alarms.get('update_scheduled_rules', (alarm) => {
+    if (!alarm) {
+      browser.alarms.create('update_scheduled_rules', {
+        periodInMinutes: 1
+      });
+    }
+  });
+}
+
+ensureAlarmsCreated();

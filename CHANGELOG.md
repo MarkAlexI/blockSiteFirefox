@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 3.10.9] – 2026-07-11
+## [3.10.10] – 2026-07-13
+### Fixed
+- **Service worker alarm resets on mobile:** Fixed a critical issue in Firefox Mobile (GeckoView) where background alarms were repeatedly reset to their initial delay upon every service worker wake-up. Integrated an asynchronous `browser.alarms.get` verification routine to ensure persistent, non-overlapping background scheduling.
+- **Fragile background delays:** Eliminated legacy `setTimeout` structures inside the startup and permission handlers. DNR integrity checks and state hydration now execute via solid, synchronous promise chains (`await`), preventing the browser from prematurely killing the background script during active processing.
+
+### Improved
+- **Tab switching performance:** Optimized the `onActivated` tab listener to strictly handle authorization states without re-triggering heavy storage queries. This completely removes CPU overhead and battery drain during rapid tab switching on mobile devices.
+- **Deterministic lifecycle execution:** Re-architected the `checkAndRequestPermissions` state lock using a robust `try...finally` block, ensuring the permission flag state resets instantly and reliably regardless of execution errors.
+
+## [3.10.9] – 2026-07-11
 ### Fixed
 - Fixed the display of weekday names in scheduled blocking rules. They are now shown in your selected language.
 
