@@ -1,5 +1,6 @@
 export async function updateUninstallURL() {
-  const { credentials, rules } = await browser.storage.sync.get(['credentials', 'rules']);
+  const { credentials } = await browser.storage.sync.get(['credentials']);
+  const { rules } = await browser.storage.local.get(['rules']);
 
   const rawData = JSON.stringify({
     l: credentials?.isLegacyUser ?? null,

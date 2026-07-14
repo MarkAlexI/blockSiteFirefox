@@ -4,11 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    'Introducing Focus Session, a new powerful tool for maximum concentration when you need it most.',
-    'Added "Hardcore Mode" for Pro users, which hides the "Stop" button during a session.',
-    'During an active Focus Session, the rule management UI is now locked to prevent impulsive changes.',
-    'Added a visual banner to the settings page that displays the active focus session and remaining time.',
-    "We're happy to announce that our extension is now also available in the Microsoft Edge Add-ons Store!"
+    "🔓 Memory Limits Removed: We 've switched to local storage. Create 1000+ rules (Pro) without any risk of performance drops or crashes!",
+    "📦 Safe Migration: All your settings and existing rules have been successfully and automatically migrated.",
+    "⚠️ Sync Changes: Automatic background rule synchronization is no longer supported. Please use the Export / Import buttons(Pro) to manually transfer your rules between devices. General extension preferences will continue to sync automatically.",
+    "📱 Mobile Stability: Fixed background processes and timers on Firefox Mobile, and greatly improved UI responsiveness when switching tabs rapidly."
   ];
   
   const ul = document.getElementById('features');

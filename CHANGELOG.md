@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] – 2026-07-14
+### 🚨 BREAKING CHANGES
+- **Storage Migration:** Rules database has been migrated from `browser.storage.sync` to `browser.storage.local`. Automatic background synchronization of rules across different devices is no longer supported. General extension settings (theme, toggles) are still synchronized via sync storage.
+### Added
+- Unlimited capacity for power users (up to 10MB+ storage via `local` API), completely bypassing Firefox's legacy `QUOTA_BYTES_PER_ITEM` errors.
+- One-time local migration handler to safely move existing rules from sync to local storage on the first launch of v4.0.0.
+### Fixed
+- Fixed browser extensions crashing or throwing unhandled database exceptions when saving massive rule lists.
+
 ## [3.10.10] – 2026-07-13
 ### Fixed
 - **Service worker alarm resets on mobile:** Fixed a critical issue in Firefox Mobile (GeckoView) where background alarms were repeatedly reset to their initial delay upon every service worker wake-up. Integrated an asynchronous `browser.alarms.get` verification routine to ensure persistent, non-overlapping background scheduling.

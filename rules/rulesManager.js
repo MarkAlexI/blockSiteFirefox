@@ -15,7 +15,7 @@ export class RulesManager {
   
   async getRules() {
     return new Promise((resolve) => {
-      browser.storage.sync.get('rules', ({ rules }) => {
+      browser.storage.local.get('rules', ({ rules }) => {
         resolve(rules || []);
       });
     });
@@ -23,7 +23,7 @@ export class RulesManager {
 
   async saveRules(rules) {
     await new Promise((resolve) => {
-      browser.storage.sync.set({ rules }, resolve);
+      browser.storage.local.set({ rules }, resolve);
     });
 
     browser.runtime.sendMessage({
@@ -370,5 +370,38 @@ export class RulesManager {
       }
     });
     await this.saveRules(rules);
+  }
+
+  async migrateRulesToLocalForDevice() {
+    this.logger.log('Attempting device-specific rules migration from sync to local storage...');
+    try {
+      const localStatus = await browser.storage.local.get("is_migrated_to_local");
+      
+      if (!localStatus.is_migrated_to_local) {
+        const syncData = await browser.storage.sync.get("rules");
+        
+        if (syncData.rules && Array.isArray(syncData.rules) && syncData.rules.length > 0) {
+          this.logger.log(`Found ${syncData.rules.length} rules in sync storage. Migrating to local for this device.`);
+          await browser.storage.local.set({ rules: syncData.rules });
+          await browser.storage.local.set({ is_migrated_to_local: true });
+          this.logger.log('Rules successfully migrated to local storage on this device.');
+
+          await this.syncDnrRules();
+          
+          browser.runtime.sendMessage({
+            type: 'reload_rules'
+          });
+          return true;
+        } else {
+          this.logger.log('No rules found in sync storage to migrate or rules are empty.');
+          await browser.storage.local.set({ is_migrated_to_local: true });
+        }
+      } else {
+        this.logger.log('Rules already migrated to local storage on this device. Skipping sync migration.');
+      }
+    } catch (error) {
+      this.logger.error('Error during device-specific rules migration:', error);
+    }
+    return false;
   }
 }
