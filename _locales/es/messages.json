@@ -305,5 +305,6 @@
   "focussessionhardcore": { "message": "Modo Hardcore (sin botón de 'Detener')" },
   "focussessionactivebanner": { "message": "¡Sesión de Enfoque activa! Tiempo restante:" },
   "focussessioninvalidduration": { "message": "Por favor, introduce una duración válida (1-240 minutos)." },
-  "successfulfocussessionslabel": { "message": "Sesiones de Enfoque Exitosas" }
+  "successfulfocussessionslabel": { "message": "Sesiones de Enfoque Exitosas" },
+  "rule_scheduled": { "message": "Regla programada" }
 }

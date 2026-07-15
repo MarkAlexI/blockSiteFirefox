@@ -12,6 +12,7 @@ import Logger from './utils/logger.js';
 import { getFocusSessionState } from './utils/focusSession.js';
 import { MAX_RULES_LIMIT } from './utils/constants.js';
 import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
+import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 
 const logger = new Logger('Popup');
 
@@ -20,6 +21,7 @@ class PopupPage {
     this.logger = logger;
     this.rulesManager = new RulesManager();
     this.rulesUI = new RulesUI();
+    this.scheduleFormatter = new ScheduleFormatter();
     
     this.rulesContainer = document.getElementById('rules-container');
     this.addRuleButton = document.getElementById('add-rule');
@@ -190,7 +192,7 @@ class PopupPage {
       this.rulesContainer.innerHTML = '';
       
       rules.forEach(rule => {
-        this.createRuleInputs(rule.blockURL, rule.redirectURL, rule.id, rule.disabledByUser ?? false, rule.category);
+        this.createRuleInputs(rule.blockURL, rule.redirectURL, rule.id, rule.disabledByUser ?? false, rule.category, rule.schedule);
       });
       
       this.updateStatus(rules.length);
@@ -301,7 +303,7 @@ class PopupPage {
     }
   }
   
-  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized') {
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null) {
     const ruleDiv = document.createElement('div');
     const isMuted = (this.settings.disabledCategories || []).includes(category);
     
@@ -350,28 +352,37 @@ class PopupPage {
       } else {
         this.makeInputReadOnly(blockURL);
         this.makeInputReadOnly(redirectURL);
-        const toggleElement = document.createElement('span');
-        toggleElement.className = 'rule-toggle-popup';
-        toggleElement.textContent = disabledByUser ? '✗' : '✓';
-        toggleElement.title = disabledByUser ? t('rule_disabled') || 'Disabled' : t('rule_enabled') || 'Enabled';
-        toggleElement.style.cursor = 'pointer';
-        toggleElement.style.marginLeft = '10px';
-        toggleElement.addEventListener('click', async () => {
-          if (isMuted) return;
-          try {
-            const rules = await this.rulesManager.getRules();
-            const index = rules.findIndex(r => r.id === ruleId);
-            if (index !== -1) {
-              await this.rulesManager.toggleRuleDisabled(index);
-              await this.loadRules();
-              toggleElement.textContent = toggleElement.textContent === '✓' ? '✗' : '✓';
-              toggleElement.title = toggleElement.title === (t('rule_enabled') || 'Enabled') ? (t('rule_disabled') || 'Disabled') : (t('rule_enabled') || 'Enabled');
+        
+        if (schedule) {
+          const scheduleElement = document.createElement('span');
+          scheduleElement.className = 'rule-schedule-popup';
+          scheduleElement.textContent = this.scheduleFormatter.formatSchedule(schedule);
+          scheduleElement.title = t('rule_scheduled') || 'Scheduled rule';
+          ruleDiv.appendChild(scheduleElement);
+        } else {
+          const toggleElement = document.createElement('span');
+          toggleElement.className = 'rule-toggle-popup';
+          toggleElement.textContent = disabledByUser ? '✗' : '✓';
+          toggleElement.title = disabledByUser ? t('rule_disabled') || 'Disabled' : t('rule_enabled') || 'Enabled';
+          toggleElement.style.cursor = 'pointer';
+          toggleElement.style.marginLeft = '10px';
+          toggleElement.addEventListener('click', async () => {
+            if (isMuted) return;
+            try {
+              const rules = await this.rulesManager.getRules();
+              const index = rules.findIndex(r => r.id === ruleId);
+              if (index !== -1) {
+                await this.rulesManager.toggleRuleDisabled(index);
+                await this.loadRules();
+                toggleElement.textContent = toggleElement.textContent === '✓' ? '✗' : '✓';
+                toggleElement.title = toggleElement.title === (t('rule_enabled') || 'Enabled') ? (t('rule_disabled') || 'Disabled') : (t('rule_enabled') || 'Enabled');
+              }
+            } catch (error) {
+              this.logger.error('Toggle rule error:', error);
             }
-          } catch (error) {
-            this.logger.error('Toggle rule error:', error);
-          }
-        });
-        ruleDiv.appendChild(toggleElement);
+          });
+          ruleDiv.appendChild(toggleElement);
+        }
       }
       
       if (blockURLValue || (showButtons && !blockURLValue)) {

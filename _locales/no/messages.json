@@ -298,5 +298,6 @@
   "focussessionsounddesc": { "message": "Spill av en lyd når fokussessionen avsluttes." },
   "focussessionactivebanner": { "message": "Fokussession aktiv! Gjenstående tid:" },
   "focussessioninvalidduration": { "message": "Vennligst skriv inn en gyldig varighet (1–240 minutter)." },
-  "successfulfocussessionslabel": { "message": "Vellykkede fokussessioner" }
+  "successfulfocussessionslabel": { "message": "Vellykkede fokussessioner" },
+  "rule_scheduled": { "message": "Planlagt regel" }
 }

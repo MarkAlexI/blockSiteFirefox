@@ -298,5 +298,6 @@
   "focussessionsounddesc": { "message": "Riproduci un suono al termine della sessione di focus." },
   "focussessionactivebanner": { "message": "Sessione di focus attiva! Tempo rimanente:" },
   "focussessioninvalidduration": { "message": "Inserisci una durata valida (1-240 minuti)." },
-  "successfulfocussessionslabel": { "message": "Sessioni di focus completate con successo" }
+  "successfulfocussessionslabel": { "message": "Sessioni di focus completate con successo" },
+  "rule_scheduled": { "message": "Regola programmata" }
 }

@@ -405,5 +405,6 @@
   "focussoundgong": { "message": "Gong" },
   "focussessionactivebanner": { "message": "¡Sesión de Enfoque Activa! Tiempo restante:" },
   "focussessioninvalidduration": { "message": "Por favor, ingresa una duración válida (1-240 minutos)." },
-  "successfulfocussessionslabel": { "message": "Sesiones de Enfoque Exitosas" }
+  "successfulfocussessionslabel": { "message": "Sesiones de Enfoque Exitosas" },
+  "rule_scheduled": { "message": "Regla programada" }
 }

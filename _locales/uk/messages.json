@@ -308,5 +308,6 @@
   "focussessionsounddesc": { "message": "Відтворювати звук після завершення сесії фокусування." },
   "focussessionactivebanner": { "message": "Сесія фокусу активна! Залишилося:" },
   "focussessioninvalidduration": { "message": "Будь ласка, введіть дійсну тривалість (1-240 хвилин)." },
-  "successfulfocussessionslabel": { "message": "Успішні сесії фокусування" }
+  "successfulfocussessionslabel": { "message": "Успішні сесії фокусування" },
+  "rule_scheduled": { "message": "Правило за розкладом" }
 }

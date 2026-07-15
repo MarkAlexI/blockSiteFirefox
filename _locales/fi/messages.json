@@ -295,5 +295,6 @@
   "focussessionhardcore": { "message": "Hardcore-tila (ei 'Pysäytä'-painiketta)" },
   "focussessionactivebanner": { "message": "Keskittymisistunto aktiivinen! Jäljellä oleva aika:" },
   "focussessioninvalidduration": { "message": "Anna kelvollinen kesto (1-240 minuuttia)." },
-  "successfulfocussessionslabel": { "message": "Onnistuneet keskittymisistunnot" }
+  "successfulfocussessionslabel": { "message": "Onnistuneet keskittymisistunnot" },
+  "rule_scheduled": { "message": "Ajoitettu sääntö" }
 }

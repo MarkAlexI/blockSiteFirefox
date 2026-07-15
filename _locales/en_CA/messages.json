@@ -298,5 +298,6 @@
   "focussessionsounddesc": { "message": "Play a sound when the focus session ends." },
   "focussessionactivebanner": { "message": "Focus Session Active! Time remaining:" },
   "focussessioninvalidduration": { "message": "Please enter a valid duration (1-240 minutes)." },
-  "successfulfocussessionslabel": { "message": "Successful Focus Sessions" }
+  "successfulfocussessionslabel": { "message": "Successful Focus Sessions" },
+  "rule_scheduled": { "message": "Scheduled rule" }
 }

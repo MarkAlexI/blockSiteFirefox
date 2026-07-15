@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.1] – 2026-07-15
+### Improved
+- Scheduled rules now display their blocking schedule in the popup instead of a checkmark.
+
 ## [4.0.0] – 2026-07-14
 ### 🚨 BREAKING CHANGES
 - **Storage Migration:** Rules database has been migrated from `browser.storage.sync` to `browser.storage.local`. Automatic background synchronization of rules across different devices is no longer supported. General extension settings (theme, toggles) are still synchronized via sync storage.

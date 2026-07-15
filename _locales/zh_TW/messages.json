@@ -296,5 +296,6 @@
   "focussessionhardcore": { "message": "硬核模式 (无“停止”按钮)" },
   "focussessionactivebanner": { "message": "专注时段进行中！剩余时间：" },
   "focussessioninvalidduration": { "message": "请输入有效的时长 (1-240 分钟)。" },
-  "successfulfocussessionslabel": { "message": "成功的专注时段" }
+  "successfulfocussessionslabel": { "message": "成功的专注时段" },
+  "rule_scheduled": { "message": "排定的規則" }
 }

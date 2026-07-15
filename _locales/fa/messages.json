@@ -298,5 +298,6 @@
   "focussessionsounddesc": { "message": "پخش صدا هنگام به پایان رسیدن جلسه تمرکز." },
   "focussessionactivebanner": { "message": "جلسه تمرکز فعال است! زمان باقی‌مانده:" },
   "focussessioninvalidduration": { "message": "لطفاً یک مدت زمان معتبر وارد کنید (۱ تا ۲۴۰ دقیقه)." },
-  "successfulfocussessionslabel": { "message": "جلسات تمرکز موفق" }
+  "successfulfocussessionslabel": { "message": "جلسات تمرکز موفق" },
+  "rule_scheduled": { "message": "قانون برنامه‌ریزی‌شده" }
 }

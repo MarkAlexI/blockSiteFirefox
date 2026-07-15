@@ -296,5 +296,6 @@
   "focussessionhardcore": { "message": "하드코어 모드 ('중지' 버튼 없음)" },
   "focussessionactivebanner": { "message": "집중 세션 활성 중! 남은 시간:" },
   "focussessioninvalidduration": { "message": "유효한 지속 시간(1-240분)을 입력하세요." },
-  "successfulfocussessionslabel": { "message": "성공적인 집중 세션" }
+  "successfulfocussessionslabel": { "message": "성공적인 집중 세션" },
+  "rule_scheduled": { "message": "예약된 규칙" }
 }

@@ -298,5 +298,6 @@
   "focussessionsounddesc": { "message": "Odtwórz dźwięk, gdy sesja skupienia się zakończy." },
   "focussessionactivebanner": { "message": "Sesja skupienia jest aktywna! Pozostały czas:" },
   "focussessioninvalidduration": { "message": "Wprowadź prawidłowy czas trwania (1–240 minut)." },
-  "successfulfocussessionslabel": { "message": "Ukończone sesje skupienia" }
+  "successfulfocussessionslabel": { "message": "Ukończone sesje skupienia" },
+  "rule_scheduled": { "message": "Reguła zaplanowana" }
 }

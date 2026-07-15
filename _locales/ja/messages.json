@@ -305,5 +305,6 @@
   "focussessionhardcore": { "message": "ハードコアモード (「停止」ボタンなし)" },
   "focussessionactivebanner": { "message": "集中セッションがアクティブです！残り時間：" },
   "focussessioninvalidduration": { "message": "有効な期間 (1-240分) を入力してください。" },
-  "successfulfocussessionslabel": { "message": "成功した集中セッション" }
+  "successfulfocussessionslabel": { "message": "成功した集中セッション" },
+  "rule_scheduled": { "message": "スケジュール済みルール" }
 }

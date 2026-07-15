@@ -296,5 +296,6 @@
   "focussessionhardcore": { "message": "Hardcore-Modus (keine 'Stopp'-Taste)" },
   "focussessionactivebanner": { "message": "Fokus-Sitzung aktiv! Verbleibende Zeit:" },
   "focussessioninvalidduration": { "message": "Bitte geben Sie eine gültige Dauer ein (1-240 Minuten)." },
-  "successfulfocussessionslabel": { "message": "Erfolgreiche Fokus-Sitzungen" }
+  "successfulfocussessionslabel": { "message": "Erfolgreiche Fokus-Sitzungen" },
+  "rule_scheduled": { "message": "Geplante Regel" }
 }

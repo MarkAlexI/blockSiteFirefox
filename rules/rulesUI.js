@@ -1,20 +1,13 @@
 import { t } from '../scripts/t.js';
 import Logger from '../utils/logger.js';
 import { CATEGORIES } from './categoryManager.js';
+import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
 
 export class RulesUI {
   constructor() {
     this.logger = new Logger('RulesUI');
     this.countdownTimers = new Map();
-    this.scheduleDays = [
-      t("schedule_day_sun"),
-      t("schedule_day_mon"),
-      t("schedule_day_tue"),
-      t("schedule_day_wed"),
-      t("schedule_day_thu"),
-      t("schedule_day_fri"),
-      t("schedule_day_sat")
-    ];
+    this.scheduleFormatter = new ScheduleFormatter();
   }
   
   handleRuleDeletion(deleteButton, onDelete, isStrictMode = false, buttonText = null) {
@@ -129,8 +122,7 @@ export class RulesUI {
     
     const scheduleCell = document.createElement('td');
     if (rule.schedule) {
-      const daysStr = rule.schedule.days.map(d => this.scheduleDays[d]).join(', ');
-      scheduleCell.textContent = `${daysStr}, ${rule.schedule.startTime}-${rule.schedule.endTime}`;
+      scheduleCell.textContent = this.scheduleFormatter.formatSchedule(rule.schedule);
     } else {
       const toggleElement = document.createElement('span');
       toggleElement.className = 'rule-toggle';

@@ -299,5 +299,6 @@
   "focussessionsounddesc": { "message": "Воспроизводить звук по окончании сессии фокуса." },
   "focussessionactivebanner": { "message": "Сессия фокуса активна! Осталось:" },
   "focussessioninvalidduration": { "message": "Пожалуйста, введите действительную длительность (1-240 минут)." },
-  "successfulfocussessionslabel": { "message": "Успешные сессии фокусировки" }
+  "successfulfocussessionslabel": { "message": "Успешные сессии фокусировки" },
+  "rule_scheduled": { "message": "Правило по расписанию" }
 }

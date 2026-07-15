@@ -296,5 +296,6 @@
   "focussessionhardcore": { "message": "Hardcore-modus (geen 'Stop'-knop)" },
   "focussessionactivebanner": { "message": "Focussessie actief! Resterende tijd:" },
   "focussessioninvalidduration": { "message": "Voer een geldige duur in (1-240 minuten)." },
-  "successfulfocussessionslabel": { "message": "Succesvolle Focussessies" }
+  "successfulfocussessionslabel": { "message": "Succesvolle Focussessies" },
+  "rule_scheduled": { "message": "Geplande regel" }
 }
