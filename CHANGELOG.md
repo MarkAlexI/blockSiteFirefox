@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.2] - 2026-07-19
+### Changed
+- **UI Accessibility:** Enhanced the visual contrast of action buttons and list items within the Whitelist (Allow-rules) interface to ensure better text readability and a more accessible user experience.
+
 ## [4.1.1] - 2026-07-19
 ### Fixed
 - **Rule Update Crash:** Fixed a bug that prevented existing rules (both Allow-rules and Block-rules) from being updated due to a variable name typo.

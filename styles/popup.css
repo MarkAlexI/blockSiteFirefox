@@ -470,11 +470,11 @@ button:disabled {
 }
 
 #add-whitelist-rule {
-  background-color: #10b981;
+  background-color: #059669;
 }
 
 #add-whitelist-rule:hover:not(:disabled) {
-  background-color: #059669;
+  background-color: #047857;
 }
 
 #add-whitelist-rule:disabled {
@@ -493,7 +493,7 @@ button:disabled {
 .status-static-popup {
   font-size: 0.8rem;
   font-weight: bold;
-  color: #10b981;
+  color: #166534;
   background-color: #e8f5e8;
   padding: .5rem;
   border-radius: 4px;
