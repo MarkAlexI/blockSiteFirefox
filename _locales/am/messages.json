@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "የትኩረት ክፍለ-ጊዜው ሲያበቃ ድምጽ ያጫውቱ።" },
   "focussessionactivebanner": { "message": "የትኩረት ክፍለ-ጊዜው ገባሪ ነው! የቀረው ጊዜ፦" },
   "focussessioninvalidduration": { "message": "እባክዎን ትክክለኛ ቆይታ ያስገቡ (ከ1-240 ደቂቃዎች)።" },
-  "successfulfocussessionslabel": { "message": "ስኬታማ የትኩረት ክፍለ-ጊዜዎች" }
+  "successfulfocussessionslabel": { "message": "ስኬታማ የትኩረት ክፍለ-ጊዜዎች" },
+  "addwhitelistrule": { "message": "ልዩነት ያክሉ" },
+  "category_whitelist": { "message": "ነጭ ዝርዝር" },
+  "conflict_blacklist_err": { "message": "ይህ ጣቢያ አስቀድሞ በጥቁር ዝርዝርዎ ውስጥ አለ። መጀመሪያ ያስወግዱት።" },
+  "conflict_whitelist_err": { "message": "ይህ ጣቢያ አስቀድሞ በነጭ ዝርዝርዎ ውስጥ አለ። መጀመሪያ ያስወግዱት。" },
+  "status_allow": { "message": "የተፈቀደ" },
+  "redundant_whitelist_err": { "message": "ይህ ደንብ አስቀድሞ በሌላ የነጭ ዝርዝር ደንብ ተሸፍኗል።" }
 }

@@ -307,5 +307,11 @@
   "focussessionsounddesc": { "message": "تشغيل صوت عند انتهاء جلسة التركيز." },
   "focussessionactivebanner": { "message": "جلسة التركيز نشطة حالياً! الوقت المتبقي:" },
   "focussessioninvalidduration": { "message": "يرجى إدخال مدة صالحة (من 1 إلى 240 دقيقة)." },
-  "successfulfocussessionslabel": { "message": "جلسات التركيز الناجحة" }
+  "successfulfocussessionslabel": { "message": "جلسات التركيز الناجحة" },
+  "addwhitelistrule": { "message": "إضافة استثناء" },
+  "category_whitelist": { "message": "القائمة البيضاء" },
+  "conflict_blacklist_err": { "message": "هذا الموقع موجود بالفعل في القائمة السوداء. قم بإزالته أولاً." },
+  "conflict_whitelist_err": { "message": "هذا الموقع موجود بالفعل في القائمة البيضاء. قم بإزالته أولاً." },
+  "status_allow": { "message": "مسموح به" },
+  "redundant_whitelist_err": { "message": "هذه القاعدة مغطاة بالفعل بقاعدة قائمة بيضاء أخرى." }
 }

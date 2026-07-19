@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "Reprodueix un so quan acabi la sessió de focus." },
   "focussessionactivebanner": { "message": "Sessió de focus activa! Temps restant:" },
   "focussessioninvalidduration": { "message": "Si us plau, introdueix una durada vàlida (1-240 minuts)." },
-  "successfulfocussessionslabel": { "message": "Sessions de focus amb èxit" }
+  "successfulfocussessionslabel": { "message": "Sessions de focus amb èxit" },
+  "addwhitelistrule": { "message": "Afegir excepció" },
+  "category_whitelist": { "message": "Llista blanca" },
+  "conflict_blacklist_err": { "message": "Aquest lloc ja és a la teva llista negra. Elimina'l primer." },
+  "conflict_whitelist_err": { "message": "Aquest lloc ja és a la teva llista blanca. Elimina'l primer." },
+  "status_allow": { "message": "Permès" },
+  "redundant_whitelist_err": { "message": "Aquesta regla ja està coberta por una altra regla de la llista blanca." }
 }

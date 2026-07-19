@@ -299,5 +299,11 @@
   "focussessionactivebanner": { "message": "Focus Session Active! Time remaining:" },
   "focussessioninvalidduration": { "message": "Please enter a valid duration (1-240 minutes)." },
   "successfulfocussessionslabel": { "message": "Successful Focus Sessions" },
-  "rule_scheduled": { "message": "Scheduled rule" }
+  "rule_scheduled": { "message": "Scheduled rule" },
+  "addwhitelistrule": { "message": "Add Exception" },
+  "category_whitelist": { "message": "Whitelist" },
+  "conflict_blacklist_err": { "message": "This site is already in your Blacklist. Remove it first." },
+  "conflict_whitelist_err": { "message": "This site is already in your Whitelist. Remove it first." },
+  "status_allow": { "message": "Allowed" },
+  "redundant_whitelist_err": { "message": "This rule is already covered by another whitelist rule." }
 }

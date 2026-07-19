@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "Přehrát zvuk po skončení soustředění." },
   "focussessionactivebanner": { "message": "Soustředění je aktivní! Zbývající čas:" },
   "focussessioninvalidduration": { "message": "Zadejte prosím platnou dobu trvání (1–240 minut)." },
-  "successfulfocussessionslabel": { "message": "Úspěšná soustředění" }
+  "successfulfocussessionslabel": { "message": "Úspěšná soustředění" },
+  "addwhitelistrule": { "message": "Přidat výjimku" },
+  "category_whitelist": { "message": "Bílá listina" },
+  "conflict_blacklist_err": { "message": "Tento web již je na vašem černém seznamu. Nejprve jej odstraňte." },
+  "conflict_whitelist_err": { "message": "Tento web již je na vašem bílém seznamu. Nejprve jej odstraňte." },
+  "status_allow": { "message": "Povoleno" },
+  "redundant_whitelist_err": { "message": "Toto pravidlo je již pokryto jiným pravidlem na bílé listině." }
 }

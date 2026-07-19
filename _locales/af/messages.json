@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "Speel 'n klank wanneer die fokus-sessie eindig." },
   "focussessionactivebanner": { "message": "Fokus-sessie Aktief! Tyd oor:" },
   "focussessioninvalidduration": { "message": "Voer asseblief 'n geldige duur in (1-240 minute)." },
-  "successfulfocussessionslabel": { "message": "Suksesvolle Fokus-sessies" }
+  "successfulfocussessionslabel": { "message": "Suksesvolle Fokus-sessies" },
+  "addwhitelistrule": { "message": "Voeg uitsondering by" },
+  "category_whitelist": { "message": "Witlys" },
+  "conflict_blacklist_err": { "message": "Hierdie werf is reeds op jou swartlys. Verwyder dit eers." },
+  "conflict_whitelist_err": { "message": "Hierdie werf is reeds op jou witlys. Verwyder dit eers." },
+  "status_allow": { "message": "Toegelaat" },
+  "redundant_whitelist_err": { "message": "Hierdie reël word reeds deur 'n ander witlysreël gedek." }
 }

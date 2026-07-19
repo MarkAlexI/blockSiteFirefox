@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "Magpatugtog ng tunog kapag natapos na ang focus session." },
   "focussessionactivebanner": { "message": "Aktibo ang Focus Session! Natitirang oras:" },
   "focussessioninvalidduration": { "message": "Mangyaring maglagay ng wastong tagal (1-240 minuto)." },
-  "successfulfocussessionslabel": { "message": "Mga Matagumpay na Focus Session" }
+  "successfulfocussessionslabel": { "message": "Mga Matagumpay na Focus Session" },
+  "addwhitelistrule": { "message": "Magdagdag ng exception" },
+  "category_whitelist": { "message": "Whitelist" },
+  "conflict_blacklist_err": { "message": "Ang site na ito ay nasa iyong Blacklist na. Alisin muna ito." },
+  "conflict_whitelist_err": { "message": "Ang site na ito ay nasa iyong Whitelist na. Alisin muna ito." },
+  "status_allow": { "message": "Pinapayagan" },
+  "redundant_whitelist_err": { "message": "Ang panuntunang ito ay sakop na ng isa pang panuntunan sa whitelist." }
 }

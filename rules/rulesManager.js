@@ -187,8 +187,8 @@ export class RulesManager {
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
     }
-    
-    const conflict = this.checkConflict(rules, blockURL, isWhitelist);
+
+    const conflict = this.checkConflict(rules, newBlockURL, isWhitelist, index);
     if (conflict) {
       throw new Error(conflict);
     }

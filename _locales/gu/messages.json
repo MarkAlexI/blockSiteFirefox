@@ -297,5 +297,11 @@
   "focussessionsounddesc": { "message": "જ્યારે ફોકસ સેશન સમાપ્ત થાય ત્યારે અવાજ વગાડો." },
   "focussessionactivebanner": { "message": "ફોકસ સેશન સક્રિય છે! બાકીનો સમય:" },
   "focussessioninvalidduration": { "message": "કૃપા કરીને માન્ય સમયગાળો દાખલ કરો (1-240 મિનિટ)." },
-  "successfulfocussessionslabel": { "message": "સફળ ફોકસ સેશન્સ" }
+  "successfulfocussessionslabel": { "message": "સફળ ફોકસ સેશન્સ" },
+  "addwhitelistrule": { "message": "અપવાદ ઉમેરો" },
+  "category_whitelist": { "message": "વ્હાઇટલિસ્ટ" },
+  "conflict_blacklist_err": { "message": "આ સાઇટ પહેલેથી જ તમારી બ્લેકલિસ્ટમાં છે. તેને પહેલા દૂર કરો." },
+  "conflict_whitelist_err": { "message": "આ સાઇટ પહેલેથી જ તમારી વ્હાઇટલિસ્ટમાં છે. તેને પહેલા દૂર કરો." },
+  "status_allow": { "message": "મંજૂર" },
+  "redundant_whitelist_err": { "message": "આ નિયમ પહેલેથી જ અન્ય વ્હાઇટલિસ્ટ નિયમ દ્વારા આવરી લેવામાં આવ્યો છે." }
 }

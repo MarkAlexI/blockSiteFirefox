@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "השמע צליל כאשר סשן המיקוד מסתיים." },
   "focussessionactivebanner": { "message": "סשן המיקוד פעיל! זמן נותר:" },
   "focussessioninvalidduration": { "message": "אנא הזן משך זמן תקין (1-240 דקות)." },
-  "successfulfocussessionslabel": { "message": "סשני מיקוד מוצלחים" }
+  "successfulfocussessionslabel": { "message": "סשני מיקוד מוצלחים" },
+  "addwhitelistrule": { "message": "הוספת חריגה" },
+  "category_whitelist": { "message": "רשימה לבנה" },
+  "conflict_blacklist_err": { "message": "אתר זה כבר נמצא ברשימה השחורה שלך. הסר אותו תחילה." },
+  "conflict_whitelist_err": { "message": "אתר זה כבר נמצא ברשימה הלבנה שלך. הסר אותו תחילה." },
+  "status_allow": { "message": "מאושר" },
+  "redundant_whitelist_err": { "message": "כלל זה כבר מכוסה על ידי כלל אחר ברשימה הלבנה." }
 }

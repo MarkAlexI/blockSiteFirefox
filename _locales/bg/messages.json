@@ -299,5 +299,11 @@
   "focussessionsounddesc": { "message": "Възпроизвеждане на звук при приключване на фокус сесията." },
   "focussessionactivebanner": { "message": "Активна фокус сесия! Оставащо време:" },
   "focussessioninvalidduration": { "message": "Моля, въведете валидна продължителност (1-240 минути)." },
-  "successfulfocussessionslabel": { "message": "Успешни фокус сесии" }
+  "successfulfocussessionslabel": { "message": "Успешни фокус сесии" },
+  "addwhitelistrule": { "message": "Добавяне на изключение" },
+  "category_whitelist": { "message": "Бял списък" },
+  "conflict_blacklist_err": { "message": "Този сайт вече е във вашия черен списък. Първо го премахнете." },
+  "conflict_whitelist_err": { "message": "Този сайт вече е във вашия бял списък. Първо го премахнете." },
+  "status_allow": { "message": "Разрешено" },
+  "redundant_whitelist_err": { "message": "Това правило вече се покрива от друго правило от белия списък." }
 }

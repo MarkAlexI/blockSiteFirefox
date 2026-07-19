@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "Mängi heli, kui fookusseanss lõppeb." },
   "focussessionactivebanner": { "message": "Fookusseanss on aktiivne! Aeg jäänud:" },
   "focussessioninvalidduration": { "message": "Palun sisesta kehtiv kestus (1–240 minutit)." },
-  "successfulfocussessionslabel": { "message": "Edukad fookusseansid" }
+  "successfulfocussessionslabel": { "message": "Edukad fookusseansid" },
+  "addwhitelistrule": { "message": "Lisa erand" },
+  "category_whitelist": { "message": "Valge nimekiri" },
+  "conflict_blacklist_err": { "message": "See sait on juba sinu mustas nimekirjas. Eemalda see esmalt." },
+  "conflict_whitelist_err": { "message": "See sait on juba sinu valges nimekirjas. Eemalda see esmalt." },
+  "status_allow": { "message": "Lubatud" },
+  "redundant_whitelist_err": { "message": "See reegel on juba kaetud teise valge nimekirja reegliga." }
 }
