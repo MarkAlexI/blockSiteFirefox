@@ -306,5 +306,11 @@
   "focussessionactivebanner": { "message": "专注时段进行中！剩余时间：" },
   "focussessioninvalidduration": { "message": "请输入有效的时长 (1-240 分钟)。" },
   "successfulfocussessionslabel": { "message": "成功的专注时段" },
-  "rule_scheduled": { "message": "计划规则" }
+  "rule_scheduled": { "message": "计划规则" },
+  "addwhitelistrule": { "message": "添加例外网站" },
+  "category_whitelist": { "message": "白名单" },
+  "conflict_blacklist_err": { "message": "此网站已在您的黑名单中。请先将其移除。" },
+  "conflict_whitelist_err": { "message": "此网站已在您的白名单中。请先将其移除。" },
+  "status_allow": { "message": "已允许" },
+  "redundant_whitelist_err": { "message": "此规则已被另一个白名单规则覆盖。" }
 }

@@ -306,5 +306,11 @@
   "focussessionactivebanner": { "message": "¡Sesión de Enfoque activa! Tiempo restante:" },
   "focussessioninvalidduration": { "message": "Por favor, introduce una duración válida (1-240 minutos)." },
   "successfulfocussessionslabel": { "message": "Sesiones de Enfoque Exitosas" },
-  "rule_scheduled": { "message": "Regla programada" }
+  "rule_scheduled": { "message": "Regla programada" },
+  "addwhitelistrule": { "message": "Añadir excepción" },
+  "category_whitelist": { "message": "Lista blanca" },
+  "conflict_blacklist_err": { "message": "Este sitio ya está en tu lista negra. Elimínalo primero." },
+  "conflict_whitelist_err": { "message": "Este sitio ya está en tu lista blanca. Elimínalo primero." },
+  "status_allow": { "message": "Permitido" },
+  "redundant_whitelist_err": { "message": "Esta regla ya está cubierta por otra regla de la lista blanca." }
 }

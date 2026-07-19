@@ -18,19 +18,10 @@
       <span id="current-mode" data-i18n="normalmodetitle">Normal Mode</span>
     </div>
     <a id="options-link" data-i18n="gotooptions" data-action="open-options">Go to options page ⚙️</a>
-    <div class="browser-warning hidden" id="warning-info">
-      <p>
-        Your Firefox browser version is outdated. Extensions may not work properly. Update Firefox now.
-      </p>
-      <a href="https://support.mozilla.org/en-US/kb/root-certificate-expiration" target="_blank">
-        More info from Mozilla
-      </a>
-    </div>
-    
-    <div id="motivational-quote"></div>
-    
     <p data-i18n="paragraph"></p>
   </div>
+  
+  <div id="motivational-quote"></div>
   
   <div id="focus-session-section" class="focus-section hidden">
     <div class="focus-header">
@@ -59,6 +50,8 @@
   
   <div class="controls">
     <button id="add-rule" title="Add new rule" data-i18n="addrule"></button>
+    <button id="add-whitelist-rule" title="Pro mode required" data-i18n="addwhitelistrule" disabled></button>
+    
     <button id="feedback-btn" title="Send feedback">
       <span data-i18n="sendfeedbackbutton">Send Feedback</span>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">

@@ -297,5 +297,11 @@
   "focussessionactivebanner": { "message": "Fokus-Sitzung aktiv! Verbleibende Zeit:" },
   "focussessioninvalidduration": { "message": "Bitte geben Sie eine gültige Dauer ein (1-240 Minuten)." },
   "successfulfocussessionslabel": { "message": "Erfolgreiche Fokus-Sitzungen" },
-  "rule_scheduled": { "message": "Geplante Regel" }
+  "rule_scheduled": { "message": "Geplante Regel" },
+  "addwhitelistrule": { "message": "Ausnahme hinzufügen" },
+  "category_whitelist": { "message": "Whitelist" },
+  "conflict_blacklist_err": { "message": "Diese Website steht bereits auf Ihrer Blacklist. Entfernen Sie sie zuerst." },
+  "conflict_whitelist_err": { "message": "Diese Website steht bereits auf Ihrer Whitelist. Entfernen Sie sie zuerst." },
+  "status_allow": { "message": "Erlaubt" },
+  "redundant_whitelist_err": { "message": "Diese Regel wird bereits durch eine andere Whitelist-Regel abgedeckt." }
 }

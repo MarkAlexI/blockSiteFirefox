@@ -100,6 +100,10 @@ export class RulesUI {
     row.className = 'rule-row';
     row.dataset.ruleId = rule.id;
     
+    if (rule.isWhitelist) {
+      row.classList.add('rule-whitelist');
+    }
+    
     if (disabledCategories.includes(rule.category)) {
       row.classList.add('category-muted');
       row.title = t('category_disabled_desc') || 'This category is currently muted in settings';
@@ -110,18 +114,24 @@ export class RulesUI {
     row.appendChild(blockCell);
     
     const redirectCell = document.createElement('td');
-    redirectCell.textContent = rule.redirectURL || '—';
+    redirectCell.textContent = rule.isWhitelist ? '—' : (rule.redirectURL || '—');
+    if (rule.isWhitelist) {
+      redirectCell.classList.add('text-disabled');
+    }
     row.appendChild(redirectCell);
     
     const categoryCell = document.createElement('td');
     const categorySpan = document.createElement('span');
     categorySpan.className = `category-tag ${rule.category || 'uncategorized'}`;
-    categorySpan.textContent = t(`category_${rule.category}`) || rule.category || t('category_uncategorized');
+    categorySpan.textContent = rule.isWhitelist ? (t('category_whitelist') || 'Whitelist') : (t(`category_${rule.category}`) || rule.category || t('category_uncategorized'));
     categoryCell.appendChild(categorySpan);
     row.appendChild(categoryCell);
     
     const scheduleCell = document.createElement('td');
-    if (rule.schedule) {
+    if (rule.isWhitelist) {
+      scheduleCell.textContent = '—';
+      scheduleCell.classList.add('status-static');
+    } else if (rule.schedule) {
       scheduleCell.textContent = this.scheduleFormatter.formatSchedule(rule.schedule);
     } else {
       const toggleElement = document.createElement('span');
@@ -165,6 +175,10 @@ export class RulesUI {
   createRuleEditRow(rule, index, onSave, onCancel, enableSchedule = false, currentDisabledByUser = false) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
+    const isWhitelist = rule.isWhitelist || false;
+    if (isWhitelist) {
+      row.classList.add('rule-whitelist');
+    }
     
     const blockInput = document.createElement('input');
     blockInput.type = 'text';
@@ -177,8 +191,11 @@ export class RulesUI {
     
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
-    redirectInput.value = rule.redirectURL || '';
-    redirectInput.placeholder = t('redirecturl');
+    redirectInput.value = isWhitelist ? '' : (rule.redirectURL || '');
+    redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturl');
+    redirectInput.disabled = isWhitelist;
+    if (isWhitelist) redirectInput.classList.add('input-disabled');
+    
     const redirectCell = document.createElement('td');
     redirectCell.className = 'edit-mode';
     redirectCell.appendChild(redirectInput);
@@ -188,21 +205,39 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
-    CATEGORIES.forEach(cat => {
+    
+    if (isWhitelist) {
       const option = document.createElement('option');
-      option.value = cat;
-      option.textContent = t(`category_${cat}`) || cat;
+      option.value = 'whitelist';
+      option.textContent = t('category_whitelist') || 'Whitelist';
       categorySelect.appendChild(option);
-    });
-    categorySelect.value = rule.category || 'social';
+      categorySelect.value = 'whitelist';
+      categorySelect.disabled = true;
+      categorySelect.classList.add('input-disabled');
+    } else {
+      CATEGORIES.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = t(`category_${cat}`) || cat;
+        categorySelect.appendChild(option);
+      });
+      categorySelect.value = rule.category || 'social';
+    }
+    
     categoryCell.appendChild(categorySelect);
     row.appendChild(categoryCell);
     
     const scheduleCell = document.createElement('td');
     scheduleCell.className = 'edit-mode';
     
-    const scheduleSection = this.createScheduleSection(rule.schedule, enableSchedule);
-    scheduleCell.appendChild(scheduleSection);
+    let scheduleSection;
+    if (isWhitelist) {
+      scheduleSection = document.createTextNode('—');
+      scheduleCell.appendChild(scheduleSection);
+    } else {
+      scheduleSection = this.createScheduleSection(rule.schedule, enableSchedule);
+      scheduleCell.appendChild(scheduleSection);
+    }
     row.appendChild(scheduleCell);
     
     const actionsCell = document.createElement('td');
@@ -213,9 +248,9 @@ export class RulesUI {
     saveBtn.textContent = t('savebtn');
     saveBtn.addEventListener('click', () => {
       try {
-        const category = categorySelect.value;
-        const schedule = this.getScheduleFromSection(scheduleSection);
-        onSave(index, blockInput.value, redirectInput.value, category, schedule, rule.id, null);
+        const category = isWhitelist ? 'whitelist' : categorySelect.value;
+        const schedule = isWhitelist ? null : this.getScheduleFromSection(scheduleSection);
+        onSave(index, blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule, rule.id, null);
       } catch (error) {
         this.logger.info('Edit: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
@@ -232,9 +267,12 @@ export class RulesUI {
     return row;
   }
   
-  createAddRuleRow(onSave, onCancel, enableSchedule = false) {
+  createAddRuleRow(onSave, onCancel, enableSchedule = false, isWhitelist = false) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
+    if (isWhitelist) {
+      row.classList.add('rule-whitelist');
+    }
     
     const blockInput = document.createElement('input');
     blockInput.type = 'text';
@@ -251,7 +289,10 @@ export class RulesUI {
     
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
-    redirectInput.placeholder = t('redirecturl');
+    redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturl');
+    redirectInput.disabled = isWhitelist;
+    if (isWhitelist) redirectInput.classList.add('input-disabled');
+    
     const redirectCell = document.createElement('td');
     redirectCell.className = 'edit-mode';
     redirectCell.appendChild(redirectInput);
@@ -261,21 +302,39 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
-    CATEGORIES.forEach(cat => {
+    
+    if (isWhitelist) {
       const option = document.createElement('option');
-      option.value = cat;
-      option.textContent = t(`category_${cat}`) || cat;
+      option.value = 'whitelist';
+      option.textContent = t('category_whitelist') || 'Whitelist';
       categorySelect.appendChild(option);
-    });
-    categorySelect.value = 'social';
+      categorySelect.value = 'whitelist';
+      categorySelect.disabled = true;
+      categorySelect.classList.add('input-disabled');
+    } else {
+      CATEGORIES.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = t(`category_${cat}`) || cat;
+        categorySelect.appendChild(option);
+      });
+      categorySelect.value = 'social';
+    }
+    
     categoryCell.appendChild(categorySelect);
     row.appendChild(categoryCell);
     
     const scheduleCell = document.createElement('td');
     scheduleCell.className = 'edit-mode';
     
-    const scheduleSection = this.createScheduleSection(null, enableSchedule);
-    scheduleCell.appendChild(scheduleSection);
+    let scheduleSection;
+    if (isWhitelist) {
+      scheduleSection = document.createTextNode('—');
+      scheduleCell.appendChild(scheduleSection);
+    } else {
+      scheduleSection = this.createScheduleSection(null, enableSchedule);
+      scheduleCell.appendChild(scheduleSection);
+    }
     row.appendChild(scheduleCell);
     
     const actionsCell = document.createElement('td');
@@ -286,9 +345,9 @@ export class RulesUI {
     saveBtn.textContent = t('savebtn');
     saveBtn.addEventListener('click', () => {
       try {
-        const category = categorySelect.value;
-        const schedule = this.getScheduleFromSection(scheduleSection);
-        onSave(blockInput.value, redirectInput.value, category, schedule, row);
+        const category = isWhitelist ? 'whitelist' : categorySelect.value;
+        const schedule = isWhitelist ? null : this.getScheduleFromSection(scheduleSection);
+        onSave(blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule, row);
       } catch (error) {
         this.logger.info('Add: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
@@ -406,6 +465,10 @@ export class RulesUI {
   }
   
   getScheduleFromSection(section) {
+    if (!section || section.nodeType === Node.TEXT_NODE) {
+      return null;
+    }
+    
     const enableCheckbox = section.querySelector('#enable-schedule');
     if (!enableCheckbox?.checked) {
       return null;
@@ -446,7 +509,10 @@ export class RulesUI {
       'invalidSchedule: no days selected': t('invalidscheduledays') || 'Invalid schedule: please select at least one day',
       'invalidSchedule: start time is empty': t('invalidschedulestarttime') || 'Invalid schedule: please set a start time',
       'invalidSchedule: end time is empty': t('invalidscheduleendtime') || 'Invalid schedule: please set an end time',
-      'invalidSchedule': t('invalidschedule') || 'Invalid schedule: please select days and times'
+      'invalidSchedule': t('invalidschedule') || 'Invalid schedule: please select days and times',
+      'conflict_whitelist': t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.',
+      'conflict_blacklist': t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.',
+      'redundant_whitelist': t('redundant_whitelist_err')
     };
     
     return messages[errorType] || errorType;

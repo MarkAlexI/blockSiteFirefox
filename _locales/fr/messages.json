@@ -306,5 +306,11 @@
   "focussessionactivebanner": { "message": "Sessão de Foco Ativa! Tempo restante:" },
   "focussessioninvalidduration": { "message": "Por favor, introduza uma duração válida (1-240 minutos)." },
   "successfulfocussessionslabel": { "message": "Sessões de Foco Bem-sucedidas" },
-  "rule_scheduled": { "message": "Règle planifiée" }
+  "rule_scheduled": { "message": "Règle planifiée" },
+  "addwhitelistrule": { "message": "Ajouter une exception" },
+  "category_whitelist": { "message": "Liste blanche" },
+  "conflict_blacklist_err": { "message": "Ce site est déjà dans votre liste noire. Supprimez-le d'abord." },
+  "conflict_whitelist_err": { "message": "Ce site est déjà dans votre liste blanche. Supprimez-le d'abord." },
+  "status_allow": { "message": "Autorisé" },
+  "redundant_whitelist_err": { "message": "Cette règle est déjà couverte par une autre règle de la liste blanche." }
 }

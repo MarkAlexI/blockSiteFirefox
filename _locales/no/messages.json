@@ -299,5 +299,11 @@
   "focussessionactivebanner": { "message": "Fokussession aktiv! Gjenstående tid:" },
   "focussessioninvalidduration": { "message": "Vennligst skriv inn en gyldig varighet (1–240 minutter)." },
   "successfulfocussessionslabel": { "message": "Vellykkede fokussessioner" },
-  "rule_scheduled": { "message": "Planlagt regel" }
+  "rule_scheduled": { "message": "Planlagt regel" },
+  "addwhitelistrule": { "message": "Legg til unntak" },
+  "category_whitelist": { "message": "Hvitliste" },
+  "conflict_blacklist_err": { "message": "Dette nettstedet er allerede på svartelisten din. Fjern det først." },
+  "conflict_whitelist_err": { "message": "Dette nettstedet er allerede på hvitlisten din. Fjern det først." },
+  "status_allow": { "message": "Tillatt" },
+  "redundant_whitelist_err": { "message": "Denne regelen dekkes allerede av en annen hvitlisteregel." }
 }

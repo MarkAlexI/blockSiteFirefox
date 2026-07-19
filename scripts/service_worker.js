@@ -147,7 +147,7 @@ async function updateActiveRules() {
     const disabledCategories = settings.disabledCategories || [];
     const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
     
-    const activeRules = rules.filter(rule => rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive));
+    const activeRules = rules.filter(rule => !rule.isWhitelist && rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive));
     const activeIds = new Set(activeRules.map(r => r.id));
     
     const removeRuleIds = currentDnrRules
@@ -227,7 +227,7 @@ async function validateDnrIntegrity() {
     const rules = await rulesManager.getRules();
     const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
     
-    const storageIds = new Set(rules.map(r => r.id));
+    const storageIds = new Set(rules.filter(r => !r.isWhitelist).map(r => r.id));
     const dnrIds = new Set(dnrRules.map(r => r.id));
     
     const isInSync = storageIds.size === dnrIds.size && [...storageIds].every(id => dnrIds.has(id));
@@ -631,7 +631,7 @@ function ensureAlarmsCreated() {
       });
     }
   });
-
+  
   browser.alarms.get('update_scheduled_rules', (alarm) => {
     if (!alarm) {
       browser.alarms.create('update_scheduled_rules', {

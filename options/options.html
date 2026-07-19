@@ -44,6 +44,7 @@
               <h3><span data-i18n="trialproheader">Start your 7-day free trial</span><span> &#9889;</span></h3>
               <p data-i18n="trialprotext" class="badge-text">
                 Cancel anytime. Secure checkout.
+              </p>
               <p data-i18n="profunctionstext">
                 Pro features include: scheduled blocking, password protection, rule filtering, and rule export/import. Enjoy our Universal License: one subscription unlocks Pro on all your browsers (Chrome, Firefox, Edge, Kiwi). To activate, purchase a subscription at blockdistraction.com, then copy your License Key from your account dashboard and paste it below.
               </p>
@@ -54,7 +55,7 @@
             
             <form id="license-form">
               <label for="license-key-input" data-i18n="pastekeylabel">Paste your License Key here:</label>
-              <input type_="text" id="license-key-input" placeholder="BD-PRO-..." required autocomplete="off">
+              <input type="text" id="license-key-input" placeholder="BD-PRO-..." required autocomplete="off">
               <button type="submit" id="license-submit-btn">
                 <span data-i18n="activatepro">Activate Pro</span>
               </button>
@@ -112,6 +113,18 @@
               </div>
             </div>
           </div>
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="focusSessionSound" data-i18n="focussessionsoundtitle">Focus Session Sound Notification</label>
+              <span class="setting-description" data-i18n="focussessionsounddesc">Play a sound when the focus session ends.</span>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="focusSessionSound" class="toggle-input">
+              <label for="focusSessionSound" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
         </div>
       </section>
       
@@ -126,18 +139,6 @@
             <div class="toggle-switch">
               <input type="checkbox" id="showNotifications" class="toggle-input" checked>
               <label for="showNotifications" class="toggle-label">
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <label for="focusSessionSound" data-i18n="focussessionsoundtitle">Focus Session Sound Notification</label>
-              <span class="setting-description" data-i18n="focussessionsounddesc">Play a sound when the focus session ends.</span>
-            </div>
-            <div class="toggle-switch">
-              <input type="checkbox" id="focusSessionSound" class="toggle-input">
-              <label for="focusSessionSound" class="toggle-label">
                 <span class="toggle-slider"></span>
               </label>
             </div>
@@ -302,11 +303,16 @@
         <option value="work" data-i18n="category_work">Work</option>
         <option value="gaming" data-i18n="category_gaming">Gaming</option>
         <option value="adult" data-i18n="category_adult">Adult</option>
+        <option value="whitelist" data-i18n="category_whitelist">Whitelist</option>
         <option value="uncategorized" data-i18n="category_uncategorized">Uncategorized</option>
       </select>
     </div>
+
+    <div class="rules-header-controls">
+      <button id="add-rule"></button>
+      <button id="add-whitelist-rule" title="Pro mode required" disabled></button>
+    </div>
     
-    <button id="add-rule"></button>
     <div class="table-wrapper">
       <table id="rules-table">
         <thead>

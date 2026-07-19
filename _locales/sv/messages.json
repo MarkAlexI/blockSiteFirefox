@@ -298,5 +298,11 @@
   "focussessionsounddesc": { "message": "Spela upp ett ljud när fokussessionen avslutas." },
   "focussessionactivebanner": { "message": "Fokussession aktiv! Återstående tid:" },
   "focussessioninvalidduration": { "message": "Ange en giltig varaktighet (1–240 minuter)." },
-  "successfulfocussessionslabel": { "message": "Lyckade fokussessioner" }
+  "successfulfocussessionslabel": { "message": "Lyckade fokussessioner" },
+  "addwhitelistrule": { "message": "Lägg till undantag" },
+  "category_whitelist": { "message": "Vitlista" },
+  "conflict_blacklist_err": { "message": "Denna webbplats finns redan på din svartlista. Ta bort den först." },
+  "conflict_whitelist_err": { "message": "Denna webbplats finns redan på din vitlista. Ta bort den först." },
+  "status_allow": { "message": "Tillåten" },
+  "redundant_whitelist_err": { "message": "Denna regel täcks redan av en annan vitlisteregel." }
 }

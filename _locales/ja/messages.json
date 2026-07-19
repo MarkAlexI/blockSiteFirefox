@@ -306,5 +306,11 @@
   "focussessionactivebanner": { "message": "集中セッションがアクティブです！残り時間：" },
   "focussessioninvalidduration": { "message": "有効な期間 (1-240分) を入力してください。" },
   "successfulfocussessionslabel": { "message": "成功した集中セッション" },
-  "rule_scheduled": { "message": "スケジュール済みルール" }
+  "rule_scheduled": { "message": "スケジュール済みルール" },
+  "addwhitelistrule": { "message": "例外を追加" },
+  "category_whitelist": { "message": "ホワイトリスト" },
+  "conflict_blacklist_err": { "message": "このサイトはすでにブラックリストに登録されています。最初に削除してください。" },
+  "conflict_whitelist_err": { "message": "このサイトはすでにホワイトリストに登録されています。最初に削除してください。" },
+  "status_allow": { "message": "許可" },
+  "redundant_whitelist_err": { "message": "この規則はすでに別のホワイトリスト規則でカバーされています。" }
 }

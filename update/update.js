@@ -4,10 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "🔓 Memory Limits Removed: We 've switched to local storage. Create 1000+ rules (Pro) without any risk of performance drops or crashes!",
-    "📦 Safe Migration: All your settings and existing rules have been successfully and automatically migrated.",
-    "⚠️ Sync Changes: Automatic background rule synchronization is no longer supported. Please use the Export / Import buttons(Pro) to manually transfer your rules between devices. General extension preferences will continue to sync automatically.",
-    "📱 Mobile Stability: Fixed background processes and timers on Firefox Mobile, and greatly improved UI responsiveness when switching tabs rapidly."
+    "🟢 Whitelist Feature: Create Pro exclusion rules that override your blacklist. Keep essential workspace sites accessible while maintaining your focus setup.",
+    "🧠 Smart Conflict Validation: The rules engine now automatically detects overlapping sub-paths and blocks contradictory blacklist/whitelist entries to prevent loops.",
+    "🎨 UI Visual Polish: Resolved table grid rendering bugs, fixed action button wrapping on mobile screens."
   ];
   
   const ul = document.getElementById('features');

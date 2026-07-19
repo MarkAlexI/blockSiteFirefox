@@ -300,5 +300,11 @@
   "focussessionactivebanner": { "message": "Сессия фокуса активна! Осталось:" },
   "focussessioninvalidduration": { "message": "Пожалуйста, введите действительную длительность (1-240 минут)." },
   "successfulfocussessionslabel": { "message": "Успешные сессии фокусировки" },
-  "rule_scheduled": { "message": "Правило по расписанию" }
+  "rule_scheduled": { "message": "Правило по расписанию" },
+  "addwhitelistrule": { "message": "Добавить исключение" },
+  "category_whitelist": { "message": "Белый список" },
+  "conflict_blacklist_err": { "message": "Этот сайт уже находится в черном списке. Сначала удалите его." },
+  "conflict_whitelist_err": { "message": "Этот сайт уже находится в белом списке. Сначала удалите его." },
+  "status_allow": { "message": "Разрешено" },
+  "redundant_whitelist_err": { "message": "Это правило уже перекрывается другим правилом белого списка." }
 }

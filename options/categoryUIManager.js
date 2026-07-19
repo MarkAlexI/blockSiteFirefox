@@ -6,6 +6,8 @@ export class CategoryUIManager {
     container.innerHTML = '';
     
     CATEGORIES.forEach(category => {
+      if (category === 'whitelist') return;
+      
       const card = document.createElement('div');
       const isMuted = disabledCategories.includes(category);
       card.className = `category-card ${isMuted ? 'muted' : ''}`;

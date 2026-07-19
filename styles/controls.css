@@ -80,3 +80,21 @@
     background-color: #28a745;
   }
 }
+
+.input-disabled {
+  background-color: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  border: 1px dashed #cbd5e1 !important;
+  cursor: not-allowed !important;
+}
+
+.text-disabled {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.category-tag.whitelist {
+  background-color: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}

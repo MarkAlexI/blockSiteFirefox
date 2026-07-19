@@ -25,6 +25,7 @@ class PopupPage {
     
     this.rulesContainer = document.getElementById('rules-container');
     this.addRuleButton = document.getElementById('add-rule');
+    this.addWhitelistRuleButton = document.getElementById('add-whitelist-rule');
     this.statusOutput = document.getElementById('status');
     this.currentModeElement = document.getElementById('current-mode');
     this.scrollToTopBtn = document.getElementById('scrollToTopBtn');
@@ -45,6 +46,8 @@ class PopupPage {
     this.settings = {};
     
     this.currentRuleCount = 0;
+    this.isPro = false;
+    this.isLegacyUser = false;
     
     this.init();
   }
@@ -62,6 +65,8 @@ class PopupPage {
     } catch (error) {
       this.logger.info('Error initializing Pro/Legacy status:', error);
     }
+    
+    this.updateWhitelistButtonState();
     
     await this.loadRules();
     await this.initFocusSession();
@@ -133,7 +138,23 @@ class PopupPage {
       this.createRuleInputs();
     });
     
+    if (this.addWhitelistRuleButton) {
+      this.addWhitelistRuleButton.addEventListener('click', () => {
+        this.createRuleInputs('', '', null, false, 'whitelist', null, true);
+      });
+    }
+    
     this.scrollToTopBtn.addEventListener('click', () => scrollToTop());
+  }
+  
+  updateWhitelistButtonState() {
+    if (!this.addWhitelistRuleButton) return;
+    const hasAccess = this.isPro || this.isLegacyUser;
+    
+    this.addWhitelistRuleButton.disabled = !hasAccess;
+    this.addWhitelistRuleButton.title = hasAccess ?
+      (t('addwhitelistrule') || 'Add Whitelist Rule') :
+      (t('prorequired') || 'Pro mode required');
   }
   
   openOptionsPage() {
@@ -192,7 +213,15 @@ class PopupPage {
       this.rulesContainer.innerHTML = '';
       
       rules.forEach(rule => {
-        this.createRuleInputs(rule.blockURL, rule.redirectURL, rule.id, rule.disabledByUser ?? false, rule.category, rule.schedule);
+        this.createRuleInputs(
+          rule.blockURL,
+          rule.redirectURL,
+          rule.id,
+          rule.disabledByUser ?? false,
+          rule.category,
+          rule.schedule,
+          rule.isWhitelist ?? false
+        );
       });
       
       this.updateStatus(rules.length);
@@ -303,12 +332,17 @@ class PopupPage {
     }
   }
   
-  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null) {
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false) {
     const ruleDiv = document.createElement('div');
     const isMuted = (this.settings.disabledCategories || []).includes(category);
     
-    ruleDiv.className = isMuted ? 'rule category-muted' : 'rule';
+    let className = isMuted ? 'rule category-muted' : 'rule';
+    if (isWhitelist) {
+      className += ' rule-whitelist';
+    }
+    ruleDiv.className = className;
     ruleDiv.dataset.ruleId = ruleId;
+    ruleDiv.dataset.isWhitelist = isWhitelist;
     
     if (isMuted) {
       ruleDiv.title = t('category_muted_no_edit');
@@ -323,8 +357,16 @@ class PopupPage {
     
     const redirectURL = document.createElement('input');
     redirectURL.type = 'text';
-    redirectURL.placeholder = t('redirecturl');
-    redirectURL.value = redirectURLValue;
+    
+    if (isWhitelist) {
+      redirectURL.placeholder = 'N/A';
+      redirectURL.value = '';
+      redirectURL.disabled = true;
+      redirectURL.classList.add('input-disabled');
+    } else {
+      redirectURL.placeholder = t('redirecturl');
+      redirectURL.value = redirectURLValue;
+    }
     
     let showButtons = true;
     
@@ -341,7 +383,7 @@ class PopupPage {
       
       if (!blockURLValue) {
         if (showButtons) {
-          const saveButton = this.createSaveButton(blockURL, redirectURL, ruleDiv);
+          const saveButton = this.createSaveButton(blockURL, redirectURL, ruleDiv, isWhitelist);
           ruleDiv.appendChild(saveButton);
         } else {
           const proMessage = document.createElement('span');
@@ -353,7 +395,12 @@ class PopupPage {
         this.makeInputReadOnly(blockURL);
         this.makeInputReadOnly(redirectURL);
         
-        if (schedule) {
+        if (isWhitelist) {
+          const staticDash = document.createElement('span');
+          staticDash.className = 'status-static-popup';
+          staticDash.textContent = t('status_allow') || 'Allow';
+          ruleDiv.appendChild(staticDash);
+        } else if (schedule) {
           const scheduleElement = document.createElement('span');
           scheduleElement.className = 'rule-schedule-popup';
           scheduleElement.textContent = this.scheduleFormatter.formatSchedule(schedule);
@@ -402,13 +449,13 @@ class PopupPage {
     }, 0);
   }
   
-  createSaveButton(blockURL, redirectURL, ruleDiv) {
+  createSaveButton(blockURL, redirectURL, ruleDiv, isWhitelist = false) {
     const saveButton = document.createElement('button');
     saveButton.className = 'save-btn';
     saveButton.textContent = t('savebtn');
     
     saveButton.addEventListener('click', async () => {
-      await this.saveNewRule(blockURL, redirectURL, ruleDiv, saveButton);
+      await this.saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist);
     });
     
     return saveButton;
@@ -504,9 +551,9 @@ class PopupPage {
     await this.updateFocusUI();
   }
   
-  async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton) {
+  async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist = false) {
     try {
-      if (!this.isPro && !this.isLegacyUser) {
+      if (!isWhitelist && !this.isPro && !this.isLegacyUser) {
         const currentRules = await this.rulesManager.getRules();
         if (currentRules.length >= MAX_RULES_LIMIT) {
           customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
@@ -515,9 +562,7 @@ class PopupPage {
       }
       
       const rules = await this.rulesManager.getRules();
-      const ruleExists = rules.some(rule =>
-        rule.blockURL === blockURL.value.trim() && rule.redirectURL === redirectURL.value.trim()
-      );
+      const ruleExists = this.rulesManager.ruleExists(rules, blockURL.value, redirectURL.value, -1, isWhitelist);
       
       if (ruleExists) {
         customAlert(t('alertruleexist'));
@@ -526,16 +571,25 @@ class PopupPage {
         return;
       }
       
-      await this.rulesManager.addRule(blockURL.value, redirectURL.value);
+      await this.rulesManager.addRule(
+        blockURL.value,
+        isWhitelist ? '' : redirectURL.value,
+        null,
+        isWhitelist ? 'whitelist' : 'social',
+        isWhitelist
+      );
       await this.loadRules();
       
       ruleDiv.remove();
       
       customAlert('+ 1');
-      browser.runtime.sendMessage({
-        type: 'CLOSE_MATCHING_TABS',
-        url: blockURL.value.trim()
-      });
+      
+      if (!isWhitelist) {
+        browser.runtime.sendMessage({
+          type: 'CLOSE_MATCHING_TABS',
+          url: blockURL.value.trim()
+        });
+      }
     } catch (error) {
       this.logger.error("Save new rule error:", error);
       
@@ -546,6 +600,12 @@ class PopupPage {
         customAlert(t('alertruleexist'));
         blockURL.value = '';
         redirectURL.value = '';
+      } else if (error.message === 'conflict_blacklist') {
+        customAlert(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
+      } else if (error.message === 'conflict_whitelist') {
+        customAlert(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
+      } else if (error.message === 'redundant_whitelist') {
+        customAlert(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
       } else {
         customAlert(t('erroraddingrule'));
       }
@@ -568,13 +628,14 @@ class PopupPage {
       }
       
       const isStrictMode = await this.rulesManager.isStrictMode();
+      const isWhitelist = ruleDiv.dataset.isWhitelist === 'true';
       
       this.rulesUI.handleRuleDeletion(
         deleteButton,
         async () => {
             try {
               if (blockURL) {
-                await this.rulesManager.deleteRuleByData(blockURL, redirectURL);
+                await this.rulesManager.deleteRuleByData(blockURL, redirectURL, isWhitelist);
                 await this.loadRules();
                 customAlert('- 1');
               } else {
@@ -634,12 +695,6 @@ window.addEventListener('beforeunload', () => {
   popupPage.cleanup();
 });
 
-browser.runtime.getBrowserInfo().then(info => {
-  if (parseInt(info.version) < 128) {
-    document.getElementById('warning-info').classList.remove('hidden');
-  }
-});
-
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'reload_rules') {
     popupPage.loadRules();
@@ -650,7 +705,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     
     ProManager.updateProFeaturesVisibility(message.isPro);
     popupPage.isPro = message.isPro;
-    
+    popupPage.updateWhitelistButtonState();
     popupPage.loadRules();
     
     sendResponse({ received: true });

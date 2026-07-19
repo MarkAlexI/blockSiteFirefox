@@ -20,18 +20,18 @@ export class RulesManager {
       });
     });
   }
-
+  
   async saveRules(rules) {
     await new Promise((resolve) => {
       browser.storage.local.set({ rules }, resolve);
     });
-
+    
     browser.runtime.sendMessage({
       type: 'reload_rules'
     });
   }
   
-  validateRule(blockURL, redirectURL, schedule, category) {
+  validateRule(blockURL, redirectURL, schedule, category, isWhitelist = false) {
     const errors = [];
     
     if (!blockURL || blockURL.trim() === '') {
@@ -46,11 +46,11 @@ export class RulesManager {
       errors.push('blockurl_invalid');
     }
     
-    if (redirectURL && !isValidURL(redirectURL)) {
+    if (!isWhitelist && redirectURL && !isValidURL(redirectURL)) {
       errors.push('redirect_invalid');
     }
     
-    if (schedule) {
+    if (!isWhitelist && schedule) {
       if (!Array.isArray(schedule.days) || schedule.days.some(d => d < 0 || d > 6 || !Number.isInteger(d))) {
         errors.push('invalid_days');
       }
@@ -64,7 +64,7 @@ export class RulesManager {
       }
     }
     
-    if (!category) {
+    if (!isWhitelist && !category) {
       errors.push('category_required');
     }
     
@@ -74,12 +74,22 @@ export class RulesManager {
     };
   }
   
-  ruleExists(rules, blockURL, redirectURL, excludeIndex = -1) {
+  ruleExists(rules, blockURL, redirectURL, excludeIndex = -1, isWhitelist = false) {
     return rules.some((rule, index) => {
       if (excludeIndex !== -1 && index === excludeIndex) {
         return false;
       }
-      return rule.blockURL === blockURL.trim() && rule.redirectURL === redirectURL.trim();
+      
+      const ruleIsWhitelist = rule.isWhitelist || false;
+      if (ruleIsWhitelist !== isWhitelist) {
+        return false;
+      }
+      
+      if (isWhitelist) {
+        return rule.blockURL === blockURL.trim();
+      } else {
+        return rule.blockURL === blockURL.trim() && rule.redirectURL === redirectURL.trim();
+      }
     });
   }
   
@@ -118,15 +128,20 @@ export class RulesManager {
     };
   }
   
-  async addRule(blockURL, redirectURL, schedule = null, category = 'social') {
-    const validation = this.validateRule(blockURL, redirectURL, schedule, category);
+  async addRule(blockURL, redirectURL, schedule = null, category = 'social', isWhitelist = false) {
+    const validation = this.validateRule(blockURL, redirectURL, schedule, category, isWhitelist);
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
     }
     
     const rules = await this.getRules();
     
-    if (this.ruleExists(rules, blockURL, redirectURL)) {
+    const conflict = this.checkConflict(rules, blockURL, isWhitelist);
+    if (conflict) {
+      throw new Error(conflict);
+    }
+    
+    if (this.ruleExists(rules, blockURL, redirectURL, -1, isWhitelist)) {
       throw new Error('Rule already exists');
     }
     
@@ -143,10 +158,11 @@ export class RulesManager {
       const newRule = {
         id: safeId,
         blockURL: blockURL.trim(),
-        redirectURL: redirectURL.trim(),
-        schedule,
-        category,
-        disabledByUser: false
+        redirectURL: isWhitelist ? '' : redirectURL.trim(),
+        schedule: isWhitelist ? null : schedule,
+        category: isWhitelist ? 'whitelist' : category,
+        disabledByUser: false,
+        isWhitelist: isWhitelist
       };
       
       rules.push(newRule);
@@ -159,11 +175,6 @@ export class RulesManager {
   }
   
   async updateRule(index, newBlockURL, newRedirectURL, schedule = null, category, disabledByUser = null) {
-    const validation = this.validateRule(newBlockURL, newRedirectURL, schedule, category);
-    if (!validation.isValid) {
-      throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
-    }
-    
     const rules = await this.getRules();
     const oldRule = rules[index];
     
@@ -171,7 +182,18 @@ export class RulesManager {
       throw new Error('Rule not found');
     }
     
-    if (this.ruleExists(rules, newBlockURL, newRedirectURL, index)) {
+    const isWhitelist = oldRule.isWhitelist || false;
+    const validation = this.validateRule(newBlockURL, newRedirectURL, schedule, category, isWhitelist);
+    if (!validation.isValid) {
+      throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
+    }
+    
+    const conflict = this.checkConflict(rules, blockURL, isWhitelist);
+    if (conflict) {
+      throw new Error(conflict);
+    }
+    
+    if (this.ruleExists(rules, newBlockURL, newRedirectURL, index, isWhitelist)) {
       throw new Error('Rule already exists');
     }
     
@@ -184,10 +206,11 @@ export class RulesManager {
       rules[index] = {
         id: oldRule.id,
         blockURL: newBlockURL.trim(),
-        redirectURL: newRedirectURL.trim(),
-        schedule,
-        category,
-        disabledByUser: finalDisabledByUser
+        redirectURL: isWhitelist ? '' : newRedirectURL.trim(),
+        schedule: isWhitelist ? null : schedule,
+        category: isWhitelist ? 'whitelist' : category,
+        disabledByUser: finalDisabledByUser,
+        isWhitelist: isWhitelist
       };
       
       await this.saveRules(rules);
@@ -216,10 +239,11 @@ export class RulesManager {
     }
   }
   
-  async deleteRuleByData(blockURL, redirectURL) {
+  async deleteRuleByData(blockURL, redirectURL, isWhitelist = false) {
     const rules = await this.getRules();
     const index = rules.findIndex(rule =>
-      rule.blockURL === blockURL.trim() && rule.redirectURL === redirectURL.trim()
+      rule.blockURL === blockURL.trim() &&
+      (isWhitelist ? rule.isWhitelist === true : (!rule.isWhitelist && rule.redirectURL === redirectURL.trim()))
     );
     
     if (index === -1) {
@@ -257,7 +281,7 @@ export class RulesManager {
     await this.saveRules(rules);
     return rules[index];
   }
-
+  
   async toggleCategoryDisabled(category) {
     const settings = await this.getSettings();
     let disabledCategories = settings.disabledCategories || [];
@@ -271,7 +295,7 @@ export class RulesManager {
     await browser.storage.sync.set({
       settings: { ...settings, disabledCategories }
     });
-
+    
     browser.runtime.sendMessage({ type: 'reload_rules' });
   }
   
@@ -294,12 +318,17 @@ export class RulesManager {
       }
       
       if (!rule.category) {
-        newRule.category = 'uncategorized';
+        newRule.category = rule.isWhitelist ? 'whitelist' : 'uncategorized';
         needsSave = true;
       }
       
       if (rule.disabledByUser === undefined) {
         newRule.disabledByUser = false;
+        needsSave = true;
+      }
+      
+      if (rule.isWhitelist === undefined) {
+        newRule.isWhitelist = false;
         needsSave = true;
       }
       
@@ -331,6 +360,8 @@ export class RulesManager {
   }
   
   isRuleActiveNow(rule, disabledCategories = [], focusSessionActive = false) {
+    if (rule.isWhitelist === true) return false;
+    
     if (focusSessionActive) {
       return true;
     }
@@ -351,7 +382,6 @@ export class RulesManager {
     return currentMinutes >= startMinutes && currentMinutes < endMinutes;
   }
   
-  
   async enableRulesByCategory(category) {
     const rules = await this.getRules();
     rules.forEach(rule => {
@@ -371,7 +401,7 @@ export class RulesManager {
     });
     await this.saveRules(rules);
   }
-
+  
   async migrateRulesToLocalForDevice() {
     this.logger.log('Attempting device-specific rules migration from sync to local storage...');
     try {
@@ -385,7 +415,7 @@ export class RulesManager {
           await browser.storage.local.set({ rules: syncData.rules });
           await browser.storage.local.set({ is_migrated_to_local: true });
           this.logger.log('Rules successfully migrated to local storage on this device.');
-
+          
           await this.syncDnrRules();
           
           browser.runtime.sendMessage({
@@ -403,5 +433,29 @@ export class RulesManager {
       this.logger.error('Error during device-specific rules migration:', error);
     }
     return false;
+  }
+  
+  checkConflict(rules, blockURL, isWhitelist, excludeIndex = -1) {
+    const cleanNew = blockURL.trim().toLowerCase();
+    
+    for (let i = 0; i < rules.length; i++) {
+      if (excludeIndex !== -1 && i === excludeIndex) continue;
+      
+      const rule = rules[i];
+      const ruleIsWhitelist = rule.isWhitelist || false;
+      const cleanExisting = rule.blockURL.trim().toLowerCase();
+      
+      if (ruleIsWhitelist !== isWhitelist) {
+        if (cleanNew.includes(cleanExisting) || cleanExisting.includes(cleanNew)) {
+          return isWhitelist ? 'conflict_blacklist' : 'conflict_whitelist';
+        }
+      } else if (isWhitelist) {
+        if (cleanNew.includes(cleanExisting) || cleanExisting.includes(cleanNew)) {
+          return 'redundant_whitelist';
+        }
+      }
+    }
+    
+    return null;
   }
 }

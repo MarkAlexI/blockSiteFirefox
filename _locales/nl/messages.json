@@ -297,5 +297,11 @@
   "focussessionactivebanner": { "message": "Focussessie actief! Resterende tijd:" },
   "focussessioninvalidduration": { "message": "Voer een geldige duur in (1-240 minuten)." },
   "successfulfocussessionslabel": { "message": "Succesvolle Focussessies" },
-  "rule_scheduled": { "message": "Geplande regel" }
+  "rule_scheduled": { "message": "Geplande regel" },
+  "addwhitelistrule": { "message": "Uitzondering toevoegen" },
+  "category_whitelist": { "message": "Witte lijst" },
+  "conflict_blacklist_err": { "message": "Deze site staat al op je zwarte lijst. Verwijder deze eerst." },
+  "conflict_whitelist_err": { "message": "Deze site staat al op je witte lijst. Verwijder deze eerst." },
+  "status_allow": { "message": "Toegestaan" },
+  "redundant_whitelist_err": { "message": "Deze regel valt al onder een andere witte lijst-regel." }
 }

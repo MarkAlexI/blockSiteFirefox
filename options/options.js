@@ -23,10 +23,14 @@ class OptionsPage {
     
     this.rulesBody = document.getElementById('rules-container');
     this.addRuleButton = document.getElementById('add-rule');
+    this.addWhitelistRuleButton = document.getElementById('add-whitelist-rule');
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
     this.categoryFilter = document.getElementById('category-filter');
     this.categoriesContainer = document.getElementById('categories-container');
+    
+    this.isPro = false;
+    this.isLegacyUser = false;
     
     this.init();
     this.exposeDebugTools();
@@ -51,6 +55,8 @@ class OptionsPage {
       this.logger.error('Error initializing Pro/Legacy status:', error);
     }
     
+    this.updateWhitelistButtonState();
+    
     await ProManager.initializeProFeatures();
     this.loadRules();
     this.loadCategories();
@@ -65,6 +71,7 @@ class OptionsPage {
     setContent('options-title', 'header');
     setContent('header-text', 'header');
     if (this.addRuleButton) this.addRuleButton.textContent = t('addrule');
+    if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.textContent = t('addwhitelistrule') || 'Add Whitelist Rule';
     setContent('block-url-header', 'blockurl');
     setContent('redirect-url-header', 'redirecturl');
     setContent('category-header', 'category_header');
@@ -88,17 +95,29 @@ class OptionsPage {
     translateOption('work', 'category_work');
     translateOption('gaming', 'category_gaming');
     translateOption('adult', 'category_adult');
+    translateOption('whitelist', 'category_whitelist');
     translateOption('uncategorized', 'category_uncategorized');
   }
   
   setupEventListeners() {
-    if (this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm());
+    if (this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm(false));
+    if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.addEventListener('click', () => this.showAddRuleForm(true));
     if (this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
     if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
-  
+    
     document.querySelectorAll('.collapsible-header').forEach(header => {
       header.addEventListener('click', () => header.parentElement.classList.toggle('expanded'));
     });
+  }
+  
+  updateWhitelistButtonState() {
+    if (!this.addWhitelistRuleButton) return;
+    const hasAccess = this.isPro || this.isLegacyUser;
+    
+    this.addWhitelistRuleButton.disabled = !hasAccess;
+    this.addWhitelistRuleButton.title = hasAccess ?
+      (t('addwhitelistrule') || 'Add Whitelist Rule') :
+      (t('prorequired') || 'Pro mode required');
   }
   
   async promptForPassword() {
@@ -230,14 +249,16 @@ class OptionsPage {
   async toggleEditMode(row, index, rule) {
     const settings = await SettingsManager.getSettings();
     const disabledCategories = settings.disabledCategories || [];
-    if (disabledCategories.includes(rule.category)) {
+    const isWhitelist = rule.isWhitelist || false;
+    
+    if (!isWhitelist && disabledCategories.includes(rule.category)) {
       this.rulesUI.showErrorMessage(t('category_muted_no_edit') || 'Cannot edit: Category blocking is paused');
       return;
     }
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
       index,
-      (index, blockValue, redirectValue, category, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, category, schedule, ruleId, rule.disabledByUser),
+      (index, blockValue, redirectValue, category, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, category, schedule, ruleId, rule.disabledByUser, isWhitelist),
       () => this.loadRules(),
       this.isPro,
       rule.disabledByUser
@@ -251,11 +272,11 @@ class OptionsPage {
     row.replaceWith(editRow);
   }
   
-  async saveEditedRule(index, newBlock, newRedirect, newCategory, newSchedule, oldRuleId, disabledByUser) {
+  async saveEditedRule(index, newBlock, newRedirect, newCategory, newSchedule, oldRuleId, disabledByUser, isWhitelist = false) {
     try {
-      await this.rulesManager.updateRule(index, newBlock, newRedirect, newSchedule, newCategory, disabledByUser);
+      await this.rulesManager.updateRule(index, newBlock, isWhitelist ? '' : newRedirect, newSchedule, isWhitelist ? 'whitelist' : newCategory, disabledByUser);
       
-      if (newBlock && !disabledByUser) {
+      if (newBlock && !disabledByUser && !isWhitelist) {
         browser.runtime.sendMessage({
           type: 'CLOSE_MATCHING_TABS',
           url: newBlock.trim()
@@ -271,15 +292,21 @@ class OptionsPage {
         this.rulesUI.showValidationErrors(errors);
       } else if (error.message === 'Rule already exists') {
         this.rulesUI.showErrorMessage(t('alertruleexist'));
+      } else if (error.message === 'conflict_blacklist') {
+        this.rulesUI.showErrorMessage(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
+      } else if (error.message === 'conflict_whitelist') {
+        this.rulesUI.showErrorMessage(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
+      } else if (error.message === 'redundant_whitelist') {
+        this.rulesUI.showErrorMessage(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
       } else {
-        this.rulesUI.showErrorMessage(t('errorupdatingrule'));
+        this.rulesUI.showErrorMessage(t('errorupdatingrules'));
       }
     }
   }
   
-  async showAddRuleForm() {
+  async showAddRuleForm(isWhitelist = false) {
     try {
-      if (!this.isPro && !this.isLegacyUser) {
+      if (!isWhitelist && !this.isPro && !this.isLegacyUser) {
         const rules = await this.rulesManager.getRules();
         if (rules.length >= MAX_RULES_LIMIT) {
           this.rulesUI.showErrorMessage(t('rulelimitreached', MAX_RULES_LIMIT));
@@ -288,9 +315,10 @@ class OptionsPage {
       }
       
       const newRow = this.rulesUI.createAddRuleRow(
-        (blockValue, redirectValue, category, schedule, row) => this.saveNewRule(blockValue, redirectValue, category, schedule, row),
+        (blockValue, redirectValue, category, schedule, row) => this.saveNewRule(blockValue, redirectValue, category, schedule, row, isWhitelist),
         (row) => row.remove(),
-        this.isPro
+        this.isPro,
+        isWhitelist
       );
       
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
@@ -300,11 +328,11 @@ class OptionsPage {
     }
   }
   
-  async saveNewRule(newBlock, newRedirect, newCategory, newSchedule, row) {
+  async saveNewRule(newBlock, newRedirect, newCategory, newSchedule, row, isWhitelist = false) {
     try {
-      await this.rulesManager.addRule(newBlock, newRedirect, newSchedule, newCategory);
+      await this.rulesManager.addRule(newBlock, isWhitelist ? '' : newRedirect, newSchedule, isWhitelist ? 'whitelist' : newCategory, isWhitelist);
       
-      if (newBlock) {
+      if (newBlock && !isWhitelist) {
         browser.runtime.sendMessage({
           type: 'CLOSE_MATCHING_TABS',
           url: newBlock.trim()
@@ -320,11 +348,18 @@ class OptionsPage {
         this.rulesUI.showValidationErrors(errors);
       } else if (error.message === 'Rule already exists') {
         this.rulesUI.showErrorMessage(t('alertruleexist'));
+      } else if (error.message === 'conflict_blacklist') {
+        this.rulesUI.showErrorMessage(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
+      } else if (error.message === 'conflict_whitelist') {
+        this.rulesUI.showErrorMessage(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
+      } else if (error.message === 'redundant_whitelist') {
+        this.rulesUI.showErrorMessage(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
       } else {
-        this.rulesUI.showErrorMessage(t('errorupdatingrule'));
+        this.rulesUI.showErrorMessage(t('errorupdatingrules'));
       }
     }
   }
+  
   async loadCategories() {
     try {
       const rules = await this.rulesManager.getRules();
@@ -382,6 +417,7 @@ browser.runtime.onMessage.addListener((message) => {
     logger.log(`Pro status changed: ${message.isPro}`);
     ProManager.updateProFeaturesVisibility(message.isPro);
     optionsPage.isPro = message.isPro;
+    optionsPage.updateWhitelistButtonState();
     optionsPage.loadRules();
   }
 });

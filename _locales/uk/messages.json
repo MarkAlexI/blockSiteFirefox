@@ -309,5 +309,11 @@
   "focussessionactivebanner": { "message": "Сесія фокусу активна! Залишилося:" },
   "focussessioninvalidduration": { "message": "Будь ласка, введіть дійсну тривалість (1-240 хвилин)." },
   "successfulfocussessionslabel": { "message": "Успішні сесії фокусування" },
-  "rule_scheduled": { "message": "Правило за розкладом" }
+  "rule_scheduled": { "message": "Правило за розкладом" },
+  "addwhitelistrule": { "message": "Додати виняток" },
+  "category_whitelist": { "message": "Білий список" },
+  "conflict_blacklist_err": { "message": "Цей сайт уже заблоковано. Спочатку видаліть його з Чорного списку." },
+  "conflict_whitelist_err": { "message": "Цей сайт уже є в Білому списку. Спочатку видаліть його звідти." },
+  "status_allow": { "message": "Дозволено" },
+  "redundant_whitelist_err": { "message": "Це правило вже покривається іншим правилом білого списку." }
 }
