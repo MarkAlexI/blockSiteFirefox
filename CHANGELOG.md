@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.1] - 2026-07-20
+### Fixed
+- **DNR Rule Synchronization:** Fixed an issue where editing existing rules (modifying domains, redirect URLs, or toggle states) updated storage and UI but failed to take effect in the browser's network engine. Rule updates are now applied atomically and reflect immediately.
+
 ## [4.2.0] – 2026-07-20
 ### Added
 - **Whitelist Focus Mode for Pro Users:** Added a new focus mode option ("Allow Whitelist Only"). During an active session in this mode, all open and newly created tabs are restricted exclusively to sites listed in your Whitelist.

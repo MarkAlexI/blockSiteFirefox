@@ -179,19 +179,13 @@ async function updateActiveRules() {
     const settings = await SettingsManager.getSettings();
     const { focusActive } = await getFocusSessionState();
     const disabledCategories = settings.disabledCategories || [];
+    
     const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
+    const removeRuleIds = currentDnrRules.map(r => r.id);
     
-    const activeRules = rules.filter(rule => !rule.isWhitelist && rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive));
-    const activeIds = new Set(activeRules.map(r => r.id));
-    
-    const removeRuleIds = currentDnrRules
-      .map(r => r.id)
-      .filter(id => !activeIds.has(id));
-    if (removeRuleIds.length) {
-      await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
-    }
-    
-    const currentDnrIdSet = new Set(currentDnrRules.map(dnr => dnr.id));
+    const activeRules = rules.filter(rule =>
+      !rule.isWhitelist && rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive)
+    );
     
     const addRules = [];
     const urlsToClose = [];
@@ -199,18 +193,18 @@ async function updateActiveRules() {
     for (const rule of activeRules) {
       urlsToClose.push(rule.blockURL);
       
-      if (!currentDnrIdSet.has(rule.id)) {
-        const dnrRule = await rulesManager.createDNRRule(rule.id, rule.blockURL, rule.redirectURL);
-        if (dnrRule) {
-          addRules.push(dnrRule);
-        }
+      const dnrRule = await rulesManager.createDNRRule(rule.id, rule.blockURL, rule.redirectURL);
+      if (dnrRule) {
+        addRules.push(dnrRule);
       }
     }
     
-    if (addRules.length) {
-      await browser.declarativeNetRequest.updateDynamicRules({ addRules });
-      logger.log(`Added ${addRules.length} active scheduled rules`);
-    }
+    await browser.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds,
+      addRules
+    });
+    
+    logger.log(`DNR Rules updated: removed ${removeRuleIds.length}, added ${addRules.length}`);
     
     if (urlsToClose.length > 0) {
       await closeTabsMatchingRules(urlsToClose);

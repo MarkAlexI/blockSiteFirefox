@@ -312,5 +312,8 @@
   "conflict_blacklist_err": { "message": "Ce site est déjà dans votre liste noire. Supprimez-le d'abord." },
   "conflict_whitelist_err": { "message": "Ce site est déjà dans votre liste blanche. Supprimez-le d'abord." },
   "status_allow": { "message": "Autorisé" },
-  "redundant_whitelist_err": { "message": "Cette règle est déjà couverte par une autre règle de la liste blanche." }
+  "redundant_whitelist_err": { "message": "Cette règle est déjà couverte par une autre règle de la liste blanche." },
+  "focussessionmode": { "message": "Mode Focus :" },
+  "focusmodeblacklist": { "message": "Bloquer la liste noire" },
+  "focusmodewhitelist": { "message": "Autoriser uniquement la liste blanche" }
 }

@@ -305,5 +305,8 @@
   "conflict_blacklist_err": { "message": "Dette nettstedet er allerede på svartelisten din. Fjern det først." },
   "conflict_whitelist_err": { "message": "Dette nettstedet er allerede på hvitlisten din. Fjern det først." },
   "status_allow": { "message": "Tillatt" },
-  "redundant_whitelist_err": { "message": "Denne regelen dekkes allerede av en annen hvitlisteregel." }
+  "redundant_whitelist_err": { "message": "Denne regelen dekkes allerede av en annen hvitlisteregel." },
+  "focussessionmode": { "message": "Fokusmodus:" },
+  "focusmodeblacklist": { "message": "Blokker svarteliste" },
+  "focusmodewhitelist": { "message": "Kun tillat hvitliste" }
 }

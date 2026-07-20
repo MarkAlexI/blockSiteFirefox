@@ -303,5 +303,8 @@
   "conflict_blacklist_err": { "message": "Diese Website steht bereits auf Ihrer Blacklist. Entfernen Sie sie zuerst." },
   "conflict_whitelist_err": { "message": "Diese Website steht bereits auf Ihrer Whitelist. Entfernen Sie sie zuerst." },
   "status_allow": { "message": "Erlaubt" },
-  "redundant_whitelist_err": { "message": "Diese Regel wird bereits durch eine andere Whitelist-Regel abgedeckt." }
+  "redundant_whitelist_err": { "message": "Diese Regel wird bereits durch eine andere Whitelist-Regel abgedeckt." },
+  "focussessionmode": { "message": "Fokus-Modus:" },
+  "focusmodeblacklist": { "message": "Blacklist blockieren" },
+  "focusmodewhitelist": { "message": "Nur Whitelist zulassen" }
 }

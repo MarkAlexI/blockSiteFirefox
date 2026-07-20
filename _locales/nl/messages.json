@@ -303,5 +303,8 @@
   "conflict_blacklist_err": { "message": "Deze site staat al op je zwarte lijst. Verwijder deze eerst." },
   "conflict_whitelist_err": { "message": "Deze site staat al op je witte lijst. Verwijder deze eerst." },
   "status_allow": { "message": "Toegestaan" },
-  "redundant_whitelist_err": { "message": "Deze regel valt al onder een andere witte lijst-regel." }
+  "redundant_whitelist_err": { "message": "Deze regel valt al onder een andere witte lijst-regel." },
+  "focussessionmode": { "message": "Focusmodus:" },
+  "focusmodeblacklist": { "message": "Zwarte lijst blokkeren" },
+  "focusmodewhitelist": { "message": "Alleen witte lijst toestaan" }
 }
