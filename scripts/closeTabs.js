@@ -1,13 +1,15 @@
 /**
  * Closes tabs matching the blockURL.
  * Prevents browser window closure if all tabs match.
- * @param {string} blockURL - URL pattern to match
+ * @param {Array<string>} blockURLs - Array of URL patterns to match
  */
 import Logger from '../utils/logger.js';
+import { isBlockedURL } from './isBlockedURL.js';
+import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
+
+const logger = new Logger('CloseTabs');
 
 export async function closeTabsMatchingRules(blockURLs) {
-  const logger = new Logger('CloseTabs');
-  
   const validPatterns = blockURLs
     .map(url => url?.trim().toLowerCase())
     .filter(url => url && url !== '');
@@ -41,5 +43,43 @@ export async function closeTabsMatchingRules(blockURLs) {
     
   } catch (e) {
     logger.warn("Error during batch tab closure:", e);
+  }
+}
+
+/**
+ * Closes all tabs that DO NOT match any active whitelist rule during Whitelist Focus Mode.
+ * Safely ignores internal/protected browser pages and prevents window closure.
+ * 
+ * @param {Array<Object>} whitelistRules - Active rules with isWhitelist === true
+ */
+export async function closeNonWhitelistedTabs(whitelistRules) {
+  try {
+    const tabs = await browser.tabs.query({});
+    const tabsToRemoveIds = [];
+
+    for (const tab of tabs) {
+      if (!tab.id || !tab.url) continue;
+
+      if (isBlockedURL([{ url: tab.url }])) {
+        continue;
+      }
+
+      if (!isUrlInWhitelist(tab.url, whitelistRules)) {
+        tabsToRemoveIds.push(tab.id);
+      }
+    }
+
+    if (tabsToRemoveIds.length === 0) return;
+
+    const allTabsWillBeClosed = tabs.length === tabsToRemoveIds.length;
+    if (allTabsWillBeClosed) {
+      await browser.tabs.create({});
+    }
+
+    await browser.tabs.remove(tabsToRemoveIds);
+    logger.log(`Focus Whitelist: Batch closed non-whitelisted tabs: ${tabsToRemoveIds.length}`);
+
+  } catch (e) {
+    logger.warn("Error during non-whitelisted tabs closure:", e);
   }
 }

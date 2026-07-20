@@ -38,6 +38,8 @@ class PopupPage {
     this.focusStartView = document.getElementById('focus-start-view');
     this.focusActiveView = document.getElementById('focus-active-view');
     this.focusProNote = document.getElementById('focus-pro-note');
+    this.focusModeControl = document.getElementById('focus-mode-control');
+    this.focusModeSelect = document.getElementById('focus-mode-select');
     this.hardcoreModeControl = document.getElementById('hardcore-mode-control');
     this.hardcoreModeCheckbox = document.getElementById('focus-hardcore-mode');
     this.focusTimerInterval = null;
@@ -486,7 +488,7 @@ class PopupPage {
       this.focusTimerInterval = null;
     }
     
-    const { focusActive, focusEndTime, isHardcore } = await getFocusSessionState();
+    const { focusActive, focusEndTime, isHardcore, focusMode } = await getFocusSessionState();
     
     if (focusActive && focusEndTime > Date.now()) {
       this.focusStartView.classList.add('hidden');
@@ -506,11 +508,23 @@ class PopupPage {
         this.focusDurationInput.disabled = false;
         this.focusProNote.classList.add('hidden');
         this.hardcoreModeControl.classList.remove('hidden');
+        if (this.focusModeControl) {
+          this.focusModeControl.classList.remove('hidden');
+        }
+        if (this.focusModeSelect && focusMode) {
+          this.focusModeSelect.value = focusMode;
+        }
       } else {
         this.focusDurationInput.disabled = true;
         this.focusDurationInput.value = 25;
         this.focusProNote.classList.remove('hidden');
         this.hardcoreModeControl.classList.add('hidden');
+        if (this.focusModeControl) {
+          this.focusModeControl.classList.add('hidden');
+        }
+        if (this.focusModeSelect) {
+          this.focusModeSelect.value = 'blacklist';
+        }
       }
     }
   }
@@ -540,9 +554,17 @@ class PopupPage {
       return;
     }
     
-    const isHardcore = (this.isPro || this.isLegacyUser) && this.hardcoreModeCheckbox.checked;
+    const hasProAccess = this.isPro || this.isLegacyUser;
+    const isHardcore = hasProAccess && this.hardcoreModeCheckbox.checked;
+    const focusMode = hasProAccess && this.focusModeSelect ? this.focusModeSelect.value : 'blacklist';
     
-    await browser.runtime.sendMessage({ type: 'start_focus_session', duration, isHardcore });
+    await browser.runtime.sendMessage({
+      type: 'start_focus_session',
+      duration,
+      isHardcore,
+      focusMode
+    });
+    
     await this.updateFocusUI();
   }
   

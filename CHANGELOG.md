@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] – 2026-07-20
+### Added
+- **Whitelist Focus Mode for Pro Users:** Added a new focus mode option ("Allow Whitelist Only"). During an active session in this mode, all open and newly created tabs are restricted exclusively to sites listed in your Whitelist.
+### Improved
+- **Safe Batch Tab Enforcement:** Integrated a background tab closure routine (`closeNonWhitelistedTabs`) that automatically clears non-whitelisted sites upon starting a Whitelist focus session, while intelligently preserving internal browser pages, extension settings, and preventing accidental browser window termination.
+- **Dynamic Focus Session Controls:** Added a mode selector dropdown in the popup UI, which dynamically unlocks and configures Whitelist focus features.
+
 ## [4.1.2] - 2026-07-19
 ### Changed
 - **UI Accessibility:** Enhanced the visual contrast of action buttons and list items within the Whitelist (Allow-rules) interface to ensure better text readability and a more accessible user experience.

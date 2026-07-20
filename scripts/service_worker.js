@@ -2,7 +2,7 @@ import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import { ProManager } from '../pro/proManager.js';
-import { closeTabsMatchingRules } from './closeTabs.js';
+import { closeTabsMatchingRules, closeNonWhitelistedTabs } from './closeTabs.js';
 import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
@@ -13,9 +13,43 @@ import { createInstallURL } from '../utils/createInstallURL.js';
 import { shouldSkipSync } from '../utils/shouldSkipSync.js';
 import { isBlockedURL } from './isBlockedURL.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
+import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
+
+/**
+ * Checks a single tab URL against active Whitelist rules during 'whitelist' Focus Session.
+ * Closes the tab if the URL is not whitelisted and is not a system/extension page.
+ */
+async function enforceFocusWhitelist(tabId, tabUrl) {
+  if (isBlockedURL([{ url: tabUrl }])) {
+    return;
+  }
+  
+  const { focusActive, focusMode } = await getFocusSessionState();
+  if (!focusActive || focusMode !== 'whitelist') {
+    return;
+  }
+  
+  const rules = await rulesManager.getRules();
+  const whitelistRules = rules.filter(r => r.isWhitelist && !r.disabledByUser);
+  
+  if (!isUrlInWhitelist(tabUrl, whitelistRules)) {
+    logger.log(`Focus Whitelist: Closing non-whitelisted tab ${tabId} (${tabUrl})`);
+    browser.tabs.remove(tabId).catch(() => {});
+  }
+}
+
+/**
+ * Scans all currently open tabs and closes any tab that does not match active Whitelist rules.
+ */
+async function checkAllTabsAgainstWhitelist() {
+  const rules = await rulesManager.getRules();
+  const whitelistRules = rules.filter(r => r.isWhitelist && !r.disabledByUser);
+  
+  await closeNonWhitelistedTabs(whitelistRules);
+}
 
 async function syncLicenseKeyStatus() {
   const credentials = await ProManager.getCredentials();
@@ -276,12 +310,21 @@ async function handleProStatusUpdate(isPro, subscriptionData = {}) {
 }
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  const urlToCheck = changeInfo.url || tab.url;
+  if (urlToCheck) {
+    await enforceFocusWhitelist(tabId, urlToCheck);
+  }
+  
   if (changeInfo.status === 'complete' && tab.url) {
     await trackBlockedPage(tab.url);
   }
 });
 
 browser.tabs.onCreated.addListener(async (tab) => {
+  if (tab.id && tab.url) {
+    await enforceFocusWhitelist(tab.id, tab.url);
+  }
+  
   if (tab.url && tab.url !== 'about:blank' && tab.url !== 'chrome://newtab/') {
     await trackBlockedPage(tab.url);
   }
@@ -525,17 +568,22 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       try {
         const durationMinutes = message.duration || 25;
         const isHardcore = message.isHardcore || false;
+        const focusMode = message.focusMode || 'blacklist';
         const endTime = Date.now() + durationMinutes * 60 * 1000;
         
         await browser.storage.local.set({
-          focusSession: { focusActive: true, focusEndTime: endTime, isHardcore }
+          focusSession: { focusActive: true, focusEndTime: endTime, isHardcore, focusMode }
         });
         
         browser.alarms.create('end_focus_session', { delayInMinutes: durationMinutes });
         
         await updateActiveRules();
         
-        logger.log(`Focus Session: Started for ${durationMinutes} minutes.`);
+        if (focusMode === 'whitelist') {
+          await checkAllTabsAgainstWhitelist();
+        }
+        
+        logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
         sendResponse({ success: true });
       } catch (error) {
         logger.error('Focus Session: Error starting session:', error);
@@ -549,7 +597,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
       try {
         await browser.storage.local.set({
-          focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false }
+          focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
         });
         await browser.alarms.clear('end_focus_session');
         await updateActiveRules();
@@ -597,7 +645,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'end_focus_session') {
     logger.log('Focus Session: Alarm triggered, ending session.');
     await browser.storage.local.set({
-      focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false }
+      focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
     });
     await updateActiveRules();
     await StatisticsManager.recordFocusSession();

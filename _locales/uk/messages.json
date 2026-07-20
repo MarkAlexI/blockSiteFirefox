@@ -315,5 +315,8 @@
   "conflict_blacklist_err": { "message": "Цей сайт уже заблоковано. Спочатку видаліть його з Чорного списку." },
   "conflict_whitelist_err": { "message": "Цей сайт уже є в Білому списку. Спочатку видаліть його звідти." },
   "status_allow": { "message": "Дозволено" },
-  "redundant_whitelist_err": { "message": "Це правило вже покривається іншим правилом білого списку." }
+  "redundant_whitelist_err": { "message": "Це правило вже покривається іншим правилом білого списку." },
+  "focussessionmode": { "message": "Режим фокусу:" },
+  "focusmodeblacklist": { "message": "Блокувати Чорний список" },
+  "focusmodewhitelist": { "message": "Дозволити лише Білий список" }
 }

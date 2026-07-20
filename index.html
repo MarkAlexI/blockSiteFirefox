@@ -35,6 +35,13 @@
           <input type="number" id="focus-duration" value="25" min="1" max="240">
           <small id="focus-pro-note" class="pro-note hidden" data-i18n="focussessionprofeature"></small>
         </div>
+        <div id="focus-mode-control" class="focus-mode-control hidden">
+          <label for="focus-mode-select" data-i18n="focussessionmode">Mode:</label>
+          <select id="focus-mode-select">
+            <option value="blacklist" data-i18n="focusmodeblacklist">Block Blacklist</option>
+            <option value="whitelist" data-i18n="focusmodewhitelist">Allow Whitelist Only</option>
+          </select>
+        </div>
         <div id="hardcore-mode-control" class="hardcore-control hidden">
           <input type="checkbox" id="focus-hardcore-mode">
           <label for="focus-hardcore-mode" data-i18n="focussessionhardcore"></label>
