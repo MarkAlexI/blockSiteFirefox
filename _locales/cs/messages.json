@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "Soustředění je aktivní! Zbývající čas:" },
   "focussessioninvalidduration": { "message": "Zadejte prosím platnou dobu trvání (1–240 minut)." },
   "successfulfocussessionslabel": { "message": "Úspěšná soustředění" },
+  "rule_scheduled": { "message": "Naplánované pravidlo" },
   "addwhitelistrule": { "message": "Přidat výjimku" },
-  "category_whitelist": { "message": "Bílá listina" },
-  "conflict_blacklist_err": { "message": "Tento web již je na vašem černém seznamu. Nejprve jej odstraňte." },
-  "conflict_whitelist_err": { "message": "Tento web již je na vašem bílém seznamu. Nejprve jej odstraňte." },
+  "category_whitelist": { "message": "Seznam povolených" },
+  "conflict_blacklist_err": { "message": "Tato stránka je již na vašem seznamu blokovaných. Nejprve ji odeberte." },
+  "conflict_whitelist_err": { "message": "Tato stránka je již na vašem seznamu povolených. Nejprve ji odeberte." },
   "status_allow": { "message": "Povoleno" },
-  "redundant_whitelist_err": { "message": "Toto pravidlo je již pokryto jiným pravidlem na bílé listině." }
+  "redundant_whitelist_err": { "message": "Toto pravidlo je již pokryto jiným pravidlem seznamu povolených." },
+  "focussessionmode": { "message": "Režim soustředění:" },
+  "focusmodeblacklist": { "message": "Blokovat seznam blokovaných" },
+  "focusmodewhitelist": { "message": "Povolit pouze seznam povolených" }
 }

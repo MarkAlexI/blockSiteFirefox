@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Odaklanma seansı sona erdiğinde bir ses çal." },
   "focussessionactivebanner": { "message": "Odaklanma seansı aktif! Kalan süre:" },
   "focussessioninvalidduration": { "message": "Lütfen geçerli bir süre girin (1-240 dakika)." },
-  "successfulfocussessionslabel": { "message": "Başarıyla Tamamlanan Odaklanma Seansları" }
+  "successfulfocussessionslabel": { "message": "Başarıyla Tamamlanan Odaklanma Seansları" },
+  "rule_scheduled": { "message": "Zamanlanmış kural" },
+  "addwhitelistrule": { "message": "İstisna ekle" },
+  "category_whitelist": { "message": "Beyaz liste" },
+  "conflict_blacklist_err": { "message": "Bu site zaten kara listenizde. Önce onu kaldırın." },
+  "conflict_whitelist_err": { "message": "Bu site zaten beyaz listenizde. Önce onu kaldırın." },
+  "status_allow": { "message": "İzin verildi" },
+  "redundant_whitelist_err": { "message": "Bu kural zaten başka bir beyaz liste kuralı tarafından kapsanıyor." },
+  "focussessionmode": { "message": "Odaklanma modu:" },
+  "focusmodeblacklist": { "message": "Kara listeyi engelle" },
+  "focusmodewhitelist": { "message": "Yalnızca beyaz listeye izin ver" }
 }

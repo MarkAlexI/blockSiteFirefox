@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಕೊನೆಗೊಂಡಾಗ ಧ್ವನಿಯನ್ನು ಪ್ಲೇ ಮಾಡಿ." },
   "focussessionactivebanner": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಸಕ್ರಿಯವಾಗಿದೆ! ಉಳಿದಿರುವ ಸಮಯ:" },
   "focussessioninvalidduration": { "message": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಅವಧಿಯನ್ನು ನಮೂದಿಸಿ (1-240 ನಿಮಿಷಗಳು)." },
-  "successfulfocussessionslabel": { "message": "ಯಶಸ್ವಿ ಫೋಕಸ್ ಸೆಷನ್‌ಗಳು" }
+  "successfulfocussessionslabel": { "message": "ಯಶಸ್ವಿ ಫೋಕಸ್ ಸೆಷನ್‌ಗಳು" },
+  "rule_scheduled": { "message": "ನಿಗದಿತ ನಿಯಮ" },
+  "addwhitelistrule": { "message": "ವಿನಾಯಿತಿ ಸೇರಿಸಿ" },
+  "category_whitelist": { "message": "ವೈಟ್‌ಲಿಸ್ಟ್" },
+  "conflict_blacklist_err": { "message": "ಈ ಸೈಟ್ ಈಗಾಗಲೇ ನಿಮ್ಮ ಬ್ಲ್ಯಾಕ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ. ಮೊದಲು ಅದನ್ನು ತೆಗೆದುಹಾಕಿ." },
+  "conflict_whitelist_err": { "message": "ಈ ಸೈಟ್ ಈಗಾಗಲೇ ನಿಮ್ಮ ವೈಟ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ. ಮೊದಲು ಅದನ್ನು ತೆಗೆದುಹಾಕಿ." },
+  "status_allow": { "message": "ಅನುಮತಿಸಲಾಗಿದೆ" },
+  "redundant_whitelist_err": { "message": "ಈ ನಿಯಮವನ್ನು ಈಗಾಗಲೇ ಮತ್ತೊಂದು ವೈಟ್‌ಲಿಸ್ಟ್ ನಿಯಮವು ಒಳಗೊಂಡಿದೆ." },
+  "focussessionmode": { "message": "ಫೋಕಸ್ ಮೋಡ್:" },
+  "focusmodeblacklist": { "message": "ಬ್ಲ್ಯಾಕ್‌ಲಿಸ್ಟ್ ನಿರ್ಬಂಧಿಸಿ" },
+  "focusmodewhitelist": { "message": "ವೈಟ್‌ಲಿಸ್ಟ್‌ಗೆ ಮಾತ್ರ ಅನುಮತಿಸಿ" }
 }

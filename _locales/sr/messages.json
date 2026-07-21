@@ -299,5 +299,15 @@
   "focussessionsounddesc": { "message": "Пусти звук када се фокус сесија заврши." },
   "focussessionactivebanner": { "message": "Фокус сесија је активна! Преостало време:" },
   "focussessioninvalidduration": { "message": "Молимо унесите важеће трајање (1-240 минута)." },
-  "successfulfocussessionslabel": { "message": "Успешне фокус сесије" }
+  "successfulfocussessionslabel": { "message": "Успешне фокус сесије" },
+  "rule_scheduled": { "message": "Заказано правило" },
+  "addwhitelistrule": { "message": "Додај изузетак" },
+  "category_whitelist": { "message": "Бела листа" },
+  "conflict_blacklist_err": { "message": "Ова веб локација је већ на вашој црној листи. Прво је уклоните." },
+  "conflict_whitelist_err": { "message": "Ова веб локација је већ на вашој белој листи. Прво је уклоните." },
+  "status_allow": { "message": "Дозвољено" },
+  "redundant_whitelist_err": { "message": "Ово правило је већ покривено другим правилом беле листе." },
+  "focussessionmode": { "message": "Режим фокусирања:" },
+  "focusmodeblacklist": { "message": "Блокирај црну листу" },
+  "focusmodewhitelist": { "message": "Дозволи само белу листу" }
 }

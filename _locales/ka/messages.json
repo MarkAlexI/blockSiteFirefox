@@ -400,5 +400,15 @@
   "focussessionsounddesc": { "message": "ხმის გამოცემა ფოკუსის სესიის დასრულებისას." },
   "focussessionactivebanner": { "message": "ფოკუსის სესია აქტიურია! დარჩენილი დრო:" },
   "focussessioninvalidduration": { "message": "გთხოვთ, მიუთითოთ ვალიდური ხანგრძლივობა (1-240 წუთი)." },
-  "successfulfocussessionslabel": { "message": "წარმატებული ფოკუსის სესიები" }
+  "successfulfocussessionslabel": { "message": "წარმატებული ფოკუსის სესიები" },
+  "rule_scheduled": { "message": "დაგეგმილი წესი" },
+  "addwhitelistrule": { "message": "გამონაკლისის დამატება" },
+  "category_whitelist": { "message": "თეთრი სია" },
+  "conflict_blacklist_err": { "message": "ეს საიტი უკვე არის თქვენს შავ სიაში. ჯერ წაშალეთ იგი." },
+  "conflict_whitelist_err": { "message": "ეს საიტი უკვე არის თქვენს თეთრ სიაში. ჯერ წაშალეთ იგი." },
+  "status_allow": { "message": "ნებადართული" },
+  "redundant_whitelist_err": { "message": "ეს წესი უკვე დაფარულია თეთრი სიის სხვა წესით." },
+  "focussessionmode": { "message": "ფოკუსირების რეჟიმი:" },
+  "focusmodeblacklist": { "message": "შავი სიის დაბლოკვა" },
+  "focusmodewhitelist": { "message": "მხოლოდ თეთრი სიის დაშვება" }
 }

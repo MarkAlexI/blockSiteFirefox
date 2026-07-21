@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "Fokus-sessie Aktief! Tyd oor:" },
   "focussessioninvalidduration": { "message": "Voer asseblief 'n geldige duur in (1-240 minute)." },
   "successfulfocussessionslabel": { "message": "Suksesvolle Fokus-sessies" },
+  "rule_scheduled": { "message": "Geskeduleerde reël" },
   "addwhitelistrule": { "message": "Voeg uitsondering by" },
-  "category_whitelist": { "message": "Witlys" },
+  "category_whitelist": { "message": "Witskrif" },
   "conflict_blacklist_err": { "message": "Hierdie werf is reeds op jou swartlys. Verwyder dit eers." },
-  "conflict_whitelist_err": { "message": "Hierdie werf is reeds op jou witlys. Verwyder dit eers." },
+  "conflict_whitelist_err": { "message": "Hierdie werf is reeds op jou witskrif. Verwyder dit eers." },
   "status_allow": { "message": "Toegelaat" },
-  "redundant_whitelist_err": { "message": "Hierdie reël word reeds deur 'n ander witlysreël gedek." }
+  "redundant_whitelist_err": { "message": "Hierdie reël word reeds deur 'n ander witskrifreël gedek." },
+  "focussessionmode": { "message": "Fokusmodus:" },
+  "focusmodeblacklist": { "message": "Blokkeer swartlys" },
+  "focusmodewhitelist": { "message": "Laat slegs witskrif toe" }
 }

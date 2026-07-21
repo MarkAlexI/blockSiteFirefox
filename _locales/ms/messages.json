@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Mainkan bunyi apabila sesi fokus tamat." },
   "focussessionactivebanner": { "message": "Sesi Fokus Aktif! Masa berbaki:" },
   "focussessioninvalidduration": { "message": "Sila masukkan durasi yang sah (1-240 minit)." },
-  "successfulfocussessionslabel": { "message": "Sesi Fokus yang Berjaya" }
+  "successfulfocussessionslabel": { "message": "Sesi Fokus yang Berjaya" },
+  "rule_scheduled": { "message": "Peraturan dijadualkan" },
+  "addwhitelistrule": { "message": "Tambah pengecualian" },
+  "category_whitelist": { "message": "Senarai putih" },
+  "conflict_blacklist_err": { "message": "Laman web ini sudah ada dalam senarai hitam anda. Alih keluar dahulu." },
+  "conflict_whitelist_err": { "message": "Laman web ini sudah ada dalam senarai putih anda. Alih keluar dahulu." },
+  "status_allow": { "message": "Dibenarkan" },
+  "redundant_whitelist_err": { "message": "Peraturan ini sudah diliputi oleh peraturan senarai putih yang lain." },
+  "focussessionmode": { "message": "Mod Fokus:" },
+  "focusmodeblacklist": { "message": "Sekat Senarai Hitam" },
+  "focusmodewhitelist": { "message": "Benarkan Senarai Putih Sahaja" }
 }

@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Phát âm thanh khi phiên tập trung kết thúc." },
   "focussessionactivebanner": { "message": "Phiên tập trung đang hoạt động! Thời gian còn lại:" },
   "focussessioninvalidduration": { "message": "Vui lòng nhập thời lượng hợp lệ (1-240 phút)." },
-  "successfulfocussessionslabel": { "message": "Số phiên tập trung thành công" }
+  "successfulfocussessionslabel": { "message": "Số phiên tập trung thành công" },
+  "rule_scheduled": { "message": "Quy tắc đã lên lịch" },
+  "addwhitelistrule": { "message": "Thêm ngoại lệ" },
+  "category_whitelist": { "message": "Danh sách trắng" },
+  "conflict_blacklist_err": { "message": "Trang web này đã có trong danh sách đen của bạn. Hãy xóa nó trước." },
+  "conflict_whitelist_err": { "message": "Trang web này đã có trong danh sách trắng của bạn. Hãy xóa nó trước." },
+  "status_allow": { "message": "Đã cho phép" },
+  "redundant_whitelist_err": { "message": "Quy tắc này đã được bao gồm bởi một quy tắc danh sách trắng khác." },
+  "focussessionmode": { "message": "Chế độ tập trung:" },
+  "focusmodeblacklist": { "message": "Chặn danh sách đen" },
+  "focusmodewhitelist": { "message": "Chỉ cho phép danh sách trắng" }
 }

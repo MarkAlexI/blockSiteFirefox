@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Cheza sauti wakati kipindi cha kulenga kinapoisha." },
   "focussessionactivebanner": { "message": "Kipindi cha Kulenga Kinafanya Kazi! Muda uliobaki:" },
   "focussessioninvalidduration": { "message": "Tafadhali weka muda unaofaa (dakika 1-240)." },
-  "successfulfocussessionslabel": { "message": "Vipindi Vilivyofungwa kwa Mafanikio" }
+  "successfulfocussessionslabel": { "message": "Vipindi Vilivyofungwa kwa Mafanikio" },
+  "rule_scheduled": { "message": "Kanuni iliyoratibiwa" },
+  "addwhitelistrule": { "message": "Ongeza isipokuwa" },
+  "category_whitelist": { "message": "Orodha nyeupe" },
+  "conflict_blacklist_err": { "message": "Tovuti hii tayari ipo kwenye orodha yako nyeusi. Liondoe kwanza." },
+  "conflict_whitelist_err": { "message": "Tovuti hii tayari ipo kwenye orodha yako nyeupe. Liondoe kwanza." },
+  "status_allow": { "message": "Imeruhusiwa" },
+  "redundant_whitelist_err": { "message": "Kanuni hii tayari inashughulikiwa na kanuni ingine ya orodha nyeupe." },
+  "focussessionmode": { "message": "Hali ya uzingativu:" },
+  "focusmodeblacklist": { "message": "Zuia orodha nyeusi" },
+  "focusmodewhitelist": { "message": "Ruhusu orodha nyeupe tu" }
 }

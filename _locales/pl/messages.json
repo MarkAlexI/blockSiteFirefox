@@ -299,5 +299,14 @@
   "focussessionactivebanner": { "message": "Sesja skupienia jest aktywna! Pozostały czas:" },
   "focussessioninvalidduration": { "message": "Wprowadź prawidłowy czas trwania (1–240 minut)." },
   "successfulfocussessionslabel": { "message": "Ukończone sesje skupienia" },
-  "rule_scheduled": { "message": "Reguła zaplanowana" }
+  "rule_scheduled": { "message": "Zaplanowana reguła" },
+  "addwhitelistrule": { "message": "Dodaj wyjątek" },
+  "category_whitelist": { "message": "Biała lista" },
+  "conflict_blacklist_err": { "message": "Ta strona jest już na Twojej czarnej liście. Najpierw ją usuń." },
+  "conflict_whitelist_err": { "message": "Ta strona jest już na Twojej białej liście. Najpierw ją usuń." },
+  "status_allow": { "message": "Dozwolone" },
+  "redundant_whitelist_err": { "message": "Ta reguła jest już objęta inną regułą białej listy." },
+  "focussessionmode": { "message": "Tryb skupienia:" },
+  "focusmodeblacklist": { "message": "Blokuj czarną listę" },
+  "focusmodewhitelist": { "message": "Zezwalaj tylko na białą listę" }
 }

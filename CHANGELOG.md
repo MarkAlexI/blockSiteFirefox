@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.2] - 2026-07-21
+### Added
+- Completed full internationalization (i18n) coverage across all supported locales.
+- Added `title` attributes to whitelist rules in the popup UI for better tooltip visibility and user experience.
+### Fixed
+- Fixed an issue on the Options page where the "Add Whitelist Rule" button was not hidden during an active Focus Session.
+- Fixed whitelist rules displaying unlocalized text in the schedule column on the Options page (now correctly shows localized "Allow" status).
+
 ## [4.2.1] - 2026-07-20
 ### Fixed
 - **DNR Rule Synchronization:** Fixed an issue where editing existing rules (modifying domains, redirect URLs, or toggle states) updated storage and UI but failed to take effect in the browser's network engine. Rule updates are now applied atomically and reflect immediately.

@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "ফোকাস সেশন সক্রিয়! বাকি সময়:" },
   "focussessioninvalidduration": { "message": "অনুগ্রহ করে একটি সঠিক সময়কাল লিখুন (১-২৪০ মিনিট)।" },
   "successfulfocussessionslabel": { "message": "সফল ফোকাস সেশন" },
+  "rule_scheduled": { "message": "নির্ধারিত নিয়ম" },
   "addwhitelistrule": { "message": "ব্যতিক্রম যোগ করুন" },
   "category_whitelist": { "message": "হোয়াইটলিস্ট" },
   "conflict_blacklist_err": { "message": "এই সাইটটি ইতিমধ্যে আপনার ব্ল্যাকলিস্টে রয়েছে। প্রথমে এটি সরান।" },
   "conflict_whitelist_err": { "message": "এই সাইটটি ইতিমধ্যে আপনার হোয়াইটলিস্টে রয়েছে। প্রথমে এটি সরান।" },
   "status_allow": { "message": "অনুমোদিত" },
-  "redundant_whitelist_err": { "message": "এই নিয়মটি ইতিমধ্যে অন্য একটি হোয়াইটলিস্ট নিয়ম দ্বারা কভার করা হয়েছে।" }
+  "redundant_whitelist_err": { "message": "এই নিয়মটি ইতিমধ্যে অন্য একটি হোয়াইটলিস্ট নিয়ম দ্বারা আচ্ছাদিত।" },
+  "focussessionmode": { "message": "ফোকাস মোড:" },
+  "focusmodeblacklist": { "message": "ব্ল্যাকলিস্ট ব্লক করুন" },
+  "focusmodewhitelist": { "message": "শুধু হোয়াইটলিস্ট অনুমতি দিন" }
 }

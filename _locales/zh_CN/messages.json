@@ -307,10 +307,13 @@
   "focussessioninvalidduration": { "message": "请输入有效的时长 (1-240 分钟)。" },
   "successfulfocussessionslabel": { "message": "成功的专注时段" },
   "rule_scheduled": { "message": "计划规则" },
-  "addwhitelistrule": { "message": "添加例外网站" },
+  "addwhitelistrule": { "message": "添加例外" },
   "category_whitelist": { "message": "白名单" },
-  "conflict_blacklist_err": { "message": "此网站已在您的黑名单中。请先将其移除。" },
-  "conflict_whitelist_err": { "message": "此网站已在您的白名单中。请先将其移除。" },
+  "conflict_blacklist_err": { "message": "该网站已在您的黑名单中。请先将其移除。" },
+  "conflict_whitelist_err": { "message": "该网站已在您的白名单中。请先将其移除。" },
   "status_allow": { "message": "已允许" },
-  "redundant_whitelist_err": { "message": "此规则已被另一个白名单规则覆盖。" }
+  "redundant_whitelist_err": { "message": "此规则已被另一条白名单规则覆盖。" },
+  "focussessionmode": { "message": "专注模式：" },
+  "focusmodeblacklist": { "message": "拦截黑名单" },
+  "focusmodewhitelist": { "message": "仅允许白名单" }
 }

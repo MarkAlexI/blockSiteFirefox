@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "Η Συνεδρία Εστίασης είναι ενεργή! Υπολειπόμενος χρόνος:" },
   "focussessioninvalidduration": { "message": "Παρακαλώ εισαγάγετε μια έγκυρη διάρκεια (1-240 λεπτά)." },
   "successfulfocussessionslabel": { "message": "Επιτυχημένες Συνεδρίες Εστίασης" },
+  "rule_scheduled": { "message": "Προγραμματισμένος κανόνας" },
   "addwhitelistrule": { "message": "Προσθήκη εξαίρεσης" },
-  "category_whitelist": { "message": "Λευκή λίστα" },
-  "conflict_blacklist_err": { "message": "Αυτός ο ιστότοπος είναι ήδη στη μαύρη λίστα σας. Καταργήστε τον πρώτα." },
-  "conflict_whitelist_err": { "message": "Αυτός ο ιστότοπος είναι ήδη στη λευκή λίστα σας. Καταργήστε τον πρώτα." },
+  "category_whitelist": { "message": "Λίστα επιτρεπόμενων" },
+  "conflict_blacklist_err": { "message": "Αυτός ο ιστότοπος βρίσκεται ήδη στη μαύρη λίστα σας. Αφαιρέστε τον πρώτα." },
+  "conflict_whitelist_err": { "message": "Αυτός ο ιστότοπος βρίσκεται ήδη στη λίστα επιτρεπόμενων. Αφαιρέστε τον πρώτα." },
   "status_allow": { "message": "Επιτρέπεται" },
-  "redundant_whitelist_err": { "message": "Αυτός ο κανόνας καλύπτεται ήδη από έναν άλλο κανόνα λευκής λίστα." }
+  "redundant_whitelist_err": { "message": "Αυτός ο κανόνας καλύπτεται ήδη από έναν άλλο κανόνα της λίστας επιτρεπόμενων." },
+  "focussessionmode": { "message": "Λειτουργία εστίασης:" },
+  "focusmodeblacklist": { "message": "Αποκλεισμός μαύρης λίστας" },
+  "focusmodewhitelist": { "message": "Να επιτρέπεται μόνο η λίστα επιτρεπόμενων" }
 }

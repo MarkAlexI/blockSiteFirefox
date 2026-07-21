@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Hang lejátszása a fókusz menet végén." },
   "focussessionactivebanner": { "message": "Fókusz menet aktív! Hátralévő idő:" },
   "focussessioninvalidduration": { "message": "Kérjük, adjon meg egy érvényes időtartamot (1-240 perc)." },
-  "successfulfocussessionslabel": { "message": "Sikeres fókusz menetek" }
+  "successfulfocussessionslabel": { "message": "Sikeres fókusz menetek" },
+  "rule_scheduled": { "message": "Ütemezett szabály" },
+  "addwhitelistrule": { "message": "Kivétel hozzáadása" },
+  "category_whitelist": { "message": "Fehérlista" },
+  "conflict_blacklist_err": { "message": "Ez az oldal már szerepel a feketelistáján. Először távolítsa el." },
+  "conflict_whitelist_err": { "message": "Ez az oldal már szerepel a fehérlistáján. Először távolítsa el." },
+  "status_allow": { "message": "Engedélyezve" },
+  "redundant_whitelist_err": { "message": "Ezt a szabályt egy másik fehérlista-szabály már lefedi." },
+  "focussessionmode": { "message": "Fókusz mód:" },
+  "focusmodeblacklist": { "message": "Feketelista blokkolása" },
+  "focusmodewhitelist": { "message": "Csak a fehérlista engedélyezése" }
 }

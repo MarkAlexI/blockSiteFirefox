@@ -299,5 +299,14 @@
   "focussessionactivebanner": { "message": "Sessione di focus attiva! Tempo rimanente:" },
   "focussessioninvalidduration": { "message": "Inserisci una durata valida (1-240 minuti)." },
   "successfulfocussessionslabel": { "message": "Sessioni di focus completate con successo" },
-  "rule_scheduled": { "message": "Regola programmata" }
+  "rule_scheduled": { "message": "Regola programmata" },
+  "addwhitelistrule": { "message": "Aggiungi eccezione" },
+  "category_whitelist": { "message": "Lista consentiti" },
+  "conflict_blacklist_err": { "message": "Questo sito è già nella tua blacklist. Rimuovilo prima." },
+  "conflict_whitelist_err": { "message": "Questo sito è già nella tua lista consentiti. Rimuovilo prima." },
+  "status_allow": { "message": "Consentito" },
+  "redundant_whitelist_err": { "message": "Questa regola è già coperta da un'altra regola della lista consentiti." },
+  "focussessionmode": { "message": "Modalità concentrazione:" },
+  "focusmodeblacklist": { "message": "Blocca blacklist" },
+  "focusmodewhitelist": { "message": "Consenti solo lista consentiti" }
 }

@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "Fookusseanss on aktiivne! Aeg jäänud:" },
   "focussessioninvalidduration": { "message": "Palun sisesta kehtiv kestus (1–240 minutit)." },
   "successfulfocussessionslabel": { "message": "Edukad fookusseansid" },
+  "rule_scheduled": { "message": "Ajastatud reegel" },
   "addwhitelistrule": { "message": "Lisa erand" },
   "category_whitelist": { "message": "Valge nimekiri" },
-  "conflict_blacklist_err": { "message": "See sait on juba sinu mustas nimekirjas. Eemalda see esmalt." },
-  "conflict_whitelist_err": { "message": "See sait on juba sinu valges nimekirjas. Eemalda see esmalt." },
+  "conflict_blacklist_err": { "message": "See sait on juba sinu mustas nimekirjas. Eemalda see kõigepealt." },
+  "conflict_whitelist_err": { "message": "See sait on juba sinu valges nimekirjas. Eemalda see kõigepealt." },
   "status_allow": { "message": "Lubatud" },
-  "redundant_whitelist_err": { "message": "See reegel on juba kaetud teise valge nimekirja reegliga." }
+  "redundant_whitelist_err": { "message": "See reegel on juba teise valge nimekirja reegliga kaetud." },
+  "focussessionmode": { "message": "Fookusrežiim:" },
+  "focusmodeblacklist": { "message": "Blokeeri must nimekiri" },
+  "focusmodewhitelist": { "message": "Luba ainult valge nimekiri" }
 }

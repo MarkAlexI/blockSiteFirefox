@@ -299,11 +299,14 @@
   "focussessionactivebanner": { "message": "جلسه تمرکز فعال است! زمان باقی‌مانده:" },
   "focussessioninvalidduration": { "message": "لطفاً یک مدت زمان معتبر وارد کنید (۱ تا ۲۴۰ دقیقه)." },
   "successfulfocussessionslabel": { "message": "جلسات تمرکز موفق" },
-  "rule_scheduled": { "message": "قانون برنامه‌ریزی‌شده" },
+  "rule_scheduled": { "message": "قانون زمان‌بندی‌شده" },
   "addwhitelistrule": { "message": "افزودن استثنا" },
   "category_whitelist": { "message": "لیست سفید" },
-  "conflict_blacklist_err": { "message": "این سایت در حال حاضر در لیست سیاه شما قرار دارد. ابتدا آن را حذف کنید." },
-  "conflict_whitelist_err": { "message": "این سایت در حال حاضر در لیست سفید شما قرار دارد. ابتدا آن را حذف کنید." },
+  "conflict_blacklist_err": { "message": "این سایت از قبل در لیست سیاه شما قرار دارد. ابتدا آن را حذف کنید." },
+  "conflict_whitelist_err": { "message": "این سایت از قبل در لیست سفید شما قرار دارد. ابتدا آن را حذف کنید." },
   "status_allow": { "message": "مجاز" },
-  "redundant_whitelist_err": { "message": "این قانون در حال حاضر توسط قانون دیگری در لیست سفید پوشش داده شده است." }
+  "redundant_whitelist_err": { "message": "این قانون از قبل توسط قانون دیگری در لیست سفید پوشش داده شده است." },
+  "focussessionmode": { "message": "حالت تمرکز:" },
+  "focusmodeblacklist": { "message": "مسدودسازی لیست سیاه" },
+  "focusmodewhitelist": { "message": "فقط اجازه به لیست سفید" }
 }

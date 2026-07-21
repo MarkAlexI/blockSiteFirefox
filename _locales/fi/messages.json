@@ -296,11 +296,14 @@
   "focussessionactivebanner": { "message": "Keskittymisistunto aktiivinen! Jäljellä oleva aika:" },
   "focussessioninvalidduration": { "message": "Anna kelvollinen kesto (1-240 minuuttia)." },
   "successfulfocussessionslabel": { "message": "Onnistuneet keskittymisistunnot" },
-  "rule_scheduled": { "message": "Ajoitettu sääntö" },
+  "rule_scheduled": { "message": "Ajastettu sääntö" },
   "addwhitelistrule": { "message": "Lisää poikkeus" },
-  "category_whitelist": { "message": "Valkoinen lista" },
-  "conflict_blacklist_err": { "message": "Tämä sivusto on jo mustalla listallasi. Poista se ensin." },
-  "conflict_whitelist_err": { "message": "Tämä sivusto on jo valkoisella listallasi. Poista se ensin." },
+  "category_whitelist": { "message": "Sallittulista" },
+  "conflict_blacklist_err": { "message": "Tämä sivusto on jo estollistallasi. Poista se ensin." },
+  "conflict_whitelist_err": { "message": "Tämä sivusto on jo sallittulistallasi. Poista se ensin." },
   "status_allow": { "message": "Sallittu" },
-  "redundant_whitelist_err": { "message": "Toinen valkoisen listan sääntö kattaa jo tämän säännön." }
+  "redundant_whitelist_err": { "message": "Toinen sallittulistan sääntö kattaa jo tämän säännön." },
+  "focussessionmode": { "message": "Keskittymistila:" },
+  "focusmodeblacklist": { "message": "Esta estolista" },
+  "focusmodewhitelist": { "message": "Salli vain sallittulista" }
 }

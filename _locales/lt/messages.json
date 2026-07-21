@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Paleisti garsą, kai fokusavimosi sesija baigiasi." },
   "focussessionactivebanner": { "message": "Fokusavimosi sesija aktyvi! Likęs laikas:" },
   "focussessioninvalidduration": { "message": "Įveskite galiojančią trukmę (1–240 min.)." },
-  "successfulfocussessionslabel": { "message": "Sėkmingos fokusavimosi sesijos" }
+  "successfulfocussessionslabel": { "message": "Sėkmingos fokusavimosi sesijos" },
+  "rule_scheduled": { "message": "Suplanuota taisyklė" },
+  "addwhitelistrule": { "message": "Pridėti išimtį" },
+  "category_whitelist": { "message": "Baltasis sąrašas" },
+  "conflict_blacklist_err": { "message": "Ši svetainė jau yra jūsų juodajame sąraše. Pirmiausia ją pašalinkite." },
+  "conflict_whitelist_err": { "message": "Ši svetainė jau yra jūsų baltojoje sąraše. Pirmiausia ją pašalinkite." },
+  "status_allow": { "message": "Leidžiama" },
+  "redundant_whitelist_err": { "message": "Šią taisyklę jau apima kita baltojo sąrašo taisyklė." },
+  "focussessionmode": { "message": "Fokusavimo režimas:" },
+  "focusmodeblacklist": { "message": "Blokuoti juodąjį sąrašą" },
+  "focusmodewhitelist": { "message": "Leisti tik baltąjį sąrašą" }
 }

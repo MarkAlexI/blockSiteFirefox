@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "Fokussession aktiv! Resterende tid:" },
   "focussessioninvalidduration": { "message": "Indtast venligst en gyldig varighed (1-240 minutter)." },
   "successfulfocussessionslabel": { "message": "Succesfulde fokussessioner" },
+  "rule_scheduled": { "message": "Planlagt regel" },
   "addwhitelistrule": { "message": "Tilføj undtagelse" },
   "category_whitelist": { "message": "Hvidliste" },
   "conflict_blacklist_err": { "message": "Dette websted er allerede på din sortliste. Fjern det først." },
   "conflict_whitelist_err": { "message": "Dette websted er allerede på din hvidliste. Fjern det først." },
   "status_allow": { "message": "Tilladt" },
-  "redundant_whitelist_err": { "message": "Denne regel er allerede dækket af en anden hvidlisteregel." }
+  "redundant_whitelist_err": { "message": "Denne regel er allerede dækket af en anden hvidlisteregel." },
+  "focussessionmode": { "message": "Fokus-tilstand:" },
+  "focusmodeblacklist": { "message": "Bloker sortliste" },
+  "focusmodewhitelist": { "message": "Tillad kun hvidliste" }
 }

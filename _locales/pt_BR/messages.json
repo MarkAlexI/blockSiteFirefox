@@ -303,5 +303,8 @@
   "conflict_blacklist_err": { "message": "Este site já está na sua lista negra. Remova-o primeiro." },
   "conflict_whitelist_err": { "message": "Este site já está na sua lista branca. Remova-o primeiro." },
   "status_allow": { "message": "Permitido" },
-  "redundant_whitelist_err": { "message": "Esta regra já está coberta por outra regra da lista branca." }
+  "redundant_whitelist_err": { "message": "Esta regra já é coberta por outra regra da lista branca." },
+  "focussessionmode": { "message": "Modo de foco:" },
+  "focusmodeblacklist": { "message": "Bloquear lista negra" },
+  "focusmodewhitelist": { "message": "Permitir apenas lista branca" }
 }

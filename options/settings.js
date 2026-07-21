@@ -161,7 +161,8 @@ export class SettingsManager {
       ...document.querySelectorAll('.collapsible-section'),
       document.getElementById('search-filter-container'),
       document.getElementById('add-rule'),
-      document.querySelector('.table-wrapper')
+      document.querySelector('.table-wrapper'),
+      document.getElementById('add-whitelist-rule')
     ];
     
     elementsToLock.forEach(el => {

@@ -129,7 +129,7 @@ export class RulesUI {
     
     const scheduleCell = document.createElement('td');
     if (rule.isWhitelist) {
-      scheduleCell.textContent = '—';
+      scheduleCell.textContent = t('status_allow');
       scheduleCell.classList.add('status-static');
     } else if (rule.schedule) {
       scheduleCell.textContent = this.scheduleFormatter.formatSchedule(rule.schedule);

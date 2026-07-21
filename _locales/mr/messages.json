@@ -297,5 +297,15 @@
   "focussessionsounddesc": { "message": "फोकस सेशन संपल्यावर एक ध्वनी वाजवा." },
   "focussessionactivebanner": { "message": "फोकस सेशन सक्रिय आहे! उर्वरित वेळ:" },
   "focussessioninvalidduration": { "message": "कृपया एक वैध कालावधी प्रविष्ट करा (१-२४० मिनिटे)." },
-  "successfulfocussessionslabel": { "message": "यशस्वी फोकस सेशन्स" }
+  "successfulfocussessionslabel": { "message": "यशस्वी फोकस सेशन्स" },
+  "rule_scheduled": { "message": "वेळापत्रकबद्ध नियम" },
+  "addwhitelistrule": { "message": "अपवाद जोडा" },
+  "category_whitelist": { "message": "व्हाईटलिस्ट" },
+  "conflict_blacklist_err": { "message": "ही साइट आधीपासूनच तुमच्या ब्लॅकलिस्टमध्ये आहे. आधी ती हटवा." },
+  "conflict_whitelist_err": { "message": "ही साइट आधीपासूनच तुमच्या व्हाईटलिस्टमध्ये आहे. आधी ती हटवा." },
+  "status_allow": { "message": "अनुमती दिली" },
+  "redundant_whitelist_err": { "message": "हा नियम आधीपासूनच दुसऱ्या व्हाईटलिस्ट नियमाने कव्हर केला आहे." },
+  "focussessionmode": { "message": "फोकस मोड:" },
+  "focusmodeblacklist": { "message": "ब्लॅकलिस्ट ब्लॉक करा" },
+  "focusmodewhitelist": { "message": "फक्त व्हाईटलिस्टला अनुमती द्या" }
 }

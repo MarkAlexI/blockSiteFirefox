@@ -297,5 +297,15 @@
   "focussessionsounddesc": { "message": "கவனம் செலுத்தும் அமர்வு முடியும் போது ஒலியை இயக்கு." },
   "focussessionactivebanner": { "message": "அமர்வு செயல்பாட்டில் உள்ளது! மீதமுள்ள நேரம்:" },
   "focussessioninvalidduration": { "message": "தயவுசெய்து சரியான கால அளவை உள்ளிடவும் (1-240 நிமிடங்கள்)." },
-  "successfulfocussessionslabel": { "message": "வெற்றிகரமான கவனம் செலுத்தும் அமர்வுகள்" }
+  "successfulfocussessionslabel": { "message": "வெற்றிகரமான கவனம் செலுத்தும் அமர்வுகள்" },
+  "rule_scheduled": { "message": "திட்டமிடப்பட்ட விதி" },
+  "addwhitelistrule": { "message": "விலக்கீடு சேர்" },
+  "category_whitelist": { "message": "அனுமதிப்பட்டியல்" },
+  "conflict_blacklist_err": { "message": "இந்தத் தளம் ஏற்கனவே உங்கள் தடைப்பட்டியலில் உள்ளது. முதலில் அதை அகற்றவும்." },
+  "conflict_whitelist_err": { "message": "இந்தத் தளம் ஏற்கனவே உங்கள் அனுமதிப்பட்டியலில் உள்ளது. முதலில் அதை அகற்றவும்." },
+  "status_allow": { "message": "அனுமதிக்கப்பட்டது" },
+  "redundant_whitelist_err": { "message": "இந்த விதி ஏற்கனவே మరொரு அனுமதிப்பட்டியல் விதியால் உள்ளடக்கப்பட்டுள்ளது." },
+  "focussessionmode": { "message": "கவனப் பயன்முறை:" },
+  "focusmodeblacklist": { "message": "தடைப்பட்டியலைத் தடு" },
+  "focusmodewhitelist": { "message": "அனுமதிப்பட்டியலை மட்டும் அனுமதி" }
 }

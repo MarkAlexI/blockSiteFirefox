@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "Aktibo ang Focus Session! Natitirang oras:" },
   "focussessioninvalidduration": { "message": "Mangyaring maglagay ng wastong tagal (1-240 minuto)." },
   "successfulfocussessionslabel": { "message": "Mga Matagumpay na Focus Session" },
-  "addwhitelistrule": { "message": "Magdagdag ng exception" },
+  "rule_scheduled": { "message": "Naka-schedule na alituntunin" },
+  "addwhitelistrule": { "message": "Magdagdag ng eksepsyon" },
   "category_whitelist": { "message": "Whitelist" },
-  "conflict_blacklist_err": { "message": "Ang site na ito ay nasa iyong Blacklist na. Alisin muna ito." },
-  "conflict_whitelist_err": { "message": "Ang site na ito ay nasa iyong Whitelist na. Alisin muna ito." },
+  "conflict_blacklist_err": { "message": "Nasa iyong blacklist na ang site na ito. Alisin muna ito." },
+  "conflict_whitelist_err": { "message": "Nasa iyong whitelist na ang site na ito. Alisin muna ito." },
   "status_allow": { "message": "Pinapayagan" },
-  "redundant_whitelist_err": { "message": "Ang panuntunang ito ay sakop na ng isa pang panuntunan sa whitelist." }
+  "redundant_whitelist_err": { "message": "Sakop na ang alituntuning ito ng isa pang alituntunin sa whitelist." },
+  "focussessionmode": { "message": "Focus Mode:" },
+  "focusmodeblacklist": { "message": "I-block ang Blacklist" },
+  "focusmodewhitelist": { "message": "Payagan ang Whitelist Lamang" }
 }

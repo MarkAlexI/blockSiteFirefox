@@ -298,10 +298,13 @@
   "focussessioninvalidduration": { "message": "유효한 지속 시간(1-240분)을 입력하세요." },
   "successfulfocussessionslabel": { "message": "성공적인 집중 세션" },
   "rule_scheduled": { "message": "예약된 규칙" },
-  "addwhitelistrule": { "message": "제외 사이트 추가" },
+  "addwhitelistrule": { "message": "예외 추가" },
   "category_whitelist": { "message": "화이트리스트" },
-  "conflict_blacklist_err": { "message": "이 사이트는 이미 블랙리스트에 있습니다. 먼저 제거해 주세요." },
-  "conflict_whitelist_err": { "message": "이 사이트는 이미 화이트리스트에 있습니다. 먼저 제거해 주세요." },
+  "conflict_blacklist_err": { "message": "이 사이트는 이미 블랙리스트에 있습니다. 먼저 제거하세요." },
+  "conflict_whitelist_err": { "message": "이 사이트는 이미 화이트리스트에 있습니다. 먼저 제거하세요." },
   "status_allow": { "message": "허용됨" },
-  "redundant_whitelist_err": { "message": "이 규칙은 이미 다른 화이트리스트 규칙에 의해 적용되고 있습니다." }
+  "redundant_whitelist_err": { "message": "이 규칙은 이미 다른 화이트리스트 규칙에 포함되어 있습니다." },
+  "focussessionmode": { "message": "집중 모드:" },
+  "focusmodeblacklist": { "message": "블랙리스트 차단" },
+  "focusmodewhitelist": { "message": "화이트리스트만 허용" }
 }

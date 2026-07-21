@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Putar suara saat sesi fokus berakhir." },
   "focussessionactivebanner": { "message": "Sesi Fokus Aktif! Sisa waktu:" },
   "focussessioninvalidduration": { "message": "Silakan masukkan durasi yang valid (1-240 menit)." },
-  "successfulfocussessionslabel": { "message": "Sesi Fokus yang Sukses" }
+  "successfulfocussessionslabel": { "message": "Sesi Fokus yang Sukses" },
+  "rule_scheduled": { "message": "Aturan terjadwal" },
+  "addwhitelistrule": { "message": "Tambah pengecualian" },
+  "category_whitelist": { "message": "Whitelist" },
+  "conflict_blacklist_err": { "message": "Situs ini sudah ada di blacklist Anda. Hapus terlebih dahulu." },
+  "conflict_whitelist_err": { "message": "Situs ini sudah ada di whitelist Anda. Hapus terlebih dahulu." },
+  "status_allow": { "message": "Diizinkan" },
+  "redundant_whitelist_err": { "message": "Aturan ini sudah dicakup oleh aturan whitelist lainnya." },
+  "focussessionmode": { "message": "Mode Fokus:" },
+  "focusmodeblacklist": { "message": "Blokir Blacklist" },
+  "focusmodewhitelist": { "message": "Izinkan Whitelist Saja" }
 }

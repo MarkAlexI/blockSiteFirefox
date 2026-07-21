@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "סשן המיקוד פעיל! זמן נותר:" },
   "focussessioninvalidduration": { "message": "אנא הזן משך זמן תקין (1-240 דקות)." },
   "successfulfocussessionslabel": { "message": "סשני מיקוד מוצלחים" },
-  "addwhitelistrule": { "message": "הוספת חריגה" },
+  "rule_scheduled": { "message": "כלל מתוזמן" },
+  "addwhitelistrule": { "message": "הוספת חריג" },
   "category_whitelist": { "message": "רשימה לבנה" },
   "conflict_blacklist_err": { "message": "אתר זה כבר נמצא ברשימה השחורה שלך. הסר אותו תחילה." },
   "conflict_whitelist_err": { "message": "אתר זה כבר נמצא ברשימה הלבנה שלך. הסר אותו תחילה." },
-  "status_allow": { "message": "מאושר" },
-  "redundant_whitelist_err": { "message": "כלל זה כבר מכוסה על ידי כלל אחר ברשימה הלבנה." }
+  "status_allow": { "message": "מותר" },
+  "redundant_whitelist_err": { "message": "כלל זה כבר מכוסה על ידי כלל אחר ברשימה הלבנה." },
+  "focussessionmode": { "message": "מצב ריכוז:" },
+  "focusmodeblacklist": { "message": "חסימת רשימה שחורה" },
+  "focusmodewhitelist": { "message": "אפשר רשימה לבנה בלבד" }
 }

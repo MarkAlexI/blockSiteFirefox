@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "เล่นเสียงเมื่อสิ้นสุดช่วงเวลาโฟกัส" },
   "focussessionactivebanner": { "message": "อยู่ระหว่างช่วงเวลาโฟกัส! เวลาที่เหลือ:" },
   "focussessioninvalidduration": { "message": "โปรดระบุระยะเวลาที่ถูกต้อง (1-240 นาที)" },
-  "successfulfocussessionslabel": { "message": "ช่วงเวลาโฟกัสที่สำเร็จ" }
+  "successfulfocussessionslabel": { "message": "ช่วงเวลาโฟกัสที่สำเร็จ" },
+  "rule_scheduled": { "message": "กฎที่กำหนดเวลาไว้" },
+  "addwhitelistrule": { "message": "เพิ่มข้อยกเว้น" },
+  "category_whitelist": { "message": "ไวท์ลิสต์" },
+  "conflict_blacklist_err": { "message": "เว็บไซต์นี้อยู่ในแบล็กลิสต์ของคุณอยู่แล้ว โปรดลบออกก่อน" },
+  "conflict_whitelist_err": { "message": "เว็บไซต์นี้อยู่ในไวท์ลิสต์ของคุณอยู่แล้ว โปรดลบออกก่อน" },
+  "status_allow": { "message": "อนุญาตแล้ว" },
+  "redundant_whitelist_err": { "message": "กฎนี้ถูกครอบคลุมโดยกฎไวท์ลิสต์อื่นอยู่แล้ว" },
+  "focussessionmode": { "message": "โหมดโฟกัส:" },
+  "focusmodeblacklist": { "message": "บล็อกแบล็กลิสต์" },
+  "focusmodewhitelist": { "message": "อนุญาตเฉพาะไวท์ลิสต์" }
 }

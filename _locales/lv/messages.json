@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Atskaņot skaņu, kad fokusa sesija beidzas." },
   "focussessionactivebanner": { "message": "Fokusa sesija ir aktīva! Atlikušais laiks:" },
   "focussessioninvalidduration": { "message": "Lūdzu, ievadiet derīgu ilgumu (1-240 minūtes)." },
-  "successfulfocussessionslabel": { "message": "Veiksmīgas fokusa sesijas" }
+  "successfulfocussessionslabel": { "message": "Veiksmīgas fokusa sesijas" },
+  "rule_scheduled": { "message": "Plānotais noteikums" },
+  "addwhitelistrule": { "message": "Pievienot izņēmumu" },
+  "category_whitelist": { "message": "Baltais saraksts" },
+  "conflict_blacklist_err": { "message": "Šī vietne jau ir jūsu melnajā sarakstā. Vispirms noņemiet to." },
+  "conflict_whitelist_err": { "message": "Šī vietne jau ir jūsu baltajā sarakstā. Vispirms noņemiet to." },
+  "status_allow": { "message": "Atļauts" },
+  "redundant_whitelist_err": { "message": "Šo noteikumu jau sedz cits baltā saraksta noteikums." },
+  "focussessionmode": { "message": "Fokusa režīms:" },
+  "focusmodeblacklist": { "message": "Bloķēt melno sarakstu" },
+  "focusmodewhitelist": { "message": "Atļaut tikai balto sarakstu" }
 }

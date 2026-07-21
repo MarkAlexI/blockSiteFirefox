@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Predvajaj zvok, ko se seja osredotočenosti zaključi." },
   "focussessionactivebanner": { "message": "Seja osredotočenosti je aktivna! Preostali čas:" },
   "focussessioninvalidduration": { "message": "Vnesite veljavno trajanje (1–240 minut)." },
-  "successfulfocussessionslabel": { "message": "Uspešne seje osredotočenosti" }
+  "successfulfocussessionslabel": { "message": "Uspešne seje osredotočenosti" },
+  "rule_scheduled": { "message": "Načrtovano pravilo" },
+  "addwhitelistrule": { "message": "Dodaj izjemo" },
+  "category_whitelist": { "message": "Beli seznam" },
+  "conflict_blacklist_err": { "message": "To spletno mesto je že na vašem črnem seznamu. Najprej ga odstranite." },
+  "conflict_whitelist_err": { "message": "To spletno mesto je že na vašem belem seznamu. Najprej ga odstranite." },
+  "status_allow": { "message": "Dovoljeno" },
+  "redundant_whitelist_err": { "message": "To pravilo je že zajeto z drugim pravilom belega seznama." },
+  "focussessionmode": { "message": "Način osredotočenosti:" },
+  "focusmodeblacklist": { "message": "Blokiraj črni seznam" },
+  "focusmodewhitelist": { "message": "Dovoli samo beli seznam" }
 }

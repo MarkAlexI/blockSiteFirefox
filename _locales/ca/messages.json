@@ -299,10 +299,14 @@
   "focussessionactivebanner": { "message": "Sessió de focus activa! Temps restant:" },
   "focussessioninvalidduration": { "message": "Si us plau, introdueix una durada vàlida (1-240 minuts)." },
   "successfulfocussessionslabel": { "message": "Sessions de focus amb èxit" },
-  "addwhitelistrule": { "message": "Afegir excepció" },
+  "rule_scheduled": { "message": "Regla programada" },
+  "addwhitelistrule": { "message": "Afegeix una excepció" },
   "category_whitelist": { "message": "Llista blanca" },
-  "conflict_blacklist_err": { "message": "Aquest lloc ja és a la teva llista negra. Elimina'l primer." },
-  "conflict_whitelist_err": { "message": "Aquest lloc ja és a la teva llista blanca. Elimina'l primer." },
+  "conflict_blacklist_err": { "message": "Aquest lloc ja és a la llista negra. Elimina'l primer." },
+  "conflict_whitelist_err": { "message": "Aquest lloc ja és a la llista blanca. Elimina'l primer." },
   "status_allow": { "message": "Permès" },
-  "redundant_whitelist_err": { "message": "Aquesta regla ja està coberta por una altra regla de la llista blanca." }
+  "redundant_whitelist_err": { "message": "Aquesta regla ja està coberta per una altra regla de la llista blanca." },
+  "focussessionmode": { "message": "Mode de concentració:" },
+  "focusmodeblacklist": { "message": "Bloca la llista negra" },
+  "focusmodewhitelist": { "message": "Permet només la llista blanca" }
 }

@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Prehrať zvuk po skončení relácie sústredenia." },
   "focussessionactivebanner": { "message": "Relácia sústredenia je aktívna! Zostávajúci čas:" },
   "focussessioninvalidduration": { "message": "Zadajte platné trvanie (1 – 240 minút)." },
-  "successfulfocussessionslabel": { "message": "Úspešné relácie sústredenia" }
+  "successfulfocussessionslabel": { "message": "Úspešné relácie sústredenia" },
+  "rule_scheduled": { "message": "Naplánované pravidlo" },
+  "addwhitelistrule": { "message": "Pridať výnimku" },
+  "category_whitelist": { "message": "Biely zoznam" },
+  "conflict_blacklist_err": { "message": "Tento web je už na vašom čiernom zozname. Najprv ho odstráňte." },
+  "conflict_whitelist_err": { "message": "Tento web je už na vašom bielom zozname. Najprv ho odstráňte." },
+  "status_allow": { "message": "Povolené" },
+  "redundant_whitelist_err": { "message": "Toto pravidlo je už pokryté iným pravidlom bieleho zoznamu." },
+  "focussessionmode": { "message": "Režim sústredenia:" },
+  "focusmodeblacklist": { "message": "Blokovať čierny zoznam" },
+  "focusmodewhitelist": { "message": "Povoliť len biely zoznam" }
 }

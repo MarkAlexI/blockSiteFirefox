@@ -307,5 +307,15 @@
   "focussessionsounddesc": { "message": "ଫୋକସ୍ ସେସନ୍ ଶେଷ ହେବା ପରେ ଏକ ଶବ୍ଦ ବଜାନ୍ତୁ |" },
   "focussessionactivebanner": { "message": "ଫୋକସ୍ ସେସନ୍ ସକ୍ରିୟ ଅଛି! ବାକି ସମୟ:" },
   "focussessioninvalidduration": { "message": "ଦୟାକରି ଏକ ବୈଧ ଅବଧି ପ୍ରବେଶ କରନ୍ତୁ (୧-୨୪୦ ମିନିଟ୍) |" },
-  "successfulfocussessionslabel": { "message": "ସଫଳ ଫୋକସ୍ ସେସନ୍" }
+  "successfulfocussessionslabel": { "message": "ସଫଳ ଫୋକସ୍ ସେସନ୍" },
+  "rule_scheduled": { "message": "ନିର୍ଦ୍ଧାରିତ ନିୟମ" },
+  "addwhitelistrule": { "message": "ବ୍ୟତିକ୍ରମ ଯୋଡ଼ନ୍ତୁ" },
+  "category_whitelist": { "message": "ହ୍ୱାଇଟଲିଷ୍ଟ" },
+  "conflict_blacklist_err": { "message": "ଏହି ସାଇଟ୍ ପୂର୍ବରୁ ଆପଣଙ୍କ ବ୍ଲାକଲିଷ୍ଟରେ ଅଛି। ପ୍ରଥମେ ଏହାକୁ କାଢ଼ନ୍ତୁ।" },
+  "conflict_whitelist_err": { "message": "ଏହି ସାଇଟ୍ ପୂର୍ବରୁ ଆପଣଙ୍କ ହ୍ୱାଇଟଲିଷ୍ଟରେ ଅଛି। ପ୍ରଥମେ ଏହାକୁ କାଢ଼ନ୍ତୁ।" },
+  "status_allow": { "message": "ଅନୁମୋଦିତ" },
+  "redundant_whitelist_err": { "message": "ଏହି ନିୟମ ପୂର୍ବରୁ ଅନ୍ୟ ଏକ ହ୍ୱାଇଟଲିଷ୍ଟ ନିୟମ ଦ୍ୱାରା ଅନ୍ତର୍ଭୁକ୍ତ।" },
+  "focussessionmode": { "message": "ଫୋକସ୍ ମୋଡ୍:" },
+  "focusmodeblacklist": { "message": "ବ୍ଲାକଲିଷ୍ଟ ବ୍ଲକ୍ କରନ୍ତୁ" },
+  "focusmodewhitelist": { "message": "କେବଳ ହ୍ୱାଇଟଲିଷ୍ଟ ଅନୁମତି ଦିଅନ୍ତୁ" }
 }

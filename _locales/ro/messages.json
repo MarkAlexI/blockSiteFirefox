@@ -298,5 +298,15 @@
   "focussessionsounddesc": { "message": "Redă un sunet atunci când sesiunea de focus se termină." },
   "focussessionactivebanner": { "message": "Sesiune de focus activă! Timp rămas:" },
   "focussessioninvalidduration": { "message": "Te rugăm să introduci o durată validă (1-240 minute)." },
-  "successfulfocussessionslabel": { "message": "Sesiuni de focus reușite" }
+  "successfulfocussessionslabel": { "message": "Sesiuni de focus reușite" },
+  "rule_scheduled": { "message": "Regulă programată" },
+  "addwhitelistrule": { "message": "Adaugă excepție" },
+  "category_whitelist": { "message": "Lista albă" },
+  "conflict_blacklist_err": { "message": "Acest site este deja în lista ta neagră. Elimină-l mai întâi." },
+  "conflict_whitelist_err": { "message": "Acest site este deja în lista ta albă. Elimină-l mai întâi." },
+  "status_allow": { "message": "Permis" },
+  "redundant_whitelist_err": { "message": "Această regulă este deja acoperită de o altă regulă din lista albă." },
+  "focussessionmode": { "message": "Mod focalizare:" },
+  "focusmodeblacklist": { "message": "Blochează lista neagră" },
+  "focusmodewhitelist": { "message": "Permite doar lista albă" }
 }

@@ -300,10 +300,14 @@
   "focussessionactivebanner": { "message": "Активна фокус сесия! Оставащо време:" },
   "focussessioninvalidduration": { "message": "Моля, въведете валидна продължителност (1-240 минути)." },
   "successfulfocussessionslabel": { "message": "Успешни фокус сесии" },
-  "addwhitelistrule": { "message": "Добавяне на изключение" },
+  "rule_scheduled": { "message": "Планирано правило" },
+  "addwhitelistrule": { "message": "Добави изключение" },
   "category_whitelist": { "message": "Бял списък" },
-  "conflict_blacklist_err": { "message": "Този сайт вече е във вашия черен списък. Първо го премахнете." },
-  "conflict_whitelist_err": { "message": "Този сайт вече е във вашия бял списък. Първо го премахнете." },
+  "conflict_blacklist_err": { "message": "Този сайт вече е в черния ви списък. Първо го премахнете." },
+  "conflict_whitelist_err": { "message": "Този сайт вече е в белия ви списък. Първо го премахнете." },
   "status_allow": { "message": "Разрешено" },
-  "redundant_whitelist_err": { "message": "Това правило вече се покрива от друго правило от белия списък." }
+  "redundant_whitelist_err": { "message": "Това правило вече се покрива от друго правило в белия списък." },
+  "focussessionmode": { "message": "Режим на фокусиране:" },
+  "focusmodeblacklist": { "message": "Блокирай черния списък" },
+  "focusmodewhitelist": { "message": "Разреши само белия списък" }
 }

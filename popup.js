@@ -401,6 +401,7 @@ class PopupPage {
           const staticDash = document.createElement('span');
           staticDash.className = 'status-static-popup';
           staticDash.textContent = t('status_allow') || 'Allow';
+          staticDash.title = t('status_allow');
           ruleDiv.appendChild(staticDash);
         } else if (schedule) {
           const scheduleElement = document.createElement('span');
