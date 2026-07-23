@@ -451,8 +451,9 @@ browser.runtime.onInstalled.addListener(async (details) => {
     await initializeExtension(details);
     await checkAndRequestPermissions(details);
     
+    const installUrl = createInstallURL();
     browser.tabs.create({
-      url: createInstallURL(),
+      url: installUrl,
       active: true
     });
   } else if (details.reason === 'update') {

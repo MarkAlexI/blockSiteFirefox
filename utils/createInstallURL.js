@@ -1,14 +1,5 @@
 export function createInstallURL() {
-  const base = "https://blockdistraction.com/";
+  const url = browser.runtime.getURL('options/options.html');
   
-  const browser = "firefox";
-  const version = browser.runtime.getManifest().version;
-  
-  const params = new URLSearchParams({
-    src: "extension",
-    browser: browser,
-    ext_version: version
-  });
-  
-  return `${base}?${params.toString()}`;
+  return url;
 }
