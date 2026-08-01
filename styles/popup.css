@@ -7,7 +7,7 @@
   --success-border: #c3e6c3;
   --warning-bg: #fff3cd;
   --warning-border: #ffeaa7;
-  --danger-color: rebeccapurple;
+  --feedback-color: rebeccapurple;
   --bg-light: #f4f4f9;
   --bg-white: #fff;
   --border-light: #ddd;
@@ -33,10 +33,6 @@ body {
 body.ready {
   opacity: 1;
   overflow-y: auto;
-}
-
-.hidden {
-  display: none !important;
 }
 
 a {
@@ -82,7 +78,7 @@ a:hover {
   background-color: var(--bg-white);
   border: 1px solid var(--border-light);
   border-radius: 8px;
-  padding: clamp(0.5rem, 1vw, 0.5rem) clamp(0.75rem, 1.5vw, 0.75rem);
+  padding: 0.5rem 0.75rem;
   margin: 0.9375rem auto;
   display: inline-block;
   box-shadow: var(--shadow-small);
@@ -200,7 +196,7 @@ a:hover {
 
 button {
   border: none;
-  padding: clamp(0.625rem, 1.5vw, 0.625rem) clamp(0.9375rem, 2vw, 0.9375rem);
+  padding: 0.625rem 0.9375rem;
   border-radius: var(--border-radius);
   cursor: pointer;
   font-size: 1rem;
@@ -241,7 +237,7 @@ button:disabled {
 }
 
 #feedback-btn {
-  background-color: var(--danger-color);
+  background-color: var(--feedback-color);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -272,7 +268,7 @@ button:disabled {
   font-size: clamp(0.875rem, 2vw, 1rem);
   text-align: center;
   margin-bottom: 0.9375rem;
-  padding: 0 clamp(0.625rem, 2vw, 0.625rem);
+  padding: 0 0.625rem;
   font-weight: bold;
 }
 
@@ -322,7 +318,7 @@ button:disabled {
   }
   
   .controls button {
-    max-width: 48%;
+    max-width: 31%;
   }
   
   .rule {
@@ -403,6 +399,7 @@ button:disabled {
 }
 
 #focus-mode-control label {
+  flex: 0 0 auto;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -427,6 +424,7 @@ button:disabled {
   font-size: 0.95rem;
   color: var(--text-primary);
   cursor: pointer;
+  flex: 0 1 auto;
   transition: var(--transition);
   box-shadow: none;
   white-space: normal;
@@ -462,18 +460,6 @@ button:disabled {
 
 #focus-mode-select option:checked {
   background-color: rgba(0,0,0,0.04);
-}
-
-#focus-mode-control {
-  align-items: center;
-}
-
-#focus-mode-control label {
-  flex: 0 0 auto;
-}
-
-#focus-mode-select {
-  flex: 0 1 auto;
 }
 
 #focus-controls input[type="number"] {
@@ -522,14 +508,6 @@ button:disabled {
   background-color: var(--secondary-hover);
 }
 
-.delete-btn {
-  background-color: var(--danger-color);
-}
-
-.delete-btn:hover {
-  background-color: #5a2d82;
-}
-
 .hardcore-control {
   display: flex;
   align-items: center;
@@ -542,13 +520,6 @@ button:disabled {
 .hardcore-control label {
   font-weight: 500;
   cursor: pointer;
-}
-
-.focus-lock-active {
-  pointer-events: none;
-  opacity: 0.5;
-  filter: grayscale(80%);
-  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
 #add-whitelist-rule {
@@ -581,10 +552,4 @@ button:disabled {
   border-radius: 4px;
   border: 1px solid #c3e6c3;
   white-space: nowrap;
-}
-
-@media (min-width: 601px) {
-  .controls button {
-    max-width: 31%;
-  }
 }

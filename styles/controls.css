@@ -8,7 +8,11 @@
 
 .delete-btn {
   background-color: #ff4d4d;
-  transition: all 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .delete-btn:hover {
@@ -52,12 +56,20 @@
   right: 2rem;
   z-index: 100;
   opacity: 0;
-  transition: all 0.5s ease;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    visibility 0.5s ease;
 }
 
-.showBtn {
-  opacity: .8;
-  transition: translateY(0);
+.scrollToTopBtn.showBtn {
+  opacity: 0.8;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 @keyframes pulse {
@@ -91,10 +103,4 @@
 .text-disabled {
   color: #94a3b8;
   font-style: italic;
-}
-
-.category-tag.whitelist {
-  background-color: #dcfce7;
-  color: #166534;
-  border: 1px solid #bbf7d0;
 }

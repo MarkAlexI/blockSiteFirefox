@@ -1,19 +1,22 @@
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background: white;
+  box-sizing: border-box;
+  width: min(90vw, 360px);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
   padding: 20px;
   border-radius: 8px;
+  background: white;
   text-align: center;
 }
 
@@ -24,19 +27,12 @@
   width: 80%;
 }
 
-.error {
-  color: red;
-}
-
-.hidden {
-  display: none;
-}
-
-.modal-content input.hidden {
-  display: none !important;
+.modal .error {
+  color: #dc2626;
 }
 
 #forgotPassword {
+  display: inline-block;
   margin-top: 1rem;
 }
 

@@ -10,11 +10,12 @@
   --pro-text-primary: #202124;
   --pro-text-secondary: #5f6368;
   
-  & div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+}
+
+.go-pro > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 p#ext-version {
@@ -29,7 +30,7 @@ p#ext-version {
   color: #ffffff;
   font-weight: bold;
   padding: 10px 16px;
-  border: thin;
+  border: none;
   border-radius: 8px 6px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -199,11 +200,9 @@ p#ext-version {
 }
 
 #force-sync-btn:hover {
+  background: none;
+  transform: none;
   text-decoration: underline;
-}
-
-.hidden {
-  display: none;
 }
 
 #license-message {
@@ -213,7 +212,8 @@ p#ext-version {
   border-radius: 5px;
 }
 
-#license-message.error {
+#license-message.error,
+#license-message.error-message {
   color: var(--pro-color-error);
   background-color: rgba(220, 53, 69, 0.1);
 }
@@ -233,11 +233,11 @@ p#ext-version {
   font-weight: bold;
 }
 
-.danger {
+#log-out-btn {
   background-color: var(--pro-color-error);
   border-radius: 10px 5px;
-  
-  &:hover {
-    background-color: #dd3555;
-  }
+}
+
+#log-out-btn:hover {
+  background-color: #dd3555;
 }
