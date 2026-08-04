@@ -416,8 +416,6 @@ export class RulesManager {
           await browser.storage.local.set({ is_migrated_to_local: true });
           this.logger.log('Rules successfully migrated to local storage on this device.');
           
-          await this.syncDnrRules();
-          
           browser.runtime.sendMessage({
             type: 'reload_rules'
           });

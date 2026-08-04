@@ -14,9 +14,19 @@ import { shouldSkipSync } from '../utils/shouldSkipSync.js';
 import { isBlockedURL } from './isBlockedURL.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
+import { createDnrSynchronizer } from './dnrSynchronizer.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
+
+const dnrSynchronizer = createDnrSynchronizer({
+  rulesManager,
+  getSettings: () => SettingsManager.getSettings(),
+  getFocusSessionState,
+  closeTabsMatchingRules,
+  declarativeNetRequest: browser.declarativeNetRequest,
+  logger
+});
 
 /**
  * Checks a single tab URL against active Whitelist rules during 'whitelist' Focus Session.
@@ -199,48 +209,6 @@ if (browser.contextMenus) {
   });
 }
 
-async function updateActiveRules() {
-  try {
-    const rules = await rulesManager.getRules();
-    const settings = await SettingsManager.getSettings();
-    const { focusActive } = await getFocusSessionState();
-    const disabledCategories = settings.disabledCategories || [];
-
-    const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
-    const removeRuleIds = currentDnrRules.map(r => r.id);
-
-    const activeRules = rules.filter(rule =>
-      !rule.isWhitelist && rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive)
-    );
-    
-    const addRules = [];
-    const urlsToClose = [];
-  
-    for (const rule of activeRules) {
-      urlsToClose.push(rule.blockURL);
-      
-      const dnrRule = await rulesManager.createDNRRule(rule.id, rule.blockURL, rule.redirectURL);
-      if (dnrRule) {
-        addRules.push(dnrRule);
-      }
-    }
-
-    await browser.declarativeNetRequest.updateDynamicRules({
-      removeRuleIds,
-      addRules
-    });
-    
-    logger.log(`DNR Rules updated: removed ${removeRuleIds.length}, added ${addRules.length}`);
-    
-    if (urlsToClose.length > 0) {
-      await closeTabsMatchingRules(urlsToClose);
-    }
-    
-  } catch (error) {
-    logger.info("Error updating active rules:", error);
-  }
-}
-
 async function clearAllDnrRules() {
   try {
     const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
@@ -273,28 +241,6 @@ async function showUpdates(details) {
         url: browser.runtime.getURL(`update/update.html?version=${version}`)
       });
     }
-  }
-}
-
-async function validateDnrIntegrity() {
-  try {
-    const rules = await rulesManager.getRules();
-    const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
-    
-    const storageIds = new Set(rules.filter(r => !r.isWhitelist).map(r => r.id));
-    const dnrIds = new Set(dnrRules.map(r => r.id));
-    
-    const isInSync = storageIds.size === dnrIds.size && [...storageIds].every(id => dnrIds.has(id));
-    
-    if (!isInSync) {
-      logger.warn("DNR rules out of sync, triggering sync...");
-      await updateActiveRules();
-    }
-    
-    return isInSync;
-  } catch (error) {
-    logger.error("DNR integrity check failed:", error);
-    return false;
   }
 }
 
@@ -359,7 +305,7 @@ browser.runtime.onStartup.addListener(async () => {
   await checkAndRequestPermissions({ reason: 'startup' });
   
   logger.log("Extension startup - syncing DNR rules");
-  await updateActiveRules();
+  await dnrSynchronizer.requestSync();
   
   try {
     const result = await syncLicenseKeyStatus();
@@ -370,7 +316,7 @@ browser.runtime.onStartup.addListener(async () => {
     logger.error('Error syncing:', error);
   }
   
-  await validateDnrIntegrity();
+  await dnrSynchronizer.validateIntegrity();
 });
 
 async function initializeExtension(details) {
@@ -487,7 +433,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
   } else if (details.reason === 'chrome_update' || details.reason === 'browser_update') {
     logger.log("Browser updated.");
     await initializeExtension(details);
-    await validateDnrIntegrity();
+    await dnrSynchronizer.validateIntegrity();
     await checkAndRequestPermissions(details);
   } else if (details.reason === 'shared_module_update') {
     logger.log("Shared module updated.");
@@ -560,7 +506,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   if (message.type === 'reload_rules') {
     (async () => {
-      await updateActiveRules();
+      await dnrSynchronizer.requestSync();
       logger.log('Rules updated.');
     })();
     return;
@@ -597,7 +543,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         
         browser.alarms.create('end_focus_session', { delayInMinutes: durationMinutes });
         
-        await updateActiveRules();
+        await dnrSynchronizer.requestSync();
         
         if (focusMode === 'whitelist') {
           await checkAllTabsAgainstWhitelist();
@@ -620,7 +566,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
         });
         await browser.alarms.clear('end_focus_session');
-        await updateActiveRules();
+        await dnrSynchronizer.requestSync();
         logger.log('Focus Session: Stopped by user.');
         sendResponse({ success: true });
       } catch (error) {
@@ -633,7 +579,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   if (message.type === 'permissions_granted') {
     logger.log("Permissions granted via onboarding.");
-    updateActiveRules();
+    dnrSynchronizer.requestSync();
   }
   
   if (message.type === 'delete_all_rules') {
@@ -667,7 +613,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
     await browser.storage.local.set({
       focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
     });
-    await updateActiveRules();
+    await dnrSynchronizer.requestSync();
     await StatisticsManager.recordFocusSession();
     
     const settings = await SettingsManager.getSettings();
@@ -686,7 +632,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   }
   
   if (alarm.name === 'update_scheduled_rules') {
-    await updateActiveRules();
+    await dnrSynchronizer.requestSync();
   }
 });
 

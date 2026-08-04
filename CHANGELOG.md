@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.7] - 2026-08-04
+### Improved
+- Replaced full DNR rule rebuilds with content-aware synchronization that updates only added, removed, or changed rules.
+- Preserved stable rule IDs while atomically replacing edited DNR rules whose conditions or actions changed.
+- Serialized overlapping DNR synchronization requests to prevent older runs from overwriting newer rule state.
+- Extracted DNR synchronization into a dedicated module with dependency injection for isolated testing.
+- Added permanent unit tests for DNR diffing, stable-ID replacement, integrity recovery, and overlapping sync requests.
+### Fixed
+- Updated DNR integrity validation to compare the browser rules with the actual active rule set, excluding disabled, inactive scheduled, category-disabled, and whitelist rules.
+- Removed an obsolete migration call to the deleted `syncDnrRules` method.
+
 ## [4.2.6] - 2026-08-04
 ### Fixed
 - Fixed password protection being disabled when importing an export without password credentials.
