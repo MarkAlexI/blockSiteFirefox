@@ -141,9 +141,7 @@ export class RulesUI {
       toggleElement.style.cursor = 'pointer';
       toggleElement.addEventListener('click', async () => {
         try {
-          await onToggle(index);
-          toggleElement.textContent = toggleElement.textContent === '✓' ? '✗' : '✓';
-          toggleElement.title = toggleElement.title === (t('rule_enabled') || 'Enabled') ? (t('rule_disabled') || 'Disabled') : (t('rule_enabled') || 'Enabled');
+          await onToggle(rule.id);
         } catch (error) {
           this.logger.error('Toggle rule error:', error);
         }
@@ -158,14 +156,14 @@ export class RulesUI {
     if (showEditButtons) {
       const editBtn = document.createElement('button');
       editBtn.textContent = t('editbtn');
-      editBtn.addEventListener('click', () => onEdit(row, index, rule));
+      editBtn.addEventListener('click', () => onEdit(row, rule.id, rule));
       actionsCell.appendChild(editBtn);
     }
     
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-btn';
     deleteBtn.textContent = t('deletebtn');
-    deleteBtn.addEventListener('click', (e) => onDelete(e, index));
+    deleteBtn.addEventListener('click', (e) => onDelete(e, rule.id));
     actionsCell.appendChild(deleteBtn);
     
     row.appendChild(actionsCell);
@@ -250,7 +248,7 @@ export class RulesUI {
       try {
         const category = isWhitelist ? 'whitelist' : categorySelect.value;
         const schedule = isWhitelist ? null : this.getScheduleFromSection(scheduleSection);
-        onSave(index, blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule, rule.id, null);
+        onSave(rule.id, blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule);
       } catch (error) {
         this.logger.info('Edit: Schedule error:', error.message);
         this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');

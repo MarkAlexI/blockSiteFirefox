@@ -2,6 +2,7 @@ import { t } from '../scripts/t.js';
 import { SettingsManager } from './settings.js';
 import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
+import { RulesClient } from '../rules/rulesClient.js';
 import { RulesUI } from '../rules/rulesUI.js';
 import { CategoryManager } from '../rules/categoryManager.js';
 import { CategoryUIManager } from './categoryUIManager.js';
@@ -19,6 +20,7 @@ class OptionsPage {
     this.logger = logger;
     this.settingsManager = new SettingsManager();
     this.rulesManager = new RulesManager();
+    this.rulesClient = new RulesClient();
     this.rulesUI = new RulesUI();
     
     this.rulesBody = document.getElementById('rules-container');
@@ -43,11 +45,6 @@ class OptionsPage {
   async init() {
     this.initializeUI();
     this.setupEventListeners();
-    this.settingsManager.setRulesUpdatedCallback(() => {
-      this.loadRules();
-      this.loadCategories();
-    });
-    
     try {
       this.isPro = await ProManager.isPro();
       this.isLegacyUser = await ProManager.isLegacyUser();
@@ -127,23 +124,37 @@ class OptionsPage {
       }, t);
     });
   }
+
+  handleRulesMutationError(error, fallbackKey = 'errorupdatingrules') {
+    if (error.code === 'validation_failed') {
+      this.rulesUI.showValidationErrors(error.validationErrors || []);
+    } else if (error.code === 'rule_already_exists') {
+      this.rulesUI.showErrorMessage(t('alertruleexist'));
+    } else if (error.code === 'conflict_blacklist') {
+      this.rulesUI.showErrorMessage(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
+    } else if (error.code === 'conflict_whitelist') {
+      this.rulesUI.showErrorMessage(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
+    } else if (error.code === 'redundant_whitelist') {
+      this.rulesUI.showErrorMessage(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
+    } else if (error.code === 'rule_limit_reached') {
+      this.rulesUI.showErrorMessage(t('rulelimitreached', MAX_RULES_LIMIT));
+    } else if (error.code === 'pro_required') {
+      this.rulesUI.showErrorMessage(t('prorequired'));
+    } else {
+      this.rulesUI.showErrorMessage(t(fallbackKey));
+    }
+  }
   
   async loadRules(rules_from_message = null) {
     try {
       let rules;
-      let migrationResult = { migrated: false };
       
       if (Array.isArray(rules_from_message)) {
         rules = rules_from_message;
         this.logger.log("Options: Loading rules from message.");
       } else {
         this.logger.log("Options: Fetching rules from storage.");
-        migrationResult = await this.rulesManager.migrateRules();
-        rules = migrationResult.rules || await this.rulesManager.getRules();
-      }
-      
-      if (migrationResult.migrated && !rules_from_message) {
-        this.rulesUI.showAlert(t('rulesmigrated'));
+        rules = await this.rulesManager.getRules();
       }
       
       let filteredRules = rules;
@@ -198,12 +209,16 @@ class OptionsPage {
     const row = this.rulesUI.createRuleDisplayRow(
       rule,
       index,
-      (row, index, rule) => this.toggleEditMode(row, index, rule),
-      (e, index) => this.handleRuleDeletion(e, index),
-      async (index) => {
+      (row, ruleId, rule) => this.toggleEditMode(row, ruleId, rule),
+      (e, ruleId) => this.handleRuleDeletion(e, ruleId),
+      async (ruleId) => {
           if (isMuted) return;
-          await this.rulesManager.toggleRuleDisabled(index);
-          await this.loadRules();
+          try {
+            await this.rulesClient.toggleRule(ruleId);
+          } catch (error) {
+            this.logger.error('Toggle rule error:', error);
+            this.handleRulesMutationError(error, 'errorupdatingrules');
+          }
         },
         canEdit,
         disabledCategories
@@ -214,7 +229,7 @@ class OptionsPage {
     return row;
   }
   
-  async handleRuleDeletion(event, index) {
+  async handleRuleDeletion(event, ruleId) {
     try {
       const isStrictMode = await this.rulesManager.isStrictMode();
       const deleteButton = event.target;
@@ -229,9 +244,8 @@ class OptionsPage {
         deleteButton,
         async () => {
             try {
-              await this.rulesManager.deleteRule(index);
+              await this.rulesClient.deleteRule(ruleId);
               this.rulesUI.showSuccessMessage(t('ruleddeleted'), this.statusElement);
-              this.loadRules();
             } catch (error) {
               this.logger.error("Delete rule error:", error);
               this.rulesUI.showErrorMessage(t('errorremovingrule'));
@@ -246,7 +260,7 @@ class OptionsPage {
     }
   }
   
-  async toggleEditMode(row, index, rule) {
+  async toggleEditMode(row, ruleId, rule) {
     const settings = await SettingsManager.getSettings();
     const disabledCategories = settings.disabledCategories || [];
     const isWhitelist = rule.isWhitelist || false;
@@ -257,8 +271,8 @@ class OptionsPage {
     }
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
-      index,
-      (index, blockValue, redirectValue, category, schedule, ruleId) => this.saveEditedRule(index, blockValue, redirectValue, category, schedule, ruleId, rule.disabledByUser, isWhitelist),
+      ruleId,
+      (ruleId, blockValue, redirectValue, category, schedule) => this.saveEditedRule(ruleId, blockValue, redirectValue, category, schedule, rule.disabledByUser, isWhitelist),
       () => this.loadRules(),
       this.isPro,
       rule.disabledByUser
@@ -272,35 +286,21 @@ class OptionsPage {
     row.replaceWith(editRow);
   }
   
-  async saveEditedRule(index, newBlock, newRedirect, newCategory, newSchedule, oldRuleId, disabledByUser, isWhitelist = false) {
+  async saveEditedRule(ruleId, newBlock, newRedirect, newCategory, newSchedule, disabledByUser, isWhitelist = false) {
     try {
-      await this.rulesManager.updateRule(index, newBlock, isWhitelist ? '' : newRedirect, newSchedule, isWhitelist ? 'whitelist' : newCategory, disabledByUser);
-      
-      if (newBlock && !disabledByUser && !isWhitelist) {
-        browser.runtime.sendMessage({
-          type: 'CLOSE_MATCHING_TABS',
-          url: newBlock.trim()
-        });
-      }
+      await this.rulesClient.updateRule({
+        ruleId,
+        blockURL: newBlock,
+        redirectURL: isWhitelist ? '' : newRedirect,
+        schedule: newSchedule,
+        category: isWhitelist ? 'whitelist' : newCategory,
+        disabledByUser
+      });
       
       this.statusElement.textContent = t('ruleupdated');
-      await this.loadRules();
     } catch (error) {
       this.logger.info("Save edited rule error:", error);
-      if (error.message.includes('Validation failed')) {
-        const errors = error.message.replace('Validation failed: ', '').split(', ');
-        this.rulesUI.showValidationErrors(errors);
-      } else if (error.message === 'Rule already exists') {
-        this.rulesUI.showErrorMessage(t('alertruleexist'));
-      } else if (error.message === 'conflict_blacklist') {
-        this.rulesUI.showErrorMessage(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
-      } else if (error.message === 'conflict_whitelist') {
-        this.rulesUI.showErrorMessage(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
-      } else if (error.message === 'redundant_whitelist') {
-        this.rulesUI.showErrorMessage(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
-      } else {
-        this.rulesUI.showErrorMessage(t('errorupdatingrules'));
-      }
+      this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
   
@@ -330,33 +330,18 @@ class OptionsPage {
   
   async saveNewRule(newBlock, newRedirect, newCategory, newSchedule, row, isWhitelist = false) {
     try {
-      await this.rulesManager.addRule(newBlock, isWhitelist ? '' : newRedirect, newSchedule, isWhitelist ? 'whitelist' : newCategory, isWhitelist);
-      
-      if (newBlock && !isWhitelist) {
-        browser.runtime.sendMessage({
-          type: 'CLOSE_MATCHING_TABS',
-          url: newBlock.trim()
-        });
-      }
+      await this.rulesClient.addRule({
+        blockURL: newBlock,
+        redirectURL: isWhitelist ? '' : newRedirect,
+        schedule: newSchedule,
+        category: isWhitelist ? 'whitelist' : newCategory,
+        isWhitelist
+      });
       
       this.statusElement.textContent = t('rulenewadded');
-      this.loadRules();
     } catch (error) {
       this.logger.info("Save new rule error:", error);
-      if (error.message.includes('Validation failed')) {
-        const errors = error.message.replace('Validation failed: ', '').split(', ');
-        this.rulesUI.showValidationErrors(errors);
-      } else if (error.message === 'Rule already exists') {
-        this.rulesUI.showErrorMessage(t('alertruleexist'));
-      } else if (error.message === 'conflict_blacklist') {
-        this.rulesUI.showErrorMessage(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
-      } else if (error.message === 'conflict_whitelist') {
-        this.rulesUI.showErrorMessage(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
-      } else if (error.message === 'redundant_whitelist') {
-        this.rulesUI.showErrorMessage(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
-      } else {
-        this.rulesUI.showErrorMessage(t('errorupdatingrules'));
-      }
+      this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
   
@@ -384,9 +369,7 @@ class OptionsPage {
         this.loadCategories();
         return;
       }
-      await this.rulesManager.toggleCategoryDisabled(category);
-      this.loadCategories();
-      this.loadRules();
+      await this.rulesClient.toggleCategory(category);
     } catch (error) {
       this.logger.error('Category toggle error:', error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
@@ -405,9 +388,13 @@ window.addEventListener('beforeunload', () => {
 });
 
 browser.runtime.onMessage.addListener((message) => {
-  if (message.type === 'reload_rules') {
-    logger.log('Reload rules');
+  if (message.type === 'rules:changed') {
+    logger.log('Rules changed');
+    if (message.migrated) {
+      optionsPage.rulesUI.showAlert(t('rulesmigrated'));
+    }
     optionsPage.loadRules(message.rules);
+    optionsPage.loadCategories();
     if (optionsPage.settingsManager) {
       optionsPage.settingsManager.loadRuleCount(message.rules);
     }

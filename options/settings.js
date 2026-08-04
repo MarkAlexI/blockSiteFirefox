@@ -4,10 +4,12 @@ import { PasswordUtils } from '../pro/password.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
 import Logger from '../utils/logger.js';
+import { RulesClient } from '../rules/rulesClient.js';
 
 export class SettingsManager {
   constructor() {
     this.logger = new Logger('SettingsManager');
+    this.rulesClient = new RulesClient();
     this.defaultSettings = {
       mode: 'normal',
       confirmBeforeDelete: false,
@@ -22,13 +24,7 @@ export class SettingsManager {
     this.focusBannerTimer = document.getElementById('focus-banner-timer');
     this.focusTimerInterval = null;
     
-    this.onRulesUpdated = null;
-    
     this.init();
-  }
-  
-  setRulesUpdatedCallback(callback) {
-    this.onRulesUpdated = callback;
   }
   
   async init() {
@@ -454,76 +450,26 @@ export class SettingsManager {
       
       if (!confirmImport) return;
       
-      try {
-        const response = await browser.runtime.sendMessage({
-          type: 'delete_all_rules'
-        });
-        
-        if (!response || !response.success) {
-          throw new Error(response?.error || 'Failed to clear old rules via Worker');
-        }
-      } catch (err) {
-        this.logger.error('Communication error:', err);
-        this.showStatus(t('errorcommunication'), 'error');
-        return;
+      const response = await this.rulesClient.replaceAll(
+        importData.rules,
+        importData.settings || null
+      );
+      
+      if (response.settings) {
+        this.applySettingsToUI(response.settings);
       }
       
-      const rulesToSave = importData.rules.map((rule, index) => ({
-        ...rule,
-        id: index + 1,
-        blockURL: rule.blockURL ? rule.blockURL.trim() : '',
-        redirectURL: rule.redirectURL ? rule.redirectURL.trim() : '',
-        category: rule.category || 'uncategorized'
-      }));
-      
-      const saveData = {
-        rules: rulesToSave
-      };
-      
-      const saveSettings = {};
-      
-      if (importData.settings) {
-        const currentSettingsResult = await browser.storage.sync.get(['settings']);
-        const currentSettings = {
-          ...this.defaultSettings,
-          ...(currentSettingsResult.settings || {})
-        };
-        const importedSettings = { ...importData.settings };
-        
-        delete importedSettings.enablePassword;
-        delete importedSettings.passwordHash;
-        
-        saveSettings.settings = {
-          ...currentSettings,
-          ...importedSettings,
-          enablePassword: currentSettings.enablePassword,
-          passwordHash: currentSettings.passwordHash
-        };
-        await browser.storage.sync.set(saveSettings);
-        this.applySettingsToUI(saveSettings.settings);
-      }
-      
-      await browser.storage.local.set(saveData);
-      
-      browser.runtime.sendMessage({
-        type: 'reload_rules'
-      });
-      
-      await this.loadRuleCount(saveData.rules);
+      await this.loadRuleCount(response.rules || []);
       await this.loadStatistics();
       
       this.showStatus(t('importedrules', `${importData.rules.length}`), 'success');
-      
       document.getElementById('importFileInput').value = '';
-      
-      if (this.onRulesUpdated) {
-        this.onRulesUpdated();
-      }
-      
-      this.notifyOptionsReload();
     } catch (error) {
       this.logger.error('Error importing rules:', error);
-      this.showStatus(t('errorimportingrules') + error.message, 'error');
+      const validationSuffix = error.code === 'validation_failed' && error.validationErrors?.length ?
+        ` (${error.validationErrors.join(', ')})` :
+        '';
+      this.showStatus(t('errorimportingrules') + error.message + validationSuffix, 'error');
     }
   }
   
@@ -544,17 +490,9 @@ export class SettingsManager {
     if (!confirmClear) return;
     
     try {
-      await browser.runtime.sendMessage({
-        type: 'delete_all_rules'
-      });
-      
-      await this.loadRuleCount([]);
+      const response = await this.rulesClient.clearRules();
+      await this.loadRuleCount(response.rules || []);
       this.showStatus(t('allrulescleared'), 'success');
-      
-      if (this.onRulesUpdated) {
-        this.onRulesUpdated();
-      }
-      this.notifyOptionsReload();
     } catch (error) {
       this.logger.error('Error clearing rules:', error);
       this.showStatus(t('errorclearingrules'), 'error');
@@ -590,13 +528,4 @@ export class SettingsManager {
     }, 3000);
   }
   
-  notifyOptionsReload() {
-    try {
-      browser.runtime.sendMessage({
-        type: 'reload_rules'
-      });
-    } catch (e) {
-      this.logger.log("Could not send reload message (maybe background inactive)", e);
-    }
-  }
 }

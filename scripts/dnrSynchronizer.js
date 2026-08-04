@@ -108,6 +108,8 @@ export function createDnrSynchronizer({
       buildDnrDiff(currentRules, expectedRules);
 
     if (removeRuleIds.length > 0 || addRules.length > 0) {
+      // Always pass both arrays. In particular, clearing all rules requires the
+      // complete removeRuleIds array together with addRules: [].
       await declarativeNetRequest.updateDynamicRules({
         removeRuleIds,
         addRules
@@ -123,18 +125,41 @@ export function createDnrSynchronizer({
     if (urlsToClose.length > 0) {
       await closeTabsMatchingRules(urlsToClose);
     }
+
+    return {
+      success: true,
+      changed: removeRuleIds.length > 0 || addRules.length > 0,
+      removed: removeRuleIds.length,
+      added: addRules.length
+    };
   }
 
   async function runRulesSyncLoop() {
+    let lastResult = {
+      success: true,
+      changed: false,
+      removed: 0,
+      added: 0
+    };
+
     do {
       syncRequestedAgain = false;
 
       try {
-        await syncActiveRulesOnce();
+        lastResult = await syncActiveRulesOnce();
       } catch (error) {
         logger.info('Error updating active rules:', error);
+        lastResult = {
+          success: false,
+          changed: false,
+          removed: 0,
+          added: 0,
+          error: error?.message || String(error)
+        };
       }
     } while (syncRequestedAgain);
+
+    return lastResult;
   }
 
   function requestSync() {

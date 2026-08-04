@@ -246,3 +246,21 @@ test('integrity validation compares against active rules and repairs drift', asy
     [1]
   );
 });
+
+test('clearing all active rules passes every ID with an explicit empty addRules array', async () => {
+  const harness = createHarness({
+    storedRules: [],
+    currentDnrRules: [
+      makeDnrRule({ id: 4, urlFilter: '||one.example' }),
+      makeDnrRule({ id: 9, urlFilter: '||two.example' })
+    ]
+  });
+
+  await harness.synchronizer.requestSync();
+
+  assert.deepEqual(harness.updates, [{
+    removeRuleIds: [4, 9],
+    addRules: []
+  }]);
+  assert.deepEqual(harness.getDynamicRules(), []);
+});

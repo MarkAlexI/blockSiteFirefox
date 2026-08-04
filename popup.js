@@ -4,6 +4,7 @@ import { getCurrentTabs } from './scripts/getCurrentTabs.js';
 import { normalizeDomainRule } from './rules/normalizeDomainRule.js';
 import { t } from './scripts/t.js';
 import { RulesManager } from './rules/rulesManager.js';
+import { RulesClient } from './rules/rulesClient.js';
 import { RulesUI } from './rules/rulesUI.js';
 import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
@@ -20,6 +21,7 @@ class PopupPage {
   constructor() {
     this.logger = logger;
     this.rulesManager = new RulesManager();
+    this.rulesClient = new RulesClient();
     this.rulesUI = new RulesUI();
     this.scheduleFormatter = new ScheduleFormatter();
     
@@ -203,12 +205,7 @@ class PopupPage {
   
   async loadRules() {
     try {
-      const migrationResult = await this.rulesManager.migrateRules();
-      if (migrationResult.migrated) {
-        customAlert(t('rulesmigrated'));
-      }
-      
-      const rules = migrationResult.rules || await this.rulesManager.getRules();
+      const rules = await this.rulesManager.getRules();
       
       this.currentRuleCount = rules.length;
       
@@ -319,18 +316,19 @@ class PopupPage {
           }
         }
         
-        await this.rulesManager.addRule(url, '');
-        await this.loadRules();
-        customAlert('+ 1');
-        browser.runtime.sendMessage({
-          type: 'CLOSE_MATCHING_TABS',
-          url: url
+        await this.rulesClient.addRule({
+          blockURL: url,
+          redirectURL: '',
+          schedule: null,
+          category: 'social',
+          isWhitelist: false
         });
+        customAlert('+ 1');
         button.remove();
       }
     } catch (error) {
       this.logger.error("Block current site error:", error);
-      customAlert(t('erroraddingrule'));
+      this.handleRulesMutationError(error, 'erroraddingrule');
     }
   }
   
@@ -419,16 +417,10 @@ class PopupPage {
           toggleElement.addEventListener('click', async () => {
             if (isMuted) return;
             try {
-              const rules = await this.rulesManager.getRules();
-              const index = rules.findIndex(r => r.id === ruleId);
-              if (index !== -1) {
-                await this.rulesManager.toggleRuleDisabled(index);
-                await this.loadRules();
-                toggleElement.textContent = toggleElement.textContent === '✓' ? '✗' : '✓';
-                toggleElement.title = toggleElement.title === (t('rule_enabled') || 'Enabled') ? (t('rule_disabled') || 'Disabled') : (t('rule_enabled') || 'Enabled');
-              }
+              await this.rulesClient.toggleRule(ruleId);
             } catch (error) {
               this.logger.error('Toggle rule error:', error);
+              this.handleRulesMutationError(error, 'errorupdatingrules');
             }
           });
           ruleDiv.appendChild(toggleElement);
@@ -442,7 +434,7 @@ class PopupPage {
         
         deleteButton.addEventListener('click', async () => {
           if (isMuted) return;
-          await this.handleRuleDeletion(deleteButton, blockURL.value, redirectURL.value, ruleDiv);
+          await this.handleRuleDeletion(deleteButton, ruleId, blockURL.value, ruleDiv);
         });
         
         ruleDiv.appendChild(deleteButton);
@@ -578,6 +570,26 @@ class PopupPage {
     await this.updateFocusUI();
   }
   
+  handleRulesMutationError(error, fallbackKey = 'erroraddingrule') {
+    if (error.code === 'validation_failed') {
+      this.rulesUI.showValidationErrors(error.validationErrors || []);
+    } else if (error.code === 'rule_already_exists') {
+      customAlert(t('alertruleexist'));
+    } else if (error.code === 'conflict_blacklist') {
+      customAlert(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
+    } else if (error.code === 'conflict_whitelist') {
+      customAlert(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
+    } else if (error.code === 'redundant_whitelist') {
+      customAlert(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
+    } else if (error.code === 'rule_limit_reached') {
+      customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
+    } else if (error.code === 'pro_required') {
+      customAlert(t('prorequired'));
+    } else {
+      customAlert(t(fallbackKey));
+    }
+  }
+  
   async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist = false) {
     try {
       if (!isWhitelist && !this.isPro && !this.isLegacyUser) {
@@ -588,58 +600,28 @@ class PopupPage {
         }
       }
       
-      const rules = await this.rulesManager.getRules();
-      const ruleExists = this.rulesManager.ruleExists(rules, blockURL.value, redirectURL.value, -1, isWhitelist);
-      
-      if (ruleExists) {
-        customAlert(t('alertruleexist'));
-        blockURL.value = '';
-        redirectURL.value = '';
-        return;
-      }
-      
-      await this.rulesManager.addRule(
-        blockURL.value,
-        isWhitelist ? '' : redirectURL.value,
-        null,
-        isWhitelist ? 'whitelist' : 'social',
+      await this.rulesClient.addRule({
+        blockURL: blockURL.value,
+        redirectURL: isWhitelist ? '' : redirectURL.value,
+        schedule: null,
+        category: isWhitelist ? 'whitelist' : 'social',
         isWhitelist
-      );
-      await this.loadRules();
+      });
       
       ruleDiv.remove();
-      
       customAlert('+ 1');
-      
-      if (!isWhitelist) {
-        browser.runtime.sendMessage({
-          type: 'CLOSE_MATCHING_TABS',
-          url: blockURL.value.trim()
-        });
-      }
     } catch (error) {
       this.logger.error("Save new rule error:", error);
+      this.handleRulesMutationError(error, 'erroraddingrule');
       
-      if (error.message.includes('Validation failed')) {
-        const errors = error.message.replace('Validation failed: ', '').split(', ');
-        this.rulesUI.showValidationErrors(errors);
-      } else if (error.message === 'Rule already exists') {
-        customAlert(t('alertruleexist'));
+      if (error.code === 'rule_already_exists') {
         blockURL.value = '';
         redirectURL.value = '';
-      } else if (error.message === 'conflict_blacklist') {
-        customAlert(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
-      } else if (error.message === 'conflict_whitelist') {
-        customAlert(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
-      } else if (error.message === 'redundant_whitelist') {
-        customAlert(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
-      } else {
-        customAlert(t('erroraddingrule'));
       }
     }
   }
   
-  async handleRuleDeletion(deleteButton, blockURL, redirectURL, ruleDiv) {
+  async handleRuleDeletion(deleteButton, ruleId, blockURL, ruleDiv) {
     try {
       if (!blockURL) {
         ruleDiv.remove();
@@ -655,15 +637,12 @@ class PopupPage {
       }
       
       const isStrictMode = await this.rulesManager.isStrictMode();
-      const isWhitelist = ruleDiv.dataset.isWhitelist === 'true';
-      
       this.rulesUI.handleRuleDeletion(
         deleteButton,
         async () => {
             try {
-              if (blockURL) {
-                await this.rulesManager.deleteRuleByData(blockURL, redirectURL, isWhitelist);
-                await this.loadRules();
+              if (blockURL && ruleId !== null) {
+                await this.rulesClient.deleteRule(ruleId);
                 customAlert('- 1');
               } else {
                 ruleDiv.remove();
@@ -724,7 +703,13 @@ window.addEventListener('beforeunload', () => {
 });
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'reload_rules') {
+  if (message.type === 'rules:changed') {
+    if (message.settings) {
+      popupPage.settings = message.settings;
+    }
+    if (message.migrated) {
+      customAlert(t('rulesmigrated'));
+    }
     popupPage.loadRules();
   }
   

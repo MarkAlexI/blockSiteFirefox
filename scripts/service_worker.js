@@ -7,7 +7,7 @@ import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
-import { VERIFY_API_URL, IS_FIREFOX, LICENSE_SYNC_TIMEOUT_MS } from '../utils/constants.js';
+import { VERIFY_API_URL, IS_FIREFOX, LICENSE_SYNC_TIMEOUT_MS, MAX_RULES_LIMIT } from '../utils/constants.js';
 import { updateUninstallURL } from '../utils/updateUninstallURL.js';
 import { createInstallURL } from '../utils/createInstallURL.js';
 import { shouldSkipSync } from '../utils/shouldSkipSync.js';
@@ -15,6 +15,7 @@ import { isBlockedURL } from './isBlockedURL.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer } from './dnrSynchronizer.js';
+import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -27,6 +28,66 @@ const dnrSynchronizer = createDnrSynchronizer({
   declarativeNetRequest: browser.declarativeNetRequest,
   logger
 });
+
+function notifyRulesChanged(rules, extra = {}) {
+  try {
+    browser.runtime.sendMessage({
+      type: 'rules:changed',
+      rules,
+      ...extra
+    }, () => {
+      void browser.runtime.lastError;
+    });
+  } catch (error) {
+    logger.info('No active extension page received rules:changed:', error);
+  }
+}
+
+const rulesMutationService = createRulesMutationService({
+  rulesManager,
+  dnrSynchronizer,
+  declarativeNetRequest: browser.declarativeNetRequest,
+  getAccess: async () => ({
+    isPro: await ProManager.isPro(),
+    isLegacyUser: await ProManager.isLegacyUser()
+  }),
+  getSettings: () => SettingsManager.getSettings(),
+  saveSettings: (settings) => browser.storage.sync.set({ settings }),
+  maxRulesLimit: MAX_RULES_LIMIT,
+  notifyRulesChanged,
+  logger
+});
+
+const RULES_INTENT_TYPES = new Set([
+  'rules:add',
+  'rules:update',
+  'rules:delete',
+  'rules:toggle',
+  'rules:replaceAll',
+  'rules:clear',
+  'rules:toggleCategory'
+]);
+
+async function handleRulesIntent(message) {
+  switch (message.type) {
+    case 'rules:add':
+      return rulesMutationService.addRule(message.payload);
+    case 'rules:update':
+      return rulesMutationService.updateRule(message.payload);
+    case 'rules:delete':
+      return rulesMutationService.deleteRule(message.payload);
+    case 'rules:toggle':
+      return rulesMutationService.toggleRule(message.payload);
+    case 'rules:replaceAll':
+      return rulesMutationService.replaceAll(message.payload);
+    case 'rules:clear':
+      return rulesMutationService.clearRules();
+    case 'rules:toggleCategory':
+      return rulesMutationService.toggleCategory(message.payload);
+    default:
+      throw new Error(`Unsupported rules intent: ${message.type}`);
+  }
+}
 
 /**
  * Checks a single tab URL against active Whitelist rules during 'whitelist' Focus Session.
@@ -195,31 +256,23 @@ if (browser.contextMenus) {
     }
     
     try {
-      await rulesManager.addRule(decodeURIComponent(ruleValue), '');
+      await rulesMutationService.addRule({
+        blockURL: decodeURIComponent(ruleValue),
+        redirectURL: '',
+        schedule: null,
+        category: 'social',
+        isWhitelist: false
+      });
       
       logger.log(
         `Blocked ${target.type} via Context Menu:`,
         ruleValue
       );
       
-      await closeTabsMatchingRules([ruleValue]);
     } catch (error) {
       logger.info('Error processing context menu block:', error);
     }
   });
-}
-
-async function clearAllDnrRules() {
-  try {
-    const dnrRules = await browser.declarativeNetRequest.getDynamicRules();
-    if (dnrRules.length) {
-      const removeRuleIds = dnrRules.map(rule => rule.id);
-      await browser.declarativeNetRequest.updateDynamicRules({ removeRuleIds });
-      logger.log(`Cleared ${removeRuleIds.length} DNR rules`);
-    }
-  } catch (error) {
-    logger.error("Failed to clear DNR rules:", error);
-  }
 }
 
 async function showUpdates(details) {
@@ -321,9 +374,17 @@ browser.runtime.onStartup.addListener(async () => {
 
 async function initializeExtension(details) {
   logger.log("Initializing extension state (rules, settings, legacy status)...");
-  await rulesManager.migrateRulesToLocalForDevice();
-  
-  await rulesManager.migrateRules();
+  const { migratedFromSync, migrationResult } = await rulesMutationService.runExclusive(async () => ({
+    migratedFromSync: await rulesManager.migrateRulesToLocalForDevice(),
+    migrationResult: await rulesManager.migrateRules()
+  }));
+
+  if (migratedFromSync || migrationResult.migrated) {
+    await dnrSynchronizer.requestSync();
+    notifyRulesChanged(migrationResult.rules || await rulesManager.getRules(), {
+      migrated: true
+    });
+  }
   await SettingsManager.getSettings();
   await StatisticsManager.getStatistics();
   await showUpdates(details);
@@ -441,6 +502,22 @@ browser.runtime.onInstalled.addListener(async (details) => {
 });
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (RULES_INTENT_TYPES.has(message.type)) {
+    (async () => {
+      try {
+        const result = await handleRulesIntent(message);
+        sendResponse({ success: true, ...result });
+      } catch (error) {
+        logger.error(`Rules intent failed (${message.type}):`, error);
+        sendResponse({
+          success: false,
+          error: serializeRulesMutationError(error)
+        });
+      }
+    })();
+    return true;
+  }
+  
   if (message.type === 'close_current_tab') {
     if (sender.tab && sender.tab.id) {
       browser.tabs.remove(sender.tab.id);
@@ -503,11 +580,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     })();
     return true;
   }
-  
+
   if (message.type === 'reload_rules') {
     (async () => {
       await dnrSynchronizer.requestSync();
-      logger.log('Rules updated.');
+      logger.log('Legacy rules reload completed.');
     })();
     return;
   }
@@ -583,16 +660,17 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'delete_all_rules') {
-    rulesManager.deleteAllRules()
-      .then(() => {
-        logger.log('All rules deleted via message request');
-        sendResponse({ success: true });
-      })
-      .catch((error) => {
-        logger.error('Failed to delete rules via message:', error);
-        sendResponse({ success: false, error: error.message });
-      });
-    
+    (async () => {
+      try {
+        const result = await rulesMutationService.clearRules();
+        sendResponse({ success: true, ...result });
+      } catch (error) {
+        sendResponse({
+          success: false,
+          error: serializeRulesMutationError(error)
+        });
+      }
+    })();
     return true;
   }
 });

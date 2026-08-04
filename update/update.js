@@ -4,9 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "🟢 Whitelist Feature: Create Pro exclusion rules that override your blacklist. Keep essential workspace sites accessible while maintaining your focus setup.",
-    "🧠 Smart Conflict Validation: The rules engine now automatically detects overlapping sub-paths and blocks contradictory blacklist/whitelist entries to prevent loops.",
-    "🎨 UI Visual Polish: Resolved table grid rendering bugs, fixed action button wrapping on mobile screens."
+    "🛡️ More Reliable Rule Management: Changes from the popup, Settings page, and context menu are now coordinated to prevent rules from being overwritten.",
+    "⚡ Consistent Updates: Adding, editing, pausing, or deleting a rule now keeps your saved list and active blocking state aligned.",
+    "🔎 Safer Editing: Rules keep a stable identity, so searching or filtering the list cannot cause the wrong rule to be changed.",
+    "📦 Safer Imports and Cleanup: Backup files are checked before replacing your rules, and clearing the list now removes active blocking rules more reliably."
   ];
   
   const ul = document.getElementById('features');

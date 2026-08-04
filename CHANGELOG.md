@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0] - 2026-08-04
+### Improved
+- Centralized all rule mutations from the popup, Options page, imports, bulk clearing, and context menu in the service worker.
+- Serialized rule changes so simultaneous actions cannot overwrite one another or reuse the same rule ID.
+- Enforced rule limits and protected rule-management actions inside the service worker, not only in the user interface.
+- Switched editing, toggling, and deletion from list indexes to stable rule IDs, including filtered Options views.
+- Separated rule commands from completed `rules:changed` notifications for clearer and more reliable UI updates.
+- Made imports validate the complete replacement set before changing stored rules, without an intermediate empty state.
+- Kept DNR synchronization recoverable: stored rules remain authoritative if a temporary browser DNR update fails.
+- Added unit coverage for concurrent mutations, stable-ID operations, validation key arrays, safe replacement, free limits, and complete DNR clearing.
+### Fixed
+- Prevented popup, Options, and context-menu actions performed close together from losing previously saved changes.
+- Preserved the complete array of validation localization keys when errors cross the service-worker messaging boundary.
+- Ensured clearing all rules passes the full dynamic rule ID list together with an explicit empty `addRules` array.
+
 ## [4.2.7] - 2026-08-04
 ### Improved
 - Replaced full DNR rule rebuilds with content-aware synchronization that updates only added, removed, or changed rules.
