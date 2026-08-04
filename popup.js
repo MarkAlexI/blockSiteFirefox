@@ -543,9 +543,13 @@ class PopupPage {
       return;
     }
     
-    const minutes = Math.floor((remaining / 1000 / 60) % 60).toString().padStart(2, '0');
-    const seconds = Math.floor((remaining / 1000) % 60).toString().padStart(2, '0');
-    this.focusTimerDisplay.textContent = `${minutes}:${seconds}`;
+    const totalSeconds = Math.floor(remaining / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+    this.focusTimerDisplay.textContent = hours > 0 ?
+      `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}` :
+      `${minutes}:${seconds}`;
   }
   
   async startFocusSession() {
@@ -667,7 +671,8 @@ class PopupPage {
               
             } catch (error) {
               this.logger.info("Delete rule error:", error);
-              ruleDiv.remove();
+              await this.loadRules();
+              customAlert(t('errorremovingrule'));
             }
           },
           isStrictMode,

@@ -204,9 +204,13 @@ export class SettingsManager {
       return;
     }
     
-    const minutes = Math.floor((remaining / 1000 / 60) % 60).toString().padStart(2, '0');
-    const seconds = Math.floor((remaining / 1000) % 60).toString().padStart(2, '0');
-    this.focusBannerTimer.textContent = `${minutes}:${seconds}`;
+    const totalSeconds = Math.floor(remaining / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+    this.focusBannerTimer.textContent = hours > 0 ?
+      `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}` :
+      `${minutes}:${seconds}`;
   }
   
   async checkPasswordProtection() {
@@ -388,9 +392,15 @@ export class SettingsManager {
     try {
       const resultSync = await browser.storage.sync.get(['settings']);
       const resultLocal = await browser.storage.local.get(['rules']);
+      const settingsToExport = {
+        ...(resultSync.settings || this.defaultSettings)
+      };
+      delete settingsToExport.enablePassword;
+      delete settingsToExport.passwordHash;
+      
       const exportData = {
         rules: resultLocal.rules || [],
-        settings: resultSync.settings || this.defaultSettings,
+        settings: settingsToExport,
         exportDate: new Date().toISOString(),
         version: browser.runtime.getManifest().version
       };
@@ -473,7 +483,22 @@ export class SettingsManager {
       const saveSettings = {};
       
       if (importData.settings) {
-        saveSettings.settings = { ...this.defaultSettings, ...importData.settings };
+        const currentSettingsResult = await browser.storage.sync.get(['settings']);
+        const currentSettings = {
+          ...this.defaultSettings,
+          ...(currentSettingsResult.settings || {})
+        };
+        const importedSettings = { ...importData.settings };
+        
+        delete importedSettings.enablePassword;
+        delete importedSettings.passwordHash;
+        
+        saveSettings.settings = {
+          ...currentSettings,
+          ...importedSettings,
+          enablePassword: currentSettings.enablePassword,
+          passwordHash: currentSettings.passwordHash
+        };
         await browser.storage.sync.set(saveSettings);
         this.applySettingsToUI(saveSettings.settings);
       }

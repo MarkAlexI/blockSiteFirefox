@@ -30,18 +30,18 @@ export class PasswordUtils {
     const forgot = document.getElementById('forgotPassword');
     const confirmBtn = document.getElementById('confirmPassword');
     const cancelBtn = document.getElementById('cancelPassword');
-
+    
     input1.type = 'password';
     input1.value = '';
     input1.placeholder = t('enterpassword') || 'Enter password';
     input2.value = '';
     error.classList.add('hidden');
-
+    
     title.textContent = type === 'set' ? t('setpassword') : t('enterpassword');
     confirmBtn.textContent = t('modalconfirm');
-
+    
     input2.style.display = (type === 'set') ? 'block' : 'none';
-
+    
     forgot.style.display = (type === 'set') ? 'none' : 'block';
     
     modal.classList.remove('hidden');
@@ -51,20 +51,36 @@ export class PasswordUtils {
       modal.classList.add('hidden');
       input1.value = input2.value = '';
       error.classList.add('hidden');
-
+      
       confirmBtn.onclick = null;
       cancelBtn.onclick = null;
       forgot.onclick = null;
       input1.onkeydown = null;
     };
     
-    cancelBtn.onclick = closeModal;
-
+    let callbackCompleted = false;
+    const finish = (result) => {
+      if (callbackCompleted) return;
+      callbackCompleted = true;
+      callback(result);
+      closeModal();
+    };
+    
+    const cancelModal = () => {
+      if (type === 'verify') {
+        finish(false);
+      } else {
+        closeModal();
+      }
+    };
+    
+    cancelBtn.onclick = cancelModal;
+    
     input1.onkeydown = (e) => {
       if (e.key === 'Enter') confirmBtn.click();
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') cancelModal();
     };
-
+    
     confirmBtn.onclick = async () => {
       error.classList.add('hidden');
       const val1 = input1.value.trim();
@@ -82,8 +98,7 @@ export class PasswordUtils {
           return;
         }
         const hash = await this.hashPassword(val1);
-        callback(hash);
-        closeModal();
+        finish(hash);
       } else {
         const settings = await browser.storage.sync.get(['settings']);
         const storedHash = settings.settings ? settings.settings.passwordHash : null;
@@ -97,14 +112,13 @@ export class PasswordUtils {
           return;
         }
         
-        callback(true);
-        closeModal();
+        finish(true);
       }
     };
-
+    
     forgot.onclick = (e) => {
       e.preventDefault();
-
+      
       title.textContent = t('restoreaccess');
       input1.value = '';
       input1.type = 'text';
@@ -112,11 +126,11 @@ export class PasswordUtils {
       forgot.style.display = 'none';
       error.classList.add('hidden');
       confirmBtn.textContent = t('restoreaccess');
-
+      
       confirmBtn.onclick = async () => {
         const enteredKey = input1.value.trim();
         if (!enteredKey) return;
-
+        
         const storage = await browser.storage.sync.get(['credentials', 'settings']);
         const actualKey = storage.credentials?.licenseKey;
         

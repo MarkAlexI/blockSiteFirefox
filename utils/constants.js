@@ -7,3 +7,4 @@ export const REVIEWS_LINK = IS_FIREFOX ?
   'https://addons.mozilla.org/en-US/firefox/addon/blockersite/' :
   'https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec/reviews';
 export const SUPPORT_LINK = 'https://blockdistraction.com/support.html';
+export const LICENSE_SYNC_TIMEOUT_MS = 10000;

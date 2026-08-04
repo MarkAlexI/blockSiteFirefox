@@ -7,7 +7,7 @@ import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
-import { VERIFY_API_URL, IS_FIREFOX } from '../utils/constants.js';
+import { VERIFY_API_URL, IS_FIREFOX, LICENSE_SYNC_TIMEOUT_MS } from '../utils/constants.js';
 import { updateUninstallURL } from '../utils/updateUninstallURL.js';
 import { createInstallURL } from '../utils/createInstallURL.js';
 import { shouldSkipSync } from '../utils/shouldSkipSync.js';
@@ -65,6 +65,9 @@ async function syncLicenseKeyStatus() {
   
   logger.log('License Sync: Checking stored key...');
   const version = browser.runtime.getManifest().version;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
+  
   try {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
@@ -72,18 +75,36 @@ async function syncLicenseKeyStatus() {
       body: JSON.stringify({
         key: currentKey,
         version
-      })
+      }),
+      signal: controller.signal
     });
     
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch (error) {
+      throw new Error('License server returned invalid JSON', { cause: error });
+    }
     
     if (!response.ok) {
+      const errorMessage = data.error || `License verification failed (${response.status})`;
+      const isTemporaryFailure = response.status === 429 || response.status >= 500;
+      
+      if (isTemporaryFailure) {
+        throw new Error(errorMessage);
+      }
+      
       await handleProStatusUpdate(false, {
         licenseKey: null,
         expiryDate: null,
         subscriptionEmail: null
       });
-      throw new Error(data.error || 'Invalid key');
+      logger.warn(`License Sync: Server rejected the stored key (${response.status}).`);
+      return { success: true, isPro: false, error: errorMessage };
+    }
+    
+    if (typeof data.isPro !== 'boolean') {
+      throw new Error('License server returned an invalid response');
     }
     
     await handleProStatusUpdate(data.isPro, {
@@ -96,8 +117,13 @@ async function syncLicenseKeyStatus() {
     return { success: true, isPro: data.isPro };
     
   } catch (error) {
-    logger.error('License Sync: Error:', error.message);
-    return { success: false, isPro: credentials.isPro };
+    const errorMessage = error.name === 'AbortError' ?
+      'License verification timed out' :
+      error.message;
+    logger.error('License Sync: Error:', errorMessage);
+    return { success: false, isPro: credentials.isPro, error: errorMessage };
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -179,17 +205,17 @@ async function updateActiveRules() {
     const settings = await SettingsManager.getSettings();
     const { focusActive } = await getFocusSessionState();
     const disabledCategories = settings.disabledCategories || [];
-    
+
     const currentDnrRules = await browser.declarativeNetRequest.getDynamicRules();
     const removeRuleIds = currentDnrRules.map(r => r.id);
-    
+
     const activeRules = rules.filter(rule =>
       !rule.isWhitelist && rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive)
     );
     
     const addRules = [];
     const urlsToClose = [];
-    
+  
     for (const rule of activeRules) {
       urlsToClose.push(rule.blockURL);
       
@@ -198,7 +224,7 @@ async function updateActiveRules() {
         addRules.push(dnrRule);
       }
     }
-    
+
     await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds,
       addRules
@@ -304,9 +330,8 @@ async function handleProStatusUpdate(isPro, subscriptionData = {}) {
 }
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  const urlToCheck = changeInfo.url || tab.url;
-  if (urlToCheck) {
-    await enforceFocusWhitelist(tabId, urlToCheck);
+  if (changeInfo.url) {
+    await enforceFocusWhitelist(tabId, changeInfo.url);
   }
   
   if (changeInfo.status === 'complete' && tab.url) {
@@ -330,6 +355,7 @@ browser.runtime.onStartup.addListener(async () => {
   
   ensureAlarmsCreated();
   
+  await initializeExtension({ reason: 'startup' });
   await checkAndRequestPermissions({ reason: 'startup' });
   
   logger.log("Extension startup - syncing DNR rules");
@@ -403,12 +429,7 @@ async function checkAndRequestPermissions(details) {
       granted = true;
     }
     
-    if (granted) {
-      logger.log("Host permission already granted.");
-      if (details && details.reason !== 'tab_activated') {
-        await initializeExtension(details);
-      }
-    } else {
+    if (!granted) {
       logger.log("Host permission NOT granted. Opening onboarding page.");
       const onboardingUrl = browser.runtime.getURL('onboarding/onboarding.html');
       const tabs = await browser.tabs.query({ url: onboardingUrl });
@@ -417,8 +438,11 @@ async function checkAndRequestPermissions(details) {
         browser.tabs.create({ url: onboardingUrl });
       }
     }
+    
+    return granted;
   } catch (err) {
     logger.error("Error checking permissions:", err);
+    return false;
   } finally {
     isCheckingPermissions = false;
   }
@@ -457,11 +481,12 @@ browser.runtime.onInstalled.addListener(async (details) => {
       active: true
     });
   } else if (details.reason === 'update') {
-    logger.log("This is an update. Assuming permissions are granted.");
+    logger.log("This is an update. Checking permissions...");
     await initializeExtension(details);
     await checkAndRequestPermissions(details);
   } else if (details.reason === 'chrome_update' || details.reason === 'browser_update') {
     logger.log("Browser updated.");
+    await initializeExtension(details);
     await validateDnrIntegrity();
     await checkAndRequestPermissions(details);
   } else if (details.reason === 'shared_module_update') {

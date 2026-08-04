@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.6] - 2026-08-04
+### Fixed
+- Fixed password protection being disabled when importing an export without password credentials.
+- Cancelling password setup now closes the modal without invoking the setup callback; verification cancellation still resolves as `false`.
+- Preserved the current Pro status during temporary license verification failures, including rate limits, server errors, timeouts, network errors, and invalid JSON responses.
+- Added a timeout to background license verification requests.
+- Resolved pending password confirmation promises when the modal is cancelled or closed with Escape.
+- Corrected Focus Session timers for durations of one hour or longer.
+- Reloaded popup rules after a failed deletion instead of removing the rule from the interface.
+- Removed duplicate extension initialization during install and update events.
+- Limited Focus Whitelist checks on tab updates to actual URL changes.
+- Corrected the localization key for the Category table header.
+- Excluded password protection fields from exported settings and preserved the current password state during import.
+
 ## [4.2.5] - 2026-08-01
 ### Improved
 - Refactored and reorganized styles for better maintainability.
