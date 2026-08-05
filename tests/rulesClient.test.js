@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { RulesClient } from '../rules/rulesClient.js';
 
 test('rules client preserves error code and all validation keys from the worker', async () => {
-  const previousChrome = globalThis.chrome;
+  const previousChrome = globalThis.browser;
   let sentMessage = null;
 
-  globalThis.chrome = {
+  globalThis.browser = {
     runtime: {
       lastError: null,
       sendMessage(message, callback) {
@@ -37,6 +37,6 @@ test('rules client preserves error code and all validation keys from the worker'
 
     assert.equal(sentMessage.type, 'rules:add');
   } finally {
-    globalThis.chrome = previousChrome;
+    globalThis.browser = previousChrome;
   }
 });

@@ -190,9 +190,17 @@ export class RulesUI {
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
     redirectInput.value = isWhitelist ? '' : (rule.redirectURL || '');
-    redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturl');
+    redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturlplaceholder');
     redirectInput.disabled = isWhitelist;
-    if (isWhitelist) redirectInput.classList.add('input-disabled');
+    if (isWhitelist) {
+      redirectInput.classList.add('input-disabled');
+    } else {
+      redirectInput.title = t('redirecturlhint');
+      redirectInput.setAttribute(
+        'aria-label',
+        `${t('redirecturlheader')}. ${t('redirecturlhint')}`
+      );
+    }
     
     const redirectCell = document.createElement('td');
     redirectCell.className = 'edit-mode';
@@ -283,13 +291,29 @@ export class RulesUI {
     const blockCell = document.createElement('td');
     blockCell.className = 'edit-mode';
     blockCell.appendChild(blockInput);
+
+    if (!isWhitelist) {
+      const mobileHint = document.createElement('small');
+      mobileHint.className = 'mobile-link-hint';
+      mobileHint.textContent = t('mobilecopylinkhint');
+      blockCell.appendChild(mobileHint);
+    }
+
     row.appendChild(blockCell);
     
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
-    redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturl');
+    redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturlplaceholder');
     redirectInput.disabled = isWhitelist;
-    if (isWhitelist) redirectInput.classList.add('input-disabled');
+    if (isWhitelist) {
+      redirectInput.classList.add('input-disabled');
+    } else {
+      redirectInput.title = t('redirecturlhint');
+      redirectInput.setAttribute(
+        'aria-label',
+        `${t('redirecturlheader')}. ${t('redirecturlhint')}`
+      );
+    }
     
     const redirectCell = document.createElement('td');
     redirectCell.className = 'edit-mode';
@@ -495,11 +519,16 @@ export class RulesUI {
   }
   
   getValidationMessage(errorType) {
+    const invalidRedirectMessage = [
+      t('wrongredirecturl'),
+      t('redirecturlhint')
+    ].filter(Boolean).join(' - ');
+
     const messages = {
       'blockurl_empty': t('blockurl'),
       'blockurl_restrict': t('restrictedblockurl'),
       'blockurl_invalid': t('wrongblockurl'),
-      'redirect_invalid': t('wrongredirecturl'),
+      'redirect_invalid': invalidRedirectMessage,
       'invalid_days': t('invaliddays') || 'Invalid days selected',
       'invalid_time_format': t('invalidtimeformat') || 'Invalid time format (HH:MM)',
       'start_after_end': t('startafterend') || 'Start time must be before end time',

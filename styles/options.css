@@ -957,3 +957,21 @@ tr.rule-whitelist td:first-child::before {
   font-weight: bold;
   text-align: center;
 }
+
+.rule-row.rule-group-end td {
+  border-bottom: 2px solid rgba(102, 126, 234, 0.55);
+}
+
+.mobile-link-hint {
+  display: none;
+  margin-top: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+@media (pointer: coarse) {
+  .mobile-link-hint {
+    display: block;
+  }
+}

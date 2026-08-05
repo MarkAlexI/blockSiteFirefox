@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.2] - 2026-08-05
+### Improved
+- Added a stronger divider after every ten visible rules on the Options page to make long and filtered lists easier to scan.
+- Separated the redirect column label, optional placeholder, and full-URL guidance into dedicated localized messages.
+- Added a touch-device hint explaining how to block a copied link when a mobile browser does not provide an extension context menu.
+- Clarified redirect validation by reminding users to enter a complete URL including `https://` or leave the field empty for normal blocking.
+
 ## [4.3.1] - 2026-08-05
 ### Improved
 - Reduced `RulesManager` to current rule storage, validation, duplicate detection, and conflict checks.

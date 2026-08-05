@@ -12,6 +12,7 @@ import Logger from '../utils/logger.js';
 import { MAX_RULES_LIMIT } from '../utils/constants.js';
 import { checkDNR } from '../utils/dnrDebug.js';
 import { initFeedbackPopup } from './feedback.js';
+import { isVisibleRuleGroupEnd } from '../rules/visibleRuleGrouping.js';
 
 const logger = new Logger('OptionsPage');
 
@@ -70,7 +71,7 @@ class OptionsPage {
     if (this.addRuleButton) this.addRuleButton.textContent = t('addrule');
     if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.textContent = t('addwhitelistrule') || 'Add Whitelist Rule';
     setContent('block-url-header', 'blockurl');
-    setContent('redirect-url-header', 'redirecturl');
+    setContent('redirect-url-header', 'redirecturlheader');
     setContent('category-header', 'category_header');
     setContent('actions-header', 'actionsheader');
     
@@ -198,9 +199,16 @@ class OptionsPage {
       return;
     }
     
-    rules.forEach((rule, index) => {
-      const row = this.createRuleRow(rule, index, canEdit, disabledCategories);
-      this.rulesBody.prepend(row);
+    const displayedRules = [...rules].reverse();
+
+    displayedRules.forEach((rule, displayIndex) => {
+      const row = this.createRuleRow(rule, displayIndex, canEdit, disabledCategories);
+
+      if (isVisibleRuleGroupEnd(displayIndex, displayedRules.length)) {
+        row.classList.add('rule-group-end');
+      }
+
+      this.rulesBody.appendChild(row);
     });
   }
   
@@ -278,6 +286,10 @@ class OptionsPage {
       this.isPro,
       rule.disabledByUser
     );
+
+    if (row.classList.contains('rule-group-end')) {
+      editRow.classList.add('rule-group-end');
+    }
     
     if (settings.enablePassword) {
       const isValid = await this.promptForPassword();

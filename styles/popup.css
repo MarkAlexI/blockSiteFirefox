@@ -553,3 +553,17 @@ button:disabled {
   border: 1px solid #c3e6c3;
   white-space: nowrap;
 }
+
+.mobile-link-hint {
+  display: none;
+  flex: 1 0 100%;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+@media (pointer: coarse) {
+  .mobile-link-hint {
+    display: block;
+  }
+}

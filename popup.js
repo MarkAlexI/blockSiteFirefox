@@ -353,6 +353,15 @@ class PopupPage {
     blockURL.type = 'text';
     blockURL.placeholder = t('blockurl');
     blockURL.value = blockURLValue;
+
+    const mobileLinkHint = !blockURLValue && !isWhitelist
+      ? document.createElement('small')
+      : null;
+
+    if (mobileLinkHint) {
+      mobileLinkHint.className = 'mobile-link-hint';
+      mobileLinkHint.textContent = t('mobilecopylinkhint');
+    }
     
     requestAnimationFrame(() => blockURL.focus());
     
@@ -380,6 +389,7 @@ class PopupPage {
     
     setTimeout(() => {
       ruleDiv.appendChild(blockURL);
+      if (mobileLinkHint) ruleDiv.appendChild(mobileLinkHint);
       ruleDiv.appendChild(redirectURL);
       
       if (!blockURLValue) {
