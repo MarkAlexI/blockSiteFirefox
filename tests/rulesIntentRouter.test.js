@@ -1,0 +1,62 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+
+import {
+  RULES_INTENT_TYPES,
+  createRulesIntentHandler
+} from '../rules/rulesIntentRouter.js';
+
+function createHarness() {
+  const calls = [];
+  const service = {};
+
+  for (const method of [
+    'addRule',
+    'updateRule',
+    'deleteRule',
+    'toggleRule',
+    'replaceAll',
+    'clearRules',
+    'toggleCategory'
+  ]) {
+    service[method] = async payload => {
+      calls.push([method, payload]);
+      return { method, payload };
+    };
+  }
+
+  return {
+    calls,
+    handler: createRulesIntentHandler(service)
+  };
+}
+
+test('all declared rules intents route to the expected mutation method', async () => {
+  const harness = createHarness();
+  const payload = { value: 1 };
+  const expected = [
+    ['rules:add', 'addRule', payload],
+    ['rules:update', 'updateRule', payload],
+    ['rules:delete', 'deleteRule', payload],
+    ['rules:toggle', 'toggleRule', payload],
+    ['rules:replaceAll', 'replaceAll', payload],
+    ['rules:clear', 'clearRules', undefined],
+    ['rules:toggleCategory', 'toggleCategory', payload]
+  ];
+
+  for (const [type, method, expectedPayload] of expected) {
+    assert.equal(RULES_INTENT_TYPES.has(type), true);
+    const result = await harness.handler({ type, payload });
+    assert.equal(result.method, method);
+    assert.deepEqual(result.payload, expectedPayload);
+  }
+});
+
+test('unsupported intents fail explicitly', async () => {
+  const harness = createHarness();
+
+  await assert.rejects(
+    harness.handler({ type: 'rules:unknown' }),
+    /Unsupported rules intent/
+  );
+});

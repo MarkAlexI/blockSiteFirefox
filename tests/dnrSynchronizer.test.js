@@ -55,16 +55,15 @@ function createHarness({
   const logs = [];
   let dynamicRules = structuredClone(currentDnrRules);
 
-  const rulesManager = {
-    getRules: getRules ?? (async () => structuredClone(storedRules)),
-    isRuleActiveNow: rule => rule.active !== false,
-    createDNRRule: createRule ?? (async (id, blockURL, redirectURL) =>
-      makeDnrRule({
-        id,
-        urlFilter: `||${blockURL}`,
-        redirectUrl: redirectURL || 'blocked.html'
-      }))
-  };
+  const getStoredRules = getRules ??
+    (async () => structuredClone(storedRules));
+  const isStoredRuleActive = rule => rule.active !== false;
+  const buildDnrRule = createRule ??
+    (async (id, blockURL, redirectURL) => makeDnrRule({
+      id,
+      urlFilter: `||${blockURL}`,
+      redirectUrl: redirectURL || 'blocked.html'
+    }));
 
   const declarativeNetRequest = {
     async getDynamicRules() {
@@ -86,9 +85,11 @@ function createHarness({
   };
 
   const synchronizer = createDnrSynchronizer({
-    rulesManager,
+    getRules: getStoredRules,
     getSettings: async () => ({ disabledCategories: [] }),
     getFocusSessionState: async () => ({ focusActive: false }),
+    isRuleActiveNow: isStoredRuleActive,
+    createDnrRule: buildDnrRule,
     closeTabsMatchingRules: async urls => {
       closedUrlBatches.push([...urls]);
     },

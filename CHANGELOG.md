@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.1] - 2026-08-05
+### Improved
+- Reduced `RulesManager` to current rule storage, validation, duplicate detection, and conflict checks.
+- Moved legacy rule migrations into a dedicated service with explicit storage dependencies.
+- Moved rule activation decisions and DNR rule construction into isolated, testable modules without changing matching or schedule behavior.
+- Moved rule intent routing out of the service worker into a small tested command router.
+- Added a dependency-free `npm run check` command for tests, syntax checks, JSON validation, manifest references, version consistency, and referenced English localization keys.
+- Expanded the permanent test suite to cover migration safety, rule activation, DNR construction, intent routing, validation semantics, and service-worker module loading.
+### Fixed
+- Protected existing local rules from being overwritten by stale synchronized rules when the migration flag is missing.
+- Ensured migrated rules and the device migration flag are written together when copying legacy synchronized rules.
+- Kept failed storage migrations retryable by not marking them as completed.
+
 ## [4.3.0] - 2026-08-04
 ### Improved
 - Centralized all rule mutations from the popup, Options page, imports, bulk clearing, and context menu in the service worker.

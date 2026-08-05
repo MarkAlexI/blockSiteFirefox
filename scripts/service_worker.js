@@ -15,17 +15,33 @@ import { isBlockedURL } from './isBlockedURL.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer } from './dnrSynchronizer.js';
+import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
+import { isRuleActiveNow } from '../rules/ruleActivation.js';
+import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
 import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
+import { RULES_INTENT_TYPES, createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
+const createDnrRule = createDnrRuleFactory(
+  path => browser.runtime.getURL(path)
+);
 
 const dnrSynchronizer = createDnrSynchronizer({
-  rulesManager,
+  getRules: () => rulesManager.getRules(),
   getSettings: () => SettingsManager.getSettings(),
   getFocusSessionState,
+  isRuleActiveNow,
+  createDnrRule,
   closeTabsMatchingRules,
   declarativeNetRequest: browser.declarativeNetRequest,
+  logger
+});
+
+const rulesMigrationService = createRulesMigrationService({
+  rulesManager,
+  localStorage: browser.storage.local,
+  syncStorage: browser.storage.sync,
   logger
 });
 
@@ -58,36 +74,7 @@ const rulesMutationService = createRulesMutationService({
   logger
 });
 
-const RULES_INTENT_TYPES = new Set([
-  'rules:add',
-  'rules:update',
-  'rules:delete',
-  'rules:toggle',
-  'rules:replaceAll',
-  'rules:clear',
-  'rules:toggleCategory'
-]);
-
-async function handleRulesIntent(message) {
-  switch (message.type) {
-    case 'rules:add':
-      return rulesMutationService.addRule(message.payload);
-    case 'rules:update':
-      return rulesMutationService.updateRule(message.payload);
-    case 'rules:delete':
-      return rulesMutationService.deleteRule(message.payload);
-    case 'rules:toggle':
-      return rulesMutationService.toggleRule(message.payload);
-    case 'rules:replaceAll':
-      return rulesMutationService.replaceAll(message.payload);
-    case 'rules:clear':
-      return rulesMutationService.clearRules();
-    case 'rules:toggleCategory':
-      return rulesMutationService.toggleCategory(message.payload);
-    default:
-      throw new Error(`Unsupported rules intent: ${message.type}`);
-  }
-}
+const handleRulesIntent = createRulesIntentHandler(rulesMutationService);
 
 /**
  * Checks a single tab URL against active Whitelist rules during 'whitelist' Focus Session.
@@ -374,14 +361,13 @@ browser.runtime.onStartup.addListener(async () => {
 
 async function initializeExtension(details) {
   logger.log("Initializing extension state (rules, settings, legacy status)...");
-  const { migratedFromSync, migrationResult } = await rulesMutationService.runExclusive(async () => ({
-    migratedFromSync: await rulesManager.migrateRulesToLocalForDevice(),
-    migrationResult: await rulesManager.migrateRules()
-  }));
+  const migrationResult = await rulesMutationService.runExclusive(
+    () => rulesMigrationService.migrateAll()
+  );
 
-  if (migratedFromSync || migrationResult.migrated) {
+  if (migrationResult.migrated) {
     await dnrSynchronizer.requestSync();
-    notifyRulesChanged(migrationResult.rules || await rulesManager.getRules(), {
+    notifyRulesChanged(migrationResult.rules, {
       migrated: true
     });
   }

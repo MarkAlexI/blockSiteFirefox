@@ -62,9 +62,11 @@ export function buildDnrDiff(currentRules, expectedRules) {
  * tested without loading the complete extension service worker.
  */
 export function createDnrSynchronizer({
-  rulesManager,
+  getRules,
   getSettings,
   getFocusSessionState,
+  isRuleActiveNow,
+  createDnrRule,
   closeTabsMatchingRules,
   declarativeNetRequest,
   logger
@@ -73,20 +75,20 @@ export function createDnrSynchronizer({
   let syncRequestedAgain = false;
 
   async function buildExpectedDnrState() {
-    const rules = await rulesManager.getRules();
+    const rules = await getRules();
     const settings = await getSettings();
     const { focusActive } = await getFocusSessionState();
     const disabledCategories = settings.disabledCategories || [];
 
     const activeRules = rules.filter(rule =>
       !rule.isWhitelist &&
-      rulesManager.isRuleActiveNow(rule, disabledCategories, focusActive)
+      isRuleActiveNow(rule, disabledCategories, focusActive)
     );
 
     const dnrRules = [];
 
     for (const rule of activeRules) {
-      const dnrRule = await rulesManager.createDNRRule(
+      const dnrRule = await createDnrRule(
         rule.id,
         rule.blockURL,
         rule.redirectURL

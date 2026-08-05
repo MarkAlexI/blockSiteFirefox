@@ -231,7 +231,8 @@ class OptionsPage {
   
   async handleRuleDeletion(event, ruleId) {
     try {
-      const isStrictMode = await this.rulesManager.isStrictMode();
+      const settingsForMode = await SettingsManager.getSettings();
+      const isStrictMode = settingsForMode.mode === 'strict';
       const deleteButton = event.target;
       
       const settings = await SettingsManager.getSettings();

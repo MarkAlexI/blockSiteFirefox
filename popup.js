@@ -14,6 +14,7 @@ import { getFocusSessionState } from './utils/focusSession.js';
 import { MAX_RULES_LIMIT } from './utils/constants.js';
 import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
+import { SettingsManager } from './options/settings.js';
 
 const logger = new Logger('Popup');
 
@@ -636,7 +637,8 @@ class PopupPage {
         }
       }
       
-      const isStrictMode = await this.rulesManager.isStrictMode();
+      const settings = await SettingsManager.getSettings();
+      const isStrictMode = settings.mode === 'strict';
       this.rulesUI.handleRuleDeletion(
         deleteButton,
         async () => {
