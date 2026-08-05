@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.3] - 2026-08-05
+### Fixed
+- Fixed category blocking controls on the Options page toggling twice and immediately restoring their previous state.
+- Restored the ability for Pro and legacy users to disable or re-enable all rules in an individual category.
+- Replaced manual card click forwarding with native label behavior to keep checkbox interaction reliable and accessible.
+
 ## [4.3.2] - 2026-08-05
 ### Improved
 - Added a stronger divider after every ten visible rules on the Options page to make long and filtered lists easier to scan.

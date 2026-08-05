@@ -8,7 +8,7 @@ export class CategoryUIManager {
     CATEGORIES.forEach(category => {
       if (category === 'whitelist') return;
       
-      const card = document.createElement('div');
+      const card = document.createElement('label');
       const isMuted = disabledCategories.includes(category);
       card.className = `category-card ${isMuted ? 'muted' : ''}`;
       
@@ -19,8 +19,7 @@ export class CategoryUIManager {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.checked = !disabledCategories.includes(category);
-      checkbox.addEventListener('change', (e) => {
-        e.stopPropagation();
+      checkbox.addEventListener('change', () => {
         onToggle(category);
       });
       checkbox.title = t('toggle_category_blocking') || 'Toggle blocking for this entire category';
@@ -32,8 +31,6 @@ export class CategoryUIManager {
       const countSpan = document.createElement('span');
       countSpan.className = 'category-count';
       countSpan.textContent = count;
-      
-      card.addEventListener('click', () => checkbox.click());
       
       card.appendChild(checkbox);
       card.appendChild(name);

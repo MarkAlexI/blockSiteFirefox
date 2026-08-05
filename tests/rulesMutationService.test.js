@@ -312,3 +312,42 @@ test('non-Pro callers cannot edit an existing whitelist rule through a direct in
 
   assert.deepEqual(harness.getRules(), [originalRule]);
 });
+
+test('category blocking can be disabled and enabled again', async () => {
+  const harness = createHarness({
+    initialRules: [{
+      id: 1,
+      blockURL: 'social.example',
+      redirectURL: '',
+      category: 'social',
+      disabledByUser: false,
+      isWhitelist: false
+    }]
+  });
+
+  const disabledResult = await harness.service.toggleCategory({ category: 'social' });
+
+  assert.deepEqual(harness.getSettings().disabledCategories, ['social']);
+  assert.deepEqual(disabledResult.settings.disabledCategories, ['social']);
+  assert.equal(harness.getSyncCalls(), 1);
+
+  const enabledResult = await harness.service.toggleCategory({ category: 'social' });
+
+  assert.deepEqual(harness.getSettings().disabledCategories, []);
+  assert.deepEqual(enabledResult.settings.disabledCategories, []);
+  assert.equal(harness.getSyncCalls(), 2);
+});
+
+test('category blocking changes require Pro or legacy access', async () => {
+  const harness = createHarness({
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await assert.rejects(
+    harness.service.toggleCategory({ category: 'social' }),
+    error => error.code === 'pro_required'
+  );
+
+  assert.deepEqual(harness.getSettings().disabledCategories, []);
+  assert.equal(harness.getSyncCalls(), 0);
+});
