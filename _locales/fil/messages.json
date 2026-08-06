@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Mga game store, browser game, at gaming platform."
+  },
+  "rulepacks_added_label": {
+    "message": "Naidagdag"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Naidagdag na"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Mga salungatan sa whitelist"
   }
 }

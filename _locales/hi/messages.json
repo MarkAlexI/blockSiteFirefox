@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "गेम स्टोर, ब्राउज़र गेम और गेमिंग प्लेटफ़ॉर्म।"
+  },
+  "rulepacks_added_label": {
+    "message": "जोड़े गए"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "पहले से जोड़े गए"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "अनुमति सूची के टकराव"
   }
 }

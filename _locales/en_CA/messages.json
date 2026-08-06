@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Game stores, browser games, and gaming platforms."
+  },
+  "rulepacks_added_label": {
+    "message": "Added"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Already added"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Whitelist conflicts"
   }
 }

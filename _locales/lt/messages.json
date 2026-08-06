@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Žaidimų parduotuvės, naršykliniai žaidimai ir žaidimų platformos."
+  },
+  "rulepacks_added_label": {
+    "message": "Pridėta"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Jau pridėta"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Leidžiamojo sąrašo konfliktai"
   }
 }

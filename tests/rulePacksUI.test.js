@@ -81,7 +81,7 @@ class FakeElement {
   }
 }
 
-function createHarness() {
+function createHarness({ resultFactory } = {}) {
   const previousDocument = globalThis.document;
   const previousChrome = globalThis.browser;
   const elements = {
@@ -110,7 +110,13 @@ function createHarness() {
     i18n: {
       getMessage(key, substitutions) {
         if (key === 'rulepacks_result') return substitutions.join('|');
-        return key;
+        const messages = {
+          rulepacks_added_label: 'Added',
+          rulepacks_duplicates_label: 'Already added',
+          rulepacks_conflicts_label: 'Whitelist conflicts',
+          rulepacks_no_new_rules: 'No new rules'
+        };
+        return messages[key] || key;
       }
     }
   };
@@ -119,7 +125,16 @@ function createHarness() {
     ...elements,
     onAdd: async (packId, entryIds) => {
       additions.push({ packId, entryIds });
-      return { addedCount: entryIds.length, skippedDuplicates: 0, conflicts: [] };
+      if (typeof resultFactory === 'function') {
+        return resultFactory(packId, entryIds);
+      }
+      return {
+        addedCount: entryIds.length,
+        skippedDuplicates: 0,
+        addedEntries: entryIds.map(entryId => ({ entryId, blockURL: `${entryId}.example` })),
+        duplicateEntries: [],
+        conflicts: []
+      };
     }
   });
   ui.initialize();
@@ -170,8 +185,75 @@ test('rule pack UI sends only selected entry IDs', async () => {
       packId: 'social',
       entryIds: ['facebook']
     }]);
-    assert.equal(harness.elements.status.textContent, '1|0|0');
+    assert.equal(harness.elements.status.children[0].textContent, '1|0|0');
+    assert.equal(harness.elements.status.children[1].children.length, 3);
+    assert.equal(harness.elements.status.children[2].children.length, 1);
+    assert.equal(harness.elements.status.children[2].children[0].children[1].children[0].textContent, 'facebook.example');
     assert.equal(harness.elements.status.classList.contains('success'), true);
+  } finally {
+    harness.restore();
+  }
+});
+
+
+test('rule pack UI shows detailed added, duplicate, and conflict results', async () => {
+  const harness = createHarness({
+    resultFactory: () => ({
+      addedCount: 1,
+      skippedDuplicates: 1,
+      addedEntries: [{ entryId: 'temu', blockURL: 'temu.com' }],
+      duplicateEntries: [{ entryId: 'amazon', blockURL: 'amazon.com' }],
+      conflicts: [{ entryId: 'etsy', blockURL: 'etsy.com', code: 'conflict_whitelist' }]
+    })
+  });
+
+  try {
+    await harness.ui.addSelected();
+
+    const [summary, counts, details] = harness.elements.status.children;
+    assert.equal(summary.textContent, '1|1|1');
+    assert.deepEqual(
+      counts.children.map(item => [item.children[0].textContent, item.children[1].textContent]),
+      [
+        ['Added', '1'],
+        ['Already added', '1'],
+        ['Whitelist conflicts', '1']
+      ]
+    );
+    assert.equal(details.children.length, 3);
+    assert.deepEqual(
+      details.children.map(group => [
+        group.children[0].textContent,
+        group.children[1].children[0].textContent
+      ]),
+      [
+        ['Added', 'temu.com'],
+        ['Already added', 'amazon.com'],
+        ['Whitelist conflicts', 'etsy.com']
+      ]
+    );
+  } finally {
+    harness.restore();
+  }
+});
+
+test('rule pack UI keeps count-only compatibility with older worker responses', () => {
+  const harness = createHarness();
+
+  try {
+    harness.ui.showResultReport({
+      addedCount: 0,
+      skippedDuplicates: 2,
+      conflicts: []
+    });
+
+    const [summary, counts] = harness.elements.status.children;
+    assert.equal(summary.textContent, 'No new rules');
+    assert.deepEqual(
+      counts.children.map(item => item.children[1].textContent),
+      ['0', '2', '0']
+    );
+    assert.equal(harness.elements.status.children.length, 2);
   } finally {
     harness.restore();
   }

@@ -141,6 +141,7 @@ export class RulePacksUI {
 
   clearStatus() {
     if (!this.status) return;
+    this.status.replaceChildren();
     this.status.textContent = '';
     this.status.classList.add('hidden');
     this.status.classList.remove('success', 'error');
@@ -148,9 +149,92 @@ export class RulePacksUI {
 
   showStatus(message, type) {
     if (!this.status) return;
+    this.status.replaceChildren();
     this.status.textContent = message;
     this.status.classList.remove('hidden', 'success', 'error');
     this.status.classList.add(type);
+  }
+
+  createResultCount(labelKey, count, type) {
+    const item = document.createElement('div');
+    item.className = `rule-packs-result-count ${type}`;
+
+    const label = document.createElement('span');
+    label.textContent = t(labelKey);
+
+    const value = document.createElement('strong');
+    value.textContent = String(count);
+
+    item.append(label, value);
+    return item;
+  }
+
+  createResultGroup(labelKey, entries, type) {
+    const section = document.createElement('section');
+    section.className = `rule-packs-result-group ${type}`;
+
+    const heading = document.createElement('h4');
+    heading.textContent = t(labelKey);
+
+    const list = document.createElement('ul');
+    for (const entry of entries) {
+      const item = document.createElement('li');
+      item.textContent = entry.blockURL;
+      list.appendChild(item);
+    }
+
+    section.append(heading, list);
+    return section;
+  }
+
+  showResultReport(result = {}) {
+    if (!this.status) return;
+
+    const addedEntries = Array.isArray(result.addedEntries) ? result.addedEntries : [];
+    const duplicateEntries = Array.isArray(result.duplicateEntries) ? result.duplicateEntries : [];
+    const conflicts = Array.isArray(result.conflicts) ? result.conflicts : [];
+    const addedCount = addedEntries.length || Number(result.addedCount || 0);
+    const duplicateCount = duplicateEntries.length || Number(result.skippedDuplicates || 0);
+    const conflictCount = conflicts.length;
+
+    const summary = document.createElement('p');
+    summary.className = 'rule-packs-result-summary';
+    summary.textContent = addedCount === 0
+      ? t('rulepacks_no_new_rules')
+      : t('rulepacks_result', [addedCount, duplicateCount, conflictCount]);
+
+    const counts = document.createElement('div');
+    counts.className = 'rule-packs-result-counts';
+    counts.append(
+      this.createResultCount('rulepacks_added_label', addedCount, 'added'),
+      this.createResultCount('rulepacks_duplicates_label', duplicateCount, 'duplicate'),
+      this.createResultCount('rulepacks_conflicts_label', conflictCount, 'conflict')
+    );
+
+    const details = document.createElement('div');
+    details.className = 'rule-packs-result-details';
+    if (addedEntries.length > 0) {
+      details.appendChild(
+        this.createResultGroup('rulepacks_added_label', addedEntries, 'added')
+      );
+    }
+    if (duplicateEntries.length > 0) {
+      details.appendChild(
+        this.createResultGroup('rulepacks_duplicates_label', duplicateEntries, 'duplicate')
+      );
+    }
+    if (conflicts.length > 0) {
+      details.appendChild(
+        this.createResultGroup('rulepacks_conflicts_label', conflicts, 'conflict')
+      );
+    }
+
+    this.status.replaceChildren(summary, counts);
+    if (details.children.length > 0) {
+      this.status.appendChild(details);
+    }
+    this.status.classList.remove('hidden', 'success', 'error');
+    this.status.classList.add('success');
   }
 
   async addSelected() {
@@ -163,18 +247,7 @@ export class RulePacksUI {
 
     try {
       const result = await this.onAdd(pack.id, entryIds);
-      const addedCount = Number(result?.addedCount || 0);
-      const skippedDuplicates = Number(result?.skippedDuplicates || 0);
-      const conflictCount = Array.isArray(result?.conflicts) ? result.conflicts.length : 0;
-
-      if (addedCount === 0) {
-        this.showStatus(t('rulepacks_no_new_rules'), 'success');
-      } else {
-        this.showStatus(
-          t('rulepacks_result', [addedCount, skippedDuplicates, conflictCount]),
-          'success'
-        );
-      }
+      this.showResultReport(result);
     } catch (error) {
       this.showStatus(t('rulepacks_error'), 'error');
     } finally {

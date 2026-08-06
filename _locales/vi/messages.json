@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Cửa hàng trò chơi, trò chơi trên trình duyệt và nền tảng trò chơi."
+  },
+  "rulepacks_added_label": {
+    "message": "Đã thêm"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Đã có sẵn"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Xung đột với danh sách cho phép"
   }
 }

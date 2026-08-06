@@ -912,5 +912,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "თამაშების მაღაზიები, ბრაუზერული თამაშები და სათამაშო პლატფორმები."
+  },
+  "rulepacks_added_label": {
+    "message": "დამატებულია"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "უკვე დამატებული"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "დაშვებული სიის კონფლიქტები"
   }
 }

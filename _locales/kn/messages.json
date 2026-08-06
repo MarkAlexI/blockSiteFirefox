@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "ಗೇಮ್ ಸ್ಟೋರ್‌ಗಳು, ಬ್ರೌಸರ್ ಆಟಗಳು ಮತ್ತು ಗೇಮಿಂಗ್ ವೇದಿಕೆಗಳು."
+  },
+  "rulepacks_added_label": {
+    "message": "ಸೇರಿಸಲಾಗಿದೆ"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "ಈಗಾಗಲೇ ಸೇರಿಸಲಾಗಿದೆ"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "ಅನುಮತಿ ಪಟ್ಟಿಯ ಸಂಘರ್ಷಗಳು"
   }
 }

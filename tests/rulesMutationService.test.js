@@ -388,6 +388,11 @@ test('a selected rule pack is added with one storage write and one DNR sync', as
 
   assert.equal(result.addedCount, 2);
   assert.equal(result.skippedDuplicates, 0);
+  assert.deepEqual(result.addedEntries, [
+    { entryId: 'amazon', blockURL: 'amazon.com' },
+    { entryId: 'etsy', blockURL: 'etsy.com' }
+  ]);
+  assert.deepEqual(result.duplicateEntries, []);
   assert.deepEqual(result.conflicts, []);
   assert.deepEqual(
     harness.getRules().map(rule => [rule.id, rule.blockURL, rule.category]),
@@ -430,6 +435,14 @@ test('rule pack import skips exact duplicates and reports whitelist conflicts', 
 
   assert.equal(result.addedCount, 1);
   assert.equal(result.skippedDuplicates, 1);
+  assert.deepEqual(result.addedEntries, [{
+    entryId: 'temu',
+    blockURL: 'temu.com'
+  }]);
+  assert.deepEqual(result.duplicateEntries, [{
+    entryId: 'amazon',
+    blockURL: 'amazon.com'
+  }]);
   assert.deepEqual(result.conflicts, [{
     entryId: 'etsy',
     blockURL: 'etsy.com',
@@ -459,6 +472,11 @@ test('a rule pack with no new entries does not write storage or synchronize DNR'
 
   assert.equal(result.addedCount, 0);
   assert.equal(result.skippedDuplicates, 1);
+  assert.deepEqual(result.addedEntries, []);
+  assert.deepEqual(result.duplicateEntries, [{
+    entryId: 'amazon',
+    blockURL: 'amazon.com'
+  }]);
   assert.equal(harness.savedStates.length, 0);
   assert.equal(harness.getSyncCalls(), 0);
 });

@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Toko game, game browser, dan platform game."
+  },
+  "rulepacks_added_label": {
+    "message": "Ditambahkan"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Sudah ditambahkan"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Konflik daftar izin"
   }
 }

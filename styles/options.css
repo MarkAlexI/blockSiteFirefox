@@ -1272,19 +1272,108 @@ tr.rule-whitelist td:first-child::before {
 }
 
 .rule-packs-status {
-  padding: 0.7rem;
+  padding: 0.8rem;
   border-radius: 8px;
-  font-weight: 600;
 }
 
 .rule-packs-status.success {
-  background: rgba(22, 163, 74, 0.12);
-  color: #15803d;
+  background: rgba(22, 163, 74, 0.08);
+  color: var(--text-primary);
 }
 
 .rule-packs-status.error {
   background: rgba(220, 38, 38, 0.12);
   color: #b91c1c;
+  font-weight: 600;
+}
+
+.rule-packs-result-summary {
+  margin: 0;
+  font-weight: 700;
+}
+
+.rule-packs-result-counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.rule-packs-result-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  font-size: 0.82rem;
+}
+
+.rule-packs-result-count span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.rule-packs-result-count strong {
+  flex: 0 0 auto;
+  font-size: 1rem;
+}
+
+.rule-packs-result-count.added strong {
+  color: #15803d;
+}
+
+.rule-packs-result-count.duplicate strong {
+  color: var(--text-secondary);
+}
+
+.rule-packs-result-count.conflict strong {
+  color: #b45309;
+}
+
+.rule-packs-result-details {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.rule-packs-result-group {
+  padding: 0.6rem 0.7rem;
+  border-left: 3px solid var(--border-light);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+}
+
+.rule-packs-result-group.added {
+  border-left-color: #16a34a;
+}
+
+.rule-packs-result-group.duplicate {
+  border-left-color: var(--text-secondary);
+}
+
+.rule-packs-result-group.conflict {
+  border-left-color: #d97706;
+}
+
+.rule-packs-result-group h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.86rem;
+}
+
+.rule-packs-result-group ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.rule-packs-result-group li {
+  margin: 0.18rem 0;
+  overflow-wrap: anywhere;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
 }
 
 .rule-packs-actions {
@@ -1309,6 +1398,10 @@ tr.rule-whitelist td:first-child::before {
   }
 
   .rule-packs-entries {
+    grid-template-columns: 1fr;
+  }
+
+  .rule-packs-result-counts {
     grid-template-columns: 1fr;
   }
 

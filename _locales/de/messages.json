@@ -900,5 +900,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Spiele-Shops, Browsergames und Spieleplattformen."
+  },
+  "rulepacks_added_label": {
+    "message": "Hinzugefügt"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Bereits hinzugefügt"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Konflikte mit der Positivliste"
   }
 }

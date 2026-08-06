@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Kedai permainan, permainan pelayar dan platform permainan."
+  },
+  "rulepacks_added_label": {
+    "message": "Ditambahkan"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Sudah ditambahkan"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Konflik senarai dibenarkan"
   }
 }

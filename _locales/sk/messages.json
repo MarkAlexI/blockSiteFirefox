@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Obchody s hrami, hry v prehliadači a herné platformy."
+  },
+  "rulepacks_added_label": {
+    "message": "Pridané"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Už pridané"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Konflikty so zoznamom povolených"
   }
 }

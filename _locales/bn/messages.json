@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "গেম স্টোর, ব্রাউজার গেম ও গেমিং প্ল্যাটফর্ম।"
+  },
+  "rulepacks_added_label": {
+    "message": "যোগ করা হয়েছে"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "ইতিমধ্যে যোগ করা"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "অনুমোদিত তালিকার দ্বন্দ্ব"
   }
 }

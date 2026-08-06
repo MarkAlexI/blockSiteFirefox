@@ -900,5 +900,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "ゲームストア、ブラウザーゲーム、ゲームプラットフォーム。"
+  },
+  "rulepacks_added_label": {
+    "message": "新しく追加"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "追加済み"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "許可リストとの競合"
   }
 }

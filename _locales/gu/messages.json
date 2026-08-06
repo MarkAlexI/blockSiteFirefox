@@ -903,5 +903,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "ગેમ સ્ટોર, બ્રાઉઝર ગેમ અને ગેમિંગ પ્લેટફોર્મ."
+  },
+  "rulepacks_added_label": {
+    "message": "ઉમેરાયેલ"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "પહેલેથી ઉમેરાયેલ"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "મંજૂર સૂચિના સંઘર્ષો"
   }
 }

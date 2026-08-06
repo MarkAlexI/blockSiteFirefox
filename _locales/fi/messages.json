@@ -897,5 +897,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Pelikaupat, selainpelit ja pelialustat."
+  },
+  "rulepacks_added_label": {
+    "message": "Lisätty"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Jo lisätty"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Sallittujen luettelon ristiriidat"
   }
 }

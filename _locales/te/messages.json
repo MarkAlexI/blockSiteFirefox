@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "గేమ్ స్టోర్లు, బ్రౌజర్ గేమ్‌లు మరియు గేమింగ్ ప్లాట్‌ఫారమ్‌లు."
+  },
+  "rulepacks_added_label": {
+    "message": "జోడించబడ్డాయి"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "ఇప్పటికే జోడించబడ్డాయి"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "అనుమతి జాబితా విరుద్ధాలు"
   }
 }

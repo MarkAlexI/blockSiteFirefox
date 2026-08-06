@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "የጨዋታ መደብሮች፣ የአሳሽ ጨዋታዎች እና የጨዋታ መድረኮች።"
+  },
+  "rulepacks_added_label": {
+    "message": "ታክሏል"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "አስቀድሞ ታክሏል"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "የነጭ ዝርዝር ግጭቶች"
   }
 }

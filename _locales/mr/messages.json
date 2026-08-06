@@ -903,5 +903,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "गेम स्टोअर्स, ब्राउझर गेम्स आणि गेमिंग प्लॅटफॉर्म."
+  },
+  "rulepacks_added_label": {
+    "message": "जोडले"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "आधीच जोडलेले"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "अनुमती सूचीतील संघर्ष"
   }
 }

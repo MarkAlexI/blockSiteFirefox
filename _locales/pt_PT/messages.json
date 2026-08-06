@@ -900,5 +900,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Lojas de jogos, jogos de navegador e plataformas de jogos."
+  },
+  "rulepacks_added_label": {
+    "message": "Adicionadas"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Já adicionadas"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Conflitos com a lista de permissões"
   }
 }

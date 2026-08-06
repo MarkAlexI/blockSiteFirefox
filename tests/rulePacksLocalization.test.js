@@ -32,7 +32,7 @@ test('all locales provide complete localized Rule Packs messages', async () => {
     .map(entry => entry.name)
     .sort();
 
-  assert.equal(rulePackKeys.length, 21);
+  assert.equal(rulePackKeys.length, 24);
   assert.equal(locales.length, 57);
 
   for (const locale of locales) {

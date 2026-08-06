@@ -900,5 +900,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Gamewinkels, browserspellen en gameplatforms."
+  },
+  "rulepacks_added_label": {
+    "message": "Toegevoegd"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Al toegevoegd"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Conflicten met de toestemmingslijst"
   }
 }

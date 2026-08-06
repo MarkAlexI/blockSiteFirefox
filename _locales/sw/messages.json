@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Maduka ya michezo, michezo ya kivinjari na majukwaa ya michezo."
+  },
+  "rulepacks_added_label": {
+    "message": "Zimeongezwa"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Tayari zimeongezwa"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Migongano ya orodha ya ruhusa"
   }
 }

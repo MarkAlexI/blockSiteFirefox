@@ -179,8 +179,9 @@ export function createRulesMutationService({
 
       const rules = await rulesManager.getRules();
       const nextRules = [...rules];
+      const addedEntries = [];
+      const duplicateEntries = [];
       const conflicts = [];
-      let skippedDuplicates = 0;
 
       const dnrRules = await declarativeNetRequest.getDynamicRules();
       const occupiedIds = new Set([
@@ -231,7 +232,10 @@ export function createRulesMutationService({
         }
 
         if (rulesManager.ruleExists(nextRules, input.blockURL, '', -1, false)) {
-          skippedDuplicates++;
+          duplicateEntries.push({
+            entryId: entry.id,
+            blockURL: input.blockURL
+          });
           continue;
         }
 
@@ -244,12 +248,18 @@ export function createRulesMutationService({
           disabledByUser: false,
           isWhitelist: false
         });
+        addedEntries.push({
+          entryId: entry.id,
+          blockURL: input.blockURL
+        });
       }
 
-      const addedCount = nextRules.length - rules.length;
+      const addedCount = addedEntries.length;
       const result = {
         addedCount,
-        skippedDuplicates,
+        skippedDuplicates: duplicateEntries.length,
+        addedEntries,
+        duplicateEntries,
         conflicts,
         packId: selection.pack.id
       };

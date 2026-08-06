@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "חנויות משחקים, משחקי דפדפן ופלטפורמות משחקים."
+  },
+  "rulepacks_added_label": {
+    "message": "נוספו"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "כבר נוספו"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "התנגשויות עם רשימת ההיתרים"
   }
 }

@@ -909,5 +909,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Продавнице игара, игре у прегледачу и платформе за игре."
+  },
+  "rulepacks_added_label": {
+    "message": "Додато"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Већ додато"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Сукоби са листом дозвољених"
   }
 }

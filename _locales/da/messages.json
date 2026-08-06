@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Spilbutikker, browserspil og spilplatforme."
+  },
+  "rulepacks_added_label": {
+    "message": "Tilføjet"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Allerede tilføjet"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Konflikter med tilladelseslisten"
   }
 }

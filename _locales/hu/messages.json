@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Játékboltok, böngészős játékok és játékplatformok."
+  },
+  "rulepacks_added_label": {
+    "message": "Hozzáadva"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Már hozzáadva"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Engedélyezési lista ütközései"
   }
 }

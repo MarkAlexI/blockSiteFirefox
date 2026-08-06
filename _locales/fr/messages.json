@@ -900,5 +900,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Boutiques de jeux, jeux sur navigateur et plateformes de jeu."
+  },
+  "rulepacks_added_label": {
+    "message": "Ajoutées"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Déjà ajoutées"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Conflits avec la liste blanche"
   }
 }

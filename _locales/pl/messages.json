@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Sklepy z grami, gry przeglądarkowe i platformy gamingowe."
+  },
+  "rulepacks_added_label": {
+    "message": "Dodano"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Już dodano"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Konflikty z listą dozwolonych"
   }
 }

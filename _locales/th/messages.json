@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "ร้านเกม เกมบนเบราว์เซอร์ และแพลตฟอร์มเกม"
+  },
+  "rulepacks_added_label": {
+    "message": "เพิ่มแล้ว"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "เพิ่มไว้แล้ว"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "ข้อขัดแย้งกับรายการอนุญาต"
   }
 }

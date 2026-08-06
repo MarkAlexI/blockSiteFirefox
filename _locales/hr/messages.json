@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Trgovine igara, igre u pregledniku i platforme za igre."
+  },
+  "rulepacks_added_label": {
+    "message": "Dodano"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Već dodano"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Sukobi s popisom dopuštenih"
   }
 }

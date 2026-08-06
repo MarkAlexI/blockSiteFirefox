@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Καταστήματα παιχνιδιών, παιχνίδια προγράμματος περιήγησης και πλατφόρμες παιχνιδιών."
+  },
+  "rulepacks_added_label": {
+    "message": "Προστέθηκαν"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Ήδη προστέθηκαν"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Διενέξεις λίστας επιτρεπόμενων"
   }
 }

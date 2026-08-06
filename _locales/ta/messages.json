@@ -903,5 +903,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "விளையாட்டு கடைகள், உலாவி விளையாட்டுகள் மற்றும் கேமிங் தளங்கள்."
+  },
+  "rulepacks_added_label": {
+    "message": "சேர்க்கப்பட்டது"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "ஏற்கனவே சேர்க்கப்பட்டது"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "அனுமதிப்பட்டியல் முரண்பாடுகள்"
   }
 }

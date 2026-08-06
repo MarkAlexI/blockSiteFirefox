@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "فروشگاه‌های بازی، بازی‌های مرورگری و پلتفرم‌های بازی."
+  },
+  "rulepacks_added_label": {
+    "message": "افزوده‌شده"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "از قبل افزوده‌شده"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "تداخل‌های فهرست مجاز"
   }
 }

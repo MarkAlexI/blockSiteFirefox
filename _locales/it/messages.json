@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Negozi di giochi, giochi per browser e piattaforme di gioco."
+  },
+  "rulepacks_added_label": {
+    "message": "Aggiunte"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Già aggiunte"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Conflitti con la lista consentita"
   }
 }

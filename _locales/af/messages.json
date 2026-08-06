@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Speletjiewinkels, blaaierspeletjies en speletjieplatforms."
+  },
+  "rulepacks_added_label": {
+    "message": "Bygevoeg"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Reeds bygevoeg"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Witlys-konflikte"
   }
 }

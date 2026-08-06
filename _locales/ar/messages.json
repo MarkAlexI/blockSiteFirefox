@@ -903,5 +903,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "متاجر ألعاب وألعاب متصفح ومنصات ألعاب."
+  },
+  "rulepacks_added_label": {
+    "message": "تمت الإضافة"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "مضافة بالفعل"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "تعارضات القائمة البيضاء"
   }
 }

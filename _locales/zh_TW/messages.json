@@ -900,5 +900,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "遊戲商店、瀏覽器遊戲和遊戲平台。"
+  },
+  "rulepacks_added_label": {
+    "message": "已新增"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "已存在"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "白名單衝突"
   }
 }

@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Mängupoed, brauserimängud ja mänguplatvormid."
+  },
+  "rulepacks_added_label": {
+    "message": "Lisatud"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Juba lisatud"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Lubatud loendi konfliktid"
   }
 }

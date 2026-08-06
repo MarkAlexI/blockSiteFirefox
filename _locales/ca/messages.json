@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Botigues de jocs, jocs de navegador i plataformes de joc."
+  },
+  "rulepacks_added_label": {
+    "message": "Afegides"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Ja afegides"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Conflictes amb la llista blanca"
   }
 }

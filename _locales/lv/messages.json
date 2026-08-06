@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Spēļu veikali, pārlūka spēles un spēļu platformas."
+  },
+  "rulepacks_added_label": {
+    "message": "Pievienots"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Jau pievienots"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Atļauto vietņu saraksta konflikti"
   }
 }

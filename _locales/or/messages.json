@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "ଗେମ୍ ଷ୍ଟୋର୍, ବ୍ରାଉଜର୍ ଗେମ୍ ଏବଂ ଗେମିଂ ପ୍ଲାଟଫର୍ମ।"
+  },
+  "rulepacks_added_label": {
+    "message": "ଯୋଡ଼ାଗଲା"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "ପୂର୍ବରୁ ଯୋଡ଼ାଯାଇଛି"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "ଅନୁମତି ତାଲିକା ବିରୋଧ"
   }
 }

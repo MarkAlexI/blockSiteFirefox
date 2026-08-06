@@ -909,5 +909,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Игровые магазины, браузерные игры и игровые платформы."
+  },
+  "rulepacks_added_label": {
+    "message": "Добавлено"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Уже добавлено"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "Конфликты с белым списком"
   }
 }

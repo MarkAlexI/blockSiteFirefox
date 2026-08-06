@@ -912,5 +912,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "ഗെയിം സ്റ്റോറുകൾ, ബ്രൗസർ ഗെയിമുകൾ, ഗെയിമിംഗ് പ്ലാറ്റ്‌ഫോമുകൾ."
+  },
+  "rulepacks_added_label": {
+    "message": "ചേർത്തു"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "ഇതിനകം ചേർത്തത്"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "അനുവദനീയ പട്ടികയിലെ പൊരുത്തക്കേടുകൾ"
   }
 }

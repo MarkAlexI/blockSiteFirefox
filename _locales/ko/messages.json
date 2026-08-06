@@ -900,5 +900,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "게임 스토어, 브라우저 게임 및 게임 플랫폼."
+  },
+  "rulepacks_added_label": {
+    "message": "추가됨"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "이미 추가됨"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "허용 목록 충돌"
   }
 }

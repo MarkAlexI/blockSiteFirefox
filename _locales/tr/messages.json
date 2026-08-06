@@ -906,5 +906,14 @@
   },
   "rulepack_gaming_desc": {
     "message": "Oyun mağazaları, tarayıcı oyunları ve oyun platformları."
+  },
+  "rulepacks_added_label": {
+    "message": "Eklendi"
+  },
+  "rulepacks_duplicates_label": {
+    "message": "Zaten eklendi"
+  },
+  "rulepacks_conflicts_label": {
+    "message": "İzin listesi çakışmaları"
   }
 }
