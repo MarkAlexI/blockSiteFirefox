@@ -832,5 +832,82 @@
   },
   "schedule_day_overlap": {
     "message": "Каждый день можно использовать только один раз."
+  },
+  "rulepacks_title": {
+    "message": "Наборы правил"
+  },
+  "rulepacks_description": {
+    "message": "Добавьте проверенный стартовый набор, просмотрите каждый адрес и уберите всё лишнее."
+  },
+  "rulepacks_open": {
+    "message": "Просмотреть наборы"
+  },
+  "rulepacks_dialog_desc": {
+    "message": "Выберите стартовый набор, проверьте каждый адрес и добавьте только нужные правила."
+  },
+  "rulepacks_choose": {
+    "message": "Выберите набор"
+  },
+  "rulepacks_select_all": {
+    "message": "Выбрать всё"
+  },
+  "rulepacks_edit_hint": {
+    "message": "Добавленные правила можно полностью редактировать и позже назначить им расписание."
+  },
+  "rulepacks_add_selected": {
+    "message": "Добавить выбранные правила"
+  },
+  "rulepacks_result": {
+    "message": "Добавлено правил: $added$. Пропущено дубликатов: $duplicates$, конфликтов: $conflicts$.",
+    "placeholders": {
+      "added": {
+        "content": "$1",
+        "example": "5"
+      },
+      "duplicates": {
+        "content": "$2",
+        "example": "2"
+      },
+      "conflicts": {
+        "content": "$3",
+        "example": "1"
+      }
+    }
+  },
+  "rulepacks_no_new_rules": {
+    "message": "Новые правила не добавлены. Существующие или конфликтующие правила оставлены без изменений."
+  },
+  "rulepacks_error": {
+    "message": "Не удалось добавить выбранные правила."
+  },
+  "rulepack_social_title": {
+    "message": "Социальные сети"
+  },
+  "rulepack_social_desc": {
+    "message": "Популярные социальные сети и ленты сообществ."
+  },
+  "rulepack_video_title": {
+    "message": "Видео и стриминг"
+  },
+  "rulepack_video_desc": {
+    "message": "Основные видеоплатформы и сайты прямых трансляций."
+  },
+  "rulepack_news_title": {
+    "message": "Новости и заголовки"
+  },
+  "rulepack_news_desc": {
+    "message": "Популярные новостные сайты и ленты заголовков."
+  },
+  "rulepack_shopping_title": {
+    "message": "Покупки и скидки"
+  },
+  "rulepack_shopping_desc": {
+    "message": "Популярные маркетплейсы и сайты для покупок."
+  },
+  "rulepack_gaming_title": {
+    "message": "Игры"
+  },
+  "rulepack_gaming_desc": {
+    "message": "Игровые магазины, браузерные игры и игровые платформы."
   }
 }

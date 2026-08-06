@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "🗓️ Flexible Weekly Schedules: Use different blocking hours for weekdays, weekends, or any custom group of days.",
-    "⏰ Multiple Time Groups: A single rule can now follow separate schedules across the week.",
-    "⚡ Quick Presets: Start with Every day, Weekdays, or Weekends and adjust the times as needed.",
-    "✅ Seamless Upgrade: Your existing scheduled rules continue to work automatically."
+    "📦 Rule Packs: Start quickly with reviewed sets for social media, video, news, shopping, and gaming.",
+    "👀 Full Preview: See every address and remove anything you do not want before adding the pack.",
+    "🛡️ Safe Import: Existing duplicates and whitelist conflicts are skipped without changing your current rules.",
+    "🔒 Local by Design: Packs are built into the extension and are never updated or added remotely."
   ];
   
   const ul = document.getElementById('features');

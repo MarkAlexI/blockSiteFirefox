@@ -12,6 +12,7 @@ function createHarness() {
 
   for (const method of [
     'addRule',
+    'addMany',
     'updateRule',
     'deleteRule',
     'toggleRule',
@@ -36,6 +37,7 @@ test('all declared rules intents route to the expected mutation method', async (
   const payload = { value: 1 };
   const expected = [
     ['rules:add', 'addRule', payload],
+    ['rules:addMany', 'addMany', payload],
     ['rules:update', 'updateRule', payload],
     ['rules:delete', 'deleteRule', payload],
     ['rules:toggle', 'toggleRule', payload],

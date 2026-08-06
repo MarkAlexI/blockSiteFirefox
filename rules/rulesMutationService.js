@@ -60,6 +60,7 @@ export function createRulesMutationService({
   saveSettings,
   maxRulesLimit,
   notifyRulesChanged,
+  resolveRulePackEntries,
   logger
 }) {
   const mutationQueue = createAsyncQueue();
@@ -152,6 +153,117 @@ export function createRulesMutationService({
       await rulesManager.saveRules(nextRules);
 
       return syncAndNotify(nextRules, { rule: newRule });
+    });
+  }
+
+  async function addMany(payload = {}) {
+    return mutationQueue.enqueue(async () => {
+      if (!await getProAccess()) {
+        throw new RulesMutationError('pro_required', 'Pro access is required');
+      }
+
+      if (typeof resolveRulePackEntries !== 'function') {
+        throw new RulesMutationError('rule_pack_unavailable', 'Rule packs are unavailable');
+      }
+
+      const selection = resolveRulePackEntries(payload.packId, payload.entryIds);
+      if (!selection.pack) {
+        throw new RulesMutationError('rule_pack_not_found', 'Rule pack not found');
+      }
+      if (selection.invalidEntryIds.length > 0) {
+        throw new RulesMutationError('rule_pack_invalid_selection', 'Rule pack selection is invalid');
+      }
+      if (selection.entries.length === 0) {
+        throw new RulesMutationError('rule_pack_empty', 'Select at least one rule');
+      }
+
+      const rules = await rulesManager.getRules();
+      const nextRules = [...rules];
+      const conflicts = [];
+      let skippedDuplicates = 0;
+
+      const dnrRules = await declarativeNetRequest.getDynamicRules();
+      const occupiedIds = new Set([
+        ...rules.map(rule => toRuleId(rule.id)).filter(Boolean),
+        ...dnrRules.map(rule => toRuleId(rule.id)).filter(Boolean)
+      ]);
+
+      function getNextSafeId() {
+        let safeId = 1;
+        while (occupiedIds.has(safeId)) safeId++;
+        occupiedIds.add(safeId);
+        return safeId;
+      }
+
+      for (const entry of selection.entries) {
+        const input = sanitizeRuleInput({
+          blockURL: entry.blockURL,
+          redirectURL: '',
+          schedule: null,
+          category: selection.pack.category,
+          isWhitelist: false
+        });
+
+        const validation = rulesManager.validateRule(
+          input.blockURL,
+          input.redirectURL,
+          input.schedule,
+          input.category,
+          false
+        );
+
+        if (!validation.isValid) {
+          throw new RulesMutationError(
+            'rule_pack_invalid',
+            `Invalid rule pack entry: ${input.blockURL}`,
+            validation.errors
+          );
+        }
+
+        const conflict = rulesManager.checkConflict(nextRules, input.blockURL, false);
+        if (conflict) {
+          conflicts.push({
+            entryId: entry.id,
+            blockURL: input.blockURL,
+            code: conflict
+          });
+          continue;
+        }
+
+        if (rulesManager.ruleExists(nextRules, input.blockURL, '', -1, false)) {
+          skippedDuplicates++;
+          continue;
+        }
+
+        nextRules.push({
+          id: getNextSafeId(),
+          blockURL: input.blockURL.trim(),
+          redirectURL: '',
+          schedule: null,
+          category: selection.pack.category,
+          disabledByUser: false,
+          isWhitelist: false
+        });
+      }
+
+      const addedCount = nextRules.length - rules.length;
+      const result = {
+        addedCount,
+        skippedDuplicates,
+        conflicts,
+        packId: selection.pack.id
+      };
+
+      if (addedCount === 0) {
+        return {
+          rules,
+          syncPending: false,
+          ...result
+        };
+      }
+
+      await rulesManager.saveRules(nextRules);
+      return syncAndNotify(nextRules, result);
     });
   }
 
@@ -399,6 +511,7 @@ export function createRulesMutationService({
 
   return {
     addRule,
+    addMany,
     updateRule,
     deleteRule,
     toggleRule,

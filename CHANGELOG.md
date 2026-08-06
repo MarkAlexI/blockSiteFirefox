@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.5.0] - 2026-08-06
+### Added
+- Added local Pro Rule Packs for social media, video and streaming, news, shopping, and gaming.
+- Added a preview dialog where users can inspect every address and select only the rules they want.
+- Added the atomic `rules:addMany` worker intent for adding a complete selection with one storage write and one DNR synchronization.
+
+### Improved
+- Kept Rule Pack definitions inside the extension with no remote list updates or automatic additions.
+- Skipped exact duplicates and whitelist conflicts without modifying existing rules.
+- Added dependency-free tests for pack integrity, selection validation, atomic additions, duplicates, conflicts, access control, client messaging, and intent routing.
+
 ## [4.4.1] - 2026-08-06
 ### Fixed
 - Kept every category blocking control visible after disabling a category, including categories with no currently counted rules.

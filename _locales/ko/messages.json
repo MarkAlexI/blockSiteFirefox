@@ -823,5 +823,82 @@
   },
   "schedule_day_overlap": {
     "message": "각 요일은 한 번만 사용할 수 있습니다."
+  },
+  "rulepacks_title": {
+    "message": "Rule Packs"
+  },
+  "rulepacks_description": {
+    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+  },
+  "rulepacks_open": {
+    "message": "Browse Rule Packs"
+  },
+  "rulepacks_dialog_desc": {
+    "message": "Choose a starter pack, review every address, and add only the rules you want."
+  },
+  "rulepacks_choose": {
+    "message": "Choose a pack"
+  },
+  "rulepacks_select_all": {
+    "message": "Select all"
+  },
+  "rulepacks_edit_hint": {
+    "message": "Added rules remain fully editable and can receive schedules later."
+  },
+  "rulepacks_add_selected": {
+    "message": "Add selected rules"
+  },
+  "rulepacks_result": {
+    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "placeholders": {
+      "added": {
+        "content": "$1",
+        "example": "5"
+      },
+      "duplicates": {
+        "content": "$2",
+        "example": "2"
+      },
+      "conflicts": {
+        "content": "$3",
+        "example": "1"
+      }
+    }
+  },
+  "rulepacks_no_new_rules": {
+    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+  },
+  "rulepacks_error": {
+    "message": "Unable to add the selected rules."
+  },
+  "rulepack_social_title": {
+    "message": "Social Media"
+  },
+  "rulepack_social_desc": {
+    "message": "Popular social networks and community feeds."
+  },
+  "rulepack_video_title": {
+    "message": "Video and Streaming"
+  },
+  "rulepack_video_desc": {
+    "message": "Major video platforms and live-streaming sites."
+  },
+  "rulepack_news_title": {
+    "message": "News and Headlines"
+  },
+  "rulepack_news_desc": {
+    "message": "Frequently visited news sites and headline feeds."
+  },
+  "rulepack_shopping_title": {
+    "message": "Shopping and Deals"
+  },
+  "rulepack_shopping_desc": {
+    "message": "Popular marketplaces and shopping sites."
+  },
+  "rulepack_gaming_title": {
+    "message": "Gaming"
+  },
+  "rulepack_gaming_desc": {
+    "message": "Game stores, browser games, and gaming platforms."
   }
 }

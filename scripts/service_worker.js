@@ -20,6 +20,7 @@ import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
 import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
 import { RULES_INTENT_TYPES, createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
+import { resolveRulePackEntries } from '../rules/rulePacks.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -71,6 +72,7 @@ const rulesMutationService = createRulesMutationService({
   saveSettings: (settings) => browser.storage.sync.set({ settings }),
   maxRulesLimit: MAX_RULES_LIMIT,
   notifyRulesChanged,
+  resolveRulePackEntries,
   logger
 });
 

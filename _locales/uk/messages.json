@@ -832,5 +832,82 @@
   },
   "schedule_day_overlap": {
     "message": "Кожен день можна використати лише один раз."
+  },
+  "rulepacks_title": {
+    "message": "Набори правил"
+  },
+  "rulepacks_description": {
+    "message": "Додайте перевірений стартовий набір, перегляньте кожну адресу та приберіть усе зайве."
+  },
+  "rulepacks_open": {
+    "message": "Переглянути набори"
+  },
+  "rulepacks_dialog_desc": {
+    "message": "Оберіть стартовий набір, перегляньте кожну адресу та додайте лише потрібні правила."
+  },
+  "rulepacks_choose": {
+    "message": "Оберіть набір"
+  },
+  "rulepacks_select_all": {
+    "message": "Вибрати все"
+  },
+  "rulepacks_edit_hint": {
+    "message": "Додані правила можна повністю редагувати та пізніше призначити їм розклад."
+  },
+  "rulepacks_add_selected": {
+    "message": "Додати вибрані правила"
+  },
+  "rulepacks_result": {
+    "message": "Додано правил: $added$. Пропущено дублікатів: $duplicates$, конфліктів: $conflicts$.",
+    "placeholders": {
+      "added": {
+        "content": "$1",
+        "example": "5"
+      },
+      "duplicates": {
+        "content": "$2",
+        "example": "2"
+      },
+      "conflicts": {
+        "content": "$3",
+        "example": "1"
+      }
+    }
+  },
+  "rulepacks_no_new_rules": {
+    "message": "Нових правил не додано. Наявні або конфліктні правила залишено без змін."
+  },
+  "rulepacks_error": {
+    "message": "Не вдалося додати вибрані правила."
+  },
+  "rulepack_social_title": {
+    "message": "Соціальні мережі"
+  },
+  "rulepack_social_desc": {
+    "message": "Популярні соціальні мережі та стрічки спільнот."
+  },
+  "rulepack_video_title": {
+    "message": "Відео та стримінг"
+  },
+  "rulepack_video_desc": {
+    "message": "Основні відеоплатформи та сайти прямих трансляцій."
+  },
+  "rulepack_news_title": {
+    "message": "Новини та заголовки"
+  },
+  "rulepack_news_desc": {
+    "message": "Популярні новинні сайти та стрічки заголовків."
+  },
+  "rulepack_shopping_title": {
+    "message": "Покупки та знижки"
+  },
+  "rulepack_shopping_desc": {
+    "message": "Популярні маркетплейси та сайти для покупок."
+  },
+  "rulepack_gaming_title": {
+    "message": "Ігри"
+  },
+  "rulepack_gaming_desc": {
+    "message": "Ігрові магазини, браузерні ігри та ігрові платформи."
   }
 }

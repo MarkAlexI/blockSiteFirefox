@@ -1,5 +1,6 @@
 export const RULES_INTENT_TYPES = new Set([
   'rules:add',
+  'rules:addMany',
   'rules:update',
   'rules:delete',
   'rules:toggle',
@@ -18,6 +19,8 @@ export function createRulesIntentHandler(rulesMutationService) {
     switch (message.type) {
       case 'rules:add':
         return rulesMutationService.addRule(message.payload);
+      case 'rules:addMany':
+        return rulesMutationService.addMany(message.payload);
       case 'rules:update':
         return rulesMutationService.updateRule(message.payload);
       case 'rules:delete':

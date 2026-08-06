@@ -4,6 +4,7 @@ import {
   createRulesMutationService,
   serializeRulesMutationError
 } from '../rules/rulesMutationService.js';
+import { resolveRulePackEntries } from '../rules/rulePacks.js';
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -36,7 +37,27 @@ function createHarness({
         errors: ['blockurl_empty', 'blockurl_invalid']
       };
     },
-    checkConflict() {
+    checkConflict(currentRules, blockURL, isWhitelist, excludeIndex = -1) {
+      const cleanNew = blockURL.trim().toLowerCase();
+
+      for (let index = 0; index < currentRules.length; index++) {
+        if (excludeIndex !== -1 && index === excludeIndex) continue;
+
+        const rule = currentRules[index];
+        const ruleIsWhitelist = rule.isWhitelist === true;
+        const cleanExisting = rule.blockURL.trim().toLowerCase();
+
+        if (ruleIsWhitelist !== isWhitelist) {
+          if (cleanNew.includes(cleanExisting) || cleanExisting.includes(cleanNew)) {
+            return isWhitelist ? 'conflict_blacklist' : 'conflict_whitelist';
+          }
+        } else if (isWhitelist) {
+          if (cleanNew.includes(cleanExisting) || cleanExisting.includes(cleanNew)) {
+            return 'redundant_whitelist';
+          }
+        }
+      }
+
       return null;
     },
     ruleExists(currentRules, blockURL, redirectURL, excludeIndex, isWhitelist) {
@@ -69,6 +90,7 @@ function createHarness({
       settings = clone(nextSettings);
     },
     maxRulesLimit: 10,
+    resolveRulePackEntries,
     notifyRulesChanged(nextRules, extra) {
       notifications.push({ rules: clone(nextRules), extra: clone(extra) });
     },
@@ -353,4 +375,116 @@ test('category blocking changes require Pro or legacy access', async () => {
 
   assert.deepEqual(harness.getSettings().disabledCategories, []);
   assert.equal(harness.getSyncCalls(), 0);
+});
+
+
+test('a selected rule pack is added with one storage write and one DNR sync', async () => {
+  const harness = createHarness();
+
+  const result = await harness.service.addMany({
+    packId: 'shopping',
+    entryIds: ['amazon', 'etsy']
+  });
+
+  assert.equal(result.addedCount, 2);
+  assert.equal(result.skippedDuplicates, 0);
+  assert.deepEqual(result.conflicts, []);
+  assert.deepEqual(
+    harness.getRules().map(rule => [rule.id, rule.blockURL, rule.category]),
+    [
+      [1, 'amazon.com', 'shopping'],
+      [2, 'etsy.com', 'shopping']
+    ]
+  );
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('rule pack import skips exact duplicates and reports whitelist conflicts', async () => {
+  const harness = createHarness({
+    initialRules: [
+      {
+        id: 1,
+        blockURL: 'amazon.com',
+        redirectURL: '',
+        category: 'shopping',
+        disabledByUser: false,
+        isWhitelist: false
+      },
+      {
+        id: 2,
+        blockURL: 'etsy.com',
+        redirectURL: '',
+        schedule: null,
+        category: 'whitelist',
+        disabledByUser: false,
+        isWhitelist: true
+      }
+    ]
+  });
+
+  const result = await harness.service.addMany({
+    packId: 'shopping',
+    entryIds: ['amazon', 'etsy', 'temu']
+  });
+
+  assert.equal(result.addedCount, 1);
+  assert.equal(result.skippedDuplicates, 1);
+  assert.deepEqual(result.conflicts, [{
+    entryId: 'etsy',
+    blockURL: 'etsy.com',
+    code: 'conflict_whitelist'
+  }]);
+  assert.equal(harness.getRules().at(-1).blockURL, 'temu.com');
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('a rule pack with no new entries does not write storage or synchronize DNR', async () => {
+  const harness = createHarness({
+    initialRules: [{
+      id: 1,
+      blockURL: 'amazon.com',
+      redirectURL: '',
+      category: 'shopping',
+      disabledByUser: false,
+      isWhitelist: false
+    }]
+  });
+
+  const result = await harness.service.addMany({
+    packId: 'shopping',
+    entryIds: ['amazon']
+  });
+
+  assert.equal(result.addedCount, 0);
+  assert.equal(result.skippedDuplicates, 1);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('rule packs require Pro or legacy access', async () => {
+  const harness = createHarness({
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await assert.rejects(
+    harness.service.addMany({ packId: 'social', entryIds: ['facebook'] }),
+    error => error.code === 'pro_required'
+  );
+
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('unknown pack entries fail before any stored rule is changed', async () => {
+  const harness = createHarness();
+
+  await assert.rejects(
+    harness.service.addMany({ packId: 'social', entryIds: ['facebook', 'unknown-entry'] }),
+    error => error.code === 'rule_pack_invalid_selection'
+  );
+
+  assert.equal(harness.savedStates.length, 0);
+  assert.deepEqual(harness.getRules(), []);
 });

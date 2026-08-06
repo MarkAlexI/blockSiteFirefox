@@ -283,6 +283,14 @@
     </div>
     
     <div id="search-filter-container" class="hidden pro-feature">
+      <section class="rule-packs-panel">
+        <div class="rule-packs-panel-copy">
+          <h3 data-i18n="rulepacks_title">Rule Packs</h3>
+          <p data-i18n="rulepacks_description">Add a reviewed starter set, preview every address, and remove anything you do not need.</p>
+        </div>
+        <button id="open-rule-packs" type="button" data-i18n="rulepacks_open">Browse Rule Packs</button>
+      </section>
+      <hr class="divider">
       <section class="category-management-mini collapsible-section expanded">
         <h3 class="collapsible-header" data-i18n="categorymanagementtitle">Category Blocking</h3>
         <div class="collapsible-content">
@@ -333,6 +341,39 @@
     <p data-i18n="gotopopup">Click the extension icon to return to popup.</p>
   </div>
   
+  <dialog id="rule-packs-dialog" class="rule-packs-dialog">
+    <div class="rule-packs-dialog-content">
+      <button id="rule-packs-close" class="dialog-close-btn" type="button" aria-label="Close" title="Close">&times;</button>
+      <h3 data-i18n="rulepacks_title">Rule Packs</h3>
+      <p data-i18n="rulepacks_dialog_desc">Choose a starter pack, review every address, and add only the rules you want.</p>
+
+      <label class="rule-packs-select-label" for="rule-packs-select">
+        <span data-i18n="rulepacks_choose">Choose a pack</span>
+        <select id="rule-packs-select"></select>
+      </label>
+
+      <p id="rule-packs-description" class="rule-packs-description"></p>
+      <p class="rule-packs-category-line">
+        <strong data-i18n="category_header">Category</strong>:
+        <span id="rule-packs-category"></span>
+      </p>
+
+      <label class="rule-packs-select-all">
+        <input id="rule-packs-select-all" type="checkbox" checked>
+        <span data-i18n="rulepacks_select_all">Select all</span>
+      </label>
+
+      <div id="rule-packs-entries" class="rule-packs-entries"></div>
+      <p class="rule-packs-edit-hint" data-i18n="rulepacks_edit_hint">Added rules remain fully editable and can receive schedules later.</p>
+      <p id="rule-packs-status" class="rule-packs-status hidden" role="status" aria-live="polite"></p>
+
+      <div class="rule-packs-actions">
+        <button id="rule-packs-cancel" type="button" class="secondary" data-i18n="cancelbtn">Cancel</button>
+        <button id="rule-packs-add" type="button" data-i18n="rulepacks_add_selected">Add selected rules</button>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="feedback-dialog" class="native-dialog">
     <div class="dialog-content">
       <button id="feedback-close-btn" class="dialog-close-btn" aria-label="Close" title="Close">&times;</button>

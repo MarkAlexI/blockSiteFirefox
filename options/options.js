@@ -13,6 +13,7 @@ import { MAX_RULES_LIMIT } from '../utils/constants.js';
 import { checkDNR } from '../utils/dnrDebug.js';
 import { initFeedbackPopup } from './feedback.js';
 import { isVisibleRuleGroupEnd } from '../rules/visibleRuleGrouping.js';
+import { RulePacksUI } from './rulePacksUI.js';
 
 const logger = new Logger('OptionsPage');
 
@@ -31,6 +32,20 @@ class OptionsPage {
     this.searchInput = document.getElementById('search-input');
     this.categoryFilter = document.getElementById('category-filter');
     this.categoriesContainer = document.getElementById('categories-container');
+    this.rulePacksUI = new RulePacksUI({
+      dialog: document.getElementById('rule-packs-dialog'),
+      openButton: document.getElementById('open-rule-packs'),
+      closeButton: document.getElementById('rule-packs-close'),
+      cancelButton: document.getElementById('rule-packs-cancel'),
+      addButton: document.getElementById('rule-packs-add'),
+      packSelect: document.getElementById('rule-packs-select'),
+      description: document.getElementById('rule-packs-description'),
+      category: document.getElementById('rule-packs-category'),
+      selectAll: document.getElementById('rule-packs-select-all'),
+      entriesContainer: document.getElementById('rule-packs-entries'),
+      status: document.getElementById('rule-packs-status'),
+      onAdd: (packId, entryIds) => this.addRulePack(packId, entryIds)
+    });
     
     this.isPro = false;
     this.isLegacyUser = false;
@@ -46,6 +61,7 @@ class OptionsPage {
   async init() {
     this.initializeUI();
     this.setupEventListeners();
+    this.rulePacksUI.initialize();
     try {
       this.isPro = await ProManager.isPro();
       this.isLegacyUser = await ProManager.isLegacyUser();
@@ -355,6 +371,16 @@ class OptionsPage {
     } catch (error) {
       this.logger.info("Save new rule error:", error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
+    }
+  }
+  
+  async addRulePack(packId, entryIds) {
+    try {
+      return await this.rulesClient.addMany(packId, entryIds);
+    } catch (error) {
+      this.logger.error('Add rule pack error:', error);
+      this.handleRulesMutationError(error, 'rulepacks_error');
+      throw error;
     }
   }
   
