@@ -831,31 +831,31 @@
     "message": "Mỗi ngày chỉ có thể được sử dụng một lần."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Gói quy tắc"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Thêm một bộ khởi đầu đã được kiểm tra, xem từng địa chỉ và bỏ những mục bạn không cần."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Duyệt gói quy tắc"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Chọn một gói khởi đầu, xem từng địa chỉ và chỉ thêm các quy tắc bạn muốn."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Chọn một gói"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Chọn tất cả"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Các quy tắc đã thêm vẫn có thể chỉnh sửa hoàn toàn và có thể được đặt lịch sau."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Thêm các quy tắc đã chọn"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Đã thêm $added$ quy tắc. Đã bỏ qua $duplicates$ mục trùng lặp và $conflicts$ mục xung đột.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Không có quy tắc mới nào được thêm. Các quy tắc hiện có hoặc xung đột được giữ nguyên."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Không thể thêm các quy tắc đã chọn."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Mạng xã hội"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Các mạng xã hội phổ biến và nguồn cấp cộng đồng."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video và phát trực tuyến"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Các nền tảng video lớn và trang phát trực tiếp."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Tin tức và tiêu đề"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Các trang tin thường được truy cập và nguồn cấp tiêu đề."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Mua sắm và ưu đãi"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Các sàn thương mại và trang mua sắm phổ biến."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Trò chơi"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Cửa hàng trò chơi, trò chơi trên trình duyệt và nền tảng trò chơi."
   }
 }

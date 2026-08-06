@@ -831,31 +831,31 @@
     "message": "Hver dag kan bare brukes én gang."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Regelpakker"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Legg til et kontrollert startsett, se gjennom hver adresse og fjern det du ikke trenger."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Se gjennom regelpakker"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Velg en startpakke, kontroller hver adresse og legg bare til reglene du ønsker."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Velg en pakke"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Velg alle"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Regler som legges til, kan fortsatt redigeres fullt ut og kan få tidsplaner senere."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Legg til valgte regler"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "La til $added$ regel/regler. Hoppet over $duplicates$ duplikat/duplikater og $conflicts$ konflikt/konflikter.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Ingen nye regler ble lagt til. Eksisterende eller motstridende regler ble ikke endret."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Kunne ikke legge til de valgte reglene."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sosiale medier"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Populære sosiale nettverk og fellesskapsfeeder."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video og strømming"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Store videoplattformer og nettsteder for direktestrømming."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Nyheter og overskrifter"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Ofte besøkte nyhetsnettsteder og overskriftsfeeder."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Shopping og tilbud"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Populære markedsplasser og shoppingnettsteder."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Spill"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Spillbutikker, nettleserspill og spillplattformer."
   }
 }

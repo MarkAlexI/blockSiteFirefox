@@ -831,31 +831,31 @@
     "message": "Minden nap csak egyszer használható."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Szabálycsomagok"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Adjon hozzá egy ellenőrzött kezdőkészletet, tekintse át az összes címet, és távolítsa el a feleslegeseket."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Szabálycsomagok böngészése"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Válasszon kezdőcsomagot, tekintse át az összes címet, és csak a kívánt szabályokat adja hozzá."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Csomag kiválasztása"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Összes kijelölése"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "A hozzáadott szabályok teljesen szerkeszthetők maradnak, és később ütemezést kaphatnak."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Kijelölt szabályok hozzáadása"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Hozzáadott szabályok: $added$. Kihagyott ismétlődések: $duplicates$, ütközések: $conflicts$.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Nem lett új szabály hozzáadva. A meglévő vagy ütköző szabályok változatlanok maradtak."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "A kijelölt szabályokat nem sikerült hozzáadni."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Közösségi média"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Népszerű közösségi hálózatok és közösségi hírcsatornák."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Videó és streamelés"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Főbb videóplatformok és élő közvetítési oldalak."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Hírek és címsorok"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Gyakran látogatott híroldalak és címsorfolyamok."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Vásárlás és ajánlatok"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Népszerű piacterek és vásárlási oldalak."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Játékok"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Játékboltok, böngészős játékok és játékplatformok."
   }
 }

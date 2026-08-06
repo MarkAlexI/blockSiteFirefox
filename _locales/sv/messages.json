@@ -831,31 +831,31 @@
     "message": "Varje dag kan bara användas en gång."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Regelpaket"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Lägg till en granskad startuppsättning, kontrollera varje adress och ta bort det du inte behöver."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Bläddra bland regelpaket"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Välj ett startpaket, granska varje adress och lägg bara till de regler du vill ha."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Välj ett paket"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Välj alla"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Tillagda regler förblir fullt redigerbara och kan få scheman senare."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Lägg till valda regler"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Lade till $added$ regel/regler. Hoppade över $duplicates$ dubblett/dubbletter och $conflicts$ konflikt/konflikter.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Inga nya regler lades till. Befintliga eller motstridiga regler lämnades oförändrade."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "De valda reglerna kunde inte läggas till."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sociala medier"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Populära sociala nätverk och communityflöden."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video och strömning"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Stora videoplattformar och webbplatser för liveströmning."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Nyheter och rubriker"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Ofta besökta nyhetssajter och rubrikflöden."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Shopping och erbjudanden"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Populära marknadsplatser och shoppingsajter."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Spel"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Spelbutiker, webbläsarspel och spelplattformar."
   }
 }

@@ -831,31 +831,31 @@
     "message": "ניתן להשתמש בכל יום פעם אחת בלבד."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "חבילות כללים"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "הוסיפו ערכת התחלה שנבדקה, עברו על כל כתובת והסירו כל מה שאינכם צריכים."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "עיון בחבילות כללים"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "בחרו חבילת התחלה, עברו על כל כתובת והוסיפו רק את הכללים הרצויים."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "בחירת חבילה"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "בחירת הכול"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "הכללים שנוספו נשארים ניתנים לעריכה מלאה ואפשר להוסיף להם לוחות זמנים בהמשך."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "הוספת הכללים שנבחרו"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "נוספו $added$ כללים. דולגו $duplicates$ כפילויות ו-$conflicts$ התנגשויות.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "לא נוספו כללים חדשים. כללים קיימים או מתנגשים נותרו ללא שינוי."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "לא ניתן להוסיף את הכללים שנבחרו."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "רשתות חברתיות"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "רשתות חברתיות פופולריות ועדכוני קהילות."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "וידאו וסטרימינג"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "פלטפורמות וידאו מרכזיות ואתרי שידור חי."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "חדשות וכותרות"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "אתרי חדשות נפוצים ועדכוני כותרות."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "קניות ומבצעים"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "שווקים ואתרי קניות פופולריים."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "משחקים"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "חנויות משחקים, משחקי דפדפן ופלטפורמות משחקים."
   }
 }

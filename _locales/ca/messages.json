@@ -831,31 +831,31 @@
     "message": "Cada dia només es pot utilitzar una vegada."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Paquets de regles"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Afegeix un conjunt inicial revisat, previsualitza cada adreça i elimina el que no necessitis."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Explora els paquets de regles"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Tria un paquet inicial, revisa cada adreça i afegeix només les regles que vulguis."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Tria un paquet"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Selecciona-ho tot"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Les regles afegides continuen sent totalment editables i poden rebre horaris més endavant."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Afegeix les regles seleccionades"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "S’han afegit $added$ regla/es. S’han omès $duplicates$ duplicat/s i $conflicts$ conflicte/s.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "No s’ha afegit cap regla nova. Les regles existents o en conflicte no s’han modificat."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "No s’han pogut afegir les regles seleccionades."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Xarxes socials"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Xarxes socials populars i canals de comunitats."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Vídeo i reproducció en continu"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Principals plataformes de vídeo i llocs d’emissió en directe."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Notícies i titulars"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Llocs de notícies freqüentats i canals de titulars."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Compres i ofertes"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Mercats i llocs de compres populars."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Jocs"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Botigues de jocs, jocs de navegador i plataformes de joc."
   }
 }

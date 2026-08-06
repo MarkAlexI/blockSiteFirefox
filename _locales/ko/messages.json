@@ -825,31 +825,31 @@
     "message": "각 요일은 한 번만 사용할 수 있습니다."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "규칙 팩"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "검토된 시작 세트를 추가하고 각 주소를 확인한 뒤 필요 없는 항목을 제거하세요."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "규칙 팩 둘러보기"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "시작 팩을 선택하고 각 주소를 검토한 뒤 원하는 규칙만 추가하세요."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "팩 선택"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "모두 선택"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "추가된 규칙은 계속 자유롭게 편집할 수 있으며 나중에 일정을 설정할 수 있습니다."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "선택한 규칙 추가"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "규칙 $added$개를 추가했습니다. 중복 $duplicates$개와 충돌 $conflicts$개를 건너뛰었습니다.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -866,39 +866,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "새 규칙이 추가되지 않았습니다. 기존 또는 충돌하는 규칙은 변경되지 않았습니다."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "선택한 규칙을 추가할 수 없습니다."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "소셜 미디어"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "인기 소셜 네트워크와 커뮤니티 피드."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "동영상 및 스트리밍"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "주요 동영상 플랫폼과 라이브 스트리밍 사이트."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "뉴스 및 헤드라인"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "자주 방문하는 뉴스 사이트와 헤드라인 피드."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "쇼핑 및 할인"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "인기 마켓플레이스와 쇼핑 사이트."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "게임"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "게임 스토어, 브라우저 게임 및 게임 플랫폼."
   }
 }

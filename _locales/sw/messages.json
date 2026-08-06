@@ -831,31 +831,31 @@
     "message": "Kila siku inaweza kutumika mara moja tu."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Vifurushi vya Kanuni"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Ongeza seti ya kuanzia iliyokaguliwa, kagua kila anwani na uondoe usichohitaji."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Vinjari Vifurushi vya Kanuni"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Chagua kifurushi cha kuanzia, kagua kila anwani na uongeze kanuni unazotaka pekee."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Chagua kifurushi"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Chagua zote"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Kanuni zilizoongezwa zinaweza kuhaririwa kikamilifu na kupewa ratiba baadaye."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Ongeza kanuni zilizochaguliwa"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Kanuni $added$ zimeongezwa. Nakala $duplicates$ na migongano $conflicts$ imerukwa.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Hakuna kanuni mpya zilizoongezwa. Kanuni zilizopo au zinazogongana zimeachwa bila kubadilishwa."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Imeshindikana kuongeza kanuni zilizochaguliwa."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Mitandao ya Kijamii"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Mitandao maarufu ya kijamii na milisho ya jumuiya."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video na Utiririshaji"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Majukwaa makuu ya video na tovuti za utiririshaji wa moja kwa moja."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Habari na Vichwa"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Tovuti za habari zinazotembelewa mara nyingi na milisho ya vichwa."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Ununuzi na Ofa"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Masoko na tovuti maarufu za ununuzi."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Michezo"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Maduka ya michezo, michezo ya kivinjari na majukwaa ya michezo."
   }
 }

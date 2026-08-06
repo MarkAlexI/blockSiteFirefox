@@ -831,31 +831,31 @@
     "message": "Her gün yalnızca bir kez kullanılabilir."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Kural Paketleri"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "İncelenmiş bir başlangıç seti ekleyin, her adresi gözden geçirin ve ihtiyacınız olmayanları kaldırın."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Kural Paketlerine Göz At"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Bir başlangıç paketi seçin, her adresi inceleyin ve yalnızca istediğiniz kuralları ekleyin."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Paket seçin"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Tümünü seç"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Eklenen kurallar tamamen düzenlenebilir kalır ve daha sonra zamanlama alabilir."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Seçili kuralları ekle"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ kural eklendi. $duplicates$ yinelenen ve $conflicts$ çakışan kural atlandı.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Yeni kural eklenmedi. Mevcut veya çakışan kurallar değiştirilmedi."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Seçili kurallar eklenemedi."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sosyal Medya"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Popüler sosyal ağlar ve topluluk akışları."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video ve Yayın"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Başlıca video platformları ve canlı yayın siteleri."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Haberler ve Başlıklar"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Sık ziyaret edilen haber siteleri ve başlık akışları."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Alışveriş ve Fırsatlar"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Popüler pazar yerleri ve alışveriş siteleri."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Oyunlar"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Oyun mağazaları, tarayıcı oyunları ve oyun platformları."
   }
 }

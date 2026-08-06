@@ -837,31 +837,31 @@
     "message": "თითოეული დღის გამოყენება მხოლოდ ერთხელ შეიძლება."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "წესების პაკეტები"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "დაამატეთ შემოწმებული საწყისი ნაკრები, გადახედეთ თითოეულ მისამართს და წაშალეთ არასაჭირო."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "წესების პაკეტების დათვალიერება"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "აირჩიეთ საწყისი პაკეტი, გადახედეთ თითოეულ მისამართს და დაამატეთ მხოლოდ სასურველი წესები."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "აირჩიეთ პაკეტი"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "ყველას არჩევა"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "დამატებული წესები სრულად რედაქტირებადი რჩება და მოგვიანებით შეიძლება განრიგი მიენიჭოს."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "არჩეული წესების დამატება"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "დამატებულია $added$ წესი. გამოტოვებულია $duplicates$ დუბლიკატი და $conflicts$ კონფლიქტი.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -878,39 +878,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "ახალი წესები არ დამატებულა. არსებული ან კონფლიქტური წესები უცვლელი დარჩა."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "არჩეული წესების დამატება ვერ მოხერხდა."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "სოციალური ქსელები"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "პოპულარული სოციალური ქსელები და საზოგადოების არხები."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "ვიდეო და სტრიმინგი"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "მთავარი ვიდეოპლატფორმები და პირდაპირი ტრანსლაციის საიტები."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "სიახლეები და სათაურები"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "ხშირად მონახულებული საინფორმაციო საიტები და სათაურების არხები."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "შოპინგი და შეთავაზებები"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "პოპულარული სავაჭრო პლატფორმები და შოპინგის საიტები."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "თამაშები"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "თამაშების მაღაზიები, ბრაუზერული თამაშები და სათამაშო პლატფორმები."
   }
 }

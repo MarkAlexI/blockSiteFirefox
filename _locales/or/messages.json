@@ -831,31 +831,31 @@
     "message": "ପ୍ରତ୍ୟେକ ଦିନକୁ କେବଳ ଥରେ ବ୍ୟବହାର କରାଯାଇପାରିବ।"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "ନିୟମ ପ୍ୟାକ୍"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "ଯାଞ୍ଚ କରାଯାଇଥିବା ଆରମ୍ଭିକ ସେଟ୍ ଯୋଡ଼ନ୍ତୁ, ପ୍ରତ୍ୟେକ ଠିକଣା ଦେଖନ୍ତୁ ଏବଂ ଅନାବଶ୍ୟକଗୁଡ଼ିକୁ କାଢ଼ନ୍ତୁ।"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "ନିୟମ ପ୍ୟାକ୍ ଦେଖନ୍ତୁ"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "ଏକ ଆରମ୍ଭିକ ପ୍ୟାକ୍ ବାଛନ୍ତୁ, ପ୍ରତ୍ୟେକ ଠିକଣା ଯାଞ୍ଚ କରନ୍ତୁ ଏବଂ ଚାହୁଁଥିବା ନିୟମଗୁଡ଼ିକୁ ମାତ୍ର ଯୋଡ଼ନ୍ତୁ।"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "ପ୍ୟାକ୍ ବାଛନ୍ତୁ"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "ସବୁ ବାଛନ୍ତୁ"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "ଯୋଡ଼ାଯାଇଥିବା ନିୟମଗୁଡ଼ିକ ସମ୍ପୂର୍ଣ୍ଣ ସମ୍ପାଦନଯୋଗ୍ୟ ରହିବ ଏବଂ ପରେ ସମୟସୂଚୀ ଦିଆଯାଇପାରିବ।"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "ବାଛିଥିବା ନିୟମ ଯୋଡ଼ନ୍ତୁ"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ଟି ନିୟମ ଯୋଡ଼ାଗଲା। $duplicates$ଟି ନକଲ ଏବଂ $conflicts$ଟି ବିରୋଧ ଛାଡ଼ାଗଲା।",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "କୌଣସି ନୂଆ ନିୟମ ଯୋଡ଼ାଯାଇନି। ପୂର୍ବରୁ ଥିବା କିମ୍ବା ବିରୋଧୀ ନିୟମଗୁଡ଼ିକୁ ବଦଳାଯାଇନି।"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "ବାଛିଥିବା ନିୟମଗୁଡ଼ିକୁ ଯୋଡ଼ିହେଲା ନାହିଁ।"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "ସୋସିଆଲ୍ ମିଡିଆ"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "ଲୋକପ୍ରିୟ ସୋସିଆଲ୍ ନେଟୱର୍କ ଏବଂ ସମୁଦାୟ ଫିଡ୍।"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "ଭିଡିଓ ଏବଂ ସ୍ଟ୍ରିମିଂ"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "ମୁଖ୍ୟ ଭିଡିଓ ପ୍ଲାଟଫର୍ମ ଏବଂ ଲାଇଭ୍-ସ୍ଟ୍ରିମିଂ ସାଇଟ୍।"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "ସମ୍ବାଦ ଏବଂ ଶିରୋନାମା"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "ବାରମ୍ବାର ଦେଖାଯାଉଥିବା ସମ୍ବାଦ ସାଇଟ୍ ଏବଂ ଶିରୋନାମା ଫିଡ୍।"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "କ୍ରୟ ଏବଂ ଅଫର୍"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "ଲୋକପ୍ରିୟ ମାର୍କେଟପ୍ଲେସ୍ ଏବଂ କ୍ରୟ ସାଇଟ୍।"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "ଗେମିଂ"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "ଗେମ୍ ଷ୍ଟୋର୍, ବ୍ରାଉଜର୍ ଗେମ୍ ଏବଂ ଗେମିଂ ପ୍ଲାଟଫର୍ମ।"
   }
 }

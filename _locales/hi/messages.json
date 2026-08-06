@@ -831,31 +831,31 @@
     "message": "हर दिन का उपयोग केवल एक बार किया जा सकता है।"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "नियम पैक"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "जाँचा हुआ शुरुआती सेट जोड़ें, हर पते की समीक्षा करें और अनावश्यक चीज़ें हटा दें।"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "नियम पैक देखें"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "शुरुआती पैक चुनें, हर पते की समीक्षा करें और केवल इच्छित नियम जोड़ें।"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "पैक चुनें"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "सभी चुनें"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "जोड़े गए नियम पूरी तरह संपादन योग्य रहते हैं और बाद में उनमें शेड्यूल जोड़ा जा सकता है।"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "चुने गए नियम जोड़ें"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ नियम जोड़े गए। $duplicates$ डुप्लिकेट और $conflicts$ टकराव छोड़ दिए गए।",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "कोई नया नियम नहीं जोड़ा गया। मौजूदा या टकराने वाले नियम बिना बदलाव के रखे गए।"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "चुने गए नियम जोड़ना संभव नहीं हुआ।"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "सोशल मीडिया"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "लोकप्रिय सोशल नेटवर्क और कम्युनिटी फ़ीड।"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "वीडियो और स्ट्रीमिंग"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "प्रमुख वीडियो प्लेटफ़ॉर्म और लाइव-स्ट्रीमिंग साइटें।"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "समाचार और सुर्खियाँ"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "अक्सर देखी जाने वाली समाचार साइटें और हेडलाइन फ़ीड।"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "खरीदारी और ऑफ़र"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "लोकप्रिय मार्केटप्लेस और खरीदारी साइटें।"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "गेमिंग"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "गेम स्टोर, ब्राउज़र गेम और गेमिंग प्लेटफ़ॉर्म।"
   }
 }

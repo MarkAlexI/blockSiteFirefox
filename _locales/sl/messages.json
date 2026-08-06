@@ -831,31 +831,31 @@
     "message": "Vsak dan je mogoče uporabiti samo enkrat."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Paketi pravil"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Dodajte preverjen začetni komplet, preglejte vsak naslov in odstranite vse, česar ne potrebujete."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Prebrskaj pakete pravil"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Izberite začetni paket, preglejte vsak naslov in dodajte samo želena pravila."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Izberite paket"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Izberi vse"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Dodana pravila ostanejo povsem urejevalna in pozneje lahko dobijo urnike."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Dodaj izbrana pravila"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Dodanih pravil: $added$. Preskočenih dvojnikov: $duplicates$ in sporov: $conflicts$.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Ni bilo dodanih novih pravil. Obstoječa ali sporna pravila so ostala nespremenjena."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Izbranih pravil ni bilo mogoče dodati."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Družbena omrežja"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Priljubljena družbena omrežja in viri skupnosti."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video in pretočne vsebine"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Glavne video platforme in spletna mesta za prenose v živo."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Novice in naslovi"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Pogosto obiskana novičarska spletna mesta in viri naslovov."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Nakupovanje in ponudbe"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Priljubljene tržnice in spletna mesta za nakupovanje."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Igre"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Trgovine z igrami, brskalniške igre in igralne platforme."
   }
 }

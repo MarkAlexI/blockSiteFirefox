@@ -831,31 +831,31 @@
     "message": "Každý den lze použít pouze jednou."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Balíčky pravidel"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Přidejte prověřenou úvodní sadu, zkontrolujte každou adresu a odeberte vše nepotřebné."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Procházet balíčky pravidel"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Vyberte úvodní balíček, zkontrolujte každou adresu a přidejte jen pravidla, která chcete."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Vyberte balíček"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Vybrat vše"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Přidaná pravidla zůstávají plně upravitelná a později k nim lze přidat plán."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Přidat vybraná pravidla"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Přidáno pravidel: $added$. Přeskočeno duplikátů: $duplicates$ a konfliktů: $conflicts$.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Nebyla přidána žádná nová pravidla. Existující nebo konfliktní pravidla zůstala beze změny."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Vybraná pravidla se nepodařilo přidat."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sociální sítě"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Oblíbené sociální sítě a komunitní kanály."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video a streamování"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Hlavní video platformy a weby pro živé vysílání."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Zprávy a titulky"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Často navštěvované zpravodajské weby a kanály titulků."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Nákupy a nabídky"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Oblíbená tržiště a nákupní weby."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Hry"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Obchody s hrami, prohlížečové hry a herní platformy."
   }
 }

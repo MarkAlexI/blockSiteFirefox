@@ -52,8 +52,8 @@ test('service worker module loads and registers its browser listeners', async ()
     runtime: {
       id: 'test-extension-id',
       lastError: null,
-      getURL: path => `chrome-extension://test-extension-id/${path}`,
-      getManifest: () => ({ version: '4.5.0' }),
+      getURL: path => `moz-extension://test-extension-id/${path}`,
+      getManifest: () => ({ version: '4.5.1' }),
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();

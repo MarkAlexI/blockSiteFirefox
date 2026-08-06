@@ -825,31 +825,31 @@
     "message": "每一天只能使用一次。"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "规则包"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "添加经过审核的入门集合，预览每个地址，并移除不需要的内容。"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "浏览规则包"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "选择一个入门规则包，检查每个地址，并仅添加所需规则。"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "选择规则包"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "全选"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "添加的规则仍可完整编辑，并可稍后设置计划。"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "添加所选规则"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "已添加 $added$ 条规则。已跳过 $duplicates$ 条重复规则和 $conflicts$ 条冲突规则。",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -866,39 +866,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "未添加新规则。现有或冲突规则保持不变。"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "无法添加所选规则。"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "社交媒体"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "热门社交网络和社区信息流。"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "视频和流媒体"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "主要视频平台和直播网站。"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "新闻和标题"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "常用新闻网站和标题信息流。"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "购物和优惠"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "热门在线市场和购物网站。"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "游戏"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "游戏商店、浏览器游戏和游戏平台。"
   }
 }

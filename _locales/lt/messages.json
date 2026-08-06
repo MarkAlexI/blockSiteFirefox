@@ -831,31 +831,31 @@
     "message": "Kiekvieną dieną galima naudoti tik vieną kartą."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Taisyklių paketai"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Pridėkite patikrintą pradinį rinkinį, peržiūrėkite kiekvieną adresą ir pašalinkite nereikalingus."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Naršyti taisyklių paketus"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Pasirinkite pradinį paketą, peržiūrėkite kiekvieną adresą ir pridėkite tik norimas taisykles."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Pasirinkite paketą"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Pasirinkti viską"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Pridėtas taisykles galima visiškai redaguoti ir vėliau joms priskirti tvarkaraščius."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Pridėti pasirinktas taisykles"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Pridėta taisyklių: $added$. Praleista dublikatų: $duplicates$ ir konfliktų: $conflicts$.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Naujų taisyklių nepridėta. Esamos arba konfliktuojančios taisyklės liko nepakeistos."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Nepavyko pridėti pasirinktų taisyklių."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Socialiniai tinklai"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Populiarūs socialiniai tinklai ir bendruomenių srautai."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Vaizdo įrašai ir transliavimas"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Pagrindinės vaizdo platformos ir tiesioginių transliacijų svetainės."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Naujienos ir antraštės"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Dažnai lankomos naujienų svetainės ir antraščių srautai."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Pirkiniai ir pasiūlymai"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Populiarios prekyvietės ir apsipirkimo svetainės."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Žaidimai"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Žaidimų parduotuvės, naršykliniai žaidimai ir žaidimų platformos."
   }
 }

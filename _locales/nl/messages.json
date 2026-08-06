@@ -825,31 +825,31 @@
     "message": "Elke dag kan maar één keer worden gebruikt."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Regelpakketten"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Voeg een gecontroleerde startset toe, bekijk elk adres en verwijder wat je niet nodig hebt."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Regelpakketten bekijken"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Kies een startpakket, controleer elk adres en voeg alleen de gewenste regels toe."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Kies een pakket"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Alles selecteren"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Toegevoegde regels blijven volledig bewerkbaar en kunnen later schema’s krijgen."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Geselecteerde regels toevoegen"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ regel(s) toegevoegd. $duplicates$ duplicaat/duplicaten en $conflicts$ conflict(en) overgeslagen.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -866,39 +866,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Er zijn geen nieuwe regels toegevoegd. Bestaande of conflicterende regels zijn niet gewijzigd."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "De geselecteerde regels konden niet worden toegevoegd."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sociale media"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Populaire sociale netwerken en communityfeeds."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video en streaming"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Grote videoplatforms en livestreamingsites."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Nieuws en koppen"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Vaak bezochte nieuwssites en feeds met koppen."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Winkelen en aanbiedingen"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Populaire marktplaatsen en winkelsites."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Spellen"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Gamewinkels, browserspellen en gameplatforms."
   }
 }

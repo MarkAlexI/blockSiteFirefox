@@ -828,31 +828,31 @@
     "message": "يمكن استخدام كل يوم مرة واحدة فقط."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "حزم القواعد"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "أضف مجموعة بداية مُراجعة، وعاين كل عنوان، وأزل ما لا تحتاج إليه."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "تصفح حزم القواعد"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "اختر حزمة بداية، وراجع كل عنوان، وأضف القواعد التي تريدها فقط."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "اختر حزمة"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "تحديد الكل"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "تبقى القواعد المضافة قابلة للتحرير بالكامل ويمكن تعيين جداول زمنية لها لاحقًا."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "إضافة القواعد المحددة"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "تمت إضافة $added$ قاعدة. تم تخطي $duplicates$ من القواعد المكررة و$conflicts$ من التعارضات.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -869,39 +869,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "لم تتم إضافة قواعد جديدة. تُركت القواعد الموجودة أو المتعارضة دون تغيير."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "تعذرت إضافة القواعد المحددة."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "وسائل التواصل الاجتماعي"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "شبكات اجتماعية شائعة وخلاصات مجتمعات."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "الفيديو والبث"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "منصات فيديو رئيسية ومواقع بث مباشر."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "الأخبار والعناوين"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "مواقع أخبار شائعة وخلاصات عناوين."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "التسوق والعروض"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "أسواق إلكترونية ومواقع تسوق شائعة."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "الألعاب"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "متاجر ألعاب وألعاب متصفح ومنصات ألعاب."
   }
 }

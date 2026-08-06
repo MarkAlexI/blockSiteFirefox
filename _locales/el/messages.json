@@ -831,31 +831,31 @@
     "message": "Κάθε ημέρα μπορεί να χρησιμοποιηθεί μόνο μία φορά."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Πακέτα κανόνων"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Προσθέστε ένα ελεγμένο αρχικό σύνολο, ελέγξτε κάθε διεύθυνση και αφαιρέστε ό,τι δεν χρειάζεστε."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Περιήγηση στα πακέτα κανόνων"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Επιλέξτε ένα αρχικό πακέτο, ελέγξτε κάθε διεύθυνση και προσθέστε μόνο τους κανόνες που θέλετε."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Επιλέξτε πακέτο"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Επιλογή όλων"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Οι κανόνες που προστίθενται παραμένουν πλήρως επεξεργάσιμοι και μπορούν να λάβουν πρόγραμμα αργότερα."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Προσθήκη επιλεγμένων κανόνων"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Προστέθηκαν $added$ κανόνες. Παραλείφθηκαν $duplicates$ διπλότυπα και $conflicts$ διενέξεις.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Δεν προστέθηκαν νέοι κανόνες. Οι υπάρχοντες ή αντικρουόμενοι κανόνες έμειναν αμετάβλητοι."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Δεν ήταν δυνατή η προσθήκη των επιλεγμένων κανόνων."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Κοινωνικά δίκτυα"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Δημοφιλή κοινωνικά δίκτυα και ροές κοινοτήτων."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Βίντεο και ροή"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Κύριες πλατφόρμες βίντεο και ιστότοποι ζωντανής μετάδοσης."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Ειδήσεις και τίτλοι"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Συχνά επισκεπτόμενοι ιστότοποι ειδήσεων και ροές τίτλων."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Αγορές και προσφορές"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Δημοφιλείς αγορές και ιστότοποι αγορών."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Παιχνίδια"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Καταστήματα παιχνιδιών, παιχνίδια προγράμματος περιήγησης και πλατφόρμες παιχνιδιών."
   }
 }

@@ -831,31 +831,31 @@
     "message": "ಪ್ರತಿ ದಿನವನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ಬಳಸಬಹುದು."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "ನಿಯಮ ಪ್ಯಾಕ್‌ಗಳು"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "ಪರಿಶೀಲಿಸಿದ ಆರಂಭಿಕ ಸೆಟ್ ಸೇರಿಸಿ, ಪ್ರತಿಯೊಂದು ವಿಳಾಸವನ್ನು ನೋಡಿ ಮತ್ತು ಅಗತ್ಯವಿಲ್ಲದವುಗಳನ್ನು ತೆಗೆದುಹಾಕಿ."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "ನಿಯಮ ಪ್ಯಾಕ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಿ"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "ಆರಂಭಿಕ ಪ್ಯಾಕ್ ಆಯ್ಕೆಮಾಡಿ, ಪ್ರತಿಯೊಂದು ವಿಳಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ನಿಮಗೆ ಬೇಕಾದ ನಿಯಮಗಳನ್ನು ಮಾತ್ರ ಸೇರಿಸಿ."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "ಪ್ಯಾಕ್ ಆಯ್ಕೆಮಾಡಿ"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "ಎಲ್ಲವನ್ನೂ ಆಯ್ಕೆಮಾಡಿ"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "ಸೇರಿಸಿದ ನಿಯಮಗಳನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಸಂಪಾದಿಸಬಹುದು ಮತ್ತು ನಂತರ ವೇಳಾಪಟ್ಟಿ ನೀಡಬಹುದು."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "ಆಯ್ಕೆ ಮಾಡಿದ ನಿಯಮಗಳನ್ನು ಸೇರಿಸಿ"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ ನಿಯಮಗಳನ್ನು ಸೇರಿಸಲಾಗಿದೆ. $duplicates$ ನಕಲುಗಳು ಮತ್ತು $conflicts$ ಸಂಘರ್ಷಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಲಾಗಿದೆ.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "ಯಾವುದೇ ಹೊಸ ನಿಯಮಗಳನ್ನು ಸೇರಿಸಲಾಗಿಲ್ಲ. ಈಗಿರುವ ಅಥವಾ ಸಂಘರ್ಷಿಸುವ ನಿಯಮಗಳನ್ನು ಬದಲಾಯಿಸಲಾಗಿಲ್ಲ."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "ಆಯ್ಕೆ ಮಾಡಿದ ನಿಯಮಗಳನ್ನು ಸೇರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "ಜನಪ್ರಿಯ ಸಾಮಾಜಿಕ ಜಾಲತಾಣಗಳು ಮತ್ತು ಸಮುದಾಯ ಫೀಡ್‌ಗಳು."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "ವೀಡಿಯೊ ಮತ್ತು ಸ್ಟ್ರೀಮಿಂಗ್"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "ಮುಖ್ಯ ವೀಡಿಯೊ ವೇದಿಕೆಗಳು ಮತ್ತು ಲೈವ್-ಸ್ಟ್ರೀಮಿಂಗ್ ತಾಣಗಳು."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "ಸುದ್ದಿ ಮತ್ತು ಶೀರ್ಷಿಕೆಗಳು"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "ಹೆಚ್ಚಾಗಿ ಭೇಟಿ ನೀಡುವ ಸುದ್ದಿ ತಾಣಗಳು ಮತ್ತು ಶೀರ್ಷಿಕೆ ಫೀಡ್‌ಗಳು."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "ಖರೀದಿ ಮತ್ತು ಆಫರ್‌ಗಳು"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "ಜನಪ್ರಿಯ ಮಾರುಕಟ್ಟೆಗಳು ಮತ್ತು ಖರೀದಿ ತಾಣಗಳು."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "ಆಟಗಳು"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "ಗೇಮ್ ಸ್ಟೋರ್‌ಗಳು, ಬ್ರೌಸರ್ ಆಟಗಳು ಮತ್ತು ಗೇಮಿಂಗ್ ವೇದಿಕೆಗಳು."
   }
 }

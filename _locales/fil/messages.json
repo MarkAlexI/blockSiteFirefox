@@ -831,31 +831,31 @@
     "message": "Isang beses lamang maaaring gamitin ang bawat araw."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Mga Pakete ng Panuntunan"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Magdagdag ng sinuring panimulang set, tingnan ang bawat address, at alisin ang hindi kailangan."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Tingnan ang Mga Pakete ng Panuntunan"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Pumili ng panimulang pakete, suriin ang bawat address, at idagdag lamang ang mga panuntunang gusto mo."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Pumili ng pakete"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Piliin lahat"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Ganap na nae-edit ang mga idinagdag na panuntunan at maaaring lagyan ng iskedyul sa ibang pagkakataon."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Idagdag ang mga napiling panuntunan"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Nagdagdag ng $added$ panuntunan. Nilaktawan ang $duplicates$ duplicate at $conflicts$ conflict.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Walang bagong panuntunang naidagdag. Hindi binago ang mga umiiral o magkasalungat na panuntunan."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Hindi maidagdag ang mga napiling panuntunan."
   },
   "rulepack_social_title": {
     "message": "Social Media"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Mga sikat na social network at community feed."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video at Streaming"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Mga pangunahing video platform at live-streaming site."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Balita at mga Headline"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Mga madalas bisitahing news site at headline feed."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Pamimili at mga Deal"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Mga sikat na marketplace at shopping site."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Paglalaro"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Mga game store, browser game, at gaming platform."
   }
 }

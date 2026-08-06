@@ -831,31 +831,31 @@
     "message": "Setiap hari hanya dapat digunakan satu kali."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Paket Aturan"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Tambahkan set awal yang telah ditinjau, periksa setiap alamat, dan hapus yang tidak diperlukan."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Jelajahi Paket Aturan"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Pilih paket awal, periksa setiap alamat, dan tambahkan hanya aturan yang Anda inginkan."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Pilih paket"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Pilih semua"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Aturan yang ditambahkan tetap dapat diedit sepenuhnya dan dapat diberi jadwal nanti."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Tambahkan aturan terpilih"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ aturan ditambahkan. $duplicates$ duplikat dan $conflicts$ konflik dilewati.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Tidak ada aturan baru yang ditambahkan. Aturan yang ada atau berkonflik dibiarkan tanpa perubahan."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Tidak dapat menambahkan aturan yang dipilih."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Media Sosial"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Jejaring sosial populer dan umpan komunitas."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video dan Streaming"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Platform video utama dan situs streaming langsung."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Berita dan Judul"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Situs berita yang sering dikunjungi dan umpan judul."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Belanja dan Penawaran"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Marketplace dan situs belanja populer."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Permainan"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Toko game, game browser, dan platform game."
   }
 }

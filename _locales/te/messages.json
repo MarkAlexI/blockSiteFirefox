@@ -831,31 +831,31 @@
     "message": "ప్రతి రోజును ఒక్కసారి మాత్రమే ఉపయోగించవచ్చు."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "నియమాల ప్యాక్‌లు"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "పరిశీలించిన ప్రారంభ సెట్‌ను జోడించి, ప్రతి చిరునామాను చూసి అవసరం లేనివి తొలగించండి."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "నియమాల ప్యాక్‌లను చూడండి"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "ఒక ప్రారంభ ప్యాక్‌ను ఎంచుకుని, ప్రతి చిరునామాను పరిశీలించి, కావలసిన నియమాలను మాత్రమే జోడించండి."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "ప్యాక్‌ను ఎంచుకోండి"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "అన్నింటినీ ఎంచుకోండి"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "జోడించిన నియమాలను పూర్తిగా సవరించవచ్చు మరియు తరువాత షెడ్యూల్‌లను ఇవ్వవచ్చు."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "ఎంచుకున్న నియమాలను జోడించండి"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ నియమాలు జోడించబడ్డాయి. $duplicates$ నకళ్లు మరియు $conflicts$ విరోధాలు దాటవేయబడ్డాయి.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "కొత్త నియమాలు ఏవీ జోడించబడలేదు. ఇప్పటికే ఉన్న లేదా విరోధించే నియమాలు మార్చబడలేదు."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "ఎంచుకున్న నియమాలను జోడించలేకపోయాము."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "సోషల్ మీడియా"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "ప్రాచుర్యం పొందిన సోషల్ నెట్‌వర్క్‌లు మరియు కమ్యూనిటీ ఫీడ్‌లు."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "వీడియో మరియు స్ట్రీమింగ్"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "ప్రధాన వీడియో ప్లాట్‌ఫారమ్‌లు మరియు లైవ్-స్ట్రీమింగ్ సైట్లు."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "వార్తలు మరియు శీర్షికలు"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "తరచుగా సందర్శించే వార్తా సైట్లు మరియు శీర్షిక ఫీడ్‌లు."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "షాపింగ్ మరియు ఆఫర్లు"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "ప్రాచుర్యం పొందిన మార్కెట్‌ప్లేస్‌లు మరియు షాపింగ్ సైట్లు."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "ఆటలు"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "గేమ్ స్టోర్లు, బ్రౌజర్ గేమ్‌లు మరియు గేమింగ్ ప్లాట్‌ఫారమ్‌లు."
   }
 }

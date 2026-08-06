@@ -831,31 +831,31 @@
     "message": "هر روز فقط یک‌بار قابل استفاده است."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "بسته‌های قانون"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "یک مجموعهٔ آغازین بررسی‌شده اضافه کنید، همهٔ نشانی‌ها را ببینید و موارد غیرضروری را حذف کنید."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "مرور بسته‌های قانون"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "یک بستهٔ آغازین انتخاب کنید، همهٔ نشانی‌ها را بررسی کنید و فقط قانون‌های دلخواه را اضافه کنید."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "انتخاب بسته"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "انتخاب همه"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "قانون‌های افزوده‌شده کاملاً قابل ویرایش می‌مانند و بعداً می‌توان برایشان زمان‌بندی تعیین کرد."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "افزودن قانون‌های انتخاب‌شده"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ قانون افزوده شد. $duplicates$ مورد تکراری و $conflicts$ مورد متعارض نادیده گرفته شد.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "قانون جدیدی افزوده نشد. قانون‌های موجود یا متعارض بدون تغییر باقی ماندند."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "افزودن قانون‌های انتخاب‌شده ممکن نبود."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "رسانه‌های اجتماعی"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "شبکه‌های اجتماعی محبوب و خوراک‌های انجمن‌ها."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "ویدئو و پخش زنده"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "پلتفرم‌های اصلی ویدئو و سایت‌های پخش زنده."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "اخبار و تیترها"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "سایت‌های خبری پرمراجعه و خوراک‌های تیترها."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "خرید و پیشنهادها"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "بازارها و سایت‌های خرید محبوب."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "بازی‌ها"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "فروشگاه‌های بازی، بازی‌های مرورگری و پلتفرم‌های بازی."
   }
 }

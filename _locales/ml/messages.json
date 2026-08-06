@@ -837,31 +837,31 @@
     "message": "ഓരോ ദിവസവും ഒരിക്കൽ മാത്രമേ ഉപയോഗിക്കാനാകൂ."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "നിയമ പാക്കുകൾ"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "പരിശോധിച്ച സ്റ്റാർട്ടർ സെറ്റ് ചേർക്കുക, ഓരോ വിലാസവും പരിശോധിച്ച് ആവശ്യമില്ലാത്തവ നീക്കുക."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "നിയമ പാക്കുകൾ കാണുക"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "ഒരു സ്റ്റാർട്ടർ പാക്ക് തിരഞ്ഞെടുക്കുക, ഓരോ വിലാസവും പരിശോധിച്ച് വേണ്ട നിയമങ്ങൾ മാത്രം ചേർക്കുക."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "ഒരു പാക്ക് തിരഞ്ഞെടുക്കുക"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "എല്ലാം തിരഞ്ഞെടുക്കുക"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "ചേർത്ത നിയമങ്ങൾ പൂർണ്ണമായി തിരുത്താനാകും, പിന്നീട് ഷെഡ്യൂളുകളും നൽകാം."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "തിരഞ്ഞെടുത്ത നിയമങ്ങൾ ചേർക്കുക"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ നിയമങ്ങൾ ചേർത്തു. $duplicates$ പകർപ്പുകളും $conflicts$ സംഘർഷങ്ങളും ഒഴിവാക്കി.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -878,39 +878,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "പുതിയ നിയമങ്ങളൊന്നും ചേർത്തില്ല. നിലവിലുള്ളതോ സംഘർഷമുള്ളതോ ആയ നിയമങ്ങൾ മാറ്റമില്ലാതെ നിലനിർത്തി."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "തിരഞ്ഞെടുത്ത നിയമങ്ങൾ ചേർക്കാനായില്ല."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "സോഷ്യൽ മീഡിയ"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "ജനപ്രിയ സോഷ്യൽ നെറ്റ്‌വർക്കുകളും കമ്മ്യൂണിറ്റി ഫീഡുകളും."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "വീഡിയോയും സ്ട്രീമിംഗും"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "പ്രധാന വീഡിയോ പ്ലാറ്റ്‌ഫോമുകളും ലൈവ് സ്ട്രീമിംഗ് സൈറ്റുകളും."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "വാർത്തകളും തലക്കെട്ടുകളും"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "പതിവായി സന്ദർശിക്കുന്ന വാർത്താ സൈറ്റുകളും തലക്കെട്ട് ഫീഡുകളും."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "ഷോപ്പിംഗും ഓഫറുകളും"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "ജനപ്രിയ മാർക്കറ്റ്‌പ്ലേസുകളും ഷോപ്പിംഗ് സൈറ്റുകളും."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "ഗെയിമിംഗ്"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "ഗെയിം സ്റ്റോറുകൾ, ബ്രൗസർ ഗെയിമുകൾ, ഗെയിമിംഗ് പ്ലാറ്റ്‌ഫോമുകൾ."
   }
 }

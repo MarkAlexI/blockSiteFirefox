@@ -831,31 +831,31 @@
     "message": "Každý deň možno použiť iba raz."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Balíky pravidiel"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Pridajte overenú úvodnú súpravu, skontrolujte každú adresu a odstráňte všetko nepotrebné."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Prehliadať balíky pravidiel"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Vyberte úvodný balík, skontrolujte každú adresu a pridajte iba požadované pravidlá."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Vyberte balík"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Vybrať všetko"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Pridané pravidlá zostávajú plne upraviteľné a neskôr môžu dostať rozvrhy."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Pridať vybrané pravidlá"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Pridaných pravidiel: $added$. Preskočených duplikátov: $duplicates$ a konfliktov: $conflicts$.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Neboli pridané žiadne nové pravidlá. Existujúce alebo konfliktné pravidlá zostali nezmenené."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Vybrané pravidlá sa nepodarilo pridať."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sociálne siete"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Obľúbené sociálne siete a komunitné kanály."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video a streamovanie"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Hlavné video platformy a weby so živým vysielaním."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Správy a titulky"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Často navštevované spravodajské weby a kanály titulkov."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Nakupovanie a ponuky"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Obľúbené trhoviská a nákupné weby."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Hry"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Obchody s hrami, hry v prehliadači a herné platformy."
   }
 }

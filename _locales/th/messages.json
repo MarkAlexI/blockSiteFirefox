@@ -831,31 +831,31 @@
     "message": "แต่ละวันสามารถใช้ได้เพียงครั้งเดียว"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "ชุดกฎ"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "เพิ่มชุดเริ่มต้นที่ผ่านการตรวจสอบ ดูทุกที่อยู่ และนำรายการที่ไม่ต้องการออก"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "เรียกดูชุดกฎ"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "เลือกชุดเริ่มต้น ตรวจสอบทุกที่อยู่ และเพิ่มเฉพาะกฎที่ต้องการ"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "เลือกชุด"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "เลือกทั้งหมด"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "กฎที่เพิ่มแล้วยังแก้ไขได้ทั้งหมด และสามารถกำหนดตารางเวลาในภายหลังได้"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "เพิ่มกฎที่เลือก"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "เพิ่มกฎ $added$ รายการ ข้ามรายการซ้ำ $duplicates$ รายการ และรายการขัดแย้ง $conflicts$ รายการ",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "ไม่มีการเพิ่มกฎใหม่ กฎที่มีอยู่หรือขัดแย้งยังคงเดิม"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "ไม่สามารถเพิ่มกฎที่เลือกได้"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "โซเชียลมีเดีย"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "เครือข่ายสังคมยอดนิยมและฟีดชุมชน"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "วิดีโอและสตรีมมิง"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "แพลตฟอร์มวิดีโอหลักและเว็บไซต์สตรีมสด"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "ข่าวและพาดหัว"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "เว็บไซต์ข่าวที่เข้าชมบ่อยและฟีดพาดหัว"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "ช้อปปิ้งและข้อเสนอ"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "มาร์เก็ตเพลสและเว็บไซต์ช้อปปิ้งยอดนิยม"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "เกม"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "ร้านเกม เกมบนเบราว์เซอร์ และแพลตฟอร์มเกม"
   }
 }

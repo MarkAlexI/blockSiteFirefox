@@ -831,31 +831,31 @@
     "message": "እያንዳንዱ ቀን አንድ ጊዜ ብቻ ሊጠቀም ይችላል።"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "የደንብ ጥቅሎች"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "የተመረመረ የመጀመሪያ ስብስብ ያክሉ፣ እያንዳንዱን አድራሻ ይመልከቱ እና የማያስፈልግዎትን ያስወግዱ።"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "የደንብ ጥቅሎችን ያስሱ"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "የመጀመሪያ ጥቅል ይምረጡ፣ እያንዳንዱን አድራሻ ይመልከቱ እና የሚፈልጉትን ደንቦች ብቻ ያክሉ።"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "ጥቅል ይምረጡ"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "ሁሉንም ይምረጡ"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "የታከሉ ደንቦች ሙሉ በሙሉ ሊስተካከሉ ይችላሉ እና በኋላ መርሐግብር ሊሰጣቸው ይችላል።"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "የተመረጡ ደንቦችን ያክሉ"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ ደንብ(ዎች) ታክለዋል። $duplicates$ ድግግሞሽ(ዎች) እና $conflicts$ ግጭት(ዎች) ታልፈዋል።",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "አዲስ ደንቦች አልታከሉም። ነባር ወይም የሚጋጩ ደንቦች ሳይቀየሩ ቀርተዋል።"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "የተመረጡ ደንቦችን ማከል አልተቻለም።"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "ማህበራዊ ሚዲያ"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "ታዋቂ ማህበራዊ አውታረ መረቦች እና የማህበረሰብ ምግቦች።"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "ቪዲዮ እና ስትሪሚንግ"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "ዋና የቪዲዮ መድረኮች እና የቀጥታ ስርጭት ጣቢያዎች።"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "ዜና እና ርዕሶች"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "በብዛት የሚጎበኙ የዜና ጣቢያዎች እና የርዕስ ምግቦች።"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "ግዢ እና ቅናሾች"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "ታዋቂ የገበያ ቦታዎች እና የግዢ ጣቢያዎች።"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "ጨዋታ"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "የጨዋታ መደብሮች፣ የአሳሽ ጨዋታዎች እና የጨዋታ መድረኮች።"
   }
 }

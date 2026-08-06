@@ -831,31 +831,31 @@
     "message": "প্রতিটি দিন শুধুমাত্র একবার ব্যবহার করা যাবে।"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "রুল প্যাক"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "একটি যাচাইকৃত শুরুর সেট যোগ করুন, প্রতিটি ঠিকানা দেখুন এবং অপ্রয়োজনীয়গুলো সরিয়ে দিন।"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "রুল প্যাক দেখুন"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "একটি শুরুর প্যাক বেছে নিন, প্রতিটি ঠিকানা পর্যালোচনা করুন এবং শুধু প্রয়োজনীয় রুলগুলো যোগ করুন।"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "একটি প্যাক বেছে নিন"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "সব নির্বাচন করুন"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "যোগ করা রুলগুলো সম্পূর্ণ সম্পাদনাযোগ্য থাকে এবং পরে সময়সূচি দেওয়া যায়।"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "নির্বাচিত রুল যোগ করুন"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$টি রুল যোগ হয়েছে। $duplicates$টি ডুপ্লিকেট এবং $conflicts$টি দ্বন্দ্ব এড়িয়ে যাওয়া হয়েছে।",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "কোনো নতুন রুল যোগ হয়নি। বিদ্যমান বা দ্বন্দ্বপূর্ণ রুল অপরিবর্তিত রাখা হয়েছে।"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "নির্বাচিত রুলগুলো যোগ করা যায়নি।"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "সামাজিক মাধ্যম"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "জনপ্রিয় সামাজিক নেটওয়ার্ক ও কমিউনিটি ফিড।"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "ভিডিও ও স্ট্রিমিং"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "প্রধান ভিডিও প্ল্যাটফর্ম ও লাইভ-স্ট্রিমিং সাইট।"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "সংবাদ ও শিরোনাম"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "বহুল ব্যবহৃত সংবাদ সাইট ও শিরোনাম ফিড।"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "কেনাকাটা ও অফার"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "জনপ্রিয় মার্কেটপ্লেস ও কেনাকাটার সাইট।"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "গেমিং"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "গেম স্টোর, ব্রাউজার গেম ও গেমিং প্ল্যাটফর্ম।"
   }
 }

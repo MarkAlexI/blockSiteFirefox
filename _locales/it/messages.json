@@ -831,31 +831,31 @@
     "message": "Ogni giorno può essere usato una sola volta."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Pacchetti di regole"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Aggiungi un set iniziale verificato, controlla ogni indirizzo e rimuovi ciò che non ti serve."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Sfoglia i pacchetti di regole"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Scegli un pacchetto iniziale, controlla ogni indirizzo e aggiungi solo le regole desiderate."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Scegli un pacchetto"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Seleziona tutto"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Le regole aggiunte restano completamente modificabili e possono ricevere pianificazioni in seguito."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Aggiungi le regole selezionate"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Aggiunte $added$ regole. Ignorati $duplicates$ duplicati e $conflicts$ conflitti.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Non sono state aggiunte nuove regole. Le regole esistenti o in conflitto sono rimaste invariate."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Impossibile aggiungere le regole selezionate."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Social media"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Social network popolari e feed delle community."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video e streaming"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Principali piattaforme video e siti di streaming in diretta."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Notizie e titoli"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Siti di notizie visitati di frequente e feed di titoli."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Acquisti e offerte"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Marketplace e siti di shopping popolari."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Giochi"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Negozi di giochi, giochi per browser e piattaforme di gioco."
   }
 }

@@ -828,31 +828,31 @@
     "message": "ஒவ்வொரு நாளையும் ஒருமுறை மட்டுமே பயன்படுத்தலாம்."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "விதித் தொகுப்புகள்"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "சரிபார்க்கப்பட்ட தொடக்கத் தொகுப்பைச் சேர்த்து, ஒவ்வொரு முகவரியையும் பார்த்து தேவையற்றவற்றை நீக்குங்கள்."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "விதித் தொகுப்புகளைப் பார்க்கவும்"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "ஒரு தொடக்கத் தொகுப்பைத் தேர்ந்தெடுத்து, ஒவ்வொரு முகவரியையும் சரிபார்த்து, வேண்டிய விதிகளை மட்டும் சேர்க்கவும்."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "ஒரு தொகுப்பைத் தேர்ந்தெடுக்கவும்"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "அனைத்தையும் தேர்ந்தெடுக்கவும்"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "சேர்க்கப்பட்ட விதிகளை முழுமையாகத் திருத்தலாம்; பின்னர் அட்டவணையையும் அமைக்கலாம்."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "தேர்ந்தெடுத்த விதிகளைச் சேர்க்கவும்"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ விதிகள் சேர்க்கப்பட்டன. $duplicates$ நகல்கள் மற்றும் $conflicts$ முரண்பாடுகள் தவிர்க்கப்பட்டன.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -869,39 +869,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "புதிய விதிகள் எதுவும் சேர்க்கப்படவில்லை. ஏற்கனவே உள்ள அல்லது முரண்படும் விதிகள் மாற்றப்படவில்லை."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "தேர்ந்தெடுத்த விதிகளைச் சேர்க்க முடியவில்லை."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "சமூக ஊடகம்"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "பிரபலமான சமூக வலைத்தளங்கள் மற்றும் சமூக ஊட்டங்கள்."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "வீடியோ மற்றும் ஸ்ட்ரீமிங்"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "முக்கிய வீடியோ தளங்கள் மற்றும் நேரலை ஸ்ட்ரீமிங் தளங்கள்."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "செய்திகள் மற்றும் தலைப்புகள்"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "அடிக்கடி பார்க்கப்படும் செய்தித் தளங்கள் மற்றும் தலைப்பு ஊட்டங்கள்."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "ஷாப்பிங் மற்றும் சலுகைகள்"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "பிரபலமான சந்தைகள் மற்றும் ஷாப்பிங் தளங்கள்."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "விளையாட்டுகள்"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "விளையாட்டு கடைகள், உலாவி விளையாட்டுகள் மற்றும் கேமிங் தளங்கள்."
   }
 }

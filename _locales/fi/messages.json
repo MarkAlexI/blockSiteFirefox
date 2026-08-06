@@ -822,31 +822,31 @@
     "message": "Kutakin päivää voi käyttää vain kerran."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Sääntöpaketit"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Lisää tarkistettu aloituspaketti, käy jokainen osoite läpi ja poista tarpeettomat."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Selaa sääntöpaketteja"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Valitse aloituspaketti, tarkista jokainen osoite ja lisää vain haluamasi säännöt."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Valitse paketti"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Valitse kaikki"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Lisättyjä sääntöjä voi muokata vapaasti ja niille voi myöhemmin lisätä aikatauluja."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Lisää valitut säännöt"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Lisättiin $added$ sääntöä. Ohitettiin $duplicates$ kaksoiskappaletta ja $conflicts$ ristiriitaa.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -863,39 +863,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Uusia sääntöjä ei lisätty. Olemassa olevat tai ristiriitaiset säännöt jätettiin ennalleen."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Valittuja sääntöjä ei voitu lisätä."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sosiaalinen media"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Suositut sosiaaliset verkostot ja yhteisösyötteet."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video ja suoratoisto"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Suuret videoalustat ja suoratoistosivustot."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Uutiset ja otsikot"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Usein käytetyt uutissivustot ja otsikkosyötteet."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Ostokset ja tarjoukset"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Suositut markkinapaikat ja ostossivustot."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Pelit"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Pelikaupat, selainpelit ja pelialustat."
   }
 }

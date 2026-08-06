@@ -825,31 +825,31 @@
     "message": "各曜日は1回だけ使用できます。"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "ルールパック"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "確認済みのスターターセットを追加し、各アドレスを確認して不要なものを除外します。"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "ルールパックを表示"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "スターターパックを選び、各アドレスを確認して必要なルールだけを追加します。"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "パックを選択"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "すべて選択"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "追加したルールは自由に編集でき、後からスケジュールも設定できます。"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "選択したルールを追加"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "$added$ 件のルールを追加しました。重複 $duplicates$ 件、競合 $conflicts$ 件をスキップしました。",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -866,39 +866,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "新しいルールは追加されませんでした。既存または競合するルールは変更されていません。"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "選択したルールを追加できませんでした。"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "ソーシャルメディア"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "人気のソーシャルネットワークとコミュニティフィード。"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "動画とストリーミング"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "主要な動画プラットフォームとライブ配信サイト。"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "ニュースと見出し"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "よく利用されるニュースサイトと見出しフィード。"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "ショッピングとセール"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "人気のマーケットプレイスとショッピングサイト。"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "ゲーム"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "ゲームストア、ブラウザーゲーム、ゲームプラットフォーム。"
   }
 }

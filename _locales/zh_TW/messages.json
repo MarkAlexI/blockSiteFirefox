@@ -825,31 +825,31 @@
     "message": "每一天只能使用一次。"
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "規則套件"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "加入經過審核的入門集合，預覽每個網址，並移除不需要的項目。"
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "瀏覽規則套件"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "選擇入門套件，檢查每個網址，並只加入需要的規則。"
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "選擇套件"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "全選"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "已加入的規則仍可完整編輯，之後也能設定排程。"
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "加入所選規則"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "已加入 $added$ 條規則。已略過 $duplicates$ 條重複規則和 $conflicts$ 條衝突規則。",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -866,39 +866,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "未加入新規則。現有或衝突規則保持不變。"
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "無法加入所選規則。"
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "社群媒體"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "熱門社群網路和社群動態。"
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "影片和串流"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "主要影片平台和直播網站。"
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "新聞和標題"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "常用新聞網站和標題動態。"
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "購物和優惠"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "熱門線上市場和購物網站。"
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "遊戲"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "遊戲商店、瀏覽器遊戲和遊戲平台。"
   }
 }

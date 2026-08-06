@@ -831,31 +831,31 @@
     "message": "Iga päeva saab kasutada ainult üks kord."
   },
   "rulepacks_title": {
-    "message": "Rule Packs"
+    "message": "Reeglipaketid"
   },
   "rulepacks_description": {
-    "message": "Add a reviewed starter set, preview every address, and remove anything you do not need."
+    "message": "Lisa kontrollitud stardikomplekt, vaata iga aadress üle ja eemalda mittevajalik."
   },
   "rulepacks_open": {
-    "message": "Browse Rule Packs"
+    "message": "Sirvi reeglipakette"
   },
   "rulepacks_dialog_desc": {
-    "message": "Choose a starter pack, review every address, and add only the rules you want."
+    "message": "Vali stardipakett, vaata iga aadress üle ja lisa ainult soovitud reeglid."
   },
   "rulepacks_choose": {
-    "message": "Choose a pack"
+    "message": "Vali pakett"
   },
   "rulepacks_select_all": {
-    "message": "Select all"
+    "message": "Vali kõik"
   },
   "rulepacks_edit_hint": {
-    "message": "Added rules remain fully editable and can receive schedules later."
+    "message": "Lisatud reeglid jäävad täielikult muudetavaks ning neile saab hiljem ajakava määrata."
   },
   "rulepacks_add_selected": {
-    "message": "Add selected rules"
+    "message": "Lisa valitud reeglid"
   },
   "rulepacks_result": {
-    "message": "Added $added$ rule(s). Skipped $duplicates$ duplicate(s) and $conflicts$ conflict(s).",
+    "message": "Lisati $added$ reegel/reeglit. Vahele jäeti $duplicates$ duplikaati ja $conflicts$ konflikti.",
     "placeholders": {
       "added": {
         "content": "$1",
@@ -872,39 +872,39 @@
     }
   },
   "rulepacks_no_new_rules": {
-    "message": "No new rules were added. Existing or conflicting rules were left unchanged."
+    "message": "Uusi reegleid ei lisatud. Olemasolevad või vastuolulised reeglid jäid muutmata."
   },
   "rulepacks_error": {
-    "message": "Unable to add the selected rules."
+    "message": "Valitud reegleid ei õnnestunud lisada."
   },
   "rulepack_social_title": {
-    "message": "Social Media"
+    "message": "Sotsiaalmeedia"
   },
   "rulepack_social_desc": {
-    "message": "Popular social networks and community feeds."
+    "message": "Populaarsed suhtlusvõrgustikud ja kogukondade vood."
   },
   "rulepack_video_title": {
-    "message": "Video and Streaming"
+    "message": "Video ja voogedastus"
   },
   "rulepack_video_desc": {
-    "message": "Major video platforms and live-streaming sites."
+    "message": "Peamised videoplatvormid ja otseülekande saidid."
   },
   "rulepack_news_title": {
-    "message": "News and Headlines"
+    "message": "Uudised ja pealkirjad"
   },
   "rulepack_news_desc": {
-    "message": "Frequently visited news sites and headline feeds."
+    "message": "Sageli külastatavad uudistesaidid ja pealkirjavood."
   },
   "rulepack_shopping_title": {
-    "message": "Shopping and Deals"
+    "message": "Ostlemine ja pakkumised"
   },
   "rulepack_shopping_desc": {
-    "message": "Popular marketplaces and shopping sites."
+    "message": "Populaarsed turu- ja ostusaidid."
   },
   "rulepack_gaming_title": {
-    "message": "Gaming"
+    "message": "Mängud"
   },
   "rulepack_gaming_desc": {
-    "message": "Game stores, browser games, and gaming platforms."
+    "message": "Mängupoed, brauserimängud ja mänguplatvormid."
   }
 }
