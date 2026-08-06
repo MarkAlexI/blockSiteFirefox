@@ -92,6 +92,7 @@ export function formatDiagnosticReportText(report) {
     '[Access and settings]',
     `Pro: ${yesNo(report.access?.isPro)}`,
     `Legacy access: ${yesNo(report.access?.isLegacyUser)}`,
+    `Diagnostic event history: ${report.access?.eventHistory ? 'available' : 'Pro only'}`,
     `Debug mode: ${yesNo(report.settings?.debugMode)}`,
     `Security mode: ${report.settings?.mode || 'unknown'}`,
     `Disabled categories: ${(report.settings?.disabledCategories || []).join(', ') || 'none'}`,

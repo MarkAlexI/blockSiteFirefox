@@ -109,6 +109,7 @@ test('diagnostic state avoids redundant writes and clear removes only history', 
 
   await store.updateState({ lastCheck: { success: true } });
   await store.updateState({ lastCheck: { success: true } });
+  assert.deepEqual(await store.getState(), { lastCheck: { success: true } });
   assert.equal(setCalls, 1);
   assert.deepEqual(storage.data[DIAGNOSTIC_STATE_KEY], { lastCheck: { success: true } });
 

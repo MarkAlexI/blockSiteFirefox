@@ -18,7 +18,7 @@ export class DiagnosticsUI {
     documentRef = globalThis.document,
     urlApi = globalThis.URL,
     BlobCtor = globalThis.Blob,
-    confirmFn = globalThis.confirm
+    confirmFn = typeof globalThis.confirm === 'function' ? globalThis.confirm.bind(globalThis) : null
   }) {
     this.generateButton = generateButton;
     this.copyButton = copyButton;
@@ -125,7 +125,8 @@ export class DiagnosticsUI {
   }
 
   async clearHistory() {
-    if (this.confirmFn && !this.confirmFn(message('diagnosticsconfirmclear'))) return false;
+    const confirmClear = this.confirmFn;
+    if (confirmClear && !confirmClear(message('diagnosticsconfirmclear'))) return false;
 
     this.setBusy(true);
     try {

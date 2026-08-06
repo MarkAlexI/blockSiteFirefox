@@ -129,3 +129,40 @@ test('diagnostics UI exports JSON and clears event history', async () => {
     harness.restore();
   }
 });
+
+
+test('diagnostics UI preserves the native confirm invocation context', async () => {
+  const previousConfirm = globalThis.confirm;
+  const previousChrome = globalThis.browser;
+  let confirmCalls = 0;
+  globalThis.confirm = function () {
+    if (this !== globalThis) throw new TypeError('Illegal invocation');
+    confirmCalls++;
+    return true;
+  };
+  globalThis.browser = {
+    i18n: { getMessage(key) { return key; } }
+  };
+
+  const output = new FakeElement();
+  const status = new FakeElement();
+  const ui = new DiagnosticsUI({
+    generateButton: new FakeElement(),
+    copyButton: new FakeElement(),
+    exportButton: new FakeElement(),
+    clearButton: new FakeElement(),
+    output,
+    status,
+    onGenerate: async () => ({}),
+    onClear: async () => true
+  });
+
+  try {
+    ui.initialize();
+    assert.equal(await ui.clearHistory(), true);
+    assert.equal(confirmCalls, 1);
+  } finally {
+    globalThis.confirm = previousConfirm;
+    globalThis.browser = previousChrome;
+  }
+});

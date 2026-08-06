@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "🩺 Diagnostic Report: Generate a privacy-safe technical snapshot directly from the Options page.",
-    "📋 Easy Support: Copy a readable report or export structured JSON without opening the browser console.",
-    "🔒 Private by Design: Rules, URLs, license keys, emails, tokens, and passwords are not exposed.",
-    "🧭 Mobile Friendly: Check DNR, permissions, Focus Session, and recent Debug Mode events on Firefox Android and desktop browsers."
+    "🛡️ Reliable Permissions: Host access is checked by the existing minute alarm and permission change events without waking the worker on every tab switch.",
+    "🩺 Diagnostics for Everyone: Every user can generate, copy, and export a privacy-safe current-state report.",
+    "🔍 Pro Event History: Detailed recent events remain available through Pro Debug Mode.",
+    "🧹 Clear History Fixed: Clearing diagnostic history no longer triggers an Illegal invocation error."
   ];
   
   const ul = document.getElementById('features');

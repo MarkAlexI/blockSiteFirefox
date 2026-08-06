@@ -64,6 +64,9 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
   const tabsOnActivated = createEvent();
   const contextMenusOnClicked = createEvent();
   const permissionsOnRemoved = createEvent();
+  const permissionsOnAdded = createEvent();
+  let hostAccessGranted = true;
+  const createdTabs = [];
 
   const localStorage = createStorageArea({
     rules: [{
@@ -99,7 +102,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       disabledCategories: []
     },
     credentials: {
-      isPro: true,
+      isPro: false,
       isLegacyUser: false,
       installationDate: '2026-08-01T00:00:00.000Z',
       licenseKey: 'BD-PRIVATE-123456'
@@ -115,8 +118,8 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     runtime: {
       id: 'test-extension-id',
       lastError: null,
-      getURL: path => `moz-extension://test-extension-id/${path}`,
-      getManifest: () => ({ version: '4.7.0', manifest_version: 3 }),
+      getURL: path => `chrome-extension://test-extension-id/${path}`,
+      getManifest: () => ({ version: '4.7.1', manifest_version: 3 }),
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();
@@ -141,7 +144,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     },
     tabs: {
       query: async () => [],
-      create: async () => ({}),
+      create: async options => { createdTabs.push(options); return options; },
       remove: async () => {},
       onUpdated: tabsOnUpdated,
       onCreated: tabsOnCreated,
@@ -157,8 +160,9 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       onClicked: contextMenusOnClicked
     },
     permissions: {
-      contains: async () => true,
-      onRemoved: permissionsOnRemoved
+      contains: async () => hostAccessGranted,
+      onRemoved: permissionsOnRemoved,
+      onAdded: permissionsOnAdded
     },
     notifications: {
       create() {}
@@ -180,6 +184,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(tabsOnActivated.listeners.length, 0);
     assert.equal(contextMenusOnClicked.listeners.length, 1);
     assert.equal(permissionsOnRemoved.listeners.length, 1);
+    assert.equal(permissionsOnAdded.listeners.length, 1);
     assert.deepEqual(
       createdAlarms.map(alarm => alarm.name),
       ['check_pro_expiry', 'update_scheduled_rules']
@@ -191,16 +196,28 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
 
     assert.equal(diagnostics.success, true);
-    assert.equal(diagnostics.report.extension.version, '4.7.0');
+    assert.equal(diagnostics.report.extension.version, '4.7.1');
     assert.equal(diagnostics.report.rules.total, 1);
     assert.equal(diagnostics.report.dnr.inSync, false);
     assert.equal(diagnostics.report.permissions.hostAccess, true);
-    assert.equal(diagnostics.report.recentEvents[0].details.url, '<redacted>');
-    assert.equal(
-      diagnostics.report.recentEvents[0].details.message.includes('private.example'),
-      false
-    );
+    assert.equal(diagnostics.report.access.eventHistory, false);
+    assert.deepEqual(diagnostics.report.recentEvents, []);
     assert.equal(JSON.stringify(diagnostics.report).includes('BD-PRIVATE'), false);
+
+    hostAccessGranted = false;
+    await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });
+    assert.equal(createdTabs.length, 1);
+    assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.hostAccess, false);
+    assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.reason, 'scheduled_alarm');
+
+    createdTabs.length = 0;
+    await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });
+    assert.equal(createdTabs.length, 0);
+
+    hostAccessGranted = true;
+    await permissionsOnAdded.listeners[0]({ origins: ['*://*/*'] });
+    assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.hostAccess, true);
+    assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.reason, 'permission_added');
 
     const cleared = await sendWorkerMessage(messageListener, {
       type: 'diagnostics:clearHistory'

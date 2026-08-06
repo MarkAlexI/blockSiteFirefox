@@ -157,6 +157,7 @@ export function createDiagnosticStore({
   return {
     recordEvent,
     updateState,
+    getState,
     getSnapshot,
     clearEvents
   };
