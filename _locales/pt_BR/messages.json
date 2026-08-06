@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Conflitos com a lista de permissões"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opcional: aplique o mesmo horário a cada regra selecionada."
   }
 }

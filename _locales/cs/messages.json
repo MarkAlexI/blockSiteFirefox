@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Konflikty se seznamem povolených"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Volitelné: použijte stejný plán pro každé vybrané pravidlo."
   }
 }

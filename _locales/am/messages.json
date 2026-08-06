@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "የነጭ ዝርዝር ግጭቶች"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "አማራጭ፦ ተመሳሳይ መርሐ ግብር ለእያንዳንዱ የተመረጠ ደንብ ተግብር።"
   }
 }

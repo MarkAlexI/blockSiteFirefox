@@ -912,5 +912,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "મંજૂર સૂચિના સંઘર્ષો"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "વૈકલ્પિક: દરેક પસંદ કરેલા નિયમ પર એક જ સમયપત્રક લાગુ કરો."
   }
 }

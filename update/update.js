@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "📦 Rule Packs: Start quickly with reviewed sets for social media, video, news, shopping, and gaming.",
-    "👀 Full Preview: See every address and remove anything you do not want before adding the pack.",
-    "🛡️ Safe Import: Existing duplicates and whitelist conflicts are skipped without changing your current rules.",
-    "🔒 Local by Design: Packs are built into the extension and are never updated or added remotely."
+    "🗓️ Schedule Rule Packs: Apply one shared schedule while adding a starter pack.",
+    "⚙️ Advanced Timing: Use the same weekday, weekend, or custom time groups available for individual rules.",
+    "✅ One-Step Setup: Selected rules are created with the schedule already attached.",
+    "🛡️ Safely Validated: The service worker verifies the schedule before changing your rules."
   ];
   
   const ul = document.getElementById('features');

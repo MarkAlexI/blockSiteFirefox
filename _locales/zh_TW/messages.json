@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "白名單衝突"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "選用：將相同排程套用到每個已選規則。"
   }
 }

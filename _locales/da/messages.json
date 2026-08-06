@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Konflikter med tilladelseslisten"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Valgfrit: anvend den samme tidsplan på hver valgt regel."
   }
 }

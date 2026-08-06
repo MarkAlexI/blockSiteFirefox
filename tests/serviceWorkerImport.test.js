@@ -53,7 +53,7 @@ test('service worker module loads and registers its browser listeners', async ()
       id: 'test-extension-id',
       lastError: null,
       getURL: path => `moz-extension://test-extension-id/${path}`,
-      getManifest: () => ({ version: '4.5.2' }),
+      getManifest: () => ({ version: '4.6.0' }),
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();

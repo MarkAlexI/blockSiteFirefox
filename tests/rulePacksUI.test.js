@@ -81,7 +81,7 @@ class FakeElement {
   }
 }
 
-function createHarness({ resultFactory } = {}) {
+function createHarness({ resultFactory, schedule = null } = {}) {
   const previousDocument = globalThis.document;
   const previousChrome = globalThis.browser;
   const elements = {
@@ -95,11 +95,22 @@ function createHarness({ resultFactory } = {}) {
     category: new FakeElement('span'),
     selectAll: new FakeElement('input'),
     entriesContainer: new FakeElement('div'),
+    scheduleContainer: new FakeElement('div'),
     status: new FakeElement('p')
   };
   elements.selectAll.type = 'checkbox';
   elements.status.classList.add('hidden');
   const additions = [];
+  const scheduleSection = new FakeElement('div');
+  const scheduleEditor = {
+    createSection() {
+      return scheduleSection;
+    },
+    getSchedule(section) {
+      assert.equal(section, scheduleSection);
+      return schedule;
+    }
+  };
 
   globalThis.document = {
     createElement(tagName) {
@@ -123,8 +134,9 @@ function createHarness({ resultFactory } = {}) {
 
   const ui = new RulePacksUI({
     ...elements,
-    onAdd: async (packId, entryIds) => {
-      additions.push({ packId, entryIds });
+    scheduleEditor,
+    onAdd: async (packId, entryIds, selectedSchedule) => {
+      additions.push({ packId, entryIds, schedule: selectedSchedule });
       if (typeof resultFactory === 'function') {
         return resultFactory(packId, entryIds);
       }
@@ -183,7 +195,8 @@ test('rule pack UI sends only selected entry IDs', async () => {
 
     assert.deepEqual(harness.additions, [{
       packId: 'social',
-      entryIds: ['facebook']
+      entryIds: ['facebook'],
+      schedule: null
     }]);
     assert.equal(harness.elements.status.children[0].textContent, '1|0|0');
     assert.equal(harness.elements.status.children[1].children.length, 3);
@@ -258,3 +271,26 @@ test('rule pack UI keeps count-only compatibility with older worker responses', 
     harness.restore();
   }
 });
+
+test('rule pack UI sends one shared schedule with the selected entries', async () => {
+  const schedule = {
+    version: 2,
+    periods: [
+      { days: [1, 2, 3, 4, 5], startTime: '08:30', endTime: '17:30' },
+      { days: [6], startTime: '10:00', endTime: '13:00' }
+    ]
+  };
+  const harness = createHarness({ schedule });
+
+  try {
+    await harness.ui.addSelected();
+
+    assert.equal(harness.additions.length, 1);
+    assert.equal(harness.additions[0].packId, 'social');
+    assert.deepEqual(harness.additions[0].schedule, schedule);
+    assert.equal(harness.elements.scheduleContainer.children.length, 1);
+  } finally {
+    harness.restore();
+  }
+});
+

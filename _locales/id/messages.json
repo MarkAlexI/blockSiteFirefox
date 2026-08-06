@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Konflik daftar izin"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opsional: terapkan jadwal yang sama ke setiap aturan yang dipilih."
   }
 }

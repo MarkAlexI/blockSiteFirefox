@@ -57,13 +57,18 @@ test('rules client sends a structured addMany intent for a local rule pack', asy
 
   try {
     const client = new RulesClient();
-    const result = await client.addMany('shopping', ['amazon', 'etsy']);
+    const schedule = {
+      version: 2,
+      periods: [{ days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' }]
+    };
+    const result = await client.addMany('shopping', ['amazon', 'etsy'], schedule);
 
     assert.deepEqual(sentMessage, {
       type: 'rules:addMany',
       payload: {
         packId: 'shopping',
-        entryIds: ['amazon', 'etsy']
+        entryIds: ['amazon', 'etsy'],
+        schedule
       }
     });
     assert.equal(result.addedCount, 2);

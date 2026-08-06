@@ -43,8 +43,10 @@ class OptionsPage {
       category: document.getElementById('rule-packs-category'),
       selectAll: document.getElementById('rule-packs-select-all'),
       entriesContainer: document.getElementById('rule-packs-entries'),
+      scheduleContainer: document.getElementById('rule-packs-schedule-container'),
+      scheduleEditor: this.rulesUI.scheduleEditor,
       status: document.getElementById('rule-packs-status'),
-      onAdd: (packId, entryIds) => this.addRulePack(packId, entryIds)
+      onAdd: (packId, entryIds, schedule) => this.addRulePack(packId, entryIds, schedule)
     });
     
     this.isPro = false;
@@ -374,9 +376,9 @@ class OptionsPage {
     }
   }
   
-  async addRulePack(packId, entryIds) {
+  async addRulePack(packId, entryIds, schedule = null) {
     try {
-      return await this.rulesClient.addMany(packId, entryIds);
+      return await this.rulesClient.addMany(packId, entryIds, schedule);
     } catch (error) {
       this.logger.error('Add rule pack error:', error);
       this.handleRulesMutationError(error, 'rulepacks_error');

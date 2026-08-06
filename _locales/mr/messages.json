@@ -912,5 +912,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "अनुमती सूचीतील संघर्ष"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "ऐच्छिक: निवडलेल्या प्रत्येक नियमाला समान वेळापत्रक लागू करा."
   }
 }

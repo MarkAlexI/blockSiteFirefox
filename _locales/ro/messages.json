@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Conflicte cu lista de permisiuni"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opțional: aplicați același program fiecărei reguli selectate."
   }
 }

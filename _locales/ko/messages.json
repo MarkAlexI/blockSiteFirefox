@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "허용 목록 충돌"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "선택 사항: 선택한 모든 규칙에 동일한 일정을 적용합니다."
   }
 }

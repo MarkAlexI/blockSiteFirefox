@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "অনুমোদিত তালিকার দ্বন্দ্ব"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "ঐচ্ছিক: প্রতিটি নির্বাচিত নিয়মে একই সময়সূচি প্রয়োগ করুন।"
   }
 }

@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Konflik senarai dibenarkan"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Pilihan: gunakan jadual yang sama pada setiap peraturan yang dipilih."
   }
 }

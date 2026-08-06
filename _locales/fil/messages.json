@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Mga salungatan sa whitelist"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opsyonal: ilapat ang parehong iskedyul sa bawat napiling panuntunan."
   }
 }

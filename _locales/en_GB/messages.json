@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Whitelist conflicts"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Optional: apply the same schedule to every selected rule."
   }
 }

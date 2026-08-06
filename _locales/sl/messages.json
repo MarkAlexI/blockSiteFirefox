@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Spori s seznamom dovoljenih"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Izbirno: uporabite isti urnik za vsako izbrano pravilo."
   }
 }

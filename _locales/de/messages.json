@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Konflikte mit der Positivliste"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Optional: Wende denselben Zeitplan auf jede ausgewählte Regel an."
   }
 }

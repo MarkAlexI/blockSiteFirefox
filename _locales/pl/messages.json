@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Konflikty z listą dozwolonych"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opcjonalnie: zastosuj ten sam harmonogram do każdej wybranej reguły."
   }
 }

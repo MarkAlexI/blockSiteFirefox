@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "अनुमति सूची के टकराव"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "वैकल्पिक: हर चुने गए नियम पर एक ही शेड्यूल लागू करें।"
   }
 }

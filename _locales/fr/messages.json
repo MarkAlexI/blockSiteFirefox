@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Conflits avec la liste blanche"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Facultatif : appliquez le même planning à chaque règle sélectionnée."
   }
 }

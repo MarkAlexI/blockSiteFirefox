@@ -921,5 +921,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "დაშვებული სიის კონფლიქტები"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "არასავალდებულო: გამოიყენეთ ერთი და იგივე განრიგი ყველა არჩეულ წესზე."
   }
 }

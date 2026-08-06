@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Lubatud loendi konfliktid"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Valikuline: rakenda sama ajakava igale valitud reeglile."
   }
 }

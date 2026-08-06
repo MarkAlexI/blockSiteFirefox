@@ -939,5 +939,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Conflictos con la lista blanca"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opcional: aplica el mismo horario a cada regla seleccionada."
   }
 }

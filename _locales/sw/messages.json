@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Migongano ya orodha ya ruhusa"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Hiari: tumia ratiba ileile kwa kila kanuni iliyochaguliwa."
   }
 }

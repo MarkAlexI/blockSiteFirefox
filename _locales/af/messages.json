@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Witlys-konflikte"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opsioneel: pas dieselfde skedule op elke geselekteerde reël toe."
   }
 }

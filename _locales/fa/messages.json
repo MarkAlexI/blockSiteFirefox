@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "تداخل‌های فهرست مجاز"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "اختیاری: همان زمان‌بندی را برای همهٔ قانون‌های انتخاب‌شده اعمال کنید."
   }
 }

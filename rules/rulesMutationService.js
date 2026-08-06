@@ -1,3 +1,6 @@
+import { normalizeSchedule } from '../schedules/scheduleNormalizer.js';
+import { validateSchedule } from '../schedules/scheduleValidator.js';
+
 export class RulesMutationError extends Error {
   constructor(code, message = code, validationErrors = []) {
     super(message);
@@ -36,6 +39,10 @@ function getRuleIndexById(rules, ruleId) {
   const normalizedId = toRuleId(ruleId);
   if (normalizedId === null) return -1;
   return rules.findIndex(rule => toRuleId(rule.id) === normalizedId);
+}
+
+function cloneSchedule(schedule) {
+  return schedule ? normalizeSchedule(schedule) : null;
 }
 
 function sanitizeRuleInput(payload = {}, fallbackWhitelist = false) {
@@ -177,6 +184,12 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_pack_empty', 'Select at least one rule');
       }
 
+      const sharedSchedule = payload.schedule == null
+        ? null
+        : normalizeSchedule(payload.schedule);
+      const scheduleValidation = validateSchedule(sharedSchedule);
+      throwValidation(scheduleValidation);
+
       const rules = await rulesManager.getRules();
       const nextRules = [...rules];
       const addedEntries = [];
@@ -200,7 +213,7 @@ export function createRulesMutationService({
         const input = sanitizeRuleInput({
           blockURL: entry.blockURL,
           redirectURL: '',
-          schedule: null,
+          schedule: sharedSchedule,
           category: selection.pack.category,
           isWhitelist: false
         });
@@ -243,7 +256,7 @@ export function createRulesMutationService({
           id: getNextSafeId(),
           blockURL: input.blockURL.trim(),
           redirectURL: '',
-          schedule: null,
+          schedule: cloneSchedule(sharedSchedule),
           category: selection.pack.category,
           disabledByUser: false,
           isWhitelist: false
@@ -261,7 +274,8 @@ export function createRulesMutationService({
         addedEntries,
         duplicateEntries,
         conflicts,
-        packId: selection.pack.id
+        packId: selection.pack.id,
+        scheduleApplied: sharedSchedule !== null
       };
 
       if (addedCount === 0) {

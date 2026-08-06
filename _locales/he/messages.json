@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "התנגשויות עם רשימת ההיתרים"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "אופציונלי: החל את אותו לוח זמנים על כל כלל שנבחר."
   }
 }

@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Conflicten met de toestemmingslijst"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Optioneel: pas hetzelfde schema toe op elke geselecteerde regel."
   }
 }

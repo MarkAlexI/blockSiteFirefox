@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Conflitti con la lista consentita"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Facoltativo: applica la stessa pianificazione a ogni regola selezionata."
   }
 }

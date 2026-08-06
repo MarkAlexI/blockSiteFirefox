@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "白名单冲突"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "可选：对每条选中的规则应用相同的计划。"
   }
 }

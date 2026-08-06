@@ -906,5 +906,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Sallittujen luettelon ristiriidat"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Valinnainen: käytä samaa aikataulua kaikille valituille säännöille."
   }
 }

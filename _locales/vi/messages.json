@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Xung đột với danh sách cho phép"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Tùy chọn: áp dụng cùng một lịch cho mọi quy tắc đã chọn."
   }
 }

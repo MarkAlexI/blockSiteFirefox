@@ -918,5 +918,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Конфликти с белия списък"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "По избор: приложете един и същ график към всяко избрано правило."
   }
 }

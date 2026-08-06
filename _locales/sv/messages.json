@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Konflikter med tillåtelselistan"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Valfritt: använd samma schema för varje vald regel."
   }
 }

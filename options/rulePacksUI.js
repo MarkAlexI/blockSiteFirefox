@@ -13,6 +13,8 @@ export class RulePacksUI {
     category,
     selectAll,
     entriesContainer,
+    scheduleContainer,
+    scheduleEditor,
     status,
     onAdd
   }) {
@@ -26,6 +28,9 @@ export class RulePacksUI {
     this.category = category;
     this.selectAll = selectAll;
     this.entriesContainer = entriesContainer;
+    this.scheduleContainer = scheduleContainer;
+    this.scheduleEditor = scheduleEditor;
+    this.scheduleSection = null;
     this.status = status;
     this.onAdd = onAdd;
     this.packs = getRulePacks();
@@ -36,6 +41,7 @@ export class RulePacksUI {
 
     this.renderPackOptions();
     this.renderSelectedPack();
+    this.resetScheduleSection();
 
     this.openButton.addEventListener('click', () => this.open());
     this.closeButton?.addEventListener('click', () => this.close());
@@ -62,6 +68,19 @@ export class RulePacksUI {
 
   getSelectedPack() {
     return this.packs.find(pack => pack.id === this.packSelect.value) || this.packs[0] || null;
+  }
+
+  resetScheduleSection() {
+    if (!this.scheduleContainer || !this.scheduleEditor) return;
+
+    this.scheduleSection = this.scheduleEditor.createSection(null, true);
+    this.scheduleSection.classList?.add('rule-packs-shared-schedule');
+    this.scheduleContainer.replaceChildren(this.scheduleSection);
+  }
+
+  getSelectedSchedule() {
+    if (!this.scheduleEditor || !this.scheduleSection) return null;
+    return this.scheduleEditor.getSchedule(this.scheduleSection);
   }
 
   renderSelectedPack() {
@@ -132,6 +151,7 @@ export class RulePacksUI {
 
   open() {
     this.renderSelectedPack();
+    this.resetScheduleSection();
     this.dialog.showModal();
   }
 
@@ -246,7 +266,8 @@ export class RulePacksUI {
     this.clearStatus();
 
     try {
-      const result = await this.onAdd(pack.id, entryIds);
+      const schedule = this.getSelectedSchedule();
+      const result = await this.onAdd(pack.id, entryIds, schedule);
       this.showResultReport(result);
     } catch (error) {
       this.showStatus(t('rulepacks_error'), 'error');

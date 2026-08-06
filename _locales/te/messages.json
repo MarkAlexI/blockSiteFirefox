@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "అనుమతి జాబితా విరుద్ధాలు"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "ఐచ్ఛికం: ఎంచుకున్న ప్రతి నియమానికి ఒకే షెడ్యూల్‌ను వర్తింపజేయండి."
   }
 }

@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "ಅನುಮತಿ ಪಟ್ಟಿಯ ಸಂಘರ್ಷಗಳು"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "ಐಚ್ಛಿಕ: ಆಯ್ಕೆ ಮಾಡಿದ ಪ್ರತಿಯೊಂದು ನಿಯಮಕ್ಕೂ ಒಂದೇ ವೇಳಾಪಟ್ಟಿಯನ್ನು ಅನ್ವಯಿಸಿ."
   }
 }

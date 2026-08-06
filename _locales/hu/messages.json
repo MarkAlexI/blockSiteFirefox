@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Engedélyezési lista ütközései"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Opcionális: alkalmazza ugyanazt az ütemezést minden kijelölt szabályra."
   }
 }

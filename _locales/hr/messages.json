@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Sukobi s popisom dopuštenih"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Neobavezno: primijenite isti raspored na svako odabrano pravilo."
   }
 }

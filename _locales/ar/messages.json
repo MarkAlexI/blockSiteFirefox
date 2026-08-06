@@ -912,5 +912,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "تعارضات القائمة البيضاء"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "اختياري: طبّق الجدول نفسه على كل قاعدة محددة."
   }
 }

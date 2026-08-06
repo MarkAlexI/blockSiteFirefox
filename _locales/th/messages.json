@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "ข้อขัดแย้งกับรายการอนุญาต"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "ไม่บังคับ: ใช้กำหนดเวลาเดียวกันกับทุกกฎที่เลือก"
   }
 }

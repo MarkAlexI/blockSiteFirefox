@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "ଅନୁମତି ତାଲିକା ବିରୋଧ"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "ଇଚ୍ଛାଧୀନ: ପ୍ରତ୍ୟେକ ବଛାଯାଇଥିବା ନିୟମରେ ସମାନ ସମୟସୂଚୀ ପ୍ରୟୋଗ କରନ୍ତୁ।"
   }
 }

@@ -918,5 +918,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Конфликты с белым списком"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Необязательно: применить одно расписание ко всем выбранным правилам."
   }
 }

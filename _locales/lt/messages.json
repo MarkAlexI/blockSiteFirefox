@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Leidžiamojo sąrašo konfliktai"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Pasirinktinai: taikykite tą patį tvarkaraštį kiekvienai pasirinktai taisyklei."
   }
 }

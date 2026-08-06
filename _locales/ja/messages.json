@@ -909,5 +909,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "許可リストとの競合"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "任意: 選択したすべてのルールに同じスケジュールを適用します。"
   }
 }

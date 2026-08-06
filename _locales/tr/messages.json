@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "İzin listesi çakışmaları"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "İsteğe bağlı: seçilen her kurala aynı zamanlamayı uygulayın."
   }
 }

@@ -506,3 +506,60 @@ test('unknown pack entries fail before any stored rule is changed', async () => 
   assert.equal(harness.savedStates.length, 0);
   assert.deepEqual(harness.getRules(), []);
 });
+
+test('a shared Rule Pack schedule is normalized and applied to every added rule', async () => {
+  const harness = createHarness();
+
+  const result = await harness.service.addMany({
+    packId: 'shopping',
+    entryIds: ['amazon', 'etsy'],
+    schedule: {
+      days: [1, 2, 3, 4, 5],
+      startTime: '09:00',
+      endTime: '17:00'
+    }
+  });
+
+  assert.equal(result.scheduleApplied, true);
+  assert.deepEqual(
+    harness.getRules().map(rule => rule.schedule),
+    [
+      {
+        version: 2,
+        periods: [{ days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' }]
+      },
+      {
+        version: 2,
+        periods: [{ days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' }]
+      }
+    ]
+  );
+  assert.notEqual(harness.getRules()[0].schedule, harness.getRules()[1].schedule);
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('an invalid shared Rule Pack schedule fails before storage or DNR changes', async () => {
+  const harness = createHarness();
+
+  await assert.rejects(
+    harness.service.addMany({
+      packId: 'social',
+      entryIds: ['facebook'],
+      schedule: {
+        version: 2,
+        periods: [{ days: [], startTime: '18:00', endTime: '09:00' }]
+      }
+    }),
+    error => {
+      assert.equal(error.code, 'validation_failed');
+      assert.deepEqual(error.validationErrors, ['invalid_days', 'start_after_end']);
+      return true;
+    }
+  );
+
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+

@@ -1239,6 +1239,46 @@ tr.rule-whitelist td:first-child::before {
   line-height: 1.45;
 }
 
+.rule-packs-schedule-block {
+  margin-top: 0.9rem;
+  padding: 0.85rem;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-secondary);
+}
+
+.rule-packs-schedule-block h4,
+.rule-packs-schedule-block p {
+  margin: 0;
+}
+
+.rule-packs-schedule-block p {
+  margin-top: 0.3rem;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+#rule-packs-schedule-container {
+  margin-top: 0.65rem;
+}
+
+#rule-packs-schedule-container .schedule-section {
+  width: auto;
+  max-width: none;
+  padding: 0.7rem;
+  box-shadow: none;
+  background: var(--bg-primary);
+}
+
+#rule-packs-schedule-container .schedule-summary-controls {
+  align-items: flex-start;
+}
+
+#rule-packs-schedule-container .schedule-summary {
+  overflow-wrap: anywhere;
+}
+
 .rule-packs-select-all {
   display: inline-flex;
   align-items: center;

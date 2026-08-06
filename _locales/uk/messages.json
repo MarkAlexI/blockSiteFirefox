@@ -918,5 +918,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Конфлікти з білим списком"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Необов’язково: застосувати один розклад до всіх вибраних правил."
   }
 }

@@ -915,5 +915,8 @@
   },
   "rulepacks_conflicts_label": {
     "message": "Atļauto vietņu saraksta konflikti"
+  },
+  "rulepacks_schedule_hint": {
+    "message": "Neobligāti: lietojiet vienu un to pašu grafiku katrai atlasītajai kārtulai."
   }
 }
