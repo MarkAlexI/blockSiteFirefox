@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Facultatif : appliquez le même planning à chaque règle sélectionnée."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostic"
+  },
+  "diagnosticsdesc": {
+    "message": "Générez un rapport technique respectueux de la vie privée pour résoudre les problèmes."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "L’historique récent des événements est collecté uniquement lorsque le mode débogage est activé. Les URL enregistrées et les données de licence ne sont jamais incluses."
+  },
+  "diagnosticsgenerate": {
+    "message": "Générer le rapport"
+  },
+  "diagnosticscopy": {
+    "message": "Copier le rapport"
+  },
+  "diagnosticsexport": {
+    "message": "Exporter le JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Effacer l’historique"
+  },
+  "diagnosticsempty": {
+    "message": "Aucun rapport de diagnostic n’a encore été généré."
+  },
+  "diagnosticsgenerated": {
+    "message": "Rapport de diagnostic généré."
+  },
+  "diagnosticscopied": {
+    "message": "Rapport de diagnostic copié."
+  },
+  "diagnosticsexported": {
+    "message": "Rapport de diagnostic exporté."
+  },
+  "diagnosticscleared": {
+    "message": "Historique de diagnostic effacé."
+  },
+  "diagnosticserror": {
+    "message": "Échec du diagnostic"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Effacer l’historique de diagnostic ? Cette action est irréversible."
   }
 }

@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opsioneel: pas dieselfde skedule op elke geselekteerde reël toe."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostiek"
+  },
+  "diagnosticsdesc": {
+    "message": "Genereer ’n privaatheidsveilige tegniese verslag vir foutopsporing."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Onlangse gebeurtenisgeskiedenis word net versamel wanneer Ontfoutmodus geaktiveer is. Gestoorde URL’s en lisensiedata word nooit ingesluit nie."
+  },
+  "diagnosticsgenerate": {
+    "message": "Genereer verslag"
+  },
+  "diagnosticscopy": {
+    "message": "Kopieer verslag"
+  },
+  "diagnosticsexport": {
+    "message": "Voer JSON uit"
+  },
+  "diagnosticsclear": {
+    "message": "Vee geskiedenis uit"
+  },
+  "diagnosticsempty": {
+    "message": "Geen diagnostiese verslag is nog gegenereer nie."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostiese verslag gegenereer."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostiese verslag gekopieer."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostiese verslag uitgevoer."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostiese geskiedenis uitgevee."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostiek het misluk"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Vee diagnostiese geskiedenis uit? Dit kan nie ongedaan gemaak word nie."
   }
 }

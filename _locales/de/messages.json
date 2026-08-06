@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Optional: Wende denselben Zeitplan auf jede ausgewählte Regel an."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnose"
+  },
+  "diagnosticsdesc": {
+    "message": "Erstellen Sie einen datenschutzfreundlichen technischen Bericht zur Fehlerbehebung."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Der Verlauf der letzten Ereignisse wird nur bei aktiviertem Debug-Modus erfasst. Gespeicherte URLs und Lizenzdaten werden niemals aufgenommen."
+  },
+  "diagnosticsgenerate": {
+    "message": "Bericht erstellen"
+  },
+  "diagnosticscopy": {
+    "message": "Bericht kopieren"
+  },
+  "diagnosticsexport": {
+    "message": "JSON exportieren"
+  },
+  "diagnosticsclear": {
+    "message": "Verlauf löschen"
+  },
+  "diagnosticsempty": {
+    "message": "Es wurde noch kein Diagnosebericht erstellt."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnosebericht erstellt."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnosebericht kopiert."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnosebericht exportiert."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnoseverlauf gelöscht."
+  },
+  "diagnosticserror": {
+    "message": "Diagnose fehlgeschlagen"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Diagnoseverlauf löschen? Dies kann nicht rückgängig gemacht werden."
   }
 }

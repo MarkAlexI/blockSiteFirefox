@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opcional: aplica la mateixa programació a cada regla seleccionada."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnòstic"
+  },
+  "diagnosticsdesc": {
+    "message": "Genera un informe tècnic respectuós amb la privadesa per resoldre problemes."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "L’historial d’esdeveniments recents només es recopila quan el mode de depuració està activat. Els URL desats i les dades de llicència no s’hi inclouen mai."
+  },
+  "diagnosticsgenerate": {
+    "message": "Genera l’informe"
+  },
+  "diagnosticscopy": {
+    "message": "Copia l’informe"
+  },
+  "diagnosticsexport": {
+    "message": "Exporta JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Esborra l’historial"
+  },
+  "diagnosticsempty": {
+    "message": "Encara no s’ha generat cap informe de diagnòstic."
+  },
+  "diagnosticsgenerated": {
+    "message": "S’ha generat l’informe de diagnòstic."
+  },
+  "diagnosticscopied": {
+    "message": "S’ha copiat l’informe de diagnòstic."
+  },
+  "diagnosticsexported": {
+    "message": "S’ha exportat l’informe de diagnòstic."
+  },
+  "diagnosticscleared": {
+    "message": "S’ha esborrat l’historial de diagnòstic."
+  },
+  "diagnosticserror": {
+    "message": "El diagnòstic ha fallat"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Vols esborrar l’historial de diagnòstic? Aquesta acció no es pot desfer."
   }
 }

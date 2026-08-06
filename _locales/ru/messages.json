@@ -921,5 +921,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Необязательно: применить одно расписание ко всем выбранным правилам."
+  },
+  "diagnosticstitle": {
+    "message": "Диагностика"
+  },
+  "diagnosticsdesc": {
+    "message": "Создайте безопасный для конфиденциальности технический отчет для устранения неполадок."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "История последних событий собирается только при включенном режиме отладки. Сохраненные URL и данные лицензии никогда не включаются."
+  },
+  "diagnosticsgenerate": {
+    "message": "Создать отчет"
+  },
+  "diagnosticscopy": {
+    "message": "Копировать отчет"
+  },
+  "diagnosticsexport": {
+    "message": "Экспорт JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Очистить историю"
+  },
+  "diagnosticsempty": {
+    "message": "Диагностический отчет еще не создан."
+  },
+  "diagnosticsgenerated": {
+    "message": "Диагностический отчет создан."
+  },
+  "diagnosticscopied": {
+    "message": "Диагностический отчет скопирован."
+  },
+  "diagnosticsexported": {
+    "message": "Диагностический отчет экспортирован."
+  },
+  "diagnosticscleared": {
+    "message": "История диагностики очищена."
+  },
+  "diagnosticserror": {
+    "message": "Ошибка диагностики"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Очистить историю диагностики? Это действие нельзя отменить."
   }
 }

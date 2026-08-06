@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Pilihan: gunakan jadual yang sama pada setiap peraturan yang dipilih."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostik"
+  },
+  "diagnosticsdesc": {
+    "message": "Jana laporan teknikal yang selamat untuk privasi bagi penyelesaian masalah."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Sejarah peristiwa terkini hanya dikumpulkan apabila Mod Nyahpepijat didayakan. URL tersimpan dan data lesen tidak pernah disertakan."
+  },
+  "diagnosticsgenerate": {
+    "message": "Jana Laporan"
+  },
+  "diagnosticscopy": {
+    "message": "Salin Laporan"
+  },
+  "diagnosticsexport": {
+    "message": "Eksport JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Kosongkan Sejarah"
+  },
+  "diagnosticsempty": {
+    "message": "Belum ada laporan diagnostik dijana."
+  },
+  "diagnosticsgenerated": {
+    "message": "Laporan diagnostik dijana."
+  },
+  "diagnosticscopied": {
+    "message": "Laporan diagnostik disalin."
+  },
+  "diagnosticsexported": {
+    "message": "Laporan diagnostik dieksport."
+  },
+  "diagnosticscleared": {
+    "message": "Sejarah diagnostik dikosongkan."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostik gagal"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Kosongkan sejarah diagnostik? Tindakan ini tidak boleh dibuat asal."
   }
 }

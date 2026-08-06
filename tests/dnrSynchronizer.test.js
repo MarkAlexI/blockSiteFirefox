@@ -48,7 +48,8 @@ function createHarness({
   storedRules = [makeStoredRule()],
   currentDnrRules = [],
   createRule,
-  getRules
+  getRules,
+  onSyncResult
 } = {}) {
   const updates = [];
   const closedUrlBatches = [];
@@ -94,7 +95,8 @@ function createHarness({
       closedUrlBatches.push([...urls]);
     },
     declarativeNetRequest,
-    logger
+    logger,
+    onSyncResult
   });
 
   return {
@@ -265,3 +267,42 @@ test('clearing all active rules passes every ID with an explicit empty addRules 
   }]);
   assert.deepEqual(harness.getDynamicRules(), []);
 });
+
+test('DNR inspection reports drift without modifying browser rules', async () => {
+  const harness = createHarness({
+    storedRules: [makeStoredRule({ id: 5, blockURL: 'expected.example' })],
+    currentDnrRules: [makeDnrRule({ id: 9, urlFilter: '||unexpected.example' })]
+  });
+
+  const state = await harness.synchronizer.inspectState();
+
+  assert.deepEqual(state, {
+    activeRuleCount: 1,
+    expectedCount: 1,
+    currentCount: 1,
+    inSync: false,
+    removeCount: 1,
+    addCount: 1
+  });
+  assert.equal(harness.updates.length, 0);
+  assert.equal(harness.closedUrlBatches.length, 0);
+});
+
+test('DNR synchronization reports its final structured result', async () => {
+  const results = [];
+  const harness = createHarness({
+    currentDnrRules: [],
+    onSyncResult: async result => results.push(structuredClone(result))
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.deepEqual(results, [result]);
+  assert.deepEqual(result, {
+    success: true,
+    changed: true,
+    removed: 0,
+    added: 1
+  });
+});
+

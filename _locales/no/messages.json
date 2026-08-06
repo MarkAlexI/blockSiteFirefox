@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Valgfritt: bruk samme tidsplan for hver valgte regel."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostikk"
+  },
+  "diagnosticsdesc": {
+    "message": "Generer en personvernsikker teknisk rapport for feilsøking."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Nylig hendelseshistorikk samles bare inn når feilsøkingsmodus er aktivert. Lagrede URL-er og lisensdata tas aldri med."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generer rapport"
+  },
+  "diagnosticscopy": {
+    "message": "Kopier rapport"
+  },
+  "diagnosticsexport": {
+    "message": "Eksporter JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Tøm historikk"
+  },
+  "diagnosticsempty": {
+    "message": "Ingen diagnostikkrapport er generert ennå."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostikkrapport generert."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostikkrapport kopiert."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostikkrapport eksportert."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostikkhistorikken er tømt."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostikk mislyktes"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Tømme diagnostikkhistorikken? Dette kan ikke angres."
   }
 }

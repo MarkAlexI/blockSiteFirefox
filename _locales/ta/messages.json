@@ -915,5 +915,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "விருப்பத்தேர்வு: தேர்ந்தெடுக்கப்பட்ட ஒவ்வொரு விதிக்கும் ஒரே அட்டவணையைப் பயன்படுத்தவும்."
+  },
+  "diagnosticstitle": {
+    "message": "கண்டறிதல்"
+  },
+  "diagnosticsdesc": {
+    "message": "சிக்கல் தீர்க்க தனியுரிமை பாதுகாப்பான தொழில்நுட்ப அறிக்கையை உருவாக்கவும்."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "சமீபத்திய நிகழ்வு வரலாறு பிழைத்திருத்த பயன்முறை இயக்கப்பட்டிருக்கும்போது மட்டுமே சேகரிக்கப்படும். சேமிக்கப்பட்ட URL-கள் மற்றும் உரிமத் தரவு ஒருபோதும் சேர்க்கப்படாது."
+  },
+  "diagnosticsgenerate": {
+    "message": "அறிக்கையை உருவாக்கு"
+  },
+  "diagnosticscopy": {
+    "message": "அறிக்கையை நகலெடு"
+  },
+  "diagnosticsexport": {
+    "message": "JSON ஏற்றுமதி"
+  },
+  "diagnosticsclear": {
+    "message": "வரலாற்றை அழி"
+  },
+  "diagnosticsempty": {
+    "message": "இன்னும் கண்டறிதல் அறிக்கை உருவாக்கப்படவில்லை."
+  },
+  "diagnosticsgenerated": {
+    "message": "கண்டறிதல் அறிக்கை உருவாக்கப்பட்டது."
+  },
+  "diagnosticscopied": {
+    "message": "கண்டறிதல் அறிக்கை நகலெடுக்கப்பட்டது."
+  },
+  "diagnosticsexported": {
+    "message": "கண்டறிதல் அறிக்கை ஏற்றுமதி செய்யப்பட்டது."
+  },
+  "diagnosticscleared": {
+    "message": "கண்டறிதல் வரலாறு அழிக்கப்பட்டது."
+  },
+  "diagnosticserror": {
+    "message": "கண்டறிதல் தோல்வியடைந்தது"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "கண்டறிதல் வரலாற்றை அழிக்கவா? இதை மீட்டெடுக்க முடியாது."
   }
 }

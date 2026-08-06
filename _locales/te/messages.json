@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "ఐచ్ఛికం: ఎంచుకున్న ప్రతి నియమానికి ఒకే షెడ్యూల్‌ను వర్తింపజేయండి."
+  },
+  "diagnosticstitle": {
+    "message": "నిర్ధారణ"
+  },
+  "diagnosticsdesc": {
+    "message": "సమస్య పరిష్కారం కోసం గోప్యతకు సురక్షితమైన సాంకేతిక నివేదికను రూపొందించండి."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "డీబగ్ మోడ్ ప్రారంభించబడినప్పుడు మాత్రమే ఇటీవలి ఈవెంట్ చరిత్ర సేకరించబడుతుంది. సేవ్ చేసిన URLలు మరియు లైసెన్స్ డేటా ఎప్పుడూ చేర్చబడవు."
+  },
+  "diagnosticsgenerate": {
+    "message": "నివేదిక రూపొందించండి"
+  },
+  "diagnosticscopy": {
+    "message": "నివేదికను కాపీ చేయండి"
+  },
+  "diagnosticsexport": {
+    "message": "JSON ఎగుమతి చేయండి"
+  },
+  "diagnosticsclear": {
+    "message": "చరిత్రను తొలగించండి"
+  },
+  "diagnosticsempty": {
+    "message": "ఇంకా నిర్ధారణ నివేదిక రూపొందించబడలేదు."
+  },
+  "diagnosticsgenerated": {
+    "message": "నిర్ధారణ నివేదిక రూపొందించబడింది."
+  },
+  "diagnosticscopied": {
+    "message": "నిర్ధారణ నివేదిక కాపీ చేయబడింది."
+  },
+  "diagnosticsexported": {
+    "message": "నిర్ధారణ నివేదిక ఎగుమతి చేయబడింది."
+  },
+  "diagnosticscleared": {
+    "message": "నిర్ధారణ చరిత్ర తొలగించబడింది."
+  },
+  "diagnosticserror": {
+    "message": "నిర్ధారణ విఫలమైంది"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "నిర్ధారణ చరిత్రను తొలగించాలా? దీన్ని రద్దు చేయలేరు."
   }
 }

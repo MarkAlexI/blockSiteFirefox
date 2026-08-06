@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opcional: aplica el mismo horario a cada regla seleccionada."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnóstico"
+  },
+  "diagnosticsdesc": {
+    "message": "Genera un informe técnico seguro para la privacidad para solucionar problemas."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "El historial de eventos recientes solo se recopila cuando el modo de depuración está activado. Nunca se incluyen las URL guardadas ni los datos de licencia."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generar informe"
+  },
+  "diagnosticscopy": {
+    "message": "Copiar informe"
+  },
+  "diagnosticsexport": {
+    "message": "Exportar JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Borrar historial"
+  },
+  "diagnosticsempty": {
+    "message": "Aún no se ha generado ningún informe de diagnóstico."
+  },
+  "diagnosticsgenerated": {
+    "message": "Informe de diagnóstico generado."
+  },
+  "diagnosticscopied": {
+    "message": "Informe de diagnóstico copiado."
+  },
+  "diagnosticsexported": {
+    "message": "Informe de diagnóstico exportado."
+  },
+  "diagnosticscleared": {
+    "message": "Historial de diagnóstico borrado."
+  },
+  "diagnosticserror": {
+    "message": "Error de diagnóstico"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "¿Borrar el historial de diagnóstico? Esta acción no se puede deshacer."
   }
 }

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.7.0] - 2026-08-06
+### Added
+- Added a Pro Diagnostic Report to the Options page with generate, copy, JSON export, and history clearing actions.
+- Added a capped local buffer for structured diagnostic events collected only while Debug Mode is enabled.
+- Added live report data for extension and browser versions, access state, settings, rule counts, DNR integrity, host permissions, Focus Session, and license verification.
+
+### Improved
+- Redacted URLs, domains, email addresses, license keys, tokens, passwords, and other sensitive values before diagnostic data is stored or exported.
+- Added DNR inspection without modifying browser rules and recorded only meaningful DNR changes or failures.
+- Stopped checking host permissions on every tab activation and kept checks on install, update, startup, and permission removal events.
+- Added localized Diagnostics interface strings for every supported locale.
+- Added dependency-free tests for privacy filtering, event buffering, report formatting, UI actions, and DNR inspection.
+
 ## [4.6.1] - 2026-08-06
 ### Fixed
 - Opened the shared Rule Pack schedule editor above the existing Rule Packs modal instead of behind it.

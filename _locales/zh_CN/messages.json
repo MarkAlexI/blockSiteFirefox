@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "可选：对每条选中的规则应用相同的计划。"
+  },
+  "diagnosticstitle": {
+    "message": "诊断"
+  },
+  "diagnosticsdesc": {
+    "message": "生成一份保护隐私的技术报告，用于排查问题。"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "仅在启用调试模式时收集最近的事件历史。不会包含已保存的 URL 或许可证数据。"
+  },
+  "diagnosticsgenerate": {
+    "message": "生成报告"
+  },
+  "diagnosticscopy": {
+    "message": "复制报告"
+  },
+  "diagnosticsexport": {
+    "message": "导出 JSON"
+  },
+  "diagnosticsclear": {
+    "message": "清除历史记录"
+  },
+  "diagnosticsempty": {
+    "message": "尚未生成诊断报告。"
+  },
+  "diagnosticsgenerated": {
+    "message": "已生成诊断报告。"
+  },
+  "diagnosticscopied": {
+    "message": "已复制诊断报告。"
+  },
+  "diagnosticsexported": {
+    "message": "已导出诊断报告。"
+  },
+  "diagnosticscleared": {
+    "message": "已清除诊断历史记录。"
+  },
+  "diagnosticserror": {
+    "message": "诊断失败"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "清除诊断历史记录？此操作无法撤销。"
   }
 }

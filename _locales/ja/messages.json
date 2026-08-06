@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "任意: 選択したすべてのルールに同じスケジュールを適用します。"
+  },
+  "diagnosticstitle": {
+    "message": "診断"
+  },
+  "diagnosticsdesc": {
+    "message": "トラブルシューティング用に、プライバシーに配慮した技術レポートを生成します。"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "最近のイベント履歴はデバッグモードが有効な場合にのみ収集されます。保存済みのURLやライセンスデータは含まれません。"
+  },
+  "diagnosticsgenerate": {
+    "message": "レポートを生成"
+  },
+  "diagnosticscopy": {
+    "message": "レポートをコピー"
+  },
+  "diagnosticsexport": {
+    "message": "JSONをエクスポート"
+  },
+  "diagnosticsclear": {
+    "message": "履歴を消去"
+  },
+  "diagnosticsempty": {
+    "message": "診断レポートはまだ生成されていません。"
+  },
+  "diagnosticsgenerated": {
+    "message": "診断レポートを生成しました。"
+  },
+  "diagnosticscopied": {
+    "message": "診断レポートをコピーしました。"
+  },
+  "diagnosticsexported": {
+    "message": "診断レポートをエクスポートしました。"
+  },
+  "diagnosticscleared": {
+    "message": "診断履歴を消去しました。"
+  },
+  "diagnosticserror": {
+    "message": "診断に失敗しました"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "診断履歴を消去しますか？この操作は元に戻せません。"
   }
 }

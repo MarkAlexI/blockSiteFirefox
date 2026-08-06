@@ -198,6 +198,27 @@
               </label>
             </div>
           </div>
+          <div class="diagnostics-panel">
+            <h3 data-i18n="diagnosticstitle">Diagnostics</h3>
+            <p class="setting-description" data-i18n="diagnosticsdesc">Generate a privacy-safe technical report for troubleshooting.</p>
+            <p class="diagnostics-notice" data-i18n="diagnosticsdebugnotice">Recent event history is collected only while Debug Mode is enabled. Saved URLs and license data are never included.</p>
+            <div class="diagnostics-actions">
+              <button id="diagnostics-generate" class="action-btn secondary" type="button">
+                <span data-i18n="diagnosticsgenerate">Generate Report</span>
+              </button>
+              <button id="diagnostics-copy" class="action-btn secondary" type="button">
+                <span data-i18n="diagnosticscopy">Copy Report</span>
+              </button>
+              <button id="diagnostics-export" class="action-btn secondary" type="button">
+                <span data-i18n="diagnosticsexport">Export JSON</span>
+              </button>
+              <button id="diagnostics-clear" class="action-btn danger" type="button">
+                <span data-i18n="diagnosticsclear">Clear History</span>
+              </button>
+            </div>
+            <pre id="diagnostics-output" class="diagnostics-output hidden" tabindex="0" data-i18n="diagnosticsempty">No diagnostic report generated yet.</pre>
+            <p id="diagnostics-status" class="diagnostics-status hidden" aria-live="polite"></p>
+          </div>
         </div>
       </section>
       

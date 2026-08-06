@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Pasirinktinai: taikykite tą patį tvarkaraštį kiekvienai pasirinktai taisyklei."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostika"
+  },
+  "diagnosticsdesc": {
+    "message": "Sugeneruokite privatumą saugančią techninę ataskaitą trikčių šalinimui."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Naujausių įvykių istorija renkama tik įjungus derinimo režimą. Išsaugoti URL ir licencijos duomenys niekada neįtraukiami."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generuoti ataskaitą"
+  },
+  "diagnosticscopy": {
+    "message": "Kopijuoti ataskaitą"
+  },
+  "diagnosticsexport": {
+    "message": "Eksportuoti JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Išvalyti istoriją"
+  },
+  "diagnosticsempty": {
+    "message": "Diagnostikos ataskaita dar nesugeneruota."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostikos ataskaita sugeneruota."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostikos ataskaita nukopijuota."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostikos ataskaita eksportuota."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostikos istorija išvalyta."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostika nepavyko"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Išvalyti diagnostikos istoriją? To atšaukti negalima."
   }
 }

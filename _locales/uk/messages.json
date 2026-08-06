@@ -921,5 +921,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Необов’язково: застосувати один розклад до всіх вибраних правил."
+  },
+  "diagnosticstitle": {
+    "message": "Діагностика"
+  },
+  "diagnosticsdesc": {
+    "message": "Створіть безпечний для приватності технічний звіт для пошуку несправностей."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Історія останніх подій збирається лише тоді, коли ввімкнено режим налагодження. Збережені URL та дані ліцензії ніколи не включаються."
+  },
+  "diagnosticsgenerate": {
+    "message": "Створити звіт"
+  },
+  "diagnosticscopy": {
+    "message": "Копіювати звіт"
+  },
+  "diagnosticsexport": {
+    "message": "Експортувати JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Очистити історію"
+  },
+  "diagnosticsempty": {
+    "message": "Діагностичний звіт ще не створено."
+  },
+  "diagnosticsgenerated": {
+    "message": "Діагностичний звіт створено."
+  },
+  "diagnosticscopied": {
+    "message": "Діагностичний звіт скопійовано."
+  },
+  "diagnosticsexported": {
+    "message": "Діагностичний звіт експортовано."
+  },
+  "diagnosticscleared": {
+    "message": "Історію діагностики очищено."
+  },
+  "diagnosticserror": {
+    "message": "Помилка діагностики"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Очистити історію діагностики? Цю дію не можна скасувати."
   }
 }

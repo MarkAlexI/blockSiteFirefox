@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "🗓️ Schedule Rule Packs: Apply one shared schedule while adding a starter pack.",
-    "⚙️ Advanced Timing: Use the same weekday, weekend, or custom time groups available for individual rules.",
-    "✅ One-Step Setup: Selected rules are created with the schedule already attached.",
-    "🛡️ Safely Validated: The service worker verifies the schedule before changing your rules."
+    "🩺 Diagnostic Report: Generate a privacy-safe technical snapshot directly from the Options page.",
+    "📋 Easy Support: Copy a readable report or export structured JSON without opening the browser console.",
+    "🔒 Private by Design: Rules, URLs, license keys, emails, tokens, and passwords are not exposed.",
+    "🧭 Mobile Friendly: Check DNR, permissions, Focus Session, and recent Debug Mode events on Firefox Android and desktop browsers."
   ];
   
   const ul = document.getElementById('features');

@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "선택 사항: 선택한 모든 규칙에 동일한 일정을 적용합니다."
+  },
+  "diagnosticstitle": {
+    "message": "진단"
+  },
+  "diagnosticsdesc": {
+    "message": "문제 해결을 위해 개인정보를 보호하는 기술 보고서를 생성합니다."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "최근 이벤트 기록은 디버그 모드가 활성화된 경우에만 수집됩니다. 저장된 URL과 라이선스 데이터는 포함되지 않습니다."
+  },
+  "diagnosticsgenerate": {
+    "message": "보고서 생성"
+  },
+  "diagnosticscopy": {
+    "message": "보고서 복사"
+  },
+  "diagnosticsexport": {
+    "message": "JSON 내보내기"
+  },
+  "diagnosticsclear": {
+    "message": "기록 지우기"
+  },
+  "diagnosticsempty": {
+    "message": "아직 생성된 진단 보고서가 없습니다."
+  },
+  "diagnosticsgenerated": {
+    "message": "진단 보고서를 생성했습니다."
+  },
+  "diagnosticscopied": {
+    "message": "진단 보고서를 복사했습니다."
+  },
+  "diagnosticsexported": {
+    "message": "진단 보고서를 내보냈습니다."
+  },
+  "diagnosticscleared": {
+    "message": "진단 기록을 지웠습니다."
+  },
+  "diagnosticserror": {
+    "message": "진단 실패"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "진단 기록을 지우시겠습니까? 이 작업은 취소할 수 없습니다."
   }
 }

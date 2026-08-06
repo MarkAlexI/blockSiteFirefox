@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Valikuline: rakenda sama ajakava igale valitud reeglile."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostika"
+  },
+  "diagnosticsdesc": {
+    "message": "Looge tõrkeotsinguks privaatsust kaitsev tehniline aruanne."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Hiljutiste sündmuste ajalugu kogutakse ainult siis, kui silumisrežiim on lubatud. Salvestatud URL-e ega litsentsiandmeid ei lisata kunagi."
+  },
+  "diagnosticsgenerate": {
+    "message": "Loo aruanne"
+  },
+  "diagnosticscopy": {
+    "message": "Kopeeri aruanne"
+  },
+  "diagnosticsexport": {
+    "message": "Ekspordi JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Kustuta ajalugu"
+  },
+  "diagnosticsempty": {
+    "message": "Diagnostikaaruannet pole veel loodud."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostikaaruanne on loodud."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostikaaruanne on kopeeritud."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostikaaruanne on eksporditud."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostikaajalugu on kustutatud."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostika nurjus"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Kas kustutada diagnostikaajalugu? Seda ei saa tagasi võtta."
   }
 }

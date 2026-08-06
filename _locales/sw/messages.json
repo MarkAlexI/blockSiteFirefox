@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Hiari: tumia ratiba ileile kwa kila kanuni iliyochaguliwa."
+  },
+  "diagnosticstitle": {
+    "message": "Uchunguzi"
+  },
+  "diagnosticsdesc": {
+    "message": "Tengeneza ripoti ya kiufundi inayolinda faragha kwa utatuzi wa matatizo."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Historia ya matukio ya hivi karibuni hukusanywa tu wakati Hali ya Utatuzi imewashwa. URL zilizohifadhiwa na data ya leseni hazijumuishwi kamwe."
+  },
+  "diagnosticsgenerate": {
+    "message": "Tengeneza Ripoti"
+  },
+  "diagnosticscopy": {
+    "message": "Nakili Ripoti"
+  },
+  "diagnosticsexport": {
+    "message": "Hamisha JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Futa Historia"
+  },
+  "diagnosticsempty": {
+    "message": "Bado hakuna ripoti ya uchunguzi iliyotengenezwa."
+  },
+  "diagnosticsgenerated": {
+    "message": "Ripoti ya uchunguzi imetengenezwa."
+  },
+  "diagnosticscopied": {
+    "message": "Ripoti ya uchunguzi imenakiliwa."
+  },
+  "diagnosticsexported": {
+    "message": "Ripoti ya uchunguzi imehamishwa."
+  },
+  "diagnosticscleared": {
+    "message": "Historia ya uchunguzi imefutwa."
+  },
+  "diagnosticserror": {
+    "message": "Uchunguzi umeshindwa"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Futa historia ya uchunguzi? Hili haliwezi kutenduliwa."
   }
 }

@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Tùy chọn: áp dụng cùng một lịch cho mọi quy tắc đã chọn."
+  },
+  "diagnosticstitle": {
+    "message": "Chẩn đoán"
+  },
+  "diagnosticsdesc": {
+    "message": "Tạo báo cáo kỹ thuật bảo vệ quyền riêng tư để khắc phục sự cố."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Lịch sử sự kiện gần đây chỉ được thu thập khi Chế độ gỡ lỗi được bật. URL đã lưu và dữ liệu giấy phép không bao giờ được đưa vào."
+  },
+  "diagnosticsgenerate": {
+    "message": "Tạo báo cáo"
+  },
+  "diagnosticscopy": {
+    "message": "Sao chép báo cáo"
+  },
+  "diagnosticsexport": {
+    "message": "Xuất JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Xóa lịch sử"
+  },
+  "diagnosticsempty": {
+    "message": "Chưa có báo cáo chẩn đoán nào được tạo."
+  },
+  "diagnosticsgenerated": {
+    "message": "Đã tạo báo cáo chẩn đoán."
+  },
+  "diagnosticscopied": {
+    "message": "Đã sao chép báo cáo chẩn đoán."
+  },
+  "diagnosticsexported": {
+    "message": "Đã xuất báo cáo chẩn đoán."
+  },
+  "diagnosticscleared": {
+    "message": "Đã xóa lịch sử chẩn đoán."
+  },
+  "diagnosticserror": {
+    "message": "Chẩn đoán thất bại"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Xóa lịch sử chẩn đoán? Không thể hoàn tác thao tác này."
   }
 }

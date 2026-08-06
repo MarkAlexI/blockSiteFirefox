@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opsyonal: ilapat ang parehong iskedyul sa bawat napiling panuntunan."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostics"
+  },
+  "diagnosticsdesc": {
+    "message": "Gumawa ng teknikal na ulat na ligtas sa privacy para sa pag-troubleshoot."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Kinokolekta lang ang kamakailang history ng event kapag naka-enable ang Debug Mode. Hindi kailanman isinasama ang mga naka-save na URL at license data."
+  },
+  "diagnosticsgenerate": {
+    "message": "Gumawa ng Ulat"
+  },
+  "diagnosticscopy": {
+    "message": "Kopyahin ang Ulat"
+  },
+  "diagnosticsexport": {
+    "message": "I-export ang JSON"
+  },
+  "diagnosticsclear": {
+    "message": "I-clear ang History"
+  },
+  "diagnosticsempty": {
+    "message": "Wala pang nagagawang diagnostic report."
+  },
+  "diagnosticsgenerated": {
+    "message": "Nagawa ang diagnostic report."
+  },
+  "diagnosticscopied": {
+    "message": "Nakopya ang diagnostic report."
+  },
+  "diagnosticsexported": {
+    "message": "Na-export ang diagnostic report."
+  },
+  "diagnosticscleared": {
+    "message": "Na-clear ang diagnostic history."
+  },
+  "diagnosticserror": {
+    "message": "Nabigo ang diagnostics"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "I-clear ang diagnostic history? Hindi ito maa-undo."
   }
 }

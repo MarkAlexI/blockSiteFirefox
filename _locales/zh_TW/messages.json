@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "選用：將相同排程套用到每個已選規則。"
+  },
+  "diagnosticstitle": {
+    "message": "診斷"
+  },
+  "diagnosticsdesc": {
+    "message": "產生一份保護隱私的技術報告，用於疑難排解。"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "只有在啟用偵錯模式時才會收集最近的事件歷程。不會包含已儲存的 URL 或授權資料。"
+  },
+  "diagnosticsgenerate": {
+    "message": "產生報告"
+  },
+  "diagnosticscopy": {
+    "message": "複製報告"
+  },
+  "diagnosticsexport": {
+    "message": "匯出 JSON"
+  },
+  "diagnosticsclear": {
+    "message": "清除歷程"
+  },
+  "diagnosticsempty": {
+    "message": "尚未產生診斷報告。"
+  },
+  "diagnosticsgenerated": {
+    "message": "已產生診斷報告。"
+  },
+  "diagnosticscopied": {
+    "message": "已複製診斷報告。"
+  },
+  "diagnosticsexported": {
+    "message": "已匯出診斷報告。"
+  },
+  "diagnosticscleared": {
+    "message": "已清除診斷歷程。"
+  },
+  "diagnosticserror": {
+    "message": "診斷失敗"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "清除診斷歷程？此操作無法復原。"
   }
 }

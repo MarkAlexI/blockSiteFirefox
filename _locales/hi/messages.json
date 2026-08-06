@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "वैकल्पिक: हर चुने गए नियम पर एक ही शेड्यूल लागू करें।"
+  },
+  "diagnosticstitle": {
+    "message": "डायग्नोस्टिक्स"
+  },
+  "diagnosticsdesc": {
+    "message": "समस्या निवारण के लिए गोपनीयता-सुरक्षित तकनीकी रिपोर्ट बनाएँ।"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "हाल की घटनाओं का इतिहास केवल डिबग मोड सक्षम होने पर एकत्र किया जाता है। सहेजे गए URL और लाइसेंस डेटा कभी शामिल नहीं किए जाते।"
+  },
+  "diagnosticsgenerate": {
+    "message": "रिपोर्ट बनाएँ"
+  },
+  "diagnosticscopy": {
+    "message": "रिपोर्ट कॉपी करें"
+  },
+  "diagnosticsexport": {
+    "message": "JSON निर्यात करें"
+  },
+  "diagnosticsclear": {
+    "message": "इतिहास साफ करें"
+  },
+  "diagnosticsempty": {
+    "message": "अभी तक कोई डायग्नोस्टिक रिपोर्ट नहीं बनाई गई है।"
+  },
+  "diagnosticsgenerated": {
+    "message": "डायग्नोस्टिक रिपोर्ट बनाई गई।"
+  },
+  "diagnosticscopied": {
+    "message": "डायग्नोस्टिक रिपोर्ट कॉपी की गई।"
+  },
+  "diagnosticsexported": {
+    "message": "डायग्नोस्टिक रिपोर्ट निर्यात की गई।"
+  },
+  "diagnosticscleared": {
+    "message": "डायग्नोस्टिक इतिहास साफ किया गया।"
+  },
+  "diagnosticserror": {
+    "message": "डायग्नोस्टिक्स विफल रहा"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "डायग्नोस्टिक इतिहास साफ करें? इसे पूर्ववत नहीं किया जा सकता।"
   }
 }

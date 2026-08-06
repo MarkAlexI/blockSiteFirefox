@@ -924,5 +924,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "ഐച്ഛികം: തിരഞ്ഞെടുത്ത എല്ലാ നിയമങ്ങൾക്കും ഒരേ ഷെഡ്യൂൾ പ്രയോഗിക്കുക."
+  },
+  "diagnosticstitle": {
+    "message": "ഡയഗ്നോസ്റ്റിക്സ്"
+  },
+  "diagnosticsdesc": {
+    "message": "പ്രശ്നപരിഹാരത്തിനായി സ്വകാര്യത സംരക്ഷിക്കുന്ന സാങ്കേതിക റിപ്പോർട്ട് സൃഷ്ടിക്കുക."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "ഡീബഗ് മോഡ് പ്രവർത്തനക്ഷമമായിരിക്കുമ്പോൾ മാത്രമാണ് സമീപകാല ഇവന്റ് ചരിത്രം ശേഖരിക്കുന്നത്. സംരക്ഷിച്ച URL-കളും ലൈസൻസ് ഡാറ്റയും ഒരിക്കലും ഉൾപ്പെടുത്തില്ല."
+  },
+  "diagnosticsgenerate": {
+    "message": "റിപ്പോർട്ട് സൃഷ്ടിക്കുക"
+  },
+  "diagnosticscopy": {
+    "message": "റിപ്പോർട്ട് പകർത്തുക"
+  },
+  "diagnosticsexport": {
+    "message": "JSON എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "diagnosticsclear": {
+    "message": "ചരിത്രം മായ്ക്കുക"
+  },
+  "diagnosticsempty": {
+    "message": "ഇതുവരെ ഡയഗ്നോസ്റ്റിക് റിപ്പോർട്ട് സൃഷ്ടിച്ചിട്ടില്ല."
+  },
+  "diagnosticsgenerated": {
+    "message": "ഡയഗ്നോസ്റ്റിക് റിപ്പോർട്ട് സൃഷ്ടിച്ചു."
+  },
+  "diagnosticscopied": {
+    "message": "ഡയഗ്നോസ്റ്റിക് റിപ്പോർട്ട് പകർത്തി."
+  },
+  "diagnosticsexported": {
+    "message": "ഡയഗ്നോസ്റ്റിക് റിപ്പോർട്ട് എക്സ്പോർട്ട് ചെയ്തു."
+  },
+  "diagnosticscleared": {
+    "message": "ഡയഗ്നോസ്റ്റിക് ചരിത്രം മായ്ച്ചു."
+  },
+  "diagnosticserror": {
+    "message": "ഡയഗ്നോസ്റ്റിക്സ് പരാജയപ്പെട്ടു"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "ഡയഗ്നോസ്റ്റിക് ചരിത്രം മായ്ക്കണോ? ഇത് പഴയപടിയാക്കാനാവില്ല."
   }
 }

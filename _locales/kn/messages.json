@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "ಐಚ್ಛಿಕ: ಆಯ್ಕೆ ಮಾಡಿದ ಪ್ರತಿಯೊಂದು ನಿಯಮಕ್ಕೂ ಒಂದೇ ವೇಳಾಪಟ್ಟಿಯನ್ನು ಅನ್ವಯಿಸಿ."
+  },
+  "diagnosticstitle": {
+    "message": "ರೋಗನಿರ್ಣಯ"
+  },
+  "diagnosticsdesc": {
+    "message": "ಸಮಸ್ಯೆ ಪರಿಹಾರಕ್ಕಾಗಿ ಗೌಪ್ಯತೆ-ಸುರಕ್ಷಿತ ತಾಂತ್ರಿಕ ವರದಿಯನ್ನು ರಚಿಸಿ."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "ಇತ್ತೀಚಿನ ಘಟನೆಗಳ ಇತಿಹಾಸವನ್ನು ಡಿಬಗ್ ಮೋಡ್ ಸಕ್ರಿಯವಾಗಿರುವಾಗ ಮಾತ್ರ ಸಂಗ್ರಹಿಸಲಾಗುತ್ತದೆ. ಉಳಿಸಿದ URLಗಳು ಮತ್ತು ಪರವಾನಗಿ ಡೇಟಾವನ್ನು ಎಂದಿಗೂ ಸೇರಿಸಲಾಗುವುದಿಲ್ಲ."
+  },
+  "diagnosticsgenerate": {
+    "message": "ವರದಿ ರಚಿಸಿ"
+  },
+  "diagnosticscopy": {
+    "message": "ವರದಿ ನಕಲಿಸಿ"
+  },
+  "diagnosticsexport": {
+    "message": "JSON ರಫ್ತು ಮಾಡಿ"
+  },
+  "diagnosticsclear": {
+    "message": "ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸಿ"
+  },
+  "diagnosticsempty": {
+    "message": "ಇನ್ನೂ ಯಾವುದೇ ರೋಗನಿರ್ಣಯ ವರದಿ ರಚಿಸಲಾಗಿಲ್ಲ."
+  },
+  "diagnosticsgenerated": {
+    "message": "ರೋಗನಿರ್ಣಯ ವರದಿ ರಚಿಸಲಾಗಿದೆ."
+  },
+  "diagnosticscopied": {
+    "message": "ರೋಗನಿರ್ಣಯ ವರದಿ ನಕಲಿಸಲಾಗಿದೆ."
+  },
+  "diagnosticsexported": {
+    "message": "ರೋಗನಿರ್ಣಯ ವರದಿ ರಫ್ತು ಮಾಡಲಾಗಿದೆ."
+  },
+  "diagnosticscleared": {
+    "message": "ರೋಗನಿರ್ಣಯ ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸಲಾಗಿದೆ."
+  },
+  "diagnosticserror": {
+    "message": "ರೋಗನಿರ್ಣಯ ವಿಫಲವಾಗಿದೆ"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "ರೋಗನಿರ್ಣಯ ಇತಿಹಾಸವನ್ನು ತೆರವುಗೊಳಿಸಬೇಕೆ? ಇದನ್ನು ರದ್ದುಮಾಡಲಾಗುವುದಿಲ್ಲ."
   }
 }

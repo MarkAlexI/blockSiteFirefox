@@ -921,5 +921,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "По избор: приложете един и същ график към всяко избрано правило."
+  },
+  "diagnosticstitle": {
+    "message": "Диагностика"
+  },
+  "diagnosticsdesc": {
+    "message": "Генерирайте технически отчет, безопасен за поверителността, за отстраняване на проблеми."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Историята на последните събития се събира само при включен режим за отстраняване на грешки. Запазените URL адреси и данните за лиценза никога не се включват."
+  },
+  "diagnosticsgenerate": {
+    "message": "Генериране на отчет"
+  },
+  "diagnosticscopy": {
+    "message": "Копиране на отчета"
+  },
+  "diagnosticsexport": {
+    "message": "Експортиране на JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Изчистване на историята"
+  },
+  "diagnosticsempty": {
+    "message": "Все още няма генериран диагностичен отчет."
+  },
+  "diagnosticsgenerated": {
+    "message": "Диагностичният отчет е генериран."
+  },
+  "diagnosticscopied": {
+    "message": "Диагностичният отчет е копиран."
+  },
+  "diagnosticsexported": {
+    "message": "Диагностичният отчет е експортиран."
+  },
+  "diagnosticscleared": {
+    "message": "Историята на диагностиката е изчистена."
+  },
+  "diagnosticserror": {
+    "message": "Диагностиката е неуспешна"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Да се изчисти ли историята на диагностиката? Това действие не може да бъде отменено."
   }
 }

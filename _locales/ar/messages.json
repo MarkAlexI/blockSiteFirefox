@@ -915,5 +915,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "اختياري: طبّق الجدول نفسه على كل قاعدة محددة."
+  },
+  "diagnosticstitle": {
+    "message": "التشخيص"
+  },
+  "diagnosticsdesc": {
+    "message": "أنشئ تقريرًا تقنيًا آمنًا للخصوصية لاستكشاف الأخطاء وإصلاحها."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "يتم جمع سجل الأحداث الأخيرة فقط عند تفعيل وضع التصحيح. لا يتم تضمين عناوين URL المحفوظة أو بيانات الترخيص مطلقًا."
+  },
+  "diagnosticsgenerate": {
+    "message": "إنشاء التقرير"
+  },
+  "diagnosticscopy": {
+    "message": "نسخ التقرير"
+  },
+  "diagnosticsexport": {
+    "message": "تصدير JSON"
+  },
+  "diagnosticsclear": {
+    "message": "مسح السجل"
+  },
+  "diagnosticsempty": {
+    "message": "لم يتم إنشاء تقرير تشخيصي بعد."
+  },
+  "diagnosticsgenerated": {
+    "message": "تم إنشاء تقرير التشخيص."
+  },
+  "diagnosticscopied": {
+    "message": "تم نسخ تقرير التشخيص."
+  },
+  "diagnosticsexported": {
+    "message": "تم تصدير تقرير التشخيص."
+  },
+  "diagnosticscleared": {
+    "message": "تم مسح سجل التشخيص."
+  },
+  "diagnosticserror": {
+    "message": "فشل التشخيص"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "هل تريد مسح سجل التشخيص؟ لا يمكن التراجع عن ذلك."
   }
 }

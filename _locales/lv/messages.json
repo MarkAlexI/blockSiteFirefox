@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Neobligāti: lietojiet vienu un to pašu grafiku katrai atlasītajai kārtulai."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostika"
+  },
+  "diagnosticsdesc": {
+    "message": "Izveidojiet privātumu aizsargājošu tehnisko pārskatu problēmu novēršanai."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Neseno notikumu vēsture tiek apkopota tikai tad, ja ir ieslēgts atkļūdošanas režīms. Saglabātie URL un licences dati nekad netiek iekļauti."
+  },
+  "diagnosticsgenerate": {
+    "message": "Izveidot pārskatu"
+  },
+  "diagnosticscopy": {
+    "message": "Kopēt pārskatu"
+  },
+  "diagnosticsexport": {
+    "message": "Eksportēt JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Notīrīt vēsturi"
+  },
+  "diagnosticsempty": {
+    "message": "Diagnostikas pārskats vēl nav izveidots."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostikas pārskats izveidots."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostikas pārskats nokopēts."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostikas pārskats eksportēts."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostikas vēsture notīrīta."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostika neizdevās"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Notīrīt diagnostikas vēsturi? To nevar atsaukt."
   }
 }

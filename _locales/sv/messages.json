@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Valfritt: använd samma schema för varje vald regel."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostik"
+  },
+  "diagnosticsdesc": {
+    "message": "Generera en integritetssäker teknisk rapport för felsökning."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Historik över senaste händelser samlas bara in när felsökningsläget är aktiverat. Sparade URL:er och licensdata tas aldrig med."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generera rapport"
+  },
+  "diagnosticscopy": {
+    "message": "Kopiera rapport"
+  },
+  "diagnosticsexport": {
+    "message": "Exportera JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Rensa historik"
+  },
+  "diagnosticsempty": {
+    "message": "Ingen diagnostikrapport har genererats ännu."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostikrapporten har genererats."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostikrapporten har kopierats."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostikrapporten har exporterats."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostikhistoriken har rensats."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostiken misslyckades"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Rensa diagnostikhistoriken? Detta går inte att ångra."
   }
 }

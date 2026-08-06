@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "አማራጭ፦ ተመሳሳይ መርሐ ግብር ለእያንዳንዱ የተመረጠ ደንብ ተግብር።"
+  },
+  "diagnosticstitle": {
+    "message": "ምርመራ"
+  },
+  "diagnosticsdesc": {
+    "message": "ችግኝ ለመፍታት ግላዊነትን የሚጠብቅ ቴክኒካዊ ሪፖርት ይፍጠሩ።"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "የቅርብ ጊዜ የክስተት ታሪክ የሚሰበሰበው የማረሚያ ሁነታ ሲነቃ ብቻ ነው። የተቀመጡ URL እና የፈቃድ ውሂብ አይካተቱም።"
+  },
+  "diagnosticsgenerate": {
+    "message": "ሪፖርት ፍጠር"
+  },
+  "diagnosticscopy": {
+    "message": "ሪፖርት ቅዳ"
+  },
+  "diagnosticsexport": {
+    "message": "JSON ላክ"
+  },
+  "diagnosticsclear": {
+    "message": "ታሪክ አጽዳ"
+  },
+  "diagnosticsempty": {
+    "message": "እስካሁን የምርመራ ሪፖርት አልተፈጠረም።"
+  },
+  "diagnosticsgenerated": {
+    "message": "የምርመራ ሪፖርት ተፈጥሯል።"
+  },
+  "diagnosticscopied": {
+    "message": "የምርመራ ሪፖርት ተቀድቷል።"
+  },
+  "diagnosticsexported": {
+    "message": "የምርመራ ሪፖርት ተልኳል።"
+  },
+  "diagnosticscleared": {
+    "message": "የምርመራ ታሪክ ተጽድቷል።"
+  },
+  "diagnosticserror": {
+    "message": "ምርመራው አልተሳካም"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "የምርመራ ታሪክ ይጽዳ? ይህ ሊመለስ አይችልም።"
   }
 }

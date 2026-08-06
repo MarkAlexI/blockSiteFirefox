@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "İsteğe bağlı: seçilen her kurala aynı zamanlamayı uygulayın."
+  },
+  "diagnosticstitle": {
+    "message": "Tanılama"
+  },
+  "diagnosticsdesc": {
+    "message": "Sorun giderme için gizliliği koruyan bir teknik rapor oluşturun."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Son olay geçmişi yalnızca Hata Ayıklama Modu etkin olduğunda toplanır. Kaydedilmiş URL’ler ve lisans verileri hiçbir zaman dahil edilmez."
+  },
+  "diagnosticsgenerate": {
+    "message": "Rapor Oluştur"
+  },
+  "diagnosticscopy": {
+    "message": "Raporu Kopyala"
+  },
+  "diagnosticsexport": {
+    "message": "JSON Dışa Aktar"
+  },
+  "diagnosticsclear": {
+    "message": "Geçmişi Temizle"
+  },
+  "diagnosticsempty": {
+    "message": "Henüz bir tanılama raporu oluşturulmadı."
+  },
+  "diagnosticsgenerated": {
+    "message": "Tanılama raporu oluşturuldu."
+  },
+  "diagnosticscopied": {
+    "message": "Tanılama raporu kopyalandı."
+  },
+  "diagnosticsexported": {
+    "message": "Tanılama raporu dışa aktarıldı."
+  },
+  "diagnosticscleared": {
+    "message": "Tanılama geçmişi temizlendi."
+  },
+  "diagnosticserror": {
+    "message": "Tanılama başarısız"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Tanılama geçmişi temizlensin mi? Bu işlem geri alınamaz."
   }
 }

@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Voliteľné: použite rovnaký plán pre každé vybrané pravidlo."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostika"
+  },
+  "diagnosticsdesc": {
+    "message": "Vygenerujte technickú správu bezpečnú pre súkromie na riešenie problémov."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "História posledných udalostí sa zhromažďuje iba pri zapnutom režime ladenia. Uložené adresy URL ani licenčné údaje sa nikdy nezahŕňajú."
+  },
+  "diagnosticsgenerate": {
+    "message": "Vygenerovať správu"
+  },
+  "diagnosticscopy": {
+    "message": "Kopírovať správu"
+  },
+  "diagnosticsexport": {
+    "message": "Exportovať JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Vymazať históriu"
+  },
+  "diagnosticsempty": {
+    "message": "Zatiaľ nebola vygenerovaná žiadna diagnostická správa."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostická správa bola vygenerovaná."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostická správa bola skopírovaná."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostická správa bola exportovaná."
+  },
+  "diagnosticscleared": {
+    "message": "História diagnostiky bola vymazaná."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostika zlyhala"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Vymazať históriu diagnostiky? Túto akciu nemožno vrátiť späť."
   }
 }

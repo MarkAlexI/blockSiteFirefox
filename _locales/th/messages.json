@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "ไม่บังคับ: ใช้กำหนดเวลาเดียวกันกับทุกกฎที่เลือก"
+  },
+  "diagnosticstitle": {
+    "message": "การวินิจฉัย"
+  },
+  "diagnosticsdesc": {
+    "message": "สร้างรายงานทางเทคนิคที่ปลอดภัยต่อความเป็นส่วนตัวเพื่อแก้ไขปัญหา"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "ประวัติเหตุการณ์ล่าสุดจะถูกรวบรวมเมื่อเปิดโหมดดีบักเท่านั้น URL ที่บันทึกไว้และข้อมูลใบอนุญาตจะไม่ถูกรวมไว้"
+  },
+  "diagnosticsgenerate": {
+    "message": "สร้างรายงาน"
+  },
+  "diagnosticscopy": {
+    "message": "คัดลอกรายงาน"
+  },
+  "diagnosticsexport": {
+    "message": "ส่งออก JSON"
+  },
+  "diagnosticsclear": {
+    "message": "ล้างประวัติ"
+  },
+  "diagnosticsempty": {
+    "message": "ยังไม่ได้สร้างรายงานการวินิจฉัย"
+  },
+  "diagnosticsgenerated": {
+    "message": "สร้างรายงานการวินิจฉัยแล้ว"
+  },
+  "diagnosticscopied": {
+    "message": "คัดลอกรายงานการวินิจฉัยแล้ว"
+  },
+  "diagnosticsexported": {
+    "message": "ส่งออกรายงานการวินิจฉัยแล้ว"
+  },
+  "diagnosticscleared": {
+    "message": "ล้างประวัติการวินิจฉัยแล้ว"
+  },
+  "diagnosticserror": {
+    "message": "การวินิจฉัยล้มเหลว"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "ล้างประวัติการวินิจฉัยหรือไม่ การดำเนินการนี้ย้อนกลับไม่ได้"
   }
 }

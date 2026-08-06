@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Προαιρετικά: εφαρμόστε το ίδιο πρόγραμμα σε κάθε επιλεγμένο κανόνα."
+  },
+  "diagnosticstitle": {
+    "message": "Διαγνωστικά"
+  },
+  "diagnosticsdesc": {
+    "message": "Δημιουργήστε μια τεχνική αναφορά ασφαλή για το απόρρητο για αντιμετώπιση προβλημάτων."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Το πρόσφατο ιστορικό συμβάντων συλλέγεται μόνο όταν είναι ενεργή η λειτουργία εντοπισμού σφαλμάτων. Τα αποθηκευμένα URL και τα δεδομένα άδειας δεν περιλαμβάνονται ποτέ."
+  },
+  "diagnosticsgenerate": {
+    "message": "Δημιουργία αναφοράς"
+  },
+  "diagnosticscopy": {
+    "message": "Αντιγραφή αναφοράς"
+  },
+  "diagnosticsexport": {
+    "message": "Εξαγωγή JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Εκκαθάριση ιστορικού"
+  },
+  "diagnosticsempty": {
+    "message": "Δεν έχει δημιουργηθεί ακόμη διαγνωστική αναφορά."
+  },
+  "diagnosticsgenerated": {
+    "message": "Η διαγνωστική αναφορά δημιουργήθηκε."
+  },
+  "diagnosticscopied": {
+    "message": "Η διαγνωστική αναφορά αντιγράφηκε."
+  },
+  "diagnosticsexported": {
+    "message": "Η διαγνωστική αναφορά εξήχθη."
+  },
+  "diagnosticscleared": {
+    "message": "Το διαγνωστικό ιστορικό διαγράφηκε."
+  },
+  "diagnosticserror": {
+    "message": "Η διάγνωση απέτυχε"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Να διαγραφεί το διαγνωστικό ιστορικό; Αυτή η ενέργεια δεν αναιρείται."
   }
 }

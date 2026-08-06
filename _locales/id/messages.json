@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opsional: terapkan jadwal yang sama ke setiap aturan yang dipilih."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostik"
+  },
+  "diagnosticsdesc": {
+    "message": "Buat laporan teknis yang aman untuk privasi guna memecahkan masalah."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Riwayat peristiwa terbaru hanya dikumpulkan saat Mode Debug diaktifkan. URL tersimpan dan data lisensi tidak pernah disertakan."
+  },
+  "diagnosticsgenerate": {
+    "message": "Buat Laporan"
+  },
+  "diagnosticscopy": {
+    "message": "Salin Laporan"
+  },
+  "diagnosticsexport": {
+    "message": "Ekspor JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Hapus Riwayat"
+  },
+  "diagnosticsempty": {
+    "message": "Belum ada laporan diagnostik yang dibuat."
+  },
+  "diagnosticsgenerated": {
+    "message": "Laporan diagnostik dibuat."
+  },
+  "diagnosticscopied": {
+    "message": "Laporan diagnostik disalin."
+  },
+  "diagnosticsexported": {
+    "message": "Laporan diagnostik diekspor."
+  },
+  "diagnosticscleared": {
+    "message": "Riwayat diagnostik dihapus."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostik gagal"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Hapus riwayat diagnostik? Tindakan ini tidak dapat dibatalkan."
   }
 }

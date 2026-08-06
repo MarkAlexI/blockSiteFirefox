@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opțional: aplicați același program fiecărei reguli selectate."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnosticare"
+  },
+  "diagnosticsdesc": {
+    "message": "Generați un raport tehnic sigur pentru confidențialitate pentru depanare."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Istoricul evenimentelor recente este colectat numai când Modul de depanare este activat. URL-urile salvate și datele licenței nu sunt incluse niciodată."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generați raportul"
+  },
+  "diagnosticscopy": {
+    "message": "Copiați raportul"
+  },
+  "diagnosticsexport": {
+    "message": "Exportați JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Ștergeți istoricul"
+  },
+  "diagnosticsempty": {
+    "message": "Nu a fost generat încă niciun raport de diagnosticare."
+  },
+  "diagnosticsgenerated": {
+    "message": "Raportul de diagnosticare a fost generat."
+  },
+  "diagnosticscopied": {
+    "message": "Raportul de diagnosticare a fost copiat."
+  },
+  "diagnosticsexported": {
+    "message": "Raportul de diagnosticare a fost exportat."
+  },
+  "diagnosticscleared": {
+    "message": "Istoricul de diagnosticare a fost șters."
+  },
+  "diagnosticserror": {
+    "message": "Diagnosticarea a eșuat"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Ștergeți istoricul de diagnosticare? Această acțiune nu poate fi anulată."
   }
 }

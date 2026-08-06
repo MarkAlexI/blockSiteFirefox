@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opcional: aplique o mesmo horário a cada regra selecionada."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnóstico"
+  },
+  "diagnosticsdesc": {
+    "message": "Gere um relatório técnico seguro para a privacidade para resolver problemas."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "O histórico de eventos recentes só é recolhido quando o Modo de Depuração está ativado. Os URL guardados e os dados de licença nunca são incluídos."
+  },
+  "diagnosticsgenerate": {
+    "message": "Gerar relatório"
+  },
+  "diagnosticscopy": {
+    "message": "Copiar relatório"
+  },
+  "diagnosticsexport": {
+    "message": "Exportar JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Limpar histórico"
+  },
+  "diagnosticsempty": {
+    "message": "Ainda não foi gerado nenhum relatório de diagnóstico."
+  },
+  "diagnosticsgenerated": {
+    "message": "Relatório de diagnóstico gerado."
+  },
+  "diagnosticscopied": {
+    "message": "Relatório de diagnóstico copiado."
+  },
+  "diagnosticsexported": {
+    "message": "Relatório de diagnóstico exportado."
+  },
+  "diagnosticscleared": {
+    "message": "Histórico de diagnóstico limpo."
+  },
+  "diagnosticserror": {
+    "message": "Falha no diagnóstico"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Limpar o histórico de diagnóstico? Esta ação não pode ser anulada."
   }
 }

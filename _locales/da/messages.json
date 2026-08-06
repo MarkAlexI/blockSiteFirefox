@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Valgfrit: anvend den samme tidsplan på hver valgt regel."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostik"
+  },
+  "diagnosticsdesc": {
+    "message": "Generér en privatlivssikker teknisk rapport til fejlfinding."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Den seneste hændelseshistorik indsamles kun, når fejlfindingstilstand er aktiveret. Gemte URL-adresser og licensdata medtages aldrig."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generér rapport"
+  },
+  "diagnosticscopy": {
+    "message": "Kopiér rapport"
+  },
+  "diagnosticsexport": {
+    "message": "Eksportér JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Ryd historik"
+  },
+  "diagnosticsempty": {
+    "message": "Der er endnu ikke genereret en diagnostikrapport."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostikrapporten er genereret."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostikrapporten er kopieret."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostikrapporten er eksporteret."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostikhistorikken er ryddet."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostik mislykkedes"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Ryd diagnostikhistorikken? Dette kan ikke fortrydes."
   }
 }

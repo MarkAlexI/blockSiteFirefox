@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Neobavezno: primijenite isti raspored na svako odabrano pravilo."
+  },
+  "diagnosticstitle": {
+    "message": "Dijagnostika"
+  },
+  "diagnosticsdesc": {
+    "message": "Generirajte tehničko izvješće koje štiti privatnost za rješavanje problema."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Povijest nedavnih događaja prikuplja se samo kada je uključen način otklanjanja pogrešaka. Spremljeni URL-ovi i licencni podaci nikada se ne uključuju."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generiraj izvješće"
+  },
+  "diagnosticscopy": {
+    "message": "Kopiraj izvješće"
+  },
+  "diagnosticsexport": {
+    "message": "Izvezi JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Očisti povijest"
+  },
+  "diagnosticsempty": {
+    "message": "Dijagnostičko izvješće još nije generirano."
+  },
+  "diagnosticsgenerated": {
+    "message": "Dijagnostičko izvješće je generirano."
+  },
+  "diagnosticscopied": {
+    "message": "Dijagnostičko izvješće je kopirano."
+  },
+  "diagnosticsexported": {
+    "message": "Dijagnostičko izvješće je izvezeno."
+  },
+  "diagnosticscleared": {
+    "message": "Dijagnostička povijest je očišćena."
+  },
+  "diagnosticserror": {
+    "message": "Dijagnostika nije uspjela"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Očistiti dijagnostičku povijest? Ovo se ne može poništiti."
   }
 }

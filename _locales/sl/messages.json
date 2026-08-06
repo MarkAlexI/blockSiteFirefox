@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Izbirno: uporabite isti urnik za vsako izbrano pravilo."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostika"
+  },
+  "diagnosticsdesc": {
+    "message": "Ustvarite tehnično poročilo, varno za zasebnost, za odpravljanje težav."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Zgodovina nedavnih dogodkov se zbira samo, ko je omogočen način za odpravljanje napak. Shranjeni URL-ji in podatki licence niso nikoli vključeni."
+  },
+  "diagnosticsgenerate": {
+    "message": "Ustvari poročilo"
+  },
+  "diagnosticscopy": {
+    "message": "Kopiraj poročilo"
+  },
+  "diagnosticsexport": {
+    "message": "Izvozi JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Počisti zgodovino"
+  },
+  "diagnosticsempty": {
+    "message": "Diagnostično poročilo še ni bilo ustvarjeno."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostično poročilo je ustvarjeno."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostično poročilo je kopirano."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostično poročilo je izvoženo."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostična zgodovina je počiščena."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostika ni uspela"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Počistim diagnostično zgodovino? Tega ni mogoče razveljaviti."
   }
 }

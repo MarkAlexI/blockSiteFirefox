@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "اختیاری: همان زمان‌بندی را برای همهٔ قانون‌های انتخاب‌شده اعمال کنید."
+  },
+  "diagnosticstitle": {
+    "message": "عیب‌یابی"
+  },
+  "diagnosticsdesc": {
+    "message": "برای رفع مشکل، یک گزارش فنی سازگار با حریم خصوصی ایجاد کنید."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "تاریخچه رویدادهای اخیر فقط هنگام فعال بودن حالت اشکال‌زدایی جمع‌آوری می‌شود. نشانی‌های ذخیره‌شده و داده‌های مجوز هرگز درج نمی‌شوند."
+  },
+  "diagnosticsgenerate": {
+    "message": "ایجاد گزارش"
+  },
+  "diagnosticscopy": {
+    "message": "کپی گزارش"
+  },
+  "diagnosticsexport": {
+    "message": "خروجی JSON"
+  },
+  "diagnosticsclear": {
+    "message": "پاک کردن تاریخچه"
+  },
+  "diagnosticsempty": {
+    "message": "هنوز گزارش عیب‌یابی ایجاد نشده است."
+  },
+  "diagnosticsgenerated": {
+    "message": "گزارش عیب‌یابی ایجاد شد."
+  },
+  "diagnosticscopied": {
+    "message": "گزارش عیب‌یابی کپی شد."
+  },
+  "diagnosticsexported": {
+    "message": "گزارش عیب‌یابی صادر شد."
+  },
+  "diagnosticscleared": {
+    "message": "تاریخچه عیب‌یابی پاک شد."
+  },
+  "diagnosticserror": {
+    "message": "عیب‌یابی ناموفق بود"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "تاریخچه عیب‌یابی پاک شود؟ این کار قابل بازگشت نیست."
   }
 }

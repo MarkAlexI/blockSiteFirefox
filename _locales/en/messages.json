@@ -924,5 +924,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Optional: apply the same schedule to every selected rule."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostics"
+  },
+  "diagnosticsdesc": {
+    "message": "Generate a privacy-safe technical report for troubleshooting."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Recent event history is collected only while Debug Mode is enabled. Saved URLs and license data are never included."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generate Report"
+  },
+  "diagnosticscopy": {
+    "message": "Copy Report"
+  },
+  "diagnosticsexport": {
+    "message": "Export JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Clear History"
+  },
+  "diagnosticsempty": {
+    "message": "No diagnostic report generated yet."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostic report generated."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostic report copied."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostic report exported."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostic history cleared."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostics failed"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Clear diagnostic history? This cannot be undone."
   }
 }

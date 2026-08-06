@@ -69,7 +69,8 @@ export function createDnrSynchronizer({
   createDnrRule,
   closeTabsMatchingRules,
   declarativeNetRequest,
-  logger
+  logger,
+  onSyncResult = async () => {}
 }) {
   let rulesSyncPromise = null;
   let syncRequestedAgain = false;
@@ -161,6 +162,12 @@ export function createDnrSynchronizer({
       }
     } while (syncRequestedAgain);
 
+    try {
+      await onSyncResult(lastResult);
+    } catch (error) {
+      logger.warn('Failed to record DNR sync diagnostics:', error);
+    }
+
     return lastResult;
   }
 
@@ -184,21 +191,32 @@ export function createDnrSynchronizer({
     return rulesSyncPromise;
   }
 
+  async function inspectState() {
+    const { activeRules, dnrRules: expectedRules } = await buildExpectedDnrState();
+    const currentRules = await declarativeNetRequest.getDynamicRules();
+    const { removeRuleIds, addRules } =
+      buildDnrDiff(currentRules, expectedRules);
+
+    return {
+      activeRuleCount: activeRules.length,
+      expectedCount: expectedRules.length,
+      currentCount: currentRules.length,
+      inSync: removeRuleIds.length === 0 && addRules.length === 0,
+      removeCount: removeRuleIds.length,
+      addCount: addRules.length
+    };
+  }
+
   async function validateIntegrity() {
     try {
-      const { dnrRules: expectedRules } = await buildExpectedDnrState();
-      const currentRules = await declarativeNetRequest.getDynamicRules();
-      const { removeRuleIds, addRules } =
-        buildDnrDiff(currentRules, expectedRules);
-      const isInSync =
-        removeRuleIds.length === 0 && addRules.length === 0;
+      const state = await inspectState();
 
-      if (!isInSync) {
+      if (!state.inSync) {
         logger.warn('DNR rules out of sync, triggering sync...');
         await requestSync();
       }
 
-      return isInSync;
+      return state.inSync;
     } catch (error) {
       logger.error('DNR integrity check failed:', error);
       return false;
@@ -207,6 +225,7 @@ export function createDnrSynchronizer({
 
   return {
     requestSync,
-    validateIntegrity
+    validateIntegrity,
+    inspectState
   };
 }

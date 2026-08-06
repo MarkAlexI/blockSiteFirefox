@@ -921,5 +921,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Опционо: примените исти распоред на свако изабрано правило."
+  },
+  "diagnosticstitle": {
+    "message": "Дијагностика"
+  },
+  "diagnosticsdesc": {
+    "message": "Генеришите технички извештај који штити приватност за решавање проблема."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Историја недавних догађаја прикупља се само када је укључен режим отклањања грешака. Сачувани URL-ови и подаци о лиценци се никада не укључују."
+  },
+  "diagnosticsgenerate": {
+    "message": "Генериши извештај"
+  },
+  "diagnosticscopy": {
+    "message": "Копирај извештај"
+  },
+  "diagnosticsexport": {
+    "message": "Извези JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Обриши историју"
+  },
+  "diagnosticsempty": {
+    "message": "Дијагностички извештај још није генерисан."
+  },
+  "diagnosticsgenerated": {
+    "message": "Дијагностички извештај је генерисан."
+  },
+  "diagnosticscopied": {
+    "message": "Дијагностички извештај је копиран."
+  },
+  "diagnosticsexported": {
+    "message": "Дијагностички извештај је извезен."
+  },
+  "diagnosticscleared": {
+    "message": "Историја дијагностике је обрисана."
+  },
+  "diagnosticserror": {
+    "message": "Дијагностика није успела"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Обрисати историју дијагностике? Ово се не може поништити."
   }
 }

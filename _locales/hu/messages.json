@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opcionális: alkalmazza ugyanazt az ütemezést minden kijelölt szabályra."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnosztika"
+  },
+  "diagnosticsdesc": {
+    "message": "Hozzon létre adatvédelmi szempontból biztonságos műszaki jelentést a hibaelhárításhoz."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "A legutóbbi események előzményeit csak bekapcsolt hibakeresési módban gyűjtjük. A mentett URL-ek és licencadatok soha nem kerülnek bele."
+  },
+  "diagnosticsgenerate": {
+    "message": "Jelentés létrehozása"
+  },
+  "diagnosticscopy": {
+    "message": "Jelentés másolása"
+  },
+  "diagnosticsexport": {
+    "message": "JSON exportálása"
+  },
+  "diagnosticsclear": {
+    "message": "Előzmények törlése"
+  },
+  "diagnosticsempty": {
+    "message": "Még nem készült diagnosztikai jelentés."
+  },
+  "diagnosticsgenerated": {
+    "message": "A diagnosztikai jelentés elkészült."
+  },
+  "diagnosticscopied": {
+    "message": "A diagnosztikai jelentés másolva."
+  },
+  "diagnosticsexported": {
+    "message": "A diagnosztikai jelentés exportálva."
+  },
+  "diagnosticscleared": {
+    "message": "A diagnosztikai előzmények törölve."
+  },
+  "diagnosticserror": {
+    "message": "A diagnosztika sikertelen"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Törli a diagnosztikai előzményeket? Ez nem vonható vissza."
   }
 }

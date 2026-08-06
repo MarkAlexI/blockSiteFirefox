@@ -909,5 +909,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Valinnainen: käytä samaa aikataulua kaikille valituille säännöille."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostiikka"
+  },
+  "diagnosticsdesc": {
+    "message": "Luo yksityisyyden suojaava tekninen raportti vianmääritystä varten."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Viimeaikaisten tapahtumien historia kerätään vain, kun virheenkorjaustila on käytössä. Tallennettuja URL-osoitteita tai lisenssitietoja ei koskaan sisällytetä."
+  },
+  "diagnosticsgenerate": {
+    "message": "Luo raportti"
+  },
+  "diagnosticscopy": {
+    "message": "Kopioi raportti"
+  },
+  "diagnosticsexport": {
+    "message": "Vie JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Tyhjennä historia"
+  },
+  "diagnosticsempty": {
+    "message": "Diagnostiikkaraporttia ei ole vielä luotu."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostiikkaraportti luotu."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostiikkaraportti kopioitu."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostiikkaraportti viety."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostiikkahistoria tyhjennetty."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostiikka epäonnistui"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Tyhjennetäänkö diagnostiikkahistoria? Tätä ei voi kumota."
   }
 }

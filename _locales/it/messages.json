@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Facoltativo: applica la stessa pianificazione a ogni regola selezionata."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostica"
+  },
+  "diagnosticsdesc": {
+    "message": "Genera un rapporto tecnico rispettoso della privacy per la risoluzione dei problemi."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "La cronologia degli eventi recenti viene raccolta solo quando la modalità debug è attiva. Gli URL salvati e i dati della licenza non vengono mai inclusi."
+  },
+  "diagnosticsgenerate": {
+    "message": "Genera rapporto"
+  },
+  "diagnosticscopy": {
+    "message": "Copia rapporto"
+  },
+  "diagnosticsexport": {
+    "message": "Esporta JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Cancella cronologia"
+  },
+  "diagnosticsempty": {
+    "message": "Non è stato ancora generato alcun rapporto diagnostico."
+  },
+  "diagnosticsgenerated": {
+    "message": "Rapporto diagnostico generato."
+  },
+  "diagnosticscopied": {
+    "message": "Rapporto diagnostico copiato."
+  },
+  "diagnosticsexported": {
+    "message": "Rapporto diagnostico esportato."
+  },
+  "diagnosticscleared": {
+    "message": "Cronologia diagnostica cancellata."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostica non riuscita"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Cancellare la cronologia diagnostica? Questa operazione non può essere annullata."
   }
 }

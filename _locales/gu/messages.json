@@ -915,5 +915,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "વૈકલ્પિક: દરેક પસંદ કરેલા નિયમ પર એક જ સમયપત્રક લાગુ કરો."
+  },
+  "diagnosticstitle": {
+    "message": "નિદાન"
+  },
+  "diagnosticsdesc": {
+    "message": "સમસ્યા નિવારણ માટે ગોપનીયતા-સુરક્ષિત તકનીકી અહેવાલ બનાવો."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "તાજેતરના ઇવેન્ટનો ઇતિહાસ માત્ર ડિબગ મોડ ચાલુ હોય ત્યારે જ એકત્રિત થાય છે. સાચવેલા URL અને લાઇસન્સ ડેટા ક્યારેય સામેલ થતા નથી."
+  },
+  "diagnosticsgenerate": {
+    "message": "અહેવાલ બનાવો"
+  },
+  "diagnosticscopy": {
+    "message": "અહેવાલ નકલ કરો"
+  },
+  "diagnosticsexport": {
+    "message": "JSON નિકાસ કરો"
+  },
+  "diagnosticsclear": {
+    "message": "ઇતિહાસ સાફ કરો"
+  },
+  "diagnosticsempty": {
+    "message": "હજુ સુધી કોઈ નિદાન અહેવાલ બનાવાયો નથી."
+  },
+  "diagnosticsgenerated": {
+    "message": "નિદાન અહેવાલ બનાવાયો."
+  },
+  "diagnosticscopied": {
+    "message": "નિદાન અહેવાલ નકલ થયો."
+  },
+  "diagnosticsexported": {
+    "message": "નિદાન અહેવાલ નિકાસ થયો."
+  },
+  "diagnosticscleared": {
+    "message": "નિદાન ઇતિહાસ સાફ થયો."
+  },
+  "diagnosticserror": {
+    "message": "નિદાન નિષ્ફળ ગયું"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "નિદાન ઇતિહાસ સાફ કરવો? આ ક્રિયા પાછી ફેરવી શકાતી નથી."
   }
 }

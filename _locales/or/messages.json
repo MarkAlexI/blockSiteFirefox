@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "ଇଚ୍ଛାଧୀନ: ପ୍ରତ୍ୟେକ ବଛାଯାଇଥିବା ନିୟମରେ ସମାନ ସମୟସୂଚୀ ପ୍ରୟୋଗ କରନ୍ତୁ।"
+  },
+  "diagnosticstitle": {
+    "message": "ନିଦାନ"
+  },
+  "diagnosticsdesc": {
+    "message": "ସମସ୍ୟା ସମାଧାନ ପାଇଁ ଗୋପନୀୟତା-ସୁରକ୍ଷିତ ବୈଷୟିକ ରିପୋର୍ଟ ତିଆରି କରନ୍ତୁ।"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "ସାମ୍ପ୍ରତିକ ଘଟଣା ଇତିହାସ କେବଳ ଡିବଗ୍ ମୋଡ୍ ସକ୍ରିୟ ଥିବାବେଳେ ସଂଗ୍ରହ କରାଯାଏ। ସଞ୍ଚିତ URL ଏବଂ ଲାଇସେନ୍ସ ତଥ୍ୟ କେବେ ମଧ୍ୟ ଅନ୍ତର୍ଭୁକ୍ତ ହୁଏ ନାହିଁ।"
+  },
+  "diagnosticsgenerate": {
+    "message": "ରିପୋର୍ଟ ତିଆରି କରନ୍ତୁ"
+  },
+  "diagnosticscopy": {
+    "message": "ରିପୋର୍ଟ କପି କରନ୍ତୁ"
+  },
+  "diagnosticsexport": {
+    "message": "JSON ରପ୍ତାନି କରନ୍ତୁ"
+  },
+  "diagnosticsclear": {
+    "message": "ଇତିହାସ ସଫା କରନ୍ତୁ"
+  },
+  "diagnosticsempty": {
+    "message": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ନିଦାନ ରିପୋର୍ଟ ତିଆରି ହୋଇନାହିଁ।"
+  },
+  "diagnosticsgenerated": {
+    "message": "ନିଦାନ ରିପୋର୍ଟ ତିଆରି ହୋଇଛି।"
+  },
+  "diagnosticscopied": {
+    "message": "ନିଦାନ ରିପୋର୍ଟ କପି ହୋଇଛି।"
+  },
+  "diagnosticsexported": {
+    "message": "ନିଦାନ ରିପୋର୍ଟ ରପ୍ତାନି ହୋଇଛି।"
+  },
+  "diagnosticscleared": {
+    "message": "ନିଦାନ ଇତିହାସ ସଫା ହୋଇଛି।"
+  },
+  "diagnosticserror": {
+    "message": "ନିଦାନ ବିଫଳ"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "ନିଦାନ ଇତିହାସ ସଫା କରିବେ? ଏହାକୁ ପୂର୍ବବତ୍ କରିହେବ ନାହିଁ।"
   }
 }

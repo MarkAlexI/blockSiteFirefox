@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Opcjonalnie: zastosuj ten sam harmonogram do każdej wybranej reguły."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostyka"
+  },
+  "diagnosticsdesc": {
+    "message": "Wygeneruj bezpieczny dla prywatności raport techniczny do rozwiązywania problemów."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Historia ostatnich zdarzeń jest zbierana tylko przy włączonym trybie debugowania. Zapisane adresy URL i dane licencyjne nigdy nie są uwzględniane."
+  },
+  "diagnosticsgenerate": {
+    "message": "Generuj raport"
+  },
+  "diagnosticscopy": {
+    "message": "Kopiuj raport"
+  },
+  "diagnosticsexport": {
+    "message": "Eksportuj JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Wyczyść historię"
+  },
+  "diagnosticsempty": {
+    "message": "Nie wygenerowano jeszcze raportu diagnostycznego."
+  },
+  "diagnosticsgenerated": {
+    "message": "Raport diagnostyczny został wygenerowany."
+  },
+  "diagnosticscopied": {
+    "message": "Raport diagnostyczny został skopiowany."
+  },
+  "diagnosticsexported": {
+    "message": "Raport diagnostyczny został wyeksportowany."
+  },
+  "diagnosticscleared": {
+    "message": "Historia diagnostyki została wyczyszczona."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostyka nie powiodła się"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Wyczyścić historię diagnostyki? Tej operacji nie można cofnąć."
   }
 }

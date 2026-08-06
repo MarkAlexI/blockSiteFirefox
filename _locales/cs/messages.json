@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Volitelné: použijte stejný plán pro každé vybrané pravidlo."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostika"
+  },
+  "diagnosticsdesc": {
+    "message": "Vygenerujte technickou zprávu bezpečnou pro soukromí pro řešení problémů."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "Historie posledních událostí se shromažďuje pouze při zapnutém režimu ladění. Uložené adresy URL ani licenční údaje se nikdy nezahrnují."
+  },
+  "diagnosticsgenerate": {
+    "message": "Vygenerovat zprávu"
+  },
+  "diagnosticscopy": {
+    "message": "Kopírovat zprávu"
+  },
+  "diagnosticsexport": {
+    "message": "Exportovat JSON"
+  },
+  "diagnosticsclear": {
+    "message": "Vymazat historii"
+  },
+  "diagnosticsempty": {
+    "message": "Zatím nebyla vygenerována žádná diagnostická zpráva."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostická zpráva byla vygenerována."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostická zpráva byla zkopírována."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostická zpráva byla exportována."
+  },
+  "diagnosticscleared": {
+    "message": "Historie diagnostiky byla vymazána."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostika selhala"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Vymazat historii diagnostiky? Tuto akci nelze vrátit zpět."
   }
 }

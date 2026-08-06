@@ -912,5 +912,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "Optioneel: pas hetzelfde schema toe op elke geselecteerde regel."
+  },
+  "diagnosticstitle": {
+    "message": "Diagnostiek"
+  },
+  "diagnosticsdesc": {
+    "message": "Genereer een privacyveilige technische rapportage voor probleemoplossing."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "De recente gebeurtenisgeschiedenis wordt alleen verzameld wanneer de foutopsporingsmodus is ingeschakeld. Opgeslagen URL’s en licentiegegevens worden nooit opgenomen."
+  },
+  "diagnosticsgenerate": {
+    "message": "Rapport genereren"
+  },
+  "diagnosticscopy": {
+    "message": "Rapport kopiëren"
+  },
+  "diagnosticsexport": {
+    "message": "JSON exporteren"
+  },
+  "diagnosticsclear": {
+    "message": "Geschiedenis wissen"
+  },
+  "diagnosticsempty": {
+    "message": "Er is nog geen diagnostisch rapport gegenereerd."
+  },
+  "diagnosticsgenerated": {
+    "message": "Diagnostisch rapport gegenereerd."
+  },
+  "diagnosticscopied": {
+    "message": "Diagnostisch rapport gekopieerd."
+  },
+  "diagnosticsexported": {
+    "message": "Diagnostisch rapport geëxporteerd."
+  },
+  "diagnosticscleared": {
+    "message": "Diagnostische geschiedenis gewist."
+  },
+  "diagnosticserror": {
+    "message": "Diagnostiek mislukt"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "Diagnostische geschiedenis wissen? Dit kan niet ongedaan worden gemaakt."
   }
 }

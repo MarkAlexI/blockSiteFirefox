@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "ঐচ্ছিক: প্রতিটি নির্বাচিত নিয়মে একই সময়সূচি প্রয়োগ করুন।"
+  },
+  "diagnosticstitle": {
+    "message": "ডায়াগনস্টিকস"
+  },
+  "diagnosticsdesc": {
+    "message": "সমস্যা সমাধানের জন্য গোপনীয়তা-নিরাপদ প্রযুক্তিগত প্রতিবেদন তৈরি করুন।"
+  },
+  "diagnosticsdebugnotice": {
+    "message": "সাম্প্রতিক ইভেন্ট ইতিহাস কেবল ডিবাগ মোড চালু থাকলে সংগ্রহ করা হয়। সংরক্ষিত URL ও লাইসেন্স ডেটা কখনো অন্তর্ভুক্ত হয় না।"
+  },
+  "diagnosticsgenerate": {
+    "message": "প্রতিবেদন তৈরি করুন"
+  },
+  "diagnosticscopy": {
+    "message": "প্রতিবেদন কপি করুন"
+  },
+  "diagnosticsexport": {
+    "message": "JSON রপ্তানি করুন"
+  },
+  "diagnosticsclear": {
+    "message": "ইতিহাস মুছুন"
+  },
+  "diagnosticsempty": {
+    "message": "এখনও কোনো ডায়াগনস্টিক প্রতিবেদন তৈরি হয়নি।"
+  },
+  "diagnosticsgenerated": {
+    "message": "ডায়াগনস্টিক প্রতিবেদন তৈরি হয়েছে।"
+  },
+  "diagnosticscopied": {
+    "message": "ডায়াগনস্টিক প্রতিবেদন কপি হয়েছে।"
+  },
+  "diagnosticsexported": {
+    "message": "ডায়াগনস্টিক প্রতিবেদন রপ্তানি হয়েছে।"
+  },
+  "diagnosticscleared": {
+    "message": "ডায়াগনস্টিক ইতিহাস মুছে ফেলা হয়েছে।"
+  },
+  "diagnosticserror": {
+    "message": "ডায়াগনস্টিক ব্যর্থ হয়েছে"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "ডায়াগনস্টিক ইতিহাস মুছবেন? এটি পূর্বাবস্থায় ফেরানো যাবে না।"
   }
 }

@@ -2,7 +2,7 @@ import { t } from '../scripts/t.js';
 import { SettingsManager } from './settings.js';
 import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
-import { RulesClient } from '../rules/rulesClient.js';
+import { RulesClient, sendRuntimeMessage } from '../rules/rulesClient.js';
 import { RulesUI } from '../rules/rulesUI.js';
 import { CategoryManager } from '../rules/categoryManager.js';
 import { CategoryUIManager } from './categoryUIManager.js';
@@ -14,6 +14,7 @@ import { checkDNR } from '../utils/dnrDebug.js';
 import { initFeedbackPopup } from './feedback.js';
 import { isVisibleRuleGroupEnd } from '../rules/visibleRuleGrouping.js';
 import { RulePacksUI } from './rulePacksUI.js';
+import { DiagnosticsUI } from './diagnosticsUI.js';
 
 const logger = new Logger('OptionsPage');
 
@@ -48,6 +49,32 @@ class OptionsPage {
       status: document.getElementById('rule-packs-status'),
       onAdd: (packId, entryIds, schedule) => this.addRulePack(packId, entryIds, schedule)
     });
+    this.diagnosticsUI = new DiagnosticsUI({
+      generateButton: document.getElementById('diagnostics-generate'),
+      copyButton: document.getElementById('diagnostics-copy'),
+      exportButton: document.getElementById('diagnostics-export'),
+      clearButton: document.getElementById('diagnostics-clear'),
+      output: document.getElementById('diagnostics-output'),
+      status: document.getElementById('diagnostics-status'),
+      onGenerate: async () => {
+        const response = await sendRuntimeMessage({ type: 'diagnostics:getReport' });
+        if (!response?.success) {
+          const error = new Error(response?.error?.message || 'Failed to generate diagnostics');
+          error.code = response?.error?.code || 'diagnostics_failed';
+          throw error;
+        }
+        return response.report;
+      },
+      onClear: async () => {
+        const response = await sendRuntimeMessage({ type: 'diagnostics:clearHistory' });
+        if (!response?.success) {
+          const error = new Error(response?.error?.message || 'Failed to clear diagnostics');
+          error.code = response?.error?.code || 'diagnostics_failed';
+          throw error;
+        }
+        return true;
+      }
+    });
     
     this.isPro = false;
     this.isLegacyUser = false;
@@ -64,6 +91,7 @@ class OptionsPage {
     this.initializeUI();
     this.setupEventListeners();
     this.rulePacksUI.initialize();
+    this.diagnosticsUI.initialize();
     try {
       this.isPro = await ProManager.isPro();
       this.isLegacyUser = await ProManager.isLegacyUser();

@@ -21,9 +21,38 @@ import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
 import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
 import { RULES_INTENT_TYPES, createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
 import { resolveRulePackEntries } from '../rules/rulePacks.js';
+import { createDiagnosticStore } from '../diagnostics/diagnosticStore.js';
+import { buildDiagnosticReport, detectBrowserSummary } from '../diagnostics/diagnosticReport.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
+const diagnosticStore = createDiagnosticStore({
+  localStorage: browser.storage.local,
+  getSettings: () => SettingsManager.getSettings()
+});
+
+async function recordDnrSyncResult(result) {
+  if (result.changed || !result.success) {
+    await diagnosticStore.updateState({
+      lastDnrSync: {
+        timestamp: Date.now(),
+        success: result.success,
+        changed: result.changed,
+        removed: result.removed,
+        added: result.added,
+        error: result.error || null
+      }
+    });
+  }
+
+  if (!result.success) {
+    await diagnosticStore.recordEvent('error', 'dnr', 'sync_failed', {
+      removed: result.removed,
+      added: result.added,
+      error: result.error || 'Unknown DNR synchronization error'
+    });
+  }
+}
 const createDnrRule = createDnrRuleFactory(
   path => browser.runtime.getURL(path)
 );
@@ -36,7 +65,8 @@ const dnrSynchronizer = createDnrSynchronizer({
   createDnrRule,
   closeTabsMatchingRules,
   declarativeNetRequest: browser.declarativeNetRequest,
-  logger
+  logger,
+  onSyncResult: recordDnrSyncResult
 });
 
 const rulesMigrationService = createRulesMigrationService({
@@ -111,6 +141,27 @@ async function checkAllTabsAgainstWhitelist() {
   await closeNonWhitelistedTabs(whitelistRules);
 }
 
+async function finishLicenseCheck(result) {
+  const state = {
+    timestamp: Date.now(),
+    success: result.success,
+    isPro: result.isPro,
+    reason: result.reason || null,
+    error: result.error || null
+  };
+
+  await diagnosticStore.updateState({ lastLicenseCheck: state });
+
+  if (!result.success && result.reason !== 'no_key') {
+    await diagnosticStore.recordEvent('warn', 'license', 'verification_failed', {
+      reason: result.reason || 'temporary_failure',
+      error: result.error || 'Unknown license verification error'
+    });
+  }
+
+  return result;
+}
+
 async function syncLicenseKeyStatus() {
   const credentials = await ProManager.getCredentials();
   const currentKey = credentials.licenseKey;
@@ -120,7 +171,7 @@ async function syncLicenseKeyStatus() {
     if (credentials.isPro) {
       await handleProStatusUpdate(false, { licenseKey: null, expiryDate: null, subscriptionEmail: null });
     }
-    return { success: false, isPro: false };
+    return finishLicenseCheck({ success: false, isPro: false, reason: 'no_key' });
   }
   
   logger.log('License Sync: Checking stored key...');
@@ -160,7 +211,7 @@ async function syncLicenseKeyStatus() {
         subscriptionEmail: null
       });
       logger.warn(`License Sync: Server rejected the stored key (${response.status}).`);
-      return { success: true, isPro: false, error: errorMessage };
+      return finishLicenseCheck({ success: true, isPro: false, reason: 'rejected', error: errorMessage });
     }
     
     if (typeof data.isPro !== 'boolean') {
@@ -174,14 +225,14 @@ async function syncLicenseKeyStatus() {
     });
     
     logger.log('License Sync: Status updated from server. isPro:', data.isPro);
-    return { success: true, isPro: data.isPro };
+    return finishLicenseCheck({ success: true, isPro: data.isPro, reason: 'verified' });
     
   } catch (error) {
     const errorMessage = error.name === 'AbortError' ?
       'License verification timed out' :
       error.message;
     logger.error('License Sync: Error:', errorMessage);
-    return { success: false, isPro: credentials.isPro, error: errorMessage };
+    return finishLicenseCheck({ success: false, isPro: credentials.isPro, reason: 'temporary_failure', error: errorMessage });
   } finally {
     clearTimeout(timeoutId);
   }
@@ -424,7 +475,18 @@ async function checkAndRequestPermissions(details) {
       granted = true;
     }
     
+    await diagnosticStore.updateState({
+      lastPermissionCheck: {
+        timestamp: Date.now(),
+        hostAccess: granted,
+        reason: details?.reason || 'unknown'
+      }
+    });
+
     if (!granted) {
+      await diagnosticStore.recordEvent('warn', 'permissions', 'host_access_missing', {
+        reason: details?.reason || 'unknown'
+      });
       logger.log("Host permission NOT granted. Opening onboarding page.");
       const onboardingUrl = browser.runtime.getURL('onboarding/onboarding.html');
       const tabs = await browser.tabs.query({ url: onboardingUrl });
@@ -437,6 +499,18 @@ async function checkAndRequestPermissions(details) {
     return granted;
   } catch (err) {
     logger.error("Error checking permissions:", err);
+    await diagnosticStore.updateState({
+      lastPermissionCheck: {
+        timestamp: Date.now(),
+        hostAccess: false,
+        reason: details?.reason || 'unknown',
+        error: err?.message || String(err)
+      }
+    });
+    await diagnosticStore.recordEvent('error', 'permissions', 'check_failed', {
+      reason: details?.reason || 'unknown',
+      error: err
+    });
     return false;
   } finally {
     isCheckingPermissions = false;
@@ -455,6 +529,119 @@ if (browser.permissions && browser.permissions.onRemoved) {
         });
       }
     }
+  });
+}
+
+async function ensureDiagnosticsAccess() {
+  const [isPro, isLegacyUser] = await Promise.all([
+    ProManager.isPro(),
+    ProManager.isLegacyUser()
+  ]);
+
+  if (!isPro && !isLegacyUser) {
+    const error = new Error('Pro mode is required for diagnostics');
+    error.code = 'pro_required';
+    throw error;
+  }
+
+  return { isPro, isLegacyUser };
+}
+
+async function createDiagnosticReport() {
+  const access = await ensureDiagnosticsAccess();
+  const [settings, rules, credentials, focusSession] = await Promise.all([
+    SettingsManager.getSettings(),
+    rulesManager.getRules(),
+    ProManager.getCredentials(),
+    getFocusSessionState()
+  ]);
+
+  let dnrState;
+  try {
+    dnrState = await dnrSynchronizer.inspectState();
+  } catch (error) {
+    dnrState = {
+      activeRuleCount: 0,
+      expectedCount: 0,
+      currentCount: 0,
+      inSync: null,
+      removeCount: 0,
+      addCount: 0,
+      error: error?.message || String(error)
+    };
+    await diagnosticStore.recordEvent('error', 'dnr', 'inspection_failed', {
+      error
+    });
+  }
+
+  const snapshot = await diagnosticStore.getSnapshot();
+
+  let hostAccess = true;
+  if (typeof browser.permissions?.contains === 'function') {
+    try {
+      hostAccess = await browser.permissions.contains({ origins: ['*://*/*'] });
+    } catch {
+      hostAccess = false;
+    }
+  }
+
+  const manifest = browser.runtime.getManifest();
+  const nav = globalThis.navigator || {};
+  const remainingMs = focusSession.focusActive ?
+    Math.max(0, focusSession.focusEndTime - Date.now()) : 0;
+
+  return buildDiagnosticReport({
+    generatedAt: new Date().toISOString(),
+    extension: {
+      version: manifest.version,
+      manifestVersion: manifest.manifest_version || 3
+    },
+    browser: detectBrowserSummary({
+      userAgent: nav.userAgent,
+      userAgentData: nav.userAgentData,
+      platform: nav.platform
+    }),
+    capabilities: {
+      declarativeNetRequest: Boolean(browser.declarativeNetRequest),
+      contextMenus: Boolean(browser.contextMenus),
+      notifications: Boolean(browser.notifications),
+      permissionsApi: Boolean(browser.permissions),
+      alarms: Boolean(browser.alarms)
+    },
+    access,
+    settings: {
+      debugMode: settings.debugMode === true,
+      mode: settings.mode || 'normal',
+      disabledCategories: Array.isArray(settings.disabledCategories) ?
+        settings.disabledCategories : []
+    },
+    rules: {
+      total: rules.length,
+      blacklist: rules.filter(rule => !rule.isWhitelist).length,
+      whitelist: rules.filter(rule => rule.isWhitelist).length,
+      scheduled: rules.filter(rule => rule.schedule).length,
+      disabledByUser: rules.filter(rule => rule.disabledByUser).length
+    },
+    dnr: {
+      ...dnrState,
+      lastResult: snapshot.state.lastDnrSync || null
+    },
+    permissions: {
+      hostAccess,
+      lastCheck: snapshot.state.lastPermissionCheck || null
+    },
+    focusSession: {
+      active: focusSession.focusActive === true,
+      mode: focusSession.focusMode || 'blacklist',
+      hardcore: focusSession.isHardcore === true,
+      remainingMinutes: Math.ceil(remainingMs / 60000)
+    },
+    license: {
+      isPro: credentials.isPro === true,
+      expiryDate: credentials.expiryDate || null,
+      lastCheck: snapshot.state.lastLicenseCheck || null
+    },
+    recentEvents: snapshot.events
   });
 }
 
@@ -497,6 +684,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: true, ...result });
       } catch (error) {
         logger.error(`Rules intent failed (${message.type}):`, error);
+        await diagnosticStore.recordEvent('error', 'rules', 'intent_failed', {
+          intent: message.type,
+          errorCode: error?.code || 'unknown',
+          validationErrors: error?.validationErrors || []
+        });
         sendResponse({
           success: false,
           error: serializeRulesMutationError(error)
@@ -506,6 +698,43 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
   
+  if (message.type === 'diagnostics:getReport') {
+    (async () => {
+      try {
+        const report = await createDiagnosticReport();
+        sendResponse({ success: true, report });
+      } catch (error) {
+        sendResponse({
+          success: false,
+          error: {
+            code: error?.code || 'diagnostics_failed',
+            message: error?.message || String(error)
+          }
+        });
+      }
+    })();
+    return true;
+  }
+
+  if (message.type === 'diagnostics:clearHistory') {
+    (async () => {
+      try {
+        await ensureDiagnosticsAccess();
+        await diagnosticStore.clearEvents();
+        sendResponse({ success: true });
+      } catch (error) {
+        sendResponse({
+          success: false,
+          error: {
+            code: error?.code || 'diagnostics_failed',
+            message: error?.message || String(error)
+          }
+        });
+      }
+    })();
+    return true;
+  }
+
   if (message.type === 'close_current_tab') {
     if (sender.tab && sender.tab.id) {
       browser.tabs.remove(sender.tab.id);
@@ -615,9 +844,15 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
         
         logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
+        await diagnosticStore.recordEvent('info', 'focus', 'session_started', {
+          durationMinutes,
+          focusMode,
+          isHardcore
+        });
         sendResponse({ success: true });
       } catch (error) {
         logger.error('Focus Session: Error starting session:', error);
+        await diagnosticStore.recordEvent('error', 'focus', 'start_failed', { error });
         sendResponse({ success: false, error: error.message });
       }
     })();
@@ -633,9 +868,13 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         await browser.alarms.clear('end_focus_session');
         await dnrSynchronizer.requestSync();
         logger.log('Focus Session: Stopped by user.');
+        await diagnosticStore.recordEvent('info', 'focus', 'session_stopped', {
+          reason: 'user'
+        });
         sendResponse({ success: true });
       } catch (error) {
         logger.error('Focus Session: Error stopping session:', error);
+        await diagnosticStore.recordEvent('error', 'focus', 'stop_failed', { error });
         sendResponse({ success: false, error: error.message });
       }
     })();
@@ -663,10 +902,6 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
-browser.tabs.onActivated.addListener(async (activeInfo) => {
-  await checkAndRequestPermissions({ reason: 'tab_activated' });
-});
-
 browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'check_pro_expiry') {
     await updateUninstallURL();
@@ -681,6 +916,9 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
     });
     await dnrSynchronizer.requestSync();
     await StatisticsManager.recordFocusSession();
+    await diagnosticStore.recordEvent('info', 'focus', 'session_completed', {
+      reason: 'alarm'
+    });
     
     const settings = await SettingsManager.getSettings();
     const playSound = settings.focusSessionSound;

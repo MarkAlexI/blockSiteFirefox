@@ -918,5 +918,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "אופציונלי: החל את אותו לוח זמנים על כל כלל שנבחר."
+  },
+  "diagnosticstitle": {
+    "message": "אבחון"
+  },
+  "diagnosticsdesc": {
+    "message": "צור דוח טכני ששומר על הפרטיות לצורך פתרון בעיות."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "היסטוריית אירועים אחרונים נאספת רק כאשר מצב ניפוי שגיאות מופעל. כתובות URL שמורות ונתוני רישיון לעולם אינם נכללים."
+  },
+  "diagnosticsgenerate": {
+    "message": "צור דוח"
+  },
+  "diagnosticscopy": {
+    "message": "העתק דוח"
+  },
+  "diagnosticsexport": {
+    "message": "ייצא JSON"
+  },
+  "diagnosticsclear": {
+    "message": "נקה היסטוריה"
+  },
+  "diagnosticsempty": {
+    "message": "עדיין לא נוצר דוח אבחון."
+  },
+  "diagnosticsgenerated": {
+    "message": "דוח האבחון נוצר."
+  },
+  "diagnosticscopied": {
+    "message": "דוח האבחון הועתק."
+  },
+  "diagnosticsexported": {
+    "message": "דוח האבחון יוצא."
+  },
+  "diagnosticscleared": {
+    "message": "היסטוריית האבחון נוקתה."
+  },
+  "diagnosticserror": {
+    "message": "האבחון נכשל"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "לנקות את היסטוריית האבחון? לא ניתן לבטל פעולה זו."
   }
 }

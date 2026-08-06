@@ -924,5 +924,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "არასავალდებულო: გამოიყენეთ ერთი და იგივე განრიგი ყველა არჩეულ წესზე."
+  },
+  "diagnosticstitle": {
+    "message": "დიაგნოსტიკა"
+  },
+  "diagnosticsdesc": {
+    "message": "პრობლემების მოსაგვარებლად შექმენით კონფიდენციალურობის უსაფრთხო ტექნიკური ანგარიში."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "ბოლო მოვლენების ისტორია გროვდება მხოლოდ გამართვის რეჟიმის ჩართვისას. შენახული URL-ები და ლიცენზიის მონაცემები არასოდეს შედის ანგარიშში."
+  },
+  "diagnosticsgenerate": {
+    "message": "ანგარიშის შექმნა"
+  },
+  "diagnosticscopy": {
+    "message": "ანგარიშის კოპირება"
+  },
+  "diagnosticsexport": {
+    "message": "JSON-ის ექსპორტი"
+  },
+  "diagnosticsclear": {
+    "message": "ისტორიის გასუფთავება"
+  },
+  "diagnosticsempty": {
+    "message": "დიაგნოსტიკური ანგარიში ჯერ არ შექმნილა."
+  },
+  "diagnosticsgenerated": {
+    "message": "დიაგნოსტიკური ანგარიში შეიქმნა."
+  },
+  "diagnosticscopied": {
+    "message": "დიაგნოსტიკური ანგარიში დაკოპირდა."
+  },
+  "diagnosticsexported": {
+    "message": "დიაგნოსტიკური ანგარიში ექსპორტირებულია."
+  },
+  "diagnosticscleared": {
+    "message": "დიაგნოსტიკის ისტორია გასუფთავდა."
+  },
+  "diagnosticserror": {
+    "message": "დიაგნოსტიკა ვერ შესრულდა"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "გაიწმინდოს დიაგნოსტიკის ისტორია? ამის გაუქმება შეუძლებელია."
   }
 }

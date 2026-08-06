@@ -915,5 +915,47 @@
   },
   "rulepacks_schedule_hint": {
     "message": "ऐच्छिक: निवडलेल्या प्रत्येक नियमाला समान वेळापत्रक लागू करा."
+  },
+  "diagnosticstitle": {
+    "message": "निदान"
+  },
+  "diagnosticsdesc": {
+    "message": "समस्या निवारणासाठी गोपनीयता-सुरक्षित तांत्रिक अहवाल तयार करा."
+  },
+  "diagnosticsdebugnotice": {
+    "message": "अलीकडील घटनांचा इतिहास फक्त डीबग मोड सुरू असताना गोळा केला जातो. जतन केलेले URL आणि परवाना डेटा कधीही समाविष्ट केला जात नाही."
+  },
+  "diagnosticsgenerate": {
+    "message": "अहवाल तयार करा"
+  },
+  "diagnosticscopy": {
+    "message": "अहवाल कॉपी करा"
+  },
+  "diagnosticsexport": {
+    "message": "JSON निर्यात करा"
+  },
+  "diagnosticsclear": {
+    "message": "इतिहास साफ करा"
+  },
+  "diagnosticsempty": {
+    "message": "अद्याप निदान अहवाल तयार केलेला नाही."
+  },
+  "diagnosticsgenerated": {
+    "message": "निदान अहवाल तयार झाला."
+  },
+  "diagnosticscopied": {
+    "message": "निदान अहवाल कॉपी झाला."
+  },
+  "diagnosticsexported": {
+    "message": "निदान अहवाल निर्यात झाला."
+  },
+  "diagnosticscleared": {
+    "message": "निदान इतिहास साफ झाला."
+  },
+  "diagnosticserror": {
+    "message": "निदान अयशस्वी"
+  },
+  "diagnosticsconfirmclear": {
+    "message": "निदान इतिहास साफ करायचा? हे पूर्ववत करता येणार नाही."
   }
 }
