@@ -1067,7 +1067,7 @@ tr.rule-whitelist td:first-child::before {
 
 .schedule-remove-period {
   position: absolute;
-  top: 0.65rem;
+  top: -0.9rem;
   right: 0.65rem;
   padding: 0.3rem 0.55rem;
   font-size: 0.75rem;

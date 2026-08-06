@@ -54,7 +54,7 @@ class FakeElement {
   }
 }
 
-function createHarness({ disabledCategories = [] } = {}) {
+function createHarness({ disabledCategories = [], rules = [{ category: 'social' }] } = {}) {
   const previousDocument = globalThis.document;
   const previousChrome = globalThis.browser;
   const container = new FakeElement('div');
@@ -75,7 +75,7 @@ function createHarness({ disabledCategories = [] } = {}) {
 
   CategoryUIManager.updateCategoryGrid(
     container,
-    [{ category: 'social' }],
+    rules,
     disabledCategories,
     category => toggles.push(category)
   );
@@ -122,6 +122,29 @@ test('clicking the category card toggles its checkbox exactly once', () => {
 
     assert.equal(checkbox.checked, true);
     assert.deepEqual(harness.toggles, ['social']);
+  } finally {
+    harness.restore();
+  }
+});
+
+
+test('disabled categories stay visible even when they contain no rules', () => {
+  const harness = createHarness({
+    disabledCategories: ['news'],
+    rules: [{ category: 'social' }]
+  });
+
+  try {
+    assert.equal(harness.container.children.length, 8);
+
+    const newsCard = harness.container.children[1];
+    const newsCheckbox = newsCard.children[0];
+    const newsCount = newsCard.children[2];
+
+    assert.equal(newsCard.tagName, 'LABEL');
+    assert.match(newsCard.className, /\bmuted\b/);
+    assert.equal(newsCheckbox.checked, false);
+    assert.equal(newsCount.textContent, 0);
   } finally {
     harness.restore();
   }

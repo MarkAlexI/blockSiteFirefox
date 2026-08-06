@@ -14,8 +14,6 @@ export class CategoryUIManager {
       
       const count = rules.filter(r => r.category === category).length;
       
-      if (count === 0 && isMuted) return;
-      
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.checked = !disabledCategories.includes(category);

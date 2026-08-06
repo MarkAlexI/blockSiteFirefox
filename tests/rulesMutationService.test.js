@@ -313,28 +313,31 @@ test('non-Pro callers cannot edit an existing whitelist rule through a direct in
   assert.deepEqual(harness.getRules(), [originalRule]);
 });
 
-test('category blocking can be disabled and enabled again', async () => {
-  const harness = createHarness({
-    initialRules: [{
-      id: 1,
-      blockURL: 'social.example',
-      redirectURL: '',
-      category: 'social',
-      disabledByUser: false,
-      isWhitelist: false
-    }]
-  });
+test('category blocking can be disabled and enabled again without changing stored rules', async () => {
+  const originalRules = [{
+    id: 1,
+    blockURL: 'social.example',
+    redirectURL: '',
+    category: 'social',
+    disabledByUser: false,
+    isWhitelist: false
+  }];
+  const harness = createHarness({ initialRules: originalRules });
 
   const disabledResult = await harness.service.toggleCategory({ category: 'social' });
 
   assert.deepEqual(harness.getSettings().disabledCategories, ['social']);
   assert.deepEqual(disabledResult.settings.disabledCategories, ['social']);
+  assert.deepEqual(harness.getRules(), originalRules);
+  assert.equal(harness.savedStates.length, 0);
   assert.equal(harness.getSyncCalls(), 1);
 
   const enabledResult = await harness.service.toggleCategory({ category: 'social' });
 
   assert.deepEqual(harness.getSettings().disabledCategories, []);
   assert.deepEqual(enabledResult.settings.disabledCategories, []);
+  assert.deepEqual(harness.getRules(), originalRules);
+  assert.equal(harness.savedStates.length, 0);
   assert.equal(harness.getSyncCalls(), 2);
 });
 
