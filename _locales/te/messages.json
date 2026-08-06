@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – సైట్ బ్లాకర్" },
-  "shortname": { "message": "బ్లాక్‌సైట్" },
-  "description": { "message": "ఫోకస్ కొనసాగించడానికి వెబ్‌సైట్‌లను నిరోధించే మరియు రీడైరెక్ట్ చేసే సరళమైన మరియు నమ్మకమైన సాధనం." },
-  "defaulttitle": { "message": "ఫోకస్‌గా మరియు ఉత్పాదకంగా ఉండండి" },
-  "header": { "message": "సైట్ బ్లాకర్" },
-  "paragraph": { "message": "ఒక వెబ్‌సైట్ లేదా వనరును బ్లాక్ చేయడానికి, 'బ్లాక్ URL ను టైప్ చేయండి' అనే ఇన్‌పుట్ ఫీల్డ్‌లో దాని పేరులోని భాగాన్ని నమోదు చేయండి – ఉదాహరణకు, 'facebook' అన్ని ఉపడొమైన్‌లను బ్లాక్ చేస్తుంది. 'రీడైరెక్ట్ URL టైప్ చేయండి' ఫీల్డ్‌లో పూర్తి రీడైరెక్ట్ అడ్రస్‌ను ప్రోటోకాల్‌తో నమోదు చేయండి, ఉదాహరణకు 'https://google.com'. రీడైరెక్ట్ ఫీల్డ్ ఖాళీగా ఉంటే, సైట్ రీడైరెక్ట్ లేకుండా బ్లాక్ అవుతుంది. నియమాన్ని అమలు చేయడానికి 'సేవ్' క్లిక్ చేయండి. నియమాన్ని అప్డేట్ చేయడానికి, పాత నియమాన్ని తొలగించి కొత్తదాన్ని సృష్టించండి." },
-  "addrule": { "message": "కొత్త నియమాన్ని జోడించండి" },
-  "blockurl": { "message": "బ్లాక్ URL ను టైప్ చేయండి" },
-  "redirecturl": { "message": "రీడైరెక్ట్ URL టైప్ చేయండి (ఐచ్ఛికం)" },
-  "redirecturlheader": { "message": "దారిమళ్లింపు URL" },
-  "redirecturlplaceholder": { "message": "ఐచ్ఛికం - నిరోధించడానికి ఖాళీగా ఉంచండి" },
-  "redirecturlhint": { "message": "https://తో సహా పూర్తి URLను నమోదు చేయండి" },
-  "mobilecopylinkhint": { "message": "లింక్‌ను నిరోధించడానికి దాని చిరునామాను కాపీ చేసి బ్లాక్ ఫీల్డ్‌లో అతికించండి." },
-  "savebtn": { "message": "సేవ్" },
-  "deletebtn": { "message": "తొలగించండి" },
-  "alertruleexist": { "message": "నియమం ఇప్పటికే ఉంది" },
+  "chromename": {
+    "message": "BlockDistraction – సైట్ బ్లాకర్"
+  },
+  "shortname": {
+    "message": "బ్లాక్‌సైట్"
+  },
+  "description": {
+    "message": "ఫోకస్ కొనసాగించడానికి వెబ్‌సైట్‌లను నిరోధించే మరియు రీడైరెక్ట్ చేసే సరళమైన మరియు నమ్మకమైన సాధనం."
+  },
+  "defaulttitle": {
+    "message": "ఫోకస్‌గా మరియు ఉత్పాదకంగా ఉండండి"
+  },
+  "header": {
+    "message": "సైట్ బ్లాకర్"
+  },
+  "paragraph": {
+    "message": "ఒక వెబ్‌సైట్ లేదా వనరును బ్లాక్ చేయడానికి, 'బ్లాక్ URL ను టైప్ చేయండి' అనే ఇన్‌పుట్ ఫీల్డ్‌లో దాని పేరులోని భాగాన్ని నమోదు చేయండి – ఉదాహరణకు, 'facebook' అన్ని ఉపడొమైన్‌లను బ్లాక్ చేస్తుంది. 'రీడైరెక్ట్ URL టైప్ చేయండి' ఫీల్డ్‌లో పూర్తి రీడైరెక్ట్ అడ్రస్‌ను ప్రోటోకాల్‌తో నమోదు చేయండి, ఉదాహరణకు 'https://google.com'. రీడైరెక్ట్ ఫీల్డ్ ఖాళీగా ఉంటే, సైట్ రీడైరెక్ట్ లేకుండా బ్లాక్ అవుతుంది. నియమాన్ని అమలు చేయడానికి 'సేవ్' క్లిక్ చేయండి. నియమాన్ని అప్డేట్ చేయడానికి, పాత నియమాన్ని తొలగించి కొత్తదాన్ని సృష్టించండి."
+  },
+  "addrule": {
+    "message": "కొత్త నియమాన్ని జోడించండి"
+  },
+  "blockurl": {
+    "message": "బ్లాక్ URL ను టైప్ చేయండి"
+  },
+  "redirecturl": {
+    "message": "రీడైరెక్ట్ URL టైప్ చేయండి (ఐచ్ఛికం)"
+  },
+  "redirecturlheader": {
+    "message": "దారిమళ్లింపు URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "ఐచ్ఛికం - నిరోధించడానికి ఖాళీగా ఉంచండి"
+  },
+  "redirecturlhint": {
+    "message": "https://తో సహా పూర్తి URLను నమోదు చేయండి"
+  },
+  "mobilecopylinkhint": {
+    "message": "లింక్‌ను నిరోధించడానికి దాని చిరునామాను కాపీ చేసి బ్లాక్ ఫీల్డ్‌లో అతికించండి."
+  },
+  "savebtn": {
+    "message": "సేవ్"
+  },
+  "deletebtn": {
+    "message": "తొలగించండి"
+  },
+  "alertruleexist": {
+    "message": "నియమం ఇప్పటికే ఉంది"
+  },
   "savedrules": {
     "message": "$ruleslength$ సేవ్ చేసిన నియమాలు",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "ఈ వనరును బ్లాక్ చేయడం సాధ్యం కాదు." },
-  "wrongblockurl": { "message": "బ్లాక్ చేయడానికి చెల్లని URL" },
-  "wrongredirecturl": { "message": "తప్పుడు రీడైరెక్ట్ URL" },
-  "blockthat": { "message": "ఈ సైట్‌ని బ్లాక్ చేయండి" },
-  "sendfeedbackbutton": { "message": "ప్రతిక్రియ పంపండి" },
-  "sendfeedbacksubject": { "message": "BlockDistraction కోసం ప్రతిక్రియ" },
-  "sendfeedbackbody": { "message": "హలో! నేను క్రింది ఫీడ్‌బ్యాక్‌ను షేర్ చేయాలనుకుంటున్నాను:\n\n" },
-  "quote1": { "message": "ఫోకస్‌గా ఉండండి, బలంగా ఉండండి." },
-  "quote2": { "message": "మీ భవిష్యత్తు నేడు చేసే పనితో ఏర్పడుతుంది." },
-  "quote3": { "message": "శిక్షణ అనేది లక్ష్యాలు మరియు విజయాల మధ్యپل." },
-  "quote4": { "message": "ఒక సైట్ బ్లాక్ చేయబడింది – లక్ష్యానికి ఒక అడుగు దగ్గరగా." },
-  "quote5": { "message": "ప్రతి క్లిక్ కౌంట్ అవ్వాలి." },
-  "quote6": { "message": "గడియారం వైపు చూడకండి; అది చేసే విధంగా చేయండి. కొనసాగించండి." },
-  "quote7": { "message": "ప్రతి రోజు చిన్న అడుగులు పెద్ద ఫలితాలను ఇస్తాయి." },
-  "quote8": { "message": "ఏకైక పరిమితి మీ మనసు." },
-  "quote9": { "message": "విజయం రోజువారీ చిన్న ప్రయత్నాల సమాహారం." },
-  "quote10": { "message": "వ్యస్తంగా కాకుండా, ఉత్పాదకంగా ఉండడంపై ఫోకస్ చేయండి." },
-  "quote11": { "message": "మీ దృష్టిని రక్షించండి – ఇది మీ అత్యంత విలువైన ఆస్తి." },
-  "quote12": { "message": "ప్రతి నిరోధించబడిన విఘాతం గణనీయమైన సమయాన్ని తిరిగి ఇస్తుంది." },
-  "quote13": { "message": "శబ్దాన్ని తగ్గించండి; మీ ఉత్పాదకతను పెంచండి." },
-  "quote14": { "message": "చిన్న రొటీన్‌లు అడ్డుకోలేని గమ్యం సృష్టిస్తాయి." },
-  "quote15": { "message": "అస్పష్టత కదలికల కంటే మెరుగ్గా ఉంటుంది – ముఖ్యమైనదానిపై దృష్టి పెట్టండి." },
-  "quote16": { "message": "విధిలా వున్న విఘాతం వద్ద ‘కాదు’ చెప్పండి; పురోగతికి ‘అవును’ చెప్పండి." },
-  "quote17": { "message": "ఈ రోజు ఒక గంట ఫోకస్ చేయడం రేపటి ఫలితాలను గుణిస్తాయి." },
-  "quote18": { "message": "తక్కువ వినియోగించి ఎక్కువ సృష్టించండి." },
-  "quote19": { "message": "శిస್ತು తాత్కాలిక ఉత్సాహాల కంటే దీర్ఘకాలిక విజయాలను ఎంచుకుంటుంది." },
-  "quote20": { "message": "ఒక ట్యాబ్‌ను మూసి, కొత్త ఆలోచనలకు స్థలాన్ని తెరవండి." },
-  "quote21": { "message": "ఈరోజు నీవు తప్పించుకునే పని రేపటి ఒత్తిడిగా మారవచ్చు." },
-  "quote22": { "message": "ఫోకస్ అంటే ఎక్కువ చేయడం కాదు, నిజంగా ముఖ్యమైనదాన్ని చేయడం." },
-  "quote23": { "message": "నీ లక్ష్యాలు నీ దృష్టి మళ్లింపులకన్నా ఎక్కువ శ్రద్ధకు అర్హమైనవి." },
-  "quote24": { "message": "విచలనం లేకుండా గడిపే ప్రతి నిమిషం నీపై నీవు చేసే పెట్టుబడి." },
-  "quote25": { "message": "నిరంతరత తాత్కాలిక ఉత్సాహపు ఉప్పెనల కంటే స్థిరమైన ఫలితాలను ఇస్తుంది." },
-  "quote26": { "message": "ప్రారంభించడానికి ఉత్తమ సమయం నిన్న. రెండవ ఉత్తమ సమయం ఇప్పుడు." },
-  "quote27": { "message": "నీవు విచలనం కంటే చర్యను ఎంచుకున్నప్పుడు పురోగతి ప్రారంభమవుతుంది." },
-  "quote28": { "message": "ఒక క్షణం ఫోకస్ కూడా నీ రోజును మార్చగలదు." },
-  "quote29": { "message": "నీకు ఎక్కువ సమయం అవసరం లేదు, తక్కువ విచలనాలు అవసరం." },
-  "quote30": { "message": "ప్రతి ఫోకస్ నిర్ణయం నీ భవిష్యత్తు స్వాన్ని బలపరుస్తుంది." },
-  "quote31": { "message": "ఈ బ్లాక్ తాత్కాలికం; మీ లక్ష్యాలు దీర్ఘకాలికమైనవి." },
-  "quote32": { "message": "ప్రతి నిరోధిత విఘాతం మీ భవిష్యత్ స్వయంకు ఒక విజయం." },
-  "quote33": { "message": "ఇంటర్నెట్ అనంతం, కానీ మీ సమయం కాదు." },
-  "quote34": { "message": "వెబ్ మీ కోసం నిర్ణయించే ముందు మీ ప్రాధాన్యతలను నిర్ణయించండి." },
-  "quote35": { "message": "తక్కువ స్క్రోలింగ్, ఎక్కువ సృష్టి." },
-  "quote36": { "message": "మీ దృష్టి మీ విజయాలను రూపుదిద్దుతుంది." },
-  "quote37": { "message": "కేంద్రీకరించండి — విఘాతం వేచి ఉండవచ్చు." },
-  "quote38": { "message": "ప్రతి ఉత్పాదక నిర్ణయం ఒక కేంద్రీకృత మనస్సుతో ప్రారంభమవుతుంది." },
-  "quote39": { "message": "మీరు ఒక వెబ్‌సైట్‌ను బ్లాక్ చేశారు, మీ సామర్థ్యాన్ని కాదు." },
-  "quote40": { "message": "విజయానికి మార్గం కేంద్రీకృత నిర్ణయాలతో నిర్మించబడుతుంది." },
-  "actionsheader": { "message": "చర్యలు" },
-  "norules": { "message": "బ్లాక్ చేయబడిన సైట్లు ఏవీ లేవు." },
-  "editbtn": { "message": "సవరించండి" },
-  "ruleddeleted": { "message": "నియమం తొలగించబడింది." },
-  "cancelbtn": { "message": "రద్దు చేయండి" },
-  "ruleupdated": { "message": "నియమం నవీకరించబడింది." },
-  "rulenewadded": { "message": "కొత్త నియమం జోడించబడింది." },
-  "gotooptions": { "message": "ఆప్షన్స్ పేజీకి వెళ్లండి ⚙️" },
-  "gotopopup": { "message": "పాప్‌అప్‌కి తిరిగి వెళ్లడానికి విస్తరణ ఐకాన్‌పై క్లిక్ చేయండి." },
-  "rulesmigrated": { "message": "సామరస్యం కోసం నియమాలు నవీకరించబడ్డాయి" },
-  "errorupdatingrules": { "message": "నియమాలను నవీకరించడంలో లోపం" },
-  "erroraddingrule": { "message": "నియమాన్ని జోడించడంలో లోపం" },
-  "errorremovingrule": { "message": "నియమాన్ని తొలగించడంలో లోపం" },
-  "optionsheader": { "message": "విస్తరణ సెట్టింగులు" },
-  "optionsdescription": { "message": "మీ విస్తరణ ప్రవర్తన మరియు భద్రతా సెట్టింగులను కాంఫిగర్ చేయండి" },
-  "securitymodetitle": { "message": "భద్రతా మోడ్" },
-  "normalmodetitle": { "message": "సాధారణ మోడ్" },
-  "normalmodedesc": { "message": "నిబంధనలను ఒక క్లిక్‌తో వెంటనే తొలగించవచ్చు" },
-  "strictmodetitle": { "message": "కఠిన మోడ్" },
-  "strictmodedesc": { "message": "దుర్లభంగా తొలగింపును నివారించడానికి నిబంధనలను తొలగించడానికి 10 సెకన్ల కౌంట్ డౌన్ అవసరం" },
-  "confirmdeletetitle": { "message": "చాలా నిబంధనలను తొలగించే ముందు ధృవీకరించండి" },
-  "confirmdeletedesc": { "message": "ఒకేసారి అనేక నిబంధనలను తొలగించినప్పుడు ధృవీకరణ డైలాగ్ చూపించండి" },
-  "notificationstitle": { "message": "నోటిఫికేషన్లు చూపించండి" },
-  "notificationsdesc": { "message": "వెబ్ విస్తరణ నవీకరించబడినప్పుడు నోటిఫికేషన్లు చూపించండి" },
-  "rulesmanagementtitle": { "message": "నిబంధనల నిర్వహణ" },
-  "exportrulesbtn": { "message": "నిబంధనలను ఎగుమతి చేయండి" },
-  "importrulesbtn": { "message": "నిబంధనలను దిగుమతి చేయండి" },
-  "clearallrulesbtn": { "message": "అన్ని నిబంధనలను తొలగించండి" },
-  "totalruleslabel": { "message": "మొత్తం నిబంధనలు" },
-  "blockedtodaylabel": { "message": "నేడు బ్లాక్ చేయబడింది" },
-  "totalblockedlabel": { "message": "మొత్తం బ్లాక్ చేయబడింది" },
-  "resetsettingsbtn": { "message": "డిఫాల్ట్‌కి రీసెట్ చేయండి" },
-  "backtopopup": { "message": "ప్రధాన మెనూ కి తిరిగి వెళ్ళండి" },
-  "errorloadingsettings": { "message": "సెట్టింగ్స్ లోడ్ చేయడంలో లోపం" },
-  "settingssaved": { "message": "సెట్టింగ్స్ విజయవంతంగా సేవ్ అయ్యాయి!" },
-  "errorsavingsettings": { "message": "సెట్టింగ్స్ సేవ్ చేయడంలో లోపం" },
-  "rulesexported": { "message": "నిబంధనలు విజయవంతంగా ఎగుమతి చేయబడ్డాయి!" },
-  "errorexportingrules": { "message": "నిబంధనలను ఎగుమతి చేయడంలో లోపం" },
+  "restrictedblockurl": {
+    "message": "ఈ వనరును బ్లాక్ చేయడం సాధ్యం కాదు."
+  },
+  "wrongblockurl": {
+    "message": "బ్లాక్ చేయడానికి చెల్లని URL"
+  },
+  "wrongredirecturl": {
+    "message": "తప్పుడు రీడైరెక్ట్ URL"
+  },
+  "blockthat": {
+    "message": "ఈ సైట్‌ని బ్లాక్ చేయండి"
+  },
+  "sendfeedbackbutton": {
+    "message": "ప్రతిక్రియ పంపండి"
+  },
+  "sendfeedbacksubject": {
+    "message": "BlockDistraction కోసం ప్రతిక్రియ"
+  },
+  "sendfeedbackbody": {
+    "message": "హలో! నేను క్రింది ఫీడ్‌బ్యాక్‌ను షేర్ చేయాలనుకుంటున్నాను:\n\n"
+  },
+  "quote1": {
+    "message": "ఫోకస్‌గా ఉండండి, బలంగా ఉండండి."
+  },
+  "quote2": {
+    "message": "మీ భవిష్యత్తు నేడు చేసే పనితో ఏర్పడుతుంది."
+  },
+  "quote3": {
+    "message": "శిక్షణ అనేది లక్ష్యాలు మరియు విజయాల మధ్యپل."
+  },
+  "quote4": {
+    "message": "ఒక సైట్ బ్లాక్ చేయబడింది – లక్ష్యానికి ఒక అడుగు దగ్గరగా."
+  },
+  "quote5": {
+    "message": "ప్రతి క్లిక్ కౌంట్ అవ్వాలి."
+  },
+  "quote6": {
+    "message": "గడియారం వైపు చూడకండి; అది చేసే విధంగా చేయండి. కొనసాగించండి."
+  },
+  "quote7": {
+    "message": "ప్రతి రోజు చిన్న అడుగులు పెద్ద ఫలితాలను ఇస్తాయి."
+  },
+  "quote8": {
+    "message": "ఏకైక పరిమితి మీ మనసు."
+  },
+  "quote9": {
+    "message": "విజయం రోజువారీ చిన్న ప్రయత్నాల సమాహారం."
+  },
+  "quote10": {
+    "message": "వ్యస్తంగా కాకుండా, ఉత్పాదకంగా ఉండడంపై ఫోకస్ చేయండి."
+  },
+  "quote11": {
+    "message": "మీ దృష్టిని రక్షించండి – ఇది మీ అత్యంత విలువైన ఆస్తి."
+  },
+  "quote12": {
+    "message": "ప్రతి నిరోధించబడిన విఘాతం గణనీయమైన సమయాన్ని తిరిగి ఇస్తుంది."
+  },
+  "quote13": {
+    "message": "శబ్దాన్ని తగ్గించండి; మీ ఉత్పాదకతను పెంచండి."
+  },
+  "quote14": {
+    "message": "చిన్న రొటీన్‌లు అడ్డుకోలేని గమ్యం సృష్టిస్తాయి."
+  },
+  "quote15": {
+    "message": "అస్పష్టత కదలికల కంటే మెరుగ్గా ఉంటుంది – ముఖ్యమైనదానిపై దృష్టి పెట్టండి."
+  },
+  "quote16": {
+    "message": "విధిలా వున్న విఘాతం వద్ద ‘కాదు’ చెప్పండి; పురోగతికి ‘అవును’ చెప్పండి."
+  },
+  "quote17": {
+    "message": "ఈ రోజు ఒక గంట ఫోకస్ చేయడం రేపటి ఫలితాలను గుణిస్తాయి."
+  },
+  "quote18": {
+    "message": "తక్కువ వినియోగించి ఎక్కువ సృష్టించండి."
+  },
+  "quote19": {
+    "message": "శిస್ತು తాత్కాలిక ఉత్సాహాల కంటే దీర్ఘకాలిక విజయాలను ఎంచుకుంటుంది."
+  },
+  "quote20": {
+    "message": "ఒక ట్యాబ్‌ను మూసి, కొత్త ఆలోచనలకు స్థలాన్ని తెరవండి."
+  },
+  "quote21": {
+    "message": "ఈరోజు నీవు తప్పించుకునే పని రేపటి ఒత్తిడిగా మారవచ్చు."
+  },
+  "quote22": {
+    "message": "ఫోకస్ అంటే ఎక్కువ చేయడం కాదు, నిజంగా ముఖ్యమైనదాన్ని చేయడం."
+  },
+  "quote23": {
+    "message": "నీ లక్ష్యాలు నీ దృష్టి మళ్లింపులకన్నా ఎక్కువ శ్రద్ధకు అర్హమైనవి."
+  },
+  "quote24": {
+    "message": "విచలనం లేకుండా గడిపే ప్రతి నిమిషం నీపై నీవు చేసే పెట్టుబడి."
+  },
+  "quote25": {
+    "message": "నిరంతరత తాత్కాలిక ఉత్సాహపు ఉప్పెనల కంటే స్థిరమైన ఫలితాలను ఇస్తుంది."
+  },
+  "quote26": {
+    "message": "ప్రారంభించడానికి ఉత్తమ సమయం నిన్న. రెండవ ఉత్తమ సమయం ఇప్పుడు."
+  },
+  "quote27": {
+    "message": "నీవు విచలనం కంటే చర్యను ఎంచుకున్నప్పుడు పురోగతి ప్రారంభమవుతుంది."
+  },
+  "quote28": {
+    "message": "ఒక క్షణం ఫోకస్ కూడా నీ రోజును మార్చగలదు."
+  },
+  "quote29": {
+    "message": "నీకు ఎక్కువ సమయం అవసరం లేదు, తక్కువ విచలనాలు అవసరం."
+  },
+  "quote30": {
+    "message": "ప్రతి ఫోకస్ నిర్ణయం నీ భవిష్యత్తు స్వాన్ని బలపరుస్తుంది."
+  },
+  "quote31": {
+    "message": "ఈ బ్లాక్ తాత్కాలికం; మీ లక్ష్యాలు దీర్ఘకాలికమైనవి."
+  },
+  "quote32": {
+    "message": "ప్రతి నిరోధిత విఘాతం మీ భవిష్యత్ స్వయంకు ఒక విజయం."
+  },
+  "quote33": {
+    "message": "ఇంటర్నెట్ అనంతం, కానీ మీ సమయం కాదు."
+  },
+  "quote34": {
+    "message": "వెబ్ మీ కోసం నిర్ణయించే ముందు మీ ప్రాధాన్యతలను నిర్ణయించండి."
+  },
+  "quote35": {
+    "message": "తక్కువ స్క్రోలింగ్, ఎక్కువ సృష్టి."
+  },
+  "quote36": {
+    "message": "మీ దృష్టి మీ విజయాలను రూపుదిద్దుతుంది."
+  },
+  "quote37": {
+    "message": "కేంద్రీకరించండి — విఘాతం వేచి ఉండవచ్చు."
+  },
+  "quote38": {
+    "message": "ప్రతి ఉత్పాదక నిర్ణయం ఒక కేంద్రీకృత మనస్సుతో ప్రారంభమవుతుంది."
+  },
+  "quote39": {
+    "message": "మీరు ఒక వెబ్‌సైట్‌ను బ్లాక్ చేశారు, మీ సామర్థ్యాన్ని కాదు."
+  },
+  "quote40": {
+    "message": "విజయానికి మార్గం కేంద్రీకృత నిర్ణయాలతో నిర్మించబడుతుంది."
+  },
+  "actionsheader": {
+    "message": "చర్యలు"
+  },
+  "norules": {
+    "message": "బ్లాక్ చేయబడిన సైట్లు ఏవీ లేవు."
+  },
+  "editbtn": {
+    "message": "సవరించండి"
+  },
+  "ruleddeleted": {
+    "message": "నియమం తొలగించబడింది."
+  },
+  "cancelbtn": {
+    "message": "రద్దు చేయండి"
+  },
+  "ruleupdated": {
+    "message": "నియమం నవీకరించబడింది."
+  },
+  "rulenewadded": {
+    "message": "కొత్త నియమం జోడించబడింది."
+  },
+  "gotooptions": {
+    "message": "ఆప్షన్స్ పేజీకి వెళ్లండి ⚙️"
+  },
+  "gotopopup": {
+    "message": "పాప్‌అప్‌కి తిరిగి వెళ్లడానికి విస్తరణ ఐకాన్‌పై క్లిక్ చేయండి."
+  },
+  "rulesmigrated": {
+    "message": "సామరస్యం కోసం నియమాలు నవీకరించబడ్డాయి"
+  },
+  "errorupdatingrules": {
+    "message": "నియమాలను నవీకరించడంలో లోపం"
+  },
+  "erroraddingrule": {
+    "message": "నియమాన్ని జోడించడంలో లోపం"
+  },
+  "errorremovingrule": {
+    "message": "నియమాన్ని తొలగించడంలో లోపం"
+  },
+  "optionsheader": {
+    "message": "విస్తరణ సెట్టింగులు"
+  },
+  "optionsdescription": {
+    "message": "మీ విస్తరణ ప్రవర్తన మరియు భద్రతా సెట్టింగులను కాంఫిగర్ చేయండి"
+  },
+  "securitymodetitle": {
+    "message": "భద్రతా మోడ్"
+  },
+  "normalmodetitle": {
+    "message": "సాధారణ మోడ్"
+  },
+  "normalmodedesc": {
+    "message": "నిబంధనలను ఒక క్లిక్‌తో వెంటనే తొలగించవచ్చు"
+  },
+  "strictmodetitle": {
+    "message": "కఠిన మోడ్"
+  },
+  "strictmodedesc": {
+    "message": "దుర్లభంగా తొలగింపును నివారించడానికి నిబంధనలను తొలగించడానికి 10 సెకన్ల కౌంట్ డౌన్ అవసరం"
+  },
+  "confirmdeletetitle": {
+    "message": "చాలా నిబంధనలను తొలగించే ముందు ధృవీకరించండి"
+  },
+  "confirmdeletedesc": {
+    "message": "ఒకేసారి అనేక నిబంధనలను తొలగించినప్పుడు ధృవీకరణ డైలాగ్ చూపించండి"
+  },
+  "notificationstitle": {
+    "message": "నోటిఫికేషన్లు చూపించండి"
+  },
+  "notificationsdesc": {
+    "message": "వెబ్ విస్తరణ నవీకరించబడినప్పుడు నోటిఫికేషన్లు చూపించండి"
+  },
+  "rulesmanagementtitle": {
+    "message": "నిబంధనల నిర్వహణ"
+  },
+  "exportrulesbtn": {
+    "message": "నిబంధనలను ఎగుమతి చేయండి"
+  },
+  "importrulesbtn": {
+    "message": "నిబంధనలను దిగుమతి చేయండి"
+  },
+  "clearallrulesbtn": {
+    "message": "అన్ని నిబంధనలను తొలగించండి"
+  },
+  "totalruleslabel": {
+    "message": "మొత్తం నిబంధనలు"
+  },
+  "blockedtodaylabel": {
+    "message": "నేడు బ్లాక్ చేయబడింది"
+  },
+  "totalblockedlabel": {
+    "message": "మొత్తం బ్లాక్ చేయబడింది"
+  },
+  "resetsettingsbtn": {
+    "message": "డిఫాల్ట్‌కి రీసెట్ చేయండి"
+  },
+  "backtopopup": {
+    "message": "ప్రధాన మెనూ కి తిరిగి వెళ్ళండి"
+  },
+  "errorloadingsettings": {
+    "message": "సెట్టింగ్స్ లోడ్ చేయడంలో లోపం"
+  },
+  "settingssaved": {
+    "message": "సెట్టింగ్స్ విజయవంతంగా సేవ్ అయ్యాయి!"
+  },
+  "errorsavingsettings": {
+    "message": "సెట్టింగ్స్ సేవ్ చేయడంలో లోపం"
+  },
+  "rulesexported": {
+    "message": "నిబంధనలు విజయవంతంగా ఎగుమతి చేయబడ్డాయి!"
+  },
+  "errorexportingrules": {
+    "message": "నిబంధనలను ఎగుమతి చేయడంలో లోపం"
+  },
   "willimportrules": {
     "message": "$ruleslength$ నిబంధనలను దిగుమతి చేయబడుతుంది.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "ప్రస్తుత నిబంధనలు మార్చబడతాయి. కొనసాగించాలా?" },
+  "ruleswillbereplaced": {
+    "message": "ప్రస్తుత నిబంధనలు మార్చబడతాయి. కొనసాగించాలా?"
+  },
   "importedrules": {
     "message": "$ruleslength$ నిబంధనలు విజయవంతంగా దిగుమతి చేయబడ్డాయి!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "నిబంధనలను దిగుమతి చేయడంలో లోపం: " },
-  "norulestoclear": { "message": "తొలగించడానికి ఏ నిబంధనలు లేవు" },
+  "errorimportingrules": {
+    "message": "నిబంధనలను దిగుమతి చేయడంలో లోపం: "
+  },
+  "norulestoclear": {
+    "message": "తొలగించడానికి ఏ నిబంధనలు లేవు"
+  },
   "willdeleteallrules": {
     "message": "ఇది అన్ని $rulescount$ నిబంధనలను శాశ్వతంగా తొలగిస్తుంది.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "ఈ చర్యను రద్దు చేయలేము. కొనసాగించాలా?" },
-  "allrulescleared": { "message": "అన్ని నిబంధనలు విజయవంతంగా తొలగించబడ్డాయి!" },
-  "errorclearingrules": { "message": "నిబంధనలను తొలగించడంలో లోపం" },
-  "willreset": { "message": "అన్ని సెట్టింగ్స్ డిఫాల్ట్ విలువలకు రీసెట్ చేయబడతాయి. కొనసాగించాలా?" },
-  "resettodefaults": { "message": "సెట్టింగ్స్ డిఫాల్ట్‌కు రీసెట్ చేయబడ్డాయి!" },
-  "errorresettingsettings": { "message": "సెట్టింగ్స్ రీసెట్ చేయడంలో లోపం" },
-  "basicsettingstitle": { "message": "ప్రాథమిక సెట్టింగ్‌లు" },
-  "advancedsettingstitle": { "message": "అధునాతన సెట్టింగ్‌లు" },
-  "statisticstitle": { "message": "గణాంకాలు" },
+  "cannotbeundone": {
+    "message": "ఈ చర్యను రద్దు చేయలేము. కొనసాగించాలా?"
+  },
+  "allrulescleared": {
+    "message": "అన్ని నిబంధనలు విజయవంతంగా తొలగించబడ్డాయి!"
+  },
+  "errorclearingrules": {
+    "message": "నిబంధనలను తొలగించడంలో లోపం"
+  },
+  "willreset": {
+    "message": "అన్ని సెట్టింగ్స్ డిఫాల్ట్ విలువలకు రీసెట్ చేయబడతాయి. కొనసాగించాలా?"
+  },
+  "resettodefaults": {
+    "message": "సెట్టింగ్స్ డిఫాల్ట్‌కు రీసెట్ చేయబడ్డాయి!"
+  },
+  "errorresettingsettings": {
+    "message": "సెట్టింగ్స్ రీసెట్ చేయడంలో లోపం"
+  },
+  "basicsettingstitle": {
+    "message": "ప్రాథమిక సెట్టింగ్‌లు"
+  },
+  "advancedsettingstitle": {
+    "message": "అధునాతన సెట్టింగ్‌లు"
+  },
+  "statisticstitle": {
+    "message": "గణాంకాలు"
+  },
   "rulelimitreached": {
     "message": "మీరు ప్రాథమిక వెర్షన్ కోసం నియమాల పరిమితిని ($limit$) చేరుకున్నారు. అపరిమిత నియమాల కోసం ప్రోకు అప్‌గ్రేడ్ చేయండి.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "సవరణ కోసం ప్రో అవసరం." },
-  "invalidpassword": { "message": "చెల్లని పాస్‌వర్డ్" },
-  "setpassword": { "message": "పాస్‌వర్డ్ సెట్ చేయండి" },
-  "enterpassword": { "message": "పాస్‌వర్డ్ ఎంటర్ చేయండి" },
-  "passwordmismatch": { "message": "పాస్‌వర్డ్‌లు సరిపోలడం లేదు" },
-  "passwordtooshort": { "message": "పాస్‌వర్డ్ కనీసం 6 అక్షరాలు ఉండాలి" },
-  "resetpasswordconfirm": { "message": "పాస్‌వర్డ్ రీసెట్ చేయడం రక్షణను నిలిపివేస్తుంది. కొనసాగించాలా?" },
-  "passwordset": { "message": "పాస్‌వర్డ్ విజయవంతంగా సెట్ చేయబడింది" },
-  "passworddisabled": { "message": "పాస్‌వర్డ్ రక్షణ నిలిపివేయబడింది" },
-  "prorequired": { "message": "ఈ ఫీచర్ కోసం ప్రో మోడ్ అవసరం" },
-  "enablepasswordtitle": { "message": "పాస్‌వర్డ్ రక్షణను సక్రియం చేయండి" },
-  "enablepassworddesc": { "message": "నియమాలను తొలగించడానికి లేదా సవరించడానికి పాస్‌వర్డ్ అవసరం (కఠినమైన మోడ్‌ను మెరుగుపరుస్తుంది)" },
-  "passwordprotectiontitle": { "message": "పాస్‌వర్డ్ రక్షణ" },
-  "scheduleheader": { "message": "సమీక్షా షెడ్యూల్" },
-  "enableschedule": { "message": "షెడ్యూల్ సక్రియం చేయండి" },
-  "alwaysactive": { "message": "ఎల్లప్పుడూ సక్రియంగా ఉంది" },
-  "profeatureschedule": { "message": "షెడ్యూల్ Pro వెర్షన్‌లో అందుబాటులో ఉంది" },
-  "days": { "message": "రోజులు" },
-  "starttime": { "message": "ప్రారంభ సమయం:" },
-  "endtime": { "message": "ముగింపు సమయం:" },
-  "invaliddays": { "message": "చేసుకున్న రోజులలో తప్పు ఉంది" },
-  "invalidtimeformat": { "message": "తప్పు సమయ ఫార్మాట్ (HH:MM ఉపయోగించండి)" },
-  "startafterend": { "message": "ప్రారంభ సమయం ముగింపు సమయానికి ముందు ఉండాలి" },
-  "invalidschedule": { "message": "తప్పు షెడ్యూల్: దయచేసి రోజులు మరియు సమయాలను ఎంచుకోండి." },
-  "invalidscheduledays": { "message": "తప్పు షెడ్యూల్: కనీసం ఒక రోజు ఎంచుకోండి." },
-  "invalidschedulestarttime": { "message": "తప్పు షెడ్యూల్: ప్రారంభ సమయాన్ని సెట్ చేయండి." },
-  "invalidscheduleendtime": { "message": "తప్పు షెడ్యూల్: ముగింపు సమయాన్ని సెట్ చేయండి." },
-  "editdisablednonpro": { "message": "సంపాదన నిలిపివేయబడింది: non-Pro వినియోగదారుల కోసం ఎక్కువ నియమాలు ఉన్నాయి." },
-  "errorloadingstatus": { "message": "వినియోగదారు స్థితిని లోడ్ చేయడంలో లోపం." },
-  "schedule_day_sun": { "message": "ఆది" },
-  "schedule_day_mon": { "message": "సోమ" },
-  "schedule_day_tue": { "message": "మం" },
-  "schedule_day_wed": { "message": "బుధ" },
-  "schedule_day_thu": { "message": "గురు" },
-  "schedule_day_fri": { "message": "శుక్ర" },
-  "schedule_day_sat": { "message": "శని" },
-  "category_header": { "message": "వర్గం" },
-  "category_required": { "message": "వర్గం తప్పనిసరి" },
-  "allcategories": { "message": "అన్ని వర్గాలు" },
-  "category_social": { "message": "సోషల్ మీడియా" },
-  "category_news": { "message": "సమాచారం" },
-  "category_entertainment": { "message": "వినోదం" },
-  "category_shopping": { "message": "కొనుగోలు" },
-  "category_work": { "message": "పని" },
-  "category_gaming": { "message": "ఆటలు" },
-  "category_adult": { "message": "వయస్కులకు కంటెంట్" },
-  "category_uncategorized": { "message": "వర్గీకరించబడని" },
-  "searchfordomain": { "message": "డొమైన్ పేరును వెతకండి" },
-  "norulesforcategory": { "message": "ఈ వర్గానికి ఏ బ్లాక్ చేసిన సైట్లూ లేవు." },
-  "getpro": { "message": "ప్రో పొందండి" },
-  "profunctionstext": { "message": "Pro ఫీచర్లలో ఉన్నాయి: షెడ్యూల్ బ్లాకింగ్, పాస్‌వర్డ్ రక్షణ, రూల్ ఫిల్టర్ చేయడం మరియు రూల్ ఎగుమతి/ఆమదు. మా యూనివర్సల్ లైసెన్స్‌ను ఆస్వాదించండి: ఒక సబ్‌స్క్రిప్షన్ మీ అన్ని బ్రౌజర్లలో (Chrome, Firefox, Edge, Kiwi) Proని యాక్టివేట్ చేస్తుంది. యాక్టివేట్ చేయడానికి, blockdistraction.com వద్ద సబ్‌స్క్రిప్షన్ కొనుగోలు చేయండి, తరువాత మీ ఖాతా డ్యాష్‌బోర్డ్ నుండి లైసెన్స్ కీని కాపీ చేసి కింద పేస్ట్ చేయండి." },
-  "upgradenow": { "message": "ఇప్పుడే అప్‌గ్రేడ్ చేయండి" },
-  "enteremail": { "message": "మీ ఇమెయిల్‌ని నమోదు చేయండి" },
-  "activatepro": { "message": "ప్రోను సక్రియం చేయండి" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "ప్రవేశాన్ని పునరుద్ధరించండి" },
-  "pleaseenteremail": { "message": "దయచేసి మీ ఇమెయిల్‌ని నమోదు చేయండి" },
-  "checking": { "message": "పరిశీలిస్తోంది..." },
-  "proactivated": { "message": "ప్రో లక్షణాలు సక్రియం అయ్యాయి!" },
-  "subscriptionnotfound": { "message": "సభ్యత్వం క్రియాశీలంగా లేదు లేదా ఇమెయిల్ కనుగొనబడలేదు." },
-  "servererror": { "message": "సర్వర్ లోపం. దయచేసి మళ్లీ ప్రయత్నించండి." },
-  "proactivatedfor": { "message": "ప్రో సక్రియం చేయబడింది:" },
+  "proonlyactions": {
+    "message": "సవరణ కోసం ప్రో అవసరం."
+  },
+  "invalidpassword": {
+    "message": "చెల్లని పాస్‌వర్డ్"
+  },
+  "setpassword": {
+    "message": "పాస్‌వర్డ్ సెట్ చేయండి"
+  },
+  "enterpassword": {
+    "message": "పాస్‌వర్డ్ ఎంటర్ చేయండి"
+  },
+  "passwordmismatch": {
+    "message": "పాస్‌వర్డ్‌లు సరిపోలడం లేదు"
+  },
+  "passwordtooshort": {
+    "message": "పాస్‌వర్డ్ కనీసం 6 అక్షరాలు ఉండాలి"
+  },
+  "resetpasswordconfirm": {
+    "message": "పాస్‌వర్డ్ రీసెట్ చేయడం రక్షణను నిలిపివేస్తుంది. కొనసాగించాలా?"
+  },
+  "passwordset": {
+    "message": "పాస్‌వర్డ్ విజయవంతంగా సెట్ చేయబడింది"
+  },
+  "passworddisabled": {
+    "message": "పాస్‌వర్డ్ రక్షణ నిలిపివేయబడింది"
+  },
+  "prorequired": {
+    "message": "ఈ ఫీచర్ కోసం ప్రో మోడ్ అవసరం"
+  },
+  "enablepasswordtitle": {
+    "message": "పాస్‌వర్డ్ రక్షణను సక్రియం చేయండి"
+  },
+  "enablepassworddesc": {
+    "message": "నియమాలను తొలగించడానికి లేదా సవరించడానికి పాస్‌వర్డ్ అవసరం (కఠినమైన మోడ్‌ను మెరుగుపరుస్తుంది)"
+  },
+  "passwordprotectiontitle": {
+    "message": "పాస్‌వర్డ్ రక్షణ"
+  },
+  "scheduleheader": {
+    "message": "సమీక్షా షెడ్యూల్"
+  },
+  "enableschedule": {
+    "message": "షెడ్యూల్ సక్రియం చేయండి"
+  },
+  "alwaysactive": {
+    "message": "ఎల్లప్పుడూ సక్రియంగా ఉంది"
+  },
+  "profeatureschedule": {
+    "message": "షెడ్యూల్ Pro వెర్షన్‌లో అందుబాటులో ఉంది"
+  },
+  "days": {
+    "message": "రోజులు"
+  },
+  "starttime": {
+    "message": "ప్రారంభ సమయం:"
+  },
+  "endtime": {
+    "message": "ముగింపు సమయం:"
+  },
+  "invaliddays": {
+    "message": "చేసుకున్న రోజులలో తప్పు ఉంది"
+  },
+  "invalidtimeformat": {
+    "message": "తప్పు సమయ ఫార్మాట్ (HH:MM ఉపయోగించండి)"
+  },
+  "startafterend": {
+    "message": "ప్రారంభ సమయం ముగింపు సమయానికి ముందు ఉండాలి"
+  },
+  "invalidschedule": {
+    "message": "తప్పు షెడ్యూల్: దయచేసి రోజులు మరియు సమయాలను ఎంచుకోండి."
+  },
+  "invalidscheduledays": {
+    "message": "తప్పు షెడ్యూల్: కనీసం ఒక రోజు ఎంచుకోండి."
+  },
+  "invalidschedulestarttime": {
+    "message": "తప్పు షెడ్యూల్: ప్రారంభ సమయాన్ని సెట్ చేయండి."
+  },
+  "invalidscheduleendtime": {
+    "message": "తప్పు షెడ్యూల్: ముగింపు సమయాన్ని సెట్ చేయండి."
+  },
+  "editdisablednonpro": {
+    "message": "సంపాదన నిలిపివేయబడింది: non-Pro వినియోగదారుల కోసం ఎక్కువ నియమాలు ఉన్నాయి."
+  },
+  "errorloadingstatus": {
+    "message": "వినియోగదారు స్థితిని లోడ్ చేయడంలో లోపం."
+  },
+  "schedule_day_sun": {
+    "message": "ఆది"
+  },
+  "schedule_day_mon": {
+    "message": "సోమ"
+  },
+  "schedule_day_tue": {
+    "message": "మం"
+  },
+  "schedule_day_wed": {
+    "message": "బుధ"
+  },
+  "schedule_day_thu": {
+    "message": "గురు"
+  },
+  "schedule_day_fri": {
+    "message": "శుక్ర"
+  },
+  "schedule_day_sat": {
+    "message": "శని"
+  },
+  "category_header": {
+    "message": "వర్గం"
+  },
+  "category_required": {
+    "message": "వర్గం తప్పనిసరి"
+  },
+  "allcategories": {
+    "message": "అన్ని వర్గాలు"
+  },
+  "category_social": {
+    "message": "సోషల్ మీడియా"
+  },
+  "category_news": {
+    "message": "సమాచారం"
+  },
+  "category_entertainment": {
+    "message": "వినోదం"
+  },
+  "category_shopping": {
+    "message": "కొనుగోలు"
+  },
+  "category_work": {
+    "message": "పని"
+  },
+  "category_gaming": {
+    "message": "ఆటలు"
+  },
+  "category_adult": {
+    "message": "వయస్కులకు కంటెంట్"
+  },
+  "category_uncategorized": {
+    "message": "వర్గీకరించబడని"
+  },
+  "searchfordomain": {
+    "message": "డొమైన్ పేరును వెతకండి"
+  },
+  "norulesforcategory": {
+    "message": "ఈ వర్గానికి ఏ బ్లాక్ చేసిన సైట్లూ లేవు."
+  },
+  "getpro": {
+    "message": "ప్రో పొందండి"
+  },
+  "profunctionstext": {
+    "message": "Pro ఫీచర్లలో ఉన్నాయి: షెడ్యూల్ బ్లాకింగ్, పాస్‌వర్డ్ రక్షణ, రూల్ ఫిల్టర్ చేయడం మరియు రూల్ ఎగుమతి/ఆమదు. మా యూనివర్సల్ లైసెన్స్‌ను ఆస్వాదించండి: ఒక సబ్‌స్క్రిప్షన్ మీ అన్ని బ్రౌజర్లలో (Chrome, Firefox, Edge, Kiwi) Proని యాక్టివేట్ చేస్తుంది. యాక్టివేట్ చేయడానికి, blockdistraction.com వద్ద సబ్‌స్క్రిప్షన్ కొనుగోలు చేయండి, తరువాత మీ ఖాతా డ్యాష్‌బోర్డ్ నుండి లైసెన్స్ కీని కాపీ చేసి కింద పేస్ట్ చేయండి."
+  },
+  "upgradenow": {
+    "message": "ఇప్పుడే అప్‌గ్రేడ్ చేయండి"
+  },
+  "enteremail": {
+    "message": "మీ ఇమెయిల్‌ని నమోదు చేయండి"
+  },
+  "activatepro": {
+    "message": "ప్రోను సక్రియం చేయండి"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "ప్రవేశాన్ని పునరుద్ధరించండి"
+  },
+  "pleaseenteremail": {
+    "message": "దయచేసి మీ ఇమెయిల్‌ని నమోదు చేయండి"
+  },
+  "checking": {
+    "message": "పరిశీలిస్తోంది..."
+  },
+  "proactivated": {
+    "message": "ప్రో లక్షణాలు సక్రియం అయ్యాయి!"
+  },
+  "subscriptionnotfound": {
+    "message": "సభ్యత్వం క్రియాశీలంగా లేదు లేదా ఇమెయిల్ కనుగొనబడలేదు."
+  },
+  "servererror": {
+    "message": "సర్వర్ లోపం. దయచేసి మళ్లీ ప్రయత్నించండి."
+  },
+  "proactivatedfor": {
+    "message": "ప్రో సక్రియం చేయబడింది:"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "అనుమతి అభ్యర్థన విఫలమైంది (ఇది మొబైల్‌లో జరిగే అవకాశం ఉంది). దయచేసి మళ్లీ ప్రయత్నించండి లేదా సెట్టింగ్‌లలో చేతితో అనుమతి ఇవ్వండి."
   },
-  "pastekeylabel": { "message": "మీ లైసెన్స్ కీని ఇక్కడ పేస్ట్ చేయండి:" },
-  "confirmclearstats": { "message": "మీరు నిజంగా అన్ని గణాంకాలను తీసివేయాలనుకుంటున్నారా? దీన్ని రద్దు చేయలేరు." },
-  "statscleared": { "message": "గణాంకాలు విజయవంతంగా తీసివేయబడ్డాయి." },
-  "redirectstodaylabel": { "message": "ఈ రోజు రీడైరెక్ట్‌లు" },
-  "totalredirectslabel": { "message": "మొత్తం రీడైరెక్ట్‌లు" },
-  "logout": { "message": "లాగ్ అవుట్" },
-  "loggedoutsuccess": { "message": "మీరు విజయవంతంగా లాగ్ అవుట్ అయ్యారు." },
-  "loggedouterror": { "message": "లాగ్ అవుట్ సమయంలో లోపం ఏర్పడింది." },
-  "forcesync": { "message": "ఫోర్స్ సింక్ / స్థితిని తనిఖీ చేయండి" },
-  "forgotpasswordinstructions": { "message": "మీ పాస్వర్డ్‌ను రీసెట్ చేయడానికి, 'Pro' విభాగానికి వెళ్లి, 'లాగ్ అవుట్' క్లిక్ చేయండి మరియు తర్వాత మీ లైసెన్స్ కీని పేస్ట్ చేసి మళ్లీ యాక్టివేట్ చేయండి." },
-  "blockedtitle": { "message": "సైట్ అందుబాటులో లేదు" },
-  "blockedheader": { "message": "ఈ సైట్ ప్రస్తుతానికి అందుబాటులో లేదు" },
-  "blockedtext": { "message": "ఈ కంటెంట్ ను చూపించలేము." },
-  "blockedbutton": { "message": "ట్యాబ్ మూసివేయండి" },
-  "confirmpassword": { "message": "పాస్‌వర్డ్‌ను నిర్ధారించండి" },
-  "modalconfirm": { "message": "నిర్ధారించండి" },
-  "modalcancel": { "message": "రద్దు" },
-  "forgotpassword": { "message": "పాస్‌వర్డ్ మరిచిపోయారా? రీసెట్ చేయండి (చర్య రక్షణను తొలగిస్తుంది)" },
-  "prounlocked": { "message": "మీ మద్దతుకు ధన్యవాదాలు! అన్ని Pro ఫీచర్లు అన్‌లాక్ చేయబడ్డాయి." },
-  "licensesynced": { "message": "మీ లైసెన్స్ మీ ఖాతాతో సింక్ అయ్యింది. మీరు యాక్సెస్‌ను కోల్పోతే, మీ కీని ఇక్కడ పునరుద్ధరించవచ్చు: " },
-  "syncing": { "message": "సింక్ అవుతోంది..." },
-  "pleaseenterkey": { "message": "దయచేసి ఒక కీని నమోదు చేయండి." },
-  "syncsuccess": { "message": "సింక్రోనైజేషన్ విజయవంతమైంది" },
-  "syncfailed": { "message": "సింక్రోనైజేషన్ విఫలమైంది." },
-  "passwordreset": { "message": "పాస్‌వర్డ్ రక్షణను రీసెట్ చేశారు." },
-  "privacysecured": { "message": "గోప్యత రక్షించబడింది" },
-  "errorinvalidfiletype": { "message": "దయచేసి .json ఫైల్‌ని ఎంచుకోండి" },
-  "debugsettingstitle": { "message": "డీబగ్ సెట్టింగులు" },
-  "enabledebugtitle": { "message": "డీబగ్ మోడ్ ఎనేబుల్ చేయండి" },
-  "enabledebugdesc": { "message": "సమస్యల పరిష్కారానికి కన్సోల్‌లో విస్తృత లాగింగ్ ఎనేబుల్ చేయండి" },
-  "errorcommunication": { "message": "బ్యాక్‌గ్రౌండ్ సర్వీస్‌తో కమ్యూనికేషన్ లో లోపం" },
-  "clearstats": { "message": "పరుగులను తొలగించండి" },
-  "rule_enabled": { "message": "సక్రియం" },
-  "rule_disabled": { "message": "నిష్క్రియం" },
-  "filter_only_hint": { "message": "ఈ జాబితా పట్టికలో చూపించబడే విషయాలను మాత్రమే ఫిల్టర్ చేస్తుంది" },
-  "category_disabled_desc": { "message": "ఒక వర్గాన్ని మ్యూట్ చేయండి, తద్వారా దాని అన్ని సైట్లకు తాత్కాలికంగా యాక్సెస్ అనుమతించబడుతుంది. వ్యక్తిగత నియమాల సెట్టింగ్‌లు అలాగే ఉంటాయి." },
-  "toggle_category_blocking": { "message": "పూర్తి వర్గానికి బ్లాకింగ్‌ను ఆన్/ఆఫ్ చేయండి" },
-  "category_muted_no_edit": { "message": "నిర్వహించలేము: వర్గ బ్లాకింగ్ నిలిపివేయబడింది" },
-  "feedback_title": { "message": "మీకు BlockDistraction నచ్చిందా?" },
-  "feedback_desc": { "message": "మీ అభిప్రాయం ఈ ఎక్స్‌టెన్షన్‌ను మెరుగుపరచడానికి మాకు చాలా సహాయపడుతుంది." },
-  "feedback_like": { "message": "అవును, ఇది చాలా బాగా పనిచేస్తుంది!" },
-  "feedback_dislike": { "message": "నాకు సమస్యలు / సూచనలు ఉన్నాయి" },
-  "trialproheader": { "message": "మీ 7 రోజుల ఉచిత ట్రయల్‌ని ప్రారంభించండి" },
-  "trialprotext": { "message": "ఎప్పుడైనా రద్దు చేసుకోవచ్చు. మీ పేమెంట్లు పూర్తిగా సురక్షితం." },
-  "focussessionheader": { "message": "ఫోకస్ సెషన్" },
-  "focussessionstart": { "message": "ప్రారంభించు" },
-  "focussessionstop": { "message": "ఆపివేయి" },
-  "focussessionduration": { "message": "వ్యవధి (నిమిషాలు):" },
-  "focussessioninfo": { "message": "మీ ప్రస్తుత సెట్టింగ్‌లు మరియు షెడ్యూల్‌లను విస్మరించి, నిర్ణీత సమయం వరకు మీ అన్ని బ్లాకింగ్ నియమాలను సక్రియం చేస్తుంది. గరిష్ట ఏకాగ్రత కోసం." },
-  "focussessionprofeature": { "message": "కస్టమ్ వ్యవధి మరియు హార్డ్‌కోర్ మోడ్ అనేవి ప్రో (Pro) ఫీచర్లు." },
-  "focussessionended": { "message": "ఫోకస్ సెషన్ ముగిసింది! కాసేపు విరామం తీసుకోండి." },
-  "focussessionhardcore": { "message": "హార్డ్‌కోర్ మోడ్ ('ఆపివేయి' బటన్ ఉండదు)" },
-  "focussessionsoundtitle": { "message": "ఫోకస్ సెషన్ ధ్వని నోటిఫికేషన్" },
-  "focussessionsounddesc": { "message": "ఫోకస్ సెషన్ ముగిసినప్పుడు ధ్వనిని ప్లే చేయి." },
-  "focussessionactivebanner": { "message": "ఫోకస్ సెషన్ యాక్టివ్‌గా ఉంది! మిగిలి ఉన్న సమయం:" },
-  "focussessioninvalidduration": { "message": "దయచేసి సరైన వ్యవధిని నమోదు చేయండి (1-240 నిమిషాలు)." },
-  "successfulfocussessionslabel": { "message": "విజయవంతమైన ఫోకస్ సెషన్‌లు" },
-  "rule_scheduled": { "message": "షెడ్యూల్ చేసిన నియమం" },
-  "addwhitelistrule": { "message": "మినహాయింపు జోడించు" },
-  "category_whitelist": { "message": "వైట్‌లిస్ట్" },
-  "conflict_blacklist_err": { "message": "ఈ సైట్ ఇప్పటికే మీ బ్లాక్‌లిస్ట్‌లో ఉంది. ముందుగా దాన్ని తీసివేయండి." },
-  "conflict_whitelist_err": { "message": "ఈ సైట్ ఇప్పటికే మీ వైట్‌లిస్ట్‌లో ఉంది. ముందుగా దాన్ని తీసివేయండి." },
-  "status_allow": { "message": "అనుమతించబడింది" },
-  "redundant_whitelist_err": { "message": "ఈ నియమం ఇప్పటికే మరొక వైట్‌లిస్ట్ నియమం ద్వారా కవర్ చేయబడింది." },
-  "focussessionmode": { "message": "ఫోకస్ మోడ్:" },
-  "focusmodeblacklist": { "message": "బ్లాక్‌లిస్ట్‌ను బ్లాక్ చేయి" },
-  "focusmodewhitelist": { "message": "వైట్‌లిస్ట్‌ను మాత్రమే అనుమతించు" }
+  "pastekeylabel": {
+    "message": "మీ లైసెన్స్ కీని ఇక్కడ పేస్ట్ చేయండి:"
+  },
+  "confirmclearstats": {
+    "message": "మీరు నిజంగా అన్ని గణాంకాలను తీసివేయాలనుకుంటున్నారా? దీన్ని రద్దు చేయలేరు."
+  },
+  "statscleared": {
+    "message": "గణాంకాలు విజయవంతంగా తీసివేయబడ్డాయి."
+  },
+  "redirectstodaylabel": {
+    "message": "ఈ రోజు రీడైరెక్ట్‌లు"
+  },
+  "totalredirectslabel": {
+    "message": "మొత్తం రీడైరెక్ట్‌లు"
+  },
+  "logout": {
+    "message": "లాగ్ అవుట్"
+  },
+  "loggedoutsuccess": {
+    "message": "మీరు విజయవంతంగా లాగ్ అవుట్ అయ్యారు."
+  },
+  "loggedouterror": {
+    "message": "లాగ్ అవుట్ సమయంలో లోపం ఏర్పడింది."
+  },
+  "forcesync": {
+    "message": "ఫోర్స్ సింక్ / స్థితిని తనిఖీ చేయండి"
+  },
+  "forgotpasswordinstructions": {
+    "message": "మీ పాస్వర్డ్‌ను రీసెట్ చేయడానికి, 'Pro' విభాగానికి వెళ్లి, 'లాగ్ అవుట్' క్లిక్ చేయండి మరియు తర్వాత మీ లైసెన్స్ కీని పేస్ట్ చేసి మళ్లీ యాక్టివేట్ చేయండి."
+  },
+  "blockedtitle": {
+    "message": "సైట్ అందుబాటులో లేదు"
+  },
+  "blockedheader": {
+    "message": "ఈ సైట్ ప్రస్తుతానికి అందుబాటులో లేదు"
+  },
+  "blockedtext": {
+    "message": "ఈ కంటెంట్ ను చూపించలేము."
+  },
+  "blockedbutton": {
+    "message": "ట్యాబ్ మూసివేయండి"
+  },
+  "confirmpassword": {
+    "message": "పాస్‌వర్డ్‌ను నిర్ధారించండి"
+  },
+  "modalconfirm": {
+    "message": "నిర్ధారించండి"
+  },
+  "modalcancel": {
+    "message": "రద్దు"
+  },
+  "forgotpassword": {
+    "message": "పాస్‌వర్డ్ మరిచిపోయారా? రీసెట్ చేయండి (చర్య రక్షణను తొలగిస్తుంది)"
+  },
+  "prounlocked": {
+    "message": "మీ మద్దతుకు ధన్యవాదాలు! అన్ని Pro ఫీచర్లు అన్‌లాక్ చేయబడ్డాయి."
+  },
+  "licensesynced": {
+    "message": "మీ లైసెన్స్ మీ ఖాతాతో సింక్ అయ్యింది. మీరు యాక్సెస్‌ను కోల్పోతే, మీ కీని ఇక్కడ పునరుద్ధరించవచ్చు: "
+  },
+  "syncing": {
+    "message": "సింక్ అవుతోంది..."
+  },
+  "pleaseenterkey": {
+    "message": "దయచేసి ఒక కీని నమోదు చేయండి."
+  },
+  "syncsuccess": {
+    "message": "సింక్రోనైజేషన్ విజయవంతమైంది"
+  },
+  "syncfailed": {
+    "message": "సింక్రోనైజేషన్ విఫలమైంది."
+  },
+  "passwordreset": {
+    "message": "పాస్‌వర్డ్ రక్షణను రీసెట్ చేశారు."
+  },
+  "privacysecured": {
+    "message": "గోప్యత రక్షించబడింది"
+  },
+  "errorinvalidfiletype": {
+    "message": "దయచేసి .json ఫైల్‌ని ఎంచుకోండి"
+  },
+  "debugsettingstitle": {
+    "message": "డీబగ్ సెట్టింగులు"
+  },
+  "enabledebugtitle": {
+    "message": "డీబగ్ మోడ్ ఎనేబుల్ చేయండి"
+  },
+  "enabledebugdesc": {
+    "message": "సమస్యల పరిష్కారానికి కన్సోల్‌లో విస్తృత లాగింగ్ ఎనేబుల్ చేయండి"
+  },
+  "errorcommunication": {
+    "message": "బ్యాక్‌గ్రౌండ్ సర్వీస్‌తో కమ్యూనికేషన్ లో లోపం"
+  },
+  "clearstats": {
+    "message": "పరుగులను తొలగించండి"
+  },
+  "rule_enabled": {
+    "message": "సక్రియం"
+  },
+  "rule_disabled": {
+    "message": "నిష్క్రియం"
+  },
+  "filter_only_hint": {
+    "message": "ఈ జాబితా పట్టికలో చూపించబడే విషయాలను మాత్రమే ఫిల్టర్ చేస్తుంది"
+  },
+  "category_disabled_desc": {
+    "message": "ఒక వర్గాన్ని మ్యూట్ చేయండి, తద్వారా దాని అన్ని సైట్లకు తాత్కాలికంగా యాక్సెస్ అనుమతించబడుతుంది. వ్యక్తిగత నియమాల సెట్టింగ్‌లు అలాగే ఉంటాయి."
+  },
+  "toggle_category_blocking": {
+    "message": "పూర్తి వర్గానికి బ్లాకింగ్‌ను ఆన్/ఆఫ్ చేయండి"
+  },
+  "category_muted_no_edit": {
+    "message": "నిర్వహించలేము: వర్గ బ్లాకింగ్ నిలిపివేయబడింది"
+  },
+  "feedback_title": {
+    "message": "మీకు BlockDistraction నచ్చిందా?"
+  },
+  "feedback_desc": {
+    "message": "మీ అభిప్రాయం ఈ ఎక్స్‌టెన్షన్‌ను మెరుగుపరచడానికి మాకు చాలా సహాయపడుతుంది."
+  },
+  "feedback_like": {
+    "message": "అవును, ఇది చాలా బాగా పనిచేస్తుంది!"
+  },
+  "feedback_dislike": {
+    "message": "నాకు సమస్యలు / సూచనలు ఉన్నాయి"
+  },
+  "trialproheader": {
+    "message": "మీ 7 రోజుల ఉచిత ట్రయల్‌ని ప్రారంభించండి"
+  },
+  "trialprotext": {
+    "message": "ఎప్పుడైనా రద్దు చేసుకోవచ్చు. మీ పేమెంట్లు పూర్తిగా సురక్షితం."
+  },
+  "focussessionheader": {
+    "message": "ఫోకస్ సెషన్"
+  },
+  "focussessionstart": {
+    "message": "ప్రారంభించు"
+  },
+  "focussessionstop": {
+    "message": "ఆపివేయి"
+  },
+  "focussessionduration": {
+    "message": "వ్యవధి (నిమిషాలు):"
+  },
+  "focussessioninfo": {
+    "message": "మీ ప్రస్తుత సెట్టింగ్‌లు మరియు షెడ్యూల్‌లను విస్మరించి, నిర్ణీత సమయం వరకు మీ అన్ని బ్లాకింగ్ నియమాలను సక్రియం చేస్తుంది. గరిష్ట ఏకాగ్రత కోసం."
+  },
+  "focussessionprofeature": {
+    "message": "కస్టమ్ వ్యవధి మరియు హార్డ్‌కోర్ మోడ్ అనేవి ప్రో (Pro) ఫీచర్లు."
+  },
+  "focussessionended": {
+    "message": "ఫోకస్ సెషన్ ముగిసింది! కాసేపు విరామం తీసుకోండి."
+  },
+  "focussessionhardcore": {
+    "message": "హార్డ్‌కోర్ మోడ్ ('ఆపివేయి' బటన్ ఉండదు)"
+  },
+  "focussessionsoundtitle": {
+    "message": "ఫోకస్ సెషన్ ధ్వని నోటిఫికేషన్"
+  },
+  "focussessionsounddesc": {
+    "message": "ఫోకస్ సెషన్ ముగిసినప్పుడు ధ్వనిని ప్లే చేయి."
+  },
+  "focussessionactivebanner": {
+    "message": "ఫోకస్ సెషన్ యాక్టివ్‌గా ఉంది! మిగిలి ఉన్న సమయం:"
+  },
+  "focussessioninvalidduration": {
+    "message": "దయచేసి సరైన వ్యవధిని నమోదు చేయండి (1-240 నిమిషాలు)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "విజయవంతమైన ఫోకస్ సెషన్‌లు"
+  },
+  "rule_scheduled": {
+    "message": "షెడ్యూల్ చేసిన నియమం"
+  },
+  "addwhitelistrule": {
+    "message": "మినహాయింపు జోడించు"
+  },
+  "category_whitelist": {
+    "message": "వైట్‌లిస్ట్"
+  },
+  "conflict_blacklist_err": {
+    "message": "ఈ సైట్ ఇప్పటికే మీ బ్లాక్‌లిస్ట్‌లో ఉంది. ముందుగా దాన్ని తీసివేయండి."
+  },
+  "conflict_whitelist_err": {
+    "message": "ఈ సైట్ ఇప్పటికే మీ వైట్‌లిస్ట్‌లో ఉంది. ముందుగా దాన్ని తీసివేయండి."
+  },
+  "status_allow": {
+    "message": "అనుమతించబడింది"
+  },
+  "redundant_whitelist_err": {
+    "message": "ఈ నియమం ఇప్పటికే మరొక వైట్‌లిస్ట్ నియమం ద్వారా కవర్ చేయబడింది."
+  },
+  "focussessionmode": {
+    "message": "ఫోకస్ మోడ్:"
+  },
+  "focusmodeblacklist": {
+    "message": "బ్లాక్‌లిస్ట్‌ను బ్లాక్ చేయి"
+  },
+  "focusmodewhitelist": {
+    "message": "వైట్‌లిస్ట్‌ను మాత్రమే అనుమతించు"
+  },
+  "schedule_edit": {
+    "message": "షెడ్యూల్‌ను సవరించండి"
+  },
+  "schedule_add_period": {
+    "message": "సమయ సమూహాన్ని జోడించండి"
+  },
+  "schedule_remove_period": {
+    "message": "తొలగించండి"
+  },
+  "schedule_period": {
+    "message": "సమయ సమూహం"
+  },
+  "schedule_every_day": {
+    "message": "ప్రతి రోజు"
+  },
+  "schedule_weekdays": {
+    "message": "పని దినాలు"
+  },
+  "schedule_weekends": {
+    "message": "వారాంతాలు"
+  },
+  "schedule_day_overlap": {
+    "message": "ప్రతి రోజును ఒక్కసారి మాత్రమే ఉపయోగించవచ్చు."
+  }
 }

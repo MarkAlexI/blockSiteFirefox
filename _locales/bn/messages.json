@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – ওয়েবসাইট ব্লকার" },
-  "shortname": { "message": "ব্লকার" },
-  "description": { "message": "সহজ ও নির্ভরযোগ্য টুল যা ওয়েবসাইট ব্লক ও রিডাইরেক্ট করতে সাহায্য করে, আপনাকে মনোযোগী থাকতে সহায়ক।" },
-  "defaulttitle": { "message": "মনোযোগী ও প্রোডাক্টিভ থাকুন" },
-  "header": { "message": "ওয়েবসাইট ব্লকার" },
-  "paragraph": { "message": "কোনো ওয়েবসাইট বা রিসোর্স ব্লক করতে \"ব্লক করার জন্য URL লিখুন\" ফিল্ডে তার নামের অংশ লিখুন – যেমন \"facebook\" লিখলে সংশ্লিষ্ট সব সাবডোমেইন ব্লক হবে। \"রিডাইরেক্ট করার জন্য URL লিখুন\" ফিল্ডে সম্পূর্ণ লিংক সহ প্রোটোকল দিন, যেমন \"https://google.com\"। যদি রিডাইরেক্ট ফিল্ড ফাঁকা থাকে, তবে শুধু ব্লক হবে। নিয়ম প্রয়োগ করতে সংরক্ষণ বোতাম চাপুন। কোনো নিয়ম আপডেট করতে পুরোনোটি মুছে নতুনটি তৈরি করুন।" },
-  "addrule": { "message": "নতুন নিয়ম যোগ করুন" },
-  "blockurl": { "message": "ব্লক করার জন্য URL লিখুন" },
-  "redirecturl": { "message": "রিডাইরেক্ট করার জন্য URL লিখুন (ঐচ্ছিক)" },
-  "redirecturlheader": { "message": "রিডাইরেক্ট URL" },
-  "redirecturlplaceholder": { "message": "ঐচ্ছিক - ব্লক করতে খালি রাখুন" },
-  "redirecturlhint": { "message": "https:// সহ সম্পূর্ণ URL লিখুন" },
-  "mobilecopylinkhint": { "message": "কোনো লিংক ব্লক করতে তার ঠিকানা কপি করে ব্লক ফিল্ডে পেস্ট করুন।" },
-  "savebtn": { "message": "সংরক্ষণ" },
-  "deletebtn": { "message": "মুছুন" },
-  "alertruleexist": { "message": "এই নিয়ম ইতিমধ্যে রয়েছে" },
+  "chromename": {
+    "message": "BlockDistraction – ওয়েবসাইট ব্লকার"
+  },
+  "shortname": {
+    "message": "ব্লকার"
+  },
+  "description": {
+    "message": "সহজ ও নির্ভরযোগ্য টুল যা ওয়েবসাইট ব্লক ও রিডাইরেক্ট করতে সাহায্য করে, আপনাকে মনোযোগী থাকতে সহায়ক।"
+  },
+  "defaulttitle": {
+    "message": "মনোযোগী ও প্রোডাক্টিভ থাকুন"
+  },
+  "header": {
+    "message": "ওয়েবসাইট ব্লকার"
+  },
+  "paragraph": {
+    "message": "কোনো ওয়েবসাইট বা রিসোর্স ব্লক করতে \"ব্লক করার জন্য URL লিখুন\" ফিল্ডে তার নামের অংশ লিখুন – যেমন \"facebook\" লিখলে সংশ্লিষ্ট সব সাবডোমেইন ব্লক হবে। \"রিডাইরেক্ট করার জন্য URL লিখুন\" ফিল্ডে সম্পূর্ণ লিংক সহ প্রোটোকল দিন, যেমন \"https://google.com\"। যদি রিডাইরেক্ট ফিল্ড ফাঁকা থাকে, তবে শুধু ব্লক হবে। নিয়ম প্রয়োগ করতে সংরক্ষণ বোতাম চাপুন। কোনো নিয়ম আপডেট করতে পুরোনোটি মুছে নতুনটি তৈরি করুন।"
+  },
+  "addrule": {
+    "message": "নতুন নিয়ম যোগ করুন"
+  },
+  "blockurl": {
+    "message": "ব্লক করার জন্য URL লিখুন"
+  },
+  "redirecturl": {
+    "message": "রিডাইরেক্ট করার জন্য URL লিখুন (ঐচ্ছিক)"
+  },
+  "redirecturlheader": {
+    "message": "রিডাইরেক্ট URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "ঐচ্ছিক - ব্লক করতে খালি রাখুন"
+  },
+  "redirecturlhint": {
+    "message": "https:// সহ সম্পূর্ণ URL লিখুন"
+  },
+  "mobilecopylinkhint": {
+    "message": "কোনো লিংক ব্লক করতে তার ঠিকানা কপি করে ব্লক ফিল্ডে পেস্ট করুন।"
+  },
+  "savebtn": {
+    "message": "সংরক্ষণ"
+  },
+  "deletebtn": {
+    "message": "মুছুন"
+  },
+  "alertruleexist": {
+    "message": "এই নিয়ম ইতিমধ্যে রয়েছে"
+  },
   "savedrules": {
     "message": "$ruleslength$ টি নিয়ম সংরক্ষিত হয়েছে",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "এই রিসোর্সটি ব্লক করা যাবে না।" },
-  "wrongblockurl": { "message": "ব্লক করার জন্য অবৈধ URL" },
-  "wrongredirecturl": { "message": "অবৈধ রিডাইরেক্ট URL" },
-  "blockthat": { "message": "এই সাইট ব্লক করুন" },
-  "sendfeedbackbutton": { "message": "মতামত পাঠান" },
-  "sendfeedbacksubject": { "message": "BlockDistraction নিয়ে মতামত" },
-  "sendfeedbackbody": { "message": "হ্যালো, আমি নিম্নলিখিত মতামত শেয়ার করতে চাই:\n\n" },
-  "quote1": { "message": "মনোযোগী থাকুন, দৃঢ় থাকুন।" },
-  "quote2": { "message": "আপনার ভবিষ্যৎ নির্ভর করে আজ আপনি কী করছেন।" },
-  "quote3": { "message": "শৃঙ্খলা হলো লক্ষ্য ও সাফল্যের মাঝে সেতু।" },
-  "quote4": { "message": "একটি ব্লক করা সাইট আপনাকে আপনার লক্ষ্যের আরও কাছে নিয়ে যায়।" },
-  "quote5": { "message": "প্রত্যেক ক্লিককে অর্থবহ করুন।" },
-  "quote6": { "message": "ঘড়ির দিকে তাকাবেন না; ঘড়ির মতো চলুন। চালিয়ে যান।" },
-  "quote7": { "message": "প্রতিদিন ছোট পদক্ষেপ বড় ফলাফল আনে।" },
-  "quote8": { "message": "শুধুমাত্র আপনার মনই সীমা নির্ধারণ করে।" },
-  "quote9": { "message": "সাফল্য হলো প্রতিদিনের ছোট ছোট প্রচেষ্টার যোগফল।" },
-  "quote10": { "message": "ব্যস্ততার চেয়ে উৎপাদনশীলতায় মনোযোগ দিন।" },
-  "quote11": { "message": "আপনার মনোযোগকে রক্ষা করুন – এটি আপনার সবচেয়ে মূল্যবান সম্পদ।" },
-  "quote12": { "message": "প্রতিটি ব্লক করা বিভ্রান্তি হল পুনরুদ্ধারকৃত সময়।" },
-  "quote13": { "message": "শব্দ কমান; আপনার উৎপাদনশীলতা বাড়ান।" },
-  "quote14": { "message": "ছোট রুটিনগুলি অপ্রতিরোধ্য গতিশীলতা তৈরি করে।" },
-  "quote15": { "message": "স্বচ্ছতা বিশৃঙ্খলার চেয়ে জয়ী – গুরুত্বপূর্ণ বিষয়ে মনোযোগ দিন।" },
-  "quote16": { "message": "বিভ্রান্তিকে না বলুন; অগ্রগতিকে হ্যাঁ বলুন।" },
-  "quote17": { "message": "আজকের একটি মনোযোগী ঘণ্টা আগামীকালের ফলাফলকে গুণিত করবে।" },
-  "quote18": { "message": "কম খেয়ে আরও তৈরি করুন।" },
-  "quote19": { "message": "শৃঙ্খলা স্বল্প সময়ের প্রবৃত্তির চেয়ে দীর্ঘমেয়াদী জয় বেছে নেয়।" },
-  "quote20": { "message": "একটি ট্যাব বন্ধ করুন, নতুন ধারণার জন্য স্থান তৈরি করুন।" },
-  "quote21": { "message": "আজ যে কাজটি তুমি এড়িয়ে যাচ্ছ, তা আগামীকালের চাপ হয়ে উঠতে পারে।" },
-  "quote22": { "message": "ফোকাস মানে বেশি করা নয়, বরং যা সত্যিই গুরুত্বপূর্ণ তা করা।" },
-  "quote23": { "message": "তোমার লক্ষ্যগুলো তোমার বিভ্রান্তির চেয়ে বেশি মনোযোগের যোগ্য।" },
-  "quote24": { "message": "বিভ্রান্তি ছাড়া প্রতিটি মিনিট তোমার নিজের উপর একটি বিনিয়োগ।" },
-  "quote25": { "message": "ধারাবাহিকতা অল্প সময়ের উৎসাহের চেয়ে বেশি স্থায়ী ফল দেয়।" },
-  "quote26": { "message": "শুরু করার সেরা সময় ছিল গতকাল। দ্বিতীয় সেরা সময় এখন।" },
-  "quote27": { "message": "যখন তুমি বিভ্রান্তির বদলে কাজ বেছে নাও, তখনই অগ্রগতি শুরু হয়।" },
-  "quote28": { "message": "একটি মাত্র মনোযোগের মুহূর্ত তোমার পুরো দিন বদলে দিতে পারে।" },
-  "quote29": { "message": "তোমার বেশি সময় দরকার নেই, দরকার কম বিভ্রান্তি।" },
-  "quote30": { "message": "প্রতিবার ফোকাস বেছে নেওয়া তোমার ভবিষ্যৎ নিজেকে আরও শক্তিশালী করে।" },
-  "quote31": { "message": "এই ব্লকটি অস্থায়ী; তোমার লক্ষ্যগুলো দীর্ঘমেয়াদি।" },
-  "quote32": { "message": "প্রতিটি ব্লক করা বিভ্রান্তি তোমার ভবিষ্যৎ সত্তার জন্য একটি জয়।" },
-  "quote33": { "message": "ইন্টারনেট অসীম, কিন্তু তোমার সময় নয়।" },
-  "quote34": { "message": "ওয়েব যেন তোমার জন্য সিদ্ধান্ত না নেয়—তার আগে তোমার অগ্রাধিকার ঠিক করো।" },
-  "quote35": { "message": "কম স্ক্রল, বেশি সৃষ্টি।" },
-  "quote36": { "message": "তোমার মনোযোগই তোমার অর্জন গঠন করে।" },
-  "quote37": { "message": "ফোকাস ধরে রাখো — বিভ্রান্তি পরে অপেক্ষা করতে পারে।" },
-  "quote38": { "message": "প্রতিটি উৎপাদনশীল সিদ্ধান্ত শুরু হয় একটি কেন্দ্রীভূত মন দিয়ে।" },
-  "quote39": { "message": "তুমি একটি ওয়েবসাইট ব্লক করেছ, তোমার সম্ভাবনা নয়।" },
-  "quote40": { "message": "সাফল্যের পথ তৈরি হয় ফোকাসড সিদ্ধান্তের মাধ্যমে।" },
-  "actionsheader": { "message": "অ্যাকশন" },
-  "norules": { "message": "কোনো সাইট ব্লক করা হয়নি।" },
-  "editbtn": { "message": "সম্পাদনা" },
-  "ruleddeleted": { "message": "নিয়ম মুছে ফেলা হয়েছে।" },
-  "cancelbtn": { "message": "বাতিল" },
-  "ruleupdated": { "message": "নিয়ম আপডেট হয়েছে।" },
-  "rulenewadded": { "message": "নতুন নিয়ম যোগ করা হয়েছে।" },
-  "gotooptions": { "message": "সেটিংস পৃষ্ঠায় যান ⚙️" },
-  "gotopopup": { "message": "পপআপে ফিরতে এক্সটেনশন আইকনে ক্লিক করুন।" },
-  "rulesmigrated": { "message": "সামঞ্জস্যের জন্য নিয়ম আপডেট করা হয়েছে" },
-  "errorupdatingrules": { "message": "নিয়ম আপডেট করতে ত্রুটি" },
-  "erroraddingrule": { "message": "নিয়ম যোগ করতে ত্রুটি" },
-  "errorremovingrule": { "message": "নিয়ম সরাতে ত্রুটি" },
-  "optionsheader": { "message": "এক্সটেনশন সেটিংস" },
-  "optionsdescription": { "message": "এক্সটেনশনের আচরণ এবং সুরক্ষা সেটিংস কনফিগার করুন" },
-  "securitymodetitle": { "message": "নিরাপত্তা মোড" },
-  "normalmodetitle": { "message": "সাধারণ মোড" },
-  "normalmodedesc": { "message": "একটি ক্লিকে নিয়ম অবিলম্বে মুছে ফেলা যেতে পারে" },
-  "strictmodetitle": { "message": "কঠোর মোড" },
-  "strictmodedesc": { "message": "অজান্তে মুছে ফেলা রোধ করতে নিয়ম মুছতে ১০ সেকেন্ড কাউন্টডাউন প্রয়োজন" },
-  "confirmdeletetitle": { "message": "একাধিক নিয়ম মুছে ফেলার আগে নিশ্চিত করুন" },
-  "confirmdeletedesc": { "message": "একসাথে একাধিক নিয়ম মুছে ফেলার সময় নিশ্চিতকরণ ডায়ালগ দেখান" },
-  "notificationstitle": { "message": "বিজ্ঞপ্তি দেখান" },
-  "notificationsdesc": { "message": "এক্সটেনশন আপডেট হলে বিজ্ঞপ্তি প্রদর্শন করুন" },
-  "rulesmanagementtitle": { "message": "নিয়ম ব্যবস্থাপনা" },
-  "exportrulesbtn": { "message": "নিয়ম রপ্তানি করুন" },
-  "importrulesbtn": { "message": "নিয়ম আমদানি করুন" },
-  "clearallrulesbtn": { "message": "সব নিয়ম মুছে ফেলুন" },
-  "totalruleslabel": { "message": "মোট নিয়ম" },
-  "blockedtodaylabel": { "message": "আজ ব্লক করা হয়েছে" },
-  "totalblockedlabel": { "message": "মোট ব্লক" },
-  "resetsettingsbtn": { "message": "ডিফল্টে রিসেট করুন" },
-  "backtopopup": { "message": "প্রধান মেনুতে ফিরে যান" },
-  "errorloadingsettings": { "message": "সেটিংস লোড করতে সমস্যা" },
-  "settingssaved": { "message": "সেটিংস সফলভাবে সংরক্ষিত হয়েছে!" },
-  "errorsavingsettings": { "message": "সেটিংস সংরক্ষণে ত্রুটি" },
-  "rulesexported": { "message": "নিয়ম সফলভাবে রপ্তানি হয়েছে!" },
-  "errorexportingrules": { "message": "নিয়ম রপ্তানিতে ত্রুটি" },
+  "restrictedblockurl": {
+    "message": "এই রিসোর্সটি ব্লক করা যাবে না।"
+  },
+  "wrongblockurl": {
+    "message": "ব্লক করার জন্য অবৈধ URL"
+  },
+  "wrongredirecturl": {
+    "message": "অবৈধ রিডাইরেক্ট URL"
+  },
+  "blockthat": {
+    "message": "এই সাইট ব্লক করুন"
+  },
+  "sendfeedbackbutton": {
+    "message": "মতামত পাঠান"
+  },
+  "sendfeedbacksubject": {
+    "message": "BlockDistraction নিয়ে মতামত"
+  },
+  "sendfeedbackbody": {
+    "message": "হ্যালো, আমি নিম্নলিখিত মতামত শেয়ার করতে চাই:\n\n"
+  },
+  "quote1": {
+    "message": "মনোযোগী থাকুন, দৃঢ় থাকুন।"
+  },
+  "quote2": {
+    "message": "আপনার ভবিষ্যৎ নির্ভর করে আজ আপনি কী করছেন।"
+  },
+  "quote3": {
+    "message": "শৃঙ্খলা হলো লক্ষ্য ও সাফল্যের মাঝে সেতু।"
+  },
+  "quote4": {
+    "message": "একটি ব্লক করা সাইট আপনাকে আপনার লক্ষ্যের আরও কাছে নিয়ে যায়।"
+  },
+  "quote5": {
+    "message": "প্রত্যেক ক্লিককে অর্থবহ করুন।"
+  },
+  "quote6": {
+    "message": "ঘড়ির দিকে তাকাবেন না; ঘড়ির মতো চলুন। চালিয়ে যান।"
+  },
+  "quote7": {
+    "message": "প্রতিদিন ছোট পদক্ষেপ বড় ফলাফল আনে।"
+  },
+  "quote8": {
+    "message": "শুধুমাত্র আপনার মনই সীমা নির্ধারণ করে।"
+  },
+  "quote9": {
+    "message": "সাফল্য হলো প্রতিদিনের ছোট ছোট প্রচেষ্টার যোগফল।"
+  },
+  "quote10": {
+    "message": "ব্যস্ততার চেয়ে উৎপাদনশীলতায় মনোযোগ দিন।"
+  },
+  "quote11": {
+    "message": "আপনার মনোযোগকে রক্ষা করুন – এটি আপনার সবচেয়ে মূল্যবান সম্পদ।"
+  },
+  "quote12": {
+    "message": "প্রতিটি ব্লক করা বিভ্রান্তি হল পুনরুদ্ধারকৃত সময়।"
+  },
+  "quote13": {
+    "message": "শব্দ কমান; আপনার উৎপাদনশীলতা বাড়ান।"
+  },
+  "quote14": {
+    "message": "ছোট রুটিনগুলি অপ্রতিরোধ্য গতিশীলতা তৈরি করে।"
+  },
+  "quote15": {
+    "message": "স্বচ্ছতা বিশৃঙ্খলার চেয়ে জয়ী – গুরুত্বপূর্ণ বিষয়ে মনোযোগ দিন।"
+  },
+  "quote16": {
+    "message": "বিভ্রান্তিকে না বলুন; অগ্রগতিকে হ্যাঁ বলুন।"
+  },
+  "quote17": {
+    "message": "আজকের একটি মনোযোগী ঘণ্টা আগামীকালের ফলাফলকে গুণিত করবে।"
+  },
+  "quote18": {
+    "message": "কম খেয়ে আরও তৈরি করুন।"
+  },
+  "quote19": {
+    "message": "শৃঙ্খলা স্বল্প সময়ের প্রবৃত্তির চেয়ে দীর্ঘমেয়াদী জয় বেছে নেয়।"
+  },
+  "quote20": {
+    "message": "একটি ট্যাব বন্ধ করুন, নতুন ধারণার জন্য স্থান তৈরি করুন।"
+  },
+  "quote21": {
+    "message": "আজ যে কাজটি তুমি এড়িয়ে যাচ্ছ, তা আগামীকালের চাপ হয়ে উঠতে পারে।"
+  },
+  "quote22": {
+    "message": "ফোকাস মানে বেশি করা নয়, বরং যা সত্যিই গুরুত্বপূর্ণ তা করা।"
+  },
+  "quote23": {
+    "message": "তোমার লক্ষ্যগুলো তোমার বিভ্রান্তির চেয়ে বেশি মনোযোগের যোগ্য।"
+  },
+  "quote24": {
+    "message": "বিভ্রান্তি ছাড়া প্রতিটি মিনিট তোমার নিজের উপর একটি বিনিয়োগ।"
+  },
+  "quote25": {
+    "message": "ধারাবাহিকতা অল্প সময়ের উৎসাহের চেয়ে বেশি স্থায়ী ফল দেয়।"
+  },
+  "quote26": {
+    "message": "শুরু করার সেরা সময় ছিল গতকাল। দ্বিতীয় সেরা সময় এখন।"
+  },
+  "quote27": {
+    "message": "যখন তুমি বিভ্রান্তির বদলে কাজ বেছে নাও, তখনই অগ্রগতি শুরু হয়।"
+  },
+  "quote28": {
+    "message": "একটি মাত্র মনোযোগের মুহূর্ত তোমার পুরো দিন বদলে দিতে পারে।"
+  },
+  "quote29": {
+    "message": "তোমার বেশি সময় দরকার নেই, দরকার কম বিভ্রান্তি।"
+  },
+  "quote30": {
+    "message": "প্রতিবার ফোকাস বেছে নেওয়া তোমার ভবিষ্যৎ নিজেকে আরও শক্তিশালী করে।"
+  },
+  "quote31": {
+    "message": "এই ব্লকটি অস্থায়ী; তোমার লক্ষ্যগুলো দীর্ঘমেয়াদি।"
+  },
+  "quote32": {
+    "message": "প্রতিটি ব্লক করা বিভ্রান্তি তোমার ভবিষ্যৎ সত্তার জন্য একটি জয়।"
+  },
+  "quote33": {
+    "message": "ইন্টারনেট অসীম, কিন্তু তোমার সময় নয়।"
+  },
+  "quote34": {
+    "message": "ওয়েব যেন তোমার জন্য সিদ্ধান্ত না নেয়—তার আগে তোমার অগ্রাধিকার ঠিক করো।"
+  },
+  "quote35": {
+    "message": "কম স্ক্রল, বেশি সৃষ্টি।"
+  },
+  "quote36": {
+    "message": "তোমার মনোযোগই তোমার অর্জন গঠন করে।"
+  },
+  "quote37": {
+    "message": "ফোকাস ধরে রাখো — বিভ্রান্তি পরে অপেক্ষা করতে পারে।"
+  },
+  "quote38": {
+    "message": "প্রতিটি উৎপাদনশীল সিদ্ধান্ত শুরু হয় একটি কেন্দ্রীভূত মন দিয়ে।"
+  },
+  "quote39": {
+    "message": "তুমি একটি ওয়েবসাইট ব্লক করেছ, তোমার সম্ভাবনা নয়।"
+  },
+  "quote40": {
+    "message": "সাফল্যের পথ তৈরি হয় ফোকাসড সিদ্ধান্তের মাধ্যমে।"
+  },
+  "actionsheader": {
+    "message": "অ্যাকশন"
+  },
+  "norules": {
+    "message": "কোনো সাইট ব্লক করা হয়নি।"
+  },
+  "editbtn": {
+    "message": "সম্পাদনা"
+  },
+  "ruleddeleted": {
+    "message": "নিয়ম মুছে ফেলা হয়েছে।"
+  },
+  "cancelbtn": {
+    "message": "বাতিল"
+  },
+  "ruleupdated": {
+    "message": "নিয়ম আপডেট হয়েছে।"
+  },
+  "rulenewadded": {
+    "message": "নতুন নিয়ম যোগ করা হয়েছে।"
+  },
+  "gotooptions": {
+    "message": "সেটিংস পৃষ্ঠায় যান ⚙️"
+  },
+  "gotopopup": {
+    "message": "পপআপে ফিরতে এক্সটেনশন আইকনে ক্লিক করুন।"
+  },
+  "rulesmigrated": {
+    "message": "সামঞ্জস্যের জন্য নিয়ম আপডেট করা হয়েছে"
+  },
+  "errorupdatingrules": {
+    "message": "নিয়ম আপডেট করতে ত্রুটি"
+  },
+  "erroraddingrule": {
+    "message": "নিয়ম যোগ করতে ত্রুটি"
+  },
+  "errorremovingrule": {
+    "message": "নিয়ম সরাতে ত্রুটি"
+  },
+  "optionsheader": {
+    "message": "এক্সটেনশন সেটিংস"
+  },
+  "optionsdescription": {
+    "message": "এক্সটেনশনের আচরণ এবং সুরক্ষা সেটিংস কনফিগার করুন"
+  },
+  "securitymodetitle": {
+    "message": "নিরাপত্তা মোড"
+  },
+  "normalmodetitle": {
+    "message": "সাধারণ মোড"
+  },
+  "normalmodedesc": {
+    "message": "একটি ক্লিকে নিয়ম অবিলম্বে মুছে ফেলা যেতে পারে"
+  },
+  "strictmodetitle": {
+    "message": "কঠোর মোড"
+  },
+  "strictmodedesc": {
+    "message": "অজান্তে মুছে ফেলা রোধ করতে নিয়ম মুছতে ১০ সেকেন্ড কাউন্টডাউন প্রয়োজন"
+  },
+  "confirmdeletetitle": {
+    "message": "একাধিক নিয়ম মুছে ফেলার আগে নিশ্চিত করুন"
+  },
+  "confirmdeletedesc": {
+    "message": "একসাথে একাধিক নিয়ম মুছে ফেলার সময় নিশ্চিতকরণ ডায়ালগ দেখান"
+  },
+  "notificationstitle": {
+    "message": "বিজ্ঞপ্তি দেখান"
+  },
+  "notificationsdesc": {
+    "message": "এক্সটেনশন আপডেট হলে বিজ্ঞপ্তি প্রদর্শন করুন"
+  },
+  "rulesmanagementtitle": {
+    "message": "নিয়ম ব্যবস্থাপনা"
+  },
+  "exportrulesbtn": {
+    "message": "নিয়ম রপ্তানি করুন"
+  },
+  "importrulesbtn": {
+    "message": "নিয়ম আমদানি করুন"
+  },
+  "clearallrulesbtn": {
+    "message": "সব নিয়ম মুছে ফেলুন"
+  },
+  "totalruleslabel": {
+    "message": "মোট নিয়ম"
+  },
+  "blockedtodaylabel": {
+    "message": "আজ ব্লক করা হয়েছে"
+  },
+  "totalblockedlabel": {
+    "message": "মোট ব্লক"
+  },
+  "resetsettingsbtn": {
+    "message": "ডিফল্টে রিসেট করুন"
+  },
+  "backtopopup": {
+    "message": "প্রধান মেনুতে ফিরে যান"
+  },
+  "errorloadingsettings": {
+    "message": "সেটিংস লোড করতে সমস্যা"
+  },
+  "settingssaved": {
+    "message": "সেটিংস সফলভাবে সংরক্ষিত হয়েছে!"
+  },
+  "errorsavingsettings": {
+    "message": "সেটিংস সংরক্ষণে ত্রুটি"
+  },
+  "rulesexported": {
+    "message": "নিয়ম সফলভাবে রপ্তানি হয়েছে!"
+  },
+  "errorexportingrules": {
+    "message": "নিয়ম রপ্তানিতে ত্রুটি"
+  },
   "willimportrules": {
     "message": "এটি $ruleslength$ নিয়ম আমদানি করবে। ",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "বর্তমান নিয়ম প্রতিস্থাপিত হবে। চালিয়ে যাবেন?" },
+  "ruleswillbereplaced": {
+    "message": "বর্তমান নিয়ম প্রতিস্থাপিত হবে। চালিয়ে যাবেন?"
+  },
   "importedrules": {
     "message": "$ruleslength$ নিয়ম সফলভাবে আমদানি হয়েছে!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "নিয়ম আমদানিতে ত্রুটি: " },
-  "norulestoclear": { "message": "মুছে ফেলার মতো কোনো নিয়ম নেই" },
+  "errorimportingrules": {
+    "message": "নিয়ম আমদানিতে ত্রুটি: "
+  },
+  "norulestoclear": {
+    "message": "মুছে ফেলার মতো কোনো নিয়ম নেই"
+  },
   "willdeleteallrules": {
     "message": "এটি স্থায়ীভাবে সমস্ত $rulescount$ নিয়ম মুছে ফেলবে। ",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না। চালিয়ে যাবেন?" },
-  "allrulescleared": { "message": "সব নিয়ম সফলভাবে মুছে ফেলা হয়েছে!" },
-  "errorclearingrules": { "message": "নিয়ম মুছে ফেলতে ত্রুটি" },
-  "willreset": { "message": "এটি সমস্ত সেটিংস ডিফল্ট মানে রিসেট করবে। চালিয়ে যাবেন?" },
-  "resettodefaults": { "message": "সেটিংস ডিফল্টে রিসেট হয়েছে!" },
-  "errorresettingsettings": { "message": "সেটিংস রিসেট করতে ত্রুটি" },
-  "basicsettingstitle": { "message": "মৌলিক সেটিংস" },
-  "advancedsettingstitle": { "message": "উন্নত সেটিংস" },
-  "statisticstitle": { "message": "পরিসংখ্যান" },
+  "cannotbeundone": {
+    "message": "এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না। চালিয়ে যাবেন?"
+  },
+  "allrulescleared": {
+    "message": "সব নিয়ম সফলভাবে মুছে ফেলা হয়েছে!"
+  },
+  "errorclearingrules": {
+    "message": "নিয়ম মুছে ফেলতে ত্রুটি"
+  },
+  "willreset": {
+    "message": "এটি সমস্ত সেটিংস ডিফল্ট মানে রিসেট করবে। চালিয়ে যাবেন?"
+  },
+  "resettodefaults": {
+    "message": "সেটিংস ডিফল্টে রিসেট হয়েছে!"
+  },
+  "errorresettingsettings": {
+    "message": "সেটিংস রিসেট করতে ত্রুটি"
+  },
+  "basicsettingstitle": {
+    "message": "মৌলিক সেটিংস"
+  },
+  "advancedsettingstitle": {
+    "message": "উন্নত সেটিংস"
+  },
+  "statisticstitle": {
+    "message": "পরিসংখ্যান"
+  },
   "rulelimitreached": {
     "message": "আপনি মৌলিক সংস্করণের জন্য নিয়মের সীমা ($limit$) পৌঁছে গেছেন। সীমাহীন নিয়মের জন্য প্রো-তে আপগ্রেড করুন।",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "সম্পাদনার জন্য প্রো প্রয়োজন।" },
-  "invalidpassword": { "message": "অবৈধ পাসওয়ার্ড" },
-  "setpassword": { "message": "পাসওয়ার্ড সেট করুন" },
-  "enterpassword": { "message": "পাসওয়ার্ড লিখুন" },
-  "passwordmismatch": { "message": "পাসওয়ার্ডগুলি মেলেনি" },
-  "passwordtooshort": { "message": "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে" },
-  "resetpasswordconfirm": { "message": "পাসওয়ার্ড রিসেট করলে সুরক্ষা নিষ্ক্রিয় হবে। চালিয়ে যেতে চান?" },
-  "passwordset": { "message": "পাসওয়ার্ড সফলভাবে সেট করা হয়েছে" },
-  "passworddisabled": { "message": "পাসওয়ার্ড সুরক্ষা নিষ্ক্রিয় করা হয়েছে" },
-  "prorequired": { "message": "এই বৈশিষ্ট্যের জন্য প্রো মোড প্রয়োজন" },
-  "enablepasswordtitle": { "message": "পাসওয়ার্ড সুরক্ষা সক্ষম করুন" },
-  "enablepassworddesc": { "message": "নিয়ম মুছে ফেলা বা সম্পাদনার জন্য পাসওয়ার্ড প্রয়োজন (কঠোর মোড উন্নত করে)" },
-  "passwordprotectiontitle": { "message": "পাসওয়ার্ড সুরক্ষা" },
-  "scheduleheader": { "message": "সময়সূচি" },
-  "enableschedule": { "message": "সময়সূচি সক্রিয় করুন" },
-  "alwaysactive": { "message": "সর্বদা সক্রিয়" },
-  "profeatureschedule": { "message": "সময়সূচি শুধুমাত্র Pro সংস্করণে পাওয়া যাবে" },
-  "days": { "message": "দিন" },
-  "starttime": { "message": "শুরুর সময়:" },
-  "endtime": { "message": "শেষের সময়:" },
-  "invaliddays": { "message": "অবৈধ দিন নির্বাচন করা হয়েছে" },
-  "invalidtimeformat": { "message": "অবৈধ সময় ফরম্যাট (HH:MM ব্যবহার করুন)" },
-  "startafterend": { "message": "শুরুর সময় শেষের সময়ের আগে হতে হবে" },
-  "invalidschedule": { "message": "অবৈধ সময়সূচি: অনুগ্রহ করে দিন এবং সময় নির্বাচন করুন।" },
-  "invalidscheduledays": { "message": "অবৈধ সময়সূচি: অন্তত একটি দিন নির্বাচন করুন।" },
-  "invalidschedulestarttime": { "message": "অবৈধ সময়সূচি: শুরুর সময় নির্ধারণ করুন।" },
-  "invalidscheduleendtime": { "message": "অবৈধ সময়সূচি: শেষের সময় নির্ধারণ করুন।" },
-  "editdisablednonpro": { "message": "সম্পাদনা অক্ষম: Pro নয় এমন ব্যবহারকারীদের জন্য অতিরিক্ত নিয়ম।" },
-  "errorloadingstatus": { "message": "ব্যবহারকারীর স্থিতি লোড করতে ত্রুটি।" },
-  "schedule_day_sun": { "message": "রবি" },
-  "schedule_day_mon": { "message": "সোম" },
-  "schedule_day_tue": { "message": "মঙ্গল" },
-  "schedule_day_wed": { "message": "বুধ" },
-  "schedule_day_thu": { "message": "বৃহস্পতি" },
-  "schedule_day_fri": { "message": "শুক্র" },
-  "schedule_day_sat": { "message": "শনি" },
-  "category_header": { "message": "শ্রেণী" },
-  "category_required": { "message": "শ্রেণী আবশ্যক" },
-  "allcategories": { "message": "সমস্ত শ্রেণী" },
-  "category_social": { "message": "সামাজিক মাধ্যম" },
-  "category_news": { "message": "সংবাদ" },
-  "category_entertainment": { "message": "বিনোদন" },
-  "category_shopping": { "message": "কেনাকাটা" },
-  "category_work": { "message": "কাজ" },
-  "category_gaming": { "message": "গেমস" },
-  "category_adult": { "message": "প্রাপ্তবয়স্ক বিষয়বস্তু" },
-  "category_uncategorized": { "message": "শ্রেণীবিহীন" },
-  "searchfordomain": { "message": "ডোমেইন নাম অনুসন্ধান করুন" },
-  "norulesforcategory": { "message": "এই শ্রেণীর জন্য কোনো ব্লক করা সাইট নেই।" },
-  "getpro": { "message": "প্রো নিন" },
-  "profunctionstext": { "message": "Pro বৈশিষ্ট্যের মধ্যে রয়েছে: সময়সূচি অনুযায়ী ব্লক করা, পাসওয়ার্ড সুরক্ষা, নিয়ম ফিল্টারিং এবং নিয়ম রপ্তানি/আমদানি। আমাদের ইউনিভার্সাল লাইসেন্স উপভোগ করুন: একটি সাবস্ক্রিপশন আপনার সব ব্রাউজারে (Chrome, Firefox, Edge, Kiwi) Pro সক্রিয় করে। সক্রিয় করতে blockdistraction.com থেকে সাবস্ক্রিপশন কিনুন, তারপর আপনার অ্যাকাউন্ট ড্যাশবোর্ড থেকে লাইসেন্স কী কপি করে নিচে পেস্ট করুন।" },
-  "upgradenow": { "message": "এখন আপগ্রেড করুন" },
-  "enteremail": { "message": "আপনার ইমেল লিখুন" },
-  "activatepro": { "message": "প্রো সক্রিয় করুন" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "অ্যাক্সেস পুনরুদ্ধার করুন" },
-  "pleaseenteremail": { "message": "অনুগ্রহ করে আপনার ইমেল লিখুন" },
-  "checking": { "message": "পরীক্ষা করা হচ্ছে..." },
-  "proactivated": { "message": "প্রো বৈশিষ্ট্য সক্রিয় হয়েছে!" },
-  "subscriptionnotfound": { "message": "সাবস্ক্রিপশন সক্রিয় নয় বা ইমেল পাওয়া যায়নি।" },
-  "servererror": { "message": "সার্ভার ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।" },
-  "proactivatedfor": { "message": "প্রো সক্রিয় হয়েছে:" },
+  "proonlyactions": {
+    "message": "সম্পাদনার জন্য প্রো প্রয়োজন।"
+  },
+  "invalidpassword": {
+    "message": "অবৈধ পাসওয়ার্ড"
+  },
+  "setpassword": {
+    "message": "পাসওয়ার্ড সেট করুন"
+  },
+  "enterpassword": {
+    "message": "পাসওয়ার্ড লিখুন"
+  },
+  "passwordmismatch": {
+    "message": "পাসওয়ার্ডগুলি মেলেনি"
+  },
+  "passwordtooshort": {
+    "message": "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে"
+  },
+  "resetpasswordconfirm": {
+    "message": "পাসওয়ার্ড রিসেট করলে সুরক্ষা নিষ্ক্রিয় হবে। চালিয়ে যেতে চান?"
+  },
+  "passwordset": {
+    "message": "পাসওয়ার্ড সফলভাবে সেট করা হয়েছে"
+  },
+  "passworddisabled": {
+    "message": "পাসওয়ার্ড সুরক্ষা নিষ্ক্রিয় করা হয়েছে"
+  },
+  "prorequired": {
+    "message": "এই বৈশিষ্ট্যের জন্য প্রো মোড প্রয়োজন"
+  },
+  "enablepasswordtitle": {
+    "message": "পাসওয়ার্ড সুরক্ষা সক্ষম করুন"
+  },
+  "enablepassworddesc": {
+    "message": "নিয়ম মুছে ফেলা বা সম্পাদনার জন্য পাসওয়ার্ড প্রয়োজন (কঠোর মোড উন্নত করে)"
+  },
+  "passwordprotectiontitle": {
+    "message": "পাসওয়ার্ড সুরক্ষা"
+  },
+  "scheduleheader": {
+    "message": "সময়সূচি"
+  },
+  "enableschedule": {
+    "message": "সময়সূচি সক্রিয় করুন"
+  },
+  "alwaysactive": {
+    "message": "সর্বদা সক্রিয়"
+  },
+  "profeatureschedule": {
+    "message": "সময়সূচি শুধুমাত্র Pro সংস্করণে পাওয়া যাবে"
+  },
+  "days": {
+    "message": "দিন"
+  },
+  "starttime": {
+    "message": "শুরুর সময়:"
+  },
+  "endtime": {
+    "message": "শেষের সময়:"
+  },
+  "invaliddays": {
+    "message": "অবৈধ দিন নির্বাচন করা হয়েছে"
+  },
+  "invalidtimeformat": {
+    "message": "অবৈধ সময় ফরম্যাট (HH:MM ব্যবহার করুন)"
+  },
+  "startafterend": {
+    "message": "শুরুর সময় শেষের সময়ের আগে হতে হবে"
+  },
+  "invalidschedule": {
+    "message": "অবৈধ সময়সূচি: অনুগ্রহ করে দিন এবং সময় নির্বাচন করুন।"
+  },
+  "invalidscheduledays": {
+    "message": "অবৈধ সময়সূচি: অন্তত একটি দিন নির্বাচন করুন।"
+  },
+  "invalidschedulestarttime": {
+    "message": "অবৈধ সময়সূচি: শুরুর সময় নির্ধারণ করুন।"
+  },
+  "invalidscheduleendtime": {
+    "message": "অবৈধ সময়সূচি: শেষের সময় নির্ধারণ করুন।"
+  },
+  "editdisablednonpro": {
+    "message": "সম্পাদনা অক্ষম: Pro নয় এমন ব্যবহারকারীদের জন্য অতিরিক্ত নিয়ম।"
+  },
+  "errorloadingstatus": {
+    "message": "ব্যবহারকারীর স্থিতি লোড করতে ত্রুটি।"
+  },
+  "schedule_day_sun": {
+    "message": "রবি"
+  },
+  "schedule_day_mon": {
+    "message": "সোম"
+  },
+  "schedule_day_tue": {
+    "message": "মঙ্গল"
+  },
+  "schedule_day_wed": {
+    "message": "বুধ"
+  },
+  "schedule_day_thu": {
+    "message": "বৃহস্পতি"
+  },
+  "schedule_day_fri": {
+    "message": "শুক্র"
+  },
+  "schedule_day_sat": {
+    "message": "শনি"
+  },
+  "category_header": {
+    "message": "শ্রেণী"
+  },
+  "category_required": {
+    "message": "শ্রেণী আবশ্যক"
+  },
+  "allcategories": {
+    "message": "সমস্ত শ্রেণী"
+  },
+  "category_social": {
+    "message": "সামাজিক মাধ্যম"
+  },
+  "category_news": {
+    "message": "সংবাদ"
+  },
+  "category_entertainment": {
+    "message": "বিনোদন"
+  },
+  "category_shopping": {
+    "message": "কেনাকাটা"
+  },
+  "category_work": {
+    "message": "কাজ"
+  },
+  "category_gaming": {
+    "message": "গেমস"
+  },
+  "category_adult": {
+    "message": "প্রাপ্তবয়স্ক বিষয়বস্তু"
+  },
+  "category_uncategorized": {
+    "message": "শ্রেণীবিহীন"
+  },
+  "searchfordomain": {
+    "message": "ডোমেইন নাম অনুসন্ধান করুন"
+  },
+  "norulesforcategory": {
+    "message": "এই শ্রেণীর জন্য কোনো ব্লক করা সাইট নেই।"
+  },
+  "getpro": {
+    "message": "প্রো নিন"
+  },
+  "profunctionstext": {
+    "message": "Pro বৈশিষ্ট্যের মধ্যে রয়েছে: সময়সূচি অনুযায়ী ব্লক করা, পাসওয়ার্ড সুরক্ষা, নিয়ম ফিল্টারিং এবং নিয়ম রপ্তানি/আমদানি। আমাদের ইউনিভার্সাল লাইসেন্স উপভোগ করুন: একটি সাবস্ক্রিপশন আপনার সব ব্রাউজারে (Chrome, Firefox, Edge, Kiwi) Pro সক্রিয় করে। সক্রিয় করতে blockdistraction.com থেকে সাবস্ক্রিপশন কিনুন, তারপর আপনার অ্যাকাউন্ট ড্যাশবোর্ড থেকে লাইসেন্স কী কপি করে নিচে পেস্ট করুন।"
+  },
+  "upgradenow": {
+    "message": "এখন আপগ্রেড করুন"
+  },
+  "enteremail": {
+    "message": "আপনার ইমেল লিখুন"
+  },
+  "activatepro": {
+    "message": "প্রো সক্রিয় করুন"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "অ্যাক্সেস পুনরুদ্ধার করুন"
+  },
+  "pleaseenteremail": {
+    "message": "অনুগ্রহ করে আপনার ইমেল লিখুন"
+  },
+  "checking": {
+    "message": "পরীক্ষা করা হচ্ছে..."
+  },
+  "proactivated": {
+    "message": "প্রো বৈশিষ্ট্য সক্রিয় হয়েছে!"
+  },
+  "subscriptionnotfound": {
+    "message": "সাবস্ক্রিপশন সক্রিয় নয় বা ইমেল পাওয়া যায়নি।"
+  },
+  "servererror": {
+    "message": "সার্ভার ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+  },
+  "proactivatedfor": {
+    "message": "প্রো সক্রিয় হয়েছে:"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "অনুমতির অনুরোধ ব্যর্থ হয়েছে (মোবাইলে ঘটতে পারে)। আবার চেষ্টা করুন বা ম্যানুয়ালি অনুমতি দিন।"
   },
-  "pastekeylabel": { "message": "এখানে আপনার লাইসেন্স কী পেস্ট করুন:" },
-  "confirmclearstats": { "message": "আপনি কি নিশ্চিত যে আপনি সমস্ত পরিসংখ্যান মুছে ফেলতে চান? এটি পূর্বাবস্থায় ফেরানো যাবে না।" },
-  "statscleared": { "message": "পরিসংখ্যান সফলভাবে মুছে ফেলা হয়েছে।" },
-  "redirectstodaylabel": { "message": "আজকের পুনঃনির্দেশ" },
-  "totalredirectslabel": { "message": "মোট পুনঃনির্দেশ" },
-  "logout": { "message": "লগ আউট" },
-  "loggedoutsuccess": { "message": "আপনি সফলভাবে লগ আউট করেছেন।" },
-  "loggedouterror": { "message": "লগ আউট করার সময় একটি ত্রুটি ঘটেছে।" },
-  "forcesync": { "message": "জোরপূর্বক সিঙ্ক / স্থিতি পরীক্ষা করুন" },
-  "forgotpasswordinstructions": { "message": "আপনার পাসওয়ার্ড রিসেট করতে, অনুগ্রহ করে 'Pro' বিভাগে যান, 'লগ আউট' এ ক্লিক করুন, তারপর আপনার লাইসেন্স কী পেস্ট করে পুনরায় সক্রিয় করুন।" },
-  "blockedtitle": { "message": "সাইটটি অনুপলব্ধ" },
-  "blockedheader": { "message": "এই সাইটটি বর্তমানে অনুপলব্ধ" },
-  "blockedtext": { "message": "এই বিষয়বস্তু প্রদর্শন করা সম্ভব নয়।" },
-  "blockedbutton": { "message": "ট্যাব বন্ধ করুন" },
-  "confirmpassword": { "message": "পাসওয়ার্ড নিশ্চিত করুন" },
-  "modalconfirm": { "message": "নিশ্চিত করুন" },
-  "modalcancel": { "message": "বাতিল" },
-  "forgotpassword": { "message": "পাসওয়ার্ড ভুলে গেছেন? রিসেট করুন (এটি সুরক্ষা মুছে দেবে)" },
-  "prounlocked": { "message": "আপনার সমর্থনের জন্য ধন্যবাদ! সব Pro ফিচার আনলক করা হয়েছে।" },
-  "licensesynced": { "message": "আপনার লাইসেন্স আপনার অ্যাকাউন্টের সাথে সিঙ্ক হয়েছে। অ্যাক্সেস হারালে, আপনি আপনার কী পুনরুদ্ধার করতে পারবেন এখান থেকে: " },
-  "syncing": { "message": "সিঙ্ক করা হচ্ছে..." },
-  "pleaseenterkey": { "message": "অনুগ্রহ করে একটি কী প্রবেশ করুন।" },
-  "syncsuccess": { "message": "সফলভাবে সিঙ্ক হয়েছে" },
-  "syncfailed": { "message": "সিঙ্ক ব্যর্থ হয়েছে।" },
-  "passwordreset": { "message": "পাসওয়ার্ড সুরক্ষা রিসেট করা হয়েছে।" },
-  "privacysecured": { "message": "গোপনীয়তা সুরক্ষিত" },
-  "errorinvalidfiletype": { "message": "অনুগ্রহ করে একটি .json ফাইল নির্বাচন করুন" },
-  "debugsettingstitle": { "message": "ডিবাগ সেটিংস" },
-  "enabledebugtitle": { "message": "ডিবাগ মোড সক্রিয় করুন" },
-  "enabledebugdesc": { "message": "সমস্যা সমাধানের জন্য কনসোলে বিস্তারিত লগিং সক্রিয় করুন" },
-  "errorcommunication": { "message": "ব্যাকগ্রাউন্ড পরিষেবার সাথে যোগাযোগে ত্রুটি" },
-  "clearstats": { "message": "পরিসংখ্যান মুছুন" },
-  "rule_enabled": { "message": "সক্রিয়" },
-  "rule_disabled": { "message": "নিষ্ক্রিয়" },
-  "filter_only_hint": { "message": "এই তালিকাটি শুধু টেবিলে প্রদর্শন ফিল্টার করে" },
-  "category_disabled_desc": { "message": "একটি ক্যাটাগরি মিউট করুন, যাতে সাময়িকভাবে এর সব সাইটে প্রবেশের অনুমতি পাওয়া যায়। পৃথক নিয়মের সেটিংস সংরক্ষিত থাকে।" },
-  "toggle_category_blocking": { "message": "পুরো ক্যাটাগরির জন্য ব্লকিং চালু বা বন্ধ করুন" },
-  "category_muted_no_edit": { "message": "পরিচালনা করা যাবে না: ক্যাটাগরি ব্লকিং সাময়িকভাবে বিরতি দেওয়া হয়েছে" },
-  "feedback_title": { "message": "আপনার কি BlockDistraction পছন্দ হয়েছে?" },
-  "feedback_desc": { "message": "আপনার মতামত এক্সটেনশনটি উন্নত করতে আমাদের অনেক সাহায্য করে।" },
-  "feedback_like": { "message": "হ্যাঁ, দারুণ কাজ করে!" },
-  "feedback_dislike": { "message": "আমার সমস্যা / পরামর্শ আছে" },
-  "trialproheader": { "message": "আপনার ৭ দিনের ফ্রি ট্রায়াল শুরু করুন" },
-  "trialprotext": { "message": "যেকোনো সময় বাতিল করতে পারবেন। আপনার পেমেন্ট সম্পূর্ণ সুরক্ষিত।" },
-  "focussessionheader": { "message": "ফোকাস সেশন" },
-  "focussessionstart": { "message": "শুরু" },
-  "focussessionstop": { "message": "বন্ধ" },
-  "focussessionduration": { "message": "সময়কাল (মিনিট):" },
-  "focussessioninfo": { "message": "আপনার সমস্ত ব্লকিং নিয়ম একটি নির্দিষ্ট সময়ের জন্য সক্রিয় করে, তাদের বর্তমান সেটিংস এবং সময়সূচীকে উপেক্ষা করে। সর্বাধিক মনোযোগের জন্য।" },
-  "focussessionprofeature": { "message": "কাস্টম সময়কাল এবং হার্ডকোর-মোড হলো প্রো (Pro) ফিচার।" },
-  "focussessionended": { "message": "ফোকাস সেশন শেষ হয়েছে! একটু বিরতি নিন।" },
-  "focussessionhardcore": { "message": "হার্ডকোর মোড ('বন্ধ' বোতাম নেই)" },
-  "focussessionsoundtitle": { "message": "ফোকাস সেশন শব্দ বিজ্ঞপ্তি" },
-  "focussessionsounddesc": { "message": "ফোকাস সেশন শেষ হলে একটি শব্দ বাজান।" },
-  "focussessionactivebanner": { "message": "ফোকাস সেশন সক্রিয়! বাকি সময়:" },
-  "focussessioninvalidduration": { "message": "অনুগ্রহ করে একটি সঠিক সময়কাল লিখুন (১-২৪০ মিনিট)।" },
-  "successfulfocussessionslabel": { "message": "সফল ফোকাস সেশন" },
-  "rule_scheduled": { "message": "নির্ধারিত নিয়ম" },
-  "addwhitelistrule": { "message": "ব্যতিক্রম যোগ করুন" },
-  "category_whitelist": { "message": "হোয়াইটলিস্ট" },
-  "conflict_blacklist_err": { "message": "এই সাইটটি ইতিমধ্যে আপনার ব্ল্যাকলিস্টে রয়েছে। প্রথমে এটি সরান।" },
-  "conflict_whitelist_err": { "message": "এই সাইটটি ইতিমধ্যে আপনার হোয়াইটলিস্টে রয়েছে। প্রথমে এটি সরান।" },
-  "status_allow": { "message": "অনুমোদিত" },
-  "redundant_whitelist_err": { "message": "এই নিয়মটি ইতিমধ্যে অন্য একটি হোয়াইটলিস্ট নিয়ম দ্বারা আচ্ছাদিত।" },
-  "focussessionmode": { "message": "ফোকাস মোড:" },
-  "focusmodeblacklist": { "message": "ব্ল্যাকলিস্ট ব্লক করুন" },
-  "focusmodewhitelist": { "message": "শুধু হোয়াইটলিস্ট অনুমতি দিন" }
+  "pastekeylabel": {
+    "message": "এখানে আপনার লাইসেন্স কী পেস্ট করুন:"
+  },
+  "confirmclearstats": {
+    "message": "আপনি কি নিশ্চিত যে আপনি সমস্ত পরিসংখ্যান মুছে ফেলতে চান? এটি পূর্বাবস্থায় ফেরানো যাবে না।"
+  },
+  "statscleared": {
+    "message": "পরিসংখ্যান সফলভাবে মুছে ফেলা হয়েছে।"
+  },
+  "redirectstodaylabel": {
+    "message": "আজকের পুনঃনির্দেশ"
+  },
+  "totalredirectslabel": {
+    "message": "মোট পুনঃনির্দেশ"
+  },
+  "logout": {
+    "message": "লগ আউট"
+  },
+  "loggedoutsuccess": {
+    "message": "আপনি সফলভাবে লগ আউট করেছেন।"
+  },
+  "loggedouterror": {
+    "message": "লগ আউট করার সময় একটি ত্রুটি ঘটেছে।"
+  },
+  "forcesync": {
+    "message": "জোরপূর্বক সিঙ্ক / স্থিতি পরীক্ষা করুন"
+  },
+  "forgotpasswordinstructions": {
+    "message": "আপনার পাসওয়ার্ড রিসেট করতে, অনুগ্রহ করে 'Pro' বিভাগে যান, 'লগ আউট' এ ক্লিক করুন, তারপর আপনার লাইসেন্স কী পেস্ট করে পুনরায় সক্রিয় করুন।"
+  },
+  "blockedtitle": {
+    "message": "সাইটটি অনুপলব্ধ"
+  },
+  "blockedheader": {
+    "message": "এই সাইটটি বর্তমানে অনুপলব্ধ"
+  },
+  "blockedtext": {
+    "message": "এই বিষয়বস্তু প্রদর্শন করা সম্ভব নয়।"
+  },
+  "blockedbutton": {
+    "message": "ট্যাব বন্ধ করুন"
+  },
+  "confirmpassword": {
+    "message": "পাসওয়ার্ড নিশ্চিত করুন"
+  },
+  "modalconfirm": {
+    "message": "নিশ্চিত করুন"
+  },
+  "modalcancel": {
+    "message": "বাতিল"
+  },
+  "forgotpassword": {
+    "message": "পাসওয়ার্ড ভুলে গেছেন? রিসেট করুন (এটি সুরক্ষা মুছে দেবে)"
+  },
+  "prounlocked": {
+    "message": "আপনার সমর্থনের জন্য ধন্যবাদ! সব Pro ফিচার আনলক করা হয়েছে।"
+  },
+  "licensesynced": {
+    "message": "আপনার লাইসেন্স আপনার অ্যাকাউন্টের সাথে সিঙ্ক হয়েছে। অ্যাক্সেস হারালে, আপনি আপনার কী পুনরুদ্ধার করতে পারবেন এখান থেকে: "
+  },
+  "syncing": {
+    "message": "সিঙ্ক করা হচ্ছে..."
+  },
+  "pleaseenterkey": {
+    "message": "অনুগ্রহ করে একটি কী প্রবেশ করুন।"
+  },
+  "syncsuccess": {
+    "message": "সফলভাবে সিঙ্ক হয়েছে"
+  },
+  "syncfailed": {
+    "message": "সিঙ্ক ব্যর্থ হয়েছে।"
+  },
+  "passwordreset": {
+    "message": "পাসওয়ার্ড সুরক্ষা রিসেট করা হয়েছে।"
+  },
+  "privacysecured": {
+    "message": "গোপনীয়তা সুরক্ষিত"
+  },
+  "errorinvalidfiletype": {
+    "message": "অনুগ্রহ করে একটি .json ফাইল নির্বাচন করুন"
+  },
+  "debugsettingstitle": {
+    "message": "ডিবাগ সেটিংস"
+  },
+  "enabledebugtitle": {
+    "message": "ডিবাগ মোড সক্রিয় করুন"
+  },
+  "enabledebugdesc": {
+    "message": "সমস্যা সমাধানের জন্য কনসোলে বিস্তারিত লগিং সক্রিয় করুন"
+  },
+  "errorcommunication": {
+    "message": "ব্যাকগ্রাউন্ড পরিষেবার সাথে যোগাযোগে ত্রুটি"
+  },
+  "clearstats": {
+    "message": "পরিসংখ্যান মুছুন"
+  },
+  "rule_enabled": {
+    "message": "সক্রিয়"
+  },
+  "rule_disabled": {
+    "message": "নিষ্ক্রিয়"
+  },
+  "filter_only_hint": {
+    "message": "এই তালিকাটি শুধু টেবিলে প্রদর্শন ফিল্টার করে"
+  },
+  "category_disabled_desc": {
+    "message": "একটি ক্যাটাগরি মিউট করুন, যাতে সাময়িকভাবে এর সব সাইটে প্রবেশের অনুমতি পাওয়া যায়। পৃথক নিয়মের সেটিংস সংরক্ষিত থাকে।"
+  },
+  "toggle_category_blocking": {
+    "message": "পুরো ক্যাটাগরির জন্য ব্লকিং চালু বা বন্ধ করুন"
+  },
+  "category_muted_no_edit": {
+    "message": "পরিচালনা করা যাবে না: ক্যাটাগরি ব্লকিং সাময়িকভাবে বিরতি দেওয়া হয়েছে"
+  },
+  "feedback_title": {
+    "message": "আপনার কি BlockDistraction পছন্দ হয়েছে?"
+  },
+  "feedback_desc": {
+    "message": "আপনার মতামত এক্সটেনশনটি উন্নত করতে আমাদের অনেক সাহায্য করে।"
+  },
+  "feedback_like": {
+    "message": "হ্যাঁ, দারুণ কাজ করে!"
+  },
+  "feedback_dislike": {
+    "message": "আমার সমস্যা / পরামর্শ আছে"
+  },
+  "trialproheader": {
+    "message": "আপনার ৭ দিনের ফ্রি ট্রায়াল শুরু করুন"
+  },
+  "trialprotext": {
+    "message": "যেকোনো সময় বাতিল করতে পারবেন। আপনার পেমেন্ট সম্পূর্ণ সুরক্ষিত।"
+  },
+  "focussessionheader": {
+    "message": "ফোকাস সেশন"
+  },
+  "focussessionstart": {
+    "message": "শুরু"
+  },
+  "focussessionstop": {
+    "message": "বন্ধ"
+  },
+  "focussessionduration": {
+    "message": "সময়কাল (মিনিট):"
+  },
+  "focussessioninfo": {
+    "message": "আপনার সমস্ত ব্লকিং নিয়ম একটি নির্দিষ্ট সময়ের জন্য সক্রিয় করে, তাদের বর্তমান সেটিংস এবং সময়সূচীকে উপেক্ষা করে। সর্বাধিক মনোযোগের জন্য।"
+  },
+  "focussessionprofeature": {
+    "message": "কাস্টম সময়কাল এবং হার্ডকোর-মোড হলো প্রো (Pro) ফিচার।"
+  },
+  "focussessionended": {
+    "message": "ফোকাস সেশন শেষ হয়েছে! একটু বিরতি নিন।"
+  },
+  "focussessionhardcore": {
+    "message": "হার্ডকোর মোড ('বন্ধ' বোতাম নেই)"
+  },
+  "focussessionsoundtitle": {
+    "message": "ফোকাস সেশন শব্দ বিজ্ঞপ্তি"
+  },
+  "focussessionsounddesc": {
+    "message": "ফোকাস সেশন শেষ হলে একটি শব্দ বাজান।"
+  },
+  "focussessionactivebanner": {
+    "message": "ফোকাস সেশন সক্রিয়! বাকি সময়:"
+  },
+  "focussessioninvalidduration": {
+    "message": "অনুগ্রহ করে একটি সঠিক সময়কাল লিখুন (১-২৪০ মিনিট)।"
+  },
+  "successfulfocussessionslabel": {
+    "message": "সফল ফোকাস সেশন"
+  },
+  "rule_scheduled": {
+    "message": "নির্ধারিত নিয়ম"
+  },
+  "addwhitelistrule": {
+    "message": "ব্যতিক্রম যোগ করুন"
+  },
+  "category_whitelist": {
+    "message": "হোয়াইটলিস্ট"
+  },
+  "conflict_blacklist_err": {
+    "message": "এই সাইটটি ইতিমধ্যে আপনার ব্ল্যাকলিস্টে রয়েছে। প্রথমে এটি সরান।"
+  },
+  "conflict_whitelist_err": {
+    "message": "এই সাইটটি ইতিমধ্যে আপনার হোয়াইটলিস্টে রয়েছে। প্রথমে এটি সরান।"
+  },
+  "status_allow": {
+    "message": "অনুমোদিত"
+  },
+  "redundant_whitelist_err": {
+    "message": "এই নিয়মটি ইতিমধ্যে অন্য একটি হোয়াইটলিস্ট নিয়ম দ্বারা আচ্ছাদিত।"
+  },
+  "focussessionmode": {
+    "message": "ফোকাস মোড:"
+  },
+  "focusmodeblacklist": {
+    "message": "ব্ল্যাকলিস্ট ব্লক করুন"
+  },
+  "focusmodewhitelist": {
+    "message": "শুধু হোয়াইটলিস্ট অনুমতি দিন"
+  },
+  "schedule_edit": {
+    "message": "সময়সূচি সম্পাদনা করুন"
+  },
+  "schedule_add_period": {
+    "message": "সময়ের গ্রুপ যোগ করুন"
+  },
+  "schedule_remove_period": {
+    "message": "সরান"
+  },
+  "schedule_period": {
+    "message": "সময়ের গ্রুপ"
+  },
+  "schedule_every_day": {
+    "message": "প্রতিদিন"
+  },
+  "schedule_weekdays": {
+    "message": "কর্মদিবস"
+  },
+  "schedule_weekends": {
+    "message": "সাপ্তাহিক ছুটি"
+  },
+  "schedule_day_overlap": {
+    "message": "প্রতিটি দিন শুধুমাত্র একবার ব্যবহার করা যাবে।"
+  }
 }

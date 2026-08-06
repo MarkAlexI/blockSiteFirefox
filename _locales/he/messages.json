@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – חוסם אתרים" },
-  "shortname": { "message": "חוסם" },
-  "description": { "message": "כלי פשוט ואמין לחסימה והפנייה מחדש של אתרים כדי לשמור על ריכוז." },
-  "defaulttitle": { "message": "השאר מרוכז ומועיל" },
-  "header": { "message": "חוסם אתרים" },
-  "paragraph": { "message": "כדי לחסום אתר או משאב, הזן חלק משמו בשדה הקלט עם הטקסט הממלא \"Type Block URL\" – לדוגמה, \"facebook\" יחסום את כל תתי-הדומיינים הקשורים. בשדה עם הטקסט הממלא \"Type Redirect URL\" הזן את כתובת ההפנייה המלאה כולל הפרוטוקול, כמו \"https://google.com\". אם השדה ריק, האתר יחסם ללא הפנייה. לחץ על כפתור השמירה כדי להחיל את הכלל. כדי לעדכן כלל, מחק את הישן וצור חדש." },
-  "addrule": { "message": "הוסף כלל חדש" },
-  "blockurl": { "message": "הזן כתובת לחסימה" },
-  "redirecturl": { "message": "הזן כתובת הפנייה (אופציונלי)" },
-  "redirecturlheader": { "message": "כתובת URL להפניה" },
-  "redirecturlplaceholder": { "message": "אופציונלי - השאר ריק כדי לחסום" },
-  "redirecturlhint": { "message": "הזן כתובת URL מלאה הכוללת https://" },
-  "mobilecopylinkhint": { "message": "כדי לחסום קישור, העתק את הכתובת שלו והדבק אותה בשדה החסימה." },
-  "savebtn": { "message": "שמור" },
-  "deletebtn": { "message": "מחק" },
-  "alertruleexist": { "message": "הכלל כבר קיים" },
+  "chromename": {
+    "message": "BlockDistraction – חוסם אתרים"
+  },
+  "shortname": {
+    "message": "חוסם"
+  },
+  "description": {
+    "message": "כלי פשוט ואמין לחסימה והפנייה מחדש של אתרים כדי לשמור על ריכוז."
+  },
+  "defaulttitle": {
+    "message": "השאר מרוכז ומועיל"
+  },
+  "header": {
+    "message": "חוסם אתרים"
+  },
+  "paragraph": {
+    "message": "כדי לחסום אתר או משאב, הזן חלק משמו בשדה הקלט עם הטקסט הממלא \"Type Block URL\" – לדוגמה, \"facebook\" יחסום את כל תתי-הדומיינים הקשורים. בשדה עם הטקסט הממלא \"Type Redirect URL\" הזן את כתובת ההפנייה המלאה כולל הפרוטוקול, כמו \"https://google.com\". אם השדה ריק, האתר יחסם ללא הפנייה. לחץ על כפתור השמירה כדי להחיל את הכלל. כדי לעדכן כלל, מחק את הישן וצור חדש."
+  },
+  "addrule": {
+    "message": "הוסף כלל חדש"
+  },
+  "blockurl": {
+    "message": "הזן כתובת לחסימה"
+  },
+  "redirecturl": {
+    "message": "הזן כתובת הפנייה (אופציונלי)"
+  },
+  "redirecturlheader": {
+    "message": "כתובת URL להפניה"
+  },
+  "redirecturlplaceholder": {
+    "message": "אופציונלי - השאר ריק כדי לחסום"
+  },
+  "redirecturlhint": {
+    "message": "הזן כתובת URL מלאה הכוללת https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "כדי לחסום קישור, העתק את הכתובת שלו והדבק אותה בשדה החסימה."
+  },
+  "savebtn": {
+    "message": "שמור"
+  },
+  "deletebtn": {
+    "message": "מחק"
+  },
+  "alertruleexist": {
+    "message": "הכלל כבר קיים"
+  },
   "savedrules": {
     "message": "$ruleslength$ כלל/ים נשמרו",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "לא ניתן לחסום משאב זה." },
-  "wrongblockurl": { "message": "כתובת URL לא חוקית לחסימה" },
-  "wrongredirecturl": { "message": "כתובת הפנייה לא חוקית" },
-  "blockthat": { "message": "חסום אתר זה" },
-  "sendfeedbackbutton": { "message": "שלח משוב" },
-  "sendfeedbacksubject": { "message": "משוב עבור BlockDistraction" },
-  "sendfeedbackbody": { "message": "שלום, ברצוני לשתף את המשוב הבא:\n\n" },
-  "quote1": { "message": "השאר מרוכז, השאר חזק." },
-  "quote2": { "message": "עתידך נוצר ממה שאתה עושה היום." },
-  "quote3": { "message": "משמעת היא הגשר בין מטרות להצלחה." },
-  "quote4": { "message": "אתר אחד נחסם, צעד אחד קרוב יותר למטרה שלך." },
-  "quote5": { "message": "תעשה שכל לחיצה נחשבת." },
-  "quote6": { "message": "אל תסתכל על השעון; עשה כפי שהוא עושה. המשך." },
-  "quote7": { "message": "צעדים קטנים מדי יום מובילים לתוצאות גדולות." },
-  "quote8": { "message": "המגבלה היחידה שלך היא המוח שלך." },
-  "quote9": { "message": "הצלחה היא סכום המאמצים הקטנים היומיים." },
-  "quote10": { "message": "התמקד בלהיות יעיל, לא עסוק." },
-  "quote11": { "message": "הגן על תשומת הלב שלך – זו הנכס היקר ביותר שלך." },
-  "quote12": { "message": "כל הסחת דעת שחוסמה היא זמן שהושג חזרה." },
-  "quote13": { "message": "הפחת את הרעש; הגדל את הפרודוקטיביות שלך." },
-  "quote14": { "message": "שגרות קטנות בונות מומנטום בלתי ניתן לעצירה." },
-  "quote15": { "message": "בהירות מנצחת כאוס – התרכז במה שחשוב." },
-  "quote16": { "message": "תגיד לא להסחות דעת; תגיד כן להתקדמות." },
-  "quote17": { "message": "שעה ממוקדת היום מכפילה את התוצאות שלך מחר." },
-  "quote18": { "message": "צור יותר על ידי צריכה פחותה." },
-  "quote19": { "message": "משמעת בוחרת בניצחונות ארוכי טווח על פני דחפים קצרים." },
-  "quote20": { "message": "סגור לשונית, פתח מקום לרעיונות חדשים." },
-  "quote21": { "message": "העבודה שאתה נמנע ממנה היום עלולה להפוך ללחץ של מחר." },
-  "quote22": { "message": "מיקוד הוא לא לעשות יותר, אלא לעשות את מה שבאמת חשוב." },
-  "quote23": { "message": "המטרות שלך ראויות ליותר תשומת לב מהסחות הדעת שלך." },
-  "quote24": { "message": "כל דקה בלי הסחות דעת היא השקעה בעצמך." },
-  "quote25": { "message": "עקביות מביאה תוצאות יציבות יותר מאשר פרצי מוטיבציה קצרים." },
-  "quote26": { "message": "הזמן הטוב ביותר להתחיל היה אתמול. הזמן הבא הכי טוב הוא עכשיו." },
-  "quote27": { "message": "התקדמות מתחילה כשאתה בוחר פעולה במקום הסחה." },
-  "quote28": { "message": "רגע אחד של ריכוז יכול לשנות את כל היום שלך." },
-  "quote29": { "message": "אתה לא צריך יותר זמן, אתה צריך פחות הסחות דעת." },
-  "quote30": { "message": "כל בחירה להישאר ממוקד מחזקת את האני העתידי שלך." },
-  "quote31": { "message": "החסימה הזו זמנית; המטרות שלך הן ארוכות טווח." },
-  "quote32": { "message": "כל הסחת דעת שנחסמה היא ניצחון עבור העתיד שלך." },
-  "quote33": { "message": "האינטרנט אינסופי, אבל הזמן שלך לא." },
-  "quote34": { "message": "קבע את סדרי העדיפויות שלך לפני שהרשת תעשה זאת עבורך." },
-  "quote35": { "message": "פחות גלילה, יותר יצירה." },
-  "quote36": { "message": "תשומת הלב שלך מעצבת את ההישגים שלך." },
-  "quote37": { "message": "הישאר ממוקד — הסחות הדעת יכולות לחכות." },
-  "quote38": { "message": "כל החלטה פרודוקטיבית מתחילה במוח ממוקד." },
-  "quote39": { "message": "חסמת אתר, לא את הפוטנציאל שלך." },
-  "quote40": { "message": "הדרך להצלחה נבנית מהחלטות ממוקדות." },
-  "actionsheader": { "message": "פעולות" },
-  "norules": { "message": "אין אתרים חסומים." },
-  "editbtn": { "message": "ערוך" },
-  "ruleddeleted": { "message": "הכלל נמחק." },
-  "cancelbtn": { "message": "ביטול" },
-  "ruleupdated": { "message": "הכלל עודכן." },
-  "rulenewadded": { "message": "כלל חדש נוסף." },
-  "gotooptions": { "message": "עבור לדף האפשרויות ⚙️" },
-  "gotopopup": { "message": "לחץ על סמל התוסף כדי לחזור לחלון הקופץ." },
-  "rulesmigrated": { "message": "חוקים עודכנו לתאימות" },
-  "errorupdatingrules": { "message": "שגיאה בעדכון החוקים" },
-  "erroraddingrule": { "message": "שגיאה בהוספת חוק" },
-  "errorremovingrule": { "message": "שגיאה בהסרת חוק" },
-  "optionsheader": { "message": "הגדרות התוסף" },
-  "optionsdescription": { "message": "הגדר את התנהגות התוסף והגדרות האבטחה" },
-  "securitymodetitle": { "message": "מצב אבטחה" },
-  "normalmodetitle": { "message": "מצב רגיל" },
-  "normalmodedesc": { "message": "ניתן למחוק כללים מייד בלחיצה אחת" },
-  "strictmodetitle": { "message": "מצב קפדני" },
-  "strictmodedesc": { "message": "מחיקת כללים דורשת נספר לאחור של 10 שניות כדי למנוע מחיקה בטעות" },
-  "confirmdeletetitle": { "message": "אשר לפני מחיקת מספר כללים" },
-  "confirmdeletedesc": { "message": "הצג תיבת אישור בעת מחיקת מספר כללים בבת אחת" },
-  "notificationstitle": { "message": "הצג התראות" },
-  "notificationsdesc": { "message": "הצג התראות כאשר התוסף עודכן" },
-  "rulesmanagementtitle": { "message": "ניהול כללים" },
-  "exportrulesbtn": { "message": "ייצוא כללים" },
-  "importrulesbtn": { "message": "ייבוא כללים" },
-  "clearallrulesbtn": { "message": "נקה את כל הכללים" },
-  "totalruleslabel": { "message": "סה״כ כללים" },
-  "blockedtodaylabel": { "message": "חסומים היום" },
-  "totalblockedlabel": { "message": "סה״כ חסומים" },
-  "resetsettingsbtn": { "message": "איפוס לברירות מחדל" },
-  "backtopopup": { "message": "חזרה לתפריט הראשי" },
-  "errorloadingsettings": { "message": "שגיאה בטעינת ההגדרות" },
-  "settingssaved": { "message": "ההגדרות נשמרו בהצלחה!" },
-  "errorsavingsettings": { "message": "שגיאה בשמירת ההגדרות" },
-  "rulesexported": { "message": "הכללים יוצאו בהצלחה!" },
-  "errorexportingrules": { "message": "שגיאה ביצוא הכללים" },
+  "restrictedblockurl": {
+    "message": "לא ניתן לחסום משאב זה."
+  },
+  "wrongblockurl": {
+    "message": "כתובת URL לא חוקית לחסימה"
+  },
+  "wrongredirecturl": {
+    "message": "כתובת הפנייה לא חוקית"
+  },
+  "blockthat": {
+    "message": "חסום אתר זה"
+  },
+  "sendfeedbackbutton": {
+    "message": "שלח משוב"
+  },
+  "sendfeedbacksubject": {
+    "message": "משוב עבור BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "שלום, ברצוני לשתף את המשוב הבא:\n\n"
+  },
+  "quote1": {
+    "message": "השאר מרוכז, השאר חזק."
+  },
+  "quote2": {
+    "message": "עתידך נוצר ממה שאתה עושה היום."
+  },
+  "quote3": {
+    "message": "משמעת היא הגשר בין מטרות להצלחה."
+  },
+  "quote4": {
+    "message": "אתר אחד נחסם, צעד אחד קרוב יותר למטרה שלך."
+  },
+  "quote5": {
+    "message": "תעשה שכל לחיצה נחשבת."
+  },
+  "quote6": {
+    "message": "אל תסתכל על השעון; עשה כפי שהוא עושה. המשך."
+  },
+  "quote7": {
+    "message": "צעדים קטנים מדי יום מובילים לתוצאות גדולות."
+  },
+  "quote8": {
+    "message": "המגבלה היחידה שלך היא המוח שלך."
+  },
+  "quote9": {
+    "message": "הצלחה היא סכום המאמצים הקטנים היומיים."
+  },
+  "quote10": {
+    "message": "התמקד בלהיות יעיל, לא עסוק."
+  },
+  "quote11": {
+    "message": "הגן על תשומת הלב שלך – זו הנכס היקר ביותר שלך."
+  },
+  "quote12": {
+    "message": "כל הסחת דעת שחוסמה היא זמן שהושג חזרה."
+  },
+  "quote13": {
+    "message": "הפחת את הרעש; הגדל את הפרודוקטיביות שלך."
+  },
+  "quote14": {
+    "message": "שגרות קטנות בונות מומנטום בלתי ניתן לעצירה."
+  },
+  "quote15": {
+    "message": "בהירות מנצחת כאוס – התרכז במה שחשוב."
+  },
+  "quote16": {
+    "message": "תגיד לא להסחות דעת; תגיד כן להתקדמות."
+  },
+  "quote17": {
+    "message": "שעה ממוקדת היום מכפילה את התוצאות שלך מחר."
+  },
+  "quote18": {
+    "message": "צור יותר על ידי צריכה פחותה."
+  },
+  "quote19": {
+    "message": "משמעת בוחרת בניצחונות ארוכי טווח על פני דחפים קצרים."
+  },
+  "quote20": {
+    "message": "סגור לשונית, פתח מקום לרעיונות חדשים."
+  },
+  "quote21": {
+    "message": "העבודה שאתה נמנע ממנה היום עלולה להפוך ללחץ של מחר."
+  },
+  "quote22": {
+    "message": "מיקוד הוא לא לעשות יותר, אלא לעשות את מה שבאמת חשוב."
+  },
+  "quote23": {
+    "message": "המטרות שלך ראויות ליותר תשומת לב מהסחות הדעת שלך."
+  },
+  "quote24": {
+    "message": "כל דקה בלי הסחות דעת היא השקעה בעצמך."
+  },
+  "quote25": {
+    "message": "עקביות מביאה תוצאות יציבות יותר מאשר פרצי מוטיבציה קצרים."
+  },
+  "quote26": {
+    "message": "הזמן הטוב ביותר להתחיל היה אתמול. הזמן הבא הכי טוב הוא עכשיו."
+  },
+  "quote27": {
+    "message": "התקדמות מתחילה כשאתה בוחר פעולה במקום הסחה."
+  },
+  "quote28": {
+    "message": "רגע אחד של ריכוז יכול לשנות את כל היום שלך."
+  },
+  "quote29": {
+    "message": "אתה לא צריך יותר זמן, אתה צריך פחות הסחות דעת."
+  },
+  "quote30": {
+    "message": "כל בחירה להישאר ממוקד מחזקת את האני העתידי שלך."
+  },
+  "quote31": {
+    "message": "החסימה הזו זמנית; המטרות שלך הן ארוכות טווח."
+  },
+  "quote32": {
+    "message": "כל הסחת דעת שנחסמה היא ניצחון עבור העתיד שלך."
+  },
+  "quote33": {
+    "message": "האינטרנט אינסופי, אבל הזמן שלך לא."
+  },
+  "quote34": {
+    "message": "קבע את סדרי העדיפויות שלך לפני שהרשת תעשה זאת עבורך."
+  },
+  "quote35": {
+    "message": "פחות גלילה, יותר יצירה."
+  },
+  "quote36": {
+    "message": "תשומת הלב שלך מעצבת את ההישגים שלך."
+  },
+  "quote37": {
+    "message": "הישאר ממוקד — הסחות הדעת יכולות לחכות."
+  },
+  "quote38": {
+    "message": "כל החלטה פרודוקטיבית מתחילה במוח ממוקד."
+  },
+  "quote39": {
+    "message": "חסמת אתר, לא את הפוטנציאל שלך."
+  },
+  "quote40": {
+    "message": "הדרך להצלחה נבנית מהחלטות ממוקדות."
+  },
+  "actionsheader": {
+    "message": "פעולות"
+  },
+  "norules": {
+    "message": "אין אתרים חסומים."
+  },
+  "editbtn": {
+    "message": "ערוך"
+  },
+  "ruleddeleted": {
+    "message": "הכלל נמחק."
+  },
+  "cancelbtn": {
+    "message": "ביטול"
+  },
+  "ruleupdated": {
+    "message": "הכלל עודכן."
+  },
+  "rulenewadded": {
+    "message": "כלל חדש נוסף."
+  },
+  "gotooptions": {
+    "message": "עבור לדף האפשרויות ⚙️"
+  },
+  "gotopopup": {
+    "message": "לחץ על סמל התוסף כדי לחזור לחלון הקופץ."
+  },
+  "rulesmigrated": {
+    "message": "חוקים עודכנו לתאימות"
+  },
+  "errorupdatingrules": {
+    "message": "שגיאה בעדכון החוקים"
+  },
+  "erroraddingrule": {
+    "message": "שגיאה בהוספת חוק"
+  },
+  "errorremovingrule": {
+    "message": "שגיאה בהסרת חוק"
+  },
+  "optionsheader": {
+    "message": "הגדרות התוסף"
+  },
+  "optionsdescription": {
+    "message": "הגדר את התנהגות התוסף והגדרות האבטחה"
+  },
+  "securitymodetitle": {
+    "message": "מצב אבטחה"
+  },
+  "normalmodetitle": {
+    "message": "מצב רגיל"
+  },
+  "normalmodedesc": {
+    "message": "ניתן למחוק כללים מייד בלחיצה אחת"
+  },
+  "strictmodetitle": {
+    "message": "מצב קפדני"
+  },
+  "strictmodedesc": {
+    "message": "מחיקת כללים דורשת נספר לאחור של 10 שניות כדי למנוע מחיקה בטעות"
+  },
+  "confirmdeletetitle": {
+    "message": "אשר לפני מחיקת מספר כללים"
+  },
+  "confirmdeletedesc": {
+    "message": "הצג תיבת אישור בעת מחיקת מספר כללים בבת אחת"
+  },
+  "notificationstitle": {
+    "message": "הצג התראות"
+  },
+  "notificationsdesc": {
+    "message": "הצג התראות כאשר התוסף עודכן"
+  },
+  "rulesmanagementtitle": {
+    "message": "ניהול כללים"
+  },
+  "exportrulesbtn": {
+    "message": "ייצוא כללים"
+  },
+  "importrulesbtn": {
+    "message": "ייבוא כללים"
+  },
+  "clearallrulesbtn": {
+    "message": "נקה את כל הכללים"
+  },
+  "totalruleslabel": {
+    "message": "סה״כ כללים"
+  },
+  "blockedtodaylabel": {
+    "message": "חסומים היום"
+  },
+  "totalblockedlabel": {
+    "message": "סה״כ חסומים"
+  },
+  "resetsettingsbtn": {
+    "message": "איפוס לברירות מחדל"
+  },
+  "backtopopup": {
+    "message": "חזרה לתפריט הראשי"
+  },
+  "errorloadingsettings": {
+    "message": "שגיאה בטעינת ההגדרות"
+  },
+  "settingssaved": {
+    "message": "ההגדרות נשמרו בהצלחה!"
+  },
+  "errorsavingsettings": {
+    "message": "שגיאה בשמירת ההגדרות"
+  },
+  "rulesexported": {
+    "message": "הכללים יוצאו בהצלחה!"
+  },
+  "errorexportingrules": {
+    "message": "שגיאה ביצוא הכללים"
+  },
   "willimportrules": {
     "message": "$ruleslength$ כללים ייובאו.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "הכללים הנוכחיים יוחלפו. להמשיך?" },
+  "ruleswillbereplaced": {
+    "message": "הכללים הנוכחיים יוחלפו. להמשיך?"
+  },
   "importedrules": {
     "message": "$ruleslength$ כללים ייובאו בהצלחה!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "שגיאה בייבוא הכללים: " },
-  "norulestoclear": { "message": "אין כללים למחיקה" },
+  "errorimportingrules": {
+    "message": "שגיאה בייבוא הכללים: "
+  },
+  "norulestoclear": {
+    "message": "אין כללים למחיקה"
+  },
   "willdeleteallrules": {
     "message": "פעולה זו תמחק לצמיתות את כל $rulescount$ הכללים.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "פעולה זו אינה ניתנת לביטול. להמשיך?" },
-  "allrulescleared": { "message": "כל הכללים נמחקו בהצלחה!" },
-  "errorclearingrules": { "message": "שגיאה במחיקת הכללים" },
-  "willreset": { "message": "כל ההגדרות יאותחו לערכי ברירת המחדל. להמשיך?" },
-  "resettodefaults": { "message": "ההגדרות אושרו לברירות המחדל!" },
-  "errorresettingsettings": { "message": "שגיאה באיפוס ההגדרות" },
-  "basicsettingstitle": { "message": "הגדרות בסיסיות" },
-  "advancedsettingstitle": { "message": "הגדרות מתקדמות" },
-  "statisticstitle": { "message": "סטטיסטיקות" },
+  "cannotbeundone": {
+    "message": "פעולה זו אינה ניתנת לביטול. להמשיך?"
+  },
+  "allrulescleared": {
+    "message": "כל הכללים נמחקו בהצלחה!"
+  },
+  "errorclearingrules": {
+    "message": "שגיאה במחיקת הכללים"
+  },
+  "willreset": {
+    "message": "כל ההגדרות יאותחו לערכי ברירת המחדל. להמשיך?"
+  },
+  "resettodefaults": {
+    "message": "ההגדרות אושרו לברירות המחדל!"
+  },
+  "errorresettingsettings": {
+    "message": "שגיאה באיפוס ההגדרות"
+  },
+  "basicsettingstitle": {
+    "message": "הגדרות בסיסיות"
+  },
+  "advancedsettingstitle": {
+    "message": "הגדרות מתקדמות"
+  },
+  "statisticstitle": {
+    "message": "סטטיסטיקות"
+  },
   "rulelimitreached": {
     "message": "הגעת למגבלת הכללים ($limit$) בגרסה הבסיסית. שדרג ל-Pro עבור כללים ללא הגבלה.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "נדרש Pro לעריכה." },
-  "invalidpassword": { "message": "סיסמה לא חוקית" },
-  "setpassword": { "message": "הגדר סיסמה" },
-  "enterpassword": { "message": "הזן סיסמה" },
-  "passwordmismatch": { "message": "הסיסמאות אינן תואמות" },
-  "passwordtooshort": { "message": "הסיסמה חייבת להכיל לפחות 6 תווים" },
-  "resetpasswordconfirm": { "message": "איפוס הסיסמה יבטל את ההגנה. להמשיך?" },
-  "passwordset": { "message": "הסיסמה הוגדרה בהצלחה" },
-  "passworddisabled": { "message": "הגנת הסיסמה בוטלה" },
-  "prorequired": { "message": "נדרש מצב Pro עבור תכונה זו" },
-  "enablepasswordtitle": { "message": "הפעל הגנת סיסמה" },
-  "enablepassworddesc": { "message": "דורש סיסמה למחיקה או עריכה של כללים (משפר את מצב קפדני)" },
-  "passwordprotectiontitle": { "message": "הגנת סיסמה" },
-  "scheduleheader": { "message": "לוח זמנים" },
-  "enableschedule": { "message": "הפעלת לוח זמנים" },
-  "alwaysactive": { "message": "פעיל תמיד" },
-  "profeatureschedule": { "message": "לוח הזמנים זמין בגרסת Pro" },
-  "days": { "message": "ימים" },
-  "starttime": { "message": "שעת התחלה:" },
-  "endtime": { "message": "שעת סיום:" },
-  "invaliddays": { "message": "נבחרו ימים לא תקינים" },
-  "invalidtimeformat": { "message": "פורמט זמן לא תקין (השתמש HH:MM)" },
-  "startafterend": { "message": "שעת ההתחלה חייבת להיות לפני שעת הסיום" },
-  "invalidschedule": { "message": "לוח זמנים לא תקין: בחר בבקשה ימים ושעות." },
-  "invalidscheduledays": { "message": "לוח זמנים לא תקין: בחר לפחות יום אחד." },
-  "invalidschedulestarttime": { "message": "לוח זמנים לא תקין: הגדר שעת התחלה." },
-  "invalidscheduleendtime": { "message": "לוח זמנים לא תקין: הגדר שעת סיום." },
-  "editdisablednonpro": { "message": "עריכה מושבתת: יותר מדי כללים למשתמשים שאינם Pro." },
-  "errorloadingstatus": { "message": "שגיאה בטעינת מצב המשתמש." },
-  "schedule_day_sun": { "message": "א'" },
-  "schedule_day_mon": { "message": "ב'" },
-  "schedule_day_tue": { "message": "ג'" },
-  "schedule_day_wed": { "message": "ד'" },
-  "schedule_day_thu": { "message": "ה'" },
-  "schedule_day_fri": { "message": "ו'" },
-  "schedule_day_sat": { "message": "ש'" },
-  "category_header": { "message": "קטגוריה" },
-  "category_required": { "message": "קטגוריה נדרשת" },
-  "allcategories": { "message": "כל הקטגוריות" },
-  "category_social": { "message": "רשתות חברתיות" },
-  "category_news": { "message": "חדשות" },
-  "category_entertainment": { "message": "בידור" },
-  "category_shopping": { "message": "קניות" },
-  "category_work": { "message": "עבודה" },
-  "category_gaming": { "message": "משחקים" },
-  "category_adult": { "message": "תוכן למבוגרים" },
-  "category_uncategorized": { "message": "ללא קטגוריה" },
-  "searchfordomain": { "message": "חפש שם דומיין" },
-  "norulesforcategory": { "message": "אין אתרים חסומים עבור קטגוריה זו." },
-  "getpro": { "message": "קבל Pro" },
-  "profunctionstext": { "message": "תכונות Pro כוללות: חסימה לפי לוח זמנים, הגנה בסיסמה, סינון חוקים וייצוא/ייבוא חוקים. תהנו מהרישיון האוניברסלי שלנו: מנוי אחד מפעיל את Pro בכל הדפדפנים שלכם (Chrome, Firefox, Edge, Kiwi). כדי להפעיל, רכשו מנוי ב-blockdistraction.com, לאחר מכן העתקו את מפתח הרישיון שלכם מלוח הבקרה של החשבון והדביקו אותו למטה." },
-  "upgradenow": { "message": "שדרג עכשיו" },
-  "enteremail": { "message": "הזן את הדואר האלקטרוני שלך" },
-  "activatepro": { "message": "הפעל Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "שחזר גישה" },
-  "pleaseenteremail": { "message": "אנא הזן את הדואר האלקטרוני שלך" },
-  "checking": { "message": "בודק..." },
-  "proactivated": { "message": "תכונות Pro הופעלו!" },
-  "subscriptionnotfound": { "message": "המנוי אינו פעיל או שהדואר האלקטרוני לא נמצא." },
-  "servererror": { "message": "שגיאת שרת. אנא נסה שוב." },
-  "proactivatedfor": { "message": "Pro הופעל עבור" },
+  "proonlyactions": {
+    "message": "נדרש Pro לעריכה."
+  },
+  "invalidpassword": {
+    "message": "סיסמה לא חוקית"
+  },
+  "setpassword": {
+    "message": "הגדר סיסמה"
+  },
+  "enterpassword": {
+    "message": "הזן סיסמה"
+  },
+  "passwordmismatch": {
+    "message": "הסיסמאות אינן תואמות"
+  },
+  "passwordtooshort": {
+    "message": "הסיסמה חייבת להכיל לפחות 6 תווים"
+  },
+  "resetpasswordconfirm": {
+    "message": "איפוס הסיסמה יבטל את ההגנה. להמשיך?"
+  },
+  "passwordset": {
+    "message": "הסיסמה הוגדרה בהצלחה"
+  },
+  "passworddisabled": {
+    "message": "הגנת הסיסמה בוטלה"
+  },
+  "prorequired": {
+    "message": "נדרש מצב Pro עבור תכונה זו"
+  },
+  "enablepasswordtitle": {
+    "message": "הפעל הגנת סיסמה"
+  },
+  "enablepassworddesc": {
+    "message": "דורש סיסמה למחיקה או עריכה של כללים (משפר את מצב קפדני)"
+  },
+  "passwordprotectiontitle": {
+    "message": "הגנת סיסמה"
+  },
+  "scheduleheader": {
+    "message": "לוח זמנים"
+  },
+  "enableschedule": {
+    "message": "הפעלת לוח זמנים"
+  },
+  "alwaysactive": {
+    "message": "פעיל תמיד"
+  },
+  "profeatureschedule": {
+    "message": "לוח הזמנים זמין בגרסת Pro"
+  },
+  "days": {
+    "message": "ימים"
+  },
+  "starttime": {
+    "message": "שעת התחלה:"
+  },
+  "endtime": {
+    "message": "שעת סיום:"
+  },
+  "invaliddays": {
+    "message": "נבחרו ימים לא תקינים"
+  },
+  "invalidtimeformat": {
+    "message": "פורמט זמן לא תקין (השתמש HH:MM)"
+  },
+  "startafterend": {
+    "message": "שעת ההתחלה חייבת להיות לפני שעת הסיום"
+  },
+  "invalidschedule": {
+    "message": "לוח זמנים לא תקין: בחר בבקשה ימים ושעות."
+  },
+  "invalidscheduledays": {
+    "message": "לוח זמנים לא תקין: בחר לפחות יום אחד."
+  },
+  "invalidschedulestarttime": {
+    "message": "לוח זמנים לא תקין: הגדר שעת התחלה."
+  },
+  "invalidscheduleendtime": {
+    "message": "לוח זמנים לא תקין: הגדר שעת סיום."
+  },
+  "editdisablednonpro": {
+    "message": "עריכה מושבתת: יותר מדי כללים למשתמשים שאינם Pro."
+  },
+  "errorloadingstatus": {
+    "message": "שגיאה בטעינת מצב המשתמש."
+  },
+  "schedule_day_sun": {
+    "message": "א'"
+  },
+  "schedule_day_mon": {
+    "message": "ב'"
+  },
+  "schedule_day_tue": {
+    "message": "ג'"
+  },
+  "schedule_day_wed": {
+    "message": "ד'"
+  },
+  "schedule_day_thu": {
+    "message": "ה'"
+  },
+  "schedule_day_fri": {
+    "message": "ו'"
+  },
+  "schedule_day_sat": {
+    "message": "ש'"
+  },
+  "category_header": {
+    "message": "קטגוריה"
+  },
+  "category_required": {
+    "message": "קטגוריה נדרשת"
+  },
+  "allcategories": {
+    "message": "כל הקטגוריות"
+  },
+  "category_social": {
+    "message": "רשתות חברתיות"
+  },
+  "category_news": {
+    "message": "חדשות"
+  },
+  "category_entertainment": {
+    "message": "בידור"
+  },
+  "category_shopping": {
+    "message": "קניות"
+  },
+  "category_work": {
+    "message": "עבודה"
+  },
+  "category_gaming": {
+    "message": "משחקים"
+  },
+  "category_adult": {
+    "message": "תוכן למבוגרים"
+  },
+  "category_uncategorized": {
+    "message": "ללא קטגוריה"
+  },
+  "searchfordomain": {
+    "message": "חפש שם דומיין"
+  },
+  "norulesforcategory": {
+    "message": "אין אתרים חסומים עבור קטגוריה זו."
+  },
+  "getpro": {
+    "message": "קבל Pro"
+  },
+  "profunctionstext": {
+    "message": "תכונות Pro כוללות: חסימה לפי לוח זמנים, הגנה בסיסמה, סינון חוקים וייצוא/ייבוא חוקים. תהנו מהרישיון האוניברסלי שלנו: מנוי אחד מפעיל את Pro בכל הדפדפנים שלכם (Chrome, Firefox, Edge, Kiwi). כדי להפעיל, רכשו מנוי ב-blockdistraction.com, לאחר מכן העתקו את מפתח הרישיון שלכם מלוח הבקרה של החשבון והדביקו אותו למטה."
+  },
+  "upgradenow": {
+    "message": "שדרג עכשיו"
+  },
+  "enteremail": {
+    "message": "הזן את הדואר האלקטרוני שלך"
+  },
+  "activatepro": {
+    "message": "הפעל Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "שחזר גישה"
+  },
+  "pleaseenteremail": {
+    "message": "אנא הזן את הדואר האלקטרוני שלך"
+  },
+  "checking": {
+    "message": "בודק..."
+  },
+  "proactivated": {
+    "message": "תכונות Pro הופעלו!"
+  },
+  "subscriptionnotfound": {
+    "message": "המנוי אינו פעיל או שהדואר האלקטרוני לא נמצא."
+  },
+  "servererror": {
+    "message": "שגיאת שרת. אנא נסה שוב."
+  },
+  "proactivatedfor": {
+    "message": "Pro הופעל עבור"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "בקשת ההרשאה נכשלה (ייתכן שזה קורה במובייל). נסה שוב או הענק הרשאה ידנית דרך ההגדרות."
   },
-  "pastekeylabel": { "message": "הדבק כאן את מפתח הרישיון שלך:" },
-  "confirmclearstats": { "message": "האם אתה בטוח שברצונך למחוק את כל הסטטיסטיקות? פעולה זו אינה ניתנת לביטול." },
-  "statscleared": { "message": "הסטטיסטיקות נמחקו בהצלחה." },
-  "redirectstodaylabel": { "message": "הפניות היום" },
-  "totalredirectslabel": { "message": "סה״כ הפניות" },
-  "logout": { "message": "התנתק" },
-  "loggedoutsuccess": { "message": "התנתקת בהצלחה." },
-  "loggedouterror": { "message": "אירעה שגיאה בעת ההתנתקות." },
-  "forcesync": { "message": "כפה סנכרון / בדוק מצב" },
-  "forgotpasswordinstructions": { "message": "כדי לאפס את הסיסמה שלך, עבור לסעיף 'Pro', לחץ על 'התנתק', ולאחר מכן הפעל מחדש על ידי הדבקת מפתח הרישיון שלך." },
-  "blockedtitle": { "message": "האתר אינו זמין" },
-  "blockedheader": { "message": "אתר זה אינו זמין כרגע" },
-  "blockedtext": { "message": "תוכן זה אינו ניתן להצגה." },
-  "blockedbutton": { "message": "סגור כרטיסייה" },
-  "confirmpassword": { "message": "אשר סיסמה" },
-  "modalconfirm": { "message": "אשר" },
-  "modalcancel": { "message": "ביטול" },
-  "forgotpassword": { "message": "שכחת את הסיסמה? איפוס (ימחק את ההגנה)" },
-  "prounlocked": { "message": "תודה על התמיכה שלך! כל הפיצ'רים של Pro נפתחים." },
-  "licensesynced": { "message": "הרישיון שלך מסונכרן עם החשבון שלך. אם תאבד גישה, תוכל לשחזר את המפתח שלך מ: " },
-  "syncing": { "message": "מסנכרן..." },
-  "pleaseenterkey": { "message": "אנא הזן מפתח." },
-  "syncsuccess": { "message": "סנכרון הצליח" },
-  "syncfailed": { "message": "הסנכרון נכשל." },
-  "passwordreset": { "message": "הגנת הסיסמה הוחזרה לברירת המחדל." },
-  "privacysecured": { "message": "הפרטיות מובטחת" },
-  "errorinvalidfiletype": { "message": "אנא בחר קובץ .json" },
-  "debugsettingstitle": { "message": "הגדרות ניפוי שגיאות" },
-  "enabledebugtitle": { "message": "הפעל מצב ניפוי שגיאות" },
-  "enabledebugdesc": { "message": "הפעל רישום מפורט בקונסול לצורך פתרון בעיות" },
-  "errorcommunication": { "message": "שגיאה בתקשורת עם שירות הרקע" },
-  "clearstats": { "message": "נקה סטטיסטיקה" },
-  "rule_enabled": { "message": "מופעל" },
-  "rule_disabled": { "message": "מושבת" },
-  "filter_only_hint": { "message": "רשימה זו מסננת רק את התצוגה בטבלה" },
-  "category_disabled_desc": { "message": "השתיקו קטגוריה כדי לאפשר זמנית גישה לכל האתרים שלה. הגדרות הכללים האישיים נשמרות." },
-  "toggle_category_blocking": { "message": "הפעל או כבה חסימה עבור כל הקטגוריה" },
-  "category_muted_no_edit": { "message": "לא ניתן לנהל: חסימת הקטגוריה מושהית" },
-  "feedback_title": { "message": "האם אתם אוהבים את BlockDistraction?" },
-  "feedback_desc": { "message": "המשוב שלכם עוזר לנו מאוד לשפר את התוסף." },
-  "feedback_like": { "message": "כן, זה עובד מצוין!" },
-  "feedback_dislike": { "message": "יש לי בעיות / הצעות" },
-  "trialproheader": { "message": "התחל 7 ימי ניסיון בחינם" },
-  "trialprotext": { "message": "ניתן לבטל בכל עת. התשלומים שלך מאובטחים לחלוטין." },
-  "focussessionheader": { "message": "סשן מיקוד" },
-  "focussessionstart": { "message": "התחל" },
-  "focussessionstop": { "message": "עצור" },
-  "focussessionduration": { "message": "משך זמן (בדקות):" },
-  "focussessioninfo": { "message": "מפעיל את כל כללי החסימה שלך לזמן מוגדר, תוך התעלמות מההגדרות ומהלוחות הזמנים הנוכחיים שלהם. לריכוז מרבי." },
-  "focussessionprofeature": { "message": "משך זמן מותאם אישית ומצב Hardcore הם תכונות Pro." },
-  "focussessionended": { "message": "סשן המיקוד הסתיים! הגיע הזמן להפסקה." },
-  "focussessionhardcore": { "message": "מצב Hardcore (ללא כפתור 'עצור')" },
-  "focussessionsoundtitle": { "message": "התראת צליל לסשן מיקוד" },
-  "focussessionsounddesc": { "message": "השמע צליל כאשר סשן המיקוד מסתיים." },
-  "focussessionactivebanner": { "message": "סשן המיקוד פעיל! זמן נותר:" },
-  "focussessioninvalidduration": { "message": "אנא הזן משך זמן תקין (1-240 דקות)." },
-  "successfulfocussessionslabel": { "message": "סשני מיקוד מוצלחים" },
-  "rule_scheduled": { "message": "כלל מתוזמן" },
-  "addwhitelistrule": { "message": "הוספת חריג" },
-  "category_whitelist": { "message": "רשימה לבנה" },
-  "conflict_blacklist_err": { "message": "אתר זה כבר נמצא ברשימה השחורה שלך. הסר אותו תחילה." },
-  "conflict_whitelist_err": { "message": "אתר זה כבר נמצא ברשימה הלבנה שלך. הסר אותו תחילה." },
-  "status_allow": { "message": "מותר" },
-  "redundant_whitelist_err": { "message": "כלל זה כבר מכוסה על ידי כלל אחר ברשימה הלבנה." },
-  "focussessionmode": { "message": "מצב ריכוז:" },
-  "focusmodeblacklist": { "message": "חסימת רשימה שחורה" },
-  "focusmodewhitelist": { "message": "אפשר רשימה לבנה בלבד" }
+  "pastekeylabel": {
+    "message": "הדבק כאן את מפתח הרישיון שלך:"
+  },
+  "confirmclearstats": {
+    "message": "האם אתה בטוח שברצונך למחוק את כל הסטטיסטיקות? פעולה זו אינה ניתנת לביטול."
+  },
+  "statscleared": {
+    "message": "הסטטיסטיקות נמחקו בהצלחה."
+  },
+  "redirectstodaylabel": {
+    "message": "הפניות היום"
+  },
+  "totalredirectslabel": {
+    "message": "סה״כ הפניות"
+  },
+  "logout": {
+    "message": "התנתק"
+  },
+  "loggedoutsuccess": {
+    "message": "התנתקת בהצלחה."
+  },
+  "loggedouterror": {
+    "message": "אירעה שגיאה בעת ההתנתקות."
+  },
+  "forcesync": {
+    "message": "כפה סנכרון / בדוק מצב"
+  },
+  "forgotpasswordinstructions": {
+    "message": "כדי לאפס את הסיסמה שלך, עבור לסעיף 'Pro', לחץ על 'התנתק', ולאחר מכן הפעל מחדש על ידי הדבקת מפתח הרישיון שלך."
+  },
+  "blockedtitle": {
+    "message": "האתר אינו זמין"
+  },
+  "blockedheader": {
+    "message": "אתר זה אינו זמין כרגע"
+  },
+  "blockedtext": {
+    "message": "תוכן זה אינו ניתן להצגה."
+  },
+  "blockedbutton": {
+    "message": "סגור כרטיסייה"
+  },
+  "confirmpassword": {
+    "message": "אשר סיסמה"
+  },
+  "modalconfirm": {
+    "message": "אשר"
+  },
+  "modalcancel": {
+    "message": "ביטול"
+  },
+  "forgotpassword": {
+    "message": "שכחת את הסיסמה? איפוס (ימחק את ההגנה)"
+  },
+  "prounlocked": {
+    "message": "תודה על התמיכה שלך! כל הפיצ'רים של Pro נפתחים."
+  },
+  "licensesynced": {
+    "message": "הרישיון שלך מסונכרן עם החשבון שלך. אם תאבד גישה, תוכל לשחזר את המפתח שלך מ: "
+  },
+  "syncing": {
+    "message": "מסנכרן..."
+  },
+  "pleaseenterkey": {
+    "message": "אנא הזן מפתח."
+  },
+  "syncsuccess": {
+    "message": "סנכרון הצליח"
+  },
+  "syncfailed": {
+    "message": "הסנכרון נכשל."
+  },
+  "passwordreset": {
+    "message": "הגנת הסיסמה הוחזרה לברירת המחדל."
+  },
+  "privacysecured": {
+    "message": "הפרטיות מובטחת"
+  },
+  "errorinvalidfiletype": {
+    "message": "אנא בחר קובץ .json"
+  },
+  "debugsettingstitle": {
+    "message": "הגדרות ניפוי שגיאות"
+  },
+  "enabledebugtitle": {
+    "message": "הפעל מצב ניפוי שגיאות"
+  },
+  "enabledebugdesc": {
+    "message": "הפעל רישום מפורט בקונסול לצורך פתרון בעיות"
+  },
+  "errorcommunication": {
+    "message": "שגיאה בתקשורת עם שירות הרקע"
+  },
+  "clearstats": {
+    "message": "נקה סטטיסטיקה"
+  },
+  "rule_enabled": {
+    "message": "מופעל"
+  },
+  "rule_disabled": {
+    "message": "מושבת"
+  },
+  "filter_only_hint": {
+    "message": "רשימה זו מסננת רק את התצוגה בטבלה"
+  },
+  "category_disabled_desc": {
+    "message": "השתיקו קטגוריה כדי לאפשר זמנית גישה לכל האתרים שלה. הגדרות הכללים האישיים נשמרות."
+  },
+  "toggle_category_blocking": {
+    "message": "הפעל או כבה חסימה עבור כל הקטגוריה"
+  },
+  "category_muted_no_edit": {
+    "message": "לא ניתן לנהל: חסימת הקטגוריה מושהית"
+  },
+  "feedback_title": {
+    "message": "האם אתם אוהבים את BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "המשוב שלכם עוזר לנו מאוד לשפר את התוסף."
+  },
+  "feedback_like": {
+    "message": "כן, זה עובד מצוין!"
+  },
+  "feedback_dislike": {
+    "message": "יש לי בעיות / הצעות"
+  },
+  "trialproheader": {
+    "message": "התחל 7 ימי ניסיון בחינם"
+  },
+  "trialprotext": {
+    "message": "ניתן לבטל בכל עת. התשלומים שלך מאובטחים לחלוטין."
+  },
+  "focussessionheader": {
+    "message": "סשן מיקוד"
+  },
+  "focussessionstart": {
+    "message": "התחל"
+  },
+  "focussessionstop": {
+    "message": "עצור"
+  },
+  "focussessionduration": {
+    "message": "משך זמן (בדקות):"
+  },
+  "focussessioninfo": {
+    "message": "מפעיל את כל כללי החסימה שלך לזמן מוגדר, תוך התעלמות מההגדרות ומהלוחות הזמנים הנוכחיים שלהם. לריכוז מרבי."
+  },
+  "focussessionprofeature": {
+    "message": "משך זמן מותאם אישית ומצב Hardcore הם תכונות Pro."
+  },
+  "focussessionended": {
+    "message": "סשן המיקוד הסתיים! הגיע הזמן להפסקה."
+  },
+  "focussessionhardcore": {
+    "message": "מצב Hardcore (ללא כפתור 'עצור')"
+  },
+  "focussessionsoundtitle": {
+    "message": "התראת צליל לסשן מיקוד"
+  },
+  "focussessionsounddesc": {
+    "message": "השמע צליל כאשר סשן המיקוד מסתיים."
+  },
+  "focussessionactivebanner": {
+    "message": "סשן המיקוד פעיל! זמן נותר:"
+  },
+  "focussessioninvalidduration": {
+    "message": "אנא הזן משך זמן תקין (1-240 דקות)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "סשני מיקוד מוצלחים"
+  },
+  "rule_scheduled": {
+    "message": "כלל מתוזמן"
+  },
+  "addwhitelistrule": {
+    "message": "הוספת חריג"
+  },
+  "category_whitelist": {
+    "message": "רשימה לבנה"
+  },
+  "conflict_blacklist_err": {
+    "message": "אתר זה כבר נמצא ברשימה השחורה שלך. הסר אותו תחילה."
+  },
+  "conflict_whitelist_err": {
+    "message": "אתר זה כבר נמצא ברשימה הלבנה שלך. הסר אותו תחילה."
+  },
+  "status_allow": {
+    "message": "מותר"
+  },
+  "redundant_whitelist_err": {
+    "message": "כלל זה כבר מכוסה על ידי כלל אחר ברשימה הלבנה."
+  },
+  "focussessionmode": {
+    "message": "מצב ריכוז:"
+  },
+  "focusmodeblacklist": {
+    "message": "חסימת רשימה שחורה"
+  },
+  "focusmodewhitelist": {
+    "message": "אפשר רשימה לבנה בלבד"
+  },
+  "schedule_edit": {
+    "message": "עריכת לוח זמנים"
+  },
+  "schedule_add_period": {
+    "message": "הוספת קבוצת זמן"
+  },
+  "schedule_remove_period": {
+    "message": "הסרה"
+  },
+  "schedule_period": {
+    "message": "קבוצת זמן"
+  },
+  "schedule_every_day": {
+    "message": "כל יום"
+  },
+  "schedule_weekdays": {
+    "message": "ימי חול"
+  },
+  "schedule_weekends": {
+    "message": "סופי שבוע"
+  },
+  "schedule_day_overlap": {
+    "message": "ניתן להשתמש בכל יום פעם אחת בלבד."
+  }
 }

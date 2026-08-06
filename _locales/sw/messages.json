@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Kizuizi cha Tovuti" },
-  "shortname": { "message": "KizuiziWeb" },
-  "description": { "message": "Chombo rahisi na cha kuaminika cha kuzuia na kuelekeza tena tovuti ili kubaki umakini." },
-  "defaulttitle": { "message": "Kaa makini na kuwa na tija" },
-  "header": { "message": "Kizuizi cha Tovuti" },
-  "paragraph": { "message": "Ili kuzuia tovuti au rasilimali, andika sehemu ya jina lake kwenye kisanduku chenye maandishi 'Andika URL ya kuzuia' – mfano, 'facebook' itazuia subdomains zote zinazohusiana. Katika kisanduku cha 'Andika URL ya kuelekeza', andika URL kamili ya kuelekeza pamoja na itifaki, mfano 'https://google.com'. Ikiwa kisanduku kitabaki tupu, tovuti itazuia bila kuelekeza. Bonyeza Hifadhi ili kutekeleza kanuni. Ili kusasisha kanuni, futa ile ya zamani na uongeze mpya." },
-  "addrule": { "message": "Ongeza kanuni mpya" },
-  "blockurl": { "message": "Andika URL ya kuzuia" },
-  "redirecturl": { "message": "Andika URL ya kuelekeza (hiari)" },
-  "redirecturlheader": { "message": "URL ya kuelekeza kwingine" },
-  "redirecturlplaceholder": { "message": "Si lazima - acha wazi ili kuzuia" },
-  "redirecturlhint": { "message": "Weka URL kamili ikijumuisha https://" },
-  "mobilecopylinkhint": { "message": "Ili kuzuia kiungo, nakili anwani yake na uibandike kwenye sehemu ya kuzuia." },
-  "savebtn": { "message": "Hifadhi" },
-  "deletebtn": { "message": "Futa" },
-  "alertruleexist": { "message": "Kanuni tayari ipo" },
+  "chromename": {
+    "message": "BlockDistraction – Kizuizi cha Tovuti"
+  },
+  "shortname": {
+    "message": "KizuiziWeb"
+  },
+  "description": {
+    "message": "Chombo rahisi na cha kuaminika cha kuzuia na kuelekeza tena tovuti ili kubaki umakini."
+  },
+  "defaulttitle": {
+    "message": "Kaa makini na kuwa na tija"
+  },
+  "header": {
+    "message": "Kizuizi cha Tovuti"
+  },
+  "paragraph": {
+    "message": "Ili kuzuia tovuti au rasilimali, andika sehemu ya jina lake kwenye kisanduku chenye maandishi 'Andika URL ya kuzuia' – mfano, 'facebook' itazuia subdomains zote zinazohusiana. Katika kisanduku cha 'Andika URL ya kuelekeza', andika URL kamili ya kuelekeza pamoja na itifaki, mfano 'https://google.com'. Ikiwa kisanduku kitabaki tupu, tovuti itazuia bila kuelekeza. Bonyeza Hifadhi ili kutekeleza kanuni. Ili kusasisha kanuni, futa ile ya zamani na uongeze mpya."
+  },
+  "addrule": {
+    "message": "Ongeza kanuni mpya"
+  },
+  "blockurl": {
+    "message": "Andika URL ya kuzuia"
+  },
+  "redirecturl": {
+    "message": "Andika URL ya kuelekeza (hiari)"
+  },
+  "redirecturlheader": {
+    "message": "URL ya kuelekeza kwingine"
+  },
+  "redirecturlplaceholder": {
+    "message": "Si lazima - acha wazi ili kuzuia"
+  },
+  "redirecturlhint": {
+    "message": "Weka URL kamili ikijumuisha https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Ili kuzuia kiungo, nakili anwani yake na uibandike kwenye sehemu ya kuzuia."
+  },
+  "savebtn": {
+    "message": "Hifadhi"
+  },
+  "deletebtn": {
+    "message": "Futa"
+  },
+  "alertruleexist": {
+    "message": "Kanuni tayari ipo"
+  },
   "savedrules": {
     "message": "$ruleslength$ kanuni zilizohifadhiwa",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Rasilimali hii haiwezi kuzuiwa." },
-  "wrongblockurl": { "message": "URL batili ya kuzuia" },
-  "wrongredirecturl": { "message": "URL ya kuelekeza si sahihi" },
-  "blockthat": { "message": "Zuia Tovuti Hii" },
-  "sendfeedbackbutton": { "message": "Tuma Maoni" },
-  "sendfeedbacksubject": { "message": "Maoni kwa BlockDistraction" },
-  "sendfeedbackbody": { "message": "Habari! Ningependa kushiriki maoni yafuatayo:\n\n" },
-  "quote1": { "message": "Kaa makini, kaa imara." },
-  "quote2": { "message": "Baadaye yako inaundwa na kile unachofanya leo." },
-  "quote3": { "message": "Disiplin ni daraja kati ya malengo na mafanikio." },
-  "quote4": { "message": "Tovuti moja iliyozuiwa – hatua moja karibu na lengo." },
-  "quote5": { "message": "Kila bonyeza liwe na maana." },
-  "quote6": { "message": "Usitazame saa; fanya kama inavyofanya. Endelea." },
-  "quote7": { "message": "Hatua ndogo kila siku hufanya matokeo makubwa." },
-  "quote8": { "message": "Kizuizi pekee ni akili yako." },
-  "quote9": { "message": "Mafanikio ni jumla ya jitihada ndogo zinazofanywa kila siku." },
-  "quote10": { "message": "Zingatia kuwa na tija, si shughuli nyingi tu." },
-  "quote11": { "message": "Linda umakini wako – ni rasilimali yako muhimu zaidi." },
-  "quote12": { "message": "Kila kizuizi kilichozuiliwa ni muda uliopatikana tena." },
-  "quote13": { "message": "Punguza kelele; ongeza tija yako." },
-  "quote14": { "message": "Mienendo midogo huunda mwendo usioweza kushindikana." },
-  "quote15": { "message": "Uwazi unashinda machafuko – zingatia kile kilichopo muhimu." },
-  "quote16": { "message": "Sema hapana kwa usumbufu; sema ndio kwa maendeleo." },
-  "quote17": { "message": "Saa moja ya umakini leo huzaa matokeo mara nyingi kesho." },
-  "quote18": { "message": "Tengeneza zaidi kwa kutumia kidogo." },
-  "quote19": { "message": "Disiplin inachagua ushindi wa muda mrefu badala ya mwendo wa muda mfupi." },
-  "quote20": { "message": "Funga kichupo kimoja, fungua nafasi kwa mawazo mapya." },
-  "quote21": { "message": "Kazi unayoiepuka leo inaweza kuwa stress ya kesho." },
-  "quote22": { "message": "Kuzingatia si kufanya zaidi, bali kufanya yale muhimu kweli." },
-  "quote23": { "message": "Malengo yako yanastahili umakini zaidi kuliko vikwazo vyako." },
-  "quote24": { "message": "Kila dakika bila vikwazo ni uwekezaji ndani yako." },
-  "quote25": { "message": "Uthabiti huleta matokeo ya kudumu zaidi kuliko motisha ya muda mfupi." },
-  "quote26": { "message": "Wakati bora wa kuanza ulikuwa jana. Wakati bora unaofuata ni sasa." },
-  "quote27": { "message": "Maendeleo huanza unapochagua hatua badala ya vikwazo." },
-  "quote28": { "message": "Dakika moja ya umakini inaweza kubadilisha siku yako yote." },
-  "quote29": { "message": "Huhitaji muda zaidi, unahitaji vikwazo vichache zaidi." },
-  "quote30": { "message": "Kila chaguo la kubaki makini huimarisha maisha yako ya baadaye." },
-  "quote31": { "message": "Uzuiaji huu ni wa muda; malengo yako ni ya muda mrefu." },
-  "quote32": { "message": "Kila kituo kilichozuiwa cha usumbufu ni ushindi kwa nafsi yako ya baadaye." },
-  "quote33": { "message": "Mtandao hauna mwisho; muda wako una kikomo." },
-  "quote34": { "message": "Weka vipaumbele vyako kabla mtandao haujavifanya kwa niaba yako." },
-  "quote35": { "message": "Kupunguza kusogeza, kuongeza kuunda." },
-  "quote36": { "message": "Umakini wako unaunda mafanikio yako." },
-  "quote37": { "message": "Baki makini — usumbufu unaweza kusubiri." },
-  "quote38": { "message": "Kila uamuzi wenye tija huanza na akili iliyo makini." },
-  "quote39": { "message": "Umezuia tovuti, si uwezo wako." },
-  "quote40": { "message": "Njia ya mafanikio hujengwa kwa maamuzi yenye umakini." },
-  "actionsheader": { "message": "Vitendo" },
-  "norules": { "message": "Hakuna tovuti zilizozuiwa." },
-  "editbtn": { "message": "Hariri" },
-  "ruleddeleted": { "message": "Kanuni imefutwa." },
-  "cancelbtn": { "message": "Ghairi" },
-  "ruleupdated": { "message": "Kanuni imesasishwa." },
-  "rulenewadded": { "message": "Kanuni mpya imeongezwa." },
-  "gotooptions": { "message": "Nenda kwenye ukurasa wa chaguzi ⚙️" },
-  "gotopopup": { "message": "Bonyeza ikoni ya upanuzi kurudi kwenye dirisha la popup." },
-  "rulesmigrated": { "message": "Sheria zimesasishwa kwa ajili ya upatanifu" },
-  "errorupdatingrules": { "message": "Hitilafu wakati wa kusasisha sheria" },
-  "erroraddingrule": { "message": "Hitilafu wakati wa kuongeza sheria" },
-  "errorremovingrule": { "message": "Hitilafu wakati wa kuondoa sheria" },
-  "optionsheader": { "message": "Mipangilio ya Kiongezi" },
-  "optionsdescription": { "message": "Sanidi tabia ya kiongezi na mipangilio ya usalama" },
-  "securitymodetitle": { "message": "Hali ya Usalama" },
-  "normalmodetitle": { "message": "Hali ya Kawaida" },
-  "normalmodedesc": { "message": "Sheria zinaweza kufutwa mara moja kwa kubofya moja" },
-  "strictmodetitle": { "message": "Hali Mkali" },
-  "strictmodedesc": { "message": "Sheria zinahitaji kuhesabiwa sekunde 10 kabla ya kufutwa ili kuzuia kufutwa kwa bahati mbaya" },
-  "confirmdeletetitle": { "message": "Thibitisha kabla ya kufuta sheria nyingi" },
-  "confirmdeletedesc": { "message": "Onyesha sanduku la uthibitisho wakati wa kufuta sheria nyingi kwa pamoja" },
-  "notificationstitle": { "message": "Onyesha taarifa" },
-  "notificationsdesc": { "message": "Onyesha taarifa wakati kiongezi kinaposasishwa" },
-  "rulesmanagementtitle": { "message": "Usimamizi wa Sheria" },
-  "exportrulesbtn": { "message": "Hamisha Sheria" },
-  "importrulesbtn": { "message": "Ingiza Sheria" },
-  "clearallrulesbtn": { "message": "Futa Sheria Zote" },
-  "totalruleslabel": { "message": "Jumla ya Sheria" },
-  "blockedtodaylabel": { "message": "Imezuiliwa Leo" },
-  "totalblockedlabel": { "message": "Jumla Imezuiliwa" },
-  "resetsettingsbtn": { "message": "Rudisha Chaguo La Chini" },
-  "backtopopup": { "message": "Rudi kwenye Menyu Kuu" },
-  "errorloadingsettings": { "message": "Hitilafu wakati wa kupakia mipangilio" },
-  "settingssaved": { "message": "Mipangilio imehifadhiwa kwa mafanikio!" },
-  "errorsavingsettings": { "message": "Hitilafu wakati wa kuhifadhi mipangilio" },
-  "rulesexported": { "message": "Sheria zimehamishwa kwa mafanikio!" },
-  "errorexportingrules": { "message": "Hitilafu wakati wa kuhamisha sheria" },
+  "restrictedblockurl": {
+    "message": "Rasilimali hii haiwezi kuzuiwa."
+  },
+  "wrongblockurl": {
+    "message": "URL batili ya kuzuia"
+  },
+  "wrongredirecturl": {
+    "message": "URL ya kuelekeza si sahihi"
+  },
+  "blockthat": {
+    "message": "Zuia Tovuti Hii"
+  },
+  "sendfeedbackbutton": {
+    "message": "Tuma Maoni"
+  },
+  "sendfeedbacksubject": {
+    "message": "Maoni kwa BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Habari! Ningependa kushiriki maoni yafuatayo:\n\n"
+  },
+  "quote1": {
+    "message": "Kaa makini, kaa imara."
+  },
+  "quote2": {
+    "message": "Baadaye yako inaundwa na kile unachofanya leo."
+  },
+  "quote3": {
+    "message": "Disiplin ni daraja kati ya malengo na mafanikio."
+  },
+  "quote4": {
+    "message": "Tovuti moja iliyozuiwa – hatua moja karibu na lengo."
+  },
+  "quote5": {
+    "message": "Kila bonyeza liwe na maana."
+  },
+  "quote6": {
+    "message": "Usitazame saa; fanya kama inavyofanya. Endelea."
+  },
+  "quote7": {
+    "message": "Hatua ndogo kila siku hufanya matokeo makubwa."
+  },
+  "quote8": {
+    "message": "Kizuizi pekee ni akili yako."
+  },
+  "quote9": {
+    "message": "Mafanikio ni jumla ya jitihada ndogo zinazofanywa kila siku."
+  },
+  "quote10": {
+    "message": "Zingatia kuwa na tija, si shughuli nyingi tu."
+  },
+  "quote11": {
+    "message": "Linda umakini wako – ni rasilimali yako muhimu zaidi."
+  },
+  "quote12": {
+    "message": "Kila kizuizi kilichozuiliwa ni muda uliopatikana tena."
+  },
+  "quote13": {
+    "message": "Punguza kelele; ongeza tija yako."
+  },
+  "quote14": {
+    "message": "Mienendo midogo huunda mwendo usioweza kushindikana."
+  },
+  "quote15": {
+    "message": "Uwazi unashinda machafuko – zingatia kile kilichopo muhimu."
+  },
+  "quote16": {
+    "message": "Sema hapana kwa usumbufu; sema ndio kwa maendeleo."
+  },
+  "quote17": {
+    "message": "Saa moja ya umakini leo huzaa matokeo mara nyingi kesho."
+  },
+  "quote18": {
+    "message": "Tengeneza zaidi kwa kutumia kidogo."
+  },
+  "quote19": {
+    "message": "Disiplin inachagua ushindi wa muda mrefu badala ya mwendo wa muda mfupi."
+  },
+  "quote20": {
+    "message": "Funga kichupo kimoja, fungua nafasi kwa mawazo mapya."
+  },
+  "quote21": {
+    "message": "Kazi unayoiepuka leo inaweza kuwa stress ya kesho."
+  },
+  "quote22": {
+    "message": "Kuzingatia si kufanya zaidi, bali kufanya yale muhimu kweli."
+  },
+  "quote23": {
+    "message": "Malengo yako yanastahili umakini zaidi kuliko vikwazo vyako."
+  },
+  "quote24": {
+    "message": "Kila dakika bila vikwazo ni uwekezaji ndani yako."
+  },
+  "quote25": {
+    "message": "Uthabiti huleta matokeo ya kudumu zaidi kuliko motisha ya muda mfupi."
+  },
+  "quote26": {
+    "message": "Wakati bora wa kuanza ulikuwa jana. Wakati bora unaofuata ni sasa."
+  },
+  "quote27": {
+    "message": "Maendeleo huanza unapochagua hatua badala ya vikwazo."
+  },
+  "quote28": {
+    "message": "Dakika moja ya umakini inaweza kubadilisha siku yako yote."
+  },
+  "quote29": {
+    "message": "Huhitaji muda zaidi, unahitaji vikwazo vichache zaidi."
+  },
+  "quote30": {
+    "message": "Kila chaguo la kubaki makini huimarisha maisha yako ya baadaye."
+  },
+  "quote31": {
+    "message": "Uzuiaji huu ni wa muda; malengo yako ni ya muda mrefu."
+  },
+  "quote32": {
+    "message": "Kila kituo kilichozuiwa cha usumbufu ni ushindi kwa nafsi yako ya baadaye."
+  },
+  "quote33": {
+    "message": "Mtandao hauna mwisho; muda wako una kikomo."
+  },
+  "quote34": {
+    "message": "Weka vipaumbele vyako kabla mtandao haujavifanya kwa niaba yako."
+  },
+  "quote35": {
+    "message": "Kupunguza kusogeza, kuongeza kuunda."
+  },
+  "quote36": {
+    "message": "Umakini wako unaunda mafanikio yako."
+  },
+  "quote37": {
+    "message": "Baki makini — usumbufu unaweza kusubiri."
+  },
+  "quote38": {
+    "message": "Kila uamuzi wenye tija huanza na akili iliyo makini."
+  },
+  "quote39": {
+    "message": "Umezuia tovuti, si uwezo wako."
+  },
+  "quote40": {
+    "message": "Njia ya mafanikio hujengwa kwa maamuzi yenye umakini."
+  },
+  "actionsheader": {
+    "message": "Vitendo"
+  },
+  "norules": {
+    "message": "Hakuna tovuti zilizozuiwa."
+  },
+  "editbtn": {
+    "message": "Hariri"
+  },
+  "ruleddeleted": {
+    "message": "Kanuni imefutwa."
+  },
+  "cancelbtn": {
+    "message": "Ghairi"
+  },
+  "ruleupdated": {
+    "message": "Kanuni imesasishwa."
+  },
+  "rulenewadded": {
+    "message": "Kanuni mpya imeongezwa."
+  },
+  "gotooptions": {
+    "message": "Nenda kwenye ukurasa wa chaguzi ⚙️"
+  },
+  "gotopopup": {
+    "message": "Bonyeza ikoni ya upanuzi kurudi kwenye dirisha la popup."
+  },
+  "rulesmigrated": {
+    "message": "Sheria zimesasishwa kwa ajili ya upatanifu"
+  },
+  "errorupdatingrules": {
+    "message": "Hitilafu wakati wa kusasisha sheria"
+  },
+  "erroraddingrule": {
+    "message": "Hitilafu wakati wa kuongeza sheria"
+  },
+  "errorremovingrule": {
+    "message": "Hitilafu wakati wa kuondoa sheria"
+  },
+  "optionsheader": {
+    "message": "Mipangilio ya Kiongezi"
+  },
+  "optionsdescription": {
+    "message": "Sanidi tabia ya kiongezi na mipangilio ya usalama"
+  },
+  "securitymodetitle": {
+    "message": "Hali ya Usalama"
+  },
+  "normalmodetitle": {
+    "message": "Hali ya Kawaida"
+  },
+  "normalmodedesc": {
+    "message": "Sheria zinaweza kufutwa mara moja kwa kubofya moja"
+  },
+  "strictmodetitle": {
+    "message": "Hali Mkali"
+  },
+  "strictmodedesc": {
+    "message": "Sheria zinahitaji kuhesabiwa sekunde 10 kabla ya kufutwa ili kuzuia kufutwa kwa bahati mbaya"
+  },
+  "confirmdeletetitle": {
+    "message": "Thibitisha kabla ya kufuta sheria nyingi"
+  },
+  "confirmdeletedesc": {
+    "message": "Onyesha sanduku la uthibitisho wakati wa kufuta sheria nyingi kwa pamoja"
+  },
+  "notificationstitle": {
+    "message": "Onyesha taarifa"
+  },
+  "notificationsdesc": {
+    "message": "Onyesha taarifa wakati kiongezi kinaposasishwa"
+  },
+  "rulesmanagementtitle": {
+    "message": "Usimamizi wa Sheria"
+  },
+  "exportrulesbtn": {
+    "message": "Hamisha Sheria"
+  },
+  "importrulesbtn": {
+    "message": "Ingiza Sheria"
+  },
+  "clearallrulesbtn": {
+    "message": "Futa Sheria Zote"
+  },
+  "totalruleslabel": {
+    "message": "Jumla ya Sheria"
+  },
+  "blockedtodaylabel": {
+    "message": "Imezuiliwa Leo"
+  },
+  "totalblockedlabel": {
+    "message": "Jumla Imezuiliwa"
+  },
+  "resetsettingsbtn": {
+    "message": "Rudisha Chaguo La Chini"
+  },
+  "backtopopup": {
+    "message": "Rudi kwenye Menyu Kuu"
+  },
+  "errorloadingsettings": {
+    "message": "Hitilafu wakati wa kupakia mipangilio"
+  },
+  "settingssaved": {
+    "message": "Mipangilio imehifadhiwa kwa mafanikio!"
+  },
+  "errorsavingsettings": {
+    "message": "Hitilafu wakati wa kuhifadhi mipangilio"
+  },
+  "rulesexported": {
+    "message": "Sheria zimehamishwa kwa mafanikio!"
+  },
+  "errorexportingrules": {
+    "message": "Hitilafu wakati wa kuhamisha sheria"
+  },
   "willimportrules": {
     "message": "Sheria $ruleslength$ zitaingizwa.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Sheria za sasa zitatataliwa. Endelea?" },
+  "ruleswillbereplaced": {
+    "message": "Sheria za sasa zitatataliwa. Endelea?"
+  },
   "importedrules": {
     "message": "Sheria $ruleslength$ zingeingizwa kwa mafanikio!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Hitilafu wakati wa kuingiza sheria: " },
-  "norulestoclear": { "message": "Hakuna sheria za kufuta" },
+  "errorimportingrules": {
+    "message": "Hitilafu wakati wa kuingiza sheria: "
+  },
+  "norulestoclear": {
+    "message": "Hakuna sheria za kufuta"
+  },
   "willdeleteallrules": {
     "message": "Hii itafuta mara moja zote $rulescount$ sheria.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Kitendo hiki hakiwezi kutenduliwa. Endelea?" },
-  "allrulescleared": { "message": "Sheria zote zimefutwa kwa mafanikio!" },
-  "errorclearingrules": { "message": "Hitilafu wakati wa kufuta sheria" },
-  "willreset": { "message": "Mipangilio yote itarudishwa kwenye chaguo la asili. Endelea?" },
-  "resettodefaults": { "message": "Mipangilio imerudishwa kwenye chaguo la asili!" },
-  "errorresettingsettings": { "message": "Hitilafu wakati wa kurudisha mipangilio" },
-  "basicsettingstitle": { "message": "Mipangilio ya Msingi" },
-  "advancedsettingstitle": { "message": "Mipangilio ya Juu" },
-  "statisticstitle": { "message": "Takwimu" },
+  "cannotbeundone": {
+    "message": "Kitendo hiki hakiwezi kutenduliwa. Endelea?"
+  },
+  "allrulescleared": {
+    "message": "Sheria zote zimefutwa kwa mafanikio!"
+  },
+  "errorclearingrules": {
+    "message": "Hitilafu wakati wa kufuta sheria"
+  },
+  "willreset": {
+    "message": "Mipangilio yote itarudishwa kwenye chaguo la asili. Endelea?"
+  },
+  "resettodefaults": {
+    "message": "Mipangilio imerudishwa kwenye chaguo la asili!"
+  },
+  "errorresettingsettings": {
+    "message": "Hitilafu wakati wa kurudisha mipangilio"
+  },
+  "basicsettingstitle": {
+    "message": "Mipangilio ya Msingi"
+  },
+  "advancedsettingstitle": {
+    "message": "Mipangilio ya Juu"
+  },
+  "statisticstitle": {
+    "message": "Takwimu"
+  },
   "rulelimitreached": {
     "message": "Umefikia kikomo cha sheria ($limit$) kwa toleo la msingi. Boresha hadi Pro kwa sheria zisizo na kikomo.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro inahitajika kwa uhariri." },
-  "invalidpassword": { "message": "Nenosiri batili" },
-  "setpassword": { "message": "Weka nenosiri" },
-  "enterpassword": { "message": "Ingiza nenosiri" },
-  "passwordmismatch": { "message": "Manenosiri hayalingani" },
-  "passwordtooshort": { "message": "Nenosiri linapaswa kuwa na angalau herufi 6" },
-  "resetpasswordconfirm": { "message": "Kuseti upya nenosiri kutaondoa ulinzi. Endelea?" },
-  "passwordset": { "message": "Nenosiri limewekwa kwa mafanikio" },
-  "passworddisabled": { "message": "Ulinzi wa nenosiri umezimwa" },
-  "prorequired": { "message": "Hali ya Pro inahitajika kwa kipengele hiki" },
-  "enablepasswordtitle": { "message": "Wezesha ulinzi wa nenosiri" },
-  "enablepassworddesc": { "message": "Inahitaji nenosiri ili kufuta au kuhariri sheria (inaboresha hali ya kali)" },
-  "passwordprotectiontitle": { "message": "Ulinzi wa nenosiri" },
-  "scheduleheader": { "message": "Ratiba" },
-  "enableschedule": { "message": "Washa ratiba" },
-  "alwaysactive": { "message": "Daima hai" },
-  "profeatureschedule": { "message": "Ratiba inapatikana katika toleo la Pro" },
-  "days": { "message": "Siku" },
-  "starttime": { "message": "Muda wa kuanza:" },
-  "endtime": { "message": "Muda wa kumaliza:" },
-  "invaliddays": { "message": "Siku zilizochaguliwa si sahihi" },
-  "invalidtimeformat": { "message": "Muundo wa muda si sahihi (tumia HH:MM)" },
-  "startafterend": { "message": "Muda wa kuanza lazima uwe kabla ya muda wa kumaliza" },
-  "invalidschedule": { "message": "Ratiba si sahihi: tafadhali chagua siku na muda." },
-  "invalidscheduledays": { "message": "Ratiba si sahihi: tafadhali chagua angalau siku moja." },
-  "invalidschedulestarttime": { "message": "Ratiba si sahihi: tafadhali weka muda wa kuanza." },
-  "invalidscheduleendtime": { "message": "Ratiba si sahihi: tafadhali weka muda wa kumaliza." },
-  "editdisablednonpro": { "message": "Uhariri umezimwa: sheria nyingi sana kwa watumiaji wasio Pro." },
-  "errorloadingstatus": { "message": "Hitilafu wakati wa kupakia hali ya mtumiaji." },
-  "schedule_day_sun": { "message": "Jum" },
-  "schedule_day_mon": { "message": "Jtt" },
-  "schedule_day_tue": { "message": "Jnn" },
-  "schedule_day_wed": { "message": "Jtn" },
-  "schedule_day_thu": { "message": "Alh" },
-  "schedule_day_fri": { "message": "Ijm" },
-  "schedule_day_sat": { "message": "Jms" },
-  "category_header": { "message": "Kategoria" },
-  "category_required": { "message": "Kategoria inahitajika" },
-  "allcategories": { "message": "Kategoria zote" },
-  "category_social": { "message": "Mitandao ya Kijamii" },
-  "category_news": { "message": "Habari" },
-  "category_entertainment": { "message": "Burudani" },
-  "category_shopping": { "message": "Ununuzi" },
-  "category_work": { "message": "Kazi" },
-  "category_gaming": { "message": "Michezo" },
-  "category_adult": { "message": "Yaliyomo kwa Watu Wakuze" },
-  "category_uncategorized": { "message": "Haijapangwa" },
-  "searchfordomain": { "message": "Tafuta jina la kikoa" },
-  "norulesforcategory": { "message": "Hakuna tovuti zilizozuiwa kwa kategoria hii." },
-  "getpro": { "message": "Pata Pro" },
-  "profunctionstext": { "message": "Vipengele vya Pro vinajumuisha: kuzuia kwa ratiba, ulinzi wa nywila, uchujaji wa kanuni, na kuingiza/kutoa kanuni. Furahia Leseni Yetu ya Universal: usajili mmoja unafungua Pro kwenye vivinjari vyako vyote (Chrome, Firefox, Edge, Kiwi). Ili kuamilisha, nunua usajili kwenye blockdistraction.com, kisha nakili Ufunguzi wa Leseni wako kutoka dashibodi ya akaunti yako na ubandike hapa chini." },
-  "upgradenow": { "message": "Boresha sasa" },
-  "enteremail": { "message": "Weka barua pepe yako" },
-  "activatepro": { "message": "Washa Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Rejesha Ufikiaji" },
-  "pleaseenteremail": { "message": "Tafadhali weka barua pepe yako" },
-  "checking": { "message": "Inakagua..." },
-  "proactivated": { "message": "Vipengele vya Pro vimewashwa!" },
-  "subscriptionnotfound": { "message": "Usajili hauko hai au barua pepe haikupatikana." },
-  "servererror": { "message": "Hitilafu ya seva. Tafadhali jaribu tena." },
-  "proactivatedfor": { "message": "Pro imewashwa kwa" },
+  "proonlyactions": {
+    "message": "Pro inahitajika kwa uhariri."
+  },
+  "invalidpassword": {
+    "message": "Nenosiri batili"
+  },
+  "setpassword": {
+    "message": "Weka nenosiri"
+  },
+  "enterpassword": {
+    "message": "Ingiza nenosiri"
+  },
+  "passwordmismatch": {
+    "message": "Manenosiri hayalingani"
+  },
+  "passwordtooshort": {
+    "message": "Nenosiri linapaswa kuwa na angalau herufi 6"
+  },
+  "resetpasswordconfirm": {
+    "message": "Kuseti upya nenosiri kutaondoa ulinzi. Endelea?"
+  },
+  "passwordset": {
+    "message": "Nenosiri limewekwa kwa mafanikio"
+  },
+  "passworddisabled": {
+    "message": "Ulinzi wa nenosiri umezimwa"
+  },
+  "prorequired": {
+    "message": "Hali ya Pro inahitajika kwa kipengele hiki"
+  },
+  "enablepasswordtitle": {
+    "message": "Wezesha ulinzi wa nenosiri"
+  },
+  "enablepassworddesc": {
+    "message": "Inahitaji nenosiri ili kufuta au kuhariri sheria (inaboresha hali ya kali)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Ulinzi wa nenosiri"
+  },
+  "scheduleheader": {
+    "message": "Ratiba"
+  },
+  "enableschedule": {
+    "message": "Washa ratiba"
+  },
+  "alwaysactive": {
+    "message": "Daima hai"
+  },
+  "profeatureschedule": {
+    "message": "Ratiba inapatikana katika toleo la Pro"
+  },
+  "days": {
+    "message": "Siku"
+  },
+  "starttime": {
+    "message": "Muda wa kuanza:"
+  },
+  "endtime": {
+    "message": "Muda wa kumaliza:"
+  },
+  "invaliddays": {
+    "message": "Siku zilizochaguliwa si sahihi"
+  },
+  "invalidtimeformat": {
+    "message": "Muundo wa muda si sahihi (tumia HH:MM)"
+  },
+  "startafterend": {
+    "message": "Muda wa kuanza lazima uwe kabla ya muda wa kumaliza"
+  },
+  "invalidschedule": {
+    "message": "Ratiba si sahihi: tafadhali chagua siku na muda."
+  },
+  "invalidscheduledays": {
+    "message": "Ratiba si sahihi: tafadhali chagua angalau siku moja."
+  },
+  "invalidschedulestarttime": {
+    "message": "Ratiba si sahihi: tafadhali weka muda wa kuanza."
+  },
+  "invalidscheduleendtime": {
+    "message": "Ratiba si sahihi: tafadhali weka muda wa kumaliza."
+  },
+  "editdisablednonpro": {
+    "message": "Uhariri umezimwa: sheria nyingi sana kwa watumiaji wasio Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Hitilafu wakati wa kupakia hali ya mtumiaji."
+  },
+  "schedule_day_sun": {
+    "message": "Jum"
+  },
+  "schedule_day_mon": {
+    "message": "Jtt"
+  },
+  "schedule_day_tue": {
+    "message": "Jnn"
+  },
+  "schedule_day_wed": {
+    "message": "Jtn"
+  },
+  "schedule_day_thu": {
+    "message": "Alh"
+  },
+  "schedule_day_fri": {
+    "message": "Ijm"
+  },
+  "schedule_day_sat": {
+    "message": "Jms"
+  },
+  "category_header": {
+    "message": "Kategoria"
+  },
+  "category_required": {
+    "message": "Kategoria inahitajika"
+  },
+  "allcategories": {
+    "message": "Kategoria zote"
+  },
+  "category_social": {
+    "message": "Mitandao ya Kijamii"
+  },
+  "category_news": {
+    "message": "Habari"
+  },
+  "category_entertainment": {
+    "message": "Burudani"
+  },
+  "category_shopping": {
+    "message": "Ununuzi"
+  },
+  "category_work": {
+    "message": "Kazi"
+  },
+  "category_gaming": {
+    "message": "Michezo"
+  },
+  "category_adult": {
+    "message": "Yaliyomo kwa Watu Wakuze"
+  },
+  "category_uncategorized": {
+    "message": "Haijapangwa"
+  },
+  "searchfordomain": {
+    "message": "Tafuta jina la kikoa"
+  },
+  "norulesforcategory": {
+    "message": "Hakuna tovuti zilizozuiwa kwa kategoria hii."
+  },
+  "getpro": {
+    "message": "Pata Pro"
+  },
+  "profunctionstext": {
+    "message": "Vipengele vya Pro vinajumuisha: kuzuia kwa ratiba, ulinzi wa nywila, uchujaji wa kanuni, na kuingiza/kutoa kanuni. Furahia Leseni Yetu ya Universal: usajili mmoja unafungua Pro kwenye vivinjari vyako vyote (Chrome, Firefox, Edge, Kiwi). Ili kuamilisha, nunua usajili kwenye blockdistraction.com, kisha nakili Ufunguzi wa Leseni wako kutoka dashibodi ya akaunti yako na ubandike hapa chini."
+  },
+  "upgradenow": {
+    "message": "Boresha sasa"
+  },
+  "enteremail": {
+    "message": "Weka barua pepe yako"
+  },
+  "activatepro": {
+    "message": "Washa Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Rejesha Ufikiaji"
+  },
+  "pleaseenteremail": {
+    "message": "Tafadhali weka barua pepe yako"
+  },
+  "checking": {
+    "message": "Inakagua..."
+  },
+  "proactivated": {
+    "message": "Vipengele vya Pro vimewashwa!"
+  },
+  "subscriptionnotfound": {
+    "message": "Usajili hauko hai au barua pepe haikupatikana."
+  },
+  "servererror": {
+    "message": "Hitilafu ya seva. Tafadhali jaribu tena."
+  },
+  "proactivatedfor": {
+    "message": "Pro imewashwa kwa"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Ombi la ruhusa limefeli (inaweza kutokea kwenye simu). Tafadhali jaribu tena au toa ruhusa mwenyewe kupitia mipangilio ya programu-jalizi."
   },
-  "pastekeylabel": { "message": "Bandika ufunguo wa leseni hapa:" },
-  "confirmclearstats": { "message": "Una uhakika unataka kufuta takwimu zote? Hili haliwezi kubatilishwa." },
-  "statscleared": { "message": "Takwimu zimefutwa kwa mafanikio." },
-  "redirectstodaylabel": { "message": "Mielekeo Leo" },
-  "totalredirectslabel": { "message": "Jumla ya Mielekeo" },
-  "logout": { "message": "Ondoka" },
-  "loggedoutsuccess": { "message": "Umeondoka kwa mafanikio." },
-  "loggedouterror": { "message": "Hitilafu imetokea wakati wa kutoka." },
-  "forcesync": { "message": "Lazimisha Usawazishaji / Angalia Hali" },
-  "forgotpasswordinstructions": { "message": "Ili kuweka upya nenosiri lako, nenda kwenye sehemu ya 'Pro', bofya 'Ondoka', kisha washa tena kwa kubandika Ufunguo wako wa Leseni." },
-  "blockedtitle": { "message": "Tovuti haipatikani" },
-  "blockedheader": { "message": "Tovuti hii haipatikani kwa sasa" },
-  "blockedtext": { "message": "Yaliyomo haya hayawezi kuonyeshwa." },
-  "blockedbutton": { "message": "Funga Kifaa" },
-  "confirmpassword": { "message": "Thibitisha nenosiri" },
-  "modalconfirm": { "message": "Thibitisha" },
-  "modalcancel": { "message": "Ghairi" },
-  "forgotpassword": { "message": "Umesahau nenosiri? Weka upya (kitendo kitaondoa ulinzi)" },
-  "prounlocked": { "message": "Asante kwa msaada wako! Vipengele vyote vya Pro vimefunguliwa." },
-  "licensesynced": { "message": "Leseni yako imeunganishwa na akaunti yako. Ikiwa utapoteza ufikiaji, unaweza kupata tena ufunguo wako hapa: " },
-  "syncing": { "message": "Inasawazisha..." },
-  "pleaseenterkey": { "message": "Tafadhali ingiza ufunguo." },
-  "syncsuccess": { "message": "Ulinganifu umefanikiwa" },
-  "syncfailed": { "message": "Ulinganifu umefeli." },
-  "passwordreset": { "message": "Ulinzi wa nywila umeanzishwa upya." },
-  "privacysecured": { "message": "Faragha imedhaminiwa" },
-  "errorinvalidfiletype": { "message": "Tafadhali chagua faili la .json" },
-  "debugsettingstitle": { "message": "Mipangilio ya Kurekebisha Hitilafu" },
-  "enabledebugtitle": { "message": "Washa Hali ya Kurekebisha Hitilafu" },
-  "enabledebugdesc": { "message": "Washa uchapishaji wa kina kwenye console kwa kutatua matatizo" },
-  "errorcommunication": { "message": "Hitilafu wakati wa kuwasiliana na huduma ya background" },
-  "clearstats": { "message": "Futa takwimu" },
-  "rule_enabled": { "message": "Imeshashwa" },
-  "rule_disabled": { "message": "Imezimwa" },
-  "filter_only_hint": { "message": "Orodha hii huchuja tu kinachoonyeshwa kwenye jedwali" },
-  "category_disabled_desc": { "message": "Nyamazisha kategoria ili kuruhusu kwa muda ufikiaji wa tovuti zake zote. Mipangilio ya sheria za kibinafsi inahifadhiwa." },
-  "toggle_category_blocking": { "message": "Washa au zima uzuiaji wa kategoria nzima" },
-  "category_muted_no_edit": { "message": "Haiwezi kusimamiwa: uzuiaji wa kategoria umesitishwa" },
-  "feedback_title": { "message": "Je, unapenda BlockDistraction?" },
-  "feedback_desc": { "message": "Maoni yako yanatusaidia sana kuboresha kiendelezi hiki." },
-  "feedback_like": { "message": "Ndiyo, inafanya kazi vizuri sana!" },
-  "feedback_dislike": { "message": "Nina matatizo / mapendekezo" },
-  "trialproheader": { "message": "Anza jaribio lako la bure la siku 7" },
-  "trialprotext": { "message": "Ghairi wakati wowote. Malipo yako yanalindwa kwa usalama." },
-  "focussessionheader": { "message": "Kipindi cha Kulenga" },
-  "focussessionstart": { "message": "Anza" },
-  "focussessionstop": { "message": "Simamisha" },
-  "focussessionduration": { "message": "Muda (dakika):" },
-  "focussessioninfo": { "message": "Huvitisha sheria zako zote za kuzuia kwa muda uliowekwa, ikipuuza mipangilio na ratiba zao za sasa. Kwa umakini wa hali ya juu." },
-  "focussessionprofeature": { "message": "Muda maalum na Hali ya Hardcore ni vipengele vya Pro." },
-  "focussessionended": { "message": "Kipindi cha kulenga kimeisha! Chukua mapumziko kidogo." },
-  "focussessionhardcore": { "message": "Hali ya Hardcore (hakuna kitufe cha 'Simamisha')" },
-  "focussessionsoundtitle": { "message": "Arifa ya Sauti ya Kipindi cha Kulenga" },
-  "focussessionsounddesc": { "message": "Cheza sauti wakati kipindi cha kulenga kinapoisha." },
-  "focussessionactivebanner": { "message": "Kipindi cha Kulenga Kinafanya Kazi! Muda uliobaki:" },
-  "focussessioninvalidduration": { "message": "Tafadhali weka muda unaofaa (dakika 1-240)." },
-  "successfulfocussessionslabel": { "message": "Vipindi Vilivyofungwa kwa Mafanikio" },
-  "rule_scheduled": { "message": "Kanuni iliyoratibiwa" },
-  "addwhitelistrule": { "message": "Ongeza isipokuwa" },
-  "category_whitelist": { "message": "Orodha nyeupe" },
-  "conflict_blacklist_err": { "message": "Tovuti hii tayari ipo kwenye orodha yako nyeusi. Liondoe kwanza." },
-  "conflict_whitelist_err": { "message": "Tovuti hii tayari ipo kwenye orodha yako nyeupe. Liondoe kwanza." },
-  "status_allow": { "message": "Imeruhusiwa" },
-  "redundant_whitelist_err": { "message": "Kanuni hii tayari inashughulikiwa na kanuni ingine ya orodha nyeupe." },
-  "focussessionmode": { "message": "Hali ya uzingativu:" },
-  "focusmodeblacklist": { "message": "Zuia orodha nyeusi" },
-  "focusmodewhitelist": { "message": "Ruhusu orodha nyeupe tu" }
+  "pastekeylabel": {
+    "message": "Bandika ufunguo wa leseni hapa:"
+  },
+  "confirmclearstats": {
+    "message": "Una uhakika unataka kufuta takwimu zote? Hili haliwezi kubatilishwa."
+  },
+  "statscleared": {
+    "message": "Takwimu zimefutwa kwa mafanikio."
+  },
+  "redirectstodaylabel": {
+    "message": "Mielekeo Leo"
+  },
+  "totalredirectslabel": {
+    "message": "Jumla ya Mielekeo"
+  },
+  "logout": {
+    "message": "Ondoka"
+  },
+  "loggedoutsuccess": {
+    "message": "Umeondoka kwa mafanikio."
+  },
+  "loggedouterror": {
+    "message": "Hitilafu imetokea wakati wa kutoka."
+  },
+  "forcesync": {
+    "message": "Lazimisha Usawazishaji / Angalia Hali"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Ili kuweka upya nenosiri lako, nenda kwenye sehemu ya 'Pro', bofya 'Ondoka', kisha washa tena kwa kubandika Ufunguo wako wa Leseni."
+  },
+  "blockedtitle": {
+    "message": "Tovuti haipatikani"
+  },
+  "blockedheader": {
+    "message": "Tovuti hii haipatikani kwa sasa"
+  },
+  "blockedtext": {
+    "message": "Yaliyomo haya hayawezi kuonyeshwa."
+  },
+  "blockedbutton": {
+    "message": "Funga Kifaa"
+  },
+  "confirmpassword": {
+    "message": "Thibitisha nenosiri"
+  },
+  "modalconfirm": {
+    "message": "Thibitisha"
+  },
+  "modalcancel": {
+    "message": "Ghairi"
+  },
+  "forgotpassword": {
+    "message": "Umesahau nenosiri? Weka upya (kitendo kitaondoa ulinzi)"
+  },
+  "prounlocked": {
+    "message": "Asante kwa msaada wako! Vipengele vyote vya Pro vimefunguliwa."
+  },
+  "licensesynced": {
+    "message": "Leseni yako imeunganishwa na akaunti yako. Ikiwa utapoteza ufikiaji, unaweza kupata tena ufunguo wako hapa: "
+  },
+  "syncing": {
+    "message": "Inasawazisha..."
+  },
+  "pleaseenterkey": {
+    "message": "Tafadhali ingiza ufunguo."
+  },
+  "syncsuccess": {
+    "message": "Ulinganifu umefanikiwa"
+  },
+  "syncfailed": {
+    "message": "Ulinganifu umefeli."
+  },
+  "passwordreset": {
+    "message": "Ulinzi wa nywila umeanzishwa upya."
+  },
+  "privacysecured": {
+    "message": "Faragha imedhaminiwa"
+  },
+  "errorinvalidfiletype": {
+    "message": "Tafadhali chagua faili la .json"
+  },
+  "debugsettingstitle": {
+    "message": "Mipangilio ya Kurekebisha Hitilafu"
+  },
+  "enabledebugtitle": {
+    "message": "Washa Hali ya Kurekebisha Hitilafu"
+  },
+  "enabledebugdesc": {
+    "message": "Washa uchapishaji wa kina kwenye console kwa kutatua matatizo"
+  },
+  "errorcommunication": {
+    "message": "Hitilafu wakati wa kuwasiliana na huduma ya background"
+  },
+  "clearstats": {
+    "message": "Futa takwimu"
+  },
+  "rule_enabled": {
+    "message": "Imeshashwa"
+  },
+  "rule_disabled": {
+    "message": "Imezimwa"
+  },
+  "filter_only_hint": {
+    "message": "Orodha hii huchuja tu kinachoonyeshwa kwenye jedwali"
+  },
+  "category_disabled_desc": {
+    "message": "Nyamazisha kategoria ili kuruhusu kwa muda ufikiaji wa tovuti zake zote. Mipangilio ya sheria za kibinafsi inahifadhiwa."
+  },
+  "toggle_category_blocking": {
+    "message": "Washa au zima uzuiaji wa kategoria nzima"
+  },
+  "category_muted_no_edit": {
+    "message": "Haiwezi kusimamiwa: uzuiaji wa kategoria umesitishwa"
+  },
+  "feedback_title": {
+    "message": "Je, unapenda BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Maoni yako yanatusaidia sana kuboresha kiendelezi hiki."
+  },
+  "feedback_like": {
+    "message": "Ndiyo, inafanya kazi vizuri sana!"
+  },
+  "feedback_dislike": {
+    "message": "Nina matatizo / mapendekezo"
+  },
+  "trialproheader": {
+    "message": "Anza jaribio lako la bure la siku 7"
+  },
+  "trialprotext": {
+    "message": "Ghairi wakati wowote. Malipo yako yanalindwa kwa usalama."
+  },
+  "focussessionheader": {
+    "message": "Kipindi cha Kulenga"
+  },
+  "focussessionstart": {
+    "message": "Anza"
+  },
+  "focussessionstop": {
+    "message": "Simamisha"
+  },
+  "focussessionduration": {
+    "message": "Muda (dakika):"
+  },
+  "focussessioninfo": {
+    "message": "Huvitisha sheria zako zote za kuzuia kwa muda uliowekwa, ikipuuza mipangilio na ratiba zao za sasa. Kwa umakini wa hali ya juu."
+  },
+  "focussessionprofeature": {
+    "message": "Muda maalum na Hali ya Hardcore ni vipengele vya Pro."
+  },
+  "focussessionended": {
+    "message": "Kipindi cha kulenga kimeisha! Chukua mapumziko kidogo."
+  },
+  "focussessionhardcore": {
+    "message": "Hali ya Hardcore (hakuna kitufe cha 'Simamisha')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Arifa ya Sauti ya Kipindi cha Kulenga"
+  },
+  "focussessionsounddesc": {
+    "message": "Cheza sauti wakati kipindi cha kulenga kinapoisha."
+  },
+  "focussessionactivebanner": {
+    "message": "Kipindi cha Kulenga Kinafanya Kazi! Muda uliobaki:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Tafadhali weka muda unaofaa (dakika 1-240)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Vipindi Vilivyofungwa kwa Mafanikio"
+  },
+  "rule_scheduled": {
+    "message": "Kanuni iliyoratibiwa"
+  },
+  "addwhitelistrule": {
+    "message": "Ongeza isipokuwa"
+  },
+  "category_whitelist": {
+    "message": "Orodha nyeupe"
+  },
+  "conflict_blacklist_err": {
+    "message": "Tovuti hii tayari ipo kwenye orodha yako nyeusi. Liondoe kwanza."
+  },
+  "conflict_whitelist_err": {
+    "message": "Tovuti hii tayari ipo kwenye orodha yako nyeupe. Liondoe kwanza."
+  },
+  "status_allow": {
+    "message": "Imeruhusiwa"
+  },
+  "redundant_whitelist_err": {
+    "message": "Kanuni hii tayari inashughulikiwa na kanuni ingine ya orodha nyeupe."
+  },
+  "focussessionmode": {
+    "message": "Hali ya uzingativu:"
+  },
+  "focusmodeblacklist": {
+    "message": "Zuia orodha nyeusi"
+  },
+  "focusmodewhitelist": {
+    "message": "Ruhusu orodha nyeupe tu"
+  },
+  "schedule_edit": {
+    "message": "Hariri ratiba"
+  },
+  "schedule_add_period": {
+    "message": "Ongeza kikundi cha muda"
+  },
+  "schedule_remove_period": {
+    "message": "Ondoa"
+  },
+  "schedule_period": {
+    "message": "Kikundi cha muda"
+  },
+  "schedule_every_day": {
+    "message": "Kila siku"
+  },
+  "schedule_weekdays": {
+    "message": "Siku za kazi"
+  },
+  "schedule_weekends": {
+    "message": "Mwisho wa wiki"
+  },
+  "schedule_day_overlap": {
+    "message": "Kila siku inaweza kutumika mara moja tu."
+  }
 }

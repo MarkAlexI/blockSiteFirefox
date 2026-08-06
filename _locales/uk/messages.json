@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Розширення для блокування сайтів" },
-  "shortname": { "message": "BlkDistract" },
-  "description": { "message": "Простий та надійний інструмент для блокування та перенаправлення веб-сайтів, щоб допомогти залишатися зосередженим." },
-  "defaulttitle": { "message": "Будьте зосереджені та продуктивні" },
-  "header": { "message": "Блокувальник сайтів" },
-  "paragraph": { "message": "Щоб заблокувати веб-сайт або ресурс, введіть частину його назви у поле з підказкою 'Введіть URL для блокування' – наприклад, 'facebook' заблокує всі піддомени. У полі 'Введіть URL перенаправлення' введіть повну адресу для перенаправлення з протоколом, наприклад 'https://google.com'. Якщо поле перенаправлення залишити порожнім, сайт буде заблоковано без перенаправлення. Натисніть 'Зберегти', щоб застосувати правило. Щоб оновити правило, видаліть старе та створіть нове." },
-  "addrule": { "message": "Додати нове правило" },
-  "blockurl": { "message": "Введіть URL для блокування" },
-  "redirecturl": { "message": "Введіть URL перенаправлення (необов’язково)" },
-  "redirecturlheader": { "message": "URL перенаправлення" },
-  "redirecturlplaceholder": { "message": "Необов’язково - залиште порожнім для блокування" },
-  "redirecturlhint": { "message": "Введіть повний URL, включно з https://" },
-  "mobilecopylinkhint": { "message": "Щоб заблокувати посилання, скопіюйте його адресу та вставте в поле блокування." },
-  "savebtn": { "message": "Зберегти" },
-  "deletebtn": { "message": "Видалити" },
-  "alertruleexist": { "message": "Правило вже існує" },
+  "chromename": {
+    "message": "BlockDistraction – Розширення для блокування сайтів"
+  },
+  "shortname": {
+    "message": "BlkDistract"
+  },
+  "description": {
+    "message": "Простий та надійний інструмент для блокування та перенаправлення веб-сайтів, щоб допомогти залишатися зосередженим."
+  },
+  "defaulttitle": {
+    "message": "Будьте зосереджені та продуктивні"
+  },
+  "header": {
+    "message": "Блокувальник сайтів"
+  },
+  "paragraph": {
+    "message": "Щоб заблокувати веб-сайт або ресурс, введіть частину його назви у поле з підказкою 'Введіть URL для блокування' – наприклад, 'facebook' заблокує всі піддомени. У полі 'Введіть URL перенаправлення' введіть повну адресу для перенаправлення з протоколом, наприклад 'https://google.com'. Якщо поле перенаправлення залишити порожнім, сайт буде заблоковано без перенаправлення. Натисніть 'Зберегти', щоб застосувати правило. Щоб оновити правило, видаліть старе та створіть нове."
+  },
+  "addrule": {
+    "message": "Додати нове правило"
+  },
+  "blockurl": {
+    "message": "Введіть URL для блокування"
+  },
+  "redirecturl": {
+    "message": "Введіть URL перенаправлення (необов’язково)"
+  },
+  "redirecturlheader": {
+    "message": "URL перенаправлення"
+  },
+  "redirecturlplaceholder": {
+    "message": "Необов’язково - залиште порожнім для блокування"
+  },
+  "redirecturlhint": {
+    "message": "Введіть повний URL, включно з https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Щоб заблокувати посилання, скопіюйте його адресу та вставте в поле блокування."
+  },
+  "savebtn": {
+    "message": "Зберегти"
+  },
+  "deletebtn": {
+    "message": "Видалити"
+  },
+  "alertruleexist": {
+    "message": "Правило вже існує"
+  },
   "savedrules": {
     "message": "$ruleslength$ збережених правил",
     "placeholders": {
@@ -24,91 +56,261 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Цей ресурс неможливо заблокувати." },
-  "wrongblockurl": { "message": "Недійсна URL-адреса для блокування" },
-  "wrongredirecturl": { "message": "Неправильний URL перенаправлення" },
-  "blockthat": { "message": "Заблокувати цей сайт" },
-  "sendfeedbackbutton": { "message": "Надіслати відгук" },
-  "sendfeedbacksubject": { "message": "Відгук для BlockDistraction" },
-  "sendfeedbackbody": { "message": "Привіт! Хочу поділитися наступним відгуком:\n\n" },
-  "quote1": { "message": "Будьте зосереджені, будьте сильні." },
-  "quote2": { "message": "Ваше майбутнє створюється тим, що ви робите сьогодні." },
-  "quote3": { "message": "Дисципліна – міст між цілями та успіхом." },
-  "quote4": { "message": "Один заблокований сайт – один крок ближче до мети." },
-  "quote5": { "message": "Нехай кожен клік має значення." },
-  "quote6": { "message": "Не дивіться на годинник; робіть як він. Продовжуйте." },
-  "quote7": { "message": "Малі кроки щодня призводять до великих результатів." },
-  "quote8": { "message": "Єдина межа – ваш розум." },
-  "quote9": { "message": "Успіх – це сума малих зусиль, повторюваних щодня." },
-  "quote10": { "message": "Зосередьтеся на продуктивності, а не на зайнятості." },
-  "quote11": { "message": "Захищайте свою увагу – це ваш найцінніший ресурс." },
-  "quote12": { "message": "Кожне заблоковане відволікання – це повернений час." },
-  "quote13": { "message": "Зменшіть шум; збільшіть продуктивність." },
-  "quote14": { "message": "Малі рутини створюють непереможний імпульс." },
-  "quote15": { "message": "Ясність перемагає хаос – зосередьтесь на важливому." },
-  "quote16": { "message": "Кажіть «ні» відволіканням; кажіть «так» прогресу." },
-  "quote17": { "message": "Одна сконцентрована година сьогодні примножує результати завтра." },
-  "quote18": { "message": "Створюйте більше, споживаючи менше." },
-  "quote19": { "message": "Дисципліна обирає довгострокові перемоги замість короткочасних імпульсів." },
-  "quote20": { "message": "Закрийте вкладку – відкрийте простір для нових ідей." },
-  "quote21": { "message": "Те, що ти відкладаєш сьогодні, може стати причиною завтрашнього стресу." },
-  "quote22": { "message": "Зосередженість — це не про те, щоб робити більше. Це про те, щоб робити те, що справді важливо." },
-  "quote23": { "message": "Твої цілі варті більшої уваги, ніж будь-які відволікання." },
-  "quote24": { "message": "Кожна хвилина без відволікань — це внесок у власний розвиток." },
-  "quote25": { "message": "Стабільний рух уперед приносить більше результатів, ніж рідкісні сплески мотивації." },
-  "quote26": { "message": "Найкращий момент почати був учора. Наступний найкращий момент — зараз." },
-  "quote27": { "message": "Прогрес починається з рішення діяти, а не відволікатися." },
-  "quote28": { "message": "Навіть одна хвилина справжньої концентрації може змінити хід твого дня." },
-  "quote29": { "message": "Тобі не потрібно більше часу — тобі потрібно менше відволікань." },
-  "quote30": { "message": "Кожен вибір на користь зосередженості працює на твоє майбутнє." },
-  "quote31": { "message": "Це блокування тимчасове, а твої цілі — довгострокові." },
-  "quote32": { "message": "Кожна заблокована відволікаюча сторінка — це перемога для твого майбутнього." },
-  "quote33": { "message": "Інтернет безмежний, а твій час — ні." },
-  "quote34": { "message": "Обирай свої пріоритети, перш ніж веб зробить це за тебе." },
-  "quote35": { "message": "Менше гортання — більше створення." },
-  "quote36": { "message": "Твоя увага формує твої досягнення." },
-  "quote37": { "message": "Тримай курс — відволікання може зачекати." },
-  "quote38": { "message": "Кожне продуктивне рішення починається зі зосередженого розуму." },
-  "quote39": { "message": "Ти заблокував сайт, а не свій потенціал." },
-  "quote40": { "message": "Шлях до успіху прокладається через усвідомлені та зосереджені рішення." },
-  "actionsheader": { "message": "Дії" },
-  "norules": { "message": "Немає заблокованих сайтів." },
-  "editbtn": { "message": "Редагувати" },
-  "ruleddeleted": { "message": "Правило видалено." },
-  "cancelbtn": { "message": "Скасувати" },
-  "ruleupdated": { "message": "Правило оновлено." },
-  "rulenewadded": { "message": "Додано нове правило." },
-  "gotooptions": { "message": "Перейти на сторінку налаштувань ⚙️" },
-  "gotopopup": { "message": "Натисніть на іконку розширення, щоб повернутися до спливаючого вікна." },
-  "rulesmigrated": { "message": "Правила оновлено для сумісності" },
-  "errorupdatingrules": { "message": "Помилка оновлення правил" },
-  "erroraddingrule": { "message": "Помилка додавання правила" },
-  "errorremovingrule": { "message": "Помилка видалення правила" },
-  "optionsheader": { "message": "Налаштування розширення" },
-  "optionsdescription": { "message": "Налаштуйте поведінку розширення та параметри безпеки" },
-  "securitymodetitle": { "message": "Режим безпеки" },
-  "normalmodetitle": { "message": "Звичайний режим" },
-  "normalmodedesc": { "message": "Правила можна видалити миттєво одним кліком" },
-  "strictmodetitle": { "message": "Суворий режим" },
-  "strictmodedesc": { "message": "Для видалення правил потрібен 10-секундний відлік, щоб запобігти випадковому видаленню" },
-  "confirmdeletetitle": { "message": "Підтвердження перед видаленням кількох правил" },
-  "confirmdeletedesc": { "message": "Показувати діалог підтвердження при видаленні кількох правил одночасно" },
-  "notificationstitle": { "message": "Показувати сповіщення" },
-  "notificationsdesc": { "message": "Відображати сповіщення при оновленні веб-розширення" },
-  "rulesmanagementtitle": { "message": "Керування правилами" },
-  "exportrulesbtn": { "message": "Експортувати правила" },
-  "importrulesbtn": { "message": "Імпортувати правила" },
-  "clearallrulesbtn": { "message": "Очистити всі правила" },
-  "totalruleslabel": { "message": "Загальна кількість правил" },
-  "blockedtodaylabel": { "message": "Заблоковано сьогодні" },
-  "totalblockedlabel": { "message": "Загалом заблоковано" },
-  "resetsettingsbtn": { "message": "Скинути до стандартних" },
-  "backtopopup": { "message": "Повернутися до головного" },
-  "errorloadingsettings": { "message": "Помилка завантаження налаштувань" },
-  "settingssaved": { "message": "Налаштування успішно збережено!" },
-  "errorsavingsettings": { "message": "Помилка збереження налаштувань" },
-  "rulesexported": { "message": "Правила успішно експортовано!" },
-  "errorexportingrules": { "message": "Помилка експортування правил" },
+  "restrictedblockurl": {
+    "message": "Цей ресурс неможливо заблокувати."
+  },
+  "wrongblockurl": {
+    "message": "Недійсна URL-адреса для блокування"
+  },
+  "wrongredirecturl": {
+    "message": "Неправильний URL перенаправлення"
+  },
+  "blockthat": {
+    "message": "Заблокувати цей сайт"
+  },
+  "sendfeedbackbutton": {
+    "message": "Надіслати відгук"
+  },
+  "sendfeedbacksubject": {
+    "message": "Відгук для BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Привіт! Хочу поділитися наступним відгуком:\n\n"
+  },
+  "quote1": {
+    "message": "Будьте зосереджені, будьте сильні."
+  },
+  "quote2": {
+    "message": "Ваше майбутнє створюється тим, що ви робите сьогодні."
+  },
+  "quote3": {
+    "message": "Дисципліна – міст між цілями та успіхом."
+  },
+  "quote4": {
+    "message": "Один заблокований сайт – один крок ближче до мети."
+  },
+  "quote5": {
+    "message": "Нехай кожен клік має значення."
+  },
+  "quote6": {
+    "message": "Не дивіться на годинник; робіть як він. Продовжуйте."
+  },
+  "quote7": {
+    "message": "Малі кроки щодня призводять до великих результатів."
+  },
+  "quote8": {
+    "message": "Єдина межа – ваш розум."
+  },
+  "quote9": {
+    "message": "Успіх – це сума малих зусиль, повторюваних щодня."
+  },
+  "quote10": {
+    "message": "Зосередьтеся на продуктивності, а не на зайнятості."
+  },
+  "quote11": {
+    "message": "Захищайте свою увагу – це ваш найцінніший ресурс."
+  },
+  "quote12": {
+    "message": "Кожне заблоковане відволікання – це повернений час."
+  },
+  "quote13": {
+    "message": "Зменшіть шум; збільшіть продуктивність."
+  },
+  "quote14": {
+    "message": "Малі рутини створюють непереможний імпульс."
+  },
+  "quote15": {
+    "message": "Ясність перемагає хаос – зосередьтесь на важливому."
+  },
+  "quote16": {
+    "message": "Кажіть «ні» відволіканням; кажіть «так» прогресу."
+  },
+  "quote17": {
+    "message": "Одна сконцентрована година сьогодні примножує результати завтра."
+  },
+  "quote18": {
+    "message": "Створюйте більше, споживаючи менше."
+  },
+  "quote19": {
+    "message": "Дисципліна обирає довгострокові перемоги замість короткочасних імпульсів."
+  },
+  "quote20": {
+    "message": "Закрийте вкладку – відкрийте простір для нових ідей."
+  },
+  "quote21": {
+    "message": "Те, що ти відкладаєш сьогодні, може стати причиною завтрашнього стресу."
+  },
+  "quote22": {
+    "message": "Зосередженість — це не про те, щоб робити більше. Це про те, щоб робити те, що справді важливо."
+  },
+  "quote23": {
+    "message": "Твої цілі варті більшої уваги, ніж будь-які відволікання."
+  },
+  "quote24": {
+    "message": "Кожна хвилина без відволікань — це внесок у власний розвиток."
+  },
+  "quote25": {
+    "message": "Стабільний рух уперед приносить більше результатів, ніж рідкісні сплески мотивації."
+  },
+  "quote26": {
+    "message": "Найкращий момент почати був учора. Наступний найкращий момент — зараз."
+  },
+  "quote27": {
+    "message": "Прогрес починається з рішення діяти, а не відволікатися."
+  },
+  "quote28": {
+    "message": "Навіть одна хвилина справжньої концентрації може змінити хід твого дня."
+  },
+  "quote29": {
+    "message": "Тобі не потрібно більше часу — тобі потрібно менше відволікань."
+  },
+  "quote30": {
+    "message": "Кожен вибір на користь зосередженості працює на твоє майбутнє."
+  },
+  "quote31": {
+    "message": "Це блокування тимчасове, а твої цілі — довгострокові."
+  },
+  "quote32": {
+    "message": "Кожна заблокована відволікаюча сторінка — це перемога для твого майбутнього."
+  },
+  "quote33": {
+    "message": "Інтернет безмежний, а твій час — ні."
+  },
+  "quote34": {
+    "message": "Обирай свої пріоритети, перш ніж веб зробить це за тебе."
+  },
+  "quote35": {
+    "message": "Менше гортання — більше створення."
+  },
+  "quote36": {
+    "message": "Твоя увага формує твої досягнення."
+  },
+  "quote37": {
+    "message": "Тримай курс — відволікання може зачекати."
+  },
+  "quote38": {
+    "message": "Кожне продуктивне рішення починається зі зосередженого розуму."
+  },
+  "quote39": {
+    "message": "Ти заблокував сайт, а не свій потенціал."
+  },
+  "quote40": {
+    "message": "Шлях до успіху прокладається через усвідомлені та зосереджені рішення."
+  },
+  "actionsheader": {
+    "message": "Дії"
+  },
+  "norules": {
+    "message": "Немає заблокованих сайтів."
+  },
+  "editbtn": {
+    "message": "Редагувати"
+  },
+  "ruleddeleted": {
+    "message": "Правило видалено."
+  },
+  "cancelbtn": {
+    "message": "Скасувати"
+  },
+  "ruleupdated": {
+    "message": "Правило оновлено."
+  },
+  "rulenewadded": {
+    "message": "Додано нове правило."
+  },
+  "gotooptions": {
+    "message": "Перейти на сторінку налаштувань ⚙️"
+  },
+  "gotopopup": {
+    "message": "Натисніть на іконку розширення, щоб повернутися до спливаючого вікна."
+  },
+  "rulesmigrated": {
+    "message": "Правила оновлено для сумісності"
+  },
+  "errorupdatingrules": {
+    "message": "Помилка оновлення правил"
+  },
+  "erroraddingrule": {
+    "message": "Помилка додавання правила"
+  },
+  "errorremovingrule": {
+    "message": "Помилка видалення правила"
+  },
+  "optionsheader": {
+    "message": "Налаштування розширення"
+  },
+  "optionsdescription": {
+    "message": "Налаштуйте поведінку розширення та параметри безпеки"
+  },
+  "securitymodetitle": {
+    "message": "Режим безпеки"
+  },
+  "normalmodetitle": {
+    "message": "Звичайний режим"
+  },
+  "normalmodedesc": {
+    "message": "Правила можна видалити миттєво одним кліком"
+  },
+  "strictmodetitle": {
+    "message": "Суворий режим"
+  },
+  "strictmodedesc": {
+    "message": "Для видалення правил потрібен 10-секундний відлік, щоб запобігти випадковому видаленню"
+  },
+  "confirmdeletetitle": {
+    "message": "Підтвердження перед видаленням кількох правил"
+  },
+  "confirmdeletedesc": {
+    "message": "Показувати діалог підтвердження при видаленні кількох правил одночасно"
+  },
+  "notificationstitle": {
+    "message": "Показувати сповіщення"
+  },
+  "notificationsdesc": {
+    "message": "Відображати сповіщення при оновленні веб-розширення"
+  },
+  "rulesmanagementtitle": {
+    "message": "Керування правилами"
+  },
+  "exportrulesbtn": {
+    "message": "Експортувати правила"
+  },
+  "importrulesbtn": {
+    "message": "Імпортувати правила"
+  },
+  "clearallrulesbtn": {
+    "message": "Очистити всі правила"
+  },
+  "totalruleslabel": {
+    "message": "Загальна кількість правил"
+  },
+  "blockedtodaylabel": {
+    "message": "Заблоковано сьогодні"
+  },
+  "totalblockedlabel": {
+    "message": "Загалом заблоковано"
+  },
+  "resetsettingsbtn": {
+    "message": "Скинути до стандартних"
+  },
+  "backtopopup": {
+    "message": "Повернутися до головного"
+  },
+  "errorloadingsettings": {
+    "message": "Помилка завантаження налаштувань"
+  },
+  "settingssaved": {
+    "message": "Налаштування успішно збережено!"
+  },
+  "errorsavingsettings": {
+    "message": "Помилка збереження налаштувань"
+  },
+  "rulesexported": {
+    "message": "Правила успішно експортовано!"
+  },
+  "errorexportingrules": {
+    "message": "Помилка експортування правил"
+  },
   "willimportrules": {
     "message": "Буде імпортовано $ruleslength$ правил. ",
     "placeholders": {
@@ -118,7 +320,9 @@
       }
     }
   },
-  "ruleswillbereplaced": { "message": "Поточні правила буде замінено. Продовжити?" },
+  "ruleswillbereplaced": {
+    "message": "Поточні правила буде замінено. Продовжити?"
+  },
   "importedrules": {
     "message": "Успішно імпортовано $ruleslength$ правило(а)!",
     "placeholders": {
@@ -128,8 +332,12 @@
       }
     }
   },
-  "errorimportingrules": { "message": "Помилка імпортування правил: " },
-  "norulestoclear": { "message": "Немає правил для очищення" },
+  "errorimportingrules": {
+    "message": "Помилка імпортування правил: "
+  },
+  "norulestoclear": {
+    "message": "Немає правил для очищення"
+  },
   "willdeleteallrules": {
     "message": "Це назавжди видалить усі $rulescount$ правила. ",
     "placeholders": {
@@ -139,16 +347,36 @@
       }
     }
   },
-  "cannotbeundone": { "message": "Цю дію неможливо скасувати. Продовжити?" },
-  "allrulescleared": { "message": "Усі правила успішно очищено!" },
-  "errorclearingrules": { "message": "Помилка очищення правил" },
-  "willreset": { "message": "Це скине всі налаштування до стандартних значень. Продовжити?" },
-  "resettodefaults": { "message": "Налаштування скинуто до стандартних!" },
-  "errorresettingsettings": { "message": "Помилка скидання налаштувань" },
-  "basicsettingstitle": { "message": "Основні налаштування" },
-  "advancedsettingstitle": { "message": "Розширені налаштування" },
-  "statisticstitle": { "message": "Статистика" },
-  "categorymanagementtitle": { "message": "Блокування за категоріями" },
+  "cannotbeundone": {
+    "message": "Цю дію неможливо скасувати. Продовжити?"
+  },
+  "allrulescleared": {
+    "message": "Усі правила успішно очищено!"
+  },
+  "errorclearingrules": {
+    "message": "Помилка очищення правил"
+  },
+  "willreset": {
+    "message": "Це скине всі налаштування до стандартних значень. Продовжити?"
+  },
+  "resettodefaults": {
+    "message": "Налаштування скинуто до стандартних!"
+  },
+  "errorresettingsettings": {
+    "message": "Помилка скидання налаштувань"
+  },
+  "basicsettingstitle": {
+    "message": "Основні налаштування"
+  },
+  "advancedsettingstitle": {
+    "message": "Розширені налаштування"
+  },
+  "statisticstitle": {
+    "message": "Статистика"
+  },
+  "categorymanagementtitle": {
+    "message": "Блокування за категоріями"
+  },
   "rulelimitreached": {
     "message": "Ви досягли ліміту правил ($limit$) у базовій версії. Оновіть до Pro для необмеженої кількості правил.",
     "placeholders": {
@@ -158,68 +386,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro потрібен для редагування." },
-  "invalidpassword": { "message": "Неправильний пароль" },
-  "setpassword": { "message": "Встановити пароль" },
-  "enterpassword": { "message": "Введіть пароль" },
-  "passwordmismatch": { "message": "Паролі не збігаються" },
-  "passwordtooshort": { "message": "Пароль має містити принаймні 6 символів" },
-  "resetpasswordconfirm": { "message": "Скидання пароля вимкне захист. Продовжити?" },
-  "passwordset": { "message": "Пароль успішно встановлено" },
-  "passworddisabled": { "message": "Захист паролем відключено" },
-  "prorequired": { "message": "Для цієї функції потрібен режим Pro" },
-  "enablepasswordtitle": { "message": "Увімкнути захист паролем" },
-  "enablepassworddesc": { "message": "Потрібен пароль для видалення або редагування правил (покращує суворий режим)" },
-  "passwordprotectiontitle": { "message": "Захист паролем" },
-  "scheduleheader": { "message": "Розклад" },
-  "enableschedule": { "message": "Увімкнути розклад" },
-  "alwaysactive": { "message": "Завжди активний" },
-  "profeatureschedule": { "message": "Розклад доступний у Pro-версії" },
-  "days": { "message": "Дні" },
-  "starttime": { "message": "Час початку:" },
-  "endtime": { "message": "Час завершення:" },
-  "invaliddays": { "message": "Обрано некоректні дні" },
-  "invalidtimeformat": { "message": "Неправильний формат часу (використовуйте ГГ:ХХ)" },
-  "startafterend": { "message": "Час початку має бути раніше за час завершення" },
-  "invalidschedule": { "message": "Некоректний розклад: виберіть дні та час." },
-  "invalidscheduledays": { "message": "Некоректний розклад: виберіть принаймні один день." },
-  "invalidschedulestarttime": { "message": "Некоректний розклад: вкажіть час початку." },
-  "invalidscheduleendtime": { "message": "Некоректний розклад: вкажіть час завершення." },
-  "editdisablednonpro": { "message": "Редагування вимкнене: забагато правил для користувачів без Pro." },
-  "errorloadingstatus": { "message": "Помилка завантаження статусу користувача." },
-  "schedule_day_sun": { "message": "Нд" },
-  "schedule_day_mon": { "message": "Пн" },
-  "schedule_day_tue": { "message": "Вт" },
-  "schedule_day_wed": { "message": "Ср" },
-  "schedule_day_thu": { "message": "Чт" },
-  "schedule_day_fri": { "message": "Пт" },
-  "schedule_day_sat": { "message": "Сб" },
-  "category_header": { "message": "Категорія" },
-  "category_required": { "message": "Категорія обов’язкова" },
-  "allcategories": { "message": "Всі категорії" },
-  "category_social": { "message": "Соціальні мережі" },
-  "category_news": { "message": "Новини" },
-  "category_entertainment": { "message": "Розваги" },
-  "category_shopping": { "message": "Покупки" },
-  "category_work": { "message": "Робота" },
-  "category_gaming": { "message": "Ігри" },
-  "category_adult": { "message": "Контент для дорослих" },
-  "category_uncategorized": { "message": "Без категорії" },
-  "searchfordomain": { "message": "Пошук за доменом" },
-  "norulesforcategory": { "message": "Для цієї категорії немає заблокованих сайтів." },
-  "getpro": { "message": "Отримати Pro" },
-  "profunctionstext": { "message": "До функцій Pro входять: блокування за розкладом, захист паролем, фільтрація правил та експорт/імпорт правил. Насолоджуйтеся універсальною ліцензією: одна підписка відкриває Pro на всіх ваших браузерах (Chrome, Firefox, Edge, Kiwi). Щоб активувати, оформіть підписку на blockdistraction.com, потім скопіюйте свій ліцензійний ключ із панелі керування акаунтом і вставте його нижче." },
-  "upgradenow": { "message": "Оновити зараз" },
-  "enteremail": { "message": "Введіть свою електронну пошту" },
-  "activatepro": { "message": "Активувати Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Відновити доступ" },
-  "pleaseenteremail": { "message": "Будь ласка, введіть свою електронну пошту" },
-  "checking": { "message": "Перевірка..." },
-  "proactivated": { "message": "Функції Pro активовано!" },
-  "subscriptionnotfound": { "message": "Підписка не активна або електронну пошту не знайдено." },
-  "servererror": { "message": "Помилка сервера. Спробуйте ще раз." },
-  "proactivatedfor": { "message": "Pro активовано для" },
+  "proonlyactions": {
+    "message": "Pro потрібен для редагування."
+  },
+  "invalidpassword": {
+    "message": "Неправильний пароль"
+  },
+  "setpassword": {
+    "message": "Встановити пароль"
+  },
+  "enterpassword": {
+    "message": "Введіть пароль"
+  },
+  "passwordmismatch": {
+    "message": "Паролі не збігаються"
+  },
+  "passwordtooshort": {
+    "message": "Пароль має містити принаймні 6 символів"
+  },
+  "resetpasswordconfirm": {
+    "message": "Скидання пароля вимкне захист. Продовжити?"
+  },
+  "passwordset": {
+    "message": "Пароль успішно встановлено"
+  },
+  "passworddisabled": {
+    "message": "Захист паролем відключено"
+  },
+  "prorequired": {
+    "message": "Для цієї функції потрібен режим Pro"
+  },
+  "enablepasswordtitle": {
+    "message": "Увімкнути захист паролем"
+  },
+  "enablepassworddesc": {
+    "message": "Потрібен пароль для видалення або редагування правил (покращує суворий режим)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Захист паролем"
+  },
+  "scheduleheader": {
+    "message": "Розклад"
+  },
+  "enableschedule": {
+    "message": "Увімкнути розклад"
+  },
+  "alwaysactive": {
+    "message": "Завжди активний"
+  },
+  "profeatureschedule": {
+    "message": "Розклад доступний у Pro-версії"
+  },
+  "days": {
+    "message": "Дні"
+  },
+  "starttime": {
+    "message": "Час початку:"
+  },
+  "endtime": {
+    "message": "Час завершення:"
+  },
+  "invaliddays": {
+    "message": "Обрано некоректні дні"
+  },
+  "invalidtimeformat": {
+    "message": "Неправильний формат часу (використовуйте ГГ:ХХ)"
+  },
+  "startafterend": {
+    "message": "Час початку має бути раніше за час завершення"
+  },
+  "invalidschedule": {
+    "message": "Некоректний розклад: виберіть дні та час."
+  },
+  "invalidscheduledays": {
+    "message": "Некоректний розклад: виберіть принаймні один день."
+  },
+  "invalidschedulestarttime": {
+    "message": "Некоректний розклад: вкажіть час початку."
+  },
+  "invalidscheduleendtime": {
+    "message": "Некоректний розклад: вкажіть час завершення."
+  },
+  "editdisablednonpro": {
+    "message": "Редагування вимкнене: забагато правил для користувачів без Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Помилка завантаження статусу користувача."
+  },
+  "schedule_day_sun": {
+    "message": "Нд"
+  },
+  "schedule_day_mon": {
+    "message": "Пн"
+  },
+  "schedule_day_tue": {
+    "message": "Вт"
+  },
+  "schedule_day_wed": {
+    "message": "Ср"
+  },
+  "schedule_day_thu": {
+    "message": "Чт"
+  },
+  "schedule_day_fri": {
+    "message": "Пт"
+  },
+  "schedule_day_sat": {
+    "message": "Сб"
+  },
+  "category_header": {
+    "message": "Категорія"
+  },
+  "category_required": {
+    "message": "Категорія обов’язкова"
+  },
+  "allcategories": {
+    "message": "Всі категорії"
+  },
+  "category_social": {
+    "message": "Соціальні мережі"
+  },
+  "category_news": {
+    "message": "Новини"
+  },
+  "category_entertainment": {
+    "message": "Розваги"
+  },
+  "category_shopping": {
+    "message": "Покупки"
+  },
+  "category_work": {
+    "message": "Робота"
+  },
+  "category_gaming": {
+    "message": "Ігри"
+  },
+  "category_adult": {
+    "message": "Контент для дорослих"
+  },
+  "category_uncategorized": {
+    "message": "Без категорії"
+  },
+  "searchfordomain": {
+    "message": "Пошук за доменом"
+  },
+  "norulesforcategory": {
+    "message": "Для цієї категорії немає заблокованих сайтів."
+  },
+  "getpro": {
+    "message": "Отримати Pro"
+  },
+  "profunctionstext": {
+    "message": "До функцій Pro входять: блокування за розкладом, захист паролем, фільтрація правил та експорт/імпорт правил. Насолоджуйтеся універсальною ліцензією: одна підписка відкриває Pro на всіх ваших браузерах (Chrome, Firefox, Edge, Kiwi). Щоб активувати, оформіть підписку на blockdistraction.com, потім скопіюйте свій ліцензійний ключ із панелі керування акаунтом і вставте його нижче."
+  },
+  "upgradenow": {
+    "message": "Оновити зараз"
+  },
+  "enteremail": {
+    "message": "Введіть свою електронну пошту"
+  },
+  "activatepro": {
+    "message": "Активувати Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Відновити доступ"
+  },
+  "pleaseenteremail": {
+    "message": "Будь ласка, введіть свою електронну пошту"
+  },
+  "checking": {
+    "message": "Перевірка..."
+  },
+  "proactivated": {
+    "message": "Функції Pro активовано!"
+  },
+  "subscriptionnotfound": {
+    "message": "Підписка не активна або електронну пошту не знайдено."
+  },
+  "servererror": {
+    "message": "Помилка сервера. Спробуйте ще раз."
+  },
+  "proactivatedfor": {
+    "message": "Pro активовано для"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -256,71 +608,229 @@
   "onboarding_status_api_error": {
     "message": "Не вдалося запросити дозвіл (це може траплятися на мобільних пристроях). Спробуйте ще раз або надайте дозвіл вручну у налаштуваннях розширення."
   },
-  "pastekeylabel": { "message": "Вставте свій ліцензійний ключ тут:" },
-  "confirmclearstats": { "message": "Ви впевнені, що хочете очистити всю статистику? Це неможливо буде скасувати." },
-  "statscleared": { "message": "Статистику успішно очищено." },
-  "redirectstodaylabel": { "message": "Перенаправлень сьогодні" },
-  "totalredirectslabel": { "message": "Усього перенаправлень" },
-  "logout": { "message": "Вийти" },
-  "loggedoutsuccess": { "message": "Ви успішно вийшли з облікового запису." },
-  "loggedouterror": { "message": "Під час виходу сталася помилка." },
-  "forcesync": { "message": "Примусова синхронізація / Перевірити статус" },
-  "forgotpasswordinstructions": { "message": "Щоб скинути пароль, перейдіть у розділ «Pro», натисніть «Вийти», а потім повторно активуйте, вставивши свій ліцензійний ключ." },
-  "blockedtitle": { "message": "Сайт недоступний" },
-  "blockedheader": { "message": "Цей сайт наразі недоступний" },
-  "blockedtext": { "message": "Цей вміст неможливо відобразити." },
-  "blockedbutton": { "message": "Закрити вкладку" },
-  "confirmpassword": { "message": "Підтвердьте пароль" },
-  "modalconfirm": { "message": "Підтвердити" },
-  "modalcancel": { "message": "Скасувати" },
-  "forgotpassword": { "message": "Забули пароль? Скинути (це видалить захист)" },
-  "prounlocked": { "message": "Дякуємо за вашу підтримку! Усі Pro-функції розблоковано." },
-  "licensesynced": { "message": "Ваша ліцензія синхронізована з вашим обліковим записом. Якщо доступ буде втрачено, ви можете отримати ключ за посиланням: " },
-  "syncing": { "message": "Синхронізація..." },
-  "pleaseenterkey": { "message": "Будь ласка, введіть ключ." },
-  "syncsuccess": { "message": "Синхронізацію успішно завершено" },
-  "syncfailed": { "message": "Не вдалося виконати синхронізацію." },
-  "passwordreset": { "message": "Захист паролем було скинуто." },
-  "privacysecured": { "message": "Конфіденційність захищено" },
-  "errorinvalidfiletype": { "message": "Будь ласка, оберіть .json файл" },
-  "debugsettingstitle": { "message": "Налаштування налагодження" },
-  "enabledebugtitle": { "message": "Увімкнути режим налагодження" },
-  "enabledebugdesc": { "message": "Увімкнути детальне логування в консоль для пошуку помилок" },
-  "errorcommunication": { "message": "Помилка при спілкуванні з фоновою службою" },
-  "clearstats": { "message": "Очистити статистику" },
-  "rule_enabled": { "message": "Увімкнено" },
-  "rule_disabled": { "message": "Вимкнено" },
-  "filter_only_hint": { "message": "Цей список лише фільтрує відображення у таблиці" },
-  "category_disabled_desc": { "message": "Натисніть на категорію, щоб активувати або призупинити її блокування. Правила в призупинених категоріях позначаються пунктирною рамкою та недоступні для зміни." },
-  "toggle_category_blocking": { "message": "Перемкнути блокування для всієї категорії" },
-  "category_muted_no_edit": { "message": "Керування неможливе: категорію розблоковано в налаштуваннях" },
-  "feedback_title": { "message": "Вам подобається BlockDistraction?" },
-  "feedback_desc": { "message": "Ваш відгук дуже допоможе нам розвивати розширення." },
-  "feedback_like": { "message": "Так, чудово працює!" },
-  "feedback_dislike": { "message": "Є проблеми / побажання" },
-  "trialproheader": { "message": "Спробуйте 7 днів безкоштовно" },
-  "trialprotext": { "message": "Скасувати можна будь-коли. Ваші платежі надійно захищені." },
-  "focussessionheader": { "message": "Сесія фокусу" },
-  "focussessionstart": { "message": "Почати" },
-  "focussessionstop": { "message": "Зупинити" },
-  "focussessionduration": { "message": "Тривалість (хв):" },
-  "focussessioninfo": { "message": "Активує абсолютно всі ваші правила блокування на заданий час, ігноруючи їхні поточні налаштування та розклади. Для максимальної концентрації." },
-  "focussessionprofeature": { "message": "Кастомна тривалість та Hardcore-режим – функція Pro." },
-  "focussessionended": { "message": "Сесію фокусу завершено! Час на перерву." },
-  "focussessionhardcore": { "message": "Hardcore режим (без кнопки 'Стоп')" },
-  "focussessionsoundtitle": { "message": "Звукове сповіщення сесії фокусу" },
-  "focussessionsounddesc": { "message": "Відтворювати звук після завершення сесії фокусування." },
-  "focussessionactivebanner": { "message": "Сесія фокусу активна! Залишилося:" },
-  "focussessioninvalidduration": { "message": "Будь ласка, введіть дійсну тривалість (1-240 хвилин)." },
-  "successfulfocussessionslabel": { "message": "Успішні сесії фокусування" },
-  "rule_scheduled": { "message": "Правило за розкладом" },
-  "addwhitelistrule": { "message": "Додати виняток" },
-  "category_whitelist": { "message": "Білий список" },
-  "conflict_blacklist_err": { "message": "Цей сайт уже заблоковано. Спочатку видаліть його з Чорного списку." },
-  "conflict_whitelist_err": { "message": "Цей сайт уже є в Білому списку. Спочатку видаліть його звідти." },
-  "status_allow": { "message": "Дозволено" },
-  "redundant_whitelist_err": { "message": "Це правило вже покривається іншим правилом білого списку." },
-  "focussessionmode": { "message": "Режим фокусу:" },
-  "focusmodeblacklist": { "message": "Блокувати Чорний список" },
-  "focusmodewhitelist": { "message": "Дозволити лише Білий список" }
+  "pastekeylabel": {
+    "message": "Вставте свій ліцензійний ключ тут:"
+  },
+  "confirmclearstats": {
+    "message": "Ви впевнені, що хочете очистити всю статистику? Це неможливо буде скасувати."
+  },
+  "statscleared": {
+    "message": "Статистику успішно очищено."
+  },
+  "redirectstodaylabel": {
+    "message": "Перенаправлень сьогодні"
+  },
+  "totalredirectslabel": {
+    "message": "Усього перенаправлень"
+  },
+  "logout": {
+    "message": "Вийти"
+  },
+  "loggedoutsuccess": {
+    "message": "Ви успішно вийшли з облікового запису."
+  },
+  "loggedouterror": {
+    "message": "Під час виходу сталася помилка."
+  },
+  "forcesync": {
+    "message": "Примусова синхронізація / Перевірити статус"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Щоб скинути пароль, перейдіть у розділ «Pro», натисніть «Вийти», а потім повторно активуйте, вставивши свій ліцензійний ключ."
+  },
+  "blockedtitle": {
+    "message": "Сайт недоступний"
+  },
+  "blockedheader": {
+    "message": "Цей сайт наразі недоступний"
+  },
+  "blockedtext": {
+    "message": "Цей вміст неможливо відобразити."
+  },
+  "blockedbutton": {
+    "message": "Закрити вкладку"
+  },
+  "confirmpassword": {
+    "message": "Підтвердьте пароль"
+  },
+  "modalconfirm": {
+    "message": "Підтвердити"
+  },
+  "modalcancel": {
+    "message": "Скасувати"
+  },
+  "forgotpassword": {
+    "message": "Забули пароль? Скинути (це видалить захист)"
+  },
+  "prounlocked": {
+    "message": "Дякуємо за вашу підтримку! Усі Pro-функції розблоковано."
+  },
+  "licensesynced": {
+    "message": "Ваша ліцензія синхронізована з вашим обліковим записом. Якщо доступ буде втрачено, ви можете отримати ключ за посиланням: "
+  },
+  "syncing": {
+    "message": "Синхронізація..."
+  },
+  "pleaseenterkey": {
+    "message": "Будь ласка, введіть ключ."
+  },
+  "syncsuccess": {
+    "message": "Синхронізацію успішно завершено"
+  },
+  "syncfailed": {
+    "message": "Не вдалося виконати синхронізацію."
+  },
+  "passwordreset": {
+    "message": "Захист паролем було скинуто."
+  },
+  "privacysecured": {
+    "message": "Конфіденційність захищено"
+  },
+  "errorinvalidfiletype": {
+    "message": "Будь ласка, оберіть .json файл"
+  },
+  "debugsettingstitle": {
+    "message": "Налаштування налагодження"
+  },
+  "enabledebugtitle": {
+    "message": "Увімкнути режим налагодження"
+  },
+  "enabledebugdesc": {
+    "message": "Увімкнути детальне логування в консоль для пошуку помилок"
+  },
+  "errorcommunication": {
+    "message": "Помилка при спілкуванні з фоновою службою"
+  },
+  "clearstats": {
+    "message": "Очистити статистику"
+  },
+  "rule_enabled": {
+    "message": "Увімкнено"
+  },
+  "rule_disabled": {
+    "message": "Вимкнено"
+  },
+  "filter_only_hint": {
+    "message": "Цей список лише фільтрує відображення у таблиці"
+  },
+  "category_disabled_desc": {
+    "message": "Натисніть на категорію, щоб активувати або призупинити її блокування. Правила в призупинених категоріях позначаються пунктирною рамкою та недоступні для зміни."
+  },
+  "toggle_category_blocking": {
+    "message": "Перемкнути блокування для всієї категорії"
+  },
+  "category_muted_no_edit": {
+    "message": "Керування неможливе: категорію розблоковано в налаштуваннях"
+  },
+  "feedback_title": {
+    "message": "Вам подобається BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Ваш відгук дуже допоможе нам розвивати розширення."
+  },
+  "feedback_like": {
+    "message": "Так, чудово працює!"
+  },
+  "feedback_dislike": {
+    "message": "Є проблеми / побажання"
+  },
+  "trialproheader": {
+    "message": "Спробуйте 7 днів безкоштовно"
+  },
+  "trialprotext": {
+    "message": "Скасувати можна будь-коли. Ваші платежі надійно захищені."
+  },
+  "focussessionheader": {
+    "message": "Сесія фокусу"
+  },
+  "focussessionstart": {
+    "message": "Почати"
+  },
+  "focussessionstop": {
+    "message": "Зупинити"
+  },
+  "focussessionduration": {
+    "message": "Тривалість (хв):"
+  },
+  "focussessioninfo": {
+    "message": "Активує абсолютно всі ваші правила блокування на заданий час, ігноруючи їхні поточні налаштування та розклади. Для максимальної концентрації."
+  },
+  "focussessionprofeature": {
+    "message": "Кастомна тривалість та Hardcore-режим – функція Pro."
+  },
+  "focussessionended": {
+    "message": "Сесію фокусу завершено! Час на перерву."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore режим (без кнопки 'Стоп')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Звукове сповіщення сесії фокусу"
+  },
+  "focussessionsounddesc": {
+    "message": "Відтворювати звук після завершення сесії фокусування."
+  },
+  "focussessionactivebanner": {
+    "message": "Сесія фокусу активна! Залишилося:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Будь ласка, введіть дійсну тривалість (1-240 хвилин)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Успішні сесії фокусування"
+  },
+  "rule_scheduled": {
+    "message": "Правило за розкладом"
+  },
+  "addwhitelistrule": {
+    "message": "Додати виняток"
+  },
+  "category_whitelist": {
+    "message": "Білий список"
+  },
+  "conflict_blacklist_err": {
+    "message": "Цей сайт уже заблоковано. Спочатку видаліть його з Чорного списку."
+  },
+  "conflict_whitelist_err": {
+    "message": "Цей сайт уже є в Білому списку. Спочатку видаліть його звідти."
+  },
+  "status_allow": {
+    "message": "Дозволено"
+  },
+  "redundant_whitelist_err": {
+    "message": "Це правило вже покривається іншим правилом білого списку."
+  },
+  "focussessionmode": {
+    "message": "Режим фокусу:"
+  },
+  "focusmodeblacklist": {
+    "message": "Блокувати Чорний список"
+  },
+  "focusmodewhitelist": {
+    "message": "Дозволити лише Білий список"
+  },
+  "schedule_edit": {
+    "message": "Редагувати розклад"
+  },
+  "schedule_add_period": {
+    "message": "Додати часову групу"
+  },
+  "schedule_remove_period": {
+    "message": "Видалити"
+  },
+  "schedule_period": {
+    "message": "Часова група"
+  },
+  "schedule_every_day": {
+    "message": "Щодня"
+  },
+  "schedule_weekdays": {
+    "message": "Будні"
+  },
+  "schedule_weekends": {
+    "message": "Вихідні"
+  },
+  "schedule_day_overlap": {
+    "message": "Кожен день можна використати лише один раз."
+  }
 }

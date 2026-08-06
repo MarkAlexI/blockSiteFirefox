@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Svetainių Blokatorius" },
-  "shortname": { "message": "Blokatorius" },
-  "description": { "message": "Paprasta ir patikima priemonė svetainėms blokuoti ir peradresuoti, kad išliktumėte susikoncentravę." },
-  "defaulttitle": { "message": "Išlaikykite koncentraciją ir produktyvumą" },
-  "header": { "message": "Svetainių Blokatorius" },
-  "paragraph": { "message": "Norėdami užblokuoti svetainę ar išteklius, įveskite jos pavadinimo dalį į laukelį su vietos ženklu 'Įveskite blokuojamą URL' – pvz., 'facebook' užblokuos visus susijusius subdomenus. Lauke su vietos ženklu 'Įveskite peradresavimo URL' įveskite pilną peradresavimo adresą su protokolu, pvz., 'https://google.com'. Jei peradresavimo laukas tuščias, svetainė bus užblokuota be peradresavimo. Norėdami pritaikyti taisyklę, spustelėkite mygtuką Išsaugoti. Norėdami atnaujinti taisyklę, ištrinkite seną ir sukurkite naują." },
-  "addrule": { "message": "Pridėti naują taisyklę" },
-  "blockurl": { "message": "Įveskite blokuojamą URL" },
-  "redirecturl": { "message": "Įveskite peradresavimo URL (nebūtina)" },
-  "redirecturlheader": { "message": "Peradresavimo URL" },
-  "redirecturlplaceholder": { "message": "Neprivaloma - palikite tuščią, kad blokuotumėte" },
-  "redirecturlhint": { "message": "Įveskite visą URL, įskaitant https://" },
-  "mobilecopylinkhint": { "message": "Norėdami užblokuoti nuorodą, nukopijuokite jos adresą ir įklijuokite į blokavimo lauką." },
-  "savebtn": { "message": "Išsaugoti" },
-  "deletebtn": { "message": "Ištrinti" },
-  "alertruleexist": { "message": "Taisyklė jau egzistuoja" },
+  "chromename": {
+    "message": "BlockDistraction – Svetainių Blokatorius"
+  },
+  "shortname": {
+    "message": "Blokatorius"
+  },
+  "description": {
+    "message": "Paprasta ir patikima priemonė svetainėms blokuoti ir peradresuoti, kad išliktumėte susikoncentravę."
+  },
+  "defaulttitle": {
+    "message": "Išlaikykite koncentraciją ir produktyvumą"
+  },
+  "header": {
+    "message": "Svetainių Blokatorius"
+  },
+  "paragraph": {
+    "message": "Norėdami užblokuoti svetainę ar išteklius, įveskite jos pavadinimo dalį į laukelį su vietos ženklu 'Įveskite blokuojamą URL' – pvz., 'facebook' užblokuos visus susijusius subdomenus. Lauke su vietos ženklu 'Įveskite peradresavimo URL' įveskite pilną peradresavimo adresą su protokolu, pvz., 'https://google.com'. Jei peradresavimo laukas tuščias, svetainė bus užblokuota be peradresavimo. Norėdami pritaikyti taisyklę, spustelėkite mygtuką Išsaugoti. Norėdami atnaujinti taisyklę, ištrinkite seną ir sukurkite naują."
+  },
+  "addrule": {
+    "message": "Pridėti naują taisyklę"
+  },
+  "blockurl": {
+    "message": "Įveskite blokuojamą URL"
+  },
+  "redirecturl": {
+    "message": "Įveskite peradresavimo URL (nebūtina)"
+  },
+  "redirecturlheader": {
+    "message": "Peradresavimo URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Neprivaloma - palikite tuščią, kad blokuotumėte"
+  },
+  "redirecturlhint": {
+    "message": "Įveskite visą URL, įskaitant https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Norėdami užblokuoti nuorodą, nukopijuokite jos adresą ir įklijuokite į blokavimo lauką."
+  },
+  "savebtn": {
+    "message": "Išsaugoti"
+  },
+  "deletebtn": {
+    "message": "Ištrinti"
+  },
+  "alertruleexist": {
+    "message": "Taisyklė jau egzistuoja"
+  },
   "savedrules": {
     "message": "$ruleslength$ taisyklė(s) išsaugota(s)",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Šio ištekliaus negalima užblokuoti." },
-  "wrongblockurl": { "message": "Neteisingas blokavimo URL" },
-  "wrongredirecturl": { "message": "Neteisingas peradresavimo URL" },
-  "blockthat": { "message": "Blokuoti šią svetainę" },
-  "sendfeedbackbutton": { "message": "Siųsti atsiliepimą" },
-  "sendfeedbacksubject": { "message": "Atsiliepimas apie BlockDistraction" },
-  "sendfeedbackbody": { "message": "Sveiki, noriu pasidalinti šiuo atsiliepimu:\n\n" },
-  "quote1": { "message": "Išlaikykite koncentraciją, būkite stiprūs." },
-  "quote2": { "message": "Jūsų ateitis susikuria iš to, ką darote šiandien." },
-  "quote3": { "message": "Drausmė yra tiltas tarp tikslų ir sėkmės." },
-  "quote4": { "message": "Užblokuota svetainė – žingsnis arčiau tikslo." },
-  "quote5": { "message": "Tegul kiekvienas paspaudimas skaičiuoja." },
-  "quote6": { "message": "Nežiūrėkite į laikrodį; darykite kaip jis. Tęskite." },
-  "quote7": { "message": "Maži žingsniai kiekvieną dieną atveda prie didelių rezultatų." },
-  "quote8": { "message": "Jūsų vienintelis ribojimas – jūsų protas." },
-  "quote9": { "message": "Sėkmė yra kasdieninių mažų pastangų suma." },
-  "quote10": { "message": "Koncentruokitės į produktyvumą, ne užimtumą." },
-  "quote11": { "message": "Saugok savo dėmesį – tai tavo vertingiausias turtas." },
-  "quote12": { "message": "Kiekviena užblokuota dėmesio atitrauktis grąžina tau laiką." },
-  "quote13": { "message": "Sumažink triukšmą; padidink produktyvumą." },
-  "quote14": { "message": "Maži įpročiai kuria nesustabdomą pagreitį." },
-  "quote15": { "message": "Aiškumas nugali chaosą – susitelk į tai, kas svarbu." },
-  "quote16": { "message": "Sakyk „ne“ blaškymams; sakyk „taip“ pažangai." },
-  "quote17": { "message": "Valanda susikaupimo šiandien rytoj duoda daugkartinę naudą." },
-  "quote18": { "message": "Kurk daugiau, vartok mažiau." },
-  "quote19": { "message": "Drausmė renkasi ilgalaikius laimėjimus, o ne trumpalaikius impulsus." },
-  "quote20": { "message": "Uždaryk kortelę, atverk vietos naujoms idėjoms." },
-  "quote21": { "message": "Darbas, kurio šiandien vengiate, gali tapti rytojaus stresu." },
-  "quote22": { "message": "Susikaupimas nėra apie tai, kad darytum daugiau, o apie tai, kad darytum tai, kas iš tikrųjų svarbu." },
-  "quote23": { "message": "Jūsų tikslai nusipelno daugiau dėmesio nei jūsų blaškymai." },
-  "quote24": { "message": "Kiekviena minutė be blaškymosi yra investicija į save." },
-  "quote25": { "message": "Nuoseklumas duoda tvaresnių rezultatų nei trumpi motyvacijos pliūpsniai." },
-  "quote26": { "message": "Geriausias laikas pradėti buvo vakar. Kitas geriausias – dabar." },
-  "quote27": { "message": "Pažanga prasideda, kai pasirenkate veiksmą vietoje blaškymosi." },
-  "quote28": { "message": "Viena susikaupimo akimirka gali pakeisti visą jūsų dieną." },
-  "quote29": { "message": "Jums nereikia daugiau laiko, jums reikia mažiau blaškymosi." },
-  "quote30": { "message": "Kiekvienas pasirinkimas išlikti susikaupusiam stiprina jūsų būsimą save." },
-  "quote31": { "message": "Šis blokavimas yra laikinas; tavo tikslai yra ilgalaikiai." },
-  "quote32": { "message": "Kiekvienas užblokuotas blaškymas yra pergalė tavo būsimam „aš“." },
-  "quote33": { "message": "Internetas yra begalinis, bet tavo laikas – ne." },
-  "quote34": { "message": "Nustatyk savo prioritetus prieš tai padaro internetas už tave." },
-  "quote35": { "message": "Mažiau slinkimo, daugiau kūrimo." },
-  "quote36": { "message": "Tavo dėmesys formuoja tavo pasiekimus." },
-  "quote37": { "message": "Išlik susitelkęs — blaškymasis gali palaukti." },
-  "quote38": { "message": "Kiekvienas produktyvus sprendimas prasideda susitelkusiu protu." },
-  "quote39": { "message": "Tu užblokavai svetainę, ne savo potencialą." },
-  "quote40": { "message": "Kelias į sėkmę yra grįstas susitelkusiais sprendimais." },
-  "actionsheader": { "message": "Veiksmai" },
-  "norules": { "message": "Nėra užblokuotų svetainių." },
-  "editbtn": { "message": "Redaguoti" },
-  "ruleddeleted": { "message": "Taisyklė ištrinta." },
-  "cancelbtn": { "message": "Atšaukti" },
-  "ruleupdated": { "message": "Taisyklė atnaujinta." },
-  "rulenewadded": { "message": "Pridėta nauja taisyklė." },
-  "gotooptions": { "message": "Eiti į parinkčių puslapį ⚙️" },
-  "gotopopup": { "message": "Spustelėkite plėtinio piktogramą, kad grįžtumėte į popup." },
-  "rulesmigrated": { "message": "Taisyklės atnaujintos dėl suderinamumo" },
-  "errorupdatingrules": { "message": "Klaida atnaujinant taisykles" },
-  "erroraddingrule": { "message": "Klaida pridedant taisyklę" },
-  "errorremovingrule": { "message": "Klaida šalinant taisyklę" },
-  "optionsheader": { "message": "Priedo nustatymai" },
-  "optionsdescription": { "message": "Konfigūruokite priedo elgesį ir saugumo nustatymus" },
-  "securitymodetitle": { "message": "Saugumo režimas" },
-  "normalmodetitle": { "message": "Įprastas režimas" },
-  "normalmodedesc": { "message": "Taisykles galima ištrinti iš karto vienu paspaudimu" },
-  "strictmodetitle": { "message": "Griežtas režimas" },
-  "strictmodedesc": { "message": "Taisyklėms ištrinti reikia 10 sekundžių atgalinės atskaitos, kad būtų išvengta atsitiktinio ištrynimo" },
-  "confirmdeletetitle": { "message": "Patvirtinkite prieš ištrindami kelias taisykles" },
-  "confirmdeletedesc": { "message": "Rodyti patvirtinimo dialogą, kai ištrinamos kelios taisyklės vienu metu" },
-  "notificationstitle": { "message": "Rodyti pranešimus" },
-  "notificationsdesc": { "message": "Rodyti pranešimus, kai priedas atnaujinamas" },
-  "rulesmanagementtitle": { "message": "Taisyklių valdymas" },
-  "exportrulesbtn": { "message": "Eksportuoti taisykles" },
-  "importrulesbtn": { "message": "Importuoti taisykles" },
-  "clearallrulesbtn": { "message": "Išvalyti visas taisykles" },
-  "totalruleslabel": { "message": "Visos taisyklės" },
-  "blockedtodaylabel": { "message": "Užblokuota šiandien" },
-  "totalblockedlabel": { "message": "Iš viso užblokuota" },
-  "resetsettingsbtn": { "message": "Atstatyti numatytuosius" },
-  "backtopopup": { "message": "Grįžti į pagrindinį meniu" },
-  "errorloadingsettings": { "message": "Klaida įkeliant nustatymus" },
-  "settingssaved": { "message": "Nustatymai sėkmingai išsaugoti!" },
-  "errorsavingsettings": { "message": "Klaida išsaugant nustatymus" },
-  "rulesexported": { "message": "Taisyklės sėkmingai eksportuotos!" },
-  "errorexportingrules": { "message": "Klaida eksportuojant taisykles" },
+  "restrictedblockurl": {
+    "message": "Šio ištekliaus negalima užblokuoti."
+  },
+  "wrongblockurl": {
+    "message": "Neteisingas blokavimo URL"
+  },
+  "wrongredirecturl": {
+    "message": "Neteisingas peradresavimo URL"
+  },
+  "blockthat": {
+    "message": "Blokuoti šią svetainę"
+  },
+  "sendfeedbackbutton": {
+    "message": "Siųsti atsiliepimą"
+  },
+  "sendfeedbacksubject": {
+    "message": "Atsiliepimas apie BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Sveiki, noriu pasidalinti šiuo atsiliepimu:\n\n"
+  },
+  "quote1": {
+    "message": "Išlaikykite koncentraciją, būkite stiprūs."
+  },
+  "quote2": {
+    "message": "Jūsų ateitis susikuria iš to, ką darote šiandien."
+  },
+  "quote3": {
+    "message": "Drausmė yra tiltas tarp tikslų ir sėkmės."
+  },
+  "quote4": {
+    "message": "Užblokuota svetainė – žingsnis arčiau tikslo."
+  },
+  "quote5": {
+    "message": "Tegul kiekvienas paspaudimas skaičiuoja."
+  },
+  "quote6": {
+    "message": "Nežiūrėkite į laikrodį; darykite kaip jis. Tęskite."
+  },
+  "quote7": {
+    "message": "Maži žingsniai kiekvieną dieną atveda prie didelių rezultatų."
+  },
+  "quote8": {
+    "message": "Jūsų vienintelis ribojimas – jūsų protas."
+  },
+  "quote9": {
+    "message": "Sėkmė yra kasdieninių mažų pastangų suma."
+  },
+  "quote10": {
+    "message": "Koncentruokitės į produktyvumą, ne užimtumą."
+  },
+  "quote11": {
+    "message": "Saugok savo dėmesį – tai tavo vertingiausias turtas."
+  },
+  "quote12": {
+    "message": "Kiekviena užblokuota dėmesio atitrauktis grąžina tau laiką."
+  },
+  "quote13": {
+    "message": "Sumažink triukšmą; padidink produktyvumą."
+  },
+  "quote14": {
+    "message": "Maži įpročiai kuria nesustabdomą pagreitį."
+  },
+  "quote15": {
+    "message": "Aiškumas nugali chaosą – susitelk į tai, kas svarbu."
+  },
+  "quote16": {
+    "message": "Sakyk „ne“ blaškymams; sakyk „taip“ pažangai."
+  },
+  "quote17": {
+    "message": "Valanda susikaupimo šiandien rytoj duoda daugkartinę naudą."
+  },
+  "quote18": {
+    "message": "Kurk daugiau, vartok mažiau."
+  },
+  "quote19": {
+    "message": "Drausmė renkasi ilgalaikius laimėjimus, o ne trumpalaikius impulsus."
+  },
+  "quote20": {
+    "message": "Uždaryk kortelę, atverk vietos naujoms idėjoms."
+  },
+  "quote21": {
+    "message": "Darbas, kurio šiandien vengiate, gali tapti rytojaus stresu."
+  },
+  "quote22": {
+    "message": "Susikaupimas nėra apie tai, kad darytum daugiau, o apie tai, kad darytum tai, kas iš tikrųjų svarbu."
+  },
+  "quote23": {
+    "message": "Jūsų tikslai nusipelno daugiau dėmesio nei jūsų blaškymai."
+  },
+  "quote24": {
+    "message": "Kiekviena minutė be blaškymosi yra investicija į save."
+  },
+  "quote25": {
+    "message": "Nuoseklumas duoda tvaresnių rezultatų nei trumpi motyvacijos pliūpsniai."
+  },
+  "quote26": {
+    "message": "Geriausias laikas pradėti buvo vakar. Kitas geriausias – dabar."
+  },
+  "quote27": {
+    "message": "Pažanga prasideda, kai pasirenkate veiksmą vietoje blaškymosi."
+  },
+  "quote28": {
+    "message": "Viena susikaupimo akimirka gali pakeisti visą jūsų dieną."
+  },
+  "quote29": {
+    "message": "Jums nereikia daugiau laiko, jums reikia mažiau blaškymosi."
+  },
+  "quote30": {
+    "message": "Kiekvienas pasirinkimas išlikti susikaupusiam stiprina jūsų būsimą save."
+  },
+  "quote31": {
+    "message": "Šis blokavimas yra laikinas; tavo tikslai yra ilgalaikiai."
+  },
+  "quote32": {
+    "message": "Kiekvienas užblokuotas blaškymas yra pergalė tavo būsimam „aš“."
+  },
+  "quote33": {
+    "message": "Internetas yra begalinis, bet tavo laikas – ne."
+  },
+  "quote34": {
+    "message": "Nustatyk savo prioritetus prieš tai padaro internetas už tave."
+  },
+  "quote35": {
+    "message": "Mažiau slinkimo, daugiau kūrimo."
+  },
+  "quote36": {
+    "message": "Tavo dėmesys formuoja tavo pasiekimus."
+  },
+  "quote37": {
+    "message": "Išlik susitelkęs — blaškymasis gali palaukti."
+  },
+  "quote38": {
+    "message": "Kiekvienas produktyvus sprendimas prasideda susitelkusiu protu."
+  },
+  "quote39": {
+    "message": "Tu užblokavai svetainę, ne savo potencialą."
+  },
+  "quote40": {
+    "message": "Kelias į sėkmę yra grįstas susitelkusiais sprendimais."
+  },
+  "actionsheader": {
+    "message": "Veiksmai"
+  },
+  "norules": {
+    "message": "Nėra užblokuotų svetainių."
+  },
+  "editbtn": {
+    "message": "Redaguoti"
+  },
+  "ruleddeleted": {
+    "message": "Taisyklė ištrinta."
+  },
+  "cancelbtn": {
+    "message": "Atšaukti"
+  },
+  "ruleupdated": {
+    "message": "Taisyklė atnaujinta."
+  },
+  "rulenewadded": {
+    "message": "Pridėta nauja taisyklė."
+  },
+  "gotooptions": {
+    "message": "Eiti į parinkčių puslapį ⚙️"
+  },
+  "gotopopup": {
+    "message": "Spustelėkite plėtinio piktogramą, kad grįžtumėte į popup."
+  },
+  "rulesmigrated": {
+    "message": "Taisyklės atnaujintos dėl suderinamumo"
+  },
+  "errorupdatingrules": {
+    "message": "Klaida atnaujinant taisykles"
+  },
+  "erroraddingrule": {
+    "message": "Klaida pridedant taisyklę"
+  },
+  "errorremovingrule": {
+    "message": "Klaida šalinant taisyklę"
+  },
+  "optionsheader": {
+    "message": "Priedo nustatymai"
+  },
+  "optionsdescription": {
+    "message": "Konfigūruokite priedo elgesį ir saugumo nustatymus"
+  },
+  "securitymodetitle": {
+    "message": "Saugumo režimas"
+  },
+  "normalmodetitle": {
+    "message": "Įprastas režimas"
+  },
+  "normalmodedesc": {
+    "message": "Taisykles galima ištrinti iš karto vienu paspaudimu"
+  },
+  "strictmodetitle": {
+    "message": "Griežtas režimas"
+  },
+  "strictmodedesc": {
+    "message": "Taisyklėms ištrinti reikia 10 sekundžių atgalinės atskaitos, kad būtų išvengta atsitiktinio ištrynimo"
+  },
+  "confirmdeletetitle": {
+    "message": "Patvirtinkite prieš ištrindami kelias taisykles"
+  },
+  "confirmdeletedesc": {
+    "message": "Rodyti patvirtinimo dialogą, kai ištrinamos kelios taisyklės vienu metu"
+  },
+  "notificationstitle": {
+    "message": "Rodyti pranešimus"
+  },
+  "notificationsdesc": {
+    "message": "Rodyti pranešimus, kai priedas atnaujinamas"
+  },
+  "rulesmanagementtitle": {
+    "message": "Taisyklių valdymas"
+  },
+  "exportrulesbtn": {
+    "message": "Eksportuoti taisykles"
+  },
+  "importrulesbtn": {
+    "message": "Importuoti taisykles"
+  },
+  "clearallrulesbtn": {
+    "message": "Išvalyti visas taisykles"
+  },
+  "totalruleslabel": {
+    "message": "Visos taisyklės"
+  },
+  "blockedtodaylabel": {
+    "message": "Užblokuota šiandien"
+  },
+  "totalblockedlabel": {
+    "message": "Iš viso užblokuota"
+  },
+  "resetsettingsbtn": {
+    "message": "Atstatyti numatytuosius"
+  },
+  "backtopopup": {
+    "message": "Grįžti į pagrindinį meniu"
+  },
+  "errorloadingsettings": {
+    "message": "Klaida įkeliant nustatymus"
+  },
+  "settingssaved": {
+    "message": "Nustatymai sėkmingai išsaugoti!"
+  },
+  "errorsavingsettings": {
+    "message": "Klaida išsaugant nustatymus"
+  },
+  "rulesexported": {
+    "message": "Taisyklės sėkmingai eksportuotos!"
+  },
+  "errorexportingrules": {
+    "message": "Klaida eksportuojant taisykles"
+  },
   "willimportrules": {
     "message": "Bus importuotos $ruleslength$ taisyklės.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Esamos taisyklės bus pakeistos. Tęsti?" },
+  "ruleswillbereplaced": {
+    "message": "Esamos taisyklės bus pakeistos. Tęsti?"
+  },
   "importedrules": {
     "message": "Sėkmingai importuotos $ruleslength$ taisyklės!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Klaida importuojant taisykles: " },
-  "norulestoclear": { "message": "Nėra taisyklių, kurias būtų galima išvalyti" },
+  "errorimportingrules": {
+    "message": "Klaida importuojant taisykles: "
+  },
+  "norulestoclear": {
+    "message": "Nėra taisyklių, kurias būtų galima išvalyti"
+  },
   "willdeleteallrules": {
     "message": "Tai visam laikui ištrins visas $rulescount$ taisykles.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Šio veiksmo neįmanoma anuliuoti. Tęsti?" },
-  "allrulescleared": { "message": "Visos taisyklės sėkmingai ištrintos!" },
-  "errorclearingrules": { "message": "Klaida ištrinant taisykles" },
-  "willreset": { "message": "Visi nustatymai bus atstatyti į numatytąsias reikšmes. Tęsti?" },
-  "resettodefaults": { "message": "Nustatymai atstatyti į numatytąsias reikšmes!" },
-  "errorresettingsettings": { "message": "Klaida atstatant nustatymus" },
-  "basicsettingstitle": { "message": "Pagrindiniai nustatymai" },
-  "advancedsettingstitle": { "message": "Išplėstiniai nustatymai" },
-  "statisticstitle": { "message": "Statistika" },
+  "cannotbeundone": {
+    "message": "Šio veiksmo neįmanoma anuliuoti. Tęsti?"
+  },
+  "allrulescleared": {
+    "message": "Visos taisyklės sėkmingai ištrintos!"
+  },
+  "errorclearingrules": {
+    "message": "Klaida ištrinant taisykles"
+  },
+  "willreset": {
+    "message": "Visi nustatymai bus atstatyti į numatytąsias reikšmes. Tęsti?"
+  },
+  "resettodefaults": {
+    "message": "Nustatymai atstatyti į numatytąsias reikšmes!"
+  },
+  "errorresettingsettings": {
+    "message": "Klaida atstatant nustatymus"
+  },
+  "basicsettingstitle": {
+    "message": "Pagrindiniai nustatymai"
+  },
+  "advancedsettingstitle": {
+    "message": "Išplėstiniai nustatymai"
+  },
+  "statisticstitle": {
+    "message": "Statistika"
+  },
   "rulelimitreached": {
     "message": "Pasiekėte taisyklių limitą ($limit$) pagrindinėje versijoje. Atnaujinkite į Pro, kad gautumėte neribotą taisyklių skaičių.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro reikalingas redagavimui." },
-  "invalidpassword": { "message": "Neteisingas slaptažodis" },
-  "setpassword": { "message": "Nustatyti slaptažodį" },
-  "enterpassword": { "message": "Įvesti slaptažodį" },
-  "passwordmismatch": { "message": "Slaptažodžiai nesutampa" },
-  "passwordtooshort": { "message": "Slaptažodis turi būti bent 6 simbolių" },
-  "resetpasswordconfirm": { "message": "Slaptažodžio atstatymas išjungs apsaugą. Tęsti?" },
-  "passwordset": { "message": "Slaptažodis sėkmingai nustatytas" },
-  "passworddisabled": { "message": "Slaptažodžio apsauga išjungta" },
-  "prorequired": { "message": "Šiai funkcijai reikalingas Pro režimas" },
-  "enablepasswordtitle": { "message": "Įjungti slaptažodžio apsaugą" },
-  "enablepassworddesc": { "message": "Reikalauja slaptažodžio norint ištrinti ar redaguoti taisykles (pagerina griežtą režimą)" },
-  "passwordprotectiontitle": { "message": "Slaptažodžio apsauga" },
-  "scheduleheader": { "message": "Tvarkaraštis" },
-  "enableschedule": { "message": "Įjungti tvarkaraštį" },
-  "alwaysactive": { "message": "Visada aktyvuotas" },
-  "profeatureschedule": { "message": "Tvarkaraštis prieinamas tik Pro versijoje" },
-  "days": { "message": "Dienos" },
-  "starttime": { "message": "Pradžios laikas:" },
-  "endtime": { "message": "Pabaigos laikas:" },
-  "invaliddays": { "message": "Pasirinktos neleistinos dienos" },
-  "invalidtimeformat": { "message": "Neteisingas laiko formatas (naudokite HH:MM)" },
-  "startafterend": { "message": "Pradžios laikas turi būti prieš pabaigos laiką" },
-  "invalidschedule": { "message": "Neteisingas tvarkaraštis: pasirinkite dienas ir laikus." },
-  "invalidscheduledays": { "message": "Neteisingas tvarkaraštis: pasirinkite bent vieną dieną." },
-  "invalidschedulestarttime": { "message": "Neteisingas tvarkaraštis: nustatykite pradžios laiką." },
-  "invalidscheduleendtime": { "message": "Neteisingas tvarkaraštis: nustatykite pabaigos laiką." },
-  "editdisablednonpro": { "message": "Redagavimas išjungtas: per daug taisyklių ne-Pro vartotojams." },
-  "errorloadingstatus": { "message": "Klaida įkeliant vartotojo būseną." },
-  "schedule_day_sun": { "message": "Sek" },
-  "schedule_day_mon": { "message": "Pir" },
-  "schedule_day_tue": { "message": "Ant" },
-  "schedule_day_wed": { "message": "Tre" },
-  "schedule_day_thu": { "message": "Ket" },
-  "schedule_day_fri": { "message": "Pen" },
-  "schedule_day_sat": { "message": "Šeš" },
-  "category_header": { "message": "Kategorija" },
-  "category_required": { "message": "Kategorija yra privaloma" },
-  "allcategories": { "message": "Visos kategorijos" },
-  "category_social": { "message": "Socialiniai tinklai" },
-  "category_news": { "message": "Naujienos" },
-  "category_entertainment": { "message": "Pramogos" },
-  "category_shopping": { "message": "Pirkimas" },
-  "category_work": { "message": "Darbas" },
-  "category_gaming": { "message": "Žaidimai" },
-  "category_adult": { "message": "Sukrėtimas suaugusiems" },
-  "category_uncategorized": { "message": "Nekategorizuota" },
-  "searchfordomain": { "message": "Ieškoti domeno pavadinimo" },
-  "norulesforcategory": { "message": "Šiai kategorijai nėra užblokuotų svetainių." },
-  "getpro": { "message": "Gauk Pro" },
-  "profunctionstext": { "message": "Pro funkcijos apima: planuojamą blokavimą, apsaugą slaptažodžiu, taisyklių filtravimą ir taisyklių eksportą/importą. Mėgaukitės mūsų universalia licencija: vienas prenumeratos planas atrakina Pro visuose jūsų naršyklėse (Chrome, Firefox, Edge, Kiwi). Norėdami suaktyvinti, įsigykite prenumeratą blockdistraction.com svetainėje, tada nukopijuokite savo licencijos raktą iš paskyros skydelio ir įklijuokite jį žemiau." },
-  "upgradenow": { "message": "Atnaujinti dabar" },
-  "enteremail": { "message": "Įveskite savo el. paštą" },
-  "activatepro": { "message": "Aktyvuoti Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Atkurti prieigą" },
-  "pleaseenteremail": { "message": "Prašome įvesti savo el. paštą" },
-  "checking": { "message": "Tikrinama..." },
-  "proactivated": { "message": "Pro funkcijos suaktyvintos!" },
-  "subscriptionnotfound": { "message": "Prenumerata nėra aktyvi arba el. paštas nerastas." },
-  "servererror": { "message": "Serverio klaida. Bandykite dar kartą." },
-  "proactivatedfor": { "message": "Pro suaktyvintas vartotojui" },
+  "proonlyactions": {
+    "message": "Pro reikalingas redagavimui."
+  },
+  "invalidpassword": {
+    "message": "Neteisingas slaptažodis"
+  },
+  "setpassword": {
+    "message": "Nustatyti slaptažodį"
+  },
+  "enterpassword": {
+    "message": "Įvesti slaptažodį"
+  },
+  "passwordmismatch": {
+    "message": "Slaptažodžiai nesutampa"
+  },
+  "passwordtooshort": {
+    "message": "Slaptažodis turi būti bent 6 simbolių"
+  },
+  "resetpasswordconfirm": {
+    "message": "Slaptažodžio atstatymas išjungs apsaugą. Tęsti?"
+  },
+  "passwordset": {
+    "message": "Slaptažodis sėkmingai nustatytas"
+  },
+  "passworddisabled": {
+    "message": "Slaptažodžio apsauga išjungta"
+  },
+  "prorequired": {
+    "message": "Šiai funkcijai reikalingas Pro režimas"
+  },
+  "enablepasswordtitle": {
+    "message": "Įjungti slaptažodžio apsaugą"
+  },
+  "enablepassworddesc": {
+    "message": "Reikalauja slaptažodžio norint ištrinti ar redaguoti taisykles (pagerina griežtą režimą)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Slaptažodžio apsauga"
+  },
+  "scheduleheader": {
+    "message": "Tvarkaraštis"
+  },
+  "enableschedule": {
+    "message": "Įjungti tvarkaraštį"
+  },
+  "alwaysactive": {
+    "message": "Visada aktyvuotas"
+  },
+  "profeatureschedule": {
+    "message": "Tvarkaraštis prieinamas tik Pro versijoje"
+  },
+  "days": {
+    "message": "Dienos"
+  },
+  "starttime": {
+    "message": "Pradžios laikas:"
+  },
+  "endtime": {
+    "message": "Pabaigos laikas:"
+  },
+  "invaliddays": {
+    "message": "Pasirinktos neleistinos dienos"
+  },
+  "invalidtimeformat": {
+    "message": "Neteisingas laiko formatas (naudokite HH:MM)"
+  },
+  "startafterend": {
+    "message": "Pradžios laikas turi būti prieš pabaigos laiką"
+  },
+  "invalidschedule": {
+    "message": "Neteisingas tvarkaraštis: pasirinkite dienas ir laikus."
+  },
+  "invalidscheduledays": {
+    "message": "Neteisingas tvarkaraštis: pasirinkite bent vieną dieną."
+  },
+  "invalidschedulestarttime": {
+    "message": "Neteisingas tvarkaraštis: nustatykite pradžios laiką."
+  },
+  "invalidscheduleendtime": {
+    "message": "Neteisingas tvarkaraštis: nustatykite pabaigos laiką."
+  },
+  "editdisablednonpro": {
+    "message": "Redagavimas išjungtas: per daug taisyklių ne-Pro vartotojams."
+  },
+  "errorloadingstatus": {
+    "message": "Klaida įkeliant vartotojo būseną."
+  },
+  "schedule_day_sun": {
+    "message": "Sek"
+  },
+  "schedule_day_mon": {
+    "message": "Pir"
+  },
+  "schedule_day_tue": {
+    "message": "Ant"
+  },
+  "schedule_day_wed": {
+    "message": "Tre"
+  },
+  "schedule_day_thu": {
+    "message": "Ket"
+  },
+  "schedule_day_fri": {
+    "message": "Pen"
+  },
+  "schedule_day_sat": {
+    "message": "Šeš"
+  },
+  "category_header": {
+    "message": "Kategorija"
+  },
+  "category_required": {
+    "message": "Kategorija yra privaloma"
+  },
+  "allcategories": {
+    "message": "Visos kategorijos"
+  },
+  "category_social": {
+    "message": "Socialiniai tinklai"
+  },
+  "category_news": {
+    "message": "Naujienos"
+  },
+  "category_entertainment": {
+    "message": "Pramogos"
+  },
+  "category_shopping": {
+    "message": "Pirkimas"
+  },
+  "category_work": {
+    "message": "Darbas"
+  },
+  "category_gaming": {
+    "message": "Žaidimai"
+  },
+  "category_adult": {
+    "message": "Sukrėtimas suaugusiems"
+  },
+  "category_uncategorized": {
+    "message": "Nekategorizuota"
+  },
+  "searchfordomain": {
+    "message": "Ieškoti domeno pavadinimo"
+  },
+  "norulesforcategory": {
+    "message": "Šiai kategorijai nėra užblokuotų svetainių."
+  },
+  "getpro": {
+    "message": "Gauk Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro funkcijos apima: planuojamą blokavimą, apsaugą slaptažodžiu, taisyklių filtravimą ir taisyklių eksportą/importą. Mėgaukitės mūsų universalia licencija: vienas prenumeratos planas atrakina Pro visuose jūsų naršyklėse (Chrome, Firefox, Edge, Kiwi). Norėdami suaktyvinti, įsigykite prenumeratą blockdistraction.com svetainėje, tada nukopijuokite savo licencijos raktą iš paskyros skydelio ir įklijuokite jį žemiau."
+  },
+  "upgradenow": {
+    "message": "Atnaujinti dabar"
+  },
+  "enteremail": {
+    "message": "Įveskite savo el. paštą"
+  },
+  "activatepro": {
+    "message": "Aktyvuoti Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Atkurti prieigą"
+  },
+  "pleaseenteremail": {
+    "message": "Prašome įvesti savo el. paštą"
+  },
+  "checking": {
+    "message": "Tikrinama..."
+  },
+  "proactivated": {
+    "message": "Pro funkcijos suaktyvintos!"
+  },
+  "subscriptionnotfound": {
+    "message": "Prenumerata nėra aktyvi arba el. paštas nerastas."
+  },
+  "servererror": {
+    "message": "Serverio klaida. Bandykite dar kartą."
+  },
+  "proactivatedfor": {
+    "message": "Pro suaktyvintas vartotojui"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Leidimo prašymas nepavyko (gali atsitikti mobiliajame įrenginyje). Bandykite dar kartą arba suteikite leidimą rankiniu būdu per nustatymus."
   },
-  "pastekeylabel": { "message": "Įklijuokite čia savo licencijos raktą:" },
-  "confirmclearstats": { "message": "Ar tikrai norite išvalyti visą statistiką? Šio veiksmo nebus galima atšaukti." },
-  "statscleared": { "message": "Statistika sėkmingai išvalyta." },
-  "redirectstodaylabel": { "message": "Peradresavimai šiandien" },
-  "totalredirectslabel": { "message": "Iš viso peradresavimų" },
-  "logout": { "message": "Atsijungti" },
-  "loggedoutsuccess": { "message": "Sėkmingai atsijungėte." },
-  "loggedouterror": { "message": "Atsijungiant įvyko klaida." },
-  "forcesync": { "message": "Priverstinė sinchronizacija / Patikrinti būseną" },
-  "forgotpasswordinstructions": { "message": "Norėdami iš naujo nustatyti slaptažodį, eikite į skiltį „Pro“, spustelėkite „Atsijungti“ ir tada iš naujo suaktyvinkite įklijuodami savo licencijos raktą." },
-  "blockedtitle": { "message": "Svetainė nepasiekiama" },
-  "blockedheader": { "message": "Ši svetainė šiuo metu nepasiekiama" },
-  "blockedtext": { "message": "Šio turinio negalima rodyti." },
-  "blockedbutton": { "message": "Užverti skirtuką" },
-  "confirmpassword": { "message": "Patvirtinkite slaptažodį" },
-  "modalconfirm": { "message": "Patvirtinti" },
-  "modalcancel": { "message": "Atšaukti" },
-  "forgotpassword": { "message": "Pamiršote slaptažodį? Atstatyti (pašalins apsaugą)" },
-  "prounlocked": { "message": "Ačiū už jūsų palaikymą! Visos Pro funkcijos atrakintos." },
-  "licensesynced": { "message": "Jūsų licencija sinchronizuota su jūsų paskyra. Jei prarasite prieigą, galite atgauti savo raktą čia: " },
-  "syncing": { "message": "Sinchronizuojama..." },
-  "pleaseenterkey": { "message": "Įveskite raktą." },
-  "syncsuccess": { "message": "Sinchronizacija sėkminga" },
-  "syncfailed": { "message": "Sinchronizavimas nepavyko." },
-  "passwordreset": { "message": "Slaptažodžio apsauga buvo atstatyta." },
-  "privacysecured": { "message": "Privatumas užtikrintas" },
-  "errorinvalidfiletype": { "message": "Pasirinkite .json failą" },
-  "debugsettingstitle": { "message": "Derinimo nustatymai" },
-  "enabledebugtitle": { "message": "Įjungti derinimo režimą" },
-  "enabledebugdesc": { "message": "Įjungti išsamų konsolės žurnalavimą trikčių šalinimui" },
-  "errorcommunication": { "message": "Klaida bendraujant su fonine paslauga" },
-  "clearstats": { "message": "Išvalyti statistiką" },
-  "rule_enabled": { "message": "Įjungta" },
-  "rule_disabled": { "message": "Išjungta" },
-  "filter_only_hint": { "message": "Šis sąrašas tik filtruoja rodymą lentelėje" },
-  "category_disabled_desc": { "message": "Nutildykite kategoriją, kad laikinai būtų leidžiama prieiga prie visų jos svetainių. Atskiros taisyklių nuostatos išlieka." },
-  "toggle_category_blocking": { "message": "Įjungti arba išjungti visos kategorijos blokavimą" },
-  "category_muted_no_edit": { "message": "Negalima valdyti: kategorijos blokavimas pristabdytas" },
-  "feedback_title": { "message": "Ar jums patinka BlockDistraction?" },
-  "feedback_desc": { "message": "Jūsų atsiliepimai labai padeda mums tobulinti plėtinį." },
-  "feedback_like": { "message": "Taip, jis veikia puikiai!" },
-  "feedback_dislike": { "message": "Turiu problemų / pasiūlymų" },
-  "trialproheader": { "message": "Išbandykite 7 dienas nemokamai" },
-  "trialprotext": { "message": "Galite atšaukti bet kada. Saugus atsiskaitymas." },
-  "focussessionheader": { "message": "Fokusavimosi sesija" },
-  "focussessionstart": { "message": "Pradėti" },
-  "focussessionstop": { "message": "Stabdyti" },
-  "focussessionduration": { "message": "Trukmė (min.):" },
-  "focussessioninfo": { "message": "Nustatytam laikui aktyvuoja visas jūsų blokavimo taisykles, nepaisant esamų nustatymų ir tvarkaraščių. Maksimaliai koncentracijai." },
-  "focussessionprofeature": { "message": "Pasirinktinė trukmė ir „Hardcore“ režimas yra „Pro“ funkcijos." },
-  "focussessionended": { "message": "Fokusavimosi sesija baigėsi! Padarykite pertrauką." },
-  "focussessionhardcore": { "message": "„Hardcore“ režimas (be mygtuko „Stabdyti“)" },
-  "focussessionsoundtitle": { "message": "Fokusavimosi sesijos garsinis pranešimas" },
-  "focussessionsounddesc": { "message": "Paleisti garsą, kai fokusavimosi sesija baigiasi." },
-  "focussessionactivebanner": { "message": "Fokusavimosi sesija aktyvi! Likęs laikas:" },
-  "focussessioninvalidduration": { "message": "Įveskite galiojančią trukmę (1–240 min.)." },
-  "successfulfocussessionslabel": { "message": "Sėkmingos fokusavimosi sesijos" },
-  "rule_scheduled": { "message": "Suplanuota taisyklė" },
-  "addwhitelistrule": { "message": "Pridėti išimtį" },
-  "category_whitelist": { "message": "Baltasis sąrašas" },
-  "conflict_blacklist_err": { "message": "Ši svetainė jau yra jūsų juodajame sąraše. Pirmiausia ją pašalinkite." },
-  "conflict_whitelist_err": { "message": "Ši svetainė jau yra jūsų baltojoje sąraše. Pirmiausia ją pašalinkite." },
-  "status_allow": { "message": "Leidžiama" },
-  "redundant_whitelist_err": { "message": "Šią taisyklę jau apima kita baltojo sąrašo taisyklė." },
-  "focussessionmode": { "message": "Fokusavimo režimas:" },
-  "focusmodeblacklist": { "message": "Blokuoti juodąjį sąrašą" },
-  "focusmodewhitelist": { "message": "Leisti tik baltąjį sąrašą" }
+  "pastekeylabel": {
+    "message": "Įklijuokite čia savo licencijos raktą:"
+  },
+  "confirmclearstats": {
+    "message": "Ar tikrai norite išvalyti visą statistiką? Šio veiksmo nebus galima atšaukti."
+  },
+  "statscleared": {
+    "message": "Statistika sėkmingai išvalyta."
+  },
+  "redirectstodaylabel": {
+    "message": "Peradresavimai šiandien"
+  },
+  "totalredirectslabel": {
+    "message": "Iš viso peradresavimų"
+  },
+  "logout": {
+    "message": "Atsijungti"
+  },
+  "loggedoutsuccess": {
+    "message": "Sėkmingai atsijungėte."
+  },
+  "loggedouterror": {
+    "message": "Atsijungiant įvyko klaida."
+  },
+  "forcesync": {
+    "message": "Priverstinė sinchronizacija / Patikrinti būseną"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Norėdami iš naujo nustatyti slaptažodį, eikite į skiltį „Pro“, spustelėkite „Atsijungti“ ir tada iš naujo suaktyvinkite įklijuodami savo licencijos raktą."
+  },
+  "blockedtitle": {
+    "message": "Svetainė nepasiekiama"
+  },
+  "blockedheader": {
+    "message": "Ši svetainė šiuo metu nepasiekiama"
+  },
+  "blockedtext": {
+    "message": "Šio turinio negalima rodyti."
+  },
+  "blockedbutton": {
+    "message": "Užverti skirtuką"
+  },
+  "confirmpassword": {
+    "message": "Patvirtinkite slaptažodį"
+  },
+  "modalconfirm": {
+    "message": "Patvirtinti"
+  },
+  "modalcancel": {
+    "message": "Atšaukti"
+  },
+  "forgotpassword": {
+    "message": "Pamiršote slaptažodį? Atstatyti (pašalins apsaugą)"
+  },
+  "prounlocked": {
+    "message": "Ačiū už jūsų palaikymą! Visos Pro funkcijos atrakintos."
+  },
+  "licensesynced": {
+    "message": "Jūsų licencija sinchronizuota su jūsų paskyra. Jei prarasite prieigą, galite atgauti savo raktą čia: "
+  },
+  "syncing": {
+    "message": "Sinchronizuojama..."
+  },
+  "pleaseenterkey": {
+    "message": "Įveskite raktą."
+  },
+  "syncsuccess": {
+    "message": "Sinchronizacija sėkminga"
+  },
+  "syncfailed": {
+    "message": "Sinchronizavimas nepavyko."
+  },
+  "passwordreset": {
+    "message": "Slaptažodžio apsauga buvo atstatyta."
+  },
+  "privacysecured": {
+    "message": "Privatumas užtikrintas"
+  },
+  "errorinvalidfiletype": {
+    "message": "Pasirinkite .json failą"
+  },
+  "debugsettingstitle": {
+    "message": "Derinimo nustatymai"
+  },
+  "enabledebugtitle": {
+    "message": "Įjungti derinimo režimą"
+  },
+  "enabledebugdesc": {
+    "message": "Įjungti išsamų konsolės žurnalavimą trikčių šalinimui"
+  },
+  "errorcommunication": {
+    "message": "Klaida bendraujant su fonine paslauga"
+  },
+  "clearstats": {
+    "message": "Išvalyti statistiką"
+  },
+  "rule_enabled": {
+    "message": "Įjungta"
+  },
+  "rule_disabled": {
+    "message": "Išjungta"
+  },
+  "filter_only_hint": {
+    "message": "Šis sąrašas tik filtruoja rodymą lentelėje"
+  },
+  "category_disabled_desc": {
+    "message": "Nutildykite kategoriją, kad laikinai būtų leidžiama prieiga prie visų jos svetainių. Atskiros taisyklių nuostatos išlieka."
+  },
+  "toggle_category_blocking": {
+    "message": "Įjungti arba išjungti visos kategorijos blokavimą"
+  },
+  "category_muted_no_edit": {
+    "message": "Negalima valdyti: kategorijos blokavimas pristabdytas"
+  },
+  "feedback_title": {
+    "message": "Ar jums patinka BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Jūsų atsiliepimai labai padeda mums tobulinti plėtinį."
+  },
+  "feedback_like": {
+    "message": "Taip, jis veikia puikiai!"
+  },
+  "feedback_dislike": {
+    "message": "Turiu problemų / pasiūlymų"
+  },
+  "trialproheader": {
+    "message": "Išbandykite 7 dienas nemokamai"
+  },
+  "trialprotext": {
+    "message": "Galite atšaukti bet kada. Saugus atsiskaitymas."
+  },
+  "focussessionheader": {
+    "message": "Fokusavimosi sesija"
+  },
+  "focussessionstart": {
+    "message": "Pradėti"
+  },
+  "focussessionstop": {
+    "message": "Stabdyti"
+  },
+  "focussessionduration": {
+    "message": "Trukmė (min.):"
+  },
+  "focussessioninfo": {
+    "message": "Nustatytam laikui aktyvuoja visas jūsų blokavimo taisykles, nepaisant esamų nustatymų ir tvarkaraščių. Maksimaliai koncentracijai."
+  },
+  "focussessionprofeature": {
+    "message": "Pasirinktinė trukmė ir „Hardcore“ režimas yra „Pro“ funkcijos."
+  },
+  "focussessionended": {
+    "message": "Fokusavimosi sesija baigėsi! Padarykite pertrauką."
+  },
+  "focussessionhardcore": {
+    "message": "„Hardcore“ režimas (be mygtuko „Stabdyti“)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Fokusavimosi sesijos garsinis pranešimas"
+  },
+  "focussessionsounddesc": {
+    "message": "Paleisti garsą, kai fokusavimosi sesija baigiasi."
+  },
+  "focussessionactivebanner": {
+    "message": "Fokusavimosi sesija aktyvi! Likęs laikas:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Įveskite galiojančią trukmę (1–240 min.)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Sėkmingos fokusavimosi sesijos"
+  },
+  "rule_scheduled": {
+    "message": "Suplanuota taisyklė"
+  },
+  "addwhitelistrule": {
+    "message": "Pridėti išimtį"
+  },
+  "category_whitelist": {
+    "message": "Baltasis sąrašas"
+  },
+  "conflict_blacklist_err": {
+    "message": "Ši svetainė jau yra jūsų juodajame sąraše. Pirmiausia ją pašalinkite."
+  },
+  "conflict_whitelist_err": {
+    "message": "Ši svetainė jau yra jūsų baltojoje sąraše. Pirmiausia ją pašalinkite."
+  },
+  "status_allow": {
+    "message": "Leidžiama"
+  },
+  "redundant_whitelist_err": {
+    "message": "Šią taisyklę jau apima kita baltojo sąrašo taisyklė."
+  },
+  "focussessionmode": {
+    "message": "Fokusavimo režimas:"
+  },
+  "focusmodeblacklist": {
+    "message": "Blokuoti juodąjį sąrašą"
+  },
+  "focusmodewhitelist": {
+    "message": "Leisti tik baltąjį sąrašą"
+  },
+  "schedule_edit": {
+    "message": "Redaguoti tvarkaraštį"
+  },
+  "schedule_add_period": {
+    "message": "Pridėti laiko grupę"
+  },
+  "schedule_remove_period": {
+    "message": "Pašalinti"
+  },
+  "schedule_period": {
+    "message": "Laiko grupė"
+  },
+  "schedule_every_day": {
+    "message": "Kasdien"
+  },
+  "schedule_weekdays": {
+    "message": "Darbo dienos"
+  },
+  "schedule_weekends": {
+    "message": "Savaitgaliai"
+  },
+  "schedule_day_overlap": {
+    "message": "Kiekvieną dieną galima naudoti tik vieną kartą."
+  }
 }

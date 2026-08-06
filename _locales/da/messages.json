@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Webstedsblokering" },
-  "shortname": { "message": "Blokker" },
-  "description": { "message": "En enkel og pålidelig værktøj til at blokere og omdirigere websteder, så du kan forblive fokuseret." },
-  "defaulttitle": { "message": "Vær fokuseret og produktiv" },
-  "header": { "message": "Webstedsblokering" },
-  "paragraph": { "message": "For at blokere et websted eller en ressource, indtast en del af navnet i feltet med pladsholderen \"Indtast URL til blokering\" – f.eks. \"facebook\" vil blokere alle relaterede underdomæner. I feltet med pladsholderen \"Indtast URL til omdirigering\" indtast den fulde adresse inklusive protokol, f.eks. \"https://google.com\". Hvis omdirigeringsfeltet er tomt, blokeres webstedet uden omdirigering. Klik på knappen Gem for at anvende reglen. For at opdatere en regel, slet den gamle og opret en ny." },
-  "addrule": { "message": "Tilføj ny regel" },
-  "blockurl": { "message": "Indtast URL til blokering" },
-  "redirecturl": { "message": "Indtast URL til omdirigering (valgfri)" },
-  "redirecturlheader": { "message": "URL til omdirigering" },
-  "redirecturlplaceholder": { "message": "Valgfrit - lad feltet stå tomt for at blokere" },
-  "redirecturlhint": { "message": "Indtast en fuld URL inklusive https://" },
-  "mobilecopylinkhint": { "message": "Hvis du vil blokere et link, skal du kopiere adressen og indsætte den i blokeringsfeltet." },
-  "savebtn": { "message": "Gem" },
-  "deletebtn": { "message": "Slet" },
-  "alertruleexist": { "message": "Reglen findes allerede" },
+  "chromename": {
+    "message": "BlockDistraction – Webstedsblokering"
+  },
+  "shortname": {
+    "message": "Blokker"
+  },
+  "description": {
+    "message": "En enkel og pålidelig værktøj til at blokere og omdirigere websteder, så du kan forblive fokuseret."
+  },
+  "defaulttitle": {
+    "message": "Vær fokuseret og produktiv"
+  },
+  "header": {
+    "message": "Webstedsblokering"
+  },
+  "paragraph": {
+    "message": "For at blokere et websted eller en ressource, indtast en del af navnet i feltet med pladsholderen \"Indtast URL til blokering\" – f.eks. \"facebook\" vil blokere alle relaterede underdomæner. I feltet med pladsholderen \"Indtast URL til omdirigering\" indtast den fulde adresse inklusive protokol, f.eks. \"https://google.com\". Hvis omdirigeringsfeltet er tomt, blokeres webstedet uden omdirigering. Klik på knappen Gem for at anvende reglen. For at opdatere en regel, slet den gamle og opret en ny."
+  },
+  "addrule": {
+    "message": "Tilføj ny regel"
+  },
+  "blockurl": {
+    "message": "Indtast URL til blokering"
+  },
+  "redirecturl": {
+    "message": "Indtast URL til omdirigering (valgfri)"
+  },
+  "redirecturlheader": {
+    "message": "URL til omdirigering"
+  },
+  "redirecturlplaceholder": {
+    "message": "Valgfrit - lad feltet stå tomt for at blokere"
+  },
+  "redirecturlhint": {
+    "message": "Indtast en fuld URL inklusive https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Hvis du vil blokere et link, skal du kopiere adressen og indsætte den i blokeringsfeltet."
+  },
+  "savebtn": {
+    "message": "Gem"
+  },
+  "deletebtn": {
+    "message": "Slet"
+  },
+  "alertruleexist": {
+    "message": "Reglen findes allerede"
+  },
   "savedrules": {
     "message": "$ruleslength$ regel(r) gemt",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Denne ressource kan ikke blokeres." },
-  "wrongblockurl": { "message": "Ugyldig blokerings-URL" },
-  "wrongredirecturl": { "message": "Ugyldig omdirigerings-URL" },
-  "blockthat": { "message": "Bloker dette websted" },
-  "sendfeedbackbutton": { "message": "Send feedback" },
-  "sendfeedbacksubject": { "message": "Feedback til BlockDistraction" },
-  "sendfeedbackbody": { "message": "Hej, jeg vil gerne dele følgende feedback:\n\n" },
-  "quote1": { "message": "Forbliv fokuseret, forbliv stærk." },
-  "quote2": { "message": "Din fremtid skabes af det, du gør i dag." },
-  "quote3": { "message": "Disciplin er broen mellem mål og succes." },
-  "quote4": { "message": "Ét blokeret websted, ét skridt nærmere dit mål." },
-  "quote5": { "message": "Gør hvert klik meningsfuldt." },
-  "quote6": { "message": "Se ikke på uret; gør som det. Fortsæt." },
-  "quote7": { "message": "Små skridt hver dag fører til store resultater." },
-  "quote8": { "message": "Din eneste grænse er dit sind." },
-  "quote9": { "message": "Succes er summen af små daglige indsats." },
-  "quote10": { "message": "Fokusér på at være produktiv, ikke travl." },
-  "quote11": { "message": "Beskyt din opmærksomhed – det er din mest værdifulde ressource." },
-  "quote12": { "message": "Hver blokeret distraktion er tid tilbagevundet." },
-  "quote13": { "message": "Skru ned for støjen; skru op for din produktivitet." },
-  "quote14": { "message": "Små rutiner bygger ustoppelig fremdrift." },
-  "quote15": { "message": "Klarhed slår kaos – fokuser på det, der betyder noget." },
-  "quote16": { "message": "Sig nej til distraktioner; sig ja til fremskridt." },
-  "quote17": { "message": "En fokuseret time i dag fordobler dine resultater i morgen." },
-  "quote18": { "message": "Skab mere ved at forbruge mindre." },
-  "quote19": { "message": "Disciplin vælger langsigtede sejre frem for kortvarige impulser." },
-  "quote20": { "message": "Luk en fane, åbn plads til nye idéer." },
-  "quote21": { "message": "Det arbejde, du undgår i dag, kan blive morgendagens stress." },
-  "quote22": { "message": "Fokus handler ikke om at gøre mere, men om at gøre det, der virkelig betyder noget." },
-  "quote23": { "message": "Dine mål fortjener mere opmærksomhed end dine distraktioner." },
-  "quote24": { "message": "Hvert minut uden distraktioner er en investering i dig selv." },
-  "quote25": { "message": "Konsistens skaber mere varige resultater end kortvarige motivationsudbrud." },
-  "quote26": { "message": "Det bedste tidspunkt at starte var i går. Det næstbedste er nu." },
-  "quote27": { "message": "Fremskridt begynder, når du vælger handling frem for distraktion." },
-  "quote28": { "message": "Et enkelt øjebliks fokus kan ændre hele din dag." },
-  "quote29": { "message": "Du har ikke brug for mere tid, men færre distraktioner." },
-  "quote30": { "message": "Hver beslutning om at forblive fokuseret styrker dit fremtidige jeg." },
-  "quote31": { "message": "Denne blokering er midlertidig; dine mål er langsigtede." },
-  "quote32": { "message": "Hver blokeret distraktion er en sejr for dit fremtidige jeg." },
-  "quote33": { "message": "Internettet er uendeligt, men din tid er ikke." },
-  "quote34": { "message": "Definér dine prioriteter, før nettet gør det for dig." },
-  "quote35": { "message": "Mindre scrolling, mere skabelse." },
-  "quote36": { "message": "Din opmærksomhed former dine resultater." },
-  "quote37": { "message": "Hold fokus — distraktion kan vente." },
-  "quote38": { "message": "Enhver produktiv beslutning starter med et fokuseret sind." },
-  "quote39": { "message": "Du har blokeret et website, ikke dit potentiale." },
-  "quote40": { "message": "Vejen til succes er brolagt med fokuserede beslutninger." },
-  "actionsheader": { "message": "Handlinger" },
-  "norules": { "message": "Ingen blokerede websteder." },
-  "editbtn": { "message": "Rediger" },
-  "ruleddeleted": { "message": "Regel slettet." },
-  "cancelbtn": { "message": "Annuller" },
-  "ruleupdated": { "message": "Regel opdateret." },
-  "rulenewadded": { "message": "Ny regel tilføjet." },
-  "gotooptions": { "message": "Gå til indstillingssiden ⚙️" },
-  "gotopopup": { "message": "Klik på udvidelsesikonet for at vende tilbage til popup" },
-  "rulesmigrated": { "message": "Regler opdateret for kompatibilitet" },
-  "errorupdatingrules": { "message": "Fejl ved opdatering af regler" },
-  "erroraddingrule": { "message": "Fejl ved tilføjelse af regel" },
-  "errorremovingrule": { "message": "Fejl ved fjernelse af regel" },
-  "optionsheader": { "message": "Udvidelsesindstillinger" },
-  "optionsdescription": { "message": "Konfigurer udvidelsens adfærd og sikkerhedsindstillinger" },
-  "securitymodetitle": { "message": "Sikkerhedstilstand" },
-  "normalmodetitle": { "message": "Normal tilstand" },
-  "normalmodedesc": { "message": "Regler kan fjernes med ét klik" },
-  "strictmodetitle": { "message": "Streng tilstand" },
-  "strictmodedesc": { "message": "Regler kræver en 10 sekunders nedtælling før de kan fjernes for at undgå utilsigtet sletning" },
-  "confirmdeletetitle": { "message": "Bekræft før sletning af flere regler" },
-  "confirmdeletedesc": { "message": "Vis en bekræftelsesdialog, når du sletter flere regler på én gang" },
-  "notificationstitle": { "message": "Vis meddelelser" },
-  "notificationsdesc": { "message": "Vis en meddelelse, når webudvidelsen er blevet opdateret" },
-  "rulesmanagementtitle": { "message": "Regelhåndtering" },
-  "exportrulesbtn": { "message": "Eksportér regler" },
-  "importrulesbtn": { "message": "Importér regler" },
-  "clearallrulesbtn": { "message": "Ryd alle regler" },
-  "totalruleslabel": { "message": "Samlede regler" },
-  "blockedtodaylabel": { "message": "Blokeret i dag" },
-  "totalblockedlabel": { "message": "Samlet blokeret" },
-  "resetsettingsbtn": { "message": "Nulstil til standard" },
-  "backtopopup": { "message": "Tilbage til hovedside" },
-  "errorloadingsettings": { "message": "Fejl ved indlæsning af indstillinger" },
-  "settingssaved": { "message": "Indstillingerne blev gemt!" },
-  "errorsavingsettings": { "message": "Fejl ved lagring af indstillinger" },
-  "rulesexported": { "message": "Regler blev eksporteret!" },
-  "errorexportingrules": { "message": "Fejl ved eksport af regler" },
+  "restrictedblockurl": {
+    "message": "Denne ressource kan ikke blokeres."
+  },
+  "wrongblockurl": {
+    "message": "Ugyldig blokerings-URL"
+  },
+  "wrongredirecturl": {
+    "message": "Ugyldig omdirigerings-URL"
+  },
+  "blockthat": {
+    "message": "Bloker dette websted"
+  },
+  "sendfeedbackbutton": {
+    "message": "Send feedback"
+  },
+  "sendfeedbacksubject": {
+    "message": "Feedback til BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Hej, jeg vil gerne dele følgende feedback:\n\n"
+  },
+  "quote1": {
+    "message": "Forbliv fokuseret, forbliv stærk."
+  },
+  "quote2": {
+    "message": "Din fremtid skabes af det, du gør i dag."
+  },
+  "quote3": {
+    "message": "Disciplin er broen mellem mål og succes."
+  },
+  "quote4": {
+    "message": "Ét blokeret websted, ét skridt nærmere dit mål."
+  },
+  "quote5": {
+    "message": "Gør hvert klik meningsfuldt."
+  },
+  "quote6": {
+    "message": "Se ikke på uret; gør som det. Fortsæt."
+  },
+  "quote7": {
+    "message": "Små skridt hver dag fører til store resultater."
+  },
+  "quote8": {
+    "message": "Din eneste grænse er dit sind."
+  },
+  "quote9": {
+    "message": "Succes er summen af små daglige indsats."
+  },
+  "quote10": {
+    "message": "Fokusér på at være produktiv, ikke travl."
+  },
+  "quote11": {
+    "message": "Beskyt din opmærksomhed – det er din mest værdifulde ressource."
+  },
+  "quote12": {
+    "message": "Hver blokeret distraktion er tid tilbagevundet."
+  },
+  "quote13": {
+    "message": "Skru ned for støjen; skru op for din produktivitet."
+  },
+  "quote14": {
+    "message": "Små rutiner bygger ustoppelig fremdrift."
+  },
+  "quote15": {
+    "message": "Klarhed slår kaos – fokuser på det, der betyder noget."
+  },
+  "quote16": {
+    "message": "Sig nej til distraktioner; sig ja til fremskridt."
+  },
+  "quote17": {
+    "message": "En fokuseret time i dag fordobler dine resultater i morgen."
+  },
+  "quote18": {
+    "message": "Skab mere ved at forbruge mindre."
+  },
+  "quote19": {
+    "message": "Disciplin vælger langsigtede sejre frem for kortvarige impulser."
+  },
+  "quote20": {
+    "message": "Luk en fane, åbn plads til nye idéer."
+  },
+  "quote21": {
+    "message": "Det arbejde, du undgår i dag, kan blive morgendagens stress."
+  },
+  "quote22": {
+    "message": "Fokus handler ikke om at gøre mere, men om at gøre det, der virkelig betyder noget."
+  },
+  "quote23": {
+    "message": "Dine mål fortjener mere opmærksomhed end dine distraktioner."
+  },
+  "quote24": {
+    "message": "Hvert minut uden distraktioner er en investering i dig selv."
+  },
+  "quote25": {
+    "message": "Konsistens skaber mere varige resultater end kortvarige motivationsudbrud."
+  },
+  "quote26": {
+    "message": "Det bedste tidspunkt at starte var i går. Det næstbedste er nu."
+  },
+  "quote27": {
+    "message": "Fremskridt begynder, når du vælger handling frem for distraktion."
+  },
+  "quote28": {
+    "message": "Et enkelt øjebliks fokus kan ændre hele din dag."
+  },
+  "quote29": {
+    "message": "Du har ikke brug for mere tid, men færre distraktioner."
+  },
+  "quote30": {
+    "message": "Hver beslutning om at forblive fokuseret styrker dit fremtidige jeg."
+  },
+  "quote31": {
+    "message": "Denne blokering er midlertidig; dine mål er langsigtede."
+  },
+  "quote32": {
+    "message": "Hver blokeret distraktion er en sejr for dit fremtidige jeg."
+  },
+  "quote33": {
+    "message": "Internettet er uendeligt, men din tid er ikke."
+  },
+  "quote34": {
+    "message": "Definér dine prioriteter, før nettet gør det for dig."
+  },
+  "quote35": {
+    "message": "Mindre scrolling, mere skabelse."
+  },
+  "quote36": {
+    "message": "Din opmærksomhed former dine resultater."
+  },
+  "quote37": {
+    "message": "Hold fokus — distraktion kan vente."
+  },
+  "quote38": {
+    "message": "Enhver produktiv beslutning starter med et fokuseret sind."
+  },
+  "quote39": {
+    "message": "Du har blokeret et website, ikke dit potentiale."
+  },
+  "quote40": {
+    "message": "Vejen til succes er brolagt med fokuserede beslutninger."
+  },
+  "actionsheader": {
+    "message": "Handlinger"
+  },
+  "norules": {
+    "message": "Ingen blokerede websteder."
+  },
+  "editbtn": {
+    "message": "Rediger"
+  },
+  "ruleddeleted": {
+    "message": "Regel slettet."
+  },
+  "cancelbtn": {
+    "message": "Annuller"
+  },
+  "ruleupdated": {
+    "message": "Regel opdateret."
+  },
+  "rulenewadded": {
+    "message": "Ny regel tilføjet."
+  },
+  "gotooptions": {
+    "message": "Gå til indstillingssiden ⚙️"
+  },
+  "gotopopup": {
+    "message": "Klik på udvidelsesikonet for at vende tilbage til popup"
+  },
+  "rulesmigrated": {
+    "message": "Regler opdateret for kompatibilitet"
+  },
+  "errorupdatingrules": {
+    "message": "Fejl ved opdatering af regler"
+  },
+  "erroraddingrule": {
+    "message": "Fejl ved tilføjelse af regel"
+  },
+  "errorremovingrule": {
+    "message": "Fejl ved fjernelse af regel"
+  },
+  "optionsheader": {
+    "message": "Udvidelsesindstillinger"
+  },
+  "optionsdescription": {
+    "message": "Konfigurer udvidelsens adfærd og sikkerhedsindstillinger"
+  },
+  "securitymodetitle": {
+    "message": "Sikkerhedstilstand"
+  },
+  "normalmodetitle": {
+    "message": "Normal tilstand"
+  },
+  "normalmodedesc": {
+    "message": "Regler kan fjernes med ét klik"
+  },
+  "strictmodetitle": {
+    "message": "Streng tilstand"
+  },
+  "strictmodedesc": {
+    "message": "Regler kræver en 10 sekunders nedtælling før de kan fjernes for at undgå utilsigtet sletning"
+  },
+  "confirmdeletetitle": {
+    "message": "Bekræft før sletning af flere regler"
+  },
+  "confirmdeletedesc": {
+    "message": "Vis en bekræftelsesdialog, når du sletter flere regler på én gang"
+  },
+  "notificationstitle": {
+    "message": "Vis meddelelser"
+  },
+  "notificationsdesc": {
+    "message": "Vis en meddelelse, når webudvidelsen er blevet opdateret"
+  },
+  "rulesmanagementtitle": {
+    "message": "Regelhåndtering"
+  },
+  "exportrulesbtn": {
+    "message": "Eksportér regler"
+  },
+  "importrulesbtn": {
+    "message": "Importér regler"
+  },
+  "clearallrulesbtn": {
+    "message": "Ryd alle regler"
+  },
+  "totalruleslabel": {
+    "message": "Samlede regler"
+  },
+  "blockedtodaylabel": {
+    "message": "Blokeret i dag"
+  },
+  "totalblockedlabel": {
+    "message": "Samlet blokeret"
+  },
+  "resetsettingsbtn": {
+    "message": "Nulstil til standard"
+  },
+  "backtopopup": {
+    "message": "Tilbage til hovedside"
+  },
+  "errorloadingsettings": {
+    "message": "Fejl ved indlæsning af indstillinger"
+  },
+  "settingssaved": {
+    "message": "Indstillingerne blev gemt!"
+  },
+  "errorsavingsettings": {
+    "message": "Fejl ved lagring af indstillinger"
+  },
+  "rulesexported": {
+    "message": "Regler blev eksporteret!"
+  },
+  "errorexportingrules": {
+    "message": "Fejl ved eksport af regler"
+  },
   "willimportrules": {
     "message": "Dette vil importere $ruleslength$ regler. ",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "De nuværende regler vil blive erstattet. Fortsæt?" },
+  "ruleswillbereplaced": {
+    "message": "De nuværende regler vil blive erstattet. Fortsæt?"
+  },
   "importedrules": {
     "message": "Importeret $ruleslength$ regler!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Fejl ved import af regler: " },
-  "norulestoclear": { "message": "Ingen regler at rydde" },
+  "errorimportingrules": {
+    "message": "Fejl ved import af regler: "
+  },
+  "norulestoclear": {
+    "message": "Ingen regler at rydde"
+  },
   "willdeleteallrules": {
     "message": "Dette vil slette alle $rulescount$ regler permanent. ",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Denne handling kan ikke fortrydes. Fortsæt?" },
-  "allrulescleared": { "message": "Alle regler er blevet ryddet!" },
-  "errorclearingrules": { "message": "Fejl ved sletning af regler" },
-  "willreset": { "message": "Dette vil nulstille alle indstillinger til standard. Fortsæt?" },
-  "resettodefaults": { "message": "Indstillingerne er nulstillet til standard!" },
-  "errorresettingsettings": { "message": "Fejl ved nulstilling af indstillinger" },
-  "basicsettingstitle": { "message": "Grundlæggende indstillinger" },
-  "advancedsettingstitle": { "message": "Avancerede indstillinger" },
-  "statisticstitle": { "message": "Statistikker" },
+  "cannotbeundone": {
+    "message": "Denne handling kan ikke fortrydes. Fortsæt?"
+  },
+  "allrulescleared": {
+    "message": "Alle regler er blevet ryddet!"
+  },
+  "errorclearingrules": {
+    "message": "Fejl ved sletning af regler"
+  },
+  "willreset": {
+    "message": "Dette vil nulstille alle indstillinger til standard. Fortsæt?"
+  },
+  "resettodefaults": {
+    "message": "Indstillingerne er nulstillet til standard!"
+  },
+  "errorresettingsettings": {
+    "message": "Fejl ved nulstilling af indstillinger"
+  },
+  "basicsettingstitle": {
+    "message": "Grundlæggende indstillinger"
+  },
+  "advancedsettingstitle": {
+    "message": "Avancerede indstillinger"
+  },
+  "statisticstitle": {
+    "message": "Statistikker"
+  },
   "rulelimitreached": {
     "message": "Du har nået grænsen for regler ($limit$) i basisversionen. Opgrader til Pro for ubegrænsede regler.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro kræves til redigering." },
-  "invalidpassword": { "message": "Ugyldig adgangskode" },
-  "setpassword": { "message": "Udstyr adgangskode" },
-  "enterpassword": { "message": "Indtast adgangskode" },
-  "passwordmismatch": { "message": "Adgangskoderne stemmer ikke overens" },
-  "passwordtooshort": { "message": "Adgangskoden skal være på mindst 6 tegn" },
-  "resetpasswordconfirm": { "message": "Nulstilling af adgangskoden vil deaktivere beskyttelsen. Fortsæt?" },
-  "passwordset": { "message": "Adgangskode sat med succes" },
-  "passworddisabled": { "message": "Adgangskodebeskyttelse deaktiveret" },
-  "prorequired": { "message": "Pro-tilstand kræves til denne funktion" },
-  "enablepasswordtitle": { "message": "Aktivér adgangskodebeskyttelse" },
-  "enablepassworddesc": { "message": "Kræver en adgangskode for at slette eller redigere regler (forbedrer streng tilstand)" },
-  "passwordprotectiontitle": { "message": "Adgangskodebeskyttelse" },
-  "scheduleheader": { "message": "Tidsplan" },
-  "enableschedule": { "message": "Aktivér tidsplan" },
-  "alwaysactive": { "message": "Altid aktiv" },
-  "profeatureschedule": { "message": "Tidsplan er tilgængelig i Pro-versionen" },
-  "days": { "message": "Dage" },
-  "starttime": { "message": "Starttid:" },
-  "endtime": { "message": "Sluttid:" },
-  "invaliddays": { "message": "Ugyldige dage valgt" },
-  "invalidtimeformat": { "message": "Ugyldigt tidsformat (brug TT:MM)" },
-  "startafterend": { "message": "Starttid skal være før sluttid" },
-  "invalidschedule": { "message": "Ugyldig tidsplan: vælg venligst dage og tidspunkter." },
-  "invalidscheduledays": { "message": "Ugyldig tidsplan: vælg venligst mindst én dag." },
-  "invalidschedulestarttime": { "message": "Ugyldig tidsplan: angiv venligst en starttid." },
-  "invalidscheduleendtime": { "message": "Ugyldig tidsplan: angiv venligst en sluttid." },
-  "editdisablednonpro": { "message": "Redigering deaktiveret: for mange regler for ikke-Pro brugere." },
-  "errorloadingstatus": { "message": "Fejl under indlæsning af brugerstatus." },
-  "schedule_day_sun": { "message": "Søn" },
-  "schedule_day_mon": { "message": "Man" },
-  "schedule_day_tue": { "message": "Tir" },
-  "schedule_day_wed": { "message": "Ons" },
-  "schedule_day_thu": { "message": "Tor" },
-  "schedule_day_fri": { "message": "Fre" },
-  "schedule_day_sat": { "message": "Lør" },
-  "category_header": { "message": "Kategori" },
-  "category_required": { "message": "Kategori er påkrævet" },
-  "allcategories": { "message": "Alle kategorier" },
-  "category_social": { "message": "Sociale medier" },
-  "category_news": { "message": "Nyheder" },
-  "category_entertainment": { "message": "Underholdning" },
-  "category_shopping": { "message": "Shopping" },
-  "category_work": { "message": "Arbejde" },
-  "category_gaming": { "message": "Spil" },
-  "category_adult": { "message": "Voksenindhold" },
-  "category_uncategorized": { "message": "Ikke kategoriseret" },
-  "searchfordomain": { "message": "Søg efter domænenavn" },
-  "norulesforcategory": { "message": "Ingen blokerede websteder for denne kategori." },
-  "getpro": { "message": "Få Pro" },
-  "profunctionstext": { "message": "Pro-funktioner inkluderer: planlagt blokering, adgangskodebeskyttelse, regel­filtrering og eksport/import af regler. Nyd vores universelle licens: ét abonnement låser Pro op på alle dine browsere (Chrome, Firefox, Edge, Kiwi). For at aktivere skal du købe et abonnement på blockdistraction.com, derefter kopiere din licensnøgle fra din kontotavle og indsætte den nedenfor." },
-  "upgradenow": { "message": "Opgrader nu" },
-  "enteremail": { "message": "Indtast din e-mail" },
-  "activatepro": { "message": "Aktivér Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Gendan adgang" },
-  "pleaseenteremail": { "message": "Indtast venligst din e-mail" },
-  "checking": { "message": "Kontrollerer..." },
-  "proactivated": { "message": "Pro-funktioner aktiveret!" },
-  "subscriptionnotfound": { "message": "Abonnement ikke aktivt eller e-mail ikke fundet." },
-  "servererror": { "message": "Serverfejl. Prøv venligst igen." },
-  "proactivatedfor": { "message": "Pro aktiveret for" },
+  "proonlyactions": {
+    "message": "Pro kræves til redigering."
+  },
+  "invalidpassword": {
+    "message": "Ugyldig adgangskode"
+  },
+  "setpassword": {
+    "message": "Udstyr adgangskode"
+  },
+  "enterpassword": {
+    "message": "Indtast adgangskode"
+  },
+  "passwordmismatch": {
+    "message": "Adgangskoderne stemmer ikke overens"
+  },
+  "passwordtooshort": {
+    "message": "Adgangskoden skal være på mindst 6 tegn"
+  },
+  "resetpasswordconfirm": {
+    "message": "Nulstilling af adgangskoden vil deaktivere beskyttelsen. Fortsæt?"
+  },
+  "passwordset": {
+    "message": "Adgangskode sat med succes"
+  },
+  "passworddisabled": {
+    "message": "Adgangskodebeskyttelse deaktiveret"
+  },
+  "prorequired": {
+    "message": "Pro-tilstand kræves til denne funktion"
+  },
+  "enablepasswordtitle": {
+    "message": "Aktivér adgangskodebeskyttelse"
+  },
+  "enablepassworddesc": {
+    "message": "Kræver en adgangskode for at slette eller redigere regler (forbedrer streng tilstand)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Adgangskodebeskyttelse"
+  },
+  "scheduleheader": {
+    "message": "Tidsplan"
+  },
+  "enableschedule": {
+    "message": "Aktivér tidsplan"
+  },
+  "alwaysactive": {
+    "message": "Altid aktiv"
+  },
+  "profeatureschedule": {
+    "message": "Tidsplan er tilgængelig i Pro-versionen"
+  },
+  "days": {
+    "message": "Dage"
+  },
+  "starttime": {
+    "message": "Starttid:"
+  },
+  "endtime": {
+    "message": "Sluttid:"
+  },
+  "invaliddays": {
+    "message": "Ugyldige dage valgt"
+  },
+  "invalidtimeformat": {
+    "message": "Ugyldigt tidsformat (brug TT:MM)"
+  },
+  "startafterend": {
+    "message": "Starttid skal være før sluttid"
+  },
+  "invalidschedule": {
+    "message": "Ugyldig tidsplan: vælg venligst dage og tidspunkter."
+  },
+  "invalidscheduledays": {
+    "message": "Ugyldig tidsplan: vælg venligst mindst én dag."
+  },
+  "invalidschedulestarttime": {
+    "message": "Ugyldig tidsplan: angiv venligst en starttid."
+  },
+  "invalidscheduleendtime": {
+    "message": "Ugyldig tidsplan: angiv venligst en sluttid."
+  },
+  "editdisablednonpro": {
+    "message": "Redigering deaktiveret: for mange regler for ikke-Pro brugere."
+  },
+  "errorloadingstatus": {
+    "message": "Fejl under indlæsning af brugerstatus."
+  },
+  "schedule_day_sun": {
+    "message": "Søn"
+  },
+  "schedule_day_mon": {
+    "message": "Man"
+  },
+  "schedule_day_tue": {
+    "message": "Tir"
+  },
+  "schedule_day_wed": {
+    "message": "Ons"
+  },
+  "schedule_day_thu": {
+    "message": "Tor"
+  },
+  "schedule_day_fri": {
+    "message": "Fre"
+  },
+  "schedule_day_sat": {
+    "message": "Lør"
+  },
+  "category_header": {
+    "message": "Kategori"
+  },
+  "category_required": {
+    "message": "Kategori er påkrævet"
+  },
+  "allcategories": {
+    "message": "Alle kategorier"
+  },
+  "category_social": {
+    "message": "Sociale medier"
+  },
+  "category_news": {
+    "message": "Nyheder"
+  },
+  "category_entertainment": {
+    "message": "Underholdning"
+  },
+  "category_shopping": {
+    "message": "Shopping"
+  },
+  "category_work": {
+    "message": "Arbejde"
+  },
+  "category_gaming": {
+    "message": "Spil"
+  },
+  "category_adult": {
+    "message": "Voksenindhold"
+  },
+  "category_uncategorized": {
+    "message": "Ikke kategoriseret"
+  },
+  "searchfordomain": {
+    "message": "Søg efter domænenavn"
+  },
+  "norulesforcategory": {
+    "message": "Ingen blokerede websteder for denne kategori."
+  },
+  "getpro": {
+    "message": "Få Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro-funktioner inkluderer: planlagt blokering, adgangskodebeskyttelse, regel­filtrering og eksport/import af regler. Nyd vores universelle licens: ét abonnement låser Pro op på alle dine browsere (Chrome, Firefox, Edge, Kiwi). For at aktivere skal du købe et abonnement på blockdistraction.com, derefter kopiere din licensnøgle fra din kontotavle og indsætte den nedenfor."
+  },
+  "upgradenow": {
+    "message": "Opgrader nu"
+  },
+  "enteremail": {
+    "message": "Indtast din e-mail"
+  },
+  "activatepro": {
+    "message": "Aktivér Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Gendan adgang"
+  },
+  "pleaseenteremail": {
+    "message": "Indtast venligst din e-mail"
+  },
+  "checking": {
+    "message": "Kontrollerer..."
+  },
+  "proactivated": {
+    "message": "Pro-funktioner aktiveret!"
+  },
+  "subscriptionnotfound": {
+    "message": "Abonnement ikke aktivt eller e-mail ikke fundet."
+  },
+  "servererror": {
+    "message": "Serverfejl. Prøv venligst igen."
+  },
+  "proactivatedfor": {
+    "message": "Pro aktiveret for"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Tilladelsesanmodningen mislykkedes (kan ske på mobil). Prøv igen, eller giv tilladelse manuelt fra indstillingerne."
   },
-  "pastekeylabel": { "message": "Indsæt din licensnøgle her:" },
-  "confirmclearstats": { "message": "Er du sikker på, at du vil slette alle statistikker? Denne handling kan ikke fortrydes." },
-  "statscleared": { "message": "Statistikkerne blev slettet med succes." },
-  "redirectstodaylabel": { "message": "Omdirigeringer i dag" },
-  "totalredirectslabel": { "message": "Samlede omdirigeringer" },
-  "logout": { "message": "Log ud" },
-  "loggedoutsuccess": { "message": "Du er logget ud med succes." },
-  "loggedouterror": { "message": "Der opstod en fejl under udlogning." },
-  "forcesync": { "message": "Gennemtving synkronisering / Tjek status" },
-  "forgotpasswordinstructions": { "message": "For at nulstille din adgangskode skal du gå til afsnittet 'Pro', klikke på 'Log ud' og derefter genaktivere ved at indsætte din licensnøgle." },
-  "blockedtitle": { "message": "Websted utilgængeligt" },
-  "blockedheader": { "message": "Dette websted er i øjeblikket utilgængeligt" },
-  "blockedtext": { "message": "Dette indhold kan ikke vises." },
-  "blockedbutton": { "message": "Luk fanen" },
-  "confirmpassword": { "message": "Bekræft adgangskode" },
-  "modalconfirm": { "message": "Bekræft" },
-  "modalcancel": { "message": "Annuller" },
-  "forgotpassword": { "message": "Glemt adgangskode? Nulstil (fjerner beskyttelsen)" },
-  "prounlocked": { "message": "Tak for din støtte! Alle Pro-funktioner er låst op." },
-  "licensesynced": { "message": "Din licens er synkroniseret med din konto. Hvis du mister adgangen, kan du hente din nøgle her: " },
-  "syncing": { "message": "Synkroniserer..." },
-  "pleaseenterkey": { "message": "Indtast venligst en nøgle." },
-  "syncsuccess": { "message": "Synkronisering fuldført" },
-  "syncfailed": { "message": "Synkronisering mislykkedes." },
-  "passwordreset": { "message": "Adgangskodebeskyttelsen er nulstillet." },
-  "privacysecured": { "message": "Privatliv sikret" },
-  "errorinvalidfiletype": { "message": "Vælg venligst en .json-fil" },
-  "debugsettingstitle": { "message": "Fejlfindingsindstillinger" },
-  "enabledebugtitle": { "message": "Aktivér fejlfindningstilstand" },
-  "enabledebugdesc": { "message": "Aktivér detaljeret logning i konsollen til fejlfinding" },
-  "errorcommunication": { "message": "Fejl ved kommunikation med baggrundstjenesten" },
-  "clearstats": { "message": "Ryd statistik" },
-  "rule_enabled": { "message": "Aktiveret" },
-  "rule_disabled": { "message": "Deaktiveret" },
-  "filter_only_hint": { "message": "Denne liste filtrerer kun visningen i tabellen" },
-  "category_disabled_desc": { "message": "Slå en kategori fra for midlertidigt at give adgang til alle dens websteder. Individuelle regelindstillinger bevares." },
-  "toggle_category_blocking": { "message": "Slå blokering for hele kategorien til eller fra" },
-  "category_muted_no_edit": { "message": "Kan ikke administreres: kategoriblokering er sat på pause" },
-  "feedback_title": { "message": "Kan du lide BlockDistraction?" },
-  "feedback_desc": { "message": "Din feedback hjælper os meget med at forbedre udvidelsen." },
-  "feedback_like": { "message": "Ja, det virker rigtig godt!" },
-  "feedback_dislike": { "message": "Jeg har problemer / forslag" },
-  "trialproheader": { "message": "Start din 7-dages gratis prøveperiode" },
-  "trialprotext": { "message": "Afmeld til enhver tid. Dine betalinger er sikkert beskyttet." },
-  "focussessionheader": { "message": "Fokussession" },
-  "focussessionstart": { "message": "Start" },
-  "focussessionstop": { "message": "Stop" },
-  "focussessionduration": { "message": "Varighed (min):" },
-  "focussessioninfo": { "message": "Aktiverer alle dine blokeringsregler i et bestemt tidsrum og ignorerer deres nuværende indstillinger og tidsplaner. For maksimal koncentration." },
-  "focussessionprofeature": { "message": "Brugerdefineret varighed og Hardcore-tilstand er Pro-funktioner." },
-  "focussessionended": { "message": "Fokussessionen er slut! Tag en pause." },
-  "focussessionhardcore": { "message": "Hardcore-tilstand (ingen 'Stop'-knap)" },
-  "focussessionsoundtitle": { "message": "Lydmeddelelse for fokussession" },
-  "focussessionsounddesc": { "message": "Afspil en lyd, når fokussessionen slutter." },
-  "focussessionactivebanner": { "message": "Fokussession aktiv! Resterende tid:" },
-  "focussessioninvalidduration": { "message": "Indtast venligst en gyldig varighed (1-240 minutter)." },
-  "successfulfocussessionslabel": { "message": "Succesfulde fokussessioner" },
-  "rule_scheduled": { "message": "Planlagt regel" },
-  "addwhitelistrule": { "message": "Tilføj undtagelse" },
-  "category_whitelist": { "message": "Hvidliste" },
-  "conflict_blacklist_err": { "message": "Dette websted er allerede på din sortliste. Fjern det først." },
-  "conflict_whitelist_err": { "message": "Dette websted er allerede på din hvidliste. Fjern det først." },
-  "status_allow": { "message": "Tilladt" },
-  "redundant_whitelist_err": { "message": "Denne regel er allerede dækket af en anden hvidlisteregel." },
-  "focussessionmode": { "message": "Fokus-tilstand:" },
-  "focusmodeblacklist": { "message": "Bloker sortliste" },
-  "focusmodewhitelist": { "message": "Tillad kun hvidliste" }
+  "pastekeylabel": {
+    "message": "Indsæt din licensnøgle her:"
+  },
+  "confirmclearstats": {
+    "message": "Er du sikker på, at du vil slette alle statistikker? Denne handling kan ikke fortrydes."
+  },
+  "statscleared": {
+    "message": "Statistikkerne blev slettet med succes."
+  },
+  "redirectstodaylabel": {
+    "message": "Omdirigeringer i dag"
+  },
+  "totalredirectslabel": {
+    "message": "Samlede omdirigeringer"
+  },
+  "logout": {
+    "message": "Log ud"
+  },
+  "loggedoutsuccess": {
+    "message": "Du er logget ud med succes."
+  },
+  "loggedouterror": {
+    "message": "Der opstod en fejl under udlogning."
+  },
+  "forcesync": {
+    "message": "Gennemtving synkronisering / Tjek status"
+  },
+  "forgotpasswordinstructions": {
+    "message": "For at nulstille din adgangskode skal du gå til afsnittet 'Pro', klikke på 'Log ud' og derefter genaktivere ved at indsætte din licensnøgle."
+  },
+  "blockedtitle": {
+    "message": "Websted utilgængeligt"
+  },
+  "blockedheader": {
+    "message": "Dette websted er i øjeblikket utilgængeligt"
+  },
+  "blockedtext": {
+    "message": "Dette indhold kan ikke vises."
+  },
+  "blockedbutton": {
+    "message": "Luk fanen"
+  },
+  "confirmpassword": {
+    "message": "Bekræft adgangskode"
+  },
+  "modalconfirm": {
+    "message": "Bekræft"
+  },
+  "modalcancel": {
+    "message": "Annuller"
+  },
+  "forgotpassword": {
+    "message": "Glemt adgangskode? Nulstil (fjerner beskyttelsen)"
+  },
+  "prounlocked": {
+    "message": "Tak for din støtte! Alle Pro-funktioner er låst op."
+  },
+  "licensesynced": {
+    "message": "Din licens er synkroniseret med din konto. Hvis du mister adgangen, kan du hente din nøgle her: "
+  },
+  "syncing": {
+    "message": "Synkroniserer..."
+  },
+  "pleaseenterkey": {
+    "message": "Indtast venligst en nøgle."
+  },
+  "syncsuccess": {
+    "message": "Synkronisering fuldført"
+  },
+  "syncfailed": {
+    "message": "Synkronisering mislykkedes."
+  },
+  "passwordreset": {
+    "message": "Adgangskodebeskyttelsen er nulstillet."
+  },
+  "privacysecured": {
+    "message": "Privatliv sikret"
+  },
+  "errorinvalidfiletype": {
+    "message": "Vælg venligst en .json-fil"
+  },
+  "debugsettingstitle": {
+    "message": "Fejlfindingsindstillinger"
+  },
+  "enabledebugtitle": {
+    "message": "Aktivér fejlfindningstilstand"
+  },
+  "enabledebugdesc": {
+    "message": "Aktivér detaljeret logning i konsollen til fejlfinding"
+  },
+  "errorcommunication": {
+    "message": "Fejl ved kommunikation med baggrundstjenesten"
+  },
+  "clearstats": {
+    "message": "Ryd statistik"
+  },
+  "rule_enabled": {
+    "message": "Aktiveret"
+  },
+  "rule_disabled": {
+    "message": "Deaktiveret"
+  },
+  "filter_only_hint": {
+    "message": "Denne liste filtrerer kun visningen i tabellen"
+  },
+  "category_disabled_desc": {
+    "message": "Slå en kategori fra for midlertidigt at give adgang til alle dens websteder. Individuelle regelindstillinger bevares."
+  },
+  "toggle_category_blocking": {
+    "message": "Slå blokering for hele kategorien til eller fra"
+  },
+  "category_muted_no_edit": {
+    "message": "Kan ikke administreres: kategoriblokering er sat på pause"
+  },
+  "feedback_title": {
+    "message": "Kan du lide BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Din feedback hjælper os meget med at forbedre udvidelsen."
+  },
+  "feedback_like": {
+    "message": "Ja, det virker rigtig godt!"
+  },
+  "feedback_dislike": {
+    "message": "Jeg har problemer / forslag"
+  },
+  "trialproheader": {
+    "message": "Start din 7-dages gratis prøveperiode"
+  },
+  "trialprotext": {
+    "message": "Afmeld til enhver tid. Dine betalinger er sikkert beskyttet."
+  },
+  "focussessionheader": {
+    "message": "Fokussession"
+  },
+  "focussessionstart": {
+    "message": "Start"
+  },
+  "focussessionstop": {
+    "message": "Stop"
+  },
+  "focussessionduration": {
+    "message": "Varighed (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktiverer alle dine blokeringsregler i et bestemt tidsrum og ignorerer deres nuværende indstillinger og tidsplaner. For maksimal koncentration."
+  },
+  "focussessionprofeature": {
+    "message": "Brugerdefineret varighed og Hardcore-tilstand er Pro-funktioner."
+  },
+  "focussessionended": {
+    "message": "Fokussessionen er slut! Tag en pause."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore-tilstand (ingen 'Stop'-knap)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Lydmeddelelse for fokussession"
+  },
+  "focussessionsounddesc": {
+    "message": "Afspil en lyd, når fokussessionen slutter."
+  },
+  "focussessionactivebanner": {
+    "message": "Fokussession aktiv! Resterende tid:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Indtast venligst en gyldig varighed (1-240 minutter)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Succesfulde fokussessioner"
+  },
+  "rule_scheduled": {
+    "message": "Planlagt regel"
+  },
+  "addwhitelistrule": {
+    "message": "Tilføj undtagelse"
+  },
+  "category_whitelist": {
+    "message": "Hvidliste"
+  },
+  "conflict_blacklist_err": {
+    "message": "Dette websted er allerede på din sortliste. Fjern det først."
+  },
+  "conflict_whitelist_err": {
+    "message": "Dette websted er allerede på din hvidliste. Fjern det først."
+  },
+  "status_allow": {
+    "message": "Tilladt"
+  },
+  "redundant_whitelist_err": {
+    "message": "Denne regel er allerede dækket af en anden hvidlisteregel."
+  },
+  "focussessionmode": {
+    "message": "Fokus-tilstand:"
+  },
+  "focusmodeblacklist": {
+    "message": "Bloker sortliste"
+  },
+  "focusmodewhitelist": {
+    "message": "Tillad kun hvidliste"
+  },
+  "schedule_edit": {
+    "message": "Rediger tidsplan"
+  },
+  "schedule_add_period": {
+    "message": "Tilføj tidsgruppe"
+  },
+  "schedule_remove_period": {
+    "message": "Fjern"
+  },
+  "schedule_period": {
+    "message": "Tidsgruppe"
+  },
+  "schedule_every_day": {
+    "message": "Hver dag"
+  },
+  "schedule_weekdays": {
+    "message": "Hverdage"
+  },
+  "schedule_weekends": {
+    "message": "Weekender"
+  },
+  "schedule_day_overlap": {
+    "message": "Hver dag kan kun bruges én gang."
+  }
 }

@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Блокиране на сайтове" },
-  "shortname": { "message": "Блокер" },
-  "description": { "message": "Проста и надеждна програма за блокиране и пренасочване на сайтове, за да останете фокусирани." },
-  "defaulttitle": { "message": "Бъдете фокусирани и продуктивни" },
-  "header": { "message": "Блокиране на сайтове" },
-  "paragraph": { "message": "За да блокирате сайт или ресурс, въведете част от неговото име в полето „Въведете URL за блокиране“ – например „facebook“ ще блокира всички свързани поддомейни. В полето „Въведете URL за пренасочване“ въведете пълния адрес с протокол, напр. „https://google.com“. Ако полето за пренасочване е празно, сайтът ще бъде блокиран без пренасочване. Натиснете бутона за запазване, за да приложите правилото. За да актуализирате правило, изтрийте старото и създайте ново." },
-  "addrule": { "message": "Добавяне на ново правило" },
-  "blockurl": { "message": "Въведете URL за блокиране" },
-  "redirecturl": { "message": "Въведете URL за пренасочване (по избор)" },
-  "redirecturlheader": { "message": "URL за пренасочване" },
-  "redirecturlplaceholder": { "message": "Незадължително - оставете празно за блокиране" },
-  "redirecturlhint": { "message": "Въведете пълен URL, включително https://" },
-  "mobilecopylinkhint": { "message": "За да блокирате връзка, копирайте адреса ѝ и го поставете в полето за блокиране." },
-  "savebtn": { "message": "Запази" },
-  "deletebtn": { "message": "Изтрий" },
-  "alertruleexist": { "message": "Правилото вече съществува" },
+  "chromename": {
+    "message": "BlockDistraction – Блокиране на сайтове"
+  },
+  "shortname": {
+    "message": "Блокер"
+  },
+  "description": {
+    "message": "Проста и надеждна програма за блокиране и пренасочване на сайтове, за да останете фокусирани."
+  },
+  "defaulttitle": {
+    "message": "Бъдете фокусирани и продуктивни"
+  },
+  "header": {
+    "message": "Блокиране на сайтове"
+  },
+  "paragraph": {
+    "message": "За да блокирате сайт или ресурс, въведете част от неговото име в полето „Въведете URL за блокиране“ – например „facebook“ ще блокира всички свързани поддомейни. В полето „Въведете URL за пренасочване“ въведете пълния адрес с протокол, напр. „https://google.com“. Ако полето за пренасочване е празно, сайтът ще бъде блокиран без пренасочване. Натиснете бутона за запазване, за да приложите правилото. За да актуализирате правило, изтрийте старото и създайте ново."
+  },
+  "addrule": {
+    "message": "Добавяне на ново правило"
+  },
+  "blockurl": {
+    "message": "Въведете URL за блокиране"
+  },
+  "redirecturl": {
+    "message": "Въведете URL за пренасочване (по избор)"
+  },
+  "redirecturlheader": {
+    "message": "URL за пренасочване"
+  },
+  "redirecturlplaceholder": {
+    "message": "Незадължително - оставете празно за блокиране"
+  },
+  "redirecturlhint": {
+    "message": "Въведете пълен URL, включително https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "За да блокирате връзка, копирайте адреса ѝ и го поставете в полето за блокиране."
+  },
+  "savebtn": {
+    "message": "Запази"
+  },
+  "deletebtn": {
+    "message": "Изтрий"
+  },
+  "alertruleexist": {
+    "message": "Правилото вече съществува"
+  },
   "savedrules": {
     "message": "Запазени са $ruleslength$ правила",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Този ресурс не може да бъде блокиран." },
-  "wrongblockurl": { "message": "Невалиден URL адрес за блокиране" },
-  "wrongredirecturl": { "message": "Невалиден URL за пренасочване" },
-  "blockthat": { "message": "Блокирай този сайт" },
-  "sendfeedbackbutton": { "message": "Изпратете обратна връзка" },
-  "sendfeedbacksubject": { "message": "Обратна връзка за BlockDistraction" },
-  "sendfeedbackbody": { "message": "Здравейте, бих искал да споделя следните отзиви:\n\n" },
-  "quote1": { "message": "Останете фокусирани, останете силни." },
-  "quote2": { "message": "Бъдещето ви се гради от това, което правите днес." },
-  "quote3": { "message": "Дисциплината е мостът между целите и успеха." },
-  "quote4": { "message": "Един блокиран сайт, една стъпка по-близо до целта ви." },
-  "quote5": { "message": "Направете всяко кликване да има значение." },
-  "quote6": { "message": "Не гледайте часовника; правете като него. Продължавайте." },
-  "quote7": { "message": "Малките стъпки всеки ден водят до големи резултати." },
-  "quote8": { "message": "Единственото ограничение е вашият ум." },
-  "quote9": { "message": "Успехът е сбор от малки усилия, повтаряни ежедневно." },
-  "quote10": { "message": "Фокусирайте се върху продуктивността, не върху заетостта." },
-  "quote11": { "message": "Защитете вниманието си – то е най-ценният ви актив." },
-  "quote12": { "message": "Всяко блокирано разсейване е спечелено време." },
-  "quote13": { "message": "Намалете шума; увеличете продуктивността си." },
-  "quote14": { "message": "Малките навици изграждат неудържим импулс." },
-  "quote15": { "message": "Яснотата побеждава хаоса – фокусирайте се върху важното." },
-  "quote16": { "message": "Кажете „не“ на разсейванията; кажете „да“ на напредъка." },
-  "quote17": { "message": "Един фокусиран час днес умножава резултатите ви утре." },
-  "quote18": { "message": "Създавайте повече, като потребявате по-малко." },
-  "quote19": { "message": "Дисциплината избира дългосрочни победи пред краткотрайни импулси." },
-  "quote20": { "message": "Затворете таб; отворете пространство за нови идеи." },
-  "quote21": { "message": "Работата, която отлагаш днес, може да се превърне в утрешен стрес." },
-  "quote22": { "message": "Фокусът не означава да правиш повече, а да правиш това, което наистина има значение." },
-  "quote23": { "message": "Твоите цели заслужават повече внимание от разсейванията ти." },
-  "quote24": { "message": "Всяка минута без разсейване е инвестиция в теб самия." },
-  "quote25": { "message": "Последователността носи по-устойчиви резултати от кратки изблици на мотивация." },
-  "quote26": { "message": "Най-доброто време да започнеш беше вчера. Следващото най-добро е сега." },
-  "quote27": { "message": "Напредъкът започва, когато избереш действие вместо разсейване." },
-  "quote28": { "message": "Един момент на концентрация може да промени целия ти ден." },
-  "quote29": { "message": "Не ти трябва повече време, а по-малко разсейвания." },
-  "quote30": { "message": "Всеки избор на фокус укрепва твоето бъдещо аз." },
-  "quote31": { "message": "Това блокиране е временно; целите ти са дългосрочни." },
-  "quote32": { "message": "Всяко блокирано разсейване е победа за бъдещото ти аз." },
-  "quote33": { "message": "Интернетът е безкраен, но времето ти не е." },
-  "quote34": { "message": "Определи приоритетите си, преди интернет да го направи вместо теб." },
-  "quote35": { "message": "По-малко скролване, повече създаване." },
-  "quote36": { "message": "Твоето внимание оформя постиженията ти." },
-  "quote37": { "message": "Остани фокусиран — разсейването може да почака." },
-  "quote38": { "message": "Всяко продуктивно решение започва с фокусиран ум." },
-  "quote39": { "message": "Ти блокира сайт, не потенциала си." },
-  "quote40": { "message": "Пътят към успеха се гради с фокусирани решения." },
-  "actionsheader": { "message": "Действия" },
-  "norules": { "message": "Няма блокирани сайтове." },
-  "editbtn": { "message": "Редактиране" },
-  "ruleddeleted": { "message": "Правилото е изтрито." },
-  "cancelbtn": { "message": "Отказ" },
-  "ruleupdated": { "message": "Правилото е обновено." },
-  "rulenewadded": { "message": "Добавено е ново правило." },
-  "gotooptions": { "message": "Отидете в страницата с настройки ⚙️" },
-  "gotopopup": { "message": "Щракнете върху иконата на разширението, за да се върнете към изскачащия прозорец." },
-  "rulesmigrated": { "message": "Правилата са актуализирани за съвместимост" },
-  "errorupdatingrules": { "message": "Грешка при актуализиране на правилата" },
-  "erroraddingrule": { "message": "Грешка при добавяне на правило" },
-  "errorremovingrule": { "message": "Грешка при премахване на правило" },
-  "optionsheader": { "message": "Настройки на разширението" },
-  "optionsdescription": { "message": "Конфигурирайте поведението и настройките за сигурност" },
-  "securitymodetitle": { "message": "Режим на сигурност" },
-  "normalmodetitle": { "message": "Нормален режим" },
-  "normalmodedesc": { "message": "Правилата могат да се изтрият веднага с едно щракване" },
-  "strictmodetitle": { "message": "Строг режим" },
-  "strictmodedesc": { "message": "Изтриването на правила изисква обратно броене от 10 секунди, за да се предотврати случайно премахване" },
-  "confirmdeletetitle": { "message": "Потвърждение преди изтриване на няколко правила" },
-  "confirmdeletedesc": { "message": "Показване на диалог за потвърждение при изтриване на няколко правила наведнъж" },
-  "notificationstitle": { "message": "Показване на известия" },
-  "notificationsdesc": { "message": "Показвай известия при актуализиране на разширението" },
-  "rulesmanagementtitle": { "message": "Управление на правила" },
-  "exportrulesbtn": { "message": "Експортиране на правила" },
-  "importrulesbtn": { "message": "Импортиране на правила" },
-  "clearallrulesbtn": { "message": "Изчистване на всички правила" },
-  "totalruleslabel": { "message": "Общо правила" },
-  "blockedtodaylabel": { "message": "Блокирани днес" },
-  "totalblockedlabel": { "message": "Общо блокирани" },
-  "resetsettingsbtn": { "message": "Нулиране по подразбиране" },
-  "backtopopup": { "message": "Назад към основното" },
-  "errorloadingsettings": { "message": "Грешка при зареждане на настройките" },
-  "settingssaved": { "message": "Настройките са запазени успешно!" },
-  "errorsavingsettings": { "message": "Грешка при запазване на настройките" },
-  "rulesexported": { "message": "Правилата бяха експортирани успешно!" },
-  "errorexportingrules": { "message": "Грешка при експортиране на правилата" },
+  "restrictedblockurl": {
+    "message": "Този ресурс не може да бъде блокиран."
+  },
+  "wrongblockurl": {
+    "message": "Невалиден URL адрес за блокиране"
+  },
+  "wrongredirecturl": {
+    "message": "Невалиден URL за пренасочване"
+  },
+  "blockthat": {
+    "message": "Блокирай този сайт"
+  },
+  "sendfeedbackbutton": {
+    "message": "Изпратете обратна връзка"
+  },
+  "sendfeedbacksubject": {
+    "message": "Обратна връзка за BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Здравейте, бих искал да споделя следните отзиви:\n\n"
+  },
+  "quote1": {
+    "message": "Останете фокусирани, останете силни."
+  },
+  "quote2": {
+    "message": "Бъдещето ви се гради от това, което правите днес."
+  },
+  "quote3": {
+    "message": "Дисциплината е мостът между целите и успеха."
+  },
+  "quote4": {
+    "message": "Един блокиран сайт, една стъпка по-близо до целта ви."
+  },
+  "quote5": {
+    "message": "Направете всяко кликване да има значение."
+  },
+  "quote6": {
+    "message": "Не гледайте часовника; правете като него. Продължавайте."
+  },
+  "quote7": {
+    "message": "Малките стъпки всеки ден водят до големи резултати."
+  },
+  "quote8": {
+    "message": "Единственото ограничение е вашият ум."
+  },
+  "quote9": {
+    "message": "Успехът е сбор от малки усилия, повтаряни ежедневно."
+  },
+  "quote10": {
+    "message": "Фокусирайте се върху продуктивността, не върху заетостта."
+  },
+  "quote11": {
+    "message": "Защитете вниманието си – то е най-ценният ви актив."
+  },
+  "quote12": {
+    "message": "Всяко блокирано разсейване е спечелено време."
+  },
+  "quote13": {
+    "message": "Намалете шума; увеличете продуктивността си."
+  },
+  "quote14": {
+    "message": "Малките навици изграждат неудържим импулс."
+  },
+  "quote15": {
+    "message": "Яснотата побеждава хаоса – фокусирайте се върху важното."
+  },
+  "quote16": {
+    "message": "Кажете „не“ на разсейванията; кажете „да“ на напредъка."
+  },
+  "quote17": {
+    "message": "Един фокусиран час днес умножава резултатите ви утре."
+  },
+  "quote18": {
+    "message": "Създавайте повече, като потребявате по-малко."
+  },
+  "quote19": {
+    "message": "Дисциплината избира дългосрочни победи пред краткотрайни импулси."
+  },
+  "quote20": {
+    "message": "Затворете таб; отворете пространство за нови идеи."
+  },
+  "quote21": {
+    "message": "Работата, която отлагаш днес, може да се превърне в утрешен стрес."
+  },
+  "quote22": {
+    "message": "Фокусът не означава да правиш повече, а да правиш това, което наистина има значение."
+  },
+  "quote23": {
+    "message": "Твоите цели заслужават повече внимание от разсейванията ти."
+  },
+  "quote24": {
+    "message": "Всяка минута без разсейване е инвестиция в теб самия."
+  },
+  "quote25": {
+    "message": "Последователността носи по-устойчиви резултати от кратки изблици на мотивация."
+  },
+  "quote26": {
+    "message": "Най-доброто време да започнеш беше вчера. Следващото най-добро е сега."
+  },
+  "quote27": {
+    "message": "Напредъкът започва, когато избереш действие вместо разсейване."
+  },
+  "quote28": {
+    "message": "Един момент на концентрация може да промени целия ти ден."
+  },
+  "quote29": {
+    "message": "Не ти трябва повече време, а по-малко разсейвания."
+  },
+  "quote30": {
+    "message": "Всеки избор на фокус укрепва твоето бъдещо аз."
+  },
+  "quote31": {
+    "message": "Това блокиране е временно; целите ти са дългосрочни."
+  },
+  "quote32": {
+    "message": "Всяко блокирано разсейване е победа за бъдещото ти аз."
+  },
+  "quote33": {
+    "message": "Интернетът е безкраен, но времето ти не е."
+  },
+  "quote34": {
+    "message": "Определи приоритетите си, преди интернет да го направи вместо теб."
+  },
+  "quote35": {
+    "message": "По-малко скролване, повече създаване."
+  },
+  "quote36": {
+    "message": "Твоето внимание оформя постиженията ти."
+  },
+  "quote37": {
+    "message": "Остани фокусиран — разсейването може да почака."
+  },
+  "quote38": {
+    "message": "Всяко продуктивно решение започва с фокусиран ум."
+  },
+  "quote39": {
+    "message": "Ти блокира сайт, не потенциала си."
+  },
+  "quote40": {
+    "message": "Пътят към успеха се гради с фокусирани решения."
+  },
+  "actionsheader": {
+    "message": "Действия"
+  },
+  "norules": {
+    "message": "Няма блокирани сайтове."
+  },
+  "editbtn": {
+    "message": "Редактиране"
+  },
+  "ruleddeleted": {
+    "message": "Правилото е изтрито."
+  },
+  "cancelbtn": {
+    "message": "Отказ"
+  },
+  "ruleupdated": {
+    "message": "Правилото е обновено."
+  },
+  "rulenewadded": {
+    "message": "Добавено е ново правило."
+  },
+  "gotooptions": {
+    "message": "Отидете в страницата с настройки ⚙️"
+  },
+  "gotopopup": {
+    "message": "Щракнете върху иконата на разширението, за да се върнете към изскачащия прозорец."
+  },
+  "rulesmigrated": {
+    "message": "Правилата са актуализирани за съвместимост"
+  },
+  "errorupdatingrules": {
+    "message": "Грешка при актуализиране на правилата"
+  },
+  "erroraddingrule": {
+    "message": "Грешка при добавяне на правило"
+  },
+  "errorremovingrule": {
+    "message": "Грешка при премахване на правило"
+  },
+  "optionsheader": {
+    "message": "Настройки на разширението"
+  },
+  "optionsdescription": {
+    "message": "Конфигурирайте поведението и настройките за сигурност"
+  },
+  "securitymodetitle": {
+    "message": "Режим на сигурност"
+  },
+  "normalmodetitle": {
+    "message": "Нормален режим"
+  },
+  "normalmodedesc": {
+    "message": "Правилата могат да се изтрият веднага с едно щракване"
+  },
+  "strictmodetitle": {
+    "message": "Строг режим"
+  },
+  "strictmodedesc": {
+    "message": "Изтриването на правила изисква обратно броене от 10 секунди, за да се предотврати случайно премахване"
+  },
+  "confirmdeletetitle": {
+    "message": "Потвърждение преди изтриване на няколко правила"
+  },
+  "confirmdeletedesc": {
+    "message": "Показване на диалог за потвърждение при изтриване на няколко правила наведнъж"
+  },
+  "notificationstitle": {
+    "message": "Показване на известия"
+  },
+  "notificationsdesc": {
+    "message": "Показвай известия при актуализиране на разширението"
+  },
+  "rulesmanagementtitle": {
+    "message": "Управление на правила"
+  },
+  "exportrulesbtn": {
+    "message": "Експортиране на правила"
+  },
+  "importrulesbtn": {
+    "message": "Импортиране на правила"
+  },
+  "clearallrulesbtn": {
+    "message": "Изчистване на всички правила"
+  },
+  "totalruleslabel": {
+    "message": "Общо правила"
+  },
+  "blockedtodaylabel": {
+    "message": "Блокирани днес"
+  },
+  "totalblockedlabel": {
+    "message": "Общо блокирани"
+  },
+  "resetsettingsbtn": {
+    "message": "Нулиране по подразбиране"
+  },
+  "backtopopup": {
+    "message": "Назад към основното"
+  },
+  "errorloadingsettings": {
+    "message": "Грешка при зареждане на настройките"
+  },
+  "settingssaved": {
+    "message": "Настройките са запазени успешно!"
+  },
+  "errorsavingsettings": {
+    "message": "Грешка при запазване на настройките"
+  },
+  "rulesexported": {
+    "message": "Правилата бяха експортирани успешно!"
+  },
+  "errorexportingrules": {
+    "message": "Грешка при експортиране на правилата"
+  },
   "willimportrules": {
     "message": "Ще бъдат импортирани $ruleslength$ правила. ",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Текущите правила ще бъдат заменени. Продължавате ли?" },
+  "ruleswillbereplaced": {
+    "message": "Текущите правила ще бъдат заменени. Продължавате ли?"
+  },
   "importedrules": {
     "message": "Успешно импортирани $ruleslength$ правила!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Грешка при импортиране на правилата: " },
-  "norulestoclear": { "message": "Няма правила за изчистване" },
+  "errorimportingrules": {
+    "message": "Грешка при импортиране на правилата: "
+  },
+  "norulestoclear": {
+    "message": "Няма правила за изчистване"
+  },
   "willdeleteallrules": {
     "message": "Това ще изтрие окончателно всички $rulescount$ правила. ",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Това действие не може да бъде отменено. Продължавате ли?" },
-  "allrulescleared": { "message": "Всички правила бяха изчистени успешно!" },
-  "errorclearingrules": { "message": "Грешка при изчистване на правилата" },
-  "willreset": { "message": "Това ще върне всички настройки към стойности по подразбиране. Продължавате ли?" },
-  "resettodefaults": { "message": "Настройките са върнати по подразбиране!" },
-  "errorresettingsettings": { "message": "Грешка при нулиране на настройките" },
-  "basicsettingstitle": { "message": "Основни настройки" },
-  "advancedsettingstitle": { "message": "Разширени настройки" },
-  "statisticstitle": { "message": "Статистика" },
+  "cannotbeundone": {
+    "message": "Това действие не може да бъде отменено. Продължавате ли?"
+  },
+  "allrulescleared": {
+    "message": "Всички правила бяха изчистени успешно!"
+  },
+  "errorclearingrules": {
+    "message": "Грешка при изчистване на правилата"
+  },
+  "willreset": {
+    "message": "Това ще върне всички настройки към стойности по подразбиране. Продължавате ли?"
+  },
+  "resettodefaults": {
+    "message": "Настройките са върнати по подразбиране!"
+  },
+  "errorresettingsettings": {
+    "message": "Грешка при нулиране на настройките"
+  },
+  "basicsettingstitle": {
+    "message": "Основни настройки"
+  },
+  "advancedsettingstitle": {
+    "message": "Разширени настройки"
+  },
+  "statisticstitle": {
+    "message": "Статистика"
+  },
   "rulelimitreached": {
     "message": "Достигнахте лимита за правила ($limit$) в основната версия. Надстройте до Pro за неограничени правила.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Изисква се Pro за редактиране." },
-  "invalidpassword": { "message": "Невалидна парола" },
-  "setpassword": { "message": "Задаване на парола" },
-  "enterpassword": { "message": "Въведете парола" },
-  "passwordmismatch": { "message": "Паролите не съвпадат" },
-  "passwordtooshort": { "message": "Паролата трябва да е поне 6 символа" },
-  "resetpasswordconfirm": { "message": "Нулирането на паролата ще деактивира защитата. Продължавате ли?" },
-  "passwordset": { "message": "Паролата е зададена успешно" },
-  "passworddisabled": { "message": "Защитата с парола е деактивирана" },
-  "prorequired": { "message": "Изисква се Pro режим за тази функция" },
-  "enablepasswordtitle": { "message": "Активиране на защита с парола" },
-  "enablepassworddesc": { "message": "Изисква парола за изтриване или редактиране на правила (усилва стриктния режим)" },
-  "passwordprotectiontitle": { "message": "Защита с парола" },
-  "scheduleheader": { "message": "График" },
-  "enableschedule": { "message": "Активирай график" },
-  "alwaysactive": { "message": "Винаги активно" },
-  "profeatureschedule": { "message": "Графикът е наличен в Pro версията" },
-  "days": { "message": "Дни" },
-  "starttime": { "message": "Начален час:" },
-  "endtime": { "message": "Краен час:" },
-  "invaliddays": { "message": "Избрани са невалидни дни" },
-  "invalidtimeformat": { "message": "Невалиден формат на час (използвайте ЧЧ:ММ)" },
-  "startafterend": { "message": "Началният час трябва да е преди крайния" },
-  "invalidschedule": { "message": "Невалиден график: моля, изберете дни и часове." },
-  "invalidscheduledays": { "message": "Невалиден график: моля, изберете поне един ден." },
-  "invalidschedulestarttime": { "message": "Невалиден график: моля, задайте начален час." },
-  "invalidscheduleendtime": { "message": "Невалиден график: моля, задайте краен час." },
-  "editdisablednonpro": { "message": "Редактирането е изключено: твърде много правила за потребители без Pro." },
-  "errorloadingstatus": { "message": "Грешка при зареждане на потребителския статус." },
-  "schedule_day_sun": { "message": "Нед" },
-  "schedule_day_mon": { "message": "Пон" },
-  "schedule_day_tue": { "message": "Вто" },
-  "schedule_day_wed": { "message": "Сря" },
-  "schedule_day_thu": { "message": "Чет" },
-  "schedule_day_fri": { "message": "Пет" },
-  "schedule_day_sat": { "message": "Съб" },
-  "category_header": { "message": "Категория" },
-  "category_required": { "message": "Категорията е задължителна" },
-  "allcategories": { "message": "Всички категории" },
-  "category_social": { "message": "Социални мрежи" },
-  "category_news": { "message": "Новини" },
-  "category_entertainment": { "message": "Забавление" },
-  "category_shopping": { "message": "Пазаруване" },
-  "category_work": { "message": "Работа" },
-  "category_gaming": { "message": "Игри" },
-  "category_adult": { "message": "Съдържание за възрастни" },
-  "category_uncategorized": { "message": "Некатегоризирано" },
-  "searchfordomain": { "message": "Търсене на домейн име" },
-  "norulesforcategory": { "message": "Няма блокирани сайтове за тази категория." },
-  "getpro": { "message": "Вземи Pro" },
-  "profunctionstext": { "message": "Pro функциите включват: блокиране по график, защита с парола, филтриране на правила и експортиране/импортиране на правила. Насладете се на нашия универсален лиценз: един абонамент отключва Pro във всички ваши браузъри (Chrome, Firefox, Edge, Kiwi). За да активирате, закупете абонамент от blockdistraction.com, след това копирайте своя лицензен ключ от таблото на акаунта си и го поставете по-долу." },
-  "upgradenow": { "message": "Надгради сега" },
-  "enteremail": { "message": "Въведете имейла си" },
-  "activatepro": { "message": "Активирай Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Възстанови достъп" },
-  "pleaseenteremail": { "message": "Моля, въведете имейла си" },
-  "checking": { "message": "Проверяване..." },
-  "proactivated": { "message": "Pro функциите са активирани!" },
-  "subscriptionnotfound": { "message": "Абонаментът не е активен или имейлът не е намерен." },
-  "servererror": { "message": "Грешка в сървъра. Моля, опитайте отново." },
-  "proactivatedfor": { "message": "Pro е активиран за" },
+  "proonlyactions": {
+    "message": "Изисква се Pro за редактиране."
+  },
+  "invalidpassword": {
+    "message": "Невалидна парола"
+  },
+  "setpassword": {
+    "message": "Задаване на парола"
+  },
+  "enterpassword": {
+    "message": "Въведете парола"
+  },
+  "passwordmismatch": {
+    "message": "Паролите не съвпадат"
+  },
+  "passwordtooshort": {
+    "message": "Паролата трябва да е поне 6 символа"
+  },
+  "resetpasswordconfirm": {
+    "message": "Нулирането на паролата ще деактивира защитата. Продължавате ли?"
+  },
+  "passwordset": {
+    "message": "Паролата е зададена успешно"
+  },
+  "passworddisabled": {
+    "message": "Защитата с парола е деактивирана"
+  },
+  "prorequired": {
+    "message": "Изисква се Pro режим за тази функция"
+  },
+  "enablepasswordtitle": {
+    "message": "Активиране на защита с парола"
+  },
+  "enablepassworddesc": {
+    "message": "Изисква парола за изтриване или редактиране на правила (усилва стриктния режим)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Защита с парола"
+  },
+  "scheduleheader": {
+    "message": "График"
+  },
+  "enableschedule": {
+    "message": "Активирай график"
+  },
+  "alwaysactive": {
+    "message": "Винаги активно"
+  },
+  "profeatureschedule": {
+    "message": "Графикът е наличен в Pro версията"
+  },
+  "days": {
+    "message": "Дни"
+  },
+  "starttime": {
+    "message": "Начален час:"
+  },
+  "endtime": {
+    "message": "Краен час:"
+  },
+  "invaliddays": {
+    "message": "Избрани са невалидни дни"
+  },
+  "invalidtimeformat": {
+    "message": "Невалиден формат на час (използвайте ЧЧ:ММ)"
+  },
+  "startafterend": {
+    "message": "Началният час трябва да е преди крайния"
+  },
+  "invalidschedule": {
+    "message": "Невалиден график: моля, изберете дни и часове."
+  },
+  "invalidscheduledays": {
+    "message": "Невалиден график: моля, изберете поне един ден."
+  },
+  "invalidschedulestarttime": {
+    "message": "Невалиден график: моля, задайте начален час."
+  },
+  "invalidscheduleendtime": {
+    "message": "Невалиден график: моля, задайте краен час."
+  },
+  "editdisablednonpro": {
+    "message": "Редактирането е изключено: твърде много правила за потребители без Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Грешка при зареждане на потребителския статус."
+  },
+  "schedule_day_sun": {
+    "message": "Нед"
+  },
+  "schedule_day_mon": {
+    "message": "Пон"
+  },
+  "schedule_day_tue": {
+    "message": "Вто"
+  },
+  "schedule_day_wed": {
+    "message": "Сря"
+  },
+  "schedule_day_thu": {
+    "message": "Чет"
+  },
+  "schedule_day_fri": {
+    "message": "Пет"
+  },
+  "schedule_day_sat": {
+    "message": "Съб"
+  },
+  "category_header": {
+    "message": "Категория"
+  },
+  "category_required": {
+    "message": "Категорията е задължителна"
+  },
+  "allcategories": {
+    "message": "Всички категории"
+  },
+  "category_social": {
+    "message": "Социални мрежи"
+  },
+  "category_news": {
+    "message": "Новини"
+  },
+  "category_entertainment": {
+    "message": "Забавление"
+  },
+  "category_shopping": {
+    "message": "Пазаруване"
+  },
+  "category_work": {
+    "message": "Работа"
+  },
+  "category_gaming": {
+    "message": "Игри"
+  },
+  "category_adult": {
+    "message": "Съдържание за възрастни"
+  },
+  "category_uncategorized": {
+    "message": "Некатегоризирано"
+  },
+  "searchfordomain": {
+    "message": "Търсене на домейн име"
+  },
+  "norulesforcategory": {
+    "message": "Няма блокирани сайтове за тази категория."
+  },
+  "getpro": {
+    "message": "Вземи Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro функциите включват: блокиране по график, защита с парола, филтриране на правила и експортиране/импортиране на правила. Насладете се на нашия универсален лиценз: един абонамент отключва Pro във всички ваши браузъри (Chrome, Firefox, Edge, Kiwi). За да активирате, закупете абонамент от blockdistraction.com, след това копирайте своя лицензен ключ от таблото на акаунта си и го поставете по-долу."
+  },
+  "upgradenow": {
+    "message": "Надгради сега"
+  },
+  "enteremail": {
+    "message": "Въведете имейла си"
+  },
+  "activatepro": {
+    "message": "Активирай Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Възстанови достъп"
+  },
+  "pleaseenteremail": {
+    "message": "Моля, въведете имейла си"
+  },
+  "checking": {
+    "message": "Проверяване..."
+  },
+  "proactivated": {
+    "message": "Pro функциите са активирани!"
+  },
+  "subscriptionnotfound": {
+    "message": "Абонаментът не е активен или имейлът не е намерен."
+  },
+  "servererror": {
+    "message": "Грешка в сървъра. Моля, опитайте отново."
+  },
+  "proactivatedfor": {
+    "message": "Pro е активиран за"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,72 +605,232 @@
   "onboarding_status_api_error": {
     "message": "Заявката за разрешение не бе успешна (може да се случи на мобилни устройства). Опитайте отново или предоставете разрешение ръчно от настройките."
   },
-  "pastekeylabel": { "message": "Поставете лицензионния си ключ тук:" },
-  "confirmclearstats": { "message": "Сигурни ли сте, че искате да изчистите всички статистики? Това действие не може да бъде отменено." },
-  "statscleared": { "message": "Статистиката беше изчистена успешно." },
-  "redirectstodaylabel": { "message": "Пренасочвания днес" },
-  "totalredirectslabel": { "message": "Общ брой пренасочвания" },
-  "logout": { "message": "Изход" },
-  "loggedoutsuccess": { "message": "Успешно излязохте от профила си." },
-  "loggedouterror": { "message": "Възникна грешка при излизането." },
-  "forcesync": { "message": "Принудителна синхронизация / Проверка на състоянието" },
-  "forgotpasswordinstructions": { "message": "За да възстановите паролата си, отидете в раздела „Pro“, натиснете „Изход“ и след това активирайте отново, като поставите своя лицензен ключ." },
-  "blockedtitle": { "message": "Сайтът е недостъпен" },
-  "blockedheader": { "message": "Този сайт в момента е недостъпен" },
-  "blockedtext": { "message": "Това съдържание не може да бъде показано." },
-  "blockedbutton": { "message": "Затвори раздела" },
-  "confirmpassword": { "message": "Потвърдете паролата" },
-  "modalconfirm": { "message": "Потвърди" },
-  "modalcancel": { "message": "Отказ" },
-  "forgotpassword": { "message": "Забравена парола? Нулиране (ще премахне защитата)" },
-  "prounlocked": { "message": "Благодарим Ви за подкрепата! Всички Pro функции са отключени." },
-  "licensesynced": { "message": "Вашият лиценз е синхронизиран с акаунта Ви. Ако загубите достъп, можете да възстановите ключа си от: " },
-  "syncing": { "message": "Синхронизиране..." },
-  "pleaseenterkey": { "message": "Моля, въведете ключ." },
-  "syncsuccess": { "message": "Синхронизацията беше успешна" },
-  "syncfailed": { "message": "Синхронизацията не бе успешна." },
-  "passwordreset": { "message": "Защитата с парола беше нулирана." },
-  "privacysecured": { "message": "Поверителността е защитена" },
-  "errorinvalidfiletype": { "message": "Моля, изберете файл .json" },
-  "debugsettingstitle": { "message": "Настройки за дебъгване" },
-  "enabledebugtitle": { "message": "Активиране на режим за дебъгване" },
-  "enabledebugdesc": { "message": "Активиране на подробно логване в конзолата за отстраняване на проблеми" },
-  "errorcommunication": { "message": "Грешка при комуникация с фоновата услуга" },
-  "clearstats": { "message": "Изчистване на статистиката" },
-  "rule_enabled": { "message": "Активирано" },
-  "rule_disabled": { "message": "Деактивирано" },
-  "categorymanagementtitle": { "message": "Блокиране по категории" },
-  "filter_only_hint": { "message": "Този списък само филтрира показването в таблицата" },
-  "category_disabled_desc": { "message": "Изключете категорията, за да разрешите временно достъпа до всички нейни сайтове. Настройките на отделните правила се запазват." },
-  "toggle_category_blocking": { "message": "Превключване на блокирането за цялата категория" },
-  "category_muted_no_edit": { "message": "Управлението е невъзможно: категорията е разблокирана" },
-  "feedback_title": { "message": "Харесва ли ви BlockDistraction?" },
-  "feedback_desc": { "message": "Вашата обратна връзка много ни помага да развиваме разширението." },
-  "feedback_like": { "message": "Да, работи чудесно!" },
-  "feedback_dislike": { "message": "Имам проблеми / предложения" },
-  "trialproheader": { "message": "Започнете вашия 7-дневен безплатен пробен период" },
-  "trialprotext": { "message": "Отказ по всяко време. Вашите плащания са надеждно защитени." },
-  "focussessionheader": { "message": "Фокус сесия" },
-  "focussessionstart": { "message": "Старт" },
-  "focussessionstop": { "message": "Стоп" },
-  "focussessionduration": { "message": "Продължителност (мин):" },
-  "focussessioninfo": { "message": "Активира всички ваши правила за блокиране за определено време, като игнорира текущите им настройки и графици. За максимална концентрация." },
-  "focussessionprofeature": { "message": "Персонализираната продължителност и Hardcore режимът са Pro функции." },
-  "focussessionended": { "message": "Фокус сесията приключи! Вземете си почивка." },
-  "focussessionhardcore": { "message": "Hardcore режим (без бутон 'Стоп')" },
-  "focussessionsoundtitle": { "message": "Звуково известие за фокус сесия" },
-  "focussessionsounddesc": { "message": "Възпроизвеждане на звук при приключване на фокус сесията." },
-  "focussessionactivebanner": { "message": "Активна фокус сесия! Оставащо време:" },
-  "focussessioninvalidduration": { "message": "Моля, въведете валидна продължителност (1-240 минути)." },
-  "successfulfocussessionslabel": { "message": "Успешни фокус сесии" },
-  "rule_scheduled": { "message": "Планирано правило" },
-  "addwhitelistrule": { "message": "Добави изключение" },
-  "category_whitelist": { "message": "Бял списък" },
-  "conflict_blacklist_err": { "message": "Този сайт вече е в черния ви списък. Първо го премахнете." },
-  "conflict_whitelist_err": { "message": "Този сайт вече е в белия ви списък. Първо го премахнете." },
-  "status_allow": { "message": "Разрешено" },
-  "redundant_whitelist_err": { "message": "Това правило вече се покрива от друго правило в белия списък." },
-  "focussessionmode": { "message": "Режим на фокусиране:" },
-  "focusmodeblacklist": { "message": "Блокирай черния списък" },
-  "focusmodewhitelist": { "message": "Разреши само белия списък" }
+  "pastekeylabel": {
+    "message": "Поставете лицензионния си ключ тук:"
+  },
+  "confirmclearstats": {
+    "message": "Сигурни ли сте, че искате да изчистите всички статистики? Това действие не може да бъде отменено."
+  },
+  "statscleared": {
+    "message": "Статистиката беше изчистена успешно."
+  },
+  "redirectstodaylabel": {
+    "message": "Пренасочвания днес"
+  },
+  "totalredirectslabel": {
+    "message": "Общ брой пренасочвания"
+  },
+  "logout": {
+    "message": "Изход"
+  },
+  "loggedoutsuccess": {
+    "message": "Успешно излязохте от профила си."
+  },
+  "loggedouterror": {
+    "message": "Възникна грешка при излизането."
+  },
+  "forcesync": {
+    "message": "Принудителна синхронизация / Проверка на състоянието"
+  },
+  "forgotpasswordinstructions": {
+    "message": "За да възстановите паролата си, отидете в раздела „Pro“, натиснете „Изход“ и след това активирайте отново, като поставите своя лицензен ключ."
+  },
+  "blockedtitle": {
+    "message": "Сайтът е недостъпен"
+  },
+  "blockedheader": {
+    "message": "Този сайт в момента е недостъпен"
+  },
+  "blockedtext": {
+    "message": "Това съдържание не може да бъде показано."
+  },
+  "blockedbutton": {
+    "message": "Затвори раздела"
+  },
+  "confirmpassword": {
+    "message": "Потвърдете паролата"
+  },
+  "modalconfirm": {
+    "message": "Потвърди"
+  },
+  "modalcancel": {
+    "message": "Отказ"
+  },
+  "forgotpassword": {
+    "message": "Забравена парола? Нулиране (ще премахне защитата)"
+  },
+  "prounlocked": {
+    "message": "Благодарим Ви за подкрепата! Всички Pro функции са отключени."
+  },
+  "licensesynced": {
+    "message": "Вашият лиценз е синхронизиран с акаунта Ви. Ако загубите достъп, можете да възстановите ключа си от: "
+  },
+  "syncing": {
+    "message": "Синхронизиране..."
+  },
+  "pleaseenterkey": {
+    "message": "Моля, въведете ключ."
+  },
+  "syncsuccess": {
+    "message": "Синхронизацията беше успешна"
+  },
+  "syncfailed": {
+    "message": "Синхронизацията не бе успешна."
+  },
+  "passwordreset": {
+    "message": "Защитата с парола беше нулирана."
+  },
+  "privacysecured": {
+    "message": "Поверителността е защитена"
+  },
+  "errorinvalidfiletype": {
+    "message": "Моля, изберете файл .json"
+  },
+  "debugsettingstitle": {
+    "message": "Настройки за дебъгване"
+  },
+  "enabledebugtitle": {
+    "message": "Активиране на режим за дебъгване"
+  },
+  "enabledebugdesc": {
+    "message": "Активиране на подробно логване в конзолата за отстраняване на проблеми"
+  },
+  "errorcommunication": {
+    "message": "Грешка при комуникация с фоновата услуга"
+  },
+  "clearstats": {
+    "message": "Изчистване на статистиката"
+  },
+  "rule_enabled": {
+    "message": "Активирано"
+  },
+  "rule_disabled": {
+    "message": "Деактивирано"
+  },
+  "categorymanagementtitle": {
+    "message": "Блокиране по категории"
+  },
+  "filter_only_hint": {
+    "message": "Този списък само филтрира показването в таблицата"
+  },
+  "category_disabled_desc": {
+    "message": "Изключете категорията, за да разрешите временно достъпа до всички нейни сайтове. Настройките на отделните правила се запазват."
+  },
+  "toggle_category_blocking": {
+    "message": "Превключване на блокирането за цялата категория"
+  },
+  "category_muted_no_edit": {
+    "message": "Управлението е невъзможно: категорията е разблокирана"
+  },
+  "feedback_title": {
+    "message": "Харесва ли ви BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Вашата обратна връзка много ни помага да развиваме разширението."
+  },
+  "feedback_like": {
+    "message": "Да, работи чудесно!"
+  },
+  "feedback_dislike": {
+    "message": "Имам проблеми / предложения"
+  },
+  "trialproheader": {
+    "message": "Започнете вашия 7-дневен безплатен пробен период"
+  },
+  "trialprotext": {
+    "message": "Отказ по всяко време. Вашите плащания са надеждно защитени."
+  },
+  "focussessionheader": {
+    "message": "Фокус сесия"
+  },
+  "focussessionstart": {
+    "message": "Старт"
+  },
+  "focussessionstop": {
+    "message": "Стоп"
+  },
+  "focussessionduration": {
+    "message": "Продължителност (мин):"
+  },
+  "focussessioninfo": {
+    "message": "Активира всички ваши правила за блокиране за определено време, като игнорира текущите им настройки и графици. За максимална концентрация."
+  },
+  "focussessionprofeature": {
+    "message": "Персонализираната продължителност и Hardcore режимът са Pro функции."
+  },
+  "focussessionended": {
+    "message": "Фокус сесията приключи! Вземете си почивка."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore режим (без бутон 'Стоп')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Звуково известие за фокус сесия"
+  },
+  "focussessionsounddesc": {
+    "message": "Възпроизвеждане на звук при приключване на фокус сесията."
+  },
+  "focussessionactivebanner": {
+    "message": "Активна фокус сесия! Оставащо време:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Моля, въведете валидна продължителност (1-240 минути)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Успешни фокус сесии"
+  },
+  "rule_scheduled": {
+    "message": "Планирано правило"
+  },
+  "addwhitelistrule": {
+    "message": "Добави изключение"
+  },
+  "category_whitelist": {
+    "message": "Бял списък"
+  },
+  "conflict_blacklist_err": {
+    "message": "Този сайт вече е в черния ви списък. Първо го премахнете."
+  },
+  "conflict_whitelist_err": {
+    "message": "Този сайт вече е в белия ви списък. Първо го премахнете."
+  },
+  "status_allow": {
+    "message": "Разрешено"
+  },
+  "redundant_whitelist_err": {
+    "message": "Това правило вече се покрива от друго правило в белия списък."
+  },
+  "focussessionmode": {
+    "message": "Режим на фокусиране:"
+  },
+  "focusmodeblacklist": {
+    "message": "Блокирай черния списък"
+  },
+  "focusmodewhitelist": {
+    "message": "Разреши само белия списък"
+  },
+  "schedule_edit": {
+    "message": "Редактиране на графика"
+  },
+  "schedule_add_period": {
+    "message": "Добавяне на времева група"
+  },
+  "schedule_remove_period": {
+    "message": "Премахване"
+  },
+  "schedule_period": {
+    "message": "Времева група"
+  },
+  "schedule_every_day": {
+    "message": "Всеки ден"
+  },
+  "schedule_weekdays": {
+    "message": "Делнични дни"
+  },
+  "schedule_weekends": {
+    "message": "Почивни дни"
+  },
+  "schedule_day_overlap": {
+    "message": "Всеки ден може да се използва само веднъж."
+  }
 }

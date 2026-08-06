@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Блокировка сайтов" },
-  "shortname": { "message": "БлокСайт" },
-  "description": { "message": "Простой и надёжный инструмент для блокировки и перенаправления сайтов, чтобы оставаться сосредоточенным." },
-  "defaulttitle": { "message": "Будь сосредоточенным и продуктивным" },
-  "header": { "message": "Блокировщик сайтов" },
-  "paragraph": { "message": "Чтобы заблокировать сайт или ресурс, введите часть его названия в поле с подсказкой 'Введите URL для блокировки' – например, 'facebook' заблокирует все связанные поддомены. В поле с подсказкой 'Введите URL перенаправления' введите полный адрес перенаправления с протоколом, например 'https://google.com'. Если оставить поле перенаправления пустым, сайт будет заблокирован без перенаправления. Нажмите Сохранить, чтобы применить правило. Чтобы обновить правило, удалите старое и добавьте новое." },
-  "addrule": { "message": "Добавить новое правило" },
-  "blockurl": { "message": "Введите URL для блокировки" },
-  "redirecturl": { "message": "Введите URL перенаправления (необязательно)" },
-  "redirecturlheader": { "message": "URL перенаправления" },
-  "redirecturlplaceholder": { "message": "Необязательно - оставьте пустым для блокировки" },
-  "redirecturlhint": { "message": "Введите полный URL, включая https://" },
-  "mobilecopylinkhint": { "message": "Чтобы заблокировать ссылку, скопируйте её адрес и вставьте его в поле блокировки." },
-  "savebtn": { "message": "Сохранить" },
-  "deletebtn": { "message": "Удалить" },
-  "alertruleexist": { "message": "Правило уже существует" },
+  "chromename": {
+    "message": "BlockDistraction – Блокировка сайтов"
+  },
+  "shortname": {
+    "message": "БлокСайт"
+  },
+  "description": {
+    "message": "Простой и надёжный инструмент для блокировки и перенаправления сайтов, чтобы оставаться сосредоточенным."
+  },
+  "defaulttitle": {
+    "message": "Будь сосредоточенным и продуктивным"
+  },
+  "header": {
+    "message": "Блокировщик сайтов"
+  },
+  "paragraph": {
+    "message": "Чтобы заблокировать сайт или ресурс, введите часть его названия в поле с подсказкой 'Введите URL для блокировки' – например, 'facebook' заблокирует все связанные поддомены. В поле с подсказкой 'Введите URL перенаправления' введите полный адрес перенаправления с протоколом, например 'https://google.com'. Если оставить поле перенаправления пустым, сайт будет заблокирован без перенаправления. Нажмите Сохранить, чтобы применить правило. Чтобы обновить правило, удалите старое и добавьте новое."
+  },
+  "addrule": {
+    "message": "Добавить новое правило"
+  },
+  "blockurl": {
+    "message": "Введите URL для блокировки"
+  },
+  "redirecturl": {
+    "message": "Введите URL перенаправления (необязательно)"
+  },
+  "redirecturlheader": {
+    "message": "URL перенаправления"
+  },
+  "redirecturlplaceholder": {
+    "message": "Необязательно - оставьте пустым для блокировки"
+  },
+  "redirecturlhint": {
+    "message": "Введите полный URL, включая https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Чтобы заблокировать ссылку, скопируйте её адрес и вставьте его в поле блокировки."
+  },
+  "savebtn": {
+    "message": "Сохранить"
+  },
+  "deletebtn": {
+    "message": "Удалить"
+  },
+  "alertruleexist": {
+    "message": "Правило уже существует"
+  },
   "savedrules": {
     "message": "$ruleslength$ правил сохранено",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Этот ресурс нельзя заблокировать." },
-  "wrongblockurl": { "message": "Недействительный URL для блокировки" },
-  "wrongredirecturl": { "message": "Неверный URL перенаправления" },
-  "blockthat": { "message": "Заблокировать этот сайт" },
-  "sendfeedbackbutton": { "message": "Отправить отзыв" },
-  "sendfeedbacksubject": { "message": "Отзыв о BlockDistraction" },
-  "sendfeedbackbody": { "message": "Здравствуйте! Хочу оставить следующий отзыв:\n\n" },
-  "quote1": { "message": "Сохраняй концентрацию, оставайся сильным." },
-  "quote2": { "message": "Твоё будущее создаётся тем, что ты делаешь сегодня." },
-  "quote3": { "message": "Дисциплина – мост между целями и достижениями." },
-  "quote4": { "message": "Один заблокированный сайт – шаг ближе к цели." },
-  "quote5": { "message": "Пусть каждый клик имеет значение." },
-  "quote6": { "message": "Не смотри на часы – делай, как они. Продолжай." },
-  "quote7": { "message": "Маленькие шаги каждый день ведут к большим результатам." },
-  "quote8": { "message": "Единственное ограничение – это твой разум." },
-  "quote9": { "message": "Успех – это сумма небольших усилий, повторяемых каждый день." },
-  "quote10": { "message": "Сосредоточься на продуктивности, а не на занятости." },
-  "quote11": { "message": "Защищайте своё внимание – это ваш самый ценный ресурс." },
-  "quote12": { "message": "Каждое заблокированное отвлечение – это возвращённое время." },
-  "quote13": { "message": "Уменьшите шум; увеличьте продуктивность." },
-  "quote14": { "message": "Маленькие привычки создают неудержимый импульс." },
-  "quote15": { "message": "Ясность побеждает хаос – сосредоточьтесь на главном." },
-  "quote16": { "message": "Говорите «нет» отвлечениям; говорите «да» прогрессу." },
-  "quote17": { "message": "Один час сосредоточенности сегодня многократно увеличивает результаты завтра." },
-  "quote18": { "message": "Создавайте больше, потребляя меньше." },
-  "quote19": { "message": "Дисциплина выбирает долгосрочные победы вместо кратковременных импульсов." },
-  "quote20": { "message": "Закройте вкладку, откройте место для новых идей." },
-  "quote21": { "message": "Работа, которую ты откладываешь сегодня, может стать завтрашним стрессом." },
-  "quote22": { "message": "Фокус — это не делать больше, а делать то, что действительно важно." },
-  "quote23": { "message": "Твои цели заслуживают больше внимания, чем твои отвлечения." },
-  "quote24": { "message": "Каждая минута без отвлечений — это инвестиция в себя." },
-  "quote25": { "message": "Последовательность даёт более устойчивые результаты, чем краткие всплески мотивации." },
-  "quote26": { "message": "Лучшее время начать было вчера. Следующее лучшее — сейчас." },
-  "quote27": { "message": "Прогресс начинается, когда ты выбираешь действие вместо отвлечений." },
-  "quote28": { "message": "Один момент концентрации может изменить весь твой день." },
-  "quote29": { "message": "Тебе нужно не больше времени, а меньше отвлечений." },
-  "quote30": { "message": "Каждый выбор оставаться сосредоточенным укрепляет твоё будущее «я»." },
-  "quote31": { "message": "Эта блокировка временная, а твои цели — долгосрочные." },
-  "quote32": { "message": "Каждый заблокированный источник отвлечения — это победа твоего будущего «я»." },
-  "quote33": { "message": "Интернет бесконечен, а твоё время — нет." },
-  "quote34": { "message": "Определи приоритеты до того, как их за тебя определит интернет." },
-  "quote35": { "message": "Меньше скроллинга — больше созидания." },
-  "quote36": { "message": "Твоё внимание формирует твои достижения." },
-  "quote37": { "message": "Оставайся в фокусе — отвлечения могут подождать." },
-  "quote38": { "message": "Каждое продуктивное решение начинается с сосредоточенного ума." },
-  "quote39": { "message": "Ты заблокировал сайт, а не свой потенциал." },
-  "quote40": { "message": "Путь к успеху строится из сосредоточенных решений." },
-  "actionsheader": { "message": "Действия" },
-  "norules": { "message": "Нет заблокированных сайтов." },
-  "editbtn": { "message": "Редактировать" },
-  "ruleddeleted": { "message": "Правило удалено." },
-  "cancelbtn": { "message": "Отмена" },
-  "ruleupdated": { "message": "Правило обновлено." },
-  "rulenewadded": { "message": "Добавлено новое правило." },
-  "gotooptions": { "message": "Перейти на страницу настроек ⚙️" },
-  "gotopopup": { "message": "Нажмите на иконку расширения, чтобы вернуться к всплывающему окну." },
-  "rulesmigrated": { "message": "Правила обновлены для совместимости" },
-  "errorupdatingrules": { "message": "Ошибка при обновлении правил" },
-  "erroraddingrule": { "message": "Ошибка при добавлении правила" },
-  "errorremovingrule": { "message": "Ошибка при удалении правила" },
-  "optionsheader": { "message": "Настройки расширения" },
-  "optionsdescription": { "message": "Настройте поведение расширения и параметры безопасности" },
-  "securitymodetitle": { "message": "Режим безопасности" },
-  "normalmodetitle": { "message": "Обычный режим" },
-  "normalmodedesc": { "message": "Правила можно удалять сразу одним кликом" },
-  "strictmodetitle": { "message": "Строгий режим" },
-  "strictmodedesc": { "message": "Для удаления правил требуется 10-секундный отсчет, чтобы избежать случайного удаления" },
-  "confirmdeletetitle": { "message": "Подтвердите перед удалением нескольких правил" },
-  "confirmdeletedesc": { "message": "Показывать диалог подтверждения при удалении нескольких правил одновременно" },
-  "notificationstitle": { "message": "Показывать уведомления" },
-  "notificationsdesc": { "message": "Отображать уведомления при обновлении расширения" },
-  "rulesmanagementtitle": { "message": "Управление правилами" },
-  "exportrulesbtn": { "message": "Экспортировать правила" },
-  "importrulesbtn": { "message": "Импортировать правила" },
-  "clearallrulesbtn": { "message": "Удалить все правила" },
-  "totalruleslabel": { "message": "Всего правил" },
-  "blockedtodaylabel": { "message": "Заблокировано сегодня" },
-  "totalblockedlabel": { "message": "Всего заблокировано" },
-  "resetsettingsbtn": { "message": "Сбросить настройки" },
-  "backtopopup": { "message": "Назад в главное меню" },
-  "errorloadingsettings": { "message": "Ошибка при загрузке настроек" },
-  "settingssaved": { "message": "Настройки успешно сохранены!" },
-  "errorsavingsettings": { "message": "Ошибка при сохранении настроек" },
-  "rulesexported": { "message": "Правила успешно экспортированы!" },
-  "errorexportingrules": { "message": "Ошибка при экспорте правил" },
+  "restrictedblockurl": {
+    "message": "Этот ресурс нельзя заблокировать."
+  },
+  "wrongblockurl": {
+    "message": "Недействительный URL для блокировки"
+  },
+  "wrongredirecturl": {
+    "message": "Неверный URL перенаправления"
+  },
+  "blockthat": {
+    "message": "Заблокировать этот сайт"
+  },
+  "sendfeedbackbutton": {
+    "message": "Отправить отзыв"
+  },
+  "sendfeedbacksubject": {
+    "message": "Отзыв о BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Здравствуйте! Хочу оставить следующий отзыв:\n\n"
+  },
+  "quote1": {
+    "message": "Сохраняй концентрацию, оставайся сильным."
+  },
+  "quote2": {
+    "message": "Твоё будущее создаётся тем, что ты делаешь сегодня."
+  },
+  "quote3": {
+    "message": "Дисциплина – мост между целями и достижениями."
+  },
+  "quote4": {
+    "message": "Один заблокированный сайт – шаг ближе к цели."
+  },
+  "quote5": {
+    "message": "Пусть каждый клик имеет значение."
+  },
+  "quote6": {
+    "message": "Не смотри на часы – делай, как они. Продолжай."
+  },
+  "quote7": {
+    "message": "Маленькие шаги каждый день ведут к большим результатам."
+  },
+  "quote8": {
+    "message": "Единственное ограничение – это твой разум."
+  },
+  "quote9": {
+    "message": "Успех – это сумма небольших усилий, повторяемых каждый день."
+  },
+  "quote10": {
+    "message": "Сосредоточься на продуктивности, а не на занятости."
+  },
+  "quote11": {
+    "message": "Защищайте своё внимание – это ваш самый ценный ресурс."
+  },
+  "quote12": {
+    "message": "Каждое заблокированное отвлечение – это возвращённое время."
+  },
+  "quote13": {
+    "message": "Уменьшите шум; увеличьте продуктивность."
+  },
+  "quote14": {
+    "message": "Маленькие привычки создают неудержимый импульс."
+  },
+  "quote15": {
+    "message": "Ясность побеждает хаос – сосредоточьтесь на главном."
+  },
+  "quote16": {
+    "message": "Говорите «нет» отвлечениям; говорите «да» прогрессу."
+  },
+  "quote17": {
+    "message": "Один час сосредоточенности сегодня многократно увеличивает результаты завтра."
+  },
+  "quote18": {
+    "message": "Создавайте больше, потребляя меньше."
+  },
+  "quote19": {
+    "message": "Дисциплина выбирает долгосрочные победы вместо кратковременных импульсов."
+  },
+  "quote20": {
+    "message": "Закройте вкладку, откройте место для новых идей."
+  },
+  "quote21": {
+    "message": "Работа, которую ты откладываешь сегодня, может стать завтрашним стрессом."
+  },
+  "quote22": {
+    "message": "Фокус — это не делать больше, а делать то, что действительно важно."
+  },
+  "quote23": {
+    "message": "Твои цели заслуживают больше внимания, чем твои отвлечения."
+  },
+  "quote24": {
+    "message": "Каждая минута без отвлечений — это инвестиция в себя."
+  },
+  "quote25": {
+    "message": "Последовательность даёт более устойчивые результаты, чем краткие всплески мотивации."
+  },
+  "quote26": {
+    "message": "Лучшее время начать было вчера. Следующее лучшее — сейчас."
+  },
+  "quote27": {
+    "message": "Прогресс начинается, когда ты выбираешь действие вместо отвлечений."
+  },
+  "quote28": {
+    "message": "Один момент концентрации может изменить весь твой день."
+  },
+  "quote29": {
+    "message": "Тебе нужно не больше времени, а меньше отвлечений."
+  },
+  "quote30": {
+    "message": "Каждый выбор оставаться сосредоточенным укрепляет твоё будущее «я»."
+  },
+  "quote31": {
+    "message": "Эта блокировка временная, а твои цели — долгосрочные."
+  },
+  "quote32": {
+    "message": "Каждый заблокированный источник отвлечения — это победа твоего будущего «я»."
+  },
+  "quote33": {
+    "message": "Интернет бесконечен, а твоё время — нет."
+  },
+  "quote34": {
+    "message": "Определи приоритеты до того, как их за тебя определит интернет."
+  },
+  "quote35": {
+    "message": "Меньше скроллинга — больше созидания."
+  },
+  "quote36": {
+    "message": "Твоё внимание формирует твои достижения."
+  },
+  "quote37": {
+    "message": "Оставайся в фокусе — отвлечения могут подождать."
+  },
+  "quote38": {
+    "message": "Каждое продуктивное решение начинается с сосредоточенного ума."
+  },
+  "quote39": {
+    "message": "Ты заблокировал сайт, а не свой потенциал."
+  },
+  "quote40": {
+    "message": "Путь к успеху строится из сосредоточенных решений."
+  },
+  "actionsheader": {
+    "message": "Действия"
+  },
+  "norules": {
+    "message": "Нет заблокированных сайтов."
+  },
+  "editbtn": {
+    "message": "Редактировать"
+  },
+  "ruleddeleted": {
+    "message": "Правило удалено."
+  },
+  "cancelbtn": {
+    "message": "Отмена"
+  },
+  "ruleupdated": {
+    "message": "Правило обновлено."
+  },
+  "rulenewadded": {
+    "message": "Добавлено новое правило."
+  },
+  "gotooptions": {
+    "message": "Перейти на страницу настроек ⚙️"
+  },
+  "gotopopup": {
+    "message": "Нажмите на иконку расширения, чтобы вернуться к всплывающему окну."
+  },
+  "rulesmigrated": {
+    "message": "Правила обновлены для совместимости"
+  },
+  "errorupdatingrules": {
+    "message": "Ошибка при обновлении правил"
+  },
+  "erroraddingrule": {
+    "message": "Ошибка при добавлении правила"
+  },
+  "errorremovingrule": {
+    "message": "Ошибка при удалении правила"
+  },
+  "optionsheader": {
+    "message": "Настройки расширения"
+  },
+  "optionsdescription": {
+    "message": "Настройте поведение расширения и параметры безопасности"
+  },
+  "securitymodetitle": {
+    "message": "Режим безопасности"
+  },
+  "normalmodetitle": {
+    "message": "Обычный режим"
+  },
+  "normalmodedesc": {
+    "message": "Правила можно удалять сразу одним кликом"
+  },
+  "strictmodetitle": {
+    "message": "Строгий режим"
+  },
+  "strictmodedesc": {
+    "message": "Для удаления правил требуется 10-секундный отсчет, чтобы избежать случайного удаления"
+  },
+  "confirmdeletetitle": {
+    "message": "Подтвердите перед удалением нескольких правил"
+  },
+  "confirmdeletedesc": {
+    "message": "Показывать диалог подтверждения при удалении нескольких правил одновременно"
+  },
+  "notificationstitle": {
+    "message": "Показывать уведомления"
+  },
+  "notificationsdesc": {
+    "message": "Отображать уведомления при обновлении расширения"
+  },
+  "rulesmanagementtitle": {
+    "message": "Управление правилами"
+  },
+  "exportrulesbtn": {
+    "message": "Экспортировать правила"
+  },
+  "importrulesbtn": {
+    "message": "Импортировать правила"
+  },
+  "clearallrulesbtn": {
+    "message": "Удалить все правила"
+  },
+  "totalruleslabel": {
+    "message": "Всего правил"
+  },
+  "blockedtodaylabel": {
+    "message": "Заблокировано сегодня"
+  },
+  "totalblockedlabel": {
+    "message": "Всего заблокировано"
+  },
+  "resetsettingsbtn": {
+    "message": "Сбросить настройки"
+  },
+  "backtopopup": {
+    "message": "Назад в главное меню"
+  },
+  "errorloadingsettings": {
+    "message": "Ошибка при загрузке настроек"
+  },
+  "settingssaved": {
+    "message": "Настройки успешно сохранены!"
+  },
+  "errorsavingsettings": {
+    "message": "Ошибка при сохранении настроек"
+  },
+  "rulesexported": {
+    "message": "Правила успешно экспортированы!"
+  },
+  "errorexportingrules": {
+    "message": "Ошибка при экспорте правил"
+  },
   "willimportrules": {
     "message": "Будет импортировано $ruleslength$ правил.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Текущие правила будут заменены. Продолжить?" },
+  "ruleswillbereplaced": {
+    "message": "Текущие правила будут заменены. Продолжить?"
+  },
   "importedrules": {
     "message": "Успешно импортировано $ruleslength$ правил!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Ошибка при импорте правил: " },
-  "norulestoclear": { "message": "Нет правил для удаления" },
+  "errorimportingrules": {
+    "message": "Ошибка при импорте правил: "
+  },
+  "norulestoclear": {
+    "message": "Нет правил для удаления"
+  },
   "willdeleteallrules": {
     "message": "Это навсегда удалит все $rulescount$ правил.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Это действие нельзя отменить. Продолжить?" },
-  "allrulescleared": { "message": "Все правила успешно удалены!" },
-  "errorclearingrules": { "message": "Ошибка при удалении правил" },
-  "willreset": { "message": "Все настройки будут сброшены к значениям по умолчанию. Продолжить?" },
-  "resettodefaults": { "message": "Настройки сброшены к значениям по умолчанию!" },
-  "errorresettingsettings": { "message": "Ошибка при сбросе настроек" },
-  "basicsettingstitle": { "message": "Основные настройки" },
-  "advancedsettingstitle": { "message": "Расширенные настройки" },
-  "statisticstitle": { "message": "Статистика" },
+  "cannotbeundone": {
+    "message": "Это действие нельзя отменить. Продолжить?"
+  },
+  "allrulescleared": {
+    "message": "Все правила успешно удалены!"
+  },
+  "errorclearingrules": {
+    "message": "Ошибка при удалении правил"
+  },
+  "willreset": {
+    "message": "Все настройки будут сброшены к значениям по умолчанию. Продолжить?"
+  },
+  "resettodefaults": {
+    "message": "Настройки сброшены к значениям по умолчанию!"
+  },
+  "errorresettingsettings": {
+    "message": "Ошибка при сбросе настроек"
+  },
+  "basicsettingstitle": {
+    "message": "Основные настройки"
+  },
+  "advancedsettingstitle": {
+    "message": "Расширенные настройки"
+  },
+  "statisticstitle": {
+    "message": "Статистика"
+  },
   "rulelimitreached": {
     "message": "Вы достигли лимита правил ($limit$) в базовой версии. Перейдите на Pro для неограниченного количества правил.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro требуется для редактирования." },
-  "invalidpassword": { "message": "Неверный пароль" },
-  "setpassword": { "message": "Установить пароль" },
-  "enterpassword": { "message": "Введите пароль" },
-  "passwordmismatch": { "message": "Пароли не совпадают" },
-  "passwordtooshort": { "message": "Пароль должен содержать не менее 6 символов" },
-  "resetpasswordconfirm": { "message": "Сброс пароля отключит защиту. Продолжить?" },
-  "passwordset": { "message": "Пароль успешно установлен" },
-  "passworddisabled": { "message": "Защита паролем отключена" },
-  "prorequired": { "message": "Для этой функции требуется режим Pro" },
-  "enablepasswordtitle": { "message": "Включить защиту паролем" },
-  "enablepassworddesc": { "message": "Требуется пароль для удаления или редактирования правил (улучшает строгий режим)" },
-  "passwordprotectiontitle": { "message": "Защита паролем" },
-  "scheduleheader": { "message": "Расписание" },
-  "enableschedule": { "message": "Включить расписание" },
-  "alwaysactive": { "message": "Всегда активно" },
-  "profeatureschedule": { "message": "Расписание доступно в Pro-версии" },
-  "days": { "message": "Дни" },
-  "starttime": { "message": "Время начала:" },
-  "endtime": { "message": "Время окончания:" },
-  "invaliddays": { "message": "Выбраны недопустимые дни" },
-  "invalidtimeformat": { "message": "Неверный формат времени (используйте ЧЧ:ММ)" },
-  "startafterend": { "message": "Время начала должно быть раньше времени окончания" },
-  "invalidschedule": { "message": "Недопустимое расписание: выберите дни и время." },
-  "invalidscheduledays": { "message": "Недопустимое расписание: выберите хотя бы один день." },
-  "invalidschedulestarttime": { "message": "Недопустимое расписание: укажите время начала." },
-  "invalidscheduleendtime": { "message": "Недопустимое расписание: укажите время окончания." },
-  "editdisablednonpro": { "message": "Редактирование отключено: слишком много правил для пользователей без Pro." },
-  "errorloadingstatus": { "message": "Ошибка загрузки статуса пользователя." },
-  "schedule_day_sun": { "message": "Вс" },
-  "schedule_day_mon": { "message": "Пн" },
-  "schedule_day_tue": { "message": "Вт" },
-  "schedule_day_wed": { "message": "Ср" },
-  "schedule_day_thu": { "message": "Чт" },
-  "schedule_day_fri": { "message": "Пт" },
-  "schedule_day_sat": { "message": "Сб" },
-  "category_header": { "message": "Категория" },
-  "category_required": { "message": "Категория обязательна" },
-  "allcategories": { "message": "Все категории" },
-  "category_social": { "message": "Социальные сети" },
-  "category_news": { "message": "Новости" },
-  "category_entertainment": { "message": "Развлечения" },
-  "category_shopping": { "message": "Покупки" },
-  "category_work": { "message": "Работа" },
-  "category_gaming": { "message": "Игры" },
-  "category_adult": { "message": "Контент для взрослых" },
-  "category_uncategorized": { "message": "Без категории" },
-  "searchfordomain": { "message": "Поиск по доменному имени" },
-  "norulesforcategory": { "message": "Для этой категории нет заблокированных сайтов." },
-  "getpro": { "message": "Получить Pro" },
-  "profunctionstext": { "message": "Функции Pro включают: блокировку по расписанию, защиту паролем, фильтрацию правил и экспорт/импорт правил. Наслаждайтесь нашей Универсальной лицензией: одна подписка открывает Pro во всех ваших браузерах (Chrome, Firefox, Edge, Kiwi). Чтобы активировать, приобретите подписку на blockdistraction.com, затем скопируйте ключ лицензии с панели управления аккаунтом и вставьте его ниже." },
-  "upgradenow": { "message": "Обновить сейчас" },
-  "enteremail": { "message": "Введите ваш e-mail" },
-  "activatepro": { "message": "Активировать Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Восстановить доступ" },
-  "pleaseenteremail": { "message": "Пожалуйста, введите ваш e-mail" },
-  "checking": { "message": "Проверка..." },
-  "proactivated": { "message": "Функции Pro активированы!" },
-  "subscriptionnotfound": { "message": "Подписка не активна или e-mail не найден." },
-  "servererror": { "message": "Ошибка сервера. Пожалуйста, попробуйте снова." },
-  "proactivatedfor": { "message": "Pro активирован для" },
+  "proonlyactions": {
+    "message": "Pro требуется для редактирования."
+  },
+  "invalidpassword": {
+    "message": "Неверный пароль"
+  },
+  "setpassword": {
+    "message": "Установить пароль"
+  },
+  "enterpassword": {
+    "message": "Введите пароль"
+  },
+  "passwordmismatch": {
+    "message": "Пароли не совпадают"
+  },
+  "passwordtooshort": {
+    "message": "Пароль должен содержать не менее 6 символов"
+  },
+  "resetpasswordconfirm": {
+    "message": "Сброс пароля отключит защиту. Продолжить?"
+  },
+  "passwordset": {
+    "message": "Пароль успешно установлен"
+  },
+  "passworddisabled": {
+    "message": "Защита паролем отключена"
+  },
+  "prorequired": {
+    "message": "Для этой функции требуется режим Pro"
+  },
+  "enablepasswordtitle": {
+    "message": "Включить защиту паролем"
+  },
+  "enablepassworddesc": {
+    "message": "Требуется пароль для удаления или редактирования правил (улучшает строгий режим)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Защита паролем"
+  },
+  "scheduleheader": {
+    "message": "Расписание"
+  },
+  "enableschedule": {
+    "message": "Включить расписание"
+  },
+  "alwaysactive": {
+    "message": "Всегда активно"
+  },
+  "profeatureschedule": {
+    "message": "Расписание доступно в Pro-версии"
+  },
+  "days": {
+    "message": "Дни"
+  },
+  "starttime": {
+    "message": "Время начала:"
+  },
+  "endtime": {
+    "message": "Время окончания:"
+  },
+  "invaliddays": {
+    "message": "Выбраны недопустимые дни"
+  },
+  "invalidtimeformat": {
+    "message": "Неверный формат времени (используйте ЧЧ:ММ)"
+  },
+  "startafterend": {
+    "message": "Время начала должно быть раньше времени окончания"
+  },
+  "invalidschedule": {
+    "message": "Недопустимое расписание: выберите дни и время."
+  },
+  "invalidscheduledays": {
+    "message": "Недопустимое расписание: выберите хотя бы один день."
+  },
+  "invalidschedulestarttime": {
+    "message": "Недопустимое расписание: укажите время начала."
+  },
+  "invalidscheduleendtime": {
+    "message": "Недопустимое расписание: укажите время окончания."
+  },
+  "editdisablednonpro": {
+    "message": "Редактирование отключено: слишком много правил для пользователей без Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Ошибка загрузки статуса пользователя."
+  },
+  "schedule_day_sun": {
+    "message": "Вс"
+  },
+  "schedule_day_mon": {
+    "message": "Пн"
+  },
+  "schedule_day_tue": {
+    "message": "Вт"
+  },
+  "schedule_day_wed": {
+    "message": "Ср"
+  },
+  "schedule_day_thu": {
+    "message": "Чт"
+  },
+  "schedule_day_fri": {
+    "message": "Пт"
+  },
+  "schedule_day_sat": {
+    "message": "Сб"
+  },
+  "category_header": {
+    "message": "Категория"
+  },
+  "category_required": {
+    "message": "Категория обязательна"
+  },
+  "allcategories": {
+    "message": "Все категории"
+  },
+  "category_social": {
+    "message": "Социальные сети"
+  },
+  "category_news": {
+    "message": "Новости"
+  },
+  "category_entertainment": {
+    "message": "Развлечения"
+  },
+  "category_shopping": {
+    "message": "Покупки"
+  },
+  "category_work": {
+    "message": "Работа"
+  },
+  "category_gaming": {
+    "message": "Игры"
+  },
+  "category_adult": {
+    "message": "Контент для взрослых"
+  },
+  "category_uncategorized": {
+    "message": "Без категории"
+  },
+  "searchfordomain": {
+    "message": "Поиск по доменному имени"
+  },
+  "norulesforcategory": {
+    "message": "Для этой категории нет заблокированных сайтов."
+  },
+  "getpro": {
+    "message": "Получить Pro"
+  },
+  "profunctionstext": {
+    "message": "Функции Pro включают: блокировку по расписанию, защиту паролем, фильтрацию правил и экспорт/импорт правил. Наслаждайтесь нашей Универсальной лицензией: одна подписка открывает Pro во всех ваших браузерах (Chrome, Firefox, Edge, Kiwi). Чтобы активировать, приобретите подписку на blockdistraction.com, затем скопируйте ключ лицензии с панели управления аккаунтом и вставьте его ниже."
+  },
+  "upgradenow": {
+    "message": "Обновить сейчас"
+  },
+  "enteremail": {
+    "message": "Введите ваш e-mail"
+  },
+  "activatepro": {
+    "message": "Активировать Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Восстановить доступ"
+  },
+  "pleaseenteremail": {
+    "message": "Пожалуйста, введите ваш e-mail"
+  },
+  "checking": {
+    "message": "Проверка..."
+  },
+  "proactivated": {
+    "message": "Функции Pro активированы!"
+  },
+  "subscriptionnotfound": {
+    "message": "Подписка не активна или e-mail не найден."
+  },
+  "servererror": {
+    "message": "Ошибка сервера. Пожалуйста, попробуйте снова."
+  },
+  "proactivatedfor": {
+    "message": "Pro активирован для"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,72 +605,232 @@
   "onboarding_status_api_error": {
     "message": "Не удалось запросить разрешение (это может произойти на мобильных устройствах). Попробуйте снова или выдайте разрешение вручную в настройках."
   },
-  "pastekeylabel": { "message": "Вставьте сюда свой лицензионный ключ:" },
-  "confirmclearstats": { "message": "Вы уверены, что хотите очистить всю статистику? Это действие нельзя отменить." },
-  "statscleared": { "message": "Статистика успешно очищена." },
-  "redirectstodaylabel": { "message": "Перенаправления сегодня" },
-  "totalredirectslabel": { "message": "Всего перенаправлений" },
-  "logout": { "message": "Выйти" },
-  "loggedoutsuccess": { "message": "Вы успешно вышли из системы." },
-  "loggedouterror": { "message": "Произошла ошибка при выходе из системы." },
-  "forcesync": { "message": "Принудительная синхронизация / Проверить статус" },
-  "forgotpasswordinstructions": { "message": "Чтобы сбросить пароль, перейдите в раздел 'Pro', нажмите 'Выйти', а затем повторно активируйте, вставив ваш лицензионный ключ." },
-  "blockedtitle": { "message": "Сайт недоступен" },
-  "blockedheader": { "message": "Этот сайт в настоящее время недоступен" },
-  "blockedtext": { "message": "Этот контент не может быть отображен." },
-  "blockedbutton": { "message": "Закрыть вкладку" },
-  "confirmpassword": { "message": "Подтвердите пароль" },
-  "modalconfirm": { "message": "Подтвердить" },
-  "modalcancel": { "message": "Отмена" },
-  "forgotpassword": { "message": "Забыли пароль? Сбросить (действие удалит защиту)" },
-  "prounlocked": { "message": "Спасибо за вашу поддержку! Все функции Pro разблокированы." },
-  "licensesynced": { "message": "Ваша лицензия синхронизирована с вашим аккаунтом. Если вы потеряете доступ, вы можете восстановить ключ здесь: " },
-  "syncing": { "message": "Синхронизация..." },
-  "pleaseenterkey": { "message": "Пожалуйста, введите ключ." },
-  "syncsuccess": { "message": "Синхронизация прошла успешно" },
-  "syncfailed": { "message": "Синхронизация не удалась." },
-  "passwordreset": { "message": "Защита паролем была сброшена." },
-  "privacysecured": { "message": "Конфиденциальность обеспечена" },
-  "errorinvalidfiletype": { "message": "Пожалуйста, выберите файл .json" },
-  "debugsettingstitle": { "message": "Настройки отладки" },
-  "enabledebugtitle": { "message": "Включить режим отладки" },
-  "enabledebugdesc": { "message": "Включить подробное логирование в консоль для устранения проблем" },
-  "errorcommunication": { "message": "Ошибка при связи с фоновой службой" },
-  "clearstats": { "message": "Очистить статистику" },
-  "rule_enabled": { "message": "Включено" },
-  "rule_disabled": { "message": "Выключено" },
-  "categorymanagementtitle": { "message": "Эти категории заблокированы" },
-  "filter_only_hint": { "message": "Этот список только фильтрует отображение в таблице" },
-  "category_disabled_desc": { "message": "Нажмите на категорию, чтобы активировать или приостановить её блокировку. Правила в приостановленных категориях выделяются пунктирной рамкой и недоступны для изменения." },
-  "toggle_category_blocking": { "message": "Переключить блокировку для всей категории" },
-  "category_muted_no_edit": { "message": "Управление невозможно: категория разблокирована в настройках" },
-  "feedback_title": { "message": "Вам нравится BlockDistraction?" },
-  "feedback_desc": { "message": "Ваши отзывы очень помогают нам улучшать расширение." },
-  "feedback_like": { "message": "Да, всё отлично работает!" },
-  "feedback_dislike": { "message": "У меня есть проблемы / предложения" },
-  "trialproheader": { "message": "Попробуйте 7 дней бесплатно" },
-  "trialprotext": { "message": "Отменить можно в любое время. Ваши платежи надежно защищены." },
-  "focussessionheader": { "message": "Сессия фокуса" },
-  "focussessionstart": { "message": "Начать" },
-  "focussessionstop": { "message": "Остановить" },
-  "focussessionduration": { "message": "Длительность (мин):" },
-  "focussessioninfo": { "message": "Активирует абсолютно все ваши правила блокировки на заданное время, игнорируя их текущие настройки и расписания. Для максимальной концентрации." },
-  "focussessionprofeature": { "message": "Настройка длительности и Hardcore-режим — функции Pro." },
-  "focussessionended": { "message": "Сессия фокуса завершена! Время отдохнуть." },
-  "focussessionhardcore": { "message": "Hardcore режим (без кнопки 'Стоп')" },
-  "focussessionsoundtitle": { "message": "Звуковое уведомление сессии фокуса" },
-  "focussessionsounddesc": { "message": "Воспроизводить звук по окончании сессии фокуса." },
-  "focussessionactivebanner": { "message": "Сессия фокуса активна! Осталось:" },
-  "focussessioninvalidduration": { "message": "Пожалуйста, введите действительную длительность (1-240 минут)." },
-  "successfulfocussessionslabel": { "message": "Успешные сессии фокусировки" },
-  "rule_scheduled": { "message": "Запланированное правило" },
-  "addwhitelistrule": { "message": "Добавить исключение" },
-  "category_whitelist": { "message": "Белый список" },
-  "conflict_blacklist_err": { "message": "Этот сайт уже находится в вашем черном списке. Сначала удалите его." },
-  "conflict_whitelist_err": { "message": "Этот сайт уже находится в вашем белом списке. Сначала удалите его." },
-  "status_allow": { "message": "Разрешено" },
-  "redundant_whitelist_err": { "message": "Это правило уже перекрывается другим правилом белого списка." },
-  "focussessionmode": { "message": "Режим фокусировки:" },
-  "focusmodeblacklist": { "message": "Блокировать черный список" },
-  "focusmodewhitelist": { "message": "Разрешить только белый список" }
+  "pastekeylabel": {
+    "message": "Вставьте сюда свой лицензионный ключ:"
+  },
+  "confirmclearstats": {
+    "message": "Вы уверены, что хотите очистить всю статистику? Это действие нельзя отменить."
+  },
+  "statscleared": {
+    "message": "Статистика успешно очищена."
+  },
+  "redirectstodaylabel": {
+    "message": "Перенаправления сегодня"
+  },
+  "totalredirectslabel": {
+    "message": "Всего перенаправлений"
+  },
+  "logout": {
+    "message": "Выйти"
+  },
+  "loggedoutsuccess": {
+    "message": "Вы успешно вышли из системы."
+  },
+  "loggedouterror": {
+    "message": "Произошла ошибка при выходе из системы."
+  },
+  "forcesync": {
+    "message": "Принудительная синхронизация / Проверить статус"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Чтобы сбросить пароль, перейдите в раздел 'Pro', нажмите 'Выйти', а затем повторно активируйте, вставив ваш лицензионный ключ."
+  },
+  "blockedtitle": {
+    "message": "Сайт недоступен"
+  },
+  "blockedheader": {
+    "message": "Этот сайт в настоящее время недоступен"
+  },
+  "blockedtext": {
+    "message": "Этот контент не может быть отображен."
+  },
+  "blockedbutton": {
+    "message": "Закрыть вкладку"
+  },
+  "confirmpassword": {
+    "message": "Подтвердите пароль"
+  },
+  "modalconfirm": {
+    "message": "Подтвердить"
+  },
+  "modalcancel": {
+    "message": "Отмена"
+  },
+  "forgotpassword": {
+    "message": "Забыли пароль? Сбросить (действие удалит защиту)"
+  },
+  "prounlocked": {
+    "message": "Спасибо за вашу поддержку! Все функции Pro разблокированы."
+  },
+  "licensesynced": {
+    "message": "Ваша лицензия синхронизирована с вашим аккаунтом. Если вы потеряете доступ, вы можете восстановить ключ здесь: "
+  },
+  "syncing": {
+    "message": "Синхронизация..."
+  },
+  "pleaseenterkey": {
+    "message": "Пожалуйста, введите ключ."
+  },
+  "syncsuccess": {
+    "message": "Синхронизация прошла успешно"
+  },
+  "syncfailed": {
+    "message": "Синхронизация не удалась."
+  },
+  "passwordreset": {
+    "message": "Защита паролем была сброшена."
+  },
+  "privacysecured": {
+    "message": "Конфиденциальность обеспечена"
+  },
+  "errorinvalidfiletype": {
+    "message": "Пожалуйста, выберите файл .json"
+  },
+  "debugsettingstitle": {
+    "message": "Настройки отладки"
+  },
+  "enabledebugtitle": {
+    "message": "Включить режим отладки"
+  },
+  "enabledebugdesc": {
+    "message": "Включить подробное логирование в консоль для устранения проблем"
+  },
+  "errorcommunication": {
+    "message": "Ошибка при связи с фоновой службой"
+  },
+  "clearstats": {
+    "message": "Очистить статистику"
+  },
+  "rule_enabled": {
+    "message": "Включено"
+  },
+  "rule_disabled": {
+    "message": "Выключено"
+  },
+  "categorymanagementtitle": {
+    "message": "Эти категории заблокированы"
+  },
+  "filter_only_hint": {
+    "message": "Этот список только фильтрует отображение в таблице"
+  },
+  "category_disabled_desc": {
+    "message": "Нажмите на категорию, чтобы активировать или приостановить её блокировку. Правила в приостановленных категориях выделяются пунктирной рамкой и недоступны для изменения."
+  },
+  "toggle_category_blocking": {
+    "message": "Переключить блокировку для всей категории"
+  },
+  "category_muted_no_edit": {
+    "message": "Управление невозможно: категория разблокирована в настройках"
+  },
+  "feedback_title": {
+    "message": "Вам нравится BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Ваши отзывы очень помогают нам улучшать расширение."
+  },
+  "feedback_like": {
+    "message": "Да, всё отлично работает!"
+  },
+  "feedback_dislike": {
+    "message": "У меня есть проблемы / предложения"
+  },
+  "trialproheader": {
+    "message": "Попробуйте 7 дней бесплатно"
+  },
+  "trialprotext": {
+    "message": "Отменить можно в любое время. Ваши платежи надежно защищены."
+  },
+  "focussessionheader": {
+    "message": "Сессия фокуса"
+  },
+  "focussessionstart": {
+    "message": "Начать"
+  },
+  "focussessionstop": {
+    "message": "Остановить"
+  },
+  "focussessionduration": {
+    "message": "Длительность (мин):"
+  },
+  "focussessioninfo": {
+    "message": "Активирует абсолютно все ваши правила блокировки на заданное время, игнорируя их текущие настройки и расписания. Для максимальной концентрации."
+  },
+  "focussessionprofeature": {
+    "message": "Настройка длительности и Hardcore-режим — функции Pro."
+  },
+  "focussessionended": {
+    "message": "Сессия фокуса завершена! Время отдохнуть."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore режим (без кнопки 'Стоп')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Звуковое уведомление сессии фокуса"
+  },
+  "focussessionsounddesc": {
+    "message": "Воспроизводить звук по окончании сессии фокуса."
+  },
+  "focussessionactivebanner": {
+    "message": "Сессия фокуса активна! Осталось:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Пожалуйста, введите действительную длительность (1-240 минут)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Успешные сессии фокусировки"
+  },
+  "rule_scheduled": {
+    "message": "Запланированное правило"
+  },
+  "addwhitelistrule": {
+    "message": "Добавить исключение"
+  },
+  "category_whitelist": {
+    "message": "Белый список"
+  },
+  "conflict_blacklist_err": {
+    "message": "Этот сайт уже находится в вашем черном списке. Сначала удалите его."
+  },
+  "conflict_whitelist_err": {
+    "message": "Этот сайт уже находится в вашем белом списке. Сначала удалите его."
+  },
+  "status_allow": {
+    "message": "Разрешено"
+  },
+  "redundant_whitelist_err": {
+    "message": "Это правило уже перекрывается другим правилом белого списка."
+  },
+  "focussessionmode": {
+    "message": "Режим фокусировки:"
+  },
+  "focusmodeblacklist": {
+    "message": "Блокировать черный список"
+  },
+  "focusmodewhitelist": {
+    "message": "Разрешить только белый список"
+  },
+  "schedule_edit": {
+    "message": "Изменить расписание"
+  },
+  "schedule_add_period": {
+    "message": "Добавить группу времени"
+  },
+  "schedule_remove_period": {
+    "message": "Удалить"
+  },
+  "schedule_period": {
+    "message": "Группа времени"
+  },
+  "schedule_every_day": {
+    "message": "Каждый день"
+  },
+  "schedule_weekdays": {
+    "message": "Будние дни"
+  },
+  "schedule_weekends": {
+    "message": "Выходные"
+  },
+  "schedule_day_overlap": {
+    "message": "Каждый день можно использовать только один раз."
+  }
 }

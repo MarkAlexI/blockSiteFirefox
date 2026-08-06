@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Blokator stranica" },
-  "shortname": { "message": "Blokator" },
-  "description": { "message": "Jednostavan i pouzdan alat za blokiranje i preusmjeravanje web stranica kako biste ostali fokusirani." },
-  "defaulttitle": { "message": "Ostanite fokusirani i produktivni" },
-  "header": { "message": "Blokator stranica" },
-  "paragraph": { "message": "Da biste blokirali web stranicu ili resurs, unesite dio njenog imena u polje s tekstom 'Unesite URL za blokiranje' – na primjer, 'facebook' će blokirati sve povezane poddomene. U polje s tekstom 'Unesite URL za preusmjeravanje' unesite punu adresu za preusmjeravanje uključujući protokol, npr. 'https://google.com'. Ako polje za preusmjeravanje ostane prazno, stranica će biti blokirana bez preusmjeravanja. Kliknite gumb Spremi za primjenu pravila. Za ažuriranje pravila, obrišite staro i stvorite novo." },
-  "addrule": { "message": "Dodaj novo pravilo" },
-  "blockurl": { "message": "Unesite URL za blokiranje" },
-  "redirecturl": { "message": "Unesite URL za preusmjeravanje (opcionalno)" },
-  "redirecturlheader": { "message": "URL za preusmjeravanje" },
-  "redirecturlplaceholder": { "message": "Neobavezno - ostavite prazno za blokiranje" },
-  "redirecturlhint": { "message": "Unesite puni URL uključujući https://" },
-  "mobilecopylinkhint": { "message": "Da biste blokirali poveznicu, kopirajte njezinu adresu i zalijepite je u polje za blokiranje." },
-  "savebtn": { "message": "Spremi" },
-  "deletebtn": { "message": "Izbriši" },
-  "alertruleexist": { "message": "Pravilo već postoji" },
+  "chromename": {
+    "message": "BlockDistraction – Blokator stranica"
+  },
+  "shortname": {
+    "message": "Blokator"
+  },
+  "description": {
+    "message": "Jednostavan i pouzdan alat za blokiranje i preusmjeravanje web stranica kako biste ostali fokusirani."
+  },
+  "defaulttitle": {
+    "message": "Ostanite fokusirani i produktivni"
+  },
+  "header": {
+    "message": "Blokator stranica"
+  },
+  "paragraph": {
+    "message": "Da biste blokirali web stranicu ili resurs, unesite dio njenog imena u polje s tekstom 'Unesite URL za blokiranje' – na primjer, 'facebook' će blokirati sve povezane poddomene. U polje s tekstom 'Unesite URL za preusmjeravanje' unesite punu adresu za preusmjeravanje uključujući protokol, npr. 'https://google.com'. Ako polje za preusmjeravanje ostane prazno, stranica će biti blokirana bez preusmjeravanja. Kliknite gumb Spremi za primjenu pravila. Za ažuriranje pravila, obrišite staro i stvorite novo."
+  },
+  "addrule": {
+    "message": "Dodaj novo pravilo"
+  },
+  "blockurl": {
+    "message": "Unesite URL za blokiranje"
+  },
+  "redirecturl": {
+    "message": "Unesite URL za preusmjeravanje (opcionalno)"
+  },
+  "redirecturlheader": {
+    "message": "URL za preusmjeravanje"
+  },
+  "redirecturlplaceholder": {
+    "message": "Neobavezno - ostavite prazno za blokiranje"
+  },
+  "redirecturlhint": {
+    "message": "Unesite puni URL uključujući https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Da biste blokirali poveznicu, kopirajte njezinu adresu i zalijepite je u polje za blokiranje."
+  },
+  "savebtn": {
+    "message": "Spremi"
+  },
+  "deletebtn": {
+    "message": "Izbriši"
+  },
+  "alertruleexist": {
+    "message": "Pravilo već postoji"
+  },
   "savedrules": {
     "message": "Spremljeno $ruleslength$ pravilo(a)",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Ovaj resurs nije moguće blokirati." },
-  "wrongblockurl": { "message": "Nevažeći URL za blokiranje" },
-  "wrongredirecturl": { "message": "Nevažeći URL preusmjeravanja" },
-  "blockthat": { "message": "Blokiraj ovu stranicu" },
-  "sendfeedbackbutton": { "message": "Pošalji povratnu informaciju" },
-  "sendfeedbacksubject": { "message": "Povratna informacija za BlockDistraction" },
-  "sendfeedbackbody": { "message": "Pozdrav, želim podijeliti sljedeću povratnu informaciju:\n\n" },
-  "quote1": { "message": "Ostanite fokusirani, ostanite snažni." },
-  "quote2": { "message": "Vaša budućnost stvara se onim što radite danas." },
-  "quote3": { "message": "Disciplina je most između ciljeva i uspjeha." },
-  "quote4": { "message": "Jedna blokirana stranica, jedan korak bliže cilju." },
-  "quote5": { "message": "Učinite da svaki klik vrijedi." },
-  "quote6": { "message": "Ne gledajte na sat; radite kao on. Nastavite." },
-  "quote7": { "message": "Mali koraci svaki dan vode do velikih rezultata." },
-  "quote8": { "message": "Vaše jedino ograničenje je vaš um." },
-  "quote9": { "message": "Uspjeh je zbroj malih svakodnevnih napora." },
-  "quote10": { "message": "Usredotočite se na produktivnost, a ne na zauzetost." },
-  "quote11": { "message": "Štiti svoju pažnju – to je tvoja najvrednija imovina." },
-  "quote12": { "message": "Svaka blokirana distrakcija je ponovno osvojeno vrijeme." },
-  "quote13": { "message": "Smanji buku; povećaj svoju produktivnost." },
-  "quote14": { "message": "Male rutine grade nezaustavljivu dinamiku." },
-  "quote15": { "message": "Jasnoća nadmašuje kaos – usredotoči se na ono što je važno." },
-  "quote16": { "message": "Reci ne distrakcijama; reci da napretku." },
-  "quote17": { "message": "Jedan fokusirani sat danas umnožava tvoje rezultate sutra." },
-  "quote18": { "message": "Stvori više konzumirajući manje." },
-  "quote19": { "message": "Disciplina bira dugoročne pobjede umjesto kratkotrajnih impulsa." },
-  "quote20": { "message": "Zatvori karticu, otvori prostor za nove ideje." },
-  "quote21": { "message": "Posao koji danas izbjegavaš može postati sutrašnji stres." },
-  "quote22": { "message": "Fokus nije raditi više, nego raditi ono što je zaista važno." },
-  "quote23": { "message": "Tvoji ciljevi zaslužuju više pažnje nego tvoje distrakcije." },
-  "quote24": { "message": "Svaka minuta bez distrakcija je ulaganje u sebe." },
-  "quote25": { "message": "Dosljednost donosi dugotrajnije rezultate od kratkih naleta motivacije." },
-  "quote26": { "message": "Najbolje vrijeme za početak bilo je jučer. Sljedeće najbolje je sada." },
-  "quote27": { "message": "Napredak počinje kada izabereš djelovanje umjesto distrakcije." },
-  "quote28": { "message": "Jedan trenutak fokusa može promijeniti tijek tvog dana." },
-  "quote29": { "message": "Ne treba ti više vremena, nego manje distrakcija." },
-  "quote30": { "message": "Svaki izbor da ostaneš fokusiran jača tvoje buduće ja." },
-  "quote31": { "message": "Ova blokada je privremena; tvoji ciljevi su dugoročni." },
-  "quote32": { "message": "Svaka blokirana distrakcija je pobjeda za tvoje buduće ja." },
-  "quote33": { "message": "Internet je beskonačan, ali tvoje vrijeme nije." },
-  "quote34": { "message": "Postavi prioritete prije nego što ih web postavi za tebe." },
-  "quote35": { "message": "Manje skrolanja, više stvaranja." },
-  "quote36": { "message": "Tvoja pažnja oblikuje tvoje uspjehe." },
-  "quote37": { "message": "Ostani fokusiran — distrakcija može pričekati." },
-  "quote38": { "message": "Svaka produktivna odluka počinje fokusiranim umom." },
-  "quote39": { "message": "Blokirao si web stranicu, ne svoj potencijal." },
-  "quote40": { "message": "Put do uspjeha izgrađen je fokusiranim odlukama." },
-  "actionsheader": { "message": "Akcije" },
-  "norules": { "message": "Nema blokiranih stranica." },
-  "editbtn": { "message": "Uredi" },
-  "ruleddeleted": { "message": "Pravilo izbrisano." },
-  "cancelbtn": { "message": "Otkaži" },
-  "ruleupdated": { "message": "Pravilo ažurirano." },
-  "rulenewadded": { "message": "Novo pravilo dodano." },
-  "gotooptions": { "message": "Idi na stranicu opcija ⚙️" },
-  "gotopopup": { "message": "Kliknite ikonu proširenja za povratak na skočni prozor." },
-  "rulesmigrated": { "message": "Pravila ažurirana za kompatibilnost" },
-  "errorupdatingrules": { "message": "Pogreška pri ažuriranju pravila" },
-  "erroraddingrule": { "message": "Pogreška pri dodavanju pravila" },
-  "errorremovingrule": { "message": "Pogreška pri uklanjanju pravila" },
-  "optionsheader": { "message": "Postavke proširenja" },
-  "optionsdescription": { "message": "Konfigurirajte ponašanje proširenja i sigurnosne postavke" },
-  "securitymodetitle": { "message": "Sigurnosni način" },
-  "normalmodetitle": { "message": "Normalni način" },
-  "normalmodedesc": { "message": "Pravila se mogu odmah izbrisati jednim klikom" },
-  "strictmodetitle": { "message": "Strogi način" },
-  "strictmodedesc": { "message": "Brisanje pravila zahtijeva 10-sekundno odbrojavanje kako bi se spriječilo slučajno uklanjanje" },
-  "confirmdeletetitle": { "message": "Potvrdi prije brisanja više pravila" },
-  "confirmdeletedesc": { "message": "Prikaži dijalog za potvrdu pri brisanju više pravila odjednom" },
-  "notificationstitle": { "message": "Prikaži obavijesti" },
-  "notificationsdesc": { "message": "Prikaži obavijesti kada se proširenje ažurira" },
-  "rulesmanagementtitle": { "message": "Upravljanje pravilima" },
-  "exportrulesbtn": { "message": "Izvezi pravila" },
-  "importrulesbtn": { "message": "Uvezi pravila" },
-  "clearallrulesbtn": { "message": "Izbriši sva pravila" },
-  "totalruleslabel": { "message": "Ukupno pravila" },
-  "blockedtodaylabel": { "message": "Blokirano danas" },
-  "totalblockedlabel": { "message": "Ukupno blokirano" },
-  "resetsettingsbtn": { "message": "Vrati na zadane postavke" },
-  "backtopopup": { "message": "Povratak na glavni izbornik" },
-  "errorloadingsettings": { "message": "Pogreška pri učitavanju postavki" },
-  "settingssaved": { "message": "Postavke su uspješno spremljene!" },
-  "errorsavingsettings": { "message": "Pogreška pri spremanju postavki" },
-  "rulesexported": { "message": "Pravila su uspješno izvezena!" },
-  "errorexportingrules": { "message": "Pogreška pri izvozu pravila" },
+  "restrictedblockurl": {
+    "message": "Ovaj resurs nije moguće blokirati."
+  },
+  "wrongblockurl": {
+    "message": "Nevažeći URL za blokiranje"
+  },
+  "wrongredirecturl": {
+    "message": "Nevažeći URL preusmjeravanja"
+  },
+  "blockthat": {
+    "message": "Blokiraj ovu stranicu"
+  },
+  "sendfeedbackbutton": {
+    "message": "Pošalji povratnu informaciju"
+  },
+  "sendfeedbacksubject": {
+    "message": "Povratna informacija za BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Pozdrav, želim podijeliti sljedeću povratnu informaciju:\n\n"
+  },
+  "quote1": {
+    "message": "Ostanite fokusirani, ostanite snažni."
+  },
+  "quote2": {
+    "message": "Vaša budućnost stvara se onim što radite danas."
+  },
+  "quote3": {
+    "message": "Disciplina je most između ciljeva i uspjeha."
+  },
+  "quote4": {
+    "message": "Jedna blokirana stranica, jedan korak bliže cilju."
+  },
+  "quote5": {
+    "message": "Učinite da svaki klik vrijedi."
+  },
+  "quote6": {
+    "message": "Ne gledajte na sat; radite kao on. Nastavite."
+  },
+  "quote7": {
+    "message": "Mali koraci svaki dan vode do velikih rezultata."
+  },
+  "quote8": {
+    "message": "Vaše jedino ograničenje je vaš um."
+  },
+  "quote9": {
+    "message": "Uspjeh je zbroj malih svakodnevnih napora."
+  },
+  "quote10": {
+    "message": "Usredotočite se na produktivnost, a ne na zauzetost."
+  },
+  "quote11": {
+    "message": "Štiti svoju pažnju – to je tvoja najvrednija imovina."
+  },
+  "quote12": {
+    "message": "Svaka blokirana distrakcija je ponovno osvojeno vrijeme."
+  },
+  "quote13": {
+    "message": "Smanji buku; povećaj svoju produktivnost."
+  },
+  "quote14": {
+    "message": "Male rutine grade nezaustavljivu dinamiku."
+  },
+  "quote15": {
+    "message": "Jasnoća nadmašuje kaos – usredotoči se na ono što je važno."
+  },
+  "quote16": {
+    "message": "Reci ne distrakcijama; reci da napretku."
+  },
+  "quote17": {
+    "message": "Jedan fokusirani sat danas umnožava tvoje rezultate sutra."
+  },
+  "quote18": {
+    "message": "Stvori više konzumirajući manje."
+  },
+  "quote19": {
+    "message": "Disciplina bira dugoročne pobjede umjesto kratkotrajnih impulsa."
+  },
+  "quote20": {
+    "message": "Zatvori karticu, otvori prostor za nove ideje."
+  },
+  "quote21": {
+    "message": "Posao koji danas izbjegavaš može postati sutrašnji stres."
+  },
+  "quote22": {
+    "message": "Fokus nije raditi više, nego raditi ono što je zaista važno."
+  },
+  "quote23": {
+    "message": "Tvoji ciljevi zaslužuju više pažnje nego tvoje distrakcije."
+  },
+  "quote24": {
+    "message": "Svaka minuta bez distrakcija je ulaganje u sebe."
+  },
+  "quote25": {
+    "message": "Dosljednost donosi dugotrajnije rezultate od kratkih naleta motivacije."
+  },
+  "quote26": {
+    "message": "Najbolje vrijeme za početak bilo je jučer. Sljedeće najbolje je sada."
+  },
+  "quote27": {
+    "message": "Napredak počinje kada izabereš djelovanje umjesto distrakcije."
+  },
+  "quote28": {
+    "message": "Jedan trenutak fokusa može promijeniti tijek tvog dana."
+  },
+  "quote29": {
+    "message": "Ne treba ti više vremena, nego manje distrakcija."
+  },
+  "quote30": {
+    "message": "Svaki izbor da ostaneš fokusiran jača tvoje buduće ja."
+  },
+  "quote31": {
+    "message": "Ova blokada je privremena; tvoji ciljevi su dugoročni."
+  },
+  "quote32": {
+    "message": "Svaka blokirana distrakcija je pobjeda za tvoje buduće ja."
+  },
+  "quote33": {
+    "message": "Internet je beskonačan, ali tvoje vrijeme nije."
+  },
+  "quote34": {
+    "message": "Postavi prioritete prije nego što ih web postavi za tebe."
+  },
+  "quote35": {
+    "message": "Manje skrolanja, više stvaranja."
+  },
+  "quote36": {
+    "message": "Tvoja pažnja oblikuje tvoje uspjehe."
+  },
+  "quote37": {
+    "message": "Ostani fokusiran — distrakcija može pričekati."
+  },
+  "quote38": {
+    "message": "Svaka produktivna odluka počinje fokusiranim umom."
+  },
+  "quote39": {
+    "message": "Blokirao si web stranicu, ne svoj potencijal."
+  },
+  "quote40": {
+    "message": "Put do uspjeha izgrađen je fokusiranim odlukama."
+  },
+  "actionsheader": {
+    "message": "Akcije"
+  },
+  "norules": {
+    "message": "Nema blokiranih stranica."
+  },
+  "editbtn": {
+    "message": "Uredi"
+  },
+  "ruleddeleted": {
+    "message": "Pravilo izbrisano."
+  },
+  "cancelbtn": {
+    "message": "Otkaži"
+  },
+  "ruleupdated": {
+    "message": "Pravilo ažurirano."
+  },
+  "rulenewadded": {
+    "message": "Novo pravilo dodano."
+  },
+  "gotooptions": {
+    "message": "Idi na stranicu opcija ⚙️"
+  },
+  "gotopopup": {
+    "message": "Kliknite ikonu proširenja za povratak na skočni prozor."
+  },
+  "rulesmigrated": {
+    "message": "Pravila ažurirana za kompatibilnost"
+  },
+  "errorupdatingrules": {
+    "message": "Pogreška pri ažuriranju pravila"
+  },
+  "erroraddingrule": {
+    "message": "Pogreška pri dodavanju pravila"
+  },
+  "errorremovingrule": {
+    "message": "Pogreška pri uklanjanju pravila"
+  },
+  "optionsheader": {
+    "message": "Postavke proširenja"
+  },
+  "optionsdescription": {
+    "message": "Konfigurirajte ponašanje proširenja i sigurnosne postavke"
+  },
+  "securitymodetitle": {
+    "message": "Sigurnosni način"
+  },
+  "normalmodetitle": {
+    "message": "Normalni način"
+  },
+  "normalmodedesc": {
+    "message": "Pravila se mogu odmah izbrisati jednim klikom"
+  },
+  "strictmodetitle": {
+    "message": "Strogi način"
+  },
+  "strictmodedesc": {
+    "message": "Brisanje pravila zahtijeva 10-sekundno odbrojavanje kako bi se spriječilo slučajno uklanjanje"
+  },
+  "confirmdeletetitle": {
+    "message": "Potvrdi prije brisanja više pravila"
+  },
+  "confirmdeletedesc": {
+    "message": "Prikaži dijalog za potvrdu pri brisanju više pravila odjednom"
+  },
+  "notificationstitle": {
+    "message": "Prikaži obavijesti"
+  },
+  "notificationsdesc": {
+    "message": "Prikaži obavijesti kada se proširenje ažurira"
+  },
+  "rulesmanagementtitle": {
+    "message": "Upravljanje pravilima"
+  },
+  "exportrulesbtn": {
+    "message": "Izvezi pravila"
+  },
+  "importrulesbtn": {
+    "message": "Uvezi pravila"
+  },
+  "clearallrulesbtn": {
+    "message": "Izbriši sva pravila"
+  },
+  "totalruleslabel": {
+    "message": "Ukupno pravila"
+  },
+  "blockedtodaylabel": {
+    "message": "Blokirano danas"
+  },
+  "totalblockedlabel": {
+    "message": "Ukupno blokirano"
+  },
+  "resetsettingsbtn": {
+    "message": "Vrati na zadane postavke"
+  },
+  "backtopopup": {
+    "message": "Povratak na glavni izbornik"
+  },
+  "errorloadingsettings": {
+    "message": "Pogreška pri učitavanju postavki"
+  },
+  "settingssaved": {
+    "message": "Postavke su uspješno spremljene!"
+  },
+  "errorsavingsettings": {
+    "message": "Pogreška pri spremanju postavki"
+  },
+  "rulesexported": {
+    "message": "Pravila su uspješno izvezena!"
+  },
+  "errorexportingrules": {
+    "message": "Pogreška pri izvozu pravila"
+  },
   "willimportrules": {
     "message": "$ruleslength$ pravila će biti uvezena.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Trenutna pravila bit će zamijenjena. Nastaviti?" },
+  "ruleswillbereplaced": {
+    "message": "Trenutna pravila bit će zamijenjena. Nastaviti?"
+  },
   "importedrules": {
     "message": "$ruleslength$ pravila su uspješno uvezena!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Pogreška pri uvozu pravila: " },
-  "norulestoclear": { "message": "Nema pravila za brisanje" },
+  "errorimportingrules": {
+    "message": "Pogreška pri uvozu pravila: "
+  },
+  "norulestoclear": {
+    "message": "Nema pravila za brisanje"
+  },
   "willdeleteallrules": {
     "message": "Ovo će trajno izbrisati svih $rulescount$ pravila.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Ova akcija se ne može opozvati. Nastaviti?" },
-  "allrulescleared": { "message": "Sva pravila su uspješno izbrisana!" },
-  "errorclearingrules": { "message": "Pogreška pri brisanju pravila" },
-  "willreset": { "message": "Sve postavke će se vratiti na zadane vrijednosti. Nastaviti?" },
-  "resettodefaults": { "message": "Postavke su vraćene na zadane vrijednosti!" },
-  "errorresettingsettings": { "message": "Pogreška pri vraćanju postavki" },
-  "basicsettingstitle": { "message": "Osnovne postavke" },
-  "advancedsettingstitle": { "message": "Napredne postavke" },
-  "statisticstitle": { "message": "Statistike" },
+  "cannotbeundone": {
+    "message": "Ova akcija se ne može opozvati. Nastaviti?"
+  },
+  "allrulescleared": {
+    "message": "Sva pravila su uspješno izbrisana!"
+  },
+  "errorclearingrules": {
+    "message": "Pogreška pri brisanju pravila"
+  },
+  "willreset": {
+    "message": "Sve postavke će se vratiti na zadane vrijednosti. Nastaviti?"
+  },
+  "resettodefaults": {
+    "message": "Postavke su vraćene na zadane vrijednosti!"
+  },
+  "errorresettingsettings": {
+    "message": "Pogreška pri vraćanju postavki"
+  },
+  "basicsettingstitle": {
+    "message": "Osnovne postavke"
+  },
+  "advancedsettingstitle": {
+    "message": "Napredne postavke"
+  },
+  "statisticstitle": {
+    "message": "Statistike"
+  },
   "rulelimitreached": {
     "message": "Dosegli ste ograničenje pravila ($limit$) za osnovnu verziju. Nadogradite na Pro za neograničena pravila.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro je potreban za uređivanje." },
-  "invalidpassword": { "message": "Nevažeća lozinka" },
-  "setpassword": { "message": "Postavi lozinku" },
-  "enterpassword": { "message": "Unesi lozinku" },
-  "passwordmismatch": { "message": "Lozinke se ne podudaraju" },
-  "passwordtooshort": { "message": "Lozinka mora imati najmanje 6 znakova" },
-  "resetpasswordconfirm": { "message": "Poništavanje lozinke će onemogućiti zaštitu. Nastaviti?" },
-  "passwordset": { "message": "Lozinka uspješno postavljena" },
-  "passworddisabled": { "message": "Zaštita lozinkom onemogućena" },
-  "prorequired": { "message": "Pro način rada potreban je za ovu značajku" },
-  "enablepasswordtitle": { "message": "Omogući zaštitu lozinkom" },
-  "enablepassworddesc": { "message": "Zahtijeva lozinku za brisanje ili uređivanje pravila (poboljšava strogi način rada)" },
-  "passwordprotectiontitle": { "message": "Zaštita lozinkom" },
-  "scheduleheader": { "message": "Raspored" },
-  "enableschedule": { "message": "Omogući raspored" },
-  "alwaysactive": { "message": "Uvijek aktivno" },
-  "profeatureschedule": { "message": "Raspored je dostupan u Pro verziji" },
-  "days": { "message": "Dani" },
-  "starttime": { "message": "Vrijeme početka:" },
-  "endtime": { "message": "Vrijeme završetka:" },
-  "invaliddays": { "message": "Odabrani dani nisu valjani" },
-  "invalidtimeformat": { "message": "Neispravan format vremena (koristite HH:MM)" },
-  "startafterend": { "message": "Vrijeme početka mora biti prije vremena završetka" },
-  "invalidschedule": { "message": "Neispravan raspored: odaberite dane i vrijeme." },
-  "invalidscheduledays": { "message": "Neispravan raspored: odaberite barem jedan dan." },
-  "invalidschedulestarttime": { "message": "Neispravan raspored: postavite vrijeme početka." },
-  "invalidscheduleendtime": { "message": "Neispravan raspored: postavite vrijeme završetka." },
-  "editdisablednonpro": { "message": "Uređivanje onemogućeno: previše pravila za korisnike bez Pro." },
-  "errorloadingstatus": { "message": "Pogreška pri učitavanju statusa korisnika." },
-  "schedule_day_sun": { "message": "Ned" },
-  "schedule_day_mon": { "message": "Pon" },
-  "schedule_day_tue": { "message": "Uto" },
-  "schedule_day_wed": { "message": "Sri" },
-  "schedule_day_thu": { "message": "Čet" },
-  "schedule_day_fri": { "message": "Pet" },
-  "schedule_day_sat": { "message": "Sub" },
-  "category_header": { "message": "Kategorija" },
-  "category_required": { "message": "Kategorija je obavezna" },
-  "allcategories": { "message": "Sve kategorije" },
-  "category_social": { "message": "Društveni mediji" },
-  "category_news": { "message": "Novosti" },
-  "category_entertainment": { "message": "Zabava" },
-  "category_shopping": { "message": "Kupovina" },
-  "category_work": { "message": "Rad" },
-  "category_gaming": { "message": "Igre" },
-  "category_adult": { "message": "Sadržaj za odrasle" },
-  "category_uncategorized": { "message": "Nekategorizirano" },
-  "searchfordomain": { "message": "Pretraži naziv domene" },
-  "norulesforcategory": { "message": "Nema blokiranih stranica za ovu kategoriju." },
-  "getpro": { "message": "Nabavite Pro" },
-  "profunctionstext": { "message": "Pro značajke uključuju: blokiranje po rasporedu, zaštitu lozinkom, filtriranje pravila i izvoz/uvoz pravila. Uživajte u našoj Univerzalnoj licenci: jedna pretplata otključava Pro na svim vašim preglednicima (Chrome, Firefox, Edge, Kiwi). Za aktivaciju, kupite pretplatu na blockdistraction.com, zatim kopirajte svoj licencni ključ s nadzorne ploče računa i zalijepite ga dolje." },
-  "upgradenow": { "message": "Nadogradi sada" },
-  "enteremail": { "message": "Unesite svoju e-poštu" },
-  "activatepro": { "message": "Aktiviraj Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Vrati pristup" },
-  "pleaseenteremail": { "message": "Molimo unesite svoju e-poštu" },
-  "checking": { "message": "Provjera..." },
-  "proactivated": { "message": "Pro značajke aktivirane!" },
-  "subscriptionnotfound": { "message": "Pretplata nije aktivna ili e-pošta nije pronađena." },
-  "servererror": { "message": "Pogreška poslužitelja. Pokušajte ponovno." },
-  "proactivatedfor": { "message": "Pro aktiviran za" },
+  "proonlyactions": {
+    "message": "Pro je potreban za uređivanje."
+  },
+  "invalidpassword": {
+    "message": "Nevažeća lozinka"
+  },
+  "setpassword": {
+    "message": "Postavi lozinku"
+  },
+  "enterpassword": {
+    "message": "Unesi lozinku"
+  },
+  "passwordmismatch": {
+    "message": "Lozinke se ne podudaraju"
+  },
+  "passwordtooshort": {
+    "message": "Lozinka mora imati najmanje 6 znakova"
+  },
+  "resetpasswordconfirm": {
+    "message": "Poništavanje lozinke će onemogućiti zaštitu. Nastaviti?"
+  },
+  "passwordset": {
+    "message": "Lozinka uspješno postavljena"
+  },
+  "passworddisabled": {
+    "message": "Zaštita lozinkom onemogućena"
+  },
+  "prorequired": {
+    "message": "Pro način rada potreban je za ovu značajku"
+  },
+  "enablepasswordtitle": {
+    "message": "Omogući zaštitu lozinkom"
+  },
+  "enablepassworddesc": {
+    "message": "Zahtijeva lozinku za brisanje ili uređivanje pravila (poboljšava strogi način rada)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Zaštita lozinkom"
+  },
+  "scheduleheader": {
+    "message": "Raspored"
+  },
+  "enableschedule": {
+    "message": "Omogući raspored"
+  },
+  "alwaysactive": {
+    "message": "Uvijek aktivno"
+  },
+  "profeatureschedule": {
+    "message": "Raspored je dostupan u Pro verziji"
+  },
+  "days": {
+    "message": "Dani"
+  },
+  "starttime": {
+    "message": "Vrijeme početka:"
+  },
+  "endtime": {
+    "message": "Vrijeme završetka:"
+  },
+  "invaliddays": {
+    "message": "Odabrani dani nisu valjani"
+  },
+  "invalidtimeformat": {
+    "message": "Neispravan format vremena (koristite HH:MM)"
+  },
+  "startafterend": {
+    "message": "Vrijeme početka mora biti prije vremena završetka"
+  },
+  "invalidschedule": {
+    "message": "Neispravan raspored: odaberite dane i vrijeme."
+  },
+  "invalidscheduledays": {
+    "message": "Neispravan raspored: odaberite barem jedan dan."
+  },
+  "invalidschedulestarttime": {
+    "message": "Neispravan raspored: postavite vrijeme početka."
+  },
+  "invalidscheduleendtime": {
+    "message": "Neispravan raspored: postavite vrijeme završetka."
+  },
+  "editdisablednonpro": {
+    "message": "Uređivanje onemogućeno: previše pravila za korisnike bez Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Pogreška pri učitavanju statusa korisnika."
+  },
+  "schedule_day_sun": {
+    "message": "Ned"
+  },
+  "schedule_day_mon": {
+    "message": "Pon"
+  },
+  "schedule_day_tue": {
+    "message": "Uto"
+  },
+  "schedule_day_wed": {
+    "message": "Sri"
+  },
+  "schedule_day_thu": {
+    "message": "Čet"
+  },
+  "schedule_day_fri": {
+    "message": "Pet"
+  },
+  "schedule_day_sat": {
+    "message": "Sub"
+  },
+  "category_header": {
+    "message": "Kategorija"
+  },
+  "category_required": {
+    "message": "Kategorija je obavezna"
+  },
+  "allcategories": {
+    "message": "Sve kategorije"
+  },
+  "category_social": {
+    "message": "Društveni mediji"
+  },
+  "category_news": {
+    "message": "Novosti"
+  },
+  "category_entertainment": {
+    "message": "Zabava"
+  },
+  "category_shopping": {
+    "message": "Kupovina"
+  },
+  "category_work": {
+    "message": "Rad"
+  },
+  "category_gaming": {
+    "message": "Igre"
+  },
+  "category_adult": {
+    "message": "Sadržaj za odrasle"
+  },
+  "category_uncategorized": {
+    "message": "Nekategorizirano"
+  },
+  "searchfordomain": {
+    "message": "Pretraži naziv domene"
+  },
+  "norulesforcategory": {
+    "message": "Nema blokiranih stranica za ovu kategoriju."
+  },
+  "getpro": {
+    "message": "Nabavite Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro značajke uključuju: blokiranje po rasporedu, zaštitu lozinkom, filtriranje pravila i izvoz/uvoz pravila. Uživajte u našoj Univerzalnoj licenci: jedna pretplata otključava Pro na svim vašim preglednicima (Chrome, Firefox, Edge, Kiwi). Za aktivaciju, kupite pretplatu na blockdistraction.com, zatim kopirajte svoj licencni ključ s nadzorne ploče računa i zalijepite ga dolje."
+  },
+  "upgradenow": {
+    "message": "Nadogradi sada"
+  },
+  "enteremail": {
+    "message": "Unesite svoju e-poštu"
+  },
+  "activatepro": {
+    "message": "Aktiviraj Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Vrati pristup"
+  },
+  "pleaseenteremail": {
+    "message": "Molimo unesite svoju e-poštu"
+  },
+  "checking": {
+    "message": "Provjera..."
+  },
+  "proactivated": {
+    "message": "Pro značajke aktivirane!"
+  },
+  "subscriptionnotfound": {
+    "message": "Pretplata nije aktivna ili e-pošta nije pronađena."
+  },
+  "servererror": {
+    "message": "Pogreška poslužitelja. Pokušajte ponovno."
+  },
+  "proactivatedfor": {
+    "message": "Pro aktiviran za"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Zahtjev za dozvolom nije uspio (može se dogoditi na mobilnim uređajima). Pokušajte ponovno ili ručno dodijelite dozvolu iz postavki."
   },
-  "pastekeylabel": { "message": "Zalijepite svoj licencni ključ ovdje:" },
-  "confirmclearstats": { "message": "Jeste li sigurni da želite izbrisati sve statistike? Ova radnja se ne može poništiti." },
-  "statscleared": { "message": "Statistike su uspješno izbrisane." },
-  "redirectstodaylabel": { "message": "Preusmjeravanja danas" },
-  "totalredirectslabel": { "message": "Ukupno preusmjeravanja" },
-  "logout": { "message": "Odjava" },
-  "loggedoutsuccess": { "message": "Uspješno ste se odjavili." },
-  "loggedouterror": { "message": "Došlo je do pogreške prilikom odjave." },
-  "forcesync": { "message": "Prisilna sinkronizacija / Provjeri status" },
-  "forgotpasswordinstructions": { "message": "Za poništavanje lozinke idite na odjeljak 'Pro', kliknite 'Odjava', a zatim ponovno aktivirajte tako da zalijepite svoj licencni ključ." },
-  "blockedtitle": { "message": "Stranica nije dostupna" },
-  "blockedheader": { "message": "Ova stranica trenutno nije dostupna" },
-  "blockedtext": { "message": "Ovaj sadržaj se ne može prikazati." },
-  "blockedbutton": { "message": "Zatvori karticu" },
-  "confirmpassword": { "message": "Potvrdite lozinku" },
-  "modalconfirm": { "message": "Potvrdi" },
-  "modalcancel": { "message": "Odustani" },
-  "forgotpassword": { "message": "Zaboravili ste lozinku? Poništi (uklonit će zaštitu)" },
-  "prounlocked": { "message": "Hvala na vašoj podršci! Sve Pro značajke su otključane." },
-  "licensesynced": { "message": "Vaša licenca je sinkronizirana s vašim računom. Ako izgubite pristup, možete vratiti svoj ključ s: " },
-  "syncing": { "message": "Sinkronizacija u tijeku..." },
-  "pleaseenterkey": { "message": "Molimo unesite ključ." },
-  "syncsuccess": { "message": "Sinkronizacija uspješna" },
-  "syncfailed": { "message": "Sinkronizacija nije uspjela." },
-  "passwordreset": { "message": "Zaštita lozinkom je resetirana." },
-  "privacysecured": { "message": "Privatnost osigurana" },
-  "errorinvalidfiletype": { "message": "Molimo odaberite .json datoteku" },
-  "debugsettingstitle": { "message": "Postavke za ispravljanje pogrešaka" },
-  "enabledebugtitle": { "message": "Omogući način ispravljanja pogrešaka" },
-  "enabledebugdesc": { "message": "Omogući detaljno zapisivanje u konzolu za otklanjanje problema" },
-  "errorcommunication": { "message": "Pogreška pri komunikaciji s pozadinskom uslugom" },
-  "clearstats": { "message": "Obriši statistiku" },
-  "rule_enabled": { "message": "Omogućeno" },
-  "rule_disabled": { "message": "Onemogućeno" },
-  "filter_only_hint": { "message": "Ovaj popis samo filtrira prikaz u tablici" },
-  "category_disabled_desc": { "message": "Utišajte kategoriju kako biste privremeno omogućili pristup svim njezinim web stranicama. Postavke pojedinačnih pravila ostaju sačuvane." },
-  "toggle_category_blocking": { "message": "Uključi ili isključi blokiranje za cijelu kategoriju" },
-  "category_muted_no_edit": { "message": "Upravljanje nije moguće: blokiranje kategorije je pauzirano" },
-  "feedback_title": { "message": "Sviđa li vam se BlockDistraction?" },
-  "feedback_desc": { "message": "Vaše povratne informacije nam puno pomažu u poboljšanju proširenja." },
-  "feedback_like": { "message": "Da, radi odlično!" },
-  "feedback_dislike": { "message": "Imam problema / prijedloga" },
-  "trialproheader": { "message": "Isprobajte 7 dana besplatno" },
-  "trialprotext": { "message": "Otkazivanje bilo kada. Vaša plaćanja su sigurna." },
-  "focussessionheader": { "message": "Sesija fokusiranja" },
-  "focussessionstart": { "message": "Pokreni" },
-  "focussessionstop": { "message": "Zaustavi" },
-  "focussessionduration": { "message": "Trajanje (min):" },
-  "focussessioninfo": { "message": "Aktivira sva vaša pravila blokiranja na određeno vrijeme, zanemarujući njihove trenutne postavke i rasporede. Za maksimalnu koncentraciju." },
-  "focussessionprofeature": { "message": "Prilagođeno trajanje i Hardcore način rada su Pro značajke." },
-  "focussessionended": { "message": "Sesija fokusiranja je završila! Uzmite pauzu." },
-  "focussessionhardcore": { "message": "Hardcore način rada (bez gumba 'Zaustavi')" },
-  "focussessionsoundtitle": { "message": "Zvučna obavijest sesije fokusiranja" },
-  "focussessionsounddesc": { "message": "Reproduciraj zvuk kada sesija fokusiranja završi." },
-  "focussessionactivebanner": { "message": "Sesija fokusiranja je aktivna! Preostalo vrijeme:" },
-  "focussessioninvalidduration": { "message": "Molimo unesite valjano trajanje (1-240 minuta)." },
-  "successfulfocussessionslabel": { "message": "Uspješne sesije fokusiranja" },
-  "rule_scheduled": { "message": "Zakazano pravilo" },
-  "addwhitelistrule": { "message": "Dodaj iznimku" },
-  "category_whitelist": { "message": "Bijela lista" },
-  "conflict_blacklist_err": { "message": "Ova web-stranica je već na vašoj crnoj listi. Prvo je uklonite." },
-  "conflict_whitelist_err": { "message": "Ova web-stranica je već na vašoj bijeloj listi. Prvo je uklonite." },
-  "status_allow": { "message": "Dopušteno" },
-  "redundant_whitelist_err": { "message": "Ovo pravilo je već pokriveno drugim pravilom bijele liste." },
-  "focussessionmode": { "message": "Način fokusiranja:" },
-  "focusmodeblacklist": { "message": "Blokiraj crnu listu" },
-  "focusmodewhitelist": { "message": "Dopusti samo bijelu listu" }
+  "pastekeylabel": {
+    "message": "Zalijepite svoj licencni ključ ovdje:"
+  },
+  "confirmclearstats": {
+    "message": "Jeste li sigurni da želite izbrisati sve statistike? Ova radnja se ne može poništiti."
+  },
+  "statscleared": {
+    "message": "Statistike su uspješno izbrisane."
+  },
+  "redirectstodaylabel": {
+    "message": "Preusmjeravanja danas"
+  },
+  "totalredirectslabel": {
+    "message": "Ukupno preusmjeravanja"
+  },
+  "logout": {
+    "message": "Odjava"
+  },
+  "loggedoutsuccess": {
+    "message": "Uspješno ste se odjavili."
+  },
+  "loggedouterror": {
+    "message": "Došlo je do pogreške prilikom odjave."
+  },
+  "forcesync": {
+    "message": "Prisilna sinkronizacija / Provjeri status"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Za poništavanje lozinke idite na odjeljak 'Pro', kliknite 'Odjava', a zatim ponovno aktivirajte tako da zalijepite svoj licencni ključ."
+  },
+  "blockedtitle": {
+    "message": "Stranica nije dostupna"
+  },
+  "blockedheader": {
+    "message": "Ova stranica trenutno nije dostupna"
+  },
+  "blockedtext": {
+    "message": "Ovaj sadržaj se ne može prikazati."
+  },
+  "blockedbutton": {
+    "message": "Zatvori karticu"
+  },
+  "confirmpassword": {
+    "message": "Potvrdite lozinku"
+  },
+  "modalconfirm": {
+    "message": "Potvrdi"
+  },
+  "modalcancel": {
+    "message": "Odustani"
+  },
+  "forgotpassword": {
+    "message": "Zaboravili ste lozinku? Poništi (uklonit će zaštitu)"
+  },
+  "prounlocked": {
+    "message": "Hvala na vašoj podršci! Sve Pro značajke su otključane."
+  },
+  "licensesynced": {
+    "message": "Vaša licenca je sinkronizirana s vašim računom. Ako izgubite pristup, možete vratiti svoj ključ s: "
+  },
+  "syncing": {
+    "message": "Sinkronizacija u tijeku..."
+  },
+  "pleaseenterkey": {
+    "message": "Molimo unesite ključ."
+  },
+  "syncsuccess": {
+    "message": "Sinkronizacija uspješna"
+  },
+  "syncfailed": {
+    "message": "Sinkronizacija nije uspjela."
+  },
+  "passwordreset": {
+    "message": "Zaštita lozinkom je resetirana."
+  },
+  "privacysecured": {
+    "message": "Privatnost osigurana"
+  },
+  "errorinvalidfiletype": {
+    "message": "Molimo odaberite .json datoteku"
+  },
+  "debugsettingstitle": {
+    "message": "Postavke za ispravljanje pogrešaka"
+  },
+  "enabledebugtitle": {
+    "message": "Omogući način ispravljanja pogrešaka"
+  },
+  "enabledebugdesc": {
+    "message": "Omogući detaljno zapisivanje u konzolu za otklanjanje problema"
+  },
+  "errorcommunication": {
+    "message": "Pogreška pri komunikaciji s pozadinskom uslugom"
+  },
+  "clearstats": {
+    "message": "Obriši statistiku"
+  },
+  "rule_enabled": {
+    "message": "Omogućeno"
+  },
+  "rule_disabled": {
+    "message": "Onemogućeno"
+  },
+  "filter_only_hint": {
+    "message": "Ovaj popis samo filtrira prikaz u tablici"
+  },
+  "category_disabled_desc": {
+    "message": "Utišajte kategoriju kako biste privremeno omogućili pristup svim njezinim web stranicama. Postavke pojedinačnih pravila ostaju sačuvane."
+  },
+  "toggle_category_blocking": {
+    "message": "Uključi ili isključi blokiranje za cijelu kategoriju"
+  },
+  "category_muted_no_edit": {
+    "message": "Upravljanje nije moguće: blokiranje kategorije je pauzirano"
+  },
+  "feedback_title": {
+    "message": "Sviđa li vam se BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Vaše povratne informacije nam puno pomažu u poboljšanju proširenja."
+  },
+  "feedback_like": {
+    "message": "Da, radi odlično!"
+  },
+  "feedback_dislike": {
+    "message": "Imam problema / prijedloga"
+  },
+  "trialproheader": {
+    "message": "Isprobajte 7 dana besplatno"
+  },
+  "trialprotext": {
+    "message": "Otkazivanje bilo kada. Vaša plaćanja su sigurna."
+  },
+  "focussessionheader": {
+    "message": "Sesija fokusiranja"
+  },
+  "focussessionstart": {
+    "message": "Pokreni"
+  },
+  "focussessionstop": {
+    "message": "Zaustavi"
+  },
+  "focussessionduration": {
+    "message": "Trajanje (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktivira sva vaša pravila blokiranja na određeno vrijeme, zanemarujući njihove trenutne postavke i rasporede. Za maksimalnu koncentraciju."
+  },
+  "focussessionprofeature": {
+    "message": "Prilagođeno trajanje i Hardcore način rada su Pro značajke."
+  },
+  "focussessionended": {
+    "message": "Sesija fokusiranja je završila! Uzmite pauzu."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore način rada (bez gumba 'Zaustavi')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Zvučna obavijest sesije fokusiranja"
+  },
+  "focussessionsounddesc": {
+    "message": "Reproduciraj zvuk kada sesija fokusiranja završi."
+  },
+  "focussessionactivebanner": {
+    "message": "Sesija fokusiranja je aktivna! Preostalo vrijeme:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Molimo unesite valjano trajanje (1-240 minuta)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Uspješne sesije fokusiranja"
+  },
+  "rule_scheduled": {
+    "message": "Zakazano pravilo"
+  },
+  "addwhitelistrule": {
+    "message": "Dodaj iznimku"
+  },
+  "category_whitelist": {
+    "message": "Bijela lista"
+  },
+  "conflict_blacklist_err": {
+    "message": "Ova web-stranica je već na vašoj crnoj listi. Prvo je uklonite."
+  },
+  "conflict_whitelist_err": {
+    "message": "Ova web-stranica je već na vašoj bijeloj listi. Prvo je uklonite."
+  },
+  "status_allow": {
+    "message": "Dopušteno"
+  },
+  "redundant_whitelist_err": {
+    "message": "Ovo pravilo je već pokriveno drugim pravilom bijele liste."
+  },
+  "focussessionmode": {
+    "message": "Način fokusiranja:"
+  },
+  "focusmodeblacklist": {
+    "message": "Blokiraj crnu listu"
+  },
+  "focusmodewhitelist": {
+    "message": "Dopusti samo bijelu listu"
+  },
+  "schedule_edit": {
+    "message": "Uredi raspored"
+  },
+  "schedule_add_period": {
+    "message": "Dodaj vremensku grupu"
+  },
+  "schedule_remove_period": {
+    "message": "Ukloni"
+  },
+  "schedule_period": {
+    "message": "Vremenska grupa"
+  },
+  "schedule_every_day": {
+    "message": "Svaki dan"
+  },
+  "schedule_weekdays": {
+    "message": "Radni dani"
+  },
+  "schedule_weekends": {
+    "message": "Vikendi"
+  },
+  "schedule_day_overlap": {
+    "message": "Svaki dan može se upotrijebiti samo jednom."
+  }
 }

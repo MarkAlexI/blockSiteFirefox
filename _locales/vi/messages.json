@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Tiện ích chặn trang" },
-  "shortname": { "message": "ChặnTrang" },
-  "description": { "message": "Công cụ đơn giản và đáng tin cậy để chặn và chuyển hướng các trang web, giúp bạn duy trì tập trung." },
-  "defaulttitle": { "message": "Tập trung và năng suất" },
-  "header": { "message": "Trình chặn trang" },
-  "paragraph": { "message": "Để chặn một trang web hoặc tài nguyên, nhập một phần tên của nó vào ô 'Nhập URL cần chặn' – ví dụ, 'facebook' sẽ chặn tất cả các tên miền phụ liên quan. Trong ô 'Nhập URL chuyển hướng', nhập địa chỉ chuyển hướng đầy đủ bao gồm giao thức, ví dụ 'https://google.com'. Nếu ô chuyển hướng để trống, trang sẽ chỉ bị chặn mà không chuyển hướng. Nhấn Lưu để áp dụng quy tắc. Để cập nhật quy tắc, xóa quy tắc cũ và tạo quy tắc mới." },
-  "addrule": { "message": "Thêm quy tắc mới" },
-  "blockurl": { "message": "Nhập URL cần chặn" },
-  "redirecturl": { "message": "Nhập URL chuyển hướng (tùy chọn)" },
-  "redirecturlheader": { "message": "URL chuyển hướng" },
-  "redirecturlplaceholder": { "message": "Không bắt buộc - để trống để chặn" },
-  "redirecturlhint": { "message": "Nhập URL đầy đủ bao gồm https://" },
-  "mobilecopylinkhint": { "message": "Để chặn một liên kết, hãy sao chép địa chỉ của liên kết đó và dán vào trường chặn." },
-  "savebtn": { "message": "Lưu" },
-  "deletebtn": { "message": "Xóa" },
-  "alertruleexist": { "message": "Quy tắc đã tồn tại" },
+  "chromename": {
+    "message": "BlockDistraction – Tiện ích chặn trang"
+  },
+  "shortname": {
+    "message": "ChặnTrang"
+  },
+  "description": {
+    "message": "Công cụ đơn giản và đáng tin cậy để chặn và chuyển hướng các trang web, giúp bạn duy trì tập trung."
+  },
+  "defaulttitle": {
+    "message": "Tập trung và năng suất"
+  },
+  "header": {
+    "message": "Trình chặn trang"
+  },
+  "paragraph": {
+    "message": "Để chặn một trang web hoặc tài nguyên, nhập một phần tên của nó vào ô 'Nhập URL cần chặn' – ví dụ, 'facebook' sẽ chặn tất cả các tên miền phụ liên quan. Trong ô 'Nhập URL chuyển hướng', nhập địa chỉ chuyển hướng đầy đủ bao gồm giao thức, ví dụ 'https://google.com'. Nếu ô chuyển hướng để trống, trang sẽ chỉ bị chặn mà không chuyển hướng. Nhấn Lưu để áp dụng quy tắc. Để cập nhật quy tắc, xóa quy tắc cũ và tạo quy tắc mới."
+  },
+  "addrule": {
+    "message": "Thêm quy tắc mới"
+  },
+  "blockurl": {
+    "message": "Nhập URL cần chặn"
+  },
+  "redirecturl": {
+    "message": "Nhập URL chuyển hướng (tùy chọn)"
+  },
+  "redirecturlheader": {
+    "message": "URL chuyển hướng"
+  },
+  "redirecturlplaceholder": {
+    "message": "Không bắt buộc - để trống để chặn"
+  },
+  "redirecturlhint": {
+    "message": "Nhập URL đầy đủ bao gồm https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Để chặn một liên kết, hãy sao chép địa chỉ của liên kết đó và dán vào trường chặn."
+  },
+  "savebtn": {
+    "message": "Lưu"
+  },
+  "deletebtn": {
+    "message": "Xóa"
+  },
+  "alertruleexist": {
+    "message": "Quy tắc đã tồn tại"
+  },
   "savedrules": {
     "message": "$ruleslength$ quy tắc đã lưu",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Không thể chặn tài nguyên này." },
-  "wrongblockurl": { "message": "URL chặn không hợp lệ" },
-  "wrongredirecturl": { "message": "URL chuyển hướng không hợp lệ" },
-  "blockthat": { "message": "Chặn trang này" },
-  "sendfeedbackbutton": { "message": "Gửi phản hồi" },
-  "sendfeedbacksubject": { "message": "Phản hồi cho BlockDistraction" },
-  "sendfeedbackbody": { "message": "Xin chào! Tôi muốn chia sẻ phản hồi sau:\n\n" },
-  "quote1": { "message": "Tập trung, mạnh mẽ lên." },
-  "quote2": { "message": "Tương lai của bạn được tạo ra từ những gì bạn làm hôm nay." },
-  "quote3": { "message": "Kỷ luật là cây cầu giữa mục tiêu và thành công." },
-  "quote4": { "message": "Một trang bị chặn – một bước gần hơn tới mục tiêu." },
-  "quote5": { "message": "Mỗi cú nhấp chuột đều quan trọng." },
-  "quote6": { "message": "Đừng nhìn đồng hồ; hãy làm như nó làm. Tiếp tục." },
-  "quote7": { "message": "Những bước nhỏ mỗi ngày dẫn đến kết quả lớn." },
-  "quote8": { "message": "Giới hạn duy nhất là tâm trí của bạn." },
-  "quote9": { "message": "Thành công là tổng của những nỗ lực nhỏ lặp đi lặp lại hằng ngày." },
-  "quote10": { "message": "Tập trung vào hiệu quả, không phải bận rộn." },
-  "quote11": { "message": "Bảo vệ sự tập trung của bạn – đó là tài sản quý giá nhất của bạn." },
-  "quote12": { "message": "Mỗi phiền nhiễu bị chặn là thời gian được lấy lại." },
-  "quote13": { "message": "Giảm tiếng ồn; tăng năng suất của bạn." },
-  "quote14": { "message": "Những thói quen nhỏ tạo ra động lực không thể ngăn cản." },
-  "quote15": { "message": "Sự rõ ràng đánh bại hỗn loạn – tập trung vào điều quan trọng." },
-  "quote16": { "message": "Nói không với phiền nhiễu; nói có với tiến bộ." },
-  "quote17": { "message": "Một giờ tập trung hôm nay nhân lên kết quả của bạn vào ngày mai." },
-  "quote18": { "message": "Tạo nhiều hơn bằng cách tiêu thụ ít hơn." },
-  "quote19": { "message": "Kỷ luật chọn chiến thắng dài hạn thay vì xung lực ngắn hạn." },
-  "quote20": { "message": "Đóng một tab, mở không gian cho ý tưởng mới." },
-  "quote21": { "message": "Công việc bạn trì hoãn hôm nay có thể trở thành căng thẳng của ngày mai." },
-  "quote22": { "message": "Tập trung không phải là làm nhiều hơn, mà là làm điều thực sự quan trọng." },
-  "quote23": { "message": "Mục tiêu của bạn xứng đáng được chú ý nhiều hơn những thứ gây xao nhãng." },
-  "quote24": { "message": "Mỗi phút không bị xao nhãng là một khoản đầu tư vào chính bạn." },
-  "quote25": { "message": "Sự kiên trì mang lại kết quả bền vững hơn những đợt bùng nổ động lực ngắn hạn." },
-  "quote26": { "message": "Thời điểm tốt nhất để bắt đầu là ngày hôm qua. Thời điểm tốt thứ hai là bây giờ." },
-  "quote27": { "message": "Tiến bộ bắt đầu khi bạn chọn hành động thay vì xao nhãng." },
-  "quote28": { "message": "Một khoảnh khắc tập trung có thể thay đổi cả ngày của bạn." },
-  "quote29": { "message": "Bạn không cần thêm thời gian, bạn cần ít xao nhãng hơn." },
-  "quote30": { "message": "Mỗi lựa chọn tập trung đều giúp củng cố bản thân tương lai của bạn." },
-  "quote31": { "message": "Việc chặn này chỉ là tạm thời; mục tiêu của bạn là dài hạn." },
-  "quote32": { "message": "Mỗi sự xao nhãng bị chặn là một chiến thắng cho bản thân tương lai." },
-  "quote33": { "message": "Internet là vô tận, nhưng thời gian của bạn thì không." },
-  "quote34": { "message": "Hãy xác định ưu tiên trước khi web làm điều đó thay bạn." },
-  "quote35": { "message": "Ít lướt lại, nhiều sáng tạo hơn." },
-  "quote36": { "message": "Sự tập trung của bạn định hình thành tựu của bạn." },
-  "quote37": { "message": "Hãy tập trung — sự xao nhãng có thể chờ." },
-  "quote38": { "message": "Mọi quyết định hiệu quả đều bắt đầu từ một tâm trí tập trung." },
-  "quote39": { "message": "Bạn đã chặn một trang web, không phải tiềm năng của mình." },
-  "quote40": { "message": "Con đường đến thành công được xây dựng từ những quyết định tập trung." },
-  "actionsheader": { "message": "Hành động" },
-  "norules": { "message": "Không có trang web nào bị chặn." },
-  "editbtn": { "message": "Chỉnh sửa" },
-  "ruleddeleted": { "message": "Quy tắc đã bị xóa." },
-  "cancelbtn": { "message": "Hủy" },
-  "ruleupdated": { "message": "Quy tắc đã được cập nhật." },
-  "rulenewadded": { "message": "Quy tắc mới đã được thêm." },
-  "gotooptions": { "message": "Đi tới trang tùy chọn ⚙️" },
-  "gotopopup": { "message": "Nhấn biểu tượng tiện ích để quay lại popup." },
-  "rulesmigrated": { "message": "Quy tắc đã được cập nhật để tương thích" },
-  "errorupdatingrules": { "message": "Lỗi khi cập nhật quy tắc" },
-  "erroraddingrule": { "message": "Lỗi khi thêm quy tắc" },
-  "errorremovingrule": { "message": "Lỗi khi xóa quy tắc" },
-  "optionsheader": { "message": "Cài đặt tiện ích" },
-  "optionsdescription": { "message": "Cấu hình hành vi tiện ích và cài đặt bảo mật" },
-  "securitymodetitle": { "message": "Chế độ Bảo mật" },
-  "normalmodetitle": { "message": "Chế độ Thường" },
-  "normalmodedesc": { "message": "Các quy tắc có thể bị xóa ngay lập tức bằng một cú nhấp chuột" },
-  "strictmodetitle": { "message": "Chế độ Nghiêm ngặt" },
-  "strictmodedesc": { "message": "Các quy tắc yêu cầu đếm ngược 10 giây trước khi xóa để tránh xóa nhầm" },
-  "confirmdeletetitle": { "message": "Xác nhận trước khi xóa nhiều quy tắc" },
-  "confirmdeletedesc": { "message": "Hiển thị hộp thoại xác nhận khi xóa nhiều quy tắc cùng lúc" },
-  "notificationstitle": { "message": "Hiển thị thông báo" },
-  "notificationsdesc": { "message": "Hiển thị thông báo khi tiện ích web được cập nhật" },
-  "rulesmanagementtitle": { "message": "Quản lý Quy tắc" },
-  "exportrulesbtn": { "message": "Xuất Quy tắc" },
-  "importrulesbtn": { "message": "Nhập Quy tắc" },
-  "clearallrulesbtn": { "message": "Xóa Tất cả Quy tắc" },
-  "totalruleslabel": { "message": "Tổng Số Quy tắc" },
-  "blockedtodaylabel": { "message": "Chặn Hôm nay" },
-  "totalblockedlabel": { "message": "Tổng Số Đã Chặn" },
-  "resetsettingsbtn": { "message": "Đặt lại Mặc định" },
-  "backtopopup": { "message": "Quay lại Trang Chính" },
-  "errorloadingsettings": { "message": "Lỗi khi tải cài đặt" },
-  "settingssaved": { "message": "Cài đặt đã được lưu thành công!" },
-  "errorsavingsettings": { "message": "Lỗi khi lưu cài đặt" },
-  "rulesexported": { "message": "Xuất quy tắc thành công!" },
-  "errorexportingrules": { "message": "Lỗi khi xuất quy tắc" },
+  "restrictedblockurl": {
+    "message": "Không thể chặn tài nguyên này."
+  },
+  "wrongblockurl": {
+    "message": "URL chặn không hợp lệ"
+  },
+  "wrongredirecturl": {
+    "message": "URL chuyển hướng không hợp lệ"
+  },
+  "blockthat": {
+    "message": "Chặn trang này"
+  },
+  "sendfeedbackbutton": {
+    "message": "Gửi phản hồi"
+  },
+  "sendfeedbacksubject": {
+    "message": "Phản hồi cho BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Xin chào! Tôi muốn chia sẻ phản hồi sau:\n\n"
+  },
+  "quote1": {
+    "message": "Tập trung, mạnh mẽ lên."
+  },
+  "quote2": {
+    "message": "Tương lai của bạn được tạo ra từ những gì bạn làm hôm nay."
+  },
+  "quote3": {
+    "message": "Kỷ luật là cây cầu giữa mục tiêu và thành công."
+  },
+  "quote4": {
+    "message": "Một trang bị chặn – một bước gần hơn tới mục tiêu."
+  },
+  "quote5": {
+    "message": "Mỗi cú nhấp chuột đều quan trọng."
+  },
+  "quote6": {
+    "message": "Đừng nhìn đồng hồ; hãy làm như nó làm. Tiếp tục."
+  },
+  "quote7": {
+    "message": "Những bước nhỏ mỗi ngày dẫn đến kết quả lớn."
+  },
+  "quote8": {
+    "message": "Giới hạn duy nhất là tâm trí của bạn."
+  },
+  "quote9": {
+    "message": "Thành công là tổng của những nỗ lực nhỏ lặp đi lặp lại hằng ngày."
+  },
+  "quote10": {
+    "message": "Tập trung vào hiệu quả, không phải bận rộn."
+  },
+  "quote11": {
+    "message": "Bảo vệ sự tập trung của bạn – đó là tài sản quý giá nhất của bạn."
+  },
+  "quote12": {
+    "message": "Mỗi phiền nhiễu bị chặn là thời gian được lấy lại."
+  },
+  "quote13": {
+    "message": "Giảm tiếng ồn; tăng năng suất của bạn."
+  },
+  "quote14": {
+    "message": "Những thói quen nhỏ tạo ra động lực không thể ngăn cản."
+  },
+  "quote15": {
+    "message": "Sự rõ ràng đánh bại hỗn loạn – tập trung vào điều quan trọng."
+  },
+  "quote16": {
+    "message": "Nói không với phiền nhiễu; nói có với tiến bộ."
+  },
+  "quote17": {
+    "message": "Một giờ tập trung hôm nay nhân lên kết quả của bạn vào ngày mai."
+  },
+  "quote18": {
+    "message": "Tạo nhiều hơn bằng cách tiêu thụ ít hơn."
+  },
+  "quote19": {
+    "message": "Kỷ luật chọn chiến thắng dài hạn thay vì xung lực ngắn hạn."
+  },
+  "quote20": {
+    "message": "Đóng một tab, mở không gian cho ý tưởng mới."
+  },
+  "quote21": {
+    "message": "Công việc bạn trì hoãn hôm nay có thể trở thành căng thẳng của ngày mai."
+  },
+  "quote22": {
+    "message": "Tập trung không phải là làm nhiều hơn, mà là làm điều thực sự quan trọng."
+  },
+  "quote23": {
+    "message": "Mục tiêu của bạn xứng đáng được chú ý nhiều hơn những thứ gây xao nhãng."
+  },
+  "quote24": {
+    "message": "Mỗi phút không bị xao nhãng là một khoản đầu tư vào chính bạn."
+  },
+  "quote25": {
+    "message": "Sự kiên trì mang lại kết quả bền vững hơn những đợt bùng nổ động lực ngắn hạn."
+  },
+  "quote26": {
+    "message": "Thời điểm tốt nhất để bắt đầu là ngày hôm qua. Thời điểm tốt thứ hai là bây giờ."
+  },
+  "quote27": {
+    "message": "Tiến bộ bắt đầu khi bạn chọn hành động thay vì xao nhãng."
+  },
+  "quote28": {
+    "message": "Một khoảnh khắc tập trung có thể thay đổi cả ngày của bạn."
+  },
+  "quote29": {
+    "message": "Bạn không cần thêm thời gian, bạn cần ít xao nhãng hơn."
+  },
+  "quote30": {
+    "message": "Mỗi lựa chọn tập trung đều giúp củng cố bản thân tương lai của bạn."
+  },
+  "quote31": {
+    "message": "Việc chặn này chỉ là tạm thời; mục tiêu của bạn là dài hạn."
+  },
+  "quote32": {
+    "message": "Mỗi sự xao nhãng bị chặn là một chiến thắng cho bản thân tương lai."
+  },
+  "quote33": {
+    "message": "Internet là vô tận, nhưng thời gian của bạn thì không."
+  },
+  "quote34": {
+    "message": "Hãy xác định ưu tiên trước khi web làm điều đó thay bạn."
+  },
+  "quote35": {
+    "message": "Ít lướt lại, nhiều sáng tạo hơn."
+  },
+  "quote36": {
+    "message": "Sự tập trung của bạn định hình thành tựu của bạn."
+  },
+  "quote37": {
+    "message": "Hãy tập trung — sự xao nhãng có thể chờ."
+  },
+  "quote38": {
+    "message": "Mọi quyết định hiệu quả đều bắt đầu từ một tâm trí tập trung."
+  },
+  "quote39": {
+    "message": "Bạn đã chặn một trang web, không phải tiềm năng của mình."
+  },
+  "quote40": {
+    "message": "Con đường đến thành công được xây dựng từ những quyết định tập trung."
+  },
+  "actionsheader": {
+    "message": "Hành động"
+  },
+  "norules": {
+    "message": "Không có trang web nào bị chặn."
+  },
+  "editbtn": {
+    "message": "Chỉnh sửa"
+  },
+  "ruleddeleted": {
+    "message": "Quy tắc đã bị xóa."
+  },
+  "cancelbtn": {
+    "message": "Hủy"
+  },
+  "ruleupdated": {
+    "message": "Quy tắc đã được cập nhật."
+  },
+  "rulenewadded": {
+    "message": "Quy tắc mới đã được thêm."
+  },
+  "gotooptions": {
+    "message": "Đi tới trang tùy chọn ⚙️"
+  },
+  "gotopopup": {
+    "message": "Nhấn biểu tượng tiện ích để quay lại popup."
+  },
+  "rulesmigrated": {
+    "message": "Quy tắc đã được cập nhật để tương thích"
+  },
+  "errorupdatingrules": {
+    "message": "Lỗi khi cập nhật quy tắc"
+  },
+  "erroraddingrule": {
+    "message": "Lỗi khi thêm quy tắc"
+  },
+  "errorremovingrule": {
+    "message": "Lỗi khi xóa quy tắc"
+  },
+  "optionsheader": {
+    "message": "Cài đặt tiện ích"
+  },
+  "optionsdescription": {
+    "message": "Cấu hình hành vi tiện ích và cài đặt bảo mật"
+  },
+  "securitymodetitle": {
+    "message": "Chế độ Bảo mật"
+  },
+  "normalmodetitle": {
+    "message": "Chế độ Thường"
+  },
+  "normalmodedesc": {
+    "message": "Các quy tắc có thể bị xóa ngay lập tức bằng một cú nhấp chuột"
+  },
+  "strictmodetitle": {
+    "message": "Chế độ Nghiêm ngặt"
+  },
+  "strictmodedesc": {
+    "message": "Các quy tắc yêu cầu đếm ngược 10 giây trước khi xóa để tránh xóa nhầm"
+  },
+  "confirmdeletetitle": {
+    "message": "Xác nhận trước khi xóa nhiều quy tắc"
+  },
+  "confirmdeletedesc": {
+    "message": "Hiển thị hộp thoại xác nhận khi xóa nhiều quy tắc cùng lúc"
+  },
+  "notificationstitle": {
+    "message": "Hiển thị thông báo"
+  },
+  "notificationsdesc": {
+    "message": "Hiển thị thông báo khi tiện ích web được cập nhật"
+  },
+  "rulesmanagementtitle": {
+    "message": "Quản lý Quy tắc"
+  },
+  "exportrulesbtn": {
+    "message": "Xuất Quy tắc"
+  },
+  "importrulesbtn": {
+    "message": "Nhập Quy tắc"
+  },
+  "clearallrulesbtn": {
+    "message": "Xóa Tất cả Quy tắc"
+  },
+  "totalruleslabel": {
+    "message": "Tổng Số Quy tắc"
+  },
+  "blockedtodaylabel": {
+    "message": "Chặn Hôm nay"
+  },
+  "totalblockedlabel": {
+    "message": "Tổng Số Đã Chặn"
+  },
+  "resetsettingsbtn": {
+    "message": "Đặt lại Mặc định"
+  },
+  "backtopopup": {
+    "message": "Quay lại Trang Chính"
+  },
+  "errorloadingsettings": {
+    "message": "Lỗi khi tải cài đặt"
+  },
+  "settingssaved": {
+    "message": "Cài đặt đã được lưu thành công!"
+  },
+  "errorsavingsettings": {
+    "message": "Lỗi khi lưu cài đặt"
+  },
+  "rulesexported": {
+    "message": "Xuất quy tắc thành công!"
+  },
+  "errorexportingrules": {
+    "message": "Lỗi khi xuất quy tắc"
+  },
   "willimportrules": {
     "message": "Sẽ nhập $ruleslength$ quy tắc.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Các quy tắc hiện tại sẽ bị thay thế. Tiếp tục?" },
+  "ruleswillbereplaced": {
+    "message": "Các quy tắc hiện tại sẽ bị thay thế. Tiếp tục?"
+  },
   "importedrules": {
     "message": "Đã nhập thành công $ruleslength$ quy tắc!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Lỗi khi nhập quy tắc: " },
-  "norulestoclear": { "message": "Không có quy tắc nào để xóa" },
+  "errorimportingrules": {
+    "message": "Lỗi khi nhập quy tắc: "
+  },
+  "norulestoclear": {
+    "message": "Không có quy tắc nào để xóa"
+  },
   "willdeleteallrules": {
     "message": "Hành động này sẽ xóa vĩnh viễn tất cả $rulescount$ quy tắc.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Hành động này không thể hoàn tác. Tiếp tục?" },
-  "allrulescleared": { "message": "Đã xóa tất cả quy tắc thành công!" },
-  "errorclearingrules": { "message": "Lỗi khi xóa quy tắc" },
-  "willreset": { "message": "Tất cả cài đặt sẽ được đặt lại về mặc định. Tiếp tục?" },
-  "resettodefaults": { "message": "Cài đặt đã được đặt lại về mặc định!" },
-  "errorresettingsettings": { "message": "Lỗi khi đặt lại cài đặt" },
-  "basicsettingstitle": { "message": "Cài đặt cơ bản" },
-  "advancedsettingstitle": { "message": "Cài đặt nâng cao" },
-  "statisticstitle": { "message": "Thống kê" },
+  "cannotbeundone": {
+    "message": "Hành động này không thể hoàn tác. Tiếp tục?"
+  },
+  "allrulescleared": {
+    "message": "Đã xóa tất cả quy tắc thành công!"
+  },
+  "errorclearingrules": {
+    "message": "Lỗi khi xóa quy tắc"
+  },
+  "willreset": {
+    "message": "Tất cả cài đặt sẽ được đặt lại về mặc định. Tiếp tục?"
+  },
+  "resettodefaults": {
+    "message": "Cài đặt đã được đặt lại về mặc định!"
+  },
+  "errorresettingsettings": {
+    "message": "Lỗi khi đặt lại cài đặt"
+  },
+  "basicsettingstitle": {
+    "message": "Cài đặt cơ bản"
+  },
+  "advancedsettingstitle": {
+    "message": "Cài đặt nâng cao"
+  },
+  "statisticstitle": {
+    "message": "Thống kê"
+  },
   "rulelimitreached": {
     "message": "Bạn đã đạt đến giới hạn quy tắc ($limit$) trong phiên bản cơ bản. Nâng cấp lên Pro để có quy tắc không giới hạn.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Cần Pro để chỉnh sửa." },
-  "invalidpassword": { "message": "Mật khẩu không hợp lệ" },
-  "setpassword": { "message": "Đặt mật khẩu" },
-  "enterpassword": { "message": "Nhập mật khẩu" },
-  "passwordmismatch": { "message": "Mật khẩu không khớp" },
-  "passwordtooshort": { "message": "Mật khẩu phải có ít nhất 6 ký tự" },
-  "resetpasswordconfirm": { "message": "Đặt lại mật khẩu sẽ tắt bảo vệ. Tiếp tục?" },
-  "passwordset": { "message": "Mật khẩu đã được đặt thành công" },
-  "passworddisabled": { "message": "Bảo vệ bằng mật khẩu đã bị tắt" },
-  "prorequired": { "message": "Chế độ Pro cần thiết cho tính năng này" },
-  "enablepasswordtitle": { "message": "Kích hoạt bảo vệ bằng mật khẩu" },
-  "enablepassworddesc": { "message": "Yêu cầu mật khẩu để xóa hoặc chỉnh sửa quy tắc (tăng cường chế độ nghiêm ngặt)" },
-  "passwordprotectiontitle": { "message": "Bảo vệ bằng mật khẩu" },
-  "scheduleheader": { "message": "Lịch trình" },
-  "enableschedule": { "message": "Bật lịch trình" },
-  "alwaysactive": { "message": "Luôn hoạt động" },
-  "profeatureschedule": { "message": "Lịch trình chỉ khả dụng trong phiên bản Pro" },
-  "days": { "message": "Các ngày" },
-  "starttime": { "message": "Thời gian bắt đầu:" },
-  "endtime": { "message": "Thời gian kết thúc:" },
-  "invaliddays": { "message": "Ngày đã chọn không hợp lệ" },
-  "invalidtimeformat": { "message": "Định dạng thời gian không hợp lệ (sử dụng HH:MM)" },
-  "startafterend": { "message": "Thời gian bắt đầu phải trước thời gian kết thúc" },
-  "invalidschedule": { "message": "Lịch trình không hợp lệ: vui lòng chọn ngày và giờ." },
-  "invalidscheduledays": { "message": "Lịch trình không hợp lệ: vui lòng chọn ít nhất một ngày." },
-  "invalidschedulestarttime": { "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian bắt đầu." },
-  "invalidscheduleendtime": { "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian kết thúc." },
-  "editdisablednonpro": { "message": "Chỉnh sửa bị vô hiệu: quá nhiều quy tắc cho người dùng không Pro." },
-  "errorloadingstatus": { "message": "Lỗi khi tải trạng thái người dùng." },
-  "schedule_day_sun": { "message": "CN" },
-  "schedule_day_mon": { "message": "T2" },
-  "schedule_day_tue": { "message": "T3" },
-  "schedule_day_wed": { "message": "T4" },
-  "schedule_day_thu": { "message": "T5" },
-  "schedule_day_fri": { "message": "T6" },
-  "schedule_day_sat": { "message": "T7" },
-  "category_header": { "message": "Danh mục" },
-  "category_required": { "message": "Danh mục là bắt buộc" },
-  "allcategories": { "message": "Tất cả danh mục" },
-  "category_social": { "message": "Mạng xã hội" },
-  "category_news": { "message": "Tin tức" },
-  "category_entertainment": { "message": "Giải trí" },
-  "category_shopping": { "message": "Mua sắm" },
-  "category_work": { "message": "Công việc" },
-  "category_gaming": { "message": "Trò chơi" },
-  "category_adult": { "message": "Nội dung người lớn" },
-  "category_uncategorized": { "message": "Chưa phân loại" },
-  "searchfordomain": { "message": "Tìm kiếm tên miền" },
-  "norulesforcategory": { "message": "Không có trang web bị chặn cho danh mục này." },
-  "getpro": { "message": "Nhận Pro" },
-  "profunctionstext": { "message": "Các tính năng Pro bao gồm: chặn theo lịch, bảo vệ bằng mật khẩu, lọc quy tắc và xuất/nhập quy tắc. Hãy tận hưởng Giấy phép Toàn cầu của chúng tôi: một đăng ký mở khóa Pro trên tất cả trình duyệt của bạn (Chrome, Firefox, Edge, Kiwi). Để kích hoạt, hãy mua đăng ký tại blockdistraction.com, sau đó sao chép Mã Giấy phép từ bảng điều khiển tài khoản của bạn và dán vào bên dưới." },
-  "upgradenow": { "message": "Nâng cấp ngay" },
-  "enteremail": { "message": "Nhập email của bạn" },
-  "activatepro": { "message": "Kích hoạt Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Khôi phục quyền truy cập" },
-  "pleaseenteremail": { "message": "Vui lòng nhập email của bạn" },
-  "checking": { "message": "Đang kiểm tra..." },
-  "proactivated": { "message": "Tính năng Pro đã được kích hoạt!" },
-  "subscriptionnotfound": { "message": "Gói đăng ký chưa hoạt động hoặc không tìm thấy email." },
-  "servererror": { "message": "Lỗi máy chủ. Vui lòng thử lại." },
-  "proactivatedfor": { "message": "Pro đã được kích hoạt cho" },
+  "proonlyactions": {
+    "message": "Cần Pro để chỉnh sửa."
+  },
+  "invalidpassword": {
+    "message": "Mật khẩu không hợp lệ"
+  },
+  "setpassword": {
+    "message": "Đặt mật khẩu"
+  },
+  "enterpassword": {
+    "message": "Nhập mật khẩu"
+  },
+  "passwordmismatch": {
+    "message": "Mật khẩu không khớp"
+  },
+  "passwordtooshort": {
+    "message": "Mật khẩu phải có ít nhất 6 ký tự"
+  },
+  "resetpasswordconfirm": {
+    "message": "Đặt lại mật khẩu sẽ tắt bảo vệ. Tiếp tục?"
+  },
+  "passwordset": {
+    "message": "Mật khẩu đã được đặt thành công"
+  },
+  "passworddisabled": {
+    "message": "Bảo vệ bằng mật khẩu đã bị tắt"
+  },
+  "prorequired": {
+    "message": "Chế độ Pro cần thiết cho tính năng này"
+  },
+  "enablepasswordtitle": {
+    "message": "Kích hoạt bảo vệ bằng mật khẩu"
+  },
+  "enablepassworddesc": {
+    "message": "Yêu cầu mật khẩu để xóa hoặc chỉnh sửa quy tắc (tăng cường chế độ nghiêm ngặt)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Bảo vệ bằng mật khẩu"
+  },
+  "scheduleheader": {
+    "message": "Lịch trình"
+  },
+  "enableschedule": {
+    "message": "Bật lịch trình"
+  },
+  "alwaysactive": {
+    "message": "Luôn hoạt động"
+  },
+  "profeatureschedule": {
+    "message": "Lịch trình chỉ khả dụng trong phiên bản Pro"
+  },
+  "days": {
+    "message": "Các ngày"
+  },
+  "starttime": {
+    "message": "Thời gian bắt đầu:"
+  },
+  "endtime": {
+    "message": "Thời gian kết thúc:"
+  },
+  "invaliddays": {
+    "message": "Ngày đã chọn không hợp lệ"
+  },
+  "invalidtimeformat": {
+    "message": "Định dạng thời gian không hợp lệ (sử dụng HH:MM)"
+  },
+  "startafterend": {
+    "message": "Thời gian bắt đầu phải trước thời gian kết thúc"
+  },
+  "invalidschedule": {
+    "message": "Lịch trình không hợp lệ: vui lòng chọn ngày và giờ."
+  },
+  "invalidscheduledays": {
+    "message": "Lịch trình không hợp lệ: vui lòng chọn ít nhất một ngày."
+  },
+  "invalidschedulestarttime": {
+    "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian bắt đầu."
+  },
+  "invalidscheduleendtime": {
+    "message": "Lịch trình không hợp lệ: vui lòng đặt thời gian kết thúc."
+  },
+  "editdisablednonpro": {
+    "message": "Chỉnh sửa bị vô hiệu: quá nhiều quy tắc cho người dùng không Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Lỗi khi tải trạng thái người dùng."
+  },
+  "schedule_day_sun": {
+    "message": "CN"
+  },
+  "schedule_day_mon": {
+    "message": "T2"
+  },
+  "schedule_day_tue": {
+    "message": "T3"
+  },
+  "schedule_day_wed": {
+    "message": "T4"
+  },
+  "schedule_day_thu": {
+    "message": "T5"
+  },
+  "schedule_day_fri": {
+    "message": "T6"
+  },
+  "schedule_day_sat": {
+    "message": "T7"
+  },
+  "category_header": {
+    "message": "Danh mục"
+  },
+  "category_required": {
+    "message": "Danh mục là bắt buộc"
+  },
+  "allcategories": {
+    "message": "Tất cả danh mục"
+  },
+  "category_social": {
+    "message": "Mạng xã hội"
+  },
+  "category_news": {
+    "message": "Tin tức"
+  },
+  "category_entertainment": {
+    "message": "Giải trí"
+  },
+  "category_shopping": {
+    "message": "Mua sắm"
+  },
+  "category_work": {
+    "message": "Công việc"
+  },
+  "category_gaming": {
+    "message": "Trò chơi"
+  },
+  "category_adult": {
+    "message": "Nội dung người lớn"
+  },
+  "category_uncategorized": {
+    "message": "Chưa phân loại"
+  },
+  "searchfordomain": {
+    "message": "Tìm kiếm tên miền"
+  },
+  "norulesforcategory": {
+    "message": "Không có trang web bị chặn cho danh mục này."
+  },
+  "getpro": {
+    "message": "Nhận Pro"
+  },
+  "profunctionstext": {
+    "message": "Các tính năng Pro bao gồm: chặn theo lịch, bảo vệ bằng mật khẩu, lọc quy tắc và xuất/nhập quy tắc. Hãy tận hưởng Giấy phép Toàn cầu của chúng tôi: một đăng ký mở khóa Pro trên tất cả trình duyệt của bạn (Chrome, Firefox, Edge, Kiwi). Để kích hoạt, hãy mua đăng ký tại blockdistraction.com, sau đó sao chép Mã Giấy phép từ bảng điều khiển tài khoản của bạn và dán vào bên dưới."
+  },
+  "upgradenow": {
+    "message": "Nâng cấp ngay"
+  },
+  "enteremail": {
+    "message": "Nhập email của bạn"
+  },
+  "activatepro": {
+    "message": "Kích hoạt Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Khôi phục quyền truy cập"
+  },
+  "pleaseenteremail": {
+    "message": "Vui lòng nhập email của bạn"
+  },
+  "checking": {
+    "message": "Đang kiểm tra..."
+  },
+  "proactivated": {
+    "message": "Tính năng Pro đã được kích hoạt!"
+  },
+  "subscriptionnotfound": {
+    "message": "Gói đăng ký chưa hoạt động hoặc không tìm thấy email."
+  },
+  "servererror": {
+    "message": "Lỗi máy chủ. Vui lòng thử lại."
+  },
+  "proactivatedfor": {
+    "message": "Pro đã được kích hoạt cho"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Yêu cầu quyền thất bại (có thể xảy ra trên thiết bị di động). Hãy thử lại hoặc cấp quyền thủ công từ cài đặt tiện ích."
   },
-  "pastekeylabel": { "message": "Dán khóa bản quyền của bạn vào đây:" },
-  "confirmclearstats": { "message": "Bạn có chắc chắn muốn xóa tất cả thống kê không? Hành động này không thể hoàn tác." },
-  "statscleared": { "message": "Đã xóa thống kê thành công." },
-  "redirectstodaylabel": { "message": "Chuyển hướng hôm nay" },
-  "totalredirectslabel": { "message": "Tổng số chuyển hướng" },
-  "logout": { "message": "Đăng xuất" },
-  "loggedoutsuccess": { "message": "Bạn đã đăng xuất thành công." },
-  "loggedouterror": { "message": "Đã xảy ra lỗi khi đăng xuất." },
-  "forcesync": { "message": "Ép đồng bộ / Kiểm tra trạng thái" },
-  "forgotpasswordinstructions": { "message": "Để đặt lại mật khẩu, vui lòng vào phần 'Pro', nhấn 'Đăng xuất', sau đó kích hoạt lại bằng cách dán Khóa Bản quyền của bạn." },
-  "blockedtitle": { "message": "Trang web không khả dụng" },
-  "blockedheader": { "message": "Trang web này hiện không khả dụng" },
-  "blockedtext": { "message": "Nội dung này không thể hiển thị." },
-  "blockedbutton": { "message": "Đóng Tab" },
-  "confirmpassword": { "message": "Xác nhận mật khẩu" },
-  "modalconfirm": { "message": "Xác nhận" },
-  "modalcancel": { "message": "Hủy" },
-  "forgotpassword": { "message": "Quên mật khẩu? Đặt lại (hành động sẽ xóa bảo vệ)" },
-  "prounlocked": { "message": "Cảm ơn bạn đã ủng hộ! Tất cả tính năng Pro đã được mở khóa." },
-  "licensesynced": { "message": "Giấy phép của bạn đã được đồng bộ với tài khoản của bạn. Nếu bạn mất quyền truy cập, bạn có thể lấy lại khóa tại: " },
-  "syncing": { "message": "Đang đồng bộ..." },
-  "pleaseenterkey": { "message": "Vui lòng nhập khóa." },
-  "syncsuccess": { "message": "Đồng bộ thành công" },
-  "syncfailed": { "message": "Đồng bộ thất bại." },
-  "passwordreset": { "message": "Bảo vệ mật khẩu đã được đặt lại." },
-  "privacysecured": { "message": "Quyền riêng tư được bảo vệ" },
-  "errorinvalidfiletype": { "message": "Vui lòng chọn tệp .json" },
-  "debugsettingstitle": { "message": "Cài đặt Gỡ lỗi" },
-  "enabledebugtitle": { "message": "Bật Chế độ Gỡ lỗi" },
-  "enabledebugdesc": { "message": "Bật ghi nhật ký chi tiết trên bảng điều khiển để khắc phục sự cố" },
-  "errorcommunication": { "message": "Lỗi khi giao tiếp với dịch vụ nền" },
-  "clearstats": { "message": "Xóa thống kê" },
-  "rule_enabled": { "message": "Đã bật" },
-  "rule_disabled": { "message": "Đã tắt" },
-  "filter_only_hint": { "message": "Danh sách này chỉ lọc những gì hiển thị trong bảng" },
-  "category_disabled_desc": { "message": "Tắt tiếng một danh mục để tạm thời cho phép truy cập tất cả các trang web của nó. Các cài đặt quy tắc riêng vẫn được giữ nguyên." },
-  "toggle_category_blocking": { "message": "Bật hoặc tắt chặn cho toàn bộ danh mục" },
-  "category_muted_no_edit": { "message": "Không thể quản lý: chức năng chặn danh mục đang tạm dừng" },
-  "feedback_title": { "message": "Bạn có thích BlockDistraction không?" },
-  "feedback_desc": { "message": "Phản hồi của bạn giúp chúng tôi cải thiện tiện ích mở rộng rất nhiều." },
-  "feedback_like": { "message": "Có, nó hoạt động rất tốt!" },
-  "feedback_dislike": { "message": "Tôi có vấn đề / đề xuất" },
-  "trialproheader": { "message": "Dùng thử 7 ngày miễn phí" },
-  "trialprotext": { "message": "Hủy bất kỳ lúc nào. Thanh toán an toàn." },
-  "focussessionheader": { "message": "Phiên tập trung" },
-  "focussessionstart": { "message": "Bắt đầu" },
-  "focussessionstop": { "message": "Dừng" },
-  "focussessionduration": { "message": "Thời lượng (phút):" },
-  "focussessioninfo": { "message": "Kích hoạt tất cả các quy tắc chặn của bạn trong một khoảng thời gian định sẵn, bỏ qua các cài đặt và lịch trình hiện tại của chúng. Mang lại sự tập trung tối đa." },
-  "focussessionprofeature": { "message": "Thời lượng tùy chỉnh và Chế độ Hardcore là các tính năng Pro." },
-  "focussessionended": { "message": "Phiên tập trung đã kết thúc! Hãy nghỉ ngơi một lát." },
-  "focussessionhardcore": { "message": "Chế độ Hardcore (không có nút 'Dừng')" },
-  "focussessionsoundtitle": { "message": "Thông báo âm thanh phiên tập trung" },
-  "focussessionsounddesc": { "message": "Phát âm thanh khi phiên tập trung kết thúc." },
-  "focussessionactivebanner": { "message": "Phiên tập trung đang hoạt động! Thời gian còn lại:" },
-  "focussessioninvalidduration": { "message": "Vui lòng nhập thời lượng hợp lệ (1-240 phút)." },
-  "successfulfocussessionslabel": { "message": "Số phiên tập trung thành công" },
-  "rule_scheduled": { "message": "Quy tắc đã lên lịch" },
-  "addwhitelistrule": { "message": "Thêm ngoại lệ" },
-  "category_whitelist": { "message": "Danh sách trắng" },
-  "conflict_blacklist_err": { "message": "Trang web này đã có trong danh sách đen của bạn. Hãy xóa nó trước." },
-  "conflict_whitelist_err": { "message": "Trang web này đã có trong danh sách trắng của bạn. Hãy xóa nó trước." },
-  "status_allow": { "message": "Đã cho phép" },
-  "redundant_whitelist_err": { "message": "Quy tắc này đã được bao gồm bởi một quy tắc danh sách trắng khác." },
-  "focussessionmode": { "message": "Chế độ tập trung:" },
-  "focusmodeblacklist": { "message": "Chặn danh sách đen" },
-  "focusmodewhitelist": { "message": "Chỉ cho phép danh sách trắng" }
+  "pastekeylabel": {
+    "message": "Dán khóa bản quyền của bạn vào đây:"
+  },
+  "confirmclearstats": {
+    "message": "Bạn có chắc chắn muốn xóa tất cả thống kê không? Hành động này không thể hoàn tác."
+  },
+  "statscleared": {
+    "message": "Đã xóa thống kê thành công."
+  },
+  "redirectstodaylabel": {
+    "message": "Chuyển hướng hôm nay"
+  },
+  "totalredirectslabel": {
+    "message": "Tổng số chuyển hướng"
+  },
+  "logout": {
+    "message": "Đăng xuất"
+  },
+  "loggedoutsuccess": {
+    "message": "Bạn đã đăng xuất thành công."
+  },
+  "loggedouterror": {
+    "message": "Đã xảy ra lỗi khi đăng xuất."
+  },
+  "forcesync": {
+    "message": "Ép đồng bộ / Kiểm tra trạng thái"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Để đặt lại mật khẩu, vui lòng vào phần 'Pro', nhấn 'Đăng xuất', sau đó kích hoạt lại bằng cách dán Khóa Bản quyền của bạn."
+  },
+  "blockedtitle": {
+    "message": "Trang web không khả dụng"
+  },
+  "blockedheader": {
+    "message": "Trang web này hiện không khả dụng"
+  },
+  "blockedtext": {
+    "message": "Nội dung này không thể hiển thị."
+  },
+  "blockedbutton": {
+    "message": "Đóng Tab"
+  },
+  "confirmpassword": {
+    "message": "Xác nhận mật khẩu"
+  },
+  "modalconfirm": {
+    "message": "Xác nhận"
+  },
+  "modalcancel": {
+    "message": "Hủy"
+  },
+  "forgotpassword": {
+    "message": "Quên mật khẩu? Đặt lại (hành động sẽ xóa bảo vệ)"
+  },
+  "prounlocked": {
+    "message": "Cảm ơn bạn đã ủng hộ! Tất cả tính năng Pro đã được mở khóa."
+  },
+  "licensesynced": {
+    "message": "Giấy phép của bạn đã được đồng bộ với tài khoản của bạn. Nếu bạn mất quyền truy cập, bạn có thể lấy lại khóa tại: "
+  },
+  "syncing": {
+    "message": "Đang đồng bộ..."
+  },
+  "pleaseenterkey": {
+    "message": "Vui lòng nhập khóa."
+  },
+  "syncsuccess": {
+    "message": "Đồng bộ thành công"
+  },
+  "syncfailed": {
+    "message": "Đồng bộ thất bại."
+  },
+  "passwordreset": {
+    "message": "Bảo vệ mật khẩu đã được đặt lại."
+  },
+  "privacysecured": {
+    "message": "Quyền riêng tư được bảo vệ"
+  },
+  "errorinvalidfiletype": {
+    "message": "Vui lòng chọn tệp .json"
+  },
+  "debugsettingstitle": {
+    "message": "Cài đặt Gỡ lỗi"
+  },
+  "enabledebugtitle": {
+    "message": "Bật Chế độ Gỡ lỗi"
+  },
+  "enabledebugdesc": {
+    "message": "Bật ghi nhật ký chi tiết trên bảng điều khiển để khắc phục sự cố"
+  },
+  "errorcommunication": {
+    "message": "Lỗi khi giao tiếp với dịch vụ nền"
+  },
+  "clearstats": {
+    "message": "Xóa thống kê"
+  },
+  "rule_enabled": {
+    "message": "Đã bật"
+  },
+  "rule_disabled": {
+    "message": "Đã tắt"
+  },
+  "filter_only_hint": {
+    "message": "Danh sách này chỉ lọc những gì hiển thị trong bảng"
+  },
+  "category_disabled_desc": {
+    "message": "Tắt tiếng một danh mục để tạm thời cho phép truy cập tất cả các trang web của nó. Các cài đặt quy tắc riêng vẫn được giữ nguyên."
+  },
+  "toggle_category_blocking": {
+    "message": "Bật hoặc tắt chặn cho toàn bộ danh mục"
+  },
+  "category_muted_no_edit": {
+    "message": "Không thể quản lý: chức năng chặn danh mục đang tạm dừng"
+  },
+  "feedback_title": {
+    "message": "Bạn có thích BlockDistraction không?"
+  },
+  "feedback_desc": {
+    "message": "Phản hồi của bạn giúp chúng tôi cải thiện tiện ích mở rộng rất nhiều."
+  },
+  "feedback_like": {
+    "message": "Có, nó hoạt động rất tốt!"
+  },
+  "feedback_dislike": {
+    "message": "Tôi có vấn đề / đề xuất"
+  },
+  "trialproheader": {
+    "message": "Dùng thử 7 ngày miễn phí"
+  },
+  "trialprotext": {
+    "message": "Hủy bất kỳ lúc nào. Thanh toán an toàn."
+  },
+  "focussessionheader": {
+    "message": "Phiên tập trung"
+  },
+  "focussessionstart": {
+    "message": "Bắt đầu"
+  },
+  "focussessionstop": {
+    "message": "Dừng"
+  },
+  "focussessionduration": {
+    "message": "Thời lượng (phút):"
+  },
+  "focussessioninfo": {
+    "message": "Kích hoạt tất cả các quy tắc chặn của bạn trong một khoảng thời gian định sẵn, bỏ qua các cài đặt và lịch trình hiện tại của chúng. Mang lại sự tập trung tối đa."
+  },
+  "focussessionprofeature": {
+    "message": "Thời lượng tùy chỉnh và Chế độ Hardcore là các tính năng Pro."
+  },
+  "focussessionended": {
+    "message": "Phiên tập trung đã kết thúc! Hãy nghỉ ngơi một lát."
+  },
+  "focussessionhardcore": {
+    "message": "Chế độ Hardcore (không có nút 'Dừng')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Thông báo âm thanh phiên tập trung"
+  },
+  "focussessionsounddesc": {
+    "message": "Phát âm thanh khi phiên tập trung kết thúc."
+  },
+  "focussessionactivebanner": {
+    "message": "Phiên tập trung đang hoạt động! Thời gian còn lại:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Vui lòng nhập thời lượng hợp lệ (1-240 phút)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Số phiên tập trung thành công"
+  },
+  "rule_scheduled": {
+    "message": "Quy tắc đã lên lịch"
+  },
+  "addwhitelistrule": {
+    "message": "Thêm ngoại lệ"
+  },
+  "category_whitelist": {
+    "message": "Danh sách trắng"
+  },
+  "conflict_blacklist_err": {
+    "message": "Trang web này đã có trong danh sách đen của bạn. Hãy xóa nó trước."
+  },
+  "conflict_whitelist_err": {
+    "message": "Trang web này đã có trong danh sách trắng của bạn. Hãy xóa nó trước."
+  },
+  "status_allow": {
+    "message": "Đã cho phép"
+  },
+  "redundant_whitelist_err": {
+    "message": "Quy tắc này đã được bao gồm bởi một quy tắc danh sách trắng khác."
+  },
+  "focussessionmode": {
+    "message": "Chế độ tập trung:"
+  },
+  "focusmodeblacklist": {
+    "message": "Chặn danh sách đen"
+  },
+  "focusmodewhitelist": {
+    "message": "Chỉ cho phép danh sách trắng"
+  },
+  "schedule_edit": {
+    "message": "Chỉnh sửa lịch"
+  },
+  "schedule_add_period": {
+    "message": "Thêm nhóm thời gian"
+  },
+  "schedule_remove_period": {
+    "message": "Xóa"
+  },
+  "schedule_period": {
+    "message": "Nhóm thời gian"
+  },
+  "schedule_every_day": {
+    "message": "Mỗi ngày"
+  },
+  "schedule_weekdays": {
+    "message": "Ngày trong tuần"
+  },
+  "schedule_weekends": {
+    "message": "Cuối tuần"
+  },
+  "schedule_day_overlap": {
+    "message": "Mỗi ngày chỉ có thể được sử dụng một lần."
+  }
 }

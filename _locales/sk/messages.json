@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Blokovanie stránok" },
-  "shortname": { "message": "BlokStránky" },
-  "description": { "message": "Jednoduchý a spoľahlivý nástroj na blokovanie a presmerovanie webov, aby ste zostali sústredení." },
-  "defaulttitle": { "message": "Buď sústredený a produktívny" },
-  "header": { "message": "Blokovač stránok" },
-  "paragraph": { "message": "Ak chcete zablokovať web alebo zdroj, zadajte časť jeho názvu do poľa s nápovedou 'Zadajte URL na blokovanie' – napríklad 'facebook' zablokuje všetky súvisiace subdomény. Do poľa 'Zadajte URL presmerovania' zadajte úplnú adresu presmerovania s protokolom, napríklad 'https://google.com'. Ak ponecháte pole prázdne, stránka sa iba zablokuje bez presmerovania. Kliknite na Uložiť, aby sa pravidlo použilo. Ak chcete pravidlo aktualizovať, odstráňte staré a pridajte nové." },
-  "addrule": { "message": "Pridať nové pravidlo" },
-  "blockurl": { "message": "Zadajte URL na blokovanie" },
-  "redirecturl": { "message": "Zadajte URL presmerovania (voliteľné)" },
-  "redirecturlheader": { "message": "Adresa URL presmerovania" },
-  "redirecturlplaceholder": { "message": "Voliteľné - pre blokovanie nechajte prázdne" },
-  "redirecturlhint": { "message": "Zadajte úplnú adresu URL vrátane https://" },
-  "mobilecopylinkhint": { "message": "Ak chcete zablokovať odkaz, skopírujte jeho adresu a vložte ju do poľa blokovania." },
-  "savebtn": { "message": "Uložiť" },
-  "deletebtn": { "message": "Odstrániť" },
-  "alertruleexist": { "message": "Pravidlo už existuje" },
+  "chromename": {
+    "message": "BlockDistraction – Blokovanie stránok"
+  },
+  "shortname": {
+    "message": "BlokStránky"
+  },
+  "description": {
+    "message": "Jednoduchý a spoľahlivý nástroj na blokovanie a presmerovanie webov, aby ste zostali sústredení."
+  },
+  "defaulttitle": {
+    "message": "Buď sústredený a produktívny"
+  },
+  "header": {
+    "message": "Blokovač stránok"
+  },
+  "paragraph": {
+    "message": "Ak chcete zablokovať web alebo zdroj, zadajte časť jeho názvu do poľa s nápovedou 'Zadajte URL na blokovanie' – napríklad 'facebook' zablokuje všetky súvisiace subdomény. Do poľa 'Zadajte URL presmerovania' zadajte úplnú adresu presmerovania s protokolom, napríklad 'https://google.com'. Ak ponecháte pole prázdne, stránka sa iba zablokuje bez presmerovania. Kliknite na Uložiť, aby sa pravidlo použilo. Ak chcete pravidlo aktualizovať, odstráňte staré a pridajte nové."
+  },
+  "addrule": {
+    "message": "Pridať nové pravidlo"
+  },
+  "blockurl": {
+    "message": "Zadajte URL na blokovanie"
+  },
+  "redirecturl": {
+    "message": "Zadajte URL presmerovania (voliteľné)"
+  },
+  "redirecturlheader": {
+    "message": "Adresa URL presmerovania"
+  },
+  "redirecturlplaceholder": {
+    "message": "Voliteľné - pre blokovanie nechajte prázdne"
+  },
+  "redirecturlhint": {
+    "message": "Zadajte úplnú adresu URL vrátane https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Ak chcete zablokovať odkaz, skopírujte jeho adresu a vložte ju do poľa blokovania."
+  },
+  "savebtn": {
+    "message": "Uložiť"
+  },
+  "deletebtn": {
+    "message": "Odstrániť"
+  },
+  "alertruleexist": {
+    "message": "Pravidlo už existuje"
+  },
   "savedrules": {
     "message": "$ruleslength$ uložených pravidiel",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Tento zdroj nie je možné zablokovať." },
-  "wrongblockurl": { "message": "Neplatná adresa URL na blokovanie" },
-  "wrongredirecturl": { "message": "Nesprávna URL adresa presmerovania" },
-  "blockthat": { "message": "Zablokovať túto stránku" },
-  "sendfeedbackbutton": { "message": "Odoslať spätnú väzbu" },
-  "sendfeedbacksubject": { "message": "Spätná väzba na BlockDistraction" },
-  "sendfeedbackbody": { "message": "Dobrý deň! Chcel by som zanechať nasledujúcu spätnú väzbu:\n\n" },
-  "quote1": { "message": "Zostaň sústredený, zostaň silný." },
-  "quote2": { "message": "Tvoja budúcnosť sa tvorí tým, čo robíš dnes." },
-  "quote3": { "message": "Disciplína je most medzi cieľmi a úspechmi." },
-  "quote4": { "message": "Jedna zablokovaná stránka – krok bližšie k cieľu." },
-  "quote5": { "message": "Nech má každý klik význam." },
-  "quote6": { "message": "Nepozeraj na hodiny – rob, čo robia ony. Pokračuj." },
-  "quote7": { "message": "Malé kroky každý deň vedú k veľkým výsledkom." },
-  "quote8": { "message": "Jediné obmedzenie je tvoja myseľ." },
-  "quote9": { "message": "Úspech je súčet malých úspechov opakovaných každý deň." },
-  "quote10": { "message": "Sústredi sa na produktivitu, nie na zaneprázdnenosť." },
-  "quote11": { "message": "Chráňte svoju pozornosť – je to váš najcennejší majetok." },
-  "quote12": { "message": "Každé zablokované rozptýlenie je získaný čas." },
-  "quote13": { "message": "Znížte hluk; zvýšte svoju produktivitu." },
-  "quote14": { "message": "Malé rutiny budujú nezastaviteľnú hybnosť." },
-  "quote15": { "message": "Jasnosť víťazí nad chaosom – sústreďte sa na to, čo je dôležité." },
-  "quote16": { "message": "Povedzte nie rozptýleniam; povedzte áno pokroku." },
-  "quote17": { "message": "Jedna sústredená hodina dnes znásobí vaše výsledky zajtra." },
-  "quote18": { "message": "Vytvárajte viac konzumáciou menej." },
-  "quote19": { "message": "Disciplína si vyberá dlhodobé výhry pred krátkodobými impulzmi." },
-  "quote20": { "message": "Zatvorte kartu, uvoľnite miesto pre nové nápady." },
-  "quote21": { "message": "Práca, ktorú dnes odkladáš, sa môže stať zajtrajším stresom." },
-  "quote22": { "message": "Sústredenie nie je o tom robiť viac, ale robiť to, čo je skutočne dôležité." },
-  "quote23": { "message": "Tvoje ciele si zaslúžia viac pozornosti než tvoje rozptýlenia." },
-  "quote24": { "message": "Každá minúta bez rozptýlení je investícia do teba samého." },
-  "quote25": { "message": "Dôslednosť prináša dlhodobejšie výsledky než krátke výkyvy motivácie." },
-  "quote26": { "message": "Najlepší čas začať bol včera. Druhý najlepší je teraz." },
-  "quote27": { "message": "Pokrok začína, keď si zvolíš konanie namiesto rozptýlenia." },
-  "quote28": { "message": "Jeden moment sústredenia môže zmeniť celý tvoj deň." },
-  "quote29": { "message": "Nepotrebuješ viac času, ale menej rozptýlení." },
-  "quote30": { "message": "Každé rozhodnutie zostať sústredený posilňuje tvoje budúce ja." },
-  "quote31": { "message": "Toto blokovanie je dočasné; tvoje ciele sú dlhodobé." },
-  "quote32": { "message": "Každé zablokované rozptýlenie je víťazstvom pre tvoje budúce ja." },
-  "quote33": { "message": "Internet je nekonečný, ale tvoj čas nie." },
-  "quote34": { "message": "Urči svoje priority skôr, než ich určí web za teba." },
-  "quote35": { "message": "Menej scrollovania, viac tvorenia." },
-  "quote36": { "message": "Tvoja pozornosť formuje tvoje úspechy." },
-  "quote37": { "message": "Zostaň sústredený — rozptýlenie môže počkať." },
-  "quote38": { "message": "Každé produktívne rozhodnutie začína sústredenou mysľou." },
-  "quote39": { "message": "Zablokoval si webstránku, nie svoj potenciál." },
-  "quote40": { "message": "Cesta k úspechu je postavená na sústredených rozhodnutiach." },
-  "actionsheader": { "message": "Akcie" },
-  "norules": { "message": "Žiadne zablokované stránky." },
-  "editbtn": { "message": "Upraviť" },
-  "ruleddeleted": { "message": "Pravidlo bolo odstránené." },
-  "cancelbtn": { "message": "Zrušiť" },
-  "ruleupdated": { "message": "Pravidlo bolo aktualizované." },
-  "rulenewadded": { "message": "Bolo pridané nové pravidlo." },
-  "gotooptions": { "message": "Prejsť na stránku nastavení ⚙️" },
-  "gotopopup": { "message": "Kliknite na ikonu rozšírenia, aby ste sa vrátili k vyskakovaciemu oknu." },
-  "rulesmigrated": { "message": "Pravidlá aktualizované pre kompatibilitu" },
-  "errorupdatingrules": { "message": "Chyba pri aktualizácii pravidiel" },
-  "erroraddingrule": { "message": "Chyba pri pridávaní pravidla" },
-  "errorremovingrule": { "message": "Chyba pri odstraňovaní pravidla" },
-  "optionsheader": { "message": "Nastavenia rozšírenia" },
-  "optionsdescription": { "message": "Konfigurujte správanie rozšírenia a bezpečnostné nastavenia" },
-  "securitymodetitle": { "message": "Bezpečnostný režim" },
-  "normalmodetitle": { "message": "Normálny režim" },
-  "normalmodedesc": { "message": "Pravidlá je možné okamžite vymazať jedným kliknutím" },
-  "strictmodetitle": { "message": "Prísny režim" },
-  "strictmodedesc": { "message": "Na odstránenie pravidiel je potrebný 10-sekundový odpočet, aby sa zabránilo náhodnému vymazaniu" },
-  "confirmdeletetitle": { "message": "Potvrďte pred odstránením viacerých pravidiel" },
-  "confirmdeletedesc": { "message": "Zobraziť dialógové okno potvrdenia pri odstránení viacerých pravidiel naraz" },
-  "notificationstitle": { "message": "Zobraziť oznámenia" },
-  "notificationsdesc": { "message": "Zobraziť oznámenia pri aktualizácii rozšírenia" },
-  "rulesmanagementtitle": { "message": "Správa pravidiel" },
-  "exportrulesbtn": { "message": "Exportovať pravidlá" },
-  "importrulesbtn": { "message": "Importovať pravidlá" },
-  "clearallrulesbtn": { "message": "Vymazať všetky pravidlá" },
-  "totalruleslabel": { "message": "Celkový počet pravidiel" },
-  "blockedtodaylabel": { "message": "Dnes zablokované" },
-  "totalblockedlabel": { "message": "Celkom zablokované" },
-  "resetsettingsbtn": { "message": "Obnoviť predvolené hodnoty" },
-  "backtopopup": { "message": "Späť do hlavného menu" },
-  "errorloadingsettings": { "message": "Chyba pri načítaní nastavení" },
-  "settingssaved": { "message": "Nastavenia boli úspešne uložené!" },
-  "errorsavingsettings": { "message": "Chyba pri ukladaní nastavení" },
-  "rulesexported": { "message": "Pravidlá boli úspešne exportované!" },
-  "errorexportingrules": { "message": "Chyba pri exportovaní pravidiel" },
+  "restrictedblockurl": {
+    "message": "Tento zdroj nie je možné zablokovať."
+  },
+  "wrongblockurl": {
+    "message": "Neplatná adresa URL na blokovanie"
+  },
+  "wrongredirecturl": {
+    "message": "Nesprávna URL adresa presmerovania"
+  },
+  "blockthat": {
+    "message": "Zablokovať túto stránku"
+  },
+  "sendfeedbackbutton": {
+    "message": "Odoslať spätnú väzbu"
+  },
+  "sendfeedbacksubject": {
+    "message": "Spätná väzba na BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Dobrý deň! Chcel by som zanechať nasledujúcu spätnú väzbu:\n\n"
+  },
+  "quote1": {
+    "message": "Zostaň sústredený, zostaň silný."
+  },
+  "quote2": {
+    "message": "Tvoja budúcnosť sa tvorí tým, čo robíš dnes."
+  },
+  "quote3": {
+    "message": "Disciplína je most medzi cieľmi a úspechmi."
+  },
+  "quote4": {
+    "message": "Jedna zablokovaná stránka – krok bližšie k cieľu."
+  },
+  "quote5": {
+    "message": "Nech má každý klik význam."
+  },
+  "quote6": {
+    "message": "Nepozeraj na hodiny – rob, čo robia ony. Pokračuj."
+  },
+  "quote7": {
+    "message": "Malé kroky každý deň vedú k veľkým výsledkom."
+  },
+  "quote8": {
+    "message": "Jediné obmedzenie je tvoja myseľ."
+  },
+  "quote9": {
+    "message": "Úspech je súčet malých úspechov opakovaných každý deň."
+  },
+  "quote10": {
+    "message": "Sústredi sa na produktivitu, nie na zaneprázdnenosť."
+  },
+  "quote11": {
+    "message": "Chráňte svoju pozornosť – je to váš najcennejší majetok."
+  },
+  "quote12": {
+    "message": "Každé zablokované rozptýlenie je získaný čas."
+  },
+  "quote13": {
+    "message": "Znížte hluk; zvýšte svoju produktivitu."
+  },
+  "quote14": {
+    "message": "Malé rutiny budujú nezastaviteľnú hybnosť."
+  },
+  "quote15": {
+    "message": "Jasnosť víťazí nad chaosom – sústreďte sa na to, čo je dôležité."
+  },
+  "quote16": {
+    "message": "Povedzte nie rozptýleniam; povedzte áno pokroku."
+  },
+  "quote17": {
+    "message": "Jedna sústredená hodina dnes znásobí vaše výsledky zajtra."
+  },
+  "quote18": {
+    "message": "Vytvárajte viac konzumáciou menej."
+  },
+  "quote19": {
+    "message": "Disciplína si vyberá dlhodobé výhry pred krátkodobými impulzmi."
+  },
+  "quote20": {
+    "message": "Zatvorte kartu, uvoľnite miesto pre nové nápady."
+  },
+  "quote21": {
+    "message": "Práca, ktorú dnes odkladáš, sa môže stať zajtrajším stresom."
+  },
+  "quote22": {
+    "message": "Sústredenie nie je o tom robiť viac, ale robiť to, čo je skutočne dôležité."
+  },
+  "quote23": {
+    "message": "Tvoje ciele si zaslúžia viac pozornosti než tvoje rozptýlenia."
+  },
+  "quote24": {
+    "message": "Každá minúta bez rozptýlení je investícia do teba samého."
+  },
+  "quote25": {
+    "message": "Dôslednosť prináša dlhodobejšie výsledky než krátke výkyvy motivácie."
+  },
+  "quote26": {
+    "message": "Najlepší čas začať bol včera. Druhý najlepší je teraz."
+  },
+  "quote27": {
+    "message": "Pokrok začína, keď si zvolíš konanie namiesto rozptýlenia."
+  },
+  "quote28": {
+    "message": "Jeden moment sústredenia môže zmeniť celý tvoj deň."
+  },
+  "quote29": {
+    "message": "Nepotrebuješ viac času, ale menej rozptýlení."
+  },
+  "quote30": {
+    "message": "Každé rozhodnutie zostať sústredený posilňuje tvoje budúce ja."
+  },
+  "quote31": {
+    "message": "Toto blokovanie je dočasné; tvoje ciele sú dlhodobé."
+  },
+  "quote32": {
+    "message": "Každé zablokované rozptýlenie je víťazstvom pre tvoje budúce ja."
+  },
+  "quote33": {
+    "message": "Internet je nekonečný, ale tvoj čas nie."
+  },
+  "quote34": {
+    "message": "Urči svoje priority skôr, než ich určí web za teba."
+  },
+  "quote35": {
+    "message": "Menej scrollovania, viac tvorenia."
+  },
+  "quote36": {
+    "message": "Tvoja pozornosť formuje tvoje úspechy."
+  },
+  "quote37": {
+    "message": "Zostaň sústredený — rozptýlenie môže počkať."
+  },
+  "quote38": {
+    "message": "Každé produktívne rozhodnutie začína sústredenou mysľou."
+  },
+  "quote39": {
+    "message": "Zablokoval si webstránku, nie svoj potenciál."
+  },
+  "quote40": {
+    "message": "Cesta k úspechu je postavená na sústredených rozhodnutiach."
+  },
+  "actionsheader": {
+    "message": "Akcie"
+  },
+  "norules": {
+    "message": "Žiadne zablokované stránky."
+  },
+  "editbtn": {
+    "message": "Upraviť"
+  },
+  "ruleddeleted": {
+    "message": "Pravidlo bolo odstránené."
+  },
+  "cancelbtn": {
+    "message": "Zrušiť"
+  },
+  "ruleupdated": {
+    "message": "Pravidlo bolo aktualizované."
+  },
+  "rulenewadded": {
+    "message": "Bolo pridané nové pravidlo."
+  },
+  "gotooptions": {
+    "message": "Prejsť na stránku nastavení ⚙️"
+  },
+  "gotopopup": {
+    "message": "Kliknite na ikonu rozšírenia, aby ste sa vrátili k vyskakovaciemu oknu."
+  },
+  "rulesmigrated": {
+    "message": "Pravidlá aktualizované pre kompatibilitu"
+  },
+  "errorupdatingrules": {
+    "message": "Chyba pri aktualizácii pravidiel"
+  },
+  "erroraddingrule": {
+    "message": "Chyba pri pridávaní pravidla"
+  },
+  "errorremovingrule": {
+    "message": "Chyba pri odstraňovaní pravidla"
+  },
+  "optionsheader": {
+    "message": "Nastavenia rozšírenia"
+  },
+  "optionsdescription": {
+    "message": "Konfigurujte správanie rozšírenia a bezpečnostné nastavenia"
+  },
+  "securitymodetitle": {
+    "message": "Bezpečnostný režim"
+  },
+  "normalmodetitle": {
+    "message": "Normálny režim"
+  },
+  "normalmodedesc": {
+    "message": "Pravidlá je možné okamžite vymazať jedným kliknutím"
+  },
+  "strictmodetitle": {
+    "message": "Prísny režim"
+  },
+  "strictmodedesc": {
+    "message": "Na odstránenie pravidiel je potrebný 10-sekundový odpočet, aby sa zabránilo náhodnému vymazaniu"
+  },
+  "confirmdeletetitle": {
+    "message": "Potvrďte pred odstránením viacerých pravidiel"
+  },
+  "confirmdeletedesc": {
+    "message": "Zobraziť dialógové okno potvrdenia pri odstránení viacerých pravidiel naraz"
+  },
+  "notificationstitle": {
+    "message": "Zobraziť oznámenia"
+  },
+  "notificationsdesc": {
+    "message": "Zobraziť oznámenia pri aktualizácii rozšírenia"
+  },
+  "rulesmanagementtitle": {
+    "message": "Správa pravidiel"
+  },
+  "exportrulesbtn": {
+    "message": "Exportovať pravidlá"
+  },
+  "importrulesbtn": {
+    "message": "Importovať pravidlá"
+  },
+  "clearallrulesbtn": {
+    "message": "Vymazať všetky pravidlá"
+  },
+  "totalruleslabel": {
+    "message": "Celkový počet pravidiel"
+  },
+  "blockedtodaylabel": {
+    "message": "Dnes zablokované"
+  },
+  "totalblockedlabel": {
+    "message": "Celkom zablokované"
+  },
+  "resetsettingsbtn": {
+    "message": "Obnoviť predvolené hodnoty"
+  },
+  "backtopopup": {
+    "message": "Späť do hlavného menu"
+  },
+  "errorloadingsettings": {
+    "message": "Chyba pri načítaní nastavení"
+  },
+  "settingssaved": {
+    "message": "Nastavenia boli úspešne uložené!"
+  },
+  "errorsavingsettings": {
+    "message": "Chyba pri ukladaní nastavení"
+  },
+  "rulesexported": {
+    "message": "Pravidlá boli úspešne exportované!"
+  },
+  "errorexportingrules": {
+    "message": "Chyba pri exportovaní pravidiel"
+  },
   "willimportrules": {
     "message": "Bude importovaných $ruleslength$ pravidiel.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Aktuálne pravidlá budú nahradené. Pokračovať?" },
+  "ruleswillbereplaced": {
+    "message": "Aktuálne pravidlá budú nahradené. Pokračovať?"
+  },
   "importedrules": {
     "message": "$ruleslength$ pravidiel bolo úspešne importovaných!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Chyba pri importe pravidiel: " },
-  "norulestoclear": { "message": "Žiadne pravidlá na vymazanie" },
+  "errorimportingrules": {
+    "message": "Chyba pri importe pravidiel: "
+  },
+  "norulestoclear": {
+    "message": "Žiadne pravidlá na vymazanie"
+  },
   "willdeleteallrules": {
     "message": "Týmto sa trvale odstránia všetky $rulescount$ pravidlá.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Táto akcia sa nedá vrátiť späť. Pokračovať?" },
-  "allrulescleared": { "message": "Všetky pravidlá boli úspešne vymazané!" },
-  "errorclearingrules": { "message": "Chyba pri vymazávaní pravidiel" },
-  "willreset": { "message": "Všetky nastavenia budú obnovené na predvolené hodnoty. Pokračovať?" },
-  "resettodefaults": { "message": "Nastavenia obnovené na predvolené hodnoty!" },
-  "errorresettingsettings": { "message": "Chyba pri obnove nastavení" },
-  "basicsettingstitle": { "message": "Základné nastavenia" },
-  "advancedsettingstitle": { "message": "Pokročilé nastavenia" },
-  "statisticstitle": { "message": "Štatistiky" },
+  "cannotbeundone": {
+    "message": "Táto akcia sa nedá vrátiť späť. Pokračovať?"
+  },
+  "allrulescleared": {
+    "message": "Všetky pravidlá boli úspešne vymazané!"
+  },
+  "errorclearingrules": {
+    "message": "Chyba pri vymazávaní pravidiel"
+  },
+  "willreset": {
+    "message": "Všetky nastavenia budú obnovené na predvolené hodnoty. Pokračovať?"
+  },
+  "resettodefaults": {
+    "message": "Nastavenia obnovené na predvolené hodnoty!"
+  },
+  "errorresettingsettings": {
+    "message": "Chyba pri obnove nastavení"
+  },
+  "basicsettingstitle": {
+    "message": "Základné nastavenia"
+  },
+  "advancedsettingstitle": {
+    "message": "Pokročilé nastavenia"
+  },
+  "statisticstitle": {
+    "message": "Štatistiky"
+  },
   "rulelimitreached": {
     "message": "Dosiahli ste limit pravidiel ($limit$) v základnej verzii. Prejdite na Pro pre neobmedzené pravidlá.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro je potrebné na úpravy." },
-  "invalidpassword": { "message": "Neplatné heslo" },
-  "setpassword": { "message": "Nastaviť heslo" },
-  "enterpassword": { "message": "Zadať heslo" },
-  "passwordmismatch": { "message": "Heslá sa nezhodujú" },
-  "passwordtooshort": { "message": "Heslo musí mať aspoň 6 znakov" },
-  "resetpasswordconfirm": { "message": "Obnovenie hesla deaktivuje ochranu. Pokračovať?" },
-  "passwordset": { "message": "Heslo bolo úspešne nastavené" },
-  "passworddisabled": { "message": "Ochrana heslom deaktivovaná" },
-  "prorequired": { "message": "Pre túto funkciu je potrebný režim Pro" },
-  "enablepasswordtitle": { "message": "Povoliť ochranu heslom" },
-  "enablepassworddesc": { "message": "Vyžaduje heslo na odstránenie alebo úpravu pravidiel (zlepšuje prísny režim)" },
-  "passwordprotectiontitle": { "message": "Ochrana heslom" },
-  "scheduleheader": { "message": "Plán" },
-  "enableschedule": { "message": "Povoliť plán" },
-  "alwaysactive": { "message": "Vždy aktívne" },
-  "profeatureschedule": { "message": "Plán je dostupný v Pro verzii" },
-  "days": { "message": "Dni" },
-  "starttime": { "message": "Čas začiatku:" },
-  "endtime": { "message": "Čas ukončenia:" },
-  "invaliddays": { "message": "Vybrané dni sú neplatné" },
-  "invalidtimeformat": { "message": "Neplatný formát času (použite HH:MM)" },
-  "startafterend": { "message": "Čas začiatku musí byť pred časom ukončenia" },
-  "invalidschedule": { "message": "Neplatný plán: vyberte dni a časy." },
-  "invalidscheduledays": { "message": "Neplatný plán: vyberte aspoň jeden deň." },
-  "invalidschedulestarttime": { "message": "Neplatný plán: nastavte čas začiatku." },
-  "invalidscheduleendtime": { "message": "Neplatný plán: nastavte čas ukončenia." },
-  "editdisablednonpro": { "message": "Úprava je zakázaná: príliš veľa pravidiel pre ne-Pro používateľov." },
-  "errorloadingstatus": { "message": "Chyba pri načítaní stavu používateľa." },
-  "schedule_day_sun": { "message": "Ne" },
-  "schedule_day_mon": { "message": "Po" },
-  "schedule_day_tue": { "message": "Ut" },
-  "schedule_day_wed": { "message": "St" },
-  "schedule_day_thu": { "message": "Št" },
-  "schedule_day_fri": { "message": "Pi" },
-  "schedule_day_sat": { "message": "So" },
-  "category_header": { "message": "Kategória" },
-  "category_required": { "message": "Kategória je povinná" },
-  "allcategories": { "message": "Všetky kategórie" },
-  "category_social": { "message": "Sociálne siete" },
-  "category_news": { "message": "Správy" },
-  "category_entertainment": { "message": "Zábava" },
-  "category_shopping": { "message": "Nakupovanie" },
-  "category_work": { "message": "Práca" },
-  "category_gaming": { "message": "Hry" },
-  "category_adult": { "message": "Pre dospelých" },
-  "category_uncategorized": { "message": "Nezaradené" },
-  "searchfordomain": { "message": "Hľadať názov domény" },
-  "norulesforcategory": { "message": "Pre túto kategóriu nie sú žiadne blokované stránky." },
-  "getpro": { "message": "Získajte Pro" },
-  "profunctionstext": { "message": "Funkcie Pro zahŕňajú: blokovanie podľa plánu, ochranu heslom, filtrovanie pravidiel a export/import pravidiel. Využite našu Univerzálnu licenciu: jedno predplatné odomkne Pro vo všetkých vašich prehliadačoch (Chrome, Firefox, Edge, Kiwi). Na aktiváciu si zakúpte predplatné na blockdistraction.com, potom skopírujte svoj licenčný kľúč z ovládacieho panela účtu a vložte ho nižšie." },
-  "upgradenow": { "message": "Aktualizovať teraz" },
-  "enteremail": { "message": "Zadajte svoj e-mail" },
-  "activatepro": { "message": "Aktivovať Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Obnoviť prístup" },
-  "pleaseenteremail": { "message": "Prosím, zadajte svoj e-mail" },
-  "checking": { "message": "Kontrola..." },
-  "proactivated": { "message": "Funkcie Pro aktivované!" },
-  "subscriptionnotfound": { "message": "Predplatné nie je aktívne alebo e-mail nebol nájdený." },
-  "servererror": { "message": "Chyba servera. Skúste to znova." },
-  "proactivatedfor": { "message": "Pro aktivované pre" },
+  "proonlyactions": {
+    "message": "Pro je potrebné na úpravy."
+  },
+  "invalidpassword": {
+    "message": "Neplatné heslo"
+  },
+  "setpassword": {
+    "message": "Nastaviť heslo"
+  },
+  "enterpassword": {
+    "message": "Zadať heslo"
+  },
+  "passwordmismatch": {
+    "message": "Heslá sa nezhodujú"
+  },
+  "passwordtooshort": {
+    "message": "Heslo musí mať aspoň 6 znakov"
+  },
+  "resetpasswordconfirm": {
+    "message": "Obnovenie hesla deaktivuje ochranu. Pokračovať?"
+  },
+  "passwordset": {
+    "message": "Heslo bolo úspešne nastavené"
+  },
+  "passworddisabled": {
+    "message": "Ochrana heslom deaktivovaná"
+  },
+  "prorequired": {
+    "message": "Pre túto funkciu je potrebný režim Pro"
+  },
+  "enablepasswordtitle": {
+    "message": "Povoliť ochranu heslom"
+  },
+  "enablepassworddesc": {
+    "message": "Vyžaduje heslo na odstránenie alebo úpravu pravidiel (zlepšuje prísny režim)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Ochrana heslom"
+  },
+  "scheduleheader": {
+    "message": "Plán"
+  },
+  "enableschedule": {
+    "message": "Povoliť plán"
+  },
+  "alwaysactive": {
+    "message": "Vždy aktívne"
+  },
+  "profeatureschedule": {
+    "message": "Plán je dostupný v Pro verzii"
+  },
+  "days": {
+    "message": "Dni"
+  },
+  "starttime": {
+    "message": "Čas začiatku:"
+  },
+  "endtime": {
+    "message": "Čas ukončenia:"
+  },
+  "invaliddays": {
+    "message": "Vybrané dni sú neplatné"
+  },
+  "invalidtimeformat": {
+    "message": "Neplatný formát času (použite HH:MM)"
+  },
+  "startafterend": {
+    "message": "Čas začiatku musí byť pred časom ukončenia"
+  },
+  "invalidschedule": {
+    "message": "Neplatný plán: vyberte dni a časy."
+  },
+  "invalidscheduledays": {
+    "message": "Neplatný plán: vyberte aspoň jeden deň."
+  },
+  "invalidschedulestarttime": {
+    "message": "Neplatný plán: nastavte čas začiatku."
+  },
+  "invalidscheduleendtime": {
+    "message": "Neplatný plán: nastavte čas ukončenia."
+  },
+  "editdisablednonpro": {
+    "message": "Úprava je zakázaná: príliš veľa pravidiel pre ne-Pro používateľov."
+  },
+  "errorloadingstatus": {
+    "message": "Chyba pri načítaní stavu používateľa."
+  },
+  "schedule_day_sun": {
+    "message": "Ne"
+  },
+  "schedule_day_mon": {
+    "message": "Po"
+  },
+  "schedule_day_tue": {
+    "message": "Ut"
+  },
+  "schedule_day_wed": {
+    "message": "St"
+  },
+  "schedule_day_thu": {
+    "message": "Št"
+  },
+  "schedule_day_fri": {
+    "message": "Pi"
+  },
+  "schedule_day_sat": {
+    "message": "So"
+  },
+  "category_header": {
+    "message": "Kategória"
+  },
+  "category_required": {
+    "message": "Kategória je povinná"
+  },
+  "allcategories": {
+    "message": "Všetky kategórie"
+  },
+  "category_social": {
+    "message": "Sociálne siete"
+  },
+  "category_news": {
+    "message": "Správy"
+  },
+  "category_entertainment": {
+    "message": "Zábava"
+  },
+  "category_shopping": {
+    "message": "Nakupovanie"
+  },
+  "category_work": {
+    "message": "Práca"
+  },
+  "category_gaming": {
+    "message": "Hry"
+  },
+  "category_adult": {
+    "message": "Pre dospelých"
+  },
+  "category_uncategorized": {
+    "message": "Nezaradené"
+  },
+  "searchfordomain": {
+    "message": "Hľadať názov domény"
+  },
+  "norulesforcategory": {
+    "message": "Pre túto kategóriu nie sú žiadne blokované stránky."
+  },
+  "getpro": {
+    "message": "Získajte Pro"
+  },
+  "profunctionstext": {
+    "message": "Funkcie Pro zahŕňajú: blokovanie podľa plánu, ochranu heslom, filtrovanie pravidiel a export/import pravidiel. Využite našu Univerzálnu licenciu: jedno predplatné odomkne Pro vo všetkých vašich prehliadačoch (Chrome, Firefox, Edge, Kiwi). Na aktiváciu si zakúpte predplatné na blockdistraction.com, potom skopírujte svoj licenčný kľúč z ovládacieho panela účtu a vložte ho nižšie."
+  },
+  "upgradenow": {
+    "message": "Aktualizovať teraz"
+  },
+  "enteremail": {
+    "message": "Zadajte svoj e-mail"
+  },
+  "activatepro": {
+    "message": "Aktivovať Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Obnoviť prístup"
+  },
+  "pleaseenteremail": {
+    "message": "Prosím, zadajte svoj e-mail"
+  },
+  "checking": {
+    "message": "Kontrola..."
+  },
+  "proactivated": {
+    "message": "Funkcie Pro aktivované!"
+  },
+  "subscriptionnotfound": {
+    "message": "Predplatné nie je aktívne alebo e-mail nebol nájdený."
+  },
+  "servererror": {
+    "message": "Chyba servera. Skúste to znova."
+  },
+  "proactivatedfor": {
+    "message": "Pro aktivované pre"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Požiadavka na povolenie zlyhala (môže sa stať na mobile). Skúste to znova alebo poskytnite povolenie manuálne v nastaveniach rozšírenia."
   },
-  "pastekeylabel": { "message": "Vložte sem svoj licenčný kľúč:" },
-  "confirmclearstats": { "message": "Naozaj chcete vymazať všetky štatistiky? Túto akciu nie je možné vrátiť späť." },
-  "statscleared": { "message": "Štatistiky boli úspešne vymazané." },
-  "redirectstodaylabel": { "message": "Presmerovania dnes" },
-  "totalredirectslabel": { "message": "Celkový počet presmerovaní" },
-  "logout": { "message": "Odhlásiť sa" },
-  "loggedoutsuccess": { "message": "Boli ste úspešne odhlásený." },
-  "loggedouterror": { "message": "Pri odhlasovaní sa vyskytla chyba." },
-  "forcesync": { "message": "Vynútiť synchronizáciu / Skontrolovať stav" },
-  "forgotpasswordinstructions": { "message": "Ak chcete obnoviť svoje heslo, prejdite do sekcie 'Pro', kliknite na 'Odhlásiť sa' a potom znova aktivujte vložením vášho licenčného kľúča." },
-  "blockedtitle": { "message": "Stránka nie je dostupná" },
-  "blockedheader": { "message": "Táto stránka momentálne nie je dostupná" },
-  "blockedtext": { "message": "Tento obsah nie je možné zobraziť." },
-  "blockedbutton": { "message": "Zatvoriť kartu" },
-  "confirmpassword": { "message": "Potvrďte heslo" },
-  "modalconfirm": { "message": "Potvrdiť" },
-  "modalcancel": { "message": "Zrušiť" },
-  "forgotpassword": { "message": "Zabudli ste heslo? Obnoviť (akcia odstráni ochranu)" },
-  "prounlocked": { "message": "Ďakujeme za vašu podporu! Všetky Pro funkcie sú odomknuté." },
-  "licensesynced": { "message": "Vaša licencia je synchronizovaná s vaším účtom. Ak stratíte prístup, svoj kľúč si môžete získať tu: " },
-  "syncing": { "message": "Synchronizácia prebieha..." },
-  "pleaseenterkey": { "message": "Prosím, zadajte kľúč." },
-  "syncsuccess": { "message": "Synchronizácia bola úspešná" },
-  "syncfailed": { "message": "Synchronizácia zlyhala." },
-  "passwordreset": { "message": "Ochrana heslom bola resetovaná." },
-  "privacysecured": { "message": "Súkromie zabezpečené" },
-  "errorinvalidfiletype": { "message": "Vyberte prosím súbor .json" },
-  "debugsettingstitle": { "message": "Nastavenia ladenia" },
-  "enabledebugtitle": { "message": "Povoliť režim ladenia" },
-  "enabledebugdesc": { "message": "Povoliť podrobné zapisovanie do konzoly pre riešenie problémov" },
-  "errorcommunication": { "message": "Chyba pri komunikácii so službou na pozadí" },
-  "clearstats": { "message": "Vymazať štatistiky" },
-  "rule_enabled": { "message": "Povolené" },
-  "rule_disabled": { "message": "Zakázané" },
-  "filter_only_hint": { "message": "Tento zoznam iba filtruje zobrazenie v tabuľke" },
-  "category_disabled_desc": { "message": "Stlmte kategóriu, aby ste dočasne povolili prístup ku všetkým jej webom. Individuálne nastavenia pravidiel zostávajú zachované." },
-  "toggle_category_blocking": { "message": "Zapnúť alebo vypnúť blokovanie pre celú kategóriu" },
-  "category_muted_no_edit": { "message": "Nedá sa spravovať: blokovanie kategórie je pozastavené" },
-  "feedback_title": { "message": "Páči sa vám BlockDistraction?" },
-  "feedback_desc": { "message": "Vaša spätná väzba nám veľmi pomáha zlepšovať rozšírenie." },
-  "feedback_like": { "message": "Áno, funguje skvele!" },
-  "feedback_dislike": { "message": "Mám problémy / návrhy" },
-  "trialproheader": { "message": "Încearcă 7 zile gratuit" },
-  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." },
-  "focussessionheader": { "message": "Relácia sústredenia" },
-  "focussessionstart": { "message": "Spustiť" },
-  "focussessionstop": { "message": "Zastaviť" },
-  "focussessionduration": { "message": "Trvanie (min):" },
-  "focussessioninfo": { "message": "Aktivuje všetky vaše pravidlá blokovania na stanovený čas, pričom ignoruje ich aktuálne nastavenia a rozvrhy. Pre maximálnu koncentráciu." },
-  "focussessionprofeature": { "message": "Vlastné trvanie a Hardcore režim sú Pro funkcie." },
-  "focussessionended": { "message": "Relácia sústredenia sa skončila! Dajte si prestávku." },
-  "focussessionhardcore": { "message": "Hardcore režim (bez tlačidla 'Zastaviť')" },
-  "focussessionsoundtitle": { "message": "Zvukové upozornenie relácie sústredenia" },
-  "focussessionsounddesc": { "message": "Prehrať zvuk po skončení relácie sústredenia." },
-  "focussessionactivebanner": { "message": "Relácia sústredenia je aktívna! Zostávajúci čas:" },
-  "focussessioninvalidduration": { "message": "Zadajte platné trvanie (1 – 240 minút)." },
-  "successfulfocussessionslabel": { "message": "Úspešné relácie sústredenia" },
-  "rule_scheduled": { "message": "Naplánované pravidlo" },
-  "addwhitelistrule": { "message": "Pridať výnimku" },
-  "category_whitelist": { "message": "Biely zoznam" },
-  "conflict_blacklist_err": { "message": "Tento web je už na vašom čiernom zozname. Najprv ho odstráňte." },
-  "conflict_whitelist_err": { "message": "Tento web je už na vašom bielom zozname. Najprv ho odstráňte." },
-  "status_allow": { "message": "Povolené" },
-  "redundant_whitelist_err": { "message": "Toto pravidlo je už pokryté iným pravidlom bieleho zoznamu." },
-  "focussessionmode": { "message": "Režim sústredenia:" },
-  "focusmodeblacklist": { "message": "Blokovať čierny zoznam" },
-  "focusmodewhitelist": { "message": "Povoliť len biely zoznam" }
+  "pastekeylabel": {
+    "message": "Vložte sem svoj licenčný kľúč:"
+  },
+  "confirmclearstats": {
+    "message": "Naozaj chcete vymazať všetky štatistiky? Túto akciu nie je možné vrátiť späť."
+  },
+  "statscleared": {
+    "message": "Štatistiky boli úspešne vymazané."
+  },
+  "redirectstodaylabel": {
+    "message": "Presmerovania dnes"
+  },
+  "totalredirectslabel": {
+    "message": "Celkový počet presmerovaní"
+  },
+  "logout": {
+    "message": "Odhlásiť sa"
+  },
+  "loggedoutsuccess": {
+    "message": "Boli ste úspešne odhlásený."
+  },
+  "loggedouterror": {
+    "message": "Pri odhlasovaní sa vyskytla chyba."
+  },
+  "forcesync": {
+    "message": "Vynútiť synchronizáciu / Skontrolovať stav"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Ak chcete obnoviť svoje heslo, prejdite do sekcie 'Pro', kliknite na 'Odhlásiť sa' a potom znova aktivujte vložením vášho licenčného kľúča."
+  },
+  "blockedtitle": {
+    "message": "Stránka nie je dostupná"
+  },
+  "blockedheader": {
+    "message": "Táto stránka momentálne nie je dostupná"
+  },
+  "blockedtext": {
+    "message": "Tento obsah nie je možné zobraziť."
+  },
+  "blockedbutton": {
+    "message": "Zatvoriť kartu"
+  },
+  "confirmpassword": {
+    "message": "Potvrďte heslo"
+  },
+  "modalconfirm": {
+    "message": "Potvrdiť"
+  },
+  "modalcancel": {
+    "message": "Zrušiť"
+  },
+  "forgotpassword": {
+    "message": "Zabudli ste heslo? Obnoviť (akcia odstráni ochranu)"
+  },
+  "prounlocked": {
+    "message": "Ďakujeme za vašu podporu! Všetky Pro funkcie sú odomknuté."
+  },
+  "licensesynced": {
+    "message": "Vaša licencia je synchronizovaná s vaším účtom. Ak stratíte prístup, svoj kľúč si môžete získať tu: "
+  },
+  "syncing": {
+    "message": "Synchronizácia prebieha..."
+  },
+  "pleaseenterkey": {
+    "message": "Prosím, zadajte kľúč."
+  },
+  "syncsuccess": {
+    "message": "Synchronizácia bola úspešná"
+  },
+  "syncfailed": {
+    "message": "Synchronizácia zlyhala."
+  },
+  "passwordreset": {
+    "message": "Ochrana heslom bola resetovaná."
+  },
+  "privacysecured": {
+    "message": "Súkromie zabezpečené"
+  },
+  "errorinvalidfiletype": {
+    "message": "Vyberte prosím súbor .json"
+  },
+  "debugsettingstitle": {
+    "message": "Nastavenia ladenia"
+  },
+  "enabledebugtitle": {
+    "message": "Povoliť režim ladenia"
+  },
+  "enabledebugdesc": {
+    "message": "Povoliť podrobné zapisovanie do konzoly pre riešenie problémov"
+  },
+  "errorcommunication": {
+    "message": "Chyba pri komunikácii so službou na pozadí"
+  },
+  "clearstats": {
+    "message": "Vymazať štatistiky"
+  },
+  "rule_enabled": {
+    "message": "Povolené"
+  },
+  "rule_disabled": {
+    "message": "Zakázané"
+  },
+  "filter_only_hint": {
+    "message": "Tento zoznam iba filtruje zobrazenie v tabuľke"
+  },
+  "category_disabled_desc": {
+    "message": "Stlmte kategóriu, aby ste dočasne povolili prístup ku všetkým jej webom. Individuálne nastavenia pravidiel zostávajú zachované."
+  },
+  "toggle_category_blocking": {
+    "message": "Zapnúť alebo vypnúť blokovanie pre celú kategóriu"
+  },
+  "category_muted_no_edit": {
+    "message": "Nedá sa spravovať: blokovanie kategórie je pozastavené"
+  },
+  "feedback_title": {
+    "message": "Páči sa vám BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Vaša spätná väzba nám veľmi pomáha zlepšovať rozšírenie."
+  },
+  "feedback_like": {
+    "message": "Áno, funguje skvele!"
+  },
+  "feedback_dislike": {
+    "message": "Mám problémy / návrhy"
+  },
+  "trialproheader": {
+    "message": "Încearcă 7 zile gratuit"
+  },
+  "trialprotext": {
+    "message": "Poți anula în orice moment. Plăți sigure."
+  },
+  "focussessionheader": {
+    "message": "Relácia sústredenia"
+  },
+  "focussessionstart": {
+    "message": "Spustiť"
+  },
+  "focussessionstop": {
+    "message": "Zastaviť"
+  },
+  "focussessionduration": {
+    "message": "Trvanie (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktivuje všetky vaše pravidlá blokovania na stanovený čas, pričom ignoruje ich aktuálne nastavenia a rozvrhy. Pre maximálnu koncentráciu."
+  },
+  "focussessionprofeature": {
+    "message": "Vlastné trvanie a Hardcore režim sú Pro funkcie."
+  },
+  "focussessionended": {
+    "message": "Relácia sústredenia sa skončila! Dajte si prestávku."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore režim (bez tlačidla 'Zastaviť')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Zvukové upozornenie relácie sústredenia"
+  },
+  "focussessionsounddesc": {
+    "message": "Prehrať zvuk po skončení relácie sústredenia."
+  },
+  "focussessionactivebanner": {
+    "message": "Relácia sústredenia je aktívna! Zostávajúci čas:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Zadajte platné trvanie (1 – 240 minút)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Úspešné relácie sústredenia"
+  },
+  "rule_scheduled": {
+    "message": "Naplánované pravidlo"
+  },
+  "addwhitelistrule": {
+    "message": "Pridať výnimku"
+  },
+  "category_whitelist": {
+    "message": "Biely zoznam"
+  },
+  "conflict_blacklist_err": {
+    "message": "Tento web je už na vašom čiernom zozname. Najprv ho odstráňte."
+  },
+  "conflict_whitelist_err": {
+    "message": "Tento web je už na vašom bielom zozname. Najprv ho odstráňte."
+  },
+  "status_allow": {
+    "message": "Povolené"
+  },
+  "redundant_whitelist_err": {
+    "message": "Toto pravidlo je už pokryté iným pravidlom bieleho zoznamu."
+  },
+  "focussessionmode": {
+    "message": "Režim sústredenia:"
+  },
+  "focusmodeblacklist": {
+    "message": "Blokovať čierny zoznam"
+  },
+  "focusmodewhitelist": {
+    "message": "Povoliť len biely zoznam"
+  },
+  "schedule_edit": {
+    "message": "Upraviť plán"
+  },
+  "schedule_add_period": {
+    "message": "Pridať časovú skupinu"
+  },
+  "schedule_remove_period": {
+    "message": "Odstrániť"
+  },
+  "schedule_period": {
+    "message": "Časová skupina"
+  },
+  "schedule_every_day": {
+    "message": "Každý deň"
+  },
+  "schedule_weekdays": {
+    "message": "Pracovné dni"
+  },
+  "schedule_weekends": {
+    "message": "Víkendy"
+  },
+  "schedule_day_overlap": {
+    "message": "Každý deň možno použiť iba raz."
+  }
 }

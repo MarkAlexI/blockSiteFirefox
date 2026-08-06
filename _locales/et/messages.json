@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Veebisaidi blokeerija" },
-  "shortname": { "message": "Blokeerija" },
-  "description": { "message": "Lihtne ja usaldusväärne tööriist veebisaitide blokeerimiseks ja suunamiseks, et hoida fookust." },
-  "defaulttitle": { "message": "Ole keskendunud ja produktiivne" },
-  "header": { "message": "Veebisaidi blokeerija" },
-  "paragraph": { "message": "Veebisaidi või ressursi blokeerimiseks sisesta osa nime sisestusvälja, mille kohatäide on \"Sisesta blokeeritav URL\" – näiteks \"facebook\" blokeerib kõik seotud alamdomeenid. Kohatäitja \"Sisesta suunamise URL\" väljale sisesta kogu aadress koos protokolliga, näiteks \"https://google.com\". Kui suunamise väli jääb tühjaks, blokeeritakse sait ilma suunamiseta. Rakenda reegel, klõpsates Salvesta. Reegli uuendamiseks kustuta vana ja loo uus." },
-  "addrule": { "message": "Lisa uus reegel" },
-  "blockurl": { "message": "Sisesta blokeeritav URL" },
-  "redirecturl": { "message": "Sisesta suunamise URL (valikuline)" },
-  "redirecturlheader": { "message": "Ümbersuunamise URL" },
-  "redirecturlplaceholder": { "message": "Valikuline - blokeerimiseks jätke tühjaks" },
-  "redirecturlhint": { "message": "Sisestage täielik URL koos https://-ga" },
-  "mobilecopylinkhint": { "message": "Lingi blokeerimiseks kopeerige selle aadress ja kleepige see blokeerimisväljale." },
-  "savebtn": { "message": "Salvesta" },
-  "deletebtn": { "message": "Kustuta" },
-  "alertruleexist": { "message": "Reegel on juba olemas" },
+  "chromename": {
+    "message": "BlockDistraction – Veebisaidi blokeerija"
+  },
+  "shortname": {
+    "message": "Blokeerija"
+  },
+  "description": {
+    "message": "Lihtne ja usaldusväärne tööriist veebisaitide blokeerimiseks ja suunamiseks, et hoida fookust."
+  },
+  "defaulttitle": {
+    "message": "Ole keskendunud ja produktiivne"
+  },
+  "header": {
+    "message": "Veebisaidi blokeerija"
+  },
+  "paragraph": {
+    "message": "Veebisaidi või ressursi blokeerimiseks sisesta osa nime sisestusvälja, mille kohatäide on \"Sisesta blokeeritav URL\" – näiteks \"facebook\" blokeerib kõik seotud alamdomeenid. Kohatäitja \"Sisesta suunamise URL\" väljale sisesta kogu aadress koos protokolliga, näiteks \"https://google.com\". Kui suunamise väli jääb tühjaks, blokeeritakse sait ilma suunamiseta. Rakenda reegel, klõpsates Salvesta. Reegli uuendamiseks kustuta vana ja loo uus."
+  },
+  "addrule": {
+    "message": "Lisa uus reegel"
+  },
+  "blockurl": {
+    "message": "Sisesta blokeeritav URL"
+  },
+  "redirecturl": {
+    "message": "Sisesta suunamise URL (valikuline)"
+  },
+  "redirecturlheader": {
+    "message": "Ümbersuunamise URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Valikuline - blokeerimiseks jätke tühjaks"
+  },
+  "redirecturlhint": {
+    "message": "Sisestage täielik URL koos https://-ga"
+  },
+  "mobilecopylinkhint": {
+    "message": "Lingi blokeerimiseks kopeerige selle aadress ja kleepige see blokeerimisväljale."
+  },
+  "savebtn": {
+    "message": "Salvesta"
+  },
+  "deletebtn": {
+    "message": "Kustuta"
+  },
+  "alertruleexist": {
+    "message": "Reegel on juba olemas"
+  },
   "savedrules": {
     "message": "Salvestatud $ruleslength$ reegel(reeglid)",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Seda ressurssi ei saa blokeerida." },
-  "wrongblockurl": { "message": "Kehtetu blokeerimise URL" },
-  "wrongredirecturl": { "message": "Vale suunamise URL" },
-  "blockthat": { "message": "Blokeeri see sait" },
-  "sendfeedbackbutton": { "message": "Saada tagasisidet" },
-  "sendfeedbacksubject": { "message": "Tagasiside BlockDistractionile" },
-  "sendfeedbackbody": { "message": "Tere, sooviksin jagada järgmist tagasisidet:\n\n" },
-  "quote1": { "message": "Ole keskendunud, ole tugev." },
-  "quote2": { "message": "Sinu tulevik luuakse sellest, mida sa täna teed." },
-  "quote3": { "message": "Distsipliin on sild eesmärkide ja edu vahel." },
-  "quote4": { "message": "Üks blokeeritud sait, üks samm lähemale eesmärgile." },
-  "quote5": { "message": "Iga klõps loeb." },
-  "quote6": { "message": "Ära vaata kella; tee nagu see. Jätka edasi." },
-  "quote7": { "message": "Väikesed sammud iga päev toovad suuri tulemusi." },
-  "quote8": { "message": "Sinu ainus piir on sinu meel." },
-  "quote9": { "message": "Edu on väikeste igapäevaste pingutuste summa." },
-  "quote10": { "message": "Fokusseeru produktiivsusele, mitte tegevusele." },
-  "quote11": { "message": "Kaitske oma tähelepanu – see on teie kõige väärtuslikum vara." },
-  "quote12": { "message": "Iga blokeeritud segaja on tagasi võidetud aeg." },
-  "quote13": { "message": "Vähenda müra; suurenda oma tootlikkust." },
-  "quote14": { "message": "Väikesed rutiinid loovad peatamatu hoogu." },
-  "quote15": { "message": "Selgus võidab kaose – keskendu sellele, mis oluline." },
-  "quote16": { "message": "Ütle segajatele ei; ütle arengule jah." },
-  "quote17": { "message": "Täna keskendunud tund mitmekordistab homseid tulemusi." },
-  "quote18": { "message": "Loo rohkem, tarbides vähem." },
-  "quote19": { "message": "Distsipliin eelistab pikaajalist võitu lühiajaliste impulsside asemel." },
-  "quote20": { "message": "Sulge vahekaart, ava ruum uutele ideedele." },
-  "quote21": { "message": "Töö, mida sa täna väldid, võib muutuda homseks stressiks." },
-  "quote22": { "message": "Keskendumine ei tähenda rohkem tegemist, vaid selle tegemist, mis on tõeliselt oluline." },
-  "quote23": { "message": "Sinu eesmärgid väärivad rohkem tähelepanu kui sinu segajad." },
-  "quote24": { "message": "Iga minut ilma segajateta on investeering iseendasse." },
-  "quote25": { "message": "Järjepidevus toob püsivamaid tulemusi kui lühiajalised motivatsioonipursked." },
-  "quote26": { "message": "Parim aeg alustada oli eile. Järgmine parim aeg on nüüd." },
-  "quote27": { "message": "Edu algab siis, kui valid tegutsemise segamise asemel." },
-  "quote28": { "message": "Üksainus keskendumise hetk võib muuta kogu sinu päeva." },
-  "quote29": { "message": "Sa ei vaja rohkem aega, vaid vähem segajaid." },
-  "quote30": { "message": "Iga otsus püsida keskendununa tugevdab sinu tulevast mina." },
-  "quote31": { "message": "See blokeering on ajutine; sinu eesmärgid on pikaajalised." },
-  "quote32": { "message": "Iga blokeeritud tähelepanu kõrvalejuhtimine on võit sinu tulevasele minale." },
-  "quote33": { "message": "Internet on lõputu, kuid sinu aeg mitte." },
-  "quote34": { "message": "Sea oma prioriteedid enne, kui veeb seda sinu eest teeb." },
-  "quote35": { "message": "Vähem kerimist, rohkem loomist." },
-  "quote36": { "message": "Sinu tähelepanu kujundab sinu saavutusi." },
-  "quote37": { "message": "Jää keskendunuks — segajad võivad oodata." },
-  "quote38": { "message": "Iga produktiivne otsus algab keskendunud meelest." },
-  "quote39": { "message": "Sa blokeerisid veebisaidi, mitte oma potentsiaali." },
-  "quote40": { "message": "Edu tee on rajatud keskendunud otsustele." },
-  "actionsheader": { "message": "Tegevused" },
-  "norules": { "message": "Blokeeritud saite pole." },
-  "editbtn": { "message": "Muuda" },
-  "ruleddeleted": { "message": "Reegel kustutatud." },
-  "cancelbtn": { "message": "Tühista" },
-  "ruleupdated": { "message": "Reegel uuendatud." },
-  "rulenewadded": { "message": "Uus reegel lisatud." },
-  "gotooptions": { "message": "Mine valikute lehele ⚙️" },
-  "gotopopup": { "message": "Klõpsa laienduse ikoonil, et naasta popup-i." },
-  "rulesmigrated": { "message": "Reeglid on uuendatud ühilduvuse tagamiseks" },
-  "errorupdatingrules": { "message": "Viga reeglite uuendamisel" },
-  "erroraddingrule": { "message": "Viga reegli lisamisel" },
-  "errorremovingrule": { "message": "Viga reegli eemaldamisel" },
-  "optionsheader": { "message": "Laienduse seaded" },
-  "optionsdescription": { "message": "Seadista laienduse käitumine ja turvaseaded" },
-  "securitymodetitle": { "message": "Turvarežiim" },
-  "normalmodetitle": { "message": "Tavaline režiim" },
-  "normalmodedesc": { "message": "Reegleid saab ühe klõpsuga kohe kustutada" },
-  "strictmodetitle": { "message": "Range režiim" },
-  "strictmodedesc": { "message": "Reeglite kustutamiseks on vaja 10-sekundilist loendust, et vältida juhuslikku eemaldamist" },
-  "confirmdeletetitle": { "message": "Kinnita enne mitme reegli kustutamist" },
-  "confirmdeletedesc": { "message": "Näita kinnituse dialoogi mitme reegli korraga kustutamisel" },
-  "notificationstitle": { "message": "Kuva teavitused" },
-  "notificationsdesc": { "message": "Kuva teavitused, kui veebilaiend on uuendatud" },
-  "rulesmanagementtitle": { "message": "Reeglite haldamine" },
-  "exportrulesbtn": { "message": "Ekspordi reeglid" },
-  "importrulesbtn": { "message": "Impordi reeglid" },
-  "clearallrulesbtn": { "message": "Kustuta kõik reeglid" },
-  "totalruleslabel": { "message": "Reegleid kokku" },
-  "blockedtodaylabel": { "message": "Täna blokeeritud" },
-  "totalblockedlabel": { "message": "Blokeeritud kokku" },
-  "resetsettingsbtn": { "message": "Lähtesta vaikeväärtustele" },
-  "backtopopup": { "message": "Tagasi põhimenüüsse" },
-  "errorloadingsettings": { "message": "Seadete laadimisel tekkis viga" },
-  "settingssaved": { "message": "Seaded salvestati edukalt!" },
-  "errorsavingsettings": { "message": "Seadete salvestamisel tekkis viga" },
-  "rulesexported": { "message": "Reeglid eksporditi edukalt!" },
-  "errorexportingrules": { "message": "Reeglite eksportimisel tekkis viga" },
+  "restrictedblockurl": {
+    "message": "Seda ressurssi ei saa blokeerida."
+  },
+  "wrongblockurl": {
+    "message": "Kehtetu blokeerimise URL"
+  },
+  "wrongredirecturl": {
+    "message": "Vale suunamise URL"
+  },
+  "blockthat": {
+    "message": "Blokeeri see sait"
+  },
+  "sendfeedbackbutton": {
+    "message": "Saada tagasisidet"
+  },
+  "sendfeedbacksubject": {
+    "message": "Tagasiside BlockDistractionile"
+  },
+  "sendfeedbackbody": {
+    "message": "Tere, sooviksin jagada järgmist tagasisidet:\n\n"
+  },
+  "quote1": {
+    "message": "Ole keskendunud, ole tugev."
+  },
+  "quote2": {
+    "message": "Sinu tulevik luuakse sellest, mida sa täna teed."
+  },
+  "quote3": {
+    "message": "Distsipliin on sild eesmärkide ja edu vahel."
+  },
+  "quote4": {
+    "message": "Üks blokeeritud sait, üks samm lähemale eesmärgile."
+  },
+  "quote5": {
+    "message": "Iga klõps loeb."
+  },
+  "quote6": {
+    "message": "Ära vaata kella; tee nagu see. Jätka edasi."
+  },
+  "quote7": {
+    "message": "Väikesed sammud iga päev toovad suuri tulemusi."
+  },
+  "quote8": {
+    "message": "Sinu ainus piir on sinu meel."
+  },
+  "quote9": {
+    "message": "Edu on väikeste igapäevaste pingutuste summa."
+  },
+  "quote10": {
+    "message": "Fokusseeru produktiivsusele, mitte tegevusele."
+  },
+  "quote11": {
+    "message": "Kaitske oma tähelepanu – see on teie kõige väärtuslikum vara."
+  },
+  "quote12": {
+    "message": "Iga blokeeritud segaja on tagasi võidetud aeg."
+  },
+  "quote13": {
+    "message": "Vähenda müra; suurenda oma tootlikkust."
+  },
+  "quote14": {
+    "message": "Väikesed rutiinid loovad peatamatu hoogu."
+  },
+  "quote15": {
+    "message": "Selgus võidab kaose – keskendu sellele, mis oluline."
+  },
+  "quote16": {
+    "message": "Ütle segajatele ei; ütle arengule jah."
+  },
+  "quote17": {
+    "message": "Täna keskendunud tund mitmekordistab homseid tulemusi."
+  },
+  "quote18": {
+    "message": "Loo rohkem, tarbides vähem."
+  },
+  "quote19": {
+    "message": "Distsipliin eelistab pikaajalist võitu lühiajaliste impulsside asemel."
+  },
+  "quote20": {
+    "message": "Sulge vahekaart, ava ruum uutele ideedele."
+  },
+  "quote21": {
+    "message": "Töö, mida sa täna väldid, võib muutuda homseks stressiks."
+  },
+  "quote22": {
+    "message": "Keskendumine ei tähenda rohkem tegemist, vaid selle tegemist, mis on tõeliselt oluline."
+  },
+  "quote23": {
+    "message": "Sinu eesmärgid väärivad rohkem tähelepanu kui sinu segajad."
+  },
+  "quote24": {
+    "message": "Iga minut ilma segajateta on investeering iseendasse."
+  },
+  "quote25": {
+    "message": "Järjepidevus toob püsivamaid tulemusi kui lühiajalised motivatsioonipursked."
+  },
+  "quote26": {
+    "message": "Parim aeg alustada oli eile. Järgmine parim aeg on nüüd."
+  },
+  "quote27": {
+    "message": "Edu algab siis, kui valid tegutsemise segamise asemel."
+  },
+  "quote28": {
+    "message": "Üksainus keskendumise hetk võib muuta kogu sinu päeva."
+  },
+  "quote29": {
+    "message": "Sa ei vaja rohkem aega, vaid vähem segajaid."
+  },
+  "quote30": {
+    "message": "Iga otsus püsida keskendununa tugevdab sinu tulevast mina."
+  },
+  "quote31": {
+    "message": "See blokeering on ajutine; sinu eesmärgid on pikaajalised."
+  },
+  "quote32": {
+    "message": "Iga blokeeritud tähelepanu kõrvalejuhtimine on võit sinu tulevasele minale."
+  },
+  "quote33": {
+    "message": "Internet on lõputu, kuid sinu aeg mitte."
+  },
+  "quote34": {
+    "message": "Sea oma prioriteedid enne, kui veeb seda sinu eest teeb."
+  },
+  "quote35": {
+    "message": "Vähem kerimist, rohkem loomist."
+  },
+  "quote36": {
+    "message": "Sinu tähelepanu kujundab sinu saavutusi."
+  },
+  "quote37": {
+    "message": "Jää keskendunuks — segajad võivad oodata."
+  },
+  "quote38": {
+    "message": "Iga produktiivne otsus algab keskendunud meelest."
+  },
+  "quote39": {
+    "message": "Sa blokeerisid veebisaidi, mitte oma potentsiaali."
+  },
+  "quote40": {
+    "message": "Edu tee on rajatud keskendunud otsustele."
+  },
+  "actionsheader": {
+    "message": "Tegevused"
+  },
+  "norules": {
+    "message": "Blokeeritud saite pole."
+  },
+  "editbtn": {
+    "message": "Muuda"
+  },
+  "ruleddeleted": {
+    "message": "Reegel kustutatud."
+  },
+  "cancelbtn": {
+    "message": "Tühista"
+  },
+  "ruleupdated": {
+    "message": "Reegel uuendatud."
+  },
+  "rulenewadded": {
+    "message": "Uus reegel lisatud."
+  },
+  "gotooptions": {
+    "message": "Mine valikute lehele ⚙️"
+  },
+  "gotopopup": {
+    "message": "Klõpsa laienduse ikoonil, et naasta popup-i."
+  },
+  "rulesmigrated": {
+    "message": "Reeglid on uuendatud ühilduvuse tagamiseks"
+  },
+  "errorupdatingrules": {
+    "message": "Viga reeglite uuendamisel"
+  },
+  "erroraddingrule": {
+    "message": "Viga reegli lisamisel"
+  },
+  "errorremovingrule": {
+    "message": "Viga reegli eemaldamisel"
+  },
+  "optionsheader": {
+    "message": "Laienduse seaded"
+  },
+  "optionsdescription": {
+    "message": "Seadista laienduse käitumine ja turvaseaded"
+  },
+  "securitymodetitle": {
+    "message": "Turvarežiim"
+  },
+  "normalmodetitle": {
+    "message": "Tavaline režiim"
+  },
+  "normalmodedesc": {
+    "message": "Reegleid saab ühe klõpsuga kohe kustutada"
+  },
+  "strictmodetitle": {
+    "message": "Range režiim"
+  },
+  "strictmodedesc": {
+    "message": "Reeglite kustutamiseks on vaja 10-sekundilist loendust, et vältida juhuslikku eemaldamist"
+  },
+  "confirmdeletetitle": {
+    "message": "Kinnita enne mitme reegli kustutamist"
+  },
+  "confirmdeletedesc": {
+    "message": "Näita kinnituse dialoogi mitme reegli korraga kustutamisel"
+  },
+  "notificationstitle": {
+    "message": "Kuva teavitused"
+  },
+  "notificationsdesc": {
+    "message": "Kuva teavitused, kui veebilaiend on uuendatud"
+  },
+  "rulesmanagementtitle": {
+    "message": "Reeglite haldamine"
+  },
+  "exportrulesbtn": {
+    "message": "Ekspordi reeglid"
+  },
+  "importrulesbtn": {
+    "message": "Impordi reeglid"
+  },
+  "clearallrulesbtn": {
+    "message": "Kustuta kõik reeglid"
+  },
+  "totalruleslabel": {
+    "message": "Reegleid kokku"
+  },
+  "blockedtodaylabel": {
+    "message": "Täna blokeeritud"
+  },
+  "totalblockedlabel": {
+    "message": "Blokeeritud kokku"
+  },
+  "resetsettingsbtn": {
+    "message": "Lähtesta vaikeväärtustele"
+  },
+  "backtopopup": {
+    "message": "Tagasi põhimenüüsse"
+  },
+  "errorloadingsettings": {
+    "message": "Seadete laadimisel tekkis viga"
+  },
+  "settingssaved": {
+    "message": "Seaded salvestati edukalt!"
+  },
+  "errorsavingsettings": {
+    "message": "Seadete salvestamisel tekkis viga"
+  },
+  "rulesexported": {
+    "message": "Reeglid eksporditi edukalt!"
+  },
+  "errorexportingrules": {
+    "message": "Reeglite eksportimisel tekkis viga"
+  },
   "willimportrules": {
     "message": "Imporditakse $ruleslength$ reeglit.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Praegused reeglid asendatakse. Kas jätkata?" },
+  "ruleswillbereplaced": {
+    "message": "Praegused reeglid asendatakse. Kas jätkata?"
+  },
   "importedrules": {
     "message": "$ruleslength$ reeglit imporditi edukalt!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Reeglite importimisel tekkis viga: " },
-  "norulestoclear": { "message": "Pole reegleid kustutamiseks" },
+  "errorimportingrules": {
+    "message": "Reeglite importimisel tekkis viga: "
+  },
+  "norulestoclear": {
+    "message": "Pole reegleid kustutamiseks"
+  },
   "willdeleteallrules": {
     "message": "See kustutab jäädavalt kõik $rulescount$ reeglid.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Seda toimingut ei saa tagasi võtta. Kas jätkata?" },
-  "allrulescleared": { "message": "Kõik reeglid kustutati edukalt!" },
-  "errorclearingrules": { "message": "Reeglite kustutamisel tekkis viga" },
-  "willreset": { "message": "Kõik seaded lähtestatakse vaikeväärtustele. Kas jätkata?" },
-  "resettodefaults": { "message": "Seaded lähtestati vaikeväärtustele!" },
-  "errorresettingsettings": { "message": "Seadete lähtestamisel tekkis viga" },
-  "basicsettingstitle": { "message": "Põhiseaded" },
-  "advancedsettingstitle": { "message": "Täpsemad seaded" },
-  "statisticstitle": { "message": "Statistika" },
+  "cannotbeundone": {
+    "message": "Seda toimingut ei saa tagasi võtta. Kas jätkata?"
+  },
+  "allrulescleared": {
+    "message": "Kõik reeglid kustutati edukalt!"
+  },
+  "errorclearingrules": {
+    "message": "Reeglite kustutamisel tekkis viga"
+  },
+  "willreset": {
+    "message": "Kõik seaded lähtestatakse vaikeväärtustele. Kas jätkata?"
+  },
+  "resettodefaults": {
+    "message": "Seaded lähtestati vaikeväärtustele!"
+  },
+  "errorresettingsettings": {
+    "message": "Seadete lähtestamisel tekkis viga"
+  },
+  "basicsettingstitle": {
+    "message": "Põhiseaded"
+  },
+  "advancedsettingstitle": {
+    "message": "Täpsemad seaded"
+  },
+  "statisticstitle": {
+    "message": "Statistika"
+  },
   "rulelimitreached": {
     "message": "Olete jõudnud põhipaketi reeglite piiranguni ($limit$). Uuendage Pro versioonile piiramatute reeglite jaoks.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Redigeerimiseks on vaja Pro versiooni." },
-  "invalidpassword": { "message": "Vale parool" },
-  "setpassword": { "message": "Määra parool" },
-  "enterpassword": { "message": "Sisesta parool" },
-  "passwordmismatch": { "message": "Paroolid ei ühti" },
-  "passwordtooshort": { "message": "Parool peab olema vähemalt 6 tähemärki pikk" },
-  "resetpasswordconfirm": { "message": "Parooli lähtestamine deaktiveerib kaitse. Kas jätkata?" },
-  "passwordset": { "message": "Parool on edukalt määratud" },
-  "passworddisabled": { "message": "Paroolikaitse on deaktiveeritud" },
-  "prorequired": { "message": "Selle funktsiooni jaoks on vaja Pro režiimi" },
-  "enablepasswordtitle": { "message": "Aktiveeri paroolikaitse" },
-  "enablepassworddesc": { "message": "Nõuab parooli reeglite kustutamiseks või muutmiseks (täiustab ranget režiimi)" },
-  "passwordprotectiontitle": { "message": "Paroolikaitse" },
-  "scheduleheader": { "message": "Ajakava" },
-  "enableschedule": { "message": "Luba ajakava" },
-  "alwaysactive": { "message": "Alati aktiivne" },
-  "profeatureschedule": { "message": "Ajakava on saadaval ainult Pro versioonis" },
-  "days": { "message": "Päevad" },
-  "starttime": { "message": "Algusaeg:" },
-  "endtime": { "message": "Lõpuaeg:" },
-  "invaliddays": { "message": "Valitud päevad on vigased" },
-  "invalidtimeformat": { "message": "Vale ajaformaat (kasuta HH:MM)" },
-  "startafterend": { "message": "Algusaeg peab olema enne lõppaega" },
-  "invalidschedule": { "message": "Vigane ajakava: palun vali päevad ja kellaajad." },
-  "invalidscheduledays": { "message": "Vigane ajakava: vali vähemalt üks päev." },
-  "invalidschedulestarttime": { "message": "Vigane ajakava: palun määra algusaeg." },
-  "invalidscheduleendtime": { "message": "Vigane ajakava: palun määra lõpuaeg." },
-  "editdisablednonpro": { "message": "Redigeerimine keelatud: liiga palju reegleid mitte-Pro kasutajatele." },
-  "errorloadingstatus": { "message": "Viga kasutaja oleku laadimisel." },
-  "schedule_day_sun": { "message": "Püh" },
-  "schedule_day_mon": { "message": "Esm" },
-  "schedule_day_tue": { "message": "Tei" },
-  "schedule_day_wed": { "message": "Kol" },
-  "schedule_day_thu": { "message": "Nel" },
-  "schedule_day_fri": { "message": "Ree" },
-  "schedule_day_sat": { "message": "Lau" },
-  "category_header": { "message": "Kategooria" },
-  "category_required": { "message": "Kategooria on kohustuslik" },
-  "allcategories": { "message": "Kõik kategooriad" },
-  "category_social": { "message": "Sotsiaalmeedia" },
-  "category_news": { "message": "Uudised" },
-  "category_entertainment": { "message": "Meelelahutus" },
-  "category_shopping": { "message": "Ostlemine" },
-  "category_work": { "message": "Töö" },
-  "category_gaming": { "message": "Mängud" },
-  "category_adult": { "message": "Täiskasvanutele" },
-  "category_uncategorized": { "message": "Kategooriateta" },
-  "searchfordomain": { "message": "Otsi domeeninime" },
-  "norulesforcategory": { "message": "Selle kategooria jaoks pole blokeeritud saite." },
-  "getpro": { "message": "Hangi Pro" },
-  "profunctionstext": { "message": "Pro-funktsioonid hõlmavad: ajastatud blokeerimist, paroolikaitset, reeglite filtreerimist ja reeglite eksporti/importi. Nautige meie Universaalset Litsentsi: üks tellimus avab Pro kõigis teie brauserites (Chrome, Firefox, Edge, Kiwi). Aktiveerimiseks ostke tellimus blockdistraction.com, seejärel kopeerige oma litsentsivõti konto juhtpaneelilt ja kleepige see allpool." },
-  "upgradenow": { "message": "Uuenda kohe" },
-  "enteremail": { "message": "Sisesta oma e-post" },
-  "activatepro": { "message": "Aktiveeri Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Taasta juurdepääs" },
-  "pleaseenteremail": { "message": "Palun sisesta oma e-post" },
-  "checking": { "message": "Kontrollin..." },
-  "proactivated": { "message": "Pro funktsioonid aktiveeritud!" },
-  "subscriptionnotfound": { "message": "Tellimus pole aktiivne või e-posti aadressi ei leitud." },
-  "servererror": { "message": "Serveri viga. Palun proovi uuesti." },
-  "proactivatedfor": { "message": "Pro aktiveeritud kasutajale" },
+  "proonlyactions": {
+    "message": "Redigeerimiseks on vaja Pro versiooni."
+  },
+  "invalidpassword": {
+    "message": "Vale parool"
+  },
+  "setpassword": {
+    "message": "Määra parool"
+  },
+  "enterpassword": {
+    "message": "Sisesta parool"
+  },
+  "passwordmismatch": {
+    "message": "Paroolid ei ühti"
+  },
+  "passwordtooshort": {
+    "message": "Parool peab olema vähemalt 6 tähemärki pikk"
+  },
+  "resetpasswordconfirm": {
+    "message": "Parooli lähtestamine deaktiveerib kaitse. Kas jätkata?"
+  },
+  "passwordset": {
+    "message": "Parool on edukalt määratud"
+  },
+  "passworddisabled": {
+    "message": "Paroolikaitse on deaktiveeritud"
+  },
+  "prorequired": {
+    "message": "Selle funktsiooni jaoks on vaja Pro režiimi"
+  },
+  "enablepasswordtitle": {
+    "message": "Aktiveeri paroolikaitse"
+  },
+  "enablepassworddesc": {
+    "message": "Nõuab parooli reeglite kustutamiseks või muutmiseks (täiustab ranget režiimi)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Paroolikaitse"
+  },
+  "scheduleheader": {
+    "message": "Ajakava"
+  },
+  "enableschedule": {
+    "message": "Luba ajakava"
+  },
+  "alwaysactive": {
+    "message": "Alati aktiivne"
+  },
+  "profeatureschedule": {
+    "message": "Ajakava on saadaval ainult Pro versioonis"
+  },
+  "days": {
+    "message": "Päevad"
+  },
+  "starttime": {
+    "message": "Algusaeg:"
+  },
+  "endtime": {
+    "message": "Lõpuaeg:"
+  },
+  "invaliddays": {
+    "message": "Valitud päevad on vigased"
+  },
+  "invalidtimeformat": {
+    "message": "Vale ajaformaat (kasuta HH:MM)"
+  },
+  "startafterend": {
+    "message": "Algusaeg peab olema enne lõppaega"
+  },
+  "invalidschedule": {
+    "message": "Vigane ajakava: palun vali päevad ja kellaajad."
+  },
+  "invalidscheduledays": {
+    "message": "Vigane ajakava: vali vähemalt üks päev."
+  },
+  "invalidschedulestarttime": {
+    "message": "Vigane ajakava: palun määra algusaeg."
+  },
+  "invalidscheduleendtime": {
+    "message": "Vigane ajakava: palun määra lõpuaeg."
+  },
+  "editdisablednonpro": {
+    "message": "Redigeerimine keelatud: liiga palju reegleid mitte-Pro kasutajatele."
+  },
+  "errorloadingstatus": {
+    "message": "Viga kasutaja oleku laadimisel."
+  },
+  "schedule_day_sun": {
+    "message": "Püh"
+  },
+  "schedule_day_mon": {
+    "message": "Esm"
+  },
+  "schedule_day_tue": {
+    "message": "Tei"
+  },
+  "schedule_day_wed": {
+    "message": "Kol"
+  },
+  "schedule_day_thu": {
+    "message": "Nel"
+  },
+  "schedule_day_fri": {
+    "message": "Ree"
+  },
+  "schedule_day_sat": {
+    "message": "Lau"
+  },
+  "category_header": {
+    "message": "Kategooria"
+  },
+  "category_required": {
+    "message": "Kategooria on kohustuslik"
+  },
+  "allcategories": {
+    "message": "Kõik kategooriad"
+  },
+  "category_social": {
+    "message": "Sotsiaalmeedia"
+  },
+  "category_news": {
+    "message": "Uudised"
+  },
+  "category_entertainment": {
+    "message": "Meelelahutus"
+  },
+  "category_shopping": {
+    "message": "Ostlemine"
+  },
+  "category_work": {
+    "message": "Töö"
+  },
+  "category_gaming": {
+    "message": "Mängud"
+  },
+  "category_adult": {
+    "message": "Täiskasvanutele"
+  },
+  "category_uncategorized": {
+    "message": "Kategooriateta"
+  },
+  "searchfordomain": {
+    "message": "Otsi domeeninime"
+  },
+  "norulesforcategory": {
+    "message": "Selle kategooria jaoks pole blokeeritud saite."
+  },
+  "getpro": {
+    "message": "Hangi Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro-funktsioonid hõlmavad: ajastatud blokeerimist, paroolikaitset, reeglite filtreerimist ja reeglite eksporti/importi. Nautige meie Universaalset Litsentsi: üks tellimus avab Pro kõigis teie brauserites (Chrome, Firefox, Edge, Kiwi). Aktiveerimiseks ostke tellimus blockdistraction.com, seejärel kopeerige oma litsentsivõti konto juhtpaneelilt ja kleepige see allpool."
+  },
+  "upgradenow": {
+    "message": "Uuenda kohe"
+  },
+  "enteremail": {
+    "message": "Sisesta oma e-post"
+  },
+  "activatepro": {
+    "message": "Aktiveeri Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Taasta juurdepääs"
+  },
+  "pleaseenteremail": {
+    "message": "Palun sisesta oma e-post"
+  },
+  "checking": {
+    "message": "Kontrollin..."
+  },
+  "proactivated": {
+    "message": "Pro funktsioonid aktiveeritud!"
+  },
+  "subscriptionnotfound": {
+    "message": "Tellimus pole aktiivne või e-posti aadressi ei leitud."
+  },
+  "servererror": {
+    "message": "Serveri viga. Palun proovi uuesti."
+  },
+  "proactivatedfor": {
+    "message": "Pro aktiveeritud kasutajale"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Luba taotlus ebaõnnestus (see võib juhtuda mobiilseadmetes). Proovige uuesti või andke luba käsitsi seadete kaudu."
   },
-  "pastekeylabel": { "message": "Kleebi siia oma litsentsivõti:" },
-  "confirmclearstats": { "message": "Kas olete kindel, et soovite kõik statistika kustutada? Seda toimingut ei saa tagasi võtta." },
-  "statscleared": { "message": "Statistika on edukalt kustutatud." },
-  "redirectstodaylabel": { "message": "Ümbersuunamisi täna" },
-  "totalredirectslabel": { "message": "Ümbersuunamisi kokku" },
-  "logout": { "message": "Logi välja" },
-  "loggedoutsuccess": { "message": "Olete edukalt välja logitud." },
-  "loggedouterror": { "message": "Väljalogimisel tekkis viga." },
-  "forcesync": { "message": "Sunni sünkroonimist / Kontrolli olekut" },
-  "forgotpasswordinstructions": { "message": "Parooli lähtestamiseks avage jaotis 'Pro', klõpsake 'Logi välja' ja aktiveerige uuesti, kleepides oma litsentsivõtme." },
-  "blockedtitle": { "message": "Veebisait ei ole saadaval" },
-  "blockedheader": { "message": "See veebisait ei ole praegu saadaval" },
-  "blockedtext": { "message": "Seda sisu ei saa kuvada." },
-  "blockedbutton": { "message": "Sule vaheleht" },
-  "confirmpassword": { "message": "Kinnita parool" },
-  "modalconfirm": { "message": "Kinnita" },
-  "modalcancel": { "message": "Tühista" },
-  "forgotpassword": { "message": "Unustasid parooli? Lähtesta (eemaldab kaitse)" },
-  "prounlocked": { "message": "Täname toetuse eest! Kõik Pro-funktsioonid on avatud." },
-  "licensesynced": { "message": "Teie litsents on teie kontoga sünkroonitud. Kui kaotate juurdepääsu, saate oma võtme taastada siit: " },
-  "syncing": { "message": "Sünkroonimine..." },
-  "pleaseenterkey": { "message": "Palun sisestage võti." },
-  "syncsuccess": { "message": "Sünkroonimine õnnestus" },
-  "syncfailed": { "message": "Sünkroonimine ebaõnnestus." },
-  "passwordreset": { "message": "Paroolikaitse on lähtestatud." },
-  "privacysecured": { "message": "Privaatsus kaitstud" },
-  "errorinvalidfiletype": { "message": "Palun valige .json-fail" },
-  "debugsettingstitle": { "message": "Silumiseaded" },
-  "enabledebugtitle": { "message": "Luba silumisrežiim" },
-  "enabledebugdesc": { "message": "Luba tõrkeotsingu jaoks konsoolis üksikasjalik logimine" },
-  "errorcommunication": { "message": "Viga taustateenusega suhtlemisel" },
-  "clearstats": { "message": "Tühjenda statistika" },
-  "rule_enabled": { "message": "Lubatud" },
-  "rule_disabled": { "message": "Keelatud" },
-  "filter_only_hint": { "message": "See loend filtreerib ainult tabelis kuvatavat" },
-  "category_disabled_desc": { "message": "Vaigista kategooria, et ajutiselt lubada juurdepääs kõigile selle veebisaitidele. Üksikute reeglite seaded säilivad." },
-  "toggle_category_blocking": { "message": "Lülita kogu kategooria blokeerimine sisse või välja" },
-  "category_muted_no_edit": { "message": "Ei saa hallata: kategooria blokeerimine on peatatud" },
-  "feedback_title": { "message": "Kas sulle meeldib BlockDistraction?" },
-  "feedback_desc": { "message": "Sinu tagasiside aitab meil laiendust oluliselt parandada." },
-  "feedback_like": { "message": "Jah, see töötab suurepäraselt!" },
-  "feedback_dislike": { "message": "Mul on probleeme / ettepanekuid" },
-  "trialproheader": { "message": "Alusta oma 7-päevast tasuta prooviperioodi" },
-  "trialprotext": { "message": "Tühista igal ajal. Sinu maksed on turvaliselt kaitstud." },
-  "focussessionheader": { "message": "Fookusseanss" },
-  "focussessionstart": { "message": "Alusta" },
-  "focussessionstop": { "message": "Peata" },
-  "focussessionduration": { "message": "Kestus (min):" },
-  "focussessioninfo": { "message": "Aktiveerib määratud ajaks kõik sinu blokeerimisreeglid, eirates nende praeguseid seadeid ja ajakavasid. Maksimaalseks kontsentreerumiseks." },
-  "focussessionprofeature": { "message": "Kohandatud kestus ja Hardcore-režiim on Pro-funktsioonid." },
-  "focussessionended": { "message": "Fookusseanss on lõppenud! Tee üks paus." },
-  "focussessionhardcore": { "message": "Hardcore-režiim (ilma nuputa 'Peata')" },
-  "focussessionsoundtitle": { "message": "Fookusseansi heli-teavitus" },
-  "focussessionsounddesc": { "message": "Mängi heli, kui fookusseanss lõppeb." },
-  "focussessionactivebanner": { "message": "Fookusseanss on aktiivne! Aeg jäänud:" },
-  "focussessioninvalidduration": { "message": "Palun sisesta kehtiv kestus (1–240 minutit)." },
-  "successfulfocussessionslabel": { "message": "Edukad fookusseansid" },
-  "rule_scheduled": { "message": "Ajastatud reegel" },
-  "addwhitelistrule": { "message": "Lisa erand" },
-  "category_whitelist": { "message": "Valge nimekiri" },
-  "conflict_blacklist_err": { "message": "See sait on juba sinu mustas nimekirjas. Eemalda see kõigepealt." },
-  "conflict_whitelist_err": { "message": "See sait on juba sinu valges nimekirjas. Eemalda see kõigepealt." },
-  "status_allow": { "message": "Lubatud" },
-  "redundant_whitelist_err": { "message": "See reegel on juba teise valge nimekirja reegliga kaetud." },
-  "focussessionmode": { "message": "Fookusrežiim:" },
-  "focusmodeblacklist": { "message": "Blokeeri must nimekiri" },
-  "focusmodewhitelist": { "message": "Luba ainult valge nimekiri" }
+  "pastekeylabel": {
+    "message": "Kleebi siia oma litsentsivõti:"
+  },
+  "confirmclearstats": {
+    "message": "Kas olete kindel, et soovite kõik statistika kustutada? Seda toimingut ei saa tagasi võtta."
+  },
+  "statscleared": {
+    "message": "Statistika on edukalt kustutatud."
+  },
+  "redirectstodaylabel": {
+    "message": "Ümbersuunamisi täna"
+  },
+  "totalredirectslabel": {
+    "message": "Ümbersuunamisi kokku"
+  },
+  "logout": {
+    "message": "Logi välja"
+  },
+  "loggedoutsuccess": {
+    "message": "Olete edukalt välja logitud."
+  },
+  "loggedouterror": {
+    "message": "Väljalogimisel tekkis viga."
+  },
+  "forcesync": {
+    "message": "Sunni sünkroonimist / Kontrolli olekut"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Parooli lähtestamiseks avage jaotis 'Pro', klõpsake 'Logi välja' ja aktiveerige uuesti, kleepides oma litsentsivõtme."
+  },
+  "blockedtitle": {
+    "message": "Veebisait ei ole saadaval"
+  },
+  "blockedheader": {
+    "message": "See veebisait ei ole praegu saadaval"
+  },
+  "blockedtext": {
+    "message": "Seda sisu ei saa kuvada."
+  },
+  "blockedbutton": {
+    "message": "Sule vaheleht"
+  },
+  "confirmpassword": {
+    "message": "Kinnita parool"
+  },
+  "modalconfirm": {
+    "message": "Kinnita"
+  },
+  "modalcancel": {
+    "message": "Tühista"
+  },
+  "forgotpassword": {
+    "message": "Unustasid parooli? Lähtesta (eemaldab kaitse)"
+  },
+  "prounlocked": {
+    "message": "Täname toetuse eest! Kõik Pro-funktsioonid on avatud."
+  },
+  "licensesynced": {
+    "message": "Teie litsents on teie kontoga sünkroonitud. Kui kaotate juurdepääsu, saate oma võtme taastada siit: "
+  },
+  "syncing": {
+    "message": "Sünkroonimine..."
+  },
+  "pleaseenterkey": {
+    "message": "Palun sisestage võti."
+  },
+  "syncsuccess": {
+    "message": "Sünkroonimine õnnestus"
+  },
+  "syncfailed": {
+    "message": "Sünkroonimine ebaõnnestus."
+  },
+  "passwordreset": {
+    "message": "Paroolikaitse on lähtestatud."
+  },
+  "privacysecured": {
+    "message": "Privaatsus kaitstud"
+  },
+  "errorinvalidfiletype": {
+    "message": "Palun valige .json-fail"
+  },
+  "debugsettingstitle": {
+    "message": "Silumiseaded"
+  },
+  "enabledebugtitle": {
+    "message": "Luba silumisrežiim"
+  },
+  "enabledebugdesc": {
+    "message": "Luba tõrkeotsingu jaoks konsoolis üksikasjalik logimine"
+  },
+  "errorcommunication": {
+    "message": "Viga taustateenusega suhtlemisel"
+  },
+  "clearstats": {
+    "message": "Tühjenda statistika"
+  },
+  "rule_enabled": {
+    "message": "Lubatud"
+  },
+  "rule_disabled": {
+    "message": "Keelatud"
+  },
+  "filter_only_hint": {
+    "message": "See loend filtreerib ainult tabelis kuvatavat"
+  },
+  "category_disabled_desc": {
+    "message": "Vaigista kategooria, et ajutiselt lubada juurdepääs kõigile selle veebisaitidele. Üksikute reeglite seaded säilivad."
+  },
+  "toggle_category_blocking": {
+    "message": "Lülita kogu kategooria blokeerimine sisse või välja"
+  },
+  "category_muted_no_edit": {
+    "message": "Ei saa hallata: kategooria blokeerimine on peatatud"
+  },
+  "feedback_title": {
+    "message": "Kas sulle meeldib BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Sinu tagasiside aitab meil laiendust oluliselt parandada."
+  },
+  "feedback_like": {
+    "message": "Jah, see töötab suurepäraselt!"
+  },
+  "feedback_dislike": {
+    "message": "Mul on probleeme / ettepanekuid"
+  },
+  "trialproheader": {
+    "message": "Alusta oma 7-päevast tasuta prooviperioodi"
+  },
+  "trialprotext": {
+    "message": "Tühista igal ajal. Sinu maksed on turvaliselt kaitstud."
+  },
+  "focussessionheader": {
+    "message": "Fookusseanss"
+  },
+  "focussessionstart": {
+    "message": "Alusta"
+  },
+  "focussessionstop": {
+    "message": "Peata"
+  },
+  "focussessionduration": {
+    "message": "Kestus (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktiveerib määratud ajaks kõik sinu blokeerimisreeglid, eirates nende praeguseid seadeid ja ajakavasid. Maksimaalseks kontsentreerumiseks."
+  },
+  "focussessionprofeature": {
+    "message": "Kohandatud kestus ja Hardcore-režiim on Pro-funktsioonid."
+  },
+  "focussessionended": {
+    "message": "Fookusseanss on lõppenud! Tee üks paus."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore-režiim (ilma nuputa 'Peata')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Fookusseansi heli-teavitus"
+  },
+  "focussessionsounddesc": {
+    "message": "Mängi heli, kui fookusseanss lõppeb."
+  },
+  "focussessionactivebanner": {
+    "message": "Fookusseanss on aktiivne! Aeg jäänud:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Palun sisesta kehtiv kestus (1–240 minutit)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Edukad fookusseansid"
+  },
+  "rule_scheduled": {
+    "message": "Ajastatud reegel"
+  },
+  "addwhitelistrule": {
+    "message": "Lisa erand"
+  },
+  "category_whitelist": {
+    "message": "Valge nimekiri"
+  },
+  "conflict_blacklist_err": {
+    "message": "See sait on juba sinu mustas nimekirjas. Eemalda see kõigepealt."
+  },
+  "conflict_whitelist_err": {
+    "message": "See sait on juba sinu valges nimekirjas. Eemalda see kõigepealt."
+  },
+  "status_allow": {
+    "message": "Lubatud"
+  },
+  "redundant_whitelist_err": {
+    "message": "See reegel on juba teise valge nimekirja reegliga kaetud."
+  },
+  "focussessionmode": {
+    "message": "Fookusrežiim:"
+  },
+  "focusmodeblacklist": {
+    "message": "Blokeeri must nimekiri"
+  },
+  "focusmodewhitelist": {
+    "message": "Luba ainult valge nimekiri"
+  },
+  "schedule_edit": {
+    "message": "Muuda ajakava"
+  },
+  "schedule_add_period": {
+    "message": "Lisa ajarühm"
+  },
+  "schedule_remove_period": {
+    "message": "Eemalda"
+  },
+  "schedule_period": {
+    "message": "Ajarühm"
+  },
+  "schedule_every_day": {
+    "message": "Iga päev"
+  },
+  "schedule_weekdays": {
+    "message": "Tööpäevad"
+  },
+  "schedule_weekends": {
+    "message": "Nädalavahetused"
+  },
+  "schedule_day_overlap": {
+    "message": "Iga päeva saab kasutada ainult üks kord."
+  }
 }

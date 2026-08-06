@@ -975,3 +975,183 @@ tr.rule-whitelist td:first-child::before {
     display: block;
   }
 }
+
+.schedule-enable-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.schedule-summary-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.schedule-summary-controls[hidden] {
+  display: none;
+}
+
+.schedule-summary {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.schedule-edit-button {
+  width: 100%;
+  padding: 0.38rem 0.55rem;
+  font-size: 0.78rem;
+}
+
+.schedule-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.62);
+}
+
+.schedule-dialog {
+  box-sizing: border-box;
+  width: min(760px, 96vw);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  padding: 1.25rem;
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-large);
+}
+
+.schedule-dialog h3 {
+  margin: 0 0 1rem;
+}
+
+.schedule-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.schedule-presets button {
+  padding: 0.45rem 0.75rem;
+}
+
+.schedule-periods {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.schedule-period-card {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-secondary);
+}
+
+.schedule-period-card legend {
+  padding: 0 0.35rem;
+  font-weight: 700;
+}
+
+.schedule-remove-period {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.75rem;
+}
+
+.schedule-period-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(54px, 1fr));
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.schedule-period-days label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.3rem;
+  border: 1px solid var(--border-light);
+  border-radius: 7px;
+  background: var(--bg-primary);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.schedule-period-days input {
+  margin: 0;
+}
+
+.schedule-period-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.schedule-period-times label {
+  display: flex;
+  flex: 1 1 180px;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.schedule-period-times input[type="time"] {
+  flex: 1;
+  min-width: 110px;
+  padding: 0.45rem;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.schedule-dialog-error {
+  margin: 0.8rem 0 0;
+  color: var(--danger-color, #dc2626);
+  font-weight: 600;
+}
+
+.schedule-dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.schedule-dialog-spacer {
+  flex: 1;
+}
+
+.schedule-dialog-actions button {
+  padding: 0.5rem 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .schedule-period-days {
+    grid-template-columns: repeat(4, minmax(54px, 1fr));
+  }
+
+  .schedule-dialog-actions {
+    flex-wrap: wrap;
+  }
+
+  .schedule-dialog-spacer {
+    display: none;
+  }
+}

@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Sivuston esto" },
-  "shortname": { "message": "Estäjä" },
-  "description": { "message": "Yksinkertainen ja luotettava työkalu verkkosivujen estämiseen ja uudelleenohjaukseen, jotta pysyt keskittyneenä." },
-  "defaulttitle": { "message": "Pysy keskittyneenä ja tuottavana" },
-  "header": { "message": "Sivuston esto" },
-  "paragraph": { "message": "Sivuston tai resurssin estämiseksi kirjoita osa sen nimestä kenttään, jossa on paikkamerkki \"Kirjoita estettävä URL\" – esimerkiksi \"facebook\" estää kaikki siihen liittyvät aliverkkotunnukset. Kenttään, jossa on paikkamerkki \"Kirjoita uudelleenohjauksen URL\", kirjoita koko osoite protokollineen, kuten \"https://google.com\". Jos uudelleenohjauskenttä jätetään tyhjäksi, sivusto estetään ilman uudelleenohjausta. Klikkaa Tallenna-painiketta soveltaaksesi sääntöä. Päivittääksesi säännön, poista vanha ja luo uusi." },
-  "addrule": { "message": "Lisää uusi sääntö" },
-  "blockurl": { "message": "Kirjoita estettävä URL" },
-  "redirecturl": { "message": "Kirjoita uudelleenohjauksen URL (valinnainen)" },
-  "redirecturlheader": { "message": "Uudelleenohjaus-URL" },
-  "redirecturlplaceholder": { "message": "Valinnainen - jätä tyhjäksi estääksesi" },
-  "redirecturlhint": { "message": "Anna täydellinen URL-osoite, joka sisältää https://" },
-  "mobilecopylinkhint": { "message": "Voit estää linkin kopioimalla sen osoitteen ja liittämällä sen estokenttään." },
-  "savebtn": { "message": "Tallenna" },
-  "deletebtn": { "message": "Poista" },
-  "alertruleexist": { "message": "Sääntö on jo olemassa" },
+  "chromename": {
+    "message": "BlockDistraction – Sivuston esto"
+  },
+  "shortname": {
+    "message": "Estäjä"
+  },
+  "description": {
+    "message": "Yksinkertainen ja luotettava työkalu verkkosivujen estämiseen ja uudelleenohjaukseen, jotta pysyt keskittyneenä."
+  },
+  "defaulttitle": {
+    "message": "Pysy keskittyneenä ja tuottavana"
+  },
+  "header": {
+    "message": "Sivuston esto"
+  },
+  "paragraph": {
+    "message": "Sivuston tai resurssin estämiseksi kirjoita osa sen nimestä kenttään, jossa on paikkamerkki \"Kirjoita estettävä URL\" – esimerkiksi \"facebook\" estää kaikki siihen liittyvät aliverkkotunnukset. Kenttään, jossa on paikkamerkki \"Kirjoita uudelleenohjauksen URL\", kirjoita koko osoite protokollineen, kuten \"https://google.com\". Jos uudelleenohjauskenttä jätetään tyhjäksi, sivusto estetään ilman uudelleenohjausta. Klikkaa Tallenna-painiketta soveltaaksesi sääntöä. Päivittääksesi säännön, poista vanha ja luo uusi."
+  },
+  "addrule": {
+    "message": "Lisää uusi sääntö"
+  },
+  "blockurl": {
+    "message": "Kirjoita estettävä URL"
+  },
+  "redirecturl": {
+    "message": "Kirjoita uudelleenohjauksen URL (valinnainen)"
+  },
+  "redirecturlheader": {
+    "message": "Uudelleenohjaus-URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Valinnainen - jätä tyhjäksi estääksesi"
+  },
+  "redirecturlhint": {
+    "message": "Anna täydellinen URL-osoite, joka sisältää https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Voit estää linkin kopioimalla sen osoitteen ja liittämällä sen estokenttään."
+  },
+  "savebtn": {
+    "message": "Tallenna"
+  },
+  "deletebtn": {
+    "message": "Poista"
+  },
+  "alertruleexist": {
+    "message": "Sääntö on jo olemassa"
+  },
   "savedrules": {
     "message": "$ruleslength$ sääntö(t) tallennettu",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Tätä resurssia ei voi estää." },
-  "wrongblockurl": { "message": "Virheellinen eston URL-osoite" },
-  "wrongredirecturl": { "message": "Virheellinen uudelleenohjaus-URL" },
-  "blockthat": { "message": "Estä tämä sivusto" },
-  "sendfeedbackbutton": { "message": "Lähetä palautetta" },
-  "sendfeedbacksubject": { "message": "Palaute BlockDistractionille" },
-  "sendfeedbackbody": { "message": "Hei, haluaisin jakaa seuraavan palautteen:\n\n" },
-  "quote1": { "message": "Pysy keskittyneenä, pysy vahvana." },
-  "quote2": { "message": "Tulevaisuutesi luodaan sillä, mitä teet tänään." },
-  "quote3": { "message": "Kurinalaisuus on silta tavoitteiden ja menestyksen välillä." },
-  "quote4": { "message": "Yksi estetty sivusto, yksi askel lähemmäs tavoitettasi." },
-  "quote5": { "message": "Jokainen klikkaus merkitsee." },
-  "quote6": { "message": "Älä katso kelloa; tee kuten se. Jatka eteenpäin." },
-  "quote7": { "message": "Pienet päivittäiset askeleet johtavat suuriin tuloksiin." },
-  "quote8": { "message": "Ainoa rajasi on mielesi." },
-  "quote9": { "message": "Menestys on pienten päivittäisten ponnistelujen summa." },
-  "quote10": { "message": "Keskity tuottavuuteen, älä kiireeseen." },
-  "quote11": { "message": "Suojaa huomiotasi – se on arvokkain voimavarasi." },
-  "quote12": { "message": "Jokainen estetty häiriö on takaisin saatu aika." },
-  "quote13": { "message": "Hiljennä melu; lisää tuottavuuttasi." },
-  "quote14": { "message": "Pienet rutiinit rakentavat pysäyttämätöntä vauhtia." },
-  "quote15": { "message": "Selkeys voittaa kaaoksen – keskity olennaiseen." },
-  "quote16": { "message": "Sano ei häiriöille; sano kyllä edistymiselle." },
-  "quote17": { "message": "Keskittynyt tunti tänään moninkertaistaa tuloksesi huomenna." },
-  "quote18": { "message": "Luo enemmän kuluttamalla vähemmän." },
-  "quote19": { "message": "Kurinalaisuus valitsee pitkän aikavälin voitot lyhytaikaisten impulssien sijaan." },
-  "quote20": { "message": "Sulje välilehti, avaa tila uusille ideoille." },
-  "quote21": { "message": "Työ, jota välttelet tänään, voi muuttua huomisen stressiksi." },
-  "quote22": { "message": "Keskittyminen ei ole enemmän tekemistä, vaan sen tekemistä, mikä on todella tärkeää." },
-  "quote23": { "message": "Tavoitteesi ansaitsevat enemmän huomiota kuin häiriötekijäsi." },
-  "quote24": { "message": "Jokainen minuutti ilman häiriöitä on sijoitus itseesi." },
-  "quote25": { "message": "Johdonmukaisuus tuottaa kestävämpiä tuloksia kuin lyhyet motivaatiopiikit." },
-  "quote26": { "message": "Paras aika aloittaa oli eilen. Seuraavaksi paras on nyt." },
-  "quote27": { "message": "Edistyminen alkaa, kun valitset toiminnan häiriöiden sijaan." },
-  "quote28": { "message": "Yksi keskittynyt hetki voi muuttaa koko päiväsi suunnan." },
-  "quote29": { "message": "Et tarvitse enemmän aikaa, vaan vähemmän häiriöitä." },
-  "quote30": { "message": "Jokainen valinta pysyä keskittyneenä vahvistaa tulevaa itseäsi." },
-  "quote31": { "message": "Tämä esto on väliaikainen; tavoitteesi ovat pitkän aikavälin tavoitteita." },
-  "quote32": { "message": "Jokainen estetty häiriö on voitto tulevalle itsellesi." },
-  "quote33": { "message": "Internet on rajaton, mutta aikasi ei." },
-  "quote34": { "message": "Määritä prioriteettisi ennen kuin verkko tekee sen puolestasi." },
-  "quote35": { "message": "Vähemmän selaamista, enemmän luomista." },
-  "quote36": { "message": "Huomiosi muokkaa saavutuksiasi." },
-  "quote37": { "message": "Pysy keskittyneenä — häiriö voi odottaa." },
-  "quote38": { "message": "Jokainen tuottava päätös alkaa keskittyneestä mielestä." },
-  "quote39": { "message": "Estit verkkosivuston, et potentiaaliasi." },
-  "quote40": { "message": "Menestyksen tie rakennetaan keskittyneillä päätöksillä." },
-  "actionsheader": { "message": "Toiminnot" },
-  "norules": { "message": "Ei estettyjä sivustoja." },
-  "editbtn": { "message": "Muokkaa" },
-  "ruleddeleted": { "message": "Sääntö poistettu." },
-  "cancelbtn": { "message": "Peruuta" },
-  "ruleupdated": { "message": "Sääntö päivitetty." },
-  "rulenewadded": { "message": "Uusi sääntö lisätty." },
-  "gotooptions": { "message": "Siirry asetussivulle ⚙️" },
-  "gotopopup": { "message": "Napsauta laajennuksen kuvaketta palataksesi ponnahdusikkunaan." },
-  "rulesmigrated": { "message": "Säännöt päivitetty yhteensopivuuden vuoksi" },
-  "errorupdatingrules": { "message": "Virhe sääntöjen päivittämisessä" },
-  "erroraddingrule": { "message": "Virhe säännön lisäämisessä" },
-  "errorremovingrule": { "message": "Virhe säännön poistamisessa" },
-  "optionsheader": { "message": "Laajennuksen asetukset" },
-  "optionsdescription": { "message": "Määritä laajennuksen toiminta ja suojausasetukset" },
-  "securitymodetitle": { "message": "Turvatila" },
-  "normalmodetitle": { "message": "Normaalitila" },
-  "normalmodedesc": { "message": "Säännöt voidaan poistaa heti yhdellä napsautuksella" },
-  "strictmodetitle": { "message": "Tiukka tila" },
-  "strictmodedesc": { "message": "Sääntöjen poistaminen vaatii 10 sekunnin laskennan vahingossa poistamisen estämiseksi" },
-  "confirmdeletetitle": { "message": "Vahvista ennen useiden sääntöjen poistamista" },
-  "confirmdeletedesc": { "message": "Näytä vahvistusikkuna, kun poistetaan useita sääntöjä kerralla" },
-  "notificationstitle": { "message": "Näytä ilmoitukset" },
-  "notificationsdesc": { "message": "Näytä ilmoitukset, kun laajennusta päivitetään" },
-  "rulesmanagementtitle": { "message": "Sääntöjen hallinta" },
-  "exportrulesbtn": { "message": "Vie säännöt" },
-  "importrulesbtn": { "message": "Tuo säännöt" },
-  "clearallrulesbtn": { "message": "Poista kaikki säännöt" },
-  "totalruleslabel": { "message": "Sääntöjä yhteensä" },
-  "blockedtodaylabel": { "message": "Estetty tänään" },
-  "totalblockedlabel": { "message": "Estetty yhteensä" },
-  "resetsettingsbtn": { "message": "Palauta oletusasetukset" },
-  "backtopopup": { "message": "Takaisin päävalikkoon" },
-  "errorloadingsettings": { "message": "Virhe asetusten lataamisessa" },
-  "settingssaved": { "message": "Asetukset tallennettu onnistuneesti!" },
-  "errorsavingsettings": { "message": "Virhe asetuksia tallennettaessa" },
-  "rulesexported": { "message": "Säännöt viety onnistuneesti!" },
-  "errorexportingrules": { "message": "Virhe sääntöjä vietäessä" },
+  "restrictedblockurl": {
+    "message": "Tätä resurssia ei voi estää."
+  },
+  "wrongblockurl": {
+    "message": "Virheellinen eston URL-osoite"
+  },
+  "wrongredirecturl": {
+    "message": "Virheellinen uudelleenohjaus-URL"
+  },
+  "blockthat": {
+    "message": "Estä tämä sivusto"
+  },
+  "sendfeedbackbutton": {
+    "message": "Lähetä palautetta"
+  },
+  "sendfeedbacksubject": {
+    "message": "Palaute BlockDistractionille"
+  },
+  "sendfeedbackbody": {
+    "message": "Hei, haluaisin jakaa seuraavan palautteen:\n\n"
+  },
+  "quote1": {
+    "message": "Pysy keskittyneenä, pysy vahvana."
+  },
+  "quote2": {
+    "message": "Tulevaisuutesi luodaan sillä, mitä teet tänään."
+  },
+  "quote3": {
+    "message": "Kurinalaisuus on silta tavoitteiden ja menestyksen välillä."
+  },
+  "quote4": {
+    "message": "Yksi estetty sivusto, yksi askel lähemmäs tavoitettasi."
+  },
+  "quote5": {
+    "message": "Jokainen klikkaus merkitsee."
+  },
+  "quote6": {
+    "message": "Älä katso kelloa; tee kuten se. Jatka eteenpäin."
+  },
+  "quote7": {
+    "message": "Pienet päivittäiset askeleet johtavat suuriin tuloksiin."
+  },
+  "quote8": {
+    "message": "Ainoa rajasi on mielesi."
+  },
+  "quote9": {
+    "message": "Menestys on pienten päivittäisten ponnistelujen summa."
+  },
+  "quote10": {
+    "message": "Keskity tuottavuuteen, älä kiireeseen."
+  },
+  "quote11": {
+    "message": "Suojaa huomiotasi – se on arvokkain voimavarasi."
+  },
+  "quote12": {
+    "message": "Jokainen estetty häiriö on takaisin saatu aika."
+  },
+  "quote13": {
+    "message": "Hiljennä melu; lisää tuottavuuttasi."
+  },
+  "quote14": {
+    "message": "Pienet rutiinit rakentavat pysäyttämätöntä vauhtia."
+  },
+  "quote15": {
+    "message": "Selkeys voittaa kaaoksen – keskity olennaiseen."
+  },
+  "quote16": {
+    "message": "Sano ei häiriöille; sano kyllä edistymiselle."
+  },
+  "quote17": {
+    "message": "Keskittynyt tunti tänään moninkertaistaa tuloksesi huomenna."
+  },
+  "quote18": {
+    "message": "Luo enemmän kuluttamalla vähemmän."
+  },
+  "quote19": {
+    "message": "Kurinalaisuus valitsee pitkän aikavälin voitot lyhytaikaisten impulssien sijaan."
+  },
+  "quote20": {
+    "message": "Sulje välilehti, avaa tila uusille ideoille."
+  },
+  "quote21": {
+    "message": "Työ, jota välttelet tänään, voi muuttua huomisen stressiksi."
+  },
+  "quote22": {
+    "message": "Keskittyminen ei ole enemmän tekemistä, vaan sen tekemistä, mikä on todella tärkeää."
+  },
+  "quote23": {
+    "message": "Tavoitteesi ansaitsevat enemmän huomiota kuin häiriötekijäsi."
+  },
+  "quote24": {
+    "message": "Jokainen minuutti ilman häiriöitä on sijoitus itseesi."
+  },
+  "quote25": {
+    "message": "Johdonmukaisuus tuottaa kestävämpiä tuloksia kuin lyhyet motivaatiopiikit."
+  },
+  "quote26": {
+    "message": "Paras aika aloittaa oli eilen. Seuraavaksi paras on nyt."
+  },
+  "quote27": {
+    "message": "Edistyminen alkaa, kun valitset toiminnan häiriöiden sijaan."
+  },
+  "quote28": {
+    "message": "Yksi keskittynyt hetki voi muuttaa koko päiväsi suunnan."
+  },
+  "quote29": {
+    "message": "Et tarvitse enemmän aikaa, vaan vähemmän häiriöitä."
+  },
+  "quote30": {
+    "message": "Jokainen valinta pysyä keskittyneenä vahvistaa tulevaa itseäsi."
+  },
+  "quote31": {
+    "message": "Tämä esto on väliaikainen; tavoitteesi ovat pitkän aikavälin tavoitteita."
+  },
+  "quote32": {
+    "message": "Jokainen estetty häiriö on voitto tulevalle itsellesi."
+  },
+  "quote33": {
+    "message": "Internet on rajaton, mutta aikasi ei."
+  },
+  "quote34": {
+    "message": "Määritä prioriteettisi ennen kuin verkko tekee sen puolestasi."
+  },
+  "quote35": {
+    "message": "Vähemmän selaamista, enemmän luomista."
+  },
+  "quote36": {
+    "message": "Huomiosi muokkaa saavutuksiasi."
+  },
+  "quote37": {
+    "message": "Pysy keskittyneenä — häiriö voi odottaa."
+  },
+  "quote38": {
+    "message": "Jokainen tuottava päätös alkaa keskittyneestä mielestä."
+  },
+  "quote39": {
+    "message": "Estit verkkosivuston, et potentiaaliasi."
+  },
+  "quote40": {
+    "message": "Menestyksen tie rakennetaan keskittyneillä päätöksillä."
+  },
+  "actionsheader": {
+    "message": "Toiminnot"
+  },
+  "norules": {
+    "message": "Ei estettyjä sivustoja."
+  },
+  "editbtn": {
+    "message": "Muokkaa"
+  },
+  "ruleddeleted": {
+    "message": "Sääntö poistettu."
+  },
+  "cancelbtn": {
+    "message": "Peruuta"
+  },
+  "ruleupdated": {
+    "message": "Sääntö päivitetty."
+  },
+  "rulenewadded": {
+    "message": "Uusi sääntö lisätty."
+  },
+  "gotooptions": {
+    "message": "Siirry asetussivulle ⚙️"
+  },
+  "gotopopup": {
+    "message": "Napsauta laajennuksen kuvaketta palataksesi ponnahdusikkunaan."
+  },
+  "rulesmigrated": {
+    "message": "Säännöt päivitetty yhteensopivuuden vuoksi"
+  },
+  "errorupdatingrules": {
+    "message": "Virhe sääntöjen päivittämisessä"
+  },
+  "erroraddingrule": {
+    "message": "Virhe säännön lisäämisessä"
+  },
+  "errorremovingrule": {
+    "message": "Virhe säännön poistamisessa"
+  },
+  "optionsheader": {
+    "message": "Laajennuksen asetukset"
+  },
+  "optionsdescription": {
+    "message": "Määritä laajennuksen toiminta ja suojausasetukset"
+  },
+  "securitymodetitle": {
+    "message": "Turvatila"
+  },
+  "normalmodetitle": {
+    "message": "Normaalitila"
+  },
+  "normalmodedesc": {
+    "message": "Säännöt voidaan poistaa heti yhdellä napsautuksella"
+  },
+  "strictmodetitle": {
+    "message": "Tiukka tila"
+  },
+  "strictmodedesc": {
+    "message": "Sääntöjen poistaminen vaatii 10 sekunnin laskennan vahingossa poistamisen estämiseksi"
+  },
+  "confirmdeletetitle": {
+    "message": "Vahvista ennen useiden sääntöjen poistamista"
+  },
+  "confirmdeletedesc": {
+    "message": "Näytä vahvistusikkuna, kun poistetaan useita sääntöjä kerralla"
+  },
+  "notificationstitle": {
+    "message": "Näytä ilmoitukset"
+  },
+  "notificationsdesc": {
+    "message": "Näytä ilmoitukset, kun laajennusta päivitetään"
+  },
+  "rulesmanagementtitle": {
+    "message": "Sääntöjen hallinta"
+  },
+  "exportrulesbtn": {
+    "message": "Vie säännöt"
+  },
+  "importrulesbtn": {
+    "message": "Tuo säännöt"
+  },
+  "clearallrulesbtn": {
+    "message": "Poista kaikki säännöt"
+  },
+  "totalruleslabel": {
+    "message": "Sääntöjä yhteensä"
+  },
+  "blockedtodaylabel": {
+    "message": "Estetty tänään"
+  },
+  "totalblockedlabel": {
+    "message": "Estetty yhteensä"
+  },
+  "resetsettingsbtn": {
+    "message": "Palauta oletusasetukset"
+  },
+  "backtopopup": {
+    "message": "Takaisin päävalikkoon"
+  },
+  "errorloadingsettings": {
+    "message": "Virhe asetusten lataamisessa"
+  },
+  "settingssaved": {
+    "message": "Asetukset tallennettu onnistuneesti!"
+  },
+  "errorsavingsettings": {
+    "message": "Virhe asetuksia tallennettaessa"
+  },
+  "rulesexported": {
+    "message": "Säännöt viety onnistuneesti!"
+  },
+  "errorexportingrules": {
+    "message": "Virhe sääntöjä vietäessä"
+  },
   "willimportrules": {
     "message": "$ruleslength$ sääntöä tuodaan.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Nykyiset säännöt korvataan. Jatketaanko?" },
+  "ruleswillbereplaced": {
+    "message": "Nykyiset säännöt korvataan. Jatketaanko?"
+  },
   "importedrules": {
     "message": "$ruleslength$ sääntöä tuotu onnistuneesti!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Virhe sääntöjä tuotaessa: " },
-  "norulestoclear": { "message": "Ei sääntöjä poistettavaksi" },
+  "errorimportingrules": {
+    "message": "Virhe sääntöjä tuotaessa: "
+  },
+  "norulestoclear": {
+    "message": "Ei sääntöjä poistettavaksi"
+  },
   "willdeleteallrules": {
     "message": "Tämä poistaa pysyvästi kaikki $rulescount$ sääntöä.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Tätä toimintoa ei voi perua. Jatketaanko?" },
-  "allrulescleared": { "message": "Kaikki säännöt poistettu onnistuneesti!" },
-  "errorclearingrules": { "message": "Virhe sääntöjä poistettaessa" },
-  "willreset": { "message": "Kaikki asetukset palautetaan oletuksiin. Jatketaanko?" },
-  "resettodefaults": { "message": "Asetukset palautettu oletuksiin!" },
-  "errorresettingsettings": { "message": "Virhe asetuksia palautettaessa" },
-  "basicsettingstitle": { "message": "Perusasetukset" },
-  "advancedsettingstitle": { "message": "Lisäasetukset" },
-  "statisticstitle": { "message": "Tilastot" },
+  "cannotbeundone": {
+    "message": "Tätä toimintoa ei voi perua. Jatketaanko?"
+  },
+  "allrulescleared": {
+    "message": "Kaikki säännöt poistettu onnistuneesti!"
+  },
+  "errorclearingrules": {
+    "message": "Virhe sääntöjä poistettaessa"
+  },
+  "willreset": {
+    "message": "Kaikki asetukset palautetaan oletuksiin. Jatketaanko?"
+  },
+  "resettodefaults": {
+    "message": "Asetukset palautettu oletuksiin!"
+  },
+  "errorresettingsettings": {
+    "message": "Virhe asetuksia palautettaessa"
+  },
+  "basicsettingstitle": {
+    "message": "Perusasetukset"
+  },
+  "advancedsettingstitle": {
+    "message": "Lisäasetukset"
+  },
+  "statisticstitle": {
+    "message": "Tilastot"
+  },
   "rulelimitreached": {
     "message": "Olet saavuttanut sääntöjen rajan ($limit$) perusversiossa. Päivitä Pro-versioon rajattomien sääntöjen saamiseksi.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro vaaditaan muokkaamiseen." },
-  "invalidpassword": { "message": "Virheellinen salasana" },
-  "setpassword": { "message": "Aseta salasana" },
-  "enterpassword": { "message": "Syötä salasana" },
-  "passwordmismatch": { "message": "Salasanat eivät täsmää" },
-  "passwordtooshort": { "message": "Salasanan on oltava vähintään 6 merkkiä pitkä" },
-  "resetpasswordconfirm": { "message": "Salasanan nollaaminen poistaa suojauksen käytöstä. Jatkatko?" },
-  "passwordset": { "message": "Salasana asetettu onnistuneesti" },
-  "passworddisabled": { "message": "Salasanasuojaus poistettu käytöstä" },
-  "prorequired": { "message": "Tämä ominaisuus vaatii Pro-tilan" },
-  "enablepasswordtitle": { "message": "Ota salasanasuojaus käyttöön" },
-  "enablepassworddesc": { "message": "Vaaditaan salasana sääntöjen poistamiseen tai muokkaamiseen (parantaa tiukkaa tilaa)" },
-  "passwordprotectiontitle": { "message": "Salasanasuojaus" },
-  "scheduleheader": { "message": "Aikataulu" },
-  "enableschedule": { "message": "Ota aikataulu käyttöön" },
-  "alwaysactive": { "message": "Aina aktiivinen" },
-  "profeatureschedule": { "message": "Aikataulu on saatavilla Pro-versiossa" },
-  "days": { "message": "Päivät" },
-  "starttime": { "message": "Alkuaika:" },
-  "endtime": { "message": "Loppuaika:" },
-  "invaliddays": { "message": "Valitut päivät ovat virheellisiä" },
-  "invalidtimeformat": { "message": "Virheellinen aikaformaatti (käytä HH:MM)" },
-  "startafterend": { "message": "Alkuaika on oltava ennen loppuaikaa" },
-  "invalidschedule": { "message": "Virheellinen aikataulu: valitse päivät ja ajat." },
-  "invalidscheduledays": { "message": "Virheellinen aikataulu: valitse vähintään yksi päivä." },
-  "invalidschedulestarttime": { "message": "Virheellinen aikataulu: aseta alkuaika." },
-  "invalidscheduleendtime": { "message": "Virheellinen aikataulu: aseta loppuaika." },
-  "editdisablednonpro": { "message": "Muokkaus pois käytöstä: liian monta sääntöä ei-Pro-käyttäjille." },
-  "errorloadingstatus": { "message": "Virhe käyttäjän tilan lataamisessa." },
-  "schedule_day_sun": { "message": "Sun" },
-  "schedule_day_mon": { "message": "Maan" },
-  "schedule_day_tue": { "message": "Tiis" },
-  "schedule_day_wed": { "message": "Kesk" },
-  "schedule_day_thu": { "message": "Tors" },
-  "schedule_day_fri": { "message": "Perj" },
-  "schedule_day_sat": { "message": "Lau" },
-  "category_header": { "message": "Kategoria" },
-  "category_required": { "message": "Kategoria on pakollinen" },
-  "allcategories": { "message": "Kaikki kategoriat" },
-  "category_social": { "message": "Sosiaalinen media" },
-  "category_news": { "message": "Uutiset" },
-  "category_entertainment": { "message": "Viihde" },
-  "category_shopping": { "message": "Ostokset" },
-  "category_work": { "message": "Työ" },
-  "category_gaming": { "message": "Pelien pelaaminen" },
-  "category_adult": { "message": "Aikuisille" },
-  "category_uncategorized": { "message": "Luokittelematon" },
-  "searchfordomain": { "message": "Etsi verkkotunnusta" },
-  "norulesforcategory": { "message": "Tälle kategoriolle ei ole estettyjä sivustoja." },
-  "getpro": { "message": "Hanki Pro" },
-  "profunctionstext": { "message": "Pro-ominaisuuksiin kuuluu: ajoitettu estäminen, salasanalla suojaaminen, sääntöjen suodatus sekä sääntöjen vienti/tuonti. Nauti universaalista lisenssistämme: yksi tilaus avaa Pro-ominaisuudet kaikissa selaimissasi (Chrome, Firefox, Edge, Kiwi). Aktivointia varten osta tilaus blockdistraction.com-sivustolta, kopioi sitten lisenssiavaimesi tilisi hallintapaneelista ja liitä se alla." },
-  "upgradenow": { "message": "Päivitä nyt" },
-  "enteremail": { "message": "Syötä sähköpostisi" },
-  "activatepro": { "message": "Aktivoi Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Palauta käyttöoikeus" },
-  "pleaseenteremail": { "message": "Syötä sähköpostisi" },
-  "checking": { "message": "Tarkistetaan..." },
-  "proactivated": { "message": "Pro-ominaisuudet aktivoitu!" },
-  "subscriptionnotfound": { "message": "Tilaus ei ole aktiivinen tai sähköpostia ei löytynyt." },
-  "servererror": { "message": "Palvelinvirhe. Yritä uudelleen." },
-  "proactivatedfor": { "message": "Pro aktivoitu käyttäjälle" },
+  "proonlyactions": {
+    "message": "Pro vaaditaan muokkaamiseen."
+  },
+  "invalidpassword": {
+    "message": "Virheellinen salasana"
+  },
+  "setpassword": {
+    "message": "Aseta salasana"
+  },
+  "enterpassword": {
+    "message": "Syötä salasana"
+  },
+  "passwordmismatch": {
+    "message": "Salasanat eivät täsmää"
+  },
+  "passwordtooshort": {
+    "message": "Salasanan on oltava vähintään 6 merkkiä pitkä"
+  },
+  "resetpasswordconfirm": {
+    "message": "Salasanan nollaaminen poistaa suojauksen käytöstä. Jatkatko?"
+  },
+  "passwordset": {
+    "message": "Salasana asetettu onnistuneesti"
+  },
+  "passworddisabled": {
+    "message": "Salasanasuojaus poistettu käytöstä"
+  },
+  "prorequired": {
+    "message": "Tämä ominaisuus vaatii Pro-tilan"
+  },
+  "enablepasswordtitle": {
+    "message": "Ota salasanasuojaus käyttöön"
+  },
+  "enablepassworddesc": {
+    "message": "Vaaditaan salasana sääntöjen poistamiseen tai muokkaamiseen (parantaa tiukkaa tilaa)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Salasanasuojaus"
+  },
+  "scheduleheader": {
+    "message": "Aikataulu"
+  },
+  "enableschedule": {
+    "message": "Ota aikataulu käyttöön"
+  },
+  "alwaysactive": {
+    "message": "Aina aktiivinen"
+  },
+  "profeatureschedule": {
+    "message": "Aikataulu on saatavilla Pro-versiossa"
+  },
+  "days": {
+    "message": "Päivät"
+  },
+  "starttime": {
+    "message": "Alkuaika:"
+  },
+  "endtime": {
+    "message": "Loppuaika:"
+  },
+  "invaliddays": {
+    "message": "Valitut päivät ovat virheellisiä"
+  },
+  "invalidtimeformat": {
+    "message": "Virheellinen aikaformaatti (käytä HH:MM)"
+  },
+  "startafterend": {
+    "message": "Alkuaika on oltava ennen loppuaikaa"
+  },
+  "invalidschedule": {
+    "message": "Virheellinen aikataulu: valitse päivät ja ajat."
+  },
+  "invalidscheduledays": {
+    "message": "Virheellinen aikataulu: valitse vähintään yksi päivä."
+  },
+  "invalidschedulestarttime": {
+    "message": "Virheellinen aikataulu: aseta alkuaika."
+  },
+  "invalidscheduleendtime": {
+    "message": "Virheellinen aikataulu: aseta loppuaika."
+  },
+  "editdisablednonpro": {
+    "message": "Muokkaus pois käytöstä: liian monta sääntöä ei-Pro-käyttäjille."
+  },
+  "errorloadingstatus": {
+    "message": "Virhe käyttäjän tilan lataamisessa."
+  },
+  "schedule_day_sun": {
+    "message": "Sun"
+  },
+  "schedule_day_mon": {
+    "message": "Maan"
+  },
+  "schedule_day_tue": {
+    "message": "Tiis"
+  },
+  "schedule_day_wed": {
+    "message": "Kesk"
+  },
+  "schedule_day_thu": {
+    "message": "Tors"
+  },
+  "schedule_day_fri": {
+    "message": "Perj"
+  },
+  "schedule_day_sat": {
+    "message": "Lau"
+  },
+  "category_header": {
+    "message": "Kategoria"
+  },
+  "category_required": {
+    "message": "Kategoria on pakollinen"
+  },
+  "allcategories": {
+    "message": "Kaikki kategoriat"
+  },
+  "category_social": {
+    "message": "Sosiaalinen media"
+  },
+  "category_news": {
+    "message": "Uutiset"
+  },
+  "category_entertainment": {
+    "message": "Viihde"
+  },
+  "category_shopping": {
+    "message": "Ostokset"
+  },
+  "category_work": {
+    "message": "Työ"
+  },
+  "category_gaming": {
+    "message": "Pelien pelaaminen"
+  },
+  "category_adult": {
+    "message": "Aikuisille"
+  },
+  "category_uncategorized": {
+    "message": "Luokittelematon"
+  },
+  "searchfordomain": {
+    "message": "Etsi verkkotunnusta"
+  },
+  "norulesforcategory": {
+    "message": "Tälle kategoriolle ei ole estettyjä sivustoja."
+  },
+  "getpro": {
+    "message": "Hanki Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro-ominaisuuksiin kuuluu: ajoitettu estäminen, salasanalla suojaaminen, sääntöjen suodatus sekä sääntöjen vienti/tuonti. Nauti universaalista lisenssistämme: yksi tilaus avaa Pro-ominaisuudet kaikissa selaimissasi (Chrome, Firefox, Edge, Kiwi). Aktivointia varten osta tilaus blockdistraction.com-sivustolta, kopioi sitten lisenssiavaimesi tilisi hallintapaneelista ja liitä se alla."
+  },
+  "upgradenow": {
+    "message": "Päivitä nyt"
+  },
+  "enteremail": {
+    "message": "Syötä sähköpostisi"
+  },
+  "activatepro": {
+    "message": "Aktivoi Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Palauta käyttöoikeus"
+  },
+  "pleaseenteremail": {
+    "message": "Syötä sähköpostisi"
+  },
+  "checking": {
+    "message": "Tarkistetaan..."
+  },
+  "proactivated": {
+    "message": "Pro-ominaisuudet aktivoitu!"
+  },
+  "subscriptionnotfound": {
+    "message": "Tilaus ei ole aktiivinen tai sähköpostia ei löytynyt."
+  },
+  "servererror": {
+    "message": "Palvelinvirhe. Yritä uudelleen."
+  },
+  "proactivatedfor": {
+    "message": "Pro aktivoitu käyttäjälle"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,68 +605,220 @@
   "onboarding_status_api_error": {
     "message": "Lupapyyntö epäonnistui (tämä voi tapahtua mobiilissa). Yritä uudelleen tai myönnä lupa manuaalisesti asetuksista."
   },
-  "pastekeylabel": { "message": "Liitä lisenssiavaimesi tähän:" },
-  "confirmclearstats": { "message": "Haluatko varmasti tyhjentää kaikki tilastot? Tätä toimintoa ei voi perua." },
-  "statscleared": { "message": "Tilastot tyhjennettiin onnistuneesti." },
-  "redirectstodaylabel": { "message": "Uudelleenohjauksia tänään" },
-  "totalredirectslabel": { "message": "Uudelleenohjauksia yhteensä" },
-  "logout": { "message": "Kirjaudu ulos" },
-  "loggedoutsuccess": { "message": "Olet kirjautunut ulos onnistuneesti." },
-  "loggedouterror": { "message": "Uloskirjautumisessa tapahtui virhe." },
-  "forcesync": { "message": "Pakota synkronointi / Tarkista tila" },
-  "forgotpasswordinstructions": { "message": "Nollataksesi salasanasi siirry kohtaan 'Pro', napsauta 'Kirjaudu ulos' ja aktivoi sitten uudelleen liittämällä lisenssiavaimesi." },
-  "blockedtitle": { "message": "Sivusto ei ole saatavilla" },
-  "blockedheader": { "message": "Tämä sivusto ei ole tällä hetkellä saatavilla" },
-  "blockedtext": { "message": "Tätä sisältöä ei voida näyttää." },
-  "blockedbutton": { "message": "Sulje välilehti" },
-  "confirmpassword": { "message": "Vahvista salasana" },
-  "modalconfirm": { "message": "Vahvista" },
-  "modalcancel": { "message": "Peruuta" },
-  "forgotpassword": { "message": "Unohditko salasanan? Nollaa (poistaa suojauksen)" },
-  "prounlocked": { "message": "Kiitos tuestasi! Kaikki Pro-ominaisuudet on avattu." },
-  "syncing": { "message": "Synkronoidaan..." },
-  "pleaseenterkey": { "message": "Syötä avain." },
-  "syncsuccess": { "message": "Synkronointi onnistui" },
-  "syncfailed": { "message": "Synkronointi epäonnistui." },
-  "passwordreset": { "message": "Salasanasuoja on palautettu." },
-  "privacysecured": { "message": "Yksityisyys suojattu" },
-  "errorinvalidfiletype": { "message": "Valitse .json-tiedosto" },
-  "debugsettingstitle": { "message": "Debug-asetukset" },
-  "enabledebugtitle": { "message": "Ota debug-tila käyttöön" },
-  "enabledebugdesc": { "message": "Ota käyttöön yksityiskohtainen konsoliloki vianmääritystä varten" },
-  "errorcommunication": { "message": "Virhe kommunikoitaessa taustapalvelun kanssa" },
-  "clearstats": { "message": "Tyhjennä tilastot" },
-  "rule_enabled": { "message": "Käytössä" },
-  "rule_disabled": { "message": "Pois käytöstä" },
-  "filter_only_hint": { "message": "Tämä lista vain suodattaa näkymää taulukossa" },
-  "category_disabled_desc": { "message": "Mykistä kategoria, jotta voit tilapäisesti sallia pääsyn kaikkiin sen sivustoihin. Yksittäisten sääntöjen asetukset säilyvät." },
-  "toggle_category_blocking": { "message": "Kytke koko kategorian esto päälle tai pois" },
-  "category_muted_no_edit": { "message": "Ei voida hallita: kategorian esto on keskeytetty" },
-  "feedback_title": { "message": "Pidätkö BlockDistractionista?" },
-  "feedback_desc": { "message": "Palautteesi auttaa meitä parantamaan laajennusta paljon." },
-  "feedback_like": { "message": "Kyllä, se toimii erinomaisesti!" },
-  "feedback_dislike": { "message": "Minulla on ongelmia / ehdotuksia" },
-  "trialproheader": { "message": "Aloita 7 päivän ilmainen kokeilujakso" },
-  "trialprotext": { "message": "Peruuta milloin tahansa. Maksusi on suojattu turvallisesti." },
-  "focussessionheader": { "message": "Keskittymisistunto" },
-  "focussessionstart": { "message": "Aloita" },
-  "focussessionstop": { "message": "Pysäytä" },
-  "focussessionduration": { "message": "Kesto (min):" },
-  "focussessioninfo": { "message": "Aktivoi kaikki estossääntösi määritetyksi ajaksi, ohittaen niiden nykyiset asetukset ja aikataulut. Maksimaaliseen keskittymiseen." },
-  "focussessionprofeature": { "message": "Mukautettu kesto ja Hardcore-tila ovat Pro-ominaisuuksia." },
-  "focussessionended": { "message": "Keskittymisistunto päättyi! Pidä tauko." },
-  "focussessionhardcore": { "message": "Hardcore-tila (ei 'Pysäytä'-painiketta)" },
-  "focussessionactivebanner": { "message": "Keskittymisistunto aktiivinen! Jäljellä oleva aika:" },
-  "focussessioninvalidduration": { "message": "Anna kelvollinen kesto (1-240 minuuttia)." },
-  "successfulfocussessionslabel": { "message": "Onnistuneet keskittymisistunnot" },
-  "rule_scheduled": { "message": "Ajastettu sääntö" },
-  "addwhitelistrule": { "message": "Lisää poikkeus" },
-  "category_whitelist": { "message": "Sallittulista" },
-  "conflict_blacklist_err": { "message": "Tämä sivusto on jo estollistallasi. Poista se ensin." },
-  "conflict_whitelist_err": { "message": "Tämä sivusto on jo sallittulistallasi. Poista se ensin." },
-  "status_allow": { "message": "Sallittu" },
-  "redundant_whitelist_err": { "message": "Toinen sallittulistan sääntö kattaa jo tämän säännön." },
-  "focussessionmode": { "message": "Keskittymistila:" },
-  "focusmodeblacklist": { "message": "Esta estolista" },
-  "focusmodewhitelist": { "message": "Salli vain sallittulista" }
+  "pastekeylabel": {
+    "message": "Liitä lisenssiavaimesi tähän:"
+  },
+  "confirmclearstats": {
+    "message": "Haluatko varmasti tyhjentää kaikki tilastot? Tätä toimintoa ei voi perua."
+  },
+  "statscleared": {
+    "message": "Tilastot tyhjennettiin onnistuneesti."
+  },
+  "redirectstodaylabel": {
+    "message": "Uudelleenohjauksia tänään"
+  },
+  "totalredirectslabel": {
+    "message": "Uudelleenohjauksia yhteensä"
+  },
+  "logout": {
+    "message": "Kirjaudu ulos"
+  },
+  "loggedoutsuccess": {
+    "message": "Olet kirjautunut ulos onnistuneesti."
+  },
+  "loggedouterror": {
+    "message": "Uloskirjautumisessa tapahtui virhe."
+  },
+  "forcesync": {
+    "message": "Pakota synkronointi / Tarkista tila"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Nollataksesi salasanasi siirry kohtaan 'Pro', napsauta 'Kirjaudu ulos' ja aktivoi sitten uudelleen liittämällä lisenssiavaimesi."
+  },
+  "blockedtitle": {
+    "message": "Sivusto ei ole saatavilla"
+  },
+  "blockedheader": {
+    "message": "Tämä sivusto ei ole tällä hetkellä saatavilla"
+  },
+  "blockedtext": {
+    "message": "Tätä sisältöä ei voida näyttää."
+  },
+  "blockedbutton": {
+    "message": "Sulje välilehti"
+  },
+  "confirmpassword": {
+    "message": "Vahvista salasana"
+  },
+  "modalconfirm": {
+    "message": "Vahvista"
+  },
+  "modalcancel": {
+    "message": "Peruuta"
+  },
+  "forgotpassword": {
+    "message": "Unohditko salasanan? Nollaa (poistaa suojauksen)"
+  },
+  "prounlocked": {
+    "message": "Kiitos tuestasi! Kaikki Pro-ominaisuudet on avattu."
+  },
+  "syncing": {
+    "message": "Synkronoidaan..."
+  },
+  "pleaseenterkey": {
+    "message": "Syötä avain."
+  },
+  "syncsuccess": {
+    "message": "Synkronointi onnistui"
+  },
+  "syncfailed": {
+    "message": "Synkronointi epäonnistui."
+  },
+  "passwordreset": {
+    "message": "Salasanasuoja on palautettu."
+  },
+  "privacysecured": {
+    "message": "Yksityisyys suojattu"
+  },
+  "errorinvalidfiletype": {
+    "message": "Valitse .json-tiedosto"
+  },
+  "debugsettingstitle": {
+    "message": "Debug-asetukset"
+  },
+  "enabledebugtitle": {
+    "message": "Ota debug-tila käyttöön"
+  },
+  "enabledebugdesc": {
+    "message": "Ota käyttöön yksityiskohtainen konsoliloki vianmääritystä varten"
+  },
+  "errorcommunication": {
+    "message": "Virhe kommunikoitaessa taustapalvelun kanssa"
+  },
+  "clearstats": {
+    "message": "Tyhjennä tilastot"
+  },
+  "rule_enabled": {
+    "message": "Käytössä"
+  },
+  "rule_disabled": {
+    "message": "Pois käytöstä"
+  },
+  "filter_only_hint": {
+    "message": "Tämä lista vain suodattaa näkymää taulukossa"
+  },
+  "category_disabled_desc": {
+    "message": "Mykistä kategoria, jotta voit tilapäisesti sallia pääsyn kaikkiin sen sivustoihin. Yksittäisten sääntöjen asetukset säilyvät."
+  },
+  "toggle_category_blocking": {
+    "message": "Kytke koko kategorian esto päälle tai pois"
+  },
+  "category_muted_no_edit": {
+    "message": "Ei voida hallita: kategorian esto on keskeytetty"
+  },
+  "feedback_title": {
+    "message": "Pidätkö BlockDistractionista?"
+  },
+  "feedback_desc": {
+    "message": "Palautteesi auttaa meitä parantamaan laajennusta paljon."
+  },
+  "feedback_like": {
+    "message": "Kyllä, se toimii erinomaisesti!"
+  },
+  "feedback_dislike": {
+    "message": "Minulla on ongelmia / ehdotuksia"
+  },
+  "trialproheader": {
+    "message": "Aloita 7 päivän ilmainen kokeilujakso"
+  },
+  "trialprotext": {
+    "message": "Peruuta milloin tahansa. Maksusi on suojattu turvallisesti."
+  },
+  "focussessionheader": {
+    "message": "Keskittymisistunto"
+  },
+  "focussessionstart": {
+    "message": "Aloita"
+  },
+  "focussessionstop": {
+    "message": "Pysäytä"
+  },
+  "focussessionduration": {
+    "message": "Kesto (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktivoi kaikki estossääntösi määritetyksi ajaksi, ohittaen niiden nykyiset asetukset ja aikataulut. Maksimaaliseen keskittymiseen."
+  },
+  "focussessionprofeature": {
+    "message": "Mukautettu kesto ja Hardcore-tila ovat Pro-ominaisuuksia."
+  },
+  "focussessionended": {
+    "message": "Keskittymisistunto päättyi! Pidä tauko."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore-tila (ei 'Pysäytä'-painiketta)"
+  },
+  "focussessionactivebanner": {
+    "message": "Keskittymisistunto aktiivinen! Jäljellä oleva aika:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Anna kelvollinen kesto (1-240 minuuttia)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Onnistuneet keskittymisistunnot"
+  },
+  "rule_scheduled": {
+    "message": "Ajastettu sääntö"
+  },
+  "addwhitelistrule": {
+    "message": "Lisää poikkeus"
+  },
+  "category_whitelist": {
+    "message": "Sallittulista"
+  },
+  "conflict_blacklist_err": {
+    "message": "Tämä sivusto on jo estollistallasi. Poista se ensin."
+  },
+  "conflict_whitelist_err": {
+    "message": "Tämä sivusto on jo sallittulistallasi. Poista se ensin."
+  },
+  "status_allow": {
+    "message": "Sallittu"
+  },
+  "redundant_whitelist_err": {
+    "message": "Toinen sallittulistan sääntö kattaa jo tämän säännön."
+  },
+  "focussessionmode": {
+    "message": "Keskittymistila:"
+  },
+  "focusmodeblacklist": {
+    "message": "Esta estolista"
+  },
+  "focusmodewhitelist": {
+    "message": "Salli vain sallittulista"
+  },
+  "schedule_edit": {
+    "message": "Muokkaa aikataulua"
+  },
+  "schedule_add_period": {
+    "message": "Lisää aikaryhmä"
+  },
+  "schedule_remove_period": {
+    "message": "Poista"
+  },
+  "schedule_period": {
+    "message": "Aikaryhmä"
+  },
+  "schedule_every_day": {
+    "message": "Joka päivä"
+  },
+  "schedule_weekdays": {
+    "message": "Arkipäivät"
+  },
+  "schedule_weekends": {
+    "message": "Viikonloput"
+  },
+  "schedule_day_overlap": {
+    "message": "Kutakin päivää voi käyttää vain kerran."
+  }
 }

@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Site Engelleyici" },
-  "shortname": { "message": "SiteEngel" },
-  "description": { "message": "Odağınızı korumanıza yardımcı olmak için basit ve güvenilir bir web sitesi engelleme ve yönlendirme aracı." },
-  "defaulttitle": { "message": "Odaklanın ve Üretken Olun" },
-  "header": { "message": "Site Engelleyici" },
-  "paragraph": { "message": "Bir web sitesini veya kaynağı engellemek için 'Engellenecek URL'i yazın' alanına adının bir kısmını yazın – örneğin, 'facebook' tüm alt alan adlarını engelleyecektir. 'Yönlendirme URL'si yazın' alanına tam yönlendirme adresini protokolle birlikte yazın, örneğin 'https://google.com'. Yönlendirme alanı boş bırakılırsa site sadece engellenir. Kuralları uygulamak için Kaydet düğmesine tıklayın. Bir kuralı güncellemek için eskiyi silip yenisini oluşturun." },
-  "addrule": { "message": "Yeni kural ekle" },
-  "blockurl": { "message": "Engellenecek URL'i yazın" },
-  "redirecturl": { "message": "Yönlendirme URL'si yazın (isteğe bağlı)" },
-  "redirecturlheader": { "message": "Yönlendirme URL’si" },
-  "redirecturlplaceholder": { "message": "İsteğe bağlı - engellemek için boş bırakın" },
-  "redirecturlhint": { "message": "https:// dahil tam bir URL girin" },
-  "mobilecopylinkhint": { "message": "Bir bağlantıyı engellemek için adresini kopyalayıp engelleme alanına yapıştırın." },
-  "savebtn": { "message": "Kaydet" },
-  "deletebtn": { "message": "Sil" },
-  "alertruleexist": { "message": "Kural zaten mevcut" },
+  "chromename": {
+    "message": "BlockDistraction – Site Engelleyici"
+  },
+  "shortname": {
+    "message": "SiteEngel"
+  },
+  "description": {
+    "message": "Odağınızı korumanıza yardımcı olmak için basit ve güvenilir bir web sitesi engelleme ve yönlendirme aracı."
+  },
+  "defaulttitle": {
+    "message": "Odaklanın ve Üretken Olun"
+  },
+  "header": {
+    "message": "Site Engelleyici"
+  },
+  "paragraph": {
+    "message": "Bir web sitesini veya kaynağı engellemek için 'Engellenecek URL'i yazın' alanına adının bir kısmını yazın – örneğin, 'facebook' tüm alt alan adlarını engelleyecektir. 'Yönlendirme URL'si yazın' alanına tam yönlendirme adresini protokolle birlikte yazın, örneğin 'https://google.com'. Yönlendirme alanı boş bırakılırsa site sadece engellenir. Kuralları uygulamak için Kaydet düğmesine tıklayın. Bir kuralı güncellemek için eskiyi silip yenisini oluşturun."
+  },
+  "addrule": {
+    "message": "Yeni kural ekle"
+  },
+  "blockurl": {
+    "message": "Engellenecek URL'i yazın"
+  },
+  "redirecturl": {
+    "message": "Yönlendirme URL'si yazın (isteğe bağlı)"
+  },
+  "redirecturlheader": {
+    "message": "Yönlendirme URL’si"
+  },
+  "redirecturlplaceholder": {
+    "message": "İsteğe bağlı - engellemek için boş bırakın"
+  },
+  "redirecturlhint": {
+    "message": "https:// dahil tam bir URL girin"
+  },
+  "mobilecopylinkhint": {
+    "message": "Bir bağlantıyı engellemek için adresini kopyalayıp engelleme alanına yapıştırın."
+  },
+  "savebtn": {
+    "message": "Kaydet"
+  },
+  "deletebtn": {
+    "message": "Sil"
+  },
+  "alertruleexist": {
+    "message": "Kural zaten mevcut"
+  },
   "savedrules": {
     "message": "$ruleslength$ kaydedilmiş kural",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Bu kaynak engellenemez." },
-  "wrongblockurl": { "message": "Geçersiz engelleme URL'si" },
-  "wrongredirecturl": { "message": "Geçersiz yönlendirme URL'si" },
-  "blockthat": { "message": "Bu Siteyi Engelle" },
-  "sendfeedbackbutton": { "message": "Geri Bildirim Gönder" },
-  "sendfeedbacksubject": { "message": "BlockDistraction için Geri Bildirim" },
-  "sendfeedbackbody": { "message": "Merhaba! Aşağıdaki geri bildirimi paylaşmak istiyorum:\n\n" },
-  "quote1": { "message": "Odaklan, güçlü kal." },
-  "quote2": { "message": "Geleceğin, bugün yaptığın şeylerle şekillenir." },
-  "quote3": { "message": "Disiplin, hedefler ile başarı arasındaki köprüdür." },
-  "quote4": { "message": "Bir site engellendi – hedefe bir adım daha yakın." },
-  "quote5": { "message": "Her tıklamanın bir anlamı olsun." },
-  "quote6": { "message": "Saaate bakma; onun yaptığı gibi yap. Devam et." },
-  "quote7": { "message": "Her gün küçük adımlar büyük sonuçlara yol açar." },
-  "quote8": { "message": "Tek sınır zihnindir." },
-  "quote9": { "message": "Başarı, her gün tekrar edilen küçük çabaların toplamıdır." },
-  "quote10": { "message": "Meşgul olmaya değil, üretken olmaya odaklan." },
-  "quote11": { "message": "Dikkatinizi koruyun – bu en değerli varlığınızdır." },
-  "quote12": { "message": "Her engellenen dikkat dağıtıcı, geri kazanılan zamandır." },
-  "quote13": { "message": "Gürültüyü azaltın; verimliliğinizi artırın." },
-  "quote14": { "message": "Küçük rutinler durdurulamaz bir ivme yaratır." },
-  "quote15": { "message": "Berraklık kaosu yener – önemli olana odaklanın." },
-  "quote16": { "message": "Dikkat dağıtıcıya hayır deyin; ilerlemeye evet deyin." },
-  "quote17": { "message": "Bugün odaklanılan bir saat, yarınki sonuçlarınızı katlar." },
-  "quote18": { "message": "Daha az tüketerek daha fazla üretin." },
-  "quote19": { "message": "Disiplin, kısa vadeli dürtüler yerine uzun vadeli kazanımları seçer." },
-  "quote20": { "message": "Bir sekmeyi kapatın, yeni fikirler için alan açın." },
-  "quote21": { "message": "Bugün ertelediğin iş, yarının stresine dönüşebilir." },
-  "quote22": { "message": "Odaklanmak daha çok şey yapmak değil, gerçekten önemli olanı yapmaktır." },
-  "quote23": { "message": "Hedeflerin, dikkat dağıtıcı şeylerden daha fazla ilgiyi hak ediyor." },
-  "quote24": { "message": "Dikkat dağıtıcılar olmadan geçen her dakika, kendine yaptığın bir yatırımdır." },
-  "quote25": { "message": "Tutarlılık, kısa süreli motivasyon patlamalarından daha kalıcı sonuçlar getirir." },
-  "quote26": { "message": "Başlamak için en iyi zaman dün, ikinci en iyi zaman şimdi." },
-  "quote27": { "message": "İlerleme, dikkat dağıtıcılar yerine eylemi seçtiğinde başlar." },
-  "quote28": { "message": "Tek bir odaklanma anı tüm gününü değiştirebilir." },
-  "quote29": { "message": "Daha fazla zamana değil, daha az dikkat dağıtıcıya ihtiyacın var." },
-  "quote30": { "message": "Odaklanmayı seçtiğin her an, gelecekteki benliğini güçlendirir." },
-  "quote31": { "message": "Bu engelleme geçicidir; hedeflerin uzun vadelidir." },
-  "quote32": { "message": "Engellenen her dikkat dağıtıcı, gelecekteki sen için bir zaferdir." },
-  "quote33": { "message": "İnternet sonsuzdur, ama zamanın değil." },
-  "quote34": { "message": "Önceliklerini web senin yerine belirlemeden sen belirle." },
-  "quote35": { "message": "Daha az kaydırma, daha çok üretme." },
-  "quote36": { "message": "Dikkatin başarılarını şekillendirir." },
-  "quote37": { "message": "Odaklan — dikkat dağıtıcı şeyler bekleyebilir." },
-  "quote38": { "message": "Her üretken karar odaklanmış bir zihinle başlar." },
-  "quote39": { "message": "Bir web sitesini engelledin, potansiyelini değil." },
-  "quote40": { "message": "Başarıya giden yol odaklı kararlarla inşa edilir." },
-  "actionsheader": { "message": "İşlemler" },
-  "norules": { "message": "Engellenmiş site yok." },
-  "editbtn": { "message": "Düzenle" },
-  "ruleddeleted": { "message": "Kural silindi." },
-  "cancelbtn": { "message": "İptal" },
-  "ruleupdated": { "message": "Kural güncellendi." },
-  "rulenewadded": { "message": "Yeni kural eklendi." },
-  "gotooptions": { "message": "Seçenekler sayfasına git ⚙️" },
-  "gotopopup": { "message": "Popup'a dönmek için uzantı simgesine tıklayın." },
-  "rulesmigrated": { "message": "Uyumluluk için kurallar güncellendi" },
-  "errorupdatingrules": { "message": "Kuralları güncellerken hata" },
-  "erroraddingrule": { "message": "Kural eklerken hata" },
-  "errorremovingrule": { "message": "Kural kaldırılırken hata" },
-  "optionsheader": { "message": "Uzantı Ayarları" },
-  "optionsdescription": { "message": "Uzantınızın davranışını ve güvenlik ayarlarını yapılandırın" },
-  "securitymodetitle": { "message": "Güvenlik Modu" },
-  "normalmodetitle": { "message": "Normal Mod" },
-  "normalmodedesc": { "message": "Kurallar tek tıkla hemen silinebilir" },
-  "strictmodetitle": { "message": "Sıkı Mod" },
-  "strictmodedesc": { "message": "Kuralların yanlışlıkla silinmesini önlemek için silmeden önce 10 saniyelik geri sayım gerektirir" },
-  "confirmdeletetitle": { "message": "Birden fazla kural silmeden önce onaylayın" },
-  "confirmdeletedesc": { "message": "Birden fazla kural aynı anda silinirken onay iletişim kutusunu göster" },
-  "notificationstitle": { "message": "Bildirimleri Göster" },
-  "notificationsdesc": { "message": "Uzantı güncellendiğinde bildirimleri göster" },
-  "rulesmanagementtitle": { "message": "Kural Yönetimi" },
-  "exportrulesbtn": { "message": "Kuralları Dışa Aktar" },
-  "importrulesbtn": { "message": "Kuralları İçe Aktar" },
-  "clearallrulesbtn": { "message": "Tüm Kuralları Temizle" },
-  "totalruleslabel": { "message": "Toplam Kurallar" },
-  "blockedtodaylabel": { "message": "Bugün Engellenen" },
-  "totalblockedlabel": { "message": "Toplam Engellenen" },
-  "resetsettingsbtn": { "message": "Varsayılana Sıfırla" },
-  "backtopopup": { "message": "Ana Menüye Dön" },
-  "errorloadingsettings": { "message": "Ayarlar yüklenirken hata oluştu" },
-  "settingssaved": { "message": "Ayarlar başarıyla kaydedildi!" },
-  "errorsavingsettings": { "message": "Ayarları kaydederken hata oluştu" },
-  "rulesexported": { "message": "Kurallar başarıyla dışa aktarıldı!" },
-  "errorexportingrules": { "message": "Kuralları dışa aktarırken hata oluştu" },
+  "restrictedblockurl": {
+    "message": "Bu kaynak engellenemez."
+  },
+  "wrongblockurl": {
+    "message": "Geçersiz engelleme URL'si"
+  },
+  "wrongredirecturl": {
+    "message": "Geçersiz yönlendirme URL'si"
+  },
+  "blockthat": {
+    "message": "Bu Siteyi Engelle"
+  },
+  "sendfeedbackbutton": {
+    "message": "Geri Bildirim Gönder"
+  },
+  "sendfeedbacksubject": {
+    "message": "BlockDistraction için Geri Bildirim"
+  },
+  "sendfeedbackbody": {
+    "message": "Merhaba! Aşağıdaki geri bildirimi paylaşmak istiyorum:\n\n"
+  },
+  "quote1": {
+    "message": "Odaklan, güçlü kal."
+  },
+  "quote2": {
+    "message": "Geleceğin, bugün yaptığın şeylerle şekillenir."
+  },
+  "quote3": {
+    "message": "Disiplin, hedefler ile başarı arasındaki köprüdür."
+  },
+  "quote4": {
+    "message": "Bir site engellendi – hedefe bir adım daha yakın."
+  },
+  "quote5": {
+    "message": "Her tıklamanın bir anlamı olsun."
+  },
+  "quote6": {
+    "message": "Saaate bakma; onun yaptığı gibi yap. Devam et."
+  },
+  "quote7": {
+    "message": "Her gün küçük adımlar büyük sonuçlara yol açar."
+  },
+  "quote8": {
+    "message": "Tek sınır zihnindir."
+  },
+  "quote9": {
+    "message": "Başarı, her gün tekrar edilen küçük çabaların toplamıdır."
+  },
+  "quote10": {
+    "message": "Meşgul olmaya değil, üretken olmaya odaklan."
+  },
+  "quote11": {
+    "message": "Dikkatinizi koruyun – bu en değerli varlığınızdır."
+  },
+  "quote12": {
+    "message": "Her engellenen dikkat dağıtıcı, geri kazanılan zamandır."
+  },
+  "quote13": {
+    "message": "Gürültüyü azaltın; verimliliğinizi artırın."
+  },
+  "quote14": {
+    "message": "Küçük rutinler durdurulamaz bir ivme yaratır."
+  },
+  "quote15": {
+    "message": "Berraklık kaosu yener – önemli olana odaklanın."
+  },
+  "quote16": {
+    "message": "Dikkat dağıtıcıya hayır deyin; ilerlemeye evet deyin."
+  },
+  "quote17": {
+    "message": "Bugün odaklanılan bir saat, yarınki sonuçlarınızı katlar."
+  },
+  "quote18": {
+    "message": "Daha az tüketerek daha fazla üretin."
+  },
+  "quote19": {
+    "message": "Disiplin, kısa vadeli dürtüler yerine uzun vadeli kazanımları seçer."
+  },
+  "quote20": {
+    "message": "Bir sekmeyi kapatın, yeni fikirler için alan açın."
+  },
+  "quote21": {
+    "message": "Bugün ertelediğin iş, yarının stresine dönüşebilir."
+  },
+  "quote22": {
+    "message": "Odaklanmak daha çok şey yapmak değil, gerçekten önemli olanı yapmaktır."
+  },
+  "quote23": {
+    "message": "Hedeflerin, dikkat dağıtıcı şeylerden daha fazla ilgiyi hak ediyor."
+  },
+  "quote24": {
+    "message": "Dikkat dağıtıcılar olmadan geçen her dakika, kendine yaptığın bir yatırımdır."
+  },
+  "quote25": {
+    "message": "Tutarlılık, kısa süreli motivasyon patlamalarından daha kalıcı sonuçlar getirir."
+  },
+  "quote26": {
+    "message": "Başlamak için en iyi zaman dün, ikinci en iyi zaman şimdi."
+  },
+  "quote27": {
+    "message": "İlerleme, dikkat dağıtıcılar yerine eylemi seçtiğinde başlar."
+  },
+  "quote28": {
+    "message": "Tek bir odaklanma anı tüm gününü değiştirebilir."
+  },
+  "quote29": {
+    "message": "Daha fazla zamana değil, daha az dikkat dağıtıcıya ihtiyacın var."
+  },
+  "quote30": {
+    "message": "Odaklanmayı seçtiğin her an, gelecekteki benliğini güçlendirir."
+  },
+  "quote31": {
+    "message": "Bu engelleme geçicidir; hedeflerin uzun vadelidir."
+  },
+  "quote32": {
+    "message": "Engellenen her dikkat dağıtıcı, gelecekteki sen için bir zaferdir."
+  },
+  "quote33": {
+    "message": "İnternet sonsuzdur, ama zamanın değil."
+  },
+  "quote34": {
+    "message": "Önceliklerini web senin yerine belirlemeden sen belirle."
+  },
+  "quote35": {
+    "message": "Daha az kaydırma, daha çok üretme."
+  },
+  "quote36": {
+    "message": "Dikkatin başarılarını şekillendirir."
+  },
+  "quote37": {
+    "message": "Odaklan — dikkat dağıtıcı şeyler bekleyebilir."
+  },
+  "quote38": {
+    "message": "Her üretken karar odaklanmış bir zihinle başlar."
+  },
+  "quote39": {
+    "message": "Bir web sitesini engelledin, potansiyelini değil."
+  },
+  "quote40": {
+    "message": "Başarıya giden yol odaklı kararlarla inşa edilir."
+  },
+  "actionsheader": {
+    "message": "İşlemler"
+  },
+  "norules": {
+    "message": "Engellenmiş site yok."
+  },
+  "editbtn": {
+    "message": "Düzenle"
+  },
+  "ruleddeleted": {
+    "message": "Kural silindi."
+  },
+  "cancelbtn": {
+    "message": "İptal"
+  },
+  "ruleupdated": {
+    "message": "Kural güncellendi."
+  },
+  "rulenewadded": {
+    "message": "Yeni kural eklendi."
+  },
+  "gotooptions": {
+    "message": "Seçenekler sayfasına git ⚙️"
+  },
+  "gotopopup": {
+    "message": "Popup'a dönmek için uzantı simgesine tıklayın."
+  },
+  "rulesmigrated": {
+    "message": "Uyumluluk için kurallar güncellendi"
+  },
+  "errorupdatingrules": {
+    "message": "Kuralları güncellerken hata"
+  },
+  "erroraddingrule": {
+    "message": "Kural eklerken hata"
+  },
+  "errorremovingrule": {
+    "message": "Kural kaldırılırken hata"
+  },
+  "optionsheader": {
+    "message": "Uzantı Ayarları"
+  },
+  "optionsdescription": {
+    "message": "Uzantınızın davranışını ve güvenlik ayarlarını yapılandırın"
+  },
+  "securitymodetitle": {
+    "message": "Güvenlik Modu"
+  },
+  "normalmodetitle": {
+    "message": "Normal Mod"
+  },
+  "normalmodedesc": {
+    "message": "Kurallar tek tıkla hemen silinebilir"
+  },
+  "strictmodetitle": {
+    "message": "Sıkı Mod"
+  },
+  "strictmodedesc": {
+    "message": "Kuralların yanlışlıkla silinmesini önlemek için silmeden önce 10 saniyelik geri sayım gerektirir"
+  },
+  "confirmdeletetitle": {
+    "message": "Birden fazla kural silmeden önce onaylayın"
+  },
+  "confirmdeletedesc": {
+    "message": "Birden fazla kural aynı anda silinirken onay iletişim kutusunu göster"
+  },
+  "notificationstitle": {
+    "message": "Bildirimleri Göster"
+  },
+  "notificationsdesc": {
+    "message": "Uzantı güncellendiğinde bildirimleri göster"
+  },
+  "rulesmanagementtitle": {
+    "message": "Kural Yönetimi"
+  },
+  "exportrulesbtn": {
+    "message": "Kuralları Dışa Aktar"
+  },
+  "importrulesbtn": {
+    "message": "Kuralları İçe Aktar"
+  },
+  "clearallrulesbtn": {
+    "message": "Tüm Kuralları Temizle"
+  },
+  "totalruleslabel": {
+    "message": "Toplam Kurallar"
+  },
+  "blockedtodaylabel": {
+    "message": "Bugün Engellenen"
+  },
+  "totalblockedlabel": {
+    "message": "Toplam Engellenen"
+  },
+  "resetsettingsbtn": {
+    "message": "Varsayılana Sıfırla"
+  },
+  "backtopopup": {
+    "message": "Ana Menüye Dön"
+  },
+  "errorloadingsettings": {
+    "message": "Ayarlar yüklenirken hata oluştu"
+  },
+  "settingssaved": {
+    "message": "Ayarlar başarıyla kaydedildi!"
+  },
+  "errorsavingsettings": {
+    "message": "Ayarları kaydederken hata oluştu"
+  },
+  "rulesexported": {
+    "message": "Kurallar başarıyla dışa aktarıldı!"
+  },
+  "errorexportingrules": {
+    "message": "Kuralları dışa aktarırken hata oluştu"
+  },
   "willimportrules": {
     "message": "$ruleslength$ kural içe aktarılacak.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Mevcut kurallar değiştirilecek. Devam edilsin mi?" },
+  "ruleswillbereplaced": {
+    "message": "Mevcut kurallar değiştirilecek. Devam edilsin mi?"
+  },
   "importedrules": {
     "message": "$ruleslength$ kural başarıyla içe aktarıldı!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Kuralları içe aktarırken hata oluştu: " },
-  "norulestoclear": { "message": "Temizlenecek kural yok" },
+  "errorimportingrules": {
+    "message": "Kuralları içe aktarırken hata oluştu: "
+  },
+  "norulestoclear": {
+    "message": "Temizlenecek kural yok"
+  },
   "willdeleteallrules": {
     "message": "Bu, tüm $rulescount$ kuralları kalıcı olarak silecek.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Bu işlem geri alınamaz. Devam edilsin mi?" },
-  "allrulescleared": { "message": "Tüm kurallar başarıyla temizlendi!" },
-  "errorclearingrules": { "message": "Kuralları temizlerken hata oluştu" },
-  "willreset": { "message": "Tüm ayarlar varsayılan değerlere sıfırlanacak. Devam edilsin mi?" },
-  "resettodefaults": { "message": "Ayarlar varsayılan değerlere sıfırlandı!" },
-  "errorresettingsettings": { "message": "Ayarları sıfırlarken hata oluştu" },
-  "basicsettingstitle": { "message": "Temel Ayarlar" },
-  "advancedsettingstitle": { "message": "Gelişmiş Ayarlar" },
-  "statisticstitle": { "message": "İstatistikler" },
+  "cannotbeundone": {
+    "message": "Bu işlem geri alınamaz. Devam edilsin mi?"
+  },
+  "allrulescleared": {
+    "message": "Tüm kurallar başarıyla temizlendi!"
+  },
+  "errorclearingrules": {
+    "message": "Kuralları temizlerken hata oluştu"
+  },
+  "willreset": {
+    "message": "Tüm ayarlar varsayılan değerlere sıfırlanacak. Devam edilsin mi?"
+  },
+  "resettodefaults": {
+    "message": "Ayarlar varsayılan değerlere sıfırlandı!"
+  },
+  "errorresettingsettings": {
+    "message": "Ayarları sıfırlarken hata oluştu"
+  },
+  "basicsettingstitle": {
+    "message": "Temel Ayarlar"
+  },
+  "advancedsettingstitle": {
+    "message": "Gelişmiş Ayarlar"
+  },
+  "statisticstitle": {
+    "message": "İstatistikler"
+  },
   "rulelimitreached": {
     "message": "Temel sürüm için kural sınırına ($limit$) ulaştınız. Sınırsız kurallar için Pro'ya yükseltin.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Düzenleme için Pro gereklidir." },
-  "invalidpassword": { "message": "Geçersiz şifre" },
-  "setpassword": { "message": "Şifre belirle" },
-  "enterpassword": { "message": "Şifreyi gir" },
-  "passwordmismatch": { "message": "Şifreler uyuşmuyor" },
-  "passwordtooshort": { "message": "Şifre en az 6 karakter olmalıdır" },
-  "resetpasswordconfirm": { "message": "Şifreyi sıfırlamak korumayı devre dışı bırakır. Devam etmek ister misiniz?" },
-  "passwordset": { "message": "Şifre başarıyla belirlendi" },
-  "passworddisabled": { "message": "Şifre koruması devre dışı bırakıldı" },
-  "prorequired": { "message": "Bu özellik için Pro modu gereklidir" },
-  "enablepasswordtitle": { "message": "Şifre korumasını etkinleştir" },
-  "enablepassworddesc": { "message": "Kuralları silmek veya düzenlemek için şifre gerekir (katı modu geliştirir)" },
-  "passwordprotectiontitle": { "message": "Şifre koruması" },
-  "scheduleheader": { "message": "Zamanlama" },
-  "enableschedule": { "message": "Zamanlamayı etkinleştir" },
-  "alwaysactive": { "message": "Her zaman aktif" },
-  "profeatureschedule": { "message": "Zamanlama Pro sürümünde mevcut" },
-  "days": { "message": "Günler" },
-  "starttime": { "message": "Başlangıç saati:" },
-  "endtime": { "message": "Bitiş saati:" },
-  "invaliddays": { "message": "Geçersiz günler seçildi" },
-  "invalidtimeformat": { "message": "Geçersiz saat formatı (HH:MM kullanın)" },
-  "startafterend": { "message": "Başlangıç saati, bitiş saatinden önce olmalıdır" },
-  "invalidschedule": { "message": "Geçersiz zamanlama: lütfen günleri ve saatleri seçin." },
-  "invalidscheduledays": { "message": "Geçersiz zamanlama: en az bir gün seçin." },
-  "invalidschedulestarttime": { "message": "Geçersiz zamanlama: başlangıç saatini ayarlayın." },
-  "invalidscheduleendtime": { "message": "Geçersiz zamanlama: bitiş saatini ayarlayın." },
-  "editdisablednonpro": { "message": "Düzenleme devre dışı: Pro olmayan kullanıcılar için çok fazla kural." },
-  "errorloadingstatus": { "message": "Kullanıcı durumu yüklenirken hata oluştu." },
-  "schedule_day_sun": { "message": "Paz" },
-  "schedule_day_mon": { "message": "Pts" },
-  "schedule_day_tue": { "message": "Sal" },
-  "schedule_day_wed": { "message": "Çar" },
-  "schedule_day_thu": { "message": "Per" },
-  "schedule_day_fri": { "message": "Cum" },
-  "schedule_day_sat": { "message": "Cmt" },
-  "category_header": { "message": "Kategori" },
-  "category_required": { "message": "Kategori gereklidir" },
-  "allcategories": { "message": "Tüm kategoriler" },
-  "category_social": { "message": "Sosyal Medya" },
-  "category_news": { "message": "Haberler" },
-  "category_entertainment": { "message": "Eğlence" },
-  "category_shopping": { "message": "Alışveriş" },
-  "category_work": { "message": "İş" },
-  "category_gaming": { "message": "Oyunlar" },
-  "category_adult": { "message": "Yetişkin içeriği" },
-  "category_uncategorized": { "message": "Kategoriye ayrılmamış" },
-  "searchfordomain": { "message": "Alan adı ara" },
-  "norulesforcategory": { "message": "Bu kategori için engellenmiş site yok." },
-  "getpro": { "message": "Pro Al" },
-  "profunctionstext": { "message": "Pro özellikleri şunları içerir: zamanlanmış engelleme, parola koruması, kural filtreleme ve kural dışa/içe aktarma. Evrensel Lisansımızın keyfini çıkarın: tek bir abonelik tüm tarayıcılarınızda (Chrome, Firefox, Edge, Kiwi) Pro’yu açar. Etkinleştirmek için blockdistraction.com üzerinden abonelik satın alın, ardından hesap panonuzdan Lisans Anahtarınızı kopyalayıp aşağıya yapıştırın." },
-  "upgradenow": { "message": "Şimdi Yükselt" },
-  "enteremail": { "message": "E-postanızı girin" },
-  "activatepro": { "message": "Pro'yu Etkinleştir" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Erişimi Geri Yükle" },
-  "pleaseenteremail": { "message": "Lütfen e-postanızı girin" },
-  "checking": { "message": "Kontrol ediliyor..." },
-  "proactivated": { "message": "Pro özellikleri etkinleştirildi!" },
-  "subscriptionnotfound": { "message": "Abonelik aktif değil veya e-posta bulunamadı." },
-  "servererror": { "message": "Sunucu hatası. Lütfen tekrar deneyin." },
-  "proactivatedfor": { "message": "Pro etkinleştirildi:" },
+  "proonlyactions": {
+    "message": "Düzenleme için Pro gereklidir."
+  },
+  "invalidpassword": {
+    "message": "Geçersiz şifre"
+  },
+  "setpassword": {
+    "message": "Şifre belirle"
+  },
+  "enterpassword": {
+    "message": "Şifreyi gir"
+  },
+  "passwordmismatch": {
+    "message": "Şifreler uyuşmuyor"
+  },
+  "passwordtooshort": {
+    "message": "Şifre en az 6 karakter olmalıdır"
+  },
+  "resetpasswordconfirm": {
+    "message": "Şifreyi sıfırlamak korumayı devre dışı bırakır. Devam etmek ister misiniz?"
+  },
+  "passwordset": {
+    "message": "Şifre başarıyla belirlendi"
+  },
+  "passworddisabled": {
+    "message": "Şifre koruması devre dışı bırakıldı"
+  },
+  "prorequired": {
+    "message": "Bu özellik için Pro modu gereklidir"
+  },
+  "enablepasswordtitle": {
+    "message": "Şifre korumasını etkinleştir"
+  },
+  "enablepassworddesc": {
+    "message": "Kuralları silmek veya düzenlemek için şifre gerekir (katı modu geliştirir)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Şifre koruması"
+  },
+  "scheduleheader": {
+    "message": "Zamanlama"
+  },
+  "enableschedule": {
+    "message": "Zamanlamayı etkinleştir"
+  },
+  "alwaysactive": {
+    "message": "Her zaman aktif"
+  },
+  "profeatureschedule": {
+    "message": "Zamanlama Pro sürümünde mevcut"
+  },
+  "days": {
+    "message": "Günler"
+  },
+  "starttime": {
+    "message": "Başlangıç saati:"
+  },
+  "endtime": {
+    "message": "Bitiş saati:"
+  },
+  "invaliddays": {
+    "message": "Geçersiz günler seçildi"
+  },
+  "invalidtimeformat": {
+    "message": "Geçersiz saat formatı (HH:MM kullanın)"
+  },
+  "startafterend": {
+    "message": "Başlangıç saati, bitiş saatinden önce olmalıdır"
+  },
+  "invalidschedule": {
+    "message": "Geçersiz zamanlama: lütfen günleri ve saatleri seçin."
+  },
+  "invalidscheduledays": {
+    "message": "Geçersiz zamanlama: en az bir gün seçin."
+  },
+  "invalidschedulestarttime": {
+    "message": "Geçersiz zamanlama: başlangıç saatini ayarlayın."
+  },
+  "invalidscheduleendtime": {
+    "message": "Geçersiz zamanlama: bitiş saatini ayarlayın."
+  },
+  "editdisablednonpro": {
+    "message": "Düzenleme devre dışı: Pro olmayan kullanıcılar için çok fazla kural."
+  },
+  "errorloadingstatus": {
+    "message": "Kullanıcı durumu yüklenirken hata oluştu."
+  },
+  "schedule_day_sun": {
+    "message": "Paz"
+  },
+  "schedule_day_mon": {
+    "message": "Pts"
+  },
+  "schedule_day_tue": {
+    "message": "Sal"
+  },
+  "schedule_day_wed": {
+    "message": "Çar"
+  },
+  "schedule_day_thu": {
+    "message": "Per"
+  },
+  "schedule_day_fri": {
+    "message": "Cum"
+  },
+  "schedule_day_sat": {
+    "message": "Cmt"
+  },
+  "category_header": {
+    "message": "Kategori"
+  },
+  "category_required": {
+    "message": "Kategori gereklidir"
+  },
+  "allcategories": {
+    "message": "Tüm kategoriler"
+  },
+  "category_social": {
+    "message": "Sosyal Medya"
+  },
+  "category_news": {
+    "message": "Haberler"
+  },
+  "category_entertainment": {
+    "message": "Eğlence"
+  },
+  "category_shopping": {
+    "message": "Alışveriş"
+  },
+  "category_work": {
+    "message": "İş"
+  },
+  "category_gaming": {
+    "message": "Oyunlar"
+  },
+  "category_adult": {
+    "message": "Yetişkin içeriği"
+  },
+  "category_uncategorized": {
+    "message": "Kategoriye ayrılmamış"
+  },
+  "searchfordomain": {
+    "message": "Alan adı ara"
+  },
+  "norulesforcategory": {
+    "message": "Bu kategori için engellenmiş site yok."
+  },
+  "getpro": {
+    "message": "Pro Al"
+  },
+  "profunctionstext": {
+    "message": "Pro özellikleri şunları içerir: zamanlanmış engelleme, parola koruması, kural filtreleme ve kural dışa/içe aktarma. Evrensel Lisansımızın keyfini çıkarın: tek bir abonelik tüm tarayıcılarınızda (Chrome, Firefox, Edge, Kiwi) Pro’yu açar. Etkinleştirmek için blockdistraction.com üzerinden abonelik satın alın, ardından hesap panonuzdan Lisans Anahtarınızı kopyalayıp aşağıya yapıştırın."
+  },
+  "upgradenow": {
+    "message": "Şimdi Yükselt"
+  },
+  "enteremail": {
+    "message": "E-postanızı girin"
+  },
+  "activatepro": {
+    "message": "Pro'yu Etkinleştir"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Erişimi Geri Yükle"
+  },
+  "pleaseenteremail": {
+    "message": "Lütfen e-postanızı girin"
+  },
+  "checking": {
+    "message": "Kontrol ediliyor..."
+  },
+  "proactivated": {
+    "message": "Pro özellikleri etkinleştirildi!"
+  },
+  "subscriptionnotfound": {
+    "message": "Abonelik aktif değil veya e-posta bulunamadı."
+  },
+  "servererror": {
+    "message": "Sunucu hatası. Lütfen tekrar deneyin."
+  },
+  "proactivatedfor": {
+    "message": "Pro etkinleştirildi:"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "İzin isteği başarısız oldu (mobilde bu durum gerçekleşebilir). Lütfen tekrar deneyin veya ayarlardan manuel olarak izin verin."
   },
-  "pastekeylabel": { "message": "Lisans anahtarınızı buraya yapıştırın:" },
-  "confirmclearstats": { "message": "Tüm istatistikleri temizlemek istediğinizden emin misiniz? Bu işlem geri alınamaz." },
-  "statscleared": { "message": "İstatistikler başarıyla temizlendi." },
-  "redirectstodaylabel": { "message": "Bugünkü Yönlendirmeler" },
-  "totalredirectslabel": { "message": "Toplam Yönlendirmeler" },
-  "logout": { "message": "Çıkış Yap" },
-  "loggedoutsuccess": { "message": "Başarıyla çıkış yaptınız." },
-  "loggedouterror": { "message": "Çıkış yaparken bir hata oluştu." },
-  "forcesync": { "message": "Zorla Senkronize Et / Durumu Kontrol Et" },
-  "forgotpasswordinstructions": { "message": "Şifrenizi sıfırlamak için 'Pro' bölümüne gidin, 'Çıkış Yap'ı tıklayın ve ardından Lisans Anahtarınızı yapıştırarak tekrar etkinleştirin." },
-  "blockedtitle": { "message": "Site kullanılamıyor" },
-  "blockedheader": { "message": "Bu site şu anda kullanılamıyor" },
-  "blockedtext": { "message": "Bu içerik görüntülenemiyor." },
-  "blockedbutton": { "message": "Sekmeyi Kapat" },
-  "confirmpassword": { "message": "Parolayı onayla" },
-  "modalconfirm": { "message": "Onayla" },
-  "modalcancel": { "message": "İptal" },
-  "forgotpassword": { "message": "Parolayı mı unuttunuz? Sıfırla (bu işlem korumayı kaldırır)" },
-  "prounlocked": { "message": "Desteğiniz için teşekkürler! Tüm Pro özellikleri açıldı." },
-  "licensesynced": { "message": "Lisansınız hesabınızla senkronize edildi. Erişimi kaybederseniz, anahtarınızı buradan alabilirsiniz: " },
-  "syncing": { "message": "Senkronize ediliyor..." },
-  "pleaseenterkey": { "message": "Lütfen bir anahtar girin." },
-  "syncsuccess": { "message": "Senkronizasyon başarılı" },
-  "syncfailed": { "message": "Senkronizasyon başarısız." },
-  "passwordreset": { "message": "Parola koruması sıfırlandı." },
-  "privacysecured": { "message": "Gizlilik güvence altında" },
-  "errorinvalidfiletype": { "message": "Lütfen bir .json dosyası seçin" },
-  "debugsettingstitle": { "message": "Hata Ayıklama Ayarları" },
-  "enabledebugtitle": { "message": "Hata Ayıklama Modunu Etkinleştir" },
-  "enabledebugdesc": { "message": "Sorun giderme için konsolda ayrıntılı günlüklemeyi etkinleştir" },
-  "errorcommunication": { "message": "Arka plan hizmeti ile iletişim hatası" },
-  "clearstats": { "message": "İstatistikleri Temizle" },
-  "rule_enabled": { "message": "Etkin" },
-  "rule_disabled": { "message": "Devre Dışı" },
-  "filter_only_hint": { "message": "Bu liste yalnızca tabloda gösterilenleri filtreler" },
-  "category_disabled_desc": { "message": "Bir kategoriyi sessize alarak tüm sitelerine geçici erişim izni verin. Bireysel kural ayarları korunur." },
-  "toggle_category_blocking": { "message": "Tüm kategori için engellemeyi aç/kapat" },
-  "category_muted_no_edit": { "message": "Yönetilemez: kategori engellemesi duraklatıldı" },
-  "feedback_title": { "message": "BlockDistraction hoşunuza gidiyor mu?" },
-  "feedback_desc": { "message": "Geri bildiriminiz uzantıyı geliştirmemize çok yardımcı oluyor." },
-  "feedback_like": { "message": "Evet, harika çalışıyor!" },
-  "feedback_dislike": { "message": "Sorunlarım / önerilerim var" },
-  "trialproheader": { "message": "7 gün ücretsiz deneyin" },
-  "trialprotext": { "message": "Dilediğiniz zaman iptal edin. Güvenli ödeme." },
-  "focussessionheader": { "message": "Odaklanma Seansı" },
-  "focussessionstart": { "message": "Başlat" },
-  "focussessionstop": { "message": "Durdur" },
-  "focussessionduration": { "message": "Süre (dk):" },
-  "focussessioninfo": { "message": "Mevcut ayarlarını ve programlarını yok sayarak tüm engelleme kurallarınızı belirlenen süre boyunca etkinleştirir. Maksimum konsantrasyon için." },
-  "focussessionprofeature": { "message": "Özel süre ve Hardcore modu Pro özellikleridir." },
-  "focussessionended": { "message": "Odaklanma seansı bitti! Bir ara verin." },
-  "focussessionhardcore": { "message": "Hardcore Modu ('Durdur' butonu yoktur)" },
-  "focussessionsoundtitle": { "message": "Odaklanma Seansı Sesli Bildirimi" },
-  "focussessionsounddesc": { "message": "Odaklanma seansı sona erdiğinde bir ses çal." },
-  "focussessionactivebanner": { "message": "Odaklanma seansı aktif! Kalan süre:" },
-  "focussessioninvalidduration": { "message": "Lütfen geçerli bir süre girin (1-240 dakika)." },
-  "successfulfocussessionslabel": { "message": "Başarıyla Tamamlanan Odaklanma Seansları" },
-  "rule_scheduled": { "message": "Zamanlanmış kural" },
-  "addwhitelistrule": { "message": "İstisna ekle" },
-  "category_whitelist": { "message": "Beyaz liste" },
-  "conflict_blacklist_err": { "message": "Bu site zaten kara listenizde. Önce onu kaldırın." },
-  "conflict_whitelist_err": { "message": "Bu site zaten beyaz listenizde. Önce onu kaldırın." },
-  "status_allow": { "message": "İzin verildi" },
-  "redundant_whitelist_err": { "message": "Bu kural zaten başka bir beyaz liste kuralı tarafından kapsanıyor." },
-  "focussessionmode": { "message": "Odaklanma modu:" },
-  "focusmodeblacklist": { "message": "Kara listeyi engelle" },
-  "focusmodewhitelist": { "message": "Yalnızca beyaz listeye izin ver" }
+  "pastekeylabel": {
+    "message": "Lisans anahtarınızı buraya yapıştırın:"
+  },
+  "confirmclearstats": {
+    "message": "Tüm istatistikleri temizlemek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+  },
+  "statscleared": {
+    "message": "İstatistikler başarıyla temizlendi."
+  },
+  "redirectstodaylabel": {
+    "message": "Bugünkü Yönlendirmeler"
+  },
+  "totalredirectslabel": {
+    "message": "Toplam Yönlendirmeler"
+  },
+  "logout": {
+    "message": "Çıkış Yap"
+  },
+  "loggedoutsuccess": {
+    "message": "Başarıyla çıkış yaptınız."
+  },
+  "loggedouterror": {
+    "message": "Çıkış yaparken bir hata oluştu."
+  },
+  "forcesync": {
+    "message": "Zorla Senkronize Et / Durumu Kontrol Et"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Şifrenizi sıfırlamak için 'Pro' bölümüne gidin, 'Çıkış Yap'ı tıklayın ve ardından Lisans Anahtarınızı yapıştırarak tekrar etkinleştirin."
+  },
+  "blockedtitle": {
+    "message": "Site kullanılamıyor"
+  },
+  "blockedheader": {
+    "message": "Bu site şu anda kullanılamıyor"
+  },
+  "blockedtext": {
+    "message": "Bu içerik görüntülenemiyor."
+  },
+  "blockedbutton": {
+    "message": "Sekmeyi Kapat"
+  },
+  "confirmpassword": {
+    "message": "Parolayı onayla"
+  },
+  "modalconfirm": {
+    "message": "Onayla"
+  },
+  "modalcancel": {
+    "message": "İptal"
+  },
+  "forgotpassword": {
+    "message": "Parolayı mı unuttunuz? Sıfırla (bu işlem korumayı kaldırır)"
+  },
+  "prounlocked": {
+    "message": "Desteğiniz için teşekkürler! Tüm Pro özellikleri açıldı."
+  },
+  "licensesynced": {
+    "message": "Lisansınız hesabınızla senkronize edildi. Erişimi kaybederseniz, anahtarınızı buradan alabilirsiniz: "
+  },
+  "syncing": {
+    "message": "Senkronize ediliyor..."
+  },
+  "pleaseenterkey": {
+    "message": "Lütfen bir anahtar girin."
+  },
+  "syncsuccess": {
+    "message": "Senkronizasyon başarılı"
+  },
+  "syncfailed": {
+    "message": "Senkronizasyon başarısız."
+  },
+  "passwordreset": {
+    "message": "Parola koruması sıfırlandı."
+  },
+  "privacysecured": {
+    "message": "Gizlilik güvence altında"
+  },
+  "errorinvalidfiletype": {
+    "message": "Lütfen bir .json dosyası seçin"
+  },
+  "debugsettingstitle": {
+    "message": "Hata Ayıklama Ayarları"
+  },
+  "enabledebugtitle": {
+    "message": "Hata Ayıklama Modunu Etkinleştir"
+  },
+  "enabledebugdesc": {
+    "message": "Sorun giderme için konsolda ayrıntılı günlüklemeyi etkinleştir"
+  },
+  "errorcommunication": {
+    "message": "Arka plan hizmeti ile iletişim hatası"
+  },
+  "clearstats": {
+    "message": "İstatistikleri Temizle"
+  },
+  "rule_enabled": {
+    "message": "Etkin"
+  },
+  "rule_disabled": {
+    "message": "Devre Dışı"
+  },
+  "filter_only_hint": {
+    "message": "Bu liste yalnızca tabloda gösterilenleri filtreler"
+  },
+  "category_disabled_desc": {
+    "message": "Bir kategoriyi sessize alarak tüm sitelerine geçici erişim izni verin. Bireysel kural ayarları korunur."
+  },
+  "toggle_category_blocking": {
+    "message": "Tüm kategori için engellemeyi aç/kapat"
+  },
+  "category_muted_no_edit": {
+    "message": "Yönetilemez: kategori engellemesi duraklatıldı"
+  },
+  "feedback_title": {
+    "message": "BlockDistraction hoşunuza gidiyor mu?"
+  },
+  "feedback_desc": {
+    "message": "Geri bildiriminiz uzantıyı geliştirmemize çok yardımcı oluyor."
+  },
+  "feedback_like": {
+    "message": "Evet, harika çalışıyor!"
+  },
+  "feedback_dislike": {
+    "message": "Sorunlarım / önerilerim var"
+  },
+  "trialproheader": {
+    "message": "7 gün ücretsiz deneyin"
+  },
+  "trialprotext": {
+    "message": "Dilediğiniz zaman iptal edin. Güvenli ödeme."
+  },
+  "focussessionheader": {
+    "message": "Odaklanma Seansı"
+  },
+  "focussessionstart": {
+    "message": "Başlat"
+  },
+  "focussessionstop": {
+    "message": "Durdur"
+  },
+  "focussessionduration": {
+    "message": "Süre (dk):"
+  },
+  "focussessioninfo": {
+    "message": "Mevcut ayarlarını ve programlarını yok sayarak tüm engelleme kurallarınızı belirlenen süre boyunca etkinleştirir. Maksimum konsantrasyon için."
+  },
+  "focussessionprofeature": {
+    "message": "Özel süre ve Hardcore modu Pro özellikleridir."
+  },
+  "focussessionended": {
+    "message": "Odaklanma seansı bitti! Bir ara verin."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore Modu ('Durdur' butonu yoktur)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Odaklanma Seansı Sesli Bildirimi"
+  },
+  "focussessionsounddesc": {
+    "message": "Odaklanma seansı sona erdiğinde bir ses çal."
+  },
+  "focussessionactivebanner": {
+    "message": "Odaklanma seansı aktif! Kalan süre:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Lütfen geçerli bir süre girin (1-240 dakika)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Başarıyla Tamamlanan Odaklanma Seansları"
+  },
+  "rule_scheduled": {
+    "message": "Zamanlanmış kural"
+  },
+  "addwhitelistrule": {
+    "message": "İstisna ekle"
+  },
+  "category_whitelist": {
+    "message": "Beyaz liste"
+  },
+  "conflict_blacklist_err": {
+    "message": "Bu site zaten kara listenizde. Önce onu kaldırın."
+  },
+  "conflict_whitelist_err": {
+    "message": "Bu site zaten beyaz listenizde. Önce onu kaldırın."
+  },
+  "status_allow": {
+    "message": "İzin verildi"
+  },
+  "redundant_whitelist_err": {
+    "message": "Bu kural zaten başka bir beyaz liste kuralı tarafından kapsanıyor."
+  },
+  "focussessionmode": {
+    "message": "Odaklanma modu:"
+  },
+  "focusmodeblacklist": {
+    "message": "Kara listeyi engelle"
+  },
+  "focusmodewhitelist": {
+    "message": "Yalnızca beyaz listeye izin ver"
+  },
+  "schedule_edit": {
+    "message": "Programı düzenle"
+  },
+  "schedule_add_period": {
+    "message": "Zaman grubu ekle"
+  },
+  "schedule_remove_period": {
+    "message": "Kaldır"
+  },
+  "schedule_period": {
+    "message": "Zaman grubu"
+  },
+  "schedule_every_day": {
+    "message": "Her gün"
+  },
+  "schedule_weekdays": {
+    "message": "Hafta içi"
+  },
+  "schedule_weekends": {
+    "message": "Hafta sonları"
+  },
+  "schedule_day_overlap": {
+    "message": "Her gün yalnızca bir kez kullanılabilir."
+  }
 }

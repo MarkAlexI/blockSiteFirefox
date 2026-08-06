@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Werf Blokker" },
-  "shortname": { "message": "BlkDistract" },
-  "description": { "message": "Betroubare werfblokker en herlei-nutsmiddel om jou te help fokus." },
-  "defaulttitle": { "message": "Bly Gefokus en Produktief" },
-  "header": { "message": "Werf Blokker" },
-  "paragraph": { "message": "Om ’n webwerf of hulpbron te blokkeer, tik ’n deel van sy naam in die veld met die plekhouer \"Tik Blok URL\" – byvoorbeeld, \"facebook\" sal alle verwante subdomeine blokkeer. In die veld met die plekhouer \"Tik Herlei URL\", voer die volle herlei-adres in, insluitend die protokol, soos \"https://google.com\". As die herlei-veld leeg gelaat word, sal die werf sonder herleiding geblokkeer word. Klik Stoor om die reël toe te pas. Om ’n reël op te dateer, skrap die oue en skep ’n nuwe inskrywing." },
-  "addrule": { "message": "Voeg nuwe reël by" },
-  "blockurl": { "message": "Tik blok URL" },
-  "redirecturl": { "message": "Tik herlei URL (opsioneel)" },
-  "redirecturlheader": { "message": "Herlei-URL" },
-  "redirecturlplaceholder": { "message": "Opsioneel - laat leeg om te blokkeer" },
-  "redirecturlhint": { "message": "Voer 'n volledige URL in, insluitend https://" },
-  "mobilecopylinkhint": { "message": "Om 'n skakel te blokkeer, kopieer die adres en plak dit in die blokkeerveld." },
-  "savebtn": { "message": "Stoor" },
-  "deletebtn": { "message": "Skrap" },
-  "alertruleexist": { "message": "Reël bestaan reeds" },
+  "chromename": {
+    "message": "BlockDistraction – Werf Blokker"
+  },
+  "shortname": {
+    "message": "BlkDistract"
+  },
+  "description": {
+    "message": "Betroubare werfblokker en herlei-nutsmiddel om jou te help fokus."
+  },
+  "defaulttitle": {
+    "message": "Bly Gefokus en Produktief"
+  },
+  "header": {
+    "message": "Werf Blokker"
+  },
+  "paragraph": {
+    "message": "Om ’n webwerf of hulpbron te blokkeer, tik ’n deel van sy naam in die veld met die plekhouer \"Tik Blok URL\" – byvoorbeeld, \"facebook\" sal alle verwante subdomeine blokkeer. In die veld met die plekhouer \"Tik Herlei URL\", voer die volle herlei-adres in, insluitend die protokol, soos \"https://google.com\". As die herlei-veld leeg gelaat word, sal die werf sonder herleiding geblokkeer word. Klik Stoor om die reël toe te pas. Om ’n reël op te dateer, skrap die oue en skep ’n nuwe inskrywing."
+  },
+  "addrule": {
+    "message": "Voeg nuwe reël by"
+  },
+  "blockurl": {
+    "message": "Tik blok URL"
+  },
+  "redirecturl": {
+    "message": "Tik herlei URL (opsioneel)"
+  },
+  "redirecturlheader": {
+    "message": "Herlei-URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Opsioneel - laat leeg om te blokkeer"
+  },
+  "redirecturlhint": {
+    "message": "Voer 'n volledige URL in, insluitend https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Om 'n skakel te blokkeer, kopieer die adres en plak dit in die blokkeerveld."
+  },
+  "savebtn": {
+    "message": "Stoor"
+  },
+  "deletebtn": {
+    "message": "Skrap"
+  },
+  "alertruleexist": {
+    "message": "Reël bestaan reeds"
+  },
   "savedrules": {
     "message": "$ruleslength$ reël(s) gestoor",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Hierdie hulpbron kan nie geblokkeer word nie." },
-  "wrongblockurl": { "message": "Ongeldige blokkeer-URL" },
-  "wrongredirecturl": { "message": "Ongeldige herlei-URL" },
-  "blockthat": { "message": "Blokkeer Hierdie Werf" },
-  "sendfeedbackbutton": { "message": "Stuur Terugvoer" },
-  "sendfeedbacksubject": { "message": "Terugvoer vir BlockDistraction" },
-  "sendfeedbackbody": { "message": "Hallo, ek wil graag die volgende terugvoer deel:\n\n" },
-  "quote1": { "message": "Bly gefokus, bly sterk." },
-  "quote2": { "message": "Jou toekoms word geskep deur wat jy vandag doen." },
-  "quote3": { "message": "Dissipline is die brug tussen doelwitte en sukses." },
-  "quote4": { "message": "Een werf geblokkeer, een stap nader aan jou doel." },
-  "quote5": { "message": "Laat elke klik tel." },
-  "quote6": { "message": "Moenie die horlosie dophou nie; doen wat dit doen. Hou aan gaan." },
-  "quote7": { "message": "Klein stappe elke dag lei tot groot resultate." },
-  "quote8": { "message": "Jou enigste beperking is jou gedagtes." },
-  "quote9": { "message": "Sukses is die som van klein pogings wat daagliks herhaal word." },
-  "quote10": { "message": "Fokus daarop om produktief te wees, nie besig nie." },
-  "quote11": { "message": "Beskerm jou aandag – dit is jou mees waardevolle bate." },
-  "quote12": { "message": "Elke afleiding wat geblokkeer word, is tyd wat herwin word." },
-  "quote13": { "message": "Demp die geraas; verhoog jou produktiwiteit." },
-  "quote14": { "message": "Klein roetines bou onstuitbare momentum." },
-  "quote15": { "message": "Duidelikheid klop chaos – fokus op wat saak maak." },
-  "quote16": { "message": "Sê nee vir afleidings; sê ja vir vooruitgang." },
-  "quote17": { "message": "‘n Gefokusde uur vandag vermeerder jou resultate môre." },
-  "quote18": { "message": "Skep meer deur minder te verbruik." },
-  "quote19": { "message": "Dissipline kies langtermyn oor kortstondige impulse." },
-  "quote20": { "message": "Maak ’n oortjie toe, maak plek vir nuwe idees." },
-  "quote21": { "message": "Die werk wat jy vandag vermy, kan môre se stres word." },
-  "quote22": { "message": "Fokus gaan nie oor om meer te doen nie, maar om te doen wat regtig saak maak." },
-  "quote23": { "message": "Jou doelwitte verdien meer aandag as jou afleidings." },
-  "quote24": { "message": "Elke minuut sonder afleidings is ’n belegging in jouself." },
-  "quote25": { "message": "Konsekwentheid lewer meer volhoubare resultate as kortstondige motiveringspieke." },
-  "quote26": { "message": "Die beste tyd om te begin was gister. Die volgende beste tyd is nou." },
-  "quote27": { "message": "Vooruitgang begin wanneer jy aksie kies bo afleiding." },
-  "quote28": { "message": "Een oomblik van fokus kan jou hele dag verander." },
-  "quote29": { "message": "Jy het nie meer tyd nodig nie; jy het minder afleidings nodig." },
-  "quote30": { "message": "Elke besluit om gefokus te bly, versterk jou toekomstige self." },
-  "quote31": { "message": "Hierdie blokkering is tydelik; jou doelwitte is langtermyn." },
-  "quote32": { "message": "Elke geblokkeerde afleiding is ’n oorwinning vir jou toekomstige self." },
-  "quote33": { "message": "Die internet is oneindig; jou tyd nie." },
-  "quote34": { "message": "Bepaal jou prioriteite voordat die web dit vir jou doen." },
-  "quote35": { "message": "Minder blaai, meer skep." },
-  "quote36": { "message": "Jou aandag vorm jou prestasies." },
-  "quote37": { "message": "Bly gefokus — die afleiding kan wag." },
-  "quote38": { "message": "Elke produktiewe besluit begin met ’n gefokusde verstand." },
-  "quote39": { "message": "Jy het ’n webwerf geblokkeer, nie jou potensiaal nie." },
-  "quote40": { "message": "Die pad na sukses word geplavei met gefokusde besluite." },
-  "actionsheader": { "message": "Aksies" },
-  "norules": { "message": "Geen geblokkeerde werwe nie." },
-  "editbtn": { "message": "Wysig" },
-  "ruleddeleted": { "message": "Reël geskrap." },
-  "cancelbtn": { "message": "Kanselleer" },
-  "ruleupdated": { "message": "Reël opgedateer." },
-  "rulenewadded": { "message": "Nuwe reël bygevoeg." },
-  "gotooptions": { "message": "Gaan na opsies-blad ⚙️" },
-  "gotopopup": { "message": "Klik die uitbreiding-ikoon om na die opspringer terug te keer." },
-  "rulesmigrated": { "message": "Reëls opgedateer vir verenigbaarheid" },
-  "errorupdatingrules": { "message": "Fout tydens die opdatering van reëls" },
-  "erroraddingrule": { "message": "Fout tydens die byvoeging van 'n reël" },
-  "errorremovingrule": { "message": "Fout tydens die verwydering van 'n reël" },
-  "optionsheader": { "message": "Uitbreidingsinstellings" },
-  "optionsdescription": { "message": "Konfigureer die uitbreiding se gedrag en sekuriteitsinstellings" },
-  "securitymodetitle": { "message": "Sekuriteitsmodus" },
-  "normalmodetitle": { "message": "Normale modus" },
-  "normalmodedesc": { "message": "Reëls kan onmiddellik met een enkele klik verwyder word" },
-  "strictmodetitle": { "message": "Streng modus" },
-  "strictmodedesc": { "message": "Reëls vereis 'n 10-sekonde aftelling voor verwydering om toevallige verwydering te voorkom" },
-  "confirmdeletetitle": { "message": "Bevestig voordat u veel reëls verwyder" },
-  "confirmdeletedesc": { "message": "Wys bevestigingsdialoog wanneer u veel reëls gelyktydig verwyder" },
-  "notificationstitle": { "message": "Wys kennisgewings" },
-  "notificationsdesc": { "message": "Wys kennisgewings wanneer die webuitbreiding opgedateer word" },
-  "rulesmanagementtitle": { "message": "Reëlsbestuur" },
-  "exportrulesbtn": { "message": "Voer reëls uit" },
-  "importrulesbtn": { "message": "Voer reëls in" },
-  "clearallrulesbtn": { "message": "Verwyder alle reëls" },
-  "totalruleslabel": { "message": "Totale reëls" },
-  "blockedtodaylabel": { "message": "Vandag geblokkeer" },
-  "totalblockedlabel": { "message": "Totale geblokkeer" },
-  "resetsettingsbtn": { "message": "Herstel na verstek" },
-  "backtopopup": { "message": "Terug na hoofmenu" },
-  "errorloadingsettings": { "message": "Fout tydens laai van instellings" },
-  "settingssaved": { "message": "Instellings suksesvol gestoor!" },
-  "errorsavingsettings": { "message": "Fout tydens stoor van instellings" },
-  "rulesexported": { "message": "Reëls suksesvol uitgevoer!" },
-  "errorexportingrules": { "message": "Fout tydens uitvoer van reëls" },
+  "restrictedblockurl": {
+    "message": "Hierdie hulpbron kan nie geblokkeer word nie."
+  },
+  "wrongblockurl": {
+    "message": "Ongeldige blokkeer-URL"
+  },
+  "wrongredirecturl": {
+    "message": "Ongeldige herlei-URL"
+  },
+  "blockthat": {
+    "message": "Blokkeer Hierdie Werf"
+  },
+  "sendfeedbackbutton": {
+    "message": "Stuur Terugvoer"
+  },
+  "sendfeedbacksubject": {
+    "message": "Terugvoer vir BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Hallo, ek wil graag die volgende terugvoer deel:\n\n"
+  },
+  "quote1": {
+    "message": "Bly gefokus, bly sterk."
+  },
+  "quote2": {
+    "message": "Jou toekoms word geskep deur wat jy vandag doen."
+  },
+  "quote3": {
+    "message": "Dissipline is die brug tussen doelwitte en sukses."
+  },
+  "quote4": {
+    "message": "Een werf geblokkeer, een stap nader aan jou doel."
+  },
+  "quote5": {
+    "message": "Laat elke klik tel."
+  },
+  "quote6": {
+    "message": "Moenie die horlosie dophou nie; doen wat dit doen. Hou aan gaan."
+  },
+  "quote7": {
+    "message": "Klein stappe elke dag lei tot groot resultate."
+  },
+  "quote8": {
+    "message": "Jou enigste beperking is jou gedagtes."
+  },
+  "quote9": {
+    "message": "Sukses is die som van klein pogings wat daagliks herhaal word."
+  },
+  "quote10": {
+    "message": "Fokus daarop om produktief te wees, nie besig nie."
+  },
+  "quote11": {
+    "message": "Beskerm jou aandag – dit is jou mees waardevolle bate."
+  },
+  "quote12": {
+    "message": "Elke afleiding wat geblokkeer word, is tyd wat herwin word."
+  },
+  "quote13": {
+    "message": "Demp die geraas; verhoog jou produktiwiteit."
+  },
+  "quote14": {
+    "message": "Klein roetines bou onstuitbare momentum."
+  },
+  "quote15": {
+    "message": "Duidelikheid klop chaos – fokus op wat saak maak."
+  },
+  "quote16": {
+    "message": "Sê nee vir afleidings; sê ja vir vooruitgang."
+  },
+  "quote17": {
+    "message": "‘n Gefokusde uur vandag vermeerder jou resultate môre."
+  },
+  "quote18": {
+    "message": "Skep meer deur minder te verbruik."
+  },
+  "quote19": {
+    "message": "Dissipline kies langtermyn oor kortstondige impulse."
+  },
+  "quote20": {
+    "message": "Maak ’n oortjie toe, maak plek vir nuwe idees."
+  },
+  "quote21": {
+    "message": "Die werk wat jy vandag vermy, kan môre se stres word."
+  },
+  "quote22": {
+    "message": "Fokus gaan nie oor om meer te doen nie, maar om te doen wat regtig saak maak."
+  },
+  "quote23": {
+    "message": "Jou doelwitte verdien meer aandag as jou afleidings."
+  },
+  "quote24": {
+    "message": "Elke minuut sonder afleidings is ’n belegging in jouself."
+  },
+  "quote25": {
+    "message": "Konsekwentheid lewer meer volhoubare resultate as kortstondige motiveringspieke."
+  },
+  "quote26": {
+    "message": "Die beste tyd om te begin was gister. Die volgende beste tyd is nou."
+  },
+  "quote27": {
+    "message": "Vooruitgang begin wanneer jy aksie kies bo afleiding."
+  },
+  "quote28": {
+    "message": "Een oomblik van fokus kan jou hele dag verander."
+  },
+  "quote29": {
+    "message": "Jy het nie meer tyd nodig nie; jy het minder afleidings nodig."
+  },
+  "quote30": {
+    "message": "Elke besluit om gefokus te bly, versterk jou toekomstige self."
+  },
+  "quote31": {
+    "message": "Hierdie blokkering is tydelik; jou doelwitte is langtermyn."
+  },
+  "quote32": {
+    "message": "Elke geblokkeerde afleiding is ’n oorwinning vir jou toekomstige self."
+  },
+  "quote33": {
+    "message": "Die internet is oneindig; jou tyd nie."
+  },
+  "quote34": {
+    "message": "Bepaal jou prioriteite voordat die web dit vir jou doen."
+  },
+  "quote35": {
+    "message": "Minder blaai, meer skep."
+  },
+  "quote36": {
+    "message": "Jou aandag vorm jou prestasies."
+  },
+  "quote37": {
+    "message": "Bly gefokus — die afleiding kan wag."
+  },
+  "quote38": {
+    "message": "Elke produktiewe besluit begin met ’n gefokusde verstand."
+  },
+  "quote39": {
+    "message": "Jy het ’n webwerf geblokkeer, nie jou potensiaal nie."
+  },
+  "quote40": {
+    "message": "Die pad na sukses word geplavei met gefokusde besluite."
+  },
+  "actionsheader": {
+    "message": "Aksies"
+  },
+  "norules": {
+    "message": "Geen geblokkeerde werwe nie."
+  },
+  "editbtn": {
+    "message": "Wysig"
+  },
+  "ruleddeleted": {
+    "message": "Reël geskrap."
+  },
+  "cancelbtn": {
+    "message": "Kanselleer"
+  },
+  "ruleupdated": {
+    "message": "Reël opgedateer."
+  },
+  "rulenewadded": {
+    "message": "Nuwe reël bygevoeg."
+  },
+  "gotooptions": {
+    "message": "Gaan na opsies-blad ⚙️"
+  },
+  "gotopopup": {
+    "message": "Klik die uitbreiding-ikoon om na die opspringer terug te keer."
+  },
+  "rulesmigrated": {
+    "message": "Reëls opgedateer vir verenigbaarheid"
+  },
+  "errorupdatingrules": {
+    "message": "Fout tydens die opdatering van reëls"
+  },
+  "erroraddingrule": {
+    "message": "Fout tydens die byvoeging van 'n reël"
+  },
+  "errorremovingrule": {
+    "message": "Fout tydens die verwydering van 'n reël"
+  },
+  "optionsheader": {
+    "message": "Uitbreidingsinstellings"
+  },
+  "optionsdescription": {
+    "message": "Konfigureer die uitbreiding se gedrag en sekuriteitsinstellings"
+  },
+  "securitymodetitle": {
+    "message": "Sekuriteitsmodus"
+  },
+  "normalmodetitle": {
+    "message": "Normale modus"
+  },
+  "normalmodedesc": {
+    "message": "Reëls kan onmiddellik met een enkele klik verwyder word"
+  },
+  "strictmodetitle": {
+    "message": "Streng modus"
+  },
+  "strictmodedesc": {
+    "message": "Reëls vereis 'n 10-sekonde aftelling voor verwydering om toevallige verwydering te voorkom"
+  },
+  "confirmdeletetitle": {
+    "message": "Bevestig voordat u veel reëls verwyder"
+  },
+  "confirmdeletedesc": {
+    "message": "Wys bevestigingsdialoog wanneer u veel reëls gelyktydig verwyder"
+  },
+  "notificationstitle": {
+    "message": "Wys kennisgewings"
+  },
+  "notificationsdesc": {
+    "message": "Wys kennisgewings wanneer die webuitbreiding opgedateer word"
+  },
+  "rulesmanagementtitle": {
+    "message": "Reëlsbestuur"
+  },
+  "exportrulesbtn": {
+    "message": "Voer reëls uit"
+  },
+  "importrulesbtn": {
+    "message": "Voer reëls in"
+  },
+  "clearallrulesbtn": {
+    "message": "Verwyder alle reëls"
+  },
+  "totalruleslabel": {
+    "message": "Totale reëls"
+  },
+  "blockedtodaylabel": {
+    "message": "Vandag geblokkeer"
+  },
+  "totalblockedlabel": {
+    "message": "Totale geblokkeer"
+  },
+  "resetsettingsbtn": {
+    "message": "Herstel na verstek"
+  },
+  "backtopopup": {
+    "message": "Terug na hoofmenu"
+  },
+  "errorloadingsettings": {
+    "message": "Fout tydens laai van instellings"
+  },
+  "settingssaved": {
+    "message": "Instellings suksesvol gestoor!"
+  },
+  "errorsavingsettings": {
+    "message": "Fout tydens stoor van instellings"
+  },
+  "rulesexported": {
+    "message": "Reëls suksesvol uitgevoer!"
+  },
+  "errorexportingrules": {
+    "message": "Fout tydens uitvoer van reëls"
+  },
   "willimportrules": {
     "message": "Hierdie sal $ruleslength$ reëls invoer. ",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Huidige reëls sal vervang word. Gaan voort?" },
+  "ruleswillbereplaced": {
+    "message": "Huidige reëls sal vervang word. Gaan voort?"
+  },
   "importedrules": {
     "message": "Suksesvol $ruleslength$ reël(e) ingevoer!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Fout tydens invoer van reëls: " },
-  "norulestoclear": { "message": "Geen reëls om te verwyder nie" },
+  "errorimportingrules": {
+    "message": "Fout tydens invoer van reëls: "
+  },
+  "norulestoclear": {
+    "message": "Geen reëls om te verwyder nie"
+  },
   "willdeleteallrules": {
     "message": "Hierdie sal permanent al die $rulescount$ reëls verwyder. ",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Hierdie aksie kan nie ongedaan gemaak word nie. Gaan voort?" },
-  "allrulescleared": { "message": "Alle reëls suksesvol verwyder!" },
-  "errorclearingrules": { "message": "Fout tydens verwydering van reëls" },
-  "willreset": { "message": "Hierdie sal alle instellings na verstek terugstel. Gaan voort?" },
-  "resettodefaults": { "message": "Instellings is na verstek herstel!" },
-  "errorresettingsettings": { "message": "Fout tydens herstel van instellings" },
-  "basicsettingstitle": { "message": "Basiese Instellings" },
-  "advancedsettingstitle": { "message": "Gevorderde Instellings" },
-  "statisticstitle": { "message": "Statistieke" },
+  "cannotbeundone": {
+    "message": "Hierdie aksie kan nie ongedaan gemaak word nie. Gaan voort?"
+  },
+  "allrulescleared": {
+    "message": "Alle reëls suksesvol verwyder!"
+  },
+  "errorclearingrules": {
+    "message": "Fout tydens verwydering van reëls"
+  },
+  "willreset": {
+    "message": "Hierdie sal alle instellings na verstek terugstel. Gaan voort?"
+  },
+  "resettodefaults": {
+    "message": "Instellings is na verstek herstel!"
+  },
+  "errorresettingsettings": {
+    "message": "Fout tydens herstel van instellings"
+  },
+  "basicsettingstitle": {
+    "message": "Basiese Instellings"
+  },
+  "advancedsettingstitle": {
+    "message": "Gevorderde Instellings"
+  },
+  "statisticstitle": {
+    "message": "Statistieke"
+  },
   "rulelimitreached": {
     "message": "Jy het die reël-limiet ($limit$) vir die basiese weergawe bereik. Gradeer op na Pro vir onbeperkte reëls.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro benodig vir redigering." },
-  "invalidpassword": { "message": "Ongeldige wagwoord" },
-  "setpassword": { "message": "Stel wagwoord" },
-  "enterpassword": { "message": "Voer wagwoord in" },
-  "passwordmismatch": { "message": "Wagwoorde stem nie ooreen nie" },
-  "passwordtooshort": { "message": "Wagwoord moet ten minste 6 karakters wees" },
-  "resetpasswordconfirm": { "message": "Die herstel van die wagwoord sal beskerming deaktiveer. Gaan voort?" },
-  "passwordset": { "message": "Wagwoord suksesvol gestel" },
-  "passworddisabled": { "message": "Wagwoordbeskerming gedeaktiveer" },
-  "prorequired": { "message": "Pro-modus vereis vir hierdie funksie" },
-  "enablepasswordtitle": { "message": "Aktiveer wagwoordbeskerming" },
-  "enablepassworddesc": { "message": "Vereis 'n wagwoord om reëls te verwyder of te wysig (versterk streng modus)" },
-  "passwordprotectiontitle": { "message": "Wagwoordbeskerming" },
-  "scheduleheader": { "message": "Skedule" },
-  "enableschedule": { "message": "Aktiveer skedule" },
-  "alwaysactive": { "message": "Altyd aktief" },
-  "profeatureschedule": { "message": "Skedule beskikbaar in Pro" },
-  "days": { "message": "Dae" },
-  "starttime": { "message": "Begintyd:" },
-  "endtime": { "message": "Eindtyd:" },
-  "invaliddays": { "message": "Ongeldige dae gekies" },
-  "invalidtimeformat": { "message": "Ongeldige tydformaat (gebruik UU:MM)" },
-  "startafterend": { "message": "Begintyd moet voor eindtyd wees" },
-  "invalidschedule": { "message": "Ongeldige skedule: kies asseblief dae en tye." },
-  "invalidscheduledays": { "message": "Ongeldige skedule: kies asseblief ten minste een dag." },
-  "invalidschedulestarttime": { "message": "Ongeldige skedule: stel asseblief ’n begintyd." },
-  "invalidscheduleendtime": { "message": "Ongeldige skedule: stel asseblief ’n eindtyd." },
-  "editdisablednonpro": { "message": "Redigering gedeaktiveer: te veel reëls vir nie-Pro gebruikers." },
-  "errorloadingstatus": { "message": "Fout tydens laai van gebruikerstatus." },
-  "schedule_day_sun": { "message": "Son" },
-  "schedule_day_mon": { "message": "Maa" },
-  "schedule_day_tue": { "message": "Din" },
-  "schedule_day_wed": { "message": "Woe" },
-  "schedule_day_thu": { "message": "Don" },
-  "schedule_day_fri": { "message": "Vry" },
-  "schedule_day_sat": { "message": "Sat" },
-  "category_header": { "message": "Kategorie" },
-  "category_required": { "message": "Kategorie is verpligtend" },
-  "allcategories": { "message": "Alle kategorieë" },
-  "category_social": { "message": "Sosiale media" },
-  "category_news": { "message": "Nuus" },
-  "category_entertainment": { "message": "Vermaak" },
-  "category_shopping": { "message": "Inkopies" },
-  "category_work": { "message": "Werk" },
-  "category_gaming": { "message": "Speletjies" },
-  "category_adult": { "message": "Volwasse" },
-  "category_uncategorized": { "message": "Ongekategoriseer" },
-  "searchfordomain": { "message": "Soek na domeinnaam" },
-  "norulesforcategory": { "message": "Geen geblokkeerde webwerwe vir hierdie kategorie nie." },
-  "getpro": { "message": "Kry Pro" },
-  "profunctionstext": { "message": "Pro-funksies sluit in: skedule-gebaseerde blokkeer, wagwoordbeskerming, reëlsfiltering en uitvoer/invoer van reëls. Geniet ons Universele Lisensie: een intekening ontsluit Pro op al jou blaaiers (Chrome, Firefox, Edge, Kiwi). Om te aktiveer, koop ’n intekening op blockdistraction.com, kopieer dan jou lisensiesleutel uit jou rekeningpaneel en plak dit hieronder." },
-  "upgradenow": { "message": "Gradeer Nou Op" },
-  "enteremail": { "message": "Voer jou e-pos in" },
-  "activatepro": { "message": "Aktiveer Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Herstel Toegang" },
-  "pleaseenteremail": { "message": "Voer asseblief jou e-pos in" },
-  "checking": { "message": "Kontroleer..." },
-  "proactivated": { "message": "Pro-funksies geaktiveer!" },
-  "subscriptionnotfound": { "message": "Intekening nie aktief of e-pos nie gevind nie." },
-  "servererror": { "message": "Bedienerfout. Probeer asseblief weer." },
-  "proactivatedfor": { "message": "Pro geaktiveer vir" },
+  "proonlyactions": {
+    "message": "Pro benodig vir redigering."
+  },
+  "invalidpassword": {
+    "message": "Ongeldige wagwoord"
+  },
+  "setpassword": {
+    "message": "Stel wagwoord"
+  },
+  "enterpassword": {
+    "message": "Voer wagwoord in"
+  },
+  "passwordmismatch": {
+    "message": "Wagwoorde stem nie ooreen nie"
+  },
+  "passwordtooshort": {
+    "message": "Wagwoord moet ten minste 6 karakters wees"
+  },
+  "resetpasswordconfirm": {
+    "message": "Die herstel van die wagwoord sal beskerming deaktiveer. Gaan voort?"
+  },
+  "passwordset": {
+    "message": "Wagwoord suksesvol gestel"
+  },
+  "passworddisabled": {
+    "message": "Wagwoordbeskerming gedeaktiveer"
+  },
+  "prorequired": {
+    "message": "Pro-modus vereis vir hierdie funksie"
+  },
+  "enablepasswordtitle": {
+    "message": "Aktiveer wagwoordbeskerming"
+  },
+  "enablepassworddesc": {
+    "message": "Vereis 'n wagwoord om reëls te verwyder of te wysig (versterk streng modus)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Wagwoordbeskerming"
+  },
+  "scheduleheader": {
+    "message": "Skedule"
+  },
+  "enableschedule": {
+    "message": "Aktiveer skedule"
+  },
+  "alwaysactive": {
+    "message": "Altyd aktief"
+  },
+  "profeatureschedule": {
+    "message": "Skedule beskikbaar in Pro"
+  },
+  "days": {
+    "message": "Dae"
+  },
+  "starttime": {
+    "message": "Begintyd:"
+  },
+  "endtime": {
+    "message": "Eindtyd:"
+  },
+  "invaliddays": {
+    "message": "Ongeldige dae gekies"
+  },
+  "invalidtimeformat": {
+    "message": "Ongeldige tydformaat (gebruik UU:MM)"
+  },
+  "startafterend": {
+    "message": "Begintyd moet voor eindtyd wees"
+  },
+  "invalidschedule": {
+    "message": "Ongeldige skedule: kies asseblief dae en tye."
+  },
+  "invalidscheduledays": {
+    "message": "Ongeldige skedule: kies asseblief ten minste een dag."
+  },
+  "invalidschedulestarttime": {
+    "message": "Ongeldige skedule: stel asseblief ’n begintyd."
+  },
+  "invalidscheduleendtime": {
+    "message": "Ongeldige skedule: stel asseblief ’n eindtyd."
+  },
+  "editdisablednonpro": {
+    "message": "Redigering gedeaktiveer: te veel reëls vir nie-Pro gebruikers."
+  },
+  "errorloadingstatus": {
+    "message": "Fout tydens laai van gebruikerstatus."
+  },
+  "schedule_day_sun": {
+    "message": "Son"
+  },
+  "schedule_day_mon": {
+    "message": "Maa"
+  },
+  "schedule_day_tue": {
+    "message": "Din"
+  },
+  "schedule_day_wed": {
+    "message": "Woe"
+  },
+  "schedule_day_thu": {
+    "message": "Don"
+  },
+  "schedule_day_fri": {
+    "message": "Vry"
+  },
+  "schedule_day_sat": {
+    "message": "Sat"
+  },
+  "category_header": {
+    "message": "Kategorie"
+  },
+  "category_required": {
+    "message": "Kategorie is verpligtend"
+  },
+  "allcategories": {
+    "message": "Alle kategorieë"
+  },
+  "category_social": {
+    "message": "Sosiale media"
+  },
+  "category_news": {
+    "message": "Nuus"
+  },
+  "category_entertainment": {
+    "message": "Vermaak"
+  },
+  "category_shopping": {
+    "message": "Inkopies"
+  },
+  "category_work": {
+    "message": "Werk"
+  },
+  "category_gaming": {
+    "message": "Speletjies"
+  },
+  "category_adult": {
+    "message": "Volwasse"
+  },
+  "category_uncategorized": {
+    "message": "Ongekategoriseer"
+  },
+  "searchfordomain": {
+    "message": "Soek na domeinnaam"
+  },
+  "norulesforcategory": {
+    "message": "Geen geblokkeerde webwerwe vir hierdie kategorie nie."
+  },
+  "getpro": {
+    "message": "Kry Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro-funksies sluit in: skedule-gebaseerde blokkeer, wagwoordbeskerming, reëlsfiltering en uitvoer/invoer van reëls. Geniet ons Universele Lisensie: een intekening ontsluit Pro op al jou blaaiers (Chrome, Firefox, Edge, Kiwi). Om te aktiveer, koop ’n intekening op blockdistraction.com, kopieer dan jou lisensiesleutel uit jou rekeningpaneel en plak dit hieronder."
+  },
+  "upgradenow": {
+    "message": "Gradeer Nou Op"
+  },
+  "enteremail": {
+    "message": "Voer jou e-pos in"
+  },
+  "activatepro": {
+    "message": "Aktiveer Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Herstel Toegang"
+  },
+  "pleaseenteremail": {
+    "message": "Voer asseblief jou e-pos in"
+  },
+  "checking": {
+    "message": "Kontroleer..."
+  },
+  "proactivated": {
+    "message": "Pro-funksies geaktiveer!"
+  },
+  "subscriptionnotfound": {
+    "message": "Intekening nie aktief of e-pos nie gevind nie."
+  },
+  "servererror": {
+    "message": "Bedienerfout. Probeer asseblief weer."
+  },
+  "proactivatedfor": {
+    "message": "Pro geaktiveer vir"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Toestemmingsversoek het misluk (kan op mobiele toestelle gebeur). Probeer weer of gee toestemming handmatig in die instellings."
   },
-  "pastekeylabel": { "message": "Plak jou lisensiesleutel hier:" },
-  "confirmclearstats": { "message": "Is jy seker jy wil al die statistieke uitvee? Dit kan nie ongedaan gemaak word nie." },
-  "statscleared": { "message": "Statistieke is suksesvol uitgevee." },
-  "redirectstodaylabel": { "message": "Herleidings vandag" },
-  "totalredirectslabel": { "message": "Totale herleidings" },
-  "logout": { "message": "Teken uit" },
-  "loggedoutsuccess": { "message": "Jy is suksesvol uitgeteken." },
-  "loggedouterror": { "message": "’n Fout het voorgekom tydens uitteken." },
-  "forcesync": { "message": "Forseer sinchronisasie / Kontroleer status" },
-  "forgotpasswordinstructions": { "message": "Om jou wagwoord te herstel, gaan asseblief na die 'Pro'-afdeling, klik op 'Teken uit', en aktiveer dan weer deur jou lisensiesleutel te plak." },
-  "blockedtitle": { "message": "Werf nie beskikbaar nie" },
-  "blockedheader": { "message": "Hierdie webwerf is tans nie beskikbaar nie" },
-  "blockedtext": { "message": "Hierdie inhoud kan nie vertoon word nie." },
-  "blockedbutton": { "message": "Sluit oortjie" },
-  "confirmpassword": { "message": "Bevestig wagwoord" },
-  "modalconfirm": { "message": "Bevestig" },
-  "modalcancel": { "message": "Kanselleer" },
-  "forgotpassword": { "message": "Wagwoord vergeet? Stel weer (sal beskerming verwyder)" },
-  "prounlocked": { "message": "Dankie vir jou ondersteuning! Alle Pro-funksies is ontsluit." },
-  "licensesynced": { "message": "Jou lisensie is met jou rekening gesinkroniseer. As jy toegang verloor, kan jy jou sleutel hier herwin: " },
-  "syncing": { "message": "Sinkroniseer..." },
-  "pleaseenterkey": { "message": "Voer asseblief ’n sleutel in." },
-  "syncsuccess": { "message": "Sinkronisering suksesvol" },
-  "syncfailed": { "message": "Sinkronisering het misluk." },
-  "passwordreset": { "message": "Wagwoordbeskerming is teruggestel." },
-  "privacysecured": { "message": "Privaatheid Beveilig" },
-  "errorinvalidfiletype": { "message": "Kies asseblief ’n .json-lêer" },
-  "debugsettingstitle": { "message": "Ontfoutinstellings" },
-  "enabledebugtitle": { "message": "Aktiveer ontfoutmodus" },
-  "enabledebugdesc": { "message": "Aktiveer gedetailleerde konsolelogboeke vir foutopsporing" },
-  "errorcommunication": { "message": "Fout tydens kommunikasie met die agtergronddiens" },
-  "clearstats": { "message": "Vee statistiek uit" },
-  "rule_enabled": { "message": "Geaktiveer" },
-  "rule_disabled": { "message": "Gedeaktiveer" },
-  "filter_only_hint": { "message": "Hierdie lys filter slegs die vertoning in die tabel" },
-  "category_disabled_desc": { "message": "Demp 'n kategorie om tydelik toegang tot al sy webwerwe toe te laat. Individuele reëlinstellings bly behoue." },
-  "toggle_category_blocking": { "message": "Skakel blokkering vir die hele kategorie aan of af" },
-  "category_muted_no_edit": { "message": "Kan nie bestuur nie: kategoriebeskerming is gepouseer" },
-  "feedback_title": { "message": "Hou jy van BlockDistraction?" },
-  "feedback_desc": { "message": "Jou terugvoer help ons baie om die uitbreiding te verbeter." },
-  "feedback_like": { "message": "Ja, dit werk uitstekend!" },
-  "feedback_dislike": { "message": "Ek het probleme / voorstelle" },
-  "trialproheader": { "message": "Begin jou gratis proeftydperk van 7 dae" },
-  "trialprotext": { "message": "Kanselleer enige tyd. Jou betalings is veilig beskerm." },
-  "focussessionheader": { "message": "Fokus-sessie" },
-  "focussessionstart": { "message": "Begin" },
-  "focussessionstop": { "message": "Stop" },
-  "focussessionduration": { "message": "Duur (min):" },
-  "focussessioninfo": { "message": "Aktiveer al jou blokkeringsreëls vir 'n vasgestelde tyd, en ignoreer hul huidige instellings en skedules. Vir maksimum konsentrasie." },
-  "focussessionprofeature": { "message": "Gepasmaakte duur en Hardcore-modus is Pro-kenmerke." },
-  "focussessionended": { "message": "Fokus-sessie het geëindig! Neem 'n breek." },
-  "focussessionhardcore": { "message": "Hardcore-modus (geen 'Stop'-knoppie)" },
-  "focussessionsoundtitle": { "message": "Fokus-sessie Klankkennisgewing" },
-  "focussessionsounddesc": { "message": "Speel 'n klank wanneer die fokus-sessie eindig." },
-  "focussessionactivebanner": { "message": "Fokus-sessie Aktief! Tyd oor:" },
-  "focussessioninvalidduration": { "message": "Voer asseblief 'n geldige duur in (1-240 minute)." },
-  "successfulfocussessionslabel": { "message": "Suksesvolle Fokus-sessies" },
-  "rule_scheduled": { "message": "Geskeduleerde reël" },
-  "addwhitelistrule": { "message": "Voeg uitsondering by" },
-  "category_whitelist": { "message": "Witskrif" },
-  "conflict_blacklist_err": { "message": "Hierdie werf is reeds op jou swartlys. Verwyder dit eers." },
-  "conflict_whitelist_err": { "message": "Hierdie werf is reeds op jou witskrif. Verwyder dit eers." },
-  "status_allow": { "message": "Toegelaat" },
-  "redundant_whitelist_err": { "message": "Hierdie reël word reeds deur 'n ander witskrifreël gedek." },
-  "focussessionmode": { "message": "Fokusmodus:" },
-  "focusmodeblacklist": { "message": "Blokkeer swartlys" },
-  "focusmodewhitelist": { "message": "Laat slegs witskrif toe" }
+  "pastekeylabel": {
+    "message": "Plak jou lisensiesleutel hier:"
+  },
+  "confirmclearstats": {
+    "message": "Is jy seker jy wil al die statistieke uitvee? Dit kan nie ongedaan gemaak word nie."
+  },
+  "statscleared": {
+    "message": "Statistieke is suksesvol uitgevee."
+  },
+  "redirectstodaylabel": {
+    "message": "Herleidings vandag"
+  },
+  "totalredirectslabel": {
+    "message": "Totale herleidings"
+  },
+  "logout": {
+    "message": "Teken uit"
+  },
+  "loggedoutsuccess": {
+    "message": "Jy is suksesvol uitgeteken."
+  },
+  "loggedouterror": {
+    "message": "’n Fout het voorgekom tydens uitteken."
+  },
+  "forcesync": {
+    "message": "Forseer sinchronisasie / Kontroleer status"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Om jou wagwoord te herstel, gaan asseblief na die 'Pro'-afdeling, klik op 'Teken uit', en aktiveer dan weer deur jou lisensiesleutel te plak."
+  },
+  "blockedtitle": {
+    "message": "Werf nie beskikbaar nie"
+  },
+  "blockedheader": {
+    "message": "Hierdie webwerf is tans nie beskikbaar nie"
+  },
+  "blockedtext": {
+    "message": "Hierdie inhoud kan nie vertoon word nie."
+  },
+  "blockedbutton": {
+    "message": "Sluit oortjie"
+  },
+  "confirmpassword": {
+    "message": "Bevestig wagwoord"
+  },
+  "modalconfirm": {
+    "message": "Bevestig"
+  },
+  "modalcancel": {
+    "message": "Kanselleer"
+  },
+  "forgotpassword": {
+    "message": "Wagwoord vergeet? Stel weer (sal beskerming verwyder)"
+  },
+  "prounlocked": {
+    "message": "Dankie vir jou ondersteuning! Alle Pro-funksies is ontsluit."
+  },
+  "licensesynced": {
+    "message": "Jou lisensie is met jou rekening gesinkroniseer. As jy toegang verloor, kan jy jou sleutel hier herwin: "
+  },
+  "syncing": {
+    "message": "Sinkroniseer..."
+  },
+  "pleaseenterkey": {
+    "message": "Voer asseblief ’n sleutel in."
+  },
+  "syncsuccess": {
+    "message": "Sinkronisering suksesvol"
+  },
+  "syncfailed": {
+    "message": "Sinkronisering het misluk."
+  },
+  "passwordreset": {
+    "message": "Wagwoordbeskerming is teruggestel."
+  },
+  "privacysecured": {
+    "message": "Privaatheid Beveilig"
+  },
+  "errorinvalidfiletype": {
+    "message": "Kies asseblief ’n .json-lêer"
+  },
+  "debugsettingstitle": {
+    "message": "Ontfoutinstellings"
+  },
+  "enabledebugtitle": {
+    "message": "Aktiveer ontfoutmodus"
+  },
+  "enabledebugdesc": {
+    "message": "Aktiveer gedetailleerde konsolelogboeke vir foutopsporing"
+  },
+  "errorcommunication": {
+    "message": "Fout tydens kommunikasie met die agtergronddiens"
+  },
+  "clearstats": {
+    "message": "Vee statistiek uit"
+  },
+  "rule_enabled": {
+    "message": "Geaktiveer"
+  },
+  "rule_disabled": {
+    "message": "Gedeaktiveer"
+  },
+  "filter_only_hint": {
+    "message": "Hierdie lys filter slegs die vertoning in die tabel"
+  },
+  "category_disabled_desc": {
+    "message": "Demp 'n kategorie om tydelik toegang tot al sy webwerwe toe te laat. Individuele reëlinstellings bly behoue."
+  },
+  "toggle_category_blocking": {
+    "message": "Skakel blokkering vir die hele kategorie aan of af"
+  },
+  "category_muted_no_edit": {
+    "message": "Kan nie bestuur nie: kategoriebeskerming is gepouseer"
+  },
+  "feedback_title": {
+    "message": "Hou jy van BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Jou terugvoer help ons baie om die uitbreiding te verbeter."
+  },
+  "feedback_like": {
+    "message": "Ja, dit werk uitstekend!"
+  },
+  "feedback_dislike": {
+    "message": "Ek het probleme / voorstelle"
+  },
+  "trialproheader": {
+    "message": "Begin jou gratis proeftydperk van 7 dae"
+  },
+  "trialprotext": {
+    "message": "Kanselleer enige tyd. Jou betalings is veilig beskerm."
+  },
+  "focussessionheader": {
+    "message": "Fokus-sessie"
+  },
+  "focussessionstart": {
+    "message": "Begin"
+  },
+  "focussessionstop": {
+    "message": "Stop"
+  },
+  "focussessionduration": {
+    "message": "Duur (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktiveer al jou blokkeringsreëls vir 'n vasgestelde tyd, en ignoreer hul huidige instellings en skedules. Vir maksimum konsentrasie."
+  },
+  "focussessionprofeature": {
+    "message": "Gepasmaakte duur en Hardcore-modus is Pro-kenmerke."
+  },
+  "focussessionended": {
+    "message": "Fokus-sessie het geëindig! Neem 'n breek."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore-modus (geen 'Stop'-knoppie)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Fokus-sessie Klankkennisgewing"
+  },
+  "focussessionsounddesc": {
+    "message": "Speel 'n klank wanneer die fokus-sessie eindig."
+  },
+  "focussessionactivebanner": {
+    "message": "Fokus-sessie Aktief! Tyd oor:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Voer asseblief 'n geldige duur in (1-240 minute)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Suksesvolle Fokus-sessies"
+  },
+  "rule_scheduled": {
+    "message": "Geskeduleerde reël"
+  },
+  "addwhitelistrule": {
+    "message": "Voeg uitsondering by"
+  },
+  "category_whitelist": {
+    "message": "Witskrif"
+  },
+  "conflict_blacklist_err": {
+    "message": "Hierdie werf is reeds op jou swartlys. Verwyder dit eers."
+  },
+  "conflict_whitelist_err": {
+    "message": "Hierdie werf is reeds op jou witskrif. Verwyder dit eers."
+  },
+  "status_allow": {
+    "message": "Toegelaat"
+  },
+  "redundant_whitelist_err": {
+    "message": "Hierdie reël word reeds deur 'n ander witskrifreël gedek."
+  },
+  "focussessionmode": {
+    "message": "Fokusmodus:"
+  },
+  "focusmodeblacklist": {
+    "message": "Blokkeer swartlys"
+  },
+  "focusmodewhitelist": {
+    "message": "Laat slegs witskrif toe"
+  },
+  "schedule_edit": {
+    "message": "Wysig skedule"
+  },
+  "schedule_add_period": {
+    "message": "Voeg tydgroep by"
+  },
+  "schedule_remove_period": {
+    "message": "Verwyder"
+  },
+  "schedule_period": {
+    "message": "Tydgroep"
+  },
+  "schedule_every_day": {
+    "message": "Elke dag"
+  },
+  "schedule_weekdays": {
+    "message": "Weeksdae"
+  },
+  "schedule_weekends": {
+    "message": "Naweke"
+  },
+  "schedule_day_overlap": {
+    "message": "Elke dag kan net een keer gebruik word."
+  }
 }

@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – ಸೈಟ್ ತಡೆಯುವಿಕೆ" },
-  "shortname": { "message": "ತಡೆಯುವಿಕೆ" },
-  "description": { "message": "ಸರಳ ಮತ್ತು ವಿಶ್ವಾಸಾರ್ಹ ವೆಬ್‌ಸೈಟ್ ಬ್ಲಾಕ್ ಮತ್ತು ರಿಡೈರೆಕ್ಟ್ ಸಾಧನ, ಗಮನವನ್ನು ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ." },
-  "defaulttitle": { "message": "ಗಮನ ಸೆಳೆದು ಉತ್ಪಾದಕವಾಗಿರಿ" },
-  "header": { "message": "ಸೈಟ್ ತಡೆಯುವಿಕೆ" },
-  "paragraph": { "message": "ವೆಬ್‌ಸೈಟ್ ಅಥವಾ ಸಂಪನ್ಮೂಲವನ್ನು ತಡೆಯಲು, ಅದರ ಹೆಸರಿನ ಭಾಗವನ್ನು 'ತಡೆಗೊಳ್ಳುವ URL ನಮೂದಿಸಿ' ಪ್ಲೇಸ್‌ಹೋಲ್ಡರ್ ಹೊಂದಿರುವ ಇನ್‌ಪುಟ್ ಫೀಲ್ಡ್‌ನಲ್ಲಿ ನಮೂದಿಸಿ – ಉದಾಹರಣೆಗೆ, 'facebook' ಎಲ್ಲಾ ಸಂಬಂಧಿತ ಉಪಡೊಮೇನ್‌ಗಳನ್ನು ತಡೆಯುತ್ತದೆ. 'ರೀಡೈರೆಕ್ಟ್ URL ನಮೂದಿಸ' ಫೀಲ್ಡ್‌ನಲ್ಲಿ ಪ್ರೋಟೋಕಾಲ್ ಸೇರಿದಂತೆ ಸಂಪೂರ್ಣ ರೀಡೈರೆಕ್ಟ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ, ಉದಾ. 'https://google.com'. ರೀಡೈರೆಕ್ಟ್ ಫೀಲ್ಡ್ ಖಾಲಿಯಾಗಿದ್ದರೆ, ತಡೆರಹಿತವಾಗಿ ತಡೆಯಲಾಗುತ್ತದೆ. ನಿಯಮವನ್ನು ಅನ್ವಯಿಸಲು 'Save' ಬಟನ್ ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ. ನಿಯಮವನ್ನು ನವೀಕರಿಸಲು, ಹಳೆಯದನ್ನು ಅಳಿಸಿ ಹೊಸದನ್ನು ರಚಿಸಿ." },
-  "addrule": { "message": "ಹೊಸ ನಿಯಮ ಸೇರಿಸಿ" },
-  "blockurl": { "message": "ತಡೆಗೊಳ್ಳುವ URL ನಮೂದಿಸಿ" },
-  "redirecturl": { "message": "ರೀಡೈರೆಕ್ಟ್ URL ನಮೂದಿಸಿ (ಐಚ್ಛಿಕ)" },
-  "redirecturlheader": { "message": "ಮರುನಿರ್ದೇಶನ URL" },
-  "redirecturlplaceholder": { "message": "ಐಚ್ಛಿಕ - ನಿರ್ಬಂಧಿಸಲು ಖಾಲಿ ಬಿಡಿ" },
-  "redirecturlhint": { "message": "https:// ಸೇರಿದಂತೆ ಸಂಪೂರ್ಣ URL ನಮೂದಿಸಿ" },
-  "mobilecopylinkhint": { "message": "ಲಿಂಕ್ ಅನ್ನು ನಿರ್ಬಂಧಿಸಲು ಅದರ ವಿಳಾಸವನ್ನು ನಕಲಿಸಿ ಮತ್ತು ನಿರ್ಬಂಧಿಸುವ ಕ್ಷೇತ್ರದಲ್ಲಿ ಅಂಟಿಸಿ." },
-  "savebtn": { "message": "ಸೇവ് ಮಾಡಿ" },
-  "deletebtn": { "message": "ಅಳಿಸಿ" },
-  "alertruleexist": { "message": "ನಿಯಮ ಈಗಾಗಲೇ ಇದೆ" },
+  "chromename": {
+    "message": "BlockDistraction – ಸೈಟ್ ತಡೆಯುವಿಕೆ"
+  },
+  "shortname": {
+    "message": "ತಡೆಯುವಿಕೆ"
+  },
+  "description": {
+    "message": "ಸರಳ ಮತ್ತು ವಿಶ್ವಾಸಾರ್ಹ ವೆಬ್‌ಸೈಟ್ ಬ್ಲಾಕ್ ಮತ್ತು ರಿಡೈರೆಕ್ಟ್ ಸಾಧನ, ಗಮನವನ್ನು ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ."
+  },
+  "defaulttitle": {
+    "message": "ಗಮನ ಸೆಳೆದು ಉತ್ಪಾದಕವಾಗಿರಿ"
+  },
+  "header": {
+    "message": "ಸೈಟ್ ತಡೆಯುವಿಕೆ"
+  },
+  "paragraph": {
+    "message": "ವೆಬ್‌ಸೈಟ್ ಅಥವಾ ಸಂಪನ್ಮೂಲವನ್ನು ತಡೆಯಲು, ಅದರ ಹೆಸರಿನ ಭಾಗವನ್ನು 'ತಡೆಗೊಳ್ಳುವ URL ನಮೂದಿಸಿ' ಪ್ಲೇಸ್‌ಹೋಲ್ಡರ್ ಹೊಂದಿರುವ ಇನ್‌ಪುಟ್ ಫೀಲ್ಡ್‌ನಲ್ಲಿ ನಮೂದಿಸಿ – ಉದಾಹರಣೆಗೆ, 'facebook' ಎಲ್ಲಾ ಸಂಬಂಧಿತ ಉಪಡೊಮೇನ್‌ಗಳನ್ನು ತಡೆಯುತ್ತದೆ. 'ರೀಡೈರೆಕ್ಟ್ URL ನಮೂದಿಸ' ಫೀಲ್ಡ್‌ನಲ್ಲಿ ಪ್ರೋಟೋಕಾಲ್ ಸೇರಿದಂತೆ ಸಂಪೂರ್ಣ ರೀಡೈರೆಕ್ಟ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ, ಉದಾ. 'https://google.com'. ರೀಡೈರೆಕ್ಟ್ ಫೀಲ್ಡ್ ಖಾಲಿಯಾಗಿದ್ದರೆ, ತಡೆರಹಿತವಾಗಿ ತಡೆಯಲಾಗುತ್ತದೆ. ನಿಯಮವನ್ನು ಅನ್ವಯಿಸಲು 'Save' ಬಟನ್ ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ. ನಿಯಮವನ್ನು ನವೀಕರಿಸಲು, ಹಳೆಯದನ್ನು ಅಳಿಸಿ ಹೊಸದನ್ನು ರಚಿಸಿ."
+  },
+  "addrule": {
+    "message": "ಹೊಸ ನಿಯಮ ಸೇರಿಸಿ"
+  },
+  "blockurl": {
+    "message": "ತಡೆಗೊಳ್ಳುವ URL ನಮೂದಿಸಿ"
+  },
+  "redirecturl": {
+    "message": "ರೀಡೈರೆಕ್ಟ್ URL ನಮೂದಿಸಿ (ಐಚ್ಛಿಕ)"
+  },
+  "redirecturlheader": {
+    "message": "ಮರುನಿರ್ದೇಶನ URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "ಐಚ್ಛಿಕ - ನಿರ್ಬಂಧಿಸಲು ಖಾಲಿ ಬಿಡಿ"
+  },
+  "redirecturlhint": {
+    "message": "https:// ಸೇರಿದಂತೆ ಸಂಪೂರ್ಣ URL ನಮೂದಿಸಿ"
+  },
+  "mobilecopylinkhint": {
+    "message": "ಲಿಂಕ್ ಅನ್ನು ನಿರ್ಬಂಧಿಸಲು ಅದರ ವಿಳಾಸವನ್ನು ನಕಲಿಸಿ ಮತ್ತು ನಿರ್ಬಂಧಿಸುವ ಕ್ಷೇತ್ರದಲ್ಲಿ ಅಂಟಿಸಿ."
+  },
+  "savebtn": {
+    "message": "ಸೇവ് ಮಾಡಿ"
+  },
+  "deletebtn": {
+    "message": "ಅಳಿಸಿ"
+  },
+  "alertruleexist": {
+    "message": "ನಿಯಮ ಈಗಾಗಲೇ ಇದೆ"
+  },
   "savedrules": {
     "message": "$ruleslength$ ನಿಯಮಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "ಈ ಸಂಪನ್ಮೂಲವನ್ನು ನಿರ್ಬಂಧಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ." },
-  "wrongblockurl": { "message": "ನಿರ್ಬಂಧಿಸಲು ಅಮಾನ್ಯವಾದ URL" },
-  "wrongredirecturl": { "message": "ಅಮಾನ್ಯ ರೀಡೈರೆಕ್ಟ್ URL" },
-  "blockthat": { "message": "ಈ ಸೈಟ್ ಅನ್ನು ತಡೆಯಿರಿ" },
-  "sendfeedbackbutton": { "message": "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ" },
-  "sendfeedbacksubject": { "message": "BlockDistraction ಗೆ ಪ್ರತಿಕ್ರಿಯೆ" },
-  "sendfeedbackbody": { "message": "ನಮಸ್ಕಾರ, ನಾನು ಈ ಕೆಳಗಿನ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ಬಯಸುತ್ತೇನೆ:\n\n" },
-  "quote1": { "message": "ಗಮನ ಸೆಳೆದು, ಶಕ್ತಿ ಹೊಂದಿರಿ." },
-  "quote2": { "message": "ನಿಮ್ಮ ಭವಿಷ್ಯವನ್ನು ನೀವು ಇಂದು ಮಾಡುವುದೇ ರೂಪಿಸುತ್ತದೆ." },
-  "quote3": { "message": "ಶಿಸ್ತು ಉದ್ದೇಶಗಳು ಮತ್ತು ಯಶಸ್ಸಿನ ನಡುವೆ ಸೇತುವೆಯಾಗಿದೆ." },
-  "quote4": { "message": "ಒಂದು ಸೈಟ್ ತಡೆಯಲಾಗಿದೆ, ನಿಮ್ಮ ಗುರಿಗೆ ಮತ್ತೊಂದು ಹಂತ." },
-  "quote5": { "message": "ಪ್ರತೀ ಕ್ಲಿಕ್ ಅನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಮಾಡಿ." },
-  "quote6": { "message": "ಗಡಿಯಾರವನ್ನು ನೋಡಬೇಡಿ; ಅದು ಮಾಡುವಂತೆ ಮಾಡಿ. ಮುಂದುವರಿಯಿರಿ." },
-  "quote7": { "message": "ಪ್ರತಿದಿನದ ಚಿಕ್ಕ ಹಂತಗಳು ದೊಡ್ಡ ಫಲಿತಾಂಶಕ್ಕೆ ದಾರಿ ಮಾಡುತ್ತವೆ." },
-  "quote8": { "message": "ನಿಮ್ಮ ಏಕೈಕ ಮಿತಿ ನಿಮ್ಮ ಮನಸ್ಸಾಗಿದೆ." },
-  "quote9": { "message": "ಯಶಸ್ಸು ದೈನಂದಿನ ಸಣ್ಣ ಪ್ರಯತ್ನಗಳ ಮೊತ್ತವಾಗಿದೆ." },
-  "quote10": { "message": "ಬೊಜ್ಜಾಗುವ ಬದಲು ಉತ್ಪಾದಕತೆಯಲ್ಲಿ ಗಮನ ಹರಿಸಿ." },
-  "quote11": { "message": "ನಿಮ್ಮ ಗಮನವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ – ಅದು ನಿಮ್ಮ ಅತ್ಯಮೂಲ್ಯ ಸಂಪತ್ತು." },
-  "quote12": { "message": "ಒಂದು ವ್ಯತ್ಯಯವನ್ನು ತಡೆಯುವುದು, ಮರಳಿ ಪಡೆದ ಸಮಯವಾಗುತ್ತದೆ." },
-  "quote13": { "message": "ಶಬ್ದವನ್ನು ಕಡಿಮೆ ಮಾಡಿ; ನಿಮ್ಮ ಉತ್ಪಾದಕತೆಯನ್ನು ಹೆಚ್ಚಿಸಿ." },
-  "quote14": { "message": "ಸಣ್ಣ ದಿನಚರಿಗಳು ಅಪ್ರತಿಹತ ವೇಗವನ್ನು ನಿರ್ಮಿಸುತ್ತವೆ." },
-  "quote15": { "message": "ಅಸ್ಪಷ್ಟತೆಗೆ ಬದಲಾಗಿ ಸ್ಪಷ್ಟತೆ – ಮುಖ್ಯವಾದುದರಲ್ಲಿ ಗಮನ ಹರಿಸಿ." },
-  "quote16": { "message": "ವ್ಯತ್ಯಯಗಳಿಗೆ 'ಇಲ್ಲ' ಎಂದು ಹೇಳಿ; ಪ್ರಗತಿಗೆ 'ಹೌದು' ಎಂದು ಹೇಳಿ." },
-  "quote17": { "message": "ಇಂದಿನ ಒಂದು ಗಂಟೆಯ ಒತ್ತು ನಾಳೆಯ ಫಲಿತಾಂಶಗಳನ್ನು ಅನೇಕ ಪಟ್ಟು ಹೆಚ್ಚಿಸುತ್ತದೆ." },
-  "quote18": { "message": "ಕಡಿಮೆ ಬಳಸಿ, ಹೆಚ್ಚು ರಚಿಸಿ." },
-  "quote19": { "message": "ಶಿಸ್ತು ತಕ್ಷಣದ冲動ಕ್ಕಿಂತ ದೀರ್ಘಾವಧಿಯ ಜಯಗಳನ್ನು ಆರಿಸುತ್ತದೆ." },
-  "quote20": { "message": "ಒಂದು ಟ್ಯಾಬ್ ಅನ್ನು ಮುಚ್ಚಿ, ಹೊಸ ಆಲೋಚನೆಗಳಿಗೆ ಸ್ಥಳವನ್ನು ತೆರೆಯಿರಿ." },
-  "quote21": { "message": "ನೀನು ಇಂದು ತಪ್ಪಿಸುತ್ತಿರುವ ಕೆಲಸ ನಾಳೆಯ ಒತ್ತಡವಾಗಬಹುದು." },
-  "quote22": { "message": "ಕೇಂದ್ರೀಕರಣ ಎಂದರೆ ಹೆಚ್ಚು ಮಾಡುವುದು ಅಲ್ಲ, ನಿಜವಾಗಿ ಮಹತ್ವವಿರುವುದನ್ನು ಮಾಡುವುದು." },
-  "quote23": { "message": "ನಿನ್ನ ಗುರಿಗಳು ನಿನ್ನ ಗಮನಭಂಗಗಳಿಗಿಂತ ಹೆಚ್ಚು ಗಮನಕ್ಕೆ ಅರ್ಹವಾಗಿವೆ." },
-  "quote24": { "message": "ವಿಚಲನೆಗಳಿಲ್ಲದ ಪ್ರತಿಯೊಂದು ನಿಮಿಷವೂ ನಿನ್ನ ಮೇಲಿನ ಹೂಡಿಕೆ." },
-  "quote25": { "message": "ನಿರಂತರತೆ ತಾತ್ಕಾಲಿಕ ಪ್ರೇರಣೆಯಿಗಿಂತ ಹೆಚ್ಚು ಸ್ಥಿರ ಫಲಿತಾಂಶಗಳನ್ನು ನೀಡುತ್ತದೆ." },
-  "quote26": { "message": "ಆರಂಭಿಸಲು ಅತ್ಯುತ್ತಮ ಸಮಯ ನಿನ್ನೆ. ಮುಂದಿನ ಅತ್ಯುತ್ತಮ ಸಮಯ ಈಗ." },
-  "quote27": { "message": "ನೀನು ವಿಚಲನೆಯ ಬದಲು ಕ್ರಿಯೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿದಾಗ ಪ್ರಗತಿ ಆರಂಭವಾಗುತ್ತದೆ." },
-  "quote28": { "message": "ಒಂದು ಕ್ಷಣದ ಕೇಂದ್ರೀಕರಣವೂ ನಿನ್ನ ದಿನದ ದಿಕ್ಕನ್ನು ಬದಲಾಯಿಸಬಹುದು." },
-  "quote29": { "message": "ನಿನಗೆ ಹೆಚ್ಚು ಸಮಯ ಬೇಕಾಗಿಲ್ಲ, ಕಡಿಮೆ ವಿಚಲನೆಗಳು ಬೇಕು." },
-  "quote30": { "message": "ಪ್ರತಿ ಕೇಂದ್ರೀಕರಣದ ಆಯ್ಕೆಯೂ ನಿನ್ನ ಭವಿಷ್ಯದ ನಿನ್ನನ್ನು ಬಲಪಡಿಸುತ್ತದೆ." },
-  "quote31": { "message": "ಈ ತಡೆ ತಾತ್ಕಾಲಿಕ; ನಿಮ್ಮ ಗುರಿಗಳು ದೀರ್ಘಕಾಲೀನವು." },
-  "quote32": { "message": "ಪ್ರತಿ ತಡೆಗಟ್ಟಿದ ವ್ಯತ್ಯಯವು ನಿಮ್ಮ ಭವಿಷ್ಯದ ಸ್ವಯಂಗೆ ಒಂದು ಜಯವಾಗಿದೆ." },
-  "quote33": { "message": "ಇಂಟರ್ನೆಟ್ ಅನಂತ, ಆದರೆ ನಿಮ್ಮ ಸಮಯ ಅಲ್ಲ." },
-  "quote34": { "message": "ವೆಬ್ ನಿಮ್ಮಿಗಾಗಿ ನಿರ್ಧರಿಸುವ ಮೊದಲು ನಿಮ್ಮ ಆದ್ಯತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿ." },
-  "quote35": { "message": "ಕಡಿಮೆ ಸ್ಕ್ರೋಲಿಂಗ್, ಹೆಚ್ಚು ಸೃಜನಶೀಲತೆ." },
-  "quote36": { "message": "ನಿಮ್ಮ ಗಮನವೇ ನಿಮ್ಮ ಸಾಧನೆಗಳನ್ನು ರೂಪಿಸುತ್ತದೆ." },
-  "quote37": { "message": "ಕೇಂದ್ರಿತವಾಗಿರಿ — ವ್ಯತ್ಯಯಗಳು ಕಾಯಬಹುದು." },
-  "quote38": { "message": "ಪ್ರತಿ ಉತ್ಪಾದಕ ನಿರ್ಧಾರವು ಕೇಂದ್ರೀಕೃತ ಮನಸ್ಸಿನಿಂದ ಆರಂಭವಾಗುತ್ತದೆ." },
-  "quote39": { "message": "ನೀವು ಒಂದು ವೆಬ್‌ಸೈಟ್ ಅನ್ನು ತಡೆಗಟ್ಟಿದ್ದೀರಿ, ನಿಮ್ಮ ಸಾಮರ್ಥ್ಯವಲ್ಲ." },
-  "quote40": { "message": "ಯಶಸ್ಸಿನ ಮಾರ್ಗವು ಕೇಂದ್ರೀಕೃತ ನಿರ್ಧಾರಗಳಿಂದ ನಿರ್ಮಿತವಾಗಿದೆ." },
-  "actionsheader": { "message": "ಕ್ರಿಯೆಗಳು" },
-  "norules": { "message": "ಯಾವುದೇ ತಡೆಯಲಾದ ಸೈಟ್ ಇಲ್ಲ." },
-  "editbtn": { "message": "ಸಂಪಾದಿಸಿ" },
-  "ruleddeleted": { "message": "ನಿಯಮ ಅಳಿಸಲಾಗಿದೆ." },
-  "cancelbtn": { "message": "ರದ್ದುಗೊಳಿಸಿ" },
-  "ruleupdated": { "message": "ನಿಯಮವನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ." },
-  "rulenewadded": { "message": "ಹೊಸ ನಿಯಮವನ್ನು ಸೇರಿಸಲಾಗಿದೆ." },
-  "gotooptions": { "message": "ಆಪ್ಷನ್ ಪುಟಕ್ಕೆ ಹೋಗಿ ⚙️" },
-  "gotopopup": { "message": "ಪಾಪ್ ಅಪ್‌ಗೆ ಮರಳಲು ವಿಸ್ತರಣೆ ಐಕಾನ್ ಕ್ಲಿಕ್ ಮಾಡಿ." },
-  "rulesmigrated": { "message": "ಹೊಂದಾಣಿಕೆಗಾಗಿ ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ" },
-  "errorupdatingrules": { "message": "ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸುವಲ್ಲಿ ದೋಷ" },
-  "erroraddingrule": { "message": "ನಿಯಮವನ್ನು ಸೇರಿಸುವಲ್ಲಿ ದೋಷ" },
-  "errorremovingrule": { "message": "ನಿಯಮವನ್ನು ತೆಗೆದುಹಾಕುವಲ್ಲಿ ದೋಷ" },
-  "optionsheader": { "message": "ವಿಸ್ತರಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
-  "optionsdescription": { "message": "ನಿಮ್ಮ ವಿಸ್ತರಣೆಯ ವರ್ತನೆ ಮತ್ತು ಸುರಕ್ಷತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸಂರಚಿಸಿ" },
-  "securitymodetitle": { "message": "ಸುರಕ್ಷತಾ ಮೋಡ್" },
-  "normalmodetitle": { "message": "ಸಾಮಾನ್ಯ ಮೋಡ್" },
-  "normalmodedesc": { "message": "ನಿಯಮಗಳನ್ನು ಒಂದು ಕ್ಲಿಕ್‌ನಲ್ಲಿ ತಕ್ಷಣ ಅಳಿಸಬಹುದು" },
-  "strictmodetitle": { "message": "ಕಠಿಣ ಮೋಡ್" },
-  "strictmodedesc": { "message": "ತಪ್ಪಾಗಿ ಅಳಿಸುವುದನ್ನು ತಪ್ಪಿಸಲು ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು 10-ಸೆಕೆಂಡ್ ಕೌಂಟ್‌ಡೌನ್ ಅಗತ್ಯವಿದೆ" },
-  "confirmdeletetitle": { "message": "ಹೆಚ್ಚಿನ ನಿಯಮಗಳನ್ನು ಅಳಿಸುವ ಮೊದಲು ದೃಢೀಕರಿಸಿ" },
-  "confirmdeletedesc": { "message": "ಒಂದುಗೂ ಹೆಚ್ಚು ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೃಢೀಕರಣ ಸಂವಾದವನ್ನು ತೋರಿಸಿ" },
-  "notificationstitle": { "message": "ಅಧಿಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ" },
-  "notificationsdesc": { "message": "ವೆಬ್ ವಿಸ್ತರಣೆ ನವೀಕರಿಸಿದಾಗ ಅಧಿಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ" },
-  "rulesmanagementtitle": { "message": "ನಿಯಮ ನಿರ್ವಹಣೆ" },
-  "exportrulesbtn": { "message": "ನಿಯಮಗಳನ್ನು ರಫ್ತು ಮಾಡಿ" },
-  "importrulesbtn": { "message": "ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡಿ" },
-  "clearallrulesbtn": { "message": "ಎಲ್ಲಾ ನಿಯಮಗಳನ್ನು ಅಳಿಸಿ" },
-  "totalruleslabel": { "message": "ಒಟ್ಟು ನಿಯಮಗಳು" },
-  "blockedtodaylabel": { "message": "ಇಂದು ತಡೆಹಿಡಿದಿದೆ" },
-  "totalblockedlabel": { "message": "ಒಟ್ಟು ತಡೆಹಿಡಿದಿದೆ" },
-  "resetsettingsbtn": { "message": "ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಿ" },
-  "backtopopup": { "message": "ಮುಖ್ಯ ಮೆನುಗೆ ಹಿಂತಿರುಗಿ" },
-  "errorloadingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ" },
-  "settingssaved": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ!" },
-  "errorsavingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸುವಾಗ ದೋಷ" },
-  "rulesexported": { "message": "ನಿಯಮಗಳು ಯಶಸ್ವಿಯಾಗಿ ರಫ್ತು ಮಾಡಲಾಗಿದೆ!" },
-  "errorexportingrules": { "message": "ನಿಯಮಗಳನ್ನು ರಫ್ತು ಮಾಡುವಾಗ ದೋಷ" },
+  "restrictedblockurl": {
+    "message": "ಈ ಸಂಪನ್ಮೂಲವನ್ನು ನಿರ್ಬಂಧಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+  },
+  "wrongblockurl": {
+    "message": "ನಿರ್ಬಂಧಿಸಲು ಅಮಾನ್ಯವಾದ URL"
+  },
+  "wrongredirecturl": {
+    "message": "ಅಮಾನ್ಯ ರೀಡೈರೆಕ್ಟ್ URL"
+  },
+  "blockthat": {
+    "message": "ಈ ಸೈಟ್ ಅನ್ನು ತಡೆಯಿರಿ"
+  },
+  "sendfeedbackbutton": {
+    "message": "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ"
+  },
+  "sendfeedbacksubject": {
+    "message": "BlockDistraction ಗೆ ಪ್ರತಿಕ್ರಿಯೆ"
+  },
+  "sendfeedbackbody": {
+    "message": "ನಮಸ್ಕಾರ, ನಾನು ಈ ಕೆಳಗಿನ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ಬಯಸುತ್ತೇನೆ:\n\n"
+  },
+  "quote1": {
+    "message": "ಗಮನ ಸೆಳೆದು, ಶಕ್ತಿ ಹೊಂದಿರಿ."
+  },
+  "quote2": {
+    "message": "ನಿಮ್ಮ ಭವಿಷ್ಯವನ್ನು ನೀವು ಇಂದು ಮಾಡುವುದೇ ರೂಪಿಸುತ್ತದೆ."
+  },
+  "quote3": {
+    "message": "ಶಿಸ್ತು ಉದ್ದೇಶಗಳು ಮತ್ತು ಯಶಸ್ಸಿನ ನಡುವೆ ಸೇತುವೆಯಾಗಿದೆ."
+  },
+  "quote4": {
+    "message": "ಒಂದು ಸೈಟ್ ತಡೆಯಲಾಗಿದೆ, ನಿಮ್ಮ ಗುರಿಗೆ ಮತ್ತೊಂದು ಹಂತ."
+  },
+  "quote5": {
+    "message": "ಪ್ರತೀ ಕ್ಲಿಕ್ ಅನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಮಾಡಿ."
+  },
+  "quote6": {
+    "message": "ಗಡಿಯಾರವನ್ನು ನೋಡಬೇಡಿ; ಅದು ಮಾಡುವಂತೆ ಮಾಡಿ. ಮುಂದುವರಿಯಿರಿ."
+  },
+  "quote7": {
+    "message": "ಪ್ರತಿದಿನದ ಚಿಕ್ಕ ಹಂತಗಳು ದೊಡ್ಡ ಫಲಿತಾಂಶಕ್ಕೆ ದಾರಿ ಮಾಡುತ್ತವೆ."
+  },
+  "quote8": {
+    "message": "ನಿಮ್ಮ ಏಕೈಕ ಮಿತಿ ನಿಮ್ಮ ಮನಸ್ಸಾಗಿದೆ."
+  },
+  "quote9": {
+    "message": "ಯಶಸ್ಸು ದೈನಂದಿನ ಸಣ್ಣ ಪ್ರಯತ್ನಗಳ ಮೊತ್ತವಾಗಿದೆ."
+  },
+  "quote10": {
+    "message": "ಬೊಜ್ಜಾಗುವ ಬದಲು ಉತ್ಪಾದಕತೆಯಲ್ಲಿ ಗಮನ ಹರಿಸಿ."
+  },
+  "quote11": {
+    "message": "ನಿಮ್ಮ ಗಮನವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ – ಅದು ನಿಮ್ಮ ಅತ್ಯಮೂಲ್ಯ ಸಂಪತ್ತು."
+  },
+  "quote12": {
+    "message": "ಒಂದು ವ್ಯತ್ಯಯವನ್ನು ತಡೆಯುವುದು, ಮರಳಿ ಪಡೆದ ಸಮಯವಾಗುತ್ತದೆ."
+  },
+  "quote13": {
+    "message": "ಶಬ್ದವನ್ನು ಕಡಿಮೆ ಮಾಡಿ; ನಿಮ್ಮ ಉತ್ಪಾದಕತೆಯನ್ನು ಹೆಚ್ಚಿಸಿ."
+  },
+  "quote14": {
+    "message": "ಸಣ್ಣ ದಿನಚರಿಗಳು ಅಪ್ರತಿಹತ ವೇಗವನ್ನು ನಿರ್ಮಿಸುತ್ತವೆ."
+  },
+  "quote15": {
+    "message": "ಅಸ್ಪಷ್ಟತೆಗೆ ಬದಲಾಗಿ ಸ್ಪಷ್ಟತೆ – ಮುಖ್ಯವಾದುದರಲ್ಲಿ ಗಮನ ಹರಿಸಿ."
+  },
+  "quote16": {
+    "message": "ವ್ಯತ್ಯಯಗಳಿಗೆ 'ಇಲ್ಲ' ಎಂದು ಹೇಳಿ; ಪ್ರಗತಿಗೆ 'ಹೌದು' ಎಂದು ಹೇಳಿ."
+  },
+  "quote17": {
+    "message": "ಇಂದಿನ ಒಂದು ಗಂಟೆಯ ಒತ್ತು ನಾಳೆಯ ಫಲಿತಾಂಶಗಳನ್ನು ಅನೇಕ ಪಟ್ಟು ಹೆಚ್ಚಿಸುತ್ತದೆ."
+  },
+  "quote18": {
+    "message": "ಕಡಿಮೆ ಬಳಸಿ, ಹೆಚ್ಚು ರಚಿಸಿ."
+  },
+  "quote19": {
+    "message": "ಶಿಸ್ತು ತಕ್ಷಣದ冲動ಕ್ಕಿಂತ ದೀರ್ಘಾವಧಿಯ ಜಯಗಳನ್ನು ಆರಿಸುತ್ತದೆ."
+  },
+  "quote20": {
+    "message": "ಒಂದು ಟ್ಯಾಬ್ ಅನ್ನು ಮುಚ್ಚಿ, ಹೊಸ ಆಲೋಚನೆಗಳಿಗೆ ಸ್ಥಳವನ್ನು ತೆರೆಯಿರಿ."
+  },
+  "quote21": {
+    "message": "ನೀನು ಇಂದು ತಪ್ಪಿಸುತ್ತಿರುವ ಕೆಲಸ ನಾಳೆಯ ಒತ್ತಡವಾಗಬಹುದು."
+  },
+  "quote22": {
+    "message": "ಕೇಂದ್ರೀಕರಣ ಎಂದರೆ ಹೆಚ್ಚು ಮಾಡುವುದು ಅಲ್ಲ, ನಿಜವಾಗಿ ಮಹತ್ವವಿರುವುದನ್ನು ಮಾಡುವುದು."
+  },
+  "quote23": {
+    "message": "ನಿನ್ನ ಗುರಿಗಳು ನಿನ್ನ ಗಮನಭಂಗಗಳಿಗಿಂತ ಹೆಚ್ಚು ಗಮನಕ್ಕೆ ಅರ್ಹವಾಗಿವೆ."
+  },
+  "quote24": {
+    "message": "ವಿಚಲನೆಗಳಿಲ್ಲದ ಪ್ರತಿಯೊಂದು ನಿಮಿಷವೂ ನಿನ್ನ ಮೇಲಿನ ಹೂಡಿಕೆ."
+  },
+  "quote25": {
+    "message": "ನಿರಂತರತೆ ತಾತ್ಕಾಲಿಕ ಪ್ರೇರಣೆಯಿಗಿಂತ ಹೆಚ್ಚು ಸ್ಥಿರ ಫಲಿತಾಂಶಗಳನ್ನು ನೀಡುತ್ತದೆ."
+  },
+  "quote26": {
+    "message": "ಆರಂಭಿಸಲು ಅತ್ಯುತ್ತಮ ಸಮಯ ನಿನ್ನೆ. ಮುಂದಿನ ಅತ್ಯುತ್ತಮ ಸಮಯ ಈಗ."
+  },
+  "quote27": {
+    "message": "ನೀನು ವಿಚಲನೆಯ ಬದಲು ಕ್ರಿಯೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿದಾಗ ಪ್ರಗತಿ ಆರಂಭವಾಗುತ್ತದೆ."
+  },
+  "quote28": {
+    "message": "ಒಂದು ಕ್ಷಣದ ಕೇಂದ್ರೀಕರಣವೂ ನಿನ್ನ ದಿನದ ದಿಕ್ಕನ್ನು ಬದಲಾಯಿಸಬಹುದು."
+  },
+  "quote29": {
+    "message": "ನಿನಗೆ ಹೆಚ್ಚು ಸಮಯ ಬೇಕಾಗಿಲ್ಲ, ಕಡಿಮೆ ವಿಚಲನೆಗಳು ಬೇಕು."
+  },
+  "quote30": {
+    "message": "ಪ್ರತಿ ಕೇಂದ್ರೀಕರಣದ ಆಯ್ಕೆಯೂ ನಿನ್ನ ಭವಿಷ್ಯದ ನಿನ್ನನ್ನು ಬಲಪಡಿಸುತ್ತದೆ."
+  },
+  "quote31": {
+    "message": "ಈ ತಡೆ ತಾತ್ಕಾಲಿಕ; ನಿಮ್ಮ ಗುರಿಗಳು ದೀರ್ಘಕಾಲೀನವು."
+  },
+  "quote32": {
+    "message": "ಪ್ರತಿ ತಡೆಗಟ್ಟಿದ ವ್ಯತ್ಯಯವು ನಿಮ್ಮ ಭವಿಷ್ಯದ ಸ್ವಯಂಗೆ ಒಂದು ಜಯವಾಗಿದೆ."
+  },
+  "quote33": {
+    "message": "ಇಂಟರ್ನೆಟ್ ಅನಂತ, ಆದರೆ ನಿಮ್ಮ ಸಮಯ ಅಲ್ಲ."
+  },
+  "quote34": {
+    "message": "ವೆಬ್ ನಿಮ್ಮಿಗಾಗಿ ನಿರ್ಧರಿಸುವ ಮೊದಲು ನಿಮ್ಮ ಆದ್ಯತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿ."
+  },
+  "quote35": {
+    "message": "ಕಡಿಮೆ ಸ್ಕ್ರೋಲಿಂಗ್, ಹೆಚ್ಚು ಸೃಜನಶೀಲತೆ."
+  },
+  "quote36": {
+    "message": "ನಿಮ್ಮ ಗಮನವೇ ನಿಮ್ಮ ಸಾಧನೆಗಳನ್ನು ರೂಪಿಸುತ್ತದೆ."
+  },
+  "quote37": {
+    "message": "ಕೇಂದ್ರಿತವಾಗಿರಿ — ವ್ಯತ್ಯಯಗಳು ಕಾಯಬಹುದು."
+  },
+  "quote38": {
+    "message": "ಪ್ರತಿ ಉತ್ಪಾದಕ ನಿರ್ಧಾರವು ಕೇಂದ್ರೀಕೃತ ಮನಸ್ಸಿನಿಂದ ಆರಂಭವಾಗುತ್ತದೆ."
+  },
+  "quote39": {
+    "message": "ನೀವು ಒಂದು ವೆಬ್‌ಸೈಟ್ ಅನ್ನು ತಡೆಗಟ್ಟಿದ್ದೀರಿ, ನಿಮ್ಮ ಸಾಮರ್ಥ್ಯವಲ್ಲ."
+  },
+  "quote40": {
+    "message": "ಯಶಸ್ಸಿನ ಮಾರ್ಗವು ಕೇಂದ್ರೀಕೃತ ನಿರ್ಧಾರಗಳಿಂದ ನಿರ್ಮಿತವಾಗಿದೆ."
+  },
+  "actionsheader": {
+    "message": "ಕ್ರಿಯೆಗಳು"
+  },
+  "norules": {
+    "message": "ಯಾವುದೇ ತಡೆಯಲಾದ ಸೈಟ್ ಇಲ್ಲ."
+  },
+  "editbtn": {
+    "message": "ಸಂಪಾದಿಸಿ"
+  },
+  "ruleddeleted": {
+    "message": "ನಿಯಮ ಅಳಿಸಲಾಗಿದೆ."
+  },
+  "cancelbtn": {
+    "message": "ರದ್ದುಗೊಳಿಸಿ"
+  },
+  "ruleupdated": {
+    "message": "ನಿಯಮವನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ."
+  },
+  "rulenewadded": {
+    "message": "ಹೊಸ ನಿಯಮವನ್ನು ಸೇರಿಸಲಾಗಿದೆ."
+  },
+  "gotooptions": {
+    "message": "ಆಪ್ಷನ್ ಪುಟಕ್ಕೆ ಹೋಗಿ ⚙️"
+  },
+  "gotopopup": {
+    "message": "ಪಾಪ್ ಅಪ್‌ಗೆ ಮರಳಲು ವಿಸ್ತರಣೆ ಐಕಾನ್ ಕ್ಲಿಕ್ ಮಾಡಿ."
+  },
+  "rulesmigrated": {
+    "message": "ಹೊಂದಾಣಿಕೆಗಾಗಿ ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ"
+  },
+  "errorupdatingrules": {
+    "message": "ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸುವಲ್ಲಿ ದೋಷ"
+  },
+  "erroraddingrule": {
+    "message": "ನಿಯಮವನ್ನು ಸೇರಿಸುವಲ್ಲಿ ದೋಷ"
+  },
+  "errorremovingrule": {
+    "message": "ನಿಯಮವನ್ನು ತೆಗೆದುಹಾಕುವಲ್ಲಿ ದೋಷ"
+  },
+  "optionsheader": {
+    "message": "ವಿಸ್ತರಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+  },
+  "optionsdescription": {
+    "message": "ನಿಮ್ಮ ವಿಸ್ತರಣೆಯ ವರ್ತನೆ ಮತ್ತು ಸುರಕ್ಷತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸಂರಚಿಸಿ"
+  },
+  "securitymodetitle": {
+    "message": "ಸುರಕ್ಷತಾ ಮೋಡ್"
+  },
+  "normalmodetitle": {
+    "message": "ಸಾಮಾನ್ಯ ಮೋಡ್"
+  },
+  "normalmodedesc": {
+    "message": "ನಿಯಮಗಳನ್ನು ಒಂದು ಕ್ಲಿಕ್‌ನಲ್ಲಿ ತಕ್ಷಣ ಅಳಿಸಬಹುದು"
+  },
+  "strictmodetitle": {
+    "message": "ಕಠಿಣ ಮೋಡ್"
+  },
+  "strictmodedesc": {
+    "message": "ತಪ್ಪಾಗಿ ಅಳಿಸುವುದನ್ನು ತಪ್ಪಿಸಲು ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು 10-ಸೆಕೆಂಡ್ ಕೌಂಟ್‌ಡೌನ್ ಅಗತ್ಯವಿದೆ"
+  },
+  "confirmdeletetitle": {
+    "message": "ಹೆಚ್ಚಿನ ನಿಯಮಗಳನ್ನು ಅಳಿಸುವ ಮೊದಲು ದೃಢೀಕರಿಸಿ"
+  },
+  "confirmdeletedesc": {
+    "message": "ಒಂದುಗೂ ಹೆಚ್ಚು ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೃಢೀಕರಣ ಸಂವಾದವನ್ನು ತೋರಿಸಿ"
+  },
+  "notificationstitle": {
+    "message": "ಅಧಿಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ"
+  },
+  "notificationsdesc": {
+    "message": "ವೆಬ್ ವಿಸ್ತರಣೆ ನವೀಕರಿಸಿದಾಗ ಅಧಿಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ"
+  },
+  "rulesmanagementtitle": {
+    "message": "ನಿಯಮ ನಿರ್ವಹಣೆ"
+  },
+  "exportrulesbtn": {
+    "message": "ನಿಯಮಗಳನ್ನು ರಫ್ತು ಮಾಡಿ"
+  },
+  "importrulesbtn": {
+    "message": "ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡಿ"
+  },
+  "clearallrulesbtn": {
+    "message": "ಎಲ್ಲಾ ನಿಯಮಗಳನ್ನು ಅಳಿಸಿ"
+  },
+  "totalruleslabel": {
+    "message": "ಒಟ್ಟು ನಿಯಮಗಳು"
+  },
+  "blockedtodaylabel": {
+    "message": "ಇಂದು ತಡೆಹಿಡಿದಿದೆ"
+  },
+  "totalblockedlabel": {
+    "message": "ಒಟ್ಟು ತಡೆಹಿಡಿದಿದೆ"
+  },
+  "resetsettingsbtn": {
+    "message": "ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಿ"
+  },
+  "backtopopup": {
+    "message": "ಮುಖ್ಯ ಮೆನುಗೆ ಹಿಂತಿರುಗಿ"
+  },
+  "errorloadingsettings": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ"
+  },
+  "settingssaved": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ!"
+  },
+  "errorsavingsettings": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸುವಾಗ ದೋಷ"
+  },
+  "rulesexported": {
+    "message": "ನಿಯಮಗಳು ಯಶಸ್ವಿಯಾಗಿ ರಫ್ತು ಮಾಡಲಾಗಿದೆ!"
+  },
+  "errorexportingrules": {
+    "message": "ನಿಯಮಗಳನ್ನು ರಫ್ತು ಮಾಡುವಾಗ ದೋಷ"
+  },
   "willimportrules": {
     "message": "$ruleslength$ ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "ಪ್ರಸ್ತುತ ನಿಯಮಗಳನ್ನು ಬದಲಿಸಲಾಗುವುದು. ಮುಂದುವರೆಯಲಾಗುವುದೆ?" },
+  "ruleswillbereplaced": {
+    "message": "ಪ್ರಸ್ತುತ ನಿಯಮಗಳನ್ನು ಬದಲಿಸಲಾಗುವುದು. ಮುಂದುವರೆಯಲಾಗುವುದೆ?"
+  },
   "importedrules": {
     "message": "$ruleslength$ ನಿಯಮಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಆಮದು ಮಾಡಲಾಗಿದೆ!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡುವಾಗ ದೋಷ: " },
-  "norulestoclear": { "message": "ಅಳಿಸಲು ಯಾವುದೇ ನಿಯಮಗಳಿಲ್ಲ" },
+  "errorimportingrules": {
+    "message": "ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡುವಾಗ ದೋಷ: "
+  },
+  "norulestoclear": {
+    "message": "ಅಳಿಸಲು ಯಾವುದೇ ನಿಯಮಗಳಿಲ್ಲ"
+  },
   "willdeleteallrules": {
     "message": "ಇದು ಎಲ್ಲಾ $rulescount$ ನಿಯಮಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "ಈ ಕ್ರಮವನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಮುಂದುವರಿಯುತ್ತೀರಾ?" },
-  "allrulescleared": { "message": "ಎಲ್ಲಾ ನಿಯಮಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ!" },
-  "errorclearingrules": { "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೋಷ" },
-  "willreset": { "message": "ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್ ಮೌಲ್ಯಗಳಿಗೆ ಮರುಹೊಂದಿಸಲಾಗುವುದು. ಮುಂದುವರೆಯುತ್ತೀರಾ?" },
-  "resettodefaults": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಲ್ಪಟ್ಟಿವೆ!" },
-  "errorresettingsettings": { "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸುವಾಗ ದೋಷ" },
-  "basicsettingstitle": { "message": "ಮೂಲಭೂತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
-  "advancedsettingstitle": { "message": "ಸುಧಾರಿತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
-  "statisticstitle": { "message": "ಅಂಕಿಅಂಶಗಳು" },
+  "cannotbeundone": {
+    "message": "ಈ ಕ್ರಮವನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಮುಂದುವರಿಯುತ್ತೀರಾ?"
+  },
+  "allrulescleared": {
+    "message": "ಎಲ್ಲಾ ನಿಯಮಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ!"
+  },
+  "errorclearingrules": {
+    "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸುವಾಗ ದೋಷ"
+  },
+  "willreset": {
+    "message": "ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್ ಮೌಲ್ಯಗಳಿಗೆ ಮರುಹೊಂದಿಸಲಾಗುವುದು. ಮುಂದುವರೆಯುತ್ತೀರಾ?"
+  },
+  "resettodefaults": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಲ್ಪಟ್ಟಿವೆ!"
+  },
+  "errorresettingsettings": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸುವಾಗ ದೋಷ"
+  },
+  "basicsettingstitle": {
+    "message": "ಮೂಲಭೂತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+  },
+  "advancedsettingstitle": {
+    "message": "ಸುಧಾರಿತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+  },
+  "statisticstitle": {
+    "message": "ಅಂಕಿಅಂಶಗಳು"
+  },
   "rulelimitreached": {
     "message": "ನೀವು ಮೂಲ ಆವೃತ್ತಿಗೆ ನಿಯಮಗಳ ಮಿತಿಯನ್ನು ($limit$) ತಲುಪಿದ್ದೀರಿ. ಅನಿಯಮಿತ ನಿಯಮಗಳಿಗಾಗಿ ಪ್ರೊಗೆ ಅಪ್‌ಗ್ರೇಡ್ ಮಾಡಿ.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "ಸಂಪಾದನೆಗೆ ಪ್ರೊ ಅಗತ್ಯ." },
-  "invalidpassword": { "message": "ಅಮಾನ್ಯ ಪಾಸ್‌ವರ್ಡ್" },
-  "setpassword": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಸಿ" },
-  "enterpassword": { "message": "ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ" },
-  "passwordmismatch": { "message": "ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ" },
-  "passwordtooshort": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳನ್ನು ಹೊಂದಿರಬೇಕು" },
-  "resetpasswordconfirm": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸುವುದರಿಂದ ರಕ್ಷಣೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗುವುದು. ಮುಂದುವರಿಯುವುದೇ?" },
-  "passwordset": { "message": "ಪಾಸ್‌ವರ್ಡ್ ಯಶಸ್ವಿಯಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ" },
-  "passworddisabled": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ" },
-  "prorequired": { "message": "ಈ ವೈಶಿಷ್ಟ್ಯಕ್ಕೆ ಪ್ರೊ ಮೋಡ್ ಅಗತ್ಯ" },
-  "enablepasswordtitle": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ" },
-  "enablepassworddesc": { "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು ಅಥವಾ ಸಂಪಾದಿಸಲು ಪಾಸ್‌ವರ್ಡ್ ಅಗತ್ಯ (ಕಟ್ಟುನಿಟ್ಟಾದ ಮೋಡ್ ಅನ್ನು ಸುಧಾರಿಸುತ್ತದೆ)" },
-  "passwordprotectiontitle": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ" },
-  "scheduleheader": { "message": "ಶೆಡ್ಯೂಲ್" },
-  "enableschedule": { "message": "ಶೆಡ್ಯೂಲ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
-  "alwaysactive": { "message": "ಎಂದೆಂದಿಗೂ ಸಕ್ರಿಯ" },
-  "profeatureschedule": { "message": "ಶೆಡ್ಯೂಲ್ Pro ಆವೃತ್ತಿಯಲ್ಲಿ ಲಭ್ಯವಿದೆ" },
-  "days": { "message": "ದಿನಗಳು" },
-  "starttime": { "message": "ಪ್ರಾರಂಭ ಸಮಯ:" },
-  "endtime": { "message": "ಅಂತಿಮ ಸಮಯ:" },
-  "invaliddays": { "message": "ಅಮಾನ್ಯ ದಿನಗಳನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ" },
-  "invalidtimeformat": { "message": "ಅಮಾನ್ಯ ಸಮಯ ಫಾರ್ಮ್ಯಾಟ್ (HH:MM ಬಳಸಿ)" },
-  "startafterend": { "message": "ಪ್ರಾರಂಭ ಸಮಯ ಅಂತಿಮ ಸಮಯಕ್ಕಿಂತ ಮೊದಲು ಇರಬೇಕು" },
-  "invalidschedule": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ದಿನಗಳು ಮತ್ತು ಸಮಯಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ." },
-  "invalidscheduledays": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ಕನಿಷ್ಠ ಒಂದು ದಿನ ಆಯ್ಕೆಮಾಡಿ." },
-  "invalidschedulestarttime": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಪ್ರಾರಂಭ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ." },
-  "invalidscheduleendtime": { "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಅಂತಿಮ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ." },
-  "editdisablednonpro": { "message": "ಸಂಪಾದನೆ ಅक्षमವಾಗಿದೆ: non-Pro ಬಳಕೆದಾರರಿಗೆ ನಿಯಮಗಳು ತುಂಬಾ ಹೆಚ್ಚಾಗಿದೆ." },
-  "errorloadingstatus": { "message": "ಬಳಕೆದಾರ ಸ್ಥಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿದೆ." },
-  "schedule_day_sun": { "message": "ಭಾನು" },
-  "schedule_day_mon": { "message": "ಸೋಮ" },
-  "schedule_day_tue": { "message": "ಮಂಗಳ" },
-  "schedule_day_wed": { "message": "ಬುಧ" },
-  "schedule_day_thu": { "message": "ಗುರು" },
-  "schedule_day_fri": { "message": "ಶುಕ್ರ" },
-  "schedule_day_sat": { "message": "ಶನಿ" },
-  "category_header": { "message": "ವರ್ಗ" },
-  "category_required": { "message": "ವರ್ಗ ಅಗತ್ಯ" },
-  "allcategories": { "message": "ಎಲ್ಲಾ ವರ್ಗಗಳು" },
-  "category_social": { "message": "ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ" },
-  "category_news": { "message": "ಸುದ್ದಿ" },
-  "category_entertainment": { "message": "ಮನರಂಜನೆ" },
-  "category_shopping": { "message": "ಖರೀದಿ" },
-  "category_work": { "message": "ಕೆಲಸ" },
-  "category_gaming": { "message": "ಆಟಗಳು" },
-  "category_adult": { "message": "ಮೇಚ್ಚಿನ ವಿಷಯ" },
-  "category_uncategorized": { "message": "ವರ್ಗೀಕರಿಸದ" },
-  "searchfordomain": { "message": "ಡೊಮೇನ್ ಹೆಸರು ಹುಡುಕಿ" },
-  "norulesforcategory": { "message": "ಈ ವರ್ಗಕ್ಕಾಗಿ ಯಾವುದೇ ತಡೆಸಿದ ತಾಣಗಳಿಲ್ಲ." },
-  "getpro": { "message": "ಪ್ರೋ ಪಡೆಯಿರಿ" },
-  "profunctionstext": { "message": "Pro ವೈಶಿಷ್ಟ್ಯಗಳಲ್ಲಿ ಒಳಗೊಂಡಿರುವವು: ವೇಳಾಪಟ್ಟಿಯಂತೆ ತಡೆಹಿಡಿಯುವುದು, ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ, ನಿಯಮ ಫಿಲ್ಟರಿಂಗ್ ಹಾಗೂ ನಿಯಮಗಳ ರಫ್ತು/ಆಮದು. ನಮ್ಮ ಯೂನಿವರ್ಸಲ್ ಲೈಸೆನ್ಸ್ ಅನ್ನು ಆನಂದಿಸಿ: ಒಂದೇ ಚಂದಾದಾರಿಕೆ ನಿಮ್ಮ ಎಲ್ಲಾ ಬ್ರೌಸರ್‌ಗಳಲ್ಲಿ (Chrome, Firefox, Edge, Kiwi) Pro ಅನ್ನು ಅನ್ಲಾಕ್ ಮಾಡುತ್ತದೆ. ಸಕ್ರಿಯಗೊಳಿಸಲು, blockdistraction.com ನಲ್ಲಿ ಚಂದಾದಾರಿಕೆಯನ್ನು ಖರೀದಿಸಿ, ನಂತರ ನಿಮ್ಮ ಖಾತೆಯ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ನಿಂದ ಲೈಸೆನ್ಸ್ ಕೀ ಅನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಕೆಳಗೆ ಅಂಟಿಸಿ." },
-  "upgradenow": { "message": "ಈಗ ಅಪ್ಗ್ರೇಡ್ ಮಾಡಿ" },
-  "enteremail": { "message": "ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ" },
-  "activatepro": { "message": "ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "ಪ್ರವೇಶವನ್ನು ಮರುಸ್ಥಾಪಿಸಿ" },
-  "pleaseenteremail": { "message": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ" },
-  "checking": { "message": "ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ..." },
-  "proactivated": { "message": "ಪ್ರೋ ವೈಶಿಷ್ಟ್ಯಗಳು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ!" },
-  "subscriptionnotfound": { "message": "ಚಂದಾದಾರಿಕೆ ಸಕ್ರಿಯವಿಲ್ಲ ಅಥವಾ ಇಮೇಲ್ ಕಂಡುಬರುವುದಿಲ್ಲ." },
-  "servererror": { "message": "ಸರ್ವರ್ ದೋಷ. ದಯವಿಟ್ಟು ಮರುಪ್ರಯತ್ನಿಸಿ." },
-  "proactivatedfor": { "message": "ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ:" },
+  "proonlyactions": {
+    "message": "ಸಂಪಾದನೆಗೆ ಪ್ರೊ ಅಗತ್ಯ."
+  },
+  "invalidpassword": {
+    "message": "ಅಮಾನ್ಯ ಪಾಸ್‌ವರ್ಡ್"
+  },
+  "setpassword": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಸಿ"
+  },
+  "enterpassword": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ"
+  },
+  "passwordmismatch": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ"
+  },
+  "passwordtooshort": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳನ್ನು ಹೊಂದಿರಬೇಕು"
+  },
+  "resetpasswordconfirm": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸುವುದರಿಂದ ರಕ್ಷಣೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗುವುದು. ಮುಂದುವರಿಯುವುದೇ?"
+  },
+  "passwordset": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ಯಶಸ್ವಿಯಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ"
+  },
+  "passworddisabled": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+  },
+  "prorequired": {
+    "message": "ಈ ವೈಶಿಷ್ಟ್ಯಕ್ಕೆ ಪ್ರೊ ಮೋಡ್ ಅಗತ್ಯ"
+  },
+  "enablepasswordtitle": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "enablepassworddesc": {
+    "message": "ನಿಯಮಗಳನ್ನು ಅಳಿಸಲು ಅಥವಾ ಸಂಪಾದಿಸಲು ಪಾಸ್‌ವರ್ಡ್ ಅಗತ್ಯ (ಕಟ್ಟುನಿಟ್ಟಾದ ಮೋಡ್ ಅನ್ನು ಸುಧಾರಿಸುತ್ತದೆ)"
+  },
+  "passwordprotectiontitle": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ"
+  },
+  "scheduleheader": {
+    "message": "ಶೆಡ್ಯೂಲ್"
+  },
+  "enableschedule": {
+    "message": "ಶೆಡ್ಯೂಲ್ ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "alwaysactive": {
+    "message": "ಎಂದೆಂದಿಗೂ ಸಕ್ರಿಯ"
+  },
+  "profeatureschedule": {
+    "message": "ಶೆಡ್ಯೂಲ್ Pro ಆವೃತ್ತಿಯಲ್ಲಿ ಲಭ್ಯವಿದೆ"
+  },
+  "days": {
+    "message": "ದಿನಗಳು"
+  },
+  "starttime": {
+    "message": "ಪ್ರಾರಂಭ ಸಮಯ:"
+  },
+  "endtime": {
+    "message": "ಅಂತಿಮ ಸಮಯ:"
+  },
+  "invaliddays": {
+    "message": "ಅಮಾನ್ಯ ದಿನಗಳನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ"
+  },
+  "invalidtimeformat": {
+    "message": "ಅಮಾನ್ಯ ಸಮಯ ಫಾರ್ಮ್ಯಾಟ್ (HH:MM ಬಳಸಿ)"
+  },
+  "startafterend": {
+    "message": "ಪ್ರಾರಂಭ ಸಮಯ ಅಂತಿಮ ಸಮಯಕ್ಕಿಂತ ಮೊದಲು ಇರಬೇಕು"
+  },
+  "invalidschedule": {
+    "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ದಿನಗಳು ಮತ್ತು ಸಮಯಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ."
+  },
+  "invalidscheduledays": {
+    "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ಕನಿಷ್ಠ ಒಂದು ದಿನ ಆಯ್ಕೆಮಾಡಿ."
+  },
+  "invalidschedulestarttime": {
+    "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಪ್ರಾರಂಭ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ."
+  },
+  "invalidscheduleendtime": {
+    "message": "ಅಮಾನ್ಯ ಶೆಡ್ಯೂಲ್: ದಯವಿಟ್ಟು ಅಂತಿಮ ಸಮಯವನ್ನು ಹೊಂದಿಸಿ."
+  },
+  "editdisablednonpro": {
+    "message": "ಸಂಪಾದನೆ ಅक्षमವಾಗಿದೆ: non-Pro ಬಳಕೆದಾರರಿಗೆ ನಿಯಮಗಳು ತುಂಬಾ ಹೆಚ್ಚಾಗಿದೆ."
+  },
+  "errorloadingstatus": {
+    "message": "ಬಳಕೆದಾರ ಸ್ಥಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿದೆ."
+  },
+  "schedule_day_sun": {
+    "message": "ಭಾನು"
+  },
+  "schedule_day_mon": {
+    "message": "ಸೋಮ"
+  },
+  "schedule_day_tue": {
+    "message": "ಮಂಗಳ"
+  },
+  "schedule_day_wed": {
+    "message": "ಬುಧ"
+  },
+  "schedule_day_thu": {
+    "message": "ಗುರು"
+  },
+  "schedule_day_fri": {
+    "message": "ಶುಕ್ರ"
+  },
+  "schedule_day_sat": {
+    "message": "ಶನಿ"
+  },
+  "category_header": {
+    "message": "ವರ್ಗ"
+  },
+  "category_required": {
+    "message": "ವರ್ಗ ಅಗತ್ಯ"
+  },
+  "allcategories": {
+    "message": "ಎಲ್ಲಾ ವರ್ಗಗಳು"
+  },
+  "category_social": {
+    "message": "ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ"
+  },
+  "category_news": {
+    "message": "ಸುದ್ದಿ"
+  },
+  "category_entertainment": {
+    "message": "ಮನರಂಜನೆ"
+  },
+  "category_shopping": {
+    "message": "ಖರೀದಿ"
+  },
+  "category_work": {
+    "message": "ಕೆಲಸ"
+  },
+  "category_gaming": {
+    "message": "ಆಟಗಳು"
+  },
+  "category_adult": {
+    "message": "ಮೇಚ್ಚಿನ ವಿಷಯ"
+  },
+  "category_uncategorized": {
+    "message": "ವರ್ಗೀಕರಿಸದ"
+  },
+  "searchfordomain": {
+    "message": "ಡೊಮೇನ್ ಹೆಸರು ಹುಡುಕಿ"
+  },
+  "norulesforcategory": {
+    "message": "ಈ ವರ್ಗಕ್ಕಾಗಿ ಯಾವುದೇ ತಡೆಸಿದ ತಾಣಗಳಿಲ್ಲ."
+  },
+  "getpro": {
+    "message": "ಪ್ರೋ ಪಡೆಯಿರಿ"
+  },
+  "profunctionstext": {
+    "message": "Pro ವೈಶಿಷ್ಟ್ಯಗಳಲ್ಲಿ ಒಳಗೊಂಡಿರುವವು: ವೇಳಾಪಟ್ಟಿಯಂತೆ ತಡೆಹಿಡಿಯುವುದು, ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ, ನಿಯಮ ಫಿಲ್ಟರಿಂಗ್ ಹಾಗೂ ನಿಯಮಗಳ ರಫ್ತು/ಆಮದು. ನಮ್ಮ ಯೂನಿವರ್ಸಲ್ ಲೈಸೆನ್ಸ್ ಅನ್ನು ಆನಂದಿಸಿ: ಒಂದೇ ಚಂದಾದಾರಿಕೆ ನಿಮ್ಮ ಎಲ್ಲಾ ಬ್ರೌಸರ್‌ಗಳಲ್ಲಿ (Chrome, Firefox, Edge, Kiwi) Pro ಅನ್ನು ಅನ್ಲಾಕ್ ಮಾಡುತ್ತದೆ. ಸಕ್ರಿಯಗೊಳಿಸಲು, blockdistraction.com ನಲ್ಲಿ ಚಂದಾದಾರಿಕೆಯನ್ನು ಖರೀದಿಸಿ, ನಂತರ ನಿಮ್ಮ ಖಾತೆಯ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ನಿಂದ ಲೈಸೆನ್ಸ್ ಕೀ ಅನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಕೆಳಗೆ ಅಂಟಿಸಿ."
+  },
+  "upgradenow": {
+    "message": "ಈಗ ಅಪ್ಗ್ರೇಡ್ ಮಾಡಿ"
+  },
+  "enteremail": {
+    "message": "ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ"
+  },
+  "activatepro": {
+    "message": "ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "ಪ್ರವೇಶವನ್ನು ಮರುಸ್ಥಾಪಿಸಿ"
+  },
+  "pleaseenteremail": {
+    "message": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ"
+  },
+  "checking": {
+    "message": "ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ..."
+  },
+  "proactivated": {
+    "message": "ಪ್ರೋ ವೈಶಿಷ್ಟ್ಯಗಳು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ!"
+  },
+  "subscriptionnotfound": {
+    "message": "ಚಂದಾದಾರಿಕೆ ಸಕ್ರಿಯವಿಲ್ಲ ಅಥವಾ ಇಮೇಲ್ ಕಂಡುಬರುವುದಿಲ್ಲ."
+  },
+  "servererror": {
+    "message": "ಸರ್ವರ್ ದೋಷ. ದಯವಿಟ್ಟು ಮರುಪ್ರಯತ್ನಿಸಿ."
+  },
+  "proactivatedfor": {
+    "message": "ಪ್ರೋ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ:"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "ಅನುಮತಿ ವಿನಂತಿ ವಿಫಲವಾಗಿದೆ (ಮೊಬೈಲ್‌ನಲ್ಲಿ ಸಂಭವಿಸಬಹುದು). ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಂದ ಕೈಯಿಂದ ಅನುಮತಿ ನೀಡಿ."
   },
-  "pastekeylabel": { "message": "ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ಕೀ ಅನ್ನು ಇಲ್ಲಿ ಪೇಸ್ಟ್ ಮಾಡಿ:" },
-  "confirmclearstats": { "message": "ನೀವು ಖಚಿತವಾಗಿ ಎಲ್ಲಾ ಅಂಕಿಅಂಶಗಳನ್ನು ಅಳಿಸಲು ಬಯಸುವಿರಾ? ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ." },
-  "statscleared": { "message": "ಅಂಕಿಅಂಶಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ." },
-  "redirectstodaylabel": { "message": "ಇಂದಿನ ರೀಡೈರೆಕ್ಟ್‌ಗಳು" },
-  "totalredirectslabel": { "message": "ಒಟ್ಟು ರೀಡೈರೆಕ್ಟ್‌ಗಳು" },
-  "logout": { "message": "ಲಾಗ್ ಔಟ್" },
-  "loggedoutsuccess": { "message": "ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್ ಔಟ್ ಆಗಿದ್ದೀರಿ." },
-  "loggedouterror": { "message": "ಲಾಗ್ ಔಟ್ ಮಾಡುವಾಗ ದೋಷ ಉಂಟಾಯಿತು." },
-  "forcesync": { "message": "ಫೋರ್ಸ್ ಸಿಂಕ್ / ಸ್ಥಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ" },
-  "forgotpasswordinstructions": { "message": "ನಿಮ್ಮ ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸಲು, 'Pro' ವಿಭಾಗಕ್ಕೆ ಹೋಗಿ, 'ಲಾಗ್ ಔಟ್' ಕ್ಲಿಕ್ ಮಾಡಿ ಮತ್ತು ನಂತರ ನಿಮ್ಮ ಪರವಾನಗಿ ಕೀ ಪೇಸ್ಟ್ ಮಾಡುವ ಮೂಲಕ ಮರುಸಕ್ರಿಯಗೊಳಿಸಿ." },
-  "blockedtitle": { "message": "ಸೈಟ್ ಲಭ್ಯವಿಲ್ಲ" },
-  "blockedheader": { "message": "ಈ ಸೈಟ್ ಪ್ರಸ್ತುತ ಲಭ್ಯವಿಲ್ಲ" },
-  "blockedtext": { "message": "ಈ ವಿಷಯವನ್ನು ತೋರಿಸಲಾಗುವುದಿಲ್ಲ." },
-  "blockedbutton": { "message": "ಟ್ಯಾಬ್ ಮುಚ್ಚಿ" },
-  "confirmpassword": { "message": "ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ" },
-  "modalconfirm": { "message": "ದೃಢೀಕರಿಸಿ" },
-  "modalcancel": { "message": "ರದ್ದುಮಾಡಿ" },
-  "forgotpassword": { "message": "ಪಾಸ್ವರ್ಡ್ ಮರೆತೀರಾ? ಮರುಹೊಂದಿಸಿ (ರಕ್ಷಣೆಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ)" },
-  "prounlocked": { "message": "ನಿಮ್ಮ ಬೆಂಬಲಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ಎಲ್ಲಾ Pro ವೈಶಿಷ್ಟ್ಯಗಳು ಅನ್ಲಾಕ್ ಮಾಡಲಾಗಿದೆ." },
-  "licensesynced": { "message": "ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ನಿಮ್ಮ ಖಾತೆಯೊಂದಿಗೆ ಸಮನ್ವಯಗೊಂಡಿದೆ. ನೀವು ಪ್ರವೇಶವನ್ನು ಕಳೆದುಕೊಂಡರೆ, ನಿಮ್ಮ ಕೀ ಅನ್ನು ಇಲ್ಲಿ ಪುನಃ ಪಡೆಯಬಹುದು: " },
-  "syncing": { "message": "ಸಿಂಕ್ರೋನೈಸ್ ಮಾಡಲಾಗುತ್ತಿದೆ..." },
-  "pleaseenterkey": { "message": "ದಯವಿಟ್ಟು ಕೀ ಸೇರಿಸಿ." },
-  "syncsuccess": { "message": "ಸಿಂಕ್ರೋನೈಜೇಶನ್ ಯಶಸ್ವಿ" },
-  "syncfailed": { "message": "ಸಿಂಕ್ರೋನೈಜೇಶನ್ ವಿಫಲವಾಗಿದೆ." },
-  "passwordreset": { "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ರೀಸೆಟ್ ಮಾಡಲಾಗಿದೆ." },
-  "privacysecured": { "message": "ಗೌಪ್ಯತೆ ಸುರಕ್ಷಿತವಾಗಿದೆ" },
-  "errorinvalidfiletype": { "message": "ದಯವಿಟ್ಟು .json ಫೈಲ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ" },
-  "debugsettingstitle": { "message": "ಡಿಬಗ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },
-  "enabledebugtitle": { "message": "ಡಿಬಗ್ ಮೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
-  "enabledebugdesc": { "message": "ಸಮಸ್ಯೆ ಪರಿಹಾರದಿಗಾಗಿ ಕಾನ್ಸೋಲ್‌ನಲ್ಲಿ ವಿವರವಾದ ಲಾಗಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸಿ" },
-  "errorcommunication": { "message": "ಹಿನ್ನೆಲೆ ಸೇವೆಯೊಂದಿಗೆ ಸಂವಹನದಲ್ಲಿ ದೋಷ" },
-  "clearstats": { "message": "ಅಂಕಿಅಂಶಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ" },
-  "rule_enabled": { "message": "ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ" },
-  "rule_disabled": { "message": "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ" },
-  "filter_only_hint": { "message": "ಈ ಪಟ್ಟಿ ಕೇವಲ ಪಟ್ಟಿಕೆಯಲ್ಲಿ ಪ್ರದರ್ಶನವನ್ನು ಫಿಲ್ಟರ್ ಮಾಡುತ್ತದೆ" },
-  "category_disabled_desc": { "message": "ಒಂದು ವರ್ಗವನ್ನು ಮ್ಯೂಟ್ ಮಾಡಿ ಅದರ ಎಲ್ಲಾ ಸೈಟ್‌ಗಳಿಗೆ ತಾತ್ಕಾಲಿಕ ಪ್ರವೇಶವನ್ನು ಅನುಮತಿಸಿ. ವೈಯಕ್ತಿಕ ನಿಯಮಗಳ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಉಳಿಯುತ್ತವೆ." },
-  "toggle_category_blocking": { "message": "ಸಂಪೂರ್ಣ ವರ್ಗಕ್ಕೆ ಬ್ಲಾಕಿಂಗ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಿ" },
-  "category_muted_no_edit": { "message": "ನಿರ್ವಹಿಸಲಾಗುವುದಿಲ್ಲ: ವರ್ಗ ಬ್ಲಾಕಿಂಗ್ ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಲ್ಲಿಸಲಾಗಿದೆ" },
-  "feedback_title": { "message": "BlockDistraction ನಿಮಗೆ ಇಷ್ಟವೇ?" },
-  "feedback_desc": { "message": "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ವಿಸ್ತರಣೆಯನ್ನು ಸುಧಾರಿಸಲು ನಮಗೆ ಬಹಳ ಸಹಾಯ ಮಾಡುತ್ತದೆ." },
-  "feedback_like": { "message": "ಹೌದು, ಇದು ತುಂಬಾ ಚೆನ್ನಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ!" },
-  "feedback_dislike": { "message": "ನನಗೆ ಸಮಸ್ಯೆಗಳು / ಸಲಹೆಗಳು ಇವೆ" },
-  "trialproheader": { "message": "ನಿಮ್ಮ 7 ದಿನಗಳ ಉಚಿತ ಟ್ರಯಲ್ ಪ್ರಾರಂಭಿಸಿ" },
-  "trialprotext": { "message": "ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಗೊಳಿಸಿ. ನಿಮ್ಮ ಪಾವತಿಗಳು ಸಂಪೂರ್ಣವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿವೆ." },
-  "focussessionheader": { "message": "ಫೋಕಸ್ ಸೆಷನ್" },
-  "focussessionstart": { "message": "ಪ್ರಾರಂಭಿಸಿ" },
-  "focussessionstop": { "message": "ನಿಲ್ಲಿಸಿ" },
-  "focussessionduration": { "message": "ಅವಧಿ (ನಿಮಿಷಗಳು):" },
-  "focussessioninfo": { "message": "ನಿಮ್ಮ ಎಲ್ಲಾ ಬ್ಲಾಕಿಂಗ್ ನಿಯಮಗಳನ್ನು ನಿಗದಿತ ಸಮಯದವರೆಗೆ ಸಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ, ಅವುಗಳ ಪ್ರಸ್ತುತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಮತ್ತು ವೇಳಾಪಟ್ಟಿಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸುತ್ತದೆ. ಗರಿಷ್ಠ ಏಕಾಗ್ರತೆಗಾಗಿ." },
-  "focussessionprofeature": { "message": "ಕಸ್ಟಮ್ ಅವಧಿ ಮತ್ತು ಹಾರ್ಡ್‌ಕೋರ್ ಮೋಡ್ ಪ್ರೊ (Pro) ವೈಶಿಷ್ಟ್ಯಗಳಾಗಿವೆ." },
-  "focussessionended": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಮುಕ್ತಾಯಗೊಂಡಿದೆ! ಸ್ವಲ್ಪ ವಿರಾಮ ತೆಗೆದುಕೊಳ್ಳಿ." },
-  "focussessionhardcore": { "message": "ಹಾರ್ಡ್‌ಕೋರ್ ಮೋಡ್ ('ನಿಲ್ಲಿಸಿ' ಬಟನ್ ಇರುವುದಿಲ್ಲ)" },
-  "focussessionsoundtitle": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಧ್ವನಿ ಅಧಿಸೂಚನೆ" },
-  "focussessionsounddesc": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಕೊನೆಗೊಂಡಾಗ ಧ್ವನಿಯನ್ನು ಪ್ಲೇ ಮಾಡಿ." },
-  "focussessionactivebanner": { "message": "ಫೋಕಸ್ ಸೆಷನ್ ಸಕ್ರಿಯವಾಗಿದೆ! ಉಳಿದಿರುವ ಸಮಯ:" },
-  "focussessioninvalidduration": { "message": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಅವಧಿಯನ್ನು ನಮೂದಿಸಿ (1-240 ನಿಮಿಷಗಳು)." },
-  "successfulfocussessionslabel": { "message": "ಯಶಸ್ವಿ ಫೋಕಸ್ ಸೆಷನ್‌ಗಳು" },
-  "rule_scheduled": { "message": "ನಿಗದಿತ ನಿಯಮ" },
-  "addwhitelistrule": { "message": "ವಿನಾಯಿತಿ ಸೇರಿಸಿ" },
-  "category_whitelist": { "message": "ವೈಟ್‌ಲಿಸ್ಟ್" },
-  "conflict_blacklist_err": { "message": "ಈ ಸೈಟ್ ಈಗಾಗಲೇ ನಿಮ್ಮ ಬ್ಲ್ಯಾಕ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ. ಮೊದಲು ಅದನ್ನು ತೆಗೆದುಹಾಕಿ." },
-  "conflict_whitelist_err": { "message": "ಈ ಸೈಟ್ ಈಗಾಗಲೇ ನಿಮ್ಮ ವೈಟ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ. ಮೊದಲು ಅದನ್ನು ತೆಗೆದುಹಾಕಿ." },
-  "status_allow": { "message": "ಅನುಮತಿಸಲಾಗಿದೆ" },
-  "redundant_whitelist_err": { "message": "ಈ ನಿಯಮವನ್ನು ಈಗಾಗಲೇ ಮತ್ತೊಂದು ವೈಟ್‌ಲಿಸ್ಟ್ ನಿಯಮವು ಒಳಗೊಂಡಿದೆ." },
-  "focussessionmode": { "message": "ಫೋಕಸ್ ಮೋಡ್:" },
-  "focusmodeblacklist": { "message": "ಬ್ಲ್ಯಾಕ್‌ಲಿಸ್ಟ್ ನಿರ್ಬಂಧಿಸಿ" },
-  "focusmodewhitelist": { "message": "ವೈಟ್‌ಲಿಸ್ಟ್‌ಗೆ ಮಾತ್ರ ಅನುಮತಿಸಿ" }
+  "pastekeylabel": {
+    "message": "ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ಕೀ ಅನ್ನು ಇಲ್ಲಿ ಪೇಸ್ಟ್ ಮಾಡಿ:"
+  },
+  "confirmclearstats": {
+    "message": "ನೀವು ಖಚಿತವಾಗಿ ಎಲ್ಲಾ ಅಂಕಿಅಂಶಗಳನ್ನು ಅಳಿಸಲು ಬಯಸುವಿರಾ? ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+  },
+  "statscleared": {
+    "message": "ಅಂಕಿಅಂಶಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ."
+  },
+  "redirectstodaylabel": {
+    "message": "ಇಂದಿನ ರೀಡೈರೆಕ್ಟ್‌ಗಳು"
+  },
+  "totalredirectslabel": {
+    "message": "ಒಟ್ಟು ರೀಡೈರೆಕ್ಟ್‌ಗಳು"
+  },
+  "logout": {
+    "message": "ಲಾಗ್ ಔಟ್"
+  },
+  "loggedoutsuccess": {
+    "message": "ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್ ಔಟ್ ಆಗಿದ್ದೀರಿ."
+  },
+  "loggedouterror": {
+    "message": "ಲಾಗ್ ಔಟ್ ಮಾಡುವಾಗ ದೋಷ ಉಂಟಾಯಿತು."
+  },
+  "forcesync": {
+    "message": "ಫೋರ್ಸ್ ಸಿಂಕ್ / ಸ್ಥಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ"
+  },
+  "forgotpasswordinstructions": {
+    "message": "ನಿಮ್ಮ ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸಲು, 'Pro' ವಿಭಾಗಕ್ಕೆ ಹೋಗಿ, 'ಲಾಗ್ ಔಟ್' ಕ್ಲಿಕ್ ಮಾಡಿ ಮತ್ತು ನಂತರ ನಿಮ್ಮ ಪರವಾನಗಿ ಕೀ ಪೇಸ್ಟ್ ಮಾಡುವ ಮೂಲಕ ಮರುಸಕ್ರಿಯಗೊಳಿಸಿ."
+  },
+  "blockedtitle": {
+    "message": "ಸೈಟ್ ಲಭ್ಯವಿಲ್ಲ"
+  },
+  "blockedheader": {
+    "message": "ಈ ಸೈಟ್ ಪ್ರಸ್ತುತ ಲಭ್ಯವಿಲ್ಲ"
+  },
+  "blockedtext": {
+    "message": "ಈ ವಿಷಯವನ್ನು ತೋರಿಸಲಾಗುವುದಿಲ್ಲ."
+  },
+  "blockedbutton": {
+    "message": "ಟ್ಯಾಬ್ ಮುಚ್ಚಿ"
+  },
+  "confirmpassword": {
+    "message": "ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ"
+  },
+  "modalconfirm": {
+    "message": "ದೃಢೀಕರಿಸಿ"
+  },
+  "modalcancel": {
+    "message": "ರದ್ದುಮಾಡಿ"
+  },
+  "forgotpassword": {
+    "message": "ಪಾಸ್ವರ್ಡ್ ಮರೆತೀರಾ? ಮರುಹೊಂದಿಸಿ (ರಕ್ಷಣೆಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ)"
+  },
+  "prounlocked": {
+    "message": "ನಿಮ್ಮ ಬೆಂಬಲಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ಎಲ್ಲಾ Pro ವೈಶಿಷ್ಟ್ಯಗಳು ಅನ್ಲಾಕ್ ಮಾಡಲಾಗಿದೆ."
+  },
+  "licensesynced": {
+    "message": "ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ನಿಮ್ಮ ಖಾತೆಯೊಂದಿಗೆ ಸಮನ್ವಯಗೊಂಡಿದೆ. ನೀವು ಪ್ರವೇಶವನ್ನು ಕಳೆದುಕೊಂಡರೆ, ನಿಮ್ಮ ಕೀ ಅನ್ನು ಇಲ್ಲಿ ಪುನಃ ಪಡೆಯಬಹುದು: "
+  },
+  "syncing": {
+    "message": "ಸಿಂಕ್ರೋನೈಸ್ ಮಾಡಲಾಗುತ್ತಿದೆ..."
+  },
+  "pleaseenterkey": {
+    "message": "ದಯವಿಟ್ಟು ಕೀ ಸೇರಿಸಿ."
+  },
+  "syncsuccess": {
+    "message": "ಸಿಂಕ್ರೋನೈಜೇಶನ್ ಯಶಸ್ವಿ"
+  },
+  "syncfailed": {
+    "message": "ಸಿಂಕ್ರೋನೈಜೇಶನ್ ವಿಫಲವಾಗಿದೆ."
+  },
+  "passwordreset": {
+    "message": "ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆಯನ್ನು ರೀಸೆಟ್ ಮಾಡಲಾಗಿದೆ."
+  },
+  "privacysecured": {
+    "message": "ಗೌಪ್ಯತೆ ಸುರಕ್ಷಿತವಾಗಿದೆ"
+  },
+  "errorinvalidfiletype": {
+    "message": "ದಯವಿಟ್ಟು .json ಫೈಲ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+  },
+  "debugsettingstitle": {
+    "message": "ಡಿಬಗ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+  },
+  "enabledebugtitle": {
+    "message": "ಡಿಬಗ್ ಮೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "enabledebugdesc": {
+    "message": "ಸಮಸ್ಯೆ ಪರಿಹಾರದಿಗಾಗಿ ಕಾನ್ಸೋಲ್‌ನಲ್ಲಿ ವಿವರವಾದ ಲಾಗಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "errorcommunication": {
+    "message": "ಹಿನ್ನೆಲೆ ಸೇವೆಯೊಂದಿಗೆ ಸಂವಹನದಲ್ಲಿ ದೋಷ"
+  },
+  "clearstats": {
+    "message": "ಅಂಕಿಅಂಶಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ"
+  },
+  "rule_enabled": {
+    "message": "ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+  },
+  "rule_disabled": {
+    "message": "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+  },
+  "filter_only_hint": {
+    "message": "ಈ ಪಟ್ಟಿ ಕೇವಲ ಪಟ್ಟಿಕೆಯಲ್ಲಿ ಪ್ರದರ್ಶನವನ್ನು ಫಿಲ್ಟರ್ ಮಾಡುತ್ತದೆ"
+  },
+  "category_disabled_desc": {
+    "message": "ಒಂದು ವರ್ಗವನ್ನು ಮ್ಯೂಟ್ ಮಾಡಿ ಅದರ ಎಲ್ಲಾ ಸೈಟ್‌ಗಳಿಗೆ ತಾತ್ಕಾಲಿಕ ಪ್ರವೇಶವನ್ನು ಅನುಮತಿಸಿ. ವೈಯಕ್ತಿಕ ನಿಯಮಗಳ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಉಳಿಯುತ್ತವೆ."
+  },
+  "toggle_category_blocking": {
+    "message": "ಸಂಪೂರ್ಣ ವರ್ಗಕ್ಕೆ ಬ್ಲಾಕಿಂಗ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಿ"
+  },
+  "category_muted_no_edit": {
+    "message": "ನಿರ್ವಹಿಸಲಾಗುವುದಿಲ್ಲ: ವರ್ಗ ಬ್ಲಾಕಿಂಗ್ ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಲ್ಲಿಸಲಾಗಿದೆ"
+  },
+  "feedback_title": {
+    "message": "BlockDistraction ನಿಮಗೆ ಇಷ್ಟವೇ?"
+  },
+  "feedback_desc": {
+    "message": "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ವಿಸ್ತರಣೆಯನ್ನು ಸುಧಾರಿಸಲು ನಮಗೆ ಬಹಳ ಸಹಾಯ ಮಾಡುತ್ತದೆ."
+  },
+  "feedback_like": {
+    "message": "ಹೌದು, ಇದು ತುಂಬಾ ಚೆನ್ನಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ!"
+  },
+  "feedback_dislike": {
+    "message": "ನನಗೆ ಸಮಸ್ಯೆಗಳು / ಸಲಹೆಗಳು ಇವೆ"
+  },
+  "trialproheader": {
+    "message": "ನಿಮ್ಮ 7 ದಿನಗಳ ಉಚಿತ ಟ್ರಯಲ್ ಪ್ರಾರಂಭಿಸಿ"
+  },
+  "trialprotext": {
+    "message": "ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಗೊಳಿಸಿ. ನಿಮ್ಮ ಪಾವತಿಗಳು ಸಂಪೂರ್ಣವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿವೆ."
+  },
+  "focussessionheader": {
+    "message": "ಫೋಕಸ್ ಸೆಷನ್"
+  },
+  "focussessionstart": {
+    "message": "ಪ್ರಾರಂಭಿಸಿ"
+  },
+  "focussessionstop": {
+    "message": "ನಿಲ್ಲಿಸಿ"
+  },
+  "focussessionduration": {
+    "message": "ಅವಧಿ (ನಿಮಿಷಗಳು):"
+  },
+  "focussessioninfo": {
+    "message": "ನಿಮ್ಮ ಎಲ್ಲಾ ಬ್ಲಾಕಿಂಗ್ ನಿಯಮಗಳನ್ನು ನಿಗದಿತ ಸಮಯದವರೆಗೆ ಸಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ, ಅವುಗಳ ಪ್ರಸ್ತುತ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಮತ್ತು ವೇಳಾಪಟ್ಟಿಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸುತ್ತದೆ. ಗರಿಷ್ಠ ಏಕಾಗ್ರತೆಗಾಗಿ."
+  },
+  "focussessionprofeature": {
+    "message": "ಕಸ್ಟಮ್ ಅವಧಿ ಮತ್ತು ಹಾರ್ಡ್‌ಕೋರ್ ಮೋಡ್ ಪ್ರೊ (Pro) ವೈಶಿಷ್ಟ್ಯಗಳಾಗಿವೆ."
+  },
+  "focussessionended": {
+    "message": "ಫೋಕಸ್ ಸೆಷನ್ ಮುಕ್ತಾಯಗೊಂಡಿದೆ! ಸ್ವಲ್ಪ ವಿರಾಮ ತೆಗೆದುಕೊಳ್ಳಿ."
+  },
+  "focussessionhardcore": {
+    "message": "ಹಾರ್ಡ್‌ಕೋರ್ ಮೋಡ್ ('ನಿಲ್ಲಿಸಿ' ಬಟನ್ ಇರುವುದಿಲ್ಲ)"
+  },
+  "focussessionsoundtitle": {
+    "message": "ಫೋಕಸ್ ಸೆಷನ್ ಧ್ವನಿ ಅಧಿಸೂಚನೆ"
+  },
+  "focussessionsounddesc": {
+    "message": "ಫೋಕಸ್ ಸೆಷನ್ ಕೊನೆಗೊಂಡಾಗ ಧ್ವನಿಯನ್ನು ಪ್ಲೇ ಮಾಡಿ."
+  },
+  "focussessionactivebanner": {
+    "message": "ಫೋಕಸ್ ಸೆಷನ್ ಸಕ್ರಿಯವಾಗಿದೆ! ಉಳಿದಿರುವ ಸಮಯ:"
+  },
+  "focussessioninvalidduration": {
+    "message": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಅವಧಿಯನ್ನು ನಮೂದಿಸಿ (1-240 ನಿಮಿಷಗಳು)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "ಯಶಸ್ವಿ ಫೋಕಸ್ ಸೆಷನ್‌ಗಳು"
+  },
+  "rule_scheduled": {
+    "message": "ನಿಗದಿತ ನಿಯಮ"
+  },
+  "addwhitelistrule": {
+    "message": "ವಿನಾಯಿತಿ ಸೇರಿಸಿ"
+  },
+  "category_whitelist": {
+    "message": "ವೈಟ್‌ಲಿಸ್ಟ್"
+  },
+  "conflict_blacklist_err": {
+    "message": "ಈ ಸೈಟ್ ಈಗಾಗಲೇ ನಿಮ್ಮ ಬ್ಲ್ಯಾಕ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ. ಮೊದಲು ಅದನ್ನು ತೆಗೆದುಹಾಕಿ."
+  },
+  "conflict_whitelist_err": {
+    "message": "ಈ ಸೈಟ್ ಈಗಾಗಲೇ ನಿಮ್ಮ ವೈಟ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ. ಮೊದಲು ಅದನ್ನು ತೆಗೆದುಹಾಕಿ."
+  },
+  "status_allow": {
+    "message": "ಅನುಮತಿಸಲಾಗಿದೆ"
+  },
+  "redundant_whitelist_err": {
+    "message": "ಈ ನಿಯಮವನ್ನು ಈಗಾಗಲೇ ಮತ್ತೊಂದು ವೈಟ್‌ಲಿಸ್ಟ್ ನಿಯಮವು ಒಳಗೊಂಡಿದೆ."
+  },
+  "focussessionmode": {
+    "message": "ಫೋಕಸ್ ಮೋಡ್:"
+  },
+  "focusmodeblacklist": {
+    "message": "ಬ್ಲ್ಯಾಕ್‌ಲಿಸ್ಟ್ ನಿರ್ಬಂಧಿಸಿ"
+  },
+  "focusmodewhitelist": {
+    "message": "ವೈಟ್‌ಲಿಸ್ಟ್‌ಗೆ ಮಾತ್ರ ಅನುಮತಿಸಿ"
+  },
+  "schedule_edit": {
+    "message": "ವೇಳಾಪಟ್ಟಿಯನ್ನು ಸಂಪಾದಿಸಿ"
+  },
+  "schedule_add_period": {
+    "message": "ಸಮಯ ಗುಂಪನ್ನು ಸೇರಿಸಿ"
+  },
+  "schedule_remove_period": {
+    "message": "ತೆಗೆದುಹಾಕಿ"
+  },
+  "schedule_period": {
+    "message": "ಸಮಯ ಗುಂಪು"
+  },
+  "schedule_every_day": {
+    "message": "ಪ್ರತಿದಿನ"
+  },
+  "schedule_weekdays": {
+    "message": "ಕೆಲಸದ ದಿನಗಳು"
+  },
+  "schedule_weekends": {
+    "message": "ವಾರಾಂತ್ಯಗಳು"
+  },
+  "schedule_day_overlap": {
+    "message": "ಪ್ರತಿ ದಿನವನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ಬಳಸಬಹುದು."
+  }
 }

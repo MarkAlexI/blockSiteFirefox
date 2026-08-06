@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Webbplatsblockerare" },
-  "shortname": { "message": "BlockSajt" },
-  "description": { "message": "Enkel och pålitlig lösning för att blockera och omdirigera webbplatser så att du kan hålla fokus." },
-  "defaulttitle": { "message": "Var fokuserad och produktiv" },
-  "header": { "message": "Webbplatsblockerare" },
-  "paragraph": { "message": "För att blockera en webbplats eller resurs, skriv in en del av dess adress i fältet 'Ange blockerad URL' – till exempel kommer 'facebook' att blockera alla underdomäner. I fältet 'Ange omdirigerings-URL' anger du hela adressen med protokoll, t.ex. 'https://google.com'. Om det lämnas tomt kommer webbplatsen bara att blockeras utan omdirigering. Klicka på Spara för att tillämpa regeln. För att uppdatera en regel, ta bort den gamla och lägg till en ny." },
-  "addrule": { "message": "Lägg till ny regel" },
-  "blockurl": { "message": "Ange blockerad URL" },
-  "redirecturl": { "message": "Ange omdirigerings-URL (valfritt)" },
-  "redirecturlheader": { "message": "Omdirigerings-URL" },
-  "redirecturlplaceholder": { "message": "Valfritt - lämna tomt för att blockera" },
-  "redirecturlhint": { "message": "Ange en fullständig URL inklusive https://" },
-  "mobilecopylinkhint": { "message": "Om du vill blockera en länk kopierar du dess adress och klistrar in den i blockeringsfältet." },
-  "savebtn": { "message": "Spara" },
-  "deletebtn": { "message": "Radera" },
-  "alertruleexist": { "message": "Regeln finns redan" },
+  "chromename": {
+    "message": "BlockDistraction – Webbplatsblockerare"
+  },
+  "shortname": {
+    "message": "BlockSajt"
+  },
+  "description": {
+    "message": "Enkel och pålitlig lösning för att blockera och omdirigera webbplatser så att du kan hålla fokus."
+  },
+  "defaulttitle": {
+    "message": "Var fokuserad och produktiv"
+  },
+  "header": {
+    "message": "Webbplatsblockerare"
+  },
+  "paragraph": {
+    "message": "För att blockera en webbplats eller resurs, skriv in en del av dess adress i fältet 'Ange blockerad URL' – till exempel kommer 'facebook' att blockera alla underdomäner. I fältet 'Ange omdirigerings-URL' anger du hela adressen med protokoll, t.ex. 'https://google.com'. Om det lämnas tomt kommer webbplatsen bara att blockeras utan omdirigering. Klicka på Spara för att tillämpa regeln. För att uppdatera en regel, ta bort den gamla och lägg till en ny."
+  },
+  "addrule": {
+    "message": "Lägg till ny regel"
+  },
+  "blockurl": {
+    "message": "Ange blockerad URL"
+  },
+  "redirecturl": {
+    "message": "Ange omdirigerings-URL (valfritt)"
+  },
+  "redirecturlheader": {
+    "message": "Omdirigerings-URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Valfritt - lämna tomt för att blockera"
+  },
+  "redirecturlhint": {
+    "message": "Ange en fullständig URL inklusive https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Om du vill blockera en länk kopierar du dess adress och klistrar in den i blockeringsfältet."
+  },
+  "savebtn": {
+    "message": "Spara"
+  },
+  "deletebtn": {
+    "message": "Radera"
+  },
+  "alertruleexist": {
+    "message": "Regeln finns redan"
+  },
   "savedrules": {
     "message": "$ruleslength$ sparade regler",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Den här resursen kan inte blockeras." },
-  "wrongblockurl": { "message": "Ogiltig blockerings-URL" },
-  "wrongredirecturl": { "message": "Felaktig omdirigerings-URL" },
-  "blockthat": { "message": "Blockera den här webbplatsen" },
-  "sendfeedbackbutton": { "message": "Skicka feedback" },
-  "sendfeedbacksubject": { "message": "Feedback för BlockDistraction" },
-  "sendfeedbackbody": { "message": "Hej! Jag vill gärna dela följande feedback:\n\n" },
-  "quote1": { "message": "Håll fokus, håll dig stark." },
-  "quote2": { "message": "Din framtid skapas idag, inte imorgon." },
-  "quote3": { "message": "Disciplin är bron mellan mål och prestation." },
-  "quote4": { "message": "En blockerad webbplats – ett steg närmare ditt mål." },
-  "quote5": { "message": "Låt varje klick ha en mening." },
-  "quote6": { "message": "Titta inte på klockan – gör som den gör. Fortsätt." },
-  "quote7": { "message": "Små steg varje dag leder till stora resultat." },
-  "quote8": { "message": "Den enda begränsningen är ditt sinne." },
-  "quote9": { "message": "Framgång är summan av små ansträngningar, upprepade dag för dag." },
-  "quote10": { "message": "Fokusera på produktivitet, inte på att vara upptagen." },
-  "quote11": { "message": "Skydda din uppmärksamhet – det är din mest värdefulla tillgång." },
-  "quote12": { "message": "Varje blockerad distraktion är återvunnen tid." },
-  "quote13": { "message": "Minska bullret; öka din produktivitet." },
-  "quote14": { "message": "Små rutiner bygger oemotståndlig framdrift." },
-  "quote15": { "message": "Klarhet övervinner kaos – fokusera på det som är viktigt." },
-  "quote16": { "message": "Säg nej till distraktioner; säg ja till framsteg." },
-  "quote17": { "message": "En fokuserad timme idag multiplicerar dina resultat imorgon." },
-  "quote18": { "message": "Skapa mer genom att konsumera mindre." },
-  "quote19": { "message": "Disciplin väljer långsiktiga vinster framför kortsiktiga impulser." },
-  "quote20": { "message": "Stäng en flik, öppna utrymme för nya idéer." },
-  "quote21": { "message": "Arbetet du undviker idag kan bli morgondagens stress." },
-  "quote22": { "message": "Fokus handlar inte om att göra mer, utan om att göra det som verkligen är viktigt." },
-  "quote23": { "message": "Dina mål förtjänar mer uppmärksamhet än dina distraktioner." },
-  "quote24": { "message": "Varje minut utan distraktioner är en investering i dig själv." },
-  "quote25": { "message": "Konsekvens ger mer långsiktiga resultat än korta motivationsutbrott." },
-  "quote26": { "message": "Bästa tiden att börja var igår. Näst bästa är nu." },
-  "quote27": { "message": "Framsteg börjar när du väljer handling framför distraktion." },
-  "quote28": { "message": "En enda stund av fokus kan förändra hela din dag." },
-  "quote29": { "message": "Du behöver inte mer tid, du behöver färre distraktioner." },
-  "quote30": { "message": "Varje val att förbli fokuserad stärker ditt framtida jag." },
-  "quote31": { "message": "Den här blockeringen är tillfällig; dina mål är långsiktiga." },
-  "quote32": { "message": "Varje blockerad distraktion är en seger för ditt framtida jag." },
-  "quote33": { "message": "Internet är oändligt, men din tid är det inte." },
-  "quote34": { "message": "Sätt dina prioriteringar innan webben gör det åt dig." },
-  "quote35": { "message": "Mindre scrollande, mer skapande." },
-  "quote36": { "message": "Din uppmärksamhet formar dina framgångar." },
-  "quote37": { "message": "Håll fokus — distraktion kan vänta." },
-  "quote38": { "message": "Varje produktivt beslut börjar med ett fokuserat sinne." },
-  "quote39": { "message": "Du har blockerat en webbplats, inte din potential." },
-  "quote40": { "message": "Vägen till framgång byggs av fokuserade beslut." },
-  "actionsheader": { "message": "Åtgärder" },
-  "norules": { "message": "Inga blockerade webbplatser." },
-  "editbtn": { "message": "Redigera" },
-  "ruleddeleted": { "message": "Regeln har raderats." },
-  "cancelbtn": { "message": "Avbryt" },
-  "ruleupdated": { "message": "Regeln har uppdaterats." },
-  "rulenewadded": { "message": "Ny regel har lagts till." },
-  "gotooptions": { "message": "Gå till inställningssidan ⚙️" },
-  "gotopopup": { "message": "Klicka på tilläggsikonen för att återgå till popup-fönstret." },
-  "rulesmigrated": { "message": "Regler uppdaterade för kompatibilitet" },
-  "errorupdatingrules": { "message": "Fel vid uppdatering av regler" },
-  "erroraddingrule": { "message": "Fel vid tillägg av regel" },
-  "errorremovingrule": { "message": "Fel vid borttagning av regel" },
-  "optionsheader": { "message": "Inställningar för tillägget" },
-  "optionsdescription": { "message": "Konfigurera tilläggets beteende och säkerhetsinställningar" },
-  "securitymodetitle": { "message": "Säkerhetsläge" },
-  "normalmodetitle": { "message": "Normalläge" },
-  "normalmodedesc": { "message": "Regler kan raderas omedelbart med ett klick" },
-  "strictmodetitle": { "message": "Strikt läge" },
-  "strictmodedesc": { "message": "Regler kräver en 10-sekunders nedräkning innan de raderas för att förhindra oavsiktlig borttagning" },
-  "confirmdeletetitle": { "message": "Bekräfta innan du raderar flera regler" },
-  "confirmdeletedesc": { "message": "Visa bekräftelsedialog när flera regler raderas samtidigt" },
-  "notificationstitle": { "message": "Visa aviseringar" },
-  "notificationsdesc": { "message": "Visa aviseringar när tillägget uppdateras" },
-  "rulesmanagementtitle": { "message": "Regelhantering" },
-  "exportrulesbtn": { "message": "Exportera regler" },
-  "importrulesbtn": { "message": "Importera regler" },
-  "clearallrulesbtn": { "message": "Radera alla regler" },
-  "totalruleslabel": { "message": "Totalt antal regler" },
-  "blockedtodaylabel": { "message": "Blockerat idag" },
-  "totalblockedlabel": { "message": "Totalt blockerat" },
-  "resetsettingsbtn": { "message": "Återställ till standard" },
-  "backtopopup": { "message": "Tillbaka till huvudmenyn" },
-  "errorloadingsettings": { "message": "Fel vid laddning av inställningar" },
-  "settingssaved": { "message": "Inställningarna har sparats!" },
-  "errorsavingsettings": { "message": "Fel vid sparande av inställningar" },
-  "rulesexported": { "message": "Reglerna exporterades!" },
-  "errorexportingrules": { "message": "Fel vid export av regler" },
+  "restrictedblockurl": {
+    "message": "Den här resursen kan inte blockeras."
+  },
+  "wrongblockurl": {
+    "message": "Ogiltig blockerings-URL"
+  },
+  "wrongredirecturl": {
+    "message": "Felaktig omdirigerings-URL"
+  },
+  "blockthat": {
+    "message": "Blockera den här webbplatsen"
+  },
+  "sendfeedbackbutton": {
+    "message": "Skicka feedback"
+  },
+  "sendfeedbacksubject": {
+    "message": "Feedback för BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Hej! Jag vill gärna dela följande feedback:\n\n"
+  },
+  "quote1": {
+    "message": "Håll fokus, håll dig stark."
+  },
+  "quote2": {
+    "message": "Din framtid skapas idag, inte imorgon."
+  },
+  "quote3": {
+    "message": "Disciplin är bron mellan mål och prestation."
+  },
+  "quote4": {
+    "message": "En blockerad webbplats – ett steg närmare ditt mål."
+  },
+  "quote5": {
+    "message": "Låt varje klick ha en mening."
+  },
+  "quote6": {
+    "message": "Titta inte på klockan – gör som den gör. Fortsätt."
+  },
+  "quote7": {
+    "message": "Små steg varje dag leder till stora resultat."
+  },
+  "quote8": {
+    "message": "Den enda begränsningen är ditt sinne."
+  },
+  "quote9": {
+    "message": "Framgång är summan av små ansträngningar, upprepade dag för dag."
+  },
+  "quote10": {
+    "message": "Fokusera på produktivitet, inte på att vara upptagen."
+  },
+  "quote11": {
+    "message": "Skydda din uppmärksamhet – det är din mest värdefulla tillgång."
+  },
+  "quote12": {
+    "message": "Varje blockerad distraktion är återvunnen tid."
+  },
+  "quote13": {
+    "message": "Minska bullret; öka din produktivitet."
+  },
+  "quote14": {
+    "message": "Små rutiner bygger oemotståndlig framdrift."
+  },
+  "quote15": {
+    "message": "Klarhet övervinner kaos – fokusera på det som är viktigt."
+  },
+  "quote16": {
+    "message": "Säg nej till distraktioner; säg ja till framsteg."
+  },
+  "quote17": {
+    "message": "En fokuserad timme idag multiplicerar dina resultat imorgon."
+  },
+  "quote18": {
+    "message": "Skapa mer genom att konsumera mindre."
+  },
+  "quote19": {
+    "message": "Disciplin väljer långsiktiga vinster framför kortsiktiga impulser."
+  },
+  "quote20": {
+    "message": "Stäng en flik, öppna utrymme för nya idéer."
+  },
+  "quote21": {
+    "message": "Arbetet du undviker idag kan bli morgondagens stress."
+  },
+  "quote22": {
+    "message": "Fokus handlar inte om att göra mer, utan om att göra det som verkligen är viktigt."
+  },
+  "quote23": {
+    "message": "Dina mål förtjänar mer uppmärksamhet än dina distraktioner."
+  },
+  "quote24": {
+    "message": "Varje minut utan distraktioner är en investering i dig själv."
+  },
+  "quote25": {
+    "message": "Konsekvens ger mer långsiktiga resultat än korta motivationsutbrott."
+  },
+  "quote26": {
+    "message": "Bästa tiden att börja var igår. Näst bästa är nu."
+  },
+  "quote27": {
+    "message": "Framsteg börjar när du väljer handling framför distraktion."
+  },
+  "quote28": {
+    "message": "En enda stund av fokus kan förändra hela din dag."
+  },
+  "quote29": {
+    "message": "Du behöver inte mer tid, du behöver färre distraktioner."
+  },
+  "quote30": {
+    "message": "Varje val att förbli fokuserad stärker ditt framtida jag."
+  },
+  "quote31": {
+    "message": "Den här blockeringen är tillfällig; dina mål är långsiktiga."
+  },
+  "quote32": {
+    "message": "Varje blockerad distraktion är en seger för ditt framtida jag."
+  },
+  "quote33": {
+    "message": "Internet är oändligt, men din tid är det inte."
+  },
+  "quote34": {
+    "message": "Sätt dina prioriteringar innan webben gör det åt dig."
+  },
+  "quote35": {
+    "message": "Mindre scrollande, mer skapande."
+  },
+  "quote36": {
+    "message": "Din uppmärksamhet formar dina framgångar."
+  },
+  "quote37": {
+    "message": "Håll fokus — distraktion kan vänta."
+  },
+  "quote38": {
+    "message": "Varje produktivt beslut börjar med ett fokuserat sinne."
+  },
+  "quote39": {
+    "message": "Du har blockerat en webbplats, inte din potential."
+  },
+  "quote40": {
+    "message": "Vägen till framgång byggs av fokuserade beslut."
+  },
+  "actionsheader": {
+    "message": "Åtgärder"
+  },
+  "norules": {
+    "message": "Inga blockerade webbplatser."
+  },
+  "editbtn": {
+    "message": "Redigera"
+  },
+  "ruleddeleted": {
+    "message": "Regeln har raderats."
+  },
+  "cancelbtn": {
+    "message": "Avbryt"
+  },
+  "ruleupdated": {
+    "message": "Regeln har uppdaterats."
+  },
+  "rulenewadded": {
+    "message": "Ny regel har lagts till."
+  },
+  "gotooptions": {
+    "message": "Gå till inställningssidan ⚙️"
+  },
+  "gotopopup": {
+    "message": "Klicka på tilläggsikonen för att återgå till popup-fönstret."
+  },
+  "rulesmigrated": {
+    "message": "Regler uppdaterade för kompatibilitet"
+  },
+  "errorupdatingrules": {
+    "message": "Fel vid uppdatering av regler"
+  },
+  "erroraddingrule": {
+    "message": "Fel vid tillägg av regel"
+  },
+  "errorremovingrule": {
+    "message": "Fel vid borttagning av regel"
+  },
+  "optionsheader": {
+    "message": "Inställningar för tillägget"
+  },
+  "optionsdescription": {
+    "message": "Konfigurera tilläggets beteende och säkerhetsinställningar"
+  },
+  "securitymodetitle": {
+    "message": "Säkerhetsläge"
+  },
+  "normalmodetitle": {
+    "message": "Normalläge"
+  },
+  "normalmodedesc": {
+    "message": "Regler kan raderas omedelbart med ett klick"
+  },
+  "strictmodetitle": {
+    "message": "Strikt läge"
+  },
+  "strictmodedesc": {
+    "message": "Regler kräver en 10-sekunders nedräkning innan de raderas för att förhindra oavsiktlig borttagning"
+  },
+  "confirmdeletetitle": {
+    "message": "Bekräfta innan du raderar flera regler"
+  },
+  "confirmdeletedesc": {
+    "message": "Visa bekräftelsedialog när flera regler raderas samtidigt"
+  },
+  "notificationstitle": {
+    "message": "Visa aviseringar"
+  },
+  "notificationsdesc": {
+    "message": "Visa aviseringar när tillägget uppdateras"
+  },
+  "rulesmanagementtitle": {
+    "message": "Regelhantering"
+  },
+  "exportrulesbtn": {
+    "message": "Exportera regler"
+  },
+  "importrulesbtn": {
+    "message": "Importera regler"
+  },
+  "clearallrulesbtn": {
+    "message": "Radera alla regler"
+  },
+  "totalruleslabel": {
+    "message": "Totalt antal regler"
+  },
+  "blockedtodaylabel": {
+    "message": "Blockerat idag"
+  },
+  "totalblockedlabel": {
+    "message": "Totalt blockerat"
+  },
+  "resetsettingsbtn": {
+    "message": "Återställ till standard"
+  },
+  "backtopopup": {
+    "message": "Tillbaka till huvudmenyn"
+  },
+  "errorloadingsettings": {
+    "message": "Fel vid laddning av inställningar"
+  },
+  "settingssaved": {
+    "message": "Inställningarna har sparats!"
+  },
+  "errorsavingsettings": {
+    "message": "Fel vid sparande av inställningar"
+  },
+  "rulesexported": {
+    "message": "Reglerna exporterades!"
+  },
+  "errorexportingrules": {
+    "message": "Fel vid export av regler"
+  },
   "willimportrules": {
     "message": "$ruleslength$ regler kommer att importeras.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Nuvarande regler kommer att ersättas. Fortsätt?" },
+  "ruleswillbereplaced": {
+    "message": "Nuvarande regler kommer att ersättas. Fortsätt?"
+  },
   "importedrules": {
     "message": "$ruleslength$ regler importerades framgångsrikt!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Fel vid import av regler: " },
-  "norulestoclear": { "message": "Inga regler att radera" },
+  "errorimportingrules": {
+    "message": "Fel vid import av regler: "
+  },
+  "norulestoclear": {
+    "message": "Inga regler att radera"
+  },
   "willdeleteallrules": {
     "message": "Detta kommer permanent radera alla $rulescount$ regler.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Denna åtgärd kan inte ångras. Fortsätt?" },
-  "allrulescleared": { "message": "Alla regler raderades!" },
-  "errorclearingrules": { "message": "Fel vid radering av regler" },
-  "willreset": { "message": "Alla inställningar kommer att återställas till standardvärden. Fortsätt?" },
-  "resettodefaults": { "message": "Inställningarna återställdes till standard!" },
-  "errorresettingsettings": { "message": "Fel vid återställning av inställningar" },
-  "basicsettingstitle": { "message": "Grundinställningar" },
-  "advancedsettingstitle": { "message": "Avancerade inställningar" },
-  "statisticstitle": { "message": "Statistik" },
+  "cannotbeundone": {
+    "message": "Denna åtgärd kan inte ångras. Fortsätt?"
+  },
+  "allrulescleared": {
+    "message": "Alla regler raderades!"
+  },
+  "errorclearingrules": {
+    "message": "Fel vid radering av regler"
+  },
+  "willreset": {
+    "message": "Alla inställningar kommer att återställas till standardvärden. Fortsätt?"
+  },
+  "resettodefaults": {
+    "message": "Inställningarna återställdes till standard!"
+  },
+  "errorresettingsettings": {
+    "message": "Fel vid återställning av inställningar"
+  },
+  "basicsettingstitle": {
+    "message": "Grundinställningar"
+  },
+  "advancedsettingstitle": {
+    "message": "Avancerade inställningar"
+  },
+  "statisticstitle": {
+    "message": "Statistik"
+  },
   "rulelimitreached": {
     "message": "Du har nått gränsen för regler ($limit$) i grundversionen. Uppgradera till Pro för obegränsade regler.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro krävs för redigering." },
-  "invalidpassword": { "message": "Ogiltigt lösenord" },
-  "setpassword": { "message": "Ange lösenord" },
-  "enterpassword": { "message": "Skriv in lösenord" },
-  "passwordmismatch": { "message": "Lösenorden matchar inte" },
-  "passwordtooshort": { "message": "Lösenordet måste vara minst 6 tecken" },
-  "resetpasswordconfirm": { "message": "Återställning av lösenordet kommer att inaktivera skyddet. Fortsätta?" },
-  "passwordset": { "message": "Lösenordet har angetts framgångsrikt" },
-  "passworddisabled": { "message": "Lösenordsskydd inaktiverat" },
-  "prorequired": { "message": "Pro-läge krävs för denna funktion" },
-  "enablepasswordtitle": { "message": "Aktivera lösenordsskydd" },
-  "enablepassworddesc": { "message": "Kräver ett lösenord för att ta bort eller redigera regler (förbättrar strikt läge)" },
-  "passwordprotectiontitle": { "message": "Lösenordsskydd" },
-  "scheduleheader": { "message": "Schema" },
-  "enableschedule": { "message": "Aktivera schema" },
-  "alwaysactive": { "message": "Alltid aktiv" },
-  "profeatureschedule": { "message": "Schema tillgängligt i Pro-versionen" },
-  "days": { "message": "Dagar" },
-  "starttime": { "message": "Starttid:" },
-  "endtime": { "message": "Sluttid:" },
-  "invaliddays": { "message": "Ogiltiga dagar valda" },
-  "invalidtimeformat": { "message": "Ogiltigt tidsformat (använd HH:MM)" },
-  "startafterend": { "message": "Starttid måste vara före sluttid" },
-  "invalidschedule": { "message": "Ogiltigt schema: vänligen välj dagar och tider." },
-  "invalidscheduledays": { "message": "Ogiltigt schema: välj minst en dag." },
-  "invalidschedulestarttime": { "message": "Ogiltigt schema: ange starttid." },
-  "invalidscheduleendtime": { "message": "Ogiltigt schema: ange sluttid." },
-  "editdisablednonpro": { "message": "Redigering inaktiverad: för många regler för icke-Pro användare." },
-  "errorloadingstatus": { "message": "Fel vid laddning av användarstatus." },
-  "schedule_day_sun": { "message": "Sön" },
-  "schedule_day_mon": { "message": "Mån" },
-  "schedule_day_tue": { "message": "Tis" },
-  "schedule_day_wed": { "message": "Ons" },
-  "schedule_day_thu": { "message": "Tor" },
-  "schedule_day_fri": { "message": "Fre" },
-  "schedule_day_sat": { "message": "Lör" },
-  "category_header": { "message": "Kategori" },
-  "category_required": { "message": "Kategori krävs" },
-  "allcategories": { "message": "Alla kategorier" },
-  "category_social": { "message": "Sociala medier" },
-  "category_news": { "message": "Nyheter" },
-  "category_entertainment": { "message": "Underhållning" },
-  "category_shopping": { "message": "Shopping" },
-  "category_work": { "message": "Arbete" },
-  "category_gaming": { "message": "Spel" },
-  "category_adult": { "message": "Vuxeninnehåll" },
-  "category_uncategorized": { "message": "Okategoriserad" },
-  "searchfordomain": { "message": "Sök efter domännamn" },
-  "norulesforcategory": { "message": "Inga blockerade webbplatser för denna kategori." },
-  "getpro": { "message": "Skaffa Pro" },
-  "profunctionstext": { "message": "Pro-funktioner inkluderar: schemalagd blockering, lösenordsskydd, regel­filtrering och export/import av regler. Njut av vår Universella Licens: en prenumeration låser upp Pro på alla dina webbläsare (Chrome, Firefox, Edge, Kiwi). För att aktivera, köp en prenumeration på blockdistraction.com, kopiera sedan din licensnyckel från kontots instrumentpanel och klistra in den nedan." },
-  "upgradenow": { "message": "Uppgradera nu" },
-  "enteremail": { "message": "Ange din e-postadress" },
-  "activatepro": { "message": "Aktivera Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Återställ åtkomst" },
-  "pleaseenteremail": { "message": "Vänligen ange din e-postadress" },
-  "checking": { "message": "Kontrollerar..." },
-  "proactivated": { "message": "Pro-funktionerna har aktiverats!" },
-  "subscriptionnotfound": { "message": "Prenumerationen är inte aktiv eller e-postadressen hittades inte." },
-  "servererror": { "message": "Serverfel. Försök igen." },
-  "proactivatedfor": { "message": "Pro aktiverat för" },
+  "proonlyactions": {
+    "message": "Pro krävs för redigering."
+  },
+  "invalidpassword": {
+    "message": "Ogiltigt lösenord"
+  },
+  "setpassword": {
+    "message": "Ange lösenord"
+  },
+  "enterpassword": {
+    "message": "Skriv in lösenord"
+  },
+  "passwordmismatch": {
+    "message": "Lösenorden matchar inte"
+  },
+  "passwordtooshort": {
+    "message": "Lösenordet måste vara minst 6 tecken"
+  },
+  "resetpasswordconfirm": {
+    "message": "Återställning av lösenordet kommer att inaktivera skyddet. Fortsätta?"
+  },
+  "passwordset": {
+    "message": "Lösenordet har angetts framgångsrikt"
+  },
+  "passworddisabled": {
+    "message": "Lösenordsskydd inaktiverat"
+  },
+  "prorequired": {
+    "message": "Pro-läge krävs för denna funktion"
+  },
+  "enablepasswordtitle": {
+    "message": "Aktivera lösenordsskydd"
+  },
+  "enablepassworddesc": {
+    "message": "Kräver ett lösenord för att ta bort eller redigera regler (förbättrar strikt läge)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Lösenordsskydd"
+  },
+  "scheduleheader": {
+    "message": "Schema"
+  },
+  "enableschedule": {
+    "message": "Aktivera schema"
+  },
+  "alwaysactive": {
+    "message": "Alltid aktiv"
+  },
+  "profeatureschedule": {
+    "message": "Schema tillgängligt i Pro-versionen"
+  },
+  "days": {
+    "message": "Dagar"
+  },
+  "starttime": {
+    "message": "Starttid:"
+  },
+  "endtime": {
+    "message": "Sluttid:"
+  },
+  "invaliddays": {
+    "message": "Ogiltiga dagar valda"
+  },
+  "invalidtimeformat": {
+    "message": "Ogiltigt tidsformat (använd HH:MM)"
+  },
+  "startafterend": {
+    "message": "Starttid måste vara före sluttid"
+  },
+  "invalidschedule": {
+    "message": "Ogiltigt schema: vänligen välj dagar och tider."
+  },
+  "invalidscheduledays": {
+    "message": "Ogiltigt schema: välj minst en dag."
+  },
+  "invalidschedulestarttime": {
+    "message": "Ogiltigt schema: ange starttid."
+  },
+  "invalidscheduleendtime": {
+    "message": "Ogiltigt schema: ange sluttid."
+  },
+  "editdisablednonpro": {
+    "message": "Redigering inaktiverad: för många regler för icke-Pro användare."
+  },
+  "errorloadingstatus": {
+    "message": "Fel vid laddning av användarstatus."
+  },
+  "schedule_day_sun": {
+    "message": "Sön"
+  },
+  "schedule_day_mon": {
+    "message": "Mån"
+  },
+  "schedule_day_tue": {
+    "message": "Tis"
+  },
+  "schedule_day_wed": {
+    "message": "Ons"
+  },
+  "schedule_day_thu": {
+    "message": "Tor"
+  },
+  "schedule_day_fri": {
+    "message": "Fre"
+  },
+  "schedule_day_sat": {
+    "message": "Lör"
+  },
+  "category_header": {
+    "message": "Kategori"
+  },
+  "category_required": {
+    "message": "Kategori krävs"
+  },
+  "allcategories": {
+    "message": "Alla kategorier"
+  },
+  "category_social": {
+    "message": "Sociala medier"
+  },
+  "category_news": {
+    "message": "Nyheter"
+  },
+  "category_entertainment": {
+    "message": "Underhållning"
+  },
+  "category_shopping": {
+    "message": "Shopping"
+  },
+  "category_work": {
+    "message": "Arbete"
+  },
+  "category_gaming": {
+    "message": "Spel"
+  },
+  "category_adult": {
+    "message": "Vuxeninnehåll"
+  },
+  "category_uncategorized": {
+    "message": "Okategoriserad"
+  },
+  "searchfordomain": {
+    "message": "Sök efter domännamn"
+  },
+  "norulesforcategory": {
+    "message": "Inga blockerade webbplatser för denna kategori."
+  },
+  "getpro": {
+    "message": "Skaffa Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro-funktioner inkluderar: schemalagd blockering, lösenordsskydd, regel­filtrering och export/import av regler. Njut av vår Universella Licens: en prenumeration låser upp Pro på alla dina webbläsare (Chrome, Firefox, Edge, Kiwi). För att aktivera, köp en prenumeration på blockdistraction.com, kopiera sedan din licensnyckel från kontots instrumentpanel och klistra in den nedan."
+  },
+  "upgradenow": {
+    "message": "Uppgradera nu"
+  },
+  "enteremail": {
+    "message": "Ange din e-postadress"
+  },
+  "activatepro": {
+    "message": "Aktivera Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Återställ åtkomst"
+  },
+  "pleaseenteremail": {
+    "message": "Vänligen ange din e-postadress"
+  },
+  "checking": {
+    "message": "Kontrollerar..."
+  },
+  "proactivated": {
+    "message": "Pro-funktionerna har aktiverats!"
+  },
+  "subscriptionnotfound": {
+    "message": "Prenumerationen är inte aktiv eller e-postadressen hittades inte."
+  },
+  "servererror": {
+    "message": "Serverfel. Försök igen."
+  },
+  "proactivatedfor": {
+    "message": "Pro aktiverat för"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Begäran om behörighet misslyckades (detta kan hända på mobila enheter). Försök igen eller ge behörighet manuellt i tilläggets inställningar."
   },
-  "pastekeylabel": { "message": "Klistra in din licensnyckel här:" },
-  "confirmclearstats": { "message": "Är du säker på att du vill rensa all statistik? Detta kan inte ångras." },
-  "statscleared": { "message": "Statistiken har rensats." },
-  "redirectstodaylabel": { "message": "Omdirigeringar idag" },
-  "totalredirectslabel": { "message": "Totalt antal omdirigeringar" },
-  "logout": { "message": "Logga ut" },
-  "loggedoutsuccess": { "message": "Du har loggats ut." },
-  "loggedouterror": { "message": "Ett fel uppstod vid utloggning." },
-  "forcesync": { "message": "Tvinga synkronisering / Kontrollera status" },
-  "forgotpasswordinstructions": { "message": "För att återställa ditt lösenord, gå till avsnittet 'Pro', klicka på 'Logga ut' och aktivera sedan igen genom att klistra in din licensnyckel." },
-  "blockedtitle": { "message": "Webbplatsen är otillgänglig" },
-  "blockedheader": { "message": "Denna webbplats är för närvarande otillgänglig" },
-  "blockedtext": { "message": "Detta innehåll kan inte visas." },
-  "blockedbutton": { "message": "Stäng flik" },
-  "confirmpassword": { "message": "Bekräfta lösenord" },
-  "modalconfirm": { "message": "Bekräfta" },
-  "modalcancel": { "message": "Avbryt" },
-  "forgotpassword": { "message": "Glömt lösenordet? Återställ (åtgärden tar bort skyddet)" },
-  "prounlocked": { "message": "Tack för ditt stöd! Alla Pro-funktioner är upplåsta." },
-  "licensesynced": { "message": "Din licens är synkroniserad med ditt konto. Om du förlorar åtkomst kan du hämta din nyckel här: " },
-  "syncing": { "message": "Synkroniserar..." },
-  "pleaseenterkey": { "message": "Ange en nyckel." },
-  "syncsuccess": { "message": "Synkronisering lyckades" },
-  "syncfailed": { "message": "Synkronisering misslyckades." },
-  "passwordreset": { "message": "Lösenordsskydd har återställts." },
-  "privacysecured": { "message": "Integritet skyddad" },
-  "errorinvalidfiletype": { "message": "Vänligen välj en .json-fil" },
-  "debugsettingstitle": { "message": "Felsökningsinställningar" },
-  "enabledebugtitle": { "message": "Aktivera felsökningsläge" },
-  "enabledebugdesc": { "message": "Aktivera detaljerad loggning i konsolen för felsökning" },
-  "errorcommunication": { "message": "Fel vid kommunikation med bakgrundstjänst" },
-  "clearstats": { "message": "Rensa statistik" },
-  "rule_enabled": { "message": "Aktiverad" },
-  "rule_disabled": { "message": "Inaktiverad" },
-  "filter_only_hint": { "message": "Den här listan filtrerar endast visningen i tabellen" },
-  "category_disabled_desc": { "message": "Stäng av ljudet för en kategori för att tillfälligt tillåta åtkomst till alla dess webbplatser. Individuella regelinställningar behålls." },
-  "toggle_category_blocking": { "message": "Slå på eller av blockering för hela kategorin" },
-  "category_muted_no_edit": { "message": "Kan inte hanteras: kategoriblockering är pausad" },
-  "feedback_title": { "message": "Gillar du BlockDistraction?" },
-  "feedback_desc": { "message": "Din feedback hjälper oss mycket att förbättra tillägget." },
-  "feedback_like": { "message": "Ja, det fungerar jättebra!" },
-  "feedback_dislike": { "message": "Jag har problem / förslag" },
-  "trialproheader": { "message": "Prova 7 dagar gratis" },
-  "trialprotext": { "message": "Avsluta när du vill. Säkra betalningar." },
-  "focussessionheader": { "message": "Fokussession" },
-  "focussessionstart": { "message": "Starta" },
-  "focussessionstop": { "message": "Stoppa" },
-  "focussessionduration": { "message": "Varaktighet (min):" },
-  "focussessioninfo": { "message": "Aktiverar alla dina blockeringsregler under en viss tid och ignorerar deras nuvarande inställningar och scheman. För maximal koncentration." },
-  "focussessionprofeature": { "message": "Anpassad varaktighet och Hardcore-läge är Pro-funktioner." },
-  "focussessionended": { "message": "Fokussessionen har avslutats! Ta en paus." },
-  "focussessionhardcore": { "message": "Hardcore-läge (ingen 'Stoppa'-knapp)" },
-  "focussessionsoundtitle": { "message": "Ljudavisering för fokussession" },
-  "focussessionsounddesc": { "message": "Spela upp ett ljud när fokussessionen avslutas." },
-  "focussessionactivebanner": { "message": "Fokussession aktiv! Återstående tid:" },
-  "focussessioninvalidduration": { "message": "Ange en giltig varaktighet (1–240 minuter)." },
-  "successfulfocussessionslabel": { "message": "Lyckade fokussessioner" },
-  "rule_scheduled": { "message": "Planerad regel" },
-  "addwhitelistrule": { "message": "Lägg till undantag" },
-  "category_whitelist": { "message": "Vitlista" },
-  "conflict_blacklist_err": { "message": "Den här webbplatsen finns redan på din svartlista. Ta bort den först." },
-  "conflict_whitelist_err": { "message": "Den här webbplatsen finns redan på din vitlista. Ta bort den först." },
-  "status_allow": { "message": "Tillåten" },
-  "redundant_whitelist_err": { "message": "Den här regeln täcks redan av en annan vitlisteregel." },
-  "focussessionmode": { "message": "Fokusläge:" },
-  "focusmodeblacklist": { "message": "Blockera svartlista" },
-  "focusmodewhitelist": { "message": "Tillåt endast vitlista" }
+  "pastekeylabel": {
+    "message": "Klistra in din licensnyckel här:"
+  },
+  "confirmclearstats": {
+    "message": "Är du säker på att du vill rensa all statistik? Detta kan inte ångras."
+  },
+  "statscleared": {
+    "message": "Statistiken har rensats."
+  },
+  "redirectstodaylabel": {
+    "message": "Omdirigeringar idag"
+  },
+  "totalredirectslabel": {
+    "message": "Totalt antal omdirigeringar"
+  },
+  "logout": {
+    "message": "Logga ut"
+  },
+  "loggedoutsuccess": {
+    "message": "Du har loggats ut."
+  },
+  "loggedouterror": {
+    "message": "Ett fel uppstod vid utloggning."
+  },
+  "forcesync": {
+    "message": "Tvinga synkronisering / Kontrollera status"
+  },
+  "forgotpasswordinstructions": {
+    "message": "För att återställa ditt lösenord, gå till avsnittet 'Pro', klicka på 'Logga ut' och aktivera sedan igen genom att klistra in din licensnyckel."
+  },
+  "blockedtitle": {
+    "message": "Webbplatsen är otillgänglig"
+  },
+  "blockedheader": {
+    "message": "Denna webbplats är för närvarande otillgänglig"
+  },
+  "blockedtext": {
+    "message": "Detta innehåll kan inte visas."
+  },
+  "blockedbutton": {
+    "message": "Stäng flik"
+  },
+  "confirmpassword": {
+    "message": "Bekräfta lösenord"
+  },
+  "modalconfirm": {
+    "message": "Bekräfta"
+  },
+  "modalcancel": {
+    "message": "Avbryt"
+  },
+  "forgotpassword": {
+    "message": "Glömt lösenordet? Återställ (åtgärden tar bort skyddet)"
+  },
+  "prounlocked": {
+    "message": "Tack för ditt stöd! Alla Pro-funktioner är upplåsta."
+  },
+  "licensesynced": {
+    "message": "Din licens är synkroniserad med ditt konto. Om du förlorar åtkomst kan du hämta din nyckel här: "
+  },
+  "syncing": {
+    "message": "Synkroniserar..."
+  },
+  "pleaseenterkey": {
+    "message": "Ange en nyckel."
+  },
+  "syncsuccess": {
+    "message": "Synkronisering lyckades"
+  },
+  "syncfailed": {
+    "message": "Synkronisering misslyckades."
+  },
+  "passwordreset": {
+    "message": "Lösenordsskydd har återställts."
+  },
+  "privacysecured": {
+    "message": "Integritet skyddad"
+  },
+  "errorinvalidfiletype": {
+    "message": "Vänligen välj en .json-fil"
+  },
+  "debugsettingstitle": {
+    "message": "Felsökningsinställningar"
+  },
+  "enabledebugtitle": {
+    "message": "Aktivera felsökningsläge"
+  },
+  "enabledebugdesc": {
+    "message": "Aktivera detaljerad loggning i konsolen för felsökning"
+  },
+  "errorcommunication": {
+    "message": "Fel vid kommunikation med bakgrundstjänst"
+  },
+  "clearstats": {
+    "message": "Rensa statistik"
+  },
+  "rule_enabled": {
+    "message": "Aktiverad"
+  },
+  "rule_disabled": {
+    "message": "Inaktiverad"
+  },
+  "filter_only_hint": {
+    "message": "Den här listan filtrerar endast visningen i tabellen"
+  },
+  "category_disabled_desc": {
+    "message": "Stäng av ljudet för en kategori för att tillfälligt tillåta åtkomst till alla dess webbplatser. Individuella regelinställningar behålls."
+  },
+  "toggle_category_blocking": {
+    "message": "Slå på eller av blockering för hela kategorin"
+  },
+  "category_muted_no_edit": {
+    "message": "Kan inte hanteras: kategoriblockering är pausad"
+  },
+  "feedback_title": {
+    "message": "Gillar du BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Din feedback hjälper oss mycket att förbättra tillägget."
+  },
+  "feedback_like": {
+    "message": "Ja, det fungerar jättebra!"
+  },
+  "feedback_dislike": {
+    "message": "Jag har problem / förslag"
+  },
+  "trialproheader": {
+    "message": "Prova 7 dagar gratis"
+  },
+  "trialprotext": {
+    "message": "Avsluta när du vill. Säkra betalningar."
+  },
+  "focussessionheader": {
+    "message": "Fokussession"
+  },
+  "focussessionstart": {
+    "message": "Starta"
+  },
+  "focussessionstop": {
+    "message": "Stoppa"
+  },
+  "focussessionduration": {
+    "message": "Varaktighet (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktiverar alla dina blockeringsregler under en viss tid och ignorerar deras nuvarande inställningar och scheman. För maximal koncentration."
+  },
+  "focussessionprofeature": {
+    "message": "Anpassad varaktighet och Hardcore-läge är Pro-funktioner."
+  },
+  "focussessionended": {
+    "message": "Fokussessionen har avslutats! Ta en paus."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore-läge (ingen 'Stoppa'-knapp)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Ljudavisering för fokussession"
+  },
+  "focussessionsounddesc": {
+    "message": "Spela upp ett ljud när fokussessionen avslutas."
+  },
+  "focussessionactivebanner": {
+    "message": "Fokussession aktiv! Återstående tid:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Ange en giltig varaktighet (1–240 minuter)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Lyckade fokussessioner"
+  },
+  "rule_scheduled": {
+    "message": "Planerad regel"
+  },
+  "addwhitelistrule": {
+    "message": "Lägg till undantag"
+  },
+  "category_whitelist": {
+    "message": "Vitlista"
+  },
+  "conflict_blacklist_err": {
+    "message": "Den här webbplatsen finns redan på din svartlista. Ta bort den först."
+  },
+  "conflict_whitelist_err": {
+    "message": "Den här webbplatsen finns redan på din vitlista. Ta bort den först."
+  },
+  "status_allow": {
+    "message": "Tillåten"
+  },
+  "redundant_whitelist_err": {
+    "message": "Den här regeln täcks redan av en annan vitlisteregel."
+  },
+  "focussessionmode": {
+    "message": "Fokusläge:"
+  },
+  "focusmodeblacklist": {
+    "message": "Blockera svartlista"
+  },
+  "focusmodewhitelist": {
+    "message": "Tillåt endast vitlista"
+  },
+  "schedule_edit": {
+    "message": "Redigera schema"
+  },
+  "schedule_add_period": {
+    "message": "Lägg till tidsgrupp"
+  },
+  "schedule_remove_period": {
+    "message": "Ta bort"
+  },
+  "schedule_period": {
+    "message": "Tidsgrupp"
+  },
+  "schedule_every_day": {
+    "message": "Varje dag"
+  },
+  "schedule_weekdays": {
+    "message": "Vardagar"
+  },
+  "schedule_weekends": {
+    "message": "Helger"
+  },
+  "schedule_day_overlap": {
+    "message": "Varje dag kan bara användas en gång."
+  }
 }

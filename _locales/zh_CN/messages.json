@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – 网站屏蔽扩展" },
-  "shortname": { "message": "屏蔽网站" },
-  "description": { "message": "一个简单可靠的工具，用于屏蔽和重定向网站，帮助您保持专注。" },
-  "defaulttitle": { "message": "保持专注，高效工作" },
-  "header": { "message": "网站屏蔽器" },
-  "paragraph": { "message": "要屏蔽网站或资源，请在“输入要屏蔽的URL”输入框中输入其名称的一部分––例如，“facebook”将屏蔽所有相关子域。在“输入重定向URL”字段中输入完整的重定向地址，包括协议，例如“https://google.com”。如果重定向字段为空，网站将仅被屏蔽而不重定向。点击“保存”应用规则。要更新规则，请删除旧规则并创建新规则。" },
-  "addrule": { "message": "添加新规则" },
-  "blockurl": { "message": "输入要屏蔽的URL" },
-  "redirecturl": { "message": "输入重定向URL（可选）" },
-  "redirecturlheader": { "message": "重定向 URL" },
-  "redirecturlplaceholder": { "message": "可选 - 留空则直接拦截" },
-  "redirecturlhint": { "message": "请输入包含 https:// 的完整 URL" },
-  "mobilecopylinkhint": { "message": "要拦截链接，请复制其地址并粘贴到拦截字段中。" },
-  "savebtn": { "message": "保存" },
-  "deletebtn": { "message": "删除" },
-  "alertruleexist": { "message": "规则已存在" },
+  "chromename": {
+    "message": "BlockDistraction – 网站屏蔽扩展"
+  },
+  "shortname": {
+    "message": "屏蔽网站"
+  },
+  "description": {
+    "message": "一个简单可靠的工具，用于屏蔽和重定向网站，帮助您保持专注。"
+  },
+  "defaulttitle": {
+    "message": "保持专注，高效工作"
+  },
+  "header": {
+    "message": "网站屏蔽器"
+  },
+  "paragraph": {
+    "message": "要屏蔽网站或资源，请在“输入要屏蔽的URL”输入框中输入其名称的一部分––例如，“facebook”将屏蔽所有相关子域。在“输入重定向URL”字段中输入完整的重定向地址，包括协议，例如“https://google.com”。如果重定向字段为空，网站将仅被屏蔽而不重定向。点击“保存”应用规则。要更新规则，请删除旧规则并创建新规则。"
+  },
+  "addrule": {
+    "message": "添加新规则"
+  },
+  "blockurl": {
+    "message": "输入要屏蔽的URL"
+  },
+  "redirecturl": {
+    "message": "输入重定向URL（可选）"
+  },
+  "redirecturlheader": {
+    "message": "重定向 URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "可选 - 留空则直接拦截"
+  },
+  "redirecturlhint": {
+    "message": "请输入包含 https:// 的完整 URL"
+  },
+  "mobilecopylinkhint": {
+    "message": "要拦截链接，请复制其地址并粘贴到拦截字段中。"
+  },
+  "savebtn": {
+    "message": "保存"
+  },
+  "deletebtn": {
+    "message": "删除"
+  },
+  "alertruleexist": {
+    "message": "规则已存在"
+  },
   "savedrules": {
     "message": "已保存 $ruleslength$ 条规则",
     "placeholders": {
@@ -24,91 +56,261 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "无法屏蔽此资源。" },
-  "wrongblockurl": { "message": "无效的屏蔽网址" },
-  "wrongredirecturl": { "message": "无效的重定向URL" },
-  "blockthat": { "message": "屏蔽此网站" },
-  "sendfeedbackbutton": { "message": "发送反馈" },
-  "sendfeedbacksubject": { "message": "BlockDistraction反馈" },
-  "sendfeedbackbody": { "message": "你好！我想分享以下反馈:\n\n" },
-  "quote1": { "message": "保持专注，保持坚强。" },
-  "quote2": { "message": "你的未来由今天的行动决定。" },
-  "quote3": { "message": "纪律是目标与成功之间的桥梁。" },
-  "quote4": { "message": "一个网站被屏蔽––离目标更近一步。" },
-  "quote5": { "message": "让每一次点击都算数。" },
-  "quote6": { "message": "不要看钟；像钟一样行动。继续前进。" },
-  "quote7": { "message": "每天的小步伐积累成大成果。" },
-  "quote8": { "message": "你唯一的限制是你的思维。" },
-  "quote9": { "message": "成功是每天重复的小努力的总和。" },
-  "quote10": { "message": "专注于效率，而非忙碌。" },
-  "quote11": { "message": "保护你的注意力––它是你最宝贵的资产。" },
-  "quote12": { "message": "每一次被阻止的干扰都是夺回的时间。" },
-  "quote13": { "message": "降低噪音，提高生产力。" },
-  "quote14": { "message": "小习惯能创造不可阻挡的动力。" },
-  "quote15": { "message": "清晰胜于混乱––专注于重要的事。" },
-  "quote16": { "message": "对干扰说不；对进步说是。" },
-  "quote17": { "message": "今天专注的一小时，将倍增你明天的成果。" },
-  "quote18": { "message": "少消费，多创造。" },
-  "quote19": { "message": "纪律选择长期胜利，而非短期冲动。" },
-  "quote20": { "message": "关闭一个标签页，为新想法腾出空间。" },
-  "quote21": { "message": "你今天逃避的工作，可能会变成明天的压力。" },
-  "quote22": { "message": "专注不是做得更多，而是做真正重要的事。" },
-  "quote23": { "message": "你的目标比任何干扰都更值得投入注意力。" },
-  "quote24": { "message": "每一分钟远离干扰，都是对自己的投资。" },
-  "quote25": { "message": "长期成果来自持续性，而不是短暂的爆发。" },
-  "quote26": { "message": "开始的最佳时间是昨天，第二好的时间就是现在。" },
-  "quote27": { "message": "当你选择行动而不是分心时，进步就开始了。" },
-  "quote28": { "message": "一个专注的瞬间，可能改变你一天的走向。" },
-  "quote29": { "message": "你不需要更多时间，你需要更少干扰。" },
-  "quote30": { "message": "每一次选择专注，都是在强化未来的自己。" },
-  "quote31": { "message": "这个拦截是暂时的，而你的目标是长期的。" },
-  "quote32": { "message": "每一个被屏蔽的干扰，都是对未来自己的一次胜利。" },
-  "quote33": { "message": "互联网是无限的，而你的时间是有限的。" },
-  "quote34": { "message": "在网络替你做决定之前，先确定你的优先级。" },
-  "quote35": { "message": "少一点刷屏，多一点创造。" },
-  "quote36": { "message": "你的注意力决定你的成就。" },
-  "quote37": { "message": "保持专注，干扰可以稍后再处理。" },
-  "quote38": { "message": "每一个高效的选择，都始于专注的思维。" },
-  "quote39": { "message": "你只是屏蔽了一个网站，而不是你的潜力。" },
-  "quote40": { "message": "成功之路由专注的决策铺就。" },
-  "actionsheader": { "message": "操作" },
-  "norules": { "message": "没有被屏蔽的网站。" },
-  "editbtn": { "message": "编辑" },
-  "ruleddeleted": { "message": "规则已删除。" },
-  "cancelbtn": { "message": "取消" },
-  "ruleupdated": { "message": "规则已更新。" },
-  "rulenewadded": { "message": "新规则已添加。" },
-  "gotooptions": { "message": "前往选项页面 ⚙️" },
-  "gotopopup": { "message": "点击扩展图标返回弹出窗口。" },
-  "rulesmigrated": { "message": "规则已更新以确保兼容性" },
-  "errorupdatingrules": { "message": "更新规则时出错" },
-  "erroraddingrule": { "message": "添加规则时出错" },
-  "errorremovingrule": { "message": "移除规则时出错" },
-  "optionsheader": { "message": "扩展设置" },
-  "optionsdescription": { "message": "配置扩展的行为和安全设置" },
-  "securitymodetitle": { "message": "安全模式" },
-  "normalmodetitle": { "message": "普通模式" },
-  "normalmodedesc": { "message": "规则可通过单击立即删除" },
-  "strictmodetitle": { "message": "严格模式" },
-  "strictmodedesc": { "message": "删除规则前需要10秒倒计时，以防止意外删除" },
-  "confirmdeletetitle": { "message": "删除多条规则前确认" },
-  "confirmdeletedesc": { "message": "删除多条规则时显示确认对话框" },
-  "notificationstitle": { "message": "显示通知" },
-  "notificationsdesc": { "message": "在扩展更新时显示通知" },
-  "rulesmanagementtitle": { "message": "规则管理" },
-  "exportrulesbtn": { "message": "导出规则" },
-  "importrulesbtn": { "message": "导入规则" },
-  "clearallrulesbtn": { "message": "清除所有规则" },
-  "totalruleslabel": { "message": "规则总数" },
-  "blockedtodaylabel": { "message": "今日拦截" },
-  "totalblockedlabel": { "message": "总计拦截" },
-  "resetsettingsbtn": { "message": "重置为默认值" },
-  "backtopopup": { "message": "返回主界面" },
-  "errorloadingsettings": { "message": "加载设置时出错" },
-  "settingssaved": { "message": "设置保存成功！" },
-  "errorsavingsettings": { "message": "保存设置时出错" },
-  "rulesexported": { "message": "规则导出成功！" },
-  "errorexportingrules": { "message": "导出规则时出错" },
+  "restrictedblockurl": {
+    "message": "无法屏蔽此资源。"
+  },
+  "wrongblockurl": {
+    "message": "无效的屏蔽网址"
+  },
+  "wrongredirecturl": {
+    "message": "无效的重定向URL"
+  },
+  "blockthat": {
+    "message": "屏蔽此网站"
+  },
+  "sendfeedbackbutton": {
+    "message": "发送反馈"
+  },
+  "sendfeedbacksubject": {
+    "message": "BlockDistraction反馈"
+  },
+  "sendfeedbackbody": {
+    "message": "你好！我想分享以下反馈:\n\n"
+  },
+  "quote1": {
+    "message": "保持专注，保持坚强。"
+  },
+  "quote2": {
+    "message": "你的未来由今天的行动决定。"
+  },
+  "quote3": {
+    "message": "纪律是目标与成功之间的桥梁。"
+  },
+  "quote4": {
+    "message": "一个网站被屏蔽––离目标更近一步。"
+  },
+  "quote5": {
+    "message": "让每一次点击都算数。"
+  },
+  "quote6": {
+    "message": "不要看钟；像钟一样行动。继续前进。"
+  },
+  "quote7": {
+    "message": "每天的小步伐积累成大成果。"
+  },
+  "quote8": {
+    "message": "你唯一的限制是你的思维。"
+  },
+  "quote9": {
+    "message": "成功是每天重复的小努力的总和。"
+  },
+  "quote10": {
+    "message": "专注于效率，而非忙碌。"
+  },
+  "quote11": {
+    "message": "保护你的注意力––它是你最宝贵的资产。"
+  },
+  "quote12": {
+    "message": "每一次被阻止的干扰都是夺回的时间。"
+  },
+  "quote13": {
+    "message": "降低噪音，提高生产力。"
+  },
+  "quote14": {
+    "message": "小习惯能创造不可阻挡的动力。"
+  },
+  "quote15": {
+    "message": "清晰胜于混乱––专注于重要的事。"
+  },
+  "quote16": {
+    "message": "对干扰说不；对进步说是。"
+  },
+  "quote17": {
+    "message": "今天专注的一小时，将倍增你明天的成果。"
+  },
+  "quote18": {
+    "message": "少消费，多创造。"
+  },
+  "quote19": {
+    "message": "纪律选择长期胜利，而非短期冲动。"
+  },
+  "quote20": {
+    "message": "关闭一个标签页，为新想法腾出空间。"
+  },
+  "quote21": {
+    "message": "你今天逃避的工作，可能会变成明天的压力。"
+  },
+  "quote22": {
+    "message": "专注不是做得更多，而是做真正重要的事。"
+  },
+  "quote23": {
+    "message": "你的目标比任何干扰都更值得投入注意力。"
+  },
+  "quote24": {
+    "message": "每一分钟远离干扰，都是对自己的投资。"
+  },
+  "quote25": {
+    "message": "长期成果来自持续性，而不是短暂的爆发。"
+  },
+  "quote26": {
+    "message": "开始的最佳时间是昨天，第二好的时间就是现在。"
+  },
+  "quote27": {
+    "message": "当你选择行动而不是分心时，进步就开始了。"
+  },
+  "quote28": {
+    "message": "一个专注的瞬间，可能改变你一天的走向。"
+  },
+  "quote29": {
+    "message": "你不需要更多时间，你需要更少干扰。"
+  },
+  "quote30": {
+    "message": "每一次选择专注，都是在强化未来的自己。"
+  },
+  "quote31": {
+    "message": "这个拦截是暂时的，而你的目标是长期的。"
+  },
+  "quote32": {
+    "message": "每一个被屏蔽的干扰，都是对未来自己的一次胜利。"
+  },
+  "quote33": {
+    "message": "互联网是无限的，而你的时间是有限的。"
+  },
+  "quote34": {
+    "message": "在网络替你做决定之前，先确定你的优先级。"
+  },
+  "quote35": {
+    "message": "少一点刷屏，多一点创造。"
+  },
+  "quote36": {
+    "message": "你的注意力决定你的成就。"
+  },
+  "quote37": {
+    "message": "保持专注，干扰可以稍后再处理。"
+  },
+  "quote38": {
+    "message": "每一个高效的选择，都始于专注的思维。"
+  },
+  "quote39": {
+    "message": "你只是屏蔽了一个网站，而不是你的潜力。"
+  },
+  "quote40": {
+    "message": "成功之路由专注的决策铺就。"
+  },
+  "actionsheader": {
+    "message": "操作"
+  },
+  "norules": {
+    "message": "没有被屏蔽的网站。"
+  },
+  "editbtn": {
+    "message": "编辑"
+  },
+  "ruleddeleted": {
+    "message": "规则已删除。"
+  },
+  "cancelbtn": {
+    "message": "取消"
+  },
+  "ruleupdated": {
+    "message": "规则已更新。"
+  },
+  "rulenewadded": {
+    "message": "新规则已添加。"
+  },
+  "gotooptions": {
+    "message": "前往选项页面 ⚙️"
+  },
+  "gotopopup": {
+    "message": "点击扩展图标返回弹出窗口。"
+  },
+  "rulesmigrated": {
+    "message": "规则已更新以确保兼容性"
+  },
+  "errorupdatingrules": {
+    "message": "更新规则时出错"
+  },
+  "erroraddingrule": {
+    "message": "添加规则时出错"
+  },
+  "errorremovingrule": {
+    "message": "移除规则时出错"
+  },
+  "optionsheader": {
+    "message": "扩展设置"
+  },
+  "optionsdescription": {
+    "message": "配置扩展的行为和安全设置"
+  },
+  "securitymodetitle": {
+    "message": "安全模式"
+  },
+  "normalmodetitle": {
+    "message": "普通模式"
+  },
+  "normalmodedesc": {
+    "message": "规则可通过单击立即删除"
+  },
+  "strictmodetitle": {
+    "message": "严格模式"
+  },
+  "strictmodedesc": {
+    "message": "删除规则前需要10秒倒计时，以防止意外删除"
+  },
+  "confirmdeletetitle": {
+    "message": "删除多条规则前确认"
+  },
+  "confirmdeletedesc": {
+    "message": "删除多条规则时显示确认对话框"
+  },
+  "notificationstitle": {
+    "message": "显示通知"
+  },
+  "notificationsdesc": {
+    "message": "在扩展更新时显示通知"
+  },
+  "rulesmanagementtitle": {
+    "message": "规则管理"
+  },
+  "exportrulesbtn": {
+    "message": "导出规则"
+  },
+  "importrulesbtn": {
+    "message": "导入规则"
+  },
+  "clearallrulesbtn": {
+    "message": "清除所有规则"
+  },
+  "totalruleslabel": {
+    "message": "规则总数"
+  },
+  "blockedtodaylabel": {
+    "message": "今日拦截"
+  },
+  "totalblockedlabel": {
+    "message": "总计拦截"
+  },
+  "resetsettingsbtn": {
+    "message": "重置为默认值"
+  },
+  "backtopopup": {
+    "message": "返回主界面"
+  },
+  "errorloadingsettings": {
+    "message": "加载设置时出错"
+  },
+  "settingssaved": {
+    "message": "设置保存成功！"
+  },
+  "errorsavingsettings": {
+    "message": "保存设置时出错"
+  },
+  "rulesexported": {
+    "message": "规则导出成功！"
+  },
+  "errorexportingrules": {
+    "message": "导出规则时出错"
+  },
   "willimportrules": {
     "message": "将导入$ruleslength$条规则。 ",
     "placeholders": {
@@ -118,7 +320,9 @@
       }
     }
   },
-  "ruleswillbereplaced": { "message": "当前规则将被替换。继续吗？" },
+  "ruleswillbereplaced": {
+    "message": "当前规则将被替换。继续吗？"
+  },
   "importedrules": {
     "message": "成功导入$ruleslength$条规则！",
     "placeholders": {
@@ -128,8 +332,12 @@
       }
     }
   },
-  "errorimportingrules": { "message": "导入规则时出错：" },
-  "norulestoclear": { "message": "没有规则可清除" },
+  "errorimportingrules": {
+    "message": "导入规则时出错："
+  },
+  "norulestoclear": {
+    "message": "没有规则可清除"
+  },
   "willdeleteallrules": {
     "message": "这将永久删除所有$rulescount$条规则。 ",
     "placeholders": {
@@ -139,15 +347,33 @@
       }
     }
   },
-  "cannotbeundone": { "message": "此操作无法撤销。继续吗？" },
-  "allrulescleared": { "message": "所有规则已成功清除！" },
-  "errorclearingrules": { "message": "清除规则时出错" },
-  "willreset": { "message": "这将重置所有设置为默认值。继续吗？" },
-  "resettodefaults": { "message": "设置已重置为默认值！" },
-  "errorresettingsettings": { "message": "重置设置时出错" },
-  "basicsettingstitle": { "message": "基本设置" },
-  "advancedsettingstitle": { "message": "高级设置" },
-  "statisticstitle": { "message": "统计" },
+  "cannotbeundone": {
+    "message": "此操作无法撤销。继续吗？"
+  },
+  "allrulescleared": {
+    "message": "所有规则已成功清除！"
+  },
+  "errorclearingrules": {
+    "message": "清除规则时出错"
+  },
+  "willreset": {
+    "message": "这将重置所有设置为默认值。继续吗？"
+  },
+  "resettodefaults": {
+    "message": "设置已重置为默认值！"
+  },
+  "errorresettingsettings": {
+    "message": "重置设置时出错"
+  },
+  "basicsettingstitle": {
+    "message": "基本设置"
+  },
+  "advancedsettingstitle": {
+    "message": "高级设置"
+  },
+  "statisticstitle": {
+    "message": "统计"
+  },
   "rulelimitreached": {
     "message": "您已达到基本版的规则限制 ($limit$)。升级到 Pro 以获得无限规则。",
     "placeholders": {
@@ -157,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "编辑需要 Pro 版本。" },
-  "invalidpassword": { "message": "无效密码" },
-  "setpassword": { "message": "设置密码" },
-  "enterpassword": { "message": "输入密码" },
-  "passwordmismatch": { "message": "密码不匹配" },
-  "passwordtooshort": { "message": "密码必须至少包含 6 个字符" },
-  "resetpasswordconfirm": { "message": "重置密码将禁用保护。继续吗？" },
-  "passwordset": { "message": "密码设置成功" },
-  "passworddisabled": { "message": "密码保护已禁用" },
-  "prorequired": { "message": "此功能需要 Pro 模式" },
-  "enablepasswordtitle": { "message": "启用密码保护" },
-  "enablepassworddesc": { "message": "删除或编辑规则需要密码（增强严格模式）" },
-  "passwordprotectiontitle": { "message": "密码保护" },
-  "scheduleheader": { "message": "日程" },
-  "enableschedule": { "message": "启用日程" },
-  "alwaysactive": { "message": "始终启用" },
-  "profeatureschedule": { "message": "日程功能仅在 Pro 版中可用" },
-  "days": { "message": "天数" },
-  "starttime": { "message": "开始时间：" },
-  "endtime": { "message": "结束时间：" },
-  "invaliddays": { "message": "选择的天数无效" },
-  "invalidtimeformat": { "message": "时间格式无效（请使用 HH:MM）" },
-  "startafterend": { "message": "开始时间必须早于结束时间" },
-  "invalidschedule": { "message": "无效的日程：请选择天数和时间。" },
-  "invalidscheduledays": { "message": "无效的日程：请至少选择一天。" },
-  "invalidschedulestarttime": { "message": "无效的日程：请设置开始时间。" },
-  "invalidscheduleendtime": { "message": "无效的日程：请设置结束时间。" },
-  "editdisablednonpro": { "message": "编辑已禁用：非 Pro 用户的规则过多。" },
-  "errorloadingstatus": { "message": "加载用户状态时出错。" },
-  "schedule_day_sun": { "message": "周日" },
-  "schedule_day_mon": { "message": "周一" },
-  "schedule_day_tue": { "message": "周二" },
-  "schedule_day_wed": { "message": "周三" },
-  "schedule_day_thu": { "message": "周四" },
-  "schedule_day_fri": { "message": "周五" },
-  "schedule_day_sat": { "message": "周六" },
-  "category_header": { "message": "类别" },
-  "category_required": { "message": "类别为必填项" },
-  "allcategories": { "message": "所有类别" },
-  "category_social": { "message": "社交媒体" },
-  "category_news": { "message": "新闻" },
-  "category_entertainment": { "message": "娱乐" },
-  "category_shopping": { "message": "购物" },
-  "category_work": { "message": "工作" },
-  "category_gaming": { "message": "游戏" },
-  "category_adult": { "message": "成人内容" },
-  "category_uncategorized": { "message": "未分类" },
-  "searchfordomain": { "message": "搜索域名" },
-  "norulesforcategory": { "message": "该类别没有被屏蔽的网站。" },
-  "getpro": { "message": "获取 Pro" },
-  "profunctionstext": { "message": "Pro 功能包括：按计划阻止、密码保护、规则过滤以及规则导入/导出。享受我们的通用许可证：一个订阅即可在您所有的浏览器（Chrome、Firefox、Edge、Kiwi）上解锁 Pro。要激活，请在 blockdistraction.com 购买订阅，然后从您的账户仪表板复制许可证密钥并粘贴到下方。" },
-  "upgradenow": { "message": "立即升级" },
-  "enteremail": { "message": "请输入您的电子邮箱" },
-  "activatepro": { "message": "激活 Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "恢复访问" },
-  "pleaseenteremail": { "message": "请输入您的电子邮箱" },
-  "checking": { "message": "正在检查..." },
-  "proactivated": { "message": "Pro 功能已激活！" },
-  "subscriptionnotfound": { "message": "订阅未激活或未找到电子邮箱。" },
-  "servererror": { "message": "服务器错误。请重试。" },
-  "proactivatedfor": { "message": "已为以下邮箱激活 Pro：" },
+  "proonlyactions": {
+    "message": "编辑需要 Pro 版本。"
+  },
+  "invalidpassword": {
+    "message": "无效密码"
+  },
+  "setpassword": {
+    "message": "设置密码"
+  },
+  "enterpassword": {
+    "message": "输入密码"
+  },
+  "passwordmismatch": {
+    "message": "密码不匹配"
+  },
+  "passwordtooshort": {
+    "message": "密码必须至少包含 6 个字符"
+  },
+  "resetpasswordconfirm": {
+    "message": "重置密码将禁用保护。继续吗？"
+  },
+  "passwordset": {
+    "message": "密码设置成功"
+  },
+  "passworddisabled": {
+    "message": "密码保护已禁用"
+  },
+  "prorequired": {
+    "message": "此功能需要 Pro 模式"
+  },
+  "enablepasswordtitle": {
+    "message": "启用密码保护"
+  },
+  "enablepassworddesc": {
+    "message": "删除或编辑规则需要密码（增强严格模式）"
+  },
+  "passwordprotectiontitle": {
+    "message": "密码保护"
+  },
+  "scheduleheader": {
+    "message": "日程"
+  },
+  "enableschedule": {
+    "message": "启用日程"
+  },
+  "alwaysactive": {
+    "message": "始终启用"
+  },
+  "profeatureschedule": {
+    "message": "日程功能仅在 Pro 版中可用"
+  },
+  "days": {
+    "message": "天数"
+  },
+  "starttime": {
+    "message": "开始时间："
+  },
+  "endtime": {
+    "message": "结束时间："
+  },
+  "invaliddays": {
+    "message": "选择的天数无效"
+  },
+  "invalidtimeformat": {
+    "message": "时间格式无效（请使用 HH:MM）"
+  },
+  "startafterend": {
+    "message": "开始时间必须早于结束时间"
+  },
+  "invalidschedule": {
+    "message": "无效的日程：请选择天数和时间。"
+  },
+  "invalidscheduledays": {
+    "message": "无效的日程：请至少选择一天。"
+  },
+  "invalidschedulestarttime": {
+    "message": "无效的日程：请设置开始时间。"
+  },
+  "invalidscheduleendtime": {
+    "message": "无效的日程：请设置结束时间。"
+  },
+  "editdisablednonpro": {
+    "message": "编辑已禁用：非 Pro 用户的规则过多。"
+  },
+  "errorloadingstatus": {
+    "message": "加载用户状态时出错。"
+  },
+  "schedule_day_sun": {
+    "message": "周日"
+  },
+  "schedule_day_mon": {
+    "message": "周一"
+  },
+  "schedule_day_tue": {
+    "message": "周二"
+  },
+  "schedule_day_wed": {
+    "message": "周三"
+  },
+  "schedule_day_thu": {
+    "message": "周四"
+  },
+  "schedule_day_fri": {
+    "message": "周五"
+  },
+  "schedule_day_sat": {
+    "message": "周六"
+  },
+  "category_header": {
+    "message": "类别"
+  },
+  "category_required": {
+    "message": "类别为必填项"
+  },
+  "allcategories": {
+    "message": "所有类别"
+  },
+  "category_social": {
+    "message": "社交媒体"
+  },
+  "category_news": {
+    "message": "新闻"
+  },
+  "category_entertainment": {
+    "message": "娱乐"
+  },
+  "category_shopping": {
+    "message": "购物"
+  },
+  "category_work": {
+    "message": "工作"
+  },
+  "category_gaming": {
+    "message": "游戏"
+  },
+  "category_adult": {
+    "message": "成人内容"
+  },
+  "category_uncategorized": {
+    "message": "未分类"
+  },
+  "searchfordomain": {
+    "message": "搜索域名"
+  },
+  "norulesforcategory": {
+    "message": "该类别没有被屏蔽的网站。"
+  },
+  "getpro": {
+    "message": "获取 Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro 功能包括：按计划阻止、密码保护、规则过滤以及规则导入/导出。享受我们的通用许可证：一个订阅即可在您所有的浏览器（Chrome、Firefox、Edge、Kiwi）上解锁 Pro。要激活，请在 blockdistraction.com 购买订阅，然后从您的账户仪表板复制许可证密钥并粘贴到下方。"
+  },
+  "upgradenow": {
+    "message": "立即升级"
+  },
+  "enteremail": {
+    "message": "请输入您的电子邮箱"
+  },
+  "activatepro": {
+    "message": "激活 Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "恢复访问"
+  },
+  "pleaseenteremail": {
+    "message": "请输入您的电子邮箱"
+  },
+  "checking": {
+    "message": "正在检查..."
+  },
+  "proactivated": {
+    "message": "Pro 功能已激活！"
+  },
+  "subscriptionnotfound": {
+    "message": "订阅未激活或未找到电子邮箱。"
+  },
+  "servererror": {
+    "message": "服务器错误。请重试。"
+  },
+  "proactivatedfor": {
+    "message": "已为以下邮箱激活 Pro："
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -255,69 +605,223 @@
   "onboarding_status_api_error": {
     "message": "权限请求失败（移动设备上可能发生）。请重试，或在设置中手动授权。"
   },
-  "pastekeylabel": { "message": "在此粘贴您的许可证密钥：" },
-  "confirmclearstats": { "message": "您确定要清除所有统计数据吗？此操作无法撤销。" },
-  "statscleared": { "message": "统计数据已成功清除。" },
-  "redirectstodaylabel": { "message": "今日重定向次数" },
-  "totalredirectslabel": { "message": "重定向总次数" },
-  "logout": { "message": "退出登录" },
-  "loggedoutsuccess": { "message": "您已成功退出登录。" },
-  "loggedouterror": { "message": "退出登录时发生错误。" },
-  "forcesync": { "message": "强制同步 / 检查状态" },
-  "forgotpasswordinstructions": { "message": "要重置密码，请转到“Pro”部分，点击“退出登录”，然后通过粘贴您的许可证密钥重新激活。" },
-  "blockedtitle": { "message": "网站不可用" },
-  "blockedheader": { "message": "此网站当前不可用" },
-  "blockedtext": { "message": "此内容无法显示。" },
-  "blockedbutton": { "message": "关闭标签页" },
-  "confirmpassword": { "message": "确认密码" },
-  "modalconfirm": { "message": "确认" },
-  "modalcancel": { "message": "取消" },
-  "forgotpassword": { "message": "忘记密码？重置（此操作将清除保护）" },
-  "prounlocked": { "message": "感谢您的支持！所有 Pro 功能已解锁。" },
-  "licensesynced": { "message": "您的许可证已与您的账户同步。如果您丢失访问权限，可以从这里找回您的密钥： " },
-  "syncing": { "message": "正在同步..." },
-  "pleaseenterkey": { "message": "请输入密钥。" },
-  "syncsuccess": { "message": "同步成功" },
-  "syncfailed": { "message": "同步失败。" },
-  "passwordreset": { "message": "密码保护已重置。" },
-  "privacysecured": { "message": "隐私已保护" },
-  "errorinvalidfiletype": { "message": "请选择一个 .json 文件" },
-  "debugsettingstitle": { "message": "调试设置" },
-  "enabledebugtitle": { "message": "启用调试模式" },
-  "enabledebugdesc": { "message": "启用控制台详细日志以进行故障排除" },
-  "errorcommunication": { "message": "与后台服务通信时出错" },
-  "clearstats": { "message": "清除统计" },
-  "rule_enabled": { "message": "已启用" },
-  "rule_disabled": { "message": "已禁用" },
-  "filter_only_hint": { "message": "此列表仅过滤表格中的显示内容" },
-  "category_disabled_desc": { "message": "静音某个类别以临时允许访问其所有网站。单独规则设置将被保留。" },
-  "toggle_category_blocking": { "message": "切换整个类别的阻止状态" },
-  "category_muted_no_edit": { "message": "无法管理：类别阻止已暂停" },
-  "feedback_title": { "message": "你喜欢 BlockDistraction 吗？" },
-  "feedback_desc": { "message": "你的反馈对我们改进该扩展非常有帮助。" },
-  "feedback_like": { "message": "是的，它运行得很好！" },
-  "feedback_dislike": { "message": "我有问题 / 建议" },
-  "trialproheader": { "message": "开启 7 天免费试用" },
-  "trialprotext": { "message": "随时可取消。交易安全有保障。" },
-  "focussessionheader": { "message": "专注时段" },
-  "focussessionstart": { "message": "开始" },
-  "focussessionstop": { "message": "停止" },
-  "focussessionduration": { "message": "时长 (分钟):" },
-  "focussessioninfo": { "message": "在设定的时间内激活您所有的屏蔽规则，忽略其当前设置和计划。以实现最大程度的专注。" },
-  "focussessionprofeature": { "message": "自定义时长和“硬核模式”是专业版功能。" },
-  "focussessionended": { "message": "专注时段已结束！休息一下吧。" },
-  "focussessionhardcore": { "message": "硬核模式 (无“停止”按钮)" },
-  "focussessionactivebanner": { "message": "专注时段进行中！剩余时间：" },
-  "focussessioninvalidduration": { "message": "请输入有效的时长 (1-240 分钟)。" },
-  "successfulfocussessionslabel": { "message": "成功的专注时段" },
-  "rule_scheduled": { "message": "计划规则" },
-  "addwhitelistrule": { "message": "添加例外" },
-  "category_whitelist": { "message": "白名单" },
-  "conflict_blacklist_err": { "message": "该网站已在您的黑名单中。请先将其移除。" },
-  "conflict_whitelist_err": { "message": "该网站已在您的白名单中。请先将其移除。" },
-  "status_allow": { "message": "已允许" },
-  "redundant_whitelist_err": { "message": "此规则已被另一条白名单规则覆盖。" },
-  "focussessionmode": { "message": "专注模式：" },
-  "focusmodeblacklist": { "message": "拦截黑名单" },
-  "focusmodewhitelist": { "message": "仅允许白名单" }
+  "pastekeylabel": {
+    "message": "在此粘贴您的许可证密钥："
+  },
+  "confirmclearstats": {
+    "message": "您确定要清除所有统计数据吗？此操作无法撤销。"
+  },
+  "statscleared": {
+    "message": "统计数据已成功清除。"
+  },
+  "redirectstodaylabel": {
+    "message": "今日重定向次数"
+  },
+  "totalredirectslabel": {
+    "message": "重定向总次数"
+  },
+  "logout": {
+    "message": "退出登录"
+  },
+  "loggedoutsuccess": {
+    "message": "您已成功退出登录。"
+  },
+  "loggedouterror": {
+    "message": "退出登录时发生错误。"
+  },
+  "forcesync": {
+    "message": "强制同步 / 检查状态"
+  },
+  "forgotpasswordinstructions": {
+    "message": "要重置密码，请转到“Pro”部分，点击“退出登录”，然后通过粘贴您的许可证密钥重新激活。"
+  },
+  "blockedtitle": {
+    "message": "网站不可用"
+  },
+  "blockedheader": {
+    "message": "此网站当前不可用"
+  },
+  "blockedtext": {
+    "message": "此内容无法显示。"
+  },
+  "blockedbutton": {
+    "message": "关闭标签页"
+  },
+  "confirmpassword": {
+    "message": "确认密码"
+  },
+  "modalconfirm": {
+    "message": "确认"
+  },
+  "modalcancel": {
+    "message": "取消"
+  },
+  "forgotpassword": {
+    "message": "忘记密码？重置（此操作将清除保护）"
+  },
+  "prounlocked": {
+    "message": "感谢您的支持！所有 Pro 功能已解锁。"
+  },
+  "licensesynced": {
+    "message": "您的许可证已与您的账户同步。如果您丢失访问权限，可以从这里找回您的密钥： "
+  },
+  "syncing": {
+    "message": "正在同步..."
+  },
+  "pleaseenterkey": {
+    "message": "请输入密钥。"
+  },
+  "syncsuccess": {
+    "message": "同步成功"
+  },
+  "syncfailed": {
+    "message": "同步失败。"
+  },
+  "passwordreset": {
+    "message": "密码保护已重置。"
+  },
+  "privacysecured": {
+    "message": "隐私已保护"
+  },
+  "errorinvalidfiletype": {
+    "message": "请选择一个 .json 文件"
+  },
+  "debugsettingstitle": {
+    "message": "调试设置"
+  },
+  "enabledebugtitle": {
+    "message": "启用调试模式"
+  },
+  "enabledebugdesc": {
+    "message": "启用控制台详细日志以进行故障排除"
+  },
+  "errorcommunication": {
+    "message": "与后台服务通信时出错"
+  },
+  "clearstats": {
+    "message": "清除统计"
+  },
+  "rule_enabled": {
+    "message": "已启用"
+  },
+  "rule_disabled": {
+    "message": "已禁用"
+  },
+  "filter_only_hint": {
+    "message": "此列表仅过滤表格中的显示内容"
+  },
+  "category_disabled_desc": {
+    "message": "静音某个类别以临时允许访问其所有网站。单独规则设置将被保留。"
+  },
+  "toggle_category_blocking": {
+    "message": "切换整个类别的阻止状态"
+  },
+  "category_muted_no_edit": {
+    "message": "无法管理：类别阻止已暂停"
+  },
+  "feedback_title": {
+    "message": "你喜欢 BlockDistraction 吗？"
+  },
+  "feedback_desc": {
+    "message": "你的反馈对我们改进该扩展非常有帮助。"
+  },
+  "feedback_like": {
+    "message": "是的，它运行得很好！"
+  },
+  "feedback_dislike": {
+    "message": "我有问题 / 建议"
+  },
+  "trialproheader": {
+    "message": "开启 7 天免费试用"
+  },
+  "trialprotext": {
+    "message": "随时可取消。交易安全有保障。"
+  },
+  "focussessionheader": {
+    "message": "专注时段"
+  },
+  "focussessionstart": {
+    "message": "开始"
+  },
+  "focussessionstop": {
+    "message": "停止"
+  },
+  "focussessionduration": {
+    "message": "时长 (分钟):"
+  },
+  "focussessioninfo": {
+    "message": "在设定的时间内激活您所有的屏蔽规则，忽略其当前设置和计划。以实现最大程度的专注。"
+  },
+  "focussessionprofeature": {
+    "message": "自定义时长和“硬核模式”是专业版功能。"
+  },
+  "focussessionended": {
+    "message": "专注时段已结束！休息一下吧。"
+  },
+  "focussessionhardcore": {
+    "message": "硬核模式 (无“停止”按钮)"
+  },
+  "focussessionactivebanner": {
+    "message": "专注时段进行中！剩余时间："
+  },
+  "focussessioninvalidduration": {
+    "message": "请输入有效的时长 (1-240 分钟)。"
+  },
+  "successfulfocussessionslabel": {
+    "message": "成功的专注时段"
+  },
+  "rule_scheduled": {
+    "message": "计划规则"
+  },
+  "addwhitelistrule": {
+    "message": "添加例外"
+  },
+  "category_whitelist": {
+    "message": "白名单"
+  },
+  "conflict_blacklist_err": {
+    "message": "该网站已在您的黑名单中。请先将其移除。"
+  },
+  "conflict_whitelist_err": {
+    "message": "该网站已在您的白名单中。请先将其移除。"
+  },
+  "status_allow": {
+    "message": "已允许"
+  },
+  "redundant_whitelist_err": {
+    "message": "此规则已被另一条白名单规则覆盖。"
+  },
+  "focussessionmode": {
+    "message": "专注模式："
+  },
+  "focusmodeblacklist": {
+    "message": "拦截黑名单"
+  },
+  "focusmodewhitelist": {
+    "message": "仅允许白名单"
+  },
+  "schedule_edit": {
+    "message": "编辑计划"
+  },
+  "schedule_add_period": {
+    "message": "添加时间组"
+  },
+  "schedule_remove_period": {
+    "message": "移除"
+  },
+  "schedule_period": {
+    "message": "时间组"
+  },
+  "schedule_every_day": {
+    "message": "每天"
+  },
+  "schedule_weekdays": {
+    "message": "工作日"
+  },
+  "schedule_weekends": {
+    "message": "周末"
+  },
+  "schedule_day_overlap": {
+    "message": "每一天只能使用一次。"
+  }
 }

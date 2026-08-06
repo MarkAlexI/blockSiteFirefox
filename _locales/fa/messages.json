@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – مسدودکننده وب‌سایت" },
-  "shortname": { "message": "مسدودکن" },
-  "description": { "message": "ابزاری ساده و قابل اعتماد برای مسدودسازی و هدایت مجدد وب‌سایت‌ها تا تمرکز خود را حفظ کنید." },
-  "defaulttitle": { "message": "متمرکز و مفید باشید" },
-  "header": { "message": "مسدودکن وب‌سایت" },
-  "paragraph": { "message": "برای مسدود کردن یک وب‌سایت یا منبع، بخشی از نام آن را در فیلد با جای‌نگهدار \"آدرس وب برای مسدودسازی\" وارد کنید – به‌عنوان مثال، \"facebook\" همه زیردامنه‌های مرتبط را مسدود می‌کند. در فیلد با جای‌نگهدار \"آدرس هدایت مجدد\"، آدرس کامل شامل پروتکل را وارد کنید، مثل \"https://google.com\". اگر فیلد هدایت خالی بماند، سایت بدون هدایت مسدود می‌شود. برای اعمال قانون، روی دکمه ذخیره کلیک کنید. برای بروزرسانی قانون، قانون قدیمی را حذف کرده و یک مورد جدید بسازید." },
-  "addrule": { "message": "افزودن قانون جدید" },
-  "blockurl": { "message": "آدرس وب برای مسدودسازی" },
-  "redirecturl": { "message": "آدرس هدایت مجدد (اختیاری)" },
-  "redirecturlheader": { "message": "نشانی URL تغییر مسیر" },
-  "redirecturlplaceholder": { "message": "اختیاری - برای مسدود کردن خالی بگذارید" },
-  "redirecturlhint": { "message": "یک URL کامل شامل https:// وارد کنید" },
-  "mobilecopylinkhint": { "message": "برای مسدود کردن یک پیوند، نشانی آن را کپی کرده و در فیلد مسدودسازی جای‌گذاری کنید." },
-  "savebtn": { "message": "ذخیره" },
-  "deletebtn": { "message": "حذف" },
-  "alertruleexist": { "message": "قانون از قبل وجود دارد" },
+  "chromename": {
+    "message": "BlockDistraction – مسدودکننده وب‌سایت"
+  },
+  "shortname": {
+    "message": "مسدودکن"
+  },
+  "description": {
+    "message": "ابزاری ساده و قابل اعتماد برای مسدودسازی و هدایت مجدد وب‌سایت‌ها تا تمرکز خود را حفظ کنید."
+  },
+  "defaulttitle": {
+    "message": "متمرکز و مفید باشید"
+  },
+  "header": {
+    "message": "مسدودکن وب‌سایت"
+  },
+  "paragraph": {
+    "message": "برای مسدود کردن یک وب‌سایت یا منبع، بخشی از نام آن را در فیلد با جای‌نگهدار \"آدرس وب برای مسدودسازی\" وارد کنید – به‌عنوان مثال، \"facebook\" همه زیردامنه‌های مرتبط را مسدود می‌کند. در فیلد با جای‌نگهدار \"آدرس هدایت مجدد\"، آدرس کامل شامل پروتکل را وارد کنید، مثل \"https://google.com\". اگر فیلد هدایت خالی بماند، سایت بدون هدایت مسدود می‌شود. برای اعمال قانون، روی دکمه ذخیره کلیک کنید. برای بروزرسانی قانون، قانون قدیمی را حذف کرده و یک مورد جدید بسازید."
+  },
+  "addrule": {
+    "message": "افزودن قانون جدید"
+  },
+  "blockurl": {
+    "message": "آدرس وب برای مسدودسازی"
+  },
+  "redirecturl": {
+    "message": "آدرس هدایت مجدد (اختیاری)"
+  },
+  "redirecturlheader": {
+    "message": "نشانی URL تغییر مسیر"
+  },
+  "redirecturlplaceholder": {
+    "message": "اختیاری - برای مسدود کردن خالی بگذارید"
+  },
+  "redirecturlhint": {
+    "message": "یک URL کامل شامل https:// وارد کنید"
+  },
+  "mobilecopylinkhint": {
+    "message": "برای مسدود کردن یک پیوند، نشانی آن را کپی کرده و در فیلد مسدودسازی جای‌گذاری کنید."
+  },
+  "savebtn": {
+    "message": "ذخیره"
+  },
+  "deletebtn": {
+    "message": "حذف"
+  },
+  "alertruleexist": {
+    "message": "قانون از قبل وجود دارد"
+  },
   "savedrules": {
     "message": "$ruleslength$ قانون ذخیره شد",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "این منبع قابل مسدود کردن نیست." },
-  "wrongblockurl": { "message": "نشانی اینترنتی نامعتبر برای مسدودسازی" },
-  "wrongredirecturl": { "message": "آدرس هدایت مجدد نامعتبر است" },
-  "blockthat": { "message": "این سایت را مسدود کن" },
-  "sendfeedbackbutton": { "message": "ارسال بازخورد" },
-  "sendfeedbacksubject": { "message": "بازخورد برای BlockDistraction" },
-  "sendfeedbackbody": { "message": "سلام، می‌خواهم بازخورد زیر را به اشتراک بگذارم:\n\n" },
-  "quote1": { "message": "متمرکز بمان، قوی بمان." },
-  "quote2": { "message": "آینده شما با آنچه امروز انجام می‌دهید ساخته می‌شود." },
-  "quote3": { "message": "انضباط پل بین اهداف و موفقیت است." },
-  "quote4": { "message": "یک سایت مسدود شده، یک قدم به هدفت نزدیک‌تر." },
-  "quote5": { "message": "هر کلیک اهمیت دارد." },
-  "quote6": { "message": "به ساعت نگاه نکن؛ مثل آن عمل کن. ادامه بده." },
-  "quote7": { "message": "قدم‌های کوچک روزانه به نتایج بزرگ منجر می‌شوند." },
-  "quote8": { "message": "تنها محدودیت تو ذهن توست." },
-  "quote9": { "message": "موفقیت حاصل جمع تلاش‌های کوچک روزانه است." },
-  "quote10": { "message": "روی مفید بودن تمرکز کن، نه شلوغ بودن." },
-  "quote11": { "message": "حواس خود را محافظت کنید – ارزشمندترین دارایی شماست." },
-  "quote12": { "message": "هر حواس‌پرتی که مسدود شود، زمان بازپس‌گیری شده است." },
-  "quote13": { "message": "سر و صدا را کاهش دهید؛ بهره‌وری خود را افزایش دهید." },
-  "quote14": { "message": "روال‌های کوچک، شتاب غیرقابل توقف می‌سازند." },
-  "quote15": { "message": "وضوح بر هرج و مرج پیروز است – روی آنچه مهم است تمرکز کنید." },
-  "quote16": { "message": "به حواس‌پرتی‌ها نه بگویید؛ به پیشرفت بله بگویید." },
-  "quote17": { "message": "یک ساعت متمرکز امروز، نتایج فردا را چند برابر می‌کند." },
-  "quote18": { "message": "با مصرف کمتر، بیشتر خلق کنید." },
-  "quote19": { "message": "انضباط، بردهای بلندمدت را بر تکانش‌های کوتاه‌مدت ترجیح می‌دهد." },
-  "quote20": { "message": "یک تب را ببندید، فضا برای ایده‌های جدید باز کنید." },
-  "quote21": { "message": "کاری که امروز از آن اجتناب می‌کنی، ممکن است به استرس فردا تبدیل شود." },
-  "quote22": { "message": "تمرکز یعنی نه انجام دادنِ بیشتر، بلکه انجام دادنِ آنچه واقعاً مهم است." },
-  "quote23": { "message": "اهداف تو شایسته توجه بیشتری نسبت به حواس‌پرتی‌هایت هستند." },
-  "quote24": { "message": "هر دقیقه بدون حواس‌پرتی، سرمایه‌گذاری روی خودت است." },
-  "quote25": { "message": "پیوستگی نتایج پایدارتر از جهش‌های کوتاه انگیزه ایجاد می‌کند." },
-  "quote26": { "message": "بهترین زمان برای شروع دیروز بود. بهترین زمان بعدی اکنون است." },
-  "quote27": { "message": "پیشرفت زمانی آغاز می‌شود که به جای حواس‌پرتی، عمل را انتخاب کنی." },
-  "quote28": { "message": "یک لحظه تمرکز می‌تواند مسیر کل روزت را تغییر دهد." },
-  "quote29": { "message": "تو به زمان بیشتر نیاز نداری، به حواس‌پرتی کمتر نیاز داری." },
-  "quote30": { "message": "هر انتخاب برای تمرکز، آینده‌ی تو را قوی‌تر می‌کند." },
-  "quote31": { "message": "این مسدودسازی موقتی است؛ اهداف تو بلندمدت هستند." },
-  "quote32": { "message": "هر محتوای مزاحمِ مسدودشده، یک پیروزی برای آینده‌ی توست." },
-  "quote33": { "message": "اینترنت بی‌نهایت است، اما زمان تو نه." },
-  "quote34": { "message": "اولویت‌هایت را مشخص کن، قبل از آن‌که وب برایت تصمیم بگیرد." },
-  "quote35": { "message": "اسکرول کمتر، خلق کردن بیشتر." },
-  "quote36": { "message": "توجه تو، دستاوردهایت را شکل می‌دهد." },
-  "quote37": { "message": "متمرکز بمان — حواس‌پرتی می‌تواند صبر کند." },
-  "quote38": { "message": "هر تصمیم سازنده با ذهنی متمرکز آغاز می‌شود." },
-  "quote39": { "message": "تو یک وب‌سایت را مسدود کردی، نه توانایی‌هایت را." },
-  "quote40": { "message": "مسیر موفقیت با تصمیم‌های متمرکز ساخته می‌شود." },
-  "actionsheader": { "message": "عملیات" },
-  "norules": { "message": "هیچ سایتی مسدود نشده است." },
-  "editbtn": { "message": "ویرایش" },
-  "ruleddeleted": { "message": "قانون حذف شد." },
-  "cancelbtn": { "message": "لغو" },
-  "ruleupdated": { "message": "قانون بروزرسانی شد." },
-  "rulenewadded": { "message": "قانون جدید اضافه شد." },
-  "gotooptions": { "message": "رفتن به صفحه تنظیمات ⚙️" },
-  "gotopopup": { "message": "برای بازگشت به پنجره پاپاپ، روی آیکون افزونه کلیک کنید." },
-  "rulesmigrated": { "message": "قوانین برای سازگاری به‌روزرسانی شدند" },
-  "errorupdatingrules": { "message": "خطا در به‌روزرسانی قوانین" },
-  "erroraddingrule": { "message": "خطا در افزودن قانون" },
-  "errorremovingrule": { "message": "خطا در حذف قانون" },
-  "optionsheader": { "message": "تنظیمات افزونه" },
-  "optionsdescription": { "message": "رفتار افزونه و تنظیمات امنیتی را پیکربندی کنید" },
-  "securitymodetitle": { "message": "حالت امنیتی" },
-  "normalmodetitle": { "message": "حالت عادی" },
-  "normalmodedesc": { "message": "قوانین را می‌توان فوراً با یک کلیک حذف کرد" },
-  "strictmodetitle": { "message": "حالت سختگیرانه" },
-  "strictmodedesc": { "message": "برای حذف قوانین نیاز به شمارش معکوس ۱۰ ثانیه‌ای است تا از حذف تصادفی جلوگیری شود" },
-  "confirmdeletetitle": { "message": "تأیید قبل از حذف چند قانون" },
-  "confirmdeletedesc": { "message": "نمایش گفتگوی تأیید هنگام حذف چندین قانون به طور همزمان" },
-  "notificationstitle": { "message": "نمایش اعلان‌ها" },
-  "notificationsdesc": { "message": "هنگام به‌روزرسانی افزونه اعلان‌ها را نمایش بده" },
-  "rulesmanagementtitle": { "message": "مدیریت قوانین" },
-  "exportrulesbtn": { "message": "صدور قوانین" },
-  "importrulesbtn": { "message": "وارد کردن قوانین" },
-  "clearallrulesbtn": { "message": "حذف همه قوانین" },
-  "totalruleslabel": { "message": "مجموع قوانین" },
-  "blockedtodaylabel": { "message": "مسدود شده امروز" },
-  "totalblockedlabel": { "message": "مجموع مسدود شده‌ها" },
-  "resetsettingsbtn": { "message": "بازنشانی به پیش‌فرض‌ها" },
-  "backtopopup": { "message": "بازگشت به منو اصلی" },
-  "errorloadingsettings": { "message": "خطا در بارگذاری تنظیمات" },
-  "settingssaved": { "message": "تنظیمات با موفقیت ذخیره شد!" },
-  "errorsavingsettings": { "message": "خطا در ذخیره تنظیمات" },
-  "rulesexported": { "message": "قوانین با موفقیت صادر شدند!" },
-  "errorexportingrules": { "message": "خطا در صدور قوانین" },
+  "restrictedblockurl": {
+    "message": "این منبع قابل مسدود کردن نیست."
+  },
+  "wrongblockurl": {
+    "message": "نشانی اینترنتی نامعتبر برای مسدودسازی"
+  },
+  "wrongredirecturl": {
+    "message": "آدرس هدایت مجدد نامعتبر است"
+  },
+  "blockthat": {
+    "message": "این سایت را مسدود کن"
+  },
+  "sendfeedbackbutton": {
+    "message": "ارسال بازخورد"
+  },
+  "sendfeedbacksubject": {
+    "message": "بازخورد برای BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "سلام، می‌خواهم بازخورد زیر را به اشتراک بگذارم:\n\n"
+  },
+  "quote1": {
+    "message": "متمرکز بمان، قوی بمان."
+  },
+  "quote2": {
+    "message": "آینده شما با آنچه امروز انجام می‌دهید ساخته می‌شود."
+  },
+  "quote3": {
+    "message": "انضباط پل بین اهداف و موفقیت است."
+  },
+  "quote4": {
+    "message": "یک سایت مسدود شده، یک قدم به هدفت نزدیک‌تر."
+  },
+  "quote5": {
+    "message": "هر کلیک اهمیت دارد."
+  },
+  "quote6": {
+    "message": "به ساعت نگاه نکن؛ مثل آن عمل کن. ادامه بده."
+  },
+  "quote7": {
+    "message": "قدم‌های کوچک روزانه به نتایج بزرگ منجر می‌شوند."
+  },
+  "quote8": {
+    "message": "تنها محدودیت تو ذهن توست."
+  },
+  "quote9": {
+    "message": "موفقیت حاصل جمع تلاش‌های کوچک روزانه است."
+  },
+  "quote10": {
+    "message": "روی مفید بودن تمرکز کن، نه شلوغ بودن."
+  },
+  "quote11": {
+    "message": "حواس خود را محافظت کنید – ارزشمندترین دارایی شماست."
+  },
+  "quote12": {
+    "message": "هر حواس‌پرتی که مسدود شود، زمان بازپس‌گیری شده است."
+  },
+  "quote13": {
+    "message": "سر و صدا را کاهش دهید؛ بهره‌وری خود را افزایش دهید."
+  },
+  "quote14": {
+    "message": "روال‌های کوچک، شتاب غیرقابل توقف می‌سازند."
+  },
+  "quote15": {
+    "message": "وضوح بر هرج و مرج پیروز است – روی آنچه مهم است تمرکز کنید."
+  },
+  "quote16": {
+    "message": "به حواس‌پرتی‌ها نه بگویید؛ به پیشرفت بله بگویید."
+  },
+  "quote17": {
+    "message": "یک ساعت متمرکز امروز، نتایج فردا را چند برابر می‌کند."
+  },
+  "quote18": {
+    "message": "با مصرف کمتر، بیشتر خلق کنید."
+  },
+  "quote19": {
+    "message": "انضباط، بردهای بلندمدت را بر تکانش‌های کوتاه‌مدت ترجیح می‌دهد."
+  },
+  "quote20": {
+    "message": "یک تب را ببندید، فضا برای ایده‌های جدید باز کنید."
+  },
+  "quote21": {
+    "message": "کاری که امروز از آن اجتناب می‌کنی، ممکن است به استرس فردا تبدیل شود."
+  },
+  "quote22": {
+    "message": "تمرکز یعنی نه انجام دادنِ بیشتر، بلکه انجام دادنِ آنچه واقعاً مهم است."
+  },
+  "quote23": {
+    "message": "اهداف تو شایسته توجه بیشتری نسبت به حواس‌پرتی‌هایت هستند."
+  },
+  "quote24": {
+    "message": "هر دقیقه بدون حواس‌پرتی، سرمایه‌گذاری روی خودت است."
+  },
+  "quote25": {
+    "message": "پیوستگی نتایج پایدارتر از جهش‌های کوتاه انگیزه ایجاد می‌کند."
+  },
+  "quote26": {
+    "message": "بهترین زمان برای شروع دیروز بود. بهترین زمان بعدی اکنون است."
+  },
+  "quote27": {
+    "message": "پیشرفت زمانی آغاز می‌شود که به جای حواس‌پرتی، عمل را انتخاب کنی."
+  },
+  "quote28": {
+    "message": "یک لحظه تمرکز می‌تواند مسیر کل روزت را تغییر دهد."
+  },
+  "quote29": {
+    "message": "تو به زمان بیشتر نیاز نداری، به حواس‌پرتی کمتر نیاز داری."
+  },
+  "quote30": {
+    "message": "هر انتخاب برای تمرکز، آینده‌ی تو را قوی‌تر می‌کند."
+  },
+  "quote31": {
+    "message": "این مسدودسازی موقتی است؛ اهداف تو بلندمدت هستند."
+  },
+  "quote32": {
+    "message": "هر محتوای مزاحمِ مسدودشده، یک پیروزی برای آینده‌ی توست."
+  },
+  "quote33": {
+    "message": "اینترنت بی‌نهایت است، اما زمان تو نه."
+  },
+  "quote34": {
+    "message": "اولویت‌هایت را مشخص کن، قبل از آن‌که وب برایت تصمیم بگیرد."
+  },
+  "quote35": {
+    "message": "اسکرول کمتر، خلق کردن بیشتر."
+  },
+  "quote36": {
+    "message": "توجه تو، دستاوردهایت را شکل می‌دهد."
+  },
+  "quote37": {
+    "message": "متمرکز بمان — حواس‌پرتی می‌تواند صبر کند."
+  },
+  "quote38": {
+    "message": "هر تصمیم سازنده با ذهنی متمرکز آغاز می‌شود."
+  },
+  "quote39": {
+    "message": "تو یک وب‌سایت را مسدود کردی، نه توانایی‌هایت را."
+  },
+  "quote40": {
+    "message": "مسیر موفقیت با تصمیم‌های متمرکز ساخته می‌شود."
+  },
+  "actionsheader": {
+    "message": "عملیات"
+  },
+  "norules": {
+    "message": "هیچ سایتی مسدود نشده است."
+  },
+  "editbtn": {
+    "message": "ویرایش"
+  },
+  "ruleddeleted": {
+    "message": "قانون حذف شد."
+  },
+  "cancelbtn": {
+    "message": "لغو"
+  },
+  "ruleupdated": {
+    "message": "قانون بروزرسانی شد."
+  },
+  "rulenewadded": {
+    "message": "قانون جدید اضافه شد."
+  },
+  "gotooptions": {
+    "message": "رفتن به صفحه تنظیمات ⚙️"
+  },
+  "gotopopup": {
+    "message": "برای بازگشت به پنجره پاپاپ، روی آیکون افزونه کلیک کنید."
+  },
+  "rulesmigrated": {
+    "message": "قوانین برای سازگاری به‌روزرسانی شدند"
+  },
+  "errorupdatingrules": {
+    "message": "خطا در به‌روزرسانی قوانین"
+  },
+  "erroraddingrule": {
+    "message": "خطا در افزودن قانون"
+  },
+  "errorremovingrule": {
+    "message": "خطا در حذف قانون"
+  },
+  "optionsheader": {
+    "message": "تنظیمات افزونه"
+  },
+  "optionsdescription": {
+    "message": "رفتار افزونه و تنظیمات امنیتی را پیکربندی کنید"
+  },
+  "securitymodetitle": {
+    "message": "حالت امنیتی"
+  },
+  "normalmodetitle": {
+    "message": "حالت عادی"
+  },
+  "normalmodedesc": {
+    "message": "قوانین را می‌توان فوراً با یک کلیک حذف کرد"
+  },
+  "strictmodetitle": {
+    "message": "حالت سختگیرانه"
+  },
+  "strictmodedesc": {
+    "message": "برای حذف قوانین نیاز به شمارش معکوس ۱۰ ثانیه‌ای است تا از حذف تصادفی جلوگیری شود"
+  },
+  "confirmdeletetitle": {
+    "message": "تأیید قبل از حذف چند قانون"
+  },
+  "confirmdeletedesc": {
+    "message": "نمایش گفتگوی تأیید هنگام حذف چندین قانون به طور همزمان"
+  },
+  "notificationstitle": {
+    "message": "نمایش اعلان‌ها"
+  },
+  "notificationsdesc": {
+    "message": "هنگام به‌روزرسانی افزونه اعلان‌ها را نمایش بده"
+  },
+  "rulesmanagementtitle": {
+    "message": "مدیریت قوانین"
+  },
+  "exportrulesbtn": {
+    "message": "صدور قوانین"
+  },
+  "importrulesbtn": {
+    "message": "وارد کردن قوانین"
+  },
+  "clearallrulesbtn": {
+    "message": "حذف همه قوانین"
+  },
+  "totalruleslabel": {
+    "message": "مجموع قوانین"
+  },
+  "blockedtodaylabel": {
+    "message": "مسدود شده امروز"
+  },
+  "totalblockedlabel": {
+    "message": "مجموع مسدود شده‌ها"
+  },
+  "resetsettingsbtn": {
+    "message": "بازنشانی به پیش‌فرض‌ها"
+  },
+  "backtopopup": {
+    "message": "بازگشت به منو اصلی"
+  },
+  "errorloadingsettings": {
+    "message": "خطا در بارگذاری تنظیمات"
+  },
+  "settingssaved": {
+    "message": "تنظیمات با موفقیت ذخیره شد!"
+  },
+  "errorsavingsettings": {
+    "message": "خطا در ذخیره تنظیمات"
+  },
+  "rulesexported": {
+    "message": "قوانین با موفقیت صادر شدند!"
+  },
+  "errorexportingrules": {
+    "message": "خطا در صدور قوانین"
+  },
   "willimportrules": {
     "message": "$ruleslength$ قانون وارد خواهد شد.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "قوانین فعلی جایگزین خواهند شد. ادامه دهید؟" },
+  "ruleswillbereplaced": {
+    "message": "قوانین فعلی جایگزین خواهند شد. ادامه دهید؟"
+  },
   "importedrules": {
     "message": "$ruleslength$ قانون با موفقیت وارد شد!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "خطا در وارد کردن قوانین: " },
-  "norulestoclear": { "message": "قوانینی برای حذف وجود ندارد" },
+  "errorimportingrules": {
+    "message": "خطا در وارد کردن قوانین: "
+  },
+  "norulestoclear": {
+    "message": "قوانینی برای حذف وجود ندارد"
+  },
   "willdeleteallrules": {
     "message": "این کار همه $rulescount$ قانون را برای همیشه حذف خواهد کرد.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "این عمل قابل بازگشت نیست. ادامه دهید؟" },
-  "allrulescleared": { "message": "همه قوانین با موفقیت حذف شدند!" },
-  "errorclearingrules": { "message": "خطا در حذف قوانین" },
-  "willreset": { "message": "همه تنظیمات به پیش‌فرض‌ها بازنشانی خواهند شد. ادامه دهید؟" },
-  "resettodefaults": { "message": "تنظیمات به پیش‌فرض‌ها بازنشانی شدند!" },
-  "errorresettingsettings": { "message": "خطا در بازنشانی تنظیمات" },
-  "basicsettingstitle": { "message": "تنظیمات پایه" },
-  "advancedsettingstitle": { "message": "تنظیمات پیشرفته" },
-  "statisticstitle": { "message": "آمار" },
+  "cannotbeundone": {
+    "message": "این عمل قابل بازگشت نیست. ادامه دهید؟"
+  },
+  "allrulescleared": {
+    "message": "همه قوانین با موفقیت حذف شدند!"
+  },
+  "errorclearingrules": {
+    "message": "خطا در حذف قوانین"
+  },
+  "willreset": {
+    "message": "همه تنظیمات به پیش‌فرض‌ها بازنشانی خواهند شد. ادامه دهید؟"
+  },
+  "resettodefaults": {
+    "message": "تنظیمات به پیش‌فرض‌ها بازنشانی شدند!"
+  },
+  "errorresettingsettings": {
+    "message": "خطا در بازنشانی تنظیمات"
+  },
+  "basicsettingstitle": {
+    "message": "تنظیمات پایه"
+  },
+  "advancedsettingstitle": {
+    "message": "تنظیمات پیشرفته"
+  },
+  "statisticstitle": {
+    "message": "آمار"
+  },
   "rulelimitreached": {
     "message": "شما به حد مجاز قوانین ($limit$) در نسخه پایه رسیده‌اید. برای قوانین نامحدود به نسخه حرفه‌ای ارتقا دهید.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "برای ویرایش نیاز به نسخه حرفه‌ای است." },
-  "invalidpassword": { "message": "رمز عبور نامعتبر" },
-  "setpassword": { "message": "تنظیم رمز عبور" },
-  "enterpassword": { "message": "رمز عبور را وارد کنید" },
-  "passwordmismatch": { "message": "رمزهای عبور مطابقت ندارند" },
-  "passwordtooshort": { "message": "رمز عبور باید حداقل ۶ کاراکتر باشد" },
-  "resetpasswordconfirm": { "message": "بازنشانی رمز عبور، حفاظت را غیرفعال می‌کند. ادامه می‌دهید؟" },
-  "passwordset": { "message": "رمز عبور با موفقیت تنظیم شد" },
-  "passworddisabled": { "message": "حفاظت رمز عبور غیرفعال شد" },
-  "prorequired": { "message": "برای این ویژگی نیاز به حالت حرفه‌ای است" },
-  "enablepasswordtitle": { "message": "فعال‌سازی حفاظت رمز عبور" },
-  "enablepassworddesc": { "message": "نیاز به رمز عبور برای حذف یا ویرایش قوانین دارد (حالت سخت‌گیرانه را تقویت می‌کند)" },
-  "passwordprotectiontitle": { "message": "حفاظت رمز عبور" },
-  "scheduleheader": { "message": "برنامه‌ زمان‌بندی" },
-  "enableschedule": { "message": "فعال‌سازی برنامه‌ زمان‌بندی" },
-  "alwaysactive": { "message": "همیشه فعال" },
-  "profeatureschedule": { "message": "برنامه‌ زمان‌بندی فقط در نسخه Pro در دسترس است" },
-  "days": { "message": "روزها" },
-  "starttime": { "message": "زمان شروع:" },
-  "endtime": { "message": "زمان پایان:" },
-  "invaliddays": { "message": "روزهای انتخاب‌شده نامعتبر هستند" },
-  "invalidtimeformat": { "message": "قالب زمان نامعتبر است (از HH:MM استفاده کنید)" },
-  "startafterend": { "message": "زمان شروع باید قبل از زمان پایان باشد" },
-  "invalidschedule": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً روزها و زمان‌ها را انتخاب کنید." },
-  "invalidscheduledays": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً حداقل یک روز را انتخاب کنید." },
-  "invalidschedulestarttime": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان شروع را تنظیم کنید." },
-  "invalidscheduleendtime": { "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان پایان را تنظیم کنید." },
-  "editdisablednonpro": { "message": "ویرایش غیرفعال است: قوانین بیش از حد برای کاربران غیر Pro." },
-  "errorloadingstatus": { "message": "خطا در بارگذاری وضعیت کاربر." },
-  "schedule_day_sun": { "message": "یک" },
-  "schedule_day_mon": { "message": "دوش" },
-  "schedule_day_tue": { "message": "سه‌شنبه" },
-  "schedule_day_wed": { "message": "چهار" },
-  "schedule_day_thu": { "message": "پنج" },
-  "schedule_day_fri": { "message": "جمعه" },
-  "schedule_day_sat": { "message": "شنبه" },
-  "category_header": { "message": "دسته‌بندی" },
-  "category_required": { "message": "دسته‌بندی الزامی است" },
-  "allcategories": { "message": "تمام دسته‌ها" },
-  "category_social": { "message": "رسانه‌های اجتماعی" },
-  "category_news": { "message": "اخبار" },
-  "category_entertainment": { "message": "سرگرمی" },
-  "category_shopping": { "message": "خرید" },
-  "category_work": { "message": "کار" },
-  "category_gaming": { "message": "بازی‌ها" },
-  "category_adult": { "message": "محتوای بزرگسالان" },
-  "category_uncategorized": { "message": "بدون دسته‌بندی" },
-  "searchfordomain": { "message": "جستجوی نام دامنه" },
-  "norulesforcategory": { "message": "هیچ سایتی برای این دسته‌بندی مسدود نشده است." },
-  "getpro": { "message": "دریافت Pro" },
-  "profunctionstext": { "message": "ویژگی‌های Pro شامل: مسدودسازی زمان‌بندی شده، حفاظت با رمز عبور، فیلتر قوانین و صادرات/واردات قوانین است. از مجوز جهانی ما لذت ببرید: یک اشتراک، Pro را در تمام مرورگرهای شما فعال می‌کند (Chrome، Firefox، Edge، Kiwi). برای فعال‌سازی، یک اشتراک از blockdistraction.com خریداری کنید، سپس کلید مجوز خود را از داشبورد حساب کاربری کپی کرده و در پایین بچسبانید." },
-  "upgradenow": { "message": "اکنون ارتقا دهید" },
-  "enteremail": { "message": "ایمیل خود را وارد کنید" },
-  "activatepro": { "message": "فعال‌سازی Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "بازیابی دسترسی" },
-  "pleaseenteremail": { "message": "لطفاً ایمیل خود را وارد کنید" },
-  "checking": { "message": "در حال بررسی..." },
-  "proactivated": { "message": "ویژگی‌های Pro فعال شد!" },
-  "subscriptionnotfound": { "message": "اشتراک فعال نیست یا ایمیل یافت نشد." },
-  "servererror": { "message": "خطای سرور. لطفاً دوباره تلاش کنید." },
-  "proactivatedfor": { "message": "Pro فعال شد برای" },
+  "proonlyactions": {
+    "message": "برای ویرایش نیاز به نسخه حرفه‌ای است."
+  },
+  "invalidpassword": {
+    "message": "رمز عبور نامعتبر"
+  },
+  "setpassword": {
+    "message": "تنظیم رمز عبور"
+  },
+  "enterpassword": {
+    "message": "رمز عبور را وارد کنید"
+  },
+  "passwordmismatch": {
+    "message": "رمزهای عبور مطابقت ندارند"
+  },
+  "passwordtooshort": {
+    "message": "رمز عبور باید حداقل ۶ کاراکتر باشد"
+  },
+  "resetpasswordconfirm": {
+    "message": "بازنشانی رمز عبور، حفاظت را غیرفعال می‌کند. ادامه می‌دهید؟"
+  },
+  "passwordset": {
+    "message": "رمز عبور با موفقیت تنظیم شد"
+  },
+  "passworddisabled": {
+    "message": "حفاظت رمز عبور غیرفعال شد"
+  },
+  "prorequired": {
+    "message": "برای این ویژگی نیاز به حالت حرفه‌ای است"
+  },
+  "enablepasswordtitle": {
+    "message": "فعال‌سازی حفاظت رمز عبور"
+  },
+  "enablepassworddesc": {
+    "message": "نیاز به رمز عبور برای حذف یا ویرایش قوانین دارد (حالت سخت‌گیرانه را تقویت می‌کند)"
+  },
+  "passwordprotectiontitle": {
+    "message": "حفاظت رمز عبور"
+  },
+  "scheduleheader": {
+    "message": "برنامه‌ زمان‌بندی"
+  },
+  "enableschedule": {
+    "message": "فعال‌سازی برنامه‌ زمان‌بندی"
+  },
+  "alwaysactive": {
+    "message": "همیشه فعال"
+  },
+  "profeatureschedule": {
+    "message": "برنامه‌ زمان‌بندی فقط در نسخه Pro در دسترس است"
+  },
+  "days": {
+    "message": "روزها"
+  },
+  "starttime": {
+    "message": "زمان شروع:"
+  },
+  "endtime": {
+    "message": "زمان پایان:"
+  },
+  "invaliddays": {
+    "message": "روزهای انتخاب‌شده نامعتبر هستند"
+  },
+  "invalidtimeformat": {
+    "message": "قالب زمان نامعتبر است (از HH:MM استفاده کنید)"
+  },
+  "startafterend": {
+    "message": "زمان شروع باید قبل از زمان پایان باشد"
+  },
+  "invalidschedule": {
+    "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً روزها و زمان‌ها را انتخاب کنید."
+  },
+  "invalidscheduledays": {
+    "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً حداقل یک روز را انتخاب کنید."
+  },
+  "invalidschedulestarttime": {
+    "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان شروع را تنظیم کنید."
+  },
+  "invalidscheduleendtime": {
+    "message": "برنامه‌ زمان‌بندی نامعتبر: لطفاً زمان پایان را تنظیم کنید."
+  },
+  "editdisablednonpro": {
+    "message": "ویرایش غیرفعال است: قوانین بیش از حد برای کاربران غیر Pro."
+  },
+  "errorloadingstatus": {
+    "message": "خطا در بارگذاری وضعیت کاربر."
+  },
+  "schedule_day_sun": {
+    "message": "یک"
+  },
+  "schedule_day_mon": {
+    "message": "دوش"
+  },
+  "schedule_day_tue": {
+    "message": "سه‌شنبه"
+  },
+  "schedule_day_wed": {
+    "message": "چهار"
+  },
+  "schedule_day_thu": {
+    "message": "پنج"
+  },
+  "schedule_day_fri": {
+    "message": "جمعه"
+  },
+  "schedule_day_sat": {
+    "message": "شنبه"
+  },
+  "category_header": {
+    "message": "دسته‌بندی"
+  },
+  "category_required": {
+    "message": "دسته‌بندی الزامی است"
+  },
+  "allcategories": {
+    "message": "تمام دسته‌ها"
+  },
+  "category_social": {
+    "message": "رسانه‌های اجتماعی"
+  },
+  "category_news": {
+    "message": "اخبار"
+  },
+  "category_entertainment": {
+    "message": "سرگرمی"
+  },
+  "category_shopping": {
+    "message": "خرید"
+  },
+  "category_work": {
+    "message": "کار"
+  },
+  "category_gaming": {
+    "message": "بازی‌ها"
+  },
+  "category_adult": {
+    "message": "محتوای بزرگسالان"
+  },
+  "category_uncategorized": {
+    "message": "بدون دسته‌بندی"
+  },
+  "searchfordomain": {
+    "message": "جستجوی نام دامنه"
+  },
+  "norulesforcategory": {
+    "message": "هیچ سایتی برای این دسته‌بندی مسدود نشده است."
+  },
+  "getpro": {
+    "message": "دریافت Pro"
+  },
+  "profunctionstext": {
+    "message": "ویژگی‌های Pro شامل: مسدودسازی زمان‌بندی شده، حفاظت با رمز عبور، فیلتر قوانین و صادرات/واردات قوانین است. از مجوز جهانی ما لذت ببرید: یک اشتراک، Pro را در تمام مرورگرهای شما فعال می‌کند (Chrome، Firefox، Edge، Kiwi). برای فعال‌سازی، یک اشتراک از blockdistraction.com خریداری کنید، سپس کلید مجوز خود را از داشبورد حساب کاربری کپی کرده و در پایین بچسبانید."
+  },
+  "upgradenow": {
+    "message": "اکنون ارتقا دهید"
+  },
+  "enteremail": {
+    "message": "ایمیل خود را وارد کنید"
+  },
+  "activatepro": {
+    "message": "فعال‌سازی Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "بازیابی دسترسی"
+  },
+  "pleaseenteremail": {
+    "message": "لطفاً ایمیل خود را وارد کنید"
+  },
+  "checking": {
+    "message": "در حال بررسی..."
+  },
+  "proactivated": {
+    "message": "ویژگی‌های Pro فعال شد!"
+  },
+  "subscriptionnotfound": {
+    "message": "اشتراک فعال نیست یا ایمیل یافت نشد."
+  },
+  "servererror": {
+    "message": "خطای سرور. لطفاً دوباره تلاش کنید."
+  },
+  "proactivatedfor": {
+    "message": "Pro فعال شد برای"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "درخواست دسترسی ناموفق بود (ممکن است در موبایل رخ دهد). دوباره تلاش کنید یا به صورت دستی دسترسی را از تنظیمات اعطا کنید."
   },
-  "pastekeylabel": { "message": "کلید مجوز خود را اینجا بچسبانید:" },
-  "confirmclearstats": { "message": "آیا مطمئن هستید که می‌خواهید تمام آمار را پاک کنید؟ این عمل قابل بازگشت نیست." },
-  "statscleared": { "message": "آمار با موفقیت پاک شد." },
-  "redirectstodaylabel": { "message": "تغییر مسیرهای امروز" },
-  "totalredirectslabel": { "message": "مجموع تغییر مسیرها" },
-  "logout": { "message": "خروج" },
-  "loggedoutsuccess": { "message": "شما با موفقیت خارج شدید." },
-  "loggedouterror": { "message": "هنگام خروج خطایی رخ داد." },
-  "forcesync": { "message": "همگام‌سازی اجباری / بررسی وضعیت" },
-  "forgotpasswordinstructions": { "message": "برای بازنشانی گذرواژه، به بخش «Pro» بروید، روی «خروج» کلیک کنید و سپس با چسباندن کلید مجوز خود دوباره فعال کنید." },
-  "blockedtitle": { "message": "سایت در دسترس نیست" },
-  "blockedheader": { "message": "این سایت در حال حاضر در دسترس نیست" },
-  "blockedtext": { "message": "این محتوا قابل نمایش نیست." },
-  "blockedbutton": { "message": "بستن تب" },
-  "confirmpassword": { "message": "تأیید رمز عبور" },
-  "modalconfirm": { "message": "تأیید" },
-  "modalcancel": { "message": "لغو" },
-  "forgotpassword": { "message": "رمز عبور را فراموش کرده‌اید؟ بازنشانی (محافظت پاک خواهد شد)" },
-  "prounlocked": { "message": "از حمایت شما متشکریم! همه ویژگی‌های Pro فعال شده‌اند." },
-  "licensesynced": { "message": "مجوز شما با حساب کاربری‌تان همگام‌سازی شده است. اگر دسترسی خود را از دست دادید، می‌توانید کلید خود را از اینجا بازیابی کنید: " },
-  "syncing": { "message": "در حال همگام‌سازی..." },
-  "pleaseenterkey": { "message": "لطفاً یک کلید وارد کنید." },
-  "syncsuccess": { "message": "همگام‌سازی موفقیت‌آمیز بود" },
-  "syncfailed": { "message": "همگام‌سازی ناموفق بود." },
-  "passwordreset": { "message": "محافظت با رمز عبور بازنشانی شد." },
-  "privacysecured": { "message": "حریم خصوصی ایمن شد" },
-  "errorinvalidfiletype": { "message": "لطفاً یک فایل .json انتخاب کنید" },
-  "debugsettingstitle": { "message": "تنظیمات رفع اشکال" },
-  "enabledebugtitle": { "message": "فعال‌سازی حالت دیباگ" },
-  "enabledebugdesc": { "message": "فعال‌سازی ثبت جزئیات در کنسول برای عیب‌یابی" },
-  "errorcommunication": { "message": "خطا در ارتباط با سرویس پس‌زمینه" },
-  "clearstats": { "message": "پاک کردن آمار" },
-  "rule_enabled": { "message": "فعال" },
-  "rule_disabled": { "message": "غیرفعال" },
-  "filter_only_hint": { "message": "این فهرست فقط نمایش در جدول را فیلتر می‌کند" },
-  "category_disabled_desc": { "message": "یک دسته را بی‌صدا کنید تا به‌طور موقت دسترسی به همه سایت‌های آن مجاز شود. تنظیمات قوانین فردی حفظ می‌شوند." },
-  "toggle_category_blocking": { "message": "تغییر وضعیت مسدودسازی برای کل دسته" },
-  "category_muted_no_edit": { "message": "قابل مدیریت نیست: مسدودسازی دسته موقتاً متوقف شده است" },
-  "feedback_title": { "message": "آیا BlockDistraction را دوست دارید؟" },
-  "feedback_desc": { "message": "بازخورد شما کمک زیادی به بهبود افزونه می‌کند." },
-  "feedback_like": { "message": "بله، خیلی خوب کار می‌کند!" },
-  "feedback_dislike": { "message": "مشکل / پیشنهاد دارم" },
-  "trialproheader": { "message": "دوره آزمایشی ۷ روزه رایگان خود را شروع کنید" },
-  "trialprotext": { "message": "لغو در هر زمان. پرداخت‌های شما کاملاً ایمن و محفوظ است." },
-  "focussessionheader": { "message": "جلسه تمرکز" },
-  "focussessionstart": { "message": "شروع" },
-  "focussessionstop": { "message": "توقف" },
-  "focussessionduration": { "message": "مدت زمان (دقیقه):" },
-  "focussessioninfo": { "message": "فعال‌سازی تمام قوانین مسدودسازی شما برای یک زمان مشخص، با نادیده گرفتن تنظیمات و زمان‌بندی‌های فعلی آن‌ها. برای حداکثر تمرکز." },
-  "focussessionprofeature": { "message": "مدت زمان سفارشی و حالت سخت‌گیرانه (Hardcore) از ویژگی‌های نسخه پرو (Pro) هستند." },
-  "focussessionended": { "message": "جلسه تمرکز به پایان رسید! کمی استراحت کنید." },
-  "focussessionhardcore": { "message": "حالت سخت‌گیرانه (بدون دکمه «توقف»)" },
-  "focussessionsoundtitle": { "message": "اعلان صوتی جلسه تمرکز" },
-  "focussessionsounddesc": { "message": "پخش صدا هنگام به پایان رسیدن جلسه تمرکز." },
-  "focussessionactivebanner": { "message": "جلسه تمرکز فعال است! زمان باقی‌مانده:" },
-  "focussessioninvalidduration": { "message": "لطفاً یک مدت زمان معتبر وارد کنید (۱ تا ۲۴۰ دقیقه)." },
-  "successfulfocussessionslabel": { "message": "جلسات تمرکز موفق" },
-  "rule_scheduled": { "message": "قانون زمان‌بندی‌شده" },
-  "addwhitelistrule": { "message": "افزودن استثنا" },
-  "category_whitelist": { "message": "لیست سفید" },
-  "conflict_blacklist_err": { "message": "این سایت از قبل در لیست سیاه شما قرار دارد. ابتدا آن را حذف کنید." },
-  "conflict_whitelist_err": { "message": "این سایت از قبل در لیست سفید شما قرار دارد. ابتدا آن را حذف کنید." },
-  "status_allow": { "message": "مجاز" },
-  "redundant_whitelist_err": { "message": "این قانون از قبل توسط قانون دیگری در لیست سفید پوشش داده شده است." },
-  "focussessionmode": { "message": "حالت تمرکز:" },
-  "focusmodeblacklist": { "message": "مسدودسازی لیست سیاه" },
-  "focusmodewhitelist": { "message": "فقط اجازه به لیست سفید" }
+  "pastekeylabel": {
+    "message": "کلید مجوز خود را اینجا بچسبانید:"
+  },
+  "confirmclearstats": {
+    "message": "آیا مطمئن هستید که می‌خواهید تمام آمار را پاک کنید؟ این عمل قابل بازگشت نیست."
+  },
+  "statscleared": {
+    "message": "آمار با موفقیت پاک شد."
+  },
+  "redirectstodaylabel": {
+    "message": "تغییر مسیرهای امروز"
+  },
+  "totalredirectslabel": {
+    "message": "مجموع تغییر مسیرها"
+  },
+  "logout": {
+    "message": "خروج"
+  },
+  "loggedoutsuccess": {
+    "message": "شما با موفقیت خارج شدید."
+  },
+  "loggedouterror": {
+    "message": "هنگام خروج خطایی رخ داد."
+  },
+  "forcesync": {
+    "message": "همگام‌سازی اجباری / بررسی وضعیت"
+  },
+  "forgotpasswordinstructions": {
+    "message": "برای بازنشانی گذرواژه، به بخش «Pro» بروید، روی «خروج» کلیک کنید و سپس با چسباندن کلید مجوز خود دوباره فعال کنید."
+  },
+  "blockedtitle": {
+    "message": "سایت در دسترس نیست"
+  },
+  "blockedheader": {
+    "message": "این سایت در حال حاضر در دسترس نیست"
+  },
+  "blockedtext": {
+    "message": "این محتوا قابل نمایش نیست."
+  },
+  "blockedbutton": {
+    "message": "بستن تب"
+  },
+  "confirmpassword": {
+    "message": "تأیید رمز عبور"
+  },
+  "modalconfirm": {
+    "message": "تأیید"
+  },
+  "modalcancel": {
+    "message": "لغو"
+  },
+  "forgotpassword": {
+    "message": "رمز عبور را فراموش کرده‌اید؟ بازنشانی (محافظت پاک خواهد شد)"
+  },
+  "prounlocked": {
+    "message": "از حمایت شما متشکریم! همه ویژگی‌های Pro فعال شده‌اند."
+  },
+  "licensesynced": {
+    "message": "مجوز شما با حساب کاربری‌تان همگام‌سازی شده است. اگر دسترسی خود را از دست دادید، می‌توانید کلید خود را از اینجا بازیابی کنید: "
+  },
+  "syncing": {
+    "message": "در حال همگام‌سازی..."
+  },
+  "pleaseenterkey": {
+    "message": "لطفاً یک کلید وارد کنید."
+  },
+  "syncsuccess": {
+    "message": "همگام‌سازی موفقیت‌آمیز بود"
+  },
+  "syncfailed": {
+    "message": "همگام‌سازی ناموفق بود."
+  },
+  "passwordreset": {
+    "message": "محافظت با رمز عبور بازنشانی شد."
+  },
+  "privacysecured": {
+    "message": "حریم خصوصی ایمن شد"
+  },
+  "errorinvalidfiletype": {
+    "message": "لطفاً یک فایل .json انتخاب کنید"
+  },
+  "debugsettingstitle": {
+    "message": "تنظیمات رفع اشکال"
+  },
+  "enabledebugtitle": {
+    "message": "فعال‌سازی حالت دیباگ"
+  },
+  "enabledebugdesc": {
+    "message": "فعال‌سازی ثبت جزئیات در کنسول برای عیب‌یابی"
+  },
+  "errorcommunication": {
+    "message": "خطا در ارتباط با سرویس پس‌زمینه"
+  },
+  "clearstats": {
+    "message": "پاک کردن آمار"
+  },
+  "rule_enabled": {
+    "message": "فعال"
+  },
+  "rule_disabled": {
+    "message": "غیرفعال"
+  },
+  "filter_only_hint": {
+    "message": "این فهرست فقط نمایش در جدول را فیلتر می‌کند"
+  },
+  "category_disabled_desc": {
+    "message": "یک دسته را بی‌صدا کنید تا به‌طور موقت دسترسی به همه سایت‌های آن مجاز شود. تنظیمات قوانین فردی حفظ می‌شوند."
+  },
+  "toggle_category_blocking": {
+    "message": "تغییر وضعیت مسدودسازی برای کل دسته"
+  },
+  "category_muted_no_edit": {
+    "message": "قابل مدیریت نیست: مسدودسازی دسته موقتاً متوقف شده است"
+  },
+  "feedback_title": {
+    "message": "آیا BlockDistraction را دوست دارید؟"
+  },
+  "feedback_desc": {
+    "message": "بازخورد شما کمک زیادی به بهبود افزونه می‌کند."
+  },
+  "feedback_like": {
+    "message": "بله، خیلی خوب کار می‌کند!"
+  },
+  "feedback_dislike": {
+    "message": "مشکل / پیشنهاد دارم"
+  },
+  "trialproheader": {
+    "message": "دوره آزمایشی ۷ روزه رایگان خود را شروع کنید"
+  },
+  "trialprotext": {
+    "message": "لغو در هر زمان. پرداخت‌های شما کاملاً ایمن و محفوظ است."
+  },
+  "focussessionheader": {
+    "message": "جلسه تمرکز"
+  },
+  "focussessionstart": {
+    "message": "شروع"
+  },
+  "focussessionstop": {
+    "message": "توقف"
+  },
+  "focussessionduration": {
+    "message": "مدت زمان (دقیقه):"
+  },
+  "focussessioninfo": {
+    "message": "فعال‌سازی تمام قوانین مسدودسازی شما برای یک زمان مشخص، با نادیده گرفتن تنظیمات و زمان‌بندی‌های فعلی آن‌ها. برای حداکثر تمرکز."
+  },
+  "focussessionprofeature": {
+    "message": "مدت زمان سفارشی و حالت سخت‌گیرانه (Hardcore) از ویژگی‌های نسخه پرو (Pro) هستند."
+  },
+  "focussessionended": {
+    "message": "جلسه تمرکز به پایان رسید! کمی استراحت کنید."
+  },
+  "focussessionhardcore": {
+    "message": "حالت سخت‌گیرانه (بدون دکمه «توقف»)"
+  },
+  "focussessionsoundtitle": {
+    "message": "اعلان صوتی جلسه تمرکز"
+  },
+  "focussessionsounddesc": {
+    "message": "پخش صدا هنگام به پایان رسیدن جلسه تمرکز."
+  },
+  "focussessionactivebanner": {
+    "message": "جلسه تمرکز فعال است! زمان باقی‌مانده:"
+  },
+  "focussessioninvalidduration": {
+    "message": "لطفاً یک مدت زمان معتبر وارد کنید (۱ تا ۲۴۰ دقیقه)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "جلسات تمرکز موفق"
+  },
+  "rule_scheduled": {
+    "message": "قانون زمان‌بندی‌شده"
+  },
+  "addwhitelistrule": {
+    "message": "افزودن استثنا"
+  },
+  "category_whitelist": {
+    "message": "لیست سفید"
+  },
+  "conflict_blacklist_err": {
+    "message": "این سایت از قبل در لیست سیاه شما قرار دارد. ابتدا آن را حذف کنید."
+  },
+  "conflict_whitelist_err": {
+    "message": "این سایت از قبل در لیست سفید شما قرار دارد. ابتدا آن را حذف کنید."
+  },
+  "status_allow": {
+    "message": "مجاز"
+  },
+  "redundant_whitelist_err": {
+    "message": "این قانون از قبل توسط قانون دیگری در لیست سفید پوشش داده شده است."
+  },
+  "focussessionmode": {
+    "message": "حالت تمرکز:"
+  },
+  "focusmodeblacklist": {
+    "message": "مسدودسازی لیست سیاه"
+  },
+  "focusmodewhitelist": {
+    "message": "فقط اجازه به لیست سفید"
+  },
+  "schedule_edit": {
+    "message": "ویرایش برنامه"
+  },
+  "schedule_add_period": {
+    "message": "افزودن گروه زمانی"
+  },
+  "schedule_remove_period": {
+    "message": "حذف"
+  },
+  "schedule_period": {
+    "message": "گروه زمانی"
+  },
+  "schedule_every_day": {
+    "message": "هر روز"
+  },
+  "schedule_weekdays": {
+    "message": "روزهای کاری"
+  },
+  "schedule_weekends": {
+    "message": "آخر هفته‌ها"
+  },
+  "schedule_day_overlap": {
+    "message": "هر روز فقط یک‌بار قابل استفاده است."
+  }
 }

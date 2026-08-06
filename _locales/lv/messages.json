@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Vietņu Bloķētājs" },
-  "shortname": { "message": "Bloķētājs" },
-  "description": { "message": "Vienkāršs un uzticams rīks vietņu bloķēšanai un pāradresācijai, lai saglabātu koncentrēšanos." },
-  "defaulttitle": { "message": "Saglabājiet koncentrēšanos un produktivitāti" },
-  "header": { "message": "Vietņu Bloķētājs" },
-  "paragraph": { "message": "Lai bloķētu vietni vai resursus, ievadiet tās nosaukuma daļu laukā ar vietturī 'Ievadiet bloķējamo URL' – piemēram, 'facebook' bloķēs visus saistītos apakšdomēnus. Laukā ar vietturī 'Ievadiet pāradresācijas URL' ievadiet pilnu pāradresācijas adresi ar protokolu, piemēram, 'https://google.com'. Ja pāradresācijas lauks ir tukšs, vietne tiks bloķēta bez pāradresācijas. Lai piemērotu noteikumu, noklikšķiniet uz Saglabāt. Lai atjauninātu noteikumu, izdzēsiet veco un izveidojiet jaunu." },
-  "addrule": { "message": "Pievienot jaunu noteikumu" },
-  "blockurl": { "message": "Ievadiet bloķējamo URL" },
-  "redirecturl": { "message": "Ievadiet pāradresācijas URL (neobligāti)" },
-  "redirecturlheader": { "message": "Novirzīšanas URL" },
-  "redirecturlplaceholder": { "message": "Neobligāti - atstājiet tukšu, lai bloķētu" },
-  "redirecturlhint": { "message": "Ievadiet pilnu URL, tostarp https://" },
-  "mobilecopylinkhint": { "message": "Lai bloķētu saiti, nokopējiet tās adresi un ielīmējiet to bloķēšanas laukā." },
-  "savebtn": { "message": "Saglabāt" },
-  "deletebtn": { "message": "Dzēst" },
-  "alertruleexist": { "message": "Noteikums jau pastāv" },
+  "chromename": {
+    "message": "BlockDistraction – Vietņu Bloķētājs"
+  },
+  "shortname": {
+    "message": "Bloķētājs"
+  },
+  "description": {
+    "message": "Vienkāršs un uzticams rīks vietņu bloķēšanai un pāradresācijai, lai saglabātu koncentrēšanos."
+  },
+  "defaulttitle": {
+    "message": "Saglabājiet koncentrēšanos un produktivitāti"
+  },
+  "header": {
+    "message": "Vietņu Bloķētājs"
+  },
+  "paragraph": {
+    "message": "Lai bloķētu vietni vai resursus, ievadiet tās nosaukuma daļu laukā ar vietturī 'Ievadiet bloķējamo URL' – piemēram, 'facebook' bloķēs visus saistītos apakšdomēnus. Laukā ar vietturī 'Ievadiet pāradresācijas URL' ievadiet pilnu pāradresācijas adresi ar protokolu, piemēram, 'https://google.com'. Ja pāradresācijas lauks ir tukšs, vietne tiks bloķēta bez pāradresācijas. Lai piemērotu noteikumu, noklikšķiniet uz Saglabāt. Lai atjauninātu noteikumu, izdzēsiet veco un izveidojiet jaunu."
+  },
+  "addrule": {
+    "message": "Pievienot jaunu noteikumu"
+  },
+  "blockurl": {
+    "message": "Ievadiet bloķējamo URL"
+  },
+  "redirecturl": {
+    "message": "Ievadiet pāradresācijas URL (neobligāti)"
+  },
+  "redirecturlheader": {
+    "message": "Novirzīšanas URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Neobligāti - atstājiet tukšu, lai bloķētu"
+  },
+  "redirecturlhint": {
+    "message": "Ievadiet pilnu URL, tostarp https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Lai bloķētu saiti, nokopējiet tās adresi un ielīmējiet to bloķēšanas laukā."
+  },
+  "savebtn": {
+    "message": "Saglabāt"
+  },
+  "deletebtn": {
+    "message": "Dzēst"
+  },
+  "alertruleexist": {
+    "message": "Noteikums jau pastāv"
+  },
   "savedrules": {
     "message": "Saglabāti $ruleslength$ noteikumi",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Šo resursu nevar bloķēt." },
-  "wrongblockurl": { "message": "Nederīgs bloķēšanas URL" },
-  "wrongredirecturl": { "message": "Nederīgs pāradresācijas URL" },
-  "blockthat": { "message": "Bloķēt šo vietni" },
-  "sendfeedbackbutton": { "message": "Sūtīt atsauksmi" },
-  "sendfeedbacksubject": { "message": "Atsauksme par BlockDistraction" },
-  "sendfeedbackbody": { "message": "Sveiki, vēlos dalīties ar šādu atsauksmi:\n\n" },
-  "quote1": { "message": "Saglabājiet koncentrēšanos, esiet stipri." },
-  "quote2": { "message": "Jūsu nākotni veido tas, ko darāt šodien." },
-  "quote3": { "message": "Disciplīna ir tilts starp mērķiem un panākumiem." },
-  "quote4": { "message": "Vietne bloķēta, soli tuvāk mērķim." },
-  "quote5": { "message": "Padariet katru klikšķi nozīmīgu." },
-  "quote6": { "message": "Neskatieties pulkstenī; dariet kā tas. Turpiniet." },
-  "quote7": { "message": "Katru dienu mazi soļi noved pie lieliem rezultātiem." },
-  "quote8": { "message": "Jūsu vienīgais ierobežojums ir jūsu prāts." },
-  "quote9": { "message": "Panākumi ir mazu ikdienas pūliņu summa." },
-  "quote10": { "message": "Koncentrējieties uz produktivitāti, nevis uz aizņemtību." },
-  "quote11": { "message": "Sargā savu uzmanību – tā ir tava vērtīgākā vērtība." },
-  "quote12": { "message": "Katrs bloķēts traucēklis ir atgūts laiks." },
-  "quote13": { "message": "Samazini troksni; palielini produktivitāti." },
-  "quote14": { "message": "Mazās ikdienas darbības veido neapturamu inerci." },
-  "quote15": { "message": "Skaidrība pārspēj haosu – koncentrējies uz svarīgāko." },
-  "quote16": { "message": "Saki nē traucējumiem; saki jā progresam." },
-  "quote17": { "message": "Stunda fokusēta darba šodien vairo rezultātus rīt." },
-  "quote18": { "message": "Radi vairāk, patērē mazāk." },
-  "quote19": { "message": "Disciplīna izvēlas ilgtermiņa ieguvumus, nevis īslaicīgus impulsus." },
-  "quote20": { "message": "Aizver cilni, atbrīvo vietu jaunām idejām." },
-  "quote21": { "message": "Darbs, ko šodien izvairies darīt, var kļūt par rītdienas stresu." },
-  "quote22": { "message": "Fokuss nav darīt vairāk, bet darīt to, kas patiešām ir svarīgi." },
-  "quote23": { "message": "Tavi mērķi ir pelnījuši vairāk uzmanības nekā tavi traucēkļi." },
-  "quote24": { "message": "Katra minūte bez traucēkļiem ir ieguldījums sevī." },
-  "quote25": { "message": "Konsekvence dod ilgtspējīgākus rezultātus nekā īslaicīgi motivācijas uzplūdi." },
-  "quote26": { "message": "Labākais laiks sākt bija vakar. Nākamais labākais ir tagad." },
-  "quote27": { "message": "Progress sākas tad, kad izvēlies rīcību, nevis traucēkļus." },
-  "quote28": { "message": "Viens koncentrēšanās brīdis var mainīt visu tavu dienu." },
-  "quote29": { "message": "Tev nav vajadzīgs vairāk laika, tev vajadzīgi mazāk traucēkļi." },
-  "quote30": { "message": "Katrs lēmums palikt fokusētam stiprina tavu nākotnes es." },
-  "quote31": { "message": "Šis bloķējums ir īslaicīgs; tavi mērķi ir ilgtermiņa." },
-  "quote32": { "message": "Katrs bloķēts traucēklis ir uzvara tavai nākotnes versijai." },
-  "quote33": { "message": "Internets ir bezgalīgs, bet tavs laiks nav." },
-  "quote34": { "message": "Nosaki savas prioritātes, pirms to izdara internets tavā vietā." },
-  "quote35": { "message": "Mazāk ritināšanas, vairāk radīšanas." },
-  "quote36": { "message": "Tava uzmanība veido tavus sasniegumus." },
-  "quote37": { "message": "Paliec fokusēts — traucēkļi var pagaidīt." },
-  "quote38": { "message": "Katrs produktīvs lēmums sākas ar koncentrētu prātu." },
-  "quote39": { "message": "Tu esi bloķējis vietni, nevis savu potenciālu." },
-  "quote40": { "message": "Ceļš uz panākumiem ir veidots no fokusētiem lēmumiem." },
-  "actionsheader": { "message": "Darbības" },
-  "norules": { "message": "Nav bloķētu vietņu." },
-  "editbtn": { "message": "Rediģēt" },
-  "ruleddeleted": { "message": "Noteikums dzēsts." },
-  "cancelbtn": { "message": "Atcelt" },
-  "ruleupdated": { "message": "Noteikums atjaunināts." },
-  "rulenewadded": { "message": "Pievienots jauns noteikums." },
-  "gotooptions": { "message": "Dodieties uz opciju lapu ⚙️" },
-  "gotopopup": { "message": "Noklikšķiniet uz paplašinājuma ikonas, lai atgrieztos popup." },
-  "rulesmigrated": { "message": "Noteikumi atjaunināti saderībai" },
-  "errorupdatingrules": { "message": "Kļūda, atjauninot noteikumus" },
-  "erroraddingrule": { "message": "Kļūda, pievienojot noteikumu" },
-  "errorremovingrule": { "message": "Kļūda, noņemot noteikumu" },
-  "optionsheader": { "message": "Paplašinājuma iestatījumi" },
-  "optionsdescription": { "message": "Konfigurējiet paplašinājuma darbību un drošības iestatījumus" },
-  "securitymodetitle": { "message": "Drošības režīms" },
-  "normalmodetitle": { "message": "Normālais režīms" },
-  "normalmodedesc": { "message": "Noteikumus var izdzēst uzreiz ar vienu klikšķi" },
-  "strictmodetitle": { "message": "Stingrais režīms" },
-  "strictmodedesc": { "message": "Noteikumu dzēšanai nepieciešams 10 sekunžu atpakaļskaitīšana, lai novērstu nejaušu dzēšanu" },
-  "confirmdeletetitle": { "message": "Apstiprināt pirms vairāku noteikumu dzēšanas" },
-  "confirmdeletedesc": { "message": "Rādīt apstiprinājuma dialogu, dzēšot vairākus noteikumus vienlaikus" },
-  "notificationstitle": { "message": "Rādīt paziņojumus" },
-  "notificationsdesc": { "message": "Rādīt paziņojumus, kad paplašinājums tiek atjaunināts" },
-  "rulesmanagementtitle": { "message": "Noteikumu pārvaldība" },
-  "exportrulesbtn": { "message": "Eksportēt noteikumus" },
-  "importrulesbtn": { "message": "Importēt noteikumus" },
-  "clearallrulesbtn": { "message": "Notīrīt visus noteikumus" },
-  "totalruleslabel": { "message": "Kopējie noteikumi" },
-  "blockedtodaylabel": { "message": "Šodien bloķēts" },
-  "totalblockedlabel": { "message": "Kopā bloķēts" },
-  "resetsettingsbtn": { "message": "Atiestatīt uz noklusējuma" },
-  "backtopopup": { "message": "Atpakaļ uz galveno" },
-  "errorloadingsettings": { "message": "Kļūda ielādējot iestatījumus" },
-  "settingssaved": { "message": "Iestatījumi veiksmīgi saglabāti!" },
-  "errorsavingsettings": { "message": "Kļūda saglabājot iestatījumus" },
-  "rulesexported": { "message": "Noteikumi veiksmīgi eksportēti!" },
-  "errorexportingrules": { "message": "Kļūda eksportējot noteikumus" },
+  "restrictedblockurl": {
+    "message": "Šo resursu nevar bloķēt."
+  },
+  "wrongblockurl": {
+    "message": "Nederīgs bloķēšanas URL"
+  },
+  "wrongredirecturl": {
+    "message": "Nederīgs pāradresācijas URL"
+  },
+  "blockthat": {
+    "message": "Bloķēt šo vietni"
+  },
+  "sendfeedbackbutton": {
+    "message": "Sūtīt atsauksmi"
+  },
+  "sendfeedbacksubject": {
+    "message": "Atsauksme par BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Sveiki, vēlos dalīties ar šādu atsauksmi:\n\n"
+  },
+  "quote1": {
+    "message": "Saglabājiet koncentrēšanos, esiet stipri."
+  },
+  "quote2": {
+    "message": "Jūsu nākotni veido tas, ko darāt šodien."
+  },
+  "quote3": {
+    "message": "Disciplīna ir tilts starp mērķiem un panākumiem."
+  },
+  "quote4": {
+    "message": "Vietne bloķēta, soli tuvāk mērķim."
+  },
+  "quote5": {
+    "message": "Padariet katru klikšķi nozīmīgu."
+  },
+  "quote6": {
+    "message": "Neskatieties pulkstenī; dariet kā tas. Turpiniet."
+  },
+  "quote7": {
+    "message": "Katru dienu mazi soļi noved pie lieliem rezultātiem."
+  },
+  "quote8": {
+    "message": "Jūsu vienīgais ierobežojums ir jūsu prāts."
+  },
+  "quote9": {
+    "message": "Panākumi ir mazu ikdienas pūliņu summa."
+  },
+  "quote10": {
+    "message": "Koncentrējieties uz produktivitāti, nevis uz aizņemtību."
+  },
+  "quote11": {
+    "message": "Sargā savu uzmanību – tā ir tava vērtīgākā vērtība."
+  },
+  "quote12": {
+    "message": "Katrs bloķēts traucēklis ir atgūts laiks."
+  },
+  "quote13": {
+    "message": "Samazini troksni; palielini produktivitāti."
+  },
+  "quote14": {
+    "message": "Mazās ikdienas darbības veido neapturamu inerci."
+  },
+  "quote15": {
+    "message": "Skaidrība pārspēj haosu – koncentrējies uz svarīgāko."
+  },
+  "quote16": {
+    "message": "Saki nē traucējumiem; saki jā progresam."
+  },
+  "quote17": {
+    "message": "Stunda fokusēta darba šodien vairo rezultātus rīt."
+  },
+  "quote18": {
+    "message": "Radi vairāk, patērē mazāk."
+  },
+  "quote19": {
+    "message": "Disciplīna izvēlas ilgtermiņa ieguvumus, nevis īslaicīgus impulsus."
+  },
+  "quote20": {
+    "message": "Aizver cilni, atbrīvo vietu jaunām idejām."
+  },
+  "quote21": {
+    "message": "Darbs, ko šodien izvairies darīt, var kļūt par rītdienas stresu."
+  },
+  "quote22": {
+    "message": "Fokuss nav darīt vairāk, bet darīt to, kas patiešām ir svarīgi."
+  },
+  "quote23": {
+    "message": "Tavi mērķi ir pelnījuši vairāk uzmanības nekā tavi traucēkļi."
+  },
+  "quote24": {
+    "message": "Katra minūte bez traucēkļiem ir ieguldījums sevī."
+  },
+  "quote25": {
+    "message": "Konsekvence dod ilgtspējīgākus rezultātus nekā īslaicīgi motivācijas uzplūdi."
+  },
+  "quote26": {
+    "message": "Labākais laiks sākt bija vakar. Nākamais labākais ir tagad."
+  },
+  "quote27": {
+    "message": "Progress sākas tad, kad izvēlies rīcību, nevis traucēkļus."
+  },
+  "quote28": {
+    "message": "Viens koncentrēšanās brīdis var mainīt visu tavu dienu."
+  },
+  "quote29": {
+    "message": "Tev nav vajadzīgs vairāk laika, tev vajadzīgi mazāk traucēkļi."
+  },
+  "quote30": {
+    "message": "Katrs lēmums palikt fokusētam stiprina tavu nākotnes es."
+  },
+  "quote31": {
+    "message": "Šis bloķējums ir īslaicīgs; tavi mērķi ir ilgtermiņa."
+  },
+  "quote32": {
+    "message": "Katrs bloķēts traucēklis ir uzvara tavai nākotnes versijai."
+  },
+  "quote33": {
+    "message": "Internets ir bezgalīgs, bet tavs laiks nav."
+  },
+  "quote34": {
+    "message": "Nosaki savas prioritātes, pirms to izdara internets tavā vietā."
+  },
+  "quote35": {
+    "message": "Mazāk ritināšanas, vairāk radīšanas."
+  },
+  "quote36": {
+    "message": "Tava uzmanība veido tavus sasniegumus."
+  },
+  "quote37": {
+    "message": "Paliec fokusēts — traucēkļi var pagaidīt."
+  },
+  "quote38": {
+    "message": "Katrs produktīvs lēmums sākas ar koncentrētu prātu."
+  },
+  "quote39": {
+    "message": "Tu esi bloķējis vietni, nevis savu potenciālu."
+  },
+  "quote40": {
+    "message": "Ceļš uz panākumiem ir veidots no fokusētiem lēmumiem."
+  },
+  "actionsheader": {
+    "message": "Darbības"
+  },
+  "norules": {
+    "message": "Nav bloķētu vietņu."
+  },
+  "editbtn": {
+    "message": "Rediģēt"
+  },
+  "ruleddeleted": {
+    "message": "Noteikums dzēsts."
+  },
+  "cancelbtn": {
+    "message": "Atcelt"
+  },
+  "ruleupdated": {
+    "message": "Noteikums atjaunināts."
+  },
+  "rulenewadded": {
+    "message": "Pievienots jauns noteikums."
+  },
+  "gotooptions": {
+    "message": "Dodieties uz opciju lapu ⚙️"
+  },
+  "gotopopup": {
+    "message": "Noklikšķiniet uz paplašinājuma ikonas, lai atgrieztos popup."
+  },
+  "rulesmigrated": {
+    "message": "Noteikumi atjaunināti saderībai"
+  },
+  "errorupdatingrules": {
+    "message": "Kļūda, atjauninot noteikumus"
+  },
+  "erroraddingrule": {
+    "message": "Kļūda, pievienojot noteikumu"
+  },
+  "errorremovingrule": {
+    "message": "Kļūda, noņemot noteikumu"
+  },
+  "optionsheader": {
+    "message": "Paplašinājuma iestatījumi"
+  },
+  "optionsdescription": {
+    "message": "Konfigurējiet paplašinājuma darbību un drošības iestatījumus"
+  },
+  "securitymodetitle": {
+    "message": "Drošības režīms"
+  },
+  "normalmodetitle": {
+    "message": "Normālais režīms"
+  },
+  "normalmodedesc": {
+    "message": "Noteikumus var izdzēst uzreiz ar vienu klikšķi"
+  },
+  "strictmodetitle": {
+    "message": "Stingrais režīms"
+  },
+  "strictmodedesc": {
+    "message": "Noteikumu dzēšanai nepieciešams 10 sekunžu atpakaļskaitīšana, lai novērstu nejaušu dzēšanu"
+  },
+  "confirmdeletetitle": {
+    "message": "Apstiprināt pirms vairāku noteikumu dzēšanas"
+  },
+  "confirmdeletedesc": {
+    "message": "Rādīt apstiprinājuma dialogu, dzēšot vairākus noteikumus vienlaikus"
+  },
+  "notificationstitle": {
+    "message": "Rādīt paziņojumus"
+  },
+  "notificationsdesc": {
+    "message": "Rādīt paziņojumus, kad paplašinājums tiek atjaunināts"
+  },
+  "rulesmanagementtitle": {
+    "message": "Noteikumu pārvaldība"
+  },
+  "exportrulesbtn": {
+    "message": "Eksportēt noteikumus"
+  },
+  "importrulesbtn": {
+    "message": "Importēt noteikumus"
+  },
+  "clearallrulesbtn": {
+    "message": "Notīrīt visus noteikumus"
+  },
+  "totalruleslabel": {
+    "message": "Kopējie noteikumi"
+  },
+  "blockedtodaylabel": {
+    "message": "Šodien bloķēts"
+  },
+  "totalblockedlabel": {
+    "message": "Kopā bloķēts"
+  },
+  "resetsettingsbtn": {
+    "message": "Atiestatīt uz noklusējuma"
+  },
+  "backtopopup": {
+    "message": "Atpakaļ uz galveno"
+  },
+  "errorloadingsettings": {
+    "message": "Kļūda ielādējot iestatījumus"
+  },
+  "settingssaved": {
+    "message": "Iestatījumi veiksmīgi saglabāti!"
+  },
+  "errorsavingsettings": {
+    "message": "Kļūda saglabājot iestatījumus"
+  },
+  "rulesexported": {
+    "message": "Noteikumi veiksmīgi eksportēti!"
+  },
+  "errorexportingrules": {
+    "message": "Kļūda eksportējot noteikumus"
+  },
   "willimportrules": {
     "message": "Tiks importēti $ruleslength$ noteikumi.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Pašreizējie noteikumi tiks aizvietoti. Turpināt?" },
+  "ruleswillbereplaced": {
+    "message": "Pašreizējie noteikumi tiks aizvietoti. Turpināt?"
+  },
   "importedrules": {
     "message": "Veiksmīgi importēti $ruleslength$ noteikumi!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Kļūda importējot noteikumus: " },
-  "norulestoclear": { "message": "Nav noteikumu, ko dzēst" },
+  "errorimportingrules": {
+    "message": "Kļūda importējot noteikumus: "
+  },
+  "norulestoclear": {
+    "message": "Nav noteikumu, ko dzēst"
+  },
   "willdeleteallrules": {
     "message": "Tas neatgriezeniski dzēsīs visus $rulescount$ noteikumus.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Šo darbību nevar atsaukt. Turpināt?" },
-  "allrulescleared": { "message": "Visi noteikumi veiksmīgi dzēsti!" },
-  "errorclearingrules": { "message": "Kļūda dzēšot noteikumus" },
-  "willreset": { "message": "Visi iestatījumi tiks atiestatīti uz noklusējuma vērtībām. Turpināt?" },
-  "resettodefaults": { "message": "Iestatījumi atiestatīti uz noklusējuma!" },
-  "errorresettingsettings": { "message": "Kļūda atiestatot iestatījumus" },
-  "basicsettingstitle": { "message": "Pamata iestatījumi" },
-  "advancedsettingstitle": { "message": "Papildu iestatījumi" },
-  "statisticstitle": { "message": "Statistika" },
+  "cannotbeundone": {
+    "message": "Šo darbību nevar atsaukt. Turpināt?"
+  },
+  "allrulescleared": {
+    "message": "Visi noteikumi veiksmīgi dzēsti!"
+  },
+  "errorclearingrules": {
+    "message": "Kļūda dzēšot noteikumus"
+  },
+  "willreset": {
+    "message": "Visi iestatījumi tiks atiestatīti uz noklusējuma vērtībām. Turpināt?"
+  },
+  "resettodefaults": {
+    "message": "Iestatījumi atiestatīti uz noklusējuma!"
+  },
+  "errorresettingsettings": {
+    "message": "Kļūda atiestatot iestatījumus"
+  },
+  "basicsettingstitle": {
+    "message": "Pamata iestatījumi"
+  },
+  "advancedsettingstitle": {
+    "message": "Papildu iestatījumi"
+  },
+  "statisticstitle": {
+    "message": "Statistika"
+  },
   "rulelimitreached": {
     "message": "Jūs esat sasniedzis noteikumu limitu ($limit$) pamatversijā. Uzlabojiet uz Pro, lai iegūtu neierobežotu noteikumu skaitu.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro nepieciešams rediģēšanai." },
-  "invalidpassword": { "message": "Nepareiza parole" },
-  "setpassword": { "message": "Iestatīt paroli" },
-  "enterpassword": { "message": "Ievadīt paroli" },
-  "passwordmismatch": { "message": "Paroles nesakrīt" },
-  "passwordtooshort": { "message": "Parolei jābūt vismaz 6 simbolu garai" },
-  "resetpasswordconfirm": { "message": "Paroles atiestatīšana atspējos aizsardzību. Turpināt?" },
-  "passwordset": { "message": "Parole veiksmīgi iestatīta" },
-  "passworddisabled": { "message": "Paroles aizsardzība atspējota" },
-  "prorequired": { "message": "Šai funkcijai nepieciešams Pro režīms" },
-  "enablepasswordtitle": { "message": "Iespējot paroles aizsardzību" },
-  "enablepassworddesc": { "message": "Nepieciešama parole, lai dzēstu vai rediģētu noteikumus (uzlabo stingro režīmu)" },
-  "passwordprotectiontitle": { "message": "Paroles aizsardzība" },
-  "scheduleheader": { "message": "Grafiks" },
-  "enableschedule": { "message": "Iespējot grafiku" },
-  "alwaysactive": { "message": "Vienmēr aktīvs" },
-  "profeatureschedule": { "message": "Grafiks pieejams tikai Pro versijā" },
-  "days": { "message": "Dienas" },
-  "starttime": { "message": "Sākuma laiks:" },
-  "endtime": { "message": "Beigu laiks:" },
-  "invaliddays": { "message": "Izvēlētas nederīgas dienas" },
-  "invalidtimeformat": { "message": "Nederīgs laika formāts (izmantojiet HH:MM)" },
-  "startafterend": { "message": "Sākuma laiks jābūt pirms beigu laika" },
-  "invalidschedule": { "message": "Nederīgs grafiks: lūdzu, izvēlieties dienas un laikus." },
-  "invalidscheduledays": { "message": "Nederīgs grafiks: izvēlieties vismaz vienu dienu." },
-  "invalidschedulestarttime": { "message": "Nederīgs grafiks: lūdzu, iestatiet sākuma laiku." },
-  "invalidscheduleendtime": { "message": "Nederīgs grafiks: lūdzu, iestatiet beigu laiku." },
-  "editdisablednonpro": { "message": "Rediģēšana atspējota: pārāk daudz noteikumu ne-Pro lietotājiem." },
-  "errorloadingstatus": { "message": "Kļūda ielādējot lietotāja statusu." },
-  "schedule_day_sun": { "message": "Sv" },
-  "schedule_day_mon": { "message": "Pr" },
-  "schedule_day_tue": { "message": "Ot" },
-  "schedule_day_wed": { "message": "Tr" },
-  "schedule_day_thu": { "message": "Ce" },
-  "schedule_day_fri": { "message": "Pk" },
-  "schedule_day_sat": { "message": "Se" },
-  "category_header": { "message": "Kategorija" },
-  "category_required": { "message": "Kategorija ir obligāta" },
-  "allcategories": { "message": "Visas kategorijas" },
-  "category_social": { "message": "Sociālie mediji" },
-  "category_news": { "message": "Ziņas" },
-  "category_entertainment": { "message": "Izklaide" },
-  "category_shopping": { "message": "Iepirkšanās" },
-  "category_work": { "message": "Darbs" },
-  "category_gaming": { "message": "Spēles" },
-  "category_adult": { "message": "Pieaugušo saturs" },
-  "category_uncategorized": { "message": "Nekategorizēts" },
-  "searchfordomain": { "message": "Meklēt domēna nosaukumu" },
-  "norulesforcategory": { "message": "Šai kategorijai nav bloķētu vietņu." },
-  "getpro": { "message": "Iegūt Pro" },
-  "profunctionstext": { "message": "Pro funkcijas ietver: bloķēšanu pēc grafika, paroļu aizsardzību, noteikumu filtrēšanu un noteikumu eksportēšanu/importēšanu. Izbaudiet mūsu Universālo licenci: viens abonements atbloķē Pro visās jūsu pārlūkprogrammās (Chrome, Firefox, Edge, Kiwi). Lai aktivizētu, iegādājieties abonementu vietnē blockdistraction.com, pēc tam nokopējiet sava licences atslēgu no konta paneļa un ielīmējiet to zemāk." },
-  "upgradenow": { "message": "Jaunināt tagad" },
-  "enteremail": { "message": "Ievadiet savu e-pastu" },
-  "activatepro": { "message": "Aktivizēt Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Atjaunot piekļuvi" },
-  "pleaseenteremail": { "message": "Lūdzu, ievadiet savu e-pastu" },
-  "checking": { "message": "Pārbauda..." },
-  "proactivated": { "message": "Pro funkcijas aktivizētas!" },
-  "subscriptionnotfound": { "message": "Abonements nav aktīvs vai e-pasts nav atrasts." },
-  "servererror": { "message": "Servera kļūda. Lūdzu, mēģiniet vēlreiz." },
-  "proactivatedfor": { "message": "Pro aktivizēts priekš" },
+  "proonlyactions": {
+    "message": "Pro nepieciešams rediģēšanai."
+  },
+  "invalidpassword": {
+    "message": "Nepareiza parole"
+  },
+  "setpassword": {
+    "message": "Iestatīt paroli"
+  },
+  "enterpassword": {
+    "message": "Ievadīt paroli"
+  },
+  "passwordmismatch": {
+    "message": "Paroles nesakrīt"
+  },
+  "passwordtooshort": {
+    "message": "Parolei jābūt vismaz 6 simbolu garai"
+  },
+  "resetpasswordconfirm": {
+    "message": "Paroles atiestatīšana atspējos aizsardzību. Turpināt?"
+  },
+  "passwordset": {
+    "message": "Parole veiksmīgi iestatīta"
+  },
+  "passworddisabled": {
+    "message": "Paroles aizsardzība atspējota"
+  },
+  "prorequired": {
+    "message": "Šai funkcijai nepieciešams Pro režīms"
+  },
+  "enablepasswordtitle": {
+    "message": "Iespējot paroles aizsardzību"
+  },
+  "enablepassworddesc": {
+    "message": "Nepieciešama parole, lai dzēstu vai rediģētu noteikumus (uzlabo stingro režīmu)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Paroles aizsardzība"
+  },
+  "scheduleheader": {
+    "message": "Grafiks"
+  },
+  "enableschedule": {
+    "message": "Iespējot grafiku"
+  },
+  "alwaysactive": {
+    "message": "Vienmēr aktīvs"
+  },
+  "profeatureschedule": {
+    "message": "Grafiks pieejams tikai Pro versijā"
+  },
+  "days": {
+    "message": "Dienas"
+  },
+  "starttime": {
+    "message": "Sākuma laiks:"
+  },
+  "endtime": {
+    "message": "Beigu laiks:"
+  },
+  "invaliddays": {
+    "message": "Izvēlētas nederīgas dienas"
+  },
+  "invalidtimeformat": {
+    "message": "Nederīgs laika formāts (izmantojiet HH:MM)"
+  },
+  "startafterend": {
+    "message": "Sākuma laiks jābūt pirms beigu laika"
+  },
+  "invalidschedule": {
+    "message": "Nederīgs grafiks: lūdzu, izvēlieties dienas un laikus."
+  },
+  "invalidscheduledays": {
+    "message": "Nederīgs grafiks: izvēlieties vismaz vienu dienu."
+  },
+  "invalidschedulestarttime": {
+    "message": "Nederīgs grafiks: lūdzu, iestatiet sākuma laiku."
+  },
+  "invalidscheduleendtime": {
+    "message": "Nederīgs grafiks: lūdzu, iestatiet beigu laiku."
+  },
+  "editdisablednonpro": {
+    "message": "Rediģēšana atspējota: pārāk daudz noteikumu ne-Pro lietotājiem."
+  },
+  "errorloadingstatus": {
+    "message": "Kļūda ielādējot lietotāja statusu."
+  },
+  "schedule_day_sun": {
+    "message": "Sv"
+  },
+  "schedule_day_mon": {
+    "message": "Pr"
+  },
+  "schedule_day_tue": {
+    "message": "Ot"
+  },
+  "schedule_day_wed": {
+    "message": "Tr"
+  },
+  "schedule_day_thu": {
+    "message": "Ce"
+  },
+  "schedule_day_fri": {
+    "message": "Pk"
+  },
+  "schedule_day_sat": {
+    "message": "Se"
+  },
+  "category_header": {
+    "message": "Kategorija"
+  },
+  "category_required": {
+    "message": "Kategorija ir obligāta"
+  },
+  "allcategories": {
+    "message": "Visas kategorijas"
+  },
+  "category_social": {
+    "message": "Sociālie mediji"
+  },
+  "category_news": {
+    "message": "Ziņas"
+  },
+  "category_entertainment": {
+    "message": "Izklaide"
+  },
+  "category_shopping": {
+    "message": "Iepirkšanās"
+  },
+  "category_work": {
+    "message": "Darbs"
+  },
+  "category_gaming": {
+    "message": "Spēles"
+  },
+  "category_adult": {
+    "message": "Pieaugušo saturs"
+  },
+  "category_uncategorized": {
+    "message": "Nekategorizēts"
+  },
+  "searchfordomain": {
+    "message": "Meklēt domēna nosaukumu"
+  },
+  "norulesforcategory": {
+    "message": "Šai kategorijai nav bloķētu vietņu."
+  },
+  "getpro": {
+    "message": "Iegūt Pro"
+  },
+  "profunctionstext": {
+    "message": "Pro funkcijas ietver: bloķēšanu pēc grafika, paroļu aizsardzību, noteikumu filtrēšanu un noteikumu eksportēšanu/importēšanu. Izbaudiet mūsu Universālo licenci: viens abonements atbloķē Pro visās jūsu pārlūkprogrammās (Chrome, Firefox, Edge, Kiwi). Lai aktivizētu, iegādājieties abonementu vietnē blockdistraction.com, pēc tam nokopējiet sava licences atslēgu no konta paneļa un ielīmējiet to zemāk."
+  },
+  "upgradenow": {
+    "message": "Jaunināt tagad"
+  },
+  "enteremail": {
+    "message": "Ievadiet savu e-pastu"
+  },
+  "activatepro": {
+    "message": "Aktivizēt Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Atjaunot piekļuvi"
+  },
+  "pleaseenteremail": {
+    "message": "Lūdzu, ievadiet savu e-pastu"
+  },
+  "checking": {
+    "message": "Pārbauda..."
+  },
+  "proactivated": {
+    "message": "Pro funkcijas aktivizētas!"
+  },
+  "subscriptionnotfound": {
+    "message": "Abonements nav aktīvs vai e-pasts nav atrasts."
+  },
+  "servererror": {
+    "message": "Servera kļūda. Lūdzu, mēģiniet vēlreiz."
+  },
+  "proactivatedfor": {
+    "message": "Pro aktivizēts priekš"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Atļaujas pieprasījums neizdevās (tas var notikt mobilajā ierīcē). Lūdzu, mēģiniet vēlreiz vai piešķiriet atļauju manuāli no iestatījumiem."
   },
-  "pastekeylabel": { "message": "Ielīmējiet savu licences atslēgu šeit:" },
-  "confirmclearstats": { "message": "Vai tiešām vēlaties dzēst visus statistikas datus? Šo darbību nevar atsaukt." },
-  "statscleared": { "message": "Statistika veiksmīgi izdzēsta." },
-  "redirectstodaylabel": { "message": "Pāradresācijas šodien" },
-  "totalredirectslabel": { "message": "Kopējais pāradresāciju skaits" },
-  "logout": { "message": "Izrakstīties" },
-  "loggedoutsuccess": { "message": "Jūs veiksmīgi izrakstījāties." },
-  "loggedouterror": { "message": "Radās kļūda, mēģinot izrakstīties." },
-  "forcesync": { "message": "Piespiedu sinhronizācija / Pārbaudīt statusu" },
-  "forgotpasswordinstructions": { "message": "Lai atiestatītu paroli, dodieties uz sadaļu “Pro”, noklikšķiniet uz “Izrakstīties” un pēc tam atkārtoti aktivizējiet, ielīmējot savu licences atslēgu." },
-  "blockedtitle": { "message": "Tīmekļa vietne nav pieejama" },
-  "blockedheader": { "message": "Šī vietne pašlaik nav pieejama" },
-  "blockedtext": { "message": "Šo saturu nevar parādīt." },
-  "blockedbutton": { "message": "Aizvērt cilni" },
-  "confirmpassword": { "message": "Apstipriniet paroli" },
-  "modalconfirm": { "message": "Apstiprināt" },
-  "modalcancel": { "message": "Atcelt" },
-  "forgotpassword": { "message": "Aizmirsāt paroli? Atiestatīt (noņems aizsardzību)" },
-  "prounlocked": { "message": "Paldies par jūsu atbalstu! Visas Pro funkcijas ir atbloķētas." },
-  "licensesynced": { "message": "Jūsu licence ir sinhronizēta ar jūsu kontu. Ja zaudēsiet piekļuvi, savu atslēgu varat atgūt šeit: " },
-  "syncing": { "message": "Sinhronizē..." },
-  "pleaseenterkey": { "message": "Lūdzu, ievadiet atslēgu." },
-  "syncsuccess": { "message": "Sinhronizācija veiksmīga" },
-  "syncfailed": { "message": "Sinhronizācija neizdevās." },
-  "passwordreset": { "message": "Paroles aizsardzība ir atiestatīta." },
-  "privacysecured": { "message": "Privātums nodrošināts" },
-  "errorinvalidfiletype": { "message": "Lūdzu, izvēlieties .json failu" },
-  "debugsettingstitle": { "message": "Atkļūdošanas iestatījumi" },
-  "enabledebugtitle": { "message": "Iespējot atkļūdošanas režīmu" },
-  "enabledebugdesc": { "message": "Iespējot detalizētu žurnālu konsolē problēmu novēršanai" },
-  "errorcommunication": { "message": "Kļūda sazinoties ar fona pakalpojumu" },
-  "clearstats": { "message": "Notīrīt statistiku" },
-  "rule_enabled": { "message": "Ieslēgts" },
-  "rule_disabled": { "message": "Izslēgts" },
-  "filter_only_hint": { "message": "Šis saraksts tikai filtrē attēlojumu tabulā" },
-  "category_disabled_desc": { "message": "Apklusiniet kategoriju, lai uz laiku atļautu piekļuvi visām tās vietnēm. Individuālie noteikumu iestatījumi tiek saglabāti." },
-  "toggle_category_blocking": { "message": "Ieslēgt vai izslēgt bloķēšanu visai kategorijai" },
-  "category_muted_no_edit": { "message": "Nav iespējams pārvaldīt: kategorijas bloķēšana ir apturēta" },
-  "feedback_title": { "message": "Vai jums patīk BlockDistraction?" },
-  "feedback_desc": { "message": "Jūsu atsauksmes mums ļoti palīdz uzlabot paplašinājumu." },
-  "feedback_like": { "message": "Jā, tas darbojas lieliski!" },
-  "feedback_dislike": { "message": "Man ir problēmas / ieteikumi" },
-  "trialproheader": { "message": "Izmēģiniet 7 dienas bez maksas" },
-  "trialprotext": { "message": "Atcelšana jebkurā laikā. Droši maksājumi." },
-  "focussessionheader": { "message": "Fokusa sesija" },
-  "focussessionstart": { "message": "Sākt" },
-  "focussessionstop": { "message": "Apturēt" },
-  "focussessionduration": { "message": "Ilgums (min):" },
-  "focussessioninfo": { "message": "Aktivizē visus jūsu bloķēšanas noteikumus uz noteiktu laiku, ignorējot to pašreizējos iestatījumus un grafikus. Maksimālai koncentrēšanai." },
-  "focussessionprofeature": { "message": "Pielāgots ilgums un Hardcore režīms ir Pro funkcijas." },
-  "focussessionended": { "message": "Fokusa sesija ir beigusies! Paņemiet pārtraukumu." },
-  "focussessionhardcore": { "message": "Hardcore režīms (bez pogas 'Apturēt')" },
-  "focussessionsoundtitle": { "message": "Fokusa sesijas skaņas paziņojums" },
-  "focussessionsounddesc": { "message": "Atskaņot skaņu, kad fokusa sesija beidzas." },
-  "focussessionactivebanner": { "message": "Fokusa sesija ir aktīva! Atlikušais laiks:" },
-  "focussessioninvalidduration": { "message": "Lūdzu, ievadiet derīgu ilgumu (1-240 minūtes)." },
-  "successfulfocussessionslabel": { "message": "Veiksmīgas fokusa sesijas" },
-  "rule_scheduled": { "message": "Plānotais noteikums" },
-  "addwhitelistrule": { "message": "Pievienot izņēmumu" },
-  "category_whitelist": { "message": "Baltais saraksts" },
-  "conflict_blacklist_err": { "message": "Šī vietne jau ir jūsu melnajā sarakstā. Vispirms noņemiet to." },
-  "conflict_whitelist_err": { "message": "Šī vietne jau ir jūsu baltajā sarakstā. Vispirms noņemiet to." },
-  "status_allow": { "message": "Atļauts" },
-  "redundant_whitelist_err": { "message": "Šo noteikumu jau sedz cits baltā saraksta noteikums." },
-  "focussessionmode": { "message": "Fokusa režīms:" },
-  "focusmodeblacklist": { "message": "Bloķēt melno sarakstu" },
-  "focusmodewhitelist": { "message": "Atļaut tikai balto sarakstu" }
+  "pastekeylabel": {
+    "message": "Ielīmējiet savu licences atslēgu šeit:"
+  },
+  "confirmclearstats": {
+    "message": "Vai tiešām vēlaties dzēst visus statistikas datus? Šo darbību nevar atsaukt."
+  },
+  "statscleared": {
+    "message": "Statistika veiksmīgi izdzēsta."
+  },
+  "redirectstodaylabel": {
+    "message": "Pāradresācijas šodien"
+  },
+  "totalredirectslabel": {
+    "message": "Kopējais pāradresāciju skaits"
+  },
+  "logout": {
+    "message": "Izrakstīties"
+  },
+  "loggedoutsuccess": {
+    "message": "Jūs veiksmīgi izrakstījāties."
+  },
+  "loggedouterror": {
+    "message": "Radās kļūda, mēģinot izrakstīties."
+  },
+  "forcesync": {
+    "message": "Piespiedu sinhronizācija / Pārbaudīt statusu"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Lai atiestatītu paroli, dodieties uz sadaļu “Pro”, noklikšķiniet uz “Izrakstīties” un pēc tam atkārtoti aktivizējiet, ielīmējot savu licences atslēgu."
+  },
+  "blockedtitle": {
+    "message": "Tīmekļa vietne nav pieejama"
+  },
+  "blockedheader": {
+    "message": "Šī vietne pašlaik nav pieejama"
+  },
+  "blockedtext": {
+    "message": "Šo saturu nevar parādīt."
+  },
+  "blockedbutton": {
+    "message": "Aizvērt cilni"
+  },
+  "confirmpassword": {
+    "message": "Apstipriniet paroli"
+  },
+  "modalconfirm": {
+    "message": "Apstiprināt"
+  },
+  "modalcancel": {
+    "message": "Atcelt"
+  },
+  "forgotpassword": {
+    "message": "Aizmirsāt paroli? Atiestatīt (noņems aizsardzību)"
+  },
+  "prounlocked": {
+    "message": "Paldies par jūsu atbalstu! Visas Pro funkcijas ir atbloķētas."
+  },
+  "licensesynced": {
+    "message": "Jūsu licence ir sinhronizēta ar jūsu kontu. Ja zaudēsiet piekļuvi, savu atslēgu varat atgūt šeit: "
+  },
+  "syncing": {
+    "message": "Sinhronizē..."
+  },
+  "pleaseenterkey": {
+    "message": "Lūdzu, ievadiet atslēgu."
+  },
+  "syncsuccess": {
+    "message": "Sinhronizācija veiksmīga"
+  },
+  "syncfailed": {
+    "message": "Sinhronizācija neizdevās."
+  },
+  "passwordreset": {
+    "message": "Paroles aizsardzība ir atiestatīta."
+  },
+  "privacysecured": {
+    "message": "Privātums nodrošināts"
+  },
+  "errorinvalidfiletype": {
+    "message": "Lūdzu, izvēlieties .json failu"
+  },
+  "debugsettingstitle": {
+    "message": "Atkļūdošanas iestatījumi"
+  },
+  "enabledebugtitle": {
+    "message": "Iespējot atkļūdošanas režīmu"
+  },
+  "enabledebugdesc": {
+    "message": "Iespējot detalizētu žurnālu konsolē problēmu novēršanai"
+  },
+  "errorcommunication": {
+    "message": "Kļūda sazinoties ar fona pakalpojumu"
+  },
+  "clearstats": {
+    "message": "Notīrīt statistiku"
+  },
+  "rule_enabled": {
+    "message": "Ieslēgts"
+  },
+  "rule_disabled": {
+    "message": "Izslēgts"
+  },
+  "filter_only_hint": {
+    "message": "Šis saraksts tikai filtrē attēlojumu tabulā"
+  },
+  "category_disabled_desc": {
+    "message": "Apklusiniet kategoriju, lai uz laiku atļautu piekļuvi visām tās vietnēm. Individuālie noteikumu iestatījumi tiek saglabāti."
+  },
+  "toggle_category_blocking": {
+    "message": "Ieslēgt vai izslēgt bloķēšanu visai kategorijai"
+  },
+  "category_muted_no_edit": {
+    "message": "Nav iespējams pārvaldīt: kategorijas bloķēšana ir apturēta"
+  },
+  "feedback_title": {
+    "message": "Vai jums patīk BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Jūsu atsauksmes mums ļoti palīdz uzlabot paplašinājumu."
+  },
+  "feedback_like": {
+    "message": "Jā, tas darbojas lieliski!"
+  },
+  "feedback_dislike": {
+    "message": "Man ir problēmas / ieteikumi"
+  },
+  "trialproheader": {
+    "message": "Izmēģiniet 7 dienas bez maksas"
+  },
+  "trialprotext": {
+    "message": "Atcelšana jebkurā laikā. Droši maksājumi."
+  },
+  "focussessionheader": {
+    "message": "Fokusa sesija"
+  },
+  "focussessionstart": {
+    "message": "Sākt"
+  },
+  "focussessionstop": {
+    "message": "Apturēt"
+  },
+  "focussessionduration": {
+    "message": "Ilgums (min):"
+  },
+  "focussessioninfo": {
+    "message": "Aktivizē visus jūsu bloķēšanas noteikumus uz noteiktu laiku, ignorējot to pašreizējos iestatījumus un grafikus. Maksimālai koncentrēšanai."
+  },
+  "focussessionprofeature": {
+    "message": "Pielāgots ilgums un Hardcore režīms ir Pro funkcijas."
+  },
+  "focussessionended": {
+    "message": "Fokusa sesija ir beigusies! Paņemiet pārtraukumu."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore režīms (bez pogas 'Apturēt')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Fokusa sesijas skaņas paziņojums"
+  },
+  "focussessionsounddesc": {
+    "message": "Atskaņot skaņu, kad fokusa sesija beidzas."
+  },
+  "focussessionactivebanner": {
+    "message": "Fokusa sesija ir aktīva! Atlikušais laiks:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Lūdzu, ievadiet derīgu ilgumu (1-240 minūtes)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Veiksmīgas fokusa sesijas"
+  },
+  "rule_scheduled": {
+    "message": "Plānotais noteikums"
+  },
+  "addwhitelistrule": {
+    "message": "Pievienot izņēmumu"
+  },
+  "category_whitelist": {
+    "message": "Baltais saraksts"
+  },
+  "conflict_blacklist_err": {
+    "message": "Šī vietne jau ir jūsu melnajā sarakstā. Vispirms noņemiet to."
+  },
+  "conflict_whitelist_err": {
+    "message": "Šī vietne jau ir jūsu baltajā sarakstā. Vispirms noņemiet to."
+  },
+  "status_allow": {
+    "message": "Atļauts"
+  },
+  "redundant_whitelist_err": {
+    "message": "Šo noteikumu jau sedz cits baltā saraksta noteikums."
+  },
+  "focussessionmode": {
+    "message": "Fokusa režīms:"
+  },
+  "focusmodeblacklist": {
+    "message": "Bloķēt melno sarakstu"
+  },
+  "focusmodewhitelist": {
+    "message": "Atļaut tikai balto sarakstu"
+  },
+  "schedule_edit": {
+    "message": "Rediģēt grafiku"
+  },
+  "schedule_add_period": {
+    "message": "Pievienot laika grupu"
+  },
+  "schedule_remove_period": {
+    "message": "Noņemt"
+  },
+  "schedule_period": {
+    "message": "Laika grupa"
+  },
+  "schedule_every_day": {
+    "message": "Katru dienu"
+  },
+  "schedule_weekdays": {
+    "message": "Darba dienas"
+  },
+  "schedule_weekends": {
+    "message": "Nedēļas nogales"
+  },
+  "schedule_day_overlap": {
+    "message": "Katru dienu var izmantot tikai vienu reizi."
+  }
 }

@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Bloquejador de llocs web" },
-  "shortname": { "message": "Bloquejador" },
-  "description": { "message": "Eina senzilla i fiable per bloquejar i redirigir llocs web, ajudant-te a mantenir-te concentrat." },
-  "defaulttitle": { "message": "Mantingueu el focus i sigueu productius" },
-  "header": { "message": "Bloquejador de llocs web" },
-  "paragraph": { "message": "Per bloquejar un lloc web o recurs, introdueix part del seu nom al camp d'entrada amb el placeholder \"Escriu URL de bloqueig\" – per exemple, \"facebook\" bloquejarà tots els subdominis relacionats. Al camp amb el placeholder \"Escriu URL de redirecció\", introdueix l'adreça completa inclòs el protocol, com \"https://google.com\". Si el camp de redirecció queda buit, el lloc es bloquejarà sense redirecció. Fes clic al botó Guardar per aplicar la regla. Per actualitzar una regla, elimina l'antiga i crea una nova entrada." },
-  "addrule": { "message": "Afegeix una nova regla" },
-  "blockurl": { "message": "Escriu URL de bloqueig" },
-  "redirecturl": { "message": "Escriu URL de redirecció (opcional)" },
-  "redirecturlheader": { "message": "URL de redirecció" },
-  "redirecturlplaceholder": { "message": "Opcional - deixa-ho buit per bloquejar" },
-  "redirecturlhint": { "message": "Introdueix un URL complet, inclòs https://" },
-  "mobilecopylinkhint": { "message": "Per bloquejar un enllaç, copia'n l'adreça i enganxa-la al camp de bloqueig." },
-  "savebtn": { "message": "Desa" },
-  "deletebtn": { "message": "Elimina" },
-  "alertruleexist": { "message": "La regla ja existeix" },
+  "chromename": {
+    "message": "BlockDistraction – Bloquejador de llocs web"
+  },
+  "shortname": {
+    "message": "Bloquejador"
+  },
+  "description": {
+    "message": "Eina senzilla i fiable per bloquejar i redirigir llocs web, ajudant-te a mantenir-te concentrat."
+  },
+  "defaulttitle": {
+    "message": "Mantingueu el focus i sigueu productius"
+  },
+  "header": {
+    "message": "Bloquejador de llocs web"
+  },
+  "paragraph": {
+    "message": "Per bloquejar un lloc web o recurs, introdueix part del seu nom al camp d'entrada amb el placeholder \"Escriu URL de bloqueig\" – per exemple, \"facebook\" bloquejarà tots els subdominis relacionats. Al camp amb el placeholder \"Escriu URL de redirecció\", introdueix l'adreça completa inclòs el protocol, com \"https://google.com\". Si el camp de redirecció queda buit, el lloc es bloquejarà sense redirecció. Fes clic al botó Guardar per aplicar la regla. Per actualitzar una regla, elimina l'antiga i crea una nova entrada."
+  },
+  "addrule": {
+    "message": "Afegeix una nova regla"
+  },
+  "blockurl": {
+    "message": "Escriu URL de bloqueig"
+  },
+  "redirecturl": {
+    "message": "Escriu URL de redirecció (opcional)"
+  },
+  "redirecturlheader": {
+    "message": "URL de redirecció"
+  },
+  "redirecturlplaceholder": {
+    "message": "Opcional - deixa-ho buit per bloquejar"
+  },
+  "redirecturlhint": {
+    "message": "Introdueix un URL complet, inclòs https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Per bloquejar un enllaç, copia'n l'adreça i enganxa-la al camp de bloqueig."
+  },
+  "savebtn": {
+    "message": "Desa"
+  },
+  "deletebtn": {
+    "message": "Elimina"
+  },
+  "alertruleexist": {
+    "message": "La regla ja existeix"
+  },
   "savedrules": {
     "message": "S'han desat $ruleslength$ regla/es",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Aquest recurs no es pot bloquejar." },
-  "wrongblockurl": { "message": "URL de bloqueig no vàlida" },
-  "wrongredirecturl": { "message": "URL de redirecció no vàlid" },
-  "blockthat": { "message": "Bloqueja aquest lloc" },
-  "sendfeedbackbutton": { "message": "Envia comentaris" },
-  "sendfeedbacksubject": { "message": "Comentaris sobre BlockDistraction" },
-  "sendfeedbackbody": { "message": "Hola, m'agradaria compartir els següents comentaris:\n\n" },
-  "quote1": { "message": "Mantingueu el focus, sigueu forts." },
-  "quote2": { "message": "El teu futur es crea amb el que fas avui." },
-  "quote3": { "message": "La disciplina és el pont entre les metes i l'èxit." },
-  "quote4": { "message": "Un lloc bloquejat, un pas més a prop del teu objectiu." },
-  "quote5": { "message": "Fes que cada clic compti." },
-  "quote6": { "message": "No miris el rellotge; fes com ell. Continua." },
-  "quote7": { "message": "Passos petits cada dia porten a grans resultats." },
-  "quote8": { "message": "L'únic límit és la teva ment." },
-  "quote9": { "message": "L'èxit és la suma d'esforços petits repetits cada dia." },
-  "quote10": { "message": "Centra't a ser productiu, no ocupat." },
-  "quote11": { "message": "Protegeix la teva atenció: és el teu actiu més valuós." },
-  "quote12": { "message": "Cada distracció bloquejada és temps recuperat." },
-  "quote13": { "message": "Redueix el soroll; augmenta la teva productivitat." },
-  "quote14": { "message": "Les petites rutines construeixen un impuls imparable." },
-  "quote15": { "message": "La claredat venç el caos: centra’t en el que importa." },
-  "quote16": { "message": "Digues no a les distraccions; digues sí al progrés." },
-  "quote17": { "message": "Una hora concentrada avui multiplica els teus resultats demà." },
-  "quote18": { "message": "Crea més consumint menys." },
-  "quote19": { "message": "La disciplina tria guanys a llarg termini sobre impulsos breus." },
-  "quote20": { "message": "Tanca una pestanya, obre espai per a noves idees." },
-  "quote21": { "message": "La feina que evites avui pot convertir-se en l’estrès de demà." },
-  "quote22": { "message": "El focus no és fer més coses, sinó fer el que realment importa." },
-  "quote23": { "message": "Els teus objectius mereixen més atenció que les teves distraccions." },
-  "quote24": { "message": "Cada minut sense distraccions és una inversió en tu mateix." },
-  "quote25": { "message": "La constància aporta resultats més duradors que els impulsos de motivació puntuals." },
-  "quote26": { "message": "El millor moment per començar va ser ahir. El segon millor és ara." },
-  "quote27": { "message": "El progrés comença quan tries actuar en lloc de distreure’t." },
-  "quote28": { "message": "Un sol moment de concentració pot canviar el teu dia." },
-  "quote29": { "message": "No necessites més temps; necessites menys distraccions." },
-  "quote30": { "message": "Cada decisió de mantenir el focus enforteix el teu futur jo." },
-  "quote31": { "message": "Aquest bloqueig és temporal; els teus objectius són a llarg termini." },
-  "quote32": { "message": "Cada distracció bloquejada és una victòria per al teu futur jo." },
-  "quote33": { "message": "Internet és infinit; el teu temps no ho és." },
-  "quote34": { "message": "Defineix les teves prioritats abans que el web ho faci per tu." },
-  "quote35": { "message": "Menys desplaçament, més creació." },
-  "quote36": { "message": "La teva atenció modela els teus èxits." },
-  "quote37": { "message": "Mantén el focus — la distracció pot esperar." },
-  "quote38": { "message": "Cada decisió productiva comença amb una ment enfocada." },
-  "quote39": { "message": "Has bloquejat un lloc web, no el teu potencial." },
-  "quote40": { "message": "El camí cap a l’èxit es construeix amb decisions enfocades." },
-  "actionsheader": { "message": "Accions" },
-  "norules": { "message": "No hi ha llocs bloquejats." },
-  "editbtn": { "message": "Edita" },
-  "ruleddeleted": { "message": "Regla eliminada." },
-  "cancelbtn": { "message": "Cancel·la" },
-  "ruleupdated": { "message": "Regla actualitzada." },
-  "rulenewadded": { "message": "S'ha afegit una nova regla." },
-  "gotooptions": { "message": "Vés a la pàgina d'opcions ⚙️" },
-  "gotopopup": { "message": "Fes clic a la icona de l'extensió per tornar al popup." },
-  "rulesmigrated": { "message": "Les regles s'han actualitzat per a la compatibilitat" },
-  "errorupdatingrules": { "message": "Error en actualitzar les regles" },
-  "erroraddingrule": { "message": "Error en afegir una regla" },
-  "errorremovingrule": { "message": "Error en eliminar una regla" },
-  "optionsheader": { "message": "Configuració de l'extensió" },
-  "optionsdescription": { "message": "Configura el comportament i els paràmetres de seguretat de l'extensió" },
-  "securitymodetitle": { "message": "Mode de seguretat" },
-  "normalmodetitle": { "message": "Mode normal" },
-  "normalmodedesc": { "message": "Les regles es poden suprimir immediatament amb un sol clic" },
-  "strictmodetitle": { "message": "Mode estricte" },
-  "strictmodedesc": { "message": "Per eliminar regles cal un compte enrere de 10 segons per evitar eliminacions accidentals" },
-  "confirmdeletetitle": { "message": "Confirmar abans de suprimir diverses regles" },
-  "confirmdeletedesc": { "message": "Mostra un diàleg de confirmació quan se suprimeixin diverses regles alhora" },
-  "notificationstitle": { "message": "Mostrar notificacions" },
-  "notificationsdesc": { "message": "Mostra notificacions quan s’actualitzi l’extensió" },
-  "rulesmanagementtitle": { "message": "Gestió de regles" },
-  "exportrulesbtn": { "message": "Exporta regles" },
-  "importrulesbtn": { "message": "Importa regles" },
-  "clearallrulesbtn": { "message": "Esborra totes les regles" },
-  "totalruleslabel": { "message": "Total de regles" },
-  "blockedtodaylabel": { "message": "Blocat avui" },
-  "totalblockedlabel": { "message": "Total blocats" },
-  "resetsettingsbtn": { "message": "Restableix a valors per defecte" },
-  "backtopopup": { "message": "Torna al menú principal" },
-  "errorloadingsettings": { "message": "Error en carregar la configuració" },
-  "settingssaved": { "message": "Configuració desada correctament!" },
-  "errorsavingsettings": { "message": "Error en desar la configuració" },
-  "rulesexported": { "message": "Les regles s'han exportat correctament!" },
-  "errorexportingrules": { "message": "Error en exportar les regles" },
+  "restrictedblockurl": {
+    "message": "Aquest recurs no es pot bloquejar."
+  },
+  "wrongblockurl": {
+    "message": "URL de bloqueig no vàlida"
+  },
+  "wrongredirecturl": {
+    "message": "URL de redirecció no vàlid"
+  },
+  "blockthat": {
+    "message": "Bloqueja aquest lloc"
+  },
+  "sendfeedbackbutton": {
+    "message": "Envia comentaris"
+  },
+  "sendfeedbacksubject": {
+    "message": "Comentaris sobre BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Hola, m'agradaria compartir els següents comentaris:\n\n"
+  },
+  "quote1": {
+    "message": "Mantingueu el focus, sigueu forts."
+  },
+  "quote2": {
+    "message": "El teu futur es crea amb el que fas avui."
+  },
+  "quote3": {
+    "message": "La disciplina és el pont entre les metes i l'èxit."
+  },
+  "quote4": {
+    "message": "Un lloc bloquejat, un pas més a prop del teu objectiu."
+  },
+  "quote5": {
+    "message": "Fes que cada clic compti."
+  },
+  "quote6": {
+    "message": "No miris el rellotge; fes com ell. Continua."
+  },
+  "quote7": {
+    "message": "Passos petits cada dia porten a grans resultats."
+  },
+  "quote8": {
+    "message": "L'únic límit és la teva ment."
+  },
+  "quote9": {
+    "message": "L'èxit és la suma d'esforços petits repetits cada dia."
+  },
+  "quote10": {
+    "message": "Centra't a ser productiu, no ocupat."
+  },
+  "quote11": {
+    "message": "Protegeix la teva atenció: és el teu actiu més valuós."
+  },
+  "quote12": {
+    "message": "Cada distracció bloquejada és temps recuperat."
+  },
+  "quote13": {
+    "message": "Redueix el soroll; augmenta la teva productivitat."
+  },
+  "quote14": {
+    "message": "Les petites rutines construeixen un impuls imparable."
+  },
+  "quote15": {
+    "message": "La claredat venç el caos: centra’t en el que importa."
+  },
+  "quote16": {
+    "message": "Digues no a les distraccions; digues sí al progrés."
+  },
+  "quote17": {
+    "message": "Una hora concentrada avui multiplica els teus resultats demà."
+  },
+  "quote18": {
+    "message": "Crea més consumint menys."
+  },
+  "quote19": {
+    "message": "La disciplina tria guanys a llarg termini sobre impulsos breus."
+  },
+  "quote20": {
+    "message": "Tanca una pestanya, obre espai per a noves idees."
+  },
+  "quote21": {
+    "message": "La feina que evites avui pot convertir-se en l’estrès de demà."
+  },
+  "quote22": {
+    "message": "El focus no és fer més coses, sinó fer el que realment importa."
+  },
+  "quote23": {
+    "message": "Els teus objectius mereixen més atenció que les teves distraccions."
+  },
+  "quote24": {
+    "message": "Cada minut sense distraccions és una inversió en tu mateix."
+  },
+  "quote25": {
+    "message": "La constància aporta resultats més duradors que els impulsos de motivació puntuals."
+  },
+  "quote26": {
+    "message": "El millor moment per començar va ser ahir. El segon millor és ara."
+  },
+  "quote27": {
+    "message": "El progrés comença quan tries actuar en lloc de distreure’t."
+  },
+  "quote28": {
+    "message": "Un sol moment de concentració pot canviar el teu dia."
+  },
+  "quote29": {
+    "message": "No necessites més temps; necessites menys distraccions."
+  },
+  "quote30": {
+    "message": "Cada decisió de mantenir el focus enforteix el teu futur jo."
+  },
+  "quote31": {
+    "message": "Aquest bloqueig és temporal; els teus objectius són a llarg termini."
+  },
+  "quote32": {
+    "message": "Cada distracció bloquejada és una victòria per al teu futur jo."
+  },
+  "quote33": {
+    "message": "Internet és infinit; el teu temps no ho és."
+  },
+  "quote34": {
+    "message": "Defineix les teves prioritats abans que el web ho faci per tu."
+  },
+  "quote35": {
+    "message": "Menys desplaçament, més creació."
+  },
+  "quote36": {
+    "message": "La teva atenció modela els teus èxits."
+  },
+  "quote37": {
+    "message": "Mantén el focus — la distracció pot esperar."
+  },
+  "quote38": {
+    "message": "Cada decisió productiva comença amb una ment enfocada."
+  },
+  "quote39": {
+    "message": "Has bloquejat un lloc web, no el teu potencial."
+  },
+  "quote40": {
+    "message": "El camí cap a l’èxit es construeix amb decisions enfocades."
+  },
+  "actionsheader": {
+    "message": "Accions"
+  },
+  "norules": {
+    "message": "No hi ha llocs bloquejats."
+  },
+  "editbtn": {
+    "message": "Edita"
+  },
+  "ruleddeleted": {
+    "message": "Regla eliminada."
+  },
+  "cancelbtn": {
+    "message": "Cancel·la"
+  },
+  "ruleupdated": {
+    "message": "Regla actualitzada."
+  },
+  "rulenewadded": {
+    "message": "S'ha afegit una nova regla."
+  },
+  "gotooptions": {
+    "message": "Vés a la pàgina d'opcions ⚙️"
+  },
+  "gotopopup": {
+    "message": "Fes clic a la icona de l'extensió per tornar al popup."
+  },
+  "rulesmigrated": {
+    "message": "Les regles s'han actualitzat per a la compatibilitat"
+  },
+  "errorupdatingrules": {
+    "message": "Error en actualitzar les regles"
+  },
+  "erroraddingrule": {
+    "message": "Error en afegir una regla"
+  },
+  "errorremovingrule": {
+    "message": "Error en eliminar una regla"
+  },
+  "optionsheader": {
+    "message": "Configuració de l'extensió"
+  },
+  "optionsdescription": {
+    "message": "Configura el comportament i els paràmetres de seguretat de l'extensió"
+  },
+  "securitymodetitle": {
+    "message": "Mode de seguretat"
+  },
+  "normalmodetitle": {
+    "message": "Mode normal"
+  },
+  "normalmodedesc": {
+    "message": "Les regles es poden suprimir immediatament amb un sol clic"
+  },
+  "strictmodetitle": {
+    "message": "Mode estricte"
+  },
+  "strictmodedesc": {
+    "message": "Per eliminar regles cal un compte enrere de 10 segons per evitar eliminacions accidentals"
+  },
+  "confirmdeletetitle": {
+    "message": "Confirmar abans de suprimir diverses regles"
+  },
+  "confirmdeletedesc": {
+    "message": "Mostra un diàleg de confirmació quan se suprimeixin diverses regles alhora"
+  },
+  "notificationstitle": {
+    "message": "Mostrar notificacions"
+  },
+  "notificationsdesc": {
+    "message": "Mostra notificacions quan s’actualitzi l’extensió"
+  },
+  "rulesmanagementtitle": {
+    "message": "Gestió de regles"
+  },
+  "exportrulesbtn": {
+    "message": "Exporta regles"
+  },
+  "importrulesbtn": {
+    "message": "Importa regles"
+  },
+  "clearallrulesbtn": {
+    "message": "Esborra totes les regles"
+  },
+  "totalruleslabel": {
+    "message": "Total de regles"
+  },
+  "blockedtodaylabel": {
+    "message": "Blocat avui"
+  },
+  "totalblockedlabel": {
+    "message": "Total blocats"
+  },
+  "resetsettingsbtn": {
+    "message": "Restableix a valors per defecte"
+  },
+  "backtopopup": {
+    "message": "Torna al menú principal"
+  },
+  "errorloadingsettings": {
+    "message": "Error en carregar la configuració"
+  },
+  "settingssaved": {
+    "message": "Configuració desada correctament!"
+  },
+  "errorsavingsettings": {
+    "message": "Error en desar la configuració"
+  },
+  "rulesexported": {
+    "message": "Les regles s'han exportat correctament!"
+  },
+  "errorexportingrules": {
+    "message": "Error en exportar les regles"
+  },
   "willimportrules": {
     "message": "S'importaran $ruleslength$ regles. ",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Les regles actuals es reemplaçaran. Voleu continuar?" },
+  "ruleswillbereplaced": {
+    "message": "Les regles actuals es reemplaçaran. Voleu continuar?"
+  },
   "importedrules": {
     "message": "$ruleslength$ regles importades correctament!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Error en importar les regles: " },
-  "norulestoclear": { "message": "No hi ha regles per esborrar" },
+  "errorimportingrules": {
+    "message": "Error en importar les regles: "
+  },
+  "norulestoclear": {
+    "message": "No hi ha regles per esborrar"
+  },
   "willdeleteallrules": {
     "message": "Això eliminarà permanentment totes les $rulescount$ regles. ",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Aquesta acció no es pot desfer. Voleu continuar?" },
-  "allrulescleared": { "message": "Totes les regles s'han esborrat correctament!" },
-  "errorclearingrules": { "message": "Error en esborrar les regles" },
-  "willreset": { "message": "Això restablirà tota la configuració als valors predeterminats. Voleu continuar?" },
-  "resettodefaults": { "message": "La configuració s'ha restablert als valors per defecte!" },
-  "errorresettingsettings": { "message": "Error en restablir la configuració" },
-  "basicsettingstitle": { "message": "Configuració bàsica" },
-  "advancedsettingstitle": { "message": "Configuració avançada" },
-  "statisticstitle": { "message": "Estadístiques" },
+  "cannotbeundone": {
+    "message": "Aquesta acció no es pot desfer. Voleu continuar?"
+  },
+  "allrulescleared": {
+    "message": "Totes les regles s'han esborrat correctament!"
+  },
+  "errorclearingrules": {
+    "message": "Error en esborrar les regles"
+  },
+  "willreset": {
+    "message": "Això restablirà tota la configuració als valors predeterminats. Voleu continuar?"
+  },
+  "resettodefaults": {
+    "message": "La configuració s'ha restablert als valors per defecte!"
+  },
+  "errorresettingsettings": {
+    "message": "Error en restablir la configuració"
+  },
+  "basicsettingstitle": {
+    "message": "Configuració bàsica"
+  },
+  "advancedsettingstitle": {
+    "message": "Configuració avançada"
+  },
+  "statisticstitle": {
+    "message": "Estadístiques"
+  },
   "rulelimitreached": {
     "message": "Has arribat al límit de regles ($limit$) per a la versió bàsica. Actualitza a Pro per a regles il·limitades.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Cal Pro per a l'edició." },
-  "invalidpassword": { "message": "Contrasenya no vàlida" },
-  "setpassword": { "message": "Estableix una contrasenya" },
-  "enterpassword": { "message": "Introdueix la contrasenya" },
-  "passwordmismatch": { "message": "Les contrasenyes no coincideixen" },
-  "passwordtooshort": { "message": "La contrasenya ha de tenir almenys 6 caràcters" },
-  "resetpasswordconfirm": { "message": "Restablir la contrasenya desactivarà la protecció. Continuar?" },
-  "passwordset": { "message": "Contrasenya establerta correctament" },
-  "passworddisabled": { "message": "Protecció amb contrasenya desactivada" },
-  "prorequired": { "message": "Es requereix el mode Pro per a aquesta funció" },
-  "enablepasswordtitle": { "message": "Activa la protecció amb contrasenya" },
-  "enablepassworddesc": { "message": "Requereix una contrasenya per eliminar o editar regles (millora el mode estricte)" },
-  "passwordprotectiontitle": { "message": "Protecció amb contrasenya" },
-  "scheduleheader": { "message": "Horari" },
-  "enableschedule": { "message": "Habilita l'horari" },
-  "alwaysactive": { "message": "Sempre actiu" },
-  "profeatureschedule": { "message": "L'horari està disponible a la versió Pro" },
-  "days": { "message": "Dies" },
-  "starttime": { "message": "Hora d'inici:" },
-  "endtime": { "message": "Hora de finalització:" },
-  "invaliddays": { "message": "Dies seleccionats no vàlids" },
-  "invalidtimeformat": { "message": "Format d'hora no vàlid (utilitza HH:MM)" },
-  "startafterend": { "message": "L'hora d'inici ha de ser abans de l'hora de finalització" },
-  "invalidschedule": { "message": "Horari no vàlid: si us plau, seleccioneu dies i hores." },
-  "invalidscheduledays": { "message": "Horari no vàlid: seleccioneu com a mínim un dia." },
-  "invalidschedulestarttime": { "message": "Horari no vàlid: definiu una hora d'inici." },
-  "invalidscheduleendtime": { "message": "Horari no vàlid: definiu una hora de finalització." },
-  "editdisablednonpro": { "message": "Edició desactivada: massa regles per a usuaris no Pro." },
-  "errorloadingstatus": { "message": "Error en carregar l'estat de l'usuari." },
-  "schedule_day_sun": { "message": "Dg" },
-  "schedule_day_mon": { "message": "Dl" },
-  "schedule_day_tue": { "message": "Dt" },
-  "schedule_day_wed": { "message": "Dc" },
-  "schedule_day_thu": { "message": "Dj" },
-  "schedule_day_fri": { "message": "Dv" },
-  "schedule_day_sat": { "message": "Ds" },
-  "category_header": { "message": "Categoria" },
-  "category_required": { "message": "La categoria és obligatòria" },
-  "allcategories": { "message": "Totes les categories" },
-  "category_social": { "message": "Xarxes socials" },
-  "category_news": { "message": "Notícies" },
-  "category_entertainment": { "message": "Entreteniment" },
-  "category_shopping": { "message": "Compres" },
-  "category_work": { "message": "Feina" },
-  "category_gaming": { "message": "Jocs" },
-  "category_adult": { "message": "Per a adults" },
-  "category_uncategorized": { "message": "Sense categoria" },
-  "searchfordomain": { "message": "Cerca un nom de domini" },
-  "norulesforcategory": { "message": "No hi ha llocs web bloquejats per a aquesta categoria." },
-  "getpro": { "message": "Obtén Pro" },
-  "profunctionstext": { "message": "Les funcions Pro inclouen: bloqueig programat, protecció amb contrasenya, filtratge de regles i exportació/importació de regles. Gaudeix de la nostra Llicència Universal: una subscripció activa el Pro en tots els teus navegadors (Chrome, Firefox, Edge, Kiwi). Per activar-ho, compra una subscripció a blockdistraction.com, després copia la teva clau de llicència del tauler del compte i enganxa-la a continuació." },
-  "upgradenow": { "message": "Actualitza ara" },
-  "enteremail": { "message": "Introdueix el teu correu electrònic" },
-  "activatepro": { "message": "Activa Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Restaura l'accés" },
-  "pleaseenteremail": { "message": "Si us plau, introdueix el teu correu electrònic" },
-  "checking": { "message": "Comprovant..." },
-  "proactivated": { "message": "Funcions Pro activades!" },
-  "subscriptionnotfound": { "message": "Subscripció no activa o correu electrònic no trobat." },
-  "servererror": { "message": "Error del servidor. Torna-ho a provar si us plau." },
-  "proactivatedfor": { "message": "Pro activat per a" },
+  "proonlyactions": {
+    "message": "Cal Pro per a l'edició."
+  },
+  "invalidpassword": {
+    "message": "Contrasenya no vàlida"
+  },
+  "setpassword": {
+    "message": "Estableix una contrasenya"
+  },
+  "enterpassword": {
+    "message": "Introdueix la contrasenya"
+  },
+  "passwordmismatch": {
+    "message": "Les contrasenyes no coincideixen"
+  },
+  "passwordtooshort": {
+    "message": "La contrasenya ha de tenir almenys 6 caràcters"
+  },
+  "resetpasswordconfirm": {
+    "message": "Restablir la contrasenya desactivarà la protecció. Continuar?"
+  },
+  "passwordset": {
+    "message": "Contrasenya establerta correctament"
+  },
+  "passworddisabled": {
+    "message": "Protecció amb contrasenya desactivada"
+  },
+  "prorequired": {
+    "message": "Es requereix el mode Pro per a aquesta funció"
+  },
+  "enablepasswordtitle": {
+    "message": "Activa la protecció amb contrasenya"
+  },
+  "enablepassworddesc": {
+    "message": "Requereix una contrasenya per eliminar o editar regles (millora el mode estricte)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Protecció amb contrasenya"
+  },
+  "scheduleheader": {
+    "message": "Horari"
+  },
+  "enableschedule": {
+    "message": "Habilita l'horari"
+  },
+  "alwaysactive": {
+    "message": "Sempre actiu"
+  },
+  "profeatureschedule": {
+    "message": "L'horari està disponible a la versió Pro"
+  },
+  "days": {
+    "message": "Dies"
+  },
+  "starttime": {
+    "message": "Hora d'inici:"
+  },
+  "endtime": {
+    "message": "Hora de finalització:"
+  },
+  "invaliddays": {
+    "message": "Dies seleccionats no vàlids"
+  },
+  "invalidtimeformat": {
+    "message": "Format d'hora no vàlid (utilitza HH:MM)"
+  },
+  "startafterend": {
+    "message": "L'hora d'inici ha de ser abans de l'hora de finalització"
+  },
+  "invalidschedule": {
+    "message": "Horari no vàlid: si us plau, seleccioneu dies i hores."
+  },
+  "invalidscheduledays": {
+    "message": "Horari no vàlid: seleccioneu com a mínim un dia."
+  },
+  "invalidschedulestarttime": {
+    "message": "Horari no vàlid: definiu una hora d'inici."
+  },
+  "invalidscheduleendtime": {
+    "message": "Horari no vàlid: definiu una hora de finalització."
+  },
+  "editdisablednonpro": {
+    "message": "Edició desactivada: massa regles per a usuaris no Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Error en carregar l'estat de l'usuari."
+  },
+  "schedule_day_sun": {
+    "message": "Dg"
+  },
+  "schedule_day_mon": {
+    "message": "Dl"
+  },
+  "schedule_day_tue": {
+    "message": "Dt"
+  },
+  "schedule_day_wed": {
+    "message": "Dc"
+  },
+  "schedule_day_thu": {
+    "message": "Dj"
+  },
+  "schedule_day_fri": {
+    "message": "Dv"
+  },
+  "schedule_day_sat": {
+    "message": "Ds"
+  },
+  "category_header": {
+    "message": "Categoria"
+  },
+  "category_required": {
+    "message": "La categoria és obligatòria"
+  },
+  "allcategories": {
+    "message": "Totes les categories"
+  },
+  "category_social": {
+    "message": "Xarxes socials"
+  },
+  "category_news": {
+    "message": "Notícies"
+  },
+  "category_entertainment": {
+    "message": "Entreteniment"
+  },
+  "category_shopping": {
+    "message": "Compres"
+  },
+  "category_work": {
+    "message": "Feina"
+  },
+  "category_gaming": {
+    "message": "Jocs"
+  },
+  "category_adult": {
+    "message": "Per a adults"
+  },
+  "category_uncategorized": {
+    "message": "Sense categoria"
+  },
+  "searchfordomain": {
+    "message": "Cerca un nom de domini"
+  },
+  "norulesforcategory": {
+    "message": "No hi ha llocs web bloquejats per a aquesta categoria."
+  },
+  "getpro": {
+    "message": "Obtén Pro"
+  },
+  "profunctionstext": {
+    "message": "Les funcions Pro inclouen: bloqueig programat, protecció amb contrasenya, filtratge de regles i exportació/importació de regles. Gaudeix de la nostra Llicència Universal: una subscripció activa el Pro en tots els teus navegadors (Chrome, Firefox, Edge, Kiwi). Per activar-ho, compra una subscripció a blockdistraction.com, després copia la teva clau de llicència del tauler del compte i enganxa-la a continuació."
+  },
+  "upgradenow": {
+    "message": "Actualitza ara"
+  },
+  "enteremail": {
+    "message": "Introdueix el teu correu electrònic"
+  },
+  "activatepro": {
+    "message": "Activa Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Restaura l'accés"
+  },
+  "pleaseenteremail": {
+    "message": "Si us plau, introdueix el teu correu electrònic"
+  },
+  "checking": {
+    "message": "Comprovant..."
+  },
+  "proactivated": {
+    "message": "Funcions Pro activades!"
+  },
+  "subscriptionnotfound": {
+    "message": "Subscripció no activa o correu electrònic no trobat."
+  },
+  "servererror": {
+    "message": "Error del servidor. Torna-ho a provar si us plau."
+  },
+  "proactivatedfor": {
+    "message": "Pro activat per a"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "La sol·licitud de permís ha fallat (pot passar al mòbil). Torna-ho a provar o concedeix el permís manualment des de la configuració."
   },
-  "pastekeylabel": { "message": "Enganxa la teva clau de llicència aquí:" },
-  "confirmclearstats": { "message": "Estàs segur que vols esborrar totes les estadístiques? Aquesta acció no es pot desfer." },
-  "statscleared": { "message": "Les estadístiques s’han esborrat correctament." },
-  "redirectstodaylabel": { "message": "Redireccions d’avui" },
-  "totalredirectslabel": { "message": "Total de redireccions" },
-  "logout": { "message": "Tanca la sessió" },
-  "loggedoutsuccess": { "message": "Has tancat la sessió correctament." },
-  "loggedouterror": { "message": "S’ha produït un error en tancar la sessió." },
-  "forcesync": { "message": "Força la sincronització / Comprova l’estat" },
-  "forgotpasswordinstructions": { "message": "Per restablir la teva contrasenya, ves a la secció 'Pro', fes clic a 'Tanca la sessió' i després reactiva enganxant la teva clau de llicència." },
-  "blockedtitle": { "message": "Lloc no disponible" },
-  "blockedheader": { "message": "Aquest lloc web no està disponible actualment" },
-  "blockedtext": { "message": "Aquest contingut no es pot mostrar." },
-  "blockedbutton": { "message": "Tanca la pestanya" },
-  "confirmpassword": { "message": "Confirma la contrasenya" },
-  "modalconfirm": { "message": "Confirmar" },
-  "modalcancel": { "message": "Cancel·lar" },
-  "forgotpassword": { "message": "Has oblidat la contrasenya? Restableix (eliminarà la protecció)" },
-  "prounlocked": { "message": "Gràcies pel teu suport! Totes les funcions Pro estan desbloquejades." },
-  "licensesynced": { "message": "La teva llicència està sincronitzada amb el teu compte. Si en perds l’accés, pots recuperar la teva clau des de: " },
-  "syncing": { "message": "Sincronitzant..." },
-  "pleaseenterkey": { "message": "Si us plau, introduïu una clau." },
-  "syncsuccess": { "message": "Sincronització correcta" },
-  "syncfailed": { "message": "La sincronització ha fallat." },
-  "passwordreset": { "message": "La protecció amb contrasenya s'ha restablert." },
-  "privacysecured": { "message": "Privadesa protegida" },
-  "errorinvalidfiletype": { "message": "Si us plau, seleccioneu un fitxer .json" },
-  "debugsettingstitle": { "message": "Configuració de depuració" },
-  "enabledebugtitle": { "message": "Activa el mode de depuració" },
-  "enabledebugdesc": { "message": "Activa el registre detallat a la consola per a la resolució de problemes" },
-  "errorcommunication": { "message": "Error en comunicar-se amb el servei en segon pla" },
-  "clearstats": { "message": "Esborra les estadístiques" },
-  "rule_enabled": { "message": "Activat" },
-  "rule_disabled": { "message": "Desactivat" },
-  "filter_only_hint": { "message": "Aquesta llista només filtra la visualització a la taula" },
-  "category_disabled_desc": { "message": "Silencia una categoria per permetre temporalment l'accés a tots els seus llocs web. La configuració individual de les regles es conserva." },
-  "toggle_category_blocking": { "message": "Activa o desactiva el bloqueig per a tota la categoria" },
-  "category_muted_no_edit": { "message": "No es pot gestionar: el bloqueig de la categoria està en pausa" },
-  "feedback_title": { "message": "T'agrada BlockDistraction?" },
-  "feedback_desc": { "message": "El teu feedback ens ajuda molt a millorar l'extensió." },
-  "feedback_like": { "message": "Sí, funciona molt bé!" },
-  "feedback_dislike": { "message": "Tinc problemes / suggeriments" },
-  "trialproheader": { "message": "Comença la teva prova gratuïta de 7 dies" },
-  "trialprotext": { "message": "Cancel·la en qualsevol moment. Els teus pagaments estan totalment protegits." },
-  "focussessionheader": { "message": "Sessió de focus" },
-  "focussessionstart": { "message": "Inicia" },
-  "focussessionstop": { "message": "Atura" },
-  "focussessionduration": { "message": "Durada (min):" },
-  "focussessioninfo": { "message": "Activa totes les teves regles de bloqueig durant un temps determinat, ignorant la seva configuració i horaris actuals. Per a una màxima concentració." },
-  "focussessionprofeature": { "message": "La durada personalitzada i el mode Hardcore són funcions Pro." },
-  "focussessionended": { "message": "La sessió de focus ha acabat! Pren-te un descans." },
-  "focussessionhardcore": { "message": "Mode Hardcore (sense botó d'Atura)" },
-  "focussessionsoundtitle": { "message": "Notificació de so de la sessió de focus" },
-  "focussessionsounddesc": { "message": "Reprodueix un so quan acabi la sessió de focus." },
-  "focussessionactivebanner": { "message": "Sessió de focus activa! Temps restant:" },
-  "focussessioninvalidduration": { "message": "Si us plau, introdueix una durada vàlida (1-240 minuts)." },
-  "successfulfocussessionslabel": { "message": "Sessions de focus amb èxit" },
-  "rule_scheduled": { "message": "Regla programada" },
-  "addwhitelistrule": { "message": "Afegeix una excepció" },
-  "category_whitelist": { "message": "Llista blanca" },
-  "conflict_blacklist_err": { "message": "Aquest lloc ja és a la llista negra. Elimina'l primer." },
-  "conflict_whitelist_err": { "message": "Aquest lloc ja és a la llista blanca. Elimina'l primer." },
-  "status_allow": { "message": "Permès" },
-  "redundant_whitelist_err": { "message": "Aquesta regla ja està coberta per una altra regla de la llista blanca." },
-  "focussessionmode": { "message": "Mode de concentració:" },
-  "focusmodeblacklist": { "message": "Bloca la llista negra" },
-  "focusmodewhitelist": { "message": "Permet només la llista blanca" }
+  "pastekeylabel": {
+    "message": "Enganxa la teva clau de llicència aquí:"
+  },
+  "confirmclearstats": {
+    "message": "Estàs segur que vols esborrar totes les estadístiques? Aquesta acció no es pot desfer."
+  },
+  "statscleared": {
+    "message": "Les estadístiques s’han esborrat correctament."
+  },
+  "redirectstodaylabel": {
+    "message": "Redireccions d’avui"
+  },
+  "totalredirectslabel": {
+    "message": "Total de redireccions"
+  },
+  "logout": {
+    "message": "Tanca la sessió"
+  },
+  "loggedoutsuccess": {
+    "message": "Has tancat la sessió correctament."
+  },
+  "loggedouterror": {
+    "message": "S’ha produït un error en tancar la sessió."
+  },
+  "forcesync": {
+    "message": "Força la sincronització / Comprova l’estat"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Per restablir la teva contrasenya, ves a la secció 'Pro', fes clic a 'Tanca la sessió' i després reactiva enganxant la teva clau de llicència."
+  },
+  "blockedtitle": {
+    "message": "Lloc no disponible"
+  },
+  "blockedheader": {
+    "message": "Aquest lloc web no està disponible actualment"
+  },
+  "blockedtext": {
+    "message": "Aquest contingut no es pot mostrar."
+  },
+  "blockedbutton": {
+    "message": "Tanca la pestanya"
+  },
+  "confirmpassword": {
+    "message": "Confirma la contrasenya"
+  },
+  "modalconfirm": {
+    "message": "Confirmar"
+  },
+  "modalcancel": {
+    "message": "Cancel·lar"
+  },
+  "forgotpassword": {
+    "message": "Has oblidat la contrasenya? Restableix (eliminarà la protecció)"
+  },
+  "prounlocked": {
+    "message": "Gràcies pel teu suport! Totes les funcions Pro estan desbloquejades."
+  },
+  "licensesynced": {
+    "message": "La teva llicència està sincronitzada amb el teu compte. Si en perds l’accés, pots recuperar la teva clau des de: "
+  },
+  "syncing": {
+    "message": "Sincronitzant..."
+  },
+  "pleaseenterkey": {
+    "message": "Si us plau, introduïu una clau."
+  },
+  "syncsuccess": {
+    "message": "Sincronització correcta"
+  },
+  "syncfailed": {
+    "message": "La sincronització ha fallat."
+  },
+  "passwordreset": {
+    "message": "La protecció amb contrasenya s'ha restablert."
+  },
+  "privacysecured": {
+    "message": "Privadesa protegida"
+  },
+  "errorinvalidfiletype": {
+    "message": "Si us plau, seleccioneu un fitxer .json"
+  },
+  "debugsettingstitle": {
+    "message": "Configuració de depuració"
+  },
+  "enabledebugtitle": {
+    "message": "Activa el mode de depuració"
+  },
+  "enabledebugdesc": {
+    "message": "Activa el registre detallat a la consola per a la resolució de problemes"
+  },
+  "errorcommunication": {
+    "message": "Error en comunicar-se amb el servei en segon pla"
+  },
+  "clearstats": {
+    "message": "Esborra les estadístiques"
+  },
+  "rule_enabled": {
+    "message": "Activat"
+  },
+  "rule_disabled": {
+    "message": "Desactivat"
+  },
+  "filter_only_hint": {
+    "message": "Aquesta llista només filtra la visualització a la taula"
+  },
+  "category_disabled_desc": {
+    "message": "Silencia una categoria per permetre temporalment l'accés a tots els seus llocs web. La configuració individual de les regles es conserva."
+  },
+  "toggle_category_blocking": {
+    "message": "Activa o desactiva el bloqueig per a tota la categoria"
+  },
+  "category_muted_no_edit": {
+    "message": "No es pot gestionar: el bloqueig de la categoria està en pausa"
+  },
+  "feedback_title": {
+    "message": "T'agrada BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "El teu feedback ens ajuda molt a millorar l'extensió."
+  },
+  "feedback_like": {
+    "message": "Sí, funciona molt bé!"
+  },
+  "feedback_dislike": {
+    "message": "Tinc problemes / suggeriments"
+  },
+  "trialproheader": {
+    "message": "Comença la teva prova gratuïta de 7 dies"
+  },
+  "trialprotext": {
+    "message": "Cancel·la en qualsevol moment. Els teus pagaments estan totalment protegits."
+  },
+  "focussessionheader": {
+    "message": "Sessió de focus"
+  },
+  "focussessionstart": {
+    "message": "Inicia"
+  },
+  "focussessionstop": {
+    "message": "Atura"
+  },
+  "focussessionduration": {
+    "message": "Durada (min):"
+  },
+  "focussessioninfo": {
+    "message": "Activa totes les teves regles de bloqueig durant un temps determinat, ignorant la seva configuració i horaris actuals. Per a una màxima concentració."
+  },
+  "focussessionprofeature": {
+    "message": "La durada personalitzada i el mode Hardcore són funcions Pro."
+  },
+  "focussessionended": {
+    "message": "La sessió de focus ha acabat! Pren-te un descans."
+  },
+  "focussessionhardcore": {
+    "message": "Mode Hardcore (sense botó d'Atura)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Notificació de so de la sessió de focus"
+  },
+  "focussessionsounddesc": {
+    "message": "Reprodueix un so quan acabi la sessió de focus."
+  },
+  "focussessionactivebanner": {
+    "message": "Sessió de focus activa! Temps restant:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Si us plau, introdueix una durada vàlida (1-240 minuts)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Sessions de focus amb èxit"
+  },
+  "rule_scheduled": {
+    "message": "Regla programada"
+  },
+  "addwhitelistrule": {
+    "message": "Afegeix una excepció"
+  },
+  "category_whitelist": {
+    "message": "Llista blanca"
+  },
+  "conflict_blacklist_err": {
+    "message": "Aquest lloc ja és a la llista negra. Elimina'l primer."
+  },
+  "conflict_whitelist_err": {
+    "message": "Aquest lloc ja és a la llista blanca. Elimina'l primer."
+  },
+  "status_allow": {
+    "message": "Permès"
+  },
+  "redundant_whitelist_err": {
+    "message": "Aquesta regla ja està coberta per una altra regla de la llista blanca."
+  },
+  "focussessionmode": {
+    "message": "Mode de concentració:"
+  },
+  "focusmodeblacklist": {
+    "message": "Bloca la llista negra"
+  },
+  "focusmodewhitelist": {
+    "message": "Permet només la llista blanca"
+  },
+  "schedule_edit": {
+    "message": "Edita l'horari"
+  },
+  "schedule_add_period": {
+    "message": "Afegeix un grup horari"
+  },
+  "schedule_remove_period": {
+    "message": "Elimina"
+  },
+  "schedule_period": {
+    "message": "Grup horari"
+  },
+  "schedule_every_day": {
+    "message": "Cada dia"
+  },
+  "schedule_weekdays": {
+    "message": "Dies feiners"
+  },
+  "schedule_weekends": {
+    "message": "Caps de setmana"
+  },
+  "schedule_day_overlap": {
+    "message": "Cada dia només es pot utilitzar una vegada."
+  }
 }

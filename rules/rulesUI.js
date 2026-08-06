@@ -2,12 +2,14 @@ import { t } from '../scripts/t.js';
 import Logger from '../utils/logger.js';
 import { CATEGORIES } from './categoryManager.js';
 import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
+import { ScheduleEditor } from '../schedules/scheduleEditor.js';
 
 export class RulesUI {
   constructor() {
     this.logger = new Logger('RulesUI');
     this.countdownTimers = new Map();
     this.scheduleFormatter = new ScheduleFormatter();
+    this.scheduleEditor = new ScheduleEditor({ logger: this.logger });
   }
   
   handleRuleDeletion(deleteButton, onDelete, isStrictMode = false, buttonText = null) {
@@ -259,7 +261,7 @@ export class RulesUI {
         onSave(rule.id, blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule);
       } catch (error) {
         this.logger.info('Edit: Schedule error:', error.message);
-        this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
+        this.showErrorMessage(this.getValidationMessage(error.message));
       }
     });
     actionsCell.appendChild(saveBtn);
@@ -372,7 +374,7 @@ export class RulesUI {
         onSave(blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule, row);
       } catch (error) {
         this.logger.info('Add: Schedule error:', error.message);
-        this.showErrorMessage(t('invalidschedule') || 'Invalid schedule: please select days and times');
+        this.showErrorMessage(this.getValidationMessage(error.message));
       }
     });
     actionsCell.appendChild(saveBtn);
@@ -415,109 +417,13 @@ export class RulesUI {
   }
   
   createScheduleSection(existingSchedule, enableSchedule) {
-    const section = document.createElement('div');
-    section.className = `schedule-section ${enableSchedule ? 'pro-feature' : 'non-pro'}`;
-    
-    if (!enableSchedule) {
-      section.textContent = t('profeatureschedule') || 'Schedule available in Pro';
-      return section;
-    }
-    
-    const enableCheckbox = document.createElement('input');
-    enableCheckbox.type = 'checkbox';
-    enableCheckbox.id = 'enable-schedule';
-    enableCheckbox.checked = !!existingSchedule;
-    section.appendChild(enableCheckbox);
-    section.appendChild(document.createTextNode(t('enableschedule') || 'Enable schedule'));
-    
-    const daysContainer = document.createElement('div');
-    daysContainer.className = 'days-container';
-    daysContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
-    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach((day, i) => {
-      const label = document.createElement('label');
-      const chk = document.createElement('input');
-      chk.type = 'checkbox';
-      chk.value = i;
-      if (existingSchedule?.days?.includes(i)) chk.checked = true;
-      label.appendChild(chk);
-      label.appendChild(document.createTextNode(t(`schedule_day_${day.toLowerCase()}`)));
-      daysContainer.appendChild(label);
-    });
-    section.appendChild(daysContainer);
-    
-    const timeContainer = document.createElement('div');
-    timeContainer.className = 'time-container';
-    timeContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
-    
-    const startLabel = document.createElement('label');
-    startLabel.textContent = t('starttime') || 'Start:';
-    const startTime = document.createElement('input');
-    startTime.type = 'time';
-    startTime.className = 'start-time';
-    startTime.required = true;
-    startTime.value = existingSchedule?.startTime || '09:00';
-    startLabel.appendChild(startTime);
-    timeContainer.appendChild(startLabel);
-    
-    const endLabel = document.createElement('label');
-    endLabel.textContent = t('endtime') || 'End:';
-    const endTime = document.createElement('input');
-    endTime.type = 'time';
-    endTime.className = 'end-time';
-    endTime.required = true;
-    endTime.value = existingSchedule?.endTime || '17:00';
-    endLabel.appendChild(endTime);
-    timeContainer.appendChild(endLabel);
-    
-    section.appendChild(timeContainer);
-    
-    enableCheckbox.addEventListener('change', () => {
-      daysContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
-      timeContainer.style.display = enableCheckbox.checked ? 'flex' : 'none';
-    });
-    
-    this.logger.log('Created schedule section:', {
-      enableChecked: enableCheckbox.checked,
-      days: existingSchedule?.days,
-      startTime: startTime.value,
-      endTime: endTime.value
-    });
-    
-    return section;
+    return this.scheduleEditor.createSection(existingSchedule, enableSchedule);
   }
-  
+
   getScheduleFromSection(section) {
-    if (!section || section.nodeType === Node.TEXT_NODE) {
-      return null;
-    }
-    
-    const enableCheckbox = section.querySelector('#enable-schedule');
-    if (!enableCheckbox?.checked) {
-      return null;
-    }
-    
-    const days = Array.from(section.querySelectorAll('.days-container input[type="checkbox"]:checked'))
-      .map(chk => parseInt(chk.value));
-    
-    const startTimeInput = section.querySelector('.time-container input.start-time');
-    const endTimeInput = section.querySelector('.time-container input.end-time');
-    
-    const startTime = startTimeInput?.value;
-    const endTime = endTimeInput?.value;
-    
-    if (days.length === 0) {
-      throw new Error('invalidSchedule: no days selected');
-    }
-    if (!startTime) {
-      throw new Error('invalidSchedule: start time is empty');
-    }
-    if (!endTime) {
-      throw new Error('invalidSchedule: end time is empty');
-    }
-    
-    return { days, startTime, endTime };
+    return this.scheduleEditor.getSchedule(section);
   }
-  
+
   getValidationMessage(errorType) {
     const invalidRedirectMessage = [
       t('wrongredirecturl'),
@@ -532,6 +438,7 @@ export class RulesUI {
       'invalid_days': t('invaliddays') || 'Invalid days selected',
       'invalid_time_format': t('invalidtimeformat') || 'Invalid time format (HH:MM)',
       'start_after_end': t('startafterend') || 'Start time must be before end time',
+      'schedule_day_overlap': t('schedule_day_overlap') || 'Each day can be used only once',
       'category_required': t('category_required') || 'Category is required',
       'invalidSchedule: no days selected': t('invalidscheduledays') || 'Invalid schedule: please select at least one day',
       'invalidSchedule: start time is empty': t('invalidschedulestarttime') || 'Invalid schedule: please set a start time',

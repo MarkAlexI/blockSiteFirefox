@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "🛡️ More Reliable Rule Management: Changes from the popup, Settings page, and context menu are now coordinated to prevent rules from being overwritten.",
-    "⚡ Consistent Updates: Adding, editing, pausing, or deleting a rule now keeps your saved list and active blocking state aligned.",
-    "🔎 Safer Editing: Rules keep a stable identity, so searching or filtering the list cannot cause the wrong rule to be changed.",
-    "📦 Safer Imports and Cleanup: Backup files are checked before replacing your rules, and clearing the list now removes active blocking rules more reliably."
+    "🗓️ Flexible Weekly Schedules: Use different blocking hours for weekdays, weekends, or any custom group of days.",
+    "⏰ Multiple Time Groups: A single rule can now follow separate schedules across the week.",
+    "⚡ Quick Presets: Start with Every day, Weekdays, or Weekends and adjust the times as needed.",
+    "✅ Seamless Upgrade: Your existing scheduled rules continue to work automatically."
   ];
   
   const ul = document.getElementById('features');

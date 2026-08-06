@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – حاظر المواقع" },
-  "shortname": { "message": "حاظر" },
-  "description": { "message": "أداة بسيطة وموثوقة لحظر المواقع أو إعادة توجيهها لمساعدتك على البقاء مركزاً." },
-  "defaulttitle": { "message": "كن مركزاً ومنتجاً" },
-  "header": { "message": "أداة حظر المواقع" },
-  "paragraph": { "message": "لحظر موقع أو مورد، أدخل جزءاً من اسمه في حقل الإدخال بعنوان \"اكتب رابط الحظر\" – على سبيل المثال، \"facebook\" سيحظر جميع النطاقات الفرعية ذات الصلة. في الحقل بعنوان \"اكتب رابط إعادة التوجيه\"، أدخل العنوان الكامل مع البروتوكول، مثل \"https://google.com\". إذا تُرك حقل إعادة التوجيه فارغاً، فسيتم حظر الموقع دون إعادة توجيه. اضغط على زر الحفظ لتطبيق القاعدة. لتحديث قاعدة، احذف القديمة وأنشئ واحدة جديدة." },
-  "addrule": { "message": "إضافة قاعدة جديدة" },
-  "blockurl": { "message": "اكتب رابط الحظر" },
-  "redirecturl": { "message": "اكتب رابط إعادة التوجيه (اختياري)" },
-  "redirecturlheader": { "message": "عنوان URL لإعادة التوجيه" },
-  "redirecturlplaceholder": { "message": "اختياري - اتركه فارغًا للحظر" },
-  "redirecturlhint": { "message": "أدخل عنوان URL كاملاً يتضمن https://" },
-  "mobilecopylinkhint": { "message": "لحظر رابط، انسخ عنوانه والصقه في حقل الحظر." },
-  "savebtn": { "message": "حفظ" },
-  "deletebtn": { "message": "حذف" },
-  "alertruleexist": { "message": "القاعدة موجودة مسبقاً" },
+  "chromename": {
+    "message": "BlockDistraction – حاظر المواقع"
+  },
+  "shortname": {
+    "message": "حاظر"
+  },
+  "description": {
+    "message": "أداة بسيطة وموثوقة لحظر المواقع أو إعادة توجيهها لمساعدتك على البقاء مركزاً."
+  },
+  "defaulttitle": {
+    "message": "كن مركزاً ومنتجاً"
+  },
+  "header": {
+    "message": "أداة حظر المواقع"
+  },
+  "paragraph": {
+    "message": "لحظر موقع أو مورد، أدخل جزءاً من اسمه في حقل الإدخال بعنوان \"اكتب رابط الحظر\" – على سبيل المثال، \"facebook\" سيحظر جميع النطاقات الفرعية ذات الصلة. في الحقل بعنوان \"اكتب رابط إعادة التوجيه\"، أدخل العنوان الكامل مع البروتوكول، مثل \"https://google.com\". إذا تُرك حقل إعادة التوجيه فارغاً، فسيتم حظر الموقع دون إعادة توجيه. اضغط على زر الحفظ لتطبيق القاعدة. لتحديث قاعدة، احذف القديمة وأنشئ واحدة جديدة."
+  },
+  "addrule": {
+    "message": "إضافة قاعدة جديدة"
+  },
+  "blockurl": {
+    "message": "اكتب رابط الحظر"
+  },
+  "redirecturl": {
+    "message": "اكتب رابط إعادة التوجيه (اختياري)"
+  },
+  "redirecturlheader": {
+    "message": "عنوان URL لإعادة التوجيه"
+  },
+  "redirecturlplaceholder": {
+    "message": "اختياري - اتركه فارغًا للحظر"
+  },
+  "redirecturlhint": {
+    "message": "أدخل عنوان URL كاملاً يتضمن https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "لحظر رابط، انسخ عنوانه والصقه في حقل الحظر."
+  },
+  "savebtn": {
+    "message": "حفظ"
+  },
+  "deletebtn": {
+    "message": "حذف"
+  },
+  "alertruleexist": {
+    "message": "القاعدة موجودة مسبقاً"
+  },
   "savedrules": {
     "message": "تم حفظ $ruleslength$ قاعدة/قواعد",
     "placeholders": {
@@ -24,91 +56,261 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "لا يمكن حظر هذا المورد." },
-  "wrongblockurl": { "message": "عنوان URL غير صالح للحظر" },
-  "wrongredirecturl": { "message": "رابط إعادة التوجيه غير صالح" },
-  "blockthat": { "message": "احظر هذا الموقع" },
-  "sendfeedbackbutton": { "message": "إرسال ملاحظات" },
-  "sendfeedbacksubject": { "message": "ملاحظات حول BlockDistraction" },
-  "sendfeedbackbody": { "message": "مرحباً، أود مشاركة الملاحظات التالية:\n\n" },
-  "quote1": { "message": "ابقَ مركزاً، ابقَ قوياً." },
-  "quote2": { "message": "مستقبلك يُبنى بما تفعله اليوم." },
-  "quote3": { "message": "الانضباط هو الجسر بين الأهداف والنجاح." },
-  "quote4": { "message": "موقع واحد محظور، خطوة أقرب لهدفك." },
-  "quote5": { "message": "اجعل كل نقرة ذات قيمة." },
-  "quote6": { "message": "لا تراقب الساعة؛ افعل مثلها. استمر." },
-  "quote7": { "message": "خطوات صغيرة كل يوم تؤدي لنتائج كبيرة." },
-  "quote8": { "message": "الحد الوحيد هو عقلك." },
-  "quote9": { "message": "النجاح هو مجموع الجهود الصغيرة المتكررة يومياً." },
-  "quote10": { "message": "ركز على الإنتاجية، لا على الانشغال." },
-  "quote11": { "message": "احمِ انتباهك – إنه أثمن أصولك." },
-  "quote12": { "message": "كل إلهاء يتم حجبه هو وقت مستعاد." },
-  "quote13": { "message": "خفّض الضوضاء؛ زد إنتاجيتك." },
-  "quote14": { "message": "العادات الصغيرة تبني زخمًا لا يمكن إيقافه." },
-  "quote15": { "message": "الوضوح يتفوق على الفوضى – ركّز على ما يهم." },
-  "quote16": { "message": "قل لا للمشتتات؛ قل نعم للتقدّم." },
-  "quote17": { "message": "ساعة مركزة اليوم تضاعف نتائجك غدًا." },
-  "quote18": { "message": "اصنع أكثر باستهلاك أقل." },
-  "quote19": { "message": "الانضباط يختار المكاسب الطويلة الأمد على الاندفاعات القصيرة." },
-  "quote20": { "message": "أغلق تبويبًا، وافتح مساحة لأفكار جديدة." },
-  "quote21": { "message": "العمل الذي تؤجله اليوم قد يصبح مصدر توترك غدًا." },
-  "quote22": { "message": "التركيز ليس في فعل المزيد، بل في فعل ما هو مهم حقًا." },
-  "quote23": { "message": "أهدافك تستحق اهتمامًا أكبر من أي مشتتات." },
-  "quote24": { "message": "كل دقيقة بدون مشتتات هي استثمار في نفسك." },
-  "quote25": { "message": "الاستمرارية تحقق نتائج أكثر ثباتًا من الدفعات المؤقتة من الحماس." },
-  "quote26": { "message": "أفضل وقت للبدء كان بالأمس، وثاني أفضل وقت هو الآن." },
-  "quote27": { "message": "يبدأ التقدم عندما تختار الفعل بدلًا من التشتت." },
-  "quote28": { "message": "لحظة واحدة من التركيز يمكن أن تغيّر مجرى يومك." },
-  "quote29": { "message": "لا تحتاج إلى مزيد من الوقت، بل إلى تقليل المشتتات." },
-  "quote30": { "message": "كل قرار بالتركيز يقوّي ذاتك المستقبلية." },
-  "quote31": { "message": "هذا الحظر مؤقت، أما أهدافك فهي طويلة المدى." },
-  "quote32": { "message": "كل مشتت يتم حظره هو انتصار لذاتك المستقبلية." },
-  "quote33": { "message": "الإنترنت لا نهائي، لكن وقتك ليس كذلك." },
-  "quote34": { "message": "حدّد أولوياتك قبل أن يحددها لك الويب." },
-  "quote35": { "message": "تصفح أقل، إبداع أكثر." },
-  "quote36": { "message": "تركيزك هو ما يشكل إنجازاتك." },
-  "quote37": { "message": "ابقَ مركزًا — يمكن للمشتتات أن تنتظر." },
-  "quote38": { "message": "كل قرار منتج يبدأ بعقل مركز." },
-  "quote39": { "message": "لقد حظرت موقعًا، وليس إمكاناتك." },
-  "quote40": { "message": "طريق النجاح يُبنى بقرارات مركزة." },
-  "actionsheader": { "message": "الإجراءات" },
-  "norules": { "message": "لا توجد مواقع محظورة." },
-  "editbtn": { "message": "تعديل" },
-  "ruleddeleted": { "message": "تم حذف القاعدة." },
-  "cancelbtn": { "message": "إلغاء" },
-  "ruleupdated": { "message": "تم تحديث القاعدة." },
-  "rulenewadded": { "message": "تمت إضافة قاعدة جديدة." },
-  "gotooptions": { "message": "اذهب إلى صفحة الخيارات ⚙️" },
-  "gotopopup": { "message": "انقر على أيقونة الامتداد للعودة إلى النافذة المنبثقة." },
-  "rulesmigrated": { "message": "تم تحديث القواعد للتوافق" },
-  "errorupdatingrules": { "message": "خطأ في تحديث القواعد" },
-  "erroraddingrule": { "message": "خطأ في إضافة القاعدة" },
-  "errorremovingrule": { "message": "خطأ في إزالة القاعدة" },
-  "optionsheader": { "message": "إعدادات الإضافة" },
-  "optionsdescription": { "message": "قم بتكوين سلوك الإضافة وإعدادات الأمان" },
-  "securitymodetitle": { "message": "وضع الأمان" },
-  "normalmodetitle": { "message": "الوضع العادي" },
-  "normalmodedesc": { "message": "يمكن حذف القواعد فورًا بنقرة واحدة" },
-  "strictmodetitle": { "message": "الوضع الصارم" },
-  "strictmodedesc": { "message": "تتطلب القواعد عد تنازلي لمدة 10 ثوانٍ قبل الحذف لمنع الحذف العرضي" },
-  "confirmdeletetitle": { "message": "التأكيد قبل حذف قواعد متعددة" },
-  "confirmdeletedesc": { "message": "عرض مربع حوار التأكيد عند حذف قواعد متعددة دفعة واحدة" },
-  "notificationstitle": { "message": "إظهار الإشعارات" },
-  "notificationsdesc": { "message": "عرض الإشعارات عند تحديث الإضافة الإلكترونية" },
-  "rulesmanagementtitle": { "message": "إدارة القواعد" },
-  "exportrulesbtn": { "message": "تصدير القواعد" },
-  "importrulesbtn": { "message": "استيراد القواعد" },
-  "clearallrulesbtn": { "message": "مسح جميع القواعد" },
-  "totalruleslabel": { "message": "إجمالي القواعد" },
-  "blockedtodaylabel": { "message": "محظور اليوم" },
-  "totalblockedlabel": { "message": "إجمالي المحظور" },
-  "resetsettingsbtn": { "message": "إعادة التعيين إلى الإعدادات الافتراضية" },
-  "backtopopup": { "message": "العودة إلى الرئيسية" },
-  "errorloadingsettings": { "message": "خطأ في تحميل الإعدادات" },
-  "settingssaved": { "message": "تم حفظ الإعدادات بنجاح!" },
-  "errorsavingsettings": { "message": "خطأ في حفظ الإعدادات" },
-  "rulesexported": { "message": "تم تصدير القواعد بنجاح!" },
-  "errorexportingrules": { "message": "خطأ في تصدير القواعد" },
+  "restrictedblockurl": {
+    "message": "لا يمكن حظر هذا المورد."
+  },
+  "wrongblockurl": {
+    "message": "عنوان URL غير صالح للحظر"
+  },
+  "wrongredirecturl": {
+    "message": "رابط إعادة التوجيه غير صالح"
+  },
+  "blockthat": {
+    "message": "احظر هذا الموقع"
+  },
+  "sendfeedbackbutton": {
+    "message": "إرسال ملاحظات"
+  },
+  "sendfeedbacksubject": {
+    "message": "ملاحظات حول BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "مرحباً، أود مشاركة الملاحظات التالية:\n\n"
+  },
+  "quote1": {
+    "message": "ابقَ مركزاً، ابقَ قوياً."
+  },
+  "quote2": {
+    "message": "مستقبلك يُبنى بما تفعله اليوم."
+  },
+  "quote3": {
+    "message": "الانضباط هو الجسر بين الأهداف والنجاح."
+  },
+  "quote4": {
+    "message": "موقع واحد محظور، خطوة أقرب لهدفك."
+  },
+  "quote5": {
+    "message": "اجعل كل نقرة ذات قيمة."
+  },
+  "quote6": {
+    "message": "لا تراقب الساعة؛ افعل مثلها. استمر."
+  },
+  "quote7": {
+    "message": "خطوات صغيرة كل يوم تؤدي لنتائج كبيرة."
+  },
+  "quote8": {
+    "message": "الحد الوحيد هو عقلك."
+  },
+  "quote9": {
+    "message": "النجاح هو مجموع الجهود الصغيرة المتكررة يومياً."
+  },
+  "quote10": {
+    "message": "ركز على الإنتاجية، لا على الانشغال."
+  },
+  "quote11": {
+    "message": "احمِ انتباهك – إنه أثمن أصولك."
+  },
+  "quote12": {
+    "message": "كل إلهاء يتم حجبه هو وقت مستعاد."
+  },
+  "quote13": {
+    "message": "خفّض الضوضاء؛ زد إنتاجيتك."
+  },
+  "quote14": {
+    "message": "العادات الصغيرة تبني زخمًا لا يمكن إيقافه."
+  },
+  "quote15": {
+    "message": "الوضوح يتفوق على الفوضى – ركّز على ما يهم."
+  },
+  "quote16": {
+    "message": "قل لا للمشتتات؛ قل نعم للتقدّم."
+  },
+  "quote17": {
+    "message": "ساعة مركزة اليوم تضاعف نتائجك غدًا."
+  },
+  "quote18": {
+    "message": "اصنع أكثر باستهلاك أقل."
+  },
+  "quote19": {
+    "message": "الانضباط يختار المكاسب الطويلة الأمد على الاندفاعات القصيرة."
+  },
+  "quote20": {
+    "message": "أغلق تبويبًا، وافتح مساحة لأفكار جديدة."
+  },
+  "quote21": {
+    "message": "العمل الذي تؤجله اليوم قد يصبح مصدر توترك غدًا."
+  },
+  "quote22": {
+    "message": "التركيز ليس في فعل المزيد، بل في فعل ما هو مهم حقًا."
+  },
+  "quote23": {
+    "message": "أهدافك تستحق اهتمامًا أكبر من أي مشتتات."
+  },
+  "quote24": {
+    "message": "كل دقيقة بدون مشتتات هي استثمار في نفسك."
+  },
+  "quote25": {
+    "message": "الاستمرارية تحقق نتائج أكثر ثباتًا من الدفعات المؤقتة من الحماس."
+  },
+  "quote26": {
+    "message": "أفضل وقت للبدء كان بالأمس، وثاني أفضل وقت هو الآن."
+  },
+  "quote27": {
+    "message": "يبدأ التقدم عندما تختار الفعل بدلًا من التشتت."
+  },
+  "quote28": {
+    "message": "لحظة واحدة من التركيز يمكن أن تغيّر مجرى يومك."
+  },
+  "quote29": {
+    "message": "لا تحتاج إلى مزيد من الوقت، بل إلى تقليل المشتتات."
+  },
+  "quote30": {
+    "message": "كل قرار بالتركيز يقوّي ذاتك المستقبلية."
+  },
+  "quote31": {
+    "message": "هذا الحظر مؤقت، أما أهدافك فهي طويلة المدى."
+  },
+  "quote32": {
+    "message": "كل مشتت يتم حظره هو انتصار لذاتك المستقبلية."
+  },
+  "quote33": {
+    "message": "الإنترنت لا نهائي، لكن وقتك ليس كذلك."
+  },
+  "quote34": {
+    "message": "حدّد أولوياتك قبل أن يحددها لك الويب."
+  },
+  "quote35": {
+    "message": "تصفح أقل، إبداع أكثر."
+  },
+  "quote36": {
+    "message": "تركيزك هو ما يشكل إنجازاتك."
+  },
+  "quote37": {
+    "message": "ابقَ مركزًا — يمكن للمشتتات أن تنتظر."
+  },
+  "quote38": {
+    "message": "كل قرار منتج يبدأ بعقل مركز."
+  },
+  "quote39": {
+    "message": "لقد حظرت موقعًا، وليس إمكاناتك."
+  },
+  "quote40": {
+    "message": "طريق النجاح يُبنى بقرارات مركزة."
+  },
+  "actionsheader": {
+    "message": "الإجراءات"
+  },
+  "norules": {
+    "message": "لا توجد مواقع محظورة."
+  },
+  "editbtn": {
+    "message": "تعديل"
+  },
+  "ruleddeleted": {
+    "message": "تم حذف القاعدة."
+  },
+  "cancelbtn": {
+    "message": "إلغاء"
+  },
+  "ruleupdated": {
+    "message": "تم تحديث القاعدة."
+  },
+  "rulenewadded": {
+    "message": "تمت إضافة قاعدة جديدة."
+  },
+  "gotooptions": {
+    "message": "اذهب إلى صفحة الخيارات ⚙️"
+  },
+  "gotopopup": {
+    "message": "انقر على أيقونة الامتداد للعودة إلى النافذة المنبثقة."
+  },
+  "rulesmigrated": {
+    "message": "تم تحديث القواعد للتوافق"
+  },
+  "errorupdatingrules": {
+    "message": "خطأ في تحديث القواعد"
+  },
+  "erroraddingrule": {
+    "message": "خطأ في إضافة القاعدة"
+  },
+  "errorremovingrule": {
+    "message": "خطأ في إزالة القاعدة"
+  },
+  "optionsheader": {
+    "message": "إعدادات الإضافة"
+  },
+  "optionsdescription": {
+    "message": "قم بتكوين سلوك الإضافة وإعدادات الأمان"
+  },
+  "securitymodetitle": {
+    "message": "وضع الأمان"
+  },
+  "normalmodetitle": {
+    "message": "الوضع العادي"
+  },
+  "normalmodedesc": {
+    "message": "يمكن حذف القواعد فورًا بنقرة واحدة"
+  },
+  "strictmodetitle": {
+    "message": "الوضع الصارم"
+  },
+  "strictmodedesc": {
+    "message": "تتطلب القواعد عد تنازلي لمدة 10 ثوانٍ قبل الحذف لمنع الحذف العرضي"
+  },
+  "confirmdeletetitle": {
+    "message": "التأكيد قبل حذف قواعد متعددة"
+  },
+  "confirmdeletedesc": {
+    "message": "عرض مربع حوار التأكيد عند حذف قواعد متعددة دفعة واحدة"
+  },
+  "notificationstitle": {
+    "message": "إظهار الإشعارات"
+  },
+  "notificationsdesc": {
+    "message": "عرض الإشعارات عند تحديث الإضافة الإلكترونية"
+  },
+  "rulesmanagementtitle": {
+    "message": "إدارة القواعد"
+  },
+  "exportrulesbtn": {
+    "message": "تصدير القواعد"
+  },
+  "importrulesbtn": {
+    "message": "استيراد القواعد"
+  },
+  "clearallrulesbtn": {
+    "message": "مسح جميع القواعد"
+  },
+  "totalruleslabel": {
+    "message": "إجمالي القواعد"
+  },
+  "blockedtodaylabel": {
+    "message": "محظور اليوم"
+  },
+  "totalblockedlabel": {
+    "message": "إجمالي المحظور"
+  },
+  "resetsettingsbtn": {
+    "message": "إعادة التعيين إلى الإعدادات الافتراضية"
+  },
+  "backtopopup": {
+    "message": "العودة إلى الرئيسية"
+  },
+  "errorloadingsettings": {
+    "message": "خطأ في تحميل الإعدادات"
+  },
+  "settingssaved": {
+    "message": "تم حفظ الإعدادات بنجاح!"
+  },
+  "errorsavingsettings": {
+    "message": "خطأ في حفظ الإعدادات"
+  },
+  "rulesexported": {
+    "message": "تم تصدير القواعد بنجاح!"
+  },
+  "errorexportingrules": {
+    "message": "خطأ في تصدير القواعد"
+  },
   "willimportrules": {
     "message": "سيتم استيراد $ruleslength$ قواعد. ",
     "placeholders": {
@@ -118,7 +320,9 @@
       }
     }
   },
-  "ruleswillbereplaced": { "message": "سيتم استبدال القواعد الحالية. هل تريد المتابعة؟" },
+  "ruleswillbereplaced": {
+    "message": "سيتم استبدال القواعد الحالية. هل تريد المتابعة؟"
+  },
   "importedrules": {
     "message": "تم استيراد $ruleslength$ قاعدة (قواعد) بنجاح!",
     "placeholders": {
@@ -128,8 +332,12 @@
       }
     }
   },
-  "errorimportingrules": { "message": "خطأ في استيراد القواعد: " },
-  "norulestoclear": { "message": "لا توجد قواعد لمسحها" },
+  "errorimportingrules": {
+    "message": "خطأ في استيراد القواعد: "
+  },
+  "norulestoclear": {
+    "message": "لا توجد قواعد لمسحها"
+  },
   "willdeleteallrules": {
     "message": "سيؤدي هذا إلى حذف جميع القواعد $rulescount$ نهائيًا. ",
     "placeholders": {
@@ -139,15 +347,33 @@
       }
     }
   },
-  "cannotbeundone": { "message": "لا يمكن التراجع عن هذا الإجراء. هل تريد المتابعة؟" },
-  "allrulescleared": { "message": "تم مسح جميع القواعد بنجاح!" },
-  "errorclearingrules": { "message": "خطأ في مسح القواعد" },
-  "willreset": { "message": "سيؤدي هذا إلى إعادة تعيين جميع الإعدادات إلى القيم الافتراضية. هل تريد المتابعة؟" },
-  "resettodefaults": { "message": "تم إعادة تعيين الإعدادات إلى الافتراضية!" },
-  "errorresettingsettings": { "message": "خطأ في إعادة تعيين الإعدادات" },
-  "basicsettingstitle": { "message": "الإعدادات الأساسية" },
-  "advancedsettingstitle": { "message": "الإعدادات المتقدمة" },
-  "statisticstitle": { "message": "الإحصائيات" },
+  "cannotbeundone": {
+    "message": "لا يمكن التراجع عن هذا الإجراء. هل تريد المتابعة؟"
+  },
+  "allrulescleared": {
+    "message": "تم مسح جميع القواعد بنجاح!"
+  },
+  "errorclearingrules": {
+    "message": "خطأ في مسح القواعد"
+  },
+  "willreset": {
+    "message": "سيؤدي هذا إلى إعادة تعيين جميع الإعدادات إلى القيم الافتراضية. هل تريد المتابعة؟"
+  },
+  "resettodefaults": {
+    "message": "تم إعادة تعيين الإعدادات إلى الافتراضية!"
+  },
+  "errorresettingsettings": {
+    "message": "خطأ في إعادة تعيين الإعدادات"
+  },
+  "basicsettingstitle": {
+    "message": "الإعدادات الأساسية"
+  },
+  "advancedsettingstitle": {
+    "message": "الإعدادات المتقدمة"
+  },
+  "statisticstitle": {
+    "message": "الإحصائيات"
+  },
   "rulelimitreached": {
     "message": "لقد وصلت إلى الحد الأقصى للقواعد ($limit$) في النسخة الأساسية. قم بالترقية إلى Pro للحصول على قواعد غير محدودة.",
     "placeholders": {
@@ -157,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "يلزم الاشتراك في Pro للتعديل." },
-  "invalidpassword": { "message": "كلمة مرور غير صالحة" },
-  "setpassword": { "message": "تعيين كلمة المرور" },
-  "enterpassword": { "message": "أدخل كلمة المرور" },
-  "passwordmismatch": { "message": "كلمتا المرور غير متطابقتين" },
-  "passwordtooshort": { "message": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل" },
-  "resetpasswordconfirm": { "message": "إعادة تعيين كلمة المرور ستعطل الحماية. هل تريد المتابعة؟" },
-  "passwordset": { "message": "تم تعيين كلمة المرور بنجاح" },
-  "passworddisabled": { "message": "تم تعطيل حماية كلمة المرور" },
-  "prorequired": { "message": "يتطلب هذا الميزة وضع Pro" },
-  "enablepasswordtitle": { "message": "تفعيل حماية كلمة المرور" },
-  "enablepassworddesc": { "message": "يتطلب كلمة مرور لحذف أو تعديل القواعد (يعزز الوضع الصارم)" },
-  "passwordprotectiontitle": { "message": "حماية كلمة المرور" },
-  "scheduleheader": { "message": "الجدول الزمني" },
-  "enableschedule": { "message": "تفعيل الجدول الزمني" },
-  "alwaysactive": { "message": "نشط دائمًا" },
-  "profeatureschedule": { "message": "الجدول الزمني متاح في النسخة Pro" },
-  "days": { "message": "الأيام" },
-  "starttime": { "message": "وقت البدء:" },
-  "endtime": { "message": "وقت الانتهاء:" },
-  "invaliddays": { "message": "أيام غير صالحة محددة" },
-  "invalidtimeformat": { "message": "تنسيق وقت غير صالح (استخدم HH:MM)" },
-  "startafterend": { "message": "يجب أن يكون وقت البدء قبل وقت الانتهاء" },
-  "invalidschedule": { "message": "جدول زمني غير صالح: يرجى اختيار الأيام والأوقات." },
-  "invalidscheduledays": { "message": "جدول زمني غير صالح: يرجى اختيار يوم واحد على الأقل." },
-  "invalidschedulestarttime": { "message": "جدول زمني غير صالح: يرجى تحديد وقت البدء." },
-  "invalidscheduleendtime": { "message": "جدول زمني غير صالح: يرجى تحديد وقت الانتهاء." },
-  "editdisablednonpro": { "message": "تم تعطيل التعديل: عدد كبير جدًا من القواعد للمستخدمين غير Pro." },
-  "errorloadingstatus": { "message": "خطأ في تحميل حالة المستخدم." },
-  "schedule_day_sun": { "message": "الأحد" },
-  "schedule_day_mon": { "message": "الإثنين" },
-  "schedule_day_tue": { "message": "الثلاثاء" },
-  "schedule_day_wed": { "message": "الأربعاء" },
-  "schedule_day_thu": { "message": "الخميس" },
-  "schedule_day_fri": { "message": "الجمعة" },
-  "schedule_day_sat": { "message": "السبت" },
-  "category_header": { "message": "الفئة" },
-  "category_required": { "message": "الفئة مطلوبة" },
-  "allcategories": { "message": "جميع الفئات" },
-  "category_social": { "message": "وسائل التواصل الاجتماعي" },
-  "category_news": { "message": "الأخبار" },
-  "category_entertainment": { "message": "ترفيه" },
-  "category_shopping": { "message": "تسوق" },
-  "category_work": { "message": "عمل" },
-  "category_gaming": { "message": "ألعاب" },
-  "category_adult": { "message": "للكبار فقط" },
-  "category_uncategorized": { "message": "غير مصنفة" },
-  "searchfordomain": { "message": "ابحث عن اسم النطاق" },
-  "norulesforcategory": { "message": "لا توجد مواقع محجوبة لهذه الفئة." },
-  "getpro": { "message": "احصل على برو" },
-  "profunctionstext": { "message": "تشمل ميزات Pro: الحظر المجدول، الحماية بكلمة مرور، فلترة القواعد، وتصدير/استيراد القواعد. استمتع بترخيصنا الشامل: اشتراك واحد يفعّل ميزات Pro على جميع متصفحاتك (Chrome وFirefox وEdge وKiwi). للتفعيل، اشترِ اشتراكاً من blockdistraction.com، ثم انسخ مفتاح الترخيص من لوحة حسابك والصقه أدناه." },
-  "upgradenow": { "message": "الترقية الآن" },
-  "enteremail": { "message": "أدخل بريدك الإلكتروني" },
-  "activatepro": { "message": "تفعيل برو" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "استعادة الوصول" },
-  "pleaseenteremail": { "message": "يرجى إدخال بريدك الإلكتروني" },
-  "checking": { "message": "جارٍ التحقق..." },
-  "proactivated": { "message": "تم تفعيل ميزات برو!" },
-  "subscriptionnotfound": { "message": "الاشتراك غير نشط أو البريد الإلكتروني غير موجود." },
-  "servererror": { "message": "خطأ في الخادم. يرجى المحاولة مرة أخرى." },
-  "proactivatedfor": { "message": "تم تفعيل برو لـ" },
+  "proonlyactions": {
+    "message": "يلزم الاشتراك في Pro للتعديل."
+  },
+  "invalidpassword": {
+    "message": "كلمة مرور غير صالحة"
+  },
+  "setpassword": {
+    "message": "تعيين كلمة المرور"
+  },
+  "enterpassword": {
+    "message": "أدخل كلمة المرور"
+  },
+  "passwordmismatch": {
+    "message": "كلمتا المرور غير متطابقتين"
+  },
+  "passwordtooshort": {
+    "message": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"
+  },
+  "resetpasswordconfirm": {
+    "message": "إعادة تعيين كلمة المرور ستعطل الحماية. هل تريد المتابعة؟"
+  },
+  "passwordset": {
+    "message": "تم تعيين كلمة المرور بنجاح"
+  },
+  "passworddisabled": {
+    "message": "تم تعطيل حماية كلمة المرور"
+  },
+  "prorequired": {
+    "message": "يتطلب هذا الميزة وضع Pro"
+  },
+  "enablepasswordtitle": {
+    "message": "تفعيل حماية كلمة المرور"
+  },
+  "enablepassworddesc": {
+    "message": "يتطلب كلمة مرور لحذف أو تعديل القواعد (يعزز الوضع الصارم)"
+  },
+  "passwordprotectiontitle": {
+    "message": "حماية كلمة المرور"
+  },
+  "scheduleheader": {
+    "message": "الجدول الزمني"
+  },
+  "enableschedule": {
+    "message": "تفعيل الجدول الزمني"
+  },
+  "alwaysactive": {
+    "message": "نشط دائمًا"
+  },
+  "profeatureschedule": {
+    "message": "الجدول الزمني متاح في النسخة Pro"
+  },
+  "days": {
+    "message": "الأيام"
+  },
+  "starttime": {
+    "message": "وقت البدء:"
+  },
+  "endtime": {
+    "message": "وقت الانتهاء:"
+  },
+  "invaliddays": {
+    "message": "أيام غير صالحة محددة"
+  },
+  "invalidtimeformat": {
+    "message": "تنسيق وقت غير صالح (استخدم HH:MM)"
+  },
+  "startafterend": {
+    "message": "يجب أن يكون وقت البدء قبل وقت الانتهاء"
+  },
+  "invalidschedule": {
+    "message": "جدول زمني غير صالح: يرجى اختيار الأيام والأوقات."
+  },
+  "invalidscheduledays": {
+    "message": "جدول زمني غير صالح: يرجى اختيار يوم واحد على الأقل."
+  },
+  "invalidschedulestarttime": {
+    "message": "جدول زمني غير صالح: يرجى تحديد وقت البدء."
+  },
+  "invalidscheduleendtime": {
+    "message": "جدول زمني غير صالح: يرجى تحديد وقت الانتهاء."
+  },
+  "editdisablednonpro": {
+    "message": "تم تعطيل التعديل: عدد كبير جدًا من القواعد للمستخدمين غير Pro."
+  },
+  "errorloadingstatus": {
+    "message": "خطأ في تحميل حالة المستخدم."
+  },
+  "schedule_day_sun": {
+    "message": "الأحد"
+  },
+  "schedule_day_mon": {
+    "message": "الإثنين"
+  },
+  "schedule_day_tue": {
+    "message": "الثلاثاء"
+  },
+  "schedule_day_wed": {
+    "message": "الأربعاء"
+  },
+  "schedule_day_thu": {
+    "message": "الخميس"
+  },
+  "schedule_day_fri": {
+    "message": "الجمعة"
+  },
+  "schedule_day_sat": {
+    "message": "السبت"
+  },
+  "category_header": {
+    "message": "الفئة"
+  },
+  "category_required": {
+    "message": "الفئة مطلوبة"
+  },
+  "allcategories": {
+    "message": "جميع الفئات"
+  },
+  "category_social": {
+    "message": "وسائل التواصل الاجتماعي"
+  },
+  "category_news": {
+    "message": "الأخبار"
+  },
+  "category_entertainment": {
+    "message": "ترفيه"
+  },
+  "category_shopping": {
+    "message": "تسوق"
+  },
+  "category_work": {
+    "message": "عمل"
+  },
+  "category_gaming": {
+    "message": "ألعاب"
+  },
+  "category_adult": {
+    "message": "للكبار فقط"
+  },
+  "category_uncategorized": {
+    "message": "غير مصنفة"
+  },
+  "searchfordomain": {
+    "message": "ابحث عن اسم النطاق"
+  },
+  "norulesforcategory": {
+    "message": "لا توجد مواقع محجوبة لهذه الفئة."
+  },
+  "getpro": {
+    "message": "احصل على برو"
+  },
+  "profunctionstext": {
+    "message": "تشمل ميزات Pro: الحظر المجدول، الحماية بكلمة مرور، فلترة القواعد، وتصدير/استيراد القواعد. استمتع بترخيصنا الشامل: اشتراك واحد يفعّل ميزات Pro على جميع متصفحاتك (Chrome وFirefox وEdge وKiwi). للتفعيل، اشترِ اشتراكاً من blockdistraction.com، ثم انسخ مفتاح الترخيص من لوحة حسابك والصقه أدناه."
+  },
+  "upgradenow": {
+    "message": "الترقية الآن"
+  },
+  "enteremail": {
+    "message": "أدخل بريدك الإلكتروني"
+  },
+  "activatepro": {
+    "message": "تفعيل برو"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "استعادة الوصول"
+  },
+  "pleaseenteremail": {
+    "message": "يرجى إدخال بريدك الإلكتروني"
+  },
+  "checking": {
+    "message": "جارٍ التحقق..."
+  },
+  "proactivated": {
+    "message": "تم تفعيل ميزات برو!"
+  },
+  "subscriptionnotfound": {
+    "message": "الاشتراك غير نشط أو البريد الإلكتروني غير موجود."
+  },
+  "servererror": {
+    "message": "خطأ في الخادم. يرجى المحاولة مرة أخرى."
+  },
+  "proactivatedfor": {
+    "message": "تم تفعيل برو لـ"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -255,70 +605,226 @@
   "onboarding_status_api_error": {
     "message": "فشل طلب الإذن (قد يحدث على الهواتف). حاول مرة أخرى أو منح الإذن يدويًا من الإعدادات."
   },
-  "pastekeylabel": { "message": "ألصق مفتاح الترخيص الخاص بك هنا:" },
-  "confirmclearstats": { "message": "هل أنت متأكد أنك تريد مسح جميع الإحصائيات؟ لا يمكن التراجع عن هذا الإجراء." },
-  "statscleared": { "message": "تم مسح الإحصائيات بنجاح." },
-  "redirectstodaylabel": { "message": "إعادة التوجيهات اليوم" },
-  "totalredirectslabel": { "message": "إجمالي عمليات إعادة التوجيه" },
-  "logout": { "message": "تسجيل الخروج" },
-  "loggedoutsuccess": { "message": "تم تسجيل الخروج بنجاح." },
-  "loggedouterror": { "message": "حدث خطأ أثناء تسجيل الخروج." },
-  "forcesync": { "message": "مزامنة إجبارية / التحقق من الحالة" },
-  "forgotpasswordinstructions": { "message": "لإعادة تعيين كلمة المرور، انتقل إلى قسم 'Pro'، وانقر على 'تسجيل الخروج'، ثم أعد التفعيل عن طريق لصق مفتاح الترخيص الخاص بك." },
-  "blockedtitle": { "message": "الموقع غير متاح" },
-  "blockedheader": { "message": "هذا الموقع غير متاح حالياً" },
-  "blockedtext": { "message": "لا يمكن عرض هذا المحتوى." },
-  "blockedbutton": { "message": "إغلاق علامة التبويب" },
-  "confirmpassword": { "message": "تأكيد كلمة المرور" },
-  "modalconfirm": { "message": "تأكيد" },
-  "modalcancel": { "message": "إلغاء" },
-  "forgotpassword": { "message": "نسيت كلمة المرور؟ إعادة التعيين (سيؤدي إلى إزالة الحماية)" },
-  "prounlocked": { "message": "شكرًا لك على دعمك! تم فتح جميع ميزات Pro." },
-  "licensesynced": { "message": "تمت مزامنة ترخيصك مع حسابك. إذا فقدت الوصول، يمكنك استعادة مفتاحك من: " },
-  "syncing": { "message": "جارٍ المزامنة..." },
-  "pleaseenterkey": { "message": "يرجى إدخال المفتاح." },
-  "syncsuccess": { "message": "تمت المزامنة بنجاح" },
-  "syncfailed": { "message": "فشلت المزامنة." },
-  "passwordreset": { "message": "تمت إعادة تعيين حماية كلمة المرور." },
-  "privacysecured": { "message": "الخصوصية آمنة" },
-  "errorinvalidfiletype": { "message": "يرجى اختيار ملف ‎.json" },
-  "debugsettingstitle": { "message": "إعدادات التصحيح" },
-  "enabledebugtitle": { "message": "تفعيل وضع التصحيح" },
-  "enabledebugdesc": { "message": "تفعيل التسجيل التفصيلي في وحدة التحكم لاستكشاف الأخطاء" },
-  "errorcommunication": { "message": "خطأ في الاتصال بخدمة الخلفية" },
-  "clearstats": { "message": "مسح الإحصاءات" },
-  "rule_enabled": { "message": "مفعّل" },
-  "rule_disabled": { "message": "معطّل" },
-  "filter_only_hint": { "message": "تُستخدم هذه القائمة فقط لتصفية العرض في الجدول" },
-  "category_disabled_desc": { "message": "قم بكتم فئة للسماح مؤقتًا بالوصول إلى جميع مواقعها. يتم الاحتفاظ بإعدادات القواعد الفردية." },
-  "toggle_category_blocking": { "message": "تبديل حظر الفئة بالكامل" },
-  "category_muted_no_edit": { "message": "لا يمكن الإدارة: تم إيقاف حظر الفئة مؤقتًا" },
-  "feedback_title": { "message": "هل يعجبك BlockDistraction؟" },
-  "feedback_desc": { "message": "ملاحظاتك تساعدنا كثيرًا في تطوير الإضافة." },
-  "feedback_like": { "message": "نعم، يعمل بشكل رائع!" },
-  "feedback_dislike": { "message": "لدي مشاكل / اقتراحات" },
-  "trialproheader": { "message": "ابدأ تجربتك المجانية لمدة 7 أيام" },
-  "trialprotext": { "message": "يمكنك الإلغاء في أي وقت. مدفوعاتك محمية وآمنة تماماً." },
-  "focussessionheader": { "message": "جلسة التركيز" },
-  "focussessionstart": { "message": "ابدأ" },
-  "focussessionstop": { "message": "إيقاف" },
-  "focussessionduration": { "message": "المدة (بالدقائق):" },
-  "focussessioninfo": { "message": "تفعيل جميع قواعد الحظر الخاصة بك لوقت محدد، مع تجاهل إعداداتها وجداولها الحالية. لتحقيق أقصى درجات التركيز." },
-  "focussessionprofeature": { "message": "تخصيص المدة والوضع الصارم (Hardcore) هي ميزات مدفوعة (Pro)." },
-  "focussessionended": { "message": "انتهت جلسة التركيز! خذ قسطاً من الراحة." },
-  "focussessionhardcore": { "message": "الوضع الصارم (بدون زر 'إيقاف')" },
-  "focussessionsoundtitle": { "message": "إشعار صوتي لجلسة التركيز" },
-  "focussessionsounddesc": { "message": "تشغيل صوت عند انتهاء جلسة التركيز." },
-  "focussessionactivebanner": { "message": "جلسة التركيز نشطة حالياً! الوقت المتبقي:" },
-  "focussessioninvalidduration": { "message": "يرجى إدخال مدة صالحة (من 1 إلى 240 دقيقة)." },
-  "rule_scheduled": { "message": "قاعدة مجدولة" },
-  "addwhitelistrule": { "message": "إضافة استثناء" },
-  "category_whitelist": { "message": "القائمة البيضاء" },
-  "conflict_blacklist_err": { "message": "هذا الموقع موجود بالفعل في القائمة السوداء. قم بإزالته أولاً." },
-  "conflict_whitelist_err": { "message": "هذا الموقع موجود بالفعل في القائمة البيضاء. قم بإزالته أولاً." },
-  "status_allow": { "message": "مسموح" },
-  "redundant_whitelist_err": { "message": "هذه القاعدة مغطاة بالفعل بواسطة قاعدة أخرى في القائمة البيضاء." },
-  "focussessionmode": { "message": "وضع التركيز:" },
-  "focusmodeblacklist": { "message": "حظر القائمة السوداء" },
-  "focusmodewhitelist": { "message": "السماح للقائمة البيضاء فقط" }
+  "pastekeylabel": {
+    "message": "ألصق مفتاح الترخيص الخاص بك هنا:"
+  },
+  "confirmclearstats": {
+    "message": "هل أنت متأكد أنك تريد مسح جميع الإحصائيات؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "statscleared": {
+    "message": "تم مسح الإحصائيات بنجاح."
+  },
+  "redirectstodaylabel": {
+    "message": "إعادة التوجيهات اليوم"
+  },
+  "totalredirectslabel": {
+    "message": "إجمالي عمليات إعادة التوجيه"
+  },
+  "logout": {
+    "message": "تسجيل الخروج"
+  },
+  "loggedoutsuccess": {
+    "message": "تم تسجيل الخروج بنجاح."
+  },
+  "loggedouterror": {
+    "message": "حدث خطأ أثناء تسجيل الخروج."
+  },
+  "forcesync": {
+    "message": "مزامنة إجبارية / التحقق من الحالة"
+  },
+  "forgotpasswordinstructions": {
+    "message": "لإعادة تعيين كلمة المرور، انتقل إلى قسم 'Pro'، وانقر على 'تسجيل الخروج'، ثم أعد التفعيل عن طريق لصق مفتاح الترخيص الخاص بك."
+  },
+  "blockedtitle": {
+    "message": "الموقع غير متاح"
+  },
+  "blockedheader": {
+    "message": "هذا الموقع غير متاح حالياً"
+  },
+  "blockedtext": {
+    "message": "لا يمكن عرض هذا المحتوى."
+  },
+  "blockedbutton": {
+    "message": "إغلاق علامة التبويب"
+  },
+  "confirmpassword": {
+    "message": "تأكيد كلمة المرور"
+  },
+  "modalconfirm": {
+    "message": "تأكيد"
+  },
+  "modalcancel": {
+    "message": "إلغاء"
+  },
+  "forgotpassword": {
+    "message": "نسيت كلمة المرور؟ إعادة التعيين (سيؤدي إلى إزالة الحماية)"
+  },
+  "prounlocked": {
+    "message": "شكرًا لك على دعمك! تم فتح جميع ميزات Pro."
+  },
+  "licensesynced": {
+    "message": "تمت مزامنة ترخيصك مع حسابك. إذا فقدت الوصول، يمكنك استعادة مفتاحك من: "
+  },
+  "syncing": {
+    "message": "جارٍ المزامنة..."
+  },
+  "pleaseenterkey": {
+    "message": "يرجى إدخال المفتاح."
+  },
+  "syncsuccess": {
+    "message": "تمت المزامنة بنجاح"
+  },
+  "syncfailed": {
+    "message": "فشلت المزامنة."
+  },
+  "passwordreset": {
+    "message": "تمت إعادة تعيين حماية كلمة المرور."
+  },
+  "privacysecured": {
+    "message": "الخصوصية آمنة"
+  },
+  "errorinvalidfiletype": {
+    "message": "يرجى اختيار ملف ‎.json"
+  },
+  "debugsettingstitle": {
+    "message": "إعدادات التصحيح"
+  },
+  "enabledebugtitle": {
+    "message": "تفعيل وضع التصحيح"
+  },
+  "enabledebugdesc": {
+    "message": "تفعيل التسجيل التفصيلي في وحدة التحكم لاستكشاف الأخطاء"
+  },
+  "errorcommunication": {
+    "message": "خطأ في الاتصال بخدمة الخلفية"
+  },
+  "clearstats": {
+    "message": "مسح الإحصاءات"
+  },
+  "rule_enabled": {
+    "message": "مفعّل"
+  },
+  "rule_disabled": {
+    "message": "معطّل"
+  },
+  "filter_only_hint": {
+    "message": "تُستخدم هذه القائمة فقط لتصفية العرض في الجدول"
+  },
+  "category_disabled_desc": {
+    "message": "قم بكتم فئة للسماح مؤقتًا بالوصول إلى جميع مواقعها. يتم الاحتفاظ بإعدادات القواعد الفردية."
+  },
+  "toggle_category_blocking": {
+    "message": "تبديل حظر الفئة بالكامل"
+  },
+  "category_muted_no_edit": {
+    "message": "لا يمكن الإدارة: تم إيقاف حظر الفئة مؤقتًا"
+  },
+  "feedback_title": {
+    "message": "هل يعجبك BlockDistraction؟"
+  },
+  "feedback_desc": {
+    "message": "ملاحظاتك تساعدنا كثيرًا في تطوير الإضافة."
+  },
+  "feedback_like": {
+    "message": "نعم، يعمل بشكل رائع!"
+  },
+  "feedback_dislike": {
+    "message": "لدي مشاكل / اقتراحات"
+  },
+  "trialproheader": {
+    "message": "ابدأ تجربتك المجانية لمدة 7 أيام"
+  },
+  "trialprotext": {
+    "message": "يمكنك الإلغاء في أي وقت. مدفوعاتك محمية وآمنة تماماً."
+  },
+  "focussessionheader": {
+    "message": "جلسة التركيز"
+  },
+  "focussessionstart": {
+    "message": "ابدأ"
+  },
+  "focussessionstop": {
+    "message": "إيقاف"
+  },
+  "focussessionduration": {
+    "message": "المدة (بالدقائق):"
+  },
+  "focussessioninfo": {
+    "message": "تفعيل جميع قواعد الحظر الخاصة بك لوقت محدد، مع تجاهل إعداداتها وجداولها الحالية. لتحقيق أقصى درجات التركيز."
+  },
+  "focussessionprofeature": {
+    "message": "تخصيص المدة والوضع الصارم (Hardcore) هي ميزات مدفوعة (Pro)."
+  },
+  "focussessionended": {
+    "message": "انتهت جلسة التركيز! خذ قسطاً من الراحة."
+  },
+  "focussessionhardcore": {
+    "message": "الوضع الصارم (بدون زر 'إيقاف')"
+  },
+  "focussessionsoundtitle": {
+    "message": "إشعار صوتي لجلسة التركيز"
+  },
+  "focussessionsounddesc": {
+    "message": "تشغيل صوت عند انتهاء جلسة التركيز."
+  },
+  "focussessionactivebanner": {
+    "message": "جلسة التركيز نشطة حالياً! الوقت المتبقي:"
+  },
+  "focussessioninvalidduration": {
+    "message": "يرجى إدخال مدة صالحة (من 1 إلى 240 دقيقة)."
+  },
+  "rule_scheduled": {
+    "message": "قاعدة مجدولة"
+  },
+  "addwhitelistrule": {
+    "message": "إضافة استثناء"
+  },
+  "category_whitelist": {
+    "message": "القائمة البيضاء"
+  },
+  "conflict_blacklist_err": {
+    "message": "هذا الموقع موجود بالفعل في القائمة السوداء. قم بإزالته أولاً."
+  },
+  "conflict_whitelist_err": {
+    "message": "هذا الموقع موجود بالفعل في القائمة البيضاء. قم بإزالته أولاً."
+  },
+  "status_allow": {
+    "message": "مسموح"
+  },
+  "redundant_whitelist_err": {
+    "message": "هذه القاعدة مغطاة بالفعل بواسطة قاعدة أخرى في القائمة البيضاء."
+  },
+  "focussessionmode": {
+    "message": "وضع التركيز:"
+  },
+  "focusmodeblacklist": {
+    "message": "حظر القائمة السوداء"
+  },
+  "focusmodewhitelist": {
+    "message": "السماح للقائمة البيضاء فقط"
+  },
+  "schedule_edit": {
+    "message": "تعديل الجدول"
+  },
+  "schedule_add_period": {
+    "message": "إضافة مجموعة زمنية"
+  },
+  "schedule_remove_period": {
+    "message": "إزالة"
+  },
+  "schedule_period": {
+    "message": "مجموعة زمنية"
+  },
+  "schedule_every_day": {
+    "message": "كل يوم"
+  },
+  "schedule_weekdays": {
+    "message": "أيام الأسبوع"
+  },
+  "schedule_weekends": {
+    "message": "عطلات نهاية الأسبوع"
+  },
+  "schedule_day_overlap": {
+    "message": "يمكن استخدام كل يوم مرة واحدة فقط."
+  }
 }

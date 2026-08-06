@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Pemblokir Laman" },
-  "shortname": { "message": "Pemblokir" },
-  "description": { "message": "Alat mudah dan boleh dipercayai untuk menyekat dan mengalihkan laman web agar anda kekal fokus." },
-  "defaulttitle": { "message": "Fokus dan Produktif" },
-  "header": { "message": "Pemblokir Laman" },
-  "paragraph": { "message": "Untuk menyekat laman web atau sumber, masukkan sebahagian nama ke dalam medan input dengan tempat letak 'Taip URL untuk disekat' – contohnya, 'facebook' akan menyekat semua subdomain berkaitan. Dalam medan dengan tempat letak 'Taip URL pengalihan', masukkan alamat pengalihan penuh termasuk protokol, contohnya 'https://google.com'. Jika medan pengalihan dibiarkan kosong, laman akan disekat tanpa pengalihan. Klik butang Simpan untuk menerapkan peraturan. Untuk mengemas kini peraturan, padamkan yang lama dan buat yang baru." },
-  "addrule": { "message": "Tambah peraturan baru" },
-  "blockurl": { "message": "Taip URL untuk disekat" },
-  "redirecturl": { "message": "Taip URL pengalihan (pilihan)" },
-  "redirecturlheader": { "message": "URL ubah hala" },
-  "redirecturlplaceholder": { "message": "Pilihan - biarkan kosong untuk menyekat" },
-  "redirecturlhint": { "message": "Masukkan URL penuh termasuk https://" },
-  "mobilecopylinkhint": { "message": "Untuk menyekat pautan, salin alamatnya dan tampalkannya dalam medan sekatan." },
-  "savebtn": { "message": "Simpan" },
-  "deletebtn": { "message": "Padam" },
-  "alertruleexist": { "message": "Peraturan sudah wujud" },
+  "chromename": {
+    "message": "BlockDistraction – Pemblokir Laman"
+  },
+  "shortname": {
+    "message": "Pemblokir"
+  },
+  "description": {
+    "message": "Alat mudah dan boleh dipercayai untuk menyekat dan mengalihkan laman web agar anda kekal fokus."
+  },
+  "defaulttitle": {
+    "message": "Fokus dan Produktif"
+  },
+  "header": {
+    "message": "Pemblokir Laman"
+  },
+  "paragraph": {
+    "message": "Untuk menyekat laman web atau sumber, masukkan sebahagian nama ke dalam medan input dengan tempat letak 'Taip URL untuk disekat' – contohnya, 'facebook' akan menyekat semua subdomain berkaitan. Dalam medan dengan tempat letak 'Taip URL pengalihan', masukkan alamat pengalihan penuh termasuk protokol, contohnya 'https://google.com'. Jika medan pengalihan dibiarkan kosong, laman akan disekat tanpa pengalihan. Klik butang Simpan untuk menerapkan peraturan. Untuk mengemas kini peraturan, padamkan yang lama dan buat yang baru."
+  },
+  "addrule": {
+    "message": "Tambah peraturan baru"
+  },
+  "blockurl": {
+    "message": "Taip URL untuk disekat"
+  },
+  "redirecturl": {
+    "message": "Taip URL pengalihan (pilihan)"
+  },
+  "redirecturlheader": {
+    "message": "URL ubah hala"
+  },
+  "redirecturlplaceholder": {
+    "message": "Pilihan - biarkan kosong untuk menyekat"
+  },
+  "redirecturlhint": {
+    "message": "Masukkan URL penuh termasuk https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Untuk menyekat pautan, salin alamatnya dan tampalkannya dalam medan sekatan."
+  },
+  "savebtn": {
+    "message": "Simpan"
+  },
+  "deletebtn": {
+    "message": "Padam"
+  },
+  "alertruleexist": {
+    "message": "Peraturan sudah wujud"
+  },
   "savedrules": {
     "message": "$ruleslength$ peraturan disimpan",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Sumber ini tidak boleh disekat." },
-  "wrongblockurl": { "message": "URL sekatan tidak sah" },
-  "wrongredirecturl": { "message": "URL pengalihan tidak sah" },
-  "blockthat": { "message": "Sekat Laman Ini" },
-  "sendfeedbackbutton": { "message": "Hantar Maklum Balas" },
-  "sendfeedbacksubject": { "message": "Maklum Balas untuk BlockDistraction" },
-  "sendfeedbackbody": { "message": "Halo, saya ingin berkongsi maklum balas berikut:\n\n" },
-  "quote1": { "message": "Fokus, tetap kuat." },
-  "quote2": { "message": "Masa depan anda dibentuk oleh apa yang anda lakukan hari ini." },
-  "quote3": { "message": "Disiplin adalah jambatan antara matlamat dan kejayaan." },
-  "quote4": { "message": "Satu laman disekat, satu langkah lebih dekat ke matlamat." },
-  "quote5": { "message": "Pastikan setiap klik bermakna." },
-  "quote6": { "message": "Jangan lihat jam; lakukan seperti jam. Teruskan." },
-  "quote7": { "message": "Langkah kecil setiap hari membawa kepada hasil besar." },
-  "quote8": { "message": "Satu-satunya had anda adalah minda anda." },
-  "quote9": { "message": "Kejayaan adalah jumlah usaha kecil yang diulang setiap hari." },
-  "quote10": { "message": "Fokus pada produktiviti, bukan kesibukan." },
-  "quote11": { "message": "Lindungi perhatian anda – ia adalah aset paling berharga anda." },
-  "quote12": { "message": "Setiap gangguan yang disekat adalah masa yang diperoleh kembali." },
-  "quote13": { "message": "Kurangkan bunyi bising; tingkatkan produktiviti anda." },
-  "quote14": { "message": "Rutin kecil membina momentum yang tidak dapat dihentikan." },
-  "quote15": { "message": "Kejelasan mengatasi kekacauan – fokus pada apa yang penting." },
-  "quote16": { "message": "Katakan tidak pada gangguan; katakan ya pada kemajuan." },
-  "quote17": { "message": "Satu jam fokus hari ini menggandakan hasil esok." },
-  "quote18": { "message": "Cipta lebih banyak dengan menggunakan lebih sedikit." },
-  "quote19": { "message": "Disiplin memilih kemenangan jangka panjang berbanding dorongan sementara." },
-  "quote20": { "message": "Tutup tab, buka ruang untuk idea baru." },
-  "quote21": { "message": "Kerja yang kamu elakkan hari ini boleh menjadi stres esok hari." },
-  "quote22": { "message": "Fokus bukan tentang melakukan lebih banyak, tetapi melakukan perkara yang benar-benar penting." },
-  "quote23": { "message": "Matlamat kamu lebih layak mendapat perhatian daripada gangguan kamu." },
-  "quote24": { "message": "Setiap minit tanpa gangguan ialah pelaburan dalam diri sendiri." },
-  "quote25": { "message": "Konsistensi menghasilkan hasil yang lebih berkekalan berbanding lonjakan motivasi sementara." },
-  "quote26": { "message": "Masa terbaik untuk bermula ialah semalam. Masa terbaik seterusnya ialah sekarang." },
-  "quote27": { "message": "Kemajuan bermula apabila kamu memilih tindakan berbanding gangguan." },
-  "quote28": { "message": "Satu detik fokus boleh mengubah arah hari kamu." },
-  "quote29": { "message": "Kamu tidak perlukan lebih banyak masa, kamu perlukan kurang gangguan." },
-  "quote30": { "message": "Setiap pilihan untuk kekal fokus menguatkan diri kamu di masa depan." },
-  "quote31": { "message": "Sekatan ini bersifat sementara; matlamat anda adalah jangka panjang." },
-  "quote32": { "message": "Setiap gangguan yang disekat adalah kemenangan untuk diri masa depan anda." },
-  "quote33": { "message": "Internet itu tidak terhad; masa anda tidak." },
-  "quote34": { "message": "Tetapkan keutamaan anda sebelum web melakukannya untuk anda." },
-  "quote35": { "message": "Kurangkan melayari, lebihkan mencipta." },
-  "quote36": { "message": "Perhatian anda membentuk pencapaian anda." },
-  "quote37": { "message": "Kekal fokus — gangguan boleh menunggu." },
-  "quote38": { "message": "Setiap keputusan produktif bermula dengan minda yang fokus." },
-  "quote39": { "message": "Anda telah menyekat laman web, bukan potensi anda." },
-  "quote40": { "message": "Jalan menuju kejayaan dibina dengan keputusan yang fokus." },
-  "actionsheader": { "message": "Tindakan" },
-  "norules": { "message": "Tiada laman disekat." },
-  "editbtn": { "message": "Sunting" },
-  "ruleddeleted": { "message": "Peraturan dipadam." },
-  "cancelbtn": { "message": "Batal" },
-  "ruleupdated": { "message": "Peraturan dikemas kini." },
-  "rulenewadded": { "message": "Peraturan baru ditambah." },
-  "gotooptions": { "message": "Pergi ke halaman pilihan ⚙️" },
-  "gotopopup": { "message": "Klik ikon peluasan untuk kembali ke popup." },
-  "rulesmigrated": { "message": "Peraturan dikemas kini untuk keserasian" },
-  "errorupdatingrules": { "message": "Ralat semasa mengemas kini peraturan" },
-  "erroraddingrule": { "message": "Ralat semasa menambah peraturan" },
-  "errorremovingrule": { "message": "Ralat semasa mengalih keluar peraturan" },
-  "optionsheader": { "message": "Tetapan Sambungan" },
-  "optionsdescription": { "message": "Konfigurasikan tingkah laku dan tetapan keselamatan sambungan anda" },
-  "securitymodetitle": { "message": "Mod Keselamatan" },
-  "normalmodetitle": { "message": "Mod Normal" },
-  "normalmodedesc": { "message": "Peraturan boleh dipadam serta-merta dengan satu klik" },
-  "strictmodetitle": { "message": "Mod Ketat" },
-  "strictmodedesc": { "message": "Peraturan memerlukan kiraan detik 10 sebelum dipadam untuk mengelakkan penghapusan tidak sengaja" },
-  "confirmdeletetitle": { "message": "Sahkan sebelum memadam beberapa peraturan" },
-  "confirmdeletedesc": { "message": "Paparkan dialog pengesahan apabila memadam beberapa peraturan sekaligus" },
-  "notificationstitle": { "message": "Paparkan notifikasi" },
-  "notificationsdesc": { "message": "Paparkan notifikasi apabila sambungan dikemas kini" },
-  "rulesmanagementtitle": { "message": "Pengurusan Peraturan" },
-  "exportrulesbtn": { "message": "Eksport Peraturan" },
-  "importrulesbtn": { "message": "Import Peraturan" },
-  "clearallrulesbtn": { "message": "Padam Semua Peraturan" },
-  "totalruleslabel": { "message": "Jumlah Peraturan" },
-  "blockedtodaylabel": { "message": "Diblok Hari Ini" },
-  "totalblockedlabel": { "message": "Jumlah Diblok" },
-  "resetsettingsbtn": { "message": "Tetapkan Semula ke Lalai" },
-  "backtopopup": { "message": "Kembali ke Menu Utama" },
-  "errorloadingsettings": { "message": "Ralat memuatkan tetapan" },
-  "settingssaved": { "message": "Tetapan berjaya disimpan!" },
-  "errorsavingsettings": { "message": "Ralat menyimpan tetapan" },
-  "rulesexported": { "message": "Peraturan berjaya dieksport!" },
-  "errorexportingrules": { "message": "Ralat mengeksport peraturan" },
+  "restrictedblockurl": {
+    "message": "Sumber ini tidak boleh disekat."
+  },
+  "wrongblockurl": {
+    "message": "URL sekatan tidak sah"
+  },
+  "wrongredirecturl": {
+    "message": "URL pengalihan tidak sah"
+  },
+  "blockthat": {
+    "message": "Sekat Laman Ini"
+  },
+  "sendfeedbackbutton": {
+    "message": "Hantar Maklum Balas"
+  },
+  "sendfeedbacksubject": {
+    "message": "Maklum Balas untuk BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Halo, saya ingin berkongsi maklum balas berikut:\n\n"
+  },
+  "quote1": {
+    "message": "Fokus, tetap kuat."
+  },
+  "quote2": {
+    "message": "Masa depan anda dibentuk oleh apa yang anda lakukan hari ini."
+  },
+  "quote3": {
+    "message": "Disiplin adalah jambatan antara matlamat dan kejayaan."
+  },
+  "quote4": {
+    "message": "Satu laman disekat, satu langkah lebih dekat ke matlamat."
+  },
+  "quote5": {
+    "message": "Pastikan setiap klik bermakna."
+  },
+  "quote6": {
+    "message": "Jangan lihat jam; lakukan seperti jam. Teruskan."
+  },
+  "quote7": {
+    "message": "Langkah kecil setiap hari membawa kepada hasil besar."
+  },
+  "quote8": {
+    "message": "Satu-satunya had anda adalah minda anda."
+  },
+  "quote9": {
+    "message": "Kejayaan adalah jumlah usaha kecil yang diulang setiap hari."
+  },
+  "quote10": {
+    "message": "Fokus pada produktiviti, bukan kesibukan."
+  },
+  "quote11": {
+    "message": "Lindungi perhatian anda – ia adalah aset paling berharga anda."
+  },
+  "quote12": {
+    "message": "Setiap gangguan yang disekat adalah masa yang diperoleh kembali."
+  },
+  "quote13": {
+    "message": "Kurangkan bunyi bising; tingkatkan produktiviti anda."
+  },
+  "quote14": {
+    "message": "Rutin kecil membina momentum yang tidak dapat dihentikan."
+  },
+  "quote15": {
+    "message": "Kejelasan mengatasi kekacauan – fokus pada apa yang penting."
+  },
+  "quote16": {
+    "message": "Katakan tidak pada gangguan; katakan ya pada kemajuan."
+  },
+  "quote17": {
+    "message": "Satu jam fokus hari ini menggandakan hasil esok."
+  },
+  "quote18": {
+    "message": "Cipta lebih banyak dengan menggunakan lebih sedikit."
+  },
+  "quote19": {
+    "message": "Disiplin memilih kemenangan jangka panjang berbanding dorongan sementara."
+  },
+  "quote20": {
+    "message": "Tutup tab, buka ruang untuk idea baru."
+  },
+  "quote21": {
+    "message": "Kerja yang kamu elakkan hari ini boleh menjadi stres esok hari."
+  },
+  "quote22": {
+    "message": "Fokus bukan tentang melakukan lebih banyak, tetapi melakukan perkara yang benar-benar penting."
+  },
+  "quote23": {
+    "message": "Matlamat kamu lebih layak mendapat perhatian daripada gangguan kamu."
+  },
+  "quote24": {
+    "message": "Setiap minit tanpa gangguan ialah pelaburan dalam diri sendiri."
+  },
+  "quote25": {
+    "message": "Konsistensi menghasilkan hasil yang lebih berkekalan berbanding lonjakan motivasi sementara."
+  },
+  "quote26": {
+    "message": "Masa terbaik untuk bermula ialah semalam. Masa terbaik seterusnya ialah sekarang."
+  },
+  "quote27": {
+    "message": "Kemajuan bermula apabila kamu memilih tindakan berbanding gangguan."
+  },
+  "quote28": {
+    "message": "Satu detik fokus boleh mengubah arah hari kamu."
+  },
+  "quote29": {
+    "message": "Kamu tidak perlukan lebih banyak masa, kamu perlukan kurang gangguan."
+  },
+  "quote30": {
+    "message": "Setiap pilihan untuk kekal fokus menguatkan diri kamu di masa depan."
+  },
+  "quote31": {
+    "message": "Sekatan ini bersifat sementara; matlamat anda adalah jangka panjang."
+  },
+  "quote32": {
+    "message": "Setiap gangguan yang disekat adalah kemenangan untuk diri masa depan anda."
+  },
+  "quote33": {
+    "message": "Internet itu tidak terhad; masa anda tidak."
+  },
+  "quote34": {
+    "message": "Tetapkan keutamaan anda sebelum web melakukannya untuk anda."
+  },
+  "quote35": {
+    "message": "Kurangkan melayari, lebihkan mencipta."
+  },
+  "quote36": {
+    "message": "Perhatian anda membentuk pencapaian anda."
+  },
+  "quote37": {
+    "message": "Kekal fokus — gangguan boleh menunggu."
+  },
+  "quote38": {
+    "message": "Setiap keputusan produktif bermula dengan minda yang fokus."
+  },
+  "quote39": {
+    "message": "Anda telah menyekat laman web, bukan potensi anda."
+  },
+  "quote40": {
+    "message": "Jalan menuju kejayaan dibina dengan keputusan yang fokus."
+  },
+  "actionsheader": {
+    "message": "Tindakan"
+  },
+  "norules": {
+    "message": "Tiada laman disekat."
+  },
+  "editbtn": {
+    "message": "Sunting"
+  },
+  "ruleddeleted": {
+    "message": "Peraturan dipadam."
+  },
+  "cancelbtn": {
+    "message": "Batal"
+  },
+  "ruleupdated": {
+    "message": "Peraturan dikemas kini."
+  },
+  "rulenewadded": {
+    "message": "Peraturan baru ditambah."
+  },
+  "gotooptions": {
+    "message": "Pergi ke halaman pilihan ⚙️"
+  },
+  "gotopopup": {
+    "message": "Klik ikon peluasan untuk kembali ke popup."
+  },
+  "rulesmigrated": {
+    "message": "Peraturan dikemas kini untuk keserasian"
+  },
+  "errorupdatingrules": {
+    "message": "Ralat semasa mengemas kini peraturan"
+  },
+  "erroraddingrule": {
+    "message": "Ralat semasa menambah peraturan"
+  },
+  "errorremovingrule": {
+    "message": "Ralat semasa mengalih keluar peraturan"
+  },
+  "optionsheader": {
+    "message": "Tetapan Sambungan"
+  },
+  "optionsdescription": {
+    "message": "Konfigurasikan tingkah laku dan tetapan keselamatan sambungan anda"
+  },
+  "securitymodetitle": {
+    "message": "Mod Keselamatan"
+  },
+  "normalmodetitle": {
+    "message": "Mod Normal"
+  },
+  "normalmodedesc": {
+    "message": "Peraturan boleh dipadam serta-merta dengan satu klik"
+  },
+  "strictmodetitle": {
+    "message": "Mod Ketat"
+  },
+  "strictmodedesc": {
+    "message": "Peraturan memerlukan kiraan detik 10 sebelum dipadam untuk mengelakkan penghapusan tidak sengaja"
+  },
+  "confirmdeletetitle": {
+    "message": "Sahkan sebelum memadam beberapa peraturan"
+  },
+  "confirmdeletedesc": {
+    "message": "Paparkan dialog pengesahan apabila memadam beberapa peraturan sekaligus"
+  },
+  "notificationstitle": {
+    "message": "Paparkan notifikasi"
+  },
+  "notificationsdesc": {
+    "message": "Paparkan notifikasi apabila sambungan dikemas kini"
+  },
+  "rulesmanagementtitle": {
+    "message": "Pengurusan Peraturan"
+  },
+  "exportrulesbtn": {
+    "message": "Eksport Peraturan"
+  },
+  "importrulesbtn": {
+    "message": "Import Peraturan"
+  },
+  "clearallrulesbtn": {
+    "message": "Padam Semua Peraturan"
+  },
+  "totalruleslabel": {
+    "message": "Jumlah Peraturan"
+  },
+  "blockedtodaylabel": {
+    "message": "Diblok Hari Ini"
+  },
+  "totalblockedlabel": {
+    "message": "Jumlah Diblok"
+  },
+  "resetsettingsbtn": {
+    "message": "Tetapkan Semula ke Lalai"
+  },
+  "backtopopup": {
+    "message": "Kembali ke Menu Utama"
+  },
+  "errorloadingsettings": {
+    "message": "Ralat memuatkan tetapan"
+  },
+  "settingssaved": {
+    "message": "Tetapan berjaya disimpan!"
+  },
+  "errorsavingsettings": {
+    "message": "Ralat menyimpan tetapan"
+  },
+  "rulesexported": {
+    "message": "Peraturan berjaya dieksport!"
+  },
+  "errorexportingrules": {
+    "message": "Ralat mengeksport peraturan"
+  },
   "willimportrules": {
     "message": "$ruleslength$ peraturan akan diimport.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Peraturan sedia ada akan digantikan. Teruskan?" },
+  "ruleswillbereplaced": {
+    "message": "Peraturan sedia ada akan digantikan. Teruskan?"
+  },
   "importedrules": {
     "message": "$ruleslength$ peraturan berjaya diimport!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Ralat mengimport peraturan: " },
-  "norulestoclear": { "message": "Tiada peraturan untuk dipadam" },
+  "errorimportingrules": {
+    "message": "Ralat mengimport peraturan: "
+  },
+  "norulestoclear": {
+    "message": "Tiada peraturan untuk dipadam"
+  },
   "willdeleteallrules": {
     "message": "Ini akan memadamkan semua $rulescount$ peraturan secara kekal.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Tindakan ini tidak boleh dibatalkan. Teruskan?" },
-  "allrulescleared": { "message": "Semua peraturan berjaya dipadam!" },
-  "errorclearingrules": { "message": "Ralat memadam peraturan" },
-  "willreset": { "message": "Semua tetapan akan dikembalikan ke nilai lalai. Teruskan?" },
-  "resettodefaults": { "message": "Tetapan dikembalikan ke lalai!" },
-  "errorresettingsettings": { "message": "Ralat menetapkan semula tetapan" },
-  "basicsettingstitle": { "message": "Tetapan Asas" },
-  "advancedsettingstitle": { "message": "Tetapan Lanjutan" },
-  "statisticstitle": { "message": "Statistik" },
+  "cannotbeundone": {
+    "message": "Tindakan ini tidak boleh dibatalkan. Teruskan?"
+  },
+  "allrulescleared": {
+    "message": "Semua peraturan berjaya dipadam!"
+  },
+  "errorclearingrules": {
+    "message": "Ralat memadam peraturan"
+  },
+  "willreset": {
+    "message": "Semua tetapan akan dikembalikan ke nilai lalai. Teruskan?"
+  },
+  "resettodefaults": {
+    "message": "Tetapan dikembalikan ke lalai!"
+  },
+  "errorresettingsettings": {
+    "message": "Ralat menetapkan semula tetapan"
+  },
+  "basicsettingstitle": {
+    "message": "Tetapan Asas"
+  },
+  "advancedsettingstitle": {
+    "message": "Tetapan Lanjutan"
+  },
+  "statisticstitle": {
+    "message": "Statistik"
+  },
   "rulelimitreached": {
     "message": "Anda telah mencapai had peraturan ($limit$) untuk versi asas. Naik taraf ke Pro untuk peraturan tanpa had.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro diperlukan untuk penyuntingan." },
-  "invalidpassword": { "message": "Kata laluan tidak sah" },
-  "setpassword": { "message": "Tetapkan kata laluan" },
-  "enterpassword": { "message": "Masukkan kata laluan" },
-  "passwordmismatch": { "message": "Kata laluan tidak sepadan" },
-  "passwordtooshort": { "message": "Kata laluan mesti sekurang-kurangnya 6 aksara" },
-  "resetpasswordconfirm": { "message": "Menetapkan semula kata laluan akan mematikan perlindungan. Teruskan?" },
-  "passwordset": { "message": "Kata laluan berjaya ditetapkan" },
-  "passworddisabled": { "message": "Perlindungan kata laluan dimatikan" },
-  "prorequired": { "message": "Mod Pro diperlukan untuk ciri ini" },
-  "enablepasswordtitle": { "message": "Aktifkan perlindungan kata laluan" },
-  "enablepassworddesc": { "message": "Memerlukan kata laluan untuk memadam atau menyunting peraturan (meningkatkan mod ketat)" },
-  "passwordprotectiontitle": { "message": "Perlindungan kata laluan" },
-  "scheduleheader": { "message": "Jadual" },
-  "enableschedule": { "message": "Dayakan jadual" },
-  "alwaysactive": { "message": "Sentiasa aktif" },
-  "profeatureschedule": { "message": "Jadual tersedia dalam versi Pro" },
-  "days": { "message": "Hari" },
-  "starttime": { "message": "Masa mula:" },
-  "endtime": { "message": "Masa tamat:" },
-  "invaliddays": { "message": "Hari yang dipilih tidak sah" },
-  "invalidtimeformat": { "message": "Format masa tidak sah (gunakan HH:MM)" },
-  "startafterend": { "message": "Masa mula mesti sebelum masa tamat" },
-  "invalidschedule": { "message": "Jadual tidak sah: sila pilih hari dan masa." },
-  "invalidscheduledays": { "message": "Jadual tidak sah: sila pilih sekurang-kurangnya satu hari." },
-  "invalidschedulestarttime": { "message": "Jadual tidak sah: sila tetapkan masa mula." },
-  "invalidscheduleendtime": { "message": "Jadual tidak sah: sila tetapkan masa tamat." },
-  "editdisablednonpro": { "message": "Penyuntingan dilumpuhkan: terlalu banyak peraturan untuk pengguna bukan Pro." },
-  "errorloadingstatus": { "message": "Ralat semasa memuatkan status pengguna." },
-  "schedule_day_sun": { "message": "Ahd" },
-  "schedule_day_mon": { "message": "Isn" },
-  "schedule_day_tue": { "message": "Sel" },
-  "schedule_day_wed": { "message": "Rab" },
-  "schedule_day_thu": { "message": "Kha" },
-  "schedule_day_fri": { "message": "Jum" },
-  "schedule_day_sat": { "message": "Sab" },
-  "category_header": { "message": "Kategori" },
-  "category_required": { "message": "Kategori diperlukan" },
-  "allcategories": { "message": "Semua kategori" },
-  "category_social": { "message": "Media Sosial" },
-  "category_news": { "message": "Berita" },
-  "category_entertainment": { "message": "Hiburan" },
-  "category_shopping": { "message": "Membeli-belah" },
-  "category_work": { "message": "Kerja" },
-  "category_gaming": { "message": "Permainan" },
-  "category_adult": { "message": "Kandungan Dewasa" },
-  "category_uncategorized": { "message": "Tidak Dikategorikan" },
-  "searchfordomain": { "message": "Cari nama domain" },
-  "norulesforcategory": { "message": "Tiada laman disekat untuk kategori ini." },
-  "getpro": { "message": "Dapatkan Pro" },
-  "profunctionstext": { "message": "Ciri Pro termasuk: penyekatan berjadual, perlindungan kata laluan, penapisan peraturan serta eksport/import peraturan. Nikmati Lesen Universal kami: satu langganan membuka Pro pada semua pelayar anda (Chrome, Firefox, Edge, Kiwi). Untuk mengaktifkannya, beli langganan di blockdistraction.com, kemudian salin Kunci Lesen anda daripada papan pemuka akaun dan tampal di bawah." },
-  "upgradenow": { "message": "Tingkatkan Sekarang" },
-  "enteremail": { "message": "Masukkan emel anda" },
-  "activatepro": { "message": "Aktifkan Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Pulihkan Akses" },
-  "pleaseenteremail": { "message": "Sila masukkan emel anda" },
-  "checking": { "message": "Sedang menyemak..." },
-  "proactivated": { "message": "Ciri Pro telah diaktifkan!" },
-  "subscriptionnotfound": { "message": "Langganan tidak aktif atau emel tidak ditemui." },
-  "servererror": { "message": "Ralat pelayan. Sila cuba lagi." },
-  "proactivatedfor": { "message": "Pro diaktifkan untuk" },
+  "proonlyactions": {
+    "message": "Pro diperlukan untuk penyuntingan."
+  },
+  "invalidpassword": {
+    "message": "Kata laluan tidak sah"
+  },
+  "setpassword": {
+    "message": "Tetapkan kata laluan"
+  },
+  "enterpassword": {
+    "message": "Masukkan kata laluan"
+  },
+  "passwordmismatch": {
+    "message": "Kata laluan tidak sepadan"
+  },
+  "passwordtooshort": {
+    "message": "Kata laluan mesti sekurang-kurangnya 6 aksara"
+  },
+  "resetpasswordconfirm": {
+    "message": "Menetapkan semula kata laluan akan mematikan perlindungan. Teruskan?"
+  },
+  "passwordset": {
+    "message": "Kata laluan berjaya ditetapkan"
+  },
+  "passworddisabled": {
+    "message": "Perlindungan kata laluan dimatikan"
+  },
+  "prorequired": {
+    "message": "Mod Pro diperlukan untuk ciri ini"
+  },
+  "enablepasswordtitle": {
+    "message": "Aktifkan perlindungan kata laluan"
+  },
+  "enablepassworddesc": {
+    "message": "Memerlukan kata laluan untuk memadam atau menyunting peraturan (meningkatkan mod ketat)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Perlindungan kata laluan"
+  },
+  "scheduleheader": {
+    "message": "Jadual"
+  },
+  "enableschedule": {
+    "message": "Dayakan jadual"
+  },
+  "alwaysactive": {
+    "message": "Sentiasa aktif"
+  },
+  "profeatureschedule": {
+    "message": "Jadual tersedia dalam versi Pro"
+  },
+  "days": {
+    "message": "Hari"
+  },
+  "starttime": {
+    "message": "Masa mula:"
+  },
+  "endtime": {
+    "message": "Masa tamat:"
+  },
+  "invaliddays": {
+    "message": "Hari yang dipilih tidak sah"
+  },
+  "invalidtimeformat": {
+    "message": "Format masa tidak sah (gunakan HH:MM)"
+  },
+  "startafterend": {
+    "message": "Masa mula mesti sebelum masa tamat"
+  },
+  "invalidschedule": {
+    "message": "Jadual tidak sah: sila pilih hari dan masa."
+  },
+  "invalidscheduledays": {
+    "message": "Jadual tidak sah: sila pilih sekurang-kurangnya satu hari."
+  },
+  "invalidschedulestarttime": {
+    "message": "Jadual tidak sah: sila tetapkan masa mula."
+  },
+  "invalidscheduleendtime": {
+    "message": "Jadual tidak sah: sila tetapkan masa tamat."
+  },
+  "editdisablednonpro": {
+    "message": "Penyuntingan dilumpuhkan: terlalu banyak peraturan untuk pengguna bukan Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Ralat semasa memuatkan status pengguna."
+  },
+  "schedule_day_sun": {
+    "message": "Ahd"
+  },
+  "schedule_day_mon": {
+    "message": "Isn"
+  },
+  "schedule_day_tue": {
+    "message": "Sel"
+  },
+  "schedule_day_wed": {
+    "message": "Rab"
+  },
+  "schedule_day_thu": {
+    "message": "Kha"
+  },
+  "schedule_day_fri": {
+    "message": "Jum"
+  },
+  "schedule_day_sat": {
+    "message": "Sab"
+  },
+  "category_header": {
+    "message": "Kategori"
+  },
+  "category_required": {
+    "message": "Kategori diperlukan"
+  },
+  "allcategories": {
+    "message": "Semua kategori"
+  },
+  "category_social": {
+    "message": "Media Sosial"
+  },
+  "category_news": {
+    "message": "Berita"
+  },
+  "category_entertainment": {
+    "message": "Hiburan"
+  },
+  "category_shopping": {
+    "message": "Membeli-belah"
+  },
+  "category_work": {
+    "message": "Kerja"
+  },
+  "category_gaming": {
+    "message": "Permainan"
+  },
+  "category_adult": {
+    "message": "Kandungan Dewasa"
+  },
+  "category_uncategorized": {
+    "message": "Tidak Dikategorikan"
+  },
+  "searchfordomain": {
+    "message": "Cari nama domain"
+  },
+  "norulesforcategory": {
+    "message": "Tiada laman disekat untuk kategori ini."
+  },
+  "getpro": {
+    "message": "Dapatkan Pro"
+  },
+  "profunctionstext": {
+    "message": "Ciri Pro termasuk: penyekatan berjadual, perlindungan kata laluan, penapisan peraturan serta eksport/import peraturan. Nikmati Lesen Universal kami: satu langganan membuka Pro pada semua pelayar anda (Chrome, Firefox, Edge, Kiwi). Untuk mengaktifkannya, beli langganan di blockdistraction.com, kemudian salin Kunci Lesen anda daripada papan pemuka akaun dan tampal di bawah."
+  },
+  "upgradenow": {
+    "message": "Tingkatkan Sekarang"
+  },
+  "enteremail": {
+    "message": "Masukkan emel anda"
+  },
+  "activatepro": {
+    "message": "Aktifkan Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Pulihkan Akses"
+  },
+  "pleaseenteremail": {
+    "message": "Sila masukkan emel anda"
+  },
+  "checking": {
+    "message": "Sedang menyemak..."
+  },
+  "proactivated": {
+    "message": "Ciri Pro telah diaktifkan!"
+  },
+  "subscriptionnotfound": {
+    "message": "Langganan tidak aktif atau emel tidak ditemui."
+  },
+  "servererror": {
+    "message": "Ralat pelayan. Sila cuba lagi."
+  },
+  "proactivatedfor": {
+    "message": "Pro diaktifkan untuk"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Permintaan kebenaran gagal (ini boleh berlaku di mudah alih). Sila cuba lagi atau berikan kebenaran secara manual melalui tetapan sambungan."
   },
-  "pastekeylabel": { "message": "Tampal kunci lesen anda di sini:" },
-  "confirmclearstats": { "message": "Adakah anda pasti ingin memadam semua statistik? Tindakan ini tidak boleh dibuat asal." },
-  "statscleared": { "message": "Statistik berjaya dipadam." },
-  "redirectstodaylabel": { "message": "Pengalihan Hari Ini" },
-  "totalredirectslabel": { "message": "Jumlah Pengalihan" },
-  "logout": { "message": "Log Keluar" },
-  "loggedoutsuccess": { "message": "Anda telah berjaya log keluar." },
-  "loggedouterror": { "message": "Ralat berlaku semasa log keluar." },
-  "forcesync": { "message": "Paksa Segerak / Semak Status" },
-  "forgotpasswordinstructions": { "message": "Untuk menetapkan semula kata laluan anda, pergi ke bahagian 'Pro', klik 'Log Keluar', dan kemudian aktifkan semula dengan menampal Kunci Lesen anda." },
-  "blockedtitle": { "message": "Laman tidak tersedia" },
-  "blockedheader": { "message": "Laman ini tidak tersedia buat masa ini" },
-  "blockedtext": { "message": "Kandungan ini tidak dapat dipaparkan." },
-  "blockedbutton": { "message": "Tutup Tab" },
-  "confirmpassword": { "message": "Sahkan kata laluan" },
-  "modalconfirm": { "message": "Sahkan" },
-  "modalcancel": { "message": "Batal" },
-  "forgotpassword": { "message": "Lupa kata laluan? Tetapkan semula (akan mengalih keluar perlindungan)" },
-  "prounlocked": { "message": "Terima kasih atas sokongan anda! Semua ciri Pro telah dibuka." },
-  "licensesynced": { "message": "Lesen anda diselaraskan dengan akaun anda. Jika anda kehilangan akses, anda boleh mendapatkan semula kunci anda dari: " },
-  "syncing": { "message": "Menyelaras..." },
-  "pleaseenterkey": { "message": "Sila masukkan kunci." },
-  "syncsuccess": { "message": "Penyelarasan berjaya" },
-  "syncfailed": { "message": "Penyelarasan gagal." },
-  "passwordreset": { "message": "Perlindungan kata laluan telah diset semula." },
-  "privacysecured": { "message": "Privasi Terjamin" },
-  "errorinvalidfiletype": { "message": "Sila pilih fail .json" },
-  "debugsettingstitle": { "message": "Tetapan Debug" },
-  "enabledebugtitle": { "message": "Dayakan Mod Debug" },
-  "enabledebugdesc": { "message": "Dayakan log terperinci di konsol untuk penyelesaian masalah" },
-  "errorcommunication": { "message": "Ralat semasa berkomunikasi dengan perkhidmatan latar belakang" },
-  "clearstats": { "message": "Kosongkan Statistik" },
-  "rule_enabled": { "message": "Diaktifkan" },
-  "rule_disabled": { "message": "Dinonaktifkan" },
-  "filter_only_hint": { "message": "Senarai ini hanya menapis paparan dalam jadual" },
-  "category_disabled_desc": { "message": "Redamkan kategori untuk membenarkan akses sementara kepada semua tapak webnya. Tetapan peraturan individu dikekalkan." },
-  "toggle_category_blocking": { "message": "Togol sekatan untuk keseluruhan kategori" },
-  "category_muted_no_edit": { "message": "Tidak dapat diurus: sekatan kategori sedang dijeda" },
-  "feedback_title": { "message": "Adakah anda suka BlockDistraction?" },
-  "feedback_desc": { "message": "Maklum balas anda sangat membantu kami menambah baik sambungan ini." },
-  "feedback_like": { "message": "Ya, ia berfungsi dengan baik!" },
-  "feedback_dislike": { "message": "Saya ada masalah / cadangan" },
-  "trialproheader": { "message": "Cuba 7 hari percuma" },
-  "trialprotext": { "message": "Boleh batal bila-bila masa. Pembayaran selamat." },
-  "focussessionheader": { "message": "Sesi Fokus" },
-  "focussessionstart": { "message": "Mula" },
-  "focussessionstop": { "message": "Henti" },
-  "focussessionduration": { "message": "Durasi (min):" },
-  "focussessioninfo": { "message": "Mengaktifkan semua peraturan sekatan anda untuk masa yang ditetapkan, mengabaikan tetapan dan jadual semasa mereka. Untuk tumpuan maksimum." },
-  "focussessionprofeature": { "message": "Durasi tersuai dan mod Hardcore adalah ciri Pro." },
-  "focussessionended": { "message": "Sesi fokus telah tamat! Ambil rehat sebentar." },
-  "focussessionhardcore": { "message": "Mod Hardcore (tiada butang 'Henti')" },
-  "focussessionsoundtitle": { "message": "Notifikasi Bunyi Sesi Fokus" },
-  "focussessionsounddesc": { "message": "Mainkan bunyi apabila sesi fokus tamat." },
-  "focussessionactivebanner": { "message": "Sesi Fokus Aktif! Masa berbaki:" },
-  "focussessioninvalidduration": { "message": "Sila masukkan durasi yang sah (1-240 minit)." },
-  "successfulfocussessionslabel": { "message": "Sesi Fokus yang Berjaya" },
-  "rule_scheduled": { "message": "Peraturan dijadualkan" },
-  "addwhitelistrule": { "message": "Tambah pengecualian" },
-  "category_whitelist": { "message": "Senarai putih" },
-  "conflict_blacklist_err": { "message": "Laman web ini sudah ada dalam senarai hitam anda. Alih keluar dahulu." },
-  "conflict_whitelist_err": { "message": "Laman web ini sudah ada dalam senarai putih anda. Alih keluar dahulu." },
-  "status_allow": { "message": "Dibenarkan" },
-  "redundant_whitelist_err": { "message": "Peraturan ini sudah diliputi oleh peraturan senarai putih yang lain." },
-  "focussessionmode": { "message": "Mod Fokus:" },
-  "focusmodeblacklist": { "message": "Sekat Senarai Hitam" },
-  "focusmodewhitelist": { "message": "Benarkan Senarai Putih Sahaja" }
+  "pastekeylabel": {
+    "message": "Tampal kunci lesen anda di sini:"
+  },
+  "confirmclearstats": {
+    "message": "Adakah anda pasti ingin memadam semua statistik? Tindakan ini tidak boleh dibuat asal."
+  },
+  "statscleared": {
+    "message": "Statistik berjaya dipadam."
+  },
+  "redirectstodaylabel": {
+    "message": "Pengalihan Hari Ini"
+  },
+  "totalredirectslabel": {
+    "message": "Jumlah Pengalihan"
+  },
+  "logout": {
+    "message": "Log Keluar"
+  },
+  "loggedoutsuccess": {
+    "message": "Anda telah berjaya log keluar."
+  },
+  "loggedouterror": {
+    "message": "Ralat berlaku semasa log keluar."
+  },
+  "forcesync": {
+    "message": "Paksa Segerak / Semak Status"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Untuk menetapkan semula kata laluan anda, pergi ke bahagian 'Pro', klik 'Log Keluar', dan kemudian aktifkan semula dengan menampal Kunci Lesen anda."
+  },
+  "blockedtitle": {
+    "message": "Laman tidak tersedia"
+  },
+  "blockedheader": {
+    "message": "Laman ini tidak tersedia buat masa ini"
+  },
+  "blockedtext": {
+    "message": "Kandungan ini tidak dapat dipaparkan."
+  },
+  "blockedbutton": {
+    "message": "Tutup Tab"
+  },
+  "confirmpassword": {
+    "message": "Sahkan kata laluan"
+  },
+  "modalconfirm": {
+    "message": "Sahkan"
+  },
+  "modalcancel": {
+    "message": "Batal"
+  },
+  "forgotpassword": {
+    "message": "Lupa kata laluan? Tetapkan semula (akan mengalih keluar perlindungan)"
+  },
+  "prounlocked": {
+    "message": "Terima kasih atas sokongan anda! Semua ciri Pro telah dibuka."
+  },
+  "licensesynced": {
+    "message": "Lesen anda diselaraskan dengan akaun anda. Jika anda kehilangan akses, anda boleh mendapatkan semula kunci anda dari: "
+  },
+  "syncing": {
+    "message": "Menyelaras..."
+  },
+  "pleaseenterkey": {
+    "message": "Sila masukkan kunci."
+  },
+  "syncsuccess": {
+    "message": "Penyelarasan berjaya"
+  },
+  "syncfailed": {
+    "message": "Penyelarasan gagal."
+  },
+  "passwordreset": {
+    "message": "Perlindungan kata laluan telah diset semula."
+  },
+  "privacysecured": {
+    "message": "Privasi Terjamin"
+  },
+  "errorinvalidfiletype": {
+    "message": "Sila pilih fail .json"
+  },
+  "debugsettingstitle": {
+    "message": "Tetapan Debug"
+  },
+  "enabledebugtitle": {
+    "message": "Dayakan Mod Debug"
+  },
+  "enabledebugdesc": {
+    "message": "Dayakan log terperinci di konsol untuk penyelesaian masalah"
+  },
+  "errorcommunication": {
+    "message": "Ralat semasa berkomunikasi dengan perkhidmatan latar belakang"
+  },
+  "clearstats": {
+    "message": "Kosongkan Statistik"
+  },
+  "rule_enabled": {
+    "message": "Diaktifkan"
+  },
+  "rule_disabled": {
+    "message": "Dinonaktifkan"
+  },
+  "filter_only_hint": {
+    "message": "Senarai ini hanya menapis paparan dalam jadual"
+  },
+  "category_disabled_desc": {
+    "message": "Redamkan kategori untuk membenarkan akses sementara kepada semua tapak webnya. Tetapan peraturan individu dikekalkan."
+  },
+  "toggle_category_blocking": {
+    "message": "Togol sekatan untuk keseluruhan kategori"
+  },
+  "category_muted_no_edit": {
+    "message": "Tidak dapat diurus: sekatan kategori sedang dijeda"
+  },
+  "feedback_title": {
+    "message": "Adakah anda suka BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Maklum balas anda sangat membantu kami menambah baik sambungan ini."
+  },
+  "feedback_like": {
+    "message": "Ya, ia berfungsi dengan baik!"
+  },
+  "feedback_dislike": {
+    "message": "Saya ada masalah / cadangan"
+  },
+  "trialproheader": {
+    "message": "Cuba 7 hari percuma"
+  },
+  "trialprotext": {
+    "message": "Boleh batal bila-bila masa. Pembayaran selamat."
+  },
+  "focussessionheader": {
+    "message": "Sesi Fokus"
+  },
+  "focussessionstart": {
+    "message": "Mula"
+  },
+  "focussessionstop": {
+    "message": "Henti"
+  },
+  "focussessionduration": {
+    "message": "Durasi (min):"
+  },
+  "focussessioninfo": {
+    "message": "Mengaktifkan semua peraturan sekatan anda untuk masa yang ditetapkan, mengabaikan tetapan dan jadual semasa mereka. Untuk tumpuan maksimum."
+  },
+  "focussessionprofeature": {
+    "message": "Durasi tersuai dan mod Hardcore adalah ciri Pro."
+  },
+  "focussessionended": {
+    "message": "Sesi fokus telah tamat! Ambil rehat sebentar."
+  },
+  "focussessionhardcore": {
+    "message": "Mod Hardcore (tiada butang 'Henti')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Notifikasi Bunyi Sesi Fokus"
+  },
+  "focussessionsounddesc": {
+    "message": "Mainkan bunyi apabila sesi fokus tamat."
+  },
+  "focussessionactivebanner": {
+    "message": "Sesi Fokus Aktif! Masa berbaki:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Sila masukkan durasi yang sah (1-240 minit)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Sesi Fokus yang Berjaya"
+  },
+  "rule_scheduled": {
+    "message": "Peraturan dijadualkan"
+  },
+  "addwhitelistrule": {
+    "message": "Tambah pengecualian"
+  },
+  "category_whitelist": {
+    "message": "Senarai putih"
+  },
+  "conflict_blacklist_err": {
+    "message": "Laman web ini sudah ada dalam senarai hitam anda. Alih keluar dahulu."
+  },
+  "conflict_whitelist_err": {
+    "message": "Laman web ini sudah ada dalam senarai putih anda. Alih keluar dahulu."
+  },
+  "status_allow": {
+    "message": "Dibenarkan"
+  },
+  "redundant_whitelist_err": {
+    "message": "Peraturan ini sudah diliputi oleh peraturan senarai putih yang lain."
+  },
+  "focussessionmode": {
+    "message": "Mod Fokus:"
+  },
+  "focusmodeblacklist": {
+    "message": "Sekat Senarai Hitam"
+  },
+  "focusmodewhitelist": {
+    "message": "Benarkan Senarai Putih Sahaja"
+  },
+  "schedule_edit": {
+    "message": "Edit jadual"
+  },
+  "schedule_add_period": {
+    "message": "Tambah kumpulan masa"
+  },
+  "schedule_remove_period": {
+    "message": "Alih keluar"
+  },
+  "schedule_period": {
+    "message": "Kumpulan masa"
+  },
+  "schedule_every_day": {
+    "message": "Setiap hari"
+  },
+  "schedule_weekdays": {
+    "message": "Hari bekerja"
+  },
+  "schedule_weekends": {
+    "message": "Hujung minggu"
+  },
+  "schedule_day_overlap": {
+    "message": "Setiap hari hanya boleh digunakan sekali."
+  }
 }

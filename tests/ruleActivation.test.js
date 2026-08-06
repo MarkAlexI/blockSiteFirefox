@@ -67,3 +67,33 @@ test('scheduled rules are active only on selected days and inside the interval',
     false
   );
 });
+
+
+test('version 2 schedules activate when any time group matches', () => {
+  const scheduled = makeRule({
+    schedule: {
+      version: 2,
+      periods: [
+        { days: [1], startTime: '09:00', endTime: '10:00' },
+        { days: [2], startTime: '10:00', endTime: '11:00' }
+      ]
+    }
+  });
+
+  assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030), true);
+  assert.equal(
+    isRuleActiveNow(scheduled, [], false, new Date(2026, 7, 4, 11, 0)),
+    false
+  );
+});
+
+test('malformed stored schedule periods fail closed without breaking activation', () => {
+  const scheduled = makeRule({
+    schedule: {
+      version: 2,
+      periods: [{ days: null, startTime: 'bad', endTime: null }]
+    }
+  });
+
+  assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030), false);
+});

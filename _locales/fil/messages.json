@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Tagapagharang ng Site" },
-  "shortname": { "message": "HarangSite" },
-  "description": { "message": "Simple at maaasahang tool para harangan at i-redirect ang mga website upang manatiling nakatuon." },
-  "defaulttitle": { "message": "Manatiling nakatuon at produktibo" },
-  "header": { "message": "Site Blocker" },
-  "paragraph": { "message": "Upang harangan ang isang website o resource, ilagay ang bahagi ng pangalan nito sa input field na may placeholder na \"I-type ang Block URL\" – halimbawa, ang \"facebook\" ay haharang sa lahat ng kaugnay na subdomains. Sa field na may placeholder na \"I-type ang Redirect URL\", ilagay ang buong redirect address kasama ang protocol, tulad ng \"https://google.com\". Kung walang laman ang redirect field, haharangin ang site nang walang redirect. I-click ang Save button upang ilapat ang rule. Upang i-update ang rule, tanggalin ang lumang entry at gumawa ng bago." },
-  "addrule": { "message": "Magdagdag ng bagong rule" },
-  "blockurl": { "message": "I-type ang Block URL" },
-  "redirecturl": { "message": "I-type ang Redirect URL (opsyonal)" },
-  "redirecturlheader": { "message": "Redirect URL" },
-  "redirecturlplaceholder": { "message": "Opsyonal - iwang blangko para i-block" },
-  "redirecturlhint": { "message": "Maglagay ng buong URL kasama ang https://" },
-  "mobilecopylinkhint": { "message": "Para i-block ang isang link, kopyahin ang address nito at i-paste sa block field." },
-  "savebtn": { "message": "I-save" },
-  "deletebtn": { "message": "Tanggalin" },
-  "alertruleexist": { "message": "Umiiral na ang rule" },
+  "chromename": {
+    "message": "BlockDistraction – Tagapagharang ng Site"
+  },
+  "shortname": {
+    "message": "HarangSite"
+  },
+  "description": {
+    "message": "Simple at maaasahang tool para harangan at i-redirect ang mga website upang manatiling nakatuon."
+  },
+  "defaulttitle": {
+    "message": "Manatiling nakatuon at produktibo"
+  },
+  "header": {
+    "message": "Site Blocker"
+  },
+  "paragraph": {
+    "message": "Upang harangan ang isang website o resource, ilagay ang bahagi ng pangalan nito sa input field na may placeholder na \"I-type ang Block URL\" – halimbawa, ang \"facebook\" ay haharang sa lahat ng kaugnay na subdomains. Sa field na may placeholder na \"I-type ang Redirect URL\", ilagay ang buong redirect address kasama ang protocol, tulad ng \"https://google.com\". Kung walang laman ang redirect field, haharangin ang site nang walang redirect. I-click ang Save button upang ilapat ang rule. Upang i-update ang rule, tanggalin ang lumang entry at gumawa ng bago."
+  },
+  "addrule": {
+    "message": "Magdagdag ng bagong rule"
+  },
+  "blockurl": {
+    "message": "I-type ang Block URL"
+  },
+  "redirecturl": {
+    "message": "I-type ang Redirect URL (opsyonal)"
+  },
+  "redirecturlheader": {
+    "message": "Redirect URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Opsyonal - iwang blangko para i-block"
+  },
+  "redirecturlhint": {
+    "message": "Maglagay ng buong URL kasama ang https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Para i-block ang isang link, kopyahin ang address nito at i-paste sa block field."
+  },
+  "savebtn": {
+    "message": "I-save"
+  },
+  "deletebtn": {
+    "message": "Tanggalin"
+  },
+  "alertruleexist": {
+    "message": "Umiiral na ang rule"
+  },
   "savedrules": {
     "message": "Nai-save na $ruleslength$ rule(s)",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Hindi maaaring i-block ang resource na ito." },
-  "wrongblockurl": { "message": "Di-wastong URL para sa pag-block" },
-  "wrongredirecturl": { "message": "Invalid na Redirect URL" },
-  "blockthat": { "message": "Harangan ang Site na ito" },
-  "sendfeedbackbutton": { "message": "Magpadala ng Feedback" },
-  "sendfeedbacksubject": { "message": "Feedback para sa BlockDistraction" },
-  "sendfeedbackbody": { "message": "Hello, nais kong ibahagi ang sumusunod na feedback:\n\n" },
-  "quote1": { "message": "Manatiling nakatuon, manatiling matatag." },
-  "quote2": { "message": "Ang iyong kinabukasan ay nililikha ng iyong ginagawa ngayon." },
-  "quote3": { "message": "Ang disiplina ay tulay sa pagitan ng layunin at tagumpay." },
-  "quote4": { "message": "Isang site na naharang, isang hakbang patungo sa iyong layunin." },
-  "quote5": { "message": "Gawing mahalaga ang bawat click." },
-  "quote6": { "message": "Huwag tumingin sa orasan; gawin mo ang ginagawa nito. Magpatuloy." },
-  "quote7": { "message": "Maliliit na hakbang araw-araw ay nagdudulot ng malaking resulta." },
-  "quote8": { "message": "Ang tanging limitasyon mo ay ang iyong isip." },
-  "quote9": { "message": "Ang tagumpay ay ang kabuuan ng maliliit na pagsusumikap araw-araw." },
-  "quote10": { "message": "Mag-focus sa pagiging produktibo, hindi sa pagiging busy." },
-  "quote11": { "message": "Protektahan ang iyong atensyon – ito ang iyong pinakamahalagang yaman." },
-  "quote12": { "message": "Bawat nakaharang na pagkagambala ay oras na naibalik." },
-  "quote13": { "message": "Bawasan ang ingay; dagdagan ang iyong produktibidad." },
-  "quote14": { "message": "Ang maliliit na rutin ay bumubuo ng hindi mapipigilang momentum." },
-  "quote15": { "message": "Ang kalinawan ay mas mahalaga kaysa kaguluhan – magpokus sa mahalaga." },
-  "quote16": { "message": "Sabihin hindi sa mga distraksyon; sabihin oo sa pag-unlad." },
-  "quote17": { "message": "Isang nakatutok na oras ngayon ay nagpaparami ng iyong resulta bukas." },
-  "quote18": { "message": "Lumikha nang higit pa sa pamamagitan ng mas kaunting paggamit." },
-  "quote19": { "message": "Pinipili ng disiplina ang pangmatagalang panalo kaysa sa panandaliang impuls." },
-  "quote20": { "message": "Isara ang isang tab, magbukas ng puwang para sa bagong mga ideya." },
-  "quote21": { "message": "Ang trabahong iniiwasan mo ngayon ay maaaring maging stress mo bukas." },
-  "quote22": { "message": "Ang pagtuon ay hindi tungkol sa paggawa ng mas marami, kundi sa paggawa ng tunay na mahalaga." },
-  "quote23": { "message": "Ang iyong mga layunin ay mas nararapat ng atensyon kaysa sa iyong mga distraksyon." },
-  "quote24": { "message": "Bawat minutong walang distraksyon ay isang pamumuhunan sa iyong sarili." },
-  "quote25": { "message": "Ang pagiging tuloy-tuloy ay nagdudulot ng mas pangmatagalang resulta kaysa sa panandaliang bugso ng motibasyon." },
-  "quote26": { "message": "Ang pinakamainam na oras upang magsimula ay kahapon. Ang susunod na pinakamainam ay ngayon." },
-  "quote27": { "message": "Nagsisimula ang pag-unlad kapag pinili mo ang pagkilos kaysa sa distraksyon." },
-  "quote28": { "message": "Isang sandali ng tunay na pagtuon ay maaaring magbago ng takbo ng iyong araw." },
-  "quote29": { "message": "Hindi mo kailangan ng mas maraming oras; kailangan mo ng mas kaunting distraksyon." },
-  "quote30": { "message": "Bawat pagpiling manatiling nakatuon ay nagpapalakas sa iyong hinaharap na sarili." },
-  "quote31": { "message": "Ang pagharang na ito ay pansamantala; pangmatagalan ang iyong mga layunin." },
-  "quote32": { "message": "Ang bawat na-block na distraksyon ay tagumpay para sa iyong hinaharap na sarili." },
-  "quote33": { "message": "Walang hanggan ang internet; hindi ang iyong oras." },
-  "quote34": { "message": "Itakda ang iyong mga prayoridad bago pa ito gawin ng web para sa iyo." },
-  "quote35": { "message": "Mas kaunting pag-scroll, mas maraming paglikha." },
-  "quote36": { "message": "Ang iyong atensyon ang humuhubog sa iyong mga tagumpay." },
-  "quote37": { "message": "Manatiling nakatuon — maaaring maghintay ang distraksyon." },
-  "quote38": { "message": "Ang bawat produktibong desisyon ay nagsisimula sa isang nakapokus na isip." },
-  "quote39": { "message": "Naka-block mo ang isang website, hindi ang iyong potensyal." },
-  "quote40": { "message": "Ang daan tungo sa tagumpay ay binubuo ng mga nakatuong desisyon." },
-  "actionsheader": { "message": "Mga Aksyon" },
-  "norules": { "message": "Walang naharang na site." },
-  "editbtn": { "message": "I-edit" },
-  "ruleddeleted": { "message": "Rule na-delete." },
-  "cancelbtn": { "message": "Kanselahin" },
-  "ruleupdated": { "message": "Rule na-update." },
-  "rulenewadded": { "message": "Bagong rule naidagdag." },
-  "gotooptions": { "message": "Pumunta sa options page ⚙️" },
-  "gotopopup": { "message": "I-click ang icon ng extension upang bumalik sa popup." },
-  "rulesmigrated": { "message": "Na-update ang mga patakaran para sa pagkakatugma" },
-  "errorupdatingrules": { "message": "Error sa pag-update ng mga patakaran" },
-  "erroraddingrule": { "message": "Error sa pagdaragdag ng patakaran" },
-  "errorremovingrule": { "message": "Error sa pag-alis ng patakaran" },
-  "optionsheader": { "message": "Mga Setting ng Extension" },
-  "optionsdescription": { "message": "I-configure ang pag-uugali at mga setting ng seguridad ng extension" },
-  "securitymodetitle": { "message": "Mode ng Seguridad" },
-  "normalmodetitle": { "message": "Normal na Mode" },
-  "normalmodedesc": { "message": "Maaaring agad na tanggalin ang mga patakaran sa isang pag-click" },
-  "strictmodetitle": { "message": "Mahigpit na Mode" },
-  "strictmodedesc": { "message": "Kailangan ng 10-segundong countdown bago tanggalin ang mga patakaran upang maiwasan ang aksidenteng pagtanggal" },
-  "confirmdeletetitle": { "message": "Kumpirmahin bago tanggalin ang maraming patakaran" },
-  "confirmdeletedesc": { "message": "Ipakita ang confirmation dialog kapag nagtatanggal ng maraming patakaran sabay-sabay" },
-  "notificationstitle": { "message": "Ipakita ang mga Notipikasyon" },
-  "notificationsdesc": { "message": "Ipakita ang mga notipikasyon kapag na-update ang extension" },
-  "rulesmanagementtitle": { "message": "Pamamahala ng Mga Patakaran" },
-  "exportrulesbtn": { "message": "I-export ang Mga Patakaran" },
-  "importrulesbtn": { "message": "I-import ang Mga Patakaran" },
-  "clearallrulesbtn": { "message": "Tanggalin Lahat ng Patakaran" },
-  "totalruleslabel": { "message": "Kabuuang Patakaran" },
-  "blockedtodaylabel": { "message": "Na-block Ngayon" },
-  "totalblockedlabel": { "message": "Kabuuang Na-block" },
-  "resetsettingsbtn": { "message": "I-reset sa Default" },
-  "backtopopup": { "message": "Bumalik sa Pangunahing Menu" },
-  "errorloadingsettings": { "message": "Error sa pag-load ng mga setting" },
-  "settingssaved": { "message": "Matagumpay na na-save ang mga setting!" },
-  "errorsavingsettings": { "message": "Error sa pag-save ng mga setting" },
-  "rulesexported": { "message": "Matagumpay na na-export ang mga patakaran!" },
-  "errorexportingrules": { "message": "Error sa pag-export ng mga patakaran" },
+  "restrictedblockurl": {
+    "message": "Hindi maaaring i-block ang resource na ito."
+  },
+  "wrongblockurl": {
+    "message": "Di-wastong URL para sa pag-block"
+  },
+  "wrongredirecturl": {
+    "message": "Invalid na Redirect URL"
+  },
+  "blockthat": {
+    "message": "Harangan ang Site na ito"
+  },
+  "sendfeedbackbutton": {
+    "message": "Magpadala ng Feedback"
+  },
+  "sendfeedbacksubject": {
+    "message": "Feedback para sa BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Hello, nais kong ibahagi ang sumusunod na feedback:\n\n"
+  },
+  "quote1": {
+    "message": "Manatiling nakatuon, manatiling matatag."
+  },
+  "quote2": {
+    "message": "Ang iyong kinabukasan ay nililikha ng iyong ginagawa ngayon."
+  },
+  "quote3": {
+    "message": "Ang disiplina ay tulay sa pagitan ng layunin at tagumpay."
+  },
+  "quote4": {
+    "message": "Isang site na naharang, isang hakbang patungo sa iyong layunin."
+  },
+  "quote5": {
+    "message": "Gawing mahalaga ang bawat click."
+  },
+  "quote6": {
+    "message": "Huwag tumingin sa orasan; gawin mo ang ginagawa nito. Magpatuloy."
+  },
+  "quote7": {
+    "message": "Maliliit na hakbang araw-araw ay nagdudulot ng malaking resulta."
+  },
+  "quote8": {
+    "message": "Ang tanging limitasyon mo ay ang iyong isip."
+  },
+  "quote9": {
+    "message": "Ang tagumpay ay ang kabuuan ng maliliit na pagsusumikap araw-araw."
+  },
+  "quote10": {
+    "message": "Mag-focus sa pagiging produktibo, hindi sa pagiging busy."
+  },
+  "quote11": {
+    "message": "Protektahan ang iyong atensyon – ito ang iyong pinakamahalagang yaman."
+  },
+  "quote12": {
+    "message": "Bawat nakaharang na pagkagambala ay oras na naibalik."
+  },
+  "quote13": {
+    "message": "Bawasan ang ingay; dagdagan ang iyong produktibidad."
+  },
+  "quote14": {
+    "message": "Ang maliliit na rutin ay bumubuo ng hindi mapipigilang momentum."
+  },
+  "quote15": {
+    "message": "Ang kalinawan ay mas mahalaga kaysa kaguluhan – magpokus sa mahalaga."
+  },
+  "quote16": {
+    "message": "Sabihin hindi sa mga distraksyon; sabihin oo sa pag-unlad."
+  },
+  "quote17": {
+    "message": "Isang nakatutok na oras ngayon ay nagpaparami ng iyong resulta bukas."
+  },
+  "quote18": {
+    "message": "Lumikha nang higit pa sa pamamagitan ng mas kaunting paggamit."
+  },
+  "quote19": {
+    "message": "Pinipili ng disiplina ang pangmatagalang panalo kaysa sa panandaliang impuls."
+  },
+  "quote20": {
+    "message": "Isara ang isang tab, magbukas ng puwang para sa bagong mga ideya."
+  },
+  "quote21": {
+    "message": "Ang trabahong iniiwasan mo ngayon ay maaaring maging stress mo bukas."
+  },
+  "quote22": {
+    "message": "Ang pagtuon ay hindi tungkol sa paggawa ng mas marami, kundi sa paggawa ng tunay na mahalaga."
+  },
+  "quote23": {
+    "message": "Ang iyong mga layunin ay mas nararapat ng atensyon kaysa sa iyong mga distraksyon."
+  },
+  "quote24": {
+    "message": "Bawat minutong walang distraksyon ay isang pamumuhunan sa iyong sarili."
+  },
+  "quote25": {
+    "message": "Ang pagiging tuloy-tuloy ay nagdudulot ng mas pangmatagalang resulta kaysa sa panandaliang bugso ng motibasyon."
+  },
+  "quote26": {
+    "message": "Ang pinakamainam na oras upang magsimula ay kahapon. Ang susunod na pinakamainam ay ngayon."
+  },
+  "quote27": {
+    "message": "Nagsisimula ang pag-unlad kapag pinili mo ang pagkilos kaysa sa distraksyon."
+  },
+  "quote28": {
+    "message": "Isang sandali ng tunay na pagtuon ay maaaring magbago ng takbo ng iyong araw."
+  },
+  "quote29": {
+    "message": "Hindi mo kailangan ng mas maraming oras; kailangan mo ng mas kaunting distraksyon."
+  },
+  "quote30": {
+    "message": "Bawat pagpiling manatiling nakatuon ay nagpapalakas sa iyong hinaharap na sarili."
+  },
+  "quote31": {
+    "message": "Ang pagharang na ito ay pansamantala; pangmatagalan ang iyong mga layunin."
+  },
+  "quote32": {
+    "message": "Ang bawat na-block na distraksyon ay tagumpay para sa iyong hinaharap na sarili."
+  },
+  "quote33": {
+    "message": "Walang hanggan ang internet; hindi ang iyong oras."
+  },
+  "quote34": {
+    "message": "Itakda ang iyong mga prayoridad bago pa ito gawin ng web para sa iyo."
+  },
+  "quote35": {
+    "message": "Mas kaunting pag-scroll, mas maraming paglikha."
+  },
+  "quote36": {
+    "message": "Ang iyong atensyon ang humuhubog sa iyong mga tagumpay."
+  },
+  "quote37": {
+    "message": "Manatiling nakatuon — maaaring maghintay ang distraksyon."
+  },
+  "quote38": {
+    "message": "Ang bawat produktibong desisyon ay nagsisimula sa isang nakapokus na isip."
+  },
+  "quote39": {
+    "message": "Naka-block mo ang isang website, hindi ang iyong potensyal."
+  },
+  "quote40": {
+    "message": "Ang daan tungo sa tagumpay ay binubuo ng mga nakatuong desisyon."
+  },
+  "actionsheader": {
+    "message": "Mga Aksyon"
+  },
+  "norules": {
+    "message": "Walang naharang na site."
+  },
+  "editbtn": {
+    "message": "I-edit"
+  },
+  "ruleddeleted": {
+    "message": "Rule na-delete."
+  },
+  "cancelbtn": {
+    "message": "Kanselahin"
+  },
+  "ruleupdated": {
+    "message": "Rule na-update."
+  },
+  "rulenewadded": {
+    "message": "Bagong rule naidagdag."
+  },
+  "gotooptions": {
+    "message": "Pumunta sa options page ⚙️"
+  },
+  "gotopopup": {
+    "message": "I-click ang icon ng extension upang bumalik sa popup."
+  },
+  "rulesmigrated": {
+    "message": "Na-update ang mga patakaran para sa pagkakatugma"
+  },
+  "errorupdatingrules": {
+    "message": "Error sa pag-update ng mga patakaran"
+  },
+  "erroraddingrule": {
+    "message": "Error sa pagdaragdag ng patakaran"
+  },
+  "errorremovingrule": {
+    "message": "Error sa pag-alis ng patakaran"
+  },
+  "optionsheader": {
+    "message": "Mga Setting ng Extension"
+  },
+  "optionsdescription": {
+    "message": "I-configure ang pag-uugali at mga setting ng seguridad ng extension"
+  },
+  "securitymodetitle": {
+    "message": "Mode ng Seguridad"
+  },
+  "normalmodetitle": {
+    "message": "Normal na Mode"
+  },
+  "normalmodedesc": {
+    "message": "Maaaring agad na tanggalin ang mga patakaran sa isang pag-click"
+  },
+  "strictmodetitle": {
+    "message": "Mahigpit na Mode"
+  },
+  "strictmodedesc": {
+    "message": "Kailangan ng 10-segundong countdown bago tanggalin ang mga patakaran upang maiwasan ang aksidenteng pagtanggal"
+  },
+  "confirmdeletetitle": {
+    "message": "Kumpirmahin bago tanggalin ang maraming patakaran"
+  },
+  "confirmdeletedesc": {
+    "message": "Ipakita ang confirmation dialog kapag nagtatanggal ng maraming patakaran sabay-sabay"
+  },
+  "notificationstitle": {
+    "message": "Ipakita ang mga Notipikasyon"
+  },
+  "notificationsdesc": {
+    "message": "Ipakita ang mga notipikasyon kapag na-update ang extension"
+  },
+  "rulesmanagementtitle": {
+    "message": "Pamamahala ng Mga Patakaran"
+  },
+  "exportrulesbtn": {
+    "message": "I-export ang Mga Patakaran"
+  },
+  "importrulesbtn": {
+    "message": "I-import ang Mga Patakaran"
+  },
+  "clearallrulesbtn": {
+    "message": "Tanggalin Lahat ng Patakaran"
+  },
+  "totalruleslabel": {
+    "message": "Kabuuang Patakaran"
+  },
+  "blockedtodaylabel": {
+    "message": "Na-block Ngayon"
+  },
+  "totalblockedlabel": {
+    "message": "Kabuuang Na-block"
+  },
+  "resetsettingsbtn": {
+    "message": "I-reset sa Default"
+  },
+  "backtopopup": {
+    "message": "Bumalik sa Pangunahing Menu"
+  },
+  "errorloadingsettings": {
+    "message": "Error sa pag-load ng mga setting"
+  },
+  "settingssaved": {
+    "message": "Matagumpay na na-save ang mga setting!"
+  },
+  "errorsavingsettings": {
+    "message": "Error sa pag-save ng mga setting"
+  },
+  "rulesexported": {
+    "message": "Matagumpay na na-export ang mga patakaran!"
+  },
+  "errorexportingrules": {
+    "message": "Error sa pag-export ng mga patakaran"
+  },
   "willimportrules": {
     "message": "Ia-import ang $ruleslength$ na patakaran.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Ang kasalukuyang mga patakaran ay mapapalitan. Magpatuloy?" },
+  "ruleswillbereplaced": {
+    "message": "Ang kasalukuyang mga patakaran ay mapapalitan. Magpatuloy?"
+  },
   "importedrules": {
     "message": "Matagumpay na na-import ang $ruleslength$ na patakaran!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Error sa pag-import ng mga patakaran: " },
-  "norulestoclear": { "message": "Walang patakaran na tatanggalin" },
+  "errorimportingrules": {
+    "message": "Error sa pag-import ng mga patakaran: "
+  },
+  "norulestoclear": {
+    "message": "Walang patakaran na tatanggalin"
+  },
   "willdeleteallrules": {
     "message": "Ito ay permanenteng magtatanggal ng lahat ng $rulescount$ na patakaran.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Hindi maaaring bawiin ang aksyon na ito. Magpatuloy?" },
-  "allrulescleared": { "message": "Matagumpay na natanggal ang lahat ng patakaran!" },
-  "errorclearingrules": { "message": "Error sa pagtanggal ng mga patakaran" },
-  "willreset": { "message": "Ia-reset ang lahat ng mga setting sa default na mga halaga. Magpatuloy?" },
-  "resettodefaults": { "message": "Matagumpay na na-reset ang mga setting sa default!" },
-  "errorresettingsettings": { "message": "Error sa pag-reset ng mga setting" },
-  "basicsettingstitle": { "message": "Mga Pangunahing Setting" },
-  "advancedsettingstitle": { "message": "Mga Advanced na Setting" },
-  "statisticstitle": { "message": "Estadistika" },
+  "cannotbeundone": {
+    "message": "Hindi maaaring bawiin ang aksyon na ito. Magpatuloy?"
+  },
+  "allrulescleared": {
+    "message": "Matagumpay na natanggal ang lahat ng patakaran!"
+  },
+  "errorclearingrules": {
+    "message": "Error sa pagtanggal ng mga patakaran"
+  },
+  "willreset": {
+    "message": "Ia-reset ang lahat ng mga setting sa default na mga halaga. Magpatuloy?"
+  },
+  "resettodefaults": {
+    "message": "Matagumpay na na-reset ang mga setting sa default!"
+  },
+  "errorresettingsettings": {
+    "message": "Error sa pag-reset ng mga setting"
+  },
+  "basicsettingstitle": {
+    "message": "Mga Pangunahing Setting"
+  },
+  "advancedsettingstitle": {
+    "message": "Mga Advanced na Setting"
+  },
+  "statisticstitle": {
+    "message": "Estadistika"
+  },
   "rulelimitreached": {
     "message": "Naabot mo na ang limitasyon ng mga panuntunan ($limit$) para sa pangunahing bersyon. Mag-upgrade sa Pro para sa walang limitasyong mga panuntunan.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Kailangan ng Pro para sa pag-edit." },
-  "invalidpassword": { "message": "Hindi wastong password" },
-  "setpassword": { "message": "Itakda ang password" },
-  "enterpassword": { "message": "Ilagay ang password" },
-  "passwordmismatch": { "message": "Hindi tugma ang mga password" },
-  "passwordtooshort": { "message": "Ang password ay dapat na hindi bababa sa 6 na karakter" },
-  "resetpasswordconfirm": { "message": "Ang pag-reset ng password ay magdedeaktibeyt ng proteksyon. Magpatuloy?" },
-  "passwordset": { "message": "Matagumpay na naitakda ang password" },
-  "passworddisabled": { "message": "Na-deaktibeyt ang proteksyon ng password" },
-  "prorequired": { "message": "Kailangan ng Pro mode para sa feature na ito" },
-  "enablepasswordtitle": { "message": "Paganahin ang proteksyon ng password" },
-  "enablepassworddesc": { "message": "Kailangan ng password para magbura o mag-edit ng mga panuntunan (pinapahusay ang mahigpit na mode)" },
-  "passwordprotectiontitle": { "message": "Proteksyon ng password" },
-  "scheduleheader": { "message": "Iskedyul" },
-  "enableschedule": { "message": "Paganahin ang iskedyul" },
-  "alwaysactive": { "message": "Laging aktibo" },
-  "profeatureschedule": { "message": "Magagamit ang iskedyul sa Pro na bersyon" },
-  "days": { "message": "Mga Araw" },
-  "starttime": { "message": "Oras ng Simula:" },
-  "endtime": { "message": "Oras ng Pagtatapos:" },
-  "invaliddays": { "message": "Hindi wastong napiling araw" },
-  "invalidtimeformat": { "message": "Hindi wastong format ng oras (gamitin ang HH:MM)" },
-  "startafterend": { "message": "Ang oras ng pagsisimula ay dapat na mas maaga kaysa oras ng pagtatapos" },
-  "invalidschedule": { "message": "Hindi wastong iskedyul: mangyaring pumili ng mga araw at oras." },
-  "invalidscheduledays": { "message": "Hindi wastong iskedyul: pumili ng hindi bababa sa isang araw." },
-  "invalidschedulestarttime": { "message": "Hindi wastong iskedyul: itakda ang oras ng pagsisimula." },
-  "invalidscheduleendtime": { "message": "Hindi wastong iskedyul: itakda ang oras ng pagtatapos." },
-  "editdisablednonpro": { "message": "Hindi pinagana ang pag-edit: masyadong maraming patakaran para sa hindi Pro na mga gumagamit." },
-  "errorloadingstatus": { "message": "Error sa pag-load ng status ng gumagamit." },
-  "schedule_day_sun": { "message": "Lin" },
-  "schedule_day_mon": { "message": "Lun" },
-  "schedule_day_tue": { "message": "Mar" },
-  "schedule_day_wed": { "message": "Miy" },
-  "schedule_day_thu": { "message": "Huw" },
-  "schedule_day_fri": { "message": "Biy" },
-  "schedule_day_sat": { "message": "Sab" },
-  "category_header": { "message": "Kategorya" },
-  "category_required": { "message": "Kinakailangan ang kategorya" },
-  "allcategories": { "message": "Lahat ng kategorya" },
-  "category_social": { "message": "Social Media" },
-  "category_news": { "message": "Balita" },
-  "category_entertainment": { "message": "Libangan" },
-  "category_shopping": { "message": "Pamimili" },
-  "category_work": { "message": "Trabaho" },
-  "category_gaming": { "message": "Paglalaro" },
-  "category_adult": { "message": "Nilalaman para sa matatanda" },
-  "category_uncategorized": { "message": "Hindi nakategorya" },
-  "searchfordomain": { "message": "Maghanap ng pangalan ng domain" },
-  "norulesforcategory": { "message": "Walang naka-block na site para sa kategoryang ito." },
-  "getpro": { "message": "Kunin ang Pro" },
-  "profunctionstext": { "message": "Kasama sa mga Pro na tampok ang: naka-schedule na pag-block, proteksyon sa password, pag-filter ng mga patakaran, at pag-export/import ng mga patakaran. Masiyahan sa aming Universal License: isang subscription lang ang nagbubukas ng Pro sa lahat ng iyong browser (Chrome, Firefox, Edge, Kiwi). Upang i-activate, bumili ng subscription sa blockdistraction.com, pagkatapos kopyahin ang iyong License Key mula sa dashboard ng iyong account at i-paste ito sa ibaba." },
-  "upgradenow": { "message": "Mag-upgrade Ngayon" },
-  "enteremail": { "message": "Ilagay ang iyong email" },
-  "activatepro": { "message": "I-activate ang Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "I-restore ang Access" },
-  "pleaseenteremail": { "message": "Pakilagay ang iyong email" },
-  "checking": { "message": "Tinitingnan..." },
-  "proactivated": { "message": "Na-activate na ang mga tampok ng Pro!" },
-  "subscriptionnotfound": { "message": "Hindi aktibo ang subscription o hindi nakita ang email." },
-  "servererror": { "message": "Error sa server. Pakisubukang muli." },
-  "proactivatedfor": { "message": "Na-activate ang Pro para sa" },
+  "proonlyactions": {
+    "message": "Kailangan ng Pro para sa pag-edit."
+  },
+  "invalidpassword": {
+    "message": "Hindi wastong password"
+  },
+  "setpassword": {
+    "message": "Itakda ang password"
+  },
+  "enterpassword": {
+    "message": "Ilagay ang password"
+  },
+  "passwordmismatch": {
+    "message": "Hindi tugma ang mga password"
+  },
+  "passwordtooshort": {
+    "message": "Ang password ay dapat na hindi bababa sa 6 na karakter"
+  },
+  "resetpasswordconfirm": {
+    "message": "Ang pag-reset ng password ay magdedeaktibeyt ng proteksyon. Magpatuloy?"
+  },
+  "passwordset": {
+    "message": "Matagumpay na naitakda ang password"
+  },
+  "passworddisabled": {
+    "message": "Na-deaktibeyt ang proteksyon ng password"
+  },
+  "prorequired": {
+    "message": "Kailangan ng Pro mode para sa feature na ito"
+  },
+  "enablepasswordtitle": {
+    "message": "Paganahin ang proteksyon ng password"
+  },
+  "enablepassworddesc": {
+    "message": "Kailangan ng password para magbura o mag-edit ng mga panuntunan (pinapahusay ang mahigpit na mode)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Proteksyon ng password"
+  },
+  "scheduleheader": {
+    "message": "Iskedyul"
+  },
+  "enableschedule": {
+    "message": "Paganahin ang iskedyul"
+  },
+  "alwaysactive": {
+    "message": "Laging aktibo"
+  },
+  "profeatureschedule": {
+    "message": "Magagamit ang iskedyul sa Pro na bersyon"
+  },
+  "days": {
+    "message": "Mga Araw"
+  },
+  "starttime": {
+    "message": "Oras ng Simula:"
+  },
+  "endtime": {
+    "message": "Oras ng Pagtatapos:"
+  },
+  "invaliddays": {
+    "message": "Hindi wastong napiling araw"
+  },
+  "invalidtimeformat": {
+    "message": "Hindi wastong format ng oras (gamitin ang HH:MM)"
+  },
+  "startafterend": {
+    "message": "Ang oras ng pagsisimula ay dapat na mas maaga kaysa oras ng pagtatapos"
+  },
+  "invalidschedule": {
+    "message": "Hindi wastong iskedyul: mangyaring pumili ng mga araw at oras."
+  },
+  "invalidscheduledays": {
+    "message": "Hindi wastong iskedyul: pumili ng hindi bababa sa isang araw."
+  },
+  "invalidschedulestarttime": {
+    "message": "Hindi wastong iskedyul: itakda ang oras ng pagsisimula."
+  },
+  "invalidscheduleendtime": {
+    "message": "Hindi wastong iskedyul: itakda ang oras ng pagtatapos."
+  },
+  "editdisablednonpro": {
+    "message": "Hindi pinagana ang pag-edit: masyadong maraming patakaran para sa hindi Pro na mga gumagamit."
+  },
+  "errorloadingstatus": {
+    "message": "Error sa pag-load ng status ng gumagamit."
+  },
+  "schedule_day_sun": {
+    "message": "Lin"
+  },
+  "schedule_day_mon": {
+    "message": "Lun"
+  },
+  "schedule_day_tue": {
+    "message": "Mar"
+  },
+  "schedule_day_wed": {
+    "message": "Miy"
+  },
+  "schedule_day_thu": {
+    "message": "Huw"
+  },
+  "schedule_day_fri": {
+    "message": "Biy"
+  },
+  "schedule_day_sat": {
+    "message": "Sab"
+  },
+  "category_header": {
+    "message": "Kategorya"
+  },
+  "category_required": {
+    "message": "Kinakailangan ang kategorya"
+  },
+  "allcategories": {
+    "message": "Lahat ng kategorya"
+  },
+  "category_social": {
+    "message": "Social Media"
+  },
+  "category_news": {
+    "message": "Balita"
+  },
+  "category_entertainment": {
+    "message": "Libangan"
+  },
+  "category_shopping": {
+    "message": "Pamimili"
+  },
+  "category_work": {
+    "message": "Trabaho"
+  },
+  "category_gaming": {
+    "message": "Paglalaro"
+  },
+  "category_adult": {
+    "message": "Nilalaman para sa matatanda"
+  },
+  "category_uncategorized": {
+    "message": "Hindi nakategorya"
+  },
+  "searchfordomain": {
+    "message": "Maghanap ng pangalan ng domain"
+  },
+  "norulesforcategory": {
+    "message": "Walang naka-block na site para sa kategoryang ito."
+  },
+  "getpro": {
+    "message": "Kunin ang Pro"
+  },
+  "profunctionstext": {
+    "message": "Kasama sa mga Pro na tampok ang: naka-schedule na pag-block, proteksyon sa password, pag-filter ng mga patakaran, at pag-export/import ng mga patakaran. Masiyahan sa aming Universal License: isang subscription lang ang nagbubukas ng Pro sa lahat ng iyong browser (Chrome, Firefox, Edge, Kiwi). Upang i-activate, bumili ng subscription sa blockdistraction.com, pagkatapos kopyahin ang iyong License Key mula sa dashboard ng iyong account at i-paste ito sa ibaba."
+  },
+  "upgradenow": {
+    "message": "Mag-upgrade Ngayon"
+  },
+  "enteremail": {
+    "message": "Ilagay ang iyong email"
+  },
+  "activatepro": {
+    "message": "I-activate ang Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "I-restore ang Access"
+  },
+  "pleaseenteremail": {
+    "message": "Pakilagay ang iyong email"
+  },
+  "checking": {
+    "message": "Tinitingnan..."
+  },
+  "proactivated": {
+    "message": "Na-activate na ang mga tampok ng Pro!"
+  },
+  "subscriptionnotfound": {
+    "message": "Hindi aktibo ang subscription o hindi nakita ang email."
+  },
+  "servererror": {
+    "message": "Error sa server. Pakisubukang muli."
+  },
+  "proactivatedfor": {
+    "message": "Na-activate ang Pro para sa"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Nabigo ang request para sa pahintulot (maaaring mangyari sa mobile). Subukang muli o bigyan ng pahintulot nang manu-mano mula sa settings."
   },
-  "pastekeylabel": { "message": "Idikit ang iyong Lisensya Key dito:" },
-  "confirmclearstats": { "message": "Sigurado ka bang gusto mong burahin ang lahat ng estadistika? Hindi na ito maaaring ibalik." },
-  "statscleared": { "message": "Matagumpay na nabura ang mga estadistika." },
-  "redirectstodaylabel": { "message": "Mga pag-redirect ngayon" },
-  "totalredirectslabel": { "message": "Kabuuang mga pag-redirect" },
-  "logout": { "message": "Mag-log out" },
-  "loggedoutsuccess": { "message": "Matagumpay kang naka-log out." },
-  "loggedouterror": { "message": "Nagkaroon ng error habang nagla-log out." },
-  "forcesync": { "message": "Pilitin ang Sync / Suriin ang Katayuan" },
-  "forgotpasswordinstructions": { "message": "Upang i-reset ang iyong password, pumunta sa seksyong 'Pro', i-click ang 'Mag-log out', at pagkatapos ay muling i-activate sa pamamagitan ng pag-paste ng iyong License Key." },
-  "blockedtitle": { "message": "Hindi magagamit ang site" },
-  "blockedheader": { "message": "Ang site na ito ay kasalukuyang hindi magagamit" },
-  "blockedtext": { "message": "Hindi maipapakita ang nilalamang ito." },
-  "blockedbutton": { "message": "Isara ang Tab" },
-  "confirmpassword": { "message": "Kumpirmahin ang password" },
-  "modalconfirm": { "message": "Kumpirmahin" },
-  "modalcancel": { "message": "Kanselahin" },
-  "forgotpassword": { "message": "Nakalimutan ang password? I-reset (tatanggalin ang proteksyon)" },
-  "prounlocked": { "message": "Salamat sa iyong suporta! Lahat ng Pro na tampok ay naka-unlock." },
-  "licensesynced": { "message": "Ang iyong lisensya ay naka-sync sa iyong account. Kung mawalan ka ng access, maaari mong makuha muli ang iyong key mula sa: " },
-  "syncing": { "message": "Isinasabay..." },
-  "pleaseenterkey": { "message": "Mangyaring ipasok ang isang key." },
-  "syncsuccess": { "message": "Matagumpay na pagsabay" },
-  "syncfailed": { "message": "Nabigo ang pagsabay." },
-  "passwordreset": { "message": "Na-reset ang proteksyon ng password." },
-  "privacysecured": { "message": "Pribadong protektado" },
-  "errorinvalidfiletype": { "message": "Pakiusap pumili ng .json na file" },
-  "debugsettingstitle": { "message": "Mga Setting ng Debug" },
-  "enabledebugtitle": { "message": "Paganahin ang Debug Mode" },
-  "enabledebugdesc": { "message": "Paganahin ang detalyadong pag-log sa console para sa pag-troubleshoot" },
-  "errorcommunication": { "message": "Error sa pakikipag-ugnayan sa background service" },
-  "clearstats": { "message": "I-clear ang Estadistika" },
-  "rule_enabled": { "message": "Pinagana" },
-  "rule_disabled": { "message": "Hindi Pinagana" },
-  "filter_only_hint": { "message": "Ang listahang ito ay nagfi-filter lamang ng ipinapakita sa talahanayan" },
-  "category_disabled_desc": { "message": "I-mute ang isang kategorya upang pansamantalang payagan ang access sa lahat ng mga site nito. Nananatili ang mga indibidwal na setting ng mga patakaran." },
-  "toggle_category_blocking": { "message": "I-toggle ang pag-block para sa buong kategorya" },
-  "category_muted_no_edit": { "message": "Hindi maaaring pamahalaan: naka-pause ang pag-block ng kategorya" },
-  "feedback_title": { "message": "Gusto mo ba ang BlockDistraction?" },
-  "feedback_desc": { "message": "Malaki ang naitutulong ng iyong feedback sa pagpapabuti ng extension." },
-  "feedback_like": { "message": "Oo, gumagana ito nang mahusay!" },
-  "feedback_dislike": { "message": "May mga problema / mungkahi ako" },
-  "trialproheader": { "message": "Simulan ang iyong 7-araw na free trial" },
-  "trialprotext": { "message": "I-cancel anumang oras. Ligtas at protektado ang iyong mga bayad." },
-  "focussessionheader": { "message": "Focus Session" },
-  "focussessionstart": { "message": "Simulan" },
-  "focussessionstop": { "message": "Ihinto" },
-  "focussessionduration": { "message": "Tagal (min):" },
-  "focussessioninfo": { "message": "Ino-activate ang lahat ng iyong panuntunan sa pag-block para sa isang nakatakdang oras, na binabalewala ang kasalukuyang mga setting at iskedyul ng mga ito. Para sa pinakamataas na konsentrasyon." },
-  "focussessionprofeature": { "message": "Ang custom na tagal at Hardcore mode ay mga Pro na tampok." },
-  "focussessionended": { "message": "Tapos na ang focus session! Magpahinga muna." },
-  "focussessionhardcore": { "message": "Hardcore Mode (walang 'Ihinto' na button)" },
-  "focussessionsoundtitle": { "message": "Abiso sa Tunog ng Focus Session" },
-  "focussessionsounddesc": { "message": "Magpatugtog ng tunog kapag natapos na ang focus session." },
-  "focussessionactivebanner": { "message": "Aktibo ang Focus Session! Natitirang oras:" },
-  "focussessioninvalidduration": { "message": "Mangyaring maglagay ng wastong tagal (1-240 minuto)." },
-  "successfulfocussessionslabel": { "message": "Mga Matagumpay na Focus Session" },
-  "rule_scheduled": { "message": "Naka-schedule na alituntunin" },
-  "addwhitelistrule": { "message": "Magdagdag ng eksepsyon" },
-  "category_whitelist": { "message": "Whitelist" },
-  "conflict_blacklist_err": { "message": "Nasa iyong blacklist na ang site na ito. Alisin muna ito." },
-  "conflict_whitelist_err": { "message": "Nasa iyong whitelist na ang site na ito. Alisin muna ito." },
-  "status_allow": { "message": "Pinapayagan" },
-  "redundant_whitelist_err": { "message": "Sakop na ang alituntuning ito ng isa pang alituntunin sa whitelist." },
-  "focussessionmode": { "message": "Focus Mode:" },
-  "focusmodeblacklist": { "message": "I-block ang Blacklist" },
-  "focusmodewhitelist": { "message": "Payagan ang Whitelist Lamang" }
+  "pastekeylabel": {
+    "message": "Idikit ang iyong Lisensya Key dito:"
+  },
+  "confirmclearstats": {
+    "message": "Sigurado ka bang gusto mong burahin ang lahat ng estadistika? Hindi na ito maaaring ibalik."
+  },
+  "statscleared": {
+    "message": "Matagumpay na nabura ang mga estadistika."
+  },
+  "redirectstodaylabel": {
+    "message": "Mga pag-redirect ngayon"
+  },
+  "totalredirectslabel": {
+    "message": "Kabuuang mga pag-redirect"
+  },
+  "logout": {
+    "message": "Mag-log out"
+  },
+  "loggedoutsuccess": {
+    "message": "Matagumpay kang naka-log out."
+  },
+  "loggedouterror": {
+    "message": "Nagkaroon ng error habang nagla-log out."
+  },
+  "forcesync": {
+    "message": "Pilitin ang Sync / Suriin ang Katayuan"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Upang i-reset ang iyong password, pumunta sa seksyong 'Pro', i-click ang 'Mag-log out', at pagkatapos ay muling i-activate sa pamamagitan ng pag-paste ng iyong License Key."
+  },
+  "blockedtitle": {
+    "message": "Hindi magagamit ang site"
+  },
+  "blockedheader": {
+    "message": "Ang site na ito ay kasalukuyang hindi magagamit"
+  },
+  "blockedtext": {
+    "message": "Hindi maipapakita ang nilalamang ito."
+  },
+  "blockedbutton": {
+    "message": "Isara ang Tab"
+  },
+  "confirmpassword": {
+    "message": "Kumpirmahin ang password"
+  },
+  "modalconfirm": {
+    "message": "Kumpirmahin"
+  },
+  "modalcancel": {
+    "message": "Kanselahin"
+  },
+  "forgotpassword": {
+    "message": "Nakalimutan ang password? I-reset (tatanggalin ang proteksyon)"
+  },
+  "prounlocked": {
+    "message": "Salamat sa iyong suporta! Lahat ng Pro na tampok ay naka-unlock."
+  },
+  "licensesynced": {
+    "message": "Ang iyong lisensya ay naka-sync sa iyong account. Kung mawalan ka ng access, maaari mong makuha muli ang iyong key mula sa: "
+  },
+  "syncing": {
+    "message": "Isinasabay..."
+  },
+  "pleaseenterkey": {
+    "message": "Mangyaring ipasok ang isang key."
+  },
+  "syncsuccess": {
+    "message": "Matagumpay na pagsabay"
+  },
+  "syncfailed": {
+    "message": "Nabigo ang pagsabay."
+  },
+  "passwordreset": {
+    "message": "Na-reset ang proteksyon ng password."
+  },
+  "privacysecured": {
+    "message": "Pribadong protektado"
+  },
+  "errorinvalidfiletype": {
+    "message": "Pakiusap pumili ng .json na file"
+  },
+  "debugsettingstitle": {
+    "message": "Mga Setting ng Debug"
+  },
+  "enabledebugtitle": {
+    "message": "Paganahin ang Debug Mode"
+  },
+  "enabledebugdesc": {
+    "message": "Paganahin ang detalyadong pag-log sa console para sa pag-troubleshoot"
+  },
+  "errorcommunication": {
+    "message": "Error sa pakikipag-ugnayan sa background service"
+  },
+  "clearstats": {
+    "message": "I-clear ang Estadistika"
+  },
+  "rule_enabled": {
+    "message": "Pinagana"
+  },
+  "rule_disabled": {
+    "message": "Hindi Pinagana"
+  },
+  "filter_only_hint": {
+    "message": "Ang listahang ito ay nagfi-filter lamang ng ipinapakita sa talahanayan"
+  },
+  "category_disabled_desc": {
+    "message": "I-mute ang isang kategorya upang pansamantalang payagan ang access sa lahat ng mga site nito. Nananatili ang mga indibidwal na setting ng mga patakaran."
+  },
+  "toggle_category_blocking": {
+    "message": "I-toggle ang pag-block para sa buong kategorya"
+  },
+  "category_muted_no_edit": {
+    "message": "Hindi maaaring pamahalaan: naka-pause ang pag-block ng kategorya"
+  },
+  "feedback_title": {
+    "message": "Gusto mo ba ang BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Malaki ang naitutulong ng iyong feedback sa pagpapabuti ng extension."
+  },
+  "feedback_like": {
+    "message": "Oo, gumagana ito nang mahusay!"
+  },
+  "feedback_dislike": {
+    "message": "May mga problema / mungkahi ako"
+  },
+  "trialproheader": {
+    "message": "Simulan ang iyong 7-araw na free trial"
+  },
+  "trialprotext": {
+    "message": "I-cancel anumang oras. Ligtas at protektado ang iyong mga bayad."
+  },
+  "focussessionheader": {
+    "message": "Focus Session"
+  },
+  "focussessionstart": {
+    "message": "Simulan"
+  },
+  "focussessionstop": {
+    "message": "Ihinto"
+  },
+  "focussessionduration": {
+    "message": "Tagal (min):"
+  },
+  "focussessioninfo": {
+    "message": "Ino-activate ang lahat ng iyong panuntunan sa pag-block para sa isang nakatakdang oras, na binabalewala ang kasalukuyang mga setting at iskedyul ng mga ito. Para sa pinakamataas na konsentrasyon."
+  },
+  "focussessionprofeature": {
+    "message": "Ang custom na tagal at Hardcore mode ay mga Pro na tampok."
+  },
+  "focussessionended": {
+    "message": "Tapos na ang focus session! Magpahinga muna."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore Mode (walang 'Ihinto' na button)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Abiso sa Tunog ng Focus Session"
+  },
+  "focussessionsounddesc": {
+    "message": "Magpatugtog ng tunog kapag natapos na ang focus session."
+  },
+  "focussessionactivebanner": {
+    "message": "Aktibo ang Focus Session! Natitirang oras:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Mangyaring maglagay ng wastong tagal (1-240 minuto)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Mga Matagumpay na Focus Session"
+  },
+  "rule_scheduled": {
+    "message": "Naka-schedule na alituntunin"
+  },
+  "addwhitelistrule": {
+    "message": "Magdagdag ng eksepsyon"
+  },
+  "category_whitelist": {
+    "message": "Whitelist"
+  },
+  "conflict_blacklist_err": {
+    "message": "Nasa iyong blacklist na ang site na ito. Alisin muna ito."
+  },
+  "conflict_whitelist_err": {
+    "message": "Nasa iyong whitelist na ang site na ito. Alisin muna ito."
+  },
+  "status_allow": {
+    "message": "Pinapayagan"
+  },
+  "redundant_whitelist_err": {
+    "message": "Sakop na ang alituntuning ito ng isa pang alituntunin sa whitelist."
+  },
+  "focussessionmode": {
+    "message": "Focus Mode:"
+  },
+  "focusmodeblacklist": {
+    "message": "I-block ang Blacklist"
+  },
+  "focusmodewhitelist": {
+    "message": "Payagan ang Whitelist Lamang"
+  },
+  "schedule_edit": {
+    "message": "I-edit ang iskedyul"
+  },
+  "schedule_add_period": {
+    "message": "Magdagdag ng pangkat ng oras"
+  },
+  "schedule_remove_period": {
+    "message": "Alisin"
+  },
+  "schedule_period": {
+    "message": "Pangkat ng oras"
+  },
+  "schedule_every_day": {
+    "message": "Araw-araw"
+  },
+  "schedule_weekdays": {
+    "message": "Mga araw ng trabaho"
+  },
+  "schedule_weekends": {
+    "message": "Mga weekend"
+  },
+  "schedule_day_overlap": {
+    "message": "Isang beses lamang maaaring gamitin ang bawat araw."
+  }
 }

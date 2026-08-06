@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Webhelyblokkoló" },
-  "shortname": { "message": "Blokkoló" },
-  "description": { "message": "Egyszerű és megbízható eszköz weboldalak blokkolására és átirányítására, hogy fókuszban maradhass." },
-  "defaulttitle": { "message": "Maradj fókuszált és produktív" },
-  "header": { "message": "Webhelyblokkoló" },
-  "paragraph": { "message": "Egy weboldal vagy erőforrás blokkolásához írja be a nevét a \"Írja be a blokkolni kívánt URL-t\" mezőbe – például a \"facebook\" blokkol minden kapcsolódó aldomain-t. A \"Írja be az átirányítási URL-t\" mezőbe írja be a teljes átirányítási címet protokollal együtt, pl. \"https://google.com\". Ha az átirányítási mező üres, az oldal blokkolva lesz átirányítás nélkül. Kattintson a Mentés gombra a szabály alkalmazásához. Egy szabály frissítéséhez törölje a régit és hozzon létre újat." },
-  "addrule": { "message": "Új szabály hozzáadása" },
-  "blockurl": { "message": "Írja be a blokkolni kívánt URL-t" },
-  "redirecturl": { "message": "Írja be az átirányítási URL-t (opcionális)" },
-  "redirecturlheader": { "message": "Átirányítási URL" },
-  "redirecturlplaceholder": { "message": "Nem kötelező - blokkoláshoz hagyja üresen" },
-  "redirecturlhint": { "message": "Adjon meg egy teljes URL-t a https:// előtaggal együtt" },
-  "mobilecopylinkhint": { "message": "Hivatkozás blokkolásához másolja ki a címét, és illessze be a blokkolási mezőbe." },
-  "savebtn": { "message": "Mentés" },
-  "deletebtn": { "message": "Törlés" },
-  "alertruleexist": { "message": "A szabály már létezik" },
+  "chromename": {
+    "message": "BlockDistraction – Webhelyblokkoló"
+  },
+  "shortname": {
+    "message": "Blokkoló"
+  },
+  "description": {
+    "message": "Egyszerű és megbízható eszköz weboldalak blokkolására és átirányítására, hogy fókuszban maradhass."
+  },
+  "defaulttitle": {
+    "message": "Maradj fókuszált és produktív"
+  },
+  "header": {
+    "message": "Webhelyblokkoló"
+  },
+  "paragraph": {
+    "message": "Egy weboldal vagy erőforrás blokkolásához írja be a nevét a \"Írja be a blokkolni kívánt URL-t\" mezőbe – például a \"facebook\" blokkol minden kapcsolódó aldomain-t. A \"Írja be az átirányítási URL-t\" mezőbe írja be a teljes átirányítási címet protokollal együtt, pl. \"https://google.com\". Ha az átirányítási mező üres, az oldal blokkolva lesz átirányítás nélkül. Kattintson a Mentés gombra a szabály alkalmazásához. Egy szabály frissítéséhez törölje a régit és hozzon létre újat."
+  },
+  "addrule": {
+    "message": "Új szabály hozzáadása"
+  },
+  "blockurl": {
+    "message": "Írja be a blokkolni kívánt URL-t"
+  },
+  "redirecturl": {
+    "message": "Írja be az átirányítási URL-t (opcionális)"
+  },
+  "redirecturlheader": {
+    "message": "Átirányítási URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "Nem kötelező - blokkoláshoz hagyja üresen"
+  },
+  "redirecturlhint": {
+    "message": "Adjon meg egy teljes URL-t a https:// előtaggal együtt"
+  },
+  "mobilecopylinkhint": {
+    "message": "Hivatkozás blokkolásához másolja ki a címét, és illessze be a blokkolási mezőbe."
+  },
+  "savebtn": {
+    "message": "Mentés"
+  },
+  "deletebtn": {
+    "message": "Törlés"
+  },
+  "alertruleexist": {
+    "message": "A szabály már létezik"
+  },
   "savedrules": {
     "message": "$ruleslength$ szabály mentve",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Ez az erőforrás nem blokkolható." },
-  "wrongblockurl": { "message": "Érvénytelen blokkolási URL" },
-  "wrongredirecturl": { "message": "Érvénytelen átirányítási URL" },
-  "blockthat": { "message": "Blokkolja ezt az oldalt" },
-  "sendfeedbackbutton": { "message": "Visszajelzés küldése" },
-  "sendfeedbacksubject": { "message": "Visszajelzés a BlockDistraction-hoz" },
-  "sendfeedbackbody": { "message": "Helló, szeretném megosztani a következő visszajelzést:\n\n" },
-  "quote1": { "message": "Maradj fókuszált, maradj erős." },
-  "quote2": { "message": "A jövődet az határozza meg, amit ma teszel." },
-  "quote3": { "message": "A fegyelem a célok és a siker közötti híd." },
-  "quote4": { "message": "Egy blokkolt oldal, egy lépéssel közelebb a célodhoz." },
-  "quote5": { "message": "Tedd minden kattintást számítóvá." },
-  "quote6": { "message": "Ne nézd az órát; tedd, amit az tesz. Folytasd." },
-  "quote7": { "message": "A napi kis lépések nagy eredményekhez vezetnek." },
-  "quote8": { "message": "Az egyetlen korlátod az elméd." },
-  "quote9": { "message": "A siker a kis napi erőfeszítések összege." },
-  "quote10": { "message": "Koncentrálj a produktivitásra, ne a foglaltságra." },
-  "quote11": { "message": "Óvd a figyelmedet – ez a legértékesebb erőforrásod." },
-  "quote12": { "message": "Minden blokkolt zavaró tényező visszanyert idő." },
-  "quote13": { "message": "Csökkentsd a zajt; növeld a termelékenységedet." },
-  "quote14": { "message": "A kis rutinok megállíthatatlan lendületet építenek." },
-  "quote15": { "message": "Az átláthatóság legyőzi a káoszt – fókuszálj a fontosra." },
-  "quote16": { "message": "Mondj nemet a zavaró tényezőkre; mondj igent a haladásra." },
-  "quote17": { "message": "Egy ma fókuszált óra megsokszorozza a holnapi eredményeidet." },
-  "quote18": { "message": "Teremts többet kevesebb fogyasztásával." },
-  "quote19": { "message": "A fegyelem a hosszú távú győzelmeket választja a rövid impulzusok helyett." },
-  "quote20": { "message": "Zárj be egy fület, nyiss helyet új ötleteknek." },
-  "quote21": { "message": "A munka, amit ma elkerülsz, holnap stresszé válhat." },
-  "quote22": { "message": "A fókusz nem arról szól, hogy többet csinálj, hanem arról, hogy azt csináld, ami igazán fontos." },
-  "quote23": { "message": "A céljaid több figyelmet érdemelnek, mint a zavaró tényezők." },
-  "quote24": { "message": "Minden zavaró tényező nélküli perc befektetés önmagadba." },
-  "quote25": { "message": "A következetesség tartósabb eredményeket hoz, mint a rövid motivációs hullámok." },
-  "quote26": { "message": "A legjobb idő elkezdeni tegnap volt. A következő legjobb most van." },
-  "quote27": { "message": "A fejlődés akkor kezdődik, amikor a cselekvést választod a zavaró tényezők helyett." },
-  "quote28": { "message": "Egyetlen fókuszált pillanat is megváltoztathatja az egész napodat." },
-  "quote29": { "message": "Nincs több időre szükséged, hanem kevesebb zavaró tényezőre." },
-  "quote30": { "message": "Minden fókusz mellett hozott döntés erősíti a jövőbeli énedet." },
-  "quote31": { "message": "Ez a blokkolás ideiglenes; a céljaid hosszú távúak." },
-  "quote32": { "message": "Minden blokkolt zavaró tényező egy győzelem a jövőbeli önmagad számára." },
-  "quote33": { "message": "Az internet végtelen, de az időd nem az." },
-  "quote34": { "message": "Határozd meg a prioritásaidat, mielőtt a web teszi meg helyetted." },
-  "quote35": { "message": "Kevesebb görgetés, több alkotás." },
-  "quote36": { "message": "A figyelmed formálja az eredményeidet." },
-  "quote37": { "message": "Maradj fókuszált — a zavaró tényezők várhatnak." },
-  "quote38": { "message": "Minden produktív döntés egy összpontosított elmével kezdődik." },
-  "quote39": { "message": "Egy weboldalt blokkoltál, nem a potenciálodat." },
-  "quote40": { "message": "A siker útja fókuszált döntésekből épül." },
-  "actionsheader": { "message": "Műveletek" },
-  "norules": { "message": "Nincs blokkolt oldal." },
-  "editbtn": { "message": "Szerkesztés" },
-  "ruleddeleted": { "message": "Szabály törölve." },
-  "cancelbtn": { "message": "Mégse" },
-  "ruleupdated": { "message": "Szabály frissítve." },
-  "rulenewadded": { "message": "Új szabály hozzáadva." },
-  "gotooptions": { "message": "Ugrás a beállítások oldalra ⚙️" },
-  "gotopopup": { "message": "Kattints a bővítmény ikonra a visszatéréshez a felugró ablakhoz." },
-  "rulesmigrated": { "message": "Szabályok frissítve a kompatibilitás érdekében" },
-  "errorupdatingrules": { "message": "Hiba a szabályok frissítésekor" },
-  "erroraddingrule": { "message": "Hiba egy szabály hozzáadásakor" },
-  "errorremovingrule": { "message": "Hiba egy szabály törlésekor" },
-  "optionsheader": { "message": "Bővítmény beállításai" },
-  "optionsdescription": { "message": "Állítsa be a bővítmény viselkedését és biztonsági beállításait" },
-  "securitymodetitle": { "message": "Biztonsági mód" },
-  "normalmodetitle": { "message": "Normál mód" },
-  "normalmodedesc": { "message": "A szabályok azonnal törölhetők egy kattintással" },
-  "strictmodetitle": { "message": "Szigorú mód" },
-  "strictmodedesc": { "message": "A szabályok törléséhez 10 másodperces visszaszámlálás szükséges, hogy elkerülje a véletlen törlést" },
-  "confirmdeletetitle": { "message": "Megerősítés több szabály törlése előtt" },
-  "confirmdeletedesc": { "message": "Megerősítő párbeszédablak megjelenítése, amikor egyszerre több szabályt töröl" },
-  "notificationstitle": { "message": "Értesítések megjelenítése" },
-  "notificationsdesc": { "message": "Értesítések megjelenítése a bővítmény frissítésekor" },
-  "rulesmanagementtitle": { "message": "Szabályok kezelése" },
-  "exportrulesbtn": { "message": "Szabályok exportálása" },
-  "importrulesbtn": { "message": "Szabályok importálása" },
-  "clearallrulesbtn": { "message": "Az összes szabály törlése" },
-  "totalruleslabel": { "message": "Összes szabály" },
-  "blockedtodaylabel": { "message": "Ma blokkolva" },
-  "totalblockedlabel": { "message": "Összes blokkolt" },
-  "resetsettingsbtn": { "message": "Alapértelmezett visszaállítása" },
-  "backtopopup": { "message": "Vissza a főmenübe" },
-  "errorloadingsettings": { "message": "Hiba a beállítások betöltésekor" },
-  "settingssaved": { "message": "Beállítások sikeresen mentve!" },
-  "errorsavingsettings": { "message": "Hiba a beállítások mentésekor" },
-  "rulesexported": { "message": "Szabályok sikeresen exportálva!" },
-  "errorexportingrules": { "message": "Hiba a szabályok exportálásakor" },
+  "restrictedblockurl": {
+    "message": "Ez az erőforrás nem blokkolható."
+  },
+  "wrongblockurl": {
+    "message": "Érvénytelen blokkolási URL"
+  },
+  "wrongredirecturl": {
+    "message": "Érvénytelen átirányítási URL"
+  },
+  "blockthat": {
+    "message": "Blokkolja ezt az oldalt"
+  },
+  "sendfeedbackbutton": {
+    "message": "Visszajelzés küldése"
+  },
+  "sendfeedbacksubject": {
+    "message": "Visszajelzés a BlockDistraction-hoz"
+  },
+  "sendfeedbackbody": {
+    "message": "Helló, szeretném megosztani a következő visszajelzést:\n\n"
+  },
+  "quote1": {
+    "message": "Maradj fókuszált, maradj erős."
+  },
+  "quote2": {
+    "message": "A jövődet az határozza meg, amit ma teszel."
+  },
+  "quote3": {
+    "message": "A fegyelem a célok és a siker közötti híd."
+  },
+  "quote4": {
+    "message": "Egy blokkolt oldal, egy lépéssel közelebb a célodhoz."
+  },
+  "quote5": {
+    "message": "Tedd minden kattintást számítóvá."
+  },
+  "quote6": {
+    "message": "Ne nézd az órát; tedd, amit az tesz. Folytasd."
+  },
+  "quote7": {
+    "message": "A napi kis lépések nagy eredményekhez vezetnek."
+  },
+  "quote8": {
+    "message": "Az egyetlen korlátod az elméd."
+  },
+  "quote9": {
+    "message": "A siker a kis napi erőfeszítések összege."
+  },
+  "quote10": {
+    "message": "Koncentrálj a produktivitásra, ne a foglaltságra."
+  },
+  "quote11": {
+    "message": "Óvd a figyelmedet – ez a legértékesebb erőforrásod."
+  },
+  "quote12": {
+    "message": "Minden blokkolt zavaró tényező visszanyert idő."
+  },
+  "quote13": {
+    "message": "Csökkentsd a zajt; növeld a termelékenységedet."
+  },
+  "quote14": {
+    "message": "A kis rutinok megállíthatatlan lendületet építenek."
+  },
+  "quote15": {
+    "message": "Az átláthatóság legyőzi a káoszt – fókuszálj a fontosra."
+  },
+  "quote16": {
+    "message": "Mondj nemet a zavaró tényezőkre; mondj igent a haladásra."
+  },
+  "quote17": {
+    "message": "Egy ma fókuszált óra megsokszorozza a holnapi eredményeidet."
+  },
+  "quote18": {
+    "message": "Teremts többet kevesebb fogyasztásával."
+  },
+  "quote19": {
+    "message": "A fegyelem a hosszú távú győzelmeket választja a rövid impulzusok helyett."
+  },
+  "quote20": {
+    "message": "Zárj be egy fület, nyiss helyet új ötleteknek."
+  },
+  "quote21": {
+    "message": "A munka, amit ma elkerülsz, holnap stresszé válhat."
+  },
+  "quote22": {
+    "message": "A fókusz nem arról szól, hogy többet csinálj, hanem arról, hogy azt csináld, ami igazán fontos."
+  },
+  "quote23": {
+    "message": "A céljaid több figyelmet érdemelnek, mint a zavaró tényezők."
+  },
+  "quote24": {
+    "message": "Minden zavaró tényező nélküli perc befektetés önmagadba."
+  },
+  "quote25": {
+    "message": "A következetesség tartósabb eredményeket hoz, mint a rövid motivációs hullámok."
+  },
+  "quote26": {
+    "message": "A legjobb idő elkezdeni tegnap volt. A következő legjobb most van."
+  },
+  "quote27": {
+    "message": "A fejlődés akkor kezdődik, amikor a cselekvést választod a zavaró tényezők helyett."
+  },
+  "quote28": {
+    "message": "Egyetlen fókuszált pillanat is megváltoztathatja az egész napodat."
+  },
+  "quote29": {
+    "message": "Nincs több időre szükséged, hanem kevesebb zavaró tényezőre."
+  },
+  "quote30": {
+    "message": "Minden fókusz mellett hozott döntés erősíti a jövőbeli énedet."
+  },
+  "quote31": {
+    "message": "Ez a blokkolás ideiglenes; a céljaid hosszú távúak."
+  },
+  "quote32": {
+    "message": "Minden blokkolt zavaró tényező egy győzelem a jövőbeli önmagad számára."
+  },
+  "quote33": {
+    "message": "Az internet végtelen, de az időd nem az."
+  },
+  "quote34": {
+    "message": "Határozd meg a prioritásaidat, mielőtt a web teszi meg helyetted."
+  },
+  "quote35": {
+    "message": "Kevesebb görgetés, több alkotás."
+  },
+  "quote36": {
+    "message": "A figyelmed formálja az eredményeidet."
+  },
+  "quote37": {
+    "message": "Maradj fókuszált — a zavaró tényezők várhatnak."
+  },
+  "quote38": {
+    "message": "Minden produktív döntés egy összpontosított elmével kezdődik."
+  },
+  "quote39": {
+    "message": "Egy weboldalt blokkoltál, nem a potenciálodat."
+  },
+  "quote40": {
+    "message": "A siker útja fókuszált döntésekből épül."
+  },
+  "actionsheader": {
+    "message": "Műveletek"
+  },
+  "norules": {
+    "message": "Nincs blokkolt oldal."
+  },
+  "editbtn": {
+    "message": "Szerkesztés"
+  },
+  "ruleddeleted": {
+    "message": "Szabály törölve."
+  },
+  "cancelbtn": {
+    "message": "Mégse"
+  },
+  "ruleupdated": {
+    "message": "Szabály frissítve."
+  },
+  "rulenewadded": {
+    "message": "Új szabály hozzáadva."
+  },
+  "gotooptions": {
+    "message": "Ugrás a beállítások oldalra ⚙️"
+  },
+  "gotopopup": {
+    "message": "Kattints a bővítmény ikonra a visszatéréshez a felugró ablakhoz."
+  },
+  "rulesmigrated": {
+    "message": "Szabályok frissítve a kompatibilitás érdekében"
+  },
+  "errorupdatingrules": {
+    "message": "Hiba a szabályok frissítésekor"
+  },
+  "erroraddingrule": {
+    "message": "Hiba egy szabály hozzáadásakor"
+  },
+  "errorremovingrule": {
+    "message": "Hiba egy szabály törlésekor"
+  },
+  "optionsheader": {
+    "message": "Bővítmény beállításai"
+  },
+  "optionsdescription": {
+    "message": "Állítsa be a bővítmény viselkedését és biztonsági beállításait"
+  },
+  "securitymodetitle": {
+    "message": "Biztonsági mód"
+  },
+  "normalmodetitle": {
+    "message": "Normál mód"
+  },
+  "normalmodedesc": {
+    "message": "A szabályok azonnal törölhetők egy kattintással"
+  },
+  "strictmodetitle": {
+    "message": "Szigorú mód"
+  },
+  "strictmodedesc": {
+    "message": "A szabályok törléséhez 10 másodperces visszaszámlálás szükséges, hogy elkerülje a véletlen törlést"
+  },
+  "confirmdeletetitle": {
+    "message": "Megerősítés több szabály törlése előtt"
+  },
+  "confirmdeletedesc": {
+    "message": "Megerősítő párbeszédablak megjelenítése, amikor egyszerre több szabályt töröl"
+  },
+  "notificationstitle": {
+    "message": "Értesítések megjelenítése"
+  },
+  "notificationsdesc": {
+    "message": "Értesítések megjelenítése a bővítmény frissítésekor"
+  },
+  "rulesmanagementtitle": {
+    "message": "Szabályok kezelése"
+  },
+  "exportrulesbtn": {
+    "message": "Szabályok exportálása"
+  },
+  "importrulesbtn": {
+    "message": "Szabályok importálása"
+  },
+  "clearallrulesbtn": {
+    "message": "Az összes szabály törlése"
+  },
+  "totalruleslabel": {
+    "message": "Összes szabály"
+  },
+  "blockedtodaylabel": {
+    "message": "Ma blokkolva"
+  },
+  "totalblockedlabel": {
+    "message": "Összes blokkolt"
+  },
+  "resetsettingsbtn": {
+    "message": "Alapértelmezett visszaállítása"
+  },
+  "backtopopup": {
+    "message": "Vissza a főmenübe"
+  },
+  "errorloadingsettings": {
+    "message": "Hiba a beállítások betöltésekor"
+  },
+  "settingssaved": {
+    "message": "Beállítások sikeresen mentve!"
+  },
+  "errorsavingsettings": {
+    "message": "Hiba a beállítások mentésekor"
+  },
+  "rulesexported": {
+    "message": "Szabályok sikeresen exportálva!"
+  },
+  "errorexportingrules": {
+    "message": "Hiba a szabályok exportálásakor"
+  },
   "willimportrules": {
     "message": "$ruleslength$ szabály importálásra kerül.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "A jelenlegi szabályok felülírásra kerülnek. Folytatja?" },
+  "ruleswillbereplaced": {
+    "message": "A jelenlegi szabályok felülírásra kerülnek. Folytatja?"
+  },
   "importedrules": {
     "message": "$ruleslength$ szabály sikeresen importálva!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Hiba a szabályok importálásakor: " },
-  "norulestoclear": { "message": "Nincsenek törlendő szabályok" },
+  "errorimportingrules": {
+    "message": "Hiba a szabályok importálásakor: "
+  },
+  "norulestoclear": {
+    "message": "Nincsenek törlendő szabályok"
+  },
   "willdeleteallrules": {
     "message": "Ez véglegesen törli az összes $rulescount$ szabályt.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Ez a művelet nem visszavonható. Folytatja?" },
-  "allrulescleared": { "message": "Minden szabály sikeresen törölve!" },
-  "errorclearingrules": { "message": "Hiba a szabályok törlésekor" },
-  "willreset": { "message": "Minden beállítás alapértelmezettre áll vissza. Folytatja?" },
-  "resettodefaults": { "message": "Beállítások visszaállítva az alapértelmezettre!" },
-  "errorresettingsettings": { "message": "Hiba a beállítások visszaállításakor" },
-  "basicsettingstitle": { "message": "Alapbeállítások" },
-  "advancedsettingstitle": { "message": "Haladó beállítások" },
-  "statisticstitle": { "message": "Statisztikák" },
+  "cannotbeundone": {
+    "message": "Ez a művelet nem visszavonható. Folytatja?"
+  },
+  "allrulescleared": {
+    "message": "Minden szabály sikeresen törölve!"
+  },
+  "errorclearingrules": {
+    "message": "Hiba a szabályok törlésekor"
+  },
+  "willreset": {
+    "message": "Minden beállítás alapértelmezettre áll vissza. Folytatja?"
+  },
+  "resettodefaults": {
+    "message": "Beállítások visszaállítva az alapértelmezettre!"
+  },
+  "errorresettingsettings": {
+    "message": "Hiba a beállítások visszaállításakor"
+  },
+  "basicsettingstitle": {
+    "message": "Alapbeállítások"
+  },
+  "advancedsettingstitle": {
+    "message": "Haladó beállítások"
+  },
+  "statisticstitle": {
+    "message": "Statisztikák"
+  },
   "rulelimitreached": {
     "message": "Elérted a szabályok korlátját ($limit$) az alapverzióban. Frissíts Pro-ra a korlátlan szabályokért.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro szükséges a szerkesztéshez." },
-  "invalidpassword": { "message": "Érvénytelen jelszó" },
-  "setpassword": { "message": "Jelszó beállítása" },
-  "enterpassword": { "message": "Jelszó megadása" },
-  "passwordmismatch": { "message": "A jelszavak nem egyeznek" },
-  "passwordtooshort": { "message": "A jelszónak legalább 6 karakterből kell állnia" },
-  "resetpasswordconfirm": { "message": "A jelszó visszaállítása letiltja a védelmet. Folytatod?" },
-  "passwordset": { "message": "Jelszó sikeresen beállítva" },
-  "passworddisabled": { "message": "Jelszóvédelem letiltva" },
-  "prorequired": { "message": "Ehhez a funkcióhoz Pro mód szükséges" },
-  "enablepasswordtitle": { "message": "Jelszóvédelem engedélyezése" },
-  "enablepassworddesc": { "message": "Jelszó szükséges a szabályok törléséhez vagy szerkesztéséhez (erősíti a szigorú módot)" },
-  "passwordprotectiontitle": { "message": "Jelszóvédelem" },
-  "scheduleheader": { "message": "Ütemezés" },
-  "enableschedule": { "message": "Ütemezés engedélyezése" },
-  "alwaysactive": { "message": "Mindig aktív" },
-  "profeatureschedule": { "message": "Az ütemezés a Pro verzióban érhető el" },
-  "days": { "message": "Napok" },
-  "starttime": { "message": "Kezdési idő:" },
-  "endtime": { "message": "Befejezési idő:" },
-  "invaliddays": { "message": "Érvénytelen napok kiválasztva" },
-  "invalidtimeformat": { "message": "Érvénytelen időformátum (HH:MM használata)" },
-  "startafterend": { "message": "A kezdési időnek a befejezési idő előtt kell lennie" },
-  "invalidschedule": { "message": "Érvénytelen ütemezés: kérjük, válasszon napokat és időpontokat." },
-  "invalidscheduledays": { "message": "Érvénytelen ütemezés: válasszon legalább egy napot." },
-  "invalidschedulestarttime": { "message": "Érvénytelen ütemezés: állítsa be a kezdési időt." },
-  "invalidscheduleendtime": { "message": "Érvénytelen ütemezés: állítsa be a befejezési időt." },
-  "editdisablednonpro": { "message": "Szerkesztés letiltva: túl sok szabály nem Pro felhasználók számára." },
-  "errorloadingstatus": { "message": "Hiba a felhasználói állapot betöltése közben." },
-  "schedule_day_sun": { "message": "Vas" },
-  "schedule_day_mon": { "message": "Hét" },
-  "schedule_day_tue": { "message": "Ked" },
-  "schedule_day_wed": { "message": "Sze" },
-  "schedule_day_thu": { "message": "Csü" },
-  "schedule_day_fri": { "message": "Pén" },
-  "schedule_day_sat": { "message": "Szo" },
-  "category_header": { "message": "Kategória" },
-  "category_required": { "message": "A kategória megadása kötelező" },
-  "allcategories": { "message": "Minden kategória" },
-  "category_social": { "message": "Közösségi média" },
-  "category_news": { "message": "Hírek" },
-  "category_entertainment": { "message": "Szórakozás" },
-  "category_shopping": { "message": "Vásárlás" },
-  "category_work": { "message": "Munka" },
-  "category_gaming": { "message": "Játékok" },
-  "category_adult": { "message": "Felnőtt tartalom" },
-  "category_uncategorized": { "message": "Kategorizálatlan" },
-  "searchfordomain": { "message": "Domain név keresése" },
-  "norulesforcategory": { "message": "Ehhez a kategóriához nincs blokkolt oldal." },
-  "getpro": { "message": "Szerezd meg a Pro-t" },
-  "profunctionstext": { "message": "A Pro funkciók közé tartozik: ütemezett blokkolás, jelszóvédelem, szabályszűrés és szabályok exportálása/importálása. Élvezze Univerzális Licenciánkat: egy előfizetés minden böngészőben (Chrome, Firefox, Edge, Kiwi) aktiválja a Pro-t. Aktiváláshoz vásároljon előfizetést a blockdistraction.com oldalon, majd másolja ki a Licenckulcsot a fiókja kezelőpultjáról, és illessze be alább." },
-  "upgradenow": { "message": "Frissítés most" },
-  "enteremail": { "message": "Add meg az e-mail címed" },
-  "activatepro": { "message": "Pro aktiválása" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Hozzáférés visszaállítása" },
-  "pleaseenteremail": { "message": "Kérjük, add meg az e-mail címed" },
-  "checking": { "message": "Ellenőrzés..." },
-  "proactivated": { "message": "A Pro funkciók aktiválva!" },
-  "subscriptionnotfound": { "message": "Az előfizetés nem aktív vagy az e-mail nem található." },
-  "servererror": { "message": "Szerverhiba. Kérjük, próbáld újra." },
-  "proactivatedfor": { "message": "A Pro aktiválva a következőhöz:" },
+  "proonlyactions": {
+    "message": "Pro szükséges a szerkesztéshez."
+  },
+  "invalidpassword": {
+    "message": "Érvénytelen jelszó"
+  },
+  "setpassword": {
+    "message": "Jelszó beállítása"
+  },
+  "enterpassword": {
+    "message": "Jelszó megadása"
+  },
+  "passwordmismatch": {
+    "message": "A jelszavak nem egyeznek"
+  },
+  "passwordtooshort": {
+    "message": "A jelszónak legalább 6 karakterből kell állnia"
+  },
+  "resetpasswordconfirm": {
+    "message": "A jelszó visszaállítása letiltja a védelmet. Folytatod?"
+  },
+  "passwordset": {
+    "message": "Jelszó sikeresen beállítva"
+  },
+  "passworddisabled": {
+    "message": "Jelszóvédelem letiltva"
+  },
+  "prorequired": {
+    "message": "Ehhez a funkcióhoz Pro mód szükséges"
+  },
+  "enablepasswordtitle": {
+    "message": "Jelszóvédelem engedélyezése"
+  },
+  "enablepassworddesc": {
+    "message": "Jelszó szükséges a szabályok törléséhez vagy szerkesztéséhez (erősíti a szigorú módot)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Jelszóvédelem"
+  },
+  "scheduleheader": {
+    "message": "Ütemezés"
+  },
+  "enableschedule": {
+    "message": "Ütemezés engedélyezése"
+  },
+  "alwaysactive": {
+    "message": "Mindig aktív"
+  },
+  "profeatureschedule": {
+    "message": "Az ütemezés a Pro verzióban érhető el"
+  },
+  "days": {
+    "message": "Napok"
+  },
+  "starttime": {
+    "message": "Kezdési idő:"
+  },
+  "endtime": {
+    "message": "Befejezési idő:"
+  },
+  "invaliddays": {
+    "message": "Érvénytelen napok kiválasztva"
+  },
+  "invalidtimeformat": {
+    "message": "Érvénytelen időformátum (HH:MM használata)"
+  },
+  "startafterend": {
+    "message": "A kezdési időnek a befejezési idő előtt kell lennie"
+  },
+  "invalidschedule": {
+    "message": "Érvénytelen ütemezés: kérjük, válasszon napokat és időpontokat."
+  },
+  "invalidscheduledays": {
+    "message": "Érvénytelen ütemezés: válasszon legalább egy napot."
+  },
+  "invalidschedulestarttime": {
+    "message": "Érvénytelen ütemezés: állítsa be a kezdési időt."
+  },
+  "invalidscheduleendtime": {
+    "message": "Érvénytelen ütemezés: állítsa be a befejezési időt."
+  },
+  "editdisablednonpro": {
+    "message": "Szerkesztés letiltva: túl sok szabály nem Pro felhasználók számára."
+  },
+  "errorloadingstatus": {
+    "message": "Hiba a felhasználói állapot betöltése közben."
+  },
+  "schedule_day_sun": {
+    "message": "Vas"
+  },
+  "schedule_day_mon": {
+    "message": "Hét"
+  },
+  "schedule_day_tue": {
+    "message": "Ked"
+  },
+  "schedule_day_wed": {
+    "message": "Sze"
+  },
+  "schedule_day_thu": {
+    "message": "Csü"
+  },
+  "schedule_day_fri": {
+    "message": "Pén"
+  },
+  "schedule_day_sat": {
+    "message": "Szo"
+  },
+  "category_header": {
+    "message": "Kategória"
+  },
+  "category_required": {
+    "message": "A kategória megadása kötelező"
+  },
+  "allcategories": {
+    "message": "Minden kategória"
+  },
+  "category_social": {
+    "message": "Közösségi média"
+  },
+  "category_news": {
+    "message": "Hírek"
+  },
+  "category_entertainment": {
+    "message": "Szórakozás"
+  },
+  "category_shopping": {
+    "message": "Vásárlás"
+  },
+  "category_work": {
+    "message": "Munka"
+  },
+  "category_gaming": {
+    "message": "Játékok"
+  },
+  "category_adult": {
+    "message": "Felnőtt tartalom"
+  },
+  "category_uncategorized": {
+    "message": "Kategorizálatlan"
+  },
+  "searchfordomain": {
+    "message": "Domain név keresése"
+  },
+  "norulesforcategory": {
+    "message": "Ehhez a kategóriához nincs blokkolt oldal."
+  },
+  "getpro": {
+    "message": "Szerezd meg a Pro-t"
+  },
+  "profunctionstext": {
+    "message": "A Pro funkciók közé tartozik: ütemezett blokkolás, jelszóvédelem, szabályszűrés és szabályok exportálása/importálása. Élvezze Univerzális Licenciánkat: egy előfizetés minden böngészőben (Chrome, Firefox, Edge, Kiwi) aktiválja a Pro-t. Aktiváláshoz vásároljon előfizetést a blockdistraction.com oldalon, majd másolja ki a Licenckulcsot a fiókja kezelőpultjáról, és illessze be alább."
+  },
+  "upgradenow": {
+    "message": "Frissítés most"
+  },
+  "enteremail": {
+    "message": "Add meg az e-mail címed"
+  },
+  "activatepro": {
+    "message": "Pro aktiválása"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Hozzáférés visszaállítása"
+  },
+  "pleaseenteremail": {
+    "message": "Kérjük, add meg az e-mail címed"
+  },
+  "checking": {
+    "message": "Ellenőrzés..."
+  },
+  "proactivated": {
+    "message": "A Pro funkciók aktiválva!"
+  },
+  "subscriptionnotfound": {
+    "message": "Az előfizetés nem aktív vagy az e-mail nem található."
+  },
+  "servererror": {
+    "message": "Szerverhiba. Kérjük, próbáld újra."
+  },
+  "proactivatedfor": {
+    "message": "A Pro aktiválva a következőhöz:"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Az engedélykérés sikertelen volt (mobilon előfordulhat). Próbálja újra, vagy adja meg az engedélyt manuálisan a beállításokból."
   },
-  "pastekeylabel": { "message": "Zalijepite svoj licencni ključ ovdje:" },
-  "confirmclearstats": { "message": "Biztosan törölni szeretné az összes statisztikát? Ezt a műveletet nem lehet visszavonni." },
-  "statscleared": { "message": "A statisztikák sikeresen törölve lettek." },
-  "redirectstodaylabel": { "message": "Mai átirányítások" },
-  "totalredirectslabel": { "message": "Összes átirányítás" },
-  "logout": { "message": "Kijelentkezés" },
-  "loggedoutsuccess": { "message": "Sikeresen kijelentkezett." },
-  "loggedouterror": { "message": "Hiba történt a kijelentkezés során." },
-  "forcesync": { "message": "Szinkronizálás kényszerítése / Állapot ellenőrzése" },
-  "forgotpasswordinstructions": { "message": "A jelszó visszaállításához lépjen a 'Pro' szakaszba, kattintson a 'Kijelentkezés' gombra, majd aktiválja újra a licenckulcs beillesztésével." },
-  "blockedtitle": { "message": "Az oldal nem elérhető" },
-  "blockedheader": { "message": "Ez az oldal jelenleg nem elérhető" },
-  "blockedtext": { "message": "A tartalom nem jeleníthető meg." },
-  "blockedbutton": { "message": "Bezárás" },
-  "confirmpassword": { "message": "Jelszó megerősítése" },
-  "modalconfirm": { "message": "Megerősítés" },
-  "modalcancel": { "message": "Mégse" },
-  "forgotpassword": { "message": "Elfelejtette a jelszót? Visszaállítás (eltávolítja a védelmet)" },
-  "prounlocked": { "message": "Köszönjük a támogatást! Minden Pro funkció feloldva." },
-  "licensesynced": { "message": "A licenced szinkronizálva van a fiókoddal. Ha elveszíted a hozzáférést, a kulcsodat innen tudod visszaszerezni: " },
-  "syncing": { "message": "Szinkronizálás..." },
-  "pleaseenterkey": { "message": "Kérjük, adjon meg egy kulcsot." },
-  "syncsuccess": { "message": "Sikeres szinkronizáció" },
-  "syncfailed": { "message": "A szinkronizáció sikertelen." },
-  "passwordreset": { "message": "A jelszóvédelem visszaállítva." },
-  "privacysecured": { "message": "Adatvédelem biztosítva" },
-  "errorinvalidfiletype": { "message": "Kérjük, válasszon egy .json fájlt" },
-  "debugsettingstitle": { "message": "Hibakeresési beállítások" },
-  "enabledebugtitle": { "message": "Hibakeresési mód engedélyezése" },
-  "enabledebugdesc": { "message": "Részletes naplózás engedélyezése a konzolon a hibakereséshez" },
-  "errorcommunication": { "message": "Hiba a háttérszolgáltatással való kommunikáció során" },
-  "clearstats": { "message": "Statisztika törlése" },
-  "rule_enabled": { "message": "Engedélyezve" },
-  "rule_disabled": { "message": "Letiltva" },
-  "filter_only_hint": { "message": "Ez a lista csak a táblázatban megjelenő elemeket szűri" },
-  "category_disabled_desc": { "message": "Némíts egy kategóriát, hogy ideiglenesen engedélyezd az összes webhelyhez való hozzáférést. Az egyedi szabálybeállítások megmaradnak." },
-  "toggle_category_blocking": { "message": "A teljes kategória blokkolásának ki- vagy bekapcsolása" },
-  "category_muted_no_edit": { "message": "Nem kezelhető: a kategóriablokkolás szünetel" },
-  "feedback_title": { "message": "Tetszik a BlockDistraction?" },
-  "feedback_desc": { "message": "Visszajelzésed nagyban segít nekünk a bővítmény fejlesztésében." },
-  "feedback_like": { "message": "Igen, remekül működik!" },
-  "feedback_dislike": { "message": "Problémáim / javaslataim vannak" },
-  "trialproheader": { "message": "Indítsd el a 7 napos ingyenes próbaidőszakot" },
-  "trialprotext": { "message": "Bármikor lemondható. A fizetésed teljes biztonságban van." },
-  "focussessionheader": { "message": "Fókusz menet" },
-  "focussessionstart": { "message": "Indítás" },
-  "focussessionstop": { "message": "Leállítás" },
-  "focussessionduration": { "message": "Időtartam (perc):" },
-  "focussessioninfo": { "message": "Aktiválja az összes blokkolási szabályt egy beállított időre, figyelmen kívül hagyva azok aktuális beállításait és ütemezéseit. A maximális koncentrációért." },
-  "focussessionprofeature": { "message": "Az egyéni időtartam és a Hardcore mód Pro funkciók." },
-  "focussessionended": { "message": "A fókusz menet véget ért! Tartson egy szünetet." },
-  "focussessionhardcore": { "message": "Hardcore mód (nincs 'Leállítás' gomb)" },
-  "focussessionsoundtitle": { "message": "Fókusz menet hangjelzés" },
-  "focussessionsounddesc": { "message": "Hang lejátszása a fókusz menet végén." },
-  "focussessionactivebanner": { "message": "Fókusz menet aktív! Hátralévő idő:" },
-  "focussessioninvalidduration": { "message": "Kérjük, adjon meg egy érvényes időtartamot (1-240 perc)." },
-  "successfulfocussessionslabel": { "message": "Sikeres fókusz menetek" },
-  "rule_scheduled": { "message": "Ütemezett szabály" },
-  "addwhitelistrule": { "message": "Kivétel hozzáadása" },
-  "category_whitelist": { "message": "Fehérlista" },
-  "conflict_blacklist_err": { "message": "Ez az oldal már szerepel a feketelistáján. Először távolítsa el." },
-  "conflict_whitelist_err": { "message": "Ez az oldal már szerepel a fehérlistáján. Először távolítsa el." },
-  "status_allow": { "message": "Engedélyezve" },
-  "redundant_whitelist_err": { "message": "Ezt a szabályt egy másik fehérlista-szabály már lefedi." },
-  "focussessionmode": { "message": "Fókusz mód:" },
-  "focusmodeblacklist": { "message": "Feketelista blokkolása" },
-  "focusmodewhitelist": { "message": "Csak a fehérlista engedélyezése" }
+  "pastekeylabel": {
+    "message": "Zalijepite svoj licencni ključ ovdje:"
+  },
+  "confirmclearstats": {
+    "message": "Biztosan törölni szeretné az összes statisztikát? Ezt a műveletet nem lehet visszavonni."
+  },
+  "statscleared": {
+    "message": "A statisztikák sikeresen törölve lettek."
+  },
+  "redirectstodaylabel": {
+    "message": "Mai átirányítások"
+  },
+  "totalredirectslabel": {
+    "message": "Összes átirányítás"
+  },
+  "logout": {
+    "message": "Kijelentkezés"
+  },
+  "loggedoutsuccess": {
+    "message": "Sikeresen kijelentkezett."
+  },
+  "loggedouterror": {
+    "message": "Hiba történt a kijelentkezés során."
+  },
+  "forcesync": {
+    "message": "Szinkronizálás kényszerítése / Állapot ellenőrzése"
+  },
+  "forgotpasswordinstructions": {
+    "message": "A jelszó visszaállításához lépjen a 'Pro' szakaszba, kattintson a 'Kijelentkezés' gombra, majd aktiválja újra a licenckulcs beillesztésével."
+  },
+  "blockedtitle": {
+    "message": "Az oldal nem elérhető"
+  },
+  "blockedheader": {
+    "message": "Ez az oldal jelenleg nem elérhető"
+  },
+  "blockedtext": {
+    "message": "A tartalom nem jeleníthető meg."
+  },
+  "blockedbutton": {
+    "message": "Bezárás"
+  },
+  "confirmpassword": {
+    "message": "Jelszó megerősítése"
+  },
+  "modalconfirm": {
+    "message": "Megerősítés"
+  },
+  "modalcancel": {
+    "message": "Mégse"
+  },
+  "forgotpassword": {
+    "message": "Elfelejtette a jelszót? Visszaállítás (eltávolítja a védelmet)"
+  },
+  "prounlocked": {
+    "message": "Köszönjük a támogatást! Minden Pro funkció feloldva."
+  },
+  "licensesynced": {
+    "message": "A licenced szinkronizálva van a fiókoddal. Ha elveszíted a hozzáférést, a kulcsodat innen tudod visszaszerezni: "
+  },
+  "syncing": {
+    "message": "Szinkronizálás..."
+  },
+  "pleaseenterkey": {
+    "message": "Kérjük, adjon meg egy kulcsot."
+  },
+  "syncsuccess": {
+    "message": "Sikeres szinkronizáció"
+  },
+  "syncfailed": {
+    "message": "A szinkronizáció sikertelen."
+  },
+  "passwordreset": {
+    "message": "A jelszóvédelem visszaállítva."
+  },
+  "privacysecured": {
+    "message": "Adatvédelem biztosítva"
+  },
+  "errorinvalidfiletype": {
+    "message": "Kérjük, válasszon egy .json fájlt"
+  },
+  "debugsettingstitle": {
+    "message": "Hibakeresési beállítások"
+  },
+  "enabledebugtitle": {
+    "message": "Hibakeresési mód engedélyezése"
+  },
+  "enabledebugdesc": {
+    "message": "Részletes naplózás engedélyezése a konzolon a hibakereséshez"
+  },
+  "errorcommunication": {
+    "message": "Hiba a háttérszolgáltatással való kommunikáció során"
+  },
+  "clearstats": {
+    "message": "Statisztika törlése"
+  },
+  "rule_enabled": {
+    "message": "Engedélyezve"
+  },
+  "rule_disabled": {
+    "message": "Letiltva"
+  },
+  "filter_only_hint": {
+    "message": "Ez a lista csak a táblázatban megjelenő elemeket szűri"
+  },
+  "category_disabled_desc": {
+    "message": "Némíts egy kategóriát, hogy ideiglenesen engedélyezd az összes webhelyhez való hozzáférést. Az egyedi szabálybeállítások megmaradnak."
+  },
+  "toggle_category_blocking": {
+    "message": "A teljes kategória blokkolásának ki- vagy bekapcsolása"
+  },
+  "category_muted_no_edit": {
+    "message": "Nem kezelhető: a kategóriablokkolás szünetel"
+  },
+  "feedback_title": {
+    "message": "Tetszik a BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Visszajelzésed nagyban segít nekünk a bővítmény fejlesztésében."
+  },
+  "feedback_like": {
+    "message": "Igen, remekül működik!"
+  },
+  "feedback_dislike": {
+    "message": "Problémáim / javaslataim vannak"
+  },
+  "trialproheader": {
+    "message": "Indítsd el a 7 napos ingyenes próbaidőszakot"
+  },
+  "trialprotext": {
+    "message": "Bármikor lemondható. A fizetésed teljes biztonságban van."
+  },
+  "focussessionheader": {
+    "message": "Fókusz menet"
+  },
+  "focussessionstart": {
+    "message": "Indítás"
+  },
+  "focussessionstop": {
+    "message": "Leállítás"
+  },
+  "focussessionduration": {
+    "message": "Időtartam (perc):"
+  },
+  "focussessioninfo": {
+    "message": "Aktiválja az összes blokkolási szabályt egy beállított időre, figyelmen kívül hagyva azok aktuális beállításait és ütemezéseit. A maximális koncentrációért."
+  },
+  "focussessionprofeature": {
+    "message": "Az egyéni időtartam és a Hardcore mód Pro funkciók."
+  },
+  "focussessionended": {
+    "message": "A fókusz menet véget ért! Tartson egy szünetet."
+  },
+  "focussessionhardcore": {
+    "message": "Hardcore mód (nincs 'Leállítás' gomb)"
+  },
+  "focussessionsoundtitle": {
+    "message": "Fókusz menet hangjelzés"
+  },
+  "focussessionsounddesc": {
+    "message": "Hang lejátszása a fókusz menet végén."
+  },
+  "focussessionactivebanner": {
+    "message": "Fókusz menet aktív! Hátralévő idő:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Kérjük, adjon meg egy érvényes időtartamot (1-240 perc)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Sikeres fókusz menetek"
+  },
+  "rule_scheduled": {
+    "message": "Ütemezett szabály"
+  },
+  "addwhitelistrule": {
+    "message": "Kivétel hozzáadása"
+  },
+  "category_whitelist": {
+    "message": "Fehérlista"
+  },
+  "conflict_blacklist_err": {
+    "message": "Ez az oldal már szerepel a feketelistáján. Először távolítsa el."
+  },
+  "conflict_whitelist_err": {
+    "message": "Ez az oldal már szerepel a fehérlistáján. Először távolítsa el."
+  },
+  "status_allow": {
+    "message": "Engedélyezve"
+  },
+  "redundant_whitelist_err": {
+    "message": "Ezt a szabályt egy másik fehérlista-szabály már lefedi."
+  },
+  "focussessionmode": {
+    "message": "Fókusz mód:"
+  },
+  "focusmodeblacklist": {
+    "message": "Feketelista blokkolása"
+  },
+  "focusmodewhitelist": {
+    "message": "Csak a fehérlista engedélyezése"
+  },
+  "schedule_edit": {
+    "message": "Ütemezés szerkesztése"
+  },
+  "schedule_add_period": {
+    "message": "Időcsoport hozzáadása"
+  },
+  "schedule_remove_period": {
+    "message": "Eltávolítás"
+  },
+  "schedule_period": {
+    "message": "Időcsoport"
+  },
+  "schedule_every_day": {
+    "message": "Minden nap"
+  },
+  "schedule_weekdays": {
+    "message": "Hétköznapok"
+  },
+  "schedule_weekends": {
+    "message": "Hétvégék"
+  },
+  "schedule_day_overlap": {
+    "message": "Minden nap csak egyszer használható."
+  }
 }

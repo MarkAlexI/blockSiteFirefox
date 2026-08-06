@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ" },
-  "shortname": { "message": "BlkDistract" },
-  "description": { "message": "ଆପଣଙ୍କୁ ଧ୍ୟାନ କେନ୍ଦ୍ରିତ ରହିବାରେ ସାହାଯ୍ୟ କରିବା ପାଇଁ ସରଳ ଏବଂ ନିର୍ଭରଯୋଗ୍ୟ ଓ୍ଵେବସାଇଟ ଅବରୋଧ ଏବଂ ପୁନଃନିର୍ଦେଶନ ଉପକରଣ।" },
-  "defaulttitle": { "message": "ଧ୍ୟାନ ଦିଅନ୍ତୁ ଏବଂ ଉତ୍ପାଦନଶୀଳ ରୁହନ୍ତୁ" },
-  "header": { "message": "ସାଇଟ ଅବରୋଧକ" },
-  "paragraph": { "message": "ଏକ ଓ୍ଵେବସାଇଟ କିମ୍ବା ସମ୍ବଳକୁ ଅବରୋଧ କରିବା ପାଇଁ, ଏହାର ନାମର ଏକ ଅଂଶ \"ଅବରୋଧ URL ଟାଇପ କରନ\" ପ୍ଲେସହୋଲ୍ଡର ସହିତ ଇନପୁଟ ଫିଲ୍ଡରେ ପ୍ରବେଶ କରନ୍ତୁ – ଉଦାହରଣ ସ୍ୱରୂପ, \"facebook\" ସମସ୍ତ ସମ୍ବନ୍ଧିତ ସବଡୋମେନକୁ ଅବରୋଧ କରିବ। \"ପୁନଃନିର୍ଦେଶନ URL ଟାଇପ କରନ\" ପ୍ଲେସହୋଲ୍ଡର ସହିତ ଫିଲ୍ଡରେ, ପ୍ରୋଟୋକଲ ସହିତ ପୂର୍ଣ୍ଣ ପୁନଃନିର୍ଦେଶନ ଠିକଣା ପ୍ରବେଶ କରନ୍ତୁ, ଯେପରିକି \"https://google.com\"। ଯଦି ପୁନଃନିର୍ଦେଶନ ଫିଲ୍ଡ ଖାଲି ରହେ, ସାଇଟ ପୁନଃନିର୍ଦେଶନ ବିନା ଅବରୋଧ ହେବ। ନିୟମ ପ୍ରୟୋଗ କରିବା ପାଇଁ Save ବଟନ କ୍ଲିକ କରନ୍ତୁ। ନିୟମ ଅପଡେଟ କରିବା ପାଇଁ, ପୁରୁଣା ନିୟମକୁ ଡିଲିଟ କରନ୍ତୁ ଏବଂ ଏକ ନୂଆ ଏଣ୍ଟ୍ରି ସୃଷ୍ଟି କରନ୍ତୁ।" },
-  "addrule": { "message": "ନୂଆ ନିୟମ ଯୋଡନ୍ତୁ" },
-  "blockurl": { "message": "ଅବରୋଧ URL ଟାଇପ କରନ୍ତୁ" },
-  "redirecturl": { "message": "ପୁନଃନିର୍ଦେଶନ URL ଟାଇପ କରନ୍ତୁ (ଐଚ୍ଛିକ)" },
-  "redirecturlheader": { "message": "ପୁନଃନିର୍ଦ୍ଦେଶ URL" },
-  "redirecturlplaceholder": { "message": "ଇଚ୍ଛାଧୀନ - ବ୍ଲକ୍ କରିବାକୁ ଖାଲି ରଖନ୍ତୁ" },
-  "redirecturlhint": { "message": "https:// ସହିତ ସମ୍ପୂର୍ଣ୍ଣ URL ଲେଖନ୍ତୁ" },
-  "mobilecopylinkhint": { "message": "ଏକ ଲିଙ୍କକୁ ବ୍ଲକ୍ କରିବା ପାଇଁ ତାହାର ଠିକଣା କପି କରି ବ୍ଲକ୍ ଫିଲ୍ଡରେ ପେଷ୍ଟ କରନ୍ତୁ।" },
-  "savebtn": { "message": "ସେଭ କରନ୍ତୁ" },
-  "deletebtn": { "message": "ଡିଲିଟ କରନ୍ତୁ" },
-  "alertruleexist": { "message": "ନିୟମ ପୂର୍ବରୁ ଅଛି" },
+  "chromename": {
+    "message": "BlockDistraction – ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ"
+  },
+  "shortname": {
+    "message": "BlkDistract"
+  },
+  "description": {
+    "message": "ଆପଣଙ୍କୁ ଧ୍ୟାନ କେନ୍ଦ୍ରିତ ରହିବାରେ ସାହାଯ୍ୟ କରିବା ପାଇଁ ସରଳ ଏବଂ ନିର୍ଭରଯୋଗ୍ୟ ଓ୍ଵେବସାଇଟ ଅବରୋଧ ଏବଂ ପୁନଃନିର୍ଦେଶନ ଉପକରଣ।"
+  },
+  "defaulttitle": {
+    "message": "ଧ୍ୟାନ ଦିଅନ୍ତୁ ଏବଂ ଉତ୍ପାଦନଶୀଳ ରୁହନ୍ତୁ"
+  },
+  "header": {
+    "message": "ସାଇଟ ଅବରୋଧକ"
+  },
+  "paragraph": {
+    "message": "ଏକ ଓ୍ଵେବସାଇଟ କିମ୍ବା ସମ୍ବଳକୁ ଅବରୋଧ କରିବା ପାଇଁ, ଏହାର ନାମର ଏକ ଅଂଶ \"ଅବରୋଧ URL ଟାଇପ କରନ\" ପ୍ଲେସହୋଲ୍ଡର ସହିତ ଇନପୁଟ ଫିଲ୍ଡରେ ପ୍ରବେଶ କରନ୍ତୁ – ଉଦାହରଣ ସ୍ୱରୂପ, \"facebook\" ସମସ୍ତ ସମ୍ବନ୍ଧିତ ସବଡୋମେନକୁ ଅବରୋଧ କରିବ। \"ପୁନଃନିର୍ଦେଶନ URL ଟାଇପ କରନ\" ପ୍ଲେସହୋଲ୍ଡର ସହିତ ଫିଲ୍ଡରେ, ପ୍ରୋଟୋକଲ ସହିତ ପୂର୍ଣ୍ଣ ପୁନଃନିର୍ଦେଶନ ଠିକଣା ପ୍ରବେଶ କରନ୍ତୁ, ଯେପରିକି \"https://google.com\"। ଯଦି ପୁନଃନିର୍ଦେଶନ ଫିଲ୍ଡ ଖାଲି ରହେ, ସାଇଟ ପୁନଃନିର୍ଦେଶନ ବିନା ଅବରୋଧ ହେବ। ନିୟମ ପ୍ରୟୋଗ କରିବା ପାଇଁ Save ବଟନ କ୍ଲିକ କରନ୍ତୁ। ନିୟମ ଅପଡେଟ କରିବା ପାଇଁ, ପୁରୁଣା ନିୟମକୁ ଡିଲିଟ କରନ୍ତୁ ଏବଂ ଏକ ନୂଆ ଏଣ୍ଟ୍ରି ସୃଷ୍ଟି କରନ୍ତୁ।"
+  },
+  "addrule": {
+    "message": "ନୂଆ ନିୟମ ଯୋଡନ୍ତୁ"
+  },
+  "blockurl": {
+    "message": "ଅବରୋଧ URL ଟାଇପ କରନ୍ତୁ"
+  },
+  "redirecturl": {
+    "message": "ପୁନଃନିର୍ଦେଶନ URL ଟାଇପ କରନ୍ତୁ (ଐଚ୍ଛିକ)"
+  },
+  "redirecturlheader": {
+    "message": "ପୁନଃନିର୍ଦ୍ଦେଶ URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "ଇଚ୍ଛାଧୀନ - ବ୍ଲକ୍ କରିବାକୁ ଖାଲି ରଖନ୍ତୁ"
+  },
+  "redirecturlhint": {
+    "message": "https:// ସହିତ ସମ୍ପୂର୍ଣ୍ଣ URL ଲେଖନ୍ତୁ"
+  },
+  "mobilecopylinkhint": {
+    "message": "ଏକ ଲିଙ୍କକୁ ବ୍ଲକ୍ କରିବା ପାଇଁ ତାହାର ଠିକଣା କପି କରି ବ୍ଲକ୍ ଫିଲ୍ଡରେ ପେଷ୍ଟ କରନ୍ତୁ।"
+  },
+  "savebtn": {
+    "message": "ସେଭ କରନ୍ତୁ"
+  },
+  "deletebtn": {
+    "message": "ଡିଲିଟ କରନ୍ତୁ"
+  },
+  "alertruleexist": {
+    "message": "ନିୟମ ପୂର୍ବରୁ ଅଛି"
+  },
   "savedrules": {
     "message": "$ruleslength$ ନିୟମ(ଗୁଡିକ) ସେଭ ହୋଇଛି",
     "placeholders": {
@@ -24,91 +56,261 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "ଏହି ସମ୍ପଦକୁ ଅବରୋଧ କରାଯାଇପାରିବ ନାହିଁ।" },
-  "wrongblockurl": { "message": "ଅବରୋଧ ପାଇଁ ଅବୈଧ URL" },
-  "wrongredirecturl": { "message": "ଅବୈଧ ପୁନଃନିର୍ଦେଶନ URL" },
-  "blockthat": { "message": "ଏହି ସାଇଟକୁ ଅବରୋଧ କରନ୍ତୁ" },
-  "sendfeedbackbutton": { "message": "ମତାମତ ପଠାନ୍ତୁ" },
-  "sendfeedbacksubject": { "message": "ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ ପାଇଁ ମତାମତ" },
-  "sendfeedbackbody": { "message": "ନମସ୍କାର, ମୁଁ ନିମ୍ନଲିଖିତ ମତାମତ ଅଂଶୀଦାର କରିବାକୁ ଚାହୁଁଛି:\n\n" },
-  "quote1": { "message": "ଧ୍ୟାନ ଦିଅନ୍ତୁ, ଶକ୍ତ ରୁହନ୍ତୁ।" },
-  "quote2": { "message": "ଆପଣଙ୍କର ଭବିଷ୍ୟତ ଆଜି ଆପଣ କ’ଣ କରୁଛନ୍ତି ତାହା ଦ୍ୱାରା ସୃଷ୍ଟ ହୁଏ।" },
-  "quote3": { "message": "ଶୃଙ୍ଖଳା ହେଉଛି ଲକ୍ଷ୍ୟ ଏବଂ ସଫଳତା ମଧ୍ୟରେ ସେତୁ।" },
-  "quote4": { "message": "ଏକ ସାଇଟ ଅବରୋଧ କଲେ, ଆପଣଙ୍କ ଲକ୍ଷ୍ୟ ଆଡ଼କୁ ଏକ ପାଦ ଆଗେଇ।" },
-  "quote5": { "message": "ପ୍ରତ୍ୟେକ କ୍ଲିକକୁ ଗଣନା କରନ୍ତୁ।" },
-  "quote6": { "message": "ଘଣ୍ଟାକୁ ନ ଦେଖନ୍ତୁ; ଏହା ଯାହା କରୁଛି ତାହା କରନ୍ତୁ। ଆଗେଇ ଚାଲନ୍ତୁ।" },
-  "quote7": { "message": "ପ୍ରତିଦିନ ଛୋଟ ପାଦଗୁଡ଼ିକ ବଡ଼ ଫଳାଫଳକୁ ନେଇଯାଏ।" },
-  "quote8": { "message": "ଆପଣଙ୍କର ଏକମାତ୍ର ସୀମା ହେଉଛି ଆପଣଙ୍କ ମନ।" },
-  "quote9": { "message": "ସଫଳତା ହେଉଛି ପ୍ରତିଦିନ ପୁନରାବୃତ୍ତି ହେଉଥିବା ଛୋଟ ପ୍ରୟାସର ସମଷ୍ଟି।" },
-  "quote10": { "message": "ବ୍ୟସ୍ତ ନୁହେଁ, ଉତ୍ପାଦନଶୀଳ ହେବା ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ।" },
-  "quote11": { "message": "ଆପଣଙ୍କର ଧ୍ୟାନକୁ ସୁରକ୍ଷିତ କରନ୍ତୁ – ଏହା ଆପଣଙ୍କର ସବୁଠାରୁ ମୂଲ୍ୟବାନ ସଂପଦ।" },
-  "quote12": { "message": "ପ୍ରତ୍ୟେକ ବ୍ଲକ୍ ହୋଇଥିବା ବିକଳ୍ପ ହେଉଛି ପୁନଃପ୍ରାପ୍ତ ସମୟ।" },
-  "quote13": { "message": "ଶବ୍ଦକୁ କମାନ୍ତୁ; ଆପଣଙ୍କର ଉତ୍ପାଦକତା ବଢାନ୍ତୁ।" },
-  "quote14": { "message": "ସୂକ୍ଷ୍ମ ରୁଟିନ୍‌ଗୁଡିକ ଅଟକାଇପାରା ଗତିକୁ ତିଆରି କରେ।" },
-  "quote15": { "message": "ସ୍ପଷ୍ଟତା ଅସ୍ତବ୍ୟସ୍ତତା ଉପରେ ବିଜୟୀ – ଯାହା ମହତ୍ତ୍ୱପୂର୍ଣ୍ଣ ତାହାରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ।" },
-  "quote16": { "message": "ବିକଳ୍ପଗୁଡିକୁ 'ନା' କୁହନ୍ତୁ; ପ୍ରଗତିକୁ 'ହଁ' କୁହନ୍ତୁ।" },
-  "quote17": { "message": "ଆଜିର ଗୋଟିଏ କେନ୍ଦ୍ରିତ ଘଣ୍ଟା ଆଗାମୀକାଲିରେ ଫଳାଫଳକୁ ବହୁଗୁଣ କରେ।" },
-  "quote18": { "message": "କମ୍ ବ୍ୟବହାର କରି ଅଧିକ ସୃଷ୍ଟି କରନ୍ତୁ।" },
-  "quote19": { "message": "ଶିଷ୍ଟାଚାର ଛୋଟ ଇଂପଲ୍ସରୁ ଦୀର୍ଘକାଳୀନ ସଫଳତାକୁ ବାଛେ।" },
-  "quote20": { "message": "ଗୋଟିଏ ଟ୍ୟାବ୍ ବନ୍ଦ କରନ୍ତୁ, ନୂତନ ଧାରଣା ପାଇଁ ସ୍ଥାନ ଖୋଲନ୍ତୁ।" },
-  "quote21": { "message": "ଆଜି ତୁମେ ଏଡ଼ାଇଥିବା କାମ ଆସନ୍ତାକାଲି ଚାପ ହୋଇପାରେ।" },
-  "quote22": { "message": "ଫୋକସ୍ ଅର୍ଥ ଅଧିକ କରିବା ନୁହେଁ, ବରଂ ସତ୍ୟରେ ଯାହା ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସେହି କାମ କରିବା।" },
-  "quote23": { "message": "ତୁମ ଲକ୍ଷ୍ୟଗୁଡ଼ିକ ବିକ୍ଷିପ୍ତତାଠାରୁ ଅଧିକ ଧ୍ୟାନ ପାଇବାର ଯୋଗ୍ୟ।" },
-  "quote24": { "message": "ବିକ୍ଷିପ୍ତତା ବିନା ପ୍ରତି ମିନିଟ୍ ନିଜେ ପାଇଁ ଏକ ନିବେଶ।" },
-  "quote25": { "message": "ନିରନ୍ତରତା ଅସ୍ଥାୟୀ ପ୍ରେରଣାଠାରୁ ଅଧିକ ଦୀର୍ଘସ୍ଥାୟୀ ଫଳ ଦେଇଥାଏ।" },
-  "quote26": { "message": "ଆରମ୍ଭ କରିବାର ସର୍ବୋତ୍ତମ ସମୟ ଗତକାଲି ଥିଲା। ଦ୍ୱିତୀୟ ସର୍ବୋତ୍ତମ ସମୟ ଏବେ।" },
-  "quote27": { "message": "ତୁମେ ବିକ୍ଷିପ୍ତତା ଠାରୁ କାର୍ଯ୍ୟକୁ ବାଛିଲେ ଉନ୍ନତି ଆରମ୍ଭ ହୁଏ।" },
-  "quote28": { "message": "ଏକ ମାତ୍ର ଧ୍ୟାନ କ୍ଷଣ ତୁମ ଦିନକୁ ବଦଳାଇପାରେ।" },
-  "quote29": { "message": "ତୁମକୁ ଅଧିକ ସମୟ ଦରକାର ନୁହେଁ, କମ୍ ବିକ୍ଷିପ୍ତତା ଦରକାର।" },
-  "quote30": { "message": "ପ୍ରତ୍ୟେକ ଫୋକସ୍ ନିଷ୍ପତ୍ତି ତୁମ ଭବିଷ୍ୟତ ନିଜକୁ ଶକ୍ତିଶାଳୀ କରେ।" },
-  "quote31": { "message": "ଏହି ବ୍ଲକିଂ ଅସ୍ଥାୟୀ; ତୁମର ଲକ୍ଷ୍ୟଗୁଡିକ ଦୀର୍ଘକାଳୀନ।" },
-  "quote32": { "message": "ପ୍ରତ୍ୟେକ ଅବରୋଧିତ ବିଘ୍ନ ତୁମ ଭବିଷ୍ୟତ ସ୍ୱୟଂ ପାଇଁ ଏକ ଜୟ।" },
-  "quote33": { "message": "ଇଣ୍ଟରନେଟ ଅସୀମ, କିନ୍ତୁ ତୁମ ସମୟ ନୁହେଁ।" },
-  "quote34": { "message": "ୱେବ ତୁମ ପାଇଁ ନିଷ୍ପତ୍ତି ନେବା ପୂର୍ବରୁ ତୁମ ପ୍ରାଥମିକତା ନିର୍ଦ୍ଧାରଣ କର।" },
-  "quote35": { "message": "କମ୍ ସ୍କ୍ରୋଲିଂ, ଅଧିକ ସୃଷ୍ଟି।" },
-  "quote36": { "message": "ତୁମ ଧ୍ୟାନ ତୁମ ସଫଳତାକୁ ଗଢ଼େ।" },
-  "quote37": { "message": "କେନ୍ଦ୍ରିତ ରୁହ — ବିଘ୍ନ ଅପେକ୍ଷା କରିପାରେ।" },
-  "quote38": { "message": "ପ୍ରତ୍ୟେକ ଉତ୍ପାଦନଶୀଳ ନିଷ୍ପତ୍ତି କେନ୍ଦ୍ରିତ ମନରୁ ଆରମ୍ଭ ହୁଏ।" },
-  "quote39": { "message": "ତୁମେ ଏକ ୱେବସାଇଟ ବ୍ଲକ୍ କରିଛ, ତୁମ ସମ୍ଭାବନାକୁ ନୁହେଁ।" },
-  "quote40": { "message": "ସଫଳତାର ପଥ କେନ୍ଦ୍ରିତ ନିଷ୍ପତ୍ତି ଦ୍ୱାରା ଗଢ଼ାଯାଏ।" },
-  "actionsheader": { "message": "କାର୍ଯ୍ୟଗୁଡ଼ିକ" },
-  "norules": { "message": "କୌଣସି ଅବରୋଧିତ ସାଇଟ ନାହିଁ।" },
-  "editbtn": { "message": "ସମ୍ପାଦନ କରନ୍ତୁ" },
-  "ruleddeleted": { "message": "ନିୟମ ଡିଲିଟ ହୋଇଛି।" },
-  "cancelbtn": { "message": "ବାତିଲ କରନ୍ତୁ" },
-  "ruleupdated": { "message": "ନିୟମ ଅପଡେଟ ହୋଇଛି।" },
-  "rulenewadded": { "message": "ନୂଆ ନିୟମ ଯୋଡ଼ା ଯାଇଛି।" },
-  "gotooptions": { "message": "ବିକଳ୍ପ ପୃଷ୍ଠାକୁ ଯାଆନ୍ତୁ ⚙️" },
-  "gotopopup": { "message": "ପପଅପକୁ ଫେରିବା ପାଇଁ ଏକ୍ସଟେନସନ ଆଇକନ କ୍ଲିକ କରନ୍ତୁ।" },
-  "rulesmigrated": { "message": "ସୁସଙ୍ଗତି ପାଇଁ ନିୟମଗୁଡ଼ିକ ଅପଡେଟ ହୋଇଛି" },
-  "errorupdatingrules": { "message": "ନିୟମ ଅପଡେଟ କରିବାରେ ତ୍ରୁଟି" },
-  "erroraddingrule": { "message": "ନିୟମ ଯୋଡ଼ିବାରେ ତ୍ରୁଟି" },
-  "errorremovingrule": { "message": "ନିୟମ ଅପସାରଣରେ ତ୍ରୁଟି" },
-  "optionsheader": { "message": "ଏକ୍ସଟେନସନ ସେଟିଂସ" },
-  "optionsdescription": { "message": "ଆପଣଙ୍କ ଏକ୍ସଟେନସନର ଆପଣଙ୍କ ବ୍ୟବହାର ଏବଂ ସୁରକ୍ଷା ସେଟିଂସ କନଫିଗର କରନ୍ତୁ" },
-  "securitymodetitle": { "message": "ସୁରକ୍ଷା ମୋଡ" },
-  "normalmodetitle": { "message": "ସାଧାରଣ ମୋଡ" },
-  "normalmodedesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ଏକ କ୍ଲିକରେ ତୁରନ୍ତ ଡିଲିଟ କରାଯାଇପାରେ" },
-  "strictmodetitle": { "message": "କଡ଼ା ମୋଡ" },
-  "strictmodedesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ଡିଲିଟ କରିବା ପୂର୍ବରୁ 10 ସେକେଣ୍ଡର କାଉଣ୍ଟଡାଉନ ଆବଶ୍ୟକ ହୁଏ ଯାହା ଅଜାଣତରେ ଅପସାରଣକୁ ରୋକିଥାଏ" },
-  "confirmdeletetitle": { "message": "ଏକାଧିକ ନିୟମ ଡିଲିଟ କରିବା ପୂର୍ବରୁ ନିଶ୍ଚିତ କରନ୍ତୁ" },
-  "confirmdeletedesc": { "message": "ଏକାଧିକ ନିୟମକୁ ଏକକାଳୀନ ଡିଲିଟ କରିବା ସମୟରେ ନିଶ୍ଚିତକରଣ ଡାଏଲଗ ଦେଖାନ୍ତୁ" },
-  "notificationstitle": { "message": "ବିଜ୍ଞପ୍ତି ଦେଖାନ୍ତୁ" },
-  "notificationsdesc": { "message": "ଓ୍ଵେବ ଏକ୍ସଟେନସନ ଅପଡେଟ ହେଲେ ବିଜ୍ଞପ୍ତି ଦେଖାନ୍ତୁ" },
-  "rulesmanagementtitle": { "message": "ନିୟମ ପରିଚାଳନା" },
-  "exportrulesbtn": { "message": "ନିୟମ ରପ୍ତାନୀ କରନ୍ତୁ" },
-  "importrulesbtn": { "message": "ନିୟମ ଆମଦାନୀ କରନ୍ତୁ" },
-  "clearallrulesbtn": { "message": "ସମସ୍ତ ନିୟମ ସଫା କରନ୍ତୁ" },
-  "totalruleslabel": { "message": "ମୋଟ ନିୟମ" },
-  "blockedtodaylabel": { "message": "ଆଜି ଅବରୋଧିତ" },
-  "totalblockedlabel": { "message": "ମୋଟ ଅବରୋଧିତ" },
-  "resetsettingsbtn": { "message": "ଡିଫଲ୍ଟକୁ ରିସେଟ କରନ୍ତୁ" },
-  "backtopopup": { "message": "ମୁଖ୍ୟକୁ ଫେରନ୍ତୁ" },
-  "errorloadingsettings": { "message": "ସେଟିଂସ ଲୋଡ କରିବାରେ ତ୍ରୁଟି" },
-  "settingssaved": { "message": "ସେଟିଂସ ସଫଳତାରେ ସେଭ ହୋଇଛି!" },
-  "errorsavingsettings": { "message": "ସେଟିଂସ ସେଭ କରିବାରେ ତ୍ରୁଟି" },
-  "rulesexported": { "message": "ନିୟମଗୁଡ଼ିକ ସଫଳତାରେ ରପ୍ତାନୀ ହୋଇଛି!" },
-  "errorexportingrules": { "message": "ନିୟମ ରପ୍ତାନୀ କରିବାରେ ତ୍ରୁଟି" },
+  "restrictedblockurl": {
+    "message": "ଏହି ସମ୍ପଦକୁ ଅବରୋଧ କରାଯାଇପାରିବ ନାହିଁ।"
+  },
+  "wrongblockurl": {
+    "message": "ଅବରୋଧ ପାଇଁ ଅବୈଧ URL"
+  },
+  "wrongredirecturl": {
+    "message": "ଅବୈଧ ପୁନଃନିର୍ଦେଶନ URL"
+  },
+  "blockthat": {
+    "message": "ଏହି ସାଇଟକୁ ଅବରୋଧ କରନ୍ତୁ"
+  },
+  "sendfeedbackbutton": {
+    "message": "ମତାମତ ପଠାନ୍ତୁ"
+  },
+  "sendfeedbacksubject": {
+    "message": "ସାଇଟ ଅବରୋଧ ଏକ୍ସଟେନସନ ପାଇଁ ମତାମତ"
+  },
+  "sendfeedbackbody": {
+    "message": "ନମସ୍କାର, ମୁଁ ନିମ୍ନଲିଖିତ ମତାମତ ଅଂଶୀଦାର କରିବାକୁ ଚାହୁଁଛି:\n\n"
+  },
+  "quote1": {
+    "message": "ଧ୍ୟାନ ଦିଅନ୍ତୁ, ଶକ୍ତ ରୁହନ୍ତୁ।"
+  },
+  "quote2": {
+    "message": "ଆପଣଙ୍କର ଭବିଷ୍ୟତ ଆଜି ଆପଣ କ’ଣ କରୁଛନ୍ତି ତାହା ଦ୍ୱାରା ସୃଷ୍ଟ ହୁଏ।"
+  },
+  "quote3": {
+    "message": "ଶୃଙ୍ଖଳା ହେଉଛି ଲକ୍ଷ୍ୟ ଏବଂ ସଫଳତା ମଧ୍ୟରେ ସେତୁ।"
+  },
+  "quote4": {
+    "message": "ଏକ ସାଇଟ ଅବରୋଧ କଲେ, ଆପଣଙ୍କ ଲକ୍ଷ୍ୟ ଆଡ଼କୁ ଏକ ପାଦ ଆଗେଇ।"
+  },
+  "quote5": {
+    "message": "ପ୍ରତ୍ୟେକ କ୍ଲିକକୁ ଗଣନା କରନ୍ତୁ।"
+  },
+  "quote6": {
+    "message": "ଘଣ୍ଟାକୁ ନ ଦେଖନ୍ତୁ; ଏହା ଯାହା କରୁଛି ତାହା କରନ୍ତୁ। ଆଗେଇ ଚାଲନ୍ତୁ।"
+  },
+  "quote7": {
+    "message": "ପ୍ରତିଦିନ ଛୋଟ ପାଦଗୁଡ଼ିକ ବଡ଼ ଫଳାଫଳକୁ ନେଇଯାଏ।"
+  },
+  "quote8": {
+    "message": "ଆପଣଙ୍କର ଏକମାତ୍ର ସୀମା ହେଉଛି ଆପଣଙ୍କ ମନ।"
+  },
+  "quote9": {
+    "message": "ସଫଳତା ହେଉଛି ପ୍ରତିଦିନ ପୁନରାବୃତ୍ତି ହେଉଥିବା ଛୋଟ ପ୍ରୟାସର ସମଷ୍ଟି।"
+  },
+  "quote10": {
+    "message": "ବ୍ୟସ୍ତ ନୁହେଁ, ଉତ୍ପାଦନଶୀଳ ହେବା ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ।"
+  },
+  "quote11": {
+    "message": "ଆପଣଙ୍କର ଧ୍ୟାନକୁ ସୁରକ୍ଷିତ କରନ୍ତୁ – ଏହା ଆପଣଙ୍କର ସବୁଠାରୁ ମୂଲ୍ୟବାନ ସଂପଦ।"
+  },
+  "quote12": {
+    "message": "ପ୍ରତ୍ୟେକ ବ୍ଲକ୍ ହୋଇଥିବା ବିକଳ୍ପ ହେଉଛି ପୁନଃପ୍ରାପ୍ତ ସମୟ।"
+  },
+  "quote13": {
+    "message": "ଶବ୍ଦକୁ କମାନ୍ତୁ; ଆପଣଙ୍କର ଉତ୍ପାଦକତା ବଢାନ୍ତୁ।"
+  },
+  "quote14": {
+    "message": "ସୂକ୍ଷ୍ମ ରୁଟିନ୍‌ଗୁଡିକ ଅଟକାଇପାରା ଗତିକୁ ତିଆରି କରେ।"
+  },
+  "quote15": {
+    "message": "ସ୍ପଷ୍ଟତା ଅସ୍ତବ୍ୟସ୍ତତା ଉପରେ ବିଜୟୀ – ଯାହା ମହତ୍ତ୍ୱପୂର୍ଣ୍ଣ ତାହାରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ।"
+  },
+  "quote16": {
+    "message": "ବିକଳ୍ପଗୁଡିକୁ 'ନା' କୁହନ୍ତୁ; ପ୍ରଗତିକୁ 'ହଁ' କୁହନ୍ତୁ।"
+  },
+  "quote17": {
+    "message": "ଆଜିର ଗୋଟିଏ କେନ୍ଦ୍ରିତ ଘଣ୍ଟା ଆଗାମୀକାଲିରେ ଫଳାଫଳକୁ ବହୁଗୁଣ କରେ।"
+  },
+  "quote18": {
+    "message": "କମ୍ ବ୍ୟବହାର କରି ଅଧିକ ସୃଷ୍ଟି କରନ୍ତୁ।"
+  },
+  "quote19": {
+    "message": "ଶିଷ୍ଟାଚାର ଛୋଟ ଇଂପଲ୍ସରୁ ଦୀର୍ଘକାଳୀନ ସଫଳତାକୁ ବାଛେ।"
+  },
+  "quote20": {
+    "message": "ଗୋଟିଏ ଟ୍ୟାବ୍ ବନ୍ଦ କରନ୍ତୁ, ନୂତନ ଧାରଣା ପାଇଁ ସ୍ଥାନ ଖୋଲନ୍ତୁ।"
+  },
+  "quote21": {
+    "message": "ଆଜି ତୁମେ ଏଡ଼ାଇଥିବା କାମ ଆସନ୍ତାକାଲି ଚାପ ହୋଇପାରେ।"
+  },
+  "quote22": {
+    "message": "ଫୋକସ୍ ଅର୍ଥ ଅଧିକ କରିବା ନୁହେଁ, ବରଂ ସତ୍ୟରେ ଯାହା ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସେହି କାମ କରିବା।"
+  },
+  "quote23": {
+    "message": "ତୁମ ଲକ୍ଷ୍ୟଗୁଡ଼ିକ ବିକ୍ଷିପ୍ତତାଠାରୁ ଅଧିକ ଧ୍ୟାନ ପାଇବାର ଯୋଗ୍ୟ।"
+  },
+  "quote24": {
+    "message": "ବିକ୍ଷିପ୍ତତା ବିନା ପ୍ରତି ମିନିଟ୍ ନିଜେ ପାଇଁ ଏକ ନିବେଶ।"
+  },
+  "quote25": {
+    "message": "ନିରନ୍ତରତା ଅସ୍ଥାୟୀ ପ୍ରେରଣାଠାରୁ ଅଧିକ ଦୀର୍ଘସ୍ଥାୟୀ ଫଳ ଦେଇଥାଏ।"
+  },
+  "quote26": {
+    "message": "ଆରମ୍ଭ କରିବାର ସର୍ବୋତ୍ତମ ସମୟ ଗତକାଲି ଥିଲା। ଦ୍ୱିତୀୟ ସର୍ବୋତ୍ତମ ସମୟ ଏବେ।"
+  },
+  "quote27": {
+    "message": "ତୁମେ ବିକ୍ଷିପ୍ତତା ଠାରୁ କାର୍ଯ୍ୟକୁ ବାଛିଲେ ଉନ୍ନତି ଆରମ୍ଭ ହୁଏ।"
+  },
+  "quote28": {
+    "message": "ଏକ ମାତ୍ର ଧ୍ୟାନ କ୍ଷଣ ତୁମ ଦିନକୁ ବଦଳାଇପାରେ।"
+  },
+  "quote29": {
+    "message": "ତୁମକୁ ଅଧିକ ସମୟ ଦରକାର ନୁହେଁ, କମ୍ ବିକ୍ଷିପ୍ତତା ଦରକାର।"
+  },
+  "quote30": {
+    "message": "ପ୍ରତ୍ୟେକ ଫୋକସ୍ ନିଷ୍ପତ୍ତି ତୁମ ଭବିଷ୍ୟତ ନିଜକୁ ଶକ୍ତିଶାଳୀ କରେ।"
+  },
+  "quote31": {
+    "message": "ଏହି ବ୍ଲକିଂ ଅସ୍ଥାୟୀ; ତୁମର ଲକ୍ଷ୍ୟଗୁଡିକ ଦୀର୍ଘକାଳୀନ।"
+  },
+  "quote32": {
+    "message": "ପ୍ରତ୍ୟେକ ଅବରୋଧିତ ବିଘ୍ନ ତୁମ ଭବିଷ୍ୟତ ସ୍ୱୟଂ ପାଇଁ ଏକ ଜୟ।"
+  },
+  "quote33": {
+    "message": "ଇଣ୍ଟରନେଟ ଅସୀମ, କିନ୍ତୁ ତୁମ ସମୟ ନୁହେଁ।"
+  },
+  "quote34": {
+    "message": "ୱେବ ତୁମ ପାଇଁ ନିଷ୍ପତ୍ତି ନେବା ପୂର୍ବରୁ ତୁମ ପ୍ରାଥମିକତା ନିର୍ଦ୍ଧାରଣ କର।"
+  },
+  "quote35": {
+    "message": "କମ୍ ସ୍କ୍ରୋଲିଂ, ଅଧିକ ସୃଷ୍ଟି।"
+  },
+  "quote36": {
+    "message": "ତୁମ ଧ୍ୟାନ ତୁମ ସଫଳତାକୁ ଗଢ଼େ।"
+  },
+  "quote37": {
+    "message": "କେନ୍ଦ୍ରିତ ରୁହ — ବିଘ୍ନ ଅପେକ୍ଷା କରିପାରେ।"
+  },
+  "quote38": {
+    "message": "ପ୍ରତ୍ୟେକ ଉତ୍ପାଦନଶୀଳ ନିଷ୍ପତ୍ତି କେନ୍ଦ୍ରିତ ମନରୁ ଆରମ୍ଭ ହୁଏ।"
+  },
+  "quote39": {
+    "message": "ତୁମେ ଏକ ୱେବସାଇଟ ବ୍ଲକ୍ କରିଛ, ତୁମ ସମ୍ଭାବନାକୁ ନୁହେଁ।"
+  },
+  "quote40": {
+    "message": "ସଫଳତାର ପଥ କେନ୍ଦ୍ରିତ ନିଷ୍ପତ୍ତି ଦ୍ୱାରା ଗଢ଼ାଯାଏ।"
+  },
+  "actionsheader": {
+    "message": "କାର୍ଯ୍ୟଗୁଡ଼ିକ"
+  },
+  "norules": {
+    "message": "କୌଣସି ଅବରୋଧିତ ସାଇଟ ନାହିଁ।"
+  },
+  "editbtn": {
+    "message": "ସମ୍ପାଦନ କରନ୍ତୁ"
+  },
+  "ruleddeleted": {
+    "message": "ନିୟମ ଡିଲିଟ ହୋଇଛି।"
+  },
+  "cancelbtn": {
+    "message": "ବାତିଲ କରନ୍ତୁ"
+  },
+  "ruleupdated": {
+    "message": "ନିୟମ ଅପଡେଟ ହୋଇଛି।"
+  },
+  "rulenewadded": {
+    "message": "ନୂଆ ନିୟମ ଯୋଡ଼ା ଯାଇଛି।"
+  },
+  "gotooptions": {
+    "message": "ବିକଳ୍ପ ପୃଷ୍ଠାକୁ ଯାଆନ୍ତୁ ⚙️"
+  },
+  "gotopopup": {
+    "message": "ପପଅପକୁ ଫେରିବା ପାଇଁ ଏକ୍ସଟେନସନ ଆଇକନ କ୍ଲିକ କରନ୍ତୁ।"
+  },
+  "rulesmigrated": {
+    "message": "ସୁସଙ୍ଗତି ପାଇଁ ନିୟମଗୁଡ଼ିକ ଅପଡେଟ ହୋଇଛି"
+  },
+  "errorupdatingrules": {
+    "message": "ନିୟମ ଅପଡେଟ କରିବାରେ ତ୍ରୁଟି"
+  },
+  "erroraddingrule": {
+    "message": "ନିୟମ ଯୋଡ଼ିବାରେ ତ୍ରୁଟି"
+  },
+  "errorremovingrule": {
+    "message": "ନିୟମ ଅପସାରଣରେ ତ୍ରୁଟି"
+  },
+  "optionsheader": {
+    "message": "ଏକ୍ସଟେନସନ ସେଟିଂସ"
+  },
+  "optionsdescription": {
+    "message": "ଆପଣଙ୍କ ଏକ୍ସଟେନସନର ଆପଣଙ୍କ ବ୍ୟବହାର ଏବଂ ସୁରକ୍ଷା ସେଟିଂସ କନଫିଗର କରନ୍ତୁ"
+  },
+  "securitymodetitle": {
+    "message": "ସୁରକ୍ଷା ମୋଡ"
+  },
+  "normalmodetitle": {
+    "message": "ସାଧାରଣ ମୋଡ"
+  },
+  "normalmodedesc": {
+    "message": "ନିୟମଗୁଡ଼ିକୁ ଏକ କ୍ଲିକରେ ତୁରନ୍ତ ଡିଲିଟ କରାଯାଇପାରେ"
+  },
+  "strictmodetitle": {
+    "message": "କଡ଼ା ମୋଡ"
+  },
+  "strictmodedesc": {
+    "message": "ନିୟମଗୁଡ଼ିକୁ ଡିଲିଟ କରିବା ପୂର୍ବରୁ 10 ସେକେଣ୍ଡର କାଉଣ୍ଟଡାଉନ ଆବଶ୍ୟକ ହୁଏ ଯାହା ଅଜାଣତରେ ଅପସାରଣକୁ ରୋକିଥାଏ"
+  },
+  "confirmdeletetitle": {
+    "message": "ଏକାଧିକ ନିୟମ ଡିଲିଟ କରିବା ପୂର୍ବରୁ ନିଶ୍ଚିତ କରନ୍ତୁ"
+  },
+  "confirmdeletedesc": {
+    "message": "ଏକାଧିକ ନିୟମକୁ ଏକକାଳୀନ ଡିଲିଟ କରିବା ସମୟରେ ନିଶ୍ଚିତକରଣ ଡାଏଲଗ ଦେଖାନ୍ତୁ"
+  },
+  "notificationstitle": {
+    "message": "ବିଜ୍ଞପ୍ତି ଦେଖାନ୍ତୁ"
+  },
+  "notificationsdesc": {
+    "message": "ଓ୍ଵେବ ଏକ୍ସଟେନସନ ଅପଡେଟ ହେଲେ ବିଜ୍ଞପ୍ତି ଦେଖାନ୍ତୁ"
+  },
+  "rulesmanagementtitle": {
+    "message": "ନିୟମ ପରିଚାଳନା"
+  },
+  "exportrulesbtn": {
+    "message": "ନିୟମ ରପ୍ତାନୀ କରନ୍ତୁ"
+  },
+  "importrulesbtn": {
+    "message": "ନିୟମ ଆମଦାନୀ କରନ୍ତୁ"
+  },
+  "clearallrulesbtn": {
+    "message": "ସମସ୍ତ ନିୟମ ସଫା କରନ୍ତୁ"
+  },
+  "totalruleslabel": {
+    "message": "ମୋଟ ନିୟମ"
+  },
+  "blockedtodaylabel": {
+    "message": "ଆଜି ଅବରୋଧିତ"
+  },
+  "totalblockedlabel": {
+    "message": "ମୋଟ ଅବରୋଧିତ"
+  },
+  "resetsettingsbtn": {
+    "message": "ଡିଫଲ୍ଟକୁ ରିସେଟ କରନ୍ତୁ"
+  },
+  "backtopopup": {
+    "message": "ମୁଖ୍ୟକୁ ଫେରନ୍ତୁ"
+  },
+  "errorloadingsettings": {
+    "message": "ସେଟିଂସ ଲୋଡ କରିବାରେ ତ୍ରୁଟି"
+  },
+  "settingssaved": {
+    "message": "ସେଟିଂସ ସଫଳତାରେ ସେଭ ହୋଇଛି!"
+  },
+  "errorsavingsettings": {
+    "message": "ସେଟିଂସ ସେଭ କରିବାରେ ତ୍ରୁଟି"
+  },
+  "rulesexported": {
+    "message": "ନିୟମଗୁଡ଼ିକ ସଫଳତାରେ ରପ୍ତାନୀ ହୋଇଛି!"
+  },
+  "errorexportingrules": {
+    "message": "ନିୟମ ରପ୍ତାନୀ କରିବାରେ ତ୍ରୁଟି"
+  },
   "willimportrules": {
     "message": "ଏହା $ruleslength$ ନିୟମ ଆମଦାନୀ କରିବ। ",
     "placeholders": {
@@ -118,7 +320,9 @@
       }
     }
   },
-  "ruleswillbereplaced": { "message": "ବର୍ତମାନର ନିୟମଗୁଡ଼ିକ ବଦଳାଯିବ। ଜାରି ରଖିବେ କି?" },
+  "ruleswillbereplaced": {
+    "message": "ବର୍ତମାନର ନିୟମଗୁଡ଼ିକ ବଦଳାଯିବ। ଜାରି ରଖିବେ କି?"
+  },
   "importedrules": {
     "message": "$ruleslength$ ନିୟମ(ଗୁଡ଼ିକ) ସଫଳତାରେ ଆମଦାନୀ ହୋଇଛି!",
     "placeholders": {
@@ -128,8 +332,12 @@
       }
     }
   },
-  "errorimportingrules": { "message": "ନିୟମ ଆମଦାନୀ କରିବାରେ ତ୍ରୁଟି: " },
-  "norulestoclear": { "message": "ସଫା କରିବା ପାଇଁ କୌଣସି ନିୟମ ନାହିଁ" },
+  "errorimportingrules": {
+    "message": "ନିୟମ ଆମଦାନୀ କରିବାରେ ତ୍ରୁଟି: "
+  },
+  "norulestoclear": {
+    "message": "ସଫା କରିବା ପାଇଁ କୌଣସି ନିୟମ ନାହିଁ"
+  },
   "willdeleteallrules": {
     "message": "ଏହା ସମସ୍ତ $rulescount$ ନିୟମକୁ ସ୍ଥାୟୀଭାବେ ଡିଲିଟ କରିବ। ",
     "placeholders": {
@@ -139,15 +347,33 @@
       }
     }
   },
-  "cannotbeundone": { "message": "ଏହି କାର୍ଯ୍ୟକୁ ପୂର୍ବବତ କରାଯାଇପାରିବ ନାହିଁ। ଜାରି ରଖିବେ କି?" },
-  "allrulescleared": { "message": "ସମସ୍ତ ନିୟମ ସଫଳତାରେ ସଫା ହୋଇଛି!" },
-  "errorclearingrules": { "message": "ନିୟମ ସଫା କରିବାରେ ତ୍ରୁଟି" },
-  "willreset": { "message": "ଏହା ସମସ୍ତ ସେଟିଂସକୁ ଡିଫଲ୍ଟ ମୂଲ୍ୟକୁ ରିସେଟ କରିବ। ଜାରି ରଖିବେ କି?" },
-  "resettodefaults": { "message": "ସେଟିଂସ ଡିଫଲ୍ଟକୁ ରିସେଟ ହୋଇଛି!" },
-  "errorresettingsettings": { "message": "ସେଟିଂସ ରିସେଟ କରିବାରେ ତ୍ରୁଟି" },
-  "basicsettingstitle": { "message": "ମୌଳିକ ସେଟିଂସ୍" },
-  "advancedsettingstitle": { "message": "ଉନ୍ନତ ସେଟିଂସ୍" },
-  "statisticstitle": { "message": "ସଂଖ୍ୟାତ୍ମକ ତଥ୍ୟ" },
+  "cannotbeundone": {
+    "message": "ଏହି କାର୍ଯ୍ୟକୁ ପୂର୍ବବତ କରାଯାଇପାରିବ ନାହିଁ। ଜାରି ରଖିବେ କି?"
+  },
+  "allrulescleared": {
+    "message": "ସମସ୍ତ ନିୟମ ସଫଳତାରେ ସଫା ହୋଇଛି!"
+  },
+  "errorclearingrules": {
+    "message": "ନିୟମ ସଫା କରିବାରେ ତ୍ରୁଟି"
+  },
+  "willreset": {
+    "message": "ଏହା ସମସ୍ତ ସେଟିଂସକୁ ଡିଫଲ୍ଟ ମୂଲ୍ୟକୁ ରିସେଟ କରିବ। ଜାରି ରଖିବେ କି?"
+  },
+  "resettodefaults": {
+    "message": "ସେଟିଂସ ଡିଫଲ୍ଟକୁ ରିସେଟ ହୋଇଛି!"
+  },
+  "errorresettingsettings": {
+    "message": "ସେଟିଂସ ରିସେଟ କରିବାରେ ତ୍ରୁଟି"
+  },
+  "basicsettingstitle": {
+    "message": "ମୌଳିକ ସେଟିଂସ୍"
+  },
+  "advancedsettingstitle": {
+    "message": "ଉନ୍ନତ ସେଟିଂସ୍"
+  },
+  "statisticstitle": {
+    "message": "ସଂଖ୍ୟାତ୍ମକ ତଥ୍ୟ"
+  },
   "rulelimitreached": {
     "message": "ଆପଣ ମୌଳିକ ସଂସ୍କରଣ ପାଇଁ ନିୟମ ସୀମା ($limit$) ପାଖରେ ପହଞ୍ଚିଛନ୍ତି। ଅସୀମିତ ନିୟମ ପାଇଁ ପ୍ରୋକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ।",
     "placeholders": {
@@ -157,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "ସମ୍ପାଦନ ପାଇଁ ପ୍ରୋ ଆବଶ୍ୟକ।" },
-  "invalidpassword": { "message": "ଅବୈଧ ପାସୱାର୍ଡ" },
-  "setpassword": { "message": "ପାସୱାର୍ଡ ସେଟ କରନ୍ତୁ" },
-  "enterpassword": { "message": "ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ" },
-  "passwordmismatch": { "message": "ପାସୱାର୍ଡଗୁଡ଼ିକ ମେଳ ଖାଉନାହିଁ" },
-  "passwordtooshort": { "message": "ପାସୱାର୍ଡ ଅତିକମରେ ୬ ଅକ୍ଷର ହେବା ଆବଶ୍ୟକ" },
-  "resetpasswordconfirm": { "message": "ପାସୱାର୍ଡ ରିସେଟ କରିବା ସୁରକ୍ଷାକୁ ଅକ୍ଷମ କରିବ। ଜାରି ରଖିବେ?" },
-  "passwordset": { "message": "ପାସୱାର୍ଡ ସଫଳତାର ସହିତ ସେଟ ହୋଇଛି" },
-  "passworddisabled": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ଅକ୍ଷମ କରାଯାଇଛି" },
-  "prorequired": { "message": "ଏହି ବୈଶିଷ୍ଟ୍ୟ ପାଇଁ ପ୍ରୋ ମୋଡ୍ ଆବଶ୍ୟକ" },
-  "enablepasswordtitle": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ସକ୍ରିୟ କରନ୍ତୁ" },
-  "enablepassworddesc": { "message": "ନିୟମଗୁଡ଼ିକୁ ହଟାଇବା କିମ୍ବା ସମ୍ପାଦନ କରିବା ପାଇଁ ପାସୱାର୍ଡ ଆବଶ୍ୟକ (କଠୋର ମୋଡକୁ ଉନ୍ନତ କରେ)" },
-  "passwordprotectiontitle": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା" },
-  "scheduleheader": { "message": "ସୂଚୀ" },
-  "enableschedule": { "message": "ସୂଚୀ ସକ୍ରିୟ କରନ୍ତୁ" },
-  "alwaysactive": { "message": "ସଦା ସକ୍ରିୟ" },
-  "profeatureschedule": { "message": "ସୂଚୀ କେବଳ Pro ସଂସ୍କରଣରେ ଉପଲବ୍ଧ" },
-  "days": { "message": "ଦିନଗୁଡିକ" },
-  "starttime": { "message": "ଆରମ୍ଭ ସମୟ:" },
-  "endtime": { "message": "ସମାପ୍ତ ସମୟ:" },
-  "invaliddays": { "message": "ଅବୈଧ ଦିନଗୁଡିକ ଚୟନ ହୋଇଛି" },
-  "invalidtimeformat": { "message": "ଅବୈଧ ସମୟ ଫର୍ମାଟ (HH:MM ବ୍ୟବହାର କରନ୍ତୁ)" },
-  "startafterend": { "message": "ଆରମ୍ଭ ସମୟ ସମାପ୍ତ ସମୟ ପୂର୍ବରୁ ହେବା ଦରକାର" },
-  "invalidschedule": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ଦିନ ଏବଂ ସମୟ ଚୟନ କରନ୍ତୁ।" },
-  "invalidscheduledays": { "message": "ଅବୈଧ ସୂଚୀ: କମ୍ ସେ କମ୍ ଗୋଟିଏ ଦିନ ଚୟନ କରନ୍ତୁ।" },
-  "invalidschedulestarttime": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ଆରମ୍ଭ ସମୟ ସେଟ୍ କରନ୍ତୁ।" },
-  "invalidscheduleendtime": { "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ସମାପ୍ତ ସମୟ ସେଟ୍ କରନ୍ତୁ।" },
-  "editdisablednonpro": { "message": "ସମ୍ପାଦନା ଅସକ୍ରିୟ: non-Pro ବ୍ୟବହାରକାରୀଙ୍କ ପାଇଁ ନିୟମ ବେଶୀ ଅଛି।" },
-  "errorloadingstatus": { "message": "ବ୍ୟବହାରକାରୀ ସ୍ଥିତି ଲୋଡ୍ କରିବାରେ ତ୍ରୁଟି।" },
-  "schedule_day_sun": { "message": "ରବି" },
-  "schedule_day_mon": { "message": "ସୋମ" },
-  "schedule_day_tue": { "message": "ମଙ୍ଗଳ" },
-  "schedule_day_wed": { "message": "ବୁଧ" },
-  "schedule_day_thu": { "message": "ଗୁରୁ" },
-  "schedule_day_fri": { "message": "ଶୁକ୍ର" },
-  "schedule_day_sat": { "message": "ଶନି" },
-  "category_header": { "message": "ଶ୍ରେଣୀ" },
-  "category_required": { "message": "ଶ୍ରେଣୀ ଆବଶ୍ୟକ" },
-  "allcategories": { "message": "ସମସ୍ତ ଶ୍ରେଣୀ" },
-  "category_social": { "message": "ସୋସିଆଲ୍ ମିଡିଆ" },
-  "category_news": { "message": "ସମ୍ବାଦ" },
-  "category_entertainment": { "message": "ମନୋରଞ୍ଜନ" },
-  "category_shopping": { "message": "କ୍ରୟ" },
-  "category_work": { "message": "କାମ" },
-  "category_gaming": { "message": "ଗେମିଂ" },
-  "category_adult": { "message": "ବୟସ୍କ ସାମଗ୍ରୀ" },
-  "category_uncategorized": { "message": "ଶ୍ରେଣୀବିହୀନ" },
-  "searchfordomain": { "message": "ଡୋମେନ୍ ନାମ ସନ୍ଧାନ କରନ୍ତୁ" },
-  "norulesforcategory": { "message": "ଏହି ଶ୍ରେଣୀ ପାଇଁ କoi ବ୍ଲକ୍ କରାଯାଇଥିବା ସାଇଟ୍ ନାହିଁ।" },
-  "getpro": { "message": "ପ୍ରୋ ପାଆନ୍ତୁ" },
-  "profunctionstext": { "message": "Pro ବୈଶିଷ୍ଟ୍ୟରେ ଅନ୍ତର୍ଗତ: ନିର୍ଦ୍ଧାରିତ ସମୟରେ ବ୍ଲକିଂ, ପାସୱାର୍ଡ ସୁରକ୍ଷା, ନିୟମ ଫିଲ୍ଟରିଂ ଏବଂ ନିୟମ ରଫ୍ତାନ/ଆମଦାନି। ଆମର ୟୁନିଭର୍ସାଲ ଲାଇସେନ୍ସ ଉପଭୋଗ କରନ୍ତୁ: ଏକ ସଦସ୍ୟତା ସମସ୍ତ ବ୍ରାଉଜରରେ (Chrome, Firefox, Edge, Kiwi) Pro ଖୋଲିଦେଉଛି। ସକ୍ରିୟ କରିବା ପାଇଁ blockdistraction.com ରେ ସଦସ୍ୟତା କିଣନ୍ତୁ, ପରେ ଆପଣଙ୍କର ଆକାଉଣ୍ଟ ଡ୍ୟାଶବୋର୍ଡରୁ ଲାଇସେନ୍ସ କୀ କପି କରି ନିମ୍ନରେ ପେଷ୍ଟ୍ କରନ୍ତୁ।" },
-  "upgradenow": { "message": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ" },
-  "enteremail": { "message": "ଆପଣଙ୍କ ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ" },
-  "activatepro": { "message": "ପ୍ରୋ ସକ୍ରିୟ କରନ୍ତୁ" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "ଅଭିଗମ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ" },
-  "pleaseenteremail": { "message": "ଦୟାକରି ଆପଣଙ୍କ ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ" },
-  "checking": { "message": "ଯାଞ୍ଚ ହେଉଛି..." },
-  "proactivated": { "message": "ପ୍ରୋ ବୈଶିଷ୍ଟ୍ୟଗୁଡିକ ସକ୍ରିୟ ହୋଇଛି!" },
-  "subscriptionnotfound": { "message": "ସବସ୍କ୍ରିପ୍ସନ ସକ୍ରିୟ ନୁହେଁ କିମ୍ବା ଇମେଲ୍ ମିଳିଲା ନାହିଁ।" },
-  "servererror": { "message": "ସର୍ଭର ତ୍ରୁଟି। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।" },
-  "proactivatedfor": { "message": "ପ୍ରୋ ସକ୍ରିୟ ହୋଇଛି:" },
+  "proonlyactions": {
+    "message": "ସମ୍ପାଦନ ପାଇଁ ପ୍ରୋ ଆବଶ୍ୟକ।"
+  },
+  "invalidpassword": {
+    "message": "ଅବୈଧ ପାସୱାର୍ଡ"
+  },
+  "setpassword": {
+    "message": "ପାସୱାର୍ଡ ସେଟ କରନ୍ତୁ"
+  },
+  "enterpassword": {
+    "message": "ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ"
+  },
+  "passwordmismatch": {
+    "message": "ପାସୱାର୍ଡଗୁଡ଼ିକ ମେଳ ଖାଉନାହିଁ"
+  },
+  "passwordtooshort": {
+    "message": "ପାସୱାର୍ଡ ଅତିକମରେ ୬ ଅକ୍ଷର ହେବା ଆବଶ୍ୟକ"
+  },
+  "resetpasswordconfirm": {
+    "message": "ପାସୱାର୍ଡ ରିସେଟ କରିବା ସୁରକ୍ଷାକୁ ଅକ୍ଷମ କରିବ। ଜାରି ରଖିବେ?"
+  },
+  "passwordset": {
+    "message": "ପାସୱାର୍ଡ ସଫଳତାର ସହିତ ସେଟ ହୋଇଛି"
+  },
+  "passworddisabled": {
+    "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ଅକ୍ଷମ କରାଯାଇଛି"
+  },
+  "prorequired": {
+    "message": "ଏହି ବୈଶିଷ୍ଟ୍ୟ ପାଇଁ ପ୍ରୋ ମୋଡ୍ ଆବଶ୍ୟକ"
+  },
+  "enablepasswordtitle": {
+    "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ସକ୍ରିୟ କରନ୍ତୁ"
+  },
+  "enablepassworddesc": {
+    "message": "ନିୟମଗୁଡ଼ିକୁ ହଟାଇବା କିମ୍ବା ସମ୍ପାଦନ କରିବା ପାଇଁ ପାସୱାର୍ଡ ଆବଶ୍ୟକ (କଠୋର ମୋଡକୁ ଉନ୍ନତ କରେ)"
+  },
+  "passwordprotectiontitle": {
+    "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା"
+  },
+  "scheduleheader": {
+    "message": "ସୂଚୀ"
+  },
+  "enableschedule": {
+    "message": "ସୂଚୀ ସକ୍ରିୟ କରନ୍ତୁ"
+  },
+  "alwaysactive": {
+    "message": "ସଦା ସକ୍ରିୟ"
+  },
+  "profeatureschedule": {
+    "message": "ସୂଚୀ କେବଳ Pro ସଂସ୍କରଣରେ ଉପଲବ୍ଧ"
+  },
+  "days": {
+    "message": "ଦିନଗୁଡିକ"
+  },
+  "starttime": {
+    "message": "ଆରମ୍ଭ ସମୟ:"
+  },
+  "endtime": {
+    "message": "ସମାପ୍ତ ସମୟ:"
+  },
+  "invaliddays": {
+    "message": "ଅବୈଧ ଦିନଗୁଡିକ ଚୟନ ହୋଇଛି"
+  },
+  "invalidtimeformat": {
+    "message": "ଅବୈଧ ସମୟ ଫର୍ମାଟ (HH:MM ବ୍ୟବହାର କରନ୍ତୁ)"
+  },
+  "startafterend": {
+    "message": "ଆରମ୍ଭ ସମୟ ସମାପ୍ତ ସମୟ ପୂର୍ବରୁ ହେବା ଦରକାର"
+  },
+  "invalidschedule": {
+    "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ଦିନ ଏବଂ ସମୟ ଚୟନ କରନ୍ତୁ।"
+  },
+  "invalidscheduledays": {
+    "message": "ଅବୈଧ ସୂଚୀ: କମ୍ ସେ କମ୍ ଗୋଟିଏ ଦିନ ଚୟନ କରନ୍ତୁ।"
+  },
+  "invalidschedulestarttime": {
+    "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ଆରମ୍ଭ ସମୟ ସେଟ୍ କରନ୍ତୁ।"
+  },
+  "invalidscheduleendtime": {
+    "message": "ଅବୈଧ ସୂଚୀ: ଦୟାକରି ସମାପ୍ତ ସମୟ ସେଟ୍ କରନ୍ତୁ।"
+  },
+  "editdisablednonpro": {
+    "message": "ସମ୍ପାଦନା ଅସକ୍ରିୟ: non-Pro ବ୍ୟବହାରକାରୀଙ୍କ ପାଇଁ ନିୟମ ବେଶୀ ଅଛି।"
+  },
+  "errorloadingstatus": {
+    "message": "ବ୍ୟବହାରକାରୀ ସ୍ଥିତି ଲୋଡ୍ କରିବାରେ ତ୍ରୁଟି।"
+  },
+  "schedule_day_sun": {
+    "message": "ରବି"
+  },
+  "schedule_day_mon": {
+    "message": "ସୋମ"
+  },
+  "schedule_day_tue": {
+    "message": "ମଙ୍ଗଳ"
+  },
+  "schedule_day_wed": {
+    "message": "ବୁଧ"
+  },
+  "schedule_day_thu": {
+    "message": "ଗୁରୁ"
+  },
+  "schedule_day_fri": {
+    "message": "ଶୁକ୍ର"
+  },
+  "schedule_day_sat": {
+    "message": "ଶନି"
+  },
+  "category_header": {
+    "message": "ଶ୍ରେଣୀ"
+  },
+  "category_required": {
+    "message": "ଶ୍ରେଣୀ ଆବଶ୍ୟକ"
+  },
+  "allcategories": {
+    "message": "ସମସ୍ତ ଶ୍ରେଣୀ"
+  },
+  "category_social": {
+    "message": "ସୋସିଆଲ୍ ମିଡିଆ"
+  },
+  "category_news": {
+    "message": "ସମ୍ବାଦ"
+  },
+  "category_entertainment": {
+    "message": "ମନୋରଞ୍ଜନ"
+  },
+  "category_shopping": {
+    "message": "କ୍ରୟ"
+  },
+  "category_work": {
+    "message": "କାମ"
+  },
+  "category_gaming": {
+    "message": "ଗେମିଂ"
+  },
+  "category_adult": {
+    "message": "ବୟସ୍କ ସାମଗ୍ରୀ"
+  },
+  "category_uncategorized": {
+    "message": "ଶ୍ରେଣୀବିହୀନ"
+  },
+  "searchfordomain": {
+    "message": "ଡୋମେନ୍ ନାମ ସନ୍ଧାନ କରନ୍ତୁ"
+  },
+  "norulesforcategory": {
+    "message": "ଏହି ଶ୍ରେଣୀ ପାଇଁ କoi ବ୍ଲକ୍ କରାଯାଇଥିବା ସାଇଟ୍ ନାହିଁ।"
+  },
+  "getpro": {
+    "message": "ପ୍ରୋ ପାଆନ୍ତୁ"
+  },
+  "profunctionstext": {
+    "message": "Pro ବୈଶିଷ୍ଟ୍ୟରେ ଅନ୍ତର୍ଗତ: ନିର୍ଦ୍ଧାରିତ ସମୟରେ ବ୍ଲକିଂ, ପାସୱାର୍ଡ ସୁରକ୍ଷା, ନିୟମ ଫିଲ୍ଟରିଂ ଏବଂ ନିୟମ ରଫ୍ତାନ/ଆମଦାନି। ଆମର ୟୁନିଭର୍ସାଲ ଲାଇସେନ୍ସ ଉପଭୋଗ କରନ୍ତୁ: ଏକ ସଦସ୍ୟତା ସମସ୍ତ ବ୍ରାଉଜରରେ (Chrome, Firefox, Edge, Kiwi) Pro ଖୋଲିଦେଉଛି। ସକ୍ରିୟ କରିବା ପାଇଁ blockdistraction.com ରେ ସଦସ୍ୟତା କିଣନ୍ତୁ, ପରେ ଆପଣଙ୍କର ଆକାଉଣ୍ଟ ଡ୍ୟାଶବୋର୍ଡରୁ ଲାଇସେନ୍ସ କୀ କପି କରି ନିମ୍ନରେ ପେଷ୍ଟ୍ କରନ୍ତୁ।"
+  },
+  "upgradenow": {
+    "message": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+  },
+  "enteremail": {
+    "message": "ଆପଣଙ୍କ ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ"
+  },
+  "activatepro": {
+    "message": "ପ୍ରୋ ସକ୍ରିୟ କରନ୍ତୁ"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "ଅଭିଗମ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ"
+  },
+  "pleaseenteremail": {
+    "message": "ଦୟାକରି ଆପଣଙ୍କ ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ"
+  },
+  "checking": {
+    "message": "ଯାଞ୍ଚ ହେଉଛି..."
+  },
+  "proactivated": {
+    "message": "ପ୍ରୋ ବୈଶିଷ୍ଟ୍ୟଗୁଡିକ ସକ୍ରିୟ ହୋଇଛି!"
+  },
+  "subscriptionnotfound": {
+    "message": "ସବସ୍କ୍ରିପ୍ସନ ସକ୍ରିୟ ନୁହେଁ କିମ୍ବା ଇମେଲ୍ ମିଳିଲା ନାହିଁ।"
+  },
+  "servererror": {
+    "message": "ସର୍ଭର ତ୍ରୁଟି। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
+  "proactivatedfor": {
+    "message": "ପ୍ରୋ ସକ୍ରିୟ ହୋଇଛି:"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -255,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "ଅନୁମତି ପ୍ରାର୍ଥନା ବିଫଳ ହେଲା (ମୋବାଇଲରେ ଘଟିପାରେ)। ଦୟାକରି ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ସେଟିଙ୍ଗ୍‌ସରୁ ମାନୁଆଲି ଅନୁମତି ଦିଅନ୍ତୁ।"
   },
-  "pastekeylabel": { "message": "ଆପଣଙ୍କ ଲାଇସେନ୍ସ କିଟିକୁ ଏଠାରେ ପେଷ୍ଟ କରନ୍ତୁ:" },
-  "confirmclearstats": { "message": "ଆପଣ ସତ୍ୟରେ ସମସ୍ତ ସଂଖ୍ୟାନ ହଟାଇବାକୁ ଚାହୁଁଛନ୍ତି କି? ଏହା ପୁନଃ ପ୍ରାପ୍ତ ହେବ ନାହିଁ।" },
-  "statscleared": { "message": "ସଂଖ୍ୟାନ ସଫଳତାର ସହିତ ହଟାଯାଇଛି।" },
-  "redirectstodaylabel": { "message": "ଆଜିର ପୁନଃନିର୍ଦେଶନ" },
-  "totalredirectslabel": { "message": "ମୋଟ ପୁନଃନିର୍ଦେଶନ" },
-  "logout": { "message": "ଲଗ୍ ଆଉଟ୍" },
-  "loggedoutsuccess": { "message": "ଆପଣ ସଫଳତାର ସହିତ ଲଗ୍ ଆଉଟ୍ ହୋଇଛନ୍ତି।" },
-  "loggedouterror": { "message": "ଲଗ୍ ଆଉଟ୍ କରିବା ସମୟରେ ଏକ ତ୍ରୁଟି ଘଟିଲା।" },
-  "forcesync": { "message": "ବଳପୂର୍ବକ ସମନ୍ୱୟ / ଅବସ୍ଥା ଯାଞ୍ଚ କରନ୍ତୁ" },
-  "forgotpasswordinstructions": { "message": "ଆପଣଙ୍କ ପାସୱାର୍ଡ ପୁନଃ ସେଟ୍ କରିବାକୁ, 'Pro' ବିଭାଗକୁ ଯାଆନ୍ତୁ, 'ଲଗ୍ ଆଉଟ୍' କ୍ଲିକ୍ କରନ୍ତୁ, ଏବଂ ପରେ ଆପଣଙ୍କ ଲାଇସେନ୍ସ କୀ ପେଷ୍ଟ କରି ପୁନଃ ସକ୍ରିୟ କରନ୍ତୁ।" },
-  "blockedtitle": { "message": "ସାଇଟ୍ ଉପଲବ୍ଧ ନୁହେଁ" },
-  "blockedheader": { "message": "ଏହି ସାଇଟ୍ ବର୍ତ୍ତମାନ ଉପଲବ୍ଧ ନୁହେଁ" },
-  "blockedtext": { "message": "ଏହି ସାମଗ୍ରୀ ଦେଖାଇ ପାରିବା ନୁହେଁ।" },
-  "blockedbutton": { "message": "ଟ୍ୟାବ୍ ବନ୍ଦ କରନ୍ତୁ" },
-  "confirmpassword": { "message": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ" },
-  "modalconfirm": { "message": "ନିଶ୍ଚିତ କରନ୍ତୁ" },
-  "modalcancel": { "message": "ବାତିଲ୍ କରନ୍ତୁ" },
-  "forgotpassword": { "message": "ପାସୱାର୍ଡ ଭୁଲିଗଲେ? ପୁନଃସେଟ୍ କରନ୍ତୁ (ସୁରକ୍ଷା ହଟିଯିବ)" },
-  "prounlocked": { "message": "ଆପଣଙ୍କର ସମର୍ଥନ ପାଇଁ ଧନ୍ୟବାଦ! ସମସ୍ତ Pro ବୈଶିଷ୍ଟ୍ୟଗୁଡ଼ିକ ଅନଲକ୍ ହୋଇଛି।" },
-  "licensesynced": { "message": "ଆପଣଙ୍କର ଲାଇସେନ୍ସ ଆପଣଙ୍କର ଖାତା ସହିତ ସମକାଳୀନ ହୋଇଛି। ଯଦି ଆପଣ ପ୍ରବେଶ ହରାନ୍ତି, ତେବେ ଆପଣ ନିମ୍ନଠାରୁ ଆପଣଙ୍କର କୀ ପୁନରୁପାଦାନ କରିପାରିବେ: " },
-  "syncing": { "message": "ସିଙ୍କ୍ କରାଯାଉଛି..." },
-  "pleaseenterkey": { "message": "ଦୟାକରି କୀ ଦାଖଲ କରନ୍ତୁ।" },
-  "syncsuccess": { "message": "ସିଙ୍କ୍ ସଫଳ ହେଲା" },
-  "syncfailed": { "message": "ସିଙ୍କ୍ ବିଫଳ ହେଲା।" },
-  "passwordreset": { "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ପୁନରାରମ୍ଭ କରାଯାଇଛି।" },
-  "privacysecured": { "message": "ଗୋପନୀୟତା ସୁରକ୍ଷିତ" },
-  "errorinvalidfiletype": { "message": "ଦୟାକରି .json ଫାଇଲ୍ ଚୟନ କରନ୍ତୁ" },
-  "debugsettingstitle": { "message": "ଡିବଗ୍ ସେଟିଂସ୍" },
-  "enabledebugtitle": { "message": "ଡିବଗ୍ ମୋଡ୍ ସକ୍ରିୟ କରନ୍ତୁ" },
-  "enabledebugdesc": { "message": "ସମସ୍ୟା ସମାଧାନ ପାଇଁ କନସୋଲ୍‌ରେ ବିସ୍ତୃତ ଲଗ୍ ସକ୍ରିୟ କରନ୍ତୁ" },
-  "errorcommunication": { "message": "ବ୍ୟାକଗ୍ରାଉଣ୍ଡ ସେବା ସହିତ ସଂପ୍ରେଷଣରେ ତ୍ରୁଟି" },
-  "clearstats": { "message": "ସଂଖ୍ୟାନ ମିଟାନ୍ତୁ" },
-  "rule_enabled": { "message": "ସକ୍ରିୟ" },
-  "rule_disabled": { "message": "ନିଷ୍କ୍ରିୟ" },
-  "filter_only_hint": { "message": "ଏହି ତାଲିକା କେବଳ ତାଲିକାରେ ପ୍ରଦର୍ଶନକୁ ଫିଲ୍ଟର କରେ" },
-  "category_disabled_desc": { "message": "ଏକ ବର୍ଗକୁ ମ୍ୟୁଟ୍ କରନ୍ତୁ ଯାହାଦ୍ୱାରା ତାହାର ସମସ୍ତ ସାଇଟ୍‌ଗୁଡ଼ିକୁ ଅସ୍ଥାୟୀ ଭାବେ ଅନୁମତି ମିଳିବ। ବ୍ୟକ୍ତିଗତ ନିୟମ ସେଟିଂଗୁଡ଼ିକ ରଖାଯାଏ।" },
-  "toggle_category_blocking": { "message": "ସମ୍ପୂର୍ଣ୍ଣ ବର୍ଗ ପାଇଁ ବ୍ଲକିଂ ଚାଲୁ/ବନ୍ଦ କରନ୍ତୁ" },
-  "category_muted_no_edit": { "message": "ପରିଚାଳନା କରିପାରିବେ ନାହିଁ: ବର୍ଗ ବ୍ଲକିଂ ଥୋପା ଯାଇଛି" },
-  "feedback_title": { "message": "BlockDistraction ଆପଣଙ୍କୁ ପସନ୍ଦ କି?" },
-  "feedback_desc": { "message": "ଆପଣଙ୍କର ପ୍ରତିକ୍ରିୟା ଆମକୁ ଏହି ଏକ୍ସଟେନ୍ସନ୍‌କୁ ଉନ୍ନତ କରିବାରେ ବହୁତ ସାହାଯ୍ୟ କରେ।" },
-  "feedback_like": { "message": "ହଁ, ଏହା ବହୁତ ଭଲ କାମ କରୁଛି!" },
-  "feedback_dislike": { "message": "ମୋର ସମସ୍ୟା / ପ୍ରସ୍ତାବ ଅଛି" },
-  "trialproheader": { "message": "ଆପଣଙ୍କର 7 ଦିନର ଫ୍ରି ଟ୍ରାଏଲ୍ ଆରମ୍ଭ କରନ୍ତୁ" },
-  "trialprotext": { "message": "ଯେକୌଣସି ସମୟରେ ବାତିଲ୍ କରନ୍ତୁ। ଆପଣଙ୍କର ପେମେଣ୍ଟ ସମ୍ପୂର୍ଣ୍ଣ ସୁରକ୍ଷିତ।" },
-  "focussessionheader": { "message": "ଫୋକସ୍ ସେସନ୍" },
-  "focussessionstart": { "message": "ଆରମ୍ଭ କରନ୍ତୁ" },
-  "focussessionstop": { "message": "ବନ୍ଦ କରନ୍ତୁ" },
-  "focussessionduration": { "message": "ଅବଧି (ମିନିଟ୍):" },
-  "focussessioninfo": { "message": "ଆପଣଙ୍କର ସମସ୍ତ ବ୍ଲକିଂ ନିୟମକୁ ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ସମୟ ପାଇଁ ସକ୍ରିୟ କରେ, ସେଗୁଡ଼ିକର ବର୍ତ୍ତମାନର ସେଟିଂସ ଏବଂ ସୂଚୀକୁ ଅବହେଳା କରି | ସର୍ବାଧିକ ଏକାଗ୍ରତା ପାଇଁ |" },
-  "focussessionprofeature": { "message": "କଷ୍ଟମ୍ ଅବଧି ଏବଂ ହାର୍ଡକୋର-ମୋଡ୍ ହେଉଛି ପ୍ରୋ (Pro) ଫିଚର୍ସ |" },
-  "focussessionended": { "message": "ଫୋକସ୍ ସେସନ୍ ଶେଷ ହୋଇଛି! ଟିକେ ବିରତି ନିଅନ୍ତୁ |" },
-  "focussessionhardcore": { "message": "ହାର୍ଡକୋର ମୋଡ୍ (କୌଣସି 'ବନ୍ଦ କରନ୍ତୁ' ବଟନ୍ ନାହିଁ)" },
-  "focussessionsoundtitle": { "message": "ଫୋକସ୍ ସେସନ୍ ଶବ୍ଦ ବିଜ୍ଞପ୍ତି" },
-  "focussessionsounddesc": { "message": "ଫୋକସ୍ ସେସନ୍ ଶେଷ ହେବା ପରେ ଏକ ଶବ୍ଦ ବଜାନ୍ତୁ |" },
-  "focussessionactivebanner": { "message": "ଫୋକସ୍ ସେସନ୍ ସକ୍ରିୟ ଅଛି! ବାକି ସମୟ:" },
-  "focussessioninvalidduration": { "message": "ଦୟାକରି ଏକ ବୈଧ ଅବଧି ପ୍ରବେଶ କରନ୍ତୁ (୧-୨୪୦ ମିନିଟ୍) |" },
-  "successfulfocussessionslabel": { "message": "ସଫଳ ଫୋକସ୍ ସେସନ୍" },
-  "rule_scheduled": { "message": "ନିର୍ଦ୍ଧାରିତ ନିୟମ" },
-  "addwhitelistrule": { "message": "ବ୍ୟତିକ୍ରମ ଯୋଡ଼ନ୍ତୁ" },
-  "category_whitelist": { "message": "ହ୍ୱାଇଟଲିଷ୍ଟ" },
-  "conflict_blacklist_err": { "message": "ଏହି ସାଇଟ୍ ପୂର୍ବରୁ ଆପଣଙ୍କ ବ୍ଲାକଲିଷ୍ଟରେ ଅଛି। ପ୍ରଥମେ ଏହାକୁ କାଢ଼ନ୍ତୁ।" },
-  "conflict_whitelist_err": { "message": "ଏହି ସାଇଟ୍ ପୂର୍ବରୁ ଆପଣଙ୍କ ହ୍ୱାଇଟଲିଷ୍ଟରେ ଅଛି। ପ୍ରଥମେ ଏହାକୁ କାଢ଼ନ୍ତୁ।" },
-  "status_allow": { "message": "ଅନୁମୋଦିତ" },
-  "redundant_whitelist_err": { "message": "ଏହି ନିୟମ ପୂର୍ବରୁ ଅନ୍ୟ ଏକ ହ୍ୱାଇଟଲିଷ୍ଟ ନିୟମ ଦ୍ୱାରା ଅନ୍ତର୍ଭୁକ୍ତ।" },
-  "focussessionmode": { "message": "ଫୋକସ୍ ମୋଡ୍:" },
-  "focusmodeblacklist": { "message": "ବ୍ଲାକଲିଷ୍ଟ ବ୍ଲକ୍ କରନ୍ତୁ" },
-  "focusmodewhitelist": { "message": "କେବଳ ହ୍ୱାଇଟଲିଷ୍ଟ ଅନୁମତି ଦିଅନ୍ତୁ" }
+  "pastekeylabel": {
+    "message": "ଆପଣଙ୍କ ଲାଇସେନ୍ସ କିଟିକୁ ଏଠାରେ ପେଷ୍ଟ କରନ୍ତୁ:"
+  },
+  "confirmclearstats": {
+    "message": "ଆପଣ ସତ୍ୟରେ ସମସ୍ତ ସଂଖ୍ୟାନ ହଟାଇବାକୁ ଚାହୁଁଛନ୍ତି କି? ଏହା ପୁନଃ ପ୍ରାପ୍ତ ହେବ ନାହିଁ।"
+  },
+  "statscleared": {
+    "message": "ସଂଖ୍ୟାନ ସଫଳତାର ସହିତ ହଟାଯାଇଛି।"
+  },
+  "redirectstodaylabel": {
+    "message": "ଆଜିର ପୁନଃନିର୍ଦେଶନ"
+  },
+  "totalredirectslabel": {
+    "message": "ମୋଟ ପୁନଃନିର୍ଦେଶନ"
+  },
+  "logout": {
+    "message": "ଲଗ୍ ଆଉଟ୍"
+  },
+  "loggedoutsuccess": {
+    "message": "ଆପଣ ସଫଳତାର ସହିତ ଲଗ୍ ଆଉଟ୍ ହୋଇଛନ୍ତି।"
+  },
+  "loggedouterror": {
+    "message": "ଲଗ୍ ଆଉଟ୍ କରିବା ସମୟରେ ଏକ ତ୍ରୁଟି ଘଟିଲା।"
+  },
+  "forcesync": {
+    "message": "ବଳପୂର୍ବକ ସମନ୍ୱୟ / ଅବସ୍ଥା ଯାଞ୍ଚ କରନ୍ତୁ"
+  },
+  "forgotpasswordinstructions": {
+    "message": "ଆପଣଙ୍କ ପାସୱାର୍ଡ ପୁନଃ ସେଟ୍ କରିବାକୁ, 'Pro' ବିଭାଗକୁ ଯାଆନ୍ତୁ, 'ଲଗ୍ ଆଉଟ୍' କ୍ଲିକ୍ କରନ୍ତୁ, ଏବଂ ପରେ ଆପଣଙ୍କ ଲାଇସେନ୍ସ କୀ ପେଷ୍ଟ କରି ପୁନଃ ସକ୍ରିୟ କରନ୍ତୁ।"
+  },
+  "blockedtitle": {
+    "message": "ସାଇଟ୍ ଉପଲବ୍ଧ ନୁହେଁ"
+  },
+  "blockedheader": {
+    "message": "ଏହି ସାଇଟ୍ ବର୍ତ୍ତମାନ ଉପଲବ୍ଧ ନୁହେଁ"
+  },
+  "blockedtext": {
+    "message": "ଏହି ସାମଗ୍ରୀ ଦେଖାଇ ପାରିବା ନୁହେଁ।"
+  },
+  "blockedbutton": {
+    "message": "ଟ୍ୟାବ୍ ବନ୍ଦ କରନ୍ତୁ"
+  },
+  "confirmpassword": {
+    "message": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ"
+  },
+  "modalconfirm": {
+    "message": "ନିଶ୍ଚିତ କରନ୍ତୁ"
+  },
+  "modalcancel": {
+    "message": "ବାତିଲ୍ କରନ୍ତୁ"
+  },
+  "forgotpassword": {
+    "message": "ପାସୱାର୍ଡ ଭୁଲିଗଲେ? ପୁନଃସେଟ୍ କରନ୍ତୁ (ସୁରକ୍ଷା ହଟିଯିବ)"
+  },
+  "prounlocked": {
+    "message": "ଆପଣଙ୍କର ସମର୍ଥନ ପାଇଁ ଧନ୍ୟବାଦ! ସମସ୍ତ Pro ବୈଶିଷ୍ଟ୍ୟଗୁଡ଼ିକ ଅନଲକ୍ ହୋଇଛି।"
+  },
+  "licensesynced": {
+    "message": "ଆପଣଙ୍କର ଲାଇସେନ୍ସ ଆପଣଙ୍କର ଖାତା ସହିତ ସମକାଳୀନ ହୋଇଛି। ଯଦି ଆପଣ ପ୍ରବେଶ ହରାନ୍ତି, ତେବେ ଆପଣ ନିମ୍ନଠାରୁ ଆପଣଙ୍କର କୀ ପୁନରୁପାଦାନ କରିପାରିବେ: "
+  },
+  "syncing": {
+    "message": "ସିଙ୍କ୍ କରାଯାଉଛି..."
+  },
+  "pleaseenterkey": {
+    "message": "ଦୟାକରି କୀ ଦାଖଲ କରନ୍ତୁ।"
+  },
+  "syncsuccess": {
+    "message": "ସିଙ୍କ୍ ସଫଳ ହେଲା"
+  },
+  "syncfailed": {
+    "message": "ସିଙ୍କ୍ ବିଫଳ ହେଲା।"
+  },
+  "passwordreset": {
+    "message": "ପାସୱାର୍ଡ ସୁରକ୍ଷା ପୁନରାରମ୍ଭ କରାଯାଇଛି।"
+  },
+  "privacysecured": {
+    "message": "ଗୋପନୀୟତା ସୁରକ୍ଷିତ"
+  },
+  "errorinvalidfiletype": {
+    "message": "ଦୟାକରି .json ଫାଇଲ୍ ଚୟନ କରନ୍ତୁ"
+  },
+  "debugsettingstitle": {
+    "message": "ଡିବଗ୍ ସେଟିଂସ୍"
+  },
+  "enabledebugtitle": {
+    "message": "ଡିବଗ୍ ମୋଡ୍ ସକ୍ରିୟ କରନ୍ତୁ"
+  },
+  "enabledebugdesc": {
+    "message": "ସମସ୍ୟା ସମାଧାନ ପାଇଁ କନସୋଲ୍‌ରେ ବିସ୍ତୃତ ଲଗ୍ ସକ୍ରିୟ କରନ୍ତୁ"
+  },
+  "errorcommunication": {
+    "message": "ବ୍ୟାକଗ୍ରାଉଣ୍ଡ ସେବା ସହିତ ସଂପ୍ରେଷଣରେ ତ୍ରୁଟି"
+  },
+  "clearstats": {
+    "message": "ସଂଖ୍ୟାନ ମିଟାନ୍ତୁ"
+  },
+  "rule_enabled": {
+    "message": "ସକ୍ରିୟ"
+  },
+  "rule_disabled": {
+    "message": "ନିଷ୍କ୍ରିୟ"
+  },
+  "filter_only_hint": {
+    "message": "ଏହି ତାଲିକା କେବଳ ତାଲିକାରେ ପ୍ରଦର୍ଶନକୁ ଫିଲ୍ଟର କରେ"
+  },
+  "category_disabled_desc": {
+    "message": "ଏକ ବର୍ଗକୁ ମ୍ୟୁଟ୍ କରନ୍ତୁ ଯାହାଦ୍ୱାରା ତାହାର ସମସ୍ତ ସାଇଟ୍‌ଗୁଡ଼ିକୁ ଅସ୍ଥାୟୀ ଭାବେ ଅନୁମତି ମିଳିବ। ବ୍ୟକ୍ତିଗତ ନିୟମ ସେଟିଂଗୁଡ଼ିକ ରଖାଯାଏ।"
+  },
+  "toggle_category_blocking": {
+    "message": "ସମ୍ପୂର୍ଣ୍ଣ ବର୍ଗ ପାଇଁ ବ୍ଲକିଂ ଚାଲୁ/ବନ୍ଦ କରନ୍ତୁ"
+  },
+  "category_muted_no_edit": {
+    "message": "ପରିଚାଳନା କରିପାରିବେ ନାହିଁ: ବର୍ଗ ବ୍ଲକିଂ ଥୋପା ଯାଇଛି"
+  },
+  "feedback_title": {
+    "message": "BlockDistraction ଆପଣଙ୍କୁ ପସନ୍ଦ କି?"
+  },
+  "feedback_desc": {
+    "message": "ଆପଣଙ୍କର ପ୍ରତିକ୍ରିୟା ଆମକୁ ଏହି ଏକ୍ସଟେନ୍ସନ୍‌କୁ ଉନ୍ନତ କରିବାରେ ବହୁତ ସାହାଯ୍ୟ କରେ।"
+  },
+  "feedback_like": {
+    "message": "ହଁ, ଏହା ବହୁତ ଭଲ କାମ କରୁଛି!"
+  },
+  "feedback_dislike": {
+    "message": "ମୋର ସମସ୍ୟା / ପ୍ରସ୍ତାବ ଅଛି"
+  },
+  "trialproheader": {
+    "message": "ଆପଣଙ୍କର 7 ଦିନର ଫ୍ରି ଟ୍ରାଏଲ୍ ଆରମ୍ଭ କରନ୍ତୁ"
+  },
+  "trialprotext": {
+    "message": "ଯେକୌଣସି ସମୟରେ ବାତିଲ୍ କରନ୍ତୁ। ଆପଣଙ୍କର ପେମେଣ୍ଟ ସମ୍ପୂର୍ଣ୍ଣ ସୁରକ୍ଷିତ।"
+  },
+  "focussessionheader": {
+    "message": "ଫୋକସ୍ ସେସନ୍"
+  },
+  "focussessionstart": {
+    "message": "ଆରମ୍ଭ କରନ୍ତୁ"
+  },
+  "focussessionstop": {
+    "message": "ବନ୍ଦ କରନ୍ତୁ"
+  },
+  "focussessionduration": {
+    "message": "ଅବଧି (ମିନିଟ୍):"
+  },
+  "focussessioninfo": {
+    "message": "ଆପଣଙ୍କର ସମସ୍ତ ବ୍ଲକିଂ ନିୟମକୁ ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ସମୟ ପାଇଁ ସକ୍ରିୟ କରେ, ସେଗୁଡ଼ିକର ବର୍ତ୍ତମାନର ସେଟିଂସ ଏବଂ ସୂଚୀକୁ ଅବହେଳା କରି | ସର୍ବାଧିକ ଏକାଗ୍ରତା ପାଇଁ |"
+  },
+  "focussessionprofeature": {
+    "message": "କଷ୍ଟମ୍ ଅବଧି ଏବଂ ହାର୍ଡକୋର-ମୋଡ୍ ହେଉଛି ପ୍ରୋ (Pro) ଫିଚର୍ସ |"
+  },
+  "focussessionended": {
+    "message": "ଫୋକସ୍ ସେସନ୍ ଶେଷ ହୋଇଛି! ଟିକେ ବିରତି ନିଅନ୍ତୁ |"
+  },
+  "focussessionhardcore": {
+    "message": "ହାର୍ଡକୋର ମୋଡ୍ (କୌଣସି 'ବନ୍ଦ କରନ୍ତୁ' ବଟନ୍ ନାହିଁ)"
+  },
+  "focussessionsoundtitle": {
+    "message": "ଫୋକସ୍ ସେସନ୍ ଶବ୍ଦ ବିଜ୍ଞପ୍ତି"
+  },
+  "focussessionsounddesc": {
+    "message": "ଫୋକସ୍ ସେସନ୍ ଶେଷ ହେବା ପରେ ଏକ ଶବ୍ଦ ବଜାନ୍ତୁ |"
+  },
+  "focussessionactivebanner": {
+    "message": "ଫୋକସ୍ ସେସନ୍ ସକ୍ରିୟ ଅଛି! ବାକି ସମୟ:"
+  },
+  "focussessioninvalidduration": {
+    "message": "ଦୟାକରି ଏକ ବୈଧ ଅବଧି ପ୍ରବେଶ କରନ୍ତୁ (୧-୨୪୦ ମିନିଟ୍) |"
+  },
+  "successfulfocussessionslabel": {
+    "message": "ସଫଳ ଫୋକସ୍ ସେସନ୍"
+  },
+  "rule_scheduled": {
+    "message": "ନିର୍ଦ୍ଧାରିତ ନିୟମ"
+  },
+  "addwhitelistrule": {
+    "message": "ବ୍ୟତିକ୍ରମ ଯୋଡ଼ନ୍ତୁ"
+  },
+  "category_whitelist": {
+    "message": "ହ୍ୱାଇଟଲିଷ୍ଟ"
+  },
+  "conflict_blacklist_err": {
+    "message": "ଏହି ସାଇଟ୍ ପୂର୍ବରୁ ଆପଣଙ୍କ ବ୍ଲାକଲିଷ୍ଟରେ ଅଛି। ପ୍ରଥମେ ଏହାକୁ କାଢ଼ନ୍ତୁ।"
+  },
+  "conflict_whitelist_err": {
+    "message": "ଏହି ସାଇଟ୍ ପୂର୍ବରୁ ଆପଣଙ୍କ ହ୍ୱାଇଟଲିଷ୍ଟରେ ଅଛି। ପ୍ରଥମେ ଏହାକୁ କାଢ଼ନ୍ତୁ।"
+  },
+  "status_allow": {
+    "message": "ଅନୁମୋଦିତ"
+  },
+  "redundant_whitelist_err": {
+    "message": "ଏହି ନିୟମ ପୂର୍ବରୁ ଅନ୍ୟ ଏକ ହ୍ୱାଇଟଲିଷ୍ଟ ନିୟମ ଦ୍ୱାରା ଅନ୍ତର୍ଭୁକ୍ତ।"
+  },
+  "focussessionmode": {
+    "message": "ଫୋକସ୍ ମୋଡ୍:"
+  },
+  "focusmodeblacklist": {
+    "message": "ବ୍ଲାକଲିଷ୍ଟ ବ୍ଲକ୍ କରନ୍ତୁ"
+  },
+  "focusmodewhitelist": {
+    "message": "କେବଳ ହ୍ୱାଇଟଲିଷ୍ଟ ଅନୁମତି ଦିଅନ୍ତୁ"
+  },
+  "schedule_edit": {
+    "message": "ସମୟସୂଚୀ ସମ୍ପାଦନ କରନ୍ତୁ"
+  },
+  "schedule_add_period": {
+    "message": "ସମୟ ଗୋଷ୍ଠୀ ଯୋଡନ୍ତୁ"
+  },
+  "schedule_remove_period": {
+    "message": "ହଟାନ୍ତୁ"
+  },
+  "schedule_period": {
+    "message": "ସମୟ ଗୋଷ୍ଠୀ"
+  },
+  "schedule_every_day": {
+    "message": "ପ୍ରତିଦିନ"
+  },
+  "schedule_weekdays": {
+    "message": "କାର୍ଯ୍ୟଦିନ"
+  },
+  "schedule_weekends": {
+    "message": "ସପ୍ତାହାନ୍ତ"
+  },
+  "schedule_day_overlap": {
+    "message": "ପ୍ରତ୍ୟେକ ଦିନକୁ କେବଳ ଥରେ ବ୍ୟବହାର କରାଯାଇପାରିବ।"
+  }
 }

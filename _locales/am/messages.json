@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – ድር መከልከያ" },
-  "shortname": { "message": "BlkDistract" },
-  "description": { "message": "ታማኝ ድር መከልከያ እና የመልሶ መምሪያ መሳሪያ ለማተኮርህ ይረዳል።" },
-  "defaulttitle": { "message": "ትኩረት አድርግና የተሳካ ሁን" },
-  "header": { "message": "ድር መከልከያ" },
-  "paragraph": { "message": "ድር ጣቢያ ወይም ሀብት ለመከልከል፣ በመሙያው ውስጥ ከ \"Block URL\" ጋር የተያያዘ የስም ክፍል ያስገቡ – ለምሳሌ፣ \"facebook\" ሁሉንም ተያያዥ ንዑስ-ዶሜይኖች ይከልክላል። በ \"Redirect URL\" የተደነገገው መስክ ውስጥ ከፊል አድራሻውን ከፕሮቶኮል ጋር ያስገቡ፣ ለምሳሌ \"https://google.com\"። የመልሶ ማዘዣ መስክ ባዶ ቢቀር ጣቢያው ያለ መልሶ መምሪያ ይከልክላል። ደንብ ለመተግበር አሁን ያስቀምጡ። ደንብን ለማዘመን አሮጌውን ይሰርዙትና አዲስ ይፍጠሩ።" },
-  "addrule": { "message": "አዲስ ደንብ አክል" },
-  "blockurl": { "message": "የሚከለክል ዩአርኤል አስገባ" },
-  "redirecturl": { "message": "የመልሶ መምሪያ URL አስገባ (አማራጭ)" },
-  "redirecturlheader": { "message": "የማዞሪያ URL" },
-  "redirecturlplaceholder": { "message": "አማራጭ - ለማገድ ባዶ ይተዉት" },
-  "redirecturlhint": { "message": "https://ን ጨምሮ ሙሉ URL ያስገቡ" },
-  "mobilecopylinkhint": { "message": "አገናኝን ለማገድ አድራሻውን ቅዳና በማገጃ መስኩ ውስጥ ለጥፍ።" },
-  "savebtn": { "message": "አስቀምጥ" },
-  "deletebtn": { "message": "ሰርዝ" },
-  "alertruleexist": { "message": "ደንቡ አስቀድሞ አለ" },
+  "chromename": {
+    "message": "BlockDistraction – ድር መከልከያ"
+  },
+  "shortname": {
+    "message": "BlkDistract"
+  },
+  "description": {
+    "message": "ታማኝ ድር መከልከያ እና የመልሶ መምሪያ መሳሪያ ለማተኮርህ ይረዳል።"
+  },
+  "defaulttitle": {
+    "message": "ትኩረት አድርግና የተሳካ ሁን"
+  },
+  "header": {
+    "message": "ድር መከልከያ"
+  },
+  "paragraph": {
+    "message": "ድር ጣቢያ ወይም ሀብት ለመከልከል፣ በመሙያው ውስጥ ከ \"Block URL\" ጋር የተያያዘ የስም ክፍል ያስገቡ – ለምሳሌ፣ \"facebook\" ሁሉንም ተያያዥ ንዑስ-ዶሜይኖች ይከልክላል። በ \"Redirect URL\" የተደነገገው መስክ ውስጥ ከፊል አድራሻውን ከፕሮቶኮል ጋር ያስገቡ፣ ለምሳሌ \"https://google.com\"። የመልሶ ማዘዣ መስክ ባዶ ቢቀር ጣቢያው ያለ መልሶ መምሪያ ይከልክላል። ደንብ ለመተግበር አሁን ያስቀምጡ። ደንብን ለማዘመን አሮጌውን ይሰርዙትና አዲስ ይፍጠሩ።"
+  },
+  "addrule": {
+    "message": "አዲስ ደንብ አክል"
+  },
+  "blockurl": {
+    "message": "የሚከለክል ዩአርኤል አስገባ"
+  },
+  "redirecturl": {
+    "message": "የመልሶ መምሪያ URL አስገባ (አማራጭ)"
+  },
+  "redirecturlheader": {
+    "message": "የማዞሪያ URL"
+  },
+  "redirecturlplaceholder": {
+    "message": "አማራጭ - ለማገድ ባዶ ይተዉት"
+  },
+  "redirecturlhint": {
+    "message": "https://ን ጨምሮ ሙሉ URL ያስገቡ"
+  },
+  "mobilecopylinkhint": {
+    "message": "አገናኝን ለማገድ አድራሻውን ቅዳና በማገጃ መስኩ ውስጥ ለጥፍ።"
+  },
+  "savebtn": {
+    "message": "አስቀምጥ"
+  },
+  "deletebtn": {
+    "message": "ሰርዝ"
+  },
+  "alertruleexist": {
+    "message": "ደንቡ አስቀድሞ አለ"
+  },
   "savedrules": {
     "message": "$ruleslength$ ደንብ(ዎች) ተቀምጧል",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "ይህ ምንጭ ሊታገድ አይችልም።" },
-  "wrongblockurl": { "message": "ልክ ያልሆነ የማገጃ URL" },
-  "wrongredirecturl": { "message": "የተሳሳተ የመልሶ መምሪያ URL" },
-  "blockthat": { "message": "ይህን ጣቢያ ከልክል" },
-  "sendfeedbackbutton": { "message": "ግብረመልስ ላክ" },
-  "sendfeedbacksubject": { "message": "ለ BlockDistraction ግብረመልስ" },
-  "sendfeedbackbody": { "message": "ሰላም፣ የሚከተለውን ግብረመልስ ማካፈል እፈልጋለሁ፦\n\n" },
-  "quote1": { "message": "ትኩረት አድርግ፣ ጠንክር።" },
-  "quote2": { "message": "የአንተ ወደፊት ዛሬ በምታደርገው ይፈጠራል።" },
-  "quote3": { "message": "ትኩረት ወደ ስኬት የሚያደርስ ድልድይ ነው።" },
-  "quote4": { "message": "አንድ ጣቢያ ተከልክሏል፣ አንድ ደረጃ ወደ አላማህ ቀርቦአል።" },
-  "quote5": { "message": "እያንዳንዱን ጠቅ ያስቆጠር።" },
-  "quote6": { "message": "ሰዓቱን አታይ፤ የሚያደርገውን አድርግ። ቀጥል።" },
-  "quote7": { "message": "ትንሽ ትንሽ እርምጃዎች ትልቅ ውጤት ያመጣሉ።" },
-  "quote8": { "message": "ብቸኛው ገደብህ አእምሮህ ነው።" },
-  "quote9": { "message": "ስኬት በየቀኑ የሚደገሙ ትንሽ ጥረቶች ድምር ነው።" },
-  "quote10": { "message": "በመስራት ላይ ትኩረት አድርግ፣ እንጂ በመታወክ አይደለም።" },
-  "quote11": { "message": "ጥቂት ትኩረትዎን ይጠብቁ – እርሱ በጣም ዋጋ ያለ ሀብትዎ ነው።" },
-  "quote12": { "message": "የተከለከለው እያንዳንዱ ማስተናገድ ጊዜ ይመልሳል።" },
-  "quote13": { "message": "ድምጹን ዝቅ በሉ፤ ምርትን ከፍ ያድርጉ።" },
-  "quote14": { "message": "ትንሽ የዕረፍት ልምዶች የማይቋረጥ እድገት ይፈጥራሉ።" },
-  "quote15": { "message": "ግልጽነት ከዳሰሳ ይሻላል – ትኩረትዎን ወደ አስፈላጊው ያድርጉ።" },
-  "quote16": { "message": "እድናቶችን አይቀበሉ፤ እድገትን አይርሱ።" },
-  "quote17": { "message": "ዛሬ አንድ ሰዓት ትኩረት ማድረግ ነገ ውጤቶችዎን ያብዛል።" },
-  "quote18": { "message": "በትንሽ በጣም ይፍጠሩ፤ በትርፍ ያጠናቀቁ።" },
-  "quote19": { "message": "ትክክለኛ ልምድ አጭር ጊዜ ተግባራት በረጅም ጊዜ ስለሚያስተዋውቅ ይመርጣል።" },
-  "quote20": { "message": "አንድ ትር ዝጋ፤ ለአዲስ ሃሳቦች ቦታ ክፈት።" },
-  "quote21": { "message": "ዛሬ የምትተወው ስራ ነገ የጭንቀት ምክንያት ሊሆን ይችላል።" },
-  "quote22": { "message": "ትኩረት ብዙ መሥራት ሳይሆን በእውነት አስፈላጊ የሆነውን መሥራት ነው።" },
-  "quote23": { "message": "ግቦችህ ከማንኛውም ማዘናጊያ ይልቅ የበለጠ ትኩረት ይገባቸዋል።" },
-  "quote24": { "message": "ከማዘናጊያ ውጭ የተሳሳተ እያንዳንዱ ደቂቃ በራስህ ላይ ኢንቨስትመንት ነው።" },
-  "quote25": { "message": "ተከታታይነት ከአጭር ጊዜ እርግጠኝነት ይልቅ ዘላቂ ውጤቶችን ያመጣል።" },
-  "quote26": { "message": "ለመጀመር በጣም ጥሩው ጊዜ ትናንት ነበር። ሁለተኛው ጥሩ ጊዜ አሁን ነው።" },
-  "quote27": { "message": "ከመዘናጋት ይልቅ ድርጊትን ስትመርጥ እድገት ይጀምራል።" },
-  "quote28": { "message": "አንድ የትኩረት ጊዜ ቀንህን ሊለውጥ ይችላል።" },
-  "quote29": { "message": "ብዙ ጊዜ አያስፈልግህም፤ ያስፈልግህ ያነሰ ማዘናጊያ ነው።" },
-  "quote30": { "message": "ትኩረትን በምትመርጥ ቁጥር የወደፊት ራስህን ታጠናክራለህ።" },
-  "quote31": { "message": "ይህ መከልከል ጊዜያዊ ነው፤ ግቦችህ ግን ረጅም ጊዜ ያላቸው ናቸው።" },
-  "quote32": { "message": "እያንዳንዱ የታገደ አስተናጋጅ እንቅስቃሴ ለወደፊት ራስህ ድል ነው።" },
-  "quote33": { "message": "ኢንተርኔት ወሰን የለውም፤ ጊዜህ ግን ወሰን አለው።" },
-  "quote34": { "message": "ድር ከአንተ በፊት እንዳይወስን ቅድሚያ ያለውን አስቀድም።" },
-  "quote35": { "message": "መጠን ያለ መጠቀም ይቀንስ፣ መፍጠር ይጨምር።" },
-  "quote36": { "message": "ትኩረትህ ውጤቶችህን ይቀርጻል።" },
-  "quote37": { "message": "ትኩረት ቀጥል — አስተናጋጅ እንቅስቃሴ መጠበቅ ይችላል።" },
-  "quote38": { "message": "እያንዳንዱ የተጠናከረ ውሳኔ በተስፋ የተሞላ አእምሮ ይጀምራል።" },
-  "quote39": { "message": "የታገደው ድር ጣቢያ እንጂ አቅምህ አይደለም።" },
-  "quote40": { "message": "የስኬት መንገድ በተጠናከሩ ውሳኔዎች ይተካል።" },
-  "actionsheader": { "message": "እርምጃዎች" },
-  "norules": { "message": "ምንም የተከለከሉ ጣቢያዎች የሉም።" },
-  "editbtn": { "message": "አርትዕ" },
-  "ruleddeleted": { "message": "ደንቡ ተሰርዟል።" },
-  "cancelbtn": { "message": "ሰርዝ" },
-  "ruleupdated": { "message": "ደንቡ ተዘመነ።" },
-  "rulenewadded": { "message": "አዲስ ደንብ ታክሏል።" },
-  "gotooptions": { "message": "ወደ አማራጮች ገፅ ሂድ ⚙️" },
-  "gotopopup": { "message": "ወደ ፖፕአፕ ለመመለስ የኤክስቴንሽን አዶ ጠቅ አድርግ።" },
-  "rulesmigrated": { "message": "ደንቦች ለተጣጣምነት ተዘምነዋል" },
-  "errorupdatingrules": { "message": "ደንቦችን በማዘመን ላይ ስህተት" },
-  "erroraddingrule": { "message": "ደንብ በመጨመር ላይ ስህተት" },
-  "errorremovingrule": { "message": "ደንብ በማስወገድ ላይ ስህተት" },
-  "optionsheader": { "message": "የተጨማሪ ቅንብሮች" },
-  "optionsdescription": { "message": "የተጨማሪውን እንዴት እንዲሰራ እና የደህንነት ቅንብሮችን ያቀናብሩ" },
-  "securitymodetitle": { "message": "የደህንነት ሁነታ" },
-  "normalmodetitle": { "message": "መደበኛ ሁነታ" },
-  "normalmodedesc": { "message": "ህጎችን በአንድ ጠቅታ በድንገት ማስወገድ ይችላሉ" },
-  "strictmodetitle": { "message": "ጥብቅ ሁነታ" },
-  "strictmodedesc": { "message": "ህጎች ከመሰረዝ በፊት 10 ሰከንድ መቆጣጠሪያ ይጠየቃሉ" },
-  "confirmdeletetitle": { "message": "በአንድ ጊዜ ከሚሰረዙ ብዙ ህጎች በፊት አረጋግጥ" },
-  "confirmdeletedesc": { "message": "በአንድ ጊዜ ብዙ ህጎች ሲሰረዙ የማረጋገጫ ንግግር አሳይ" },
-  "notificationstitle": { "message": "ማሳወቂያዎችን አሳይ" },
-  "notificationsdesc": { "message": "ድር-ቅጥ ተሰርቷል ሲታወቅ ማሳወቂያዎችን አሳይ" },
-  "rulesmanagementtitle": { "message": "የህጎች አስተዳደር" },
-  "exportrulesbtn": { "message": "ህጎችን አውጣ" },
-  "importrulesbtn": { "message": "ህጎችን አስገባ" },
-  "clearallrulesbtn": { "message": "ሁሉንም ህጎች አጽዳ" },
-  "totalruleslabel": { "message": "ጠቅላላ ህጎች" },
-  "blockedtodaylabel": { "message": "ዛሬ የተከለከሉ" },
-  "totalblockedlabel": { "message": "ጠቅላላ የተከለከሉ" },
-  "resetsettingsbtn": { "message": "ወደ ነባሪ አስመልስ" },
-  "backtopopup": { "message": "ወደ ዋናው ተመለስ" },
-  "errorloadingsettings": { "message": "ቅንብሮች በመጫን ላይ ስህተት" },
-  "settingssaved": { "message": "ቅንብሮች በተሳካ ሁኔታ ተቀምጠዋል!" },
-  "errorsavingsettings": { "message": "ቅንብሮችን በማስቀመጥ ላይ ስህተት" },
-  "rulesexported": { "message": "ህጎች በተሳካ ሁኔታ ተወግደዋል!" },
-  "errorexportingrules": { "message": "ህጎችን በመላክ ላይ ስህተት" },
+  "restrictedblockurl": {
+    "message": "ይህ ምንጭ ሊታገድ አይችልም።"
+  },
+  "wrongblockurl": {
+    "message": "ልክ ያልሆነ የማገጃ URL"
+  },
+  "wrongredirecturl": {
+    "message": "የተሳሳተ የመልሶ መምሪያ URL"
+  },
+  "blockthat": {
+    "message": "ይህን ጣቢያ ከልክል"
+  },
+  "sendfeedbackbutton": {
+    "message": "ግብረመልስ ላክ"
+  },
+  "sendfeedbacksubject": {
+    "message": "ለ BlockDistraction ግብረመልስ"
+  },
+  "sendfeedbackbody": {
+    "message": "ሰላም፣ የሚከተለውን ግብረመልስ ማካፈል እፈልጋለሁ፦\n\n"
+  },
+  "quote1": {
+    "message": "ትኩረት አድርግ፣ ጠንክር።"
+  },
+  "quote2": {
+    "message": "የአንተ ወደፊት ዛሬ በምታደርገው ይፈጠራል።"
+  },
+  "quote3": {
+    "message": "ትኩረት ወደ ስኬት የሚያደርስ ድልድይ ነው።"
+  },
+  "quote4": {
+    "message": "አንድ ጣቢያ ተከልክሏል፣ አንድ ደረጃ ወደ አላማህ ቀርቦአል።"
+  },
+  "quote5": {
+    "message": "እያንዳንዱን ጠቅ ያስቆጠር።"
+  },
+  "quote6": {
+    "message": "ሰዓቱን አታይ፤ የሚያደርገውን አድርግ። ቀጥል።"
+  },
+  "quote7": {
+    "message": "ትንሽ ትንሽ እርምጃዎች ትልቅ ውጤት ያመጣሉ።"
+  },
+  "quote8": {
+    "message": "ብቸኛው ገደብህ አእምሮህ ነው።"
+  },
+  "quote9": {
+    "message": "ስኬት በየቀኑ የሚደገሙ ትንሽ ጥረቶች ድምር ነው።"
+  },
+  "quote10": {
+    "message": "በመስራት ላይ ትኩረት አድርግ፣ እንጂ በመታወክ አይደለም።"
+  },
+  "quote11": {
+    "message": "ጥቂት ትኩረትዎን ይጠብቁ – እርሱ በጣም ዋጋ ያለ ሀብትዎ ነው።"
+  },
+  "quote12": {
+    "message": "የተከለከለው እያንዳንዱ ማስተናገድ ጊዜ ይመልሳል።"
+  },
+  "quote13": {
+    "message": "ድምጹን ዝቅ በሉ፤ ምርትን ከፍ ያድርጉ።"
+  },
+  "quote14": {
+    "message": "ትንሽ የዕረፍት ልምዶች የማይቋረጥ እድገት ይፈጥራሉ።"
+  },
+  "quote15": {
+    "message": "ግልጽነት ከዳሰሳ ይሻላል – ትኩረትዎን ወደ አስፈላጊው ያድርጉ።"
+  },
+  "quote16": {
+    "message": "እድናቶችን አይቀበሉ፤ እድገትን አይርሱ።"
+  },
+  "quote17": {
+    "message": "ዛሬ አንድ ሰዓት ትኩረት ማድረግ ነገ ውጤቶችዎን ያብዛል።"
+  },
+  "quote18": {
+    "message": "በትንሽ በጣም ይፍጠሩ፤ በትርፍ ያጠናቀቁ።"
+  },
+  "quote19": {
+    "message": "ትክክለኛ ልምድ አጭር ጊዜ ተግባራት በረጅም ጊዜ ስለሚያስተዋውቅ ይመርጣል።"
+  },
+  "quote20": {
+    "message": "አንድ ትር ዝጋ፤ ለአዲስ ሃሳቦች ቦታ ክፈት።"
+  },
+  "quote21": {
+    "message": "ዛሬ የምትተወው ስራ ነገ የጭንቀት ምክንያት ሊሆን ይችላል።"
+  },
+  "quote22": {
+    "message": "ትኩረት ብዙ መሥራት ሳይሆን በእውነት አስፈላጊ የሆነውን መሥራት ነው።"
+  },
+  "quote23": {
+    "message": "ግቦችህ ከማንኛውም ማዘናጊያ ይልቅ የበለጠ ትኩረት ይገባቸዋል።"
+  },
+  "quote24": {
+    "message": "ከማዘናጊያ ውጭ የተሳሳተ እያንዳንዱ ደቂቃ በራስህ ላይ ኢንቨስትመንት ነው።"
+  },
+  "quote25": {
+    "message": "ተከታታይነት ከአጭር ጊዜ እርግጠኝነት ይልቅ ዘላቂ ውጤቶችን ያመጣል።"
+  },
+  "quote26": {
+    "message": "ለመጀመር በጣም ጥሩው ጊዜ ትናንት ነበር። ሁለተኛው ጥሩ ጊዜ አሁን ነው።"
+  },
+  "quote27": {
+    "message": "ከመዘናጋት ይልቅ ድርጊትን ስትመርጥ እድገት ይጀምራል።"
+  },
+  "quote28": {
+    "message": "አንድ የትኩረት ጊዜ ቀንህን ሊለውጥ ይችላል።"
+  },
+  "quote29": {
+    "message": "ብዙ ጊዜ አያስፈልግህም፤ ያስፈልግህ ያነሰ ማዘናጊያ ነው።"
+  },
+  "quote30": {
+    "message": "ትኩረትን በምትመርጥ ቁጥር የወደፊት ራስህን ታጠናክራለህ።"
+  },
+  "quote31": {
+    "message": "ይህ መከልከል ጊዜያዊ ነው፤ ግቦችህ ግን ረጅም ጊዜ ያላቸው ናቸው።"
+  },
+  "quote32": {
+    "message": "እያንዳንዱ የታገደ አስተናጋጅ እንቅስቃሴ ለወደፊት ራስህ ድል ነው።"
+  },
+  "quote33": {
+    "message": "ኢንተርኔት ወሰን የለውም፤ ጊዜህ ግን ወሰን አለው።"
+  },
+  "quote34": {
+    "message": "ድር ከአንተ በፊት እንዳይወስን ቅድሚያ ያለውን አስቀድም።"
+  },
+  "quote35": {
+    "message": "መጠን ያለ መጠቀም ይቀንስ፣ መፍጠር ይጨምር።"
+  },
+  "quote36": {
+    "message": "ትኩረትህ ውጤቶችህን ይቀርጻል።"
+  },
+  "quote37": {
+    "message": "ትኩረት ቀጥል — አስተናጋጅ እንቅስቃሴ መጠበቅ ይችላል።"
+  },
+  "quote38": {
+    "message": "እያንዳንዱ የተጠናከረ ውሳኔ በተስፋ የተሞላ አእምሮ ይጀምራል።"
+  },
+  "quote39": {
+    "message": "የታገደው ድር ጣቢያ እንጂ አቅምህ አይደለም።"
+  },
+  "quote40": {
+    "message": "የስኬት መንገድ በተጠናከሩ ውሳኔዎች ይተካል።"
+  },
+  "actionsheader": {
+    "message": "እርምጃዎች"
+  },
+  "norules": {
+    "message": "ምንም የተከለከሉ ጣቢያዎች የሉም።"
+  },
+  "editbtn": {
+    "message": "አርትዕ"
+  },
+  "ruleddeleted": {
+    "message": "ደንቡ ተሰርዟል።"
+  },
+  "cancelbtn": {
+    "message": "ሰርዝ"
+  },
+  "ruleupdated": {
+    "message": "ደንቡ ተዘመነ።"
+  },
+  "rulenewadded": {
+    "message": "አዲስ ደንብ ታክሏል።"
+  },
+  "gotooptions": {
+    "message": "ወደ አማራጮች ገፅ ሂድ ⚙️"
+  },
+  "gotopopup": {
+    "message": "ወደ ፖፕአፕ ለመመለስ የኤክስቴንሽን አዶ ጠቅ አድርግ።"
+  },
+  "rulesmigrated": {
+    "message": "ደንቦች ለተጣጣምነት ተዘምነዋል"
+  },
+  "errorupdatingrules": {
+    "message": "ደንቦችን በማዘመን ላይ ስህተት"
+  },
+  "erroraddingrule": {
+    "message": "ደንብ በመጨመር ላይ ስህተት"
+  },
+  "errorremovingrule": {
+    "message": "ደንብ በማስወገድ ላይ ስህተት"
+  },
+  "optionsheader": {
+    "message": "የተጨማሪ ቅንብሮች"
+  },
+  "optionsdescription": {
+    "message": "የተጨማሪውን እንዴት እንዲሰራ እና የደህንነት ቅንብሮችን ያቀናብሩ"
+  },
+  "securitymodetitle": {
+    "message": "የደህንነት ሁነታ"
+  },
+  "normalmodetitle": {
+    "message": "መደበኛ ሁነታ"
+  },
+  "normalmodedesc": {
+    "message": "ህጎችን በአንድ ጠቅታ በድንገት ማስወገድ ይችላሉ"
+  },
+  "strictmodetitle": {
+    "message": "ጥብቅ ሁነታ"
+  },
+  "strictmodedesc": {
+    "message": "ህጎች ከመሰረዝ በፊት 10 ሰከንድ መቆጣጠሪያ ይጠየቃሉ"
+  },
+  "confirmdeletetitle": {
+    "message": "በአንድ ጊዜ ከሚሰረዙ ብዙ ህጎች በፊት አረጋግጥ"
+  },
+  "confirmdeletedesc": {
+    "message": "በአንድ ጊዜ ብዙ ህጎች ሲሰረዙ የማረጋገጫ ንግግር አሳይ"
+  },
+  "notificationstitle": {
+    "message": "ማሳወቂያዎችን አሳይ"
+  },
+  "notificationsdesc": {
+    "message": "ድር-ቅጥ ተሰርቷል ሲታወቅ ማሳወቂያዎችን አሳይ"
+  },
+  "rulesmanagementtitle": {
+    "message": "የህጎች አስተዳደር"
+  },
+  "exportrulesbtn": {
+    "message": "ህጎችን አውጣ"
+  },
+  "importrulesbtn": {
+    "message": "ህጎችን አስገባ"
+  },
+  "clearallrulesbtn": {
+    "message": "ሁሉንም ህጎች አጽዳ"
+  },
+  "totalruleslabel": {
+    "message": "ጠቅላላ ህጎች"
+  },
+  "blockedtodaylabel": {
+    "message": "ዛሬ የተከለከሉ"
+  },
+  "totalblockedlabel": {
+    "message": "ጠቅላላ የተከለከሉ"
+  },
+  "resetsettingsbtn": {
+    "message": "ወደ ነባሪ አስመልስ"
+  },
+  "backtopopup": {
+    "message": "ወደ ዋናው ተመለስ"
+  },
+  "errorloadingsettings": {
+    "message": "ቅንብሮች በመጫን ላይ ስህተት"
+  },
+  "settingssaved": {
+    "message": "ቅንብሮች በተሳካ ሁኔታ ተቀምጠዋል!"
+  },
+  "errorsavingsettings": {
+    "message": "ቅንብሮችን በማስቀመጥ ላይ ስህተት"
+  },
+  "rulesexported": {
+    "message": "ህጎች በተሳካ ሁኔታ ተወግደዋል!"
+  },
+  "errorexportingrules": {
+    "message": "ህጎችን በመላክ ላይ ስህተት"
+  },
   "willimportrules": {
     "message": "ይህ  $ruleslength$ ህጎችን ያስገባል። ",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "የአሁኑ ህጎች ይተካሉ። ቀጥል?" },
+  "ruleswillbereplaced": {
+    "message": "የአሁኑ ህጎች ይተካሉ። ቀጥል?"
+  },
   "importedrules": {
     "message": "$ruleslength$ ህጎች በተሳካ ሁኔታ ተገብተዋል!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "ህጎችን በማስገባት ላይ ስህተት፡ " },
-  "norulestoclear": { "message": "ለማጽዳት ህጎች የሉም" },
+  "errorimportingrules": {
+    "message": "ህጎችን በማስገባት ላይ ስህተት፡ "
+  },
+  "norulestoclear": {
+    "message": "ለማጽዳት ህጎች የሉም"
+  },
   "willdeleteallrules": {
     "message": "ይህ በዘላቂነት ሁሉንም $rulescount$ ህጎች ያስወግዳል። ",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "ይህ ተግባር አይቀርበውም። ቀጥል?" },
-  "allrulescleared": { "message": "ሁሉም ህጎች በተሳካ ሁኔታ ተጸዱ!" },
-  "errorclearingrules": { "message": "ህጎችን በማጽዳት ላይ ስህተት" },
-  "willreset": { "message": "ይህ ሁሉንም ቅንብሮች ወደ ነባሪ ይመልሳል። ቀጥል?" },
-  "resettodefaults": { "message": "ቅንብሮች ወደ ነባሪ ተመልሰዋል!" },
-  "errorresettingsettings": { "message": "ቅንብሮችን በማዘመን ላይ ስህተት" },
-  "basicsettingstitle": { "message": "መሠረታዊ ቅንብሮች" },
-  "advancedsettingstitle": { "message": "የላቁ ቅንብሮች" },
-  "statisticstitle": { "message": "ስታቲስቲክስ" },
+  "cannotbeundone": {
+    "message": "ይህ ተግባር አይቀርበውም። ቀጥል?"
+  },
+  "allrulescleared": {
+    "message": "ሁሉም ህጎች በተሳካ ሁኔታ ተጸዱ!"
+  },
+  "errorclearingrules": {
+    "message": "ህጎችን በማጽዳት ላይ ስህተት"
+  },
+  "willreset": {
+    "message": "ይህ ሁሉንም ቅንብሮች ወደ ነባሪ ይመልሳል። ቀጥል?"
+  },
+  "resettodefaults": {
+    "message": "ቅንብሮች ወደ ነባሪ ተመልሰዋል!"
+  },
+  "errorresettingsettings": {
+    "message": "ቅንብሮችን በማዘመን ላይ ስህተት"
+  },
+  "basicsettingstitle": {
+    "message": "መሠረታዊ ቅንብሮች"
+  },
+  "advancedsettingstitle": {
+    "message": "የላቁ ቅንብሮች"
+  },
+  "statisticstitle": {
+    "message": "ስታቲስቲክስ"
+  },
   "rulelimitreached": {
     "message": "በመሠረታዊው ስሪት ውስጥ ያለውን የደንብ ገደብ ($limit$) ደርሰዋል። ለተገደብ ያልሆኑ ደንቦች ወደ ፕሮ ያሻሽሉ።",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "ለአርትዖት ፕሮ ያስፈልጋል።" },
-  "invalidpassword": { "message": "የተሳሳተ የይለፍ ቃል" },
-  "setpassword": { "message": "የይለፍ ቃል ያዘጋጁ" },
-  "enterpassword": { "message": "የይለፍ ቃል ያስገቡ" },
-  "passwordmismatch": { "message": "የይለፍ ቃሎች አይመሳሰሉም" },
-  "passwordtooshort": { "message": "የይለፍ ቃል ቢያንስ 6 ቁምፊዎች መሆን አለበት" },
-  "resetpasswordconfirm": { "message": "የይለፍ ቃሉን መቀየር ጥበቃን ያሰናክላል። መቀጠል ይፈልጋሉ?" },
-  "passwordset": { "message": "የይለፍ ቃል በተሳካ ሁኔታ ተዘጋጅቷል" },
-  "passworddisabled": { "message": "የይለፍ ቃል ጥበቃ ተሰናክሏል" },
-  "prorequired": { "message": "ለዚህ ባህሪ ፕሮ ሞድ ያስፈልጋል" },
-  "enablepasswordtitle": { "message": "የይለፍ ቃል ጥበቃን አንቃ" },
-  "enablepassworddesc": { "message": "ደንቦችን ለመሰረዝ ወይም ለማስተካከል የይለፍ ቃል ይጠይቁ (ጥብቅ ሞድን ያጠናክራል)" },
-  "passwordprotectiontitle": { "message": "የይለፍ ቃል ጥበቃ" },
-  "scheduleheader": { "message": "መርሐግብር" },
-  "enableschedule": { "message": "መርሐግብር አንቃ" },
-  "alwaysactive": { "message": "ሁልጊዜ ንቁ" },
-  "profeatureschedule": { "message": "መርሐግብር በPro ስሪት ብቻ ይገኛል" },
-  "days": { "message": "ቀናት" },
-  "starttime": { "message": "መጀመሪያ ሰዓት:" },
-  "endtime": { "message": "መጨረሻ ሰዓት:" },
-  "invaliddays": { "message": "የተመረጡት ቀናት የተሳሉ ናቸው" },
-  "invalidtimeformat": { "message": "የሰዓት ቅርጸት የተሳለ (HH:MM ይጠቀሙ)" },
-  "startafterend": { "message": "መጀመሪያ ሰዓት ከመጨረሻ በፊት መሆን አለበት" },
-  "invalidschedule": { "message": "የተሳለ መርሐግብር: እባኮትን ቀናትን እና ሰዓቶችን ይምረጡ።" },
-  "invalidscheduledays": { "message": "የተሳለ መርሐግብር: እባኮትን ቢያንስ አንድ ቀን ይምረጡ።" },
-  "invalidschedulestarttime": { "message": "የተሳለ መርሐግብር: እባኮትን መጀመሪያ ሰዓት ያስቀምጡ።" },
-  "invalidscheduleendtime": { "message": "የተሳለ መርሐግብር: እባኮትን መጨረሻ ሰዓት ያስቀምጡ።" },
-  "editdisablednonpro": { "message": "ማረም ተሰናክሏል፡ ለPro አልሆኑ ተጠቃሚዎች ብዙ ደንቦች አሉ።" },
-  "errorloadingstatus": { "message": "የተጠቃሚ ሁኔታን በመጫን ላይ ስህተት ተፈጥሯል።" },
-  "schedule_day_sun": { "message": "እሑድ" },
-  "schedule_day_mon": { "message": "ሰኞ" },
-  "schedule_day_tue": { "message": "ማክሰ" },
-  "schedule_day_wed": { "message": "ረቡዕ" },
-  "schedule_day_thu": { "message": "ሐሙስ" },
-  "schedule_day_fri": { "message": "አርብ" },
-  "schedule_day_sat": { "message": "ቅዳሜ" },
-  "category_header": { "message": "ክፍል" },
-  "category_required": { "message": "ክፍል አስፈላጊ ነው" },
-  "allcategories": { "message": "ሁሉንም ክፍሎች" },
-  "category_social": { "message": "ማህበራዊ ሚዲያ" },
-  "category_news": { "message": "ዜና" },
-  "category_entertainment": { "message": "መዝናኛ" },
-  "category_shopping": { "message": "ግዢ" },
-  "category_work": { "message": "ሥራ" },
-  "category_gaming": { "message": "ጨዋታ" },
-  "category_adult": { "message": "የአዋቂ ይዘት" },
-  "category_uncategorized": { "message": "ያልተመደበ" },
-  "searchfordomain": { "message": "የዶሜይን ስም ፈልግ" },
-  "norulesforcategory": { "message": "ለዚህ ክፍል ምንም የታገዱ ድህረገፆች የሉም።" },
-  "getpro": { "message": "ፕሮ ያግኙ" },
-  "profunctionstext": { "message": "የPro ባህሪዎች የተያያዙ ባህሪዎችን ይዟሉ፡ በጊዜ ሰሌዳ መከልከል፣ በይለፍ ቃል ጥበቃ፣ የደንብ ማጣሪያ እና የደንብ ላክ/መግቢያ። የኛን ዩኒቨርሳል ፍቃድ ይዝናኑ፤ አንድ መዝገብ በሁሉም መቃኛዎችዎ (Chrome, Firefox, Edge, Kiwi) Pro ያከፍታል። ለማንቃት blockdistraction.com ላይ መዝገብ ይግዙ፣ ከመለያ ዳሽቦርድዎ የፍቃድ ቁልፎን ቅዳት እዚህ ታትሙት።" },
-  "upgradenow": { "message": "አሁን ያሻሽሉ" },
-  "enteremail": { "message": "ኢሜይልዎን ያስገቡ" },
-  "activatepro": { "message": "ፕሮ ያንቁ" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "መዳረሻ ይመልሱ" },
-  "pleaseenteremail": { "message": "እባኮትን ኢሜይልዎን ያስገቡ" },
-  "checking": { "message": "በመፈተሽ ላይ..." },
-  "proactivated": { "message": "የፕሮ ባህሪዎች ተነቃቁ!" },
-  "subscriptionnotfound": { "message": "አባልነት አልተገኘም ወይም ኢሜይል አልተገኘም።" },
-  "servererror": { "message": "የአገልጋይ ስህተት። እባኮትን ደግመው ይሞክሩ።" },
-  "proactivatedfor": { "message": "ፕሮ ተነቃቆልናል ለ" },
+  "proonlyactions": {
+    "message": "ለአርትዖት ፕሮ ያስፈልጋል።"
+  },
+  "invalidpassword": {
+    "message": "የተሳሳተ የይለፍ ቃል"
+  },
+  "setpassword": {
+    "message": "የይለፍ ቃል ያዘጋጁ"
+  },
+  "enterpassword": {
+    "message": "የይለፍ ቃል ያስገቡ"
+  },
+  "passwordmismatch": {
+    "message": "የይለፍ ቃሎች አይመሳሰሉም"
+  },
+  "passwordtooshort": {
+    "message": "የይለፍ ቃል ቢያንስ 6 ቁምፊዎች መሆን አለበት"
+  },
+  "resetpasswordconfirm": {
+    "message": "የይለፍ ቃሉን መቀየር ጥበቃን ያሰናክላል። መቀጠል ይፈልጋሉ?"
+  },
+  "passwordset": {
+    "message": "የይለፍ ቃል በተሳካ ሁኔታ ተዘጋጅቷል"
+  },
+  "passworddisabled": {
+    "message": "የይለፍ ቃል ጥበቃ ተሰናክሏል"
+  },
+  "prorequired": {
+    "message": "ለዚህ ባህሪ ፕሮ ሞድ ያስፈልጋል"
+  },
+  "enablepasswordtitle": {
+    "message": "የይለፍ ቃል ጥበቃን አንቃ"
+  },
+  "enablepassworddesc": {
+    "message": "ደንቦችን ለመሰረዝ ወይም ለማስተካከል የይለፍ ቃል ይጠይቁ (ጥብቅ ሞድን ያጠናክራል)"
+  },
+  "passwordprotectiontitle": {
+    "message": "የይለፍ ቃል ጥበቃ"
+  },
+  "scheduleheader": {
+    "message": "መርሐግብር"
+  },
+  "enableschedule": {
+    "message": "መርሐግብር አንቃ"
+  },
+  "alwaysactive": {
+    "message": "ሁልጊዜ ንቁ"
+  },
+  "profeatureschedule": {
+    "message": "መርሐግብር በPro ስሪት ብቻ ይገኛል"
+  },
+  "days": {
+    "message": "ቀናት"
+  },
+  "starttime": {
+    "message": "መጀመሪያ ሰዓት:"
+  },
+  "endtime": {
+    "message": "መጨረሻ ሰዓት:"
+  },
+  "invaliddays": {
+    "message": "የተመረጡት ቀናት የተሳሉ ናቸው"
+  },
+  "invalidtimeformat": {
+    "message": "የሰዓት ቅርጸት የተሳለ (HH:MM ይጠቀሙ)"
+  },
+  "startafterend": {
+    "message": "መጀመሪያ ሰዓት ከመጨረሻ በፊት መሆን አለበት"
+  },
+  "invalidschedule": {
+    "message": "የተሳለ መርሐግብር: እባኮትን ቀናትን እና ሰዓቶችን ይምረጡ።"
+  },
+  "invalidscheduledays": {
+    "message": "የተሳለ መርሐግብር: እባኮትን ቢያንስ አንድ ቀን ይምረጡ።"
+  },
+  "invalidschedulestarttime": {
+    "message": "የተሳለ መርሐግብር: እባኮትን መጀመሪያ ሰዓት ያስቀምጡ።"
+  },
+  "invalidscheduleendtime": {
+    "message": "የተሳለ መርሐግብር: እባኮትን መጨረሻ ሰዓት ያስቀምጡ።"
+  },
+  "editdisablednonpro": {
+    "message": "ማረም ተሰናክሏል፡ ለPro አልሆኑ ተጠቃሚዎች ብዙ ደንቦች አሉ።"
+  },
+  "errorloadingstatus": {
+    "message": "የተጠቃሚ ሁኔታን በመጫን ላይ ስህተት ተፈጥሯል።"
+  },
+  "schedule_day_sun": {
+    "message": "እሑድ"
+  },
+  "schedule_day_mon": {
+    "message": "ሰኞ"
+  },
+  "schedule_day_tue": {
+    "message": "ማክሰ"
+  },
+  "schedule_day_wed": {
+    "message": "ረቡዕ"
+  },
+  "schedule_day_thu": {
+    "message": "ሐሙስ"
+  },
+  "schedule_day_fri": {
+    "message": "አርብ"
+  },
+  "schedule_day_sat": {
+    "message": "ቅዳሜ"
+  },
+  "category_header": {
+    "message": "ክፍል"
+  },
+  "category_required": {
+    "message": "ክፍል አስፈላጊ ነው"
+  },
+  "allcategories": {
+    "message": "ሁሉንም ክፍሎች"
+  },
+  "category_social": {
+    "message": "ማህበራዊ ሚዲያ"
+  },
+  "category_news": {
+    "message": "ዜና"
+  },
+  "category_entertainment": {
+    "message": "መዝናኛ"
+  },
+  "category_shopping": {
+    "message": "ግዢ"
+  },
+  "category_work": {
+    "message": "ሥራ"
+  },
+  "category_gaming": {
+    "message": "ጨዋታ"
+  },
+  "category_adult": {
+    "message": "የአዋቂ ይዘት"
+  },
+  "category_uncategorized": {
+    "message": "ያልተመደበ"
+  },
+  "searchfordomain": {
+    "message": "የዶሜይን ስም ፈልግ"
+  },
+  "norulesforcategory": {
+    "message": "ለዚህ ክፍል ምንም የታገዱ ድህረገፆች የሉም።"
+  },
+  "getpro": {
+    "message": "ፕሮ ያግኙ"
+  },
+  "profunctionstext": {
+    "message": "የPro ባህሪዎች የተያያዙ ባህሪዎችን ይዟሉ፡ በጊዜ ሰሌዳ መከልከል፣ በይለፍ ቃል ጥበቃ፣ የደንብ ማጣሪያ እና የደንብ ላክ/መግቢያ። የኛን ዩኒቨርሳል ፍቃድ ይዝናኑ፤ አንድ መዝገብ በሁሉም መቃኛዎችዎ (Chrome, Firefox, Edge, Kiwi) Pro ያከፍታል። ለማንቃት blockdistraction.com ላይ መዝገብ ይግዙ፣ ከመለያ ዳሽቦርድዎ የፍቃድ ቁልፎን ቅዳት እዚህ ታትሙት።"
+  },
+  "upgradenow": {
+    "message": "አሁን ያሻሽሉ"
+  },
+  "enteremail": {
+    "message": "ኢሜይልዎን ያስገቡ"
+  },
+  "activatepro": {
+    "message": "ፕሮ ያንቁ"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "መዳረሻ ይመልሱ"
+  },
+  "pleaseenteremail": {
+    "message": "እባኮትን ኢሜይልዎን ያስገቡ"
+  },
+  "checking": {
+    "message": "በመፈተሽ ላይ..."
+  },
+  "proactivated": {
+    "message": "የፕሮ ባህሪዎች ተነቃቁ!"
+  },
+  "subscriptionnotfound": {
+    "message": "አባልነት አልተገኘም ወይም ኢሜይል አልተገኘም።"
+  },
+  "servererror": {
+    "message": "የአገልጋይ ስህተት። እባኮትን ደግመው ይሞክሩ።"
+  },
+  "proactivatedfor": {
+    "message": "ፕሮ ተነቃቆልናል ለ"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "የፈቃድ ጥያቄ አልተሳካም (በሞባይል ላይ ሊደርስ ይችላል)። እባክዎ ደግመው ይሞክሩ ወይም በእጅ ከማስተካከያ ፈቃድ ይስጡ።"
   },
-  "pastekeylabel": { "message": "የፈቃድ ቁልፍዎን እዚህ ይጥቀሱ:" },
-  "confirmclearstats": { "message": "ሁሉንም ቆጠራዎች መሰረዝ እንደምትፈልጉ እርግጠኛ ነዎት? ይህን ተግባር መተው አይቻልም።" },
-  "statscleared": { "message": "ቆጠራዎች በተሳካ ሁኔታ ተሰርዘዋል።" },
-  "redirectstodaylabel": { "message": "ዛሬ የተመለሱ ጊዜያት" },
-  "totalredirectslabel": { "message": "አጠቃላይ መመለሻዎች" },
-  "logout": { "message": "ውጣ" },
-  "loggedoutsuccess": { "message": "በተሳካ ሁኔታ ወጥተዋል።" },
-  "loggedouterror": { "message": "ከመውጣት ጋር ችግር ተፈጥሯል።" },
-  "forcesync": { "message": "አስገዳጅ ማስማሚያ / ሁኔታን ያረጋግጡ" },
-  "forgotpasswordinstructions": { "message": "የይለፍ ቃልዎን ለመቀየር፣ ወደ 'Pro' ክፍል ይሂዱ፣ 'ውጣ' ይምረጡ እና በኋላ የፈቃድ መክፈቻ ቁልፎትን በመለጠፍ እንደገና ያንቁ።" },
-  "blockedtitle": { "message": "ጣቢያው አይገኝም" },
-  "blockedheader": { "message": "ይህ ጣቢያ በአሁኑ ጊዜ አይገኝም" },
-  "blockedtext": { "message": "ይህ ይዘት ማሳየት አይቻልም።" },
-  "blockedbutton": { "message": "ትር ዝጋ" },
-  "confirmpassword": { "message": "የይለፍ ቃል ያረጋግጡ" },
-  "modalconfirm": { "message": "ያረጋግጡ" },
-  "modalcancel": { "message": "ይቅር" },
-  "forgotpassword": { "message": "የይለፍ ቃል ረስተዋል? ዳግም ያዘጋጁ (ጥበቃው ይሰረዛል)" },
-  "prounlocked": { "message": "ለግልጽ ድጋፍዎ እናመሰግናለን! ሁሉም Pro ባህሪዎች ተከፍተዋል።" },
-  "licensesynced": { "message": "ፈቃድዎ ከመለያዎ ጋር ተዛመደ። መዳረሻ ካጣችሁ ቁልፎን ከዚህ መመለስ ትችላላችሁ፦ " },
-  "syncing": { "message": "ማስማማት በመካሄድ ላይ..." },
-  "pleaseenterkey": { "message": "እባክዎን ቁልፍ ያስገቡ።" },
-  "syncsuccess": { "message": "ማስማማቱ ተሳክቷል" },
-  "syncfailed": { "message": "ማስማማት  실패 ሆኗል።" },
-  "passwordreset": { "message": "የይለፍ ቃል ጥበቃ ተዘምሯል።" },
-  "privacysecured": { "message": "ግላዊነት ተጠብቆአል" },
-  "errorinvalidfiletype": { "message": "እባክዎን .json ፋይል ይምረጡ" },
-  "debugsettingstitle": { "message": "ዲባግ ቅንብሮች" },
-  "enabledebugtitle": { "message": "ዲባግ ሁነታን አንቃ" },
-  "enabledebugdesc": { "message": "ለችግኝ መፍታት ወደ ኮንሶል ዝርዝር ሎጎችን አንቃ" },
-  "errorcommunication": { "message": "ከየጀርባ አገልግሎት ጋር በመገናኘት ላይ ስህተት" },
-  "clearstats": { "message": "ስታቲስቲክስን አጥፋ" },
-  "rule_enabled": { "message": "ነቅቷል" },
-  "rule_disabled": { "message": "ተዘግቷል" },
-  "filter_only_hint": { "message": "ይህ ዝርዝር በሰንጠረዥ ውስጥ ማሳየትን ብቻ ይጣራል" },
-  "category_disabled_desc": { "message": "ሁሉንም ድር ጣቢያዎቹን ለጊዜው እንዲገኙ አንድ ምድብን ዝም አድርጉ። የግለሰብ ህግ ቅንብሮች ይጠበቃሉ።" },
-  "toggle_category_blocking": { "message": "ለሙሉ ምድብ እገዳን አብራ/አጥፋ" },
-  "category_muted_no_edit": { "message": "ማስተዳደር አይቻልም፦ የምድብ እገዳ ተዘግቷል" },
-  "feedback_title": { "message": "BlockDistraction ይወዳሉ?" },
-  "feedback_desc": { "message": "አስተያየትዎ ቅጥያውን ለማሻሻል በጣም ይረዳናል።" },
-  "feedback_like": { "message": "አዎ፣ በጣም ጥሩ ይሰራል!" },
-  "feedback_dislike": { "message": "ችግሮች / ጥቆማዎች አሉኝ" },
-  "trialproheader": { "message": "የ 7 ቀናት ነፃ ሙከራዎን ይጀምሩ" },
-  "trialprotext": { "message": "በማንኛውም ጊዜ መሰረዝ ይችላሉ። ክፍያዎ በደህንነት የተጠበቀ ነው።" },
-  "focussessionheader": { "message": "የትኩረት ክፍለ-ጊዜ" },
-  "focussessionstart": { "message": "ጀምር" },
-  "focussessionstop": { "message": "አቁም" },
-  "focussessionduration": { "message": "ቆይታ (ደቂቃ):" },
-  "focussessioninfo": { "message": "የአሁኑን ቅንብሮቻቸውን እና መርሃ ግብሮቻቸውን ችላ በማለት ሁሉንም የማገጃ ህጎችዎን ለተወሰነ ጊዜ ያነቃቃል። ለከፍተኛ ትኩረት።" },
-  "focussessionprofeature": { "message": "ብጁ ቆይታ እና የሃርድኮር ሞድ የፕሮ (Pro) ባህሪያት ናቸው።" },
-  "focussessionended": { "message": "የትኩረት ክፍለ-ጊዜው ተጠናቋል! እረፍት ይውሰዱ።" },
-  "focussessionhardcore": { "message": "ሃርድኮር ሞድ (የ'ማቆሚያ' ቁልፍ የለም)" },
-  "focussessionsoundtitle": { "message": "የትኩረት ክፍለ-ጊዜ የድምፅ ማሳወቂያ" },
-  "focussessionsounddesc": { "message": "የትኩረት ክፍለ-ጊዜው ሲያበቃ ድምጽ ያጫውቱ።" },
-  "focussessionactivebanner": { "message": "የትኩረት ክፍለ-ጊዜው ገባሪ ነው! የቀረው ጊዜ፦" },
-  "focussessioninvalidduration": { "message": "እባክዎን ትክክለኛ ቆይታ ያስገቡ (ከ1-240 ደቂቃዎች)።" },
-  "successfulfocussessionslabel": { "message": "ስኬታማ የትኩረት ክፍለ-ጊዜዎች" },
-  "rule_scheduled": { "message": "የታቀደ ደንብ" },
-  "addwhitelistrule": { "message": "ልዩነት አክል" },
-  "category_whitelist": { "message": "ነጭ ዝርዝር" },
-  "conflict_blacklist_err": { "message": "ይህ ጣቢያ ቀድሞውኑ በጥቁር ዝርዝርዎ ውስጥ አለ። መጀመሪያ ያስወግዱት።" },
-  "conflict_whitelist_err": { "message": "ይህ ጣቢያ ቀድሞውኑ በነጭ ዝርዝርዎ ውስጥ አለ። መጀመሪያ ያስወግዱት።" },
-  "status_allow": { "message": "ተፈቅዷል" },
-  "redundant_whitelist_err": { "message": "ይህ ደንብ ቀድሞውኑ በሌላ የነጭ ዝርዝር ደንብ ተሸፍኗል።" },
-  "focussessionmode": { "message": "የትኩረት ሁነታ፦" },
-  "focusmodeblacklist": { "message": "ጥቁር ዝርዝርን አግድ" },
-  "focusmodewhitelist": { "message": "ነጭ ዝርዝርን ብቻ ፍቀድ" }
+  "pastekeylabel": {
+    "message": "የፈቃድ ቁልፍዎን እዚህ ይጥቀሱ:"
+  },
+  "confirmclearstats": {
+    "message": "ሁሉንም ቆጠራዎች መሰረዝ እንደምትፈልጉ እርግጠኛ ነዎት? ይህን ተግባር መተው አይቻልም።"
+  },
+  "statscleared": {
+    "message": "ቆጠራዎች በተሳካ ሁኔታ ተሰርዘዋል።"
+  },
+  "redirectstodaylabel": {
+    "message": "ዛሬ የተመለሱ ጊዜያት"
+  },
+  "totalredirectslabel": {
+    "message": "አጠቃላይ መመለሻዎች"
+  },
+  "logout": {
+    "message": "ውጣ"
+  },
+  "loggedoutsuccess": {
+    "message": "በተሳካ ሁኔታ ወጥተዋል።"
+  },
+  "loggedouterror": {
+    "message": "ከመውጣት ጋር ችግር ተፈጥሯል።"
+  },
+  "forcesync": {
+    "message": "አስገዳጅ ማስማሚያ / ሁኔታን ያረጋግጡ"
+  },
+  "forgotpasswordinstructions": {
+    "message": "የይለፍ ቃልዎን ለመቀየር፣ ወደ 'Pro' ክፍል ይሂዱ፣ 'ውጣ' ይምረጡ እና በኋላ የፈቃድ መክፈቻ ቁልፎትን በመለጠፍ እንደገና ያንቁ።"
+  },
+  "blockedtitle": {
+    "message": "ጣቢያው አይገኝም"
+  },
+  "blockedheader": {
+    "message": "ይህ ጣቢያ በአሁኑ ጊዜ አይገኝም"
+  },
+  "blockedtext": {
+    "message": "ይህ ይዘት ማሳየት አይቻልም።"
+  },
+  "blockedbutton": {
+    "message": "ትር ዝጋ"
+  },
+  "confirmpassword": {
+    "message": "የይለፍ ቃል ያረጋግጡ"
+  },
+  "modalconfirm": {
+    "message": "ያረጋግጡ"
+  },
+  "modalcancel": {
+    "message": "ይቅር"
+  },
+  "forgotpassword": {
+    "message": "የይለፍ ቃል ረስተዋል? ዳግም ያዘጋጁ (ጥበቃው ይሰረዛል)"
+  },
+  "prounlocked": {
+    "message": "ለግልጽ ድጋፍዎ እናመሰግናለን! ሁሉም Pro ባህሪዎች ተከፍተዋል።"
+  },
+  "licensesynced": {
+    "message": "ፈቃድዎ ከመለያዎ ጋር ተዛመደ። መዳረሻ ካጣችሁ ቁልፎን ከዚህ መመለስ ትችላላችሁ፦ "
+  },
+  "syncing": {
+    "message": "ማስማማት በመካሄድ ላይ..."
+  },
+  "pleaseenterkey": {
+    "message": "እባክዎን ቁልፍ ያስገቡ።"
+  },
+  "syncsuccess": {
+    "message": "ማስማማቱ ተሳክቷል"
+  },
+  "syncfailed": {
+    "message": "ማስማማት  실패 ሆኗል።"
+  },
+  "passwordreset": {
+    "message": "የይለፍ ቃል ጥበቃ ተዘምሯል።"
+  },
+  "privacysecured": {
+    "message": "ግላዊነት ተጠብቆአል"
+  },
+  "errorinvalidfiletype": {
+    "message": "እባክዎን .json ፋይል ይምረጡ"
+  },
+  "debugsettingstitle": {
+    "message": "ዲባግ ቅንብሮች"
+  },
+  "enabledebugtitle": {
+    "message": "ዲባግ ሁነታን አንቃ"
+  },
+  "enabledebugdesc": {
+    "message": "ለችግኝ መፍታት ወደ ኮንሶል ዝርዝር ሎጎችን አንቃ"
+  },
+  "errorcommunication": {
+    "message": "ከየጀርባ አገልግሎት ጋር በመገናኘት ላይ ስህተት"
+  },
+  "clearstats": {
+    "message": "ስታቲስቲክስን አጥፋ"
+  },
+  "rule_enabled": {
+    "message": "ነቅቷል"
+  },
+  "rule_disabled": {
+    "message": "ተዘግቷል"
+  },
+  "filter_only_hint": {
+    "message": "ይህ ዝርዝር በሰንጠረዥ ውስጥ ማሳየትን ብቻ ይጣራል"
+  },
+  "category_disabled_desc": {
+    "message": "ሁሉንም ድር ጣቢያዎቹን ለጊዜው እንዲገኙ አንድ ምድብን ዝም አድርጉ። የግለሰብ ህግ ቅንብሮች ይጠበቃሉ።"
+  },
+  "toggle_category_blocking": {
+    "message": "ለሙሉ ምድብ እገዳን አብራ/አጥፋ"
+  },
+  "category_muted_no_edit": {
+    "message": "ማስተዳደር አይቻልም፦ የምድብ እገዳ ተዘግቷል"
+  },
+  "feedback_title": {
+    "message": "BlockDistraction ይወዳሉ?"
+  },
+  "feedback_desc": {
+    "message": "አስተያየትዎ ቅጥያውን ለማሻሻል በጣም ይረዳናል።"
+  },
+  "feedback_like": {
+    "message": "አዎ፣ በጣም ጥሩ ይሰራል!"
+  },
+  "feedback_dislike": {
+    "message": "ችግሮች / ጥቆማዎች አሉኝ"
+  },
+  "trialproheader": {
+    "message": "የ 7 ቀናት ነፃ ሙከራዎን ይጀምሩ"
+  },
+  "trialprotext": {
+    "message": "በማንኛውም ጊዜ መሰረዝ ይችላሉ። ክፍያዎ በደህንነት የተጠበቀ ነው።"
+  },
+  "focussessionheader": {
+    "message": "የትኩረት ክፍለ-ጊዜ"
+  },
+  "focussessionstart": {
+    "message": "ጀምር"
+  },
+  "focussessionstop": {
+    "message": "አቁም"
+  },
+  "focussessionduration": {
+    "message": "ቆይታ (ደቂቃ):"
+  },
+  "focussessioninfo": {
+    "message": "የአሁኑን ቅንብሮቻቸውን እና መርሃ ግብሮቻቸውን ችላ በማለት ሁሉንም የማገጃ ህጎችዎን ለተወሰነ ጊዜ ያነቃቃል። ለከፍተኛ ትኩረት።"
+  },
+  "focussessionprofeature": {
+    "message": "ብጁ ቆይታ እና የሃርድኮር ሞድ የፕሮ (Pro) ባህሪያት ናቸው።"
+  },
+  "focussessionended": {
+    "message": "የትኩረት ክፍለ-ጊዜው ተጠናቋል! እረፍት ይውሰዱ።"
+  },
+  "focussessionhardcore": {
+    "message": "ሃርድኮር ሞድ (የ'ማቆሚያ' ቁልፍ የለም)"
+  },
+  "focussessionsoundtitle": {
+    "message": "የትኩረት ክፍለ-ጊዜ የድምፅ ማሳወቂያ"
+  },
+  "focussessionsounddesc": {
+    "message": "የትኩረት ክፍለ-ጊዜው ሲያበቃ ድምጽ ያጫውቱ።"
+  },
+  "focussessionactivebanner": {
+    "message": "የትኩረት ክፍለ-ጊዜው ገባሪ ነው! የቀረው ጊዜ፦"
+  },
+  "focussessioninvalidduration": {
+    "message": "እባክዎን ትክክለኛ ቆይታ ያስገቡ (ከ1-240 ደቂቃዎች)።"
+  },
+  "successfulfocussessionslabel": {
+    "message": "ስኬታማ የትኩረት ክፍለ-ጊዜዎች"
+  },
+  "rule_scheduled": {
+    "message": "የታቀደ ደንብ"
+  },
+  "addwhitelistrule": {
+    "message": "ልዩነት አክል"
+  },
+  "category_whitelist": {
+    "message": "ነጭ ዝርዝር"
+  },
+  "conflict_blacklist_err": {
+    "message": "ይህ ጣቢያ ቀድሞውኑ በጥቁር ዝርዝርዎ ውስጥ አለ። መጀመሪያ ያስወግዱት።"
+  },
+  "conflict_whitelist_err": {
+    "message": "ይህ ጣቢያ ቀድሞውኑ በነጭ ዝርዝርዎ ውስጥ አለ። መጀመሪያ ያስወግዱት።"
+  },
+  "status_allow": {
+    "message": "ተፈቅዷል"
+  },
+  "redundant_whitelist_err": {
+    "message": "ይህ ደንብ ቀድሞውኑ በሌላ የነጭ ዝርዝር ደንብ ተሸፍኗል።"
+  },
+  "focussessionmode": {
+    "message": "የትኩረት ሁነታ፦"
+  },
+  "focusmodeblacklist": {
+    "message": "ጥቁር ዝርዝርን አግድ"
+  },
+  "focusmodewhitelist": {
+    "message": "ነጭ ዝርዝርን ብቻ ፍቀድ"
+  },
+  "schedule_edit": {
+    "message": "መርሐግብር አርትዕ"
+  },
+  "schedule_add_period": {
+    "message": "የጊዜ ቡድን ጨምር"
+  },
+  "schedule_remove_period": {
+    "message": "አስወግድ"
+  },
+  "schedule_period": {
+    "message": "የጊዜ ቡድን"
+  },
+  "schedule_every_day": {
+    "message": "በየቀኑ"
+  },
+  "schedule_weekdays": {
+    "message": "የስራ ቀናት"
+  },
+  "schedule_weekends": {
+    "message": "የሳምንት መጨረሻ"
+  },
+  "schedule_day_overlap": {
+    "message": "እያንዳንዱ ቀን አንድ ጊዜ ብቻ ሊጠቀም ይችላል።"
+  }
 }

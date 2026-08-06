@@ -1,9 +1,29 @@
+import { normalizeSchedule } from '../schedules/scheduleNormalizer.js';
+
+const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+function isPeriodActive(period, now) {
+  const currentDay = now.getDay();
+  if (!Array.isArray(period.days) || !period.days.includes(currentDay)) return false;
+  if (!TIME_PATTERN.test(period.startTime || '') || !TIME_PATTERN.test(period.endTime || '')) {
+    return false;
+  }
+
+  const [startHour, startMinute] = period.startTime.split(':').map(Number);
+  const [endHour, endMinute] = period.endTime.split(':').map(Number);
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const startMinutes = startHour * 60 + startMinute;
+  const endMinutes = endHour * 60 + endMinute;
+
+  return currentMinutes >= startMinutes && currentMinutes < endMinutes;
+}
+
 /**
  * Returns whether a stored blocking rule should currently be represented in
  * the browser's dynamic DNR rules.
  *
- * The function deliberately preserves the existing scheduling semantics and
- * accepts an injectable date for deterministic tests.
+ * Both legacy single-period schedules and version 2 multi-period schedules are
+ * accepted. The injectable date keeps the function deterministic in tests.
  */
 export function isRuleActiveNow(
   rule,
@@ -21,14 +41,6 @@ export function isRuleActiveNow(
   if (disabledCategories.includes(rule.category)) return false;
   if (!rule.schedule) return true;
 
-  const currentDay = now.getDay();
-  if (!rule.schedule.days.includes(currentDay)) return false;
-
-  const [startH, startM] = rule.schedule.startTime.split(':').map(Number);
-  const [endH, endM] = rule.schedule.endTime.split(':').map(Number);
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  const startMinutes = startH * 60 + startM;
-  const endMinutes = endH * 60 + endM;
-
-  return currentMinutes >= startMinutes && currentMinutes < endMinutes;
+  const normalizedSchedule = normalizeSchedule(rule.schedule);
+  return normalizedSchedule.periods.some(period => isPeriodActive(period, now));
 }

@@ -1,20 +1,52 @@
 {
-  "chromename": { "message": "BlockDistraction – Blocare Site-uri" },
-  "shortname": { "message": "Blocare" },
-  "description": { "message": "Instrument simplu și de încredere pentru a bloca și redirecționa site-uri, ajutându-te să rămâi concentrat." },
-  "defaulttitle": { "message": "Rămâi concentrat și productiv" },
-  "header": { "message": "Blocator de site-uri" },
-  "paragraph": { "message": "Pentru a bloca un site sau o resursă, introduceți o parte din numele acestuia în câmpul cu indiciul 'Introduceți URL-ul de blocat' – de exemplu, 'facebook' va bloca toate subdomeniile asociate. În câmpul cu indiciul 'Introduceți URL-ul de redirecționare', introduceți adresa completă de redirecționare cu protocol, cum ar fi 'https://google.com'. Dacă lăsați câmpul de redirecționare gol, site-ul va fi blocat fără redirecționare. Faceți clic pe Salvare pentru a aplica regula. Pentru a actualiza o regulă, ștergeți-o pe cea veche și adăugați una nouă." },
-  "addrule": { "message": "Adăugați regulă nouă" },
-  "blockurl": { "message": "Introduceți URL-ul de blocat" },
-  "redirecturl": { "message": "Introduceți URL-ul de redirecționare (opțional)" },
-  "redirecturlheader": { "message": "URL de redirecționare" },
-  "redirecturlplaceholder": { "message": "Opțional - lăsați necompletat pentru blocare" },
-  "redirecturlhint": { "message": "Introduceți un URL complet, inclusiv https://" },
-  "mobilecopylinkhint": { "message": "Pentru a bloca un link, copiați adresa acestuia și lipiți-o în câmpul de blocare." },
-  "savebtn": { "message": "Salvare" },
-  "deletebtn": { "message": "Ștergere" },
-  "alertruleexist": { "message": "Regula există deja" },
+  "chromename": {
+    "message": "BlockDistraction – Blocare Site-uri"
+  },
+  "shortname": {
+    "message": "Blocare"
+  },
+  "description": {
+    "message": "Instrument simplu și de încredere pentru a bloca și redirecționa site-uri, ajutându-te să rămâi concentrat."
+  },
+  "defaulttitle": {
+    "message": "Rămâi concentrat și productiv"
+  },
+  "header": {
+    "message": "Blocator de site-uri"
+  },
+  "paragraph": {
+    "message": "Pentru a bloca un site sau o resursă, introduceți o parte din numele acestuia în câmpul cu indiciul 'Introduceți URL-ul de blocat' – de exemplu, 'facebook' va bloca toate subdomeniile asociate. În câmpul cu indiciul 'Introduceți URL-ul de redirecționare', introduceți adresa completă de redirecționare cu protocol, cum ar fi 'https://google.com'. Dacă lăsați câmpul de redirecționare gol, site-ul va fi blocat fără redirecționare. Faceți clic pe Salvare pentru a aplica regula. Pentru a actualiza o regulă, ștergeți-o pe cea veche și adăugați una nouă."
+  },
+  "addrule": {
+    "message": "Adăugați regulă nouă"
+  },
+  "blockurl": {
+    "message": "Introduceți URL-ul de blocat"
+  },
+  "redirecturl": {
+    "message": "Introduceți URL-ul de redirecționare (opțional)"
+  },
+  "redirecturlheader": {
+    "message": "URL de redirecționare"
+  },
+  "redirecturlplaceholder": {
+    "message": "Opțional - lăsați necompletat pentru blocare"
+  },
+  "redirecturlhint": {
+    "message": "Introduceți un URL complet, inclusiv https://"
+  },
+  "mobilecopylinkhint": {
+    "message": "Pentru a bloca un link, copiați adresa acestuia și lipiți-o în câmpul de blocare."
+  },
+  "savebtn": {
+    "message": "Salvare"
+  },
+  "deletebtn": {
+    "message": "Ștergere"
+  },
+  "alertruleexist": {
+    "message": "Regula există deja"
+  },
   "savedrules": {
     "message": "$ruleslength$ regulă(i) salvată(e)",
     "placeholders": {
@@ -24,121 +56,324 @@
       }
     }
   },
-  "restrictedblockurl": { "message": "Această resursă nu poate fi blocată." },
-  "wrongblockurl": { "message": "Adresă URL de blocare nevalidă" },
-  "wrongredirecturl": { "message": "URL de redirecționare invalid" },
-  "blockthat": { "message": "Blochează acest site" },
-  "sendfeedbackbutton": { "message": "Trimite feedback" },
-  "sendfeedbacksubject": { "message": "Feedback pentru BlockDistraction" },
-  "sendfeedbackbody": { "message": "Bună, aș dori să ofer următorul feedback:\n\n" },
-  "quote1": { "message": "Păstrează-ți concentrarea, rămâi puternic." },
-  "quote2": { "message": "Viitorul tău este creat de ceea ce faci astăzi." },
-  "quote3": { "message": "Disciplina este podul dintre obiective și realizări." },
-  "quote4": { "message": "Un site blocat, un pas mai aproape de obiectiv." },
-  "quote5": { "message": "Fă ca fiecare clic să conteze." },
-  "quote6": { "message": "Nu privi ceasul; fă ca el. Continuă." },
-  "quote7": { "message": "Pași mici zilnici duc la mari rezultate." },
-  "quote8": { "message": "Singura ta limită este mintea ta." },
-  "quote9": { "message": "Succesul este suma micilor eforturi repetate zilnic." },
-  "quote10": { "message": "Concentrează-te pe a fi productiv, nu doar ocupat." },
-  "quote11": { "message": "Proteje-ți atenția – este cel mai valoros activ al tău." },
-  "quote12": { "message": "Fiecare distragere blocată este timp câștigat." },
-  "quote13": { "message": "Redu zgomotul; crește-ți productivitatea." },
-  "quote14": { "message": "Rutinele mici construiesc un impuls de neoprit." },
-  "quote15": { "message": "Claritatea învinge haosul – concentrează-te pe ce contează." },
-  "quote16": { "message": "Spune nu distragerilor; spune da progresului." },
-  "quote17": { "message": "O oră concentrată astăzi îți multiplică rezultatele de mâine." },
-  "quote18": { "message": "Creează mai mult consumând mai puțin." },
-  "quote19": { "message": "Disciplina alege câștigurile pe termen lung în locul impulsurilor scurte." },
-  "quote20": { "message": "Închide un tab, deschide spațiu pentru idei noi." },
-  "quote21": { "message": "Munca pe care o eviți azi poate deveni stresul de mâine." },
-  "quote22": { "message": "Concentrarea nu înseamnă să faci mai mult, ci să faci ceea ce contează cu adevărat." },
-  "quote23": { "message": "Obiectivele tale merită mai multă atenție decât distragerile tale." },
-  "quote24": { "message": "Fiecare minut fără distrageri este o investiție în tine." },
-  "quote25": { "message": "Consecvența aduce rezultate mai durabile decât valurile scurte de motivație." },
-  "quote26": { "message": "Cel mai bun moment pentru a începe a fost ieri. Următorul cel mai bun este acum." },
-  "quote27": { "message": "Progresul începe atunci când alegi acțiunea în locul distragerilor." },
-  "quote28": { "message": "Un singur moment de concentrare îți poate schimba întreaga zi." },
-  "quote29": { "message": "Nu ai nevoie de mai mult timp, ci de mai puține distrageri." },
-  "quote30": { "message": "Fiecare alegere de a rămâne concentrat îți întărește sinele viitor." },
-  "quote31": { "message": "Această blocare este temporară; obiectivele tale sunt pe termen lung." },
-  "quote32": { "message": "Fiecare distragere blocată este o victorie pentru tine din viitor." },
-  "quote33": { "message": "Internetul este infinit, dar timpul tău nu." },
-  "quote34": { "message": "Stabilește-ți prioritățile înainte ca webul să o facă pentru tine." },
-  "quote35": { "message": "Mai puțin scroll, mai multă creație." },
-  "quote36": { "message": "Atenția ta îți modelează realizările." },
-  "quote37": { "message": "Rămâi concentrat — distragerea poate aștepta." },
-  "quote38": { "message": "Fiecare decizie productivă începe cu o minte concentrată." },
-  "quote39": { "message": "Ai blocat un site, nu potențialul tău." },
-  "quote40": { "message": "Drumul către succes este construit din decizii concentrate." },
-  "actionsheader": { "message": "Acțiuni" },
-  "norules": { "message": "Niciun site blocat." },
-  "editbtn": { "message": "Editează" },
-  "ruleddeleted": { "message": "Regula a fost ștearsă." },
-  "cancelbtn": { "message": "Anulează" },
-  "ruleupdated": { "message": "Regula a fost actualizată." },
-  "rulenewadded": { "message": "Regulă nouă adăugată." },
-  "gotooptions": { "message": "Mergi la pagina de opțiuni ⚙️" },
-  "gotopopup": { "message": "Faceți clic pe pictograma extensiei pentru a reveni la pop-up." },
-  "rulesmigrated": { "message": "Reguli actualizate pentru compatibilitate" },
-  "errorupdatingrules": { "message": "Eroare la actualizarea regulilor" },
-  "erroraddingrule": { "message": "Eroare la adăugarea unei reguli" },
-  "errorremovingrule": { "message": "Eroare la eliminarea unei reguli" },
-  "optionsheader": { "message": "Setările extensiei" },
-  "optionsdescription": { "message": "Configurează comportamentul și setările de securitate ale extensiei" },
-  "securitymodetitle": { "message": "Mod de securitate" },
-  "normalmodetitle": { "message": "Mod normal" },
-  "normalmodedesc": { "message": "Regulile pot fi șterse imediat cu un singur clic" },
-  "strictmodetitle": { "message": "Mod strict" },
-  "strictmodedesc": { "message": "Regulile necesită o numărătoare inversă de 10 secunde înainte de ștergere pentru a preveni eliminarea accidentală" },
-  "confirmdeletetitle": { "message": "Confirmă înainte de a șterge mai multe reguli" },
-  "confirmdeletedesc": { "message": "Afișează dialogul de confirmare la ștergerea mai multor reguli simultan" },
-  "notificationstitle": { "message": "Afișează notificări" },
-  "notificationsdesc": { "message": "Afișează notificări când extensia este actualizată" },
-  "rulesmanagementtitle": { "message": "Gestionarea regulilor" },
-  "exportrulesbtn": { "message": "Exportă reguli" },
-  "importrulesbtn": { "message": "Importă reguli" },
-  "clearallrulesbtn": { "message": "Șterge toate regulile" },
-  "totalruleslabel": { "message": "Total reguli" },
-  "blockedtodaylabel": { "message": "Blocat astăzi" },
-  "totalblockedlabel": { "message": "Total blocat" },
-  "resetsettingsbtn": { "message": "Resetează la valorile implicite" },
-  "backtopopup": { "message": "Înapoi la meniul principal" },
-  "errorloadingsettings": { "message": "Eroare la încărcarea setărilor" },
-  "settingssaved": { "message": "Setările au fost salvate cu succes!" },
-  "errorsavingsettings": { "message": "Eroare la salvarea setărilor" },
-  "rulesexported": { "message": "Regulile au fost exportate cu succes!" },
-  "errorexportingrules": { "message": "Eroare la exportarea regulilor" },
+  "restrictedblockurl": {
+    "message": "Această resursă nu poate fi blocată."
+  },
+  "wrongblockurl": {
+    "message": "Adresă URL de blocare nevalidă"
+  },
+  "wrongredirecturl": {
+    "message": "URL de redirecționare invalid"
+  },
+  "blockthat": {
+    "message": "Blochează acest site"
+  },
+  "sendfeedbackbutton": {
+    "message": "Trimite feedback"
+  },
+  "sendfeedbacksubject": {
+    "message": "Feedback pentru BlockDistraction"
+  },
+  "sendfeedbackbody": {
+    "message": "Bună, aș dori să ofer următorul feedback:\n\n"
+  },
+  "quote1": {
+    "message": "Păstrează-ți concentrarea, rămâi puternic."
+  },
+  "quote2": {
+    "message": "Viitorul tău este creat de ceea ce faci astăzi."
+  },
+  "quote3": {
+    "message": "Disciplina este podul dintre obiective și realizări."
+  },
+  "quote4": {
+    "message": "Un site blocat, un pas mai aproape de obiectiv."
+  },
+  "quote5": {
+    "message": "Fă ca fiecare clic să conteze."
+  },
+  "quote6": {
+    "message": "Nu privi ceasul; fă ca el. Continuă."
+  },
+  "quote7": {
+    "message": "Pași mici zilnici duc la mari rezultate."
+  },
+  "quote8": {
+    "message": "Singura ta limită este mintea ta."
+  },
+  "quote9": {
+    "message": "Succesul este suma micilor eforturi repetate zilnic."
+  },
+  "quote10": {
+    "message": "Concentrează-te pe a fi productiv, nu doar ocupat."
+  },
+  "quote11": {
+    "message": "Proteje-ți atenția – este cel mai valoros activ al tău."
+  },
+  "quote12": {
+    "message": "Fiecare distragere blocată este timp câștigat."
+  },
+  "quote13": {
+    "message": "Redu zgomotul; crește-ți productivitatea."
+  },
+  "quote14": {
+    "message": "Rutinele mici construiesc un impuls de neoprit."
+  },
+  "quote15": {
+    "message": "Claritatea învinge haosul – concentrează-te pe ce contează."
+  },
+  "quote16": {
+    "message": "Spune nu distragerilor; spune da progresului."
+  },
+  "quote17": {
+    "message": "O oră concentrată astăzi îți multiplică rezultatele de mâine."
+  },
+  "quote18": {
+    "message": "Creează mai mult consumând mai puțin."
+  },
+  "quote19": {
+    "message": "Disciplina alege câștigurile pe termen lung în locul impulsurilor scurte."
+  },
+  "quote20": {
+    "message": "Închide un tab, deschide spațiu pentru idei noi."
+  },
+  "quote21": {
+    "message": "Munca pe care o eviți azi poate deveni stresul de mâine."
+  },
+  "quote22": {
+    "message": "Concentrarea nu înseamnă să faci mai mult, ci să faci ceea ce contează cu adevărat."
+  },
+  "quote23": {
+    "message": "Obiectivele tale merită mai multă atenție decât distragerile tale."
+  },
+  "quote24": {
+    "message": "Fiecare minut fără distrageri este o investiție în tine."
+  },
+  "quote25": {
+    "message": "Consecvența aduce rezultate mai durabile decât valurile scurte de motivație."
+  },
+  "quote26": {
+    "message": "Cel mai bun moment pentru a începe a fost ieri. Următorul cel mai bun este acum."
+  },
+  "quote27": {
+    "message": "Progresul începe atunci când alegi acțiunea în locul distragerilor."
+  },
+  "quote28": {
+    "message": "Un singur moment de concentrare îți poate schimba întreaga zi."
+  },
+  "quote29": {
+    "message": "Nu ai nevoie de mai mult timp, ci de mai puține distrageri."
+  },
+  "quote30": {
+    "message": "Fiecare alegere de a rămâne concentrat îți întărește sinele viitor."
+  },
+  "quote31": {
+    "message": "Această blocare este temporară; obiectivele tale sunt pe termen lung."
+  },
+  "quote32": {
+    "message": "Fiecare distragere blocată este o victorie pentru tine din viitor."
+  },
+  "quote33": {
+    "message": "Internetul este infinit, dar timpul tău nu."
+  },
+  "quote34": {
+    "message": "Stabilește-ți prioritățile înainte ca webul să o facă pentru tine."
+  },
+  "quote35": {
+    "message": "Mai puțin scroll, mai multă creație."
+  },
+  "quote36": {
+    "message": "Atenția ta îți modelează realizările."
+  },
+  "quote37": {
+    "message": "Rămâi concentrat — distragerea poate aștepta."
+  },
+  "quote38": {
+    "message": "Fiecare decizie productivă începe cu o minte concentrată."
+  },
+  "quote39": {
+    "message": "Ai blocat un site, nu potențialul tău."
+  },
+  "quote40": {
+    "message": "Drumul către succes este construit din decizii concentrate."
+  },
+  "actionsheader": {
+    "message": "Acțiuni"
+  },
+  "norules": {
+    "message": "Niciun site blocat."
+  },
+  "editbtn": {
+    "message": "Editează"
+  },
+  "ruleddeleted": {
+    "message": "Regula a fost ștearsă."
+  },
+  "cancelbtn": {
+    "message": "Anulează"
+  },
+  "ruleupdated": {
+    "message": "Regula a fost actualizată."
+  },
+  "rulenewadded": {
+    "message": "Regulă nouă adăugată."
+  },
+  "gotooptions": {
+    "message": "Mergi la pagina de opțiuni ⚙️"
+  },
+  "gotopopup": {
+    "message": "Faceți clic pe pictograma extensiei pentru a reveni la pop-up."
+  },
+  "rulesmigrated": {
+    "message": "Reguli actualizate pentru compatibilitate"
+  },
+  "errorupdatingrules": {
+    "message": "Eroare la actualizarea regulilor"
+  },
+  "erroraddingrule": {
+    "message": "Eroare la adăugarea unei reguli"
+  },
+  "errorremovingrule": {
+    "message": "Eroare la eliminarea unei reguli"
+  },
+  "optionsheader": {
+    "message": "Setările extensiei"
+  },
+  "optionsdescription": {
+    "message": "Configurează comportamentul și setările de securitate ale extensiei"
+  },
+  "securitymodetitle": {
+    "message": "Mod de securitate"
+  },
+  "normalmodetitle": {
+    "message": "Mod normal"
+  },
+  "normalmodedesc": {
+    "message": "Regulile pot fi șterse imediat cu un singur clic"
+  },
+  "strictmodetitle": {
+    "message": "Mod strict"
+  },
+  "strictmodedesc": {
+    "message": "Regulile necesită o numărătoare inversă de 10 secunde înainte de ștergere pentru a preveni eliminarea accidentală"
+  },
+  "confirmdeletetitle": {
+    "message": "Confirmă înainte de a șterge mai multe reguli"
+  },
+  "confirmdeletedesc": {
+    "message": "Afișează dialogul de confirmare la ștergerea mai multor reguli simultan"
+  },
+  "notificationstitle": {
+    "message": "Afișează notificări"
+  },
+  "notificationsdesc": {
+    "message": "Afișează notificări când extensia este actualizată"
+  },
+  "rulesmanagementtitle": {
+    "message": "Gestionarea regulilor"
+  },
+  "exportrulesbtn": {
+    "message": "Exportă reguli"
+  },
+  "importrulesbtn": {
+    "message": "Importă reguli"
+  },
+  "clearallrulesbtn": {
+    "message": "Șterge toate regulile"
+  },
+  "totalruleslabel": {
+    "message": "Total reguli"
+  },
+  "blockedtodaylabel": {
+    "message": "Blocat astăzi"
+  },
+  "totalblockedlabel": {
+    "message": "Total blocat"
+  },
+  "resetsettingsbtn": {
+    "message": "Resetează la valorile implicite"
+  },
+  "backtopopup": {
+    "message": "Înapoi la meniul principal"
+  },
+  "errorloadingsettings": {
+    "message": "Eroare la încărcarea setărilor"
+  },
+  "settingssaved": {
+    "message": "Setările au fost salvate cu succes!"
+  },
+  "errorsavingsettings": {
+    "message": "Eroare la salvarea setărilor"
+  },
+  "rulesexported": {
+    "message": "Regulile au fost exportate cu succes!"
+  },
+  "errorexportingrules": {
+    "message": "Eroare la exportarea regulilor"
+  },
   "willimportrules": {
     "message": "$ruleslength$ reguli vor fi importate.",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "ruleswillbereplaced": { "message": "Regulile curente vor fi înlocuite. Continuă?" },
+  "ruleswillbereplaced": {
+    "message": "Regulile curente vor fi înlocuite. Continuă?"
+  },
   "importedrules": {
     "message": "$ruleslength$ reguli importate cu succes!",
     "placeholders": {
-      "ruleslength": { "content": "$1", "example": "0" }
+      "ruleslength": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "errorimportingrules": { "message": "Eroare la importarea regulilor: " },
-  "norulestoclear": { "message": "Nu există reguli de șters" },
+  "errorimportingrules": {
+    "message": "Eroare la importarea regulilor: "
+  },
+  "norulestoclear": {
+    "message": "Nu există reguli de șters"
+  },
   "willdeleteallrules": {
     "message": "Acest lucru va șterge permanent toate cele $rulescount$ reguli.",
     "placeholders": {
-      "rulescount": { "content": "$1", "example": "0" }
+      "rulescount": {
+        "content": "$1",
+        "example": "0"
+      }
     }
   },
-  "cannotbeundone": { "message": "Această acțiune nu poate fi anulată. Continuă?" },
-  "allrulescleared": { "message": "Toate regulile au fost șterse cu succes!" },
-  "errorclearingrules": { "message": "Eroare la ștergerea regulilor" },
-  "willreset": { "message": "Toate setările vor fi resetate la valorile implicite. Continuă?" },
-  "resettodefaults": { "message": "Setările au fost resetate la valorile implicite!" },
-  "errorresettingsettings": { "message": "Eroare la resetarea setărilor" },
-  "basicsettingstitle": { "message": "Setări de bază" },
-  "advancedsettingstitle": { "message": "Setări avansate" },
-  "statisticstitle": { "message": "Statistici" },
+  "cannotbeundone": {
+    "message": "Această acțiune nu poate fi anulată. Continuă?"
+  },
+  "allrulescleared": {
+    "message": "Toate regulile au fost șterse cu succes!"
+  },
+  "errorclearingrules": {
+    "message": "Eroare la ștergerea regulilor"
+  },
+  "willreset": {
+    "message": "Toate setările vor fi resetate la valorile implicite. Continuă?"
+  },
+  "resettodefaults": {
+    "message": "Setările au fost resetate la valorile implicite!"
+  },
+  "errorresettingsettings": {
+    "message": "Eroare la resetarea setărilor"
+  },
+  "basicsettingstitle": {
+    "message": "Setări de bază"
+  },
+  "advancedsettingstitle": {
+    "message": "Setări avansate"
+  },
+  "statisticstitle": {
+    "message": "Statistici"
+  },
   "rulelimitreached": {
     "message": "Ați atins limita de reguli ($limit$) pentru versiunea de bază. Treceți la Pro pentru reguli nelimitate.",
     "placeholders": {
@@ -148,68 +383,192 @@
       }
     }
   },
-  "proonlyactions": { "message": "Pro necesar pentru editare." },
-  "invalidpassword": { "message": "Parolă invalidă" },
-  "setpassword": { "message": "Setați parola" },
-  "enterpassword": { "message": "Introduceți parola" },
-  "passwordmismatch": { "message": "Parolele nu se potrivesc" },
-  "passwordtooshort": { "message": "Parola trebuie să aibă cel puțin 6 caractere" },
-  "resetpasswordconfirm": { "message": "Resetarea parolei va dezactiva protecția. Continuați?" },
-  "passwordset": { "message": "Parola a fost setată cu succes" },
-  "passworddisabled": { "message": "Protecția prin parolă a fost dezactivată" },
-  "prorequired": { "message": "Modul Pro este necesar pentru această funcție" },
-  "enablepasswordtitle": { "message": "Activați protecția prin parolă" },
-  "enablepassworddesc": { "message": "Necesită o parolă pentru a șterge sau edita reguli (îmbunătățește modul strict)" },
-  "passwordprotectiontitle": { "message": "Protecție prin parolă" },
-  "scheduleheader": { "message": "Program" },
-  "enableschedule": { "message": "Activează programul" },
-  "alwaysactive": { "message": "Întotdeauna activ" },
-  "profeatureschedule": { "message": "Programul este disponibil în versiunea Pro" },
-  "days": { "message": "Zile" },
-  "starttime": { "message": "Ora de început:" },
-  "endtime": { "message": "Ora de sfârșit:" },
-  "invaliddays": { "message": "Zilele selectate nu sunt valide" },
-  "invalidtimeformat": { "message": "Format de oră invalid (folosește HH:MM)" },
-  "startafterend": { "message": "Ora de început trebuie să fie înainte de ora de sfârșit" },
-  "invalidschedule": { "message": "Program invalid: vă rugăm să selectați zile și ore." },
-  "invalidscheduledays": { "message": "Program invalid: selectați cel puțin o zi." },
-  "invalidschedulestarttime": { "message": "Program invalid: setați ora de început." },
-  "invalidscheduleendtime": { "message": "Program invalid: setați ora de sfârșit." },
-  "editdisablednonpro": { "message": "Editarea este dezactivată: prea multe reguli pentru utilizatorii non-Pro." },
-  "errorloadingstatus": { "message": "Eroare la încărcarea stării utilizatorului." },
-  "schedule_day_sun": { "message": "Dum" },
-  "schedule_day_mon": { "message": "Lun" },
-  "schedule_day_tue": { "message": "Mar" },
-  "schedule_day_wed": { "message": "Mie" },
-  "schedule_day_thu": { "message": "Joi" },
-  "schedule_day_fri": { "message": "Vin" },
-  "schedule_day_sat": { "message": "Sâm" },
-  "category_header": { "message": "Categorie" },
-  "category_required": { "message": "Categoria este obligatorie" },
-  "allcategories": { "message": "Toate categoriile" },
-  "category_social": { "message": "Rețele sociale" },
-  "category_news": { "message": "Știri" },
-  "category_entertainment": { "message": "Divertisment" },
-  "category_shopping": { "message": "Cumpărături" },
-  "category_work": { "message": "Muncă" },
-  "category_gaming": { "message": "Jocuri" },
-  "category_adult": { "message": "Conținut pentru adulți" },
-  "category_uncategorized": { "message": "Necategorizat" },
-  "searchfordomain": { "message": "Caută nume de domeniu" },
-  "norulesforcategory": { "message": "Nu există site-uri blocate pentru această categorie." },
-  "getpro": { "message": "Obține Pro" },
-  "profunctionstext": { "message": "Funcțiile Pro includ: blocare programată, protecție prin parolă, filtrarea regulilor și export/import de reguli. Bucurați-vă de Licența Universală: un singur abonament deblochează Pro pe toate browserele dvs. (Chrome, Firefox, Edge, Kiwi). Pentru a activa, achiziționați un abonament pe blockdistraction.com, apoi copiați cheia de licență din panoul contului și lipiți-o mai jos." },
-  "upgradenow": { "message": "Actualizează acum" },
-  "enteremail": { "message": "Introdu adresa ta de e-mail" },
-  "activatepro": { "message": "Activează Pro" },
-  "errormessage": { "message": "" },
-  "restoreaccess": { "message": "Restaurează accesul" },
-  "pleaseenteremail": { "message": "Te rugăm să introduci adresa ta de e-mail" },
-  "checking": { "message": "Se verifică..." },
-  "proactivated": { "message": "Funcțiile Pro au fost activate!" },
-  "subscriptionnotfound": { "message": "Abonament inactiv sau e-mailul nu a fost găsit." },
-  "servererror": { "message": "Eroare de server. Te rugăm să încerci din nou." },
-  "proactivatedfor": { "message": "Pro activat pentru" },
+  "proonlyactions": {
+    "message": "Pro necesar pentru editare."
+  },
+  "invalidpassword": {
+    "message": "Parolă invalidă"
+  },
+  "setpassword": {
+    "message": "Setați parola"
+  },
+  "enterpassword": {
+    "message": "Introduceți parola"
+  },
+  "passwordmismatch": {
+    "message": "Parolele nu se potrivesc"
+  },
+  "passwordtooshort": {
+    "message": "Parola trebuie să aibă cel puțin 6 caractere"
+  },
+  "resetpasswordconfirm": {
+    "message": "Resetarea parolei va dezactiva protecția. Continuați?"
+  },
+  "passwordset": {
+    "message": "Parola a fost setată cu succes"
+  },
+  "passworddisabled": {
+    "message": "Protecția prin parolă a fost dezactivată"
+  },
+  "prorequired": {
+    "message": "Modul Pro este necesar pentru această funcție"
+  },
+  "enablepasswordtitle": {
+    "message": "Activați protecția prin parolă"
+  },
+  "enablepassworddesc": {
+    "message": "Necesită o parolă pentru a șterge sau edita reguli (îmbunătățește modul strict)"
+  },
+  "passwordprotectiontitle": {
+    "message": "Protecție prin parolă"
+  },
+  "scheduleheader": {
+    "message": "Program"
+  },
+  "enableschedule": {
+    "message": "Activează programul"
+  },
+  "alwaysactive": {
+    "message": "Întotdeauna activ"
+  },
+  "profeatureschedule": {
+    "message": "Programul este disponibil în versiunea Pro"
+  },
+  "days": {
+    "message": "Zile"
+  },
+  "starttime": {
+    "message": "Ora de început:"
+  },
+  "endtime": {
+    "message": "Ora de sfârșit:"
+  },
+  "invaliddays": {
+    "message": "Zilele selectate nu sunt valide"
+  },
+  "invalidtimeformat": {
+    "message": "Format de oră invalid (folosește HH:MM)"
+  },
+  "startafterend": {
+    "message": "Ora de început trebuie să fie înainte de ora de sfârșit"
+  },
+  "invalidschedule": {
+    "message": "Program invalid: vă rugăm să selectați zile și ore."
+  },
+  "invalidscheduledays": {
+    "message": "Program invalid: selectați cel puțin o zi."
+  },
+  "invalidschedulestarttime": {
+    "message": "Program invalid: setați ora de început."
+  },
+  "invalidscheduleendtime": {
+    "message": "Program invalid: setați ora de sfârșit."
+  },
+  "editdisablednonpro": {
+    "message": "Editarea este dezactivată: prea multe reguli pentru utilizatorii non-Pro."
+  },
+  "errorloadingstatus": {
+    "message": "Eroare la încărcarea stării utilizatorului."
+  },
+  "schedule_day_sun": {
+    "message": "Dum"
+  },
+  "schedule_day_mon": {
+    "message": "Lun"
+  },
+  "schedule_day_tue": {
+    "message": "Mar"
+  },
+  "schedule_day_wed": {
+    "message": "Mie"
+  },
+  "schedule_day_thu": {
+    "message": "Joi"
+  },
+  "schedule_day_fri": {
+    "message": "Vin"
+  },
+  "schedule_day_sat": {
+    "message": "Sâm"
+  },
+  "category_header": {
+    "message": "Categorie"
+  },
+  "category_required": {
+    "message": "Categoria este obligatorie"
+  },
+  "allcategories": {
+    "message": "Toate categoriile"
+  },
+  "category_social": {
+    "message": "Rețele sociale"
+  },
+  "category_news": {
+    "message": "Știri"
+  },
+  "category_entertainment": {
+    "message": "Divertisment"
+  },
+  "category_shopping": {
+    "message": "Cumpărături"
+  },
+  "category_work": {
+    "message": "Muncă"
+  },
+  "category_gaming": {
+    "message": "Jocuri"
+  },
+  "category_adult": {
+    "message": "Conținut pentru adulți"
+  },
+  "category_uncategorized": {
+    "message": "Necategorizat"
+  },
+  "searchfordomain": {
+    "message": "Caută nume de domeniu"
+  },
+  "norulesforcategory": {
+    "message": "Nu există site-uri blocate pentru această categorie."
+  },
+  "getpro": {
+    "message": "Obține Pro"
+  },
+  "profunctionstext": {
+    "message": "Funcțiile Pro includ: blocare programată, protecție prin parolă, filtrarea regulilor și export/import de reguli. Bucurați-vă de Licența Universală: un singur abonament deblochează Pro pe toate browserele dvs. (Chrome, Firefox, Edge, Kiwi). Pentru a activa, achiziționați un abonament pe blockdistraction.com, apoi copiați cheia de licență din panoul contului și lipiți-o mai jos."
+  },
+  "upgradenow": {
+    "message": "Actualizează acum"
+  },
+  "enteremail": {
+    "message": "Introdu adresa ta de e-mail"
+  },
+  "activatepro": {
+    "message": "Activează Pro"
+  },
+  "errormessage": {
+    "message": ""
+  },
+  "restoreaccess": {
+    "message": "Restaurează accesul"
+  },
+  "pleaseenteremail": {
+    "message": "Te rugăm să introduci adresa ta de e-mail"
+  },
+  "checking": {
+    "message": "Se verifică..."
+  },
+  "proactivated": {
+    "message": "Funcțiile Pro au fost activate!"
+  },
+  "subscriptionnotfound": {
+    "message": "Abonament inactiv sau e-mailul nu a fost găsit."
+  },
+  "servererror": {
+    "message": "Eroare de server. Te rugăm să încerci din nou."
+  },
+  "proactivatedfor": {
+    "message": "Pro activat pentru"
+  },
   "appName": {
     "message": "BlockDistraction"
   },
@@ -246,71 +605,229 @@
   "onboarding_status_api_error": {
     "message": "Cererea de permisiune a eșuat (acest lucru se poate întâmpla pe mobil). Încercați din nou sau acordați permisiunea manual din setări."
   },
-  "pastekeylabel": { "message": "Lipește cheia ta de licență aici:" },
-  "confirmclearstats": { "message": "Ești sigur că vrei să ștergi toate statisticile? Această acțiune nu poate fi anulată." },
-  "statscleared": { "message": "Statisticile au fost șterse cu succes." },
-  "redirectstodaylabel": { "message": "Redirecționări astăzi" },
-  "totalredirectslabel": { "message": "Total redirecționări" },
-  "logout": { "message": "Deconectare" },
-  "loggedoutsuccess": { "message": "Te-ai deconectat cu succes." },
-  "loggedouterror": { "message": "A apărut o eroare la deconectare." },
-  "forcesync": { "message": "Forțează sincronizarea / Verifică starea" },
-  "forgotpasswordinstructions": { "message": "Pentru a reseta parola, mergi la secțiunea 'Pro', apasă 'Deconectare', apoi reactivează lipind cheia ta de licență." },
-  "blockedtitle": { "message": "Site indisponibil" },
-  "blockedheader": { "message": "Acest site nu este disponibil în acest moment" },
-  "blockedtext": { "message": "Acest conținut nu poate fi afișat." },
-  "blockedbutton": { "message": "Închide fila" },
-  "confirmpassword": { "message": "Confirmă parola" },
-  "modalconfirm": { "message": "Confirmă" },
-  "modalcancel": { "message": "Anulează" },
-  "forgotpassword": { "message": "Ai uitat parola? Resetează (va elimina protecția)" },
-  "prounlocked": { "message": "Mulțumim pentru suport! Toate funcțiile Pro sunt deblocate." },
-  "licensesynced": { "message": "Licența ta este sincronizată cu contul tău. Dacă pierzi accesul, îți poți recupera cheia de la: " },
-  "syncing": { "message": "Se sincronizează..." },
-  "pleaseenterkey": { "message": "Vă rugăm să introduceți o cheie." },
-  "syncsuccess": { "message": "Sincronizare reușită" },
-  "syncfailed": { "message": "Sincronizarea a eșuat." },
-  "passwordreset": { "message": "Protecția prin parolă a fost resetată." },
-  "privacysecured": { "message": "Confidențialitatea este asigurată" },
-  "errorinvalidfiletype": { "message": "Vă rugăm să selectați un fișier .json" },
-  "debugsettingstitle": { "message": "Setări de depanare" },
-  "enabledebugtitle": { "message": "Activează modul de depanare" },
-  "enabledebugdesc": { "message": "Activează logare detaliată în consolă pentru depanare" },
-  "errorcommunication": { "message": "Eroare la comunicarea cu serviciul de fundal" },
-  "clearstats": { "message": "Șterge statisticile" },
-  "rule_enabled": { "message": "Activat" },
-  "rule_disabled": { "message": "Dezactivat" },
-  "filter_only_hint": { "message": "Această listă filtrează doar afișarea din tabel" },
-  "category_disabled_desc": { "message": "Mutați o categorie pentru a permite temporar accesul la toate site-urile acesteia. Setările regulilor individuale sunt păstrate." },
-  "toggle_category_blocking": { "message": "Activați sau dezactivați blocarea pentru întreaga categorie" },
-  "category_muted_no_edit": { "message": "Nu se poate gestiona: blocarea categoriei este întreruptă" },
-  "feedback_title": { "message": "Îți place BlockDistraction?" },
-  "feedback_desc": { "message": "Feedback-ul tău ne ajută foarte mult să îmbunătățim extensia." },
-  "feedback_like": { "message": "Da, funcționează foarte bine!" },
-  "feedback_dislike": { "message": "Am probleme / sugestii" },
-  "trialproheader": { "message": "Încearcă 7 zile gratuit" },
-  "trialprotext": { "message": "Poți anula în orice moment. Plăți sigure." },
-  "focussessionheader": { "message": "Sesiune de focus" },
-  "focussessionstart": { "message": "Pornește" },
-  "focussessionstop": { "message": "Oprește" },
-  "focussessionduration": { "message": "Durată (min):" },
-  "focussessioninfo": { "message": "Activează toate regulile tale de blocare pentru un timp setat, ignorând setările și programările lor actuale. Pentru concentrare maximă." },
-  "focussessionprofeature": { "message": "Durata personalizată și modul Hardcore sunt funcții Pro." },
-  "focussessionended": { "message": "Sesiunea de focus s-a încheiat! Ia o pauză." },
-  "focussessionhardcore": { "message": "Modul Hardcore (fără butonul 'Oprește')" },
-  "focussessionsoundtitle": { "message": "Notificare sonoră sesiune de focus" },
-  "focussessionsounddesc": { "message": "Redă un sunet atunci când sesiunea de focus se termină." },
-  "focussessionactivebanner": { "message": "Sesiune de focus activă! Timp rămas:" },
-  "focussessioninvalidduration": { "message": "Te rugăm să introduci o durată validă (1-240 minute)." },
-  "successfulfocussessionslabel": { "message": "Sesiuni de focus reușite" },
-  "rule_scheduled": { "message": "Regulă programată" },
-  "addwhitelistrule": { "message": "Adaugă excepție" },
-  "category_whitelist": { "message": "Lista albă" },
-  "conflict_blacklist_err": { "message": "Acest site este deja în lista ta neagră. Elimină-l mai întâi." },
-  "conflict_whitelist_err": { "message": "Acest site este deja în lista ta albă. Elimină-l mai întâi." },
-  "status_allow": { "message": "Permis" },
-  "redundant_whitelist_err": { "message": "Această regulă este deja acoperită de o altă regulă din lista albă." },
-  "focussessionmode": { "message": "Mod focalizare:" },
-  "focusmodeblacklist": { "message": "Blochează lista neagră" },
-  "focusmodewhitelist": { "message": "Permite doar lista albă" }
+  "pastekeylabel": {
+    "message": "Lipește cheia ta de licență aici:"
+  },
+  "confirmclearstats": {
+    "message": "Ești sigur că vrei să ștergi toate statisticile? Această acțiune nu poate fi anulată."
+  },
+  "statscleared": {
+    "message": "Statisticile au fost șterse cu succes."
+  },
+  "redirectstodaylabel": {
+    "message": "Redirecționări astăzi"
+  },
+  "totalredirectslabel": {
+    "message": "Total redirecționări"
+  },
+  "logout": {
+    "message": "Deconectare"
+  },
+  "loggedoutsuccess": {
+    "message": "Te-ai deconectat cu succes."
+  },
+  "loggedouterror": {
+    "message": "A apărut o eroare la deconectare."
+  },
+  "forcesync": {
+    "message": "Forțează sincronizarea / Verifică starea"
+  },
+  "forgotpasswordinstructions": {
+    "message": "Pentru a reseta parola, mergi la secțiunea 'Pro', apasă 'Deconectare', apoi reactivează lipind cheia ta de licență."
+  },
+  "blockedtitle": {
+    "message": "Site indisponibil"
+  },
+  "blockedheader": {
+    "message": "Acest site nu este disponibil în acest moment"
+  },
+  "blockedtext": {
+    "message": "Acest conținut nu poate fi afișat."
+  },
+  "blockedbutton": {
+    "message": "Închide fila"
+  },
+  "confirmpassword": {
+    "message": "Confirmă parola"
+  },
+  "modalconfirm": {
+    "message": "Confirmă"
+  },
+  "modalcancel": {
+    "message": "Anulează"
+  },
+  "forgotpassword": {
+    "message": "Ai uitat parola? Resetează (va elimina protecția)"
+  },
+  "prounlocked": {
+    "message": "Mulțumim pentru suport! Toate funcțiile Pro sunt deblocate."
+  },
+  "licensesynced": {
+    "message": "Licența ta este sincronizată cu contul tău. Dacă pierzi accesul, îți poți recupera cheia de la: "
+  },
+  "syncing": {
+    "message": "Se sincronizează..."
+  },
+  "pleaseenterkey": {
+    "message": "Vă rugăm să introduceți o cheie."
+  },
+  "syncsuccess": {
+    "message": "Sincronizare reușită"
+  },
+  "syncfailed": {
+    "message": "Sincronizarea a eșuat."
+  },
+  "passwordreset": {
+    "message": "Protecția prin parolă a fost resetată."
+  },
+  "privacysecured": {
+    "message": "Confidențialitatea este asigurată"
+  },
+  "errorinvalidfiletype": {
+    "message": "Vă rugăm să selectați un fișier .json"
+  },
+  "debugsettingstitle": {
+    "message": "Setări de depanare"
+  },
+  "enabledebugtitle": {
+    "message": "Activează modul de depanare"
+  },
+  "enabledebugdesc": {
+    "message": "Activează logare detaliată în consolă pentru depanare"
+  },
+  "errorcommunication": {
+    "message": "Eroare la comunicarea cu serviciul de fundal"
+  },
+  "clearstats": {
+    "message": "Șterge statisticile"
+  },
+  "rule_enabled": {
+    "message": "Activat"
+  },
+  "rule_disabled": {
+    "message": "Dezactivat"
+  },
+  "filter_only_hint": {
+    "message": "Această listă filtrează doar afișarea din tabel"
+  },
+  "category_disabled_desc": {
+    "message": "Mutați o categorie pentru a permite temporar accesul la toate site-urile acesteia. Setările regulilor individuale sunt păstrate."
+  },
+  "toggle_category_blocking": {
+    "message": "Activați sau dezactivați blocarea pentru întreaga categorie"
+  },
+  "category_muted_no_edit": {
+    "message": "Nu se poate gestiona: blocarea categoriei este întreruptă"
+  },
+  "feedback_title": {
+    "message": "Îți place BlockDistraction?"
+  },
+  "feedback_desc": {
+    "message": "Feedback-ul tău ne ajută foarte mult să îmbunătățim extensia."
+  },
+  "feedback_like": {
+    "message": "Da, funcționează foarte bine!"
+  },
+  "feedback_dislike": {
+    "message": "Am probleme / sugestii"
+  },
+  "trialproheader": {
+    "message": "Încearcă 7 zile gratuit"
+  },
+  "trialprotext": {
+    "message": "Poți anula în orice moment. Plăți sigure."
+  },
+  "focussessionheader": {
+    "message": "Sesiune de focus"
+  },
+  "focussessionstart": {
+    "message": "Pornește"
+  },
+  "focussessionstop": {
+    "message": "Oprește"
+  },
+  "focussessionduration": {
+    "message": "Durată (min):"
+  },
+  "focussessioninfo": {
+    "message": "Activează toate regulile tale de blocare pentru un timp setat, ignorând setările și programările lor actuale. Pentru concentrare maximă."
+  },
+  "focussessionprofeature": {
+    "message": "Durata personalizată și modul Hardcore sunt funcții Pro."
+  },
+  "focussessionended": {
+    "message": "Sesiunea de focus s-a încheiat! Ia o pauză."
+  },
+  "focussessionhardcore": {
+    "message": "Modul Hardcore (fără butonul 'Oprește')"
+  },
+  "focussessionsoundtitle": {
+    "message": "Notificare sonoră sesiune de focus"
+  },
+  "focussessionsounddesc": {
+    "message": "Redă un sunet atunci când sesiunea de focus se termină."
+  },
+  "focussessionactivebanner": {
+    "message": "Sesiune de focus activă! Timp rămas:"
+  },
+  "focussessioninvalidduration": {
+    "message": "Te rugăm să introduci o durată validă (1-240 minute)."
+  },
+  "successfulfocussessionslabel": {
+    "message": "Sesiuni de focus reușite"
+  },
+  "rule_scheduled": {
+    "message": "Regulă programată"
+  },
+  "addwhitelistrule": {
+    "message": "Adaugă excepție"
+  },
+  "category_whitelist": {
+    "message": "Lista albă"
+  },
+  "conflict_blacklist_err": {
+    "message": "Acest site este deja în lista ta neagră. Elimină-l mai întâi."
+  },
+  "conflict_whitelist_err": {
+    "message": "Acest site este deja în lista ta albă. Elimină-l mai întâi."
+  },
+  "status_allow": {
+    "message": "Permis"
+  },
+  "redundant_whitelist_err": {
+    "message": "Această regulă este deja acoperită de o altă regulă din lista albă."
+  },
+  "focussessionmode": {
+    "message": "Mod focalizare:"
+  },
+  "focusmodeblacklist": {
+    "message": "Blochează lista neagră"
+  },
+  "focusmodewhitelist": {
+    "message": "Permite doar lista albă"
+  },
+  "schedule_edit": {
+    "message": "Editează programul"
+  },
+  "schedule_add_period": {
+    "message": "Adaugă grup de timp"
+  },
+  "schedule_remove_period": {
+    "message": "Elimină"
+  },
+  "schedule_period": {
+    "message": "Grup de timp"
+  },
+  "schedule_every_day": {
+    "message": "În fiecare zi"
+  },
+  "schedule_weekdays": {
+    "message": "Zile lucrătoare"
+  },
+  "schedule_weekends": {
+    "message": "Weekenduri"
+  },
+  "schedule_day_overlap": {
+    "message": "Fiecare zi poate fi folosită o singură dată."
+  }
 }
