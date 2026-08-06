@@ -33,9 +33,10 @@ export class ScheduleEditor {
     this.logger = logger;
     this.formatter = new ScheduleFormatter();
     this.scheduleState = new WeakMap();
+    this.activeDialogClose = null;
   }
 
-  createSection(existingSchedule, enableSchedule) {
+  createSection(existingSchedule, enableSchedule, { dialogHost = null } = {}) {
     const section = document.createElement('div');
     section.className = `schedule-section ${enableSchedule ? 'pro-feature' : 'non-pro'}`;
 
@@ -96,7 +97,7 @@ export class ScheduleEditor {
         this.scheduleState.set(section, updatedSchedule);
         enableCheckbox.checked = true;
         updateSection();
-      });
+      }, { dialogHost });
     });
 
     updateSection();
@@ -110,7 +111,7 @@ export class ScheduleEditor {
   }
 
   getSchedule(section) {
-    if (!section || section.nodeType === Node.TEXT_NODE) {
+    if (!section || section.nodeType === 3) {
       return null;
     }
 
@@ -119,7 +120,12 @@ export class ScheduleEditor {
       return null;
     }
 
-    const schedule = this.scheduleState.get(section);
+    let schedule = this.scheduleState.get(section);
+    if (!schedule) {
+      schedule = createDefaultSchedule();
+      this.scheduleState.set(section, schedule);
+    }
+
     const validation = validateSchedule(schedule);
 
     if (!validation.isValid) {
@@ -129,7 +135,16 @@ export class ScheduleEditor {
     return cloneSchedule(schedule);
   }
 
-  openDialog(initialSchedule, onSave) {
+  isDialogOpen() {
+    return typeof this.activeDialogClose === 'function';
+  }
+
+  closeDialog() {
+    this.activeDialogClose?.();
+  }
+
+  openDialog(initialSchedule, onSave, { dialogHost = null } = {}) {
+    this.closeDialog();
     let draft = cloneSchedule(initialSchedule);
 
     const backdrop = document.createElement('div');
@@ -293,13 +308,24 @@ export class ScheduleEditor {
       render();
     });
 
+    let closed = false;
     const close = () => {
+      if (closed) return;
+      closed = true;
       document.removeEventListener('keydown', onKeyDown);
       backdrop.remove();
+      if (this.activeDialogClose === close) {
+        this.activeDialogClose = null;
+      }
     };
 
+    this.activeDialogClose = close;
+
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') close();
+      if (event.key !== 'Escape') return;
+      event.preventDefault?.();
+      event.stopPropagation?.();
+      close();
     };
 
     cancelButton.addEventListener('click', close);
@@ -322,7 +348,8 @@ export class ScheduleEditor {
     });
 
     document.addEventListener('keydown', onKeyDown);
-    document.body.appendChild(backdrop);
+    const mountTarget = dialogHost?.appendChild ? dialogHost : document.body;
+    mountTarget.appendChild(backdrop);
     render();
 
     periodsContainer.querySelector('input')?.focus();

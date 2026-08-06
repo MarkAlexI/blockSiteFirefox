@@ -102,13 +102,24 @@ function createHarness({ resultFactory, schedule = null } = {}) {
   elements.status.classList.add('hidden');
   const additions = [];
   const scheduleSection = new FakeElement('div');
+  const scheduleCreateCalls = [];
+  let scheduleDialogOpen = false;
+  let scheduleCloseCalls = 0;
   const scheduleEditor = {
-    createSection() {
+    createSection(existingSchedule, enableSchedule, options) {
+      scheduleCreateCalls.push({ existingSchedule, enableSchedule, options });
       return scheduleSection;
     },
     getSchedule(section) {
       assert.equal(section, scheduleSection);
       return schedule;
+    },
+    isDialogOpen() {
+      return scheduleDialogOpen;
+    },
+    closeDialog() {
+      scheduleCloseCalls++;
+      scheduleDialogOpen = false;
     }
   };
 
@@ -155,12 +166,48 @@ function createHarness({ resultFactory, schedule = null } = {}) {
     ui,
     elements,
     additions,
+    scheduleCreateCalls,
+    setScheduleDialogOpen(value) {
+      scheduleDialogOpen = value;
+    },
+    getScheduleCloseCalls() {
+      return scheduleCloseCalls;
+    },
     restore() {
       globalThis.document = previousDocument;
       globalThis.browser = previousChrome;
     }
   };
 }
+
+
+test('rule pack schedule editor is hosted inside the Rule Packs modal', () => {
+  const harness = createHarness();
+
+  try {
+    const latestCall = harness.scheduleCreateCalls.at(-1);
+    assert.equal(latestCall.existingSchedule, null);
+    assert.equal(latestCall.enableSchedule, true);
+    assert.equal(latestCall.options.dialogHost, harness.elements.dialog);
+  } finally {
+    harness.restore();
+  }
+});
+
+test('Escape closes the nested schedule editor before the Rule Packs modal', () => {
+  const harness = createHarness();
+
+  try {
+    harness.elements.dialog.open = true;
+    harness.setScheduleDialogOpen(true);
+    harness.elements.dialog.dispatch('cancel');
+
+    assert.equal(harness.getScheduleCloseCalls() > 0, true);
+    assert.equal(harness.elements.dialog.open, true);
+  } finally {
+    harness.restore();
+  }
+});
 
 test('rule pack UI previews all entries and keeps selection explicit', () => {
   const harness = createHarness();

@@ -51,6 +51,10 @@ export class RulePacksUI {
     this.addButton?.addEventListener('click', () => this.addSelected());
     this.dialog.addEventListener('cancel', event => {
       event.preventDefault();
+      if (this.scheduleEditor?.isDialogOpen?.()) {
+        this.scheduleEditor.closeDialog();
+        return;
+      }
       this.close();
     });
   }
@@ -73,7 +77,10 @@ export class RulePacksUI {
   resetScheduleSection() {
     if (!this.scheduleContainer || !this.scheduleEditor) return;
 
-    this.scheduleSection = this.scheduleEditor.createSection(null, true);
+    this.scheduleEditor.closeDialog?.();
+    this.scheduleSection = this.scheduleEditor.createSection(null, true, {
+      dialogHost: this.dialog
+    });
     this.scheduleSection.classList?.add('rule-packs-shared-schedule');
     this.scheduleContainer.replaceChildren(this.scheduleSection);
   }
@@ -156,6 +163,7 @@ export class RulePacksUI {
   }
 
   close() {
+    this.scheduleEditor?.closeDialog?.();
     if (this.dialog.open) this.dialog.close();
   }
 

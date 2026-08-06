@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.6.1] - 2026-08-06
+### Fixed
+- Opened the shared Rule Pack schedule editor above the existing Rule Packs modal instead of behind it.
+- Closed and removed an unfinished nested schedule editor when the Rule Packs dialog is cancelled or closed.
+- Applied the default weekday schedule when scheduling is enabled without opening the editor, preventing newly imported rules from receiving `null` schedules.
+- Kept Escape scoped to the nested schedule editor before allowing it to close the Rule Packs dialog.
+- Added regression tests for nested modal hosting, cleanup, and default shared schedule retrieval.
+
 ## [4.6.0] - 2026-08-06
 ### Added
 - Added an optional shared schedule to the Rule Packs import dialog.
