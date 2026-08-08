@@ -222,7 +222,7 @@ export class SettingsManager {
   }
   
   setupEventListeners() {
-    const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword):not(#focusSessionSound)');
+    const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword):not(#focusSessionSound):not(#telemetryConsent)');
     
     inputs.forEach(input => {
       input.addEventListener('change', async (e) => {

@@ -5,11 +5,27 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v4.7.1-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v4.8.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
 An extension that will block or redirect requests in browser used `declarativeNetRequest` for generating dynamic rules.
+
+## Development checks
+
+The repository uses only the built-in Node.js test runner and standard-library tools. No dependency installation is required.
+
+```bash
+npm test
+npm run validate
+npm run check
+```
+
+- `npm test` runs the unit and service-worker smoke tests.
+- `npm run validate` checks JavaScript syntax, JSON files, manifest references, version consistency, and English localization keys referenced by the code.
+- `npm run check` runs the complete pre-release verification.
+
+Node.js 20 or newer is required.
 
 ## Installation
 

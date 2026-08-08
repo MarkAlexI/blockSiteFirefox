@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Vymazat historii diagnostiky? Tuto akci nelze vrátit zpět."
+  },
+  "privacysettingstitle": {
+    "message": "Soukromí a technická data"
+  },
+  "telemetryconsenttitle": {
+    "message": "Sdílet technickou analytiku a hlášení chyb"
+  },
+  "telemetryconsentdesc": {
+    "message": "Odesílat omezené počty použití funkcí, údaje o prohlížeči/verzi a bezpečné kódy chyb pro zlepšení spolehlivosti BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Nikdy se neodesílá historie prohlížení, blokované weby, adresy pravidel, URL přesměrování, e-mail, licenční klíč ani hesla. Nepoužívá se žádný trvalý telemetrický identifikátor. Kdykoli to můžete vypnout."
+  },
+  "telemetryenabled": {
+    "message": "Sdílení technických dat je zapnuto."
+  },
+  "telemetrydisabled": {
+    "message": "Sdílení technických dat je vypnuto. Čekající telemetrická data byla odstraněna."
+  },
+  "telemetryerror": {
+    "message": "Sdílení technických dat se nepodařilo aktualizovat."
   }
 }

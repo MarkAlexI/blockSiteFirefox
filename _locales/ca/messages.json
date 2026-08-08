@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Vols esborrar l’historial de diagnòstic? Aquesta acció no es pot desfer."
+  },
+  "privacysettingstitle": {
+    "message": "Privadesa i dades tècniques"
+  },
+  "telemetryconsenttitle": {
+    "message": "Comparteix analítica tècnica i informes d’errors"
+  },
+  "telemetryconsentdesc": {
+    "message": "Envia recomptes limitats d’ús de funcions, dades del navegador/versió i codis d’error respectuosos amb la privadesa per ajudar a millorar la fiabilitat de BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Mai no s’envien l’historial de navegació, els llocs bloquejats, les adreces de regles, els URL de redirecció, el correu electrònic, la clau de llicència ni les contrasenyes. No s’utilitza cap identificador de telemetria persistent. Ho pots desactivar en qualsevol moment."
+  },
+  "telemetryenabled": {
+    "message": "S’ha activat l’ús compartit de dades tècniques."
+  },
+  "telemetrydisabled": {
+    "message": "S’ha desactivat l’ús compartit de dades tècniques. S’han esborrat les dades de telemetria pendents."
+  },
+  "telemetryerror": {
+    "message": "No s’ha pogut actualitzar l’ús compartit de dades tècniques."
   }
 }

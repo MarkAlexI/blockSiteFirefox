@@ -201,6 +201,26 @@
         </div>
       </section>
       
+      <section id="privacy-settings" class="setting-section collapsible-section">
+        <h2 data-i18n="privacysettingstitle" class="collapsible-header">Privacy & Technical Data</h2>
+        <div class="collapsible-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="telemetryConsent" data-i18n="telemetryconsenttitle">Share technical analytics and error reports</label>
+              <span class="setting-description" data-i18n="telemetryconsentdesc">Send limited feature-use counters, browser/version details, and privacy-safe error codes to help improve BlockDistraction reliability.</span>
+              <span class="diagnostics-notice telemetry-privacy-notice" data-i18n="telemetryprivacynotice">Never includes browsing history, blocked websites, rule addresses, redirect URLs, email, license key, or passwords. No persistent telemetry identifier is sent. You can turn this off at any time.</span>
+              <p id="telemetry-status" class="diagnostics-status hidden" aria-live="polite"></p>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="telemetryConsent" class="toggle-input">
+              <label for="telemetryConsent" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       <section class="setting-section collapsible-section">
         <h2 data-i18n="diagnosticstitle" class="collapsible-header">Diagnostics</h2>
         <div class="collapsible-content">

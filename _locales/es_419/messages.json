@@ -984,5 +984,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "¿Borrar el historial de diagnóstico? Esta acción no se puede deshacer."
+  },
+  "privacysettingstitle": {
+    "message": "Privacidad y datos técnicos"
+  },
+  "telemetryconsenttitle": {
+    "message": "Compartir analíticas técnicas e informes de errores"
+  },
+  "telemetryconsentdesc": {
+    "message": "Envía conteos limitados de uso de funciones, datos del navegador/versión y códigos de error respetuosos con la privacidad para mejorar la confiabilidad de BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Nunca se envían el historial de navegación, los sitios bloqueados, las direcciones de reglas, las URL de redirección, el correo electrónico, la clave de licencia ni las contraseñas. No se usa un identificador de telemetría persistente. Puedes desactivarlo en cualquier momento."
+  },
+  "telemetryenabled": {
+    "message": "El uso compartido de datos técnicos está activado."
+  },
+  "telemetrydisabled": {
+    "message": "El uso compartido de datos técnicos está desactivado. Se borraron los datos de telemetría pendientes."
+  },
+  "telemetryerror": {
+    "message": "No se pudo actualizar el uso compartido de datos técnicos."
   }
 }

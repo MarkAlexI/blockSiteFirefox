@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "清除诊断历史记录？此操作无法撤销。"
+  },
+  "privacysettingstitle": {
+    "message": "隐私与技术数据"
+  },
+  "telemetryconsenttitle": {
+    "message": "共享技术分析和错误报告"
+  },
+  "telemetryconsentdesc": {
+    "message": "发送有限的功能使用计数、浏览器/版本信息和保护隐私的错误代码，以帮助提高 BlockDistraction 的可靠性。"
+  },
+  "telemetryprivacynotice": {
+    "message": "绝不会发送浏览历史、被屏蔽的网站、规则地址、重定向 URL、电子邮件、许可证密钥或密码。不会使用永久遥测 ID。你可以随时关闭此选项。"
+  },
+  "telemetryenabled": {
+    "message": "已启用技术数据共享。"
+  },
+  "telemetrydisabled": {
+    "message": "已关闭技术数据共享，并清除了待发送的遥测数据。"
+  },
+  "telemetryerror": {
+    "message": "无法更新技术数据共享设置。"
   }
 }

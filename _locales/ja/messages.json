@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "診断履歴を消去しますか？この操作は元に戻せません。"
+  },
+  "privacysettingstitle": {
+    "message": "プライバシーと技術データ"
+  },
+  "telemetryconsenttitle": {
+    "message": "技術分析とエラー報告を共有する"
+  },
+  "telemetryconsentdesc": {
+    "message": "BlockDistraction の信頼性向上のため、限定的な機能利用回数、ブラウザ/バージョン情報、プライバシーに配慮したエラーコードを送信します。"
+  },
+  "telemetryprivacynotice": {
+    "message": "閲覧履歴、ブロックしたサイト、ルールのアドレス、リダイレクト URL、メール、ライセンスキー、パスワードは送信されません。永続的なテレメトリ ID も使用しません。いつでもオフにできます。"
+  },
+  "telemetryenabled": {
+    "message": "技術データの共有を有効にしました。"
+  },
+  "telemetrydisabled": {
+    "message": "技術データの共有を無効にしました。保留中のテレメトリデータを削除しました。"
+  },
+  "telemetryerror": {
+    "message": "技術データ共有の設定を更新できませんでした。"
   }
 }

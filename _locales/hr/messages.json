@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Očistiti dijagnostičku povijest? Ovo se ne može poništiti."
+  },
+  "privacysettingstitle": {
+    "message": "Privatnost i tehnički podaci"
+  },
+  "telemetryconsenttitle": {
+    "message": "Dijeli tehničku analitiku i izvješća o pogreškama"
+  },
+  "telemetryconsentdesc": {
+    "message": "Šalji ograničene brojače korištenja značajki, podatke o pregledniku/verziji i kodove pogrešaka koji čuvaju privatnost radi poboljšanja pouzdanosti BlockDistractiona."
+  },
+  "telemetryprivacynotice": {
+    "message": "Nikada se ne šalju povijest pregledavanja, blokirane stranice, adrese pravila, URL-ovi preusmjeravanja, e-pošta, licencni ključ ni lozinke. Ne koristi se trajni telemetrijski ID. Ovo možete isključiti u bilo kojem trenutku."
+  },
+  "telemetryenabled": {
+    "message": "Dijeljenje tehničkih podataka je uključeno."
+  },
+  "telemetrydisabled": {
+    "message": "Dijeljenje tehničkih podataka je isključeno. Telemetrijski podaci na čekanju su izbrisani."
+  },
+  "telemetryerror": {
+    "message": "Nije moguće ažurirati dijeljenje tehničkih podataka."
   }
 }

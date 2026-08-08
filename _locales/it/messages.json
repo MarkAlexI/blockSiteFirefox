@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Cancellare la cronologia diagnostica? Questa operazione non può essere annullata."
+  },
+  "privacysettingstitle": {
+    "message": "Privacy e dati tecnici"
+  },
+  "telemetryconsenttitle": {
+    "message": "Condividi analisi tecniche e segnalazioni di errori"
+  },
+  "telemetryconsentdesc": {
+    "message": "Invia conteggi limitati sull’uso delle funzioni, dati su browser/versione e codici di errore rispettosi della privacy per migliorare l’affidabilità di BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Non vengono mai inviati cronologia di navigazione, siti bloccati, indirizzi delle regole, URL di reindirizzamento, email, chiave di licenza o password. Non viene usato alcun ID di telemetria persistente. Puoi disattivarlo in qualsiasi momento."
+  },
+  "telemetryenabled": {
+    "message": "La condivisione dei dati tecnici è attiva."
+  },
+  "telemetrydisabled": {
+    "message": "La condivisione dei dati tecnici è disattivata. I dati di telemetria in sospeso sono stati eliminati."
+  },
+  "telemetryerror": {
+    "message": "Impossibile aggiornare la condivisione dei dati tecnici."
   }
 }

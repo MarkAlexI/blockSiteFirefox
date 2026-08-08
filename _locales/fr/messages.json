@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Effacer l’historique de diagnostic ? Cette action est irréversible."
+  },
+  "privacysettingstitle": {
+    "message": "Confidentialité et données techniques"
+  },
+  "telemetryconsenttitle": {
+    "message": "Partager les analyses techniques et les rapports d’erreurs"
+  },
+  "telemetryconsentdesc": {
+    "message": "Envoyer des compteurs limités d’utilisation des fonctions, des informations sur le navigateur/la version et des codes d’erreur respectueux de la vie privée afin d’améliorer la fiabilité de BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "L’historique de navigation, les sites bloqués, les adresses de règles, les URL de redirection, l’e-mail, la clé de licence et les mots de passe ne sont jamais envoyés. Aucun identifiant de télémétrie persistant n’est utilisé. Vous pouvez désactiver cette option à tout moment."
+  },
+  "telemetryenabled": {
+    "message": "Le partage des données techniques est activé."
+  },
+  "telemetrydisabled": {
+    "message": "Le partage des données techniques est désactivé. Les données de télémétrie en attente ont été supprimées."
+  },
+  "telemetryerror": {
+    "message": "Impossible de mettre à jour le partage des données techniques."
   }
 }

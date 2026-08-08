@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Vee diagnostiese geskiedenis uit? Dit kan nie ongedaan gemaak word nie."
+  },
+  "privacysettingstitle": {
+    "message": "Privaatheid en tegniese data"
+  },
+  "telemetryconsenttitle": {
+    "message": "Deel tegniese ontleding en foutverslae"
+  },
+  "telemetryconsentdesc": {
+    "message": "Stuur beperkte tellings van funksiegebruik, blaaier-/weergawe-inligting en privaatheidsveilige foutkodes om BlockDistraction se betroubaarheid te verbeter."
+  },
+  "telemetryprivacynotice": {
+    "message": "Stuur nooit blaaigeskiedenis, geblokkeerde webwerwe, reëladresse, herleiding-URL’s, e-pos, lisensiesleutel of wagwoorde nie. Geen permanente telemetrie-ID word gebruik nie. Jy kan dit enige tyd afskakel."
+  },
+  "telemetryenabled": {
+    "message": "Deel van tegniese data is aangeskakel."
+  },
+  "telemetrydisabled": {
+    "message": "Deel van tegniese data is afgeskakel. Hangende telemetriedata is uitgevee."
+  },
+  "telemetryerror": {
+    "message": "Kon nie die deel van tegniese data opdateer nie."
   }
 }

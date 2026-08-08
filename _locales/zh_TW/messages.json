@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "清除診斷歷程？此操作無法復原。"
+  },
+  "privacysettingstitle": {
+    "message": "隱私與技術資料"
+  },
+  "telemetryconsenttitle": {
+    "message": "分享技術分析與錯誤報告"
+  },
+  "telemetryconsentdesc": {
+    "message": "傳送有限的功能使用計數、瀏覽器/版本資訊與保護隱私的錯誤代碼，以協助提升 BlockDistraction 的可靠性。"
+  },
+  "telemetryprivacynotice": {
+    "message": "絕不會傳送瀏覽紀錄、已封鎖網站、規則位址、重新導向 URL、電子郵件、授權金鑰或密碼。不會使用永久遙測 ID。你可以隨時關閉此選項。"
+  },
+  "telemetryenabled": {
+    "message": "已啟用技術資料分享。"
+  },
+  "telemetrydisabled": {
+    "message": "已停用技術資料分享，並清除待傳送的遙測資料。"
+  },
+  "telemetryerror": {
+    "message": "無法更新技術資料分享設定。"
   }
 }

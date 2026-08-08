@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Diagnoseverlauf löschen? Dies kann nicht rückgängig gemacht werden."
+  },
+  "privacysettingstitle": {
+    "message": "Datenschutz und technische Daten"
+  },
+  "telemetryconsenttitle": {
+    "message": "Technische Analysen und Fehlerberichte teilen"
+  },
+  "telemetryconsentdesc": {
+    "message": "Begrenzte Nutzungszähler, Browser-/Versionsdaten und datenschutzfreundliche Fehlercodes senden, um die Zuverlässigkeit von BlockDistraction zu verbessern."
+  },
+  "telemetryprivacynotice": {
+    "message": "Browserverlauf, blockierte Websites, Regeladressen, Weiterleitungs-URLs, E-Mail, Lizenzschlüssel oder Passwörter werden niemals gesendet. Es wird keine dauerhafte Telemetrie-ID verwendet. Sie können dies jederzeit deaktivieren."
+  },
+  "telemetryenabled": {
+    "message": "Das Teilen technischer Daten ist aktiviert."
+  },
+  "telemetrydisabled": {
+    "message": "Das Teilen technischer Daten ist deaktiviert. Ausstehende Telemetriedaten wurden gelöscht."
+  },
+  "telemetryerror": {
+    "message": "Das Teilen technischer Daten konnte nicht aktualisiert werden."
   }
 }

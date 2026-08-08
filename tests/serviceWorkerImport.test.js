@@ -51,8 +51,10 @@ function sendWorkerMessage(listener, message) {
 }
 
 test('service worker module loads, registers listeners, and serves privacy-safe diagnostics', async () => {
-  const previousChrome = globalThis.browser;
+  const previousBrowser = globalThis.browser;
+  const previousChromeAlias = globalThis.chrome;
   const previousDebugController = globalThis.DebugController;
+  const previousFetch = globalThis.fetch;
   const createdAlarms = [];
 
   const runtimeOnStartup = createEvent();
@@ -109,6 +111,16 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     }
   });
 
+  const telemetryRequests = [];
+  globalThis.fetch = async (url, options) => {
+    telemetryRequests.push({ url, options });
+    return {
+      ok: true,
+      status: 202,
+      async json() { return { ok: true }; }
+    };
+  };
+
   globalThis.browser = {
     storage: {
       local: localStorage,
@@ -118,8 +130,8 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     runtime: {
       id: 'test-extension-id',
       lastError: null,
-      getURL: path => `chrome-extension://test-extension-id/${path}`,
-      getManifest: () => ({ version: '4.7.1', manifest_version: 3 }),
+      getURL: path => `moz-extension://test-extension-id/${path}`,
+      getManifest: () => ({ version: '4.8.0', manifest_version: 3 }),
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();
@@ -168,9 +180,11 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       create() {}
     },
     i18n: {
-      getMessage: key => key
+      getMessage: key => key,
+      getUILanguage: () => 'en-US'
     }
   };
+  globalThis.chrome = globalThis.browser;
 
   try {
     await import(`../scripts/service_worker.js?test=${Date.now()}`);
@@ -196,13 +210,67 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
 
     assert.equal(diagnostics.success, true);
-    assert.equal(diagnostics.report.extension.version, '4.7.1');
+    assert.equal(diagnostics.report.extension.version, '4.8.0');
     assert.equal(diagnostics.report.rules.total, 1);
     assert.equal(diagnostics.report.dnr.inSync, false);
     assert.equal(diagnostics.report.permissions.hostAccess, true);
     assert.equal(diagnostics.report.access.eventHistory, false);
     assert.deepEqual(diagnostics.report.recentEvents, []);
     assert.equal(JSON.stringify(diagnostics.report).includes('BD-PRIVATE'), false);
+    assert.equal(diagnostics.report.telemetry.enabled, false);
+
+    const initialConsent = await sendWorkerMessage(messageListener, {
+      type: 'telemetry:getConsent'
+    });
+    assert.equal(initialConsent.success, true);
+    assert.equal(initialConsent.consent.enabled, false);
+
+    const enabledConsent = await sendWorkerMessage(messageListener, {
+      type: 'telemetry:setConsent',
+      enabled: true
+    });
+    assert.equal(enabledConsent.success, true);
+    assert.equal(enabledConsent.consent.enabled, true);
+
+    await sendWorkerMessage(messageListener, {
+      type: 'telemetry:recordError',
+      payload: {
+        source: 'worker',
+        code: 'uncaught_error',
+        operation: 'service_worker',
+        errorName: 'TypeError',
+        url: 'https://private.example/path',
+        message: 'secret@example.com'
+      }
+    });
+    assert.equal(JSON.stringify(localStorage.data.telemetryBuckets).includes('private.example'), false);
+    assert.equal(JSON.stringify(localStorage.data.telemetryBuckets).includes('secret@example.com'), false);
+
+    const telemetryDiagnostics = await sendWorkerMessage(messageListener, {
+      type: 'diagnostics:getReport'
+    });
+    assert.equal(telemetryDiagnostics.report.telemetry.enabled, true);
+    assert.equal(telemetryDiagnostics.report.telemetry.pendingErrorFingerprints, 1);
+
+    const flushed = await sendWorkerMessage(messageListener, {
+      type: 'telemetry:flush',
+      force: true
+    });
+    assert.equal(flushed.success, true);
+    assert.equal(flushed.result.sent, true);
+    assert.equal(telemetryRequests.length, 1);
+    assert.equal(telemetryRequests[0].url, 'https://blockdistraction.com/api/telemetry');
+    const telemetryPayload = JSON.parse(telemetryRequests[0].options.body);
+    assert.equal(telemetryPayload.schemaVersion, 1);
+    assert.equal('installationId' in telemetryPayload.context, false);
+    assert.equal(JSON.stringify(telemetryPayload).includes('private.example'), false);
+
+    const disabledConsent = await sendWorkerMessage(messageListener, {
+      type: 'telemetry:setConsent',
+      enabled: false
+    });
+    assert.equal(disabledConsent.success, true);
+    assert.deepEqual(localStorage.data.telemetryBuckets, {});
 
     hostAccessGranted = false;
     await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });
@@ -225,7 +293,9 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(cleared.success, true);
     assert.deepEqual(localStorage.data.diagnosticEvents, []);
   } finally {
-    globalThis.browser = previousChrome;
+    globalThis.browser = previousBrowser;
+    globalThis.chrome = previousChromeAlias;
     globalThis.DebugController = previousDebugController;
+    globalThis.fetch = previousFetch;
   }
 });

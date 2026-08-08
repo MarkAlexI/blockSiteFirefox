@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "진단 기록을 지우시겠습니까? 이 작업은 취소할 수 없습니다."
+  },
+  "privacysettingstitle": {
+    "message": "개인정보 및 기술 데이터"
+  },
+  "telemetryconsenttitle": {
+    "message": "기술 분석 및 오류 보고서 공유"
+  },
+  "telemetryconsentdesc": {
+    "message": "BlockDistraction의 안정성을 개선할 수 있도록 제한된 기능 사용 횟수, 브라우저/버전 정보 및 개인정보 보호형 오류 코드를 전송합니다."
+  },
+  "telemetryprivacynotice": {
+    "message": "검색 기록, 차단한 웹사이트, 규칙 주소, 리디렉션 URL, 이메일, 라이선스 키 또는 비밀번호는 전송하지 않습니다. 영구 텔레메트리 ID도 사용하지 않습니다. 언제든지 끌 수 있습니다."
+  },
+  "telemetryenabled": {
+    "message": "기술 데이터 공유가 켜졌습니다."
+  },
+  "telemetrydisabled": {
+    "message": "기술 데이터 공유가 꺼졌습니다. 대기 중인 텔레메트리 데이터가 삭제되었습니다."
+  },
+  "telemetryerror": {
+    "message": "기술 데이터 공유 설정을 업데이트할 수 없습니다."
   }
 }

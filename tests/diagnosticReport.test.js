@@ -30,6 +30,7 @@ test('diagnostic report sanitizes nested private data', () => {
     permissions: { hostAccess: true },
     focusSession: { active: false, mode: 'blacklist', hardcore: false, remainingMinutes: 0 },
     license: { licenseKey: 'BD-PRIVATE-123456', lastCheck: null },
+    telemetry: { enabled: false, pendingDays: 0, pendingCounterTotal: 0, pendingErrorFingerprints: 0, delivery: {} },
     recentEvents: [{
       timestamp: 1,
       level: 'error',
@@ -55,11 +56,14 @@ test('formatted diagnostic report contains counts and structured events without 
     permissions: { hostAccess: true },
     focusSession: { active: true, mode: 'blacklist', hardcore: false, remainingMinutes: 12 },
     license: { lastCheck: null },
+    telemetry: { enabled: true, pendingDays: 1, pendingCounterTotal: 3, pendingErrorFingerprints: 1, delivery: { lastStatus: 202 } },
     recentEvents: [{ timestamp: 1, level: 'warn', source: 'license', code: 'verification_failed', details: { reason: 'timeout' } }]
   });
 
   assert.match(text, /Stored rules: 4/);
   assert.match(text, /DNR integrity: in sync/);
   assert.match(text, /verification_failed/);
+  assert.match(text, /Technical analytics/);
+  assert.match(text, /Pending counters: 3/);
   assert.doesNotMatch(text, /facebook\.com/);
 });

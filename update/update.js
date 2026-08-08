@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "🛡️ Reliable Permissions: Host access is checked by the existing minute alarm and permission change events without waking the worker on every tab switch.",
-    "🩺 Diagnostics for Everyone: Every user can generate, copy, and export a privacy-safe current-state report.",
-    "🔍 Pro Event History: Detailed recent events remain available through Pro Debug Mode.",
-    "🧹 Clear History Fixed: Clearing diagnostic history no longer triggers an Illegal invocation error."
+    "📊 Optional Technical Analytics: Privacy-preserving usage counters and error reports can now be enabled from Settings.",
+    "🔒 Off by Default: No telemetry is collected until you explicitly opt in.",
+    "🧩 Error Fingerprints: Technical failures are aggregated without URLs, raw messages, or stack traces.",
+    "🩺 Better Diagnostics: Diagnostic reports now include telemetry queue and delivery status without exposing event contents."
   ];
   
   const ul = document.getElementById('features');
@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ul.append(li);
   });
   
+  document.getElementById('privacy-settings-btn')?.addEventListener('click', () => {
+    browser.runtime.openOptionsPage?.();
+  });
+
   const closeBtn = document.getElementById('close-btn');
   
   closeBtn.addEventListener('click', () => {

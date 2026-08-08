@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Kas kustutada diagnostikaajalugu? Seda ei saa tagasi võtta."
+  },
+  "privacysettingstitle": {
+    "message": "Privaatsus ja tehnilised andmed"
+  },
+  "telemetryconsenttitle": {
+    "message": "Jaga tehnilist analüütikat ja veaaruandeid"
+  },
+  "telemetryconsentdesc": {
+    "message": "Saada piiratud funktsioonikasutuse loendureid, brauseri/versiooni andmeid ja privaatsust hoidvaid veakoode, et parandada BlockDistractioni töökindlust."
+  },
+  "telemetryprivacynotice": {
+    "message": "Sirvimisajalugu, blokeeritud saite, reeglite aadresse, ümbersuunamise URL-e, e-posti, litsentsivõtit ega paroole ei saadeta kunagi. Püsivat telemeetria ID-d ei kasutata. Saad selle igal ajal välja lülitada."
+  },
+  "telemetryenabled": {
+    "message": "Tehniliste andmete jagamine on lubatud."
+  },
+  "telemetrydisabled": {
+    "message": "Tehniliste andmete jagamine on keelatud. Ootel telemeetriaandmed kustutati."
+  },
+  "telemetryerror": {
+    "message": "Tehniliste andmete jagamist ei saanud uuendada."
   }
 }

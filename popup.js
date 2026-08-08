@@ -15,6 +15,9 @@ import { MAX_RULES_LIMIT } from './utils/constants.js';
 import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 import { SettingsManager } from './options/settings.js';
+import { installPageErrorReporter } from './telemetry/pageErrorReporter.js';
+
+installPageErrorReporter('popup');
 
 const logger = new Logger('Popup');
 

@@ -24,6 +24,10 @@ import { resolveRulePackEntries } from '../rules/rulePacks.js';
 import { createDiagnosticStore } from '../diagnostics/diagnosticStore.js';
 import { buildDiagnosticReport, detectBrowserSummary } from '../diagnostics/diagnosticReport.js';
 import { createHostPermissionMonitor, affectsRequiredHostAccess } from '../utils/hostPermissionMonitor.js';
+import { getTelemetryConsent, TELEMETRY_DATA_COLLECTION_PERMISSION } from '../telemetry/telemetryConsent.js';
+import { createTelemetryStore } from '../telemetry/telemetryStore.js';
+import { createTelemetryClient } from '../telemetry/telemetryClient.js';
+import { buildTelemetryContext } from '../telemetry/telemetryContext.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -50,6 +54,58 @@ const hostPermissionMonitor = createHostPermissionMonitor({
   logger
 });
 
+const telemetryStore = createTelemetryStore({
+  localStorage: browser.storage.local,
+  getConsent: () => getTelemetryConsent(browser.storage.local, browser.permissions)
+});
+
+const telemetryClient = createTelemetryClient({
+  localStorage: browser.storage.local,
+  permissionsApi: browser.permissions,
+  store: telemetryStore,
+  getContext: async () => {
+    const [credentials, isPro, isLegacyUser] = await Promise.all([
+      ProManager.getCredentials(),
+      ProManager.isPro(),
+      ProManager.isLegacyUser()
+    ]);
+    return buildTelemetryContext({
+      manifest: browser.runtime.getManifest(),
+      navigatorRef: globalThis.navigator || {},
+      locale: browser.i18n.getUILanguage?.() || 'en',
+      isPro,
+      isLegacyUser,
+      installationDate: credentials.installationDate
+    });
+  }
+});
+
+const RULE_INTENT_COUNTERS = new Map([
+  ['rules:add', 'rule_created'],
+  ['rules:update', 'rule_updated'],
+  ['rules:delete', 'rule_deleted'],
+  ['rules:toggle', 'rule_toggled'],
+  ['rules:replaceAll', 'rules_imported'],
+  ['rules:clear', 'rules_cleared'],
+  ['rules:toggleCategory', 'category_toggled']
+]);
+
+async function recordRuleIntentTelemetry(type, result) {
+  if (type === 'rules:addMany') {
+    const addedCount = Number(result?.addedCount) || 0;
+    if (addedCount > 0) {
+      await Promise.all([
+        telemetryStore.incrementCounter('rule_pack_imported'),
+        telemetryStore.incrementCounter('rule_pack_rules_added', addedCount)
+      ]);
+    }
+    return;
+  }
+
+  const counter = RULE_INTENT_COUNTERS.get(type);
+  if (counter) await telemetryStore.incrementCounter(counter);
+}
+
 async function recordDnrSyncResult(result) {
   if (result.changed || !result.success) {
     await diagnosticStore.updateState({
@@ -65,11 +121,19 @@ async function recordDnrSyncResult(result) {
   }
 
   if (!result.success) {
-    await diagnosticStore.recordEvent('error', 'dnr', 'sync_failed', {
-      removed: result.removed,
-      added: result.added,
-      error: result.error || 'Unknown DNR synchronization error'
-    });
+    await Promise.all([
+      diagnosticStore.recordEvent('error', 'dnr', 'sync_failed', {
+        removed: result.removed,
+        added: result.added,
+        error: result.error || 'Unknown DNR synchronization error'
+      }),
+      telemetryStore.recordError({
+        source: 'dnr',
+        code: 'sync_failed',
+        operation: 'update_dynamic_rules',
+        errorName: 'Error'
+      })
+    ]);
   }
 }
 const createDnrRule = createDnrRuleFactory(
@@ -172,10 +236,18 @@ async function finishLicenseCheck(result) {
   await diagnosticStore.updateState({ lastLicenseCheck: state });
 
   if (!result.success && result.reason !== 'no_key') {
-    await diagnosticStore.recordEvent('warn', 'license', 'verification_failed', {
-      reason: result.reason || 'temporary_failure',
-      error: result.error || 'Unknown license verification error'
-    });
+    await Promise.all([
+      diagnosticStore.recordEvent('warn', 'license', 'verification_failed', {
+        reason: result.reason || 'temporary_failure',
+        error: result.error || 'Unknown license verification error'
+      }),
+      telemetryStore.recordError({
+        source: 'license',
+        code: 'verification_failed',
+        operation: result.reason === 'temporary_failure' ? 'network_or_server' : 'verification',
+        errorName: 'Error'
+      })
+    ]);
   }
 
   return result;
@@ -327,6 +399,7 @@ if (browser.contextMenus) {
         `Blocked ${target.type} via Context Menu:`,
         ruleValue
       );
+      await telemetryStore.incrementCounter('rule_created');
       
     } catch (error) {
       logger.info('Error processing context menu block:', error);
@@ -478,12 +551,35 @@ async function initializeExtension(details) {
 }
 
 async function checkAndRequestPermissions(details, options = {}) {
+  const reason = details?.reason || 'unknown';
   const result = await hostPermissionMonitor.check({
-    reason: details?.reason || 'unknown',
+    reason,
     notifyIfMissing: options.notifyIfMissing === true,
     assumeMissing: options.assumeMissing === true
   });
+
+  if (result.transitionedToMissing) {
+    await telemetryStore.recordError({
+      source: 'permissions',
+      code: 'host_access_missing',
+      operation: reason,
+      errorName: 'PermissionError'
+    });
+  } else if (result.error) {
+    await telemetryStore.recordError({
+      source: 'permissions',
+      code: 'check_failed',
+      operation: reason,
+      errorName: result.error?.name || 'Error'
+    });
+  }
+
   return result.granted;
+}
+
+function affectsTelemetryConsent(permissions) {
+  return Array.isArray(permissions?.data_collection) &&
+    permissions.data_collection.includes(TELEMETRY_DATA_COLLECTION_PERMISSION);
 }
 
 if (browser.permissions?.onRemoved) {
@@ -494,6 +590,10 @@ if (browser.permissions?.onRemoved) {
         { notifyIfMissing: true, assumeMissing: true }
       );
     }
+
+    if (affectsTelemetryConsent(permissions)) {
+      await telemetryClient.setConsent(false);
+    }
   });
 }
 
@@ -501,6 +601,10 @@ if (browser.permissions?.onAdded) {
   browser.permissions.onAdded.addListener(async permissions => {
     if (affectsRequiredHostAccess(permissions.origins)) {
       await checkAndRequestPermissions({ reason: 'permission_added' });
+    }
+
+    if (affectsTelemetryConsent(permissions)) {
+      await telemetryClient.setConsent(true);
     }
   });
 }
@@ -544,7 +648,28 @@ async function createDiagnosticReport() {
     });
   }
 
-  const snapshot = await diagnosticStore.getSnapshot();
+  const [snapshot, telemetryConsent, telemetryBatches, telemetryDelivery] = await Promise.all([
+    diagnosticStore.getSnapshot(),
+    telemetryClient.getConsent(),
+    telemetryStore.getPendingBatches(),
+    telemetryStore.getDeliveryState()
+  ]);
+
+  const telemetrySummary = {
+    enabled: telemetryConsent.enabled === true,
+    pendingDays: telemetryBatches.length,
+    pendingCounterTotal: telemetryBatches.reduce((sum, batch) =>
+      sum + Object.values(batch.counters || {}).reduce((inner, value) => inner + (Number(value) || 0), 0), 0),
+    pendingErrorFingerprints: telemetryBatches.reduce((sum, batch) =>
+      sum + (Array.isArray(batch.errors) ? batch.errors.length : 0), 0),
+    delivery: {
+      lastSuccessAt: telemetryDelivery.lastSuccessAt || null,
+      lastFailureAt: telemetryDelivery.lastFailureAt || null,
+      lastStatus: telemetryDelivery.lastStatus ?? null,
+      failureCount: Number(telemetryDelivery.failureCount) || 0,
+      nextAttemptAt: telemetryDelivery.nextAttemptAt || null
+    }
+  };
 
   let hostAccess = true;
   if (typeof browser.permissions?.contains === 'function') {
@@ -611,6 +736,7 @@ async function createDiagnosticReport() {
       expiryDate: credentials.expiryDate || null,
       lastCheck: snapshot.state.lastLicenseCheck || null
     },
+    telemetry: telemetrySummary,
     recentEvents: access.eventHistory ? snapshot.events : []
   });
 }
@@ -651,14 +777,23 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
       try {
         const result = await handleRulesIntent(message);
+        await recordRuleIntentTelemetry(message.type, result);
         sendResponse({ success: true, ...result });
       } catch (error) {
         logger.error(`Rules intent failed (${message.type}):`, error);
-        await diagnosticStore.recordEvent('error', 'rules', 'intent_failed', {
-          intent: message.type,
-          errorCode: error?.code || 'unknown',
-          validationErrors: error?.validationErrors || []
-        });
+        await Promise.all([
+          diagnosticStore.recordEvent('error', 'rules', 'intent_failed', {
+            intent: message.type,
+            errorCode: error?.code || 'unknown',
+            validationErrors: error?.validationErrors || []
+          }),
+          telemetryStore.recordError({
+            source: 'rules',
+            code: 'intent_failed',
+            operation: message.type.replace('rules:', ''),
+            errorName: error?.name || 'Error'
+          })
+        ]);
         sendResponse({
           success: false,
           error: serializeRulesMutationError(error)
@@ -672,6 +807,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
       try {
         const report = await createDiagnosticReport();
+        await telemetryStore.incrementCounter('diagnostic_report_generated');
         sendResponse({ success: true, report });
       } catch (error) {
         sendResponse({
@@ -700,6 +836,47 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
         });
       }
+    })();
+    return true;
+  }
+
+  if (message.type === 'telemetry:getConsent') {
+    (async () => {
+      try {
+        const consent = await telemetryClient.getConsent();
+        sendResponse({ success: true, consent });
+      } catch (error) {
+        sendResponse({ success: false, error: { code: 'telemetry_consent_failed' } });
+      }
+    })();
+    return true;
+  }
+
+  if (message.type === 'telemetry:setConsent') {
+    (async () => {
+      try {
+        const consent = await telemetryClient.setConsent(message.enabled === true);
+        sendResponse({ success: true, consent });
+      } catch (error) {
+        logger.error('Failed to update telemetry consent:', error);
+        sendResponse({ success: false, error: { code: 'telemetry_consent_failed' } });
+      }
+    })();
+    return true;
+  }
+
+  if (message.type === 'telemetry:recordError') {
+    (async () => {
+      await telemetryStore.recordError(message.payload || {});
+      sendResponse({ success: true });
+    })();
+    return true;
+  }
+
+  if (message.type === 'telemetry:flush') {
+    (async () => {
+      const result = await telemetryClient.flush({ force: message.force === true });
+      sendResponse({ success: true, result });
     })();
     return true;
   }
@@ -813,15 +990,23 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
         
         logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
-        await diagnosticStore.recordEvent('info', 'focus', 'session_started', {
-          durationMinutes,
-          focusMode,
-          isHardcore
-        });
+        await Promise.all([
+          diagnosticStore.recordEvent('info', 'focus', 'session_started', {
+            durationMinutes,
+            focusMode,
+            isHardcore
+          }),
+          telemetryStore.incrementCounter('focus_started')
+        ]);
         sendResponse({ success: true });
       } catch (error) {
         logger.error('Focus Session: Error starting session:', error);
-        await diagnosticStore.recordEvent('error', 'focus', 'start_failed', { error });
+        await Promise.all([
+          diagnosticStore.recordEvent('error', 'focus', 'start_failed', { error }),
+          telemetryStore.recordError({
+            source: 'focus', code: 'start_failed', operation: 'start_session', errorName: error?.name || 'Error'
+          })
+        ]);
         sendResponse({ success: false, error: error.message });
       }
     })();
@@ -837,13 +1022,21 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         await browser.alarms.clear('end_focus_session');
         await dnrSynchronizer.requestSync();
         logger.log('Focus Session: Stopped by user.');
-        await diagnosticStore.recordEvent('info', 'focus', 'session_stopped', {
-          reason: 'user'
-        });
+        await Promise.all([
+          diagnosticStore.recordEvent('info', 'focus', 'session_stopped', {
+            reason: 'user'
+          }),
+          telemetryStore.incrementCounter('focus_stopped')
+        ]);
         sendResponse({ success: true });
       } catch (error) {
         logger.error('Focus Session: Error stopping session:', error);
-        await diagnosticStore.recordEvent('error', 'focus', 'stop_failed', { error });
+        await Promise.all([
+          diagnosticStore.recordEvent('error', 'focus', 'stop_failed', { error }),
+          telemetryStore.recordError({
+            source: 'focus', code: 'stop_failed', operation: 'stop_session', errorName: error?.name || 'Error'
+          })
+        ]);
         sendResponse({ success: false, error: error.message });
       }
     })();
@@ -871,11 +1064,32 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+if (globalThis.addEventListener) {
+  globalThis.addEventListener('error', event => {
+    void telemetryStore.recordError({
+      source: 'worker',
+      code: 'uncaught_error',
+      operation: 'service_worker',
+      errorName: event?.error?.name || 'Error'
+    });
+  });
+
+  globalThis.addEventListener('unhandledrejection', event => {
+    void telemetryStore.recordError({
+      source: 'worker',
+      code: 'unhandled_rejection',
+      operation: 'service_worker',
+      errorName: event?.reason?.name || 'Error'
+    });
+  });
+}
+
 browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'check_pro_expiry') {
     await updateUninstallURL();
     const syncResult = await syncLicenseKeyStatus();
     await updateContextMenu(syncResult.isPro);
+    await telemetryClient.flush();
   }
   
   if (alarm.name === 'end_focus_session') {
@@ -885,9 +1099,12 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
     });
     await dnrSynchronizer.requestSync();
     await StatisticsManager.recordFocusSession();
-    await diagnosticStore.recordEvent('info', 'focus', 'session_completed', {
-      reason: 'alarm'
-    });
+    await Promise.all([
+      diagnosticStore.recordEvent('info', 'focus', 'session_completed', {
+        reason: 'alarm'
+      }),
+      telemetryStore.incrementCounter('focus_completed')
+    ]);
     
     const settings = await SettingsManager.getSettings();
     const playSound = settings.focusSessionSound;

@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Tanılama geçmişi temizlensin mi? Bu işlem geri alınamaz."
+  },
+  "privacysettingstitle": {
+    "message": "Gizlilik ve Teknik Veriler"
+  },
+  "telemetryconsenttitle": {
+    "message": "Teknik analizleri ve hata raporlarını paylaş"
+  },
+  "telemetryconsentdesc": {
+    "message": "BlockDistraction güvenilirliğini artırmaya yardımcı olmak için sınırlı özellik kullanım sayaçları, tarayıcı/sürüm bilgileri ve gizliliği koruyan hata kodları gönderin."
+  },
+  "telemetryprivacynotice": {
+    "message": "Tarama geçmişi, engellenen siteler, kural adresleri, yönlendirme URL’leri, e-posta, lisans anahtarı veya parolalar hiçbir zaman gönderilmez. Kalıcı bir telemetri kimliği kullanılmaz. Bunu istediğiniz zaman kapatabilirsiniz."
+  },
+  "telemetryenabled": {
+    "message": "Teknik veri paylaşımı etkinleştirildi."
+  },
+  "telemetrydisabled": {
+    "message": "Teknik veri paylaşımı devre dışı bırakıldı. Bekleyen telemetri verileri silindi."
+  },
+  "telemetryerror": {
+    "message": "Teknik veri paylaşımı güncellenemedi."
   }
 }

@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "I-clear ang diagnostic history? Hindi ito maa-undo."
+  },
+  "privacysettingstitle": {
+    "message": "Privacy at teknikal na data"
+  },
+  "telemetryconsenttitle": {
+    "message": "Ibahagi ang teknikal na analytics at mga ulat ng error"
+  },
+  "telemetryconsentdesc": {
+    "message": "Magpadala ng limitadong bilang ng paggamit ng feature, detalye ng browser/bersyon, at privacy-safe na error code upang makatulong na mapahusay ang pagiging maaasahan ng BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Hindi kailanman ipinapadala ang browsing history, mga naka-block na website, address ng rule, redirect URL, email, license key, o password. Walang permanenteng telemetry ID na ginagamit. Maaari mo itong i-off anumang oras."
+  },
+  "telemetryenabled": {
+    "message": "Naka-enable ang pagbabahagi ng teknikal na data."
+  },
+  "telemetrydisabled": {
+    "message": "Naka-disable ang pagbabahagi ng teknikal na data. Binura ang nakabinbing telemetry data."
+  },
+  "telemetryerror": {
+    "message": "Hindi ma-update ang pagbabahagi ng teknikal na data."
   }
 }

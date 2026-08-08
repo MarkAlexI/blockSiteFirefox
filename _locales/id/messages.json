@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Hapus riwayat diagnostik? Tindakan ini tidak dapat dibatalkan."
+  },
+  "privacysettingstitle": {
+    "message": "Privasi & Data Teknis"
+  },
+  "telemetryconsenttitle": {
+    "message": "Bagikan analitik teknis dan laporan kesalahan"
+  },
+  "telemetryconsentdesc": {
+    "message": "Kirim hitungan penggunaan fitur yang terbatas, detail browser/versi, dan kode kesalahan yang aman untuk privasi guna membantu meningkatkan keandalan BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Riwayat penelusuran, situs yang diblokir, alamat aturan, URL pengalihan, email, kunci lisensi, atau kata sandi tidak pernah dikirim. Tidak ada ID telemetri permanen yang digunakan. Anda dapat mematikannya kapan saja."
+  },
+  "telemetryenabled": {
+    "message": "Berbagi data teknis diaktifkan."
+  },
+  "telemetrydisabled": {
+    "message": "Berbagi data teknis dinonaktifkan. Data telemetri tertunda telah dihapus."
+  },
+  "telemetryerror": {
+    "message": "Tidak dapat memperbarui berbagi data teknis."
   }
 }

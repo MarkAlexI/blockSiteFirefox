@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.0] - 2026-08-08
+### Added
+- Added opt-in privacy-preserving technical analytics for the Firefox build, disabled by default.
+- Added Firefox built-in `technicalAndInteraction` consent integration on supported Firefox versions, with the existing in-extension opt-in used as a fallback on older supported versions.
+- Added daily aggregated feature-use counters and a seven-day local telemetry queue.
+- Added privacy-safe error fingerprints for DNR, permission, license, rule, Focus Session, background worker, popup, and Options failures.
+- Added a versioned `POST /api/telemetry` client contract with batch delivery, timeout handling, retention, and exponential backoff.
+- Added a localized Privacy & Technical Data section to every supported locale.
+- Added telemetry delivery state to the privacy-safe Diagnostic Report.
+
+### Privacy
+- No browsing history, blocked website addresses, rule addresses, redirect URLs, email, license key, passwords, raw error messages, stack traces, or persistent telemetry identifier are collected by the telemetry client.
+- No telemetry data is stored before explicit consent. Disabling telemetry clears all pending telemetry buckets and delivery state immediately.
+
+### Improved
+- Added coarse page-level reporting for uncaught errors and unhandled promise rejections without transmitting messages, filenames, URLs, or stack traces.
+- Reused the existing daily license alarm for telemetry delivery instead of adding another recurring wake-up.
+- Added dependency-free tests for consent, data minimization, aggregation, retention, delivery backoff, UI behavior, localization, and the telemetry request contract.
+
 ## [4.7.1] - 2026-08-07
 ### Fixed
 - Fixed `Illegal invocation` when clearing diagnostic history by preserving the native confirmation function context.

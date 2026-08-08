@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Limpar o histórico de diagnóstico? Esta ação não pode ser anulada."
+  },
+  "privacysettingstitle": {
+    "message": "Privacidade e dados técnicos"
+  },
+  "telemetryconsenttitle": {
+    "message": "Partilhar análises técnicas e relatórios de erros"
+  },
+  "telemetryconsentdesc": {
+    "message": "Envie contagens limitadas de utilização de funcionalidades, dados do navegador/versão e códigos de erro seguros para a privacidade para ajudar a melhorar a fiabilidade do BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Nunca são enviados histórico de navegação, sites bloqueados, endereços de regras, URLs de redirecionamento, e-mail, chave de licença ou palavras-passe. Não é utilizado qualquer ID de telemetria persistente. Pode desativar esta opção a qualquer momento."
+  },
+  "telemetryenabled": {
+    "message": "A partilha de dados técnicos está ativada."
+  },
+  "telemetrydisabled": {
+    "message": "A partilha de dados técnicos está desativada. Os dados de telemetria pendentes foram apagados."
+  },
+  "telemetryerror": {
+    "message": "Não foi possível atualizar a partilha de dados técnicos."
   }
 }

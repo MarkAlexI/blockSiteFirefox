@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Kosongkan sejarah diagnostik? Tindakan ini tidak boleh dibuat asal."
+  },
+  "privacysettingstitle": {
+    "message": "Privasi & Data Teknikal"
+  },
+  "telemetryconsenttitle": {
+    "message": "Kongsi analitik teknikal dan laporan ralat"
+  },
+  "telemetryconsentdesc": {
+    "message": "Hantar kiraan penggunaan ciri yang terhad, butiran pelayar/versi dan kod ralat yang menjaga privasi untuk membantu meningkatkan kebolehpercayaan BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Sejarah pelayaran, laman yang disekat, alamat peraturan, URL ubah hala, e-mel, kunci lesen atau kata laluan tidak pernah dihantar. Tiada ID telemetri kekal digunakan. Anda boleh mematikannya pada bila-bila masa."
+  },
+  "telemetryenabled": {
+    "message": "Perkongsian data teknikal diaktifkan."
+  },
+  "telemetrydisabled": {
+    "message": "Perkongsian data teknikal dinyahaktifkan. Data telemetri yang belum dihantar telah dipadam."
+  },
+  "telemetryerror": {
+    "message": "Tidak dapat mengemas kini perkongsian data teknikal."
   }
 }

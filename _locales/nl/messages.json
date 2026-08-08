@@ -954,5 +954,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Diagnostische geschiedenis wissen? Dit kan niet ongedaan worden gemaakt."
+  },
+  "privacysettingstitle": {
+    "message": "Privacy en technische gegevens"
+  },
+  "telemetryconsenttitle": {
+    "message": "Technische analyses en foutmeldingen delen"
+  },
+  "telemetryconsentdesc": {
+    "message": "Beperkte tellers voor functiegebruik, browser-/versiegegevens en privacyveilige foutcodes verzenden om de betrouwbaarheid van BlockDistraction te verbeteren."
+  },
+  "telemetryprivacynotice": {
+    "message": "Browsegeschiedenis, geblokkeerde websites, regeladressen, omleidings-URL’s, e-mail, licentiesleutel of wachtwoorden worden nooit verzonden. Er wordt geen permanente telemetrie-ID gebruikt. Je kunt dit op elk moment uitschakelen."
+  },
+  "telemetryenabled": {
+    "message": "Het delen van technische gegevens is ingeschakeld."
+  },
+  "telemetrydisabled": {
+    "message": "Het delen van technische gegevens is uitgeschakeld. Openstaande telemetriegegevens zijn verwijderd."
+  },
+  "telemetryerror": {
+    "message": "Het delen van technische gegevens kon niet worden bijgewerkt."
   }
 }

@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Notīrīt diagnostikas vēsturi? To nevar atsaukt."
+  },
+  "privacysettingstitle": {
+    "message": "Privātums un tehniskie dati"
+  },
+  "telemetryconsenttitle": {
+    "message": "Kopīgot tehnisko analītiku un kļūdu ziņojumus"
+  },
+  "telemetryconsentdesc": {
+    "message": "Sūtīt ierobežotus funkciju lietojuma skaitītājus, pārlūka/versijas informāciju un privātumam drošus kļūdu kodus, lai uzlabotu BlockDistraction uzticamību."
+  },
+  "telemetryprivacynotice": {
+    "message": "Nekad netiek sūtīta pārlūkošanas vēsture, bloķētās vietnes, noteikumu adreses, novirzīšanas URL, e-pasts, licences atslēga vai paroles. Netiek izmantots pastāvīgs telemetrijas ID. To var izslēgt jebkurā laikā."
+  },
+  "telemetryenabled": {
+    "message": "Tehnisko datu kopīgošana ir ieslēgta."
+  },
+  "telemetrydisabled": {
+    "message": "Tehnisko datu kopīgošana ir izslēgta. Gaidīšanas telemetrijas dati tika dzēsti."
+  },
+  "telemetryerror": {
+    "message": "Neizdevās atjaunināt tehnisko datu kopīgošanu."
   }
 }

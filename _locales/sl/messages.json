@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Počistim diagnostično zgodovino? Tega ni mogoče razveljaviti."
+  },
+  "privacysettingstitle": {
+    "message": "Zasebnost in tehnični podatki"
+  },
+  "telemetryconsenttitle": {
+    "message": "Deli tehnično analitiko in poročila o napakah"
+  },
+  "telemetryconsentdesc": {
+    "message": "Pošlji omejene števce uporabe funkcij, podatke o brskalniku/različici in kode napak, varne za zasebnost, za izboljšanje zanesljivosti BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Nikoli se ne pošiljajo zgodovina brskanja, blokirana spletna mesta, naslovi pravil, URL-ji preusmeritev, e-pošta, licenčni ključ ali gesla. Trajni telemetrijski ID se ne uporablja. To lahko kadar koli izklopite."
+  },
+  "telemetryenabled": {
+    "message": "Deljenje tehničnih podatkov je vklopljeno."
+  },
+  "telemetrydisabled": {
+    "message": "Deljenje tehničnih podatkov je izklopljeno. Čakajoči telemetrijski podatki so bili izbrisani."
+  },
+  "telemetryerror": {
+    "message": "Deljenja tehničnih podatkov ni bilo mogoče posodobiti."
   }
 }

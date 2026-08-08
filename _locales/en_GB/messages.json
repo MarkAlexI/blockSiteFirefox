@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Clear diagnostic history? This cannot be undone."
+  },
+  "privacysettingstitle": {
+    "message": "Privacy & Technical Data"
+  },
+  "telemetryconsenttitle": {
+    "message": "Share technical analytics and error reports"
+  },
+  "telemetryconsentdesc": {
+    "message": "Send limited feature-use counts, browser/version details, and privacy-safe error codes to help improve BlockDistraction reliability."
+  },
+  "telemetryprivacynotice": {
+    "message": "Never sends browsing history, blocked websites, rule addresses, redirect URLs, email, license key, or passwords. No persistent telemetry ID is used. You can turn this off at any time."
+  },
+  "telemetryenabled": {
+    "message": "Technical data sharing enabled."
+  },
+  "telemetrydisabled": {
+    "message": "Technical data sharing disabled. Pending telemetry data was cleared."
+  },
+  "telemetryerror": {
+    "message": "Could not update technical data sharing."
   }
 }

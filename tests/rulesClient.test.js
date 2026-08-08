@@ -3,15 +3,14 @@ import assert from 'node:assert/strict';
 import { RulesClient } from '../rules/rulesClient.js';
 
 test('rules client preserves error code and all validation keys from the worker', async () => {
-  const previousChrome = globalThis.browser;
+  const previousBrowser = globalThis.browser;
   let sentMessage = null;
 
   globalThis.browser = {
     runtime: {
-      lastError: null,
-      sendMessage(message, callback) {
+      sendMessage(message) {
         sentMessage = message;
-        callback({
+        return Promise.resolve({
           success: false,
           error: {
             code: 'validation_failed',
@@ -37,20 +36,19 @@ test('rules client preserves error code and all validation keys from the worker'
 
     assert.equal(sentMessage.type, 'rules:add');
   } finally {
-    globalThis.browser = previousChrome;
+    globalThis.browser = previousBrowser;
   }
 });
 
 test('rules client sends a structured addMany intent for a local rule pack', async () => {
-  const previousChrome = globalThis.browser;
+  const previousBrowser = globalThis.browser;
   let sentMessage = null;
 
   globalThis.browser = {
     runtime: {
-      lastError: null,
-      sendMessage(message, callback) {
+      sendMessage(message) {
         sentMessage = message;
-        callback({ success: true, addedCount: 2, rules: [] });
+        return Promise.resolve({ success: true, addedCount: 2, rules: [] });
       }
     }
   };
@@ -73,6 +71,6 @@ test('rules client sends a structured addMany intent for a local rule pack', asy
     });
     assert.equal(result.addedCount, 2);
   } finally {
-    globalThis.browser = previousChrome;
+    globalThis.browser = previousBrowser;
   }
 });

@@ -951,5 +951,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Tyhjennetäänkö diagnostiikkahistoria? Tätä ei voi kumota."
+  },
+  "privacysettingstitle": {
+    "message": "Tietosuoja ja tekniset tiedot"
+  },
+  "telemetryconsenttitle": {
+    "message": "Jaa teknistä analytiikkaa ja virheraportteja"
+  },
+  "telemetryconsentdesc": {
+    "message": "Lähetä rajattuja toimintojen käyttölaskureita, selain-/versiotietoja ja yksityisyyttä suojaavia virhekoodeja BlockDistractionin luotettavuuden parantamiseksi."
+  },
+  "telemetryprivacynotice": {
+    "message": "Selaushistoriaa, estettyjä sivustoja, sääntöjen osoitteita, uudelleenohjaus-URL-osoitteita, sähköpostia, lisenssiavainta tai salasanoja ei koskaan lähetetä. Pysyvää telemetriatunnistetta ei käytetä. Voit poistaa tämän käytöstä milloin tahansa."
+  },
+  "telemetryenabled": {
+    "message": "Teknisten tietojen jakaminen on käytössä."
+  },
+  "telemetrydisabled": {
+    "message": "Teknisten tietojen jakaminen on poistettu käytöstä. Odottavat telemetriatiedot poistettiin."
+  },
+  "telemetryerror": {
+    "message": "Teknisten tietojen jakamista ei voitu päivittää."
   }
 }

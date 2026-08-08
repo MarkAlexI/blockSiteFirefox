@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "የምርመራ ታሪክ ይጽዳ? ይህ ሊመለስ አይችልም።"
+  },
+  "privacysettingstitle": {
+    "message": "ግላዊነት እና ቴክኒካዊ ውሂብ"
+  },
+  "telemetryconsenttitle": {
+    "message": "ቴክኒካዊ ትንታኔ እና የስህተት ሪፖርቶችን አጋራ"
+  },
+  "telemetryconsentdesc": {
+    "message": "የBlockDistraction አስተማማኝነትን ለማሻሻል የተገደቡ የባህሪ አጠቃቀም ቆጠራዎችን፣ የአሳሽ/ስሪት መረጃን እና ግላዊነትን የሚጠብቁ የስህተት ኮዶችን ላክ።"
+  },
+  "telemetryprivacynotice": {
+    "message": "የአሰሳ ታሪክ፣ የታገዱ ድረ-ገጾች፣ የደንብ አድራሻዎች፣ የማዞሪያ URL፣ ኢሜይል፣ የፈቃድ ቁልፍ ወይም የይለፍ ቃላት ፈጽሞ አይላኩም። ቋሚ የቴሌሜትሪ መለያ አይጠቀምም። በማንኛውም ጊዜ ማጥፋት ይችላሉ።"
+  },
+  "telemetryenabled": {
+    "message": "ቴክኒካዊ ውሂብ ማጋራት ነቅቷል።"
+  },
+  "telemetrydisabled": {
+    "message": "ቴክኒካዊ ውሂብ ማጋራት ጠፍቷል። በመጠባበቅ ላይ ያለ የቴሌሜትሪ ውሂብ ተሰርዟል።"
+  },
+  "telemetryerror": {
+    "message": "ቴክኒካዊ ውሂብ ማጋራትን ማዘመን አልተቻለም።"
   }
 }

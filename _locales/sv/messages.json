@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Rensa diagnostikhistoriken? Detta går inte att ångra."
+  },
+  "privacysettingstitle": {
+    "message": "Integritet och tekniska data"
+  },
+  "telemetryconsenttitle": {
+    "message": "Dela teknisk analys och felrapporter"
+  },
+  "telemetryconsentdesc": {
+    "message": "Skicka begränsade räknare för funktionsanvändning, webbläsar-/versionsuppgifter och integritetssäkra felkoder för att förbättra BlockDistractions tillförlitlighet."
+  },
+  "telemetryprivacynotice": {
+    "message": "Webbhistorik, blockerade webbplatser, regeladresser, omdirigerings-URL:er, e-post, licensnyckel eller lösenord skickas aldrig. Inget permanent telemetri-ID används. Du kan stänga av detta när som helst."
+  },
+  "telemetryenabled": {
+    "message": "Delning av tekniska data är aktiverad."
+  },
+  "telemetrydisabled": {
+    "message": "Delning av tekniska data är inaktiverad. Väntande telemetridata raderades."
+  },
+  "telemetryerror": {
+    "message": "Det gick inte att uppdatera delning av tekniska data."
   }
 }

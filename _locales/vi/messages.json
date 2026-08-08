@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Xóa lịch sử chẩn đoán? Không thể hoàn tác thao tác này."
+  },
+  "privacysettingstitle": {
+    "message": "Quyền riêng tư và dữ liệu kỹ thuật"
+  },
+  "telemetryconsenttitle": {
+    "message": "Chia sẻ phân tích kỹ thuật và báo cáo lỗi"
+  },
+  "telemetryconsentdesc": {
+    "message": "Gửi số liệu giới hạn về việc sử dụng tính năng, thông tin trình duyệt/phiên bản và mã lỗi bảo vệ quyền riêng tư để cải thiện độ tin cậy của BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Không bao giờ gửi lịch sử duyệt web, trang web bị chặn, địa chỉ quy tắc, URL chuyển hướng, email, khóa giấy phép hoặc mật khẩu. Không sử dụng ID đo từ xa cố định. Bạn có thể tắt tùy chọn này bất kỳ lúc nào."
+  },
+  "telemetryenabled": {
+    "message": "Đã bật chia sẻ dữ liệu kỹ thuật."
+  },
+  "telemetrydisabled": {
+    "message": "Đã tắt chia sẻ dữ liệu kỹ thuật. Dữ liệu đo từ xa đang chờ đã được xóa."
+  },
+  "telemetryerror": {
+    "message": "Không thể cập nhật chia sẻ dữ liệu kỹ thuật."
   }
 }

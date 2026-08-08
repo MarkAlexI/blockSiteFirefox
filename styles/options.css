@@ -1467,6 +1467,7 @@ tr.rule-whitelist td:first-child::before {
 }
 
 .diagnostics-notice {
+  display: block;
   margin: 0.75rem 0 0;
   padding: 0.75rem;
   border-left: 4px solid var(--border-focus);

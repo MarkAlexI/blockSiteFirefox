@@ -60,6 +60,7 @@ export function buildDiagnosticReport(data) {
     permissions: data.permissions,
     focusSession: data.focusSession,
     license: data.license,
+    telemetry: data.telemetry,
     recentEvents: Array.isArray(data.recentEvents) ? data.recentEvents : []
   });
 }
@@ -118,6 +119,14 @@ export function formatDiagnosticReportText(report) {
     '[License]',
     `Last check: ${formatTimestamp(report.license?.lastCheck?.timestamp)}`,
     `Last check success: ${report.license?.lastCheck ? yesNo(report.license.lastCheck.success) : 'not recorded'}`,
+    '',
+    '[Technical analytics]',
+    `Enabled: ${yesNo(report.telemetry?.enabled)}`,
+    `Pending days: ${report.telemetry?.pendingDays ?? 0}`,
+    `Pending counters: ${report.telemetry?.pendingCounterTotal ?? 0}`,
+    `Pending error fingerprints: ${report.telemetry?.pendingErrorFingerprints ?? 0}`,
+    `Last delivery success: ${formatTimestamp(report.telemetry?.delivery?.lastSuccessAt)}`,
+    `Last delivery status: ${report.telemetry?.delivery?.lastStatus ?? 'not recorded'}`,
     '',
     `[Recent diagnostic events: ${report.recentEvents?.length || 0}]`
   ];

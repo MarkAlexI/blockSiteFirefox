@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Törli a diagnosztikai előzményeket? Ez nem vonható vissza."
+  },
+  "privacysettingstitle": {
+    "message": "Adatvédelem és technikai adatok"
+  },
+  "telemetryconsenttitle": {
+    "message": "Technikai elemzések és hibajelentések megosztása"
+  },
+  "telemetryconsentdesc": {
+    "message": "Korlátozott funkcióhasználati számlálók, böngésző-/verzióadatok és adatvédelmi szempontból biztonságos hibakódok küldése a BlockDistraction megbízhatóságának javításához."
+  },
+  "telemetryprivacynotice": {
+    "message": "A böngészési előzmények, blokkolt webhelyek, szabálycímek, átirányítási URL-ek, e-mail, licenckulcs és jelszavak soha nem kerülnek elküldésre. Nem használunk állandó telemetriaazonosítót. Bármikor kikapcsolható."
+  },
+  "telemetryenabled": {
+    "message": "A technikai adatok megosztása engedélyezve."
+  },
+  "telemetrydisabled": {
+    "message": "A technikai adatok megosztása kikapcsolva. A függőben lévő telemetriaadatok törölve lettek."
+  },
+  "telemetryerror": {
+    "message": "Nem sikerült frissíteni a technikai adatok megosztását."
   }
 }

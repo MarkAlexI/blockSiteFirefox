@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Wyczyścić historię diagnostyki? Tej operacji nie można cofnąć."
+  },
+  "privacysettingstitle": {
+    "message": "Prywatność i dane techniczne"
+  },
+  "telemetryconsenttitle": {
+    "message": "Udostępniaj analizę techniczną i raporty o błędach"
+  },
+  "telemetryconsentdesc": {
+    "message": "Wysyłaj ograniczone liczniki użycia funkcji, informacje o przeglądarce/wersji i bezpieczne dla prywatności kody błędów, aby poprawiać niezawodność BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Nigdy nie są wysyłane historia przeglądania, zablokowane witryny, adresy reguł, adresy URL przekierowań, e-mail, klucz licencji ani hasła. Nie jest używany trwały identyfikator telemetrii. Możesz to wyłączyć w dowolnym momencie."
+  },
+  "telemetryenabled": {
+    "message": "Udostępnianie danych technicznych jest włączone."
+  },
+  "telemetrydisabled": {
+    "message": "Udostępnianie danych technicznych jest wyłączone. Oczekujące dane telemetryczne zostały usunięte."
+  },
+  "telemetryerror": {
+    "message": "Nie udało się zaktualizować udostępniania danych technicznych."
   }
 }

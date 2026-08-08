@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Ryd diagnostikhistorikken? Dette kan ikke fortrydes."
+  },
+  "privacysettingstitle": {
+    "message": "Privatliv og tekniske data"
+  },
+  "telemetryconsenttitle": {
+    "message": "Del teknisk analyse og fejlrapporter"
+  },
+  "telemetryconsentdesc": {
+    "message": "Send begrænsede tællinger for funktionsbrug, browser-/versionsoplysninger og privatlivssikre fejlkoder for at forbedre BlockDistractions stabilitet."
+  },
+  "telemetryprivacynotice": {
+    "message": "Browserhistorik, blokerede websteder, regeladresser, omdirigerings-URL’er, e-mail, licensnøgle eller adgangskoder sendes aldrig. Der bruges ikke et permanent telemetri-id. Du kan slå dette fra når som helst."
+  },
+  "telemetryenabled": {
+    "message": "Deling af tekniske data er aktiveret."
+  },
+  "telemetrydisabled": {
+    "message": "Deling af tekniske data er deaktiveret. Ventende telemetridata blev slettet."
+  },
+  "telemetryerror": {
+    "message": "Kunne ikke opdatere deling af tekniske data."
   }
 }

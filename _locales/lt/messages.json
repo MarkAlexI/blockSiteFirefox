@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Išvalyti diagnostikos istoriją? To atšaukti negalima."
+  },
+  "privacysettingstitle": {
+    "message": "Privatumas ir techniniai duomenys"
+  },
+  "telemetryconsenttitle": {
+    "message": "Bendrinti techninę analizę ir klaidų ataskaitas"
+  },
+  "telemetryconsentdesc": {
+    "message": "Siųsti ribotus funkcijų naudojimo skaitiklius, naršyklės / versijos informaciją ir privatumą saugančius klaidų kodus, kad būtų gerinamas BlockDistraction patikimumas."
+  },
+  "telemetryprivacynotice": {
+    "message": "Niekada nesiunčiama naršymo istorija, užblokuotos svetainės, taisyklių adresai, peradresavimo URL, el. paštas, licencijos raktas ar slaptažodžiai. Nenaudojamas nuolatinis telemetrijos ID. Tai galite bet kada išjungti."
+  },
+  "telemetryenabled": {
+    "message": "Techninių duomenų bendrinimas įjungtas."
+  },
+  "telemetrydisabled": {
+    "message": "Techninių duomenų bendrinimas išjungtas. Laukiantys telemetrijos duomenys ištrinti."
+  },
+  "telemetryerror": {
+    "message": "Nepavyko atnaujinti techninių duomenų bendrinimo."
   }
 }

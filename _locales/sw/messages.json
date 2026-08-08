@@ -960,5 +960,26 @@
   },
   "diagnosticsconfirmclear": {
     "message": "Futa historia ya uchunguzi? Hili haliwezi kutenduliwa."
+  },
+  "privacysettingstitle": {
+    "message": "Faragha na data za kiufundi"
+  },
+  "telemetryconsenttitle": {
+    "message": "Shiriki uchanganuzi wa kiufundi na ripoti za hitilafu"
+  },
+  "telemetryconsentdesc": {
+    "message": "Tuma hesabu chache za matumizi ya vipengele, maelezo ya kivinjari/toleo na misimbo ya hitilafu inayolinda faragha ili kuboresha uaminifu wa BlockDistraction."
+  },
+  "telemetryprivacynotice": {
+    "message": "Historia ya kuvinjari, tovuti zilizozuiwa, anwani za sheria, URL za uelekezaji, barua pepe, ufunguo wa leseni au nenosiri hazitumwi kamwe. Hakuna kitambulisho cha kudumu cha telemetry kinachotumiwa. Unaweza kuzima hii wakati wowote."
+  },
+  "telemetryenabled": {
+    "message": "Kushiriki data za kiufundi kumewashwa."
+  },
+  "telemetrydisabled": {
+    "message": "Kushiriki data za kiufundi kumezimwa. Data ya telemetry iliyokuwa inasubiri imefutwa."
+  },
+  "telemetryerror": {
+    "message": "Haikuwezekana kusasisha kushiriki data za kiufundi."
   }
 }
