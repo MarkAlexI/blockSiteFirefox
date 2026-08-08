@@ -1,0 +1,26 @@
+name: Extension CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          package-manager-cache: false
+
+      - name: Run tests and validation
+        run: npm run check
+
+      - name: Firefox lint
+        run: npx --yes web-ext@10.6.0 lint
