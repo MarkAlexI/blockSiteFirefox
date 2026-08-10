@@ -126,7 +126,11 @@ export function formatDiagnosticReportText(report) {
     `Pending counters: ${report.telemetry?.pendingCounterTotal ?? 0}`,
     `Pending error fingerprints: ${report.telemetry?.pendingErrorFingerprints ?? 0}`,
     `Last delivery success: ${formatTimestamp(report.telemetry?.delivery?.lastSuccessAt)}`,
+    `Last delivery failure: ${formatTimestamp(report.telemetry?.delivery?.lastFailureAt)}`,
+    `Last delivery failure reason: ${report.telemetry?.delivery?.lastFailureReason || 'not recorded'}`,
     `Last delivery status: ${report.telemetry?.delivery?.lastStatus ?? 'not recorded'}`,
+    `Delivery failures: ${report.telemetry?.delivery?.failureCount ?? 0}`,
+    `Next delivery attempt: ${formatTimestamp(report.telemetry?.delivery?.nextAttemptAt)}`,
     '',
     `[Recent diagnostic events: ${report.recentEvents?.length || 0}]`
   ];

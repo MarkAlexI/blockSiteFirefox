@@ -1,5 +1,37 @@
 const SAFE_IDENTIFIER = /^[a-z0-9][a-z0-9:_-]{0,63}$/;
 
+const TELEMETRY_BROWSERS = new Set(['firefox']);
+const TELEMETRY_PLATFORMS = new Set(['desktop', 'mobile']);
+const TELEMETRY_OSES = new Set(['windows', 'android', 'chromeos', 'macos', 'linux', 'other']);
+const TELEMETRY_ACCESS = new Set(['free', 'pro', 'legacy']);
+const TELEMETRY_INSTALLATION_AGES = new Set(['lt_7d', '7_30d', '31_90d', '90d_plus', 'unknown']);
+
+function safeEnum(value, allowed, fallback) {
+  const normalized = String(value || '').trim().toLowerCase();
+  return allowed.has(normalized) ? normalized : fallback;
+}
+
+export function sanitizeTelemetryContext(context = {}) {
+  const version = String(context.extensionVersion || 'unknown').trim().slice(0, 24);
+  const browserMajor = Number(context.browserMajor);
+  const locale = String(context.locale || 'en')
+    .trim()
+    .toLowerCase()
+    .replace('_', '-')
+    .slice(0, 16);
+
+  return {
+    extensionVersion: /^[0-9]+(?:\.[0-9]+){1,3}(?:[-+][a-z0-9.-]+)?$/i.test(version) ? version : 'unknown',
+    browser: safeEnum(context.browser, TELEMETRY_BROWSERS, 'firefox'),
+    browserMajor: Number.isInteger(browserMajor) && browserMajor > 0 && browserMajor < 1000 ? browserMajor : null,
+    platform: safeEnum(context.platform, TELEMETRY_PLATFORMS, 'desktop'),
+    os: safeEnum(context.os, TELEMETRY_OSES, 'other'),
+    locale: /^[a-z0-9-]{1,16}$/.test(locale) ? locale : 'en',
+    access: safeEnum(context.access, TELEMETRY_ACCESS, 'free'),
+    installationAge: safeEnum(context.installationAge, TELEMETRY_INSTALLATION_AGES, 'unknown')
+  };
+}
+
 export const TELEMETRY_COUNTERS = new Set([
   'rule_created',
   'rule_updated',

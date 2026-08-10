@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.1] - 2026-08-10
+### Fixed
+- Preserved specific privacy-safe rule failure codes in technical telemetry instead of collapsing every rejected rule mutation into `intent_failed`.
+- Persisted telemetry bucket context when a UTC-day bucket is first created so queued events keep the Firefox version, access tier, locale, platform, OS, and installation-age context from collection time.
+- Physically removed telemetry buckets older than the documented seven-day local retention window when the queue is inspected.
+- Added a real one-shot telemetry retry alarm so exponential delivery backoff is no longer dependent on the next daily maintenance wake-up.
+- Prevented successful delivery acknowledgements from deleting new same-day telemetry events recorded while a request was in flight.
+
+### Improved
+- Kept the schema-v1 wire protocol unchanged by grouping pending buckets by their captured context and sending separate compatible requests when necessary.
+- Preserved Firefox built-in `technicalAndInteraction` consent as the source of truth on supported versions and the local opt-in fallback on older supported versions.
+- Added delivery retry details to the privacy-safe Diagnostic Report.
+- Added regression tests for rule error classification, Firefox context preservation, persisted retention cleanup, context-grouped delivery, and retry scheduling.
+
 ## [4.8.0] - 2026-08-08
 ### Added
 - Added opt-in privacy-preserving technical analytics for the Firefox build, disabled by default.

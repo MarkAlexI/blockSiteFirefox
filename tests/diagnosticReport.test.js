@@ -56,7 +56,19 @@ test('formatted diagnostic report contains counts and structured events without 
     permissions: { hostAccess: true },
     focusSession: { active: true, mode: 'blacklist', hardcore: false, remainingMinutes: 12 },
     license: { lastCheck: null },
-    telemetry: { enabled: true, pendingDays: 1, pendingCounterTotal: 3, pendingErrorFingerprints: 1, delivery: { lastStatus: 202 } },
+    telemetry: {
+      enabled: true,
+      pendingDays: 1,
+      pendingCounterTotal: 3,
+      pendingErrorFingerprints: 1,
+      delivery: {
+        lastFailureAt: '2026-08-06T19:00:00.000Z',
+        lastFailureReason: 'timeout',
+        lastStatus: 202,
+        failureCount: 1,
+        nextAttemptAt: '2026-08-06T21:00:00.000Z'
+      }
+    },
     recentEvents: [{ timestamp: 1, level: 'warn', source: 'license', code: 'verification_failed', details: { reason: 'timeout' } }]
   });
 
@@ -65,5 +77,8 @@ test('formatted diagnostic report contains counts and structured events without 
   assert.match(text, /verification_failed/);
   assert.match(text, /Technical analytics/);
   assert.match(text, /Pending counters: 3/);
+  assert.match(text, /Last delivery failure reason: timeout/);
+  assert.match(text, /Delivery failures: 1/);
+  assert.match(text, /Next delivery attempt: 2026-08-06T21:00:00.000Z/);
   assert.doesNotMatch(text, /facebook\.com/);
 });

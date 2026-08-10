@@ -30,3 +30,26 @@ test('telemetry error sanitizer keeps identifiers only and rejects unknown sourc
     code: 'sync_failed'
   }), null);
 });
+
+test('Firefox telemetry context remains Firefox after sanitization', async () => {
+  const { sanitizeTelemetryContext } = await import('../telemetry/telemetrySanitizer.js');
+  assert.deepEqual(sanitizeTelemetryContext({
+    extensionVersion: '4.8.1',
+    browser: 'firefox',
+    browserMajor: 153,
+    platform: 'mobile',
+    os: 'android',
+    locale: 'es-es',
+    access: 'free',
+    installationAge: 'lt_7d'
+  }), {
+    extensionVersion: '4.8.1',
+    browser: 'firefox',
+    browserMajor: 153,
+    platform: 'mobile',
+    os: 'android',
+    locale: 'es-es',
+    access: 'free',
+    installationAge: 'lt_7d'
+  });
+});

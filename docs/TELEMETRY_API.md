@@ -16,12 +16,12 @@ Telemetry is disabled by default. The extension does not create telemetry bucket
   "schemaVersion": 1,
   "sentAt": "2026-08-07T12:00:00.000Z",
   "context": {
-    "extensionVersion": "4.8.0",
-    "browser": "chrome",
-    "browserMajor": 140,
-    "platform": "desktop",
-    "os": "windows",
-    "locale": "uk-ua",
+    "extensionVersion": "4.8.1",
+    "browser": "firefox",
+    "browserMajor": 153,
+    "platform": "mobile",
+    "os": "android",
+    "locale": "es-es",
     "access": "pro",
     "installationAge": "90d_plus"
   },
@@ -48,6 +48,8 @@ Telemetry is disabled by default. The extension does not create telemetry bucket
 ```
 
 The client never sends an installation identifier, rule content, browsing data, URLs, email addresses, license keys, passwords, raw error messages, filenames, or stack traces.
+
+The coarse `context` is captured with the local UTC-day bucket when that bucket is first created. If queued days have different captured contexts (for example, because the extension was updated or access changed before delivery), the client sends separate schema-v1 requests so each day keeps the context recorded at collection time. Legacy 4.8.0 buckets without stored context use the current coarse context as a delivery fallback.
 
 ## Response
 

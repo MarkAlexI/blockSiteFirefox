@@ -28,6 +28,7 @@ import { getTelemetryConsent, TELEMETRY_DATA_COLLECTION_PERMISSION } from '../te
 import { createTelemetryStore } from '../telemetry/telemetryStore.js';
 import { createTelemetryClient } from '../telemetry/telemetryClient.js';
 import { buildTelemetryContext } from '../telemetry/telemetryContext.js';
+import { getRulesTelemetryCode } from '../telemetry/telemetryRuleError.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -54,30 +55,40 @@ const hostPermissionMonitor = createHostPermissionMonitor({
   logger
 });
 
+const TELEMETRY_RETRY_ALARM = 'telemetry_retry';
+
+async function getCurrentTelemetryContext() {
+  const [credentials, isPro, isLegacyUser] = await Promise.all([
+    ProManager.getCredentials(),
+    ProManager.isPro(),
+    ProManager.isLegacyUser()
+  ]);
+  return buildTelemetryContext({
+    manifest: browser.runtime.getManifest(),
+    navigatorRef: globalThis.navigator || {},
+    locale: browser.i18n.getUILanguage?.() || 'en',
+    isPro,
+    isLegacyUser,
+    installationDate: credentials.installationDate
+  });
+}
+
 const telemetryStore = createTelemetryStore({
   localStorage: browser.storage.local,
-  getConsent: () => getTelemetryConsent(browser.storage.local, browser.permissions)
+  getConsent: () => getTelemetryConsent(browser.storage.local, browser.permissions),
+  getContext: getCurrentTelemetryContext
 });
 
 const telemetryClient = createTelemetryClient({
   localStorage: browser.storage.local,
   permissionsApi: browser.permissions,
   store: telemetryStore,
-  getContext: async () => {
-    const [credentials, isPro, isLegacyUser] = await Promise.all([
-      ProManager.getCredentials(),
-      ProManager.isPro(),
-      ProManager.isLegacyUser()
-    ]);
-    return buildTelemetryContext({
-      manifest: browser.runtime.getManifest(),
-      navigatorRef: globalThis.navigator || {},
-      locale: browser.i18n.getUILanguage?.() || 'en',
-      isPro,
-      isLegacyUser,
-      installationDate: credentials.installationDate
-    });
-  }
+  getContext: getCurrentTelemetryContext,
+  scheduleRetry: async (when) => {
+    await browser.alarms.clear(TELEMETRY_RETRY_ALARM);
+    browser.alarms.create(TELEMETRY_RETRY_ALARM, { when });
+  },
+  cancelRetry: () => browser.alarms.clear(TELEMETRY_RETRY_ALARM)
 });
 
 const RULE_INTENT_COUNTERS = new Map([
@@ -481,6 +492,8 @@ browser.tabs.onCreated.addListener(async (tab) => {
 });
 
 browser.runtime.onStartup.addListener(async () => {
+  await telemetryClient.restoreRetry();
+
   const skip = await shouldSkipSync();
   if (skip) return;
   
@@ -665,6 +678,7 @@ async function createDiagnosticReport() {
     delivery: {
       lastSuccessAt: telemetryDelivery.lastSuccessAt || null,
       lastFailureAt: telemetryDelivery.lastFailureAt || null,
+      lastFailureReason: telemetryDelivery.lastFailureReason || null,
       lastStatus: telemetryDelivery.lastStatus ?? null,
       failureCount: Number(telemetryDelivery.failureCount) || 0,
       nextAttemptAt: telemetryDelivery.nextAttemptAt || null
@@ -747,6 +761,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
   browser.runtime.setUninstallURL("https://blockdistraction.com/uninstall.html");
   
   ensureAlarmsCreated();
+  await telemetryClient.restoreRetry();
   
   if (details.reason === 'install') {
     logger.log("This is a fresh install. Checking permissions...");
@@ -789,7 +804,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }),
           telemetryStore.recordError({
             source: 'rules',
-            code: 'intent_failed',
+            code: getRulesTelemetryCode(error),
             operation: message.type.replace('rules:', ''),
             errorName: error?.name || 'Error'
           })
@@ -1089,6 +1104,10 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
     await updateUninstallURL();
     const syncResult = await syncLicenseKeyStatus();
     await updateContextMenu(syncResult.isPro);
+    await telemetryClient.flush();
+  }
+
+  if (alarm.name === TELEMETRY_RETRY_ALARM) {
     await telemetryClient.flush();
   }
   

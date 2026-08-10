@@ -55,7 +55,7 @@ test('telemetry client sends the versioned batch contract and clears accepted da
   const client = createTelemetryClient({
     localStorage: storage,
     store,
-    getContext: async () => ({ extensionVersion: '4.8.0', browser: 'chrome' }),
+    getContext: async () => ({ extensionVersion: '4.8.0', browser: 'firefox' }),
     now: () => now,
     fetchFn: async (url, options) => {
       request = { url, options };
@@ -70,7 +70,16 @@ test('telemetry client sends the versioned batch contract and clears accepted da
   const payload = JSON.parse(request.options.body);
   assert.equal(payload.schemaVersion, 1);
   assert.equal(payload.sentAt, '2026-08-07T12:00:00.000Z');
-  assert.deepEqual(payload.context, { extensionVersion: '4.8.0', browser: 'chrome' });
+  assert.deepEqual(payload.context, {
+    extensionVersion: '4.8.0',
+    browser: 'firefox',
+    browserMajor: null,
+    platform: 'desktop',
+    os: 'other',
+    locale: 'en',
+    access: 'free',
+    installationAge: 'unknown'
+  });
   assert.deepEqual(payload.batches, [{ date: '2026-08-07', counters: { rule_created: 1 }, errors: [] }]);
   assert.deepEqual(store.snapshot().pending, []);
 });
@@ -119,4 +128,106 @@ test('turning telemetry off clears all pending telemetry data', async () => {
   await client.setConsent(false);
   assert.equal(store.snapshot().clearedAll, 1);
   assert.equal((await client.getConsent()).enabled, false);
+});
+
+test('telemetry client preserves bucket context by sending separate compatible requests', async () => {
+  const now = Date.parse('2026-08-10T12:00:00.000Z');
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: now - 1000 }
+  });
+  const store = createStore([
+    {
+      date: '2026-08-09',
+      context: {
+        extensionVersion: '4.8.0', browser: 'firefox', browserMajor: 140,
+        platform: 'desktop', os: 'windows', locale: 'en-us', access: 'free', installationAge: 'lt_7d'
+      },
+      counters: { rule_created: 1 }, errors: []
+    },
+    {
+      date: '2026-08-10',
+      context: {
+        extensionVersion: '4.8.1', browser: 'firefox', browserMajor: 140,
+        platform: 'desktop', os: 'windows', locale: 'en-us', access: 'pro', installationAge: 'lt_7d'
+      },
+      counters: { focus_started: 1 }, errors: []
+    }
+  ]);
+  const requests = [];
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({
+      extensionVersion: '4.8.1', browser: 'firefox', browserMajor: 140,
+      platform: 'desktop', os: 'windows', locale: 'en-us', access: 'pro', installationAge: 'lt_7d'
+    }),
+    now: () => now,
+    fetchFn: async (_url, options) => {
+      requests.push(JSON.parse(options.body));
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    }
+  });
+
+  const result = await client.flush();
+  assert.equal(result.success, true);
+  assert.equal(requests.length, 2);
+  assert.equal(requests[0].context.extensionVersion, '4.8.0');
+  assert.equal(requests[0].context.access, 'free');
+  assert.deepEqual(requests[0].batches.map(batch => batch.date), ['2026-08-09']);
+  assert.equal('context' in requests[0].batches[0], false);
+  assert.equal(requests[1].context.extensionVersion, '4.8.1');
+  assert.equal(requests[1].context.access, 'pro');
+  assert.deepEqual(requests[1].batches.map(batch => batch.date), ['2026-08-10']);
+});
+
+test('telemetry delivery failure schedules a real retry and success cancels it', async () => {
+  const now = Date.parse('2026-08-10T12:00:00.000Z');
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: now - 1000 }
+  });
+  const store = createStore([{ date: '2026-08-10', counters: { rule_created: 1 }, errors: [] }]);
+  const scheduled = [];
+  let cancelled = 0;
+  let shouldFail = true;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({ extensionVersion: '4.8.1', browser: 'firefox' }),
+    now: () => now,
+    scheduleRetry: async when => { scheduled.push(when); },
+    cancelRetry: async () => { cancelled++; },
+    fetchFn: async () => shouldFail ?
+      { ok: false, status: 503, json: async () => ({}) } :
+      { ok: true, status: 202, json: async () => ({ ok: true }) }
+  });
+
+  const failed = await client.flush();
+  assert.equal(failed.success, false);
+  assert.equal(scheduled.length, 1);
+  assert.equal(scheduled[0], now + 60 * 60 * 1000);
+
+  shouldFail = false;
+  const succeeded = await client.flush({ force: true });
+  assert.equal(succeeded.success, true);
+  assert.equal(cancelled, 1);
+});
+
+test('telemetry retry schedule is restored from delivery state', async () => {
+  const now = Date.parse('2026-08-10T12:00:00.000Z');
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: now - 1000 }
+  });
+  const store = createStore([]);
+  await store.setDeliveryState({ nextAttemptAt: now - 1000, failureCount: 2 });
+  const scheduled = [];
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({}),
+    now: () => now,
+    scheduleRetry: async when => { scheduled.push(when); }
+  });
+
+  assert.equal(await client.restoreRetry(), true);
+  assert.deepEqual(scheduled, [now + 60 * 1000]);
 });

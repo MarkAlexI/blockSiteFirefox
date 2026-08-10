@@ -124,3 +124,101 @@ test('telemetry retention keeps only the current and previous six UTC dates', as
   const batches = await store.getPendingBatches();
   assert.deepEqual(batches.map(batch => batch.date), ['2026-08-01', '2026-08-07']);
 });
+
+test('telemetry bucket captures coarse context once and keeps it for queued events', async () => {
+  const storage = createStorage();
+  let context = {
+    extensionVersion: '4.8.1',
+    browser: 'firefox',
+    browserMajor: 140,
+    platform: 'desktop',
+    os: 'windows',
+    locale: 'en-us',
+    access: 'free',
+    installationAge: 'lt_7d'
+  };
+  const store = createTelemetryStore({
+    localStorage: storage,
+    getConsent: async () => ({ enabled: true }),
+    getContext: async () => ({ ...context }),
+    now: () => Date.parse('2026-08-10T12:00:00Z')
+  });
+
+  await store.incrementCounter('rule_created');
+  context = { ...context, access: 'pro', extensionVersion: '4.8.3' };
+  await store.incrementCounter('focus_started');
+
+  const [batch] = await store.getPendingBatches();
+  assert.deepEqual(batch.context, {
+    extensionVersion: '4.8.1',
+    browser: 'firefox',
+    browserMajor: 140,
+    platform: 'desktop',
+    os: 'windows',
+    locale: 'en-us',
+    access: 'free',
+    installationAge: 'lt_7d'
+  });
+  assert.deepEqual(batch.counters, { rule_created: 1, focus_started: 1 });
+});
+
+test('telemetry retention physically removes expired buckets from local storage', async () => {
+  const storage = createStorage({
+    [TELEMETRY_BUCKETS_KEY]: {
+      '2026-08-01': { date: '2026-08-01', counters: { rule_created: 1 }, errors: [] },
+      '2026-08-10': { date: '2026-08-10', counters: { rule_created: 1 }, errors: [] }
+    }
+  });
+  const store = createTelemetryStore({
+    localStorage: storage,
+    getConsent: async () => ({ enabled: true }),
+    now: () => Date.parse('2026-08-10T12:00:00Z'),
+    retentionDays: 7
+  });
+
+  await store.getPendingBatches();
+  assert.deepEqual(Object.keys(storage.data[TELEMETRY_BUCKETS_KEY]), ['2026-08-10']);
+});
+
+test('telemetry acknowledgement removes only the sent snapshot and keeps concurrent same-day events', async () => {
+  const storage = createStorage({
+    [TELEMETRY_BUCKETS_KEY]: {
+      '2026-08-10': {
+        date: '2026-08-10',
+        counters: { rule_created: 3, focus_started: 1 },
+        errors: [{
+          source: 'rules',
+          code: 'blockurl_invalid',
+          operation: 'add',
+          errorName: 'rulesmutationerror',
+          fingerprint: 'rules:blockurl_invalid:add:rulesmutationerror',
+          count: 2
+        }]
+      }
+    }
+  });
+  const store = createTelemetryStore({
+    localStorage: storage,
+    getConsent: async () => ({ enabled: true }),
+    now: () => Date.parse('2026-08-10T12:00:00Z')
+  });
+
+  await store.acknowledgeBatches([{
+    date: '2026-08-10',
+    counters: { rule_created: 2 },
+    errors: [{
+      source: 'rules',
+      code: 'blockurl_invalid',
+      operation: 'add',
+      errorName: 'rulesmutationerror',
+      fingerprint: 'rules:blockurl_invalid:add:rulesmutationerror',
+      count: 1
+    }]
+  }]);
+
+  assert.deepEqual(storage.data[TELEMETRY_BUCKETS_KEY]['2026-08-10'].counters, {
+    rule_created: 1,
+    focus_started: 1
+  });
+  assert.equal(storage.data[TELEMETRY_BUCKETS_KEY]['2026-08-10'].errors[0].count, 1);
+});

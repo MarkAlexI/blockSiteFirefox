@@ -1,4 +1,8 @@
-import { normalizeCounterName, sanitizeTelemetryError } from './telemetrySanitizer.js';
+import {
+  normalizeCounterName,
+  sanitizeTelemetryContext,
+  sanitizeTelemetryError
+} from './telemetrySanitizer.js';
 
 export const TELEMETRY_BUCKETS_KEY = 'telemetryBuckets';
 export const TELEMETRY_DELIVERY_STATE_KEY = 'telemetryDeliveryState';
@@ -7,10 +11,6 @@ export const MAX_TELEMETRY_ERRORS_PER_DAY = 50;
 
 function utcDate(timestamp) {
   return new Date(timestamp).toISOString().slice(0, 10);
-}
-
-function emptyBucket(date) {
-  return { date, counters: {}, errors: [] };
 }
 
 function isDateWithinRetention(date, now, retentionDays) {
@@ -22,9 +22,16 @@ function isDateWithinRetention(date, now, retentionDays) {
   return date >= oldestDate && date <= currentDate;
 }
 
+function sameDateKeys(a, b) {
+  const left = Object.keys(a).sort();
+  const right = Object.keys(b).sort();
+  return left.length === right.length && left.every((key, index) => key === right[index]);
+}
+
 export function createTelemetryStore({
   localStorage,
   getConsent,
+  getContext = null,
   now = () => Date.now(),
   retentionDays = TELEMETRY_RETENTION_DAYS,
   maxErrorsPerDay = MAX_TELEMETRY_ERRORS_PER_DAY
@@ -62,6 +69,40 @@ export function createTelemetryStore({
     await localStorage.set({ [TELEMETRY_BUCKETS_KEY]: pruneBuckets(buckets) });
   }
 
+  async function createBucket(date) {
+    let context = null;
+    if (typeof getContext === 'function') {
+      try {
+        context = sanitizeTelemetryContext(await getContext());
+      } catch {
+        context = null;
+      }
+    }
+
+    return {
+      date,
+      ...(context ? { context } : {}),
+      counters: {},
+      errors: []
+    };
+  }
+
+  async function getOrCreateBucket(buckets, date) {
+    const existing = buckets[date];
+    if (existing) {
+      if (!existing.context && typeof getContext === 'function') {
+        try {
+          existing.context = sanitizeTelemetryContext(await getContext());
+        } catch {
+          // Keep legacy 4.8.0 buckets readable. The client will use its current
+          // coarse context as a delivery fallback if no bucket context exists.
+        }
+      }
+      return existing;
+    }
+    return createBucket(date);
+  }
+
   async function incrementCounter(name, amount = 1) {
     const safeName = normalizeCounterName(name);
     const safeAmount = Math.max(1, Math.min(1000, Math.floor(Number(amount) || 1)));
@@ -71,7 +112,7 @@ export function createTelemetryStore({
       if (!await isEnabled()) return false;
       const buckets = pruneBuckets(await readBuckets());
       const date = utcDate(now());
-      const bucket = buckets[date] || emptyBucket(date);
+      const bucket = await getOrCreateBucket(buckets, date);
       bucket.counters[safeName] = Math.min(
         Number.MAX_SAFE_INTEGER,
         (Number(bucket.counters[safeName]) || 0) + safeAmount
@@ -90,7 +131,7 @@ export function createTelemetryStore({
       if (!await isEnabled()) return false;
       const buckets = pruneBuckets(await readBuckets());
       const date = utcDate(now());
-      const bucket = buckets[date] || emptyBucket(date);
+      const bucket = await getOrCreateBucket(buckets, date);
       const existing = bucket.errors.find(item => item.fingerprint === sanitized.fingerprint);
 
       if (existing) {
@@ -106,20 +147,73 @@ export function createTelemetryStore({
   }
 
   async function getPendingBatches() {
-    await mutationQueue;
-    const buckets = pruneBuckets(await readBuckets());
-    const normalized = Object.values(buckets)
-      .filter(bucket =>
-        Object.keys(bucket.counters || {}).length > 0 ||
-        Array.isArray(bucket.errors) && bucket.errors.length > 0
-      )
-      .map(bucket => ({
-        date: bucket.date,
-        counters: { ...(bucket.counters || {}) },
-        errors: Array.isArray(bucket.errors) ? bucket.errors.map(item => ({ ...item })) : []
-      }));
+    return enqueue(async () => {
+      const stored = await readBuckets();
+      const buckets = pruneBuckets(stored);
 
-    return normalized;
+      // Retention is a storage guarantee, not only a delivery filter.
+      if (!sameDateKeys(stored, buckets)) {
+        await localStorage.set({ [TELEMETRY_BUCKETS_KEY]: buckets });
+      }
+
+      return Object.values(buckets)
+        .filter(bucket =>
+          Object.keys(bucket.counters || {}).length > 0 ||
+          Array.isArray(bucket.errors) && bucket.errors.length > 0
+        )
+        .map(bucket => ({
+          date: bucket.date,
+          ...(bucket.context ? { context: sanitizeTelemetryContext(bucket.context) } : {}),
+          counters: { ...(bucket.counters || {}) },
+          errors: Array.isArray(bucket.errors) ? bucket.errors.map(item => ({ ...item })) : []
+        }));
+    });
+  }
+
+
+  async function acknowledgeBatches(acceptedBatches) {
+    const snapshots = Array.isArray(acceptedBatches) ? acceptedBatches : [];
+    if (snapshots.length === 0) return false;
+
+    return enqueue(async () => {
+      const buckets = await readBuckets();
+
+      for (const snapshot of snapshots) {
+        const date = snapshot?.date;
+        const bucket = date ? buckets[date] : null;
+        if (!bucket) continue;
+
+        for (const [name, sentValue] of Object.entries(snapshot.counters || {})) {
+          const remaining = (Number(bucket.counters?.[name]) || 0) - (Number(sentValue) || 0);
+          if (remaining > 0) {
+            bucket.counters[name] = remaining;
+          } else if (bucket.counters) {
+            delete bucket.counters[name];
+          }
+        }
+
+        const sentErrors = new Map(
+          (Array.isArray(snapshot.errors) ? snapshot.errors : [])
+            .map(item => [item.fingerprint, Number(item.count) || 0])
+        );
+
+        bucket.errors = (Array.isArray(bucket.errors) ? bucket.errors : [])
+          .map(item => {
+            const remaining = (Number(item.count) || 0) - (sentErrors.get(item.fingerprint) || 0);
+            return { ...item, count: remaining };
+          })
+          .filter(item => item.count > 0);
+
+        const hasCounters = Object.keys(bucket.counters || {}).length > 0;
+        const hasErrors = bucket.errors.length > 0;
+        if (!hasCounters && !hasErrors) {
+          delete buckets[date];
+        }
+      }
+
+      await writeBuckets(buckets);
+      return true;
+    });
   }
 
   async function clearDates(dates) {
@@ -158,6 +252,7 @@ export function createTelemetryStore({
     incrementCounter,
     recordError,
     getPendingBatches,
+    acknowledgeBatches,
     clearDates,
     clearAll,
     getDeliveryState,
