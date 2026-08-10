@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.2] - 2026-08-10
+### Changed
+- Replaced the old positive/negative review gate with one neutral feedback prompt in the popup that offers the Mozilla Add-ons review page and support side by side.
+- Moved automatic feedback prompting out of the Options page so regular popup users, including Firefox for Android users, can actually see it.
+- Show the prompt only after at least seven days and meaningful local use: two saved rules, five handled blocks/redirects, or one completed Focus Session.
+- Limit automatic feedback prompting to two displays per installation, with a fourteen-day snooze after the first display.
+- Preserve completed legacy feedback state so users who already responded are not prompted again after the migration.
+- Store new feedback prompt state locally instead of synchronizing it across Firefox installations.
+
+### Improved
+- Open the dedicated Mozilla Add-ons reviews page directly from the review action.
+- Kept the feedback implementation Firefox-native with `browser.storage` and `browser.tabs` rather than importing Chromium store-target logic.
+- Added regression tests for feedback eligibility, snoozing, legacy migration, and Firefox review/support routing.
+
 ## [4.8.1] - 2026-08-10
 ### Fixed
 - Preserved specific privacy-safe rule failure codes in technical telemetry instead of collapsing every rejected rule mutation into `intent_failed`.

@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="styles/popup.css">
   <link rel="stylesheet" type="text/css" href="styles/controls.css">
   <link rel="stylesheet" href="styles/modal.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="styles/feedback-modal.css" type="text/css" media="all" />
   <title data-i18n="defaulttitle"></title>
 </head>
 
@@ -71,6 +72,24 @@
   </div>
   <output id="status"></output>
   <div id="rules-container"></div>
+  
+  <dialog id="feedback-dialog" class="native-dialog">
+    <div class="dialog-content">
+      <button id="feedback-close-btn" class="dialog-close-btn" aria-label="Close" title="Close">&times;</button>
+      <h3>BlockDistraction</h3>
+      <p data-i18n="feedback_desc">Your feedback really helps us improve the extension.</p>
+      <div class="dialog-actions">
+        <button id="feedback-review-btn" class="action-btn primary" type="button">
+          <span class="feedback-finger" aria-hidden="true">⭐</span>
+          <span id="feedback-store-label">Mozilla Add-ons</span>
+        </button>
+        <button id="feedback-support-btn" class="action-btn secondary" type="button">
+          <span aria-hidden="true">✉</span>
+          <span data-i18n="sendfeedbackbutton">Send Feedback</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
   
   <div id="passwordModal" class="modal hidden">
     <div class="modal-content">

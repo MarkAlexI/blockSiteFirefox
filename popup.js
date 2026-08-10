@@ -16,6 +16,7 @@ import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 import { SettingsManager } from './options/settings.js';
 import { installPageErrorReporter } from './telemetry/pageErrorReporter.js';
+import { initFeedbackPrompt } from './feedback/feedbackPrompt.js';
 
 installPageErrorReporter('popup');
 
@@ -78,6 +79,7 @@ class PopupPage {
     
     await this.loadRules();
     await this.initFocusSession();
+    await initFeedbackPrompt();
   }
   
   initializeUI() {
