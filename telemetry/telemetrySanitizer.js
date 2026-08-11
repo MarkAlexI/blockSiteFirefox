@@ -45,7 +45,11 @@ export const TELEMETRY_COUNTERS = new Set([
   'focus_started',
   'focus_stopped',
   'focus_completed',
-  'diagnostic_report_generated'
+  'diagnostic_report_generated',
+  'feedback_prompt_shown',
+  'feedback_review_clicked',
+  'feedback_support_clicked',
+  'feedback_dismissed'
 ]);
 
 export const TELEMETRY_ERROR_SOURCES = new Set([

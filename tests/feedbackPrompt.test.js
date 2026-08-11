@@ -7,7 +7,8 @@ import {
   FEEDBACK_MAX_PROMPTS,
   hasMeaningfulFeedbackUsage,
   shouldShowFeedbackPrompt,
-  createFeedbackPromptController
+  createFeedbackPromptController,
+  initFeedbackPrompt
 } from '../feedback/feedbackPrompt.js';
 
 function createStorage(initial = {}) {
@@ -165,4 +166,148 @@ test('review and support actions complete the prompt and open the correct Firefo
     'https://addons.mozilla.org/en-US/firefox/addon/blockersite/reviews/',
     'https://support.example/'
   ]);
+});
+
+
+function createFeedbackDocument() {
+  class Element {
+    constructor() {
+      this.listeners = new Map();
+      this.open = false;
+      this.closeCount = 0;
+    }
+
+    addEventListener(type, listener, options = {}) {
+      const listeners = this.listeners.get(type) || [];
+      listeners.push({ listener, once: options?.once === true });
+      this.listeners.set(type, listeners);
+    }
+
+    async emit(type, event = {}) {
+      const listeners = [...(this.listeners.get(type) || [])];
+      for (const entry of listeners) {
+        await entry.listener(event);
+        if (entry.once) {
+          const current = this.listeners.get(type) || [];
+          this.listeners.set(type, current.filter(item => item !== entry));
+        }
+      }
+    }
+
+    showModal() {
+      this.open = true;
+    }
+
+    close() {
+      this.open = false;
+      this.closeCount += 1;
+    }
+
+    getBoundingClientRect() {
+      return { left: 0, right: 100, top: 0, bottom: 100 };
+    }
+  }
+
+  const elements = {
+    'feedback-dialog': new Element(),
+    'feedback-close-btn': new Element(),
+    'feedback-review-btn': new Element(),
+    'feedback-support-btn': new Element()
+  };
+
+  return {
+    elements,
+    getElementById(id) {
+      return elements[id] || null;
+    }
+  };
+}
+
+function createEligibleFeedbackStorage() {
+  return {
+    localStorage: createStorage({ rules: [{}, {}] }),
+    syncStorage: createStorage({
+      credentials: { installationDate: '2026-01-01T00:00:00Z' }
+    })
+  };
+}
+
+test('feedback prompt reports display and AMO review click counters at the actual UI actions', async () => {
+  const documentRef = createFeedbackDocument();
+  const { localStorage, syncStorage } = createEligibleFeedbackStorage();
+  const counters = [];
+  const opened = [];
+  const reviewUrl = 'https://addons.mozilla.org/en-US/firefox/addon/blockersite/reviews/';
+
+  const shown = await initFeedbackPrompt({
+    documentRef,
+    localStorage,
+    syncStorage,
+    tabsApi: { async create(details) { opened.push(details.url); } },
+    now: () => Date.parse('2026-08-11T08:00:00Z'),
+    reviewUrl,
+    recordCounter: name => counters.push(name)
+  });
+
+  assert.equal(shown, true);
+  assert.equal(documentRef.elements['feedback-dialog'].open, true);
+  assert.deepEqual(counters, ['feedback_prompt_shown']);
+
+  await documentRef.elements['feedback-review-btn'].emit('click');
+
+  assert.deepEqual(counters, [
+    'feedback_prompt_shown',
+    'feedback_review_clicked'
+  ]);
+  assert.deepEqual(opened, [reviewUrl]);
+  assert.equal(localStorage.data[FEEDBACK_STATE_KEY].completed, true);
+  assert.equal(localStorage.data[FEEDBACK_STATE_KEY].lastAction, 'review');
+});
+
+test('feedback prompt reports support clicks and dismissals without duplicate final actions', async () => {
+  const supportDocument = createFeedbackDocument();
+  const supportStorage = createEligibleFeedbackStorage();
+  const supportCounters = [];
+
+  await initFeedbackPrompt({
+    documentRef: supportDocument,
+    ...supportStorage,
+    tabsApi: { async create() {} },
+    now: () => Date.parse('2026-08-11T08:00:00Z'),
+    reviewUrl: 'https://addons.mozilla.org/en-US/firefox/addon/blockersite/reviews/',
+    recordCounter: name => supportCounters.push(name)
+  });
+  await supportDocument.elements['feedback-support-btn'].emit('click');
+
+  assert.deepEqual(supportCounters, [
+    'feedback_prompt_shown',
+    'feedback_support_clicked'
+  ]);
+
+  const dismissDocument = createFeedbackDocument();
+  const dismissStorage = createEligibleFeedbackStorage();
+  const dismissCounters = [];
+
+  await initFeedbackPrompt({
+    documentRef: dismissDocument,
+    ...dismissStorage,
+    tabsApi: { async create() {} },
+    now: () => Date.parse('2026-08-11T08:00:00Z'),
+    reviewUrl: 'https://addons.mozilla.org/en-US/firefox/addon/blockersite/reviews/',
+    recordCounter: name => dismissCounters.push(name)
+  });
+
+  await dismissDocument.elements['feedback-close-btn'].emit('click');
+  await new Promise(resolve => setImmediate(resolve));
+  await dismissDocument.elements['feedback-dialog'].emit('cancel', {
+    preventDefault() {}
+  });
+  await new Promise(resolve => setImmediate(resolve));
+
+  assert.deepEqual(dismissCounters, [
+    'feedback_prompt_shown',
+    'feedback_dismissed'
+  ]);
+  assert.equal(dismissStorage.localStorage.data[FEEDBACK_STATE_KEY].lastAction, 'dismissed');
+  assert.equal(dismissDocument.elements['feedback-dialog'].closeCount, 1);
 });

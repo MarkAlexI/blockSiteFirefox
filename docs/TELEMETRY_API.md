@@ -49,6 +49,8 @@ Telemetry is disabled by default. The extension does not create telemetry bucket
 
 The client never sends an installation identifier, rule content, browsing data, URLs, email addresses, license keys, passwords, raw error messages, filenames, or stack traces.
 
+The schema-v1 counter allowlist currently includes rule, category, Focus Session, diagnostics, and feedback interaction counters. Feedback counters are limited to `feedback_prompt_shown`, `feedback_review_clicked`, `feedback_support_clicked`, and `feedback_dismissed`; they contain no prompt content or free-form values.
+
 The coarse `context` is captured with the local UTC-day bucket when that bucket is first created. If queued days have different captured contexts (for example, because the extension was updated or access changed before delivery), the client sends separate schema-v1 requests so each day keeps the context recorded at collection time. Legacy 4.8.0 buckets without stored context use the current coarse context as a delivery fallback.
 
 ## Response

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.3] - 2026-08-11
+### Improved
+- Extended opt-in technical telemetry with aggregated counters for feedback prompt displays, Mozilla Add-ons review clicks, support clicks, and dismissals.
+- Routed popup feedback counters through the service worker and the existing strict telemetry allowlist, while preserving Firefox native `technicalAndInteraction` consent and keeping schema version 1 unchanged.
+- Added regression coverage for feedback counter reporting, allowlist rejection, Firefox Promise-based fire-and-forget messaging, and service-worker aggregation.
+
 ## [4.8.2] - 2026-08-10
 ### Changed
 - Replaced the old positive/negative review gate with one neutral feedback prompt in the popup that offers the Mozilla Add-ons review page and support side by side.

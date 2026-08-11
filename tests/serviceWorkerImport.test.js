@@ -131,7 +131,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       id: 'test-extension-id',
       lastError: null,
       getURL: path => `moz-extension://test-extension-id/${path}`,
-      getManifest: () => ({ version: '4.8.1', manifest_version: 3 }),
+      getManifest: () => ({ version: '4.8.3', manifest_version: 3 }),
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();
@@ -210,7 +210,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
 
     assert.equal(diagnostics.success, true);
-    assert.equal(diagnostics.report.extension.version, '4.8.1');
+    assert.equal(diagnostics.report.extension.version, '4.8.3');
     assert.equal(diagnostics.report.rules.total, 1);
     assert.equal(diagnostics.report.dnr.inSync, false);
     assert.equal(diagnostics.report.permissions.hostAccess, true);
@@ -232,6 +232,26 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(enabledConsent.success, true);
     assert.equal(enabledConsent.consent.enabled, true);
 
+    const feedbackCounter = await sendWorkerMessage(messageListener, {
+      type: 'telemetry:incrementCounter',
+      name: 'feedback_prompt_shown'
+    });
+    assert.equal(feedbackCounter.success, true);
+    assert.equal(feedbackCounter.recorded, true);
+
+    const rejectedCounter = await sendWorkerMessage(messageListener, {
+      type: 'telemetry:incrementCounter',
+      name: 'feedback_private_value'
+    });
+    assert.equal(rejectedCounter.success, true);
+    assert.equal(rejectedCounter.recorded, false);
+    assert.equal(
+      Object.values(localStorage.data.telemetryBuckets || {}).some(
+        bucket => bucket?.counters?.feedback_private_value !== undefined
+      ),
+      false
+    );
+
     await sendWorkerMessage(messageListener, {
       type: 'telemetry:recordError',
       payload: {
@@ -250,6 +270,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       type: 'diagnostics:getReport'
     });
     assert.equal(telemetryDiagnostics.report.telemetry.enabled, true);
+    assert.equal(telemetryDiagnostics.report.telemetry.pendingCounterTotal, 1);
     assert.equal(telemetryDiagnostics.report.telemetry.pendingErrorFingerprints, 1);
 
     const flushed = await sendWorkerMessage(messageListener, {
@@ -262,6 +283,8 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(telemetryRequests[0].url, 'https://blockdistraction.com/api/telemetry');
     const telemetryPayload = JSON.parse(telemetryRequests[0].options.body);
     assert.equal(telemetryPayload.schemaVersion, 1);
+    assert.equal(telemetryPayload.batches[0].counters.feedback_prompt_shown, 1);
+    assert.equal(telemetryPayload.batches[0].counters.feedback_private_value, undefined);
     assert.equal('installationId' in telemetryPayload.context, false);
     assert.equal(JSON.stringify(telemetryPayload).includes('private.example'), false);
 

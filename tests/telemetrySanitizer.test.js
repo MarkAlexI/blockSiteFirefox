@@ -7,6 +7,11 @@ import {
 
 test('telemetry accepts only allowlisted counters', () => {
   assert.equal(normalizeCounterName('rule_created'), 'rule_created');
+  assert.equal(normalizeCounterName('feedback_prompt_shown'), 'feedback_prompt_shown');
+  assert.equal(normalizeCounterName('feedback_review_clicked'), 'feedback_review_clicked');
+  assert.equal(normalizeCounterName('feedback_support_clicked'), 'feedback_support_clicked');
+  assert.equal(normalizeCounterName('feedback_dismissed'), 'feedback_dismissed');
+  assert.equal(normalizeCounterName('feedback_private_value'), null);
   assert.equal(normalizeCounterName('visited_example.com'), null);
   assert.equal(normalizeCounterName('https://example.com'), null);
 });

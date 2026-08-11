@@ -182,7 +182,7 @@ if (result && typeof result.catch === 'function') {
 }
 ```
 
-`telemetry/pageErrorReporter.js` is an example of this intentional difference.
+`telemetry/pageErrorReporter.js` and `telemetry/telemetryCounterReporter.js` are examples of this intentional difference.
 
 This matters for messages that are allowed to have no active receiver. An unhandled rejected Promise in Firefox is not equivalent to Chromium's callback pattern with `runtime.lastError` consumed.
 
@@ -483,6 +483,7 @@ scripts/isBlockedURL.js
 rules/rulesClient.js
 scripts/service_worker.js
 telemetry/pageErrorReporter.js
+telemetry/telemetryCounterReporter.js
 ```
 
 ### Telemetry consent and browser identification
