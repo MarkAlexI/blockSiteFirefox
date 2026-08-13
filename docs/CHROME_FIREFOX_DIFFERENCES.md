@@ -184,7 +184,7 @@ if (result && typeof result.catch === 'function') {
 }
 ```
 
-`telemetry/pageErrorReporter.js` and `telemetry/telemetryCounterReporter.js` are examples of this intentional difference.
+`telemetry/pageErrorReporter.js` and `telemetry/telemetryCounterReporter.js` are examples of this intentional difference. The Firefox popup, onboarding, update/blocked/redirect pages, Pro status notifications, and service-worker `rules:changed` notification also follow the Promise-style contract.
 
 This matters for messages that are allowed to have no active receiver. An unhandled rejected Promise in Firefox is not equivalent to Chromium's callback pattern with `runtime.lastError` consumed.
 

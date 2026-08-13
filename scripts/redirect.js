@@ -9,13 +9,18 @@ try {
   
   if (fromUrl && toUrl) {
     try {
-      browser.runtime.sendMessage({
+      const request = browser.runtime.sendMessage({
         type: 'record_redirect',
         from: decodeURIComponent(fromUrl),
         to: toUrl
       });
+      if (request && typeof request.catch === 'function') {
+        request.catch(error => {
+          logger.info('Redirect record message was not delivered:', error);
+        });
+      }
     } catch (error) {
-      logger.error('Error sending redirect record message:', error);
+      logger.info('Redirect record message was not delivered:', error);
     }
     
     if (toUrl.startsWith('http://') || toUrl.startsWith('https://')) {

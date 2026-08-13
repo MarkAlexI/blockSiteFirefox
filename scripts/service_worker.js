@@ -173,13 +173,15 @@ const rulesMigrationService = createRulesMigrationService({
 
 function notifyRulesChanged(rules, extra = {}) {
   try {
-    browser.runtime.sendMessage({
+    const request = browser.runtime.sendMessage({
       type: 'rules:changed',
       rules,
       ...extra
-    }, () => {
-      void browser.runtime.lastError;
     });
+
+    if (request && typeof request.catch === 'function') {
+      request.catch(() => {});
+    }
   } catch (error) {
     logger.info('No active extension page received rules:changed:', error);
   }

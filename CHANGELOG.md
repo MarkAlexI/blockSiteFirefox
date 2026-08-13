@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Improved
 - Kept transient license verification failures in local diagnostics for troubleshooting while reserving remote reliability errors for unexpected extension failures.
-- Added regression coverage for license reliability-error classification.
+- Converted Firefox runtime messaging to the native Promise style for request/response and fire-and-forget calls, consuming expected no-receiver rejections without Chromium `runtime.lastError` callbacks.
+- Added regression coverage for license reliability-error classification and Firefox Promise-based runtime messaging.
 
 ## [4.8.6] - 2026-08-13
 ### Fixed

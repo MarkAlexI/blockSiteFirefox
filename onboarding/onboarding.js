@@ -3,6 +3,24 @@ import Logger from '../utils/logger.js';
 
 const logger = new Logger('Onboarding');
 
+function sendFireAndForget(message) {
+  try {
+    const request = browser.runtime.sendMessage(message);
+    if (request && typeof request.catch === 'function') {
+      request.catch(() => {});
+    }
+  } catch {
+    // The onboarding UI can continue even if the background page is unavailable.
+  }
+}
+
+function notifyPermissionsGrantedAndScheduleClose() {
+  sendFireAndForget({ type: 'permissions_granted' });
+  setTimeout(() => {
+    sendFireAndForget({ type: 'close_current_tab' });
+  }, 3000);
+}
+
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -33,13 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMsg.style.display = 'block';
         grantBtn.style.display = 'none';
         
-        browser.runtime.sendMessage({ type: 'permissions_granted' }, () => {
-          setTimeout(() => {
-            browser.runtime.sendMessage({
-              type: 'close_current_tab'
-            });
-          }, 3000);
-        });
+        notifyPermissionsGrantedAndScheduleClose();
       }
     });
   }
@@ -61,13 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMsg.style.display = 'block';
         grantBtn.style.display = 'none';
         
-        browser.runtime.sendMessage({ type: 'permissions_granted' }, () => {
-          setTimeout(() => {
-            browser.runtime.sendMessage({
-              type: 'close_current_tab'
-            });
-          }, 3000);
-        });
+        notifyPermissionsGrantedAndScheduleClose();
       } else {
         statusMsg.textContent = t('onboarding_status_denied');
         statusMsg.className = 'error';

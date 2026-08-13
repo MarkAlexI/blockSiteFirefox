@@ -24,18 +24,13 @@ const licenseMessage = document.getElementById('license-message');
 const forceSyncBtn = document.getElementById('force-sync-btn');
 const logOutBtn = document.getElementById('log-out-btn');
 
-function sendMessageToWorker(message) {
-  return new Promise((resolve) => {
-    try {
-      browser.runtime.sendMessage(message, (response) => {
-        void browser.runtime.lastError;
-        resolve(response);
-      });
-    } catch (e) {
-      logger.warn("Message sending failed:", e);
-      resolve(null);
-    }
-  });
+async function sendMessageToWorker(message) {
+  try {
+    return await browser.runtime.sendMessage(message);
+  } catch (error) {
+    logger.warn("Message sending failed:", error);
+    return null;
+  }
 }
 
 if (versionText) {
