@@ -115,6 +115,23 @@ if (manifest) {
     await ensureFile(referencedFile);
   }
 
+  const firefoxDataCollection =
+    manifest.browser_specific_settings?.gecko?.data_collection_permissions;
+  const requiredDataCollection = Array.isArray(firefoxDataCollection?.required) ?
+    firefoxDataCollection.required : [];
+  const optionalDataCollection = Array.isArray(firefoxDataCollection?.optional) ?
+    firefoxDataCollection.optional : [];
+
+  if (!requiredDataCollection.includes('none')) {
+    errors.push(
+      'manifest.json: Firefox data_collection_permissions.required must include "none"'
+    );
+  }
+  if (!optionalDataCollection.includes('technicalAndInteraction')) {
+    errors.push(
+      'manifest.json: Firefox data_collection_permissions.optional must include "technicalAndInteraction"'
+    );
+  }
 
   const changelog = await readFile(path.join(root, 'CHANGELOG.md'), 'utf8');
   const firstVersion = changelog.match(/^## \[([^\]]+)\]/m)?.[1];

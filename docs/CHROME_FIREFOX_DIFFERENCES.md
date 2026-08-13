@@ -72,6 +72,7 @@ Current Firefox-specific declaration:
     "id": "{397e704c-6038-4647-8d15-35040d68b032}",
     "strict_min_version": "113.0",
     "data_collection_permissions": {
+      "required": ["none"],
       "optional": ["technicalAndInteraction"]
     }
   },
@@ -85,6 +86,8 @@ Current Firefox-specific declaration:
 Do not copy the Chromium background declaration over the Firefox one during a port.
 
 Do not remove or replace the Gecko ID or Firefox data-collection declaration unless the change is intentional and has been reviewed for AMO compatibility.
+
+For BlockDistraction, keep both `required: ["none"]` and optional `technicalAndInteraction`. The Firefox/AMO manifest validation path depends on this exact opt-in declaration, so do not simplify it to the optional entry alone during a Chromium-to-Firefox port.
 
 ---
 
