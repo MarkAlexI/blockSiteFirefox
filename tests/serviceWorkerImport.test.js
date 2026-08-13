@@ -131,7 +131,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       id: 'test-extension-id',
       lastError: null,
       getURL: path => `moz-extension://test-extension-id/${path}`,
-      getManifest: () => ({ version: '4.8.4', manifest_version: 3 }),
+      getManifest: () => ({ version: '4.8.6', manifest_version: 3 }),
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();
@@ -210,7 +210,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
 
     assert.equal(diagnostics.success, true);
-    assert.equal(diagnostics.report.extension.version, '4.8.4');
+    assert.equal(diagnostics.report.extension.version, '4.8.6');
     assert.equal(diagnostics.report.rules.total, 1);
     assert.equal(diagnostics.report.dnr.inSync, false);
     assert.equal(diagnostics.report.permissions.hostAccess, true);
@@ -231,6 +231,25 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
     assert.equal(enabledConsent.success, true);
     assert.equal(enabledConsent.consent.enabled, true);
+
+    const rejectedRule = await sendWorkerMessage(messageListener, {
+      type: 'rules:add',
+      payload: {
+        blockURL: 'example.com',
+        redirectURL: 'not a valid redirect',
+        category: 'social'
+      }
+    });
+    assert.equal(rejectedRule.success, false);
+    assert.equal(rejectedRule.error.code, 'validation_failed');
+    assert.deepEqual(rejectedRule.error.validationErrors, ['redirect_invalid']);
+    assert.equal(
+      Object.values(localStorage.data.telemetryBuckets || {}).reduce(
+        (total, bucket) => total + (Array.isArray(bucket?.errors) ? bucket.errors.length : 0),
+        0
+      ),
+      0
+    );
 
     const feedbackCounter = await sendWorkerMessage(messageListener, {
       type: 'telemetry:incrementCounter',

@@ -28,7 +28,7 @@ import { getTelemetryConsent, TELEMETRY_DATA_COLLECTION_PERMISSION } from '../te
 import { createTelemetryStore } from '../telemetry/telemetryStore.js';
 import { createTelemetryClient } from '../telemetry/telemetryClient.js';
 import { buildTelemetryContext } from '../telemetry/telemetryContext.js';
-import { getRulesTelemetryCode } from '../telemetry/telemetryRuleError.js';
+import { getRulesTelemetryCode, shouldRecordRulesTelemetryError } from '../telemetry/telemetryRuleError.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -796,19 +796,24 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: true, ...result });
       } catch (error) {
         logger.error(`Rules intent failed (${message.type}):`, error);
-        await Promise.all([
+        const telemetryTasks = [
           diagnosticStore.recordEvent('error', 'rules', 'intent_failed', {
             intent: message.type,
             errorCode: error?.code || 'unknown',
             validationErrors: error?.validationErrors || []
-          }),
-          telemetryStore.recordError({
+          })
+        ];
+
+        if (shouldRecordRulesTelemetryError(error)) {
+          telemetryTasks.push(telemetryStore.recordError({
             source: 'rules',
             code: getRulesTelemetryCode(error),
             operation: message.type.replace('rules:', ''),
             errorName: error?.name || 'Error'
-          })
-        ]);
+          }));
+        }
+
+        await Promise.all(telemetryTasks);
         sendResponse({
           success: false,
           error: serializeRulesMutationError(error)

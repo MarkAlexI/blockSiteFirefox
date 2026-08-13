@@ -16,6 +16,20 @@ const SAFE_RULE_ERROR_CODES = new Set([
   'category_required'
 ]);
 
+const EXPECTED_RULE_REJECTION_CODES = new Set([
+  'pro_required',
+  'rule_limit_reached',
+  'validation_failed',
+  'conflict_blacklist',
+  'conflict_whitelist',
+  'redundant_whitelist',
+  'rule_already_exists',
+  'rule_pack_invalid_selection',
+  'rule_pack_empty',
+  'invalid_import',
+  'category_required'
+]);
+
 const SAFE_VALIDATION_CODES = new Set([
   'blockurl_empty',
   'blockurl_restrict',
@@ -38,4 +52,9 @@ export function getRulesTelemetryCode(error) {
   }
 
   return SAFE_RULE_ERROR_CODES.has(code) ? code : 'intent_failed';
+}
+
+export function shouldRecordRulesTelemetryError(error) {
+  const code = typeof error?.code === 'string' ? error.code : '';
+  return !EXPECTED_RULE_REJECTION_CODES.has(code);
 }

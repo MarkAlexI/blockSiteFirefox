@@ -56,6 +56,8 @@ The client never sends an installation identifier, rule content, browsing data, 
 
 The schema-v2 counter allowlist currently includes rule, category, Focus Session, diagnostics, and feedback interaction counters. Feedback counters are limited to `feedback_prompt_shown`, `feedback_review_clicked`, `feedback_support_clicked`, and `feedback_dismissed`; they contain no prompt content or free-form values.
 
+Expected rule rejections such as invalid user input, schedule validation failures, rule conflicts, duplicate rules, Pro/free-limit checks, and invalid imports are not reported as reliability errors. Unexpected rule mutation failures, DNR failures, storage/runtime failures, and uncaught errors remain eligible for privacy-safe error reporting.
+
 The coarse `context` is captured with the local UTC-day bucket when that bucket is first created. If queued days have different captured contexts, the client sends separate requests so each day keeps the context recorded at collection time. Legacy buckets without stored context use the current coarse context as a delivery fallback.
 
 ## Backward compatibility
