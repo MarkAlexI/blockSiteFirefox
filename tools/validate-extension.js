@@ -115,10 +115,6 @@ if (manifest) {
     await ensureFile(referencedFile);
   }
 
-  const readme = await readFile(path.join(root, 'README.md'), 'utf8');
-  if (!readme.includes(`Chrome%20Web%20Store-v${manifest.version}-`)) {
-    errors.push(`README.md: Chrome Web Store badge is not v${manifest.version}`);
-  }
 
   const changelog = await readFile(path.join(root, 'CHANGELOG.md'), 'utf8');
   const firstVersion = changelog.match(/^## \[([^\]]+)\]/m)?.[1];

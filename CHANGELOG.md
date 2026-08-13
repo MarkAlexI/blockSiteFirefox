@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Stopped expected rule validation and business-rule rejections from being counted as reliability errors in opt-in telemetry.
 - Kept unexpected rule mutation failures, stale-state failures, DNR/runtime failures, and unknown rule intent failures visible to reliability telemetry.
+- Fixed password-protected rule deletion in Strict Mode asking for the password a second time after the countdown.
+- Prevented the Strict Mode confirmation click from re-entering the original delete handler and starting a second deletion flow.
+- Fixed Firefox release validation so it no longer requires the unrelated Chrome Web Store badge version to match the Firefox manifest version.
 
 ### Improved
 - Added regression coverage separating expected user-facing rule rejections from unexpected rule failures.
+- Added regression coverage for the Strict Mode delete confirmation state.
 - Documented that validation failures such as invalid redirects, schedules, conflicts, duplicates, limits, and invalid imports are excluded from reliability error metrics.
 
 ## [4.8.5] - 2026-08-13

@@ -312,11 +312,11 @@ class OptionsPage {
   
   async handleRuleDeletion(event, ruleId) {
     try {
-      const settingsForMode = await SettingsManager.getSettings();
-      const isStrictMode = settingsForMode.mode === 'strict';
       const deleteButton = event.target;
+      if (this.rulesUI.isDeleteConfirmationInProgress(deleteButton)) return;
       
       const settings = await SettingsManager.getSettings();
+      const isStrictMode = settings.mode === 'strict';
       if (settings.enablePassword) {
         const isValid = await this.promptForPassword();
         if (!isValid) return;

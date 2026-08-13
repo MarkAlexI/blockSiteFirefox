@@ -12,6 +12,14 @@ export class RulesUI {
     this.scheduleEditor = new ScheduleEditor({ logger: this.logger });
   }
   
+  isDeleteConfirmationInProgress(deleteButton) {
+    const classList = deleteButton?.classList;
+    return Boolean(
+      classList?.contains('countdown-active') ||
+      classList?.contains('delete-ready')
+    );
+  }
+  
   handleRuleDeletion(deleteButton, onDelete, isStrictMode = false, buttonText = null) {
     if (isStrictMode) {
       this.startDeleteCountdown(deleteButton, onDelete, buttonText);

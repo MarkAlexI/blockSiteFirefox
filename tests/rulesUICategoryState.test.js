@@ -111,3 +111,43 @@ test('a rule in a disabled category remains rendered as inactive and non-interac
     globalThis.DebugController = previousDebugController;
   }
 });
+
+
+test('strict delete confirmation state is detected without restarting deletion flow', async () => {
+  const previousBrowser = globalThis.browser;
+  const previousDocument = globalThis.document;
+  const previousDebugController = globalThis.DebugController;
+
+  globalThis.browser = {
+    storage: {
+      sync: {
+        get(_keys, callback) { callback({}); },
+        set() {}
+      },
+      onChanged: { addListener() {} }
+    },
+    i18n: { getMessage(key) { return key; } }
+  };
+  globalThis.document = {
+    createElement(tagName) { return new FakeElement(tagName); }
+  };
+
+  try {
+    const { RulesUI } = await import(`../rules/rulesUI.js?delete-state=${Date.now()}`);
+    const rulesUI = new RulesUI();
+    const button = new FakeElement('button');
+
+    assert.equal(rulesUI.isDeleteConfirmationInProgress(button), false);
+
+    button.classList.add('countdown-active');
+    assert.equal(rulesUI.isDeleteConfirmationInProgress(button), true);
+
+    button.classList.values.delete('countdown-active');
+    button.classList.add('delete-ready');
+    assert.equal(rulesUI.isDeleteConfirmationInProgress(button), true);
+  } finally {
+    globalThis.browser = previousBrowser;
+    globalThis.document = previousDocument;
+    globalThis.DebugController = previousDebugController;
+  }
+});

@@ -644,6 +644,8 @@ class PopupPage {
         return;
       }
       
+      if (this.rulesUI.isDeleteConfirmationInProgress(deleteButton)) return;
+      
       if (this.settings.enablePassword && this.isPro) {
         const isValid = await this.promptForPassword();
         if (!isValid) {
