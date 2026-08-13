@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.7] - 2026-08-13
+### Fixed
+- Stopped transient license verification failures such as network errors, timeouts, rate limits, server errors, and invalid transient responses from being counted as extension reliability errors in opt-in telemetry.
+
+### Improved
+- Kept transient license verification failures in local diagnostics for troubleshooting while reserving remote reliability errors for unexpected extension failures.
+- Added regression coverage for license reliability-error classification.
+
 ## [4.8.6] - 2026-08-13
 ### Fixed
 - Stopped expected rule validation and business-rule rejections from being counted as reliability errors in opt-in telemetry.
