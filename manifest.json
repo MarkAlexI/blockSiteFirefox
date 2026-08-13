@@ -12,6 +12,9 @@
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",
       "strict_min_version": "113.0",
       "data_collection_permissions": {
+        "required": [
+          "none"
+        ],
         "optional": [
           "technicalAndInteraction"
         ]
