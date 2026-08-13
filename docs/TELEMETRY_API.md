@@ -58,6 +58,8 @@ The schema-v2 counter allowlist currently includes rule, category, Focus Session
 
 Expected rule rejections such as invalid user input, schedule validation failures, rule conflicts, duplicate rules, Pro/free-limit checks, and invalid imports are not reported as reliability errors. Unexpected rule mutation failures, DNR failures, storage/runtime failures, and uncaught errors remain eligible for privacy-safe error reporting.
 
+Transient license verification failures caused by network errors, timeouts, HTTP 429/5xx responses, or invalid/transient server responses remain available in local diagnostics but are not reported as extension reliability errors. Authoritative license rejection continues to update the local Pro state through the normal license flow and is not treated as a runtime reliability failure.
+
 The coarse `context` is captured with the local UTC-day bucket when that bucket is first created. If queued days have different captured contexts, the client sends separate requests so each day keeps the context recorded at collection time. Legacy buckets without stored context use the current coarse context as a delivery fallback.
 
 ## Backward compatibility

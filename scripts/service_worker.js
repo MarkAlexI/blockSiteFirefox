@@ -29,6 +29,7 @@ import { createTelemetryStore } from '../telemetry/telemetryStore.js';
 import { createTelemetryClient } from '../telemetry/telemetryClient.js';
 import { buildTelemetryContext } from '../telemetry/telemetryContext.js';
 import { getRulesTelemetryCode, shouldRecordRulesTelemetryError } from '../telemetry/telemetryRuleError.js';
+import { shouldRecordLicenseReliabilityError } from '../telemetry/telemetryLicenseError.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -247,18 +248,19 @@ async function finishLicenseCheck(result) {
   await diagnosticStore.updateState({ lastLicenseCheck: state });
 
   if (!result.success && result.reason !== 'no_key') {
-    await Promise.all([
-      diagnosticStore.recordEvent('warn', 'license', 'verification_failed', {
-        reason: result.reason || 'temporary_failure',
-        error: result.error || 'Unknown license verification error'
-      }),
-      telemetryStore.recordError({
+    await diagnosticStore.recordEvent('warn', 'license', 'verification_failed', {
+      reason: result.reason || 'temporary_failure',
+      error: result.error || 'Unknown license verification error'
+    });
+
+    if (shouldRecordLicenseReliabilityError(result)) {
+      await telemetryStore.recordError({
         source: 'license',
         code: 'verification_failed',
-        operation: result.reason === 'temporary_failure' ? 'network_or_server' : 'verification',
+        operation: 'verification',
         errorName: 'Error'
-      })
-    ]);
+      });
+    }
   }
 
   return result;
