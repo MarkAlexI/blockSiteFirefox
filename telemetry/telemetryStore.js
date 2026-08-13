@@ -28,13 +28,69 @@ function sameDateKeys(a, b) {
   return left.length === right.length && left.every((key, index) => key === right[index]);
 }
 
+function defaultCreateDeliveryId() {
+  if (globalThis.crypto?.randomUUID) {
+    return globalThis.crypto.randomUUID();
+  }
+
+  if (!globalThis.crypto?.getRandomValues) {
+    throw new Error('Secure random delivery IDs are unavailable');
+  }
+
+  const bytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = [...bytes].map(value => value.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
+function cloneErrors(errors) {
+  return Array.isArray(errors) ? errors.map(item => ({ ...item })) : [];
+}
+
+function hasTelemetryData(bucket) {
+  return Object.keys(bucket?.counters || {}).length > 0 ||
+    Array.isArray(bucket?.errors) && bucket.errors.length > 0;
+}
+
+function createDeliverySnapshot(bucket, deliveryId) {
+  return {
+    deliveryId,
+    counters: { ...(bucket.counters || {}) },
+    errors: cloneErrors(bucket.errors)
+  };
+}
+
+function isDeliverySnapshot(value) {
+  return Boolean(value) &&
+    typeof value === 'object' &&
+    typeof value.deliveryId === 'string' &&
+    value.deliveryId.length > 0 &&
+    value.counters && typeof value.counters === 'object' &&
+    !Array.isArray(value.counters) &&
+    Array.isArray(value.errors);
+}
+
+function toBatch(bucket, snapshot = null) {
+  const source = snapshot || bucket;
+  return {
+    date: bucket.date,
+    ...(snapshot ? { deliveryId: snapshot.deliveryId } : {}),
+    ...(bucket.context ? { context: sanitizeTelemetryContext(bucket.context) } : {}),
+    counters: { ...(source.counters || {}) },
+    errors: cloneErrors(source.errors)
+  };
+}
+
 export function createTelemetryStore({
   localStorage,
   getConsent,
   getContext = null,
   now = () => Date.now(),
   retentionDays = TELEMETRY_RETENTION_DAYS,
-  maxErrorsPerDay = MAX_TELEMETRY_ERRORS_PER_DAY
+  maxErrorsPerDay = MAX_TELEMETRY_ERRORS_PER_DAY,
+  createDeliveryId = defaultCreateDeliveryId
 }) {
   let mutationQueue = Promise.resolve();
 
@@ -151,25 +207,41 @@ export function createTelemetryStore({
       const stored = await readBuckets();
       const buckets = pruneBuckets(stored);
 
-      // Retention is a storage guarantee, not only a delivery filter.
       if (!sameDateKeys(stored, buckets)) {
         await localStorage.set({ [TELEMETRY_BUCKETS_KEY]: buckets });
       }
 
       return Object.values(buckets)
-        .filter(bucket =>
-          Object.keys(bucket.counters || {}).length > 0 ||
-          Array.isArray(bucket.errors) && bucket.errors.length > 0
-        )
-        .map(bucket => ({
-          date: bucket.date,
-          ...(bucket.context ? { context: sanitizeTelemetryContext(bucket.context) } : {}),
-          counters: { ...(bucket.counters || {}) },
-          errors: Array.isArray(bucket.errors) ? bucket.errors.map(item => ({ ...item })) : []
-        }));
+        .filter(hasTelemetryData)
+        .map(bucket => toBatch(bucket));
     });
   }
 
+  async function preparePendingBatches() {
+    return enqueue(async () => {
+      const stored = await readBuckets();
+      const buckets = pruneBuckets(stored);
+      let changed = !sameDateKeys(stored, buckets);
+      const prepared = [];
+
+      for (const bucket of Object.values(buckets)) {
+        if (!hasTelemetryData(bucket)) continue;
+
+        if (!isDeliverySnapshot(bucket.delivery)) {
+          bucket.delivery = createDeliverySnapshot(bucket, createDeliveryId());
+          changed = true;
+        }
+
+        prepared.push(toBatch(bucket, bucket.delivery));
+      }
+
+      if (changed) {
+        await localStorage.set({ [TELEMETRY_BUCKETS_KEY]: buckets });
+      }
+
+      return prepared;
+    });
+  }
 
   async function acknowledgeBatches(acceptedBatches) {
     const snapshots = Array.isArray(acceptedBatches) ? acceptedBatches : [];
@@ -183,6 +255,13 @@ export function createTelemetryStore({
         const bucket = date ? buckets[date] : null;
         if (!bucket) continue;
 
+        if (snapshot.deliveryId) {
+          if (!isDeliverySnapshot(bucket.delivery) ||
+              bucket.delivery.deliveryId !== snapshot.deliveryId) {
+            continue;
+          }
+        }
+
         for (const [name, sentValue] of Object.entries(snapshot.counters || {})) {
           const remaining = (Number(bucket.counters?.[name]) || 0) - (Number(sentValue) || 0);
           if (remaining > 0) {
@@ -193,20 +272,20 @@ export function createTelemetryStore({
         }
 
         const sentErrors = new Map(
-          (Array.isArray(snapshot.errors) ? snapshot.errors : [])
+          cloneErrors(snapshot.errors)
             .map(item => [item.fingerprint, Number(item.count) || 0])
         );
 
-        bucket.errors = (Array.isArray(bucket.errors) ? bucket.errors : [])
+        bucket.errors = cloneErrors(bucket.errors)
           .map(item => {
             const remaining = (Number(item.count) || 0) - (sentErrors.get(item.fingerprint) || 0);
             return { ...item, count: remaining };
           })
           .filter(item => item.count > 0);
 
-        const hasCounters = Object.keys(bucket.counters || {}).length > 0;
-        const hasErrors = bucket.errors.length > 0;
-        if (!hasCounters && !hasErrors) {
+        delete bucket.delivery;
+
+        if (!hasTelemetryData(bucket)) {
           delete buckets[date];
         }
       }
@@ -252,6 +331,7 @@ export function createTelemetryStore({
     incrementCounter,
     recordError,
     getPendingBatches,
+    preparePendingBatches,
     acknowledgeBatches,
     clearDates,
     clearAll,

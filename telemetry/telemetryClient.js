@@ -1,7 +1,7 @@
 import { getTelemetryConsent, setTelemetryConsent } from './telemetryConsent.js';
 import { sanitizeTelemetryContext } from './telemetrySanitizer.js';
 
-export const TELEMETRY_SCHEMA_VERSION = 1;
+export const TELEMETRY_SCHEMA_VERSION = 2;
 export const TELEMETRY_ENDPOINT = 'https://blockdistraction.com/api/telemetry';
 export const TELEMETRY_TIMEOUT_MS = 10000;
 const BASE_BACKOFF_MS = 60 * 60 * 1000;
@@ -20,6 +20,7 @@ function contextKey(context) {
 function createDeliveryBatch(batch) {
   return {
     date: batch.date,
+    deliveryId: batch.deliveryId,
     counters: { ...(batch.counters || {}) },
     errors: Array.isArray(batch.errors) ? batch.errors.map(item => ({ ...item })) : []
   };
@@ -187,7 +188,8 @@ export function createTelemetryClient({
       return { success: true, sent: false, reason: 'backoff' };
     }
 
-    const batches = await store.getPendingBatches();
+    const batches = typeof store.preparePendingBatches === 'function' ?
+      await store.preparePendingBatches() : await store.getPendingBatches();
     if (batches.length === 0) {
       if (Number(delivery.nextAttemptAt) > 0 || Number(delivery.failureCount) > 0) {
         await store.setDeliveryState({

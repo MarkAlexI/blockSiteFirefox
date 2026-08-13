@@ -20,8 +20,20 @@ function createStore(batches = []) {
   let pending = structuredClone(batches);
   let delivery = {};
   let clearedAll = 0;
+  let deliverySequence = 0;
+  const nextDeliveryId = () => {
+    deliverySequence += 1;
+    return `00000000-0000-4000-8000-${String(deliverySequence).padStart(12, '0')}`;
+  };
   return {
     async getPendingBatches() { return structuredClone(pending); },
+    async preparePendingBatches() {
+      pending = pending.map(batch => batch.deliveryId ? batch : {
+        ...batch,
+        deliveryId: nextDeliveryId()
+      });
+      return structuredClone(pending);
+    },
     async clearDates(dates) { pending = pending.filter(batch => !dates.includes(batch.date)); },
     async clearAll() { pending = []; delivery = {}; clearedAll++; },
     async getDeliveryState() { return { ...delivery }; },
@@ -68,7 +80,7 @@ test('telemetry client sends the versioned batch contract and clears accepted da
   assert.equal(result.sent, true);
   assert.equal(request.url, 'https://blockdistraction.com/api/telemetry');
   const payload = JSON.parse(request.options.body);
-  assert.equal(payload.schemaVersion, 1);
+  assert.equal(payload.schemaVersion, 2);
   assert.equal(payload.sentAt, '2026-08-07T12:00:00.000Z');
   assert.deepEqual(payload.context, {
     extensionVersion: '4.8.0',
@@ -80,7 +92,12 @@ test('telemetry client sends the versioned batch contract and clears accepted da
     access: 'free',
     installationAge: 'unknown'
   });
-  assert.deepEqual(payload.batches, [{ date: '2026-08-07', counters: { rule_created: 1 }, errors: [] }]);
+  assert.deepEqual(payload.batches, [{
+    date: '2026-08-07',
+    deliveryId: '00000000-0000-4000-8000-000000000001',
+    counters: { rule_created: 1 },
+    errors: []
+  }]);
   assert.deepEqual(store.snapshot().pending, []);
 });
 
@@ -230,4 +247,35 @@ test('telemetry retry schedule is restored from delivery state', async () => {
 
   assert.equal(await client.restoreRetry(), true);
   assert.deepEqual(scheduled, [now + 60 * 1000]);
+});
+
+
+test('telemetry client retries the same prepared delivery ID after a failed request', async () => {
+  const now = Date.parse('2026-08-12T12:00:00.000Z');
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: now - 1000 }
+  });
+  const store = createStore([{
+    date: '2026-08-12', counters: { rule_created: 1 }, errors: []
+  }]);
+  const ids = [];
+  let fail = true;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({ extensionVersion: '4.8.4', browser: 'firefox' }),
+    now: () => now,
+    fetchFn: async (_url, options) => {
+      ids.push(JSON.parse(options.body).batches[0].deliveryId);
+      return fail ?
+        { ok: false, status: 503, json: async () => ({}) } :
+        { ok: true, status: 202, json: async () => ({ ok: true }) };
+    }
+  });
+
+  assert.equal((await client.flush()).success, false);
+  fail = false;
+  assert.equal((await client.flush({ force: true })).success, true);
+  assert.equal(ids.length, 2);
+  assert.equal(ids[0], ids[1]);
 });

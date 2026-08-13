@@ -222,3 +222,57 @@ test('telemetry acknowledgement removes only the sent snapshot and keeps concurr
   });
   assert.equal(storage.data[TELEMETRY_BUCKETS_KEY]['2026-08-10'].errors[0].count, 1);
 });
+
+
+test('prepared delivery snapshot keeps a stable ID across retries and excludes later same-day events', async () => {
+  const storage = createStorage();
+  const ids = [
+    '11111111-1111-4111-8111-111111111111',
+    '22222222-2222-4222-8222-222222222222'
+  ];
+  const store = createTelemetryStore({
+    localStorage: storage,
+    getConsent: async () => ({ enabled: true }),
+    now: () => Date.parse('2026-08-12T12:00:00Z'),
+    createDeliveryId: () => ids.shift()
+  });
+
+  await store.incrementCounter('rule_created', 2);
+  const [first] = await store.preparePendingBatches();
+  assert.equal(first.deliveryId, '11111111-1111-4111-8111-111111111111');
+  assert.deepEqual(first.counters, { rule_created: 2 });
+
+  await store.incrementCounter('rule_created', 1);
+  await store.incrementCounter('focus_started', 1);
+
+  const [retry] = await store.preparePendingBatches();
+  assert.equal(retry.deliveryId, first.deliveryId);
+  assert.deepEqual(retry.counters, { rule_created: 2 });
+
+  await store.acknowledgeBatches([first]);
+  const [next] = await store.preparePendingBatches();
+  assert.equal(next.deliveryId, '22222222-2222-4222-8222-222222222222');
+  assert.deepEqual(next.counters, { rule_created: 1, focus_started: 1 });
+});
+
+test('acknowledgement with a stale delivery ID cannot remove a newer snapshot', async () => {
+  const storage = createStorage();
+  const store = createTelemetryStore({
+    localStorage: storage,
+    getConsent: async () => ({ enabled: true }),
+    now: () => Date.parse('2026-08-12T12:00:00Z'),
+    createDeliveryId: () => '33333333-3333-4333-8333-333333333333'
+  });
+
+  await store.incrementCounter('rule_created');
+  const [prepared] = await store.preparePendingBatches();
+
+  await store.acknowledgeBatches([{
+    ...prepared,
+    deliveryId: '44444444-4444-4444-8444-444444444444'
+  }]);
+
+  const [stillPending] = await store.preparePendingBatches();
+  assert.equal(stillPending.deliveryId, prepared.deliveryId);
+  assert.deepEqual(stillPending.counters, { rule_created: 1 });
+});

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.4] - 2026-08-13
+### Fixed
+- Made telemetry delivery idempotent by assigning a retry-stable random ID to each prepared delivery snapshot, preventing a lost server response from counting the same schema-v2 batch twice.
+- Preserved same-day telemetry recorded while a request is in flight by acknowledging only the prepared snapshot and assigning a fresh delivery ID to any remaining events.
+
+### Improved
+- Upgraded the telemetry wire contract to schema version 2 with ephemeral per-delivery UUIDs that are not installation identifiers and disappear with the acknowledged local snapshot.
+- Preserved Firefox native `technicalAndInteraction` consent and Firefox telemetry context while aligning delivery semantics with the Chromium implementation.
+- Added regression coverage for stable retry IDs, stale acknowledgements, schema-v2 payloads, and concurrent same-day telemetry.
+
 ## [4.8.3] - 2026-08-11
 ### Improved
 - Extended opt-in technical telemetry with aggregated counters for feedback prompt displays, Mozilla Add-ons review clicks, support clicks, and dismissals.

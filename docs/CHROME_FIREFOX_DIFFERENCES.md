@@ -268,6 +268,20 @@ The service worker also reacts to permission changes:
 
 Do not replace this with the Chromium local-only consent implementation.
 
+### Shared telemetry delivery protocol
+
+The consent plumbing differs, but the telemetry wire protocol and delivery semantics should remain aligned across the two repositories.
+
+Starting with version 4.8.4, both Chromium and Firefox use schema v2 delivery snapshots with a random UUID-v4 `deliveryId`. The ID belongs only to one prepared unacknowledged snapshot:
+
+- it is not an installation or user identifier;
+- retries of the same snapshot reuse the same ID;
+- acknowledgement removes only the counters and errors contained in that snapshot;
+- newer same-day events remain queued and receive a new ID on the next preparation;
+- the server uses the ID to make schema-v2 ingestion idempotent.
+
+`telemetry/telemetryStore.js` and the schema-v2 portions of `telemetry/telemetryClient.js` should therefore stay behaviorally aligned between Chromium and Firefox. Preserve only the Firefox-specific consent calls and browser context described in this document when porting telemetry delivery changes.
+
 ---
 
 ## 6. Telemetry browser context and sanitization
