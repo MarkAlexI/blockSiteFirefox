@@ -92,17 +92,20 @@ export async function setTelemetryConsent(
   };
 }
 
-export async function requestTelemetryConsentFromUserAction(permissionsApi, enabled) {
-  const builtIn = await getBuiltInConsent(permissionsApi);
-  if (!builtIn.supported) return null;
-
+export function requestTelemetryConsentFromUserAction(permissionsApi, enabled) {
   const request = {
     data_collection: [TELEMETRY_DATA_COLLECTION_PERMISSION]
   };
 
+  // Firefox requires permissions.request() to be initiated directly from a
+  // user-action handler. Do not await getAll() or any other asynchronous work
+  // before starting the request. The caller already feature-detects the native
+  // data-collection permission and invokes this helper only for that path.
   if (enabled === true) {
+    if (typeof permissionsApi?.request !== 'function') return Promise.resolve(null);
     return permissionsApi.request(request);
   }
 
+  if (typeof permissionsApi?.remove !== 'function') return Promise.resolve(null);
   return permissionsApi.remove(request);
 }

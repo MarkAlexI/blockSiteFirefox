@@ -72,7 +72,6 @@ Current Firefox-specific declaration:
     "id": "{397e704c-6038-4647-8d15-35040d68b032}",
     "strict_min_version": "113.0",
     "data_collection_permissions": {
-      "required": ["none"],
       "optional": ["technicalAndInteraction"]
     }
   },
@@ -257,7 +256,7 @@ Firefox `telemetryConsent.js`:
 
 - checks `browser.permissions.getAll()` for native `data_collection`;
 - treats the native permission as authoritative when supported;
-- requests or removes `technicalAndInteraction` only from a user action;
+- requests or removes `technicalAndInteraction` only from a user action, initiating `permissions.request()` before any asynchronous work so Firefox preserves the user gesture;
 - falls back to local consent only where the native data-collection permission API is not supported;
 - fails closed if the native API exists but cannot be queried.
 

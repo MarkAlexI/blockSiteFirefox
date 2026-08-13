@@ -96,6 +96,30 @@ test('modern Firefox uses built-in technicalAndInteraction permission as source 
   }]);
 });
 
+
+test('native telemetry permission request starts without an asynchronous feature-detection lookup', async () => {
+  let getAllCalls = 0;
+  let requestCalls = 0;
+  const permissions = {
+    async getAll() {
+      getAllCalls += 1;
+      throw new Error('getAll must not run before permissions.request');
+    },
+    request(value) {
+      requestCalls += 1;
+      assert.deepEqual(value, {
+        data_collection: [TELEMETRY_DATA_COLLECTION_PERMISSION]
+      });
+      return Promise.resolve(true);
+    }
+  };
+
+  const result = await requestTelemetryConsentFromUserAction(permissions, true);
+  assert.equal(result, true);
+  assert.equal(requestCalls, 1);
+  assert.equal(getAllCalls, 0);
+});
+
 test('modern Firefox consent lookup fails closed if permissions cannot be queried', async () => {
   const storage = createStorage({
     [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: 10 }

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.5] - 2026-08-13
+### Fixed
+- Fixed the Firefox Options telemetry toggle failing to enable native `technicalAndInteraction` consent because an asynchronous permission lookup ran before `browser.permissions.request()`, causing Firefox to lose the required user-action context.
+- Removed the contradictory `required: ["none"]` data-collection declaration while keeping `technicalAndInteraction` optional, matching Firefox built-in consent semantics.
+
+### Improved
+- Added regression coverage ensuring the native telemetry permission request starts immediately from the user action without a preceding asynchronous permissions query.
+
 ## [4.8.4] - 2026-08-13
 ### Fixed
 - Made telemetry delivery idempotent by assigning a retry-stable random ID to each prepared delivery snapshot, preventing a lost server response from counting the same schema-v2 batch twice.
