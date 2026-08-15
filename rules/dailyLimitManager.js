@@ -1,7 +1,6 @@
 export const DAILY_RULE_USAGE_KEY = 'dailyRuleUsage';
 export const DAILY_LIMIT_STATE_VERSION = 2;
 export const MAX_ACCOUNTING_GAP_MS = 90 * 1000;
-export const MAX_RECOVERY_ACCOUNTING_SECONDS = 60;
 
 export function getLocalDateKey(date = new Date()) {
   const year = date.getFullYear();
@@ -80,7 +79,7 @@ function createAsyncQueue() {
 }
 
 export class DailyLimitManager {
-  constructor(storageArea = browser.storage.local) {
+  constructor(storageArea = chrome.storage.local) {
     this.storageArea = storageArea;
     this.enqueue = createAsyncQueue();
   }
@@ -115,11 +114,6 @@ export class DailyLimitManager {
         const elapsedSeconds = Math.floor(elapsedMs / 1000);
         if (elapsedMs > 0 && elapsedMs <= MAX_ACCOUNTING_GAP_MS) {
           addedSeconds = elapsedSeconds;
-        } else if (elapsedMs > MAX_ACCOUNTING_GAP_MS && sharedKeys.length > 0) {
-          // Alarms and background events can be delayed on mobile or under load.
-          // Never charge the whole unknown gap, but credit one conservative minute
-          // for assignments confirmed active before and after the delay.
-          addedSeconds = Math.min(elapsedSeconds, MAX_RECOVERY_ACCOUNTING_SECONDS);
         }
       }
 

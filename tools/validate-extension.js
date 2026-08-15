@@ -111,6 +111,10 @@ if (manifest && packageJson && manifest.version !== packageJson.version) {
 }
 
 if (manifest) {
+  if (!Array.isArray(manifest.permissions) || !manifest.permissions.includes('scripting')) {
+    errors.push('manifest.json: Daily Limit visibility accounting requires the "scripting" permission');
+  }
+
   for (const referencedFile of collectManifestFiles(manifest)) {
     await ensureFile(referencedFile);
   }

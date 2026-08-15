@@ -188,7 +188,7 @@ const dnrSynchronizer = createDnrSynchronizer({
 
 const dailyLimitTracker = createDailyLimitTracker({
   tabsApi: browser.tabs,
-  windowsApi: browser.windows,
+  scriptingApi: browser.scripting,
   getRules: () => rulesManager.getRules(),
   getSettings: () => SettingsManager.getSettings(),
   getRuleLists: () => ruleListsManager.getLists(),
@@ -529,8 +529,7 @@ browser.tabs.onActivated.addListener((activeInfo) => {
     .catch(error => logger.info('Daily limit tab activation sample failed:', error));
 });
 
-browser.windows.onFocusChanged.addListener((windowId) => {
-  dailyLimitTracker.noteWindowFocus(windowId);
+browser.windows.onFocusChanged.addListener(() => {
   void dailyLimitTracker.sample('window_focus_changed');
 });
 
@@ -777,7 +776,8 @@ async function createDiagnosticReport() {
       contextMenus: Boolean(browser.contextMenus),
       notifications: Boolean(browser.notifications),
       permissionsApi: Boolean(browser.permissions),
-      alarms: Boolean(browser.alarms)
+      alarms: Boolean(browser.alarms),
+      scripting: Boolean(browser.scripting)
     },
     access,
     settings: {

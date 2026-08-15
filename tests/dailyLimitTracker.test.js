@@ -22,12 +22,13 @@ function makeRule(overrides = {}) {
 
 function createTracker({
   tab = { id: 11, windowId: 7, active: true, url: 'https://youtube.com/watch?v=1' },
-  windowFocused = true,
+  visibilityState = 'visible',
+  documentHasFocus = true,
   recordSample,
   requestSync = async () => {},
   usageSeconds = {},
   tabsApiOverrides = {},
-  windowsApiOverrides = {},
+  scriptingApiOverrides = {},
   rules = [makeRule()],
   ruleLists = [{ id: 'general', disabled: false }]
 } = {}) {
@@ -39,13 +40,20 @@ function createTracker({
       },
       ...tabsApiOverrides
     },
-    windowsApi: {
-      WINDOW_ID_NONE: -1,
-      async get(windowId) {
-        assert.equal(windowId, 7);
-        return { id: 7, focused: windowFocused };
+    scriptingApi: {
+      async executeScript(details) {
+        assert.deepEqual(details.target, { tabId: 11 });
+        assert.equal(typeof details.func, 'function');
+        return [{
+          frameId: 0,
+          result: {
+            visibilityState,
+            hidden: visibilityState !== 'visible',
+            hasFocus: documentHasFocus
+          }
+        }];
       },
-      ...windowsApiOverrides
+      ...scriptingApiOverrides
     },
     getRules: async () => rules,
     getSettings: async () => ({ disabledCategories: [] }),
@@ -63,7 +71,7 @@ function createTracker({
   });
 }
 
-test('tracker uses the last-focused active tab and resolves assignment usage keys', async () => {
+test('tracker counts a matching Daily Limit assignment only when the page is visible', async () => {
   let sampled = null;
   const tracker = createTracker({
     recordSample(keys) {
@@ -82,36 +90,41 @@ test('tracker uses the last-focused active tab and resolves assignment usage key
     activeAssignmentListIds: ['general'],
     tabId: 11,
     windowId: 7,
-    focusSource: 'windows_get',
+    visibilityState: 'visible',
+    visibilitySource: 'document_visibility',
+    documentHasFocus: true,
     addedSeconds: 0,
     currentUsageSeconds: 0,
     errorName: null
   });
 });
 
-test('tracker does not count when the candidate browser window is not focused', async () => {
+test('hidden pages reset the sample instead of charging background time', async () => {
   let sampled = 'unset';
   const tracker = createTracker({
-    windowFocused: false,
+    visibilityState: 'hidden',
+    documentHasFocus: false,
     recordSample(keys) {
       sampled = keys;
       return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
     }
   });
 
-  await tracker.sample('test');
+  await tracker.sample('minute_alarm');
   assert.deepEqual(sampled, []);
-  assert.equal(tracker.getDebugState().resolution, 'browser_not_focused');
+  assert.equal(tracker.getDebugState().resolution, 'page_hidden');
+  assert.equal(tracker.getDebugState().visibilityState, 'hidden');
+  assert.equal(tracker.getDebugState().documentHasFocus, false);
 });
 
-test('focus events override stale window focus queries', async () => {
+test('visibility probe failures fail safe without charging usage', async () => {
   let sampled = 'unset';
-  let windowGets = 0;
   const tracker = createTracker({
-    windowsApiOverrides: {
-      async get() {
-        windowGets++;
-        return { id: 7, focused: false };
+    scriptingApiOverrides: {
+      async executeScript() {
+        const error = new Error('Cannot access contents of the page');
+        error.name = 'PermissionError';
+        throw error;
       }
     },
     recordSample(keys) {
@@ -120,15 +133,50 @@ test('focus events override stale window focus queries', async () => {
     }
   });
 
-  tracker.noteWindowFocus(7);
-  await tracker.sample('window_focus_changed');
-  assert.deepEqual(sampled, ['1:general']);
-  assert.equal(windowGets, 0);
-  assert.equal(tracker.getDebugState().focusSource, 'focus_event');
+  await tracker.sample('minute_alarm');
+  assert.deepEqual(sampled, []);
+  assert.equal(tracker.getDebugState().resolution, 'visibility_probe_failed');
+  assert.equal(tracker.getDebugState().visibilitySource, 'scripting_execute_script');
+  assert.equal(tracker.getDebugState().errorName, 'PermissionError');
+});
 
-  tracker.noteWindowFocus(-1);
-  await tracker.sample('window_focus_changed');
-  assert.equal(tracker.getDebugState().resolution, 'browser_not_focused');
+test('missing scripting API fails safe and is visible in diagnostics', async () => {
+  let sampled = 'unset';
+  const tracker = createTracker({
+    scriptingApiOverrides: { executeScript: undefined },
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  await tracker.sample('minute_alarm');
+  assert.deepEqual(sampled, []);
+  assert.equal(tracker.getDebugState().resolution, 'visibility_probe_unavailable');
+  assert.equal(tracker.getDebugState().visibilitySource, 'scripting_unavailable');
+});
+
+test('non-matching tabs do not trigger a page visibility injection', async () => {
+  let injections = 0;
+  let sampled = 'unset';
+  const tracker = createTracker({
+    tab: { id: 11, windowId: 7, active: true, url: 'https://example.com/' },
+    scriptingApiOverrides: {
+      async executeScript() {
+        injections++;
+        return [];
+      }
+    },
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  await tracker.sample('minute_alarm');
+  assert.equal(injections, 0);
+  assert.deepEqual(sampled, []);
+  assert.equal(tracker.getDebugState().resolution, 'no_matching_rule');
 });
 
 test('direct tab hints avoid a second tabs.query race on activation and URL changes', async () => {
@@ -157,28 +205,6 @@ test('direct tab hints avoid a second tabs.query race on activation and URL chan
   assert.deepEqual(sampled, ['1:general']);
 });
 
-test('tracker falls back from windows.get to getLastFocused when needed', async () => {
-  let sampled = null;
-  const tracker = createTracker({
-    windowsApiOverrides: {
-      async get() {
-        throw new Error('get unavailable');
-      },
-      async getLastFocused() {
-        return { id: 7, focused: true };
-      }
-    },
-    recordSample(keys) {
-      sampled = keys;
-      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
-    }
-  });
-
-  await tracker.sample('test');
-  assert.deepEqual(sampled, ['1:general']);
-  assert.equal(tracker.getDebugState().focusSource, 'windows_get_last_focused');
-});
-
 test('multiple active Daily Limit assignments are sampled together', async () => {
   let sampled = null;
   const tracker = createTracker({
@@ -194,10 +220,7 @@ test('multiple active Daily Limit assignments are sampled together', async () =>
     },
     ruleLists: [{ id: 'general', disabled: false }, { id: 'work', disabled: false }, { id: 'study', disabled: false }]
   });
-  // Both custom lists must exist and be enabled for the test.
-  tracker.noteWindowFocus(7);
-  // Override getRuleLists by reconstructing tracker is unnecessary in product;
-  // legacy General fallback would otherwise normalize unknown list state only in mutations.
+
   await tracker.sample('test');
   assert.deepEqual(sampled.sort(), ['1:study', '1:work']);
 });

@@ -37,7 +37,9 @@ test('diagnostic report sanitizes nested private data', () => {
         lastReason: 'minute_alarm',
         resolution: 'matched',
         activeRuleId: 2,
-        focusSource: 'windows_get',
+        visibilityState: 'visible',
+        visibilitySource: 'document_visibility',
+        documentHasFocus: true,
         addedSeconds: 60,
         currentUsageSeconds: 120,
         errorName: null
@@ -77,7 +79,9 @@ test('formatted diagnostic report contains counts and structured events without 
         lastReason: 'minute_alarm',
         resolution: 'matched',
         activeRuleId: 3,
-        focusSource: 'windows_get',
+        visibilityState: 'visible',
+        visibilitySource: 'document_visibility',
+        documentHasFocus: true,
         addedSeconds: 60,
         currentUsageSeconds: 120,
         errorName: null
@@ -104,6 +108,9 @@ test('formatted diagnostic report contains counts and structured events without 
   assert.match(text, /DNR integrity: in sync/);
   assert.match(text, /\[Daily Limits\]/);
   assert.match(text, /Last resolution: matched/);
+  assert.match(text, /Page visibility: visible/);
+  assert.match(text, /Visibility source: document_visibility/);
+  assert.match(text, /Document focus: yes/);
   assert.match(text, /Current usage seconds: 120/);
   assert.match(text, /verification_failed/);
   assert.match(text, /Technical analytics/);

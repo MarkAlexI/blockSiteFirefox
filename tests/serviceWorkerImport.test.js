@@ -70,6 +70,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
   const permissionsOnAdded = createEvent();
   let hostAccessGranted = true;
   let activeTabForQuery = null;
+  let pageVisibilityState = 'visible';
   const createdTabs = [];
 
   const localStorage = createStorageArea({
@@ -168,6 +169,20 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       onUpdated: tabsOnUpdated,
       onCreated: tabsOnCreated,
       onActivated: tabsOnActivated
+    },
+    scripting: {
+      executeScript: async details => {
+        assert.equal(Number.isInteger(details?.target?.tabId), true);
+        assert.equal(typeof details?.func, 'function');
+        return [{
+          frameId: 0,
+          result: {
+            visibilityState: pageVisibilityState,
+            hidden: pageVisibilityState !== 'visible',
+            hasFocus: pageVisibilityState === 'visible'
+          }
+        }];
+      }
     },
     windows: {
       WINDOW_ID_NONE: -1,
@@ -370,7 +385,25 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(dailyDiagnostics.report.dailyLimits.usageEntries, 1);
     assert.equal(dailyDiagnostics.report.dailyLimits.tracker.resolution, 'matched');
     assert.equal(dailyDiagnostics.report.dailyLimits.tracker.activeRuleId, 7);
+    assert.equal(dailyDiagnostics.report.dailyLimits.tracker.visibilityState, 'visible');
+    assert.equal(dailyDiagnostics.report.dailyLimits.tracker.visibilitySource, 'document_visibility');
     assert.ok(dailyDiagnostics.report.dailyLimits.tracker.addedSeconds >= 59);
+
+    localStorage.data.dailyRuleUsage.usageSeconds['7:general'] = 30;
+    const usageBeforeHidden = 30;
+    localStorage.data.dailyRuleUsage.lastSample = {
+      timestamp: Date.now() - 60_000,
+      assignmentKeys: ['7:general']
+    };
+    pageVisibilityState = 'hidden';
+    await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });
+    assert.equal(localStorage.data.dailyRuleUsage.usageSeconds['7:general'], usageBeforeHidden);
+    const hiddenDiagnostics = await sendWorkerMessage(messageListener, {
+      type: 'diagnostics:getReport'
+    });
+    assert.equal(hiddenDiagnostics.report.dailyLimits.tracker.resolution, 'page_hidden');
+    assert.equal(hiddenDiagnostics.report.dailyLimits.tracker.visibilityState, 'hidden');
+    pageVisibilityState = 'visible';
     activeTabForQuery = null;
 
     hostAccessGranted = false;

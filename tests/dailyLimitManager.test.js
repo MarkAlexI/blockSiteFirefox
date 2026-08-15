@@ -49,15 +49,15 @@ test('usage is attributed only to assignment keys present at both samples', asyn
   assert.deepEqual(result.state.lastSample.assignmentKeys, ['7:study', '9:general']);
 });
 
-test('large same-assignment gaps recover only one conservative minute', async () => {
+test('large gaps are never charged because foreground continuity is unknown', async () => {
   const storage = createStorage();
   const manager = new DailyLimitManager(storage);
   const start = new Date(2026, 7, 15, 12, 0, 0);
   await manager.recordSample(['7:study'], start);
   const result = await manager.recordSample(['7:study'], new Date(start.getTime() + 10 * 60_000));
-  assert.deepEqual(result.accountedAssignmentKeys, ['7:study']);
-  assert.equal(result.addedSeconds, 60);
-  assert.deepEqual(result.state.usageSeconds, { '7:study': 60 });
+  assert.deepEqual(result.accountedAssignmentKeys, []);
+  assert.equal(result.addedSeconds, 0);
+  assert.deepEqual(result.state.usageSeconds, {});
 });
 
 test('large gaps are not charged when active assignments changed', async () => {

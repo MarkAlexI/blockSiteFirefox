@@ -24,7 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrated legacy `listId`, RC multi-membership `listIds`, root blocking configuration, and Daily Limit usage into the canonical assignment model without changing existing rule behavior.
 - Daily Limit usage is assignment-scoped so the same target can keep independent budgets in different Rule Lists.
 - Reused the existing one-minute alarm and DNR self-healing flow without adding interval timers, offscreen documents, or persistent content-script timers.
-- Kept conservative sampling so long browser sleep/background gaps are never charged in full.
+- Daily Limit accounting now verifies that the matching page is actually visible in the foreground through the Page Visibility API before charging usage.
+- Long browser sleep/background gaps are never charged because foreground continuity across an unknown gap cannot be proven.
 - Added path-aware usage attribution so specific rules such as `youtube.com/shorts` take precedence over broader matching rules such as `youtube.com`.
 - Preserved Daily Limit configuration in rule import/export while keeping accumulated usage device-local and out of exported data.
 - Added privacy-safe Daily Limit sampling diagnostics without recording visited URLs.
@@ -32,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added regression coverage for assignment migration, per-list schedules, Daily Limit usage migration, DNR activation, mutation security, UI context, localization, import/export compatibility, and Firefox runtime messaging.
 
 ### Fixed
+- Fixed Daily Limits staying at zero on Chromium Android when the browser Windows API reported the active browser window as unfocused.
+- Fixed Daily Limit foreground detection relying on desktop-style window focus semantics instead of the visibility state of the matching page.
 - Fixed Rule Pack imports ignoring the selected Rule List and always assigning added rules to General.
 - Fixed adding a rule while a Rule List filter is selected incorrectly assigning the new rule to General instead of the selected list.
 - Fixed newly created Rule Lists not becoming the active list context in Options.
