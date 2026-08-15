@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Daily Limits interface strings across all supported locales.
 
 ### Improved
+- Extended Rule Lists with shared membership so one blocking rule can belong to multiple custom lists without duplicating the underlying rule.
+- Treat General as the fallback list: adding a General rule to a custom list moves it out of General, while adding a rule from one custom list to another shares it across both lists.
+- Rule Pack imports now add the selected list membership to matching existing rules instead of reporting them as duplicates.
+- Rule List filtering, counts, popup labels, import/export, migration, and DNR activation now understand multi-list membership.
+- A shared rule remains active while at least one of its Rule Lists is enabled; Focus Session still overrides Rule List state.
+- Creating or selecting a Rule List now keeps that list as the active Options filter/context.
 - Reused the existing one-minute alarm and DNR self-healing flow for Daily Limits without adding interval timers, offscreen documents, or content-script timers.
 - Added suspension-safe sampling so long browser sleep or background gaps are not charged as active site usage.
 - Added path-aware usage attribution so specific rules such as `youtube.com/shorts` take precedence over broader matching rules such as `youtube.com`.
@@ -28,6 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed Daily Limits failing to accumulate usage when active-tab sampling depended on populated window data or when background alarms were delayed beyond the normal sampling window.
 - Fixed adding a rule while a Rule List filter is selected incorrectly assigning the new rule to General instead of the selected list.
 - Fixed newly created Rule Lists not becoming the active list context in Options.
+- Fixed existing rules in another custom Rule List being reported only as duplicates instead of extending their list membership.
+- The currently selected Rule List is now visually highlighted in Options so list context remains clear while adding or filtering rules.
 - Fixed localized input placeholders, including the Rule List name placeholder, not being applied from `data-i18n-placeholder`.
 - Removed a redundant Rule List storage write when creating a custom list.
 

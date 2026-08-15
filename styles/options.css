@@ -1729,3 +1729,62 @@ tr.rule-whitelist td:first-child::before {
 .daily-limit-status.limit-reached {
   font-weight: 700;
 }
+
+/* Rule List multi-membership */
+.rule-list-view {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 2px 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.rule-list-view:hover,
+.rule-list-view:focus-visible {
+  color: var(--primary-color);
+  outline: none;
+}
+
+.rule-list-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.rule-list-membership-editor {
+  display: grid;
+  gap: 4px;
+  min-width: 120px;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 4px 6px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background: var(--bg-primary);
+}
+
+.rule-list-membership-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.rule-list-membership-option input {
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.rule-list-card.selected {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.rule-list-card.selected .rule-list-view {
+  color: var(--primary-color);
+  font-weight: 600;
+}

@@ -443,12 +443,13 @@ Rule Lists are shared product behavior in Chromium and Firefox starting with 4.9
 
 The shared model is:
 
-- every blocking rule belongs to exactly one list through `rule.listId`;
-- existing rules migrate to the built-in `general` list;
+- blocking rules store canonical membership in `rule.listIds` and may belong to multiple custom lists without duplicating the underlying rule;
+- legacy `rule.listId` values migrate automatically to `listIds`;
+- `general` is the fallback membership when a blocking rule has no custom lists, not a parallel membership beside custom lists;
 - custom Rule Lists require Pro or legacy access for management and direct assignment;
-- disabling a list removes its rules from the expected DNR state outside an active Focus Session;
-- deleting a custom list moves its rules to `general` instead of deleting them;
-- imports and exports include the local Rule List definitions together with rule assignments;
+- outside an active Focus Session, a shared rule stays active while at least one assigned list is enabled;
+- deleting a custom list removes only that membership and falls back to `general` when the last custom membership disappears;
+- imports and exports include the local Rule List definitions together with rule memberships;
 - whitelist rules stay in `general` internally and are not exposed as custom-list members.
 
 The one-minute scheduling alarm and the full expected-vs-current DNR integrity check remain unchanged on both platforms. Firefox uses the same Rule List activation logic while preserving `browser.*` APIs and Firefox Android behavior.

@@ -1,5 +1,6 @@
 import { t } from '../scripts/t.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
+import { isRuleInList } from '../rules/ruleListMembership.js';
 
 function getDisplayName(list) {
   return list.id === GENERAL_RULE_LIST_ID ? t('rulelist_general') : list.name;
@@ -15,10 +16,12 @@ export function resolveRuleListContext(lists, selectedValue = 'all') {
 export class RuleListsUI {
   static updateListGrid(container, lists, rules, handlers = {}) {
     container.innerHTML = '';
+    const selectedListId = typeof handlers.selectedListId === 'string' ? handlers.selectedListId : 'all';
 
     for (const list of lists) {
       const card = document.createElement('div');
-      card.className = `rule-list-card ${list.disabled ? 'muted' : ''}`;
+      const isSelected = selectedListId === list.id;
+      card.className = `rule-list-card ${list.disabled ? 'muted' : ''} ${isSelected ? 'selected' : ''}`.trim();
       card.dataset.listId = list.id;
 
       const toggleLabel = document.createElement('label');
@@ -30,18 +33,21 @@ export class RuleListsUI {
       checkbox.title = t('rulelists_toggle_hint');
       checkbox.addEventListener('change', () => handlers.onToggle?.(list.id));
 
-      const name = document.createElement('span');
-      name.className = 'rule-list-name';
+      const name = document.createElement('button');
+      name.type = 'button';
+      name.className = 'rule-list-name rule-list-view';
       name.textContent = getDisplayName(list);
+      if (isSelected) name.setAttribute('aria-current', 'true');
+      name.addEventListener('click', () => handlers.onSelect?.(list.id));
 
       const count = document.createElement('span');
       count.className = 'rule-list-count';
-      count.textContent = rules.filter(rule => !rule.isWhitelist && (rule.listId || GENERAL_RULE_LIST_ID) === list.id).length;
+      count.textContent = rules.filter(rule => !rule.isWhitelist && isRuleInList(rule, list.id)).length;
 
       toggleLabel.appendChild(checkbox);
-      toggleLabel.appendChild(name);
-      toggleLabel.appendChild(count);
       card.appendChild(toggleLabel);
+      card.appendChild(name);
+      card.appendChild(count);
 
       if (list.id !== GENERAL_RULE_LIST_ID) {
         const actions = document.createElement('span');

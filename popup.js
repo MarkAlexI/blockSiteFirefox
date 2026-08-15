@@ -16,6 +16,7 @@ import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 import { SettingsManager } from './options/settings.js';
 import { RuleListsManager, GENERAL_RULE_LIST_ID } from './rules/ruleListsManager.js';
+import { getRuleListIds, isRuleListMembershipActive } from './rules/ruleListMembership.js';
 import { DailyLimitManager } from './rules/dailyLimitManager.js';
 import {
   BLOCKING_MODE_SCHEDULE,
@@ -242,7 +243,7 @@ class PopupPage {
           rule.category,
           rule.schedule,
           rule.isWhitelist ?? false,
-          rule.listId || GENERAL_RULE_LIST_ID,
+          getRuleListIds(rule),
           rule.blockingMode,
           rule.dailyLimit,
           dailyUsageSeconds[String(rule.id)] || 0
@@ -349,7 +350,7 @@ class PopupPage {
           blockingMode: 'always',
           dailyLimit: null,
           category: 'social',
-          listId: GENERAL_RULE_LIST_ID,
+          listIds: [GENERAL_RULE_LIST_ID],
           isWhitelist: false
         });
         customAlert('+ 1');
@@ -361,11 +362,14 @@ class PopupPage {
     }
   }
   
-  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listId = GENERAL_RULE_LIST_ID, blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0) {
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listIds = [GENERAL_RULE_LIST_ID], blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0) {
     const ruleDiv = document.createElement('div');
     const isCategoryMuted = (this.settings.disabledCategories || []).includes(category);
-    const currentList = this.ruleLists.find(list => list.id === listId);
-    const isListMuted = !isWhitelist && currentList?.disabled === true;
+    const normalizedListIds = isWhitelist ? [GENERAL_RULE_LIST_ID] : (Array.isArray(listIds) ? listIds : [listIds]);
+    const isListMuted = !isWhitelist && !isRuleListMembershipActive(
+      { listIds: normalizedListIds, isWhitelist: false },
+      this.ruleLists.filter(list => list.disabled).map(list => list.id)
+    );
     const isMuted = isCategoryMuted || isListMuted;
     
     let className = isMuted ? `rule ${isCategoryMuted ? 'category-muted' : 'list-muted'}` : 'rule';
@@ -437,10 +441,13 @@ class PopupPage {
         this.makeInputReadOnly(blockURL);
         this.makeInputReadOnly(redirectURL);
 
-        if (!isWhitelist && listId !== GENERAL_RULE_LIST_ID) {
+        const visibleListIds = getRuleListIds({ listIds: normalizedListIds, isWhitelist });
+        if (!isWhitelist && !(visibleListIds.length === 1 && visibleListIds[0] === GENERAL_RULE_LIST_ID)) {
           const listTag = document.createElement('span');
           listTag.className = 'rule-list-popup';
-          listTag.textContent = currentList?.name || t('rulelist_general');
+          listTag.textContent = visibleListIds
+            .map(listId => this.ruleLists.find(list => list.id === listId)?.name || listId)
+            .join(', ');
           listTag.title = t('rulelist_header');
           ruleDiv.appendChild(listTag);
         }
@@ -672,7 +679,7 @@ class PopupPage {
         blockingMode: 'always',
         dailyLimit: null,
         category: isWhitelist ? 'whitelist' : 'social',
-        listId: GENERAL_RULE_LIST_ID,
+        listIds: [GENERAL_RULE_LIST_ID],
         isWhitelist
       });
       

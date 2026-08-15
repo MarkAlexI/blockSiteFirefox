@@ -432,7 +432,7 @@ test('rule packs are assigned to the selected custom Rule List', async () => {
   });
 
   assert.equal(result.listId, 'list-1');
-  assert.deepEqual(harness.getRules().map(rule => rule.listId), ['list-1', 'list-1']);
+  assert.deepEqual(harness.getRules().map(rule => rule.listIds), [['list-1'], ['list-1']]);
 });
 
 test('rule packs reject unknown Rule List targets before changing storage', async () => {
@@ -626,7 +626,7 @@ test('custom rule lists are Pro-only and new rules can be assigned to them', asy
     listId: workList.id
   });
 
-  assert.equal(harness.getRules()[0].listId, workList.id);
+  assert.deepEqual(harness.getRules()[0].listIds, [workList.id]);
 });
 
 test('non-Pro callers cannot create a custom rule list or assign one through direct intents', async () => {
@@ -706,7 +706,7 @@ test('deleting a custom list atomically moves its rules to General', async () =>
 
   assert.equal(result.ruleLists.length, 1);
   assert.equal(result.ruleLists[0].id, 'general');
-  assert.equal(harness.getRules()[0].listId, 'general');
+  assert.deepEqual(harness.getRules()[0].listIds, ['general']);
 });
 
 test('General cannot be renamed or deleted', async () => {
@@ -740,7 +740,7 @@ test('rule import restores custom list definitions and assignments together', as
 
   assert.equal(result.ruleLists[1].name, 'Study');
   assert.equal(harness.getRuleLists()[1].disabled, true);
-  assert.equal(harness.getRules()[0].listId, 'list-3');
+  assert.deepEqual(harness.getRules()[0].listIds, ['list-3']);
 });
 
 test('Daily limit rules are Pro-only and persist a normalized blocking mode', async () => {
@@ -795,8 +795,156 @@ test('import preserves Daily limit configuration without importing usage history
       dailyLimit: { minutes: 45 },
       category: 'social',
       disabledByUser: false,
-      listId: 'general',
+      listIds: ['general'],
       isWhitelist: false
     }
   );
+});
+
+test('adding an existing rule to another custom list adds membership instead of creating a duplicate', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null,
+      disabledByUser: false,
+      listIds: ['list-1'],
+      isWhitelist: false
+    }]
+  });
+
+  const result = await harness.service.addRule({
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    listIds: ['list-2']
+  });
+
+  assert.equal(result.membershipAdded, true);
+  assert.equal(result.created, false);
+  assert.equal(harness.getRules().length, 1);
+  assert.deepEqual(harness.getRules()[0].listIds, ['list-1', 'list-2']);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('adding a custom membership moves an existing General rule out of General', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      disabledByUser: false,
+      listIds: ['general'],
+      isWhitelist: false
+    }]
+  });
+
+  await harness.service.addRule({
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    listIds: ['list-1']
+  });
+
+  assert.deepEqual(harness.getRules()[0].listIds, ['list-1']);
+});
+
+test('adding an existing rule to a list it already belongs to still reports a duplicate', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      disabledByUser: false,
+      listIds: ['list-1'],
+      isWhitelist: false
+    }]
+  });
+
+  await assert.rejects(
+    harness.service.addRule({
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      listIds: ['list-1']
+    }),
+    error => error.code === 'rule_already_exists'
+  );
+});
+
+test('Rule Pack adds membership to an existing rule without inflating new-rule count', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'amazon.com',
+      redirectURL: '',
+      category: 'shopping',
+      disabledByUser: false,
+      listIds: ['list-1'],
+      isWhitelist: false
+    }]
+  });
+
+  const result = await harness.service.addMany({
+    packId: 'shopping',
+    entryIds: ['amazon'],
+    listId: 'list-2'
+  });
+
+  assert.equal(result.addedCount, 1);
+  assert.equal(result.newRuleCount, 0);
+  assert.equal(result.membershipAddedCount, 1);
+  assert.equal(result.skippedDuplicates, 0);
+  assert.deepEqual(harness.getRules()[0].listIds, ['list-1', 'list-2']);
+  assert.equal(harness.getRules().length, 1);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('deleting one shared custom list preserves the remaining memberships', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      disabledByUser: false,
+      listIds: ['list-1', 'list-2'],
+      isWhitelist: false
+    }]
+  });
+
+  await harness.service.deleteRuleList({ listId: 'list-2' });
+  assert.deepEqual(harness.getRules()[0].listIds, ['list-1']);
+
+  await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.deepEqual(harness.getRules()[0].listIds, ['general']);
 });

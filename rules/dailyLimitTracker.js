@@ -1,6 +1,6 @@
 import { BLOCKING_MODE_DAILY_LIMIT, getRuleBlockingMode, getDailyLimitSeconds } from './blockingMode.js';
 import { findBestMatchingRule } from './urlRuleMatcher.js';
-import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
+import { isRuleListMembershipActive } from './ruleListMembership.js';
 
 function isIntegerWindowId(value) {
   return Number.isInteger(value);
@@ -157,7 +157,7 @@ export function createDailyLimitTracker({
       rule?.isWhitelist !== true &&
       rule?.disabledByUser !== true &&
       !disabledCategories.has(rule.category) &&
-      !disabledLists.has(rule.listId || GENERAL_RULE_LIST_ID) &&
+      isRuleListMembershipActive(rule, disabledLists) &&
       getRuleBlockingMode(rule) === BLOCKING_MODE_DAILY_LIMIT &&
       getDailyLimitSeconds(rule) !== null
     );

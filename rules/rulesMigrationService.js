@@ -1,4 +1,5 @@
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
+import { getRuleListIds } from './ruleListMembership.js';
 import {
   BLOCKING_MODE_ALWAYS,
   normalizeBlockingConfig
@@ -41,8 +42,17 @@ export function migrateRuleSchema(rules) {
       needsSave = true;
     }
 
-    if (!rule.listId) {
-      migratedRule.listId = GENERAL_RULE_LIST_ID;
+    const normalizedListIds = rule.isWhitelist === true
+      ? [GENERAL_RULE_LIST_ID]
+      : getRuleListIds(rule);
+    const currentListIds = Array.isArray(rule.listIds) ? rule.listIds : null;
+    if (
+      !currentListIds ||
+      JSON.stringify(currentListIds) !== JSON.stringify(normalizedListIds) ||
+      Object.prototype.hasOwnProperty.call(rule, 'listId')
+    ) {
+      migratedRule.listIds = normalizedListIds;
+      delete migratedRule.listId;
       needsSave = true;
     }
 

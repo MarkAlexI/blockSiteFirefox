@@ -9,6 +9,13 @@ import {
   prepareImportedRuleLists
 } from './ruleListsManager.js';
 import {
+  getRuleListIds,
+  normalizeRuleListIds,
+  mergeRuleListIds,
+  removeRuleListId,
+  areRuleListIdsEqual
+} from './ruleListMembership.js';
+import {
   BLOCKING_MODE_ALWAYS,
   BLOCKING_MODE_DAILY_LIMIT,
   getRuleBlockingMode,
@@ -55,6 +62,19 @@ function getRuleIndexById(rules, ruleId) {
   return rules.findIndex(rule => toRuleId(rule.id) === normalizedId);
 }
 
+function findExactRuleIndex(rules, blockURL, redirectURL = '', isWhitelist = false, excludeIndex = -1) {
+  const cleanBlockURL = typeof blockURL === 'string' ? blockURL.trim() : '';
+  const cleanRedirectURL = typeof redirectURL === 'string' ? redirectURL.trim() : '';
+
+  return rules.findIndex((rule, index) => {
+    if (excludeIndex !== -1 && index === excludeIndex) return false;
+    if ((rule?.isWhitelist === true) !== isWhitelist) return false;
+    if ((rule?.blockURL || '').trim() !== cleanBlockURL) return false;
+    if (isWhitelist) return true;
+    return (rule?.redirectURL || '').trim() === cleanRedirectURL;
+  });
+}
+
 function cloneSchedule(schedule) {
   return schedule ? normalizeSchedule(schedule) : null;
 }
@@ -62,7 +82,7 @@ function cloneSchedule(schedule) {
 function sanitizeRuleInput(
   payload = {},
   fallbackWhitelist = false,
-  fallbackListId = GENERAL_RULE_LIST_ID,
+  fallbackListIds = [GENERAL_RULE_LIST_ID],
   fallbackRule = null
 ) {
   const isWhitelist = payload.isWhitelist === undefined ? fallbackWhitelist : payload.isWhitelist === true;
@@ -71,6 +91,11 @@ function sanitizeRuleInput(
   const blockingMode = typeof payload.blockingMode === 'string' && payload.blockingMode ?
     payload.blockingMode :
     getRuleBlockingMode(fallbackRule || { schedule, dailyLimit, isWhitelist });
+  const rawListIds = payload.listIds !== undefined
+    ? payload.listIds
+    : (payload.listId !== undefined
+      ? payload.listId
+      : (fallbackRule ? getRuleListIds(fallbackRule) : fallbackListIds));
 
   return {
     blockURL: typeof payload.blockURL === 'string' ? payload.blockURL : (fallbackRule?.blockURL || ''),
@@ -80,7 +105,7 @@ function sanitizeRuleInput(
     blockingMode,
     category: typeof payload.category === 'string' && payload.category ? payload.category : (fallbackRule?.category || (isWhitelist ? 'whitelist' : 'social')),
     disabledByUser: payload.disabledByUser === undefined ? fallbackRule?.disabledByUser === true : payload.disabledByUser === true,
-    listId: typeof payload.listId === 'string' && payload.listId ? payload.listId : (fallbackRule?.listId || fallbackListId),
+    listIds: isWhitelist ? [GENERAL_RULE_LIST_ID] : normalizeRuleListIds(rawListIds),
     isWhitelist
   };
 }
@@ -146,16 +171,18 @@ export function createRulesMutationService({
     return normalized;
   }
 
-  function validateRuleListSelection(listId, lists, hasProAccess, isWhitelist = false) {
-    if (isWhitelist) return GENERAL_RULE_LIST_ID;
-    const normalizedId = listId || GENERAL_RULE_LIST_ID;
-    if (!isKnownRuleListId(lists, normalizedId)) {
-      throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
+  function validateRuleListSelection(listIds, lists, hasProAccess, isWhitelist = false) {
+    if (isWhitelist) return [GENERAL_RULE_LIST_ID];
+    const normalizedIds = normalizeRuleListIds(listIds);
+    for (const listId of normalizedIds) {
+      if (!isKnownRuleListId(lists, listId)) {
+        throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
+      }
+      if (listId !== GENERAL_RULE_LIST_ID && !hasProAccess) {
+        throw new RulesMutationError('pro_required', 'Pro access is required');
+      }
     }
-    if (normalizedId !== GENERAL_RULE_LIST_ID && !hasProAccess) {
-      throw new RulesMutationError('pro_required', 'Pro access is required');
-    }
-    return normalizedId;
+    return normalizedIds;
   }
 
   async function saveCombinedState(rules, lists) {
@@ -201,14 +228,10 @@ export function createRulesMutationService({
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
 
-      input.listId = validateRuleListSelection(input.listId, lists, hasProAccess, input.isWhitelist);
+      input.listIds = validateRuleListSelection(input.listIds, lists, hasProAccess, input.isWhitelist);
 
       if (!input.isWhitelist && input.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
         throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
-
-      if (!input.isWhitelist && !hasProAccess && rules.length >= maxRulesLimit) {
-        throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
       }
 
       throwValidation(rulesManager.validateRule(
@@ -223,8 +246,42 @@ export function createRulesMutationService({
 
       throwConflict(rulesManager.checkConflict(rules, input.blockURL, input.isWhitelist));
 
-      if (rulesManager.ruleExists(rules, input.blockURL, input.redirectURL, -1, input.isWhitelist)) {
-        throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+      const existingIndex = findExactRuleIndex(
+        rules,
+        input.blockURL,
+        input.redirectURL,
+        input.isWhitelist
+      );
+
+      if (existingIndex !== -1) {
+        if (input.isWhitelist) {
+          throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+        }
+
+        const existingRule = rules[existingIndex];
+        const mergedListIds = mergeRuleListIds(getRuleListIds(existingRule), input.listIds);
+        if (areRuleListIdsEqual(mergedListIds, getRuleListIds(existingRule))) {
+          throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+        }
+
+        const updatedRule = {
+          ...existingRule,
+          listIds: mergedListIds
+        };
+        delete updatedRule.listId;
+
+        const nextRules = [...rules];
+        nextRules[existingIndex] = updatedRule;
+        await rulesManager.saveRules(nextRules);
+        return syncAndNotify(nextRules, {
+          rule: updatedRule,
+          membershipAdded: true,
+          created: false
+        });
+      }
+
+      if (!input.isWhitelist && !hasProAccess && rules.length >= maxRulesLimit) {
+        throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
       }
 
       const dnrRules = await declarativeNetRequest.getDynamicRules();
@@ -246,14 +303,14 @@ export function createRulesMutationService({
         dailyLimit: blockingConfig.dailyLimit,
         category: input.isWhitelist ? 'whitelist' : input.category,
         disabledByUser: false,
-        listId: input.isWhitelist ? GENERAL_RULE_LIST_ID : input.listId,
+        listIds: input.isWhitelist ? [GENERAL_RULE_LIST_ID] : input.listIds,
         isWhitelist: input.isWhitelist
       };
 
       const nextRules = [...rules, newRule];
       await rulesManager.saveRules(nextRules);
 
-      return syncAndNotify(nextRules, { rule: newRule });
+      return syncAndNotify(nextRules, { rule: newRule, membershipAdded: false, created: true });
     });
   }
 
@@ -265,8 +322,8 @@ export function createRulesMutationService({
       }
 
       const lists = await getRuleLists();
-      const targetListId = validateRuleListSelection(
-        payload.listId || GENERAL_RULE_LIST_ID,
+      const [targetListId] = validateRuleListSelection(
+        [payload.listId || GENERAL_RULE_LIST_ID],
         lists,
         hasProAccess,
         false
@@ -296,8 +353,10 @@ export function createRulesMutationService({
       const rules = await rulesManager.getRules();
       const nextRules = [...rules];
       const addedEntries = [];
+      const membershipAddedEntries = [];
       const duplicateEntries = [];
       const conflicts = [];
+      let newRuleCount = 0;
 
       const dnrRules = await declarativeNetRequest.getDynamicRules();
       const occupiedIds = new Set([
@@ -318,6 +377,7 @@ export function createRulesMutationService({
           redirectURL: '',
           schedule: sharedSchedule,
           category: selection.pack.category,
+          listIds: [targetListId],
           isWhitelist: false
         });
 
@@ -349,11 +409,28 @@ export function createRulesMutationService({
           continue;
         }
 
-        if (rulesManager.ruleExists(nextRules, input.blockURL, '', -1, false)) {
-          duplicateEntries.push({
+        const existingIndex = findExactRuleIndex(nextRules, input.blockURL, '', false);
+        if (existingIndex !== -1) {
+          const existingRule = nextRules[existingIndex];
+          const mergedListIds = mergeRuleListIds(getRuleListIds(existingRule), [targetListId]);
+          if (areRuleListIdsEqual(mergedListIds, getRuleListIds(existingRule))) {
+            duplicateEntries.push({
+              entryId: entry.id,
+              blockURL: input.blockURL
+            });
+            continue;
+          }
+
+          const updatedRule = { ...existingRule, listIds: mergedListIds };
+          delete updatedRule.listId;
+          nextRules[existingIndex] = updatedRule;
+          const reportEntry = {
             entryId: entry.id,
-            blockURL: input.blockURL
-          });
+            blockURL: input.blockURL,
+            membershipOnly: true
+          };
+          addedEntries.push(reportEntry);
+          membershipAddedEntries.push(reportEntry);
           continue;
         }
 
@@ -367,20 +444,24 @@ export function createRulesMutationService({
           dailyLimit: null,
           category: selection.pack.category,
           disabledByUser: false,
-          listId: targetListId,
+          listIds: [targetListId],
           isWhitelist: false
         });
         addedEntries.push({
           entryId: entry.id,
           blockURL: input.blockURL
         });
+        newRuleCount++;
       }
 
       const addedCount = addedEntries.length;
       const result = {
         addedCount,
+        newRuleCount,
+        membershipAddedCount: membershipAddedEntries.length,
         skippedDuplicates: duplicateEntries.length,
         addedEntries,
+        membershipAddedEntries,
         duplicateEntries,
         conflicts,
         packId: selection.pack.id,
@@ -414,7 +495,7 @@ export function createRulesMutationService({
       const input = sanitizeRuleInput(
         payload,
         oldRule.isWhitelist === true,
-        oldRule.listId || GENERAL_RULE_LIST_ID,
+        getRuleListIds(oldRule),
         oldRule
       );
       input.isWhitelist = oldRule.isWhitelist === true;
@@ -424,7 +505,7 @@ export function createRulesMutationService({
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
       const lists = await getRuleLists();
-      input.listId = validateRuleListSelection(input.listId, lists, hasProAccess, input.isWhitelist);
+      input.listIds = validateRuleListSelection(input.listIds, lists, hasProAccess, input.isWhitelist);
 
       if (!input.isWhitelist && input.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
         throw new RulesMutationError('pro_required', 'Pro access is required');
@@ -475,7 +556,7 @@ export function createRulesMutationService({
         dailyLimit: blockingConfig.dailyLimit,
         category: input.isWhitelist ? 'whitelist' : input.category,
         disabledByUser,
-        listId: input.isWhitelist ? GENERAL_RULE_LIST_ID : input.listId,
+        listIds: input.isWhitelist ? [GENERAL_RULE_LIST_ID] : input.listIds,
         isWhitelist: input.isWhitelist
       };
 
@@ -534,12 +615,12 @@ export function createRulesMutationService({
     const preparedRules = [];
 
     importedRules.forEach((rawRule, index) => {
-      const input = sanitizeRuleInput(rawRule, rawRule?.isWhitelist === true, GENERAL_RULE_LIST_ID);
+      const input = sanitizeRuleInput(rawRule, rawRule?.isWhitelist === true, [GENERAL_RULE_LIST_ID]);
       if (!input.isWhitelist && (!rawRule?.category || typeof rawRule.category !== 'string')) {
         input.category = 'uncategorized';
       }
 
-      if (!isKnownRuleListId(importedLists, input.listId)) {
+      if (input.listIds.some(listId => !isKnownRuleListId(importedLists, listId))) {
         throw new RulesMutationError('invalid_import', `Unknown rule list for imported rule ${index + 1}`);
       }
 
@@ -587,7 +668,7 @@ export function createRulesMutationService({
         dailyLimit: blockingConfig.dailyLimit,
         category: input.isWhitelist ? 'whitelist' : (input.category || 'uncategorized'),
         disabledByUser: input.disabledByUser,
-        listId: input.isWhitelist ? GENERAL_RULE_LIST_ID : input.listId,
+        listIds: input.isWhitelist ? [GENERAL_RULE_LIST_ID] : input.listIds,
         isWhitelist: input.isWhitelist
       });
     });
@@ -738,7 +819,14 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
       const nextLists = lists.filter(list => list.id !== listId);
-      const nextRules = rules.map(rule => rule.listId === listId ? { ...rule, listId: GENERAL_RULE_LIST_ID } : rule);
+      const nextRules = rules.map(rule => {
+        if (rule.isWhitelist === true) return { ...rule, listIds: [GENERAL_RULE_LIST_ID] };
+        const currentIds = getRuleListIds(rule);
+        if (!currentIds.includes(listId)) return rule;
+        const updatedRule = { ...rule, listIds: removeRuleListId(currentIds, listId) };
+        delete updatedRule.listId;
+        return updatedRule;
+      });
       await saveCombinedState(nextRules, nextLists);
       return syncAndNotify(nextRules, { ruleLists: nextLists, deletedListId: listId });
     });

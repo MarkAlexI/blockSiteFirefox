@@ -143,3 +143,20 @@ test('Focus Session blocks daily-limit rules even before their budget is exhaust
   });
   assert.equal(isRuleActiveNow(limited, [], true, tuesdayAt1030, [], { '1': 0 }), true);
 });
+
+test('a shared rule stays active while any Rule List membership is enabled', () => {
+  const rule = makeRule({ listIds: ['list-1', 'list-2'] });
+
+  assert.equal(
+    isRuleActiveNow(rule, [], false, tuesdayAt1030, ['list-1']),
+    true
+  );
+  assert.equal(
+    isRuleActiveNow(rule, [], false, tuesdayAt1030, ['list-1', 'list-2']),
+    false
+  );
+  assert.equal(
+    isRuleActiveNow(rule, [], true, tuesdayAt1030, ['list-1', 'list-2']),
+    true
+  );
+});

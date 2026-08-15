@@ -6,6 +6,7 @@ import {
   createDnrSynchronizer,
   getDnrSignature
 } from '../scripts/dnrSynchronizer.js';
+import { isRuleListMembershipActive } from '../rules/ruleListMembership.js';
 
 function makeDnrRule({
   id = 1,
@@ -60,7 +61,7 @@ function createHarness({
   const getStoredRules = getRules ??
     (async () => structuredClone(storedRules));
   const isStoredRuleActive = (rule, _disabledCategories, focusActive, _now, disabledRuleListIds = []) =>
-    focusActive || (rule.active !== false && !disabledRuleListIds.includes(rule.listId || 'general'));
+    focusActive || (rule.active !== false && isRuleListMembershipActive(rule, disabledRuleListIds));
   const buildDnrRule = createRule ??
     (async (id, blockURL, redirectURL) => makeDnrRule({
       id,
@@ -314,7 +315,7 @@ test('disabled rule lists are removed from DNR and no matching tabs are closed',
   const current = makeDnrRule({ id: 1, urlFilter: '||work.example' });
   const storedRule = {
     ...makeStoredRule({ id: 1, blockURL: 'work.example' }),
-    listId: 'list-1'
+    listIds: ['list-1']
   };
   const harness = createHarness({
     storedRules: [storedRule],
@@ -333,4 +334,27 @@ test('disabled rule lists are removed from DNR and no matching tabs are closed',
     addRules: []
   });
   assert.deepEqual(harness.closedUrlBatches, []);
+});
+
+
+test('shared Rule List membership stays active while at least one list is enabled', async () => {
+  const storedRule = {
+    ...makeStoredRule({ id: 1, blockURL: 'shared.example' }),
+    listIds: ['list-1', 'list-2']
+  };
+  const harness = createHarness({
+    storedRules: [storedRule],
+    currentDnrRules: [],
+    ruleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: true },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ]
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.changed, true);
+  assert.equal(result.added, 1);
+  assert.deepEqual(harness.closedUrlBatches, [['shared.example']]);
 });

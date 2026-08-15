@@ -5,6 +5,11 @@ import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
 import { ScheduleEditor } from '../schedules/scheduleEditor.js';
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
 import {
+  getRuleListIds,
+  normalizeRuleListIds,
+  isRuleListMembershipActive
+} from './ruleListMembership.js';
+import {
   BLOCKING_MODE_ALWAYS,
   BLOCKING_MODE_SCHEDULE,
   BLOCKING_MODE_DAILY_LIMIT,
@@ -18,6 +23,52 @@ export class RulesUI {
     this.countdownTimers = new Map();
     this.scheduleFormatter = new ScheduleFormatter();
     this.scheduleEditor = new ScheduleEditor({ logger: this.logger });
+  }
+
+  createRuleListMembershipEditor(ruleLists = [], selectedIds = [GENERAL_RULE_LIST_ID], disabled = false) {
+    const editor = document.createElement('div');
+    editor.className = 'rule-list-membership-editor';
+    const normalizedSelected = normalizeRuleListIds(selectedIds);
+
+    for (const list of ruleLists) {
+      const label = document.createElement('label');
+      label.className = 'rule-list-membership-option';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.value = list.id;
+      checkbox.checked = normalizedSelected.includes(list.id);
+      checkbox.disabled = disabled;
+
+      const text = document.createElement('span');
+      text.textContent = list.id === GENERAL_RULE_LIST_ID ? t('rulelist_general') : list.name;
+
+      checkbox.addEventListener('change', () => {
+        if (!checkbox.checked) return;
+        const checkboxes = [...editor.querySelectorAll('input[type="checkbox"]')];
+        if (checkbox.value === GENERAL_RULE_LIST_ID) {
+          checkboxes.forEach(item => {
+            if (item !== checkbox) item.checked = false;
+          });
+        } else {
+          const general = checkboxes.find(item => item.value === GENERAL_RULE_LIST_ID);
+          if (general) general.checked = false;
+        }
+      });
+
+      label.append(checkbox, text);
+      editor.appendChild(label);
+    }
+
+    return editor;
+  }
+
+  getRuleListIdsFromEditor(editor) {
+    if (!editor?.querySelectorAll) return [GENERAL_RULE_LIST_ID];
+    const selected = [...editor.querySelectorAll('input[type="checkbox"]')]
+      .filter(input => input.checked)
+      .map(input => input.value);
+    return normalizeRuleListIds(selected);
   }
 
   isDeleteConfirmationInProgress(deleteButton) {
@@ -138,8 +189,8 @@ export class RulesUI {
       row.title = t('category_disabled_desc') || 'This category is currently muted in settings';
     }
 
-    const ruleListId = rule.listId || GENERAL_RULE_LIST_ID;
-    if (!rule.isWhitelist && disabledRuleListIds.includes(ruleListId)) {
+    const ruleListIds = getRuleListIds(rule);
+    if (!rule.isWhitelist && !isRuleListMembershipActive(rule, disabledRuleListIds)) {
       row.classList.add('list-muted');
       if (!row.title) row.title = t('rulelists_disabled_desc');
     }
@@ -167,11 +218,14 @@ export class RulesUI {
       listCell.textContent = '-';
       listCell.classList.add('text-disabled');
     } else {
-      const list = ruleLists.find(item => item.id === ruleListId);
-      const listSpan = document.createElement('span');
-      listSpan.className = `rule-list-tag ${ruleListId === GENERAL_RULE_LIST_ID ? 'general' : ''}`;
-      listSpan.textContent = ruleListId === GENERAL_RULE_LIST_ID ? t('rulelist_general') : (list?.name || t('rulelist_general'));
-      listCell.appendChild(listSpan);
+      listCell.classList.add('rule-list-tags');
+      for (const ruleListId of ruleListIds) {
+        const list = ruleLists.find(item => item.id === ruleListId);
+        const listSpan = document.createElement('span');
+        listSpan.className = `rule-list-tag ${ruleListId === GENERAL_RULE_LIST_ID ? 'general' : ''}`;
+        listSpan.textContent = ruleListId === GENERAL_RULE_LIST_ID ? t('rulelist_general') : (list?.name || ruleListId);
+        listCell.appendChild(listSpan);
+      }
     }
     row.appendChild(listCell);
 
@@ -301,25 +355,15 @@ export class RulesUI {
 
     const listCell = document.createElement('td');
     listCell.className = 'edit-mode';
-    const listSelect = document.createElement('select');
-    listSelect.className = 'category-select rule-list-select';
-    if (isWhitelist) {
-      const option = document.createElement('option');
-      option.value = GENERAL_RULE_LIST_ID;
-      option.textContent = '-';
-      listSelect.appendChild(option);
-      listSelect.disabled = true;
-      listSelect.classList.add('input-disabled');
-    } else {
-      for (const list of ruleLists) {
-        const option = document.createElement('option');
-        option.value = list.id;
-        option.textContent = list.id === GENERAL_RULE_LIST_ID ? t('rulelist_general') : list.name;
-        listSelect.appendChild(option);
-      }
-      listSelect.value = rule.listId || GENERAL_RULE_LIST_ID;
-    }
-    listCell.appendChild(listSelect);
+    const listEditor = isWhitelist
+      ? this.createRuleListMembershipEditor(
+          [{ id: GENERAL_RULE_LIST_ID, name: t('rulelist_general') }],
+          [GENERAL_RULE_LIST_ID],
+          true
+        )
+      : this.createRuleListMembershipEditor(ruleLists, getRuleListIds(rule));
+    if (isWhitelist) listEditor.classList.add('input-disabled');
+    listCell.appendChild(listEditor);
     row.appendChild(listCell);
 
     const blockingCell = document.createElement('td');
@@ -347,14 +391,14 @@ export class RulesUI {
         const blockingConfig = isWhitelist ?
           { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null } :
           this.getBlockingConfigFromSection(blockingSection);
-        const listId = isWhitelist ? GENERAL_RULE_LIST_ID : listSelect.value;
+        const listIds = isWhitelist ? [GENERAL_RULE_LIST_ID] : this.getRuleListIdsFromEditor(listEditor);
         onSave(
           rule.id,
           blockInput.value,
           isWhitelist ? '' : redirectInput.value,
           category,
           blockingConfig,
-          listId
+          listIds
         );
       } catch (error) {
         this.logger.info('Edit: Schedule error:', error.message);
@@ -372,7 +416,7 @@ export class RulesUI {
     return row;
   }
 
-  createAddRuleRow(onSave, onCancel, enableSchedule = false, isWhitelist = false, ruleLists = [], initialListId = GENERAL_RULE_LIST_ID) {
+  createAddRuleRow(onSave, onCancel, enableSchedule = false, isWhitelist = false, ruleLists = [], initialListIds = [GENERAL_RULE_LIST_ID]) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     if (isWhitelist) {
@@ -447,27 +491,20 @@ export class RulesUI {
 
     const listCell = document.createElement('td');
     listCell.className = 'edit-mode';
-    const listSelect = document.createElement('select');
-    listSelect.className = 'category-select rule-list-select';
-    if (isWhitelist) {
-      const option = document.createElement('option');
-      option.value = GENERAL_RULE_LIST_ID;
-      option.textContent = '-';
-      listSelect.appendChild(option);
-      listSelect.disabled = true;
-      listSelect.classList.add('input-disabled');
-    } else {
-      for (const list of ruleLists) {
-        const option = document.createElement('option');
-        option.value = list.id;
-        option.textContent = list.id === GENERAL_RULE_LIST_ID ? t('rulelist_general') : list.name;
-        listSelect.appendChild(option);
-      }
-      listSelect.value = ruleLists.some(list => list?.id === initialListId)
-        ? initialListId
-        : GENERAL_RULE_LIST_ID;
-    }
-    listCell.appendChild(listSelect);
+    const validInitialListIds = normalizeRuleListIds(initialListIds)
+      .filter(listId => ruleLists.some(list => list?.id === listId));
+    const listEditor = isWhitelist
+      ? this.createRuleListMembershipEditor(
+          [{ id: GENERAL_RULE_LIST_ID, name: t('rulelist_general') }],
+          [GENERAL_RULE_LIST_ID],
+          true
+        )
+      : this.createRuleListMembershipEditor(
+          ruleLists,
+          validInitialListIds.length > 0 ? validInitialListIds : [GENERAL_RULE_LIST_ID]
+        );
+    if (isWhitelist) listEditor.classList.add('input-disabled');
+    listCell.appendChild(listEditor);
     row.appendChild(listCell);
 
     const blockingCell = document.createElement('td');
@@ -499,13 +536,13 @@ export class RulesUI {
         const blockingConfig = isWhitelist ?
           { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null } :
           this.getBlockingConfigFromSection(blockingSection);
-        const listId = isWhitelist ? GENERAL_RULE_LIST_ID : listSelect.value;
+        const listIds = isWhitelist ? [GENERAL_RULE_LIST_ID] : this.getRuleListIdsFromEditor(listEditor);
         onSave(
           blockInput.value,
           isWhitelist ? '' : redirectInput.value,
           category,
           blockingConfig,
-          listId,
+          listIds,
           row
         );
       } catch (error) {

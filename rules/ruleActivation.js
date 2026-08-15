@@ -6,6 +6,7 @@ import {
   getRuleBlockingMode,
   isDailyLimitReached
 } from './blockingMode.js';
+import { isRuleListMembershipActive } from './ruleListMembership.js';
 
 const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
@@ -48,7 +49,7 @@ export function isRuleActiveNow(
 
   if (rule.disabledByUser) return false;
   if (disabledCategories.includes(rule.category)) return false;
-  if (disabledRuleListIds.includes(rule.listId || 'general')) return false;
+  if (!isRuleListMembershipActive(rule, disabledRuleListIds)) return false;
 
   const blockingMode = getRuleBlockingMode(rule);
 

@@ -110,13 +110,16 @@ const RULE_INTENT_COUNTERS = new Map([
 
 async function recordRuleIntentTelemetry(type, result) {
   if (type === 'rules:addMany') {
-    const addedCount = Number(result?.addedCount) || 0;
-    if (addedCount > 0) {
-      await Promise.all([
-        telemetryStore.incrementCounter('rule_pack_imported'),
-        telemetryStore.incrementCounter('rule_pack_rules_added', addedCount)
-      ]);
+    const changedCount = Number(result?.addedCount) || 0;
+    const newRuleCount = Number(result?.newRuleCount ?? result?.addedCount) || 0;
+    const telemetryTasks = [];
+    if (changedCount > 0) {
+      telemetryTasks.push(telemetryStore.incrementCounter('rule_pack_imported'));
     }
+    if (newRuleCount > 0) {
+      telemetryTasks.push(telemetryStore.incrementCounter('rule_pack_rules_added', newRuleCount));
+    }
+    if (telemetryTasks.length > 0) await Promise.all(telemetryTasks);
     return;
   }
 
