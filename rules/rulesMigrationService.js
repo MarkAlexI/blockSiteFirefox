@@ -1,12 +1,23 @@
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
-import { getRuleListIds } from './ruleListMembership.js';
 import {
-  BLOCKING_MODE_ALWAYS,
-  normalizeBlockingConfig
-} from './blockingMode.js';
+  getAssignmentUsageKey,
+  getRuleAssignments,
+  normalizeRuleAssignments
+} from './ruleAssignments.js';
+import { BLOCKING_MODE_DAILY_LIMIT } from './blockingMode.js';
+import { DAILY_RULE_USAGE_KEY, DAILY_LIMIT_STATE_VERSION } from './dailyLimitManager.js';
+
+function sameJson(left, right) {
+  return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
+}
 
 /**
  * Migrates the stored rule schema without performing any storage operations.
+ *
+ * Canonical 5.0 assignment schema:
+ * - URL / redirect / category / disabled state belong to the rule target.
+ * - list-specific blocking behavior belongs to rule.assignments[].
+ * - legacy listId/listIds and root blockingMode/schedule/dailyLimit are removed.
  */
 export function migrateRuleSchema(rules) {
   const sourceRules = Array.isArray(rules) ? rules : [];
@@ -42,33 +53,20 @@ export function migrateRuleSchema(rules) {
       needsSave = true;
     }
 
-    const normalizedListIds = rule.isWhitelist === true
-      ? [GENERAL_RULE_LIST_ID]
-      : getRuleListIds(rule);
-    const currentListIds = Array.isArray(rule.listIds) ? rule.listIds : null;
-    if (
-      !currentListIds ||
-      JSON.stringify(currentListIds) !== JSON.stringify(normalizedListIds) ||
-      Object.prototype.hasOwnProperty.call(rule, 'listId')
-    ) {
-      migratedRule.listIds = normalizedListIds;
-      delete migratedRule.listId;
+    const assignments = migratedRule.isWhitelist === true
+      ? normalizeRuleAssignments({ isWhitelist: true })
+      : normalizeRuleAssignments(migratedRule);
+
+    if (!sameJson(migratedRule.assignments, assignments)) {
+      migratedRule.assignments = assignments;
       needsSave = true;
     }
 
-    const blockingConfig = rule.isWhitelist === true ?
-      { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null } :
-      normalizeBlockingConfig(migratedRule);
-
-    if (
-      migratedRule.blockingMode !== blockingConfig.blockingMode ||
-      JSON.stringify(migratedRule.schedule ?? null) !== JSON.stringify(blockingConfig.schedule) ||
-      JSON.stringify(migratedRule.dailyLimit ?? null) !== JSON.stringify(blockingConfig.dailyLimit)
-    ) {
-      migratedRule.blockingMode = blockingConfig.blockingMode;
-      migratedRule.schedule = blockingConfig.schedule;
-      migratedRule.dailyLimit = blockingConfig.dailyLimit;
-      needsSave = true;
+    for (const legacyKey of ['listId', 'listIds', 'blockingMode', 'schedule', 'dailyLimit']) {
+      if (Object.prototype.hasOwnProperty.call(migratedRule, legacyKey)) {
+        delete migratedRule[legacyKey];
+        needsSave = true;
+      }
     }
 
     return migratedRule;
@@ -79,6 +77,104 @@ export function migrateRuleSchema(rules) {
     idsReset: shouldResetAllIds,
     rules: migratedRules
   };
+}
+
+function normalizeUsageSeconds(value) {
+  const seconds = Math.floor(Number(value));
+  return Number.isFinite(seconds) && seconds > 0 ? seconds : 0;
+}
+
+/**
+ * Converts the v1 rule-level daily usage map into assignment-scoped keys.
+ * Existing elapsed time is cloned to each migrated daily-limit assignment so
+ * the update never grants extra budget merely because a rule belonged to more
+ * than one list before the assignment migration.
+ */
+export function migrateDailyUsageSchema(rawState, rules) {
+  if (!rawState || typeof rawState !== 'object' || Array.isArray(rawState)) {
+    return { migrated: false, state: rawState };
+  }
+
+  const usageSeconds = rawState.usageSeconds && typeof rawState.usageSeconds === 'object' && !Array.isArray(rawState.usageSeconds)
+    ? rawState.usageSeconds
+    : {};
+  const nextUsage = {};
+  let changed = Number(rawState.version) !== DAILY_LIMIT_STATE_VERSION;
+
+  const rulesById = new Map((rules || []).map(rule => [String(rule.id), rule]));
+  const validDailyAssignmentKeys = new Set(
+    (rules || []).flatMap(rule => getRuleAssignments(rule)
+      .filter(item => item.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
+      .map(item => getAssignmentUsageKey(rule.id, item.listId))
+      .filter(Boolean))
+  );
+
+  // Preserve already assignment-scoped entries when they still point to a
+  // real Daily Limit assignment. Numeric v1 keys are expanded below.
+  for (const [key, value] of Object.entries(usageSeconds)) {
+    const seconds = normalizeUsageSeconds(value);
+    if (!seconds) continue;
+
+    if (key.includes(':')) {
+      const [ruleId, ...listParts] = key.split(':');
+      const listId = listParts.join(':');
+      if (validDailyAssignmentKeys.has(key)) {
+        nextUsage[key] = seconds;
+      } else {
+        changed = true;
+      }
+      continue;
+    }
+
+    const rule = rulesById.get(key);
+    if (!rule) {
+      changed = true;
+      continue;
+    }
+
+    const dailyAssignments = getRuleAssignments(rule)
+      .filter(item => item.blockingMode === BLOCKING_MODE_DAILY_LIMIT);
+    for (const assignment of dailyAssignments) {
+      const assignmentKey = getAssignmentUsageKey(rule.id, assignment.listId);
+      if (assignmentKey) nextUsage[assignmentKey] = Math.max(nextUsage[assignmentKey] || 0, seconds);
+    }
+    changed = true;
+  }
+
+  let nextLastSample = rawState.lastSample ?? null;
+  if (nextLastSample && typeof nextLastSample === 'object' && !Array.isArray(nextLastSample)) {
+    if (Array.isArray(nextLastSample.assignmentKeys)) {
+      const validKeys = nextLastSample.assignmentKeys.filter(key => validDailyAssignmentKeys.has(key));
+      if (!sameJson(validKeys, nextLastSample.assignmentKeys)) changed = true;
+      nextLastSample = {
+        timestamp: Number(nextLastSample.timestamp),
+        assignmentKeys: validKeys
+      };
+    } else if (nextLastSample.ruleId != null) {
+      const rule = rulesById.get(String(nextLastSample.ruleId));
+      const assignmentKeys = rule
+        ? getRuleAssignments(rule)
+            .filter(item => item.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
+            .map(item => getAssignmentUsageKey(rule.id, item.listId))
+            .filter(Boolean)
+        : [];
+      nextLastSample = {
+        timestamp: Number(nextLastSample.timestamp),
+        assignmentKeys
+      };
+      changed = true;
+    }
+  }
+
+  const state = {
+    ...rawState,
+    version: DAILY_LIMIT_STATE_VERSION,
+    usageSeconds: nextUsage,
+    lastSample: nextLastSample
+  };
+
+  if (!sameJson(state, rawState)) changed = true;
+  return { migrated: changed, state };
 }
 
 /**
@@ -168,18 +264,34 @@ export function createRulesMigrationService({
     return result;
   }
 
+  async function migrateDailyUsage(rules) {
+    try {
+      const stored = await localStorage.get(DAILY_RULE_USAGE_KEY);
+      const result = migrateDailyUsageSchema(stored[DAILY_RULE_USAGE_KEY], rules);
+      if (result.migrated) {
+        await localStorage.set({ [DAILY_RULE_USAGE_KEY]: result.state });
+      }
+      return result;
+    } catch (error) {
+      logger.error('Error migrating Daily Limit assignment usage:', error);
+      return { migrated: false, state: null, error };
+    }
+  }
+
   async function migrateAll() {
     const migratedFromSync = await migrateToLocalForDevice();
     const [schemaMigration, listMigration] = await Promise.all([
       migrateStoredRules(),
       ruleListsManager?.ensureInitialized?.() || Promise.resolve({ migrated: false, lists: [] })
     ]);
+    const dailyUsageMigration = await migrateDailyUsage(schemaMigration.rules);
 
     return {
-      migrated: migratedFromSync || schemaMigration.migrated || listMigration.migrated,
+      migrated: migratedFromSync || schemaMigration.migrated || listMigration.migrated || dailyUsageMigration.migrated,
       migratedFromSync,
       schemaMigration,
       listMigration,
+      dailyUsageMigration,
       rules: schemaMigration.rules,
       ruleLists: listMigration.lists
     };
@@ -188,6 +300,7 @@ export function createRulesMigrationService({
   return {
     migrateToLocalForDevice,
     migrateStoredRules,
+    migrateDailyUsage,
     migrateAll
   };
 }

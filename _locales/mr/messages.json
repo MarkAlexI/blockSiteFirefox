@@ -1069,5 +1069,29 @@
   },
   "blocking_mode_invalid": {
     "message": "वैध ब्लॉकिंग मोड निवडा"
+  },
+  "rulelists_assignment_hint": {
+    "message": "खालील ब्लॉकिंग सेटिंग्ज फक्त या सूचीसाठी लागू होतात."
+  },
+  "rulelists_remove_assignment": {
+    "message": "सूचीतून काढा"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "हा नियम \"$NAME$\" मधून काढायचा? ही त्याची शेवटची सानुकूल सूची असल्यास, तो सामान्यमध्ये हलवला जाईल.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "या नियमासाठी त्या सूचीमध्ये आधीच सेटिंग्ज आहेत."
+  },
+  "rulelists_assignment_error": {
+    "message": "निवडलेल्या सूचीचे असाइनमेंट बदलता आले नाही."
+  },
+  "rulelists_multiple_settings": {
+    "message": "सूचीनुसार वेगवेगळी सेटिंग्ज"
   }
 }

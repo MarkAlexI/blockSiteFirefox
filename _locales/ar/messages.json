@@ -1069,5 +1069,29 @@
   },
   "blocking_mode_invalid": {
     "message": "اختر وضع حظر صالحًا"
+  },
+  "rulelists_assignment_hint": {
+    "message": "تنطبق إعدادات الحظر أدناه على هذه القائمة فقط."
+  },
+  "rulelists_remove_assignment": {
+    "message": "إزالة من القائمة"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "هل تريد إزالة هذه القاعدة من «$NAME$»؟ إذا كانت هذه آخر قائمة مخصصة لها، فسيتم نقلها إلى القائمة العامة.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "لهذه القاعدة إعدادات بالفعل في تلك القائمة."
+  },
+  "rulelists_assignment_error": {
+    "message": "تعذر تغيير إسناد القائمة المحددة."
+  },
+  "rulelists_multiple_settings": {
+    "message": "إعدادات مختلفة حسب القائمة"
   }
 }

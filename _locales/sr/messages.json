@@ -1075,5 +1075,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Изаберите важећи режим блокирања"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Подешавања блокирања у наставку важе само за ову листу."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Уклони са листе"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Уклонити ово правило са листе „$NAME$“? Ако је то његова последња прилагођена листа, биће премештено у Опште.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Ово правило већ има подешавања за ту листу."
+  },
+  "rulelists_assignment_error": {
+    "message": "Није могуће променити доделу изабраној листи."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Различита подешавања по листи"
   }
 }

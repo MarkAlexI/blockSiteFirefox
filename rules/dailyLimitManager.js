@@ -1,18 +1,34 @@
 export const DAILY_RULE_USAGE_KEY = 'dailyRuleUsage';
-export const DAILY_LIMIT_STATE_VERSION = 1;
+export const DAILY_LIMIT_STATE_VERSION = 2;
 export const MAX_ACCOUNTING_GAP_MS = 90 * 1000;
 export const MAX_RECOVERY_ACCOUNTING_SECONDS = 60;
-
-function toRuleId(value) {
-  const id = Math.floor(Number(value));
-  return Number.isInteger(id) && id > 0 ? id : null;
-}
 
 export function getLocalDateKey(date = new Date()) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+}
+
+function normalizeUsageKey(value) {
+  if (typeof value === 'string' && /^\d+:[^:]+$/.test(value)) return value;
+  // Numeric v1 keys are kept temporarily so the migration service can expand
+  // them to assignment keys without losing already-accounted usage.
+  if (typeof value === 'string' && /^\d+$/.test(value)) return value;
+  return null;
+}
+
+function normalizeActiveKeys(value) {
+  const candidates = Array.isArray(value) ? value : (value == null ? [] : [value]);
+  const result = [];
+  const seen = new Set();
+  for (const candidate of candidates) {
+    const key = normalizeUsageKey(String(candidate));
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    result.push(key);
+  }
+  return result;
 }
 
 export function normalizeDailyRuleUsageState(raw, now = new Date()) {
@@ -22,10 +38,10 @@ export function normalizeDailyRuleUsageState(raw, now = new Date()) {
 
   if (sameDay && raw?.usageSeconds && typeof raw.usageSeconds === 'object' && !Array.isArray(raw.usageSeconds)) {
     for (const [key, value] of Object.entries(raw.usageSeconds)) {
-      const ruleId = toRuleId(key);
+      const normalizedKey = normalizeUsageKey(key);
       const seconds = Math.floor(Number(value));
-      if (ruleId !== null && Number.isFinite(seconds) && seconds > 0) {
-        usageSeconds[String(ruleId)] = seconds;
+      if (normalizedKey && Number.isFinite(seconds) && seconds > 0) {
+        usageSeconds[normalizedKey] = seconds;
       }
     }
   }
@@ -33,9 +49,16 @@ export function normalizeDailyRuleUsageState(raw, now = new Date()) {
   let lastSample = null;
   if (sameDay && raw?.lastSample && typeof raw.lastSample === 'object') {
     const timestamp = Number(raw.lastSample.timestamp);
-    const ruleId = raw.lastSample.ruleId == null ? null : toRuleId(raw.lastSample.ruleId);
-    if (Number.isFinite(timestamp) && timestamp > 0 && (raw.lastSample.ruleId == null || ruleId !== null)) {
-      lastSample = { timestamp, ruleId };
+    let assignmentKeys = [];
+    if (Array.isArray(raw.lastSample.assignmentKeys)) {
+      assignmentKeys = normalizeActiveKeys(raw.lastSample.assignmentKeys);
+    } else if (raw.lastSample.ruleId != null) {
+      const legacyKey = normalizeUsageKey(String(raw.lastSample.ruleId));
+      if (legacyKey) assignmentKeys = [legacyKey];
+    }
+
+    if (Number.isFinite(timestamp) && timestamp > 0) {
+      lastSample = { timestamp, assignmentKeys };
     }
   }
 
@@ -76,72 +99,69 @@ export class DailyLimitManager {
     return { ...state.usageSeconds };
   }
 
-  async recordSample(activeRuleId, now = new Date()) {
+  async recordSample(activeAssignmentKeys, now = new Date()) {
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
       const state = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
       const timestamp = now.getTime();
-      const normalizedActiveRuleId = activeRuleId == null ? null : toRuleId(activeRuleId);
-      let accountedRuleId = null;
+      const currentKeys = normalizeActiveKeys(activeAssignmentKeys);
+      const previousKeys = state.lastSample?.assignmentKeys || [];
+      const sharedKeys = previousKeys.filter(key => currentKeys.includes(key));
       let addedSeconds = 0;
-      let previousUsageSeconds = 0;
-      let currentUsageSeconds = 0;
 
       const previous = state.lastSample;
-      if (previous?.ruleId !== null && previous?.ruleId !== undefined) {
+      if (previous) {
         const elapsedMs = timestamp - previous.timestamp;
         const elapsedSeconds = Math.floor(elapsedMs / 1000);
-        const sameRuleAtBothEnds = normalizedActiveRuleId !== null &&
-          normalizedActiveRuleId === previous.ruleId;
-
         if (elapsedMs > 0 && elapsedMs <= MAX_ACCOUNTING_GAP_MS) {
           addedSeconds = elapsedSeconds;
-        } else if (elapsedMs > MAX_ACCOUNTING_GAP_MS && sameRuleAtBothEnds) {
+        } else if (elapsedMs > MAX_ACCOUNTING_GAP_MS && sharedKeys.length > 0) {
           // Alarms and background events can be delayed on mobile or under load.
           // Never charge the whole unknown gap, but credit one conservative minute
-          // when the same rule is confirmed active before and after the delay.
+          // for assignments confirmed active before and after the delay.
           addedSeconds = Math.min(elapsedSeconds, MAX_RECOVERY_ACCOUNTING_SECONDS);
         }
+      }
 
-        if (addedSeconds > 0) {
-          accountedRuleId = previous.ruleId;
-          const key = String(previous.ruleId);
-          previousUsageSeconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
-          currentUsageSeconds = previousUsageSeconds + addedSeconds;
+      const usageUpdates = {};
+      if (addedSeconds > 0) {
+        for (const key of sharedKeys) {
+          const previousUsageSeconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
+          const currentUsageSeconds = previousUsageSeconds + addedSeconds;
           state.usageSeconds[key] = currentUsageSeconds;
+          usageUpdates[key] = { previousUsageSeconds, currentUsageSeconds };
         }
       }
 
       state.lastSample = {
         timestamp,
-        ruleId: normalizedActiveRuleId
+        assignmentKeys: currentKeys
       };
 
       await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
       return {
         state,
-        accountedRuleId,
+        accountedAssignmentKeys: Object.keys(usageUpdates),
         addedSeconds,
-        previousUsageSeconds,
-        currentUsageSeconds
+        usageUpdates
       };
     });
   }
 
   async resetSample(now = new Date()) {
-    return this.recordSample(null, now);
+    return this.recordSample([], now);
   }
 
-  async pruneRuleIds(validRuleIds, now = new Date()) {
-    const valid = new Set((validRuleIds || []).map(toRuleId).filter(Boolean).map(String));
+  async pruneAssignmentKeys(validAssignmentKeys, now = new Date()) {
+    const valid = new Set(normalizeActiveKeys(validAssignmentKeys));
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
       const state = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
       for (const key of Object.keys(state.usageSeconds)) {
         if (!valid.has(key)) delete state.usageSeconds[key];
       }
-      if (state.lastSample?.ruleId != null && !valid.has(String(state.lastSample.ruleId))) {
-        state.lastSample.ruleId = null;
+      if (state.lastSample) {
+        state.lastSample.assignmentKeys = state.lastSample.assignmentKeys.filter(key => valid.has(key));
       }
       await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
       return state;

@@ -441,20 +441,25 @@ Do not add the Chromium Chrome/Edge store abstraction to Firefox unless Firefox 
 
 Rule Lists are shared product behavior in Chromium and Firefox starting with 4.9.0. They remain device-local with the rules they organize.
 
-The shared model is:
+The 5.0.0 assignment model is shared across both platforms:
 
-- blocking rules store canonical membership in `rule.listIds` and may belong to multiple custom lists without duplicating the underlying rule;
-- legacy `rule.listId` values migrate automatically to `listIds`;
-- `general` is the fallback membership when a blocking rule has no custom lists, not a parallel membership beside custom lists;
-- custom Rule Lists require Pro or legacy access for management and direct assignment;
-- outside an active Focus Session, a shared rule stays active while at least one assigned list is enabled;
-- deleting a custom list removes only that membership and falls back to `general` when the last custom membership disappears;
-- imports and exports include the local Rule List definitions together with rule memberships;
-- whitelist rules stay in `general` internally and are not exposed as custom-list members.
+- a blocking target stores URL, redirect, category, global disabled state, and whitelist state once;
+- `rule.assignments` stores one context-specific configuration per Rule List;
+- each assignment owns its `listId`, blocking mode, Schedule, and Daily Limit configuration;
+- the same target can therefore use different blocking settings in Work and Study without duplicating the target;
+- legacy `listId`, RC multi-membership `listIds`, and root blocking configuration migrate automatically to canonical assignments without changing existing behavior;
+- `general` is the default/fallback context when a target has no custom assignment;
+- custom Rule Lists and custom assignments require Pro or legacy access;
+- outside an active Focus Session, a target enters DNR while at least one enabled assignment currently blocks;
+- deleting a custom list removes only that list assignment and preserves orphaned targets by falling back to `general`;
+- imports and exports include Rule List definitions and canonical assignments, while accumulated Daily Limit usage remains device-local;
+- whitelist rules stay in `general` internally and are not exposed as custom-list assignments.
 
-The one-minute scheduling alarm and the full expected-vs-current DNR integrity check remain unchanged on both platforms. Firefox uses the same Rule List activation logic while preserving `browser.*` APIs and Firefox Android behavior.
+Daily Limit usage is keyed by assignment (`ruleId:listId`) so different list contexts can keep independent budgets. The known foreground-sampling behavior remains platform-specific runtime plumbing and must not be "fixed" by porting Chromium callbacks or replacing Firefox Promise APIs.
 
-Do not move Rule Lists to sync storage during a Chromium-to-Firefox port. Rules are device-local in both codebases, so list definitions and disabled state must remain local with them.
+The one-minute scheduling alarm and the full expected-vs-current DNR integrity check remain unchanged on both platforms. Firefox uses the same assignment activation logic while preserving `browser.*` APIs and Firefox Android behavior.
+
+Do not move Rule Lists or assignments to sync storage during a Chromium-to-Firefox port. Rules are device-local in both codebases, so list definitions, assignments, and disabled state must remain local with them.
 
 ---
 

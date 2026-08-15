@@ -1063,5 +1063,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Valitse kelvollinen estotila"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Alla olevat estoasetukset koskevat vain tätä luetteloa."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Poista luettelosta"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Poistetaanko tämä sääntö luettelosta \"$NAME$\"? Jos tämä on sen viimeinen mukautettu luettelo, se siirretään Yleiset-luetteloon.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Tällä säännöllä on jo asetukset kyseiselle luettelolle."
+  },
+  "rulelists_assignment_error": {
+    "message": "Valitun luettelon määritystä ei voitu muuttaa."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Eri asetukset luetteloittain"
   }
 }

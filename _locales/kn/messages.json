@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "ಮಾನ್ಯ ನಿರ್ಬಂಧಿಸುವ ಮೋಡ್ ಆಯ್ಕೆಮಾಡಿ"
+  },
+  "rulelists_assignment_hint": {
+    "message": "ಕೆಳಗಿನ ನಿರ್ಬಂಧಿಸುವ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಈ ಪಟ್ಟಿಗೆ ಮಾತ್ರ ಅನ್ವಯಿಸುತ್ತವೆ."
+  },
+  "rulelists_remove_assignment": {
+    "message": "ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಿ"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "ಈ ನಿಯಮವನ್ನು \"$NAME$\" ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಬೇಕೆ? ಇದು ಇದರ ಕೊನೆಯ ಕಸ್ಟಮ್ ಪಟ್ಟಿಯಾಗಿದ್ದರೆ, ಇದನ್ನು ಸಾಮಾನ್ಯಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸಲಾಗುತ್ತದೆ.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "ಈ ನಿಯಮಕ್ಕೆ ಆ ಪಟ್ಟಿಗಾಗಿ ಈಗಾಗಲೇ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿವೆ."
+  },
+  "rulelists_assignment_error": {
+    "message": "ಆಯ್ಕೆಮಾಡಿದ ಪಟ್ಟಿಯ ನಿಯೋಜನೆಯನ್ನು ಬದಲಾಯಿಸಲಾಗಲಿಲ್ಲ."
+  },
+  "rulelists_multiple_settings": {
+    "message": "ಪಟ್ಟಿಯ ಪ್ರಕಾರ ವಿಭಿನ್ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
   }
 }

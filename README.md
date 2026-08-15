@@ -29,7 +29,7 @@ Node.js 20 or newer is required.
 
 ## Installation
 
-The `main` branch of this repository contains a ready-to-use package for installation in Mozilla Firefox (Developer Mode) — simply click the "<> Code" button then click "Download ZIP" to download the package. No build or additional steps are required.
+The `main` branch of this repository contains a ready-to-use package for installation in Google Chrome (Developer Mode) — simply click the "<> Code" button then click "Download ZIP" to download the package. No build or additional steps are required.
 
 Alternatively, you can use the release packages provided.
 
@@ -88,10 +88,10 @@ A crucial part of the extension, the background script runs continuously in the 
 Users can block any website by adding it to a list in the extension's popup. When a blocked site is visited, the extension prevents it from loading. Users also have the option to set up a redirection to another URL. For instance, if they frequently get distracted by social media, they can redirect themselves to a more productive website whenever they attempt to visit a blocked site.
 
 ### 2. Device-local Rules and Rule Lists
-Blocking rules are stored locally on each browser installation so the extension does not need an account or a cloud rule database. Pro and legacy users can organize blocking rules into named Rule Lists such as Work or Study, pause or resume a whole list, and filter rules by list. A blocking rule can belong to multiple custom lists without being duplicated. Rules with no custom membership use the built-in General list as a fallback.
+Blocking rules are stored locally on each browser installation so the extension does not need an account or a cloud rule database. Pro and legacy users can organize targets into named Rule Lists such as Work or Study, pause or resume a whole list, and filter rules by list. A target is stored once, while each list assignment can have its own Always, Schedule, or Daily Limit configuration. General remains the default/fallback context.
 
 ### 3. Blocking Modes and Daily Limits
-Each blocking rule has one clear blocking mode: Always, Schedule, or Daily limit. Schedule and Daily limit cannot be enabled at the same time. Pro and legacy users can set a Daily limit to allow a matching site for a defined number of active, focused minutes per local calendar day; once the budget is exhausted, the existing DNR engine blocks the rule. Daily usage stays on the device and is not included in rule exports or telemetry.
+Each Rule List assignment has one clear blocking mode: Always, Schedule, or Daily limit. Schedule and Daily limit cannot be enabled at the same time within one assignment. The same target can therefore use different schedules or limits in Work, Study, or other lists. Pro and legacy users can set a Daily limit to allow a matching site for a defined number of active, focused minutes per local calendar day; once an active assignment's budget is exhausted, the existing DNR engine blocks the target. Daily usage stays on the device and is not included in rule exports or telemetry.
 
 ### 4. Minimalist User Interface
 The extension's interface is designed for simplicity. The popup window provides an intuitive experience where users can quickly view, add, or delete rules for specific websites. There's no clutter—just straightforward functionality.

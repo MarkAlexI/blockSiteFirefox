@@ -8,10 +8,12 @@ function makeRule(overrides = {}) {
     id: 1,
     blockURL: 'youtube.com',
     category: 'entertainment',
-    listId: 'general',
-    blockingMode: 'daily_limit',
-    dailyLimit: { minutes: 1 },
-    schedule: null,
+    assignments: [{
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 1 },
+      schedule: null
+    }],
     disabledByUser: false,
     isWhitelist: false,
     ...overrides
@@ -23,8 +25,11 @@ function createTracker({
   windowFocused = true,
   recordSample,
   requestSync = async () => {},
+  usageSeconds = {},
   tabsApiOverrides = {},
-  windowsApiOverrides = {}
+  windowsApiOverrides = {},
+  rules = [makeRule()],
+  ruleLists = [{ id: 'general', disabled: false }]
 } = {}) {
   return createDailyLimitTracker({
     tabsApi: {
@@ -42,37 +47,39 @@ function createTracker({
       },
       ...windowsApiOverrides
     },
-    getRules: async () => [makeRule()],
+    getRules: async () => rules,
     getSettings: async () => ({ disabledCategories: [] }),
-    getRuleLists: async () => [{ id: 'general', disabled: false }],
+    getRuleLists: async () => ruleLists,
     getFocusSessionState: async () => ({ focusActive: false }),
     dailyLimitManager: {
-      async recordSample(ruleId) {
-        if (recordSample) return recordSample(ruleId);
-        return { accountedRuleId: null, addedSeconds: 0, currentUsageSeconds: 0 };
+      async getUsageSeconds() { return { ...usageSeconds }; },
+      async recordSample(keys) {
+        if (recordSample) return recordSample(keys);
+        return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
       }
     },
     dnrSynchronizer: { requestSync },
-    logger: {}
+    logger: { info() {}, log() {} }
   });
 }
 
-test('tracker uses the last-focused active tab and confirms its window is focused', async () => {
+test('tracker uses the last-focused active tab and resolves assignment usage keys', async () => {
   let sampled = null;
   const tracker = createTracker({
-    recordSample(ruleId) {
-      sampled = ruleId;
-      return { accountedRuleId: null, addedSeconds: 0, currentUsageSeconds: 0 };
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
     }
   });
 
-  await tracker.sample('test', new Date(2026, 7, 15, 12, 0));
-  assert.equal(sampled, 1);
+  await tracker.sample('test', new Date('2026-08-15T12:00:00.000Z'));
+  assert.deepEqual(sampled, ['1:general']);
   assert.deepEqual(tracker.getDebugState(), {
     lastReason: 'test',
     lastSampleAt: '2026-08-15T12:00:00.000Z',
     resolution: 'matched',
     activeRuleId: 1,
+    activeAssignmentListIds: ['general'],
     tabId: 11,
     windowId: 7,
     focusSource: 'windows_get',
@@ -86,14 +93,14 @@ test('tracker does not count when the candidate browser window is not focused', 
   let sampled = 'unset';
   const tracker = createTracker({
     windowFocused: false,
-    recordSample(ruleId) {
-      sampled = ruleId;
-      return { accountedRuleId: null, addedSeconds: 0, currentUsageSeconds: 0 };
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
     }
   });
 
   await tracker.sample('test');
-  assert.equal(sampled, null);
+  assert.deepEqual(sampled, []);
   assert.equal(tracker.getDebugState().resolution, 'browser_not_focused');
 });
 
@@ -107,15 +114,15 @@ test('focus events override stale window focus queries', async () => {
         return { id: 7, focused: false };
       }
     },
-    recordSample(ruleId) {
-      sampled = ruleId;
-      return { accountedRuleId: null, addedSeconds: 0, currentUsageSeconds: 0 };
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
     }
   });
 
   tracker.noteWindowFocus(7);
   await tracker.sample('window_focus_changed');
-  assert.equal(sampled, 1);
+  assert.deepEqual(sampled, ['1:general']);
   assert.equal(windowGets, 0);
   assert.equal(tracker.getDebugState().focusSource, 'focus_event');
 
@@ -134,9 +141,9 @@ test('direct tab hints avoid a second tabs.query race on activation and URL chan
         return [];
       }
     },
-    recordSample(ruleId) {
-      sampled = ruleId;
-      return { accountedRuleId: null, addedSeconds: 0, currentUsageSeconds: 0 };
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
     }
   });
 
@@ -147,7 +154,7 @@ test('direct tab hints avoid a second tabs.query race on activation and URL chan
   );
 
   assert.equal(queryCalls, 0);
-  assert.equal(sampled, 1);
+  assert.deepEqual(sampled, ['1:general']);
 });
 
 test('tracker falls back from windows.get to getLastFocused when needed', async () => {
@@ -161,26 +168,50 @@ test('tracker falls back from windows.get to getLastFocused when needed', async 
         return { id: 7, focused: true };
       }
     },
-    recordSample(ruleId) {
-      sampled = ruleId;
-      return { accountedRuleId: null, addedSeconds: 0, currentUsageSeconds: 0 };
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
     }
   });
 
   await tracker.sample('test');
-  assert.equal(sampled, 1);
+  assert.deepEqual(sampled, ['1:general']);
   assert.equal(tracker.getDebugState().focusSource, 'windows_get_last_focused');
 });
 
-test('crossing a daily limit triggers DNR synchronization', async () => {
+test('multiple active Daily Limit assignments are sampled together', async () => {
+  let sampled = null;
+  const tracker = createTracker({
+    rules: [makeRule({
+      assignments: [
+        { listId: 'work', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 }, schedule: null },
+        { listId: 'study', blockingMode: 'daily_limit', dailyLimit: { minutes: 20 }, schedule: null }
+      ]
+    })],
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    },
+    ruleLists: [{ id: 'general', disabled: false }, { id: 'work', disabled: false }, { id: 'study', disabled: false }]
+  });
+  // Both custom lists must exist and be enabled for the test.
+  tracker.noteWindowFocus(7);
+  // Override getRuleLists by reconstructing tracker is unnecessary in product;
+  // legacy General fallback would otherwise normalize unknown list state only in mutations.
+  await tracker.sample('test');
+  assert.deepEqual(sampled.sort(), ['1:study', '1:work']);
+});
+
+test('crossing a Daily Limit assignment triggers DNR synchronization', async () => {
   let syncs = 0;
   const tracker = createTracker({
     recordSample() {
       return {
-        accountedRuleId: 1,
+        accountedAssignmentKeys: ['1:general'],
         addedSeconds: 2,
-        previousUsageSeconds: 59,
-        currentUsageSeconds: 61
+        usageUpdates: {
+          '1:general': { previousUsageSeconds: 59, currentUsageSeconds: 61 }
+        }
       };
     },
     async requestSync() {

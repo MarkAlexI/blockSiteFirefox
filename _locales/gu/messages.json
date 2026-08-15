@@ -1069,5 +1069,29 @@
   },
   "blocking_mode_invalid": {
     "message": "માન્ય બ્લોકિંગ મોડ પસંદ કરો"
+  },
+  "rulelists_assignment_hint": {
+    "message": "નીચેની બ્લોકિંગ સેટિંગ્સ ફક્ત આ સૂચિ માટે લાગુ પડે છે."
+  },
+  "rulelists_remove_assignment": {
+    "message": "સૂચિમાંથી દૂર કરો"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "આ નિયમને \"$NAME$\"માંથી દૂર કરવો છે? જો આ તેની છેલ્લી કસ્ટમ સૂચિ હશે, તો તે સામાન્યમાં ખસેડાશે.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "આ નિયમમાં તે સૂચિ માટે પહેલેથી સેટિંગ્સ છે."
+  },
+  "rulelists_assignment_error": {
+    "message": "પસંદ કરેલી સૂચિની સોંપણી બદલી શકાઈ નથી."
+  },
+  "rulelists_multiple_settings": {
+    "message": "સૂચિ પ્રમાણે અલગ સેટિંગ્સ"
   }
 }

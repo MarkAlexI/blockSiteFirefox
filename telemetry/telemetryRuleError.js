@@ -17,6 +17,9 @@ const SAFE_RULE_ERROR_CODES = new Set([
   'rule_list_name_exists',
   'rule_list_not_found',
   'rule_list_locked',
+  'rule_assignment_exists',
+  'rule_assignment_not_found',
+  'rule_assignment_locked',
   'category_required'
 ]);
 
@@ -35,6 +38,9 @@ const EXPECTED_RULE_REJECTION_CODES = new Set([
   'rule_list_name_exists',
   'rule_list_not_found',
   'rule_list_locked',
+  'rule_assignment_exists',
+  'rule_assignment_not_found',
+  'rule_assignment_locked',
   'category_required'
 ]);
 

@@ -1069,5 +1069,29 @@
   },
   "blocking_mode_invalid": {
     "message": "சரியான தடுப்பு பயன்முறையைத் தேர்ந்தெடுக்கவும்"
+  },
+  "rulelists_assignment_hint": {
+    "message": "கீழே உள்ள தடுப்பு அமைப்புகள் இந்தப் பட்டியலுக்கு மட்டும் பொருந்தும்."
+  },
+  "rulelists_remove_assignment": {
+    "message": "பட்டியலிலிருந்து அகற்று"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "இந்த விதியை \"$NAME$\" இலிருந்து அகற்றவா? இது இதன் கடைசி தனிப்பயன் பட்டியல் என்றால், பொதுவான பட்டியலுக்கு மாற்றப்படும்.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "இந்த விதிக்கு அந்தப் பட்டியலுக்கான அமைப்புகள் ஏற்கனவே உள்ளன."
+  },
+  "rulelists_assignment_error": {
+    "message": "தேர்ந்தெடுக்கப்பட்ட பட்டியல் ஒதுக்கீட்டை மாற்ற முடியவில்லை."
+  },
+  "rulelists_multiple_settings": {
+    "message": "பட்டியலுக்கு ஏற்ப வேறுபட்ட அமைப்புகள்"
   }
 }

@@ -23,6 +23,7 @@ class FakeElement {
     this.attributes = new Map();
   }
   appendChild(child) { this.children.push(child); child.parentNode = this; return child; }
+  append(...children) { for (const child of children) this.appendChild(child); }
   addEventListener(type, listener) { this.listeners.set(type, listener); }
   setAttribute(name, value) { this.attributes.set(name, String(value)); }
   getAttribute(name) { return this.attributes.get(name) ?? null; }
@@ -46,10 +47,10 @@ test('rule list grid renders shared membership counts and selectable list names'
         { id: 'list-2', name: 'Study', disabled: false }
       ],
       [
-        { listIds: ['general'], isWhitelist: false },
-        { listIds: ['list-1', 'list-2'], isWhitelist: false },
-        { listIds: ['list-1'], isWhitelist: false },
-        { listIds: ['general'], isWhitelist: true }
+        { assignments: [{ listId: 'general', blockingMode: 'always' }], isWhitelist: false },
+        { assignments: [{ listId: 'list-1', blockingMode: 'always' }, { listId: 'list-2', blockingMode: 'always' }], isWhitelist: false },
+        { assignments: [{ listId: 'list-1', blockingMode: 'always' }], isWhitelist: false },
+        { assignments: [{ listId: 'general', blockingMode: 'always' }], isWhitelist: true }
       ],
       { selectedListId: 'list-2', onSelect: listId => selected.push(listId) }
     );

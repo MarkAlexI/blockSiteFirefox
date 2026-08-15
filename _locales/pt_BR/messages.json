@@ -1066,5 +1066,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Selecione um modo de bloqueio válido"
+  },
+  "rulelists_assignment_hint": {
+    "message": "As configurações de bloqueio abaixo se aplicam somente a esta lista."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Remover da lista"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Remover esta regra de \"$NAME$\"? Se esta for a última lista personalizada dela, a regra será movida para Geral.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Esta regra já tem configurações para essa lista."
+  },
+  "rulelists_assignment_error": {
+    "message": "Não foi possível alterar a atribuição à lista selecionada."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Configurações diferentes por lista"
   }
 }

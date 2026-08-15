@@ -87,6 +87,7 @@ test('a rule in a disabled category remains rendered as inactive and non-interac
 
     const row = rulesUI.createRuleDisplayRow(
       rule,
+      { listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null },
       0,
       () => {},
       () => {},

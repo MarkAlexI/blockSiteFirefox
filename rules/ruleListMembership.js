@@ -1,4 +1,13 @@
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
+import {
+  addRuleAssignment,
+  getRuleAssignment,
+  getRuleAssignments,
+  getRuleListIds,
+  isRuleInList,
+  isRuleListMembershipActive,
+  removeRuleAssignment
+} from './ruleAssignments.js';
 
 function normalizeCandidateIds(value) {
   if (Array.isArray(value)) return value;
@@ -10,58 +19,34 @@ export function normalizeRuleListIds(value, fallbackListId = GENERAL_RULE_LIST_I
   const rawIds = normalizeCandidateIds(value);
   const uniqueIds = [];
   const seen = new Set();
-
   for (const rawId of rawIds) {
     const id = typeof rawId === 'string' ? rawId.trim() : '';
     if (!id || seen.has(id)) continue;
     seen.add(id);
     uniqueIds.push(id);
   }
-
   const customIds = uniqueIds.filter(id => id !== GENERAL_RULE_LIST_ID);
   if (customIds.length > 0) return customIds;
-
   const fallback = typeof fallbackListId === 'string' && fallbackListId.trim()
     ? fallbackListId.trim()
     : GENERAL_RULE_LIST_ID;
-
   return [fallback];
 }
 
-export function getRuleListIds(rule) {
-  if (rule?.isWhitelist === true) return [GENERAL_RULE_LIST_ID];
-  if (Array.isArray(rule?.listIds)) return normalizeRuleListIds(rule.listIds);
-  return normalizeRuleListIds(rule?.listId);
-}
-
-export function isRuleInList(rule, listId) {
-  return getRuleListIds(rule).includes(listId || GENERAL_RULE_LIST_ID);
-}
-
-export function isRuleListMembershipActive(rule, disabledRuleListIds = []) {
-  const disabled = disabledRuleListIds instanceof Set
-    ? disabledRuleListIds
-    : new Set(disabledRuleListIds || []);
-
-  return getRuleListIds(rule).some(listId => !disabled.has(listId));
-}
+export { getRuleAssignments, getRuleAssignment, getRuleListIds, isRuleInList, isRuleListMembershipActive };
 
 export function mergeRuleListIds(existingValue, addedValue) {
-  const existingIds = normalizeRuleListIds(existingValue);
-  const addedIds = normalizeRuleListIds(addedValue);
-  const addedCustomIds = addedIds.filter(id => id !== GENERAL_RULE_LIST_ID);
-
-  if (addedCustomIds.length === 0) {
-    return existingIds;
+  const pseudoRule = { listIds: normalizeRuleListIds(existingValue), isWhitelist: false };
+  let assignments = getRuleAssignments(pseudoRule);
+  for (const listId of normalizeRuleListIds(addedValue)) {
+    assignments = addRuleAssignment({ assignments, isWhitelist: false }, { listId, blockingMode: 'always' });
   }
-
-  return normalizeRuleListIds([...existingIds, ...addedCustomIds]);
+  return assignments.map(item => item.listId);
 }
 
 export function removeRuleListId(existingValue, removedListId) {
-  const remaining = normalizeRuleListIds(existingValue)
-    .filter(listId => listId !== removedListId);
-  return normalizeRuleListIds(remaining);
+  const pseudoRule = { listIds: normalizeRuleListIds(existingValue), isWhitelist: false };
+  return removeRuleAssignment(pseudoRule, removedListId).map(item => item.listId);
 }
 
 export function areRuleListIdsEqual(left, right) {

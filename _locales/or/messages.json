@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "ଏକ ବୈଧ ବ୍ଲକିଂ ମୋଡ୍ ବାଛନ୍ତୁ"
+  },
+  "rulelists_assignment_hint": {
+    "message": "ନିମ୍ନରେ ଥିବା ବ୍ଲକିଂ ସେଟିଂଗୁଡ଼ିକ କେବଳ ଏହି ତାଲିକା ପାଇଁ ପ୍ରୟୋଜ୍ୟ।"
+  },
+  "rulelists_remove_assignment": {
+    "message": "ତାଲିକାରୁ ହଟାନ୍ତୁ"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "ଏହି ନିୟମକୁ \"$NAME$\" ରୁ ହଟାଇବେ? ଏହା ଯଦି ଏହାର ଶେଷ କଷ୍ଟମ ତାଲିକା ହୁଏ, ତେବେ ଏହାକୁ ସାଧାରଣକୁ ସ୍ଥାନାନ୍ତର କରାଯିବ।",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "ଏହି ନିୟମ ପାଇଁ ସେହି ତାଲିକାରେ ପୂର୍ବରୁ ସେଟିଂ ଅଛି।"
+  },
+  "rulelists_assignment_error": {
+    "message": "ଚୟନିତ ତାଲିକାର ଅସାଇନମେଣ୍ଟ ପରିବର୍ତ୍ତନ କରାଯାଇପାରିଲା ନାହିଁ।"
+  },
+  "rulelists_multiple_settings": {
+    "message": "ତାଲିକା ଅନୁସାରେ ଭିନ୍ନ ସେଟିଂ"
   }
 }

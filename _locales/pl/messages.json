@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Wybierz prawidłowy tryb blokowania"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Poniższe ustawienia blokowania dotyczą tylko tej listy."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Usuń z listy"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Usunąć tę regułę z listy „$NAME$”? Jeśli jest to jej ostatnia lista niestandardowa, zostanie przeniesiona do Ogólne.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Ta reguła ma już ustawienia dla tej listy."
+  },
+  "rulelists_assignment_error": {
+    "message": "Nie udało się zmienić przypisania do wybranej listy."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Różne ustawienia dla każdej listy"
   }
 }

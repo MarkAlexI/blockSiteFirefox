@@ -7,35 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.0] - 2026-08-15
 ### Added
-- Added Pro Daily Limits for individual blocking rules, allowing a site until its daily focused-use budget is exhausted and then blocking it through the existing Firefox DNR engine.
-- Added explicit Always, Schedule, and Daily limit blocking modes. Schedule and Daily limit are intentionally mutually exclusive to keep rule behavior unambiguous.
-- Added device-local daily usage accounting based on the active tab in the focused browser window, with automatic reset on the local calendar day.
-- Added Daily Limits interface strings across all supported locales.
+- Added Pro Daily Limits, allowing a site until its daily usage budget is exhausted and then blocking it through the existing DNR engine.
+- Added explicit Always, Schedule, and Daily limit blocking modes. Schedule and Daily limit are intentionally mutually exclusive within one Rule List assignment.
+- Added device-local Daily Limit usage state with automatic reset on the local calendar day.
+- Added Daily Limits and assignment-specific Rule List interface strings across all supported locales.
 
 ### Improved
-- Extended Rule Lists with shared membership so one blocking rule can belong to multiple custom lists without duplicating the underlying rule.
-- Treat General as the fallback list: adding a General rule to a custom list moves it out of General, while adding a rule from one custom list to another shares it across both lists.
-- Rule Pack imports now add the selected list membership to matching existing rules instead of reporting them as duplicates.
-- Rule List filtering, counts, popup labels, import/export, migration, and DNR activation now understand multi-list membership.
-- A shared rule remains active while at least one of its Rule Lists is enabled; Focus Session still overrides Rule List state.
-- Creating or selecting a Rule List now keeps that list as the active Options filter/context.
-- Reused the existing one-minute alarm and DNR self-healing flow for Daily Limits without adding interval timers, offscreen documents, or content-script timers.
-- Added suspension-safe sampling so long browser sleep or background gaps are not charged as active site usage.
+- Reworked Rule Lists around per-list assignments: a target is stored once while Work, Study, and other lists can keep independent Always, Schedule, or Daily Limit configuration for that target.
+- Treat General as the default/fallback context while custom lists store independent assignments for the same target.
+- Rule Pack imports now add a selected-list assignment to matching existing targets instead of reporting them as duplicates, with any shared pack schedule scoped to that assignment.
+- Rule List filtering, counts, popup labels, import/export, migration, and DNR activation now understand assignment-specific blocking configuration.
+- A target enters DNR while any enabled list assignment currently blocks; Focus Session still overrides assignment state.
+- Creating or selecting a Rule List keeps that list as the active Options filter/context.
+- Editing a rule inside a selected Rule List changes only that list assignment; the list is shown as fixed context instead of an implicit membership-transfer control.
+- In a filtered Rule List, removal removes that assignment rather than deleting the shared target from every list; orphaned targets fall back to General.
+- Migrated legacy `listId`, RC multi-membership `listIds`, root blocking configuration, and Daily Limit usage into the canonical assignment model without changing existing rule behavior.
+- Daily Limit usage is assignment-scoped so the same target can keep independent budgets in different Rule Lists.
+- Reused the existing one-minute alarm and DNR self-healing flow without adding interval timers, offscreen documents, or persistent content-script timers.
+- Kept conservative sampling so long browser sleep/background gaps are never charged in full.
 - Added path-aware usage attribution so specific rules such as `youtube.com/shorts` take precedence over broader matching rules such as `youtube.com`.
 - Preserved Daily Limit configuration in rule import/export while keeping accumulated usage device-local and out of exported data.
-- Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while adding Daily Limits.
-- Added migration for existing rules: scheduled rules become Schedule mode and all other blocking rules become Always mode.
-- Added regression coverage for blocking-mode validation, usage accounting, URL matching, migration, DNR activation, mutation security, localization, and Firefox runtime messaging.
+- Added privacy-safe Daily Limit sampling diagnostics without recording visited URLs.
+- Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while porting the assignment model.
+- Added regression coverage for assignment migration, per-list schedules, Daily Limit usage migration, DNR activation, mutation security, UI context, localization, import/export compatibility, and Firefox runtime messaging.
 
 ### Fixed
 - Fixed Rule Pack imports ignoring the selected Rule List and always assigning added rules to General.
-- Fixed Daily Limit foreground sampling so active-tab lifecycle events can provide the known tab directly and minute samples use the last-focused active tab with explicit window-focus verification.
-- Added local Daily Limit sampling diagnostics to distinguish matched rules, unfocused browser windows, missing matches, and resolution errors without recording visited URLs.
-- Fixed Daily Limits failing to accumulate usage when active-tab sampling depended on populated window data or when background alarms were delayed beyond the normal sampling window.
 - Fixed adding a rule while a Rule List filter is selected incorrectly assigning the new rule to General instead of the selected list.
 - Fixed newly created Rule Lists not becoming the active list context in Options.
-- Fixed existing rules in another custom Rule List being reported only as duplicates instead of extending their list membership.
-- The currently selected Rule List is now visually highlighted in Options so list context remains clear while adding or filtering rules.
+- Fixed existing targets in another Rule List being reported only as duplicates instead of adding the selected-list assignment.
 - Fixed localized input placeholders, including the Rule List name placeholder, not being applied from `data-i18n-placeholder`.
 - Removed a redundant Rule List storage write when creating a custom list.
 

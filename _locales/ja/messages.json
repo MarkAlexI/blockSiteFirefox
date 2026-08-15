@@ -1066,5 +1066,29 @@
   },
   "blocking_mode_invalid": {
     "message": "有効なブロックモードを選択してください"
+  },
+  "rulelists_assignment_hint": {
+    "message": "以下のブロック設定はこのリストにのみ適用されます。"
+  },
+  "rulelists_remove_assignment": {
+    "message": "リストから削除"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "このルールを「$NAME$」から削除しますか？これが最後のカスタムリストの場合、一般に移動します。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "このルールには、そのリスト用の設定がすでにあります。"
+  },
+  "rulelists_assignment_error": {
+    "message": "選択したリストへの割り当てを変更できませんでした。"
+  },
+  "rulelists_multiple_settings": {
+    "message": "リストごとに異なる設定"
   }
 }

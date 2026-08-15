@@ -1078,5 +1078,29 @@
   },
   "blocking_mode_invalid": {
     "message": "აირჩიეთ სწორი დაბლოკვის რეჟიმი"
+  },
+  "rulelists_assignment_hint": {
+    "message": "ქვემოთ მოცემული დაბლოკვის პარამეტრები მხოლოდ ამ სიას ეხება."
+  },
+  "rulelists_remove_assignment": {
+    "message": "სიიდან ამოღება"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "ამოიღოთ ეს წესი „$NAME$“-დან? თუ ეს მისი ბოლო მორგებული სიაა, ის გადავა ზოგადში.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "ამ წესს ამ სიისთვის უკვე აქვს პარამეტრები."
+  },
+  "rulelists_assignment_error": {
+    "message": "არჩეულ სიასთან მინიჭების შეცვლა ვერ მოხერხდა."
+  },
+  "rulelists_multiple_settings": {
+    "message": "სხვადასხვა პარამეტრი სიის მიხედვით"
   }
 }

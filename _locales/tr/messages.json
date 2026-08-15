@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Geçerli bir engelleme modu seçin"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Aşağıdaki engelleme ayarları yalnızca bu liste için geçerlidir."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Listeden kaldır"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Bu kural \"$NAME$\" listesinden kaldırılsın mı? Bu, kuralın son özel listesiyse Genel’e taşınır.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Bu kuralın bu liste için zaten ayarları var."
+  },
+  "rulelists_assignment_error": {
+    "message": "Seçilen liste ataması değiştirilemedi."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Listeye göre farklı ayarlar"
   }
 }

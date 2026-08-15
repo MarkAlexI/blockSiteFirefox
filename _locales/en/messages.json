@@ -1078,5 +1078,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Select a valid blocking mode"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Blocking settings below apply only to this list."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Remove from list"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Remove this rule from \"$NAME$\"? If this is its last custom list, it will move to General.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "This rule already has settings for that list."
+  },
+  "rulelists_assignment_error": {
+    "message": "The selected list assignment could not be changed."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Different settings by list"
   }
 }

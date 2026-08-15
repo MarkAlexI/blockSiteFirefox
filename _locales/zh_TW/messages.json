@@ -1066,5 +1066,29 @@
   },
   "blocking_mode_invalid": {
     "message": "請選擇有效的封鎖模式"
+  },
+  "rulelists_assignment_hint": {
+    "message": "下方的封鎖設定僅套用於此清單。"
+  },
+  "rulelists_remove_assignment": {
+    "message": "從清單中移除"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "要從「$NAME$」中移除此規則嗎？如果這是它最後一個自訂清單，該規則將移至「一般」。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "此規則已經有該清單的設定。"
+  },
+  "rulelists_assignment_error": {
+    "message": "無法變更所選清單的指派。"
+  },
+  "rulelists_multiple_settings": {
+    "message": "各清單使用不同設定"
   }
 }

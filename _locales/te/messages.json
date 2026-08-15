@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "చెల్లుబాటు అయ్యే బ్లాకింగ్ మోడ్‌ను ఎంచుకోండి"
+  },
+  "rulelists_assignment_hint": {
+    "message": "క్రింద ఉన్న బ్లాకింగ్ సెట్టింగ్‌లు ఈ జాబితాకు మాత్రమే వర్తిస్తాయి."
+  },
+  "rulelists_remove_assignment": {
+    "message": "జాబితా నుండి తీసివేయండి"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "ఈ నియమాన్ని \"$NAME$\" నుండి తీసివేయాలా? ఇది దీని చివరి అనుకూల జాబితా అయితే, సాధారణ జాబితాకు తరలించబడుతుంది.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "ఈ నియమానికి ఆ జాబితా కోసం ఇప్పటికే సెట్టింగ్‌లు ఉన్నాయి."
+  },
+  "rulelists_assignment_error": {
+    "message": "ఎంచుకున్న జాబితా కేటాయింపును మార్చలేకపోయాము."
+  },
+  "rulelists_multiple_settings": {
+    "message": "జాబితా ప్రకారం వేర్వేరు సెట్టింగ్‌లు"
   }
 }

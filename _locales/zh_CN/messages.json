@@ -1066,5 +1066,29 @@
   },
   "blocking_mode_invalid": {
     "message": "请选择有效的屏蔽模式"
+  },
+  "rulelists_assignment_hint": {
+    "message": "下面的屏蔽设置仅适用于此列表。"
+  },
+  "rulelists_remove_assignment": {
+    "message": "从列表中移除"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "要从“$NAME$”中移除此规则吗？如果这是它最后一个自定义列表，该规则将移至“常规”。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "此规则已为该列表设置了配置。"
+  },
+  "rulelists_assignment_error": {
+    "message": "无法更改所选列表的分配。"
+  },
+  "rulelists_multiple_settings": {
+    "message": "各列表使用不同设置"
   }
 }

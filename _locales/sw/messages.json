@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Chagua hali halali ya kuzuia"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Mipangilio ya kuzuia iliyo hapa chini inatumika kwa orodha hii pekee."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Ondoa kwenye orodha"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Uondoe sheria hii kwenye \"$NAME$\"? Ikiwa hii ndiyo orodha yake maalum ya mwisho, itahamishwa hadi Jumla.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Sheria hii tayari ina mipangilio ya orodha hiyo."
+  },
+  "rulelists_assignment_error": {
+    "message": "Haikuwezekana kubadilisha ugawaji wa orodha iliyochaguliwa."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Mipangilio tofauti kwa kila orodha"
   }
 }

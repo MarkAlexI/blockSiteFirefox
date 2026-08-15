@@ -1075,5 +1075,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Виберіть коректний режим блокування"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Налаштування блокування нижче застосовуються лише до цього списку."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Прибрати зі списку"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Прибрати це правило зі списку «$NAME$»? Якщо це останній користувацький список, правило буде переміщено до Загального.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Це правило вже має налаштування для цього списку."
+  },
+  "rulelists_assignment_error": {
+    "message": "Не вдалося змінити належність правила до вибраного списку."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Різні налаштування для списків"
   }
 }

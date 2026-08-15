@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Vali sobiv blokeerimisrežiim"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Allolevad blokeerimisseaded kehtivad ainult sellele loendile."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Eemalda loendist"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Kas eemaldada see reegel loendist „$NAME$“? Kui see on reegli viimane kohandatud loend, teisaldatakse see loendisse Üldine.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Sellel reeglil on selle loendi jaoks juba seaded."
+  },
+  "rulelists_assignment_error": {
+    "message": "Valitud loendi määrangut ei saanud muuta."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Erinevad seaded loendite kaupa"
   }
 }

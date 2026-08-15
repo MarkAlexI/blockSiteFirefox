@@ -1,6 +1,11 @@
-import { BLOCKING_MODE_DAILY_LIMIT, getRuleBlockingMode, getDailyLimitSeconds } from './blockingMode.js';
 import { findBestMatchingRule } from './urlRuleMatcher.js';
-import { isRuleListMembershipActive } from './ruleListMembership.js';
+import {
+  getAssignmentUsageKey,
+  getRuleAssignment,
+  parseAssignmentUsageKey
+} from './ruleAssignments.js';
+import { getDailyLimitSeconds } from './blockingMode.js';
+import { getTrackableDailyLimitAssignments } from './ruleActivation.js';
 
 function isIntegerWindowId(value) {
   return Number.isInteger(value);
@@ -29,6 +34,7 @@ export function createDailyLimitTracker({
     lastSampleAt: null,
     resolution: 'not_sampled',
     activeRuleId: null,
+    activeAssignmentListIds: [],
     tabId: null,
     windowId: null,
     focusSource: null,
@@ -118,6 +124,7 @@ export function createDailyLimitTracker({
     if (!tab) {
       return {
         rule: null,
+        assignments: [],
         tab: null,
         status: 'no_active_tab',
         focusSource: null
@@ -128,22 +135,25 @@ export function createDailyLimitTracker({
     if (!focus.focused) {
       return {
         rule: null,
+        assignments: [],
         tab,
         status: 'browser_not_focused',
         focusSource: focus.source
       };
     }
 
-    const [rules, settings, lists, focusState] = await Promise.all([
+    const [rules, settings, lists, focusState, usageSeconds] = await Promise.all([
       getRules(),
       getSettings(),
       getRuleLists(),
-      getFocusSessionState()
+      getFocusSessionState(),
+      dailyLimitManager.getUsageSeconds()
     ]);
 
     if (focusState?.focusActive) {
       return {
         rule: null,
+        assignments: [],
         tab,
         status: 'focus_session_active',
         focusSource: focus.source
@@ -152,19 +162,33 @@ export function createDailyLimitTracker({
 
     const disabledCategories = new Set(settings?.disabledCategories || []);
     const disabledLists = new Set((lists || []).filter(list => list?.disabled).map(list => list.id));
+    const assignmentsByRuleId = new Map();
 
-    const eligible = (rules || []).filter(rule =>
-      rule?.isWhitelist !== true &&
-      rule?.disabledByUser !== true &&
-      !disabledCategories.has(rule.category) &&
-      isRuleListMembershipActive(rule, disabledLists) &&
-      getRuleBlockingMode(rule) === BLOCKING_MODE_DAILY_LIMIT &&
-      getDailyLimitSeconds(rule) !== null
-    );
+    const eligibleRules = (rules || []).filter(rule => {
+      if (
+        rule?.isWhitelist === true ||
+        rule?.disabledByUser === true ||
+        disabledCategories.has(rule.category)
+      ) {
+        return false;
+      }
 
-    const rule = findBestMatchingRule(tab.url, eligible);
+      const assignments = getTrackableDailyLimitAssignments(
+        rule,
+        disabledLists,
+        new Date(),
+        usageSeconds
+      );
+      if (assignments.length === 0) return false;
+      assignmentsByRuleId.set(Number(rule.id), assignments);
+      return true;
+    });
+
+    const rule = findBestMatchingRule(tab.url, eligibleRules);
+    const assignments = rule ? (assignmentsByRuleId.get(Number(rule.id)) || []) : [];
     return {
       rule,
+      assignments,
       tab,
       status: rule ? 'matched' : 'no_matching_rule',
       focusSource: focus.source
@@ -179,6 +203,7 @@ export function createDailyLimitTracker({
   async function sampleOnce(reason = 'event', now = new Date(), tabHint = null) {
     let context = {
       rule: null,
+      assignments: [],
       tab: null,
       status: 'resolution_error',
       focusSource: null
@@ -192,39 +217,58 @@ export function createDailyLimitTracker({
       logger?.info?.(`Daily limit sampling could not resolve active tab (${reason}):`, error);
     }
 
-    const result = await dailyLimitManager.recordSample(context.rule?.id ?? null, now);
+    const activeKeys = context.rule
+      ? context.assignments
+          .map(item => getAssignmentUsageKey(context.rule.id, item.listId))
+          .filter(Boolean)
+      : [];
+    const result = await dailyLimitManager.recordSample(activeKeys, now);
 
-    if (result.accountedRuleId != null && result.addedSeconds > 0) {
+    let crossedLimit = false;
+    for (const [key, update] of Object.entries(result.usageUpdates || {})) {
+      const parsed = parseAssignmentUsageKey(key);
+      if (!parsed) continue;
       const rules = await getRules();
-      const accountedRule = rules.find(rule => Number(rule.id) === Number(result.accountedRuleId));
-      const limitSeconds = accountedRule ? getDailyLimitSeconds(accountedRule) : null;
-      const crossedLimit = limitSeconds !== null &&
-        result.previousUsageSeconds < limitSeconds &&
-        result.currentUsageSeconds >= limitSeconds;
-
-      if (crossedLimit) {
-        logger?.log?.(`Daily limit reached for rule ${accountedRule.id}`);
-        await dnrSynchronizer.requestSync();
+      const accountedRule = rules.find(rule => Number(rule.id) === parsed.ruleId);
+      const assignment = accountedRule ? getRuleAssignment(accountedRule, parsed.listId) : null;
+      const limitSeconds = assignment ? getDailyLimitSeconds(assignment) : null;
+      if (
+        limitSeconds !== null &&
+        update.previousUsageSeconds < limitSeconds &&
+        update.currentUsageSeconds >= limitSeconds
+      ) {
+        crossedLimit = true;
+        logger?.log?.(`Daily limit reached for rule ${parsed.ruleId} in list ${parsed.listId}`);
       }
     }
 
+    if (crossedLimit) {
+      await dnrSynchronizer.requestSync();
+    }
+
+    const currentUsageSeconds = Math.max(
+      0,
+      ...Object.values(result.usageUpdates || {}).map(item => Number(item.currentUsageSeconds) || 0)
+    );
     debugState = {
       lastReason: reason,
       lastSampleAt: now.toISOString(),
       resolution: context.status,
       activeRuleId: context.rule?.id ?? null,
+      activeAssignmentListIds: context.assignments.map(item => item.listId),
       tabId: Number.isInteger(context.tab?.id) ? context.tab.id : null,
       windowId: Number.isInteger(context.tab?.windowId) ? context.tab.windowId : null,
       focusSource: context.focusSource || null,
       addedSeconds: Number(result.addedSeconds) || 0,
-      currentUsageSeconds: Number(result.currentUsageSeconds) || 0,
+      currentUsageSeconds,
       errorName
     };
 
     return {
       ...result,
       resolution: context.status,
-      activeRuleId: context.rule?.id ?? null
+      activeRuleId: context.rule?.id ?? null,
+      activeAssignmentListIds: context.assignments.map(item => item.listId)
     };
   }
 

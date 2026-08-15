@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "একটি বৈধ ব্লকিং মোড বেছে নিন"
+  },
+  "rulelists_assignment_hint": {
+    "message": "নিচের ব্লকিং সেটিংস শুধু এই তালিকার জন্য প্রযোজ্য।"
+  },
+  "rulelists_remove_assignment": {
+    "message": "তালিকা থেকে সরান"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "\"$NAME$\" থেকে এই নিয়মটি সরাবেন? এটি যদি এর শেষ কাস্টম তালিকা হয়, তাহলে এটি সাধারণ তালিকায় চলে যাবে।",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "এই নিয়মটির ওই তালিকার জন্য ইতিমধ্যে সেটিংস আছে।"
+  },
+  "rulelists_assignment_error": {
+    "message": "নির্বাচিত তালিকার অ্যাসাইনমেন্ট পরিবর্তন করা যায়নি।"
+  },
+  "rulelists_multiple_settings": {
+    "message": "তালিকা অনুযায়ী ভিন্ন সেটিংস"
   }
 }

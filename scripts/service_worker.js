@@ -17,7 +17,8 @@ import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer } from './dnrSynchronizer.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
-import { BLOCKING_MODE_DAILY_LIMIT, getRuleBlockingMode } from '../rules/blockingMode.js';
+import { BLOCKING_MODE_DAILY_LIMIT } from '../rules/blockingMode.js';
+import { getAssignmentUsageKey, getRuleAssignments } from '../rules/ruleAssignments.js';
 import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
 import { RuleListsManager } from '../rules/ruleListsManager.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
@@ -39,6 +40,16 @@ const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
 const ruleListsManager = new RuleListsManager(browser.storage.local);
 const dailyLimitManager = new DailyLimitManager(browser.storage.local);
+
+
+function getDailyLimitAssignmentKeys(rules = []) {
+  return (rules || []).flatMap(rule =>
+    getRuleAssignments(rule)
+      .filter(assignment => assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
+      .map(assignment => getAssignmentUsageKey(rule.id, assignment.listId))
+      .filter(Boolean)
+  );
+}
 const diagnosticStore = createDiagnosticStore({
   localStorage: browser.storage.local,
   getSettings: async () => {
@@ -567,8 +578,8 @@ async function initializeExtension(details) {
     () => rulesMigrationService.migrateAll()
   );
 
-  await dailyLimitManager.pruneRuleIds(
-    (migrationResult.rules || []).map(rule => rule.id)
+  await dailyLimitManager.pruneAssignmentKeys(
+    getDailyLimitAssignmentKeys(migrationResult.rules || [])
   );
 
   if (migrationResult.migrated) {
@@ -779,7 +790,9 @@ async function createDiagnosticReport() {
       total: rules.length,
       blacklist: rules.filter(rule => !rule.isWhitelist).length,
       whitelist: rules.filter(rule => rule.isWhitelist).length,
-      scheduled: rules.filter(rule => rule.schedule).length,
+      scheduled: rules.filter(rule =>
+        getRuleAssignments(rule).some(assignment => assignment.blockingMode === 'schedule')
+      ).length,
       disabledByUser: rules.filter(rule => rule.disabledByUser).length,
       lists: ruleLists.length,
       disabledLists: ruleLists.filter(list => list.disabled).length
@@ -800,7 +813,7 @@ async function createDiagnosticReport() {
     },
     dailyLimits: {
       configuredRules: rules.filter(rule =>
-        !rule.isWhitelist && getRuleBlockingMode(rule) === BLOCKING_MODE_DAILY_LIMIT
+        !rule.isWhitelist && getRuleAssignments(rule).some(assignment => assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
       ).length,
       usageEntries: Object.keys(dailyUsage || {}).length,
       tracker: dailyLimitTracker.getDebugState()
@@ -852,8 +865,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
       try {
         const result = await handleRulesIntent(message);
-        await dailyLimitManager.pruneRuleIds(
-          (result.rules || []).map(rule => rule.id)
+        await dailyLimitManager.pruneAssignmentKeys(
+          getDailyLimitAssignmentKeys(result.rules || [])
         );
         await Promise.all([
           recordRuleIntentTelemetry(message.type, result),

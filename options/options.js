@@ -7,7 +7,7 @@ import { RulesUI } from '../rules/rulesUI.js';
 import { CategoryManager } from '../rules/categoryManager.js';
 import { CategoryUIManager } from './categoryUIManager.js';
 import { RuleListsManager, GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
-import { isRuleInList, isRuleListMembershipActive } from '../rules/ruleListMembership.js';
+import { getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
 import { RuleListsUI, resolveRuleListContext } from './ruleListsUI.js';
 import { PasswordUtils } from '../pro/password.js';
@@ -228,6 +228,10 @@ class OptionsPage {
       this.rulesUI.showValidationErrors(error.validationErrors || []);
     } else if (error.code === 'rule_already_exists') {
       this.rulesUI.showErrorMessage(t('alertruleexist'));
+    } else if (error.code === 'rule_assignment_exists') {
+      this.rulesUI.showErrorMessage(t('rulelists_assignment_exists') || 'This rule already has settings for that list.');
+    } else if (error.code === 'rule_assignment_not_found' || error.code === 'rule_assignment_locked') {
+      this.rulesUI.showErrorMessage(t('rulelists_assignment_error') || 'The selected list assignment could not be changed.');
     } else if (error.code === 'conflict_blacklist') {
       this.rulesUI.showErrorMessage(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
     } else if (error.code === 'conflict_whitelist') {
@@ -252,15 +256,14 @@ class OptionsPage {
   async loadRules(rules_from_message = null) {
     try {
       let rules;
-      
       if (Array.isArray(rules_from_message)) {
         rules = rules_from_message;
-        this.logger.log("Options: Loading rules from message.");
+        this.logger.log('Options: Loading rules from message.');
       } else {
-        this.logger.log("Options: Fetching rules from storage.");
+        this.logger.log('Options: Fetching rules from storage.');
         rules = await this.rulesManager.getRules();
       }
-      
+
       const [ruleLists, dailyUsageSeconds] = await Promise.all([
         this.ruleListsManager.getLists(),
         this.dailyLimitManager.getUsageSeconds()
@@ -269,13 +272,12 @@ class OptionsPage {
 
       let filteredRules = rules;
       let isFiltered = false;
-      
       const searchTerm = this.searchInput.value.trim().toLowerCase();
       if (searchTerm) {
         filteredRules = filteredRules.filter(rule => rule.blockURL.toLowerCase().includes(searchTerm));
         isFiltered = true;
       }
-      
+
       const selectedCategory = this.categoryFilter.value;
       if (selectedCategory !== 'all') {
         filteredRules = filteredRules.filter(rule => rule.category === selectedCategory);
@@ -283,83 +285,137 @@ class OptionsPage {
       }
 
       const selectedList = this.selectedRuleListFilter || 'all';
-      if (selectedList !== 'all') {
-        filteredRules = filteredRules.filter(rule =>
-          !rule.isWhitelist && isRuleInList(rule, selectedList)
-        );
+      let viewItems = [];
+      if (selectedList === 'all') {
+        viewItems = filteredRules.flatMap(rule => {
+          const assignments = getRuleAssignments(rule);
+          if (rule.isWhitelist) return [{ rule, assignment: assignments[0] }];
+          return assignments.map(assignment => ({ rule, assignment }));
+        });
+      } else {
         isFiltered = true;
+        viewItems = filteredRules.flatMap(rule => {
+          if (rule.isWhitelist) return [];
+          const assignment = getRuleAssignment(rule, selectedList);
+          return assignment ? [{ rule, assignment }] : [];
+        });
       }
-      
+
       const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
       const settings = await SettingsManager.getSettings();
       const disabledCategories = settings.disabledCategories || [];
       const disabledRuleListIds = ruleLists.filter(list => list.disabled).map(list => list.id);
-      this.renderRules(filteredRules, canEdit, isFiltered, disabledCategories, ruleLists, disabledRuleListIds, dailyUsageSeconds);
-      this.rulesUI.updateStatus(this.statusElement, filteredRules.length);
-      
-      if (this.settingsManager) {
-        this.settingsManager.loadRuleCount(rules);
-      }
-      
+      this.renderRules(viewItems, canEdit, isFiltered, disabledCategories, ruleLists, disabledRuleListIds, dailyUsageSeconds);
+      this.rulesUI.updateStatus(
+        this.statusElement,
+        new Set(viewItems.map(item => item.rule.id)).size
+      );
+
+      if (this.settingsManager) this.settingsManager.loadRuleCount(rules);
     } catch (error) {
-      this.logger.error("Load rules error:", error);
+      this.logger.error('Load rules error:', error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     }
   }
-  
-  renderRules(rules, canEdit, isFiltered = false, disabledCategories = [], ruleLists = [], disabledRuleListIds = [], dailyUsageSeconds = {}) {
+
+  renderRules(viewItems, canEdit, isFiltered = false, disabledCategories = [], ruleLists = [], disabledRuleListIds = [], dailyUsageSeconds = {}) {
     this.rulesBody.innerHTML = '';
     const noRulesMessage = isFiltered ? t('norulesforcategory') : t('norules');
-    
-    if (rules.length === 0) {
-      const emptyRow = this.rulesUI.createEmptyRow(noRulesMessage, 6);
-      this.rulesBody.appendChild(emptyRow);
+    if (viewItems.length === 0) {
+      this.rulesBody.appendChild(this.rulesUI.createEmptyRow(noRulesMessage, 6));
       return;
     }
-    
-    const displayedRules = [...rules].reverse();
 
-    displayedRules.forEach((rule, displayIndex) => {
-      const row = this.createRuleRow(rule, displayIndex, canEdit, disabledCategories, ruleLists, disabledRuleListIds, dailyUsageSeconds);
-
-      if (isVisibleRuleGroupEnd(displayIndex, displayedRules.length)) {
-        row.classList.add('rule-group-end');
-      }
-
-      this.rulesBody.appendChild(row);
-    });
-  }
-  
-  createRuleRow(rule, index, canEdit, disabledCategories = [], ruleLists = [], disabledRuleListIds = [], dailyUsageSeconds = {}) {
-    const isCategoryMuted = disabledCategories.includes(rule.category);
-    const isListMuted = !rule.isWhitelist && !isRuleListMembershipActive(rule, disabledRuleListIds);
-    const isMuted = isCategoryMuted || isListMuted;
-    const row = this.rulesUI.createRuleDisplayRow(
-      rule,
-      index,
-      (row, ruleId, rule) => this.toggleEditMode(row, ruleId, rule),
-      (e, ruleId) => this.handleRuleDeletion(e, ruleId),
-      async (ruleId) => {
-          if (isMuted) return;
-          try {
-            await this.rulesClient.toggleRule(ruleId);
-          } catch (error) {
-            this.logger.error('Toggle rule error:', error);
-            this.handleRulesMutationError(error, 'errorupdatingrules');
-          }
-        },
+    const displayedItems = [...viewItems].reverse();
+    displayedItems.forEach((item, displayIndex) => {
+      const row = this.createRuleRow(
+        item,
+        displayIndex,
         canEdit,
         disabledCategories,
         ruleLists,
         disabledRuleListIds,
         dailyUsageSeconds
+      );
+      if (isVisibleRuleGroupEnd(displayIndex, displayedItems.length)) {
+        row.classList.add('rule-group-end');
+      }
+      this.rulesBody.appendChild(row);
+    });
+  }
+
+  createRuleRow(item, index, canEdit, disabledCategories = [], ruleLists = [], disabledRuleListIds = [], dailyUsageSeconds = {}) {
+    const { rule, assignment } = item;
+    const isCategoryMuted = disabledCategories.includes(rule.category);
+    const isListMuted = !rule.isWhitelist && disabledRuleListIds.includes(assignment?.listId);
+    const isMuted = isCategoryMuted || isListMuted;
+    const row = this.rulesUI.createRuleDisplayRow(
+      rule,
+      assignment,
+      index,
+      (rowElement, ruleId, targetRule, targetAssignment) => this.toggleEditMode(rowElement, ruleId, targetRule, targetAssignment),
+      (event, ruleId, targetAssignment) => {
+        const assignmentScopedDelete = !rule.isWhitelist && (this.selectedRuleListFilter || 'all') !== 'all';
+        return assignmentScopedDelete
+          ? this.handleRuleAssignmentDeletion(event, ruleId, targetAssignment?.listId)
+          : this.handleRuleDeletion(event, ruleId);
+      },
+      async ruleId => {
+        if (isMuted) return;
+        try {
+          await this.rulesClient.toggleRule(ruleId);
+        } catch (error) {
+          this.logger.error('Toggle rule error:', error);
+          this.handleRulesMutationError(error, 'errorupdatingrules');
+        }
+      },
+      canEdit,
+      disabledCategories,
+      ruleLists,
+      disabledRuleListIds,
+      dailyUsageSeconds,
+      !rule.isWhitelist && (this.selectedRuleListFilter || 'all') !== 'all'
     );
     if (isMuted) {
       row.title = isCategoryMuted ? t('category_muted_no_edit') : t('rulelists_muted_no_edit');
     }
     return row;
   }
-  
+
+  async handleRuleAssignmentDeletion(event, ruleId, listId) {
+    if (!listId) return;
+    try {
+      const deleteButton = event.target;
+      if (this.rulesUI.isDeleteConfirmationInProgress(deleteButton)) return;
+
+      const settings = await SettingsManager.getSettings();
+      const isStrictMode = settings.mode === 'strict';
+      if (settings.enablePassword) {
+        const isValid = await this.promptForPassword();
+        if (!isValid) return;
+      }
+
+      this.rulesUI.handleRuleDeletion(
+        deleteButton,
+        async () => {
+          try {
+            await this.rulesClient.removeAssignment(ruleId, listId);
+            await this.loadRules();
+            await this.loadRuleLists();
+          } catch (error) {
+            this.logger.error('Remove rule assignment error:', error);
+            this.handleRulesMutationError(error, 'errorupdatingrules');
+          }
+        },
+        isStrictMode,
+        t('rulelists_remove_assignment') || 'Remove from list'
+      );
+    } catch (error) {
+      this.logger.error('Handle rule assignment removal error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
+    }
+  }
+
   async handleRuleDeletion(event, ruleId) {
     try {
       const deleteButton = event.target;
@@ -392,75 +448,79 @@ class OptionsPage {
     }
   }
   
-  async toggleEditMode(row, ruleId, rule) {
+  async toggleEditMode(row, ruleId, rule, assignment) {
     const settings = await SettingsManager.getSettings();
     const disabledCategories = settings.disabledCategories || [];
     const ruleLists = await this.ruleListsManager.getLists();
     const isWhitelist = rule.isWhitelist || false;
-    
+
     if (!isWhitelist && disabledCategories.includes(rule.category)) {
       this.rulesUI.showErrorMessage(t('category_muted_no_edit'));
       return;
     }
-    if (!isWhitelist && !isRuleListMembershipActive(
-      rule,
-      ruleLists.filter(list => list.disabled).map(list => list.id)
-    )) {
+    if (!isWhitelist && ruleLists.find(list => list.id === assignment?.listId)?.disabled) {
       this.rulesUI.showErrorMessage(t('rulelists_muted_no_edit'));
       return;
     }
+
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
+      assignment,
       ruleId,
-      (ruleId, blockValue, redirectValue, category, blockingConfig, listIds) => this.saveEditedRule(
-        ruleId,
+      (targetRuleId, sourceListId, blockValue, redirectValue, category, blockingConfig, targetListId) => this.saveEditedRule(
+        targetRuleId,
+        sourceListId,
         blockValue,
         redirectValue,
         category,
         blockingConfig,
-        listIds,
+        targetListId,
         rule.disabledByUser,
         isWhitelist
       ),
       () => this.loadRules(),
+      (targetRuleId, listId, button) => this.handleRuleAssignmentDeletion(
+        { target: button },
+        targetRuleId,
+        listId
+      ),
       this.isPro || this.isLegacyUser,
       rule.disabledByUser,
       ruleLists
     );
 
-    if (row.classList.contains('rule-group-end')) {
-      editRow.classList.add('rule-group-end');
-    }
-    
+    if (row.classList.contains('rule-group-end')) editRow.classList.add('rule-group-end');
     if (settings.enablePassword) {
       const isValid = await this.promptForPassword();
       if (!isValid) return;
     }
-    
     row.replaceWith(editRow);
   }
-  
-  async saveEditedRule(ruleId, newBlock, newRedirect, newCategory, blockingConfig, listIds, disabledByUser, isWhitelist = false) {
+
+  async saveEditedRule(ruleId, sourceListId, newBlock, newRedirect, newCategory, blockingConfig, targetListId, disabledByUser, isWhitelist = false) {
     try {
       await this.rulesClient.updateRule({
         ruleId,
+        assignmentListId: isWhitelist ? GENERAL_RULE_LIST_ID : sourceListId,
         blockURL: newBlock,
         redirectURL: isWhitelist ? '' : newRedirect,
-        schedule: isWhitelist ? null : blockingConfig.schedule,
-        blockingMode: isWhitelist ? 'always' : blockingConfig.blockingMode,
-        dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit,
         category: isWhitelist ? 'whitelist' : newCategory,
-        listIds: isWhitelist ? [GENERAL_RULE_LIST_ID] : listIds,
-        disabledByUser
+        disabledByUser,
+        assignment: {
+          listId: isWhitelist ? GENERAL_RULE_LIST_ID : targetListId,
+          blockingMode: isWhitelist ? 'always' : blockingConfig.blockingMode,
+          schedule: isWhitelist ? null : blockingConfig.schedule,
+          dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit
+        }
       });
-      
       this.statusElement.textContent = t('ruleupdated');
     } catch (error) {
-      this.logger.info("Save edited rule error:", error);
+      this.logger.info('Save edited rule error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
-  
+
+
   async showAddRuleForm(isWhitelist = false) {
     try {
       if (!isWhitelist && !this.isPro && !this.isLegacyUser) {
@@ -470,60 +530,58 @@ class OptionsPage {
           return;
         }
       }
-      
+
+      const initialListId = isWhitelist
+        ? GENERAL_RULE_LIST_ID
+        : resolveRuleListContext(this.ruleLists, this.selectedRuleListFilter || 'all');
       const newRow = this.rulesUI.createAddRuleRow(
-        (blockValue, redirectValue, category, blockingConfig, listIds, row) => this.saveNewRule(
+        (blockValue, redirectValue, category, blockingConfig, listId, rowElement) => this.saveNewRule(
           blockValue,
           redirectValue,
           category,
           blockingConfig,
-          listIds,
-          row,
+          listId,
+          rowElement,
           isWhitelist
         ),
-        (row) => row.remove(),
+        rowElement => rowElement.remove(),
         this.isPro || this.isLegacyUser,
         isWhitelist,
         this.ruleLists,
-        isWhitelist ? [GENERAL_RULE_LIST_ID] : [resolveRuleListContext(
-          this.ruleLists,
-          this.selectedRuleListFilter || 'all'
-        )]
+        initialListId,
+        isWhitelist || (this.selectedRuleListFilter || 'all') !== 'all'
       );
-      
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
     } catch (error) {
       this.logger.info('Error checking rule limit:', error);
       this.rulesUI.showErrorMessage(t('erroraddingrule'));
     }
   }
-  
-  async saveNewRule(newBlock, newRedirect, newCategory, blockingConfig, listIds, row, isWhitelist = false) {
+
+  async saveNewRule(newBlock, newRedirect, newCategory, blockingConfig, listId, row, isWhitelist = false) {
     try {
       const response = await this.rulesClient.addRule({
         blockURL: newBlock,
         redirectURL: isWhitelist ? '' : newRedirect,
-        schedule: isWhitelist ? null : blockingConfig.schedule,
-        blockingMode: isWhitelist ? 'always' : blockingConfig.blockingMode,
-        dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit,
         category: isWhitelist ? 'whitelist' : newCategory,
-        listIds: isWhitelist ? [GENERAL_RULE_LIST_ID] : listIds,
+        assignment: {
+          listId: isWhitelist ? GENERAL_RULE_LIST_ID : listId,
+          blockingMode: isWhitelist ? 'always' : blockingConfig.blockingMode,
+          schedule: isWhitelist ? null : blockingConfig.schedule,
+          dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit
+        },
         isWhitelist
       });
-      
-      this.statusElement.textContent = response?.membershipAdded ? t('ruleupdated') : t('rulenewadded');
+      this.statusElement.textContent = response?.assignmentAdded ? t('ruleupdated') : t('rulenewadded');
     } catch (error) {
-      this.logger.info("Save new rule error:", error);
+      this.logger.info('Save new rule error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
-  
+
   async addRulePack(packId, entryIds, schedule = null) {
     try {
-      const targetListId = resolveRuleListContext(
-        this.ruleLists,
-        this.selectedRuleListFilter || 'all'
-      );
+      const targetListId = resolveRuleListContext(this.ruleLists, this.selectedRuleListFilter || 'all');
       return await this.rulesClient.addMany(packId, entryIds, schedule, targetListId);
     } catch (error) {
       this.logger.error('Add rule pack error:', error);
@@ -531,7 +589,7 @@ class OptionsPage {
       throw error;
     }
   }
-  
+
   async loadRuleLists() {
     try {
       const [lists, rules] = await Promise.all([

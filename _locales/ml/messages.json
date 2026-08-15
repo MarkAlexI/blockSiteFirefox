@@ -1078,5 +1078,29 @@
   },
   "blocking_mode_invalid": {
     "message": "സാധുവായ തടയൽ മോഡ് തിരഞ്ഞെടുക്കുക"
+  },
+  "rulelists_assignment_hint": {
+    "message": "താഴെയുള്ള ബ്ലോക്കിംഗ് ക്രമീകരണങ്ങൾ ഈ ലിസ്റ്റിന് മാത്രമേ ബാധകമാകൂ."
+  },
+  "rulelists_remove_assignment": {
+    "message": "ലിസ്റ്റിൽ നിന്ന് നീക്കംചെയ്യുക"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "ഈ നിയമം \"$NAME$\"-ൽ നിന്ന് നീക്കംചെയ്യണോ? ഇത് അതിന്റെ അവസാന കസ്റ്റം ലിസ്റ്റാണെങ്കിൽ, പൊതുവായതിലേക്ക് മാറ്റും.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "ഈ നിയമത്തിന് ആ ലിസ്റ്റിനായി ഇതിനകം ക്രമീകരണങ്ങളുണ്ട്."
+  },
+  "rulelists_assignment_error": {
+    "message": "തിരഞ്ഞെടുത്ത ലിസ്റ്റിലേക്കുള്ള അസൈൻമെന്റ് മാറ്റാനായില്ല."
+  },
+  "rulelists_multiple_settings": {
+    "message": "ലിസ്റ്റ് അനുസരിച്ച് വ്യത്യസ്ത ക്രമീകരണങ്ങൾ"
   }
 }

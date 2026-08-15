@@ -1066,5 +1066,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Sélectionnez un mode de blocage valide"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Les paramètres de blocage ci-dessous s’appliquent uniquement à cette liste."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Retirer de la liste"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Retirer cette règle de « $NAME$ » ? S’il s’agit de sa dernière liste personnalisée, elle sera déplacée vers Général.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Cette règle possède déjà des paramètres pour cette liste."
+  },
+  "rulelists_assignment_error": {
+    "message": "Impossible de modifier l’affectation à la liste sélectionnée."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Paramètres différents selon la liste"
   }
 }

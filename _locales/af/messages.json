@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Kies ’n geldige blokkeermodus"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Die blokkeerinstellings hieronder geld net vir hierdie lys."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Verwyder uit lys"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Verwyder hierdie reël uit \"$NAME$\"? As dit die laaste pasgemaakte lys is, sal dit na Algemeen skuif.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Hierdie reël het reeds instellings vir daardie lys."
+  },
+  "rulelists_assignment_error": {
+    "message": "Die toewysing aan die gekose lys kon nie verander word nie."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Verskillende instellings per lys"
   }
 }

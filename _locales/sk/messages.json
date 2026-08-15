@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Vyberte platný režim blokovania"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Nižšie uvedené nastavenia blokovania platia iba pre tento zoznam."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Odstrániť zo zoznamu"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Odstrániť toto pravidlo zo zoznamu „$NAME$“? Ak je to jeho posledný vlastný zoznam, presunie sa do Všeobecné.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Toto pravidlo už má nastavenia pre tento zoznam."
+  },
+  "rulelists_assignment_error": {
+    "message": "Priradenie k vybranému zoznamu sa nepodarilo zmeniť."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Rôzne nastavenia podľa zoznamu"
   }
 }

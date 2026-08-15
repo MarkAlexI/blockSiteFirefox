@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   createRulesMigrationService,
+  migrateDailyUsageSchema,
   migrateRuleSchema
 } from '../rules/rulesMigrationService.js';
 
@@ -87,7 +88,7 @@ function createHarness({ local = {}, sync = {}, localOptions = {} } = {}) {
   };
 }
 
-test('schema migration resets all IDs when one ID is invalid and adds defaults', () => {
+test('schema migration resets all IDs when one ID is invalid and adds assignment defaults', () => {
   const result = migrateRuleSchema([
     { id: 8, blockURL: 'one.example' },
     { id: 'bad', blockURL: 'two.example', isWhitelist: true }
@@ -102,10 +103,12 @@ test('schema migration resets all IDs when one ID is invalid and adds defaults',
       category: 'uncategorized',
       disabledByUser: false,
       isWhitelist: false,
-      listIds: ['general'],
-      blockingMode: 'always',
-      schedule: null,
-      dailyLimit: null
+      assignments: [{
+        listId: 'general',
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      }]
     },
     {
       id: 2,
@@ -113,15 +116,17 @@ test('schema migration resets all IDs when one ID is invalid and adds defaults',
       isWhitelist: true,
       category: 'whitelist',
       disabledByUser: false,
-      listIds: ['general'],
-      blockingMode: 'always',
-      schedule: null,
-      dailyLimit: null
+      assignments: [{
+        listId: 'general',
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      }]
     }
   ]);
 });
 
-test('current schema is returned without a storage rewrite', () => {
+test('current assignment schema is returned without a storage rewrite', () => {
   const rules = [{
     id: 1,
     blockURL: 'current.example',
@@ -129,15 +134,74 @@ test('current schema is returned without a storage rewrite', () => {
     category: 'social',
     disabledByUser: false,
     isWhitelist: false,
-    listIds: ['general'],
-    blockingMode: 'always',
-    schedule: null,
-    dailyLimit: null
+    assignments: [{
+      listId: 'general',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }]
   }];
 
   const result = migrateRuleSchema(rules);
   assert.equal(result.migrated, false);
   assert.deepEqual(result.rules, rules);
+});
+
+test('RC4 multi-membership clones the shared blocking config into each assignment', () => {
+  const legacy = [{
+    id: 4,
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    disabledByUser: false,
+    isWhitelist: false,
+    listIds: ['list-1', 'list-2'],
+    blockingMode: 'schedule',
+    schedule: {
+      version: 2,
+      periods: [{ days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' }]
+    },
+    dailyLimit: null
+  }];
+
+  const result = migrateRuleSchema(legacy);
+  assert.equal(result.migrated, true);
+  assert.equal('listIds' in result.rules[0], false);
+  assert.equal('blockingMode' in result.rules[0], false);
+  assert.equal('schedule' in result.rules[0], false);
+  assert.deepEqual(result.rules[0].assignments.map(item => item.listId), ['list-1', 'list-2']);
+  assert.deepEqual(result.rules[0].assignments[0].schedule, result.rules[0].assignments[1].schedule);
+  assert.equal(result.rules[0].assignments[0].blockingMode, 'schedule');
+});
+
+test('v1 Daily Limit usage expands to every migrated Daily Limit assignment', () => {
+  const rules = migrateRuleSchema([{
+    id: 7,
+    blockURL: 'reddit.com',
+    category: 'social',
+    disabledByUser: false,
+    isWhitelist: false,
+    listIds: ['list-1', 'list-2'],
+    blockingMode: 'daily_limit',
+    dailyLimit: { minutes: 30 }
+  }]).rules;
+
+  const result = migrateDailyUsageSchema({
+    version: 1,
+    date: '2026-08-15',
+    usageSeconds: { '7': 900 },
+    lastSample: { timestamp: 123456, ruleId: 7 }
+  }, rules);
+
+  assert.equal(result.migrated, true);
+  assert.deepEqual(result.state.usageSeconds, {
+    '7:list-1': 900,
+    '7:list-2': 900
+  });
+  assert.deepEqual(result.state.lastSample, {
+    timestamp: 123456,
+    assignmentKeys: ['7:list-1', '7:list-2']
+  });
 });
 
 test('existing local rules take priority over stale sync rules', async () => {
@@ -215,11 +279,41 @@ test('combined migration copies legacy rules and then upgrades their schema', as
     category: 'uncategorized',
     disabledByUser: false,
     isWhitelist: false,
-    listIds: ['general'],
-    blockingMode: 'always',
-    schedule: null,
-    dailyLimit: null
+    assignments: [{
+      listId: 'general',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }]
   }]);
   assert.deepEqual(harness.localStorage.state.ruleLists, [{ id: 'general', name: 'General', disabled: false }]);
   assert.equal(harness.savedRules.length, 1);
+});
+
+test('v2 Daily Limit migration keeps a zero-usage active assignment sample', () => {
+  const rules = [{
+    id: 7,
+    blockURL: 'reddit.com',
+    category: 'social',
+    disabledByUser: false,
+    isWhitelist: false,
+    assignments: [{
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      schedule: null,
+      dailyLimit: { minutes: 10 }
+    }]
+  }];
+
+  const result = migrateDailyUsageSchema({
+    version: 2,
+    date: '2026-08-15',
+    usageSeconds: {},
+    lastSample: { timestamp: 123456, assignmentKeys: ['7:general'] }
+  }, rules);
+
+  assert.deepEqual(result.state.lastSample, {
+    timestamp: 123456,
+    assignmentKeys: ['7:general']
+  });
 });

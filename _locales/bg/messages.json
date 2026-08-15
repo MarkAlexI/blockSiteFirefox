@@ -1075,5 +1075,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Изберете валиден режим на блокиране"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Настройките за блокиране по-долу се отнасят само за този списък."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Премахване от списъка"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Премахване на това правило от „$NAME$“? Ако това е последният му персонализиран списък, то ще бъде преместено в Общи.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Това правило вече има настройки за този списък."
+  },
+  "rulelists_assignment_error": {
+    "message": "Задаването към избрания списък не можа да бъде променено."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Различни настройки според списъка"
   }
 }

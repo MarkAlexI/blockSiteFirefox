@@ -339,18 +339,20 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       blockURL: 'reddit.com',
       redirectURL: '',
       category: 'social',
-      listId: 'general',
-      blockingMode: 'daily_limit',
-      schedule: null,
-      dailyLimit: { minutes: 1 },
+      assignments: [{
+        listId: 'general',
+        blockingMode: 'daily_limit',
+        schedule: null,
+        dailyLimit: { minutes: 1 }
+      }],
       disabledByUser: false,
       isWhitelist: false
     }];
     localStorage.data.dailyRuleUsage = {
-      version: 1,
+      version: 2,
       date: localDate,
       usageSeconds: {},
-      lastSample: { timestamp: sampleNow.getTime() - 60_000, ruleId: 7 }
+      lastSample: { timestamp: sampleNow.getTime() - 60_000, assignmentKeys: ['7:general'] }
     };
     activeTabForQuery = {
       id: 70,
@@ -360,7 +362,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     };
 
     await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });
-    assert.ok(localStorage.data.dailyRuleUsage.usageSeconds['7'] >= 59);
+    assert.ok(localStorage.data.dailyRuleUsage.usageSeconds['7:general'] >= 59);
     const dailyDiagnostics = await sendWorkerMessage(messageListener, {
       type: 'diagnostics:getReport'
     });

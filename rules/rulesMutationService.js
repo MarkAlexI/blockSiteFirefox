@@ -9,17 +9,19 @@ import {
   prepareImportedRuleLists
 } from './ruleListsManager.js';
 import {
-  getRuleListIds,
-  normalizeRuleListIds,
-  mergeRuleListIds,
-  removeRuleListId,
-  areRuleListIdsEqual
-} from './ruleListMembership.js';
+  addRuleAssignment,
+  createAlwaysAssignment,
+  createRuleAssignment,
+  getRuleAssignment,
+  getRuleAssignments,
+  normalizeRuleAssignments,
+  removeRuleAssignment,
+  replaceRuleAssignment
+} from './ruleAssignments.js';
 import {
   BLOCKING_MODE_ALWAYS,
   BLOCKING_MODE_DAILY_LIMIT,
-  getRuleBlockingMode,
-  normalizeBlockingConfig
+  getRuleBlockingMode
 } from './blockingMode.js';
 
 export class RulesMutationError extends Error {
@@ -41,7 +43,6 @@ export function serializeRulesMutationError(error) {
 
 function createAsyncQueue() {
   let tail = Promise.resolve();
-
   return {
     enqueue(task) {
       const result = tail.then(task, task);
@@ -62,61 +63,72 @@ function getRuleIndexById(rules, ruleId) {
   return rules.findIndex(rule => toRuleId(rule.id) === normalizedId);
 }
 
-function findExactRuleIndex(rules, blockURL, redirectURL = '', isWhitelist = false, excludeIndex = -1) {
+function findTargetRuleIndex(rules, blockURL, isWhitelist = false, excludeIndex = -1) {
   const cleanBlockURL = typeof blockURL === 'string' ? blockURL.trim() : '';
-  const cleanRedirectURL = typeof redirectURL === 'string' ? redirectURL.trim() : '';
 
   return rules.findIndex((rule, index) => {
     if (excludeIndex !== -1 && index === excludeIndex) return false;
     if ((rule?.isWhitelist === true) !== isWhitelist) return false;
-    if ((rule?.blockURL || '').trim() !== cleanBlockURL) return false;
-    if (isWhitelist) return true;
-    return (rule?.redirectURL || '').trim() === cleanRedirectURL;
+    return (rule?.blockURL || '').trim() === cleanBlockURL;
   });
 }
 
-function cloneSchedule(schedule) {
-  return schedule ? normalizeSchedule(schedule) : null;
+function canonicalizeRuleTarget(rule, assignments = getRuleAssignments(rule)) {
+  const canonical = {
+    ...rule,
+    assignments
+  };
+  for (const legacyKey of ['listId', 'listIds', 'blockingMode', 'schedule', 'dailyLimit']) {
+    delete canonical[legacyKey];
+  }
+  return canonical;
 }
 
-function sanitizeRuleInput(
-  payload = {},
-  fallbackWhitelist = false,
-  fallbackListIds = [GENERAL_RULE_LIST_ID],
-  fallbackRule = null
-) {
+function sanitizeTargetInput(payload = {}, fallbackWhitelist = false, fallbackRule = null) {
   const isWhitelist = payload.isWhitelist === undefined ? fallbackWhitelist : payload.isWhitelist === true;
-  const schedule = payload.schedule === undefined ? (fallbackRule?.schedule ?? null) : payload.schedule;
-  const dailyLimit = payload.dailyLimit === undefined ? (fallbackRule?.dailyLimit ?? null) : payload.dailyLimit;
-  const blockingMode = typeof payload.blockingMode === 'string' && payload.blockingMode ?
-    payload.blockingMode :
-    getRuleBlockingMode(fallbackRule || { schedule, dailyLimit, isWhitelist });
-  const rawListIds = payload.listIds !== undefined
-    ? payload.listIds
-    : (payload.listId !== undefined
-      ? payload.listId
-      : (fallbackRule ? getRuleListIds(fallbackRule) : fallbackListIds));
-
   return {
     blockURL: typeof payload.blockURL === 'string' ? payload.blockURL : (fallbackRule?.blockURL || ''),
     redirectURL: typeof payload.redirectURL === 'string' ? payload.redirectURL : (fallbackRule?.redirectURL || ''),
-    schedule,
-    dailyLimit,
-    blockingMode,
-    category: typeof payload.category === 'string' && payload.category ? payload.category : (fallbackRule?.category || (isWhitelist ? 'whitelist' : 'social')),
-    disabledByUser: payload.disabledByUser === undefined ? fallbackRule?.disabledByUser === true : payload.disabledByUser === true,
-    listIds: isWhitelist ? [GENERAL_RULE_LIST_ID] : normalizeRuleListIds(rawListIds),
+    category: typeof payload.category === 'string' && payload.category
+      ? payload.category
+      : (fallbackRule?.category || (isWhitelist ? 'whitelist' : 'social')),
+    disabledByUser: payload.disabledByUser === undefined
+      ? fallbackRule?.disabledByUser === true
+      : payload.disabledByUser === true,
     isWhitelist
   };
 }
 
-function getStoredBlockingConfig(input) {
-  if (input.isWhitelist) {
-    return { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null };
-  }
-  return normalizeBlockingConfig(input);
+function getLegacyListIds(payload = {}, fallbackRule = null) {
+  if (payload.assignment?.listId) return [payload.assignment.listId];
+  if (payload.targetListId) return [payload.targetListId];
+  if (payload.listId) return [payload.listId];
+  if (Array.isArray(payload.listIds) && payload.listIds.length > 0) return payload.listIds;
+  if (fallbackRule) return getRuleAssignments(fallbackRule).map(item => item.listId);
+  return [GENERAL_RULE_LIST_ID];
 }
 
+function createAssignmentInputs(payload = {}, fallbackRule = null, fallbackAssignment = null) {
+  if (Array.isArray(payload.assignments) && payload.assignments.length > 0) {
+    return payload.assignments.map(item => createRuleAssignment(item.listId, item));
+  }
+
+  const source = payload.assignment && typeof payload.assignment === 'object'
+    ? payload.assignment
+    : payload;
+  const fallback = fallbackAssignment || (fallbackRule ? getRuleAssignments(fallbackRule)[0] : null);
+  const blockingMode = typeof source.blockingMode === 'string' && source.blockingMode
+    ? source.blockingMode
+    : getRuleBlockingMode(fallback || source);
+  const config = {
+    blockingMode,
+    schedule: source.schedule === undefined ? (fallback?.schedule ?? null) : source.schedule,
+    dailyLimit: source.dailyLimit === undefined ? (fallback?.dailyLimit ?? null) : source.dailyLimit
+  };
+
+  return getLegacyListIds(payload, fallbackRule)
+    .map(listId => createRuleAssignment(listId, config));
+}
 
 export function createRulesMutationService({
   rulesManager,
@@ -145,9 +157,7 @@ export function createRulesMutationService({
   }
 
   function throwConflict(conflict) {
-    if (conflict) {
-      throw new RulesMutationError(conflict, conflict);
-    }
+    if (conflict) throw new RulesMutationError(conflict, conflict);
   }
 
   async function getProAccess() {
@@ -171,18 +181,50 @@ export function createRulesMutationService({
     return normalized;
   }
 
-  function validateRuleListSelection(listIds, lists, hasProAccess, isWhitelist = false) {
-    if (isWhitelist) return [GENERAL_RULE_LIST_ID];
-    const normalizedIds = normalizeRuleListIds(listIds);
-    for (const listId of normalizedIds) {
-      if (!isKnownRuleListId(lists, listId)) {
-        throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
-      }
-      if (listId !== GENERAL_RULE_LIST_ID && !hasProAccess) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
+  function validateAssignment(assignment, lists, hasProAccess, target, validationCode = 'validation_failed') {
+    const listId = assignment?.listId || GENERAL_RULE_LIST_ID;
+    if (!isKnownRuleListId(lists, listId)) {
+      throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
     }
-    return normalizedIds;
+    if (listId !== GENERAL_RULE_LIST_ID && !hasProAccess) {
+      throw new RulesMutationError('pro_required', 'Pro access is required');
+    }
+    if (!target.isWhitelist && assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
+      throw new RulesMutationError('pro_required', 'Pro access is required');
+    }
+
+    const validation = rulesManager.validateRule(
+      target.blockURL,
+      target.redirectURL,
+      assignment.schedule,
+      target.category,
+      target.isWhitelist,
+      assignment.blockingMode,
+      assignment.dailyLimit
+    );
+    if (!validation.isValid) {
+      throw new RulesMutationError(
+        validationCode,
+        `Validation failed: ${validation.errors.join(', ')}`,
+        validation.errors
+      );
+    }
+    return assignment;
+  }
+
+  function validateAssignments(assignments, lists, hasProAccess, target, validationCode = 'validation_failed') {
+    const normalized = target.isWhitelist
+      ? [createAlwaysAssignment(GENERAL_RULE_LIST_ID)]
+      : assignments;
+    const seen = new Set();
+    for (const assignment of normalized) {
+      if (seen.has(assignment.listId)) {
+        throw new RulesMutationError('rule_assignment_exists', 'Rule already has settings for this list');
+      }
+      seen.add(assignment.listId);
+      validateAssignment(assignment, lists, hasProAccess, target, validationCode);
+    }
+    return normalized;
   }
 
   async function saveCombinedState(rules, lists) {
@@ -202,85 +244,55 @@ export function createRulesMutationService({
   async function syncAndNotify(rules, extra = {}) {
     const syncResult = await dnrSynchronizer.requestSync();
     const syncPending = syncResult?.success === false;
-
-    notifyRulesChanged(rules, {
-      ...extra,
-      syncPending
-    });
-
-    return {
-      rules,
-      syncPending,
-      ...extra
-    };
+    notifyRulesChanged(rules, { ...extra, syncPending });
+    return { rules, syncPending, ...extra };
   }
 
   async function addRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      const input = sanitizeRuleInput(payload);
+      const target = sanitizeTargetInput(payload);
       const [rules, lists, hasProAccess] = await Promise.all([
-        rulesManager.getRules(),
-        getRuleLists(),
-        getProAccess()
+        rulesManager.getRules(), getRuleLists(), getProAccess()
       ]);
 
-      if (input.isWhitelist && !hasProAccess) {
+      if (target.isWhitelist && !hasProAccess) {
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
 
-      input.listIds = validateRuleListSelection(input.listIds, lists, hasProAccess, input.isWhitelist);
-
-      if (!input.isWhitelist && input.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
-
-      throwValidation(rulesManager.validateRule(
-        input.blockURL,
-        input.redirectURL,
-        input.schedule,
-        input.category,
-        input.isWhitelist,
-        input.blockingMode,
-        input.dailyLimit
-      ));
-
-      throwConflict(rulesManager.checkConflict(rules, input.blockURL, input.isWhitelist));
-
-      const existingIndex = findExactRuleIndex(
-        rules,
-        input.blockURL,
-        input.redirectURL,
-        input.isWhitelist
+      const assignments = validateAssignments(
+        createAssignmentInputs(payload), lists, hasProAccess, target
       );
+      throwConflict(rulesManager.checkConflict(rules, target.blockURL, target.isWhitelist));
 
+      const existingIndex = findTargetRuleIndex(rules, target.blockURL, target.isWhitelist);
       if (existingIndex !== -1) {
-        if (input.isWhitelist) {
+        if (target.isWhitelist) {
           throw new RulesMutationError('rule_already_exists', 'Rule already exists');
         }
-
         const existingRule = rules[existingIndex];
-        const mergedListIds = mergeRuleListIds(getRuleListIds(existingRule), input.listIds);
-        if (areRuleListIdsEqual(mergedListIds, getRuleListIds(existingRule))) {
-          throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+        let nextAssignments = getRuleAssignments(existingRule);
+        let added = 0;
+        for (const assignment of assignments) {
+          if (getRuleAssignment({ ...existingRule, assignments: nextAssignments }, assignment.listId)) continue;
+          nextAssignments = addRuleAssignment({ ...existingRule, assignments: nextAssignments }, assignment);
+          added++;
         }
-
-        const updatedRule = {
-          ...existingRule,
-          listIds: mergedListIds
-        };
-        delete updatedRule.listId;
-
+        if (added === 0) {
+          throw new RulesMutationError('rule_already_exists', 'Rule already exists in this list');
+        }
+        const updatedRule = canonicalizeRuleTarget(existingRule, nextAssignments);
         const nextRules = [...rules];
         nextRules[existingIndex] = updatedRule;
         await rulesManager.saveRules(nextRules);
         return syncAndNotify(nextRules, {
           rule: updatedRule,
+          assignmentAdded: true,
           membershipAdded: true,
           created: false
         });
       }
 
-      if (!input.isWhitelist && !hasProAccess && rules.length >= maxRulesLimit) {
+      if (!target.isWhitelist && !hasProAccess && rules.length >= maxRulesLimit) {
         throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
       }
 
@@ -289,54 +301,48 @@ export function createRulesMutationService({
         ...rules.map(rule => toRuleId(rule.id)).filter(Boolean),
         ...dnrRules.map(rule => toRuleId(rule.id)).filter(Boolean)
       ]);
-
       let safeId = 1;
       while (occupiedIds.has(safeId)) safeId++;
 
-      const blockingConfig = getStoredBlockingConfig(input);
       const newRule = {
         id: safeId,
-        blockURL: input.blockURL.trim(),
-        redirectURL: input.isWhitelist ? '' : input.redirectURL.trim(),
-        schedule: blockingConfig.schedule,
-        blockingMode: blockingConfig.blockingMode,
-        dailyLimit: blockingConfig.dailyLimit,
-        category: input.isWhitelist ? 'whitelist' : input.category,
+        blockURL: target.blockURL.trim(),
+        redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
+        category: target.isWhitelist ? 'whitelist' : target.category,
         disabledByUser: false,
-        listIds: input.isWhitelist ? [GENERAL_RULE_LIST_ID] : input.listIds,
-        isWhitelist: input.isWhitelist
+        assignments: target.isWhitelist ? [createAlwaysAssignment()] : assignments,
+        isWhitelist: target.isWhitelist
       };
-
       const nextRules = [...rules, newRule];
       await rulesManager.saveRules(nextRules);
-
-      return syncAndNotify(nextRules, { rule: newRule, membershipAdded: false, created: true });
+      return syncAndNotify(nextRules, {
+        rule: newRule,
+        assignmentAdded: false,
+        membershipAdded: false,
+        created: true
+      });
     });
   }
 
   async function addMany(payload = {}) {
     return mutationQueue.enqueue(async () => {
       const hasProAccess = await getProAccess();
-      if (!hasProAccess) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
+      if (!hasProAccess) throw new RulesMutationError('pro_required', 'Pro access is required');
 
       const lists = await getRuleLists();
-      const [targetListId] = validateRuleListSelection(
-        [payload.listId || GENERAL_RULE_LIST_ID],
-        lists,
-        hasProAccess,
-        false
-      );
+      const targetListId = payload.listId || GENERAL_RULE_LIST_ID;
+      if (!isKnownRuleListId(lists, targetListId)) {
+        throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
+      }
+      if (targetListId !== GENERAL_RULE_LIST_ID && !hasProAccess) {
+        throw new RulesMutationError('pro_required', 'Pro access is required');
+      }
 
       if (typeof resolveRulePackEntries !== 'function') {
         throw new RulesMutationError('rule_pack_unavailable', 'Rule packs are unavailable');
       }
-
       const selection = resolveRulePackEntries(payload.packId, payload.entryIds);
-      if (!selection.pack) {
-        throw new RulesMutationError('rule_pack_not_found', 'Rule pack not found');
-      }
+      if (!selection.pack) throw new RulesMutationError('rule_pack_not_found', 'Rule pack not found');
       if (selection.invalidEntryIds.length > 0) {
         throw new RulesMutationError('rule_pack_invalid_selection', 'Rule pack selection is invalid');
       }
@@ -344,16 +350,16 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_pack_empty', 'Select at least one rule');
       }
 
-      const sharedSchedule = payload.schedule == null
-        ? null
-        : normalizeSchedule(payload.schedule);
-      const scheduleValidation = validateSchedule(sharedSchedule);
-      throwValidation(scheduleValidation);
+      const sharedSchedule = payload.schedule == null ? null : normalizeSchedule(payload.schedule);
+      if (sharedSchedule) throwValidation(validateSchedule(sharedSchedule));
+      const assignmentConfig = createRuleAssignment(targetListId, sharedSchedule
+        ? { blockingMode: 'schedule', schedule: sharedSchedule, dailyLimit: null }
+        : { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null });
 
       const rules = await rulesManager.getRules();
       const nextRules = [...rules];
       const addedEntries = [];
-      const membershipAddedEntries = [];
+      const assignmentAddedEntries = [];
       const duplicateEntries = [];
       const conflicts = [];
       let newRuleCount = 0;
@@ -363,7 +369,6 @@ export function createRulesMutationService({
         ...rules.map(rule => toRuleId(rule.id)).filter(Boolean),
         ...dnrRules.map(rule => toRuleId(rule.id)).filter(Boolean)
       ]);
-
       function getNextSafeId() {
         let safeId = 1;
         while (occupiedIds.has(safeId)) safeId++;
@@ -372,96 +377,61 @@ export function createRulesMutationService({
       }
 
       for (const entry of selection.entries) {
-        const input = sanitizeRuleInput({
+        const target = sanitizeTargetInput({
           blockURL: entry.blockURL,
           redirectURL: '',
-          schedule: sharedSchedule,
           category: selection.pack.category,
-          listIds: [targetListId],
           isWhitelist: false
         });
+        validateAssignment(assignmentConfig, lists, hasProAccess, target, 'rule_pack_invalid');
 
-        const validation = rulesManager.validateRule(
-          input.blockURL,
-          input.redirectURL,
-          input.schedule,
-          input.category,
-          false,
-          input.blockingMode,
-          input.dailyLimit
-        );
-
-        if (!validation.isValid) {
-          throw new RulesMutationError(
-            'rule_pack_invalid',
-            `Invalid rule pack entry: ${input.blockURL}`,
-            validation.errors
-          );
-        }
-
-        const conflict = rulesManager.checkConflict(nextRules, input.blockURL, false);
+        const conflict = rulesManager.checkConflict(nextRules, target.blockURL, false);
         if (conflict) {
-          conflicts.push({
-            entryId: entry.id,
-            blockURL: input.blockURL,
-            code: conflict
-          });
+          conflicts.push({ entryId: entry.id, blockURL: target.blockURL, code: conflict });
           continue;
         }
 
-        const existingIndex = findExactRuleIndex(nextRules, input.blockURL, '', false);
+        const existingIndex = findTargetRuleIndex(nextRules, target.blockURL, false);
         if (existingIndex !== -1) {
           const existingRule = nextRules[existingIndex];
-          const mergedListIds = mergeRuleListIds(getRuleListIds(existingRule), [targetListId]);
-          if (areRuleListIdsEqual(mergedListIds, getRuleListIds(existingRule))) {
-            duplicateEntries.push({
-              entryId: entry.id,
-              blockURL: input.blockURL
-            });
+          if (getRuleAssignment(existingRule, targetListId)) {
+            duplicateEntries.push({ entryId: entry.id, blockURL: target.blockURL });
             continue;
           }
-
-          const updatedRule = { ...existingRule, listIds: mergedListIds };
-          delete updatedRule.listId;
+          const updatedRule = canonicalizeRuleTarget(
+            existingRule,
+            addRuleAssignment(existingRule, assignmentConfig)
+          );
           nextRules[existingIndex] = updatedRule;
-          const reportEntry = {
-            entryId: entry.id,
-            blockURL: input.blockURL,
-            membershipOnly: true
-          };
+          const reportEntry = { entryId: entry.id, blockURL: target.blockURL };
           addedEntries.push(reportEntry);
-          membershipAddedEntries.push(reportEntry);
+          assignmentAddedEntries.push(reportEntry);
           continue;
         }
 
-        const blockingConfig = getStoredBlockingConfig(input);
         nextRules.push({
           id: getNextSafeId(),
-          blockURL: input.blockURL.trim(),
+          blockURL: target.blockURL.trim(),
           redirectURL: '',
-          schedule: blockingConfig.schedule ? cloneSchedule(blockingConfig.schedule) : null,
-          blockingMode: blockingConfig.blockingMode,
-          dailyLimit: null,
           category: selection.pack.category,
           disabledByUser: false,
-          listIds: [targetListId],
+          assignments: [assignmentConfig],
           isWhitelist: false
         });
-        addedEntries.push({
-          entryId: entry.id,
-          blockURL: input.blockURL
-        });
+        const reportEntry = { entryId: entry.id, blockURL: target.blockURL };
+        addedEntries.push(reportEntry);
         newRuleCount++;
       }
 
-      const addedCount = addedEntries.length;
       const result = {
-        addedCount,
+        addedCount: addedEntries.length,
         newRuleCount,
-        membershipAddedCount: membershipAddedEntries.length,
+        assignmentAddedCount: assignmentAddedEntries.length,
+        membershipAddedCount: assignmentAddedEntries.length,
         skippedDuplicates: duplicateEntries.length,
         addedEntries,
-        membershipAddedEntries,
+        assignmentAddedEntries,
+        membershipAddedEntries: assignmentAddedEntries,
         duplicateEntries,
         conflicts,
         packId: selection.pack.id,
@@ -469,14 +439,9 @@ export function createRulesMutationService({
         scheduleApplied: sharedSchedule !== null
       };
 
-      if (addedCount === 0) {
-        return {
-          rules,
-          syncPending: false,
-          ...result
-        };
+      if (addedEntries.length === 0) {
+        return { rules, syncPending: false, ...result };
       }
-
       await rulesManager.saveRules(nextRules);
       return syncAndNotify(nextRules, result);
     });
@@ -486,85 +451,105 @@ export function createRulesMutationService({
     return mutationQueue.enqueue(async () => {
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
-
-      if (index === -1) {
-        throw new RulesMutationError('rule_not_found', 'Rule not found');
-      }
+      if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
 
       const oldRule = rules[index];
-      const input = sanitizeRuleInput(
-        payload,
-        oldRule.isWhitelist === true,
-        getRuleListIds(oldRule),
-        oldRule
-      );
-      input.isWhitelist = oldRule.isWhitelist === true;
-
-      const hasProAccess = await getProAccess();
-      if (input.isWhitelist && !hasProAccess) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
-      const lists = await getRuleLists();
-      input.listIds = validateRuleListSelection(input.listIds, lists, hasProAccess, input.isWhitelist);
-
-      if (!input.isWhitelist && input.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
+      const target = sanitizeTargetInput(payload, oldRule.isWhitelist === true, oldRule);
+      target.isWhitelist = oldRule.isWhitelist === true;
+      const [lists, hasProAccess] = await Promise.all([getRuleLists(), getProAccess()]);
+      if (target.isWhitelist && !hasProAccess) {
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
 
-      throwValidation(rulesManager.validateRule(
-        input.blockURL,
-        input.redirectURL,
-        input.schedule,
-        input.category,
-        input.isWhitelist,
-        input.blockingMode,
-        input.dailyLimit
-      ));
+      let nextAssignments;
+      const sourceListId = payload.assignmentListId || payload.sourceListId || null;
+      if (target.isWhitelist) {
+        nextAssignments = [createAlwaysAssignment()];
+      } else if (sourceListId) {
+        const currentAssignment = getRuleAssignment(oldRule, sourceListId);
+        if (!currentAssignment) {
+          throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
+        }
+        const assignmentPayload = payload.assignment && typeof payload.assignment === 'object'
+          ? payload.assignment
+          : {
+              listId: payload.targetListId || payload.listId || sourceListId,
+              blockingMode: payload.blockingMode ?? currentAssignment.blockingMode,
+              schedule: payload.schedule === undefined ? currentAssignment.schedule : payload.schedule,
+              dailyLimit: payload.dailyLimit === undefined ? currentAssignment.dailyLimit : payload.dailyLimit
+            };
+        const nextAssignment = createRuleAssignment(
+          assignmentPayload.listId || sourceListId,
+          assignmentPayload
+        );
+        validateAssignment(nextAssignment, lists, hasProAccess, target);
+        try {
+          nextAssignments = replaceRuleAssignment(oldRule, sourceListId, nextAssignment);
+        } catch (error) {
+          if (error.message === 'rule_assignment_exists') {
+            throw new RulesMutationError('rule_assignment_exists', 'Rule already has settings for this list');
+          }
+          throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
+        }
+      } else {
+        // Backward-compatible RC4 update path: the old UI submitted listIds and
+        // one shared blocking config. Convert that request into assignments.
+        nextAssignments = validateAssignments(
+          createAssignmentInputs(payload, oldRule), lists, hasProAccess, target
+        );
+      }
 
-      throwConflict(rulesManager.checkConflict(
-        rules,
-        input.blockURL,
-        input.isWhitelist,
-        index
-      ));
-
-      if (rulesManager.ruleExists(
-        rules,
-        input.blockURL,
-        input.redirectURL,
-        index,
-        input.isWhitelist
-      )) {
+      validateAssignments(nextAssignments, lists, hasProAccess, target);
+      throwConflict(rulesManager.checkConflict(rules, target.blockURL, target.isWhitelist, index));
+      if (findTargetRuleIndex(rules, target.blockURL, target.isWhitelist, index) !== -1) {
         throw new RulesMutationError('rule_already_exists', 'Rule already exists');
       }
 
-      let disabledByUser = payload.disabledByUser === null || payload.disabledByUser === undefined ?
-        oldRule.disabledByUser === true :
-        payload.disabledByUser === true;
+      let disabledByUser = payload.disabledByUser == null
+        ? oldRule.disabledByUser === true
+        : payload.disabledByUser === true;
 
-      if ((payload.disabledByUser === null || payload.disabledByUser === undefined) && !oldRule.schedule && input.schedule) {
-        disabledByUser = false;
-      }
-
-      const blockingConfig = getStoredBlockingConfig(input);
-      const updatedRule = {
+      const updatedRule = canonicalizeRuleTarget({
         id: oldRule.id,
-        blockURL: input.blockURL.trim(),
-        redirectURL: input.isWhitelist ? '' : input.redirectURL.trim(),
-        schedule: blockingConfig.schedule,
-        blockingMode: blockingConfig.blockingMode,
-        dailyLimit: blockingConfig.dailyLimit,
-        category: input.isWhitelist ? 'whitelist' : input.category,
+        blockURL: target.blockURL.trim(),
+        redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
+        category: target.isWhitelist ? 'whitelist' : target.category,
         disabledByUser,
-        listIds: input.isWhitelist ? [GENERAL_RULE_LIST_ID] : input.listIds,
-        isWhitelist: input.isWhitelist
-      };
-
+        assignments: nextAssignments,
+        isWhitelist: target.isWhitelist
+      }, nextAssignments);
       const nextRules = [...rules];
       nextRules[index] = updatedRule;
       await rulesManager.saveRules(nextRules);
-
       return syncAndNotify(nextRules, { rule: updatedRule });
+    });
+  }
+
+  async function removeAssignment(payload = {}) {
+    return mutationQueue.enqueue(async () => {
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
+      const rules = await rulesManager.getRules();
+      const index = getRuleIndexById(rules, payload.ruleId);
+      if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
+      const rule = rules[index];
+      if (rule.isWhitelist) throw new RulesMutationError('rule_assignment_locked', 'Whitelist assignment cannot be removed');
+      const listId = typeof payload.listId === 'string' ? payload.listId : '';
+      if (!getRuleAssignment(rule, listId)) {
+        throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
+      }
+      if (listId === GENERAL_RULE_LIST_ID && getRuleAssignments(rule).length === 1) {
+        throw new RulesMutationError('rule_assignment_locked', 'General is the fallback assignment');
+      }
+      const nextAssignments = removeRuleAssignment(rule, listId, { fallbackToGeneral: true });
+      const updatedRule = canonicalizeRuleTarget(rule, nextAssignments);
+      const nextRules = [...rules];
+      nextRules[index] = updatedRule;
+      await rulesManager.saveRules(nextRules);
+      return syncAndNotify(nextRules, {
+        rule: updatedRule,
+        removedAssignmentListId: listId,
+        movedToGeneral: nextAssignments.length === 1 && nextAssignments[0].listId === GENERAL_RULE_LIST_ID
+      });
     });
   }
 
@@ -572,15 +557,10 @@ export function createRulesMutationService({
     return mutationQueue.enqueue(async () => {
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
-
-      if (index === -1) {
-        throw new RulesMutationError('rule_not_found', 'Rule not found');
-      }
-
+      if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
       const deletedRule = rules[index];
       const nextRules = rules.filter((_, ruleIndex) => ruleIndex !== index);
       await rulesManager.saveRules(nextRules);
-
       return syncAndNotify(nextRules, { rule: deletedRule });
     });
   }
@@ -589,20 +569,11 @@ export function createRulesMutationService({
     return mutationQueue.enqueue(async () => {
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
-
-      if (index === -1) {
-        throw new RulesMutationError('rule_not_found', 'Rule not found');
-      }
-
-      const updatedRule = {
-        ...rules[index],
-        disabledByUser: !rules[index].disabledByUser
-      };
-
+      if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
+      const updatedRule = { ...rules[index], disabledByUser: !rules[index].disabledByUser };
       const nextRules = [...rules];
       nextRules[index] = updatedRule;
       await rulesManager.saveRules(nextRules);
-
       return syncAndNotify(nextRules, { rule: updatedRule });
     });
   }
@@ -611,77 +582,40 @@ export function createRulesMutationService({
     if (!Array.isArray(importedRules)) {
       throw new RulesMutationError('invalid_import', 'Invalid file format: missing rules array');
     }
-
     const preparedRules = [];
 
     importedRules.forEach((rawRule, index) => {
-      const input = sanitizeRuleInput(rawRule, rawRule?.isWhitelist === true, [GENERAL_RULE_LIST_ID]);
-      if (!input.isWhitelist && (!rawRule?.category || typeof rawRule.category !== 'string')) {
-        input.category = 'uncategorized';
+      const target = sanitizeTargetInput(rawRule, rawRule?.isWhitelist === true);
+      if (!target.isWhitelist && (!rawRule?.category || typeof rawRule.category !== 'string')) {
+        target.category = 'uncategorized';
       }
-
-      if (input.listIds.some(listId => !isKnownRuleListId(importedLists, listId))) {
-        throw new RulesMutationError('invalid_import', `Unknown rule list for imported rule ${index + 1}`);
-      }
-
-      const validation = rulesManager.validateRule(
-        input.blockURL,
-        input.redirectURL,
-        input.schedule,
-        input.category,
-        input.isWhitelist,
-        input.blockingMode,
-        input.dailyLimit
-      );
-
-      if (!validation.isValid) {
-        throw new RulesMutationError(
-          'validation_failed',
-          `Validation failed for imported rule ${index + 1}: ${validation.errors.join(', ')}`,
-          validation.errors
-        );
-      }
-
-      throwConflict(rulesManager.checkConflict(
-        preparedRules,
-        input.blockURL,
-        input.isWhitelist
-      ));
-
-      if (rulesManager.ruleExists(
-        preparedRules,
-        input.blockURL,
-        input.redirectURL,
-        -1,
-        input.isWhitelist
-      )) {
+      const assignments = rawRule?.isWhitelist === true
+        ? [createAlwaysAssignment()]
+        : normalizeRuleAssignments(rawRule);
+      // Import is a Pro-only operation, so custom list and Daily Limit access is
+      // already established by replaceAll(). We still validate all references.
+      validateAssignments(assignments, importedLists, true, target);
+      throwConflict(rulesManager.checkConflict(preparedRules, target.blockURL, target.isWhitelist));
+      if (findTargetRuleIndex(preparedRules, target.blockURL, target.isWhitelist) !== -1) {
         throw new RulesMutationError('rule_already_exists', 'Rule already exists');
       }
 
-      const blockingConfig = getStoredBlockingConfig(input);
       preparedRules.push({
         id: index + 1,
-        blockURL: input.blockURL.trim(),
-        redirectURL: input.isWhitelist ? '' : input.redirectURL.trim(),
-        schedule: blockingConfig.schedule,
-        blockingMode: blockingConfig.blockingMode,
-        dailyLimit: blockingConfig.dailyLimit,
-        category: input.isWhitelist ? 'whitelist' : (input.category || 'uncategorized'),
-        disabledByUser: input.disabledByUser,
-        listIds: input.isWhitelist ? [GENERAL_RULE_LIST_ID] : input.listIds,
-        isWhitelist: input.isWhitelist
+        blockURL: target.blockURL.trim(),
+        redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
+        category: target.isWhitelist ? 'whitelist' : (target.category || 'uncategorized'),
+        disabledByUser: target.disabledByUser,
+        assignments,
+        isWhitelist: target.isWhitelist
       });
     });
-
     return preparedRules;
   }
 
   async function replaceAll(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
-
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       let importedLists;
       try {
         importedLists = prepareImportedRuleLists(payload.ruleLists);
@@ -694,17 +628,14 @@ export function createRulesMutationService({
       if (payload.settings && typeof payload.settings === 'object' && !Array.isArray(payload.settings)) {
         const currentSettings = await getSettings();
         const sanitizedSettings = { ...payload.settings };
-
         delete sanitizedSettings.enablePassword;
         delete sanitizedSettings.passwordHash;
-
         importedSettings = {
           ...currentSettings,
           ...sanitizedSettings,
           enablePassword: currentSettings.enablePassword,
           passwordHash: currentSettings.passwordHash
         };
-
         await saveSettings(importedSettings);
       }
 
@@ -715,39 +646,26 @@ export function createRulesMutationService({
 
   async function clearRules() {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
-
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const nextRules = [];
       await rulesManager.saveRules(nextRules);
-
-      // The synchronizer obtains every current DNR rule ID and calls updateDynamicRules with both removeRuleIds and addRules: [].
       return syncAndNotify(nextRules);
     });
   }
 
   async function toggleCategory(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
-
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const category = typeof payload.category === 'string' ? payload.category : '';
       if (!category) {
         throw new RulesMutationError('category_required', 'Category is required', ['category_required']);
       }
-
       const settings = await getSettings();
       const disabledCategories = Array.isArray(settings.disabledCategories) ? settings.disabledCategories : [];
-      const nextDisabledCategories = disabledCategories.includes(category) ?
-        disabledCategories.filter(item => item !== category) :
-        [...disabledCategories, category];
-      const nextSettings = {
-        ...settings,
-        disabledCategories: nextDisabledCategories
-      };
-
+      const nextDisabledCategories = disabledCategories.includes(category)
+        ? disabledCategories.filter(item => item !== category)
+        : [...disabledCategories, category];
+      const nextSettings = { ...settings, disabledCategories: nextDisabledCategories };
       await saveSettings(nextSettings);
       const rules = await rulesManager.getRules();
       return syncAndNotify(rules, { settings: nextSettings });
@@ -756,9 +674,7 @@ export function createRulesMutationService({
 
   async function createRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const lists = await getRuleLists();
       const name = validateListName(payload.name, lists);
       const list = { id: createNextRuleListId(lists), name, disabled: false };
@@ -771,9 +687,7 @@ export function createRulesMutationService({
 
   async function renameRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const listId = typeof payload.listId === 'string' ? payload.listId : '';
       if (listId === GENERAL_RULE_LIST_ID) {
         throw new RulesMutationError('rule_list_locked', 'General list cannot be renamed');
@@ -791,9 +705,7 @@ export function createRulesMutationService({
 
   async function toggleRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const listId = typeof payload.listId === 'string' ? payload.listId : '';
       const lists = await getRuleLists();
       const index = lists.findIndex(list => list.id === listId);
@@ -807,9 +719,7 @@ export function createRulesMutationService({
 
   async function deleteRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
-        throw new RulesMutationError('pro_required', 'Pro access is required');
-      }
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const listId = typeof payload.listId === 'string' ? payload.listId : '';
       if (listId === GENERAL_RULE_LIST_ID) {
         throw new RulesMutationError('rule_list_locked', 'General list cannot be deleted');
@@ -820,12 +730,9 @@ export function createRulesMutationService({
       }
       const nextLists = lists.filter(list => list.id !== listId);
       const nextRules = rules.map(rule => {
-        if (rule.isWhitelist === true) return { ...rule, listIds: [GENERAL_RULE_LIST_ID] };
-        const currentIds = getRuleListIds(rule);
-        if (!currentIds.includes(listId)) return rule;
-        const updatedRule = { ...rule, listIds: removeRuleListId(currentIds, listId) };
-        delete updatedRule.listId;
-        return updatedRule;
+        if (rule.isWhitelist === true) return canonicalizeRuleTarget(rule, [createAlwaysAssignment()]);
+        if (!getRuleAssignment(rule, listId)) return rule;
+        return canonicalizeRuleTarget(rule, removeRuleAssignment(rule, listId, { fallbackToGeneral: true }));
       });
       await saveCombinedState(nextRules, nextLists);
       return syncAndNotify(nextRules, { ruleLists: nextLists, deletedListId: listId });
@@ -840,6 +747,7 @@ export function createRulesMutationService({
     addRule,
     addMany,
     updateRule,
+    removeAssignment,
     deleteRule,
     toggleRule,
     replaceAll,

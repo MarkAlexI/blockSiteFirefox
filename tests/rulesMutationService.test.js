@@ -5,6 +5,7 @@ import {
   serializeRulesMutationError
 } from '../rules/rulesMutationService.js';
 import { resolveRulePackEntries } from '../rules/rulePacks.js';
+import { getRuleAssignment, getRuleListIds } from '../rules/ruleAssignments.js';
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -432,7 +433,7 @@ test('rule packs are assigned to the selected custom Rule List', async () => {
   });
 
   assert.equal(result.listId, 'list-1');
-  assert.deepEqual(harness.getRules().map(rule => rule.listIds), [['list-1'], ['list-1']]);
+  assert.deepEqual(harness.getRules().map(rule => getRuleListIds(rule)), [['list-1'], ['list-1']]);
 });
 
 test('rule packs reject unknown Rule List targets before changing storage', async () => {
@@ -567,8 +568,9 @@ test('a shared Rule Pack schedule is normalized and applied to every added rule'
   });
 
   assert.equal(result.scheduleApplied, true);
+  const schedules = harness.getRules().map(rule => getRuleAssignment(rule, 'general').schedule);
   assert.deepEqual(
-    harness.getRules().map(rule => rule.schedule),
+    schedules,
     [
       {
         version: 2,
@@ -580,7 +582,7 @@ test('a shared Rule Pack schedule is normalized and applied to every added rule'
       }
     ]
   );
-  assert.notEqual(harness.getRules()[0].schedule, harness.getRules()[1].schedule);
+  assert.notEqual(schedules[0], schedules[1]);
   assert.equal(harness.savedStates.length, 1);
   assert.equal(harness.getSyncCalls(), 1);
 });
@@ -626,7 +628,7 @@ test('custom rule lists are Pro-only and new rules can be assigned to them', asy
     listId: workList.id
   });
 
-  assert.deepEqual(harness.getRules()[0].listIds, [workList.id]);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), [workList.id]);
 });
 
 test('non-Pro callers cannot create a custom rule list or assign one through direct intents', async () => {
@@ -706,7 +708,7 @@ test('deleting a custom list atomically moves its rules to General', async () =>
 
   assert.equal(result.ruleLists.length, 1);
   assert.equal(result.ruleLists[0].id, 'general');
-  assert.deepEqual(harness.getRules()[0].listIds, ['general']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['general']);
 });
 
 test('General cannot be renamed or deleted', async () => {
@@ -740,7 +742,7 @@ test('rule import restores custom list definitions and assignments together', as
 
   assert.equal(result.ruleLists[1].name, 'Study');
   assert.equal(harness.getRuleLists()[1].disabled, true);
-  assert.deepEqual(harness.getRules()[0].listIds, ['list-3']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['list-3']);
 });
 
 test('Daily limit rules are Pro-only and persist a normalized blocking mode', async () => {
@@ -766,9 +768,12 @@ test('Daily limit rules are Pro-only and persist a normalized blocking mode', as
   });
 
   const rule = proHarness.getRules()[0];
-  assert.equal(rule.blockingMode, 'daily_limit');
-  assert.deepEqual(rule.dailyLimit, { minutes: 30 });
-  assert.equal(rule.schedule, null);
+  const assignment = getRuleAssignment(rule, 'general');
+  assert.equal(assignment.blockingMode, 'daily_limit');
+  assert.deepEqual(assignment.dailyLimit, { minutes: 30 });
+  assert.equal(assignment.schedule, null);
+  assert.equal('blockingMode' in rule, false);
+  assert.equal('dailyLimit' in rule, false);
 });
 
 test('import preserves Daily limit configuration without importing usage history', async () => {
@@ -790,12 +795,14 @@ test('import preserves Daily limit configuration without importing usage history
       id: 1,
       blockURL: 'video.example',
       redirectURL: '',
-      schedule: null,
-      blockingMode: 'daily_limit',
-      dailyLimit: { minutes: 45 },
       category: 'social',
       disabledByUser: false,
-      listIds: ['general'],
+      assignments: [{
+        listId: 'general',
+        blockingMode: 'daily_limit',
+        schedule: null,
+        dailyLimit: { minutes: 45 }
+      }],
       isWhitelist: false
     }
   );
@@ -832,7 +839,7 @@ test('adding an existing rule to another custom list adds membership instead of 
   assert.equal(result.membershipAdded, true);
   assert.equal(result.created, false);
   assert.equal(harness.getRules().length, 1);
-  assert.deepEqual(harness.getRules()[0].listIds, ['list-1', 'list-2']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['list-1', 'list-2']);
   assert.equal(harness.getSyncCalls(), 1);
 });
 
@@ -860,7 +867,7 @@ test('adding a custom membership moves an existing General rule out of General',
     listIds: ['list-1']
   });
 
-  assert.deepEqual(harness.getRules()[0].listIds, ['list-1']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['list-1']);
 });
 
 test('adding an existing rule to a list it already belongs to still reports a duplicate', async () => {
@@ -919,7 +926,7 @@ test('Rule Pack adds membership to an existing rule without inflating new-rule c
   assert.equal(result.newRuleCount, 0);
   assert.equal(result.membershipAddedCount, 1);
   assert.equal(result.skippedDuplicates, 0);
-  assert.deepEqual(harness.getRules()[0].listIds, ['list-1', 'list-2']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['list-1', 'list-2']);
   assert.equal(harness.getRules().length, 1);
   assert.equal(harness.getSyncCalls(), 1);
 });
@@ -943,8 +950,171 @@ test('deleting one shared custom list preserves the remaining memberships', asyn
   });
 
   await harness.service.deleteRuleList({ listId: 'list-2' });
-  assert.deepEqual(harness.getRules()[0].listIds, ['list-1']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['list-1']);
 
   await harness.service.deleteRuleList({ listId: 'list-1' });
-  assert.deepEqual(harness.getRules()[0].listIds, ['general']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['general']);
+});
+
+
+test('the same target can keep different schedules in Work and Study assignments', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ]
+  });
+
+  await harness.service.addRule({
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    assignment: {
+      listId: 'list-1',
+      blockingMode: 'schedule',
+      schedule: { days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' }
+    }
+  });
+
+  await harness.service.addRule({
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    assignment: {
+      listId: 'list-2',
+      blockingMode: 'schedule',
+      schedule: { days: [1, 3, 5], startTime: '19:00', endTime: '22:00' }
+    }
+  });
+
+  const [rule] = harness.getRules();
+  assert.equal(harness.getRules().length, 1);
+  assert.deepEqual(getRuleListIds(rule), ['list-1', 'list-2']);
+  assert.deepEqual(getRuleAssignment(rule, 'list-1').schedule.periods, [
+    { days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' }
+  ]);
+  assert.deepEqual(getRuleAssignment(rule, 'list-2').schedule.periods, [
+    { days: [1, 3, 5], startTime: '19:00', endTime: '22:00' }
+  ]);
+});
+
+test('editing one assignment does not change another assignment on the same target', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      disabledByUser: false,
+      isWhitelist: false,
+      assignments: [
+        { listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null },
+        { listId: 'list-2', blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }]
+  });
+
+  await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'list-2',
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    assignment: {
+      listId: 'list-2',
+      blockingMode: 'schedule',
+      schedule: { days: [2], startTime: '18:00', endTime: '20:00' }
+    }
+  });
+
+  const rule = harness.getRules()[0];
+  assert.equal(getRuleAssignment(rule, 'list-1').blockingMode, 'always');
+  assert.equal(getRuleAssignment(rule, 'list-1').schedule, null);
+  assert.equal(getRuleAssignment(rule, 'list-2').blockingMode, 'schedule');
+  assert.deepEqual(getRuleAssignment(rule, 'list-2').schedule.periods, [
+    { days: [2], startTime: '18:00', endTime: '20:00' }
+  ]);
+});
+
+test('adding an existing target to another list preserves target-level redirect and category', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'youtube.com',
+      redirectURL: 'https://example.com/focus',
+      category: 'social',
+      disabledByUser: false,
+      isWhitelist: false,
+      assignments: [
+        { listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }]
+  });
+
+  await harness.service.addRule({
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'work',
+    assignment: {
+      listId: 'list-2',
+      blockingMode: 'schedule',
+      schedule: { days: [2], startTime: '18:00', endTime: '20:00' }
+    }
+  });
+
+  const [rule] = harness.getRules();
+  assert.equal(harness.getRules().length, 1);
+  assert.equal(rule.redirectURL, 'https://example.com/focus');
+  assert.equal(rule.category, 'social');
+  assert.deepEqual(getRuleListIds(rule), ['list-1', 'list-2']);
+  assert.equal(getRuleAssignment(rule, 'list-2').blockingMode, 'schedule');
+});
+
+test('removing one assignment preserves other contexts and the last custom assignment falls back to General', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false },
+      { id: 'list-2', name: 'Study', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      disabledByUser: false,
+      isWhitelist: false,
+      assignments: [
+        { listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null },
+        {
+          listId: 'list-2',
+          blockingMode: 'schedule',
+          schedule: { days: [2], startTime: '18:00', endTime: '20:00' },
+          dailyLimit: null
+        }
+      ]
+    }]
+  });
+
+  await harness.service.removeAssignment({ ruleId: 1, listId: 'list-2' });
+  let rule = harness.getRules()[0];
+  assert.deepEqual(getRuleListIds(rule), ['list-1']);
+  assert.equal(getRuleAssignment(rule, 'list-1').blockingMode, 'always');
+
+  const result = await harness.service.removeAssignment({ ruleId: 1, listId: 'list-1' });
+  rule = harness.getRules()[0];
+  assert.deepEqual(getRuleListIds(rule), ['general']);
+  assert.equal(getRuleAssignment(rule, 'general').blockingMode, 'always');
+  assert.equal(result.movedToGeneral, true);
 });

@@ -1075,5 +1075,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Выберите допустимый режим блокировки"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Настройки блокировки ниже применяются только к этому списку."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Убрать из списка"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Убрать это правило из списка «$NAME$»? Если это его последний пользовательский список, правило будет перемещено в Общий.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Для этого правила уже есть настройки в данном списке."
+  },
+  "rulelists_assignment_error": {
+    "message": "Не удалось изменить привязку к выбранному списку."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Разные настройки для разных списков"
   }
 }

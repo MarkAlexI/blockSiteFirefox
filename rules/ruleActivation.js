@@ -3,10 +3,12 @@ import {
   BLOCKING_MODE_ALWAYS,
   BLOCKING_MODE_SCHEDULE,
   BLOCKING_MODE_DAILY_LIMIT,
-  getRuleBlockingMode,
   isDailyLimitReached
 } from './blockingMode.js';
-import { isRuleListMembershipActive } from './ruleListMembership.js';
+import {
+  getAssignmentUsageSeconds,
+  getRuleAssignments
+} from './ruleAssignments.js';
 
 const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
@@ -26,12 +28,49 @@ function isPeriodActive(period, now) {
   return currentMinutes >= startMinutes && currentMinutes < endMinutes;
 }
 
+export function isAssignmentBlockingNow(assignment, ruleId, now = new Date(), dailyUsageSeconds = {}) {
+  if (!assignment) return false;
+
+  if (assignment.blockingMode === BLOCKING_MODE_ALWAYS) return true;
+
+  if (assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
+    return isDailyLimitReached(
+      assignment,
+      getAssignmentUsageSeconds(dailyUsageSeconds, ruleId, assignment.listId)
+    );
+  }
+
+  if (assignment.blockingMode !== BLOCKING_MODE_SCHEDULE || !assignment.schedule) return false;
+  const normalizedSchedule = normalizeSchedule(assignment.schedule);
+  return normalizedSchedule.periods.some(period => isPeriodActive(period, now));
+}
+
+export function getEnabledAssignments(rule, disabledRuleListIds = []) {
+  const disabled = disabledRuleListIds instanceof Set
+    ? disabledRuleListIds
+    : new Set(disabledRuleListIds || []);
+  return getRuleAssignments(rule).filter(item => !disabled.has(item.listId));
+}
+
+export function getTrackableDailyLimitAssignments(
+  rule,
+  disabledRuleListIds = [],
+  now = new Date(),
+  dailyUsageSeconds = {}
+) {
+  const enabled = getEnabledAssignments(rule, disabledRuleListIds);
+  if (enabled.some(item => isAssignmentBlockingNow(item, rule.id, now, dailyUsageSeconds))) {
+    return [];
+  }
+  return enabled.filter(item => item.blockingMode === BLOCKING_MODE_DAILY_LIMIT);
+}
+
 /**
  * Returns whether a stored blocking rule should currently be represented in
  * the browser's dynamic DNR rules.
  *
- * Both legacy single-period schedules and version 2 multi-period schedules are
- * accepted. The injectable date keeps the function deterministic in tests.
+ * Assignment-specific blocking settings are OR-composed: a rule is active if
+ * at least one assignment whose Rule List is enabled currently blocks.
  */
 export function isRuleActiveNow(
   rule,
@@ -49,18 +88,7 @@ export function isRuleActiveNow(
 
   if (rule.disabledByUser) return false;
   if (disabledCategories.includes(rule.category)) return false;
-  if (!isRuleListMembershipActive(rule, disabledRuleListIds)) return false;
 
-  const blockingMode = getRuleBlockingMode(rule);
-
-  if (blockingMode === BLOCKING_MODE_ALWAYS) return true;
-
-  if (blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
-    return isDailyLimitReached(rule, dailyUsageSeconds[String(rule.id)] || 0);
-  }
-
-  if (blockingMode !== BLOCKING_MODE_SCHEDULE || !rule.schedule) return false;
-
-  const normalizedSchedule = normalizeSchedule(rule.schedule);
-  return normalizedSchedule.periods.some(period => isPeriodActive(period, now));
+  return getEnabledAssignments(rule, disabledRuleListIds)
+    .some(assignment => isAssignmentBlockingNow(assignment, rule.id, now, dailyUsageSeconds));
 }

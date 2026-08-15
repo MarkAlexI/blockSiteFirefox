@@ -2,6 +2,7 @@ export const RULES_INTENT_TYPES = new Set([
   'rules:add',
   'rules:addMany',
   'rules:update',
+  'rules:removeAssignment',
   'rules:delete',
   'rules:toggle',
   'rules:replaceAll',
@@ -27,6 +28,8 @@ export function createRulesIntentHandler(rulesMutationService) {
         return rulesMutationService.addMany(message.payload);
       case 'rules:update':
         return rulesMutationService.updateRule(message.payload);
+      case 'rules:removeAssignment':
+        return rulesMutationService.removeAssignment(message.payload);
       case 'rules:delete':
         return rulesMutationService.deleteRule(message.payload);
       case 'rules:toggle':

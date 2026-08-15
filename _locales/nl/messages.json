@@ -1066,5 +1066,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Selecteer een geldige blokkeermodus"
+  },
+  "rulelists_assignment_hint": {
+    "message": "De blokkeerinstellingen hieronder gelden alleen voor deze lijst."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Uit lijst verwijderen"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Deze regel uit \"$NAME$\" verwijderen? Als dit de laatste aangepaste lijst is, wordt de regel naar Algemeen verplaatst.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "Deze regel heeft al instellingen voor die lijst."
+  },
+  "rulelists_assignment_error": {
+    "message": "De toewijzing aan de geselecteerde lijst kon niet worden gewijzigd."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Verschillende instellingen per lijst"
   }
 }

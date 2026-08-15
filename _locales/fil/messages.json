@@ -1072,5 +1072,29 @@
   },
   "blocking_mode_invalid": {
     "message": "Pumili ng wastong blocking mode"
+  },
+  "rulelists_assignment_hint": {
+    "message": "Ang mga setting ng pag-block sa ibaba ay para lamang sa listahang ito."
+  },
+  "rulelists_remove_assignment": {
+    "message": "Alisin sa listahan"
+  },
+  "rulelists_remove_assignment_confirm": {
+    "message": "Alisin ang panuntunang ito sa \"$NAME$\"? Kung ito ang huli nitong custom na listahan, ililipat ito sa Pangkalahatan.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Study"
+      }
+    }
+  },
+  "rulelists_assignment_exists": {
+    "message": "May mga setting na ang panuntunang ito para sa listahang iyon."
+  },
+  "rulelists_assignment_error": {
+    "message": "Hindi mabago ang pagtatalaga sa napiling listahan."
+  },
+  "rulelists_multiple_settings": {
+    "message": "Magkakaibang setting bawat listahan"
   }
 }
