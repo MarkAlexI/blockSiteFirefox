@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Nu s-a putut actualiza partajarea datelor tehnice."
+  },
+  "rulelists_title": {
+    "message": "Liste de reguli"
+  },
+  "rulelists_description": {
+    "message": "Grupează regulile în liste și pune pe pauză o listă întreagă fără a modifica regulile individuale."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Numele listei noi"
+  },
+  "rulelists_add": {
+    "message": "Adaugă listă"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Comută blocarea pentru întreaga listă"
+  },
+  "rulelist_general": {
+    "message": "General"
+  },
+  "rulelists_all": {
+    "message": "Toate listele"
+  },
+  "rulelist_header": {
+    "message": "Listă"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Această regulă aparține unei liste puse pe pauză."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Nu se poate edita: blocarea listei de reguli este pusă pe pauză"
+  },
+  "rulelists_name_invalid": {
+    "message": "Introdu un nume de listă de maximum 40 de caractere."
+  },
+  "rulelists_name_exists": {
+    "message": "Există deja o listă cu acest nume."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Ștergi „$NAME$”? Regulile sale vor fi mutate în General.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

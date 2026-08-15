@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "तकनीकी डेटा साझा करने की सेटिंग अपडेट नहीं हो सकी।"
+  },
+  "rulelists_title": {
+    "message": "नियम सूचियाँ"
+  },
+  "rulelists_description": {
+    "message": "नियमों को सूचियों में समूहित करें और अलग-अलग नियम बदले बिना पूरी सूची को रोकें।"
+  },
+  "rulelists_name_placeholder": {
+    "message": "नई सूची का नाम"
+  },
+  "rulelists_add": {
+    "message": "सूची जोड़ें"
+  },
+  "rulelists_toggle_hint": {
+    "message": "इस पूरी सूची के लिए ब्लॉकिंग चालू/बंद करें"
+  },
+  "rulelist_general": {
+    "message": "सामान्य"
+  },
+  "rulelists_all": {
+    "message": "सभी सूचियाँ"
+  },
+  "rulelist_header": {
+    "message": "सूची"
+  },
+  "rulelists_disabled_desc": {
+    "message": "यह नियम एक रोकी गई सूची में है।"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "संपादित नहीं कर सकते: नियम सूची की ब्लॉकिंग रुकी हुई है"
+  },
+  "rulelists_name_invalid": {
+    "message": "अधिकतम 40 अक्षरों का सूची नाम दर्ज करें।"
+  },
+  "rulelists_name_exists": {
+    "message": "इस नाम की सूची पहले से मौजूद है।"
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" हटाएँ? इसके नियम सामान्य में चले जाएँगे।",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

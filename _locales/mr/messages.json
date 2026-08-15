@@ -978,5 +978,50 @@
   },
   "telemetryerror": {
     "message": "तांत्रिक डेटा शेअरिंग अपडेट करता आले नाही."
+  },
+  "rulelists_title": {
+    "message": "नियम याद्या"
+  },
+  "rulelists_description": {
+    "message": "नियमांना याद्यांमध्ये गटबद्ध करा आणि स्वतंत्र नियम न बदलता संपूर्ण यादी तात्पुरती थांबवा."
+  },
+  "rulelists_name_placeholder": {
+    "message": "नवीन यादीचे नाव"
+  },
+  "rulelists_add": {
+    "message": "यादी जोडा"
+  },
+  "rulelists_toggle_hint": {
+    "message": "या संपूर्ण यादीसाठी ब्लॉकिंग सुरू/बंद करा"
+  },
+  "rulelist_general": {
+    "message": "सामान्य"
+  },
+  "rulelists_all": {
+    "message": "सर्व याद्या"
+  },
+  "rulelist_header": {
+    "message": "यादी"
+  },
+  "rulelists_disabled_desc": {
+    "message": "हा नियम थांबवलेल्या यादीत आहे."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "संपादित करता येत नाही: नियम यादीचे ब्लॉकिंग थांबवले आहे"
+  },
+  "rulelists_name_invalid": {
+    "message": "जास्तीत जास्त 40 अक्षरांचे यादीचे नाव द्या."
+  },
+  "rulelists_name_exists": {
+    "message": "या नावाची यादी आधीच अस्तित्वात आहे."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" हटवायची? तिचे नियम सामान्य मध्ये हलवले जातील.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

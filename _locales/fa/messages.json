@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "به‌روزرسانی اشتراک‌گذاری داده‌های فنی ممکن نشد."
+  },
+  "rulelists_title": {
+    "message": "فهرست قوانین"
+  },
+  "rulelists_description": {
+    "message": "قوانین را در فهرست‌ها گروه‌بندی کنید و بدون تغییر قوانین جداگانه، کل یک فهرست را موقتاً متوقف کنید."
+  },
+  "rulelists_name_placeholder": {
+    "message": "نام فهرست جدید"
+  },
+  "rulelists_add": {
+    "message": "افزودن فهرست"
+  },
+  "rulelists_toggle_hint": {
+    "message": "تغییر وضعیت مسدودسازی کل این فهرست"
+  },
+  "rulelist_general": {
+    "message": "عمومی"
+  },
+  "rulelists_all": {
+    "message": "همه فهرست‌ها"
+  },
+  "rulelist_header": {
+    "message": "فهرست"
+  },
+  "rulelists_disabled_desc": {
+    "message": "این قانون در یک فهرست متوقف‌شده قرار دارد."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "ویرایش ممکن نیست: مسدودسازی فهرست قوانین متوقف است"
+  },
+  "rulelists_name_invalid": {
+    "message": "نام فهرستی با حداکثر ۴۰ نویسه وارد کنید."
+  },
+  "rulelists_name_exists": {
+    "message": "فهرستی با این نام از قبل وجود دارد."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" حذف شود؟ قوانین آن به عمومی منتقل می‌شوند.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

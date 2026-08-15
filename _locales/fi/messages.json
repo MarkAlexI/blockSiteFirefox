@@ -972,5 +972,50 @@
   },
   "telemetryerror": {
     "message": "Teknisten tietojen jakamista ei voitu päivittää."
+  },
+  "rulelists_title": {
+    "message": "Sääntölistat"
+  },
+  "rulelists_description": {
+    "message": "Ryhmittele säännöt listoihin ja keskeytä koko lista muuttamatta yksittäisiä sääntöjä."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Uuden listan nimi"
+  },
+  "rulelists_add": {
+    "message": "Lisää lista"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Vaihda koko listan esto päälle tai pois"
+  },
+  "rulelist_general": {
+    "message": "Yleinen"
+  },
+  "rulelists_all": {
+    "message": "Kaikki listat"
+  },
+  "rulelist_header": {
+    "message": "Lista"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Tämä sääntö kuuluu keskeytettyyn listaan."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Ei voi muokata: sääntölistan esto on keskeytetty"
+  },
+  "rulelists_name_invalid": {
+    "message": "Anna enintään 40 merkin pituinen listan nimi."
+  },
+  "rulelists_name_exists": {
+    "message": "Samanniminen lista on jo olemassa."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Poistetaanko \"$NAME$\"? Sen säännöt siirretään Yleinen-listaan.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

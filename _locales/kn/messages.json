@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "ತಾಂತ್ರಿಕ ಡೇಟಾ ಹಂಚಿಕೆಯನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
+  },
+  "rulelists_title": {
+    "message": "ನಿಯಮ ಪಟ್ಟಿಗಳು"
+  },
+  "rulelists_description": {
+    "message": "ನಿಯಮಗಳನ್ನು ಪಟ್ಟಿಗಳಾಗಿ ಗುಂಪು ಮಾಡಿ ಮತ್ತು ಪ್ರತ್ಯೇಕ ನಿಯಮಗಳನ್ನು ಬದಲಾಯಿಸದೆ ಸಂಪೂರ್ಣ ಪಟ್ಟಿಯನ್ನು ವಿರಾಮಗೊಳಿಸಿ."
+  },
+  "rulelists_name_placeholder": {
+    "message": "ಹೊಸ ಪಟ್ಟಿಯ ಹೆಸರು"
+  },
+  "rulelists_add": {
+    "message": "ಪಟ್ಟಿ ಸೇರಿಸಿ"
+  },
+  "rulelists_toggle_hint": {
+    "message": "ಈ ಸಂಪೂರ್ಣ ಪಟ್ಟಿಗೆ ತಡೆಹಿಡಿಯುವಿಕೆಯನ್ನು ಬದಲಿಸಿ"
+  },
+  "rulelist_general": {
+    "message": "ಸಾಮಾನ್ಯ"
+  },
+  "rulelists_all": {
+    "message": "ಎಲ್ಲಾ ಪಟ್ಟಿಗಳು"
+  },
+  "rulelist_header": {
+    "message": "ಪಟ್ಟಿ"
+  },
+  "rulelists_disabled_desc": {
+    "message": "ಈ ನಿಯಮವು ವಿರಾಮಗೊಳಿಸಿದ ಪಟ್ಟಿಗೆ ಸೇರಿದೆ."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "ಸಂಪಾದಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ: ನಿಯಮ ಪಟ್ಟಿಯ ತಡೆಹಿಡಿಯುವಿಕೆ ವಿರಾಮದಲ್ಲಿದೆ"
+  },
+  "rulelists_name_invalid": {
+    "message": "ಗರಿಷ್ಠ 40 ಅಕ್ಷರಗಳ ಪಟ್ಟಿಯ ಹೆಸರನ್ನು ನಮೂದಿಸಿ."
+  },
+  "rulelists_name_exists": {
+    "message": "ಈ ಹೆಸರಿನ ಪಟ್ಟಿ ಈಗಾಗಲೇ ಇದೆ."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" ಅಳಿಸಬೇಕೆ? ಅದರ ನಿಯಮಗಳು ಸಾಮಾನ್ಯಕ್ಕೆ ಸಾಗುತ್ತವೆ.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

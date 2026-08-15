@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Tehniliste andmete jagamist ei saanud uuendada."
+  },
+  "rulelists_title": {
+    "message": "Reegliloendid"
+  },
+  "rulelists_description": {
+    "message": "Rühmita reeglid loenditesse ja peata terve loend üksikuid reegleid muutmata."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Uue loendi nimi"
+  },
+  "rulelists_add": {
+    "message": "Lisa loend"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Lülita kogu selle loendi blokeerimine sisse või välja"
+  },
+  "rulelist_general": {
+    "message": "Üldine"
+  },
+  "rulelists_all": {
+    "message": "Kõik loendid"
+  },
+  "rulelist_header": {
+    "message": "Loend"
+  },
+  "rulelists_disabled_desc": {
+    "message": "See reegel kuulub peatatud loendisse."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Ei saa muuta: reegliloendi blokeerimine on peatatud"
+  },
+  "rulelists_name_invalid": {
+    "message": "Sisesta kuni 40 märgi pikkune loendi nimi."
+  },
+  "rulelists_name_exists": {
+    "message": "Selle nimega loend on juba olemas."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Kas kustutada \"$NAME$\"? Selle reeglid teisaldatakse loendisse Üldine.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

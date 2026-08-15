@@ -18,7 +18,11 @@ function createHarness() {
     'toggleRule',
     'replaceAll',
     'clearRules',
-    'toggleCategory'
+    'toggleCategory',
+    'createRuleList',
+    'renameRuleList',
+    'toggleRuleList',
+    'deleteRuleList'
   ]) {
     service[method] = async payload => {
       calls.push([method, payload]);
@@ -43,7 +47,11 @@ test('all declared rules intents route to the expected mutation method', async (
     ['rules:toggle', 'toggleRule', payload],
     ['rules:replaceAll', 'replaceAll', payload],
     ['rules:clear', 'clearRules', undefined],
-    ['rules:toggleCategory', 'toggleCategory', payload]
+    ['rules:toggleCategory', 'toggleCategory', payload],
+    ['rules:createList', 'createRuleList', payload],
+    ['rules:renameList', 'renameRuleList', payload],
+    ['rules:toggleList', 'toggleRuleList', payload],
+    ['rules:deleteList', 'deleteRuleList', payload]
   ];
 
   for (const [type, method, expectedPayload] of expected) {

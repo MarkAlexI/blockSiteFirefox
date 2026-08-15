@@ -984,5 +984,50 @@
   },
   "telemetryerror": {
     "message": "Не вдалося змінити налаштування надсилання технічних даних."
+  },
+  "rulelists_title": {
+    "message": "Списки правил"
+  },
+  "rulelists_description": {
+    "message": "Групуйте правила у списки та призупиняйте цілий список, не змінюючи окремі правила."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Назва нового списку"
+  },
+  "rulelists_add": {
+    "message": "Додати список"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Увімкнути або вимкнути блокування всього списку"
+  },
+  "rulelist_general": {
+    "message": "Загальний"
+  },
+  "rulelists_all": {
+    "message": "Усі списки"
+  },
+  "rulelist_header": {
+    "message": "Список"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Це правило належить до призупиненого списку."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Неможливо редагувати: блокування списку правил призупинено"
+  },
+  "rulelists_name_invalid": {
+    "message": "Введіть назву списку довжиною до 40 символів."
+  },
+  "rulelists_name_exists": {
+    "message": "Список із такою назвою вже існує."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Видалити «$NAME$»? Його правила буде переміщено до Загального.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Neizdevās atjaunināt tehnisko datu kopīgošanu."
+  },
+  "rulelists_title": {
+    "message": "Noteikumu saraksti"
+  },
+  "rulelists_description": {
+    "message": "Grupējiet noteikumus sarakstos un apturiet visu sarakstu, nemainot atsevišķus noteikumus."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Jaunā saraksta nosaukums"
+  },
+  "rulelists_add": {
+    "message": "Pievienot sarakstu"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Pārslēgt bloķēšanu visam sarakstam"
+  },
+  "rulelist_general": {
+    "message": "Vispārīgi"
+  },
+  "rulelists_all": {
+    "message": "Visi saraksti"
+  },
+  "rulelist_header": {
+    "message": "Saraksts"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Šis noteikums pieder apturētam sarakstam."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Nevar rediģēt: noteikumu saraksta bloķēšana ir apturēta"
+  },
+  "rulelists_name_invalid": {
+    "message": "Ievadiet saraksta nosaukumu līdz 40 rakstzīmēm."
+  },
+  "rulelists_name_exists": {
+    "message": "Saraksts ar šādu nosaukumu jau pastāv."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Dzēst “$NAME$”? Tā noteikumi tiks pārvietoti uz Vispārīgi.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

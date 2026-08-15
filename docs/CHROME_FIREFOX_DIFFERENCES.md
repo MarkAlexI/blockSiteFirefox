@@ -437,6 +437,26 @@ Do not add the Chromium Chrome/Edge store abstraction to Firefox unless Firefox 
 
 ---
 
+## 10.1 Rule Lists
+
+Rule Lists are shared product behavior in Chromium and Firefox starting with 4.9.0. They remain device-local with the rules they organize.
+
+The shared model is:
+
+- every blocking rule belongs to exactly one list through `rule.listId`;
+- existing rules migrate to the built-in `general` list;
+- custom Rule Lists require Pro or legacy access for management and direct assignment;
+- disabling a list removes its rules from the expected DNR state outside an active Focus Session;
+- deleting a custom list moves its rules to `general` instead of deleting them;
+- imports and exports include the local Rule List definitions together with rule assignments;
+- whitelist rules stay in `general` internally and are not exposed as custom-list members.
+
+The one-minute scheduling alarm and the full expected-vs-current DNR integrity check remain unchanged on both platforms. Firefox uses the same Rule List activation logic while preserving `browser.*` APIs and Firefox Android behavior.
+
+Do not move Rule Lists to sync storage during a Chromium-to-Firefox port. Rules are device-local in both codebases, so list definitions and disabled state must remain local with them.
+
+---
+
 ## 11. Feedback prompt
 
 The product behavior should stay aligned:

@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "לא ניתן לעדכן את שיתוף הנתונים הטכניים."
+  },
+  "rulelists_title": {
+    "message": "רשימות כללים"
+  },
+  "rulelists_description": {
+    "message": "קבץ כללים לרשימות והשהה רשימה שלמה בלי לשנות כללים בודדים."
+  },
+  "rulelists_name_placeholder": {
+    "message": "שם רשימה חדשה"
+  },
+  "rulelists_add": {
+    "message": "הוסף רשימה"
+  },
+  "rulelists_toggle_hint": {
+    "message": "הפעל או השבת חסימה עבור כל הרשימה"
+  },
+  "rulelist_general": {
+    "message": "כללי"
+  },
+  "rulelists_all": {
+    "message": "כל הרשימות"
+  },
+  "rulelist_header": {
+    "message": "רשימה"
+  },
+  "rulelists_disabled_desc": {
+    "message": "כלל זה שייך לרשימה מושהית."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "לא ניתן לערוך: חסימת רשימת הכללים מושהית"
+  },
+  "rulelists_name_invalid": {
+    "message": "הזן שם רשימה באורך של עד 40 תווים."
+  },
+  "rulelists_name_exists": {
+    "message": "כבר קיימת רשימה בשם זה."
+  },
+  "rulelists_delete_confirm": {
+    "message": "למחוק את \"$NAME$\"? הכללים שלה יועברו לכללי.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -12,11 +12,13 @@ function clone(value) {
 
 function createHarness({
   initialRules = [],
+  initialRuleLists = [{ id: 'general', name: 'General', disabled: false }],
   access = { isPro: true, isLegacyUser: false },
   syncResult = { success: true },
   validation = null
 } = {}) {
   let rules = clone(initialRules);
+  let ruleLists = clone(initialRuleLists);
   let settings = { disabledCategories: [], enablePassword: false, passwordHash: null };
   const savedStates = [];
   const notifications = [];
@@ -73,6 +75,10 @@ function createHarness({
 
   const service = createRulesMutationService({
     rulesManager,
+    ruleListsManager: {
+      async getLists() { return clone(ruleLists); },
+      async saveLists(nextLists) { ruleLists = clone(nextLists); return clone(ruleLists); }
+    },
     dnrSynchronizer: {
       async requestSync() {
         syncCalls++;
@@ -88,6 +94,11 @@ function createHarness({
     getSettings: async () => clone(settings),
     saveSettings: async (nextSettings) => {
       settings = clone(nextSettings);
+    },
+    saveRulesAndLists: async (nextRules, nextLists) => {
+      rules = clone(nextRules);
+      ruleLists = clone(nextLists);
+      savedStates.push(clone(nextRules));
     },
     maxRulesLimit: 10,
     resolveRulePackEntries,
@@ -106,6 +117,7 @@ function createHarness({
     service,
     getRules: () => clone(rules),
     getSettings: () => clone(settings),
+    getRuleLists: () => clone(ruleLists),
     savedStates,
     notifications,
     getSyncCalls: () => syncCalls
@@ -563,3 +575,136 @@ test('an invalid shared Rule Pack schedule fails before storage or DNR changes',
   assert.equal(harness.getSyncCalls(), 0);
 });
 
+
+test('custom rule lists are Pro-only and new rules can be assigned to them', async () => {
+  const harness = createHarness();
+  const created = await harness.service.createRuleList({ name: 'Work' });
+  const workList = created.list;
+
+  assert.equal(workList.id, 'list-1');
+  assert.equal(workList.name, 'Work');
+  assert.equal(harness.getSyncCalls(), 0);
+
+  await harness.service.addRule({
+    blockURL: 'work.example',
+    redirectURL: '',
+    category: 'work',
+    listId: workList.id
+  });
+
+  assert.equal(harness.getRules()[0].listId, workList.id);
+});
+
+test('non-Pro callers cannot create a custom rule list or assign one through direct intents', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: false }
+    ],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await assert.rejects(
+    harness.service.createRuleList({ name: 'Study' }),
+    error => error.code === 'pro_required'
+  );
+
+  await assert.rejects(
+    harness.service.addRule({ blockURL: 'work.example', redirectURL: '', listId: 'list-1' }),
+    error => error.code === 'pro_required'
+  );
+});
+
+test('Rule List names are normalized and remain unique case-insensitively', async () => {
+  const harness = createHarness();
+  const created = await harness.service.createRuleList({ name: '  Deep   Work  ' });
+
+  assert.equal(created.list.name, 'Deep Work');
+
+  await assert.rejects(
+    harness.service.createRuleList({ name: 'deep work' }),
+    error => error.code === 'rule_list_name_exists'
+  );
+
+  await assert.rejects(
+    harness.service.createRuleList({ name: ' '.repeat(4) }),
+    error => error.code === 'rule_list_name_invalid'
+  );
+
+  await assert.rejects(
+    harness.service.createRuleList({ name: 'x'.repeat(41) }),
+    error => error.code === 'rule_list_name_invalid'
+  );
+});
+
+test('toggling a rule list preserves rules and synchronizes DNR', async () => {
+  const harness = createHarness({
+    initialRules: [{
+      id: 1,
+      blockURL: 'work.example',
+      redirectURL: '',
+      category: 'work',
+      listId: 'general',
+      disabledByUser: false,
+      isWhitelist: false
+    }]
+  });
+
+  const result = await harness.service.toggleRuleList({ listId: 'general' });
+
+  assert.equal(result.ruleLists[0].disabled, true);
+  assert.equal(harness.getRuleLists()[0].disabled, true);
+  assert.equal(harness.getRules()[0].blockURL, 'work.example');
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('deleting a custom list atomically moves its rules to General', async () => {
+  const harness = createHarness();
+  const created = await harness.service.createRuleList({ name: 'Study' });
+  await harness.service.addRule({
+    blockURL: 'study.example',
+    redirectURL: '',
+    category: 'work',
+    listId: created.list.id
+  });
+
+  const result = await harness.service.deleteRuleList({ listId: created.list.id });
+
+  assert.equal(result.ruleLists.length, 1);
+  assert.equal(result.ruleLists[0].id, 'general');
+  assert.equal(harness.getRules()[0].listId, 'general');
+});
+
+test('General cannot be renamed or deleted', async () => {
+  const harness = createHarness();
+
+  await assert.rejects(
+    harness.service.renameRuleList({ listId: 'general', name: 'Other' }),
+    error => error.code === 'rule_list_locked'
+  );
+  await assert.rejects(
+    harness.service.deleteRuleList({ listId: 'general' }),
+    error => error.code === 'rule_list_locked'
+  );
+});
+
+test('rule import restores custom list definitions and assignments together', async () => {
+  const harness = createHarness();
+
+  const result = await harness.service.replaceAll({
+    ruleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-3', name: 'Study', disabled: true }
+    ],
+    rules: [{
+      blockURL: 'study.example',
+      redirectURL: '',
+      category: 'work',
+      listId: 'list-3'
+    }]
+  });
+
+  assert.equal(result.ruleLists[1].name, 'Study');
+  assert.equal(harness.getRuleLists()[1].disabled, true);
+  assert.equal(harness.getRules()[0].listId, 'list-3');
+});

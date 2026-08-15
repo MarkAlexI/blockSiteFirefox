@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Haikuwezekana kusasisha kushiriki data za kiufundi."
+  },
+  "rulelists_title": {
+    "message": "Orodha za Kanuni"
+  },
+  "rulelists_description": {
+    "message": "Panga kanuni katika orodha na sitisha orodha nzima bila kubadilisha kanuni moja moja."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Jina la orodha mpya"
+  },
+  "rulelists_add": {
+    "message": "Ongeza Orodha"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Washa au zima uzuiaji wa orodha hii yote"
+  },
+  "rulelist_general": {
+    "message": "Jumla"
+  },
+  "rulelists_all": {
+    "message": "Orodha Zote"
+  },
+  "rulelist_header": {
+    "message": "Orodha"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Kanuni hii iko katika orodha iliyositishwa."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Haiwezi kuhaririwa: uzuiaji wa Orodha ya Kanuni umesitishwa"
+  },
+  "rulelists_name_invalid": {
+    "message": "Weka jina la orodha lenye hadi herufi 40."
+  },
+  "rulelists_name_exists": {
+    "message": "Orodha yenye jina hili tayari ipo."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Futa \"$NAME$\"? Kanuni zake zitahamishwa hadi Jumla.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

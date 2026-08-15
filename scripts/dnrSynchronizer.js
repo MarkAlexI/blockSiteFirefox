@@ -64,6 +64,7 @@ export function buildDnrDiff(currentRules, expectedRules) {
 export function createDnrSynchronizer({
   getRules,
   getSettings,
+  getRuleLists = async () => [],
   getFocusSessionState,
   isRuleActiveNow,
   createDnrRule,
@@ -77,13 +78,21 @@ export function createDnrSynchronizer({
 
   async function buildExpectedDnrState() {
     const rules = await getRules();
-    const settings = await getSettings();
-    const { focusActive } = await getFocusSessionState();
+    const [settings, ruleLists, focusState] = await Promise.all([
+      getSettings(),
+      getRuleLists(),
+      getFocusSessionState()
+    ]);
+    const { focusActive } = focusState;
     const disabledCategories = settings.disabledCategories || [];
+    const disabledRuleListIds = (ruleLists || [])
+      .filter(list => list?.disabled === true)
+      .map(list => list.id);
+    const now = new Date();
 
     const activeRules = rules.filter(rule =>
       !rule.isWhitelist &&
-      isRuleActiveNow(rule, disabledCategories, focusActive)
+      isRuleActiveNow(rule, disabledCategories, focusActive, now, disabledRuleListIds)
     );
 
     const dnrRules = [];

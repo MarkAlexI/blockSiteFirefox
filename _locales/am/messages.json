@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "ቴክኒካዊ ውሂብ ማጋራትን ማዘመን አልተቻለም።"
+  },
+  "rulelists_title": {
+    "message": "የደንብ ዝርዝሮች"
+  },
+  "rulelists_description": {
+    "message": "ደንቦችን በዝርዝሮች ያደራጁ እና ነጠላ ደንቦችን ሳይቀይሩ ሙሉ ዝርዝርን ለጊዜው ያቁሙ።"
+  },
+  "rulelists_name_placeholder": {
+    "message": "የአዲስ ዝርዝር ስም"
+  },
+  "rulelists_add": {
+    "message": "ዝርዝር ጨምር"
+  },
+  "rulelists_toggle_hint": {
+    "message": "ለዚህ ሙሉ ዝርዝር እገዳን ቀይር"
+  },
+  "rulelist_general": {
+    "message": "አጠቃላይ"
+  },
+  "rulelists_all": {
+    "message": "ሁሉም ዝርዝሮች"
+  },
+  "rulelist_header": {
+    "message": "ዝርዝር"
+  },
+  "rulelists_disabled_desc": {
+    "message": "ይህ ደንብ ለጊዜው የቆመ ዝርዝር ውስጥ ነው።"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "ማርትዕ አይቻልም፡ የደንብ ዝርዝር እገዳ ቆሟል"
+  },
+  "rulelists_name_invalid": {
+    "message": "እስከ 40 ቁምፊዎች ያለው የዝርዝር ስም ያስገቡ።"
+  },
+  "rulelists_name_exists": {
+    "message": "በዚህ ስም ዝርዝር አስቀድሞ አለ።"
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" ይሰረዝ? ደንቦቹ ወደ አጠቃላይ ይንቀሳቀሳሉ።",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

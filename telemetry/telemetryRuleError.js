@@ -13,6 +13,10 @@ const SAFE_RULE_ERROR_CODES = new Set([
   'rule_pack_invalid',
   'rule_not_found',
   'invalid_import',
+  'rule_list_name_invalid',
+  'rule_list_name_exists',
+  'rule_list_not_found',
+  'rule_list_locked',
   'category_required'
 ]);
 
@@ -27,6 +31,10 @@ const EXPECTED_RULE_REJECTION_CODES = new Set([
   'rule_pack_invalid_selection',
   'rule_pack_empty',
   'invalid_import',
+  'rule_list_name_invalid',
+  'rule_list_name_exists',
+  'rule_list_not_found',
+  'rule_list_locked',
   'category_required'
 ]);
 

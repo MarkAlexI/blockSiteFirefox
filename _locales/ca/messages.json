@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "No s’ha pogut actualitzar l’ús compartit de dades tècniques."
+  },
+  "rulelists_title": {
+    "message": "Llistes de regles"
+  },
+  "rulelists_description": {
+    "message": "Agrupa les regles en llistes i pausa una llista sencera sense canviar les regles individuals."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Nom de la llista nova"
+  },
+  "rulelists_add": {
+    "message": "Afegeix una llista"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Activa o desactiva el bloqueig de tota aquesta llista"
+  },
+  "rulelist_general": {
+    "message": "General"
+  },
+  "rulelists_all": {
+    "message": "Totes les llistes"
+  },
+  "rulelist_header": {
+    "message": "Llista"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Aquesta regla pertany a una llista en pausa."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "No es pot editar: el bloqueig de la llista de regles està en pausa"
+  },
+  "rulelists_name_invalid": {
+    "message": "Introdueix un nom de llista de fins a 40 caràcters."
+  },
+  "rulelists_name_exists": {
+    "message": "Ja existeix una llista amb aquest nom."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Vols suprimir \"$NAME$\"? Les seves regles es mouran a General.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

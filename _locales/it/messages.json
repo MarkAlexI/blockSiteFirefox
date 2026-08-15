@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Impossibile aggiornare la condivisione dei dati tecnici."
+  },
+  "rulelists_title": {
+    "message": "Elenchi di regole"
+  },
+  "rulelists_description": {
+    "message": "Raggruppa le regole in elenchi e metti in pausa un intero elenco senza modificare le singole regole."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Nome del nuovo elenco"
+  },
+  "rulelists_add": {
+    "message": "Aggiungi elenco"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Attiva o disattiva il blocco per l’intero elenco"
+  },
+  "rulelist_general": {
+    "message": "Generale"
+  },
+  "rulelists_all": {
+    "message": "Tutti gli elenchi"
+  },
+  "rulelist_header": {
+    "message": "Elenco"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Questa regola appartiene a un elenco in pausa."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Impossibile modificare: il blocco dell’elenco di regole è in pausa"
+  },
+  "rulelists_name_invalid": {
+    "message": "Inserisci un nome di massimo 40 caratteri."
+  },
+  "rulelists_name_exists": {
+    "message": "Esiste già un elenco con questo nome."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Eliminare \"$NAME$\"? Le sue regole verranno spostate in Generale.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

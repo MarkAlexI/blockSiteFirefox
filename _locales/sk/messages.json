@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Zdieľanie technických údajov sa nepodarilo aktualizovať."
+  },
+  "rulelists_title": {
+    "message": "Zoznamy pravidiel"
+  },
+  "rulelists_description": {
+    "message": "Zoskupujte pravidlá do zoznamov a pozastavte celý zoznam bez zmeny jednotlivých pravidiel."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Názov nového zoznamu"
+  },
+  "rulelists_add": {
+    "message": "Pridať zoznam"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Prepnúť blokovanie celého zoznamu"
+  },
+  "rulelist_general": {
+    "message": "Všeobecné"
+  },
+  "rulelists_all": {
+    "message": "Všetky zoznamy"
+  },
+  "rulelist_header": {
+    "message": "Zoznam"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Toto pravidlo patrí do pozastaveného zoznamu."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Nedá sa upraviť: blokovanie zoznamu pravidiel je pozastavené"
+  },
+  "rulelists_name_invalid": {
+    "message": "Zadajte názov zoznamu s najviac 40 znakmi."
+  },
+  "rulelists_name_exists": {
+    "message": "Zoznam s týmto názvom už existuje."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Odstrániť „$NAME$“? Jeho pravidlá sa presunú do Všeobecné.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

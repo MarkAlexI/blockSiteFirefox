@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Không thể cập nhật chia sẻ dữ liệu kỹ thuật."
+  },
+  "rulelists_title": {
+    "message": "Danh sách quy tắc"
+  },
+  "rulelists_description": {
+    "message": "Nhóm quy tắc vào các danh sách và tạm dừng cả danh sách mà không thay đổi từng quy tắc."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Tên danh sách mới"
+  },
+  "rulelists_add": {
+    "message": "Thêm danh sách"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Bật hoặc tắt chặn cho toàn bộ danh sách này"
+  },
+  "rulelist_general": {
+    "message": "Chung"
+  },
+  "rulelists_all": {
+    "message": "Tất cả danh sách"
+  },
+  "rulelist_header": {
+    "message": "Danh sách"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Quy tắc này thuộc một danh sách đang tạm dừng."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Không thể chỉnh sửa: chặn Danh sách quy tắc đang tạm dừng"
+  },
+  "rulelists_name_invalid": {
+    "message": "Nhập tên danh sách tối đa 40 ký tự."
+  },
+  "rulelists_name_exists": {
+    "message": "Đã có danh sách với tên này."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Xóa \"$NAME$\"? Các quy tắc sẽ được chuyển sang Chung.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

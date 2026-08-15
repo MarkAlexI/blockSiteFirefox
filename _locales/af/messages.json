@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Kon nie die deel van tegniese data opdateer nie."
+  },
+  "rulelists_title": {
+    "message": "Reëllyste"
+  },
+  "rulelists_description": {
+    "message": "Groepeer reëls in lyste en onderbreek ’n hele lys sonder om individuele reëls te verander."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Nuwe lysnaam"
+  },
+  "rulelists_add": {
+    "message": "Voeg lys by"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Skakel blokkering vir hierdie hele lys"
+  },
+  "rulelist_general": {
+    "message": "Algemeen"
+  },
+  "rulelists_all": {
+    "message": "Alle lyste"
+  },
+  "rulelist_header": {
+    "message": "Lys"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Hierdie reël behoort aan ’n onderbreekte lys."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Kan nie wysig nie: Reëllys-blokkering is onderbreek"
+  },
+  "rulelists_name_invalid": {
+    "message": "Voer ’n lysnaam van hoogstens 40 karakters in."
+  },
+  "rulelists_name_exists": {
+    "message": "’n Lys met hierdie naam bestaan reeds."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Vee \"$NAME$\" uit? Die reëls sal na Algemeen skuif.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

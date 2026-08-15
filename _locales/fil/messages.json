@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Hindi ma-update ang pagbabahagi ng teknikal na data."
+  },
+  "rulelists_title": {
+    "message": "Mga Listahan ng Rule"
+  },
+  "rulelists_description": {
+    "message": "Igrupo ang mga rule sa mga listahan at i-pause ang buong listahan nang hindi binabago ang bawat rule."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Pangalan ng bagong listahan"
+  },
+  "rulelists_add": {
+    "message": "Magdagdag ng Listahan"
+  },
+  "rulelists_toggle_hint": {
+    "message": "I-toggle ang pag-block para sa buong listahang ito"
+  },
+  "rulelist_general": {
+    "message": "Pangkalahatan"
+  },
+  "rulelists_all": {
+    "message": "Lahat ng Listahan"
+  },
+  "rulelist_header": {
+    "message": "Listahan"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Ang rule na ito ay nasa naka-pause na listahan."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Hindi ma-edit: naka-pause ang pag-block ng Rule List"
+  },
+  "rulelists_name_invalid": {
+    "message": "Maglagay ng pangalan ng listahan na hanggang 40 character."
+  },
+  "rulelists_name_exists": {
+    "message": "May listahan na gamit ang pangalang ito."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Burahin ang \"$NAME$\"? Ililipat ang mga rule nito sa Pangkalahatan.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

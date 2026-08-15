@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v4.8.7-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v4.9.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -75,7 +75,7 @@ This is the entry point to the extension's user interface. It defines the popup 
 Contains the styling rules for the popup interface. The design is minimalist, focusing on usability with a clean and functional layout. By avoiding excessive visual elements, the extension remains lightweight and easy to navigate. CSS styles define the appearance of buttons, text input fields, and the list of websites users are managing.
 
 ### 4. `popup.js`
-This script is responsible for handling the popup's interactive elements. When the popup opens, it retrieves and displays the user's saved rules from Chrome's `storage.sync`. This allows users to manage rules across different devices. Users can add or remove rules through a simple interface. Whenever a new rule is created, it's stored using `chrome.storage.sync`, and the popup is updated dynamically to reflect the changes.
+This script is responsible for handling the popup's interactive elements. When the popup opens, it retrieves and displays the user's device-local saved rules. This allows users to manage rules across different devices. Users can add or remove rules through a simple interface. Whenever a new rule is created, it is stored locally on the current browser installation, and the popup is updated dynamically to reflect the changes.
 
 ### 5. `background.js`
 A crucial part of the extension, the background script runs continuously in the background and monitors the extension’s storage. It listens for changes and dynamically updates or removes access rules using the `declarativeNetRequest` API, which is part of Manifest V3. This API allows the extension to block or redirect network requests based on user-defined rules without needing full network access permissions. The `background.js` script also handles the creation of redirect rules when the user specifies an alternative URL for blocked sites.
@@ -87,8 +87,8 @@ A crucial part of the extension, the background script runs continuously in the 
 ### 1. Site Blocking and Redirection
 Users can block any website by adding it to a list in the extension's popup. When a blocked site is visited, the extension prevents it from loading. Users also have the option to set up a redirection to another URL. For instance, if they frequently get distracted by social media, they can redirect themselves to a more productive website whenever they attempt to visit a blocked site.
 
-### 2. Cross-device Synchronization
-The extension uses Chrome's `storage.sync` to store rules, ensuring that changes made on one device are automatically synchronized across all other devices using the same Google account. This is particularly useful for users who frequently switch between multiple devices.
+### 2. Device-local Rules and Rule Lists
+Blocking rules are stored locally on each browser installation so the extension does not need an account or a cloud rule database. Pro and legacy users can organize blocking rules into named Rule Lists such as Work or Study, pause or resume a whole list, and filter rules by list. Every blocking rule belongs to exactly one list. Existing rules automatically belong to the built-in General list.
 
 ### 3. Minimalist User Interface
 The extension's interface is designed for simplicity. The popup window provides an intuitive experience where users can quickly view, add, or delete rules for specific websites. There's no clutter—just straightforward functionality.
@@ -128,7 +128,7 @@ To function effectively, the extension requires a few specific permissions, whic
 This permission allows the extension to block or redirect network requests without needing access to all of the user's browsing activity. The `declarativeNetRequest` API enhances security by enabling the extension to manage web requests in a more controlled way, reducing privacy risks for users.
 
 ### 2. Storage
-The `storage` permission is required for storing user-defined rules and syncing them across devices via `chrome.storage.sync`. This ensures that users' preferences are persistent and available on any device where they are logged in with the same Google account.
+The `storage` permission is required for storing user-defined rules, Rule Lists, settings, statistics, and other extension state. Blocking rules and Rule Lists are device-local; selected settings use browser sync storage where supported.
 
 ### 3. ActiveTab
 The `activeTab` permission allows the extension to interact with the currently open tab in the browser when the user clicks on the extension’s icon. This is essential for applying rules on-demand and making immediate changes based on user input.
@@ -148,8 +148,8 @@ While the current version of the extension is fully functional, several ideas fo
 - **Detailed Statistics** (implemented):  
    Providing insights into users’ browsing habits by tracking time spent on blocked sites and offering reports that help users understand and improve their time management.
 
-- **User Accounts and Profiles**:  
-   Allowing users to create profiles with different sets of rules, enabling flexibility based on different contexts (e.g., work mode vs. personal mode).
+- **Rule Lists** (implemented):
+   Named Pro lists such as Work or Study can group rules, be paused or resumed as a unit, and be included in rule import/export without requiring a user account.
 
 ---
 

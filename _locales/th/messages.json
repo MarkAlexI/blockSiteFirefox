@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "ไม่สามารถอัปเดตการแชร์ข้อมูลทางเทคนิคได้"
+  },
+  "rulelists_title": {
+    "message": "รายการกฎ"
+  },
+  "rulelists_description": {
+    "message": "จัดกลุ่มกฎเป็นรายการและพักทั้งรายการโดยไม่ต้องเปลี่ยนกฎแต่ละข้อ"
+  },
+  "rulelists_name_placeholder": {
+    "message": "ชื่อรายการใหม่"
+  },
+  "rulelists_add": {
+    "message": "เพิ่มรายการ"
+  },
+  "rulelists_toggle_hint": {
+    "message": "สลับการบล็อกสำหรับรายการนี้ทั้งหมด"
+  },
+  "rulelist_general": {
+    "message": "ทั่วไป"
+  },
+  "rulelists_all": {
+    "message": "รายการทั้งหมด"
+  },
+  "rulelist_header": {
+    "message": "รายการ"
+  },
+  "rulelists_disabled_desc": {
+    "message": "กฎนี้อยู่ในรายการที่พักไว้"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "แก้ไขไม่ได้: การบล็อกรายการกฎถูกพักไว้"
+  },
+  "rulelists_name_invalid": {
+    "message": "ป้อนชื่อรายการไม่เกิน 40 อักขระ"
+  },
+  "rulelists_name_exists": {
+    "message": "มีรายการชื่อนี้อยู่แล้ว"
+  },
+  "rulelists_delete_confirm": {
+    "message": "ลบ \"$NAME$\" หรือไม่? กฎในรายการจะย้ายไปที่ ทั่วไป",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

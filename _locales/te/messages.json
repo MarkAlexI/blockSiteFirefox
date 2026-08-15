@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "సాంకేతిక డేటా పంచుకునే సెట్టింగ్‌ను నవీకరించలేకపోయాం."
+  },
+  "rulelists_title": {
+    "message": "నియమ జాబితాలు"
+  },
+  "rulelists_description": {
+    "message": "నియమాలను జాబితాలుగా సమూహపరచి, ఒక్కో నియమాన్ని మార్చకుండా మొత్తం జాబితాను విరామంలో ఉంచండి."
+  },
+  "rulelists_name_placeholder": {
+    "message": "కొత్త జాబితా పేరు"
+  },
+  "rulelists_add": {
+    "message": "జాబితా జోడించండి"
+  },
+  "rulelists_toggle_hint": {
+    "message": "ఈ మొత్తం జాబితాకు బ్లాకింగ్‌ను మార్చండి"
+  },
+  "rulelist_general": {
+    "message": "సాధారణ"
+  },
+  "rulelists_all": {
+    "message": "అన్ని జాబితాలు"
+  },
+  "rulelist_header": {
+    "message": "జాబితా"
+  },
+  "rulelists_disabled_desc": {
+    "message": "ఈ నియమం విరామంలో ఉన్న జాబితాలో ఉంది."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "సవరించలేరు: నియమ జాబితా బ్లాకింగ్ విరామంలో ఉంది"
+  },
+  "rulelists_name_invalid": {
+    "message": "గరిష్ఠంగా 40 అక్షరాల జాబితా పేరును నమోదు చేయండి."
+  },
+  "rulelists_name_exists": {
+    "message": "ఈ పేరుతో జాబితా ఇప్పటికే ఉంది."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" తొలగించాలా? దాని నియమాలు సాధారణకు తరలించబడతాయి.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

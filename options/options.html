@@ -336,6 +336,20 @@
         <button id="open-rule-packs" type="button" data-i18n="rulepacks_open">Browse Rule Packs</button>
       </section>
       <hr class="divider">
+      <section class="rule-list-management-mini collapsible-section expanded">
+        <h3 class="collapsible-header" data-i18n="rulelists_title">Rule Lists</h3>
+        <div class="collapsible-content">
+          <div class="rule-list-create">
+            <input id="rule-list-name-input" type="text" maxlength="40" data-i18n-placeholder="rulelists_name_placeholder" placeholder="New list name">
+            <button id="add-rule-list" type="button" data-i18n="rulelists_add">Add List</button>
+          </div>
+          <div id="rule-lists-container" class="rule-list-grid"></div>
+          <div class="setting-info">
+            <span class="setting-description" data-i18n="rulelists_description">Group rules into lists and pause an entire list without changing individual rules.</span>
+          </div>
+        </div>
+      </section>
+      <hr class="divider">
       <section class="category-management-mini collapsible-section expanded">
         <h3 class="collapsible-header" data-i18n="categorymanagementtitle">Category Blocking</h3>
         <div class="collapsible-content">
@@ -348,6 +362,9 @@
       </section>
       <hr class="divider">
       <input type="text" id="search-input" data-i18n-placeholder="searchblockurl">
+      <select id="rule-list-filter" class="category-select rule-list-filter">
+        <option value="all" data-i18n="rulelists_all">All Lists</option>
+      </select>
       <select id="category-filter" class="category-select">
         <option value="all" data-i18n="allcategories">All Categories</option>
         <option value="social" data-i18n="category_social">Social Media</option>
@@ -374,6 +391,7 @@
             <th id="block-url-header" scope="col">Block URL</th>
             <th id="redirect-url-header" scope="col">Redirect URL</th>
             <th id="category-header" scope="col" data-i18n="category_header">Category</th>
+            <th id="rule-list-header" scope="col" data-i18n="rulelist_header">List</th>
             <th id="schedule-header" scope="col" data-i18n="scheduleheader">Schedule</th>
             <th id="actions-header" scope="col">Actions</th>
           </tr>

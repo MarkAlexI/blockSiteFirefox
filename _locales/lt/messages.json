@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Nepavyko atnaujinti techninių duomenų bendrinimo."
+  },
+  "rulelists_title": {
+    "message": "Taisyklių sąrašai"
+  },
+  "rulelists_description": {
+    "message": "Grupuokite taisykles į sąrašus ir pristabdykite visą sąrašą nekeisdami atskirų taisyklių."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Naujo sąrašo pavadinimas"
+  },
+  "rulelists_add": {
+    "message": "Pridėti sąrašą"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Perjungti viso šio sąrašo blokavimą"
+  },
+  "rulelist_general": {
+    "message": "Bendras"
+  },
+  "rulelists_all": {
+    "message": "Visi sąrašai"
+  },
+  "rulelist_header": {
+    "message": "Sąrašas"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Ši taisyklė priklauso pristabdytam sąrašui."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Negalima redaguoti: taisyklių sąrašo blokavimas pristabdytas"
+  },
+  "rulelists_name_invalid": {
+    "message": "Įveskite iki 40 simbolių sąrašo pavadinimą."
+  },
+  "rulelists_name_exists": {
+    "message": "Sąrašas tokiu pavadinimu jau yra."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Ištrinti „$NAME$“? Jo taisyklės bus perkeltos į Bendras.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -800,7 +800,7 @@ footer {
   cursor: not-allowed;
 }
 
-#rules-container tr.category-muted td:nth-child(4),
+#rules-container tr.category-muted td:nth-child(5),
 #rules-container tr.category-muted .actions button {
   opacity: 0.2;
   filter: grayscale(1);
@@ -1529,5 +1529,157 @@ tr.rule-whitelist td:first-child::before {
   .diagnostics-output {
     max-height: 18rem;
     font-size: 0.75rem;
+  }
+}
+
+/* Rule Lists */
+.rule-list-management-mini {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius);
+}
+
+.rule-list-management-mini .collapsible-header {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rule-list-create {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.rule-list-create input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background: var(--bg-primary);
+}
+
+.rule-list-create button {
+  flex: 0 0 auto;
+}
+
+.rule-list-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.rule-list-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 5px 3px 9px;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  background: var(--bg-primary);
+  transition: var(--transition);
+}
+
+.rule-list-card:hover {
+  border-color: var(--primary-color);
+  background: var(--bg-secondary);
+}
+
+.rule-list-card.muted {
+  background: #eee;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.rule-list-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.rule-list-name {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+  color: #202124;
+}
+
+.rule-list-count {
+  font-size: 12px;
+  color: #5f6368;
+  background: #f1f3f4;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.rule-list-actions {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.rule-list-action {
+  padding: 3px 7px;
+  font-size: 11px;
+  border-radius: 12px;
+}
+
+.rule-list-tag {
+  display: inline-block;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.3125rem 0.5rem;
+  border-radius: 0.3125rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.rule-list-tag.general {
+  background: #f1f3f4;
+  color: #4b5563;
+}
+
+#rules-container tr.list-muted {
+  transition: all 0.3s ease;
+  outline: 1px dashed #ccc;
+  outline-offset: -2px;
+  pointer-events: none;
+}
+
+#rules-container tr.list-muted td {
+  color: #888;
+  background-color: rgba(245, 245, 245, 0.5);
+  cursor: not-allowed;
+}
+
+#rules-container tr.list-muted td:nth-child(5),
+#rules-container tr.list-muted .actions button {
+  opacity: 0.2;
+  filter: grayscale(1);
+}
+
+#rules-container tr.list-muted .rule-list-tag {
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .rule-list-create {
+    flex-direction: column;
+  }
+
+  .rule-list-grid {
+    gap: 6px;
   }
 }

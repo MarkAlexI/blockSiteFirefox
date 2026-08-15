@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Det gick inte att uppdatera delning av tekniska data."
+  },
+  "rulelists_title": {
+    "message": "Regellistor"
+  },
+  "rulelists_description": {
+    "message": "Gruppera regler i listor och pausa en hel lista utan att ändra enskilda regler."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Namn på ny lista"
+  },
+  "rulelists_add": {
+    "message": "Lägg till lista"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Slå på eller av blockering för hela listan"
+  },
+  "rulelist_general": {
+    "message": "Allmänt"
+  },
+  "rulelists_all": {
+    "message": "Alla listor"
+  },
+  "rulelist_header": {
+    "message": "Lista"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Den här regeln tillhör en pausad lista."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Kan inte redigera: blockering av regellistan är pausad"
+  },
+  "rulelists_name_invalid": {
+    "message": "Ange ett listnamn med högst 40 tecken."
+  },
+  "rulelists_name_exists": {
+    "message": "Det finns redan en lista med det här namnet."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Ta bort \"$NAME$\"? Reglerna flyttas till Allmänt.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

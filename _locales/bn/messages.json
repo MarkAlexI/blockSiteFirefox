@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "প্রযুক্তিগত ডেটা শেয়ারিং আপডেট করা যায়নি।"
+  },
+  "rulelists_title": {
+    "message": "রুল তালিকা"
+  },
+  "rulelists_description": {
+    "message": "নিয়মগুলোকে তালিকায় সাজান এবং আলাদা নিয়ম না বদলে পুরো তালিকা সাময়িকভাবে বন্ধ করুন।"
+  },
+  "rulelists_name_placeholder": {
+    "message": "নতুন তালিকার নাম"
+  },
+  "rulelists_add": {
+    "message": "তালিকা যোগ করুন"
+  },
+  "rulelists_toggle_hint": {
+    "message": "এই পুরো তালিকার ব্লকিং চালু/বন্ধ করুন"
+  },
+  "rulelist_general": {
+    "message": "সাধারণ"
+  },
+  "rulelists_all": {
+    "message": "সব তালিকা"
+  },
+  "rulelist_header": {
+    "message": "তালিকা"
+  },
+  "rulelists_disabled_desc": {
+    "message": "এই নিয়মটি একটি স্থগিত তালিকায় রয়েছে।"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "সম্পাদনা করা যাবে না: রুল তালিকার ব্লকিং স্থগিত"
+  },
+  "rulelists_name_invalid": {
+    "message": "সর্বোচ্চ ৪০ অক্ষরের তালিকার নাম লিখুন।"
+  },
+  "rulelists_name_exists": {
+    "message": "এই নামে একটি তালিকা ইতিমধ্যে আছে।"
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" মুছবেন? এর নিয়মগুলো সাধারণ তালিকায় যাবে।",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

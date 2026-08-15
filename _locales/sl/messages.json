@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Deljenja tehničnih podatkov ni bilo mogoče posodobiti."
+  },
+  "rulelists_title": {
+    "message": "Seznami pravil"
+  },
+  "rulelists_description": {
+    "message": "Združite pravila v sezname in začasno ustavite celoten seznam brez spreminjanja posameznih pravil."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Ime novega seznama"
+  },
+  "rulelists_add": {
+    "message": "Dodaj seznam"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Preklopi blokiranje celotnega seznama"
+  },
+  "rulelist_general": {
+    "message": "Splošno"
+  },
+  "rulelists_all": {
+    "message": "Vsi seznami"
+  },
+  "rulelist_header": {
+    "message": "Seznam"
+  },
+  "rulelists_disabled_desc": {
+    "message": "To pravilo pripada začasno ustavljenemu seznamu."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Urejanje ni mogoče: blokiranje seznama pravil je začasno ustavljeno"
+  },
+  "rulelists_name_invalid": {
+    "message": "Vnesite ime seznama z največ 40 znaki."
+  },
+  "rulelists_name_exists": {
+    "message": "Seznam s tem imenom že obstaja."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Izbrisati »$NAME$«? Njegova pravila bodo premaknjena v Splošno.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

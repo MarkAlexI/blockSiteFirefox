@@ -131,7 +131,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       id: 'test-extension-id',
       lastError: null,
       getURL: path => `moz-extension://test-extension-id/${path}`,
-      getManifest: () => ({ version: '4.8.6', manifest_version: 3 }),
+      getManifest: () => ({ version: '4.9.0', manifest_version: 3 }),
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();
@@ -210,8 +210,10 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
 
     assert.equal(diagnostics.success, true);
-    assert.equal(diagnostics.report.extension.version, '4.8.6');
+    assert.equal(diagnostics.report.extension.version, '4.9.0');
     assert.equal(diagnostics.report.rules.total, 1);
+    assert.equal(diagnostics.report.rules.lists, 1);
+    assert.equal(diagnostics.report.rules.disabledLists, 0);
     assert.equal(diagnostics.report.dnr.inSync, false);
     assert.equal(diagnostics.report.permissions.hostAccess, true);
     assert.equal(diagnostics.report.access.eventHistory, false);

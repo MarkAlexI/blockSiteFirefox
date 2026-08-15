@@ -978,5 +978,50 @@
   },
   "telemetryerror": {
     "message": "தொழில்நுட்பத் தரவு பகிர்வை புதுப்பிக்க முடியவில்லை."
+  },
+  "rulelists_title": {
+    "message": "விதி பட்டியல்கள்"
+  },
+  "rulelists_description": {
+    "message": "விதிகளை பட்டியல்களாகக் குழுவாக்கி, தனிப்பட்ட விதிகளை மாற்றாமல் முழு பட்டியலையும் இடைநிறுத்துங்கள்."
+  },
+  "rulelists_name_placeholder": {
+    "message": "புதிய பட்டியல் பெயர்"
+  },
+  "rulelists_add": {
+    "message": "பட்டியலைச் சேர்"
+  },
+  "rulelists_toggle_hint": {
+    "message": "இந்த முழு பட்டியலுக்கான தடுப்பை மாற்று"
+  },
+  "rulelist_general": {
+    "message": "பொது"
+  },
+  "rulelists_all": {
+    "message": "அனைத்து பட்டியல்கள்"
+  },
+  "rulelist_header": {
+    "message": "பட்டியல்"
+  },
+  "rulelists_disabled_desc": {
+    "message": "இந்த விதி இடைநிறுத்தப்பட்ட பட்டியலில் உள்ளது."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "திருத்த முடியாது: விதி பட்டியல் தடுப்பு இடைநிறுத்தப்பட்டுள்ளது"
+  },
+  "rulelists_name_invalid": {
+    "message": "40 எழுத்துகள் வரை உள்ள பட்டியல் பெயரை உள்ளிடுங்கள்."
+  },
+  "rulelists_name_exists": {
+    "message": "இந்த பெயரில் பட்டியல் ஏற்கனவே உள்ளது."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" ஐ நீக்கவா? அதன் விதிகள் பொதுவிற்கு நகர்த்தப்படும்.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

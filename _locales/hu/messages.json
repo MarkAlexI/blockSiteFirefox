@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Nem sikerült frissíteni a technikai adatok megosztását."
+  },
+  "rulelists_title": {
+    "message": "Szabálylisták"
+  },
+  "rulelists_description": {
+    "message": "Csoportosítsd a szabályokat listákba, és szüneteltess egy teljes listát az egyes szabályok módosítása nélkül."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Új lista neve"
+  },
+  "rulelists_add": {
+    "message": "Lista hozzáadása"
+  },
+  "rulelists_toggle_hint": {
+    "message": "A teljes lista blokkolásának be-/kikapcsolása"
+  },
+  "rulelist_general": {
+    "message": "Általános"
+  },
+  "rulelists_all": {
+    "message": "Összes lista"
+  },
+  "rulelist_header": {
+    "message": "Lista"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Ez a szabály egy szüneteltetett listához tartozik."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Nem szerkeszthető: a szabálylista blokkolása szünetel"
+  },
+  "rulelists_name_invalid": {
+    "message": "Adj meg egy legfeljebb 40 karakteres listanevet."
+  },
+  "rulelists_name_exists": {
+    "message": "Már létezik ilyen nevű lista."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Törlöd ezt: \"$NAME$\"? A szabályai az Általános listába kerülnek.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -44,7 +44,7 @@ class FakeElement {
 }
 
 test('a rule in a disabled category remains rendered as inactive and non-interactive', async () => {
-  const previousChrome = globalThis.browser;
+  const previousBrowser = globalThis.browser;
   const previousDocument = globalThis.document;
   const previousDebugController = globalThis.DebugController;
 
@@ -97,16 +97,16 @@ test('a rule in a disabled category remains rendered as inactive and non-interac
 
     assert.equal(row.tagName, 'TR');
     assert.equal(row.dataset.ruleId, 17);
-    assert.equal(row.children.length, 5);
+    assert.equal(row.children.length, 6);
     assert.equal(row.classList.contains('category-muted'), true);
     assert.equal(row.title, 'category_disabled_desc');
 
-    const actionsCell = row.children[4];
+    const actionsCell = row.children[5];
     assert.equal(actionsCell.children.length, 2);
     assert.equal(actionsCell.children[0].tagName, 'BUTTON');
     assert.equal(actionsCell.children[1].tagName, 'BUTTON');
   } finally {
-    globalThis.browser = previousChrome;
+    globalThis.browser = previousBrowser;
     globalThis.document = previousDocument;
     globalThis.DebugController = previousDebugController;
   }

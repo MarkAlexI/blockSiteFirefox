@@ -978,5 +978,50 @@
   },
   "telemetryerror": {
     "message": "તકનીકી ડેટા શેરિંગ અપડેટ કરી શકાયું નથી."
+  },
+  "rulelists_title": {
+    "message": "નિયમ યાદીઓ"
+  },
+  "rulelists_description": {
+    "message": "નિયમોને યાદીઓમાં ગોઠવો અને વ્યક્તિગત નિયમો બદલ્યા વિના આખી યાદીને થોભાવો."
+  },
+  "rulelists_name_placeholder": {
+    "message": "નવી યાદીનું નામ"
+  },
+  "rulelists_add": {
+    "message": "યાદી ઉમેરો"
+  },
+  "rulelists_toggle_hint": {
+    "message": "આ આખી યાદી માટે બ્લોકિંગ ચાલુ/બંધ કરો"
+  },
+  "rulelist_general": {
+    "message": "સામાન્ય"
+  },
+  "rulelists_all": {
+    "message": "બધી યાદીઓ"
+  },
+  "rulelist_header": {
+    "message": "યાદી"
+  },
+  "rulelists_disabled_desc": {
+    "message": "આ નિયમ થોભાવેલી યાદીમાં છે."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "સંપાદિત કરી શકાતું નથી: નિયમ યાદીનું બ્લોકિંગ થોભાવેલું છે"
+  },
+  "rulelists_name_invalid": {
+    "message": "મહત્તમ 40 અક્ષરોનું યાદી નામ દાખલ કરો."
+  },
+  "rulelists_name_exists": {
+    "message": "આ નામની યાદી પહેલેથી અસ્તિત્વમાં છે."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" કાઢી નાખશો? તેના નિયમો સામાન્યમાં ખસેડાશે.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -978,5 +978,50 @@
   },
   "telemetryerror": {
     "message": "تعذر تحديث مشاركة البيانات التقنية."
+  },
+  "rulelists_title": {
+    "message": "قوائم القواعد"
+  },
+  "rulelists_description": {
+    "message": "نظّم القواعد في قوائم وأوقف قائمة كاملة مؤقتًا دون تغيير القواعد الفردية."
+  },
+  "rulelists_name_placeholder": {
+    "message": "اسم قائمة جديد"
+  },
+  "rulelists_add": {
+    "message": "إضافة قائمة"
+  },
+  "rulelists_toggle_hint": {
+    "message": "تبديل الحظر لهذه القائمة بالكامل"
+  },
+  "rulelist_general": {
+    "message": "عام"
+  },
+  "rulelists_all": {
+    "message": "كل القوائم"
+  },
+  "rulelist_header": {
+    "message": "القائمة"
+  },
+  "rulelists_disabled_desc": {
+    "message": "تنتمي هذه القاعدة إلى قائمة متوقفة مؤقتًا."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "لا يمكن التعديل: حظر قائمة القواعد متوقف مؤقتًا"
+  },
+  "rulelists_name_invalid": {
+    "message": "أدخل اسم قائمة لا يتجاوز 40 حرفًا."
+  },
+  "rulelists_name_exists": {
+    "message": "توجد قائمة بهذا الاسم بالفعل."
+  },
+  "rulelists_delete_confirm": {
+    "message": "حذف \"$NAME$\"؟ سيتم نقل قواعدها إلى عام.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

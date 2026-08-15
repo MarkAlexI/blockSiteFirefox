@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Sdílení technických dat se nepodařilo aktualizovat."
+  },
+  "rulelists_title": {
+    "message": "Seznamy pravidel"
+  },
+  "rulelists_description": {
+    "message": "Seskupujte pravidla do seznamů a pozastavte celý seznam bez změny jednotlivých pravidel."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Název nového seznamu"
+  },
+  "rulelists_add": {
+    "message": "Přidat seznam"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Přepnout blokování celého seznamu"
+  },
+  "rulelist_general": {
+    "message": "Obecné"
+  },
+  "rulelists_all": {
+    "message": "Všechny seznamy"
+  },
+  "rulelist_header": {
+    "message": "Seznam"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Toto pravidlo patří do pozastaveného seznamu."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Nelze upravit: blokování seznamu pravidel je pozastaveno"
+  },
+  "rulelists_name_invalid": {
+    "message": "Zadejte název seznamu o délce nejvýše 40 znaků."
+  },
+  "rulelists_name_exists": {
+    "message": "Seznam s tímto názvem již existuje."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Smazat „$NAME$“? Jeho pravidla budou přesunuta do Obecné.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

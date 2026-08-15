@@ -975,5 +975,50 @@
   },
   "telemetryerror": {
     "message": "技術データ共有の設定を更新できませんでした。"
+  },
+  "rulelists_title": {
+    "message": "ルールリスト"
+  },
+  "rulelists_description": {
+    "message": "ルールをリストにまとめ、個別のルールを変更せずにリスト全体を一時停止できます。"
+  },
+  "rulelists_name_placeholder": {
+    "message": "新しいリスト名"
+  },
+  "rulelists_add": {
+    "message": "リストを追加"
+  },
+  "rulelists_toggle_hint": {
+    "message": "このリスト全体のブロックを切り替える"
+  },
+  "rulelist_general": {
+    "message": "一般"
+  },
+  "rulelists_all": {
+    "message": "すべてのリスト"
+  },
+  "rulelist_header": {
+    "message": "リスト"
+  },
+  "rulelists_disabled_desc": {
+    "message": "このルールは一時停止中のリストに属しています。"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "編集できません: ルールリストのブロックが一時停止中です"
+  },
+  "rulelists_name_invalid": {
+    "message": "40文字以内のリスト名を入力してください。"
+  },
+  "rulelists_name_exists": {
+    "message": "この名前のリストはすでに存在します。"
+  },
+  "rulelists_delete_confirm": {
+    "message": "「$NAME$」を削除しますか？ルールは一般に移動します。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

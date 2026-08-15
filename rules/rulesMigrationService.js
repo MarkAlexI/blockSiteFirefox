@@ -1,3 +1,5 @@
+import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
+
 /**
  * Migrates the stored rule schema without performing any storage operations.
  */
@@ -35,6 +37,11 @@ export function migrateRuleSchema(rules) {
       needsSave = true;
     }
 
+    if (!rule.listId) {
+      migratedRule.listId = GENERAL_RULE_LIST_ID;
+      needsSave = true;
+    }
+
     return migratedRule;
   });
 
@@ -51,6 +58,7 @@ export function migrateRuleSchema(rules) {
  */
 export function createRulesMigrationService({
   rulesManager,
+  ruleListsManager,
   localStorage,
   syncStorage,
   logger
@@ -133,13 +141,18 @@ export function createRulesMigrationService({
 
   async function migrateAll() {
     const migratedFromSync = await migrateToLocalForDevice();
-    const schemaMigration = await migrateStoredRules();
+    const [schemaMigration, listMigration] = await Promise.all([
+      migrateStoredRules(),
+      ruleListsManager?.ensureInitialized?.() || Promise.resolve({ migrated: false, lists: [] })
+    ]);
 
     return {
-      migrated: migratedFromSync || schemaMigration.migrated,
+      migrated: migratedFromSync || schemaMigration.migrated || listMigration.migrated,
       migratedFromSync,
       schemaMigration,
-      rules: schemaMigration.rules
+      listMigration,
+      rules: schemaMigration.rules,
+      ruleLists: listMigration.lists
     };
   }
 

@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.9.0] - 2026-08-15
+### Added
+- Added Pro Rule Lists for organizing blocking rules into named lists such as Work or Study.
+- Added per-rule list assignment, whole-list pause/resume controls, list filtering, and Rule List management in Options.
+- Added device-local Rule List import/export and automatic migration of existing rules to the built-in General list.
+- Added Rule List interface strings across all supported locales.
+
+### Improved
+- Integrated disabled Rule Lists with the existing Firefox DNR self-healing flow without changing the one-minute scheduling alarm.
+- Deleting a custom Rule List now safely moves its rules to General instead of deleting them.
+- Firefox popup rule rows now identify custom Rule Lists and reflect paused-list state.
+- Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while adding Rule Lists.
+- Added regression coverage for Rule List storage, migration, mutation intents, DNR activation, UI behavior, import/export contracts, and localization.
+
 ## [4.8.7] - 2026-08-13
 ### Fixed
 - Stopped transient license verification failures such as network errors, timeouts, rate limits, server errors, and invalid transient responses from being counted as extension reliability errors in opt-in telemetry.
@@ -30,12 +44,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [4.8.5] - 2026-08-13
 ### Fixed
 - Fixed the Firefox Options telemetry toggle failing to enable native `technicalAndInteraction` consent because an asynchronous permission lookup ran before `browser.permissions.request()`, causing Firefox to lose the required user-action context.
-- Removed the contradictory `required: ["none"]` data-collection declaration while keeping `technicalAndInteraction` optional, matching Firefox built-in consent semantics.
+- Kept Firefox's required `none` data-collection declaration together with optional `technicalAndInteraction`, which is required for the working AMO/Firefox consent configuration.
 
 ### Improved
 - Added regression coverage ensuring the native telemetry permission request starts immediately from the user action without a preceding asynchronous permissions query.
 
-## [4.8.4] - 2026-08-13
+## [4.8.4] - 2026-08-12
 ### Fixed
 - Made telemetry delivery idempotent by assigning a retry-stable random ID to each prepared delivery snapshot, preventing a lost server response from counting the same schema-v2 batch twice.
 - Preserved same-day telemetry recorded while a request is in flight by acknowledging only the prepared snapshot and assigning a fresh delivery ID to any remaining events.

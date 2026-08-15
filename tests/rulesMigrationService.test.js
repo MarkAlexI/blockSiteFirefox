@@ -46,6 +46,16 @@ function createHarness({ local = {}, sync = {}, localOptions = {} } = {}) {
   const syncStorage = createStorageArea(sync);
   const savedRules = [];
   const logs = [];
+  const ruleListsManager = {
+    async ensureInitialized() {
+      const hadLists = Array.isArray(localStorage.state.ruleLists);
+      const lists = hadLists ? clone(localStorage.state.ruleLists) : [
+        { id: 'general', name: 'General', disabled: false }
+      ];
+      if (!hadLists) localStorage.state.ruleLists = clone(lists);
+      return { migrated: !hadLists, lists };
+    }
+  };
 
   const rulesManager = {
     async getRules() {
@@ -59,6 +69,7 @@ function createHarness({ local = {}, sync = {}, localOptions = {} } = {}) {
 
   const service = createRulesMigrationService({
     rulesManager,
+    ruleListsManager,
     localStorage,
     syncStorage,
     logger: {
@@ -90,14 +101,16 @@ test('schema migration resets all IDs when one ID is invalid and adds defaults',
       blockURL: 'one.example',
       category: 'uncategorized',
       disabledByUser: false,
-      isWhitelist: false
+      isWhitelist: false,
+      listId: 'general'
     },
     {
       id: 2,
       blockURL: 'two.example',
       isWhitelist: true,
       category: 'whitelist',
-      disabledByUser: false
+      disabledByUser: false,
+      listId: 'general'
     }
   ]);
 });
@@ -109,7 +122,8 @@ test('current schema is returned without a storage rewrite', () => {
     redirectURL: '',
     category: 'social',
     disabledByUser: false,
-    isWhitelist: false
+    isWhitelist: false,
+    listId: 'general'
   }];
 
   const result = migrateRuleSchema(rules);
@@ -191,7 +205,9 @@ test('combined migration copies legacy rules and then upgrades their schema', as
     blockURL: 'legacy.example',
     category: 'uncategorized',
     disabledByUser: false,
-    isWhitelist: false
+    isWhitelist: false,
+    listId: 'general'
   }]);
+  assert.deepEqual(harness.localStorage.state.ruleLists, [{ id: 'general', name: 'General', disabled: false }]);
   assert.equal(harness.savedRules.length, 1);
 });

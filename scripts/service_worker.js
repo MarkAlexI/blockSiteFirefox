@@ -18,6 +18,7 @@ import { createDnrSynchronizer } from './dnrSynchronizer.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
+import { RuleListsManager } from '../rules/ruleListsManager.js';
 import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
 import { RULES_INTENT_TYPES, createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
 import { resolveRulePackEntries } from '../rules/rulePacks.js';
@@ -33,6 +34,7 @@ import { shouldRecordLicenseReliabilityError } from '../telemetry/telemetryLicen
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
+const ruleListsManager = new RuleListsManager(browser.storage.local);
 const diagnosticStore = createDiagnosticStore({
   localStorage: browser.storage.local,
   getSettings: async () => {
@@ -155,6 +157,7 @@ const createDnrRule = createDnrRuleFactory(
 const dnrSynchronizer = createDnrSynchronizer({
   getRules: () => rulesManager.getRules(),
   getSettings: () => SettingsManager.getSettings(),
+  getRuleLists: () => ruleListsManager.getLists(),
   getFocusSessionState,
   isRuleActiveNow,
   createDnrRule,
@@ -166,6 +169,7 @@ const dnrSynchronizer = createDnrSynchronizer({
 
 const rulesMigrationService = createRulesMigrationService({
   rulesManager,
+  ruleListsManager,
   localStorage: browser.storage.local,
   syncStorage: browser.storage.sync,
   logger
@@ -189,6 +193,7 @@ function notifyRulesChanged(rules, extra = {}) {
 
 const rulesMutationService = createRulesMutationService({
   rulesManager,
+  ruleListsManager,
   dnrSynchronizer,
   declarativeNetRequest: browser.declarativeNetRequest,
   getAccess: async () => ({
@@ -197,6 +202,7 @@ const rulesMutationService = createRulesMutationService({
   }),
   getSettings: () => SettingsManager.getSettings(),
   saveSettings: (settings) => browser.storage.sync.set({ settings }),
+  saveRulesAndLists: (rules, ruleLists) => browser.storage.local.set({ rules, ruleLists }),
   maxRulesLimit: MAX_RULES_LIMIT,
   notifyRulesChanged,
   resolveRulePackEntries,
@@ -530,7 +536,8 @@ async function initializeExtension(details) {
   if (migrationResult.migrated) {
     await dnrSynchronizer.requestSync();
     notifyRulesChanged(migrationResult.rules, {
-      migrated: true
+      migrated: true,
+      ruleLists: migrationResult.ruleLists
     });
   }
   await SettingsManager.getSettings();
@@ -640,9 +647,10 @@ async function getDiagnosticsAccess() {
 
 async function createDiagnosticReport() {
   const access = await getDiagnosticsAccess();
-  const [settings, rules, credentials, focusSession] = await Promise.all([
+  const [settings, rules, ruleLists, credentials, focusSession] = await Promise.all([
     SettingsManager.getSettings(),
     rulesManager.getRules(),
+    ruleListsManager.getLists(),
     ProManager.getCredentials(),
     getFocusSessionState()
   ]);
@@ -733,7 +741,9 @@ async function createDiagnosticReport() {
       blacklist: rules.filter(rule => !rule.isWhitelist).length,
       whitelist: rules.filter(rule => rule.isWhitelist).length,
       scheduled: rules.filter(rule => rule.schedule).length,
-      disabledByUser: rules.filter(rule => rule.disabledByUser).length
+      disabledByUser: rules.filter(rule => rule.disabledByUser).length,
+      lists: ruleLists.length,
+      disabledLists: ruleLists.filter(list => list.disabled).length
     },
     dnr: {
       ...dnrState,

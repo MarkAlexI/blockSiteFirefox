@@ -987,5 +987,50 @@
   },
   "telemetryerror": {
     "message": "ტექნიკური მონაცემების გაზიარების განახლება ვერ მოხერხდა."
+  },
+  "rulelists_title": {
+    "message": "წესების სიები"
+  },
+  "rulelists_description": {
+    "message": "დააჯგუფეთ წესები სიებში და შეაჩერეთ მთელი სია ცალკეული წესების შეცვლის გარეშე."
+  },
+  "rulelists_name_placeholder": {
+    "message": "ახალი სიის სახელი"
+  },
+  "rulelists_add": {
+    "message": "სიის დამატება"
+  },
+  "rulelists_toggle_hint": {
+    "message": "მთელი ამ სიის დაბლოკვის ჩართვა/გამორთვა"
+  },
+  "rulelist_general": {
+    "message": "ზოგადი"
+  },
+  "rulelists_all": {
+    "message": "ყველა სია"
+  },
+  "rulelist_header": {
+    "message": "სია"
+  },
+  "rulelists_disabled_desc": {
+    "message": "ეს წესი შეჩერებულ სიას ეკუთვნის."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "რედაქტირება შეუძლებელია: წესების სიის დაბლოკვა შეჩერებულია"
+  },
+  "rulelists_name_invalid": {
+    "message": "შეიყვანეთ სიის სახელი მაქსიმუმ 40 სიმბოლოთი."
+  },
+  "rulelists_name_exists": {
+    "message": "ამ სახელის სია უკვე არსებობს."
+  },
+  "rulelists_delete_confirm": {
+    "message": "წაიშალოს „$NAME$“? მისი წესები გადავა ზოგად სიაში.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

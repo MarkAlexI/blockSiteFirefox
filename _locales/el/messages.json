@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Δεν ήταν δυνατή η ενημέρωση της κοινοποίησης τεχνικών δεδομένων."
+  },
+  "rulelists_title": {
+    "message": "Λίστες κανόνων"
+  },
+  "rulelists_description": {
+    "message": "Ομαδοποιήστε κανόνες σε λίστες και θέστε σε παύση ολόκληρη λίστα χωρίς να αλλάξετε μεμονωμένους κανόνες."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Όνομα νέας λίστας"
+  },
+  "rulelists_add": {
+    "message": "Προσθήκη λίστας"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Εναλλαγή αποκλεισμού για ολόκληρη τη λίστα"
+  },
+  "rulelist_general": {
+    "message": "Γενικά"
+  },
+  "rulelists_all": {
+    "message": "Όλες οι λίστες"
+  },
+  "rulelist_header": {
+    "message": "Λίστα"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Αυτός ο κανόνας ανήκει σε λίστα σε παύση."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Δεν είναι δυνατή η επεξεργασία: ο αποκλεισμός της λίστας κανόνων είναι σε παύση"
+  },
+  "rulelists_name_invalid": {
+    "message": "Εισαγάγετε όνομα λίστας έως 40 χαρακτήρες."
+  },
+  "rulelists_name_exists": {
+    "message": "Υπάρχει ήδη λίστα με αυτό το όνομα."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Διαγραφή \"$NAME$\"; Οι κανόνες της θα μετακινηθούν στα Γενικά.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

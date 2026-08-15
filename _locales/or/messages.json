@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "ପ୍ରାଯୁକ୍ତିକ ତଥ୍ୟ ଅଂଶୀଦାର ସେଟିଂ ଅଦ୍ୟତନ ହୋଇପାରିଲା ନାହିଁ।"
+  },
+  "rulelists_title": {
+    "message": "ନିୟମ ତାଲିକା"
+  },
+  "rulelists_description": {
+    "message": "ନିୟମଗୁଡ଼ିକୁ ତାଲିକାରେ ଗୋଷ୍ଠୀଭୁକ୍ତ କରନ୍ତୁ ଏବଂ ପୃଥକ ନିୟମ ପରିବର୍ତ୍ତନ ନକରି ସମ୍ପୂର୍ଣ୍ଣ ତାଲିକାକୁ ବିରତ କରନ୍ତୁ।"
+  },
+  "rulelists_name_placeholder": {
+    "message": "ନୂତନ ତାଲିକା ନାମ"
+  },
+  "rulelists_add": {
+    "message": "ତାଲିକା ଯୋଡ଼ନ୍ତୁ"
+  },
+  "rulelists_toggle_hint": {
+    "message": "ଏହି ସମ୍ପୂର୍ଣ୍ଣ ତାଲିକା ପାଇଁ ବ୍ଲକିଂ ଟଗଲ୍ କରନ୍ତୁ"
+  },
+  "rulelist_general": {
+    "message": "ସାଧାରଣ"
+  },
+  "rulelists_all": {
+    "message": "ସମସ୍ତ ତାଲିକା"
+  },
+  "rulelist_header": {
+    "message": "ତାଲିକା"
+  },
+  "rulelists_disabled_desc": {
+    "message": "ଏହି ନିୟମଟି ବିରତ ତାଲିକାରେ ଅଛି।"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "ସମ୍ପାଦନ କରିହେବ ନାହିଁ: ନିୟମ ତାଲିକା ବ୍ଲକିଂ ବିରତ ଅଛି"
+  },
+  "rulelists_name_invalid": {
+    "message": "ସର୍ବାଧିକ 40 ଅକ୍ଷରର ତାଲିକା ନାମ ଦିଅନ୍ତୁ।"
+  },
+  "rulelists_name_exists": {
+    "message": "ଏହି ନାମର ତାଲିକା ପୂର୍ବରୁ ଅଛି।"
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" ବିଲୋପ କରିବେ? ଏହାର ନିୟମ ସାଧାରଣକୁ ଯିବ।",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

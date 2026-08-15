@@ -6,6 +6,8 @@ import { RulesClient, sendRuntimeMessage } from '../rules/rulesClient.js';
 import { RulesUI } from '../rules/rulesUI.js';
 import { CategoryManager } from '../rules/categoryManager.js';
 import { CategoryUIManager } from './categoryUIManager.js';
+import { RuleListsManager, GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
+import { RuleListsUI } from './ruleListsUI.js';
 import { PasswordUtils } from '../pro/password.js';
 import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 import Logger from '../utils/logger.js';
@@ -27,6 +29,7 @@ class OptionsPage {
     this.logger = logger;
     this.settingsManager = new SettingsManager();
     this.rulesManager = new RulesManager();
+    this.ruleListsManager = new RuleListsManager();
     this.rulesClient = new RulesClient();
     this.rulesUI = new RulesUI();
     
@@ -36,7 +39,12 @@ class OptionsPage {
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
     this.categoryFilter = document.getElementById('category-filter');
+    this.ruleListFilter = document.getElementById('rule-list-filter');
     this.categoriesContainer = document.getElementById('categories-container');
+    this.ruleListsContainer = document.getElementById('rule-lists-container');
+    this.ruleListNameInput = document.getElementById('rule-list-name-input');
+    this.addRuleListButton = document.getElementById('add-rule-list');
+    this.ruleLists = [];
     this.rulePacksUI = new RulePacksUI({
       dialog: document.getElementById('rule-packs-dialog'),
       openButton: document.getElementById('open-rule-packs'),
@@ -129,8 +137,9 @@ class OptionsPage {
     this.updateWhitelistButtonState();
     
     await ProManager.initializeProFeatures();
-    this.loadRules();
-    this.loadCategories();
+    await this.loadRuleLists();
+    await this.loadRules();
+    await this.loadCategories();
   }
   
   initializeUI() {
@@ -146,6 +155,7 @@ class OptionsPage {
     setContent('block-url-header', 'blockurl');
     setContent('redirect-url-header', 'redirecturlheader');
     setContent('category-header', 'category_header');
+    setContent('rule-list-header', 'rulelist_header');
     setContent('actions-header', 'actionsheader');
     
     if (this.categoryFilter) {
@@ -175,6 +185,13 @@ class OptionsPage {
     if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.addEventListener('click', () => this.showAddRuleForm(true));
     if (this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
     if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
+    if (this.ruleListFilter) this.ruleListFilter.addEventListener('change', () => this.loadRules());
+    if (this.addRuleListButton) this.addRuleListButton.addEventListener('click', () => this.handleRuleListCreate());
+    if (this.ruleListNameInput) {
+      this.ruleListNameInput.addEventListener('keydown', event => {
+        if (event.key === 'Enter') this.handleRuleListCreate();
+      });
+    }
     
     document.querySelectorAll('.collapsible-header').forEach(header => {
       header.addEventListener('click', () => header.parentElement.classList.toggle('expanded'));
@@ -214,6 +231,12 @@ class OptionsPage {
       this.rulesUI.showErrorMessage(t('rulelimitreached', MAX_RULES_LIMIT));
     } else if (error.code === 'pro_required') {
       this.rulesUI.showErrorMessage(t('prorequired'));
+    } else if (error.code === 'rule_list_name_invalid') {
+      this.rulesUI.showErrorMessage(t('rulelists_name_invalid'));
+    } else if (error.code === 'rule_list_name_exists') {
+      this.rulesUI.showErrorMessage(t('rulelists_name_exists'));
+    } else if (['rule_list_not_found', 'rule_list_locked'].includes(error.code)) {
+      this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     } else {
       this.rulesUI.showErrorMessage(t(fallbackKey));
     }
@@ -231,6 +254,9 @@ class OptionsPage {
         rules = await this.rulesManager.getRules();
       }
       
+      const ruleLists = await this.ruleListsManager.getLists();
+      this.ruleLists = ruleLists;
+
       let filteredRules = rules;
       let isFiltered = false;
       
@@ -245,11 +271,20 @@ class OptionsPage {
         filteredRules = filteredRules.filter(rule => rule.category === selectedCategory);
         isFiltered = true;
       }
+
+      const selectedList = this.ruleListFilter?.value || 'all';
+      if (selectedList !== 'all') {
+        filteredRules = filteredRules.filter(rule =>
+          !rule.isWhitelist && (rule.listId || GENERAL_RULE_LIST_ID) === selectedList
+        );
+        isFiltered = true;
+      }
       
       const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
       const settings = await SettingsManager.getSettings();
       const disabledCategories = settings.disabledCategories || [];
-      this.renderRules(filteredRules, canEdit, isFiltered, disabledCategories);
+      const disabledRuleListIds = ruleLists.filter(list => list.disabled).map(list => list.id);
+      this.renderRules(filteredRules, canEdit, isFiltered, disabledCategories, ruleLists, disabledRuleListIds);
       this.rulesUI.updateStatus(this.statusElement, filteredRules.length);
       
       if (this.settingsManager) {
@@ -262,12 +297,12 @@ class OptionsPage {
     }
   }
   
-  renderRules(rules, canEdit, isFiltered = false, disabledCategories = []) {
+  renderRules(rules, canEdit, isFiltered = false, disabledCategories = [], ruleLists = [], disabledRuleListIds = []) {
     this.rulesBody.innerHTML = '';
     const noRulesMessage = isFiltered ? t('norulesforcategory') : t('norules');
     
     if (rules.length === 0) {
-      const emptyRow = this.rulesUI.createEmptyRow(noRulesMessage, 5);
+      const emptyRow = this.rulesUI.createEmptyRow(noRulesMessage, 6);
       this.rulesBody.appendChild(emptyRow);
       return;
     }
@@ -275,7 +310,7 @@ class OptionsPage {
     const displayedRules = [...rules].reverse();
 
     displayedRules.forEach((rule, displayIndex) => {
-      const row = this.createRuleRow(rule, displayIndex, canEdit, disabledCategories);
+      const row = this.createRuleRow(rule, displayIndex, canEdit, disabledCategories, ruleLists, disabledRuleListIds);
 
       if (isVisibleRuleGroupEnd(displayIndex, displayedRules.length)) {
         row.classList.add('rule-group-end');
@@ -285,8 +320,10 @@ class OptionsPage {
     });
   }
   
-  createRuleRow(rule, index, canEdit, disabledCategories = []) {
-    const isMuted = disabledCategories.includes(rule.category);
+  createRuleRow(rule, index, canEdit, disabledCategories = [], ruleLists = [], disabledRuleListIds = []) {
+    const isCategoryMuted = disabledCategories.includes(rule.category);
+    const isListMuted = !rule.isWhitelist && disabledRuleListIds.includes(rule.listId || GENERAL_RULE_LIST_ID);
+    const isMuted = isCategoryMuted || isListMuted;
     const row = this.rulesUI.createRuleDisplayRow(
       rule,
       index,
@@ -302,10 +339,12 @@ class OptionsPage {
           }
         },
         canEdit,
-        disabledCategories
+        disabledCategories,
+        ruleLists,
+        disabledRuleListIds
     );
     if (isMuted) {
-      row.title = t('category_muted_no_edit');
+      row.title = isCategoryMuted ? t('category_muted_no_edit') : t('rulelists_muted_no_edit');
     }
     return row;
   }
@@ -345,19 +384,26 @@ class OptionsPage {
   async toggleEditMode(row, ruleId, rule) {
     const settings = await SettingsManager.getSettings();
     const disabledCategories = settings.disabledCategories || [];
+    const ruleLists = await this.ruleListsManager.getLists();
     const isWhitelist = rule.isWhitelist || false;
     
     if (!isWhitelist && disabledCategories.includes(rule.category)) {
-      this.rulesUI.showErrorMessage(t('category_muted_no_edit') || 'Cannot edit: Category blocking is paused');
+      this.rulesUI.showErrorMessage(t('category_muted_no_edit'));
+      return;
+    }
+    const currentList = ruleLists.find(list => list.id === (rule.listId || GENERAL_RULE_LIST_ID));
+    if (!isWhitelist && currentList?.disabled) {
+      this.rulesUI.showErrorMessage(t('rulelists_muted_no_edit'));
       return;
     }
     const editRow = this.rulesUI.createRuleEditRow(
       rule,
       ruleId,
-      (ruleId, blockValue, redirectValue, category, schedule) => this.saveEditedRule(ruleId, blockValue, redirectValue, category, schedule, rule.disabledByUser, isWhitelist),
+      (ruleId, blockValue, redirectValue, category, schedule, listId) => this.saveEditedRule(ruleId, blockValue, redirectValue, category, schedule, listId, rule.disabledByUser, isWhitelist),
       () => this.loadRules(),
-      this.isPro,
-      rule.disabledByUser
+      this.isPro || this.isLegacyUser,
+      rule.disabledByUser,
+      ruleLists
     );
 
     if (row.classList.contains('rule-group-end')) {
@@ -372,7 +418,7 @@ class OptionsPage {
     row.replaceWith(editRow);
   }
   
-  async saveEditedRule(ruleId, newBlock, newRedirect, newCategory, newSchedule, disabledByUser, isWhitelist = false) {
+  async saveEditedRule(ruleId, newBlock, newRedirect, newCategory, newSchedule, listId, disabledByUser, isWhitelist = false) {
     try {
       await this.rulesClient.updateRule({
         ruleId,
@@ -380,6 +426,7 @@ class OptionsPage {
         redirectURL: isWhitelist ? '' : newRedirect,
         schedule: newSchedule,
         category: isWhitelist ? 'whitelist' : newCategory,
+        listId: isWhitelist ? GENERAL_RULE_LIST_ID : (listId || GENERAL_RULE_LIST_ID),
         disabledByUser
       });
       
@@ -401,10 +448,11 @@ class OptionsPage {
       }
       
       const newRow = this.rulesUI.createAddRuleRow(
-        (blockValue, redirectValue, category, schedule, row) => this.saveNewRule(blockValue, redirectValue, category, schedule, row, isWhitelist),
+        (blockValue, redirectValue, category, schedule, listId, row) => this.saveNewRule(blockValue, redirectValue, category, schedule, listId, row, isWhitelist),
         (row) => row.remove(),
-        this.isPro,
-        isWhitelist
+        this.isPro || this.isLegacyUser,
+        isWhitelist,
+        this.ruleLists
       );
       
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
@@ -414,13 +462,14 @@ class OptionsPage {
     }
   }
   
-  async saveNewRule(newBlock, newRedirect, newCategory, newSchedule, row, isWhitelist = false) {
+  async saveNewRule(newBlock, newRedirect, newCategory, newSchedule, listId, row, isWhitelist = false) {
     try {
       await this.rulesClient.addRule({
         blockURL: newBlock,
         redirectURL: isWhitelist ? '' : newRedirect,
         schedule: newSchedule,
         category: isWhitelist ? 'whitelist' : newCategory,
+        listId: isWhitelist ? GENERAL_RULE_LIST_ID : (listId || GENERAL_RULE_LIST_ID),
         isWhitelist
       });
       
@@ -441,6 +490,73 @@ class OptionsPage {
     }
   }
   
+  async loadRuleLists() {
+    try {
+      const [lists, rules] = await Promise.all([
+        this.ruleListsManager.getLists(),
+        this.rulesManager.getRules()
+      ]);
+      this.ruleLists = lists;
+
+      if (this.ruleListsContainer) {
+        RuleListsUI.updateListGrid(this.ruleListsContainer, lists, rules, {
+          onToggle: listId => this.handleRuleListToggle(listId),
+          onRename: list => this.handleRuleListRename(list),
+          onDelete: list => this.handleRuleListDelete(list)
+        });
+      }
+
+      if (this.ruleListFilter) {
+        RuleListsUI.updateFilter(this.ruleListFilter, lists, this.ruleListFilter.value);
+      }
+    } catch (error) {
+      this.logger.error('Load rule lists error:', error);
+    }
+  }
+
+  async handleRuleListCreate() {
+    const name = this.ruleListNameInput?.value || '';
+    try {
+      const response = await this.rulesClient.createRuleList(name);
+      if (this.ruleListNameInput) this.ruleListNameInput.value = '';
+      this.ruleLists = response.ruleLists || this.ruleLists;
+    } catch (error) {
+      this.logger.error('Create rule list error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
+    }
+  }
+
+  async handleRuleListRename(list) {
+    const name = prompt(`${t('editbtn')}: ${t('rulelists_title')}`, list.name);
+    if (name === null) return;
+    try {
+      await this.rulesClient.renameRuleList(list.id, name);
+    } catch (error) {
+      this.logger.error('Rename rule list error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
+    }
+  }
+
+  async handleRuleListToggle(listId) {
+    try {
+      await this.rulesClient.toggleRuleList(listId);
+    } catch (error) {
+      this.logger.error('Toggle rule list error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
+      await this.loadRuleLists();
+    }
+  }
+
+  async handleRuleListDelete(list) {
+    if (!confirm(t('rulelists_delete_confirm', list.name))) return;
+    try {
+      await this.rulesClient.deleteRuleList(list.id);
+    } catch (error) {
+      this.logger.error('Delete rule list error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
+    }
+  }
+
   async loadCategories() {
     try {
       const rules = await this.rulesManager.getRules();
@@ -490,6 +606,7 @@ browser.runtime.onMessage.addListener((message) => {
       optionsPage.rulesUI.showAlert(t('rulesmigrated'));
     }
     optionsPage.loadRules(message.rules);
+    optionsPage.loadRuleLists();
     optionsPage.loadCategories();
     if (optionsPage.settingsManager) {
       optionsPage.settingsManager.loadRuleCount(message.rules);
@@ -501,6 +618,7 @@ browser.runtime.onMessage.addListener((message) => {
     ProManager.updateProFeaturesVisibility(message.isPro);
     optionsPage.isPro = message.isPro;
     optionsPage.updateWhitelistButtonState();
+    optionsPage.loadRuleLists();
     optionsPage.loadRules();
   }
 });

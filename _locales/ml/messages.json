@@ -987,5 +987,50 @@
   },
   "telemetryerror": {
     "message": "സാങ്കേതിക ഡാറ്റ പങ്കിടൽ അപ്ഡേറ്റ് ചെയ്യാനായില്ല."
+  },
+  "rulelists_title": {
+    "message": "നിയമ ലിസ്റ്റുകൾ"
+  },
+  "rulelists_description": {
+    "message": "നിയമങ്ങളെ ലിസ്റ്റുകളായി ഗ്രൂപ്പ് ചെയ്ത് ഓരോ നിയമവും മാറ്റാതെ മുഴുവൻ ലിസ്റ്റും താൽക്കാലികമായി നിർത്തുക."
+  },
+  "rulelists_name_placeholder": {
+    "message": "പുതിയ ലിസ്റ്റിന്റെ പേര്"
+  },
+  "rulelists_add": {
+    "message": "ലിസ്റ്റ് ചേർക്കുക"
+  },
+  "rulelists_toggle_hint": {
+    "message": "ഈ മുഴുവൻ ലിസ്റ്റിന്റെ ബ്ലോക്കിംഗ് മാറ്റുക"
+  },
+  "rulelist_general": {
+    "message": "പൊതുവായത്"
+  },
+  "rulelists_all": {
+    "message": "എല്ലാ ലിസ്റ്റുകളും"
+  },
+  "rulelist_header": {
+    "message": "ലിസ്റ്റ്"
+  },
+  "rulelists_disabled_desc": {
+    "message": "ഈ നിയമം താൽക്കാലികമായി നിർത്തിയ ലിസ്റ്റിലാണുള്ളത്."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "എഡിറ്റ് ചെയ്യാനാകില്ല: നിയമ ലിസ്റ്റ് ബ്ലോക്കിംഗ് നിർത്തിയിരിക്കുന്നു"
+  },
+  "rulelists_name_invalid": {
+    "message": "പരമാവധി 40 അക്ഷരമുള്ള ലിസ്റ്റ് പേര് നൽകുക."
+  },
+  "rulelists_name_exists": {
+    "message": "ഈ പേരിൽ ഒരു ലിസ്റ്റ് ഇതിനകം ഉണ്ട്."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" ഇല്ലാതാക്കണോ? അതിലെ നിയമങ്ങൾ പൊതുവായത് എന്നതിലേക്ക് മാറും.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

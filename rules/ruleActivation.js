@@ -29,7 +29,8 @@ export function isRuleActiveNow(
   rule,
   disabledCategories = [],
   focusSessionActive = false,
-  now = new Date()
+  now = new Date(),
+  disabledRuleListIds = []
 ) {
   if (rule.isWhitelist === true) return false;
 
@@ -39,6 +40,7 @@ export function isRuleActiveNow(
 
   if (rule.disabledByUser) return false;
   if (disabledCategories.includes(rule.category)) return false;
+  if (disabledRuleListIds.includes(rule.listId || 'general')) return false;
   if (!rule.schedule) return true;
 
   const normalizedSchedule = normalizeSchedule(rule.schedule);

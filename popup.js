@@ -15,6 +15,7 @@ import { MAX_RULES_LIMIT } from './utils/constants.js';
 import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 import { SettingsManager } from './options/settings.js';
+import { RuleListsManager, GENERAL_RULE_LIST_ID } from './rules/ruleListsManager.js';
 import { installPageErrorReporter } from './telemetry/pageErrorReporter.js';
 import { initFeedbackPrompt } from './feedback/feedbackPrompt.js';
 
@@ -26,6 +27,7 @@ class PopupPage {
   constructor() {
     this.logger = logger;
     this.rulesManager = new RulesManager();
+    this.ruleListsManager = new RuleListsManager();
     this.rulesClient = new RulesClient();
     this.rulesUI = new RulesUI();
     this.scheduleFormatter = new ScheduleFormatter();
@@ -53,6 +55,7 @@ class PopupPage {
     
     this.thisTabs = [];
     this.settings = {};
+    this.ruleLists = [];
     
     this.currentRuleCount = 0;
     this.isPro = false;
@@ -211,7 +214,11 @@ class PopupPage {
   
   async loadRules() {
     try {
-      const rules = await this.rulesManager.getRules();
+      const [rules, ruleLists] = await Promise.all([
+        this.rulesManager.getRules(),
+        this.ruleListsManager.getLists()
+      ]);
+      this.ruleLists = ruleLists;
       
       this.currentRuleCount = rules.length;
       
@@ -225,7 +232,8 @@ class PopupPage {
           rule.disabledByUser ?? false,
           rule.category,
           rule.schedule,
-          rule.isWhitelist ?? false
+          rule.isWhitelist ?? false,
+          rule.listId || GENERAL_RULE_LIST_ID
         );
       });
       
@@ -327,6 +335,7 @@ class PopupPage {
           redirectURL: '',
           schedule: null,
           category: 'social',
+          listId: GENERAL_RULE_LIST_ID,
           isWhitelist: false
         });
         customAlert('+ 1');
@@ -338,11 +347,14 @@ class PopupPage {
     }
   }
   
-  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false) {
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listId = GENERAL_RULE_LIST_ID) {
     const ruleDiv = document.createElement('div');
-    const isMuted = (this.settings.disabledCategories || []).includes(category);
+    const isCategoryMuted = (this.settings.disabledCategories || []).includes(category);
+    const currentList = this.ruleLists.find(list => list.id === listId);
+    const isListMuted = !isWhitelist && currentList?.disabled === true;
+    const isMuted = isCategoryMuted || isListMuted;
     
-    let className = isMuted ? 'rule category-muted' : 'rule';
+    let className = isMuted ? `rule ${isCategoryMuted ? 'category-muted' : 'list-muted'}` : 'rule';
     if (isWhitelist) {
       className += ' rule-whitelist';
     }
@@ -351,7 +363,7 @@ class PopupPage {
     ruleDiv.dataset.isWhitelist = isWhitelist;
     
     if (isMuted) {
-      ruleDiv.title = t('category_muted_no_edit');
+      ruleDiv.title = isCategoryMuted ? t('category_muted_no_edit') : t('rulelists_muted_no_edit');
     }
     
     const blockURL = document.createElement('input');
@@ -410,6 +422,14 @@ class PopupPage {
       } else {
         this.makeInputReadOnly(blockURL);
         this.makeInputReadOnly(redirectURL);
+
+        if (!isWhitelist && listId !== GENERAL_RULE_LIST_ID) {
+          const listTag = document.createElement('span');
+          listTag.className = 'rule-list-popup';
+          listTag.textContent = currentList?.name || t('rulelist_general');
+          listTag.title = t('rulelist_header');
+          ruleDiv.appendChild(listTag);
+        }
         
         if (isWhitelist) {
           const staticDash = document.createElement('span');
@@ -621,6 +641,7 @@ class PopupPage {
         redirectURL: isWhitelist ? '' : redirectURL.value,
         schedule: null,
         category: isWhitelist ? 'whitelist' : 'social',
+        listId: GENERAL_RULE_LIST_ID,
         isWhitelist
       });
       

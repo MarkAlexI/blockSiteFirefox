@@ -975,5 +975,50 @@
   },
   "telemetryerror": {
     "message": "기술 데이터 공유 설정을 업데이트할 수 없습니다."
+  },
+  "rulelists_title": {
+    "message": "규칙 목록"
+  },
+  "rulelists_description": {
+    "message": "규칙을 목록으로 그룹화하고 개별 규칙을 변경하지 않고 전체 목록을 일시 중지하세요."
+  },
+  "rulelists_name_placeholder": {
+    "message": "새 목록 이름"
+  },
+  "rulelists_add": {
+    "message": "목록 추가"
+  },
+  "rulelists_toggle_hint": {
+    "message": "이 목록 전체의 차단 전환"
+  },
+  "rulelist_general": {
+    "message": "일반"
+  },
+  "rulelists_all": {
+    "message": "모든 목록"
+  },
+  "rulelist_header": {
+    "message": "목록"
+  },
+  "rulelists_disabled_desc": {
+    "message": "이 규칙은 일시 중지된 목록에 속합니다."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "편집할 수 없음: 규칙 목록 차단이 일시 중지되었습니다"
+  },
+  "rulelists_name_invalid": {
+    "message": "40자 이하의 목록 이름을 입력하세요."
+  },
+  "rulelists_name_exists": {
+    "message": "같은 이름의 목록이 이미 있습니다."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\"을(를) 삭제할까요? 규칙은 일반으로 이동합니다.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

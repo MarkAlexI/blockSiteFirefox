@@ -41,8 +41,8 @@ export class RulesClient {
     return sendRulesIntent('rules:toggle', { ruleId });
   }
 
-  replaceAll(rules, settings = null) {
-    return sendRulesIntent('rules:replaceAll', { rules, settings });
+  replaceAll(rules, settings = null, ruleLists = null) {
+    return sendRulesIntent('rules:replaceAll', { rules, settings, ruleLists });
   }
 
   clearRules() {
@@ -51,5 +51,21 @@ export class RulesClient {
 
   toggleCategory(category) {
     return sendRulesIntent('rules:toggleCategory', { category });
+  }
+
+  createRuleList(name) {
+    return sendRulesIntent('rules:createList', { name });
+  }
+
+  renameRuleList(listId, name) {
+    return sendRulesIntent('rules:renameList', { listId, name });
+  }
+
+  toggleRuleList(listId) {
+    return sendRulesIntent('rules:toggleList', { listId });
+  }
+
+  deleteRuleList(listId) {
+    return sendRulesIntent('rules:deleteList', { listId });
   }
 }

@@ -6,7 +6,11 @@ export const RULES_INTENT_TYPES = new Set([
   'rules:toggle',
   'rules:replaceAll',
   'rules:clear',
-  'rules:toggleCategory'
+  'rules:toggleCategory',
+  'rules:createList',
+  'rules:renameList',
+  'rules:toggleList',
+  'rules:deleteList'
 ]);
 
 /**
@@ -33,6 +37,14 @@ export function createRulesIntentHandler(rulesMutationService) {
         return rulesMutationService.clearRules();
       case 'rules:toggleCategory':
         return rulesMutationService.toggleCategory(message.payload);
+      case 'rules:createList':
+        return rulesMutationService.createRuleList(message.payload);
+      case 'rules:renameList':
+        return rulesMutationService.renameRuleList(message.payload);
+      case 'rules:toggleList':
+        return rulesMutationService.toggleRuleList(message.payload);
+      case 'rules:deleteList':
+        return rulesMutationService.deleteRuleList(message.payload);
       default:
         throw new Error(`Unsupported rules intent: ${message.type}`);
     }

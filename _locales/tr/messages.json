@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Teknik veri paylaşımı güncellenemedi."
+  },
+  "rulelists_title": {
+    "message": "Kural Listeleri"
+  },
+  "rulelists_description": {
+    "message": "Kuralları listelerde gruplayın ve tek tek kuralları değiştirmeden tüm listeyi duraklatın."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Yeni liste adı"
+  },
+  "rulelists_add": {
+    "message": "Liste Ekle"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Bu listenin tamamı için engellemeyi aç veya kapat"
+  },
+  "rulelist_general": {
+    "message": "Genel"
+  },
+  "rulelists_all": {
+    "message": "Tüm Listeler"
+  },
+  "rulelist_header": {
+    "message": "Liste"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Bu kural duraklatılmış bir listeye ait."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Düzenlenemiyor: Kural Listesi engellemesi duraklatıldı"
+  },
+  "rulelists_name_invalid": {
+    "message": "En fazla 40 karakterlik bir liste adı girin."
+  },
+  "rulelists_name_exists": {
+    "message": "Bu ada sahip bir liste zaten var."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" silinsin mi? Kuralları Genel listesine taşınacak.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Tidak dapat mengemas kini perkongsian data teknikal."
+  },
+  "rulelists_title": {
+    "message": "Senarai Peraturan"
+  },
+  "rulelists_description": {
+    "message": "Kumpulkan peraturan dalam senarai dan jeda seluruh senarai tanpa mengubah peraturan individu."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Nama senarai baharu"
+  },
+  "rulelists_add": {
+    "message": "Tambah Senarai"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Togol sekatan untuk seluruh senarai ini"
+  },
+  "rulelist_general": {
+    "message": "Umum"
+  },
+  "rulelists_all": {
+    "message": "Semua Senarai"
+  },
+  "rulelist_header": {
+    "message": "Senarai"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Peraturan ini berada dalam senarai yang dijeda."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Tidak boleh mengedit: sekatan Senarai Peraturan dijeda"
+  },
+  "rulelists_name_invalid": {
+    "message": "Masukkan nama senarai sehingga 40 aksara."
+  },
+  "rulelists_name_exists": {
+    "message": "Senarai dengan nama ini sudah wujud."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Padam \"$NAME$\"? Peraturannya akan dipindahkan ke Umum.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

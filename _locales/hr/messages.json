@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Nije moguće ažurirati dijeljenje tehničkih podataka."
+  },
+  "rulelists_title": {
+    "message": "Popisi pravila"
+  },
+  "rulelists_description": {
+    "message": "Grupirajte pravila u popise i pauzirajte cijeli popis bez mijenjanja pojedinačnih pravila."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Naziv novog popisa"
+  },
+  "rulelists_add": {
+    "message": "Dodaj popis"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Uključi ili isključi blokiranje cijelog popisa"
+  },
+  "rulelist_general": {
+    "message": "Općenito"
+  },
+  "rulelists_all": {
+    "message": "Svi popisi"
+  },
+  "rulelist_header": {
+    "message": "Popis"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Ovo pravilo pripada pauziranom popisu."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Nije moguće uređivati: blokiranje popisa pravila je pauzirano"
+  },
+  "rulelists_name_invalid": {
+    "message": "Unesite naziv popisa do 40 znakova."
+  },
+  "rulelists_name_exists": {
+    "message": "Popis s ovim nazivom već postoji."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Izbrisati \"$NAME$\"? Njegova pravila premjestit će se u Općenito.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

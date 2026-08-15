@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Nie udało się zaktualizować udostępniania danych technicznych."
+  },
+  "rulelists_title": {
+    "message": "Listy reguł"
+  },
+  "rulelists_description": {
+    "message": "Grupuj reguły w listy i wstrzymuj całą listę bez zmieniania poszczególnych reguł."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Nazwa nowej listy"
+  },
+  "rulelists_add": {
+    "message": "Dodaj listę"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Przełącz blokowanie całej tej listy"
+  },
+  "rulelist_general": {
+    "message": "Ogólne"
+  },
+  "rulelists_all": {
+    "message": "Wszystkie listy"
+  },
+  "rulelist_header": {
+    "message": "Lista"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Ta reguła należy do wstrzymanej listy."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Nie można edytować: blokowanie listy reguł jest wstrzymane"
+  },
+  "rulelists_name_invalid": {
+    "message": "Wpisz nazwę listy o długości do 40 znaków."
+  },
+  "rulelists_name_exists": {
+    "message": "Lista o tej nazwie już istnieje."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Usunąć „$NAME$”? Jej reguły zostaną przeniesione do Ogólne.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

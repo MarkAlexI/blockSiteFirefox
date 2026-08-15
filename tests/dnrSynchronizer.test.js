@@ -49,7 +49,8 @@ function createHarness({
   currentDnrRules = [],
   createRule,
   getRules,
-  onSyncResult
+  onSyncResult,
+  ruleLists = []
 } = {}) {
   const updates = [];
   const closedUrlBatches = [];
@@ -58,7 +59,8 @@ function createHarness({
 
   const getStoredRules = getRules ??
     (async () => structuredClone(storedRules));
-  const isStoredRuleActive = rule => rule.active !== false;
+  const isStoredRuleActive = (rule, _disabledCategories, focusActive, _now, disabledRuleListIds = []) =>
+    focusActive || (rule.active !== false && !disabledRuleListIds.includes(rule.listId || 'general'));
   const buildDnrRule = createRule ??
     (async (id, blockURL, redirectURL) => makeDnrRule({
       id,
@@ -88,6 +90,7 @@ function createHarness({
   const synchronizer = createDnrSynchronizer({
     getRules: getStoredRules,
     getSettings: async () => ({ disabledCategories: [] }),
+    getRuleLists: async () => structuredClone(ruleLists),
     getFocusSessionState: async () => ({ focusActive: false }),
     isRuleActiveNow: isStoredRuleActive,
     createDnrRule: buildDnrRule,
@@ -306,3 +309,28 @@ test('DNR synchronization reports its final structured result', async () => {
   });
 });
 
+
+test('disabled rule lists are removed from DNR and no matching tabs are closed', async () => {
+  const current = makeDnrRule({ id: 1, urlFilter: '||work.example' });
+  const storedRule = {
+    ...makeStoredRule({ id: 1, blockURL: 'work.example' }),
+    listId: 'list-1'
+  };
+  const harness = createHarness({
+    storedRules: [storedRule],
+    currentDnrRules: [current],
+    ruleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Work', disabled: true }
+    ]
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.changed, true);
+  assert.deepEqual(harness.updates[0], {
+    removeRuleIds: [1],
+    addRules: []
+  });
+  assert.deepEqual(harness.closedUrlBatches, []);
+});

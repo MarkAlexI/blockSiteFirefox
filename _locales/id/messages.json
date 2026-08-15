@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Tidak dapat memperbarui berbagi data teknis."
+  },
+  "rulelists_title": {
+    "message": "Daftar Aturan"
+  },
+  "rulelists_description": {
+    "message": "Kelompokkan aturan ke dalam daftar dan jeda seluruh daftar tanpa mengubah aturan individual."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Nama daftar baru"
+  },
+  "rulelists_add": {
+    "message": "Tambah Daftar"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Aktifkan atau nonaktifkan pemblokiran untuk seluruh daftar ini"
+  },
+  "rulelist_general": {
+    "message": "Umum"
+  },
+  "rulelists_all": {
+    "message": "Semua Daftar"
+  },
+  "rulelist_header": {
+    "message": "Daftar"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Aturan ini berada dalam daftar yang dijeda."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Tidak dapat mengedit: pemblokiran Daftar Aturan sedang dijeda"
+  },
+  "rulelists_name_invalid": {
+    "message": "Masukkan nama daftar hingga 40 karakter."
+  },
+  "rulelists_name_exists": {
+    "message": "Daftar dengan nama ini sudah ada."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Hapus \"$NAME$\"? Aturannya akan dipindahkan ke Umum.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

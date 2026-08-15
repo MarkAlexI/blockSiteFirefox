@@ -387,7 +387,7 @@ export class SettingsManager {
   async exportRules() {
     try {
       const resultSync = await browser.storage.sync.get(['settings']);
-      const resultLocal = await browser.storage.local.get(['rules']);
+      const resultLocal = await browser.storage.local.get(['rules', 'ruleLists']);
       const settingsToExport = {
         ...(resultSync.settings || this.defaultSettings)
       };
@@ -396,6 +396,7 @@ export class SettingsManager {
       
       const exportData = {
         rules: resultLocal.rules || [],
+        ruleLists: resultLocal.ruleLists || [{ id: 'general', name: 'General', disabled: false }],
         settings: settingsToExport,
         exportDate: new Date().toISOString(),
         version: browser.runtime.getManifest().version
@@ -452,7 +453,8 @@ export class SettingsManager {
       
       const response = await this.rulesClient.replaceAll(
         importData.rules,
-        importData.settings || null
+        importData.settings || null,
+        importData.ruleLists || null
       );
       
       if (response.settings) {

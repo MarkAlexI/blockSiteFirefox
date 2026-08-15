@@ -975,5 +975,50 @@
   },
   "telemetryerror": {
     "message": "Das Teilen technischer Daten konnte nicht aktualisiert werden."
+  },
+  "rulelists_title": {
+    "message": "Regellisten"
+  },
+  "rulelists_description": {
+    "message": "Gruppiere Regeln in Listen und pausiere eine ganze Liste, ohne einzelne Regeln zu ändern."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Name der neuen Liste"
+  },
+  "rulelists_add": {
+    "message": "Liste hinzufügen"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Blockierung für diese gesamte Liste umschalten"
+  },
+  "rulelist_general": {
+    "message": "Allgemein"
+  },
+  "rulelists_all": {
+    "message": "Alle Listen"
+  },
+  "rulelist_header": {
+    "message": "Liste"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Diese Regel gehört zu einer pausierten Liste."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Bearbeiten nicht möglich: Die Blockierung der Regelliste ist pausiert"
+  },
+  "rulelists_name_invalid": {
+    "message": "Gib einen Listennamen mit höchstens 40 Zeichen ein."
+  },
+  "rulelists_name_exists": {
+    "message": "Eine Liste mit diesem Namen existiert bereits."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" löschen? Die Regeln werden nach Allgemein verschoben.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

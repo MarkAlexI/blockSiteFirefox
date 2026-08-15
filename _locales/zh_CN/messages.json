@@ -975,5 +975,50 @@
   },
   "telemetryerror": {
     "message": "无法更新技术数据共享设置。"
+  },
+  "rulelists_title": {
+    "message": "规则列表"
+  },
+  "rulelists_description": {
+    "message": "将规则分组到列表中，并可暂停整个列表而无需更改单个规则。"
+  },
+  "rulelists_name_placeholder": {
+    "message": "新列表名称"
+  },
+  "rulelists_add": {
+    "message": "添加列表"
+  },
+  "rulelists_toggle_hint": {
+    "message": "切换此整个列表的屏蔽状态"
+  },
+  "rulelist_general": {
+    "message": "常规"
+  },
+  "rulelists_all": {
+    "message": "所有列表"
+  },
+  "rulelist_header": {
+    "message": "列表"
+  },
+  "rulelists_disabled_desc": {
+    "message": "此规则属于已暂停的列表。"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "无法编辑：规则列表屏蔽已暂停"
+  },
+  "rulelists_name_invalid": {
+    "message": "请输入不超过 40 个字符的列表名称。"
+  },
+  "rulelists_name_exists": {
+    "message": "已存在同名列表。"
+  },
+  "rulelists_delete_confirm": {
+    "message": "删除“$NAME$”？其中的规则将移至常规。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

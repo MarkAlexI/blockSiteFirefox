@@ -975,5 +975,50 @@
   },
   "telemetryerror": {
     "message": "Het delen van technische gegevens kon niet worden bijgewerkt."
+  },
+  "rulelists_title": {
+    "message": "Regellijsten"
+  },
+  "rulelists_description": {
+    "message": "Groepeer regels in lijsten en pauzeer een hele lijst zonder afzonderlijke regels te wijzigen."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Naam van nieuwe lijst"
+  },
+  "rulelists_add": {
+    "message": "Lijst toevoegen"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Blokkering voor deze hele lijst in- of uitschakelen"
+  },
+  "rulelist_general": {
+    "message": "Algemeen"
+  },
+  "rulelists_all": {
+    "message": "Alle lijsten"
+  },
+  "rulelist_header": {
+    "message": "Lijst"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Deze regel hoort bij een gepauzeerde lijst."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Kan niet bewerken: blokkering van de regellijst is gepauzeerd"
+  },
+  "rulelists_name_invalid": {
+    "message": "Voer een lijstnaam van maximaal 40 tekens in."
+  },
+  "rulelists_name_exists": {
+    "message": "Er bestaat al een lijst met deze naam."
+  },
+  "rulelists_delete_confirm": {
+    "message": "\"$NAME$\" verwijderen? De regels worden naar Algemeen verplaatst.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -975,5 +975,50 @@
   },
   "telemetryerror": {
     "message": "Não foi possível atualizar o compartilhamento de dados técnicos."
+  },
+  "rulelists_title": {
+    "message": "Listas de regras"
+  },
+  "rulelists_description": {
+    "message": "Agrupe regras em listas e pause uma lista inteira sem alterar regras individuais."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Nome da nova lista"
+  },
+  "rulelists_add": {
+    "message": "Adicionar lista"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Ativar ou desativar o bloqueio desta lista inteira"
+  },
+  "rulelist_general": {
+    "message": "Geral"
+  },
+  "rulelists_all": {
+    "message": "Todas as listas"
+  },
+  "rulelist_header": {
+    "message": "Lista"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Esta regra pertence a uma lista pausada."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Não é possível editar: o bloqueio da lista de regras está pausado"
+  },
+  "rulelists_name_invalid": {
+    "message": "Digite um nome de lista com até 40 caracteres."
+  },
+  "rulelists_name_exists": {
+    "message": "Já existe uma lista com este nome."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Excluir \"$NAME$\"? As regras serão movidas para Geral.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

@@ -97,3 +97,23 @@ test('malformed stored schedule periods fail closed without breaking activation'
 
   assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030), false);
 });
+
+test('a rule in a disabled rule list stays inactive outside Focus Session', () => {
+  const rule = {
+    blockURL: 'work.example',
+    category: 'work',
+    listId: 'list-1',
+    disabledByUser: false,
+    isWhitelist: false,
+    schedule: null
+  };
+
+  assert.equal(
+    isRuleActiveNow(rule, [], false, new Date(2026, 7, 15, 12, 0), ['list-1']),
+    false
+  );
+  assert.equal(
+    isRuleActiveNow(rule, [], true, new Date(2026, 7, 15, 12, 0), ['list-1']),
+    true
+  );
+});

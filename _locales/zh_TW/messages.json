@@ -975,5 +975,50 @@
   },
   "telemetryerror": {
     "message": "無法更新技術資料分享設定。"
+  },
+  "rulelists_title": {
+    "message": "規則清單"
+  },
+  "rulelists_description": {
+    "message": "將規則分組到清單中，並可暫停整個清單而不必變更個別規則。"
+  },
+  "rulelists_name_placeholder": {
+    "message": "新清單名稱"
+  },
+  "rulelists_add": {
+    "message": "新增清單"
+  },
+  "rulelists_toggle_hint": {
+    "message": "切換整個清單的封鎖狀態"
+  },
+  "rulelist_general": {
+    "message": "一般"
+  },
+  "rulelists_all": {
+    "message": "所有清單"
+  },
+  "rulelist_header": {
+    "message": "清單"
+  },
+  "rulelists_disabled_desc": {
+    "message": "此規則屬於已暫停的清單。"
+  },
+  "rulelists_muted_no_edit": {
+    "message": "無法編輯：規則清單封鎖已暫停"
+  },
+  "rulelists_name_invalid": {
+    "message": "請輸入不超過 40 個字元的清單名稱。"
+  },
+  "rulelists_name_exists": {
+    "message": "已存在同名清單。"
+  },
+  "rulelists_delete_confirm": {
+    "message": "刪除「$NAME$」？其中的規則將移至一般。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

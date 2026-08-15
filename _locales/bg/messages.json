@@ -984,5 +984,50 @@
   },
   "telemetryerror": {
     "message": "Неуспешно обновяване на споделянето на технически данни."
+  },
+  "rulelists_title": {
+    "message": "Списъци с правила"
+  },
+  "rulelists_description": {
+    "message": "Групирайте правилата в списъци и поставяйте цял списък на пауза, без да променяте отделните правила."
+  },
+  "rulelists_name_placeholder": {
+    "message": "Име на нов списък"
+  },
+  "rulelists_add": {
+    "message": "Добавяне на списък"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Превключване на блокирането за целия списък"
+  },
+  "rulelist_general": {
+    "message": "Общи"
+  },
+  "rulelists_all": {
+    "message": "Всички списъци"
+  },
+  "rulelist_header": {
+    "message": "Списък"
+  },
+  "rulelists_disabled_desc": {
+    "message": "Това правило принадлежи към списък на пауза."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Не може да се редактира: блокирането на списъка е поставено на пауза"
+  },
+  "rulelists_name_invalid": {
+    "message": "Въведете име на списък до 40 знака."
+  },
+  "rulelists_name_exists": {
+    "message": "Вече съществува списък с това име."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Да се изтрие ли „$NAME$“? Правилата му ще бъдат преместени в Общи.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }

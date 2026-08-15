@@ -981,5 +981,50 @@
   },
   "telemetryerror": {
     "message": "Could not update technical data sharing."
+  },
+  "rulelists_title": {
+    "message": "Rule Lists"
+  },
+  "rulelists_description": {
+    "message": "Group rules into lists and pause an entire list without changing individual rules."
+  },
+  "rulelists_name_placeholder": {
+    "message": "New list name"
+  },
+  "rulelists_add": {
+    "message": "Add List"
+  },
+  "rulelists_toggle_hint": {
+    "message": "Toggle blocking for this entire list"
+  },
+  "rulelist_general": {
+    "message": "General"
+  },
+  "rulelists_all": {
+    "message": "All Lists"
+  },
+  "rulelist_header": {
+    "message": "List"
+  },
+  "rulelists_disabled_desc": {
+    "message": "This rule belongs to a paused list."
+  },
+  "rulelists_muted_no_edit": {
+    "message": "Cannot edit: Rule List blocking is paused"
+  },
+  "rulelists_name_invalid": {
+    "message": "Enter a list name up to 40 characters."
+  },
+  "rulelists_name_exists": {
+    "message": "A list with this name already exists."
+  },
+  "rulelists_delete_confirm": {
+    "message": "Delete \"$NAME$\"? Its rules will move to General.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
   }
 }
