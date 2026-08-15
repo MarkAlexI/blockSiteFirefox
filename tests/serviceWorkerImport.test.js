@@ -69,6 +69,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
   const permissionsOnRemoved = createEvent();
   const permissionsOnAdded = createEvent();
   let hostAccessGranted = true;
+  let activeTabForQuery = null;
   const createdTabs = [];
 
   const localStorage = createStorageArea({
@@ -156,7 +157,12 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       onAlarm: alarmsOnAlarm
     },
     tabs: {
-      query: async () => [],
+      query: async queryInfo => {
+        if (queryInfo?.active === true && queryInfo?.lastFocusedWindow === true && activeTabForQuery) {
+          return [structuredClone(activeTabForQuery)];
+        }
+        return [];
+      },
       create: async options => { createdTabs.push(options); return options; },
       remove: async () => {},
       onUpdated: tabsOnUpdated,
@@ -164,7 +170,10 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       onActivated: tabsOnActivated
     },
     windows: {
-      getLastFocused: async () => ({ focused: false, tabs: [] }),
+      WINDOW_ID_NONE: -1,
+      get: async windowId => ({ id: windowId, focused: true }),
+      getLastFocused: async () => ({ id: 1, focused: true }),
+      getAll: async () => [{ id: 1, focused: true }],
       onFocusChanged: windowsOnFocusChanged
     },
     contextMenus: {
@@ -322,6 +331,45 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
     assert.equal(disabledConsent.success, true);
     assert.deepEqual(localStorage.data.telemetryBuckets, {});
+
+    const sampleNow = new Date();
+    const localDate = `${sampleNow.getFullYear()}-${String(sampleNow.getMonth() + 1).padStart(2, '0')}-${String(sampleNow.getDate()).padStart(2, '0')}`;
+    localStorage.data.rules = [{
+      id: 7,
+      blockURL: 'reddit.com',
+      redirectURL: '',
+      category: 'social',
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      schedule: null,
+      dailyLimit: { minutes: 1 },
+      disabledByUser: false,
+      isWhitelist: false
+    }];
+    localStorage.data.dailyRuleUsage = {
+      version: 1,
+      date: localDate,
+      usageSeconds: {},
+      lastSample: { timestamp: sampleNow.getTime() - 60_000, ruleId: 7 }
+    };
+    activeTabForQuery = {
+      id: 70,
+      windowId: 1,
+      active: true,
+      url: 'https://www.reddit.com/r/webdev/'
+    };
+
+    await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });
+    assert.ok(localStorage.data.dailyRuleUsage.usageSeconds['7'] >= 59);
+    const dailyDiagnostics = await sendWorkerMessage(messageListener, {
+      type: 'diagnostics:getReport'
+    });
+    assert.equal(dailyDiagnostics.report.dailyLimits.configuredRules, 1);
+    assert.equal(dailyDiagnostics.report.dailyLimits.usageEntries, 1);
+    assert.equal(dailyDiagnostics.report.dailyLimits.tracker.resolution, 'matched');
+    assert.equal(dailyDiagnostics.report.dailyLimits.tracker.activeRuleId, 7);
+    assert.ok(dailyDiagnostics.report.dailyLimits.tracker.addedSeconds >= 59);
+    activeTabForQuery = null;
 
     hostAccessGranted = false;
     await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });

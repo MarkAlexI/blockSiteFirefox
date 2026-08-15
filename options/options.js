@@ -513,7 +513,11 @@ class OptionsPage {
   
   async addRulePack(packId, entryIds, schedule = null) {
     try {
-      return await this.rulesClient.addMany(packId, entryIds, schedule);
+      const targetListId = resolveRuleListContext(
+        this.ruleLists,
+        this.ruleListFilter?.value || 'all'
+      );
+      return await this.rulesClient.addMany(packId, entryIds, schedule, targetListId);
     } catch (error) {
       this.logger.error('Add rule pack error:', error);
       this.handleRulesMutationError(error, 'rulepacks_error');

@@ -259,9 +259,18 @@ export function createRulesMutationService({
 
   async function addMany(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) {
+      const hasProAccess = await getProAccess();
+      if (!hasProAccess) {
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
+
+      const lists = await getRuleLists();
+      const targetListId = validateRuleListSelection(
+        payload.listId || GENERAL_RULE_LIST_ID,
+        lists,
+        hasProAccess,
+        false
+      );
 
       if (typeof resolveRulePackEntries !== 'function') {
         throw new RulesMutationError('rule_pack_unavailable', 'Rule packs are unavailable');
@@ -358,7 +367,7 @@ export function createRulesMutationService({
           dailyLimit: null,
           category: selection.pack.category,
           disabledByUser: false,
-          listId: GENERAL_RULE_LIST_ID,
+          listId: targetListId,
           isWhitelist: false
         });
         addedEntries.push({
@@ -375,6 +384,7 @@ export function createRulesMutationService({
         duplicateEntries,
         conflicts,
         packId: selection.pack.id,
+        listId: targetListId,
         scheduleApplied: sharedSchedule !== null
       };
 

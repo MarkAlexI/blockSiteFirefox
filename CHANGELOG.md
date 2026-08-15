@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added regression coverage for blocking-mode validation, usage accounting, URL matching, migration, DNR activation, mutation security, localization, and Firefox runtime messaging.
 
 ### Fixed
+- Fixed Rule Pack imports ignoring the selected Rule List and always assigning added rules to General.
+- Fixed Daily Limit foreground sampling so active-tab lifecycle events can provide the known tab directly and minute samples use the last-focused active tab with explicit window-focus verification.
+- Added local Daily Limit sampling diagnostics to distinguish matched rules, unfocused browser windows, missing matches, and resolution errors without recording visited URLs.
 - Fixed Daily Limits failing to accumulate usage when active-tab sampling depended on populated window data or when background alarms were delayed beyond the normal sampling window.
 - Fixed adding a rule while a Rule List filter is selected incorrectly assigning the new rule to General instead of the selected list.
 - Fixed newly created Rule Lists not becoming the active list context in Options.

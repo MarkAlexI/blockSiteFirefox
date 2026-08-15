@@ -25,8 +25,8 @@ export class RulesClient {
     return sendRulesIntent('rules:add', payload);
   }
 
-  addMany(packId, entryIds, schedule = null) {
-    return sendRulesIntent('rules:addMany', { packId, entryIds, schedule });
+  addMany(packId, entryIds, schedule = null, listId = 'general') {
+    return sendRulesIntent('rules:addMany', { packId, entryIds, schedule, listId });
   }
 
   updateRule(payload) {

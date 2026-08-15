@@ -17,6 +17,7 @@ import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer } from './dnrSynchronizer.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
+import { BLOCKING_MODE_DAILY_LIMIT, getRuleBlockingMode } from '../rules/blockingMode.js';
 import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
 import { RuleListsManager } from '../rules/ruleListsManager.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
@@ -500,7 +501,7 @@ async function handleProStatusUpdate(isPro, subscriptionData = {}) {
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.url) {
     await enforceFocusWhitelist(tabId, changeInfo.url);
-    if (tab.active) await dailyLimitTracker.sample('tab_url_changed');
+    if (tab.active) await dailyLimitTracker.sample('tab_url_changed', new Date(), tab);
   }
   
   if (changeInfo.status === 'complete' && tab.url) {
@@ -508,17 +509,21 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   }
 });
 
-browser.tabs.onActivated.addListener(() => {
-  void dailyLimitTracker.sample('tab_activated');
+browser.tabs.onActivated.addListener((activeInfo) => {
+  void browser.tabs.get(activeInfo.tabId)
+    .then(tab => dailyLimitTracker.sample('tab_activated', new Date(), tab))
+    .catch(error => logger.info('Daily limit tab activation sample failed:', error));
 });
 
-browser.windows.onFocusChanged.addListener(() => {
+browser.windows.onFocusChanged.addListener((windowId) => {
+  dailyLimitTracker.noteWindowFocus(windowId);
   void dailyLimitTracker.sample('window_focus_changed');
 });
 
 browser.tabs.onCreated.addListener(async (tab) => {
   if (tab.id && tab.url) {
     await enforceFocusWhitelist(tab.id, tab.url);
+    if (tab.active) await dailyLimitTracker.sample('tab_created', new Date(), tab);
   }
   
   if (tab.url && tab.url !== 'about:blank' && tab.url !== 'chrome://newtab/') {
@@ -677,12 +682,13 @@ async function getDiagnosticsAccess() {
 
 async function createDiagnosticReport() {
   const access = await getDiagnosticsAccess();
-  const [settings, rules, ruleLists, credentials, focusSession] = await Promise.all([
+  const [settings, rules, ruleLists, credentials, focusSession, dailyUsage] = await Promise.all([
     SettingsManager.getSettings(),
     rulesManager.getRules(),
     ruleListsManager.getLists(),
     ProManager.getCredentials(),
-    getFocusSessionState()
+    getFocusSessionState(),
+    dailyLimitManager.getUsageSeconds()
   ]);
 
   let dnrState;
@@ -788,6 +794,13 @@ async function createDiagnosticReport() {
       mode: focusSession.focusMode || 'blacklist',
       hardcore: focusSession.isHardcore === true,
       remainingMinutes: Math.ceil(remainingMs / 60000)
+    },
+    dailyLimits: {
+      configuredRules: rules.filter(rule =>
+        !rule.isWhitelist && getRuleBlockingMode(rule) === BLOCKING_MODE_DAILY_LIMIT
+      ).length,
+      usageEntries: Object.keys(dailyUsage || {}).length,
+      tracker: dailyLimitTracker.getDebugState()
     },
     license: {
       isPro: credentials.isPro === true,

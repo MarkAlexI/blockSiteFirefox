@@ -29,6 +29,20 @@ test('diagnostic report sanitizes nested private data', () => {
     dnr: { currentCount: 2, expectedCount: 2, inSync: true },
     permissions: { hostAccess: true },
     focusSession: { active: false, mode: 'blacklist', hardcore: false, remainingMinutes: 0 },
+    dailyLimits: {
+      configuredRules: 1,
+      usageEntries: 1,
+      tracker: {
+        lastSampleAt: '2026-08-06T19:59:00.000Z',
+        lastReason: 'minute_alarm',
+        resolution: 'matched',
+        activeRuleId: 2,
+        focusSource: 'windows_get',
+        addedSeconds: 60,
+        currentUsageSeconds: 120,
+        errorName: null
+      }
+    },
     license: { licenseKey: 'BD-PRIVATE-123456', lastCheck: null },
     telemetry: { enabled: false, pendingDays: 0, pendingCounterTotal: 0, pendingErrorFingerprints: 0, delivery: {} },
     recentEvents: [{
@@ -55,6 +69,20 @@ test('formatted diagnostic report contains counts and structured events without 
     dnr: { currentCount: 2, expectedCount: 2, inSync: true, lastResult: null },
     permissions: { hostAccess: true },
     focusSession: { active: true, mode: 'blacklist', hardcore: false, remainingMinutes: 12 },
+    dailyLimits: {
+      configuredRules: 1,
+      usageEntries: 1,
+      tracker: {
+        lastSampleAt: '2026-08-06T19:58:00.000Z',
+        lastReason: 'minute_alarm',
+        resolution: 'matched',
+        activeRuleId: 3,
+        focusSource: 'windows_get',
+        addedSeconds: 60,
+        currentUsageSeconds: 120,
+        errorName: null
+      }
+    },
     license: { lastCheck: null },
     telemetry: {
       enabled: true,
@@ -74,6 +102,9 @@ test('formatted diagnostic report contains counts and structured events without 
 
   assert.match(text, /Stored rules: 4/);
   assert.match(text, /DNR integrity: in sync/);
+  assert.match(text, /\[Daily Limits\]/);
+  assert.match(text, /Last resolution: matched/);
+  assert.match(text, /Current usage seconds: 120/);
   assert.match(text, /verification_failed/);
   assert.match(text, /Technical analytics/);
   assert.match(text, /Pending counters: 3/);

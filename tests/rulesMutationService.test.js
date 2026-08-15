@@ -417,6 +417,40 @@ test('a selected rule pack is added with one storage write and one DNR sync', as
   assert.equal(harness.getSyncCalls(), 1);
 });
 
+test('rule packs are assigned to the selected custom Rule List', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Study', disabled: false }
+    ]
+  });
+
+  const result = await harness.service.addMany({
+    packId: 'shopping',
+    entryIds: ['amazon', 'etsy'],
+    listId: 'list-1'
+  });
+
+  assert.equal(result.listId, 'list-1');
+  assert.deepEqual(harness.getRules().map(rule => rule.listId), ['list-1', 'list-1']);
+});
+
+test('rule packs reject unknown Rule List targets before changing storage', async () => {
+  const harness = createHarness();
+
+  await assert.rejects(
+    harness.service.addMany({
+      packId: 'shopping',
+      entryIds: ['amazon'],
+      listId: 'missing-list'
+    }),
+    error => error.code === 'rule_list_not_found'
+  );
+
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(harness.savedStates.length, 0);
+});
+
 test('rule pack import skips exact duplicates and reports whitelist conflicts', async () => {
   const harness = createHarness({
     initialRules: [
