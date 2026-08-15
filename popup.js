@@ -16,6 +16,13 @@ import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 import { SettingsManager } from './options/settings.js';
 import { RuleListsManager, GENERAL_RULE_LIST_ID } from './rules/ruleListsManager.js';
+import { DailyLimitManager } from './rules/dailyLimitManager.js';
+import {
+  BLOCKING_MODE_SCHEDULE,
+  BLOCKING_MODE_DAILY_LIMIT,
+  getRuleBlockingMode,
+  normalizeDailyLimit
+} from './rules/blockingMode.js';
 import { installPageErrorReporter } from './telemetry/pageErrorReporter.js';
 import { initFeedbackPrompt } from './feedback/feedbackPrompt.js';
 
@@ -28,6 +35,7 @@ class PopupPage {
     this.logger = logger;
     this.rulesManager = new RulesManager();
     this.ruleListsManager = new RuleListsManager();
+    this.dailyLimitManager = new DailyLimitManager();
     this.rulesClient = new RulesClient();
     this.rulesUI = new RulesUI();
     this.scheduleFormatter = new ScheduleFormatter();
@@ -214,9 +222,10 @@ class PopupPage {
   
   async loadRules() {
     try {
-      const [rules, ruleLists] = await Promise.all([
+      const [rules, ruleLists, dailyUsageSeconds] = await Promise.all([
         this.rulesManager.getRules(),
-        this.ruleListsManager.getLists()
+        this.ruleListsManager.getLists(),
+        this.dailyLimitManager.getUsageSeconds()
       ]);
       this.ruleLists = ruleLists;
       
@@ -233,7 +242,10 @@ class PopupPage {
           rule.category,
           rule.schedule,
           rule.isWhitelist ?? false,
-          rule.listId || GENERAL_RULE_LIST_ID
+          rule.listId || GENERAL_RULE_LIST_ID,
+          rule.blockingMode,
+          rule.dailyLimit,
+          dailyUsageSeconds[String(rule.id)] || 0
         );
       });
       
@@ -334,6 +346,8 @@ class PopupPage {
           blockURL: url,
           redirectURL: '',
           schedule: null,
+          blockingMode: 'always',
+          dailyLimit: null,
           category: 'social',
           listId: GENERAL_RULE_LIST_ID,
           isWhitelist: false
@@ -347,7 +361,7 @@ class PopupPage {
     }
   }
   
-  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listId = GENERAL_RULE_LIST_ID) {
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listId = GENERAL_RULE_LIST_ID, blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0) {
     const ruleDiv = document.createElement('div');
     const isCategoryMuted = (this.settings.disabledCategories || []).includes(category);
     const currentList = this.ruleLists.find(list => list.id === listId);
@@ -437,12 +451,27 @@ class PopupPage {
           staticDash.textContent = t('status_allow') || 'Allow';
           staticDash.title = t('status_allow');
           ruleDiv.appendChild(staticDash);
-        } else if (schedule) {
+        } else if (getRuleBlockingMode({ blockingMode, schedule, dailyLimit }) === BLOCKING_MODE_SCHEDULE && schedule) {
           const scheduleElement = document.createElement('span');
           scheduleElement.className = 'rule-schedule-popup';
           scheduleElement.textContent = this.scheduleFormatter.formatSchedule(schedule);
           scheduleElement.title = t('rule_scheduled') || 'Scheduled rule';
           ruleDiv.appendChild(scheduleElement);
+        } else if (getRuleBlockingMode({ blockingMode, schedule, dailyLimit }) === BLOCKING_MODE_DAILY_LIMIT) {
+          const limit = normalizeDailyLimit(dailyLimit);
+          const limitElement = document.createElement('span');
+          limitElement.className = 'rule-daily-limit-popup';
+          if (limit) {
+            const usedMinutes = Math.min(limit.minutes, Math.floor(Math.max(0, Number(dailyUsageSeconds) || 0) / 60));
+            limitElement.textContent = t('daily_limit_usage', [usedMinutes, limit.minutes]) || `${usedMinutes} / ${limit.minutes} min`;
+            if (dailyUsageSeconds >= limit.minutes * 60) {
+              limitElement.classList.add('limit-reached');
+              limitElement.title = t('daily_limit_reached') || 'Daily limit reached';
+            }
+          } else {
+            limitElement.textContent = t('daily_limit_invalid') || 'Invalid daily limit';
+          }
+          ruleDiv.appendChild(limitElement);
         } else {
           const toggleElement = document.createElement('span');
           toggleElement.className = 'rule-toggle-popup';
@@ -640,6 +669,8 @@ class PopupPage {
         blockURL: blockURL.value,
         redirectURL: isWhitelist ? '' : redirectURL.value,
         schedule: null,
+        blockingMode: 'always',
+        dailyLimit: null,
         category: isWhitelist ? 'whitelist' : 'social',
         listId: GENERAL_RULE_LIST_ID,
         isWhitelist

@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v4.9.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.0.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -90,16 +90,19 @@ Users can block any website by adding it to a list in the extension's popup. Whe
 ### 2. Device-local Rules and Rule Lists
 Blocking rules are stored locally on each browser installation so the extension does not need an account or a cloud rule database. Pro and legacy users can organize blocking rules into named Rule Lists such as Work or Study, pause or resume a whole list, and filter rules by list. Every blocking rule belongs to exactly one list. Existing rules automatically belong to the built-in General list.
 
-### 3. Minimalist User Interface
+### 3. Blocking Modes and Daily Limits
+Each blocking rule has one clear blocking mode: Always, Schedule, or Daily limit. Schedule and Daily limit cannot be enabled at the same time. Pro and legacy users can set a Daily limit to allow a matching site for a defined number of active, focused minutes per local calendar day; once the budget is exhausted, the existing DNR engine blocks the rule. Daily usage stays on the device and is not included in rule exports or telemetry.
+
+### 4. Minimalist User Interface
 The extension's interface is designed for simplicity. The popup window provides an intuitive experience where users can quickly view, add, or delete rules for specific websites. There's no clutter—just straightforward functionality.
 
-### 4. Internationalization (i18n)
-The extension supports multiple languages through the `chrome.i18n` API. Currently, six languages are available: English, German, French, Hindi, Italian, and Ukrainian. The `_locales` folder contains subfolders for each supported language, with `messages.json` files that provide translations for the extension's text elements. The browser automatically detects the user’s language settings and displays the appropriate translation. The `i18n.js` file simplifies the process of populating the popup with the correct text in each language.
+### 5. Internationalization (i18n)
+The extension supports multiple languages through the `chrome.i18n` API. The extension currently ships 57 locale directories with translated interface strings. The `_locales` folder contains subfolders for each supported language, with `messages.json` files that provide translations for the extension's text elements. The browser automatically detects the user’s language settings and displays the appropriate translation. The `i18n.js` file simplifies the process of populating the popup with the correct text in each language.
 
-### 5. Dynamic Rule Management
+### 6. Dynamic Rule Management
 The background script, in combination with the `declarativeNetRequest` API, ensures that rules are enforced dynamically. When a user adds a site to be blocked, the extension immediately registers the rule without needing to restart the browser or reload the page.
 
-### 6. Context Menu Design Rationale
+### 7. Context Menu Design Rationale
 The context menu is intentionally minimalistic and silent by design.
 It provides a single action — blocking the current site or a selected link — without any confirmations, notifications, or visible feedback.
 This behavior is deliberate: the extension acts as an infrastructure tool rather than an interactive assistant. A user-initiated click is treated as a final decision, and the effect (blocking and closing matching tabs) is applied immediately.
@@ -130,17 +133,17 @@ This permission allows the extension to block or redirect network requests witho
 ### 2. Storage
 The `storage` permission is required for storing user-defined rules, Rule Lists, settings, statistics, and other extension state. Blocking rules and Rule Lists are device-local; selected settings use browser sync storage where supported.
 
-### 3. ActiveTab
-The `activeTab` permission allows the extension to interact with the currently open tab in the browser when the user clicks on the extension’s icon. This is essential for applying rules on-demand and making immediate changes based on user input.
-
 ---
 
 ## Future Improvements
 
 While the current version of the extension is fully functional, several ideas for enhancements are under consideration:
 
-- **Custom Time Limits** (implemented):  
-   Implementing time-based blocking, where users can set specific time windows during which access to certain websites is restricted.
+- **Schedules** (implemented):  
+   Rules can block during selected days and time periods.
+
+- **Daily Limits** (implemented):  
+   Pro rules can allow a matching site for a daily active-use budget and block it after the budget is exhausted.
 
 - **Category-based Blocking** (implemented):  
    Grouping websites into categories (e.g., social media, news) to allow bulk blocking or redirection by category.

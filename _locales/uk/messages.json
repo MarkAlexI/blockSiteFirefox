@@ -1029,5 +1029,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Блокування"
+  },
+  "blocking_mode_always": {
+    "message": "Завжди активний"
+  },
+  "blocking_mode_schedule": {
+    "message": "Розклад"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Щоденний ліміт"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Хвилин на день"
+  },
+  "daily_limit_hint": {
+    "message": "Дозволяти сайт, доки не буде використано щоденний ліміт часу."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Щоденний ліміт вичерпано"
+  },
+  "daily_limit_invalid": {
+    "message": "Введіть щоденний ліміт від 1 до 1440 хвилин"
+  },
+  "schedule_required": {
+    "message": "Створіть розклад для режиму «Розклад»"
+  },
+  "blocking_mode_conflict": {
+    "message": "Розклад і щоденний ліміт не можна використовувати одночасно"
+  },
+  "blocking_mode_invalid": {
+    "message": "Виберіть коректний режим блокування"
   }
 }

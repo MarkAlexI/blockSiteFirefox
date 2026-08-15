@@ -1029,5 +1029,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Блокировка"
+  },
+  "blocking_mode_always": {
+    "message": "Всегда активно"
+  },
+  "blocking_mode_schedule": {
+    "message": "Расписание"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Дневной лимит"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Минут в день"
+  },
+  "daily_limit_hint": {
+    "message": "Разрешать сайт, пока не исчерпан дневной лимит времени."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Дневной лимит исчерпан"
+  },
+  "daily_limit_invalid": {
+    "message": "Введите дневной лимит от 1 до 1440 минут"
+  },
+  "schedule_required": {
+    "message": "Создайте расписание для режима «Расписание»"
+  },
+  "blocking_mode_conflict": {
+    "message": "Расписание и дневной лимит нельзя использовать одновременно"
+  },
+  "blocking_mode_invalid": {
+    "message": "Выберите допустимый режим блокировки"
   }
 }

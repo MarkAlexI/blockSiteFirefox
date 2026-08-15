@@ -1023,5 +1023,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "الحظر"
+  },
+  "blocking_mode_always": {
+    "message": "نشط دائمًا"
+  },
+  "blocking_mode_schedule": {
+    "message": "الجدول الزمني"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "الحد اليومي"
+  },
+  "daily_limit_minutes_label": {
+    "message": "دقائق يوميًا"
+  },
+  "daily_limit_hint": {
+    "message": "اسمح بالموقع حتى يتم استهلاك الحد الزمني اليومي."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "تم بلوغ الحد اليومي"
+  },
+  "daily_limit_invalid": {
+    "message": "أدخل حدًا يوميًا بين 1 و1440 دقيقة"
+  },
+  "schedule_required": {
+    "message": "أنشئ جدولًا زمنيًا لوضع الجدول"
+  },
+  "blocking_mode_conflict": {
+    "message": "لا يمكن استخدام الجدول والحد اليومي معًا"
+  },
+  "blocking_mode_invalid": {
+    "message": "اختر وضع حظر صالحًا"
   }
 }

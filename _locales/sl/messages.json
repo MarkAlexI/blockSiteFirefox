@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokiranje"
+  },
+  "blocking_mode_always": {
+    "message": "Vedno aktiven"
+  },
+  "blocking_mode_schedule": {
+    "message": "Razpored"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Dnevna omejitev"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minute na dan"
+  },
+  "daily_limit_hint": {
+    "message": "Dovoli spletno mesto, dokler dnevna časovna omejitev ni porabljena."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Dnevna omejitev dosežena"
+  },
+  "daily_limit_invalid": {
+    "message": "Vnesite dnevno omejitev med 1 in 1440 minutami"
+  },
+  "schedule_required": {
+    "message": "Ustvarite urnik za način Urnik"
+  },
+  "blocking_mode_conflict": {
+    "message": "Urnik in Dnevna omejitev se ne moreta uporabljati hkrati"
+  },
+  "blocking_mode_invalid": {
+    "message": "Izberite veljaven način blokiranja"
   }
 }

@@ -1020,5 +1020,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "屏蔽"
+  },
+  "blocking_mode_always": {
+    "message": "始终启用"
+  },
+  "blocking_mode_schedule": {
+    "message": "日程"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "每日限额"
+  },
+  "daily_limit_minutes_label": {
+    "message": "每天分钟数"
+  },
+  "daily_limit_hint": {
+    "message": "允许访问网站，直到当天的时间限额用完。"
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "已达到每日限额"
+  },
+  "daily_limit_invalid": {
+    "message": "请输入 1 到 1440 分钟之间的每日限额"
+  },
+  "schedule_required": {
+    "message": "请为“计划”模式创建计划"
+  },
+  "blocking_mode_conflict": {
+    "message": "“计划”和“每日限额”不能同时使用"
+  },
+  "blocking_mode_invalid": {
+    "message": "请选择有效的屏蔽模式"
   }
 }

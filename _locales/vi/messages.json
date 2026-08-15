@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Chặn"
+  },
+  "blocking_mode_always": {
+    "message": "Luôn hoạt động"
+  },
+  "blocking_mode_schedule": {
+    "message": "Lịch trình"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Giới hạn hằng ngày"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Phút mỗi ngày"
+  },
+  "daily_limit_hint": {
+    "message": "Cho phép trang web cho đến khi dùng hết giới hạn thời gian hằng ngày."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Đã đạt giới hạn hằng ngày"
+  },
+  "daily_limit_invalid": {
+    "message": "Nhập giới hạn hằng ngày từ 1 đến 1440 phút"
+  },
+  "schedule_required": {
+    "message": "Tạo lịch cho chế độ Lịch"
+  },
+  "blocking_mode_conflict": {
+    "message": "Không thể dùng Lịch và Giới hạn hằng ngày cùng lúc"
+  },
+  "blocking_mode_invalid": {
+    "message": "Chọn chế độ chặn hợp lệ"
   }
 }

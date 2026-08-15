@@ -1032,5 +1032,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "დაბლოკვა"
+  },
+  "blocking_mode_always": {
+    "message": "ყოველთვის აქტიური"
+  },
+  "blocking_mode_schedule": {
+    "message": "განრიგი"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "დღიური ლიმიტი"
+  },
+  "daily_limit_minutes_label": {
+    "message": "წუთი დღეში"
+  },
+  "daily_limit_hint": {
+    "message": "დაუშვით საიტი, სანამ დღიური დროის ლიმიტი არ ამოიწურება."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "დღიური ლიმიტი ამოიწურა"
+  },
+  "daily_limit_invalid": {
+    "message": "შეიყვანეთ დღიური ლიმიტი 1-დან 1440 წუთამდე"
+  },
+  "schedule_required": {
+    "message": "შექმენით განრიგი განრიგის რეჟიმისთვის"
+  },
+  "blocking_mode_conflict": {
+    "message": "განრიგი და დღიური ლიმიტი ერთად ვერ გამოიყენება"
+  },
+  "blocking_mode_invalid": {
+    "message": "აირჩიეთ სწორი დაბლოკვის რეჟიმი"
   }
 }

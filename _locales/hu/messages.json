@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokkolás"
+  },
+  "blocking_mode_always": {
+    "message": "Mindig aktív"
+  },
+  "blocking_mode_schedule": {
+    "message": "Ütemezés"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Napi limit"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Perc naponta"
+  },
+  "daily_limit_hint": {
+    "message": "Engedélyezze a webhelyet, amíg a napi időkeret el nem fogy."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "A napi limit elfogyott"
+  },
+  "daily_limit_invalid": {
+    "message": "Adjon meg 1 és 1440 perc közötti napi limitet"
+  },
+  "schedule_required": {
+    "message": "Hozzon létre ütemezést az Ütemezés módhoz"
+  },
+  "blocking_mode_conflict": {
+    "message": "Az Ütemezés és a Napi limit nem használható együtt"
+  },
+  "blocking_mode_invalid": {
+    "message": "Válasszon érvényes blokkolási módot"
   }
 }

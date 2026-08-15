@@ -2,6 +2,11 @@ import { isValidURL } from '../scripts/isValidURL.js';
 import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
 import { isBlockedURL } from '../scripts/isBlockedURL.js';
 import { validateSchedule } from '../schedules/scheduleValidator.js';
+import {
+  BLOCKING_MODE_ALWAYS,
+  BLOCKING_MODE_SCHEDULE,
+  validateBlockingConfig
+} from './blockingMode.js';
 
 /**
  * Provides current rule storage and domain validation helpers.
@@ -24,8 +29,19 @@ export class RulesManager {
     });
   }
 
-  validateRule(blockURL, redirectURL, schedule, category, isWhitelist = false) {
+  validateRule(
+    blockURL,
+    redirectURL,
+    schedule,
+    category,
+    isWhitelist = false,
+    blockingMode = null,
+    dailyLimit = null
+  ) {
     const errors = [];
+    const effectiveBlockingMode = isWhitelist ?
+      BLOCKING_MODE_ALWAYS :
+      (blockingMode || (schedule ? BLOCKING_MODE_SCHEDULE : BLOCKING_MODE_ALWAYS));
 
     if (!blockURL || blockURL.trim() === '') {
       errors.push('blockurl_empty');
@@ -43,9 +59,19 @@ export class RulesManager {
       errors.push('redirect_invalid');
     }
 
-    if (!isWhitelist && schedule) {
-      const scheduleValidation = validateSchedule(schedule);
-      errors.push(...scheduleValidation.errors);
+    if (!isWhitelist) {
+      const blockingValidation = validateBlockingConfig({
+        blockingMode: effectiveBlockingMode,
+        schedule,
+        dailyLimit,
+        isWhitelist
+      });
+      errors.push(...blockingValidation.errors);
+
+      if (effectiveBlockingMode === BLOCKING_MODE_SCHEDULE && schedule) {
+        const scheduleValidation = validateSchedule(schedule);
+        errors.push(...scheduleValidation.errors);
+      }
     }
 
     if (!isWhitelist && !category) {

@@ -1023,5 +1023,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "ब्लॉकिंग"
+  },
+  "blocking_mode_always": {
+    "message": "नेहमी सक्रिय"
+  },
+  "blocking_mode_schedule": {
+    "message": "अनुसूची"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "दैनिक मर्यादा"
+  },
+  "daily_limit_minutes_label": {
+    "message": "दररोज मिनिटे"
+  },
+  "daily_limit_hint": {
+    "message": "दैनिक वेळ मर्यादा संपेपर्यंत साइट वापरू द्या."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "दैनिक मर्यादा गाठली"
+  },
+  "daily_limit_invalid": {
+    "message": "1 ते 1440 मिनिटांदरम्यान दैनिक मर्यादा प्रविष्ट करा"
+  },
+  "schedule_required": {
+    "message": "शेड्यूल मोडसाठी शेड्यूल तयार करा"
+  },
+  "blocking_mode_conflict": {
+    "message": "शेड्यूल आणि दैनिक मर्यादा एकाच वेळी वापरता येत नाहीत"
+  },
+  "blocking_mode_invalid": {
+    "message": "वैध ब्लॉकिंग मोड निवडा"
   }
 }

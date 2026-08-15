@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Pag-block"
+  },
+  "blocking_mode_always": {
+    "message": "Laging aktibo"
+  },
+  "blocking_mode_schedule": {
+    "message": "Iskedyul"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Pang-araw-araw na limit"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuto bawat araw"
+  },
+  "daily_limit_hint": {
+    "message": "Payagan ang site hanggang maubos ang pang-araw-araw na limit sa oras."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Naabot ang pang-araw-araw na limit"
+  },
+  "daily_limit_invalid": {
+    "message": "Maglagay ng pang-araw-araw na limit mula 1 hanggang 1440 minuto"
+  },
+  "schedule_required": {
+    "message": "Gumawa ng iskedyul para sa Schedule mode"
+  },
+  "blocking_mode_conflict": {
+    "message": "Hindi maaaring gamitin nang sabay ang Schedule at Pang-araw-araw na limit"
+  },
+  "blocking_mode_invalid": {
+    "message": "Pumili ng wastong blocking mode"
   }
 }

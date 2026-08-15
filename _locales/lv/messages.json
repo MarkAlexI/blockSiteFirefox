@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Bloķēšana"
+  },
+  "blocking_mode_always": {
+    "message": "Vienmēr aktīvs"
+  },
+  "blocking_mode_schedule": {
+    "message": "Grafiks"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Dienas limits"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minūtes dienā"
+  },
+  "daily_limit_hint": {
+    "message": "Atļaujiet vietni, līdz tiek izlietots dienas laika limits."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Dienas limits sasniegts"
+  },
+  "daily_limit_invalid": {
+    "message": "Ievadiet dienas limitu no 1 līdz 1440 minūtēm"
+  },
+  "schedule_required": {
+    "message": "Izveidojiet grafiku Grafika režīmam"
+  },
+  "blocking_mode_conflict": {
+    "message": "Grafiku un Dienas limitu nevar izmantot vienlaikus"
+  },
+  "blocking_mode_invalid": {
+    "message": "Izvēlieties derīgu bloķēšanas režīmu"
   }
 }

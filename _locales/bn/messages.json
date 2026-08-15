@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "ব্লকিং"
+  },
+  "blocking_mode_always": {
+    "message": "সর্বদা সক্রিয়"
+  },
+  "blocking_mode_schedule": {
+    "message": "সময়সূচি"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "দৈনিক সীমা"
+  },
+  "daily_limit_minutes_label": {
+    "message": "প্রতিদিন মিনিট"
+  },
+  "daily_limit_hint": {
+    "message": "দৈনিক সময়সীমা শেষ না হওয়া পর্যন্ত সাইটটি ব্যবহার করতে দিন।"
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "দৈনিক সীমা পূর্ণ হয়েছে"
+  },
+  "daily_limit_invalid": {
+    "message": "১ থেকে ১৪৪০ মিনিটের মধ্যে দৈনিক সীমা দিন"
+  },
+  "schedule_required": {
+    "message": "সময়সূচি মোডের জন্য একটি সময়সূচি তৈরি করুন"
+  },
+  "blocking_mode_conflict": {
+    "message": "সময়সূচি এবং দৈনিক সীমা একসাথে ব্যবহার করা যাবে না"
+  },
+  "blocking_mode_invalid": {
+    "message": "একটি বৈধ ব্লকিং মোড বেছে নিন"
   }
 }

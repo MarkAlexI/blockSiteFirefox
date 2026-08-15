@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "חסימה"
+  },
+  "blocking_mode_always": {
+    "message": "פעיל תמיד"
+  },
+  "blocking_mode_schedule": {
+    "message": "לוח זמנים"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "מגבלה יומית"
+  },
+  "daily_limit_minutes_label": {
+    "message": "דקות ביום"
+  },
+  "daily_limit_hint": {
+    "message": "אפשר את האתר עד שמגבלת הזמן היומית נוצלה."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "המגבלה היומית הושגה"
+  },
+  "daily_limit_invalid": {
+    "message": "הזן מגבלה יומית בין 1 ל-1440 דקות"
+  },
+  "schedule_required": {
+    "message": "צור לוח זמנים עבור מצב לוח זמנים"
+  },
+  "blocking_mode_conflict": {
+    "message": "לא ניתן להשתמש בלוח זמנים ובמגבלה יומית יחד"
+  },
+  "blocking_mode_invalid": {
+    "message": "בחר מצב חסימה תקין"
   }
 }

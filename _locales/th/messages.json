@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "การบล็อก"
+  },
+  "blocking_mode_always": {
+    "message": "ใช้งานตลอดเวลา"
+  },
+  "blocking_mode_schedule": {
+    "message": "ตารางเวลา"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "ขีดจำกัดรายวัน"
+  },
+  "daily_limit_minutes_label": {
+    "message": "นาทีต่อวัน"
+  },
+  "daily_limit_hint": {
+    "message": "อนุญาตเว็บไซต์จนกว่าจะใช้เวลารายวันครบตามขีดจำกัด"
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "ถึงขีดจำกัดรายวันแล้ว"
+  },
+  "daily_limit_invalid": {
+    "message": "ป้อนขีดจำกัดรายวันระหว่าง 1 ถึง 1440 นาที"
+  },
+  "schedule_required": {
+    "message": "สร้างกำหนดเวลาสำหรับโหมดกำหนดเวลา"
+  },
+  "blocking_mode_conflict": {
+    "message": "ไม่สามารถใช้กำหนดเวลาและขีดจำกัดรายวันพร้อมกันได้"
+  },
+  "blocking_mode_invalid": {
+    "message": "เลือกโหมดการบล็อกที่ถูกต้อง"
   }
 }

@@ -102,7 +102,10 @@ test('schema migration resets all IDs when one ID is invalid and adds defaults',
       category: 'uncategorized',
       disabledByUser: false,
       isWhitelist: false,
-      listId: 'general'
+      listId: 'general',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
     },
     {
       id: 2,
@@ -110,7 +113,10 @@ test('schema migration resets all IDs when one ID is invalid and adds defaults',
       isWhitelist: true,
       category: 'whitelist',
       disabledByUser: false,
-      listId: 'general'
+      listId: 'general',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
     }
   ]);
 });
@@ -123,7 +129,10 @@ test('current schema is returned without a storage rewrite', () => {
     category: 'social',
     disabledByUser: false,
     isWhitelist: false,
-    listId: 'general'
+    listId: 'general',
+    blockingMode: 'always',
+    schedule: null,
+    dailyLimit: null
   }];
 
   const result = migrateRuleSchema(rules);
@@ -206,7 +215,10 @@ test('combined migration copies legacy rules and then upgrades their schema', as
     category: 'uncategorized',
     disabledByUser: false,
     isWhitelist: false,
-    listId: 'general'
+    listId: 'general',
+    blockingMode: 'always',
+    schedule: null,
+    dailyLimit: null
   }]);
   assert.deepEqual(harness.localStorage.state.ruleLists, [{ id: 'general', name: 'General', disabled: false }]);
   assert.equal(harness.savedRules.length, 1);

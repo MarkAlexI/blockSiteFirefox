@@ -1050,5 +1050,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Bloqueo"
+  },
+  "blocking_mode_always": {
+    "message": "Siempre activo"
+  },
+  "blocking_mode_schedule": {
+    "message": "Horario"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Límite diario"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minutos por día"
+  },
+  "daily_limit_hint": {
+    "message": "Permite el sitio hasta agotar el límite de tiempo diario."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Límite diario alcanzado"
+  },
+  "daily_limit_invalid": {
+    "message": "Ingresa un límite diario de entre 1 y 1440 minutos"
+  },
+  "schedule_required": {
+    "message": "Crea un horario para el modo Horario"
+  },
+  "blocking_mode_conflict": {
+    "message": "Horario y Límite diario no se pueden usar al mismo tiempo"
+  },
+  "blocking_mode_invalid": {
+    "message": "Selecciona un modo de bloqueo válido"
   }
 }

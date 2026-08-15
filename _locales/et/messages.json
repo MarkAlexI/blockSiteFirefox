@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokeerimine"
+  },
+  "blocking_mode_always": {
+    "message": "Alati aktiivne"
+  },
+  "blocking_mode_schedule": {
+    "message": "Ajakava"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Päevalimiit"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minutit päevas"
+  },
+  "daily_limit_hint": {
+    "message": "Luba sait kuni päevase ajalimiidi täitumiseni."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Päevalimiit on täis"
+  },
+  "daily_limit_invalid": {
+    "message": "Sisesta päevalimiit vahemikus 1 kuni 1440 minutit"
+  },
+  "schedule_required": {
+    "message": "Loo ajakava režiimi Ajakava jaoks"
+  },
+  "blocking_mode_conflict": {
+    "message": "Ajakava ja Päevalimiiti ei saa korraga kasutada"
+  },
+  "blocking_mode_invalid": {
+    "message": "Vali sobiv blokeerimisrežiim"
   }
 }

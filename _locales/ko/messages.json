@@ -1020,5 +1020,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "차단"
+  },
+  "blocking_mode_always": {
+    "message": "항상 활성"
+  },
+  "blocking_mode_schedule": {
+    "message": "일정"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "일일 제한"
+  },
+  "daily_limit_minutes_label": {
+    "message": "하루 사용 시간(분)"
+  },
+  "daily_limit_hint": {
+    "message": "일일 시간 제한을 모두 사용할 때까지 사이트를 허용합니다."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "일일 제한에 도달했습니다"
+  },
+  "daily_limit_invalid": {
+    "message": "1~1440분 사이의 일일 제한을 입력하세요"
+  },
+  "schedule_required": {
+    "message": "예약 모드에 사용할 일정을 만드세요"
+  },
+  "blocking_mode_conflict": {
+    "message": "예약과 일일 제한은 동시에 사용할 수 없습니다"
+  },
+  "blocking_mode_invalid": {
+    "message": "올바른 차단 모드를 선택하세요"
   }
 }

@@ -1020,5 +1020,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Bloqueio"
+  },
+  "blocking_mode_always": {
+    "message": "Sempre ativo"
+  },
+  "blocking_mode_schedule": {
+    "message": "Agendamento"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Limite diário"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minutos por dia"
+  },
+  "daily_limit_hint": {
+    "message": "Permita o site até que o limite diário de tempo seja usado."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Limite diário atingido"
+  },
+  "daily_limit_invalid": {
+    "message": "Insira um limite diário entre 1 e 1440 minutos"
+  },
+  "schedule_required": {
+    "message": "Crie uma programação para o modo Programação"
+  },
+  "blocking_mode_conflict": {
+    "message": "Programação e Limite diário não podem ser usados juntos"
+  },
+  "blocking_mode_invalid": {
+    "message": "Selecione um modo de bloqueio válido"
   }
 }

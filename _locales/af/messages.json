@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokkering"
+  },
+  "blocking_mode_always": {
+    "message": "Altyd aktief"
+  },
+  "blocking_mode_schedule": {
+    "message": "Skedule"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Daaglikse limiet"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minute per dag"
+  },
+  "daily_limit_hint": {
+    "message": "Laat die webwerf toe totdat die daaglikse tydlimiet gebruik is."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Daaglikse limiet bereik"
+  },
+  "daily_limit_invalid": {
+    "message": "Voer ’n daaglikse limiet tussen 1 en 1440 minute in"
+  },
+  "schedule_required": {
+    "message": "Skep ’n skedule vir Skedule-modus"
+  },
+  "blocking_mode_conflict": {
+    "message": "Skedule en Daaglikse limiet kan nie saam gebruik word nie"
+  },
+  "blocking_mode_invalid": {
+    "message": "Kies ’n geldige blokkeermodus"
   }
 }

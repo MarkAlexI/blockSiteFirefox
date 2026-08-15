@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokovanie"
+  },
+  "blocking_mode_always": {
+    "message": "Vždy aktívne"
+  },
+  "blocking_mode_schedule": {
+    "message": "Plán"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Denný limit"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minúty za deň"
+  },
+  "daily_limit_hint": {
+    "message": "Povoľte web, kým sa nevyčerpá denný časový limit."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Denný limit bol dosiahnutý"
+  },
+  "daily_limit_invalid": {
+    "message": "Zadajte denný limit od 1 do 1440 minút"
+  },
+  "schedule_required": {
+    "message": "Vytvorte rozvrh pre režim Rozvrh"
+  },
+  "blocking_mode_conflict": {
+    "message": "Rozvrh a Denný limit nemožno používať súčasne"
+  },
+  "blocking_mode_invalid": {
+    "message": "Vyberte platný režim blokovania"
   }
 }

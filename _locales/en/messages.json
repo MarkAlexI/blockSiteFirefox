@@ -1032,5 +1032,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blocking"
+  },
+  "blocking_mode_always": {
+    "message": "Always active"
+  },
+  "blocking_mode_schedule": {
+    "message": "Schedule"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Daily limit"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minutes per day"
+  },
+  "daily_limit_hint": {
+    "message": "Allow the site until this daily time limit is used."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Daily limit reached"
+  },
+  "daily_limit_invalid": {
+    "message": "Enter a daily limit between 1 and 1440 minutes"
+  },
+  "schedule_required": {
+    "message": "Create a schedule for Schedule mode"
+  },
+  "blocking_mode_conflict": {
+    "message": "Schedule and Daily limit cannot be used together"
+  },
+  "blocking_mode_invalid": {
+    "message": "Select a valid blocking mode"
   }
 }

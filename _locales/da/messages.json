@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokering"
+  },
+  "blocking_mode_always": {
+    "message": "Altid aktiv"
+  },
+  "blocking_mode_schedule": {
+    "message": "Tidsplan"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Daglig grænse"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minutter pr. dag"
+  },
+  "daily_limit_hint": {
+    "message": "Tillad webstedet, indtil den daglige tidsgrænse er brugt."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Daglig grænse nået"
+  },
+  "daily_limit_invalid": {
+    "message": "Angiv en daglig grænse mellem 1 og 1440 minutter"
+  },
+  "schedule_required": {
+    "message": "Opret en tidsplan til tilstanden Tidsplan"
+  },
+  "blocking_mode_conflict": {
+    "message": "Tidsplan og Daglig grænse kan ikke bruges samtidig"
+  },
+  "blocking_mode_invalid": {
+    "message": "Vælg en gyldig blokeringstilstand"
   }
 }

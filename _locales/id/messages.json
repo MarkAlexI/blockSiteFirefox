@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Pemblokiran"
+  },
+  "blocking_mode_always": {
+    "message": "Selalu aktif"
+  },
+  "blocking_mode_schedule": {
+    "message": "Jadwal"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Batas harian"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Menit per hari"
+  },
+  "daily_limit_hint": {
+    "message": "Izinkan situs sampai batas waktu harian habis digunakan."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Batas harian tercapai"
+  },
+  "daily_limit_invalid": {
+    "message": "Masukkan batas harian antara 1 dan 1440 menit"
+  },
+  "schedule_required": {
+    "message": "Buat jadwal untuk mode Jadwal"
+  },
+  "blocking_mode_conflict": {
+    "message": "Jadwal dan Batas harian tidak dapat digunakan bersamaan"
+  },
+  "blocking_mode_invalid": {
+    "message": "Pilih mode pemblokiran yang valid"
   }
 }

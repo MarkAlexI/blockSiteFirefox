@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokavimas"
+  },
+  "blocking_mode_always": {
+    "message": "Visada aktyvuotas"
+  },
+  "blocking_mode_schedule": {
+    "message": "Tvarkaraštis"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Dienos limitas"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minutės per dieną"
+  },
+  "daily_limit_hint": {
+    "message": "Leisti svetainę, kol bus išnaudotas dienos laiko limitas."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Dienos limitas pasiektas"
+  },
+  "daily_limit_invalid": {
+    "message": "Įveskite dienos limitą nuo 1 iki 1440 minučių"
+  },
+  "schedule_required": {
+    "message": "Sukurkite tvarkaraštį Tvarkaraščio režimui"
+  },
+  "blocking_mode_conflict": {
+    "message": "Tvarkaraščio ir Dienos limito negalima naudoti kartu"
+  },
+  "blocking_mode_invalid": {
+    "message": "Pasirinkite tinkamą blokavimo režimą"
   }
 }

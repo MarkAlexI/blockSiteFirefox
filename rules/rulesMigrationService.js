@@ -1,4 +1,8 @@
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
+import {
+  BLOCKING_MODE_ALWAYS,
+  normalizeBlockingConfig
+} from './blockingMode.js';
 
 /**
  * Migrates the stored rule schema without performing any storage operations.
@@ -39,6 +43,21 @@ export function migrateRuleSchema(rules) {
 
     if (!rule.listId) {
       migratedRule.listId = GENERAL_RULE_LIST_ID;
+      needsSave = true;
+    }
+
+    const blockingConfig = rule.isWhitelist === true ?
+      { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null } :
+      normalizeBlockingConfig(migratedRule);
+
+    if (
+      migratedRule.blockingMode !== blockingConfig.blockingMode ||
+      JSON.stringify(migratedRule.schedule ?? null) !== JSON.stringify(blockingConfig.schedule) ||
+      JSON.stringify(migratedRule.dailyLimit ?? null) !== JSON.stringify(blockingConfig.dailyLimit)
+    ) {
+      migratedRule.blockingMode = blockingConfig.blockingMode;
+      migratedRule.schedule = blockingConfig.schedule;
+      migratedRule.dailyLimit = blockingConfig.dailyLimit;
       needsSave = true;
     }
 

@@ -1020,5 +1020,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blockierung"
+  },
+  "blocking_mode_always": {
+    "message": "Immer aktiv"
+  },
+  "blocking_mode_schedule": {
+    "message": "Zeitplan"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Tageslimit"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuten pro Tag"
+  },
+  "daily_limit_hint": {
+    "message": "Erlaube die Website, bis das tägliche Zeitlimit aufgebraucht ist."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Tageslimit erreicht"
+  },
+  "daily_limit_invalid": {
+    "message": "Gib ein Tageslimit zwischen 1 und 1440 Minuten ein"
+  },
+  "schedule_required": {
+    "message": "Erstelle einen Zeitplan für den Zeitplan-Modus"
+  },
+  "blocking_mode_conflict": {
+    "message": "Zeitplan und Tageslimit können nicht gleichzeitig verwendet werden"
+  },
+  "blocking_mode_invalid": {
+    "message": "Wähle einen gültigen Blockierungsmodus"
   }
 }

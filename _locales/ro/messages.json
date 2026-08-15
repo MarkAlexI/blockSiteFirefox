@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blocare"
+  },
+  "blocking_mode_always": {
+    "message": "Întotdeauna activ"
+  },
+  "blocking_mode_schedule": {
+    "message": "Program"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Limită zilnică"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minute pe zi"
+  },
+  "daily_limit_hint": {
+    "message": "Permite site-ul până când limita zilnică de timp este consumată."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Limita zilnică a fost atinsă"
+  },
+  "daily_limit_invalid": {
+    "message": "Introduceți o limită zilnică între 1 și 1440 de minute"
+  },
+  "schedule_required": {
+    "message": "Creați un program pentru modul Program"
+  },
+  "blocking_mode_conflict": {
+    "message": "Programul și Limita zilnică nu pot fi utilizate simultan"
+  },
+  "blocking_mode_invalid": {
+    "message": "Selectați un mod de blocare valid"
   }
 }

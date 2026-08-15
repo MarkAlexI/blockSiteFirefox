@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokiranje"
+  },
+  "blocking_mode_always": {
+    "message": "Uvijek aktivno"
+  },
+  "blocking_mode_schedule": {
+    "message": "Raspored"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Dnevno ograničenje"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuta dnevno"
+  },
+  "daily_limit_hint": {
+    "message": "Dopusti web-mjesto dok se ne potroši dnevno vremensko ograničenje."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Dnevno ograničenje dosegnuto"
+  },
+  "daily_limit_invalid": {
+    "message": "Unesite dnevno ograničenje između 1 i 1440 minuta"
+  },
+  "schedule_required": {
+    "message": "Izradite raspored za način Raspored"
+  },
+  "blocking_mode_conflict": {
+    "message": "Raspored i Dnevno ograničenje ne mogu se koristiti zajedno"
+  },
+  "blocking_mode_invalid": {
+    "message": "Odaberite valjani način blokiranja"
   }
 }

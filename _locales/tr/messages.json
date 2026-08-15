@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Engelleme"
+  },
+  "blocking_mode_always": {
+    "message": "Her zaman aktif"
+  },
+  "blocking_mode_schedule": {
+    "message": "Zamanlama"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Günlük sınır"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Günlük dakika"
+  },
+  "daily_limit_hint": {
+    "message": "Günlük süre sınırı dolana kadar siteye izin ver."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Günlük sınıra ulaşıldı"
+  },
+  "daily_limit_invalid": {
+    "message": "1 ile 1440 dakika arasında günlük sınır girin"
+  },
+  "schedule_required": {
+    "message": "Zamanlama modu için bir zamanlama oluşturun"
+  },
+  "blocking_mode_conflict": {
+    "message": "Zamanlama ve Günlük sınır aynı anda kullanılamaz"
+  },
+  "blocking_mode_invalid": {
+    "message": "Geçerli bir engelleme modu seçin"
   }
 }

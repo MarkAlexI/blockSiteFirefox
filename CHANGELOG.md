@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2026-08-15
+### Added
+- Added Pro Daily Limits for individual blocking rules, allowing a site until its daily focused-use budget is exhausted and then blocking it through the existing Firefox DNR engine.
+- Added explicit Always, Schedule, and Daily limit blocking modes. Schedule and Daily limit are intentionally mutually exclusive to keep rule behavior unambiguous.
+- Added device-local daily usage accounting based on the active tab in the focused browser window, with automatic reset on the local calendar day.
+- Added Daily Limits interface strings across all supported locales.
+
+### Improved
+- Reused the existing one-minute alarm and DNR self-healing flow for Daily Limits without adding interval timers, offscreen documents, or content-script timers.
+- Added suspension-safe sampling so long browser sleep or background gaps are not charged as active site usage.
+- Added path-aware usage attribution so specific rules such as `youtube.com/shorts` take precedence over broader matching rules such as `youtube.com`.
+- Preserved Daily Limit configuration in rule import/export while keeping accumulated usage device-local and out of exported data.
+- Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while adding Daily Limits.
+- Added migration for existing rules: scheduled rules become Schedule mode and all other blocking rules become Always mode.
+- Added regression coverage for blocking-mode validation, usage accounting, URL matching, migration, DNR activation, mutation security, localization, and Firefox runtime messaging.
+
+### Fixed
+- Removed a redundant Rule List storage write when creating a custom list.
+
 ## [4.9.0] - 2026-08-15
 ### Added
 - Added Pro Rule Lists for organizing blocking rules into named lists such as Work or Study.

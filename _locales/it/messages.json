@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blocco"
+  },
+  "blocking_mode_always": {
+    "message": "Sempre attivo"
+  },
+  "blocking_mode_schedule": {
+    "message": "Programma"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Limite giornaliero"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuti al giorno"
+  },
+  "daily_limit_hint": {
+    "message": "Consenti il sito finché non viene esaurito il limite di tempo giornaliero."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Limite giornaliero raggiunto"
+  },
+  "daily_limit_invalid": {
+    "message": "Inserisci un limite giornaliero tra 1 e 1440 minuti"
+  },
+  "schedule_required": {
+    "message": "Crea una pianificazione per la modalità Pianificazione"
+  },
+  "blocking_mode_conflict": {
+    "message": "Pianificazione e Limite giornaliero non possono essere usati insieme"
+  },
+  "blocking_mode_invalid": {
+    "message": "Seleziona una modalità di blocco valida"
   }
 }

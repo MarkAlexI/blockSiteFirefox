@@ -1029,5 +1029,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Блокиране"
+  },
+  "blocking_mode_always": {
+    "message": "Винаги активно"
+  },
+  "blocking_mode_schedule": {
+    "message": "График"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Дневен лимит"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Минути на ден"
+  },
+  "daily_limit_hint": {
+    "message": "Разрешавайте сайта, докато дневният лимит за време не бъде изчерпан."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Дневният лимит е достигнат"
+  },
+  "daily_limit_invalid": {
+    "message": "Въведете дневен лимит между 1 и 1440 минути"
+  },
+  "schedule_required": {
+    "message": "Създайте график за режим График"
+  },
+  "blocking_mode_conflict": {
+    "message": "График и Дневен лимит не могат да се използват едновременно"
+  },
+  "blocking_mode_invalid": {
+    "message": "Изберете валиден режим на блокиране"
   }
 }

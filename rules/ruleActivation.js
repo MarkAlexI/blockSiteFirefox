@@ -1,4 +1,11 @@
 import { normalizeSchedule } from '../schedules/scheduleNormalizer.js';
+import {
+  BLOCKING_MODE_ALWAYS,
+  BLOCKING_MODE_SCHEDULE,
+  BLOCKING_MODE_DAILY_LIMIT,
+  getRuleBlockingMode,
+  isDailyLimitReached
+} from './blockingMode.js';
 
 const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
@@ -30,7 +37,8 @@ export function isRuleActiveNow(
   disabledCategories = [],
   focusSessionActive = false,
   now = new Date(),
-  disabledRuleListIds = []
+  disabledRuleListIds = [],
+  dailyUsageSeconds = {}
 ) {
   if (rule.isWhitelist === true) return false;
 
@@ -41,7 +49,16 @@ export function isRuleActiveNow(
   if (rule.disabledByUser) return false;
   if (disabledCategories.includes(rule.category)) return false;
   if (disabledRuleListIds.includes(rule.listId || 'general')) return false;
-  if (!rule.schedule) return true;
+
+  const blockingMode = getRuleBlockingMode(rule);
+
+  if (blockingMode === BLOCKING_MODE_ALWAYS) return true;
+
+  if (blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
+    return isDailyLimitReached(rule, dailyUsageSeconds[String(rule.id)] || 0);
+  }
+
+  if (blockingMode !== BLOCKING_MODE_SCHEDULE || !rule.schedule) return false;
 
   const normalizedSchedule = normalizeSchedule(rule.schedule);
   return normalizedSchedule.periods.some(period => isPeriodActive(period, now));

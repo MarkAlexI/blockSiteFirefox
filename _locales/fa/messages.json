@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "مسدودسازی"
+  },
+  "blocking_mode_always": {
+    "message": "همیشه فعال"
+  },
+  "blocking_mode_schedule": {
+    "message": "برنامه‌ زمان‌بندی"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "محدودیت روزانه"
+  },
+  "daily_limit_minutes_label": {
+    "message": "دقیقه در روز"
+  },
+  "daily_limit_hint": {
+    "message": "تا زمانی که محدودیت زمانی روزانه مصرف نشده است، سایت را مجاز کن."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "محدودیت روزانه تمام شد"
+  },
+  "daily_limit_invalid": {
+    "message": "یک محدودیت روزانه بین ۱ تا ۱۴۴۰ دقیقه وارد کنید"
+  },
+  "schedule_required": {
+    "message": "برای حالت زمان‌بندی یک برنامه ایجاد کنید"
+  },
+  "blocking_mode_conflict": {
+    "message": "زمان‌بندی و محدودیت روزانه را نمی‌توان هم‌زمان استفاده کرد"
+  },
+  "blocking_mode_invalid": {
+    "message": "یک حالت مسدودسازی معتبر انتخاب کنید"
   }
 }

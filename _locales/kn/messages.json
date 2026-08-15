@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "ನಿರ್ಬಂಧಿಸುವಿಕೆ"
+  },
+  "blocking_mode_always": {
+    "message": "ಎಂದೆಂದಿಗೂ ಸಕ್ರಿಯ"
+  },
+  "blocking_mode_schedule": {
+    "message": "ಶೆಡ್ಯೂಲ್"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "ದೈನಂದಿನ ಮಿತಿ"
+  },
+  "daily_limit_minutes_label": {
+    "message": "ದಿನಕ್ಕೆ ನಿಮಿಷಗಳು"
+  },
+  "daily_limit_hint": {
+    "message": "ದೈನಂದಿನ ಸಮಯ ಮಿತಿ ಮುಗಿಯುವವರೆಗೆ ಸೈಟ್ ಅನ್ನು ಅನುಮತಿಸಿ."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "ದೈನಂದಿನ ಮಿತಿ ತಲುಪಿದೆ"
+  },
+  "daily_limit_invalid": {
+    "message": "1 ರಿಂದ 1440 ನಿಮಿಷಗಳ ನಡುವೆ ದೈನಂದಿನ ಮಿತಿಯನ್ನು ನಮೂದಿಸಿ"
+  },
+  "schedule_required": {
+    "message": "ವೇಳಾಪಟ್ಟಿ ಮೋಡ್‌ಗಾಗಿ ವೇಳಾಪಟ್ಟಿಯನ್ನು ರಚಿಸಿ"
+  },
+  "blocking_mode_conflict": {
+    "message": "ವೇಳಾಪಟ್ಟಿ ಮತ್ತು ದೈನಂದಿನ ಮಿತಿಯನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸಲಾಗುವುದಿಲ್ಲ"
+  },
+  "blocking_mode_invalid": {
+    "message": "ಮಾನ್ಯ ನಿರ್ಬಂಧಿಸುವ ಮೋಡ್ ಆಯ್ಕೆಮಾಡಿ"
   }
 }

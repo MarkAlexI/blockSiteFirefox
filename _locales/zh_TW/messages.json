@@ -1020,5 +1020,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "封鎖"
+  },
+  "blocking_mode_always": {
+    "message": "始終啟用"
+  },
+  "blocking_mode_schedule": {
+    "message": "行程"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "每日限制"
+  },
+  "daily_limit_minutes_label": {
+    "message": "每日分鐘數"
+  },
+  "daily_limit_hint": {
+    "message": "允許使用網站，直到當天的時間限制用完。"
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "已達每日限制"
+  },
+  "daily_limit_invalid": {
+    "message": "請輸入 1 到 1440 分鐘之間的每日限制"
+  },
+  "schedule_required": {
+    "message": "請為「排程」模式建立排程"
+  },
+  "blocking_mode_conflict": {
+    "message": "「排程」與「每日限制」無法同時使用"
+  },
+  "blocking_mode_invalid": {
+    "message": "請選擇有效的封鎖模式"
   }
 }

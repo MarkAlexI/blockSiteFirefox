@@ -1020,5 +1020,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "ブロック"
+  },
+  "blocking_mode_always": {
+    "message": "常に有効"
+  },
+  "blocking_mode_schedule": {
+    "message": "スケジュール"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "1日の制限"
+  },
+  "daily_limit_minutes_label": {
+    "message": "1日あたりの分数"
+  },
+  "daily_limit_hint": {
+    "message": "1日の時間制限を使い切るまでサイトを許可します。"
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "1日の制限に達しました"
+  },
+  "daily_limit_invalid": {
+    "message": "1〜1440分の1日の制限を入力してください"
+  },
+  "schedule_required": {
+    "message": "スケジュールモード用のスケジュールを作成してください"
+  },
+  "blocking_mode_conflict": {
+    "message": "スケジュールと1日の制限は同時に使用できません"
+  },
+  "blocking_mode_invalid": {
+    "message": "有効なブロックモードを選択してください"
   }
 }

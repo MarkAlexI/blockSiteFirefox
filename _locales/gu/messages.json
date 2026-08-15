@@ -1023,5 +1023,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "બ્લોકિંગ"
+  },
+  "blocking_mode_always": {
+    "message": "હંમેશા સક્રિય"
+  },
+  "blocking_mode_schedule": {
+    "message": "અનુસૂચિ"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "દૈનિક મર્યાદા"
+  },
+  "daily_limit_minutes_label": {
+    "message": "દરરોજ મિનિટ"
+  },
+  "daily_limit_hint": {
+    "message": "દૈનિક સમય મર્યાદા પૂરી થાય ત્યાં સુધી સાઇટને મંજૂરી આપો."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "દૈનિક મર્યાદા પૂરી થઈ"
+  },
+  "daily_limit_invalid": {
+    "message": "1 થી 1440 મિનિટ વચ્ચે દૈનિક મર્યાદા દાખલ કરો"
+  },
+  "schedule_required": {
+    "message": "શેડ્યૂલ મોડ માટે શેડ્યૂલ બનાવો"
+  },
+  "blocking_mode_conflict": {
+    "message": "શેડ્યૂલ અને દૈનિક મર્યાદા એકસાથે વાપરી શકાતા નથી"
+  },
+  "blocking_mode_invalid": {
+    "message": "માન્ય બ્લોકિંગ મોડ પસંદ કરો"
   }
 }

@@ -1683,3 +1683,49 @@ tr.rule-whitelist td:first-child::before {
     gap: 6px;
   }
 }
+
+/* Blocking mode editor */
+.blocking-mode-section {
+  display: grid;
+  gap: 8px;
+  min-width: 180px;
+}
+
+.blocking-mode-select {
+  width: 100%;
+}
+
+.blocking-mode-detail[hidden] {
+  display: none;
+}
+
+.blocking-mode-schedule .schedule-enable-label {
+  display: none;
+}
+
+.daily-limit-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px;
+  gap: 6px 8px;
+  align-items: center;
+}
+
+.daily-limit-editor .daily-limit-minutes {
+  width: 100%;
+  min-width: 72px;
+}
+
+.daily-limit-editor small {
+  grid-column: 1 / -1;
+  color: var(--text-muted, #666);
+  line-height: 1.3;
+}
+
+.daily-limit-status {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.daily-limit-status.limit-reached {
+  font-weight: 700;
+}

@@ -1020,5 +1020,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokkering"
+  },
+  "blocking_mode_always": {
+    "message": "Altijd actief"
+  },
+  "blocking_mode_schedule": {
+    "message": "Schema"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Daglimiet"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuten per dag"
+  },
+  "daily_limit_hint": {
+    "message": "Sta de site toe totdat de dagelijkse tijdslimiet is opgebruikt."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Daglimiet bereikt"
+  },
+  "daily_limit_invalid": {
+    "message": "Voer een daglimiet tussen 1 en 1440 minuten in"
+  },
+  "schedule_required": {
+    "message": "Maak een schema voor de modus Schema"
+  },
+  "blocking_mode_conflict": {
+    "message": "Schema en Daglimiet kunnen niet tegelijk worden gebruikt"
+  },
+  "blocking_mode_invalid": {
+    "message": "Selecteer een geldige blokkeermodus"
   }
 }

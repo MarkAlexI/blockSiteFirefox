@@ -58,3 +58,28 @@ test('existing substring conflict behavior is preserved', () => {
     'conflict_blacklist'
   );
 });
+
+test('Daily limit mode accepts a valid budget and rejects mixed schedule configuration', () => {
+  const valid = manager.validateRule(
+    'youtube.com',
+    '',
+    null,
+    'social',
+    false,
+    'daily_limit',
+    { minutes: 30 }
+  );
+  assert.deepEqual(valid, { isValid: true, errors: [] });
+
+  const mixed = manager.validateRule(
+    'youtube.com',
+    '',
+    { version: 2, periods: [{ days: [1], startTime: '09:00', endTime: '10:00' }] },
+    'social',
+    false,
+    'daily_limit',
+    { minutes: 30 }
+  );
+  assert.equal(mixed.isValid, false);
+  assert.equal(mixed.errors.includes('blocking_mode_conflict'), true);
+});

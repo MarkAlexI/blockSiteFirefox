@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "ማገድ"
+  },
+  "blocking_mode_always": {
+    "message": "ሁልጊዜ ንቁ"
+  },
+  "blocking_mode_schedule": {
+    "message": "መርሐግብር"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "ዕለታዊ ገደብ"
+  },
+  "daily_limit_minutes_label": {
+    "message": "ደቂቃዎች በቀን"
+  },
+  "daily_limit_hint": {
+    "message": "የዕለቱ የጊዜ ገደብ እስኪያልቅ ድረስ ጣቢያውን ፍቀድ።"
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "ዕለታዊ ገደብ ደርሷል"
+  },
+  "daily_limit_invalid": {
+    "message": "ከ1 እስከ 1440 ደቂቃ ያለ ዕለታዊ ገደብ ያስገቡ"
+  },
+  "schedule_required": {
+    "message": "ለመርሐግብር ሁነታ መርሐግብር ይፍጠሩ"
+  },
+  "blocking_mode_conflict": {
+    "message": "መርሐግብር እና ዕለታዊ ገደብ በአንድ ጊዜ መጠቀም አይቻልም"
+  },
+  "blocking_mode_invalid": {
+    "message": "ትክክለኛ የማገድ ሁነታ ይምረጡ"
   }
 }

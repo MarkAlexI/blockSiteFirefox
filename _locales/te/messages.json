@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "బ్లాకింగ్"
+  },
+  "blocking_mode_always": {
+    "message": "ఎల్లప్పుడూ సక్రియంగా ఉంది"
+  },
+  "blocking_mode_schedule": {
+    "message": "సమీక్షా షెడ్యూల్"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "రోజువారీ పరిమితి"
+  },
+  "daily_limit_minutes_label": {
+    "message": "రోజుకు నిమిషాలు"
+  },
+  "daily_limit_hint": {
+    "message": "రోజువారీ సమయ పరిమితి పూర్తయ్యే వరకు సైట్‌ను అనుమతించండి."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "రోజువారీ పరిమితి చేరుకుంది"
+  },
+  "daily_limit_invalid": {
+    "message": "1 నుండి 1440 నిమిషాల మధ్య రోజువారీ పరిమితిని నమోదు చేయండి"
+  },
+  "schedule_required": {
+    "message": "షెడ్యూల్ మోడ్ కోసం షెడ్యూల్‌ను సృష్టించండి"
+  },
+  "blocking_mode_conflict": {
+    "message": "షెడ్యూల్ మరియు రోజువారీ పరిమితిని ఒకేసారి ఉపయోగించలేరు"
+  },
+  "blocking_mode_invalid": {
+    "message": "చెల్లుబాటు అయ్యే బ్లాకింగ్ మోడ్‌ను ఎంచుకోండి"
   }
 }

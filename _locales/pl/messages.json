@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blokowanie"
+  },
+  "blocking_mode_always": {
+    "message": "Zawsze aktywny"
+  },
+  "blocking_mode_schedule": {
+    "message": "Harmonogram"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Limit dzienny"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuty dziennie"
+  },
+  "daily_limit_hint": {
+    "message": "Zezwalaj na witrynę, dopóki dzienny limit czasu nie zostanie wykorzystany."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Limit dzienny osiągnięty"
+  },
+  "daily_limit_invalid": {
+    "message": "Wprowadź dzienny limit od 1 do 1440 minut"
+  },
+  "schedule_required": {
+    "message": "Utwórz harmonogram dla trybu Harmonogram"
+  },
+  "blocking_mode_conflict": {
+    "message": "Harmonogram i Limit dzienny nie mogą być używane jednocześnie"
+  },
+  "blocking_mode_invalid": {
+    "message": "Wybierz prawidłowy tryb blokowania"
   }
 }

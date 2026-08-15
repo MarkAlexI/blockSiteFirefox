@@ -4,6 +4,13 @@ import { CATEGORIES } from './categoryManager.js';
 import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
 import { ScheduleEditor } from '../schedules/scheduleEditor.js';
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
+import {
+  BLOCKING_MODE_ALWAYS,
+  BLOCKING_MODE_SCHEDULE,
+  BLOCKING_MODE_DAILY_LIMIT,
+  getRuleBlockingMode,
+  normalizeDailyLimit
+} from './blockingMode.js';
 
 export class RulesUI {
   constructor() {
@@ -115,7 +122,8 @@ export class RulesUI {
     showEditButtons = true,
     disabledCategories = [],
     ruleLists = [],
-    disabledRuleListIds = []
+    disabledRuleListIds = [],
+    dailyUsageSeconds = {}
   ) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
@@ -167,12 +175,30 @@ export class RulesUI {
     }
     row.appendChild(listCell);
 
-    const scheduleCell = document.createElement('td');
+    const blockingCell = document.createElement('td');
+    const blockingMode = getRuleBlockingMode(rule);
     if (rule.isWhitelist) {
-      scheduleCell.textContent = t('status_allow');
-      scheduleCell.classList.add('status-static');
-    } else if (rule.schedule) {
-      scheduleCell.textContent = this.scheduleFormatter.formatSchedule(rule.schedule);
+      blockingCell.textContent = t('status_allow');
+      blockingCell.classList.add('status-static');
+    } else if (blockingMode === BLOCKING_MODE_SCHEDULE && rule.schedule) {
+      blockingCell.textContent = this.scheduleFormatter.formatSchedule(rule.schedule);
+    } else if (blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
+      const limit = normalizeDailyLimit(rule.dailyLimit);
+      const usedSeconds = Math.max(0, Number(dailyUsageSeconds[String(rule.id)]) || 0);
+      const usedMinutes = Math.floor(usedSeconds / 60);
+      const status = document.createElement('span');
+      status.className = 'daily-limit-status';
+      if (limit) {
+        const shownUsed = Math.min(limit.minutes, usedMinutes);
+        status.textContent = t('daily_limit_usage', [shownUsed, limit.minutes]) || `${shownUsed} / ${limit.minutes} min`;
+        if (usedSeconds >= limit.minutes * 60) {
+          status.classList.add('limit-reached');
+          status.title = t('daily_limit_reached') || 'Daily limit reached';
+        }
+      } else {
+        status.textContent = t('daily_limit_invalid') || 'Invalid daily limit';
+      }
+      blockingCell.appendChild(status);
     } else {
       const toggleElement = document.createElement('span');
       toggleElement.className = 'rule-toggle';
@@ -186,9 +212,9 @@ export class RulesUI {
           this.logger.error('Toggle rule error:', error);
         }
       });
-      scheduleCell.appendChild(toggleElement);
+      blockingCell.appendChild(toggleElement);
     }
-    row.appendChild(scheduleCell);
+    row.appendChild(blockingCell);
 
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
@@ -296,18 +322,18 @@ export class RulesUI {
     listCell.appendChild(listSelect);
     row.appendChild(listCell);
 
-    const scheduleCell = document.createElement('td');
-    scheduleCell.className = 'edit-mode';
+    const blockingCell = document.createElement('td');
+    blockingCell.className = 'edit-mode';
 
-    let scheduleSection;
+    let blockingSection;
     if (isWhitelist) {
-      scheduleSection = document.createTextNode('—');
-      scheduleCell.appendChild(scheduleSection);
+      blockingSection = document.createTextNode('-');
+      blockingCell.appendChild(blockingSection);
     } else {
-      scheduleSection = this.createScheduleSection(rule.schedule, enableSchedule);
-      scheduleCell.appendChild(scheduleSection);
+      blockingSection = this.createBlockingModeSection(rule, enableSchedule);
+      blockingCell.appendChild(blockingSection);
     }
-    row.appendChild(scheduleCell);
+    row.appendChild(blockingCell);
 
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
@@ -318,9 +344,18 @@ export class RulesUI {
     saveBtn.addEventListener('click', () => {
       try {
         const category = isWhitelist ? 'whitelist' : categorySelect.value;
-        const schedule = isWhitelist ? null : this.getScheduleFromSection(scheduleSection);
+        const blockingConfig = isWhitelist ?
+          { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null } :
+          this.getBlockingConfigFromSection(blockingSection);
         const listId = isWhitelist ? GENERAL_RULE_LIST_ID : listSelect.value;
-        onSave(rule.id, blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule, listId);
+        onSave(
+          rule.id,
+          blockInput.value,
+          isWhitelist ? '' : redirectInput.value,
+          category,
+          blockingConfig,
+          listId
+        );
       } catch (error) {
         this.logger.info('Edit: Schedule error:', error.message);
         this.showErrorMessage(this.getValidationMessage(error.message));
@@ -433,18 +468,22 @@ export class RulesUI {
     listCell.appendChild(listSelect);
     row.appendChild(listCell);
 
-    const scheduleCell = document.createElement('td');
-    scheduleCell.className = 'edit-mode';
+    const blockingCell = document.createElement('td');
+    blockingCell.className = 'edit-mode';
 
-    let scheduleSection;
+    let blockingSection;
     if (isWhitelist) {
-      scheduleSection = document.createTextNode('—');
-      scheduleCell.appendChild(scheduleSection);
+      blockingSection = document.createTextNode('-');
+      blockingCell.appendChild(blockingSection);
     } else {
-      scheduleSection = this.createScheduleSection(null, enableSchedule);
-      scheduleCell.appendChild(scheduleSection);
+      blockingSection = this.createBlockingModeSection({
+        blockingMode: BLOCKING_MODE_ALWAYS,
+        schedule: null,
+        dailyLimit: null
+      }, enableSchedule);
+      blockingCell.appendChild(blockingSection);
     }
-    row.appendChild(scheduleCell);
+    row.appendChild(blockingCell);
 
     const actionsCell = document.createElement('td');
     actionsCell.className = 'actions';
@@ -455,9 +494,18 @@ export class RulesUI {
     saveBtn.addEventListener('click', () => {
       try {
         const category = isWhitelist ? 'whitelist' : categorySelect.value;
-        const schedule = isWhitelist ? null : this.getScheduleFromSection(scheduleSection);
+        const blockingConfig = isWhitelist ?
+          { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null } :
+          this.getBlockingConfigFromSection(blockingSection);
         const listId = isWhitelist ? GENERAL_RULE_LIST_ID : listSelect.value;
-        onSave(blockInput.value, isWhitelist ? '' : redirectInput.value, category, schedule, listId, row);
+        onSave(
+          blockInput.value,
+          isWhitelist ? '' : redirectInput.value,
+          category,
+          blockingConfig,
+          listId,
+          row
+        );
       } catch (error) {
         this.logger.info('Add: Schedule error:', error.message);
         this.showErrorMessage(this.getValidationMessage(error.message));
@@ -502,6 +550,115 @@ export class RulesUI {
     }
   }
 
+  createBlockingModeSection(rule, enableAdvancedModes) {
+    const section = document.createElement('div');
+    section.className = 'blocking-mode-section';
+    const currentMode = getRuleBlockingMode(rule);
+
+    const modeSelect = document.createElement('select');
+    modeSelect.className = 'category-select blocking-mode-select';
+    const modeOptions = [
+      [BLOCKING_MODE_ALWAYS, t('blocking_mode_always') || 'Always'],
+      [BLOCKING_MODE_SCHEDULE, t('blocking_mode_schedule') || 'Schedule'],
+      [BLOCKING_MODE_DAILY_LIMIT, t('blocking_mode_daily_limit') || 'Daily limit']
+    ];
+
+    for (const [value, label] of modeOptions) {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = label;
+      if (!enableAdvancedModes && value !== BLOCKING_MODE_ALWAYS && value !== currentMode) {
+        option.disabled = true;
+      }
+      modeSelect.appendChild(option);
+    }
+    modeSelect.value = currentMode;
+    if (!enableAdvancedModes && currentMode !== BLOCKING_MODE_ALWAYS) {
+      modeSelect.disabled = true;
+    }
+    section.appendChild(modeSelect);
+
+    const scheduleWrap = document.createElement('div');
+    scheduleWrap.className = 'blocking-mode-detail blocking-mode-schedule';
+    const scheduleSection = this.createScheduleSection(
+      currentMode === BLOCKING_MODE_SCHEDULE ? rule.schedule : null,
+      true
+    );
+    const scheduleEnableLabel = scheduleSection.querySelector('.schedule-enable-label');
+    if (scheduleEnableLabel) scheduleEnableLabel.hidden = true;
+    const scheduleToggle = scheduleSection.querySelector('.enable-schedule-toggle');
+    if (scheduleToggle) {
+      scheduleToggle.checked = true;
+      scheduleToggle.dispatchEvent(new Event('change'));
+      if (!enableAdvancedModes && currentMode === BLOCKING_MODE_SCHEDULE) scheduleToggle.disabled = true;
+    }
+    const scheduleEditButton = scheduleSection.querySelector('.schedule-edit-button');
+    if (scheduleEditButton && !enableAdvancedModes && currentMode === BLOCKING_MODE_SCHEDULE) {
+      scheduleEditButton.disabled = true;
+    }
+    scheduleWrap.appendChild(scheduleSection);
+    section.appendChild(scheduleWrap);
+
+    const dailyWrap = document.createElement('label');
+    dailyWrap.className = 'blocking-mode-detail daily-limit-editor';
+    const dailyLabel = document.createElement('span');
+    dailyLabel.textContent = t('daily_limit_minutes_label') || 'Minutes per day';
+    dailyWrap.appendChild(dailyLabel);
+    const dailyInput = document.createElement('input');
+    dailyInput.type = 'number';
+    dailyInput.className = 'daily-limit-minutes';
+    dailyInput.min = '1';
+    dailyInput.max = '1440';
+    dailyInput.step = '1';
+    dailyInput.value = String(normalizeDailyLimit(rule.dailyLimit)?.minutes || 30);
+    if (!enableAdvancedModes && currentMode === BLOCKING_MODE_DAILY_LIMIT) dailyInput.disabled = true;
+    dailyWrap.appendChild(dailyInput);
+    const dailyHint = document.createElement('small');
+    dailyHint.textContent = t('daily_limit_hint') || 'The site is allowed until this daily budget is used.';
+    dailyWrap.appendChild(dailyHint);
+    section.appendChild(dailyWrap);
+
+    const updateVisibility = () => {
+      const mode = modeSelect.value;
+      scheduleWrap.hidden = mode !== BLOCKING_MODE_SCHEDULE;
+      dailyWrap.hidden = mode !== BLOCKING_MODE_DAILY_LIMIT;
+      if (mode === BLOCKING_MODE_SCHEDULE && scheduleToggle && !scheduleToggle.checked) {
+        scheduleToggle.checked = true;
+        scheduleToggle.dispatchEvent(new Event('change'));
+      }
+    };
+    modeSelect.addEventListener('change', updateVisibility);
+    updateVisibility();
+
+    section._blockingModeControls = { modeSelect, scheduleSection, dailyInput };
+    return section;
+  }
+
+  getBlockingConfigFromSection(section) {
+    const controls = section?._blockingModeControls;
+    if (!controls) {
+      return { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null };
+    }
+
+    const blockingMode = controls.modeSelect.value;
+    if (blockingMode === BLOCKING_MODE_SCHEDULE) {
+      return {
+        blockingMode,
+        schedule: this.getScheduleFromSection(controls.scheduleSection),
+        dailyLimit: null
+      };
+    }
+
+    if (blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
+      const minutes = Math.floor(Number(controls.dailyInput.value));
+      const dailyLimit = normalizeDailyLimit({ minutes });
+      if (!dailyLimit) throw new Error('daily_limit_invalid');
+      return { blockingMode, schedule: null, dailyLimit };
+    }
+
+    return { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null };
+  }
+
   createScheduleSection(existingSchedule, enableSchedule) {
     return this.scheduleEditor.createSection(existingSchedule, enableSchedule);
   }
@@ -530,6 +687,10 @@ export class RulesUI {
       'invalidSchedule: start time is empty': t('invalidschedulestarttime') || 'Invalid schedule: please set a start time',
       'invalidSchedule: end time is empty': t('invalidscheduleendtime') || 'Invalid schedule: please set an end time',
       'invalidSchedule': t('invalidschedule') || 'Invalid schedule: please select days and times',
+      'daily_limit_invalid': t('daily_limit_invalid') || 'Enter a daily limit between 1 and 1440 minutes',
+      'schedule_required': t('schedule_required') || 'Create a schedule for Schedule mode',
+      'blocking_mode_conflict': t('blocking_mode_conflict') || 'Schedule and Daily limit cannot be used together',
+      'blocking_mode_invalid': t('blocking_mode_invalid') || 'Select a valid blocking mode',
       'conflict_whitelist': t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.',
       'conflict_blacklist': t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.',
       'redundant_whitelist': t('redundant_whitelist_err')

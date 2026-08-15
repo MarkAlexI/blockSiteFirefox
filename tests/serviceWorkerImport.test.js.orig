@@ -64,7 +64,6 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
   const tabsOnUpdated = createEvent();
   const tabsOnCreated = createEvent();
   const tabsOnActivated = createEvent();
-  const windowsOnFocusChanged = createEvent();
   const contextMenusOnClicked = createEvent();
   const permissionsOnRemoved = createEvent();
   const permissionsOnAdded = createEvent();
@@ -163,10 +162,6 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       onCreated: tabsOnCreated,
       onActivated: tabsOnActivated
     },
-    windows: {
-      getLastFocused: async () => ({ focused: false, tabs: [] }),
-      onFocusChanged: windowsOnFocusChanged
-    },
     contextMenus: {
       remove(_id, callback) {
         if (typeof callback === 'function') callback();
@@ -200,8 +195,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(alarmsOnAlarm.listeners.length, 1);
     assert.equal(tabsOnUpdated.listeners.length, 1);
     assert.equal(tabsOnCreated.listeners.length, 1);
-    assert.equal(tabsOnActivated.listeners.length, 1);
-    assert.equal(windowsOnFocusChanged.listeners.length, 1);
+    assert.equal(tabsOnActivated.listeners.length, 0);
     assert.equal(contextMenusOnClicked.listeners.length, 1);
     assert.equal(permissionsOnRemoved.listeners.length, 1);
     assert.equal(permissionsOnAdded.listeners.length, 1);

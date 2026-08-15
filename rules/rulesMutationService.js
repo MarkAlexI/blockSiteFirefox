@@ -8,6 +8,12 @@ import {
   normalizeRuleListName,
   prepareImportedRuleLists
 } from './ruleListsManager.js';
+import {
+  BLOCKING_MODE_ALWAYS,
+  BLOCKING_MODE_DAILY_LIMIT,
+  getRuleBlockingMode,
+  normalizeBlockingConfig
+} from './blockingMode.js';
 
 export class RulesMutationError extends Error {
   constructor(code, message = code, validationErrors = []) {
@@ -53,19 +59,39 @@ function cloneSchedule(schedule) {
   return schedule ? normalizeSchedule(schedule) : null;
 }
 
-function sanitizeRuleInput(payload = {}, fallbackWhitelist = false, fallbackListId = GENERAL_RULE_LIST_ID) {
+function sanitizeRuleInput(
+  payload = {},
+  fallbackWhitelist = false,
+  fallbackListId = GENERAL_RULE_LIST_ID,
+  fallbackRule = null
+) {
   const isWhitelist = payload.isWhitelist === undefined ? fallbackWhitelist : payload.isWhitelist === true;
+  const schedule = payload.schedule === undefined ? (fallbackRule?.schedule ?? null) : payload.schedule;
+  const dailyLimit = payload.dailyLimit === undefined ? (fallbackRule?.dailyLimit ?? null) : payload.dailyLimit;
+  const blockingMode = typeof payload.blockingMode === 'string' && payload.blockingMode ?
+    payload.blockingMode :
+    getRuleBlockingMode(fallbackRule || { schedule, dailyLimit, isWhitelist });
 
   return {
-    blockURL: typeof payload.blockURL === 'string' ? payload.blockURL : '',
-    redirectURL: typeof payload.redirectURL === 'string' ? payload.redirectURL : '',
-    schedule: payload.schedule ?? null,
-    category: typeof payload.category === 'string' && payload.category ? payload.category : (isWhitelist ? 'whitelist' : 'social'),
-    disabledByUser: payload.disabledByUser === true,
-    listId: typeof payload.listId === 'string' && payload.listId ? payload.listId : fallbackListId,
+    blockURL: typeof payload.blockURL === 'string' ? payload.blockURL : (fallbackRule?.blockURL || ''),
+    redirectURL: typeof payload.redirectURL === 'string' ? payload.redirectURL : (fallbackRule?.redirectURL || ''),
+    schedule,
+    dailyLimit,
+    blockingMode,
+    category: typeof payload.category === 'string' && payload.category ? payload.category : (fallbackRule?.category || (isWhitelist ? 'whitelist' : 'social')),
+    disabledByUser: payload.disabledByUser === undefined ? fallbackRule?.disabledByUser === true : payload.disabledByUser === true,
+    listId: typeof payload.listId === 'string' && payload.listId ? payload.listId : (fallbackRule?.listId || fallbackListId),
     isWhitelist
   };
 }
+
+function getStoredBlockingConfig(input) {
+  if (input.isWhitelist) {
+    return { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null };
+  }
+  return normalizeBlockingConfig(input);
+}
+
 
 export function createRulesMutationService({
   rulesManager,
@@ -177,6 +203,10 @@ export function createRulesMutationService({
 
       input.listId = validateRuleListSelection(input.listId, lists, hasProAccess, input.isWhitelist);
 
+      if (!input.isWhitelist && input.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
+        throw new RulesMutationError('pro_required', 'Pro access is required');
+      }
+
       if (!input.isWhitelist && !hasProAccess && rules.length >= maxRulesLimit) {
         throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
       }
@@ -186,7 +216,9 @@ export function createRulesMutationService({
         input.redirectURL,
         input.schedule,
         input.category,
-        input.isWhitelist
+        input.isWhitelist,
+        input.blockingMode,
+        input.dailyLimit
       ));
 
       throwConflict(rulesManager.checkConflict(rules, input.blockURL, input.isWhitelist));
@@ -204,11 +236,14 @@ export function createRulesMutationService({
       let safeId = 1;
       while (occupiedIds.has(safeId)) safeId++;
 
+      const blockingConfig = getStoredBlockingConfig(input);
       const newRule = {
         id: safeId,
         blockURL: input.blockURL.trim(),
         redirectURL: input.isWhitelist ? '' : input.redirectURL.trim(),
-        schedule: input.isWhitelist ? null : input.schedule,
+        schedule: blockingConfig.schedule,
+        blockingMode: blockingConfig.blockingMode,
+        dailyLimit: blockingConfig.dailyLimit,
         category: input.isWhitelist ? 'whitelist' : input.category,
         disabledByUser: false,
         listId: input.isWhitelist ? GENERAL_RULE_LIST_ID : input.listId,
@@ -282,7 +317,9 @@ export function createRulesMutationService({
           input.redirectURL,
           input.schedule,
           input.category,
-          false
+          false,
+          input.blockingMode,
+          input.dailyLimit
         );
 
         if (!validation.isValid) {
@@ -311,11 +348,14 @@ export function createRulesMutationService({
           continue;
         }
 
+        const blockingConfig = getStoredBlockingConfig(input);
         nextRules.push({
           id: getNextSafeId(),
           blockURL: input.blockURL.trim(),
           redirectURL: '',
-          schedule: cloneSchedule(sharedSchedule),
+          schedule: blockingConfig.schedule ? cloneSchedule(blockingConfig.schedule) : null,
+          blockingMode: blockingConfig.blockingMode,
+          dailyLimit: null,
           category: selection.pack.category,
           disabledByUser: false,
           listId: GENERAL_RULE_LIST_ID,
@@ -364,7 +404,8 @@ export function createRulesMutationService({
       const input = sanitizeRuleInput(
         payload,
         oldRule.isWhitelist === true,
-        oldRule.listId || GENERAL_RULE_LIST_ID
+        oldRule.listId || GENERAL_RULE_LIST_ID,
+        oldRule
       );
       input.isWhitelist = oldRule.isWhitelist === true;
 
@@ -375,12 +416,18 @@ export function createRulesMutationService({
       const lists = await getRuleLists();
       input.listId = validateRuleListSelection(input.listId, lists, hasProAccess, input.isWhitelist);
 
+      if (!input.isWhitelist && input.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
+        throw new RulesMutationError('pro_required', 'Pro access is required');
+      }
+
       throwValidation(rulesManager.validateRule(
         input.blockURL,
         input.redirectURL,
         input.schedule,
         input.category,
-        input.isWhitelist
+        input.isWhitelist,
+        input.blockingMode,
+        input.dailyLimit
       ));
 
       throwConflict(rulesManager.checkConflict(
@@ -408,11 +455,14 @@ export function createRulesMutationService({
         disabledByUser = false;
       }
 
+      const blockingConfig = getStoredBlockingConfig(input);
       const updatedRule = {
         id: oldRule.id,
         blockURL: input.blockURL.trim(),
         redirectURL: input.isWhitelist ? '' : input.redirectURL.trim(),
-        schedule: input.isWhitelist ? null : input.schedule,
+        schedule: blockingConfig.schedule,
+        blockingMode: blockingConfig.blockingMode,
+        dailyLimit: blockingConfig.dailyLimit,
         category: input.isWhitelist ? 'whitelist' : input.category,
         disabledByUser,
         listId: input.isWhitelist ? GENERAL_RULE_LIST_ID : input.listId,
@@ -488,7 +538,9 @@ export function createRulesMutationService({
         input.redirectURL,
         input.schedule,
         input.category,
-        input.isWhitelist
+        input.isWhitelist,
+        input.blockingMode,
+        input.dailyLimit
       );
 
       if (!validation.isValid) {
@@ -515,11 +567,14 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_already_exists', 'Rule already exists');
       }
 
+      const blockingConfig = getStoredBlockingConfig(input);
       preparedRules.push({
         id: index + 1,
         blockURL: input.blockURL.trim(),
         redirectURL: input.isWhitelist ? '' : input.redirectURL.trim(),
-        schedule: input.isWhitelist ? null : input.schedule,
+        schedule: blockingConfig.schedule,
+        blockingMode: blockingConfig.blockingMode,
+        dailyLimit: blockingConfig.dailyLimit,
         category: input.isWhitelist ? 'whitelist' : (input.category || 'uncategorized'),
         disabledByUser: input.disabledByUser,
         listId: input.isWhitelist ? GENERAL_RULE_LIST_ID : input.listId,

@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Penyekatan"
+  },
+  "blocking_mode_always": {
+    "message": "Sentiasa aktif"
+  },
+  "blocking_mode_schedule": {
+    "message": "Jadual"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Had harian"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minit sehari"
+  },
+  "daily_limit_hint": {
+    "message": "Benarkan laman sehingga had masa harian habis digunakan."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Had harian dicapai"
+  },
+  "daily_limit_invalid": {
+    "message": "Masukkan had harian antara 1 dan 1440 minit"
+  },
+  "schedule_required": {
+    "message": "Cipta jadual untuk mod Jadual"
+  },
+  "blocking_mode_conflict": {
+    "message": "Jadual dan Had harian tidak boleh digunakan serentak"
+  },
+  "blocking_mode_invalid": {
+    "message": "Pilih mod penyekatan yang sah"
   }
 }

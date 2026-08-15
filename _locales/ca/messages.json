@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Bloqueig"
+  },
+  "blocking_mode_always": {
+    "message": "Sempre actiu"
+  },
+  "blocking_mode_schedule": {
+    "message": "Horari"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Límit diari"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuts al dia"
+  },
+  "daily_limit_hint": {
+    "message": "Permet el lloc fins que s’esgoti el límit de temps diari."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "S’ha assolit el límit diari"
+  },
+  "daily_limit_invalid": {
+    "message": "Introdueix un límit diari entre 1 i 1440 minuts"
+  },
+  "schedule_required": {
+    "message": "Crea un horari per al mode Horari"
+  },
+  "blocking_mode_conflict": {
+    "message": "Horari i Límit diari no es poden utilitzar alhora"
+  },
+  "blocking_mode_invalid": {
+    "message": "Selecciona un mode de bloqueig vàlid"
   }
 }

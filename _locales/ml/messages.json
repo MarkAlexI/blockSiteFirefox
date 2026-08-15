@@ -1032,5 +1032,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "തടയൽ"
+  },
+  "blocking_mode_always": {
+    "message": "എപ്പോഴും സജീവം"
+  },
+  "blocking_mode_schedule": {
+    "message": "ഷെഡ്യൂൾ"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "ദൈനംദിന പരിധി"
+  },
+  "daily_limit_minutes_label": {
+    "message": "ദിവസത്തിൽ മിനിറ്റ്"
+  },
+  "daily_limit_hint": {
+    "message": "ദൈനംദിന സമയപരിധി തീരുന്നതുവരെ സൈറ്റ് അനുവദിക്കുക."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "ദൈനംദിന പരിധിയിലെത്തി"
+  },
+  "daily_limit_invalid": {
+    "message": "1 മുതൽ 1440 മിനിറ്റ് വരെ ദൈനംദിന പരിധി നൽകുക"
+  },
+  "schedule_required": {
+    "message": "ഷെഡ്യൂൾ മോഡിനായി ഒരു ഷെഡ്യൂൾ സൃഷ്ടിക്കുക"
+  },
+  "blocking_mode_conflict": {
+    "message": "ഷെഡ്യൂളും ദൈനംദിന പരിധിയും ഒരുമിച്ച് ഉപയോഗിക്കാനാകില്ല"
+  },
+  "blocking_mode_invalid": {
+    "message": "സാധുവായ തടയൽ മോഡ് തിരഞ്ഞെടുക്കുക"
   }
 }

@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "ବ୍ଲକିଂ"
+  },
+  "blocking_mode_always": {
+    "message": "ସଦା ସକ୍ରିୟ"
+  },
+  "blocking_mode_schedule": {
+    "message": "ସୂଚୀ"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "ଦୈନିକ ସୀମା"
+  },
+  "daily_limit_minutes_label": {
+    "message": "ଦିନକୁ ମିନିଟ୍"
+  },
+  "daily_limit_hint": {
+    "message": "ଦୈନିକ ସମୟ ସୀମା ଶେଷ ହେବା ପର୍ଯ୍ୟନ୍ତ ସାଇଟକୁ ଅନୁମତି ଦିଅନ୍ତୁ।"
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "ଦୈନିକ ସୀମା ପୂରଣ ହୋଇଛି"
+  },
+  "daily_limit_invalid": {
+    "message": "1 ରୁ 1440 ମିନିଟ୍ ମଧ୍ୟରେ ଦୈନିକ ସୀମା ଦିଅନ୍ତୁ"
+  },
+  "schedule_required": {
+    "message": "ସୂଚୀ ମୋଡ୍ ପାଇଁ ଏକ ସୂଚୀ ତିଆରି କରନ୍ତୁ"
+  },
+  "blocking_mode_conflict": {
+    "message": "ସୂଚୀ ଏବଂ ଦୈନିକ ସୀମା ଏକାସାଙ୍ଗରେ ବ୍ୟବହାର କରିହେବ ନାହିଁ"
+  },
+  "blocking_mode_invalid": {
+    "message": "ଏକ ବୈଧ ବ୍ଲକିଂ ମୋଡ୍ ବାଛନ୍ତୁ"
   }
 }

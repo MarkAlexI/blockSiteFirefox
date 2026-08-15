@@ -1023,5 +1023,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "தடுப்பு"
+  },
+  "blocking_mode_always": {
+    "message": "எப்போதும் செயல்படுகிறது"
+  },
+  "blocking_mode_schedule": {
+    "message": "அட்டவணை"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "தினசரி வரம்பு"
+  },
+  "daily_limit_minutes_label": {
+    "message": "ஒரு நாளுக்கு நிமிடங்கள்"
+  },
+  "daily_limit_hint": {
+    "message": "தினசரி நேர வரம்பு முடியும் வரை தளத்தை அனுமதிக்கவும்."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "தினசரி வரம்பு எட்டப்பட்டது"
+  },
+  "daily_limit_invalid": {
+    "message": "1 முதல் 1440 நிமிடங்களுக்கு இடையில் தினசரி வரம்பை உள்ளிடவும்"
+  },
+  "schedule_required": {
+    "message": "அட்டவணை பயன்முறைக்கு ஒரு அட்டவணையை உருவாக்கவும்"
+  },
+  "blocking_mode_conflict": {
+    "message": "அட்டவணை மற்றும் தினசரி வரம்பை ஒரே நேரத்தில் பயன்படுத்த முடியாது"
+  },
+  "blocking_mode_invalid": {
+    "message": "சரியான தடுப்பு பயன்முறையைத் தேர்ந்தெடுக்கவும்"
   }
 }

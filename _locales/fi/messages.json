@@ -1017,5 +1017,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Estäminen"
+  },
+  "blocking_mode_always": {
+    "message": "Aina aktiivinen"
+  },
+  "blocking_mode_schedule": {
+    "message": "Aikataulu"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Päivittäinen raja"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuuttia päivässä"
+  },
+  "daily_limit_hint": {
+    "message": "Salli sivusto, kunnes päivittäinen aikaraja on käytetty."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Päivittäinen raja saavutettu"
+  },
+  "daily_limit_invalid": {
+    "message": "Anna päivittäinen raja väliltä 1–1440 minuuttia"
+  },
+  "schedule_required": {
+    "message": "Luo aikataulu Aikataulu-tilaa varten"
+  },
+  "blocking_mode_conflict": {
+    "message": "Aikataulua ja Päivittäistä rajaa ei voi käyttää samaan aikaan"
+  },
+  "blocking_mode_invalid": {
+    "message": "Valitse kelvollinen estotila"
   }
 }

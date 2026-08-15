@@ -708,3 +708,61 @@ test('rule import restores custom list definitions and assignments together', as
   assert.equal(harness.getRuleLists()[1].disabled, true);
   assert.equal(harness.getRules()[0].listId, 'list-3');
 });
+
+test('Daily limit rules are Pro-only and persist a normalized blocking mode', async () => {
+  const freeHarness = createHarness({ access: { isPro: false, isLegacyUser: false } });
+  await assert.rejects(
+    freeHarness.service.addRule({
+      blockURL: 'youtube.com',
+      redirectURL: '',
+      category: 'social',
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 30 }
+    }),
+    error => error.code === 'pro_required'
+  );
+
+  const proHarness = createHarness();
+  await proHarness.service.addRule({
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    blockingMode: 'daily_limit',
+    dailyLimit: { minutes: 30 }
+  });
+
+  const rule = proHarness.getRules()[0];
+  assert.equal(rule.blockingMode, 'daily_limit');
+  assert.deepEqual(rule.dailyLimit, { minutes: 30 });
+  assert.equal(rule.schedule, null);
+});
+
+test('import preserves Daily limit configuration without importing usage history', async () => {
+  const harness = createHarness();
+  await harness.service.replaceAll({
+    rules: [{
+      blockURL: 'video.example',
+      redirectURL: '',
+      category: 'social',
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 45 },
+      listId: 'general'
+    }]
+  });
+
+  assert.deepEqual(
+    harness.getRules()[0],
+    {
+      id: 1,
+      blockURL: 'video.example',
+      redirectURL: '',
+      schedule: null,
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 45 },
+      category: 'social',
+      disabledByUser: false,
+      listId: 'general',
+      isWhitelist: false
+    }
+  );
+});

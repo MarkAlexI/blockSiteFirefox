@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Blockering"
+  },
+  "blocking_mode_always": {
+    "message": "Alltid aktiv"
+  },
+  "blocking_mode_schedule": {
+    "message": "Schema"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Daglig gräns"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Minuter per dag"
+  },
+  "daily_limit_hint": {
+    "message": "Tillåt webbplatsen tills den dagliga tidsgränsen är förbrukad."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Daglig gräns nådd"
+  },
+  "daily_limit_invalid": {
+    "message": "Ange en daglig gräns mellan 1 och 1440 minuter"
+  },
+  "schedule_required": {
+    "message": "Skapa ett schema för läget Schema"
+  },
+  "blocking_mode_conflict": {
+    "message": "Schema och Daglig gräns kan inte användas samtidigt"
+  },
+  "blocking_mode_invalid": {
+    "message": "Välj ett giltigt blockeringsläge"
   }
 }

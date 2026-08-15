@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Αποκλεισμός"
+  },
+  "blocking_mode_always": {
+    "message": "Πάντα ενεργό"
+  },
+  "blocking_mode_schedule": {
+    "message": "Πρόγραμμα"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Ημερήσιο όριο"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Λεπτά ανά ημέρα"
+  },
+  "daily_limit_hint": {
+    "message": "Επίτρεψε τον ιστότοπο μέχρι να εξαντληθεί το ημερήσιο χρονικό όριο."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Το ημερήσιο όριο συμπληρώθηκε"
+  },
+  "daily_limit_invalid": {
+    "message": "Εισαγάγετε ημερήσιο όριο από 1 έως 1440 λεπτά"
+  },
+  "schedule_required": {
+    "message": "Δημιουργήστε πρόγραμμα για τη λειτουργία Προγράμματος"
+  },
+  "blocking_mode_conflict": {
+    "message": "Το Πρόγραμμα και το Ημερήσιο όριο δεν μπορούν να χρησιμοποιηθούν μαζί"
+  },
+  "blocking_mode_invalid": {
+    "message": "Επιλέξτε έγκυρη λειτουργία αποκλεισμού"
   }
 }

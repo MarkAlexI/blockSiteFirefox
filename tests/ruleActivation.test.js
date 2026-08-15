@@ -117,3 +117,29 @@ test('a rule in a disabled rule list stays inactive outside Focus Session', () =
     true
   );
 });
+
+test('daily-limit rules stay inactive until the daily budget is exhausted', () => {
+  const limited = makeRule({
+    blockingMode: 'daily_limit',
+    dailyLimit: { minutes: 30 },
+    schedule: null
+  });
+
+  assert.equal(
+    isRuleActiveNow(limited, [], false, tuesdayAt1030, [], { '1': 1799 }),
+    false
+  );
+  assert.equal(
+    isRuleActiveNow(limited, [], false, tuesdayAt1030, [], { '1': 1800 }),
+    true
+  );
+});
+
+test('Focus Session blocks daily-limit rules even before their budget is exhausted', () => {
+  const limited = makeRule({
+    blockingMode: 'daily_limit',
+    dailyLimit: { minutes: 30 },
+    schedule: null
+  });
+  assert.equal(isRuleActiveNow(limited, [], true, tuesdayAt1030, [], { '1': 0 }), true);
+});

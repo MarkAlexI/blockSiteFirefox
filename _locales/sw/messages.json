@@ -1026,5 +1026,51 @@
         "example": "Work"
       }
     }
+  },
+  "blockingmode_header": {
+    "message": "Kuzuia"
+  },
+  "blocking_mode_always": {
+    "message": "Daima hai"
+  },
+  "blocking_mode_schedule": {
+    "message": "Ratiba"
+  },
+  "blocking_mode_daily_limit": {
+    "message": "Kikomo cha kila siku"
+  },
+  "daily_limit_minutes_label": {
+    "message": "Dakika kwa siku"
+  },
+  "daily_limit_hint": {
+    "message": "Ruhusu tovuti hadi kikomo cha muda cha kila siku kitumike."
+  },
+  "daily_limit_usage": {
+    "message": "$USED$ / $LIMIT$ min",
+    "placeholders": {
+      "used": {
+        "content": "$1",
+        "example": "12"
+      },
+      "limit": {
+        "content": "$2",
+        "example": "30"
+      }
+    }
+  },
+  "daily_limit_reached": {
+    "message": "Kikomo cha kila siku kimefikiwa"
+  },
+  "daily_limit_invalid": {
+    "message": "Weka kikomo cha kila siku kati ya dakika 1 na 1440"
+  },
+  "schedule_required": {
+    "message": "Unda ratiba kwa hali ya Ratiba"
+  },
+  "blocking_mode_conflict": {
+    "message": "Ratiba na Kikomo cha kila siku haviwezi kutumika pamoja"
+  },
+  "blocking_mode_invalid": {
+    "message": "Chagua hali halali ya kuzuia"
   }
 }
