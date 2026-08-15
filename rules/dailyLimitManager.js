@@ -1,6 +1,7 @@
 export const DAILY_RULE_USAGE_KEY = 'dailyRuleUsage';
 export const DAILY_LIMIT_STATE_VERSION = 1;
 export const MAX_ACCOUNTING_GAP_MS = 90 * 1000;
+export const MAX_RECOVERY_ACCOUNTING_SECONDS = 60;
 
 function toRuleId(value) {
   const id = Math.floor(Number(value));
@@ -89,15 +90,25 @@ export class DailyLimitManager {
       const previous = state.lastSample;
       if (previous?.ruleId !== null && previous?.ruleId !== undefined) {
         const elapsedMs = timestamp - previous.timestamp;
+        const elapsedSeconds = Math.floor(elapsedMs / 1000);
+        const sameRuleAtBothEnds = normalizedActiveRuleId !== null &&
+          normalizedActiveRuleId === previous.ruleId;
+
         if (elapsedMs > 0 && elapsedMs <= MAX_ACCOUNTING_GAP_MS) {
-          addedSeconds = Math.floor(elapsedMs / 1000);
-          if (addedSeconds > 0) {
-            accountedRuleId = previous.ruleId;
-            const key = String(previous.ruleId);
-            previousUsageSeconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
-            currentUsageSeconds = previousUsageSeconds + addedSeconds;
-            state.usageSeconds[key] = currentUsageSeconds;
-          }
+          addedSeconds = elapsedSeconds;
+        } else if (elapsedMs > MAX_ACCOUNTING_GAP_MS && sameRuleAtBothEnds) {
+          // Alarms and background events can be delayed on mobile or under load.
+          // Never charge the whole unknown gap, but credit one conservative minute
+          // when the same rule is confirmed active before and after the delay.
+          addedSeconds = Math.min(elapsedSeconds, MAX_RECOVERY_ACCOUNTING_SECONDS);
+        }
+
+        if (addedSeconds > 0) {
+          accountedRuleId = previous.ruleId;
+          const key = String(previous.ruleId);
+          previousUsageSeconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
+          currentUsageSeconds = previousUsageSeconds + addedSeconds;
+          state.usageSeconds[key] = currentUsageSeconds;
         }
       }
 

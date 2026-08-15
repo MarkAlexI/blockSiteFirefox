@@ -45,14 +45,26 @@ test('usage is attributed to the previous sampled rule', async () => {
   assert.equal(result.state.lastSample.ruleId, 9);
 });
 
-test('large suspension gaps are not charged to the user', async () => {
+test('large same-rule gaps recover only one conservative minute', async () => {
   const storage = createStorage();
   const manager = new DailyLimitManager(storage);
   const start = new Date(2026, 7, 15, 12, 0, 0);
   await manager.recordSample(7, start);
   const result = await manager.recordSample(7, new Date(start.getTime() + 10 * 60_000));
+  assert.equal(result.accountedRuleId, 7);
+  assert.equal(result.addedSeconds, 60);
+  assert.deepEqual(result.state.usageSeconds, { 7: 60 });
+});
+
+test('large gaps are not charged when the active rule changed', async () => {
+  const storage = createStorage();
+  const manager = new DailyLimitManager(storage);
+  const start = new Date(2026, 7, 15, 12, 0, 0);
+  await manager.recordSample(7, start);
+  const result = await manager.recordSample(9, new Date(start.getTime() + 10 * 60_000));
   assert.equal(result.addedSeconds, 0);
   assert.deepEqual(result.state.usageSeconds, {});
+  assert.equal(result.state.lastSample.ruleId, 9);
 });
 
 test('usage state prunes deleted rule ids', async () => {

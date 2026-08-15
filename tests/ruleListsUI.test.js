@@ -84,3 +84,21 @@ test('rule list filter preserves a valid selection and falls back to all', async
     globalThis.document = previousDocument;
   }
 });
+
+
+test('resolveRuleListContext uses the selected list as the add context', async () => {
+  const previousApi = globalThis.browser;
+  globalThis.browser = { i18n: { getMessage(key) { return key; } } };
+  try {
+    const { resolveRuleListContext } = await import(`../options/ruleListsUI.js?context=${Date.now()}`);
+    const lists = [
+      { id: 'general', name: 'General' },
+      { id: 'list-1', name: 'Study' }
+    ];
+    assert.equal(resolveRuleListContext(lists, 'list-1'), 'list-1');
+    assert.equal(resolveRuleListContext(lists, 'all'), 'general');
+    assert.equal(resolveRuleListContext(lists, 'missing'), 'general');
+  } finally {
+    globalThis.browser = previousApi;
+  }
+});

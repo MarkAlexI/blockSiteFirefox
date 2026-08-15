@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added regression coverage for blocking-mode validation, usage accounting, URL matching, migration, DNR activation, mutation security, localization, and Firefox runtime messaging.
 
 ### Fixed
+- Fixed Daily Limits failing to accumulate usage when active-tab sampling depended on populated window data or when background alarms were delayed beyond the normal sampling window.
+- Fixed adding a rule while a Rule List filter is selected incorrectly assigning the new rule to General instead of the selected list.
+- Fixed newly created Rule Lists not becoming the active list context in Options.
+- Fixed localized input placeholders, including the Rule List name placeholder, not being applied from `data-i18n-placeholder`.
 - Removed a redundant Rule List storage write when creating a custom list.
 
 ## [4.9.0] - 2026-08-15

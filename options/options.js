@@ -8,7 +8,7 @@ import { CategoryManager } from '../rules/categoryManager.js';
 import { CategoryUIManager } from './categoryUIManager.js';
 import { RuleListsManager, GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
-import { RuleListsUI } from './ruleListsUI.js';
+import { RuleListsUI, resolveRuleListContext } from './ruleListsUI.js';
 import { PasswordUtils } from '../pro/password.js';
 import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 import Logger from '../utils/logger.js';
@@ -477,7 +477,11 @@ class OptionsPage {
         (row) => row.remove(),
         this.isPro || this.isLegacyUser,
         isWhitelist,
-        this.ruleLists
+        this.ruleLists,
+        isWhitelist ? GENERAL_RULE_LIST_ID : resolveRuleListContext(
+          this.ruleLists,
+          this.ruleListFilter?.value || 'all'
+        )
       );
       
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
@@ -547,6 +551,12 @@ class OptionsPage {
       const response = await this.rulesClient.createRuleList(name);
       if (this.ruleListNameInput) this.ruleListNameInput.value = '';
       this.ruleLists = response.ruleLists || this.ruleLists;
+
+      await this.loadRuleLists();
+      if (this.ruleListFilter && response.list?.id) {
+        this.ruleListFilter.value = response.list.id;
+      }
+      await this.loadRules();
     } catch (error) {
       this.logger.error('Create rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
@@ -646,6 +656,12 @@ browser.runtime.onMessage.addListener((message) => {
     optionsPage.isPro = message.isPro;
     optionsPage.updateWhitelistButtonState();
     optionsPage.loadRuleLists();
+    optionsPage.loadRules();
+  }
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
     optionsPage.loadRules();
   }
 });

@@ -21,10 +21,15 @@ function makeRule(overrides = {}) {
 test('tracker samples only a matching tab in a focused browser window', async () => {
   let sampled = null;
   const tracker = createDailyLimitTracker({
-    tabsApi: {},
+    tabsApi: {
+      async query(queryInfo) {
+        assert.deepEqual(queryInfo, { active: true, windowId: 7 });
+        return [{ id: 11, active: true, url: 'https://youtube.com/watch?v=1' }];
+      }
+    },
     windowsApi: {
       async getLastFocused() {
-        return { focused: true, tabs: [{ active: true, url: 'https://youtube.com/watch?v=1' }] };
+        return { id: 7, focused: true };
       }
     },
     getRules: async () => [makeRule()],
@@ -48,8 +53,8 @@ test('tracker samples only a matching tab in a focused browser window', async ()
 test('tracker does not count when the browser window is not focused', async () => {
   let sampled = 'unset';
   const tracker = createDailyLimitTracker({
-    tabsApi: {},
-    windowsApi: { async getLastFocused() { return { focused: false, tabs: [] }; } },
+    tabsApi: { async query() { throw new Error('tabs.query should not run for an unfocused window'); } },
+    windowsApi: { async getLastFocused() { return { id: 7, focused: false }; } },
     getRules: async () => [makeRule()],
     getSettings: async () => ({ disabledCategories: [] }),
     getRuleLists: async () => [{ id: 'general', disabled: false }],
@@ -71,8 +76,8 @@ test('crossing a daily limit triggers DNR synchronization', async () => {
   let syncs = 0;
   const rule = makeRule();
   const tracker = createDailyLimitTracker({
-    tabsApi: {},
-    windowsApi: { async getLastFocused() { return { focused: true, tabs: [{ active: true, url: 'https://youtube.com/' }] }; } },
+    tabsApi: { async query() { return [{ id: 11, active: true, url: 'https://youtube.com/' }]; } },
+    windowsApi: { async getLastFocused() { return { id: 7, focused: true }; } },
     getRules: async () => [rule],
     getSettings: async () => ({ disabledCategories: [] }),
     getRuleLists: async () => [{ id: 'general', disabled: false }],

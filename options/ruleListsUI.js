@@ -5,6 +5,13 @@ function getDisplayName(list) {
   return list.id === GENERAL_RULE_LIST_ID ? t('rulelist_general') : list.name;
 }
 
+export function resolveRuleListContext(lists, selectedValue = 'all') {
+  if (selectedValue === 'all') return GENERAL_RULE_LIST_ID;
+  return Array.isArray(lists) && lists.some(list => list?.id === selectedValue)
+    ? selectedValue
+    : GENERAL_RULE_LIST_ID;
+}
+
 export class RuleListsUI {
   static updateListGrid(container, lists, rules, handlers = {}) {
     container.innerHTML = '';

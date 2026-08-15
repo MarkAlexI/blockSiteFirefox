@@ -10,3 +10,11 @@ for (let i = 0; i < words.length; i++) {
     words[i].innerText = translation;
   }
 }
+
+const placeholders = document.querySelectorAll('[data-i18n-placeholder]');
+
+for (let i = 0; i < placeholders.length; i++) {
+  const key = placeholders[i].getAttribute('data-i18n-placeholder');
+  const translation = t(key);
+  if (translation) placeholders[i].placeholder = translation;
+}

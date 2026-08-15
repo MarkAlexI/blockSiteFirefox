@@ -17,9 +17,14 @@ export function createDailyLimitTracker({
   let sampleRequestedAgain = false;
 
   async function getFocusedActiveTab() {
-    const windowInfo = await windowsApi.getLastFocused({ populate: true });
-    if (!windowInfo || windowInfo.focused !== true || !Array.isArray(windowInfo.tabs)) return null;
-    return windowInfo.tabs.find(tab => tab?.active === true) || null;
+    const windowInfo = await windowsApi.getLastFocused();
+    if (!windowInfo || windowInfo.focused !== true || !Number.isInteger(windowInfo.id)) return null;
+
+    const tabs = await tabsApi.query({
+      active: true,
+      windowId: windowInfo.id
+    });
+    return Array.isArray(tabs) ? (tabs.find(tab => tab?.active === true) || null) : null;
   }
 
   async function resolveActiveDailyLimitRule() {

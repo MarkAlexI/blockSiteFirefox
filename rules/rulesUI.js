@@ -372,7 +372,7 @@ export class RulesUI {
     return row;
   }
 
-  createAddRuleRow(onSave, onCancel, enableSchedule = false, isWhitelist = false, ruleLists = []) {
+  createAddRuleRow(onSave, onCancel, enableSchedule = false, isWhitelist = false, ruleLists = [], initialListId = GENERAL_RULE_LIST_ID) {
     const row = document.createElement('tr');
     row.className = 'rule-row';
     if (isWhitelist) {
@@ -463,7 +463,9 @@ export class RulesUI {
         option.textContent = list.id === GENERAL_RULE_LIST_ID ? t('rulelist_general') : list.name;
         listSelect.appendChild(option);
       }
-      listSelect.value = GENERAL_RULE_LIST_ID;
+      listSelect.value = ruleLists.some(list => list?.id === initialListId)
+        ? initialListId
+        : GENERAL_RULE_LIST_ID;
     }
     listCell.appendChild(listSelect);
     row.appendChild(listCell);
