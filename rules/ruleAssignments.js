@@ -55,8 +55,6 @@ function normalizeExistingAssignments(assignments = []) {
 }
 
 function applyGeneralFallback(assignments) {
-  const custom = assignments.filter(item => item.listId !== GENERAL_RULE_LIST_ID);
-  if (custom.length > 0) return custom;
   return assignments.length > 0 ? assignments : [createAlwaysAssignment()];
 }
 
@@ -104,13 +102,6 @@ export function isRuleInList(rule, listId) {
   return Boolean(getRuleAssignment(rule, listId));
 }
 
-export function isRuleListMembershipActive(rule, disabledRuleListIds = []) {
-  const disabled = disabledRuleListIds instanceof Set
-    ? disabledRuleListIds
-    : new Set(disabledRuleListIds || []);
-  return getRuleAssignments(rule).some(item => !disabled.has(item.listId));
-}
-
 export function addRuleAssignment(rule, assignment) {
   const next = getRuleAssignments(rule);
   const normalized = createRuleAssignment(assignment?.listId, assignment || {});
@@ -118,10 +109,7 @@ export function addRuleAssignment(rule, assignment) {
     return next;
   }
 
-  const withoutGeneral = normalized.listId === GENERAL_RULE_LIST_ID
-    ? next
-    : next.filter(item => item.listId !== GENERAL_RULE_LIST_ID);
-  return applyGeneralFallback([...withoutGeneral, normalized]);
+  return applyGeneralFallback([...next, normalized]);
 }
 
 export function replaceRuleAssignment(rule, sourceListId, assignment) {

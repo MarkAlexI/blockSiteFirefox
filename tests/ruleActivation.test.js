@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { isRuleActiveNow } from '../rules/ruleActivation.js';
+import { isRuleActiveNow, getTrackableDailyLimitAssignments } from '../rules/ruleActivation.js';
 
 const tuesdayAt1030 = new Date(2026, 7, 4, 10, 30);
 
@@ -17,63 +17,71 @@ function makeRule(overrides = {}) {
   };
 }
 
-test('ordinary unscheduled rules are active', () => {
-  assert.equal(isRuleActiveNow(makeRule(), [], false, tuesdayAt1030), true);
+test('ordinary General rules are active while General is the active profile', () => {
+  assert.equal(isRuleActiveNow(makeRule(), [], false, tuesdayAt1030, 'general'), true);
+});
+
+test('rules without an assignment in the active profile stay inactive', () => {
+  const rule = makeRule({
+    assignments: [{ listId: 'study', blockingMode: 'always', schedule: null, dailyLimit: null }]
+  });
+  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, 'general'), false);
+  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, 'study'), true);
 });
 
 test('whitelist rules never become DNR blocking rules', () => {
   assert.equal(
-    isRuleActiveNow(makeRule({ isWhitelist: true }), [], true, tuesdayAt1030),
+    isRuleActiveNow(makeRule({ isWhitelist: true }), [], true, tuesdayAt1030, 'general'),
     false
   );
 });
 
-test('focus session activates blacklist rules before disabled checks', () => {
+test('Focus Session globally activates blacklist targets before profile and category checks', () => {
   const rule = makeRule({
     disabledByUser: true,
-    category: 'muted'
+    category: 'social',
+    assignments: [{ listId: 'work', blockingMode: 'schedule', schedule: null, dailyLimit: null }]
+  });
+  assert.equal(isRuleActiveNow(rule, ['social'], true, tuesdayAt1030, 'study'), true);
+});
+
+test('disabled target and active-profile category state stay inactive outside Focus Session', () => {
+  assert.equal(
+    isRuleActiveNow(makeRule({ disabledByUser: true }), [], false, tuesdayAt1030, 'general'),
+    false
+  );
+  assert.equal(
+    isRuleActiveNow(makeRule(), ['social'], false, tuesdayAt1030, 'general'),
+    false
+  );
+});
+
+test('the same target can use independent schedules in different profiles', () => {
+  const rule = makeRule({
+    assignments: [
+      {
+        listId: 'work',
+        blockingMode: 'schedule',
+        schedule: { days: [2], startTime: '09:00', endTime: '10:00' },
+        dailyLimit: null
+      },
+      {
+        listId: 'study',
+        blockingMode: 'schedule',
+        schedule: { days: [2], startTime: '10:00', endTime: '11:00' },
+        dailyLimit: null
+      }
+    ]
   });
 
-  assert.equal(isRuleActiveNow(rule, ['muted'], true, tuesdayAt1030), true);
+  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, 'work'), false);
+  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, 'study'), true);
 });
 
-test('disabled rules and disabled categories stay inactive outside focus mode', () => {
-  assert.equal(
-    isRuleActiveNow(makeRule({ disabledByUser: true }), [], false, tuesdayAt1030),
-    false
-  );
-  assert.equal(
-    isRuleActiveNow(makeRule(), ['social'], false, tuesdayAt1030),
-    false
-  );
-});
-
-test('scheduled rules are active only on selected days and inside the interval', () => {
+test('version 2 schedules activate when any time group in the active profile matches', () => {
   const scheduled = makeRule({
     assignments: [{
-      listId: 'general',
-      blockingMode: 'schedule',
-      schedule: { days: [2], startTime: '10:00', endTime: '11:00' },
-      dailyLimit: null
-    }]
-  });
-
-  assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030), true);
-  assert.equal(
-    isRuleActiveNow(scheduled, [], false, new Date(2026, 7, 4, 11, 0)),
-    false
-  );
-  assert.equal(
-    isRuleActiveNow(scheduled, [], false, new Date(2026, 7, 5, 10, 30)),
-    false
-  );
-});
-
-
-test('version 2 schedules activate when any time group matches', () => {
-  const scheduled = makeRule({
-    assignments: [{
-      listId: 'general',
+      listId: 'study',
       blockingMode: 'schedule',
       schedule: {
         version: 2,
@@ -86,9 +94,9 @@ test('version 2 schedules activate when any time group matches', () => {
     }]
   });
 
-  assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030), true);
+  assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030, 'study'), true);
   assert.equal(
-    isRuleActiveNow(scheduled, [], false, new Date(2026, 7, 4, 11, 0)),
+    isRuleActiveNow(scheduled, [], false, new Date(2026, 7, 4, 11, 0), 'study'),
     false
   );
 });
@@ -102,101 +110,38 @@ test('malformed stored schedule periods fail closed without breaking activation'
       dailyLimit: null
     }]
   });
-
-  assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030), false);
+  assert.equal(isRuleActiveNow(scheduled, [], false, tuesdayAt1030, 'general'), false);
 });
 
-test('a rule in a disabled rule list stays inactive outside Focus Session', () => {
-  const rule = {
-    blockURL: 'work.example',
-    category: 'work',
-    disabledByUser: false,
-    isWhitelist: false,
-    assignments: [{ listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }]
-  };
-
-  assert.equal(
-    isRuleActiveNow(rule, [], false, new Date(2026, 7, 15, 12, 0), ['list-1']),
-    false
-  );
-  assert.equal(
-    isRuleActiveNow(rule, [], true, new Date(2026, 7, 15, 12, 0), ['list-1']),
-    true
-  );
-});
-
-test('daily-limit rules stay inactive until the daily budget is exhausted', () => {
+test('Daily Limit is evaluated only for the active profile assignment', () => {
   const limited = makeRule({
-    assignments: [{
-      listId: 'general',
-      blockingMode: 'daily_limit',
-      dailyLimit: { minutes: 30 },
-      schedule: null
-    }]
-  });
-
-  assert.equal(
-    isRuleActiveNow(limited, [], false, tuesdayAt1030, [], { '1:general': 1799 }),
-    false
-  );
-  assert.equal(
-    isRuleActiveNow(limited, [], false, tuesdayAt1030, [], { '1:general': 1800 }),
-    true
-  );
-});
-
-test('Focus Session blocks daily-limit rules even before their budget is exhausted', () => {
-  const limited = makeRule({
-    assignments: [{
-      listId: 'general',
-      blockingMode: 'daily_limit',
-      dailyLimit: { minutes: 30 },
-      schedule: null
-    }]
-  });
-  assert.equal(isRuleActiveNow(limited, [], true, tuesdayAt1030, [], { '1:general': 0 }), true);
-});
-
-test('a shared rule stays active while any Rule List membership is enabled', () => {
-  const rule = makeRule({ assignments: [
-    { listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null },
-    { listId: 'list-2', blockingMode: 'always', schedule: null, dailyLimit: null }
-  ] });
-
-  assert.equal(
-    isRuleActiveNow(rule, [], false, tuesdayAt1030, ['list-1']),
-    true
-  );
-  assert.equal(
-    isRuleActiveNow(rule, [], false, tuesdayAt1030, ['list-1', 'list-2']),
-    false
-  );
-  assert.equal(
-    isRuleActiveNow(rule, [], true, tuesdayAt1030, ['list-1', 'list-2']),
-    true
-  );
-});
-
-
-test('different list schedules on the same target are evaluated independently', () => {
-  const rule = makeRule({
     assignments: [
-      {
-        listId: 'work',
-        blockingMode: 'schedule',
-        schedule: { version: 2, periods: [{ days: [2], startTime: '09:00', endTime: '10:00' }] },
-        dailyLimit: null
-      },
-      {
-        listId: 'study',
-        blockingMode: 'schedule',
-        schedule: { version: 2, periods: [{ days: [2], startTime: '10:00', endTime: '11:00' }] },
-        dailyLimit: null
-      }
+      { listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null },
+      { listId: 'study', blockingMode: 'daily_limit', dailyLimit: { minutes: 30 }, schedule: null }
     ]
   });
 
-  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, []), true);
-  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, ['study']), false);
-  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, ['work']), true);
+  assert.equal(isRuleActiveNow(limited, [], false, tuesdayAt1030, 'study', { '1:study': 1799 }), false);
+  assert.equal(isRuleActiveNow(limited, [], false, tuesdayAt1030, 'study', { '1:study': 1800 }), true);
+  assert.equal(isRuleActiveNow(limited, [], false, tuesdayAt1030, 'general', { '1:study': 0 }), true);
+});
+
+test('Daily Limit tracker receives only the active profile assignment', () => {
+  const rule = makeRule({
+    assignments: [
+      { listId: 'work', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 }, schedule: null },
+      { listId: 'study', blockingMode: 'daily_limit', dailyLimit: { minutes: 20 }, schedule: null }
+    ]
+  });
+  assert.deepEqual(
+    getTrackableDailyLimitAssignments(rule, 'study', tuesdayAt1030, {}),
+    [{ listId: 'study', blockingMode: 'daily_limit', dailyLimit: { minutes: 20 }, schedule: null }]
+  );
+});
+
+test('Focus Session blocks a Daily Limit target even before the active profile budget is exhausted', () => {
+  const limited = makeRule({
+    assignments: [{ listId: 'study', blockingMode: 'daily_limit', dailyLimit: { minutes: 30 }, schedule: null }]
+  });
+  assert.equal(isRuleActiveNow(limited, [], true, tuesdayAt1030, 'general', {}), true);
 });

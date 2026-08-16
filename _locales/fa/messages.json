@@ -986,7 +986,7 @@
     "message": "فهرست قوانین"
   },
   "rulelists_description": {
-    "message": "قوانین را در فهرست‌ها گروه‌بندی کنید و بدون تغییر قوانین جداگانه، کل یک فهرست را موقتاً متوقف کنید."
+    "message": "در هر لحظه از یک نمایه فعال فهرست قوانین استفاده کنید. هر نمایه حالت‌های مسدودسازی و تنظیمات دسته‌بندی مخصوص خود را دارد."
   },
   "rulelists_name_placeholder": {
     "message": "نام فهرست جدید"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "افزودن فهرست"
   },
-  "rulelists_toggle_hint": {
-    "message": "تغییر وضعیت مسدودسازی کل این فهرست"
-  },
   "rulelist_general": {
     "message": "عمومی"
   },
-  "rulelists_all": {
-    "message": "همه فهرست‌ها"
-  },
   "rulelist_header": {
     "message": "فهرست"
-  },
-  "rulelists_disabled_desc": {
-    "message": "این قانون در یک فهرست متوقف‌شده قرار دارد."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "ویرایش ممکن نیست: مسدودسازی فهرست قوانین متوقف است"
   },
   "rulelists_name_invalid": {
     "message": "نام فهرستی با حداکثر ۴۰ نویسه وارد کنید."
@@ -1019,7 +1007,7 @@
     "message": "فهرستی با این نام از قبل وجود دارد."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" حذف شود؟ قوانین آن به عمومی منتقل می‌شوند.",
+    "message": "\"$NAME$\" حذف شود؟ قوانینی که فقط در این نمایه استفاده می‌شوند به General منتقل خواهند شد.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "یک حالت مسدودسازی معتبر انتخاب کنید"
   },
-  "rulelists_assignment_hint": {
-    "message": "تنظیمات مسدودسازی زیر فقط برای این فهرست اعمال می‌شود."
-  },
   "rulelists_remove_assignment": {
     "message": "حذف از فهرست"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "این قانون از «$NAME$» حذف شود؟ اگر این آخرین فهرست سفارشی آن باشد، به فهرست عمومی منتقل می‌شود.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "این قانون از قبل برای آن فهرست تنظیمات دارد."
   },
   "rulelists_assignment_error": {
     "message": "تخصیص فهرست انتخاب‌شده تغییر نکرد."
-  },
-  "rulelists_multiple_settings": {
-    "message": "تنظیمات متفاوت برای هر فهرست"
   }
 }

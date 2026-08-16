@@ -13,13 +13,15 @@ function clone(value) {
 
 function createHarness({
   initialRules = [],
-  initialRuleLists = [{ id: 'general', name: 'General', disabled: false }],
+  initialRuleLists = [{ id: 'general', name: 'General', disabledCategories: [] }],
+  initialActiveRuleListId = 'general',
   access = { isPro: true, isLegacyUser: false },
   syncResult = { success: true },
   validation = null
 } = {}) {
   let rules = clone(initialRules);
   let ruleLists = clone(initialRuleLists);
+  let activeRuleListId = initialActiveRuleListId;
   let settings = { disabledCategories: [], enablePassword: false, passwordHash: null };
   const savedStates = [];
   const notifications = [];
@@ -78,7 +80,13 @@ function createHarness({
     rulesManager,
     ruleListsManager: {
       async getLists() { return clone(ruleLists); },
-      async saveLists(nextLists) { ruleLists = clone(nextLists); return clone(ruleLists); }
+      async getState() { return { lists: clone(ruleLists), activeRuleListId }; },
+      async saveLists(nextLists) { ruleLists = clone(nextLists); return clone(ruleLists); },
+      async saveState(nextLists, nextActiveRuleListId) {
+        ruleLists = clone(nextLists);
+        activeRuleListId = nextActiveRuleListId;
+        return { lists: clone(ruleLists), activeRuleListId };
+      }
     },
     dnrSynchronizer: {
       async requestSync() {
@@ -96,9 +104,10 @@ function createHarness({
     saveSettings: async (nextSettings) => {
       settings = clone(nextSettings);
     },
-    saveRulesAndLists: async (nextRules, nextLists) => {
+    saveRulesAndLists: async (nextRules, nextLists, nextActiveRuleListId = null) => {
       rules = clone(nextRules);
       ruleLists = clone(nextLists);
+      if (nextActiveRuleListId) activeRuleListId = nextActiveRuleListId;
       savedStates.push(clone(nextRules));
     },
     maxRulesLimit: 10,
@@ -119,6 +128,7 @@ function createHarness({
     getRules: () => clone(rules),
     getSettings: () => clone(settings),
     getRuleLists: () => clone(ruleLists),
+    getActiveRuleListId: () => activeRuleListId,
     savedStates,
     notifications,
     getSyncCalls: () => syncCalls
@@ -361,19 +371,41 @@ test('category blocking can be disabled and enabled again without changing store
 
   const disabledResult = await harness.service.toggleCategory({ category: 'social' });
 
-  assert.deepEqual(harness.getSettings().disabledCategories, ['social']);
-  assert.deepEqual(disabledResult.settings.disabledCategories, ['social']);
+  assert.deepEqual(harness.getRuleLists()[0].disabledCategories, ['social']);
+  assert.equal(disabledResult.activeRuleListId, 'general');
   assert.deepEqual(harness.getRules(), originalRules);
   assert.equal(harness.savedStates.length, 0);
   assert.equal(harness.getSyncCalls(), 1);
 
   const enabledResult = await harness.service.toggleCategory({ category: 'social' });
 
-  assert.deepEqual(harness.getSettings().disabledCategories, []);
-  assert.deepEqual(enabledResult.settings.disabledCategories, []);
+  assert.deepEqual(harness.getRuleLists()[0].disabledCategories, []);
+  assert.equal(enabledResult.activeRuleListId, 'general');
   assert.deepEqual(harness.getRules(), originalRules);
   assert.equal(harness.savedStates.length, 0);
   assert.equal(harness.getSyncCalls(), 2);
+});
+
+test('category blocking state is independent between Rule List profiles', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: ['news'] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    initialActiveRuleListId: 'list-1'
+  });
+
+  await harness.service.toggleCategory({ category: 'social' });
+
+  assert.deepEqual(harness.getRuleLists(), [
+    { id: 'general', name: 'General', disabledCategories: ['news'] },
+    { id: 'list-1', name: 'Study', disabledCategories: ['social'] }
+  ]);
+  assert.equal(harness.getActiveRuleListId(), 'list-1');
+
+  await harness.service.activateRuleList({ listId: 'general' });
+  assert.equal(harness.getActiveRuleListId(), 'general');
+  assert.deepEqual(harness.getRuleLists()[0].disabledCategories, ['news']);
 });
 
 test('category blocking changes require Pro or legacy access', async () => {
@@ -619,7 +651,9 @@ test('custom rule lists are Pro-only and new rules can be assigned to them', asy
 
   assert.equal(workList.id, 'list-1');
   assert.equal(workList.name, 'Work');
-  assert.equal(harness.getSyncCalls(), 0);
+  assert.equal(created.activeRuleListId, workList.id);
+  assert.equal(harness.getActiveRuleListId(), workList.id);
+  assert.equal(harness.getSyncCalls(), 1);
 
   await harness.service.addRule({
     blockURL: 'work.example',
@@ -673,23 +707,27 @@ test('Rule List names are normalized and remain unique case-insensitively', asyn
   );
 });
 
-test('toggling a rule list preserves rules and synchronizes DNR', async () => {
+test('activating a Rule List profile preserves rules and synchronizes DNR', async () => {
   const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Work', disabledCategories: [] }
+    ],
     initialRules: [{
       id: 1,
       blockURL: 'work.example',
       redirectURL: '',
       category: 'work',
-      listId: 'general',
+      assignments: [{ listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }],
       disabledByUser: false,
       isWhitelist: false
     }]
   });
 
-  const result = await harness.service.toggleRuleList({ listId: 'general' });
+  const result = await harness.service.activateRuleList({ listId: 'list-1' });
 
-  assert.equal(result.ruleLists[0].disabled, true);
-  assert.equal(harness.getRuleLists()[0].disabled, true);
+  assert.equal(result.activeRuleListId, 'list-1');
+  assert.equal(harness.getActiveRuleListId(), 'list-1');
   assert.equal(harness.getRules()[0].blockURL, 'work.example');
   assert.equal(harness.getSyncCalls(), 1);
 });
@@ -729,9 +767,10 @@ test('rule import restores custom list definitions and assignments together', as
 
   const result = await harness.service.replaceAll({
     ruleLists: [
-      { id: 'general', name: 'General', disabled: false },
-      { id: 'list-3', name: 'Study', disabled: true }
+      { id: 'general', name: 'General', disabledCategories: ['news'] },
+      { id: 'list-3', name: 'Study', disabledCategories: ['social'] }
     ],
+    activeRuleListId: 'list-3',
     rules: [{
       blockURL: 'study.example',
       redirectURL: '',
@@ -741,7 +780,8 @@ test('rule import restores custom list definitions and assignments together', as
   });
 
   assert.equal(result.ruleLists[1].name, 'Study');
-  assert.equal(harness.getRuleLists()[1].disabled, true);
+  assert.deepEqual(harness.getRuleLists()[1].disabledCategories, ['social']);
+  assert.equal(harness.getActiveRuleListId(), 'list-3');
   assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['list-3']);
 });
 
@@ -843,7 +883,7 @@ test('adding an existing rule to another custom list adds membership instead of 
   assert.equal(harness.getSyncCalls(), 1);
 });
 
-test('adding a custom membership moves an existing General rule out of General', async () => {
+test('adding a custom profile assignment preserves the existing General assignment', async () => {
   const harness = createHarness({
     initialRuleLists: [
       { id: 'general', name: 'General', disabled: false },
@@ -867,7 +907,7 @@ test('adding a custom membership moves an existing General rule out of General',
     listIds: ['list-1']
   });
 
-  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['list-1']);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['general', 'list-1']);
 });
 
 test('adding an existing rule to a list it already belongs to still reports a duplicate', async () => {
@@ -1081,7 +1121,7 @@ test('adding an existing target to another list preserves target-level redirect 
   assert.equal(getRuleAssignment(rule, 'list-2').blockingMode, 'schedule');
 });
 
-test('removing one assignment preserves other contexts and the last custom assignment falls back to General', async () => {
+test('removing one assignment preserves other profiles and removing the last one deletes the target', async () => {
   const harness = createHarness({
     initialRuleLists: [
       { id: 'general', name: 'General', disabled: false },
@@ -1113,8 +1153,6 @@ test('removing one assignment preserves other contexts and the last custom assig
   assert.equal(getRuleAssignment(rule, 'list-1').blockingMode, 'always');
 
   const result = await harness.service.removeAssignment({ ruleId: 1, listId: 'list-1' });
-  rule = harness.getRules()[0];
-  assert.deepEqual(getRuleListIds(rule), ['general']);
-  assert.equal(getRuleAssignment(rule, 'general').blockingMode, 'always');
-  assert.equal(result.movedToGeneral, true);
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(result.targetDeleted, true);
 });

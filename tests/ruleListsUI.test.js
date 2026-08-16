@@ -18,6 +18,7 @@ class FakeElement {
     this.value = '';
     this.checked = false;
     this.type = '';
+    this.name = '';
     this.title = '';
     this.innerHTML = '';
     this.attributes = new Map();
@@ -29,7 +30,7 @@ class FakeElement {
   getAttribute(name) { return this.attributes.get(name) ?? null; }
 }
 
-test('rule list grid renders shared membership counts and selectable list names', async () => {
+test('rule list grid renders profile counts and marks exactly one active profile', async () => {
   const previousBrowser = globalThis.browser;
   const previousDocument = globalThis.document;
   globalThis.browser = { i18n: { getMessage(key) { return key === 'rulelist_general' ? 'General' : key; } } };
@@ -42,64 +43,36 @@ test('rule list grid renders shared membership counts and selectable list names'
     RuleListsUI.updateListGrid(
       container,
       [
-        { id: 'general', name: 'General', disabled: false },
-        { id: 'list-1', name: 'Work', disabled: true },
-        { id: 'list-2', name: 'Study', disabled: false }
+        { id: 'general', name: 'General', disabledCategories: [] },
+        { id: 'list-1', name: 'Work', disabledCategories: ['social'] },
+        { id: 'list-2', name: 'Study', disabledCategories: [] }
       ],
       [
         { assignments: [{ listId: 'general', blockingMode: 'always' }], isWhitelist: false },
         { assignments: [{ listId: 'list-1', blockingMode: 'always' }, { listId: 'list-2', blockingMode: 'always' }], isWhitelist: false },
-        { assignments: [{ listId: 'list-1', blockingMode: 'always' }], isWhitelist: false },
-        { assignments: [{ listId: 'general', blockingMode: 'always' }], isWhitelist: true }
+        { assignments: [{ listId: 'list-1', blockingMode: 'always' }], isWhitelist: false }
       ],
-      { selectedListId: 'list-2', onSelect: listId => selected.push(listId) }
+      { activeRuleListId: 'list-2', onSelect: listId => selected.push(listId) }
     );
 
     assert.equal(container.children.length, 3);
-    assert.equal(container.children[0].dataset.listId, 'general');
-    assert.equal(container.children[0].children[1].textContent, 'General');
+    assert.equal(container.children[0].children[0].type, 'radio');
     assert.equal(container.children[0].children[2].textContent, 1);
     assert.equal(container.children[1].children[2].textContent, 2);
     assert.equal(container.children[2].children[2].textContent, 1);
-    assert.match(container.children[1].className, /muted/);
-    assert.equal(container.children[1].children[3].children.length, 2);
+    assert.equal(container.children[2].children[0].checked, true);
     assert.match(container.children[2].className, /selected/);
     assert.equal(container.children[2].children[1].getAttribute('aria-current'), 'true');
 
-    container.children[2].children[1].listeners.get('click')();
-    assert.deepEqual(selected, ['list-2']);
+    container.children[1].children[1].listeners.get('click')();
+    assert.deepEqual(selected, ['list-1']);
   } finally {
     globalThis.browser = previousBrowser;
     globalThis.document = previousDocument;
   }
 });
 
-test('rule list filter preserves a valid selection and falls back to all', async () => {
-  const previousBrowser = globalThis.browser;
-  const previousDocument = globalThis.document;
-  globalThis.browser = { i18n: { getMessage(key) { return key; } } };
-  globalThis.document = { createElement(tag) { return new FakeElement(tag); } };
-
-  try {
-    const { RuleListsUI } = await import(`../options/ruleListsUI.js?filter=${Date.now()}`);
-    const select = new FakeElement('select');
-    RuleListsUI.updateFilter(select, [
-      { id: 'general', name: 'General' },
-      { id: 'list-1', name: 'Work' }
-    ], 'list-1');
-    assert.equal(select.children.length, 3);
-    assert.equal(select.value, 'list-1');
-
-    RuleListsUI.updateFilter(select, [{ id: 'general', name: 'General' }], 'list-1');
-    assert.equal(select.value, 'all');
-  } finally {
-    globalThis.browser = previousBrowser;
-    globalThis.document = previousDocument;
-  }
-});
-
-
-test('resolveRuleListContext uses the selected list as the add context', async () => {
+test('resolveRuleListContext uses only known profiles', async () => {
   const previousApi = globalThis.browser;
   globalThis.browser = { i18n: { getMessage(key) { return key; } } };
   try {

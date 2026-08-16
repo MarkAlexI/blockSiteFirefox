@@ -983,7 +983,7 @@
     "message": "قوائم القواعد"
   },
   "rulelists_description": {
-    "message": "نظّم القواعد في قوائم وأوقف قائمة كاملة مؤقتًا دون تغيير القواعد الفردية."
+    "message": "استخدم ملفًا شخصيًا نشطًا واحدًا لقائمة القواعد في كل مرة. لكل ملف شخصي أوضاع حظر وإعدادات فئات خاصة به."
   },
   "rulelists_name_placeholder": {
     "message": "اسم قائمة جديد"
@@ -991,23 +991,11 @@
   "rulelists_add": {
     "message": "إضافة قائمة"
   },
-  "rulelists_toggle_hint": {
-    "message": "تبديل الحظر لهذه القائمة بالكامل"
-  },
   "rulelist_general": {
     "message": "عام"
   },
-  "rulelists_all": {
-    "message": "كل القوائم"
-  },
   "rulelist_header": {
     "message": "القائمة"
-  },
-  "rulelists_disabled_desc": {
-    "message": "تنتمي هذه القاعدة إلى قائمة متوقفة مؤقتًا."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "لا يمكن التعديل: حظر قائمة القواعد متوقف مؤقتًا"
   },
   "rulelists_name_invalid": {
     "message": "أدخل اسم قائمة لا يتجاوز 40 حرفًا."
@@ -1016,7 +1004,7 @@
     "message": "توجد قائمة بهذا الاسم بالفعل."
   },
   "rulelists_delete_confirm": {
-    "message": "حذف \"$NAME$\"؟ سيتم نقل قواعدها إلى عام.",
+    "message": "حذف \"$NAME$\"؟ ستنتقل القواعد المستخدمة في هذا الملف الشخصي فقط إلى General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1070,28 +1058,13 @@
   "blocking_mode_invalid": {
     "message": "اختر وضع حظر صالحًا"
   },
-  "rulelists_assignment_hint": {
-    "message": "تنطبق إعدادات الحظر أدناه على هذه القائمة فقط."
-  },
   "rulelists_remove_assignment": {
     "message": "إزالة من القائمة"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "هل تريد إزالة هذه القاعدة من «$NAME$»؟ إذا كانت هذه آخر قائمة مخصصة لها، فسيتم نقلها إلى القائمة العامة.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "لهذه القاعدة إعدادات بالفعل في تلك القائمة."
   },
   "rulelists_assignment_error": {
     "message": "تعذر تغيير إسناد القائمة المحددة."
-  },
-  "rulelists_multiple_settings": {
-    "message": "إعدادات مختلفة حسب القائمة"
   }
 }

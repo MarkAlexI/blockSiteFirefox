@@ -986,7 +986,7 @@
     "message": "Szabálylisták"
   },
   "rulelists_description": {
-    "message": "Csoportosítsd a szabályokat listákba, és szüneteltess egy teljes listát az egyes szabályok módosítása nélkül."
+    "message": "Egyszerre egy aktív szabálylista-profilt használjon. Minden profil saját blokkolási módokkal és kategóriabeállításokkal rendelkezik."
   },
   "rulelists_name_placeholder": {
     "message": "Új lista neve"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Lista hozzáadása"
   },
-  "rulelists_toggle_hint": {
-    "message": "A teljes lista blokkolásának be-/kikapcsolása"
-  },
   "rulelist_general": {
     "message": "Általános"
   },
-  "rulelists_all": {
-    "message": "Összes lista"
-  },
   "rulelist_header": {
     "message": "Lista"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Ez a szabály egy szüneteltetett listához tartozik."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Nem szerkeszthető: a szabálylista blokkolása szünetel"
   },
   "rulelists_name_invalid": {
     "message": "Adj meg egy legfeljebb 40 karakteres listanevet."
@@ -1019,7 +1007,7 @@
     "message": "Már létezik ilyen nevű lista."
   },
   "rulelists_delete_confirm": {
-    "message": "Törlöd ezt: \"$NAME$\"? A szabályai az Általános listába kerülnek.",
+    "message": "Törli a(z) „$NAME$” profilt? A csak ebben a profilban használt szabályok a General profilba kerülnek.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Válasszon érvényes blokkolási módot"
   },
-  "rulelists_assignment_hint": {
-    "message": "Az alábbi blokkolási beállítások csak erre a listára vonatkoznak."
-  },
   "rulelists_remove_assignment": {
     "message": "Eltávolítás a listáról"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Eltávolítja ezt a szabályt a(z) „$NAME$” listáról? Ha ez az utolsó egyéni listája, az Általános listára kerül.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Ehhez a szabályhoz már tartoznak beállítások ezen a listán."
   },
   "rulelists_assignment_error": {
     "message": "A kiválasztott listához rendelés nem módosítható."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Listánként eltérő beállítások"
   }
 }

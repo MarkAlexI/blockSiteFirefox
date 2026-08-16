@@ -986,7 +986,7 @@
     "message": "Daftar Aturan"
   },
   "rulelists_description": {
-    "message": "Kelompokkan aturan ke dalam daftar dan jeda seluruh daftar tanpa mengubah aturan individual."
+    "message": "Gunakan satu profil Daftar Aturan aktif dalam satu waktu. Setiap profil memiliki mode pemblokiran dan pengaturan kategori sendiri."
   },
   "rulelists_name_placeholder": {
     "message": "Nama daftar baru"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Tambah Daftar"
   },
-  "rulelists_toggle_hint": {
-    "message": "Aktifkan atau nonaktifkan pemblokiran untuk seluruh daftar ini"
-  },
   "rulelist_general": {
     "message": "Umum"
   },
-  "rulelists_all": {
-    "message": "Semua Daftar"
-  },
   "rulelist_header": {
     "message": "Daftar"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Aturan ini berada dalam daftar yang dijeda."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Tidak dapat mengedit: pemblokiran Daftar Aturan sedang dijeda"
   },
   "rulelists_name_invalid": {
     "message": "Masukkan nama daftar hingga 40 karakter."
@@ -1019,7 +1007,7 @@
     "message": "Daftar dengan nama ini sudah ada."
   },
   "rulelists_delete_confirm": {
-    "message": "Hapus \"$NAME$\"? Aturannya akan dipindahkan ke Umum.",
+    "message": "Hapus \"$NAME$\"? Aturan yang hanya digunakan di profil ini akan dipindahkan ke General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Pilih mode pemblokiran yang valid"
   },
-  "rulelists_assignment_hint": {
-    "message": "Pengaturan pemblokiran di bawah hanya berlaku untuk daftar ini."
-  },
   "rulelists_remove_assignment": {
     "message": "Hapus dari daftar"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Hapus aturan ini dari \"$NAME$\"? Jika ini daftar khusus terakhirnya, aturan akan dipindahkan ke Umum.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Aturan ini sudah memiliki pengaturan untuk daftar tersebut."
   },
   "rulelists_assignment_error": {
     "message": "Penetapan ke daftar yang dipilih tidak dapat diubah."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Pengaturan berbeda per daftar"
   }
 }

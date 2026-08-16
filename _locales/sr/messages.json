@@ -989,7 +989,7 @@
     "message": "Листе правила"
   },
   "rulelists_description": {
-    "message": "Групишите правила у листе и паузирајте целу листу без мењања појединачних правила."
+    "message": "Користите један активан профил листе правила у датом тренутку. Сваки профил има сопствене режиме блокирања и подешавања категорија."
   },
   "rulelists_name_placeholder": {
     "message": "Назив нове листе"
@@ -997,23 +997,11 @@
   "rulelists_add": {
     "message": "Додај листу"
   },
-  "rulelists_toggle_hint": {
-    "message": "Укључи или искључи блокирање целе листе"
-  },
   "rulelist_general": {
     "message": "Опште"
   },
-  "rulelists_all": {
-    "message": "Све листе"
-  },
   "rulelist_header": {
     "message": "Листа"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Ово правило припада паузираној листи."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Није могуће уређивати: блокирање листе правила је паузирано"
   },
   "rulelists_name_invalid": {
     "message": "Унесите назив листе до 40 знакова."
@@ -1022,7 +1010,7 @@
     "message": "Листа са овим називом већ постоји."
   },
   "rulelists_delete_confirm": {
-    "message": "Обрисати „$NAME$“? Њена правила ће бити премештена у Опште.",
+    "message": "Избрисати „$NAME$“? Правила која се користе само у овом профилу биће премештена у General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1076,28 +1064,13 @@
   "blocking_mode_invalid": {
     "message": "Изаберите важећи режим блокирања"
   },
-  "rulelists_assignment_hint": {
-    "message": "Подешавања блокирања у наставку важе само за ову листу."
-  },
   "rulelists_remove_assignment": {
     "message": "Уклони са листе"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Уклонити ово правило са листе „$NAME$“? Ако је то његова последња прилагођена листа, биће премештено у Опште.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Ово правило већ има подешавања за ту листу."
   },
   "rulelists_assignment_error": {
     "message": "Није могуће променити доделу изабраној листи."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Различита подешавања по листи"
   }
 }

@@ -983,7 +983,7 @@
     "message": "नियम याद्या"
   },
   "rulelists_description": {
-    "message": "नियमांना याद्यांमध्ये गटबद्ध करा आणि स्वतंत्र नियम न बदलता संपूर्ण यादी तात्पुरती थांबवा."
+    "message": "एका वेळी एक सक्रिय Rule List प्रोफाइल वापरा. प्रत्येक प्रोफाइलचे स्वतःचे ब्लॉकिंग मोड आणि श्रेणी सेटिंग्ज असतात."
   },
   "rulelists_name_placeholder": {
     "message": "नवीन यादीचे नाव"
@@ -991,23 +991,11 @@
   "rulelists_add": {
     "message": "यादी जोडा"
   },
-  "rulelists_toggle_hint": {
-    "message": "या संपूर्ण यादीसाठी ब्लॉकिंग सुरू/बंद करा"
-  },
   "rulelist_general": {
     "message": "सामान्य"
   },
-  "rulelists_all": {
-    "message": "सर्व याद्या"
-  },
   "rulelist_header": {
     "message": "यादी"
-  },
-  "rulelists_disabled_desc": {
-    "message": "हा नियम थांबवलेल्या यादीत आहे."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "संपादित करता येत नाही: नियम यादीचे ब्लॉकिंग थांबवले आहे"
   },
   "rulelists_name_invalid": {
     "message": "जास्तीत जास्त 40 अक्षरांचे यादीचे नाव द्या."
@@ -1016,7 +1004,7 @@
     "message": "या नावाची यादी आधीच अस्तित्वात आहे."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" हटवायची? तिचे नियम सामान्य मध्ये हलवले जातील.",
+    "message": "\"$NAME$\" हटवायचे? फक्त या प्रोफाइलमध्ये वापरलेले नियम General मध्ये हलवले जातील.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1070,28 +1058,13 @@
   "blocking_mode_invalid": {
     "message": "वैध ब्लॉकिंग मोड निवडा"
   },
-  "rulelists_assignment_hint": {
-    "message": "खालील ब्लॉकिंग सेटिंग्ज फक्त या सूचीसाठी लागू होतात."
-  },
   "rulelists_remove_assignment": {
     "message": "सूचीतून काढा"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "हा नियम \"$NAME$\" मधून काढायचा? ही त्याची शेवटची सानुकूल सूची असल्यास, तो सामान्यमध्ये हलवला जाईल.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "या नियमासाठी त्या सूचीमध्ये आधीच सेटिंग्ज आहेत."
   },
   "rulelists_assignment_error": {
     "message": "निवडलेल्या सूचीचे असाइनमेंट बदलता आले नाही."
-  },
-  "rulelists_multiple_settings": {
-    "message": "सूचीनुसार वेगवेगळी सेटिंग्ज"
   }
 }

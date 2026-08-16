@@ -980,7 +980,7 @@
     "message": "Regellijsten"
   },
   "rulelists_description": {
-    "message": "Groepeer regels in lijsten en pauzeer een hele lijst zonder afzonderlijke regels te wijzigen."
+    "message": "Gebruik één actief regellijstprofiel tegelijk. Elk profiel heeft eigen blokkeermodi en categorie-instellingen."
   },
   "rulelists_name_placeholder": {
     "message": "Naam van nieuwe lijst"
@@ -988,23 +988,11 @@
   "rulelists_add": {
     "message": "Lijst toevoegen"
   },
-  "rulelists_toggle_hint": {
-    "message": "Blokkering voor deze hele lijst in- of uitschakelen"
-  },
   "rulelist_general": {
     "message": "Algemeen"
   },
-  "rulelists_all": {
-    "message": "Alle lijsten"
-  },
   "rulelist_header": {
     "message": "Lijst"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Deze regel hoort bij een gepauzeerde lijst."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Kan niet bewerken: blokkering van de regellijst is gepauzeerd"
   },
   "rulelists_name_invalid": {
     "message": "Voer een lijstnaam van maximaal 40 tekens in."
@@ -1013,7 +1001,7 @@
     "message": "Er bestaat al een lijst met deze naam."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" verwijderen? De regels worden naar Algemeen verplaatst.",
+    "message": "‘$NAME$’ verwijderen? Regels die alleen in dit profiel worden gebruikt, worden naar General verplaatst.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1067,28 +1055,13 @@
   "blocking_mode_invalid": {
     "message": "Selecteer een geldige blokkeermodus"
   },
-  "rulelists_assignment_hint": {
-    "message": "De blokkeerinstellingen hieronder gelden alleen voor deze lijst."
-  },
   "rulelists_remove_assignment": {
     "message": "Uit lijst verwijderen"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Deze regel uit \"$NAME$\" verwijderen? Als dit de laatste aangepaste lijst is, wordt de regel naar Algemeen verplaatst.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Deze regel heeft al instellingen voor die lijst."
   },
   "rulelists_assignment_error": {
     "message": "De toewijzing aan de geselecteerde lijst kon niet worden gewijzigd."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Verschillende instellingen per lijst"
   }
 }

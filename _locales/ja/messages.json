@@ -980,7 +980,7 @@
     "message": "ルールリスト"
   },
   "rulelists_description": {
-    "message": "ルールをリストにまとめ、個別のルールを変更せずにリスト全体を一時停止できます。"
+    "message": "一度に有効にするルールリストのプロファイルは1つです。各プロファイルには独自のブロックモードとカテゴリ設定があります。"
   },
   "rulelists_name_placeholder": {
     "message": "新しいリスト名"
@@ -988,23 +988,11 @@
   "rulelists_add": {
     "message": "リストを追加"
   },
-  "rulelists_toggle_hint": {
-    "message": "このリスト全体のブロックを切り替える"
-  },
   "rulelist_general": {
     "message": "一般"
   },
-  "rulelists_all": {
-    "message": "すべてのリスト"
-  },
   "rulelist_header": {
     "message": "リスト"
-  },
-  "rulelists_disabled_desc": {
-    "message": "このルールは一時停止中のリストに属しています。"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "編集できません: ルールリストのブロックが一時停止中です"
   },
   "rulelists_name_invalid": {
     "message": "40文字以内のリスト名を入力してください。"
@@ -1013,7 +1001,7 @@
     "message": "この名前のリストはすでに存在します。"
   },
   "rulelists_delete_confirm": {
-    "message": "「$NAME$」を削除しますか？ルールは一般に移動します。",
+    "message": "「$NAME$」を削除しますか？このプロファイルだけで使われているルールは General に移動します。",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1067,28 +1055,13 @@
   "blocking_mode_invalid": {
     "message": "有効なブロックモードを選択してください"
   },
-  "rulelists_assignment_hint": {
-    "message": "以下のブロック設定はこのリストにのみ適用されます。"
-  },
   "rulelists_remove_assignment": {
     "message": "リストから削除"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "このルールを「$NAME$」から削除しますか？これが最後のカスタムリストの場合、一般に移動します。",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "このルールには、そのリスト用の設定がすでにあります。"
   },
   "rulelists_assignment_error": {
     "message": "選択したリストへの割り当てを変更できませんでした。"
-  },
-  "rulelists_multiple_settings": {
-    "message": "リストごとに異なる設定"
   }
 }

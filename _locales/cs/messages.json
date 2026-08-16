@@ -986,7 +986,7 @@
     "message": "Seznamy pravidel"
   },
   "rulelists_description": {
-    "message": "Seskupujte pravidla do seznamů a pozastavte celý seznam bez změny jednotlivých pravidel."
+    "message": "Používejte vždy jen jeden aktivní profil seznamu pravidel. Každý profil má vlastní režimy blokování a nastavení kategorií."
   },
   "rulelists_name_placeholder": {
     "message": "Název nového seznamu"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Přidat seznam"
   },
-  "rulelists_toggle_hint": {
-    "message": "Přepnout blokování celého seznamu"
-  },
   "rulelist_general": {
     "message": "Obecné"
   },
-  "rulelists_all": {
-    "message": "Všechny seznamy"
-  },
   "rulelist_header": {
     "message": "Seznam"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Toto pravidlo patří do pozastaveného seznamu."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Nelze upravit: blokování seznamu pravidel je pozastaveno"
   },
   "rulelists_name_invalid": {
     "message": "Zadejte název seznamu o délce nejvýše 40 znaků."
@@ -1019,7 +1007,7 @@
     "message": "Seznam s tímto názvem již existuje."
   },
   "rulelists_delete_confirm": {
-    "message": "Smazat „$NAME$“? Jeho pravidla budou přesunuta do Obecné.",
+    "message": "Smazat \"$NAME$\"? Pravidla používaná pouze v tomto profilu se přesunou do General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Vyberte platný režim blokování"
   },
-  "rulelists_assignment_hint": {
-    "message": "Níže uvedená nastavení blokování platí pouze pro tento seznam."
-  },
   "rulelists_remove_assignment": {
     "message": "Odebrat ze seznamu"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Odebrat toto pravidlo ze seznamu „$NAME$“? Pokud je to jeho poslední vlastní seznam, přesune se do Obecné.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Toto pravidlo již má nastavení pro tento seznam."
   },
   "rulelists_assignment_error": {
     "message": "Přiřazení k vybranému seznamu se nepodařilo změnit."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Různá nastavení podle seznamu"
   }
 }

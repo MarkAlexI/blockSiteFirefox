@@ -10,6 +10,7 @@ export const RULES_INTENT_TYPES = new Set([
   'rules:toggleCategory',
   'rules:createList',
   'rules:renameList',
+  'rules:activateList',
   'rules:toggleList',
   'rules:deleteList'
 ]);
@@ -44,8 +45,10 @@ export function createRulesIntentHandler(rulesMutationService) {
         return rulesMutationService.createRuleList(message.payload);
       case 'rules:renameList':
         return rulesMutationService.renameRuleList(message.payload);
+      case 'rules:activateList':
+        return rulesMutationService.activateRuleList(message.payload);
       case 'rules:toggleList':
-        return rulesMutationService.toggleRuleList(message.payload);
+        return rulesMutationService.activateRuleList(message.payload);
       case 'rules:deleteList':
         return rulesMutationService.deleteRuleList(message.payload);
       default:

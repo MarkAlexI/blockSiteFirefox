@@ -986,7 +986,7 @@
     "message": "नियम सूचियाँ"
   },
   "rulelists_description": {
-    "message": "नियमों को सूचियों में समूहित करें और अलग-अलग नियम बदले बिना पूरी सूची को रोकें।"
+    "message": "एक समय में एक सक्रिय नियम सूची प्रोफ़ाइल का उपयोग करें। हर प्रोफ़ाइल के अपने ब्लॉकिंग मोड और श्रेणी सेटिंग्स होती हैं।"
   },
   "rulelists_name_placeholder": {
     "message": "नई सूची का नाम"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "सूची जोड़ें"
   },
-  "rulelists_toggle_hint": {
-    "message": "इस पूरी सूची के लिए ब्लॉकिंग चालू/बंद करें"
-  },
   "rulelist_general": {
     "message": "सामान्य"
   },
-  "rulelists_all": {
-    "message": "सभी सूचियाँ"
-  },
   "rulelist_header": {
     "message": "सूची"
-  },
-  "rulelists_disabled_desc": {
-    "message": "यह नियम एक रोकी गई सूची में है।"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "संपादित नहीं कर सकते: नियम सूची की ब्लॉकिंग रुकी हुई है"
   },
   "rulelists_name_invalid": {
     "message": "अधिकतम 40 अक्षरों का सूची नाम दर्ज करें।"
@@ -1019,7 +1007,7 @@
     "message": "इस नाम की सूची पहले से मौजूद है।"
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" हटाएँ? इसके नियम सामान्य में चले जाएँगे।",
+    "message": "\"$NAME$\" हटाएँ? केवल इस प्रोफ़ाइल में उपयोग होने वाले नियम General में चले जाएँगे।",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "मान्य ब्लॉकिंग मोड चुनें"
   },
-  "rulelists_assignment_hint": {
-    "message": "नीचे दी गई ब्लॉकिंग सेटिंग केवल इस सूची पर लागू होती हैं।"
-  },
   "rulelists_remove_assignment": {
     "message": "सूची से हटाएँ"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "इस नियम को \"$NAME$\" से हटाएँ? यदि यह इसकी अंतिम कस्टम सूची है, तो इसे सामान्य में ले जाया जाएगा।",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "इस नियम में उस सूची के लिए पहले से सेटिंग हैं।"
   },
   "rulelists_assignment_error": {
     "message": "चुनी गई सूची का असाइनमेंट बदला नहीं जा सका।"
-  },
-  "rulelists_multiple_settings": {
-    "message": "सूची के अनुसार अलग सेटिंग"
   }
 }

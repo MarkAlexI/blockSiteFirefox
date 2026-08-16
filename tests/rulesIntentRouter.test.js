@@ -21,7 +21,7 @@ function createHarness() {
     'toggleCategory',
     'createRuleList',
     'renameRuleList',
-    'toggleRuleList',
+    'activateRuleList',
     'deleteRuleList'
   ]) {
     service[method] = async payload => {
@@ -50,7 +50,8 @@ test('all declared rules intents route to the expected mutation method', async (
     ['rules:toggleCategory', 'toggleCategory', payload],
     ['rules:createList', 'createRuleList', payload],
     ['rules:renameList', 'renameRuleList', payload],
-    ['rules:toggleList', 'toggleRuleList', payload],
+    ['rules:activateList', 'activateRuleList', payload],
+    ['rules:toggleList', 'activateRuleList', payload],
     ['rules:deleteList', 'deleteRuleList', payload]
   ];
 

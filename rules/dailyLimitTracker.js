@@ -28,8 +28,7 @@ export function createDailyLimitTracker({
   tabsApi,
   scriptingApi,
   getRules,
-  getSettings,
-  getRuleLists,
+  getRuleListState,
   getFocusSessionState,
   dailyLimitManager,
   dnrSynchronizer,
@@ -150,10 +149,9 @@ export function createDailyLimitTracker({
       };
     }
 
-    const [rules, settings, lists, focusState, usageSeconds] = await Promise.all([
+    const [rules, ruleListState, focusState, usageSeconds] = await Promise.all([
       getRules(),
-      getSettings(),
-      getRuleLists(),
+      getRuleListState(),
       getFocusSessionState(),
       dailyLimitManager.getUsageSeconds()
     ]);
@@ -171,8 +169,9 @@ export function createDailyLimitTracker({
       };
     }
 
-    const disabledCategories = new Set(settings?.disabledCategories || []);
-    const disabledLists = new Set((lists || []).filter(list => list?.disabled).map(list => list.id));
+    const activeRuleListId = ruleListState?.activeRuleListId || 'general';
+    const activeProfile = (ruleListState?.lists || []).find(list => list?.id === activeRuleListId);
+    const disabledCategories = new Set(activeProfile?.disabledCategories || []);
     const assignmentsByRuleId = new Map();
 
     const eligibleRules = (rules || []).filter(rule => {
@@ -186,7 +185,7 @@ export function createDailyLimitTracker({
 
       const assignments = getTrackableDailyLimitAssignments(
         rule,
-        disabledLists,
+        activeRuleListId,
         new Date(),
         usageSeconds
       );

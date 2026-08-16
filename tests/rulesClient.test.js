@@ -8,7 +8,6 @@ test('rules client preserves error code and all validation keys from the worker'
 
   globalThis.browser = {
     runtime: {
-      lastError: null,
       sendMessage(message) {
         sentMessage = message;
         return Promise.resolve({
@@ -47,7 +46,6 @@ test('rules client sends a structured addMany intent for a local rule pack', asy
 
   globalThis.browser = {
     runtime: {
-      lastError: null,
       sendMessage(message) {
         sentMessage = message;
         return Promise.resolve({ success: true, addedCount: 2, rules: [] });
@@ -85,7 +83,6 @@ test('rules client sends Rule List management intents', async () => {
 
   globalThis.browser = {
     runtime: {
-      lastError: null,
       sendMessage(message) {
         sentMessages.push(message);
         return Promise.resolve({ success: true, ruleLists: [] });
@@ -97,13 +94,13 @@ test('rules client sends Rule List management intents', async () => {
     const client = new RulesClient();
     await client.createRuleList('Work');
     await client.renameRuleList('list-1', 'Study');
-    await client.toggleRuleList('list-1');
+    await client.activateRuleList('list-1');
     await client.deleteRuleList('list-1');
 
     assert.deepEqual(sentMessages, [
       { type: 'rules:createList', payload: { name: 'Work' } },
       { type: 'rules:renameList', payload: { listId: 'list-1', name: 'Study' } },
-      { type: 'rules:toggleList', payload: { listId: 'list-1' } },
+      { type: 'rules:activateList', payload: { listId: 'list-1' } },
       { type: 'rules:deleteList', payload: { listId: 'list-1' } }
     ]);
   } finally {
@@ -117,7 +114,6 @@ test('rules client includes Rule Lists in replaceAll imports', async () => {
 
   globalThis.browser = {
     runtime: {
-      lastError: null,
       sendMessage(message) {
         sentMessage = message;
         return Promise.resolve({ success: true, rules: [], ruleLists: [] });
@@ -130,15 +126,15 @@ test('rules client includes Rule Lists in replaceAll imports', async () => {
     const rules = [{ id: 1, blockURL: 'example.com', listId: 'list-1' }];
     const settings = { mode: 'normal' };
     const ruleLists = [
-      { id: 'general', name: 'General', disabled: false },
-      { id: 'list-1', name: 'Work', disabled: false }
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Work', disabledCategories: ['social'] }
     ];
 
-    await client.replaceAll(rules, settings, ruleLists);
+    await client.replaceAll(rules, settings, ruleLists, 'list-1');
 
     assert.deepEqual(sentMessage, {
       type: 'rules:replaceAll',
-      payload: { rules, settings, ruleLists }
+      payload: { rules, settings, ruleLists, activeRuleListId: 'list-1' }
     });
   } finally {
     globalThis.browser = previousBrowser;

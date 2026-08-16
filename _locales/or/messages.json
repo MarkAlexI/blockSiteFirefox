@@ -986,7 +986,7 @@
     "message": "ନିୟମ ତାଲିକା"
   },
   "rulelists_description": {
-    "message": "ନିୟମଗୁଡ଼ିକୁ ତାଲିକାରେ ଗୋଷ୍ଠୀଭୁକ୍ତ କରନ୍ତୁ ଏବଂ ପୃଥକ ନିୟମ ପରିବର୍ତ୍ତନ ନକରି ସମ୍ପୂର୍ଣ୍ଣ ତାଲିକାକୁ ବିରତ କରନ୍ତୁ।"
+    "message": "ଏକ ସମୟରେ ଗୋଟିଏ ସକ୍ରିୟ Rule List ପ୍ରୋଫାଇଲ ବ୍ୟବହାର କରନ୍ତୁ। ପ୍ରତ୍ୟେକ ପ୍ରୋଫାଇଲର ନିଜସ୍ୱ ବ୍ଲକିଂ ମୋଡ୍ ଏବଂ ବର୍ଗ ସେଟିଂ ଅଛି।"
   },
   "rulelists_name_placeholder": {
     "message": "ନୂତନ ତାଲିକା ନାମ"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "ତାଲିକା ଯୋଡ଼ନ୍ତୁ"
   },
-  "rulelists_toggle_hint": {
-    "message": "ଏହି ସମ୍ପୂର୍ଣ୍ଣ ତାଲିକା ପାଇଁ ବ୍ଲକିଂ ଟଗଲ୍ କରନ୍ତୁ"
-  },
   "rulelist_general": {
     "message": "ସାଧାରଣ"
   },
-  "rulelists_all": {
-    "message": "ସମସ୍ତ ତାଲିକା"
-  },
   "rulelist_header": {
     "message": "ତାଲିକା"
-  },
-  "rulelists_disabled_desc": {
-    "message": "ଏହି ନିୟମଟି ବିରତ ତାଲିକାରେ ଅଛି।"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "ସମ୍ପାଦନ କରିହେବ ନାହିଁ: ନିୟମ ତାଲିକା ବ୍ଲକିଂ ବିରତ ଅଛି"
   },
   "rulelists_name_invalid": {
     "message": "ସର୍ବାଧିକ 40 ଅକ୍ଷରର ତାଲିକା ନାମ ଦିଅନ୍ତୁ।"
@@ -1019,7 +1007,7 @@
     "message": "ଏହି ନାମର ତାଲିକା ପୂର୍ବରୁ ଅଛି।"
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" ବିଲୋପ କରିବେ? ଏହାର ନିୟମ ସାଧାରଣକୁ ଯିବ।",
+    "message": "\"$NAME$\" ବିଲୋପ କରିବେ? କେବଳ ଏହି ପ୍ରୋଫାଇଲରେ ବ୍ୟବହୃତ ନିୟମଗୁଡ଼ିକ General କୁ ସ୍ଥାନାନ୍ତର ହେବ।",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "ଏକ ବୈଧ ବ୍ଲକିଂ ମୋଡ୍ ବାଛନ୍ତୁ"
   },
-  "rulelists_assignment_hint": {
-    "message": "ନିମ୍ନରେ ଥିବା ବ୍ଲକିଂ ସେଟିଂଗୁଡ଼ିକ କେବଳ ଏହି ତାଲିକା ପାଇଁ ପ୍ରୟୋଜ୍ୟ।"
-  },
   "rulelists_remove_assignment": {
     "message": "ତାଲିକାରୁ ହଟାନ୍ତୁ"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "ଏହି ନିୟମକୁ \"$NAME$\" ରୁ ହଟାଇବେ? ଏହା ଯଦି ଏହାର ଶେଷ କଷ୍ଟମ ତାଲିକା ହୁଏ, ତେବେ ଏହାକୁ ସାଧାରଣକୁ ସ୍ଥାନାନ୍ତର କରାଯିବ।",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "ଏହି ନିୟମ ପାଇଁ ସେହି ତାଲିକାରେ ପୂର୍ବରୁ ସେଟିଂ ଅଛି।"
   },
   "rulelists_assignment_error": {
     "message": "ଚୟନିତ ତାଲିକାର ଅସାଇନମେଣ୍ଟ ପରିବର୍ତ୍ତନ କରାଯାଇପାରିଲା ନାହିଁ।"
-  },
-  "rulelists_multiple_settings": {
-    "message": "ତାଲିକା ଅନୁସାରେ ଭିନ୍ନ ସେଟିଂ"
   }
 }

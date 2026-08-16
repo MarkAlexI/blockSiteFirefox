@@ -992,7 +992,7 @@
     "message": "നിയമ ലിസ്റ്റുകൾ"
   },
   "rulelists_description": {
-    "message": "നിയമങ്ങളെ ലിസ്റ്റുകളായി ഗ്രൂപ്പ് ചെയ്ത് ഓരോ നിയമവും മാറ്റാതെ മുഴുവൻ ലിസ്റ്റും താൽക്കാലികമായി നിർത്തുക."
+    "message": "ഒരു സമയം ഒരു സജീവ Rule List പ്രൊഫൈൽ മാത്രം ഉപയോഗിക്കുക. ഓരോ പ്രൊഫൈലിനും സ്വന്തം ബ്ലോക്കിംഗ് മോഡുകളും വിഭാഗ ക്രമീകരണങ്ങളും ഉണ്ട്."
   },
   "rulelists_name_placeholder": {
     "message": "പുതിയ ലിസ്റ്റിന്റെ പേര്"
@@ -1000,23 +1000,11 @@
   "rulelists_add": {
     "message": "ലിസ്റ്റ് ചേർക്കുക"
   },
-  "rulelists_toggle_hint": {
-    "message": "ഈ മുഴുവൻ ലിസ്റ്റിന്റെ ബ്ലോക്കിംഗ് മാറ്റുക"
-  },
   "rulelist_general": {
     "message": "പൊതുവായത്"
   },
-  "rulelists_all": {
-    "message": "എല്ലാ ലിസ്റ്റുകളും"
-  },
   "rulelist_header": {
     "message": "ലിസ്റ്റ്"
-  },
-  "rulelists_disabled_desc": {
-    "message": "ഈ നിയമം താൽക്കാലികമായി നിർത്തിയ ലിസ്റ്റിലാണുള്ളത്."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "എഡിറ്റ് ചെയ്യാനാകില്ല: നിയമ ലിസ്റ്റ് ബ്ലോക്കിംഗ് നിർത്തിയിരിക്കുന്നു"
   },
   "rulelists_name_invalid": {
     "message": "പരമാവധി 40 അക്ഷരമുള്ള ലിസ്റ്റ് പേര് നൽകുക."
@@ -1025,7 +1013,7 @@
     "message": "ഈ പേരിൽ ഒരു ലിസ്റ്റ് ഇതിനകം ഉണ്ട്."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" ഇല്ലാതാക്കണോ? അതിലെ നിയമങ്ങൾ പൊതുവായത് എന്നതിലേക്ക് മാറും.",
+    "message": "\"$NAME$\" ഇല്ലാതാക്കണോ? ഈ പ്രൊഫൈലിൽ മാത്രം ഉപയോഗിക്കുന്ന നിയമങ്ങൾ General ലേക്ക് മാറ്റും.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1079,28 +1067,13 @@
   "blocking_mode_invalid": {
     "message": "സാധുവായ തടയൽ മോഡ് തിരഞ്ഞെടുക്കുക"
   },
-  "rulelists_assignment_hint": {
-    "message": "താഴെയുള്ള ബ്ലോക്കിംഗ് ക്രമീകരണങ്ങൾ ഈ ലിസ്റ്റിന് മാത്രമേ ബാധകമാകൂ."
-  },
   "rulelists_remove_assignment": {
     "message": "ലിസ്റ്റിൽ നിന്ന് നീക്കംചെയ്യുക"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "ഈ നിയമം \"$NAME$\"-ൽ നിന്ന് നീക്കംചെയ്യണോ? ഇത് അതിന്റെ അവസാന കസ്റ്റം ലിസ്റ്റാണെങ്കിൽ, പൊതുവായതിലേക്ക് മാറ്റും.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "ഈ നിയമത്തിന് ആ ലിസ്റ്റിനായി ഇതിനകം ക്രമീകരണങ്ങളുണ്ട്."
   },
   "rulelists_assignment_error": {
     "message": "തിരഞ്ഞെടുത്ത ലിസ്റ്റിലേക്കുള്ള അസൈൻമെന്റ് മാറ്റാനായില്ല."
-  },
-  "rulelists_multiple_settings": {
-    "message": "ലിസ്റ്റ് അനുസരിച്ച് വ്യത്യസ്ത ക്രമീകരണങ്ങൾ"
   }
 }

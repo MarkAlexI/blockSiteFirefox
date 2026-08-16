@@ -980,7 +980,7 @@
     "message": "규칙 목록"
   },
   "rulelists_description": {
-    "message": "규칙을 목록으로 그룹화하고 개별 규칙을 변경하지 않고 전체 목록을 일시 중지하세요."
+    "message": "한 번에 하나의 활성 규칙 목록 프로필을 사용하세요. 각 프로필에는 고유한 차단 모드와 카테고리 설정이 있습니다."
   },
   "rulelists_name_placeholder": {
     "message": "새 목록 이름"
@@ -988,23 +988,11 @@
   "rulelists_add": {
     "message": "목록 추가"
   },
-  "rulelists_toggle_hint": {
-    "message": "이 목록 전체의 차단 전환"
-  },
   "rulelist_general": {
     "message": "일반"
   },
-  "rulelists_all": {
-    "message": "모든 목록"
-  },
   "rulelist_header": {
     "message": "목록"
-  },
-  "rulelists_disabled_desc": {
-    "message": "이 규칙은 일시 중지된 목록에 속합니다."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "편집할 수 없음: 규칙 목록 차단이 일시 중지되었습니다"
   },
   "rulelists_name_invalid": {
     "message": "40자 이하의 목록 이름을 입력하세요."
@@ -1013,7 +1001,7 @@
     "message": "같은 이름의 목록이 이미 있습니다."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\"을(를) 삭제할까요? 규칙은 일반으로 이동합니다.",
+    "message": "\"$NAME$\"을(를) 삭제할까요? 이 프로필에서만 사용하는 규칙은 General로 이동합니다.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1067,28 +1055,13 @@
   "blocking_mode_invalid": {
     "message": "올바른 차단 모드를 선택하세요"
   },
-  "rulelists_assignment_hint": {
-    "message": "아래 차단 설정은 이 목록에만 적용됩니다."
-  },
   "rulelists_remove_assignment": {
     "message": "목록에서 제거"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "이 규칙을 \"$NAME$\"에서 제거할까요? 마지막 사용자 지정 목록이라면 일반으로 이동합니다.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "이 규칙에는 해당 목록에 대한 설정이 이미 있습니다."
   },
   "rulelists_assignment_error": {
     "message": "선택한 목록 할당을 변경할 수 없습니다."
-  },
-  "rulelists_multiple_settings": {
-    "message": "목록별로 다른 설정"
   }
 }

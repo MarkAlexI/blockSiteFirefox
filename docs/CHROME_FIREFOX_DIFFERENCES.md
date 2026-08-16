@@ -439,27 +439,32 @@ Do not add the Chromium Chrome/Edge store abstraction to Firefox unless Firefox 
 
 ## 10.1 Rule Lists
 
-Rule Lists are shared product behavior in Chromium and Firefox starting with 4.9.0. They remain device-local with the rules they organize.
+Rule Lists are shared product behavior in Chromium and Firefox. Starting with the 5.0.0 profile model, exactly one Rule List profile is active during normal blocking.
 
-The 5.0.0 assignment model is shared across both platforms:
+The shared data and activation model is:
 
-- a blocking target stores URL, redirect, category, global disabled state, and whitelist state once;
-- `rule.assignments` stores one context-specific configuration per Rule List;
-- each assignment owns its `listId`, blocking mode, Schedule, and Daily Limit configuration;
-- the same target can therefore use different blocking settings in Work and Study without duplicating the target;
-- legacy `listId`, RC multi-membership `listIds`, and root blocking configuration migrate automatically to canonical assignments without changing existing behavior;
-- `general` is the default/fallback context when a target has no custom assignment;
-- custom Rule Lists and custom assignments require Pro or legacy access;
-- outside an active Focus Session, a target enters DNR while at least one enabled assignment currently blocks;
-- deleting a custom list removes only that list assignment and preserves orphaned targets by falling back to `general`;
-- imports and exports include Rule List definitions and canonical assignments, while accumulated Daily Limit usage remains device-local;
-- whitelist rules stay in `general` internally and are not exposed as custom-list assignments.
+- a blocking target stores URL, redirect, category, target-level disabled state, and whitelist state once;
+- `rule.assignments` stores at most one blocking configuration per Rule List profile;
+- each assignment owns `listId`, blocking mode, Schedule, and Daily Limit configuration;
+- `activeRuleListId` selects the one profile used by normal DNR activation and Daily Limit accounting;
+- General is the default profile, not an always-on layer above custom profiles;
+- category enabled/disabled state is stored in each profile as `disabledCategories`;
+- the Category Blocking UI edits only the active profile;
+- the same target can use different blocking settings in General, Work, Study, or other profiles without inactive profiles affecting the current result;
+- legacy `listId`, RC multi-membership `listIds`, root blocking configuration, and global disabled categories migrate automatically;
+- deleting a custom profile removes its assignments and moves targets used only there to General;
+- imports and exports include profile definitions, canonical assignments, and `activeRuleListId`, while accumulated Daily Limit usage remains device-local;
+- whitelist rules remain global and are shown in every profile view.
 
-Daily Limit usage is keyed by assignment (`ruleId:listId`) so different list contexts can keep independent budgets. The known foreground-sampling behavior remains platform-specific runtime plumbing and must not be "fixed" by porting Chromium callbacks or replacing Firefox Promise APIs.
+Focus Session remains a global override above the active profile. The one-minute scheduling alarm and the full expected-vs-current DNR integrity check remain unchanged on both platforms.
 
-The one-minute scheduling alarm and the full expected-vs-current DNR integrity check remain unchanged on both platforms. Firefox uses the same assignment activation logic while preserving `browser.*` APIs and Firefox Android behavior.
+Daily Limit usage is keyed by assignment (`ruleId:listId`) so each profile keeps its own budget. Only the active profile assignment can accrue usage. Foreground visibility is checked through the Page Visibility API using the platform's scripting API.
 
-Do not move Rule Lists or assignments to sync storage during a Chromium-to-Firefox port. Rules are device-local in both codebases, so list definitions, assignments, and disabled state must remain local with them.
+The flexible URL matcher used for Daily Limit attribution and tab cleanup must preserve the same user-facing pattern semantics as DNR. Partial domain-label rules such as `yout` must continue to match `m.youtube.com`.
+
+Firefox must keep native `browser.*` Promise APIs for profile switching, runtime messaging, storage, scripting, DNR, and Firefox Android behavior. Do not port Chromium callback wrappers into Firefox.
+
+Do not move Rule Lists, assignments, active profile state, or Daily Limit usage to sync storage. They remain device-local with the blocking rules.
 
 ---
 

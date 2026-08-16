@@ -6,6 +6,7 @@ import {
   createNextRuleListId,
   isKnownRuleListId,
   normalizeRuleListName,
+  normalizeActiveRuleListId,
   prepareImportedRuleLists
 } from './ruleListsManager.js';
 import {
@@ -166,7 +167,21 @@ export function createRulesMutationService({
   }
 
   async function getRuleLists() {
-    return ruleListsManager?.getLists?.() || [{ id: GENERAL_RULE_LIST_ID, name: 'General', disabled: false }];
+    return ruleListsManager?.getLists?.() || [{ id: GENERAL_RULE_LIST_ID, name: 'General', disabledCategories: [] }];
+  }
+
+  async function getRuleListState() {
+    if (typeof ruleListsManager?.getState === 'function') return ruleListsManager.getState();
+    const lists = await getRuleLists();
+    return { lists, activeRuleListId: GENERAL_RULE_LIST_ID };
+  }
+
+  async function saveRuleListState(lists, activeRuleListId) {
+    if (typeof ruleListsManager?.saveState === 'function') {
+      return ruleListsManager.saveState(lists, activeRuleListId);
+    }
+    const savedLists = await ruleListsManager.saveLists(lists);
+    return { lists: savedLists || lists, activeRuleListId };
   }
 
   function validateListName(name, lists, excludeId = null) {
@@ -227,13 +242,17 @@ export function createRulesMutationService({
     return normalized;
   }
 
-  async function saveCombinedState(rules, lists) {
+  async function saveCombinedState(rules, lists, activeRuleListId = null) {
     if (typeof saveRulesAndLists === 'function') {
-      await saveRulesAndLists(rules, lists);
+      await saveRulesAndLists(rules, lists, activeRuleListId);
       return;
     }
     await rulesManager.saveRules(rules);
-    await ruleListsManager.saveLists(lists);
+    if (activeRuleListId) {
+      await ruleListsManager.saveState(lists, activeRuleListId);
+    } else {
+      await ruleListsManager.saveLists(lists);
+    }
   }
 
   function notifyWithoutSync(rules, extra = {}) {
@@ -537,10 +556,17 @@ export function createRulesMutationService({
       if (!getRuleAssignment(rule, listId)) {
         throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
       }
-      if (listId === GENERAL_RULE_LIST_ID && getRuleAssignments(rule).length === 1) {
-        throw new RulesMutationError('rule_assignment_locked', 'General is the fallback assignment');
+      const currentAssignments = getRuleAssignments(rule);
+      if (currentAssignments.length === 1) {
+        const nextRules = rules.filter((_, ruleIndex) => ruleIndex !== index);
+        await rulesManager.saveRules(nextRules);
+        return syncAndNotify(nextRules, {
+          rule,
+          removedAssignmentListId: listId,
+          targetDeleted: true
+        });
       }
-      const nextAssignments = removeRuleAssignment(rule, listId, { fallbackToGeneral: true });
+      const nextAssignments = removeRuleAssignment(rule, listId, { fallbackToGeneral: false });
       const updatedRule = canonicalizeRuleTarget(rule, nextAssignments);
       const nextRules = [...rules];
       nextRules[index] = updatedRule;
@@ -548,7 +574,7 @@ export function createRulesMutationService({
       return syncAndNotify(nextRules, {
         rule: updatedRule,
         removedAssignmentListId: listId,
-        movedToGeneral: nextAssignments.length === 1 && nextAssignments[0].listId === GENERAL_RULE_LIST_ID
+        targetDeleted: false
       });
     });
   }
@@ -618,10 +644,17 @@ export function createRulesMutationService({
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       let importedLists;
       try {
-        importedLists = prepareImportedRuleLists(payload.ruleLists);
+        importedLists = prepareImportedRuleLists(
+          payload.ruleLists,
+          payload.settings?.disabledCategories || []
+        );
       } catch (error) {
         throw new RulesMutationError('invalid_import', error.message);
       }
+      const importedActiveRuleListId = normalizeActiveRuleListId(
+        importedLists,
+        payload.activeRuleListId || GENERAL_RULE_LIST_ID
+      );
       const nextRules = prepareReplacementRules(payload.rules, importedLists);
       let importedSettings = null;
 
@@ -630,6 +663,7 @@ export function createRulesMutationService({
         const sanitizedSettings = { ...payload.settings };
         delete sanitizedSettings.enablePassword;
         delete sanitizedSettings.passwordHash;
+        delete sanitizedSettings.disabledCategories;
         importedSettings = {
           ...currentSettings,
           ...sanitizedSettings,
@@ -639,8 +673,12 @@ export function createRulesMutationService({
         await saveSettings(importedSettings);
       }
 
-      await saveCombinedState(nextRules, importedLists);
-      return syncAndNotify(nextRules, { settings: importedSettings, ruleLists: importedLists });
+      await saveCombinedState(nextRules, importedLists, importedActiveRuleListId);
+      return syncAndNotify(nextRules, {
+        settings: importedSettings,
+        ruleLists: importedLists,
+        activeRuleListId: importedActiveRuleListId
+      });
     });
   }
 
@@ -660,28 +698,45 @@ export function createRulesMutationService({
       if (!category) {
         throw new RulesMutationError('category_required', 'Category is required', ['category_required']);
       }
-      const settings = await getSettings();
-      const disabledCategories = Array.isArray(settings.disabledCategories) ? settings.disabledCategories : [];
-      const nextDisabledCategories = disabledCategories.includes(category)
-        ? disabledCategories.filter(item => item !== category)
-        : [...disabledCategories, category];
-      const nextSettings = { ...settings, disabledCategories: nextDisabledCategories };
-      await saveSettings(nextSettings);
+      const state = await getRuleListState();
+      const index = state.lists.findIndex(list => list.id === state.activeRuleListId);
+      if (index === -1) throw new RulesMutationError('rule_list_not_found', 'Active Rule List not found');
+      const current = Array.isArray(state.lists[index].disabledCategories)
+        ? state.lists[index].disabledCategories
+        : [];
+      const disabledCategories = current.includes(category)
+        ? current.filter(item => item !== category)
+        : [...current, category];
+      const nextLists = state.lists.map((list, itemIndex) => itemIndex === index
+        ? { ...list, disabledCategories }
+        : list);
+      await saveRuleListState(nextLists, state.activeRuleListId);
       const rules = await rulesManager.getRules();
-      return syncAndNotify(rules, { settings: nextSettings });
+      return syncAndNotify(rules, {
+        ruleLists: nextLists,
+        activeRuleListId: state.activeRuleListId
+      });
     });
   }
 
   async function createRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
-      const lists = await getRuleLists();
-      const name = validateListName(payload.name, lists);
-      const list = { id: createNextRuleListId(lists), name, disabled: false };
-      const nextLists = [...lists, list];
-      await ruleListsManager.saveLists(nextLists);
+      const state = await getRuleListState();
+      const name = validateListName(payload.name, state.lists);
+      const list = {
+        id: createNextRuleListId(state.lists),
+        name,
+        disabledCategories: []
+      };
+      const nextLists = [...state.lists, list];
+      await saveRuleListState(nextLists, list.id);
       const rules = await rulesManager.getRules();
-      return notifyWithoutSync(rules, { ruleLists: nextLists, list });
+      return syncAndNotify(rules, {
+        ruleLists: nextLists,
+        activeRuleListId: list.id,
+        list
+      });
     });
   }
 
@@ -692,29 +747,41 @@ export function createRulesMutationService({
       if (listId === GENERAL_RULE_LIST_ID) {
         throw new RulesMutationError('rule_list_locked', 'General list cannot be renamed');
       }
-      const lists = await getRuleLists();
-      const index = lists.findIndex(list => list.id === listId);
+      const state = await getRuleListState();
+      const index = state.lists.findIndex(list => list.id === listId);
       if (index === -1) throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
-      const name = validateListName(payload.name, lists, listId);
-      const nextLists = lists.map((list, itemIndex) => itemIndex === index ? { ...list, name } : list);
-      await ruleListsManager.saveLists(nextLists);
+      const name = validateListName(payload.name, state.lists, listId);
+      const nextLists = state.lists.map((list, itemIndex) => itemIndex === index ? { ...list, name } : list);
+      await saveRuleListState(nextLists, state.activeRuleListId);
       const rules = await rulesManager.getRules();
-      return notifyWithoutSync(rules, { ruleLists: nextLists, list: nextLists[index] });
+      return notifyWithoutSync(rules, {
+        ruleLists: nextLists,
+        activeRuleListId: state.activeRuleListId,
+        list: nextLists[index]
+      });
+    });
+  }
+
+  async function activateRuleList(payload = {}) {
+    return mutationQueue.enqueue(async () => {
+      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
+      const listId = typeof payload.listId === 'string' ? payload.listId : '';
+      const state = await getRuleListState();
+      if (!state.lists.some(list => list.id === listId)) {
+        throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
+      }
+      await saveRuleListState(state.lists, listId);
+      const rules = await rulesManager.getRules();
+      return syncAndNotify(rules, {
+        ruleLists: state.lists,
+        activeRuleListId: listId,
+        list: state.lists.find(list => list.id === listId)
+      });
     });
   }
 
   async function toggleRuleList(payload = {}) {
-    return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
-      const listId = typeof payload.listId === 'string' ? payload.listId : '';
-      const lists = await getRuleLists();
-      const index = lists.findIndex(list => list.id === listId);
-      if (index === -1) throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
-      const nextLists = lists.map((list, itemIndex) => itemIndex === index ? { ...list, disabled: !list.disabled } : list);
-      await ruleListsManager.saveLists(nextLists);
-      const rules = await rulesManager.getRules();
-      return syncAndNotify(rules, { ruleLists: nextLists, list: nextLists[index] });
-    });
+    return activateRuleList(payload);
   }
 
   async function deleteRuleList(payload = {}) {
@@ -724,18 +791,25 @@ export function createRulesMutationService({
       if (listId === GENERAL_RULE_LIST_ID) {
         throw new RulesMutationError('rule_list_locked', 'General list cannot be deleted');
       }
-      const [lists, rules] = await Promise.all([getRuleLists(), rulesManager.getRules()]);
-      if (!lists.some(list => list.id === listId)) {
+      const [state, rules] = await Promise.all([getRuleListState(), rulesManager.getRules()]);
+      if (!state.lists.some(list => list.id === listId)) {
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
-      const nextLists = lists.filter(list => list.id !== listId);
+      const nextLists = state.lists.filter(list => list.id !== listId);
       const nextRules = rules.map(rule => {
         if (rule.isWhitelist === true) return canonicalizeRuleTarget(rule, [createAlwaysAssignment()]);
         if (!getRuleAssignment(rule, listId)) return rule;
         return canonicalizeRuleTarget(rule, removeRuleAssignment(rule, listId, { fallbackToGeneral: true }));
       });
-      await saveCombinedState(nextRules, nextLists);
-      return syncAndNotify(nextRules, { ruleLists: nextLists, deletedListId: listId });
+      const activeRuleListId = state.activeRuleListId === listId
+        ? GENERAL_RULE_LIST_ID
+        : normalizeActiveRuleListId(nextLists, state.activeRuleListId);
+      await saveCombinedState(nextRules, nextLists, activeRuleListId);
+      return syncAndNotify(nextRules, {
+        ruleLists: nextLists,
+        activeRuleListId,
+        deletedListId: listId
+      });
     });
   }
 
@@ -755,6 +829,7 @@ export function createRulesMutationService({
     toggleCategory,
     createRuleList,
     renameRuleList,
+    activateRuleList,
     toggleRuleList,
     deleteRuleList,
     runExclusive

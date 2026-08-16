@@ -6,6 +6,7 @@ import {
   migrateDailyUsageSchema,
   migrateRuleSchema
 } from '../rules/rulesMigrationService.js';
+import { RuleListsManager } from '../rules/ruleListsManager.js';
 
 function clone(value) {
   return structuredClone(value);
@@ -47,16 +48,7 @@ function createHarness({ local = {}, sync = {}, localOptions = {} } = {}) {
   const syncStorage = createStorageArea(sync);
   const savedRules = [];
   const logs = [];
-  const ruleListsManager = {
-    async ensureInitialized() {
-      const hadLists = Array.isArray(localStorage.state.ruleLists);
-      const lists = hadLists ? clone(localStorage.state.ruleLists) : [
-        { id: 'general', name: 'General', disabled: false }
-      ];
-      if (!hadLists) localStorage.state.ruleLists = clone(lists);
-      return { migrated: !hadLists, lists };
-    }
-  };
+  const ruleListsManager = new RuleListsManager(localStorage);
 
   const rulesManager = {
     async getRules() {
@@ -286,8 +278,26 @@ test('combined migration copies legacy rules and then upgrades their schema', as
       dailyLimit: null
     }]
   }]);
-  assert.deepEqual(harness.localStorage.state.ruleLists, [{ id: 'general', name: 'General', disabled: false }]);
+  assert.deepEqual(harness.localStorage.state.ruleLists, [{ id: 'general', name: 'General', disabledCategories: [] }]);
+  assert.equal(harness.localStorage.state.activeRuleListId, 'general');
   assert.equal(harness.savedRules.length, 1);
+});
+
+test('combined migration copies legacy global disabled categories into General profile only', async () => {
+  const harness = createHarness({
+    sync: { settings: { disabledCategories: ['social', 'news'] } }
+  });
+
+  const result = await harness.service.migrateAll();
+
+  assert.equal(result.ruleLists[0].id, 'general');
+  assert.deepEqual(result.ruleLists[0].disabledCategories, ['social', 'news']);
+  assert.equal(result.activeRuleListId, 'general');
+  assert.deepEqual(harness.localStorage.state.ruleLists, [{
+    id: 'general',
+    name: 'General',
+    disabledCategories: ['social', 'news']
+  }]);
 });
 
 test('v2 Daily Limit migration keeps a zero-usage active assignment sample', () => {

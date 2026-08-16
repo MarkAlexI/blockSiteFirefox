@@ -280,9 +280,20 @@ export function createRulesMigrationService({
 
   async function migrateAll() {
     const migratedFromSync = await migrateToLocalForDevice();
+    let legacyDisabledCategories = [];
+    try {
+      const syncData = await syncStorage.get('settings');
+      legacyDisabledCategories = Array.isArray(syncData?.settings?.disabledCategories)
+        ? syncData.settings.disabledCategories
+        : [];
+    } catch (error) {
+      logger.info('Could not read legacy category settings during Rule List migration:', error);
+    }
+
     const [schemaMigration, listMigration] = await Promise.all([
       migrateStoredRules(),
-      ruleListsManager?.ensureInitialized?.() || Promise.resolve({ migrated: false, lists: [] })
+      ruleListsManager?.ensureInitialized?.({ legacyDisabledCategories }) ||
+        Promise.resolve({ migrated: false, lists: [], activeRuleListId: GENERAL_RULE_LIST_ID })
     ]);
     const dailyUsageMigration = await migrateDailyUsage(schemaMigration.rules);
 
@@ -293,7 +304,8 @@ export function createRulesMigrationService({
       listMigration,
       dailyUsageMigration,
       rules: schemaMigration.rules,
-      ruleLists: listMigration.lists
+      ruleLists: listMigration.lists,
+      activeRuleListId: listMigration.activeRuleListId || GENERAL_RULE_LIST_ID
     };
   }
 

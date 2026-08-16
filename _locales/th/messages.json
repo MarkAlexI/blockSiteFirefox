@@ -986,7 +986,7 @@
     "message": "รายการกฎ"
   },
   "rulelists_description": {
-    "message": "จัดกลุ่มกฎเป็นรายการและพักทั้งรายการโดยไม่ต้องเปลี่ยนกฎแต่ละข้อ"
+    "message": "ใช้โปรไฟล์รายการกฎที่ใช้งานอยู่ครั้งละหนึ่งโปรไฟล์ แต่ละโปรไฟล์มีโหมดการบล็อกและการตั้งค่าหมวดหมู่ของตัวเอง"
   },
   "rulelists_name_placeholder": {
     "message": "ชื่อรายการใหม่"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "เพิ่มรายการ"
   },
-  "rulelists_toggle_hint": {
-    "message": "สลับการบล็อกสำหรับรายการนี้ทั้งหมด"
-  },
   "rulelist_general": {
     "message": "ทั่วไป"
   },
-  "rulelists_all": {
-    "message": "รายการทั้งหมด"
-  },
   "rulelist_header": {
     "message": "รายการ"
-  },
-  "rulelists_disabled_desc": {
-    "message": "กฎนี้อยู่ในรายการที่พักไว้"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "แก้ไขไม่ได้: การบล็อกรายการกฎถูกพักไว้"
   },
   "rulelists_name_invalid": {
     "message": "ป้อนชื่อรายการไม่เกิน 40 อักขระ"
@@ -1019,7 +1007,7 @@
     "message": "มีรายการชื่อนี้อยู่แล้ว"
   },
   "rulelists_delete_confirm": {
-    "message": "ลบ \"$NAME$\" หรือไม่? กฎในรายการจะย้ายไปที่ ทั่วไป",
+    "message": "ลบ \"$NAME$\" หรือไม่ กฎที่ใช้เฉพาะในโปรไฟล์นี้จะถูกย้ายไปที่ General",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "เลือกโหมดการบล็อกที่ถูกต้อง"
   },
-  "rulelists_assignment_hint": {
-    "message": "การตั้งค่าการบล็อกด้านล่างมีผลกับรายการนี้เท่านั้น"
-  },
   "rulelists_remove_assignment": {
     "message": "นำออกจากรายการ"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "นำกฎนี้ออกจาก \"$NAME$\" หรือไม่ หากนี่เป็นรายการกำหนดเองรายการสุดท้ายของกฎ ระบบจะย้ายไปยังทั่วไป",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "กฎนี้มีการตั้งค่าสำหรับรายการนั้นอยู่แล้ว"
   },
   "rulelists_assignment_error": {
     "message": "ไม่สามารถเปลี่ยนการกำหนดให้กับรายการที่เลือกได้"
-  },
-  "rulelists_multiple_settings": {
-    "message": "การตั้งค่าต่างกันตามรายการ"
   }
 }

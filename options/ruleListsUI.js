@@ -6,8 +6,7 @@ function getDisplayName(list) {
   return list.id === GENERAL_RULE_LIST_ID ? t('rulelist_general') : list.name;
 }
 
-export function resolveRuleListContext(lists, selectedValue = 'all') {
-  if (selectedValue === 'all') return GENERAL_RULE_LIST_ID;
+export function resolveRuleListContext(lists, selectedValue = GENERAL_RULE_LIST_ID) {
   return Array.isArray(lists) && lists.some(list => list?.id === selectedValue)
     ? selectedValue
     : GENERAL_RULE_LIST_ID;
@@ -16,36 +15,36 @@ export function resolveRuleListContext(lists, selectedValue = 'all') {
 export class RuleListsUI {
   static updateListGrid(container, lists, rules, handlers = {}) {
     container.innerHTML = '';
-    const selectedListId = typeof handlers.selectedListId === 'string' ? handlers.selectedListId : 'all';
+    const activeRuleListId = resolveRuleListContext(lists, handlers.activeRuleListId);
 
     for (const list of lists) {
       const card = document.createElement('div');
-      const isSelected = selectedListId === list.id;
-      card.className = `rule-list-card ${list.disabled ? 'muted' : ''} ${isSelected ? 'selected' : ''}`.trim();
+      const isActive = activeRuleListId === list.id;
+      card.className = `rule-list-card ${isActive ? 'selected active-profile' : ''}`.trim();
       card.dataset.listId = list.id;
 
-      const toggleLabel = document.createElement('label');
-      toggleLabel.className = 'rule-list-toggle';
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.checked = !list.disabled;
-      checkbox.title = t('rulelists_toggle_hint');
-      checkbox.addEventListener('change', () => handlers.onToggle?.(list.id));
+      const selector = document.createElement('input');
+      selector.type = 'radio';
+      selector.name = 'active-rule-list';
+      selector.className = 'rule-list-profile-selector';
+      selector.checked = isActive;
+      selector.setAttribute('aria-label', getDisplayName(list));
+      selector.addEventListener('change', () => {
+        if (selector.checked) handlers.onSelect?.(list.id);
+      });
 
       const name = document.createElement('button');
       name.type = 'button';
       name.className = 'rule-list-name rule-list-view';
       name.textContent = getDisplayName(list);
-      if (isSelected) name.setAttribute('aria-current', 'true');
+      if (isActive) name.setAttribute('aria-current', 'true');
       name.addEventListener('click', () => handlers.onSelect?.(list.id));
 
       const count = document.createElement('span');
       count.className = 'rule-list-count';
       count.textContent = rules.filter(rule => !rule.isWhitelist && isRuleInList(rule, list.id)).length;
 
-      toggleLabel.appendChild(checkbox);
-      card.appendChild(toggleLabel);
+      card.appendChild(selector);
       card.appendChild(name);
       card.appendChild(count);
 
@@ -68,30 +67,10 @@ export class RuleListsUI {
         actions.appendChild(renameButton);
         actions.appendChild(deleteButton);
         card.appendChild(actions);
-      } else {
-        card.title = t('rulelists_description');
       }
 
       container.appendChild(card);
     }
-  }
-
-  static updateFilter(select, lists, selectedValue = 'all') {
-    select.innerHTML = '';
-
-    const allOption = document.createElement('option');
-    allOption.value = 'all';
-    allOption.textContent = t('rulelists_all');
-    select.appendChild(allOption);
-
-    for (const list of lists) {
-      const option = document.createElement('option');
-      option.value = list.id;
-      option.textContent = getDisplayName(list);
-      select.appendChild(option);
-    }
-
-    select.value = lists.some(list => list.id === selectedValue) ? selectedValue : 'all';
   }
 
   static getDisplayName(list) {

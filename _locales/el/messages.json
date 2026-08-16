@@ -986,7 +986,7 @@
     "message": "Λίστες κανόνων"
   },
   "rulelists_description": {
-    "message": "Ομαδοποιήστε κανόνες σε λίστες και θέστε σε παύση ολόκληρη λίστα χωρίς να αλλάξετε μεμονωμένους κανόνες."
+    "message": "Χρησιμοποιήστε ένα ενεργό προφίλ λίστας κανόνων κάθε φορά. Κάθε προφίλ έχει τις δικές του λειτουργίες αποκλεισμού και ρυθμίσεις κατηγοριών."
   },
   "rulelists_name_placeholder": {
     "message": "Όνομα νέας λίστας"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Προσθήκη λίστας"
   },
-  "rulelists_toggle_hint": {
-    "message": "Εναλλαγή αποκλεισμού για ολόκληρη τη λίστα"
-  },
   "rulelist_general": {
     "message": "Γενικά"
   },
-  "rulelists_all": {
-    "message": "Όλες οι λίστες"
-  },
   "rulelist_header": {
     "message": "Λίστα"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Αυτός ο κανόνας ανήκει σε λίστα σε παύση."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Δεν είναι δυνατή η επεξεργασία: ο αποκλεισμός της λίστας κανόνων είναι σε παύση"
   },
   "rulelists_name_invalid": {
     "message": "Εισαγάγετε όνομα λίστας έως 40 χαρακτήρες."
@@ -1019,7 +1007,7 @@
     "message": "Υπάρχει ήδη λίστα με αυτό το όνομα."
   },
   "rulelists_delete_confirm": {
-    "message": "Διαγραφή \"$NAME$\"; Οι κανόνες της θα μετακινηθούν στα Γενικά.",
+    "message": "Διαγραφή του \"$NAME$\"; Οι κανόνες που χρησιμοποιούνται μόνο σε αυτό το προφίλ θα μεταφερθούν στο General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Επιλέξτε έγκυρη λειτουργία αποκλεισμού"
   },
-  "rulelists_assignment_hint": {
-    "message": "Οι παρακάτω ρυθμίσεις αποκλεισμού ισχύουν μόνο για αυτή τη λίστα."
-  },
   "rulelists_remove_assignment": {
     "message": "Αφαίρεση από τη λίστα"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Να αφαιρεθεί αυτός ο κανόνας από τη λίστα «$NAME$»; Αν είναι η τελευταία προσαρμοσμένη λίστα του, θα μεταφερθεί στη Γενική.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Αυτός ο κανόνας έχει ήδη ρυθμίσεις για αυτή τη λίστα."
   },
   "rulelists_assignment_error": {
     "message": "Δεν ήταν δυνατή η αλλαγή της ανάθεσης στην επιλεγμένη λίστα."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Διαφορετικές ρυθμίσεις ανά λίστα"
   }
 }

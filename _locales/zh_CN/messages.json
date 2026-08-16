@@ -980,7 +980,7 @@
     "message": "规则列表"
   },
   "rulelists_description": {
-    "message": "将规则分组到列表中，并可暂停整个列表而无需更改单个规则。"
+    "message": "一次只使用一个活动的规则列表配置。每个配置都有自己的拦截模式和分类设置。"
   },
   "rulelists_name_placeholder": {
     "message": "新列表名称"
@@ -988,23 +988,11 @@
   "rulelists_add": {
     "message": "添加列表"
   },
-  "rulelists_toggle_hint": {
-    "message": "切换此整个列表的屏蔽状态"
-  },
   "rulelist_general": {
     "message": "常规"
   },
-  "rulelists_all": {
-    "message": "所有列表"
-  },
   "rulelist_header": {
     "message": "列表"
-  },
-  "rulelists_disabled_desc": {
-    "message": "此规则属于已暂停的列表。"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "无法编辑：规则列表屏蔽已暂停"
   },
   "rulelists_name_invalid": {
     "message": "请输入不超过 40 个字符的列表名称。"
@@ -1013,7 +1001,7 @@
     "message": "已存在同名列表。"
   },
   "rulelists_delete_confirm": {
-    "message": "删除“$NAME$”？其中的规则将移至常规。",
+    "message": "删除“$NAME$”？仅在此配置中使用的规则将移至 General。",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1067,28 +1055,13 @@
   "blocking_mode_invalid": {
     "message": "请选择有效的屏蔽模式"
   },
-  "rulelists_assignment_hint": {
-    "message": "下面的屏蔽设置仅适用于此列表。"
-  },
   "rulelists_remove_assignment": {
     "message": "从列表中移除"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "要从“$NAME$”中移除此规则吗？如果这是它最后一个自定义列表，该规则将移至“常规”。",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "此规则已为该列表设置了配置。"
   },
   "rulelists_assignment_error": {
     "message": "无法更改所选列表的分配。"
-  },
-  "rulelists_multiple_settings": {
-    "message": "各列表使用不同设置"
   }
 }

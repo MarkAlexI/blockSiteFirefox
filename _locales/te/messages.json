@@ -986,7 +986,7 @@
     "message": "నియమ జాబితాలు"
   },
   "rulelists_description": {
-    "message": "నియమాలను జాబితాలుగా సమూహపరచి, ఒక్కో నియమాన్ని మార్చకుండా మొత్తం జాబితాను విరామంలో ఉంచండి."
+    "message": "ఒకేసారి ఒక సక్రియ Rule List ప్రొఫైల్‌ను ఉపయోగించండి. ప్రతి ప్రొఫైల్‌కు దాని స్వంత బ్లాకింగ్ మోడ్‌లు మరియు వర్గ సెట్టింగ్‌లు ఉంటాయి."
   },
   "rulelists_name_placeholder": {
     "message": "కొత్త జాబితా పేరు"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "జాబితా జోడించండి"
   },
-  "rulelists_toggle_hint": {
-    "message": "ఈ మొత్తం జాబితాకు బ్లాకింగ్‌ను మార్చండి"
-  },
   "rulelist_general": {
     "message": "సాధారణ"
   },
-  "rulelists_all": {
-    "message": "అన్ని జాబితాలు"
-  },
   "rulelist_header": {
     "message": "జాబితా"
-  },
-  "rulelists_disabled_desc": {
-    "message": "ఈ నియమం విరామంలో ఉన్న జాబితాలో ఉంది."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "సవరించలేరు: నియమ జాబితా బ్లాకింగ్ విరామంలో ఉంది"
   },
   "rulelists_name_invalid": {
     "message": "గరిష్ఠంగా 40 అక్షరాల జాబితా పేరును నమోదు చేయండి."
@@ -1019,7 +1007,7 @@
     "message": "ఈ పేరుతో జాబితా ఇప్పటికే ఉంది."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" తొలగించాలా? దాని నియమాలు సాధారణకు తరలించబడతాయి.",
+    "message": "\"$NAME$\"ను తొలగించాలా? ఈ ప్రొఫైల్‌లో మాత్రమే ఉపయోగించే నియమాలు General కు తరలించబడతాయి.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "చెల్లుబాటు అయ్యే బ్లాకింగ్ మోడ్‌ను ఎంచుకోండి"
   },
-  "rulelists_assignment_hint": {
-    "message": "క్రింద ఉన్న బ్లాకింగ్ సెట్టింగ్‌లు ఈ జాబితాకు మాత్రమే వర్తిస్తాయి."
-  },
   "rulelists_remove_assignment": {
     "message": "జాబితా నుండి తీసివేయండి"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "ఈ నియమాన్ని \"$NAME$\" నుండి తీసివేయాలా? ఇది దీని చివరి అనుకూల జాబితా అయితే, సాధారణ జాబితాకు తరలించబడుతుంది.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "ఈ నియమానికి ఆ జాబితా కోసం ఇప్పటికే సెట్టింగ్‌లు ఉన్నాయి."
   },
   "rulelists_assignment_error": {
     "message": "ఎంచుకున్న జాబితా కేటాయింపును మార్చలేకపోయాము."
-  },
-  "rulelists_multiple_settings": {
-    "message": "జాబితా ప్రకారం వేర్వేరు సెట్టింగ్‌లు"
   }
 }

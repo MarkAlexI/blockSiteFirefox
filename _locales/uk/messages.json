@@ -989,7 +989,7 @@
     "message": "Списки правил"
   },
   "rulelists_description": {
-    "message": "Групуйте правила у списки та призупиняйте цілий список, не змінюючи окремі правила."
+    "message": "Використовуйте один активний профіль списку правил за раз. Кожен профіль має власні режими блокування та налаштування категорій."
   },
   "rulelists_name_placeholder": {
     "message": "Назва нового списку"
@@ -997,23 +997,11 @@
   "rulelists_add": {
     "message": "Додати список"
   },
-  "rulelists_toggle_hint": {
-    "message": "Увімкнути або вимкнути блокування всього списку"
-  },
   "rulelist_general": {
     "message": "Загальний"
   },
-  "rulelists_all": {
-    "message": "Усі списки"
-  },
   "rulelist_header": {
     "message": "Список"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Це правило належить до призупиненого списку."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Неможливо редагувати: блокування списку правил призупинено"
   },
   "rulelists_name_invalid": {
     "message": "Введіть назву списку довжиною до 40 символів."
@@ -1022,7 +1010,7 @@
     "message": "Список із такою назвою вже існує."
   },
   "rulelists_delete_confirm": {
-    "message": "Видалити «$NAME$»? Його правила буде переміщено до Загального.",
+    "message": "Видалити «$NAME$»? Правила, що використовуються лише в цьому профілі, буде перенесено до General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1076,28 +1064,13 @@
   "blocking_mode_invalid": {
     "message": "Виберіть коректний режим блокування"
   },
-  "rulelists_assignment_hint": {
-    "message": "Налаштування блокування нижче застосовуються лише до цього списку."
-  },
   "rulelists_remove_assignment": {
     "message": "Прибрати зі списку"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Прибрати це правило зі списку «$NAME$»? Якщо це останній користувацький список, правило буде переміщено до Загального.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Це правило вже має налаштування для цього списку."
   },
   "rulelists_assignment_error": {
     "message": "Не вдалося змінити належність правила до вибраного списку."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Різні налаштування для списків"
   }
 }

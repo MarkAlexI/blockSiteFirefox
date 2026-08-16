@@ -986,7 +986,7 @@
     "message": "Popisi pravila"
   },
   "rulelists_description": {
-    "message": "Grupirajte pravila u popise i pauzirajte cijeli popis bez mijenjanja pojedinačnih pravila."
+    "message": "Koristite jedan aktivni profil popisa pravila odjednom. Svaki profil ima vlastite načine blokiranja i postavke kategorija."
   },
   "rulelists_name_placeholder": {
     "message": "Naziv novog popisa"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Dodaj popis"
   },
-  "rulelists_toggle_hint": {
-    "message": "Uključi ili isključi blokiranje cijelog popisa"
-  },
   "rulelist_general": {
     "message": "Općenito"
   },
-  "rulelists_all": {
-    "message": "Svi popisi"
-  },
   "rulelist_header": {
     "message": "Popis"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Ovo pravilo pripada pauziranom popisu."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Nije moguće uređivati: blokiranje popisa pravila je pauzirano"
   },
   "rulelists_name_invalid": {
     "message": "Unesite naziv popisa do 40 znakova."
@@ -1019,7 +1007,7 @@
     "message": "Popis s ovim nazivom već postoji."
   },
   "rulelists_delete_confirm": {
-    "message": "Izbrisati \"$NAME$\"? Njegova pravila premjestit će se u Općenito.",
+    "message": "Izbrisati \"$NAME$\"? Pravila koja se koriste samo u ovom profilu premjestit će se u General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Odaberite valjani način blokiranja"
   },
-  "rulelists_assignment_hint": {
-    "message": "Postavke blokiranja u nastavku primjenjuju se samo na ovaj popis."
-  },
   "rulelists_remove_assignment": {
     "message": "Ukloni s popisa"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Ukloniti ovo pravilo s popisa „$NAME$”? Ako je to njegov posljednji prilagođeni popis, premjestit će se u Općenito.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Ovo pravilo već ima postavke za taj popis."
   },
   "rulelists_assignment_error": {
     "message": "Nije moguće promijeniti dodjelu odabranom popisu."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Različite postavke po popisu"
   }
 }

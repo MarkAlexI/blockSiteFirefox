@@ -986,7 +986,7 @@
     "message": "Mga Listahan ng Rule"
   },
   "rulelists_description": {
-    "message": "Igrupo ang mga rule sa mga listahan at i-pause ang buong listahan nang hindi binabago ang bawat rule."
+    "message": "Gumamit ng isang aktibong profile ng Rule List sa bawat pagkakataon. May sariling mga blocking mode at setting ng kategorya ang bawat profile."
   },
   "rulelists_name_placeholder": {
     "message": "Pangalan ng bagong listahan"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Magdagdag ng Listahan"
   },
-  "rulelists_toggle_hint": {
-    "message": "I-toggle ang pag-block para sa buong listahang ito"
-  },
   "rulelist_general": {
     "message": "Pangkalahatan"
   },
-  "rulelists_all": {
-    "message": "Lahat ng Listahan"
-  },
   "rulelist_header": {
     "message": "Listahan"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Ang rule na ito ay nasa naka-pause na listahan."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Hindi ma-edit: naka-pause ang pag-block ng Rule List"
   },
   "rulelists_name_invalid": {
     "message": "Maglagay ng pangalan ng listahan na hanggang 40 character."
@@ -1019,7 +1007,7 @@
     "message": "May listahan na gamit ang pangalang ito."
   },
   "rulelists_delete_confirm": {
-    "message": "Burahin ang \"$NAME$\"? Ililipat ang mga rule nito sa Pangkalahatan.",
+    "message": "I-delete ang \"$NAME$\"? Ang mga rule na ginagamit lang sa profile na ito ay ililipat sa General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Pumili ng wastong blocking mode"
   },
-  "rulelists_assignment_hint": {
-    "message": "Ang mga setting ng pag-block sa ibaba ay para lamang sa listahang ito."
-  },
   "rulelists_remove_assignment": {
     "message": "Alisin sa listahan"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Alisin ang panuntunang ito sa \"$NAME$\"? Kung ito ang huli nitong custom na listahan, ililipat ito sa Pangkalahatan.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "May mga setting na ang panuntunang ito para sa listahang iyon."
   },
   "rulelists_assignment_error": {
     "message": "Hindi mabago ang pagtatalaga sa napiling listahan."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Magkakaibang setting bawat listahan"
   }
 }

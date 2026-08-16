@@ -97,6 +97,7 @@ export function formatDiagnosticReportText(report) {
     `Diagnostic event history: ${report.access?.eventHistory ? 'available' : 'Pro only'}`,
     `Debug mode: ${yesNo(report.settings?.debugMode)}`,
     `Security mode: ${report.settings?.mode || 'unknown'}`,
+    `Active Rule List: ${report.settings?.activeRuleListName || report.settings?.activeRuleListId || 'General'}`,
     `Disabled categories: ${(report.settings?.disabledCategories || []).join(', ') || 'none'}`,
     '',
     '[Rules and DNR]',

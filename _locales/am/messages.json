@@ -986,7 +986,7 @@
     "message": "የደንብ ዝርዝሮች"
   },
   "rulelists_description": {
-    "message": "ደንቦችን በዝርዝሮች ያደራጁ እና ነጠላ ደንቦችን ሳይቀይሩ ሙሉ ዝርዝርን ለጊዜው ያቁሙ።"
+    "message": "በአንድ ጊዜ አንድ ንቁ የደንብ ዝርዝር መገለጫ ብቻ ይጠቀሙ። እያንዳንዱ መገለጫ የራሱ የማገድ ሁነታዎች እና የምድብ ቅንብሮች አሉት።"
   },
   "rulelists_name_placeholder": {
     "message": "የአዲስ ዝርዝር ስም"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "ዝርዝር ጨምር"
   },
-  "rulelists_toggle_hint": {
-    "message": "ለዚህ ሙሉ ዝርዝር እገዳን ቀይር"
-  },
   "rulelist_general": {
     "message": "አጠቃላይ"
   },
-  "rulelists_all": {
-    "message": "ሁሉም ዝርዝሮች"
-  },
   "rulelist_header": {
     "message": "ዝርዝር"
-  },
-  "rulelists_disabled_desc": {
-    "message": "ይህ ደንብ ለጊዜው የቆመ ዝርዝር ውስጥ ነው።"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "ማርትዕ አይቻልም፡ የደንብ ዝርዝር እገዳ ቆሟል"
   },
   "rulelists_name_invalid": {
     "message": "እስከ 40 ቁምፊዎች ያለው የዝርዝር ስም ያስገቡ።"
@@ -1019,7 +1007,7 @@
     "message": "በዚህ ስም ዝርዝር አስቀድሞ አለ።"
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" ይሰረዝ? ደንቦቹ ወደ አጠቃላይ ይንቀሳቀሳሉ።",
+    "message": "\"$NAME$\" ይሰረዝ? በዚህ መገለጫ ውስጥ ብቻ የሚጠቀሙ ደንቦች ወደ General ይ移ያዛሉ።",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "ትክክለኛ የማገድ ሁነታ ይምረጡ"
   },
-  "rulelists_assignment_hint": {
-    "message": "ከታች ያሉት የማገድ ቅንብሮች ለዚህ ዝርዝር ብቻ ይተገበራሉ።"
-  },
   "rulelists_remove_assignment": {
     "message": "ከዝርዝሩ አስወግድ"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "ይህን ደንብ ከ«$NAME$» ያስወግዱ? ይህ የመጨረሻው ብጁ ዝርዝሩ ከሆነ ወደ አጠቃላይ ይዛወራል።",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "ይህ ደንብ ለዚያ ዝርዝር ቅንብሮች አሉት።"
   },
   "rulelists_assignment_error": {
     "message": "የተመረጠውን የዝርዝር ምደባ መቀየር አልተቻለም።"
-  },
-  "rulelists_multiple_settings": {
-    "message": "በዝርዝር የተለያዩ ቅንብሮች"
   }
 }

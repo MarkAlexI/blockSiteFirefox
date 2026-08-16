@@ -986,7 +986,7 @@
     "message": "ನಿಯಮ ಪಟ್ಟಿಗಳು"
   },
   "rulelists_description": {
-    "message": "ನಿಯಮಗಳನ್ನು ಪಟ್ಟಿಗಳಾಗಿ ಗುಂಪು ಮಾಡಿ ಮತ್ತು ಪ್ರತ್ಯೇಕ ನಿಯಮಗಳನ್ನು ಬದಲಾಯಿಸದೆ ಸಂಪೂರ್ಣ ಪಟ್ಟಿಯನ್ನು ವಿರಾಮಗೊಳಿಸಿ."
+    "message": "ಒಂದು ಸಮಯದಲ್ಲಿ ಒಂದು ಸಕ್ರಿಯ Rule List ಪ್ರೊಫೈಲ್ ಬಳಸಿ. ಪ್ರತಿಯೊಂದು ಪ್ರೊಫೈಲ್ ತನ್ನದೇ ಆದ ಬ್ಲಾಕಿಂಗ್ ಮೋಡ್‌ಗಳು ಮತ್ತು ವರ್ಗ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಹೊಂದಿರುತ್ತದೆ."
   },
   "rulelists_name_placeholder": {
     "message": "ಹೊಸ ಪಟ್ಟಿಯ ಹೆಸರು"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "ಪಟ್ಟಿ ಸೇರಿಸಿ"
   },
-  "rulelists_toggle_hint": {
-    "message": "ಈ ಸಂಪೂರ್ಣ ಪಟ್ಟಿಗೆ ತಡೆಹಿಡಿಯುವಿಕೆಯನ್ನು ಬದಲಿಸಿ"
-  },
   "rulelist_general": {
     "message": "ಸಾಮಾನ್ಯ"
   },
-  "rulelists_all": {
-    "message": "ಎಲ್ಲಾ ಪಟ್ಟಿಗಳು"
-  },
   "rulelist_header": {
     "message": "ಪಟ್ಟಿ"
-  },
-  "rulelists_disabled_desc": {
-    "message": "ಈ ನಿಯಮವು ವಿರಾಮಗೊಳಿಸಿದ ಪಟ್ಟಿಗೆ ಸೇರಿದೆ."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "ಸಂಪಾದಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ: ನಿಯಮ ಪಟ್ಟಿಯ ತಡೆಹಿಡಿಯುವಿಕೆ ವಿರಾಮದಲ್ಲಿದೆ"
   },
   "rulelists_name_invalid": {
     "message": "ಗರಿಷ್ಠ 40 ಅಕ್ಷರಗಳ ಪಟ್ಟಿಯ ಹೆಸರನ್ನು ನಮೂದಿಸಿ."
@@ -1019,7 +1007,7 @@
     "message": "ಈ ಹೆಸರಿನ ಪಟ್ಟಿ ಈಗಾಗಲೇ ಇದೆ."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" ಅಳಿಸಬೇಕೆ? ಅದರ ನಿಯಮಗಳು ಸಾಮಾನ್ಯಕ್ಕೆ ಸಾಗುತ್ತವೆ.",
+    "message": "\"$NAME$\" ಅಳಿಸಬೇಕೆ? ಈ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಮಾತ್ರ ಬಳಸುವ ನಿಯಮಗಳು General ಗೆ ಸಾಗುತ್ತವೆ.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "ಮಾನ್ಯ ನಿರ್ಬಂಧಿಸುವ ಮೋಡ್ ಆಯ್ಕೆಮಾಡಿ"
   },
-  "rulelists_assignment_hint": {
-    "message": "ಕೆಳಗಿನ ನಿರ್ಬಂಧಿಸುವ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಈ ಪಟ್ಟಿಗೆ ಮಾತ್ರ ಅನ್ವಯಿಸುತ್ತವೆ."
-  },
   "rulelists_remove_assignment": {
     "message": "ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಿ"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "ಈ ನಿಯಮವನ್ನು \"$NAME$\" ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಬೇಕೆ? ಇದು ಇದರ ಕೊನೆಯ ಕಸ್ಟಮ್ ಪಟ್ಟಿಯಾಗಿದ್ದರೆ, ಇದನ್ನು ಸಾಮಾನ್ಯಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸಲಾಗುತ್ತದೆ.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "ಈ ನಿಯಮಕ್ಕೆ ಆ ಪಟ್ಟಿಗಾಗಿ ಈಗಾಗಲೇ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿವೆ."
   },
   "rulelists_assignment_error": {
     "message": "ಆಯ್ಕೆಮಾಡಿದ ಪಟ್ಟಿಯ ನಿಯೋಜನೆಯನ್ನು ಬದಲಾಯಿಸಲಾಗಲಿಲ್ಲ."
-  },
-  "rulelists_multiple_settings": {
-    "message": "ಪಟ್ಟಿಯ ಪ್ರಕಾರ ವಿಭಿನ್ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
   }
 }

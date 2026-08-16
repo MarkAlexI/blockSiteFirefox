@@ -243,7 +243,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(diagnostics.report.extension.version, '4.9.0');
     assert.equal(diagnostics.report.rules.total, 1);
     assert.equal(diagnostics.report.rules.lists, 1);
-    assert.equal(diagnostics.report.rules.disabledLists, 0);
+    assert.equal(diagnostics.report.rules.activeList, 'general');
     assert.equal(diagnostics.report.dnr.inSync, false);
     assert.equal(diagnostics.report.permissions.hostAccess, true);
     assert.equal(diagnostics.report.access.eventHistory, false);

@@ -986,7 +986,7 @@
     "message": "Zoznamy pravidiel"
   },
   "rulelists_description": {
-    "message": "Zoskupujte pravidlá do zoznamov a pozastavte celý zoznam bez zmeny jednotlivých pravidiel."
+    "message": "Používajte vždy iba jeden aktívny profil zoznamu pravidiel. Každý profil má vlastné režimy blokovania a nastavenia kategórií."
   },
   "rulelists_name_placeholder": {
     "message": "Názov nového zoznamu"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Pridať zoznam"
   },
-  "rulelists_toggle_hint": {
-    "message": "Prepnúť blokovanie celého zoznamu"
-  },
   "rulelist_general": {
     "message": "Všeobecné"
   },
-  "rulelists_all": {
-    "message": "Všetky zoznamy"
-  },
   "rulelist_header": {
     "message": "Zoznam"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Toto pravidlo patrí do pozastaveného zoznamu."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Nedá sa upraviť: blokovanie zoznamu pravidiel je pozastavené"
   },
   "rulelists_name_invalid": {
     "message": "Zadajte názov zoznamu s najviac 40 znakmi."
@@ -1019,7 +1007,7 @@
     "message": "Zoznam s týmto názvom už existuje."
   },
   "rulelists_delete_confirm": {
-    "message": "Odstrániť „$NAME$“? Jeho pravidlá sa presunú do Všeobecné.",
+    "message": "Odstrániť „$NAME$“? Pravidlá používané iba v tomto profile sa presunú do General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Vyberte platný režim blokovania"
   },
-  "rulelists_assignment_hint": {
-    "message": "Nižšie uvedené nastavenia blokovania platia iba pre tento zoznam."
-  },
   "rulelists_remove_assignment": {
     "message": "Odstrániť zo zoznamu"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Odstrániť toto pravidlo zo zoznamu „$NAME$“? Ak je to jeho posledný vlastný zoznam, presunie sa do Všeobecné.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Toto pravidlo už má nastavenia pre tento zoznam."
   },
   "rulelists_assignment_error": {
     "message": "Priradenie k vybranému zoznamu sa nepodarilo zmeniť."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Rôzne nastavenia podľa zoznamu"
   }
 }

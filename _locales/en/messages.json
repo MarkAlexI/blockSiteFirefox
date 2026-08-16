@@ -992,7 +992,7 @@
     "message": "Rule Lists"
   },
   "rulelists_description": {
-    "message": "Group rules into lists and pause an entire list without changing individual rules."
+    "message": "Use one active Rule List profile at a time. Each profile has its own blocking modes and category settings."
   },
   "rulelists_name_placeholder": {
     "message": "New list name"
@@ -1000,23 +1000,11 @@
   "rulelists_add": {
     "message": "Add List"
   },
-  "rulelists_toggle_hint": {
-    "message": "Toggle blocking for this entire list"
-  },
   "rulelist_general": {
     "message": "General"
   },
-  "rulelists_all": {
-    "message": "All Lists"
-  },
   "rulelist_header": {
     "message": "List"
-  },
-  "rulelists_disabled_desc": {
-    "message": "This rule belongs to a paused list."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Cannot edit: Rule List blocking is paused"
   },
   "rulelists_name_invalid": {
     "message": "Enter a list name up to 40 characters."
@@ -1025,7 +1013,7 @@
     "message": "A list with this name already exists."
   },
   "rulelists_delete_confirm": {
-    "message": "Delete \"$NAME$\"? Its rules will move to General.",
+    "message": "Delete \"$NAME$\"? Rules used only in this profile will move to General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1079,28 +1067,13 @@
   "blocking_mode_invalid": {
     "message": "Select a valid blocking mode"
   },
-  "rulelists_assignment_hint": {
-    "message": "Blocking settings below apply only to this list."
-  },
   "rulelists_remove_assignment": {
     "message": "Remove from list"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Remove this rule from \"$NAME$\"? If this is its last custom list, it will move to General.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "This rule already has settings for that list."
   },
   "rulelists_assignment_error": {
     "message": "The selected list assignment could not be changed."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Different settings by list"
   }
 }

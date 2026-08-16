@@ -977,7 +977,7 @@
     "message": "Sääntölistat"
   },
   "rulelists_description": {
-    "message": "Ryhmittele säännöt listoihin ja keskeytä koko lista muuttamatta yksittäisiä sääntöjä."
+    "message": "Käytä yhtä aktiivista sääntölistaprofiilia kerrallaan. Jokaisella profiililla on omat estotilansa ja luokka-asetuksensa."
   },
   "rulelists_name_placeholder": {
     "message": "Uuden listan nimi"
@@ -985,23 +985,11 @@
   "rulelists_add": {
     "message": "Lisää lista"
   },
-  "rulelists_toggle_hint": {
-    "message": "Vaihda koko listan esto päälle tai pois"
-  },
   "rulelist_general": {
     "message": "Yleinen"
   },
-  "rulelists_all": {
-    "message": "Kaikki listat"
-  },
   "rulelist_header": {
     "message": "Lista"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Tämä sääntö kuuluu keskeytettyyn listaan."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Ei voi muokata: sääntölistan esto on keskeytetty"
   },
   "rulelists_name_invalid": {
     "message": "Anna enintään 40 merkin pituinen listan nimi."
@@ -1010,7 +998,7 @@
     "message": "Samanniminen lista on jo olemassa."
   },
   "rulelists_delete_confirm": {
-    "message": "Poistetaanko \"$NAME$\"? Sen säännöt siirretään Yleinen-listaan.",
+    "message": "Poistetaanko \"$NAME$\"? Vain tässä profiilissa käytetyt säännöt siirretään General-profiiliin.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1064,28 +1052,13 @@
   "blocking_mode_invalid": {
     "message": "Valitse kelvollinen estotila"
   },
-  "rulelists_assignment_hint": {
-    "message": "Alla olevat estoasetukset koskevat vain tätä luetteloa."
-  },
   "rulelists_remove_assignment": {
     "message": "Poista luettelosta"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Poistetaanko tämä sääntö luettelosta \"$NAME$\"? Jos tämä on sen viimeinen mukautettu luettelo, se siirretään Yleiset-luetteloon.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Tällä säännöllä on jo asetukset kyseiselle luettelolle."
   },
   "rulelists_assignment_error": {
     "message": "Valitun luettelon määritystä ei voitu muuttaa."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Eri asetukset luetteloittain"
   }
 }

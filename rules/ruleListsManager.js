@@ -1,13 +1,17 @@
+import { CATEGORIES } from './categoryManager.js';
+
 export const GENERAL_RULE_LIST_ID = 'general';
+export const ACTIVE_RULE_LIST_KEY = 'activeRuleListId';
 export const MAX_RULE_LIST_NAME_LENGTH = 40;
 
 export const GENERAL_RULE_LIST = Object.freeze({
   id: GENERAL_RULE_LIST_ID,
   name: 'General',
-  disabled: false
+  disabledCategories: Object.freeze([])
 });
 
 const LIST_ID_PATTERN = /^list-(\d+)$/;
+const CATEGORY_SET = new Set(CATEGORIES);
 
 function normalizeName(value) {
   return typeof value === 'string' ? value.trim().replace(/\s+/g, ' ') : '';
@@ -17,16 +21,27 @@ export function normalizeRuleListName(value) {
   return normalizeName(value).slice(0, MAX_RULE_LIST_NAME_LENGTH);
 }
 
+export function normalizeDisabledCategories(value) {
+  const source = Array.isArray(value) ? value : [];
+  const seen = new Set();
+  const result = [];
+  for (const item of source) {
+    if (typeof item !== 'string' || !CATEGORY_SET.has(item) || seen.has(item)) continue;
+    seen.add(item);
+    result.push(item);
+  }
+  return result;
+}
+
 export function normalizeRuleLists(value) {
   const source = Array.isArray(value) ? value : [];
-  const lists = [{ ...GENERAL_RULE_LIST }];
+  const storedGeneral = source.find(item => item?.id === GENERAL_RULE_LIST_ID);
+  const lists = [{
+    ...GENERAL_RULE_LIST,
+    disabledCategories: normalizeDisabledCategories(storedGeneral?.disabledCategories)
+  }];
   const seenIds = new Set([GENERAL_RULE_LIST_ID]);
   const seenNames = new Set([GENERAL_RULE_LIST.name.toLowerCase()]);
-
-  const storedGeneral = source.find(item => item?.id === GENERAL_RULE_LIST_ID);
-  if (storedGeneral) {
-    lists[0].disabled = storedGeneral.disabled === true;
-  }
 
   for (const item of source) {
     if (!item || item.id === GENERAL_RULE_LIST_ID) continue;
@@ -43,12 +58,19 @@ export function normalizeRuleLists(value) {
     lists.push({
       id,
       name,
-      disabled: item.disabled === true
+      disabledCategories: normalizeDisabledCategories(item.disabledCategories)
     });
-
   }
 
   return lists;
+}
+
+export function normalizeActiveRuleListId(lists, value) {
+  const normalizedLists = normalizeRuleLists(lists);
+  const requested = typeof value === 'string' && value ? value : GENERAL_RULE_LIST_ID;
+  return normalizedLists.some(list => list.id === requested)
+    ? requested
+    : GENERAL_RULE_LIST_ID;
 }
 
 export function areRuleListsEqual(left, right) {
@@ -64,20 +86,22 @@ export function createNextRuleListId(lists) {
   return `list-${highest + 1}`;
 }
 
-export function getDisabledRuleListIds(lists) {
-  return normalizeRuleLists(lists)
-    .filter(list => list.disabled)
-    .map(list => list.id);
-}
-
 export function isKnownRuleListId(lists, listId) {
   const normalizedId = typeof listId === 'string' && listId ? listId : GENERAL_RULE_LIST_ID;
   return normalizeRuleLists(lists).some(list => list.id === normalizedId);
 }
 
-export function prepareImportedRuleLists(rawLists) {
+export function getRuleListById(lists, listId) {
+  const id = normalizeActiveRuleListId(lists, listId);
+  return normalizeRuleLists(lists).find(list => list.id === id) || { ...GENERAL_RULE_LIST };
+}
+
+export function prepareImportedRuleLists(rawLists, legacyDisabledCategories = []) {
   if (rawLists === undefined || rawLists === null) {
-    return [{ ...GENERAL_RULE_LIST }];
+    return [{
+      ...GENERAL_RULE_LIST,
+      disabledCategories: normalizeDisabledCategories(legacyDisabledCategories)
+    }];
   }
   if (!Array.isArray(rawLists)) {
     throw new Error('Invalid rule lists format');
@@ -91,6 +115,15 @@ export function prepareImportedRuleLists(rawLists) {
     throw new Error('Invalid or duplicate rule list');
   }
 
+  if (legacyDisabledCategories?.length > 0) {
+    normalized[0] = {
+      ...normalized[0],
+      disabledCategories: normalized[0].disabledCategories.length > 0
+        ? normalized[0].disabledCategories
+        : normalizeDisabledCategories(legacyDisabledCategories)
+    };
+  }
+
   return normalized;
 }
 
@@ -99,26 +132,65 @@ export class RuleListsManager {
     this.storageArea = storageArea;
   }
 
+  async getState() {
+    const result = await this.storageArea.get(['ruleLists', ACTIVE_RULE_LIST_KEY]);
+    const lists = normalizeRuleLists(result.ruleLists);
+    return {
+      lists,
+      activeRuleListId: normalizeActiveRuleListId(lists, result[ACTIVE_RULE_LIST_KEY])
+    };
+  }
+
   async getLists() {
-    const result = await this.storageArea.get('ruleLists');
-    return normalizeRuleLists(result.ruleLists);
+    return (await this.getState()).lists;
+  }
+
+  async getActiveListId() {
+    return (await this.getState()).activeRuleListId;
   }
 
   async saveLists(lists) {
+    const current = await this.getState();
     const normalized = normalizeRuleLists(lists);
-    await this.storageArea.set({ ruleLists: normalized });
+    const activeRuleListId = normalizeActiveRuleListId(normalized, current.activeRuleListId);
+    await this.storageArea.set({ ruleLists: normalized, [ACTIVE_RULE_LIST_KEY]: activeRuleListId });
     return normalized;
   }
 
-  async ensureInitialized() {
-    const result = await this.storageArea.get('ruleLists');
-    const normalized = normalizeRuleLists(result.ruleLists);
-    const migrated = !Array.isArray(result.ruleLists) || !areRuleListsEqual(result.ruleLists, normalized);
+  async saveState(lists, activeRuleListId) {
+    const normalized = normalizeRuleLists(lists);
+    const active = normalizeActiveRuleListId(normalized, activeRuleListId);
+    await this.storageArea.set({ ruleLists: normalized, [ACTIVE_RULE_LIST_KEY]: active });
+    return { lists: normalized, activeRuleListId: active };
+  }
+
+  async setActiveListId(listId) {
+    const state = await this.getState();
+    const activeRuleListId = normalizeActiveRuleListId(state.lists, listId);
+    if (activeRuleListId !== listId) throw new Error('rule_list_not_found');
+    await this.storageArea.set({ [ACTIVE_RULE_LIST_KEY]: activeRuleListId });
+    return activeRuleListId;
+  }
+
+  async ensureInitialized({ legacyDisabledCategories = [] } = {}) {
+    const result = await this.storageArea.get(['ruleLists', ACTIVE_RULE_LIST_KEY]);
+    let normalized = normalizeRuleLists(result.ruleLists);
+    if (normalizeDisabledCategories(legacyDisabledCategories).length > 0 &&
+        normalized[0].disabledCategories.length === 0) {
+      normalized[0] = {
+        ...normalized[0],
+        disabledCategories: normalizeDisabledCategories(legacyDisabledCategories)
+      };
+    }
+    const activeRuleListId = normalizeActiveRuleListId(normalized, result[ACTIVE_RULE_LIST_KEY]);
+    const migrated = !Array.isArray(result.ruleLists) ||
+      !areRuleListsEqual(result.ruleLists, normalized) ||
+      result[ACTIVE_RULE_LIST_KEY] !== activeRuleListId;
 
     if (migrated) {
-      await this.storageArea.set({ ruleLists: normalized });
+      await this.storageArea.set({ ruleLists: normalized, [ACTIVE_RULE_LIST_KEY]: activeRuleListId });
     }
 
-    return { migrated, lists: normalized };
+    return { migrated, lists: normalized, activeRuleListId };
   }
 }

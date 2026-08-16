@@ -30,7 +30,8 @@ function createTracker({
   tabsApiOverrides = {},
   scriptingApiOverrides = {},
   rules = [makeRule()],
-  ruleLists = [{ id: 'general', disabled: false }]
+  ruleLists = [{ id: 'general', name: 'General', disabledCategories: [] }],
+  activeRuleListId = 'general'
 } = {}) {
   return createDailyLimitTracker({
     tabsApi: {
@@ -56,8 +57,7 @@ function createTracker({
       ...scriptingApiOverrides
     },
     getRules: async () => rules,
-    getSettings: async () => ({ disabledCategories: [] }),
-    getRuleLists: async () => ruleLists,
+    getRuleListState: async () => ({ lists: ruleLists, activeRuleListId }),
     getFocusSessionState: async () => ({ focusActive: false }),
     dailyLimitManager: {
       async getUsageSeconds() { return { ...usageSeconds }; },
@@ -179,6 +179,22 @@ test('non-matching tabs do not trigger a page visibility injection', async () =>
   assert.equal(tracker.getDebugState().resolution, 'no_matching_rule');
 });
 
+test('partial DNR-style targets such as yout match m.youtube.com for Daily Limit tracking', async () => {
+  let sampled = null;
+  const tracker = createTracker({
+    tab: { id: 11, windowId: 7, active: true, url: 'https://m.youtube.com/watch?v=1' },
+    rules: [makeRule({ blockURL: 'yout' })],
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  await tracker.sample('minute_alarm');
+  assert.deepEqual(sampled, ['1:general']);
+  assert.equal(tracker.getDebugState().resolution, 'matched');
+});
+
 test('direct tab hints avoid a second tabs.query race on activation and URL changes', async () => {
   let queryCalls = 0;
   let sampled = null;
@@ -205,7 +221,7 @@ test('direct tab hints avoid a second tabs.query race on activation and URL chan
   assert.deepEqual(sampled, ['1:general']);
 });
 
-test('multiple active Daily Limit assignments are sampled together', async () => {
+test('only the active profile Daily Limit assignment is sampled', async () => {
   let sampled = null;
   const tracker = createTracker({
     rules: [makeRule({
@@ -214,15 +230,20 @@ test('multiple active Daily Limit assignments are sampled together', async () =>
         { listId: 'study', blockingMode: 'daily_limit', dailyLimit: { minutes: 20 }, schedule: null }
       ]
     })],
+    activeRuleListId: 'study',
     recordSample(keys) {
       sampled = keys;
       return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
     },
-    ruleLists: [{ id: 'general', disabled: false }, { id: 'work', disabled: false }, { id: 'study', disabled: false }]
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'work', name: 'Work', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ]
   });
 
   await tracker.sample('test');
-  assert.deepEqual(sampled.sort(), ['1:study', '1:work']);
+  assert.deepEqual(sampled, ['1:study']);
 });
 
 test('crossing a Daily Limit assignment triggers DNR synchronization', async () => {

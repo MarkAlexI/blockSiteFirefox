@@ -986,7 +986,7 @@
     "message": "Noteikumu saraksti"
   },
   "rulelists_description": {
-    "message": "Grupējiet noteikumus sarakstos un apturiet visu sarakstu, nemainot atsevišķus noteikumus."
+    "message": "Vienlaikus izmantojiet vienu aktīvu noteikumu saraksta profilu. Katram profilam ir savi bloķēšanas režīmi un kategoriju iestatījumi."
   },
   "rulelists_name_placeholder": {
     "message": "Jaunā saraksta nosaukums"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Pievienot sarakstu"
   },
-  "rulelists_toggle_hint": {
-    "message": "Pārslēgt bloķēšanu visam sarakstam"
-  },
   "rulelist_general": {
     "message": "Vispārīgi"
   },
-  "rulelists_all": {
-    "message": "Visi saraksti"
-  },
   "rulelist_header": {
     "message": "Saraksts"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Šis noteikums pieder apturētam sarakstam."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Nevar rediģēt: noteikumu saraksta bloķēšana ir apturēta"
   },
   "rulelists_name_invalid": {
     "message": "Ievadiet saraksta nosaukumu līdz 40 rakstzīmēm."
@@ -1019,7 +1007,7 @@
     "message": "Saraksts ar šādu nosaukumu jau pastāv."
   },
   "rulelists_delete_confirm": {
-    "message": "Dzēst “$NAME$”? Tā noteikumi tiks pārvietoti uz Vispārīgi.",
+    "message": "Dzēst \"$NAME$\"? Noteikumi, kas tiek izmantoti tikai šajā profilā, tiks pārvietoti uz General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Izvēlieties derīgu bloķēšanas režīmu"
   },
-  "rulelists_assignment_hint": {
-    "message": "Tālāk norādītie bloķēšanas iestatījumi attiecas tikai uz šo sarakstu."
-  },
   "rulelists_remove_assignment": {
     "message": "Noņemt no saraksta"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Noņemt šo kārtulu no “$NAME$”? Ja šis ir tās pēdējais pielāgotais saraksts, tā tiks pārvietota uz Vispārīgi.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Šai kārtulai jau ir iestatījumi šim sarakstam."
   },
   "rulelists_assignment_error": {
     "message": "Neizdevās mainīt piešķīrumu atlasītajam sarakstam."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Atšķirīgi iestatījumi katram sarakstam"
   }
 }

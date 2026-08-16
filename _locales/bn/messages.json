@@ -986,7 +986,7 @@
     "message": "রুল তালিকা"
   },
   "rulelists_description": {
-    "message": "নিয়মগুলোকে তালিকায় সাজান এবং আলাদা নিয়ম না বদলে পুরো তালিকা সাময়িকভাবে বন্ধ করুন।"
+    "message": "এক সময়ে একটি সক্রিয় রুল লিস্ট প্রোফাইল ব্যবহার করুন। প্রতিটি প্রোফাইলের নিজস্ব ব্লকিং মোড ও ক্যাটাগরি সেটিংস থাকে।"
   },
   "rulelists_name_placeholder": {
     "message": "নতুন তালিকার নাম"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "তালিকা যোগ করুন"
   },
-  "rulelists_toggle_hint": {
-    "message": "এই পুরো তালিকার ব্লকিং চালু/বন্ধ করুন"
-  },
   "rulelist_general": {
     "message": "সাধারণ"
   },
-  "rulelists_all": {
-    "message": "সব তালিকা"
-  },
   "rulelist_header": {
     "message": "তালিকা"
-  },
-  "rulelists_disabled_desc": {
-    "message": "এই নিয়মটি একটি স্থগিত তালিকায় রয়েছে।"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "সম্পাদনা করা যাবে না: রুল তালিকার ব্লকিং স্থগিত"
   },
   "rulelists_name_invalid": {
     "message": "সর্বোচ্চ ৪০ অক্ষরের তালিকার নাম লিখুন।"
@@ -1019,7 +1007,7 @@
     "message": "এই নামে একটি তালিকা ইতিমধ্যে আছে।"
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" মুছবেন? এর নিয়মগুলো সাধারণ তালিকায় যাবে।",
+    "message": "\"$NAME$\" মুছবেন? শুধুমাত্র এই প্রোফাইলে ব্যবহৃত নিয়মগুলো General-এ চলে যাবে।",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "একটি বৈধ ব্লকিং মোড বেছে নিন"
   },
-  "rulelists_assignment_hint": {
-    "message": "নিচের ব্লকিং সেটিংস শুধু এই তালিকার জন্য প্রযোজ্য।"
-  },
   "rulelists_remove_assignment": {
     "message": "তালিকা থেকে সরান"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "\"$NAME$\" থেকে এই নিয়মটি সরাবেন? এটি যদি এর শেষ কাস্টম তালিকা হয়, তাহলে এটি সাধারণ তালিকায় চলে যাবে।",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "এই নিয়মটির ওই তালিকার জন্য ইতিমধ্যে সেটিংস আছে।"
   },
   "rulelists_assignment_error": {
     "message": "নির্বাচিত তালিকার অ্যাসাইনমেন্ট পরিবর্তন করা যায়নি।"
-  },
-  "rulelists_multiple_settings": {
-    "message": "তালিকা অনুযায়ী ভিন্ন সেটিংস"
   }
 }

@@ -6,6 +6,7 @@
 import Logger from '../utils/logger.js';
 import { isBlockedURL } from './isBlockedURL.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
+import { doesUrlMatchBlockRule } from '../rules/urlRuleMatcher.js';
 
 const logger = new Logger('CloseTabs');
 
@@ -23,8 +24,7 @@ export async function closeTabsMatchingRules(blockURLs) {
     for (const tab of tabs) {
       if (!tab.url) continue;
       
-      const tabUrlLower = tab.url.toLowerCase();
-      const shouldClose = validPatterns.some(pattern => tabUrlLower.includes(pattern));
+      const shouldClose = validPatterns.some(pattern => doesUrlMatchBlockRule(tab.url, pattern));
       
       if (shouldClose) {
         tabsToRemoveIds.push(tab.id);

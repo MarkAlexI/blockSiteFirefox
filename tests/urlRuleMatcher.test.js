@@ -9,6 +9,13 @@ test('domain rules match the domain and subdomains', () => {
   assert.equal(doesUrlMatchBlockRule('https://notyoutube.com/', 'youtube.com'), false);
 });
 
+
+test('partial domain-label patterns preserve DNR-style matching', () => {
+  assert.equal(doesUrlMatchBlockRule('https://m.youtube.com/watch?v=1', 'yout'), true);
+  assert.equal(doesUrlMatchBlockRule('https://youtube.com/', 'yout'), true);
+  assert.equal(doesUrlMatchBlockRule('https://notyoutube.com/', 'yout'), false);
+});
+
 test('path rules use prefix semantics consistent with current blocking behavior', () => {
   assert.equal(doesUrlMatchBlockRule('https://youtube.com/shorts/abc', 'youtube.com/short'), true);
   assert.equal(doesUrlMatchBlockRule('https://youtube.com/watch?v=1', 'youtube.com/short'), false);

@@ -986,7 +986,7 @@
     "message": "Llistes de regles"
   },
   "rulelists_description": {
-    "message": "Agrupa les regles en llistes i pausa una llista sencera sense canviar les regles individuals."
+    "message": "Utilitza un sol perfil de llista de regles actiu alhora. Cada perfil té els seus propis modes de bloqueig i paràmetres de categories."
   },
   "rulelists_name_placeholder": {
     "message": "Nom de la llista nova"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Afegeix una llista"
   },
-  "rulelists_toggle_hint": {
-    "message": "Activa o desactiva el bloqueig de tota aquesta llista"
-  },
   "rulelist_general": {
     "message": "General"
   },
-  "rulelists_all": {
-    "message": "Totes les llistes"
-  },
   "rulelist_header": {
     "message": "Llista"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Aquesta regla pertany a una llista en pausa."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "No es pot editar: el bloqueig de la llista de regles està en pausa"
   },
   "rulelists_name_invalid": {
     "message": "Introdueix un nom de llista de fins a 40 caràcters."
@@ -1019,7 +1007,7 @@
     "message": "Ja existeix una llista amb aquest nom."
   },
   "rulelists_delete_confirm": {
-    "message": "Vols suprimir \"$NAME$\"? Les seves regles es mouran a General.",
+    "message": "Vols suprimir \"$NAME$\"? Les regles utilitzades només en aquest perfil es mouran a General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Selecciona un mode de bloqueig vàlid"
   },
-  "rulelists_assignment_hint": {
-    "message": "La configuració de bloqueig següent només s’aplica a aquesta llista."
-  },
   "rulelists_remove_assignment": {
     "message": "Elimina de la llista"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Voleu eliminar aquesta regla de «$NAME$»? Si és la seva última llista personalitzada, es mourà a General.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Aquesta regla ja té configuració per a aquesta llista."
   },
   "rulelists_assignment_error": {
     "message": "No s’ha pogut canviar l’assignació de la llista seleccionada."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Configuració diferent per llista"
   }
 }

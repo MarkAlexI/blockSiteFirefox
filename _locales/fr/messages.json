@@ -980,7 +980,7 @@
     "message": "Listes de règles"
   },
   "rulelists_description": {
-    "message": "Regroupez les règles dans des listes et mettez une liste entière en pause sans modifier les règles individuelles."
+    "message": "Utilisez un seul profil de liste de règles actif à la fois. Chaque profil possède ses propres modes de blocage et paramètres de catégories."
   },
   "rulelists_name_placeholder": {
     "message": "Nom de la nouvelle liste"
@@ -988,23 +988,11 @@
   "rulelists_add": {
     "message": "Ajouter une liste"
   },
-  "rulelists_toggle_hint": {
-    "message": "Activer ou désactiver le blocage de toute cette liste"
-  },
   "rulelist_general": {
     "message": "Général"
   },
-  "rulelists_all": {
-    "message": "Toutes les listes"
-  },
   "rulelist_header": {
     "message": "Liste"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Cette règle appartient à une liste en pause."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Modification impossible : le blocage de la liste de règles est en pause"
   },
   "rulelists_name_invalid": {
     "message": "Saisissez un nom de liste de 40 caractères maximum."
@@ -1013,7 +1001,7 @@
     "message": "Une liste portant ce nom existe déjà."
   },
   "rulelists_delete_confirm": {
-    "message": "Supprimer « $NAME$ » ? Ses règles seront déplacées vers Général.",
+    "message": "Supprimer « $NAME$ » ? Les règles utilisées uniquement dans ce profil seront déplacées vers General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1067,28 +1055,13 @@
   "blocking_mode_invalid": {
     "message": "Sélectionnez un mode de blocage valide"
   },
-  "rulelists_assignment_hint": {
-    "message": "Les paramètres de blocage ci-dessous s’appliquent uniquement à cette liste."
-  },
   "rulelists_remove_assignment": {
     "message": "Retirer de la liste"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Retirer cette règle de « $NAME$ » ? S’il s’agit de sa dernière liste personnalisée, elle sera déplacée vers Général.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Cette règle possède déjà des paramètres pour cette liste."
   },
   "rulelists_assignment_error": {
     "message": "Impossible de modifier l’affectation à la liste sélectionnée."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Paramètres différents selon la liste"
   }
 }

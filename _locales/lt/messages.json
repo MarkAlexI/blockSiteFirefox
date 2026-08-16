@@ -986,7 +986,7 @@
     "message": "Taisyklių sąrašai"
   },
   "rulelists_description": {
-    "message": "Grupuokite taisykles į sąrašus ir pristabdykite visą sąrašą nekeisdami atskirų taisyklių."
+    "message": "Vienu metu naudokite vieną aktyvų taisyklių sąrašo profilį. Kiekvienas profilis turi savo blokavimo režimus ir kategorijų nustatymus."
   },
   "rulelists_name_placeholder": {
     "message": "Naujo sąrašo pavadinimas"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Pridėti sąrašą"
   },
-  "rulelists_toggle_hint": {
-    "message": "Perjungti viso šio sąrašo blokavimą"
-  },
   "rulelist_general": {
     "message": "Bendras"
   },
-  "rulelists_all": {
-    "message": "Visi sąrašai"
-  },
   "rulelist_header": {
     "message": "Sąrašas"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Ši taisyklė priklauso pristabdytam sąrašui."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Negalima redaguoti: taisyklių sąrašo blokavimas pristabdytas"
   },
   "rulelists_name_invalid": {
     "message": "Įveskite iki 40 simbolių sąrašo pavadinimą."
@@ -1019,7 +1007,7 @@
     "message": "Sąrašas tokiu pavadinimu jau yra."
   },
   "rulelists_delete_confirm": {
-    "message": "Ištrinti „$NAME$“? Jo taisyklės bus perkeltos į Bendras.",
+    "message": "Ištrinti „$NAME$“? Tik šiame profilyje naudojamos taisyklės bus perkeltos į General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Pasirinkite tinkamą blokavimo režimą"
   },
-  "rulelists_assignment_hint": {
-    "message": "Toliau pateikti blokavimo nustatymai taikomi tik šiam sąrašui."
-  },
   "rulelists_remove_assignment": {
     "message": "Pašalinti iš sąrašo"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Pašalinti šią taisyklę iš „$NAME$“? Jei tai paskutinis jos pasirinktinis sąrašas, ji bus perkelta į Bendrąjį.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Ši taisyklė jau turi šio sąrašo nustatymus."
   },
   "rulelists_assignment_error": {
     "message": "Nepavyko pakeisti priskyrimo pasirinktam sąrašui."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Skirtingi nustatymai pagal sąrašą"
   }
 }

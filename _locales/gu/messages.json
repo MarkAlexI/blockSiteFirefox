@@ -983,7 +983,7 @@
     "message": "નિયમ યાદીઓ"
   },
   "rulelists_description": {
-    "message": "નિયમોને યાદીઓમાં ગોઠવો અને વ્યક્તિગત નિયમો બદલ્યા વિના આખી યાદીને થોભાવો."
+    "message": "એક સમયે એક સક્રિય Rule List પ્રોફાઇલ વાપરો. દરેક પ્રોફાઇલના પોતાના બ્લોકિંગ મોડ અને કેટેગરી સેટિંગ્સ હોય છે."
   },
   "rulelists_name_placeholder": {
     "message": "નવી યાદીનું નામ"
@@ -991,23 +991,11 @@
   "rulelists_add": {
     "message": "યાદી ઉમેરો"
   },
-  "rulelists_toggle_hint": {
-    "message": "આ આખી યાદી માટે બ્લોકિંગ ચાલુ/બંધ કરો"
-  },
   "rulelist_general": {
     "message": "સામાન્ય"
   },
-  "rulelists_all": {
-    "message": "બધી યાદીઓ"
-  },
   "rulelist_header": {
     "message": "યાદી"
-  },
-  "rulelists_disabled_desc": {
-    "message": "આ નિયમ થોભાવેલી યાદીમાં છે."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "સંપાદિત કરી શકાતું નથી: નિયમ યાદીનું બ્લોકિંગ થોભાવેલું છે"
   },
   "rulelists_name_invalid": {
     "message": "મહત્તમ 40 અક્ષરોનું યાદી નામ દાખલ કરો."
@@ -1016,7 +1004,7 @@
     "message": "આ નામની યાદી પહેલેથી અસ્તિત્વમાં છે."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" કાઢી નાખશો? તેના નિયમો સામાન્યમાં ખસેડાશે.",
+    "message": "\"$NAME$\" કાઢી નાખવું છે? ફક્ત આ પ્રોફાઇલમાં વપરાતા નિયમો General માં ખસેડાશે.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1070,28 +1058,13 @@
   "blocking_mode_invalid": {
     "message": "માન્ય બ્લોકિંગ મોડ પસંદ કરો"
   },
-  "rulelists_assignment_hint": {
-    "message": "નીચેની બ્લોકિંગ સેટિંગ્સ ફક્ત આ સૂચિ માટે લાગુ પડે છે."
-  },
   "rulelists_remove_assignment": {
     "message": "સૂચિમાંથી દૂર કરો"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "આ નિયમને \"$NAME$\"માંથી દૂર કરવો છે? જો આ તેની છેલ્લી કસ્ટમ સૂચિ હશે, તો તે સામાન્યમાં ખસેડાશે.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "આ નિયમમાં તે સૂચિ માટે પહેલેથી સેટિંગ્સ છે."
   },
   "rulelists_assignment_error": {
     "message": "પસંદ કરેલી સૂચિની સોંપણી બદલી શકાઈ નથી."
-  },
-  "rulelists_multiple_settings": {
-    "message": "સૂચિ પ્રમાણે અલગ સેટિંગ્સ"
   }
 }

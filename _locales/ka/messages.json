@@ -992,7 +992,7 @@
     "message": "წესების სიები"
   },
   "rulelists_description": {
-    "message": "დააჯგუფეთ წესები სიებში და შეაჩერეთ მთელი სია ცალკეული წესების შეცვლის გარეშე."
+    "message": "ერთდროულად გამოიყენეთ წესების სიის მხოლოდ ერთი აქტიური პროფილი. თითოეულ პროფილს აქვს საკუთარი დაბლოკვის რეჟიმები და კატეგორიების პარამეტრები."
   },
   "rulelists_name_placeholder": {
     "message": "ახალი სიის სახელი"
@@ -1000,23 +1000,11 @@
   "rulelists_add": {
     "message": "სიის დამატება"
   },
-  "rulelists_toggle_hint": {
-    "message": "მთელი ამ სიის დაბლოკვის ჩართვა/გამორთვა"
-  },
   "rulelist_general": {
     "message": "ზოგადი"
   },
-  "rulelists_all": {
-    "message": "ყველა სია"
-  },
   "rulelist_header": {
     "message": "სია"
-  },
-  "rulelists_disabled_desc": {
-    "message": "ეს წესი შეჩერებულ სიას ეკუთვნის."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "რედაქტირება შეუძლებელია: წესების სიის დაბლოკვა შეჩერებულია"
   },
   "rulelists_name_invalid": {
     "message": "შეიყვანეთ სიის სახელი მაქსიმუმ 40 სიმბოლოთი."
@@ -1025,7 +1013,7 @@
     "message": "ამ სახელის სია უკვე არსებობს."
   },
   "rulelists_delete_confirm": {
-    "message": "წაიშალოს „$NAME$“? მისი წესები გადავა ზოგად სიაში.",
+    "message": "წაიშალოს \"$NAME$\"? წესები, რომლებიც მხოლოდ ამ პროფილში გამოიყენება, General-ში გადავა.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1079,28 +1067,13 @@
   "blocking_mode_invalid": {
     "message": "აირჩიეთ სწორი დაბლოკვის რეჟიმი"
   },
-  "rulelists_assignment_hint": {
-    "message": "ქვემოთ მოცემული დაბლოკვის პარამეტრები მხოლოდ ამ სიას ეხება."
-  },
   "rulelists_remove_assignment": {
     "message": "სიიდან ამოღება"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "ამოიღოთ ეს წესი „$NAME$“-დან? თუ ეს მისი ბოლო მორგებული სიაა, ის გადავა ზოგადში.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "ამ წესს ამ სიისთვის უკვე აქვს პარამეტრები."
   },
   "rulelists_assignment_error": {
     "message": "არჩეულ სიასთან მინიჭების შეცვლა ვერ მოხერხდა."
-  },
-  "rulelists_multiple_settings": {
-    "message": "სხვადასხვა პარამეტრი სიის მიხედვით"
   }
 }

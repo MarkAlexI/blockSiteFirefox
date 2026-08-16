@@ -989,7 +989,7 @@
     "message": "Списки правил"
   },
   "rulelists_description": {
-    "message": "Группируйте правила в списки и приостанавливайте весь список, не изменяя отдельные правила."
+    "message": "Используйте один активный профиль списка правил за раз. У каждого профиля свои режимы блокировки и настройки категорий."
   },
   "rulelists_name_placeholder": {
     "message": "Название нового списка"
@@ -997,23 +997,11 @@
   "rulelists_add": {
     "message": "Добавить список"
   },
-  "rulelists_toggle_hint": {
-    "message": "Включить или выключить блокировку всего списка"
-  },
   "rulelist_general": {
     "message": "Общий"
   },
-  "rulelists_all": {
-    "message": "Все списки"
-  },
   "rulelist_header": {
     "message": "Список"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Это правило относится к приостановленному списку."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Редактирование недоступно: блокировка списка правил приостановлена"
   },
   "rulelists_name_invalid": {
     "message": "Введите название списка длиной до 40 символов."
@@ -1022,7 +1010,7 @@
     "message": "Список с таким названием уже существует."
   },
   "rulelists_delete_confirm": {
-    "message": "Удалить «$NAME$»? Его правила будут перемещены в Общий.",
+    "message": "Удалить «$NAME$»? Правила, используемые только в этом профиле, будут перенесены в General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1076,28 +1064,13 @@
   "blocking_mode_invalid": {
     "message": "Выберите допустимый режим блокировки"
   },
-  "rulelists_assignment_hint": {
-    "message": "Настройки блокировки ниже применяются только к этому списку."
-  },
   "rulelists_remove_assignment": {
     "message": "Убрать из списка"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Убрать это правило из списка «$NAME$»? Если это его последний пользовательский список, правило будет перемещено в Общий.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Для этого правила уже есть настройки в данном списке."
   },
   "rulelists_assignment_error": {
     "message": "Не удалось изменить привязку к выбранному списку."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Разные настройки для разных списков"
   }
 }

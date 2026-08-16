@@ -93,16 +93,17 @@ test('a rule in a disabled category remains rendered as inactive and non-interac
       () => {},
       () => {},
       true,
-      ['social']
+      ['social'],
+      {}
     );
 
     assert.equal(row.tagName, 'TR');
     assert.equal(row.dataset.ruleId, 17);
-    assert.equal(row.children.length, 6);
+    assert.equal(row.children.length, 5);
     assert.equal(row.classList.contains('category-muted'), true);
     assert.equal(row.title, 'category_disabled_desc');
 
-    const actionsCell = row.children[5];
+    const actionsCell = row.children[4];
     assert.equal(actionsCell.children.length, 2);
     assert.equal(actionsCell.children[0].tagName, 'BUTTON');
     assert.equal(actionsCell.children[1].tagName, 'BUTTON');

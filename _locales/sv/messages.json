@@ -986,7 +986,7 @@
     "message": "Regellistor"
   },
   "rulelists_description": {
-    "message": "Gruppera regler i listor och pausa en hel lista utan att ändra enskilda regler."
+    "message": "Använd en aktiv regellistprofil åt gången. Varje profil har sina egna blockeringslägen och kategoriinställningar."
   },
   "rulelists_name_placeholder": {
     "message": "Namn på ny lista"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Lägg till lista"
   },
-  "rulelists_toggle_hint": {
-    "message": "Slå på eller av blockering för hela listan"
-  },
   "rulelist_general": {
     "message": "Allmänt"
   },
-  "rulelists_all": {
-    "message": "Alla listor"
-  },
   "rulelist_header": {
     "message": "Lista"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Den här regeln tillhör en pausad lista."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Kan inte redigera: blockering av regellistan är pausad"
   },
   "rulelists_name_invalid": {
     "message": "Ange ett listnamn med högst 40 tecken."
@@ -1019,7 +1007,7 @@
     "message": "Det finns redan en lista med det här namnet."
   },
   "rulelists_delete_confirm": {
-    "message": "Ta bort \"$NAME$\"? Reglerna flyttas till Allmänt.",
+    "message": "Ta bort \"$NAME$\"? Regler som bara används i den här profilen flyttas till General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Välj ett giltigt blockeringsläge"
   },
-  "rulelists_assignment_hint": {
-    "message": "Blockeringsinställningarna nedan gäller endast för den här listan."
-  },
   "rulelists_remove_assignment": {
     "message": "Ta bort från listan"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Ta bort den här regeln från \"$NAME$\"? Om detta är dess sista anpassade lista flyttas den till Allmänt.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Den här regeln har redan inställningar för den listan."
   },
   "rulelists_assignment_error": {
     "message": "Tilldelningen till den valda listan kunde inte ändras."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Olika inställningar per lista"
   }
 }

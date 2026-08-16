@@ -5,7 +5,6 @@ import {
   getRuleAssignments,
   getRuleListIds,
   isRuleInList,
-  isRuleListMembershipActive,
   removeRuleAssignment
 } from './ruleAssignments.js';
 
@@ -25,15 +24,14 @@ export function normalizeRuleListIds(value, fallbackListId = GENERAL_RULE_LIST_I
     seen.add(id);
     uniqueIds.push(id);
   }
-  const customIds = uniqueIds.filter(id => id !== GENERAL_RULE_LIST_ID);
-  if (customIds.length > 0) return customIds;
+  if (uniqueIds.length > 0) return uniqueIds;
   const fallback = typeof fallbackListId === 'string' && fallbackListId.trim()
     ? fallbackListId.trim()
     : GENERAL_RULE_LIST_ID;
   return [fallback];
 }
 
-export { getRuleAssignments, getRuleAssignment, getRuleListIds, isRuleInList, isRuleListMembershipActive };
+export { getRuleAssignments, getRuleAssignment, getRuleListIds, isRuleInList };
 
 export function mergeRuleListIds(existingValue, addedValue) {
   const pseudoRule = { listIds: normalizeRuleListIds(existingValue), isWhitelist: false };

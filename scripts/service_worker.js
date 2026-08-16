@@ -174,8 +174,7 @@ const createDnrRule = createDnrRuleFactory(
 
 const dnrSynchronizer = createDnrSynchronizer({
   getRules: () => rulesManager.getRules(),
-  getSettings: () => SettingsManager.getSettings(),
-  getRuleLists: () => ruleListsManager.getLists(),
+  getRuleListState: () => ruleListsManager.getState(),
   getDailyUsage: () => dailyLimitManager.getUsageSeconds(),
   getFocusSessionState,
   isRuleActiveNow,
@@ -190,8 +189,7 @@ const dailyLimitTracker = createDailyLimitTracker({
   tabsApi: browser.tabs,
   scriptingApi: browser.scripting,
   getRules: () => rulesManager.getRules(),
-  getSettings: () => SettingsManager.getSettings(),
-  getRuleLists: () => ruleListsManager.getLists(),
+  getRuleListState: () => ruleListsManager.getState(),
   getFocusSessionState,
   dailyLimitManager,
   dnrSynchronizer,
@@ -233,7 +231,7 @@ const rulesMutationService = createRulesMutationService({
   }),
   getSettings: () => SettingsManager.getSettings(),
   saveSettings: (settings) => browser.storage.sync.set({ settings }),
-  saveRulesAndLists: (rules, ruleLists) => browser.storage.local.set({ rules, ruleLists }),
+  saveRulesAndLists: (rules, ruleLists, activeRuleListId) => browser.storage.local.set({ rules, ruleLists, ...(activeRuleListId ? { activeRuleListId } : {}) }),
   maxRulesLimit: MAX_RULES_LIMIT,
   notifyRulesChanged,
   resolveRulePackEntries,
@@ -585,7 +583,8 @@ async function initializeExtension(details) {
     await dnrSynchronizer.requestSync();
     notifyRulesChanged(migrationResult.rules, {
       migrated: true,
-      ruleLists: migrationResult.ruleLists
+      ruleLists: migrationResult.ruleLists,
+      activeRuleListId: migrationResult.activeRuleListId
     });
   }
   await SettingsManager.getSettings();
@@ -695,14 +694,16 @@ async function getDiagnosticsAccess() {
 
 async function createDiagnosticReport() {
   const access = await getDiagnosticsAccess();
-  const [settings, rules, ruleLists, credentials, focusSession, dailyUsage] = await Promise.all([
+  const [settings, rules, ruleListState, credentials, focusSession, dailyUsage] = await Promise.all([
     SettingsManager.getSettings(),
     rulesManager.getRules(),
-    ruleListsManager.getLists(),
+    ruleListsManager.getState(),
     ProManager.getCredentials(),
     getFocusSessionState(),
     dailyLimitManager.getUsageSeconds()
   ]);
+  const ruleLists = ruleListState.lists;
+  const activeProfile = ruleLists.find(list => list.id === ruleListState.activeRuleListId);
 
   let dnrState;
   try {
@@ -783,8 +784,9 @@ async function createDiagnosticReport() {
     settings: {
       debugMode: settings.debugMode === true && access.eventHistory,
       mode: settings.mode || 'normal',
-      disabledCategories: Array.isArray(settings.disabledCategories) ?
-        settings.disabledCategories : []
+      disabledCategories: activeProfile?.disabledCategories || [],
+      activeRuleListId: ruleListState.activeRuleListId,
+      activeRuleListName: activeProfile?.name || 'General'
     },
     rules: {
       total: rules.length,
@@ -795,7 +797,7 @@ async function createDiagnosticReport() {
       ).length,
       disabledByUser: rules.filter(rule => rule.disabledByUser).length,
       lists: ruleLists.length,
-      disabledLists: ruleLists.filter(list => list.disabled).length
+      activeList: ruleListState.activeRuleListId
     },
     dnr: {
       ...dnrState,

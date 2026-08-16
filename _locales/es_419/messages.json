@@ -1010,7 +1010,7 @@
     "message": "Listas de reglas"
   },
   "rulelists_description": {
-    "message": "Agrupa reglas en listas y pausa una lista completa sin cambiar las reglas individuales."
+    "message": "Usa un solo perfil de lista de reglas activo a la vez. Cada perfil tiene sus propios modos de bloqueo y ajustes de categorías."
   },
   "rulelists_name_placeholder": {
     "message": "Nombre de la nueva lista"
@@ -1018,23 +1018,11 @@
   "rulelists_add": {
     "message": "Añadir lista"
   },
-  "rulelists_toggle_hint": {
-    "message": "Activar o desactivar el bloqueo de toda esta lista"
-  },
   "rulelist_general": {
     "message": "General"
   },
-  "rulelists_all": {
-    "message": "Todas las listas"
-  },
   "rulelist_header": {
     "message": "Lista"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Esta regla pertenece a una lista en pausa."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "No se puede editar: el bloqueo de la lista de reglas está en pausa"
   },
   "rulelists_name_invalid": {
     "message": "Introduce un nombre de lista de hasta 40 caracteres."
@@ -1043,7 +1031,7 @@
     "message": "Ya existe una lista con este nombre."
   },
   "rulelists_delete_confirm": {
-    "message": "¿Eliminar \"$NAME$\"? Sus reglas se moverán a General.",
+    "message": "¿Eliminar \"$NAME$\"? Las reglas usadas solo en este perfil se moverán a General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1097,28 +1085,13 @@
   "blocking_mode_invalid": {
     "message": "Selecciona un modo de bloqueo válido"
   },
-  "rulelists_assignment_hint": {
-    "message": "La configuración de bloqueo de abajo se aplica solo a esta lista."
-  },
   "rulelists_remove_assignment": {
     "message": "Quitar de la lista"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "¿Quitar esta regla de «$NAME$»? Si es su última lista personalizada, se moverá a General.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Esta regla ya tiene una configuración para esa lista."
   },
   "rulelists_assignment_error": {
     "message": "No se pudo cambiar la asignación a la lista seleccionada."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Configuración diferente por lista"
   }
 }

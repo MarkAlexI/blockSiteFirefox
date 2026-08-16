@@ -1,31 +1,35 @@
 import { normalizePathRule } from './normalizePathRule.js';
 
-function parseRulePattern(blockURL) {
-  const normalized = normalizePathRule(String(blockURL || '').trim()).toLowerCase();
-  if (!normalized) return null;
-  const slashIndex = normalized.indexOf('/');
-  return {
-    normalized,
-    hostname: slashIndex === -1 ? normalized : normalized.slice(0, slashIndex),
-    path: slashIndex === -1 ? '' : normalized.slice(slashIndex)
-  };
+function normalizeFilter(blockURL) {
+  return normalizePathRule(String(blockURL || '').trim()).toLowerCase();
 }
 
-export function doesUrlMatchBlockRule(url, blockURL) {
-  const pattern = parseRulePattern(blockURL);
-  if (!pattern || !url) return false;
-
+function buildDomainAnchoredCandidates(url) {
   try {
     const parsed = new URL(url);
-    const hostname = parsed.hostname.replace(/^www\./, '').toLowerCase();
-    const pathname = (parsed.pathname || '/').toLowerCase();
-    const hostMatches = hostname === pattern.hostname || hostname.endsWith(`.${pattern.hostname}`);
-    if (!hostMatches) return false;
-    if (!pattern.path) return true;
-    return pathname.startsWith(pattern.path);
+    const hostname = parsed.hostname.toLowerCase();
+    const tail = `${parsed.pathname || '/'}${parsed.search || ''}${parsed.hash || ''}`.toLowerCase();
+    const labels = hostname.split('.').filter(Boolean);
+    const candidates = [];
+    for (let index = 0; index < labels.length; index++) {
+      candidates.push(`${labels.slice(index).join('.')}${tail}`);
+    }
+    return candidates;
   } catch {
-    return false;
+    return [];
   }
+}
+
+/**
+ * Mirrors the extension's DNR `||${filter}` matching contract closely enough
+ * for foreground usage attribution and tab-closing decisions. The filter is
+ * anchored at a domain-label boundary, but it may be a partial domain label
+ * such as `yout`, so `m.youtube.com` is a valid match.
+ */
+export function doesUrlMatchBlockRule(url, blockURL) {
+  const filter = normalizeFilter(blockURL);
+  if (!filter || !url) return false;
+  return buildDomainAnchoredCandidates(url).some(candidate => candidate.startsWith(filter));
 }
 
 export function findBestMatchingRule(url, rules) {
@@ -35,7 +39,7 @@ export function findBestMatchingRule(url, rules) {
 
   for (const rule of rules) {
     if (!doesUrlMatchBlockRule(url, rule?.blockURL)) continue;
-    const length = normalizePathRule(String(rule.blockURL || '').trim()).length;
+    const length = normalizeFilter(rule?.blockURL).length;
     if (length > bestLength) {
       best = rule;
       bestLength = length;

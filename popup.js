@@ -16,7 +16,7 @@ import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 import { SettingsManager } from './options/settings.js';
 import { RuleListsManager, GENERAL_RULE_LIST_ID } from './rules/ruleListsManager.js';
-import { getAssignmentUsageSeconds, getRuleAssignments, isRuleListMembershipActive } from './rules/ruleAssignments.js';
+import { getAssignmentUsageSeconds, getRuleAssignment, getRuleAssignments } from './rules/ruleAssignments.js';
 import { DailyLimitManager } from './rules/dailyLimitManager.js';
 import {
   BLOCKING_MODE_SCHEDULE,
@@ -65,6 +65,8 @@ class PopupPage {
     this.thisTabs = [];
     this.settings = {};
     this.ruleLists = [];
+    this.activeRuleListId = GENERAL_RULE_LIST_ID;
+    this.activeDisabledCategories = [];
     
     this.currentRuleCount = 0;
     this.isPro = false;
@@ -223,37 +225,46 @@ class PopupPage {
   
   async loadRules() {
     try {
-      const [rules, ruleLists, dailyUsageSeconds] = await Promise.all([
+      const [rules, ruleListState, dailyUsageSeconds] = await Promise.all([
         this.rulesManager.getRules(),
-        this.ruleListsManager.getLists(),
+        this.ruleListsManager.getState(),
         this.dailyLimitManager.getUsageSeconds()
       ]);
+      const ruleLists = ruleListState.lists;
       this.ruleLists = ruleLists;
+      this.activeRuleListId = ruleListState.activeRuleListId;
+      this.activeDisabledCategories = ruleLists.find(list => list.id === this.activeRuleListId)?.disabledCategories || [];
       
       this.currentRuleCount = rules.length;
       
       this.rulesContainer.innerHTML = '';
       
-      rules.forEach(rule => {
-        const assignments = getRuleAssignments(rule);
-        const primaryAssignment = assignments[0] || { listId: GENERAL_RULE_LIST_ID, blockingMode: 'always', schedule: null, dailyLimit: null };
+      const visibleRules = rules.filter(rule =>
+        rule.isWhitelist || Boolean(getRuleAssignment(rule, this.activeRuleListId))
+      );
+
+      visibleRules.forEach(rule => {
+        const assignment = rule.isWhitelist
+          ? getRuleAssignments(rule)[0]
+          : getRuleAssignment(rule, this.activeRuleListId);
+        if (!assignment) return;
         this.createRuleInputs(
           rule.blockURL,
           rule.redirectURL,
           rule.id,
           rule.disabledByUser ?? false,
           rule.category,
-          primaryAssignment.schedule,
+          assignment.schedule,
           rule.isWhitelist ?? false,
-          assignments.map(item => item.listId),
-          primaryAssignment.blockingMode,
-          primaryAssignment.dailyLimit,
-          getAssignmentUsageSeconds(dailyUsageSeconds, rule.id, primaryAssignment.listId),
-          assignments
+          assignment.listId,
+          assignment.blockingMode,
+          assignment.dailyLimit,
+          getAssignmentUsageSeconds(dailyUsageSeconds, rule.id, assignment.listId),
+          [assignment]
         );
       });
-      
-      this.updateStatus(rules.length);
+
+      this.updateStatus(visibleRules.length);
       this.showBlockThisSiteButton(rules);
       
     } catch (error) {
@@ -269,7 +280,9 @@ class PopupPage {
     }
     
     const currentUrl = normalizeDomainRule(this.thisTabs[0]?.url || '');
-    const alreadyBlocked = rules.some(rule => rule.blockURL === currentUrl);
+    const alreadyBlocked = rules.some(rule =>
+      rule.blockURL === currentUrl && (rule.isWhitelist || Boolean(getRuleAssignment(rule, this.activeRuleListId)))
+    );
     
     if (!isBlockedURL(this.thisTabs) && !alreadyBlocked && currentUrl) {
       const favIcon = this.thisTabs[0]?.favIconUrl || 'images/icon-32.png';
@@ -336,7 +349,9 @@ class PopupPage {
   async blockCurrentSite(url, button) {
     try {
       const rules = await this.rulesManager.getRules();
-      const alreadyExists = rules.some(rule => rule.blockURL === url);
+      const alreadyExists = rules.some(rule =>
+        rule.blockURL === url && Boolean(getRuleAssignment(rule, this.activeRuleListId))
+      );
       
       if (!alreadyExists) {
         if (!this.isPro && !this.isLegacyUser) {
@@ -350,7 +365,7 @@ class PopupPage {
           blockURL: url,
           redirectURL: '',
           category: 'social',
-          assignment: { listId: GENERAL_RULE_LIST_ID, blockingMode: 'always', schedule: null, dailyLimit: null },
+          assignment: { listId: this.activeRuleListId, blockingMode: 'always', schedule: null, dailyLimit: null },
           isWhitelist: false
         });
         customAlert('+ 1');
@@ -364,18 +379,14 @@ class PopupPage {
   
   createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listIds = [GENERAL_RULE_LIST_ID], blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0, assignments = null) {
     const ruleDiv = document.createElement('div');
-    const isCategoryMuted = (this.settings.disabledCategories || []).includes(category);
+    const isCategoryMuted = this.activeDisabledCategories.includes(category);
     const normalizedListIds = isWhitelist ? [GENERAL_RULE_LIST_ID] : (Array.isArray(listIds) ? listIds : [listIds]);
     const effectiveAssignments = Array.isArray(assignments) && assignments.length > 0
       ? assignments
       : normalizedListIds.map(listId => ({ listId, blockingMode: blockingMode || 'always', schedule, dailyLimit }));
-    const isListMuted = !isWhitelist && !isRuleListMembershipActive(
-      { assignments: effectiveAssignments, isWhitelist: false },
-      this.ruleLists.filter(list => list.disabled).map(list => list.id)
-    );
-    const isMuted = isCategoryMuted || isListMuted;
+    const isMuted = isCategoryMuted;
     
-    let className = isMuted ? `rule ${isCategoryMuted ? 'category-muted' : 'list-muted'}` : 'rule';
+    let className = isMuted ? 'rule category-muted' : 'rule';
     if (isWhitelist) {
       className += ' rule-whitelist';
     }
@@ -384,7 +395,7 @@ class PopupPage {
     ruleDiv.dataset.isWhitelist = isWhitelist;
     
     if (isMuted) {
-      ruleDiv.title = isCategoryMuted ? t('category_muted_no_edit') : t('rulelists_muted_no_edit');
+      ruleDiv.title = t('category_muted_no_edit');
     }
     
     const blockURL = document.createElement('input');
@@ -444,23 +455,16 @@ class PopupPage {
         this.makeInputReadOnly(blockURL);
         this.makeInputReadOnly(redirectURL);
 
-        const visibleListIds = effectiveAssignments.map(item => item.listId);
-        if (!isWhitelist && !(visibleListIds.length === 1 && visibleListIds[0] === GENERAL_RULE_LIST_ID)) {
+        const activeAssignment = effectiveAssignments[0];
+        if (!isWhitelist && activeAssignment?.listId !== GENERAL_RULE_LIST_ID) {
           const listTag = document.createElement('span');
           listTag.className = 'rule-list-popup';
-          listTag.textContent = visibleListIds
-            .map(listId => this.ruleLists.find(list => list.id === listId)?.name || listId)
-            .join(', ');
+          listTag.textContent = this.ruleLists.find(list => list.id === activeAssignment.listId)?.name || activeAssignment.listId;
           listTag.title = t('rulelist_header');
           ruleDiv.appendChild(listTag);
         }
         
-        if (!isWhitelist && effectiveAssignments.length > 1) {
-          const multiple = document.createElement('span');
-          multiple.className = 'rule-schedule-popup rule-multiple-settings-popup';
-          multiple.textContent = t('rulelists_multiple_settings') || 'Different settings by list';
-          ruleDiv.appendChild(multiple);
-        } else if (isWhitelist) {
+        if (isWhitelist) {
           const staticDash = document.createElement('span');
           staticDash.className = 'status-static-popup';
           staticDash.textContent = t('status_allow') || 'Allow';
@@ -684,7 +688,7 @@ class PopupPage {
         blockURL: blockURL.value,
         redirectURL: isWhitelist ? '' : redirectURL.value,
         category: isWhitelist ? 'whitelist' : 'social',
-        assignment: { listId: GENERAL_RULE_LIST_ID, blockingMode: 'always', schedule: null, dailyLimit: null },
+        assignment: { listId: isWhitelist ? GENERAL_RULE_LIST_ID : this.activeRuleListId, blockingMode: 'always', schedule: null, dailyLimit: null },
         isWhitelist
       });
       
@@ -725,7 +729,11 @@ class PopupPage {
         async () => {
             try {
               if (blockURL && ruleId !== null) {
-                await this.rulesClient.deleteRule(ruleId);
+                if (ruleDiv.dataset.isWhitelist === 'true') {
+                  await this.rulesClient.deleteRule(ruleId);
+                } else {
+                  await this.rulesClient.removeAssignment(ruleId, this.activeRuleListId);
+                }
                 customAlert('- 1');
               } else {
                 ruleDiv.remove();

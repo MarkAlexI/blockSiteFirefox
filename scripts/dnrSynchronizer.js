@@ -63,8 +63,7 @@ export function buildDnrDiff(currentRules, expectedRules) {
  */
 export function createDnrSynchronizer({
   getRules,
-  getSettings,
-  getRuleLists = async () => [],
+  getRuleListState = async () => ({ lists: [], activeRuleListId: 'general' }),
   getDailyUsage = async () => ({}),
   getFocusSessionState,
   isRuleActiveNow,
@@ -79,22 +78,20 @@ export function createDnrSynchronizer({
 
   async function buildExpectedDnrState() {
     const rules = await getRules();
-    const [settings, ruleLists, dailyUsage, focusState] = await Promise.all([
-      getSettings(),
-      getRuleLists(),
+    const [ruleListState, dailyUsage, focusState] = await Promise.all([
+      getRuleListState(),
       getDailyUsage(),
       getFocusSessionState()
     ]);
     const { focusActive } = focusState;
-    const disabledCategories = settings.disabledCategories || [];
-    const disabledRuleListIds = (ruleLists || [])
-      .filter(list => list?.disabled === true)
-      .map(list => list.id);
+    const activeRuleListId = ruleListState?.activeRuleListId || 'general';
+    const activeProfile = (ruleListState?.lists || []).find(list => list?.id === activeRuleListId);
+    const disabledCategories = activeProfile?.disabledCategories || [];
     const now = new Date();
 
     const activeRules = rules.filter(rule =>
       !rule.isWhitelist &&
-      isRuleActiveNow(rule, disabledCategories, focusActive, now, disabledRuleListIds, dailyUsage)
+      isRuleActiveNow(rule, disabledCategories, focusActive, now, activeRuleListId, dailyUsage)
     );
 
     const dnrRules = [];

@@ -7,38 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.0] - 2026-08-15
 ### Added
-- Added Pro Daily Limits, allowing a site until its daily usage budget is exhausted and then blocking it through the existing DNR engine.
-- Added explicit Always, Schedule, and Daily limit blocking modes. Schedule and Daily limit are intentionally mutually exclusive within one Rule List assignment.
+- Added Pro Daily Limits, allowing a matching site until the active profile's daily usage budget is exhausted and then blocking it through the existing DNR engine.
+- Added explicit Always, Schedule, and Daily limit assignment modes. Schedule and Daily limit are mutually exclusive within one profile assignment.
 - Added device-local Daily Limit usage state with automatic reset on the local calendar day.
-- Added Daily Limits and assignment-specific Rule List interface strings across all supported locales.
+- Added translated Rule List profile and Daily Limit interface strings across all supported locales.
+
+### Changed
+- Reworked Rule Lists into mutually exclusive profiles. Exactly one Rule List is active during normal blocking, with General as the default profile.
+- Stored URL, redirect, category, and target enabled state once while allowing each profile to keep an independent Always, Schedule, or Daily Limit assignment for the same target.
+- Scoped Category Blocking state and category counts to the active Rule List profile.
+- Simplified Options so Rule List cards are the profile selector and the rules table always represents the active profile without a redundant List column.
+- Rule Packs and manually added rules now create assignments in the active profile, while matching existing targets receive an additional profile assignment instead of a duplicate target.
+- Editing or removing a rule in Options affects only the active profile assignment when the target is shared with other profiles.
+- Deleting a custom profile preserves targets used only there by moving their removed assignment configuration to General.
+- Preserved Focus Session as a global override above profile, category, Schedule, and Daily Limit state.
+- Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while porting the profile model.
+- Migrated legacy `listId`, RC multi-membership `listIds`, root blocking configuration, profile state, and Daily Limit usage into the canonical profile-assignment model.
+- Migrated legacy global disabled categories into the General profile.
 
 ### Improved
-- Reworked Rule Lists around per-list assignments: a target is stored once while Work, Study, and other lists can keep independent Always, Schedule, or Daily Limit configuration for that target.
-- Treat General as the default/fallback context while custom lists store independent assignments for the same target.
-- Rule Pack imports now add a selected-list assignment to matching existing targets instead of reporting them as duplicates, with any shared pack schedule scoped to that assignment.
-- Rule List filtering, counts, popup labels, import/export, migration, and DNR activation now understand assignment-specific blocking configuration.
-- A target enters DNR while any enabled list assignment currently blocks; Focus Session still overrides assignment state.
-- Creating or selecting a Rule List keeps that list as the active Options filter/context.
-- Editing a rule inside a selected Rule List changes only that list assignment; the list is shown as fixed context instead of an implicit membership-transfer control.
-- In a filtered Rule List, removal removes that assignment rather than deleting the shared target from every list; orphaned targets fall back to General.
-- Migrated legacy `listId`, RC multi-membership `listIds`, root blocking configuration, and Daily Limit usage into the canonical assignment model without changing existing rule behavior.
-- Daily Limit usage is assignment-scoped so the same target can keep independent budgets in different Rule Lists.
+- Daily Limit usage is assignment-scoped so the same target can keep independent budgets in different profiles.
+- Daily Limit foreground accounting verifies that the matching page is visible through the Page Visibility API before charging usage.
+- Daily Limit matching now follows BlockDistraction's flexible DNR-style rule semantics, including partial domain-label rules such as `yout` and path-prefix rules.
+- Long browser sleep or background gaps are never charged when foreground continuity cannot be proven.
 - Reused the existing one-minute alarm and DNR self-healing flow without adding interval timers, offscreen documents, or persistent content-script timers.
-- Daily Limit accounting now verifies that the matching page is actually visible in the foreground through the Page Visibility API before charging usage.
-- Long browser sleep/background gaps are never charged because foreground continuity across an unknown gap cannot be proven.
-- Added path-aware usage attribution so specific rules such as `youtube.com/shorts` take precedence over broader matching rules such as `youtube.com`.
 - Preserved Daily Limit configuration in rule import/export while keeping accumulated usage device-local and out of exported data.
-- Added privacy-safe Daily Limit sampling diagnostics without recording visited URLs.
-- Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while porting the assignment model.
-- Added regression coverage for assignment migration, per-list schedules, Daily Limit usage migration, DNR activation, mutation security, UI context, localization, import/export compatibility, and Firefox runtime messaging.
+- Added regression coverage for profile activation, profile-scoped categories, assignment migration, independent schedules and limits, flexible URL matching, DNR activation, mutation security, localization, and import/export compatibility.
 
 ### Fixed
-- Fixed Daily Limits staying at zero on Chromium Android when the browser Windows API reported the active browser window as unfocused.
-- Fixed Daily Limit foreground detection relying on desktop-style window focus semantics instead of the visibility state of the matching page.
-- Fixed Rule Pack imports ignoring the selected Rule List and always assigning added rules to General.
-- Fixed adding a rule while a Rule List filter is selected incorrectly assigning the new rule to General instead of the selected list.
-- Fixed newly created Rule Lists not becoming the active list context in Options.
-- Fixed existing targets in another Rule List being reported only as duplicates instead of adding the selected-list assignment.
+- Fixed Daily Limits staying at zero on Chromium Android when desktop-style window focus APIs reported the browser as unfocused.
+- Fixed Daily Limit URL attribution using stricter hostname matching than the extension's actual DNR rules.
+- Fixed Rule Pack and manual additions ignoring the selected Rule List context in earlier 5.0.0 candidates.
 - Fixed localized input placeholders, including the Rule List name placeholder, not being applied from `data-i18n-placeholder`.
 - Removed a redundant Rule List storage write when creating a custom list.
 

@@ -88,10 +88,10 @@ A crucial part of the extension, the background script runs continuously in the 
 Users can block any website by adding it to a list in the extension's popup. When a blocked site is visited, the extension prevents it from loading. Users also have the option to set up a redirection to another URL. For instance, if they frequently get distracted by social media, they can redirect themselves to a more productive website whenever they attempt to visit a blocked site.
 
 ### 2. Device-local Rules and Rule Lists
-Blocking rules are stored locally on each browser installation so the extension does not need an account or a cloud rule database. Pro and legacy users can organize targets into named Rule Lists such as Work or Study, pause or resume a whole list, and filter rules by list. A target is stored once, while each list assignment can have its own Always, Schedule, or Daily Limit configuration. General remains the default/fallback context.
+Blocking rules are stored locally on each browser installation so the extension does not need an account or a cloud rule database. Pro and legacy users can create named Rule List profiles such as Work or Study. One profile is active at a time, and the same target can have a different Always, Schedule, or Daily Limit assignment in each profile. General is the default profile.
 
 ### 3. Blocking Modes and Daily Limits
-Each Rule List assignment has one clear blocking mode: Always, Schedule, or Daily limit. Schedule and Daily limit cannot be enabled at the same time within one assignment. The same target can therefore use different schedules or limits in Work, Study, or other lists. Pro and legacy users can set a Daily limit to allow a matching site for a defined number of visible foreground minutes per local calendar day; once an active assignment's budget is exhausted, the existing DNR engine blocks the target. Daily usage stays on the device and is not included in rule exports or telemetry.
+Each active-profile assignment has one clear blocking mode: Always, Schedule, or Daily limit. Schedule and Daily limit cannot be enabled at the same time within one assignment. The same target can therefore use different schedules or limits in General, Work, Study, or other profiles without inactive profiles affecting the current result. Pro and legacy users can set a Daily limit to allow a matching site for a defined number of visible foreground minutes per local calendar day. Once the active profile budget is exhausted, the existing DNR engine blocks the target. Daily usage stays on the device and is not included in rule exports or telemetry.
 
 ### 4. Minimalist User Interface
 The extension's interface is designed for simplicity. The popup window provides an intuitive experience where users can quickly view, add, or delete rules for specific websites. There's no clutter—just straightforward functionality.
@@ -146,13 +146,13 @@ While the current version of the extension is fully functional, several ideas fo
    Pro rules can allow a matching site for a daily active-use budget and block it after the budget is exhausted.
 
 - **Category-based Blocking** (implemented):  
-   Grouping websites into categories (e.g., social media, news) to allow bulk blocking or redirection by category.
+   Grouping websites into categories (e.g., social media, news) with category blocking state scoped to the active Rule List profile.
 
 - **Detailed Statistics** (implemented):  
    Providing insights into users’ browsing habits by tracking time spent on blocked sites and offering reports that help users understand and improve their time management.
 
 - **Rule Lists** (implemented):
-   Named Pro lists such as Work or Study can group rules, be paused or resumed as a unit, and be included in rule import/export without requiring a user account.
+   Named Pro profiles such as Work or Study can keep independent blocking modes and category settings for the same targets and are included in rule import/export without requiring a user account.
 
 ---
 

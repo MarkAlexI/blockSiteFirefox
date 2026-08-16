@@ -568,23 +568,6 @@ button:disabled {
   }
 }
 
-.rule.list-muted {
-  transition: all 0.3s ease;
-  outline: 1px dashed #ccc;
-  outline-offset: -2px;
-  pointer-events: none;
-  background-color: rgba(245, 245, 245, 0.8);
-  color: #888;
-}
-
-.rule.list-muted input,
-.rule.list-muted button,
-.rule.list-muted .site-domain,
-.rule.list-muted .rule-list-popup {
-  opacity: 0.3;
-  filter: grayscale(1);
-}
-
 .rule-list-popup {
   display: inline-block;
   max-width: 130px;

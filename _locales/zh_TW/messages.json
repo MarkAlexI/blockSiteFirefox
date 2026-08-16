@@ -980,7 +980,7 @@
     "message": "規則清單"
   },
   "rulelists_description": {
-    "message": "將規則分組到清單中，並可暫停整個清單而不必變更個別規則。"
+    "message": "一次只使用一個啟用中的規則清單設定檔。每個設定檔都有自己的封鎖模式與分類設定。"
   },
   "rulelists_name_placeholder": {
     "message": "新清單名稱"
@@ -988,23 +988,11 @@
   "rulelists_add": {
     "message": "新增清單"
   },
-  "rulelists_toggle_hint": {
-    "message": "切換整個清單的封鎖狀態"
-  },
   "rulelist_general": {
     "message": "一般"
   },
-  "rulelists_all": {
-    "message": "所有清單"
-  },
   "rulelist_header": {
     "message": "清單"
-  },
-  "rulelists_disabled_desc": {
-    "message": "此規則屬於已暫停的清單。"
-  },
-  "rulelists_muted_no_edit": {
-    "message": "無法編輯：規則清單封鎖已暫停"
   },
   "rulelists_name_invalid": {
     "message": "請輸入不超過 40 個字元的清單名稱。"
@@ -1013,7 +1001,7 @@
     "message": "已存在同名清單。"
   },
   "rulelists_delete_confirm": {
-    "message": "刪除「$NAME$」？其中的規則將移至一般。",
+    "message": "刪除「$NAME$」？只在此設定檔使用的規則將移至 General。",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1067,28 +1055,13 @@
   "blocking_mode_invalid": {
     "message": "請選擇有效的封鎖模式"
   },
-  "rulelists_assignment_hint": {
-    "message": "下方的封鎖設定僅套用於此清單。"
-  },
   "rulelists_remove_assignment": {
     "message": "從清單中移除"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "要從「$NAME$」中移除此規則嗎？如果這是它最後一個自訂清單，該規則將移至「一般」。",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "此規則已經有該清單的設定。"
   },
   "rulelists_assignment_error": {
     "message": "無法變更所選清單的指派。"
-  },
-  "rulelists_multiple_settings": {
-    "message": "各清單使用不同設定"
   }
 }

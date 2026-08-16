@@ -983,7 +983,7 @@
     "message": "விதி பட்டியல்கள்"
   },
   "rulelists_description": {
-    "message": "விதிகளை பட்டியல்களாகக் குழுவாக்கி, தனிப்பட்ட விதிகளை மாற்றாமல் முழு பட்டியலையும் இடைநிறுத்துங்கள்."
+    "message": "ஒரே நேரத்தில் ஒரு செயலில் உள்ள Rule List சுயவிவரத்தைப் பயன்படுத்தவும். ஒவ்வொரு சுயவிவரத்திற்கும் தனித்த தடுப்பு முறைகளும் வகை அமைப்புகளும் உள்ளன."
   },
   "rulelists_name_placeholder": {
     "message": "புதிய பட்டியல் பெயர்"
@@ -991,23 +991,11 @@
   "rulelists_add": {
     "message": "பட்டியலைச் சேர்"
   },
-  "rulelists_toggle_hint": {
-    "message": "இந்த முழு பட்டியலுக்கான தடுப்பை மாற்று"
-  },
   "rulelist_general": {
     "message": "பொது"
   },
-  "rulelists_all": {
-    "message": "அனைத்து பட்டியல்கள்"
-  },
   "rulelist_header": {
     "message": "பட்டியல்"
-  },
-  "rulelists_disabled_desc": {
-    "message": "இந்த விதி இடைநிறுத்தப்பட்ட பட்டியலில் உள்ளது."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "திருத்த முடியாது: விதி பட்டியல் தடுப்பு இடைநிறுத்தப்பட்டுள்ளது"
   },
   "rulelists_name_invalid": {
     "message": "40 எழுத்துகள் வரை உள்ள பட்டியல் பெயரை உள்ளிடுங்கள்."
@@ -1016,7 +1004,7 @@
     "message": "இந்த பெயரில் பட்டியல் ஏற்கனவே உள்ளது."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" ஐ நீக்கவா? அதன் விதிகள் பொதுவிற்கு நகர்த்தப்படும்.",
+    "message": "\"$NAME$\" ஐ நீக்கவா? இந்த சுயவிவரத்தில் மட்டும் பயன்படுத்தப்படும் விதிகள் General க்கு மாற்றப்படும்.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1070,28 +1058,13 @@
   "blocking_mode_invalid": {
     "message": "சரியான தடுப்பு பயன்முறையைத் தேர்ந்தெடுக்கவும்"
   },
-  "rulelists_assignment_hint": {
-    "message": "கீழே உள்ள தடுப்பு அமைப்புகள் இந்தப் பட்டியலுக்கு மட்டும் பொருந்தும்."
-  },
   "rulelists_remove_assignment": {
     "message": "பட்டியலிலிருந்து அகற்று"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "இந்த விதியை \"$NAME$\" இலிருந்து அகற்றவா? இது இதன் கடைசி தனிப்பயன் பட்டியல் என்றால், பொதுவான பட்டியலுக்கு மாற்றப்படும்.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "இந்த விதிக்கு அந்தப் பட்டியலுக்கான அமைப்புகள் ஏற்கனவே உள்ளன."
   },
   "rulelists_assignment_error": {
     "message": "தேர்ந்தெடுக்கப்பட்ட பட்டியல் ஒதுக்கீட்டை மாற்ற முடியவில்லை."
-  },
-  "rulelists_multiple_settings": {
-    "message": "பட்டியலுக்கு ஏற்ப வேறுபட்ட அமைப்புகள்"
   }
 }

@@ -986,7 +986,7 @@
     "message": "Reegliloendid"
   },
   "rulelists_description": {
-    "message": "Rühmita reeglid loenditesse ja peata terve loend üksikuid reegleid muutmata."
+    "message": "Kasuta korraga üht aktiivset reegliloendi profiili. Igal profiilil on oma blokeerimisrežiimid ja kategooriaseaded."
   },
   "rulelists_name_placeholder": {
     "message": "Uue loendi nimi"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Lisa loend"
   },
-  "rulelists_toggle_hint": {
-    "message": "Lülita kogu selle loendi blokeerimine sisse või välja"
-  },
   "rulelist_general": {
     "message": "Üldine"
   },
-  "rulelists_all": {
-    "message": "Kõik loendid"
-  },
   "rulelist_header": {
     "message": "Loend"
-  },
-  "rulelists_disabled_desc": {
-    "message": "See reegel kuulub peatatud loendisse."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Ei saa muuta: reegliloendi blokeerimine on peatatud"
   },
   "rulelists_name_invalid": {
     "message": "Sisesta kuni 40 märgi pikkune loendi nimi."
@@ -1019,7 +1007,7 @@
     "message": "Selle nimega loend on juba olemas."
   },
   "rulelists_delete_confirm": {
-    "message": "Kas kustutada \"$NAME$\"? Selle reeglid teisaldatakse loendisse Üldine.",
+    "message": "Kas kustutada \"$NAME$\"? Ainult selles profiilis kasutatavad reeglid teisaldatakse loendisse General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Vali sobiv blokeerimisrežiim"
   },
-  "rulelists_assignment_hint": {
-    "message": "Allolevad blokeerimisseaded kehtivad ainult sellele loendile."
-  },
   "rulelists_remove_assignment": {
     "message": "Eemalda loendist"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Kas eemaldada see reegel loendist „$NAME$“? Kui see on reegli viimane kohandatud loend, teisaldatakse see loendisse Üldine.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Sellel reeglil on selle loendi jaoks juba seaded."
   },
   "rulelists_assignment_error": {
     "message": "Valitud loendi määrangut ei saanud muuta."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Erinevad seaded loendite kaupa"
   }
 }

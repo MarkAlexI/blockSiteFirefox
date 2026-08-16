@@ -986,7 +986,7 @@
     "message": "Reëllyste"
   },
   "rulelists_description": {
-    "message": "Groepeer reëls in lyste en onderbreek ’n hele lys sonder om individuele reëls te verander."
+    "message": "Gebruik net een aktiewe Reëllys-profiel op ’n slag. Elke profiel het sy eie blokkeermodusse en kategorie-instellings."
   },
   "rulelists_name_placeholder": {
     "message": "Nuwe lysnaam"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Voeg lys by"
   },
-  "rulelists_toggle_hint": {
-    "message": "Skakel blokkering vir hierdie hele lys"
-  },
   "rulelist_general": {
     "message": "Algemeen"
   },
-  "rulelists_all": {
-    "message": "Alle lyste"
-  },
   "rulelist_header": {
     "message": "Lys"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Hierdie reël behoort aan ’n onderbreekte lys."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Kan nie wysig nie: Reëllys-blokkering is onderbreek"
   },
   "rulelists_name_invalid": {
     "message": "Voer ’n lysnaam van hoogstens 40 karakters in."
@@ -1019,7 +1007,7 @@
     "message": "’n Lys met hierdie naam bestaan reeds."
   },
   "rulelists_delete_confirm": {
-    "message": "Vee \"$NAME$\" uit? Die reëls sal na Algemeen skuif.",
+    "message": "Vee \"$NAME$\" uit? Reëls wat net in hierdie profiel gebruik word, skuif na General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Kies ’n geldige blokkeermodus"
   },
-  "rulelists_assignment_hint": {
-    "message": "Die blokkeerinstellings hieronder geld net vir hierdie lys."
-  },
   "rulelists_remove_assignment": {
     "message": "Verwyder uit lys"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Verwyder hierdie reël uit \"$NAME$\"? As dit die laaste pasgemaakte lys is, sal dit na Algemeen skuif.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Hierdie reël het reeds instellings vir daardie lys."
   },
   "rulelists_assignment_error": {
     "message": "Die toewysing aan die gekose lys kon nie verander word nie."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Verskillende instellings per lys"
   }
 }

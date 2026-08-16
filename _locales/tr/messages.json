@@ -986,7 +986,7 @@
     "message": "Kural Listeleri"
   },
   "rulelists_description": {
-    "message": "Kuralları listelerde gruplayın ve tek tek kuralları değiştirmeden tüm listeyi duraklatın."
+    "message": "Aynı anda yalnızca bir etkin Kural Listesi profili kullanın. Her profilin kendi engelleme modları ve kategori ayarları vardır."
   },
   "rulelists_name_placeholder": {
     "message": "Yeni liste adı"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Liste Ekle"
   },
-  "rulelists_toggle_hint": {
-    "message": "Bu listenin tamamı için engellemeyi aç veya kapat"
-  },
   "rulelist_general": {
     "message": "Genel"
   },
-  "rulelists_all": {
-    "message": "Tüm Listeler"
-  },
   "rulelist_header": {
     "message": "Liste"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Bu kural duraklatılmış bir listeye ait."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Düzenlenemiyor: Kural Listesi engellemesi duraklatıldı"
   },
   "rulelists_name_invalid": {
     "message": "En fazla 40 karakterlik bir liste adı girin."
@@ -1019,7 +1007,7 @@
     "message": "Bu ada sahip bir liste zaten var."
   },
   "rulelists_delete_confirm": {
-    "message": "\"$NAME$\" silinsin mi? Kuralları Genel listesine taşınacak.",
+    "message": "\"$NAME$\" silinsin mi? Yalnızca bu profilde kullanılan kurallar General profiline taşınır.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Geçerli bir engelleme modu seçin"
   },
-  "rulelists_assignment_hint": {
-    "message": "Aşağıdaki engelleme ayarları yalnızca bu liste için geçerlidir."
-  },
   "rulelists_remove_assignment": {
     "message": "Listeden kaldır"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Bu kural \"$NAME$\" listesinden kaldırılsın mı? Bu, kuralın son özel listesiyse Genel’e taşınır.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Bu kuralın bu liste için zaten ayarları var."
   },
   "rulelists_assignment_error": {
     "message": "Seçilen liste ataması değiştirilemedi."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Listeye göre farklı ayarlar"
   }
 }

@@ -986,7 +986,7 @@
     "message": "Listy reguł"
   },
   "rulelists_description": {
-    "message": "Grupuj reguły w listy i wstrzymuj całą listę bez zmieniania poszczególnych reguł."
+    "message": "Używaj jednego aktywnego profilu listy reguł naraz. Każdy profil ma własne tryby blokowania i ustawienia kategorii."
   },
   "rulelists_name_placeholder": {
     "message": "Nazwa nowej listy"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Dodaj listę"
   },
-  "rulelists_toggle_hint": {
-    "message": "Przełącz blokowanie całej tej listy"
-  },
   "rulelist_general": {
     "message": "Ogólne"
   },
-  "rulelists_all": {
-    "message": "Wszystkie listy"
-  },
   "rulelist_header": {
     "message": "Lista"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Ta reguła należy do wstrzymanej listy."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Nie można edytować: blokowanie listy reguł jest wstrzymane"
   },
   "rulelists_name_invalid": {
     "message": "Wpisz nazwę listy o długości do 40 znaków."
@@ -1019,7 +1007,7 @@
     "message": "Lista o tej nazwie już istnieje."
   },
   "rulelists_delete_confirm": {
-    "message": "Usunąć „$NAME$”? Jej reguły zostaną przeniesione do Ogólne.",
+    "message": "Usunąć „$NAME$”? Reguły używane tylko w tym profilu zostaną przeniesione do General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Wybierz prawidłowy tryb blokowania"
   },
-  "rulelists_assignment_hint": {
-    "message": "Poniższe ustawienia blokowania dotyczą tylko tej listy."
-  },
   "rulelists_remove_assignment": {
     "message": "Usuń z listy"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Usunąć tę regułę z listy „$NAME$”? Jeśli jest to jej ostatnia lista niestandardowa, zostanie przeniesiona do Ogólne.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Ta reguła ma już ustawienia dla tej listy."
   },
   "rulelists_assignment_error": {
     "message": "Nie udało się zmienić przypisania do wybranej listy."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Różne ustawienia dla każdej listy"
   }
 }

@@ -986,7 +986,7 @@
     "message": "Elenchi di regole"
   },
   "rulelists_description": {
-    "message": "Raggruppa le regole in elenchi e metti in pausa un intero elenco senza modificare le singole regole."
+    "message": "Usa un solo profilo di elenco regole attivo alla volta. Ogni profilo ha modalità di blocco e impostazioni delle categorie proprie."
   },
   "rulelists_name_placeholder": {
     "message": "Nome del nuovo elenco"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Aggiungi elenco"
   },
-  "rulelists_toggle_hint": {
-    "message": "Attiva o disattiva il blocco per l’intero elenco"
-  },
   "rulelist_general": {
     "message": "Generale"
   },
-  "rulelists_all": {
-    "message": "Tutti gli elenchi"
-  },
   "rulelist_header": {
     "message": "Elenco"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Questa regola appartiene a un elenco in pausa."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Impossibile modificare: il blocco dell’elenco di regole è in pausa"
   },
   "rulelists_name_invalid": {
     "message": "Inserisci un nome di massimo 40 caratteri."
@@ -1019,7 +1007,7 @@
     "message": "Esiste già un elenco con questo nome."
   },
   "rulelists_delete_confirm": {
-    "message": "Eliminare \"$NAME$\"? Le sue regole verranno spostate in Generale.",
+    "message": "Eliminare \"$NAME$\"? Le regole usate solo in questo profilo verranno spostate in General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Seleziona una modalità di blocco valida"
   },
-  "rulelists_assignment_hint": {
-    "message": "Le impostazioni di blocco seguenti si applicano solo a questo elenco."
-  },
   "rulelists_remove_assignment": {
     "message": "Rimuovi dall’elenco"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Rimuovere questa regola da “$NAME$”? Se è il suo ultimo elenco personalizzato, verrà spostata in Generale.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Questa regola ha già impostazioni per quell’elenco."
   },
   "rulelists_assignment_error": {
     "message": "Non è stato possibile modificare l’assegnazione all’elenco selezionato."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Impostazioni diverse per elenco"
   }
 }

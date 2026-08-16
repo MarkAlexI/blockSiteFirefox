@@ -387,16 +387,18 @@ export class SettingsManager {
   async exportRules() {
     try {
       const resultSync = await browser.storage.sync.get(['settings']);
-      const resultLocal = await browser.storage.local.get(['rules', 'ruleLists']);
+      const resultLocal = await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId']);
       const settingsToExport = {
         ...(resultSync.settings || this.defaultSettings)
       };
       delete settingsToExport.enablePassword;
       delete settingsToExport.passwordHash;
+      delete settingsToExport.disabledCategories;
       
       const exportData = {
         rules: resultLocal.rules || [],
-        ruleLists: resultLocal.ruleLists || [{ id: 'general', name: 'General', disabled: false }],
+        ruleLists: resultLocal.ruleLists || [{ id: 'general', name: 'General', disabledCategories: [] }],
+        activeRuleListId: resultLocal.activeRuleListId || 'general',
         settings: settingsToExport,
         exportDate: new Date().toISOString(),
         version: browser.runtime.getManifest().version
@@ -454,7 +456,8 @@ export class SettingsManager {
       const response = await this.rulesClient.replaceAll(
         importData.rules,
         importData.settings || null,
-        importData.ruleLists || null
+        importData.ruleLists || null,
+        importData.activeRuleListId || null
       );
       
       if (response.settings) {

@@ -42,13 +42,12 @@ class OptionsPage {
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
     this.categoryFilter = document.getElementById('category-filter');
-    this.ruleListFilter = document.getElementById('rule-list-filter');
     this.categoriesContainer = document.getElementById('categories-container');
     this.ruleListsContainer = document.getElementById('rule-lists-container');
     this.ruleListNameInput = document.getElementById('rule-list-name-input');
     this.addRuleListButton = document.getElementById('add-rule-list');
     this.ruleLists = [];
-    this.selectedRuleListFilter = 'all';
+    this.activeRuleListId = GENERAL_RULE_LIST_ID;
     this.rulePacksUI = new RulePacksUI({
       dialog: document.getElementById('rule-packs-dialog'),
       openButton: document.getElementById('open-rule-packs'),
@@ -106,7 +105,6 @@ class OptionsPage {
         if (telemetryConsentSource === 'firefox_builtin') {
           await requestTelemetryConsentFromUserAction(browser.permissions, enabled);
         }
-
         const response = await sendRuntimeMessage({ type: 'telemetry:setConsent', enabled });
         if (!response?.success) throw new Error('Failed to update telemetry consent');
         telemetryConsentSource = response.consent?.source || telemetryConsentSource;
@@ -189,10 +187,6 @@ class OptionsPage {
     if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.addEventListener('click', () => this.showAddRuleForm(true));
     if (this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
     if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
-    if (this.ruleListFilter) this.ruleListFilter.addEventListener('change', () => {
-      this.selectedRuleListFilter = this.ruleListFilter.value || 'all';
-      this.loadRules();
-    });
     if (this.addRuleListButton) this.addRuleListButton.addEventListener('click', () => this.handleRuleListCreate());
     if (this.ruleListNameInput) {
       this.ruleListNameInput.addEventListener('keydown', event => {
@@ -264,11 +258,14 @@ class OptionsPage {
         rules = await this.rulesManager.getRules();
       }
 
-      const [ruleLists, dailyUsageSeconds] = await Promise.all([
-        this.ruleListsManager.getLists(),
+      const [ruleListState, dailyUsageSeconds] = await Promise.all([
+        this.ruleListsManager.getState(),
         this.dailyLimitManager.getUsageSeconds()
       ]);
+      const ruleLists = ruleListState.lists;
+      const activeRuleListId = ruleListState.activeRuleListId;
       this.ruleLists = ruleLists;
+      this.activeRuleListId = activeRuleListId;
 
       let filteredRules = rules;
       let isFiltered = false;
@@ -284,28 +281,17 @@ class OptionsPage {
         isFiltered = true;
       }
 
-      const selectedList = this.selectedRuleListFilter || 'all';
-      let viewItems = [];
-      if (selectedList === 'all') {
-        viewItems = filteredRules.flatMap(rule => {
-          const assignments = getRuleAssignments(rule);
-          if (rule.isWhitelist) return [{ rule, assignment: assignments[0] }];
-          return assignments.map(assignment => ({ rule, assignment }));
-        });
-      } else {
-        isFiltered = true;
-        viewItems = filteredRules.flatMap(rule => {
-          if (rule.isWhitelist) return [];
-          const assignment = getRuleAssignment(rule, selectedList);
-          return assignment ? [{ rule, assignment }] : [];
-        });
-      }
+      const selectedList = activeRuleListId;
+      const viewItems = filteredRules.flatMap(rule => {
+        if (rule.isWhitelist) return [{ rule, assignment: getRuleAssignments(rule)[0] }];
+        const assignment = getRuleAssignment(rule, selectedList);
+        return assignment ? [{ rule, assignment }] : [];
+      });
 
       const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
-      const settings = await SettingsManager.getSettings();
-      const disabledCategories = settings.disabledCategories || [];
-      const disabledRuleListIds = ruleLists.filter(list => list.disabled).map(list => list.id);
-      this.renderRules(viewItems, canEdit, isFiltered, disabledCategories, ruleLists, disabledRuleListIds, dailyUsageSeconds);
+      const activeProfile = ruleLists.find(list => list.id === activeRuleListId);
+      const disabledCategories = activeProfile?.disabledCategories || [];
+      this.renderRules(viewItems, canEdit, isFiltered, disabledCategories, dailyUsageSeconds);
       this.rulesUI.updateStatus(
         this.statusElement,
         new Set(viewItems.map(item => item.rule.id)).size
@@ -318,11 +304,11 @@ class OptionsPage {
     }
   }
 
-  renderRules(viewItems, canEdit, isFiltered = false, disabledCategories = [], ruleLists = [], disabledRuleListIds = [], dailyUsageSeconds = {}) {
+  renderRules(viewItems, canEdit, isFiltered = false, disabledCategories = [], dailyUsageSeconds = {}) {
     this.rulesBody.innerHTML = '';
     const noRulesMessage = isFiltered ? t('norulesforcategory') : t('norules');
     if (viewItems.length === 0) {
-      this.rulesBody.appendChild(this.rulesUI.createEmptyRow(noRulesMessage, 6));
+      this.rulesBody.appendChild(this.rulesUI.createEmptyRow(noRulesMessage, 5));
       return;
     }
 
@@ -333,8 +319,6 @@ class OptionsPage {
         displayIndex,
         canEdit,
         disabledCategories,
-        ruleLists,
-        disabledRuleListIds,
         dailyUsageSeconds
       );
       if (isVisibleRuleGroupEnd(displayIndex, displayedItems.length)) {
@@ -344,21 +328,19 @@ class OptionsPage {
     });
   }
 
-  createRuleRow(item, index, canEdit, disabledCategories = [], ruleLists = [], disabledRuleListIds = [], dailyUsageSeconds = {}) {
+  createRuleRow(item, index, canEdit, disabledCategories = [], dailyUsageSeconds = {}) {
     const { rule, assignment } = item;
     const isCategoryMuted = disabledCategories.includes(rule.category);
-    const isListMuted = !rule.isWhitelist && disabledRuleListIds.includes(assignment?.listId);
-    const isMuted = isCategoryMuted || isListMuted;
+    const isMuted = isCategoryMuted;
     const row = this.rulesUI.createRuleDisplayRow(
       rule,
       assignment,
       index,
       (rowElement, ruleId, targetRule, targetAssignment) => this.toggleEditMode(rowElement, ruleId, targetRule, targetAssignment),
       (event, ruleId, targetAssignment) => {
-        const assignmentScopedDelete = !rule.isWhitelist && (this.selectedRuleListFilter || 'all') !== 'all';
-        return assignmentScopedDelete
-          ? this.handleRuleAssignmentDeletion(event, ruleId, targetAssignment?.listId)
-          : this.handleRuleDeletion(event, ruleId);
+        return rule.isWhitelist
+          ? this.handleRuleDeletion(event, ruleId)
+          : this.handleRuleAssignmentDeletion(event, ruleId, targetAssignment?.listId);
       },
       async ruleId => {
         if (isMuted) return;
@@ -371,13 +353,11 @@ class OptionsPage {
       },
       canEdit,
       disabledCategories,
-      ruleLists,
-      disabledRuleListIds,
       dailyUsageSeconds,
-      !rule.isWhitelist && (this.selectedRuleListFilter || 'all') !== 'all'
+      !rule.isWhitelist
     );
     if (isMuted) {
-      row.title = isCategoryMuted ? t('category_muted_no_edit') : t('rulelists_muted_no_edit');
+      row.title = t('category_muted_no_edit');
     }
     return row;
   }
@@ -450,16 +430,14 @@ class OptionsPage {
   
   async toggleEditMode(row, ruleId, rule, assignment) {
     const settings = await SettingsManager.getSettings();
-    const disabledCategories = settings.disabledCategories || [];
-    const ruleLists = await this.ruleListsManager.getLists();
+    const ruleListState = await this.ruleListsManager.getState();
+    const ruleLists = ruleListState.lists;
+    const activeProfile = ruleLists.find(list => list.id === ruleListState.activeRuleListId);
+    const disabledCategories = activeProfile?.disabledCategories || [];
     const isWhitelist = rule.isWhitelist || false;
 
     if (!isWhitelist && disabledCategories.includes(rule.category)) {
       this.rulesUI.showErrorMessage(t('category_muted_no_edit'));
-      return;
-    }
-    if (!isWhitelist && ruleLists.find(list => list.id === assignment?.listId)?.disabled) {
-      this.rulesUI.showErrorMessage(t('rulelists_muted_no_edit'));
       return;
     }
 
@@ -485,8 +463,7 @@ class OptionsPage {
         listId
       ),
       this.isPro || this.isLegacyUser,
-      rule.disabledByUser,
-      ruleLists
+      rule.disabledByUser
     );
 
     if (row.classList.contains('rule-group-end')) editRow.classList.add('rule-group-end');
@@ -533,7 +510,7 @@ class OptionsPage {
 
       const initialListId = isWhitelist
         ? GENERAL_RULE_LIST_ID
-        : resolveRuleListContext(this.ruleLists, this.selectedRuleListFilter || 'all');
+        : resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID);
       const newRow = this.rulesUI.createAddRuleRow(
         (blockValue, redirectValue, category, blockingConfig, listId, rowElement) => this.saveNewRule(
           blockValue,
@@ -547,9 +524,7 @@ class OptionsPage {
         rowElement => rowElement.remove(),
         this.isPro || this.isLegacyUser,
         isWhitelist,
-        this.ruleLists,
-        initialListId,
-        isWhitelist || (this.selectedRuleListFilter || 'all') !== 'all'
+        initialListId
       );
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
     } catch (error) {
@@ -581,7 +556,7 @@ class OptionsPage {
 
   async addRulePack(packId, entryIds, schedule = null) {
     try {
-      const targetListId = resolveRuleListContext(this.ruleLists, this.selectedRuleListFilter || 'all');
+      const targetListId = resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID);
       return await this.rulesClient.addMany(packId, entryIds, schedule, targetListId);
     } catch (error) {
       this.logger.error('Add rule pack error:', error);
@@ -592,26 +567,23 @@ class OptionsPage {
 
   async loadRuleLists() {
     try {
-      const [lists, rules] = await Promise.all([
-        this.ruleListsManager.getLists(),
+      const [state, rules] = await Promise.all([
+        this.ruleListsManager.getState(),
         this.rulesManager.getRules()
       ]);
+      const lists = state.lists;
       this.ruleLists = lists;
+      this.activeRuleListId = state.activeRuleListId;
 
       if (this.ruleListsContainer) {
         RuleListsUI.updateListGrid(this.ruleListsContainer, lists, rules, {
-          selectedListId: this.selectedRuleListFilter,
-          onToggle: listId => this.handleRuleListToggle(listId),
+          activeRuleListId: state.activeRuleListId,
           onSelect: listId => this.handleRuleListSelect(listId),
           onRename: list => this.handleRuleListRename(list),
           onDelete: list => this.handleRuleListDelete(list)
         });
       }
 
-      if (this.ruleListFilter) {
-        RuleListsUI.updateFilter(this.ruleListFilter, lists, this.selectedRuleListFilter);
-        this.selectedRuleListFilter = this.ruleListFilter.value || 'all';
-      }
     } catch (error) {
       this.logger.error('Load rule lists error:', error);
     }
@@ -623,9 +595,7 @@ class OptionsPage {
       const response = await this.rulesClient.createRuleList(name);
       if (this.ruleListNameInput) this.ruleListNameInput.value = '';
       this.ruleLists = response.ruleLists || this.ruleLists;
-      if (response.list?.id) {
-        this.selectedRuleListFilter = response.list.id;
-      }
+      this.activeRuleListId = response.activeRuleListId || response.list?.id || GENERAL_RULE_LIST_ID;
 
       await this.loadRuleLists();
       await this.loadRules();
@@ -636,9 +606,15 @@ class OptionsPage {
   }
 
   async handleRuleListSelect(listId) {
-    this.selectedRuleListFilter = listId || 'all';
-    if (this.ruleListFilter) this.ruleListFilter.value = this.selectedRuleListFilter;
-    await Promise.all([this.loadRuleLists(), this.loadRules()]);
+    const targetListId = resolveRuleListContext(this.ruleLists, listId || GENERAL_RULE_LIST_ID);
+    try {
+      const response = await this.rulesClient.activateRuleList(targetListId);
+      this.activeRuleListId = response.activeRuleListId || targetListId;
+      await Promise.all([this.loadRuleLists(), this.loadRules(), this.loadCategories()]);
+    } catch (error) {
+      this.logger.error('Activate rule list error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
+    }
   }
 
   async handleRuleListRename(list) {
@@ -652,22 +628,12 @@ class OptionsPage {
     }
   }
 
-  async handleRuleListToggle(listId) {
-    try {
-      await this.rulesClient.toggleRuleList(listId);
-    } catch (error) {
-      this.logger.error('Toggle rule list error:', error);
-      this.handleRulesMutationError(error, 'errorupdatingrules');
-      await this.loadRuleLists();
-    }
-  }
-
   async handleRuleListDelete(list) {
     if (!confirm(t('rulelists_delete_confirm', list.name))) return;
     try {
       await this.rulesClient.deleteRuleList(list.id);
-      if (this.selectedRuleListFilter === list.id) {
-        this.selectedRuleListFilter = 'all';
+      if (this.activeRuleListId === list.id) {
+        this.activeRuleListId = GENERAL_RULE_LIST_ID;
       }
     } catch (error) {
       this.logger.error('Delete rule list error:', error);
@@ -677,15 +643,28 @@ class OptionsPage {
 
   async loadCategories() {
     try {
-      const rules = await this.rulesManager.getRules();
-      const settings = await SettingsManager.getSettings();
-      const disabledCategories = settings.disabledCategories || [];
+      const [rules, state] = await Promise.all([
+        this.rulesManager.getRules(),
+        this.ruleListsManager.getState()
+      ]);
+      const activeProfile = state.lists.find(list => list.id === state.activeRuleListId);
+      const profileRules = rules.filter(rule =>
+        !rule.isWhitelist && Boolean(getRuleAssignment(rule, state.activeRuleListId))
+      );
+      const disabledCategories = activeProfile?.disabledCategories || [];
+      const categoryTitle = document.getElementById('category-management-title');
+      if (categoryTitle) {
+        const profileName = activeProfile
+          ? RuleListsUI.getDisplayName(activeProfile)
+          : (t('rulelist_general') || 'General');
+        categoryTitle.textContent = `${t('categorymanagementtitle')} · ${profileName}`;
+      }
       if (!this.categoriesContainer) return;
       CategoryUIManager.updateCategoryGrid(
         this.categoriesContainer,
-        rules,
+        profileRules,
         disabledCategories,
-        (category) => this.handleCategoryToggle(category)
+        category => this.handleCategoryToggle(category)
       );
     } catch (error) {
       this.logger.error('Load categories error:', error);

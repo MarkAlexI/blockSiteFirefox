@@ -986,7 +986,7 @@
     "message": "Senarai Peraturan"
   },
   "rulelists_description": {
-    "message": "Kumpulkan peraturan dalam senarai dan jeda seluruh senarai tanpa mengubah peraturan individu."
+    "message": "Gunakan satu profil Senarai Peraturan aktif pada satu masa. Setiap profil mempunyai mod sekatan dan tetapan kategori sendiri."
   },
   "rulelists_name_placeholder": {
     "message": "Nama senarai baharu"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Tambah Senarai"
   },
-  "rulelists_toggle_hint": {
-    "message": "Togol sekatan untuk seluruh senarai ini"
-  },
   "rulelist_general": {
     "message": "Umum"
   },
-  "rulelists_all": {
-    "message": "Semua Senarai"
-  },
   "rulelist_header": {
     "message": "Senarai"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Peraturan ini berada dalam senarai yang dijeda."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Tidak boleh mengedit: sekatan Senarai Peraturan dijeda"
   },
   "rulelists_name_invalid": {
     "message": "Masukkan nama senarai sehingga 40 aksara."
@@ -1019,7 +1007,7 @@
     "message": "Senarai dengan nama ini sudah wujud."
   },
   "rulelists_delete_confirm": {
-    "message": "Padam \"$NAME$\"? Peraturannya akan dipindahkan ke Umum.",
+    "message": "Padam \"$NAME$\"? Peraturan yang hanya digunakan dalam profil ini akan dipindahkan ke General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Pilih mod penyekatan yang sah"
   },
-  "rulelists_assignment_hint": {
-    "message": "Tetapan sekatan di bawah hanya digunakan pada senarai ini."
-  },
   "rulelists_remove_assignment": {
     "message": "Alih keluar daripada senarai"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Alih keluar peraturan ini daripada \"$NAME$\"? Jika ini senarai tersuai terakhirnya, peraturan akan dipindahkan ke Umum.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Peraturan ini sudah mempunyai tetapan untuk senarai tersebut."
   },
   "rulelists_assignment_error": {
     "message": "Tugasan kepada senarai yang dipilih tidak dapat diubah."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Tetapan berbeza mengikut senarai"
   }
 }

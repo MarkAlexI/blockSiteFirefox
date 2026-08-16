@@ -11,24 +11,27 @@ const REQUIRED_KEYS = [
   'rulelists_description',
   'rulelists_name_placeholder',
   'rulelists_add',
-  'rulelists_toggle_hint',
   'rulelist_general',
-  'rulelists_all',
   'rulelist_header',
-  'rulelists_disabled_desc',
-  'rulelists_muted_no_edit',
   'rulelists_name_invalid',
   'rulelists_name_exists',
   'rulelists_delete_confirm',
-  'rulelists_assignment_hint',
   'rulelists_remove_assignment',
-  'rulelists_remove_assignment_confirm',
   'rulelists_assignment_exists',
-  'rulelists_assignment_error',
+  'rulelists_assignment_error'
+];
+
+const OBSOLETE_PROFILE_KEYS = [
+  'rulelists_toggle_hint',
+  'rulelists_all',
+  'rulelists_disabled_desc',
+  'rulelists_muted_no_edit',
+  'rulelists_assignment_hint',
+  'rulelists_remove_assignment_confirm',
   'rulelists_multiple_settings'
 ];
 
-test('all locales contain the Rule Lists message contract', async () => {
+test('all locales contain the active-profile Rule Lists message contract', async () => {
   const localeNames = (await readdir(localesRoot, { withFileTypes: true }))
     .filter(entry => entry.isDirectory())
     .map(entry => entry.name)
@@ -56,27 +59,19 @@ test('all locales contain the Rule Lists message contract', async () => {
       '$1',
       `${locale}: delete confirmation must define NAME placeholder`
     );
-    assert.equal(
-      messages.rulelists_remove_assignment_confirm.message.includes('$NAME$'),
-      true,
-      `${locale}: assignment removal confirmation must keep $NAME$`
-    );
-    assert.equal(
-      messages.rulelists_remove_assignment_confirm.placeholders?.name?.content,
-      '$1',
-      `${locale}: assignment removal confirmation must define NAME placeholder`
-    );
+
+    for (const key of OBSOLETE_PROFILE_KEYS) {
+      assert.equal(messages[key], undefined, `${locale}: obsolete ${key} should be removed`);
+    }
   }
 });
 
-test('assignment-specific Rule List strings are localized outside English locales', async () => {
-  const assignmentKeys = [
-    'rulelists_assignment_hint',
+test('profile Rule List copy is localized outside English locales', async () => {
+  const keys = [
+    'rulelists_description',
     'rulelists_remove_assignment',
-    'rulelists_remove_assignment_confirm',
     'rulelists_assignment_exists',
-    'rulelists_assignment_error',
-    'rulelists_multiple_settings'
+    'rulelists_assignment_error'
   ];
   const english = JSON.parse(
     await readFile(path.join(localesRoot, 'en', 'messages.json'), 'utf8')
@@ -90,7 +85,7 @@ test('assignment-specific Rule List strings are localized outside English locale
     const messages = JSON.parse(
       await readFile(path.join(localesRoot, locale, 'messages.json'), 'utf8')
     );
-    for (const key of assignmentKeys) {
+    for (const key of keys) {
       assert.notEqual(
         messages[key].message,
         english[key].message,

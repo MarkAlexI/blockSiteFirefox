@@ -989,7 +989,7 @@
     "message": "Списъци с правила"
   },
   "rulelists_description": {
-    "message": "Групирайте правилата в списъци и поставяйте цял списък на пауза, без да променяте отделните правила."
+    "message": "Използвайте само един активен профил на списък с правила в даден момент. Всеки профил има собствени режими на блокиране и настройки на категориите."
   },
   "rulelists_name_placeholder": {
     "message": "Име на нов списък"
@@ -997,23 +997,11 @@
   "rulelists_add": {
     "message": "Добавяне на списък"
   },
-  "rulelists_toggle_hint": {
-    "message": "Превключване на блокирането за целия списък"
-  },
   "rulelist_general": {
     "message": "Общи"
   },
-  "rulelists_all": {
-    "message": "Всички списъци"
-  },
   "rulelist_header": {
     "message": "Списък"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Това правило принадлежи към списък на пауза."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Не може да се редактира: блокирането на списъка е поставено на пауза"
   },
   "rulelists_name_invalid": {
     "message": "Въведете име на списък до 40 знака."
@@ -1022,7 +1010,7 @@
     "message": "Вече съществува списък с това име."
   },
   "rulelists_delete_confirm": {
-    "message": "Да се изтрие ли „$NAME$“? Правилата му ще бъдат преместени в Общи.",
+    "message": "Да се изтрие ли \"$NAME$\"? Правилата, използвани само в този профил, ще бъдат преместени в General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1076,28 +1064,13 @@
   "blocking_mode_invalid": {
     "message": "Изберете валиден режим на блокиране"
   },
-  "rulelists_assignment_hint": {
-    "message": "Настройките за блокиране по-долу се отнасят само за този списък."
-  },
   "rulelists_remove_assignment": {
     "message": "Премахване от списъка"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Премахване на това правило от „$NAME$“? Ако това е последният му персонализиран списък, то ще бъде преместено в Общи.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Това правило вече има настройки за този списък."
   },
   "rulelists_assignment_error": {
     "message": "Задаването към избрания списък не можа да бъде променено."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Различни настройки според списъка"
   }
 }

@@ -16,11 +16,7 @@ test('legacy RC4 memberships become independent assignments with cloned blocking
     id: 1,
     listIds: ['list-1', 'list-2'],
     blockingMode: 'schedule',
-    schedule: {
-      days: [1, 2, 3, 4, 5],
-      startTime: '09:00',
-      endTime: '17:00'
-    },
+    schedule: { days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' },
     isWhitelist: false
   });
 
@@ -30,7 +26,7 @@ test('legacy RC4 memberships become independent assignments with cloned blocking
   assert.notEqual(assignments[0].schedule, assignments[1].schedule);
 });
 
-test('adding the first custom assignment replaces General fallback', () => {
+test('General and custom profile assignments can coexist independently', () => {
   const rule = {
     assignments: [{ listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null }],
     isWhitelist: false
@@ -42,15 +38,16 @@ test('adding the first custom assignment replaces General fallback', () => {
     schedule: { days: [1], startTime: '09:00', endTime: '10:00' }
   });
 
-  assert.deepEqual(assignments.map(item => item.listId), ['list-1']);
-  assert.equal(assignments[0].blockingMode, 'schedule');
+  assert.deepEqual(assignments.map(item => item.listId), ['general', 'list-1']);
+  assert.equal(getRuleAssignment({ ...rule, assignments }, 'general').blockingMode, 'always');
+  assert.equal(getRuleAssignment({ ...rule, assignments }, 'list-1').blockingMode, 'schedule');
 });
 
-test('replacing one assignment preserves the other list configuration', () => {
+test('replacing one assignment preserves the other profile configuration', () => {
   const rule = {
     isWhitelist: false,
     assignments: [
-      { listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null },
+      { listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null },
       { listId: 'list-2', blockingMode: 'always', schedule: null, dailyLimit: null }
     ]
   };
@@ -62,12 +59,12 @@ test('replacing one assignment preserves the other list configuration', () => {
   });
   const nextRule = { ...rule, assignments };
 
-  assert.equal(getRuleAssignment(nextRule, 'list-1').blockingMode, 'always');
+  assert.equal(getRuleAssignment(nextRule, 'general').blockingMode, 'always');
   assert.equal(getRuleAssignment(nextRule, 'list-2').blockingMode, 'daily_limit');
   assert.deepEqual(getRuleAssignment(nextRule, 'list-2').dailyLimit, { minutes: 20 });
 });
 
-test('removing the final custom assignment falls back to General with the same config', () => {
+test('removing the final assignment can either fall back to General or delete cleanly', () => {
   const rule = {
     isWhitelist: false,
     assignments: [{
@@ -78,22 +75,22 @@ test('removing the final custom assignment falls back to General with the same c
     }]
   };
 
-  const assignments = removeRuleAssignment(rule, 'list-1');
-  assert.deepEqual(assignments, [{
+  assert.deepEqual(removeRuleAssignment(rule, 'list-1'), [{
     listId: 'general',
     blockingMode: 'daily_limit',
     schedule: null,
     dailyLimit: { minutes: 25 }
   }]);
+  assert.deepEqual(removeRuleAssignment(rule, 'list-1', { fallbackToGeneral: false }), []);
 });
 
-test('assignment usage keys identify both target and list', () => {
+test('assignment usage keys identify both target and profile', () => {
   assert.equal(getAssignmentUsageKey(17, 'study'), '17:study');
   assert.deepEqual(getRuleListIds({
     isWhitelist: false,
     assignments: [
-      { listId: 'work', blockingMode: 'always' },
+      { listId: 'general', blockingMode: 'always' },
       { listId: 'study', blockingMode: 'always' }
     ]
-  }), ['work', 'study']);
+  }), ['general', 'study']);
 });

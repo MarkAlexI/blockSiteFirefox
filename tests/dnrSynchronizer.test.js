@@ -6,7 +6,6 @@ import {
   createDnrSynchronizer,
   getDnrSignature
 } from '../scripts/dnrSynchronizer.js';
-import { isRuleListMembershipActive } from '../rules/ruleListMembership.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 
 function makeDnrRule({
@@ -35,13 +34,17 @@ function makeStoredRule({
   blockURL = 'example.com',
   redirectURL = '',
   active = true,
-  isWhitelist = false
+  isWhitelist = false,
+  category = 'social',
+  assignments = [{ listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null }]
 } = {}) {
   return {
     id,
     blockURL,
     redirectURL,
-    active,
+    category,
+    disabledByUser: active === false,
+    assignments,
     isWhitelist
   };
 }
@@ -52,7 +55,8 @@ function createHarness({
   createRule,
   getRules,
   onSyncResult,
-  ruleLists = [],
+  ruleLists = [{ id: 'general', name: 'General', disabledCategories: [] }],
+  activeRuleListId = 'general',
   activationEvaluator = null,
   dailyUsage = {}
 } = {}) {
@@ -63,8 +67,7 @@ function createHarness({
 
   const getStoredRules = getRules ??
     (async () => structuredClone(storedRules));
-  const isStoredRuleActive = activationEvaluator || ((rule, _disabledCategories, focusActive, _now, disabledRuleListIds = []) =>
-    focusActive || (rule.active !== false && isRuleListMembershipActive(rule, disabledRuleListIds)));
+  const isStoredRuleActive = activationEvaluator || isRuleActiveNow;
   const buildDnrRule = createRule ??
     (async (id, blockURL, redirectURL) => makeDnrRule({
       id,
@@ -93,8 +96,10 @@ function createHarness({
 
   const synchronizer = createDnrSynchronizer({
     getRules: getStoredRules,
-    getSettings: async () => ({ disabledCategories: [] }),
-    getRuleLists: async () => structuredClone(ruleLists),
+    getRuleListState: async () => ({
+      lists: structuredClone(ruleLists),
+      activeRuleListId
+    }),
     getDailyUsage: async () => structuredClone(dailyUsage),
     getFocusSessionState: async () => ({ focusActive: false }),
     isRuleActiveNow: isStoredRuleActive,
@@ -315,64 +320,54 @@ test('DNR synchronization reports its final structured result', async () => {
 });
 
 
-test('disabled rule lists are removed from DNR and no matching tabs are closed', async () => {
-  const current = makeDnrRule({ id: 1, urlFilter: '||work.example' });
-  const storedRule = {
-    ...makeStoredRule({ id: 1, blockURL: 'work.example' }),
-    listIds: ['list-1']
-  };
-  const harness = createHarness({
+test('only assignments from the active Rule List profile participate in DNR', async () => {
+  const storedRule = makeStoredRule({
+    id: 1,
+    blockURL: 'work.example',
+    assignments: [{ listId: 'work', blockingMode: 'always', schedule: null, dailyLimit: null }]
+  });
+
+  const generalHarness = createHarness({
     storedRules: [storedRule],
-    currentDnrRules: [current],
+    currentDnrRules: [makeDnrRule({ id: 1, urlFilter: '||work.example' })],
     ruleLists: [
-      { id: 'general', name: 'General', disabled: false },
-      { id: 'list-1', name: 'Work', disabled: true }
-    ]
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'work', name: 'Work', disabledCategories: [] }
+    ],
+    activeRuleListId: 'general'
   });
+  await generalHarness.synchronizer.requestSync();
+  assert.deepEqual(generalHarness.updates[0], { removeRuleIds: [1], addRules: [] });
+  assert.deepEqual(generalHarness.closedUrlBatches, []);
 
-  const result = await harness.synchronizer.requestSync();
-
-  assert.equal(result.changed, true);
-  assert.deepEqual(harness.updates[0], {
-    removeRuleIds: [1],
-    addRules: []
+  const workHarness = createHarness({
+    storedRules: [storedRule],
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'work', name: 'Work', disabledCategories: [] }
+    ],
+    activeRuleListId: 'work'
   });
-  assert.deepEqual(harness.closedUrlBatches, []);
+  await workHarness.synchronizer.requestSync();
+  assert.equal(workHarness.getDynamicRules().length, 1);
 });
 
-
-test('shared Rule List membership stays active while at least one list is enabled', async () => {
-  const storedRule = {
-    ...makeStoredRule({ id: 1, blockURL: 'shared.example' }),
-    listIds: ['list-1', 'list-2']
-  };
-  const harness = createHarness({
+test('category blocking is scoped to the active profile', async () => {
+  const storedRule = makeStoredRule({ blockURL: 'social.example', category: 'social' });
+  const mutedHarness = createHarness({
     storedRules: [storedRule],
-    currentDnrRules: [],
-    ruleLists: [
-      { id: 'general', name: 'General', disabled: false },
-      { id: 'list-1', name: 'Work', disabled: true },
-      { id: 'list-2', name: 'Study', disabled: false }
-    ]
+    ruleLists: [{ id: 'general', name: 'General', disabledCategories: ['social'] }],
+    activeRuleListId: 'general'
   });
-
-  const result = await harness.synchronizer.requestSync();
-
-  assert.equal(result.changed, true);
-  assert.equal(result.added, 1);
-  assert.deepEqual(harness.closedUrlBatches, [['shared.example']]);
+  await mutedHarness.synchronizer.requestSync();
+  assert.equal(mutedHarness.getDynamicRules().length, 0);
 });
 
-
-test('DNR uses independent per-list schedules and emits only one rule for the target', async () => {
+test('DNR uses the active profile schedule and still emits only one rule for the target', async () => {
   const tuesdayAt1030 = new Date(2026, 7, 4, 10, 30);
-  const storedRule = {
+  const storedRule = makeStoredRule({
     id: 11,
     blockURL: 'youtube.com',
-    redirectURL: '',
-    category: 'social',
-    disabledByUser: false,
-    isWhitelist: false,
     assignments: [
       {
         listId: 'work',
@@ -387,32 +382,34 @@ test('DNR uses independent per-list schedules and emits only one rule for the ta
         dailyLimit: null
       }
     ]
-  };
-  const evaluateAtFixedTime = (rule, disabledCategories, focusActive, _now, disabledListIds, usage) =>
-    isRuleActiveNow(rule, disabledCategories, focusActive, tuesdayAt1030, disabledListIds, usage);
+  });
+  const evaluateAtFixedTime = (rule, disabledCategories, focusActive, _now, activeListId, usage) =>
+    isRuleActiveNow(rule, disabledCategories, focusActive, tuesdayAt1030, activeListId, usage);
 
-  const activeHarness = createHarness({
+  const workHarness = createHarness({
     storedRules: [storedRule],
     activationEvaluator: evaluateAtFixedTime,
     ruleLists: [
-      { id: 'general', name: 'General', disabled: false },
-      { id: 'work', name: 'Work', disabled: false },
-      { id: 'study', name: 'Study', disabled: false }
-    ]
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'work', name: 'Work', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    activeRuleListId: 'work'
   });
-  await activeHarness.synchronizer.requestSync();
-  assert.equal(activeHarness.getDynamicRules().length, 1);
-  assert.equal(activeHarness.getDynamicRules()[0].id, 11);
+  await workHarness.synchronizer.requestSync();
+  assert.equal(workHarness.getDynamicRules().length, 0);
 
-  const pausedStudyHarness = createHarness({
+  const studyHarness = createHarness({
     storedRules: [storedRule],
     activationEvaluator: evaluateAtFixedTime,
     ruleLists: [
-      { id: 'general', name: 'General', disabled: false },
-      { id: 'work', name: 'Work', disabled: false },
-      { id: 'study', name: 'Study', disabled: true }
-    ]
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'work', name: 'Work', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    activeRuleListId: 'study'
   });
-  await pausedStudyHarness.synchronizer.requestSync();
-  assert.equal(pausedStudyHarness.getDynamicRules().length, 0);
+  await studyHarness.synchronizer.requestSync();
+  assert.equal(studyHarness.getDynamicRules().length, 1);
+  assert.equal(studyHarness.getDynamicRules()[0].id, 11);
 });

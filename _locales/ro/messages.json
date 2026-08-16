@@ -986,7 +986,7 @@
     "message": "Liste de reguli"
   },
   "rulelists_description": {
-    "message": "Grupează regulile în liste și pune pe pauză o listă întreagă fără a modifica regulile individuale."
+    "message": "Folosește câte un singur profil activ de Listă de reguli. Fiecare profil are propriile moduri de blocare și setări pentru categorii."
   },
   "rulelists_name_placeholder": {
     "message": "Numele listei noi"
@@ -994,23 +994,11 @@
   "rulelists_add": {
     "message": "Adaugă listă"
   },
-  "rulelists_toggle_hint": {
-    "message": "Comută blocarea pentru întreaga listă"
-  },
   "rulelist_general": {
     "message": "General"
   },
-  "rulelists_all": {
-    "message": "Toate listele"
-  },
   "rulelist_header": {
     "message": "Listă"
-  },
-  "rulelists_disabled_desc": {
-    "message": "Această regulă aparține unei liste puse pe pauză."
-  },
-  "rulelists_muted_no_edit": {
-    "message": "Nu se poate edita: blocarea listei de reguli este pusă pe pauză"
   },
   "rulelists_name_invalid": {
     "message": "Introdu un nume de listă de maximum 40 de caractere."
@@ -1019,7 +1007,7 @@
     "message": "Există deja o listă cu acest nume."
   },
   "rulelists_delete_confirm": {
-    "message": "Ștergi „$NAME$”? Regulile sale vor fi mutate în General.",
+    "message": "Ștergi „$NAME$”? Regulile folosite numai în acest profil vor fi mutate în General.",
     "placeholders": {
       "name": {
         "content": "$1",
@@ -1073,28 +1061,13 @@
   "blocking_mode_invalid": {
     "message": "Selectați un mod de blocare valid"
   },
-  "rulelists_assignment_hint": {
-    "message": "Setările de blocare de mai jos se aplică numai acestei liste."
-  },
   "rulelists_remove_assignment": {
     "message": "Elimină din listă"
-  },
-  "rulelists_remove_assignment_confirm": {
-    "message": "Elimini această regulă din „$NAME$”? Dacă aceasta este ultima sa listă personalizată, va fi mutată în General.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "Study"
-      }
-    }
   },
   "rulelists_assignment_exists": {
     "message": "Această regulă are deja setări pentru lista respectivă."
   },
   "rulelists_assignment_error": {
     "message": "Atribuirea la lista selectată nu a putut fi modificată."
-  },
-  "rulelists_multiple_settings": {
-    "message": "Setări diferite pentru fiecare listă"
   }
 }
