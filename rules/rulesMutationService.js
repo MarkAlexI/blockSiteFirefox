@@ -79,7 +79,7 @@ function canonicalizeRuleTarget(rule, assignments = getRuleAssignments(rule)) {
     ...rule,
     assignments
   };
-  for (const legacyKey of ['listId', 'listIds', 'blockingMode', 'schedule', 'dailyLimit']) {
+  for (const legacyKey of ['listId', 'listIds', 'disabledByUser', 'blockingMode', 'schedule', 'dailyLimit']) {
     delete canonical[legacyKey];
   }
   return canonical;
@@ -93,9 +93,6 @@ function sanitizeTargetInput(payload = {}, fallbackWhitelist = false, fallbackRu
     category: typeof payload.category === 'string' && payload.category
       ? payload.category
       : (fallbackRule?.category || (isWhitelist ? 'whitelist' : 'social')),
-    disabledByUser: payload.disabledByUser === undefined
-      ? fallbackRule?.disabledByUser === true
-      : payload.disabledByUser === true,
     isWhitelist
   };
 }
@@ -122,6 +119,9 @@ function createAssignmentInputs(payload = {}, fallbackRule = null, fallbackAssig
     ? source.blockingMode
     : getRuleBlockingMode(fallback || source);
   const config = {
+    disabledByUser: source.disabledByUser === undefined
+      ? (fallback?.disabledByUser ?? fallbackRule?.disabledByUser ?? false) === true
+      : source.disabledByUser === true,
     blockingMode,
     schedule: source.schedule === undefined ? (fallback?.schedule ?? null) : source.schedule,
     dailyLimit: source.dailyLimit === undefined ? (fallback?.dailyLimit ?? null) : source.dailyLimit
@@ -328,7 +328,6 @@ export function createRulesMutationService({
         blockURL: target.blockURL.trim(),
         redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
         category: target.isWhitelist ? 'whitelist' : target.category,
-        disabledByUser: false,
         assignments: target.isWhitelist ? [createAlwaysAssignment()] : assignments,
         isWhitelist: target.isWhitelist
       };
@@ -433,7 +432,6 @@ export function createRulesMutationService({
           blockURL: target.blockURL.trim(),
           redirectURL: '',
           category: selection.pack.category,
-          disabledByUser: false,
           assignments: [assignmentConfig],
           isWhitelist: false
         });
@@ -483,16 +481,32 @@ export function createRulesMutationService({
       let nextAssignments;
       const sourceListId = payload.assignmentListId || payload.sourceListId || null;
       if (target.isWhitelist) {
-        nextAssignments = [createAlwaysAssignment()];
+        const currentAssignment = getRuleAssignment(oldRule, GENERAL_RULE_LIST_ID);
+        nextAssignments = [createRuleAssignment(GENERAL_RULE_LIST_ID, {
+          disabledByUser: payload.assignment?.disabledByUser === undefined
+            ? currentAssignment?.disabledByUser === true
+            : payload.assignment.disabledByUser === true,
+          blockingMode: BLOCKING_MODE_ALWAYS,
+          schedule: null,
+          dailyLimit: null
+        })];
       } else if (sourceListId) {
         const currentAssignment = getRuleAssignment(oldRule, sourceListId);
         if (!currentAssignment) {
           throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
         }
         const assignmentPayload = payload.assignment && typeof payload.assignment === 'object'
-          ? payload.assignment
+          ? {
+              ...payload.assignment,
+              disabledByUser: payload.assignment.disabledByUser === undefined
+                ? currentAssignment.disabledByUser === true
+                : payload.assignment.disabledByUser === true
+            }
           : {
               listId: payload.targetListId || payload.listId || sourceListId,
+              disabledByUser: payload.disabledByUser === undefined
+                ? currentAssignment.disabledByUser === true
+                : payload.disabledByUser === true,
               blockingMode: payload.blockingMode ?? currentAssignment.blockingMode,
               schedule: payload.schedule === undefined ? currentAssignment.schedule : payload.schedule,
               dailyLimit: payload.dailyLimit === undefined ? currentAssignment.dailyLimit : payload.dailyLimit
@@ -524,16 +538,11 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_already_exists', 'Rule already exists');
       }
 
-      let disabledByUser = payload.disabledByUser == null
-        ? oldRule.disabledByUser === true
-        : payload.disabledByUser === true;
-
       const updatedRule = canonicalizeRuleTarget({
         id: oldRule.id,
         blockURL: target.blockURL.trim(),
         redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
         category: target.isWhitelist ? 'whitelist' : target.category,
-        disabledByUser,
         assignments: nextAssignments,
         isWhitelist: target.isWhitelist
       }, nextAssignments);
@@ -596,11 +605,28 @@ export function createRulesMutationService({
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
-      const updatedRule = { ...rules[index], disabledByUser: !rules[index].disabledByUser };
+      const rule = rules[index];
+      const listId = typeof payload.listId === 'string' && payload.listId
+        ? payload.listId
+        : GENERAL_RULE_LIST_ID;
+      const currentAssignment = getRuleAssignment(rule, listId);
+      if (!currentAssignment) {
+        throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
+      }
+      const nextAssignment = createRuleAssignment(listId, {
+        ...currentAssignment,
+        disabledByUser: currentAssignment.disabledByUser !== true
+      });
+      const nextAssignments = replaceRuleAssignment(rule, listId, nextAssignment);
+      const updatedRule = canonicalizeRuleTarget(rule, nextAssignments);
       const nextRules = [...rules];
       nextRules[index] = updatedRule;
       await rulesManager.saveRules(nextRules);
-      return syncAndNotify(nextRules, { rule: updatedRule });
+      return syncAndNotify(nextRules, {
+        rule: updatedRule,
+        assignment: nextAssignment,
+        assignmentListId: listId
+      });
     });
   }
 
@@ -615,9 +641,7 @@ export function createRulesMutationService({
       if (!target.isWhitelist && (!rawRule?.category || typeof rawRule.category !== 'string')) {
         target.category = 'uncategorized';
       }
-      const assignments = rawRule?.isWhitelist === true
-        ? [createAlwaysAssignment()]
-        : normalizeRuleAssignments(rawRule);
+      const assignments = normalizeRuleAssignments(rawRule);
       // Import is a Pro-only operation, so custom list and Daily Limit access is
       // already established by replaceAll(). We still validate all references.
       validateAssignments(assignments, importedLists, true, target);
@@ -631,7 +655,6 @@ export function createRulesMutationService({
         blockURL: target.blockURL.trim(),
         redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
         category: target.isWhitelist ? 'whitelist' : (target.category || 'uncategorized'),
-        disabledByUser: target.disabledByUser,
         assignments,
         isWhitelist: target.isWhitelist
       });
@@ -797,7 +820,7 @@ export function createRulesMutationService({
       }
       const nextLists = state.lists.filter(list => list.id !== listId);
       const nextRules = rules.map(rule => {
-        if (rule.isWhitelist === true) return canonicalizeRuleTarget(rule, [createAlwaysAssignment()]);
+        if (rule.isWhitelist === true) return canonicalizeRuleTarget(rule, getRuleAssignments(rule));
         if (!getRuleAssignment(rule, listId)) return rule;
         return canonicalizeRuleTarget(rule, removeRuleAssignment(rule, listId, { fallbackToGeneral: true }));
       });

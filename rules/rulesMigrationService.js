@@ -15,9 +15,9 @@ function sameJson(left, right) {
  * Migrates the stored rule schema without performing any storage operations.
  *
  * Canonical 5.0 assignment schema:
- * - URL / redirect / category / disabled state belong to the rule target.
- * - list-specific blocking behavior belongs to rule.assignments[].
- * - legacy listId/listIds and root blockingMode/schedule/dailyLimit are removed.
+ * - URL / redirect / category belong to the shared rule target.
+ * - enabled state and blocking behavior belong to rule.assignments[].
+ * - legacy listId/listIds and root disabledByUser/blockingMode/schedule/dailyLimit are removed.
  */
 export function migrateRuleSchema(rules) {
   const sourceRules = Array.isArray(rules) ? rules : [];
@@ -43,26 +43,19 @@ export function migrateRuleSchema(rules) {
       needsSave = true;
     }
 
-    if (rule.disabledByUser === undefined) {
-      migratedRule.disabledByUser = false;
-      needsSave = true;
-    }
-
     if (rule.isWhitelist === undefined) {
       migratedRule.isWhitelist = false;
       needsSave = true;
     }
 
-    const assignments = migratedRule.isWhitelist === true
-      ? normalizeRuleAssignments({ isWhitelist: true })
-      : normalizeRuleAssignments(migratedRule);
+    const assignments = normalizeRuleAssignments(migratedRule);
 
     if (!sameJson(migratedRule.assignments, assignments)) {
       migratedRule.assignments = assignments;
       needsSave = true;
     }
 
-    for (const legacyKey of ['listId', 'listIds', 'blockingMode', 'schedule', 'dailyLimit']) {
+    for (const legacyKey of ['listId', 'listIds', 'disabledByUser', 'blockingMode', 'schedule', 'dailyLimit']) {
       if (Object.prototype.hasOwnProperty.call(migratedRule, legacyKey)) {
         delete migratedRule[legacyKey];
         needsSave = true;

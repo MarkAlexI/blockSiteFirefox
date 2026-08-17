@@ -177,7 +177,6 @@ export function createDailyLimitTracker({
     const eligibleRules = (rules || []).filter(rule => {
       if (
         rule?.isWhitelist === true ||
-        rule?.disabledByUser === true ||
         disabledCategories.has(rule.category)
       ) {
         return false;

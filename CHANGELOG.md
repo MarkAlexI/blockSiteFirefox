@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Reworked Rule Lists into mutually exclusive profiles. Exactly one Rule List is active during normal blocking, with General as the default profile.
-- Stored URL, redirect, category, and target enabled state once while allowing each profile to keep an independent Always, Schedule, or Daily Limit assignment for the same target.
+- Stored URL, redirect, and category once while allowing each profile to keep an independent enabled state plus Always, Schedule, or Daily Limit behavior for the same target.
 - Scoped Category Blocking state and category counts to the active Rule List profile.
 - Simplified Options so Rule List cards are the profile selector and the rules table always represents the active profile without a redundant List column.
 - Rule Packs and manually added rules now create assignments in the active profile, while matching existing targets receive an additional profile assignment instead of a duplicate target.
@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deleting a custom profile preserves targets used only there by moving their removed assignment configuration to General.
 - Preserved Focus Session as a global override above profile, category, Schedule, and Daily Limit state.
 - Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while porting the profile model.
-- Migrated legacy `listId`, RC multi-membership `listIds`, root blocking configuration, profile state, and Daily Limit usage into the canonical profile-assignment model.
+- Migrated legacy `listId`, RC multi-membership `listIds`, root enabled state and blocking configuration, profile state, and Daily Limit usage into the canonical profile-assignment model.
 - Migrated legacy global disabled categories into the General profile.
 
 ### Improved
@@ -35,6 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added regression coverage for profile activation, profile-scoped categories, assignment migration, independent schedules and limits, flexible URL matching, DNR activation, mutation security, localization, and import/export compatibility.
 
 ### Fixed
+- Fixed enabling or disabling a shared target in one Rule List changing its state in every other profile.
+- Fixed an exhausted Daily Limit assignment becoming unblocked when the same target was disabled in another profile.
 - Fixed Daily Limits staying at zero on Chromium Android when desktop-style window focus APIs reported the browser as unfocused.
 - Fixed Daily Limit URL attribution using stricter hostname matching than the extension's actual DNR rules.
 - Fixed Rule Pack and manual additions ignoring the selected Rule List context in earlier 5.0.0 candidates.

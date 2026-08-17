@@ -1,4 +1,6 @@
 // firefox
+import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
+
 export function sendRuntimeMessage(message) {
   return browser.runtime.sendMessage(message);
 }
@@ -41,8 +43,8 @@ export class RulesClient {
     return sendRulesIntent('rules:delete', { ruleId });
   }
 
-  toggleRule(ruleId) {
-    return sendRulesIntent('rules:toggle', { ruleId });
+  toggleRule(ruleId, listId = GENERAL_RULE_LIST_ID) {
+    return sendRulesIntent('rules:toggle', { ruleId, listId });
   }
 
   replaceAll(rules, settings = null, ruleLists = null, activeRuleListId = null) {

@@ -23,6 +23,7 @@ export function createRuleAssignment(listId = GENERAL_RULE_LIST_ID, blockingConf
   const config = normalizeBlockingConfig(blockingConfig);
   return {
     listId: normalizedListId,
+    disabledByUser: blockingConfig?.disabledByUser === true,
     blockingMode: config.blockingMode,
     schedule: config.blockingMode === BLOCKING_MODE_SCHEDULE ? cloneSchedule(config.schedule) : null,
     dailyLimit: config.blockingMode === BLOCKING_MODE_DAILY_LIMIT ? normalizeDailyLimit(config.dailyLimit) : null
@@ -31,6 +32,7 @@ export function createRuleAssignment(listId = GENERAL_RULE_LIST_ID, blockingConf
 
 export function createAlwaysAssignment(listId = GENERAL_RULE_LIST_ID) {
   return createRuleAssignment(listId, {
+    disabledByUser: false,
     blockingMode: BLOCKING_MODE_ALWAYS,
     schedule: null,
     dailyLimit: null
@@ -43,13 +45,18 @@ function legacyListIds(rule = {}) {
   return [GENERAL_RULE_LIST_ID];
 }
 
-function normalizeExistingAssignments(assignments = []) {
+function normalizeExistingAssignments(assignments = [], legacyDisabledByUser = false) {
   const byListId = new Map();
   for (const raw of assignments) {
     if (!raw || typeof raw !== 'object' || Array.isArray(raw)) continue;
     const listId = normalizeListId(raw.listId);
     if (byListId.has(listId)) continue;
-    byListId.set(listId, createRuleAssignment(listId, raw));
+    byListId.set(listId, createRuleAssignment(listId, {
+      ...raw,
+      disabledByUser: raw.disabledByUser === undefined
+        ? legacyDisabledByUser === true
+        : raw.disabledByUser === true
+    }));
   }
   return [...byListId.values()];
 }
@@ -60,11 +67,23 @@ function applyGeneralFallback(assignments) {
 
 export function normalizeRuleAssignments(rule = {}) {
   if (rule.isWhitelist === true) {
-    return [createAlwaysAssignment(GENERAL_RULE_LIST_ID)];
+    const storedAssignment = Array.isArray(rule.assignments)
+      ? rule.assignments.find(item => item?.listId === GENERAL_RULE_LIST_ID)
+      : null;
+    return [createRuleAssignment(GENERAL_RULE_LIST_ID, {
+      disabledByUser: storedAssignment?.disabledByUser === undefined
+        ? rule.disabledByUser === true
+        : storedAssignment.disabledByUser === true,
+      blockingMode: BLOCKING_MODE_ALWAYS,
+      schedule: null,
+      dailyLimit: null
+    })];
   }
 
   if (Array.isArray(rule.assignments) && rule.assignments.length > 0) {
-    return applyGeneralFallback(normalizeExistingAssignments(rule.assignments));
+    return applyGeneralFallback(
+      normalizeExistingAssignments(rule.assignments, rule.disabledByUser === true)
+    );
   }
 
   const legacyConfig = normalizeBlockingConfig({
@@ -72,6 +91,7 @@ export function normalizeRuleAssignments(rule = {}) {
     schedule: rule.schedule ?? null,
     dailyLimit: rule.dailyLimit ?? null
   });
+  const legacyDisabledByUser = rule.disabledByUser === true;
 
   const seen = new Set();
   const assignments = [];
@@ -79,7 +99,10 @@ export function normalizeRuleAssignments(rule = {}) {
     const listId = normalizeListId(rawListId);
     if (seen.has(listId)) continue;
     seen.add(listId);
-    assignments.push(createRuleAssignment(listId, legacyConfig));
+    assignments.push(createRuleAssignment(listId, {
+      ...legacyConfig,
+      disabledByUser: legacyDisabledByUser
+    }));
   }
 
   return applyGeneralFallback(assignments);

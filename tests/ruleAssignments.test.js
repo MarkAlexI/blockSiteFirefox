@@ -77,6 +77,7 @@ test('removing the final assignment can either fall back to General or delete cl
 
   assert.deepEqual(removeRuleAssignment(rule, 'list-1'), [{
     listId: 'general',
+    disabledByUser: false,
     blockingMode: 'daily_limit',
     schedule: null,
     dailyLimit: { minutes: 25 }
@@ -93,4 +94,17 @@ test('assignment usage keys identify both target and profile', () => {
       { listId: 'study', blockingMode: 'always' }
     ]
   }), ['general', 'study']);
+});
+
+test('enabled state is independent between assignments for the same target', () => {
+  const rule = {
+    isWhitelist: false,
+    assignments: [
+      { listId: 'general', disabledByUser: true, blockingMode: 'always' },
+      { listId: 'study', disabledByUser: false, blockingMode: 'daily_limit', dailyLimit: { minutes: 20 } }
+    ]
+  };
+
+  assert.equal(getRuleAssignment(rule, 'general').disabledByUser, true);
+  assert.equal(getRuleAssignment(rule, 'study').disabledByUser, false);
 });

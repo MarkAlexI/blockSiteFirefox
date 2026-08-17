@@ -252,7 +252,7 @@ class PopupPage {
           rule.blockURL,
           rule.redirectURL,
           rule.id,
-          rule.disabledByUser ?? false,
+          assignment.disabledByUser === true,
           rule.category,
           assignment.schedule,
           rule.isWhitelist ?? false,
@@ -383,7 +383,13 @@ class PopupPage {
     const normalizedListIds = isWhitelist ? [GENERAL_RULE_LIST_ID] : (Array.isArray(listIds) ? listIds : [listIds]);
     const effectiveAssignments = Array.isArray(assignments) && assignments.length > 0
       ? assignments
-      : normalizedListIds.map(listId => ({ listId, blockingMode: blockingMode || 'always', schedule, dailyLimit }));
+      : normalizedListIds.map(listId => ({
+          listId,
+          disabledByUser,
+          blockingMode: blockingMode || 'always',
+          schedule,
+          dailyLimit
+        }));
     const isMuted = isCategoryMuted;
     
     let className = isMuted ? 'rule category-muted' : 'rule';
@@ -501,7 +507,11 @@ class PopupPage {
           toggleElement.addEventListener('click', async () => {
             if (isMuted) return;
             try {
-              await this.rulesClient.toggleRule(ruleId);
+              await this.rulesClient.toggleRule(
+                ruleId,
+                activeAssignment?.listId || this.activeRuleListId || GENERAL_RULE_LIST_ID
+              );
+              await this.loadRules();
             } catch (error) {
               this.logger.error('Toggle rule error:', error);
               this.handleRulesMutationError(error, 'errorupdatingrules');

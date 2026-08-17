@@ -6,6 +6,7 @@ import {
 } from '../rules/rulesMutationService.js';
 import { resolveRulePackEntries } from '../rules/rulePacks.js';
 import { getRuleAssignment, getRuleListIds } from '../rules/ruleAssignments.js';
+import { isRuleActiveNow } from '../rules/ruleActivation.js';
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -836,9 +837,9 @@ test('import preserves Daily limit configuration without importing usage history
       blockURL: 'video.example',
       redirectURL: '',
       category: 'social',
-      disabledByUser: false,
       assignments: [{
         listId: 'general',
+        disabledByUser: false,
         blockingMode: 'daily_limit',
         schedule: null,
         dailyLimit: { minutes: 45 }
@@ -846,6 +847,86 @@ test('import preserves Daily limit configuration without importing usage history
       isWhitelist: false
     }
   );
+});
+
+test('toggling General changes only its assignment and preserves enabled Study Daily Limit state', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    initialActiveRuleListId: 'general',
+    initialRules: [{
+      id: 1,
+      blockURL: 'yout',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        { listId: 'study', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 1 } }
+      ]
+    }]
+  });
+
+  const result = await harness.service.toggleRule({ ruleId: 1, listId: 'general' });
+  const rule = harness.getRules()[0];
+
+  assert.equal(getRuleAssignment(rule, 'general').disabledByUser, true);
+  assert.equal(getRuleAssignment(rule, 'study').disabledByUser, false);
+  assert.equal(getRuleAssignment(rule, 'study').blockingMode, 'daily_limit');
+  assert.equal('disabledByUser' in rule, false);
+  assert.equal(result.assignmentListId, 'general');
+  assert.equal(result.assignment.disabledByUser, true);
+  assert.equal(harness.getSyncCalls(), 1);
+  assert.equal(
+    isRuleActiveNow(
+      rule,
+      [],
+      false,
+      new Date(2026, 7, 17, 3, 0),
+      'study',
+      { '1:study': 60 }
+    ),
+    true
+  );
+});
+
+test('editing assignment behavior without an enabled-state field preserves its disabled state', async () => {
+  const harness = createHarness({
+    initialRules: [{
+      id: 1,
+      blockURL: 'example.com',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [{
+        listId: 'general',
+        disabledByUser: true,
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      }]
+    }]
+  });
+
+  await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'general',
+    blockURL: 'example.com',
+    redirectURL: '',
+    category: 'social',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      schedule: null,
+      dailyLimit: { minutes: 15 }
+    }
+  });
+
+  const assignment = getRuleAssignment(harness.getRules()[0], 'general');
+  assert.equal(assignment.disabledByUser, true);
+  assert.equal(assignment.blockingMode, 'daily_limit');
 });
 
 test('adding an existing rule to another custom list adds membership instead of creating a duplicate', async () => {

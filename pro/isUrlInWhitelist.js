@@ -1,3 +1,6 @@
+import { getRuleAssignment } from '../rules/ruleAssignments.js';
+import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
+
 /**
  * Checks if a given URL matches any active whitelist rule.
  *
@@ -22,7 +25,7 @@ export function isUrlInWhitelist(url, whitelistRules) {
   }
 
   return whitelistRules.some((rule) => {
-    if (rule.disabledByUser) {
+    if (getRuleAssignment(rule, GENERAL_RULE_LIST_ID)?.disabledByUser === true) {
       return false;
     }
 

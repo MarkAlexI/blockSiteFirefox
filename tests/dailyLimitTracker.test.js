@@ -10,11 +10,11 @@ function makeRule(overrides = {}) {
     category: 'entertainment',
     assignments: [{
       listId: 'general',
+      disabledByUser: false,
       blockingMode: 'daily_limit',
       dailyLimit: { minutes: 1 },
       schedule: null
     }],
-    disabledByUser: false,
     isWhitelist: false,
     ...overrides
   };
@@ -244,6 +244,33 @@ test('only the active profile Daily Limit assignment is sampled', async () => {
 
   await tracker.sample('test');
   assert.deepEqual(sampled, ['1:study']);
+});
+
+test('disabled General assignment does not hide an enabled Study Daily Limit target', async () => {
+  let sampled = null;
+  const tracker = createTracker({
+    tab: { id: 11, windowId: 7, active: true, url: 'https://m.youtube.com/watch?v=1' },
+    rules: [makeRule({
+      blockURL: 'yout',
+      assignments: [
+        { listId: 'general', disabledByUser: true, blockingMode: 'always', schedule: null, dailyLimit: null },
+        { listId: 'study', disabledByUser: false, blockingMode: 'daily_limit', dailyLimit: { minutes: 20 }, schedule: null }
+      ]
+    })],
+    activeRuleListId: 'study',
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  await tracker.sample('test');
+  assert.deepEqual(sampled, ['1:study']);
+  assert.equal(tracker.getDebugState().resolution, 'matched');
 });
 
 test('crossing a Daily Limit assignment triggers DNR synchronization', async () => {

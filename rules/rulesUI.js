@@ -189,8 +189,10 @@ export class RulesUI {
     } else {
       const toggleElement = document.createElement('span');
       toggleElement.className = 'rule-toggle';
-      toggleElement.textContent = rule.disabledByUser ? '✗' : '✓';
-      toggleElement.title = rule.disabledByUser ? t('rule_disabled') || 'Disabled' : t('rule_enabled') || 'Enabled';
+      toggleElement.textContent = assignment?.disabledByUser === true ? '✗' : '✓';
+      toggleElement.title = assignment?.disabledByUser === true
+        ? t('rule_disabled') || 'Disabled'
+        : t('rule_enabled') || 'Enabled';
       toggleElement.style.cursor = 'pointer';
       toggleElement.addEventListener('click', async () => {
         try {

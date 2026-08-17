@@ -28,6 +28,7 @@ function isPeriodActive(period, now) {
 
 export function isAssignmentBlockingNow(assignment, ruleId, now = new Date(), dailyUsageSeconds = {}) {
   if (!assignment) return false;
+  if (assignment.disabledByUser === true) return false;
   if (assignment.blockingMode === BLOCKING_MODE_ALWAYS) return true;
 
   if (assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
@@ -53,7 +54,11 @@ export function getTrackableDailyLimitAssignments(
   dailyUsageSeconds = {}
 ) {
   const assignment = getActiveProfileAssignment(rule, activeRuleListId);
-  if (!assignment || assignment.blockingMode !== BLOCKING_MODE_DAILY_LIMIT) return [];
+  if (
+    !assignment ||
+    assignment.disabledByUser === true ||
+    assignment.blockingMode !== BLOCKING_MODE_DAILY_LIMIT
+  ) return [];
   if (isAssignmentBlockingNow(assignment, rule.id, now, dailyUsageSeconds)) return [];
   return [assignment];
 }
@@ -73,7 +78,6 @@ export function isRuleActiveNow(
 ) {
   if (rule.isWhitelist === true) return false;
   if (focusSessionActive) return true;
-  if (rule.disabledByUser) return false;
   if (disabledCategories.includes(rule.category)) return false;
 
   const assignment = getActiveProfileAssignment(rule, activeRuleListId);

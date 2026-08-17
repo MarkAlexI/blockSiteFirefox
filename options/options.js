@@ -369,7 +369,10 @@ class OptionsPage {
       async ruleId => {
         if (isMuted) return;
         try {
-          await this.rulesClient.toggleRule(ruleId);
+          await this.rulesClient.toggleRule(
+            ruleId,
+            assignment?.listId || GENERAL_RULE_LIST_ID
+          );
           await this.refreshProfileView();
         } catch (error) {
           this.logger.error('Toggle rule error:', error);
@@ -478,7 +481,7 @@ class OptionsPage {
         category,
         blockingConfig,
         targetListId,
-        rule.disabledByUser,
+        assignment?.disabledByUser === true,
         isWhitelist
       ),
       () => this.refreshProfileView(),
@@ -488,7 +491,7 @@ class OptionsPage {
         listId
       ),
       this.isPro || this.isLegacyUser,
-      rule.disabledByUser
+      assignment?.disabledByUser === true
     );
 
     if (row.classList.contains('rule-group-end')) editRow.classList.add('rule-group-end');
@@ -507,9 +510,9 @@ class OptionsPage {
         blockURL: newBlock,
         redirectURL: isWhitelist ? '' : newRedirect,
         category: isWhitelist ? 'whitelist' : newCategory,
-        disabledByUser,
         assignment: {
           listId: isWhitelist ? GENERAL_RULE_LIST_ID : targetListId,
+          disabledByUser,
           blockingMode: isWhitelist ? 'always' : blockingConfig.blockingMode,
           schedule: isWhitelist ? null : blockingConfig.schedule,
           dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit

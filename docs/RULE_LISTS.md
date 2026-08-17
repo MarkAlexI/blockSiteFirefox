@@ -14,7 +14,6 @@ A blocking target owns data that is the same in every profile:
   "blockURL": "youtube.com",
   "redirectURL": "",
   "category": "social",
-  "disabledByUser": false,
   "isWhitelist": false,
   "assignments": []
 }
@@ -25,6 +24,7 @@ Each assignment describes how that target behaves in one profile:
 ```json
 {
   "listId": "list-1",
+  "disabledByUser": false,
   "blockingMode": "schedule",
   "schedule": {
     "version": 2,
@@ -45,13 +45,14 @@ The same target can have a different assignment in another profile:
 ```json
 {
   "listId": "list-2",
+  "disabledByUser": false,
   "blockingMode": "daily_limit",
   "schedule": null,
   "dailyLimit": { "minutes": 30 }
 }
 ```
 
-URL, redirect, category, the target-level enabled state, and whitelist state belong to the target. `blockingMode`, `schedule`, and `dailyLimit` belong to the assignment.
+URL, redirect, category, and whitelist state belong to the target. `disabledByUser`, `blockingMode`, `schedule`, and `dailyLimit` belong to the assignment.
 
 ## Profiles
 
@@ -109,8 +110,8 @@ Legacy global `settings.disabledCategories` is copied into General during migrat
 Outside Focus Session, activation follows this order:
 
 1. Ignore whitelist targets in blacklist DNR generation.
-2. Require the target itself to be enabled.
-3. Read only the assignment for `activeRuleListId`.
+2. Read only the assignment for `activeRuleListId`.
+3. Require that assignment to be enabled.
 4. Apply the active profile's category state.
 5. Evaluate that assignment's Always, Schedule, or Daily Limit mode.
 6. Add at most one DNR rule for the target.
@@ -140,7 +141,7 @@ The URL matcher used for Daily Limit attribution preserves BlockDistraction's fl
 
 The target is stored once. If `youtube.com` already exists in Work and the user adds the same target while Study is active, BlockDistraction adds a Study assignment instead of creating a second target.
 
-The existing target-level URL, redirect, and category are preserved. The new Study assignment receives the blocking mode selected while it is added.
+The existing target-level URL, redirect, and category are preserved. The new Study assignment receives its own enabled state and the blocking mode selected while it is added.
 
 Rule Packs use the same model. New targets receive an assignment in the active profile. Existing matching targets receive a new assignment in the active profile. A Rule Pack schedule applies only to assignments created by that import.
 
@@ -163,13 +164,14 @@ The 5.0.0 migration accepts previous BlockDistraction rule representations:
 - rules without Rule List data become one General assignment;
 - legacy `listId` becomes one assignment;
 - RC multi-membership `listIds` becomes one assignment per list;
+- old root `disabledByUser` state is copied into every migrated assignment;
 - old root `blockingMode`, `schedule`, and `dailyLimit` configuration is cloned into every migrated assignment;
 - existing canonical `assignments` are preserved;
 - whitelist rules normalize to one General/Always assignment;
 - missing or invalid active profile state falls back to General;
 - legacy global disabled categories are copied to General.
 
-After migration, legacy root fields `listId`, `listIds`, `blockingMode`, `schedule`, and `dailyLimit` are removed so `assignments` is the only blocking-configuration source of truth.
+After migration, legacy root fields `listId`, `listIds`, `disabledByUser`, `blockingMode`, `schedule`, and `dailyLimit` are removed so `assignments` is the only profile-behavior source of truth.
 
 Daily Limit usage is migrated from rule-level keys to assignment-level keys so an update does not silently grant a fresh daily budget.
 

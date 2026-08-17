@@ -10,9 +10,14 @@ function makeRule(overrides = {}) {
     id: 1,
     blockURL: 'example.com',
     category: 'social',
-    disabledByUser: false,
     isWhitelist: false,
-    assignments: [{ listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null }],
+    assignments: [{
+      listId: 'general',
+      disabledByUser: false,
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }],
     ...overrides
   };
 }
@@ -38,16 +43,29 @@ test('whitelist rules never become DNR blocking rules', () => {
 
 test('Focus Session globally activates blacklist targets before profile and category checks', () => {
   const rule = makeRule({
-    disabledByUser: true,
     category: 'social',
-    assignments: [{ listId: 'work', blockingMode: 'schedule', schedule: null, dailyLimit: null }]
+    assignments: [{
+      listId: 'work',
+      disabledByUser: true,
+      blockingMode: 'schedule',
+      schedule: null,
+      dailyLimit: null
+    }]
   });
   assert.equal(isRuleActiveNow(rule, ['social'], true, tuesdayAt1030, 'study'), true);
 });
 
-test('disabled target and active-profile category state stay inactive outside Focus Session', () => {
+test('disabled assignment and active-profile category state stay inactive outside Focus Session', () => {
   assert.equal(
-    isRuleActiveNow(makeRule({ disabledByUser: true }), [], false, tuesdayAt1030, 'general'),
+    isRuleActiveNow(makeRule({
+      assignments: [{
+        listId: 'general',
+        disabledByUser: true,
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      }]
+    }), [], false, tuesdayAt1030, 'general'),
     false
   );
   assert.equal(
@@ -135,7 +153,41 @@ test('Daily Limit tracker receives only the active profile assignment', () => {
   });
   assert.deepEqual(
     getTrackableDailyLimitAssignments(rule, 'study', tuesdayAt1030, {}),
-    [{ listId: 'study', blockingMode: 'daily_limit', dailyLimit: { minutes: 20 }, schedule: null }]
+    [{
+      listId: 'study',
+      disabledByUser: false,
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 20 },
+      schedule: null
+    }]
+  );
+});
+
+test('disabling General does not disable the same target after Study Daily Limit is reached', () => {
+  const rule = makeRule({
+    blockURL: 'yout',
+    assignments: [
+      {
+        listId: 'general',
+        disabledByUser: true,
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      },
+      {
+        listId: 'study',
+        disabledByUser: false,
+        blockingMode: 'daily_limit',
+        dailyLimit: { minutes: 1 },
+        schedule: null
+      }
+    ]
+  });
+
+  assert.equal(isRuleActiveNow(rule, [], false, tuesdayAt1030, 'general', {}), false);
+  assert.equal(
+    isRuleActiveNow(rule, [], false, tuesdayAt1030, 'study', { '1:study': 60 }),
+    true
   );
 });
 

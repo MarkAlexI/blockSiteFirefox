@@ -140,3 +140,28 @@ test('rules client includes Rule Lists in replaceAll imports', async () => {
     globalThis.browser = previousBrowser;
   }
 });
+
+test('rules client scopes toggle intent to the selected Rule List assignment', async () => {
+  const previousBrowser = globalThis.browser;
+  let sentMessage = null;
+
+  globalThis.browser = {
+    runtime: {
+      sendMessage(message) {
+        sentMessage = message;
+        return Promise.resolve({ success: true, rules: [] });
+      }
+    }
+  };
+
+  try {
+    const client = new RulesClient();
+    await client.toggleRule(17, 'study');
+    assert.deepEqual(sentMessage, {
+      type: 'rules:toggle',
+      payload: { ruleId: 17, listId: 'study' }
+    });
+  } finally {
+    globalThis.browser = previousBrowser;
+  }
+});

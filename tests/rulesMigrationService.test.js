@@ -93,10 +93,10 @@ test('schema migration resets all IDs when one ID is invalid and adds assignment
       id: 1,
       blockURL: 'one.example',
       category: 'uncategorized',
-      disabledByUser: false,
       isWhitelist: false,
       assignments: [{
         listId: 'general',
+        disabledByUser: false,
         blockingMode: 'always',
         schedule: null,
         dailyLimit: null
@@ -107,9 +107,9 @@ test('schema migration resets all IDs when one ID is invalid and adds assignment
       blockURL: 'two.example',
       isWhitelist: true,
       category: 'whitelist',
-      disabledByUser: false,
       assignments: [{
         listId: 'general',
+        disabledByUser: false,
         blockingMode: 'always',
         schedule: null,
         dailyLimit: null
@@ -124,10 +124,10 @@ test('current assignment schema is returned without a storage rewrite', () => {
     blockURL: 'current.example',
     redirectURL: '',
     category: 'social',
-    disabledByUser: false,
     isWhitelist: false,
     assignments: [{
       listId: 'general',
+      disabledByUser: false,
       blockingMode: 'always',
       schedule: null,
       dailyLimit: null
@@ -164,6 +164,28 @@ test('RC4 multi-membership clones the shared blocking config into each assignmen
   assert.deepEqual(result.rules[0].assignments.map(item => item.listId), ['list-1', 'list-2']);
   assert.deepEqual(result.rules[0].assignments[0].schedule, result.rules[0].assignments[1].schedule);
   assert.equal(result.rules[0].assignments[0].blockingMode, 'schedule');
+});
+
+test('RC9 root disabled state migrates into every assignment and is removed from the target', () => {
+  const result = migrateRuleSchema([{
+    id: 9,
+    blockURL: 'youtube.com',
+    redirectURL: '',
+    category: 'social',
+    disabledByUser: true,
+    isWhitelist: false,
+    assignments: [
+      { listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null },
+      { listId: 'study', blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 30 } }
+    ]
+  }]);
+
+  assert.equal(result.migrated, true);
+  assert.equal('disabledByUser' in result.rules[0], false);
+  assert.deepEqual(result.rules[0].assignments.map(item => [item.listId, item.disabledByUser]), [
+    ['general', true],
+    ['study', true]
+  ]);
 });
 
 test('v1 Daily Limit usage expands to every migrated Daily Limit assignment', () => {
@@ -269,10 +291,10 @@ test('combined migration copies legacy rules and then upgrades their schema', as
     id: 1,
     blockURL: 'legacy.example',
     category: 'uncategorized',
-    disabledByUser: false,
     isWhitelist: false,
     assignments: [{
       listId: 'general',
+      disabledByUser: false,
       blockingMode: 'always',
       schedule: null,
       dailyLimit: null

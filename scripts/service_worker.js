@@ -18,9 +18,9 @@ import { createDnrSynchronizer } from './dnrSynchronizer.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { BLOCKING_MODE_DAILY_LIMIT } from '../rules/blockingMode.js';
-import { getAssignmentUsageKey, getRuleAssignments } from '../rules/ruleAssignments.js';
+import { getAssignmentUsageKey, getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
 import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
-import { RuleListsManager } from '../rules/ruleListsManager.js';
+import { GENERAL_RULE_LIST_ID, RuleListsManager } from '../rules/ruleListsManager.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
 import { createDailyLimitTracker } from '../rules/dailyLimitTracker.js';
 import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
@@ -255,7 +255,9 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
   }
   
   const rules = await rulesManager.getRules();
-  const whitelistRules = rules.filter(r => r.isWhitelist && !r.disabledByUser);
+  const whitelistRules = rules.filter(r =>
+    r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
+  );
   
   if (!isUrlInWhitelist(tabUrl, whitelistRules)) {
     logger.log(`Focus Whitelist: Closing non-whitelisted tab ${tabId} (${tabUrl})`);
@@ -268,7 +270,9 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
  */
 async function checkAllTabsAgainstWhitelist() {
   const rules = await rulesManager.getRules();
-  const whitelistRules = rules.filter(r => r.isWhitelist && !r.disabledByUser);
+  const whitelistRules = rules.filter(r =>
+    r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
+  );
   
   await closeNonWhitelistedTabs(whitelistRules);
 }
@@ -795,7 +799,12 @@ async function createDiagnosticReport() {
       scheduled: rules.filter(rule =>
         getRuleAssignments(rule).some(assignment => assignment.blockingMode === 'schedule')
       ).length,
-      disabledByUser: rules.filter(rule => rule.disabledByUser).length,
+      disabledByUser: rules.filter(rule =>
+        getRuleAssignment(
+          rule,
+          rule.isWhitelist ? GENERAL_RULE_LIST_ID : ruleListState.activeRuleListId
+        )?.disabledByUser === true
+      ).length,
       lists: ruleLists.length,
       activeList: ruleListState.activeRuleListId
     },

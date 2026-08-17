@@ -1,7 +1,7 @@
 import { sanitizeDiagnosticValue } from './diagnosticStore.js';
 
 export const DIAGNOSTIC_REPORT_SCHEMA_VERSION = 1;
-export const DIAGNOSTIC_BUILD = 'RC9';
+export const DIAGNOSTIC_BUILD = 'RC10';
 
 export function detectBrowserSummary({ userAgent = '', userAgentData = null, platform = '' } = {}) {
   const ua = String(userAgent || '');
