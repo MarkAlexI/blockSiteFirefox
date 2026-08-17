@@ -86,3 +86,19 @@ test('usage state prunes deleted assignment keys', async () => {
   assert.deepEqual(state.usageSeconds, { '1:general': 60 });
   assert.deepEqual(state.lastSample.assignmentKeys, []);
 });
+
+test('assignment usage can be remapped when editing splits a shared target', async () => {
+  const now = new Date(2026, 7, 17, 10, 0, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-17',
+      usageSeconds: { '1:list-2': 42 },
+      lastSample: { timestamp: now.getTime(), assignmentKeys: ['1:list-2'] }
+    }
+  });
+  const manager = new DailyLimitManager(storage);
+  const state = await manager.remapAssignmentKey(1, 'list-2', 9, 'list-2', now);
+  assert.deepEqual(state.usageSeconds, { '9:list-2': 42 });
+  assert.deepEqual(state.lastSample.assignmentKeys, ['9:list-2']);
+});

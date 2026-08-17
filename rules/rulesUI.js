@@ -16,6 +16,16 @@ import {
   normalizeDailyLimit
 } from './blockingMode.js';
 
+export function formatDailyLimitUsageMinutes(usedSeconds, limitMinutes) {
+  const limit = Math.max(0, Number(limitMinutes) || 0);
+  if (!limit) return '0';
+  const limitSeconds = limit * 60;
+  const cappedSeconds = Math.min(limitSeconds, Math.max(0, Number(usedSeconds) || 0));
+  if (cappedSeconds >= limitSeconds) return String(limit);
+  const tenths = Math.floor(cappedSeconds / 6) / 10;
+  return Number.isInteger(tenths) ? String(tenths) : tenths.toFixed(1);
+}
+
 export class RulesUI {
   constructor() {
     this.logger = new Logger('RulesUI');
@@ -172,11 +182,10 @@ export class RulesUI {
     } else if (blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
       const limit = normalizeDailyLimit(blockingConfig.dailyLimit);
       const usedSeconds = getAssignmentUsageSeconds(dailyUsageSeconds, rule.id, assignmentListId);
-      const usedMinutes = Math.floor(usedSeconds / 60);
       const status = document.createElement('span');
       status.className = 'daily-limit-status';
       if (limit) {
-        const shownUsed = Math.min(limit.minutes, usedMinutes);
+        const shownUsed = formatDailyLimitUsageMinutes(usedSeconds, limit.minutes);
         status.textContent = t('daily_limit_usage', [shownUsed, limit.minutes]) || `${shownUsed} / ${limit.minutes} min`;
         if (usedSeconds >= limit.minutes * 60) {
           status.classList.add('limit-reached');

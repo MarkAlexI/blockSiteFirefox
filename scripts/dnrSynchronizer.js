@@ -1,3 +1,5 @@
+import { getRuleAssignment } from '../rules/ruleAssignments.js';
+
 /**
  * Builds a stable signature from the DNR fields that define rule behavior.
  * This does not normalize or reinterpret user-entered block patterns.
@@ -89,10 +91,29 @@ export function createDnrSynchronizer({
     const disabledCategories = activeProfile?.disabledCategories || [];
     const now = new Date();
 
-    const activeRules = rules.filter(rule =>
+    let activeRules = rules.filter(rule =>
       !rule.isWhitelist &&
       isRuleActiveNow(rule, disabledCategories, focusActive, now, activeRuleListId, dailyUsage)
     );
+
+    if (focusActive) {
+      const byBlockURL = new Map();
+      for (const rule of activeRules) {
+        const key = String(rule.blockURL || '').trim().toLowerCase();
+        if (!key) continue;
+        const current = byBlockURL.get(key);
+        if (!current) {
+          byBlockURL.set(key, rule);
+          continue;
+        }
+        const currentBelongsToActiveProfile = Boolean(getRuleAssignment(current, activeRuleListId));
+        const candidateBelongsToActiveProfile = Boolean(getRuleAssignment(rule, activeRuleListId));
+        if (candidateBelongsToActiveProfile && !currentBelongsToActiveProfile) {
+          byBlockURL.set(key, rule);
+        }
+      }
+      activeRules = [...byBlockURL.values()];
+    }
 
     const dnrRules = [];
 

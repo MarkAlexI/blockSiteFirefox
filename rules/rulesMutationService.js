@@ -64,13 +64,40 @@ function getRuleIndexById(rules, ruleId) {
   return rules.findIndex(rule => toRuleId(rule.id) === normalizedId);
 }
 
-function findTargetRuleIndex(rules, blockURL, isWhitelist = false, excludeIndex = -1) {
-  const cleanBlockURL = typeof blockURL === 'string' ? blockURL.trim() : '';
+function normalizeTargetBlockURL(value) {
+  return typeof value === 'string' ? value.trim().toLowerCase() : '';
+}
 
+function normalizeTargetRedirectURL(value) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function isSameRuleTarget(rule, target) {
+  const ruleIsWhitelist = rule?.isWhitelist === true;
+  const targetIsWhitelist = target?.isWhitelist === true;
+  if (ruleIsWhitelist !== targetIsWhitelist) return false;
+  if (normalizeTargetBlockURL(rule?.blockURL) !== normalizeTargetBlockURL(target?.blockURL)) return false;
+  if (ruleIsWhitelist) return true;
+  return (
+    normalizeTargetRedirectURL(rule?.redirectURL) === normalizeTargetRedirectURL(target?.redirectURL) &&
+    (rule?.category || 'uncategorized') === (target?.category || 'uncategorized')
+  );
+}
+
+function findTargetRuleIndex(rules, target, excludeIndex = -1) {
   return rules.findIndex((rule, index) => {
     if (excludeIndex !== -1 && index === excludeIndex) return false;
-    if ((rule?.isWhitelist === true) !== isWhitelist) return false;
-    return (rule?.blockURL || '').trim() === cleanBlockURL;
+    return isSameRuleTarget(rule, target);
+  });
+}
+
+function findAssignedBlockUrlRuleIndex(rules, blockURL, listId, excludeIndex = -1) {
+  const normalizedBlockURL = normalizeTargetBlockURL(blockURL);
+  return rules.findIndex((rule, index) => {
+    if (excludeIndex !== -1 && index === excludeIndex) return false;
+    if (rule?.isWhitelist === true) return false;
+    if (normalizeTargetBlockURL(rule?.blockURL) !== normalizedBlockURL) return false;
+    return Boolean(getRuleAssignment(rule, listId));
   });
 }
 
@@ -135,6 +162,7 @@ export function createRulesMutationService({
   rulesManager,
   ruleListsManager,
   dnrSynchronizer,
+  dailyLimitManager = null,
   declarativeNetRequest,
   getAccess,
   getSettings,
@@ -174,6 +202,22 @@ export function createRulesMutationService({
     if (typeof ruleListsManager?.getState === 'function') return ruleListsManager.getState();
     const lists = await getRuleLists();
     return { lists, activeRuleListId: GENERAL_RULE_LIST_ID };
+  }
+
+  async function getNextSafeRuleId(rules) {
+    const dnrRules = await declarativeNetRequest.getDynamicRules();
+    const occupiedIds = new Set([
+      ...rules.map(rule => toRuleId(rule.id)).filter(Boolean),
+      ...dnrRules.map(rule => toRuleId(rule.id)).filter(Boolean)
+    ]);
+    let safeId = 1;
+    while (occupiedIds.has(safeId)) safeId++;
+    return safeId;
+  }
+
+  async function remapDailyUsage(oldRuleId, oldListId, newRuleId, newListId) {
+    if (typeof dailyLimitManager?.remapAssignmentKey !== 'function') return;
+    await dailyLimitManager.remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId);
   }
 
   async function saveRuleListState(lists, activeRuleListId) {
@@ -283,7 +327,7 @@ export function createRulesMutationService({
       );
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, target.isWhitelist));
 
-      const existingIndex = findTargetRuleIndex(rules, target.blockURL, target.isWhitelist);
+      const existingIndex = findTargetRuleIndex(rules, target);
       if (existingIndex !== -1) {
         if (target.isWhitelist) {
           throw new RulesMutationError('rule_already_exists', 'Rule already exists');
@@ -292,6 +336,15 @@ export function createRulesMutationService({
         let nextAssignments = getRuleAssignments(existingRule);
         let added = 0;
         for (const assignment of assignments) {
+          const assignedVariantIndex = findAssignedBlockUrlRuleIndex(
+            rules,
+            target.blockURL,
+            assignment.listId,
+            existingIndex
+          );
+          if (assignedVariantIndex !== -1) {
+            throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
+          }
           if (getRuleAssignment({ ...existingRule, assignments: nextAssignments }, assignment.listId)) continue;
           nextAssignments = addRuleAssignment({ ...existingRule, assignments: nextAssignments }, assignment);
           added++;
@@ -311,20 +364,20 @@ export function createRulesMutationService({
         });
       }
 
+      if (!target.isWhitelist) {
+        for (const assignment of assignments) {
+          if (findAssignedBlockUrlRuleIndex(rules, target.blockURL, assignment.listId) !== -1) {
+            throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
+          }
+        }
+      }
+
       if (!target.isWhitelist && !hasProAccess && rules.length >= maxRulesLimit) {
         throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
       }
 
-      const dnrRules = await declarativeNetRequest.getDynamicRules();
-      const occupiedIds = new Set([
-        ...rules.map(rule => toRuleId(rule.id)).filter(Boolean),
-        ...dnrRules.map(rule => toRuleId(rule.id)).filter(Boolean)
-      ]);
-      let safeId = 1;
-      while (occupiedIds.has(safeId)) safeId++;
-
       const newRule = {
-        id: safeId,
+        id: await getNextSafeRuleId(rules),
         blockURL: target.blockURL.trim(),
         redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
         category: target.isWhitelist ? 'whitelist' : target.category,
@@ -409,7 +462,17 @@ export function createRulesMutationService({
           continue;
         }
 
-        const existingIndex = findTargetRuleIndex(nextRules, target.blockURL, false);
+        const existingIndex = findTargetRuleIndex(nextRules, target);
+        const assignedVariantIndex = findAssignedBlockUrlRuleIndex(
+          nextRules,
+          target.blockURL,
+          targetListId,
+          existingIndex
+        );
+        if (assignedVariantIndex !== -1) {
+          duplicateEntries.push({ entryId: entry.id, blockURL: target.blockURL });
+          continue;
+        }
         if (existingIndex !== -1) {
           const existingRule = nextRules[existingIndex];
           if (getRuleAssignment(existingRule, targetListId)) {
@@ -478,44 +541,100 @@ export function createRulesMutationService({
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
 
-      let nextAssignments;
       const sourceListId = payload.assignmentListId || payload.sourceListId || null;
       if (target.isWhitelist) {
         const currentAssignment = getRuleAssignment(oldRule, GENERAL_RULE_LIST_ID);
-        nextAssignments = [createRuleAssignment(GENERAL_RULE_LIST_ID, {
+        const nextAssignment = createRuleAssignment(GENERAL_RULE_LIST_ID, {
           disabledByUser: payload.assignment?.disabledByUser === undefined
             ? currentAssignment?.disabledByUser === true
             : payload.assignment.disabledByUser === true,
           blockingMode: BLOCKING_MODE_ALWAYS,
           schedule: null,
           dailyLimit: null
-        })];
-      } else if (sourceListId) {
-        const currentAssignment = getRuleAssignment(oldRule, sourceListId);
-        if (!currentAssignment) {
-          throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
-        }
-        const assignmentPayload = payload.assignment && typeof payload.assignment === 'object'
-          ? {
-              ...payload.assignment,
-              disabledByUser: payload.assignment.disabledByUser === undefined
-                ? currentAssignment.disabledByUser === true
-                : payload.assignment.disabledByUser === true
-            }
-          : {
-              listId: payload.targetListId || payload.listId || sourceListId,
-              disabledByUser: payload.disabledByUser === undefined
-                ? currentAssignment.disabledByUser === true
-                : payload.disabledByUser === true,
-              blockingMode: payload.blockingMode ?? currentAssignment.blockingMode,
-              schedule: payload.schedule === undefined ? currentAssignment.schedule : payload.schedule,
-              dailyLimit: payload.dailyLimit === undefined ? currentAssignment.dailyLimit : payload.dailyLimit
-            };
-        const nextAssignment = createRuleAssignment(
-          assignmentPayload.listId || sourceListId,
-          assignmentPayload
-        );
+        });
         validateAssignment(nextAssignment, lists, hasProAccess, target);
+        throwConflict(rulesManager.checkConflict(rules, target.blockURL, true, index));
+        if (findTargetRuleIndex(rules, target, index) !== -1) {
+          throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+        }
+        const updatedRule = canonicalizeRuleTarget({
+          id: oldRule.id,
+          blockURL: target.blockURL.trim(),
+          redirectURL: '',
+          category: 'whitelist',
+          assignments: [nextAssignment],
+          isWhitelist: true
+        }, [nextAssignment]);
+        const nextRules = [...rules];
+        nextRules[index] = updatedRule;
+        await rulesManager.saveRules(nextRules);
+        return syncAndNotify(nextRules, { rule: updatedRule });
+      }
+
+      if (!sourceListId) {
+        const nextAssignments = validateAssignments(
+          createAssignmentInputs(payload, oldRule), lists, hasProAccess, target
+        );
+        throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
+        if (nextAssignments.some(assignment =>
+          findAssignedBlockUrlRuleIndex(rules, target.blockURL, assignment.listId, index) !== -1
+        )) {
+          throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
+        }
+        if (findTargetRuleIndex(rules, target, index) !== -1) {
+          throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+        }
+        const updatedRule = canonicalizeRuleTarget({
+          id: oldRule.id,
+          blockURL: target.blockURL.trim(),
+          redirectURL: target.redirectURL.trim(),
+          category: target.category,
+          assignments: nextAssignments,
+          isWhitelist: false
+        }, nextAssignments);
+        const nextRules = [...rules];
+        nextRules[index] = updatedRule;
+        await rulesManager.saveRules(nextRules);
+        return syncAndNotify(nextRules, { rule: updatedRule });
+      }
+
+      const currentAssignment = getRuleAssignment(oldRule, sourceListId);
+      if (!currentAssignment) {
+        throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
+      }
+      const assignmentPayload = payload.assignment && typeof payload.assignment === 'object'
+        ? {
+            ...payload.assignment,
+            disabledByUser: payload.assignment.disabledByUser === undefined
+              ? currentAssignment.disabledByUser === true
+              : payload.assignment.disabledByUser === true
+          }
+        : {
+            listId: payload.targetListId || payload.listId || sourceListId,
+            disabledByUser: payload.disabledByUser === undefined
+              ? currentAssignment.disabledByUser === true
+              : payload.disabledByUser === true,
+            blockingMode: payload.blockingMode ?? currentAssignment.blockingMode,
+            schedule: payload.schedule === undefined ? currentAssignment.schedule : payload.schedule,
+            dailyLimit: payload.dailyLimit === undefined ? currentAssignment.dailyLimit : payload.dailyLimit
+          };
+      const nextAssignment = createRuleAssignment(
+        assignmentPayload.listId || sourceListId,
+        assignmentPayload
+      );
+      validateAssignment(nextAssignment, lists, hasProAccess, target);
+      throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
+
+      if (nextAssignment.listId !== sourceListId && getRuleAssignment(oldRule, nextAssignment.listId)) {
+        throw new RulesMutationError('rule_assignment_exists', 'Rule already has settings for this list');
+      }
+      if (findAssignedBlockUrlRuleIndex(rules, target.blockURL, nextAssignment.listId, index) !== -1) {
+        throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
+      }
+
+      const targetChanged = !isSameRuleTarget(oldRule, target);
+      if (!targetChanged) {
+        let nextAssignments;
         try {
           nextAssignments = replaceRuleAssignment(oldRule, sourceListId, nextAssignment);
         } catch (error) {
@@ -524,32 +643,84 @@ export function createRulesMutationService({
           }
           throw new RulesMutationError('rule_assignment_not_found', 'Rule assignment not found');
         }
-      } else {
-        // Backward-compatible RC4 update path: the old UI submitted listIds and
-        // one shared blocking config. Convert that request into assignments.
-        nextAssignments = validateAssignments(
-          createAssignmentInputs(payload, oldRule), lists, hasProAccess, target
+        const updatedRule = canonicalizeRuleTarget(oldRule, nextAssignments);
+        const nextRules = [...rules];
+        nextRules[index] = updatedRule;
+        await rulesManager.saveRules(nextRules);
+        if (nextAssignment.listId !== sourceListId) {
+          await remapDailyUsage(oldRule.id, sourceListId, oldRule.id, nextAssignment.listId);
+        }
+        return syncAndNotify(nextRules, { rule: updatedRule });
+      }
+
+      const currentAssignments = getRuleAssignments(oldRule);
+      const remainingAssignments = removeRuleAssignment(oldRule, sourceListId, { fallbackToGeneral: false });
+      const exactTargetIndex = findTargetRuleIndex(rules, target, index);
+
+      if (exactTargetIndex !== -1) {
+        const exactTarget = rules[exactTargetIndex];
+        if (getRuleAssignment(exactTarget, nextAssignment.listId)) {
+          throw new RulesMutationError('rule_assignment_exists', 'Rule already has settings for this list');
+        }
+        const mergedTarget = canonicalizeRuleTarget(
+          exactTarget,
+          addRuleAssignment(exactTarget, nextAssignment)
         );
+        const nextRules = rules.map((rule, ruleIndex) => {
+          if (ruleIndex === exactTargetIndex) return mergedTarget;
+          if (ruleIndex === index) {
+            return remainingAssignments.length > 0
+              ? canonicalizeRuleTarget(oldRule, remainingAssignments)
+              : null;
+          }
+          return rule;
+        }).filter(Boolean);
+        await rulesManager.saveRules(nextRules);
+        await remapDailyUsage(oldRule.id, sourceListId, mergedTarget.id, nextAssignment.listId);
+        return syncAndNotify(nextRules, {
+          rule: mergedTarget,
+          targetMerged: true,
+          sourceRuleId: oldRule.id
+        });
       }
 
-      validateAssignments(nextAssignments, lists, hasProAccess, target);
-      throwConflict(rulesManager.checkConflict(rules, target.blockURL, target.isWhitelist, index));
-      if (findTargetRuleIndex(rules, target.blockURL, target.isWhitelist, index) !== -1) {
-        throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+      if (currentAssignments.length === 1) {
+        const updatedRule = canonicalizeRuleTarget({
+          id: oldRule.id,
+          blockURL: target.blockURL.trim(),
+          redirectURL: target.redirectURL.trim(),
+          category: target.category,
+          assignments: [nextAssignment],
+          isWhitelist: false
+        }, [nextAssignment]);
+        const nextRules = [...rules];
+        nextRules[index] = updatedRule;
+        await rulesManager.saveRules(nextRules);
+        if (nextAssignment.listId !== sourceListId) {
+          await remapDailyUsage(oldRule.id, sourceListId, oldRule.id, nextAssignment.listId);
+        }
+        return syncAndNotify(nextRules, { rule: updatedRule });
       }
 
-      const updatedRule = canonicalizeRuleTarget({
-        id: oldRule.id,
+      const splitRule = canonicalizeRuleTarget({
+        id: await getNextSafeRuleId(rules),
         blockURL: target.blockURL.trim(),
-        redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
-        category: target.isWhitelist ? 'whitelist' : target.category,
-        assignments: nextAssignments,
-        isWhitelist: target.isWhitelist
-      }, nextAssignments);
+        redirectURL: target.redirectURL.trim(),
+        category: target.category,
+        assignments: [nextAssignment],
+        isWhitelist: false
+      }, [nextAssignment]);
+      const retainedRule = canonicalizeRuleTarget(oldRule, remainingAssignments);
       const nextRules = [...rules];
-      nextRules[index] = updatedRule;
+      nextRules[index] = retainedRule;
+      nextRules.push(splitRule);
       await rulesManager.saveRules(nextRules);
-      return syncAndNotify(nextRules, { rule: updatedRule });
+      await remapDailyUsage(oldRule.id, sourceListId, splitRule.id, nextAssignment.listId);
+      return syncAndNotify(nextRules, {
+        rule: splitRule,
+        targetSplit: true,
+        sourceRuleId: oldRule.id
+      });
     });
   }
 
@@ -646,7 +817,12 @@ export function createRulesMutationService({
       // already established by replaceAll(). We still validate all references.
       validateAssignments(assignments, importedLists, true, target);
       throwConflict(rulesManager.checkConflict(preparedRules, target.blockURL, target.isWhitelist));
-      if (findTargetRuleIndex(preparedRules, target.blockURL, target.isWhitelist) !== -1) {
+      if (!target.isWhitelist && assignments.some(assignment =>
+        findAssignedBlockUrlRuleIndex(preparedRules, target.blockURL, assignment.listId) !== -1
+      )) {
+        throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
+      }
+      if (findTargetRuleIndex(preparedRules, target) !== -1) {
         throw new RulesMutationError('rule_already_exists', 'Rule already exists');
       }
 
@@ -819,19 +995,61 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
       const nextLists = state.lists.filter(list => list.id !== listId);
-      const nextRules = rules.map(rule => {
-        if (rule.isWhitelist === true) return canonicalizeRuleTarget(rule, getRuleAssignments(rule));
-        if (!getRuleAssignment(rule, listId)) return rule;
-        return canonicalizeRuleTarget(rule, removeRuleAssignment(rule, listId, { fallbackToGeneral: true }));
-      });
+      const nextRules = [];
+      const usageRemaps = [];
+      let removedConflictingTargets = 0;
+
+      for (let index = 0; index < rules.length; index++) {
+        const rule = rules[index];
+        if (rule.isWhitelist === true) {
+          nextRules.push(canonicalizeRuleTarget(rule, getRuleAssignments(rule)));
+          continue;
+        }
+        const removedAssignment = getRuleAssignment(rule, listId);
+        if (!removedAssignment) {
+          nextRules.push(rule);
+          continue;
+        }
+
+        const remainingAssignments = removeRuleAssignment(rule, listId, { fallbackToGeneral: false });
+        if (remainingAssignments.length > 0) {
+          nextRules.push(canonicalizeRuleTarget(rule, remainingAssignments));
+          continue;
+        }
+
+        const generalVariantIndex = findAssignedBlockUrlRuleIndex(
+          rules,
+          rule.blockURL,
+          GENERAL_RULE_LIST_ID,
+          index
+        );
+        if (generalVariantIndex !== -1) {
+          removedConflictingTargets++;
+          continue;
+        }
+
+        const generalAssignment = createRuleAssignment(GENERAL_RULE_LIST_ID, removedAssignment);
+        nextRules.push(canonicalizeRuleTarget(rule, [generalAssignment]));
+        usageRemaps.push({
+          oldRuleId: rule.id,
+          oldListId: listId,
+          newRuleId: rule.id,
+          newListId: GENERAL_RULE_LIST_ID
+        });
+      }
+
       const activeRuleListId = state.activeRuleListId === listId
         ? GENERAL_RULE_LIST_ID
         : normalizeActiveRuleListId(nextLists, state.activeRuleListId);
       await saveCombinedState(nextRules, nextLists, activeRuleListId);
+      for (const remap of usageRemaps) {
+        await remapDailyUsage(remap.oldRuleId, remap.oldListId, remap.newRuleId, remap.newListId);
+      }
       return syncAndNotify(nextRules, {
         ruleLists: nextLists,
         activeRuleListId,
-        deletedListId: listId
+        deletedListId: listId,
+        removedConflictingTargets
       });
     });
   }

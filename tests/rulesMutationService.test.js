@@ -27,6 +27,7 @@ function createHarness({
   const savedStates = [];
   const notifications = [];
   let syncCalls = 0;
+  const usageRemaps = [];
 
   const rulesManager = {
     async getRules() {
@@ -95,6 +96,11 @@ function createHarness({
         return syncResult;
       }
     },
+    dailyLimitManager: {
+      async remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId) {
+        usageRemaps.push({ oldRuleId, oldListId, newRuleId, newListId });
+      }
+    },
     declarativeNetRequest: {
       async getDynamicRules() {
         return [];
@@ -132,7 +138,8 @@ function createHarness({
     getActiveRuleListId: () => activeRuleListId,
     savedStates,
     notifications,
-    getSyncCalls: () => syncCalls
+    getSyncCalls: () => syncCalls,
+    getUsageRemaps: () => clone(usageRemaps)
   };
 }
 
@@ -1163,7 +1170,7 @@ test('editing one assignment does not change another assignment on the same targ
   ]);
 });
 
-test('adding an existing target to another list preserves target-level redirect and category', async () => {
+test('adding a different target variant to another list preserves both target identities', async () => {
   const harness = createHarness({
     initialRuleLists: [
       { id: 'general', name: 'General', disabled: false },
@@ -1195,11 +1202,16 @@ test('adding an existing target to another list preserves target-level redirect 
   });
 
   const [rule] = harness.getRules();
-  assert.equal(harness.getRules().length, 1);
-  assert.equal(rule.redirectURL, 'https://example.com/focus');
-  assert.equal(rule.category, 'social');
-  assert.deepEqual(getRuleListIds(rule), ['list-1', 'list-2']);
-  assert.equal(getRuleAssignment(rule, 'list-2').blockingMode, 'schedule');
+  assert.equal(harness.getRules().length, 2);
+  const original = harness.getRules().find(item => item.id === 1);
+  const variant = harness.getRules().find(item => item.id !== 1);
+  assert.equal(original.redirectURL, 'https://example.com/focus');
+  assert.equal(original.category, 'social');
+  assert.deepEqual(getRuleListIds(original), ['list-1']);
+  assert.equal(variant.redirectURL, '');
+  assert.equal(variant.category, 'work');
+  assert.deepEqual(getRuleListIds(variant), ['list-2']);
+  assert.equal(getRuleAssignment(variant, 'list-2').blockingMode, 'schedule');
 });
 
 test('removing one assignment preserves other profiles and removing the last one deletes the target', async () => {
@@ -1236,4 +1248,263 @@ test('removing one assignment preserves other profiles and removing the last one
   const result = await harness.service.removeAssignment({ ruleId: 1, listId: 'list-1' });
   assert.deepEqual(harness.getRules(), []);
   assert.equal(result.targetDeleted, true);
+});
+
+test('adding the same block URL with a different redirect in another profile creates a distinct target', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-1', name: 'Study', disabled: false },
+      { id: 'list-2', name: 'Ext', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'yout',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        { listId: 'list-1', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 1 } }
+      ]
+    }]
+  });
+
+  const result = await harness.service.addRule({
+    blockURL: 'yout',
+    redirectURL: 'https://example.com/focus',
+    category: 'social',
+    assignment: {
+      listId: 'list-2',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }
+  });
+
+  assert.equal(result.created, true);
+  assert.equal(result.assignmentAdded, false);
+  assert.equal(harness.getRules().length, 2);
+
+  const original = harness.getRules().find(rule => rule.id === 1);
+  const redirected = harness.getRules().find(rule => rule.id !== 1);
+  assert.equal(original.redirectURL, '');
+  assert.deepEqual(getRuleListIds(original), ['general', 'list-1']);
+  assert.equal(redirected.blockURL, 'yout');
+  assert.equal(redirected.redirectURL, 'https://example.com/focus');
+  assert.deepEqual(getRuleListIds(redirected), ['list-2']);
+});
+
+test('one profile cannot contain two target variants for the same block URL', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabled: false },
+      { id: 'list-2', name: 'Ext', disabled: false }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'yout',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'list-2', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }]
+  });
+
+  await assert.rejects(
+    harness.service.addRule({
+      blockURL: 'yout',
+      redirectURL: 'https://example.com/focus',
+      category: 'social',
+      assignment: { listId: 'list-2', blockingMode: 'always', schedule: null, dailyLimit: null }
+    }),
+    error => error.code === 'rule_already_exists'
+  );
+});
+
+test('editing target fields in one shared profile splits the target and preserves the other profiles', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] },
+      { id: 'list-2', name: 'Ext', disabledCategories: [] }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'yout',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        { listId: 'list-1', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 1 } },
+        { listId: 'list-2', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }]
+  });
+
+  const result = await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'list-2',
+    blockURL: 'yout',
+    redirectURL: 'https://example.com/focus',
+    category: 'social',
+    assignment: {
+      listId: 'list-2',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }
+  });
+
+  assert.equal(result.targetSplit, true);
+  assert.equal(harness.getRules().length, 2);
+  const original = harness.getRules().find(rule => rule.id === 1);
+  const split = harness.getRules().find(rule => rule.id !== 1);
+  assert.equal(original.redirectURL, '');
+  assert.deepEqual(getRuleListIds(original), ['general', 'list-1']);
+  assert.equal(split.redirectURL, 'https://example.com/focus');
+  assert.deepEqual(getRuleListIds(split), ['list-2']);
+  assert.deepEqual(harness.getUsageRemaps(), [{
+    oldRuleId: 1,
+    oldListId: 'list-2',
+    newRuleId: split.id,
+    newListId: 'list-2'
+  }]);
+});
+
+test('import allows same block URL target variants only when their profile assignments are disjoint', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] },
+      { id: 'list-2', name: 'Ext', disabledCategories: [] }
+    ]
+  });
+
+  const result = await harness.service.replaceAll({
+    ruleLists: harness.getRuleLists(),
+    activeRuleListId: 'list-2',
+    rules: [
+      {
+        blockURL: 'yout',
+        redirectURL: '',
+        category: 'social',
+        isWhitelist: false,
+        assignments: [
+          { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+          { listId: 'list-1', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 1 } }
+        ]
+      },
+      {
+        blockURL: 'yout',
+        redirectURL: 'https://example.com/focus',
+        category: 'social',
+        isWhitelist: false,
+        assignments: [
+          { listId: 'list-2', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+        ]
+      }
+    ]
+  });
+
+  assert.equal(result.rules.length, 2);
+  assert.equal(harness.getRules().length, 2);
+});
+
+test('import rejects two target variants for the same block URL in one profile', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Ext', disabledCategories: [] }
+    ]
+  });
+
+  await assert.rejects(
+    harness.service.replaceAll({
+      ruleLists: harness.getRuleLists(),
+      activeRuleListId: 'list-1',
+      rules: [
+        {
+          blockURL: 'yout',
+          redirectURL: '',
+          category: 'social',
+          isWhitelist: false,
+          assignments: [{ listId: 'list-1', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }]
+        },
+        {
+          blockURL: 'yout',
+          redirectURL: 'https://example.com/focus',
+          category: 'social',
+          isWhitelist: false,
+          assignments: [{ listId: 'list-1', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }]
+        }
+      ]
+    }),
+    error => error.code === 'rule_already_exists'
+  );
+});
+
+test('deleting a profile does not move a conflicting target variant into General', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Ext', disabledCategories: [] }
+    ],
+    initialActiveRuleListId: 'list-1',
+    initialRules: [
+      {
+        id: 1,
+        blockURL: 'yout',
+        redirectURL: '',
+        category: 'social',
+        isWhitelist: false,
+        assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }]
+      },
+      {
+        id: 2,
+        blockURL: 'yout',
+        redirectURL: 'https://example.com/focus',
+        category: 'social',
+        isWhitelist: false,
+        assignments: [{ listId: 'list-1', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 1 } }]
+      }
+    ]
+  });
+
+  const result = await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.equal(result.removedConflictingTargets, 1);
+  assert.equal(result.activeRuleListId, 'general');
+  assert.equal(harness.getRules().length, 1);
+  assert.equal(harness.getRules()[0].id, 1);
+  assert.deepEqual(harness.getUsageRemaps(), []);
+});
+
+test('deleting a profile remaps Daily Limit usage when its sole target moves to General', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    initialActiveRuleListId: 'list-1',
+    initialRules: [{
+      id: 7,
+      blockURL: 'reddit.com',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [{ listId: 'list-1', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 30 } }]
+    }]
+  });
+
+  await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['general']);
+  assert.deepEqual(harness.getUsageRemaps(), [{
+    oldRuleId: 7,
+    oldListId: 'list-1',
+    newRuleId: 7,
+    newListId: 'general'
+  }]);
 });

@@ -146,6 +146,37 @@ export class DailyLimitManager {
     return this.recordSample([], now);
   }
 
+  async remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId, now = new Date()) {
+    const oldId = Math.floor(Number(oldRuleId));
+    const newId = Math.floor(Number(newRuleId));
+    const oldList = typeof oldListId === 'string' ? oldListId.trim() : '';
+    const newList = typeof newListId === 'string' ? newListId.trim() : '';
+    if (!Number.isInteger(oldId) || oldId <= 0 || !Number.isInteger(newId) || newId <= 0 || !oldList || !newList) {
+      return null;
+    }
+    const oldKey = `${oldId}:${oldList}`;
+    const newKey = `${newId}:${newList}`;
+    if (oldKey === newKey) return this.readState(now);
+
+    return this.enqueue(async () => {
+      const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
+      const state = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
+      const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0);
+      const newUsage = Math.max(0, Number(state.usageSeconds[newKey]) || 0);
+      if (oldUsage > 0 || newUsage > 0) {
+        state.usageSeconds[newKey] = Math.max(oldUsage, newUsage);
+      }
+      delete state.usageSeconds[oldKey];
+      if (state.lastSample) {
+        state.lastSample.assignmentKeys = normalizeActiveKeys(
+          state.lastSample.assignmentKeys.map(key => key === oldKey ? newKey : key)
+        );
+      }
+      await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+      return state;
+    });
+  }
+
   async pruneAssignmentKeys(validAssignmentKeys, now = new Date()) {
     const valid = new Set(normalizeActiveKeys(validAssignmentKeys));
     return this.enqueue(async () => {

@@ -5,7 +5,7 @@ import { normalizeDomainRule } from './rules/normalizeDomainRule.js';
 import { t } from './scripts/t.js';
 import { RulesManager } from './rules/rulesManager.js';
 import { RulesClient } from './rules/rulesClient.js';
-import { RulesUI } from './rules/rulesUI.js';
+import { RulesUI, formatDailyLimitUsageMinutes } from './rules/rulesUI.js';
 import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
 import { initializeNoSpaceInputs } from './utils/noSpaces.js';
@@ -71,6 +71,7 @@ class PopupPage {
     this.currentRuleCount = 0;
     this.isPro = false;
     this.isLegacyUser = false;
+    this.storageChangeHandler = null;
     
     this.init();
   }
@@ -78,6 +79,7 @@ class PopupPage {
   async init() {
     this.initializeUI();
     this.setupEventListeners();
+    this.setupStorageListeners();
     await this.loadSettings();
     await this.loadCurrentTabs();
     mountScroll(this.currentModeElement, this.scrollToTopBtn);
@@ -109,6 +111,17 @@ class PopupPage {
     quoteElement.textContent = message || 'Stay motivated!';
   }
   
+  setupStorageListeners() {
+    this.storageChangeHandler = (changes, areaName) => {
+      if (areaName !== 'local' || !changes?.dailyRuleUsage) return;
+      const previousUsage = changes.dailyRuleUsage.oldValue?.usageSeconds || {};
+      const nextUsage = changes.dailyRuleUsage.newValue?.usageSeconds || {};
+      if (JSON.stringify(previousUsage) === JSON.stringify(nextUsage)) return;
+      void this.loadRules();
+    };
+    browser.storage.onChanged.addListener(this.storageChangeHandler);
+  }
+
   async loadSettings() {
     try {
       const result = await browser.storage.sync.get(['settings']);
@@ -487,8 +500,8 @@ class PopupPage {
           const limitElement = document.createElement('span');
           limitElement.className = 'rule-daily-limit-popup';
           if (limit) {
-            const usedMinutes = Math.min(limit.minutes, Math.floor(Math.max(0, Number(dailyUsageSeconds) || 0) / 60));
-            limitElement.textContent = t('daily_limit_usage', [usedMinutes, limit.minutes]) || `${usedMinutes} / ${limit.minutes} min`;
+            const shownUsed = formatDailyLimitUsageMinutes(dailyUsageSeconds, limit.minutes);
+            limitElement.textContent = t('daily_limit_usage', [shownUsed, limit.minutes]) || `${shownUsed} / ${limit.minutes} min`;
             if (dailyUsageSeconds >= limit.minutes * 60) {
               limitElement.classList.add('limit-reached');
               limitElement.title = t('daily_limit_reached') || 'Daily limit reached';
@@ -791,6 +804,10 @@ class PopupPage {
   
   cleanup() {
     this.rulesUI.cleanup();
+    if (this.storageChangeHandler) {
+      browser.storage.onChanged.removeListener(this.storageChangeHandler);
+      this.storageChangeHandler = null;
+    }
     if (this.focusTimerInterval) {
       clearInterval(this.focusTimerInterval);
     }

@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Reworked Rule Lists into mutually exclusive profiles. Exactly one Rule List is active during normal blocking, with General as the default profile.
-- Stored URL, redirect, and category once while allowing each profile to keep an independent enabled state plus Always, Schedule, or Daily Limit behavior for the same target.
+- Stored URL, redirect, and category once per target while allowing profiles to share an exact target or keep distinct target variants when redirect or category differs.
 - Scoped Category Blocking state and category counts to the active Rule List profile.
 - Simplified Options so Rule List cards are the profile selector and the rules table always represents the active profile without a redundant List column.
 - Rule Packs and manually added rules now create assignments in the active profile, while matching existing targets receive an additional profile assignment instead of a duplicate target.
@@ -35,6 +35,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added regression coverage for profile activation, profile-scoped categories, assignment migration, independent schedules and limits, flexible URL matching, DNR activation, mutation security, localization, and import/export compatibility.
 
 ### Fixed
+- Fixed adding the same block URL with a different redirect or category to another profile silently reusing the old target and discarding the newly entered target fields.
+- Editing URL, redirect, or category on one assignment of a shared target now splits or merges the target as needed instead of rewriting target fields for every profile, while preserving assignment-scoped Daily Limit usage.
+- Daily Limit progress now refreshes in open Options and Popup views when local usage changes and shows sub-minute progress instead of remaining visually at zero until the next whole minute.
+- Focus Session now emits one deterministic DNR rule when different profiles contain target variants for the same block URL, preferring the active profile's target.
+- Import and Rule List deletion now preserve the one-target-per-block-URL-per-profile invariant when target variants exist.
 - Fixed enabling or disabling a shared target in one Rule List changing its state in every other profile.
 - Fixed an exhausted Daily Limit assignment becoming unblocked when the same target was disabled in another profile.
 - Fixed Daily Limits staying at zero on Chromium Android when desktop-style window focus APIs reported the browser as unfocused.

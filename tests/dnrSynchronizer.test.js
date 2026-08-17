@@ -58,7 +58,8 @@ function createHarness({
   ruleLists = [{ id: 'general', name: 'General', disabledCategories: [] }],
   activeRuleListId = 'general',
   activationEvaluator = null,
-  dailyUsage = {}
+  dailyUsage = {},
+  focusActive = false
 } = {}) {
   const updates = [];
   const closedUrlBatches = [];
@@ -101,7 +102,7 @@ function createHarness({
       activeRuleListId
     }),
     getDailyUsage: async () => structuredClone(dailyUsage),
-    getFocusSessionState: async () => ({ focusActive: false }),
+    getFocusSessionState: async () => ({ focusActive }),
     isRuleActiveNow: isStoredRuleActive,
     createDnrRule: buildDnrRule,
     closeTabsMatchingRules: async urls => {
@@ -412,4 +413,36 @@ test('DNR uses the active profile schedule and still emits only one rule for the
   await studyHarness.synchronizer.requestSync();
   assert.equal(studyHarness.getDynamicRules().length, 1);
   assert.equal(studyHarness.getDynamicRules()[0].id, 11);
+});
+
+
+test('Focus Session emits one deterministic DNR rule when profiles use different targets for the same block URL', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({
+        id: 21,
+        blockURL: 'yout',
+        redirectURL: '',
+        assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }]
+      }),
+      makeStoredRule({
+        id: 22,
+        blockURL: 'yout',
+        redirectURL: 'https://example.com/focus',
+        assignments: [{ listId: 'list-1', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }]
+      })
+    ],
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Ext', disabledCategories: [] }
+    ],
+    activeRuleListId: 'list-1',
+    focusActive: true
+  });
+
+  await harness.synchronizer.requestSync();
+  const rules = harness.getDynamicRules();
+  assert.equal(rules.length, 1);
+  assert.equal(rules[0].id, 22);
+  assert.equal(rules[0].action.redirect.url, 'https://example.com/focus');
 });
