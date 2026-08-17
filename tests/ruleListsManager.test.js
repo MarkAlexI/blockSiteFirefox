@@ -82,6 +82,24 @@ test('legacy global disabled categories migrate into General only', async () => 
   assert.equal(result.activeRuleListId, 'general');
 });
 
+test('active profile selection persists across manager instances', async () => {
+  const storage = createStorage({
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    activeRuleListId: 'general'
+  });
+  const firstManager = new RuleListsManager(storage);
+  await firstManager.setActiveListId('list-1');
+
+  const secondManager = new RuleListsManager(storage);
+  const state = await secondManager.getState();
+
+  assert.equal(storage.state.activeRuleListId, 'list-1');
+  assert.equal(state.activeRuleListId, 'list-1');
+});
+
 test('active profile falls back to General when the stored id no longer exists', () => {
   const lists = normalizeRuleLists([{ id: 'list-1', name: 'Work' }]);
   assert.equal(normalizeActiveRuleListId(lists, 'list-1'), 'list-1');

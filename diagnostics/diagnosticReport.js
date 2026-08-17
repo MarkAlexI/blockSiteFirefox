@@ -1,6 +1,7 @@
 import { sanitizeDiagnosticValue } from './diagnosticStore.js';
 
 export const DIAGNOSTIC_REPORT_SCHEMA_VERSION = 1;
+export const DIAGNOSTIC_BUILD = 'RC9';
 
 export function detectBrowserSummary({ userAgent = '', userAgentData = null, platform = '' } = {}) {
   const ua = String(userAgent || '');
@@ -50,7 +51,10 @@ export function buildDiagnosticReport(data) {
   return sanitizeDiagnosticValue({
     schemaVersion: DIAGNOSTIC_REPORT_SCHEMA_VERSION,
     generatedAt: data.generatedAt,
-    extension: data.extension,
+    extension: {
+      ...data.extension,
+      build: DIAGNOSTIC_BUILD
+    },
     browser: data.browser,
     capabilities: data.capabilities,
     access: data.access,
@@ -87,6 +91,7 @@ export function formatDiagnosticReportText(report) {
     '',
     '[Extension]',
     `Version: ${report.extension?.version || 'unknown'}`,
+    `Build: ${report.extension?.build || DIAGNOSTIC_BUILD}`,
     `Manifest: ${report.extension?.manifestVersion || 'unknown'}`,
     `Browser: ${report.browser?.name || 'Unknown'}${browserVersion}`,
     `Platform: ${report.browser?.platform || 'Unknown'}`,

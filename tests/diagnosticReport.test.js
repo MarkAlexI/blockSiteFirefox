@@ -56,6 +56,7 @@ test('diagnostic report sanitizes nested private data', () => {
     }]
   });
 
+  assert.equal(report.extension.build, 'RC9');
   assert.equal(report.license.licenseKey, '<redacted>');
   assert.equal(report.recentEvents[0].details.message.includes('example.com'), false);
 });
@@ -104,6 +105,7 @@ test('formatted diagnostic report contains counts and structured events without 
     recentEvents: [{ timestamp: 1, level: 'warn', source: 'license', code: 'verification_failed', details: { reason: 'timeout' } }]
   });
 
+  assert.match(text, /Build: RC9/);
   assert.match(text, /Stored rules: 4/);
   assert.match(text, /DNR integrity: in sync/);
   assert.match(text, /\[Daily Limits\]/);

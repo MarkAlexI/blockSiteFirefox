@@ -48,6 +48,7 @@ class OptionsPage {
     this.addRuleListButton = document.getElementById('add-rule-list');
     this.ruleLists = [];
     this.activeRuleListId = GENERAL_RULE_LIST_ID;
+    this.profileRefreshId = 0;
     this.rulePacksUI = new RulePacksUI({
       dialog: document.getElementById('rule-packs-dialog'),
       openButton: document.getElementById('open-rule-packs'),
@@ -139,9 +140,7 @@ class OptionsPage {
     this.updateWhitelistButtonState();
     
     await ProManager.initializeProFeatures();
-    await this.loadRuleLists();
-    await this.loadRules();
-    await this.loadCategories();
+    await this.refreshProfileView();
   }
   
   initializeUI() {
@@ -185,8 +184,8 @@ class OptionsPage {
   setupEventListeners() {
     if (this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm(false));
     if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.addEventListener('click', () => this.showAddRuleForm(true));
-    if (this.searchInput) this.searchInput.addEventListener('input', () => this.loadRules());
-    if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.loadRules());
+    if (this.searchInput) this.searchInput.addEventListener('input', () => this.refreshProfileView());
+    if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.refreshProfileView());
     if (this.addRuleListButton) this.addRuleListButton.addEventListener('click', () => this.handleRuleListCreate());
     if (this.ruleListNameInput) {
       this.ruleListNameInput.addEventListener('keydown', event => {
@@ -247,31 +246,41 @@ class OptionsPage {
     }
   }
   
-  async loadRules(rules_from_message = null) {
+  async refreshProfileView() {
+    const refreshId = ++this.profileRefreshId;
     try {
-      let rules;
-      if (Array.isArray(rules_from_message)) {
-        rules = rules_from_message;
-        this.logger.log('Options: Loading rules from message.');
-      } else {
-        this.logger.log('Options: Fetching rules from storage.');
-        rules = await this.rulesManager.getRules();
-      }
-
-      const [ruleListState, dailyUsageSeconds] = await Promise.all([
+      const [rules, state, dailyUsageSeconds] = await Promise.all([
+        this.rulesManager.getRules(),
         this.ruleListsManager.getState(),
         this.dailyLimitManager.getUsageSeconds()
       ]);
-      const ruleLists = ruleListState.lists;
-      const activeRuleListId = ruleListState.activeRuleListId;
-      this.ruleLists = ruleLists;
+      if (refreshId !== this.profileRefreshId) return;
+
+      const lists = state.lists;
+      const activeRuleListId = state.activeRuleListId;
+      const activeProfile = lists.find(list => list.id === activeRuleListId)
+        || lists.find(list => list.id === GENERAL_RULE_LIST_ID);
+      const disabledCategories = activeProfile?.disabledCategories || [];
+
+      this.ruleLists = lists;
       this.activeRuleListId = activeRuleListId;
+
+      if (this.ruleListsContainer) {
+        RuleListsUI.updateListGrid(this.ruleListsContainer, lists, rules, {
+          activeRuleListId,
+          onSelect: listId => this.handleRuleListSelect(listId),
+          onRename: list => this.handleRuleListRename(list),
+          onDelete: list => this.handleRuleListDelete(list)
+        });
+      }
 
       let filteredRules = rules;
       let isFiltered = false;
       const searchTerm = this.searchInput.value.trim().toLowerCase();
       if (searchTerm) {
-        filteredRules = filteredRules.filter(rule => rule.blockURL.toLowerCase().includes(searchTerm));
+        filteredRules = filteredRules.filter(rule =>
+          rule.blockURL.toLowerCase().includes(searchTerm)
+        );
         isFiltered = true;
       }
 
@@ -281,25 +290,40 @@ class OptionsPage {
         isFiltered = true;
       }
 
-      const selectedList = activeRuleListId;
       const viewItems = filteredRules.flatMap(rule => {
         if (rule.isWhitelist) return [{ rule, assignment: getRuleAssignments(rule)[0] }];
-        const assignment = getRuleAssignment(rule, selectedList);
+        const assignment = getRuleAssignment(rule, activeRuleListId);
         return assignment ? [{ rule, assignment }] : [];
       });
 
       const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
-      const activeProfile = ruleLists.find(list => list.id === activeRuleListId);
-      const disabledCategories = activeProfile?.disabledCategories || [];
       this.renderRules(viewItems, canEdit, isFiltered, disabledCategories, dailyUsageSeconds);
       this.rulesUI.updateStatus(
         this.statusElement,
         new Set(viewItems.map(item => item.rule.id)).size
       );
 
+      const profileRules = rules.filter(rule =>
+        !rule.isWhitelist && Boolean(getRuleAssignment(rule, activeRuleListId))
+      );
+      const categoryTitle = document.getElementById('category-management-title');
+      if (categoryTitle) {
+        const profileName = activeProfile
+          ? RuleListsUI.getDisplayName(activeProfile)
+          : (t('rulelist_general') || 'General');
+        categoryTitle.textContent = `${t('categorymanagementtitle')} · ${profileName}`;
+      }
+      if (this.categoriesContainer) {
+        CategoryUIManager.updateCategoryGrid(
+          this.categoriesContainer,
+          profileRules,
+          disabledCategories,
+          category => this.handleCategoryToggle(category)
+        );
+      }
       if (this.settingsManager) this.settingsManager.loadRuleCount(rules);
     } catch (error) {
-      this.logger.error('Load rules error:', error);
+      this.logger.error('Refresh profile view error:', error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     }
   }
@@ -346,6 +370,7 @@ class OptionsPage {
         if (isMuted) return;
         try {
           await this.rulesClient.toggleRule(ruleId);
+          await this.refreshProfileView();
         } catch (error) {
           this.logger.error('Toggle rule error:', error);
           this.handleRulesMutationError(error, 'errorupdatingrules');
@@ -380,8 +405,7 @@ class OptionsPage {
         async () => {
           try {
             await this.rulesClient.removeAssignment(ruleId, listId);
-            await this.loadRules();
-            await this.loadRuleLists();
+            await this.refreshProfileView();
           } catch (error) {
             this.logger.error('Remove rule assignment error:', error);
             this.handleRulesMutationError(error, 'errorupdatingrules');
@@ -413,6 +437,7 @@ class OptionsPage {
         async () => {
             try {
               await this.rulesClient.deleteRule(ruleId);
+              await this.refreshProfileView();
               this.rulesUI.showSuccessMessage(t('ruleddeleted'), this.statusElement);
             } catch (error) {
               this.logger.error("Delete rule error:", error);
@@ -456,7 +481,7 @@ class OptionsPage {
         rule.disabledByUser,
         isWhitelist
       ),
-      () => this.loadRules(),
+      () => this.refreshProfileView(),
       (targetRuleId, listId, button) => this.handleRuleAssignmentDeletion(
         { target: button },
         targetRuleId,
@@ -490,6 +515,7 @@ class OptionsPage {
           dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit
         }
       });
+      await this.refreshProfileView();
       this.statusElement.textContent = t('ruleupdated');
     } catch (error) {
       this.logger.info('Save edited rule error:', error);
@@ -547,6 +573,7 @@ class OptionsPage {
         },
         isWhitelist
       });
+      await this.refreshProfileView();
       this.statusElement.textContent = response?.assignmentAdded ? t('ruleupdated') : t('rulenewadded');
     } catch (error) {
       this.logger.info('Save new rule error:', error);
@@ -557,35 +584,13 @@ class OptionsPage {
   async addRulePack(packId, entryIds, schedule = null) {
     try {
       const targetListId = resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID);
-      return await this.rulesClient.addMany(packId, entryIds, schedule, targetListId);
+      const response = await this.rulesClient.addMany(packId, entryIds, schedule, targetListId);
+      await this.refreshProfileView();
+      return response;
     } catch (error) {
       this.logger.error('Add rule pack error:', error);
       this.handleRulesMutationError(error, 'rulepacks_error');
       throw error;
-    }
-  }
-
-  async loadRuleLists() {
-    try {
-      const [state, rules] = await Promise.all([
-        this.ruleListsManager.getState(),
-        this.rulesManager.getRules()
-      ]);
-      const lists = state.lists;
-      this.ruleLists = lists;
-      this.activeRuleListId = state.activeRuleListId;
-
-      if (this.ruleListsContainer) {
-        RuleListsUI.updateListGrid(this.ruleListsContainer, lists, rules, {
-          activeRuleListId: state.activeRuleListId,
-          onSelect: listId => this.handleRuleListSelect(listId),
-          onRename: list => this.handleRuleListRename(list),
-          onDelete: list => this.handleRuleListDelete(list)
-        });
-      }
-
-    } catch (error) {
-      this.logger.error('Load rule lists error:', error);
     }
   }
 
@@ -597,8 +602,7 @@ class OptionsPage {
       this.ruleLists = response.ruleLists || this.ruleLists;
       this.activeRuleListId = response.activeRuleListId || response.list?.id || GENERAL_RULE_LIST_ID;
 
-      await this.loadRuleLists();
-      await this.loadRules();
+      await this.refreshProfileView();
     } catch (error) {
       this.logger.error('Create rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
@@ -610,7 +614,7 @@ class OptionsPage {
     try {
       const response = await this.rulesClient.activateRuleList(targetListId);
       this.activeRuleListId = response.activeRuleListId || targetListId;
-      await Promise.all([this.loadRuleLists(), this.loadRules(), this.loadCategories()]);
+      await this.refreshProfileView();
     } catch (error) {
       this.logger.error('Activate rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
@@ -622,6 +626,7 @@ class OptionsPage {
     if (name === null) return;
     try {
       await this.rulesClient.renameRuleList(list.id, name);
+      await this.refreshProfileView();
     } catch (error) {
       this.logger.error('Rename rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
@@ -635,50 +640,22 @@ class OptionsPage {
       if (this.activeRuleListId === list.id) {
         this.activeRuleListId = GENERAL_RULE_LIST_ID;
       }
+      await this.refreshProfileView();
     } catch (error) {
       this.logger.error('Delete rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
 
-  async loadCategories() {
-    try {
-      const [rules, state] = await Promise.all([
-        this.rulesManager.getRules(),
-        this.ruleListsManager.getState()
-      ]);
-      const activeProfile = state.lists.find(list => list.id === state.activeRuleListId);
-      const profileRules = rules.filter(rule =>
-        !rule.isWhitelist && Boolean(getRuleAssignment(rule, state.activeRuleListId))
-      );
-      const disabledCategories = activeProfile?.disabledCategories || [];
-      const categoryTitle = document.getElementById('category-management-title');
-      if (categoryTitle) {
-        const profileName = activeProfile
-          ? RuleListsUI.getDisplayName(activeProfile)
-          : (t('rulelist_general') || 'General');
-        categoryTitle.textContent = `${t('categorymanagementtitle')} · ${profileName}`;
-      }
-      if (!this.categoriesContainer) return;
-      CategoryUIManager.updateCategoryGrid(
-        this.categoriesContainer,
-        profileRules,
-        disabledCategories,
-        category => this.handleCategoryToggle(category)
-      );
-    } catch (error) {
-      this.logger.error('Load categories error:', error);
-    }
-  }
-  
   async handleCategoryToggle(category) {
     try {
       if (!this.isPro && !this.isLegacyUser) {
         this.rulesUI.showErrorMessage(t('prorequired'));
-        this.loadCategories();
+        this.refreshProfileView();
         return;
       }
       await this.rulesClient.toggleCategory(category);
+      await this.refreshProfileView();
     } catch (error) {
       this.logger.error('Category toggle error:', error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
@@ -702,12 +679,8 @@ browser.runtime.onMessage.addListener((message) => {
     if (message.migrated) {
       optionsPage.rulesUI.showAlert(t('rulesmigrated'));
     }
-    optionsPage.loadRules(message.rules);
-    optionsPage.loadRuleLists();
-    optionsPage.loadCategories();
-    if (optionsPage.settingsManager) {
-      optionsPage.settingsManager.loadRuleCount(message.rules);
-    }
+    optionsPage.refreshProfileView();
+
   }
   
   if (message.type === 'pro_status_changed') {
@@ -715,14 +688,13 @@ browser.runtime.onMessage.addListener((message) => {
     ProManager.updateProFeaturesVisibility(message.isPro);
     optionsPage.isPro = message.isPro;
     optionsPage.updateWhitelistButtonState();
-    optionsPage.loadRuleLists();
-    optionsPage.loadRules();
+    optionsPage.refreshProfileView();
   }
 });
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
-    optionsPage.loadRules();
+    optionsPage.refreshProfileView();
   }
 });
 
