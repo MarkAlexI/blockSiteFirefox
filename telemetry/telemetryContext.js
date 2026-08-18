@@ -1,3 +1,5 @@
+import { getTelemetryExtensionVersion } from '../utils/buildInfo.js';
+
 function detectBrowser(userAgent = '') {
   const ua = String(userAgent);
   const firefox = ua.match(/Firefox\/(\d+)/i);
@@ -40,7 +42,7 @@ export function buildTelemetryContext({
   const isMobile = navigatorRef.userAgentData?.mobile === true || /Android|Mobile/i.test(userAgent);
 
   return {
-    extensionVersion: String(manifest?.version || 'unknown'),
+    extensionVersion: getTelemetryExtensionVersion(manifest),
     browser: browser.browser,
     browserMajor: browser.browserMajor,
     platform: isMobile ? 'mobile' : 'desktop',

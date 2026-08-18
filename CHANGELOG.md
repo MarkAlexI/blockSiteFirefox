@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Preserved Firefox Promise-based runtime messaging, native telemetry consent, and Firefox Android behavior while porting the profile model.
 - Migrated legacy `listId`, RC multi-membership `listIds`, root enabled state and blocking configuration, profile state, and Daily Limit usage into the canonical profile-assignment model.
 - Migrated legacy global disabled categories into the General profile.
+- Limited Rule Lists to seven profiles total, including General, while preserving any already stored test data instead of silently truncating it.
 
 ### Improved
 - Daily Limit usage is assignment-scoped so the same target can keep independent budgets in different profiles.
@@ -33,8 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reused the existing one-minute alarm and DNR self-healing flow without adding interval timers, offscreen documents, or persistent content-script timers.
 - Preserved Daily Limit configuration in rule import/export while keeping accumulated usage device-local and out of exported data.
 - Added regression coverage for profile activation, profile-scoped categories, assignment migration, independent schedules and limits, flexible URL matching, DNR activation, mutation security, localization, and import/export compatibility.
+- Added RC build identifiers to the existing telemetry version dimension (for example `5.0.0-rc12`) without changing the schema-v2 wire contract.
 
 ### Fixed
+- Expected user-input and business-rule rejections now use non-error logging and informational diagnostics instead of `console.error`, so invalid names, redirects, duplicates, limits, and similar handled cases do not appear as browser extension failures.
+- Prevented an empty Rule List name click from sending a rejected mutation intent at all; the Options page now handles it locally.
 - Fixed adding the same block URL with a different redirect or category to another profile silently reusing the old target and discarding the newly entered target fields.
 - Editing URL, redirect, or category on one assignment of a shared target now splits or merges the target as needed instead of rewriting target fields for every profile, while preserving assignment-scoped Daily Limit usage.
 - Daily Limit progress now refreshes in open Options and Popup views when local usage changes and shows sub-minute progress instead of remaining visually at zero until the next whole minute.

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   GENERAL_RULE_LIST_ID,
+  MAX_RULE_LISTS,
   RuleListsManager,
   createNextRuleListId,
   normalizeRuleLists,
@@ -115,4 +116,14 @@ test('strict import validation rejects malformed or duplicate custom profiles', 
     ]),
     /Invalid or duplicate rule list/
   );
+});
+
+
+test('strict import validation rejects more than seven Rule Lists', () => {
+  const lists = [{ id: 'general', name: 'General' }];
+  for (let index = 1; index <= MAX_RULE_LISTS; index++) {
+    lists.push({ id: `list-${index}`, name: `List ${index}` });
+  }
+  assert.equal(lists.length, MAX_RULE_LISTS + 1);
+  assert.throws(() => prepareImportedRuleLists(lists), /Rule List limit exceeded/);
 });

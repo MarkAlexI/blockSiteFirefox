@@ -5,6 +5,7 @@ import { normalizeDomainRule } from './rules/normalizeDomainRule.js';
 import { t } from './scripts/t.js';
 import { RulesManager } from './rules/rulesManager.js';
 import { RulesClient } from './rules/rulesClient.js';
+import { isExpectedRulesRejection } from './rules/rulesErrorClassification.js';
 import { RulesUI, formatDailyLimitUsageMinutes } from './rules/rulesUI.js';
 import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
@@ -385,7 +386,7 @@ class PopupPage {
         button.remove();
       }
     } catch (error) {
-      this.logger.error("Block current site error:", error);
+      this.logRulesMutationFailure('Block current site error:', error);
       this.handleRulesMutationError(error, 'erroraddingrule');
     }
   }
@@ -526,7 +527,7 @@ class PopupPage {
               );
               await this.loadRules();
             } catch (error) {
-              this.logger.error('Toggle rule error:', error);
+              this.logRulesMutationFailure('Toggle rule error:', error);
               this.handleRulesMutationError(error, 'errorupdatingrules');
             }
           });
@@ -677,6 +678,14 @@ class PopupPage {
     await this.updateFocusUI();
   }
   
+  logRulesMutationFailure(label, error) {
+    if (isExpectedRulesRejection(error)) {
+      this.logger.info(label, error?.code || 'rejected');
+    } else {
+      this.logger.error(label, error);
+    }
+  }
+
   handleRulesMutationError(error, fallbackKey = 'erroraddingrule') {
     if (error.code === 'validation_failed') {
       this.rulesUI.showValidationErrors(error.validationErrors || []);
@@ -718,7 +727,7 @@ class PopupPage {
       ruleDiv.remove();
       customAlert('+ 1');
     } catch (error) {
-      this.logger.error("Save new rule error:", error);
+      this.logRulesMutationFailure('Save new rule error:', error);
       this.handleRulesMutationError(error, 'erroraddingrule');
       
       if (error.code === 'rule_already_exists') {

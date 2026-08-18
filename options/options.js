@@ -3,10 +3,11 @@ import { SettingsManager } from './settings.js';
 import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
 import { RulesClient, sendRuntimeMessage } from '../rules/rulesClient.js';
+import { isExpectedRulesRejection } from '../rules/rulesErrorClassification.js';
 import { RulesUI } from '../rules/rulesUI.js';
 import { CategoryManager } from '../rules/categoryManager.js';
 import { CategoryUIManager } from './categoryUIManager.js';
-import { RuleListsManager, GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
+import { RuleListsManager, GENERAL_RULE_LIST_ID, MAX_RULE_LISTS } from '../rules/ruleListsManager.js';
 import { getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
 import { RuleListsUI, resolveRuleListContext } from './ruleListsUI.js';
@@ -190,9 +191,11 @@ class OptionsPage {
     if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.refreshProfileView());
     if (this.addRuleListButton) this.addRuleListButton.addEventListener('click', () => this.handleRuleListCreate());
     if (this.ruleListNameInput) {
+      this.ruleListNameInput.addEventListener('input', () => this.updateRuleListCreationState());
       this.ruleListNameInput.addEventListener('keydown', event => {
         if (event.key === 'Enter') this.handleRuleListCreate();
       });
+      this.updateRuleListCreationState();
     }
     
     document.querySelectorAll('.collapsible-header').forEach(header => {
@@ -229,6 +232,27 @@ class OptionsPage {
     });
   }
 
+  logRulesMutationFailure(label, error) {
+    if (isExpectedRulesRejection(error)) {
+      this.logger.info(label, error?.code || 'rejected');
+    } else {
+      this.logger.error(label, error);
+    }
+  }
+
+  updateRuleListCreationState() {
+    const limitReached = this.ruleLists.length >= MAX_RULE_LISTS;
+    const hasName = Boolean(this.ruleListNameInput?.value?.trim());
+    if (this.addRuleListButton) {
+      this.addRuleListButton.disabled = limitReached || !hasName;
+      this.addRuleListButton.title = limitReached ? `Maximum ${MAX_RULE_LISTS} Rule Lists` : '';
+    }
+    if (this.ruleListNameInput) {
+      this.ruleListNameInput.disabled = limitReached;
+      this.ruleListNameInput.title = limitReached ? `Maximum ${MAX_RULE_LISTS} Rule Lists` : '';
+    }
+  }
+
   handleRulesMutationError(error, fallbackKey = 'errorupdatingrules') {
     if (error.code === 'validation_failed') {
       this.rulesUI.showValidationErrors(error.validationErrors || []);
@@ -252,6 +276,8 @@ class OptionsPage {
       this.rulesUI.showErrorMessage(t('rulelists_name_invalid'));
     } else if (error.code === 'rule_list_name_exists') {
       this.rulesUI.showErrorMessage(t('rulelists_name_exists'));
+    } else if (error.code === 'rule_list_limit_reached') {
+      this.rulesUI.showErrorMessage(`Maximum ${MAX_RULE_LISTS} Rule Lists`);
     } else if (['rule_list_not_found', 'rule_list_locked'].includes(error.code)) {
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     } else {
@@ -277,6 +303,7 @@ class OptionsPage {
 
       this.ruleLists = lists;
       this.activeRuleListId = activeRuleListId;
+      this.updateRuleListCreationState();
 
       if (this.ruleListsContainer) {
         RuleListsUI.updateListGrid(this.ruleListsContainer, lists, rules, {
@@ -388,7 +415,7 @@ class OptionsPage {
           );
           await this.refreshProfileView();
         } catch (error) {
-          this.logger.error('Toggle rule error:', error);
+          this.logRulesMutationFailure('Toggle rule error:', error);
           this.handleRulesMutationError(error, 'errorupdatingrules');
         }
       },
@@ -423,7 +450,7 @@ class OptionsPage {
             await this.rulesClient.removeAssignment(ruleId, listId);
             await this.refreshProfileView();
           } catch (error) {
-            this.logger.error('Remove rule assignment error:', error);
+            this.logRulesMutationFailure('Remove rule assignment error:', error);
             this.handleRulesMutationError(error, 'errorupdatingrules');
           }
         },
@@ -431,7 +458,7 @@ class OptionsPage {
         t('rulelists_remove_assignment') || 'Remove from list'
       );
     } catch (error) {
-      this.logger.error('Handle rule assignment removal error:', error);
+      this.logRulesMutationFailure('Handle rule assignment removal error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
@@ -456,7 +483,7 @@ class OptionsPage {
               await this.refreshProfileView();
               this.rulesUI.showSuccessMessage(t('ruleddeleted'), this.statusElement);
             } catch (error) {
-              this.logger.error("Delete rule error:", error);
+              this.logRulesMutationFailure('Delete rule error:', error);
               this.rulesUI.showErrorMessage(t('errorremovingrule'));
             }
           },
@@ -534,7 +561,7 @@ class OptionsPage {
       await this.refreshProfileView();
       this.statusElement.textContent = t('ruleupdated');
     } catch (error) {
-      this.logger.info('Save edited rule error:', error);
+      this.logRulesMutationFailure('Save edited rule error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
@@ -592,7 +619,7 @@ class OptionsPage {
       await this.refreshProfileView();
       this.statusElement.textContent = response?.assignmentAdded ? t('ruleupdated') : t('rulenewadded');
     } catch (error) {
-      this.logger.info('Save new rule error:', error);
+      this.logRulesMutationFailure('Save new rule error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
@@ -604,7 +631,7 @@ class OptionsPage {
       await this.refreshProfileView();
       return response;
     } catch (error) {
-      this.logger.error('Add rule pack error:', error);
+      this.logRulesMutationFailure('Add rule pack error:', error);
       this.handleRulesMutationError(error, 'rulepacks_error');
       throw error;
     }
@@ -612,15 +639,21 @@ class OptionsPage {
 
   async handleRuleListCreate() {
     const name = this.ruleListNameInput?.value || '';
+    if (!name.trim()) {
+      this.rulesUI.showErrorMessage(t('rulelists_name_invalid'));
+      this.updateRuleListCreationState();
+      return;
+    }
     try {
       const response = await this.rulesClient.createRuleList(name);
       if (this.ruleListNameInput) this.ruleListNameInput.value = '';
+      this.updateRuleListCreationState();
       this.ruleLists = response.ruleLists || this.ruleLists;
       this.activeRuleListId = response.activeRuleListId || response.list?.id || GENERAL_RULE_LIST_ID;
 
       await this.refreshProfileView();
     } catch (error) {
-      this.logger.error('Create rule list error:', error);
+      this.logRulesMutationFailure('Create rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
@@ -632,7 +665,7 @@ class OptionsPage {
       this.activeRuleListId = response.activeRuleListId || targetListId;
       await this.refreshProfileView();
     } catch (error) {
-      this.logger.error('Activate rule list error:', error);
+      this.logRulesMutationFailure('Activate rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
@@ -644,7 +677,7 @@ class OptionsPage {
       await this.rulesClient.renameRuleList(list.id, name);
       await this.refreshProfileView();
     } catch (error) {
-      this.logger.error('Rename rule list error:', error);
+      this.logRulesMutationFailure('Rename rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
@@ -658,7 +691,7 @@ class OptionsPage {
       }
       await this.refreshProfileView();
     } catch (error) {
-      this.logger.error('Delete rule list error:', error);
+      this.logRulesMutationFailure('Delete rule list error:', error);
       this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
@@ -673,7 +706,7 @@ class OptionsPage {
       await this.rulesClient.toggleCategory(category);
       await this.refreshProfileView();
     } catch (error) {
-      this.logger.error('Category toggle error:', error);
+      this.logRulesMutationFailure('Category toggle error:', error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     }
   }

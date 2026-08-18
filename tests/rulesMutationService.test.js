@@ -673,6 +673,20 @@ test('custom rule lists are Pro-only and new rules can be assigned to them', asy
   assert.deepEqual(getRuleListIds(harness.getRules()[0]), [workList.id]);
 });
 
+test('cannot create more than seven Rule Lists total', async () => {
+  const initialRuleLists = [{ id: 'general', name: 'General', disabledCategories: [] }];
+  for (let index = 1; index <= 6; index++) {
+    initialRuleLists.push({ id: `list-${index}`, name: `List ${index}`, disabledCategories: [] });
+  }
+  const harness = createHarness({ initialRuleLists });
+
+  await assert.rejects(
+    harness.service.createRuleList({ name: 'Too many' }),
+    error => error.code === 'rule_list_limit_reached'
+  );
+  assert.equal(harness.getRuleLists().length, 7);
+});
+
 test('non-Pro callers cannot create a custom rule list or assign one through direct intents', async () => {
   const harness = createHarness({
     initialRuleLists: [

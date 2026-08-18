@@ -43,6 +43,9 @@ test('expected rule rejections are excluded from reliability errors', () => {
     'rule_pack_invalid_selection',
     'rule_pack_empty',
     'invalid_import',
+    'rule_list_name_invalid',
+    'rule_list_name_exists',
+    'rule_list_limit_reached',
     'category_required'
   ];
 

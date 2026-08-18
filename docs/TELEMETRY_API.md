@@ -60,6 +60,8 @@ Expected rule rejections such as invalid user input, schedule validation failure
 
 Transient license verification failures caused by network errors, timeouts, HTTP 429/5xx responses, or invalid/transient server responses remain available in local diagnostics but are not reported as extension reliability errors. Authoritative license rejection continues to update the local Pro state through the normal license flow and is not treated as a runtime reliability failure.
 
+RC builds encode the static build marker into the existing `extensionVersion` value, for example `5.0.0-rc12`. This keeps schema v2 backward-compatible with the deployed strict server validator while allowing RCs to be separated in the existing version dimension. Release builds use the plain manifest version.
+
 The coarse `context` is captured with the local UTC-day bucket when that bucket is first created. If queued days have different captured contexts, the client sends separate requests so each day keeps the context recorded at collection time. Legacy buckets without stored context use the current coarse context as a delivery fallback.
 
 ## Backward compatibility

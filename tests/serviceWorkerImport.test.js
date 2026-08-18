@@ -55,6 +55,12 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
   const previousChromeAlias = globalThis.chrome;
   const previousDebugController = globalThis.DebugController;
   const previousFetch = globalThis.fetch;
+  const previousConsoleError = console.error;
+  let consoleErrorCount = 0;
+  console.error = (...args) => {
+    consoleErrorCount += 1;
+    previousConsoleError(...args);
+  };
   const createdAlarms = [];
 
   const runtimeOnStartup = createEvent();
@@ -264,6 +270,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(enabledConsent.success, true);
     assert.equal(enabledConsent.consent.enabled, true);
 
+    const consoleErrorsBeforeExpectedRejection = consoleErrorCount;
     const rejectedRule = await sendWorkerMessage(messageListener, {
       type: 'rules:add',
       payload: {
@@ -275,6 +282,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(rejectedRule.success, false);
     assert.equal(rejectedRule.error.code, 'validation_failed');
     assert.deepEqual(rejectedRule.error.validationErrors, ['redirect_invalid']);
+    assert.equal(consoleErrorCount, consoleErrorsBeforeExpectedRejection);
     assert.equal(
       Object.values(localStorage.data.telemetryBuckets || {}).reduce(
         (total, bucket) => total + (Array.isArray(bucket?.errors) ? bucket.errors.length : 0),
@@ -431,5 +439,6 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     globalThis.chrome = previousChromeAlias;
     globalThis.DebugController = previousDebugController;
     globalThis.fetch = previousFetch;
+    console.error = previousConsoleError;
   }
 });

@@ -2,6 +2,8 @@
 
 Rule Lists were introduced in BlockDistraction 4.9.0 and become full blocking profiles in the 5.0.0 line. Exactly one Rule List profile is active during normal blocking. A target is stored once, while each profile can keep an independent Always, Schedule, or Daily Limit assignment for that target.
 
+A normal installation can contain at most seven Rule Lists total, including General. The mutation layer enforces the limit and imports that define more than seven profiles are rejected. Existing locally stored pre-release test data is not silently truncated during normalization.
+
 ## Data model
 
 Blocking rules, Rule Lists, the active profile ID, and Daily Limit usage are device-local in `storage.local`.

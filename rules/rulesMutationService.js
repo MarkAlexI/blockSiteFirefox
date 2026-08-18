@@ -3,6 +3,7 @@ import { validateSchedule } from '../schedules/scheduleValidator.js';
 import {
   GENERAL_RULE_LIST_ID,
   MAX_RULE_LIST_NAME_LENGTH,
+  MAX_RULE_LISTS,
   createNextRuleListId,
   isKnownRuleListId,
   normalizeRuleListName,
@@ -922,6 +923,9 @@ export function createRulesMutationService({
     return mutationQueue.enqueue(async () => {
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const state = await getRuleListState();
+      if (state.lists.length >= MAX_RULE_LISTS) {
+        throw new RulesMutationError('rule_list_limit_reached', `Rule List limit reached (${MAX_RULE_LISTS})`);
+      }
       const name = validateListName(payload.name, state.lists);
       const list = {
         id: createNextRuleListId(state.lists),

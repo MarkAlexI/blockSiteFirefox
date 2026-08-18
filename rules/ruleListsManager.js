@@ -3,6 +3,7 @@ import { CATEGORIES } from './categoryManager.js';
 export const GENERAL_RULE_LIST_ID = 'general';
 export const ACTIVE_RULE_LIST_KEY = 'activeRuleListId';
 export const MAX_RULE_LIST_NAME_LENGTH = 40;
+export const MAX_RULE_LISTS = 7;
 
 export const GENERAL_RULE_LIST = Object.freeze({
   id: GENERAL_RULE_LIST_ID,
@@ -108,6 +109,9 @@ export function prepareImportedRuleLists(rawLists, legacyDisabledCategories = []
   }
 
   const normalized = normalizeRuleLists(rawLists);
+  if (normalized.length > MAX_RULE_LISTS) {
+    throw new Error(`Rule List limit exceeded (${MAX_RULE_LISTS})`);
+  }
   const sourceCustomCount = rawLists.filter(item => item?.id !== GENERAL_RULE_LIST_ID).length;
   const normalizedCustomCount = normalized.length - 1;
 

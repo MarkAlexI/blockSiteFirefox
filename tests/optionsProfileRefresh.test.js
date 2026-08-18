@@ -21,3 +21,11 @@ test('rules:changed broadcast requests one coherent refresh', () => {
   const block = source.match(/if \(message\.type === 'rules:changed'\) \{([\s\S]*?)\n  \}/)?.[1] || '';
   assert.equal((block.match(/optionsPage\.refreshProfileView\(\)/g) || []).length, 1);
 });
+
+
+test('Options gates Rule List creation at seven profiles and avoids error logging for expected rejections', () => {
+  assert.match(source, /this\.ruleLists\.length >= MAX_RULE_LISTS/);
+  assert.match(source, /this\.addRuleListButton\.disabled = limitReached \|\| !hasName/);
+  assert.match(source, /isExpectedRulesRejection\(error\)/);
+  assert.match(source, /this\.logger\.info\(label/);
+});

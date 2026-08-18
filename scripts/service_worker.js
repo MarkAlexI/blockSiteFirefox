@@ -34,6 +34,7 @@ import { createTelemetryStore } from '../telemetry/telemetryStore.js';
 import { createTelemetryClient } from '../telemetry/telemetryClient.js';
 import { buildTelemetryContext } from '../telemetry/telemetryContext.js';
 import { getRulesTelemetryCode, shouldRecordRulesTelemetryError } from '../telemetry/telemetryRuleError.js';
+import { isExpectedRulesRejection } from '../rules/rulesErrorClassification.js';
 import { shouldRecordLicenseReliabilityError } from '../telemetry/telemetryLicenseError.js';
 
 const logger = new Logger('Worker');
@@ -886,13 +887,23 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         ]);
         sendResponse({ success: true, ...result });
       } catch (error) {
-        logger.error(`Rules intent failed (${message.type}):`, error);
+        const expectedRejection = isExpectedRulesRejection(error);
+        if (expectedRejection) {
+          logger.info(`Rules intent rejected (${message.type}):`, error?.code || 'unknown');
+        } else {
+          logger.error(`Rules intent failed (${message.type}):`, error);
+        }
         const telemetryTasks = [
-          diagnosticStore.recordEvent('error', 'rules', 'intent_failed', {
-            intent: message.type,
-            errorCode: error?.code || 'unknown',
-            validationErrors: error?.validationErrors || []
-          })
+          diagnosticStore.recordEvent(
+            expectedRejection ? 'info' : 'error',
+            'rules',
+            expectedRejection ? 'intent_rejected' : 'intent_failed',
+            {
+              intent: message.type,
+              errorCode: error?.code || 'unknown',
+              validationErrors: error?.validationErrors || []
+            }
+          )
         ];
 
         if (shouldRecordRulesTelemetryError(error)) {
