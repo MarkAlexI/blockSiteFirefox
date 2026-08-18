@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.1] - 2026-08-18
+### Changed
+- Statistics in Options is now collapsed by default, matching the other large settings sections and leaving room for future statistics visualizations.
+
+### Fixed
+- Whitelist rules no longer apply the blacklist-only protected-resource restriction, so allowed patterns such as `markdigital` can be added without the misleading "This resource cannot be blocked" validation error.
+
 ## [5.0.0] - 2026-08-18
 ### Added
 - Added Pro Daily Limits, allowing a matching site until the active profile's daily usage budget is exhausted and then blocking it through the existing DNR engine.

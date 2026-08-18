@@ -47,7 +47,7 @@ export class RulesManager {
       errors.push('blockurl_empty');
     }
 
-    if (isBlockedURL([{ url: blockURL }])) {
+    if (!isWhitelist && isBlockedURL([{ url: blockURL }])) {
       errors.push('blockurl_restrict');
     }
 

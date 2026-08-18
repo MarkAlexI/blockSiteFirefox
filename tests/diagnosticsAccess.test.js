@@ -15,3 +15,15 @@ test('current-state diagnostics are visible to all users while Debug Mode remain
   assert.doesNotMatch(diagnosticsSection, /pro-feature/);
   assert.doesNotMatch(diagnosticsSection, /hidden/);
 });
+
+test('Statistics is a collapsed Pro section by default', async () => {
+  const html = await readFile(path.join(root, 'options/options.html'), 'utf8');
+  const match = html.match(/<section class="([^"]*)">\s*<h2[^>]*data-i18n="statisticstitle"[^>]*class="([^"]*)"[^>]*>[\s\S]*?<div class="([^"]*collapsible-content[^"]*)">/);
+
+  assert.ok(match, 'Statistics section should use the collapsible markup');
+  assert.match(match[1], /pro-feature/);
+  assert.match(match[1], /collapsible-section/);
+  assert.doesNotMatch(match[1], /(?:^|\s)expanded(?:\s|$)/);
+  assert.match(match[2], /collapsible-header/);
+  assert.match(match[3], /stats-grid/);
+});
