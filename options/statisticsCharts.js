@@ -6,9 +6,36 @@ function createElement(tagName, className) {
   return element;
 }
 
-function shouldShowDateLabel(index, length) {
-  if (length <= 7) return true;
-  return index === 0 || index === length - 1 || index % 5 === 0;
+function getVisibleDateIndices(length) {
+  if (length <= 7) {
+    return Array.from({ length }, (_, index) => index);
+  }
+
+  const indices = [];
+  for (let index = 0; index < length; index += 1) {
+    if (index === 0 || index === length - 1 || index % 5 === 0) {
+      indices.push(index);
+    }
+  }
+  return indices;
+}
+
+export function buildDateTickPlan(series) {
+  const indices = getVisibleDateIndices(series.length);
+  let previousVisibleMonth = null;
+
+  return indices.map((index, tickIndex) => {
+    const date = series[index].date;
+    const month = date.getMonth();
+    const includeMonth = series.length <= 7 || tickIndex === 0 || month !== previousVisibleMonth;
+    previousVisibleMonth = month;
+
+    return {
+      index,
+      date,
+      includeMonth
+    };
+  });
 }
 
 function formatDate(date) {
@@ -16,6 +43,39 @@ function formatDate(date) {
     month: 'short',
     day: 'numeric'
   }).format(date);
+}
+
+function formatAxisDate(date, includeMonth) {
+  return new Intl.DateTimeFormat(undefined, includeMonth ? {
+    month: 'short',
+    day: 'numeric'
+  } : {
+    day: 'numeric'
+  }).format(date);
+}
+
+function renderDateAxis(container, series) {
+  const axis = createElement('div', 'stats-chart-axis');
+  const ticks = buildDateTickPlan(series);
+  const columnCount = Math.max(1, series.length);
+
+  ticks.forEach(({ index, date, includeMonth }, tickIndex) => {
+    const tick = createElement('span', 'stats-chart-date');
+    const fullDate = formatDate(date);
+    tick.textContent = formatAxisDate(date, includeMonth);
+    tick.title = fullDate;
+    tick.style.left = `${((index + 0.5) / columnCount) * 100}%`;
+
+    if (series.length > 7 && tickIndex === 0) {
+      tick.dataset.edge = 'start';
+    } else if (series.length > 7 && tickIndex === ticks.length - 1) {
+      tick.dataset.edge = 'end';
+    }
+
+    axis.append(tick);
+  });
+
+  container.append(axis);
 }
 
 function renderBars(container, series, definitions) {
@@ -30,7 +90,7 @@ function renderBars(container, series, definitions) {
   const plot = createElement('div', 'stats-chart-plot');
   plot.style.setProperty('--stats-chart-columns', String(series.length));
 
-  series.forEach((day, index) => {
+  series.forEach(day => {
     const column = createElement('div', 'stats-chart-column');
     const bars = createElement('div', 'stats-chart-bars');
     const dateLabel = formatDate(day.date);
@@ -46,19 +106,12 @@ function renderBars(container, series, definitions) {
       bars.append(bar);
     });
 
-    const label = createElement('span', 'stats-chart-date');
-    if (shouldShowDateLabel(index, series.length)) {
-      label.textContent = dateLabel;
-      label.title = dateLabel;
-    } else {
-      label.setAttribute('aria-hidden', 'true');
-    }
-
-    column.append(bars, label);
+    column.append(bars);
     plot.append(column);
   });
 
   container.append(plot);
+  renderDateAxis(container, series);
 }
 
 export function renderStatisticsCharts({

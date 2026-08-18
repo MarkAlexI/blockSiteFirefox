@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.1] - 2026-08-18
+### Fixed
+- Fixed 30-day Statistics date labels being clipped because labels were rendered inside narrow daily chart columns.
+- The 30-day axis now shows the month on the first visible label and when the month changes, while intermediate labels show only the day number for a compact mobile-friendly timeline.
+
 ## [5.1.0] - 2026-08-18
 ### Added
 - Added device-local daily Statistics history for the latest 30 calendar days, storing only aggregate counts for blocks, redirects, and completed Focus Sessions.

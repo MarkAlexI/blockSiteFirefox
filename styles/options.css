@@ -1862,7 +1862,7 @@ tr.rule-whitelist td:first-child::before {
 
 .stats-chart-plot {
   --stats-chart-columns: 30;
-  height: 155px;
+  height: 132px;
   display: grid;
   grid-template-columns: repeat(var(--stats-chart-columns), minmax(0, 1fr));
   gap: 2px;
@@ -1878,12 +1878,12 @@ tr.rule-whitelist td:first-child::before {
 
 .stats-chart-column {
   min-width: 0;
-  display: grid;
-  grid-template-rows: 125px 22px;
-  align-items: end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .stats-chart-bars {
+  width: 100%;
   height: 125px;
   min-width: 0;
   display: flex;
@@ -1909,14 +1909,28 @@ tr.rule-whitelist td:first-child::before {
   height: 0 !important;
 }
 
+.stats-chart-axis {
+  position: relative;
+  height: 22px;
+  margin: 0 2px;
+}
+
 .stats-chart-date {
-  min-width: 0;
-  overflow: hidden;
+  position: absolute;
+  top: 3px;
+  transform: translateX(-50%);
   color: var(--text-secondary);
   font-size: 0.58rem;
   line-height: 1.1;
-  text-align: center;
   white-space: nowrap;
+}
+
+.stats-chart-date[data-edge="start"] {
+  transform: none;
+}
+
+.stats-chart-date[data-edge="end"] {
+  transform: translateX(-100%);
 }
 
 .stats-actions {
@@ -1929,6 +1943,6 @@ tr.rule-whitelist td:first-child::before {
   }
 
   .stats-chart-plot {
-    height: 145px;
+    height: 132px;
   }
 }

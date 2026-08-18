@@ -19,3 +19,40 @@ test('Statistics stays collapsed by default and exposes 7/30 day local charts', 
   assert.match(charts, /buildStatisticsSeries/);
   assert.doesNotMatch(charts, /https?:\/\//);
 });
+
+test('30-day Statistics axis shows month only at the start and when the month changes', async () => {
+  const { buildDateTickPlan } = await import('../options/statisticsCharts.js');
+  const series = [];
+  const start = new Date(2026, 6, 20);
+
+  for (let index = 0; index < 30; index += 1) {
+    const date = new Date(start);
+    date.setDate(start.getDate() + index);
+    series.push({ date });
+  }
+
+  const ticks = buildDateTickPlan(series);
+  assert.deepEqual(
+    ticks.map(({ index, includeMonth }) => ({ index, includeMonth })),
+    [
+      { index: 0, includeMonth: true },
+      { index: 5, includeMonth: false },
+      { index: 10, includeMonth: false },
+      { index: 15, includeMonth: true },
+      { index: 20, includeMonth: false },
+      { index: 25, includeMonth: false },
+      { index: 29, includeMonth: false }
+    ]
+  );
+});
+
+test('7-day Statistics axis keeps the month on every visible date', async () => {
+  const { buildDateTickPlan } = await import('../options/statisticsCharts.js');
+  const series = Array.from({ length: 7 }, (_, index) => ({
+    date: new Date(2026, 7, 12 + index)
+  }));
+
+  const ticks = buildDateTickPlan(series);
+  assert.equal(ticks.length, 7);
+  assert.equal(ticks.every(tick => tick.includeMonth), true);
+});
