@@ -63,7 +63,7 @@ test('Firefox telemetry context remains Firefox after sanitization', async () =>
 test('RC build versions survive telemetry context sanitization', async () => {
   const { sanitizeTelemetryContext } = await import('../telemetry/telemetrySanitizer.js');
   const sanitized = sanitizeTelemetryContext({
-    extensionVersion: '5.0.0-rc12',
+    extensionVersion: '5.0.0',
     browser: 'chrome',
     browserMajor: 137,
     platform: 'mobile',
@@ -73,5 +73,5 @@ test('RC build versions survive telemetry context sanitization', async () => {
     installationAge: 'lt_7d'
   });
 
-  assert.equal(sanitized.extensionVersion, '5.0.0-rc12');
+  assert.equal(sanitized.extensionVersion, '5.0.0');
 });

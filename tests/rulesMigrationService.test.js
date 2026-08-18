@@ -275,6 +275,45 @@ test('storage failure does not mark migration as complete', async () => {
   assert.equal(harness.localStorage.setCalls.length, 0);
 });
 
+test('Daily Limit state cleanup is internal and does not request a compatibility notice', async () => {
+  const currentRule = {
+    id: 7,
+    blockURL: 'reddit.com',
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false,
+    assignments: [{
+      listId: 'general',
+      disabledByUser: false,
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }]
+  };
+  const harness = createHarness({
+    local: {
+      rules: [currentRule],
+      is_migrated_to_local: true,
+      ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }],
+      activeRuleListId: 'general',
+      dailyRuleUsage: {
+        version: 1,
+        date: '2026-08-18',
+        usageSeconds: { '7': 45 },
+        lastSample: { timestamp: 123, ruleId: 7 }
+      }
+    }
+  });
+
+  const result = await harness.service.migrateAll();
+
+  assert.equal(result.migrated, true);
+  assert.equal(result.dailyUsageMigration.migrated, true);
+  assert.equal(result.schemaMigration.migrated, false);
+  assert.equal(result.listMigration.migrated, false);
+  assert.equal(result.userVisibleMigration, false);
+});
+
 test('combined migration copies legacy rules and then upgrades their schema', async () => {
   const harness = createHarness({
     sync: {
@@ -285,6 +324,7 @@ test('combined migration copies legacy rules and then upgrades their schema', as
   const result = await harness.service.migrateAll();
 
   assert.equal(result.migrated, true);
+  assert.equal(result.userVisibleMigration, true);
   assert.equal(result.migratedFromSync, true);
   assert.equal(result.schemaMigration.migrated, true);
   assert.deepEqual(harness.localStorage.state.rules, [{

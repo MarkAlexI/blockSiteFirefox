@@ -290,8 +290,11 @@ export function createRulesMigrationService({
     ]);
     const dailyUsageMigration = await migrateDailyUsage(schemaMigration.rules);
 
+    const userVisibleMigration = migratedFromSync || schemaMigration.migrated || listMigration.migrated;
+
     return {
-      migrated: migratedFromSync || schemaMigration.migrated || listMigration.migrated || dailyUsageMigration.migrated,
+      migrated: userVisibleMigration || dailyUsageMigration.migrated,
+      userVisibleMigration,
       migratedFromSync,
       schemaMigration,
       listMigration,

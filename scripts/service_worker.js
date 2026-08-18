@@ -20,6 +20,7 @@ import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { BLOCKING_MODE_DAILY_LIMIT } from '../rules/blockingMode.js';
 import { getAssignmentUsageKey, getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
 import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
+import { claimRulesMigrationNotice } from '../rules/rulesMigrationNotice.js';
 import { GENERAL_RULE_LIST_ID, RuleListsManager } from '../rules/ruleListsManager.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
 import { createDailyLimitTracker } from '../rules/dailyLimitTracker.js';
@@ -585,10 +586,25 @@ async function initializeExtension(details) {
     getDailyLimitAssignmentKeys(migrationResult.rules || [])
   );
 
-  if (migrationResult.migrated) {
+  if (migrationResult.userVisibleMigration) {
     await dnrSynchronizer.requestSync();
+
+    let showMigrationNotice = false;
+    try {
+      showMigrationNotice = await claimRulesMigrationNotice({
+        details,
+        migrationResult,
+        storageArea: chrome.storage.local,
+        extensionVersion: chrome.runtime.getManifest().version
+      });
+    } catch (error) {
+      // The notice is informational. If its one-time marker cannot be persisted,
+      // skip the alert instead of risking repeated compatibility warnings.
+      logger.info('Could not claim Rules migration notice:', error);
+    }
+
     notifyRulesChanged(migrationResult.rules, {
-      migrated: true,
+      migrated: showMigrationNotice,
       ruleLists: migrationResult.ruleLists,
       activeRuleListId: migrationResult.activeRuleListId
     });

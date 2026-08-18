@@ -17,7 +17,7 @@ test('telemetry context exposes coarse technical fields without a persistent ide
   });
 
   assert.deepEqual(context, {
-    extensionVersion: '4.8.0-rc12',
+    extensionVersion: '4.8.0',
     browser: 'firefox',
     browserMajor: 141,
     platform: 'desktop',
@@ -31,11 +31,11 @@ test('telemetry context exposes coarse technical fields without a persistent ide
 });
 
 
-test('RC build adds the static build marker to telemetry version', () => {
+test('release build keeps the plain manifest version in telemetry', () => {
   const context = buildTelemetryContext({
     manifest: { version: '5.0.0' },
     navigatorRef: {},
     installationDate: null
   });
-  assert.equal(context.extensionVersion, '5.0.0-rc12');
+  assert.equal(context.extensionVersion, '5.0.0');
 });

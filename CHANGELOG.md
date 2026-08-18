@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.0.0] - 2026-08-15
+## [5.0.0] - 2026-08-18
 ### Added
 - Added Pro Daily Limits, allowing a matching site until the active profile's daily usage budget is exhausted and then blocking it through the existing DNR engine.
 - Added explicit Always, Schedule, and Daily limit assignment modes. Schedule and Daily limit are mutually exclusive within one profile assignment.
@@ -34,9 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reused the existing one-minute alarm and DNR self-healing flow without adding interval timers, offscreen documents, or persistent content-script timers.
 - Preserved Daily Limit configuration in rule import/export while keeping accumulated usage device-local and out of exported data.
 - Added regression coverage for profile activation, profile-scoped categories, assignment migration, independent schedules and limits, flexible URL matching, DNR activation, mutation security, localization, and import/export compatibility.
-- Added RC build identifiers to the existing telemetry version dimension (for example `5.0.0-rc12`) without changing the schema-v2 wire contract.
+- Distinguished release-candidate builds in the existing telemetry version dimension during pre-release testing without changing the schema-v2 wire contract; production reports use `5.0.0`.
 
 ### Fixed
+- Fixed the compatibility migration alert appearing late or repeatedly after internal Daily Limit state cleanup; it now applies only to actual rule/profile migrations during an extension update and is claimed once per version.
 - Expected user-input and business-rule rejections now use non-error logging and informational diagnostics instead of `console.error`, so invalid names, redirects, duplicates, limits, and similar handled cases do not appear as browser extension failures.
 - Prevented an empty Rule List name click from sending a rejected mutation intent at all; the Options page now handles it locally.
 - Fixed adding the same block URL with a different redirect or category to another profile silently reusing the old target and discarding the newly entered target fields.
