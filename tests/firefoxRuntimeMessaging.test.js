@@ -34,3 +34,9 @@ test('Firefox update page falls back to opening the packaged Options tab', async
   assert.match(source, /await browser\.tabs\.create\(/);
   assert.match(source, /browser\.runtime\.getURL\('options\/options\.html'\)/);
 });
+
+test('Firefox Android worker does not require the unsupported windows API', async () => {
+  const source = await readFile(new URL('../scripts/service_worker.js', import.meta.url), 'utf8');
+  assert.equal(source.includes('browser.windows.onFocusChanged'), false);
+  assert.match(source, /browser\.windows\?\.onFocusChanged\?\.addListener/);
+});

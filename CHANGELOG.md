@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.3] - 2026-08-19
+### Fixed
+- Fixed Firefox for Android background startup failing because the unsupported `browser.windows` namespace was accessed unconditionally while registering the Daily Limit window-focus listener.
+- The window-focus listener is now registered only when the Windows API is available, preserving desktop behavior while allowing Firefox Android to start the background worker normally.
+
 ## [5.1.2] - 2026-08-18
 ### Fixed
 - Fixed the Open Privacy Settings button on the update page failing to open Options in Microsoft Edge for Android.

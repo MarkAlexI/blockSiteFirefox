@@ -54,6 +54,9 @@ function collectManifestFiles(manifest) {
   if (manifest?.background?.service_worker) {
     files.add(manifest.background.service_worker);
   }
+  for (const backgroundScript of manifest?.background?.scripts || []) {
+    files.add(backgroundScript);
+  }
   if (manifest?.action?.default_popup) {
     files.add(manifest.action.default_popup);
   }

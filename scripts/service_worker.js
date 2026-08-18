@@ -534,7 +534,7 @@ browser.tabs.onActivated.addListener((activeInfo) => {
     .catch(error => logger.info('Daily limit tab activation sample failed:', error));
 });
 
-browser.windows.onFocusChanged.addListener(() => {
+browser.windows?.onFocusChanged?.addListener(() => {
   void dailyLimitTracker.sample('window_focus_changed');
 });
 
