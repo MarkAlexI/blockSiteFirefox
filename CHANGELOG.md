@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0] - 2026-08-18
+### Added
+- Added device-local daily Statistics history for the latest 30 calendar days, storing only aggregate counts for blocks, redirects, and completed Focus Sessions.
+- Added responsive 7-day and 30-day charts inside the collapsed Statistics section without external chart libraries, remote code, or new permissions.
+
+### Changed
+- Existing Blocked Today and Redirects Today counters seed the current day's history when upgrading from 5.0.x, while unavailable historical activity is left empty rather than reconstructed.
+- Statistics cleanup now prunes entries older than 30 local calendar days automatically, and Clear Statistics removes the retained daily history together with the existing counters.
+
+### Privacy
+- Daily Statistics history remains entirely in extension local storage and contains no URLs, domains, browsing history, rule addresses, redirect destinations, account identifiers, or telemetry identifiers.
+
 ## [5.0.1] - 2026-08-18
 ### Changed
 - Statistics in Options is now collapsed by default, matching the other large settings sections and leaving room for future statistics visualizations.

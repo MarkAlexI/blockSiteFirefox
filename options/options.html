@@ -304,7 +304,36 @@
             <span class="stat-label" data-i18n="successfulfocussessionslabel">Successful Focus Sessions</span>
           </div>
           
-          <div class="action-buttons">
+          <div class="stats-history">
+            <div class="stats-history-toolbar">
+              <div class="stats-range-toggle" role="group">
+                <button type="button" data-stat-range="7" aria-pressed="false">7 Days</button>
+                <button type="button" data-stat-range="30" class="active" aria-pressed="true">30 Days</button>
+              </div>
+            </div>
+            <div class="stats-chart-grid">
+              <section class="stats-chart-card">
+                <h3>
+                  <span data-i18n="totalblockedlabel">Total Blocked</span> /
+                  <span data-i18n="totalredirectslabel">Total Redirects</span>
+                </h3>
+                <div class="stats-chart-legend">
+                  <span><i class="stats-legend-dot blocked"></i><span data-i18n="totalblockedlabel">Total Blocked</span></span>
+                  <span><i class="stats-legend-dot redirected"></i><span data-i18n="totalredirectslabel">Total Redirects</span></span>
+                </div>
+                <div id="statsActivityChart" class="stats-chart"></div>
+              </section>
+              <section class="stats-chart-card">
+                <h3 data-i18n="successfulfocussessionslabel">Successful Focus Sessions</h3>
+                <div class="stats-chart-legend">
+                  <span><i class="stats-legend-dot focus"></i><span data-i18n="successfulfocussessionslabel">Successful Focus Sessions</span></span>
+                </div>
+                <div id="statsFocusChart" class="stats-chart"></div>
+              </section>
+            </div>
+          </div>
+
+          <div class="action-buttons stats-actions">
             <button id="clearStatistics" class="action-btn danger">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />

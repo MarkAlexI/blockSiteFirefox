@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.0.1-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.1.0-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -149,7 +149,7 @@ While the current version of the extension is fully functional, several ideas fo
    Grouping websites into categories (e.g., social media, news) with category blocking state scoped to the active Rule List profile.
 
 - **Detailed Statistics** (implemented):  
-   Providing insights into users’ browsing habits by tracking time spent on blocked sites and offering reports that help users understand and improve their time management.
+   Keeps device-local aggregate counts for blocks, redirects, and completed Focus Sessions, plus a rolling 30-day daily history with 7-day and 30-day charts. Statistics do not store site addresses or browsing history.
 
 - **Rule Lists** (implemented):
    Named Pro profiles such as Work or Study can keep independent blocking modes and category settings for the same targets and are included in rule import/export without requiring a user account.

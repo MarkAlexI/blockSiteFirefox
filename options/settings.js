@@ -5,6 +5,7 @@ import { StatisticsManager } from '../pro/statisticsManager.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
 import Logger from '../utils/logger.js';
 import { RulesClient } from '../rules/rulesClient.js';
+import { renderStatisticsCharts } from './statisticsCharts.js';
 
 export class SettingsManager {
   constructor() {
@@ -23,6 +24,7 @@ export class SettingsManager {
     this.focusBanner = document.getElementById('focus-session-banner');
     this.focusBannerTimer = document.getElementById('focus-banner-timer');
     this.focusTimerInterval = null;
+    this.statisticsRangeDays = 30;
     
     this.init();
   }
@@ -327,9 +329,29 @@ export class SettingsManager {
       });
     }
     
+    document.querySelectorAll('[data-stat-range]').forEach(button => {
+      const days = Number(button.dataset.statRange);
+      button.textContent = `${days} ${t('days')}`;
+      button.addEventListener('click', () => {
+        if (days !== 7 && days !== 30) return;
+        this.statisticsRangeDays = days;
+        this.updateStatisticsRangeControls();
+        void this.loadStatistics();
+      });
+    });
+    this.updateStatisticsRangeControls();
+
     browser.storage.onChanged.addListener(this.handleStorageChange.bind(this));
   }
   
+  updateStatisticsRangeControls() {
+    document.querySelectorAll('[data-stat-range]').forEach(button => {
+      const active = Number(button.dataset.statRange) === this.statisticsRangeDays;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+  }
+
   handleStorageChange(changes, namespace) {
     if (namespace === 'local' && changes.statistics) {
       this.logger.log('Statistics changed in storage, reloading stats UI...');
@@ -360,14 +382,7 @@ export class SettingsManager {
   
   async loadStatistics() {
     try {
-      const statsResult = await browser.storage.local.get(['statistics']);
-      const stats = statsResult.statistics || StatisticsManager.defaultStats;
-      
-      const today = new Date().toDateString();
-      if (stats.lastResetDate !== today) {
-        stats.blockedToday = 0;
-        stats.redirectsToday = 0;
-      }
+      const stats = await StatisticsManager.getStatistics();
       
       const setStatsText = (id, val) => {
         const el = document.getElementById(id);
@@ -379,6 +394,18 @@ export class SettingsManager {
       setStatsText('totalRedirects', stats.totalRedirects || 0);
       setStatsText('redirectsToday', stats.redirectsToday || 0);
       setStatsText('successfulFocusSessions', stats.successfulFocusSessions || 0);
+
+      renderStatisticsCharts({
+        stats,
+        days: this.statisticsRangeDays,
+        activityContainer: document.getElementById('statsActivityChart'),
+        focusContainer: document.getElementById('statsFocusChart'),
+        labels: {
+          blocked: t('totalblockedlabel'),
+          redirected: t('totalredirectslabel'),
+          focus: t('successfulfocussessionslabel')
+        }
+      });
     } catch (error) {
       this.logger.error('Error loading statistics:', error);
     }
