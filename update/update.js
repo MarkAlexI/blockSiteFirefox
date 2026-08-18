@@ -17,8 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
     ul.append(li);
   });
   
-  document.getElementById('privacy-settings-btn')?.addEventListener('click', () => {
-    browser.runtime.openOptionsPage?.();
+  document.getElementById('privacy-settings-btn')?.addEventListener('click', async () => {
+    if (typeof browser.runtime.openOptionsPage === 'function') {
+      try {
+        await browser.runtime.openOptionsPage();
+        return;
+      } catch {
+        // Fall back to opening the packaged Options page directly.
+      }
+    }
+
+    try {
+      await browser.tabs.create({
+        url: browser.runtime.getURL('options/options.html')
+      });
+    } catch {
+      // The update page can remain open if the browser cannot create the tab.
+    }
   });
 
   const closeBtn = document.getElementById('close-btn');

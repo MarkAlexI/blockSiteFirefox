@@ -27,3 +27,10 @@ test('Firefox request-response helper no longer reads runtime.lastError', async 
   assert.equal(source.includes('browser.runtime.lastError'), false);
   assert.match(source, /await browser\.runtime\.sendMessage\(message\)/);
 });
+
+test('Firefox update page falls back to opening the packaged Options tab', async () => {
+  const source = await readFile(new URL('../update/update.js', import.meta.url), 'utf8');
+  assert.match(source, /await browser\.runtime\.openOptionsPage\(\)/);
+  assert.match(source, /await browser\.tabs\.create\(/);
+  assert.match(source, /browser\.runtime\.getURL\('options\/options\.html'\)/);
+});

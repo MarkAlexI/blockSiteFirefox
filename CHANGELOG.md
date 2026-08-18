@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.2] - 2026-08-18
+### Fixed
+- Fixed the Open Privacy Settings button on the update page failing to open Options in Microsoft Edge for Android.
+- The Edge build now opens the packaged Options page directly, while Chrome keeps the native options-page API with a direct-tab fallback when it is unavailable or reports an error.
+
 ## [5.1.1] - 2026-08-18
 ### Fixed
 - Fixed 30-day Statistics date labels being clipped because labels were rendered inside narrow daily chart columns.
