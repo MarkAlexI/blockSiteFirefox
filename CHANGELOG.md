@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.4] - 2026-08-19
+### Fixed
+- Daily Limit accounting now closes the previous active segment at tab navigation and activation boundaries, so time already spent on the previous page is not lost when the next document is still loading or cannot be probed yet.
+- Active Daily Limit tracking is restarted when the new tab document finishes loading, reducing the undercount caused by visibility probes that run too early during navigation.
+- Concurrent Daily Limit samples are now serialized without coalescing away navigation events, preserving their original timestamps and tab context.
+- Daily Limits now schedule a one-shot deadline alarm from the remaining daily budget, reducing the delay between the configured limit and DNR blocking while retaining the existing minute alarm as a recovery safety net.
+- Desktop window focus loss now closes the active Daily Limit segment instead of allowing foreground accounting to continue while the browser is unfocused.
+
 ## [5.1.3] - 2026-08-19
 ### Fixed
 - Fixed Firefox for Android background startup failing because the unsupported `browser.windows` namespace was accessed unconditionally while registering the Daily Limit window-focus listener.

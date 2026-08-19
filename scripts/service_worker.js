@@ -23,7 +23,7 @@ import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
 import { claimRulesMigrationNotice } from '../rules/rulesMigrationNotice.js';
 import { GENERAL_RULE_LIST_ID, RuleListsManager } from '../rules/ruleListsManager.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
-import { createDailyLimitTracker } from '../rules/dailyLimitTracker.js';
+import { createDailyLimitTracker, DAILY_LIMIT_DEADLINE_ALARM } from '../rules/dailyLimitTracker.js';
 import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
 import { RULES_INTENT_TYPES, createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
 import { resolveRulePackEntries } from '../rules/rulePacks.js';
@@ -190,6 +190,7 @@ const dnrSynchronizer = createDnrSynchronizer({
 const dailyLimitTracker = createDailyLimitTracker({
   tabsApi: browser.tabs,
   scriptingApi: browser.scripting,
+  alarmsApi: browser.alarms,
   getRules: () => rulesManager.getRules(),
   getRuleListState: () => ruleListsManager.getState(),
   getFocusSessionState,
@@ -525,6 +526,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   
   if (changeInfo.status === 'complete' && tab.url) {
     await trackBlockedPage(tab.url);
+    if (tab.active) await dailyLimitTracker.sample('tab_load_complete', new Date(), tab);
   }
 });
 
@@ -534,8 +536,12 @@ browser.tabs.onActivated.addListener((activeInfo) => {
     .catch(error => logger.info('Daily limit tab activation sample failed:', error));
 });
 
-browser.windows?.onFocusChanged?.addListener(() => {
-  void dailyLimitTracker.sample('window_focus_changed');
+browser.windows?.onFocusChanged?.addListener((windowId) => {
+  if (windowId === browser.windows.WINDOW_ID_NONE) {
+    void dailyLimitTracker.pause('window_focus_lost');
+    return;
+  }
+  void dailyLimitTracker.sample('window_focus_gained');
 });
 
 browser.tabs.onCreated.addListener(async (tab) => {
@@ -1285,6 +1291,10 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
     }
   }
   
+  if (alarm.name === DAILY_LIMIT_DEADLINE_ALARM) {
+    await dailyLimitTracker.sample('deadline_alarm');
+  }
+
   if (alarm.name === 'update_scheduled_rules') {
     await dailyLimitTracker.sample('minute_alarm');
     await Promise.all([

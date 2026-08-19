@@ -98,7 +98,7 @@ export class DailyLimitManager {
     return { ...state.usageSeconds };
   }
 
-  async recordSample(activeAssignmentKeys, now = new Date()) {
+  async recordSample(activeAssignmentKeys, now = new Date(), { closePreviousSegment = false } = {}) {
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
       const state = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
@@ -106,6 +106,7 @@ export class DailyLimitManager {
       const currentKeys = normalizeActiveKeys(activeAssignmentKeys);
       const previousKeys = state.lastSample?.assignmentKeys || [];
       const sharedKeys = previousKeys.filter(key => currentKeys.includes(key));
+      const accountingKeys = closePreviousSegment ? previousKeys : sharedKeys;
       let addedSeconds = 0;
 
       const previous = state.lastSample;
@@ -119,7 +120,7 @@ export class DailyLimitManager {
 
       const usageUpdates = {};
       if (addedSeconds > 0) {
-        for (const key of sharedKeys) {
+        for (const key of accountingKeys) {
           const previousUsageSeconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
           const currentUsageSeconds = previousUsageSeconds + addedSeconds;
           state.usageSeconds[key] = currentUsageSeconds;
@@ -143,7 +144,7 @@ export class DailyLimitManager {
   }
 
   async resetSample(now = new Date()) {
-    return this.recordSample([], now);
+    return this.recordSample([], now, { closePreviousSegment: true });
   }
 
   async remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId, now = new Date()) {

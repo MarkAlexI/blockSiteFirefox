@@ -102,3 +102,34 @@ test('assignment usage can be remapped when editing splits a shared target', asy
   assert.deepEqual(state.usageSeconds, { '9:list-2': 42 });
   assert.deepEqual(state.lastSample.assignmentKeys, ['9:list-2']);
 });
+
+
+test('segment boundary charges the previous assignment even when the active assignment changes', async () => {
+  const storage = createStorage();
+  const manager = new DailyLimitManager(storage);
+  const start = new Date(2026, 7, 19, 12, 0, 0);
+  await manager.recordSample(['7:general'], start);
+  const result = await manager.recordSample(
+    ['9:general'],
+    new Date(start.getTime() + 20_000),
+    { closePreviousSegment: true }
+  );
+
+  assert.equal(result.addedSeconds, 20);
+  assert.deepEqual(result.accountedAssignmentKeys, ['7:general']);
+  assert.equal(result.state.usageSeconds['7:general'], 20);
+  assert.equal(result.state.usageSeconds['9:general'], undefined);
+  assert.deepEqual(result.state.lastSample.assignmentKeys, ['9:general']);
+});
+
+test('resetSample closes the active segment before clearing the baseline', async () => {
+  const storage = createStorage();
+  const manager = new DailyLimitManager(storage);
+  const start = new Date(2026, 7, 19, 12, 0, 0);
+  await manager.recordSample(['7:general'], start);
+  const result = await manager.resetSample(new Date(start.getTime() + 15_000));
+
+  assert.equal(result.addedSeconds, 15);
+  assert.equal(result.state.usageSeconds['7:general'], 15);
+  assert.deepEqual(result.state.lastSample.assignmentKeys, []);
+});

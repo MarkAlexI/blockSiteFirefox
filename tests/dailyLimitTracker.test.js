@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { createDailyLimitTracker } from '../rules/dailyLimitTracker.js';
+import { DailyLimitManager } from '../rules/dailyLimitManager.js';
 
 function makeRule(overrides = {}) {
   return {
@@ -61,8 +62,8 @@ function createTracker({
     getFocusSessionState: async () => ({ focusActive: false }),
     dailyLimitManager: {
       async getUsageSeconds() { return { ...usageSeconds }; },
-      async recordSample(keys) {
-        if (recordSample) return recordSample(keys);
+      async recordSample(keys, now, options) {
+        if (recordSample) return recordSample(keys, now, options);
         return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
       }
     },
@@ -292,4 +293,168 @@ test('crossing a Daily Limit assignment triggers DNR synchronization', async () 
 
   await tracker.sample();
   assert.equal(syncs, 1);
+});
+
+
+test('URL changes close the previous segment even when the new document visibility probe fails', async () => {
+  let recorded = null;
+  const tracker = createTracker({
+    scriptingApiOverrides: {
+      async executeScript() {
+        throw new Error('Document is still loading');
+      }
+    },
+    recordSample(keys, _now, options) {
+      recorded = { keys, options };
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  await tracker.sample('tab_url_changed', new Date(2026, 7, 19, 12, 0, 20));
+  assert.deepEqual(recorded.keys, []);
+  assert.equal(recorded.options.closePreviousSegment, true);
+});
+
+test('minute heartbeat keeps conservative shared-sample accounting', async () => {
+  let recorded = null;
+  const tracker = createTracker({
+    recordSample(keys, _now, options) {
+      recorded = { keys, options };
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  await tracker.sample('minute_alarm', new Date(2026, 7, 19, 12, 0, 20));
+  assert.deepEqual(recorded.keys, ['1:general']);
+  assert.equal(recorded.options.closePreviousSegment, false);
+});
+
+test('tracker schedules a one-shot deadline alarm for the remaining Daily Limit budget', async () => {
+  const created = [];
+  const now = new Date(2026, 7, 19, 12, 0, 0);
+  const tracker = createDailyLimitTracker({
+    tabsApi: {
+      async query() {
+        return [{ id: 11, windowId: 7, active: true, url: 'https://youtube.com/' }];
+      }
+    },
+    scriptingApi: {
+      async executeScript() {
+        return [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }];
+      }
+    },
+    alarmsApi: {
+      async clear() { return true; },
+      async create(name, options) { created.push({ name, options }); }
+    },
+    getRules: async () => [makeRule()],
+    getRuleListState: async () => ({
+      lists: [{ id: 'general', name: 'General', disabledCategories: [] }],
+      activeRuleListId: 'general'
+    }),
+    getFocusSessionState: async () => ({ focusActive: false }),
+    dailyLimitManager: {
+      async getUsageSeconds() { return { '1:general': 45 }; },
+      async recordSample() {
+        return {
+          state: { usageSeconds: { '1:general': 45 } },
+          accountedAssignmentKeys: [],
+          addedSeconds: 0,
+          usageUpdates: {}
+        };
+      }
+    },
+    dnrSynchronizer: { async requestSync() {} },
+    logger: { info() {}, log() {} }
+  });
+
+  await tracker.sample('tab_load_complete', now);
+  assert.deepEqual(created, [{
+    name: 'daily_limit_deadline',
+    options: { when: now.getTime() + 15_000 }
+  }]);
+});
+
+test('queued navigation samples preserve their boundary semantics instead of being coalesced away', async () => {
+  let releaseFirst;
+  const gate = new Promise(resolve => { releaseFirst = resolve; });
+  const calls = [];
+  let callIndex = 0;
+  const tracker = createTracker({
+    recordSample: async (keys, now, options) => {
+      calls.push({ keys, now: now.getTime(), closePreviousSegment: options.closePreviousSegment });
+      callIndex += 1;
+      if (callIndex === 1) await gate;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  const first = tracker.sample('minute_alarm', new Date(2026, 7, 19, 12, 0, 0));
+  const second = tracker.sample(
+    'tab_url_changed',
+    new Date(2026, 7, 19, 12, 0, 10),
+    { id: 11, windowId: 7, active: true, url: 'https://youtube.com/watch?v=2' }
+  );
+
+  await Promise.resolve();
+  releaseFirst();
+  await Promise.all([first, second]);
+
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0].closePreviousSegment, false);
+  assert.equal(calls[1].closePreviousSegment, true);
+  assert.equal(calls[1].now - calls[0].now, 10_000);
+});
+
+
+test('navigation preserves completed active segments while the next document is still loading', async () => {
+  const data = {};
+  const storage = {
+    async get(key) { return { [key]: data[key] }; },
+    async set(values) { Object.assign(data, structuredClone(values)); }
+  };
+  const manager = new DailyLimitManager(storage);
+  let probeMode = 'visible';
+  const tracker = createDailyLimitTracker({
+    tabsApi: { async query() { return []; } },
+    scriptingApi: {
+      async executeScript() {
+        if (probeMode === 'fail') throw new Error('Document not ready');
+        return [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }];
+      }
+    },
+    alarmsApi: { async clear() { return true; }, async create() {} },
+    getRules: async () => [makeRule({ dailyLimit: { minutes: 10 } })],
+    getRuleListState: async () => ({
+      lists: [{ id: 'general', name: 'General', disabledCategories: [] }],
+      activeRuleListId: 'general'
+    }),
+    getFocusSessionState: async () => ({ focusActive: false }),
+    dailyLimitManager: manager,
+    dnrSynchronizer: { async requestSync() {} },
+    logger: { info() {}, log() {} }
+  });
+
+  const start = new Date(2026, 7, 19, 12, 0, 0);
+  await tracker.sample('tab_load_complete', start, {
+    id: 11, windowId: 7, active: true, url: 'https://youtube.com/watch?v=1'
+  });
+
+  probeMode = 'fail';
+  await tracker.sample('tab_url_changed', new Date(start.getTime() + 20_000), {
+    id: 11, windowId: 7, active: true, url: 'https://youtube.com/watch?v=2'
+  });
+
+  probeMode = 'visible';
+  await tracker.sample('tab_load_complete', new Date(start.getTime() + 21_000), {
+    id: 11, windowId: 7, active: true, url: 'https://youtube.com/watch?v=2'
+  });
+
+  probeMode = 'fail';
+  await tracker.sample('tab_url_changed', new Date(start.getTime() + 41_000), {
+    id: 11, windowId: 7, active: true, url: 'https://youtube.com/watch?v=3'
+  });
+
+  assert.equal(data.dailyRuleUsage.usageSeconds['1:general'], 40);
+  assert.deepEqual(data.dailyRuleUsage.lastSample.assignmentKeys, []);
 });

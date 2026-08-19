@@ -7,6 +7,24 @@ import {
 import { getDailyLimitSeconds } from './blockingMode.js';
 import { getTrackableDailyLimitAssignments } from './ruleActivation.js';
 
+export const DAILY_LIMIT_DEADLINE_ALARM = 'daily_limit_deadline';
+
+const SEGMENT_BOUNDARY_REASONS = new Set([
+  'tab_url_changed',
+  'tab_activated',
+  'tab_created',
+  'rules_intent'
+]);
+
+
+function firstFiniteUsage(...values) {
+  for (const value of values) {
+    const number = Number(value);
+    if (Number.isFinite(number) && number >= 0) return number;
+  }
+  return 0;
+}
+
 function normalizeVisibilityProbeResult(results) {
   if (!Array.isArray(results)) return null;
   for (const item of results) {
@@ -27,6 +45,7 @@ function normalizeVisibilityProbeResult(results) {
 export function createDailyLimitTracker({
   tabsApi,
   scriptingApi,
+  alarmsApi,
   getRules,
   getRuleListState,
   getFocusSessionState,
@@ -34,8 +53,8 @@ export function createDailyLimitTracker({
   dnrSynchronizer,
   logger
 }) {
-  let samplePromise = null;
-  let sampleRequestedAgain = false;
+  let operationTail = Promise.resolve();
+  let scheduledDeadlineAt = null;
 
   let debugState = {
     lastReason: null,
@@ -52,6 +71,71 @@ export function createDailyLimitTracker({
     currentUsageSeconds: 0,
     errorName: null
   };
+
+  function enqueueOperation(task) {
+    const result = operationTail.then(task, task);
+    operationTail = result.catch(() => {});
+    return result;
+  }
+
+  async function clearDeadlineAlarm() {
+    scheduledDeadlineAt = null;
+    if (typeof alarmsApi?.clear !== 'function') return;
+    try {
+      await alarmsApi.clear(DAILY_LIMIT_DEADLINE_ALARM);
+    } catch (error) {
+      logger?.info?.('Daily limit deadline alarm could not be cleared:', error);
+    }
+  }
+
+  async function scheduleDeadlineAlarm(context, result, now) {
+    if (
+      context.status !== 'matched' ||
+      !context.rule ||
+      context.assignments.length === 0 ||
+      typeof alarmsApi?.create !== 'function'
+    ) {
+      await clearDeadlineAlarm();
+      return;
+    }
+
+    let earliestDeadline = null;
+    for (const assignment of context.assignments) {
+      const key = getAssignmentUsageKey(context.rule.id, assignment.listId);
+      const limitSeconds = getDailyLimitSeconds(assignment);
+      if (!key || limitSeconds === null) continue;
+
+      const usageSeconds = firstFiniteUsage(
+        result.state?.usageSeconds?.[key],
+        result.usageUpdates?.[key]?.currentUsageSeconds,
+        context.usageSeconds?.[key]
+      );
+      const remainingSeconds = limitSeconds - usageSeconds;
+      if (remainingSeconds <= 0) continue;
+
+      const deadline = now.getTime() + remainingSeconds * 1000;
+      if (earliestDeadline === null || deadline < earliestDeadline) {
+        earliestDeadline = deadline;
+      }
+    }
+
+    if (earliestDeadline === null) {
+      await clearDeadlineAlarm();
+      return;
+    }
+
+    if (scheduledDeadlineAt !== null && Math.abs(scheduledDeadlineAt - earliestDeadline) < 1000) {
+      return;
+    }
+
+    try {
+      await alarmsApi.create(DAILY_LIMIT_DEADLINE_ALARM, { when: earliestDeadline });
+      scheduledDeadlineAt = earliestDeadline;
+    } catch (error) {
+      scheduledDeadlineAt = null;
+      logger?.info?.('Daily limit deadline alarm could not be scheduled:', error);
+    }
+  }
 
   async function resolveCandidateTab(tabHint = null) {
     if (tabHint?.active === true && tabHint?.url) {
@@ -140,6 +224,7 @@ export function createDailyLimitTracker({
       return {
         rule: null,
         assignments: [],
+        usageSeconds: {},
         tab: null,
         status: 'no_active_tab',
         visibilityState: null,
@@ -160,6 +245,7 @@ export function createDailyLimitTracker({
       return {
         rule: null,
         assignments: [],
+        usageSeconds,
         tab,
         status: 'focus_session_active',
         visibilityState: null,
@@ -198,6 +284,7 @@ export function createDailyLimitTracker({
       return {
         rule: null,
         assignments: [],
+        usageSeconds,
         tab,
         status: 'no_matching_rule',
         visibilityState: null,
@@ -212,6 +299,7 @@ export function createDailyLimitTracker({
     return {
       rule,
       assignments,
+      usageSeconds,
       tab,
       status: visibility.visible ? 'matched' : visibility.status,
       visibilityState: visibility.visibilityState,
@@ -226,32 +314,7 @@ export function createDailyLimitTracker({
     return context.status === 'matched' ? context.rule : null;
   }
 
-  async function sampleOnce(reason = 'event', now = new Date(), tabHint = null) {
-    let context = {
-      rule: null,
-      assignments: [],
-      tab: null,
-      status: 'resolution_error',
-      visibilityState: null,
-      visibilitySource: null,
-      documentHasFocus: null,
-      errorName: null
-    };
-
-    try {
-      context = await resolveActiveDailyLimitContext(tabHint);
-    } catch (error) {
-      context.errorName = error?.name || 'Error';
-      logger?.info?.(`Daily limit sampling could not resolve active tab (${reason}):`, error);
-    }
-
-    const activeKeys = context.status === 'matched' && context.rule
-      ? context.assignments
-          .map(item => getAssignmentUsageKey(context.rule.id, item.listId))
-          .filter(Boolean)
-      : [];
-    const result = await dailyLimitManager.recordSample(activeKeys, now);
-
+  async function syncCrossedLimits(result) {
     let crossedLimit = false;
     const rules = Object.keys(result.usageUpdates || {}).length > 0 ? await getRules() : [];
     for (const [key, update] of Object.entries(result.usageUpdates || {})) {
@@ -273,11 +336,55 @@ export function createDailyLimitTracker({
     if (crossedLimit) {
       await dnrSynchronizer.requestSync();
     }
+    return crossedLimit;
+  }
 
-    const currentUsageSeconds = Math.max(
-      0,
-      ...Object.values(result.usageUpdates || {}).map(item => Number(item.currentUsageSeconds) || 0)
-    );
+  function getActiveUsageSeconds(context, result) {
+    const values = [];
+    for (const assignment of context.assignments || []) {
+      const key = getAssignmentUsageKey(context.rule?.id, assignment.listId);
+      if (!key) continue;
+      values.push(firstFiniteUsage(
+        result.state?.usageSeconds?.[key],
+        result.usageUpdates?.[key]?.currentUsageSeconds,
+        context.usageSeconds?.[key]
+      ));
+    }
+    return values.length > 0 ? Math.max(...values) : 0;
+  }
+
+  async function sampleOnce(reason = 'event', now = new Date(), tabHint = null) {
+    let context = {
+      rule: null,
+      assignments: [],
+      usageSeconds: {},
+      tab: null,
+      status: 'resolution_error',
+      visibilityState: null,
+      visibilitySource: null,
+      documentHasFocus: null,
+      errorName: null
+    };
+
+    try {
+      context = await resolveActiveDailyLimitContext(tabHint);
+    } catch (error) {
+      context.errorName = error?.name || 'Error';
+      logger?.info?.(`Daily limit sampling could not resolve active tab (${reason}):`, error);
+    }
+
+    const activeKeys = context.status === 'matched' && context.rule
+      ? context.assignments
+          .map(item => getAssignmentUsageKey(context.rule.id, item.listId))
+          .filter(Boolean)
+      : [];
+    const result = await dailyLimitManager.recordSample(activeKeys, now, {
+      closePreviousSegment: SEGMENT_BOUNDARY_REASONS.has(reason)
+    });
+
+    await syncCrossedLimits(result);
+    await scheduleDeadlineAlarm(context, result, now);
+
     debugState = {
       lastReason: reason,
       lastSampleAt: now.toISOString(),
@@ -290,7 +397,7 @@ export function createDailyLimitTracker({
       visibilitySource: context.visibilitySource,
       documentHasFocus: context.documentHasFocus,
       addedSeconds: Number(result.addedSeconds) || 0,
-      currentUsageSeconds,
+      currentUsageSeconds: getActiveUsageSeconds(context, result),
       errorName: context.errorName
     };
 
@@ -302,28 +409,40 @@ export function createDailyLimitTracker({
     };
   }
 
-  async function runSampleLoop(reason, now, tabHint) {
-    let result;
-    let nextTabHint = tabHint;
-    do {
-      sampleRequestedAgain = false;
-      result = await sampleOnce(reason, now, nextTabHint);
-      now = new Date();
-      nextTabHint = null;
-    } while (sampleRequestedAgain);
+  async function pauseOnce(reason = 'pause', now = new Date()) {
+    const result = await dailyLimitManager.resetSample(now);
+    await syncCrossedLimits(result);
+    await clearDeadlineAlarm();
+
+    const currentUsageSeconds = Math.max(
+      0,
+      ...Object.values(result.usageUpdates || {}).map(item => Number(item.currentUsageSeconds) || 0)
+    );
+    debugState = {
+      lastReason: reason,
+      lastSampleAt: now.toISOString(),
+      resolution: 'paused',
+      activeRuleId: null,
+      activeAssignmentListIds: [],
+      tabId: null,
+      windowId: null,
+      visibilityState: null,
+      visibilitySource: null,
+      documentHasFocus: null,
+      addedSeconds: Number(result.addedSeconds) || 0,
+      currentUsageSeconds,
+      errorName: null
+    };
+
     return result;
   }
 
   function sample(reason = 'event', now = new Date(), tabHint = null) {
-    if (samplePromise) {
-      sampleRequestedAgain = true;
-      return samplePromise;
-    }
-    samplePromise = runSampleLoop(reason, now, tabHint).finally(() => {
-      samplePromise = null;
-      if (sampleRequestedAgain) return sample(reason);
-    });
-    return samplePromise;
+    return enqueueOperation(() => sampleOnce(reason, now, tabHint));
+  }
+
+  function pause(reason = 'pause', now = new Date()) {
+    return enqueueOperation(() => pauseOnce(reason, now));
   }
 
   function getDebugState() {
@@ -332,6 +451,7 @@ export function createDailyLimitTracker({
 
   return {
     sample,
+    pause,
     resolveActiveDailyLimitRule,
     getDebugState
   };
