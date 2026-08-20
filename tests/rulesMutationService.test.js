@@ -1228,6 +1228,58 @@ test('adding a different target variant to another list preserves both target id
   assert.equal(getRuleAssignment(variant, 'list-2').blockingMode, 'schedule');
 });
 
+test('Free users can delete the last General assignment from an existing blocking rule', async () => {
+  const harness = createHarness({
+    initialRules: [{
+      id: 1,
+      blockURL: 'legacy-free.example',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const result = await harness.service.removeAssignment({ ruleId: 1, listId: 'general' });
+
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(result.targetDeleted, true);
+  assert.equal(result.removedAssignmentListId, 'general');
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('Free users can remove an existing custom-list assignment without gaining Pro access', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Old Pro list', disabledCategories: [] }
+    ],
+    initialRules: [{
+      id: 1,
+      blockURL: 'retained.example',
+      redirectURL: '',
+      category: 'work',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        { listId: 'list-1', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const result = await harness.service.removeAssignment({ ruleId: 1, listId: 'list-1' });
+  const rule = harness.getRules()[0];
+
+  assert.deepEqual(getRuleListIds(rule), ['general']);
+  assert.equal(result.targetDeleted, false);
+  assert.equal(result.removedAssignmentListId, 'list-1');
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
 test('removing one assignment preserves other profiles and removing the last one deletes the target', async () => {
   const harness = createHarness({
     initialRuleLists: [

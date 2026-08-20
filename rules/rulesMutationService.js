@@ -727,7 +727,6 @@ export function createRulesMutationService({
 
   async function removeAssignment(payload = {}) {
     return mutationQueue.enqueue(async () => {
-      if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');

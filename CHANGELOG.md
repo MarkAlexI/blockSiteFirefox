@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.6] - 2026-08-20
+### Fixed
+- Restored rule deletion for Free users after the Rule Lists migration accidentally routed normal blacklist deletion through a Pro-only assignment-removal gate.
+- Free users can again remove their existing General rules and clean up assignments left in custom Rule Lists without requiring a Pro license.
+
 ## [5.1.5] - 2026-08-19
 ### Changed
 - Statistics charts now show a readable numeric Y-axis so daily bar heights have an explicit event-count scale.
