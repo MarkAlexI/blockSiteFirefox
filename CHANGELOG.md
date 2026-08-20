@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.5] - 2026-08-19
+### Changed
+- Statistics charts now show a readable numeric Y-axis so daily bar heights have an explicit event-count scale.
+- The chart legends now show totals for the selected 7-day or 30-day range, and each chart exposes exact daily values on hover, tap, or keyboard focus.
+- Daily chart navigation supports Left/Right, Home, and End keys while keeping the latest day selected by default.
+
 ## [5.1.4] - 2026-08-19
 ### Fixed
 - Daily Limit accounting now closes the previous active segment at tab navigation and activation boundaries, so time already spent on the previous page is not lost when the next document is still loading or cannot be probed yet.

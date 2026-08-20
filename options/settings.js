@@ -395,7 +395,7 @@ export class SettingsManager {
       setStatsText('redirectsToday', stats.redirectsToday || 0);
       setStatsText('successfulFocusSessions', stats.successfulFocusSessions || 0);
 
-      renderStatisticsCharts({
+      const { totals } = renderStatisticsCharts({
         stats,
         days: this.statisticsRangeDays,
         activityContainer: document.getElementById('statsActivityChart'),
@@ -406,6 +406,10 @@ export class SettingsManager {
           focus: t('successfulfocussessionslabel')
         }
       });
+
+      setStatsText('statsBlockedRangeTotal', totals.blocked);
+      setStatsText('statsRedirectedRangeTotal', totals.redirected);
+      setStatsText('statsFocusRangeTotal', totals.focusSessions);
     } catch (error) {
       this.logger.error('Error loading statistics:', error);
     }
