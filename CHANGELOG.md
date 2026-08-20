@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The chart legends now show totals for the selected 7-day or 30-day range, and each chart exposes exact daily values on hover, tap, or keyboard focus.
 - Daily chart navigation supports Left/Right, Home, and End keys while keeping the latest day selected by default.
 
+### Fixed
+- Fixed Daily Limit sampling using inconsistent wall-clock and event timestamps, which could reset the active segment around local-day boundaries and made fixed-time regression tests depend on the current date.
+
 ## [5.1.4] - 2026-08-19
 ### Fixed
 - Daily Limit accounting now closes the previous active segment at tab navigation and activation boundaries, so time already spent on the previous page is not lost when the next document is still loading or cannot be probed yet.

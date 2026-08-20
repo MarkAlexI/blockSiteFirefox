@@ -218,7 +218,7 @@ export function createDailyLimitTracker({
     }
   }
 
-  async function resolveActiveDailyLimitContext(tabHint = null) {
+  async function resolveActiveDailyLimitContext(tabHint = null, now = new Date()) {
     const tab = await resolveCandidateTab(tabHint);
     if (!tab) {
       return {
@@ -238,7 +238,7 @@ export function createDailyLimitTracker({
       getRules(),
       getRuleListState(),
       getFocusSessionState(),
-      dailyLimitManager.getUsageSeconds()
+      dailyLimitManager.getUsageSeconds(now)
     ]);
 
     if (focusState?.focusActive) {
@@ -271,7 +271,7 @@ export function createDailyLimitTracker({
       const assignments = getTrackableDailyLimitAssignments(
         rule,
         activeRuleListId,
-        new Date(),
+        now,
         usageSeconds
       );
       if (assignments.length === 0) return false;
@@ -309,8 +309,8 @@ export function createDailyLimitTracker({
     };
   }
 
-  async function resolveActiveDailyLimitRule(tabHint = null) {
-    const context = await resolveActiveDailyLimitContext(tabHint);
+  async function resolveActiveDailyLimitRule(tabHint = null, now = new Date()) {
+    const context = await resolveActiveDailyLimitContext(tabHint, now);
     return context.status === 'matched' ? context.rule : null;
   }
 
@@ -367,7 +367,7 @@ export function createDailyLimitTracker({
     };
 
     try {
-      context = await resolveActiveDailyLimitContext(tabHint);
+      context = await resolveActiveDailyLimitContext(tabHint, now);
     } catch (error) {
       context.errorName = error?.name || 'Error';
       logger?.info?.(`Daily limit sampling could not resolve active tab (${reason}):`, error);
