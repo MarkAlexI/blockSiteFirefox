@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.7] - 2026-08-21
+### Changed
+- Rule deletion telemetry now counts Rule List assignment removal as a successful deletion, including the normal Delete flow used by Free users.
+- Unexpected `pro_required` rejections from always-Free delete, assignment-removal, and toggle operations are now reported as reliability errors while legitimate Pro-only rejections remain excluded.
+
+### Added
+- Added regression coverage for Free rule toggling, deleting a rule at the Free limit before adding a replacement, and both client-to-worker deletion routes.
+- Added Firefox Android service-worker coverage without the unsupported `browser.windows` API, including existing General-rule deletion and cleanup of custom Rule List assignments after Pro access is lost.
+
 ## [5.1.6] - 2026-08-20
 ### Fixed
 - Restored rule deletion for Free users after the Rule Lists migration accidentally routed normal blacklist deletion through a Pro-only assignment-removal gate.
