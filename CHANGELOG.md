@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.8] - 2026-08-21
+### Fixed
+- Former Pro users now automatically return to the built-in General Rule List when paid access ends, while existing custom profiles and their rules remain safely stored.
+- Extension updates repair Free installations that were already stranded on an inaccessible custom Rule List.
+- The ten-rule Free quota now counts only blacklist targets assigned to General, ignoring preserved custom-profile rules and inherited whitelist entries.
+- Options and Popup resolve Free views and new rules to General immediately, even if a stale custom profile is still present in storage.
+- DNR rules are resynchronized after access recovery so only the General profile remains active, and inherited General rules remain available for deletion.
+- Adding or editing a General assignment on an existing custom-only target can no longer bypass the Free rule limit.
+
+### Added
+- Added regression coverage for Pro-to-Free recovery on Firefox Android without `browser.windows`, Firefox Desktop, Options and Popup, preserved Rule Lists, quota enforcement, and DNR integrity.
+- Documented the native `npm run test:coverage` command for repository-wide test coverage checks.
+
 ## [5.1.7] - 2026-08-21
 ### Changed
 - Rule deletion telemetry now counts Rule List assignment removal as a successful deletion, including the normal Delete flow used by Free users.

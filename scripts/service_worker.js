@@ -506,10 +506,34 @@ async function trackBlockedPage(url) {
   }
 }
 
+async function restoreFreeRuleListAccess(isPro) {
+  if (isPro || await ProManager.isLegacyUser()) return false;
+
+  return rulesMutationService.runExclusive(async () => {
+    const state = await ruleListsManager.getState();
+    if (state.activeRuleListId === GENERAL_RULE_LIST_ID) return false;
+
+    await dailyLimitTracker.pause('pro_access_lost');
+    await ruleListsManager.setActiveListId(GENERAL_RULE_LIST_ID);
+
+    const rules = await rulesManager.getRules();
+    const syncResult = await dnrSynchronizer.requestSync();
+    notifyRulesChanged(rules, {
+      ruleLists: state.lists,
+      activeRuleListId: GENERAL_RULE_LIST_ID,
+      syncPending: syncResult?.success === false
+    });
+
+    logger.log('Free access restored to the General Rule List');
+    return true;
+  });
+}
+
 async function handleProStatusUpdate(isPro, subscriptionData = {}) {
   try {
     logger.log(`Service worker received Pro status update: ${isPro}`);
     const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
+    await restoreFreeRuleListAccess(isPro);
     logger.log('Pro status updated successfully');
     await updateContextMenu(isPro);
     return updatedCredentials;
@@ -644,6 +668,7 @@ async function initializeExtension(details) {
     }
     
     const isPro = await ProManager.isPro();
+    await restoreFreeRuleListAccess(isPro);
     await updateContextMenu(isPro);
   } catch (error) {
     logger.info('Error handling install/update for legacy:', error);

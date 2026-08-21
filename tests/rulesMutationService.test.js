@@ -300,6 +300,195 @@ test('the free rule limit is enforced inside the worker mutation service', async
   assert.equal(harness.getRules().length, MAX_RULES_LIMIT);
 });
 
+test('Free additions ignore nineteen preserved targets assigned only to custom profiles', async () => {
+  const study = { id: 'list-1', name: 'Study', disabledCategories: [] };
+  const initialRules = Array.from({ length: 19 }, (_, index) => ({
+    id: index + 1,
+    blockURL: `study-${index}.example`,
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false,
+    assignments: [{ listId: study.id, blockingMode: 'always' }]
+  }));
+  const harness = createHarness({
+    initialRules,
+    initialRuleLists: [{ id: 'general', name: 'General', disabledCategories: [] }, study],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const result = await harness.service.addRule({
+    blockURL: 'free-general.example',
+    redirectURL: ''
+  });
+
+  assert.equal(result.rule.id, 20);
+  assert.equal(harness.getRules().length, 20);
+  assert.deepEqual(getRuleListIds(result.rule), ['general']);
+  assert.equal(harness.getRules().slice(0, 19).every(rule => getRuleListIds(rule)[0] === study.id), true);
+});
+
+test('inherited whitelist targets do not consume the ten-rule Free blacklist quota', async () => {
+  const generalRules = Array.from({ length: MAX_RULES_LIMIT - 1 }, (_, index) => ({
+    id: index + 1,
+    blockURL: `general-${index}.example`,
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false
+  }));
+  const harness = createHarness({
+    initialRules: [...generalRules, {
+      id: MAX_RULES_LIMIT,
+      blockURL: 'allowed.example',
+      redirectURL: '',
+      category: 'whitelist',
+      isWhitelist: true
+    }],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await harness.service.addRule({ blockURL: 'tenth-general.example', redirectURL: '' });
+
+  assert.equal(harness.getRules().length, MAX_RULES_LIMIT + 1);
+  assert.equal(harness.getRules().filter(rule => !rule.isWhitelist).length, MAX_RULES_LIMIT);
+});
+
+test('adding General to an existing custom-only target still enforces the Free quota', async () => {
+  const initialRules = Array.from({ length: MAX_RULES_LIMIT }, (_, index) => ({
+    id: index + 1,
+    blockURL: `general-${index}.example`,
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false
+  }));
+  initialRules.push({
+    id: MAX_RULES_LIMIT + 1,
+    blockURL: 'study-only.example',
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false,
+    assignments: [{ listId: 'list-1', blockingMode: 'always' }]
+  });
+  const harness = createHarness({
+    initialRules,
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await assert.rejects(
+    harness.service.addRule({ blockURL: 'study-only.example', redirectURL: '', category: 'social' }),
+    error => error.code === 'rule_limit_reached'
+  );
+
+  assert.deepEqual(getRuleListIds(harness.getRules().at(-1)), ['list-1']);
+});
+
+test('Free users can reuse a preserved custom target when General remains below its quota', async () => {
+  const initialRules = Array.from({ length: MAX_RULES_LIMIT - 1 }, (_, index) => ({
+    id: index + 1,
+    blockURL: `general-${index}.example`,
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false
+  }));
+  initialRules.push({
+    id: MAX_RULES_LIMIT,
+    blockURL: 'shared.example',
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false,
+    assignments: [{ listId: 'list-1', blockingMode: 'always' }]
+  });
+  const harness = createHarness({
+    initialRules,
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const result = await harness.service.addRule({
+    blockURL: 'shared.example',
+    redirectURL: '',
+    category: 'social'
+  });
+
+  assert.equal(result.assignmentAdded, true);
+  assert.deepEqual(getRuleListIds(result.rule).sort(), ['general', 'list-1']);
+  assert.equal(harness.getRules().length, MAX_RULES_LIMIT);
+});
+
+test('updating a preserved custom-only target cannot bypass the ten-rule Free quota', async () => {
+  const initialRules = Array.from({ length: MAX_RULES_LIMIT }, (_, index) => ({
+    id: index + 1,
+    blockURL: `general-${index}.example`,
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false
+  }));
+  initialRules.push({
+    id: MAX_RULES_LIMIT + 1,
+    blockURL: 'study-only.example',
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false,
+    assignments: [{ listId: 'list-1', blockingMode: 'always' }]
+  });
+  const harness = createHarness({
+    initialRules,
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  for (const assignmentListId of ['list-1', undefined]) {
+    await assert.rejects(
+      harness.service.updateRule({
+        ruleId: MAX_RULES_LIMIT + 1,
+        assignmentListId,
+        blockURL: 'study-only.example',
+        redirectURL: '',
+        category: 'social',
+        assignment: { listId: 'general', blockingMode: 'always' }
+      }),
+      error => error.code === 'rule_limit_reached'
+    );
+  }
+
+  assert.deepEqual(getRuleListIds(harness.getRules().at(-1)), ['list-1']);
+});
+
+test('updating an existing General rule remains available above the inherited Free quota', async () => {
+  const initialRules = Array.from({ length: 19 }, (_, index) => ({
+    id: index + 1,
+    blockURL: `general-${index}.example`,
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false
+  }));
+  const harness = createHarness({
+    initialRules,
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'general',
+    blockURL: 'updated-general.example',
+    redirectURL: '',
+    category: 'social',
+    assignment: { listId: 'general', blockingMode: 'always' }
+  });
+
+  assert.equal(harness.getRules()[0].blockURL, 'updated-general.example');
+  assert.equal(harness.getRules().length, 19);
+});
+
 test('clear saves an empty state and delegates complete DNR removal to the synchronizer', async () => {
   const harness = createHarness({
     initialRules: [{ id: 1, blockURL: 'clear.example', redirectURL: '', category: 'social', disabledByUser: false, isWhitelist: false }]

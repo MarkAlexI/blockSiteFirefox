@@ -117,6 +117,15 @@ export function getRuleAssignment(rule, listId) {
   return getRuleAssignments(rule).find(item => item.listId === target) || null;
 }
 
+export function countFreeRules(rules) {
+  if (!Array.isArray(rules)) return 0;
+
+  return rules.reduce((count, rule) => {
+    if (!rule || typeof rule !== 'object' || rule.isWhitelist === true) return count;
+    return getRuleAssignment(rule, GENERAL_RULE_LIST_ID) ? count + 1 : count;
+  }, 0);
+}
+
 export function getRuleListIds(rule) {
   return getRuleAssignments(rule).map(item => item.listId);
 }

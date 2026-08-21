@@ -12,6 +12,7 @@ import {
 } from './ruleListsManager.js';
 import {
   addRuleAssignment,
+  countFreeRules,
   createAlwaysAssignment,
   createRuleAssignment,
   getRuleAssignment,
@@ -287,6 +288,16 @@ export function createRulesMutationService({
     return normalized;
   }
 
+  function ensureFreeRuleCapacity(rules, hasProAccess, currentRule, nextAssignments) {
+    if (hasProAccess || !nextAssignments.some(assignment => assignment.listId === GENERAL_RULE_LIST_ID)) {
+      return;
+    }
+    if (currentRule && getRuleAssignment(currentRule, GENERAL_RULE_LIST_ID)) return;
+    if (countFreeRules(rules) >= maxRulesLimit) {
+      throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
+    }
+  }
+
   async function saveCombinedState(rules, lists, activeRuleListId = null) {
     if (typeof saveRulesAndLists === 'function') {
       await saveRulesAndLists(rules, lists, activeRuleListId);
@@ -329,6 +340,15 @@ export function createRulesMutationService({
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, target.isWhitelist));
 
       const existingIndex = findTargetRuleIndex(rules, target);
+      if (!target.isWhitelist) {
+        ensureFreeRuleCapacity(
+          rules,
+          hasProAccess,
+          existingIndex === -1 ? null : rules[existingIndex],
+          assignments
+        );
+      }
+
       if (existingIndex !== -1) {
         if (target.isWhitelist) {
           throw new RulesMutationError('rule_already_exists', 'Rule already exists');
@@ -371,10 +391,6 @@ export function createRulesMutationService({
             throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
           }
         }
-      }
-
-      if (!target.isWhitelist && !hasProAccess && rules.length >= maxRulesLimit) {
-        throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
       }
 
       const newRule = {
@@ -576,6 +592,7 @@ export function createRulesMutationService({
         const nextAssignments = validateAssignments(
           createAssignmentInputs(payload, oldRule), lists, hasProAccess, target
         );
+        ensureFreeRuleCapacity(rules, hasProAccess, oldRule, nextAssignments);
         throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
         if (nextAssignments.some(assignment =>
           findAssignedBlockUrlRuleIndex(rules, target.blockURL, assignment.listId, index) !== -1
@@ -624,6 +641,7 @@ export function createRulesMutationService({
         assignmentPayload
       );
       validateAssignment(nextAssignment, lists, hasProAccess, target);
+      ensureFreeRuleCapacity(rules, hasProAccess, oldRule, [nextAssignment]);
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
 
       if (nextAssignment.listId !== sourceListId && getRuleAssignment(oldRule, nextAssignment.listId)) {

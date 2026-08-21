@@ -17,7 +17,7 @@ import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
 import { SettingsManager } from './options/settings.js';
 import { RuleListsManager, GENERAL_RULE_LIST_ID } from './rules/ruleListsManager.js';
-import { getAssignmentUsageSeconds, getRuleAssignment, getRuleAssignments } from './rules/ruleAssignments.js';
+import { countFreeRules, getAssignmentUsageSeconds, getRuleAssignment, getRuleAssignments } from './rules/ruleAssignments.js';
 import { DailyLimitManager } from './rules/dailyLimitManager.js';
 import {
   BLOCKING_MODE_SCHEDULE,
@@ -166,7 +166,7 @@ class PopupPage {
     this.addRuleButton.addEventListener('click', async () => {
       if (!this.isPro && !this.isLegacyUser) {
         const rules = await this.rulesManager.getRules();
-        this.currentRuleCount = rules.length;
+        this.currentRuleCount = countFreeRules(rules);
         
         if (this.currentRuleCount >= MAX_RULES_LIMIT) {
           customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
@@ -244,12 +244,17 @@ class PopupPage {
         this.ruleListsManager.getState(),
         this.dailyLimitManager.getUsageSeconds()
       ]);
-      const ruleLists = ruleListState.lists;
+      const hasRuleListAccess = this.isPro || this.isLegacyUser;
+      const ruleLists = hasRuleListAccess
+        ? ruleListState.lists
+        : ruleListState.lists.filter(list => list.id === GENERAL_RULE_LIST_ID);
       this.ruleLists = ruleLists;
-      this.activeRuleListId = ruleListState.activeRuleListId;
+      this.activeRuleListId = hasRuleListAccess
+        ? ruleListState.activeRuleListId
+        : GENERAL_RULE_LIST_ID;
       this.activeDisabledCategories = ruleLists.find(list => list.id === this.activeRuleListId)?.disabledCategories || [];
       
-      this.currentRuleCount = rules.length;
+      this.currentRuleCount = countFreeRules(rules);
       
       this.rulesContainer.innerHTML = '';
       
@@ -333,7 +338,7 @@ class PopupPage {
     newButton.addEventListener('click', async () => {
       if (!this.isPro && !this.isLegacyUser) {
         const rules = await this.rulesManager.getRules();
-        if (rules.length >= MAX_RULES_LIMIT) {
+        if (countFreeRules(rules) >= MAX_RULES_LIMIT) {
           customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
           return;
         }
@@ -363,13 +368,16 @@ class PopupPage {
   async blockCurrentSite(url, button) {
     try {
       const rules = await this.rulesManager.getRules();
+      const targetListId = this.isPro || this.isLegacyUser
+        ? this.activeRuleListId
+        : GENERAL_RULE_LIST_ID;
       const alreadyExists = rules.some(rule =>
-        rule.blockURL === url && Boolean(getRuleAssignment(rule, this.activeRuleListId))
+        rule.blockURL === url && Boolean(getRuleAssignment(rule, targetListId))
       );
       
       if (!alreadyExists) {
         if (!this.isPro && !this.isLegacyUser) {
-          if (rules.length >= MAX_RULES_LIMIT) {
+          if (countFreeRules(rules) >= MAX_RULES_LIMIT) {
             customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
             return;
           }
@@ -379,7 +387,12 @@ class PopupPage {
           blockURL: url,
           redirectURL: '',
           category: 'social',
-          assignment: { listId: this.activeRuleListId, blockingMode: 'always', schedule: null, dailyLimit: null },
+          assignment: {
+            listId: targetListId,
+            blockingMode: 'always',
+            schedule: null,
+            dailyLimit: null
+          },
           isWhitelist: false
         });
         customAlert('+ 1');
@@ -710,7 +723,7 @@ class PopupPage {
     try {
       if (!isWhitelist && !this.isPro && !this.isLegacyUser) {
         const currentRules = await this.rulesManager.getRules();
-        if (currentRules.length >= MAX_RULES_LIMIT) {
+        if (countFreeRules(currentRules) >= MAX_RULES_LIMIT) {
           customAlert(t('rulelimitreached', MAX_RULES_LIMIT));
           return;
         }
@@ -720,7 +733,14 @@ class PopupPage {
         blockURL: blockURL.value,
         redirectURL: isWhitelist ? '' : redirectURL.value,
         category: isWhitelist ? 'whitelist' : 'social',
-        assignment: { listId: isWhitelist ? GENERAL_RULE_LIST_ID : this.activeRuleListId, blockingMode: 'always', schedule: null, dailyLimit: null },
+        assignment: {
+          listId: isWhitelist || (!this.isPro && !this.isLegacyUser)
+            ? GENERAL_RULE_LIST_ID
+            : this.activeRuleListId,
+          blockingMode: 'always',
+          schedule: null,
+          dailyLimit: null
+        },
         isWhitelist
       });
       

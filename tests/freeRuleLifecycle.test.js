@@ -551,6 +551,63 @@ test('losing Pro access preserves cleanup and toggle while paid mutations stay l
   });
 });
 
+test('nineteen hidden Pro rules neither consume Free quota nor appear in General DNR', async () => {
+  const lists = [
+    generalList,
+    { id: 'list-1', name: 'Study', disabledCategories: [] }
+  ];
+  const hiddenRules = Array.from({ length: 19 }, (_value, index) =>
+    makeRule(index + 1, 'study-' + (index + 1) + '.example', { listIds: ['list-1'] })
+  );
+  const generalRules = Array.from({ length: MAX_RULES_LIMIT - 1 }, (_value, index) =>
+    makeRule(index + 20, 'general-' + (index + 1) + '.example')
+  );
+
+  await withLifecycle({ rules: [...hiddenRules, ...generalRules], lists }, async harness => {
+    assert.equal(harness.getDynamicRules().length, MAX_RULES_LIMIT - 1);
+
+    await harness.client.addRule({ blockURL: 'tenth-general.example', redirectURL: '' });
+
+    assert.equal(harness.getRules().length, 19 + MAX_RULES_LIMIT);
+    assert.equal(harness.getDynamicRules().length, MAX_RULES_LIMIT);
+    assert.equal(
+      harness.getDynamicRules().some(rule => rule.condition.urlFilter.includes('study-')),
+      false
+    );
+    await assert.rejects(
+      harness.client.addRule({ blockURL: 'eleventh-general.example', redirectURL: '' }),
+      error => error.code === 'rule_limit_reached'
+    );
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
+test('nineteen inherited General rules remain deletable until the Free quota reopens', async () => {
+  const rules = Array.from({ length: 19 }, (_value, index) =>
+    makeRule(index + 1, 'inherited-' + (index + 1) + '.example')
+  );
+
+  await withLifecycle({
+    rules,
+    lists: [generalList, { id: 'list-1', name: 'Study', disabledCategories: [] }]
+  }, async harness => {
+    await assert.rejects(
+      harness.client.addRule({ blockURL: 'not-yet.example', redirectURL: '' }),
+      error => error.code === 'rule_limit_reached'
+    );
+
+    for (let ruleId = 19; ruleId >= MAX_RULES_LIMIT; ruleId--) {
+      await harness.client.removeAssignment(ruleId, 'general');
+    }
+
+    assert.equal(harness.getRules().length, MAX_RULES_LIMIT - 1);
+    await harness.client.addRule({ blockURL: 'replacement.example', redirectURL: '' });
+    assert.equal(harness.getRules().length, MAX_RULES_LIMIT);
+    assert.equal(harness.getDynamicRules().length, MAX_RULES_LIMIT);
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
 test('migration ID repair preserves stable deletion and remaining DNR integrity', async () => {
   const migrated = migrateRuleSchema([
     { id: 9, blockURL: 'retained.example', isWhitelist: false },

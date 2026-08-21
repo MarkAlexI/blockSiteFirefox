@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.1.7-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.1.8-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -17,11 +17,13 @@ The repository uses only the built-in Node.js test runner and standard-library t
 
 ```bash
 npm test
+npm run test:coverage
 npm run validate
 npm run check
 ```
 
 - `npm test` runs the unit and service-worker smoke tests.
+- `npm run test:coverage` reports native Node.js source coverage for the complete test suite.
 - `npm run validate` checks JavaScript syntax, JSON files, manifest references, version consistency, and English localization keys referenced by the code.
 - `npm run check` runs the complete pre-release verification.
 

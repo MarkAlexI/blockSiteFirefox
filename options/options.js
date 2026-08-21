@@ -8,7 +8,7 @@ import { RulesUI } from '../rules/rulesUI.js';
 import { CategoryManager } from '../rules/categoryManager.js';
 import { CategoryUIManager } from './categoryUIManager.js';
 import { RuleListsManager, GENERAL_RULE_LIST_ID, MAX_RULE_LISTS } from '../rules/ruleListsManager.js';
-import { getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
+import { countFreeRules, getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
 import { DailyLimitManager } from '../rules/dailyLimitManager.js';
 import { RuleListsUI, resolveRuleListContext } from './ruleListsUI.js';
 import { PasswordUtils } from '../pro/password.js';
@@ -295,8 +295,13 @@ class OptionsPage {
       ]);
       if (refreshId !== this.profileRefreshId) return;
 
-      const lists = state.lists;
-      const activeRuleListId = state.activeRuleListId;
+      const hasRuleListAccess = this.isPro || this.isLegacyUser;
+      const lists = hasRuleListAccess
+        ? state.lists
+        : state.lists.filter(list => list.id === GENERAL_RULE_LIST_ID);
+      const activeRuleListId = hasRuleListAccess
+        ? state.activeRuleListId
+        : GENERAL_RULE_LIST_ID;
       const activeProfile = lists.find(list => list.id === activeRuleListId)
         || lists.find(list => list.id === GENERAL_RULE_LIST_ID);
       const disabledCategories = activeProfile?.disabledCategories || [];
@@ -336,7 +341,7 @@ class OptionsPage {
         return assignment ? [{ rule, assignment }] : [];
       });
 
-      const canEdit = this.isPro || this.isLegacyUser || rules.length <= MAX_RULES_LIMIT;
+      const canEdit = hasRuleListAccess || countFreeRules(rules) <= MAX_RULES_LIMIT;
       this.renderRules(viewItems, canEdit, isFiltered, disabledCategories, dailyUsageSeconds);
       this.rulesUI.updateStatus(
         this.statusElement,
@@ -571,7 +576,7 @@ class OptionsPage {
     try {
       if (!isWhitelist && !this.isPro && !this.isLegacyUser) {
         const rules = await this.rulesManager.getRules();
-        if (rules.length >= MAX_RULES_LIMIT) {
+        if (countFreeRules(rules) >= MAX_RULES_LIMIT) {
           this.rulesUI.showErrorMessage(t('rulelimitreached', MAX_RULES_LIMIT));
           return;
         }
@@ -579,7 +584,9 @@ class OptionsPage {
 
       const initialListId = isWhitelist
         ? GENERAL_RULE_LIST_ID
-        : resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID);
+        : (this.isPro || this.isLegacyUser
+            ? resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID)
+            : GENERAL_RULE_LIST_ID);
       const newRow = this.rulesUI.createAddRuleRow(
         (blockValue, redirectValue, category, blockingConfig, listId, rowElement) => this.saveNewRule(
           blockValue,

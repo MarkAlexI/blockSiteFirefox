@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   addRuleAssignment,
+  countFreeRules,
   getAssignmentUsageKey,
   getRuleAssignment,
   getRuleListIds,
@@ -10,6 +11,21 @@ import {
   removeRuleAssignment,
   replaceRuleAssignment
 } from '../rules/ruleAssignments.js';
+
+test('Free rule quota counts only blacklist targets assigned to General', () => {
+  const rules = [
+    { id: 1, isWhitelist: false },
+    { id: 2, isWhitelist: false, assignments: [{ listId: 'general', disabledByUser: true }] },
+    { id: 3, isWhitelist: false, assignments: [{ listId: 'general' }, { listId: 'list-1' }] },
+    { id: 4, isWhitelist: false, assignments: [{ listId: 'list-1' }] },
+    { id: 5, isWhitelist: true, assignments: [{ listId: 'general' }] },
+    null
+  ];
+
+  assert.equal(countFreeRules(rules), 3);
+  assert.equal(countFreeRules([]), 0);
+  assert.equal(countFreeRules(null), 0);
+});
 
 test('legacy RC4 memberships become independent assignments with cloned blocking config', () => {
   const assignments = normalizeRuleAssignments({
