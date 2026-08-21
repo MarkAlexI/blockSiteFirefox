@@ -7,6 +7,7 @@ import {
 import { resolveRulePackEntries } from '../rules/rulePacks.js';
 import { getRuleAssignment, getRuleListIds } from '../rules/ruleAssignments.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
+import { MAX_RULES_LIMIT } from '../utils/constants.js';
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -117,7 +118,7 @@ function createHarness({
       if (nextActiveRuleListId) activeRuleListId = nextActiveRuleListId;
       savedStates.push(clone(nextRules));
     },
-    maxRulesLimit: 10,
+    maxRulesLimit: MAX_RULES_LIMIT,
     resolveRulePackEntries,
     notifyRulesChanged(nextRules, extra) {
       notifications.push({ rules: clone(nextRules), extra: clone(extra) });
@@ -278,7 +279,7 @@ test('a DNR sync failure keeps the saved rule and reports syncPending', async ()
 });
 
 test('the free rule limit is enforced inside the worker mutation service', async () => {
-  const initialRules = Array.from({ length: 10 }, (_, index) => ({
+  const initialRules = Array.from({ length: MAX_RULES_LIMIT }, (_, index) => ({
     id: index + 1,
     blockURL: `site-${index}.example`,
     redirectURL: '',
@@ -296,7 +297,7 @@ test('the free rule limit is enforced inside the worker mutation service', async
     error => error.code === 'rule_limit_reached'
   );
 
-  assert.equal(harness.getRules().length, 10);
+  assert.equal(harness.getRules().length, MAX_RULES_LIMIT);
 });
 
 test('clear saves an empty state and delegates complete DNR removal to the synchronizer', async () => {
@@ -1252,7 +1253,7 @@ test('Free users can toggle an existing General rule', async () => {
 });
 
 test('Free users can delete at the rule limit and add a replacement', async () => {
-  const initialRules = Array.from({ length: 10 }, (_, index) => ({
+  const initialRules = Array.from({ length: MAX_RULES_LIMIT }, (_, index) => ({
     id: index + 1,
     blockURL: `free-${index + 1}.example`,
     redirectURL: '',
@@ -1270,7 +1271,7 @@ test('Free users can delete at the rule limit and add a replacement', async () =
   await harness.service.removeAssignment({ ruleId: 4, listId: 'general' });
   await harness.service.addRule({ blockURL: 'replacement.example', redirectURL: '' });
 
-  assert.equal(harness.getRules().length, 10);
+  assert.equal(harness.getRules().length, MAX_RULES_LIMIT);
   assert.equal(harness.getRules().some(rule => rule.blockURL === 'free-4.example'), false);
   assert.equal(harness.getRules().some(rule => rule.blockURL === 'replacement.example'), true);
   assert.equal(harness.getSyncCalls(), 2);

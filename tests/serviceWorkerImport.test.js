@@ -50,7 +50,7 @@ function sendWorkerMessage(listener, message) {
   });
 }
 
-test('Firefox Android worker loads without windows API and serves privacy-safe diagnostics', async () => {
+async function exerciseFirefoxWorker({ supportsWindows }) {
   const previousBrowser = globalThis.browser;
   const previousChromeAlias = globalThis.chrome;
   const previousDebugController = globalThis.DebugController;
@@ -70,6 +70,7 @@ test('Firefox Android worker loads without windows API and serves privacy-safe d
   const tabsOnUpdated = createEvent();
   const tabsOnCreated = createEvent();
   const tabsOnActivated = createEvent();
+  const windowsOnFocusChanged = createEvent();
   const contextMenusOnClicked = createEvent();
   const permissionsOnRemoved = createEvent();
   const permissionsOnAdded = createEvent();
@@ -211,6 +212,15 @@ test('Firefox Android worker loads without windows API and serves privacy-safe d
       getUILanguage: () => 'en-US'
     }
   };
+  if (supportsWindows) {
+    globalThis.browser.windows = {
+      WINDOW_ID_NONE: -1,
+      get: async windowId => ({ id: windowId, focused: true }),
+      getLastFocused: async () => ({ id: 1, focused: true }),
+      getAll: async () => [{ id: 1, focused: true }],
+      onFocusChanged: windowsOnFocusChanged
+    };
+  }
   globalThis.chrome = globalThis.browser;
 
   try {
@@ -223,7 +233,11 @@ test('Firefox Android worker loads without windows API and serves privacy-safe d
     assert.equal(tabsOnUpdated.listeners.length, 1);
     assert.equal(tabsOnCreated.listeners.length, 1);
     assert.equal(tabsOnActivated.listeners.length, 1);
-    assert.equal(globalThis.browser.windows, undefined);
+    if (supportsWindows) {
+      assert.equal(windowsOnFocusChanged.listeners.length, 1);
+    } else {
+      assert.equal(globalThis.browser.windows, undefined);
+    }
     assert.equal(contextMenusOnClicked.listeners.length, 1);
     assert.equal(permissionsOnRemoved.listeners.length, 1);
     assert.equal(permissionsOnAdded.listeners.length, 1);
@@ -468,4 +482,12 @@ test('Firefox Android worker loads without windows API and serves privacy-safe d
     globalThis.fetch = previousFetch;
     console.error = previousConsoleError;
   }
+}
+
+test('Firefox Android worker loads without windows API and serves privacy-safe diagnostics', async () => {
+  await exerciseFirefoxWorker({ supportsWindows: false });
+});
+
+test('Firefox Desktop worker registers window-focus handling and serves privacy-safe diagnostics', async () => {
+  await exerciseFirefoxWorker({ supportsWindows: true });
 });
