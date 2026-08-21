@@ -29,7 +29,7 @@ test('tab cleanup uses the same partial domain-label matching contract as DNR', 
   };
 
   try {
-    const { closeTabsMatchingRules } = await import(`../scripts/closeTabs.js?test=${Date.now()}`);
+    const { closeTabsMatchingRules } = await import('../scripts/closeTabs.js');
     await closeTabsMatchingRules(['yout']);
     assert.deepEqual(removed, [1]);
     assert.equal(created, 0);

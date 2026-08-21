@@ -43,7 +43,7 @@ function createExtensionApi(localStorage) {
 test('StatisticsManager records each event once in totals, today counters, and daily history', async () => {
   const storage = createStorage();
   globalThis.browser = createExtensionApi(storage);
-  const { StatisticsManager } = await import(`../pro/statisticsManager.js?statistics-manager=${Date.now()}`);
+  const { StatisticsManager } = await import('../pro/statisticsManager.js');
 
   await StatisticsManager.recordBlock('https://example.test/');
   await StatisticsManager.recordRedirect('https://example.test/', 'https://example.org/');
@@ -82,7 +82,7 @@ test('StatisticsManager reset clears history while preserving the original creat
     }
   });
   globalThis.browser = createExtensionApi(storage);
-  const { StatisticsManager } = await import(`../pro/statisticsManager.js?statistics-reset=${Date.now()}`);
+  const { StatisticsManager } = await import('../pro/statisticsManager.js');
 
   await StatisticsManager.reset();
 

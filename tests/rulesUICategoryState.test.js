@@ -106,7 +106,7 @@ test('a rule in a disabled category remains rendered as inactive and non-interac
   };
 
   try {
-    const { RulesUI } = await import(`../rules/rulesUI.js?test=${Date.now()}`);
+    const { RulesUI } = await import('../rules/rulesUI.js');
     const rulesUI = new RulesUI();
     const rule = {
       id: 17,
@@ -168,7 +168,7 @@ test('strict delete confirmation state is detected without restarting deletion f
   };
 
   try {
-    const { RulesUI } = await import(`../rules/rulesUI.js?delete-state=${Date.now()}`);
+    const { RulesUI } = await import('../rules/rulesUI.js');
     const rulesUI = new RulesUI();
     const button = new FakeElement('button');
 

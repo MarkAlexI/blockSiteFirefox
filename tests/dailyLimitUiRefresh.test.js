@@ -36,7 +36,7 @@ test('Daily Limit display exposes sub-minute progress instead of staying at zero
   };
 
   try {
-    const { formatDailyLimitUsageMinutes } = await import(`../rules/rulesUI.js?daily-ui=${Date.now()}`);
+    const { formatDailyLimitUsageMinutes } = await import('../rules/rulesUI.js');
     assert.equal(formatDailyLimitUsageMinutes(0, 1), '0');
     assert.equal(formatDailyLimitUsageMinutes(6, 1), '0.1');
     assert.equal(formatDailyLimitUsageMinutes(32, 1), '0.5');

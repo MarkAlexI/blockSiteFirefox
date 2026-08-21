@@ -37,7 +37,7 @@ test('rule list grid renders profile counts and marks exactly one active profile
   globalThis.document = { createElement(tag) { return new FakeElement(tag); } };
 
   try {
-    const { RuleListsUI } = await import(`../options/ruleListsUI.js?test=${Date.now()}`);
+    const { RuleListsUI } = await import('../options/ruleListsUI.js');
     const container = new FakeElement('div');
     const selected = [];
     RuleListsUI.updateListGrid(
@@ -76,7 +76,7 @@ test('resolveRuleListContext uses only known profiles', async () => {
   const previousApi = globalThis.browser;
   globalThis.browser = { i18n: { getMessage(key) { return key; } } };
   try {
-    const { resolveRuleListContext } = await import(`../options/ruleListsUI.js?context=${Date.now()}`);
+    const { resolveRuleListContext } = await import('../options/ruleListsUI.js');
     const lists = [
       { id: 'general', name: 'General' },
       { id: 'list-1', name: 'Study' }

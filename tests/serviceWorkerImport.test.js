@@ -78,6 +78,8 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
   let activeTabForQuery = null;
   let pageVisibilityState = 'visible';
   const createdTabs = [];
+  const removedTabs = [];
+  const notifications = [];
 
   const localStorage = createStorageArea({
     rules: [{
@@ -144,6 +146,7 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
       setUninstallURL() {},
       sendMessage(_message, callback) {
         if (typeof callback === 'function') callback();
+        return Promise.resolve({ success: true });
       },
       onStartup: runtimeOnStartup,
       onInstalled: runtimeOnInstalled,
@@ -171,7 +174,7 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
         return [];
       },
       create: async options => { createdTabs.push(options); return options; },
-      remove: async () => {},
+      remove: async ids => { removedTabs.push(...(Array.isArray(ids) ? ids : [ids])); },
       onUpdated: tabsOnUpdated,
       onCreated: tabsOnCreated,
       onActivated: tabsOnActivated
@@ -205,7 +208,7 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
       onAdded: permissionsOnAdded
     },
     notifications: {
-      create() {}
+      create(id, details) { notifications.push({ id, details }); }
     },
     i18n: {
       getMessage: key => key,
@@ -469,6 +472,132 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     await permissionsOnAdded.listeners[0]({ origins: ['*://*/*'] });
     assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.hostAccess, true);
     assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.reason, 'permission_added');
+
+    const freeStatus = await sendWorkerMessage(messageListener, { type: 'check_pro_status' });
+    assert.equal(freeStatus.isPro, false);
+    const credentials = await sendWorkerMessage(messageListener, { type: 'get_pro_credentials' });
+    assert.equal(credentials.credentials.licenseKey, 'BD-PRIVATE-123456');
+
+    const upgraded = await sendWorkerMessage(messageListener, {
+      type: 'update_pro_status',
+      isPro: true,
+      subscriptionData: {
+        licenseKey: 'BD-PRO-WORKER-123',
+        subscriptionEmail: 'person@example.com'
+      }
+    });
+    assert.equal(upgraded.success, true);
+    assert.equal(syncStorage.data.credentials.isPro, true);
+    assert.equal(syncStorage.data.credentials.licenseKey, 'BD-PRO-WORKER-123');
+
+    await contextMenusOnClicked.listeners[0]({
+      menuItemId: 'blockDistraction',
+      linkUrl: 'https://www.context.example/team'
+    }, { url: 'https://source.example/' });
+    assert.equal(localStorage.data.rules.some(rule => rule.blockURL === 'context.example/team'), true);
+
+    const started = await sendWorkerMessage(messageListener, {
+      type: 'start_focus_session',
+      duration: 5,
+      isHardcore: true,
+      focusMode: 'blacklist'
+    });
+    assert.equal(started.success, true);
+    assert.equal(localStorage.data.focusSession.focusActive, true);
+    assert.equal(localStorage.data.focusSession.isHardcore, true);
+    assert.equal(createdAlarms.some(alarm => alarm.name === 'end_focus_session'), true);
+
+    const stopped = await sendWorkerMessage(messageListener, { type: 'stop_focus_session' });
+    assert.equal(stopped.success, true);
+    assert.deepEqual(localStorage.data.focusSession, {
+      focusActive: false,
+      focusEndTime: 0,
+      isHardcore: false,
+      focusMode: 'blacklist'
+    });
+
+    localStorage.data.rules = [{
+      id: 31,
+      blockURL: 'allowed.example',
+      redirectURL: '',
+      category: 'whitelist',
+      isWhitelist: true,
+      assignments: [{
+        listId: 'general',
+        disabledByUser: false,
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      }]
+    }];
+    const whitelistFocus = await sendWorkerMessage(messageListener, {
+      type: 'start_focus_session',
+      duration: 2,
+      focusMode: 'whitelist'
+    });
+    assert.equal(whitelistFocus.success, true);
+    await tabsOnCreated.listeners[0]({
+      id: 81,
+      active: false,
+      url: 'https://allowed.example/team'
+    });
+    assert.equal(removedTabs.includes(81), false);
+    await tabsOnUpdated.listeners[0](82, { url: 'https://blocked.example/' }, {
+      id: 82,
+      active: false,
+      url: 'https://blocked.example/'
+    });
+    assert.equal(removedTabs.includes(82), true);
+
+    await alarmsOnAlarm.listeners[0]({ name: 'end_focus_session' });
+    assert.equal(localStorage.data.focusSession.focusActive, false);
+    assert.equal(localStorage.data.statistics.successfulFocusSessions, 1);
+    assert.equal(notifications.at(-1).id, 'focus_session_ended');
+
+    const closed = await sendWorkerMessage(messageListener, {
+      type: 'CLOSE_MATCHING_TABS',
+      url: 'blocked.example'
+    });
+    assert.equal(closed.success, true);
+    messageListener({ type: 'close_current_tab' }, { tab: { id: 95 } }, () => {});
+    assert.equal(removedTabs.includes(95), true);
+
+    const downgraded = await sendWorkerMessage(messageListener, {
+      type: 'update_pro_status',
+      isPro: false
+    });
+    assert.equal(downgraded.success, true);
+    assert.equal(syncStorage.data.credentials.licenseKey, null);
+    const missingLicense = await sendWorkerMessage(messageListener, { type: 'force_sync' });
+    assert.equal(missingLicense.success, false);
+    assert.equal(missingLicense.reason, 'no_key');
+
+    const rejectedBulkClear = await sendWorkerMessage(messageListener, { type: 'delete_all_rules' });
+    assert.equal(rejectedBulkClear.success, false);
+    assert.equal(rejectedBulkClear.error.code, 'pro_required');
+    assert.equal(localStorage.data.rules[0].blockURL, 'allowed.example');
+
+    hostAccessGranted = false;
+    await permissionsOnRemoved.listeners[0]({ origins: ['*://*/*'] });
+    assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.reason, 'permission_removed');
+    assert.equal(localStorage.data.diagnosticState.lastPermissionCheck.hostAccess, false);
+    hostAccessGranted = true;
+    await permissionsOnAdded.listeners[0]({ origins: ['*://*/*'] });
+
+    const updateTabCount = createdTabs.length;
+    await runtimeOnInstalled.listeners[0]({ reason: 'update' });
+    assert.equal(createdTabs.slice(updateTabCount).some(tab => tab.url.includes('update/update.html')), true);
+
+    const installTabCount = createdTabs.length;
+    await runtimeOnInstalled.listeners[0]({ reason: 'install' });
+    assert.equal(createdTabs.slice(installTabCount).some(tab => tab.url.includes('options/options.html')), true);
+
+    await runtimeOnInstalled.listeners[0]({ reason: 'browser_update' });
+    await runtimeOnInstalled.listeners[0]({ reason: 'shared_module_update' });
+
+    delete localStorage.data.lastCheck;
+    await runtimeOnStartup.listeners[0]();
+    assert.equal(typeof localStorage.data.lastCheck, 'number');
 
     const cleared = await sendWorkerMessage(messageListener, {
       type: 'diagnostics:clearHistory'
