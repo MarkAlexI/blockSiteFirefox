@@ -1228,6 +1228,54 @@ test('adding a different target variant to another list preserves both target id
   assert.equal(getRuleAssignment(variant, 'list-2').blockingMode, 'schedule');
 });
 
+test('Free users can toggle an existing General rule', async () => {
+  const harness = createHarness({
+    initialRules: [{
+      id: 1,
+      blockURL: 'toggle-free.example',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await harness.service.toggleRule({ ruleId: 1, listId: 'general' });
+  assert.equal(getRuleAssignment(harness.getRules()[0], 'general').disabledByUser, true);
+
+  await harness.service.toggleRule({ ruleId: 1, listId: 'general' });
+  assert.equal(getRuleAssignment(harness.getRules()[0], 'general').disabledByUser, false);
+  assert.equal(harness.getSyncCalls(), 2);
+});
+
+test('Free users can delete at the rule limit and add a replacement', async () => {
+  const initialRules = Array.from({ length: 10 }, (_, index) => ({
+    id: index + 1,
+    blockURL: `free-${index + 1}.example`,
+    redirectURL: '',
+    category: 'social',
+    isWhitelist: false,
+    assignments: [
+      { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+    ]
+  }));
+  const harness = createHarness({
+    initialRules,
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await harness.service.removeAssignment({ ruleId: 4, listId: 'general' });
+  await harness.service.addRule({ blockURL: 'replacement.example', redirectURL: '' });
+
+  assert.equal(harness.getRules().length, 10);
+  assert.equal(harness.getRules().some(rule => rule.blockURL === 'free-4.example'), false);
+  assert.equal(harness.getRules().some(rule => rule.blockURL === 'replacement.example'), true);
+  assert.equal(harness.getSyncCalls(), 2);
+});
+
 test('Free users can delete the last General assignment from an existing blocking rule', async () => {
   const harness = createHarness({
     initialRules: [{

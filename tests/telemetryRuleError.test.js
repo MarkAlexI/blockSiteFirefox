@@ -74,6 +74,23 @@ test('unexpected rule failures remain reliability errors', () => {
   assert.equal(shouldRecordRulesTelemetryError(null), true);
 });
 
+test('Pro rejection on an always-Free mutation remains a reliability error', () => {
+  const error = {
+    name: 'RulesMutationError',
+    code: 'pro_required'
+  };
+
+  for (const intentType of [
+    'rules:removeAssignment',
+    'rules:delete',
+    'rules:toggle'
+  ]) {
+    assert.equal(shouldRecordRulesTelemetryError(error, intentType), true, intentType);
+  }
+
+  assert.equal(shouldRecordRulesTelemetryError(error, 'rules:createList'), false);
+});
+
 test('unknown rule errors fall back to a coarse safe code', () => {
   assert.equal(getRulesTelemetryCode({
     code: 'https://private.example/path'

@@ -50,7 +50,7 @@ function sendWorkerMessage(listener, message) {
   });
 }
 
-test('service worker module loads, registers listeners, and serves privacy-safe diagnostics', async () => {
+test('Firefox Android worker loads without windows API and serves privacy-safe diagnostics', async () => {
   const previousBrowser = globalThis.browser;
   const previousChromeAlias = globalThis.chrome;
   const previousDebugController = globalThis.DebugController;
@@ -70,7 +70,6 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
   const tabsOnUpdated = createEvent();
   const tabsOnCreated = createEvent();
   const tabsOnActivated = createEvent();
-  const windowsOnFocusChanged = createEvent();
   const contextMenusOnClicked = createEvent();
   const permissionsOnRemoved = createEvent();
   const permissionsOnAdded = createEvent();
@@ -190,13 +189,6 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
         }];
       }
     },
-    windows: {
-      WINDOW_ID_NONE: -1,
-      get: async windowId => ({ id: windowId, focused: true }),
-      getLastFocused: async () => ({ id: 1, focused: true }),
-      getAll: async () => [{ id: 1, focused: true }],
-      onFocusChanged: windowsOnFocusChanged
-    },
     contextMenus: {
       remove(_id, callback) {
         if (typeof callback === 'function') callback();
@@ -231,7 +223,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     assert.equal(tabsOnUpdated.listeners.length, 1);
     assert.equal(tabsOnCreated.listeners.length, 1);
     assert.equal(tabsOnActivated.listeners.length, 1);
-    assert.equal(windowsOnFocusChanged.listeners.length, 1);
+    assert.equal(globalThis.browser.windows, undefined);
     assert.equal(contextMenusOnClicked.listeners.length, 1);
     assert.equal(permissionsOnRemoved.listeners.length, 1);
     assert.equal(permissionsOnAdded.listeners.length, 1);
@@ -269,6 +261,40 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     });
     assert.equal(enabledConsent.success, true);
     assert.equal(enabledConsent.consent.enabled, true);
+
+    const removedGeneralRule = await sendWorkerMessage(messageListener, {
+      type: 'rules:removeAssignment',
+      payload: { ruleId: 1, listId: 'general' }
+    });
+    assert.equal(removedGeneralRule.success, true);
+    assert.equal(removedGeneralRule.targetDeleted, true);
+    assert.deepEqual(localStorage.data.rules, []);
+
+    localStorage.data.rules = [{
+      id: 2,
+      blockURL: 'former-pro.example',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [
+        { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        { listId: 'list-1', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }
+      ]
+    }];
+    const removedFormerProAssignment = await sendWorkerMessage(messageListener, {
+      type: 'rules:removeAssignment',
+      payload: { ruleId: 2, listId: 'list-1' }
+    });
+    assert.equal(removedFormerProAssignment.success, true);
+    assert.equal(removedFormerProAssignment.targetDeleted, false);
+    assert.deepEqual(
+      localStorage.data.rules[0].assignments.map(assignment => assignment.listId),
+      ['general']
+    );
+    assert.equal(
+      Object.values(localStorage.data.telemetryBuckets || {})[0]?.counters?.rule_deleted,
+      2
+    );
 
     const consoleErrorsBeforeExpectedRejection = consoleErrorCount;
     const rejectedRule = await sendWorkerMessage(messageListener, {
@@ -329,7 +355,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
       type: 'diagnostics:getReport'
     });
     assert.equal(telemetryDiagnostics.report.telemetry.enabled, true);
-    assert.equal(telemetryDiagnostics.report.telemetry.pendingCounterTotal, 1);
+    assert.equal(telemetryDiagnostics.report.telemetry.pendingCounterTotal, 3);
     assert.equal(telemetryDiagnostics.report.telemetry.pendingErrorFingerprints, 1);
 
     const flushed = await sendWorkerMessage(messageListener, {
@@ -343,6 +369,7 @@ test('service worker module loads, registers listeners, and serves privacy-safe 
     const telemetryPayload = JSON.parse(telemetryRequests[0].options.body);
     assert.equal(telemetryPayload.schemaVersion, 2);
     assert.match(telemetryPayload.batches[0].deliveryId, /^[0-9a-f-]{36}$/);
+    assert.equal(telemetryPayload.batches[0].counters.rule_deleted, 2);
     assert.equal(telemetryPayload.batches[0].counters.feedback_prompt_shown, 1);
     assert.equal(telemetryPayload.batches[0].counters.feedback_private_value, undefined);
     assert.equal('installationId' in telemetryPayload.context, false);

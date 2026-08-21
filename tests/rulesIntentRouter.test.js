@@ -14,6 +14,7 @@ function createHarness() {
     'addRule',
     'addMany',
     'updateRule',
+    'removeAssignment',
     'deleteRule',
     'toggleRule',
     'replaceAll',
@@ -43,6 +44,7 @@ test('all declared rules intents route to the expected mutation method', async (
     ['rules:add', 'addRule', payload],
     ['rules:addMany', 'addMany', payload],
     ['rules:update', 'updateRule', payload],
+    ['rules:removeAssignment', 'removeAssignment', payload],
     ['rules:delete', 'deleteRule', payload],
     ['rules:toggle', 'toggleRule', payload],
     ['rules:replaceAll', 'replaceAll', payload],
@@ -54,6 +56,11 @@ test('all declared rules intents route to the expected mutation method', async (
     ['rules:toggleList', 'activateRuleList', payload],
     ['rules:deleteList', 'deleteRuleList', payload]
   ];
+
+  assert.deepEqual(
+    [...RULES_INTENT_TYPES],
+    expected.map(([type]) => type)
+  );
 
   for (const [type, method, expectedPayload] of expected) {
     assert.equal(RULES_INTENT_TYPES.has(type), true);

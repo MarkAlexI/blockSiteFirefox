@@ -22,3 +22,17 @@ test('unexpected runtime-style rule failures remain errors', () => {
   }
   assert.equal(isExpectedRulesRejection(null), false);
 });
+
+test('Pro rejection is unexpected for mutations that must remain available to Free users', () => {
+  const error = { code: 'pro_required' };
+
+  for (const intentType of [
+    'rules:removeAssignment',
+    'rules:delete',
+    'rules:toggle'
+  ]) {
+    assert.equal(isExpectedRulesRejection(error, intentType), false, intentType);
+  }
+
+  assert.equal(isExpectedRulesRejection(error, 'rules:createList'), true);
+});

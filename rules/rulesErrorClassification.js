@@ -20,7 +20,18 @@ const EXPECTED_RULE_REJECTION_CODES = new Set([
   'category_required'
 ]);
 
-export function isExpectedRulesRejection(error) {
+const ALWAYS_FREE_RULE_INTENTS = new Set([
+  'rules:removeAssignment',
+  'rules:delete',
+  'rules:toggle'
+]);
+
+export function isExpectedRulesRejection(error, intentType = null) {
   const code = typeof error?.code === 'string' ? error.code : '';
+
+  if (code === 'pro_required' && ALWAYS_FREE_RULE_INTENTS.has(intentType)) {
+    return false;
+  }
+
   return EXPECTED_RULE_REJECTION_CODES.has(code);
 }

@@ -114,6 +114,7 @@ const telemetryClient = createTelemetryClient({
 const RULE_INTENT_COUNTERS = new Map([
   ['rules:add', 'rule_created'],
   ['rules:update', 'rule_updated'],
+  ['rules:removeAssignment', 'rule_deleted'],
   ['rules:delete', 'rule_deleted'],
   ['rules:toggle', 'rule_toggled'],
   ['rules:replaceAll', 'rules_imported'],
@@ -909,7 +910,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         ]);
         sendResponse({ success: true, ...result });
       } catch (error) {
-        const expectedRejection = isExpectedRulesRejection(error);
+        const expectedRejection = isExpectedRulesRejection(error, message.type);
         if (expectedRejection) {
           logger.info(`Rules intent rejected (${message.type}):`, error?.code || 'unknown');
         } else {
@@ -928,7 +929,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           )
         ];
 
-        if (shouldRecordRulesTelemetryError(error)) {
+        if (shouldRecordRulesTelemetryError(error, message.type)) {
           telemetryTasks.push(telemetryStore.recordError({
             source: 'rules',
             code: getRulesTelemetryCode(error),

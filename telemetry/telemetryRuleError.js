@@ -50,6 +50,6 @@ export function getRulesTelemetryCode(error) {
   return SAFE_RULE_ERROR_CODES.has(code) ? code : 'intent_failed';
 }
 
-export function shouldRecordRulesTelemetryError(error) {
-  return !isExpectedRulesRejection(error);
+export function shouldRecordRulesTelemetryError(error, intentType = null) {
+  return !isExpectedRulesRejection(error, intentType);
 }

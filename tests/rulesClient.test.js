@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { RulesClient } from '../rules/rulesClient.js';
+import { createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
 
 test('rules client preserves error code and all validation keys from the worker', async () => {
   const previousBrowser = globalThis.browser;
@@ -161,6 +162,47 @@ test('rules client scopes toggle intent to the selected Rule List assignment', a
       type: 'rules:toggle',
       payload: { ruleId: 17, listId: 'study' }
     });
+  } finally {
+    globalThis.browser = previousBrowser;
+  }
+});
+
+test('deletion intents cross the client and worker router with stable IDs', async () => {
+  const previousBrowser = globalThis.browser;
+  const calls = [];
+  const handler = createRulesIntentHandler({
+    async removeAssignment(payload) {
+      calls.push(['removeAssignment', payload]);
+      return {
+        rules: [],
+        removedAssignmentListId: payload.listId,
+        targetDeleted: true
+      };
+    },
+    async deleteRule(payload) {
+      calls.push(['deleteRule', payload]);
+      return { rules: [] };
+    }
+  });
+
+  globalThis.browser = {
+    runtime: {
+      async sendMessage(message) {
+        return { success: true, ...await handler(message) };
+      }
+    }
+  };
+
+  try {
+    const client = new RulesClient();
+    const assignmentResult = await client.removeAssignment(23, 'general');
+    await client.deleteRule(41);
+
+    assert.equal(assignmentResult.targetDeleted, true);
+    assert.deepEqual(calls, [
+      ['removeAssignment', { ruleId: 23, listId: 'general' }],
+      ['deleteRule', { ruleId: 41 }]
+    ]);
   } finally {
     globalThis.browser = previousBrowser;
   }
