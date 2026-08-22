@@ -498,7 +498,13 @@ export class SettingsManager {
       await this.loadRuleCount(response.rules || []);
       await this.loadStatistics();
       
-      this.showStatus(t('importedrules', `${importData.rules.length}`), 'success');
+      const importedStatus = t('importedrules', `${importData.rules.length}`);
+      this.showStatus(
+        response.settingsSyncPending
+          ? `${importedStatus} ${t('errorsavingsettings')}`
+          : importedStatus,
+        response.settingsSyncPending ? 'error' : 'success'
+      );
       document.getElementById('importFileInput').value = '';
     } catch (error) {
       this.logger.error('Error importing rules:', error);

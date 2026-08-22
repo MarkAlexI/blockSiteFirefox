@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   buildDnrDiff,
   createDnrSynchronizer,
+  getDnrRuleCapacity,
   getDnrSignature
 } from '../scripts/dnrSynchronizer.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
@@ -60,7 +61,9 @@ function createHarness({
   activationEvaluator = null,
   dailyUsage = {},
   focusActive = false,
-  access = { isPro: true, isLegacyUser: false }
+  access = { isPro: true, isLegacyUser: false },
+  dnrLimits = {},
+  updateError = null
 } = {}) {
   const updates = [];
   const closedUrlBatches = [];
@@ -78,10 +81,12 @@ function createHarness({
     }));
 
   const declarativeNetRequest = {
+    ...dnrLimits,
     async getDynamicRules() {
       return structuredClone(dynamicRules);
     },
     async updateDynamicRules(update) {
+      if (updateError) throw updateError;
       updates.push(structuredClone(update));
       const removed = new Set(update.removeRuleIds ?? []);
       dynamicRules = dynamicRules.filter(rule => !removed.has(rule.id));
@@ -123,6 +128,226 @@ function createHarness({
     getDynamicRules: () => structuredClone(dynamicRules)
   };
 }
+
+test('DNR capacity reads modern, legacy, and optional unsafe browser limits safely', () => {
+  assert.deepEqual(getDnrRuleCapacity({}), {
+    maxDynamicRules: null,
+    maxUnsafeDynamicRules: null
+  });
+  assert.deepEqual(getDnrRuleCapacity({
+    MAX_NUMBER_OF_DYNAMIC_RULES: 20,
+    MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 5,
+    MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 3
+  }), {
+    maxDynamicRules: 20,
+    maxUnsafeDynamicRules: 3
+  });
+  assert.deepEqual(getDnrRuleCapacity({
+    MAX_NUMBER_OF_DYNAMIC_RULES: 0,
+    MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 7,
+    MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 'invalid'
+  }), {
+    maxDynamicRules: 7,
+    maxUnsafeDynamicRules: null
+  });
+});
+
+test('browsers without exposed DNR limits skip candidate reads and rule generation', async () => {
+  let generatedRules = 0;
+  const harness = createHarness({
+    createRule: async (...args) => {
+      generatedRules += 1;
+      return makeDnrRule({ id: args[0] });
+    }
+  });
+
+  const result = await harness.synchronizer.validateRuleCapacity([
+    makeStoredRule({ id: 10, blockURL: 'candidate.example' })
+  ]);
+
+  assert.deepEqual(result, {
+    maxDynamicRules: null,
+    maxUnsafeDynamicRules: null,
+    withinCapacity: true
+  });
+  assert.equal(generatedRules, 0);
+});
+
+test('unsafe redirect capacity rejects oversized DNR updates without altering current rules', async () => {
+  const current = makeDnrRule({ id: 1, urlFilter: '||first.example' });
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1, blockURL: 'first.example' }),
+      makeStoredRule({ id: 2, blockURL: 'second.example' })
+    ],
+    currentDnrRules: [current],
+    dnrLimits: {
+      MAX_NUMBER_OF_DYNAMIC_RULES: 10,
+      MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1
+    }
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.success, false);
+  assert.equal(result.code, 'dnr_rule_limit_reached');
+  assert.equal(result.errorName, 'DnrCapacityError');
+  assert.equal(result.capacity.limitType, 'unsafe_dynamic');
+  assert.equal(result.capacity.expectedUnsafeCount, 2);
+  assert.deepEqual(harness.updates, []);
+  assert.deepEqual(harness.getDynamicRules(), [current]);
+  assert.deepEqual(harness.closedUrlBatches, []);
+});
+
+test('overall dynamic capacity is enforced when no separate unsafe limit exists', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1, blockURL: 'first.example' }),
+      makeStoredRule({ id: 2, blockURL: 'second.example' })
+    ],
+    dnrLimits: { MAX_NUMBER_OF_DYNAMIC_RULES: 1 }
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.success, false);
+  assert.equal(result.capacity.limitType, 'dynamic');
+  assert.equal(result.capacity.maxDynamicRules, 1);
+  assert.equal(harness.updates.length, 0);
+});
+
+test('safe DNR actions do not consume the separate unsafe redirect budget', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1, blockURL: 'safe.example' }),
+      makeStoredRule({ id: 2, blockURL: 'redirect.example' })
+    ],
+    createRule: async id => {
+      const rule = makeDnrRule({ id });
+      if (id === 1) rule.action = { type: 'block' };
+      return rule;
+    },
+    dnrLimits: {
+      MAX_NUMBER_OF_DYNAMIC_RULES: 2,
+      MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1
+    }
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.success, true);
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [1, 2]);
+  const state = await harness.synchronizer.inspectState();
+  assert.equal(state.expectedUnsafeCount, 1);
+  assert.equal(state.withinCapacity, true);
+});
+
+test('candidate capacity counts only the selected Rule List and ignores inactive profiles', async () => {
+  const lists = [
+    { id: 'general', name: 'General', disabledCategories: [] },
+    { id: 'study', name: 'Study', disabledCategories: [] }
+  ];
+  const rules = [
+    makeStoredRule({ id: 1, blockURL: 'general.example' }),
+    ...Array.from({ length: 3 }, (_, index) => makeStoredRule({
+      id: index + 2,
+      blockURL: `study-${index}.example`,
+      assignments: [{
+        listId: 'study',
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      }]
+    }))
+  ];
+  const harness = createHarness({
+    storedRules: rules,
+    ruleLists: lists,
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 }
+  });
+
+  const general = await harness.synchronizer.validateRuleCapacity(rules, {
+    lists,
+    activeRuleListId: 'general'
+  });
+  const study = await harness.synchronizer.validateRuleCapacity(rules, {
+    lists,
+    activeRuleListId: 'study'
+  });
+
+  assert.equal(general.expectedCount, 1);
+  assert.equal(general.withinCapacity, true);
+  assert.equal(study.expectedCount, 3);
+  assert.equal(study.withinCapacity, false);
+});
+
+test('disabled rules and disabled categories do not consume active DNR capacity', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1, blockURL: 'blocked.example', category: 'social' }),
+      makeStoredRule({ id: 2, blockURL: 'disabled.example', active: false }),
+      makeStoredRule({ id: 3, blockURL: 'hidden.example', category: 'news' })
+    ],
+    ruleLists: [{ id: 'general', name: 'General', disabledCategories: ['news'] }],
+    dnrLimits: { MAX_NUMBER_OF_DYNAMIC_RULES: 1 }
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.success, true);
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [1]);
+});
+
+test('removal-only DNR repairs remain available even above a changed browser limit', async () => {
+  const current = [
+    makeDnrRule({ id: 1, urlFilter: '||one.example' }),
+    makeDnrRule({ id: 2, urlFilter: '||two.example' }),
+    makeDnrRule({ id: 3, urlFilter: '||three.example' })
+  ];
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1, blockURL: 'one.example' }),
+      makeStoredRule({ id: 2, blockURL: 'two.example' })
+    ],
+    currentDnrRules: current,
+    dnrLimits: { MAX_NUMBER_OF_DYNAMIC_RULES: 1 }
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.success, true);
+  assert.deepEqual(harness.updates[0].removeRuleIds, [3]);
+  assert.deepEqual(harness.updates[0].addRules, []);
+});
+
+test('browser DNR quota exceptions receive a stable actionable error code', async () => {
+  const harness = createHarness({
+    updateError: new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES')
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.success, false);
+  assert.equal(result.code, 'dnr_rule_limit_reached');
+  assert.equal(result.errorName, 'Error');
+});
+
+test('DNR inspection reports both actual redirect usage and browser capacity', async () => {
+  const harness = createHarness({
+    dnrLimits: {
+      MAX_NUMBER_OF_DYNAMIC_RULES: 8,
+      MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 2
+    }
+  });
+
+  const state = await harness.synchronizer.inspectState();
+
+  assert.equal(state.expectedCount, 1);
+  assert.equal(state.expectedUnsafeCount, 1);
+  assert.equal(state.maxDynamicRules, 8);
+  assert.equal(state.maxUnsafeDynamicRules, 2);
+  assert.equal(state.withinCapacity, true);
+});
 
 test('DNR signature ignores resourceTypes order', () => {
   const first = makeDnrRule({
@@ -324,10 +549,14 @@ test('DNR inspection reports drift without modifying browser rules', async () =>
   assert.deepEqual(state, {
     activeRuleCount: 1,
     expectedCount: 1,
+    expectedUnsafeCount: 1,
     currentCount: 1,
     inSync: false,
     removeCount: 1,
-    addCount: 1
+    addCount: 1,
+    maxDynamicRules: null,
+    maxUnsafeDynamicRules: null,
+    withinCapacity: true
   });
   assert.equal(harness.updates.length, 0);
   assert.equal(harness.closedUrlBatches.length, 0);

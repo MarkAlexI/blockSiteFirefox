@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.14] - 2026-08-22
+### Fixed
+- Rule additions, edits, Rule Packs, imports, profile activation, and category reactivation now validate browser-reported dynamic and unsafe redirect-rule limits before changing stored state or browser protection.
+- Only currently active blacklist redirects consume browser DNR capacity; inactive Rule Lists, disabled categories, disabled rules, and whitelist entries never consume the active budget.
+- Basic Free deletion, assignment cleanup, and disabling remain available at the browser rule limit, while the existing ten-rule General limit and preserved former-Pro profiles remain unchanged.
+- Oversized imports preserve current rules, Rule Lists, selected profiles, and settings; local rule/profile state is committed before optional sync settings, and failed settings imports produce a clear partial-success warning without disabling imported blocking.
+- Daily Limit usage-remapping failures after committed rule edits or profile deletion no longer disguise those mutations as failures or prevent browser DNR reconciliation.
+- DNR quota failures preserve existing browser protection, receive actionable telemetry fingerprints, and identical retries no longer rewrite diagnostics or telemetry every minute; the existing one-minute recovery alarm is unchanged.
+- Firefox Android and Firefox Desktop remain compatible with missing optional DNR limit constants, and Android workers never require the unsupported Windows API.
+
+### Added
+- Diagnostic reports now show active unsafe redirect counts, browser-reported dynamic/unsafe rule limits, and whether the active profile exceeds browser capacity.
+- Added 35 regression scenarios covering browser quota detection, safe and unsafe action budgets, inactive profiles, Free deletion and replacement, protected imports, post-commit remap failures, deduplicated failure writes, detailed diagnostics, and workers without the Windows API.
+
 ## [5.1.13] - 2026-08-22
 ### Fixed
 - Committed rule additions, deletions, toggles, and other mutations remain successful when post-commit Daily Limit cleanup, sampling, or analytics persistence fails; failed mutations still return their original safe error even if diagnostics and telemetry cannot be saved.

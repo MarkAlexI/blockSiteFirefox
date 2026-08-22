@@ -55,6 +55,7 @@ async function withWorker(callback, {
   credentials = {},
   settings = {},
   local = {},
+  dnrLimits = {},
   supportsWindows = !TEST_FIREFOX_ANDROID
 } = {}) {
   const api = createExtensionApi({
@@ -133,6 +134,7 @@ async function withWorker(callback, {
   api.dynamicRules = [];
   api.dnrUpdates = [];
   api.declarativeNetRequest = {
+    ...dnrLimits,
     getDynamicRules: async () => structuredClone(api.dynamicRules),
     updateDynamicRules: async update => {
       api.dnrUpdates.push(structuredClone(update));
@@ -215,6 +217,350 @@ test('minute watchdog preserves checks without rewriting unchanged inactive stor
     assert.equal(permissionChecks, 2);
     assert.equal(dnrReads, 2);
   }, { supportsWindows: false });
+});
+
+test('windowless workers reject excess unsafe DNR rules without changing stored or browser rules', async () => {
+  await withWorker(async ({ api, send }) => {
+    const first = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'first.example', redirectURL: '', category: 'social' }
+    });
+    const second = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'second.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(first.success, true);
+    assert.equal(second.success, false);
+    assert.equal(second.error.code, 'dnr_rule_limit_reached');
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.blockURL), ['first.example']);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [first.rule.id]);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general' },
+    dnrLimits: {
+      MAX_NUMBER_OF_DYNAMIC_RULES: 10,
+      MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1
+    },
+    supportsWindows: false
+  });
+});
+
+test('Free users can delete at browser DNR capacity and immediately add a replacement', async () => {
+  await withWorker(async ({ api, send }) => {
+    const first = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'first.example', redirectURL: '', category: 'social' }
+    });
+    const rejected = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'over-limit.example', redirectURL: '', category: 'social' }
+    });
+    const deleted = await send({
+      type: 'rules:removeAssignment',
+      payload: { ruleId: first.rule.id, listId: 'general' }
+    });
+    const replacement = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'replacement.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(first.success, true);
+    assert.equal(rejected.error.code, 'dnr_rule_limit_reached');
+    assert.equal(deleted.success, true);
+    assert.equal(replacement.success, true);
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.blockURL), ['replacement.example']);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [replacement.rule.id]);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' },
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('nineteen preserved custom-profile rules consume neither Free nor active DNR capacity', async () => {
+  const preserved = Array.from({ length: 19 }, (_, index) =>
+    makeFocusRule(index + 1, 'list-1', {
+      blockURL: `study-${index + 1}.example`
+    })
+  );
+  await withWorker(async ({ api, send }) => {
+    const response = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'free-general.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(api.storage.local.data.rules.length, 20);
+    assert.equal(response.rule.id, 20);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [20]);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general', rules: preserved },
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('windowless diagnostics expose active redirect counts and browser DNR budgets', async () => {
+  await withWorker(async ({ api, send }) => {
+    const added = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'diagnostic.example', redirectURL: '', category: 'social' }
+    });
+    const response = await send({ type: 'diagnostics:getReport' });
+
+    assert.equal(added.success, true);
+    assert.equal(response.success, true);
+    assert.equal(response.report.dnr.expectedUnsafeCount, 1);
+    assert.equal(response.report.dnr.maxDynamicRules, 8);
+    assert.equal(response.report.dnr.maxUnsafeDynamicRules, 2);
+    assert.equal(response.report.dnr.withinCapacity, true);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general' },
+    dnrLimits: {
+      MAX_NUMBER_OF_DYNAMIC_RULES: 8,
+      MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 2
+    },
+    supportsWindows: false
+  });
+});
+
+test('worker rejects oversized imported profiles before changing sync settings or local state', async () => {
+  const original = makeFocusRule(10, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, send }) => {
+    const response = await send({
+      type: 'rules:replaceAll',
+      payload: {
+        rules: [
+          { blockURL: 'one.example', redirectURL: '', listId: 'list-1' },
+          { blockURL: 'two.example', redirectURL: '', listId: 'list-1' }
+        ],
+        ruleLists: [
+          { id: 'general', name: 'General', disabledCategories: [] },
+          { id: 'list-1', name: 'Study', disabledCategories: [] }
+        ],
+        activeRuleListId: 'list-1',
+        settings: { mode: 'strict' }
+      }
+    });
+
+    assert.equal(response.success, false);
+    assert.equal(response.error.code, 'dnr_rule_limit_reached');
+    assert.deepEqual(api.storage.local.data.rules, [original]);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.equal(api.storage.sync.data.settings.mode, 'normal');
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general', rules: [original] },
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('worker keeps imported DNR rules active when optional sync settings cannot be saved', async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.sync.set.bind(api.storage.sync);
+    api.storage.sync.set = (values, callback) => Object.hasOwn(values, 'settings')
+      ? Promise.reject(new Error('sync settings unavailable'))
+      : originalSet(values, callback);
+
+    const response = await send({
+      type: 'rules:replaceAll',
+      payload: {
+        rules: [{ blockURL: 'imported.example', redirectURL: '', category: 'social' }],
+        settings: { mode: 'strict' }
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.settingsSyncPending, true);
+    assert.equal(response.settings, null);
+    assert.equal(api.storage.sync.data.settings.mode, 'normal');
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.blockURL), ['imported.example']);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless workers synchronize committed assignment edits after Daily Limit remap failure', async () => {
+  const original = makeFocusRule(21, 'list-1', { blockURL: 'moved.example' });
+  await withWorker(async ({ api, send }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let rejectedRemap = false;
+    api.storage.local.get = (keys, callback) => {
+      if (keys === 'dailyRuleUsage' && !rejectedRemap) {
+        rejectedRemap = true;
+        return Promise.reject(new Error('Daily Limit remap unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    const response = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: 21,
+        assignmentListId: 'list-1',
+        blockURL: 'moved.example',
+        redirectURL: '',
+        category: 'social',
+        assignment: { listId: 'general', blockingMode: 'always' }
+      }
+    });
+
+    assert.equal(rejectedRemap, true);
+    assert.equal(response.success, true);
+    assert.equal(response.dailyUsageSyncPending, true);
+    assert.equal(api.storage.local.data.rules[0].assignments[0].listId, 'general');
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [21]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general', rules: [original] },
+    supportsWindows: false
+  });
+});
+
+test('failed atomic local imports never modify sync settings or existing browser protection', async () => {
+  const original = makeFocusRule(10, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const protectedIds = api.dynamicRules.map(rule => rule.id);
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) =>
+      Object.hasOwn(values, 'rules') && Object.hasOwn(values, 'ruleLists')
+        ? Promise.reject(new Error('atomic local import exceeded storage quota'))
+        : originalSet(values, callback);
+
+    const response = await send({
+      type: 'rules:replaceAll',
+      payload: {
+        rules: [{ blockURL: 'replacement.example', redirectURL: '' }],
+        settings: { mode: 'strict' }
+      }
+    });
+
+    assert.equal(response.success, false);
+    assert.match(response.error.message, /storage quota/);
+    assert.deepEqual(api.storage.local.data.rules, [original]);
+    assert.equal(api.storage.sync.data.settings.mode, 'normal');
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), protectedIds);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general', rules: [original] },
+    supportsWindows: false
+  });
+});
+
+test('repeated identical DNR quota failures do not rewrite diagnostics or analytics every minute', async () => {
+  const original = makeFocusRule(1, 'general', { blockURL: 'quota.example' });
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+    const localWrites = [];
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      localWrites.push(Object.keys(values));
+      return originalSet(values, callback);
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+    const firstErrors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(firstErrors.length, 1);
+    assert.equal(firstErrors[0].fingerprint,
+      'dnr:rule_limit_reached:update_dynamic_rules:error');
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.errorCode,
+      'dnr_rule_limit_reached');
+    localWrites.length = 0;
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(localWrites, []);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [original],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a recovered DNR sync clears failure deduplication before a later quota error', async () => {
+  const first = makeFocusRule(1, 'general', { blockURL: 'first.example' });
+  const second = makeFocusRule(2, 'general', { blockURL: 'second.example' });
+  await withWorker(async ({ api, alarm }) => {
+    const update = api.declarativeNetRequest.updateDynamicRules;
+    let failUpdate = true;
+    api.declarativeNetRequest.updateDynamicRules = async value => {
+      if (failUpdate) throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+      return update(value);
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+    failUpdate = false;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+
+    api.storage.local.data.rules.push(second);
+    failUpdate = true;
+    await alarm({ name: 'update_scheduled_rules' });
+
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].count, 2);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [first],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('DNR quota telemetry survives diagnostic-state storage failures after a committed mutation', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => Object.hasOwn(values, 'diagnosticState')
+      ? Promise.reject(new Error('diagnostic state unavailable'))
+      : originalSet(values, callback);
+
+    const response = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'committed.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.syncPending, true);
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.blockURL), ['committed.example']);
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(errors[0].fingerprint, 'dnr:rule_limit_reached:update_dynamic_rules:error');
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
 });
 
 test('a committed rule remains successful when its telemetry write is rejected', async () => {

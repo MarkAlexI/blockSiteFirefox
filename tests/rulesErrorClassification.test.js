@@ -8,6 +8,7 @@ test('user validation and business-rule rejections are expected', () => {
     'rule_list_name_invalid',
     'rule_list_name_exists',
     'rule_list_limit_reached',
+    'dnr_rule_limit_reached',
     'rule_already_exists',
     'pro_required',
     'invalid_import'

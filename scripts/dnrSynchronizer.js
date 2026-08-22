@@ -1,6 +1,70 @@
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 
+const SAFE_DYNAMIC_RULE_ACTIONS = new Set([
+  'block',
+  'allow',
+  'allowAllRequests',
+  'upgradeScheme'
+]);
+
+function getPositiveRuleLimit(value) {
+  const limit = Number(value);
+  return Number.isSafeInteger(limit) && limit > 0 ? limit : null;
+}
+
+export function getDnrRuleCapacity(declarativeNetRequest = {}) {
+  return {
+    maxDynamicRules:
+      getPositiveRuleLimit(declarativeNetRequest?.MAX_NUMBER_OF_DYNAMIC_RULES) ??
+      getPositiveRuleLimit(declarativeNetRequest?.MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES),
+    maxUnsafeDynamicRules:
+      getPositiveRuleLimit(declarativeNetRequest?.MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES)
+  };
+}
+
+function inspectDnrRuleCapacity(expectedRules, declarativeNetRequest) {
+  const limits = getDnrRuleCapacity(declarativeNetRequest);
+  const expectedUnsafeCount = expectedRules.filter(rule =>
+    !SAFE_DYNAMIC_RULE_ACTIONS.has(rule?.action?.type)
+  ).length;
+  const unsafeLimitExceeded = limits.maxUnsafeDynamicRules !== null &&
+    expectedUnsafeCount > limits.maxUnsafeDynamicRules;
+  const dynamicLimitExceeded = limits.maxDynamicRules !== null &&
+    expectedRules.length > limits.maxDynamicRules;
+
+  return {
+    ...limits,
+    expectedCount: expectedRules.length,
+    expectedUnsafeCount,
+    withinCapacity: !unsafeLimitExceeded && !dynamicLimitExceeded,
+    limitType: unsafeLimitExceeded ? 'unsafe_dynamic' :
+      dynamicLimitExceeded ? 'dynamic' : null
+  };
+}
+
+function createDnrCapacityError(capacity) {
+  const unsafeLimit = capacity.limitType === 'unsafe_dynamic';
+  const expected = unsafeLimit ? capacity.expectedUnsafeCount : capacity.expectedCount;
+  const maximum = unsafeLimit ? capacity.maxUnsafeDynamicRules : capacity.maxDynamicRules;
+  const label = unsafeLimit ? 'unsafe dynamic' : 'dynamic';
+  const error = new Error(
+    `Browser ${label} rule limit reached (${expected}/${maximum})`
+  );
+  error.name = 'DnrCapacityError';
+  error.code = 'dnr_rule_limit_reached';
+  error.capacity = capacity;
+  return error;
+}
+
+function getDnrErrorCode(error) {
+  if (error?.code === 'dnr_rule_limit_reached') return error.code;
+  const message = String(error?.message || '');
+  return /MAX_NUMBER_OF_(?:UNSAFE_)?DYNAMIC(?:_AND_SESSION)?_RULES|(?:(?:dynamic|unsafe).{0,40}(?:quota|limit|exceed)|(?:quota|limit|exceed).{0,40}(?:dynamic|unsafe))/i.test(message)
+    ? 'dnr_rule_limit_reached'
+    : null;
+}
+
 /**
  * Builds a stable signature from the DNR fields that define rule behavior.
  * This does not normalize or reinterpret user-entered block patterns.
@@ -81,10 +145,10 @@ export function createDnrSynchronizer({
   let syncRequestedAgain = false;
   let syncGeneration = 0;
 
-  async function buildExpectedDnrState() {
-    const rules = await getRules();
+  async function buildExpectedDnrState(candidate = {}) {
+    const rules = Array.isArray(candidate.rules) ? candidate.rules : await getRules();
     const [ruleListState, dailyUsage, focusState] = await Promise.all([
-      getRuleListState(),
+      candidate.ruleListState || getRuleListState(),
       getDailyUsage(),
       getFocusSessionState()
     ]);
@@ -148,6 +212,11 @@ export function createDnrSynchronizer({
       buildDnrDiff(currentRules, expectedRules);
 
     if (removeRuleIds.length > 0 || addRules.length > 0) {
+      if (addRules.length > 0) {
+        const capacity = inspectDnrRuleCapacity(expectedRules, declarativeNetRequest);
+        if (!capacity.withinCapacity) throw createDnrCapacityError(capacity);
+      }
+
       // Always pass both arrays. In particular, clearing all rules requires the
       // complete removeRuleIds array together with addRules: [].
       await declarativeNetRequest.updateDynamicRules({
@@ -190,12 +259,16 @@ export function createDnrSynchronizer({
         lastResult = await syncActiveRulesOnce(generation);
       } catch (error) {
         logger.info('Error updating active rules:', error);
+        const code = getDnrErrorCode(error);
         lastResult = {
           success: false,
           changed: false,
           removed: 0,
           added: 0,
-          error: error?.message || String(error)
+          error: error?.message || String(error),
+          errorName: error?.name || 'Error',
+          ...(code ? { code } : {}),
+          ...(error?.capacity ? { capacity: error.capacity } : {})
         };
       }
     } while (syncRequestedAgain);
@@ -235,15 +308,30 @@ export function createDnrSynchronizer({
     const currentRules = await declarativeNetRequest.getDynamicRules();
     const { removeRuleIds, addRules } =
       buildDnrDiff(currentRules, expectedRules);
+    const capacity = inspectDnrRuleCapacity(expectedRules, declarativeNetRequest);
 
     return {
       activeRuleCount: activeRules.length,
       expectedCount: expectedRules.length,
+      expectedUnsafeCount: capacity.expectedUnsafeCount,
       currentCount: currentRules.length,
       inSync: removeRuleIds.length === 0 && addRules.length === 0,
       removeCount: removeRuleIds.length,
-      addCount: addRules.length
+      addCount: addRules.length,
+      maxDynamicRules: capacity.maxDynamicRules,
+      maxUnsafeDynamicRules: capacity.maxUnsafeDynamicRules,
+      withinCapacity: capacity.withinCapacity
     };
+  }
+
+  async function validateRuleCapacity(rules, ruleListState = null) {
+    const limits = getDnrRuleCapacity(declarativeNetRequest);
+    if (limits.maxDynamicRules === null && limits.maxUnsafeDynamicRules === null) {
+      return { ...limits, withinCapacity: true };
+    }
+
+    const { dnrRules } = await buildExpectedDnrState({ rules, ruleListState });
+    return inspectDnrRuleCapacity(dnrRules, declarativeNetRequest);
   }
 
   async function validateIntegrity() {
@@ -265,6 +353,7 @@ export function createDnrSynchronizer({
   return {
     requestSync,
     validateIntegrity,
-    inspectState
+    inspectState,
+    validateRuleCapacity
   };
 }

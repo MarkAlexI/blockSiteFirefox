@@ -638,6 +638,36 @@ test('cancelled imports never replace existing rules, and validation errors expo
   });
 });
 
+test('import UI reports committed rules and optional settings failures without pretending settings were saved', async () => {
+  await withSettingsManager(async ({ document, manager }) => {
+    const importedRules = [{ id: 1, blockURL: 'imported.example' }];
+    manager.rulesClient.replaceAll = async () => ({
+      rules: importedRules,
+      settings: null,
+      settingsSyncPending: true
+    });
+    manager.loadStatistics = async () => {};
+    document.getElementById('importFileInput').value = '/tmp/rules.json';
+
+    await manager.importRules({
+      name: 'rules.json',
+      async text() {
+        return JSON.stringify({
+          rules: importedRules,
+          settings: { mode: 'strict' }
+        });
+      }
+    });
+
+    const status = document.getElementById('statusMessage');
+    assert.equal(status.textContent, 'importedrules:1 errorsavingsettings');
+    assert.equal(status.classList.contains('error'), true);
+    assert.equal(document.getElementById('totalRules').textContent, 1);
+    assert.equal(document.getElementById('importFileInput').value, '');
+    assert.equal(document.getElementById('mode-strict').checked, false);
+  });
+});
+
 test('bulk rule clearing handles empty lists, cancellation, success, and worker failures', async () => {
   await withSettingsManager({ local: { rules: [] } }, async ({ api, document, manager, setConfirmation }) => {
     await manager.clearAllRules();

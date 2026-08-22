@@ -85,6 +85,10 @@ export function formatDiagnosticReportText(report) {
   const browserVersion = report.browser?.version ? ` ${report.browser.version}` : '';
   const dnrStatus = report.dnr?.inSync === true ? 'in sync' :
     report.dnr?.inSync === false ? 'out of sync' : 'unknown';
+  const dnrCapacityStatus = report.dnr?.withinCapacity === false ? 'exceeded' :
+    report.dnr?.maxDynamicRules != null || report.dnr?.maxUnsafeDynamicRules != null
+      ? 'within browser limits'
+      : 'not reported by browser';
   const focus = report.focusSession || {};
   const lines = [
     'BlockDistraction Diagnostic Report',
@@ -114,6 +118,10 @@ export function formatDiagnosticReportText(report) {
     `User-disabled rules: ${report.rules?.disabledByUser ?? 0}`,
     `Browser DNR rules: ${report.dnr?.currentCount ?? 0}`,
     `Expected DNR rules: ${report.dnr?.expectedCount ?? 0}`,
+    `Expected unsafe DNR rules: ${report.dnr?.expectedUnsafeCount ?? 'not reported'}`,
+    `Browser DNR rule limit: ${report.dnr?.maxDynamicRules ?? 'not reported'}`,
+    `Browser unsafe DNR rule limit: ${report.dnr?.maxUnsafeDynamicRules ?? 'not reported'}`,
+    `DNR rule capacity: ${dnrCapacityStatus}`,
     `DNR integrity: ${dnrStatus}`,
     `Last DNR change/error: ${formatTimestamp(report.dnr?.lastResult?.timestamp)}`,
     '',

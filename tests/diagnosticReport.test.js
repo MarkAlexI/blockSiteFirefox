@@ -69,7 +69,16 @@ test('formatted diagnostic report contains counts and structured events without 
     access: { isPro: true, isLegacyUser: false },
     settings: { debugMode: true, mode: 'strict', disabledCategories: ['social'] },
     rules: { total: 4, blacklist: 3, whitelist: 1, scheduled: 2, disabledByUser: 1 },
-    dnr: { currentCount: 2, expectedCount: 2, inSync: true, lastResult: null },
+    dnr: {
+      currentCount: 2,
+      expectedCount: 2,
+      expectedUnsafeCount: 2,
+      maxDynamicRules: 20,
+      maxUnsafeDynamicRules: 5,
+      withinCapacity: true,
+      inSync: true,
+      lastResult: null
+    },
     permissions: { hostAccess: true },
     focusSession: { active: true, mode: 'blacklist', hardcore: false, remainingMinutes: 12 },
     dailyLimits: {
@@ -108,6 +117,10 @@ test('formatted diagnostic report contains counts and structured events without 
   assert.match(text, /Build: release/);
   assert.match(text, /Stored rules: 4/);
   assert.match(text, /DNR integrity: in sync/);
+  assert.match(text, /Expected unsafe DNR rules: 2/);
+  assert.match(text, /Browser DNR rule limit: 20/);
+  assert.match(text, /Browser unsafe DNR rule limit: 5/);
+  assert.match(text, /DNR rule capacity: within browser limits/);
   assert.match(text, /\[Daily Limits\]/);
   assert.match(text, /Last resolution: matched/);
   assert.match(text, /Page visibility: visible/);
@@ -121,4 +134,24 @@ test('formatted diagnostic report contains counts and structured events without 
   assert.match(text, /Delivery failures: 1/);
   assert.match(text, /Next delivery attempt: 2026-08-06T21:00:00.000Z/);
   assert.doesNotMatch(text, /facebook\.com/);
+});
+
+test('DNR diagnostic text distinguishes missing browser constants from exhausted capacity', () => {
+  const unreported = formatDiagnosticReportText({
+    dnr: { expectedCount: 1, expectedUnsafeCount: 1, withinCapacity: true }
+  });
+  assert.match(unreported, /Browser DNR rule limit: not reported/);
+  assert.match(unreported, /DNR rule capacity: not reported by browser/);
+
+  const exceeded = formatDiagnosticReportText({
+    dnr: {
+      expectedCount: 3,
+      expectedUnsafeCount: 3,
+      maxDynamicRules: 10,
+      maxUnsafeDynamicRules: 2,
+      withinCapacity: false
+    }
+  });
+  assert.match(exceeded, /Browser unsafe DNR rule limit: 2/);
+  assert.match(exceeded, /DNR rule capacity: exceeded/);
 });

@@ -222,6 +222,16 @@ export function createRulesMutationService({
     await dailyLimitManager.remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId);
   }
 
+  async function remapDailyUsageAfterCommit(oldRuleId, oldListId, newRuleId, newListId) {
+    try {
+      await remapDailyUsage(oldRuleId, oldListId, newRuleId, newListId);
+      return false;
+    } catch (error) {
+      logger.warn('Daily Limit usage remapping failed after rules were committed:', error);
+      return true;
+    }
+  }
+
   async function saveRuleListState(lists, activeRuleListId) {
     if (typeof ruleListsManager?.saveState === 'function') {
       return ruleListsManager.saveState(lists, activeRuleListId);
@@ -296,6 +306,21 @@ export function createRulesMutationService({
     if (countFreeRules(rules) >= maxRulesLimit) {
       throw new RulesMutationError('rule_limit_reached', 'Free rule limit reached');
     }
+  }
+
+  async function ensureBrowserRuleCapacity(rules, ruleListState = null) {
+    if (typeof dnrSynchronizer?.validateRuleCapacity !== 'function') return;
+    const capacity = await dnrSynchronizer.validateRuleCapacity(rules, ruleListState);
+    if (capacity?.withinCapacity !== false) return;
+
+    const unsafeLimit = capacity.limitType === 'unsafe_dynamic';
+    const expected = unsafeLimit ? capacity.expectedUnsafeCount : capacity.expectedCount;
+    const maximum = unsafeLimit ? capacity.maxUnsafeDynamicRules : capacity.maxDynamicRules;
+    const label = unsafeLimit ? 'unsafe dynamic' : 'dynamic';
+    throw new RulesMutationError(
+      'dnr_rule_limit_reached',
+      `Browser ${label} rule limit reached (${expected}/${maximum})`
+    );
   }
 
   async function saveCombinedState(rules, lists, activeRuleListId = null) {
@@ -376,6 +401,7 @@ export function createRulesMutationService({
         const updatedRule = canonicalizeRuleTarget(existingRule, nextAssignments);
         const nextRules = [...rules];
         nextRules[existingIndex] = updatedRule;
+        await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
         return syncAndNotify(nextRules, {
           rule: updatedRule,
@@ -402,6 +428,7 @@ export function createRulesMutationService({
         isWhitelist: target.isWhitelist
       };
       const nextRules = [...rules, newRule];
+      if (!target.isWhitelist) await ensureBrowserRuleCapacity(nextRules);
       await rulesManager.saveRules(nextRules);
       return syncAndNotify(nextRules, {
         rule: newRule,
@@ -539,6 +566,7 @@ export function createRulesMutationService({
       if (addedEntries.length === 0) {
         return { rules, syncPending: false, ...result };
       }
+      await ensureBrowserRuleCapacity(nextRules);
       await rulesManager.saveRules(nextRules);
       return syncAndNotify(nextRules, result);
     });
@@ -584,6 +612,7 @@ export function createRulesMutationService({
         }, [nextAssignment]);
         const nextRules = [...rules];
         nextRules[index] = updatedRule;
+        await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
         return syncAndNotify(nextRules, { rule: updatedRule });
       }
@@ -612,6 +641,7 @@ export function createRulesMutationService({
         }, nextAssignments);
         const nextRules = [...rules];
         nextRules[index] = updatedRule;
+        await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
         return syncAndNotify(nextRules, { rule: updatedRule });
       }
@@ -665,11 +695,18 @@ export function createRulesMutationService({
         const updatedRule = canonicalizeRuleTarget(oldRule, nextAssignments);
         const nextRules = [...rules];
         nextRules[index] = updatedRule;
+        await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
+        let dailyUsageSyncPending = false;
         if (nextAssignment.listId !== sourceListId) {
-          await remapDailyUsage(oldRule.id, sourceListId, oldRule.id, nextAssignment.listId);
+          dailyUsageSyncPending = await remapDailyUsageAfterCommit(
+            oldRule.id, sourceListId, oldRule.id, nextAssignment.listId
+          );
         }
-        return syncAndNotify(nextRules, { rule: updatedRule });
+        return syncAndNotify(nextRules, {
+          rule: updatedRule,
+          ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
+        });
       }
 
       const currentAssignments = getRuleAssignments(oldRule);
@@ -694,12 +731,16 @@ export function createRulesMutationService({
           }
           return rule;
         }).filter(Boolean);
+        await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
-        await remapDailyUsage(oldRule.id, sourceListId, mergedTarget.id, nextAssignment.listId);
+        const dailyUsageSyncPending = await remapDailyUsageAfterCommit(
+          oldRule.id, sourceListId, mergedTarget.id, nextAssignment.listId
+        );
         return syncAndNotify(nextRules, {
           rule: mergedTarget,
           targetMerged: true,
-          sourceRuleId: oldRule.id
+          sourceRuleId: oldRule.id,
+          ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
         });
       }
 
@@ -714,11 +755,18 @@ export function createRulesMutationService({
         }, [nextAssignment]);
         const nextRules = [...rules];
         nextRules[index] = updatedRule;
+        await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
+        let dailyUsageSyncPending = false;
         if (nextAssignment.listId !== sourceListId) {
-          await remapDailyUsage(oldRule.id, sourceListId, oldRule.id, nextAssignment.listId);
+          dailyUsageSyncPending = await remapDailyUsageAfterCommit(
+            oldRule.id, sourceListId, oldRule.id, nextAssignment.listId
+          );
         }
-        return syncAndNotify(nextRules, { rule: updatedRule });
+        return syncAndNotify(nextRules, {
+          rule: updatedRule,
+          ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
+        });
       }
 
       const splitRule = canonicalizeRuleTarget({
@@ -733,12 +781,16 @@ export function createRulesMutationService({
       const nextRules = [...rules];
       nextRules[index] = retainedRule;
       nextRules.push(splitRule);
+      await ensureBrowserRuleCapacity(nextRules);
       await rulesManager.saveRules(nextRules);
-      await remapDailyUsage(oldRule.id, sourceListId, splitRule.id, nextAssignment.listId);
+      const dailyUsageSyncPending = await remapDailyUsageAfterCommit(
+        oldRule.id, sourceListId, splitRule.id, nextAssignment.listId
+      );
       return syncAndNotify(nextRules, {
         rule: splitRule,
         targetSplit: true,
-        sourceRuleId: oldRule.id
+        sourceRuleId: oldRule.id,
+        ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
       });
     });
   }
@@ -810,6 +862,7 @@ export function createRulesMutationService({
       const updatedRule = canonicalizeRuleTarget(rule, nextAssignments);
       const nextRules = [...rules];
       nextRules[index] = updatedRule;
+      if (!nextAssignment.disabledByUser) await ensureBrowserRuleCapacity(nextRules);
       await rulesManager.saveRules(nextRules);
       return syncAndNotify(nextRules, {
         rule: updatedRule,
@@ -873,7 +926,12 @@ export function createRulesMutationService({
         payload.activeRuleListId || GENERAL_RULE_LIST_ID
       );
       const nextRules = prepareReplacementRules(payload.rules, importedLists);
+      await ensureBrowserRuleCapacity(nextRules, {
+        lists: importedLists,
+        activeRuleListId: importedActiveRuleListId
+      });
       let importedSettings = null;
+      let settingsSyncPending = false;
 
       if (payload.settings && typeof payload.settings === 'object' && !Array.isArray(payload.settings)) {
         const currentSettings = await getSettings();
@@ -887,14 +945,23 @@ export function createRulesMutationService({
           enablePassword: currentSettings.enablePassword,
           passwordHash: currentSettings.passwordHash
         };
-        await saveSettings(importedSettings);
       }
 
       await saveCombinedState(nextRules, importedLists, importedActiveRuleListId);
+      if (importedSettings) {
+        try {
+          await saveSettings(importedSettings);
+        } catch (error) {
+          logger.warn('Imported rules were committed but optional settings could not be saved:', error);
+          importedSettings = null;
+          settingsSyncPending = true;
+        }
+      }
       return syncAndNotify(nextRules, {
         settings: importedSettings,
         ruleLists: importedLists,
-        activeRuleListId: importedActiveRuleListId
+        activeRuleListId: importedActiveRuleListId,
+        ...(settingsSyncPending ? { settingsSyncPending } : {})
       });
     });
   }
@@ -927,8 +994,14 @@ export function createRulesMutationService({
       const nextLists = state.lists.map((list, itemIndex) => itemIndex === index
         ? { ...list, disabledCategories }
         : list);
-      await saveRuleListState(nextLists, state.activeRuleListId);
       const rules = await rulesManager.getRules();
+      if (current.includes(category)) {
+        await ensureBrowserRuleCapacity(rules, {
+          lists: nextLists,
+          activeRuleListId: state.activeRuleListId
+        });
+      }
+      await saveRuleListState(nextLists, state.activeRuleListId);
       return syncAndNotify(rules, {
         ruleLists: nextLists,
         activeRuleListId: state.activeRuleListId
@@ -990,8 +1063,12 @@ export function createRulesMutationService({
       if (!state.lists.some(list => list.id === listId)) {
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
-      await saveRuleListState(state.lists, listId);
       const rules = await rulesManager.getRules();
+      await ensureBrowserRuleCapacity(rules, {
+        lists: state.lists,
+        activeRuleListId: listId
+      });
+      await saveRuleListState(state.lists, listId);
       return syncAndNotify(rules, {
         ruleLists: state.lists,
         activeRuleListId: listId,
@@ -1064,19 +1141,32 @@ export function createRulesMutationService({
       const activeRuleListId = state.activeRuleListId === listId
         ? GENERAL_RULE_LIST_ID
         : normalizeActiveRuleListId(nextLists, state.activeRuleListId);
+      await ensureBrowserRuleCapacity(nextRules, {
+        lists: nextLists,
+        activeRuleListId
+      });
       await saveCombinedState(nextRules, nextLists, activeRuleListId);
+      let dailyUsageSyncPending = false;
       if (usageRemaps.length > 0 && typeof dailyLimitManager?.remapAssignmentKeys === 'function') {
-        await dailyLimitManager.remapAssignmentKeys(usageRemaps);
+        try {
+          await dailyLimitManager.remapAssignmentKeys(usageRemaps);
+        } catch (error) {
+          logger.warn('Daily Limit usage remapping failed after a Rule List was deleted:', error);
+          dailyUsageSyncPending = true;
+        }
       } else {
         for (const remap of usageRemaps) {
-          await remapDailyUsage(remap.oldRuleId, remap.oldListId, remap.newRuleId, remap.newListId);
+          dailyUsageSyncPending = await remapDailyUsageAfterCommit(
+            remap.oldRuleId, remap.oldListId, remap.newRuleId, remap.newListId
+          ) || dailyUsageSyncPending;
         }
       }
       return syncAndNotify(nextRules, {
         ruleLists: nextLists,
         activeRuleListId,
         deletedListId: listId,
-        removedConflictingTargets
+        removedConflictingTargets,
+        ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
       });
     });
   }

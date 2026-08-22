@@ -165,34 +165,64 @@ async function settleRulesIntentPostCommitTasks(type, result) {
   }
 }
 
+let lastRecordedDnrFailureSignature = null;
+
 async function recordDnrSyncResult(result) {
+  const failureCode = result.code === 'dnr_rule_limit_reached'
+    ? 'rule_limit_reached'
+    : 'sync_failed';
+  const failureSignature = !result.success
+    ? JSON.stringify([failureCode, result.errorName || 'Error', result.error || null])
+    : null;
+
+  if (failureSignature && failureSignature === lastRecordedDnrFailureSignature) {
+    return;
+  }
+  if (result.success) lastRecordedDnrFailureSignature = null;
+
+  const persistenceTasks = [];
   if (result.changed || !result.success) {
-    await diagnosticStore.updateState({
+    persistenceTasks.push(diagnosticStore.updateState({
       lastDnrSync: {
         timestamp: Date.now(),
         success: result.success,
         changed: result.changed,
         removed: result.removed,
         added: result.added,
-        error: result.error || null
+        error: result.error || null,
+        errorCode: result.code || null,
+        errorName: result.errorName || null,
+        capacity: result.capacity || null
       }
-    });
+    }));
   }
 
   if (!result.success) {
-    await Promise.all([
+    persistenceTasks.push(
       diagnosticStore.recordEvent('error', 'dnr', 'sync_failed', {
         removed: result.removed,
         added: result.added,
-        error: result.error || 'Unknown DNR synchronization error'
+        error: result.error || 'Unknown DNR synchronization error',
+        errorCode: result.code || null,
+        capacity: result.capacity || null
       }),
       telemetryStore.recordError({
         source: 'dnr',
-        code: 'sync_failed',
+        code: failureCode,
         operation: 'update_dynamic_rules',
-        errorName: 'Error'
+        errorName: result.errorName || 'Error'
       })
-    ]);
+    );
+  }
+
+  const outcomes = await Promise.allSettled(persistenceTasks);
+  for (const outcome of outcomes) {
+    if (outcome.status === 'rejected') {
+      logger.warn('DNR synchronization reporting could not be persisted:', outcome.reason);
+    }
+  }
+  if (failureSignature && outcomes.some(outcome => outcome.status === 'fulfilled')) {
+    lastRecordedDnrFailureSignature = failureSignature;
   }
 }
 const createDnrRule = createDnrRuleFactory(
