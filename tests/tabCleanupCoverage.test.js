@@ -57,6 +57,53 @@ test('closing every matching tab creates a replacement tab before removing the f
   });
 });
 
+test('a superseded cleanup does not close tabs after its asynchronous tab query', async () => {
+  await withTabCleanup([
+    { id: 1, url: 'https://restored.example/' },
+    { id: 2, url: 'https://safe.example/' }
+  ], async ({ api, closeTabsMatchingRules }) => {
+    let current = true;
+    const originalQuery = api.tabs.query.bind(api.tabs);
+    let queryStarted;
+    let releaseQuery;
+    const queryReady = new Promise(resolve => { queryStarted = resolve; });
+    const queryGate = new Promise(resolve => { releaseQuery = resolve; });
+    api.tabs.query = async (...args) => {
+      queryStarted();
+      await queryGate;
+      return originalQuery(...args);
+    };
+
+    const cleanup = closeTabsMatchingRules(['restored.example'], () => current);
+    await queryReady;
+    current = false;
+    releaseQuery();
+    await cleanup;
+
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.createdTabs, []);
+  });
+});
+
+test('a cleanup superseded while opening a safety tab never removes the original tabs', async () => {
+  await withTabCleanup([
+    { id: 1, url: 'https://restored.example/' }
+  ], async ({ api, closeTabsMatchingRules }) => {
+    let current = true;
+    const originalCreate = api.tabs.create.bind(api.tabs);
+    api.tabs.create = async details => {
+      const result = await originalCreate(details);
+      current = false;
+      return result;
+    };
+
+    await closeTabsMatchingRules(['restored.example'], () => current);
+
+    assert.deepEqual(api.createdTabs, [{}]);
+    assert.deepEqual(api.removedTabs, []);
+  });
+});
+
 test('whitelist focus preserves allowed domains and protected browser pages', async () => {
   const protectedUrl = IS_FIREFOX ? 'about:config' : 'chrome://settings/';
   await withTabCleanup([

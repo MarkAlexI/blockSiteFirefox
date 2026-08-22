@@ -127,13 +127,14 @@ if (licenseForm) {
         expiryDate: data.expiryDate
       };
       
-      await ProManager.updateProStatus(true, subscriptionData);
-      
-      await sendMessageToWorker({
+      const statusResponse = await sendMessageToWorker({
         type: 'update_pro_status',
         isPro: true,
         subscriptionData: subscriptionData
       });
+      if (statusResponse?.success !== true) {
+        throw new Error(statusResponse?.error || 'Background worker failed to activate Pro');
+      }
       logger.log("Background worker notified.");
       
       try {
@@ -232,13 +233,14 @@ if (logOutBtn) {
         expiryDate: null
       };
       
-      await ProManager.updateProStatus(false, emptyData);
-      
-      await sendMessageToWorker({
+      const statusResponse = await sendMessageToWorker({
         type: 'update_pro_status',
         isPro: false,
         subscriptionData: emptyData
       });
+      if (statusResponse?.success !== true) {
+        throw new Error(statusResponse?.error || 'Background worker failed to end the Pro session');
+      }
       
       await updateUI();
       

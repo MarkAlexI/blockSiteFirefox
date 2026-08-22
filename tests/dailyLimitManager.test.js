@@ -34,6 +34,82 @@ test('daily usage is scoped to the local calendar date', () => {
   assert.equal(state.lastSample, null);
 });
 
+test('normalizing a stale usage snapshot cannot overwrite a concurrently recorded sample', async () => {
+  const start = new Date(2026, 7, 21, 12, 0, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 1,
+      date: '2026-08-21',
+      usageSeconds: { '7:general': 40 },
+      lastSample: { timestamp: start.getTime(), assignmentKeys: ['7:general'] },
+      outdatedField: true
+    }
+  });
+  const manager = new DailyLimitManager(storage);
+  const originalSet = storage.set.bind(storage);
+  let releaseNormalization;
+  let normalizationStarted;
+  const normalizationGate = new Promise(resolve => { releaseNormalization = resolve; });
+  const normalizationReady = new Promise(resolve => { normalizationStarted = resolve; });
+  let delayed = false;
+  storage.set = async values => {
+    if (!delayed) {
+      delayed = true;
+      normalizationStarted();
+      await normalizationGate;
+    }
+    return originalSet(values);
+  };
+
+  const read = manager.readState(start);
+  await normalizationReady;
+  const sample = manager.recordSample(['7:general'], new Date(start.getTime() + 20_000));
+  await new Promise(resolve => setImmediate(resolve));
+  releaseNormalization();
+  await Promise.all([read, sample]);
+
+  assert.equal(storage.data.dailyRuleUsage.usageSeconds['7:general'], 60);
+  assert.equal(storage.data.dailyRuleUsage.lastSample.timestamp, start.getTime() + 20_000);
+});
+
+test('a usage read requested after a pending sample sees that sample', async () => {
+  const start = new Date(2026, 7, 21, 12, 0, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-21',
+      usageSeconds: { '7:general': 40 },
+      lastSample: { timestamp: start.getTime(), assignmentKeys: ['7:general'] }
+    }
+  });
+  const manager = new DailyLimitManager(storage);
+  const originalSet = storage.set.bind(storage);
+  let releaseSample;
+  let sampleWriteStarted;
+  const sampleGate = new Promise(resolve => { releaseSample = resolve; });
+  const sampleReady = new Promise(resolve => { sampleWriteStarted = resolve; });
+  let delayed = false;
+  storage.set = async values => {
+    if (!delayed) {
+      delayed = true;
+      sampleWriteStarted();
+      await sampleGate;
+    }
+    return originalSet(values);
+  };
+
+  const later = new Date(start.getTime() + 20_000);
+  const sample = manager.recordSample(['7:general'], later);
+  await sampleReady;
+  const read = manager.readState(later);
+  await new Promise(resolve => setImmediate(resolve));
+  releaseSample();
+  const [, state] = await Promise.all([sample, read]);
+
+  assert.equal(state.usageSeconds['7:general'], 60);
+  assert.equal(state.lastSample.timestamp, later.getTime());
+});
+
 test('usage is attributed only to assignment keys present at both samples', async () => {
   const storage = createStorage();
   const manager = new DailyLimitManager(storage);

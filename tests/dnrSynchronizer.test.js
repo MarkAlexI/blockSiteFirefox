@@ -242,6 +242,35 @@ test('overlapping sync requests are serialized and rerun with fresh state', asyn
     harness.getDynamicRules()[0].condition.urlFilter,
     '||second.example'
   );
+  assert.deepEqual(harness.closedUrlBatches, [['second.example']]);
+});
+
+test('a superseded DNR snapshot never closes tabs for a rule that was removed', async () => {
+  let readCount = 0;
+  let firstReadStarted;
+  let releaseFirstRead;
+  const firstReadReady = new Promise(resolve => { firstReadStarted = resolve; });
+  const firstReadGate = new Promise(resolve => { releaseFirstRead = resolve; });
+  const harness = createHarness({
+    getRules: async () => {
+      readCount += 1;
+      if (readCount === 1) {
+        firstReadStarted();
+        await firstReadGate;
+        return [makeStoredRule({ blockURL: 'restored.example' })];
+      }
+      return [];
+    }
+  });
+
+  const staleSync = harness.synchronizer.requestSync();
+  await firstReadReady;
+  const currentSync = harness.synchronizer.requestSync();
+  releaseFirstRead();
+  await Promise.all([staleSync, currentSync]);
+
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.deepEqual(harness.closedUrlBatches, []);
 });
 
 test('integrity validation compares against active rules and repairs drift', async () => {

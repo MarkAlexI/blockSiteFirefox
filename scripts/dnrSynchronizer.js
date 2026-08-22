@@ -77,6 +77,7 @@ export function createDnrSynchronizer({
 }) {
   let rulesSyncPromise = null;
   let syncRequestedAgain = false;
+  let syncGeneration = 0;
 
   async function buildExpectedDnrState() {
     const rules = await getRules();
@@ -132,7 +133,7 @@ export function createDnrSynchronizer({
     return { activeRules, dnrRules };
   }
 
-  async function syncActiveRulesOnce() {
+  async function syncActiveRulesOnce(generation) {
     const { activeRules, dnrRules: expectedRules } =
       await buildExpectedDnrState();
     const currentRules = await declarativeNetRequest.getDynamicRules();
@@ -154,8 +155,8 @@ export function createDnrSynchronizer({
 
     const urlsToClose = activeRules.map(rule => rule.blockURL);
 
-    if (urlsToClose.length > 0) {
-      await closeTabsMatchingRules(urlsToClose);
+    if (urlsToClose.length > 0 && generation === syncGeneration) {
+      await closeTabsMatchingRules(urlsToClose, () => generation === syncGeneration);
     }
 
     return {
@@ -176,9 +177,10 @@ export function createDnrSynchronizer({
 
     do {
       syncRequestedAgain = false;
+      const generation = syncGeneration;
 
       try {
-        lastResult = await syncActiveRulesOnce();
+        lastResult = await syncActiveRulesOnce(generation);
       } catch (error) {
         logger.info('Error updating active rules:', error);
         lastResult = {
@@ -201,6 +203,7 @@ export function createDnrSynchronizer({
   }
 
   function requestSync() {
+    syncGeneration += 1;
     if (rulesSyncPromise) {
       syncRequestedAgain = true;
       return rulesSyncPromise;

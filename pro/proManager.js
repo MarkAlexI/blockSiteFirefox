@@ -21,15 +21,7 @@ export class ProManager {
   
   static async isPro() {
     try {
-      const result = await browser.storage.sync.get(['credentials']);
-      
-      if (!result.credentials) {
-        await browser.storage.sync.set({ credentials: this.defaultCredentials });
-        return false;
-      }
-      
-      const credentials = { ...this.defaultCredentials, ...result.credentials };
-      
+      const credentials = await this.getCredentials();
       return credentials.isPro === true;
     } catch (error) {
       this.logger.error('Error checking Pro status:', error);

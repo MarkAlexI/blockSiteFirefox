@@ -282,6 +282,24 @@ async function checkAllTabsAgainstWhitelist() {
   await closeNonWhitelistedTabs(whitelistRules);
 }
 
+let proStatusTransitionTail = Promise.resolve();
+let proStatusTransitionGeneration = 0;
+let licenseVerificationGeneration = 0;
+let focusSessionTransitionTail = Promise.resolve();
+let focusSessionTransitionGeneration = 0;
+
+function enqueueProStatusTransition(task) {
+  const result = proStatusTransitionTail.then(task, task);
+  proStatusTransitionTail = result.catch(() => {});
+  return result;
+}
+
+function enqueueFocusSessionTransition(task) {
+  const result = focusSessionTransitionTail.then(task, task);
+  focusSessionTransitionTail = result.catch(() => {});
+  return result;
+}
+
 async function finishLicenseCheck(result) {
   const state = {
     timestamp: Date.now(),
@@ -312,14 +330,30 @@ async function finishLicenseCheck(result) {
   return result;
 }
 
+async function finishSupersededLicenseCheck() {
+  const credentials = await ProManager.getCredentials();
+  logger.log('License Sync: Ignoring a superseded verification response.');
+  return finishLicenseCheck({
+    success: true,
+    isPro: credentials.isPro === true,
+    reason: 'superseded'
+  });
+}
+
 async function syncLicenseKeyStatus() {
+  const verificationGeneration = ++licenseVerificationGeneration;
   const credentials = await ProManager.getCredentials();
   const currentKey = credentials.licenseKey;
   
   if (!currentKey) {
     logger.log('License Sync: No key stored, skipping sync.');
     if (credentials.isPro) {
-      await handleProStatusUpdate(false, { licenseKey: null, expiryDate: null, subscriptionEmail: null });
+      const updated = await handleProStatusUpdate(
+        false,
+        { licenseKey: null, expiryDate: null, subscriptionEmail: null },
+        { expectedLicenseKey: null, verificationGeneration }
+      );
+      if (!updated) return finishSupersededLicenseCheck();
     }
     return finishLicenseCheck({ success: false, isPro: false, reason: 'no_key' });
   }
@@ -355,11 +389,12 @@ async function syncLicenseKeyStatus() {
         throw new Error(errorMessage);
       }
       
-      await handleProStatusUpdate(false, {
+      const updated = await handleProStatusUpdate(false, {
         licenseKey: null,
         expiryDate: null,
         subscriptionEmail: null
-      });
+      }, { expectedLicenseKey: currentKey, verificationGeneration });
+      if (!updated) return finishSupersededLicenseCheck();
       logger.warn(`License Sync: Server rejected the stored key (${response.status}).`);
       return finishLicenseCheck({ success: true, isPro: false, reason: 'rejected', error: errorMessage });
     }
@@ -368,16 +403,24 @@ async function syncLicenseKeyStatus() {
       throw new Error('License server returned an invalid response');
     }
     
-    await handleProStatusUpdate(data.isPro, {
+    const updated = await handleProStatusUpdate(data.isPro, {
       licenseKey: currentKey,
       subscriptionEmail: data.email,
       expiryDate: data.expiryDate
-    });
+    }, { expectedLicenseKey: currentKey, verificationGeneration });
+    if (!updated) return finishSupersededLicenseCheck();
     
     logger.log('License Sync: Status updated from server. isPro:', data.isPro);
     return finishLicenseCheck({ success: true, isPro: data.isPro, reason: 'verified' });
     
   } catch (error) {
+    const latestCredentials = await ProManager.getCredentials();
+    if (
+      verificationGeneration !== licenseVerificationGeneration ||
+      latestCredentials.licenseKey !== currentKey
+    ) {
+      return finishSupersededLicenseCheck();
+    }
     const errorMessage = error.name === 'AbortError' ?
       'License verification timed out' :
       error.message;
@@ -388,26 +431,30 @@ async function syncLicenseKeyStatus() {
   }
 }
 
-async function updateContextMenu(isPro) {
-  if (!browser.contextMenus) return;
-  
-  browser.contextMenus.remove('blockDistraction', () => {
-    void browser.runtime.lastError;
-    
-    if (isPro) {
-      const menuTitle = browser.i18n.getMessage('blockthat');
-      
-      browser.contextMenus.create({
-        id: 'blockDistraction',
-        title: menuTitle,
-        contexts: IS_FIREFOX ? ['link'] : ['page', 'link']
-      }, () => {
-        void browser.runtime.lastError;
-        logger.log('BlockDistraction context menu created');
-      });
-    } else {
-      logger.log('BlockDistraction context menu removed (non-pro mode)');
-    }
+function updateContextMenu(isPro) {
+  if (!browser.contextMenus) return Promise.resolve();
+
+  return new Promise(resolve => {
+    browser.contextMenus.remove('blockDistraction', () => {
+      void browser.runtime.lastError;
+
+      if (isPro) {
+        const menuTitle = browser.i18n.getMessage('blockthat');
+
+        browser.contextMenus.create({
+          id: 'blockDistraction',
+          title: menuTitle,
+          contexts: IS_FIREFOX ? ['link'] : ['page', 'link']
+        }, () => {
+          void browser.runtime.lastError;
+          logger.log('BlockDistraction context menu created');
+          resolve();
+        });
+      } else {
+        logger.log('BlockDistraction context menu removed (non-pro mode)');
+        resolve();
+      }
+    });
   });
 }
 
@@ -506,14 +553,16 @@ async function trackBlockedPage(url) {
   }
 }
 
-async function restoreFreeRuleListAccess(isPro) {
-  if (isPro || await ProManager.isLegacyUser()) return false;
+async function restoreFreeRuleListAccess(isPro, shouldContinue = () => true) {
+  if (isPro || !shouldContinue() || await ProManager.isLegacyUser()) return false;
 
   return rulesMutationService.runExclusive(async () => {
+    if (!shouldContinue()) return false;
     const state = await ruleListsManager.getState();
-    if (state.activeRuleListId === GENERAL_RULE_LIST_ID) return false;
+    if (!shouldContinue() || state.activeRuleListId === GENERAL_RULE_LIST_ID) return false;
 
     await dailyLimitTracker.pause('pro_access_lost');
+    if (!shouldContinue() || await ProManager.isPro() || !shouldContinue()) return false;
     await ruleListsManager.setActiveListId(GENERAL_RULE_LIST_ID);
 
     const rules = await rulesManager.getRules();
@@ -529,18 +578,44 @@ async function restoreFreeRuleListAccess(isPro) {
   });
 }
 
-async function handleProStatusUpdate(isPro, subscriptionData = {}) {
-  try {
-    logger.log(`Service worker received Pro status update: ${isPro}`);
-    const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
-    await restoreFreeRuleListAccess(isPro);
-    logger.log('Pro status updated successfully');
-    await updateContextMenu(isPro);
-    return updatedCredentials;
-  } catch (error) {
-    logger.error('Error handling Pro status update:', error);
-    throw error;
-  }
+function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerification = null) {
+  const transitionGeneration = expectedVerification
+    ? proStatusTransitionGeneration
+    : ++proStatusTransitionGeneration;
+
+  if (!expectedVerification) licenseVerificationGeneration += 1;
+
+  return enqueueProStatusTransition(async () => {
+    try {
+      if (expectedVerification) {
+        const credentials = await ProManager.getCredentials();
+        if (
+          expectedVerification.verificationGeneration !== licenseVerificationGeneration ||
+          credentials.licenseKey !== expectedVerification.expectedLicenseKey ||
+          transitionGeneration !== proStatusTransitionGeneration
+        ) {
+          return null;
+        }
+      } else if (transitionGeneration !== proStatusTransitionGeneration) {
+        return ProManager.getCredentials();
+      }
+
+      logger.log(`Service worker received Pro status update: ${isPro}`);
+      const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
+      const shouldContinue = () => transitionGeneration === proStatusTransitionGeneration;
+      if (!shouldContinue()) return updatedCredentials;
+
+      await restoreFreeRuleListAccess(isPro, shouldContinue);
+      if (!shouldContinue()) return updatedCredentials;
+
+      logger.log('Pro status updated successfully');
+      await updateContextMenu(isPro);
+      return updatedCredentials;
+    } catch (error) {
+      logger.error('Error handling Pro status update:', error);
+      throw error;
+    }
+  });
 }
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
@@ -1139,7 +1214,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'pro_status_changed') {
-    updateContextMenu(message.isPro);
+    void enqueueProStatusTransition(async () => {
+      await updateContextMenu(await ProManager.isPro());
+    });
     return;
   }
   
@@ -1156,37 +1233,48 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'start_focus_session') {
+    const transitionGeneration = ++focusSessionTransitionGeneration;
     (async () => {
       try {
-        const durationMinutes = message.duration || 25;
-        const isHardcore = message.isHardcore || false;
-        const focusMode = message.focusMode || 'blacklist';
-        const endTime = Date.now() + durationMinutes * 60 * 1000;
-        
-        await dailyLimitTracker.sample('focus_start_before');
-        await browser.storage.local.set({
-          focusSession: { focusActive: true, focusEndTime: endTime, isHardcore, focusMode }
+        const completed = await enqueueFocusSessionTransition(async () => {
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          const durationMinutes = message.duration || 25;
+          const isHardcore = message.isHardcore || false;
+          const focusMode = message.focusMode || 'blacklist';
+          const endTime = Date.now() + durationMinutes * 60 * 1000;
+
+          await dailyLimitTracker.sample('focus_start_before');
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          await browser.storage.local.set({
+            focusSession: { focusActive: true, focusEndTime: endTime, isHardcore, focusMode }
+          });
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          await browser.alarms.create('end_focus_session', { when: endTime });
+          await dailyLimitTracker.sample('focus_start_after');
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          await dnrSynchronizer.requestSync();
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          if (focusMode === 'whitelist') {
+            await checkAllTabsAgainstWhitelist();
+          }
+
+          logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
+          await Promise.all([
+            diagnosticStore.recordEvent('info', 'focus', 'session_started', {
+              durationMinutes,
+              focusMode,
+              isHardcore
+            }),
+            telemetryStore.incrementCounter('focus_started')
+          ]);
+          return true;
         });
-        
-        browser.alarms.create('end_focus_session', { delayInMinutes: durationMinutes });
-        await dailyLimitTracker.sample('focus_start_after');
-        
-        await dnrSynchronizer.requestSync();
-        
-        if (focusMode === 'whitelist') {
-          await checkAllTabsAgainstWhitelist();
-        }
-        
-        logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
-        await Promise.all([
-          diagnosticStore.recordEvent('info', 'focus', 'session_started', {
-            durationMinutes,
-            focusMode,
-            isHardcore
-          }),
-          telemetryStore.incrementCounter('focus_started')
-        ]);
-        sendResponse({ success: true });
+        sendResponse({ success: true, ...(completed ? {} : { superseded: true }) });
       } catch (error) {
         logger.error('Focus Session: Error starting session:', error);
         await Promise.all([
@@ -1202,23 +1290,33 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'stop_focus_session') {
+    const transitionGeneration = ++focusSessionTransitionGeneration;
     (async () => {
       try {
-        await dailyLimitTracker.sample('focus_stop_before');
-        await browser.storage.local.set({
-          focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
+        const completed = await enqueueFocusSessionTransition(async () => {
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          await dailyLimitTracker.sample('focus_stop_before');
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          await browser.storage.local.set({
+            focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
+          });
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+          await dailyLimitTracker.sample('focus_stop_after');
+          await browser.alarms.clear('end_focus_session');
+          await dnrSynchronizer.requestSync();
+          logger.log('Focus Session: Stopped by user.');
+          await Promise.all([
+            diagnosticStore.recordEvent('info', 'focus', 'session_stopped', {
+              reason: 'user'
+            }),
+            telemetryStore.incrementCounter('focus_stopped')
+          ]);
+          return true;
         });
-        await dailyLimitTracker.sample('focus_stop_after');
-        await browser.alarms.clear('end_focus_session');
-        await dnrSynchronizer.requestSync();
-        logger.log('Focus Session: Stopped by user.');
-        await Promise.all([
-          diagnosticStore.recordEvent('info', 'focus', 'session_stopped', {
-            reason: 'user'
-          }),
-          telemetryStore.incrementCounter('focus_stopped')
-        ]);
-        sendResponse({ success: true });
+        sendResponse({ success: true, ...(completed ? {} : { superseded: true }) });
       } catch (error) {
         logger.error('Focus Session: Error stopping session:', error);
         await Promise.all([
@@ -1287,34 +1385,59 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   }
   
   if (alarm.name === 'end_focus_session') {
-    logger.log('Focus Session: Alarm triggered, ending session.');
-    await dailyLimitTracker.sample('focus_complete_before');
-    await browser.storage.local.set({
-      focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
-    });
-    await dailyLimitTracker.sample('focus_complete_after');
-    await dnrSynchronizer.requestSync();
-    await StatisticsManager.recordFocusSession();
-    await Promise.all([
-      diagnosticStore.recordEvent('info', 'focus', 'session_completed', {
-        reason: 'alarm'
-      }),
-      telemetryStore.incrementCounter('focus_completed')
-    ]);
-    
-    const settings = await SettingsManager.getSettings();
-    const playSound = settings.focusSessionSound;
-    
-    if (browser.notifications) {
-      browser.notifications.create('focus_session_ended', {
-        type: 'basic',
-        iconUrl: browser.runtime.getURL('images/icon-192.png'),
-        title: browser.i18n.getMessage('focussessionheader'),
-        message: browser.i18n.getMessage('focussessionended'),
-        priority: 2,
-        silent: !playSound
+    const transitionGeneration = focusSessionTransitionGeneration;
+    await enqueueFocusSessionTransition(async () => {
+      if (transitionGeneration !== focusSessionTransitionGeneration) return;
+
+      const result = await browser.storage.local.get(['focusSession']);
+      const focusSession = result.focusSession;
+      if (focusSession?.focusActive !== true) return;
+
+      const scheduledTime = Number(alarm.scheduledTime);
+      const endTime = Number(focusSession.focusEndTime);
+      if (
+        !Number.isFinite(endTime) ||
+        endTime <= 0 ||
+        (Number.isFinite(scheduledTime) && scheduledTime > 0
+          ? Math.abs(scheduledTime - endTime) > 1000
+          : Date.now() + 1000 < endTime)
+      ) {
+        logger.log('Focus Session: Ignoring a stale completion alarm.');
+        return;
+      }
+      if (transitionGeneration !== focusSessionTransitionGeneration) return;
+
+      logger.log('Focus Session: Alarm triggered, ending session.');
+      await dailyLimitTracker.sample('focus_complete_before');
+      if (transitionGeneration !== focusSessionTransitionGeneration) return;
+
+      await browser.storage.local.set({
+        focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
       });
-    }
+      await dailyLimitTracker.sample('focus_complete_after');
+      await dnrSynchronizer.requestSync();
+      await StatisticsManager.recordFocusSession();
+      await Promise.all([
+        diagnosticStore.recordEvent('info', 'focus', 'session_completed', {
+          reason: 'alarm'
+        }),
+        telemetryStore.incrementCounter('focus_completed')
+      ]);
+
+      const settings = await SettingsManager.getSettings();
+      const playSound = settings.focusSessionSound;
+
+      if (browser.notifications) {
+        browser.notifications.create('focus_session_ended', {
+          type: 'basic',
+          iconUrl: browser.runtime.getURL('images/icon-192.png'),
+          title: browser.i18n.getMessage('focussessionheader'),
+          message: browser.i18n.getMessage('focussessionended'),
+          priority: 2,
+          silent: !playSound
+        });
+      }
+    });
   }
   
   if (alarm.name === DAILY_LIMIT_DEADLINE_ALARM) {

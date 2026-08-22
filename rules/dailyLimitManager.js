@@ -85,12 +85,14 @@ export class DailyLimitManager {
   }
 
   async readState(now = new Date()) {
-    const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
-    const normalized = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
-    const raw = result[DAILY_RULE_USAGE_KEY];
-    const needsSave = !raw || JSON.stringify(raw) !== JSON.stringify(normalized);
-    if (needsSave) await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: normalized });
-    return normalized;
+    return this.enqueue(async () => {
+      const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
+      const normalized = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
+      const raw = result[DAILY_RULE_USAGE_KEY];
+      const needsSave = !raw || JSON.stringify(raw) !== JSON.stringify(normalized);
+      if (needsSave) await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: normalized });
+      return normalized;
+    });
   }
 
   async getUsageSeconds(now = new Date()) {

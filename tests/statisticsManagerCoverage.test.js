@@ -53,6 +53,52 @@ test('block, redirect, and completed focus events update both totals and the loc
   });
 });
 
+test('concurrent blocked-page events never lose statistics increments', async () => {
+  await withStatistics({}, async ({ api, StatisticsManager }) => {
+    await Promise.all(Array.from({ length: 25 }, (_, index) =>
+      StatisticsManager.recordBlock('https://blocked.example/' + index)
+    ));
+
+    const today = getLocalDateKey(new Date());
+    assert.equal(api.storage.local.data.statistics.totalBlocked, 25);
+    assert.equal(api.storage.local.data.statistics.blockedToday, 25);
+    assert.equal(api.storage.local.data.statistics.dailyHistory[today].blocked, 25);
+  });
+});
+
+test('concurrent mixed statistics events preserve every event type', async () => {
+  await withStatistics({}, async ({ api, StatisticsManager }) => {
+    await Promise.all([
+      ...Array.from({ length: 12 }, () => StatisticsManager.recordBlock('blocked')),
+      ...Array.from({ length: 9 }, () => StatisticsManager.recordRedirect('from', 'to')),
+      ...Array.from({ length: 4 }, () => StatisticsManager.recordFocusSession())
+    ]);
+
+    const today = getLocalDateKey(new Date());
+    assert.equal(api.storage.local.data.statistics.totalBlocked, 12);
+    assert.equal(api.storage.local.data.statistics.totalRedirects, 9);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 4);
+    assert.deepEqual(api.storage.local.data.statistics.dailyHistory[today], {
+      blocked: 12,
+      redirected: 9,
+      focusSessions: 4
+    });
+  });
+});
+
+test('statistics reset is ordered between concurrent updates', async () => {
+  await withStatistics({}, async ({ api, StatisticsManager }) => {
+    await Promise.all([
+      StatisticsManager.recordBlock('before-reset'),
+      StatisticsManager.reset(),
+      StatisticsManager.recordBlock('after-reset')
+    ]);
+
+    assert.equal(api.storage.local.data.statistics.totalBlocked, 1);
+    assert.equal(api.storage.local.data.statistics.blockedToday, 1);
+  });
+});
+
 test('statistics reset preserves the original creation date and clears all counters', async () => {
   await withStatistics({ statistics: {
     totalBlocked: 8,

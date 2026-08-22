@@ -147,6 +147,256 @@ test('turning telemetry off clears all pending telemetry data', async () => {
   assert.equal((await client.getConsent()).enabled, false);
 });
 
+test('revoking consent before a prepared flush sends prevents delivery and stale state', async () => {
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: 1 }
+  });
+  const store = createStore([{ date: '2026-08-22', counters: { rule_created: 1 }, errors: [] }]);
+  let contextStarted;
+  let releaseContext;
+  const started = new Promise(resolve => { contextStarted = resolve; });
+  const contextGate = new Promise(resolve => { releaseContext = resolve; });
+  let fetchCalls = 0;
+  let scheduledRetries = 0;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => {
+      contextStarted();
+      await contextGate;
+      return {};
+    },
+    fetchFn: async () => {
+      fetchCalls++;
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    },
+    scheduleRetry: async () => { scheduledRetries++; }
+  });
+
+  const pendingFlush = client.flush({ force: true });
+  await started;
+  await client.setConsent(false);
+  releaseContext();
+
+  assert.deepEqual(await pendingFlush, { success: true, sent: false, reason: 'disabled' });
+  assert.equal(fetchCalls, 0);
+  assert.equal(scheduledRetries, 0);
+  assert.deepEqual(store.snapshot().pending, []);
+  assert.deepEqual(store.snapshot().delivery, {});
+});
+
+test('revoking consent aborts an active telemetry request without scheduling a retry', async () => {
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: 1 }
+  });
+  const store = createStore([{ date: '2026-08-22', counters: { rule_created: 1 }, errors: [] }]);
+  let requestStarted;
+  const started = new Promise(resolve => { requestStarted = resolve; });
+  let observedAbort = false;
+  let scheduledRetries = 0;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({}),
+    fetchFn: async (_url, options) => new Promise((_resolve, reject) => {
+      requestStarted();
+      options.signal.addEventListener('abort', () => {
+        observedAbort = true;
+        reject(Object.assign(new Error('Aborted'), { name: 'AbortError' }));
+      }, { once: true });
+    }),
+    scheduleRetry: async () => { scheduledRetries++; }
+  });
+
+  const pendingFlush = client.flush({ force: true });
+  await started;
+  await client.setConsent(false);
+
+  assert.deepEqual(await pendingFlush, { success: true, sent: false, reason: 'disabled' });
+  assert.equal(observedAbort, true);
+  assert.equal(scheduledRetries, 0);
+  assert.deepEqual(store.snapshot().delivery, {});
+});
+
+test('a failed request finishing after opt-out cannot restore retry state', async () => {
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: 1 }
+  });
+  const store = createStore([{ date: '2026-08-22', counters: { rule_created: 1 }, errors: [] }]);
+  let requestStarted;
+  let finishRequest;
+  const started = new Promise(resolve => { requestStarted = resolve; });
+  const response = new Promise(resolve => { finishRequest = resolve; });
+  let scheduledRetries = 0;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({}),
+    fetchFn: async () => {
+      requestStarted();
+      return response;
+    },
+    scheduleRetry: async () => { scheduledRetries++; }
+  });
+
+  const pendingFlush = client.flush({ force: true });
+  await started;
+  await client.setConsent(false);
+  finishRequest({ ok: false, status: 503, json: async () => ({}) });
+
+  assert.deepEqual(await pendingFlush, { success: true, sent: false, reason: 'disabled' });
+  assert.equal(scheduledRetries, 0);
+  assert.deepEqual(store.snapshot().delivery, {});
+});
+
+test('revoking Firefox native data-collection permission prevents a prepared request', async () => {
+  let permissionGranted = true;
+  const permissionsApi = {
+    async getAll() {
+      return { data_collection: permissionGranted ? ['technicalAndInteraction'] : [] };
+    }
+  };
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: 1 }
+  });
+  const store = createStore([{ date: '2026-08-22', counters: { rule_created: 1 }, errors: [] }]);
+  let contextStarted;
+  let releaseContext;
+  const started = new Promise(resolve => { contextStarted = resolve; });
+  const contextGate = new Promise(resolve => { releaseContext = resolve; });
+  let fetchCalls = 0;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    permissionsApi,
+    store,
+    getContext: async () => {
+      contextStarted();
+      await contextGate;
+      return {};
+    },
+    fetchFn: async () => {
+      fetchCalls++;
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    }
+  });
+
+  const pendingFlush = client.flush({ force: true });
+  await started;
+  permissionGranted = false;
+  await client.setConsent(false);
+  releaseContext();
+
+  assert.deepEqual(await pendingFlush, { success: true, sent: false, reason: 'disabled' });
+  assert.equal(fetchCalls, 0);
+  assert.deepEqual(store.snapshot().delivery, {});
+});
+
+test('a stale backoff check cannot schedule another retry after consent is revoked', async () => {
+  const now = Date.parse('2026-08-22T12:00:00.000Z');
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: now - 1000 }
+  });
+  const store = createStore([{ date: '2026-08-22', counters: { rule_created: 1 }, errors: [] }]);
+  await store.setDeliveryState({ failureCount: 1, nextAttemptAt: now + 60_000 });
+  const originalGetDeliveryState = store.getDeliveryState.bind(store);
+  let readStarted;
+  let releaseRead;
+  const started = new Promise(resolve => { readStarted = resolve; });
+  const gate = new Promise(resolve => { releaseRead = resolve; });
+  store.getDeliveryState = async () => {
+    const snapshot = await originalGetDeliveryState();
+    readStarted();
+    await gate;
+    return snapshot;
+  };
+  let scheduledRetries = 0;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({}),
+    now: () => now,
+    scheduleRetry: async () => { scheduledRetries++; }
+  });
+
+  const pendingFlush = client.flush();
+  await started;
+  await client.setConsent(false);
+  releaseRead();
+
+  assert.deepEqual(await pendingFlush, { success: true, sent: false, reason: 'disabled' });
+  assert.equal(scheduledRetries, 0);
+  assert.deepEqual(store.snapshot().delivery, {});
+});
+
+test('an empty flush finishing after opt-out cannot recreate cleared delivery state', async () => {
+  const now = Date.parse('2026-08-22T12:00:00.000Z');
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: now - 1000 }
+  });
+  const store = createStore([]);
+  await store.setDeliveryState({ failureCount: 2, nextAttemptAt: now - 1000 });
+  let prepareStarted;
+  let releasePrepare;
+  const started = new Promise(resolve => { prepareStarted = resolve; });
+  const gate = new Promise(resolve => { releasePrepare = resolve; });
+  store.preparePendingBatches = async () => {
+    prepareStarted();
+    await gate;
+    return [];
+  };
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({}),
+    now: () => now
+  });
+
+  const pendingFlush = client.flush({ force: true });
+  await started;
+  await client.setConsent(false);
+  releasePrepare();
+
+  assert.deepEqual(await pendingFlush, { success: true, sent: false, reason: 'disabled' });
+  assert.deepEqual(store.snapshot().delivery, {});
+});
+
+test('retry restoration interrupted by opt-out cannot re-create a scheduled retry', async () => {
+  const now = Date.parse('2026-08-22T12:00:00.000Z');
+  const storage = createStorage({
+    [TELEMETRY_CONSENT_KEY]: { version: 1, enabled: true, decidedAt: now - 1000 }
+  });
+  const store = createStore([]);
+  await store.setDeliveryState({ failureCount: 2, nextAttemptAt: now + 60_000 });
+  const originalGetDeliveryState = store.getDeliveryState.bind(store);
+  let readStarted;
+  let releaseRead;
+  const started = new Promise(resolve => { readStarted = resolve; });
+  const gate = new Promise(resolve => { releaseRead = resolve; });
+  store.getDeliveryState = async () => {
+    const snapshot = await originalGetDeliveryState();
+    readStarted();
+    await gate;
+    return snapshot;
+  };
+  let scheduledRetries = 0;
+  const client = createTelemetryClient({
+    localStorage: storage,
+    store,
+    getContext: async () => ({}),
+    now: () => now,
+    scheduleRetry: async () => { scheduledRetries++; }
+  });
+
+  const restored = client.restoreRetry();
+  await started;
+  await client.setConsent(false);
+  releaseRead();
+
+  assert.equal(await restored, false);
+  assert.equal(scheduledRetries, 0);
+  assert.deepEqual(store.snapshot().delivery, {});
+});
+
 test('telemetry client preserves bucket context by sending separate compatible requests', async () => {
   const now = Date.parse('2026-08-10T12:00:00.000Z');
   const storage = createStorage({

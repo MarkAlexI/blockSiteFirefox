@@ -2,6 +2,7 @@
  * Closes tabs matching the blockURL.
  * Prevents browser window closure if all tabs match.
  * @param {Array<string>} blockURLs - Array of URL patterns to match
+ * @param {Function} shouldContinue - Returns false when a newer DNR snapshot supersedes this cleanup
  */
 import Logger from '../utils/logger.js';
 import { isBlockedURL } from './isBlockedURL.js';
@@ -10,15 +11,16 @@ import { doesUrlMatchBlockRule } from '../rules/urlRuleMatcher.js';
 
 const logger = new Logger('CloseTabs');
 
-export async function closeTabsMatchingRules(blockURLs) {
+export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => true) {
   const validPatterns = blockURLs
     .map(url => url?.trim().toLowerCase())
     .filter(url => url && url !== '');
   
-  if (validPatterns.length === 0) return;
+  if (validPatterns.length === 0 || !shouldContinue()) return;
   
   try {
     const tabs = await browser.tabs.query({});
+    if (!shouldContinue()) return;
     const tabsToRemoveIds = [];
     
     for (const tab of tabs) {
@@ -37,7 +39,8 @@ export async function closeTabsMatchingRules(blockURLs) {
     if (allTabsWillBeClosed) {
       await browser.tabs.create({});
     }
-    
+
+    if (!shouldContinue()) return;
     await browser.tabs.remove(tabsToRemoveIds);
     logger.log(`Tabs successfully closed: ${tabsToRemoveIds.length}`);
     

@@ -29,6 +29,14 @@ test('missing Pro credentials initialize as Free rather than granting access', a
   });
 });
 
+test('checking Pro status first cannot accidentally classify a new installation as legacy', async () => {
+  await withProManager({}, async ({ api, ProManager }) => {
+    assert.equal(await ProManager.isPro(), false);
+    assert.equal(Number.isNaN(Date.parse(api.storage.sync.data.credentials.installationDate)), false);
+    assert.equal(await ProManager.isLegacyUser(), false);
+  });
+});
+
 test('Pro access accepts only the explicit boolean true', async () => {
   for (const [value, expected] of [[true, true], [false, false], ['true', false], [1, false]]) {
     await withProManager({ sync: { credentials: { isPro: value } } }, async ({ ProManager }) => {

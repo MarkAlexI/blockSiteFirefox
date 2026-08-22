@@ -52,9 +52,35 @@ export function createTelemetryClient({
   cancelRetry = null
 }) {
   let flushPromise = null;
+  let deliveryGeneration = 0;
+  let deliveryBlocked = false;
+  let activeRequestController = null;
+  let lifecycleQueue = Promise.resolve();
+
+  function enqueueLifecycle(operation) {
+    const result = lifecycleQueue.then(operation, operation);
+    lifecycleQueue = result.catch(() => {});
+    return result;
+  }
+
+  function createDisabledResult() {
+    return { success: true, sent: false, reason: 'disabled' };
+  }
+
+  function createConsentRevokedError() {
+    return Object.assign(new Error('Telemetry consent was revoked'), {
+      code: 'consent_revoked'
+    });
+  }
 
   async function getConsent() {
     return getTelemetryConsent(localStorage, permissionsApi);
+  }
+
+  async function isDeliveryAllowed(generation) {
+    if (deliveryBlocked || generation !== deliveryGeneration) return false;
+    const consent = await getConsent();
+    return !deliveryBlocked && generation === deliveryGeneration && consent.enabled === true;
   }
 
   async function safelyScheduleRetry(timestamp) {
@@ -76,43 +102,65 @@ export function createTelemetryClient({
   }
 
   async function setConsent(enabled) {
-    const consent = await setTelemetryConsent(localStorage, enabled, now, permissionsApi);
-    if (!consent.enabled) {
-      await store.clearAll();
-      await safelyCancelRetry();
+    if (enabled !== true) {
+      deliveryBlocked = true;
+      deliveryGeneration++;
+      activeRequestController?.abort();
     }
-    return consent;
+
+    return enqueueLifecycle(async () => {
+      const consent = await setTelemetryConsent(localStorage, enabled, now, permissionsApi);
+      if (!consent.enabled) {
+        deliveryBlocked = true;
+        if (enabled === true) {
+          deliveryGeneration++;
+          activeRequestController?.abort();
+        }
+        await store.clearAll();
+        await safelyCancelRetry();
+      } else {
+        deliveryGeneration++;
+        deliveryBlocked = false;
+      }
+      return consent;
+    });
   }
 
-  async function setFailureState(delivery, error, status = null) {
+  async function setFailureState(delivery, error, status = null, generation) {
     const failureCount = Math.min(20, (Number(delivery.failureCount) || 0) + 1);
     const nextAttemptAt = now() + computeBackoff(failureCount);
     const reason = error?.name === 'AbortError' ? 'timeout' :
       error?.code === 'partial_accept' ? 'partial_accept' : 'delivery_failed';
 
-    await store.setDeliveryState({
-      ...delivery,
-      failureCount,
-      nextAttemptAt,
-      lastFailureAt: now(),
-      lastFailureReason: reason,
-      lastStatus: Number(status ?? error?.status) || null
-    });
-    await safelyScheduleRetry(nextAttemptAt);
+    return enqueueLifecycle(async () => {
+      if (!await isDeliveryAllowed(generation)) return createDisabledResult();
+      await store.setDeliveryState({
+        ...delivery,
+        failureCount,
+        nextAttemptAt,
+        lastFailureAt: now(),
+        lastFailureReason: reason,
+        lastStatus: Number(status ?? error?.status) || null
+      });
+      if (!await isDeliveryAllowed(generation)) return createDisabledResult();
+      await safelyScheduleRetry(nextAttemptAt);
 
-    return {
-      success: false,
-      reason,
-      status: Number(status ?? error?.status) || null,
-      nextAttemptAt
-    };
+      return {
+        success: false,
+        reason,
+        status: Number(status ?? error?.status) || null,
+        nextAttemptAt
+      };
+    });
   }
 
-  async function sendGroup(group) {
+  async function sendGroup(group, generation) {
     const controller = typeof AbortController === 'function' ? new AbortController() : null;
+    activeRequestController = controller;
     const timeoutId = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
 
     try {
+      if (!await isDeliveryAllowed(generation)) throw createConsentRevokedError();
       const response = await fetchFn(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -125,6 +173,7 @@ export function createTelemetryClient({
         signal: controller?.signal
       });
 
+      if (!await isDeliveryAllowed(generation)) throw createConsentRevokedError();
       if (!response.ok) {
         throw Object.assign(new Error(`Telemetry endpoint returned ${response.status}`), {
           status: response.status
@@ -138,6 +187,7 @@ export function createTelemetryClient({
         body = null;
       }
 
+      if (!await isDeliveryAllowed(generation)) throw createConsentRevokedError();
       if (body && body.ok === false) {
         throw Object.assign(new Error('Telemetry endpoint rejected the payload'), {
           status: response.status
@@ -150,12 +200,17 @@ export function createTelemetryClient({
 
       if (acceptedDates.length > 0) {
         const acceptedBatches = group.batches.filter(batch => acceptedDates.includes(batch.date));
-        if (typeof store.acknowledgeBatches === 'function') {
-          await store.acknowledgeBatches(acceptedBatches);
-        } else {
-          // Compatibility for older test doubles and temporary integrations.
-          await store.clearDates(acceptedDates);
-        }
+        const acknowledged = await enqueueLifecycle(async () => {
+          if (!await isDeliveryAllowed(generation)) return false;
+          if (typeof store.acknowledgeBatches === 'function') {
+            await store.acknowledgeBatches(acceptedBatches);
+          } else {
+            // Compatibility for older test doubles and temporary integrations.
+            await store.clearDates(acceptedDates);
+          }
+          return true;
+        });
+        if (!acknowledged) throw createConsentRevokedError();
       }
 
       if (acceptedDates.length !== allDates.length) {
@@ -169,59 +224,81 @@ export function createTelemetryClient({
       return { acceptedDates, status: response.status };
     } finally {
       if (timeoutId) clearTimeout(timeoutId);
+      if (activeRequestController === controller) activeRequestController = null;
     }
   }
 
   async function runFlush({ force = false } = {}) {
+    const generation = deliveryGeneration;
     const consent = await getConsent();
-    if (!consent.enabled) {
+    if (!consent.enabled || deliveryBlocked || generation !== deliveryGeneration) {
       await safelyCancelRetry();
-      return { success: true, sent: false, reason: 'disabled' };
+      return createDisabledResult();
     }
     if (typeof fetchFn !== 'function') {
       return { success: false, sent: false, reason: 'fetch_unavailable' };
     }
 
     const delivery = await store.getDeliveryState();
+    if (!await isDeliveryAllowed(generation)) return createDisabledResult();
+
     if (!force && Number(delivery.nextAttemptAt) > now()) {
-      await safelyScheduleRetry(Number(delivery.nextAttemptAt));
+      const scheduled = await enqueueLifecycle(async () => {
+        if (!await isDeliveryAllowed(generation)) return false;
+        await safelyScheduleRetry(Number(delivery.nextAttemptAt));
+        return isDeliveryAllowed(generation);
+      });
+      if (!scheduled) return createDisabledResult();
       return { success: true, sent: false, reason: 'backoff' };
     }
 
     const batches = typeof store.preparePendingBatches === 'function' ?
       await store.preparePendingBatches() : await store.getPendingBatches();
     if (batches.length === 0) {
-      if (Number(delivery.nextAttemptAt) > 0 || Number(delivery.failureCount) > 0) {
-        await store.setDeliveryState({
-          ...delivery,
-          failureCount: 0,
-          nextAttemptAt: 0
-        });
-      }
-      await safelyCancelRetry();
+      const cleared = await enqueueLifecycle(async () => {
+        if (!await isDeliveryAllowed(generation)) return false;
+        if (Number(delivery.nextAttemptAt) > 0 || Number(delivery.failureCount) > 0) {
+          await store.setDeliveryState({
+            ...delivery,
+            failureCount: 0,
+            nextAttemptAt: 0
+          });
+        }
+        if (!await isDeliveryAllowed(generation)) return false;
+        await safelyCancelRetry();
+        return true;
+      });
+      if (!cleared) return createDisabledResult();
       return { success: true, sent: false, reason: 'empty' };
     }
 
     const fallbackContext = sanitizeTelemetryContext(await getContext());
+    if (!await isDeliveryAllowed(generation)) return createDisabledResult();
     const groups = groupBatchesByContext(batches, fallbackContext);
     const acceptedDates = [];
     let lastStatus = null;
 
     try {
       for (const group of groups) {
-        const result = await sendGroup(group);
+        const result = await sendGroup(group, generation);
         acceptedDates.push(...result.acceptedDates);
         lastStatus = result.status;
       }
 
-      await store.setDeliveryState({
-        ...delivery,
-        failureCount: 0,
-        nextAttemptAt: 0,
-        lastSuccessAt: now(),
-        lastStatus
+      const recorded = await enqueueLifecycle(async () => {
+        if (!await isDeliveryAllowed(generation)) return false;
+        await store.setDeliveryState({
+          ...delivery,
+          failureCount: 0,
+          nextAttemptAt: 0,
+          lastSuccessAt: now(),
+          lastStatus
+        });
+        if (!await isDeliveryAllowed(generation)) return false;
+        await safelyCancelRetry();
+        return true;
       });
-      await safelyCancelRetry();
+      if (!recorded) return createDisabledResult();
 
       return {
         success: true,
@@ -230,10 +307,14 @@ export function createTelemetryClient({
         status: lastStatus
       };
     } catch (error) {
+      if (error?.code === 'consent_revoked' || !await isDeliveryAllowed(generation)) {
+        return createDisabledResult();
+      }
       if (Array.isArray(error?.acceptedDates)) {
         acceptedDates.push(...error.acceptedDates.filter(date => !acceptedDates.includes(date)));
       }
-      const failure = await setFailureState(delivery, error, error?.status);
+      const failure = await setFailureState(delivery, error, error?.status, generation);
+      if (failure.reason === 'disabled') return failure;
       return {
         ...failure,
         sent: acceptedDates.length > 0,
@@ -251,21 +332,25 @@ export function createTelemetryClient({
   }
 
   async function restoreRetry() {
-    const consent = await getConsent();
-    if (!consent.enabled) {
+    const generation = deliveryGeneration;
+    if (!await isDeliveryAllowed(generation)) {
       await safelyCancelRetry();
       return false;
     }
 
     const delivery = await store.getDeliveryState();
-    const nextAttemptAt = Number(delivery.nextAttemptAt) || 0;
-    if (nextAttemptAt <= 0) {
-      await safelyCancelRetry();
-      return false;
-    }
+    return enqueueLifecycle(async () => {
+      if (!await isDeliveryAllowed(generation)) return false;
 
-    await safelyScheduleRetry(Math.max(nextAttemptAt, now() + RESTORE_RETRY_DELAY_MS));
-    return true;
+      const nextAttemptAt = Number(delivery.nextAttemptAt) || 0;
+      if (nextAttemptAt <= 0) {
+        await safelyCancelRetry();
+        return false;
+      }
+
+      await safelyScheduleRetry(Math.max(nextAttemptAt, now() + RESTORE_RETRY_DELAY_MS));
+      return isDeliveryAllowed(generation);
+    });
   }
 
   return { getConsent, setConsent, flush, restoreRetry };

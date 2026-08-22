@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.9] - 2026-08-22
+### Privacy
+- Technical analytics now stops immediately when consent is withdrawn or the Firefox technical data-collection permission is removed, aborting in-flight requests and preventing stale delivery state or retry alarms from being recreated.
+
+### Fixed
+- Older license-verification responses can no longer restore a signed-out key, delete a newly activated key, or override the latest verification result.
+- Pro activation and logout now use one serialized worker-owned access transition, keeping the context menu and active Rule List consistent when downgrade and upgrade overlap.
+- New installations always receive an installation date before Pro access is checked, preventing accidental legacy access from uninitialized credentials.
+- Concurrent blocked-page, redirect, Focus Session, and reset operations no longer overwrite aggregate Statistics or daily history counters.
+- Focus Session start, stop, and completion operations are serialized, and alarms are bound to their original session deadline so a stale alarm cannot end or count a newer session.
+- Daily Limit state normalization and reads now share the same mutation queue as usage samples, preventing stale snapshots from erasing newly recorded usage.
+- Superseded DNR synchronization snapshots can no longer close tabs after their blocking rule was changed or removed.
+
+### Added
+- Added regression coverage for telemetry opt-out races, stale license responses, overlapping Pro transitions, first-install access checks, concurrent Statistics updates, stale Focus alarms, Daily Limit normalization races, and DNR tab-cleanup invalidation.
+- Firefox service-worker race tests explicitly run without the unsupported windows API to protect Firefox Android.
+
 ## [5.1.8] - 2026-08-21
 ### Fixed
 - Former Pro users now automatically return to the built-in General Rule List when paid access ends, while existing custom profiles and their rules remain safely stored.

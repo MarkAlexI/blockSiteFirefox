@@ -8,8 +8,15 @@ import {
 export class StatisticsManager {
   static logger = new Logger('StatisticsManager');
   static defaultStats = createDefaultStatistics();
+  static mutationTail = Promise.resolve();
 
-  static async getStatistics() {
+  static enqueueMutation(task) {
+    const result = this.mutationTail.then(task, task);
+    this.mutationTail = result.catch(() => {});
+    return result;
+  }
+
+  static async readStatistics() {
     try {
       const result = await browser.storage.local.get(['statistics']);
       if (!result.statistics) {
@@ -29,15 +36,21 @@ export class StatisticsManager {
     }
   }
 
+  static async getStatistics() {
+    return this.enqueueMutation(() => this.readStatistics());
+  }
+
   static async _updateStats(updateFn) {
-    try {
-      const now = new Date();
-      let stats = normalizeStatistics(await this.getStatistics(), now);
-      stats = updateFn(stats, now);
-      await browser.storage.local.set({ statistics: stats });
-    } catch (error) {
-      this.logger.error('Error updating statistics:', error);
-    }
+    return this.enqueueMutation(async () => {
+      try {
+        const now = new Date();
+        let stats = normalizeStatistics(await this.readStatistics(), now);
+        stats = updateFn(stats, now);
+        await browser.storage.local.set({ statistics: stats });
+      } catch (error) {
+        this.logger.error('Error updating statistics:', error);
+      }
+    });
   }
 
   static async recordBlock(url) {
@@ -70,14 +83,16 @@ export class StatisticsManager {
   }
 
   static async reset() {
-    try {
-      const stats = await this.getStatistics();
-      const newStats = createDefaultStatistics();
-      newStats.creationDate = stats.creationDate;
-      await browser.storage.local.set({ statistics: newStats });
-      this.logger.log('Statistics reset.');
-    } catch (error) {
-      this.logger.error('Error resetting statistics:', error);
-    }
+    return this.enqueueMutation(async () => {
+      try {
+        const stats = await this.readStatistics();
+        const newStats = createDefaultStatistics();
+        newStats.creationDate = stats.creationDate;
+        await browser.storage.local.set({ statistics: newStats });
+        this.logger.log('Statistics reset.');
+      } catch (error) {
+        this.logger.error('Error resetting statistics:', error);
+      }
+    });
   }
 }
