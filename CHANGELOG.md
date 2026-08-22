@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.19] - 2026-08-22
+### Fixed
+- Focus Sessions whose one-shot completion alarm was missed during sleep, shutdown, or a delayed Firefox Android wake-up are now completed from persisted state during startup or the unchanged one-minute watchdog.
+- Valid future Focus Sessions restore a missing or stale completion alarm without ending early or rewriting an already correct alarm; both Promise and callback alarm APIs remain supported.
+- Alarm, startup, watchdog, replacement-start, and stop transitions share the existing serialized worker state queue, so stale or simultaneous events cannot end a newer session or record completion twice.
+- Expired sessions persist their inactive state before cleanup, while Daily Limit sampling, alarm cleanup, DNR synchronization, Statistics, diagnostics, telemetry, and notification failures are isolated from one another.
+- Malformed active Focus state is cleared safely without recording a false successful session, and strict UI state reads no longer expose invalid, expired, or partially typed records as active.
+- Recovery remains available to Free and former-Pro users, Free rule deletion and the exact ten-rule limit remain unchanged, and Firefox Android workers still do not require the unsupported windows API.
+
+### Added
+- Added 26 regression scenarios for missed and stale alarms, startup and minute recovery, callback alarm APIs, exact-boundary expiry, concurrent Focus transitions, failed storage and side effects, DNR repair, Free and legacy access, and windowless Firefox Android workers.
+
 ## [5.1.18] - 2026-08-22
 ### Security
 - Pro activation accepts only an explicit boolean subscription approval; malformed truthy server responses can no longer grant paid access, and overlapping submissions cannot race the worker-owned credentials transition.

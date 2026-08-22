@@ -160,8 +160,12 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
       updateDynamicRules: async update => { dnrUpdates.push(structuredClone(update)); }
     },
     alarms: {
-      get(_name, callback) {
-        callback(null);
+      get(name, callback) {
+        const created = [...createdAlarms].reverse().find(alarm => alarm.name === name);
+        callback(created ? {
+          name,
+          scheduledTime: created.options.when
+        } : null);
       },
       create(name, options) {
         createdAlarms.push({ name, options });
@@ -539,6 +543,12 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
       focusMode: 'whitelist'
     });
     assert.equal(whitelistFocus.success, true);
+    const focusAlarmWrites = createdAlarms.filter(alarm => alarm.name === 'end_focus_session').length;
+    await alarmsOnAlarm.listeners[0]({ name: 'update_scheduled_rules' });
+    assert.equal(
+      createdAlarms.filter(alarm => alarm.name === 'end_focus_session').length,
+      focusAlarmWrites
+    );
     await tabsOnCreated.listeners[0]({
       id: 81,
       active: false,
@@ -552,6 +562,7 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     });
     assert.equal(removedTabs.includes(82), true);
 
+    localStorage.data.focusSession.focusEndTime = Date.now();
     await alarmsOnAlarm.listeners[0]({
       name: 'end_focus_session',
       scheduledTime: localStorage.data.focusSession.focusEndTime

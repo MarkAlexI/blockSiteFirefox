@@ -2570,6 +2570,712 @@ test('an alarm delivered after a focus session was stopped is ignored', async ()
   });
 });
 
+test('windowless minute recovery completes an expired Focus session after a missed alarm', async () => {
+  const endTime = Date.now() - 30_000;
+  const rules = [
+    makeFocusRule(401, 'general', { blockURL: 'general-recovery.example' }),
+    makeFocusRule(402, 'list-1', { blockURL: 'study-recovery.example' })
+  ];
+  await withWorker(async ({ api, alarm }) => {
+    api.dynamicRules = [{ id: 401 }, { id: 402 }];
+    api.alarmValues.set('end_focus_session', { name: 'end_focus_session', scheduledTime: endTime });
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(api.storage.local.data.focusSession, {
+      focusActive: false,
+      focusEndTime: 0,
+      isHardcore: false,
+      focusMode: 'blacklist'
+    });
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [401]);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+    assert.equal(api.notificationsCreated[0].id, 'focus_session_ended');
+    const completed = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .reduce((total, bucket) => total + (bucket.counters?.focus_completed || 0), 0);
+    assert.equal(completed, 1);
+    assert.equal(api.windows, undefined);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+  }, {
+    local: {
+      rules,
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: true,
+        focusMode: 'whitelist'
+      },
+      ...createPendingTelemetry()
+    },
+    supportsWindows: false
+  });
+});
+
+test('windowless startup recovers an expired Focus session before final DNR integrity', async () => {
+  const endTime = Date.now() - 5_000;
+  const rules = [
+    makeFocusRule(411, 'general', { blockURL: 'general-startup-recovery.example' }),
+    makeFocusRule(412, 'list-1', { blockURL: 'study-startup-recovery.example' })
+  ];
+  await withWorker(async ({ api, startup }) => {
+    api.dynamicRules = [{ id: 411 }, { id: 412 }];
+
+    await startup();
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [411]);
+    assert.equal(api.notificationsCreated.length, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      rules,
+      activeRuleListId: 'general',
+      lastCheck: Date.now(),
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: true,
+        focusMode: 'whitelist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('minute recovery recreates a missing future Focus completion alarm without ending the session', async () => {
+  const endTime = Date.now() + 15 * 60_000;
+  await withWorker(async ({ api, alarm }) => {
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.alarmValues.get('end_focus_session').when, endTime);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+    assert.equal(api.notificationsCreated.length, 0);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('startup recreates a missing future Focus completion alarm', async () => {
+  const endTime = Date.now() + 20 * 60_000;
+  await withWorker(async ({ api, startup }) => {
+    await startup();
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.alarmValues.get('end_focus_session').when, endTime);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      lastCheck: Date.now(),
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('an exact future Focus alarm is not recreated by every minute watchdog', async () => {
+  const endTime = Date.now() + 10 * 60_000;
+  await withWorker(async ({ api, alarm }) => {
+    api.alarmValues.set('end_focus_session', {
+      name: 'end_focus_session',
+      scheduledTime: endTime
+    });
+    const originalCreate = api.alarms.create.bind(api.alarms);
+    let completionAlarmWrites = 0;
+    api.alarms.create = (name, details) => {
+      if (name === 'end_focus_session') completionAlarmWrites += 1;
+      return originalCreate(name, details);
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(completionAlarmWrites, 0);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('minute recovery replaces a stale future Focus completion alarm', async () => {
+  const endTime = Date.now() + 12 * 60_000;
+  await withWorker(async ({ api, alarm }) => {
+    api.alarmValues.set('end_focus_session', {
+      name: 'end_focus_session',
+      scheduledTime: endTime - 60_000
+    });
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.alarmValues.get('end_focus_session').when, endTime);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('the scheduled Focus alarm completes a valid session through the shared recovery path', async () => {
+  const endTime = Date.now() - 10;
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'end_focus_session', scheduledTime: endTime });
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+  }, {
+    local: {
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('simultaneous Focus alarm and minute recovery record completion exactly once', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    await Promise.all([
+      alarm({ name: 'end_focus_session', scheduledTime: endTime }),
+      alarm({ name: 'update_scheduled_rules' })
+    ]);
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a newer Focus start supersedes stale cleanup while still accounting for the expired session', async () => {
+  const expiredEndTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm, send }) => {
+    const recoveryReadStarted = createDeferred();
+    const resumeRecoveryRead = createDeferred();
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let blocked = false;
+    api.storage.local.get = (keys, callback) => {
+      if (!blocked && Array.isArray(keys) && keys.includes('focusSession')) {
+        blocked = true;
+        const snapshot = originalGet(keys, callback);
+        recoveryReadStarted.resolve();
+        return resumeRecoveryRead.promise.then(() => snapshot);
+      }
+      return originalGet(keys, callback);
+    };
+
+    const recovery = alarm({ name: 'update_scheduled_rules' });
+    await recoveryReadStarted.promise;
+    const starting = send({ type: 'start_focus_session', duration: 5 });
+    await new Promise(resolve => setImmediate(resolve));
+    resumeRecoveryRead.resolve();
+    await Promise.all([recovery, starting]);
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.focusSession.focusEndTime > Date.now(), true);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+    assert.equal(api.alarmValues.get('end_focus_session').when,
+      api.storage.local.data.focusSession.focusEndTime);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: expiredEndTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a failed expired Focus state write is retried without double-counting completion', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let rejectCompletionWrite = true;
+    api.storage.local.set = (values, callback) => {
+      if (rejectCompletionWrite && values.focusSession?.focusActive === false) {
+        rejectCompletionWrite = false;
+        return Promise.reject(new Error('focus state write unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('Daily Limit sampling failure cannot prevent expired Focus cleanup', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let failed = false;
+    api.storage.local.get = (keys, callback) => {
+      if (!failed && keys === 'dailyRuleUsage') {
+        failed = true;
+        return Promise.reject(new Error('Daily Limit sample unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+
+    assert.equal(failed, true);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('malformed active Focus state is cleared without recording a successful session', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.dynamicRules = [{ id: 999 }];
+    api.alarmValues.set('end_focus_session', {
+      name: 'end_focus_session',
+      scheduledTime: Date.now() + 60_000
+    });
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+    assert.equal(api.notificationsCreated.length, 0);
+    assert.deepEqual(api.dynamicRules, []);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: 'invalid',
+        isHardcore: true,
+        focusMode: 'whitelist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('starting a new Focus session first accounts for an expired previous session', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, send }) => {
+    const response = await send({ type: 'start_focus_session', duration: 5 });
+
+    assert.equal(response.success, true);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.focusSession.focusEndTime > Date.now(), true);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+for (const [label, credentials] of [
+  ['Free', { isPro: false, licenseKey: null }],
+  ['legacy', {
+    isPro: false,
+    licenseKey: null,
+    isLegacyUser: true,
+    installationDate: '2025-12-01T00:00:00.000Z'
+  }]
+]) {
+  test(`${label} expired Focus recovery remains available without current Pro access`, async () => {
+    const endTime = Date.now() - 1_000;
+    await withWorker(async ({ api, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+      assert.equal(api.notificationsCreated.length, 1);
+      assert.equal(api.windows, undefined);
+    }, {
+      credentials,
+      local: {
+        activeRuleListId: 'general',
+        focusSession: {
+          focusActive: true,
+          focusEndTime: endTime,
+          isHardcore: false,
+          focusMode: 'blacklist'
+        }
+      },
+      supportsWindows: false
+    });
+  });
+}
+
+test('notification failure cannot roll back an expired Focus completion', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    api.notifications.create = () => { throw new Error('notifications unavailable'); };
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('Focus recovery read failure cannot stop the minute DNR and permission watchdog', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let rejectedRecoveryRead = false;
+    api.storage.local.get = (keys, callback) => {
+      if (!rejectedRecoveryRead && Array.isArray(keys) && keys.includes('focusSession')) {
+        rejectedRecoveryRead = true;
+        return Promise.reject(new Error('focus state unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+    let permissionChecks = 0;
+    let dnrReads = 0;
+    const originalDnrRead = api.declarativeNetRequest.getDynamicRules;
+    api.permissions.contains = async () => {
+      permissionChecks += 1;
+      return true;
+    };
+    api.declarativeNetRequest.getDynamicRules = async () => {
+      dnrReads += 1;
+      return originalDnrRead();
+    };
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+
+    assert.equal(rejectedRecoveryRead, true);
+    assert.equal(permissionChecks, 1);
+    assert.equal(dnrReads, 1);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, { supportsWindows: false });
+});
+
+test('failed Focus alarm recreation keeps the future session and retries next minute', async () => {
+  const endTime = Date.now() + 15 * 60_000;
+  await withWorker(async ({ api, alarm }) => {
+    const originalCreate = api.alarms.create.bind(api.alarms);
+    let rejectAlarm = true;
+    api.alarms.create = (name, details) => {
+      if (name === 'end_focus_session' && rejectAlarm) {
+        rejectAlarm = false;
+        return Promise.reject(new Error('alarm persistence unavailable'));
+      }
+      return originalCreate(name, details);
+    };
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.alarmValues.get('end_focus_session').when, endTime);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('Statistics failure after Focus cleanup cannot restore or double-complete the session', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let rejectStatisticsRead = true;
+    api.storage.local.get = (keys, callback) => {
+      if (rejectStatisticsRead && Array.isArray(keys) && keys.includes('statistics')) {
+        rejectStatisticsRead = false;
+        return Promise.reject(new Error('statistics unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics, undefined);
+    assert.equal(api.notificationsCreated.length, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('failed Focus diagnostics and telemetry cannot undo completion or Statistics', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      if (Object.hasOwn(values, 'diagnosticEvents') || Object.hasOwn(values, 'telemetryBuckets')) {
+        return Promise.reject(new Error('completion reporting unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+  }, {
+    settings: { debugMode: true },
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 },
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('minute recovery never ends a future Focus session early, while its matching alarm keeps tolerance', async () => {
+  const now = Date.now();
+  const endTime = now + 500;
+  await withWorker(async ({ api, alarm }) => {
+    const previousNow = Date.now;
+    Date.now = () => now;
+    try {
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+      assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+
+      await alarm({ name: 'end_focus_session', scheduledTime: endTime });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    } finally {
+      Date.now = previousNow;
+    }
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a stale alarm cannot complete a different expired Focus session, but minute recovery can', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'end_focus_session', scheduledTime: endTime - 60_000 });
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('completion alarm cleanup failure cannot roll back expired Focus state', async () => {
+  const endTime = Date.now() - 1_000;
+  await withWorker(async ({ api, alarm }) => {
+    api.alarmValues.set('end_focus_session', {
+      name: 'end_focus_session',
+      scheduledTime: endTime
+    });
+    const originalClear = api.alarms.clear.bind(api.alarms);
+    api.alarms.clear = name => name === 'end_focus_session'
+      ? Promise.reject(new Error('alarm cleanup unavailable'))
+      : originalClear(name);
+
+    await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a transient completion DNR failure is repaired by the same minute watchdog', async () => {
+  const endTime = Date.now() - 1_000;
+  const rule = makeFocusRule(421, 'general', { blockURL: 'post-focus.example' });
+  await withWorker(async ({ api, alarm }) => {
+    api.dynamicRules = [{ id: 999 }];
+    const originalRead = api.declarativeNetRequest.getDynamicRules;
+    let rejectFirstRead = true;
+    api.declarativeNetRequest.getDynamicRules = async () => {
+      if (rejectFirstRead) {
+        rejectFirstRead = false;
+        throw new Error('DNR state temporarily unavailable');
+      }
+      return originalRead();
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [421]);
+  }, {
+    local: {
+      rules: [rule],
+      activeRuleListId: 'general',
+      focusSession: {
+        focusActive: true,
+        focusEndTime: endTime,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      }
+    },
+    supportsWindows: false
+  });
+});
+
 test('Pro Focus rejects oversized global DNR activation before changing its session or alarm', async () => {
   const rules = [
     makeFocusRule(81, 'general', { blockURL: 'general.example' }),

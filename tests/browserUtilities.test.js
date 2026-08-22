@@ -310,6 +310,51 @@ test('scroll controls smoothly return to the top and track intersection visibili
   }
 });
 
+test('focus session reads reject malformed or boundary-expired active state', async () => {
+  const now = Date.now();
+  const api = createExtensionApi();
+  await withExtensionEnvironment(api, async () => {
+    const { getFocusSessionState } = await import('../utils/focusSession.js');
+
+    for (const focusSession of [
+      { focusActive: true, focusEndTime: now },
+      { focusActive: true, focusEndTime: 0 },
+      { focusActive: true, focusEndTime: 'not-a-time', isHardcore: true, focusMode: 'whitelist' },
+      { focusActive: 'true', focusEndTime: now + 60_000, isHardcore: true, focusMode: 'whitelist' }
+    ]) {
+      api.storage.local.data.focusSession = focusSession;
+      assert.deepEqual(await getFocusSessionState(), {
+        focusActive: false,
+        focusEndTime: 0,
+        isHardcore: false,
+        focusMode: 'blacklist'
+      });
+    }
+  });
+});
+
+test('focus session reads normalize a valid future record to its supported contract', async () => {
+  const endTime = Date.now() + 60_000;
+  const api = createExtensionApi({ local: {
+    focusSession: {
+      focusActive: true,
+      focusEndTime: String(endTime),
+      isHardcore: 1,
+      focusMode: 'unsupported'
+    }
+  } });
+
+  await withExtensionEnvironment(api, async () => {
+    const { getFocusSessionState } = await import('../utils/focusSession.js');
+    assert.deepEqual(await getFocusSessionState(), {
+      focusActive: true,
+      focusEndTime: endTime,
+      isHardcore: false,
+      focusMode: 'blacklist'
+    });
+  });
+});
+
 test('space filtering handles existing inputs, newly inserted inputs, and nested inputs', async () => {
   const document = new FakeDocument();
   const container = document.addElement('rules-container');

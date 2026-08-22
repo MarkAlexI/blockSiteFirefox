@@ -417,6 +417,13 @@ let stateTransitionTail = Promise.resolve();
 let proStatusTransitionGeneration = 0;
 let licenseVerificationGeneration = 0;
 let focusSessionTransitionGeneration = 0;
+const FOCUS_COMPLETION_ALARM = 'end_focus_session';
+const INACTIVE_FOCUS_SESSION = Object.freeze({
+  focusActive: false,
+  focusEndTime: 0,
+  isHardcore: false,
+  focusMode: 'blacklist'
+});
 
 function enqueueStateTransition(task) {
   const result = stateTransitionTail.then(task, task);
@@ -430,6 +437,198 @@ function enqueueProStatusTransition(task) {
 
 function enqueueFocusSessionTransition(task) {
   return enqueueStateTransition(task);
+}
+
+async function runFocusCompletionTask(name, operation) {
+  try {
+    return await operation();
+  } catch (error) {
+    logger.error(`Focus Session recovery: ${name} failed:`, error);
+    return null;
+  }
+}
+
+async function reportFocusRecoveryFailure(reason, error) {
+  const outcomes = await Promise.allSettled([
+    diagnosticStore.recordEvent('error', 'focus', 'recovery_failed', { reason, error }),
+    telemetryStore.recordError({
+      source: 'focus',
+      code: 'recovery_failed',
+      operation: 'recover_session',
+      errorName: error?.name || 'Error'
+    })
+  ]);
+  for (const outcome of outcomes) {
+    if (outcome.status === 'rejected') {
+      logger.info('Focus recovery failure reporting could not be persisted:', outcome.reason);
+    }
+  }
+}
+
+function getFocusCompletionAlarm() {
+  let result;
+  try {
+    result = browser.alarms.get(FOCUS_COMPLETION_ALARM);
+  } catch (_) {
+    result = undefined;
+  }
+
+  if (result && typeof result.then === 'function') return result;
+  if (result !== undefined) return Promise.resolve(result);
+
+  return new Promise((resolve, reject) => {
+    try {
+      browser.alarms.get(FOCUS_COMPLETION_ALARM, alarm => {
+        const runtimeError = browser.runtime.lastError;
+        if (runtimeError) {
+          reject(new Error(runtimeError.message || String(runtimeError)));
+          return;
+        }
+        resolve(alarm ?? null);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+async function ensureFocusCompletionAlarm(endTime, shouldContinue) {
+  const existing = await getFocusCompletionAlarm();
+  if (!shouldContinue()) return false;
+
+  const scheduledTime = Number(existing?.scheduledTime ?? existing?.when);
+  if (Number.isFinite(scheduledTime) && Math.abs(scheduledTime - endTime) <= 1000) {
+    return false;
+  }
+
+  await browser.alarms.create(FOCUS_COMPLETION_ALARM, { when: endTime });
+  return true;
+}
+
+async function showFocusCompletionNotification() {
+  if (!browser.notifications) return;
+  const settings = await SettingsManager.getSettings();
+  browser.notifications.create('focus_session_ended', {
+    type: 'basic',
+    iconUrl: browser.runtime.getURL('images/icon-192.png'),
+    title: browser.i18n.getMessage('focussessionheader'),
+    message: browser.i18n.getMessage('focussessionended'),
+    priority: 2,
+    silent: !settings.focusSessionSound
+  });
+}
+
+async function reconcileStoredFocusSession(reason, {
+  transitionGeneration,
+  expectedEndTime = null,
+  allowEarlyCompletion = false,
+  rearmFuture = true,
+  invalidateGeneration = true
+} = {}) {
+  const shouldContinue = () => transitionGeneration === focusSessionTransitionGeneration;
+  if (!shouldContinue()) return { status: 'superseded' };
+
+  const result = await browser.storage.local.get(['focusSession']);
+  if (!shouldContinue()) return { status: 'superseded' };
+
+  const focusSession = result.focusSession;
+  if (focusSession?.focusActive !== true) return { status: 'inactive' };
+
+  const endTime = Number(focusSession.focusEndTime);
+  const hasValidEndTime = Number.isFinite(endTime) && endTime > 0;
+  const expected = Number(expectedEndTime);
+  if (
+    hasValidEndTime &&
+    Number.isFinite(expected) &&
+    expected > 0 &&
+    Math.abs(expected - endTime) > 1000
+  ) {
+    logger.log('Focus Session: Ignoring a stale completion alarm.');
+    return { status: 'stale_alarm' };
+  }
+
+  const now = Date.now();
+  const completionDue = !hasValidEndTime ||
+    (allowEarlyCompletion ? now + 1000 >= endTime : now >= endTime);
+  if (!completionDue) {
+    if (rearmFuture) {
+      const alarmCreated = await ensureFocusCompletionAlarm(endTime, shouldContinue);
+      if (!shouldContinue()) return { status: 'superseded' };
+      return { status: 'active', alarmCreated };
+    }
+    return { status: 'active', alarmCreated: false };
+  }
+
+  await runFocusCompletionTask(
+    'pre-completion Daily Limit sample',
+    () => dailyLimitTracker.sample('focus_complete_before')
+  );
+  if (!shouldContinue()) return { status: 'superseded' };
+
+  await browser.storage.local.set({ focusSession: { ...INACTIVE_FOCUS_SESSION } });
+  if (invalidateGeneration && shouldContinue()) {
+    focusSessionTransitionGeneration += 1;
+  }
+
+  await Promise.all([
+    runFocusCompletionTask(
+      'completion alarm cleanup',
+      () => browser.alarms.clear(FOCUS_COMPLETION_ALARM)
+    ),
+    runFocusCompletionTask(
+      'post-completion Daily Limit sample',
+      () => dailyLimitTracker.sample('focus_complete_after')
+    ),
+    runFocusCompletionTask('DNR synchronization', () => dnrSynchronizer.requestSync())
+  ]);
+
+  if (!hasValidEndTime) {
+    const outcomes = await Promise.allSettled([
+      diagnosticStore.recordEvent('warn', 'focus', 'invalid_session_recovered', {
+        reason
+      }),
+      telemetryStore.recordError({
+        source: 'focus',
+        code: 'invalid_session',
+        operation: 'recover_session',
+        errorName: 'Error'
+      })
+    ]);
+    for (const outcome of outcomes) {
+      if (outcome.status === 'rejected') {
+        logger.info('Invalid Focus recovery reporting could not be persisted:', outcome.reason);
+      }
+    }
+    return { status: 'invalid_state_recovered' };
+  }
+
+  const outcomes = await Promise.allSettled([
+    StatisticsManager.recordFocusSession(),
+    diagnosticStore.recordEvent('info', 'focus', 'session_completed', { reason }),
+    telemetryStore.incrementCounter('focus_completed')
+  ]);
+  for (const outcome of outcomes) {
+    if (outcome.status === 'rejected') {
+      logger.info('Focus completion reporting could not be persisted:', outcome.reason);
+    }
+  }
+  await runFocusCompletionTask('completion notification', showFocusCompletionNotification);
+  return { status: 'completed' };
+}
+
+async function reconcileFocusSession(reason, options = {}) {
+  const transitionGeneration = focusSessionTransitionGeneration;
+  try {
+    return await enqueueFocusSessionTransition(() => reconcileStoredFocusSession(reason, {
+      ...options,
+      transitionGeneration,
+      invalidateGeneration: true
+    }));
+  } catch (error) {
+    logger.error(`Focus Session recovery failed (${reason}):`, error);
+    await reportFocusRecoveryFailure(reason, error);
+    return { status: 'failed', error: error.message };
+  }
 }
 
 function normalizeFocusSessionRequest(message) {
@@ -915,6 +1114,7 @@ async function initializeExtension(details) {
   }
   await SettingsManager.getSettings();
   await StatisticsManager.getStatistics();
+  await reconcileFocusSession(details.reason || 'initialize');
   await showUpdates(details);
   
   try {
@@ -1444,6 +1644,13 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const completed = await enqueueFocusSessionTransition(async () => {
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
+          await reconcileStoredFocusSession('focus_start', {
+            transitionGeneration,
+            rearmFuture: false,
+            invalidateGeneration: false
+          });
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
           const { durationMinutes, isHardcore, focusMode } = request;
           const access = await getFocusAccess();
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
@@ -1683,58 +1890,9 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   }
   
   if (alarm.name === 'end_focus_session') {
-    const transitionGeneration = focusSessionTransitionGeneration;
-    await enqueueFocusSessionTransition(async () => {
-      if (transitionGeneration !== focusSessionTransitionGeneration) return;
-
-      const result = await browser.storage.local.get(['focusSession']);
-      const focusSession = result.focusSession;
-      if (focusSession?.focusActive !== true) return;
-
-      const scheduledTime = Number(alarm.scheduledTime);
-      const endTime = Number(focusSession.focusEndTime);
-      if (
-        !Number.isFinite(endTime) ||
-        endTime <= 0 ||
-        (Number.isFinite(scheduledTime) && scheduledTime > 0
-          ? Math.abs(scheduledTime - endTime) > 1000
-          : Date.now() + 1000 < endTime)
-      ) {
-        logger.log('Focus Session: Ignoring a stale completion alarm.');
-        return;
-      }
-      if (transitionGeneration !== focusSessionTransitionGeneration) return;
-
-      logger.log('Focus Session: Alarm triggered, ending session.');
-      await dailyLimitTracker.sample('focus_complete_before');
-      if (transitionGeneration !== focusSessionTransitionGeneration) return;
-
-      await browser.storage.local.set({
-        focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
-      });
-      await dailyLimitTracker.sample('focus_complete_after');
-      await dnrSynchronizer.requestSync();
-      await StatisticsManager.recordFocusSession();
-      await Promise.all([
-        diagnosticStore.recordEvent('info', 'focus', 'session_completed', {
-          reason: 'alarm'
-        }),
-        telemetryStore.incrementCounter('focus_completed')
-      ]);
-
-      const settings = await SettingsManager.getSettings();
-      const playSound = settings.focusSessionSound;
-
-      if (browser.notifications) {
-        browser.notifications.create('focus_session_ended', {
-          type: 'basic',
-          iconUrl: browser.runtime.getURL('images/icon-192.png'),
-          title: browser.i18n.getMessage('focussessionheader'),
-          message: browser.i18n.getMessage('focussessionended'),
-          priority: 2,
-          silent: !playSound
-        });
-      }
+    await reconcileFocusSession('alarm', {
+      expectedEndTime: alarm.scheduledTime,
+      allowEarlyCompletion: true
     });
   }
   
@@ -1743,6 +1901,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   }
 
   if (alarm.name === 'update_scheduled_rules') {
+    await reconcileFocusSession('minute_alarm');
     if (await recoverPendingDailyUsage('minute_alarm')) {
       await dailyLimitTracker.sample('minute_alarm');
     }

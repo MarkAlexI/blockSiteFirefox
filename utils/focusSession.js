@@ -12,13 +12,21 @@ const DEFAULT_FOCUS_SESSION = {
 export async function getFocusSessionState() {
   try {
     const result = await browser.storage.local.get(['focusSession']);
-    const focusSession = { ...DEFAULT_FOCUS_SESSION, ...result.focusSession };
+    const stored = result.focusSession;
+    if (stored?.focusActive !== true) return { ...DEFAULT_FOCUS_SESSION };
 
-    if (focusSession.focusActive && Date.now() > focusSession.focusEndTime) {
-      logger.log('Found expired session, treating as inactive.');
+    const focusEndTime = Number(stored.focusEndTime);
+    if (!Number.isFinite(focusEndTime) || focusEndTime <= 0 || Date.now() >= focusEndTime) {
+      logger.log('Found expired or invalid session, treating as inactive.');
       return { ...DEFAULT_FOCUS_SESSION };
     }
-    return focusSession;
+
+    return {
+      focusActive: true,
+      focusEndTime,
+      isHardcore: stored.isHardcore === true,
+      focusMode: stored.focusMode === 'whitelist' ? 'whitelist' : 'blacklist'
+    };
   } catch (error) {
     logger.error('Error getting state:', error);
     return { ...DEFAULT_FOCUS_SESSION };
