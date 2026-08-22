@@ -103,10 +103,24 @@ export class DailyLimitManager {
   async recordSample(activeAssignmentKeys, now = new Date(), { closePreviousSegment = false } = {}) {
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
-      const state = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
+      const raw = result[DAILY_RULE_USAGE_KEY];
+      const state = normalizeDailyRuleUsageState(raw, now);
       const timestamp = now.getTime();
       const currentKeys = normalizeActiveKeys(activeAssignmentKeys);
       const previousKeys = state.lastSample?.assignmentKeys || [];
+
+      if (currentKeys.length === 0 && previousKeys.length === 0) {
+        if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
+          await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+        }
+        return {
+          state,
+          accountedAssignmentKeys: [],
+          addedSeconds: 0,
+          usageUpdates: {}
+        };
+      }
+
       const sharedKeys = previousKeys.filter(key => currentKeys.includes(key));
       const accountingKeys = closePreviousSegment ? previousKeys : sharedKeys;
       let addedSeconds = 0;
@@ -135,7 +149,9 @@ export class DailyLimitManager {
         assignmentKeys: currentKeys
       };
 
-      await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+      if (JSON.stringify(raw) !== JSON.stringify(state)) {
+        await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+      }
       return {
         state,
         accountedAssignmentKeys: Object.keys(usageUpdates),
@@ -161,21 +177,49 @@ export class DailyLimitManager {
     const newKey = `${newId}:${newList}`;
     if (oldKey === newKey) return this.readState(now);
 
+    return this.remapAssignmentKeys([{
+      oldRuleId: oldId,
+      oldListId: oldList,
+      newRuleId: newId,
+      newListId: newList
+    }], now);
+  }
+
+  async remapAssignmentKeys(remaps = [], now = new Date()) {
+    const normalizedRemaps = [];
+    for (const remap of Array.isArray(remaps) ? remaps : []) {
+      const oldId = Math.floor(Number(remap?.oldRuleId));
+      const newId = Math.floor(Number(remap?.newRuleId));
+      const oldList = typeof remap?.oldListId === 'string' ? remap.oldListId.trim() : '';
+      const newList = typeof remap?.newListId === 'string' ? remap.newListId.trim() : '';
+      if (!Number.isInteger(oldId) || oldId <= 0 || !Number.isInteger(newId) || newId <= 0 || !oldList || !newList) {
+        continue;
+      }
+      const oldKey = `${oldId}:${oldList}`;
+      const newKey = `${newId}:${newList}`;
+      if (oldKey !== newKey) normalizedRemaps.push({ oldKey, newKey });
+    }
+
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
-      const state = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
-      const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0);
-      const newUsage = Math.max(0, Number(state.usageSeconds[newKey]) || 0);
-      if (oldUsage > 0 || newUsage > 0) {
-        state.usageSeconds[newKey] = Math.max(oldUsage, newUsage);
+      const raw = result[DAILY_RULE_USAGE_KEY];
+      const state = normalizeDailyRuleUsageState(raw, now);
+      for (const { oldKey, newKey } of normalizedRemaps) {
+        const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0);
+        const newUsage = Math.max(0, Number(state.usageSeconds[newKey]) || 0);
+        if (oldUsage > 0 || newUsage > 0) {
+          state.usageSeconds[newKey] = Math.max(oldUsage, newUsage);
+        }
+        delete state.usageSeconds[oldKey];
+        if (state.lastSample) {
+          state.lastSample.assignmentKeys = normalizeActiveKeys(
+            state.lastSample.assignmentKeys.map(key => key === oldKey ? newKey : key)
+          );
+        }
       }
-      delete state.usageSeconds[oldKey];
-      if (state.lastSample) {
-        state.lastSample.assignmentKeys = normalizeActiveKeys(
-          state.lastSample.assignmentKeys.map(key => key === oldKey ? newKey : key)
-        );
+      if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
+        await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
       }
-      await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
       return state;
     });
   }
@@ -184,14 +228,17 @@ export class DailyLimitManager {
     const valid = new Set(normalizeActiveKeys(validAssignmentKeys));
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
-      const state = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
+      const raw = result[DAILY_RULE_USAGE_KEY];
+      const state = normalizeDailyRuleUsageState(raw, now);
       for (const key of Object.keys(state.usageSeconds)) {
         if (!valid.has(key)) delete state.usageSeconds[key];
       }
       if (state.lastSample) {
         state.lastSample.assignmentKeys = state.lastSample.assignmentKeys.filter(key => valid.has(key));
       }
-      await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+      if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
+        await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+      }
       return state;
     });
   }

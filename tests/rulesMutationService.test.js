@@ -29,6 +29,7 @@ function createHarness({
   const notifications = [];
   let syncCalls = 0;
   const usageRemaps = [];
+  const usageRemapBatches = [];
 
   const rulesManager = {
     async getRules() {
@@ -100,6 +101,10 @@ function createHarness({
     dailyLimitManager: {
       async remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId) {
         usageRemaps.push({ oldRuleId, oldListId, newRuleId, newListId });
+      },
+      async remapAssignmentKeys(remaps) {
+        usageRemapBatches.push(clone(remaps));
+        usageRemaps.push(...clone(remaps));
       }
     },
     declarativeNetRequest: {
@@ -140,7 +145,8 @@ function createHarness({
     savedStates,
     notifications,
     getSyncCalls: () => syncCalls,
-    getUsageRemaps: () => clone(usageRemaps)
+    getUsageRemaps: () => clone(usageRemaps),
+    getUsageRemapBatches: () => clone(usageRemapBatches)
   };
 }
 
@@ -1811,4 +1817,73 @@ test('deleting a profile remaps Daily Limit usage when its sole target moves to 
     newRuleId: 7,
     newListId: 'general'
   }]);
+  assert.equal(harness.getUsageRemapBatches().length, 1);
+});
+
+test('deleting a profile with ordinary rules never remaps Daily Limit usage', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    initialActiveRuleListId: 'study',
+    initialRules: Array.from({ length: 100 }, (_, index) => ({
+      id: index + 1,
+      blockURL: 'site' + (index + 1) + '.example',
+      redirectURL: '',
+      category: 'social',
+      isWhitelist: false,
+      assignments: [{
+        listId: 'study',
+        disabledByUser: false,
+        blockingMode: 'always',
+        schedule: null,
+        dailyLimit: null
+      }]
+    }))
+  });
+
+  await harness.service.deleteRuleList({ listId: 'study' });
+
+  assert.equal(harness.getRules().length, 100);
+  assert.equal(harness.savedStates.length, 1);
+  assert.deepEqual(harness.getUsageRemaps(), []);
+  assert.deepEqual(harness.getUsageRemapBatches(), []);
+});
+
+test('deleting a mixed profile batches only Daily Limit assignment remaps', async () => {
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    initialActiveRuleListId: 'study',
+    initialRules: Array.from({ length: 30 }, (_, index) => {
+      const dailyLimit = index % 3 === 0;
+      return {
+        id: index + 1,
+        blockURL: 'site' + (index + 1) + '.example',
+        redirectURL: '',
+        category: 'social',
+        isWhitelist: false,
+        assignments: [{
+          listId: 'study',
+          disabledByUser: false,
+          blockingMode: dailyLimit ? 'daily_limit' : 'always',
+          schedule: null,
+          dailyLimit: dailyLimit ? { minutes: 30 } : null
+        }]
+      };
+    })
+  });
+
+  await harness.service.deleteRuleList({ listId: 'study' });
+
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getUsageRemapBatches().length, 1);
+  assert.equal(harness.getUsageRemapBatches()[0].length, 10);
+  assert.deepEqual(
+    harness.getUsageRemaps().map(remap => remap.oldRuleId),
+    [1, 4, 7, 10, 13, 16, 19, 22, 25, 28]
+  );
 });

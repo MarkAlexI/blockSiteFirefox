@@ -15,6 +15,39 @@ test('rule storage returns an empty list when unset and persists complete rule s
   });
 });
 
+test('rule storage rejects callback quota failures instead of reporting a successful save', async () => {
+  const api = createExtensionApi();
+  await withExtensionEnvironment(api, async () => {
+    api.storage.local.set = (_values, callback) => {
+      api.runtime.lastError = { message: 'QUOTA_BYTES quota exceeded' };
+      callback();
+      delete api.runtime.lastError;
+    };
+
+    await assert.rejects(
+      new RulesManager().saveRules([{ id: 1, blockURL: 'blocked.example' }]),
+      /QUOTA_BYTES quota exceeded/
+    );
+    assert.equal(api.storage.local.data.rules, undefined);
+  });
+});
+
+test('rule storage rejects callback read errors instead of returning an empty rule list', async () => {
+  const api = createExtensionApi();
+  await withExtensionEnvironment(api, async () => {
+    api.storage.local.get = (_key, callback) => {
+      api.runtime.lastError = { message: 'Local storage unavailable' };
+      callback(undefined);
+      delete api.runtime.lastError;
+    };
+
+    await assert.rejects(
+      new RulesManager().getRules(),
+      /Local storage unavailable/
+    );
+  });
+});
+
 test('rule validation rejects invalid UTF-16, unsupported redirects, missing categories, and invalid schedules', () => {
   const manager = new RulesManager();
   const invalidEncoding = manager.validateRule('\uD800', '', null, 'social');

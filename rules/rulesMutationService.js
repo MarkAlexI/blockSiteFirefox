@@ -1051,20 +1051,26 @@ export function createRulesMutationService({
 
         const generalAssignment = createRuleAssignment(GENERAL_RULE_LIST_ID, removedAssignment);
         nextRules.push(canonicalizeRuleTarget(rule, [generalAssignment]));
-        usageRemaps.push({
-          oldRuleId: rule.id,
-          oldListId: listId,
-          newRuleId: rule.id,
-          newListId: GENERAL_RULE_LIST_ID
-        });
+        if (removedAssignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
+          usageRemaps.push({
+            oldRuleId: rule.id,
+            oldListId: listId,
+            newRuleId: rule.id,
+            newListId: GENERAL_RULE_LIST_ID
+          });
+        }
       }
 
       const activeRuleListId = state.activeRuleListId === listId
         ? GENERAL_RULE_LIST_ID
         : normalizeActiveRuleListId(nextLists, state.activeRuleListId);
       await saveCombinedState(nextRules, nextLists, activeRuleListId);
-      for (const remap of usageRemaps) {
-        await remapDailyUsage(remap.oldRuleId, remap.oldListId, remap.newRuleId, remap.newListId);
+      if (usageRemaps.length > 0 && typeof dailyLimitManager?.remapAssignmentKeys === 'function') {
+        await dailyLimitManager.remapAssignmentKeys(usageRemaps);
+      } else {
+        for (const remap of usageRemaps) {
+          await remapDailyUsage(remap.oldRuleId, remap.oldListId, remap.newRuleId, remap.newListId);
+        }
       }
       return syncAndNotify(nextRules, {
         ruleLists: nextLists,

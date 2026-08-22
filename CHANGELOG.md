@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.12] - 2026-08-22
+### Changed
+- Idle Daily Limit samples and unchanged assignment cleanup no longer rewrite local storage while preserving active-segment persistence, local-day rollover, and the existing one-minute recovery alarm.
+- Scheduled host-permission checks still run every minute but persist unchanged diagnostics at most once every 15 minutes; permission transitions and explicit checks remain immediate.
+- Deleting a Rule List remaps only Daily Limit assignments and batches their usage changes into one local-storage write.
+- Telemetry no longer rewrites a full daily bucket when a new error fingerprint is discarded at its configured cap.
+
+### Fixed
+- Rule storage callbacks now surface read failures and storage-quota errors instead of reporting an unsuccessful mutation as saved.
+
+### Added
+- Added write-budget, batch-remapping, quota-failure, permission watchdog, telemetry-cap, and Firefox Android windowless-worker regression coverage.
+
 ## [5.1.11] - 2026-08-22
 ### Fixed
 - Pro status updates and Focus start, stop, and completion now share one serialized state-transition queue, preventing a delayed paid Focus start from completing after a downgrade and preventing a concurrent downgrade from superseding a newer Stop request.

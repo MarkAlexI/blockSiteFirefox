@@ -11,11 +11,13 @@ function createStorage(initial = {}) {
   const data = { ...initial };
   return {
     data,
+    setCalls: 0,
     async get(key) {
       if (typeof key === 'string') return { [key]: data[key] };
       return { ...data };
     },
     async set(values) {
+      this.setCalls++;
       Object.assign(data, values);
     }
   };
@@ -32,6 +34,55 @@ test('daily usage is scoped to the local calendar date', () => {
   }, now);
   assert.deepEqual(state.usageSeconds, {});
   assert.equal(state.lastSample, null);
+});
+
+test('idle samples do not create Daily Limit storage or rewrite an inactive baseline', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const emptyStorage = createStorage();
+  const emptyManager = new DailyLimitManager(emptyStorage);
+
+  const first = await emptyManager.recordSample([], now);
+  assert.equal(emptyStorage.setCalls, 0);
+  assert.equal(emptyStorage.data.dailyRuleUsage, undefined);
+  assert.equal(first.addedSeconds, 0);
+
+  const storedBaseline = now.getTime() - 60_000;
+  const initializedStorage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '7:general': 90 },
+      lastSample: { timestamp: storedBaseline, assignmentKeys: [] }
+    }
+  });
+  const initializedManager = new DailyLimitManager(initializedStorage);
+
+  await initializedManager.recordSample([], now);
+  await initializedManager.recordSample([], new Date(now.getTime() + 60_000));
+
+  assert.equal(initializedStorage.setCalls, 0);
+  assert.equal(initializedStorage.data.dailyRuleUsage.lastSample.timestamp, storedBaseline);
+  assert.equal(initializedStorage.data.dailyRuleUsage.usageSeconds['7:general'], 90);
+});
+
+test('an idle sample still clears stale Daily Limit usage after the local date changes', async () => {
+  const now = new Date(2026, 7, 22, 0, 1, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-21',
+      usageSeconds: { '7:general': 90 },
+      lastSample: { timestamp: now.getTime() - 120_000, assignmentKeys: ['7:general'] }
+    }
+  });
+  const manager = new DailyLimitManager(storage);
+
+  await manager.recordSample([], now);
+
+  assert.equal(storage.setCalls, 1);
+  assert.equal(storage.data.dailyRuleUsage.date, '2026-08-22');
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, {});
+  assert.equal(storage.data.dailyRuleUsage.lastSample, null);
 });
 
 test('normalizing a stale usage snapshot cannot overwrite a concurrently recorded sample', async () => {
@@ -163,6 +214,24 @@ test('usage state prunes deleted assignment keys', async () => {
   assert.deepEqual(state.lastSample.assignmentKeys, []);
 });
 
+test('pruning unchanged or absent assignment usage does not write storage', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const emptyStorage = createStorage();
+  await new DailyLimitManager(emptyStorage).pruneAssignmentKeys([], now);
+  assert.equal(emptyStorage.setCalls, 0);
+
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '7:general': 90 },
+      lastSample: { timestamp: now.getTime(), assignmentKeys: ['7:general'] }
+    }
+  });
+  await new DailyLimitManager(storage).pruneAssignmentKeys(['7:general'], now);
+  assert.equal(storage.setCalls, 0);
+});
+
 test('assignment usage can be remapped when editing splits a shared target', async () => {
   const now = new Date(2026, 7, 17, 10, 0, 0);
   const storage = createStorage({
@@ -177,6 +246,55 @@ test('assignment usage can be remapped when editing splits a shared target', asy
   const state = await manager.remapAssignmentKey(1, 'list-2', 9, 'list-2', now);
   assert.deepEqual(state.usageSeconds, { '9:list-2': 42 });
   assert.deepEqual(state.lastSample.assignmentKeys, ['9:list-2']);
+});
+
+test('remapping a rule without tracked Daily Limit usage does not write storage', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '9:general': 60 },
+      lastSample: { timestamp: now.getTime(), assignmentKeys: [] }
+    }
+  });
+
+  await new DailyLimitManager(storage).remapAssignmentKey(7, 'study', 7, 'general', now);
+
+  assert.equal(storage.setCalls, 0);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '9:general': 60 });
+});
+
+test('batch remapping preserves usage and active assignments with one storage write', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: {
+        '1:study': 40,
+        '1:general': 90,
+        '2:study': 120,
+        '3:other': 30
+      },
+      lastSample: {
+        timestamp: now.getTime(),
+        assignmentKeys: ['1:study', '1:general', '2:study']
+      }
+    }
+  });
+  const state = await new DailyLimitManager(storage).remapAssignmentKeys([
+    { oldRuleId: 1, oldListId: 'study', newRuleId: 1, newListId: 'general' },
+    { oldRuleId: 2, oldListId: 'study', newRuleId: 2, newListId: 'general' }
+  ], now);
+
+  assert.equal(storage.setCalls, 1);
+  assert.deepEqual(state.usageSeconds, {
+    '1:general': 90,
+    '3:other': 30,
+    '2:general': 120
+  });
+  assert.deepEqual(state.lastSample.assignmentKeys, ['1:general', '2:general']);
 });
 
 
@@ -208,4 +326,21 @@ test('resetSample closes the active segment before clearing the baseline', async
   assert.equal(result.addedSeconds, 15);
   assert.equal(result.state.usageSeconds['7:general'], 15);
   assert.deepEqual(result.state.lastSample.assignmentKeys, []);
+});
+
+test('an active segment is persisted when closed and subsequent idle samples do not rewrite it', async () => {
+  const storage = createStorage();
+  const manager = new DailyLimitManager(storage);
+  const start = new Date(2026, 7, 22, 12, 0, 0);
+
+  await manager.recordSample(['7:general'], start);
+  await manager.resetSample(new Date(start.getTime() + 30_000));
+  assert.equal(storage.setCalls, 2);
+
+  await manager.recordSample([], new Date(start.getTime() + 90_000));
+  await manager.resetSample(new Date(start.getTime() + 120_000));
+
+  assert.equal(storage.setCalls, 2);
+  assert.equal(storage.data.dailyRuleUsage.usageSeconds['7:general'], 30);
+  assert.deepEqual(storage.data.dailyRuleUsage.lastSample.assignmentKeys, []);
 });

@@ -16,16 +16,29 @@ import {
  */
 export class RulesManager {
   async getRules() {
-    return new Promise((resolve) => {
-      chrome.storage.local.get('rules', ({ rules }) => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get('rules', (result) => {
+        const error = chrome.runtime.lastError;
+        if (error) {
+          reject(new Error(error.message || 'Could not load rules from local storage'));
+          return;
+        }
+        const { rules } = result || {};
         resolve(rules || []);
       });
     });
   }
 
   async saveRules(rules) {
-    await new Promise((resolve) => {
-      chrome.storage.local.set({ rules }, resolve);
+    await new Promise((resolve, reject) => {
+      chrome.storage.local.set({ rules }, () => {
+        const error = chrome.runtime.lastError;
+        if (error) {
+          reject(new Error(error.message || 'Could not save rules to local storage'));
+          return;
+        }
+        resolve();
+      });
     });
   }
 

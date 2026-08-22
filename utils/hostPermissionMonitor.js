@@ -1,4 +1,5 @@
 export const REQUIRED_HOST_ORIGINS = ['*://*/*'];
+export const PERMISSION_CHECK_PERSIST_INTERVAL_MS = 15 * 60 * 1000;
 
 export function affectsRequiredHostAccess(origins = []) {
   return Array.isArray(origins) && origins.some(origin =>
@@ -30,7 +31,8 @@ export function createHostPermissionMonitor({
     assumeMissing = false
   } = {}) {
     const previousState = await diagnosticStore.getState();
-    const previousHostAccess = previousState?.lastPermissionCheck?.hostAccess;
+    const previousCheck = previousState?.lastPermissionCheck;
+    const previousHostAccess = previousCheck?.hostAccess;
 
     let granted = true;
     if (assumeMissing) {
@@ -43,14 +45,26 @@ export function createHostPermissionMonitor({
 
     const transitionedToMissing = granted === false && previousHostAccess !== false;
     const transitionedToGranted = granted === true && previousHostAccess === false;
+    const checkedAt = now();
+    const previousTimestamp = Number(previousCheck?.timestamp);
+    const shouldPersistCheck =
+      reason !== 'scheduled_alarm' ||
+      previousHostAccess !== granted ||
+      previousCheck?.error != null ||
+      !Number.isFinite(previousTimestamp) ||
+      previousTimestamp <= 0 ||
+      checkedAt < previousTimestamp ||
+      checkedAt - previousTimestamp >= PERMISSION_CHECK_PERSIST_INTERVAL_MS;
 
-    await diagnosticStore.updateState({
-      lastPermissionCheck: {
-        timestamp: now(),
-        hostAccess: granted,
-        reason
-      }
-    });
+    if (shouldPersistCheck) {
+      await diagnosticStore.updateState({
+        lastPermissionCheck: {
+          timestamp: checkedAt,
+          hostAccess: granted,
+          reason
+        }
+      });
+    }
 
     if (transitionedToMissing) {
       await diagnosticStore.recordEvent('warn', 'permissions', 'host_access_missing', { reason });

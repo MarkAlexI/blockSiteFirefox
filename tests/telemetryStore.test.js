@@ -91,6 +91,78 @@ test('telemetry store never stores arbitrary counter names or error details', as
   assert.equal(serialized.includes('secret@example.com'), false);
 });
 
+test('new errors beyond the daily fingerprint cap do not rewrite telemetry storage', async () => {
+  const storage = createStorage();
+  const store = createTelemetryStore({
+    localStorage: storage,
+    getConsent: async () => ({ enabled: true }),
+    now: () => Date.parse('2026-08-22T12:00:00Z'),
+    maxErrorsPerDay: 1
+  });
+
+  assert.equal(await store.recordError({
+    source: 'dnr',
+    code: 'sync_failed',
+    operation: 'update_dynamic_rules'
+  }), true);
+  assert.equal(storage.setCalls, 1);
+
+  assert.equal(await store.recordError({
+    source: 'rules',
+    code: 'quota_exceeded',
+    operation: 'add'
+  }), false);
+  assert.equal(storage.setCalls, 1);
+
+  assert.equal(await store.recordError({
+    source: 'dnr',
+    code: 'sync_failed',
+    operation: 'update_dynamic_rules'
+  }), true);
+  assert.equal(storage.setCalls, 2);
+  assert.equal(
+    storage.data[TELEMETRY_BUCKETS_KEY]['2026-08-22'].errors[0].count,
+    2
+  );
+});
+
+test('a capped telemetry error still removes expired buckets when retention changes', async () => {
+  const storage = createStorage({
+    [TELEMETRY_BUCKETS_KEY]: {
+      '2026-08-01': {
+        date: '2026-08-01',
+        counters: { rule_created: 1 },
+        errors: []
+      },
+      '2026-08-22': {
+        date: '2026-08-22',
+        counters: {},
+        errors: [{
+          source: 'dnr',
+          code: 'sync_failed',
+          operation: 'unknown',
+          errorName: 'error',
+          fingerprint: 'dnr:sync_failed:unknown:error',
+          count: 1
+        }]
+      }
+    }
+  });
+  const store = createTelemetryStore({
+    localStorage: storage,
+    getConsent: async () => ({ enabled: true }),
+    now: () => Date.parse('2026-08-22T12:00:00Z'),
+    maxErrorsPerDay: 1
+  });
+
+  assert.equal(await store.recordError({
+    source: 'rules',
+    code: 'quota_exceeded'
+  }), false);
+  assert.equal(storage.setCalls, 1);
+  assert.deepEqual(Object.keys(storage.data[TELEMETRY_BUCKETS_KEY]), ['2026-08-22']);
+});
+
 test('telemetry clearAll removes pending data and delivery state', async () => {
   const storage = createStorage({
     [TELEMETRY_BUCKETS_KEY]: { '2026-08-07': { date: '2026-08-07', counters: { rule_created: 1 }, errors: [] } },

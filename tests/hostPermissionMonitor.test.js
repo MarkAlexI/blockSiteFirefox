@@ -1,18 +1,37 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHostPermissionMonitor, affectsRequiredHostAccess } from '../utils/hostPermissionMonitor.js';
+import {
+  createHostPermissionMonitor,
+  affectsRequiredHostAccess,
+  PERMISSION_CHECK_PERSIST_INTERVAL_MS
+} from '../utils/hostPermissionMonitor.js';
 
-function createHarness({ granted = true, previousHostAccess } = {}) {
+function createHarness({
+  granted = true,
+  previousHostAccess,
+  previousTimestamp = 1,
+  timestamp = 100
+} = {}) {
   let hostAccess = granted;
+  let currentTime = timestamp;
+  let permissionChecks = 0;
+  let stateUpdates = 0;
   const tabs = [];
   const events = [];
   let state = previousHostAccess === undefined ? {} : {
-    lastPermissionCheck: { hostAccess: previousHostAccess, timestamp: 1, reason: 'previous' }
+    lastPermissionCheck: {
+      hostAccess: previousHostAccess,
+      timestamp: previousTimestamp,
+      reason: 'previous'
+    }
   };
 
   const monitor = createHostPermissionMonitor({
     permissionsApi: {
-      async contains() { return hostAccess; }
+      async contains() {
+        permissionChecks++;
+        return hostAccess;
+      }
     },
     tabsApi: {
       async query() { return tabs.filter(tab => tab.onboarding); },
@@ -26,13 +45,16 @@ function createHarness({ granted = true, previousHostAccess } = {}) {
     },
     diagnosticStore: {
       async getState() { return structuredClone(state); },
-      async updateState(patch) { state = { ...state, ...structuredClone(patch) }; },
+      async updateState(patch) {
+        stateUpdates++;
+        state = { ...state, ...structuredClone(patch) };
+      },
       async recordEvent(level, source, code, details) {
         events.push({ level, source, code, details });
       }
     },
     logger: { warn() {}, error() {} },
-    now: () => 100
+    now: () => currentTime
   });
 
   return {
@@ -40,7 +62,10 @@ function createHarness({ granted = true, previousHostAccess } = {}) {
     tabs,
     events,
     getState: () => state,
-    setHostAccess(value) { hostAccess = value; }
+    getPermissionChecks: () => permissionChecks,
+    getStateUpdates: () => stateUpdates,
+    setHostAccess(value) { hostAccess = value; },
+    setNow(value) { currentTime = value; }
   };
 }
 
@@ -86,6 +111,62 @@ test('permission watchdog records restored access without opening onboarding', a
   assert.equal(result.notified, false);
   assert.equal(harness.events[0].code, 'host_access_restored');
   assert.equal(harness.getState().lastPermissionCheck.hostAccess, true);
+});
+
+test('stable scheduled permission checks keep running without rewriting diagnostics', async () => {
+  const harness = createHarness({
+    granted: true,
+    previousHostAccess: true,
+    previousTimestamp: 10,
+    timestamp: 100
+  });
+
+  await harness.monitor.check({ reason: 'scheduled_alarm' });
+  harness.setNow(60_100);
+  await harness.monitor.check({ reason: 'scheduled_alarm' });
+
+  assert.equal(harness.getPermissionChecks(), 2);
+  assert.equal(harness.getStateUpdates(), 0);
+  assert.equal(harness.getState().lastPermissionCheck.timestamp, 10);
+});
+
+test('stable scheduled permission diagnostics are refreshed after their persistence interval', async () => {
+  const harness = createHarness({
+    granted: true,
+    previousHostAccess: true,
+    previousTimestamp: 100,
+    timestamp: 100 + PERMISSION_CHECK_PERSIST_INTERVAL_MS
+  });
+
+  await harness.monitor.check({ reason: 'scheduled_alarm' });
+
+  assert.equal(harness.getPermissionChecks(), 1);
+  assert.equal(harness.getStateUpdates(), 1);
+  assert.equal(
+    harness.getState().lastPermissionCheck.timestamp,
+    100 + PERMISSION_CHECK_PERSIST_INTERVAL_MS
+  );
+});
+
+test('explicit permission checks and access transitions are persisted immediately', async () => {
+  const harness = createHarness({
+    granted: true,
+    previousHostAccess: true,
+    previousTimestamp: 10,
+    timestamp: 100
+  });
+
+  await harness.monitor.check({ reason: 'startup' });
+  assert.equal(harness.getStateUpdates(), 1);
+  assert.equal(harness.getState().lastPermissionCheck.reason, 'startup');
+
+  harness.setHostAccess(false);
+  harness.setNow(101);
+  await harness.monitor.check({ reason: 'scheduled_alarm' });
+
+  assert.equal(harness.getStateUpdates(), 2);
+  assert.equal(harness.getState().lastPermissionCheck.hostAccess, false);
+  assert.equal(harness.tabs.length, 1);
 });
 
 

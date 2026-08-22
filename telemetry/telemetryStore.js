@@ -185,7 +185,8 @@ export function createTelemetryStore({
 
     return enqueue(async () => {
       if (!await isEnabled()) return false;
-      const buckets = pruneBuckets(await readBuckets());
+      const storedBuckets = await readBuckets();
+      const buckets = pruneBuckets(storedBuckets);
       const date = utcDate(now());
       const bucket = await getOrCreateBucket(buckets, date);
       const existing = bucket.errors.find(item => item.fingerprint === sanitized.fingerprint);
@@ -194,6 +195,9 @@ export function createTelemetryStore({
         existing.count = Math.min(Number.MAX_SAFE_INTEGER, (existing.count || 0) + 1);
       } else if (bucket.errors.length < Math.max(1, maxErrorsPerDay)) {
         bucket.errors.push({ ...sanitized, count: 1 });
+      } else {
+        if (!sameDateKeys(storedBuckets, buckets)) await writeBuckets(buckets);
+        return false;
       }
 
       buckets[date] = bucket;

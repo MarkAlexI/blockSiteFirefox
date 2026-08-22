@@ -178,6 +178,40 @@ async function withWorker(callback, {
   }
 }
 
+test('minute watchdog preserves checks without rewriting unchanged inactive storage', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    let permissionChecks = 0;
+    let dnrReads = 0;
+    const localWrites = [];
+    const originalPermissionCheck = api.permissions.contains;
+    const originalDnrRead = api.declarativeNetRequest.getDynamicRules;
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.permissions.contains = async (...args) => {
+      permissionChecks++;
+      return originalPermissionCheck(...args);
+    };
+    api.declarativeNetRequest.getDynamicRules = async (...args) => {
+      dnrReads++;
+      return originalDnrRead(...args);
+    };
+    api.storage.local.set = (values, callback) => {
+      localWrites.push(Object.keys(values));
+      return originalSet(values, callback);
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+    localWrites.length = 0;
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(localWrites, []);
+    assert.equal(permissionChecks, 2);
+    assert.equal(dnrReads, 2);
+  }, { supportsWindows: false });
+});
+
 test('a license response received after logout cannot restore the old Pro key', async () => {
   await withWorker(async ({ api, send }) => {
     const requestStarted = createDeferred();
@@ -286,15 +320,15 @@ test('an overlapping downgrade cannot overwrite a newer Pro upgrade or its activ
   await withWorker(async ({ api, send }) => {
     const pauseStarted = createDeferred();
     const releasePause = createDeferred();
-    const originalSet = api.storage.local.set.bind(api.storage.local);
+    const originalGet = api.storage.local.get.bind(api.storage.local);
     let pauseBlocked = false;
-    api.storage.local.set = async values => {
-      if (!pauseBlocked && values.dailyRuleUsage) {
+    api.storage.local.get = async (...args) => {
+      if (!pauseBlocked && args[0] === 'dailyRuleUsage') {
         pauseBlocked = true;
         pauseStarted.resolve();
         await releasePause.promise;
       }
-      return originalSet(values);
+      return originalGet(...args);
     };
 
     const downgrade = send({
