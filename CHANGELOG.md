@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.18] - 2026-08-22
+### Security
+- Pro activation accepts only an explicit boolean subscription approval; malformed truthy server responses can no longer grant paid access, and overlapping submissions cannot race the worker-owned credentials transition.
+
+### Fixed
+- Active Pro subscriptions, stored license keys, selected Rule Lists, context menus, and browser blocking survive ambiguous HTTP 400/404/408/409/422/429 responses, server errors, invalid JSON, and verification timeouts.
+- Only authoritative HTTP 401/403 rejections or an explicitly verified inactive subscription remove Pro access; real expiration still safely restores General while preserving inactive profiles and browser DNR integrity.
+- Daily uninstall metadata refresh, license verification, entitlement-aware context-menu updates, and telemetry delivery now fail independently instead of cancelling the remaining maintenance tasks.
+- Genuine legacy installations keep their paid context menu after the daily license alarm without requiring a subscription key; serialized menu refreshes cannot overtake concurrent Pro logout.
+- Pro activation now uses the existing ten-second verification timeout, preserves entered keys for retry, distinguishes temporary network/server/worker failures from rejected subscriptions, and always restores its submit button.
+- Free rule deletion, the exact ten-rule limit, the existing one-minute watchdog, and Firefox Android workers without the unsupported windows API remain unchanged.
+
+### Added
+- Added 42 regression scenarios for ambiguous and authoritative license responses, timeout recovery, malformed subscription contracts, preserved Pro profiles and DNR rules, resilient daily maintenance, legacy and Free context menus, overlapping logout, telemetry delivery after partial failures, duplicate activation prevention, and windowless Firefox Android workers.
+
 ## [5.1.17] - 2026-08-22
 ### Security
 - Password-protected rule deletion, assignment removal, rule editing, bulk clearing, settings and Statistics resets, and Pro logout now fail closed if security settings cannot be read or verification cannot run.

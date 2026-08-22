@@ -534,9 +534,9 @@ async function syncLicenseKeyStatus() {
     
     if (!response.ok) {
       const errorMessage = data.error || `License verification failed (${response.status})`;
-      const isTemporaryFailure = response.status === 429 || response.status >= 500;
+      const isDefinitiveRejection = response.status === 401 || response.status === 403;
       
-      if (isTemporaryFailure) {
+      if (!isDefinitiveRejection) {
         throw new Error(errorMessage);
       }
       
@@ -1656,12 +1656,26 @@ if (globalThis.addEventListener) {
   });
 }
 
+async function runDailyMaintenanceStep(name, operation) {
+  try {
+    return await operation();
+  } catch (error) {
+    logger.error(`Daily license maintenance: ${name} failed:`, error);
+    return null;
+  }
+}
+
 browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'check_pro_expiry') {
-    await updateUninstallURL();
-    const syncResult = await syncLicenseKeyStatus();
-    await updateContextMenu(syncResult.isPro);
-    await telemetryClient.flush();
+    await runDailyMaintenanceStep('uninstall URL update', updateUninstallURL);
+    await runDailyMaintenanceStep('license verification', syncLicenseKeyStatus);
+    await runDailyMaintenanceStep('context menu refresh', async () => {
+      await enqueueProStatusTransition(async () => {
+        const access = await ProManager.getAccess();
+        await updateContextMenu(access.isPro || access.isLegacyUser);
+      });
+    });
+    await runDailyMaintenanceStep('telemetry delivery', () => telemetryClient.flush());
   }
 
   if (alarm.name === TELEMETRY_RETRY_ALARM) {

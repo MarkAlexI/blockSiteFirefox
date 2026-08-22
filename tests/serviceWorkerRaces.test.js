@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 import { getLocalDateKey } from '../rules/dailyLimitManager.js';
+import { LICENSE_SYNC_TIMEOUT_MS } from '../utils/constants.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
@@ -25,6 +26,26 @@ function createDeferred() {
     reject = fail;
   });
   return { promise, resolve, reject };
+}
+
+function createPendingTelemetry() {
+  const date = new Date().toISOString().slice(0, 10);
+  return {
+    telemetryConsent: { version: 1, enabled: true, decidedAt: 1 },
+    telemetryBuckets: {
+      [date]: { date, counters: { rule_created: 1 }, errors: [] }
+    }
+  };
+}
+
+async function withMutedErrors(callback) {
+  const previous = console.error;
+  console.error = () => {};
+  try {
+    return await callback();
+  } finally {
+    console.error = previous;
+  }
 }
 
 function makeFocusRule(id, listId, { blockURL = null, isWhitelist = false } = {}) {
@@ -1766,6 +1787,383 @@ test('legacy access creates and authorizes the browser context menu without a Pr
       installationDate: '2025-12-01T00:00:00.000Z'
     },
     local: { activeRuleListId: 'general', lastCheck: Date.now() },
+    supportsWindows: false
+  });
+});
+
+for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
+  test(`ambiguous license HTTP ${status} preserves Pro credentials, profile, and blocking`, async () => {
+    const rule = makeFocusRule(301, 'list-1', { blockURL: 'preserved-study.example' });
+    await withWorker(async ({ api, send }) => {
+      api.contextMenuPresent = true;
+      api.dynamicRules = [{ id: rule.id }];
+      api.setFetchHandler(async () => ({
+        ok: false,
+        status,
+        json: async () => ({ error: `License endpoint returned ${status}` })
+      }));
+
+      const response = await withMutedErrors(() => send({ type: 'force_sync' }));
+
+      assert.equal(response.success, false);
+      assert.equal(response.reason, 'temporary_failure');
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+      assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'member@example.com');
+      assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+      assert.deepEqual(api.dynamicRules.map(item => item.id), [rule.id]);
+      assert.equal(api.contextMenuPresent, true);
+      assert.equal(api.windows, undefined);
+    }, {
+      credentials: { subscriptionEmail: 'member@example.com' },
+      local: { rules: [rule] },
+      supportsWindows: false
+    });
+  });
+}
+
+for (const status of [401, 403]) {
+  test(`authoritative license HTTP ${status} downgrades safely and restores General`, async () => {
+    const general = makeFocusRule(311, 'general', { blockURL: 'general-kept.example' });
+    const study = makeFocusRule(312, 'list-1', { blockURL: 'study-preserved.example' });
+    await withWorker(async ({ api, send }) => {
+      api.contextMenuPresent = true;
+      api.dynamicRules = [{ id: study.id }];
+      api.setFetchHandler(async () => ({
+        ok: false,
+        status,
+        json: async () => ({ error: 'Subscription is no longer valid' })
+      }));
+
+      const response = await send({ type: 'force_sync' });
+
+      assert.equal(response.success, true);
+      assert.equal(response.reason, 'rejected');
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+      assert.equal(api.storage.sync.data.credentials.subscriptionEmail, null);
+      assert.equal(api.storage.local.data.activeRuleListId, 'general');
+      assert.deepEqual(api.storage.local.data.rules.map(rule => rule.id), [311, 312]);
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [311]);
+      assert.equal(api.contextMenuPresent, false);
+    }, {
+      credentials: { subscriptionEmail: 'member@example.com' },
+      local: { rules: [general, study] },
+      supportsWindows: false
+    });
+  });
+}
+
+test('an explicit verified non-Pro license response still safely restores Free access', async () => {
+  const general = makeFocusRule(321, 'general', { blockURL: 'general.example' });
+  const study = makeFocusRule(322, 'list-1', { blockURL: 'study.example' });
+  await withWorker(async ({ api, send }) => {
+    api.setFetchHandler(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: false })
+    }));
+
+    const response = await send({ type: 'force_sync' });
+
+    assert.equal(response.success, true);
+    assert.equal(response.reason, 'verified');
+    assert.equal(response.isPro, false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [321]);
+  }, { local: { rules: [general, study] }, supportsWindows: false });
+});
+
+test('malformed license response JSON never clears an active Pro subscription', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.contextMenuPresent = true;
+    api.setFetchHandler(async () => ({
+      ok: false,
+      status: 403,
+      json: async () => { throw new SyntaxError('invalid backend JSON'); }
+    }));
+
+    const response = await withMutedErrors(() => send({ type: 'force_sync' }));
+
+    assert.equal(response.success, false);
+    assert.equal(response.reason, 'temporary_failure');
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.contextMenuPresent, true);
+  }, { supportsWindows: false });
+});
+
+test('a malformed successful license response cannot downgrade an active subscriber', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.setFetchHandler(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: 'false' })
+    }));
+
+    const response = await withMutedErrors(() => send({ type: 'force_sync' }));
+
+    assert.equal(response.success, false);
+    assert.equal(response.reason, 'temporary_failure');
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+  }, { supportsWindows: false });
+});
+
+test('a timed-out worker license verification preserves its current Pro session', async () => {
+  await withWorker(async ({ api, send }) => {
+    const requestStarted = createDeferred();
+    const previousSetTimeout = globalThis.setTimeout;
+    let timeoutCallback = null;
+    globalThis.setTimeout = (callback, delay) => {
+      if (delay === LICENSE_SYNC_TIMEOUT_MS) timeoutCallback = callback;
+      return 1;
+    };
+    api.setFetchHandler((_url, { signal }) => new Promise((_resolve, reject) => {
+      signal.addEventListener('abort', () => {
+        reject(Object.assign(new Error('request aborted'), { name: 'AbortError' }));
+      }, { once: true });
+      requestStarted.resolve();
+    }));
+
+    try {
+      await withMutedErrors(async () => {
+        const pending = send({ type: 'force_sync' });
+        await requestStarted.promise;
+        assert.equal(typeof timeoutCallback, 'function');
+        timeoutCallback();
+        const response = await pending;
+
+        assert.equal(response.success, false);
+        assert.equal(response.reason, 'temporary_failure');
+        assert.match(response.error, /timed out/);
+        assert.equal(api.storage.sync.data.credentials.isPro, true);
+        assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+      });
+    } finally {
+      globalThis.setTimeout = previousSetTimeout;
+    }
+  }, { supportsWindows: false });
+});
+
+test('daily license maintenance preserves a genuine legacy context menu without a key', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.contextMenuPresent = true;
+    let requests = 0;
+    api.setFetchHandler(async () => {
+      requests += 1;
+      throw new Error('legacy access must not verify an absent license');
+    });
+
+    await alarm({ name: 'check_pro_expiry' });
+
+    assert.equal(requests, 0);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.contextMenuPresent, true);
+    assert.equal(api.windows, undefined);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+  }, {
+    credentials: {
+      isPro: false,
+      licenseKey: null,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    },
+    supportsWindows: false
+  });
+});
+
+test('daily license maintenance removes stale paid context menus for genuine Free users', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.contextMenuPresent = true;
+
+    await alarm({ name: 'check_pro_expiry' });
+
+    assert.equal(api.contextMenuPresent, false);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('daily context-menu refresh cannot overtake a concurrent manual Pro logout', async () => {
+  await withWorker(async ({ api, alarm, send }) => {
+    api.contextMenuPresent = true;
+    const refreshStarted = createDeferred();
+    const resumeRefresh = createDeferred();
+    const originalRemove = api.contextMenus.remove.bind(api.contextMenus);
+    let removeCalls = 0;
+    api.contextMenus.remove = (id, callback) => {
+      if (++removeCalls === 2) {
+        refreshStarted.resolve();
+        void resumeRefresh.promise.then(() => originalRemove(id, callback));
+        return;
+      }
+      originalRemove(id, callback);
+    };
+
+    const maintenance = alarm({ name: 'check_pro_expiry' });
+    await refreshStarted.promise;
+    let logoutCompleted = false;
+    const logout = send({
+      type: 'update_pro_status',
+      isPro: false,
+      subscriptionData: { licenseKey: null, subscriptionEmail: null, expiryDate: null }
+    }).then(result => {
+      logoutCompleted = true;
+      return result;
+    });
+
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(logoutCompleted, false);
+    resumeRefresh.resolve();
+    const [, result] = await Promise.all([maintenance, logout]);
+
+    assert.equal(result.success, true);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(api.contextMenuPresent, false);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+  }, { supportsWindows: false });
+});
+
+test('uninstall URL failure cannot skip daily license verification or telemetry delivery', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    const requests = [];
+    api.runtime.setUninstallURL = () => { throw new Error('uninstall URL unavailable'); };
+    api.setFetchHandler(async url => {
+      requests.push(url);
+      return url.endsWith('/api/telemetry')
+        ? { ok: true, status: 202, json: async () => ({ ok: true }) }
+        : { ok: true, status: 200, json: async () => ({ isPro: true }) };
+    });
+
+    await withMutedErrors(() => alarm({ name: 'check_pro_expiry' }));
+
+    assert.deepEqual(requests.map(url => url.split('/').at(-1)), ['verifyKey', 'telemetry']);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.contextMenuPresent, true);
+    assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+  }, { local: createPendingTelemetry(), supportsWindows: false });
+});
+
+test('a temporary daily license failure preserves Pro access and still delivers telemetry', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.contextMenuPresent = true;
+    const requests = [];
+    api.setFetchHandler(async url => {
+      requests.push(url);
+      if (url.endsWith('/api/verifyKey')) throw new Error('license server unavailable');
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+
+    await withMutedErrors(() => alarm({ name: 'check_pro_expiry' }));
+
+    assert.deepEqual(requests.map(url => url.split('/').at(-1)), ['verifyKey', 'telemetry']);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.contextMenuPresent, true);
+    assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+  }, { local: createPendingTelemetry(), supportsWindows: false });
+});
+
+test('a rejected license diagnostic write cannot prevent daily menu refresh and telemetry', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => Object.hasOwn(values, 'diagnosticState')
+      ? Promise.reject(new Error('diagnostic state unavailable'))
+      : originalSet(values, callback);
+    const requests = [];
+    api.setFetchHandler(async url => {
+      requests.push(url);
+      return url.endsWith('/api/telemetry')
+        ? { ok: true, status: 202, json: async () => ({ ok: true }) }
+        : { ok: true, status: 200, json: async () => ({ isPro: true }) };
+    });
+
+    await withMutedErrors(() => alarm({ name: 'check_pro_expiry' }));
+
+    assert.deepEqual(requests.map(url => url.split('/').at(-1)), ['verifyKey', 'telemetry']);
+    assert.equal(api.contextMenuPresent, true);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+  }, { local: createPendingTelemetry(), supportsWindows: false });
+});
+
+test('a failed daily context-menu update cannot prevent telemetry delivery', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.contextMenuPresent = true;
+    api.contextMenus.remove = () => { throw new Error('context menus unavailable'); };
+    const requests = [];
+    api.setFetchHandler(async url => {
+      requests.push(url);
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+
+    await withMutedErrors(() => alarm({ name: 'check_pro_expiry' }));
+
+    assert.deepEqual(requests.map(url => url.split('/').at(-1)), ['telemetry']);
+    assert.equal(api.contextMenuPresent, true);
+    assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { ...createPendingTelemetry(), activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('failed daily entitlement reads preserve the existing legacy menu and still flush', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.contextMenuPresent = true;
+    const originalGet = api.storage.sync.get.bind(api.storage.sync);
+    let credentialReads = 0;
+    api.storage.sync.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.includes('credentials') && ++credentialReads === 3) {
+        return Promise.reject(new Error('entitlement snapshot unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+    const requests = [];
+    api.setFetchHandler(async url => {
+      requests.push(url);
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+
+    await withMutedErrors(() => alarm({ name: 'check_pro_expiry' }));
+
+    assert.deepEqual(requests.map(url => url.split('/').at(-1)), ['telemetry']);
+    assert.equal(api.contextMenuPresent, true);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+  }, {
+    credentials: {
+      isPro: false,
+      licenseKey: null,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    },
+    local: createPendingTelemetry(),
+    supportsWindows: false
+  });
+});
+
+test('telemetry flush rejection cannot reject or undo daily license maintenance', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    api.storage.local.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.includes('telemetryConsent')) {
+        return Promise.reject(new Error('telemetry consent unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    await withMutedErrors(() => assert.doesNotReject(alarm({ name: 'check_pro_expiry' })));
+
+    assert.equal(api.uninstallUrls.length, 1);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.contextMenuPresent, false);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' },
     supportsWindows: false
   });
 });

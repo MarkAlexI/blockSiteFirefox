@@ -3,7 +3,7 @@ import { ProManager } from '../pro/proManager.js';
 import { SettingsManager } from './settings.js';
 import { PasswordUtils } from '../pro/password.js';
 import Logger from '../utils/logger.js';
-import { VERIFY_API_URL } from '../utils/constants.js';
+import { LICENSE_SYNC_TIMEOUT_MS, VERIFY_API_URL } from '../utils/constants.js';
 
 const logger = new Logger('GoPro');
 
@@ -92,6 +92,7 @@ async function updateUI() {
 if (licenseForm) {
   licenseForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (licenseSubmitBtn.disabled) return;
     const key = licenseInput.value.trim();
     
     if (!key) {
@@ -105,6 +106,8 @@ if (licenseForm) {
     licenseSubmitBtn.disabled = true;
     
     const version = browser.runtime.getManifest().version;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
     try {
       const response = await fetch(VERIFY_API_URL, {
         method: 'POST',
@@ -112,13 +115,28 @@ if (licenseForm) {
         body: JSON.stringify({
           key: key,
           version
-        })
+        }),
+        signal: controller.signal
       });
       
       const data = await response.json();
       
-      if (!response.ok || !data.isPro) {
-        throw new Error(data.error || 'Invalid key');
+      if (!response.ok) {
+        const error = new Error(data?.error || `License verification failed (${response.status})`);
+        if (response.status === 401 || response.status === 403) {
+          error.code = 'invalid_license';
+        }
+        throw error;
+      }
+
+      if (typeof data?.isPro !== 'boolean') {
+        throw new Error('License server returned an invalid response');
+      }
+
+      if (!data.isPro) {
+        const error = new Error(data.error || 'Invalid key');
+        error.code = 'invalid_license';
+        throw error;
       }
       
       const subscriptionData = {
@@ -165,9 +183,12 @@ if (licenseForm) {
       
     } catch (error) {
       logger.error('Activation Error:', error);
-      licenseMessage.textContent = t('subscriptionnotfound') || 'Subscription not found or key is invalid.';
+      licenseMessage.textContent = error.code === 'invalid_license'
+        ? (t('subscriptionnotfound') || 'Subscription not found or key is invalid.')
+        : (t('servererror') || 'Server error. Please try again.');
       licenseMessage.className = 'error-message show';
     } finally {
+      clearTimeout(timeoutId);
       licenseSubmitBtn.disabled = false;
       
       setTimeout(() => {

@@ -6,13 +6,15 @@ import {
   createExtensionApi,
   withExtensionEnvironment
 } from './helpers/extensionTestHarness.js';
+import { LICENSE_SYNC_TIMEOUT_MS } from '../utils/constants.js';
 
 let goProImportId = 0;
 
 async function withGoProPage({
   isPro = false,
   workerResponse = { success: true },
-  settings = {}
+  settings = {},
+  fetchHandler = null
 } = {}, callback) {
   const document = new FakeDocument();
   document.addElement('proBtnText');
@@ -59,9 +61,14 @@ async function withGoProPage({
 
   const previousFetch = globalThis.fetch;
   const previousSetTimeout = globalThis.setTimeout;
+  const previousClearTimeout = globalThis.clearTimeout;
   const previousConsoleError = console.error;
   let reloadCount = 0;
-  globalThis.fetch = async () => ({
+  const requests = [];
+  const timers = [];
+  const clearedTimers = [];
+  let nextTimerId = 0;
+  let currentFetchHandler = fetchHandler || (async () => ({
     ok: true,
     status: 200,
     json: async () => ({
@@ -69,8 +76,19 @@ async function withGoProPage({
       email: 'person@example.com',
       expiryDate: '2027-08-01'
     })
-  });
-  globalThis.setTimeout = () => 1;
+  }));
+  globalThis.fetch = (...args) => {
+    requests.push(args);
+    return currentFetchHandler(...args);
+  };
+  globalThis.setTimeout = (callback, delay) => {
+    const id = ++nextTimerId;
+    timers.push({ id, callback, delay });
+    return id;
+  };
+  globalThis.clearTimeout = id => {
+    clearedTimers.push(id);
+  };
   console.error = () => {};
 
   try {
@@ -87,6 +105,10 @@ async function withGoProPage({
         logout,
         statusMessages,
         credentialWrites,
+        requests,
+        timers,
+        clearedTimers,
+        setFetchHandler: handler => { currentFetchHandler = handler; },
         getReloadCount: () => reloadCount
       });
     }, {
@@ -96,6 +118,7 @@ async function withGoProPage({
   } finally {
     globalThis.fetch = previousFetch;
     globalThis.setTimeout = previousSetTimeout;
+    globalThis.clearTimeout = previousClearTimeout;
     console.error = previousConsoleError;
   }
 }
@@ -117,6 +140,224 @@ test('license activation delegates its only credentials mutation to the service 
     });
     assert.deepEqual(credentialWrites, []);
     assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(message.textContent, 'proactivated');
+  });
+});
+
+test('license activation attaches the shared verification timeout and clears it after success', async () => {
+  await withGoProPage({}, async ({ form, input, submit, requests, timers, clearedTimers }) => {
+    input.value = 'BD-NEW-KEY';
+
+    await form.dispatch('submit');
+
+    assert.equal(requests.length, 1);
+    assert.equal(requests[0][1].signal instanceof AbortSignal, true);
+    const verificationTimer = timers.find(timer => timer.delay === LICENSE_SYNC_TIMEOUT_MS);
+    assert.ok(verificationTimer);
+    assert.equal(clearedTimers.includes(verificationTimer.id), true);
+    assert.equal(requests[0][1].signal.aborted, false);
+    assert.equal(submit.disabled, false);
+  });
+});
+
+test('a stalled activation request is aborted, reported correctly, and becomes retryable', async () => {
+  await withGoProPage({
+    fetchHandler: (_url, { signal }) => new Promise((_resolve, reject) => {
+      signal.addEventListener('abort', () => {
+        reject(Object.assign(new Error('request aborted'), { name: 'AbortError' }));
+      }, { once: true });
+    })
+  }, async ({ api, form, input, submit, message, statusMessages, requests, timers, clearedTimers }) => {
+    input.value = 'BD-STALLED-KEY';
+    const pending = form.dispatch('submit');
+    const verificationTimer = timers.find(timer => timer.delay === LICENSE_SYNC_TIMEOUT_MS);
+
+    assert.ok(verificationTimer);
+    assert.equal(submit.disabled, true);
+    verificationTimer.callback();
+    await pending;
+
+    assert.equal(requests[0][1].signal.aborted, true);
+    assert.equal(clearedTimers.includes(verificationTimer.id), true);
+    assert.equal(message.textContent, 'servererror');
+    assert.match(message.className, /error/);
+    assert.equal(input.value, 'BD-STALLED-KEY');
+    assert.equal(submit.disabled, false);
+    assert.deepEqual(statusMessages, []);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+  });
+});
+
+test('overlapping activation submissions cannot issue duplicate verification requests', async () => {
+  let releaseResponse;
+  const response = new Promise(resolve => { releaseResponse = resolve; });
+  await withGoProPage({ fetchHandler: () => response }, async ({
+    api, form, input, submit, statusMessages, requests
+  }) => {
+    input.value = 'BD-ONLY-ONCE';
+    const first = form.dispatch('submit');
+    await form.dispatch('submit');
+
+    assert.equal(requests.length, 1);
+    assert.equal(submit.disabled, true);
+    assert.deepEqual(statusMessages, []);
+
+    releaseResponse({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: true, email: 'once@example.com' })
+    });
+    await first;
+
+    assert.equal(requests.length, 1);
+    assert.equal(statusMessages.length, 1);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-ONLY-ONCE');
+    assert.equal(submit.disabled, false);
+  });
+});
+
+test('an empty activation key never creates a request or verification timeout', async () => {
+  await withGoProPage({}, async ({ form, input, message, requests, timers, statusMessages }) => {
+    input.value = '   ';
+
+    await form.dispatch('submit');
+
+    assert.equal(message.textContent, 'pleaseenterkey');
+    assert.deepEqual(requests, []);
+    assert.deepEqual(statusMessages, []);
+    assert.equal(timers.some(timer => timer.delay === LICENSE_SYNC_TIMEOUT_MS), false);
+  });
+});
+
+for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
+  test(`activation HTTP ${status} reports a temporary server problem, not an invalid key`, async () => {
+    await withGoProPage({
+      fetchHandler: async () => ({
+        ok: false,
+        status,
+        json: async () => ({ error: `Backend returned ${status}` })
+      })
+    }, async ({ api, form, input, submit, message, statusMessages }) => {
+      input.value = 'BD-MAY-STILL-BE-VALID';
+
+      await form.dispatch('submit');
+
+      assert.equal(message.textContent, 'servererror');
+      assert.equal(input.value, 'BD-MAY-STILL-BE-VALID');
+      assert.equal(submit.disabled, false);
+      assert.deepEqual(statusMessages, []);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+    });
+  });
+}
+
+for (const status of [401, 403]) {
+  test(`activation HTTP ${status} reports an authoritative invalid subscription`, async () => {
+    await withGoProPage({
+      fetchHandler: async () => ({
+        ok: false,
+        status,
+        json: async () => ({ error: 'Subscription rejected' })
+      })
+    }, async ({ form, input, submit, message, statusMessages }) => {
+      input.value = 'BD-REJECTED';
+
+      await form.dispatch('submit');
+
+      assert.equal(message.textContent, 'subscriptionnotfound');
+      assert.equal(submit.disabled, false);
+      assert.deepEqual(statusMessages, []);
+    });
+  });
+}
+
+test('an explicitly inactive activation response reports an invalid subscription', async () => {
+  await withGoProPage({
+    fetchHandler: async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: false })
+    })
+  }, async ({ form, input, message, statusMessages }) => {
+    input.value = 'BD-EXPIRED';
+
+    await form.dispatch('submit');
+
+    assert.equal(message.textContent, 'subscriptionnotfound');
+    assert.deepEqual(statusMessages, []);
+  });
+});
+
+test('an offline activation reports a retryable server problem and preserves its key', async () => {
+  await withGoProPage({
+    fetchHandler: async () => { throw new TypeError('network unavailable'); }
+  }, async ({ form, input, submit, message, statusMessages }) => {
+    input.value = 'BD-OFFLINE';
+
+    await form.dispatch('submit');
+
+    assert.equal(message.textContent, 'servererror');
+    assert.equal(input.value, 'BD-OFFLINE');
+    assert.equal(submit.disabled, false);
+    assert.deepEqual(statusMessages, []);
+  });
+});
+
+test('invalid activation JSON cannot masquerade as an invalid subscription', async () => {
+  await withGoProPage({
+    fetchHandler: async () => ({
+      ok: true,
+      status: 200,
+      json: async () => { throw new SyntaxError('invalid response'); }
+    })
+  }, async ({ form, input, message, statusMessages }) => {
+    input.value = 'BD-VALID-MAYBE';
+
+    await form.dispatch('submit');
+
+    assert.equal(message.textContent, 'servererror');
+    assert.deepEqual(statusMessages, []);
+  });
+});
+
+test('malformed truthy activation status never grants Pro access', async () => {
+  await withGoProPage({
+    fetchHandler: async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: 'true' })
+    })
+  }, async ({ api, form, input, message, statusMessages }) => {
+    input.value = 'BD-MALFORMED-RESPONSE';
+
+    await form.dispatch('submit');
+
+    assert.equal(message.textContent, 'servererror');
+    assert.deepEqual(statusMessages, []);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+  });
+});
+
+test('a failed activation can be retried with the same key and later succeeds', async () => {
+  await withGoProPage({
+    fetchHandler: async () => { throw new TypeError('temporary network failure'); }
+  }, async ({ api, form, input, submit, message, requests, statusMessages, setFetchHandler }) => {
+    input.value = 'BD-RETRY-KEY';
+    await form.dispatch('submit');
+
+    assert.equal(message.textContent, 'servererror');
+    assert.equal(submit.disabled, false);
+    setFetchHandler(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: true, email: 'retried@example.com' })
+    }));
+
+    await form.dispatch('submit');
+
+    assert.equal(requests.length, 2);
+    assert.equal(statusMessages.length, 1);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-RETRY-KEY');
     assert.equal(message.textContent, 'proactivated');
   });
 });
@@ -147,7 +388,7 @@ test('failed worker activation never creates a local Pro session', async () => {
     assert.deepEqual(credentialWrites, []);
     assert.equal(api.storage.sync.data.credentials.isPro, false);
     assert.equal(api.storage.sync.data.credentials.licenseKey, null);
-    assert.equal(message.textContent, 'subscriptionnotfound');
+    assert.equal(message.textContent, 'servererror');
   });
 });
 
