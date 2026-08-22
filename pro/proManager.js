@@ -18,11 +18,26 @@ export class ProManager {
   static get hasDOM() {
     return typeof document !== 'undefined' && document !== null;
   }
+
+  static resolveLegacyAccess(credentials) {
+    if (credentials.installationDate) {
+      return new Date(credentials.installationDate) < new Date(this.RESTRICTION_START_DATE);
+    }
+    return true;
+  }
+
+  static async getAccess() {
+    const credentials = await this.getCredentials();
+    return {
+      credentials,
+      isPro: credentials.isPro === true,
+      isLegacyUser: this.resolveLegacyAccess(credentials)
+    };
+  }
   
   static async isPro() {
     try {
-      const credentials = await this.getCredentials();
-      return credentials.isPro === true;
+      return (await this.getAccess()).isPro;
     } catch (error) {
       this.logger.error('Error checking Pro status:', error);
       return false;
@@ -31,11 +46,7 @@ export class ProManager {
   
   static async isLegacyUser() {
     try {
-      const credentials = await this.getCredentials();
-      if (credentials.installationDate) {
-        return new Date(credentials.installationDate) < new Date(this.RESTRICTION_START_DATE);
-      }
-      return true;
+      return (await this.getAccess()).isLegacyUser;
     } catch (error) {
       this.logger.info('Error checking legacy status:', error);
       return true;

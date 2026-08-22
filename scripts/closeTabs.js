@@ -11,6 +11,34 @@ import { doesUrlMatchBlockRule } from '../rules/urlRuleMatcher.js';
 
 const logger = new Logger('CloseTabs');
 
+function getWindowKey(tab) {
+  return Number.isInteger(tab.windowId) ? tab.windowId : null;
+}
+
+async function createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue) {
+  const removeIds = new Set(tabsToRemoveIds);
+  const tabsByWindow = new Map();
+
+  for (const tab of tabs) {
+    const windowKey = getWindowKey(tab);
+    const windowTabs = tabsByWindow.get(windowKey) || [];
+    windowTabs.push(tab);
+    tabsByWindow.set(windowKey, windowTabs);
+  }
+
+  for (const [windowId, windowTabs] of tabsByWindow) {
+    const removesEntireWindow = windowTabs.length > 0 &&
+      windowTabs.every(tab => removeIds.has(tab.id));
+    if (!removesEntireWindow) continue;
+    if (!shouldContinue()) return false;
+
+    const canTargetWindow = windowId !== null && Boolean(browser.windows);
+    await browser.tabs.create(canTargetWindow ? { windowId } : {});
+  }
+
+  return shouldContinue();
+}
+
 export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => true) {
   const validPatterns = blockURLs
     .map(url => url?.trim().toLowerCase())
@@ -35,12 +63,7 @@ export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => t
     
     if (tabsToRemoveIds.length === 0) return;
     
-    const allTabsWillBeClosed = tabs.length === tabsToRemoveIds.length;
-    if (allTabsWillBeClosed) {
-      await browser.tabs.create({});
-    }
-
-    if (!shouldContinue()) return;
+    if (!await createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue)) return;
     await browser.tabs.remove(tabsToRemoveIds);
     logger.log(`Tabs successfully closed: ${tabsToRemoveIds.length}`);
     
@@ -54,10 +77,14 @@ export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => t
  * Safely ignores internal/protected browser pages and prevents window closure.
  * 
  * @param {Array<Object>} whitelistRules - Active rules with isWhitelist === true
+ * @param {Function} shouldContinue - Returns false when a newer Focus state supersedes this cleanup
  */
-export async function closeNonWhitelistedTabs(whitelistRules) {
+export async function closeNonWhitelistedTabs(whitelistRules, shouldContinue = () => true) {
+  if (!shouldContinue()) return;
+
   try {
     const tabs = await browser.tabs.query({});
+    if (!shouldContinue()) return;
     const tabsToRemoveIds = [];
 
     for (const tab of tabs) {
@@ -74,11 +101,7 @@ export async function closeNonWhitelistedTabs(whitelistRules) {
 
     if (tabsToRemoveIds.length === 0) return;
 
-    const allTabsWillBeClosed = tabs.length === tabsToRemoveIds.length;
-    if (allTabsWillBeClosed) {
-      await browser.tabs.create({});
-    }
-
+    if (!await createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue)) return;
     await browser.tabs.remove(tabsToRemoveIds);
     logger.log(`Focus Whitelist: Batch closed non-whitelisted tabs: ${tabsToRemoveIds.length}`);
 

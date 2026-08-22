@@ -348,6 +348,170 @@ test('a delayed focus-session start cannot reactivate a session after a newer st
   });
 });
 
+test('a Pro downgrade cannot be overtaken by a paid Focus start whose state write was delayed', async () => {
+  await withWorker(async ({ api, send }) => {
+    const startWriteStarted = createDeferred();
+    const releaseStartWrite = createDeferred();
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let blockedStartWrite = false;
+    api.storage.local.set = async values => {
+      if (!blockedStartWrite && values.focusSession?.focusActive === true) {
+        blockedStartWrite = true;
+        startWriteStarted.resolve();
+        await releaseStartWrite.promise;
+      }
+      return originalSet(values);
+    };
+
+    const starting = send({
+      type: 'start_focus_session',
+      duration: 40,
+      isHardcore: true,
+      focusMode: 'whitelist'
+    });
+    await startWriteStarted.promise;
+
+    const downgrading = send({
+      type: 'update_pro_status',
+      isPro: false,
+      subscriptionData: { licenseKey: null }
+    });
+    for (let index = 0; index < 8; index++) {
+      await new Promise(resolve => setImmediate(resolve));
+    }
+
+    releaseStartWrite.resolve();
+    await Promise.all([starting, downgrading]);
+
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.focusSession.focusMode, 'blacklist');
+    assert.equal(api.storage.local.data.focusSession.isHardcore, false);
+  });
+});
+
+test('stopping Whitelist Focus cancels its pending initial tab cleanup', async () => {
+  const rules = [
+    makeFocusRule(91, 'general', { blockURL: 'allowed.example', isWhitelist: true })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values.push({ id: 19, windowId: 1, url: 'https://blocked.example/' });
+    const queryStarted = createDeferred();
+    const releaseQuery = createDeferred();
+    const originalQuery = api.tabs.query.bind(api.tabs);
+    let blockedCleanupQuery = false;
+    api.tabs.query = async queryInfo => {
+      if (!blockedCleanupQuery && Object.keys(queryInfo || {}).length === 0) {
+        blockedCleanupQuery = true;
+        queryStarted.resolve();
+        await releaseQuery.promise;
+      }
+      return originalQuery(queryInfo);
+    };
+
+    const starting = send({
+      type: 'start_focus_session',
+      duration: 5,
+      focusMode: 'whitelist'
+    });
+    await queryStarted.promise;
+
+    const stopping = send({ type: 'stop_focus_session' });
+    await new Promise(resolve => setImmediate(resolve));
+    releaseQuery.resolve();
+    await Promise.all([starting, stopping]);
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.deepEqual(api.removedTabs, []);
+  }, { local: { rules, activeRuleListId: 'general' } });
+});
+
+test('a stop request is not lost when a Pro downgrade overlaps Whitelist cleanup', async () => {
+  const rules = [
+    makeFocusRule(92, 'general', { blockURL: 'allowed.example', isWhitelist: true })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    const queryStarted = createDeferred();
+    const releaseQuery = createDeferred();
+    const originalQuery = api.tabs.query.bind(api.tabs);
+    let blockedCleanupQuery = false;
+    api.tabs.query = async queryInfo => {
+      if (!blockedCleanupQuery && Object.keys(queryInfo || {}).length === 0) {
+        blockedCleanupQuery = true;
+        queryStarted.resolve();
+        await releaseQuery.promise;
+      }
+      return originalQuery(queryInfo);
+    };
+
+    const starting = send({
+      type: 'start_focus_session',
+      duration: 5,
+      isHardcore: true,
+      focusMode: 'whitelist'
+    });
+    await queryStarted.promise;
+
+    const stopping = send({ type: 'stop_focus_session' });
+    const downgrading = send({
+      type: 'update_pro_status',
+      isPro: false,
+      subscriptionData: { licenseKey: null }
+    });
+    for (let index = 0; index < 8; index++) {
+      await new Promise(resolve => setImmediate(resolve));
+    }
+
+    releaseQuery.resolve();
+    await Promise.all([starting, stopping, downgrading]);
+
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+  }, { local: { rules, activeRuleListId: 'general' } });
+});
+
+test('a tab update cannot close a site after Whitelist Focus has stopped', async () => {
+  const rules = [
+    makeFocusRule(93, 'general', { blockURL: 'allowed.example', isWhitelist: true })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    await send({
+      type: 'start_focus_session',
+      duration: 5,
+      focusMode: 'whitelist'
+    });
+
+    const rulesReadStarted = createDeferred();
+    const releaseRulesRead = createDeferred();
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let blockRulesRead = true;
+    api.storage.local.get = (keys, callback) => {
+      if (blockRulesRead && keys === 'rules') {
+        blockRulesRead = false;
+        rulesReadStarted.resolve();
+        return releaseRulesRead.promise.then(() => originalGet(keys, callback));
+      }
+      return originalGet(keys, callback);
+    };
+
+    const enforcement = api.tabs.onUpdated.listeners[0](21, {
+      url: 'https://blocked.example/'
+    }, { id: 21, active: false, url: 'https://blocked.example/' });
+    await rulesReadStarted.promise;
+    await send({ type: 'stop_focus_session' });
+    releaseRulesRead.resolve();
+    await enforcement;
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.deepEqual(api.removedTabs, []);
+  }, { local: { rules, activeRuleListId: 'general' } });
+});
+
 test('a stale alarm from an earlier focus session cannot end a newer session', async () => {
   await withWorker(async ({ api, send, alarm }) => {
     await send({ type: 'start_focus_session', duration: 1 });

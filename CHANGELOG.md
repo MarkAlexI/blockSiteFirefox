@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.11] - 2026-08-22
+### Fixed
+- Pro status updates and Focus start, stop, and completion now share one serialized state-transition queue, preventing a delayed paid Focus start from completing after a downgrade and preventing a concurrent downgrade from superseding a newer Stop request.
+- Whitelist Focus tab cleanup now stops when a newer Focus transition wins, and single-tab enforcement rechecks both the current session and current whitelist rules immediately before closing a tab.
+- Pro and legacy authorization decisions now come from one credential snapshot, avoiding mixed access results when credentials change between asynchronous storage reads.
+- Blocking and Whitelist Focus cleanup now preserve every affected Firefox Desktop window independently instead of protecting only the final tab across all windows.
+- Firefox Android uses an unscoped safety tab without accessing the unsupported `browser.windows` namespace.
+
+### Added
+- Added deterministic worker race coverage for delayed paid Focus startup, overlapping downgrade and Stop requests, stale initial Whitelist cleanup, and stale per-tab enforcement.
+- Added tab-cleanup coverage for per-window safety, superseded Whitelist scans, and Firefox Android windowless fallback behavior.
+
 ## [5.1.10] - 2026-08-22
 ### Fixed
 - Whitelist Focus now matches complete domain boundaries and real path descendants while preserving intentional short hostname patterns, closing lookalike-domain and query-string bypasses.

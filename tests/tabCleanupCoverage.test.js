@@ -4,8 +4,9 @@ import assert from 'node:assert/strict';
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 import { IS_FIREFOX } from '../utils/constants.js';
 
-async function withTabCleanup(tabs, callback) {
+async function withTabCleanup(tabs, callback, { supportsWindows = true } = {}) {
   const api = createExtensionApi({ tabs });
+  if (supportsWindows) api.windows = {};
   await withExtensionEnvironment(api, async () => {
     const cleanup = await import('../scripts/closeTabs.js');
     await callback({ api, ...cleanup });
@@ -57,6 +58,28 @@ test('closing every matching tab creates a replacement tab before removing the f
   });
 });
 
+test('matching cleanup preserves every affected browser window independently', async () => {
+  await withTabCleanup([
+    { id: 1, windowId: 10, url: 'https://example.com/' },
+    { id: 2, windowId: 20, url: 'https://m.example.com/' },
+    { id: 3, windowId: 30, url: 'https://safe.example.org/' }
+  ], async ({ api, closeTabsMatchingRules }) => {
+    await closeTabsMatchingRules(['example.com']);
+    assert.deepEqual(api.createdTabs, [{ windowId: 10 }, { windowId: 20 }]);
+    assert.deepEqual(api.removedTabs, [1, 2]);
+  });
+});
+
+test('windowless platforms use the current tab container for their safety tab', async () => {
+  await withTabCleanup([
+    { id: 1, windowId: 10, url: 'https://example.com/' }
+  ], async ({ api, closeTabsMatchingRules }) => {
+    await closeTabsMatchingRules(['example.com']);
+    assert.deepEqual(api.createdTabs, [{}]);
+    assert.deepEqual(api.removedTabs, [1]);
+  }, { supportsWindows: false });
+});
+
 test('a superseded cleanup does not close tabs after its asynchronous tab query', async () => {
   await withTabCleanup([
     { id: 1, url: 'https://restored.example/' },
@@ -101,6 +124,33 @@ test('a cleanup superseded while opening a safety tab never removes the original
 
     assert.deepEqual(api.createdTabs, [{}]);
     assert.deepEqual(api.removedTabs, []);
+  });
+});
+
+test('a superseded whitelist cleanup does not close tabs after its asynchronous tab query', async () => {
+  await withTabCleanup([
+    { id: 1, url: 'https://blocked.example/' }
+  ], async ({ api, closeNonWhitelistedTabs }) => {
+    let current = true;
+    const originalQuery = api.tabs.query.bind(api.tabs);
+    const queryStarted = new Promise(resolve => {
+      api.tabs.query = async (...args) => {
+        resolve();
+        await new Promise(release => setImmediate(release));
+        return originalQuery(...args);
+      };
+    });
+
+    const cleanup = closeNonWhitelistedTabs(
+      [allowedRule('allowed.example')],
+      () => current
+    );
+    await queryStarted;
+    current = false;
+    await cleanup;
+
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.createdTabs, []);
   });
 });
 
@@ -153,6 +203,17 @@ test('whitelist cleanup does nothing when all open tabs remain allowed', async (
     await closeNonWhitelistedTabs([allowedRule('allowed.example')]);
     assert.deepEqual(api.removedTabs, []);
     assert.deepEqual(api.createdTabs, []);
+  });
+});
+
+test('whitelist cleanup preserves an affected window even when another window stays open', async () => {
+  await withTabCleanup([
+    { id: 1, windowId: 10, url: 'https://blocked.example/' },
+    { id: 2, windowId: 20, url: 'https://allowed.example/' }
+  ], async ({ api, closeNonWhitelistedTabs }) => {
+    await closeNonWhitelistedTabs([allowedRule('allowed.example')]);
+    assert.deepEqual(api.createdTabs, [{ windowId: 10 }]);
+    assert.deepEqual(api.removedTabs, [1]);
   });
 });
 

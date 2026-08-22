@@ -81,6 +81,27 @@ test('legacy status uses the documented restriction boundary', async () => {
   }
 });
 
+test('an access snapshot derives Pro and legacy state from one credential read', async () => {
+  await withProManager({ sync: { credentials: {
+    isPro: true,
+    installationDate: '2026-08-01T00:00:00.000Z'
+  } } }, async ({ api, ProManager }) => {
+    const originalGet = api.storage.sync.get.bind(api.storage.sync);
+    let reads = 0;
+    api.storage.sync.get = (...args) => {
+      reads += 1;
+      return originalGet(...args);
+    };
+
+    const access = await ProManager.getAccess();
+
+    assert.equal(reads, 1);
+    assert.equal(access.isPro, true);
+    assert.equal(access.isLegacyUser, false);
+    assert.equal(access.credentials.licenseKey, null);
+  });
+});
+
 test('upgrading preserves existing subscription fields and sends a status notification', async () => {
   await withProManager({ sync: { credentials: {
     isPro: false,
