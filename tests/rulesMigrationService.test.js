@@ -345,6 +345,42 @@ test('combined migration copies legacy rules and then upgrades their schema', as
   assert.equal(harness.savedRules.length, 1);
 });
 
+test('startup can defer Daily Limit cleanup while a durable remap still needs recovery', async () => {
+  const originalUsage = {
+    version: 2,
+    date: '2026-08-22',
+    usageSeconds: { '7:study': 840 },
+    lastSample: { timestamp: 123, assignmentKeys: ['7:study'] }
+  };
+  const harness = createHarness({
+    local: {
+      rules: [{
+        id: 7,
+        blockURL: 'protected.example',
+        category: 'social',
+        isWhitelist: false,
+        assignments: [{
+          listId: 'general',
+          disabledByUser: false,
+          blockingMode: 'daily_limit',
+          schedule: null,
+          dailyLimit: { minutes: 10 }
+        }]
+      }],
+      is_migrated_to_local: true,
+      ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }],
+      activeRuleListId: 'general',
+      dailyRuleUsage: originalUsage
+    }
+  });
+
+  const result = await harness.service.migrateAll({ skipDailyUsageMigration: true });
+
+  assert.equal(result.dailyUsageMigration.pending, true);
+  assert.equal(result.dailyUsageMigration.migrated, false);
+  assert.deepEqual(harness.localStorage.state.dailyRuleUsage, originalUsage);
+});
+
 test('combined migration copies legacy global disabled categories into General profile only', async () => {
   const harness = createHarness({
     sync: { settings: { disabledCategories: ['social', 'news'] } }

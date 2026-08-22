@@ -24,7 +24,10 @@ function createHarness({
   combinedSaveError = null,
   settingsSaveError = null,
   usageRemapError = null,
-  usageBatchRemapError = null
+  usageBatchRemapError = null,
+  durableUsageJournal = false,
+  usageStageError = null,
+  usageRecoveryError = null
 } = {}) {
   let rules = clone(initialRules);
   let ruleLists = clone(initialRuleLists);
@@ -35,6 +38,8 @@ function createHarness({
   let syncCalls = 0;
   const usageRemaps = [];
   const usageRemapBatches = [];
+  const usageJournalStages = [];
+  let pendingUsageRemaps = [];
   const capacityChecks = [];
   const warnings = [];
 
@@ -122,7 +127,23 @@ function createHarness({
         if (usageBatchRemapError) throw usageBatchRemapError;
         usageRemapBatches.push(clone(remaps));
         usageRemaps.push(...clone(remaps));
-      }
+      },
+      ...(durableUsageJournal ? {
+        async stagePendingRemaps(statePatch, remaps) {
+          if (usageStageError) throw usageStageError;
+          rules = clone(statePatch.rules);
+          if (statePatch.ruleLists) ruleLists = clone(statePatch.ruleLists);
+          if (statePatch.activeRuleListId) activeRuleListId = statePatch.activeRuleListId;
+          savedStates.push(clone(statePatch.rules));
+          pendingUsageRemaps.push(...clone(remaps));
+          usageJournalStages.push({ statePatch: clone(statePatch), remaps: clone(remaps) });
+        },
+        async recoverPendingRemaps() {
+          if (usageRecoveryError) throw usageRecoveryError;
+          usageRemaps.push(...clone(pendingUsageRemaps));
+          pendingUsageRemaps = [];
+        }
+      } : {})
     },
     declarativeNetRequest: {
       async getDynamicRules() {
@@ -166,6 +187,8 @@ function createHarness({
     getSyncCalls: () => syncCalls,
     getUsageRemaps: () => clone(usageRemaps),
     getUsageRemapBatches: () => clone(usageRemapBatches),
+    getUsageJournalStages: () => clone(usageJournalStages),
+    getPendingUsageRemaps: () => clone(pendingUsageRemaps),
     getCapacityChecks: () => clone(capacityChecks),
     warnings
   };
@@ -467,6 +490,153 @@ test('failed batched Daily Limit remaps do not undo a committed Rule List deleti
   assert.equal(getRuleAssignment(harness.getRules()[0], 'general').blockingMode, 'daily_limit');
   assert.equal(harness.getSyncCalls(), 1);
   assert.equal(harness.warnings.length, 1);
+});
+
+test('Daily Limit assignment edits commit their durable remap with the updated rules', async () => {
+  const harness = createHarness({
+    initialRules: [makeCapacityRule(1, 'study', { blockingMode: 'daily_limit' })],
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    durableUsageJournal: true
+  });
+
+  const result = await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'study',
+    blockURL: 'rule-1.example',
+    redirectURL: '',
+    category: 'social',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 15 }
+    }
+  });
+
+  assert.equal(result.dailyUsageSyncPending, undefined);
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getUsageJournalStages().length, 1);
+  assert.deepEqual(harness.getUsageRemaps(), [{
+    oldRuleId: 1, oldListId: 'study', newRuleId: 1, newListId: 'general'
+  }]);
+  assert.deepEqual(harness.getPendingUsageRemaps(), []);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('failed durable remap staging leaves rules and browser synchronization untouched', async () => {
+  const original = makeCapacityRule(1, 'study', { blockingMode: 'daily_limit' });
+  const harness = createHarness({
+    initialRules: [original],
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    durableUsageJournal: true,
+    usageStageError: new Error('atomic usage journal could not be saved')
+  });
+
+  await assert.rejects(harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'study',
+    blockURL: 'rule-1.example',
+    redirectURL: '',
+    category: 'social',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 15 }
+    }
+  }), /journal could not be saved/);
+
+  assert.deepEqual(harness.getRules(), [original]);
+  assert.equal(harness.savedStates.length, 0);
+  assert.deepEqual(harness.getUsageJournalStages(), []);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('failed durable recovery leaves its remap pending after a successful committed edit', async () => {
+  const harness = createHarness({
+    initialRules: [makeCapacityRule(1, 'study', { blockingMode: 'daily_limit' })],
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    durableUsageJournal: true,
+    usageRecoveryError: new Error('usage recovery is temporarily unavailable')
+  });
+
+  const result = await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'study',
+    blockURL: 'rule-1.example',
+    redirectURL: '',
+    category: 'social',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      dailyLimit: { minutes: 15 }
+    }
+  });
+
+  assert.equal(result.dailyUsageSyncPending, true);
+  assert.equal(harness.getUsageJournalStages().length, 1);
+  assert.deepEqual(harness.getPendingUsageRemaps(), [{
+    oldRuleId: 1, oldListId: 'study', newRuleId: 1, newListId: 'general'
+  }]);
+  assert.equal(harness.getSyncCalls(), 1);
+  assert.equal(harness.warnings.length, 1);
+});
+
+test('ordinary assignment moves never create unnecessary durable usage journal writes', async () => {
+  const harness = createHarness({
+    initialRules: [makeCapacityRule(1, 'study')],
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    durableUsageJournal: true
+  });
+
+  await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'study',
+    blockURL: 'rule-1.example',
+    redirectURL: '',
+    category: 'social',
+    assignment: { listId: 'general', blockingMode: 'always' }
+  });
+
+  assert.equal(harness.savedStates.length, 1);
+  assert.deepEqual(harness.getUsageJournalStages(), []);
+});
+
+test('Rule List deletion stages all paid usage moves with its one local state commit', async () => {
+  const harness = createHarness({
+    initialRules: [
+      makeCapacityRule(1, 'study', { blockingMode: 'daily_limit' }),
+      makeCapacityRule(2, 'study', { blockingMode: 'daily_limit' }),
+      makeCapacityRule(3, 'study')
+    ],
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    initialActiveRuleListId: 'study',
+    durableUsageJournal: true,
+    usageRecoveryError: new Error('batched usage recovery is temporarily unavailable')
+  });
+
+  const result = await harness.service.deleteRuleList({ listId: 'study' });
+
+  assert.equal(result.dailyUsageSyncPending, true);
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getUsageJournalStages().length, 1);
+  assert.deepEqual(harness.getPendingUsageRemaps().map(remap => remap.oldRuleId), [1, 2]);
+  assert.equal(harness.getUsageJournalStages()[0].statePatch.activeRuleListId, 'general');
+  assert.deepEqual(harness.getRuleLists().map(list => list.id), ['general']);
+  assert.equal(harness.getSyncCalls(), 1);
 });
 
 test('concurrent additions are serialized and receive unique IDs', async () => {

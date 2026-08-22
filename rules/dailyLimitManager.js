@@ -1,4 +1,5 @@
 export const DAILY_RULE_USAGE_KEY = 'dailyRuleUsage';
+export const PENDING_DAILY_USAGE_REMAPS_KEY = 'pendingDailyUsageRemaps';
 export const DAILY_LIMIT_STATE_VERSION = 2;
 export const MAX_ACCOUNTING_GAP_MS = 90 * 1000;
 
@@ -78,10 +79,48 @@ function createAsyncQueue() {
   };
 }
 
+function normalizeAssignmentRemaps(remaps = []) {
+  const normalized = [];
+  for (const remap of Array.isArray(remaps) ? remaps : []) {
+    const oldRuleId = Math.floor(Number(remap?.oldRuleId));
+    const newRuleId = Math.floor(Number(remap?.newRuleId));
+    const oldListId = typeof remap?.oldListId === 'string' ? remap.oldListId.trim() : '';
+    const newListId = typeof remap?.newListId === 'string' ? remap.newListId.trim() : '';
+    if (!Number.isInteger(oldRuleId) || oldRuleId <= 0 ||
+      !Number.isInteger(newRuleId) || newRuleId <= 0 || !oldListId || !newListId) {
+      continue;
+    }
+    const oldKey = `${oldRuleId}:${oldListId}`;
+    const newKey = `${newRuleId}:${newListId}`;
+    if (oldKey !== newKey) {
+      normalized.push({ oldRuleId, oldListId, newRuleId, newListId, oldKey, newKey });
+    }
+  }
+  return normalized;
+}
+
+function applyAssignmentRemaps(state, remaps) {
+  for (const { oldKey, newKey } of remaps) {
+    const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0);
+    const newUsage = Math.max(0, Number(state.usageSeconds[newKey]) || 0);
+    if (oldUsage > 0 || newUsage > 0) {
+      state.usageSeconds[newKey] = Math.max(oldUsage, newUsage);
+    }
+    delete state.usageSeconds[oldKey];
+    if (state.lastSample) {
+      state.lastSample.assignmentKeys = normalizeActiveKeys(
+        state.lastSample.assignmentKeys.map(key => key === oldKey ? newKey : key)
+      );
+    }
+  }
+  return state;
+}
+
 export class DailyLimitManager {
   constructor(storageArea = chrome.storage.local) {
     this.storageArea = storageArea;
     this.enqueue = createAsyncQueue();
+    this.pendingRemaps = null;
   }
 
   async readState(now = new Date()) {
@@ -97,7 +136,92 @@ export class DailyLimitManager {
 
   async getUsageSeconds(now = new Date()) {
     const state = await this.readState(now);
+    if (this.pendingRemaps?.length) {
+      return applyAssignmentRemaps({
+        ...state,
+        usageSeconds: { ...state.usageSeconds },
+        lastSample: state.lastSample && {
+          ...state.lastSample,
+          assignmentKeys: [...state.lastSample.assignmentKeys]
+        }
+      }, this.pendingRemaps).usageSeconds;
+    }
     return { ...state.usageSeconds };
+  }
+
+  async stagePendingRemaps(statePatch, remaps = []) {
+    const normalized = normalizeAssignmentRemaps(remaps);
+    return this.enqueue(async () => {
+      if (normalized.length === 0) {
+        await this.storageArea.set(statePatch);
+        return [];
+      }
+
+      const result = await this.storageArea.get(PENDING_DAILY_USAGE_REMAPS_KEY);
+      const existing = normalizeAssignmentRemaps(result[PENDING_DAILY_USAGE_REMAPS_KEY]);
+      let hasTrackedUsage = true;
+      if (existing.length === 0) {
+        try {
+          const storedUsage = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
+          const current = normalizeDailyRuleUsageState(storedUsage[DAILY_RULE_USAGE_KEY]);
+          hasTrackedUsage = normalized.some(remap =>
+            Number(current.usageSeconds[remap.oldKey]) > 0 ||
+            current.lastSample?.assignmentKeys.includes(remap.oldKey)
+          );
+        } catch {
+          // If usage cannot be inspected, fail safe by journaling the commit.
+          hasTrackedUsage = true;
+        }
+      }
+      if (existing.length === 0 && !hasTrackedUsage) {
+        await this.storageArea.set(statePatch);
+        this.pendingRemaps = [];
+        return [];
+      }
+
+      const pending = [...existing, ...normalized];
+      const persisted = pending.map(({ oldRuleId, oldListId, newRuleId, newListId }) => ({
+        oldRuleId, oldListId, newRuleId, newListId
+      }));
+      await this.storageArea.set({
+        ...statePatch,
+        [PENDING_DAILY_USAGE_REMAPS_KEY]: persisted
+      });
+      this.pendingRemaps = pending;
+      return persisted;
+    });
+  }
+
+  async recoverPendingRemaps(now = new Date()) {
+    return this.enqueue(async () => {
+      const result = await this.storageArea.get([
+        DAILY_RULE_USAGE_KEY,
+        PENDING_DAILY_USAGE_REMAPS_KEY
+      ]);
+      const pending = normalizeAssignmentRemaps(result[PENDING_DAILY_USAGE_REMAPS_KEY]);
+      this.pendingRemaps = pending;
+      if (pending.length === 0) return { recovered: false, pending: false };
+
+      const raw = result[DAILY_RULE_USAGE_KEY];
+      const state = applyAssignmentRemaps(normalizeDailyRuleUsageState(raw, now), pending);
+      const patch = { [PENDING_DAILY_USAGE_REMAPS_KEY]: [] };
+      if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
+        patch[DAILY_RULE_USAGE_KEY] = state;
+      }
+      await this.storageArea.set(patch);
+      this.pendingRemaps = [];
+      return { recovered: true, pending: false, state };
+    });
+  }
+
+  async loadPendingRemaps() {
+    return this.enqueue(async () => {
+      const result = await this.storageArea.get(PENDING_DAILY_USAGE_REMAPS_KEY);
+      this.pendingRemaps = normalizeAssignmentRemaps(
+        result[PENDING_DAILY_USAGE_REMAPS_KEY]
+      );
+      return [...this.pendingRemaps];
+    });
   }
 
   async recordSample(activeAssignmentKeys, now = new Date(), { closePreviousSegment = false } = {}) {
@@ -186,37 +310,12 @@ export class DailyLimitManager {
   }
 
   async remapAssignmentKeys(remaps = [], now = new Date()) {
-    const normalizedRemaps = [];
-    for (const remap of Array.isArray(remaps) ? remaps : []) {
-      const oldId = Math.floor(Number(remap?.oldRuleId));
-      const newId = Math.floor(Number(remap?.newRuleId));
-      const oldList = typeof remap?.oldListId === 'string' ? remap.oldListId.trim() : '';
-      const newList = typeof remap?.newListId === 'string' ? remap.newListId.trim() : '';
-      if (!Number.isInteger(oldId) || oldId <= 0 || !Number.isInteger(newId) || newId <= 0 || !oldList || !newList) {
-        continue;
-      }
-      const oldKey = `${oldId}:${oldList}`;
-      const newKey = `${newId}:${newList}`;
-      if (oldKey !== newKey) normalizedRemaps.push({ oldKey, newKey });
-    }
+    const normalizedRemaps = normalizeAssignmentRemaps(remaps);
 
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
       const raw = result[DAILY_RULE_USAGE_KEY];
-      const state = normalizeDailyRuleUsageState(raw, now);
-      for (const { oldKey, newKey } of normalizedRemaps) {
-        const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0);
-        const newUsage = Math.max(0, Number(state.usageSeconds[newKey]) || 0);
-        if (oldUsage > 0 || newUsage > 0) {
-          state.usageSeconds[newKey] = Math.max(oldUsage, newUsage);
-        }
-        delete state.usageSeconds[oldKey];
-        if (state.lastSample) {
-          state.lastSample.assignmentKeys = normalizeActiveKeys(
-            state.lastSample.assignmentKeys.map(key => key === oldKey ? newKey : key)
-          );
-        }
-      }
+      const state = applyAssignmentRemaps(normalizeDailyRuleUsageState(raw, now), normalizedRemaps);
       if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
         await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
       }
@@ -226,6 +325,7 @@ export class DailyLimitManager {
 
   async pruneAssignmentKeys(validAssignmentKeys, now = new Date()) {
     const valid = new Set(normalizeActiveKeys(validAssignmentKeys));
+    for (const remap of this.pendingRemaps || []) valid.add(remap.oldKey);
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
       const raw = result[DAILY_RULE_USAGE_KEY];

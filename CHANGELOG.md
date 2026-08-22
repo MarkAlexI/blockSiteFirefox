@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.15] - 2026-08-22
+### Fixed
+- Daily Limit assignment moves, shared-target splits and merges, and Rule List deletion now atomically protect pending usage remaps in the same local write as their committed rules and profiles.
+- Temporary Daily Limit read or write failures preserve accumulated seconds, active browser blocking, and source keys; existing startup events, rule intents, and the unchanged one-minute alarm recover pending remaps safely.
+- Startup recovers pending usage before schema migration and cleanup; failed recovery defers destructive usage migration, projects pending usage onto its new assignment, and handles local-day rollover without resurrecting yesterday's time.
+- Ordinary rules and Daily Limit assignments without elapsed time or an active sample skip unnecessary usage-journal writes, while batched profile deletion preserves its single atomic rule/profile commit.
+- Pro and legacy Focus Sessions validate the complete prospective global dynamic and unsafe DNR budget before changing session state; Free Focus still evaluates only General, and Firefox remains compatible when browser limit constants are absent.
+- Unexpected Focus DNR synchronization failures restore the previous session and completion alarm, reconcile browser protection, surface actionable errors in Popup, and still return their failure if diagnostics or analytics cannot be persisted.
+- Identical DNR failures are deduplicated across non-persistent worker restarts using existing diagnostic state; changed errors, different expected rule counts, and failures after successful recovery remain visible.
+- Existing Free deletion, assignment cleanup, toggling, the exact ten-rule General limit, the one-minute recovery alarm, and Firefox Android workers without the Windows API remain unchanged.
+
+### Added
+- Added 41 regression scenarios covering atomic Daily Limit journaling, read/write recovery failures, 840-second preservation, target splits and merges, batched profile deletion, startup migration ordering, midnight rollover, write-free idle recovery, restarted worker deduplication, projected Focus capacity, Free/Pro/legacy access, exact session rollback, Popup error visibility, and failed reporting.
+
 ## [5.1.14] - 2026-08-22
 ### Fixed
 - Rule additions, edits, Rule Packs, imports, profile activation, and category reactivation now validate browser-reported dynamic and unsafe redirect-rule limits before changing stored state or browser protection.

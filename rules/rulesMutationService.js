@@ -222,14 +222,39 @@ export function createRulesMutationService({
     await dailyLimitManager.remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId);
   }
 
-  async function remapDailyUsageAfterCommit(oldRuleId, oldListId, newRuleId, newListId) {
+  async function remapDailyUsageAfterCommit(oldRuleId, oldListId, newRuleId, newListId, staged = false) {
     try {
-      await remapDailyUsage(oldRuleId, oldListId, newRuleId, newListId);
+      if (staged) await dailyLimitManager.recoverPendingRemaps();
+      else await remapDailyUsage(oldRuleId, oldListId, newRuleId, newListId);
       return false;
     } catch (error) {
       logger.warn('Daily Limit usage remapping failed after rules were committed:', error);
       return true;
     }
+  }
+
+  async function saveRulesAndRemapDailyUsage(
+    rules,
+    oldRuleId,
+    oldListId,
+    newRuleId,
+    newListId,
+    sourceAssignment,
+    nextAssignment
+  ) {
+    const remap = { oldRuleId, oldListId, newRuleId, newListId };
+    const protectUsage = getRuleBlockingMode(sourceAssignment) === BLOCKING_MODE_DAILY_LIMIT &&
+      getRuleBlockingMode(nextAssignment) === BLOCKING_MODE_DAILY_LIMIT &&
+      typeof dailyLimitManager?.stagePendingRemaps === 'function' &&
+      typeof dailyLimitManager?.recoverPendingRemaps === 'function';
+
+    if (protectUsage) {
+      await dailyLimitManager.stagePendingRemaps({ rules }, [remap]);
+    } else {
+      await rulesManager.saveRules(rules);
+    }
+
+    return remapDailyUsageAfterCommit(oldRuleId, oldListId, newRuleId, newListId, protectUsage);
   }
 
   async function saveRuleListState(lists, activeRuleListId) {
@@ -696,12 +721,19 @@ export function createRulesMutationService({
         const nextRules = [...rules];
         nextRules[index] = updatedRule;
         await ensureBrowserRuleCapacity(nextRules);
-        await rulesManager.saveRules(nextRules);
         let dailyUsageSyncPending = false;
         if (nextAssignment.listId !== sourceListId) {
-          dailyUsageSyncPending = await remapDailyUsageAfterCommit(
-            oldRule.id, sourceListId, oldRule.id, nextAssignment.listId
+          dailyUsageSyncPending = await saveRulesAndRemapDailyUsage(
+            nextRules,
+            oldRule.id,
+            sourceListId,
+            oldRule.id,
+            nextAssignment.listId,
+            currentAssignment,
+            nextAssignment
           );
+        } else {
+          await rulesManager.saveRules(nextRules);
         }
         return syncAndNotify(nextRules, {
           rule: updatedRule,
@@ -732,9 +764,14 @@ export function createRulesMutationService({
           return rule;
         }).filter(Boolean);
         await ensureBrowserRuleCapacity(nextRules);
-        await rulesManager.saveRules(nextRules);
-        const dailyUsageSyncPending = await remapDailyUsageAfterCommit(
-          oldRule.id, sourceListId, mergedTarget.id, nextAssignment.listId
+        const dailyUsageSyncPending = await saveRulesAndRemapDailyUsage(
+          nextRules,
+          oldRule.id,
+          sourceListId,
+          mergedTarget.id,
+          nextAssignment.listId,
+          currentAssignment,
+          nextAssignment
         );
         return syncAndNotify(nextRules, {
           rule: mergedTarget,
@@ -756,12 +793,19 @@ export function createRulesMutationService({
         const nextRules = [...rules];
         nextRules[index] = updatedRule;
         await ensureBrowserRuleCapacity(nextRules);
-        await rulesManager.saveRules(nextRules);
         let dailyUsageSyncPending = false;
         if (nextAssignment.listId !== sourceListId) {
-          dailyUsageSyncPending = await remapDailyUsageAfterCommit(
-            oldRule.id, sourceListId, oldRule.id, nextAssignment.listId
+          dailyUsageSyncPending = await saveRulesAndRemapDailyUsage(
+            nextRules,
+            oldRule.id,
+            sourceListId,
+            oldRule.id,
+            nextAssignment.listId,
+            currentAssignment,
+            nextAssignment
           );
+        } else {
+          await rulesManager.saveRules(nextRules);
         }
         return syncAndNotify(nextRules, {
           rule: updatedRule,
@@ -782,9 +826,14 @@ export function createRulesMutationService({
       nextRules[index] = retainedRule;
       nextRules.push(splitRule);
       await ensureBrowserRuleCapacity(nextRules);
-      await rulesManager.saveRules(nextRules);
-      const dailyUsageSyncPending = await remapDailyUsageAfterCommit(
-        oldRule.id, sourceListId, splitRule.id, nextAssignment.listId
+      const dailyUsageSyncPending = await saveRulesAndRemapDailyUsage(
+        nextRules,
+        oldRule.id,
+        sourceListId,
+        splitRule.id,
+        nextAssignment.listId,
+        currentAssignment,
+        nextAssignment
       );
       return syncAndNotify(nextRules, {
         rule: splitRule,
@@ -1145,9 +1194,27 @@ export function createRulesMutationService({
         lists: nextLists,
         activeRuleListId
       });
-      await saveCombinedState(nextRules, nextLists, activeRuleListId);
+      const stagedUsageRemaps = usageRemaps.length > 0 &&
+        typeof dailyLimitManager?.stagePendingRemaps === 'function' &&
+        typeof dailyLimitManager?.recoverPendingRemaps === 'function';
+      if (stagedUsageRemaps) {
+        await dailyLimitManager.stagePendingRemaps({
+          rules: nextRules,
+          ruleLists: nextLists,
+          activeRuleListId
+        }, usageRemaps);
+      } else {
+        await saveCombinedState(nextRules, nextLists, activeRuleListId);
+      }
       let dailyUsageSyncPending = false;
-      if (usageRemaps.length > 0 && typeof dailyLimitManager?.remapAssignmentKeys === 'function') {
+      if (stagedUsageRemaps) {
+        try {
+          await dailyLimitManager.recoverPendingRemaps();
+        } catch (error) {
+          logger.warn('Daily Limit usage remapping failed after a Rule List was deleted:', error);
+          dailyUsageSyncPending = true;
+        }
+      } else if (usageRemaps.length > 0 && typeof dailyLimitManager?.remapAssignmentKeys === 'function') {
         try {
           await dailyLimitManager.remapAssignmentKeys(usageRemaps);
         } catch (error) {

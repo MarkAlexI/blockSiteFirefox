@@ -271,7 +271,7 @@ export function createRulesMigrationService({
     }
   }
 
-  async function migrateAll() {
+  async function migrateAll({ skipDailyUsageMigration = false } = {}) {
     const migratedFromSync = await migrateToLocalForDevice();
     let legacyDisabledCategories = [];
     try {
@@ -288,7 +288,9 @@ export function createRulesMigrationService({
       ruleListsManager?.ensureInitialized?.({ legacyDisabledCategories }) ||
         Promise.resolve({ migrated: false, lists: [], activeRuleListId: GENERAL_RULE_LIST_ID })
     ]);
-    const dailyUsageMigration = await migrateDailyUsage(schemaMigration.rules);
+    const dailyUsageMigration = skipDailyUsageMigration
+      ? { migrated: false, state: null, pending: true }
+      : await migrateDailyUsage(schemaMigration.rules);
 
     const userVisibleMigration = migratedFromSync || schemaMigration.migrated || listMigration.migrated;
 

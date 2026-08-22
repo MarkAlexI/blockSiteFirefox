@@ -315,6 +315,90 @@ function createDeletionController({
   };
 }
 
+function createFocusController(response, { isPro = true, duration = '25' } = {}) {
+  const alerts = [];
+  const messages = [];
+  let refreshCount = 0;
+  const api = {
+    runtime: {
+      async sendMessage(message) {
+        messages.push(copy(message));
+        return copy(response);
+      }
+    }
+  };
+  const method = getClassMethod(popupSource, 'startFocusSession', 'stopFocusSession');
+  const Controller = new Function(
+    'browser',
+    'chrome',
+    'customAlert',
+    't',
+    'return class FocusEntryPoint {\n' + method + '\n};'
+  )(api, api, message => alerts.push(message), key => key);
+  const controller = new Controller();
+  Object.assign(controller, {
+    isPro,
+    isLegacyUser: false,
+    focusDurationInput: { value: duration },
+    hardcoreModeCheckbox: { checked: false },
+    focusModeSelect: { value: 'blacklist' },
+    async updateFocusUI() {
+      refreshCount++;
+    }
+  });
+
+  return {
+    controller,
+    alerts,
+    messages,
+    getRefreshCount: () => refreshCount
+  };
+}
+
+test('Popup shows the real browser quota failure instead of silently pretending Focus started', async () => {
+  const view = createFocusController({
+    success: false,
+    code: 'dnr_rule_limit_reached',
+    error: 'Browser unsafe dynamic rule limit reached (2/1)'
+  });
+
+  await view.controller.startFocusSession();
+
+  assert.deepEqual(view.messages, [{
+    type: 'start_focus_session',
+    duration: 25,
+    isHardcore: false,
+    focusMode: 'blacklist'
+  }]);
+  assert.deepEqual(view.alerts, ['Browser unsafe dynamic rule limit reached (2/1)']);
+  assert.equal(view.getRefreshCount(), 1);
+});
+
+test('Popup keeps successful Focus starts silent while refreshing their actual state', async () => {
+  const view = createFocusController({ success: true });
+
+  await view.controller.startFocusSession();
+
+  assert.deepEqual(view.alerts, []);
+  assert.equal(view.getRefreshCount(), 1);
+});
+
+test('Popup translates denied paid Focus settings and falls back safely for unknown failures', async () => {
+  const denied = createFocusController({
+    success: false,
+    code: 'pro_required',
+    error: 'pro_required'
+  }, { isPro: false });
+  await denied.controller.startFocusSession();
+  assert.deepEqual(denied.alerts, ['prorequired']);
+
+  const unknown = createFocusController({ success: false, code: 'dnr_sync_failed' });
+  await unknown.controller.startFocusSession();
+  assert.deepEqual(unknown.alerts, ['errorupdatingrules']);
+  assert.equal(denied.getRefreshCount(), 1);
+  assert.equal(unknown.getRefreshCount(), 1);
+});
+
 test('Popup Free deletion runs the real migrated-rule, worker, and DNR lifecycle', async () => {
   const migrated = migrateRuleSchema([{
     id: 17,

@@ -42,6 +42,7 @@ const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
 const ruleListsManager = new RuleListsManager(browser.storage.local);
 const dailyLimitManager = new DailyLimitManager(browser.storage.local);
+let pendingDailyUsageRecovery = null;
 
 async function getFocusAccess() {
   return ProManager.getAccess();
@@ -55,6 +56,26 @@ function getDailyLimitAssignmentKeys(rules = []) {
       .map(assignment => getAssignmentUsageKey(rule.id, assignment.listId))
       .filter(Boolean)
   );
+}
+
+async function recoverPendingDailyUsage(reason, force = false) {
+  if (!force && pendingDailyUsageRecovery === false) return true;
+
+  try {
+    await dailyLimitManager.recoverPendingRemaps();
+    pendingDailyUsageRecovery = false;
+    return true;
+  } catch (error) {
+    try {
+      const remaps = await dailyLimitManager.loadPendingRemaps();
+      pendingDailyUsageRecovery = remaps.length > 0;
+      if (!pendingDailyUsageRecovery) return true;
+    } catch {
+      pendingDailyUsageRecovery = true;
+    }
+    logger.warn(`Daily Limit usage recovery failed (${reason}):`, error);
+    return false;
+  }
 }
 const diagnosticStore = createDiagnosticStore({
   localStorage: browser.storage.local,
@@ -142,6 +163,11 @@ async function recordRuleIntentTelemetry(type, result) {
 
 async function settleRulesIntentPostCommitTasks(type, result) {
   const cleanupAndSample = (async () => {
+    if (result.dailyUsageSyncPending) {
+      pendingDailyUsageRecovery = true;
+      if (!await recoverPendingDailyUsage('rules_intent', true)) return;
+    }
+
     try {
       await dailyLimitManager.pruneAssignmentKeys(
         getDailyLimitAssignmentKeys(result.rules || [])
@@ -167,21 +193,54 @@ async function settleRulesIntentPostCommitTasks(type, result) {
 
 let lastRecordedDnrFailureSignature = null;
 
+function getDnrFailureSignature(result) {
+  const failureCode = result.errorCode === 'dnr_rule_limit_reached' ||
+    result.code === 'dnr_rule_limit_reached'
+    ? 'rule_limit_reached'
+    : 'sync_failed';
+  const capacity = result.capacity ? {
+    limitType: result.capacity.limitType || null,
+    expectedCount: result.capacity.expectedCount ?? null,
+    expectedUnsafeCount: result.capacity.expectedUnsafeCount ?? null,
+    maxDynamicRules: result.capacity.maxDynamicRules ?? null,
+    maxUnsafeDynamicRules: result.capacity.maxUnsafeDynamicRules ?? null
+  } : null;
+  return JSON.stringify([
+    failureCode,
+    result.errorName || 'Error',
+    result.error || null,
+    capacity
+  ]);
+}
+
 async function recordDnrSyncResult(result) {
   const failureCode = result.code === 'dnr_rule_limit_reached'
     ? 'rule_limit_reached'
     : 'sync_failed';
   const failureSignature = !result.success
-    ? JSON.stringify([failureCode, result.errorName || 'Error', result.error || null])
+    ? getDnrFailureSignature(result)
     : null;
 
   if (failureSignature && failureSignature === lastRecordedDnrFailureSignature) {
     return;
   }
+  if (failureSignature && lastRecordedDnrFailureSignature === null) {
+    try {
+      const previous = (await diagnosticStore.getState()).lastDnrSync;
+      if (previous?.success === false &&
+        getDnrFailureSignature(previous) === failureSignature) {
+        lastRecordedDnrFailureSignature = failureSignature;
+        return;
+      }
+    } catch (error) {
+      logger.warn('Previous DNR synchronization failure could not be inspected:', error);
+    }
+  }
+  const recoveredFromFailure = result.success && lastRecordedDnrFailureSignature !== null;
   if (result.success) lastRecordedDnrFailureSignature = null;
 
   const persistenceTasks = [];
-  if (result.changed || !result.success) {
+  if (result.changed || !result.success || recoveredFromFailure) {
     persistenceTasks.push(diagnosticStore.updateState({
       lastDnrSync: {
         timestamp: Date.now(),
@@ -818,13 +877,18 @@ browser.runtime.onStartup.addListener(async () => {
 
 async function initializeExtension(details) {
   logger.log("Initializing extension state (rules, settings, legacy status)...");
+  const dailyUsageRecovered = await recoverPendingDailyUsage('startup', true);
   const migrationResult = await rulesMutationService.runExclusive(
-    () => rulesMigrationService.migrateAll()
+    () => rulesMigrationService.migrateAll({
+      skipDailyUsageMigration: !dailyUsageRecovered
+    })
   );
 
-  await dailyLimitManager.pruneAssignmentKeys(
-    getDailyLimitAssignmentKeys(migrationResult.rules || [])
-  );
+  if (dailyUsageRecovered) {
+    await dailyLimitManager.pruneAssignmentKeys(
+      getDailyLimitAssignmentKeys(migrationResult.rules || [])
+    );
+  }
 
   if (migrationResult.userVisibleMigration) {
     await dnrSynchronizer.requestSync();
@@ -1132,7 +1196,12 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (RULES_INTENT_TYPES.has(message.type)) {
     (async () => {
       try {
-        const result = await handleRulesIntent(message);
+        const recovered = await recoverPendingDailyUsage('rules_intent');
+        const committed = await handleRulesIntent(message);
+        const result = recovered ? committed : {
+          ...committed,
+          dailyUsageSyncPending: true
+        };
         await settleRulesIntentPostCommitTasks(message.type, result);
         sendResponse({ success: true, ...result });
       } catch (error) {
@@ -1387,21 +1456,76 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
 
           const endTime = Date.now() + durationMinutes * 60 * 1000;
+          const nextFocusSession = {
+            focusActive: true,
+            focusEndTime: endTime,
+            isHardcore,
+            focusMode
+          };
+          const focusCapacity = await dnrSynchronizer.validateRuleCapacity(
+            null,
+            null,
+            nextFocusSession,
+            access
+          );
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+          if (focusCapacity.withinCapacity === false) {
+            const unsafe = focusCapacity.limitType === 'unsafe_dynamic';
+            const expected = unsafe ? focusCapacity.expectedUnsafeCount : focusCapacity.expectedCount;
+            const maximum = unsafe ? focusCapacity.maxUnsafeDynamicRules : focusCapacity.maxDynamicRules;
+            return {
+              success: false,
+              error: `Browser ${unsafe ? 'unsafe dynamic' : 'dynamic'} rule limit reached (${expected}/${maximum})`,
+              code: 'dnr_rule_limit_reached'
+            };
+          }
+
+          const previousFocusSession = await getFocusSessionState();
+          const previousFocusAlarm = previousFocusSession.focusActive
+            ? { scheduledTime: previousFocusSession.focusEndTime }
+            : null;
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
           await dailyLimitTracker.sample('focus_start_before');
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
-          await browser.storage.local.set({
-            focusSession: { focusActive: true, focusEndTime: endTime, isHardcore, focusMode }
-          });
+          await browser.storage.local.set({ focusSession: nextFocusSession });
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
           await browser.alarms.create('end_focus_session', { when: endTime });
           await dailyLimitTracker.sample('focus_start_after');
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
-          await dnrSynchronizer.requestSync();
+          const syncResult = await dnrSynchronizer.requestSync();
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+          if (syncResult?.success === false) {
+            await browser.storage.local.set({ focusSession: previousFocusSession });
+            if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+            if (previousFocusAlarm) {
+              const previousEndTime = Number(
+                previousFocusAlarm.scheduledTime ?? previousFocusAlarm.when ??
+                previousFocusSession.focusEndTime
+              );
+              if (Number.isFinite(previousEndTime) && previousEndTime > 0) {
+                await browser.alarms.create('end_focus_session', { when: previousEndTime });
+              }
+            } else {
+              await browser.alarms.clear('end_focus_session');
+            }
+            if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+            await dailyLimitTracker.sample('focus_start_rollback');
+            if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+            const restored = await dnrSynchronizer.requestSync();
+            if (restored?.success === false) {
+              logger.warn('Focus Session: Previous browser protection could not be restored:', restored.error);
+            }
+
+            const error = new Error(syncResult.error || 'Could not activate Focus Session protection');
+            error.code = syncResult.code || 'dnr_sync_failed';
+            throw error;
+          }
 
           if (focusMode === 'whitelist') {
             await checkAllTabsAgainstWhitelist(
@@ -1428,13 +1552,22 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: true, ...(completed ? {} : { superseded: true }) });
       } catch (error) {
         logger.error('Focus Session: Error starting session:', error);
-        await Promise.all([
+        const outcomes = await Promise.allSettled([
           diagnosticStore.recordEvent('error', 'focus', 'start_failed', { error }),
           telemetryStore.recordError({
             source: 'focus', code: 'start_failed', operation: 'start_session', errorName: error?.name || 'Error'
           })
         ]);
-        sendResponse({ success: false, error: error.message });
+        for (const outcome of outcomes) {
+          if (outcome.status === 'rejected') {
+            logger.info('Focus start failure reporting could not be persisted:', outcome.reason);
+          }
+        }
+        sendResponse({
+          success: false,
+          error: error.message,
+          ...(error.code ? { code: error.code } : {})
+        });
       }
     })();
     return true;
@@ -1596,7 +1729,9 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   }
 
   if (alarm.name === 'update_scheduled_rules') {
-    await dailyLimitTracker.sample('minute_alarm');
+    if (await recoverPendingDailyUsage('minute_alarm')) {
+      await dailyLimitTracker.sample('minute_alarm');
+    }
     await Promise.all([
       dnrSynchronizer.requestSync(),
       checkAndRequestPermissions({ reason: 'scheduled_alarm' })

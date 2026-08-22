@@ -173,6 +173,115 @@ test('browsers without exposed DNR limits skip candidate reads and rule generati
   assert.equal(generatedRules, 0);
 });
 
+test('prospective Pro Focus capacity includes rules from currently inactive profiles', async () => {
+  const rules = [
+    makeStoredRule({ id: 1, blockURL: 'general.example' }),
+    makeStoredRule({
+      id: 2,
+      blockURL: 'study.example',
+      assignments: [{ listId: 'study', blockingMode: 'always' }]
+    })
+  ];
+  const harness = createHarness({
+    storedRules: rules,
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 }
+  });
+
+  const normal = await harness.synchronizer.validateRuleCapacity(rules);
+  const focus = await harness.synchronizer.validateRuleCapacity(
+    null,
+    null,
+    { focusActive: true },
+    { isPro: true, isLegacyUser: false }
+  );
+
+  assert.equal(normal.expectedUnsafeCount, 1);
+  assert.equal(normal.withinCapacity, true);
+  assert.equal(focus.expectedUnsafeCount, 2);
+  assert.equal(focus.withinCapacity, false);
+  assert.equal(focus.limitType, 'unsafe_dynamic');
+  assert.deepEqual(harness.updates, []);
+});
+
+test('prospective Free Focus ignores inactive paid profiles when checking DNR capacity', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1, blockURL: 'general.example' }),
+      makeStoredRule({
+        id: 2,
+        blockURL: 'study.example',
+        assignments: [{ listId: 'study', blockingMode: 'always' }]
+      })
+    ],
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    activeRuleListId: 'study',
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 }
+  });
+
+  const result = await harness.synchronizer.validateRuleCapacity(
+    null,
+    null,
+    { focusActive: true },
+    { isPro: false, isLegacyUser: false }
+  );
+
+  assert.equal(result.expectedUnsafeCount, 1);
+  assert.equal(result.withinCapacity, true);
+});
+
+test('prospective legacy Focus evaluates the same global browser budget as Pro', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1, blockURL: 'general.example' }),
+      makeStoredRule({
+        id: 2,
+        blockURL: 'study.example',
+        assignments: [{ listId: 'study', blockingMode: 'always' }]
+      })
+    ],
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'study', name: 'Study', disabledCategories: [] }
+    ],
+    dnrLimits: { MAX_NUMBER_OF_DYNAMIC_RULES: 1 }
+  });
+
+  const result = await harness.synchronizer.validateRuleCapacity(
+    null,
+    null,
+    { focusActive: true },
+    { isPro: false, isLegacyUser: true }
+  );
+
+  assert.equal(result.expectedCount, 2);
+  assert.equal(result.withinCapacity, false);
+  assert.equal(result.limitType, 'dynamic');
+});
+
+test('prospective Focus validation remains a no-op when Firefox exposes no rule constants', async () => {
+  const harness = createHarness({
+    getRules: async () => { throw new Error('candidate rules must not be loaded'); }
+  });
+
+  const result = await harness.synchronizer.validateRuleCapacity(
+    null,
+    null,
+    { focusActive: true },
+    { isPro: true }
+  );
+
+  assert.equal(result.withinCapacity, true);
+  assert.equal(result.maxDynamicRules, null);
+  assert.equal(result.maxUnsafeDynamicRules, null);
+});
+
 test('unsafe redirect capacity rejects oversized DNR updates without altering current rules', async () => {
   const current = makeDnrRule({ id: 1, urlFilter: '||first.example' });
   const harness = createHarness({

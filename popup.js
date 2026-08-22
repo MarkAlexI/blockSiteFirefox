@@ -677,12 +677,23 @@ class PopupPage {
     const isHardcore = hasProAccess && this.hardcoreModeCheckbox.checked;
     const focusMode = hasProAccess && this.focusModeSelect ? this.focusModeSelect.value : 'blacklist';
     
-    await browser.runtime.sendMessage({
+    const response = await browser.runtime.sendMessage({
       type: 'start_focus_session',
       duration,
       isHardcore,
       focusMode
     });
+
+    if (response?.success === false) {
+      const errorMessage = response.code === 'pro_required'
+        ? t('prorequired')
+        : typeof response.error === 'string' && response.error
+          ? response.error
+          : t('errorupdatingrules');
+      customAlert(errorMessage);
+      await this.updateFocusUI();
+      return;
+    }
     
     await this.updateFocusUI();
   }

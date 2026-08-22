@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
+import { getLocalDateKey } from '../rules/dailyLimitManager.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
@@ -41,6 +42,13 @@ function makeFocusRule(id, listId, { blockURL = null, isWhitelist = false } = {}
       dailyLimit: null
     }]
   };
+}
+
+function makeDailyLimitRule(id, listId, { blockURL = null, minutes = 10 } = {}) {
+  const rule = makeFocusRule(id, listId, { blockURL });
+  rule.assignments[0].blockingMode = 'daily_limit';
+  rule.assignments[0].dailyLimit = { minutes };
+  return rule;
 }
 
 function sendWorkerMessage(listener, message) {
@@ -428,6 +436,438 @@ test('windowless workers synchronize committed assignment edits after Daily Limi
   });
 });
 
+test('windowless workers preserve 840 accumulated seconds when journal recovery reads fail', async () => {
+  const original = makeDailyLimitRule(21, 'list-1', {
+    blockURL: 'moved.example',
+    minutes: 10
+  });
+  const now = new Date();
+  await withWorker(async ({ api, alarm, send }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    const localWrites = [];
+    let rejectRecovery = true;
+    api.storage.local.get = (keys, callback) => {
+      if (rejectRecovery && Array.isArray(keys) &&
+        keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) {
+        return Promise.reject(new Error('temporary Daily Limit recovery read failure'));
+      }
+      return originalGet(keys, callback);
+    };
+    api.storage.local.set = (values, callback) => {
+      localWrites.push(structuredClone(values));
+      return originalSet(values, callback);
+    };
+
+    const response = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: 21,
+        assignmentListId: 'list-1',
+        blockURL: 'moved.example',
+        redirectURL: '',
+        category: 'social',
+        assignment: {
+          listId: 'general',
+          blockingMode: 'daily_limit',
+          dailyLimit: { minutes: 10 }
+        }
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.dailyUsageSyncPending, true);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:list-1'], 840);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], undefined);
+    assert.equal(api.storage.local.data.pendingDailyUsageRemaps.length, 1);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [21]);
+    assert.equal(localWrites.some(write =>
+      Array.isArray(write.rules) && Array.isArray(write.pendingDailyUsageRemaps)
+    ), true);
+
+    rejectRecovery = false;
+    localWrites.length = 0;
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:general': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [21]);
+    assert.equal(localWrites.filter(write =>
+      Object.hasOwn(write, 'dailyRuleUsage') && Object.hasOwn(write, 'pendingDailyUsageRemaps')
+    ).length, 1);
+
+    localWrites.length = 0;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(localWrites, []);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [original],
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(now),
+        usageSeconds: { '21:list-1': 840 },
+        lastSample: null
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('windowless workers retain the journal when Daily Limit recovery writes fail', async () => {
+  const original = makeDailyLimitRule(22, 'list-1', { blockURL: 'write-failure.example' });
+  await withWorker(async ({ api, alarm, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let rejectRecovery = true;
+    api.storage.local.set = (values, callback) => {
+      if (rejectRecovery && Array.isArray(values.pendingDailyUsageRemaps) &&
+        values.pendingDailyUsageRemaps.length === 0) {
+        return Promise.reject(new Error('temporary Daily Limit recovery write failure'));
+      }
+      return originalSet(values, callback);
+    };
+
+    const response = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: 22,
+        assignmentListId: 'list-1',
+        blockURL: 'write-failure.example',
+        redirectURL: '',
+        category: 'social',
+        assignment: {
+          listId: 'general',
+          blockingMode: 'daily_limit',
+          dailyLimit: { minutes: 10 }
+        }
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.dailyUsageSyncPending, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '22:list-1': 840 });
+    assert.equal(api.storage.local.data.pendingDailyUsageRemaps.length, 1);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [22]);
+
+    rejectRecovery = false;
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '22:general': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [22]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [original],
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(),
+        usageSeconds: { '22:list-1': 840 },
+        lastSample: null
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('splitting a shared Daily Limit target preserves its accumulated usage and browser block', async () => {
+  const original = makeDailyLimitRule(51, 'list-1', {
+    blockURL: 'shared.example',
+    minutes: 10
+  });
+  original.assignments.unshift(makeFocusRule(51, 'general').assignments[0]);
+  await withWorker(async ({ api, alarm, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let rejectRecovery = true;
+    api.storage.local.set = (values, callback) => {
+      if (rejectRecovery && Array.isArray(values.pendingDailyUsageRemaps) &&
+        values.pendingDailyUsageRemaps.length === 0) {
+        return Promise.reject(new Error('split usage recovery is unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+
+    const response = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: 51,
+        assignmentListId: 'list-1',
+        blockURL: 'split.example',
+        redirectURL: '',
+        category: 'social',
+        assignment: {
+          listId: 'list-1',
+          blockingMode: 'daily_limit',
+          dailyLimit: { minutes: 10 }
+        }
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.targetSplit, true);
+    assert.equal(response.dailyUsageSyncPending, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '51:list-1': 840 });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [response.rule.id]);
+
+    rejectRecovery = false;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { [`${response.rule.id}:list-1`]: 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'list-1',
+      rules: [original],
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(),
+        usageSeconds: { '51:list-1': 840 },
+        lastSample: null
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('merging a Daily Limit target into another rule preserves the old rule usage', async () => {
+  const source = makeDailyLimitRule(61, 'list-1', {
+    blockURL: 'source.example',
+    minutes: 10
+  });
+  const destination = makeFocusRule(62, 'general', {
+    blockURL: 'destination.example'
+  });
+  await withWorker(async ({ api, alarm, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let rejectRecovery = true;
+    api.storage.local.set = (values, callback) => {
+      if (rejectRecovery && Array.isArray(values.pendingDailyUsageRemaps) &&
+        values.pendingDailyUsageRemaps.length === 0) {
+        return Promise.reject(new Error('merged usage recovery is unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+
+    const response = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: 61,
+        assignmentListId: 'list-1',
+        blockURL: 'destination.example',
+        redirectURL: '',
+        category: 'social',
+        assignment: {
+          listId: 'list-1',
+          blockingMode: 'daily_limit',
+          dailyLimit: { minutes: 10 }
+        }
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.targetMerged, true);
+    assert.equal(response.dailyUsageSyncPending, true);
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.id), [62]);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '61:list-1': 840 });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [62]);
+
+    rejectRecovery = false;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '62:list-1': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'list-1',
+      rules: [source, destination],
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(),
+        usageSeconds: { '61:list-1': 840 },
+        lastSample: null
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('deleting a Rule List journals every Daily Limit remap with its atomic local commit', async () => {
+  const rules = [
+    makeDailyLimitRule(31, 'list-1', { blockURL: 'one.example' }),
+    makeDailyLimitRule(32, 'list-1', { blockURL: 'two.example' }),
+    makeFocusRule(33, 'list-1', { blockURL: 'ordinary.example' })
+  ];
+  await withWorker(async ({ api, alarm, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let rejectRecovery = true;
+    let commit = null;
+    api.storage.local.set = (values, callback) => {
+      if (values.rules && values.ruleLists && values.pendingDailyUsageRemaps) {
+        commit = structuredClone(values);
+      }
+      if (rejectRecovery && Array.isArray(values.pendingDailyUsageRemaps) &&
+        values.pendingDailyUsageRemaps.length === 0) {
+        return Promise.reject(new Error('Daily Limit usage is temporarily unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+
+    const response = await send({
+      type: 'rules:deleteList',
+      payload: { listId: 'list-1' }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.dailyUsageSyncPending, true);
+    assert.deepEqual(commit.pendingDailyUsageRemaps.map(remap => remap.oldRuleId), [31, 32]);
+    assert.equal(commit.activeRuleListId, 'general');
+    assert.deepEqual(api.storage.local.data.ruleLists.map(list => list.id), ['general']);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '31:list-1': 840, '32:list-1': 960 });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [31, 32, 33]);
+
+    rejectRecovery = false;
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '31:general': 840, '32:general': 960 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'list-1',
+      rules,
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(),
+        usageSeconds: { '31:list-1': 840, '32:list-1': 960 },
+        lastSample: null
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('windowless startup recovers pending usage before migration cleanup can delete old keys', async () => {
+  const moved = makeDailyLimitRule(44, 'general', { blockURL: 'startup.example' });
+  await withWorker(async ({ api, startup }) => {
+    await startup();
+
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '44:general': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [44]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [moved],
+      pendingDailyUsageRemaps: [{
+        oldRuleId: 44, oldListId: 'list-1', newRuleId: 44, newListId: 'general'
+      }],
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(),
+        usageSeconds: { '44:list-1': 840 },
+        lastSample: null
+      },
+      lastCheck: Date.now()
+    },
+    supportsWindows: false
+  });
+});
+
+test('a restarted worker recovers pending usage before an unrelated Free-safe rule edit', async () => {
+  const moved = makeDailyLimitRule(45, 'general', { blockURL: 'existing-limit.example' });
+  await withWorker(async ({ api, send }) => {
+    const response = await send({
+      type: 'rules:add',
+      payload: {
+        blockURL: 'ordinary.example',
+        redirectURL: '',
+        category: 'social'
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '45:general': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.equal(api.dynamicRules.some(rule => rule.id === 45), true);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [moved],
+      pendingDailyUsageRemaps: [{
+        oldRuleId: 45, oldListId: 'list-1', newRuleId: 45, newListId: 'general'
+      }],
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(),
+        usageSeconds: { '45:list-1': 840 },
+        lastSample: null
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('failed startup recovery defers migration cleanup and still blocks an exhausted assignment', async () => {
+  const moved = makeDailyLimitRule(46, 'general', { blockURL: 'recover-later.example' });
+  await withWorker(async ({ api, alarm, startup }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let rejectRecovery = true;
+    api.storage.local.get = (keys, callback) => {
+      if (rejectRecovery && Array.isArray(keys) &&
+        keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) {
+        return Promise.reject(new Error('temporary startup recovery failure'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    await startup();
+
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '46:list-1': 840 });
+    assert.equal(api.storage.local.data.pendingDailyUsageRemaps.length, 1);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [46]);
+
+    rejectRecovery = false;
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
+      { '46:general': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [moved],
+      pendingDailyUsageRemaps: [{
+        oldRuleId: 46, oldListId: 'list-1', newRuleId: 46, newListId: 'general'
+      }],
+      dailyRuleUsage: {
+        version: 2,
+        date: getLocalDateKey(),
+        usageSeconds: { '46:list-1': 840 },
+        lastSample: null
+      },
+      lastCheck: Date.now()
+    },
+    supportsWindows: false
+  });
+});
+
 test('failed atomic local imports never modify sync settings or existing browser protection', async () => {
   const original = makeFocusRule(10, 'general', { blockURL: 'keep.example' });
   await withWorker(async ({ api, alarm, send }) => {
@@ -495,6 +935,159 @@ test('repeated identical DNR quota failures do not rewrite diagnostics or analyt
     },
     supportsWindows: false
   });
+});
+
+test('an identical quota failure after a windowless worker restart creates no repeated writes', async () => {
+  const original = makeFocusRule(1, 'general', { blockURL: 'restart-quota.example' });
+  let persistedLocalState;
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+    await alarm({ name: 'update_scheduled_rules' });
+    persistedLocalState = structuredClone(api.storage.local.data);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [original],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    const writes = [];
+    api.storage.local.set = (values, callback) => {
+      writes.push(Object.keys(values));
+      return originalSet(values, callback);
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(writes, []);
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].count, 1);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, { local: persistedLocalState, supportsWindows: false });
+});
+
+test('a restarted worker records a genuinely different browser DNR failure', async () => {
+  const original = makeFocusRule(1, 'general', { blockURL: 'distinct-error.example' });
+  let persistedLocalState;
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+    await alarm({ name: 'update_scheduled_rules' });
+    persistedLocalState = structuredClone(api.storage.local.data);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [original],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Dynamic quota exceeded after a profile change');
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.error,
+      'Dynamic quota exceeded after a profile change');
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].count, 2);
+    assert.equal(api.windows, undefined);
+  }, { local: persistedLocalState, supportsWindows: false });
+});
+
+test('durable quota deduplication never suppresses a changed expected browser rule count', async () => {
+  const rules = [
+    makeFocusRule(71, 'general', { blockURL: 'first.example' }),
+    makeFocusRule(72, 'general', { blockURL: 'second.example' })
+  ];
+  let persistedLocalState;
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.capacity.expectedCount, 2);
+    persistedLocalState = structuredClone(api.storage.local.data);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules,
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+
+  persistedLocalState.rules.push(
+    makeFocusRule(73, 'general', { blockURL: 'third.example' })
+  );
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.capacity.expectedCount, 3);
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(errors[0].count, 2);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: persistedLocalState,
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('a successful retry invalidates durable DNR failure deduplication across later restarts', async () => {
+  const first = makeFocusRule(1, 'general', { blockURL: 'recovered.example' });
+  let persistedLocalState;
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+    await alarm({ name: 'update_scheduled_rules' });
+    persistedLocalState = structuredClone(api.storage.local.data);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [first],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.success, true);
+    persistedLocalState = structuredClone(api.storage.local.data);
+  }, { local: persistedLocalState, supportsWindows: false });
+
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+    await alarm({ name: 'update_scheduled_rules' });
+
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].count, 2);
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.success, false);
+    assert.equal(api.windows, undefined);
+  }, { local: persistedLocalState, supportsWindows: false });
 });
 
 test('a recovered DNR sync clears failure deduplication before a later quota error', async () => {
@@ -1271,6 +1864,224 @@ test('an alarm delivered after a focus session was stopped is ignored', async ()
     assert.equal(api.storage.local.data.focusSession.focusActive, false);
     assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
     assert.equal(api.notificationsCreated.length, 0);
+  });
+});
+
+test('Pro Focus rejects oversized global DNR activation before changing its session or alarm', async () => {
+  const rules = [
+    makeFocusRule(81, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(82, 'list-1', { blockURL: 'study.example' })
+  ];
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [81]);
+    const previousSession = structuredClone(api.storage.local.data.focusSession);
+    const writes = [];
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      writes.push(Object.keys(values));
+      return originalSet(values, callback);
+    };
+
+    const response = await send({ type: 'start_focus_session', duration: 5 });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'dnr_rule_limit_reached');
+    assert.match(response.error, /2\/1/);
+    assert.deepEqual(api.storage.local.data.focusSession, previousSession);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [81]);
+    assert.deepEqual(writes, []);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules, activeRuleListId: 'general' },
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('legacy Focus rejects the same global DNR overflow without requiring a Pro flag', async () => {
+  const rules = [
+    makeFocusRule(83, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(84, 'list-1', { blockURL: 'study.example' })
+  ];
+  await withWorker(async ({ api, send }) => {
+    const response = await send({ type: 'start_focus_session', duration: 45 });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'dnr_rule_limit_reached');
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: {
+      isPro: false,
+      isLegacyUser: true,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    },
+    local: { rules, activeRuleListId: 'general' },
+    dnrLimits: { MAX_NUMBER_OF_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('Free Focus starts at browser capacity because preserved paid profiles stay inactive', async () => {
+  const rules = [
+    makeFocusRule(85, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(86, 'list-1', { blockURL: 'study.example' })
+  ];
+  await withWorker(async ({ api, send }) => {
+    const response = await send({ type: 'start_focus_session', duration: 25 });
+
+    assert.equal(response.success, true);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [85]);
+    assert.equal(api.alarmValues.has('end_focus_session'), true);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { rules, activeRuleListId: 'list-1' },
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('Focus rolls back its session and alarm if an unreported browser quota rejects activation', async () => {
+  const rules = [
+    makeFocusRule(87, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(88, 'list-1', { blockURL: 'study.example' })
+  ];
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const previousSession = structuredClone(api.storage.local.data.focusSession);
+    const originalUpdate = api.declarativeNetRequest.updateDynamicRules;
+    api.declarativeNetRequest.updateDynamicRules = async update => {
+      if (update.addRules.some(rule => rule.id === 88)) {
+        throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+      }
+      return originalUpdate(update);
+    };
+
+    const response = await send({ type: 'start_focus_session', duration: 5 });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'dnr_rule_limit_reached');
+    assert.deepEqual(api.storage.local.data.focusSession, previousSession);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [87]);
+    const counters = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => Object.keys(bucket.counters || {}));
+    assert.equal(counters.includes('focus_started'), false);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      rules,
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('Focus failure responses survive rejected diagnostics and analytics writes', async () => {
+  const rules = [
+    makeFocusRule(94, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(95, 'list-1', { blockURL: 'study.example' })
+  ];
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      if (Object.hasOwn(values, 'diagnosticState') || Object.hasOwn(values, 'telemetryBuckets')) {
+        return Promise.reject(new Error('failure reporting storage is unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+    api.declarativeNetRequest.updateDynamicRules = async () => {
+      throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+    };
+
+    const response = await send({ type: 'start_focus_session', duration: 5 });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'dnr_rule_limit_reached');
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [94]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      rules,
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a failed replacement Focus restores the previously active session and exact alarm', async () => {
+  const rules = [makeFocusRule(89, 'general', { blockURL: 'restore.example' })];
+  await withWorker(async ({ api, send }) => {
+    const started = await send({ type: 'start_focus_session', duration: 30 });
+    assert.equal(started.success, true);
+    const previousSession = structuredClone(api.storage.local.data.focusSession);
+    const previousEndTime = api.alarmValues.get('end_focus_session').when;
+    const originalGetDynamicRules = api.declarativeNetRequest.getDynamicRules;
+    let rejectNextSync = true;
+    api.declarativeNetRequest.getDynamicRules = async () => {
+      if (rejectNextSync) {
+        rejectNextSync = false;
+        throw new Error('browser DNR state is temporarily unavailable');
+      }
+      return originalGetDynamicRules();
+    };
+
+    const response = await send({ type: 'start_focus_session', duration: 45 });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'dnr_sync_failed');
+    assert.deepEqual(api.storage.local.data.focusSession, previousSession);
+    assert.equal(api.alarmValues.get('end_focus_session').when, previousEndTime);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [89]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules, activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('a newer stop still wins when a rejected Focus synchronization finishes late', async () => {
+  const rules = [
+    makeFocusRule(90, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(91, 'list-1', { blockURL: 'study.example' })
+  ];
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const startedUpdate = createDeferred();
+    const releaseUpdate = createDeferred();
+    const originalUpdate = api.declarativeNetRequest.updateDynamicRules;
+    api.declarativeNetRequest.updateDynamicRules = async update => {
+      if (update.addRules.some(rule => rule.id === 91)) {
+        startedUpdate.resolve();
+        await releaseUpdate.promise;
+        throw new Error('Exceeded MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES');
+      }
+      return originalUpdate(update);
+    };
+
+    const starting = send({ type: 'start_focus_session', duration: 5 });
+    await startedUpdate.promise;
+    const stopping = send({ type: 'stop_focus_session' });
+    releaseUpdate.resolve();
+    await Promise.all([starting, stopping]);
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [90]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules, activeRuleListId: 'general' },
+    supportsWindows: false
   });
 });
 

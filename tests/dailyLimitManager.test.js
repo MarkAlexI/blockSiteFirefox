@@ -4,7 +4,8 @@ import assert from 'node:assert/strict';
 import {
   DailyLimitManager,
   getLocalDateKey,
-  normalizeDailyRuleUsageState
+  normalizeDailyRuleUsageState,
+  PENDING_DAILY_USAGE_REMAPS_KEY
 } from '../rules/dailyLimitManager.js';
 
 function createStorage(initial = {}) {
@@ -295,6 +296,209 @@ test('batch remapping preserves usage and active assignments with one storage wr
     '2:general': 120
   });
   assert.deepEqual(state.lastSample.assignmentKeys, ['1:general', '2:general']);
+});
+
+test('Daily Limit journal commits updated rules and pending remaps in one atomic write', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const storage = createStorage({
+    rules: [{ id: 21, listId: 'study' }],
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '21:study': 840 },
+      lastSample: { timestamp: now.getTime(), assignmentKeys: ['21:study'] }
+    }
+  });
+  const manager = new DailyLimitManager(storage);
+  const nextRules = [{ id: 21, listId: 'general' }];
+  const remap = {
+    oldRuleId: 21, oldListId: 'study', newRuleId: 21, newListId: 'general'
+  };
+
+  await manager.stagePendingRemaps({ rules: nextRules }, [remap]);
+
+  assert.equal(storage.setCalls, 1);
+  assert.deepEqual(storage.data.rules, nextRules);
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], [remap]);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '21:study': 840 });
+  assert.deepEqual(await manager.getUsageSeconds(now), { '21:general': 840 });
+  assert.equal(storage.setCalls, 1);
+});
+
+test('journal recovery transfers usage and clears its marker in the same storage write', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '21:study': 840, '21:general': 120 },
+      lastSample: { timestamp: now.getTime(), assignmentKeys: ['21:study'] }
+    },
+    [PENDING_DAILY_USAGE_REMAPS_KEY]: [{
+      oldRuleId: 21, oldListId: 'study', newRuleId: 21, newListId: 'general'
+    }]
+  });
+
+  const recovered = await new DailyLimitManager(storage).recoverPendingRemaps(now);
+
+  assert.equal(recovered.recovered, true);
+  assert.equal(storage.setCalls, 1);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '21:general': 840 });
+  assert.deepEqual(storage.data.dailyRuleUsage.lastSample.assignmentKeys, ['21:general']);
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+});
+
+test('Daily Limit edits without elapsed time or an active sample skip unnecessary journal writes', async () => {
+  const storage = createStorage({
+    rules: [{ id: 21, listId: 'study' }],
+    dailyRuleUsage: {
+      version: 2,
+      date: getLocalDateKey(),
+      usageSeconds: { '9:general': 120 },
+      lastSample: null
+    }
+  });
+  const manager = new DailyLimitManager(storage);
+
+  const pending = await manager.stagePendingRemaps({
+    rules: [{ id: 21, listId: 'general' }]
+  }, [{
+    oldRuleId: 21, oldListId: 'study', newRuleId: 21, newListId: 'general'
+  }]);
+  await manager.recoverPendingRemaps();
+
+  assert.deepEqual(pending, []);
+  assert.equal(storage.setCalls, 1);
+  assert.equal(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], undefined);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '9:general': 120 });
+});
+
+test('an active zero-second Daily Limit segment is still protected by the durable journal', async () => {
+  const now = new Date();
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: getLocalDateKey(now),
+      usageSeconds: {},
+      lastSample: { timestamp: now.getTime(), assignmentKeys: ['21:study'] }
+    }
+  });
+  const manager = new DailyLimitManager(storage);
+
+  await manager.stagePendingRemaps({ rules: [{ id: 21 }] }, [{
+    oldRuleId: 21, oldListId: 'study', newRuleId: 21, newListId: 'general'
+  }]);
+
+  assert.equal(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY].length, 1);
+  await manager.recoverPendingRemaps(now);
+  assert.deepEqual(storage.data.dailyRuleUsage.lastSample.assignmentKeys, ['21:general']);
+  assert.equal(storage.setCalls, 2);
+});
+
+test('failed atomic journal staging cannot update rules without preserving their old usage', async () => {
+  const initialRules = [{ id: 21, listId: 'study' }];
+  const storage = createStorage({ rules: initialRules });
+  storage.set = async () => { throw new Error('local storage quota exceeded'); };
+  const manager = new DailyLimitManager(storage);
+
+  await assert.rejects(
+    manager.stagePendingRemaps({ rules: [{ id: 21, listId: 'general' }] }, [{
+      oldRuleId: 21, oldListId: 'study', newRuleId: 21, newListId: 'general'
+    }]),
+    /quota exceeded/
+  );
+
+  assert.deepEqual(storage.data.rules, initialRules);
+  assert.equal(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], undefined);
+});
+
+test('failed recovery writes preserve old usage, protection, and the retry journal', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const remap = {
+    oldRuleId: 21, oldListId: 'study', newRuleId: 21, newListId: 'general'
+  };
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '21:study': 840 },
+      lastSample: null
+    },
+    [PENDING_DAILY_USAGE_REMAPS_KEY]: [remap]
+  });
+  const manager = new DailyLimitManager(storage);
+  const originalSet = storage.set.bind(storage);
+  storage.set = async () => { throw new Error('temporary usage write failure'); };
+
+  await assert.rejects(manager.recoverPendingRemaps(now), /write failure/);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '21:study': 840 });
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], [remap]);
+  assert.deepEqual(await manager.getUsageSeconds(now), { '21:general': 840 });
+
+  storage.set = originalSet;
+  await manager.pruneAssignmentKeys(['21:general'], now);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '21:study': 840 });
+  await manager.recoverPendingRemaps(now);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '21:general': 840 });
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+  assert.equal(storage.setCalls, 1);
+});
+
+test('journal recovery never restores stale usage after the local date changes', async () => {
+  const now = new Date(2026, 7, 23, 0, 1, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '21:study': 840 },
+      lastSample: { timestamp: now.getTime() - 120_000, assignmentKeys: ['21:study'] }
+    },
+    [PENDING_DAILY_USAGE_REMAPS_KEY]: [{
+      oldRuleId: 21, oldListId: 'study', newRuleId: 21, newListId: 'general'
+    }]
+  });
+
+  await new DailyLimitManager(storage).recoverPendingRemaps(now);
+
+  assert.equal(storage.setCalls, 1);
+  assert.equal(storage.data.dailyRuleUsage.date, '2026-08-23');
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, {});
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+});
+
+test('recovery without a pending journal never writes idle storage', async () => {
+  for (const initial of [{}, { [PENDING_DAILY_USAGE_REMAPS_KEY]: [] }]) {
+    const storage = createStorage(initial);
+    const result = await new DailyLimitManager(storage).recoverPendingRemaps();
+    assert.equal(result.recovered, false);
+    assert.equal(storage.setCalls, 0);
+  }
+});
+
+test('batched journal recovery keeps maximum usage and migrates multiple profiles together', async () => {
+  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const storage = createStorage({
+    dailyRuleUsage: {
+      version: 2,
+      date: '2026-08-22',
+      usageSeconds: { '1:study': 40, '1:general': 90, '2:study': 120 },
+      lastSample: { timestamp: now.getTime(), assignmentKeys: ['1:study', '2:study'] }
+    },
+    [PENDING_DAILY_USAGE_REMAPS_KEY]: [
+      { oldRuleId: 1, oldListId: 'study', newRuleId: 1, newListId: 'general' },
+      { oldRuleId: 2, oldListId: 'study', newRuleId: 2, newListId: 'general' }
+    ]
+  });
+
+  await new DailyLimitManager(storage).recoverPendingRemaps(now);
+
+  assert.equal(storage.setCalls, 1);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, {
+    '1:general': 90,
+    '2:general': 120
+  });
+  assert.deepEqual(storage.data.dailyRuleUsage.lastSample.assignmentKeys,
+    ['1:general', '2:general']);
 });
 
 

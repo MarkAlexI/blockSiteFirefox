@@ -150,10 +150,10 @@ export function createDnrSynchronizer({
     const [ruleListState, dailyUsage, focusState] = await Promise.all([
       candidate.ruleListState || getRuleListState(),
       getDailyUsage(),
-      getFocusSessionState()
+      candidate.focusState || getFocusSessionState()
     ]);
     const { focusActive } = focusState;
-    const access = focusActive ? await getAccess() : null;
+    const access = focusActive ? (candidate.access || await getAccess()) : null;
     const limitFocusToGeneral = focusActive && !access?.isPro && !access?.isLegacyUser;
     const activeRuleListId = limitFocusToGeneral
       ? GENERAL_RULE_LIST_ID
@@ -324,13 +324,18 @@ export function createDnrSynchronizer({
     };
   }
 
-  async function validateRuleCapacity(rules, ruleListState = null) {
+  async function validateRuleCapacity(rules, ruleListState = null, focusState = null, access = null) {
     const limits = getDnrRuleCapacity(declarativeNetRequest);
     if (limits.maxDynamicRules === null && limits.maxUnsafeDynamicRules === null) {
       return { ...limits, withinCapacity: true };
     }
 
-    const { dnrRules } = await buildExpectedDnrState({ rules, ruleListState });
+    const { dnrRules } = await buildExpectedDnrState({
+      rules,
+      ruleListState,
+      focusState,
+      access
+    });
     return inspectDnrRuleCapacity(dnrRules, declarativeNetRequest);
   }
 
