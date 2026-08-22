@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.10] - 2026-08-22
+### Fixed
+- Whitelist Focus now matches complete domain boundaries and real path descendants while preserving intentional short hostname patterns, closing lookalike-domain and query-string bypasses.
+- Protected project and Firefox Add-ons pages are identified by their actual hostnames, preventing unrelated sites from escaping Whitelist Focus through crafted paths, queries, fragments, or lookalike domains.
+- Free Focus activates only blacklist rules assigned to General, ignoring preserved custom Rule Lists even when a stale custom profile remains selected in storage.
+- Losing Pro access during Hardcore or Whitelist Focus now restores the existing session to a stoppable standard blacklist session while preserving its original deadline and all stored rules.
+- Active Focus browser rules are resynchronized immediately after a Pro downgrade even when General was already the selected Rule List.
+- Focus requests are validated and authorized in the service worker: Free retains the normal 25-minute session, while custom durations, Hardcore, and Whitelist require Pro or legacy access.
+- Firefox Android and Firefox Desktop now share the same guarded Focus recovery and Whitelist enforcement paths without requiring the unsupported `browser.windows` API.
+
+### Added
+- Added worker, DNR, tab-cleanup, protected-URL, and whitelist regression coverage for Free, Pro, and legacy Focus behavior, downgrade recovery, malformed requests, stale profiles, and URL bypass attempts.
+- Added explicit worker startup coverage without the optional windows API.
+- Release checks now verify manifest, package, changelog, README, and optional visible version metadata stay synchronized.
+
 ## [5.1.9] - 2026-08-22
 ### Privacy
 - Technical analytics now stops immediately when consent is withdrawn or the Firefox technical data-collection permission is removed, aborting in-flight requests and preventing stale delivery state or retry alarms from being recreated.

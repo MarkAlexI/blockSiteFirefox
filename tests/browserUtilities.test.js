@@ -7,6 +7,7 @@ import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import { normalizePathSegment } from '../rules/normalizePathSegment.js';
 import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
+import { isBlockedURL } from '../scripts/isBlockedURL.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
 import { createInstallURL } from '../utils/createInstallURL.js';
@@ -18,7 +19,7 @@ import { customAlert } from '../scripts/customAlert.js';
 import { scrollToTop, mountScroll } from '../dom/scrollToTop.js';
 import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 import { checkDNR } from '../utils/dnrDebug.js';
-import { MAX_RULES_LIMIT } from '../utils/constants.js';
+import { IS_FIREFOX, MAX_RULES_LIMIT } from '../utils/constants.js';
 
 const always = (listId = 'general', disabledByUser = false) => ({
   listId,
@@ -96,6 +97,71 @@ test('whitelist matching ignores disabled, empty, malformed, and unrelated rules
   assert.equal(isUrlInWhitelist('not a URL', [{ blockURL: 'allowed.example', assignments: [always()] }]), false);
   assert.equal(isUrlInWhitelist('', []), false);
   assert.equal(isUrlInWhitelist('https://another.example/', null), false);
+});
+
+test('whitelist domains never match lookalike hosts, credentials, paths, or query strings', () => {
+  const rules = [{ blockURL: 'allowed.example', assignments: [always()] }];
+
+  for (const url of [
+    'https://notallowed.example/',
+    'https://allowed.example.evil.test/',
+    'https://allowed.example@evil.test/',
+    'https://evil.test/allowed.example',
+    'https://evil.test/?next=allowed.example',
+    'https://evil.test/#allowed.example'
+  ]) {
+    assert.equal(isUrlInWhitelist(url, rules), false, url);
+  }
+});
+
+test('whitelist paths match only the requested path or its descendants', () => {
+  const rules = [{ blockURL: 'https://WWW.Allowed.Example/team/', assignments: [always()] }];
+
+  assert.equal(isUrlInWhitelist('https://allowed.example/TEAM', rules), true);
+  assert.equal(isUrlInWhitelist('https://sub.allowed.example/team/project', rules), true);
+  assert.equal(isUrlInWhitelist('https://allowed.example/teamwork', rules), false);
+  assert.equal(isUrlInWhitelist('https://allowed.example/other?next=/team', rules), false);
+});
+
+test('short whitelist patterns remain flexible within hostnames without inspecting URL text', () => {
+  const rules = [{ blockURL: 'tube', assignments: [always()] }];
+
+  assert.equal(isUrlInWhitelist('https://youtube.com/watch', rules), true);
+  assert.equal(isUrlInWhitelist('https://evil.example/watch/tube', rules), false);
+  assert.equal(isUrlInWhitelist('https://evil.example/?next=youtube.com', rules), false);
+});
+
+test('protected project and store URLs cannot be spoofed through another site', () => {
+  const storeUrl = IS_FIREFOX
+    ? 'https://addons.mozilla.org/firefox/addon/blockersite/'
+    : 'https://chromewebstore.google.com/detail/example';
+  const fakeStoreUrl = IS_FIREFOX
+    ? 'https://addons.mozilla.org.evil.example/firefox/'
+    : 'https://chromewebstore.google.com.evil.example/detail/example';
+
+  for (const url of [
+    'https://blockdistraction.com/account.html',
+    'https://support.blockdistraction.com/',
+    'https://markdigital.com/',
+    'https://service.ext.pp.ua/',
+    storeUrl
+  ]) {
+    assert.equal(isBlockedURL([{ url }]), true, url);
+  }
+
+  for (const url of [
+    'https://evil.example/?next=blockdistraction.com',
+    'https://evil.example/markdigital/account',
+    'https://evil.example/#ext.pp.ua',
+    'https://notblockdistraction.com/',
+    'https://blockdistraction.com.evil.example/',
+    fakeStoreUrl
+  ]) {
+    assert.equal(isBlockedURL([{ url }]), false, url);
+  }
+
+  assert.equal(isBlockedURL([{ url: 'blockdistraction' }]), true);
+  assert.equal(isBlockedURL([{ url: 'markdigital' }]), true);
 });
 
 test('installation URL always opens the packaged Options page', async () => {

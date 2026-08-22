@@ -13,14 +13,11 @@ export function isUrlInWhitelist(url, whitelistRules) {
     return false;
   }
 
-  let hostname = '';
-  let fullPath = '';
+  let parsedUrl;
 
   try {
-    const parsed = new URL(url);
-    hostname = parsed.hostname.toLowerCase();
-    fullPath = (parsed.hostname + parsed.pathname + parsed.search).toLowerCase();
-  } catch (e) {
+    parsedUrl = new URL(url);
+  } catch {
     return false;
   }
 
@@ -29,15 +26,33 @@ export function isUrlInWhitelist(url, whitelistRules) {
       return false;
     }
 
-    const pattern = (rule.blockURL || '').trim().toLowerCase();
+    const pattern = String(rule.blockURL || '').trim();
     if (!pattern) {
       return false;
     }
 
-    return (
-      hostname === pattern ||
-      hostname.endsWith('.' + pattern) ||
-      fullPath.includes(pattern)
-    );
+    let parsedPattern;
+    try {
+      parsedPattern = new URL(
+        /^[a-z][a-z\d+.-]*:\/\//i.test(pattern) ? pattern : `https://${pattern}`
+      );
+    } catch {
+      return false;
+    }
+
+    const hostname = parsedUrl.hostname.toLowerCase();
+    const allowedHostname = parsedPattern.hostname.toLowerCase().replace(/^www\./, '');
+    if (!allowedHostname) return false;
+
+    const hostnameMatches = allowedHostname.includes('.')
+      ? hostname === allowedHostname || hostname.endsWith(`.${allowedHostname}`)
+      : hostname.split('.').some(label => label.includes(allowedHostname));
+    if (!hostnameMatches) return false;
+
+    const allowedPath = parsedPattern.pathname.replace(/\/+$/, '').toLowerCase();
+    if (!allowedPath) return true;
+
+    const actualPath = parsedUrl.pathname.toLowerCase();
+    return actualPath === allowedPath || actualPath.startsWith(`${allowedPath}/`);
   });
 }

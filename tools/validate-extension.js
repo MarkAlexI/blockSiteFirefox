@@ -113,6 +113,12 @@ if (manifest && packageJson && manifest.version !== packageJson.version) {
   );
 }
 
+if (manifest && manifest.version_name !== undefined && manifest.version_name !== manifest.version) {
+  errors.push(
+    `Version mismatch: manifest.json version=${manifest.version}, version_name=${manifest.version_name}`
+  );
+}
+
 if (manifest) {
   if (!Array.isArray(manifest.permissions) || !manifest.permissions.includes('scripting')) {
     errors.push('manifest.json: Daily Limit visibility accounting requires the "scripting" permission');

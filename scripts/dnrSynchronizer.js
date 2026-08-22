@@ -1,4 +1,5 @@
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
+import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 
 /**
  * Builds a stable signature from the DNR fields that define rule behavior.
@@ -68,6 +69,7 @@ export function createDnrSynchronizer({
   getRuleListState = async () => ({ lists: [], activeRuleListId: 'general' }),
   getDailyUsage = async () => ({}),
   getFocusSessionState,
+  getAccess = async () => ({ isPro: true, isLegacyUser: false }),
   isRuleActiveNow,
   createDnrRule,
   closeTabsMatchingRules,
@@ -87,13 +89,18 @@ export function createDnrSynchronizer({
       getFocusSessionState()
     ]);
     const { focusActive } = focusState;
-    const activeRuleListId = ruleListState?.activeRuleListId || 'general';
+    const access = focusActive ? await getAccess() : null;
+    const limitFocusToGeneral = focusActive && !access?.isPro && !access?.isLegacyUser;
+    const activeRuleListId = limitFocusToGeneral
+      ? GENERAL_RULE_LIST_ID
+      : ruleListState?.activeRuleListId || GENERAL_RULE_LIST_ID;
     const activeProfile = (ruleListState?.lists || []).find(list => list?.id === activeRuleListId);
     const disabledCategories = activeProfile?.disabledCategories || [];
     const now = new Date();
 
     let activeRules = rules.filter(rule =>
       !rule.isWhitelist &&
+      (!limitFocusToGeneral || Boolean(getRuleAssignment(rule, GENERAL_RULE_LIST_ID))) &&
       isRuleActiveNow(rule, disabledCategories, focusActive, now, activeRuleListId, dailyUsage)
     );
 

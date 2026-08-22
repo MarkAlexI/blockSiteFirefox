@@ -130,6 +130,21 @@ test('disabled whitelist assignments do not protect tabs from whitelist-focus cl
   });
 });
 
+test('whitelist cleanup closes lookalike domains and protected-name query bypasses', async () => {
+  await withTabCleanup([
+    { id: 1, url: 'https://allowed.example/team' },
+    { id: 2, url: 'https://notallowed.example/' },
+    { id: 3, url: 'https://evil.example/?next=allowed.example' },
+    { id: 4, url: 'https://evil.example/?next=blockdistraction.com' },
+    { id: 5, url: 'https://evil.example/markdigital' },
+    { id: 6, url: 'https://blockdistraction.com/account.html' }
+  ], async ({ api, closeNonWhitelistedTabs }) => {
+    await closeNonWhitelistedTabs([allowedRule('allowed.example')]);
+    assert.deepEqual(api.removedTabs, [2, 3, 4, 5]);
+    assert.deepEqual(api.createdTabs, []);
+  });
+});
+
 test('whitelist cleanup does nothing when all open tabs remain allowed', async () => {
   await withTabCleanup([
     { id: 1, url: 'https://allowed.example/' },

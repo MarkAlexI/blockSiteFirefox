@@ -43,6 +43,14 @@ const rulesManager = new RulesManager();
 const ruleListsManager = new RuleListsManager(browser.storage.local);
 const dailyLimitManager = new DailyLimitManager(browser.storage.local);
 
+async function getFocusAccess() {
+  const [isPro, isLegacyUser] = await Promise.all([
+    ProManager.isPro(),
+    ProManager.isLegacyUser()
+  ]);
+  return { isPro, isLegacyUser };
+}
+
 
 function getDailyLimitAssignmentKeys(rules = []) {
   return (rules || []).flatMap(rule =>
@@ -180,6 +188,7 @@ const dnrSynchronizer = createDnrSynchronizer({
   getRuleListState: () => ruleListsManager.getState(),
   getDailyUsage: () => dailyLimitManager.getUsageSeconds(),
   getFocusSessionState,
+  getAccess: getFocusAccess,
   isRuleActiveNow,
   createDnrRule,
   closeTabsMatchingRules,
@@ -298,6 +307,25 @@ function enqueueFocusSessionTransition(task) {
   const result = focusSessionTransitionTail.then(task, task);
   focusSessionTransitionTail = result.catch(() => {});
   return result;
+}
+
+function normalizeFocusSessionRequest(message) {
+  const durationMinutes = message.duration ?? 25;
+  if (!Number.isInteger(durationMinutes) || durationMinutes < 1 || durationMinutes > 240) {
+    return { error: 'invalid_focus_duration' };
+  }
+
+  const focusMode = message.focusMode ?? 'blacklist';
+  if (focusMode !== 'blacklist' && focusMode !== 'whitelist') {
+    return { error: 'invalid_focus_mode' };
+  }
+
+  const isHardcore = message.isHardcore ?? false;
+  if (typeof isHardcore !== 'boolean') {
+    return { error: 'invalid_focus_hardcore' };
+  }
+
+  return { durationMinutes, focusMode, isHardcore };
 }
 
 async function finishLicenseCheck(result) {
@@ -578,6 +606,43 @@ async function restoreFreeRuleListAccess(isPro, shouldContinue = () => true) {
   });
 }
 
+async function restoreFreeFocusAccess(
+  isPro,
+  shouldContinue = () => true,
+  { ruleListRestored = false } = {}
+) {
+  if (isPro || !shouldContinue() || await ProManager.isLegacyUser()) return false;
+
+  const focusSession = await getFocusSessionState();
+  if (!focusSession.focusActive || !shouldContinue()) return false;
+
+  if (focusSession.focusMode === 'blacklist' && focusSession.isHardcore !== true) {
+    if (!ruleListRestored && shouldContinue()) await dnrSynchronizer.requestSync();
+    return false;
+  }
+
+  const transitionGeneration = ++focusSessionTransitionGeneration;
+  return enqueueFocusSessionTransition(async () => {
+    if (!shouldContinue() || transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+    const currentSession = await getFocusSessionState();
+    if (
+      !currentSession.focusActive ||
+      !shouldContinue() ||
+      transitionGeneration !== focusSessionTransitionGeneration
+    ) return false;
+
+    await browser.storage.local.set({
+      focusSession: { ...currentSession, isHardcore: false, focusMode: 'blacklist' }
+    });
+    if (!shouldContinue() || transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+    await dnrSynchronizer.requestSync();
+    logger.log('Free access restored to the standard Focus Session');
+    return true;
+  });
+}
+
 function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerification = null) {
   const transitionGeneration = expectedVerification
     ? proStatusTransitionGeneration
@@ -605,7 +670,10 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
       const shouldContinue = () => transitionGeneration === proStatusTransitionGeneration;
       if (!shouldContinue()) return updatedCredentials;
 
-      await restoreFreeRuleListAccess(isPro, shouldContinue);
+      const ruleListRestored = await restoreFreeRuleListAccess(isPro, shouldContinue);
+      if (!shouldContinue()) return updatedCredentials;
+
+      await restoreFreeFocusAccess(isPro, shouldContinue, { ruleListRestored });
       if (!shouldContinue()) return updatedCredentials;
 
       logger.log('Pro status updated successfully');
@@ -743,7 +811,8 @@ async function initializeExtension(details) {
     }
     
     const isPro = await ProManager.isPro();
-    await restoreFreeRuleListAccess(isPro);
+    const ruleListRestored = await restoreFreeRuleListAccess(isPro);
+    await restoreFreeFocusAccess(isPro, () => true, { ruleListRestored });
     await updateContextMenu(isPro);
   } catch (error) {
     logger.info('Error handling install/update for legacy:', error);
@@ -1233,15 +1302,29 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'start_focus_session') {
+    const request = normalizeFocusSessionRequest(message);
+    if (request.error) {
+      sendResponse({ success: false, error: request.error, code: request.error });
+      return true;
+    }
+
     const transitionGeneration = ++focusSessionTransitionGeneration;
     (async () => {
       try {
         const completed = await enqueueFocusSessionTransition(async () => {
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
-          const durationMinutes = message.duration || 25;
-          const isHardcore = message.isHardcore || false;
-          const focusMode = message.focusMode || 'blacklist';
+          const { durationMinutes, isHardcore, focusMode } = request;
+          const access = await getFocusAccess();
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+          if (
+            !access.isPro &&
+            !access.isLegacyUser &&
+            (durationMinutes !== 25 || isHardcore || focusMode !== 'blacklist')
+          ) {
+            return { success: false, error: 'pro_required', code: 'pro_required' };
+          }
+
           const endTime = Date.now() + durationMinutes * 60 * 1000;
 
           await dailyLimitTracker.sample('focus_start_before');
@@ -1274,6 +1357,10 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           ]);
           return true;
         });
+        if (completed && typeof completed === 'object') {
+          sendResponse(completed);
+          return;
+        }
         sendResponse({ success: true, ...(completed ? {} : { superseded: true }) });
       } catch (error) {
         logger.error('Focus Session: Error starting session:', error);

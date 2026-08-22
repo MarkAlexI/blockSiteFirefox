@@ -26,6 +26,23 @@ function createDeferred() {
   return { promise, resolve, reject };
 }
 
+function makeFocusRule(id, listId, { blockURL = null, isWhitelist = false } = {}) {
+  return {
+    id,
+    blockURL: blockURL || `${listId}-${id}.example`,
+    redirectURL: '',
+    category: isWhitelist ? 'whitelist' : 'social',
+    isWhitelist,
+    assignments: [{
+      listId: isWhitelist ? 'general' : listId,
+      disabledByUser: false,
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }]
+  };
+}
+
 function sendWorkerMessage(listener, message) {
   return new Promise((resolve, reject) => {
     if (listener(message, {}, resolve) !== true) {
@@ -34,7 +51,11 @@ function sendWorkerMessage(listener, message) {
   });
 }
 
-async function withWorker(callback, { credentials = {}, local = {} } = {}) {
+async function withWorker(callback, {
+  credentials = {},
+  local = {},
+  supportsWindows = !TEST_FIREFOX_ANDROID
+} = {}) {
   const api = createExtensionApi({
     sync: {
       settings: { mode: 'normal', debugMode: false, focusSessionSound: false },
@@ -105,9 +126,16 @@ async function withWorker(callback, { credentials = {}, local = {} } = {}) {
     contains: async () => true,
     getAll: async () => ({ data_collection: ['technicalAndInteraction'] })
   };
+  api.dynamicRules = [];
+  api.dnrUpdates = [];
   api.declarativeNetRequest = {
-    getDynamicRules: async () => [],
-    updateDynamicRules: async () => {}
+    getDynamicRules: async () => structuredClone(api.dynamicRules),
+    updateDynamicRules: async update => {
+      api.dnrUpdates.push(structuredClone(update));
+      const removed = new Set(update.removeRuleIds || []);
+      api.dynamicRules = api.dynamicRules.filter(rule => !removed.has(rule.id));
+      api.dynamicRules.push(...structuredClone(update.addRules || []));
+    }
   };
   api.notificationsCreated = [];
   api.notifications = {
@@ -115,7 +143,7 @@ async function withWorker(callback, { credentials = {}, local = {} } = {}) {
       api.notificationsCreated.push({ id, details });
     }
   };
-  if (!TEST_FIREFOX_ANDROID) {
+  if (supportsWindows) {
     api.windows = {
       WINDOW_ID_NONE: -1,
       onFocusChanged: createEvent()
@@ -138,7 +166,7 @@ async function withWorker(callback, { credentials = {}, local = {} } = {}) {
       workerImportId += 1;
       await import('../scripts/service_worker.js?workerRace=' + workerImportId);
       assert.equal(api.runtime.onMessage.listeners.length, 1);
-      if (TEST_FIREFOX_ANDROID) assert.equal(api.windows, undefined);
+      if (!supportsWindows) assert.equal(api.windows, undefined);
       await callback({
         api,
         send: message => sendWorkerMessage(api.runtime.onMessage.listeners[0], message),
@@ -349,4 +377,276 @@ test('an alarm delivered after a focus session was stopped is ignored', async ()
     assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
     assert.equal(api.notificationsCreated.length, 0);
   });
+});
+
+test('the worker remains available when the optional windows API is missing', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal(api.windows, undefined);
+    const response = await send({ type: 'start_focus_session', duration: 25 });
+    assert.equal(response.success, true);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+  }, { supportsWindows: false });
+});
+
+test('Free users can start the standard 25-minute Focus Session', async () => {
+  await withWorker(async ({ api, send }) => {
+    const before = Date.now();
+    const response = await send({ type: 'start_focus_session' });
+    const session = api.storage.local.data.focusSession;
+
+    assert.equal(response.success, true);
+    assert.equal(session.focusActive, true);
+    assert.equal(session.focusMode, 'blacklist');
+    assert.equal(session.isHardcore, false);
+    assert.equal(session.focusEndTime >= before + 25 * 60 * 1000, true);
+    assert.equal(session.focusEndTime <= Date.now() + 25 * 60 * 1000, true);
+    assert.equal(api.alarmValues.has('end_focus_session'), true);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' }
+  });
+});
+
+test('Free Focus rejects custom duration, Hardcore, and Whitelist before changing state', async () => {
+  await withWorker(async ({ api, send }) => {
+    for (const request of [
+      { duration: 1 },
+      { duration: 24 },
+      { duration: 26 },
+      { duration: 240 },
+      { duration: 25, isHardcore: true },
+      { duration: 25, focusMode: 'whitelist' }
+    ]) {
+      const response = await send({ type: 'start_focus_session', ...request });
+      assert.deepEqual(response, {
+        success: false,
+        error: 'pro_required',
+        code: 'pro_required'
+      });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.alarmValues.has('end_focus_session'), false);
+      assert.deepEqual(api.dynamicRules, []);
+      assert.equal(api.storage.local.data.telemetryBuckets, undefined);
+    }
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' }
+  });
+});
+
+test('the worker rejects malformed Focus durations, modes, and Hardcore values', async () => {
+  await withWorker(async ({ api, send }) => {
+    for (const duration of [0, -1, 241, 2.5, '25', Number.NaN, Number.POSITIVE_INFINITY]) {
+      const response = await send({ type: 'start_focus_session', duration });
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'invalid_focus_duration');
+    }
+
+    for (const focusMode of ['', 'BLACKLIST', 'other', true]) {
+      const response = await send({ type: 'start_focus_session', focusMode });
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'invalid_focus_mode');
+    }
+
+    for (const isHardcore of ['true', 1, {}]) {
+      const response = await send({ type: 'start_focus_session', isHardcore });
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'invalid_focus_hardcore');
+    }
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+  });
+});
+
+test('a malformed Focus request cannot supersede a valid session already being started', async () => {
+  await withWorker(async ({ api, send }) => {
+    const writeStarted = createDeferred();
+    const releaseWrite = createDeferred();
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let delayed = false;
+    api.storage.local.set = async values => {
+      if (!delayed && values.focusSession?.focusActive === true) {
+        delayed = true;
+        writeStarted.resolve();
+        await releaseWrite.promise;
+      }
+      return originalSet(values);
+    };
+
+    const starting = send({ type: 'start_focus_session', duration: 5 });
+    await writeStarted.promise;
+    const rejected = await send({ type: 'start_focus_session', duration: 0 });
+    releaseWrite.resolve();
+    const started = await starting;
+
+    assert.equal(rejected.code, 'invalid_focus_duration');
+    assert.equal(started.success, true);
+    assert.equal(started.superseded, undefined);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+  });
+});
+
+test('both Pro and legacy access can start all paid Focus configurations', async () => {
+  for (const credentials of [
+    { isPro: true, installationDate: '2026-08-01T00:00:00.000Z' },
+    {
+      isPro: false,
+      isLegacyUser: true,
+      licenseKey: null,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    }
+  ]) {
+    await withWorker(async ({ api, send }) => {
+      const response = await send({
+        type: 'start_focus_session',
+        duration: 240,
+        isHardcore: true,
+        focusMode: 'whitelist'
+      });
+
+      assert.equal(response.success, true);
+      assert.equal(api.storage.local.data.focusSession.focusMode, 'whitelist');
+      assert.equal(api.storage.local.data.focusSession.isHardcore, true);
+    }, { credentials });
+  }
+});
+
+test('Free worker Focus activates only General even while storage points to Study', async () => {
+  const rules = [
+    makeFocusRule(101, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(102, 'list-1', { blockURL: 'study.example' })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    const response = await send({ type: 'start_focus_session', duration: 25 });
+
+    assert.equal(response.success, true);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [101]);
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.id), [101, 102]);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { rules, activeRuleListId: 'list-1' }
+  });
+});
+
+test('Pro downgrade unlocks Hardcore Whitelist Focus and keeps only General browser rules', async () => {
+  const rules = [
+    makeFocusRule(111, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(112, 'list-1', { blockURL: 'study.example' })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    const started = await send({
+      type: 'start_focus_session',
+      duration: 40,
+      isHardcore: true,
+      focusMode: 'whitelist'
+    });
+    const originalDeadline = api.storage.local.data.focusSession.focusEndTime;
+    assert.equal(started.success, true);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [111, 112]);
+
+    const downgraded = await send({
+      type: 'update_pro_status',
+      isPro: false,
+      subscriptionData: { licenseKey: null }
+    });
+
+    assert.equal(downgraded.success, true);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.deepEqual(api.storage.local.data.focusSession, {
+      focusActive: true,
+      focusEndTime: originalDeadline,
+      isHardcore: false,
+      focusMode: 'blacklist'
+    });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [111]);
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.id), [111, 112]);
+    assert.equal(api.alarmValues.has('end_focus_session'), true);
+  }, { local: { rules, activeRuleListId: 'list-1' } });
+});
+
+test('downgrade resynchronizes active Focus even when General was already selected', async () => {
+  const rules = [
+    makeFocusRule(121, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(122, 'list-1', { blockURL: 'study.example' })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    await send({ type: 'start_focus_session', duration: 25 });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [121, 122]);
+
+    await send({
+      type: 'update_pro_status',
+      isPro: false,
+      subscriptionData: { licenseKey: null }
+    });
+
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [121]);
+  }, { local: { rules, activeRuleListId: 'general' } });
+});
+
+test('legacy users keep paid Focus settings and custom lists after their Pro flag changes', async () => {
+  const rules = [
+    makeFocusRule(131, 'general', { blockURL: 'general.example' }),
+    makeFocusRule(132, 'list-1', { blockURL: 'study.example' })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    await send({
+      type: 'start_focus_session',
+      duration: 45,
+      isHardcore: true,
+      focusMode: 'whitelist'
+    });
+    await send({
+      type: 'update_pro_status',
+      isPro: false,
+      subscriptionData: { licenseKey: null }
+    });
+
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+    assert.equal(api.storage.local.data.focusSession.focusMode, 'whitelist');
+    assert.equal(api.storage.local.data.focusSession.isHardcore, true);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [131, 132]);
+  }, {
+    credentials: {
+      isPro: true,
+      isLegacyUser: true,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    },
+    local: { rules, activeRuleListId: 'list-1' }
+  });
+});
+
+test('worker Whitelist Focus closes lookalike sites and protected-name bypass URLs', async () => {
+  const rules = [
+    makeFocusRule(141, 'general', { blockURL: 'allowed.example', isWhitelist: true })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values.push(
+      { id: 1, url: 'https://allowed.example/' },
+      { id: 2, url: 'https://notallowed.example/' },
+      { id: 3, url: 'https://evil.example/?next=blockdistraction.com' },
+      { id: 4, url: 'https://blockdistraction.com/account.html' }
+    );
+
+    const response = await send({
+      type: 'start_focus_session',
+      duration: 5,
+      focusMode: 'whitelist'
+    });
+    assert.equal(response.success, true);
+    assert.deepEqual(api.removedTabs, [2, 3]);
+
+    await api.tabs.onUpdated.listeners[0](9, {
+      url: 'https://evil.example/?next=allowed.example'
+    }, { id: 9, active: false, url: 'https://evil.example/?next=allowed.example' });
+    assert.deepEqual(api.removedTabs, [2, 3, 9]);
+  }, { local: { rules, activeRuleListId: 'general' } });
 });

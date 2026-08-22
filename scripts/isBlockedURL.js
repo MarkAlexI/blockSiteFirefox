@@ -14,18 +14,37 @@
 export function isBlockedURL(tabs) {
   if (!tabs) return true;
   const url = tabs[0]?.url || '';
-  
+
   const blockedPatterns = [
     /^about:/,
     /extension:\/\//,
-    /^https:\/\/addons\.mozilla\.org\//,
+    /^https:\/\/addons\.mozilla\.org(?:\/|$)/,
     /^devtools:/,
     /^view-source:/,
-    /blockdistraction/,
-    /markdigital/,
-    /ext\.pp\.ua/,
     /\/\/newtab/
   ];
-  
-  return blockedPatterns.some(pattern => pattern.test(url));
+  const protectedProjectPatterns = [/blockdistraction/i, /markdigital/i, /ext\.pp\.ua/i];
+
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return [...blockedPatterns, ...protectedProjectPatterns]
+      .some(pattern => pattern.test(url));
+  }
+
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    return [...blockedPatterns, ...protectedProjectPatterns]
+      .some(pattern => pattern.test(url));
+  }
+
+  const safeUrl = `${parsed.protocol}//${parsed.host}${parsed.pathname}`;
+  const hostname = parsed.hostname.toLowerCase();
+  const isProtectedProjectHost = [
+    /(?:^|\.)blockdistraction\.com$/i,
+    /(?:^|\.)markdigital(?:\.[a-z\d-]+)*$/i,
+    /(?:^|\.)ext\.pp\.ua$/i
+  ].some(pattern => pattern.test(hostname));
+
+  return blockedPatterns.some(pattern => pattern.test(safeUrl)) || isProtectedProjectHost;
 }

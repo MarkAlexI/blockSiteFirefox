@@ -59,7 +59,8 @@ function createHarness({
   activeRuleListId = 'general',
   activationEvaluator = null,
   dailyUsage = {},
-  focusActive = false
+  focusActive = false,
+  access = { isPro: true, isLegacyUser: false }
 } = {}) {
   const updates = [];
   const closedUrlBatches = [];
@@ -103,6 +104,7 @@ function createHarness({
     }),
     getDailyUsage: async () => structuredClone(dailyUsage),
     getFocusSessionState: async () => ({ focusActive }),
+    getAccess: async () => structuredClone(access),
     isRuleActiveNow: isStoredRuleActive,
     createDnrRule: buildDnrRule,
     closeTabsMatchingRules: async urls => {
@@ -474,4 +476,123 @@ test('Focus Session emits one deterministic DNR rule when profiles use different
   assert.equal(rules.length, 1);
   assert.equal(rules[0].id, 22);
   assert.equal(rules[0].action.redirect.url, 'https://example.com/focus');
+});
+
+test('Free Focus activates only General assignments even when a custom list remains selected', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({
+        id: 41,
+        blockURL: 'general.example',
+        assignments: [{
+          listId: 'general', disabledByUser: true, blockingMode: 'always', schedule: null, dailyLimit: null
+        }]
+      }),
+      makeStoredRule({
+        id: 42,
+        blockURL: 'study.example',
+        assignments: [{ listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }]
+      }),
+      makeStoredRule({
+        id: 43,
+        blockURL: 'shared.example',
+        assignments: [
+          { listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null },
+          { listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }
+        ]
+      }),
+      makeStoredRule({ id: 44, blockURL: 'allowed.example', isWhitelist: true })
+    ],
+    currentDnrRules: [makeDnrRule({ id: 42, urlFilter: '||study.example' })],
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: ['social'] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    activeRuleListId: 'list-1',
+    focusActive: true,
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await harness.synchronizer.requestSync();
+
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [41, 43]);
+  assert.deepEqual(harness.updates[0].removeRuleIds, [42]);
+  assert.deepEqual(harness.closedUrlBatches, [['general.example', 'shared.example']]);
+});
+
+test('Free Focus removes preserved custom-only browser rules when General is empty', async () => {
+  const harness = createHarness({
+    storedRules: [makeStoredRule({
+      id: 51,
+      blockURL: 'study.example',
+      assignments: [{ listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }]
+    })],
+    currentDnrRules: [makeDnrRule({ id: 51, urlFilter: '||study.example' })],
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    activeRuleListId: 'list-1',
+    focusActive: true,
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await harness.synchronizer.requestSync();
+
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.deepEqual(harness.updates, [{ removeRuleIds: [51], addRules: [] }]);
+  assert.deepEqual(harness.closedUrlBatches, []);
+});
+
+test('Pro and legacy Focus preserve global activation across Rule Lists', async () => {
+  for (const access of [
+    { isPro: true, isLegacyUser: false },
+    { isPro: false, isLegacyUser: true }
+  ]) {
+    const harness = createHarness({
+      storedRules: [
+        makeStoredRule({ id: 61, blockURL: 'general.example' }),
+        makeStoredRule({
+          id: 62,
+          blockURL: 'study.example',
+          assignments: [{ listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }]
+        })
+      ],
+      ruleLists: [
+        { id: 'general', name: 'General', disabledCategories: [] },
+        { id: 'list-1', name: 'Study', disabledCategories: [] }
+      ],
+      focusActive: true,
+      access
+    });
+
+    await harness.synchronizer.requestSync();
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [61, 62]);
+  }
+});
+
+test('Free Focus always chooses the General variant when a custom target duplicates it', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({
+        id: 71,
+        blockURL: 'shared.example',
+        redirectURL: 'https://study.example/redirect',
+        assignments: [{ listId: 'list-1', blockingMode: 'always', schedule: null, dailyLimit: null }]
+      }),
+      makeStoredRule({ id: 72, blockURL: 'shared.example' })
+    ],
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    activeRuleListId: 'list-1',
+    focusActive: true,
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await harness.synchronizer.requestSync();
+
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [72]);
+  assert.equal(harness.getDynamicRules()[0].action.redirect.url, 'blocked.html');
 });
