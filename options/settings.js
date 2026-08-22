@@ -66,7 +66,7 @@ export class SettingsManager {
     }
   }
   
-  static async getSettings() {
+  static async getSettings({ throwOnError = false } = {}) {
     const logger = new Logger('SettingsManager:Static');
     try {
       const result = await browser.storage.sync.get(['settings']);
@@ -88,6 +88,7 @@ export class SettingsManager {
       return { ...defaultSettings, ...result.settings };
     } catch (error) {
       logger.error('Error getting settings:', error);
+      if (throwOnError) throw error;
       return {
         mode: 'normal',
         confirmBeforeDelete: false,
@@ -212,15 +213,21 @@ export class SettingsManager {
   }
   
   async checkPasswordProtection() {
-    const settings = await SettingsManager.getSettings();
-    if (settings.enablePassword) {
-      return new Promise((resolve) => {
-        PasswordUtils.showPasswordModal('verify', (isValid) => {
-          resolve(isValid);
-        }, t);
-      });
+    try {
+      const settings = await SettingsManager.getSettings({ throwOnError: true });
+      if (settings.enablePassword) {
+        return await new Promise((resolve) => {
+          PasswordUtils.showPasswordModal('verify', (isValid) => {
+            resolve(isValid);
+          }, t);
+        });
+      }
+      return true;
+    } catch (error) {
+      this.logger.error('Error checking password protection:', error);
+      this.showStatus(t('errorloadingsettings'), 'error');
+      return false;
     }
-    return true;
   }
   
   setupEventListeners() {

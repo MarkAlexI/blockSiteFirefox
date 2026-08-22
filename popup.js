@@ -778,7 +778,11 @@ class PopupPage {
       
       if (this.rulesUI.isDeleteConfirmationInProgress(deleteButton)) return;
       
-      if (this.settings.enablePassword && this.isPro) {
+      const hasPaidAccess = this.isPro === true || this.isLegacyUser === true;
+      const settings = await SettingsManager.getSettings({
+        throwOnError: hasPaidAccess
+      });
+      if (hasPaidAccess && settings.enablePassword) {
         const isValid = await this.promptForPassword();
         if (!isValid) {
           customAlert(t('invalidpassword'));
@@ -786,7 +790,6 @@ class PopupPage {
         }
       }
       
-      const settings = await SettingsManager.getSettings();
       const isStrictMode = settings.mode === 'strict';
       this.rulesUI.handleRuleDeletion(
         deleteButton,

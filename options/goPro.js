@@ -209,7 +209,7 @@ if (forceSyncBtn) {
 if (logOutBtn) {
   logOutBtn.addEventListener('click', async () => {
     try {
-      const settings = await SettingsManager.getSettings();
+      const settings = await SettingsManager.getSettings({ throwOnError: true });
       
       if (settings.enablePassword) {
         const isAuthorized = await new Promise((resolve) => {
@@ -224,6 +224,9 @@ if (logOutBtn) {
       }
     } catch (error) {
       logger.error("Error checking settings before logout:", error);
+      licenseMessage.textContent = t('loggedouterror');
+      licenseMessage.className = 'error-message show';
+      return;
     }
     
     try {
@@ -246,9 +249,12 @@ if (logOutBtn) {
       
       const settings = await SettingsManager.getSettings();
       if (settings.enablePassword) {
-        await SettingsManager.saveSettings({
-          ...settings,
-          enablePassword: false
+        await browser.storage.sync.set({
+          settings: {
+            ...settings,
+            enablePassword: false,
+            passwordHash: null
+          }
         });
         window.location.reload();
         return;

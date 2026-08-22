@@ -9,7 +9,11 @@ import {
 
 let goProImportId = 0;
 
-async function withGoProPage({ isPro = false, workerResponse = { success: true } } = {}, callback) {
+async function withGoProPage({
+  isPro = false,
+  workerResponse = { success: true },
+  settings = {}
+} = {}, callback) {
   const document = new FakeDocument();
   document.addElement('proBtnText');
   document.addElement('pro-activate-view');
@@ -23,7 +27,7 @@ async function withGoProPage({ isPro = false, workerResponse = { success: true }
   document.addElement('header-text');
   const api = createExtensionApi({
     sync: {
-      settings: { enablePassword: false, debugMode: false },
+      settings: { enablePassword: false, debugMode: false, ...settings },
       credentials: {
         isPro,
         licenseKey: isPro ? 'BD-EXISTING-KEY' : null,
@@ -56,6 +60,7 @@ async function withGoProPage({ isPro = false, workerResponse = { success: true }
   const previousFetch = globalThis.fetch;
   const previousSetTimeout = globalThis.setTimeout;
   const previousConsoleError = console.error;
+  let reloadCount = 0;
   globalThis.fetch = async () => ({
     ok: true,
     status: 200,
@@ -81,11 +86,12 @@ async function withGoProPage({ isPro = false, workerResponse = { success: true }
         message,
         logout,
         statusMessages,
-        credentialWrites
+        credentialWrites,
+        getReloadCount: () => reloadCount
       });
     }, {
       document,
-      window: { location: { reload() {} } }
+      window: { location: { reload() { reloadCount += 1; } } }
     });
   } finally {
     globalThis.fetch = previousFetch;
@@ -156,5 +162,156 @@ test('failed worker logout leaves the current Pro credentials untouched', async 
     assert.equal(api.storage.sync.data.credentials.isPro, true);
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-EXISTING-KEY');
     assert.equal(message.textContent, 'loggedouterror');
+  });
+});
+
+test('verified protected logout clears the password hash after the worker ends the Pro session', async () => {
+  await withGoProPage({
+    isPro: true,
+    settings: {
+      enablePassword: true,
+      passwordHash: 'salt:private-hash',
+      mode: 'strict',
+      focusSessionSound: true
+    }
+  }, async ({ api, logout, statusMessages, credentialWrites, getReloadCount }) => {
+    const { PasswordUtils } = await import('../pro/password.js');
+    const original = PasswordUtils.showPasswordModal;
+    let verificationCalls = 0;
+    PasswordUtils.showPasswordModal = (type, callback) => {
+      verificationCalls += 1;
+      assert.equal(type, 'verify');
+      callback(true);
+    };
+
+    try {
+      await logout.dispatch('click');
+
+      assert.equal(verificationCalls, 1);
+      assert.equal(statusMessages.length, 1);
+      assert.equal(statusMessages[0].isPro, false);
+      assert.deepEqual(credentialWrites, []);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.settings.enablePassword, false);
+      assert.equal(api.storage.sync.data.settings.passwordHash, null);
+      assert.equal(api.storage.sync.data.settings.mode, 'strict');
+      assert.equal(api.storage.sync.data.settings.focusSessionSound, true);
+      assert.equal(getReloadCount(), 1);
+    } finally {
+      PasswordUtils.showPasswordModal = original;
+    }
+  });
+});
+
+test('cancelled protected logout never sends a downgrade request to the service worker', async () => {
+  await withGoProPage({
+    isPro: true,
+    settings: { enablePassword: true, passwordHash: 'salt:private-hash' }
+  }, async ({ api, logout, statusMessages, getReloadCount }) => {
+    const { PasswordUtils } = await import('../pro/password.js');
+    const original = PasswordUtils.showPasswordModal;
+    PasswordUtils.showPasswordModal = (_type, callback) => callback(false);
+
+    try {
+      await logout.dispatch('click');
+
+      assert.deepEqual(statusMessages, []);
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-EXISTING-KEY');
+      assert.equal(api.storage.sync.data.settings.enablePassword, true);
+      assert.equal(api.storage.sync.data.settings.passwordHash, 'salt:private-hash');
+      assert.equal(getReloadCount(), 0);
+    } finally {
+      PasswordUtils.showPasswordModal = original;
+    }
+  });
+});
+
+test('logout fails closed if security settings cannot be read', async () => {
+  await withGoProPage({
+    isPro: true,
+    settings: { enablePassword: true, passwordHash: 'salt:private-hash' }
+  }, async ({ api, logout, message, statusMessages, getReloadCount }) => {
+    const originalGet = api.storage.sync.get.bind(api.storage.sync);
+    api.storage.sync.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.includes('settings')) {
+        return Promise.reject(new Error('password settings unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    await logout.dispatch('click');
+
+    assert.deepEqual(statusMessages, []);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-EXISTING-KEY');
+    assert.equal(api.storage.sync.data.settings.enablePassword, true);
+    assert.equal(message.textContent, 'loggedouterror');
+    assert.match(message.className, /error/);
+    assert.equal(getReloadCount(), 0);
+  });
+});
+
+test('logout fails closed if security settings initialization cannot be persisted', async () => {
+  await withGoProPage({ isPro: true }, async ({ api, logout, message, statusMessages }) => {
+    delete api.storage.sync.data.settings;
+    api.storage.sync.setError = new Error('settings initialization rejected');
+
+    await logout.dispatch('click');
+
+    assert.deepEqual(statusMessages, []);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal('settings' in api.storage.sync.data, false);
+    assert.equal(message.textContent, 'loggedouterror');
+  });
+});
+
+test('logout fails closed when the password verification modal cannot open', async () => {
+  await withGoProPage({
+    isPro: true,
+    settings: { enablePassword: true, passwordHash: 'salt:private-hash' }
+  }, async ({ api, logout, message, statusMessages }) => {
+    const { PasswordUtils } = await import('../pro/password.js');
+    const original = PasswordUtils.showPasswordModal;
+    PasswordUtils.showPasswordModal = () => {
+      throw new Error('password modal unavailable');
+    };
+
+    try {
+      await logout.dispatch('click');
+
+      assert.deepEqual(statusMessages, []);
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.settings.enablePassword, true);
+      assert.equal(message.textContent, 'loggedouterror');
+    } finally {
+      PasswordUtils.showPasswordModal = original;
+    }
+  });
+});
+
+test('failed worker logout keeps an already-verified password and Pro access intact', async () => {
+  await withGoProPage({
+    isPro: true,
+    workerResponse: { success: false, error: 'Worker unavailable' },
+    settings: { enablePassword: true, passwordHash: 'salt:private-hash' }
+  }, async ({ api, logout, message, statusMessages, getReloadCount }) => {
+    const { PasswordUtils } = await import('../pro/password.js');
+    const original = PasswordUtils.showPasswordModal;
+    PasswordUtils.showPasswordModal = (_type, callback) => callback(true);
+
+    try {
+      await logout.dispatch('click');
+
+      assert.equal(statusMessages.length, 1);
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-EXISTING-KEY');
+      assert.equal(api.storage.sync.data.settings.enablePassword, true);
+      assert.equal(api.storage.sync.data.settings.passwordHash, 'salt:private-hash');
+      assert.equal(message.textContent, 'loggedouterror');
+      assert.equal(getReloadCount(), 0);
+    } finally {
+      PasswordUtils.showPasswordModal = original;
+    }
   });
 });

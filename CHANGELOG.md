@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.17] - 2026-08-22
+### Security
+- Password-protected rule deletion, assignment removal, rule editing, bulk clearing, settings and Statistics resets, and Pro logout now fail closed if security settings cannot be read or verification cannot run.
+- Popup reads current protection settings for each deletion, enforces passwords for both Pro and genuine legacy accounts, and never trusts a stale unprotected settings snapshot.
+
+### Fixed
+- Free and former-Pro users can still delete existing rules, remove preserved custom-list assignments, and edit their remaining rules when unrelated settings fail to load or an old Pro password remains stored.
+- Verified Pro logout now clears the stored password hash only after its worker-owned access transition succeeds; cancelled verification and failed transitions preserve existing credentials and protection.
+- Blocked-page, redirect, Focus Session, and reset operations never overwrite saved Statistics totals or daily history after a failed storage read, initialization, normalization, or write.
+- Later serialized Statistics events recover normally after temporary storage errors, while display-only reads retain their existing safe fallback without modifying saved history.
+- The exact ten-rule Free limit, DNR integrity, unchanged one-minute watchdog, and Firefox Android compatibility without the unsupported windows API remain unchanged.
+
+### Added
+- Added 39 regression scenarios for strict security reads, stale Popup settings, protected Pro and legacy deletion or editing, Free and former-Pro cleanup, password cancellation, guarded logout, failed bulk actions, Statistics read/write failures, queue recovery, and preserved browser blocking.
+
 ## [5.1.16] - 2026-08-22
 ### Changed
 - The unchanged one-minute watchdog still evaluates schedules, Daily Limits, Rule Lists, browser DNR integrity, and host permissions, but no longer scans every open tab when active browser protection is already current.

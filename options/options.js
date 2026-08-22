@@ -442,9 +442,12 @@ class OptionsPage {
       const deleteButton = event.target;
       if (this.rulesUI.isDeleteConfirmationInProgress(deleteButton)) return;
 
-      const settings = await SettingsManager.getSettings();
+      const hasPaidAccess = this.isPro === true || this.isLegacyUser === true;
+      const settings = await SettingsManager.getSettings({
+        throwOnError: hasPaidAccess
+      });
       const isStrictMode = settings.mode === 'strict';
-      if (settings.enablePassword) {
+      if (hasPaidAccess && settings.enablePassword) {
         const isValid = await this.promptForPassword();
         if (!isValid) return;
       }
@@ -474,9 +477,12 @@ class OptionsPage {
       const deleteButton = event.target;
       if (this.rulesUI.isDeleteConfirmationInProgress(deleteButton)) return;
       
-      const settings = await SettingsManager.getSettings();
+      const hasPaidAccess = this.isPro === true || this.isLegacyUser === true;
+      const settings = await SettingsManager.getSettings({
+        throwOnError: hasPaidAccess
+      });
       const isStrictMode = settings.mode === 'strict';
-      if (settings.enablePassword) {
+      if (hasPaidAccess && settings.enablePassword) {
         const isValid = await this.promptForPassword();
         if (!isValid) return;
       }
@@ -503,7 +509,17 @@ class OptionsPage {
   }
   
   async toggleEditMode(row, ruleId, rule, assignment) {
-    const settings = await SettingsManager.getSettings();
+    const hasPaidAccess = this.isPro === true || this.isLegacyUser === true;
+    let settings;
+    try {
+      settings = await SettingsManager.getSettings({
+        throwOnError: hasPaidAccess
+      });
+    } catch (error) {
+      this.logger.error('Error checking password protection before rule editing:', error);
+      this.rulesUI.showErrorMessage(t('errorupdatingrules'));
+      return;
+    }
     const ruleListState = await this.ruleListsManager.getState();
     const ruleLists = ruleListState.lists;
     const activeProfile = ruleLists.find(list => list.id === ruleListState.activeRuleListId);
@@ -541,7 +557,7 @@ class OptionsPage {
     );
 
     if (row.classList.contains('rule-group-end')) editRow.classList.add('rule-group-end');
-    if (settings.enablePassword) {
+    if (hasPaidAccess && settings.enablePassword) {
       const isValid = await this.promptForPassword();
       if (!isValid) return;
     }

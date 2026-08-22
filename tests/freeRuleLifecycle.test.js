@@ -230,19 +230,31 @@ function createDeletionController({
   harness,
   listId = 'general',
   strict = false,
-  deferConfirmation = false
+  deferConfirmation = false,
+  access = { isPro: false, isLegacyUser: false },
+  passwordEnabled = false,
+  cachedPasswordEnabled = passwordEnabled,
+  passwordResult = true,
+  settingsReadError = null
 }) {
   const alerts = [];
   const errors = [];
   const completions = [];
+  const settingsReads = [];
   let confirmation = null;
   let refreshCount = 0;
+  let passwordPrompts = 0;
   const settings = {
     mode: strict ? 'strict' : 'normal',
-    enablePassword: false
+    enablePassword: passwordEnabled
   };
   const SettingsManager = {
-    async getSettings() {
+    async getSettings(options = {}) {
+      settingsReads.push(copy(options));
+      if (settingsReadError) {
+        if (options.throwOnError) throw settingsReadError;
+        return { mode: 'normal', enablePassword: false };
+      }
       return settings;
     }
   };
@@ -258,8 +270,9 @@ function createDeletionController({
   const controller = new Controller();
 
   Object.assign(controller, {
-    settings,
-    isPro: false,
+    settings: { ...settings, enablePassword: cachedPasswordEnabled },
+    isPro: access.isPro === true,
+    isLegacyUser: access.isLegacyUser === true,
     activeRuleListId: listId,
     rulesClient: harness.client,
     rulesUI: {
@@ -285,6 +298,10 @@ function createDeletionController({
     async loadRules() {
       refreshCount++;
     },
+    async promptForPassword() {
+      passwordPrompts++;
+      return passwordResult;
+    },
     logRulesMutationFailure(_label, error) {
       errors.push(error.code || error.message);
     },
@@ -304,7 +321,9 @@ function createDeletionController({
     controller,
     alerts,
     errors,
+    settingsReads,
     getRefreshCount: () => refreshCount,
+    getPasswordPromptCount: () => passwordPrompts,
     async settle() {
       await Promise.all(completions);
     },
@@ -312,6 +331,68 @@ function createDeletionController({
       assert.equal(typeof confirmation, 'function');
       await confirmation();
     }
+  };
+}
+
+function createRuleEditController({
+  access = { isPro: false, isLegacyUser: false },
+  passwordEnabled = false,
+  passwordResult = true,
+  settingsReadError = null
+} = {}) {
+  const errors = [];
+  const settingsReads = [];
+  const replaced = [];
+  let passwordPrompts = 0;
+  const SettingsManager = {
+    async getSettings(options = {}) {
+      settingsReads.push(copy(options));
+      if (settingsReadError) {
+        if (options.throwOnError) throw settingsReadError;
+        return { enablePassword: false };
+      }
+      return { enablePassword: passwordEnabled };
+    }
+  };
+  const method = getClassMethod(optionsSource, 'toggleEditMode', 'saveEditedRule');
+  const Controller = new Function(
+    'SettingsManager',
+    't',
+    'return class EditEntryPoint {\n' + method + '\n};'
+  )(SettingsManager, key => key);
+  const editRow = { classList: { add() {} } };
+  const row = {
+    classList: { contains: () => false },
+    replaceWith(value) { replaced.push(value); }
+  };
+  const controller = new Controller();
+  Object.assign(controller, {
+    isPro: access.isPro === true,
+    isLegacyUser: access.isLegacyUser === true,
+    ruleListsManager: {
+      async getState() {
+        return { lists: [generalList], activeRuleListId: 'general' };
+      }
+    },
+    rulesUI: {
+      createRuleEditRow() { return editRow; },
+      showErrorMessage(message) { errors.push(message); }
+    },
+    logger: { error() {} },
+    async promptForPassword() {
+      passwordPrompts++;
+      return passwordResult;
+    }
+  });
+
+  return {
+    controller,
+    row,
+    editRow,
+    replaced,
+    errors,
+    settingsReads,
+    getPasswordPromptCount: () => passwordPrompts
   };
 }
 
@@ -536,6 +617,363 @@ test('Options can delete an inherited whitelist rule without Pro access', async 
     assert.deepEqual(harness.dnrUpdates, []);
     assert.equal(view.getRefreshCount(), 1);
   });
+});
+
+test('Popup checks current password settings instead of trusting an outdated cached snapshot', async () => {
+  const access = { isPro: true, isLegacyUser: false };
+  await withLifecycle({ rules: [makeRule(41, 'protected-popup.example')], access }, async harness => {
+    const view = createDeletionController({
+      source: popupSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'promptForPassword',
+      harness,
+      access,
+      passwordEnabled: true,
+      cachedPasswordEnabled: false,
+      passwordResult: false
+    });
+
+    await view.controller.handleRuleDeletion(
+      {}, 41, 'protected-popup.example', { dataset: { isWhitelist: 'false' }, remove() {} }
+    );
+    await view.settle();
+
+    assert.deepEqual(view.settingsReads, [{ throwOnError: true }]);
+    assert.equal(view.getPasswordPromptCount(), 1);
+    assert.deepEqual(view.alerts, ['invalidpassword']);
+    assert.deepEqual(harness.messages, []);
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [41]);
+  });
+});
+
+test('Popup enforces password protection for genuine legacy users', async () => {
+  const access = { isPro: false, isLegacyUser: true };
+  await withLifecycle({ rules: [makeRule(42, 'legacy-protected.example')], access }, async harness => {
+    const view = createDeletionController({
+      source: popupSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'promptForPassword',
+      harness,
+      access,
+      passwordEnabled: true,
+      passwordResult: false
+    });
+
+    await view.controller.handleRuleDeletion(
+      {}, 42, 'legacy-protected.example', { dataset: { isWhitelist: 'false' }, remove() {} }
+    );
+
+    assert.equal(view.getPasswordPromptCount(), 1);
+    assert.deepEqual(harness.messages, []);
+    assert.deepEqual(harness.getRules().map(rule => rule.id), [42]);
+  });
+});
+
+test('Popup rejects protected deletion when the settings read fails', async () => {
+  const access = { isPro: true, isLegacyUser: false };
+  await withLifecycle({ rules: [makeRule(43, 'unreadable-popup.example')], access }, async harness => {
+    const view = createDeletionController({
+      source: popupSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'promptForPassword',
+      harness,
+      access,
+      settingsReadError: new Error('protected settings unavailable')
+    });
+
+    await view.controller.handleRuleDeletion(
+      {}, 43, 'unreadable-popup.example', { dataset: { isWhitelist: 'false' }, remove() {} }
+    );
+
+    assert.deepEqual(view.settingsReads, [{ throwOnError: true }]);
+    assert.equal(view.getPasswordPromptCount(), 0);
+    assert.deepEqual(harness.messages, []);
+    assert.deepEqual(view.alerts, ['errorremovingrule']);
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [43]);
+  });
+});
+
+test('Options rejects protected assignment removal when the settings read fails', async () => {
+  const access = { isPro: true, isLegacyUser: false };
+  await withLifecycle({ rules: [makeRule(44, 'unreadable-options.example')], access }, async harness => {
+    const view = createDeletionController({
+      source: optionsSource,
+      methodName: 'handleRuleAssignmentDeletion',
+      nextMethodName: 'handleRuleDeletion',
+      harness,
+      access,
+      settingsReadError: new Error('protected settings unavailable')
+    });
+
+    await view.controller.handleRuleAssignmentDeletion({ target: {} }, 44, 'general');
+
+    assert.deepEqual(view.settingsReads, [{ throwOnError: true }]);
+    assert.equal(view.getPasswordPromptCount(), 0);
+    assert.deepEqual(harness.messages, []);
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [44]);
+    assert.equal(view.errors.includes('protected settings unavailable'), true);
+  });
+});
+
+test('Options rejects protected legacy whitelist deletion when the settings read fails', async () => {
+  const access = { isPro: false, isLegacyUser: true };
+  await withLifecycle({
+    rules: [makeRule(45, 'legacy-whitelist.example', { isWhitelist: true })],
+    access
+  }, async harness => {
+    const view = createDeletionController({
+      source: optionsSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'toggleEditMode',
+      harness,
+      access,
+      settingsReadError: new Error('legacy settings unavailable')
+    });
+
+    await view.controller.handleRuleDeletion({ target: {} }, 45);
+
+    assert.deepEqual(view.settingsReads, [{ throwOnError: true }]);
+    assert.deepEqual(harness.messages, []);
+    assert.deepEqual(harness.getRules().map(rule => rule.id), [45]);
+    assert.equal(view.errors.includes('errorremovingrule'), true);
+  });
+});
+
+test('Options keeps protected assignments unchanged when password verification is cancelled', async () => {
+  const access = { isPro: true, isLegacyUser: false };
+  await withLifecycle({ rules: [makeRule(46, 'cancelled-options.example')], access }, async harness => {
+    const view = createDeletionController({
+      source: optionsSource,
+      methodName: 'handleRuleAssignmentDeletion',
+      nextMethodName: 'handleRuleDeletion',
+      harness,
+      access,
+      passwordEnabled: true,
+      passwordResult: false
+    });
+
+    await view.controller.handleRuleAssignmentDeletion({ target: {} }, 46, 'general');
+
+    assert.equal(view.getPasswordPromptCount(), 1);
+    assert.deepEqual(harness.messages, []);
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [46]);
+  });
+});
+
+test('Options keeps protected whitelist rules unchanged when password verification is cancelled', async () => {
+  const access = { isPro: false, isLegacyUser: true };
+  await withLifecycle({
+    rules: [makeRule(47, 'cancelled-whitelist.example', { isWhitelist: true })],
+    access
+  }, async harness => {
+    const view = createDeletionController({
+      source: optionsSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'toggleEditMode',
+      harness,
+      access,
+      passwordEnabled: true,
+      passwordResult: false
+    });
+
+    await view.controller.handleRuleDeletion({ target: {} }, 47);
+
+    assert.equal(view.getPasswordPromptCount(), 1);
+    assert.deepEqual(harness.messages, []);
+    assert.deepEqual(harness.getRules().map(rule => rule.id), [47]);
+  });
+});
+
+test('Free Popup deletion remains available if unrelated security settings cannot be read', async () => {
+  await withLifecycle({ rules: [makeRule(48, 'free-popup-fallback.example')] }, async harness => {
+    const view = createDeletionController({
+      source: popupSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'promptForPassword',
+      harness,
+      settingsReadError: new Error('settings temporarily unavailable')
+    });
+
+    await view.controller.handleRuleDeletion(
+      {}, 48, 'free-popup-fallback.example', { dataset: { isWhitelist: 'false' }, remove() {} }
+    );
+    await view.settle();
+
+    assert.deepEqual(view.settingsReads, [{ throwOnError: false }]);
+    assert.equal(view.getPasswordPromptCount(), 0);
+    assert.deepEqual(harness.getRules(), []);
+    assert.deepEqual(harness.getDynamicRules(), []);
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
+test('Free Options deletion remains available if unrelated security settings cannot be read', async () => {
+  await withLifecycle({ rules: [makeRule(49, 'free-options-fallback.example')] }, async harness => {
+    const view = createDeletionController({
+      source: optionsSource,
+      methodName: 'handleRuleAssignmentDeletion',
+      nextMethodName: 'handleRuleDeletion',
+      harness,
+      settingsReadError: new Error('settings temporarily unavailable')
+    });
+
+    await view.controller.handleRuleAssignmentDeletion({ target: {} }, 49, 'general');
+    await view.settle();
+
+    assert.deepEqual(view.settingsReads, [{ throwOnError: false }]);
+    assert.deepEqual(harness.getRules(), []);
+    assert.deepEqual(harness.getDynamicRules(), []);
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
+test('former Pro Popup users can remove custom assignments despite leftover password settings', async () => {
+  const lists = [generalList, { id: 'list-1', name: 'Old Pro list', disabledCategories: [] }];
+  await withLifecycle({
+    rules: [makeRule(50, 'former-pro-popup.example', { listIds: ['general', 'list-1'] })],
+    lists
+  }, async harness => {
+    const view = createDeletionController({
+      source: popupSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'promptForPassword',
+      harness,
+      listId: 'list-1',
+      passwordEnabled: true,
+      cachedPasswordEnabled: true
+    });
+
+    await view.controller.handleRuleDeletion(
+      {}, 50, 'former-pro-popup.example', { dataset: { isWhitelist: 'false' }, remove() {} }
+    );
+    await view.settle();
+
+    assert.equal(view.getPasswordPromptCount(), 0);
+    assert.deepEqual(harness.getRules()[0].assignments.map(item => item.listId), ['general']);
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [50]);
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
+test('former Pro Options users can delete General rules despite leftover password settings', async () => {
+  await withLifecycle({ rules: [makeRule(51, 'former-pro-options.example')] }, async harness => {
+    const view = createDeletionController({
+      source: optionsSource,
+      methodName: 'handleRuleAssignmentDeletion',
+      nextMethodName: 'handleRuleDeletion',
+      harness,
+      passwordEnabled: true
+    });
+
+    await view.controller.handleRuleAssignmentDeletion({ target: {} }, 51, 'general');
+    await view.settle();
+
+    assert.equal(view.getPasswordPromptCount(), 0);
+    assert.deepEqual(harness.getRules(), []);
+    assert.deepEqual(harness.getDynamicRules(), []);
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
+test('authorized Pro Popup deletion preserves strict confirmation and browser blocking integrity', async () => {
+  const access = { isPro: true, isLegacyUser: false };
+  await withLifecycle({ rules: [makeRule(52, 'verified-popup.example')], access }, async harness => {
+    const view = createDeletionController({
+      source: popupSource,
+      methodName: 'handleRuleDeletion',
+      nextMethodName: 'promptForPassword',
+      harness,
+      access,
+      passwordEnabled: true,
+      passwordResult: true,
+      strict: true,
+      deferConfirmation: true
+    });
+
+    await view.controller.handleRuleDeletion(
+      {}, 52, 'verified-popup.example', { dataset: { isWhitelist: 'false' }, remove() {} }
+    );
+    assert.equal(view.getPasswordPromptCount(), 1);
+    assert.deepEqual(harness.messages, []);
+
+    await view.confirm();
+
+    assert.deepEqual(harness.getRules(), []);
+    assert.deepEqual(harness.getDynamicRules(), []);
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
+test('authorized legacy Options deletion preserves password checks and browser blocking integrity', async () => {
+  const access = { isPro: false, isLegacyUser: true };
+  await withLifecycle({ rules: [makeRule(53, 'verified-legacy.example')], access }, async harness => {
+    const view = createDeletionController({
+      source: optionsSource,
+      methodName: 'handleRuleAssignmentDeletion',
+      nextMethodName: 'handleRuleDeletion',
+      harness,
+      access,
+      passwordEnabled: true,
+      passwordResult: true
+    });
+
+    await view.controller.handleRuleAssignmentDeletion({ target: {} }, 53, 'general');
+    await view.settle();
+
+    assert.equal(view.getPasswordPromptCount(), 1);
+    assert.deepEqual(harness.getRules(), []);
+    assert.deepEqual(harness.getDynamicRules(), []);
+    assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+  });
+});
+
+test('Options refuses protected rule editing when settings cannot be read', async () => {
+  const view = createRuleEditController({
+    access: { isPro: true, isLegacyUser: false },
+    settingsReadError: new Error('protected edit settings unavailable')
+  });
+
+  await view.controller.toggleEditMode(view.row, 61, makeRule(61, 'edit.example'), {});
+
+  assert.deepEqual(view.settingsReads, [{ throwOnError: true }]);
+  assert.deepEqual(view.replaced, []);
+  assert.deepEqual(view.errors, ['errorupdatingrules']);
+});
+
+test('Options refuses legacy rule editing when password verification is cancelled', async () => {
+  const view = createRuleEditController({
+    access: { isPro: false, isLegacyUser: true },
+    passwordEnabled: true,
+    passwordResult: false
+  });
+
+  await view.controller.toggleEditMode(view.row, 62, makeRule(62, 'legacy-edit.example'), {});
+
+  assert.equal(view.getPasswordPromptCount(), 1);
+  assert.deepEqual(view.replaced, []);
+});
+
+test('former Pro users can edit their remaining Free rules despite leftover password settings', async () => {
+  const view = createRuleEditController({ passwordEnabled: true });
+
+  await view.controller.toggleEditMode(view.row, 63, makeRule(63, 'former-pro-edit.example'), {});
+
+  assert.deepEqual(view.settingsReads, [{ throwOnError: false }]);
+  assert.equal(view.getPasswordPromptCount(), 0);
+  assert.deepEqual(view.replaced, [view.editRow]);
+});
+
+test('verified Pro users can edit rules after a successful password check', async () => {
+  const view = createRuleEditController({
+    access: { isPro: true, isLegacyUser: false },
+    passwordEnabled: true,
+    passwordResult: true
+  });
+
+  await view.controller.toggleEditMode(view.row, 64, makeRule(64, 'verified-edit.example'), {});
+
+  assert.equal(view.getPasswordPromptCount(), 1);
+  assert.deepEqual(view.replaced, [view.editRow]);
 });
 
 test('Free users replace one of three rules without leaving a stale DNR rule', async () => {

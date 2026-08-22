@@ -211,6 +211,44 @@ test('static settings retrieval initializes defaults, merges stored settings, an
   });
 });
 
+test('strict security settings reads reject errors while ordinary reads retain safe UI defaults', async () => {
+  await withSettingsManager({ sync: {
+    settings: { ...defaultSettings, enablePassword: true, passwordHash: 'salt:hash' }
+  } }, async ({ api, SettingsManager }) => {
+    api.storage.sync.getError = new Error('security settings unavailable');
+    const previousError = console.error;
+    console.error = () => {};
+    try {
+      await assert.rejects(
+        SettingsManager.getSettings({ throwOnError: true }),
+        /security settings unavailable/
+      );
+      assert.deepEqual(await SettingsManager.getSettings(), defaultSettings);
+      assert.equal(api.storage.sync.data.settings.enablePassword, true);
+      assert.equal(api.storage.sync.data.settings.passwordHash, 'salt:hash');
+    } finally {
+      console.error = previousError;
+    }
+  });
+});
+
+test('strict security settings reads reject failed initialization writes', async () => {
+  await withSettingsManager(async ({ api, SettingsManager }) => {
+    api.storage.sync.setError = new Error('security settings initialization unavailable');
+    const previousError = console.error;
+    console.error = () => {};
+    try {
+      await assert.rejects(
+        SettingsManager.getSettings({ throwOnError: true }),
+        /security settings initialization unavailable/
+      );
+      assert.equal('settings' in api.storage.sync.data, false);
+    } finally {
+      console.error = previousError;
+    }
+  });
+});
+
 test('reading settings from the UI preserves security, notifications, password, debug, and sound choices', async () => {
   await withSettingsManager(({ document, manager }) => {
     document.getElementById('mode-strict').checked = true;
@@ -301,6 +339,42 @@ test('password checks allow unprotected settings and use the verification modal 
       assert.equal(await manager.checkPasswordProtection(), false);
       PasswordUtils.showPasswordModal = (_type, callback) => callback(true);
       assert.equal(await manager.checkPasswordProtection(), true);
+    } finally {
+      PasswordUtils.showPasswordModal = original;
+    }
+  });
+});
+
+test('password-protected actions fail closed when their security settings cannot be read', async () => {
+  await withSettingsManager({ sync: {
+    settings: { ...defaultSettings, enablePassword: true, passwordHash: 'salt:hash' }
+  } }, async ({ api, document, manager }) => {
+    api.storage.sync.getError = new Error('password settings unavailable');
+    const previousError = console.error;
+    console.error = () => {};
+    try {
+      assert.equal(await manager.checkPasswordProtection(), false);
+      assert.equal(document.getElementById('statusMessage').textContent, 'errorloadingsettings');
+      assert.match(document.getElementById('statusMessage').className, /error/);
+      assert.equal(api.storage.sync.data.settings.enablePassword, true);
+    } finally {
+      console.error = previousError;
+    }
+  });
+});
+
+test('password-protected actions fail closed if opening their verification modal fails', async () => {
+  await withSettingsManager({ sync: {
+    settings: { ...defaultSettings, enablePassword: true }
+  } }, async ({ document, manager }) => {
+    const { PasswordUtils } = await import('../pro/password.js');
+    const original = PasswordUtils.showPasswordModal;
+    PasswordUtils.showPasswordModal = () => {
+      throw new Error('password modal unavailable');
+    };
+    try {
+      assert.equal(await manager.checkPasswordProtection(), false);
+      assert.equal(document.getElementById('statusMessage').textContent, 'errorloadingsettings');
     } finally {
       PasswordUtils.showPasswordModal = original;
     }
@@ -414,6 +488,49 @@ test('Options paid actions fail closed when credentials cannot be read', async (
     }
   });
 });
+
+for (const [accountType, credentials] of [
+  ['Pro', { isPro: true, installationDate: '2026-08-01T00:00:00.000Z' }],
+  ['legacy', { isPro: false, installationDate: '2025-12-01T00:00:00.000Z' }]
+]) {
+  test(accountType + ' bulk actions stop if credentials load but protected settings fail', async () => {
+    await withSettingsManager({ sync: {
+      credentials,
+      settings: { ...defaultSettings, enablePassword: true, passwordHash: 'salt:hash' }
+    } }, async ({ api, document, manager }) => {
+      const invoked = [];
+      manager.clearAllRules = () => invoked.push('clear');
+      manager.resetSettings = () => invoked.push('reset');
+      manager.loadStatistics = async () => {};
+      manager.setupEventListeners();
+
+      const { StatisticsManager } = await import('../pro/statisticsManager.js');
+      const originalReset = StatisticsManager.reset;
+      StatisticsManager.reset = async () => invoked.push('statistics-reset');
+      const originalGet = api.storage.sync.get.bind(api.storage.sync);
+      api.storage.sync.get = (keys, callback) => {
+        if (Array.isArray(keys) && keys.includes('settings')) {
+          return Promise.reject(new Error('protected settings unavailable'));
+        }
+        return originalGet(keys, callback);
+      };
+      const previousError = console.error;
+      console.error = () => {};
+
+      try {
+        for (const id of ['clearAllRules', 'resetSettings', 'clearStatistics']) {
+          await document.getElementById(id).dispatch('click');
+          assert.equal(document.getElementById('statusMessage').textContent, 'errorloadingsettings');
+        }
+        assert.deepEqual(invoked, []);
+        assert.equal(api.storage.sync.data.settings.enablePassword, true);
+      } finally {
+        StatisticsManager.reset = originalReset;
+        console.error = previousError;
+      }
+    });
+  });
+}
 
 test('Pro users can configure and remove password protection through the intended confirmation flow', async () => {
   await withSettingsManager({ sync: { credentials: { isPro: true }, settings: { ...defaultSettings } } }, async ({
