@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.16] - 2026-08-22
+### Changed
+- The unchanged one-minute watchdog still evaluates schedules, Daily Limits, Rule Lists, browser DNR integrity, and host permissions, but no longer scans every open tab when active browser protection is already current.
+- Startup, explicit rule mutations, Focus Sessions, repaired DNR drift, changed profiles or categories, and newly active scheduled or Daily Limit rules continue reconciling matching open tabs immediately.
+- Serialized DNR requests preserve stronger explicit tab-reconciliation intent across overlapping passive watchdogs; superseded snapshots carry required cleanup forward without closing tabs for removed rules.
+- Large rule imports now index exact targets and per-profile URL assignments, and blacklist conflict checks examine only relevant whitelist entries instead of rescanning every previously imported rule.
+- Thousands of legitimate inactive-profile rules remain importable without an invented total-rule cap; browser-reported DNR limits still apply only to the actually active profile.
+
+### Fixed
+- Invalid JSON roots and malformed imported rule entries now fail clearly before changing existing rules, Rule Lists, settings, or browser blocking.
+- Existing whitelist conflict order, case-insensitive target matching, duplicate-profile rejection, exact ten-rule Free limit, Free deletion, one-minute recovery alarms, and Firefox Android workers without the Windows API remain unchanged.
+
+### Added
+- Added 32 regression scenarios covering passive watchdog tab-scan suppression, schedule and Daily Limit activation, DNR drift repair, overlapping synchronization priorities, startup and Focus enforcement, indexed large imports, whitelist conflict precedence, malformed import rollback, active browser capacity, and windowless Firefox Android workers.
+
 ## [5.1.15] - 2026-08-22
 ### Fixed
 - Daily Limit assignment moves, shared-target splits and merges, and Rule List deletion now atomically protect pending usage remaps in the same local write as their committed rules and profiles.

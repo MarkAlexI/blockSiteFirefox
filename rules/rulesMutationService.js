@@ -103,6 +103,22 @@ function findAssignedBlockUrlRuleIndex(rules, blockURL, listId, excludeIndex = -
   });
 }
 
+function getRuleTargetKey(target) {
+  const isWhitelist = target?.isWhitelist === true;
+  const key = [isWhitelist, normalizeTargetBlockURL(target?.blockURL)];
+  if (!isWhitelist) {
+    key.push(
+      normalizeTargetRedirectURL(target?.redirectURL),
+      target?.category || 'uncategorized'
+    );
+  }
+  return JSON.stringify(key);
+}
+
+function getAssignedBlockUrlKey(blockURL, listId) {
+  return JSON.stringify([normalizeTargetBlockURL(blockURL), listId]);
+}
+
 function canonicalizeRuleTarget(rule, assignments = getRuleAssignments(rule)) {
   const canonical = {
     ...rule,
@@ -926,8 +942,17 @@ export function createRulesMutationService({
       throw new RulesMutationError('invalid_import', 'Invalid file format: missing rules array');
     }
     const preparedRules = [];
+    const preparedWhitelistRules = [];
+    const targetKeys = new Set();
+    const assignmentKeys = new Set();
 
     importedRules.forEach((rawRule, index) => {
+      if (!rawRule || typeof rawRule !== 'object' || Array.isArray(rawRule)) {
+        throw new RulesMutationError(
+          'invalid_import',
+          `Invalid file format: rule ${index + 1} must be an object`
+        );
+      }
       const target = sanitizeTargetInput(rawRule, rawRule?.isWhitelist === true);
       if (!target.isWhitelist && (!rawRule?.category || typeof rawRule.category !== 'string')) {
         target.category = 'uncategorized';
@@ -936,24 +961,44 @@ export function createRulesMutationService({
       // Import is a Pro-only operation, so custom list and Daily Limit access is
       // already established by replaceAll(). We still validate all references.
       validateAssignments(assignments, importedLists, true, target);
-      throwConflict(rulesManager.checkConflict(preparedRules, target.blockURL, target.isWhitelist));
+      // Blacklist entries can conflict only with existing whitelist patterns.
+      // Keep their candidate set small while preserving full insertion order
+      // and the original conflict semantics for imported whitelist entries.
+      const conflictCandidates = target.isWhitelist ? preparedRules : preparedWhitelistRules;
+      if (conflictCandidates.length > 0) {
+        throwConflict(rulesManager.checkConflict(
+          conflictCandidates,
+          target.blockURL,
+          target.isWhitelist
+        ));
+      }
       if (!target.isWhitelist && assignments.some(assignment =>
-        findAssignedBlockUrlRuleIndex(preparedRules, target.blockURL, assignment.listId) !== -1
+        assignmentKeys.has(getAssignedBlockUrlKey(target.blockURL, assignment.listId))
       )) {
         throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
       }
-      if (findTargetRuleIndex(preparedRules, target) !== -1) {
+      const targetKey = getRuleTargetKey(target);
+      if (targetKeys.has(targetKey)) {
         throw new RulesMutationError('rule_already_exists', 'Rule already exists');
       }
 
-      preparedRules.push({
+      const preparedRule = {
         id: index + 1,
         blockURL: target.blockURL.trim(),
         redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
         category: target.isWhitelist ? 'whitelist' : (target.category || 'uncategorized'),
         assignments,
         isWhitelist: target.isWhitelist
-      });
+      };
+      preparedRules.push(preparedRule);
+      targetKeys.add(targetKey);
+      if (target.isWhitelist) {
+        preparedWhitelistRules.push(preparedRule);
+      } else {
+        for (const assignment of assignments) {
+          assignmentKeys.add(getAssignedBlockUrlKey(target.blockURL, assignment.listId));
+        }
+      }
     });
     return preparedRules;
   }

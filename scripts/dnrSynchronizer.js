@@ -144,6 +144,8 @@ export function createDnrSynchronizer({
   let rulesSyncPromise = null;
   let syncRequestedAgain = false;
   let syncGeneration = 0;
+  let pendingTabReconciliation = false;
+  let activeTabReconciliation = false;
 
   async function buildExpectedDnrState(candidate = {}) {
     const rules = Array.isArray(candidate.rules) ? candidate.rules : await getRules();
@@ -204,14 +206,15 @@ export function createDnrSynchronizer({
     return { activeRules, dnrRules };
   }
 
-  async function syncActiveRulesOnce(generation) {
+  async function syncActiveRulesOnce(generation, reconcileExistingTabs) {
     const { activeRules, dnrRules: expectedRules } =
       await buildExpectedDnrState();
     const currentRules = await declarativeNetRequest.getDynamicRules();
     const { removeRuleIds, addRules } =
       buildDnrDiff(currentRules, expectedRules);
+    const changed = removeRuleIds.length > 0 || addRules.length > 0;
 
-    if (removeRuleIds.length > 0 || addRules.length > 0) {
+    if (changed) {
       if (addRules.length > 0) {
         const capacity = inspectDnrRuleCapacity(expectedRules, declarativeNetRequest);
         if (!capacity.withinCapacity) throw createDnrCapacityError(capacity);
@@ -229,15 +232,24 @@ export function createDnrSynchronizer({
       );
     }
 
-    const urlsToClose = activeRules.map(rule => rule.blockURL);
+    const shouldReconcileTabs = changed || reconcileExistingTabs;
 
-    if (urlsToClose.length > 0 && generation === syncGeneration) {
-      await closeTabsMatchingRules(urlsToClose, () => generation === syncGeneration);
+    if (shouldReconcileTabs && activeRules.length > 0 && generation === syncGeneration) {
+      await closeTabsMatchingRules(
+        activeRules.map(rule => rule.blockURL),
+        () => generation === syncGeneration
+      );
+    }
+
+    // A newer passive watchdog may supersede this generation after a real DNR
+    // change. Carry its necessary tab cleanup into the fresh rules snapshot.
+    if (shouldReconcileTabs && generation !== syncGeneration) {
+      pendingTabReconciliation = true;
     }
 
     return {
       success: true,
-      changed: removeRuleIds.length > 0 || addRules.length > 0,
+      changed,
       removed: removeRuleIds.length,
       added: addRules.length
     };
@@ -254,9 +266,11 @@ export function createDnrSynchronizer({
     do {
       syncRequestedAgain = false;
       const generation = syncGeneration;
+      activeTabReconciliation = pendingTabReconciliation;
+      pendingTabReconciliation = false;
 
       try {
-        lastResult = await syncActiveRulesOnce(generation);
+        lastResult = await syncActiveRulesOnce(generation, activeTabReconciliation);
       } catch (error) {
         logger.info('Error updating active rules:', error);
         const code = getDnrErrorCode(error);
@@ -270,6 +284,8 @@ export function createDnrSynchronizer({
           ...(code ? { code } : {}),
           ...(error?.capacity ? { capacity: error.capacity } : {})
         };
+      } finally {
+        activeTabReconciliation = false;
       }
     } while (syncRequestedAgain);
 
@@ -282,9 +298,13 @@ export function createDnrSynchronizer({
     return lastResult;
   }
 
-  function requestSync() {
+  function requestSync({ reconcileExistingTabs = true } = {}) {
+    pendingTabReconciliation ||= reconcileExistingTabs !== false;
     syncGeneration += 1;
     if (rulesSyncPromise) {
+      // A passive watchdog must not cancel an explicit startup, mutation, or
+      // Focus request that has not finished reconciling existing tabs.
+      pendingTabReconciliation ||= activeTabReconciliation;
       syncRequestedAgain = true;
       return rulesSyncPromise;
     }
@@ -296,7 +316,7 @@ export function createDnrSynchronizer({
         // Covers a request arriving after the loop's final condition check but
         // before the active promise has completed its cleanup.
         if (syncRequestedAgain) {
-          return requestSync();
+          return requestSync({ reconcileExistingTabs: pendingTabReconciliation });
         }
       });
 

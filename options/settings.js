@@ -473,7 +473,12 @@ export class SettingsManager {
         throw new Error('File content is not valid JSON', { cause: error });
       }
       
-      if (!importData.rules || !Array.isArray(importData.rules)) {
+      if (
+        !importData ||
+        typeof importData !== 'object' ||
+        Array.isArray(importData) ||
+        !Array.isArray(importData.rules)
+      ) {
         throw new Error('Invalid file format: missing rules array');
       }
       

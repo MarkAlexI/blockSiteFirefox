@@ -521,6 +521,102 @@ test('synchronization skips the DNR API when rules are already current', async (
   assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
 });
 
+test('passive watchdog synchronization skips existing tabs when browser rules are current', async () => {
+  const harness = createHarness({ currentDnrRules: [makeDnrRule()] });
+
+  const first = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  const second = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.equal(first.success, true);
+  assert.equal(first.changed, false);
+  assert.equal(second.changed, false);
+  assert.deepEqual(harness.updates, []);
+  assert.deepEqual(harness.closedUrlBatches, []);
+});
+
+test('an explicit synchronization still reconciles stable tabs after a passive watchdog', async () => {
+  const harness = createHarness({ currentDnrRules: [makeDnrRule()] });
+
+  await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  await harness.synchronizer.requestSync();
+
+  assert.deepEqual(harness.updates, []);
+  assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
+});
+
+test('a passive watchdog closes existing tabs when a blocking rule becomes active', async () => {
+  const harness = createHarness();
+
+  const result = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.equal(result.changed, true);
+  assert.equal(result.added, 1);
+  assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
+});
+
+test('a passive watchdog detects scheduled activation before skipping stable later scans', async () => {
+  let active = false;
+  const harness = createHarness({
+    activationEvaluator: () => active
+  });
+
+  const inactive = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  assert.equal(inactive.changed, false);
+  assert.deepEqual(harness.closedUrlBatches, []);
+
+  active = true;
+  const activated = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  const stable = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.equal(activated.changed, true);
+  assert.equal(stable.changed, false);
+  assert.equal(harness.updates.length, 1);
+  assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
+});
+
+test('a passive watchdog repairs edited browser rules and reconciles the active target', async () => {
+  const harness = createHarness({
+    storedRules: [makeStoredRule({ id: 4, blockURL: 'current.example' })],
+    currentDnrRules: [makeDnrRule({ id: 4, urlFilter: '||obsolete.example' })]
+  });
+
+  const result = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.equal(result.changed, true);
+  assert.deepEqual(harness.updates[0].removeRuleIds, [4]);
+  assert.equal(harness.updates[0].addRules[0].condition.urlFilter, '||current.example');
+  assert.deepEqual(harness.closedUrlBatches, [['current.example']]);
+});
+
+test('a passive watchdog reconciles remaining active tabs after removing stale browser rules', async () => {
+  const harness = createHarness({
+    storedRules: [makeStoredRule({ id: 1, blockURL: 'protected.example' })],
+    currentDnrRules: [
+      makeDnrRule({ id: 1, urlFilter: '||protected.example' }),
+      makeDnrRule({ id: 9, urlFilter: '||stale.example' })
+    ]
+  });
+
+  const result = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.equal(result.changed, true);
+  assert.deepEqual(harness.updates[0], { removeRuleIds: [9], addRules: [] });
+  assert.deepEqual(harness.closedUrlBatches, [['protected.example']]);
+});
+
+test('passive removal of every active rule never queries or closes existing tabs', async () => {
+  const harness = createHarness({
+    storedRules: [],
+    currentDnrRules: [makeDnrRule()]
+  });
+
+  const result = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.equal(result.changed, true);
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.deepEqual(harness.closedUrlBatches, []);
+});
+
 test('synchronization applies one atomic remove/add for an edited stable ID', async () => {
   const current = makeDnrRule({ id: 1, urlFilter: '||old.example' });
   const harness = createHarness({
@@ -579,6 +675,143 @@ test('overlapping sync requests are serialized and rerun with fresh state', asyn
     '||second.example'
   );
   assert.deepEqual(harness.closedUrlBatches, [['second.example']]);
+});
+
+test('an explicit request superseding a passive watchdog still reconciles unchanged tabs', async () => {
+  let reads = 0;
+  let firstReadStarted;
+  let releaseFirstRead;
+  const firstReadReady = new Promise(resolve => { firstReadStarted = resolve; });
+  const firstReadGate = new Promise(resolve => { releaseFirstRead = resolve; });
+  const harness = createHarness({
+    currentDnrRules: [makeDnrRule()],
+    getRules: async () => {
+      if (++reads === 1) {
+        firstReadStarted();
+        await firstReadGate;
+      }
+      return [makeStoredRule()];
+    }
+  });
+
+  const passive = harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  await firstReadReady;
+  const explicit = harness.synchronizer.requestSync();
+  releaseFirstRead();
+  await Promise.all([passive, explicit]);
+
+  assert.equal(reads, 2);
+  assert.deepEqual(harness.updates, []);
+  assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
+});
+
+test('a passive watchdog cannot downgrade an overlapping explicit tab reconciliation', async () => {
+  let reads = 0;
+  let firstReadStarted;
+  let releaseFirstRead;
+  const firstReadReady = new Promise(resolve => { firstReadStarted = resolve; });
+  const firstReadGate = new Promise(resolve => { releaseFirstRead = resolve; });
+  const harness = createHarness({
+    currentDnrRules: [makeDnrRule()],
+    getRules: async () => {
+      if (++reads === 1) {
+        firstReadStarted();
+        await firstReadGate;
+      }
+      return [makeStoredRule()];
+    }
+  });
+
+  const explicit = harness.synchronizer.requestSync();
+  await firstReadReady;
+  const passive = harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  releaseFirstRead();
+  await Promise.all([explicit, passive]);
+
+  assert.equal(reads, 2);
+  assert.deepEqual(harness.updates, []);
+  assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
+});
+
+test('superseded passive DNR changes carry required tab cleanup into the latest snapshot', async () => {
+  let reads = 0;
+  let firstReadStarted;
+  let releaseFirstRead;
+  const firstReadReady = new Promise(resolve => { firstReadStarted = resolve; });
+  const firstReadGate = new Promise(resolve => { releaseFirstRead = resolve; });
+  const harness = createHarness({
+    getRules: async () => {
+      if (++reads === 1) {
+        firstReadStarted();
+        await firstReadGate;
+      }
+      return [makeStoredRule()];
+    }
+  });
+
+  const first = harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  await firstReadReady;
+  const second = harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  releaseFirstRead();
+  await Promise.all([first, second]);
+
+  assert.equal(reads, 2);
+  assert.equal(harness.updates.length, 1);
+  assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
+});
+
+test('superseded passive cleanup never closes tabs for a target removed by a newer snapshot', async () => {
+  let reads = 0;
+  let firstReadStarted;
+  let releaseFirstRead;
+  const firstReadReady = new Promise(resolve => { firstReadStarted = resolve; });
+  const firstReadGate = new Promise(resolve => { releaseFirstRead = resolve; });
+  const harness = createHarness({
+    getRules: async () => {
+      if (++reads === 1) {
+        firstReadStarted();
+        await firstReadGate;
+        return [makeStoredRule({ blockURL: 'removed.example' })];
+      }
+      return [];
+    }
+  });
+
+  const stale = harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  await firstReadReady;
+  const current = harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  releaseFirstRead();
+  await Promise.all([stale, current]);
+
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.deepEqual(harness.closedUrlBatches, []);
+});
+
+test('a late explicit request during diagnostics preserves its tab reconciliation intent', async () => {
+  let diagnosticsStarted;
+  let releaseDiagnostics;
+  const diagnosticsReady = new Promise(resolve => { diagnosticsStarted = resolve; });
+  const diagnosticsGate = new Promise(resolve => { releaseDiagnostics = resolve; });
+  let reports = 0;
+  const harness = createHarness({
+    currentDnrRules: [makeDnrRule()],
+    onSyncResult: async () => {
+      if (++reports === 1) {
+        diagnosticsStarted();
+        await diagnosticsGate;
+      }
+    }
+  });
+
+  const passive = harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  await diagnosticsReady;
+  const explicit = harness.synchronizer.requestSync();
+  releaseDiagnostics();
+  await Promise.all([passive, explicit]);
+
+  assert.equal(reports, 2);
+  assert.deepEqual(harness.updates, []);
+  assert.deepEqual(harness.closedUrlBatches, [['example.com']]);
 });
 
 test('a superseded DNR snapshot never closes tabs for a rule that was removed', async () => {

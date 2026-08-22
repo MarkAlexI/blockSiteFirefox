@@ -585,6 +585,58 @@ test('rule imports reject unsupported files, malformed JSON, and payloads withou
   });
 });
 
+test('rule imports reject null and primitive JSON roots without throwing a raw TypeError', async () => {
+  await withSettingsManager(async ({ document, manager }) => {
+    let replacements = 0;
+    manager.rulesClient.replaceAll = async () => { replacements += 1; };
+
+    for (const content of ['null', 'true', '42', '"rules"', '[]']) {
+      await manager.importRules({
+        name: 'rules.json',
+        async text() { return content; }
+      });
+      assert.match(
+        document.getElementById('statusMessage').textContent,
+        /Invalid file format: missing rules array/
+      );
+    }
+
+    assert.equal(replacements, 0);
+  });
+});
+
+test('Options preserves large inactive-profile imports without an invented total-rule cap', async () => {
+  await withSettingsManager(async ({ document, manager }) => {
+    const rules = Array.from({ length: 1_500 }, (_, index) => ({
+      blockURL: `archived-${index}.example`,
+      listId: 'list-1'
+    }));
+    const ruleLists = [
+      { id: 'general', name: 'General' },
+      { id: 'list-1', name: 'Archive' }
+    ];
+    let imported;
+    manager.rulesClient.replaceAll = async (...args) => {
+      imported = args;
+      return { rules: args[0] };
+    };
+    manager.loadStatistics = async () => {};
+
+    await manager.importRules({
+      name: 'large-rules.json',
+      async text() {
+        return JSON.stringify({ rules, ruleLists, activeRuleListId: 'general' });
+      }
+    });
+
+    assert.equal(imported[0].length, 1_500);
+    assert.deepEqual(imported[2], ruleLists);
+    assert.equal(imported[3], 'general');
+    assert.equal(document.getElementById('totalRules').textContent, 1_500);
+    assert.equal(document.getElementById('statusMessage').textContent, 'importedrules:1500');
+  });
+});
+
 test('confirmed rule imports preserve Rule Lists, activate the requested profile, and update the UI', async () => {
   await withSettingsManager(async ({ document, manager }) => {
     const importData = {

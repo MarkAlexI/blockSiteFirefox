@@ -27,7 +27,8 @@ function createHarness({
   usageBatchRemapError = null,
   durableUsageJournal = false,
   usageStageError = null,
-  usageRecoveryError = null
+  usageRecoveryError = null,
+  conflictObserver = null
 } = {}) {
   let rules = clone(initialRules);
   let ruleLists = clone(initialRuleLists);
@@ -59,6 +60,11 @@ function createHarness({
       };
     },
     checkConflict(currentRules, blockURL, isWhitelist, excludeIndex = -1) {
+      conflictObserver?.({
+        candidateCount: currentRules.length,
+        blockURL,
+        isWhitelist
+      });
       const cleanNew = blockURL.trim().toLowerCase();
 
       for (let index = 0; index < currentRules.length; index++) {
@@ -289,6 +295,241 @@ test('oversized imports do not replace rules, lists, active profiles, or setting
   assert.equal(harness.getSettings().mode, undefined);
   assert.equal(harness.savedStates.length, 0);
   assert.equal(harness.getCapacityChecks()[0].ruleListState.activeRuleListId, 'list-1');
+});
+
+test('large inactive-profile imports stay linear and do not consume the active browser budget', async () => {
+  const conflictChecks = [];
+  const lists = [
+    { id: 'general', name: 'General', disabledCategories: [] },
+    { id: 'list-1', name: 'Archive', disabledCategories: [] }
+  ];
+  const harness = createHarness({
+    conflictObserver: event => conflictChecks.push(event),
+    capacityValidation: (rules, state) => {
+      const activeCount = rules.filter(rule => getRuleAssignment(
+        rule,
+        state.activeRuleListId
+      )).length;
+      return activeCount <= 1
+        ? { withinCapacity: true }
+        : rejectDnrCapacity(activeCount, 1);
+    }
+  });
+  const archived = Array.from({ length: 2_000 }, (_, index) => ({
+    blockURL: `archive-${index}.example`,
+    redirectURL: '',
+    category: 'social',
+    listId: 'list-1'
+  }));
+
+  const result = await harness.service.replaceAll({
+    ruleLists: lists,
+    activeRuleListId: 'general',
+    rules: [
+      ...archived,
+      { blockURL: 'active.example', redirectURL: '', category: 'social' }
+    ]
+  });
+
+  assert.equal(result.rules.length, 2_001);
+  assert.equal(harness.getRules().length, 2_001);
+  assert.equal(harness.getRules().at(-1).id, 2_001);
+  assert.equal(harness.getCapacityChecks().length, 1);
+  assert.equal(harness.getCapacityChecks()[0].ruleListState.activeRuleListId, 'general');
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getSyncCalls(), 1);
+  assert.deepEqual(conflictChecks, []);
+});
+
+test('large blacklist imports compare only existing whitelist candidates', async () => {
+  const conflictChecks = [];
+  const harness = createHarness({
+    conflictObserver: event => conflictChecks.push(event)
+  });
+  const rules = [{
+    blockURL: 'allowed.safe',
+    redirectURL: '',
+    isWhitelist: true
+  }];
+  for (let index = 0; index < 1_200; index++) {
+    rules.push({
+      blockURL: `blocked-${index}.example`,
+      redirectURL: '',
+      category: 'social'
+    });
+  }
+
+  const result = await harness.service.replaceAll({ rules });
+
+  assert.equal(result.rules.length, 1_201);
+  assert.equal(conflictChecks.length, 1_200);
+  assert.equal(conflictChecks.every(event =>
+    event.candidateCount === 1 && event.isWhitelist === false
+  ), true);
+  assert.equal(harness.savedStates.length, 1);
+});
+
+test('late whitelist conflicts reject large imports atomically without quadratic blacklist scans', async () => {
+  const original = makeCapacityRule(1);
+  const conflictChecks = [];
+  const harness = createHarness({
+    initialRules: [original],
+    conflictObserver: event => conflictChecks.push(event)
+  });
+  const rules = Array.from({ length: 1_000 }, (_, index) => ({
+    blockURL: `blocked-${index}.example`,
+    redirectURL: ''
+  }));
+  rules.push({
+    blockURL: 'blocked-777.example/private',
+    redirectURL: '',
+    isWhitelist: true
+  });
+
+  await assert.rejects(
+    harness.service.replaceAll({
+      rules,
+      settings: { mode: 'strict' }
+    }),
+    error => error.code === 'conflict_blacklist'
+  );
+
+  assert.deepEqual(conflictChecks, [{
+    candidateCount: 1_000,
+    blockURL: 'blocked-777.example/private',
+    isWhitelist: true
+  }]);
+  assert.deepEqual(harness.getRules(), [original]);
+  assert.equal(harness.getSettings().mode, undefined);
+  assert.deepEqual(harness.getCapacityChecks(), []);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('invalid imported rule entries fail clearly without replacing rules or settings', async () => {
+  for (const invalidRule of [null, true, 4, 'example.com', []]) {
+    const original = makeCapacityRule(1);
+    const harness = createHarness({ initialRules: [original] });
+
+    await assert.rejects(
+      harness.service.replaceAll({
+        rules: [{ blockURL: 'valid.example', redirectURL: '' }, invalidRule],
+        settings: { mode: 'strict' }
+      }),
+      error => error.code === 'invalid_import' &&
+        error.message === 'Invalid file format: rule 2 must be an object'
+    );
+
+    assert.deepEqual(harness.getRules(), [original]);
+    assert.equal(harness.getSettings().mode, undefined);
+    assert.deepEqual(harness.getCapacityChecks(), []);
+    assert.equal(harness.savedStates.length, 0);
+  }
+});
+
+test('indexed import collision checks preserve normalized same-profile rejection', async () => {
+  const harness = createHarness();
+
+  await assert.rejects(
+    harness.service.replaceAll({
+      rules: [
+        {
+          blockURL: '  BLOCKED.Example ',
+          redirectURL: '',
+          category: 'social'
+        },
+        {
+          blockURL: 'blocked.example',
+          redirectURL: 'https://redirect.example/',
+          category: 'work'
+        }
+      ]
+    }),
+    error => error.code === 'rule_already_exists' &&
+      error.message === 'This URL already has a target in this list'
+  );
+
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(harness.savedStates.length, 0);
+});
+
+test('indexed import keys still reject duplicate exact targets across disjoint profiles', async () => {
+  const harness = createHarness();
+  const ruleLists = [
+    { id: 'general', name: 'General', disabledCategories: [] },
+    { id: 'list-1', name: 'Study', disabledCategories: [] }
+  ];
+
+  await assert.rejects(
+    harness.service.replaceAll({
+      ruleLists,
+      rules: [
+        {
+          blockURL: 'Same.Example',
+          redirectURL: 'https://redirect.example/',
+          category: 'social',
+          listId: 'general'
+        },
+        {
+          blockURL: ' same.example ',
+          redirectURL: ' https://redirect.example/ ',
+          category: 'social',
+          listId: 'list-1'
+        }
+      ]
+    }),
+    error => error.code === 'rule_already_exists' &&
+      error.message === 'Rule already exists'
+  );
+
+  assert.deepEqual(harness.getRuleLists().map(list => list.id), ['general']);
+  assert.equal(harness.savedStates.length, 0);
+});
+
+test('indexed imports preserve original whitelist and blacklist conflict precedence', async () => {
+  const firstWhitelist = createHarness();
+  await assert.rejects(
+    firstWhitelist.service.replaceAll({
+      rules: [
+        { blockURL: 'allowed.example', isWhitelist: true },
+        { blockURL: 'blocked.example', redirectURL: '' },
+        { blockURL: 'allowed.example/blocked.example', isWhitelist: true }
+      ]
+    }),
+    error => error.code === 'redundant_whitelist'
+  );
+
+  const firstBlacklist = createHarness();
+  await assert.rejects(
+    firstBlacklist.service.replaceAll({
+      rules: [
+        { blockURL: 'blocked.example', redirectURL: '' },
+        { blockURL: 'allowed.example', isWhitelist: true },
+        { blockURL: 'blocked.example/allowed.example', isWhitelist: true }
+      ]
+    }),
+    error => error.code === 'conflict_blacklist'
+  );
+
+  assert.equal(firstWhitelist.savedStates.length, 0);
+  assert.equal(firstBlacklist.savedStates.length, 0);
+});
+
+test('indexed blacklist imports preserve case-insensitive whitelist protection', async () => {
+  const harness = createHarness();
+
+  await assert.rejects(
+    harness.service.replaceAll({
+      rules: [
+        { blockURL: 'Allowed.Example', isWhitelist: true },
+        { blockURL: 'sub.ALLOWED.example', redirectURL: '' }
+      ]
+    }),
+    error => error.code === 'conflict_whitelist'
+  );
+
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(harness.getSyncCalls(), 0);
 });
 
 test('a rejected local import write cannot change independently stored settings', async () => {

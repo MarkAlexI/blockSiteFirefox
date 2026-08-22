@@ -59,6 +59,16 @@ function sendWorkerMessage(listener, message) {
   });
 }
 
+function countFullTabQueries(api) {
+  const originalQuery = api.tabs.query.bind(api.tabs);
+  let fullQueries = 0;
+  api.tabs.query = (query, callback) => {
+    if (Object.keys(query || {}).length === 0) fullQueries += 1;
+    return originalQuery(query, callback);
+  };
+  return () => fullQueries;
+}
+
 async function withWorker(callback, {
   credentials = {},
   settings = {},
@@ -225,6 +235,301 @@ test('minute watchdog preserves checks without rewriting unchanged inactive stor
     assert.equal(permissionChecks, 2);
     assert.equal(dnrReads, 2);
   }, { supportsWindows: false });
+});
+
+test('windowless watchdog checks stable active rules without rescanning every open tab', async () => {
+  const rule = makeFocusRule(31, 'general', { blockURL: 'blocked.example' });
+  await withWorker(async ({ api, alarm }) => {
+    api.tabs.values.push({ id: 3, url: 'https://safe.example/' });
+    const fullQueries = countFullTabQueries(api);
+    let permissionChecks = 0;
+    let dnrReads = 0;
+    const writes = [];
+    const originalPermissionCheck = api.permissions.contains;
+    const originalDnrRead = api.declarativeNetRequest.getDynamicRules;
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.permissions.contains = async (...args) => {
+      permissionChecks += 1;
+      return originalPermissionCheck(...args);
+    };
+    api.declarativeNetRequest.getDynamicRules = async (...args) => {
+      dnrReads += 1;
+      return originalDnrRead(...args);
+    };
+    api.storage.local.set = (values, callback) => {
+      writes.push(Object.keys(values));
+      return originalSet(values, callback);
+    };
+
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(fullQueries(), 1);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [31]);
+    writes.length = 0;
+    permissionChecks = 0;
+    dnrReads = 0;
+
+    await alarm({ name: 'update_scheduled_rules' });
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(fullQueries(), 1);
+    assert.equal(permissionChecks, 2);
+    assert.equal(dnrReads, 2);
+    assert.deepEqual(writes, []);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [31]);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules: [rule], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless watchdog repairs missing DNR protection and closes matching existing tabs', async () => {
+  const rule = makeFocusRule(32, 'general', { blockURL: 'blocked.example' });
+  await withWorker(async ({ api, alarm }) => {
+    api.tabs.values.push({ id: 4, url: 'https://safe.example/' });
+    const fullQueries = countFullTabQueries(api);
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(fullQueries(), 1);
+
+    api.dynamicRules = [];
+    api.tabs.values.push({ id: 5, url: 'https://blocked.example/watch' });
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(fullQueries(), 2);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [32]);
+    assert.deepEqual(api.removedTabs, [5]);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules: [rule], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless watchdog enforces a newly exhausted Daily Limit instead of skipping tab cleanup', async () => {
+  const rule = makeDailyLimitRule(33, 'general', {
+    blockURL: 'limited.example',
+    minutes: 1
+  });
+  await withWorker(async ({ api, alarm }) => {
+    api.tabs.values.push({ id: 6, url: 'https://safe.example/' });
+    const fullQueries = countFullTabQueries(api);
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(fullQueries(), 0);
+    assert.deepEqual(api.dynamicRules, []);
+
+    api.storage.local.data.dailyRuleUsage = {
+      version: 2,
+      date: getLocalDateKey(),
+      usageSeconds: { '33:general': 60 },
+      lastSample: null
+    };
+    api.tabs.values.push({ id: 7, url: 'https://limited.example/watch' });
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(fullQueries(), 1);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [33]);
+    assert.deepEqual(api.removedTabs, [7]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules: [rule], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless watchdog closes tabs when a previously disabled category becomes active', async () => {
+  const rule = makeFocusRule(34, 'general', { blockURL: 'social.example' });
+  await withWorker(async ({ api, alarm }) => {
+    api.tabs.values.push(
+      { id: 8, url: 'https://safe.example/' },
+      { id: 9, url: 'https://social.example/feed' }
+    );
+    const fullQueries = countFullTabQueries(api);
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(fullQueries(), 0);
+    assert.deepEqual(api.dynamicRules, []);
+
+    api.storage.local.data.ruleLists[0].disabledCategories = [];
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(fullQueries(), 1);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [34]);
+    assert.deepEqual(api.removedTabs, [9]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      rules: [rule],
+      activeRuleListId: 'general',
+      ruleLists: [{ id: 'general', name: 'General', disabledCategories: ['social'] }]
+    },
+    supportsWindows: false
+  });
+});
+
+test('windowless watchdog enforces a newly selected Rule List before suppressing stable scans', async () => {
+  const rule = makeFocusRule(37, 'list-1', { blockURL: 'study.example' });
+  await withWorker(async ({ api, alarm }) => {
+    api.tabs.values.push(
+      { id: 16, url: 'https://safe.example/' },
+      { id: 17, url: 'https://study.example/session' }
+    );
+    const fullQueries = countFullTabQueries(api);
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(fullQueries(), 0);
+    assert.deepEqual(api.dynamicRules, []);
+
+    api.storage.local.data.activeRuleListId = 'list-1';
+    await alarm({ name: 'update_scheduled_rules' });
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(fullQueries(), 1);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [37]);
+    assert.deepEqual(api.removedTabs, [17]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules: [rule], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless startup still reconciles existing blocked tabs when DNR is already current', async () => {
+  const rule = makeFocusRule(35, 'general', { blockURL: 'startup.example' });
+  await withWorker(async ({ api, alarm, startup }) => {
+    api.tabs.values.push({ id: 10, url: 'https://safe.example/' });
+    const fullQueries = countFullTabQueries(api);
+    await alarm({ name: 'update_scheduled_rules' });
+    const initialQueries = fullQueries();
+    api.tabs.values.push({ id: 11, url: 'https://startup.example/page' });
+
+    await startup();
+
+    assert.equal(fullQueries() > initialQueries, true);
+    assert.equal(api.removedTabs.includes(11), true);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [35]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      rules: [rule],
+      activeRuleListId: 'general',
+      lastCheck: Date.now()
+    },
+    supportsWindows: false
+  });
+});
+
+test('windowless Focus startup still closes blocked tabs when active browser rules are unchanged', async () => {
+  const rule = makeFocusRule(36, 'general', { blockURL: 'focus.example' });
+  await withWorker(async ({ api, alarm, send }) => {
+    api.tabs.values.push({ id: 12, url: 'https://safe.example/' });
+    const fullQueries = countFullTabQueries(api);
+    await alarm({ name: 'update_scheduled_rules' });
+    const initialQueries = fullQueries();
+    api.tabs.values.push({ id: 13, url: 'https://focus.example/watch' });
+
+    const response = await send({ type: 'start_focus_session', duration: 25 });
+
+    assert.equal(response.success, true);
+    assert.equal(fullQueries() > initialQueries, true);
+    assert.equal(api.removedTabs.includes(13), true);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [36]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules: [rule], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless rule creation still immediately reconciles matching existing tabs', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values.push(
+      { id: 14, url: 'https://safe.example/' },
+      { id: 15, url: 'https://created.example/' }
+    );
+    const fullQueries = countFullTabQueries(api);
+
+    const response = await send({
+      type: 'rules:add',
+      payload: {
+        blockURL: 'created.example',
+        redirectURL: '',
+        category: 'social'
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(fullQueries(), 1);
+    assert.deepEqual(api.removedTabs, [15]);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [response.rule.id]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless worker imports thousands of inactive rules without exhausting active DNR capacity', async () => {
+  await withWorker(async ({ api, send }) => {
+    const archived = Array.from({ length: 1_500 }, (_, index) => ({
+      blockURL: `archive-${index}.example`,
+      redirectURL: '',
+      category: 'social',
+      listId: 'list-1'
+    }));
+
+    const response = await send({
+      type: 'rules:replaceAll',
+      payload: {
+        rules: [
+          ...archived,
+          { blockURL: 'active.example', redirectURL: '', category: 'social' }
+        ],
+        ruleLists: [
+          { id: 'general', name: 'General', disabledCategories: [] },
+          { id: 'list-1', name: 'Archive', disabledCategories: [] }
+        ],
+        activeRuleListId: 'general'
+      }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(api.storage.local.data.rules.length, 1_501);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [1_501]);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general' },
+    dnrLimits: { MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 1 },
+    supportsWindows: false
+  });
+});
+
+test('windowless worker rejects malformed imported rule entries without changing stored state', async () => {
+  const original = makeFocusRule(38, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const protectedRules = structuredClone(api.dynamicRules);
+
+    const response = await send({
+      type: 'rules:replaceAll',
+      payload: {
+        rules: [{ blockURL: 'replacement.example', redirectURL: '' }, null],
+        settings: { mode: 'strict' }
+      }
+    });
+
+    assert.equal(response.success, false);
+    assert.equal(response.error.code, 'invalid_import');
+    assert.match(response.error.message, /rule 2 must be an object/);
+    assert.deepEqual(api.storage.local.data.rules, [original]);
+    assert.equal(api.storage.sync.data.settings.mode, 'normal');
+    assert.deepEqual(api.dynamicRules, protectedRules);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules: [original], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
 });
 
 test('windowless workers reject excess unsafe DNR rules without changing stored or browser rules', async () => {
