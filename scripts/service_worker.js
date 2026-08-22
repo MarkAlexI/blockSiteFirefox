@@ -140,6 +140,31 @@ async function recordRuleIntentTelemetry(type, result) {
   if (counter) await telemetryStore.incrementCounter(counter);
 }
 
+async function settleRulesIntentPostCommitTasks(type, result) {
+  const cleanupAndSample = (async () => {
+    try {
+      await dailyLimitManager.pruneAssignmentKeys(
+        getDailyLimitAssignmentKeys(result.rules || [])
+      );
+    } catch (error) {
+      logger.info('Rules post-commit Daily Limit cleanup failed:', error);
+    }
+
+    await dailyLimitTracker.sample('rules_intent');
+  })();
+
+  const outcomes = await Promise.allSettled([
+    cleanupAndSample,
+    recordRuleIntentTelemetry(type, result)
+  ]);
+
+  for (const outcome of outcomes) {
+    if (outcome.status === 'rejected') {
+      logger.info('Rules post-commit side effect failed:', outcome.reason);
+    }
+  }
+}
+
 async function recordDnrSyncResult(result) {
   if (result.changed || !result.success) {
     await diagnosticStore.updateState({
@@ -468,14 +493,14 @@ async function syncLicenseKeyStatus() {
   }
 }
 
-function updateContextMenu(isPro) {
+function updateContextMenu(hasPaidAccess) {
   if (!browser.contextMenus) return Promise.resolve();
 
   return new Promise(resolve => {
     browser.contextMenus.remove('blockDistraction', () => {
       void browser.runtime.lastError;
 
-      if (isPro) {
+      if (hasPaidAccess) {
         const menuTitle = browser.i18n.getMessage('blockthat');
 
         browser.contextMenus.create({
@@ -499,8 +524,7 @@ if (browser.contextMenus) {
   browser.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId !== 'blockDistraction') return;
     
-    const isPro = await ProManager.isPro();
-    if (!isPro) {
+    if (!await ProManager.hasPaidAccess()) {
       logger.warn('Attempted to block while not in pro mode');
       return;
     }
@@ -601,7 +625,7 @@ async function restoreFreeRuleListAccess(shouldContinue = () => true) {
 
     await dailyLimitTracker.pause('pro_access_lost');
     const currentAccess = await ProManager.getAccess();
-    if (!shouldContinue() || currentAccess.isPro) return false;
+    if (!shouldContinue() || currentAccess.isPro || currentAccess.isLegacyUser) return false;
     await ruleListsManager.setActiveListId(GENERAL_RULE_LIST_ID);
 
     const rules = await rulesManager.getRules();
@@ -683,7 +707,9 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
       if (!shouldContinue()) return updatedCredentials;
 
       logger.log('Pro status updated successfully');
-      await updateContextMenu(isPro);
+      await updateContextMenu(
+        updatedCredentials.isPro === true || ProManager.resolveLegacyAccess(updatedCredentials)
+      );
       return updatedCredentials;
     } catch (error) {
       logger.error('Error handling Pro status update:', error);
@@ -730,10 +756,11 @@ browser.tabs.onCreated.addListener(async (tab) => {
 });
 
 browser.runtime.onStartup.addListener(async () => {
-  await telemetryClient.restoreRetry();
-
-  const skip = await shouldSkipSync();
-  if (skip) return;
+  try {
+    await telemetryClient.restoreRetry();
+  } catch (error) {
+    logger.info('Could not restore the telemetry retry on startup:', error);
+  }
   
   ensureAlarmsCreated();
   
@@ -745,10 +772,13 @@ browser.runtime.onStartup.addListener(async () => {
   await dnrSynchronizer.requestSync();
   
   try {
-    const result = await syncLicenseKeyStatus();
-    logger.log('Startup: Pro status is', result.isPro, '- updating context menu...');
-    await updateContextMenu(result.isPro);
-    await browser.storage.local.set({ lastCheck: Date.now() });
+    if (!await shouldSkipSync()) {
+      const result = await syncLicenseKeyStatus();
+      const access = await ProManager.getAccess();
+      logger.log('Startup: Pro status is', result.isPro, '- updating context menu...');
+      await updateContextMenu(access.isPro || access.isLegacyUser);
+      await browser.storage.local.set({ lastCheck: Date.now() });
+    }
   } catch (error) {
     logger.error('Error syncing:', error);
   }
@@ -816,10 +846,10 @@ async function initializeExtension(details) {
       }
     }
     
-    const isPro = await ProManager.isPro();
     const ruleListRestored = await restoreFreeRuleListAccess();
     await restoreFreeFocusAccess(() => true, { ruleListRestored });
-    await updateContextMenu(isPro);
+    const access = await ProManager.getAccess();
+    await updateContextMenu(access.isPro || access.isLegacyUser);
   } catch (error) {
     logger.info('Error handling install/update for legacy:', error);
   }
@@ -1073,13 +1103,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
       try {
         const result = await handleRulesIntent(message);
-        await dailyLimitManager.pruneAssignmentKeys(
-          getDailyLimitAssignmentKeys(result.rules || [])
-        );
-        await Promise.all([
-          recordRuleIntentTelemetry(message.type, result),
-          dailyLimitTracker.sample('rules_intent')
-        ]);
+        await settleRulesIntentPostCommitTasks(message.type, result);
         sendResponse({ success: true, ...result });
       } catch (error) {
         const expectedRejection = isExpectedRulesRejection(error, message.type);
@@ -1110,7 +1134,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }));
         }
 
-        await Promise.all(telemetryTasks);
+        for (const outcome of await Promise.allSettled(telemetryTasks)) {
+          if (outcome.status === 'rejected') {
+            logger.info('Rules failure reporting could not be persisted:', outcome.reason);
+          }
+        }
         sendResponse({
           success: false,
           error: serializeRulesMutationError(error)
@@ -1287,7 +1315,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   if (message.type === 'pro_status_changed') {
     void enqueueProStatusTransition(async () => {
-      await updateContextMenu(await ProManager.isPro());
+      await updateContextMenu(await ProManager.hasPaidAccess());
     });
     return;
   }

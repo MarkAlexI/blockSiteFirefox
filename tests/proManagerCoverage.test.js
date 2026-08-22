@@ -102,6 +102,19 @@ test('an access snapshot derives Pro and legacy state from one credential read',
   });
 });
 
+test('paid feature access accepts Pro and genuine legacy users while rejecting modern Free users', async () => {
+  for (const [credentials, expected] of [
+    [{ isPro: true, installationDate: '2026-08-01T00:00:00.000Z' }, true],
+    [{ isPro: false, installationDate: '2025-12-31T23:59:59.999Z' }, true],
+    [{ isPro: false, installationDate: null }, true],
+    [{ isPro: false, installationDate: '2026-01-01T00:00:00.000Z' }, false]
+  ]) {
+    await withProManager({ sync: { credentials } }, async ({ ProManager }) => {
+      assert.equal(await ProManager.hasPaidAccess(), expected);
+    });
+  }
+});
+
 test('upgrading preserves existing subscription fields and sends a status notification', async () => {
   await withProManager({ sync: { credentials: {
     isPro: false,
@@ -170,6 +183,30 @@ test('Pro feature visibility switches every protected element without requiring 
   });
 });
 
+test('legacy features stay visible when a genuine legacy user signs out of Pro', async () => {
+  const document = new FakeDocument();
+  const feature = document.addElement('legacy-feature');
+  feature.className = 'pro-feature hidden';
+
+  await withProManager({
+    sync: { credentials: {
+      isPro: true,
+      licenseKey: 'BD-LEGACY-123',
+      installationDate: '2025-12-01T00:00:00.000Z'
+    } },
+    document
+  }, async ({ ProManager }) => {
+    assert.equal(await ProManager.initializeProFeatures(), true);
+    assert.equal(feature.classList.contains('hidden'), false);
+
+    const credentials = await ProManager.updateProStatus(false);
+
+    assert.equal(credentials.isPro, false);
+    assert.equal(await ProManager.hasPaidAccess(), true);
+    assert.equal(feature.classList.contains('hidden'), false);
+  });
+});
+
 test('Pro updates work in a service worker without a DOM or windows API', async () => {
   await withProManager({ sync: { credentials: { installationDate: '2026-08-01' } } }, async ({ api, ProManager }) => {
     assert.equal(ProManager.hasDOM, false);
@@ -184,9 +221,40 @@ test('storage failures fail closed for Pro checks and return default credentials
   await withProManager({}, async ({ api, ProManager }) => {
     api.storage.sync.getError = new Error('sync storage unavailable');
     await suppressConsoleError(async () => {
+      await assert.rejects(ProManager.getAccess(), /sync storage unavailable/);
       assert.equal(await ProManager.isPro(), false);
+      assert.equal(await ProManager.isLegacyUser(), false);
+      assert.equal(await ProManager.hasPaidAccess(), false);
+      assert.equal(await ProManager.initializeProFeatures(), false);
       assert.deepEqual(await ProManager.getCredentials(), ProManager.defaultCredentials);
     });
+  });
+});
+
+test('an unavailable credential store cannot overwrite an existing paid subscription', async () => {
+  const credentials = {
+    isPro: true,
+    licenseKey: 'BD-EXISTING-123',
+    installationDate: '2026-08-01T00:00:00.000Z'
+  };
+  await withProManager({ sync: { credentials } }, async ({ api, ProManager }) => {
+    api.storage.sync.getError = new Error('sync storage unavailable');
+    await suppressConsoleError(async () => {
+      await assert.rejects(ProManager.updateProStatus(false), /sync storage unavailable/);
+    });
+    assert.deepEqual(api.storage.sync.data.credentials, credentials);
+  });
+});
+
+test('failed first-install credential persistence cannot grant legacy access', async () => {
+  await withProManager({}, async ({ api, ProManager }) => {
+    api.storage.sync.setError = new Error('sync storage read-only');
+    await suppressConsoleError(async () => {
+      await assert.rejects(ProManager.getAccess(), /read-only/);
+      assert.equal(await ProManager.isLegacyUser(), false);
+      assert.equal(await ProManager.hasPaidAccess(), false);
+    });
+    assert.equal(api.storage.sync.data.credentials, undefined);
   });
 });
 

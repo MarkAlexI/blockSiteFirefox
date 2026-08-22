@@ -335,7 +335,10 @@ test('settings controls persist radio, checkbox, debug, and focus-sound changes'
 });
 
 test('Free users cannot activate password protection or Pro-only bulk settings actions', async () => {
-  await withSettingsManager({ sync: { credentials: { isPro: false }, settings: { ...defaultSettings } } }, async ({
+  await withSettingsManager({ sync: {
+    credentials: { isPro: false, installationDate: '2026-08-01T00:00:00.000Z' },
+    settings: { ...defaultSettings }
+  } }, async ({
     document, manager
   }) => {
     const invoked = [];
@@ -350,6 +353,65 @@ test('Free users cannot activate password protection or Pro-only bulk settings a
       assert.equal(document.getElementById('statusMessage').textContent, 'prorequired');
     }
     assert.deepEqual(invoked, []);
+  });
+});
+
+test('genuine legacy users can use paid Options actions without an active Pro subscription', async () => {
+  await withSettingsManager({ sync: {
+    credentials: { isPro: false, installationDate: '2025-12-01T00:00:00.000Z' },
+    settings: { ...defaultSettings }
+  } }, async ({ document, manager }) => {
+    const invoked = [];
+    manager.exportRules = () => invoked.push('export');
+    manager.clearAllRules = () => invoked.push('clear');
+    manager.resetSettings = () => invoked.push('reset');
+    manager.checkPasswordProtection = async () => true;
+    manager.loadStatistics = async () => invoked.push('statistics-loaded');
+    document.getElementById('importFileInput').click = () => invoked.push('import');
+
+    const { StatisticsManager } = await import('../pro/statisticsManager.js');
+    const originalReset = StatisticsManager.reset;
+    StatisticsManager.reset = async () => invoked.push('statistics-reset');
+    try {
+      manager.setupEventListeners();
+      for (const id of ['exportRules', 'importRules', 'clearAllRules', 'resetSettings', 'clearStatistics']) {
+        await document.getElementById(id).dispatch('click');
+      }
+
+      assert.deepEqual(invoked, [
+        'export', 'import', 'clear', 'reset', 'statistics-reset', 'statistics-loaded'
+      ]);
+      assert.equal(document.getElementById('statusMessage').textContent, 'statscleared');
+    } finally {
+      StatisticsManager.reset = originalReset;
+    }
+  });
+});
+
+test('Options paid actions fail closed when credentials cannot be read', async () => {
+  await withSettingsManager({ sync: {
+    credentials: { isPro: true, installationDate: '2026-08-01T00:00:00.000Z' },
+    settings: { ...defaultSettings }
+  } }, async ({ api, document, manager }) => {
+    const invoked = [];
+    manager.exportRules = () => invoked.push('export');
+    manager.clearAllRules = () => invoked.push('clear');
+    manager.resetSettings = () => invoked.push('reset');
+    manager.loadStatistics = async () => {};
+    manager.setupEventListeners();
+    api.storage.sync.getError = new Error('sync storage unavailable');
+
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      for (const id of ['enablePassword', 'exportRules', 'importRules', 'clearAllRules', 'resetSettings', 'clearStatistics']) {
+        await document.getElementById(id).dispatch('click');
+        assert.equal(document.getElementById('statusMessage').textContent, 'prorequired');
+      }
+      assert.deepEqual(invoked, []);
+    } finally {
+      console.error = originalError;
+    }
   });
 });
 
@@ -378,6 +440,32 @@ test('Pro users can configure and remove password protection through the intende
       assert.equal(api.storage.sync.data.settings.enablePassword, false);
       assert.equal(api.storage.sync.data.settings.passwordHash, null);
       assert.equal(toggle.checked, false);
+    } finally {
+      PasswordUtils.showPasswordModal = original;
+    }
+  });
+});
+
+test('legacy users can enable password protection without restoring a Pro license', async () => {
+  await withSettingsManager({ sync: {
+    credentials: { isPro: false, installationDate: '2025-12-01T00:00:00.000Z' },
+    settings: { ...defaultSettings }
+  } }, async ({ api, document, manager }) => {
+    manager.loadStatistics = async () => {};
+    const { PasswordUtils } = await import('../pro/password.js');
+    const original = PasswordUtils.showPasswordModal;
+    try {
+      PasswordUtils.showPasswordModal = (type, callback) => {
+        assert.equal(type, 'set');
+        callback('legacy:hash');
+      };
+      manager.setupEventListeners();
+      await document.getElementById('enablePassword').dispatch('click');
+      await new Promise(resolve => queueMicrotask(resolve));
+
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.settings.enablePassword, true);
+      assert.equal(api.storage.sync.data.settings.passwordHash, 'legacy:hash');
     } finally {
       PasswordUtils.showPasswordModal = original;
     }

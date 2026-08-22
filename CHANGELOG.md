@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.13] - 2026-08-22
+### Fixed
+- Committed rule additions, deletions, toggles, and other mutations remain successful when post-commit Daily Limit cleanup, sampling, or analytics persistence fails; failed mutations still return their original safe error even if diagnostics and telemetry cannot be saved.
+- Browser startup always restores local extension state, repairs former Pro access to General, checks host permissions, samples Daily Limits, and reconciles browser DNR rules; the twelve-hour throttle now applies only to remote license verification.
+- Telemetry retry-restoration failures no longer prevent startup recovery, and the existing one-minute scheduled recovery alarm is unchanged.
+- Genuine legacy installations retain paid Settings controls, password protection, import/export, bulk actions, browser context-menu blocking, and visible Popup/Options features without requiring an active Pro subscription.
+- Credential storage failures fail closed for Pro and legacy authorization and cannot overwrite an existing subscription; normal Free rule toggling and deletion remain available even while sync storage is inaccessible.
+- Access snapshots and repeated downgrade checks preserve a concurrently restored legacy entitlement instead of forcing its custom Rule List back to General.
+
+### Added
+- Added 21 regression scenarios for post-commit fault injection, resilient error responses, throttled startup recovery, stale DNR rules, telemetry retry restoration, fail-closed credentials, always-Free cleanup, legacy feature access, and Firefox Android workers without the windows API.
+
 ## [5.1.12] - 2026-08-22
 ### Changed
 - Idle Daily Limit samples and unchanged assignment cleanup no longer rewrite local storage while preserving active-segment persistence, local-day rollover, and the existing one-minute recovery alarm.

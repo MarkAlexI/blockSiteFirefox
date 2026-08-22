@@ -27,12 +27,22 @@ export class ProManager {
   }
 
   static async getAccess() {
-    const credentials = await this.getCredentials();
+    const credentials = await this.getCredentials({ throwOnError: true });
     return {
       credentials,
       isPro: credentials.isPro === true,
       isLegacyUser: this.resolveLegacyAccess(credentials)
     };
+  }
+
+  static async hasPaidAccess() {
+    try {
+      const access = await this.getAccess();
+      return access.isPro || access.isLegacyUser;
+    } catch (error) {
+      this.logger.info('Error checking paid feature access:', error);
+      return false;
+    }
   }
   
   static async isPro() {
@@ -49,11 +59,11 @@ export class ProManager {
       return (await this.getAccess()).isLegacyUser;
     } catch (error) {
       this.logger.info('Error checking legacy status:', error);
-      return true;
+      return false;
     }
   }
   
-  static async getCredentials() {
+  static async getCredentials({ throwOnError = false } = {}) {
     try {
       const result = await browser.storage.sync.get(['credentials']);
       
@@ -67,13 +77,14 @@ export class ProManager {
       return { ...this.defaultCredentials, ...result.credentials };
     } catch (error) {
       this.logger.error('Error getting credentials:', error);
+      if (throwOnError) throw error;
       return this.defaultCredentials;
     }
   }
   
   static async updateProStatus(isPro, subscriptionData = {}) {
     try {
-      const currentCredentials = await this.getCredentials();
+      const currentCredentials = await this.getCredentials({ throwOnError: true });
       
       const updatedCredentials = {
         ...currentCredentials,
@@ -90,7 +101,7 @@ export class ProManager {
       await browser.storage.sync.set({ credentials: updatedCredentials });
       
       if (this.hasDOM) {
-        this.updateProFeaturesVisibility(isPro);
+        this.updateProFeaturesVisibility(isPro || this.resolveLegacyAccess(updatedCredentials));
       }
       
       this.notifyProStatusChange(isPro);
@@ -141,11 +152,11 @@ export class ProManager {
   
   static async initializeProFeatures() {
     try {
-      const isPro = await this.isPro();
+      const hasPaidAccess = await this.hasPaidAccess();
       if (this.hasDOM) {
-        this.updateProFeaturesVisibility(isPro);
+        this.updateProFeaturesVisibility(hasPaidAccess);
       }
-      return isPro;
+      return hasPaidAccess;
     } catch (error) {
       this.logger.error('Error initializing Pro features:', error);
       return false;

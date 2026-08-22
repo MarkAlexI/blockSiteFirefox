@@ -254,7 +254,7 @@ export class SettingsManager {
       enablePasswordToggle.addEventListener('click', async (event) => {
         event.preventDefault();
         
-        if (!await ProManager.isPro()) {
+        if (!await ProManager.hasPaidAccess()) {
           this.showStatus(t('prorequired'), 'error');
           return;
         }
@@ -282,12 +282,12 @@ export class SettingsManager {
     }
     
     document.getElementById('exportRules').addEventListener('click', async () => {
-      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
       this.exportRules();
     });
     
     document.getElementById('importRules').addEventListener('click', async () => {
-      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
       document.getElementById('importFileInput').click();
     });
     
@@ -296,7 +296,7 @@ export class SettingsManager {
     });
     
     document.getElementById('clearAllRules').addEventListener('click', async () => {
-      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
       
       const isAuthorized = await this.checkPasswordProtection();
       if (!isAuthorized) return;
@@ -305,7 +305,7 @@ export class SettingsManager {
     });
     
     document.getElementById('resetSettings').addEventListener('click', async () => {
-      if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+      if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
       
       const isAuthorized = await this.checkPasswordProtection();
       if (!isAuthorized) return;
@@ -316,7 +316,7 @@ export class SettingsManager {
     const clearStatsBtn = document.getElementById('clearStatistics');
     if (clearStatsBtn) {
       clearStatsBtn.addEventListener('click', async () => {
-        if (!await ProManager.isPro()) { this.showStatus(t('prorequired'), 'error'); return; }
+        if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
         
         const isAuthorized = await this.checkPasswordProtection();
         if (!isAuthorized) return;

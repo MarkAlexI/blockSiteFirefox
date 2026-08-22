@@ -86,8 +86,9 @@ class PopupPage {
     mountScroll(this.currentModeElement, this.scrollToTopBtn);
     
     try {
-      this.isPro = await ProManager.isPro();
-      this.isLegacyUser = await ProManager.isLegacyUser();
+      const access = await ProManager.getAccess();
+      this.isPro = access.isPro;
+      this.isLegacyUser = access.isLegacyUser;
     } catch (error) {
       this.logger.info('Error initializing Pro/Legacy status:', error);
     }
@@ -863,7 +864,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'pro_status_changed') {
     logger.log(`Pro status changed: ${message.isPro}`);
     
-    ProManager.updateProFeaturesVisibility(message.isPro);
+    ProManager.updateProFeaturesVisibility(message.isPro || popupPage.isLegacyUser);
     popupPage.isPro = message.isPro;
     popupPage.updateWhitelistButtonState();
     popupPage.loadRules();

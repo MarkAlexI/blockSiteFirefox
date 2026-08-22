@@ -53,12 +53,13 @@ function sendWorkerMessage(listener, message) {
 
 async function withWorker(callback, {
   credentials = {},
+  settings = {},
   local = {},
   supportsWindows = !TEST_FIREFOX_ANDROID
 } = {}) {
   const api = createExtensionApi({
     sync: {
-      settings: { mode: 'normal', debugMode: false, focusSessionSound: false },
+      settings: { mode: 'normal', debugMode: false, focusSessionSound: false, ...settings },
       credentials: {
         isPro: true,
         licenseKey: 'BD-OLD-KEY',
@@ -92,14 +93,17 @@ async function withWorker(callback, {
   api.tabs.onCreated = createEvent();
   api.tabs.get = async id => api.tabs.values.find(tab => tab.id === id) || { id };
   api.contextMenuPresent = false;
+  api.contextMenuDetails = null;
   api.contextMenus = {
     onClicked: createEvent(),
     remove(_id, callback) {
       api.contextMenuPresent = false;
+      api.contextMenuDetails = null;
       callback?.();
     },
-    create(_details, callback) {
+    create(details, callback) {
       api.contextMenuPresent = true;
+      api.contextMenuDetails = structuredClone(details);
       callback?.();
     }
   };
@@ -170,7 +174,8 @@ async function withWorker(callback, {
       await callback({
         api,
         send: message => sendWorkerMessage(api.runtime.onMessage.listeners[0], message),
-        alarm: alarm => api.alarms.onAlarm.listeners[0](alarm)
+        alarm: alarm => api.alarms.onAlarm.listeners[0](alarm),
+        startup: () => api.runtime.onStartup.listeners[0]()
       });
     });
   } finally {
@@ -210,6 +215,352 @@ test('minute watchdog preserves checks without rewriting unchanged inactive stor
     assert.equal(permissionChecks, 2);
     assert.equal(dnrReads, 2);
   }, { supportsWindows: false });
+});
+
+test('a committed rule remains successful when its telemetry write is rejected', async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      if (Object.hasOwn(values, 'telemetryBuckets')) {
+        return Promise.reject(new Error('telemetry storage quota exceeded'));
+      }
+      return originalSet(values, callback);
+    };
+
+    const response = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'committed.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(response.rule.blockURL, 'committed.example');
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.id), [response.rule.id]);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [response.rule.id]);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('Daily Limit cleanup failure cannot undo a committed rule or skip its follow-up sample', async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    const originalQuery = api.tabs.query.bind(api.tabs);
+    let dailyReads = 0;
+    let activeSamples = 0;
+    api.storage.local.get = (keys, callback) => {
+      if (keys === 'dailyRuleUsage' && ++dailyReads === 2) {
+        return Promise.reject(new Error('Daily Limit cleanup unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+    api.tabs.query = (query, callback) => {
+      if (query?.active === true) activeSamples += 1;
+      return originalQuery(query, callback);
+    };
+
+    const response = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'cleanup-failure.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(activeSamples, 1);
+    assert.equal(dailyReads >= 3, true);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [response.rule.id]);
+    assert.equal(Object.values(api.storage.local.data.telemetryBuckets)[0].counters.rule_created, 1);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a failed Daily Limit sample cannot turn a committed rule into a failed mutation', async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let dailyReads = 0;
+    api.storage.local.get = (keys, callback) => {
+      if (keys === 'dailyRuleUsage' && ++dailyReads === 3) {
+        return Promise.reject(new Error('Daily Limit sample unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    const response = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'sample-failure.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(response.success, true);
+    assert.equal(dailyReads, 3);
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'sample-failure.example');
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [response.rule.id]);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('failed rule mutations still respond when diagnostics and telemetry both reject', async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    const rejectedWrites = [];
+    api.storage.local.set = (values, callback) => {
+      for (const key of ['diagnosticEvents', 'telemetryBuckets']) {
+        if (Object.hasOwn(values, key)) {
+          rejectedWrites.push(key);
+          return Promise.reject(new Error(key + ' storage write rejected'));
+        }
+      }
+      return originalSet(values, callback);
+    };
+
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      const response = await send({ type: 'rules:delete', payload: { ruleId: 404 } });
+      assert.equal(response.success, false);
+      assert.equal(response.error.code, 'rule_not_found');
+      assert.deepEqual(new Set(rejectedWrites), new Set(['diagnosticEvents', 'telemetryBuckets']));
+    } finally {
+      console.error = originalError;
+    }
+  }, {
+    settings: { debugMode: true },
+    local: { telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } },
+    supportsWindows: false
+  });
+});
+
+test('expected validation failures keep their original response if diagnostic history cannot be saved', async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => Object.hasOwn(values, 'diagnosticEvents')
+      ? Promise.reject(new Error('diagnostic history unavailable'))
+      : originalSet(values, callback);
+
+    const response = await send({
+      type: 'rules:add',
+      payload: {
+        blockURL: 'invalid-redirect.example',
+        redirectURL: 'not a valid redirect',
+        category: 'social'
+      }
+    });
+
+    assert.equal(response.success, false);
+    assert.equal(response.error.code, 'validation_failed');
+    assert.deepEqual(response.error.validationErrors, ['redirect_invalid']);
+    assert.equal(api.storage.local.data.telemetryBuckets, undefined);
+  }, { settings: { debugMode: true }, supportsWindows: false });
+});
+
+test('recent license checks never skip startup Free recovery, Daily Limit sampling, or DNR repair', async () => {
+  const recentCheck = Date.now();
+  const rules = [
+    makeFocusRule(201, 'general', { blockURL: 'general-startup.example' }),
+    makeFocusRule(202, 'list-1', { blockURL: 'study-startup.example' })
+  ];
+
+  await withWorker(async ({ api, startup }) => {
+    const originalQuery = api.tabs.query.bind(api.tabs);
+    let licenseRequests = 0;
+    let activeSamples = 0;
+    let permissionChecks = 0;
+    api.setFetchHandler(async () => {
+      licenseRequests += 1;
+      return { ok: true, status: 200, json: async () => ({ isPro: false }) };
+    });
+    api.tabs.query = (query, callback) => {
+      if (query?.active === true) activeSamples += 1;
+      return originalQuery(query, callback);
+    };
+    api.permissions.contains = async () => {
+      permissionChecks += 1;
+      return true;
+    };
+
+    await startup();
+
+    assert.equal(api.windows, undefined);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.id), [201, 202]);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [201]);
+    assert.equal(permissionChecks, 1);
+    assert.equal(activeSamples >= 1, true);
+    assert.equal(licenseRequests, 0);
+    assert.equal(api.storage.local.data.lastCheck, recentCheck);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { rules, activeRuleListId: 'list-1', lastCheck: recentCheck },
+    supportsWindows: false
+  });
+});
+
+test('a throttled Pro startup still replaces stale browser rules without contacting the license server', async () => {
+  const recentCheck = Date.now();
+  const rules = [makeFocusRule(211, 'general', { blockURL: 'repaired-startup.example' })];
+  await withWorker(async ({ api, startup }) => {
+    api.dynamicRules = [{
+      id: 999,
+      priority: 1,
+      action: { type: 'block' },
+      condition: { urlFilter: 'stale.example', resourceTypes: ['main_frame'] }
+    }];
+    let licenseRequests = 0;
+    api.setFetchHandler(async () => {
+      licenseRequests += 1;
+      throw new Error('throttled license check must not run');
+    });
+
+    await startup();
+
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [211]);
+    assert.equal(api.dnrUpdates.some(update => update.removeRuleIds.includes(999)), true);
+    assert.equal(api.contextMenuPresent, true);
+    assert.equal(licenseRequests, 0);
+    assert.equal(api.storage.local.data.lastCheck, recentCheck);
+  }, { local: { rules, activeRuleListId: 'general', lastCheck: recentCheck }, supportsWindows: false });
+});
+
+test('newly restored legacy access cannot be overwritten by an older Free startup snapshot', async () => {
+  await withWorker(async ({ api, startup }) => {
+    const originalGet = api.storage.sync.get.bind(api.storage.sync);
+    let credentialReads = 0;
+    api.storage.sync.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.includes('credentials') && ++credentialReads === 3) {
+        api.storage.sync.data.credentials.installationDate = '2025-12-01T00:00:00.000Z';
+        api.storage.sync.data.credentials.isLegacyUser = true;
+      }
+      return originalGet(keys, callback);
+    };
+
+    await startup();
+
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+    assert.equal(api.contextMenuPresent, true);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { lastCheck: Date.now() },
+    supportsWindows: false
+  });
+});
+
+test('missing and expired license timestamps still perform one startup license verification', async () => {
+  for (const lastCheck of [undefined, Date.now() - 12 * 60 * 60 * 1000 - 1]) {
+    await withWorker(async ({ api, startup }) => {
+      let requests = 0;
+      api.setFetchHandler(async () => {
+        requests += 1;
+        return { ok: true, status: 200, json: async () => ({ isPro: true }) };
+      });
+
+      await startup();
+
+      assert.equal(requests, 1);
+      assert.equal(typeof api.storage.local.data.lastCheck, 'number');
+      assert.equal(api.storage.local.data.lastCheck > (lastCheck || 0), true);
+      assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    }, {
+      local: { activeRuleListId: 'general', ...(lastCheck === undefined ? {} : { lastCheck }) },
+      supportsWindows: false
+    });
+  }
+});
+
+test('a failed telemetry retry restoration cannot prevent startup DNR reconciliation', async () => {
+  const rules = [makeFocusRule(221, 'general', { blockURL: 'retry-recovery.example' })];
+  await withWorker(async ({ api, startup }) => {
+    const originalGet = api.storage.local.get.bind(api.storage.local);
+    let retryReads = 0;
+    api.storage.local.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.includes('telemetryDeliveryState')) {
+        retryReads += 1;
+        return Promise.reject(new Error('telemetry delivery state unavailable'));
+      }
+      return originalGet(keys, callback);
+    };
+
+    await startup();
+
+    assert.equal(retryReads, 1);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [221]);
+  }, {
+    local: {
+      rules,
+      activeRuleListId: 'general',
+      lastCheck: Date.now(),
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('legacy access creates and authorizes the browser context menu without a Pro license', async () => {
+  await withWorker(async ({ api, startup }) => {
+    await startup();
+
+    assert.equal(api.contextMenuPresent, true);
+    assert.deepEqual(api.contextMenuDetails.contexts, TEST_FIREFOX_ANDROID ? ['link'] : ['page', 'link']);
+
+    await api.contextMenus.onClicked.listeners[0]({
+      menuItemId: 'blockDistraction',
+      linkUrl: 'https://legacy-context.example/allowed'
+    }, {});
+
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'legacy-context.example/allowed');
+  }, {
+    credentials: {
+      isPro: false,
+      licenseKey: null,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    },
+    local: { activeRuleListId: 'general', lastCheck: Date.now() },
+    supportsWindows: false
+  });
+});
+
+test('credential read failures block paid worker actions while Free toggle and deletion remain available', async () => {
+  const rules = [makeFocusRule(231, 'general', { blockURL: 'still-removable.example' })];
+  await withWorker(async ({ api, send }) => {
+    api.storage.sync.getError = new Error('sync storage unavailable');
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      const rejected = await send({ type: 'rules:createList', payload: { name: 'Unauthorized' } });
+      assert.equal(rejected.success, false);
+      assert.equal(rejected.error.code, 'rules_operation_failed');
+      assert.deepEqual(api.storage.local.data.ruleLists.map(list => list.id), ['general', 'list-1']);
+
+      const toggled = await send({
+        type: 'rules:toggle',
+        payload: { ruleId: 231, listId: 'general' }
+      });
+      assert.equal(toggled.success, true);
+      assert.equal(api.storage.local.data.rules[0].assignments[0].disabledByUser, true);
+
+      const removed = await send({
+        type: 'rules:removeAssignment',
+        payload: { ruleId: 231, listId: 'general' }
+      });
+      assert.equal(removed.success, true);
+      assert.equal(removed.targetDeleted, true);
+      assert.deepEqual(api.storage.local.data.rules, []);
+      assert.deepEqual(api.dynamicRules, []);
+    } finally {
+      console.error = originalError;
+    }
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { rules, activeRuleListId: 'general' },
+    supportsWindows: false
+  });
 });
 
 test('a license response received after logout cannot restore the old Pro key', async () => {
@@ -810,6 +1161,7 @@ test('legacy users keep paid Focus settings and custom lists after their Pro fla
     assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
     assert.equal(api.storage.local.data.focusSession.focusMode, 'whitelist');
     assert.equal(api.storage.local.data.focusSession.isHardcore, true);
+    assert.equal(api.contextMenuPresent, true);
     assert.deepEqual(api.dynamicRules.map(rule => rule.id), [131, 132]);
   }, {
     credentials: {
