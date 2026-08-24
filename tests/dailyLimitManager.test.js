@@ -299,12 +299,12 @@ test('batch remapping preserves usage and active assignments with one storage wr
 });
 
 test('Daily Limit journal commits updated rules and pending remaps in one atomic write', async () => {
-  const now = new Date(2026, 7, 22, 12, 0, 0);
+  const now = new Date();
   const storage = createStorage({
     rules: [{ id: 21, listId: 'study' }],
     dailyRuleUsage: {
       version: 2,
-      date: '2026-08-22',
+      date: getLocalDateKey(now),
       usageSeconds: { '21:study': 840 },
       lastSample: { timestamp: now.getTime(), assignmentKeys: ['21:study'] }
     }

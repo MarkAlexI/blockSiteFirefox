@@ -24,6 +24,7 @@ import {
 import {
   BLOCKING_MODE_ALWAYS,
   BLOCKING_MODE_DAILY_LIMIT,
+  BLOCKING_MODE_SCHEDULE,
   getRuleBlockingMode
 } from './blockingMode.js';
 
@@ -293,7 +294,14 @@ export function createRulesMutationService({
     return normalized;
   }
 
-  function validateAssignment(assignment, lists, hasProAccess, target, validationCode = 'validation_failed') {
+  function validateAssignment(
+    assignment,
+    lists,
+    hasProAccess,
+    target,
+    validationCode = 'validation_failed',
+    existingAssignment = null
+  ) {
     const listId = assignment?.listId || GENERAL_RULE_LIST_ID;
     if (!isKnownRuleListId(lists, listId)) {
       throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
@@ -303,6 +311,15 @@ export function createRulesMutationService({
     }
     if (!target.isWhitelist && assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT && !hasProAccess) {
       throw new RulesMutationError('pro_required', 'Pro access is required');
+    }
+    if (!target.isWhitelist && assignment.blockingMode === BLOCKING_MODE_SCHEDULE && !hasProAccess) {
+      const preservesExistingSchedule = existingAssignment?.listId === listId &&
+        existingAssignment.blockingMode === BLOCKING_MODE_SCHEDULE &&
+        JSON.stringify(normalizeSchedule(existingAssignment.schedule)) ===
+          JSON.stringify(normalizeSchedule(assignment.schedule));
+      if (!preservesExistingSchedule) {
+        throw new RulesMutationError('pro_required', 'Pro access is required');
+      }
     }
 
     const validation = rulesManager.validateRule(
@@ -324,7 +341,14 @@ export function createRulesMutationService({
     return assignment;
   }
 
-  function validateAssignments(assignments, lists, hasProAccess, target, validationCode = 'validation_failed') {
+  function validateAssignments(
+    assignments,
+    lists,
+    hasProAccess,
+    target,
+    validationCode = 'validation_failed',
+    existingRule = null
+  ) {
     const normalized = target.isWhitelist
       ? [createAlwaysAssignment(GENERAL_RULE_LIST_ID)]
       : assignments;
@@ -334,7 +358,14 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_assignment_exists', 'Rule already has settings for this list');
       }
       seen.add(assignment.listId);
-      validateAssignment(assignment, lists, hasProAccess, target, validationCode);
+      validateAssignment(
+        assignment,
+        lists,
+        hasProAccess,
+        target,
+        validationCode,
+        existingRule ? getRuleAssignment(existingRule, assignment.listId) : null
+      );
     }
     return normalized;
   }
@@ -660,7 +691,12 @@ export function createRulesMutationService({
 
       if (!sourceListId) {
         const nextAssignments = validateAssignments(
-          createAssignmentInputs(payload, oldRule), lists, hasProAccess, target
+          createAssignmentInputs(payload, oldRule),
+          lists,
+          hasProAccess,
+          target,
+          'validation_failed',
+          oldRule
         );
         ensureFreeRuleCapacity(rules, hasProAccess, oldRule, nextAssignments);
         throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
@@ -711,7 +747,7 @@ export function createRulesMutationService({
         assignmentPayload.listId || sourceListId,
         assignmentPayload
       );
-      validateAssignment(nextAssignment, lists, hasProAccess, target);
+      validateAssignment(nextAssignment, lists, hasProAccess, target, 'validation_failed', currentAssignment);
       ensureFreeRuleCapacity(rules, hasProAccess, oldRule, [nextAssignment]);
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
 

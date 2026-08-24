@@ -129,6 +129,49 @@ function createHarness({
   };
 }
 
+function createTimedScheduleHarness({
+  days = [1],
+  startTime = '22:00',
+  endTime = '06:00',
+  initialNow = new Date(2026, 7, 3, 21, 59),
+  listId = 'general',
+  activeRuleListId = listId,
+  currentDnrRules = [],
+  disabledByUser = false,
+  disabledCategories = []
+} = {}) {
+  let now = initialNow;
+  const lists = [{ id: 'general', name: 'General', disabledCategories: [] }];
+  if (listId !== 'general') {
+    lists.push({ id: listId, name: 'Study', disabledCategories });
+  } else {
+    lists[0].disabledCategories = disabledCategories;
+  }
+  const harness = createHarness({
+    storedRules: [makeStoredRule({
+      id: 91,
+      blockURL: 'night.example',
+      assignments: [{
+        listId,
+        disabledByUser,
+        blockingMode: 'schedule',
+        schedule: { version: 2, periods: [{ days, startTime, endTime }] },
+        dailyLimit: null
+      }]
+    })],
+    currentDnrRules,
+    ruleLists: lists,
+    activeRuleListId,
+    activationEvaluator: (rule, categories, focusActive, _ignoredNow, activeListId, usage) =>
+      isRuleActiveNow(rule, categories, focusActive, now, activeListId, usage)
+  });
+
+  return {
+    ...harness,
+    setNow(value) { now = value; }
+  };
+}
+
 test('DNR capacity reads modern, legacy, and optional unsafe browser limits safely', () => {
   assert.deepEqual(getDnrRuleCapacity({}), {
     maxDynamicRules: null,
@@ -1166,4 +1209,129 @@ test('Free Focus always chooses the General variant when a custom target duplica
 
   assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [72]);
   assert.equal(harness.getDynamicRules()[0].action.redirect.url, 'blocked.html');
+});
+
+test('overnight DNR rules activate at the start, survive midnight, and expire at the exclusive end', async () => {
+  const harness = createTimedScheduleHarness();
+  const sync = () => harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  await sync();
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.deepEqual(harness.updates, []);
+
+  harness.setNow(new Date(2026, 7, 3, 22, 0));
+  await sync();
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [91]);
+  assert.deepEqual(harness.closedUrlBatches, [['night.example']]);
+
+  for (const now of [
+    new Date(2026, 7, 3, 23, 59),
+    new Date(2026, 7, 4, 0, 0),
+    new Date(2026, 7, 4, 5, 59)
+  ]) {
+    harness.setNow(now);
+    await sync();
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [91]);
+    assert.equal(harness.updates.length, 1);
+    assert.equal(harness.closedUrlBatches.length, 1);
+  }
+
+  harness.setNow(new Date(2026, 7, 4, 6, 0));
+  await sync();
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.equal(harness.updates.length, 2);
+  assert.deepEqual(harness.updates[1], { removeRuleIds: [91], addRules: [] });
+});
+
+test('Sunday-night browser protection survives the Monday weekday rollover', async () => {
+  const harness = createTimedScheduleHarness({
+    days: [0],
+    initialNow: new Date(2026, 7, 9, 23, 45)
+  });
+
+  await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  harness.setNow(new Date(2026, 7, 10, 4, 30));
+  await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [91]);
+  assert.equal(harness.updates.length, 1);
+  assert.equal((await harness.synchronizer.inspectState()).inSync, true);
+});
+
+test('Friday-night browser protection continues into Saturday without enabling Saturday night', async () => {
+  const harness = createTimedScheduleHarness({
+    days: [5],
+    initialNow: new Date(2026, 7, 8, 2, 30)
+  });
+
+  await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [91]);
+
+  harness.setNow(new Date(2026, 7, 8, 22, 30));
+  await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  assert.deepEqual(harness.getDynamicRules(), []);
+});
+
+test('a late startup restores an already-active overnight rule and reconciles matching tabs', async () => {
+  const harness = createTimedScheduleHarness({
+    initialNow: new Date(2026, 7, 4, 3, 15)
+  });
+
+  const result = await harness.synchronizer.requestSync();
+
+  assert.equal(result.success, true);
+  assert.equal(result.added, 1);
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [91]);
+  assert.deepEqual(harness.closedUrlBatches, [['night.example']]);
+});
+
+test('a late watchdog removes an overnight browser rule after its missed end boundary', async () => {
+  const harness = createTimedScheduleHarness({
+    initialNow: new Date(2026, 7, 4, 8, 45),
+    currentDnrRules: [makeDnrRule({ id: 91, urlFilter: '||night.example' })]
+  });
+
+  const result = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.equal(result.removed, 1);
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.deepEqual(harness.closedUrlBatches, []);
+});
+
+test('overnight DNR activation still respects active profiles, categories, and disabled assignments', async () => {
+  for (const configuration of [
+    { listId: 'study', activeRuleListId: 'general' },
+    { disabledCategories: ['social'] },
+    { disabledByUser: true }
+  ]) {
+    const harness = createTimedScheduleHarness({
+      ...configuration,
+      initialNow: new Date(2026, 7, 4, 2, 0)
+    });
+
+    await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+    assert.deepEqual(harness.getDynamicRules(), []);
+    assert.deepEqual(harness.updates, []);
+  }
+
+  const selected = createTimedScheduleHarness({
+    listId: 'study',
+    activeRuleListId: 'study',
+    initialNow: new Date(2026, 7, 4, 2, 0)
+  });
+  await selected.synchronizer.requestSync({ reconcileExistingTabs: false });
+  assert.deepEqual(selected.getDynamicRules().map(rule => rule.id), [91]);
+});
+
+test('zero-duration scheduled assignments never create browser DNR rules', async () => {
+  const harness = createTimedScheduleHarness({
+    startTime: '22:00',
+    endTime: '22:00',
+    initialNow: new Date(2026, 7, 3, 22, 0)
+  });
+
+  await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+
+  assert.deepEqual(harness.getDynamicRules(), []);
+  assert.deepEqual(harness.updates, []);
 });

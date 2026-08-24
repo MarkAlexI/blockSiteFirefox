@@ -19,7 +19,7 @@ test('validation preserves all localization keys for multiple failures', () => {
     {
       days: [9],
       startTime: '11:00',
-      endTime: '10:00'
+      endTime: '11:00'
     },
     ''
   );
@@ -97,4 +97,23 @@ test('Daily limit mode accepts a valid budget and rejects mixed schedule configu
   );
   assert.equal(mixed.isValid, false);
   assert.equal(mixed.errors.includes('blocking_mode_conflict'), true);
+});
+
+test('rule validation accepts overnight schedules and rejects zero-duration periods', () => {
+  for (const schedule of [
+    { days: [5], startTime: '22:00', endTime: '06:00' },
+    { version: 2, periods: [{ days: [0], startTime: '23:00', endTime: '05:00' }] }
+  ]) {
+    assert.deepEqual(
+      manager.validateRule('night.example', '', schedule, 'social', false, 'schedule'),
+      { isValid: true, errors: [] }
+    );
+  }
+
+  assert.equal(
+    manager.validateRule(
+      'night.example', '', { days: [1], startTime: '22:00', endTime: '22:00' }, 'social', false, 'schedule'
+    ).errors.includes('start_after_end'),
+    true
+  );
 });

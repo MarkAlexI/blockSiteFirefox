@@ -21,3 +21,20 @@ test('schedule presets replace day groups while preserving first-period times', 
     }]
   });
 });
+
+test('weekday and weekend presets preserve overnight start and next-day end times', () => {
+  const original = {
+    version: 2,
+    periods: [{ days: [2], startTime: '22:45', endTime: '05:30' }]
+  };
+
+  assert.deepEqual(applySchedulePreset(original, 'weekdays'), {
+    version: 2,
+    periods: [{ days: [1, 2, 3, 4, 5], startTime: '22:45', endTime: '05:30' }]
+  });
+  assert.deepEqual(applySchedulePreset(original, 'weekends'), {
+    version: 2,
+    periods: [{ days: [0, 6], startTime: '22:45', endTime: '05:30' }]
+  });
+  assert.deepEqual(original.periods[0].days, [2]);
+});

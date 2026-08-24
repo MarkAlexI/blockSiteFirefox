@@ -15,7 +15,7 @@ const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
 function isPeriodActive(period, now) {
   const currentDay = now.getDay();
-  if (!Array.isArray(period.days) || !period.days.includes(currentDay)) return false;
+  if (!Array.isArray(period.days)) return false;
   if (!TIME_PATTERN.test(period.startTime || '') || !TIME_PATTERN.test(period.endTime || '')) return false;
 
   const [startHour, startMinute] = period.startTime.split(':').map(Number);
@@ -23,7 +23,17 @@ function isPeriodActive(period, now) {
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   const startMinutes = startHour * 60 + startMinute;
   const endMinutes = endHour * 60 + endMinute;
-  return currentMinutes >= startMinutes && currentMinutes < endMinutes;
+
+  if (startMinutes === endMinutes) return false;
+  if (startMinutes < endMinutes) {
+    return period.days.includes(currentDay) &&
+      currentMinutes >= startMinutes &&
+      currentMinutes < endMinutes;
+  }
+
+  if (currentMinutes >= startMinutes) return period.days.includes(currentDay);
+  if (currentMinutes < endMinutes) return period.days.includes((currentDay + 6) % 7);
+  return false;
 }
 
 export function isAssignmentBlockingNow(assignment, ruleId, now = new Date(), dailyUsageSeconds = {}) {

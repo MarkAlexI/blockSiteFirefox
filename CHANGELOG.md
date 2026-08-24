@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.20] - 2026-08-24
+### Security
+- Direct worker rule-creation and editing intents can no longer introduce or modify paid schedule settings without Pro or genuine legacy access.
+- Former-Pro users can still preserve an existing schedule while editing its target, remove paid scheduling, toggle or delete inherited rules, and clean preserved custom-list assignments without restoring paid feature access.
+
+### Fixed
+- Schedules crossing midnight now remain active from their inclusive start through the next day's exclusive end, including Friday-to-Saturday, Sunday-to-Monday, weekday/weekend, month, and year boundaries.
+- After midnight the active interval is associated with its selected start weekday instead of incorrectly requiring the following day to be selected.
+- Schedule validation, editing, presets, display, Rule Packs, imports, and legacy single-period records accept valid overnight intervals while still rejecting identical start/end times, malformed times, and overlapping selected days.
+- Startup and the unchanged one-minute watchdog restore missed overnight activation, close matching open tabs, and remove expired browser blocking after delayed Firefox Android wake-ups without redundant DNR writes or repeated tab scans across midnight.
+- A Daily Limit journal regression fixture now follows the current local date instead of silently expiring after its hard-coded calendar day.
+- Free deletion, inherited-schedule cleanup, the exact ten-rule limit, active-profile isolation, disabled categories, Focus behavior, and Firefox Android compatibility without the unsupported windows API remain unchanged.
+
+### Added
+- Added 55 regression scenarios covering overnight validation and activation, weekday rollovers, exact interval boundaries, mixed periods, schedule UI/presets/formatting, Rule Packs/imports, browser DNR recovery, delayed and windowless Firefox Android workers, paid authorization, former-Pro cleanup, and stable Daily Limit journal fixtures.
+
 ## [5.1.19] - 2026-08-22
 ### Fixed
 - Focus Sessions whose one-shot completion alarm was missed during sleep, shutdown, or a delayed Firefox Android wake-up are now completed from persisted state during startup or the unchanged one-minute watchdog.

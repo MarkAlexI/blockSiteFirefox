@@ -53,3 +53,19 @@ test('formatter joins multiple time groups into a concise summary', () => {
     'Weekdays 09:00-17:00; Weekends 11:00-14:00'
   );
 });
+
+test('formatter displays overnight intervals using their selected start weekdays', () => {
+  const formatter = new ScheduleFormatter();
+
+  assert.equal(
+    formatter.formatSchedule({ days: [0], startTime: '23:30', endTime: '05:15' }),
+    'Sun 23:30-05:15'
+  );
+  assert.equal(formatter.formatSchedule({
+    version: 2,
+    periods: [
+      { days: [1, 2, 3, 4, 5], startTime: '22:00', endTime: '06:00' },
+      { days: [0, 6], startTime: '23:00', endTime: '08:00' }
+    ]
+  }), 'Weekdays 22:00-06:00; Weekends 23:00-08:00');
+});

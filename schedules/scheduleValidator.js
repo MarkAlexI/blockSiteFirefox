@@ -50,7 +50,7 @@ export function validateSchedule(schedule) {
     const [startHour, startMinute] = period.startTime.split(':').map(Number);
     const [endHour, endMinute] = period.endTime.split(':').map(Number);
 
-    if (startHour * 60 + startMinute >= endHour * 60 + endMinute) {
+    if (startHour * 60 + startMinute === endHour * 60 + endMinute) {
       addUnique(errors, 'start_after_end');
     }
   }

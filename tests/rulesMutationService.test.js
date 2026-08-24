@@ -231,6 +231,17 @@ function makeCapacityRule(id, listId = 'general', {
   };
 }
 
+function makeScheduledCapacityRule(id = 1, schedule = {
+  days: [1],
+  startTime: '22:00',
+  endTime: '06:00'
+}) {
+  const rule = makeCapacityRule(id);
+  rule.assignments[0].blockingMode = 'schedule';
+  rule.assignments[0].schedule = schedule;
+  return rule;
+}
+
 test('browser DNR capacity rejects rule additions before storage or synchronization', async () => {
   const original = makeCapacityRule(1);
   const harness = createHarness({
@@ -1562,7 +1573,7 @@ test('an invalid shared Rule Pack schedule fails before storage or DNR changes',
       entryIds: ['facebook'],
       schedule: {
         version: 2,
-        periods: [{ days: [], startTime: '18:00', endTime: '09:00' }]
+        periods: [{ days: [], startTime: '18:00', endTime: '18:00' }]
       }
     }),
     error => {
@@ -2616,4 +2627,266 @@ test('deleting a mixed profile batches only Daily Limit assignment remaps', asyn
     harness.getUsageRemaps().map(remap => remap.oldRuleId),
     [1, 4, 7, 10, 13, 16, 19, 22, 25, 28]
   );
+});
+
+test('Free rule creation cannot introduce a paid scheduled General assignment', async () => {
+  const harness = createHarness({ access: { isPro: false, isLegacyUser: false } });
+
+  await assert.rejects(
+    harness.service.addRule({
+      blockURL: 'night.example',
+      assignment: {
+        listId: 'general',
+        blockingMode: 'schedule',
+        schedule: { days: [1], startTime: '22:00', endTime: '06:00' }
+      }
+    }),
+    error => error.code === 'pro_required'
+  );
+
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('Free rule editing cannot convert a basic General assignment into a paid schedule', async () => {
+  const original = makeCapacityRule(1);
+  const harness = createHarness({
+    initialRules: [original],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  await assert.rejects(
+    harness.service.updateRule({
+      ruleId: 1,
+      assignmentListId: 'general',
+      assignment: {
+        listId: 'general',
+        blockingMode: 'schedule',
+        schedule: { days: [1], startTime: '22:00', endTime: '06:00' }
+      }
+    }),
+    error => error.code === 'pro_required'
+  );
+
+  assert.deepEqual(harness.getRules(), [original]);
+  assert.equal(harness.savedStates.length, 0);
+});
+
+test('former Pro users can edit a target while preserving their existing overnight schedule', async () => {
+  const original = makeScheduledCapacityRule();
+  const harness = createHarness({
+    initialRules: [original],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const result = await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'general',
+    blockURL: 'renamed-night.example',
+    assignment: {
+      listId: 'general',
+      disabledByUser: true,
+      blockingMode: 'schedule',
+      schedule: {
+        version: 2,
+        periods: [{ days: [1], startTime: '22:00', endTime: '06:00' }]
+      }
+    }
+  });
+
+  assert.equal(result.rule.blockURL, 'renamed-night.example');
+  assert.equal(result.rule.assignments[0].disabledByUser, true);
+  assert.deepEqual(result.rule.assignments[0].schedule.periods, [{
+    days: [1], startTime: '22:00', endTime: '06:00'
+  }]);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
+test('former Pro target edits without an explicit assignment preserve the existing schedule', async () => {
+  const harness = createHarness({
+    initialRules: [makeScheduledCapacityRule()],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const result = await harness.service.updateRule({
+    ruleId: 1,
+    blockURL: 'renamed-without-assignment.example'
+  });
+
+  assert.equal(result.rule.blockURL, 'renamed-without-assignment.example');
+  assert.equal(result.rule.assignments[0].blockingMode, 'schedule');
+  assert.equal(result.rule.assignments[0].schedule.periods[0].endTime, '06:00');
+});
+
+test('former Pro users cannot change the times or selected days of a preserved schedule', async () => {
+  for (const schedule of [
+    { days: [1], startTime: '21:00', endTime: '06:00' },
+    { days: [1], startTime: '22:00', endTime: '07:00' },
+    { days: [1, 2], startTime: '22:00', endTime: '06:00' }
+  ]) {
+    const original = makeScheduledCapacityRule();
+    const harness = createHarness({
+      initialRules: [original],
+      access: { isPro: false, isLegacyUser: false }
+    });
+
+    await assert.rejects(
+      harness.service.updateRule({
+        ruleId: 1,
+        assignmentListId: 'general',
+        assignment: { listId: 'general', blockingMode: 'schedule', schedule }
+      }),
+      error => error.code === 'pro_required'
+    );
+    assert.deepEqual(harness.getRules(), [original]);
+    assert.equal(harness.savedStates.length, 0);
+  }
+});
+
+test('former Pro users can remove a paid schedule and keep their basic blocking rule', async () => {
+  const harness = createHarness({
+    initialRules: [makeScheduledCapacityRule()],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const cleaned = await harness.service.updateRule({
+    ruleId: 1,
+    assignmentListId: 'general',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'always',
+      schedule: null
+    }
+  });
+
+  assert.equal(cleaned.rule.assignments[0].blockingMode, 'always');
+  assert.equal(cleaned.rule.assignments[0].schedule, null);
+  await assert.rejects(
+    harness.service.updateRule({
+      ruleId: 1,
+      assignmentListId: 'general',
+      assignment: {
+        listId: 'general',
+        blockingMode: 'schedule',
+        schedule: { days: [1], startTime: '22:00', endTime: '06:00' }
+      }
+    }),
+    error => error.code === 'pro_required'
+  );
+  assert.equal(harness.getRules()[0].assignments[0].blockingMode, 'always');
+});
+
+test('Free users can toggle and delete an inherited scheduled General assignment', async () => {
+  const harness = createHarness({
+    initialRules: [makeScheduledCapacityRule()],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const toggled = await harness.service.toggleRule({ ruleId: 1, listId: 'general' });
+  assert.equal(toggled.rule.assignments[0].disabledByUser, true);
+  assert.equal(toggled.rule.assignments[0].blockingMode, 'schedule');
+
+  const removed = await harness.service.removeAssignment({ ruleId: 1, listId: 'general' });
+  assert.equal(removed.targetDeleted, true);
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(harness.getSyncCalls(), 2);
+});
+
+test('Free users can remove an inherited overnight assignment from a preserved custom list', async () => {
+  const rule = makeScheduledCapacityRule();
+  rule.assignments.push({
+    listId: 'list-1',
+    disabledByUser: false,
+    blockingMode: 'schedule',
+    schedule: { days: [5], startTime: '23:00', endTime: '04:00' },
+    dailyLimit: null
+  });
+  const harness = createHarness({
+    initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] }
+    ],
+    initialRules: [rule],
+    access: { isPro: false, isLegacyUser: false }
+  });
+
+  const result = await harness.service.removeAssignment({ ruleId: 1, listId: 'list-1' });
+
+  assert.equal(result.targetDeleted, false);
+  assert.deepEqual(getRuleListIds(harness.getRules()[0]), ['general']);
+  assert.equal(getRuleAssignment(harness.getRules()[0], 'general').blockingMode, 'schedule');
+});
+
+test('both Pro and genuine legacy access can create and change overnight schedules', async () => {
+  for (const access of [
+    { isPro: true, isLegacyUser: false },
+    { isPro: false, isLegacyUser: true }
+  ]) {
+    const harness = createHarness({ access });
+    const created = await harness.service.addRule({
+      blockURL: 'paid-night.example',
+      assignment: {
+        listId: 'general',
+        blockingMode: 'schedule',
+        schedule: { days: [1], startTime: '22:00', endTime: '06:00' }
+      }
+    });
+    const updated = await harness.service.updateRule({
+      ruleId: created.rule.id,
+      assignmentListId: 'general',
+      assignment: {
+        listId: 'general',
+        blockingMode: 'schedule',
+        schedule: { days: [5], startTime: '23:00', endTime: '07:30' }
+      }
+    });
+
+    assert.deepEqual(updated.rule.assignments[0].schedule.periods, [{
+      days: [5], startTime: '23:00', endTime: '07:30'
+    }]);
+    assert.equal(harness.getSyncCalls(), 2);
+  }
+});
+
+test('shared Rule Pack overnight schedules apply independently to every added target', async () => {
+  const harness = createHarness();
+
+  const result = await harness.service.addMany({
+    packId: 'social',
+    entryIds: ['facebook', 'instagram'],
+    schedule: { days: [0, 5], startTime: '22:00', endTime: '06:00' }
+  });
+
+  assert.equal(result.addedCount, 2);
+  assert.equal(result.scheduleApplied, true);
+  for (const rule of harness.getRules()) {
+    assert.equal(rule.assignments[0].blockingMode, 'schedule');
+    assert.deepEqual(rule.assignments[0].schedule.periods, [{
+      days: [0, 5], startTime: '22:00', endTime: '06:00'
+    }]);
+  }
+  assert.equal(harness.savedStates.length, 1);
+});
+
+test('import preserves overnight schedule assignments and their selected start weekdays', async () => {
+  const harness = createHarness();
+
+  const result = await harness.service.replaceAll({
+    rules: [{
+      blockURL: 'imported-night.example',
+      redirectURL: '',
+      category: 'social',
+      assignments: [{
+        listId: 'general',
+        blockingMode: 'schedule',
+        schedule: { days: [0, 6], startTime: '23:30', endTime: '07:00' }
+      }]
+    }]
+  });
+
+  assert.deepEqual(result.rules[0].assignments[0].schedule.periods, [{
+    days: [0, 6], startTime: '23:30', endTime: '07:00'
+  }]);
+  assert.equal(harness.savedStates.length, 1);
 });

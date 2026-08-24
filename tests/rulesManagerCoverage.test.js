@@ -56,7 +56,7 @@ test('rule validation rejects invalid UTF-16, unsupported redirects, missing cat
   const invalidSchedule = manager.validateRule(
     'blocked.example',
     'not-a-url',
-    { version: 2, periods: [{ days: [], startTime: '19:00', endTime: '08:00' }] },
+    { version: 2, periods: [{ days: [], startTime: '19:00', endTime: '19:00' }] },
     '',
     false,
     'schedule'

@@ -79,16 +79,60 @@ test('saving without selected days keeps the dialog open and shows a localized v
   });
 });
 
-test('saving with an end time before the start time leaves the draft editable', async () => {
+test('saving with identical start and end times leaves the draft editable', async () => {
   await withScheduleEditor(async ({ document, editor }) => {
     editor.openDialog(createDefaultSchedule(), () => assert.fail('Invalid schedule must not be saved'));
     const dialog = getDialog(document);
     dialog.querySelector('.schedule-period-start').value = '19:00';
-    dialog.querySelector('.schedule-period-end').value = '08:00';
+    dialog.querySelector('.schedule-period-end').value = '19:00';
     await dialog.querySelector('.save-btn').dispatch('click');
     assert.equal(dialog.querySelector('.schedule-dialog-error').textContent, 'startafterend');
     assert.equal(editor.isDialogOpen(), true);
     editor.closeDialog();
+  });
+});
+
+test('saving an overnight schedule preserves its selected start weekdays and next-day end', async () => {
+  await withScheduleEditor(async ({ document, editor }) => {
+    const saved = [];
+    editor.openDialog(createDefaultSchedule(), schedule => saved.push(schedule));
+    const dialog = getDialog(document);
+    const days = dialog.querySelectorAll('.schedule-period-days input');
+    days.forEach(day => { day.checked = false; });
+    days[1].checked = true;
+    days[5].checked = true;
+    dialog.querySelector('.schedule-period-start').value = '22:00';
+    dialog.querySelector('.schedule-period-end').value = '06:00';
+
+    await dialog.querySelector('.save-btn').dispatch('click');
+
+    assert.deepEqual(saved, [{
+      version: 2,
+      periods: [{ days: [1, 5], startTime: '22:00', endTime: '06:00' }]
+    }]);
+    assert.equal(editor.isDialogOpen(), false);
+  });
+});
+
+test('existing overnight schedules reopen without changing their selected start weekdays', async () => {
+  await withScheduleEditor(async ({ document, editor }) => {
+    const original = {
+      version: 2,
+      periods: [{ days: [0, 6], startTime: '23:15', endTime: '05:45' }]
+    };
+    const saved = [];
+    editor.openDialog(original, schedule => saved.push(schedule));
+    const dialog = getDialog(document);
+
+    assert.equal(dialog.querySelector('.schedule-period-start').value, '23:15');
+    assert.equal(dialog.querySelector('.schedule-period-end').value, '05:45');
+    assert.deepEqual(
+      dialog.querySelectorAll('.schedule-period-days input:checked').map(input => Number(input.value)),
+      [0, 6]
+    );
+
+    await dialog.querySelector('.save-btn').dispatch('click');
+    assert.deepEqual(saved, [original]);
   });
 });
 
@@ -108,6 +152,26 @@ test('weekday, weekend, and every-day presets replace the selected days and hide
     assert.deepEqual(selectedDays(), [1, 2, 3, 4, 5]);
     assert.equal(dialog.querySelector('.schedule-dialog-error').hidden, true);
     editor.closeDialog();
+  });
+});
+
+test('changing the selected-day preset keeps an edited overnight interval intact', async () => {
+  await withScheduleEditor(async ({ document, editor }) => {
+    const saved = [];
+    editor.openDialog(createDefaultSchedule(), schedule => saved.push(schedule));
+    const dialog = getDialog(document);
+    dialog.querySelector('.schedule-period-start').value = '22:30';
+    dialog.querySelector('.schedule-period-end').value = '05:15';
+
+    await dialog.querySelector('.schedule-presets').children[2].dispatch('click');
+    assert.equal(dialog.querySelector('.schedule-period-start').value, '22:30');
+    assert.equal(dialog.querySelector('.schedule-period-end').value, '05:15');
+    await dialog.querySelector('.save-btn').dispatch('click');
+
+    assert.deepEqual(saved, [{
+      version: 2,
+      periods: [{ days: [0, 6], startTime: '22:30', endTime: '05:15' }]
+    }]);
   });
 });
 

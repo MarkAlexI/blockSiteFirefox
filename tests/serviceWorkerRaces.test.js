@@ -72,6 +72,47 @@ function makeDailyLimitRule(id, listId, { blockURL = null, minutes = 10 } = {}) 
   return rule;
 }
 
+function makeScheduledRule(id, listId, {
+  blockURL = null,
+  days = [1],
+  startTime = '22:00',
+  endTime = '06:00'
+} = {}) {
+  const rule = makeFocusRule(id, listId, { blockURL });
+  rule.assignments[0].blockingMode = 'schedule';
+  rule.assignments[0].schedule = {
+    version: 2,
+    periods: [{ days, startTime, endTime }]
+  };
+  return rule;
+}
+
+async function withControlledClock(initial, callback) {
+  const NativeDate = globalThis.Date;
+  let timestamp = initial.getTime();
+
+  class ControlledDate extends NativeDate {
+    constructor(...args) {
+      if (args.length === 0) super(timestamp);
+      else super(...args);
+    }
+
+    static now() {
+      return timestamp;
+    }
+  }
+
+  globalThis.Date = ControlledDate;
+  try {
+    return await callback({
+      set(value) { timestamp = value.getTime(); },
+      now() { return new NativeDate(timestamp); }
+    });
+  } finally {
+    globalThis.Date = NativeDate;
+  }
+}
+
 function sendWorkerMessage(listener, message) {
   return new Promise((resolve, reject) => {
     if (listener(message, {}, resolve) !== true) {
@@ -3765,4 +3806,343 @@ test('worker Whitelist Focus closes lookalike sites and protected-name bypass UR
     }, { id: 9, active: false, url: 'https://evil.example/?next=allowed.example' });
     assert.deepEqual(api.removedTabs, [2, 3, 9]);
   }, { local: { rules, activeRuleListId: 'general' } });
+});
+
+test('windowless minute watchdog activates overnight rules, survives midnight, and expires at the end', async () => {
+  const initial = new Date(2026, 7, 3, 21, 59);
+  const scheduled = makeScheduledRule(401, 'general', { blockURL: 'night.example' });
+
+  await withControlledClock(initial, async clock => {
+    await withWorker(async ({ api, alarm }) => {
+      api.tabs.values.push(
+        { id: 4011, url: 'https://safe.example/' },
+        { id: 4012, url: 'https://night.example/watch' }
+      );
+      const fullQueries = countFullTabQueries(api);
+
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules, []);
+      assert.equal(fullQueries(), 0);
+
+      clock.set(new Date(2026, 7, 3, 22, 0));
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [401]);
+      assert.deepEqual(api.removedTabs, [4012]);
+      assert.equal(fullQueries(), 1);
+
+      for (const now of [
+        new Date(2026, 7, 3, 23, 59),
+        new Date(2026, 7, 4, 0, 0),
+        new Date(2026, 7, 4, 5, 59)
+      ]) {
+        clock.set(now);
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.deepEqual(api.dynamicRules.map(rule => rule.id), [401]);
+        assert.equal(api.dnrUpdates.length, 1);
+        assert.equal(fullQueries(), 1);
+      }
+
+      clock.set(new Date(2026, 7, 4, 6, 0));
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules, []);
+      assert.equal(api.dnrUpdates.length, 2);
+      assert.deepEqual(api.dnrUpdates[1], { removeRuleIds: [401], addRules: [] });
+      assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+      assert.equal(api.windows, undefined);
+    }, {
+      local: { rules: [scheduled], activeRuleListId: 'general' },
+      supportsWindows: false
+    });
+  });
+});
+
+test('windowless workers associate early Saturday and Monday with the previous selected weekday', async () => {
+  for (const { id, days, initial, expires } of [
+    {
+      id: 411,
+      days: [5],
+      initial: new Date(2026, 7, 8, 2, 30),
+      expires: new Date(2026, 7, 8, 6, 0)
+    },
+    {
+      id: 412,
+      days: [0],
+      initial: new Date(2026, 7, 10, 2, 30),
+      expires: new Date(2026, 7, 10, 6, 0)
+    }
+  ]) {
+    const scheduled = makeScheduledRule(id, 'general', { days });
+    await withControlledClock(initial, async clock => {
+      await withWorker(async ({ api, alarm }) => {
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.deepEqual(api.dynamicRules.map(rule => rule.id), [id]);
+
+        clock.set(expires);
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.deepEqual(api.dynamicRules, []);
+        assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+        assert.equal(api.windows, undefined);
+      }, {
+        local: { rules: [scheduled], activeRuleListId: 'general' },
+        supportsWindows: false
+      });
+    });
+  }
+});
+
+test('windowless startup recovers a missed overnight activation and closes existing matching tabs', async () => {
+  const initial = new Date(2026, 7, 4, 3, 10);
+  const scheduled = makeScheduledRule(421, 'general', { blockURL: 'late-night.example' });
+
+  await withControlledClock(initial, async clock => {
+    await withWorker(async ({ api, startup }) => {
+      api.tabs.values.push(
+        { id: 4211, url: 'https://safe.example/' },
+        { id: 4212, url: 'https://late-night.example/video' }
+      );
+
+      await startup();
+
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [421]);
+      assert.equal(api.removedTabs.includes(4212), true);
+      assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+      assert.equal(api.windows, undefined);
+    }, {
+      local: {
+        rules: [scheduled],
+        activeRuleListId: 'general',
+        lastCheck: clock.now().getTime()
+      },
+      supportsWindows: false
+    });
+  });
+});
+
+test('windowless watchdog recovers an overnight end missed while Firefox Android was sleeping', async () => {
+  const initial = new Date(2026, 7, 4, 5, 55);
+  const scheduled = makeScheduledRule(431, 'general');
+
+  await withControlledClock(initial, async clock => {
+    await withWorker(async ({ api, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [431]);
+
+      clock.set(new Date(2026, 7, 4, 11, 40));
+      await alarm({ name: 'update_scheduled_rules' });
+
+      assert.deepEqual(api.dynamicRules, []);
+      assert.deepEqual(api.dnrUpdates[1], { removeRuleIds: [431], addRules: [] });
+      assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+      assert.equal(api.windows, undefined);
+    }, {
+      local: { rules: [scheduled], activeRuleListId: 'general' },
+      supportsWindows: false
+    });
+  });
+});
+
+test('windowless overnight blocking continues to follow only the selected Rule List profile', async () => {
+  const initial = new Date(2026, 7, 4, 2, 0);
+  const rules = [
+    makeScheduledRule(441, 'general', { days: [3], blockURL: 'general-night.example' }),
+    makeScheduledRule(442, 'list-1', { days: [1], blockURL: 'study-night.example' })
+  ];
+
+  await withControlledClock(initial, async () => {
+    await withWorker(async ({ api, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [442]);
+
+      api.storage.local.data.activeRuleListId = 'general';
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules, []);
+      assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+      assert.equal(api.windows, undefined);
+    }, {
+      local: { rules, activeRuleListId: 'list-1' },
+      supportsWindows: false
+    });
+  });
+});
+
+test('Free worker intents cannot create or introduce paid overnight schedules', async () => {
+  const original = makeFocusRule(451, 'general', { blockURL: 'basic.example' });
+  const overnight = { days: [1], startTime: '22:00', endTime: '06:00' };
+
+  await withWorker(async ({ api, send }) => {
+    const added = await send({
+      type: 'rules:add',
+      payload: {
+        blockURL: 'unauthorized.example',
+        assignment: { listId: 'general', blockingMode: 'schedule', schedule: overnight }
+      }
+    });
+    const updated = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: 451,
+        assignmentListId: 'general',
+        assignment: { listId: 'general', blockingMode: 'schedule', schedule: overnight }
+      }
+    });
+
+    assert.equal(added.success, false);
+    assert.equal(added.error.code, 'pro_required');
+    assert.equal(updated.success, false);
+    assert.equal(updated.error.code, 'pro_required');
+    assert.deepEqual(api.storage.local.data.rules, [original]);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { rules: [original], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('former Pro windowless workers can edit, toggle, clean, and delete inherited schedules', async () => {
+  const initial = new Date(2026, 7, 4, 2, 0);
+  const scheduled = makeScheduledRule(461, 'general', { blockURL: 'inherited.example' });
+
+  await withControlledClock(initial, async () => {
+    await withWorker(async ({ api, alarm, send }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [461]);
+
+      const edited = await send({
+        type: 'rules:update',
+        payload: {
+          ruleId: 461,
+          assignmentListId: 'general',
+          blockURL: 'renamed-inherited.example',
+          assignment: {
+            listId: 'general',
+            blockingMode: 'schedule',
+            schedule: { days: [1], startTime: '22:00', endTime: '06:00' }
+          }
+        }
+      });
+      assert.equal(edited.success, true);
+      assert.equal(api.storage.local.data.rules[0].blockURL, 'renamed-inherited.example');
+
+      const changed = await send({
+        type: 'rules:update',
+        payload: {
+          ruleId: 461,
+          assignmentListId: 'general',
+          assignment: {
+            listId: 'general',
+            blockingMode: 'schedule',
+            schedule: { days: [1], startTime: '21:00', endTime: '06:00' }
+          }
+        }
+      });
+      assert.equal(changed.success, false);
+      assert.equal(changed.error.code, 'pro_required');
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [461]);
+
+      const toggled = await send({
+        type: 'rules:toggle',
+        payload: { ruleId: 461, listId: 'general' }
+      });
+      assert.equal(toggled.success, true);
+      assert.deepEqual(api.dynamicRules, []);
+
+      const cleaned = await send({
+        type: 'rules:update',
+        payload: {
+          ruleId: 461,
+          assignmentListId: 'general',
+          assignment: { listId: 'general', blockingMode: 'always', schedule: null }
+        }
+      });
+      assert.equal(cleaned.success, true);
+      assert.equal(api.storage.local.data.rules[0].assignments[0].blockingMode, 'always');
+
+      const removed = await send({
+        type: 'rules:removeAssignment',
+        payload: { ruleId: 461, listId: 'general' }
+      });
+      assert.equal(removed.success, true);
+      assert.equal(removed.targetDeleted, true);
+      assert.deepEqual(api.storage.local.data.rules, []);
+      assert.deepEqual(api.dynamicRules, []);
+      assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+      assert.equal(api.windows, undefined);
+    }, {
+      credentials: { isPro: false, licenseKey: null },
+      local: { rules: [scheduled], activeRuleListId: 'general' },
+      supportsWindows: false
+    });
+  });
+});
+
+test('Free worker users can delete an inherited schedule at the exact ten-rule limit and add a basic rule', async () => {
+  const rules = [
+    makeScheduledRule(471, 'general', { blockURL: 'replace-night.example' }),
+    ...Array.from({ length: 9 }, (_, index) =>
+      makeFocusRule(472 + index, 'general', { blockURL: `free-${index}.example` })
+    )
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    const removed = await send({
+      type: 'rules:removeAssignment',
+      payload: { ruleId: 471, listId: 'general' }
+    });
+    const replacement = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'replacement.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(removed.success, true);
+    assert.equal(replacement.success, true);
+    assert.equal(api.storage.local.data.rules.length, 10);
+    assert.equal(api.storage.local.data.rules.some(rule => rule.blockURL === 'replace-night.example'), false);
+    assert.equal(api.storage.local.data.rules.some(rule => rule.blockURL === 'replacement.example'), true);
+    assert.equal(api.dynamicRules.length, 10);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { rules, activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('Pro and genuine legacy worker intents can create active overnight schedules', async () => {
+  const initial = new Date(2026, 7, 4, 1, 30);
+
+  for (const credentials of [
+    { isPro: true },
+    {
+      isPro: false,
+      isLegacyUser: true,
+      licenseKey: null,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    }
+  ]) {
+    await withControlledClock(initial, async () => {
+      await withWorker(async ({ api, send }) => {
+        const result = await send({
+          type: 'rules:add',
+          payload: {
+            blockURL: 'authorized-night.example',
+            assignment: {
+              listId: 'general',
+              blockingMode: 'schedule',
+              schedule: { days: [1], startTime: '22:00', endTime: '06:00' }
+            }
+          }
+        });
+
+        assert.equal(result.success, true);
+        assert.equal(api.storage.local.data.rules[0].assignments[0].blockingMode, 'schedule');
+        assert.deepEqual(api.dynamicRules.map(rule => rule.id), [result.rule.id]);
+        assert.equal(api.windows, undefined);
+      }, {
+        credentials,
+        local: { activeRuleListId: 'general' },
+        supportsWindows: false
+      });
+    });
+  }
 });
