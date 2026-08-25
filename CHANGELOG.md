@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.21] - 2026-08-25
+### Changed
+- Updated Firefox Add-ons descriptions in all 57 existing locales to highlight privacy-first website blocking on Firefox Desktop and Android, ten free rules, and Pro schedules, Daily Limits, and strict controls.
+- Aligned the Mozilla Add-ons publishing summary with the canonical English Firefox description without changing extension behavior, permissions, or Android compatibility.
+
+### Added
+- Added store-description regression coverage for exact English and regional English copy, every existing locale, Free and Pro feature disclosure, explicit Firefox and Android targeting, publishing metadata, and the 132-character manifest limit.
+
 ## [5.1.20] - 2026-08-24
 ### Security
 - Direct worker rule-creation and editing intents can no longer introduce or modify paid schedule settings without Pro or genuine legacy access.
