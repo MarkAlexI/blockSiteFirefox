@@ -47,6 +47,22 @@ test('tab cleanup normalizes pasted patterns and preserves unrelated tabs', asyn
   });
 });
 
+test('matching cleanup preserves OAuth and project tabs while closing real distracting hosts', async () => {
+  await withTabCleanup([
+    { id: 1, url: 'https://accounts.youtube.com/accounts/SetSID' },
+    { id: 2, url: 'https://m.youtube.com/watch?v=1' },
+    { id: 3, url: 'https://accounts.google.com/o/oauth2/auth' },
+    { id: 4, url: 'https://www.google.com/search?q=test' },
+    { id: 5, url: 'https://blockdistraction.com/login.html' },
+    { id: 6, url: 'https://blocking.example/' }
+  ], async ({ api, closeTabsMatchingRules }) => {
+    await closeTabsMatchingRules(['yout', 'goog', 'block']);
+
+    assert.deepEqual(api.removedTabs, [2, 4, 6]);
+    assert.deepEqual(api.createdTabs, []);
+  }, { supportsWindows: false });
+});
+
 test('closing every matching tab creates a replacement tab before removing the final browser tab', async () => {
   await withTabCleanup([
     { id: 1, url: 'https://example.com/' },
@@ -168,6 +184,20 @@ test('whitelist focus preserves allowed domains and protected browser pages', as
     assert.deepEqual(api.removedTabs, [2]);
     assert.deepEqual(api.createdTabs, []);
   });
+});
+
+test('whitelist Focus preserves Google sign-in and YouTube account handoff popups', async () => {
+  await withTabCleanup([
+    { id: 1, url: 'https://accounts.google.com/o/oauth2/auth' },
+    { id: 2, url: 'https://accounts.youtube.com/accounts/SetSID' },
+    { id: 3, url: 'https://youtube.com/watch?v=1' },
+    { id: 4, url: 'https://allowed.example/' }
+  ], async ({ api, closeNonWhitelistedTabs }) => {
+    await closeNonWhitelistedTabs([allowedRule('allowed.example')]);
+
+    assert.deepEqual(api.removedTabs, [3]);
+    assert.deepEqual(api.createdTabs, []);
+  }, { supportsWindows: false });
 });
 
 test('disabled whitelist assignments do not protect tabs from whitelist-focus cleanup', async () => {

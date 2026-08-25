@@ -1,3 +1,5 @@
+import { isProtectedRequestHostname } from '../utils/protectedDomains.js';
+
 /**
  * Checks whether the current tab URL is blocked from processing.
  *
@@ -29,11 +31,18 @@ export function isBlockedURL(tabs) {
   try {
     parsed = new URL(url);
   } catch {
-    return [...blockedPatterns, ...protectedProjectPatterns]
-      .some(pattern => pattern.test(url));
+    parsed = null;
   }
 
-  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+  if (!parsed || (parsed.protocol !== 'http:' && parsed.protocol !== 'https:')) {
+    let pastedHostname = '';
+    try {
+      pastedHostname = new URL(`https://${url}`).hostname;
+    } catch {
+      // Invalid inputs retain the existing browser and project pattern checks.
+    }
+
+    if (isProtectedRequestHostname(pastedHostname)) return true;
     return [...blockedPatterns, ...protectedProjectPatterns]
       .some(pattern => pattern.test(url));
   }
@@ -46,5 +55,7 @@ export function isBlockedURL(tabs) {
     /(?:^|\.)ext\.pp\.ua$/i
   ].some(pattern => pattern.test(hostname));
 
-  return blockedPatterns.some(pattern => pattern.test(safeUrl)) || isProtectedProjectHost;
+  return blockedPatterns.some(pattern => pattern.test(safeUrl)) ||
+    isProtectedRequestHostname(hostname) ||
+    isProtectedProjectHost;
 }

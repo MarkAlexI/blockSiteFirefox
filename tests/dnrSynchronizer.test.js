@@ -512,6 +512,46 @@ test('DNR signature ignores resourceTypes order', () => {
   assert.equal(getDnrSignature(first), getDnrSignature(second));
 });
 
+test('DNR signature ignores protected-domain order but detects missing exclusions', () => {
+  const first = makeDnrRule();
+  const second = structuredClone(first);
+  first.condition.excludedRequestDomains = ['accounts.youtube.com', 'accounts.google.com'];
+  second.condition.excludedRequestDomains = ['accounts.google.com', 'accounts.youtube.com'];
+
+  assert.equal(getDnrSignature(first), getDnrSignature(second));
+
+  delete second.condition.excludedRequestDomains;
+  assert.notEqual(getDnrSignature(first), getDnrSignature(second));
+});
+
+test('legacy browser rules without protected-domain exclusions are replaced atomically', async () => {
+  const stale = makeDnrRule({ id: 73, urlFilter: '||yout' });
+  const protectedRule = structuredClone(stale);
+  protectedRule.condition.excludedRequestDomains = [
+    'accounts.google.com',
+    'accounts.youtube.com',
+    'blockdistraction.com'
+  ];
+  const harness = createHarness({
+    storedRules: [makeStoredRule({ id: 73, blockURL: 'yout' })],
+    currentDnrRules: [stale],
+    createRule: async () => structuredClone(protectedRule)
+  });
+
+  const repaired = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  assert.equal(repaired.changed, true);
+  assert.deepEqual(harness.updates, [{
+    removeRuleIds: [73],
+    addRules: [protectedRule]
+  }]);
+  assert.deepEqual(harness.closedUrlBatches, [['yout']]);
+
+  const stable = await harness.synchronizer.requestSync({ reconcileExistingTabs: false });
+  assert.equal(stable.changed, false);
+  assert.equal(harness.updates.length, 1);
+  assert.equal(harness.closedUrlBatches.length, 1);
+});
+
 test('identical DNR sets produce an empty diff', () => {
   const rule = makeDnrRule();
 

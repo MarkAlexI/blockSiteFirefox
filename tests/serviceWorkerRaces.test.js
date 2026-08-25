@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 import { getLocalDateKey } from '../rules/dailyLimitManager.js';
 import { LICENSE_SYNC_TIMEOUT_MS, VERIFY_API_URL } from '../utils/constants.js';
+import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
@@ -1232,6 +1233,147 @@ test('windowless watchdog repairs missing DNR protection and closes matching exi
     assert.equal(api.windows, undefined);
   }, {
     local: { rules: [rule], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless watchdog protects OAuth and project tabs while blocking matching real sites', async () => {
+  const rules = [
+    makeFocusRule(81, 'general', { blockURL: 'yout' }),
+    makeFocusRule(82, 'general', { blockURL: 'goog' }),
+    makeFocusRule(83, 'general', { blockURL: 'block' })
+  ];
+  rules[0].redirectURL = 'https://example.org/focus';
+
+  await withWorker(async ({ api, alarm }) => {
+    api.tabs.values.push(
+      { id: 101, url: 'https://accounts.youtube.com/accounts/SetSID' },
+      { id: 102, url: 'https://m.youtube.com/watch?v=1' },
+      { id: 103, url: 'https://accounts.google.com/o/oauth2/auth' },
+      { id: 104, url: 'https://www.google.com/search?q=test' },
+      { id: 105, url: 'https://blockdistraction.com/login.html' },
+      { id: 106, url: 'https://blocking.example/' }
+    );
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(api.removedTabs, [102, 104, 106]);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [81, 82, 83]);
+    for (const browserRule of api.dynamicRules) {
+      assert.deepEqual(
+        browserRule.condition.excludedRequestDomains,
+        [...getProtectedRequestDomains()]
+      );
+    }
+    const customRedirect = new URL(api.dynamicRules[0].action.redirect.url);
+    assert.equal(customRedirect.pathname, '/redirect.html');
+    assert.equal(customRedirect.searchParams.get('to'), 'https://example.org/focus');
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules, activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless watchdog upgrades old DNR rules without closing the OAuth popup', async () => {
+  const rule = makeFocusRule(84, 'general', { blockURL: 'yout' });
+
+  await withWorker(async ({ api, alarm }) => {
+    api.tabs.values.push({ id: 111, url: 'https://safe.example/' });
+    const fullQueries = countFullTabQueries(api);
+    await alarm({ name: 'update_scheduled_rules' });
+
+    const stale = structuredClone(api.dynamicRules[0]);
+    delete stale.condition.excludedRequestDomains;
+    api.dynamicRules = [stale];
+    api.tabs.values.push(
+      { id: 112, url: 'https://accounts.youtube.com/accounts/SetSID' },
+      { id: 113, url: 'https://youtube.com/watch?v=1' }
+    );
+    const initialUpdates = api.dnrUpdates.length;
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.deepEqual(api.dnrUpdates[initialUpdates].removeRuleIds, [84]);
+    assert.deepEqual(
+      api.dnrUpdates[initialUpdates].addRules[0].condition.excludedRequestDomains,
+      [...getProtectedRequestDomains()]
+    );
+    assert.deepEqual(api.removedTabs, [113]);
+    assert.equal(fullQueries(), 2);
+
+    await alarm({ name: 'update_scheduled_rules' });
+
+    assert.equal(api.dnrUpdates.length, initialUpdates + 1);
+    assert.equal(fullQueries(), 2);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules: [rule], activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('windowless startup repairs old DNR exclusions before reconciling protected tabs', async () => {
+  const rule = makeFocusRule(85, 'general', { blockURL: 'yout' });
+
+  await withWorker(async ({ api, alarm, startup }) => {
+    api.tabs.values.push({ id: 121, url: 'https://safe.example/' });
+    await alarm({ name: 'update_scheduled_rules' });
+
+    const stale = structuredClone(api.dynamicRules[0]);
+    delete stale.condition.excludedRequestDomains;
+    api.dynamicRules = [stale];
+    api.tabs.values.push(
+      { id: 122, url: 'https://accounts.youtube.com/accounts/SetSID' },
+      { id: 123, url: 'https://m.youtube.com/watch?v=1' }
+    );
+
+    await startup();
+
+    assert.deepEqual(api.removedTabs, [123]);
+    assert.deepEqual(
+      api.dynamicRules[0].condition.excludedRequestDomains,
+      [...getProtectedRequestDomains()]
+    );
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      rules: [rule],
+      activeRuleListId: 'general',
+      lastCheck: Date.now()
+    },
+    supportsWindows: false
+  });
+});
+
+test('windowless worker rejects direct OAuth targets while allowing the yout shortcut', async () => {
+  await withWorker(async ({ api, send }) => {
+    for (const blockURL of ['accounts.google.com', 'accounts.youtube.com']) {
+      const rejected = await send({
+        type: 'rules:add',
+        payload: { blockURL, redirectURL: '', category: 'social' }
+      });
+
+      assert.equal(rejected.success, false);
+      assert.equal(rejected.error.code, 'validation_failed');
+      assert.equal(rejected.error.validationErrors.includes('blockurl_restrict'), true);
+    }
+
+    const accepted = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'yout', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(accepted.success, true);
+    assert.equal(api.dynamicRules[0].condition.urlFilter, '||yout');
+    assert.equal(
+      api.dynamicRules[0].condition.excludedRequestDomains.includes('accounts.youtube.com'),
+      true
+    );
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { activeRuleListId: 'general' },
     supportsWindows: false
   });
 });
@@ -4652,6 +4794,45 @@ test('worker Whitelist Focus closes lookalike sites and protected-name bypass UR
     }, { id: 9, active: false, url: 'https://evil.example/?next=allowed.example' });
     assert.deepEqual(api.removedTabs, [2, 3, 9]);
   }, { local: { rules, activeRuleListId: 'general' } });
+});
+
+test('windowless worker Whitelist Focus preserves Google and YouTube OAuth popups', async () => {
+  const rules = [
+    makeFocusRule(143, 'general', { blockURL: 'allowed.example', isWhitelist: true })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values.push(
+      { id: 1, url: 'https://allowed.example/' },
+      { id: 2, url: 'https://accounts.google.com/o/oauth2/auth' },
+      { id: 3, url: 'https://accounts.youtube.com/accounts/SetSID' },
+      { id: 4, url: 'https://youtube.com/watch?v=1' },
+      { id: 5, url: 'https://accounts.youtube.com.evil.example/' }
+    );
+
+    const response = await send({
+      type: 'start_focus_session',
+      duration: 5,
+      focusMode: 'whitelist'
+    });
+
+    assert.equal(response.success, true);
+    assert.deepEqual(api.removedTabs, [4, 5]);
+
+    await api.tabs.onUpdated.listeners[0](9, {
+      url: 'https://accounts.google.com/signin/oauth/consent'
+    }, {
+      id: 9,
+      active: false,
+      url: 'https://accounts.google.com/signin/oauth/consent'
+    });
+
+    assert.deepEqual(api.removedTabs, [4, 5]);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: { rules, activeRuleListId: 'general' },
+    supportsWindows: false
+  });
 });
 
 test('windowless minute watchdog activates overnight rules, survives midnight, and expires at the end', async () => {

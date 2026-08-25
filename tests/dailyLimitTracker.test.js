@@ -196,6 +196,36 @@ test('partial DNR-style targets such as yout match m.youtube.com for Daily Limit
   assert.equal(tracker.getDebugState().resolution, 'matched');
 });
 
+test('Google OAuth popups never consume a YouTube Daily Limit or inject a visibility probe', async () => {
+  let injections = 0;
+  let sampled = null;
+  const tracker = createTracker({
+    tab: {
+      id: 11,
+      windowId: 7,
+      active: true,
+      url: 'https://accounts.youtube.com/accounts/SetSID'
+    },
+    rules: [makeRule({ blockURL: 'yout' })],
+    scriptingApiOverrides: {
+      async executeScript() {
+        injections += 1;
+        return [];
+      }
+    },
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+
+  await tracker.sample('minute_alarm');
+
+  assert.deepEqual(sampled, []);
+  assert.equal(injections, 0);
+  assert.equal(tracker.getDebugState().resolution, 'no_matching_rule');
+});
+
 test('direct tab hints avoid a second tabs.query race on activation and URL changes', async () => {
   let queryCalls = 0;
   let sampled = null;

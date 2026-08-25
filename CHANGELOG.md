@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.23] - 2026-08-25
+### Security
+- Browser DNR rules, matching existing-tab cleanup, Daily Limit tracking, and Whitelist Focus now protect the exact Google authentication, YouTube account-service, project, and Mozilla Add-ons domains without trusting lookalike hosts or URL text.
+- Direct rule-creation intents reject protected authentication hosts even when entered with paths or explicit ports, while useful partial targets such as `yout`, `yo`, `goog`, and `block` remain available.
+
+### Fixed
+- Google sign-in popups are no longer redirected or closed by YouTube, Google, project-name, or custom-redirect rules; ordinary YouTube, mobile YouTube, Google, and unrelated matching websites remain blocked.
+- Startup and the unchanged one-minute watchdog detect old browser DNR rules missing protected-domain exclusions, replace them atomically, and avoid repeated writes or tab scans after the one-time repair.
+- Firefox Desktop and Firefox Android preserve Mozilla Add-ons protection without adopting unrelated Chrome or Edge store restrictions or relying on the unsupported windows API.
+- Existing schedules, active-profile isolation, Focus authorization, genuine legacy access, Free deletion, the exact ten-rule limit, and native `technicalAndInteraction` telemetry consent remain unchanged.
+
+### Added
+- Added 20 regression scenarios for precise authentication and project domains, Firefox-specific store exclusions, partial-pattern preservation, direct host validation, spoofed lookalikes, custom redirects, DNR signatures and recovery, Daily Limits, existing tabs, Whitelist Focus, Firefox Desktop, and Firefox Android.
+
 ## [5.1.22] - 2026-08-25
 ### Security
 - Pro activation is now verified and committed authoritatively by the service worker; Options submits only the proposed license key, and paid access requires an explicit `isPro: true` response from the existing license endpoint.

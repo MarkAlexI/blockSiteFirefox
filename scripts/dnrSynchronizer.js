@@ -79,6 +79,7 @@ export function getDnrSignature(rule) {
     },
     condition: {
       urlFilter: rule.condition?.urlFilter ?? null,
+      excludedRequestDomains: [...(rule.condition?.excludedRequestDomains ?? [])].sort(),
       resourceTypes: [...(rule.condition?.resourceTypes ?? [])].sort()
     }
   });

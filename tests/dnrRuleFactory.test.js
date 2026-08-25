@@ -5,6 +5,7 @@ import {
   createDnrRule,
   createDnrRuleFactory
 } from '../rules/dnrRuleFactory.js';
+import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
 
 const defaultRedirectURL = 'chrome-extension://extension-id/blocked.html';
 const intermediaryRedirectURL = 'chrome-extension://extension-id/redirect.html';
@@ -61,4 +62,34 @@ test('bound factory resolves runtime URLs only once', () => {
   assert.deepEqual(requestedPaths, ['blocked.html', 'redirect.html']);
   assert.equal(first.id, 1);
   assert.equal(second.id, 2);
+});
+
+test('every DNR rule excludes exact OAuth, project, and browser-store request domains', () => {
+  const rule = createDnrRule({
+    id: 19,
+    blockURL: 'yout',
+    redirectURL: 'https://example.org/target',
+    defaultRedirectURL,
+    intermediaryRedirectURL
+  });
+
+  assert.equal(rule.condition.urlFilter, '||yout');
+  assert.deepEqual(rule.condition.excludedRequestDomains, [...getProtectedRequestDomains()]);
+  assert.equal(rule.condition.excludedRequestDomains.includes('accounts.google.com'), true);
+  assert.equal(rule.condition.excludedRequestDomains.includes('accounts.youtube.com'), true);
+  assert.equal(rule.condition.excludedRequestDomains.includes('youtube.com'), false);
+  assert.equal(rule.condition.excludedRequestDomains.includes('google.com'), false);
+});
+
+test('DNR exclusions are copied per rule and cannot mutate the shared domain policy', () => {
+  const factory = createDnrRuleFactory(path => {
+    return `chrome-extension://extension-id/${path}`;
+  });
+
+  const first = factory(21, 'yout', '');
+  const second = factory(22, 'goog', '');
+  first.condition.excludedRequestDomains.pop();
+
+  assert.deepEqual(second.condition.excludedRequestDomains, [...getProtectedRequestDomains()]);
+  assert.notDeepEqual(first.condition.excludedRequestDomains, second.condition.excludedRequestDomains);
 });

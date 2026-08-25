@@ -1,4 +1,5 @@
 import { normalizePathRule } from './normalizePathRule.js';
+import { isProtectedRequestHostname } from '../utils/protectedDomains.js';
 
 function normalizeFilter(blockURL) {
   return normalizePathRule(String(blockURL || '').trim()).toLowerCase();
@@ -8,6 +9,7 @@ function buildDomainAnchoredCandidates(url) {
   try {
     const parsed = new URL(url);
     const hostname = parsed.hostname.toLowerCase();
+    if (isProtectedRequestHostname(hostname)) return [];
     const tail = `${parsed.pathname || '/'}${parsed.search || ''}${parsed.hash || ''}`.toLowerCase();
     const labels = hostname.split('.').filter(Boolean);
     const candidates = [];
