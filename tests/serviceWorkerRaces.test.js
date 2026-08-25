@@ -38,6 +38,11 @@ function createPendingTelemetry() {
   };
 }
 
+function getTelemetryCounter(api, name) {
+  return Object.values(api.storage.local.data.telemetryBuckets || {})
+    .reduce((total, bucket) => total + (Number(bucket.counters?.[name]) || 0), 0);
+}
+
 async function withMutedErrors(callback) {
   const previous = console.error;
   console.error = () => {};
@@ -264,6 +269,318 @@ async function withWorker(callback, {
     globalThis.fetch = previousFetch;
   }
 }
+
+test('successful category toggles reach the outgoing telemetry payload exactly once', async () => {
+  const privateRule = makeFocusRule(501, 'general', {
+    blockURL: 'private-category.example'
+  });
+
+  for (const supportsWindows of [true, false]) {
+    await withWorker(async ({ api, send }) => {
+      const requests = [];
+      api.setFetchHandler(async (url, options) => {
+        requests.push({ url, options, payload: JSON.parse(options.body) });
+        return { ok: true, status: 202, json: async () => ({ ok: true }) };
+      });
+
+      const disabled = await send({
+        type: 'rules:toggleCategory',
+        payload: { category: 'social' }
+      });
+      assert.equal(disabled.success, true);
+      assert.deepEqual(api.storage.local.data.ruleLists[0].disabledCategories, ['social']);
+      assert.equal(getTelemetryCounter(api, 'category_toggled'), 1);
+
+      const enabled = await send({
+        type: 'rules:toggleCategory',
+        payload: { category: 'social' }
+      });
+      assert.equal(enabled.success, true);
+      assert.deepEqual(api.storage.local.data.ruleLists[0].disabledCategories, []);
+      assert.equal(getTelemetryCounter(api, 'category_toggled'), 2);
+
+      const flushed = await send({ type: 'telemetry:flush', force: true });
+      assert.equal(flushed.success, true);
+      assert.equal(flushed.result.success, true);
+      assert.equal(flushed.result.sent, true);
+      assert.equal(requests.length, 1);
+      assert.equal(requests[0].url, 'https://blockdistraction.com/api/telemetry');
+      assert.equal(requests[0].options.method, 'POST');
+      assert.deepEqual(requests[0].payload.batches.map(batch => batch.counters), [
+        { category_toggled: 2 }
+      ]);
+      assert.equal(JSON.stringify(requests[0].payload).includes('private-category.example'), false);
+      assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+      assert.equal(api.windows !== undefined, supportsWindows);
+    }, {
+      local: {
+        activeRuleListId: 'general',
+        rules: [privateRule],
+        telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+      },
+      supportsWindows
+    });
+  }
+});
+
+test('category toggles without effective consent never create or deliver telemetry', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.permissions.getAll = async () => ({ data_collection: [] });
+    let fetchCalls = 0;
+    api.setFetchHandler(async () => {
+      fetchCalls += 1;
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+
+    const toggled = await send({
+      type: 'rules:toggleCategory',
+      payload: { category: 'social' }
+    });
+    const flushed = await send({ type: 'telemetry:flush', force: true });
+
+    assert.equal(toggled.success, true);
+    assert.deepEqual(api.storage.local.data.ruleLists[0].disabledCategories, ['social']);
+    assert.equal(getTelemetryCounter(api, 'category_toggled'), 0);
+    assert.deepEqual(flushed.result, {
+      success: true,
+      sent: false,
+      reason: 'disabled'
+    });
+    assert.equal(fetchCalls, 0);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: false, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('category telemetry follows the correct platform consent source when stored and native decisions disagree', async () => {
+  for (const { permissionGranted, storedEnabled, expectedCounter } of [
+    {
+      permissionGranted: false,
+      storedEnabled: true,
+      expectedCounter: TEST_FIREFOX_ANDROID ? 0 : 1
+    },
+    {
+      permissionGranted: true,
+      storedEnabled: false,
+      expectedCounter: TEST_FIREFOX_ANDROID ? 1 : 0
+    },
+    {
+      permissionGranted: null,
+      storedEnabled: true,
+      expectedCounter: TEST_FIREFOX_ANDROID ? 0 : 1
+    }
+  ]) {
+    await withWorker(async ({ api, send }) => {
+      api.permissions.getAll = async () => {
+        if (permissionGranted === null) {
+          throw new Error('Firefox data-collection permission is unavailable');
+        }
+        return {
+          data_collection: permissionGranted ? ['technicalAndInteraction'] : []
+        };
+      };
+      const requests = [];
+      api.setFetchHandler(async (_url, options) => {
+        requests.push(JSON.parse(options.body));
+        return { ok: true, status: 202, json: async () => ({ ok: true }) };
+      });
+
+      const toggled = await send({
+        type: 'rules:toggleCategory',
+        payload: { category: 'social' }
+      });
+      assert.equal(toggled.success, true);
+      assert.equal(getTelemetryCounter(api, 'category_toggled'), expectedCounter);
+
+      const flushed = await send({ type: 'telemetry:flush', force: true });
+      assert.equal(flushed.result.sent, expectedCounter === 1);
+      assert.equal(requests.length, expectedCounter);
+      if (expectedCounter === 1) {
+        assert.equal(requests[0].batches[0].counters.category_toggled, 1);
+      } else {
+        assert.equal(flushed.result.reason, 'disabled');
+      }
+      assert.equal(api.windows, undefined);
+    }, {
+      local: {
+        activeRuleListId: 'general',
+        telemetryConsent: { version: 1, enabled: storedEnabled, decidedAt: 1 }
+      },
+      supportsWindows: false
+    });
+  }
+});
+
+test('a rejected Free category toggle cannot increment or deliver a successful-action counter', async () => {
+  await withWorker(async ({ api, send }) => {
+    let fetchCalls = 0;
+    api.setFetchHandler(async () => {
+      fetchCalls += 1;
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+
+    const rejected = await send({
+      type: 'rules:toggleCategory',
+      payload: { category: 'social' }
+    });
+    const flushed = await send({ type: 'telemetry:flush', force: true });
+
+    assert.equal(rejected.success, false);
+    assert.equal(rejected.error.code, 'pro_required');
+    assert.deepEqual(api.storage.local.data.ruleLists[0].disabledCategories, []);
+    assert.equal(getTelemetryCounter(api, 'category_toggled'), 0);
+    assert.equal(flushed.result.sent, false);
+    assert.equal(flushed.result.reason, 'empty');
+    assert.equal(fetchCalls, 0);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('failed category telemetry delivery retries its original batch without using the minute watchdog', async () => {
+  await withWorker(async ({ api, alarm, send }) => {
+    const requests = [];
+    api.setFetchHandler(async (_url, options) => {
+      requests.push(JSON.parse(options.body));
+      return requests.length === 1
+        ? { ok: false, status: 503, json: async () => ({ ok: false }) }
+        : { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+
+    const toggled = await send({
+      type: 'rules:toggleCategory',
+      payload: { category: 'social' }
+    });
+    assert.equal(toggled.success, true);
+
+    const failed = await send({ type: 'telemetry:flush', force: true });
+    assert.equal(failed.result.success, false);
+    assert.equal(failed.result.status, 503);
+    assert.equal(getTelemetryCounter(api, 'category_toggled'), 1);
+    assert.equal(api.alarmValues.has('telemetry_retry'), true);
+
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(requests.length, 1);
+    assert.equal(getTelemetryCounter(api, 'category_toggled'), 1);
+
+    const retried = await send({ type: 'telemetry:flush', force: true });
+    assert.equal(retried.result.success, true);
+    assert.equal(retried.result.sent, true);
+    assert.equal(requests.length, 2);
+    assert.equal(requests[0].batches[0].counters.category_toggled, 1);
+    assert.equal(requests[1].batches[0].counters.category_toggled, 1);
+    assert.equal(requests[0].batches[0].deliveryId, requests[1].batches[0].deliveryId);
+    assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+    assert.equal(api.alarmValues.has('telemetry_retry'), false);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a category toggle during an in-flight flush remains pending for the next delivery', async () => {
+  await withWorker(async ({ api, send }) => {
+    const uploadStarted = createDeferred();
+    const acceptUpload = createDeferred();
+    const requests = [];
+    api.setFetchHandler(async (_url, options) => {
+      requests.push(JSON.parse(options.body));
+      if (requests.length === 1) {
+        uploadStarted.resolve();
+        return acceptUpload.promise;
+      }
+      return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+
+    const firstToggle = await send({
+      type: 'rules:toggleCategory',
+      payload: { category: 'social' }
+    });
+    assert.equal(firstToggle.success, true);
+
+    const firstFlush = send({ type: 'telemetry:flush', force: true });
+    await uploadStarted.promise;
+
+    const secondToggle = await send({
+      type: 'rules:toggleCategory',
+      payload: { category: 'social' }
+    });
+    assert.equal(secondToggle.success, true);
+    assert.equal(getTelemetryCounter(api, 'category_toggled'), 2);
+
+    acceptUpload.resolve({ ok: true, status: 202, json: async () => ({ ok: true }) });
+    const firstResult = await firstFlush;
+    assert.equal(firstResult.result.success, true);
+    assert.equal(getTelemetryCounter(api, 'category_toggled'), 1);
+
+    const secondResult = await send({ type: 'telemetry:flush', force: true });
+    assert.equal(secondResult.result.success, true);
+    assert.equal(requests.length, 2);
+    assert.deepEqual(requests.map(payload => payload.batches[0].counters), [
+      { category_toggled: 1 },
+      { category_toggled: 1 }
+    ]);
+    assert.notEqual(requests[0].batches[0].deliveryId, requests[1].batches[0].deliveryId);
+    assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a rejected category telemetry write cannot undo an already committed category mutation', async () => {
+  const rule = makeFocusRule(502, 'general', {
+    blockURL: 'committed-category.example'
+  });
+
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [502]);
+
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => Object.hasOwn(values, 'telemetryBuckets')
+      ? Promise.reject(new Error('category telemetry storage unavailable'))
+      : originalSet(values, callback);
+
+    const toggled = await send({
+      type: 'rules:toggleCategory',
+      payload: { category: 'social' }
+    });
+
+    assert.equal(toggled.success, true);
+    assert.deepEqual(api.storage.local.data.ruleLists[0].disabledCategories, ['social']);
+    assert.deepEqual(api.dynamicRules, []);
+    assert.equal(getTelemetryCounter(api, 'category_toggled'), 0);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'general',
+      rules: [rule],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
 
 test('minute watchdog preserves checks without rewriting unchanged inactive storage', async () => {
   await withWorker(async ({ api, alarm }) => {

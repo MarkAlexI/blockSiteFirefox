@@ -7,6 +7,7 @@ import {
 
 test('telemetry accepts only allowlisted counters', () => {
   assert.equal(normalizeCounterName('rule_created'), 'rule_created');
+  assert.equal(normalizeCounterName('category_toggled'), 'category_toggled');
   assert.equal(normalizeCounterName('feedback_prompt_shown'), 'feedback_prompt_shown');
   assert.equal(normalizeCounterName('feedback_review_clicked'), 'feedback_review_clicked');
   assert.equal(normalizeCounterName('feedback_support_clicked'), 'feedback_support_clicked');
