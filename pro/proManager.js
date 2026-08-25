@@ -84,6 +84,10 @@ export class ProManager {
   
   static async updateProStatus(isPro, subscriptionData = {}) {
     try {
+      if (typeof isPro !== 'boolean') {
+        throw new TypeError('Pro status must be an explicit boolean');
+      }
+
       const currentCredentials = await this.getCredentials({ throwOnError: true });
       
       const updatedCredentials = {
@@ -94,8 +98,8 @@ export class ProManager {
         expiryDate: isPro ? (subscriptionData.expiryDate || currentCredentials.expiryDate) : null,
         licenseKey: isPro ? (subscriptionData.licenseKey || currentCredentials.licenseKey) : null,
         
-        isLegacyUser: subscriptionData.isLegacyUser !== undefined ? subscriptionData.isLegacyUser : currentCredentials.isLegacyUser,
-        installationDate: subscriptionData.installationDate || currentCredentials.installationDate
+        isLegacyUser: currentCredentials.isLegacyUser,
+        installationDate: currentCredentials.installationDate
       };
       
       await browser.storage.sync.set({ credentials: updatedCredentials });

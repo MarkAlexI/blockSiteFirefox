@@ -162,6 +162,69 @@ test('downgrading to Free clears paid credentials but preserves installation and
   });
 });
 
+test('subscription updates cannot forge legacy status or backdate a modern installation', async () => {
+  await withProManager({ sync: { credentials: {
+    isPro: false,
+    isLegacyUser: false,
+    installationDate: '2026-08-01T00:00:00.000Z'
+  } } }, async ({ ProManager }) => {
+    const upgraded = await ProManager.updateProStatus(true, {
+      licenseKey: 'BD-VERIFIED-123',
+      isLegacyUser: true,
+      installationDate: '2025-01-01T00:00:00.000Z'
+    });
+
+    assert.equal(upgraded.isPro, true);
+    assert.equal(upgraded.isLegacyUser, false);
+    assert.equal(upgraded.installationDate, '2026-08-01T00:00:00.000Z');
+
+    const downgraded = await ProManager.updateProStatus(false, {
+      isLegacyUser: true,
+      installationDate: '2025-01-01T00:00:00.000Z'
+    });
+
+    assert.equal(downgraded.isPro, false);
+    assert.equal(downgraded.isLegacyUser, false);
+    assert.equal(await ProManager.hasPaidAccess(), false);
+  });
+});
+
+test('subscription updates cannot erase a genuine legacy installation', async () => {
+  await withProManager({ sync: { credentials: {
+    isPro: true,
+    licenseKey: 'BD-LEGACY-123',
+    isLegacyUser: true,
+    installationDate: '2025-12-01T00:00:00.000Z'
+  } } }, async ({ ProManager }) => {
+    const downgraded = await ProManager.updateProStatus(false, {
+      isLegacyUser: false,
+      installationDate: '2026-08-01T00:00:00.000Z'
+    });
+
+    assert.equal(downgraded.isLegacyUser, true);
+    assert.equal(downgraded.installationDate, '2025-12-01T00:00:00.000Z');
+    assert.equal(await ProManager.hasPaidAccess(), true);
+  });
+});
+
+test('credential mutations reject non-boolean Pro states before writing storage', async () => {
+  const credentials = {
+    isPro: false,
+    isLegacyUser: false,
+    installationDate: '2026-08-01T00:00:00.000Z'
+  };
+
+  await withProManager({ sync: { credentials } }, async ({ api, ProManager }) => {
+    for (const value of ['true', 1, null, undefined]) {
+      await suppressConsoleError(() => assert.rejects(
+        ProManager.updateProStatus(value, { licenseKey: 'BD-FORGED' }),
+        /explicit boolean/
+      ));
+      assert.deepEqual(api.storage.sync.data.credentials, credentials);
+    }
+  });
+});
+
 test('Pro feature visibility switches every protected element without requiring browser windows', async () => {
   const document = new FakeDocument();
   const first = document.addElement('first');

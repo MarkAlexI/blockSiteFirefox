@@ -690,6 +690,87 @@ async function finishSupersededLicenseCheck() {
   });
 }
 
+function createLicenseActivationError(message, code = 'activation_failed') {
+  const error = new Error(message);
+  error.code = code;
+  return error;
+}
+
+async function activateLicenseKey(requestedKey) {
+  if (typeof requestedKey !== 'string' || !requestedKey.trim()) {
+    throw createLicenseActivationError('A valid license key is required', 'invalid_license_request');
+  }
+
+  const licenseKey = requestedKey.trim();
+  const verificationGeneration = ++licenseVerificationGeneration;
+  await ProManager.getCredentials({ throwOnError: true });
+  if (verificationGeneration !== licenseVerificationGeneration) {
+    throw createLicenseActivationError('License activation was superseded', 'activation_superseded');
+  }
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(VERIFY_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        key: licenseKey,
+        version: browser.runtime.getManifest().version
+      }),
+      signal: controller.signal
+    });
+
+    let data;
+    try {
+      data = await response.json();
+    } catch (error) {
+      throw createLicenseActivationError('License server returned invalid JSON');
+    }
+
+    if (!response.ok) {
+      const code = response.status === 401 || response.status === 403
+        ? 'invalid_license'
+        : 'activation_failed';
+      throw createLicenseActivationError(
+        data?.error || `License verification failed (${response.status})`,
+        code
+      );
+    }
+
+    if (typeof data?.isPro !== 'boolean') {
+      throw createLicenseActivationError('License server returned an invalid response');
+    }
+
+    if (data.isPro !== true) {
+      throw createLicenseActivationError(data.error || 'Invalid license key', 'invalid_license');
+    }
+
+    if (verificationGeneration !== licenseVerificationGeneration) {
+      throw createLicenseActivationError('License activation was superseded', 'activation_superseded');
+    }
+
+    const credentials = await handleProStatusUpdate(true, {
+      licenseKey,
+      subscriptionEmail: data.email,
+      expiryDate: data.expiryDate
+    });
+
+    if (credentials?.isPro !== true || credentials.licenseKey !== licenseKey) {
+      throw createLicenseActivationError('License activation was superseded', 'activation_superseded');
+    }
+
+    return { isPro: true };
+  } catch (error) {
+    if (error?.name === 'AbortError') {
+      throw createLicenseActivationError('License verification timed out');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 async function syncLicenseKeyStatus() {
   const verificationGeneration = ++licenseVerificationGeneration;
   const credentials = await ProManager.getCredentials();
@@ -1568,15 +1649,44 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return;
   }
   
-  if (message.type === 'update_pro_status') {
+  if (message.type === 'activate_pro_license') {
     (async () => {
       try {
-        const result = await handleProStatusUpdate(message.isPro, message.subscriptionData);
-        sendResponse({ success: true, credentials: result });
+        const result = await activateLicenseKey(message.licenseKey);
+        sendResponse({ success: true, isPro: result.isPro });
+      } catch (error) {
+        sendResponse({
+          success: false,
+          error: error.message,
+          code: error.code || 'activation_failed'
+        });
+      }
+    })();
+    return true;
+  }
+
+  if (message.type === 'logout_pro') {
+    (async () => {
+      try {
+        await handleProStatusUpdate(false, {
+          licenseKey: null,
+          expiryDate: null,
+          subscriptionEmail: null
+        });
+        sendResponse({ success: true, isPro: false });
       } catch (error) {
         sendResponse({ success: false, error: error.message });
       }
     })();
+    return true;
+  }
+
+  if (message.type === 'update_pro_status') {
+    sendResponse({
+      success: false,
+      error: 'Direct Pro status changes are not allowed',
+      code: 'unauthorized_pro_transition'
+    });
     return true;
   }
   
@@ -1593,14 +1703,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'get_pro_credentials') {
-    (async () => {
-      try {
-        const credentials = await ProManager.getCredentials();
-        sendResponse({ credentials });
-      } catch (error) {
-        sendResponse({ credentials: ProManager.defaultCredentials, error: error.message });
-      }
-    })();
+    sendResponse({
+      success: false,
+      error: 'License credentials are not available through runtime messages',
+      code: 'credentials_unavailable'
+    });
     return true;
   }
 

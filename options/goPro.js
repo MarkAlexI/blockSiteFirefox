@@ -3,7 +3,6 @@ import { ProManager } from '../pro/proManager.js';
 import { SettingsManager } from './settings.js';
 import { PasswordUtils } from '../pro/password.js';
 import Logger from '../utils/logger.js';
-import { LICENSE_SYNC_TIMEOUT_MS, VERIFY_API_URL } from '../utils/constants.js';
 
 const logger = new Logger('GoPro');
 
@@ -105,55 +104,17 @@ if (licenseForm) {
     licenseMessage.className = 'status-message success show';
     licenseSubmitBtn.disabled = true;
     
-    const version = browser.runtime.getManifest().version;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
     try {
-      const response = await fetch(VERIFY_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          key: key,
-          version
-        }),
-        signal: controller.signal
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        const error = new Error(data?.error || `License verification failed (${response.status})`);
-        if (response.status === 401 || response.status === 403) {
-          error.code = 'invalid_license';
-        }
-        throw error;
-      }
-
-      if (typeof data?.isPro !== 'boolean') {
-        throw new Error('License server returned an invalid response');
-      }
-
-      if (!data.isPro) {
-        const error = new Error(data.error || 'Invalid key');
-        error.code = 'invalid_license';
-        throw error;
-      }
-      
-      const subscriptionData = {
-        licenseKey: key,
-        subscriptionEmail: data.email,
-        expiryDate: data.expiryDate
-      };
-      
       const statusResponse = await sendMessageToWorker({
-        type: 'update_pro_status',
-        isPro: true,
-        subscriptionData: subscriptionData
+        type: 'activate_pro_license',
+        licenseKey: key
       });
       if (statusResponse?.success !== true) {
-        throw new Error(statusResponse?.error || 'Background worker failed to activate Pro');
+        const error = new Error(statusResponse?.error || 'Background worker failed to activate Pro');
+        error.code = statusResponse?.code;
+        throw error;
       }
-      logger.log("Background worker notified.");
+      logger.log("Background worker verified and activated Pro.");
       
       try {
         const settingsResult = await browser.storage.sync.get(['settings']);
@@ -188,7 +149,6 @@ if (licenseForm) {
         : (t('servererror') || 'Server error. Please try again.');
       licenseMessage.className = 'error-message show';
     } finally {
-      clearTimeout(timeoutId);
       licenseSubmitBtn.disabled = false;
       
       setTimeout(() => {
@@ -251,16 +211,8 @@ if (logOutBtn) {
     }
     
     try {
-      const emptyData = {
-        licenseKey: null,
-        subscriptionEmail: null,
-        expiryDate: null
-      };
-      
       const statusResponse = await sendMessageToWorker({
-        type: 'update_pro_status',
-        isPro: false,
-        subscriptionData: emptyData
+        type: 'logout_pro'
       });
       if (statusResponse?.success !== true) {
         throw new Error(statusResponse?.error || 'Background worker failed to end the Pro session');

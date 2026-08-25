@@ -6,7 +6,7 @@ import {
   createExtensionApi,
   withExtensionEnvironment
 } from './helpers/extensionTestHarness.js';
-import { LICENSE_SYNC_TIMEOUT_MS } from '../utils/constants.js';
+import { LICENSE_SYNC_TIMEOUT_MS, VERIFY_API_URL } from '../utils/constants.js';
 
 let goProImportId = 0;
 
@@ -38,18 +38,79 @@ async function withGoProPage({
     }
   });
   const statusMessages = [];
+  const workerRequests = [];
   api.runtime.onMessage = { addListener() {} };
   api.runtime.sendMessage = (request, respond) => {
-    statusMessages.push(structuredClone(request));
-    if (workerResponse?.success === true && request.type === 'update_pro_status') {
-      api.storage.sync.data.credentials = {
-        ...api.storage.sync.data.credentials,
-        ...request.subscriptionData,
-        isPro: request.isPro
-      };
-    }
-    if (typeof respond === 'function') respond(workerResponse);
-    return Promise.resolve(workerResponse);
+    workerRequests.push(structuredClone(request));
+
+    const operation = (async () => {
+      if (request.type === 'activate_pro_license') {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
+
+        try {
+          const response = await globalThis.fetch(VERIFY_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              key: request.licenseKey,
+              version: api.runtime.getManifest().version
+            }),
+            signal: controller.signal
+          });
+          const data = await response.json();
+
+          if (!response.ok) {
+            return {
+              success: false,
+              error: data?.error || `License verification failed (${response.status})`,
+              code: response.status === 401 || response.status === 403
+                ? 'invalid_license'
+                : 'activation_failed'
+            };
+          }
+
+          if (typeof data?.isPro !== 'boolean') {
+            return { success: false, error: 'Invalid server response', code: 'activation_failed' };
+          }
+
+          if (!data.isPro) {
+            return { success: false, error: 'Invalid license key', code: 'invalid_license' };
+          }
+
+          statusMessages.push(structuredClone(request));
+          if (workerResponse?.success === true) {
+            api.storage.sync.data.credentials = {
+              ...api.storage.sync.data.credentials,
+              isPro: true,
+              licenseKey: request.licenseKey,
+              subscriptionEmail: data.email,
+              expiryDate: data.expiryDate
+            };
+          }
+          return workerResponse;
+        } catch (error) {
+          return { success: false, error: error.message, code: 'activation_failed' };
+        } finally {
+          clearTimeout(timeoutId);
+        }
+      }
+
+      statusMessages.push(structuredClone(request));
+      if (workerResponse?.success === true && request.type === 'logout_pro') {
+        api.storage.sync.data.credentials = {
+          ...api.storage.sync.data.credentials,
+          isPro: false,
+          licenseKey: null,
+          subscriptionEmail: null,
+          expiryDate: null
+        };
+      }
+      return workerResponse;
+    })();
+
+    if (typeof respond === 'function') operation.then(respond);
+    return operation;
   };
 
   const credentialWrites = [];
@@ -104,6 +165,7 @@ async function withGoProPage({
         message,
         logout,
         statusMessages,
+        workerRequests,
         credentialWrites,
         requests,
         timers,
@@ -123,21 +185,19 @@ async function withGoProPage({
   }
 }
 
-test('license activation delegates its only credentials mutation to the service worker', async () => {
-  await withGoProPage({}, async ({ api, form, input, message, statusMessages, credentialWrites }) => {
+test('license activation delegates verification and its only credentials mutation to the service worker', async () => {
+  await withGoProPage({}, async ({
+    api, form, input, message, statusMessages, workerRequests, credentialWrites
+  }) => {
     input.value = 'BD-NEW-KEY';
     await form.dispatch('submit');
 
     assert.equal(statusMessages.length, 1);
     assert.deepEqual(statusMessages[0], {
-      type: 'update_pro_status',
-      isPro: true,
-      subscriptionData: {
-        licenseKey: 'BD-NEW-KEY',
-        subscriptionEmail: 'person@example.com',
-        expiryDate: '2027-08-01'
-      }
+      type: 'activate_pro_license',
+      licenseKey: 'BD-NEW-KEY'
     });
+    assert.deepEqual(workerRequests, statusMessages);
     assert.deepEqual(credentialWrites, []);
     assert.equal(api.storage.sync.data.credentials.isPro, true);
     assert.equal(message.textContent, 'proactivated');
@@ -369,8 +429,7 @@ test('logout delegates its only credentials mutation to the service worker', asy
     await logout.dispatch('click');
 
     assert.equal(statusMessages.length, 1);
-    assert.equal(statusMessages[0].type, 'update_pro_status');
-    assert.equal(statusMessages[0].isPro, false);
+    assert.deepEqual(statusMessages[0], { type: 'logout_pro' });
     assert.deepEqual(credentialWrites, []);
     assert.equal(api.storage.sync.data.credentials.isPro, false);
     assert.equal(api.storage.sync.data.credentials.licenseKey, null);
@@ -430,7 +489,7 @@ test('verified protected logout clears the password hash after the worker ends t
 
       assert.equal(verificationCalls, 1);
       assert.equal(statusMessages.length, 1);
-      assert.equal(statusMessages[0].isPro, false);
+      assert.deepEqual(statusMessages[0], { type: 'logout_pro' });
       assert.deepEqual(credentialWrites, []);
       assert.equal(api.storage.sync.data.credentials.isPro, false);
       assert.equal(api.storage.sync.data.settings.enablePassword, false);

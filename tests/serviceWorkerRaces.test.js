@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 import { getLocalDateKey } from '../rules/dailyLimitManager.js';
-import { LICENSE_SYNC_TIMEOUT_MS } from '../utils/constants.js';
+import { LICENSE_SYNC_TIMEOUT_MS, VERIFY_API_URL } from '../utils/constants.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
@@ -269,6 +269,556 @@ async function withWorker(callback, {
     globalThis.fetch = previousFetch;
   }
 }
+
+for (const [label, claimedStatus] of [
+  ['boolean Pro', true],
+  ['string Pro', 'true'],
+  ['numeric Pro', 1],
+  ['forged downgrade', false]
+]) {
+  test('direct runtime ' + label + ' messages cannot grant Pro or legacy access', async () => {
+    await withWorker(async ({ api, send }) => {
+      let requests = 0;
+      api.setFetchHandler(async () => {
+        requests += 1;
+        throw new Error('rejected messages must not contact the license server');
+      });
+
+      const response = await send({
+        type: 'update_pro_status',
+        isPro: claimedStatus,
+        subscriptionData: {
+          licenseKey: 'BD-FORGED-KEY',
+          subscriptionEmail: 'forged@example.com',
+          isLegacyUser: true,
+          installationDate: '2025-01-01T00:00:00.000Z'
+        }
+      });
+
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'unauthorized_pro_transition');
+      assert.equal(requests, 0);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.credentials.isLegacyUser, false);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+      assert.equal(api.storage.sync.data.credentials.installationDate, '2026-08-01T00:00:00.000Z');
+      assert.equal(api.contextMenuPresent, false);
+      assert.equal(api.windows, undefined);
+
+      const paidFocus = await send({
+        type: 'start_focus_session',
+        duration: 40,
+        isHardcore: true,
+        focusMode: 'whitelist'
+      });
+      assert.equal(paidFocus.success, false);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    }, {
+      credentials: { isPro: false, licenseKey: null, isLegacyUser: false },
+      local: { activeRuleListId: 'general' },
+      supportsWindows: false
+    });
+  });
+}
+
+test('runtime credential requests never expose license keys or subscription email', async () => {
+  await withWorker(async ({ api, send }) => {
+    const response = await send({ type: 'get_pro_credentials' });
+
+    assert.deepEqual(response, {
+      success: false,
+      error: 'License credentials are not available through runtime messages',
+      code: 'credentials_unavailable'
+    });
+    assert.equal(JSON.stringify(response).includes('BD-PRIVATE-KEY'), false);
+    assert.equal(JSON.stringify(response).includes('private@example.com'), false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-PRIVATE-KEY');
+  }, {
+    credentials: { licenseKey: 'BD-PRIVATE-KEY', subscriptionEmail: 'private@example.com' },
+    supportsWindows: false
+  });
+});
+
+test('worker verifies and activates licenses without trusting caller or server legacy fields', async () => {
+  for (const supportsWindows of [true, false]) {
+    await withWorker(async ({ api, send }) => {
+      const requests = [];
+      api.setFetchHandler(async (url, options) => {
+        requests.push({ url, options, body: JSON.parse(options.body) });
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            isPro: true,
+            email: 'verified@example.com',
+            expiryDate: '2027-08-01',
+            isLegacyUser: true,
+            installationDate: '2025-01-01T00:00:00.000Z'
+          })
+        };
+      });
+
+      const response = await send({
+        type: 'activate_pro_license',
+        licenseKey: '  BD-WORKER-VERIFIED  ',
+        isPro: true,
+        isLegacyUser: true,
+        installationDate: '2025-01-01T00:00:00.000Z',
+        subscriptionData: {
+          licenseKey: 'BD-FORGED-KEY',
+          subscriptionEmail: 'forged@example.com',
+          isLegacyUser: true,
+          installationDate: '2025-01-01T00:00:00.000Z'
+        }
+      });
+
+      assert.deepEqual(response, { success: true, isPro: true });
+      assert.equal(requests.length, 1);
+      assert.equal(requests[0].url, VERIFY_API_URL);
+      assert.equal(requests[0].options.method, 'POST');
+      assert.equal(requests[0].options.signal instanceof AbortSignal, true);
+      assert.deepEqual(requests[0].body, {
+        key: 'BD-WORKER-VERIFIED',
+        version: api.runtime.getManifest().version
+      });
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-WORKER-VERIFIED');
+      assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'verified@example.com');
+      assert.equal(api.storage.sync.data.credentials.expiryDate, '2027-08-01');
+      assert.equal(api.storage.sync.data.credentials.isLegacyUser, false);
+      assert.equal(api.storage.sync.data.credentials.installationDate, '2026-08-01T00:00:00.000Z');
+      assert.equal(api.contextMenuPresent, true);
+      assert.equal(api.windows !== undefined, supportsWindows);
+
+      const logout = await send({
+        type: 'logout_pro',
+        subscriptionData: {
+          isLegacyUser: true,
+          installationDate: '2025-01-01T00:00:00.000Z'
+        }
+      });
+      assert.deepEqual(logout, { success: true, isPro: false });
+      assert.equal(api.storage.sync.data.credentials.isLegacyUser, false);
+      assert.equal(api.storage.sync.data.credentials.installationDate, '2026-08-01T00:00:00.000Z');
+      assert.equal(api.contextMenuPresent, false);
+    }, {
+      credentials: { isPro: false, licenseKey: null, isLegacyUser: false },
+      local: { activeRuleListId: 'general' },
+      supportsWindows
+    });
+  }
+});
+
+for (const [label, licenseKey] of [
+  ['missing', undefined],
+  ['null', null],
+  ['numeric', 42],
+  ['object', { key: 'BD-FORGED' }],
+  ['array', ['BD-FORGED']],
+  ['empty', ''],
+  ['blank', '   ']
+]) {
+  test('worker rejects a ' + label + ' activation key before contacting the server', async () => {
+    await withWorker(async ({ api, send }) => {
+      let requests = 0;
+      api.setFetchHandler(async () => {
+        requests += 1;
+        throw new Error('invalid requests must never reach the server');
+      });
+
+      const response = await send({ type: 'activate_pro_license', licenseKey });
+
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'invalid_license_request');
+      assert.equal(requests, 0);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    }, {
+      credentials: { isPro: false, licenseKey: null },
+      local: { activeRuleListId: 'general' },
+      supportsWindows: false
+    });
+  });
+}
+
+for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
+  test('worker activation HTTP ' + status + ' preserves an existing valid Pro subscription', async () => {
+    await withWorker(async ({ api, send }) => {
+      api.setFetchHandler(async () => ({
+        ok: false,
+        status,
+        json: async () => ({ error: 'Temporary license verification failure' })
+      }));
+
+      const response = await send({
+        type: 'activate_pro_license',
+        licenseKey: 'BD-CANDIDATE-KEY'
+      });
+
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'activation_failed');
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+      assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+    }, { supportsWindows: false });
+  });
+}
+
+for (const status of [401, 403]) {
+  test('worker activation HTTP ' + status + ' rejects only the proposed license', async () => {
+    await withWorker(async ({ api, send }) => {
+      api.setFetchHandler(async () => ({
+        ok: false,
+        status,
+        json: async () => ({ error: 'Subscription rejected' })
+      }));
+
+      const response = await send({
+        type: 'activate_pro_license',
+        licenseKey: 'BD-REJECTED-KEY'
+      });
+
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'invalid_license');
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    }, { supportsWindows: false });
+  });
+}
+
+for (const [label, payload] of [
+  ['truthy string', { isPro: 'true' }],
+  ['numeric status', { isPro: 1 }],
+  ['missing status', {}],
+  ['null payload', null]
+]) {
+  test('worker activation rejects a server response with ' + label, async () => {
+    await withWorker(async ({ api, send }) => {
+      api.setFetchHandler(async () => ({
+        ok: true,
+        status: 200,
+        json: async () => payload
+      }));
+
+      const response = await send({
+        type: 'activate_pro_license',
+        licenseKey: 'BD-AMBIGUOUS-KEY'
+      });
+
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'activation_failed');
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    }, {
+      credentials: { isPro: false, licenseKey: null },
+      local: { activeRuleListId: 'general' },
+      supportsWindows: false
+    });
+  });
+}
+
+test('worker activation treats an explicit inactive subscription as an invalid key', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.setFetchHandler(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: false, error: 'Subscription expired' })
+    }));
+
+    const response = await send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-EXPIRED-KEY'
+    });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'invalid_license');
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+  }, { supportsWindows: false });
+});
+
+test('invalid worker activation JSON preserves the current subscription and profile', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.setFetchHandler(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => { throw new SyntaxError('invalid backend response'); }
+    }));
+
+    const response = await send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-MALFORMED-RESPONSE'
+    });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'activation_failed');
+    assert.match(response.error, /invalid JSON/);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+  }, { supportsWindows: false });
+});
+
+test('offline worker activation preserves the current subscription and profile', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.setFetchHandler(async () => { throw new TypeError('network unavailable'); });
+
+    const response = await send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-OFFLINE-CANDIDATE'
+    });
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'activation_failed');
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+  }, { supportsWindows: false });
+});
+
+test('worker activation timeout aborts its request and remains retryable', async () => {
+  await withWorker(async ({ api, send }) => {
+    const requestStarted = createDeferred();
+    const previousSetTimeout = globalThis.setTimeout;
+    const previousClearTimeout = globalThis.clearTimeout;
+    const cleared = [];
+    let timeoutCallback = null;
+
+    globalThis.setTimeout = (callback, delay) => {
+      if (delay === LICENSE_SYNC_TIMEOUT_MS) timeoutCallback = callback;
+      return 71;
+    };
+    globalThis.clearTimeout = id => { cleared.push(id); };
+    api.setFetchHandler((_url, { signal }) => new Promise((_resolve, reject) => {
+      signal.addEventListener('abort', () => {
+        reject(Object.assign(new Error('request aborted'), { name: 'AbortError' }));
+      }, { once: true });
+      requestStarted.resolve();
+    }));
+
+    try {
+      const pending = send({
+        type: 'activate_pro_license',
+        licenseKey: 'BD-STALLED-CANDIDATE'
+      });
+      await requestStarted.promise;
+      assert.equal(typeof timeoutCallback, 'function');
+      timeoutCallback();
+      const response = await pending;
+
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'activation_failed');
+      assert.match(response.error, /timed out/);
+      assert.deepEqual(cleared, [71]);
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    } finally {
+      globalThis.setTimeout = previousSetTimeout;
+      globalThis.clearTimeout = previousClearTimeout;
+    }
+  }, { supportsWindows: false });
+});
+
+test('failed credential reads prevent worker activation before any network request', async () => {
+  await withWorker(async ({ api, send }) => {
+    let requests = 0;
+    api.storage.sync.getError = new Error('credential storage unavailable');
+    api.setFetchHandler(async () => {
+      requests += 1;
+      throw new Error('credential failure must prevent network access');
+    });
+
+    const response = await withMutedErrors(() => send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-BLOCKED-BY-STORAGE'
+    }));
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'activation_failed');
+    assert.equal(requests, 0);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+  }, { supportsWindows: false });
+});
+
+test('failed credential persistence cannot turn a verified activation into Pro access', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.storage.sync.setError = new Error('credential storage is read-only');
+
+    const response = await withMutedErrors(() => send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-VERIFIED-BUT-UNSAVED'
+    }));
+
+    assert.equal(response.success, false);
+    assert.equal(response.code, 'activation_failed');
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('an activation response received after logout cannot restore the previous Pro session', async () => {
+  await withWorker(async ({ api, send }) => {
+    const requestStarted = createDeferred();
+    const response = createDeferred();
+    api.setFetchHandler(async () => {
+      requestStarted.resolve();
+      return response.promise;
+    });
+
+    const activation = send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-LATE-ACTIVATION'
+    });
+    await requestStarted.promise;
+
+    const logout = await send({ type: 'logout_pro' });
+    assert.equal(logout.success, true);
+
+    response.resolve({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: true, email: 'late@example.com' })
+    });
+    const completed = await activation;
+
+    assert.equal(completed.success, false);
+    assert.equal(completed.code, 'activation_superseded');
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.equal(api.contextMenuPresent, false);
+  }, { supportsWindows: false });
+});
+
+test('logout supersedes activation while its initial credential read is still delayed', async () => {
+  await withWorker(async ({ api, send }) => {
+    const readStarted = createDeferred();
+    const releaseRead = createDeferred();
+    const originalGet = api.storage.sync.get.bind(api.storage.sync);
+    let held = false;
+    let requests = 0;
+
+    api.storage.sync.get = async (...args) => {
+      if (!held && Array.isArray(args[0]) && args[0].includes('credentials')) {
+        held = true;
+        readStarted.resolve();
+        await releaseRead.promise;
+      }
+      return originalGet(...args);
+    };
+    api.setFetchHandler(async () => {
+      requests += 1;
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ isPro: true })
+      };
+    });
+
+    const activation = send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-DELAYED-READ'
+    });
+    await readStarted.promise;
+    const logout = await send({ type: 'logout_pro' });
+    assert.equal(logout.success, true);
+
+    releaseRead.resolve();
+    const completed = await activation;
+
+    assert.equal(completed.success, false);
+    assert.equal(completed.code, 'activation_superseded');
+    assert.equal(requests, 0);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(api.contextMenuPresent, false);
+  }, { supportsWindows: false });
+});
+
+test('a newer verified activation supersedes an older response without exposing either key', async () => {
+  await withWorker(async ({ api, send }) => {
+    const requests = [];
+    const firstStarted = createDeferred();
+    const bothStarted = createDeferred();
+    api.setFetchHandler(async (_url, options) => {
+      const response = createDeferred();
+      requests.push({ key: JSON.parse(options.body).key, response });
+      if (requests.length === 1) firstStarted.resolve();
+      if (requests.length === 2) bothStarted.resolve();
+      return response.promise;
+    });
+
+    const first = send({ type: 'activate_pro_license', licenseKey: 'BD-FIRST-KEY' });
+    await firstStarted.promise;
+    const second = send({ type: 'activate_pro_license', licenseKey: 'BD-SECOND-KEY' });
+    await bothStarted.promise;
+
+    const latest = requests.find(request => request.key === 'BD-SECOND-KEY');
+    latest.response.resolve({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: true, email: 'latest@example.com' })
+    });
+    const secondResult = await second;
+
+    const older = requests.find(request => request.key === 'BD-FIRST-KEY');
+    older.response.resolve({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: true, email: 'older@example.com' })
+    });
+    const firstResult = await first;
+
+    assert.deepEqual(secondResult, { success: true, isPro: true });
+    assert.equal(firstResult.success, false);
+    assert.equal(firstResult.code, 'activation_superseded');
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-SECOND-KEY');
+    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'latest@example.com');
+    assert.equal(JSON.stringify(secondResult).includes('BD-SECOND-KEY'), false);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('verified activation and logout preserve genuine legacy access and its active Rule List', async () => {
+  await withWorker(async ({ api, send }) => {
+    const activated = await send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-LEGACY-VERIFIED'
+    });
+    assert.equal(activated.success, true);
+    assert.equal(api.storage.sync.data.credentials.isLegacyUser, true);
+
+    const loggedOut = await send({
+      type: 'logout_pro',
+      subscriptionData: {
+        isLegacyUser: false,
+        installationDate: '2026-08-01T00:00:00.000Z'
+      }
+    });
+
+    assert.equal(loggedOut.success, true);
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.sync.data.credentials.isLegacyUser, true);
+    assert.equal(api.storage.sync.data.credentials.installationDate, '2025-12-01T00:00:00.000Z');
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+    assert.equal(api.contextMenuPresent, true);
+  }, {
+    credentials: {
+      isPro: false,
+      licenseKey: null,
+      isLegacyUser: true,
+      installationDate: '2025-12-01T00:00:00.000Z'
+    },
+    supportsWindows: false
+  });
+});
 
 test('successful category toggles reach the outgoing telemetry payload exactly once', async () => {
   const privateRule = makeFocusRule(501, 'general', {
@@ -2365,11 +2915,7 @@ test('daily context-menu refresh cannot overtake a concurrent manual Pro logout'
     const maintenance = alarm({ name: 'check_pro_expiry' });
     await refreshStarted.promise;
     let logoutCompleted = false;
-    const logout = send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null, subscriptionEmail: null, expiryDate: null }
-    }).then(result => {
+    const logout = send({ type: 'logout_pro' }).then(result => {
       logoutCompleted = true;
       return result;
     });
@@ -2575,11 +3121,7 @@ test('a license response received after logout cannot restore the old Pro key', 
     const verification = send({ type: 'force_sync' });
     await requestStarted.promise;
 
-    const logout = await send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null, subscriptionEmail: null, expiryDate: null }
-    });
+    const logout = await send({ type: 'logout_pro' });
     assert.equal(logout.success, true);
 
     response.resolve({
@@ -2600,7 +3142,14 @@ test('rejection of an old license cannot clear a newly activated valid license',
   await withWorker(async ({ api, send }) => {
     const requestStarted = createDeferred();
     const response = createDeferred();
-    api.setFetchHandler(async () => {
+    api.setFetchHandler(async (_url, options) => {
+      if (JSON.parse(options.body).key === 'BD-NEW-KEY') {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({ isPro: true, email: 'new@example.com' })
+        };
+      }
       requestStarted.resolve();
       return response.promise;
     });
@@ -2609,12 +3158,8 @@ test('rejection of an old license cannot clear a newly activated valid license',
     await requestStarted.promise;
 
     const activation = await send({
-      type: 'update_pro_status',
-      isPro: true,
-      subscriptionData: {
-        licenseKey: 'BD-NEW-KEY',
-        subscriptionEmail: 'new@example.com'
-      }
+      type: 'activate_pro_license',
+      licenseKey: 'BD-NEW-KEY'
     });
     assert.equal(activation.success, true);
 
@@ -2682,20 +3227,24 @@ test('an overlapping downgrade cannot overwrite a newer Pro upgrade or its activ
       return originalGet(...args);
     };
 
-    const downgrade = send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null }
-    });
+    const downgrade = send({ type: 'logout_pro' });
     await pauseStarted.promise;
 
-    const upgrade = send({
-      type: 'update_pro_status',
-      isPro: true,
-      subscriptionData: { licenseKey: 'BD-RESTORED-KEY' }
+    const activationVerified = createDeferred();
+    api.setFetchHandler(async () => {
+      activationVerified.resolve();
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ isPro: true })
+      };
     });
-    await Promise.resolve();
-    await Promise.resolve();
+    const upgrade = send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-RESTORED-KEY'
+    });
+    await activationVerified.promise;
+    await new Promise(resolve => setImmediate(resolve));
     releasePause.resolve();
     await Promise.all([downgrade, upgrade]);
 
@@ -2756,11 +3305,7 @@ test('a Pro downgrade cannot be overtaken by a paid Focus start whose state writ
     });
     await startWriteStarted.promise;
 
-    const downgrading = send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null }
-    });
+    const downgrading = send({ type: 'logout_pro' });
     for (let index = 0; index < 8; index++) {
       await new Promise(resolve => setImmediate(resolve));
     }
@@ -2841,11 +3386,7 @@ test('a stop request is not lost when a Pro downgrade overlaps Whitelist cleanup
     await queryStarted.promise;
 
     const stopping = send({ type: 'stop_focus_session' });
-    const downgrading = send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null }
-    });
+    const downgrading = send({ type: 'logout_pro' });
     for (let index = 0; index < 8; index++) {
       await new Promise(resolve => setImmediate(resolve));
     }
@@ -4021,11 +4562,7 @@ test('Pro downgrade unlocks Hardcore Whitelist Focus and keeps only General brow
     assert.equal(started.success, true);
     assert.deepEqual(api.dynamicRules.map(rule => rule.id), [111, 112]);
 
-    const downgraded = await send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null }
-    });
+    const downgraded = await send({ type: 'logout_pro' });
 
     assert.equal(downgraded.success, true);
     assert.equal(api.storage.local.data.activeRuleListId, 'general');
@@ -4051,11 +4588,7 @@ test('downgrade resynchronizes active Focus even when General was already select
     await send({ type: 'start_focus_session', duration: 25 });
     assert.deepEqual(api.dynamicRules.map(rule => rule.id), [121, 122]);
 
-    await send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null }
-    });
+    await send({ type: 'logout_pro' });
 
     assert.equal(api.storage.local.data.focusSession.focusActive, true);
     assert.equal(api.storage.local.data.activeRuleListId, 'general');
@@ -4076,11 +4609,7 @@ test('legacy users keep paid Focus settings and custom lists after their Pro fla
       isHardcore: true,
       focusMode: 'whitelist'
     });
-    await send({
-      type: 'update_pro_status',
-      isPro: false,
-      subscriptionData: { licenseKey: null }
-    });
+    await send({ type: 'logout_pro' });
 
     assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
     assert.equal(api.storage.local.data.focusSession.focusMode, 'whitelist');

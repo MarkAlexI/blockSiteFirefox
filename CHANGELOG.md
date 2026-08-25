@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.22] - 2026-08-25
+### Security
+- Pro activation is now verified and committed authoritatively by the service worker; Options submits only the proposed license key, and paid access requires an explicit `isPro: true` response from the existing license endpoint.
+- Direct runtime Pro-status mutations are rejected, and the obsolete credentials endpoint no longer exposes license keys or subscription email.
+- Subscription activation and logout cannot overwrite the original installation date or genuine legacy-access state, even when caller or server payloads contain forged legacy fields.
+
+### Fixed
+- Temporary HTTP, network, timeout, malformed-response, and storage failures preserve the existing subscription and active Rule List; authoritative `401`/`403` rejections and confirmed inactive candidates remain distinguishable without revoking another valid license.
+- Overlapping verification, delayed credential reads, newer activations, and logout share the existing worker transition guards so stale responses cannot restore or replace newer access.
+- Password-protected logout, genuine legacy access, Free rule deletion, the exact ten-rule limit, Focus/DNR recovery, the unchanged one-minute watchdog, and Firefox Android workers without the unsupported windows API remain intact.
+
+### Added
+- Added 40 regression scenarios for forged runtime Pro and legacy claims, private credential responses, worker-owned activation, strict server approval, candidate validation, HTTP outcomes, retryable failures, timeout cleanup, storage failures, serialized activation/logout races, Firefox Desktop, and Firefox Android.
+
 ## [5.1.21] - 2026-08-25
 ### Changed
 - Updated Firefox Add-ons descriptions in all 57 existing locales to highlight privacy-first website blocking on Firefox Desktop and Android, ten free rules, and Pro schedules, Daily Limits, and strict controls.
