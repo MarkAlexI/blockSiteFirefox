@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.1] - 2026-08-26
+### Fixed
+- Successful manual Pro activation now replaces a stale no-key or temporary verification result with a current successful diagnostic state.
+- A failure to persist post-activation diagnostics cannot turn already committed Pro access into an activation error.
+
+### Changed
+- Diagnostic reports now show the sanitized reason and error from the last license check without exposing URLs, email addresses, or license keys.
+
+### Added
+- Added 3 regression scenarios for sanitized license details, stale-state replacement after activation, and non-fatal diagnostic storage failures in windowless workers.
+
 ## [5.2.0] - 2026-08-26
 ### Added
 - Expanded Rule Packs from five to eight and the curated catalog from 33 to 57 entries.

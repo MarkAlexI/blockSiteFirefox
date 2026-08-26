@@ -409,6 +409,70 @@ test('worker verifies and activates licenses without trusting caller or server l
   }
 });
 
+test('successful manual activation replaces a stale no-key diagnostic state on a windowless worker', async () => {
+  await withWorker(async ({ api, send }) => {
+    const activated = await send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-DIAGNOSTIC-ACTIVATION'
+    });
+
+    assert.deepEqual(activated, { success: true, isPro: true });
+    assert.equal(api.windows, undefined);
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.success, true);
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.isPro, true);
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.reason, 'activated');
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.error, null);
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.timestamp > 1, true);
+
+    const diagnostics = await send({ type: 'diagnostics:getReport' });
+    assert.equal(diagnostics.success, true);
+    assert.equal(diagnostics.report.license.lastCheck.reason, 'activated');
+    assert.equal(diagnostics.report.license.lastCheck.success, true);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: {
+      activeRuleListId: 'general',
+      diagnosticState: {
+        lastLicenseCheck: {
+          timestamp: 1,
+          success: false,
+          isPro: false,
+          reason: 'no_key',
+          error: null
+        }
+      }
+    },
+    supportsWindows: false
+  });
+});
+
+test('failed activation diagnostics cannot turn committed windowless Pro access into an error', async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      if (Object.prototype.hasOwnProperty.call(values, 'diagnosticState')) {
+        return Promise.reject(new Error('diagnostic storage unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+
+    const activated = await send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-DIAGNOSTIC-WRITE-FAILURE'
+    });
+
+    assert.deepEqual(activated, { success: true, isPro: true });
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-DIAGNOSTIC-WRITE-FAILURE');
+    assert.equal(api.contextMenuPresent, true);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
 for (const [label, licenseKey] of [
   ['missing', undefined],
   ['null', null],

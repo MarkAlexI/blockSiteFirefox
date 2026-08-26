@@ -81,6 +81,12 @@ function formatTimestamp(value) {
   return Number.isNaN(date.getTime()) ? String(value) : date.toISOString();
 }
 
+function formatSanitizedDetail(value, fallback) {
+  if (value === null || value === undefined || value === '') return fallback;
+  const sanitized = sanitizeDiagnosticValue(value);
+  return typeof sanitized === 'string' ? sanitized : JSON.stringify(sanitized);
+}
+
 export function formatDiagnosticReportText(report) {
   const browserVersion = report.browser?.version ? ` ${report.browser.version}` : '';
   const dnrStatus = report.dnr?.inSync === true ? 'in sync' :
@@ -149,6 +155,8 @@ export function formatDiagnosticReportText(report) {
     '[License]',
     `Last check: ${formatTimestamp(report.license?.lastCheck?.timestamp)}`,
     `Last check success: ${report.license?.lastCheck ? yesNo(report.license.lastCheck.success) : 'not recorded'}`,
+    `Last check reason: ${formatSanitizedDetail(report.license?.lastCheck?.reason, 'not recorded')}`,
+    `Last check error: ${formatSanitizedDetail(report.license?.lastCheck?.error, 'none')}`,
     '',
     '[Technical analytics]',
     `Enabled: ${yesNo(report.telemetry?.enabled)}`,

@@ -681,6 +681,18 @@ async function finishLicenseCheck(result) {
   return result;
 }
 
+async function recordSuccessfulLicenseActivation() {
+  try {
+    await finishLicenseCheck({
+      success: true,
+      isPro: true,
+      reason: 'activated'
+    });
+  } catch (error) {
+    logger.info('License activation diagnostics could not be persisted:', error);
+  }
+}
+
 async function finishSupersededLicenseCheck() {
   const credentials = await ProManager.getCredentials();
   logger.log('License Sync: Ignoring a superseded verification response.');
@@ -763,6 +775,7 @@ async function activateLicenseKey(requestedKey) {
       throw createLicenseActivationError('License activation was superseded', 'activation_superseded');
     }
 
+    await recordSuccessfulLicenseActivation();
     return { isPro: true };
   } catch (error) {
     if (error?.name === 'AbortError') {

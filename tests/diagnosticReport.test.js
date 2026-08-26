@@ -136,6 +136,24 @@ test('formatted diagnostic report contains counts and structured events without 
   assert.doesNotMatch(text, /facebook\.com/);
 });
 
+test('formatted license diagnostics expose sanitized reason and error details', () => {
+  const text = formatDiagnosticReportText({
+    license: {
+      lastCheck: {
+        timestamp: '2026-08-26T14:00:00.000Z',
+        success: false,
+        reason: 'temporary_failure at https://reason.example/private',
+        error: 'Request to https://api.example/private for private@example.com with BD-PRIVATE-123456'
+      }
+    }
+  });
+
+  assert.match(text, /Last check success: no/);
+  assert.match(text, /Last check reason: temporary_failure at <redacted-url>/);
+  assert.match(text, /Last check error: Request to <redacted-url> for <redacted-email> with <redacted-license>/);
+  assert.doesNotMatch(text, /reason\.example|api\.example|private@example\.com|BD-PRIVATE-123456/);
+});
+
 test('DNR diagnostic text distinguishes missing browser constants from exhausted capacity', () => {
   const unreported = formatDiagnosticReportText({
     dnr: { expectedCount: 1, expectedUnsafeCount: 1, withinCapacity: true }
