@@ -871,6 +871,24 @@
   "rulepacks_error": {
     "message": "Impossible d’ajouter les règles sélectionnées."
   },
+  "rulepack_messaging_title": {
+    "message": "Messagerie"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Services de messagerie web et de discussion communautaire."
+  },
+  "rulepack_short_video_title": {
+    "message": "Vidéos courtes"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Flux de vidéos courtes conçus pour un défilement rapide."
+  },
+  "rulepack_streaming_title": {
+    "message": "Films et télévision"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Services populaires de streaming de films et de télévision."
+  },
   "rulepack_social_title": {
     "message": "Réseaux sociaux"
   },

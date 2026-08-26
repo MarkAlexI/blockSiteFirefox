@@ -868,6 +868,24 @@
   "rulepacks_error": {
     "message": "Valittuja sääntöjä ei voitu lisätä."
   },
+  "rulepack_messaging_title": {
+    "message": "Viestipalvelut"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Verkkoviestintä- ja yhteisökeskustelupalvelut."
+  },
+  "rulepack_short_video_title": {
+    "message": "Lyhytvideot"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Nopeaan selaamiseen suunnitellut lyhytvideosyötteet."
+  },
+  "rulepack_streaming_title": {
+    "message": "Elokuvat ja televisio"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Suositut elokuvien ja television suoratoistopalvelut."
+  },
   "rulepack_social_title": {
     "message": "Sosiaalinen media"
   },

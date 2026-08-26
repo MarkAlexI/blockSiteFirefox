@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "নির্বাচিত রুলগুলো যোগ করা যায়নি।"
   },
+  "rulepack_messaging_title": {
+    "message": "মেসেজিং"
+  },
+  "rulepack_messaging_desc": {
+    "message": "ওয়েব মেসেজিং ও কমিউনিটি চ্যাট সেবা।"
+  },
+  "rulepack_short_video_title": {
+    "message": "স্বল্পদৈর্ঘ্য ভিডিও"
+  },
+  "rulepack_short_video_desc": {
+    "message": "দ্রুত স্ক্রল করার জন্য তৈরি স্বল্পদৈর্ঘ্য ভিডিও ফিড।"
+  },
+  "rulepack_streaming_title": {
+    "message": "সিনেমা ও টিভি"
+  },
+  "rulepack_streaming_desc": {
+    "message": "জনপ্রিয় সিনেমা ও টিভি স্ট্রিমিং সেবা।"
+  },
   "rulepack_social_title": {
     "message": "সামাজিক মাধ্যম"
   },

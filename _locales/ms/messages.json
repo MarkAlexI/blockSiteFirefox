@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Tidak dapat menambah peraturan yang dipilih."
   },
+  "rulepack_messaging_title": {
+    "message": "Pemesejan"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Perkhidmatan pemesejan web dan sembang komuniti."
+  },
+  "rulepack_short_video_title": {
+    "message": "Video pendek"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Suapan video pendek yang direka untuk penatalan pantas."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filem dan TV"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Perkhidmatan penstriman filem dan TV yang popular."
+  },
   "rulepack_social_title": {
     "message": "Media Sosial"
   },

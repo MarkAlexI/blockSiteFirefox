@@ -874,6 +874,24 @@
   "rulepacks_error": {
     "message": "પસંદ કરેલા નિયમો ઉમેરી શકાયા નહીં."
   },
+  "rulepack_messaging_title": {
+    "message": "મેસેજિંગ"
+  },
+  "rulepack_messaging_desc": {
+    "message": "વેબ મેસેજિંગ અને સમુદાય ચેટ સેવાઓ."
+  },
+  "rulepack_short_video_title": {
+    "message": "ટૂંકા વિડિઓ"
+  },
+  "rulepack_short_video_desc": {
+    "message": "ઝડપી સ્ક્રોલિંગ માટે બનાવેલ ટૂંકા વિડિઓ ફીડ."
+  },
+  "rulepack_streaming_title": {
+    "message": "ફિલ્મો અને ટીવી"
+  },
+  "rulepack_streaming_desc": {
+    "message": "લોકપ્રિય ફિલ્મ અને ટીવી સ્ટ્રીમિંગ સેવાઓ."
+  },
   "rulepack_social_title": {
     "message": "સોશિયલ મીડિયા"
   },

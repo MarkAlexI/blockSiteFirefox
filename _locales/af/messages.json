@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Kon nie die gekose reëls byvoeg nie."
   },
+  "rulepack_messaging_title": {
+    "message": "Boodskappe"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Webboodskappe en gemeenskapkletsdienste."
+  },
+  "rulepack_short_video_title": {
+    "message": "Kort video's"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Kortvideostrome wat vir vinnige blaai ontwerp is."
+  },
+  "rulepack_streaming_title": {
+    "message": "Flieks en TV"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Gewilde stroomdienste vir flieks en TV."
+  },
   "rulepack_social_title": {
     "message": "Sosiale media"
   },

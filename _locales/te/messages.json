@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "ఎంచుకున్న నియమాలను జోడించలేకపోయాము."
   },
+  "rulepack_messaging_title": {
+    "message": "సందేశాలు"
+  },
+  "rulepack_messaging_desc": {
+    "message": "వెబ్ సందేశాలు మరియు కమ్యూనిటీ చాట్ సేవలు."
+  },
+  "rulepack_short_video_title": {
+    "message": "చిన్న వీడియోలు"
+  },
+  "rulepack_short_video_desc": {
+    "message": "వేగంగా స్క్రోల్ చేయడానికి రూపొందించిన చిన్న వీడియో ఫీడ్‌లు."
+  },
+  "rulepack_streaming_title": {
+    "message": "సినిమాలు మరియు టీవీ"
+  },
+  "rulepack_streaming_desc": {
+    "message": "ప్రముఖ సినిమా మరియు టీవీ స్ట్రీమింగ్ సేవలు."
+  },
   "rulepack_social_title": {
     "message": "సోషల్ మీడియా"
   },

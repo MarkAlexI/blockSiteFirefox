@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Nie udało się dodać wybranych reguł."
   },
+  "rulepack_messaging_title": {
+    "message": "Wiadomości"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Internetowe komunikatory i czaty społecznościowe."
+  },
+  "rulepack_short_video_title": {
+    "message": "Krótkie filmy"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Kanały krótkich filmów przeznaczone do szybkiego przewijania."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmy i telewizja"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Popularne serwisy streamingowe z filmami i telewizją."
+  },
   "rulepack_social_title": {
     "message": "Media społecznościowe"
   },

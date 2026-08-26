@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Δεν ήταν δυνατή η προσθήκη των επιλεγμένων κανόνων."
   },
+  "rulepack_messaging_title": {
+    "message": "Μηνύματα"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Υπηρεσίες ανταλλαγής μηνυμάτων και συνομιλιών κοινότητας στον ιστό."
+  },
+  "rulepack_short_video_title": {
+    "message": "Βίντεο μικρής διάρκειας"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Ροές σύντομων βίντεο σχεδιασμένες για γρήγορη κύλιση."
+  },
+  "rulepack_streaming_title": {
+    "message": "Ταινίες και τηλεόραση"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Δημοφιλείς υπηρεσίες ροής ταινιών και τηλεόρασης."
+  },
   "rulepack_social_title": {
     "message": "Κοινωνικά δίκτυα"
   },

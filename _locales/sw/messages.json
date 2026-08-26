@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Imeshindikana kuongeza kanuni zilizochaguliwa."
   },
+  "rulepack_messaging_title": {
+    "message": "Ujumbe"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Huduma za ujumbe wa wavuti na gumzo la jumuiya."
+  },
+  "rulepack_short_video_title": {
+    "message": "Video fupi"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Milisho ya video fupi iliyoundwa kwa kusogeza haraka."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filamu na televisheni"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Huduma maarufu za kutiririsha filamu na televisheni."
+  },
   "rulepack_social_title": {
     "message": "Mitandao ya Kijamii"
   },

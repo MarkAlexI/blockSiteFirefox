@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Neizdevās pievienot atlasītos noteikumus."
   },
+  "rulepack_messaging_title": {
+    "message": "Ziņojumapmaiņa"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Tīmekļa ziņojumapmaiņas un kopienu tērzēšanas pakalpojumi."
+  },
+  "rulepack_short_video_title": {
+    "message": "Īsie videoklipi"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Īso videoklipu plūsmas, kas paredzētas ātrai ritināšanai."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmas un televīzija"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Populāri filmu un televīzijas straumēšanas pakalpojumi."
+  },
   "rulepack_social_title": {
     "message": "Sociālie mediji"
   },

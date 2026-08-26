@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.0] - 2026-08-26
+### Added
+- Expanded Rule Packs from five to eight and the curated catalog from 33 to 57 entries.
+- Added Messaging, Short-form Video, and Movies and TV packs; Social now includes Bluesky, Tumblr, and Quora, while Gaming includes Chess.com, Lichess, Poki, and CrazyGames.
+- Added localized titles and descriptions for the three new packs in all 57 supported locales.
+- Added regression coverage for catalog identity, authoritative target validation, intentional cross-pack overlap, path-scoped matching, and atomic Short-form Video imports.
+
+### Changed
+- Short-form feeds and web messaging use focused paths for YouTube, Instagram, Facebook, Discord, and Snapchat where the service exposes a stable web route, keeping unrelated pages available.
+- Existing duplicate detection, whitelist conflict handling, shared schedules, DNR capacity preflight, Pro and genuine legacy authorization, active-profile isolation, and Firefox Android compatibility remain unchanged.
+
+
 ## [5.1.24] - 2026-08-26
 ### Security
 - Missing or invalid installation metadata no longer grants legacy access by itself; genuine old partial credential records are canonicalized only from the trusted extension update lifecycle.

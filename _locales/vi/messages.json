@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Không thể thêm các quy tắc đã chọn."
   },
+  "rulepack_messaging_title": {
+    "message": "Nhắn tin"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Dịch vụ nhắn tin trên web và trò chuyện cộng đồng."
+  },
+  "rulepack_short_video_title": {
+    "message": "Video ngắn"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Nguồn cấp video ngắn được thiết kế để cuộn nhanh."
+  },
+  "rulepack_streaming_title": {
+    "message": "Phim và truyền hình"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Các dịch vụ phát trực tuyến phim và truyền hình phổ biến."
+  },
   "rulepack_social_title": {
     "message": "Mạng xã hội"
   },

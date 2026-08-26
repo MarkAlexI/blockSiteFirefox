@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "ไม่สามารถเพิ่มกฎที่เลือกได้"
   },
+  "rulepack_messaging_title": {
+    "message": "การส่งข้อความ"
+  },
+  "rulepack_messaging_desc": {
+    "message": "บริการส่งข้อความบนเว็บและแชทชุมชน"
+  },
+  "rulepack_short_video_title": {
+    "message": "วิดีโอสั้น"
+  },
+  "rulepack_short_video_desc": {
+    "message": "ฟีดวิดีโอสั้นที่ออกแบบมาสำหรับการเลื่อนอย่างรวดเร็ว"
+  },
+  "rulepack_streaming_title": {
+    "message": "ภาพยนตร์และทีวี"
+  },
+  "rulepack_streaming_desc": {
+    "message": "บริการสตรีมภาพยนตร์และทีวียอดนิยม"
+  },
   "rulepack_social_title": {
     "message": "โซเชียลมีเดีย"
   },

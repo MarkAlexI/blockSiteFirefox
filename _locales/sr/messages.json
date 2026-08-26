@@ -880,6 +880,24 @@
   "rulepacks_error": {
     "message": "Изабрана правила није могуће додати."
   },
+  "rulepack_messaging_title": {
+    "message": "Размена порука"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Веб услуге за размену порука и ћаскање у заједници."
+  },
+  "rulepack_short_video_title": {
+    "message": "Кратки видео-снимци"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Фидови кратких видео-снимака намењени брзом померању."
+  },
+  "rulepack_streaming_title": {
+    "message": "Филмови и телевизија"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Популарне услуге стримовања филмова и телевизије."
+  },
   "rulepack_social_title": {
     "message": "Друштвене мреже"
   },

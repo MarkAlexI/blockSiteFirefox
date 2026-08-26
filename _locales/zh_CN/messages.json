@@ -871,6 +871,24 @@
   "rulepacks_error": {
     "message": "无法添加所选规则。"
   },
+  "rulepack_messaging_title": {
+    "message": "即时通讯"
+  },
+  "rulepack_messaging_desc": {
+    "message": "网页即时通讯和社区聊天服务。"
+  },
+  "rulepack_short_video_title": {
+    "message": "短视频"
+  },
+  "rulepack_short_video_desc": {
+    "message": "专为快速滚动浏览设计的短视频信息流。"
+  },
+  "rulepack_streaming_title": {
+    "message": "电影和电视"
+  },
+  "rulepack_streaming_desc": {
+    "message": "热门电影和电视流媒体服务。"
+  },
   "rulepack_social_title": {
     "message": "社交媒体"
   },

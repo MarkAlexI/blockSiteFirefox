@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "A kijelölt szabályokat nem sikerült hozzáadni."
   },
+  "rulepack_messaging_title": {
+    "message": "Üzenetküldés"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Webes üzenetküldő és közösségi csevegőszolgáltatások."
+  },
+  "rulepack_short_video_title": {
+    "message": "Rövid videók"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Gyors görgetésre tervezett rövidvideó-hírfolyamok."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmek és televízió"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Népszerű film- és televíziós streaming szolgáltatások."
+  },
   "rulepack_social_title": {
     "message": "Közösségi média"
   },

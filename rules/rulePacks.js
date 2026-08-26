@@ -12,7 +12,23 @@ const RULE_PACKS = [
       { id: 'threads', blockURL: 'threads.net' },
       { id: 'reddit', blockURL: 'reddit.com' },
       { id: 'linkedin', blockURL: 'linkedin.com' },
-      { id: 'pinterest', blockURL: 'pinterest.com' }
+      { id: 'pinterest', blockURL: 'pinterest.com' },
+      { id: 'bluesky', blockURL: 'bsky.app' },
+      { id: 'tumblr', blockURL: 'tumblr.com' },
+      { id: 'quora', blockURL: 'quora.com' }
+    ]
+  },
+  {
+    id: 'messaging',
+    titleKey: 'rulepack_messaging_title',
+    descriptionKey: 'rulepack_messaging_desc',
+    category: 'social',
+    entries: [
+      { id: 'discord', blockURL: 'discord.com/channels' },
+      { id: 'telegram-web', blockURL: 'web.telegram.org' },
+      { id: 'whatsapp-web', blockURL: 'web.whatsapp.com' },
+      { id: 'messenger', blockURL: 'messenger.com' },
+      { id: 'snapchat-web', blockURL: 'snapchat.com/web' }
     ]
   },
   {
@@ -26,6 +42,34 @@ const RULE_PACKS = [
       { id: 'vimeo', blockURL: 'vimeo.com' },
       { id: 'dailymotion', blockURL: 'dailymotion.com' },
       { id: 'kick', blockURL: 'kick.com' }
+    ]
+  },
+  {
+    id: 'short-video',
+    titleKey: 'rulepack_short_video_title',
+    descriptionKey: 'rulepack_short_video_desc',
+    category: 'entertainment',
+    entries: [
+      { id: 'youtube-shorts', blockURL: 'youtube.com/shorts' },
+      { id: 'tiktok-short-video', blockURL: 'tiktok.com' },
+      { id: 'instagram-reels', blockURL: 'instagram.com/reel' },
+      { id: 'facebook-reels', blockURL: 'facebook.com/reel' }
+    ]
+  },
+  {
+    id: 'streaming',
+    titleKey: 'rulepack_streaming_title',
+    descriptionKey: 'rulepack_streaming_desc',
+    category: 'entertainment',
+    entries: [
+      { id: 'netflix', blockURL: 'netflix.com' },
+      { id: 'disney-plus', blockURL: 'disneyplus.com' },
+      { id: 'prime-video', blockURL: 'primevideo.com' },
+      { id: 'apple-tv', blockURL: 'tv.apple.com' },
+      { id: 'max', blockURL: 'max.com' },
+      { id: 'hulu', blockURL: 'hulu.com' },
+      { id: 'paramount-plus', blockURL: 'paramountplus.com' },
+      { id: 'crunchyroll', blockURL: 'crunchyroll.com' }
     ]
   },
   {
@@ -69,7 +113,11 @@ const RULE_PACKS = [
       { id: 'itch', blockURL: 'itch.io' },
       { id: 'roblox', blockURL: 'roblox.com' },
       { id: 'miniclip', blockURL: 'miniclip.com' },
-      { id: 'kongregate', blockURL: 'kongregate.com' }
+      { id: 'kongregate', blockURL: 'kongregate.com' },
+      { id: 'chess-com', blockURL: 'chess.com' },
+      { id: 'lichess', blockURL: 'lichess.org' },
+      { id: 'poki', blockURL: 'poki.com' },
+      { id: 'crazygames', blockURL: 'crazygames.com' }
     ]
   }
 ];

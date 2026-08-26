@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Nepavyko pridėti pasirinktų taisyklių."
   },
+  "rulepack_messaging_title": {
+    "message": "Žinučių siuntimas"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Žiniatinklio žinučių ir bendruomenių pokalbių paslaugos."
+  },
+  "rulepack_short_video_title": {
+    "message": "Trumpi vaizdo įrašai"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Greitam slinkimui skirti trumpų vaizdo įrašų srautai."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmai ir televizija"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Populiarios filmų ir televizijos transliavimo paslaugos."
+  },
   "rulepack_social_title": {
     "message": "Socialiniai tinklai"
   },

@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "चुने गए नियम जोड़ना संभव नहीं हुआ।"
   },
+  "rulepack_messaging_title": {
+    "message": "मैसेजिंग"
+  },
+  "rulepack_messaging_desc": {
+    "message": "वेब मैसेजिंग और कम्युनिटी चैट सेवाएँ।"
+  },
+  "rulepack_short_video_title": {
+    "message": "छोटे वीडियो"
+  },
+  "rulepack_short_video_desc": {
+    "message": "तेज़ी से स्क्रॉल करने के लिए बनाए गए छोटे वीडियो फ़ीड।"
+  },
+  "rulepack_streaming_title": {
+    "message": "फ़िल्में और टीवी"
+  },
+  "rulepack_streaming_desc": {
+    "message": "लोकप्रिय फ़िल्म और टीवी स्ट्रीमिंग सेवाएँ।"
+  },
   "rulepack_social_title": {
     "message": "सोशल मीडिया"
   },

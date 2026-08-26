@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Seçili kurallar eklenemedi."
   },
+  "rulepack_messaging_title": {
+    "message": "Mesajlaşma"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Web mesajlaşma ve topluluk sohbet hizmetleri."
+  },
+  "rulepack_short_video_title": {
+    "message": "Kısa videolar"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Hızlı kaydırma için tasarlanmış kısa video akışları."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmler ve televizyon"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Popüler film ve televizyon yayın hizmetleri."
+  },
   "rulepack_social_title": {
     "message": "Sosyal Medya"
   },

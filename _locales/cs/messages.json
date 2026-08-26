@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Vybraná pravidla se nepodařilo přidat."
   },
+  "rulepack_messaging_title": {
+    "message": "Zprávy"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Webové komunikační služby a komunitní chaty."
+  },
+  "rulepack_short_video_title": {
+    "message": "Krátká videa"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Kanály krátkých videí navržené pro rychlé procházení."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmy a televize"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Oblíbené streamovací služby pro filmy a televizi."
+  },
   "rulepack_social_title": {
     "message": "Sociální sítě"
   },

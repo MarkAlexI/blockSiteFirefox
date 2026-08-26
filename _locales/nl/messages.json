@@ -871,6 +871,24 @@
   "rulepacks_error": {
     "message": "De geselecteerde regels konden niet worden toegevoegd."
   },
+  "rulepack_messaging_title": {
+    "message": "Berichten"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Webberichten- en communitychatdiensten."
+  },
+  "rulepack_short_video_title": {
+    "message": "Korte video's"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Feeds met korte video's die zijn ontworpen om snel te scrollen."
+  },
+  "rulepack_streaming_title": {
+    "message": "Films en televisie"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Populaire streamingdiensten voor films en televisie."
+  },
   "rulepack_social_title": {
     "message": "Sociale media"
   },

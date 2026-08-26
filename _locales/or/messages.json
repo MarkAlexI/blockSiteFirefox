@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "ବାଛିଥିବା ନିୟମଗୁଡ଼ିକୁ ଯୋଡ଼ିହେଲା ନାହିଁ।"
   },
+  "rulepack_messaging_title": {
+    "message": "ମେସେଜିଂ"
+  },
+  "rulepack_messaging_desc": {
+    "message": "ୱେବ୍ ମେସେଜିଂ ଏବଂ କମ୍ୟୁନିଟି ଚାଟ୍ ସେବା।"
+  },
+  "rulepack_short_video_title": {
+    "message": "କ୍ଷୁଦ୍ର ଭିଡିଓ"
+  },
+  "rulepack_short_video_desc": {
+    "message": "ଦ୍ରୁତ ସ୍କ୍ରୋଲିଂ ପାଇଁ ତିଆରି କ୍ଷୁଦ୍ର ଭିଡିଓ ଫିଡ୍।"
+  },
+  "rulepack_streaming_title": {
+    "message": "ଚଳଚ୍ଚିତ୍ର ଏବଂ ଟିଭି"
+  },
+  "rulepack_streaming_desc": {
+    "message": "ଲୋକପ୍ରିୟ ଚଳଚ୍ଚିତ୍ର ଏବଂ ଟିଭି ଷ୍ଟ୍ରିମିଂ ସେବା।"
+  },
   "rulepack_social_title": {
     "message": "ସୋସିଆଲ୍ ମିଡିଆ"
   },

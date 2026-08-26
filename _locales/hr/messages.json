@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Odabrana pravila nije bilo moguće dodati."
   },
+  "rulepack_messaging_title": {
+    "message": "Poruke"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Usluge web-poruka i razgovora u zajednici."
+  },
+  "rulepack_short_video_title": {
+    "message": "Kratki videozapisi"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Sažeci kratkih videozapisa osmišljeni za brzo pomicanje."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmovi i televizija"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Popularni servisi za streaming filmova i televizije."
+  },
   "rulepack_social_title": {
     "message": "Društvene mreže"
   },

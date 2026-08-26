@@ -871,6 +871,24 @@
   "rulepacks_error": {
     "message": "選択したルールを追加できませんでした。"
   },
+  "rulepack_messaging_title": {
+    "message": "メッセージ"
+  },
+  "rulepack_messaging_desc": {
+    "message": "ウェブメッセージとコミュニティチャットのサービス。"
+  },
+  "rulepack_short_video_title": {
+    "message": "ショート動画"
+  },
+  "rulepack_short_video_desc": {
+    "message": "すばやいスクロール向けに設計されたショート動画フィード。"
+  },
+  "rulepack_streaming_title": {
+    "message": "映画とテレビ"
+  },
+  "rulepack_streaming_desc": {
+    "message": "人気の映画・テレビ配信サービス。"
+  },
   "rulepack_social_title": {
     "message": "ソーシャルメディア"
   },

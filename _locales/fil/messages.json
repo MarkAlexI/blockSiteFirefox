@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Hindi maidagdag ang mga napiling panuntunan."
   },
+  "rulepack_messaging_title": {
+    "message": "Pagmemensahe"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Mga serbisyo sa web messaging at pangkomunidad na chat."
+  },
+  "rulepack_short_video_title": {
+    "message": "Maiikling video"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Mga feed ng maiikling video na ginawa para sa mabilis na pag-scroll."
+  },
+  "rulepack_streaming_title": {
+    "message": "Mga pelikula at TV"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Mga sikat na streaming service para sa mga pelikula at TV."
+  },
   "rulepack_social_title": {
     "message": "Social Media"
   },

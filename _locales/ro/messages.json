@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Nu s-au putut adăuga regulile selectate."
   },
+  "rulepack_messaging_title": {
+    "message": "Mesagerie"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Servicii de mesagerie web și chat pentru comunități."
+  },
+  "rulepack_short_video_title": {
+    "message": "Videoclipuri scurte"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Fluxuri de videoclipuri scurte concepute pentru derulare rapidă."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filme și televiziune"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Servicii populare de streaming pentru filme și televiziune."
+  },
   "rulepack_social_title": {
     "message": "Rețele sociale"
   },

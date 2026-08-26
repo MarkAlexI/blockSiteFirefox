@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "No s’han pogut afegir les regles seleccionades."
   },
+  "rulepack_messaging_title": {
+    "message": "Missatgeria"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Serveis de missatgeria web i xat de comunitats."
+  },
+  "rulepack_short_video_title": {
+    "message": "Vídeos curts"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Canals de vídeos curts dissenyats per desplaçar-s'hi ràpidament."
+  },
+  "rulepack_streaming_title": {
+    "message": "Pel·lícules i televisió"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Serveis populars de reproducció de pel·lícules i televisió."
+  },
   "rulepack_social_title": {
     "message": "Xarxes socials"
   },

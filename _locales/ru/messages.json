@@ -880,6 +880,24 @@
   "rulepacks_error": {
     "message": "Не удалось добавить выбранные правила."
   },
+  "rulepack_messaging_title": {
+    "message": "Обмен сообщениями"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Веб-сервисы для обмена сообщениями и общения в сообществах."
+  },
+  "rulepack_short_video_title": {
+    "message": "Короткие видео"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Ленты коротких видео для быстрого пролистывания."
+  },
+  "rulepack_streaming_title": {
+    "message": "Фильмы и телевидение"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Популярные сервисы потокового просмотра фильмов и телевидения."
+  },
   "rulepack_social_title": {
     "message": "Социальные сети"
   },

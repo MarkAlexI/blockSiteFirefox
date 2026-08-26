@@ -871,6 +871,24 @@
   "rulepacks_error": {
     "message": "선택한 규칙을 추가할 수 없습니다."
   },
+  "rulepack_messaging_title": {
+    "message": "메시지"
+  },
+  "rulepack_messaging_desc": {
+    "message": "웹 메시지 및 커뮤니티 채팅 서비스입니다."
+  },
+  "rulepack_short_video_title": {
+    "message": "숏폼 동영상"
+  },
+  "rulepack_short_video_desc": {
+    "message": "빠른 스크롤을 위해 설계된 짧은 동영상 피드입니다."
+  },
+  "rulepack_streaming_title": {
+    "message": "영화 및 TV"
+  },
+  "rulepack_streaming_desc": {
+    "message": "인기 영화 및 TV 스트리밍 서비스입니다."
+  },
   "rulepack_social_title": {
     "message": "소셜 미디어"
   },

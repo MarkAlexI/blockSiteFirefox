@@ -874,6 +874,24 @@
   "rulepacks_error": {
     "message": "தேர்ந்தெடுத்த விதிகளைச் சேர்க்க முடியவில்லை."
   },
+  "rulepack_messaging_title": {
+    "message": "செய்தியிடல்"
+  },
+  "rulepack_messaging_desc": {
+    "message": "இணையச் செய்தியிடல் மற்றும் சமூக அரட்டைச் சேவைகள்."
+  },
+  "rulepack_short_video_title": {
+    "message": "குறு வீடியோக்கள்"
+  },
+  "rulepack_short_video_desc": {
+    "message": "விரைவாக ஸ்க்ரோல் செய்வதற்காக வடிவமைக்கப்பட்ட குறு வீடியோ ஊட்டங்கள்."
+  },
+  "rulepack_streaming_title": {
+    "message": "திரைப்படங்கள் மற்றும் தொலைக்காட்சி"
+  },
+  "rulepack_streaming_desc": {
+    "message": "பிரபலமான திரைப்பட மற்றும் தொலைக்காட்சி ஸ்ட்ரீமிங் சேவைகள்."
+  },
   "rulepack_social_title": {
     "message": "சமூக ஊடகம்"
   },

@@ -871,6 +871,24 @@
   "rulepacks_error": {
     "message": "無法加入所選規則。"
   },
+  "rulepack_messaging_title": {
+    "message": "即時通訊"
+  },
+  "rulepack_messaging_desc": {
+    "message": "網頁即時通訊和社群聊天服務。"
+  },
+  "rulepack_short_video_title": {
+    "message": "短影音"
+  },
+  "rulepack_short_video_desc": {
+    "message": "專為快速捲動瀏覽設計的短影音動態。"
+  },
+  "rulepack_streaming_title": {
+    "message": "電影與電視"
+  },
+  "rulepack_streaming_desc": {
+    "message": "熱門電影與電視串流服務。"
+  },
   "rulepack_social_title": {
     "message": "社群媒體"
   },

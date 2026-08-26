@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "ಆಯ್ಕೆ ಮಾಡಿದ ನಿಯಮಗಳನ್ನು ಸೇರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
   },
+  "rulepack_messaging_title": {
+    "message": "ಸಂದೇಶ ಕಳುಹಿಸುವಿಕೆ"
+  },
+  "rulepack_messaging_desc": {
+    "message": "ವೆಬ್ ಸಂದೇಶ ಮತ್ತು ಸಮುದಾಯ ಚಾಟ್ ಸೇವೆಗಳು."
+  },
+  "rulepack_short_video_title": {
+    "message": "ಕಿರು ವೀಡಿಯೊಗಳು"
+  },
+  "rulepack_short_video_desc": {
+    "message": "ವೇಗವಾಗಿ ಸ್ಕ್ರಾಲ್ ಮಾಡಲು ವಿನ್ಯಾಸಗೊಳಿಸಿದ ಕಿರು ವೀಡಿಯೊ ಫೀಡ್‌ಗಳು."
+  },
+  "rulepack_streaming_title": {
+    "message": "ಚಲನಚಿತ್ರಗಳು ಮತ್ತು ಟಿವಿ"
+  },
+  "rulepack_streaming_desc": {
+    "message": "ಜನಪ್ರಿಯ ಚಲನಚಿತ್ರ ಮತ್ತು ಟಿವಿ ಸ್ಟ್ರೀಮಿಂಗ್ ಸೇವೆಗಳು."
+  },
   "rulepack_social_title": {
     "message": "ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ"
   },

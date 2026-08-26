@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Valitud reegleid ei õnnestunud lisada."
   },
+  "rulepack_messaging_title": {
+    "message": "Sõnumside"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Veebipõhised sõnumi- ja kogukonnavestluse teenused."
+  },
+  "rulepack_short_video_title": {
+    "message": "Lühivideod"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Kiireks kerimiseks loodud lühivideovood."
+  },
+  "rulepack_streaming_title": {
+    "message": "Filmid ja televisioon"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Populaarsed filmide ja televisiooni voogedastusteenused."
+  },
   "rulepack_social_title": {
     "message": "Sotsiaalmeedia"
   },

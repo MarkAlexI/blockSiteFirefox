@@ -874,6 +874,24 @@
   "rulepacks_error": {
     "message": "निवडलेले नियम जोडता आले नाहीत."
   },
+  "rulepack_messaging_title": {
+    "message": "मेसेजिंग"
+  },
+  "rulepack_messaging_desc": {
+    "message": "वेब मेसेजिंग आणि समुदाय चॅट सेवा."
+  },
+  "rulepack_short_video_title": {
+    "message": "लघु व्हिडिओ"
+  },
+  "rulepack_short_video_desc": {
+    "message": "जलद स्क्रोलिंगसाठी तयार केलेले लघु व्हिडिओ फीड."
+  },
+  "rulepack_streaming_title": {
+    "message": "चित्रपट आणि टीव्ही"
+  },
+  "rulepack_streaming_desc": {
+    "message": "लोकप्रिय चित्रपट आणि टीव्ही स्ट्रीमिंग सेवा."
+  },
   "rulepack_social_title": {
     "message": "सोशल मीडिया"
   },

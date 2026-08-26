@@ -883,6 +883,24 @@
   "rulepacks_error": {
     "message": "Unable to add the selected rules."
   },
+  "rulepack_messaging_title": {
+    "message": "Messaging"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Web messaging and community chat services."
+  },
+  "rulepack_short_video_title": {
+    "message": "Short-form Video"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Short video feeds designed for rapid scrolling."
+  },
+  "rulepack_streaming_title": {
+    "message": "Movies and TV"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Popular movie and TV streaming services."
+  },
   "rulepack_social_title": {
     "message": "Social Media"
   },

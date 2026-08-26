@@ -874,6 +874,24 @@
   "rulepacks_error": {
     "message": "تعذرت إضافة القواعد المحددة."
   },
+  "rulepack_messaging_title": {
+    "message": "المراسلة"
+  },
+  "rulepack_messaging_desc": {
+    "message": "خدمات المراسلة عبر الويب ودردشات المجتمعات."
+  },
+  "rulepack_short_video_title": {
+    "message": "الفيديوهات القصيرة"
+  },
+  "rulepack_short_video_desc": {
+    "message": "خلاصات فيديو قصيرة مصممة للتمرير السريع."
+  },
+  "rulepack_streaming_title": {
+    "message": "الأفلام والتلفزيون"
+  },
+  "rulepack_streaming_desc": {
+    "message": "خدمات بث شهيرة للأفلام والتلفزيون."
+  },
   "rulepack_social_title": {
     "message": "وسائل التواصل الاجتماعي"
   },

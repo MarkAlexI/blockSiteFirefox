@@ -41,6 +41,20 @@ test('path rules use prefix semantics consistent with current blocking behavior'
   assert.equal(doesUrlMatchBlockRule('https://youtube.com/watch?v=1', 'youtube.com/short'), false);
 });
 
+test('curated feed and web-app paths do not block ordinary service pages', () => {
+  assert.equal(doesUrlMatchBlockRule('https://youtube.com/shorts/abc', 'youtube.com/shorts'), true);
+  assert.equal(doesUrlMatchBlockRule('https://youtube.com/watch?v=1', 'youtube.com/shorts'), false);
+  assert.equal(doesUrlMatchBlockRule('https://instagram.com/reel/abc', 'instagram.com/reel'), true);
+  assert.equal(doesUrlMatchBlockRule('https://instagram.com/reels/', 'instagram.com/reel'), true);
+  assert.equal(doesUrlMatchBlockRule('https://instagram.com/p/abc', 'instagram.com/reel'), false);
+  assert.equal(doesUrlMatchBlockRule('https://facebook.com/reels/', 'facebook.com/reel'), true);
+  assert.equal(doesUrlMatchBlockRule('https://facebook.com/home', 'facebook.com/reel'), false);
+  assert.equal(doesUrlMatchBlockRule('https://discord.com/channels/@me', 'discord.com/channels'), true);
+  assert.equal(doesUrlMatchBlockRule('https://discord.com/login', 'discord.com/channels'), false);
+  assert.equal(doesUrlMatchBlockRule('https://snapchat.com/web/', 'snapchat.com/web'), true);
+  assert.equal(doesUrlMatchBlockRule('https://snapchat.com/accounts/login', 'snapchat.com/web'), false);
+});
+
 test('most specific matching daily-limit rule wins', () => {
   const rules = [
     { id: 1, blockURL: 'youtube.com' },

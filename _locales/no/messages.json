@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "Kunne ikke legge til de valgte reglene."
   },
+  "rulepack_messaging_title": {
+    "message": "Meldinger"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Nettbaserte meldingstjenester og fellesskapschatter."
+  },
+  "rulepack_short_video_title": {
+    "message": "Kortvideoer"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Kortvideostrømmer laget for rask rulling."
+  },
+  "rulepack_streaming_title": {
+    "message": "Film og TV"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Populære strømmetjenester for film og TV."
+  },
   "rulepack_social_title": {
     "message": "Sosiale medier"
   },

@@ -213,9 +213,9 @@ test('rule pack UI previews all entries and keeps selection explicit', () => {
   const harness = createHarness();
 
   try {
-    assert.equal(harness.elements.packSelect.children.length, 5);
-    assert.equal(harness.elements.entriesContainer.children.length, 8);
-    assert.equal(harness.ui.getSelectedEntryIds().length, 8);
+    assert.equal(harness.elements.packSelect.children.length, 8);
+    assert.equal(harness.elements.entriesContainer.children.length, 11);
+    assert.equal(harness.ui.getSelectedEntryIds().length, 11);
     assert.equal(harness.elements.addButton.disabled, false);
 
     harness.elements.selectAll.checked = false;
@@ -340,4 +340,3 @@ test('rule pack UI sends one shared schedule with the selected entries', async (
     harness.restore();
   }
 });
-

@@ -883,6 +883,24 @@
   "rulepacks_error": {
     "message": "തിരഞ്ഞെടുത്ത നിയമങ്ങൾ ചേർക്കാനായില്ല."
   },
+  "rulepack_messaging_title": {
+    "message": "സന്ദേശമയയ്ക്കൽ"
+  },
+  "rulepack_messaging_desc": {
+    "message": "വെബ് സന്ദേശമയയ്ക്കൽ, കമ്മ്യൂണിറ്റി ചാറ്റ് സേവനങ്ങൾ."
+  },
+  "rulepack_short_video_title": {
+    "message": "ഹ്രസ്വ വീഡിയോകൾ"
+  },
+  "rulepack_short_video_desc": {
+    "message": "വേഗത്തിൽ സ്ക്രോൾ ചെയ്യാൻ രൂപകൽപ്പന ചെയ്ത ഹ്രസ്വ വീഡിയോ ഫീഡുകൾ."
+  },
+  "rulepack_streaming_title": {
+    "message": "സിനിമകളും ടിവിയും"
+  },
+  "rulepack_streaming_desc": {
+    "message": "ജനപ്രിയ സിനിമ, ടിവി സ്ട്രീമിംഗ് സേവനങ്ങൾ."
+  },
   "rulepack_social_title": {
     "message": "സോഷ്യൽ മീഡിയ"
   },

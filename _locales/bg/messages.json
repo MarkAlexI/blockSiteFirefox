@@ -880,6 +880,24 @@
   "rulepacks_error": {
     "message": "Избраните правила не можаха да бъдат добавени."
   },
+  "rulepack_messaging_title": {
+    "message": "Съобщения"
+  },
+  "rulepack_messaging_desc": {
+    "message": "Уеб услуги за съобщения и групови чатове."
+  },
+  "rulepack_short_video_title": {
+    "message": "Кратки видеоклипове"
+  },
+  "rulepack_short_video_desc": {
+    "message": "Потоци с кратки видеоклипове, създадени за бързо превъртане."
+  },
+  "rulepack_streaming_title": {
+    "message": "Филми и телевизия"
+  },
+  "rulepack_streaming_desc": {
+    "message": "Популярни услуги за стрийминг на филми и телевизия."
+  },
   "rulepack_social_title": {
     "message": "Социални мрежи"
   },

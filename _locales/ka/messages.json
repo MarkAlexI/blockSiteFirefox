@@ -883,6 +883,24 @@
   "rulepacks_error": {
     "message": "არჩეული წესების დამატება ვერ მოხერხდა."
   },
+  "rulepack_messaging_title": {
+    "message": "შეტყობინებები"
+  },
+  "rulepack_messaging_desc": {
+    "message": "ვებშეტყობინებებისა და საზოგადოებრივი ჩატის სერვისები."
+  },
+  "rulepack_short_video_title": {
+    "message": "მოკლე ვიდეოები"
+  },
+  "rulepack_short_video_desc": {
+    "message": "სწრაფი გადახვევისთვის შექმნილი მოკლე ვიდეოების არხები."
+  },
+  "rulepack_streaming_title": {
+    "message": "ფილმები და ტელევიზია"
+  },
+  "rulepack_streaming_desc": {
+    "message": "ფილმებისა და ტელევიზიის პოპულარული სტრიმინგ სერვისები."
+  },
   "rulepack_social_title": {
     "message": "სოციალური ქსელები"
   },

@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "לא ניתן להוסיף את הכללים שנבחרו."
   },
+  "rulepack_messaging_title": {
+    "message": "הודעות"
+  },
+  "rulepack_messaging_desc": {
+    "message": "שירותי הודעות באינטרנט וצ'אטים קהילתיים."
+  },
+  "rulepack_short_video_title": {
+    "message": "סרטונים קצרים"
+  },
+  "rulepack_short_video_desc": {
+    "message": "עדכוני סרטונים קצרים שנועדו לגלילה מהירה."
+  },
+  "rulepack_streaming_title": {
+    "message": "סרטים וטלוויזיה"
+  },
+  "rulepack_streaming_desc": {
+    "message": "שירותי סטרימינג פופולריים לסרטים ולטלוויזיה."
+  },
   "rulepack_social_title": {
     "message": "רשתות חברתיות"
   },

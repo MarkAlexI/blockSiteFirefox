@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "የተመረጡ ደንቦችን ማከል አልተቻለም።"
   },
+  "rulepack_messaging_title": {
+    "message": "መልዕክት መላላኪያ"
+  },
+  "rulepack_messaging_desc": {
+    "message": "የድር መልዕክት እና የማህበረሰብ ውይይት አገልግሎቶች።"
+  },
+  "rulepack_short_video_title": {
+    "message": "አጭር ቪዲዮ"
+  },
+  "rulepack_short_video_desc": {
+    "message": "ፈጣን ማሸብለልን የሚያበረታቱ የአጭር ቪዲዮ ምግቦች።"
+  },
+  "rulepack_streaming_title": {
+    "message": "ፊልሞች እና ቲቪ"
+  },
+  "rulepack_streaming_desc": {
+    "message": "ታዋቂ የፊልም እና የቲቪ ዥረት አገልግሎቶች።"
+  },
   "rulepack_social_title": {
     "message": "ማህበራዊ ሚዲያ"
   },

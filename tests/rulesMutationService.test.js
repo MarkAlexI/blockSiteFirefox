@@ -1395,6 +1395,30 @@ test('a selected rule pack is added with one storage write and one DNR sync', as
   assert.equal(harness.getSyncCalls(), 1);
 });
 
+test('the short-form video pack persists its exact path targets atomically', async () => {
+  const harness = createHarness();
+
+  const result = await harness.service.addMany({
+    packId: 'short-video',
+    entryIds: [
+      'youtube-shorts',
+      'tiktok-short-video',
+      'instagram-reels',
+      'facebook-reels'
+    ]
+  });
+
+  assert.equal(result.addedCount, 4);
+  assert.deepEqual(harness.getRules().map(rule => [rule.blockURL, rule.category]), [
+    ['youtube.com/shorts', 'entertainment'],
+    ['tiktok.com', 'entertainment'],
+    ['instagram.com/reel', 'entertainment'],
+    ['facebook.com/reel', 'entertainment']
+  ]);
+  assert.equal(harness.savedStates.length, 1);
+  assert.equal(harness.getSyncCalls(), 1);
+});
+
 test('rule packs are assigned to the selected custom Rule List', async () => {
   const harness = createHarness({
     initialRuleLists: [

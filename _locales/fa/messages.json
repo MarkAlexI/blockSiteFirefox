@@ -877,6 +877,24 @@
   "rulepacks_error": {
     "message": "افزودن قانون‌های انتخاب‌شده ممکن نبود."
   },
+  "rulepack_messaging_title": {
+    "message": "پیام‌رسانی"
+  },
+  "rulepack_messaging_desc": {
+    "message": "سرویس‌های پیام‌رسانی وب و گفت‌وگوی اجتماعی."
+  },
+  "rulepack_short_video_title": {
+    "message": "ویدیوهای کوتاه"
+  },
+  "rulepack_short_video_desc": {
+    "message": "فیدهای ویدیوی کوتاه که برای پیمایش سریع طراحی شده‌اند."
+  },
+  "rulepack_streaming_title": {
+    "message": "فیلم و تلویزیون"
+  },
+  "rulepack_streaming_desc": {
+    "message": "سرویس‌های محبوب پخش فیلم و تلویزیون."
+  },
   "rulepack_social_title": {
     "message": "رسانه‌های اجتماعی"
   },
