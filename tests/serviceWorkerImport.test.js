@@ -681,6 +681,20 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     assert.equal(localStorage.data.activeRuleListId, 'general');
     assert.deepEqual(localStorage.data.ruleLists.map(list => list.id), ['general', 'list-1']);
 
+    syncStorage.data.credentials.installationDate = null;
+    delete syncStorage.data.credentials.isLegacyUser;
+    localStorage.data.activeRuleListId = 'list-1';
+    await runtimeOnInstalled.listeners[0]({ reason: 'update' });
+    assert.equal(
+      syncStorage.data.credentials.installationDate,
+      '1970-01-01T00:00:00.000Z'
+    );
+    assert.equal(syncStorage.data.credentials.isLegacyUser, true);
+    assert.equal(localStorage.data.activeRuleListId, 'list-1');
+
+    syncStorage.data.credentials.installationDate = regularInstallationDate;
+    syncStorage.data.credentials.isLegacyUser = false;
+
     const installTabCount = createdTabs.length;
     await runtimeOnInstalled.listeners[0]({ reason: 'install' });
     assert.equal(createdTabs.slice(installTabCount).some(tab => tab.url.includes('options/options.html')), true);

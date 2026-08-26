@@ -4,8 +4,7 @@ const PROTECTED_REQUEST_DOMAINS = Object.freeze([
   'addons.mozilla.org',
   'blockdistraction.com',
   'ext.pp.ua',
-  'markdigital.cc',
-  'markdigital.com'
+  'markdigital.cc'
 ]);
 
 export function getProtectedRequestDomains() {

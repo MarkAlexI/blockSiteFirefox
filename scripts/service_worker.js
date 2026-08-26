@@ -416,6 +416,7 @@ async function checkAllTabsAgainstWhitelist(shouldContinue = () => true) {
 let stateTransitionTail = Promise.resolve();
 let proStatusTransitionGeneration = 0;
 let licenseVerificationGeneration = 0;
+let activeLicenseActivationGeneration = null;
 let focusSessionTransitionGeneration = 0;
 const FOCUS_COMPLETION_ALARM = 'end_focus_session';
 const INACTIVE_FOCUS_SESSION = Object.freeze({
@@ -703,14 +704,16 @@ async function activateLicenseKey(requestedKey) {
 
   const licenseKey = requestedKey.trim();
   const verificationGeneration = ++licenseVerificationGeneration;
-  await ProManager.getCredentials({ throwOnError: true });
-  if (verificationGeneration !== licenseVerificationGeneration) {
-    throw createLicenseActivationError('License activation was superseded', 'activation_superseded');
-  }
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
+  activeLicenseActivationGeneration = verificationGeneration;
+  let timeoutId = null;
 
   try {
+    await ProManager.getCredentials({ throwOnError: true });
+    if (verificationGeneration !== licenseVerificationGeneration) {
+      throw createLicenseActivationError('License activation was superseded', 'activation_superseded');
+    }
+    const controller = new AbortController();
+    timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -767,11 +770,26 @@ async function activateLicenseKey(requestedKey) {
     }
     throw error;
   } finally {
-    clearTimeout(timeoutId);
+    if (timeoutId !== null) clearTimeout(timeoutId);
+    if (activeLicenseActivationGeneration === verificationGeneration) {
+      activeLicenseActivationGeneration = null;
+    }
   }
 }
 
 async function syncLicenseKeyStatus() {
+  if (activeLicenseActivationGeneration !== null) {
+    const credentials = await ProManager.getCredentials({ throwOnError: true });
+    if (activeLicenseActivationGeneration !== null) {
+      logger.log('License Sync: Manual activation is in progress, skipping sync.');
+      return {
+        success: true,
+        isPro: credentials.isPro === true,
+        reason: 'activation_in_progress'
+      };
+    }
+  }
+
   const verificationGeneration = ++licenseVerificationGeneration;
   const credentials = await ProManager.getCredentials();
   const currentKey = credentials.licenseKey;
@@ -1199,26 +1217,20 @@ async function initializeExtension(details) {
   await showUpdates(details);
   
   try {
-    const credentials = await ProManager.getCredentials();
-    
     if (details.reason === 'install') {
-      const installDate = new Date().toISOString();
-      const isLegacy = new Date() < new Date(ProManager.RESTRICTION_START_DATE);
-      await ProManager.updateProStatus(credentials.isPro, {
-        ...credentials,
-        installationDate: installDate,
-        isLegacyUser: isLegacy
+      const initialized = await ProManager.initializeInstallationMetadata({
+        fallbackInstallationDate: new Date().toISOString()
       });
-      logger.log(`New install: isLegacyUser set to ${isLegacy}`);
+      logger.log(`New install: isLegacyUser set to ${initialized.credentials.isLegacyUser}`);
     } else if (details.reason === 'update') {
-      if (credentials.installationDate === null || credentials.isLegacyUser === undefined) {
-        await ProManager.updateProStatus(credentials.isPro, {
-          ...credentials,
-          installationDate: credentials.installationDate || new Date(0).toISOString(),
-          isLegacyUser: true
-        });
-        logger.log('Migrated existing users to legacy status');
+      const migration = await ProManager.initializeInstallationMetadata({
+        fallbackInstallationDate: new Date(0).toISOString()
+      });
+      if (migration.changed) {
+        logger.log('Migrated existing installation metadata');
       }
+    } else {
+      await ProManager.getCredentials({ throwOnError: true });
     }
     
     const ruleListRestored = await restoreFreeRuleListAccess();

@@ -142,7 +142,7 @@ test('protected project and store URLs cannot be spoofed through another site', 
   for (const url of [
     'https://blockdistraction.com/account.html',
     'https://support.blockdistraction.com/',
-    'https://markdigital.com/',
+    'https://markdigital.cc/',
     'https://service.ext.pp.ua/',
     storeUrl
   ]) {
@@ -155,13 +155,16 @@ test('protected project and store URLs cannot be spoofed through another site', 
     'https://evil.example/#ext.pp.ua',
     'https://notblockdistraction.com/',
     'https://blockdistraction.com.evil.example/',
+    'https://markdigital.com/',
+    'https://support.markdigital.com/',
     fakeStoreUrl
   ]) {
     assert.equal(isBlockedURL([{ url }]), false, url);
   }
 
   assert.equal(isBlockedURL([{ url: 'blockdistraction' }]), true);
-  assert.equal(isBlockedURL([{ url: 'markdigital' }]), true);
+  assert.equal(isBlockedURL([{ url: 'markdigital.cc' }]), true);
+  assert.equal(isBlockedURL([{ url: 'markdigital' }]), false);
 });
 
 test('installation URL always opens the packaged Options page', async () => {

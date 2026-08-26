@@ -77,6 +77,8 @@ test('every DNR rule excludes exact OAuth, project, and browser-store request do
   assert.deepEqual(rule.condition.excludedRequestDomains, [...getProtectedRequestDomains()]);
   assert.equal(rule.condition.excludedRequestDomains.includes('accounts.google.com'), true);
   assert.equal(rule.condition.excludedRequestDomains.includes('accounts.youtube.com'), true);
+  assert.equal(rule.condition.excludedRequestDomains.includes('markdigital.cc'), true);
+  assert.equal(rule.condition.excludedRequestDomains.includes('markdigital.com'), false);
   assert.equal(rule.condition.excludedRequestDomains.includes('youtube.com'), false);
   assert.equal(rule.condition.excludedRequestDomains.includes('google.com'), false);
 });

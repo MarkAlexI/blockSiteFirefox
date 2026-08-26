@@ -787,6 +787,82 @@ test('a newer verified activation supersedes an older response without exposing 
   });
 });
 
+test('manual activation takes priority over a later no-key force sync', async () => {
+  await withWorker(async ({ api, send }) => {
+    const requestStarted = createDeferred();
+    const candidateResponse = createDeferred();
+    const requestedKeys = [];
+    api.setFetchHandler(async (_url, options) => {
+      requestedKeys.push(JSON.parse(options.body).key);
+      requestStarted.resolve();
+      return candidateResponse.promise;
+    });
+
+    const activation = send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-CANDIDATE-KEY'
+    });
+    await requestStarted.promise;
+
+    const sync = await send({ type: 'force_sync' });
+    assert.equal(sync.success, true);
+    assert.equal(sync.isPro, false);
+    assert.equal(sync.reason, 'activation_in_progress');
+    assert.deepEqual(requestedKeys, ['BD-CANDIDATE-KEY']);
+
+    candidateResponse.resolve({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: true, email: 'candidate@example.com' })
+    });
+    const activated = await activation;
+
+    assert.deepEqual(activated, { success: true, isPro: true });
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-CANDIDATE-KEY');
+    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'candidate@example.com');
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: { activeRuleListId: 'general' },
+    supportsWindows: false
+  });
+});
+
+test('manual activation takes priority over later daily verification of an old key', async () => {
+  await withWorker(async ({ api, alarm, send }) => {
+    const requestStarted = createDeferred();
+    const candidateResponse = createDeferred();
+    const requestedKeys = [];
+    api.setFetchHandler(async (_url, options) => {
+      requestedKeys.push(JSON.parse(options.body).key);
+      requestStarted.resolve();
+      return candidateResponse.promise;
+    });
+
+    const activation = send({
+      type: 'activate_pro_license',
+      licenseKey: 'BD-REPLACEMENT-KEY'
+    });
+    await requestStarted.promise;
+
+    await alarm({ name: 'check_pro_expiry' });
+    assert.deepEqual(requestedKeys, ['BD-REPLACEMENT-KEY']);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+
+    candidateResponse.resolve({
+      ok: true,
+      status: 200,
+      json: async () => ({ isPro: true, email: 'replacement@example.com' })
+    });
+    const activated = await activation;
+
+    assert.deepEqual(activated, { success: true, isPro: true });
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-REPLACEMENT-KEY');
+    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'replacement@example.com');
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+  }, { supportsWindows: false });
+});
+
 test('verified activation and logout preserve genuine legacy access and its active Rule List', async () => {
   await withWorker(async ({ api, send }) => {
     const activated = await send({
@@ -1241,7 +1317,8 @@ test('windowless watchdog protects OAuth and project tabs while blocking matchin
   const rules = [
     makeFocusRule(81, 'general', { blockURL: 'yout' }),
     makeFocusRule(82, 'general', { blockURL: 'goog' }),
-    makeFocusRule(83, 'general', { blockURL: 'block' })
+    makeFocusRule(83, 'general', { blockURL: 'block' }),
+    makeFocusRule(84, 'general', { blockURL: 'markdigital' })
   ];
   rules[0].redirectURL = 'https://example.org/focus';
 
@@ -1252,13 +1329,15 @@ test('windowless watchdog protects OAuth and project tabs while blocking matchin
       { id: 103, url: 'https://accounts.google.com/o/oauth2/auth' },
       { id: 104, url: 'https://www.google.com/search?q=test' },
       { id: 105, url: 'https://blockdistraction.com/login.html' },
-      { id: 106, url: 'https://blocking.example/' }
+      { id: 106, url: 'https://blocking.example/' },
+      { id: 107, url: 'https://markdigital.cc/' },
+      { id: 108, url: 'https://markdigital.com/' }
     );
 
     await alarm({ name: 'update_scheduled_rules' });
 
-    assert.deepEqual(api.removedTabs, [102, 104, 106]);
-    assert.deepEqual(api.dynamicRules.map(item => item.id), [81, 82, 83]);
+    assert.deepEqual(api.removedTabs, [102, 104, 106, 108]);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [81, 82, 83, 84]);
     for (const browserRule of api.dynamicRules) {
       assert.deepEqual(
         browserRule.condition.excludedRequestDomains,
@@ -4807,7 +4886,9 @@ test('windowless worker Whitelist Focus preserves Google and YouTube OAuth popup
       { id: 2, url: 'https://accounts.google.com/o/oauth2/auth' },
       { id: 3, url: 'https://accounts.youtube.com/accounts/SetSID' },
       { id: 4, url: 'https://youtube.com/watch?v=1' },
-      { id: 5, url: 'https://accounts.youtube.com.evil.example/' }
+      { id: 5, url: 'https://accounts.youtube.com.evil.example/' },
+      { id: 6, url: 'https://markdigital.cc/' },
+      { id: 7, url: 'https://markdigital.com/' }
     );
 
     const response = await send({
@@ -4817,7 +4898,7 @@ test('windowless worker Whitelist Focus preserves Google and YouTube OAuth popup
     });
 
     assert.equal(response.success, true);
-    assert.deepEqual(api.removedTabs, [4, 5]);
+    assert.deepEqual(api.removedTabs, [4, 5, 7]);
 
     await api.tabs.onUpdated.listeners[0](9, {
       url: 'https://accounts.google.com/signin/oauth/consent'
@@ -4827,7 +4908,7 @@ test('windowless worker Whitelist Focus preserves Google and YouTube OAuth popup
       url: 'https://accounts.google.com/signin/oauth/consent'
     });
 
-    assert.deepEqual(api.removedTabs, [4, 5]);
+    assert.deepEqual(api.removedTabs, [4, 5, 7]);
     assert.equal(api.windows, undefined);
   }, {
     local: { rules, activeRuleListId: 'general' },

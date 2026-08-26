@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.24] - 2026-08-26
+### Security
+- Missing or invalid installation metadata no longer grants legacy access by itself; genuine old partial credential records are canonicalized only from the trusted extension update lifecycle.
+- Subscription and runtime activation payloads still cannot alter the stored installation date or legacy status.
+
+### Fixed
+- Only the owned `markdigital.cc` domain and its subdomains remain protected. The unrelated `markdigital.com` domain and partial targets such as `mark`, `digital`, and `markdigital` can now be blocked normally.
+- Manual license activation now takes priority over later startup, daily, or force-sync verification, preventing a valid candidate key from being rejected as superseded or causing a redundant old-key request.
+- Update migration now persists a historical installation date and consistent legacy status for existing credentials that predate installation metadata, while modern and uninitialized records remain fail closed.
+- DNR exclusions, existing-tab cleanup, Daily Limits, Whitelist Focus, active-profile isolation, genuine legacy access, Free deletion, the exact ten-rule limit, the unchanged one-minute watchdog, and Firefox Android workers without the windows API retain their intended behavior.
+
+### Added
+- Added 6 regression scenarios for competitor-domain blocking, trusted credential migration, fail-closed uninitialized metadata, Daily Limit matching, and activation races against no-key and old-key maintenance syncs.
+- Expanded lifecycle, DNR, tab cleanup, Whitelist Focus, and windowless worker coverage for the corrected domain and credential contracts.
+
 ## [5.1.23] - 2026-08-25
 ### Security
 - Browser DNR rules, matching existing-tab cleanup, Daily Limit tracking, and Whitelist Focus now protect the exact Google authentication, YouTube account-service, project, and Mozilla Add-ons domains without trusting lookalike hosts or URL text.

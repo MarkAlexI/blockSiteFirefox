@@ -226,6 +226,27 @@ test('Google OAuth popups never consume a YouTube Daily Limit or inject a visibi
   assert.equal(tracker.getDebugState().resolution, 'no_matching_rule');
 });
 
+test('Mark Digital Daily Limits protect the owned domain but count the competitor domain', async () => {
+  for (const [url, expectedKeys, expectedResolution] of [
+    ['https://markdigital.cc/', [], 'no_matching_rule'],
+    ['https://markdigital.com/', ['1:general'], 'matched']
+  ]) {
+    let sampled = null;
+    const tracker = createTracker({
+      tab: { id: 11, windowId: 7, active: true, url },
+      rules: [makeRule({ blockURL: 'markdigital' })],
+      recordSample(keys) {
+        sampled = keys;
+        return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+      }
+    });
+
+    await tracker.sample('minute_alarm');
+    assert.deepEqual(sampled, expectedKeys, url);
+    assert.equal(tracker.getDebugState().resolution, expectedResolution, url);
+  }
+});
+
 test('direct tab hints avoid a second tabs.query race on activation and URL changes', async () => {
   let queryCalls = 0;
   let sampled = null;

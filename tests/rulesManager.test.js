@@ -47,17 +47,24 @@ test('whitelist validation ignores redirect, schedule, and category requirements
 });
 
 test('whitelist validation allows protected extension and project patterns', () => {
-  for (const pattern of ['markdigital', 'blockdistraction']) {
+  for (const pattern of ['markdigital.cc', 'blockdistraction']) {
     const result = manager.validateRule(pattern, '', null, '', true);
     assert.deepEqual(result, { isValid: true, errors: [] }, pattern);
   }
 });
 
 test('blacklist validation still rejects protected extension and project patterns', () => {
-  for (const pattern of ['markdigital', 'blockdistraction']) {
+  for (const pattern of ['markdigital.cc', 'blockdistraction']) {
     const result = manager.validateRule(pattern, '', null, 'other', false);
     assert.equal(result.isValid, false, pattern);
     assert.equal(result.errors.includes('blockurl_restrict'), true, pattern);
+  }
+});
+
+test('competitor and partial Mark Digital patterns remain blockable', () => {
+  for (const pattern of ['markdigital.com', 'markdigital', 'mark', 'digital']) {
+    const result = manager.validateRule(pattern, '', null, 'other', false);
+    assert.deepEqual(result, { isValid: true, errors: [] }, pattern);
   }
 });
 

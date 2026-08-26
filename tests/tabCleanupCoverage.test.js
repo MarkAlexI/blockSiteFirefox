@@ -54,11 +54,13 @@ test('matching cleanup preserves OAuth and project tabs while closing real distr
     { id: 3, url: 'https://accounts.google.com/o/oauth2/auth' },
     { id: 4, url: 'https://www.google.com/search?q=test' },
     { id: 5, url: 'https://blockdistraction.com/login.html' },
-    { id: 6, url: 'https://blocking.example/' }
+    { id: 6, url: 'https://blocking.example/' },
+    { id: 7, url: 'https://markdigital.cc/' },
+    { id: 8, url: 'https://markdigital.com/' }
   ], async ({ api, closeTabsMatchingRules }) => {
-    await closeTabsMatchingRules(['yout', 'goog', 'block']);
+    await closeTabsMatchingRules(['yout', 'goog', 'block', 'markdigital']);
 
-    assert.deepEqual(api.removedTabs, [2, 4, 6]);
+    assert.deepEqual(api.removedTabs, [2, 4, 6, 8]);
     assert.deepEqual(api.createdTabs, []);
   }, { supportsWindows: false });
 });

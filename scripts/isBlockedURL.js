@@ -25,7 +25,7 @@ export function isBlockedURL(tabs) {
     /^view-source:/,
     /\/\/newtab/
   ];
-  const protectedProjectPatterns = [/blockdistraction/i, /markdigital/i, /ext\.pp\.ua/i];
+  const protectedProjectPatterns = [/blockdistraction/i, /markdigital\.cc/i, /ext\.pp\.ua/i];
 
   let parsed;
   try {
@@ -51,7 +51,7 @@ export function isBlockedURL(tabs) {
   const hostname = parsed.hostname.toLowerCase();
   const isProtectedProjectHost = [
     /(?:^|\.)blockdistraction\.com$/i,
-    /(?:^|\.)markdigital(?:\.[a-z\d-]+)*$/i,
+    /(?:^|\.)markdigital\.cc$/i,
     /(?:^|\.)ext\.pp\.ua$/i
   ].some(pattern => pattern.test(hostname));
 

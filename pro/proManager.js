@@ -20,10 +20,9 @@ export class ProManager {
   }
 
   static resolveLegacyAccess(credentials) {
-    if (credentials.installationDate) {
-      return new Date(credentials.installationDate) < new Date(this.RESTRICTION_START_DATE);
-    }
-    return true;
+    const installationTimestamp = Date.parse(credentials?.installationDate);
+    return Number.isFinite(installationTimestamp) &&
+      installationTimestamp < Date.parse(this.RESTRICTION_START_DATE);
   }
 
   static async getAccess() {
@@ -80,6 +79,52 @@ export class ProManager {
       if (throwOnError) throw error;
       return this.defaultCredentials;
     }
+  }
+
+  /**
+   * Initializes installation metadata from a trusted extension lifecycle path.
+   * Subscription and runtime-message payloads must continue using updateProStatus(),
+   * which deliberately cannot change these fields.
+   */
+  static async initializeInstallationMetadata({ fallbackInstallationDate } = {}) {
+    if (
+      typeof fallbackInstallationDate !== 'string' ||
+      !Number.isFinite(Date.parse(fallbackInstallationDate))
+    ) {
+      throw new TypeError('A valid fallback installation date is required');
+    }
+
+    const result = await browser.storage.sync.get(['credentials']);
+    const storedCredentials = result.credentials;
+
+    if (
+      !storedCredentials ||
+      typeof storedCredentials !== 'object' ||
+      Array.isArray(storedCredentials)
+    ) {
+      const credentials = await this.getCredentials({ throwOnError: true });
+      return { credentials, changed: true };
+    }
+
+    const hasInstallationDate = typeof storedCredentials.installationDate === 'string' &&
+      storedCredentials.installationDate.trim() !== '';
+    const installationDate = hasInstallationDate
+      ? storedCredentials.installationDate
+      : fallbackInstallationDate;
+    const credentials = {
+      ...this.defaultCredentials,
+      ...storedCredentials,
+      installationDate
+    };
+    credentials.isLegacyUser = this.resolveLegacyAccess(credentials);
+
+    const changed = storedCredentials.installationDate !== credentials.installationDate ||
+      storedCredentials.isLegacyUser !== credentials.isLegacyUser;
+    if (changed) {
+      await browser.storage.sync.set({ credentials });
+    }
+
+    return { credentials, changed };
   }
   
   static async updateProStatus(isPro, subscriptionData = {}) {

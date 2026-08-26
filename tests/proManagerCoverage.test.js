@@ -73,7 +73,8 @@ test('legacy status uses the documented restriction boundary', async () => {
   for (const [installationDate, expected] of [
     ['2025-12-31T23:59:59.999Z', true],
     ['2026-01-01T00:00:00.000Z', false],
-    [null, true]
+    [null, false],
+    ['not-a-date', false]
   ]) {
     await withProManager({ sync: { credentials: { installationDate } } }, async ({ ProManager }) => {
       assert.equal(await ProManager.isLegacyUser(), expected);
@@ -106,13 +107,46 @@ test('paid feature access accepts Pro and genuine legacy users while rejecting m
   for (const [credentials, expected] of [
     [{ isPro: true, installationDate: '2026-08-01T00:00:00.000Z' }, true],
     [{ isPro: false, installationDate: '2025-12-31T23:59:59.999Z' }, true],
-    [{ isPro: false, installationDate: null }, true],
+    [{ isPro: false, installationDate: null }, false],
     [{ isPro: false, installationDate: '2026-01-01T00:00:00.000Z' }, false]
   ]) {
     await withProManager({ sync: { credentials } }, async ({ ProManager }) => {
       assert.equal(await ProManager.hasPaidAccess(), expected);
     });
   }
+});
+
+test('trusted update migration persists historical metadata for an existing partial record', async () => {
+  await withProManager({ sync: { credentials: {
+    isPro: false,
+    licenseKey: null,
+    installationDate: null,
+    isLegacyUser: false
+  } } }, async ({ api, ProManager }) => {
+    assert.equal(await ProManager.hasPaidAccess(), false);
+
+    const migration = await ProManager.initializeInstallationMetadata({
+      fallbackInstallationDate: '1970-01-01T00:00:00.000Z'
+    });
+
+    assert.equal(migration.changed, true);
+    assert.equal(migration.credentials.installationDate, '1970-01-01T00:00:00.000Z');
+    assert.equal(migration.credentials.isLegacyUser, true);
+    assert.deepEqual(api.storage.sync.data.credentials, migration.credentials);
+    assert.equal(await ProManager.hasPaidAccess(), true);
+  });
+});
+
+test('uninitialized metadata cannot grant legacy access outside trusted migration', async () => {
+  await withProManager({ sync: { credentials: {
+    isPro: false,
+    installationDate: null,
+    isLegacyUser: true
+  } } }, async ({ api, ProManager }) => {
+    assert.equal(await ProManager.isLegacyUser(), false);
+    assert.equal(await ProManager.hasPaidAccess(), false);
+    assert.equal(api.storage.sync.data.credentials.installationDate, null);
+  });
 });
 
 test('upgrading preserves existing subscription fields and sends a status notification', async () => {

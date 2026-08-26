@@ -18,8 +18,7 @@ test('protected request domains contain precise Google OAuth and project hosts',
     'accounts.youtube.com',
     'blockdistraction.com',
     'ext.pp.ua',
-    'markdigital.cc',
-    'markdigital.com'
+    'markdigital.cc'
   ]) {
     assert.equal(domains.includes(domain), true, domain);
   }
@@ -49,6 +48,8 @@ test('protected request hosts include real subdomains without trusting lookalike
     'notaccounts.youtube.com',
     'accounts.youtube.com.evil.example',
     'blockdistraction.com.evil.example',
+    'markdigital.com',
+    'support.markdigital.com',
     '',
     null
   ]) {
@@ -94,7 +95,16 @@ test('blacklist validation rejects direct OAuth hosts but preserves useful parti
     assert.equal(validation.errors.includes('blockurl_restrict'), true, target);
   }
 
-  for (const target of ['yout', 'yo', 'youtube.com', 'goog', 'google.com', 'block']) {
+  for (const target of [
+    'yout',
+    'yo',
+    'youtube.com',
+    'goog',
+    'google.com',
+    'block',
+    'markdigital',
+    'markdigital.com'
+  ]) {
     assert.equal(manager.validateRule(target, '', null, 'social').isValid, true, target);
   }
 });
@@ -112,6 +122,8 @@ test('OAuth and project host protection cannot be spoofed by unrelated URL text'
   assert.equal(doesUrlMatchBlockRule('https://accounts.youtube.com/accounts/SetSID', 'yout'), false);
   assert.equal(doesUrlMatchBlockRule('https://accounts.google.com/o/oauth2/v2/auth', 'goog'), false);
   assert.equal(doesUrlMatchBlockRule('https://blockdistraction.com/login.html', 'block'), false);
+  assert.equal(doesUrlMatchBlockRule('https://markdigital.cc/', 'markdigital'), false);
+  assert.equal(doesUrlMatchBlockRule('https://markdigital.com/', 'markdigital'), true);
   assert.equal(doesUrlMatchBlockRule('https://youtube.com/watch?v=1', 'yout'), true);
   assert.equal(doesUrlMatchBlockRule('https://www.google.com/search?q=test', 'goog'), true);
   assert.equal(doesUrlMatchBlockRule('https://blockparty.example/', 'block'), true);
