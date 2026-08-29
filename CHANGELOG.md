@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.2] - 2026-08-29
+### Fixed
+- Rule target and redirect fields now disable autocorrection, automatic capitalization, and spell checking so mobile keyboards do not alter domains, paths, or partial patterns.
+
+### Changed
+- Rule URL fields now request a URL-focused virtual keyboard while retaining `type="text"` semantics for entries such as bare domains, paths, and partial targets.
+
+### Added
+- Added regression coverage for the shared input configuration and all six dynamic URL fields in the popup and Options.
+
 ## [5.2.1] - 2026-08-26
 ### Fixed
 - Successful manual Pro activation now replaces a stale no-key or temporary verification result with a current successful diagnostic state.

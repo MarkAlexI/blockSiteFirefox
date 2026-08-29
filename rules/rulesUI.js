@@ -2,6 +2,7 @@ import { t } from '../scripts/t.js';
 import Logger from '../utils/logger.js';
 import { CATEGORIES } from './categoryManager.js';
 import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
+import { configureUrlInput } from '../dom/urlInput.js';
 import { ScheduleEditor } from '../schedules/scheduleEditor.js';
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
 import {
@@ -253,6 +254,7 @@ export class RulesUI {
 
     const blockInput = document.createElement('input');
     blockInput.type = 'text';
+    configureUrlInput(blockInput);
     blockInput.value = rule.blockURL;
     blockInput.placeholder = t('blockurl');
     const blockCell = document.createElement('td');
@@ -262,6 +264,7 @@ export class RulesUI {
 
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
+    configureUrlInput(redirectInput);
     redirectInput.value = isWhitelist ? '' : (rule.redirectURL || '');
     redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturlplaceholder');
     redirectInput.disabled = isWhitelist;
@@ -373,6 +376,7 @@ export class RulesUI {
 
     const blockInput = document.createElement('input');
     blockInput.type = 'text';
+    configureUrlInput(blockInput);
     blockInput.placeholder = t('blockurl');
     setTimeout(() => blockInput.focus(), 100);
     const blockCell = document.createElement('td');
@@ -388,6 +392,7 @@ export class RulesUI {
 
     const redirectInput = document.createElement('input');
     redirectInput.type = 'text';
+    configureUrlInput(redirectInput);
     redirectInput.placeholder = isWhitelist ? 'N/A' : t('redirecturlplaceholder');
     redirectInput.disabled = isWhitelist;
     if (isWhitelist) redirectInput.classList.add('input-disabled');

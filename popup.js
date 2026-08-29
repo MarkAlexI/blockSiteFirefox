@@ -10,6 +10,7 @@ import { RulesUI, formatDailyLimitUsageMinutes } from './rules/rulesUI.js';
 import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
 import { initializeNoSpaceInputs } from './utils/noSpaces.js';
+import { configureUrlInput } from './dom/urlInput.js';
 import Logger from './utils/logger.js';
 import { getFocusSessionState } from './utils/focusSession.js';
 import { MAX_RULES_LIMIT } from './utils/constants.js';
@@ -434,6 +435,7 @@ class PopupPage {
     
     const blockURL = document.createElement('input');
     blockURL.type = 'text';
+    configureUrlInput(blockURL);
     blockURL.placeholder = t('blockurl');
     blockURL.value = blockURLValue;
 
@@ -450,6 +452,7 @@ class PopupPage {
     
     const redirectURL = document.createElement('input');
     redirectURL.type = 'text';
+    configureUrlInput(redirectURL);
     
     if (isWhitelist) {
       redirectURL.placeholder = 'N/A';
