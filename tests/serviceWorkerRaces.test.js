@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 import { getLocalDateKey } from '../rules/dailyLimitManager.js';
-import { LICENSE_SYNC_TIMEOUT_MS, VERIFY_API_URL } from '../utils/constants.js';
+import { LICENSE_SYNC_TIMEOUT_MS, MAX_RULES_LIMIT, VERIFY_API_URL } from '../utils/constants.js';
 import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
@@ -5317,4 +5317,159 @@ test('Pro and genuine legacy worker intents can create active overnight schedule
       });
     });
   }
+});
+
+test('product setup telemetry records only authoritative Rule List and Daily Limit outcomes', async () => {
+  await withWorker(async ({ api, send }) => {
+    const created = await send({ type: 'rules:createList', payload: { name: 'Work' } });
+    assert.equal(created.success, true);
+    assert.equal(created.ruleListCreated, true);
+    assert.equal(getTelemetryCounter(api, 'rule_list_created'), 1);
+
+    const repeated = await send({
+      type: 'rules:activateList',
+      payload: { listId: created.list.id }
+    });
+    assert.equal(repeated.success, true);
+    assert.equal(repeated.activeRuleListChanged, false);
+    assert.equal(getTelemetryCounter(api, 'rule_list_activated'), 0);
+
+    const activated = await send({
+      type: 'rules:toggleList',
+      payload: { listId: 'general' }
+    });
+    assert.equal(activated.success, true);
+    assert.equal(activated.activeRuleListChanged, true);
+    assert.equal(getTelemetryCounter(api, 'rule_list_activated'), 1);
+
+    const added = await send({
+      type: 'rules:add',
+      payload: {
+        blockURL: 'daily.example',
+        redirectURL: '',
+        category: 'social',
+        blockingMode: 'daily_limit',
+        dailyLimit: { minutes: 20 }
+      }
+    });
+    assert.equal(added.success, true);
+    assert.equal(added.dailyLimitConfigured, true);
+    assert.equal(getTelemetryCounter(api, 'daily_limit_configured'), 1);
+
+    const ordinaryEdit = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: added.rule.id,
+        assignmentListId: 'general',
+        blockURL: 'daily.example',
+        redirectURL: '',
+        category: 'entertainment',
+        assignment: {
+          listId: 'general',
+          blockingMode: 'daily_limit',
+          schedule: null,
+          dailyLimit: { minutes: 20 }
+        }
+      }
+    });
+    assert.equal(ordinaryEdit.success, true);
+    assert.equal(ordinaryEdit.dailyLimitConfigured, false);
+    assert.equal(getTelemetryCounter(api, 'daily_limit_configured'), 1);
+
+    const changedLimit = await send({
+      type: 'rules:update',
+      payload: {
+        ruleId: added.rule.id,
+        assignmentListId: 'general',
+        blockURL: 'daily.example',
+        redirectURL: '',
+        category: 'entertainment',
+        assignment: {
+          listId: 'general',
+          blockingMode: 'daily_limit',
+          schedule: null,
+          dailyLimit: { minutes: 35 }
+        }
+      }
+    });
+    assert.equal(changedLimit.success, true);
+    assert.equal(changedLimit.dailyLimitConfigured, true);
+    assert.equal(getTelemetryCounter(api, 'daily_limit_configured'), 2);
+    assert.equal(getTelemetryCounter(api, 'free_rule_limit_reached'), 0);
+    assert.equal(api.windows, undefined);
+  }, {
+    local: {
+      activeRuleListId: 'list-1',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('Free rule limit telemetry starts only after the first rejected mutation', async () => {
+  const rules = Array.from(
+    { length: MAX_RULES_LIMIT - 1 },
+    (_, index) => makeFocusRule(index + 1, 'general')
+  );
+
+  await withWorker(async ({ api, send }) => {
+    const tenth = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'tenth.example', redirectURL: '', category: 'social' }
+    });
+    assert.equal(tenth.success, true);
+    assert.equal(api.storage.local.data.rules.length, MAX_RULES_LIMIT);
+    assert.equal(getTelemetryCounter(api, 'free_rule_limit_reached'), 0);
+
+    const rejected = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'eleventh.example', redirectURL: '', category: 'social' }
+    });
+    assert.equal(rejected.success, false);
+    assert.equal(rejected.error.code, 'rule_limit_reached');
+    assert.equal(api.storage.local.data.rules.length, MAX_RULES_LIMIT);
+    assert.equal(getTelemetryCounter(api, 'free_rule_limit_reached'), 1);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: {
+      rules,
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('a rejected telemetry write cannot replace the Free rule limit response', async () => {
+  const rules = Array.from(
+    { length: MAX_RULES_LIMIT },
+    (_, index) => makeFocusRule(index + 1, 'general')
+  );
+
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => Object.hasOwn(values, 'telemetryBuckets')
+      ? Promise.reject(new Error('telemetry storage unavailable'))
+      : originalSet(values, callback);
+
+    const rejected = await send({
+      type: 'rules:add',
+      payload: { blockURL: 'rejected.example', redirectURL: '', category: 'social' }
+    });
+
+    assert.equal(rejected.success, false);
+    assert.equal(rejected.error.code, 'rule_limit_reached');
+    assert.equal(api.storage.local.data.rules.length, MAX_RULES_LIMIT);
+    assert.equal(api.storage.local.data.telemetryBuckets, undefined);
+    assert.equal(api.windows, undefined);
+  }, {
+    credentials: { isPro: false, licenseKey: null },
+    local: {
+      rules,
+      activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
 });

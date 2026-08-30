@@ -18,6 +18,11 @@ test('telemetry accepts only allowlisted counters', () => {
   assert.equal(normalizeCounterName('rule_pack_duplicates_skipped'), 'rule_pack_duplicates_skipped');
   assert.equal(normalizeCounterName('rule_pack_conflicts'), 'rule_pack_conflicts');
   assert.equal(normalizeCounterName('rule_pack_no_change'), 'rule_pack_no_change');
+  assert.equal(normalizeCounterName('rule_list_created'), 'rule_list_created');
+  assert.equal(normalizeCounterName('rule_list_activated'), 'rule_list_activated');
+  assert.equal(normalizeCounterName('daily_limit_configured'), 'daily_limit_configured');
+  assert.equal(normalizeCounterName('free_rule_limit_reached'), 'free_rule_limit_reached');
+  assert.equal(normalizeCounterName('rule_list_created_private'), null);
   assert.equal(normalizeCounterName('rule_pack_attempt_private_pack'), null);
   assert.equal(normalizeCounterName('feedback_private_value'), null);
   assert.equal(normalizeCounterName('visited_example.com'), null);

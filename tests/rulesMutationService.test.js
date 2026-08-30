@@ -2914,3 +2914,83 @@ test('import preserves overnight schedule assignments and their selected start w
   }]);
   assert.equal(harness.savedStates.length, 1);
 });
+
+test('Rule List mutation results distinguish creation from a changed activation', async () => {
+  const harness = createHarness();
+
+  const created = await harness.service.createRuleList({ name: 'Work' });
+  assert.equal(created.ruleListCreated, true);
+  assert.equal(created.activeRuleListId, created.list.id);
+
+  const repeated = await harness.service.activateRuleList({ listId: created.list.id });
+  assert.equal(repeated.activeRuleListChanged, false);
+
+  const changed = await harness.service.activateRuleList({ listId: 'general' });
+  assert.equal(changed.activeRuleListChanged, true);
+  assert.equal(changed.activeRuleListId, 'general');
+});
+
+test('Daily Limit mutation results ignore unrelated edits and removals', async () => {
+  const harness = createHarness();
+
+  const added = await harness.service.addRule({
+    blockURL: 'video.example',
+    redirectURL: '',
+    category: 'social',
+    blockingMode: 'daily_limit',
+    dailyLimit: { minutes: 20 }
+  });
+  assert.equal(added.dailyLimitConfigured, true);
+
+  const ordinaryEdit = await harness.service.updateRule({
+    ruleId: added.rule.id,
+    assignmentListId: 'general',
+    blockURL: 'video.example',
+    redirectURL: '',
+    category: 'entertainment',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      schedule: null,
+      dailyLimit: { minutes: 20 }
+    }
+  });
+  assert.equal(ordinaryEdit.dailyLimitConfigured, false);
+
+  const changedLimit = await harness.service.updateRule({
+    ruleId: added.rule.id,
+    assignmentListId: 'general',
+    blockURL: 'video.example',
+    redirectURL: '',
+    category: 'entertainment',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'daily_limit',
+      schedule: null,
+      dailyLimit: { minutes: 35 }
+    }
+  });
+  assert.equal(changedLimit.dailyLimitConfigured, true);
+
+  const removedLimit = await harness.service.updateRule({
+    ruleId: added.rule.id,
+    assignmentListId: 'general',
+    blockURL: 'video.example',
+    redirectURL: '',
+    category: 'entertainment',
+    assignment: {
+      listId: 'general',
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }
+  });
+  assert.equal(removedLimit.dailyLimitConfigured, false);
+
+  const ordinaryRule = await harness.service.addRule({
+    blockURL: 'ordinary.example',
+    redirectURL: '',
+    category: 'social'
+  });
+  assert.equal(ordinaryRule.dailyLimitConfigured, false);
+});

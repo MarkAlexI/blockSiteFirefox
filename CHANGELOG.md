@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.4] - 2026-08-30
+### Added
+- Optional technical analytics now records successful Rule List creation, actual active-list changes, Daily Limit creation or configuration changes, and mutations rejected because the Free rule limit was already reached.
+- Added regression coverage for committed mutation outcomes, repeated Rule List activation, unchanged Daily Limit edits, the exact Free-limit boundary, rejected telemetry storage writes, strict client/server allowlists, aggregation, and windowless Firefox Android workers.
+
+### Changed
+- Product setup counters are derived only from committed mutation results or the exact expected `rule_limit_reached` rejection. Creating the tenth Free rule does not increment `free_rule_limit_reached`.
+
+### Privacy
+- Product setup telemetry remains disabled by default and cannot include Rule List names, URLs, Daily Limit minutes, schedules, or arbitrary configuration values. Schema v2 and its existing coarse context remain unchanged.
+
+
 ## [5.2.3] - 2026-08-30
 ### Added
 - Optional technical analytics now records Rule Pack dialog opens, attempts for each of the eight fixed built-in packs, profile assignments added, duplicate entries skipped, whitelist conflicts, and imports that made no change.

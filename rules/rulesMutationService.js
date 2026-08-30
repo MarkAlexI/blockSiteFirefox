@@ -25,7 +25,8 @@ import {
   BLOCKING_MODE_ALWAYS,
   BLOCKING_MODE_DAILY_LIMIT,
   BLOCKING_MODE_SCHEDULE,
-  getRuleBlockingMode
+  getRuleBlockingMode,
+  normalizeDailyLimit
 } from './blockingMode.js';
 
 export class RulesMutationError extends Error {
@@ -129,6 +130,18 @@ function canonicalizeRuleTarget(rule, assignments = getRuleAssignments(rule)) {
     delete canonical[legacyKey];
   }
   return canonical;
+}
+
+function didConfigureDailyLimit(previousAssignment, nextAssignment) {
+  if (getRuleBlockingMode(nextAssignment) !== BLOCKING_MODE_DAILY_LIMIT) return false;
+
+  const nextLimit = normalizeDailyLimit(nextAssignment?.dailyLimit);
+  const previousLimit = previousAssignment &&
+    getRuleBlockingMode(previousAssignment) === BLOCKING_MODE_DAILY_LIMIT
+    ? normalizeDailyLimit(previousAssignment?.dailyLimit)
+    : null;
+
+  return Boolean(nextLimit) && previousLimit?.minutes !== nextLimit.minutes;
 }
 
 function sanitizeTargetInput(payload = {}, fallbackWhitelist = false, fallbackRule = null) {
@@ -434,6 +447,9 @@ export function createRulesMutationService({
       const assignments = validateAssignments(
         createAssignmentInputs(payload), lists, hasProAccess, target
       );
+      const dailyLimitConfigured = assignments.some(assignment =>
+        didConfigureDailyLimit(null, assignment)
+      );
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, target.isWhitelist));
 
       const existingIndex = findTargetRuleIndex(rules, target);
@@ -479,7 +495,8 @@ export function createRulesMutationService({
           rule: updatedRule,
           assignmentAdded: true,
           membershipAdded: true,
-          created: false
+          created: false,
+          dailyLimitConfigured
         });
       }
 
@@ -506,7 +523,8 @@ export function createRulesMutationService({
         rule: newRule,
         assignmentAdded: false,
         membershipAdded: false,
-        created: true
+        created: true,
+        dailyLimitConfigured
       });
     });
   }
@@ -686,7 +704,10 @@ export function createRulesMutationService({
         nextRules[index] = updatedRule;
         await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
-        return syncAndNotify(nextRules, { rule: updatedRule });
+        return syncAndNotify(nextRules, {
+          rule: updatedRule,
+          dailyLimitConfigured: false
+        });
       }
 
       if (!sourceListId) {
@@ -697,6 +718,9 @@ export function createRulesMutationService({
           target,
           'validation_failed',
           oldRule
+        );
+        const dailyLimitConfigured = nextAssignments.some(assignment =>
+          didConfigureDailyLimit(getRuleAssignment(oldRule, assignment.listId), assignment)
         );
         ensureFreeRuleCapacity(rules, hasProAccess, oldRule, nextAssignments);
         throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
@@ -720,7 +744,7 @@ export function createRulesMutationService({
         nextRules[index] = updatedRule;
         await ensureBrowserRuleCapacity(nextRules);
         await rulesManager.saveRules(nextRules);
-        return syncAndNotify(nextRules, { rule: updatedRule });
+        return syncAndNotify(nextRules, { rule: updatedRule, dailyLimitConfigured });
       }
 
       const currentAssignment = getRuleAssignment(oldRule, sourceListId);
@@ -748,6 +772,7 @@ export function createRulesMutationService({
         assignmentPayload
       );
       validateAssignment(nextAssignment, lists, hasProAccess, target, 'validation_failed', currentAssignment);
+      const dailyLimitConfigured = didConfigureDailyLimit(currentAssignment, nextAssignment);
       ensureFreeRuleCapacity(rules, hasProAccess, oldRule, [nextAssignment]);
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
 
@@ -789,6 +814,7 @@ export function createRulesMutationService({
         }
         return syncAndNotify(nextRules, {
           rule: updatedRule,
+          dailyLimitConfigured,
           ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
         });
       }
@@ -829,6 +855,7 @@ export function createRulesMutationService({
           rule: mergedTarget,
           targetMerged: true,
           sourceRuleId: oldRule.id,
+          dailyLimitConfigured,
           ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
         });
       }
@@ -861,6 +888,7 @@ export function createRulesMutationService({
         }
         return syncAndNotify(nextRules, {
           rule: updatedRule,
+          dailyLimitConfigured,
           ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
         });
       }
@@ -891,6 +919,7 @@ export function createRulesMutationService({
         rule: splitRule,
         targetSplit: true,
         sourceRuleId: oldRule.id,
+        dailyLimitConfigured,
         ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
       });
     });
@@ -1158,7 +1187,8 @@ export function createRulesMutationService({
       return syncAndNotify(rules, {
         ruleLists: nextLists,
         activeRuleListId: list.id,
-        list
+        list,
+        ruleListCreated: true
       });
     });
   }
@@ -1193,6 +1223,7 @@ export function createRulesMutationService({
       if (!state.lists.some(list => list.id === listId)) {
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
+      const activeRuleListChanged = state.activeRuleListId !== listId;
       const rules = await rulesManager.getRules();
       await ensureBrowserRuleCapacity(rules, {
         lists: state.lists,
@@ -1202,7 +1233,8 @@ export function createRulesMutationService({
       return syncAndNotify(rules, {
         ruleLists: state.lists,
         activeRuleListId: listId,
-        list: state.lists.find(list => list.id === listId)
+        list: state.lists.find(list => list.id === listId),
+        activeRuleListChanged
       });
     });
   }

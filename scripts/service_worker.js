@@ -143,16 +143,35 @@ const RULE_INTENT_COUNTERS = new Map([
   ['rules:toggleCategory', 'category_toggled']
 ]);
 
-async function recordRuleIntentTelemetry(type, result) {
-  if (type === 'rules:addMany') {
-    const telemetryTasks = getRulePackTelemetryIncrements(result)
-      .map(([counter, amount]) => telemetryStore.incrementCounter(counter, amount));
-    if (telemetryTasks.length > 0) await Promise.all(telemetryTasks);
-    return;
+const RULE_LIST_ACTIVATION_INTENTS = new Set([
+  'rules:activateList',
+  'rules:toggleList'
+]);
+
+function getRuleIntentTelemetryIncrements(type, result) {
+  if (type === 'rules:addMany') return getRulePackTelemetryIncrements(result);
+
+  const increments = [];
+  const counter = RULE_INTENT_COUNTERS.get(type);
+  if (counter) increments.push([counter, 1]);
+
+  if (type === 'rules:createList' && result?.ruleListCreated === true) {
+    increments.push(['rule_list_created', 1]);
+  }
+  if (RULE_LIST_ACTIVATION_INTENTS.has(type) && result?.activeRuleListChanged === true) {
+    increments.push(['rule_list_activated', 1]);
+  }
+  if ((type === 'rules:add' || type === 'rules:update') && result?.dailyLimitConfigured === true) {
+    increments.push(['daily_limit_configured', 1]);
   }
 
-  const counter = RULE_INTENT_COUNTERS.get(type);
-  if (counter) await telemetryStore.incrementCounter(counter);
+  return increments;
+}
+
+async function recordRuleIntentTelemetry(type, result) {
+  const telemetryTasks = getRuleIntentTelemetryIncrements(type, result)
+    .map(([counter, amount]) => telemetryStore.incrementCounter(counter, amount));
+  if (telemetryTasks.length > 0) await Promise.all(telemetryTasks);
 }
 
 async function settleRulesIntentPostCommitTasks(type, result) {
@@ -1531,6 +1550,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
             operation: message.type.replace('rules:', ''),
             errorName: error?.name || 'Error'
           }));
+        }
+        if (error?.code === 'rule_limit_reached') {
+          telemetryTasks.push(telemetryStore.incrementCounter('free_rule_limit_reached'));
         }
 
         for (const outcome of await Promise.allSettled(telemetryTasks)) {
