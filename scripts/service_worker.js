@@ -37,6 +37,7 @@ import { buildTelemetryContext } from '../telemetry/telemetryContext.js';
 import { getRulesTelemetryCode, shouldRecordRulesTelemetryError } from '../telemetry/telemetryRuleError.js';
 import { isExpectedRulesRejection } from '../rules/rulesErrorClassification.js';
 import { shouldRecordLicenseReliabilityError } from '../telemetry/telemetryLicenseError.js';
+import { getRulePackTelemetryIncrements } from '../telemetry/telemetryRulePack.js';
 
 const logger = new Logger('Worker');
 const rulesManager = new RulesManager();
@@ -144,15 +145,8 @@ const RULE_INTENT_COUNTERS = new Map([
 
 async function recordRuleIntentTelemetry(type, result) {
   if (type === 'rules:addMany') {
-    const changedCount = Number(result?.addedCount) || 0;
-    const newRuleCount = Number(result?.newRuleCount ?? result?.addedCount) || 0;
-    const telemetryTasks = [];
-    if (changedCount > 0) {
-      telemetryTasks.push(telemetryStore.incrementCounter('rule_pack_imported'));
-    }
-    if (newRuleCount > 0) {
-      telemetryTasks.push(telemetryStore.incrementCounter('rule_pack_rules_added', newRuleCount));
-    }
+    const telemetryTasks = getRulePackTelemetryIncrements(result)
+      .map(([counter, amount]) => telemetryStore.incrementCounter(counter, amount));
     if (telemetryTasks.length > 0) await Promise.all(telemetryTasks);
     return;
   }

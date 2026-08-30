@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.3] - 2026-08-30
+### Added
+- Optional technical analytics now records Rule Pack dialog opens, attempts for each of the eight fixed built-in packs, profile assignments added, duplicate entries skipped, whitelist conflicts, and imports that made no change.
+- Added regression coverage for the fixed pack allowlist, authoritative import outcomes, duplicate-only imports, client sanitization, Options reporting, worker persistence, schema-v2 payloads, and windowless Firefox Android workers.
+
+### Changed
+- Existing `rule_pack_imported` and `rule_pack_rules_added` counters keep their established semantics: an import is counted only when it changes stored rules, while rules added excludes profile-only assignment additions.
+
+### Privacy
+- Rule Pack telemetry remains disabled by default and cannot include URLs, entry IDs, custom pack names, Rule List names, schedules, or arbitrary strings. Pack attempts are limited to the eight IDs compiled into the extension.
+
 ## [5.2.2] - 2026-08-29
 ### Fixed
 - Rule target and redirect fields now disable autocorrection, automatic capitalization, and spell checking so mobile keyboards do not alter domains, paths, or partial patterns.

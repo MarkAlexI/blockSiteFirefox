@@ -84,6 +84,7 @@ class FakeElement {
 function createHarness({ resultFactory, schedule = null } = {}) {
   const previousDocument = globalThis.document;
   const previousChrome = globalThis.browser;
+  const telemetryMessages = [];
   const elements = {
     dialog: new FakeElement('dialog'),
     openButton: new FakeElement('button'),
@@ -129,6 +130,12 @@ function createHarness({ resultFactory, schedule = null } = {}) {
     }
   };
   globalThis.browser = {
+    runtime: {
+      sendMessage(message) {
+        telemetryMessages.push(structuredClone(message));
+        return Promise.resolve({ success: true });
+      }
+    },
     i18n: {
       getMessage(key, substitutions) {
         if (key === 'rulepacks_result') return substitutions.join('|');
@@ -166,6 +173,7 @@ function createHarness({ resultFactory, schedule = null } = {}) {
     ui,
     elements,
     additions,
+    telemetryMessages,
     scheduleCreateCalls,
     setScheduleDialogOpen(value) {
       scheduleDialogOpen = value;
@@ -179,6 +187,22 @@ function createHarness({ resultFactory, schedule = null } = {}) {
     }
   };
 }
+
+test('opening Rule Packs reports only the fixed dialog counter', () => {
+  const harness = createHarness();
+
+  try {
+    harness.ui.open();
+
+    assert.equal(harness.elements.dialog.open, true);
+    assert.deepEqual(harness.telemetryMessages, [{
+      type: 'telemetry:incrementCounter',
+      name: 'rule_pack_dialog_opened'
+    }]);
+  } finally {
+    harness.restore();
+  }
+});
 
 
 test('rule pack schedule editor is hosted inside the Rule Packs modal', () => {

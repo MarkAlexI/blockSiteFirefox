@@ -1,5 +1,6 @@
 import { t } from '../scripts/t.js';
 import { getRulePacks } from '../rules/rulePacks.js';
+import { recordTelemetryCounter } from '../telemetry/telemetryCounterReporter.js';
 
 export class RulePacksUI {
   constructor({
@@ -160,6 +161,7 @@ export class RulePacksUI {
     this.renderSelectedPack();
     this.resetScheduleSection();
     this.dialog.showModal();
+    recordTelemetryCounter('rule_pack_dialog_opened');
   }
 
   close() {

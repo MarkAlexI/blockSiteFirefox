@@ -1,3 +1,5 @@
+import { RULE_PACK_TELEMETRY_COUNTERS } from './telemetryRulePack.js';
+
 const SAFE_IDENTIFIER = /^[a-z0-9][a-z0-9:_-]{0,63}$/;
 
 const TELEMETRY_BROWSERS = new Set(['firefox']);
@@ -37,8 +39,7 @@ export const TELEMETRY_COUNTERS = new Set([
   'rule_updated',
   'rule_deleted',
   'rule_toggled',
-  'rule_pack_imported',
-  'rule_pack_rules_added',
+  ...RULE_PACK_TELEMETRY_COUNTERS,
   'rules_imported',
   'rules_cleared',
   'category_toggled',

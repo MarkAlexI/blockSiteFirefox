@@ -294,13 +294,47 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     assert.equal(enabledConsent.success, true);
     assert.equal(enabledConsent.consent.enabled, true);
 
+    syncStorage.data.credentials = {
+      ...syncStorage.data.credentials,
+      isPro: true
+    };
+    const importedPack = await sendWorkerMessage(messageListener, {
+      type: 'rules:addMany',
+      payload: { packId: 'shopping', entryIds: ['amazon', 'etsy'] }
+    });
+    assert.equal(importedPack.success, true);
+    assert.equal(importedPack.addedCount, 2);
+    assert.equal(importedPack.newRuleCount, 2);
+
+    const duplicatePack = await sendWorkerMessage(messageListener, {
+      type: 'rules:addMany',
+      payload: { packId: 'shopping', entryIds: ['amazon', 'etsy'] }
+    });
+    assert.equal(duplicatePack.success, true);
+    assert.equal(duplicatePack.addedCount, 0);
+    assert.equal(duplicatePack.skippedDuplicates, 2);
+
+    const rulePackCounters = Object.values(localStorage.data.telemetryBuckets || {})[0]?.counters;
+    assert.equal(rulePackCounters.rule_pack_attempt_shopping, 2);
+    assert.equal(rulePackCounters.rule_pack_imported, 1);
+    assert.equal(rulePackCounters.rule_pack_rules_added, 2);
+    assert.equal(rulePackCounters.rule_pack_duplicates_skipped, 2);
+    assert.equal(rulePackCounters.rule_pack_no_change, 1);
+    syncStorage.data.credentials = {
+      ...syncStorage.data.credentials,
+      isPro: false
+    };
+
     const removedGeneralRule = await sendWorkerMessage(messageListener, {
       type: 'rules:removeAssignment',
       payload: { ruleId: 1, listId: 'general' }
     });
     assert.equal(removedGeneralRule.success, true);
     assert.equal(removedGeneralRule.targetDeleted, true);
-    assert.deepEqual(localStorage.data.rules, []);
+    assert.deepEqual(
+      localStorage.data.rules.map(rule => rule.blockURL),
+      ['amazon.com', 'etsy.com']
+    );
 
     localStorage.data.rules = [{
       id: 2,
@@ -387,7 +421,7 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
       type: 'diagnostics:getReport'
     });
     assert.equal(telemetryDiagnostics.report.telemetry.enabled, true);
-    assert.equal(telemetryDiagnostics.report.telemetry.pendingCounterTotal, 3);
+    assert.equal(telemetryDiagnostics.report.telemetry.pendingCounterTotal, 11);
     assert.equal(telemetryDiagnostics.report.telemetry.pendingErrorFingerprints, 1);
 
     const flushed = await sendWorkerMessage(messageListener, {
@@ -403,6 +437,11 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     assert.match(telemetryPayload.batches[0].deliveryId, /^[0-9a-f-]{36}$/);
     assert.equal(telemetryPayload.batches[0].counters.rule_deleted, 2);
     assert.equal(telemetryPayload.batches[0].counters.feedback_prompt_shown, 1);
+    assert.equal(telemetryPayload.batches[0].counters.rule_pack_attempt_shopping, 2);
+    assert.equal(telemetryPayload.batches[0].counters.rule_pack_imported, 1);
+    assert.equal(telemetryPayload.batches[0].counters.rule_pack_rules_added, 2);
+    assert.equal(telemetryPayload.batches[0].counters.rule_pack_duplicates_skipped, 2);
+    assert.equal(telemetryPayload.batches[0].counters.rule_pack_no_change, 1);
     assert.equal(telemetryPayload.batches[0].counters.feedback_private_value, undefined);
     assert.equal('installationId' in telemetryPayload.context, false);
     assert.equal(JSON.stringify(telemetryPayload).includes('private.example'), false);
