@@ -5,11 +5,11 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.2.4-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.2.5-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
-An extension that will block or redirect requests in browser used `declarativeNetRequest` for generating dynamic rules.
+An extension that blocks or redirects HTTP and HTTPS website requests using `declarativeNetRequest` dynamic rules.
 
 ## Development checks
 
@@ -47,7 +47,7 @@ Both versions work on mobile browsers:
 
 ![blocker.png](/images/blocker.png "blocker")
 ## How to work with extension
-To block a website or resource, enter part of its name into the input field with the placeholder "Type Block URL" — for example, "facebook" will block all related subdomains. In the field with the placeholder "Type Redirect URL", enter the full redirect address including the protocol, such as "https://google.com". If the redirect field is left empty, the site will be blocked without redirection. Click the Save button to apply the rule. To update a rule, delete the old one and create a new entry.
+To block a website, enter an HTTP or HTTPS URL, a domain and path, or part of a domain into the input field with the placeholder "Type Block URL". For example, "facebook" will block related subdomains. Browser-internal and non-web schemes such as `file:`, `data:`, and `ftp:` cannot be blocked. In the field with the placeholder "Type Redirect URL", enter a complete HTTP or HTTPS address such as "https://google.com". If the redirect field is left empty, the site will be blocked without redirection. Click the Save button to apply the rule. To update a rule, delete the old one and create a new entry.
 ## Video Demo: [Block Site Extension](https://youtu.be/-z3pXiM_yv8?si=vEEBruG6XABppWQs)
 ### Project Description
 

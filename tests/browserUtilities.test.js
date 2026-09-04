@@ -7,7 +7,10 @@ import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import { normalizePathSegment } from '../rules/normalizePathSegment.js';
 import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
-import { isBlockedURL } from '../scripts/isBlockedURL.js';
+import {
+  hasUnsupportedExplicitScheme,
+  isBlockedURL
+} from '../scripts/isBlockedURL.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { resolveContextTarget } from '../utils/resolveContextTarget.js';
 import { createInstallURL } from '../utils/createInstallURL.js';
@@ -41,8 +44,40 @@ test('domain normalization removes www, lowercases hostnames, and preserves inva
 
 test('path normalization supports pasted domains, strips trailing slashes, and rejects malformed encoding', () => {
   assert.equal(normalizePathRule('https://www.Example.com/team/project///?draft=1'), 'example.com/team/project');
+  assert.equal(normalizePathRule('HTTPS://WWW.Example.com/Team/'), 'example.com/Team');
   assert.equal(normalizePathRule('example.com/team%20space'), 'example.com/team%20space');
   assert.equal(normalizePathRule('%E0%A4%A'), '%E0%A4%A');
+});
+
+test('explicit non-web schemes are rejected while flexible web targets remain available', () => {
+  for (const url of [
+    'file:///tmp/page.html',
+    'data:text/html,<h1>test</h1>',
+    'ftp://example.com/file',
+    'ws://example.com/socket',
+    'about:config',
+    'chrome://settings/',
+    'edge://settings/',
+    'moz-extension://extension-id/options.html',
+    'blob:https://example.com/id',
+    'javascript:alert(1)'
+  ]) {
+    assert.equal(hasUnsupportedExplicitScheme(url), true, url);
+    assert.equal(isBlockedURL([{ url }]), true, url);
+  }
+
+  for (const url of [
+    'https://example.com/path',
+    'HTTPS://Example.com/path',
+    'example.com/path',
+    'example.com:8080/path',
+    'localhost:3000',
+    'intranet:8080/path',
+    'tube'
+  ]) {
+    assert.equal(hasUnsupportedExplicitScheme(url), false, url);
+    assert.equal(isBlockedURL([{ url }]), false, url);
+  }
 });
 
 test('path segment validation rejects broken UTF-16 while encoding supported characters', () => {

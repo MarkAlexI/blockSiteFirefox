@@ -6,9 +6,54 @@ import { RulesManager } from '../rules/rulesManager.js';
 const manager = new RulesManager();
 
 test('flexible partial block patterns remain valid', () => {
-  for (const pattern of ['tube', 'youtube.com/shorts', 'example.com/path']) {
+  for (const pattern of [
+    'tube',
+    'youtube.com/shorts',
+    'example.com/path',
+    'example.com:8080/path',
+    'intranet:8080/path'
+  ]) {
     const result = manager.validateRule(pattern, '', null, 'social');
     assert.equal(result.isValid, true, pattern);
+  }
+});
+
+test('explicit non-web schemes are rejected for blacklist and whitelist rules', () => {
+  for (const pattern of [
+    'file:///tmp/page.html',
+    'data:text/html,test',
+    'ftp://example.com/file',
+    'chrome://settings/',
+    'about:config',
+    'javascript:alert(1)'
+  ]) {
+    for (const isWhitelist of [false, true]) {
+      const result = manager.validateRule(pattern, '', null, 'social', isWhitelist);
+      assert.equal(result.isValid, false, `${pattern} whitelist=${isWhitelist}`);
+      assert.equal(result.errors.includes('blockurl_restrict'), true, pattern);
+    }
+  }
+});
+
+test('redirect validation accepts only complete HTTP and HTTPS URLs', () => {
+  for (const redirect of ['https://safe.example/path', 'HTTP://safe.example/path']) {
+    assert.deepEqual(
+      manager.validateRule('example.com', redirect, null, 'social'),
+      { isValid: true, errors: [] },
+      redirect
+    );
+  }
+
+  for (const redirect of [
+    'file:///tmp/page.html',
+    'data:text/html,test',
+    'ftp://example.com/file',
+    'javascript:alert(1)',
+    'safe.example'
+  ]) {
+    const result = manager.validateRule('example.com', redirect, null, 'social');
+    assert.equal(result.isValid, false, redirect);
+    assert.equal(result.errors.includes('redirect_invalid'), true, redirect);
   }
 });
 

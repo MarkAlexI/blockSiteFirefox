@@ -564,6 +564,19 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     }, { url: 'https://source.example/' });
     assert.equal(localStorage.data.rules.some(rule => rule.blockURL === 'context.example/team'), true);
 
+    const ruleCountBeforeUnsupportedLinks = localStorage.data.rules.length;
+    for (const linkUrl of [
+      'file:///tmp/page.html',
+      'data:text/html,test',
+      'ftp://example.com/file'
+    ]) {
+      await contextMenusOnClicked.listeners[0]({
+        menuItemId: 'blockDistraction',
+        linkUrl
+      }, { url: 'https://source.example/' });
+    }
+    assert.equal(localStorage.data.rules.length, ruleCountBeforeUnsupportedLinks);
+
     const started = await sendWorkerMessage(messageListener, {
       type: 'start_focus_session',
       duration: 5,
@@ -622,6 +635,12 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
       url: 'https://blocked.example/'
     });
     assert.equal(removedTabs.includes(82), true);
+    await tabsOnUpdated.listeners[0](83, { url: 'file:///tmp/notes.html' }, {
+      id: 83,
+      active: false,
+      url: 'file:///tmp/notes.html'
+    });
+    assert.equal(removedTabs.includes(83), false);
 
     localStorage.data.focusSession.focusEndTime = Date.now();
     await alarmsOnAlarm.listeners[0]({

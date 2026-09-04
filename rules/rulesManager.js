@@ -1,6 +1,9 @@
 import { isValidURL } from '../scripts/isValidURL.js';
 import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
-import { isBlockedURL } from '../scripts/isBlockedURL.js';
+import {
+  hasUnsupportedExplicitScheme,
+  isBlockedURL
+} from '../scripts/isBlockedURL.js';
 import { validateSchedule } from '../schedules/scheduleValidator.js';
 import {
   BLOCKING_MODE_ALWAYS,
@@ -60,7 +63,10 @@ export class RulesManager {
       errors.push('blockurl_empty');
     }
 
-    if (!isWhitelist && isBlockedURL([{ url: blockURL }])) {
+    if (
+      hasUnsupportedExplicitScheme(blockURL) ||
+      (!isWhitelist && isBlockedURL([{ url: blockURL }]))
+    ) {
       errors.push('blockurl_restrict');
     }
 

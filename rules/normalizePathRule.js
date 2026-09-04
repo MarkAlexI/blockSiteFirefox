@@ -1,6 +1,7 @@
 export function normalizePathRule(input) {
   try {
-    const urlString = input.startsWith('http') ? input : `https://${decodeURIComponent(input)}`;
+    if (typeof input !== 'string') return input;
+    const urlString = /^https?:/i.test(input) ? input : `https://${decodeURIComponent(input)}`;
     const url = new URL(urlString);
     
     const hostname = url.hostname.replace(/^www\./, '');

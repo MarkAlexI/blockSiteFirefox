@@ -1,6 +1,7 @@
 import { normalizePathRule } from './normalizePathRule.js';
 import { normalizePathSegment } from './normalizePathSegment.js';
 import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
+import { isValidURL } from '../scripts/isValidURL.js';
 
 /**
  * Builds one dynamic DNR rule from an already validated stored rule.
@@ -20,7 +21,7 @@ export function createDnrRule({
 
   let action;
 
-  if (redirectURL && redirectURL.trim() !== '') {
+  if (redirectURL && isValidURL(redirectURL.trim())) {
     const finalRedirectUrl = new URL(intermediaryRedirectURL);
     finalRedirectUrl.searchParams.set('from', normalizedBlockURL);
 

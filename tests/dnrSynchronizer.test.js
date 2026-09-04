@@ -129,6 +129,33 @@ function createHarness({
   };
 }
 
+test('unsupported legacy schemes stay stored but are removed from browser DNR', async () => {
+  const storedRules = [
+    makeStoredRule({ id: 1, blockURL: 'file:///tmp/page.html' }),
+    makeStoredRule({ id: 2, blockURL: 'data:text/html,test' }),
+    makeStoredRule({ id: 3, blockURL: 'ftp://example.com/file' }),
+    makeStoredRule({ id: 4, blockURL: 'valid.example' })
+  ];
+  const currentDnrRules = storedRules.map(rule => makeDnrRule({
+    id: rule.id,
+    urlFilter: `||${rule.blockURL}`
+  }));
+  const harness = createHarness({ storedRules, currentDnrRules });
+
+  const before = await harness.synchronizer.inspectState();
+  assert.equal(before.activeRuleCount, 1);
+  assert.equal(before.expectedCount, 1);
+  assert.equal(before.removeCount, 3);
+  assert.equal(before.addCount, 0);
+
+  const result = await harness.synchronizer.requestSync();
+  assert.equal(result.success, true);
+  assert.deepEqual(harness.updates, [{ removeRuleIds: [1, 2, 3], addRules: [] }]);
+  assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [4]);
+  assert.deepEqual(harness.closedUrlBatches, [['valid.example']]);
+  assert.equal(storedRules.length, 4);
+});
+
 function createTimedScheduleHarness({
   days = [1],
   startTime = '22:00',

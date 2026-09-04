@@ -49,6 +49,28 @@ test('custom redirects use the intermediary page with from and to parameters', (
   assert.equal(redirect.searchParams.get('to'), 'https://example.org/target');
 });
 
+test('legacy unsupported redirects fail closed to the packaged blocked page', () => {
+  for (const redirectURL of [
+    'file:///tmp/page.html',
+    'data:text/html,test',
+    'ftp://example.com/file',
+    'javascript:alert(1)'
+  ]) {
+    const rule = createDnrRule({
+      id: 4,
+      blockURL: 'example.com',
+      redirectURL,
+      defaultRedirectURL,
+      intermediaryRedirectURL
+    });
+
+    const redirect = new URL(rule.action.redirect.url);
+    assert.equal(redirect.pathname, '/blocked.html', redirectURL);
+    assert.equal(redirect.searchParams.get('url'), encodeURIComponent('example.com'));
+    assert.equal(redirect.searchParams.has('to'), false);
+  }
+});
+
 test('bound factory resolves runtime URLs only once', () => {
   const requestedPaths = [];
   const factory = createDnrRuleFactory(path => {

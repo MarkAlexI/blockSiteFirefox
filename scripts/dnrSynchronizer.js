@@ -1,5 +1,6 @@
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
+import { hasUnsupportedExplicitScheme } from './isBlockedURL.js';
 
 const SAFE_DYNAMIC_RULE_ACTIONS = new Set([
   'block',
@@ -167,6 +168,7 @@ export function createDnrSynchronizer({
 
     let activeRules = rules.filter(rule =>
       !rule.isWhitelist &&
+      !hasUnsupportedExplicitScheme(rule.blockURL) &&
       (!limitFocusToGeneral || Boolean(getRuleAssignment(rule, GENERAL_RULE_LIST_ID))) &&
       isRuleActiveNow(rule, disabledCategories, focusActive, now, activeRuleListId, dailyUsage)
     );

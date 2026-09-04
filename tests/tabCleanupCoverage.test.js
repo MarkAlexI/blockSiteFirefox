@@ -202,6 +202,22 @@ test('whitelist Focus preserves Google sign-in and YouTube account handoff popup
   }, { supportsWindows: false });
 });
 
+test('windowless whitelist Focus preserves local and non-web tabs', async () => {
+  await withTabCleanup([
+    { id: 1, url: 'file:///tmp/notes.html' },
+    { id: 2, url: 'data:text/html,notes' },
+    { id: 3, url: 'ftp://example.com/file' },
+    { id: 4, url: 'about:config' },
+    { id: 5, url: 'https://blocked.example/' },
+    { id: 6, url: 'https://allowed.example/' }
+  ], async ({ api, closeNonWhitelistedTabs }) => {
+    await closeNonWhitelistedTabs([allowedRule('allowed.example')]);
+
+    assert.deepEqual(api.removedTabs, [5]);
+    assert.deepEqual(api.createdTabs, []);
+  }, { supportsWindows: false });
+});
+
 test('disabled whitelist assignments do not protect tabs from whitelist-focus cleanup', async () => {
   await withTabCleanup([{ id: 7, url: 'https://allowed.example/' }], async ({
     api, closeNonWhitelistedTabs

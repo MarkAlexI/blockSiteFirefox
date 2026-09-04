@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.5] - 2026-09-04
+### Fixed
+- Explicit non-web and browser-internal schemes are rejected for blacklist and whitelist targets instead of producing ineffective domain-anchored DNR filters.
+- Whitelist Focus preserves local-file, data, FTP, and other non-web tabs when their URLs are visible to the browser extension.
+- Redirect destinations now accept only complete HTTP or HTTPS URLs. Existing stored rules with unsupported redirect schemes fail closed to the packaged blocked page.
+- Uppercase HTTP and HTTPS schemes are normalized consistently with lowercase pasted URLs.
+
+### Changed
+- Existing stored targets with unsupported schemes remain visible and deletable, but are excluded from expected browser DNR rules and removed from stale browser DNR state during synchronization.
+- Clarified the historical 3.9.5 changelog entry so it no longer implies that current DNR releases support local-file or data-URL blocking.
+
+### Added
+- Added regression coverage for URL-scheme validation, legacy DNR reconciliation, context-menu input, uppercase HTTP(S) normalization, redirect fail-closed behavior, and windowless Whitelist Focus.
+
 ## [5.2.4] - 2026-08-30
 ### Added
 - Optional technical analytics now records successful Rule List creation, actual active-list changes, Daily Limit creation or configuration changes, and mutations rejected because the Free rule limit was already reached.
@@ -805,7 +819,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.9.5] - 2026-06-18
 ### Improved
 - Enhanced rule validation when creating blocked website entries.
-- Added support for blocking `data://` and `file://` URL schemes.
+- Added legacy handling for `data:` and `file:` URL input. Current DNR-based releases support HTTP(S) targets only.
 - Prevented creation of rules matching the `blockdistraction` pattern.
 - Applied the same validation rules to Pro mode context menu actions.
 
