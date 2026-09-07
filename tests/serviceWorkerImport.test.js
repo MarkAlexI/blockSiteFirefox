@@ -74,6 +74,7 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
   const contextMenusOnClicked = createEvent();
   const permissionsOnRemoved = createEvent();
   const permissionsOnAdded = createEvent();
+  const dataCollectionPermissions = new Set(['authenticationInfo']);
   let hostAccessGranted = true;
   let activeTabForQuery = null;
   let pageVisibilityState = 'visible';
@@ -219,6 +220,23 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     },
     permissions: {
       contains: async () => hostAccessGranted,
+      getAll: async () => ({
+        permissions: [],
+        origins: [],
+        data_collection: [...dataCollectionPermissions]
+      }),
+      request: async request => {
+        for (const permission of request?.data_collection || []) {
+          dataCollectionPermissions.add(permission);
+        }
+        return true;
+      },
+      remove: async request => {
+        for (const permission of request?.data_collection || []) {
+          dataCollectionPermissions.delete(permission);
+        }
+        return true;
+      },
       onRemoved: permissionsOnRemoved,
       onAdded: permissionsOnAdded
     },
@@ -287,6 +305,9 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     assert.equal(initialConsent.success, true);
     assert.equal(initialConsent.consent.enabled, false);
 
+    await globalThis.browser.permissions.request({
+      data_collection: ['technicalAndInteraction']
+    });
     const enabledConsent = await sendWorkerMessage(messageListener, {
       type: 'telemetry:setConsent',
       enabled: true

@@ -3,6 +3,13 @@ import assert from 'node:assert/strict';
 
 import { FakeDocument, createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 
+async function withConsentModule(callback) {
+  const api = createExtensionApi();
+  await withExtensionEnvironment(api, async () => {
+    await callback(await import('../pro/proManager.js'));
+  });
+}
+
 async function withProManager({ sync = {}, document = null } = {}, callback) {
   const api = createExtensionApi({ sync });
   await withExtensionEnvironment(api, async () => {
@@ -20,6 +27,87 @@ async function suppressConsoleError(callback) {
     console.error = previous;
   }
 }
+
+test('modern Firefox uses native authenticationInfo permission for license consent', async () => {
+  await withConsentModule(async ({
+    getLicenseDataConsent,
+    LICENSE_DATA_COLLECTION_PERMISSION
+  }) => {
+    const granted = await getLicenseDataConsent({
+      async getAll() {
+        return {
+          permissions: [],
+          origins: [],
+          data_collection: [LICENSE_DATA_COLLECTION_PERMISSION, 'technicalAndInteraction']
+        };
+      }
+    });
+    const denied = await getLicenseDataConsent({
+      async getAll() { return { data_collection: ['technicalAndInteraction'] }; }
+    });
+
+    assert.deepEqual(granted, { supported: true, enabled: true });
+    assert.deepEqual(denied, { supported: true, enabled: false });
+  });
+});
+
+test('older Firefox keeps the explicit Pro activation flow while lookup errors fail closed', async () => {
+  await withConsentModule(async ({ getLicenseDataConsent }) => {
+    assert.deepEqual(await getLicenseDataConsent({
+      async getAll() { return { permissions: [], origins: [] }; }
+    }), { supported: false, enabled: true });
+
+    assert.deepEqual(await getLicenseDataConsent({
+      async getAll() { throw new Error('permission state unavailable'); }
+    }), { supported: true, enabled: false });
+
+    assert.deepEqual(await getLicenseDataConsent(null), { supported: false, enabled: false });
+  });
+});
+
+test('native license consent starts directly from the user action with the exact data type', async () => {
+  await withConsentModule(async ({
+    LICENSE_DATA_COLLECTION_PERMISSION,
+    requestLicenseDataConsentFromUserAction
+  }) => {
+    let getAllCalls = 0;
+    let requestCalls = 0;
+    const permissions = {
+      async getAll() {
+        getAllCalls += 1;
+        throw new Error('getAll must not precede the user-action request');
+      },
+      request(value) {
+        requestCalls += 1;
+        assert.deepEqual(value, {
+          data_collection: [LICENSE_DATA_COLLECTION_PERMISSION]
+        });
+        return Promise.resolve(true);
+      }
+    };
+
+    assert.equal(await requestLicenseDataConsentFromUserAction(permissions), true);
+    assert.equal(requestCalls, 1);
+    assert.equal(getAllCalls, 0);
+  });
+});
+
+test('native denial fails closed while unsupported old Firefox falls back to explicit activation', async () => {
+  await withConsentModule(async ({ requestLicenseDataConsentFromUserAction }) => {
+    assert.equal(await requestLicenseDataConsentFromUserAction({
+      request() { return Promise.resolve(false); },
+      async getAll() { return { data_collection: [] }; }
+    }), false);
+    assert.equal(await requestLicenseDataConsentFromUserAction({
+      request() { return Promise.reject(new Error('unsupported')); },
+      async getAll() { return { permissions: [], origins: [] }; }
+    }), true);
+    assert.equal(await requestLicenseDataConsentFromUserAction({
+      async getAll() { return { permissions: [], origins: [] }; }
+    }), true);
+    assert.equal(await requestLicenseDataConsentFromUserAction(null), false);
+  });
+});
 
 test('missing Pro credentials initialize as Free rather than granting access', async () => {
   await withProManager({}, async ({ api, ProManager }) => {

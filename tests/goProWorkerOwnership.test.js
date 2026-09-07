@@ -14,7 +14,9 @@ async function withGoProPage({
   isPro = false,
   workerResponse = { success: true },
   settings = {},
-  fetchHandler = null
+  fetchHandler = null,
+  licenseConsentRequestResult = true,
+  supportsLicenseConsent = true
 } = {}, callback) {
   const document = new FakeDocument();
   document.addElement('proBtnText');
@@ -25,6 +27,7 @@ async function withGoProPage({
   const submit = document.addElement('license-submit-btn', 'button');
   const message = document.addElement('license-message');
   const logout = document.addElement('log-out-btn', 'button');
+  const forceSync = document.addElement('force-sync-btn', 'button');
   document.addElement('pro-section');
   document.addElement('header-text');
   const api = createExtensionApi({
@@ -39,8 +42,27 @@ async function withGoProPage({
   });
   const statusMessages = [];
   const workerRequests = [];
+  const permissionRequests = [];
+  const eventOrder = [];
+  api.permissions = supportsLicenseConsent ? {
+    async getAll() {
+      return {
+        permissions: [],
+        origins: [],
+        data_collection: licenseConsentRequestResult ? ['authenticationInfo'] : []
+      };
+    },
+    request(value) {
+      eventOrder.push('license_consent_requested');
+      permissionRequests.push(structuredClone(value));
+      return Promise.resolve(licenseConsentRequestResult);
+    }
+  } : {
+    async getAll() { return { permissions: [], origins: [] }; }
+  };
   api.runtime.onMessage = { addListener() {} };
   api.runtime.sendMessage = (request, respond) => {
+    eventOrder.push(`worker:${request.type}`);
     workerRequests.push(structuredClone(request));
 
     const operation = (async () => {
@@ -52,10 +74,7 @@ async function withGoProPage({
           const response = await globalThis.fetch(VERIFY_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              key: request.licenseKey,
-              version: api.runtime.getManifest().version
-            }),
+            body: JSON.stringify({ key: request.licenseKey }),
             signal: controller.signal
           });
           const data = await response.json();
@@ -83,9 +102,7 @@ async function withGoProPage({
             api.storage.sync.data.credentials = {
               ...api.storage.sync.data.credentials,
               isPro: true,
-              licenseKey: request.licenseKey,
-              subscriptionEmail: data.email,
-              expiryDate: data.expiryDate
+              licenseKey: request.licenseKey
             };
           }
           return workerResponse;
@@ -164,8 +181,11 @@ async function withGoProPage({
         submit,
         message,
         logout,
+        forceSync,
         statusMessages,
         workerRequests,
+        permissionRequests,
+        eventOrder,
         credentialWrites,
         requests,
         timers,
@@ -187,7 +207,8 @@ async function withGoProPage({
 
 test('license activation delegates verification and its only credentials mutation to the service worker', async () => {
   await withGoProPage({}, async ({
-    api, form, input, message, statusMessages, workerRequests, credentialWrites
+    api, form, input, message, statusMessages, workerRequests, credentialWrites,
+    permissionRequests, eventOrder
   }) => {
     input.value = 'BD-NEW-KEY';
     await form.dispatch('submit');
@@ -198,6 +219,11 @@ test('license activation delegates verification and its only credentials mutatio
       licenseKey: 'BD-NEW-KEY'
     });
     assert.deepEqual(workerRequests, statusMessages);
+    assert.deepEqual(permissionRequests, [{ data_collection: ['authenticationInfo'] }]);
+    assert.deepEqual(eventOrder.slice(0, 2), [
+      'license_consent_requested',
+      'worker:activate_pro_license'
+    ]);
     assert.deepEqual(credentialWrites, []);
     assert.equal(api.storage.sync.data.credentials.isPro, true);
     assert.equal(message.textContent, 'proactivated');
@@ -211,12 +237,63 @@ test('license activation attaches the shared verification timeout and clears it 
     await form.dispatch('submit');
 
     assert.equal(requests.length, 1);
+    assert.deepEqual(JSON.parse(requests[0][1].body), { key: 'BD-NEW-KEY' });
     assert.equal(requests[0][1].signal instanceof AbortSignal, true);
     const verificationTimer = timers.find(timer => timer.delay === LICENSE_SYNC_TIMEOUT_MS);
     assert.ok(verificationTimer);
     assert.equal(clearedTimers.includes(verificationTimer.id), true);
     assert.equal(requests[0][1].signal.aborted, false);
     assert.equal(submit.disabled, false);
+  });
+});
+
+test('denied native authentication consent prevents activation before worker messaging', async () => {
+  await withGoProPage({ licenseConsentRequestResult: false }, async ({
+    api, form, input, message, requests, workerRequests, permissionRequests
+  }) => {
+    input.value = 'BD-NOT-SENT';
+
+    await form.dispatch('submit');
+
+    assert.deepEqual(permissionRequests, [{ data_collection: ['authenticationInfo'] }]);
+    assert.deepEqual(workerRequests, []);
+    assert.deepEqual(requests, []);
+    assert.equal(message.textContent, 'onboarding_status_error');
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+  });
+});
+
+test('older Firefox keeps explicit license activation when native consent is unavailable', async () => {
+  await withGoProPage({ supportsLicenseConsent: false }, async ({
+    form, input, message, requests, workerRequests, permissionRequests
+  }) => {
+    input.value = 'BD-OLD-FIREFOX-KEY';
+
+    await form.dispatch('submit');
+
+    assert.deepEqual(permissionRequests, []);
+    assert.deepEqual(workerRequests, [{
+      type: 'activate_pro_license',
+      licenseKey: 'BD-OLD-FIREFOX-KEY'
+    }]);
+    assert.equal(requests.length, 1);
+    assert.deepEqual(JSON.parse(requests[0][1].body), { key: 'BD-OLD-FIREFOX-KEY' });
+    assert.equal(message.textContent, 'proactivated');
+  });
+});
+
+test('Force Sync requests authentication consent before contacting the worker', async () => {
+  await withGoProPage({ isPro: true }, async ({
+    forceSync, permissionRequests, workerRequests, eventOrder
+  }) => {
+    await forceSync.dispatch('click');
+
+    assert.deepEqual(permissionRequests, [{ data_collection: ['authenticationInfo'] }]);
+    assert.deepEqual(workerRequests, [{ type: 'force_sync' }]);
+    assert.deepEqual(eventOrder.slice(0, 2), [
+      'license_consent_requested',
+      'worker:force_sync'
+    ]);
   });
 });
 
@@ -230,6 +307,8 @@ test('a stalled activation request is aborted, reported correctly, and becomes r
   }, async ({ api, form, input, submit, message, statusMessages, requests, timers, clearedTimers }) => {
     input.value = 'BD-STALLED-KEY';
     const pending = form.dispatch('submit');
+    await Promise.resolve();
+    await Promise.resolve();
     const verificationTimer = timers.find(timer => timer.delay === LICENSE_SYNC_TIMEOUT_MS);
 
     assert.ok(verificationTimer);

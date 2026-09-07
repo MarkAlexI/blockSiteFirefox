@@ -1,5 +1,8 @@
 import { t } from '../scripts/t.js';
-import { ProManager } from '../pro/proManager.js';
+import {
+  ProManager,
+  requestLicenseDataConsentFromUserAction
+} from '../pro/proManager.js';
 import { SettingsManager } from './settings.js';
 import { PasswordUtils } from '../pro/password.js';
 import Logger from '../utils/logger.js';
@@ -99,12 +102,20 @@ if (licenseForm) {
       licenseMessage.className = 'error-message show';
       return;
     }
+
+    const licenseConsentRequest = requestLicenseDataConsentFromUserAction(browser.permissions);
     
     licenseMessage.textContent = t('checking') || 'Checking...';
     licenseMessage.className = 'status-message success show';
     licenseSubmitBtn.disabled = true;
     
     try {
+      if (!await licenseConsentRequest) {
+        const error = new Error('License verification consent is required');
+        error.code = 'license_consent_required';
+        throw error;
+      }
+
       const statusResponse = await sendMessageToWorker({
         type: 'activate_pro_license',
         licenseKey: key
@@ -144,9 +155,15 @@ if (licenseForm) {
       
     } catch (error) {
       logger.error('Activation Error:', error);
-      licenseMessage.textContent = error.code === 'invalid_license'
-        ? (t('subscriptionnotfound') || 'Subscription not found or key is invalid.')
-        : (t('servererror') || 'Server error. Please try again.');
+      if (error.code === 'invalid_license') {
+        licenseMessage.textContent = t('subscriptionnotfound') ||
+          'Subscription not found or key is invalid.';
+      } else if (error.code === 'license_consent_required') {
+        licenseMessage.textContent = t('onboarding_status_error') ||
+          'Please grant permission from extension settings.';
+      } else {
+        licenseMessage.textContent = t('servererror') || 'Server error. Please try again.';
+      }
       licenseMessage.className = 'error-message show';
     } finally {
       licenseSubmitBtn.disabled = false;
@@ -160,13 +177,22 @@ if (licenseForm) {
 
 if (forceSyncBtn) {
   forceSyncBtn.addEventListener('click', async () => {
+    const licenseConsentRequest = requestLicenseDataConsentFromUserAction(browser.permissions);
     forceSyncBtn.disabled = true;
     forceSyncBtn.textContent = t('syncing');
     
     licenseMessage.textContent = t('syncing');
     licenseMessage.className = 'status-message success show';
     
-    const response = await sendMessageToWorker({ type: 'force_sync' });
+    const consentGranted = await licenseConsentRequest;
+    const response = consentGranted
+      ? await sendMessageToWorker({ type: 'force_sync' })
+      : {
+          success: false,
+          error: t('onboarding_status_error') ||
+            'Please grant permission from extension settings.',
+          code: 'license_consent_required'
+        };
     
     forceSyncBtn.disabled = false;
     forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';

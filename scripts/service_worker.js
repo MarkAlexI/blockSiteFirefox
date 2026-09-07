@@ -1,7 +1,7 @@
 import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
-import { ProManager } from '../pro/proManager.js';
+import { ProManager, getLicenseDataConsent } from '../pro/proManager.js';
 import { closeTabsMatchingRules, closeNonWhitelistedTabs } from './closeTabs.js';
 import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
@@ -675,7 +675,11 @@ async function finishLicenseCheck(result) {
 
   await diagnosticStore.updateState({ lastLicenseCheck: state });
 
-  if (!result.success && result.reason !== 'no_key') {
+  if (
+    !result.success &&
+    result.reason !== 'no_key' &&
+    result.reason !== 'consent_required'
+  ) {
     await diagnosticStore.recordEvent('warn', 'license', 'verification_failed', {
       reason: result.reason || 'temporary_failure',
       error: result.error || 'Unknown license verification error'
@@ -728,6 +732,15 @@ async function activateLicenseKey(requestedKey) {
   }
 
   const licenseKey = requestedKey.trim();
+
+  const licenseConsent = await getLicenseDataConsent(browser.permissions);
+  if (!licenseConsent.enabled) {
+    throw createLicenseActivationError(
+      'License verification consent is required',
+      'license_consent_required'
+    );
+  }
+
   const verificationGeneration = ++licenseVerificationGeneration;
   activeLicenseActivationGeneration = verificationGeneration;
   let timeoutId = null;
@@ -742,10 +755,7 @@ async function activateLicenseKey(requestedKey) {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        key: licenseKey,
-        version: browser.runtime.getManifest().version
-      }),
+      body: JSON.stringify({ key: licenseKey }),
       signal: controller.signal
     });
 
@@ -832,9 +842,18 @@ async function syncLicenseKeyStatus() {
     }
     return finishLicenseCheck({ success: false, isPro: false, reason: 'no_key' });
   }
+
+  const licenseConsent = await getLicenseDataConsent(browser.permissions);
+  if (!licenseConsent.enabled) {
+    logger.log('License Sync: Authentication-data permission is not granted, skipping sync.');
+    return finishLicenseCheck({
+      success: false,
+      isPro: credentials.isPro === true,
+      reason: 'consent_required'
+    });
+  }
   
   logger.log('License Sync: Checking stored key...');
-  const version = browser.runtime.getManifest().version;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
   
@@ -842,10 +861,7 @@ async function syncLicenseKeyStatus() {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        key: currentKey,
-        version
-      }),
+      body: JSON.stringify({ key: currentKey }),
       signal: controller.signal
     });
     

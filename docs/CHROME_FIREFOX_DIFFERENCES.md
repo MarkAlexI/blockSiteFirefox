@@ -21,6 +21,8 @@ The Chromium repository is the primary development target. Product changes are n
 | Store targets | Chrome Web Store + Edge Add-ons | Mozilla Add-ons | Yes |
 | Store selection | build-time `storeTarget` | fixed AMO target | Yes |
 | Telemetry consent | custom opt-in | Firefox native data-collection permission when supported | Yes |
+| License verification consent | existing activation flow | optional native `authenticationInfo` permission | Yes |
+| Uninstall URL context | compact encoded operational context | plain feedback URL without extension context | Yes |
 | Telemetry browser context | Chrome / Edge / Chromium | Firefox | Yes |
 | Firefox Android | not applicable | first-class supported target | Yes |
 | Context menu | page + link where supported | link only | Yes |
@@ -62,7 +64,7 @@ Firefox also has `browser_specific_settings` containing:
 - the fixed Gecko extension ID;
 - the minimum desktop Firefox version;
 - the minimum Firefox for Android version;
-- the native optional telemetry data-collection permission.
+- the native optional license and telemetry data-collection permissions.
 
 Current Firefox-specific declaration:
 
@@ -73,7 +75,7 @@ Current Firefox-specific declaration:
     "strict_min_version": "113.0",
     "data_collection_permissions": {
       "required": ["none"],
-      "optional": ["technicalAndInteraction"]
+      "optional": ["authenticationInfo", "technicalAndInteraction"]
     }
   },
   "gecko_android": {
@@ -87,7 +89,7 @@ Do not copy the Chromium background declaration over the Firefox one during a po
 
 Do not remove or replace the Gecko ID or Firefox data-collection declaration unless the change is intentional and has been reviewed for AMO compatibility.
 
-For BlockDistraction, keep both `required: ["none"]` and optional `technicalAndInteraction`. The Firefox/AMO manifest validation path depends on this exact opt-in declaration, so do not simplify it to the optional entry alone during a Chromium-to-Firefox port.
+For BlockDistraction, keep `required: ["none"]` and both optional entries: `authenticationInfo` for license verification and `technicalAndInteraction` for telemetry. The Firefox/AMO manifest validation path depends on this opt-in declaration, so do not remove either data type during a Chromium-to-Firefox port.
 
 ---
 
@@ -671,3 +673,20 @@ Before synchronizing a differing file, ask:
 If yes, document and preserve it.
 
 If no, investigate whether the repositories have drifted.
+
+---
+
+## 19. License verification consent and uninstall context
+
+Firefox treats a Pro license key as personal authentication information. The AMO build therefore:
+
+- declares `authenticationInfo` as optional;
+- starts `browser.permissions.request()` directly from the activation or Force Sync user action;
+- sends only the license key after the native permission is granted;
+- skips startup and daily verification while native permission is absent or revoked;
+- preserves the currently stored Pro state when a check is skipped for missing consent;
+- keeps the established explicit activation and stored-key verification flow on older Firefox versions that do not expose native `data_collection` permissions.
+
+Firefox 5.2.7 omits the extension-version field from its verification request. The shared endpoint contract remains unchanged and can still return the Pro decision, account email, and expiry or Lifetime status for local license state.
+
+The Firefox uninstall URL is intentionally the plain `https://blockdistraction.com/uninstall.html` address. It must not copy Chromium's encoded installation date, access state, extension version, or rule count. This is a compliance boundary, not a mechanical API adaptation.

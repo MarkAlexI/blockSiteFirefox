@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.7] - 2026-09-07
+### Privacy
+- Firefox now declares and requests the optional `authenticationInfo` data-collection permission before transmitting a Pro license key.
+- Firefox 5.2.7 license verification sends the key without the extension-version field. The established server response and locally stored license details remain unchanged.
+- On Firefox versions with native data consent, background verification is skipped while permission is absent or revoked and already stored Pro access remains unchanged.
+- Older Firefox versions without native data-consent permissions keep the established explicit activation and stored-key verification flow.
+- Firefox now opens a plain uninstall-feedback URL without encoded installation date, access status, extension version, or rule count.
+
+### Added
+- Added regression coverage for native license consent, denied and revoked consent, key-only requests, older-Firefox compatibility, plain uninstall navigation, and windowless Firefox Android workers.
+
 ## [5.2.6] - 2026-09-04
 ### Changed
 - Aligned release metadata with the Chromium and Edge 5.2.6 patch. Firefox options-page behavior is unchanged.

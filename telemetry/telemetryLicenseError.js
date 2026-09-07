@@ -9,7 +9,11 @@ export function shouldRecordLicenseReliabilityError(result) {
   if (!result || result.success !== false) return false;
 
   const reason = typeof result.reason === 'string' ? result.reason : '';
-  if (reason === 'no_key' || reason === 'temporary_failure') return false;
+  if (
+    reason === 'no_key' ||
+    reason === 'temporary_failure' ||
+    reason === 'consent_required'
+  ) return false;
 
   return true;
 }

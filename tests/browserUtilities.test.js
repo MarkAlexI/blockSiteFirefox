@@ -209,7 +209,7 @@ test('installation URL always opens the packaged Options page', async () => {
   });
 });
 
-test('uninstall context includes only coarse state and never includes the license key or email', async () => {
+test('Firefox uninstall navigation never includes extension or account context', async () => {
   const api = createExtensionApi({
     sync: { credentials: {
       isLegacyUser: true,
@@ -224,29 +224,18 @@ test('uninstall context includes only coarse state and never includes the licens
 
   await withExtensionEnvironment(api, async () => {
     await updateUninstallURL();
-    const url = new URL(api.uninstallUrls[0]);
-    const context = JSON.parse(Buffer.from(url.searchParams.get('ctx'), 'base64').toString('utf8'));
-    assert.equal(url.origin + url.pathname, 'https://blockdistraction.com/uninstall.html');
-    assert.deepEqual(context, {
-      l: true,
-      d: '2026-08-01T00:00:00.000Z',
-      p: true,
-      v: '5.1.7',
-      r: 2
-    });
-    assert.equal(JSON.stringify(context).includes('BD-PRO-SECRET'), false);
-    assert.equal(JSON.stringify(context).includes('secret@example.com'), false);
+    assert.deepEqual(api.uninstallUrls, ['https://blockdistraction.com/uninstall.html']);
   });
 });
 
-test('uninstall context handles missing credentials and rules without inventing values', async () => {
+test('Firefox uninstall navigation does not read unavailable extension storage', async () => {
   const api = createExtensionApi();
+  api.storage.sync.getError = new Error('sync storage unavailable');
+  api.storage.local.getError = new Error('local storage unavailable');
+
   await withExtensionEnvironment(api, async () => {
     await updateUninstallURL();
-    const context = JSON.parse(Buffer.from(
-      new URL(api.uninstallUrls[0]).searchParams.get('ctx'), 'base64'
-    ).toString('utf8'));
-    assert.deepEqual(context, { l: null, d: null, p: null, v: '5.1.7', r: null });
+    assert.deepEqual(api.uninstallUrls, ['https://blockdistraction.com/uninstall.html']);
   });
 });
 

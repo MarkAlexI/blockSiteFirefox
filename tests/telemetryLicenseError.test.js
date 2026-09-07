@@ -12,6 +12,11 @@ test('transient license verification failures are excluded from reliability erro
     success: false,
     reason: 'no_key'
   }), false);
+
+  assert.equal(shouldRecordLicenseReliabilityError({
+    success: false,
+    reason: 'consent_required'
+  }), false);
 });
 
 test('unexpected license-check failures remain eligible for reliability errors', () => {

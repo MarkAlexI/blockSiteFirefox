@@ -1,5 +1,65 @@
 import Logger from '../utils/logger.js';
 
+export const LICENSE_DATA_COLLECTION_PERMISSION = 'authenticationInfo';
+
+export async function getLicenseDataConsent(
+  permissionsApi = globalThis.browser?.permissions
+) {
+  if (typeof permissionsApi?.getAll !== 'function') {
+    return { supported: false, enabled: false };
+  }
+
+  try {
+    const permissions = await permissionsApi.getAll();
+    if (!Object.prototype.hasOwnProperty.call(permissions || {}, 'data_collection')) {
+      // Firefox versions before the built-in data-consent API keep using the
+      // established Pro activation flow. The user explicitly supplies the key
+      // for verification, and existing installations must remain functional.
+      return { supported: false, enabled: true };
+    }
+
+    return {
+      supported: true,
+      enabled: Array.isArray(permissions.data_collection) &&
+        permissions.data_collection.includes(LICENSE_DATA_COLLECTION_PERMISSION)
+    };
+  } catch {
+    // A key is personal authentication data. If Firefox exposes the native
+    // permission API but its state cannot be read, do not transmit the key.
+    return { supported: true, enabled: false };
+  }
+}
+
+export function requestLicenseDataConsentFromUserAction(
+  permissionsApi = globalThis.browser?.permissions
+) {
+  const useLegacyActivationConsent = async () => {
+    try {
+      const permissions = await permissionsApi.getAll();
+      return !Object.prototype.hasOwnProperty.call(permissions || {}, 'data_collection');
+    } catch {
+      return false;
+    }
+  };
+
+  if (typeof permissionsApi?.request !== 'function') {
+    return useLegacyActivationConsent();
+  }
+
+  // Firefox requires permissions.request() to start directly inside a user
+  // action. Do not await feature detection or storage before this call.
+  try {
+    return Promise.resolve(permissionsApi.request({
+      data_collection: [LICENSE_DATA_COLLECTION_PERMISSION]
+    })).then(
+      granted => granted === true ? true : useLegacyActivationConsent(),
+      useLegacyActivationConsent
+    );
+  } catch {
+    return useLegacyActivationConsent();
+  }
+}
+
 export class ProManager {
   static RESTRICTION_START_DATE = '2026-01-01T00:00:00Z';
   

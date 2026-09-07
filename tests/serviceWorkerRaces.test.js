@@ -215,7 +215,9 @@ async function withWorker(callback, {
     onAdded: createEvent(),
     onRemoved: createEvent(),
     contains: async () => true,
-    getAll: async () => ({ data_collection: ['technicalAndInteraction'] })
+    getAll: async () => ({
+      data_collection: ['authenticationInfo', 'technicalAndInteraction']
+    })
   };
   api.dynamicRules = [];
   api.dnrUpdates = [];
@@ -378,10 +380,7 @@ test('worker verifies and activates licenses without trusting caller or server l
       assert.equal(requests[0].url, VERIFY_API_URL);
       assert.equal(requests[0].options.method, 'POST');
       assert.equal(requests[0].options.signal instanceof AbortSignal, true);
-      assert.deepEqual(requests[0].body, {
-        key: 'BD-WORKER-VERIFIED',
-        version: api.runtime.getManifest().version
-      });
+      assert.deepEqual(requests[0].body, { key: 'BD-WORKER-VERIFIED' });
       assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-WORKER-VERIFIED');
       assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'verified@example.com');
       assert.equal(api.storage.sync.data.credentials.expiryDate, '2027-08-01');
@@ -407,6 +406,119 @@ test('worker verifies and activates licenses without trusting caller or server l
       supportsWindows
     });
   }
+});
+
+test('worker refuses license activation without native authentication consent', async () => {
+  for (const supportsWindows of [true, false]) {
+    await withWorker(async ({ api, send }) => {
+      api.permissions.getAll = async () => ({
+        data_collection: ['technicalAndInteraction']
+      });
+      let requests = 0;
+      api.setFetchHandler(async () => {
+        requests += 1;
+        throw new Error('a license key must not be transmitted without consent');
+      });
+
+      const response = await send({
+        type: 'activate_pro_license',
+        licenseKey: 'BD-NO-CONSENT'
+      });
+
+      assert.deepEqual(response, {
+        success: false,
+        error: 'License verification consent is required',
+        code: 'license_consent_required'
+      });
+      assert.equal(requests, 0);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+      assert.equal(api.windows !== undefined, supportsWindows);
+    }, {
+      credentials: { isPro: false, licenseKey: null },
+      local: { activeRuleListId: 'general' },
+      supportsWindows
+    });
+  }
+});
+
+test('revoked authentication consent skips Force Sync and preserves existing Pro access', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.permissions.getAll = async () => ({
+      data_collection: ['technicalAndInteraction']
+    });
+    let requests = 0;
+    api.setFetchHandler(async () => {
+      requests += 1;
+      throw new Error('revoked consent must prevent license traffic');
+    });
+
+    const response = await send({ type: 'force_sync' });
+
+    assert.deepEqual(response, {
+      success: false,
+      isPro: true,
+      reason: 'consent_required'
+    });
+    assert.equal(requests, 0);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.reason, 'consent_required');
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.error, null);
+    assert.equal(api.storage.local.data.telemetryBuckets, undefined);
+    assert.equal(api.windows, undefined);
+  }, { supportsWindows: false });
+});
+
+test('older Firefox keeps the established stored-key verification flow', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.permissions.getAll = async () => ({ permissions: [], origins: [] });
+    const requests = [];
+    api.setFetchHandler(async (_url, options) => {
+      requests.push(JSON.parse(options.body));
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          isPro: true,
+          email: 'old-firefox@example.com',
+          expiryDate: 'Lifetime'
+        })
+      };
+    });
+
+    const response = await send({ type: 'force_sync' });
+
+    assert.equal(response.success, true);
+    assert.equal(response.reason, 'verified');
+    assert.equal(response.isPro, true);
+    assert.deepEqual(requests, [{ key: 'BD-OLD-KEY' }]);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'old-firefox@example.com');
+    assert.equal(api.storage.sync.data.credentials.expiryDate, 'Lifetime');
+  }, { supportsWindows: false });
+});
+
+test('daily license maintenance stays local after authentication consent is revoked', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.permissions.getAll = async () => ({
+      data_collection: ['technicalAndInteraction']
+    });
+    let requests = 0;
+    api.setFetchHandler(async () => {
+      requests += 1;
+      throw new Error('daily verification must respect revoked consent');
+    });
+
+    await alarm({ name: 'check_pro_expiry' });
+
+    assert.equal(requests, 0);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.storage.local.data.diagnosticState.lastLicenseCheck.reason, 'consent_required');
+    assert.equal(api.contextMenuPresent, true);
+    assert.equal(api.windows, undefined);
+  }, { supportsWindows: false });
 });
 
 test('successful manual activation replaces a stale no-key diagnostic state on a windowless worker', async () => {
@@ -3051,11 +3163,15 @@ test('an explicit verified non-Pro license response still safely restores Free a
   const general = makeFocusRule(321, 'general', { blockURL: 'general.example' });
   const study = makeFocusRule(322, 'list-1', { blockURL: 'study.example' });
   await withWorker(async ({ api, send }) => {
-    api.setFetchHandler(async () => ({
-      ok: true,
-      status: 200,
-      json: async () => ({ isPro: false })
-    }));
+    api.setFetchHandler(async (url, options) => {
+      assert.equal(url, VERIFY_API_URL);
+      assert.deepEqual(JSON.parse(options.body), { key: 'BD-OLD-KEY' });
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ isPro: false })
+      };
+    });
 
     const response = await send({ type: 'force_sync' });
 
@@ -3308,7 +3424,7 @@ test('failed daily entitlement reads preserve the existing legacy menu and still
     const originalGet = api.storage.sync.get.bind(api.storage.sync);
     let credentialReads = 0;
     api.storage.sync.get = (keys, callback) => {
-      if (Array.isArray(keys) && keys.includes('credentials') && ++credentialReads === 3) {
+      if (Array.isArray(keys) && keys.includes('credentials') && ++credentialReads === 2) {
         return Promise.reject(new Error('entitlement snapshot unavailable'));
       }
       return originalGet(keys, callback);

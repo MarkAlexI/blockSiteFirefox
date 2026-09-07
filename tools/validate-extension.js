@@ -145,6 +145,11 @@ if (manifest) {
       'manifest.json: Firefox data_collection_permissions.optional must include "technicalAndInteraction"'
     );
   }
+  if (!optionalDataCollection.includes('authenticationInfo')) {
+    errors.push(
+      'manifest.json: Firefox data_collection_permissions.optional must include "authenticationInfo"'
+    );
+  }
 
   const changelog = await readFile(path.join(root, 'CHANGELOG.md'), 'utf8');
   const firstVersion = changelog.match(/^## \[([^\]]+)\]/m)?.[1];
