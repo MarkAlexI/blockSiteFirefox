@@ -10,10 +10,10 @@ const dnrBootstrapRules = JSON.parse(
   readFileSync(new URL('../rules/dnrBootstrapRules.json', import.meta.url), 'utf8')
 );
 
-test('Firefox release metadata stays current without rewriting the published CWS badge', () => {
+test('Firefox release metadata stays current with the shared CWS release badge', () => {
   assert.equal(packageJson.version, manifest.version);
   assert.equal(changelog.match(/^## \[([^\]]+)\]/m)?.[1], manifest.version);
-  assert.equal(readme.includes('Chrome%20Web%20Store-v5.2.8-'), true);
+  assert.equal(readme.includes(`Chrome%20Web%20Store-v${manifest.version}-`), true);
   assert.equal(readme.includes('img.shields.io/amo/v/blockersite'), true);
 
   if (Object.hasOwn(manifest, 'version_name')) {

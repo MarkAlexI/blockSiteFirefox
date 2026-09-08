@@ -83,7 +83,7 @@ async function withGoProPage({
             return {
               success: false,
               error: data?.error || `License verification failed (${response.status})`,
-              code: response.status === 401 || response.status === 403
+              code: [400, 401, 403, 404, 422].includes(response.status)
                 ? 'invalid_license'
                 : 'activation_failed'
             };
@@ -367,7 +367,7 @@ test('an empty activation key never creates a request or verification timeout', 
   });
 });
 
-for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
+for (const status of [408, 409, 429, 500, 503]) {
   test(`activation HTTP ${status} reports a temporary server problem, not an invalid key`, async () => {
     await withGoProPage({
       fetchHandler: async () => ({
@@ -389,8 +389,8 @@ for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
   });
 }
 
-for (const status of [401, 403]) {
-  test(`activation HTTP ${status} reports an authoritative invalid subscription`, async () => {
+for (const status of [400, 401, 403, 404, 422]) {
+  test(`activation HTTP ${status} reports a rejected license key`, async () => {
     await withGoProPage({
       fetchHandler: async () => ({
         ok: false,

@@ -614,7 +614,7 @@ for (const [label, licenseKey] of [
   });
 }
 
-for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
+for (const status of [408, 409, 429, 500, 503]) {
   test('worker activation HTTP ' + status + ' preserves an existing valid Pro subscription', async () => {
     await withWorker(async ({ api, send }) => {
       api.setFetchHandler(async () => ({
@@ -637,7 +637,7 @@ for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
   });
 }
 
-for (const status of [401, 403]) {
+for (const status of [400, 401, 403, 404, 422]) {
   test('worker activation HTTP ' + status + ' rejects only the proposed license', async () => {
     await withWorker(async ({ api, send }) => {
       api.setFetchHandler(async () => ({

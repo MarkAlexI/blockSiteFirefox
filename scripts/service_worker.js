@@ -40,6 +40,7 @@ import { shouldRecordLicenseReliabilityError } from '../telemetry/telemetryLicen
 import { getRulePackTelemetryIncrements } from '../telemetry/telemetryRulePack.js';
 
 const logger = new Logger('Worker');
+const MANUAL_LICENSE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);
 const rulesManager = new RulesManager();
 const ruleListsManager = new RuleListsManager(browser.storage.local);
 const dailyLimitManager = new DailyLimitManager(browser.storage.local);
@@ -767,7 +768,7 @@ async function activateLicenseKey(requestedKey) {
     }
 
     if (!response.ok) {
-      const code = response.status === 401 || response.status === 403
+      const code = MANUAL_LICENSE_REJECTION_STATUSES.has(response.status)
         ? 'invalid_license'
         : 'activation_failed';
       throw createLicenseActivationError(
