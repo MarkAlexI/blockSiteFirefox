@@ -91,6 +91,13 @@ Do not remove or replace the Gecko ID or Firefox data-collection declaration unl
 
 For BlockDistraction, keep `required: ["none"]` and both optional entries: `authenticationInfo` for license verification and `technicalAndInteraction` for telemetry. The Firefox/AMO manifest validation path depends on this opt-in declaration, so do not remove either data type during a Chromium-to-Firefox port.
 
+Firefox also declares the enabled `dnr_bootstrap` static ruleset. Its file,
+`rules/dnrBootstrapRules.json`, is intentionally an empty JSON array. Keep the
+ruleset enabled even though BlockDistraction uses dynamic rules: it works around
+Firefox bug 1921353, where Firefox 132 and earlier could stop applying dynamic
+rules after a browser restart. The declaration consumes no static rule entries
+and is harmless on newer Firefox versions.
+
 ---
 
 ## 3. WebExtension API namespace

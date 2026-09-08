@@ -75,6 +75,9 @@ function collectManifestFiles(manifest) {
       files.add(resource);
     }
   }
+  for (const ruleset of manifest?.declarative_net_request?.rule_resources || []) {
+    if (ruleset?.path) files.add(ruleset.path);
+  }
 
   return [...files];
 }

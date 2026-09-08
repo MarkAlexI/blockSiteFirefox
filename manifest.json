@@ -6,7 +6,7 @@
   "author": "MarkAlexI",
   "homepage_url": "https://blockdistraction.com",
   "default_locale": "en",
-  "version": "5.2.8",
+  "version": "5.2.9",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",
@@ -40,6 +40,15 @@
     "contextMenus",
     "notifications"
   ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "dnr_bootstrap",
+        "enabled": true,
+        "path": "rules/dnrBootstrapRules.json"
+      }
+    ]
+  },
   "host_permissions": [
     "*://*/*"
   ],
