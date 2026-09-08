@@ -687,6 +687,6 @@ Firefox treats a Pro license key as personal authentication information. The AMO
 - preserves the currently stored Pro state when a check is skipped for missing consent;
 - keeps the established explicit activation and stored-key verification flow on older Firefox versions that do not expose native `data_collection` permissions.
 
-Firefox 5.2.7 omits the extension-version field from its verification request. The shared endpoint contract remains unchanged and can still return the Pro decision, account email, and expiry or Lifetime status for local license state.
+Firefox 5.2.8 continues to omit the extension-version field from its verification request. The shared endpoint may still return an account email for older clients, but the current extension stores only the Pro decision and expiry or Lifetime status.
 
 The Firefox uninstall URL is intentionally the plain `https://blockdistraction.com/uninstall.html` address. It must not copy Chromium's encoded installation date, access state, extension version, or rule count. This is a compliance boundary, not a mechanical API adaptation.

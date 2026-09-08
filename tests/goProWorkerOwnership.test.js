@@ -119,7 +119,6 @@ async function withGoProPage({
           ...api.storage.sync.data.credentials,
           isPro: false,
           licenseKey: null,
-          subscriptionEmail: null,
           expiryDate: null
         };
       }

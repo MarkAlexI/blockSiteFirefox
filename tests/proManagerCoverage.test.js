@@ -147,12 +147,15 @@ test('partial stored credentials retain their existing data and receive missing 
   await withProManager({ sync: { credentials: {
     isPro: true,
     licenseKey: 'BD-PRO-123',
+    subscriptionEmail: 'obsolete@example.com',
+    subscriptionDate: '2026-07-01',
     installationDate: '2025-12-31T00:00:00.000Z'
   } } }, async ({ ProManager }) => {
     const credentials = await ProManager.getCredentials();
     assert.equal(credentials.isPro, true);
     assert.equal(credentials.licenseKey, 'BD-PRO-123');
-    assert.equal(credentials.subscriptionEmail, null);
+    assert.equal(Object.hasOwn(credentials, 'subscriptionEmail'), false);
+    assert.equal(Object.hasOwn(credentials, 'subscriptionDate'), false);
     assert.equal(credentials.isLegacyUser, false);
   });
 });
@@ -208,6 +211,8 @@ test('trusted update migration persists historical metadata for an existing part
   await withProManager({ sync: { credentials: {
     isPro: false,
     licenseKey: null,
+    subscriptionEmail: 'obsolete@example.com',
+    subscriptionDate: '2025-12-01',
     installationDate: null,
     isLegacyUser: false
   } } }, async ({ api, ProManager }) => {
@@ -220,6 +225,35 @@ test('trusted update migration persists historical metadata for an existing part
     assert.equal(migration.changed, true);
     assert.equal(migration.credentials.installationDate, '1970-01-01T00:00:00.000Z');
     assert.equal(migration.credentials.isLegacyUser, true);
+    assert.equal(Object.hasOwn(migration.credentials, 'subscriptionEmail'), false);
+    assert.equal(Object.hasOwn(migration.credentials, 'subscriptionDate'), false);
+    assert.deepEqual(api.storage.sync.data.credentials, migration.credentials);
+    assert.equal(await ProManager.hasPaidAccess(), true);
+  });
+});
+
+test('trusted update migration removes obsolete metadata without changing Pro access', async () => {
+  await withProManager({ sync: { credentials: {
+    isPro: true,
+    licenseKey: 'BD-LIFETIME-123',
+    expiryDate: 'Lifetime',
+    subscriptionEmail: 'obsolete@example.com',
+    subscriptionDate: '2025-12-01',
+    installationDate: '2026-08-01T00:00:00.000Z',
+    isLegacyUser: false
+  } } }, async ({ api, ProManager }) => {
+    const migration = await ProManager.initializeInstallationMetadata({
+      fallbackInstallationDate: '1970-01-01T00:00:00.000Z'
+    });
+
+    assert.equal(migration.changed, true);
+    assert.deepEqual(migration.credentials, {
+      isPro: true,
+      expiryDate: 'Lifetime',
+      licenseKey: 'BD-LIFETIME-123',
+      isLegacyUser: false,
+      installationDate: '2026-08-01T00:00:00.000Z'
+    });
     assert.deepEqual(api.storage.sync.data.credentials, migration.credentials);
     assert.equal(await ProManager.hasPaidAccess(), true);
   });
@@ -237,25 +271,29 @@ test('uninitialized metadata cannot grant legacy access outside trusted migratio
   });
 });
 
-test('upgrading preserves existing subscription fields and sends a status notification', async () => {
+test('upgrading stores only current license fields and sends a status notification', async () => {
   await withProManager({ sync: { credentials: {
     isPro: false,
     installationDate: '2026-08-01T00:00:00.000Z',
     isLegacyUser: true,
+    subscriptionEmail: 'obsolete@example.com',
     subscriptionDate: '2026-08-01'
   } } }, async ({ api, ProManager }) => {
     const updated = await ProManager.updateProStatus(true, {
       licenseKey: 'BD-PRO-123',
       subscriptionEmail: 'person@example.com',
+      subscriptionDate: '2026-09-01',
       expiryDate: '2027-08-01'
     });
 
     assert.equal(updated.isPro, true);
     assert.equal(updated.licenseKey, 'BD-PRO-123');
-    assert.equal(updated.subscriptionEmail, 'person@example.com');
-    assert.equal(updated.subscriptionDate, '2026-08-01');
+    assert.equal(updated.expiryDate, '2027-08-01');
+    assert.equal(Object.hasOwn(updated, 'subscriptionEmail'), false);
+    assert.equal(Object.hasOwn(updated, 'subscriptionDate'), false);
     assert.equal(updated.installationDate, '2026-08-01T00:00:00.000Z');
     assert.equal(updated.isLegacyUser, true);
+    assert.deepEqual(api.storage.sync.data.credentials, updated);
     assert.deepEqual(api.messages.at(-1), { type: 'pro_status_changed', isPro: true });
   });
 });
@@ -273,8 +311,6 @@ test('downgrading to Free clears paid credentials but preserves installation and
     const updated = await ProManager.updateProStatus(false);
     assert.deepEqual(updated, {
       isPro: false,
-      subscriptionEmail: null,
-      subscriptionDate: null,
       expiryDate: null,
       licenseKey: null,
       isLegacyUser: true,
@@ -284,7 +320,7 @@ test('downgrading to Free clears paid credentials but preserves installation and
   });
 });
 
-test('subscription updates cannot forge legacy status or backdate a modern installation', async () => {
+test('license updates cannot forge legacy status or backdate a modern installation', async () => {
   await withProManager({ sync: { credentials: {
     isPro: false,
     isLegacyUser: false,
@@ -311,7 +347,7 @@ test('subscription updates cannot forge legacy status or backdate a modern insta
   });
 });
 
-test('subscription updates cannot erase a genuine legacy installation', async () => {
+test('license updates cannot erase a genuine legacy installation', async () => {
   await withProManager({ sync: { credentials: {
     isPro: true,
     licenseKey: 'BD-LEGACY-123',

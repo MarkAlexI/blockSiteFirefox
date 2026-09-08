@@ -67,8 +67,6 @@ export class ProManager {
   
   static defaultCredentials = {
     isPro: false,
-    subscriptionEmail: null,
-    subscriptionDate: null,
     expiryDate: null,
     licenseKey: null,
     isLegacyUser: false,
@@ -77,6 +75,13 @@ export class ProManager {
   
   static get hasDOM() {
     return typeof document !== 'undefined' && document !== null;
+  }
+
+  static stripObsoleteCredentials(credentials = {}) {
+    const cleanedCredentials = { ...credentials };
+    delete cleanedCredentials.subscriptionEmail;
+    delete cleanedCredentials.subscriptionDate;
+    return cleanedCredentials;
   }
 
   static resolveLegacyAccess(credentials) {
@@ -133,7 +138,10 @@ export class ProManager {
         return newCredentials;
       }
       
-      return { ...this.defaultCredentials, ...result.credentials };
+      return {
+        ...this.defaultCredentials,
+        ...this.stripObsoleteCredentials(result.credentials)
+      };
     } catch (error) {
       this.logger.error('Error getting credentials:', error);
       if (throwOnError) throw error;
@@ -143,7 +151,7 @@ export class ProManager {
 
   /**
    * Initializes installation metadata from a trusted extension lifecycle path.
-   * Subscription and runtime-message payloads must continue using updateProStatus(),
+   * License and runtime-message payloads must continue using updateProStatus(),
    * which deliberately cannot change these fields.
    */
   static async initializeInstallationMetadata({ fallbackInstallationDate } = {}) {
@@ -166,19 +174,21 @@ export class ProManager {
       return { credentials, changed: true };
     }
 
-    const hasInstallationDate = typeof storedCredentials.installationDate === 'string' &&
-      storedCredentials.installationDate.trim() !== '';
+    const cleanedStoredCredentials = this.stripObsoleteCredentials(storedCredentials);
+    const hasInstallationDate = typeof cleanedStoredCredentials.installationDate === 'string' &&
+      cleanedStoredCredentials.installationDate.trim() !== '';
     const installationDate = hasInstallationDate
-      ? storedCredentials.installationDate
+      ? cleanedStoredCredentials.installationDate
       : fallbackInstallationDate;
     const credentials = {
       ...this.defaultCredentials,
-      ...storedCredentials,
+      ...cleanedStoredCredentials,
       installationDate
     };
     credentials.isLegacyUser = this.resolveLegacyAccess(credentials);
 
-    const changed = storedCredentials.installationDate !== credentials.installationDate ||
+    const changed = Object.keys(cleanedStoredCredentials).length !== Object.keys(storedCredentials).length ||
+      storedCredentials.installationDate !== credentials.installationDate ||
       storedCredentials.isLegacyUser !== credentials.isLegacyUser;
     if (changed) {
       await browser.storage.sync.set({ credentials });
@@ -198,8 +208,6 @@ export class ProManager {
       const updatedCredentials = {
         ...currentCredentials,
         isPro: isPro,
-        subscriptionEmail: isPro ? (subscriptionData.subscriptionEmail || currentCredentials.subscriptionEmail) : null,
-        subscriptionDate: isPro ? (subscriptionData.subscriptionDate || currentCredentials.subscriptionDate) : null,
         expiryDate: isPro ? (subscriptionData.expiryDate || currentCredentials.expiryDate) : null,
         licenseKey: isPro ? (subscriptionData.licenseKey || currentCredentials.licenseKey) : null,
         

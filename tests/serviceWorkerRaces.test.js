@@ -292,7 +292,6 @@ for (const [label, claimedStatus] of [
         isPro: claimedStatus,
         subscriptionData: {
           licenseKey: 'BD-FORGED-KEY',
-          subscriptionEmail: 'forged@example.com',
           isLegacyUser: true,
           installationDate: '2025-01-01T00:00:00.000Z'
         }
@@ -324,7 +323,7 @@ for (const [label, claimedStatus] of [
   });
 }
 
-test('runtime credential requests never expose license keys or subscription email', async () => {
+test('runtime credential requests never expose license credentials', async () => {
   await withWorker(async ({ api, send }) => {
     const response = await send({ type: 'get_pro_credentials' });
 
@@ -334,10 +333,9 @@ test('runtime credential requests never expose license keys or subscription emai
       code: 'credentials_unavailable'
     });
     assert.equal(JSON.stringify(response).includes('BD-PRIVATE-KEY'), false);
-    assert.equal(JSON.stringify(response).includes('private@example.com'), false);
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-PRIVATE-KEY');
   }, {
-    credentials: { licenseKey: 'BD-PRIVATE-KEY', subscriptionEmail: 'private@example.com' },
+    credentials: { licenseKey: 'BD-PRIVATE-KEY' },
     supportsWindows: false
   });
 });
@@ -369,7 +367,6 @@ test('worker verifies and activates licenses without trusting caller or server l
         installationDate: '2025-01-01T00:00:00.000Z',
         subscriptionData: {
           licenseKey: 'BD-FORGED-KEY',
-          subscriptionEmail: 'forged@example.com',
           isLegacyUser: true,
           installationDate: '2025-01-01T00:00:00.000Z'
         }
@@ -382,8 +379,8 @@ test('worker verifies and activates licenses without trusting caller or server l
       assert.equal(requests[0].options.signal instanceof AbortSignal, true);
       assert.deepEqual(requests[0].body, { key: 'BD-WORKER-VERIFIED' });
       assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-WORKER-VERIFIED');
-      assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'verified@example.com');
       assert.equal(api.storage.sync.data.credentials.expiryDate, '2027-08-01');
+      assert.equal(Object.hasOwn(api.storage.sync.data.credentials, 'subscriptionEmail'), false);
       assert.equal(api.storage.sync.data.credentials.isLegacyUser, false);
       assert.equal(api.storage.sync.data.credentials.installationDate, '2026-08-01T00:00:00.000Z');
       assert.equal(api.contextMenuPresent, true);
@@ -494,8 +491,8 @@ test('older Firefox keeps the established stored-key verification flow', async (
     assert.equal(response.isPro, true);
     assert.deepEqual(requests, [{ key: 'BD-OLD-KEY' }]);
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
-    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'old-firefox@example.com');
     assert.equal(api.storage.sync.data.credentials.expiryDate, 'Lifetime');
+    assert.equal(Object.hasOwn(api.storage.sync.data.credentials, 'subscriptionEmail'), false);
   }, { supportsWindows: false });
 });
 
@@ -938,7 +935,7 @@ test('a newer verified activation supersedes an older response without exposing 
     latest.response.resolve({
       ok: true,
       status: 200,
-      json: async () => ({ isPro: true, email: 'latest@example.com' })
+      json: async () => ({ isPro: true, expiryDate: '2028-01-01' })
     });
     const secondResult = await second;
 
@@ -946,7 +943,7 @@ test('a newer verified activation supersedes an older response without exposing 
     older.response.resolve({
       ok: true,
       status: 200,
-      json: async () => ({ isPro: true, email: 'older@example.com' })
+      json: async () => ({ isPro: true, expiryDate: '2027-01-01' })
     });
     const firstResult = await first;
 
@@ -954,7 +951,7 @@ test('a newer verified activation supersedes an older response without exposing 
     assert.equal(firstResult.success, false);
     assert.equal(firstResult.code, 'activation_superseded');
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-SECOND-KEY');
-    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'latest@example.com');
+    assert.equal(api.storage.sync.data.credentials.expiryDate, '2028-01-01');
     assert.equal(JSON.stringify(secondResult).includes('BD-SECOND-KEY'), false);
   }, {
     credentials: { isPro: false, licenseKey: null },
@@ -989,13 +986,13 @@ test('manual activation takes priority over a later no-key force sync', async ()
     candidateResponse.resolve({
       ok: true,
       status: 200,
-      json: async () => ({ isPro: true, email: 'candidate@example.com' })
+      json: async () => ({ isPro: true, expiryDate: '2028-02-01' })
     });
     const activated = await activation;
 
     assert.deepEqual(activated, { success: true, isPro: true });
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-CANDIDATE-KEY');
-    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'candidate@example.com');
+    assert.equal(api.storage.sync.data.credentials.expiryDate, '2028-02-01');
     assert.equal(api.storage.local.data.activeRuleListId, 'general');
   }, {
     credentials: { isPro: false, licenseKey: null },
@@ -1028,13 +1025,13 @@ test('manual activation takes priority over later daily verification of an old k
     candidateResponse.resolve({
       ok: true,
       status: 200,
-      json: async () => ({ isPro: true, email: 'replacement@example.com' })
+      json: async () => ({ isPro: true, expiryDate: '2028-03-01' })
     });
     const activated = await activation;
 
     assert.deepEqual(activated, { success: true, isPro: true });
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-REPLACEMENT-KEY');
-    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'replacement@example.com');
+    assert.equal(api.storage.sync.data.credentials.expiryDate, '2028-03-01');
     assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
   }, { supportsWindows: false });
 });
@@ -3114,13 +3111,13 @@ for (const status of [400, 404, 408, 409, 422, 429, 500, 503]) {
       assert.equal(response.reason, 'temporary_failure');
       assert.equal(api.storage.sync.data.credentials.isPro, true);
       assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
-      assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'member@example.com');
+      assert.equal(api.storage.sync.data.credentials.expiryDate, 'Lifetime');
       assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
       assert.deepEqual(api.dynamicRules.map(item => item.id), [rule.id]);
       assert.equal(api.contextMenuPresent, true);
       assert.equal(api.windows, undefined);
     }, {
-      credentials: { subscriptionEmail: 'member@example.com' },
+      credentials: { expiryDate: 'Lifetime' },
       local: { rules: [rule] },
       supportsWindows: false
     });
@@ -3146,13 +3143,13 @@ for (const status of [401, 403]) {
       assert.equal(response.reason, 'rejected');
       assert.equal(api.storage.sync.data.credentials.isPro, false);
       assert.equal(api.storage.sync.data.credentials.licenseKey, null);
-      assert.equal(api.storage.sync.data.credentials.subscriptionEmail, null);
+      assert.equal(api.storage.sync.data.credentials.expiryDate, null);
       assert.equal(api.storage.local.data.activeRuleListId, 'general');
       assert.deepEqual(api.storage.local.data.rules.map(rule => rule.id), [311, 312]);
       assert.deepEqual(api.dynamicRules.map(rule => rule.id), [311]);
       assert.equal(api.contextMenuPresent, false);
     }, {
-      credentials: { subscriptionEmail: 'member@example.com' },
+      credentials: { expiryDate: 'Lifetime' },
       local: { rules: [general, study] },
       supportsWindows: false
     });
@@ -3548,7 +3545,7 @@ test('rejection of an old license cannot clear a newly activated valid license',
         return {
           ok: true,
           status: 200,
-          json: async () => ({ isPro: true, email: 'new@example.com' })
+          json: async () => ({ isPro: true, expiryDate: '2028-04-01' })
         };
       }
       requestStarted.resolve();
@@ -3573,7 +3570,7 @@ test('rejection of an old license cannot clear a newly activated valid license',
 
     assert.equal(api.storage.sync.data.credentials.isPro, true);
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-NEW-KEY');
-    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'new@example.com');
+    assert.equal(api.storage.sync.data.credentials.expiryDate, '2028-04-01');
     assert.equal(api.contextMenuPresent, true);
   });
 });
@@ -3596,7 +3593,7 @@ test('an older response for the same license cannot override a newer verificatio
     requests[1].resolve({
       ok: true,
       status: 200,
-      json: async () => ({ isPro: true, email: 'current@example.com' })
+      json: async () => ({ isPro: true, expiryDate: '2028-05-01' })
     });
     await newer;
 
@@ -3609,7 +3606,7 @@ test('an older response for the same license cannot override a newer verificatio
 
     assert.equal(api.storage.sync.data.credentials.isPro, true);
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
-    assert.equal(api.storage.sync.data.credentials.subscriptionEmail, 'current@example.com');
+    assert.equal(api.storage.sync.data.credentials.expiryDate, '2028-05-01');
   });
 });
 
