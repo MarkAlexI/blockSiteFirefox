@@ -377,7 +377,10 @@ test('worker verifies and activates licenses without trusting caller or server l
       assert.equal(requests[0].url, VERIFY_API_URL);
       assert.equal(requests[0].options.method, 'POST');
       assert.equal(requests[0].options.signal instanceof AbortSignal, true);
-      assert.deepEqual(requests[0].body, { key: 'BD-WORKER-VERIFIED' });
+      assert.deepEqual(requests[0].body, {
+        key: 'BD-WORKER-VERIFIED',
+        version: api.runtime.getManifest().version
+      });
       assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-WORKER-VERIFIED');
       assert.equal(api.storage.sync.data.credentials.expiryDate, '2027-08-01');
       assert.equal(Object.hasOwn(api.storage.sync.data.credentials, 'subscriptionEmail'), false);
@@ -467,7 +470,7 @@ test('revoked authentication consent skips Force Sync and preserves existing Pro
   }, { supportsWindows: false });
 });
 
-test('older Firefox keeps the established stored-key verification flow', async () => {
+test('older Firefox keeps stored-key verification and sends the extension version', async () => {
   await withWorker(async ({ api, send }) => {
     api.permissions.getAll = async () => ({ permissions: [], origins: [] });
     const requests = [];
@@ -489,7 +492,10 @@ test('older Firefox keeps the established stored-key verification flow', async (
     assert.equal(response.success, true);
     assert.equal(response.reason, 'verified');
     assert.equal(response.isPro, true);
-    assert.deepEqual(requests, [{ key: 'BD-OLD-KEY' }]);
+    assert.deepEqual(requests, [{
+      key: 'BD-OLD-KEY',
+      version: api.runtime.getManifest().version
+    }]);
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
     assert.equal(api.storage.sync.data.credentials.expiryDate, 'Lifetime');
     assert.equal(Object.hasOwn(api.storage.sync.data.credentials, 'subscriptionEmail'), false);
@@ -3162,7 +3168,10 @@ test('an explicit verified non-Pro license response still safely restores Free a
   await withWorker(async ({ api, send }) => {
     api.setFetchHandler(async (url, options) => {
       assert.equal(url, VERIFY_API_URL);
-      assert.deepEqual(JSON.parse(options.body), { key: 'BD-OLD-KEY' });
+      assert.deepEqual(JSON.parse(options.body), {
+        key: 'BD-OLD-KEY',
+        version: api.runtime.getManifest().version
+      });
       return {
         ok: true,
         status: 200,

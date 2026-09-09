@@ -756,7 +756,10 @@ async function activateLicenseKey(requestedKey) {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key: licenseKey }),
+      body: JSON.stringify({
+        key: licenseKey,
+        version: browser.runtime.getManifest().version
+      }),
       signal: controller.signal
     });
 
@@ -854,6 +857,7 @@ async function syncLicenseKeyStatus() {
   }
   
   logger.log('License Sync: Checking stored key...');
+  const version = browser.runtime.getManifest().version;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), LICENSE_SYNC_TIMEOUT_MS);
   
@@ -861,7 +865,7 @@ async function syncLicenseKeyStatus() {
     const response = await fetch(VERIFY_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key: currentKey }),
+      body: JSON.stringify({ key: currentKey, version }),
       signal: controller.signal
     });
     

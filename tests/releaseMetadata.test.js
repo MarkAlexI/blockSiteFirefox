@@ -10,10 +10,11 @@ const dnrBootstrapRules = JSON.parse(
   readFileSync(new URL('../rules/dnrBootstrapRules.json', import.meta.url), 'utf8')
 );
 
-test('Firefox release metadata stays current with the shared CWS release badge', () => {
+test('Firefox release metadata stays current without assuming the CWS release version', () => {
   assert.equal(packageJson.version, manifest.version);
   assert.equal(changelog.match(/^## \[([^\]]+)\]/m)?.[1], manifest.version);
-  assert.equal(readme.includes(`Chrome%20Web%20Store-v${manifest.version}-`), true);
+  assert.match(readme, /Chrome%20Web%20Store-v\d+\.\d+\.\d+-/);
+  assert.equal(readme.includes(`Firefox%20Source-v${manifest.version}-`), true);
   assert.equal(readme.includes('img.shields.io/amo/v/blockersite'), true);
 
   if (Object.hasOwn(manifest, 'version_name')) {

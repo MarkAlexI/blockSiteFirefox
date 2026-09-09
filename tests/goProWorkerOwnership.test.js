@@ -74,7 +74,10 @@ async function withGoProPage({
           const response = await globalThis.fetch(VERIFY_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ key: request.licenseKey }),
+            body: JSON.stringify({
+              key: request.licenseKey,
+              version: api.runtime.getManifest().version
+            }),
             signal: controller.signal
           });
           const data = await response.json();
@@ -229,14 +232,17 @@ test('license activation delegates verification and its only credentials mutatio
   });
 });
 
-test('license activation attaches the shared verification timeout and clears it after success', async () => {
-  await withGoProPage({}, async ({ form, input, submit, requests, timers, clearedTimers }) => {
+test('license activation sends the extension version and clears its shared timeout after success', async () => {
+  await withGoProPage({}, async ({ api, form, input, submit, requests, timers, clearedTimers }) => {
     input.value = 'BD-NEW-KEY';
 
     await form.dispatch('submit');
 
     assert.equal(requests.length, 1);
-    assert.deepEqual(JSON.parse(requests[0][1].body), { key: 'BD-NEW-KEY' });
+    assert.deepEqual(JSON.parse(requests[0][1].body), {
+      key: 'BD-NEW-KEY',
+      version: api.runtime.getManifest().version
+    });
     assert.equal(requests[0][1].signal instanceof AbortSignal, true);
     const verificationTimer = timers.find(timer => timer.delay === LICENSE_SYNC_TIMEOUT_MS);
     assert.ok(verificationTimer);
@@ -264,7 +270,7 @@ test('denied native authentication consent prevents activation before worker mes
 
 test('older Firefox keeps explicit license activation when native consent is unavailable', async () => {
   await withGoProPage({ supportsLicenseConsent: false }, async ({
-    form, input, message, requests, workerRequests, permissionRequests
+    api, form, input, message, requests, workerRequests, permissionRequests
   }) => {
     input.value = 'BD-OLD-FIREFOX-KEY';
 
@@ -276,7 +282,10 @@ test('older Firefox keeps explicit license activation when native consent is una
       licenseKey: 'BD-OLD-FIREFOX-KEY'
     }]);
     assert.equal(requests.length, 1);
-    assert.deepEqual(JSON.parse(requests[0][1].body), { key: 'BD-OLD-FIREFOX-KEY' });
+    assert.deepEqual(JSON.parse(requests[0][1].body), {
+      key: 'BD-OLD-FIREFOX-KEY',
+      version: api.runtime.getManifest().version
+    });
     assert.equal(message.textContent, 'proactivated');
   });
 });

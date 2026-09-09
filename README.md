@@ -6,6 +6,7 @@
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.2.10-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Firefox Source](https://img.shields.io/badge/Firefox%20Source-v5.2.11-orange?logo=firefox-browser)](https://github.com/MarkAlexI/blockSiteFirefox)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
