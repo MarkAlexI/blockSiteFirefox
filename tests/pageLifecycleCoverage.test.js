@@ -29,6 +29,47 @@ test('the blocked page closes through the platform-appropriate browser mechanism
   });
 });
 
+let blockedPageImportId = 0;
+
+async function getBlockedReasonMessageKey(reason) {
+  const document = new FakeDocument();
+  document.addElement('closeBtn', 'button');
+  const reasonElement = document.addElement('blockedReason', 'p');
+  reasonElement.setAttribute('data-i18n', 'blockedtext');
+  const query = reason === null ? '' : `?reason=${encodeURIComponent(reason)}`;
+
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    blockedPageImportId += 1;
+    await import(`../scripts/blocked.js?reason=${blockedPageImportId}`);
+  }, {
+    document,
+    window: {
+      close() {},
+      location: { href: `extension://test-extension-id/blocked.html${query}` }
+    }
+  });
+
+  return reasonElement.getAttribute('data-i18n');
+}
+
+test('the blocked page selects a localized message for each safe blocking reason', async () => {
+  const expectedKeys = {
+    always: 'blocking_mode_always',
+    schedule: 'rule_scheduled',
+    daily_limit: 'daily_limit_reached',
+    focus: 'focussessionheader'
+  };
+
+  for (const [reason, messageKey] of Object.entries(expectedKeys)) {
+    assert.equal(await getBlockedReasonMessageKey(reason), messageKey);
+  }
+});
+
+test('the blocked page keeps its generic message for missing or unknown reasons', async () => {
+  assert.equal(await getBlockedReasonMessageKey(null), 'blockedtext');
+  assert.equal(await getBlockedReasonMessageKey('unknown'), 'blockedtext');
+});
+
 let redirectImportId = 0;
 
 async function exerciseRedirect(href, configureApi = null) {

@@ -129,6 +129,48 @@ function createHarness({
   };
 }
 
+test('DNR construction receives the active blocking reason with Focus taking priority', async () => {
+  const assignmentCalls = [];
+  const assignmentHarness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 1 }),
+      makeStoredRule({
+        id: 2,
+        assignments: [{ listId: 'general', blockingMode: 'schedule', schedule: null, dailyLimit: null }]
+      }),
+      makeStoredRule({
+        id: 3,
+        assignments: [{ listId: 'general', blockingMode: 'daily_limit', schedule: null, dailyLimit: null }]
+      })
+    ],
+    activationEvaluator: () => true,
+    createRule: async (id, blockURL, redirectURL, blockReason) => {
+      assignmentCalls.push({ id, blockReason });
+      return makeDnrRule({ id, urlFilter: `||${blockURL}` });
+    }
+  });
+
+  await assignmentHarness.synchronizer.requestSync();
+  assert.deepEqual(assignmentCalls, [
+    { id: 1, blockReason: 'always' },
+    { id: 2, blockReason: 'schedule' },
+    { id: 3, blockReason: 'daily_limit' }
+  ]);
+
+  const focusCalls = [];
+  const focusHarness = createHarness({
+    storedRules: [makeStoredRule({ id: 4 })],
+    focusActive: true,
+    createRule: async (id, blockURL, redirectURL, blockReason) => {
+      focusCalls.push({ id, blockReason });
+      return makeDnrRule({ id, urlFilter: `||${blockURL}` });
+    }
+  });
+
+  await focusHarness.synchronizer.requestSync();
+  assert.deepEqual(focusCalls, [{ id: 4, blockReason: 'focus' }]);
+});
+
 test('unsupported legacy schemes stay stored but are removed from browser DNR', async () => {
   const storedRules = [
     makeStoredRule({ id: 1, blockURL: 'file:///tmp/page.html' }),

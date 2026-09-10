@@ -195,10 +195,14 @@ export function createDnrSynchronizer({
     const dnrRules = [];
 
     for (const rule of activeRules) {
+      const blockReason = focusActive
+        ? 'focus'
+        : getRuleAssignment(rule, activeRuleListId)?.blockingMode;
       const dnrRule = await createDnrRule(
         rule.id,
         rule.blockURL,
-        rule.redirectURL
+        rule.redirectURL,
+        blockReason
       );
 
       if (dnrRule) {

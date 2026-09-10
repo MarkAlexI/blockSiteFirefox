@@ -15,6 +15,7 @@ test('DNR factory preserves flexible block pattern behavior', () => {
     id: 7,
     blockURL: 'https://www.example.com/path/',
     redirectURL: '',
+    blockReason: 'always',
     defaultRedirectURL,
     intermediaryRedirectURL
   });
@@ -30,6 +31,35 @@ test('DNR factory preserves flexible block pattern behavior', () => {
     redirect.searchParams.get('url'),
     encodeURIComponent('https://www.example.com/path/')
   );
+  assert.equal(redirect.searchParams.get('reason'), 'always');
+});
+
+test('blocked redirects expose only fixed non-sensitive reason codes', () => {
+  for (const blockReason of ['always', 'schedule', 'daily_limit', 'focus']) {
+    const rule = createDnrRule({
+      id: 8,
+      blockURL: 'example.com',
+      redirectURL: '',
+      blockReason,
+      defaultRedirectURL,
+      intermediaryRedirectURL
+    });
+
+    assert.equal(new URL(rule.action.redirect.url).searchParams.get('reason'), blockReason);
+  }
+
+  for (const blockReason of [undefined, '', 'unknown', 'schedule&private=value']) {
+    const rule = createDnrRule({
+      id: 9,
+      blockURL: 'example.com',
+      redirectURL: '',
+      blockReason,
+      defaultRedirectURL,
+      intermediaryRedirectURL
+    });
+
+    assert.equal(new URL(rule.action.redirect.url).searchParams.has('reason'), false);
+  }
 });
 
 test('custom redirects use the intermediary page with from and to parameters', () => {
@@ -47,6 +77,7 @@ test('custom redirects use the intermediary page with from and to parameters', (
   assert.equal(redirect.pathname, '/redirect.html');
   assert.equal(redirect.searchParams.get('from'), encodeURIComponent('tube'));
   assert.equal(redirect.searchParams.get('to'), 'https://example.org/target');
+  assert.equal(redirect.searchParams.has('reason'), false);
 });
 
 test('legacy unsupported redirects fail closed to the packaged blocked page', () => {
@@ -78,12 +109,14 @@ test('bound factory resolves runtime URLs only once', () => {
     return `chrome-extension://extension-id/${path}`;
   });
 
-  const first = factory(1, 'one.example', '');
+  const first = factory(1, 'one.example', '', 'schedule');
   const second = factory(2, 'two.example', '');
 
   assert.deepEqual(requestedPaths, ['blocked.html', 'redirect.html']);
   assert.equal(first.id, 1);
   assert.equal(second.id, 2);
+  assert.equal(new URL(first.action.redirect.url).searchParams.get('reason'), 'schedule');
+  assert.equal(new URL(second.action.redirect.url).searchParams.has('reason'), false);
 });
 
 test('every DNR rule excludes exact OAuth, project, and browser-store request domains', () => {

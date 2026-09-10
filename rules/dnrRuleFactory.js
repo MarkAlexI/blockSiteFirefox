@@ -3,6 +3,8 @@ import { normalizePathSegment } from './normalizePathSegment.js';
 import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
 import { isValidURL } from '../scripts/isValidURL.js';
 
+const BLOCK_REASONS = new Set(['always', 'schedule', 'daily_limit', 'focus']);
+
 /**
  * Builds one dynamic DNR rule from an already validated stored rule.
  * User-entered matching semantics are preserved exactly as before.
@@ -11,6 +13,7 @@ export function createDnrRule({
   id,
   blockURL,
   redirectURL,
+  blockReason,
   defaultRedirectURL,
   intermediaryRedirectURL
 }) {
@@ -39,6 +42,9 @@ export function createDnrRule({
   } else {
     const finalRedirectUrl = new URL(defaultRedirectURL);
     finalRedirectUrl.searchParams.set('url', normalizedBlockURL);
+    if (BLOCK_REASONS.has(blockReason)) {
+      finalRedirectUrl.searchParams.set('reason', blockReason);
+    }
     action = {
       type: 'redirect',
       redirect: { url: finalRedirectUrl.href }
@@ -65,10 +71,11 @@ export function createDnrRuleFactory(getRuntimeUrl) {
   const defaultRedirectURL = getRuntimeUrl('blocked.html');
   const intermediaryRedirectURL = getRuntimeUrl('redirect.html');
 
-  return (id, blockURL, redirectURL) => createDnrRule({
+  return (id, blockURL, redirectURL, blockReason) => createDnrRule({
     id,
     blockURL,
     redirectURL,
+    blockReason,
     defaultRedirectURL,
     intermediaryRedirectURL
   });
