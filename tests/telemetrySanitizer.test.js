@@ -2,8 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   normalizeCounterName,
+  normalizeTelemetryOperation,
   sanitizeTelemetryError
 } from '../telemetry/telemetrySanitizer.js';
+import { RULES_INTENT_TYPES } from '../rules/rulesIntentRouter.js';
 
 test('telemetry accepts only allowlisted counters', () => {
   assert.equal(normalizeCounterName('rule_created'), 'rule_created');
@@ -47,6 +49,21 @@ test('telemetry error sanitizer keeps identifiers only and rejects unknown sourc
     source: 'https://private.example',
     code: 'sync_failed'
   }), null);
+
+  assert.equal(normalizeTelemetryOperation('tab_updated'), 'tab_updated');
+  assert.equal(normalizeTelemetryOperation('visited_private_example'), 'unknown');
+  assert.equal(sanitizeTelemetryError({
+    source: 'worker',
+    code: 'async_handler_failed',
+    operation: 'visited_private_example',
+    errorName: 'TypeError'
+  }).operation, 'unknown');
+});
+
+test('every rules intent maps to an allowlisted coarse operation', () => {
+  for (const type of RULES_INTENT_TYPES) {
+    assert.notEqual(normalizeTelemetryOperation(type.replace('rules:', '')), 'unknown', type);
+  }
 });
 
 test('Firefox telemetry context remains Firefox after sanitization', async () => {

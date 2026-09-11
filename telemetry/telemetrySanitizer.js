@@ -1,4 +1,5 @@
 import { RULE_PACK_TELEMETRY_COUNTERS } from './telemetryRulePack.js';
+import { ASYNC_HANDLER_OPERATIONS } from './asyncHandlerBoundary.js';
 
 const SAFE_IDENTIFIER = /^[a-z0-9][a-z0-9:_-]{0,63}$/;
 
@@ -69,6 +70,40 @@ export const TELEMETRY_ERROR_SOURCES = new Set([
   'popup'
 ]);
 
+export const TELEMETRY_ERROR_OPERATIONS = new Set([
+  'unknown',
+  'update_dynamic_rules',
+  'recover_session',
+  'verification',
+  'install',
+  'update',
+  'chrome_update',
+  'browser_update',
+  'shared_module_update',
+  'startup',
+  'permission_removed',
+  'permission_added',
+  'scheduled_alarm',
+  'add',
+  'addmany',
+  'removeassignment',
+  'delete',
+  'toggle',
+  'replaceall',
+  'clear',
+  'togglecategory',
+  'createlist',
+  'renamelist',
+  'activatelist',
+  'togglelist',
+  'deletelist',
+  'start_session',
+  'stop_session',
+  'service_worker',
+  'page_runtime',
+  ...Object.values(ASYNC_HANDLER_OPERATIONS)
+]);
+
 export function normalizeTelemetryIdentifier(value, fallback = 'unknown') {
   const normalized = String(value || '')
     .trim()
@@ -82,6 +117,11 @@ export function normalizeCounterName(name) {
   return TELEMETRY_COUNTERS.has(normalized) ? normalized : null;
 }
 
+export function normalizeTelemetryOperation(operation) {
+  const normalized = normalizeTelemetryIdentifier(operation);
+  return TELEMETRY_ERROR_OPERATIONS.has(normalized) ? normalized : 'unknown';
+}
+
 export function sanitizeTelemetryError({
   source,
   code,
@@ -90,7 +130,7 @@ export function sanitizeTelemetryError({
 } = {}) {
   const safeSource = normalizeTelemetryIdentifier(source);
   const safeCode = normalizeTelemetryIdentifier(code);
-  const safeOperation = normalizeTelemetryIdentifier(operation);
+  const safeOperation = normalizeTelemetryOperation(operation);
   const safeErrorName = normalizeTelemetryIdentifier(errorName, 'error');
 
   if (!TELEMETRY_ERROR_SOURCES.has(safeSource)) return null;

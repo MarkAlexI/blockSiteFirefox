@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.14] - 2026-09-11
+
+### Changed
+- A dismissed feedback invitation may return up to two more times, with at least 21 days between invitations. Choosing review or support completes it permanently.
+
+### Fixed
+- Optional technical diagnostics can now distinguish the background operation that failed without collecting URLs, rule contents, raw error messages, or stack traces.
+- Rejected work in selected background event handlers is contained so it does not become an unhandled worker rejection.
+
 ## [5.2.13] - 2026-09-11
 
 ### Changed

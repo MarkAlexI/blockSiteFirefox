@@ -38,6 +38,10 @@ import { getRulesTelemetryCode, shouldRecordRulesTelemetryError } from '../telem
 import { isExpectedRulesRejection } from '../rules/rulesErrorClassification.js';
 import { shouldRecordLicenseReliabilityError } from '../telemetry/telemetryLicenseError.js';
 import { getRulePackTelemetryIncrements } from '../telemetry/telemetryRulePack.js';
+import {
+  ASYNC_HANDLER_OPERATIONS,
+  createAsyncHandlerBoundary
+} from '../telemetry/asyncHandlerBoundary.js';
 
 const logger = new Logger('Worker');
 const MANUAL_LICENSE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);
@@ -119,6 +123,11 @@ const telemetryStore = createTelemetryStore({
   localStorage: browser.storage.local,
   getConsent: () => getTelemetryConsent(browser.storage.local, browser.permissions),
   getContext: getCurrentTelemetryContext
+});
+
+const runAsyncHandler = createAsyncHandlerBoundary({
+  recordError: error => telemetryStore.recordError(error),
+  logger
 });
 
 const telemetryClient = createTelemetryClient({
@@ -1149,17 +1158,19 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
   });
 }
 
-browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  if (changeInfo.url) {
-    await enforceFocusWhitelist(tabId, changeInfo.url);
-    if (tab.active) await dailyLimitTracker.sample('tab_url_changed', new Date(), tab);
-  }
-  
-  if (changeInfo.status === 'complete' && tab.url) {
-    await trackBlockedPage(tab.url);
-    if (tab.active) await dailyLimitTracker.sample('tab_load_complete', new Date(), tab);
-  }
-});
+browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>
+  runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED, async () => {
+    if (changeInfo.url) {
+      await enforceFocusWhitelist(tabId, changeInfo.url);
+      if (tab.active) await dailyLimitTracker.sample('tab_url_changed', new Date(), tab);
+    }
+
+    if (changeInfo.status === 'complete' && tab.url) {
+      await trackBlockedPage(tab.url);
+      if (tab.active) await dailyLimitTracker.sample('tab_load_complete', new Date(), tab);
+    }
+  })
+);
 
 browser.tabs.onActivated.addListener((activeInfo) => {
   void browser.tabs.get(activeInfo.tabId)
@@ -1167,55 +1178,61 @@ browser.tabs.onActivated.addListener((activeInfo) => {
     .catch(error => logger.info('Daily limit tab activation sample failed:', error));
 });
 
-browser.windows?.onFocusChanged?.addListener((windowId) => {
-  if (windowId === browser.windows.WINDOW_ID_NONE) {
-    void dailyLimitTracker.pause('window_focus_lost');
-    return;
-  }
-  void dailyLimitTracker.sample('window_focus_gained');
-});
-
-browser.tabs.onCreated.addListener(async (tab) => {
-  if (tab.id && tab.url) {
-    await enforceFocusWhitelist(tab.id, tab.url);
-    if (tab.active) await dailyLimitTracker.sample('tab_created', new Date(), tab);
-  }
-  
-  if (tab.url && tab.url !== 'about:blank' && tab.url !== 'chrome://newtab/') {
-    await trackBlockedPage(tab.url);
-  }
-});
-
-browser.runtime.onStartup.addListener(async () => {
-  try {
-    await telemetryClient.restoreRetry();
-  } catch (error) {
-    logger.info('Could not restore the telemetry retry on startup:', error);
-  }
-  
-  ensureAlarmsCreated();
-  
-  await initializeExtension({ reason: 'startup' });
-  await checkAndRequestPermissions({ reason: 'startup' }, { notifyIfMissing: true });
-  
-  await dailyLimitTracker.sample('startup');
-  logger.log("Extension startup - syncing DNR rules");
-  await dnrSynchronizer.requestSync();
-  
-  try {
-    if (!await shouldSkipSync()) {
-      const result = await syncLicenseKeyStatus();
-      const access = await ProManager.getAccess();
-      logger.log('Startup: Pro status is', result.isPro, '- updating context menu...');
-      await updateContextMenu(access.isPro || access.isLegacyUser);
-      await browser.storage.local.set({ lastCheck: Date.now() });
+browser.windows?.onFocusChanged?.addListener((windowId) =>
+  runAsyncHandler(ASYNC_HANDLER_OPERATIONS.WINDOW_FOCUS_CHANGED, async () => {
+    if (windowId === browser.windows.WINDOW_ID_NONE) {
+      await dailyLimitTracker.pause('window_focus_lost');
+      return;
     }
-  } catch (error) {
-    logger.error('Error syncing:', error);
-  }
-  
-  await dnrSynchronizer.validateIntegrity();
-});
+    await dailyLimitTracker.sample('window_focus_gained');
+  })
+);
+
+browser.tabs.onCreated.addListener((tab) =>
+  runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_CREATED, async () => {
+    if (tab.id && tab.url) {
+      await enforceFocusWhitelist(tab.id, tab.url);
+      if (tab.active) await dailyLimitTracker.sample('tab_created', new Date(), tab);
+    }
+
+    if (tab.url && tab.url !== 'about:blank' && tab.url !== 'chrome://newtab/') {
+      await trackBlockedPage(tab.url);
+    }
+  })
+);
+
+browser.runtime.onStartup.addListener(() =>
+  runAsyncHandler(ASYNC_HANDLER_OPERATIONS.STARTUP, async () => {
+    try {
+      await telemetryClient.restoreRetry();
+    } catch (error) {
+      logger.info('Could not restore the telemetry retry on startup:', error);
+    }
+
+    ensureAlarmsCreated();
+
+    await initializeExtension({ reason: 'startup' });
+    await checkAndRequestPermissions({ reason: 'startup' }, { notifyIfMissing: true });
+
+    await dailyLimitTracker.sample('startup');
+    logger.log("Extension startup - syncing DNR rules");
+    await dnrSynchronizer.requestSync();
+
+    try {
+      if (!await shouldSkipSync()) {
+        const result = await syncLicenseKeyStatus();
+        const access = await ProManager.getAccess();
+        logger.log('Startup: Pro status is', result.isPro, '- updating context menu...');
+        await updateContextMenu(access.isPro || access.isLegacyUser);
+        await browser.storage.local.set({ lastCheck: Date.now() });
+      }
+    } catch (error) {
+      logger.error('Error syncing:', error);
+    }
+
+    await dnrSynchronizer.validateIntegrity();
+  })
+);
 
 async function initializeExtension(details) {
   logger.log("Initializing extension state (rules, settings, legacy status)...");
@@ -1770,17 +1787,19 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === 'reload_rules') {
-    (async () => {
+    void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.DNR_RELOAD_MESSAGE, async () => {
       await dnrSynchronizer.requestSync();
       logger.log('Legacy rules reload completed.');
-    })();
+    });
     return;
   }
   
   if (message.type === 'pro_status_changed') {
-    void enqueueProStatusTransition(async () => {
-      await updateContextMenu(await ProManager.hasPaidAccess());
-    });
+    void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.PRO_STATUS_TRANSITION, () =>
+      enqueueProStatusTransition(async () => {
+        await updateContextMenu(await ProManager.hasPaidAccess());
+      })
+    );
     return;
   }
   
@@ -1989,7 +2008,10 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   if (message.type === 'permissions_granted') {
     logger.log("Permissions granted via onboarding.");
-    dnrSynchronizer.requestSync();
+    void runAsyncHandler(
+      ASYNC_HANDLER_OPERATIONS.DNR_RELOAD_MESSAGE,
+      () => dnrSynchronizer.requestSync()
+    );
   }
   
   if (message.type === 'delete_all_rules') {
@@ -2062,14 +2084,19 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   }
   
   if (alarm.name === DAILY_LIMIT_DEADLINE_ALARM) {
-    await dailyLimitTracker.sample('deadline_alarm');
+    await runAsyncHandler(
+      ASYNC_HANDLER_OPERATIONS.DAILY_LIMIT_ALARM,
+      () => dailyLimitTracker.sample('deadline_alarm')
+    );
   }
 
   if (alarm.name === 'update_scheduled_rules') {
     await reconcileFocusSession('minute_alarm');
-    if (await recoverPendingDailyUsage('minute_alarm')) {
-      await dailyLimitTracker.sample('minute_alarm');
-    }
+    await runAsyncHandler(ASYNC_HANDLER_OPERATIONS.DAILY_LIMIT_ALARM, async () => {
+      if (await recoverPendingDailyUsage('minute_alarm')) {
+        await dailyLimitTracker.sample('minute_alarm');
+      }
+    });
     await Promise.all([
       dnrSynchronizer.requestSync({ reconcileExistingTabs: false }),
       checkAndRequestPermissions({ reason: 'scheduled_alarm' })

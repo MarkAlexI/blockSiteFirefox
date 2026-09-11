@@ -3,7 +3,8 @@ import { recordTelemetryCounter } from '../telemetry/telemetryCounterReporter.js
 
 export const FEEDBACK_STATE_KEY = 'feedbackPromptState';
 export const FEEDBACK_INITIAL_DELAY_MS = 14 * 24 * 60 * 60 * 1000;
-export const FEEDBACK_MAX_PROMPTS = 1;
+export const FEEDBACK_REPEAT_DELAY_MS = 21 * 24 * 60 * 60 * 1000;
+export const FEEDBACK_MAX_PROMPTS = 3;
 export const FEEDBACK_MIN_HANDLED_REQUESTS = 20;
 export const FEEDBACK_MIN_FOCUS_SESSIONS = 3;
 export const FEEDBACK_MIN_ACTIVE_DAYS = 3;
@@ -64,6 +65,11 @@ export function shouldShowFeedbackPrompt({
   if (normalizedState.completed) return false;
   if (normalizedState.promptCount >= FEEDBACK_MAX_PROMPTS) return false;
   if (!installedAt || now - installedAt < FEEDBACK_INITIAL_DELAY_MS) return false;
+  if (
+    normalizedState.promptCount > 0 &&
+    normalizedState.lastPromptedAt > 0 &&
+    now - normalizedState.lastPromptedAt < FEEDBACK_REPEAT_DELAY_MS
+  ) return false;
   if (!hasMeaningfulFeedbackUsage({ statistics })) return false;
 
   return true;

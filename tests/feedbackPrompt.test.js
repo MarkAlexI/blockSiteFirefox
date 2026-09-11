@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   FEEDBACK_STATE_KEY,
   FEEDBACK_INITIAL_DELAY_MS,
+  FEEDBACK_REPEAT_DELAY_MS,
   FEEDBACK_MAX_PROMPTS,
   FEEDBACK_MIN_ACTIVE_DAYS,
   FEEDBACK_MIN_FOCUS_SESSIONS,
@@ -102,17 +103,44 @@ test('feedback prompt waits fourteen days even for an established user', () => {
   }), true);
 });
 
-test('feedback prompt is shown automatically at most once', () => {
+test('feedback prompt allows three attempts separated by twenty-one days', () => {
   const now = Date.parse('2026-08-10T12:00:00Z');
   const installationDate = new Date(now - 30 * 24 * 60 * 60 * 1000).toISOString();
 
   assert.equal(shouldShowFeedbackPrompt({
     now,
     installationDate,
+    state: {
+      promptCount: 1,
+      lastPromptedAt: now - FEEDBACK_REPEAT_DELAY_MS + 1
+    },
+    statistics: createEligibleStatistics()
+  }), false);
+  assert.equal(shouldShowFeedbackPrompt({
+    now,
+    installationDate,
+    state: {
+      promptCount: 1,
+      lastPromptedAt: now - FEEDBACK_REPEAT_DELAY_MS
+    },
+    statistics: createEligibleStatistics()
+  }), true);
+  assert.equal(shouldShowFeedbackPrompt({
+    now,
+    installationDate,
+    state: {
+      promptCount: 2,
+      lastPromptedAt: now - FEEDBACK_REPEAT_DELAY_MS
+    },
+    statistics: createEligibleStatistics()
+  }), true);
+  assert.equal(shouldShowFeedbackPrompt({
+    now,
+    installationDate,
     state: { promptCount: FEEDBACK_MAX_PROMPTS, lastPromptedAt: 0 },
     statistics: createEligibleStatistics()
   }), false);
-  assert.equal(FEEDBACK_MAX_PROMPTS, 1);
+  assert.equal(FEEDBACK_MAX_PROMPTS, 3);
 });
 
 test('completed feedback state never prompts again', () => {
