@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../styles/common.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/options.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/controls.css" type="text/css" media="all" />
@@ -14,6 +15,9 @@
 <body>
   <div class="container">
     <header>
+      <nav class="options-navigation" aria-label="BlockDistraction">
+        <a href="../index.html" class="footer-btn options-back-link" data-i18n="backtopopup">Back to Main</a>
+      </nav>
       <h1 id="header-text">Site Blocker</h1>
       <h2 data-i18n="optionsheader">Extension Settings</h2>
       <p data-i18n="optionsdescription">Configure your extension behavior and security settings</p>
@@ -113,14 +117,26 @@
               </div>
             </div>
           </div>
-          <div class="setting-item">
+          <div class="setting-item hidden pro-feature">
             <div class="setting-info">
-              <label for="focusSessionSound" data-i18n="focussessionsoundtitle">Focus Session Sound Notification</label>
-              <span class="setting-description" data-i18n="focussessionsounddesc">Play a sound when the focus session ends.</span>
+              <label for="enablePassword" data-i18n="enablepasswordtitle">Enable password for rule changes</label>
+              <span class="setting-description" data-i18n="enablepassworddesc">Require password to delete or edit rules (enhances strict mode)</span>
             </div>
             <div class="toggle-switch">
-              <input type="checkbox" id="focusSessionSound" class="toggle-input">
-              <label for="focusSessionSound" class="toggle-label">
+              <input type="checkbox" id="enablePassword" class="toggle-input">
+              <label for="enablePassword" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="setting-item hidden pro-feature">
+            <div class="setting-info">
+              <label for="confirmBeforeDelete" data-i18n="confirmdeletetitle">Confirm before deleting multiple rules</label>
+              <span class="setting-description" data-i18n="confirmdeletedesc">Show confirmation dialog when deleting multiple rules at once</span>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="confirmBeforeDelete" class="toggle-input">
+              <label for="confirmBeforeDelete" class="toggle-label">
                 <span class="toggle-slider"></span>
               </label>
             </div>
@@ -143,56 +159,14 @@
               </label>
             </div>
           </div>
-        </div>
-      </section>
-      
-      <section class="setting-section hidden pro-feature collapsible-section">
-        <h2 data-i18n="advancedsettingstitle" class="collapsible-header">Advanced Settings</h2>
-        <div class="collapsible-content">
           <div class="setting-item">
             <div class="setting-info">
-              <label for="confirmBeforeDelete" data-i18n="confirmdeletetitle">Confirm before deleting multiple rules</label>
-              <span class="setting-description" data-i18n="confirmdeletedesc">Show confirmation dialog when deleting multiple rules at once</span>
+              <label for="focusSessionSound" data-i18n="focussessionsoundtitle">Focus Session Sound Notification</label>
+              <span class="setting-description" data-i18n="focussessionsounddesc">Play a sound when the focus session ends.</span>
             </div>
             <div class="toggle-switch">
-              <input type="checkbox" id="confirmBeforeDelete" class="toggle-input">
-              <label for="confirmBeforeDelete" class="toggle-label">
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="setting-section hidden pro-feature collapsible-section">
-        <h2 data-i18n="passwordprotectiontitle" class="collapsible-header">Password Protection</h2>
-        <div class="collapsible-content">
-          <div class="setting-item">
-            <div class="setting-info">
-              <label for="enablePassword" data-i18n="enablepasswordtitle">Enable password for rule changes</label>
-              <span class="setting-description" data-i18n="enablepassworddesc">Require password to delete or edit rules (enhances strict mode)</span>
-            </div>
-            <div class="toggle-switch">
-              <input type="checkbox" id="enablePassword" class="toggle-input">
-              <label for="enablePassword" class="toggle-label">
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="setting-section hidden pro-feature collapsible-section">
-        <h2 data-i18n="debugsettingstitle" class="collapsible-header">Debug Settings</h2>
-        <div class="collapsible-content">
-          <div class="setting-item">
-            <div class="setting-info">
-              <label for="enableDebug" data-i18n="enabledebugtitle">Enable Debug Mode</label>
-              <span class="setting-description" data-i18n="enabledebugdesc">Enable detailed logging to console for troubleshooting</span>
-            </div>
-            <div class="toggle-switch">
-              <input type="checkbox" id="enableDebug" class="toggle-input">
-              <label for="enableDebug" class="toggle-label">
+              <input type="checkbox" id="focusSessionSound" class="toggle-input">
+              <label for="focusSessionSound" class="toggle-label">
                 <span class="toggle-slider"></span>
               </label>
             </div>
@@ -217,12 +191,18 @@
               </label>
             </div>
           </div>
-        </div>
-      </section>
-      
-      <section class="setting-section collapsible-section">
-        <h2 data-i18n="diagnosticstitle" class="collapsible-header">Diagnostics</h2>
-        <div class="collapsible-content">
+          <div class="setting-item hidden pro-feature">
+            <div class="setting-info">
+              <label for="enableDebug" data-i18n="enabledebugtitle">Enable Debug Mode</label>
+              <span class="setting-description" data-i18n="enabledebugdesc">Enable detailed logging to console for troubleshooting</span>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enableDebug" class="toggle-input">
+              <label for="enableDebug" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
           <div class="diagnostics-panel">
             <p class="setting-description" data-i18n="diagnosticsdesc">Generate a privacy-safe technical report for troubleshooting.</p>
             <p class="diagnostics-notice" data-i18n="diagnosticsdebugnotice">Recent event history is collected only while Debug Mode is enabled. Saved URLs and license data are never included.</p>
@@ -346,15 +326,12 @@
       </section>
     </main>
     
-    <div class="hidden pro-feature">
-      <footer>
-        <div class="status-message" id="statusMessage"></div>
-        <div class="footer-actions hidden pro-feature">
-          <button id="resetSettings" class="footer-btn" data-i18n="resetsettingsbtn">Reset to Defaults</button>
-          <a href="../index.html" class="footer-btn primary" data-i18n="backtopopup">Back to Main</a>
-        </div>
-      </footer>
-    </div>
+    <footer>
+      <div class="status-message" id="statusMessage"></div>
+      <div class="footer-actions">
+        <button id="resetSettings" class="footer-btn hidden pro-feature" data-i18n="resetsettingsbtn">Reset to Defaults</button>
+      </div>
+    </footer>
     
     <div id="search-filter-container" class="hidden pro-feature">
       <section class="rule-packs-panel">

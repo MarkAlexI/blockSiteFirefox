@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 import {
   FEEDBACK_STATE_KEY,
   FEEDBACK_INITIAL_DELAY_MS,
-  FEEDBACK_SNOOZE_MS,
   FEEDBACK_MAX_PROMPTS,
+  FEEDBACK_MIN_ACTIVE_DAYS,
+  FEEDBACK_MIN_FOCUS_SESSIONS,
+  FEEDBACK_MIN_HANDLED_REQUESTS,
+  countFeedbackUsageDays,
   hasMeaningfulFeedbackUsage,
   shouldShowFeedbackPrompt,
   createFeedbackPromptController,
@@ -26,62 +29,90 @@ function createStorage(initial = {}) {
   };
 }
 
-test('feedback prompt requires meaningful local usage', () => {
-  assert.equal(hasMeaningfulFeedbackUsage({ rules: [{}, {}] }), true);
+function createUsageHistory(entries = [
+  { blocked: 7 },
+  { blocked: 7 },
+  { blocked: 6 }
+]) {
+  return Object.fromEntries(entries.map((entry, index) => [
+    `2026-08-${String(index + 1).padStart(2, '0')}`,
+    { blocked: 0, redirected: 0, focusSessions: 0, ...entry }
+  ]));
+}
+
+function createEligibleStatistics() {
+  return {
+    totalBlocked: FEEDBACK_MIN_HANDLED_REQUESTS,
+    dailyHistory: createUsageHistory()
+  };
+}
+
+test('feedback prompt requires established local usage on multiple days', () => {
+  assert.equal(hasMeaningfulFeedbackUsage({ rules: [{}, {}] }), false);
   assert.equal(hasMeaningfulFeedbackUsage({
-    rules: [{}],
-    statistics: { totalBlocked: 5 }
-  }), true);
-  assert.equal(hasMeaningfulFeedbackUsage({
-    statistics: { successfulFocusSessions: 1 }
-  }), true);
-  assert.equal(hasMeaningfulFeedbackUsage({
-    rules: [{}],
-    statistics: { totalBlocked: 2, totalRedirects: 2 }
+    statistics: {
+      totalBlocked: FEEDBACK_MIN_HANDLED_REQUESTS,
+      dailyHistory: createUsageHistory([{ blocked: FEEDBACK_MIN_HANDLED_REQUESTS }])
+    }
   }), false);
+  assert.equal(hasMeaningfulFeedbackUsage({
+    statistics: {
+      totalBlocked: FEEDBACK_MIN_HANDLED_REQUESTS - 1,
+      dailyHistory: createUsageHistory()
+    }
+  }), false);
+  assert.equal(hasMeaningfulFeedbackUsage({
+    statistics: createEligibleStatistics()
+  }), true);
+  assert.equal(hasMeaningfulFeedbackUsage({
+    statistics: {
+      successfulFocusSessions: FEEDBACK_MIN_FOCUS_SESSIONS,
+      dailyHistory: createUsageHistory([
+        { focusSessions: 1 },
+        { focusSessions: 1 },
+        { focusSessions: 1 }
+      ])
+    }
+  }), true);
+  assert.equal(countFeedbackUsageDays({
+    dailyHistory: {
+      first: { blocked: 1 },
+      second: { redirected: 1 },
+      empty: { blocked: 0 },
+      invalid: null
+    }
+  }), 2);
+  assert.equal(FEEDBACK_MIN_ACTIVE_DAYS, 3);
 });
 
-test('feedback prompt waits seven days even for an active user', () => {
+test('feedback prompt waits fourteen days even for an established user', () => {
   const now = Date.parse('2026-08-10T12:00:00Z');
   assert.equal(shouldShowFeedbackPrompt({
     now,
     installationDate: new Date(now - FEEDBACK_INITIAL_DELAY_MS + 1).toISOString(),
     state: {},
-    rules: [{}, {}]
+    statistics: createEligibleStatistics()
   }), false);
 
   assert.equal(shouldShowFeedbackPrompt({
     now,
     installationDate: new Date(now - FEEDBACK_INITIAL_DELAY_MS).toISOString(),
     state: {},
-    rules: [{}, {}]
+    statistics: createEligibleStatistics()
   }), true);
 });
 
-test('feedback prompt is shown at most twice and respects the snooze interval', () => {
+test('feedback prompt is shown automatically at most once', () => {
   const now = Date.parse('2026-08-10T12:00:00Z');
   const installationDate = new Date(now - 30 * 24 * 60 * 60 * 1000).toISOString();
 
   assert.equal(shouldShowFeedbackPrompt({
     now,
     installationDate,
-    state: { promptCount: 1, lastPromptedAt: now - FEEDBACK_SNOOZE_MS + 1 },
-    rules: [{}, {}]
-  }), false);
-
-  assert.equal(shouldShowFeedbackPrompt({
-    now,
-    installationDate,
-    state: { promptCount: 1, lastPromptedAt: now - FEEDBACK_SNOOZE_MS },
-    rules: [{}, {}]
-  }), true);
-
-  assert.equal(shouldShowFeedbackPrompt({
-    now,
-    installationDate,
     state: { promptCount: FEEDBACK_MAX_PROMPTS, lastPromptedAt: 0 },
-    rules: [{}, {}]
+    statistics: createEligibleStatistics()
   }), false);
+  assert.equal(FEEDBACK_MAX_PROMPTS, 1);
 });
 
 test('completed feedback state never prompts again', () => {
@@ -90,15 +121,14 @@ test('completed feedback state never prompts again', () => {
     now,
     installationDate: '2026-01-01T00:00:00Z',
     state: { completed: true },
-    rules: [{}, {}]
+    statistics: createEligibleStatistics()
   }), false);
 });
 
 test('legacy feedback completion is migrated from sync storage', async () => {
   const now = Date.parse('2026-08-10T12:00:00Z');
   const localStorage = createStorage({
-    rules: [{}, {}],
-    statistics: { totalBlocked: 10 }
+    statistics: createEligibleStatistics()
   });
   const syncStorage = createStorage({
     credentials: { installationDate: '2026-01-01T00:00:00Z' },
@@ -225,7 +255,7 @@ function createFeedbackDocument() {
 
 function createEligibleFeedbackStorage() {
   return {
-    localStorage: createStorage({ rules: [{}, {}] }),
+    localStorage: createStorage({ statistics: createEligibleStatistics() }),
     syncStorage: createStorage({
       credentials: { installationDate: '2026-01-01T00:00:00Z' }
     })

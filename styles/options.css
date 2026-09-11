@@ -48,6 +48,16 @@ header {
   padding: clamp(0.5rem, 1.75vw, 0.7rem) 0;
 }
 
+.options-navigation {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.options-back-link {
+  padding: 0.5rem 0.875rem;
+}
+
 header h1 {
   color: var(--text-primary);
   font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -854,6 +864,24 @@ footer {
 }
 
 @media (max-width: 480px) {
+  .container {
+    gap: 0.75rem;
+  }
+
+  .settings-content {
+    gap: 0.5rem;
+  }
+
+  .setting-section:not(.expanded) {
+    padding: 0.25rem 0.625rem;
+  }
+
+  .setting-section:not(.expanded) .collapsible-header {
+    min-height: 2.75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
   .radio-option label {
     padding: 0.5rem;
   }

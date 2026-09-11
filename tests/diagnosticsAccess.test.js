@@ -6,14 +6,45 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-test('current-state diagnostics are visible to all users while Debug Mode remains Pro', async () => {
+test('current-state diagnostics remain available to all users while Debug Mode stays Pro', async () => {
   const html = await readFile(path.join(root, 'options/options.html'), 'utf8');
-  const debugSection = html.match(/<section class="([^"]*)">\s*<h2[^>]*data-i18n="debugsettingstitle"[\s\S]*?<\/section>/)?.[1] || '';
-  const diagnosticsSection = html.match(/<section class="([^"]*)">\s*<h2[^>]*data-i18n="diagnosticstitle"[\s\S]*?<\/section>/)?.[1] || '';
+  const debugItem = html.match(/<div class="([^"]*setting-item[^"]*)">\s*<div class="setting-info">\s*<label for="enableDebug"/)?.[1] || '';
+  const diagnosticsPanel = html.match(/<div class="([^"]*diagnostics-panel[^"]*)">/)?.[1] || '';
 
-  assert.match(debugSection, /pro-feature/);
-  assert.doesNotMatch(diagnosticsSection, /pro-feature/);
-  assert.doesNotMatch(diagnosticsSection, /hidden/);
+  assert.match(debugItem, /pro-feature/);
+  assert.match(debugItem, /hidden/);
+  assert.doesNotMatch(diagnosticsPanel, /pro-feature/);
+  assert.doesNotMatch(diagnosticsPanel, /hidden/);
+  const localizationAttribute = `data-${'i18n'}`;
+  assert.doesNotMatch(
+    html,
+    new RegExp(`${localizationAttribute}="(?:debugsettingstitle|diagnosticstitle)" class="collapsible-header"`)
+  );
+});
+
+test('Options uses five compact sections and a shared return link', async () => {
+  const html = await readFile(path.join(root, 'options/options.html'), 'utf8');
+  const css = await readFile(path.join(root, 'styles/options.css'), 'utf8');
+  const sectionTitles = [
+    'securitymodetitle',
+    'basicsettingstitle',
+    'privacysettingstitle',
+    'rulesmanagementtitle',
+    'statisticstitle'
+  ];
+
+  assert.equal(
+    (html.match(/<section[^>]*class="[^"]*setting-section[^"]*collapsible-section[^"]*"/g) || []).length,
+    sectionTitles.length
+  );
+  for (const key of sectionTitles) {
+    assert.match(html, new RegExp(`<h2 data-${'i18n'}="${key}" class="collapsible-header">`));
+  }
+  assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1">/);
+  assert.match(html, /<nav class="options-navigation"[\s\S]*?<a href="\.\.\/index\.html" class="footer-btn options-back-link" data-i18n="backtopopup">/);
+  assert.doesNotMatch(html, /options-back-link[^>]*(?:pro-feature|hidden)/);
+  assert.match(html, /id="resetSettings" class="footer-btn hidden pro-feature"/);
+  assert.match(css, /\.setting-section:not\(\.expanded\) \.collapsible-header/);
 });
 
 test('Statistics is a collapsed Pro section by default', async () => {

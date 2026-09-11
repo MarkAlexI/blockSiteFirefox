@@ -28,6 +28,7 @@ import {
 } from './rules/blockingMode.js';
 import { installPageErrorReporter } from './telemetry/pageErrorReporter.js';
 import { initFeedbackPrompt } from './feedback/feedbackPrompt.js';
+import { StatisticsManager } from './pro/statisticsManager.js';
 
 installPageErrorReporter('popup');
 
@@ -48,6 +49,7 @@ class PopupPage {
     this.addWhitelistRuleButton = document.getElementById('add-whitelist-rule');
     this.statusOutput = document.getElementById('status');
     this.currentModeElement = document.getElementById('current-mode');
+    this.blockedTodayElement = document.getElementById('popup-blocked-today');
     this.scrollToTopBtn = document.getElementById('scrollToTopBtn');
     
     this.focusSection = document.getElementById('focus-session-section');
@@ -96,6 +98,7 @@ class PopupPage {
     
     this.updateWhitelistButtonState();
     
+    await this.loadStatisticsSummary();
     await this.loadRules();
     await this.initFocusSession();
     await initFeedbackPrompt();
@@ -116,13 +119,32 @@ class PopupPage {
   
   setupStorageListeners() {
     this.storageChangeHandler = (changes, areaName) => {
-      if (areaName !== 'local' || !changes?.dailyRuleUsage) return;
+      if (areaName !== 'local') return;
+
+      if (changes?.statistics) {
+        this.updateStatisticsSummary(changes.statistics.newValue);
+      }
+
+      if (!changes?.dailyRuleUsage) return;
       const previousUsage = changes.dailyRuleUsage.oldValue?.usageSeconds || {};
       const nextUsage = changes.dailyRuleUsage.newValue?.usageSeconds || {};
       if (JSON.stringify(previousUsage) === JSON.stringify(nextUsage)) return;
       void this.loadRules();
     };
     browser.storage.onChanged.addListener(this.storageChangeHandler);
+  }
+
+  async loadStatisticsSummary() {
+    const statistics = await StatisticsManager.getStatistics();
+    this.updateStatisticsSummary(statistics);
+  }
+
+  updateStatisticsSummary(statistics = {}) {
+    if (!this.blockedTodayElement) return;
+    const value = Number(statistics?.blockedToday);
+    this.blockedTodayElement.textContent = String(
+      Number.isFinite(value) && value > 0 ? Math.floor(value) : 0
+    );
   }
 
   async loadSettings() {

@@ -5,8 +5,8 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.2.12-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
-[![Firefox Source](https://img.shields.io/badge/Firefox%20Source-v5.2.12-orange?logo=firefox-browser)](https://github.com/MarkAlexI/blockSiteFirefox)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.2.13-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Firefox Source](https://img.shields.io/badge/Firefox%20Source-v5.2.13-orange?logo=firefox-browser)](https://github.com/MarkAlexI/blockSiteFirefox)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -97,7 +97,7 @@ Blocking rules are stored locally on each browser installation so the extension 
 Each active-profile assignment has one clear blocking mode: Always, Schedule, or Daily limit. Schedule and Daily limit cannot be enabled at the same time within one assignment. The same target can therefore use different schedules or limits in General, Work, Study, or other profiles without inactive profiles affecting the current result. Pro and legacy users can set a Daily limit to allow a matching site for a defined number of visible foreground minutes per local calendar day. Once the active profile budget is exhausted, the existing DNR engine blocks the target. Daily usage stays on the device and is not included in rule exports or telemetry.
 
 ### 4. Minimalist User Interface
-The extension's interface is designed for simplicity. The popup window provides an intuitive experience where users can quickly view, add, or delete rules for specific websites. There's no clutter—just straightforward functionality.
+The extension's interface is designed for simplicity. The popup window provides an intuitive experience where users can quickly view, add, or delete rules for specific websites. A device-local Blocked Today count quietly confirms that protection is active, while detailed history remains in Pro Statistics. There's no clutter—just straightforward functionality.
 
 ### 5. Internationalization (i18n)
 The extension supports multiple languages through the `chrome.i18n` API. The extension currently ships 57 locale directories with translated interface strings. The `_locales` folder contains subfolders for each supported language, with `messages.json` files that provide translations for the extension's text elements. The browser automatically detects the user’s language settings and displays the appropriate translation. The `i18n.js` file simplifies the process of populating the popup with the correct text in each language.

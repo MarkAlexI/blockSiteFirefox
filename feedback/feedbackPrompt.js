@@ -2,11 +2,11 @@ import { REVIEWS_LINK, SUPPORT_LINK } from '../utils/constants.js';
 import { recordTelemetryCounter } from '../telemetry/telemetryCounterReporter.js';
 
 export const FEEDBACK_STATE_KEY = 'feedbackPromptState';
-export const FEEDBACK_INITIAL_DELAY_MS = 7 * 24 * 60 * 60 * 1000;
-export const FEEDBACK_SNOOZE_MS = 14 * 24 * 60 * 60 * 1000;
-export const FEEDBACK_MAX_PROMPTS = 2;
-export const FEEDBACK_MIN_HANDLED_REQUESTS = 5;
-export const FEEDBACK_MIN_RULES = 2;
+export const FEEDBACK_INITIAL_DELAY_MS = 14 * 24 * 60 * 60 * 1000;
+export const FEEDBACK_MAX_PROMPTS = 1;
+export const FEEDBACK_MIN_HANDLED_REQUESTS = 20;
+export const FEEDBACK_MIN_FOCUS_SESSIONS = 3;
+export const FEEDBACK_MIN_ACTIVE_DAYS = 3;
 
 function asTimestamp(value) {
   const timestamp = typeof value === 'number' ? value : Date.parse(value || '');
@@ -25,26 +25,37 @@ function normalizeState(state = {}) {
   };
 }
 
-export function hasMeaningfulFeedbackUsage({ rules = [], statistics = {} } = {}) {
-  const ruleCount = Array.isArray(rules) ? rules.length : 0;
-  const handledRequests =
-    Math.max(0, Number(statistics.totalBlocked) || 0) +
-    Math.max(0, Number(statistics.totalRedirects) || 0);
-  const completedFocusSessions = Math.max(
-    0,
-    Number(statistics.successfulFocusSessions) || 0
-  );
+function asCounter(value) {
+  const number = Number(value);
+  return Number.isFinite(number) && number > 0 ? Math.floor(number) : 0;
+}
 
-  return ruleCount >= FEEDBACK_MIN_RULES ||
+export function countFeedbackUsageDays(statistics = {}) {
+  const history = statistics?.dailyHistory;
+  if (!history || typeof history !== 'object' || Array.isArray(history)) return 0;
+
+  return Object.values(history).filter(entry =>
+    entry && typeof entry === 'object' &&
+    asCounter(entry.blocked) + asCounter(entry.redirected) + asCounter(entry.focusSessions) > 0
+  ).length;
+}
+
+export function hasMeaningfulFeedbackUsage({ statistics = {} } = {}) {
+  const handledRequests =
+    asCounter(statistics.totalBlocked) + asCounter(statistics.totalRedirects);
+  const completedFocusSessions = asCounter(statistics.successfulFocusSessions);
+  const activeDays = countFeedbackUsageDays(statistics);
+
+  return activeDays >= FEEDBACK_MIN_ACTIVE_DAYS && (
     handledRequests >= FEEDBACK_MIN_HANDLED_REQUESTS ||
-    completedFocusSessions >= 1;
+    completedFocusSessions >= FEEDBACK_MIN_FOCUS_SESSIONS
+  );
 }
 
 export function shouldShowFeedbackPrompt({
   now = Date.now(),
   installationDate,
   state = {},
-  rules = [],
   statistics = {}
 } = {}) {
   const normalizedState = normalizeState(state);
@@ -53,21 +64,14 @@ export function shouldShowFeedbackPrompt({
   if (normalizedState.completed) return false;
   if (normalizedState.promptCount >= FEEDBACK_MAX_PROMPTS) return false;
   if (!installedAt || now - installedAt < FEEDBACK_INITIAL_DELAY_MS) return false;
-  if (!hasMeaningfulFeedbackUsage({ rules, statistics })) return false;
-
-  if (
-    normalizedState.lastPromptedAt > 0 &&
-    now - normalizedState.lastPromptedAt < FEEDBACK_SNOOZE_MS
-  ) {
-    return false;
-  }
+  if (!hasMeaningfulFeedbackUsage({ statistics })) return false;
 
   return true;
 }
 
 async function loadFeedbackContext({ localStorage, syncStorage }) {
   const [localResult, syncResult] = await Promise.all([
-    localStorage.get([FEEDBACK_STATE_KEY, 'rules', 'statistics']),
+    localStorage.get([FEEDBACK_STATE_KEY, 'statistics']),
     syncStorage.get(['credentials', 'ui_prefs'])
   ]);
 
@@ -91,7 +95,6 @@ async function loadFeedbackContext({ localStorage, syncStorage }) {
 
   return {
     state,
-    rules: Array.isArray(localResult?.rules) ? localResult.rules : [],
     statistics: localResult?.statistics || {},
     installationDate: syncResult?.credentials?.installationDate || null
   };
@@ -119,7 +122,6 @@ export function createFeedbackPromptController({
         now: now(),
         installationDate: context.installationDate,
         state: context.state,
-        rules: context.rules,
         statistics: context.statistics
       })
     };
