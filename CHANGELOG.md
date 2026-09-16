@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stale asynchronous checks cannot redirect a tab after it has already moved to a newer URL.
 
 ### Privacy
-- SPA checks reuse existing local rules and browser permissions. The RC can keep fixed local outcomes in Debug Mode, but no URLs, rule contents, or new diagnostic fields are sent to the server.
+- SPA checks reuse existing local rules and browser permissions. No URLs, rule contents, or new diagnostic fields are sent to the server.
 
 ## [5.2.15] - 2026-09-15
 

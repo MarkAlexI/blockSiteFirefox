@@ -3869,7 +3869,7 @@ test('a same-document path change applies an active rule without waiting for rel
   }, { local: { rules, activeRuleListId: 'general' } });
 });
 
-test('RC Debug Mode stores only a fixed SPA outcome without the visited URL', async () => {
+test('release builds do not retain the RC-only SPA diagnostic event', async () => {
   const rules = [
     makeFocusRule(941, 'general', { blockURL: 'youtube.com/shorts' })
   ];
@@ -3887,9 +3887,7 @@ test('RC Debug Mode stores only a fixed SPA outcome without the visited URL', as
     const event = api.storage.local.data.diagnosticEvents?.find(candidate =>
       candidate.source === 'spa_navigation' && candidate.code === 'url_change'
     );
-    assert.deepEqual(event?.details, { outcome: 'redirected' });
-    assert.equal(JSON.stringify(event).includes('youtube'), false);
-    assert.equal(JSON.stringify(event).includes('private-example'), false);
+    assert.equal(event, undefined);
   }, {
     settings: { debugMode: true },
     local: { rules, activeRuleListId: 'general' }
