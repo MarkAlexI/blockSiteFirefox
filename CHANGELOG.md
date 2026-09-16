@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.16] - 2026-09-16
+
+### Fixed
+- Active path rules are re-evaluated after same-document navigation, so supported single-page applications can block or redirect a newly opened distracting section without requiring a manual reload.
+- Stale asynchronous checks cannot redirect a tab after it has already moved to a newer URL.
+
+### Privacy
+- SPA checks reuse existing local rules and browser permissions. The RC can keep fixed local outcomes in Debug Mode, but no URLs, rule contents, or new diagnostic fields are sent to the server.
+
 ## [5.2.15] - 2026-09-15
 
 ### Changed

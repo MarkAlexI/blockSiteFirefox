@@ -347,6 +347,7 @@ export function createExtensionApi({ sync = {}, local = {}, tabs = [], version =
   const messages = [];
   const removedTabs = [];
   const createdTabs = [];
+  const updatedTabs = [];
   const uninstallUrls = [];
   const storageListeners = [];
 
@@ -354,6 +355,7 @@ export function createExtensionApi({ sync = {}, local = {}, tabs = [], version =
     messages,
     removedTabs,
     createdTabs,
+    updatedTabs,
     uninstallUrls,
     storage: {
       sync: createStorageArea(sync),
@@ -382,7 +384,13 @@ export function createExtensionApi({ sync = {}, local = {}, tabs = [], version =
         return Promise.resolve(result);
       },
       async remove(ids) { removedTabs.push(...(Array.isArray(ids) ? ids : [ids])); },
-      async create(details) { createdTabs.push(details); return details; }
+      async create(details) { createdTabs.push(details); return details; },
+      async update(tabId, details) {
+        updatedTabs.push({ tabId, details: structuredClone(details) });
+        const tab = this.values.find(candidate => candidate.id === tabId);
+        if (tab && typeof details?.url === 'string') tab.url = details.url;
+        return tab ? structuredClone(tab) : { id: tabId, ...structuredClone(details) };
+      }
     },
     i18n: {
       getMessage(key, substitutions) {

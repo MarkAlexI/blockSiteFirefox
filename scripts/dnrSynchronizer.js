@@ -1,5 +1,6 @@
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
+import { findBestMatchingRule } from '../rules/urlRuleMatcher.js';
 import { hasUnsupportedExplicitScheme } from './isBlockedURL.js';
 
 const SAFE_DYNAMIC_RULE_ACTIONS = new Set([
@@ -193,6 +194,7 @@ export function createDnrSynchronizer({
     }
 
     const dnrRules = [];
+    const activeEntries = [];
 
     for (const rule of activeRules) {
       const blockReason = focusActive
@@ -207,10 +209,26 @@ export function createDnrSynchronizer({
 
       if (dnrRule) {
         dnrRules.push(dnrRule);
+        activeEntries.push({ rule, dnrRule });
       }
     }
 
-    return { activeRules, dnrRules };
+    return { activeRules, dnrRules, activeEntries };
+  }
+
+  async function resolveNavigation(url) {
+    const { activeEntries } = await buildExpectedDnrState();
+    const matchedRule = findBestMatchingRule(
+      url,
+      activeEntries.map(entry => entry.rule)
+    );
+    if (!matchedRule) return null;
+
+    const entry = activeEntries.find(candidate => candidate.rule === matchedRule);
+    const redirectUrl = entry?.dnrRule?.action?.redirect?.url;
+    return typeof redirectUrl === 'string' && redirectUrl !== ''
+      ? { redirectUrl }
+      : null;
   }
 
   async function syncActiveRulesOnce(generation, reconcileExistingTabs) {
@@ -386,6 +404,7 @@ export function createDnrSynchronizer({
     requestSync,
     validateIntegrity,
     inspectState,
-    validateRuleCapacity
+    validateRuleCapacity,
+    resolveNavigation
   };
 }

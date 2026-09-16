@@ -171,6 +171,55 @@ test('DNR construction receives the active blocking reason with Focus taking pri
   assert.deepEqual(focusCalls, [{ id: 4, blockReason: 'focus' }]);
 });
 
+test('SPA resolution reuses active DNR redirects and prefers the most specific path rule', async () => {
+  const harness = createHarness({
+    storedRules: [
+      makeStoredRule({ id: 10, blockURL: 'youtube.com' }),
+      makeStoredRule({
+        id: 11,
+        blockURL: 'youtube.com/shorts',
+        redirectURL: 'https://example.org/focus'
+      })
+    ],
+    createRule: async (id, blockURL, redirectURL, blockReason) => makeDnrRule({
+      id,
+      urlFilter: `||${blockURL}`,
+      redirectUrl: redirectURL || `extension://blocked.html?reason=${blockReason}`
+    })
+  });
+
+  const resolved = await harness.synchronizer.resolveNavigation(
+    'https://www.youtube.com/shorts/example'
+  );
+
+  assert.deepEqual(resolved, { redirectUrl: 'https://example.org/focus' });
+});
+
+test('SPA resolution ignores inactive, unsupported, and protected targets', async () => {
+  const inactive = createHarness({
+    activationEvaluator: () => false
+  });
+  const unsupported = createHarness({
+    storedRules: [makeStoredRule({ id: 2, blockURL: 'file:///tmp/page.html' })]
+  });
+  const protectedHost = createHarness({
+    storedRules: [makeStoredRule({ id: 3, blockURL: 'block' })]
+  });
+
+  assert.equal(
+    await inactive.synchronizer.resolveNavigation('https://example.com/'),
+    null
+  );
+  assert.equal(
+    await unsupported.synchronizer.resolveNavigation('file:///tmp/page.html'),
+    null
+  );
+  assert.equal(
+    await protectedHost.synchronizer.resolveNavigation('https://blockdistraction.com/'),
+    null
+  );
+});
+
 test('unsupported legacy schemes stay stored but are removed from browser DNR', async () => {
   const storedRules = [
     makeStoredRule({ id: 1, blockURL: 'file:///tmp/page.html' }),

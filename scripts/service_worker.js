@@ -15,6 +15,7 @@ import { isBlockedURL } from './isBlockedURL.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer } from './dnrSynchronizer.js';
+import { createSpaNavigationEnforcer } from './spaNavigationEnforcer.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { BLOCKING_MODE_DAILY_LIMIT } from '../rules/blockingMode.js';
@@ -42,8 +43,10 @@ import {
   ASYNC_HANDLER_OPERATIONS,
   createAsyncHandlerBoundary
 } from '../telemetry/asyncHandlerBoundary.js';
+import { BUILD_ID } from '../utils/buildInfo.js';
 
 const logger = new Logger('Worker');
+const IS_RELEASE_CANDIDATE = /^RC\d+$/i.test(BUILD_ID);
 const MANUAL_LICENSE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);
 const rulesManager = new RulesManager();
 const ruleListsManager = new RuleListsManager(browser.storage.local);
@@ -96,6 +99,18 @@ const diagnosticStore = createDiagnosticStore({
     };
   }
 });
+
+async function recordSpaNavigationDiagnostic(outcome) {
+  if (!IS_RELEASE_CANDIDATE) return;
+
+  try {
+    await diagnosticStore.recordEvent('info', 'spa_navigation', 'url_change', {
+      outcome
+    });
+  } catch (error) {
+    logger.info('SPA navigation diagnostics could not be persisted:', error);
+  }
+}
 
 const hostPermissionMonitor = createHostPermissionMonitor({
   permissionsApi: browser.permissions,
@@ -325,6 +340,13 @@ const dnrSynchronizer = createDnrSynchronizer({
   onSyncResult: recordDnrSyncResult
 });
 
+const spaNavigationEnforcer = createSpaNavigationEnforcer({
+  tabsApi: browser.tabs,
+  resolveNavigation: url => dnrSynchronizer.resolveNavigation(url),
+  shouldSkipUrl: url => isBlockedURL([{ url }]),
+  logger
+});
+
 const dailyLimitTracker = createDailyLimitTracker({
   tabsApi: browser.tabs,
   scriptingApi: browser.scripting,
@@ -385,7 +407,7 @@ const handleRulesIntent = createRulesIntentHandler(rulesMutationService);
  */
 async function enforceFocusWhitelist(tabId, tabUrl) {
   if (isBlockedURL([{ url: tabUrl }])) {
-    return;
+    return false;
   }
 
   const transitionGeneration = focusSessionTransitionGeneration;
@@ -393,11 +415,11 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
   
   const { focusActive, focusMode } = await getFocusSessionState();
   if (!shouldContinue() || !focusActive || focusMode !== 'whitelist') {
-    return;
+    return false;
   }
   
   const rules = await rulesManager.getRules();
-  if (!shouldContinue()) return;
+  if (!shouldContinue()) return false;
   const whitelistRules = rules.filter(r =>
     r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
   );
@@ -408,18 +430,20 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
       !shouldContinue() ||
       currentSession.focusActive !== true ||
       currentSession.focusMode !== 'whitelist'
-    ) return;
+    ) return false;
 
     const currentRules = await rulesManager.getRules();
-    if (!shouldContinue()) return;
+    if (!shouldContinue()) return false;
     const currentWhitelistRules = currentRules.filter(r =>
       r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
     );
-    if (isUrlInWhitelist(tabUrl, currentWhitelistRules)) return;
+    if (isUrlInWhitelist(tabUrl, currentWhitelistRules)) return true;
 
     logger.log(`Focus Whitelist: Closing non-whitelisted tab ${tabId} (${tabUrl})`);
     await browser.tabs.remove(tabId).catch(() => {});
   }
+
+  return true;
 }
 
 /**
@@ -1161,7 +1185,13 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>
   runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED, async () => {
     if (changeInfo.url) {
-      await enforceFocusWhitelist(tabId, changeInfo.url);
+      const handledByWhitelistFocus = await enforceFocusWhitelist(tabId, changeInfo.url);
+      let spaOutcome = 'whitelist_focus';
+      if (!handledByWhitelistFocus) {
+        const result = await spaNavigationEnforcer.enforce(tabId, changeInfo.url);
+        spaOutcome = result.status;
+      }
+      await recordSpaNavigationDiagnostic(spaOutcome);
       if (tab.active) await dailyLimitTracker.sample('tab_url_changed', new Date(), tab);
     }
 

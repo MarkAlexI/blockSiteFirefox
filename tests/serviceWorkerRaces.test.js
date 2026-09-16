@@ -3845,6 +3845,83 @@ test('a tab update cannot close a site after Whitelist Focus has stopped', async
   }, { local: { rules, activeRuleListId: 'general' } });
 });
 
+test('a same-document path change applies an active rule without waiting for reload', async () => {
+  const rules = [
+    makeFocusRule(94, 'general', { blockURL: 'youtube.com/shorts' })
+  ];
+
+  await withWorker(async ({ api }) => {
+    const url = 'https://www.youtube.com/shorts/example';
+    api.tabs.values.push({ id: 94, active: false, url });
+
+    await api.tabs.onUpdated.listeners[0](94, { url }, {
+      id: 94,
+      active: false,
+      url
+    });
+
+    assert.equal(api.updatedTabs.length, 1);
+    assert.equal(api.updatedTabs[0].tabId, 94);
+    const destination = new URL(api.updatedTabs[0].details.url);
+    assert.equal(destination.pathname, '/blocked.html');
+    assert.equal(destination.searchParams.get('reason'), 'always');
+    assert.equal(destination.searchParams.get('url'), 'youtube.com%2Fshorts');
+  }, { local: { rules, activeRuleListId: 'general' } });
+});
+
+test('RC Debug Mode stores only a fixed SPA outcome without the visited URL', async () => {
+  const rules = [
+    makeFocusRule(941, 'general', { blockURL: 'youtube.com/shorts' })
+  ];
+
+  await withWorker(async ({ api }) => {
+    const url = 'https://www.youtube.com/shorts/private-example';
+    api.tabs.values.push({ id: 941, active: false, url });
+
+    await api.tabs.onUpdated.listeners[0](941, { url }, {
+      id: 941,
+      active: false,
+      url
+    });
+
+    const event = api.storage.local.data.diagnosticEvents?.find(candidate =>
+      candidate.source === 'spa_navigation' && candidate.code === 'url_change'
+    );
+    assert.deepEqual(event?.details, { outcome: 'redirected' });
+    assert.equal(JSON.stringify(event).includes('youtube'), false);
+    assert.equal(JSON.stringify(event).includes('private-example'), false);
+  }, {
+    settings: { debugMode: true },
+    local: { rules, activeRuleListId: 'general' }
+  });
+});
+
+test('Whitelist Focus remains authoritative over SPA blacklist enforcement', async () => {
+  const rules = [
+    makeFocusRule(95, 'general', { blockURL: 'youtube.com/shorts' }),
+    makeFocusRule(96, 'general', { blockURL: 'youtube.com', isWhitelist: true })
+  ];
+
+  await withWorker(async ({ api, send }) => {
+    await send({
+      type: 'start_focus_session',
+      duration: 5,
+      focusMode: 'whitelist'
+    });
+
+    const url = 'https://www.youtube.com/shorts/example';
+    api.tabs.values.push({ id: 95, active: false, url });
+    await api.tabs.onUpdated.listeners[0](95, { url }, {
+      id: 95,
+      active: false,
+      url
+    });
+
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.updatedTabs, []);
+  }, { local: { rules, activeRuleListId: 'general' } });
+});
+
 test('a stale alarm from an earlier focus session cannot end a newer session', async () => {
   await withWorker(async ({ api, send, alarm }) => {
     await send({ type: 'start_focus_session', duration: 1 });

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   buildDiagnosticReport,
   detectBrowserSummary,
+  DIAGNOSTIC_BUILD,
   formatDiagnosticReportText
 } from '../diagnostics/diagnosticReport.js';
 
@@ -56,7 +57,7 @@ test('diagnostic report sanitizes nested private data', () => {
     }]
   });
 
-  assert.equal(report.extension.build, 'release');
+  assert.equal(report.extension.build, DIAGNOSTIC_BUILD);
   assert.equal(report.license.licenseKey, '<redacted>');
   assert.equal(report.recentEvents[0].details.message.includes('example.com'), false);
 });
@@ -114,7 +115,7 @@ test('formatted diagnostic report contains counts and structured events without 
     recentEvents: [{ timestamp: 1, level: 'warn', source: 'license', code: 'verification_failed', details: { reason: 'timeout' } }]
   });
 
-  assert.match(text, /Build: release/);
+  assert.ok(text.includes(`Build: ${DIAGNOSTIC_BUILD}`));
   assert.match(text, /Stored rules: 4/);
   assert.match(text, /DNR integrity: in sync/);
   assert.match(text, /Expected unsafe DNR rules: 2/);

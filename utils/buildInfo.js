@@ -1,4 +1,4 @@
-export const BUILD_ID = 'release';
+export const BUILD_ID = 'RC1';
 
 export function getTelemetryExtensionVersion(manifest = {}, build = BUILD_ID) {
   const version = String(manifest?.version || 'unknown').trim();
