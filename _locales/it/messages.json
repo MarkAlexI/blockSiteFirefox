@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Non è stato possibile modificare l’assegnazione all’elenco selezionato."
+  },
+  "proverificationnotice": {
+    "message": "Per verificare Pro inviamo solo la chiave inserita e i dati tecnici necessari. La cronologia di navigazione e le regole restano sul tuo dispositivo."
   }
 }

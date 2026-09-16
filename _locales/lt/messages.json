@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Nepavyko pakeisti priskyrimo pasirinktam sąrašui."
+  },
+  "proverificationnotice": {
+    "message": "Pro patikrai siunčiame tik jūsų įvestą raktą ir būtinus techninius duomenis. Naršymo istorija ir taisyklės lieka jūsų įrenginyje."
   }
 }

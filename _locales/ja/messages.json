@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "選択したリストへの割り当てを変更できませんでした。"
+  },
+  "proverificationnotice": {
+    "message": "Pro の確認では、入力したキーと必要な技術情報のみ送信します。閲覧履歴とルールは端末に保存されたままです。"
   }
 }

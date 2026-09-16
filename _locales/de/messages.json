@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Die Zuordnung zur ausgewählten Liste konnte nicht geändert werden."
+  },
+  "proverificationnotice": {
+    "message": "Zur Pro-Prüfung senden wir nur den eingegebenen Schlüssel und die nötigen technischen Angaben. Browserverlauf und Regeln bleiben auf deinem Gerät."
   }
 }

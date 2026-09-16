@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Tugasan kepada senarai yang dipilih tidak dapat diubah."
+  },
+  "proverificationnotice": {
+    "message": "Untuk mengesahkan Pro, hanya kunci yang anda masukkan dan maklumat teknikal yang diperlukan dihantar. Sejarah pelayaran dan peraturan kekal pada peranti anda."
   }
 }

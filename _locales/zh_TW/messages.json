@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "無法變更所選清單的指派。"
+  },
+  "proverificationnotice": {
+    "message": "驗證 Pro 時，只會傳送您輸入的金鑰和必要的技術資訊。瀏覽紀錄與規則會保留在您的裝置上。"
   }
 }

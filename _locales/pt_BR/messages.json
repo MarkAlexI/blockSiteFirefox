@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Não foi possível alterar a atribuição à lista selecionada."
+  },
+  "proverificationnotice": {
+    "message": "Para verificar o Pro, enviamos apenas a chave que você digitou e os dados técnicos necessários. Seu histórico de navegação e suas regras ficam no seu dispositivo."
   }
 }

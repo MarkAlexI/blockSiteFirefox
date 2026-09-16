@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Priradenie k vybranému zoznamu sa nepodarilo zmeniť."
+  },
+  "proverificationnotice": {
+    "message": "Na overenie Pro odosielame iba zadaný kľúč a potrebné technické údaje. História prehliadania a pravidlá zostávajú vo vašom zariadení."
   }
 }

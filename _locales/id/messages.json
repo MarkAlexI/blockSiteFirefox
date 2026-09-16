@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Penetapan ke daftar yang dipilih tidak dapat diubah."
+  },
+  "proverificationnotice": {
+    "message": "Untuk memverifikasi Pro, hanya kunci yang Anda masukkan dan informasi teknis yang diperlukan yang dikirim. Riwayat penelusuran dan aturan tetap di perangkat Anda."
   }
 }

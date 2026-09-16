@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "无法更改所选列表的分配。"
+  },
+  "proverificationnotice": {
+    "message": "验证 Pro 时，仅发送您输入的密钥和必要的技术信息。浏览记录和规则保留在您的设备上。"
   }
 }

@@ -16,12 +16,22 @@ async function withGoProPage({
   settings = {},
   fetchHandler = null,
   licenseConsentRequestResult = true,
-  supportsLicenseConsent = true
+  supportsLicenseConsent = true,
+  telemetryOptIn = false
 } = {}, callback) {
   const document = new FakeDocument();
+  const toggle = document.addElement('proBtn', 'button');
+  const chevron = document.createElement('i');
+  chevron.className = 'chevron';
+  toggle.appendChild(chevron);
+  const wrapper = document.addElement('proWrapper');
+  const content = document.addElement('proContent');
+  wrapper.appendChild(content);
   document.addElement('proBtnText');
-  document.addElement('pro-activate-view');
-  document.addElement('pro-active-view');
+  const activateView = document.addElement('pro-activate-view');
+  const activeView = document.addElement('pro-active-view');
+  content.appendChild(activateView);
+  content.appendChild(activeView);
   const form = document.addElement('license-form', 'form');
   const input = document.addElement('license-key-input', 'input');
   const submit = document.addElement('license-submit-btn', 'button');
@@ -44,6 +54,8 @@ async function withGoProPage({
   const workerRequests = [];
   const permissionRequests = [];
   const eventOrder = [];
+  const telemetryMessages = [];
+  const recordedCounters = [];
   api.permissions = supportsLicenseConsent ? {
     async getAll() {
       return {
@@ -62,6 +74,11 @@ async function withGoProPage({
   };
   api.runtime.onMessage = { addListener() {} };
   api.runtime.sendMessage = (request, respond) => {
+    if (request.type === 'telemetry:incrementCounter') {
+      telemetryMessages.push(structuredClone(request));
+      if (telemetryOptIn) recordedCounters.push(request.name);
+      return Promise.resolve({ success: true, recorded: telemetryOptIn });
+    }
     eventOrder.push(`worker:${request.type}`);
     workerRequests.push(structuredClone(request));
 
@@ -178,6 +195,7 @@ async function withGoProPage({
       await callback({
         api,
         document,
+        toggle,
         form,
         input,
         submit,
@@ -188,6 +206,8 @@ async function withGoProPage({
         workerRequests,
         permissionRequests,
         eventOrder,
+        telemetryMessages,
+        recordedCounters,
         credentialWrites,
         requests,
         timers,
@@ -232,6 +252,49 @@ test('license activation delegates verification and its only credentials mutatio
   });
 });
 
+test('Firefox Pro consent funnel records only fixed counters when telemetry is enabled', async () => {
+  await withGoProPage({ telemetryOptIn: true }, async ({
+    toggle, form, input, telemetryMessages, recordedCounters, permissionRequests,
+    workerRequests, eventOrder
+  }) => {
+    await toggle.dispatch('click');
+    input.value = 'BD-PRIVATE-KEY';
+    await form.dispatch('submit');
+
+    assert.deepEqual(recordedCounters, [
+      'pro_activation_notice_shown',
+      'pro_activation_consent_requested',
+      'pro_activation_consent_granted',
+      'pro_activation_succeeded'
+    ]);
+    assert.deepEqual(telemetryMessages.map(message => Object.keys(message).sort()), [
+      ['name', 'type'], ['name', 'type'], ['name', 'type'], ['name', 'type']
+    ]);
+    assert.equal(JSON.stringify(telemetryMessages).includes(input.value), false);
+    assert.deepEqual(permissionRequests, [{ data_collection: ['authenticationInfo'] }]);
+    assert.deepEqual(eventOrder.slice(0, 2), [
+      'license_consent_requested',
+      'worker:activate_pro_license'
+    ]);
+    assert.deepEqual(workerRequests, [{
+      type: 'activate_pro_license',
+      licenseKey: 'BD-PRIVATE-KEY'
+    }]);
+  });
+});
+
+test('Firefox Pro consent funnel never stores counters without optional telemetry opt-in', async () => {
+  await withGoProPage({}, async ({ toggle, form, input, telemetryMessages, recordedCounters }) => {
+    await toggle.dispatch('click');
+    input.value = 'BD-LOCAL-KEY';
+    await form.dispatch('submit');
+
+    assert.deepEqual(recordedCounters, []);
+    assert.equal(telemetryMessages.length, 4);
+    assert.equal(JSON.stringify(telemetryMessages).includes(input.value), false);
+  });
+});
+
 test('license activation sends the extension version and clears its shared timeout after success', async () => {
   await withGoProPage({}, async ({ api, form, input, submit, requests, timers, clearedTimers }) => {
     input.value = 'BD-NEW-KEY';
@@ -265,6 +328,17 @@ test('denied native authentication consent prevents activation before worker mes
     assert.deepEqual(requests, []);
     assert.equal(message.textContent, 'onboarding_status_error');
     assert.equal(api.storage.sync.data.credentials.isPro, false);
+  });
+});
+
+test('denied Firefox consent never records a granted consent or successful activation', async () => {
+  await withGoProPage({ telemetryOptIn: true, licenseConsentRequestResult: false }, async ({
+    form, input, recordedCounters, workerRequests
+  }) => {
+    input.value = 'BD-DENIED-KEY';
+    await form.dispatch('submit');
+    assert.deepEqual(recordedCounters, ['pro_activation_consent_requested']);
+    assert.deepEqual(workerRequests, []);
   });
 });
 
@@ -526,8 +600,9 @@ test('logout delegates its only credentials mutation to the service worker', asy
 
 test('failed worker activation never creates a local Pro session', async () => {
   await withGoProPage({
+    telemetryOptIn: true,
     workerResponse: { success: false, error: 'Worker unavailable' }
-  }, async ({ api, form, input, message, credentialWrites }) => {
+  }, async ({ api, form, input, message, credentialWrites, recordedCounters }) => {
     input.value = 'BD-REJECTED-KEY';
     await form.dispatch('submit');
 
@@ -535,6 +610,10 @@ test('failed worker activation never creates a local Pro session', async () => {
     assert.equal(api.storage.sync.data.credentials.isPro, false);
     assert.equal(api.storage.sync.data.credentials.licenseKey, null);
     assert.equal(message.textContent, 'servererror');
+    assert.deepEqual(recordedCounters, [
+      'pro_activation_consent_requested',
+      'pro_activation_consent_granted'
+    ]);
   });
 });
 

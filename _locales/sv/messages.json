@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Tilldelningen till den valda listan kunde inte ändras."
+  },
+  "proverificationnotice": {
+    "message": "För att verifiera Pro skickas bara nyckeln du anger och nödvändiga tekniska uppgifter. Din webbhistorik och dina regler stannar på din enhet."
   }
 }

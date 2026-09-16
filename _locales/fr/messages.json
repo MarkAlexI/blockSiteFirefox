@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Impossible de modifier l’affectation à la liste sélectionnée."
+  },
+  "proverificationnotice": {
+    "message": "Pour vérifier Pro, nous envoyons uniquement la clé saisie et les informations techniques nécessaires. Votre historique de navigation et vos règles restent sur votre appareil."
   }
 }

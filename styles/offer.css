@@ -161,6 +161,13 @@ p#ext-version {
   box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
+.pro-content .pro-license-notice {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--pro-text-secondary);
+}
+
 #license-submit-btn {
   background-color: var(--pro-color-success);
   color: white;

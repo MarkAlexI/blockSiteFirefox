@@ -10,6 +10,7 @@ const requiredKeys = [
   'telemetryconsenttitle',
   'telemetryconsentdesc',
   'telemetryprivacynotice',
+  'proverificationnotice',
   'telemetryenabled',
   'telemetrydisabled',
   'telemetryerror'
@@ -36,4 +37,17 @@ test('all locales contain translated telemetry consent strings', async () => {
       }
     }
   }
+});
+
+test('Firefox Pro verification notice is localized before activation and force sync', async () => {
+  const html = await readFile(path.join(root, 'options/options.html'), 'utf8');
+  assert.match(
+    html,
+    /data-i18n="proverificationnotice"><\/p>\s*<button type="submit" id="license-submit-btn"/
+  );
+  assert.match(
+    html,
+    /data-i18n="proverificationnotice"><\/p>\s*<div class="pro-action-buttons"/
+  );
+  assert.equal(html.match(/data-i18n="proverificationnotice"/g)?.length, 2);
 });

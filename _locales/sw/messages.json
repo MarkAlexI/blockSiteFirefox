@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Haikuwezekana kubadilisha ugawaji wa orodha iliyochaguliwa."
+  },
+  "proverificationnotice": {
+    "message": "Ili kuthibitisha Pro, tunatuma tu ufunguo ulioweka na taarifa muhimu za kiufundi. Historia yako ya kuvinjari na kanuni zako hubaki kwenye kifaa chako."
   }
 }

@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Neizdevās mainīt piešķīrumu atlasītajam sarakstam."
+  },
+  "proverificationnotice": {
+    "message": "Pro pārbaudei nosūtām tikai ievadīto atslēgu un nepieciešamo tehnisko informāciju. Pārlūkošanas vēsture un noteikumi paliek jūsu ierīcē."
   }
 }

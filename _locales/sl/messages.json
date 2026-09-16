@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Dodelitve izbranemu seznamu ni bilo mogoče spremeniti."
+  },
+  "proverificationnotice": {
+    "message": "Za preverjanje Pro pošljemo samo ključ, ki ga vnesete, in potrebne tehnične podatke. Zgodovina brskanja in pravila ostanejo v vaši napravi."
   }
 }

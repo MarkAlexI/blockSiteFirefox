@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "선택한 목록 할당을 변경할 수 없습니다."
+  },
+  "proverificationnotice": {
+    "message": "Pro 확인에는 입력한 키와 필요한 기술 정보만 전송됩니다. 방문 기록과 규칙은 기기에 그대로 남습니다."
   }
 }

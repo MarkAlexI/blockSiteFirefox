@@ -5,6 +5,7 @@ import {
 } from '../pro/proManager.js';
 import { SettingsManager } from './settings.js';
 import { PasswordUtils } from '../pro/password.js';
+import { recordTelemetryCounter } from '../telemetry/telemetryCounterReporter.js';
 import Logger from '../utils/logger.js';
 
 const logger = new Logger('GoPro');
@@ -54,6 +55,9 @@ if (btn) {
       wrapper.classList.add('open');
       wrapper.style.maxHeight = content.scrollHeight + 'px';
       chevron.classList.add('up');
+      if (activateView?.style.display !== 'none') {
+        recordTelemetryCounter('pro_activation_notice_shown');
+      }
       
       wrapper.addEventListener('transitionend', function handler() {
         wrapper.style.maxHeight = 'none';
@@ -103,7 +107,9 @@ if (licenseForm) {
       return;
     }
 
+    // Keep the native request first and synchronous inside the submit gesture.
     const licenseConsentRequest = requestLicenseDataConsentFromUserAction(browser.permissions);
+    recordTelemetryCounter('pro_activation_consent_requested');
     
     licenseMessage.textContent = t('checking') || 'Checking...';
     licenseMessage.className = 'status-message success show';
@@ -115,6 +121,7 @@ if (licenseForm) {
         error.code = 'license_consent_required';
         throw error;
       }
+      recordTelemetryCounter('pro_activation_consent_granted');
 
       const statusResponse = await sendMessageToWorker({
         type: 'activate_pro_license',
@@ -125,6 +132,7 @@ if (licenseForm) {
         error.code = statusResponse?.code;
         throw error;
       }
+      recordTelemetryCounter('pro_activation_succeeded');
       logger.log("Background worker verified and activated Pro.");
       
       try {

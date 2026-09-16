@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Không thể thay đổi việc gán vào danh sách đã chọn."
+  },
+  "proverificationnotice": {
+    "message": "Để xác minh Pro, chỉ mã khóa bạn nhập và thông tin kỹ thuật cần thiết được gửi đi. Lịch sử duyệt web và các quy tắc vẫn nằm trên thiết bị của bạn."
   }
 }

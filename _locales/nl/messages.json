@@ -1081,5 +1081,8 @@
   },
   "rulelists_assignment_error": {
     "message": "De toewijzing aan de geselecteerde lijst kon niet worden gewijzigd."
+  },
+  "proverificationnotice": {
+    "message": "Voor de Pro-controle sturen we alleen de sleutel die je invoert en de nodige technische gegevens. Je browsegeschiedenis en regels blijven op je apparaat."
   }
 }

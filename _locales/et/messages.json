@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Valitud loendi määrangut ei saanud muuta."
+  },
+  "proverificationnotice": {
+    "message": "Pro kontrollimiseks saadame ainult sinu sisestatud võtme ja vajalikud tehnilised andmed. Sirvimisajalugu ja reeglid jäävad sinu seadmesse."
   }
 }

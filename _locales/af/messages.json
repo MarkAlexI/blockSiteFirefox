@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Die toewysing aan die gekose lys kon nie verander word nie."
+  },
+  "proverificationnotice": {
+    "message": "Vir Pro-verifikasie stuur ons net die sleutel wat jy invoer en die nodige tegniese besonderhede. Jou blaaigeskiedenis en reëls bly op jou toestel."
   }
 }

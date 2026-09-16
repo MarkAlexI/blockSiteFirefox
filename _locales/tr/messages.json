@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Seçilen liste ataması değiştirilemedi."
+  },
+  "proverificationnotice": {
+    "message": "Pro doğrulaması için yalnızca girdiğiniz anahtar ve gerekli teknik bilgiler gönderilir. Tarama geçmişiniz ve kurallarınız cihazınızda kalır."
   }
 }

@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "የተመረጠውን የዝርዝር ምደባ መቀየር አልተቻለም።"
+  },
+  "proverificationnotice": {
+    "message": "Pro ን ለማረጋገጥ ያስገቡት ቁልፍ እና አስፈላጊ ቴክኒካዊ መረጃ ብቻ ይላካሉ። የአሰሳ ታሪክዎ እና ደንቦችዎ በመሣሪያዎ ላይ ይቀራሉ።"
   }
 }

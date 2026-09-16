@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Nie udało się zmienić przypisania do wybranej listy."
+  },
+  "proverificationnotice": {
+    "message": "Aby zweryfikować Pro, wysyłamy tylko wpisany klucz i niezbędne dane techniczne. Historia przeglądania i reguły pozostają na Twoim urządzeniu."
   }
 }

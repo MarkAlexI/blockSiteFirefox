@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Atribuirea la lista selectată nu a putut fi modificată."
+  },
+  "proverificationnotice": {
+    "message": "Pentru a verifica Pro, trimitem doar cheia introdusă și datele tehnice necesare. Istoricul de navigare și regulile rămân pe dispozitivul tău."
   }
 }

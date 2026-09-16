@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "No s’ha pogut canviar l’assignació de la llista seleccionada."
+  },
+  "proverificationnotice": {
+    "message": "Per verificar Pro, només enviem la clau que introdueixes i les dades tècniques necessàries. L'historial de navegació i les regles es queden al dispositiu."
   }
 }

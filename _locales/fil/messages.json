@@ -1087,5 +1087,8 @@
   },
   "rulelists_assignment_error": {
     "message": "Hindi mabago ang pagtatalaga sa napiling listahan."
+  },
+  "proverificationnotice": {
+    "message": "Para i-verify ang Pro, ang key na inilagay mo at ang kinakailangang teknikal na detalye lang ang ipinapadala. Nananatili sa device mo ang browsing history at mga rule."
   }
 }

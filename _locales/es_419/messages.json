@@ -1111,5 +1111,8 @@
   },
   "rulelists_assignment_error": {
     "message": "No se pudo cambiar la asignación a la lista seleccionada."
+  },
+  "proverificationnotice": {
+    "message": "Para verificar Pro, solo enviamos la clave que ingresas y los datos técnicos necesarios. Tu historial de navegación y tus reglas permanecen en tu dispositivo."
   }
 }
