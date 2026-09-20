@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "K ověření Pro odesíláme pouze zadaný klíč a potřebné technické údaje. Historie procházení a pravidla zůstávají ve vašem zařízení."
+  },
+  "additionalsettingstitle": {
+    "message": "Další nastavení"
+  },
+  "categorymanagementtitle": {
+    "message": "Blokování kategorií"
   }
 }

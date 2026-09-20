@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Za preverjanje Pro pošljemo samo ključ, ki ga vnesete, in potrebne tehnične podatke. Zgodovina brskanja in pravila ostanejo v vaši napravi."
+  },
+  "additionalsettingstitle": {
+    "message": "Dodatne nastavitve"
+  },
+  "categorymanagementtitle": {
+    "message": "Blokiranje kategorij"
   }
 }

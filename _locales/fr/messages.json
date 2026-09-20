@@ -768,7 +768,7 @@
     "message": "Por favor, introduza uma duração válida (1-240 minutos)."
   },
   "successfulfocussessionslabel": {
-    "message": "Sessões de Foco Bem-sucedidas"
+    "message": "Sessions de concentration réussies"
   },
   "rule_scheduled": {
     "message": "Règle planifiée"
@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "Pour vérifier Pro, nous envoyons uniquement la clé saisie et les informations techniques nécessaires. Votre historique de navigation et vos règles restent sur votre appareil."
+  },
+  "additionalsettingstitle": {
+    "message": "Paramètres supplémentaires"
+  },
+  "categorymanagementtitle": {
+    "message": "Blocage par catégorie"
+  },
+  "focussessionsoundtitle": {
+    "message": "Notification sonore de session de concentration"
+  },
+  "focussessionsounddesc": {
+    "message": "Émettre un son à la fin de la session de concentration."
   }
 }

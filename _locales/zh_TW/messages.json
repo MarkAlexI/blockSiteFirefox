@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "驗證 Pro 時，只會傳送您輸入的金鑰和必要的技術資訊。瀏覽紀錄與規則會保留在您的裝置上。"
+  },
+  "additionalsettingstitle": {
+    "message": "其他設定"
+  },
+  "categorymanagementtitle": {
+    "message": "類別封鎖"
+  },
+  "focussessionsoundtitle": {
+    "message": "專注時段聲音通知"
+  },
+  "focussessionsounddesc": {
+    "message": "專注時段結束時播放聲音。"
   }
 }

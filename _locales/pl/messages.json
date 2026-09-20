@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Aby zweryfikować Pro, wysyłamy tylko wpisany klucz i niezbędne dane techniczne. Historia przeglądania i reguły pozostają na Twoim urządzeniu."
+  },
+  "additionalsettingstitle": {
+    "message": "Ustawienia dodatkowe"
+  },
+  "categorymanagementtitle": {
+    "message": "Blokowanie kategorii"
   }
 }

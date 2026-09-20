@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro सत्यापित करने के लिए केवल आपकी दर्ज की गई कुंजी और ज़रूरी तकनीकी जानकारी भेजी जाती है। आपका ब्राउज़िंग इतिहास और नियम आपके डिवाइस पर ही रहते हैं।"
+  },
+  "additionalsettingstitle": {
+    "message": "अतिरिक्त सेटिंग्स"
+  },
+  "categorymanagementtitle": {
+    "message": "श्रेणी अवरोधन"
   }
 }

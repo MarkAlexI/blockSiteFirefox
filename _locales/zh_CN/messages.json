@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "验证 Pro 时，仅发送您输入的密钥和必要的技术信息。浏览记录和规则保留在您的设备上。"
+  },
+  "additionalsettingstitle": {
+    "message": "其他设置"
+  },
+  "categorymanagementtitle": {
+    "message": "类别屏蔽"
+  },
+  "focussessionsoundtitle": {
+    "message": "专注时段声音通知"
+  },
+  "focussessionsounddesc": {
+    "message": "专注时段结束时播放声音。"
   }
 }

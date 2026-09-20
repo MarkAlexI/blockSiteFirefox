@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "Zur Pro-Prüfung senden wir nur den eingegebenen Schlüssel und die nötigen technischen Angaben. Browserverlauf und Regeln bleiben auf deinem Gerät."
+  },
+  "additionalsettingstitle": {
+    "message": "Zusätzliche Einstellungen"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategorien blockieren"
+  },
+  "focussessionsoundtitle": {
+    "message": "Akustische Benachrichtigung für Fokus-Sitzungen"
+  },
+  "focussessionsounddesc": {
+    "message": "Einen Ton abspielen, wenn die Fokus-Sitzung endet."
   }
 }

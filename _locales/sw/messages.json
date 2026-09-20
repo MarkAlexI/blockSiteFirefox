@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Ili kuthibitisha Pro, tunatuma tu ufunguo ulioweka na taarifa muhimu za kiufundi. Historia yako ya kuvinjari na kanuni zako hubaki kwenye kifaa chako."
+  },
+  "additionalsettingstitle": {
+    "message": "Mipangilio ya Ziada"
+  },
+  "categorymanagementtitle": {
+    "message": "Kuzuia Kategoria"
   }
 }

@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "Para verificar Pro, solo enviamos la clave que introduces y los datos técnicos necesarios. Tu historial de navegación y tus reglas permanecen en tu dispositivo."
+  },
+  "additionalsettingstitle": {
+    "message": "Configuración adicional"
+  },
+  "categorymanagementtitle": {
+    "message": "Bloqueo por categorías"
+  },
+  "focussessionsoundtitle": {
+    "message": "Notificación de sonido de la sesión de enfoque"
+  },
+  "focussessionsounddesc": {
+    "message": "Reproducir un sonido cuando termine la sesión de enfoque."
   }
 }

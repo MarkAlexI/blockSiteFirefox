@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "Voor de Pro-controle sturen we alleen de sleutel die je invoert en de nodige technische gegevens. Je browsegeschiedenis en regels blijven op je apparaat."
+  },
+  "additionalsettingstitle": {
+    "message": "Aanvullende instellingen"
+  },
+  "categorymanagementtitle": {
+    "message": "Categorieën blokkeren"
+  },
+  "focussessionsoundtitle": {
+    "message": "Geluidsmelding voor focussessie"
+  },
+  "focussessionsounddesc": {
+    "message": "Speel een geluid af wanneer de focussessie eindigt."
   }
 }

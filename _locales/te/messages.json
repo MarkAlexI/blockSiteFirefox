@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro ధృవీకరణ కోసం మీరు నమోదు చేసిన కీ మరియు అవసరమైన సాంకేతిక వివరాలు మాత్రమే పంపబడతాయి. మీ బ్రౌజింగ్ చరిత్ర, నియమాలు మీ పరికరంలోనే ఉంటాయి."
+  },
+  "additionalsettingstitle": {
+    "message": "అదనపు సెట్టింగ్‌లు"
+  },
+  "categorymanagementtitle": {
+    "message": "వర్గం నిరోధించడం"
   }
 }

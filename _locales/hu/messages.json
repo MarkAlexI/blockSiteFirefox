@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "A Pro ellenőrzéséhez csak a megadott kulcsot és a szükséges technikai adatokat küldjük el. A böngészési előzmények és a szabályok az eszközödön maradnak."
+  },
+  "additionalsettingstitle": {
+    "message": "További beállítások"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategóriák blokkolása"
   }
 }

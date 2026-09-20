@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "לאימות Pro נשלחים רק המפתח שהזנת והפרטים הטכניים הנחוצים. היסטוריית הגלישה והכללים נשארים במכשיר שלך."
+  },
+  "additionalsettingstitle": {
+    "message": "הגדרות נוספות"
+  },
+  "categorymanagementtitle": {
+    "message": "חסימת קטגוריות"
   }
 }

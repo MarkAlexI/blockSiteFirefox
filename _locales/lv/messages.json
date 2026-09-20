@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro pārbaudei nosūtām tikai ievadīto atslēgu un nepieciešamo tehnisko informāciju. Pārlūkošanas vēsture un noteikumi paliek jūsu ierīcē."
+  },
+  "additionalsettingstitle": {
+    "message": "Papildu iestatījumi"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategoriju bloķēšana"
   }
 }

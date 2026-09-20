@@ -1087,5 +1087,14 @@
   },
   "proverificationnotice": {
     "message": "Pro ચકાસવા માટે તમે દાખલ કરેલી કી અને જરૂરી તકનીકી માહિતી જ મોકલવામાં આવે છે. તમારો બ્રાઉઝિંગ ઇતિહાસ અને નિયમો તમારા ઉપકરણ પર જ રહે છે."
+  },
+  "additionalsettingstitle": {
+    "message": "વધારાની સેટિંગ્સ"
+  },
+  "categorymanagementtitle": {
+    "message": "શ્રેણી બ્લોકિંગ"
+  },
+  "schedule_day_wed": {
+    "message": "બુધ"
   }
 }

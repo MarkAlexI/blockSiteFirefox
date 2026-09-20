@@ -1087,5 +1087,14 @@
   },
   "proverificationnotice": {
     "message": "للتحقق من Pro، نرسل فقط المفتاح الذي أدخلته والتفاصيل التقنية اللازمة. يبقى سجل التصفح والقواعد على جهازك."
+  },
+  "additionalsettingstitle": {
+    "message": "إعدادات إضافية"
+  },
+  "categorymanagementtitle": {
+    "message": "حظر الفئات"
+  },
+  "successfulfocussessionslabel": {
+    "message": "جلسات تركيز ناجحة"
   }
 }

@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Untuk mengesahkan Pro, hanya kunci yang anda masukkan dan maklumat teknikal yang diperlukan dihantar. Sejarah pelayaran dan peraturan kekal pada peranti anda."
+  },
+  "additionalsettingstitle": {
+    "message": "Tetapan Tambahan"
+  },
+  "categorymanagementtitle": {
+    "message": "Sekatan Kategori"
   }
 }

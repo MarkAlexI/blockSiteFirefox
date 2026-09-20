@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "For at bekræfte Pro sender vi kun den nøgle, du indtaster, og nødvendige tekniske oplysninger. Din browserhistorik og dine regler bliver på din enhed."
+  },
+  "additionalsettingstitle": {
+    "message": "Yderligere indstillinger"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategoriblokering"
   }
 }

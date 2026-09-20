@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro doğrulaması için yalnızca girdiğiniz anahtar ve gerekli teknik bilgiler gönderilir. Tarama geçmişiniz ve kurallarınız cihazınızda kalır."
+  },
+  "additionalsettingstitle": {
+    "message": "Ek Ayarlar"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategori Engelleme"
   }
 }

@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Para i-verify ang Pro, ang key na inilagay mo at ang kinakailangang teknikal na detalye lang ang ipinapadala. Nananatili sa device mo ang browsing history at mga rule."
+  },
+  "additionalsettingstitle": {
+    "message": "Mga Karagdagang Setting"
+  },
+  "categorymanagementtitle": {
+    "message": "Pag-block ayon sa Kategorya"
   }
 }

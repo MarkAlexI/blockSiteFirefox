@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro ଯାଞ୍ଚ ପାଇଁ ଆପଣ ଦେଇଥିବା କୀ ଓ ଆବଶ୍ୟକ ବୈଷୟିକ ତଥ୍ୟ ମାତ୍ର ପଠାଯାଏ। ଆପଣଙ୍କ ବ୍ରାଉଜିଂ ଇତିହାସ ଓ ନିୟମ ଆପଣଙ୍କ ଡିଭାଇସ୍‌ରେ ରହେ।"
+  },
+  "additionalsettingstitle": {
+    "message": "ଅତିରିକ୍ତ ସେଟିଂସ୍"
+  },
+  "categorymanagementtitle": {
+    "message": "ବର୍ଗ ଅବରୋଧ"
   }
 }

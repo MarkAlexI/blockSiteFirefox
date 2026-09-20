@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Na overenie Pro odosielame iba zadaný kľúč a potrebné technické údaje. História prehliadania a pravidlá zostávajú vo vašom zariadení."
+  },
+  "additionalsettingstitle": {
+    "message": "Ďalšie nastavenia"
+  },
+  "categorymanagementtitle": {
+    "message": "Blokovanie kategórií"
   }
 }

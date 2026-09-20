@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "Pro の確認では、入力したキーと必要な技術情報のみ送信します。閲覧履歴とルールは端末に保存されたままです。"
+  },
+  "additionalsettingstitle": {
+    "message": "追加設定"
+  },
+  "categorymanagementtitle": {
+    "message": "カテゴリのブロック"
+  },
+  "focussessionsoundtitle": {
+    "message": "集中セッションのサウンド通知"
+  },
+  "focussessionsounddesc": {
+    "message": "集中セッションの終了時にサウンドを再生します。"
   }
 }

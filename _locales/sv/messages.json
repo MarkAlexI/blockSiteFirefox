@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "För att verifiera Pro skickas bara nyckeln du anger och nödvändiga tekniska uppgifter. Din webbhistorik och dina regler stannar på din enhet."
+  },
+  "additionalsettingstitle": {
+    "message": "Ytterligare inställningar"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategoriblockering"
   }
 }

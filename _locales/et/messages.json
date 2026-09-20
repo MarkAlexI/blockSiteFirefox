@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro kontrollimiseks saadame ainult sinu sisestatud võtme ja vajalikud tehnilised andmed. Sirvimisajalugu ja reeglid jäävad sinu seadmesse."
+  },
+  "additionalsettingstitle": {
+    "message": "Lisaseaded"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategooriate blokeerimine"
   }
 }

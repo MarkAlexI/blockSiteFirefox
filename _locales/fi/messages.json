@@ -1081,5 +1081,20 @@
   },
   "proverificationnotice": {
     "message": "Pro-tarkistusta varten lähetämme vain antamasi avaimen ja tarvittavat tekniset tiedot. Selaushistoria ja säännöt pysyvät laitteellasi."
+  },
+  "additionalsettingstitle": {
+    "message": "Lisäasetukset"
+  },
+  "categorymanagementtitle": {
+    "message": "Luokkien estäminen"
+  },
+  "licensesynced": {
+    "message": "Lisenssisi on synkronoitu tiliisi. Jos menetät käyttöoikeuden, voit palauttaa avaimesi täältä: "
+  },
+  "focussessionsoundtitle": {
+    "message": "Keskittymisistunnon ääni-ilmoitus"
+  },
+  "focussessionsounddesc": {
+    "message": "Toista ääni, kun keskittymisistunto päättyy."
   }
 }

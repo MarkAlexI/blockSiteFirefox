@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Per verificare Pro inviamo solo la chiave inserita e i dati tecnici necessari. La cronologia di navigazione e le regole restano sul tuo dispositivo."
+  },
+  "additionalsettingstitle": {
+    "message": "Impostazioni aggiuntive"
+  },
+  "categorymanagementtitle": {
+    "message": "Blocco per categoria"
   }
 }

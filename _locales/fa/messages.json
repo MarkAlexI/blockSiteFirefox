@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "برای بررسی Pro فقط کلیدی که وارد می‌کنید و اطلاعات فنی لازم ارسال می‌شود. تاریخچهٔ مرور و قوانین شما در دستگاهتان می‌مانند."
+  },
+  "additionalsettingstitle": {
+    "message": "تنظیمات اضافی"
+  },
+  "categorymanagementtitle": {
+    "message": "مسدودسازی دسته‌بندی‌ها"
   }
 }

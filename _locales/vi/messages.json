@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Để xác minh Pro, chỉ mã khóa bạn nhập và thông tin kỹ thuật cần thiết được gửi đi. Lịch sử duyệt web và các quy tắc vẫn nằm trên thiết bị của bạn."
+  },
+  "additionalsettingstitle": {
+    "message": "Cài đặt bổ sung"
+  },
+  "categorymanagementtitle": {
+    "message": "Chặn theo danh mục"
   }
 }

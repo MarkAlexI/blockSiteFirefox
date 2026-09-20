@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pentru a verifica Pro, trimitem doar cheia introdusă și datele tehnice necesare. Istoricul de navigare și regulile rămân pe dispozitivul tău."
+  },
+  "additionalsettingstitle": {
+    "message": "Setări suplimentare"
+  },
+  "categorymanagementtitle": {
+    "message": "Blocarea categoriilor"
   }
 }

@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "การตรวจสอบ Pro จะส่งเฉพาะคีย์ที่คุณป้อนและข้อมูลทางเทคนิคที่จำเป็น ประวัติการท่องเว็บและกฎของคุณยังคงอยู่ในอุปกรณ์"
+  },
+  "additionalsettingstitle": {
+    "message": "การตั้งค่าเพิ่มเติม"
+  },
+  "categorymanagementtitle": {
+    "message": "การบล็อกตามหมวดหมู่"
   }
 }

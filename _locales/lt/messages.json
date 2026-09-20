@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro patikrai siunčiame tik jūsų įvestą raktą ir būtinus techninius duomenis. Naršymo istorija ir taisyklės lieka jūsų įrenginyje."
+  },
+  "additionalsettingstitle": {
+    "message": "Papildomi nustatymai"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategorijų blokavimas"
   }
 }

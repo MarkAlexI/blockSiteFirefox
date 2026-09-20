@@ -1084,5 +1084,17 @@
   },
   "proverificationnotice": {
     "message": "Pro 확인에는 입력한 키와 필요한 기술 정보만 전송됩니다. 방문 기록과 규칙은 기기에 그대로 남습니다."
+  },
+  "additionalsettingstitle": {
+    "message": "추가 설정"
+  },
+  "categorymanagementtitle": {
+    "message": "카테고리 차단"
+  },
+  "focussessionsoundtitle": {
+    "message": "집중 세션 소리 알림"
+  },
+  "focussessionsounddesc": {
+    "message": "집중 세션이 끝나면 소리를 재생합니다."
   }
 }

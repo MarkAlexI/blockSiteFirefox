@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro যাচাই করতে শুধু আপনার দেওয়া কী এবং প্রয়োজনীয় প্রযুক্তিগত তথ্য পাঠানো হয়। আপনার ব্রাউজিং ইতিহাস ও নিয়মগুলি আপনার ডিভাইসেই থাকে।"
+  },
+  "additionalsettingstitle": {
+    "message": "অতিরিক্ত সেটিংস"
+  },
+  "categorymanagementtitle": {
+    "message": "বিভাগ ব্লক করা"
   }
 }

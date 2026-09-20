@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Pro ን ለማረጋገጥ ያስገቡት ቁልፍ እና አስፈላጊ ቴክኒካዊ መረጃ ብቻ ይላካሉ። የአሰሳ ታሪክዎ እና ደንቦችዎ በመሣሪያዎ ላይ ይቀራሉ።"
+  },
+  "additionalsettingstitle": {
+    "message": "ተጨማሪ ቅንብሮች"
+  },
+  "categorymanagementtitle": {
+    "message": "የምድብ እገዳ"
   }
 }

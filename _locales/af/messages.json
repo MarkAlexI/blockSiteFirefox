@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Vir Pro-verifikasie stuur ons net die sleutel wat jy invoer en die nodige tegniese besonderhede. Jou blaaigeskiedenis en reëls bly op jou toestel."
+  },
+  "additionalsettingstitle": {
+    "message": "Bykomende instellings"
+  },
+  "categorymanagementtitle": {
+    "message": "Kategorieblokkering"
   }
 }

@@ -1087,5 +1087,14 @@
   },
   "proverificationnotice": {
     "message": "Pro तपासण्यासाठी तुम्ही दिलेली की आणि आवश्यक तांत्रिक माहितीच पाठवली जाते. तुमचा ब्राउझिंग इतिहास आणि नियम तुमच्या डिव्हाइसवरच राहतात."
+  },
+  "additionalsettingstitle": {
+    "message": "अतिरिक्त सेटिंग्ज"
+  },
+  "categorymanagementtitle": {
+    "message": "श्रेणी अवरोधन"
+  },
+  "blockedbutton": {
+    "message": "टॅब बंद करा"
   }
 }

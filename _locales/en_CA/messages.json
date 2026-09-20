@@ -1090,5 +1090,11 @@
   },
   "proverificationnotice": {
     "message": "Only the key you enter and technical details needed to verify Pro are sent. Browsing history and rules stay on your device."
+  },
+  "additionalsettingstitle": {
+    "message": "Additional Settings"
+  },
+  "categorymanagementtitle": {
+    "message": "Category Blocking"
   }
 }
