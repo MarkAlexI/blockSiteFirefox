@@ -9,9 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Clarified the starter tip for redirects so it cannot be mistaken for a requirement on ordinary blocking rules.
+- Made background event handling more resilient to isolated browser, storage, and diagnostic failures.
 
 ### Privacy
-- This wording-only fix adds no telemetry, server data, or browser permissions.
+- Optional diagnostics continue to use only fixed technical categories, without URLs, rule contents, raw errors, stack traces, or new browser permissions.
 
 ## [5.2.18] - 2026-09-23
 

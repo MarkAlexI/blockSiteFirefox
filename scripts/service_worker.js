@@ -985,7 +985,8 @@ function updateContextMenu(hasPaidAccess) {
 }
 
 if (browser.contextMenus) {
-  browser.contextMenus.onClicked.addListener(async (info, tab) => {
+  browser.contextMenus.onClicked.addListener((info, tab) =>
+    runAsyncHandler(ASYNC_HANDLER_OPERATIONS.CONTEXT_MENU_ADD, async () => {
     if (info.menuItemId !== 'blockDistraction') return;
     
     if (!await ProManager.hasPaidAccess()) {
@@ -1035,27 +1036,29 @@ if (browser.contextMenus) {
     } catch (error) {
       logger.info('Error processing context menu block:', error);
     }
-  });
+    })
+  );
 }
 
 async function showUpdates(details) {
   const version = browser.runtime.getManifest().version;
   if (!/\.0$/.test(version)) return true;
-  
+
+  let shouldOpenUpdate = details.reason === 'update';
   try {
     const settings = await SettingsManager.getSettings();
-    
-    if (details.reason === 'update' && settings.showNotifications === true) {
-      browser.tabs.create({
-        url: browser.runtime.getURL(`update/update.html?version=${version}`)
-      });
-    }
+    shouldOpenUpdate = shouldOpenUpdate && settings.showNotifications === true;
   } catch (error) {
     logger.error('Error showing updates:', error);
-    if (details.reason === 'update') {
-      browser.tabs.create({
+  }
+
+  if (shouldOpenUpdate) {
+    try {
+      await browser.tabs.create({
         url: browser.runtime.getURL(`update/update.html?version=${version}`)
       });
+    } catch (error) {
+      logger.info('Update page could not be opened:', error);
     }
   }
 }
@@ -1366,7 +1369,8 @@ function affectsTelemetryConsent(permissions) {
 }
 
 if (browser.permissions?.onRemoved) {
-  browser.permissions.onRemoved.addListener(async permissions => {
+  browser.permissions.onRemoved.addListener(permissions =>
+    runAsyncHandler(ASYNC_HANDLER_OPERATIONS.PERMISSION_REMOVED, async () => {
     if (affectsRequiredHostAccess(permissions.origins)) {
       await checkAndRequestPermissions(
         { reason: 'permission_removed' },
@@ -1377,11 +1381,13 @@ if (browser.permissions?.onRemoved) {
     if (affectsTelemetryConsent(permissions)) {
       await telemetryClient.setConsent(false);
     }
-  });
+    })
+  );
 }
 
 if (browser.permissions?.onAdded) {
-  browser.permissions.onAdded.addListener(async permissions => {
+  browser.permissions.onAdded.addListener(permissions =>
+    runAsyncHandler(ASYNC_HANDLER_OPERATIONS.PERMISSION_ADDED, async () => {
     if (affectsRequiredHostAccess(permissions.origins)) {
       await checkAndRequestPermissions({ reason: 'permission_added' });
     }
@@ -1389,7 +1395,8 @@ if (browser.permissions?.onAdded) {
     if (affectsTelemetryConsent(permissions)) {
       await telemetryClient.setConsent(true);
     }
-  });
+    })
+  );
 }
 
 async function getDiagnosticsAccess() {
@@ -1544,13 +1551,32 @@ async function createDiagnosticReport() {
   });
 }
 
-browser.runtime.onInstalled.addListener(async (details) => {
+const INSTALL_HANDLER_OPERATIONS = Object.freeze({
+  install: ASYNC_HANDLER_OPERATIONS.INSTALL,
+  update: ASYNC_HANDLER_OPERATIONS.UPDATE,
+  chrome_update: ASYNC_HANDLER_OPERATIONS.CHROME_UPDATE,
+  browser_update: ASYNC_HANDLER_OPERATIONS.BROWSER_UPDATE,
+  shared_module_update: ASYNC_HANDLER_OPERATIONS.SHARED_MODULE_UPDATE
+});
+
+browser.runtime.onInstalled.addListener(details =>
+  runAsyncHandler(
+    INSTALL_HANDLER_OPERATIONS[details?.reason] || ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
+    async () => {
   logger.log(`Extension event: ${details.reason}`);
-  
-  browser.runtime.setUninstallURL("https://blockdistraction.com/uninstall.html");
+
+  try {
+    await browser.runtime.setUninstallURL("https://blockdistraction.com/uninstall.html");
+  } catch (error) {
+    logger.info('Uninstall URL could not be set:', error);
+  }
   
   ensureAlarmsCreated();
-  await telemetryClient.restoreRetry();
+  try {
+    await telemetryClient.restoreRetry();
+  } catch (error) {
+    logger.info('Could not restore the telemetry retry after an extension event:', error);
+  }
   
   if (details.reason === 'install') {
     logger.log("This is a fresh install. Checking permissions...");
@@ -1558,7 +1584,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
     await checkAndRequestPermissions(details, { notifyIfMissing: true });
     
     const installUrl = createInstallURL();
-    browser.tabs.create({
+    await browser.tabs.create({
       url: installUrl,
       active: true
     });
@@ -1574,7 +1600,9 @@ browser.runtime.onInstalled.addListener(async (details) => {
   } else if (details.reason === 'shared_module_update') {
     logger.log("Shared module updated.");
   }
-});
+    }
+  )
+);
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (RULES_INTENT_TYPES.has(message.type)) {
@@ -1714,23 +1742,42 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.type === 'telemetry:recordError') {
     (async () => {
-      await telemetryStore.recordError(message.payload || {});
-      sendResponse({ success: true });
+      try {
+        await telemetryStore.recordError(message.payload || {});
+        sendResponse({ success: true });
+      } catch (error) {
+        logger.info('Telemetry error report could not be persisted:', error);
+        sendResponse({
+          success: false,
+          error: { code: 'telemetry_record_failed' }
+        });
+      }
     })();
     return true;
   }
 
   if (message.type === 'telemetry:flush') {
     (async () => {
-      const result = await telemetryClient.flush({ force: message.force === true });
-      sendResponse({ success: true, result });
+      try {
+        const result = await telemetryClient.flush({ force: message.force === true });
+        sendResponse({ success: true, result });
+      } catch (error) {
+        logger.info('Telemetry flush could not be completed:', error);
+        sendResponse({
+          success: false,
+          error: { code: 'telemetry_flush_failed' }
+        });
+      }
     })();
     return true;
   }
 
   if (message.type === 'close_current_tab') {
     if (sender.tab && sender.tab.id) {
-      browser.tabs.remove(sender.tab.id);
+      void runAsyncHandler(
+        ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
+        () => browser.tabs.remove(sender.tab.id)
+      );
     }
     return;
   }
@@ -1746,12 +1793,18 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'record_block') {
-    StatisticsManager.recordBlock(message.url);
+    void runAsyncHandler(
+      ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
+      () => StatisticsManager.recordBlock(message.url)
+    );
     return;
   }
   
   if (message.type === 'record_redirect') {
-    StatisticsManager.recordRedirect(message.from, message.to);
+    void runAsyncHandler(
+      ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
+      () => StatisticsManager.recordRedirect(message.from, message.to)
+    );
     return;
   }
   
@@ -2024,12 +2077,17 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: true, ...(completed ? {} : { superseded: true }) });
       } catch (error) {
         logger.error('Focus Session: Error stopping session:', error);
-        await Promise.all([
+        const outcomes = await Promise.allSettled([
           diagnosticStore.recordEvent('error', 'focus', 'stop_failed', { error }),
           telemetryStore.recordError({
             source: 'focus', code: 'stop_failed', operation: 'stop_session', errorName: error?.name || 'Error'
           })
         ]);
+        for (const outcome of outcomes) {
+          if (outcome.status === 'rejected') {
+            logger.info('Focus stop failure reporting could not be persisted:', outcome.reason);
+          }
+        }
         sendResponse({ success: false, error: error.message });
       }
     })();
@@ -2060,9 +2118,16 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+function recordGlobalWorkerError(error) {
+  void telemetryStore.recordError(error)
+    .catch(reportingError => {
+      logger.info('Global worker error could not be recorded:', reportingError);
+    });
+}
+
 if (globalThis.addEventListener) {
   globalThis.addEventListener('error', event => {
-    void telemetryStore.recordError({
+    recordGlobalWorkerError({
       source: 'worker',
       code: 'uncaught_error',
       operation: 'service_worker',
@@ -2071,7 +2136,7 @@ if (globalThis.addEventListener) {
   });
 
   globalThis.addEventListener('unhandledrejection', event => {
-    void telemetryStore.recordError({
+    recordGlobalWorkerError({
       source: 'worker',
       code: 'unhandled_rejection',
       operation: 'service_worker',
@@ -2089,7 +2154,8 @@ async function runDailyMaintenanceStep(name, operation) {
   }
 }
 
-browser.alarms.onAlarm.addListener(async (alarm) => {
+browser.alarms.onAlarm.addListener(alarm =>
+  runAsyncHandler(ASYNC_HANDLER_OPERATIONS.SCHEDULED_ALARM, async () => {
   if (alarm.name === 'check_pro_expiry') {
     await runDailyMaintenanceStep('uninstall URL update', updateUninstallURL);
     await runDailyMaintenanceStep('license verification', syncLicenseKeyStatus);
@@ -2132,7 +2198,8 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
       checkAndRequestPermissions({ reason: 'scheduled_alarm' })
     ]);
   }
-});
+  })
+);
 
 function ensureAlarmsCreated() {
   browser.alarms.get('check_pro_expiry', (alarm) => {

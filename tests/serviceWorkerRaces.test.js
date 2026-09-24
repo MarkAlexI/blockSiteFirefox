@@ -273,6 +273,55 @@ async function withWorker(callback, {
   }
 }
 
+test('top-level install failures are contained and recorded with a fixed operation', async () => {
+  await withWorker(async ({ api }) => {
+    api.tabs.create = async () => {
+      throw new TypeError('private URL and rule contents must not escape');
+    };
+
+    await assert.doesNotReject(() => api.runtime.onInstalled.listeners[0]({ reason: 'install' }));
+
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []);
+    assert.equal(errors.some(error =>
+      error.fingerprint === 'worker:async_handler_failed:install:typeerror'
+    ), true);
+    assert.equal(JSON.stringify(errors).includes('private URL'), false);
+    assert.equal(JSON.stringify(errors).includes('rule contents'), false);
+    assert.deepEqual(api.uninstallUrls, ['https://blockdistraction.com/uninstall.html']);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+  }, {
+    local: { telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } },
+    supportsWindows: false
+  });
+});
+
+test('telemetry command failures return controlled responses', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.storage.local.getError = new Error('telemetry storage unavailable');
+
+    const recordResponse = await send({
+      type: 'telemetry:recordError',
+      payload: {
+        source: 'worker',
+        code: 'uncaught_error',
+        operation: 'service_worker',
+        errorName: 'Error'
+      }
+    });
+    const flushResponse = await send({ type: 'telemetry:flush', force: true });
+
+    assert.deepEqual(recordResponse, {
+      success: false,
+      error: { code: 'telemetry_record_failed' }
+    });
+    assert.deepEqual(flushResponse, {
+      success: false,
+      error: { code: 'telemetry_flush_failed' }
+    });
+  }, { supportsWindows: false });
+});
+
 for (const [label, claimedStatus] of [
   ['boolean Pro', true],
   ['string Pro', 'true'],
@@ -4803,6 +4852,39 @@ test('Focus failure responses survive rejected diagnostics and analytics writes'
     local: {
       rules,
       activeRuleListId: 'general',
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+    },
+    supportsWindows: false
+  });
+});
+
+test('Focus stop failures still respond when diagnostics and analytics both reject', async () => {
+  const focusSession = {
+    focusActive: true,
+    focusEndTime: Date.now() + 10 * 60 * 1000,
+    isHardcore: false,
+    focusMode: 'blacklist'
+  };
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      if (
+        Object.hasOwn(values, 'focusSession') ||
+        Object.hasOwn(values, 'diagnosticState') ||
+        Object.hasOwn(values, 'telemetryBuckets')
+      ) {
+        return Promise.reject(new Error('storage is unavailable'));
+      }
+      return originalSet(values, callback);
+    };
+
+    const response = await send({ type: 'stop_focus_session' });
+
+    assert.deepEqual(response, { success: false, error: 'storage is unavailable' });
+    assert.deepEqual(api.storage.local.data.focusSession, focusSession);
+  }, {
+    local: {
+      focusSession,
       telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
     },
     supportsWindows: false

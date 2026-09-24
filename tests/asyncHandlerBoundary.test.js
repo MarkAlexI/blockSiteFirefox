@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import {
   ASYNC_HANDLER_OPERATIONS,
   createAsyncHandlerBoundary
@@ -7,12 +8,22 @@ import {
 
 test('async handler boundary exposes only the approved coarse operations', () => {
   assert.deepEqual(Object.values(ASYNC_HANDLER_OPERATIONS).sort(), [
+    'add',
+    'browser_update',
+    'chrome_update',
     'daily_limit_alarm',
     'dnr_reload_message',
+    'install',
+    'permission_added',
+    'permission_removed',
     'pro_status_transition',
+    'scheduled_alarm',
+    'service_worker',
+    'shared_module_update',
     'startup',
     'tab_created',
     'tab_updated',
+    'update',
     'window_focus_changed'
   ]);
 });
@@ -76,4 +87,21 @@ test('async handler boundary rejects operation names outside its fixed allowlist
     () => run('visited_private_example', async () => {}),
     /Unsupported async handler operation/
   );
+});
+
+test('service worker event listeners do not expose rejected async handlers', async () => {
+  const source = await readFile(new URL('../scripts/service_worker.js', import.meta.url), 'utf8');
+
+  assert.doesNotMatch(source, /\.addListener\(\s*async\b/);
+  for (const operation of [
+    'CONTEXT_MENU_ADD',
+    'INSTALL',
+    'UPDATE',
+    'PERMISSION_REMOVED',
+    'PERMISSION_ADDED',
+    'SCHEDULED_ALARM',
+    'SERVICE_WORKER'
+  ]) {
+    assert.match(source, new RegExp(`ASYNC_HANDLER_OPERATIONS\\.${operation}`));
+  }
 });

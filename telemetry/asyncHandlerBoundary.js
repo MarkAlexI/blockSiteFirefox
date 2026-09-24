@@ -1,11 +1,21 @@
 export const ASYNC_HANDLER_OPERATIONS = Object.freeze({
+  CONTEXT_MENU_ADD: 'add',
   TAB_UPDATED: 'tab_updated',
   TAB_CREATED: 'tab_created',
   STARTUP: 'startup',
+  INSTALL: 'install',
+  UPDATE: 'update',
+  CHROME_UPDATE: 'chrome_update',
+  BROWSER_UPDATE: 'browser_update',
+  SHARED_MODULE_UPDATE: 'shared_module_update',
+  PERMISSION_REMOVED: 'permission_removed',
+  PERMISSION_ADDED: 'permission_added',
+  SCHEDULED_ALARM: 'scheduled_alarm',
   DAILY_LIMIT_ALARM: 'daily_limit_alarm',
   DNR_RELOAD_MESSAGE: 'dnr_reload_message',
   PRO_STATUS_TRANSITION: 'pro_status_transition',
-  WINDOW_FOCUS_CHANGED: 'window_focus_changed'
+  WINDOW_FOCUS_CHANGED: 'window_focus_changed',
+  SERVICE_WORKER: 'service_worker'
 });
 
 const ALLOWED_OPERATIONS = new Set(Object.values(ASYNC_HANDLER_OPERATIONS));
