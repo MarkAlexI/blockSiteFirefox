@@ -51,11 +51,34 @@ header {
 .options-navigation {
   display: flex;
   justify-content: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   margin-bottom: 0.75rem;
 }
 
-.options-back-link {
+.options-navigation .footer-btn {
   padding: 0.5rem 0.875rem;
+  font: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.starter-tips {
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(102, 126, 234, 0.25);
+  border-left: 4px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-small);
+}
+
+.starter-tips ul {
+  margin: 0.5rem 0 0 1.25rem;
+  color: var(--text-secondary);
+}
+
+.starter-tips li + li {
+  margin-top: 0.35rem;
 }
 
 header h1 {

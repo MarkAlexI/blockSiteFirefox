@@ -1096,5 +1096,8 @@
   },
   "focussessionsounddesc": {
     "message": "Speel een geluid af wanneer de focussessie eindigt."
+  },
+  "userguide": {
+    "message": "Gebruikershandleiding"
   }
 }

@@ -1096,5 +1096,8 @@
   },
   "proverificationnotice": {
     "message": "Only the key you enter and technical details needed to verify Pro are sent. Browsing history and rules stay on your device."
+  },
+  "userguide": {
+    "message": "User Guide"
   }
 }

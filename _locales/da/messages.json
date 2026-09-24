@@ -1096,5 +1096,8 @@
   },
   "categorymanagementtitle": {
     "message": "Kategoriblokering"
+  },
+  "userguide": {
+    "message": "Brugervejledning"
   }
 }

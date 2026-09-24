@@ -1114,5 +1114,8 @@
   },
   "proverificationnotice": {
     "message": "Para verificar Pro, solo enviamos la clave que ingresas y los datos técnicos necesarios. Tu historial de navegación y tus reglas permanecen en tu dispositivo."
+  },
+  "userguide": {
+    "message": "Guía del usuario"
   }
 }

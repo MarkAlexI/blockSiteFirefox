@@ -1096,5 +1096,8 @@
   },
   "focussessionsounddesc": {
     "message": "Reproducir un sonido cuando termine la sesión de enfoque."
+  },
+  "userguide": {
+    "message": "Guía del usuario"
   }
 }

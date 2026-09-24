@@ -1096,5 +1096,8 @@
   },
   "categorymanagementtitle": {
     "message": "Kategorijų blokavimas"
+  },
+  "userguide": {
+    "message": "Naudotojo vadovas"
   }
 }

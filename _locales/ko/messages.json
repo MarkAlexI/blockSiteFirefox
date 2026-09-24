@@ -1096,5 +1096,8 @@
   },
   "focussessionsounddesc": {
     "message": "집중 세션이 끝나면 소리를 재생합니다."
+  },
+  "userguide": {
+    "message": "사용자 가이드"
   }
 }

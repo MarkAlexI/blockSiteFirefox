@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.18] - 2026-09-23
+
+### Added
+- Added direct User Guide links in Popup and Options, plus compact quick actions at the top of Options.
+- New installations receive two concise setup tips on each of their first two days.
+
+### Privacy
+- Starter tips use only the trusted installation date already stored on the device. No new telemetry, server data, or browser permissions were added.
+
 ## [5.2.17] - 2026-09-20
 
 ### Fixed

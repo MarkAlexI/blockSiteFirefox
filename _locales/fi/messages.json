@@ -1096,5 +1096,8 @@
   },
   "focussessionsounddesc": {
     "message": "Toista ääni, kun keskittymisistunto päättyy."
+  },
+  "userguide": {
+    "message": "Käyttöopas"
   }
 }

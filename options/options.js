@@ -22,6 +22,7 @@ import { DiagnosticsUI } from './diagnosticsUI.js';
 import { installPageErrorReporter } from '../telemetry/pageErrorReporter.js';
 import { TelemetryUI } from './telemetryUI.js';
 import { requestTelemetryConsentFromUserAction } from '../telemetry/telemetryConsent.js';
+import { getStarterTipKeys } from './userGuidance.js';
 
 installPageErrorReporter('options');
 
@@ -39,6 +40,9 @@ class OptionsPage {
     
     this.rulesBody = document.getElementById('rules-container');
     this.addRuleButton = document.getElementById('add-rule');
+    this.quickAddRuleButton = document.getElementById('quick-add-rule');
+    this.starterTips = document.getElementById('starter-tips');
+    this.starterTipsList = document.getElementById('starter-tips-list');
     this.addWhitelistRuleButton = document.getElementById('add-whitelist-rule');
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
@@ -137,6 +141,7 @@ class OptionsPage {
       const access = await ProManager.getAccess();
       this.isPro = access.isPro;
       this.isLegacyUser = access.isLegacyUser;
+      this.renderStarterTips(access.credentials.installationDate);
     } catch (error) {
       this.logger.error('Error initializing Pro/Legacy status:', error);
     }
@@ -187,6 +192,12 @@ class OptionsPage {
   
   setupEventListeners() {
     if (this.addRuleButton) this.addRuleButton.addEventListener('click', () => this.showAddRuleForm(false));
+    if (this.quickAddRuleButton) {
+      this.quickAddRuleButton.addEventListener('click', () => {
+        this.addRuleButton?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        this.addRuleButton?.focus({ preventScroll: true });
+      });
+    }
     if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.addEventListener('click', () => this.showAddRuleForm(true));
     if (this.searchInput) this.searchInput.addEventListener('input', () => this.refreshProfileView());
     if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.refreshProfileView());
@@ -202,6 +213,21 @@ class OptionsPage {
     document.querySelectorAll('.collapsible-header').forEach(header => {
       header.addEventListener('click', () => header.parentElement.classList.toggle('expanded'));
     });
+  }
+
+  renderStarterTips(installationDate, now = Date.now()) {
+    if (!this.starterTips || !this.starterTipsList) return;
+
+    const tipKeys = getStarterTipKeys(installationDate, now);
+    this.starterTipsList.replaceChildren();
+
+    for (const key of tipKeys) {
+      const item = document.createElement('li');
+      item.textContent = t(key);
+      this.starterTipsList.append(item);
+    }
+
+    this.starterTips.classList.toggle('hidden', tipKeys.length === 0);
   }
   
   setupStorageListeners() {

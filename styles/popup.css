@@ -63,14 +63,21 @@ a:hover {
   margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
 }
 
-#options-link {
-  display: block;
+.header-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
   font-size: 0.875rem;
-  color: var(--primary-color);
   margin-bottom: 0.9375rem;
 }
 
-#options-link:hover {
+.header-links a {
+  color: var(--primary-color);
+}
+
+.header-links a:hover {
   color: var(--primary-hover);
 }
 

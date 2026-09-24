@@ -1096,5 +1096,8 @@
   },
   "blockedbutton": {
     "message": "टॅब बंद करा"
+  },
+  "userguide": {
+    "message": "वापरकर्ता मार्गदर्शक"
   }
 }

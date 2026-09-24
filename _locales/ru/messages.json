@@ -1096,5 +1096,8 @@
   },
   "additionalsettingstitle": {
     "message": "Дополнительные настройки"
+  },
+  "userguide": {
+    "message": "Руководство пользователя"
   }
 }

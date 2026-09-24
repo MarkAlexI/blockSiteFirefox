@@ -1096,5 +1096,8 @@
   },
   "categorymanagementtitle": {
     "message": "Blokiranje kategorij"
+  },
+  "userguide": {
+    "message": "Uporabniški priročnik"
   }
 }
