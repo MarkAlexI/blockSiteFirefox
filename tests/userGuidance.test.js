@@ -3,7 +3,8 @@ import test from 'node:test';
 import { readFile, readdir } from 'node:fs/promises';
 import {
   STARTER_TIP_KEYS_BY_DAY,
-  getStarterTipKeys
+  getStarterTipKeys,
+  getStarterTipText
 } from '../options/userGuidance.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -26,6 +27,21 @@ test('starter tips stay hidden outside the first 48 hours or without a valid dat
   assert.deepEqual(getStarterTipKeys(new Date(installedAt).toISOString(), installedAt + 2 * DAY_MS), []);
 });
 
+test('redirect starter tip identifies the redirect field', () => {
+  const messages = {
+    redirecturlheader: 'Redirect URL',
+    redirecturlhint: 'Enter a full URL including https://',
+    mobilecopylinkhint: 'Copy the address.'
+  };
+  const translate = key => messages[key];
+
+  assert.equal(
+    getStarterTipText('redirecturlhint', translate),
+    'Redirect URL: Enter a full URL including https://'
+  );
+  assert.equal(getStarterTipText('mobilecopylinkhint', translate), 'Copy the address.');
+});
+
 test('guide and quick actions use the public guide without new extension permissions', async () => {
   const html = await readFile(new URL('../options/options.html', import.meta.url), 'utf8');
   const popup = await readFile(new URL('../index.html', import.meta.url), 'utf8');
@@ -37,7 +53,7 @@ test('guide and quick actions use the public guide without new extension permiss
   assert.equal(manifest.permissions.includes('history'), false);
 });
 
-test('all 57 locales provide a translated User Guide label', async () => {
+test('all 57 locales provide User Guide and complete redirect starter-tip text', async () => {
   const localesRoot = new URL('../_locales/', import.meta.url);
   const localeNames = (await readdir(localesRoot, { withFileTypes: true }))
     .filter(entry => entry.isDirectory())
@@ -51,6 +67,13 @@ test('all 57 locales provide a translated User Guide label', async () => {
     const messages = JSON.parse(await readFile(new URL('../_locales/' + locale + '/messages.json', import.meta.url), 'utf8'));
     assert.equal(typeof messages.userguide?.message, 'string', locale + ': missing userguide');
     assert.notEqual(messages.userguide.message.trim(), '', locale + ': empty userguide');
+    assert.notEqual(messages.redirecturlheader?.message?.trim(), '', locale + ': missing redirect URL header');
+    assert.notEqual(messages.redirecturlhint?.message?.trim(), '', locale + ': missing redirect URL hint');
+    assert.match(
+      getStarterTipText('redirecturlhint', messageKey => messages[messageKey]?.message || ''),
+      /:\s\S/,
+      locale + ': redirect starter tip is not qualified'
+    );
     if (!englishLocales.has(locale)) {
       assert.notEqual(messages.userguide.message, english.userguide.message, locale + ': untranslated userguide');
     }

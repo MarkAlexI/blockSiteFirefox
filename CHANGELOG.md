@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.19] - 2026-09-24
+
+### Fixed
+- Clarified the starter tip for redirects so it cannot be mistaken for a requirement on ordinary blocking rules.
+
+### Privacy
+- This wording-only fix adds no telemetry, server data, or browser permissions.
+
 ## [5.2.18] - 2026-09-23
 
 ### Added

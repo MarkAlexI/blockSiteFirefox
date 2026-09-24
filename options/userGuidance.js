@@ -16,3 +16,11 @@ export function getStarterTipKeys(installationDate, now = Date.now()) {
 
   return [...STARTER_TIP_KEYS_BY_DAY[Math.floor(age / DAY_MS)]];
 }
+
+export function getStarterTipText(key, translate) {
+  if (key === 'redirecturlhint') {
+    return `${translate('redirecturlheader')}: ${translate(key)}`;
+  }
+
+  return translate(key);
+}
