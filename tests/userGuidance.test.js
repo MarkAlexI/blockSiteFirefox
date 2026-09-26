@@ -27,11 +27,15 @@ test('starter tips stay hidden outside the first 48 hours or without a valid dat
   assert.deepEqual(getStarterTipKeys(new Date(installedAt).toISOString(), installedAt + 2 * DAY_MS), []);
 });
 
-test('redirect starter tip identifies the redirect field', () => {
+test('feature starter tips identify the controls they describe', () => {
   const messages = {
     redirecturlheader: 'Redirect URL',
     redirecturlhint: 'Enter a full URL including https://',
-    mobilecopylinkhint: 'Copy the address.'
+    mobilecopylinkhint: 'Copy the address.',
+    strictmodetitle: 'Strict Mode',
+    strictmodedesc: 'Rules require a countdown.',
+    focussessionheader: 'Focus Session',
+    focussessioninfo: 'Activates all blocking rules for a set time.'
   };
   const translate = key => messages[key];
 
@@ -40,6 +44,14 @@ test('redirect starter tip identifies the redirect field', () => {
     'Redirect URL: Enter a full URL including https://'
   );
   assert.equal(getStarterTipText('mobilecopylinkhint', translate), 'Copy the address.');
+  assert.equal(
+    getStarterTipText('strictmodedesc', translate),
+    'Strict Mode: Rules require a countdown.'
+  );
+  assert.equal(
+    getStarterTipText('focussessioninfo', translate),
+    'Focus Session: Activates all blocking rules for a set time.'
+  );
 });
 
 test('guide and quick actions use the public guide without new extension permissions', async () => {
@@ -53,7 +65,7 @@ test('guide and quick actions use the public guide without new extension permiss
   assert.equal(manifest.permissions.includes('history'), false);
 });
 
-test('all 57 locales provide User Guide and complete redirect starter-tip text', async () => {
+test('all 57 locales provide User Guide and complete qualified starter-tip text', async () => {
   const localesRoot = new URL('../_locales/', import.meta.url);
   const localeNames = (await readdir(localesRoot, { withFileTypes: true }))
     .filter(entry => entry.isDirectory())
@@ -69,11 +81,17 @@ test('all 57 locales provide User Guide and complete redirect starter-tip text',
     assert.notEqual(messages.userguide.message.trim(), '', locale + ': empty userguide');
     assert.notEqual(messages.redirecturlheader?.message?.trim(), '', locale + ': missing redirect URL header');
     assert.notEqual(messages.redirecturlhint?.message?.trim(), '', locale + ': missing redirect URL hint');
-    assert.match(
-      getStarterTipText('redirecturlhint', messageKey => messages[messageKey]?.message || ''),
-      /:\s\S/,
-      locale + ': redirect starter tip is not qualified'
-    );
+    for (const [key, label] of [
+      ['redirecturlhint', 'redirect'],
+      ['strictmodedesc', 'Strict Mode'],
+      ['focussessioninfo', 'Focus Session']
+    ]) {
+      assert.match(
+        getStarterTipText(key, messageKey => messages[messageKey]?.message || ''),
+        /:\s\S/,
+        locale + ': ' + label + ' starter tip is not qualified'
+      );
+    }
     if (!englishLocales.has(locale)) {
       assert.notEqual(messages.userguide.message, english.userguide.message, locale + ': untranslated userguide');
     }

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.20] - 2026-09-26
+
+### Fixed
+- Starter guidance now names Strict Mode and Focus Session before explaining their behavior, so the descriptions cannot be mistaken for current default settings.
+
+### Privacy
+- The existing two-day guidance window still uses only the trusted installation date already stored on the device. No new storage, telemetry, network requests, or browser permissions were added.
+
 ## [5.2.19] - 2026-09-24
 
 ### Fixed

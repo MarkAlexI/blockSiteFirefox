@@ -5,6 +5,12 @@ export const STARTER_TIP_KEYS_BY_DAY = Object.freeze([
   Object.freeze(['strictmodedesc', 'focussessioninfo'])
 ]);
 
+const STARTER_TIP_TITLE_KEYS = Object.freeze({
+  redirecturlhint: 'redirecturlheader',
+  strictmodedesc: 'strictmodetitle',
+  focussessioninfo: 'focussessionheader'
+});
+
 export function getStarterTipKeys(installationDate, now = Date.now()) {
   const installedAt = Date.parse(installationDate);
   const currentTime = Number(now);
@@ -18,9 +24,8 @@ export function getStarterTipKeys(installationDate, now = Date.now()) {
 }
 
 export function getStarterTipText(key, translate) {
-  if (key === 'redirecturlhint') {
-    return `${translate('redirecturlheader')}: ${translate(key)}`;
-  }
+  const titleKey = STARTER_TIP_TITLE_KEYS[key];
+  if (titleKey) return `${translate(titleKey)}: ${translate(key)}`;
 
   return translate(key);
 }
