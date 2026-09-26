@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Blocarea categoriilor"
   },
+  "startertip_path_rule": {
+    "message": "Blocați o secțiune: Adăugați adresa unei secțiuni specifice, cum ar fi example.com/videos, pentru a păstra restul site-ului disponibil."
+  },
+  "startertip_pause_rule": {
+    "message": "Pauză fără ștergere: Dezactivați o regulă când aveți nevoie de acces temporar, apoi reactivați-o mai târziu."
+  },
   "userguide": {
     "message": "Ghid de utilizare"
   }

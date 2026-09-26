@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "Reproduzir um som quando a sessão de foco terminar."
   },
+  "startertip_path_rule": {
+    "message": "Bloqueie uma secção: adicione o endereço de uma secção específica, como example.com/videos, para manter o resto do site disponível."
+  },
+  "startertip_pause_rule": {
+    "message": "Pause sem eliminar: desative uma regra quando precisar de acesso temporário e volte a ativá-la mais tarde."
+  },
   "userguide": {
     "message": "Guia do utilizador"
   }

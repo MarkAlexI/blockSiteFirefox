@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Pemblokiran Kategori"
   },
+  "startertip_path_rule": {
+    "message": "Blokir satu bagian: Tambahkan alamat bagian tertentu, seperti example.com/videos, agar bagian situs lainnya tetap dapat diakses."
+  },
+  "startertip_pause_rule": {
+    "message": "Jeda tanpa menghapus: Nonaktifkan aturan saat Anda memerlukan akses sementara, lalu aktifkan kembali nanti."
+  },
   "userguide": {
     "message": "Panduan Pengguna"
   }

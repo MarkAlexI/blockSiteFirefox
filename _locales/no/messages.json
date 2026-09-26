@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategoriblokkering"
   },
+  "startertip_path_rule": {
+    "message": "Blokker én del: Legg til adressen til en bestemt del, for eksempel example.com/videos, slik at resten av nettstedet forblir tilgjengelig."
+  },
+  "startertip_pause_rule": {
+    "message": "Sett på pause uten å slette: Slå av en regel når du trenger midlertidig tilgang, og slå den på igjen senere."
+  },
   "userguide": {
     "message": "Brukerveiledning"
   }

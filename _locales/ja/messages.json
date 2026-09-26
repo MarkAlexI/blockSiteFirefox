@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "集中セッションの終了時にサウンドを再生します。"
   },
+  "startertip_path_rule": {
+    "message": "特定のセクションをブロック：example.com/videos のように特定のセクションのアドレスを追加すると、サイトの他の部分は引き続き利用できます。"
+  },
+  "startertip_pause_rule": {
+    "message": "削除せずに一時停止：一時的にアクセスしたい場合はルールをオフにし、後で再びオンにできます。"
+  },
   "userguide": {
     "message": "ユーザーガイド"
   }

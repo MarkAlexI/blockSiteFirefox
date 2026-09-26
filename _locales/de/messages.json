@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "Einen Ton abspielen, wenn die Fokus-Sitzung endet."
   },
+  "startertip_path_rule": {
+    "message": "Einen Bereich blockieren: Fügen Sie die Adresse eines bestimmten Bereichs hinzu, etwa example.com/videos, damit der Rest der Website verfügbar bleibt."
+  },
+  "startertip_pause_rule": {
+    "message": "Pausieren ohne Löschen: Deaktivieren Sie eine Regel, wenn Sie vorübergehend Zugriff benötigen, und aktivieren Sie sie später wieder."
+  },
   "userguide": {
     "message": "Benutzerhandbuch"
   }

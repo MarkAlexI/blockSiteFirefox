@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "專注時段結束時播放聲音。"
   },
+  "startertip_path_rule": {
+    "message": "僅封鎖一個區段：加入特定區段的位址（例如 example.com/videos），網站的其他部分仍可存取。"
+  },
+  "startertip_pause_rule": {
+    "message": "暫停而不刪除：需要暫時存取時關閉規則，之後再重新開啟。"
+  },
   "userguide": {
     "message": "使用者指南"
   }

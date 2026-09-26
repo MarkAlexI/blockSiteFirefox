@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategorijų blokavimas"
   },
+  "startertip_path_rule": {
+    "message": "Blokuokite vieną skiltį: pridėkite konkrečios skilties adresą, pvz., example.com/videos, kad likusi svetainės dalis liktų pasiekiama."
+  },
+  "startertip_pause_rule": {
+    "message": "Pristabdykite neištrindami: kai reikia laikinos prieigos, išjunkite taisyklę, o vėliau vėl ją įjunkite."
+  },
   "userguide": {
     "message": "Naudotojo vadovas"
   }

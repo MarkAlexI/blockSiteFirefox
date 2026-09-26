@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Blocco per categoria"
   },
+  "startertip_path_rule": {
+    "message": "Blocca una sezione: aggiungi l’indirizzo di una sezione specifica, ad esempio example.com/videos, per mantenere accessibile il resto del sito."
+  },
+  "startertip_pause_rule": {
+    "message": "Metti in pausa senza eliminare: disattiva una regola quando ti serve un accesso temporaneo, quindi riattivala in seguito."
+  },
   "userguide": {
     "message": "Guida utente"
   }

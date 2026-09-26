@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "مسدودسازی دسته‌بندی‌ها"
   },
+  "startertip_path_rule": {
+    "message": "مسدود کردن یک بخش: نشانی بخش مشخصی، مانند example.com/videos، را اضافه کنید تا بقیهٔ سایت در دسترس بماند."
+  },
+  "startertip_pause_rule": {
+    "message": "توقف بدون حذف: وقتی به دسترسی موقت نیاز دارید، قانون را خاموش کنید و بعداً دوباره آن را روشن کنید."
+  },
   "userguide": {
     "message": "راهنمای کاربر"
   }

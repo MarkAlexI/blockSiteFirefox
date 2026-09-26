@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.2.20] - 2026-09-26
 
+### Added
+- Added two clear third-day tips for path-specific blocking and temporarily disabling a rule without deleting it.
+
 ### Fixed
 - Starter guidance now names Strict Mode and Focus Session before explaining their behavior, so the descriptions cannot be mistaken for current default settings.
 
 ### Privacy
-- The existing two-day guidance window still uses only the trusted installation date already stored on the device. No new storage, telemetry, network requests, or browser permissions were added.
+- The three-day guidance window uses only the trusted installation date already stored on the device. No new storage, telemetry, network requests, or browser permissions were added.
 
 ## [5.2.19] - 2026-09-24
 

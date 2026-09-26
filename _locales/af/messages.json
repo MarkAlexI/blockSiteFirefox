@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategorieblokkering"
   },
+  "startertip_path_rule": {
+    "message": "Blokkeer een afdeling: Voeg die adres van 'n spesifieke afdeling, soos example.com/videos, by om die res van die webwerf beskikbaar te hou."
+  },
+  "startertip_pause_rule": {
+    "message": "Onderbreek sonder om te verwyder: Skakel 'n reël af wanneer jy tydelike toegang nodig het, en skakel dit later weer aan."
+  },
   "userguide": {
     "message": "Gebruikersgids"
   }

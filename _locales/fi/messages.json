@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "Toista ääni, kun keskittymisistunto päättyy."
   },
+  "startertip_path_rule": {
+    "message": "Estä yksi osio: Lisää tietyn osion osoite, kuten example.com/videos, jotta muu sivusto pysyy käytettävissä."
+  },
+  "startertip_pause_rule": {
+    "message": "Keskeytä poistamatta: Poista sääntö käytöstä, kun tarvitset tilapäisen pääsyn, ja ota se myöhemmin uudelleen käyttöön."
+  },
   "userguide": {
     "message": "Käyttöopas"
   }

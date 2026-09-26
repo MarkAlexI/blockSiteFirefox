@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "집중 세션이 끝나면 소리를 재생합니다."
   },
+  "startertip_path_rule": {
+    "message": "특정 섹션 차단: example.com/videos처럼 특정 섹션의 주소를 추가하면 사이트의 나머지 부분은 계속 이용할 수 있습니다."
+  },
+  "startertip_pause_rule": {
+    "message": "삭제하지 않고 일시 중지: 잠시 접근해야 할 때 규칙을 끄고 나중에 다시 켜세요."
+  },
   "userguide": {
     "message": "사용자 가이드"
   }

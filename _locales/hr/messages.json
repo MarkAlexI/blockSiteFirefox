@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Blokiranje kategorija"
   },
+  "startertip_path_rule": {
+    "message": "Blokirajte jedan odjeljak: Dodajte adresu određenog odjeljka, primjerice example.com/videos, kako bi ostatak web-mjesta ostao dostupan."
+  },
+  "startertip_pause_rule": {
+    "message": "Pauzirajte bez brisanja: Isključite pravilo kada trebate privremeni pristup, a kasnije ga ponovno uključite."
+  },
   "userguide": {
     "message": "Korisnički vodič"
   }

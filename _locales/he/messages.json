@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "חסימת קטגוריות"
   },
+  "startertip_path_rule": {
+    "message": "חסימת אזור אחד: הוסיפו כתובת של אזור מסוים, כגון example.com/videos, כדי להשאיר את שאר האתר זמין."
+  },
+  "startertip_pause_rule": {
+    "message": "השהיה ללא מחיקה: כבו כלל כשנדרשת גישה זמנית והפעילו אותו שוב מאוחר יותר."
+  },
   "userguide": {
     "message": "מדריך למשתמש"
   }

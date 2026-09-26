@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kuzuia Kategoria"
   },
+  "startertip_path_rule": {
+    "message": "Zuia sehemu moja: Ongeza anwani ya sehemu maalum, kama example.com/videos, ili sehemu nyingine ya tovuti ibaki kupatikana."
+  },
+  "startertip_pause_rule": {
+    "message": "Sitisha bila kufuta: Zima kanuni unapohitaji ufikiaji wa muda, kisha uiwashe tena baadaye."
+  },
   "userguide": {
     "message": "Mwongozo wa Mtumiaji"
   }

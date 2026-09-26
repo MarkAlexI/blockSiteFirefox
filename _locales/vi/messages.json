@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Chặn theo danh mục"
   },
+  "startertip_path_rule": {
+    "message": "Chặn một mục: Thêm địa chỉ của một mục cụ thể, chẳng hạn example.com/videos, để phần còn lại của trang web vẫn truy cập được."
+  },
+  "startertip_pause_rule": {
+    "message": "Tạm dừng mà không xóa: Tắt quy tắc khi bạn cần truy cập tạm thời, rồi bật lại sau."
+  },
   "userguide": {
     "message": "Hướng dẫn sử dụng"
   }

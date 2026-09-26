@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "专注时段结束时播放声音。"
   },
+  "startertip_path_rule": {
+    "message": "仅屏蔽一个版块：添加特定版块的地址（例如 example.com/videos），网站的其他部分仍可访问。"
+  },
+  "startertip_pause_rule": {
+    "message": "暂停而不删除：需要临时访问时关闭规则，之后再重新开启。"
+  },
   "userguide": {
     "message": "用户指南"
   }

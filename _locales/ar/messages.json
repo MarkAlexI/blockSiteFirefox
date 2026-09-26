@@ -1097,6 +1097,12 @@
   "successfulfocussessionslabel": {
     "message": "جلسات تركيز ناجحة"
   },
+  "startertip_path_rule": {
+    "message": "حظر قسم واحد: أضف عنوان قسم محدد، مثل example.com/videos، لإبقاء بقية الموقع متاحًا."
+  },
+  "startertip_pause_rule": {
+    "message": "إيقاف مؤقت دون حذف: عطّل القاعدة عندما تحتاج إلى وصول مؤقت، ثم فعّلها مجددًا لاحقًا."
+  },
   "userguide": {
     "message": "دليل المستخدم"
   }

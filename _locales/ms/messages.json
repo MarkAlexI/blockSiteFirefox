@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Sekatan Kategori"
   },
+  "startertip_path_rule": {
+    "message": "Sekat satu bahagian: Tambahkan alamat bahagian tertentu, seperti example.com/videos, supaya bahagian lain laman kekal tersedia."
+  },
+  "startertip_pause_rule": {
+    "message": "Jeda tanpa memadam: Matikan peraturan apabila anda memerlukan akses sementara, kemudian hidupkannya semula."
+  },
   "userguide": {
     "message": "Panduan Pengguna"
   }

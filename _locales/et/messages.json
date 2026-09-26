@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategooriate blokeerimine"
   },
+  "startertip_path_rule": {
+    "message": "Blokeeri üks jaotis: Lisa kindla jaotise aadress, näiteks example.com/videos, et ülejäänud sait jääks kättesaadavaks."
+  },
+  "startertip_pause_rule": {
+    "message": "Peata kustutamata: Lülita reegel ajutise juurdepääsu vajadusel välja ja hiljem uuesti sisse."
+  },
   "userguide": {
     "message": "Kasutusjuhend"
   }

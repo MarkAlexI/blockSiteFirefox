@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "የምድብ እገዳ"
   },
+  "startertip_path_rule": {
+    "message": "አንድን ክፍል አግድ፦ የቀረው ድረ ገጽ ክፍት እንዲቆይ፣ እንደ example.com/videos ያለ የተወሰነ ክፍል አድራሻ ያክሉ።"
+  },
+  "startertip_pause_rule": {
+    "message": "ሳይሰርዙ ለአፍታ ያቁሙ፦ ጊዜያዊ መዳረሻ ሲፈልጉ ደንቡን ያጥፉ፣ ከዚያ በኋላ እንደገና ያብሩት።"
+  },
   "userguide": {
     "message": "የተጠቃሚ መመሪያ"
   }

@@ -2,7 +2,8 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 
 export const STARTER_TIP_KEYS_BY_DAY = Object.freeze([
   Object.freeze(['mobilecopylinkhint', 'redirecturlhint']),
-  Object.freeze(['strictmodedesc', 'focussessioninfo'])
+  Object.freeze(['strictmodedesc', 'focussessioninfo']),
+  Object.freeze(['startertip_path_rule', 'startertip_pause_rule'])
 ]);
 
 const STARTER_TIP_TITLE_KEYS = Object.freeze({

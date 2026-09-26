@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "Émettre un son à la fin de la session de concentration."
   },
+  "startertip_path_rule": {
+    "message": "Bloquez une section : ajoutez l’adresse d’une section précise, comme example.com/videos, pour garder le reste du site accessible."
+  },
+  "startertip_pause_rule": {
+    "message": "Mettez en pause sans supprimer : désactivez une règle lorsque vous avez besoin d’un accès temporaire, puis réactivez-la plus tard."
+  },
   "userguide": {
     "message": "Guide d’utilisation"
   }

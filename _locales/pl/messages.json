@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Blokowanie kategorii"
   },
+  "startertip_path_rule": {
+    "message": "Zablokuj jedną sekcję: Dodaj adres konkretnej sekcji, np. example.com/videos, aby pozostała część witryny była dostępna."
+  },
+  "startertip_pause_rule": {
+    "message": "Wstrzymaj bez usuwania: Wyłącz regułę, gdy potrzebujesz tymczasowego dostępu, a później włącz ją ponownie."
+  },
   "userguide": {
     "message": "Podręcznik użytkownika"
   }

@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategori Engelleme"
   },
+  "startertip_path_rule": {
+    "message": "Bir bölümü engelleyin: Sitenin geri kalanını erişilebilir tutmak için example.com/videos gibi belirli bir bölümün adresini ekleyin."
+  },
+  "startertip_pause_rule": {
+    "message": "Silmeden duraklatın: Geçici erişime ihtiyacınız olduğunda kuralı kapatın, daha sonra tekrar açın."
+  },
   "userguide": {
     "message": "Kullanıcı Kılavuzu"
   }

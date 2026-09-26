@@ -1097,6 +1097,12 @@
   "focussessionsounddesc": {
     "message": "Speel een geluid af wanneer de focussessie eindigt."
   },
+  "startertip_path_rule": {
+    "message": "Blokkeer één onderdeel: Voeg het adres van een specifiek onderdeel toe, zoals example.com/videos, zodat de rest van de website beschikbaar blijft."
+  },
+  "startertip_pause_rule": {
+    "message": "Pauzeer zonder te verwijderen: Schakel een regel uit wanneer u tijdelijk toegang nodig hebt en schakel deze later weer in."
+  },
   "userguide": {
     "message": "Gebruikershandleiding"
   }

@@ -10,7 +10,7 @@ import {
 const DAY_MS = 24 * 60 * 60 * 1000;
 const installedAt = Date.parse('2026-09-23T12:00:00.000Z');
 
-test('starter tips show two stable messages on each of the first two days', () => {
+test('starter tips show two stable messages on each of the first three days', () => {
   assert.deepEqual(
     getStarterTipKeys(new Date(installedAt).toISOString(), installedAt),
     [...STARTER_TIP_KEYS_BY_DAY[0]]
@@ -19,12 +19,16 @@ test('starter tips show two stable messages on each of the first two days', () =
     getStarterTipKeys(new Date(installedAt).toISOString(), installedAt + DAY_MS),
     [...STARTER_TIP_KEYS_BY_DAY[1]]
   );
+  assert.deepEqual(
+    getStarterTipKeys(new Date(installedAt).toISOString(), installedAt + 2 * DAY_MS),
+    [...STARTER_TIP_KEYS_BY_DAY[2]]
+  );
 });
 
-test('starter tips stay hidden outside the first 48 hours or without a valid date', () => {
+test('starter tips stay hidden outside the first 72 hours or without a valid date', () => {
   assert.deepEqual(getStarterTipKeys('not-a-date', installedAt), []);
   assert.deepEqual(getStarterTipKeys(new Date(installedAt).toISOString(), installedAt - 1), []);
-  assert.deepEqual(getStarterTipKeys(new Date(installedAt).toISOString(), installedAt + 2 * DAY_MS), []);
+  assert.deepEqual(getStarterTipKeys(new Date(installedAt).toISOString(), installedAt + 3 * DAY_MS), []);
 });
 
 test('feature starter tips identify the controls they describe', () => {
@@ -81,6 +85,8 @@ test('all 57 locales provide User Guide and complete qualified starter-tip text'
     assert.notEqual(messages.userguide.message.trim(), '', locale + ': empty userguide');
     assert.notEqual(messages.redirecturlheader?.message?.trim(), '', locale + ': missing redirect URL header');
     assert.notEqual(messages.redirecturlhint?.message?.trim(), '', locale + ': missing redirect URL hint');
+    assert.match(messages.startertip_path_rule?.message || '', /example\.com\/videos/, locale + ': missing path tip');
+    assert.notEqual(messages.startertip_pause_rule?.message?.trim(), '', locale + ': missing pause tip');
     for (const [key, label] of [
       ['redirecturlhint', 'redirect'],
       ['strictmodedesc', 'Strict Mode'],
@@ -94,6 +100,16 @@ test('all 57 locales provide User Guide and complete qualified starter-tip text'
     }
     if (!englishLocales.has(locale)) {
       assert.notEqual(messages.userguide.message, english.userguide.message, locale + ': untranslated userguide');
+      assert.notEqual(
+        messages.startertip_path_rule.message,
+        english.startertip_path_rule.message,
+        locale + ': untranslated path tip'
+      );
+      assert.notEqual(
+        messages.startertip_pause_rule.message,
+        english.startertip_pause_rule.message,
+        locale + ': untranslated pause tip'
+      );
     }
   }
 });

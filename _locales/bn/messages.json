@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "বিভাগ ব্লক করা"
   },
+  "startertip_path_rule": {
+    "message": "একটি অংশ ব্লক করুন: সাইটের বাকি অংশ উপলভ্য রাখতে example.com/videos-এর মতো নির্দিষ্ট অংশের ঠিকানা যোগ করুন।"
+  },
+  "startertip_pause_rule": {
+    "message": "মুছে না দিয়ে বিরতি দিন: সাময়িক অ্যাক্সেসের প্রয়োজন হলে নিয়মটি বন্ধ করুন, পরে আবার চালু করুন।"
+  },
   "userguide": {
     "message": "ব্যবহারকারী নির্দেশিকা"
   }

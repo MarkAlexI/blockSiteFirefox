@@ -1115,6 +1115,12 @@
   "proverificationnotice": {
     "message": "Para verificar Pro, solo enviamos la clave que ingresas y los datos técnicos necesarios. Tu historial de navegación y tus reglas permanecen en tu dispositivo."
   },
+  "startertip_path_rule": {
+    "message": "Bloquea una sección: Agrega la dirección de una sección específica, como example.com/videos, para mantener disponible el resto del sitio."
+  },
+  "startertip_pause_rule": {
+    "message": "Pausa sin eliminar: Desactiva una regla cuando necesites acceso temporal y vuelve a activarla más tarde."
+  },
   "userguide": {
     "message": "Guía del usuario"
   }

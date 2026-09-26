@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Blokování kategorií"
   },
+  "startertip_path_rule": {
+    "message": "Blokování jedné části: Přidejte adresu konkrétní části, například example.com/videos, aby zbytek webu zůstal dostupný."
+  },
+  "startertip_pause_rule": {
+    "message": "Pozastavení bez odstranění: Když potřebujete dočasný přístup, pravidlo vypněte a později ho znovu zapněte."
+  },
   "userguide": {
     "message": "Uživatelská příručka"
   }

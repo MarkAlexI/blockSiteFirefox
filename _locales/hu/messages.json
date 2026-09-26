@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategóriák blokkolása"
   },
+  "startertip_path_rule": {
+    "message": "Egy szakasz blokkolása: Adja meg egy adott szakasz címét, például example.com/videos, hogy a webhely többi része elérhető maradjon."
+  },
+  "startertip_pause_rule": {
+    "message": "Szüneteltetés törlés nélkül: Kapcsoljon ki egy szabályt, ha ideiglenes hozzáférésre van szüksége, majd később kapcsolja vissza."
+  },
   "userguide": {
     "message": "Felhasználói útmutató"
   }

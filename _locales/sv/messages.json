@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategoriblockering"
   },
+  "startertip_path_rule": {
+    "message": "Blockera en del: Lägg till adressen till en viss del, till exempel example.com/videos, så att resten av webbplatsen förblir tillgänglig."
+  },
+  "startertip_pause_rule": {
+    "message": "Pausa utan att radera: Stäng av en regel när du behöver tillfällig åtkomst och slå på den igen senare."
+  },
   "userguide": {
     "message": "Användarhandbok"
   }

@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Pag-block ayon sa Kategorya"
   },
+  "startertip_path_rule": {
+    "message": "I-block ang isang seksyon: Idagdag ang address ng partikular na seksyon, gaya ng example.com/videos, upang manatiling available ang iba pang bahagi ng site."
+  },
+  "startertip_pause_rule": {
+    "message": "I-pause nang hindi binubura: I-off ang rule kapag kailangan mo ng pansamantalang access, pagkatapos ay i-on itong muli."
+  },
   "userguide": {
     "message": "Gabay sa Gumagamit"
   }

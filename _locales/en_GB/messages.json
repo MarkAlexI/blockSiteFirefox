@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Category Blocking"
   },
+  "startertip_path_rule": {
+    "message": "Block one section: Add the address of a specific section, such as example.com/videos, to keep the rest of the site available."
+  },
+  "startertip_pause_rule": {
+    "message": "Pause without deleting: Turn a rule off when you need temporary access, then turn it back on later."
+  },
   "userguide": {
     "message": "User Guide"
   }

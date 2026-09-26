@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Bloqueig per categories"
   },
+  "startertip_path_rule": {
+    "message": "Bloqueja una secció: Afegeix l’adreça d’una secció concreta, com ara example.com/videos, per mantenir disponible la resta del lloc."
+  },
+  "startertip_pause_rule": {
+    "message": "Pausa sense eliminar: Desactiva una regla quan necessitis accés temporal i torna-la a activar més tard."
+  },
   "userguide": {
     "message": "Guia de l’usuari"
   }

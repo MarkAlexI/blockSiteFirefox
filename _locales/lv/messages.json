@@ -1097,6 +1097,12 @@
   "categorymanagementtitle": {
     "message": "Kategoriju bloķēšana"
   },
+  "startertip_path_rule": {
+    "message": "Bloķējiet vienu sadaļu: pievienojiet konkrētas sadaļas adresi, piemēram, example.com/videos, lai pārējā vietne paliktu pieejama."
+  },
+  "startertip_pause_rule": {
+    "message": "Apturiet, neizdzēšot: kad nepieciešama pagaidu piekļuve, izslēdziet kārtulu un vēlāk to atkal ieslēdziet."
+  },
   "userguide": {
     "message": "Lietotāja rokasgrāmata"
   }
