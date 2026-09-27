@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.22] - 2026-09-27
+
+### Fixed
+- Password protection now covers disabling rules in Popup and Options, muting categories, deleting Rule Lists, and importing a replacement rule set.
+- Restoring a disabled rule or category remains immediately available without an unnecessary password prompt.
+- Protected rule changes fail closed when security settings cannot be read, while Free cleanup remains available after paid access ends.
+
+### Privacy
+- Password checks remain local to the browser profile. No passwords, rule contents, telemetry fields, network requests, or browser permissions were added.
+
 ## [5.2.21] - 2026-09-27
 
 ### Added

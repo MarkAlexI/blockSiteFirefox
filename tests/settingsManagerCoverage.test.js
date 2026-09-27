@@ -786,6 +786,29 @@ test('confirmed rule imports preserve Rule Lists, activate the requested profile
   });
 });
 
+test('rule imports require password authorization before replacing existing rules', async () => {
+  await withSettingsManager(async ({ document, manager }) => {
+    const calls = [];
+    manager.checkPasswordProtection = async () => {
+      calls.push('authorize');
+      return false;
+    };
+    manager.rulesClient.replaceAll = async () => {
+      calls.push('replace');
+      return { rules: [] };
+    };
+    document.getElementById('importFileInput').value = '/tmp/protected.json';
+
+    await manager.importRules({
+      name: 'rules.json',
+      async text() { return JSON.stringify({ rules: [{ blockURL: 'example.com' }] }); }
+    });
+
+    assert.deepEqual(calls, ['authorize']);
+    assert.equal(document.getElementById('importFileInput').value, '');
+  });
+});
+
 test('cancelled imports never replace existing rules, and validation errors expose their safe error codes', async () => {
   await withSettingsManager(async ({ document, manager, setConfirmation }) => {
     const file = { name: 'rules.json', async text() { return '{"rules":[{"id":1}]}'; } };

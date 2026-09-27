@@ -488,13 +488,22 @@ export class SettingsManager {
       ) {
         throw new Error('Invalid file format: missing rules array');
       }
+
+      const isAuthorized = await this.checkPasswordProtection();
+      if (!isAuthorized) {
+        document.getElementById('importFileInput').value = '';
+        return;
+      }
       
       const confirmImport = confirm(
         t('willimportrules', `${importData.rules.length}`) +
         t('ruleswillbereplaced')
       );
       
-      if (!confirmImport) return;
+      if (!confirmImport) {
+        document.getElementById('importFileInput').value = '';
+        return;
+      }
       
       const response = await this.rulesClient.replaceAll(
         importData.rules,

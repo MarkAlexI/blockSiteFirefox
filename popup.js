@@ -558,17 +558,12 @@ class PopupPage {
           toggleElement.style.cursor = 'pointer';
           toggleElement.style.marginLeft = '10px';
           toggleElement.addEventListener('click', async () => {
-            if (isMuted) return;
-            try {
-              await this.rulesClient.toggleRule(
-                ruleId,
-                activeAssignment?.listId || this.activeRuleListId || GENERAL_RULE_LIST_ID
-              );
-              await this.loadRules();
-            } catch (error) {
-              this.logRulesMutationFailure('Toggle rule error:', error);
-              this.handleRulesMutationError(error, 'errorupdatingrules');
-            }
+            await this.handleRuleToggle(
+              ruleId,
+              activeAssignment?.listId || this.activeRuleListId || GENERAL_RULE_LIST_ID,
+              disabledByUser,
+              isMuted
+            );
           });
           ruleDiv.appendChild(toggleElement);
         }
@@ -733,6 +728,35 @@ class PopupPage {
       this.logger.info(label, error?.code || 'rejected');
     } else {
       this.logger.error(label, error);
+    }
+  }
+
+  async authorizePasswordProtectedRuleChange() {
+    if (!this.isPro && !this.isLegacyUser) return true;
+
+    try {
+      const settings = await SettingsManager.getSettings({ throwOnError: true });
+      if (!settings.enablePassword) return true;
+      return await this.promptForPassword();
+    } catch (error) {
+      this.logger.error('Error checking password protection before a rule change:', error);
+      customAlert(t('errorloadingsettings'));
+      return false;
+    }
+  }
+
+  async handleRuleToggle(ruleId, listId, disabledByUser, isMuted = false) {
+    if (isMuted) return;
+
+    const isDisablingRule = disabledByUser !== true;
+    if (isDisablingRule && !await this.authorizePasswordProtectedRuleChange()) return;
+
+    try {
+      await this.rulesClient.toggleRule(ruleId, listId || GENERAL_RULE_LIST_ID);
+      await this.loadRules();
+    } catch (error) {
+      this.logRulesMutationFailure('Toggle rule error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
 

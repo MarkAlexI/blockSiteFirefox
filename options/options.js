@@ -326,6 +326,20 @@ class OptionsPage {
     });
   }
 
+  async authorizePasswordProtectedRuleChange() {
+    if (!this.isPro && !this.isLegacyUser) return true;
+
+    try {
+      const settings = await SettingsManager.getSettings({ throwOnError: true });
+      if (!settings.enablePassword) return true;
+      return await this.promptForPassword();
+    } catch (error) {
+      this.logger.error('Error checking password protection before a rule change:', error);
+      this.rulesUI.showErrorMessage(t('errorloadingsettings'));
+      return false;
+    }
+  }
+
   logRulesMutationFailure(label, error) {
     if (isExpectedRulesRejection(error)) {
       this.logger.info(label, error?.code || 'rejected');
@@ -376,6 +390,24 @@ class OptionsPage {
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     } else {
       this.rulesUI.showErrorMessage(t(fallbackKey));
+    }
+  }
+
+  async handleRuleToggle(ruleId, assignment, isMuted = false) {
+    if (isMuted) return;
+
+    const isDisablingRule = assignment?.disabledByUser !== true;
+    if (isDisablingRule && !await this.authorizePasswordProtectedRuleChange()) return;
+
+    try {
+      await this.rulesClient.toggleRule(
+        ruleId,
+        assignment?.listId || GENERAL_RULE_LIST_ID
+      );
+      await this.refreshProfileView();
+    } catch (error) {
+      this.logRulesMutationFailure('Toggle rule error:', error);
+      this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
   
@@ -505,19 +537,7 @@ class OptionsPage {
           ? this.handleRuleDeletion(event, ruleId)
           : this.handleRuleAssignmentDeletion(event, ruleId, targetAssignment?.listId);
       },
-      async ruleId => {
-        if (isMuted) return;
-        try {
-          await this.rulesClient.toggleRule(
-            ruleId,
-            assignment?.listId || GENERAL_RULE_LIST_ID
-          );
-          await this.refreshProfileView();
-        } catch (error) {
-          this.logRulesMutationFailure('Toggle rule error:', error);
-          this.handleRulesMutationError(error, 'errorupdatingrules');
-        }
-      },
+      ruleId => this.handleRuleToggle(ruleId, assignment, isMuted),
       canEdit,
       disabledCategories,
       dailyUsageSeconds,
@@ -801,6 +821,8 @@ class OptionsPage {
 
   async handleRuleListDelete(list) {
     if (!confirm(t('rulelists_delete_confirm', list.name))) return;
+    if (!await this.authorizePasswordProtectedRuleChange()) return;
+
     try {
       await this.rulesClient.deleteRuleList(list.id);
       if (this.activeRuleListId === list.id) {
@@ -820,6 +842,15 @@ class OptionsPage {
         this.refreshProfileView();
         return;
       }
+
+      const state = await this.ruleListsManager.getState();
+      const activeProfile = state.lists.find(list => list.id === state.activeRuleListId);
+      const isDisablingCategory = !activeProfile?.disabledCategories?.includes(category);
+      if (isDisablingCategory && !await this.authorizePasswordProtectedRuleChange()) {
+        await this.refreshProfileView();
+        return;
+      }
+
       await this.rulesClient.toggleCategory(category);
       await this.refreshProfileView();
     } catch (error) {
