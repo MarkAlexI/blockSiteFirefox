@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Začasno ustavite brez brisanja: Ko potrebujete začasen dostop, pravilo izklopite in ga pozneje znova vklopite."
   },
+  "protips_title": { "message": "Izkoristite več možnosti Pro" },
+  "protips_dismiss": { "message": "Skrij nasvete Pro" },
+  "protip_backup_transfer": { "message": "Varnostno kopirajte in prenesite pravila: v Upravljanju pravil možnost Izvozi pravila shrani pravila, sezname pravil in združljive nastavitve v datoteko JSON. Uvozite jo v BlockDistraction v drugem brskalniku. Uvoz nadomesti trenutna pravila v tem brskalniku, zato jih po potrebi najprej izvozite." },
+  "protip_blocking_modes": { "message": "Izberite pravi način blokiranja: Razpored blokira ob izbranih časih. Dnevna omejitev začne blokirati šele po porabi dovoljenega časa brskanja." },
+  "protip_rule_lists": { "message": "Ločite nastavitve s Seznami pravil: uporabljajte različne sezname za delo, učenje ali prosti čas. Blokiranje upravlja samo aktivni seznam; preklop ne izbriše drugih." },
+  "protip_category_pause": { "message": "Začasno ustavite kategorijo brez brisanja pravil: izklopite kategorijo, da ustavite njena pravila na trenutnem seznamu, in jo po potrebi znova vklopite." },
+  "protip_rule_protection": { "message": "Zaščitite pomembna pravila: Strogi način pred brisanjem doda odštevanje. Zaščita z geslom lahko pred urejanjem ali brisanjem pravil zahteva geslo." },
+  "protip_focus_session": { "message": "Uporabite Sejo osredotočenosti za začasno blokiranje: za izbrani čas aktivira vsa pravila blokiranja, ne upošteva njihovih običajnih načinov in razporedov ter pravil ne spremeni." },
+  "protip_rule_packs": { "message": "Začnite hitreje s Paketi pravil: oglejte si preverjen začetni komplet, izberite samo želene naslove ter jih po dodajanju uredite ali odstranite." },
+  "protip_statistics": { "message": "Oglejte si lokalno statistiko: preverite blokiranja, preusmeritve in zaključene Seje osredotočenosti zadnjih 30 dni. Brisanje statistike ne odstrani pravil." },
   "userguide": {
     "message": "Uporabniški priročnik"
   }

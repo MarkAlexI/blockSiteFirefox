@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Jeda tanpa memadam: Matikan peraturan apabila anda memerlukan akses sementara, kemudian hidupkannya semula."
   },
+  "protips_title": { "message": "Manfaatkan Pro dengan lebih baik" },
+  "protips_dismiss": { "message": "Sembunyikan petua Pro" },
+  "protip_backup_transfer": { "message": "Sandarkan dan pindahkan peraturan: dalam Pengurusan Peraturan, Eksport Peraturan menyimpan peraturan, Senarai Peraturan dan tetapan serasi ke fail JSON. Import fail itu ke BlockDistraction dalam pelayar lain. Import menggantikan peraturan semasa pelayar tersebut, jadi eksport dahulu jika perlu disimpan." },
+  "protip_blocking_modes": { "message": "Pilih mod sekatan yang betul: Jadual menyekat pada waktu yang dipilih. Had harian hanya menyekat selepas masa pelayaran yang dibenarkan telah digunakan." },
+  "protip_rule_lists": { "message": "Asingkan persediaan dengan Senarai Peraturan: gunakan senarai berbeza untuk kerja, belajar atau masa lapang. Hanya senarai aktif mengawal sekatan; menukar senarai tidak memadam senarai lain." },
+  "protip_category_pause": { "message": "Jeda kategori tanpa memadam peraturan: matikan kategori untuk menjeda peraturannya dalam senarai semasa, kemudian hidupkannya semula apabila diperlukan." },
+  "protip_rule_protection": { "message": "Lindungi peraturan penting: Mod Ketat menambah kira detik sebelum pemadaman. Perlindungan kata laluan boleh meminta kata laluan sebelum peraturan diedit atau dipadam." },
+  "protip_focus_session": { "message": "Gunakan Sesi Fokus untuk sekatan sementara: ia mengaktifkan semua peraturan sekatan untuk tempoh yang dipilih, mengabaikan mod dan jadual biasa, tanpa mengubah peraturan." },
+  "protip_rule_packs": { "message": "Bermula lebih pantas dengan Pek Peraturan: pratonton set permulaan yang telah disemak, pilih hanya alamat yang dikehendaki dan edit atau buang selepas ditambah." },
+  "protip_statistics": { "message": "Semak statistik setempat: lihat sekatan, ubah hala dan Sesi Fokus yang selesai dalam 30 hari lalu. Mengosongkan statistik tidak memadam peraturan anda." },
   "userguide": {
     "message": "Panduan Pengguna"
   }

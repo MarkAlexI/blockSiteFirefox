@@ -22,7 +22,13 @@ import { DiagnosticsUI } from './diagnosticsUI.js';
 import { installPageErrorReporter } from '../telemetry/pageErrorReporter.js';
 import { TelemetryUI } from './telemetryUI.js';
 import { requestTelemetryConsentFromUserAction } from '../telemetry/telemetryConsent.js';
-import { getStarterTipKeys, getStarterTipText } from './userGuidance.js';
+import {
+  PRO_GUIDANCE_STORAGE_KEY,
+  dismissProGuidance,
+  getStarterTipKeys,
+  getStarterTipText,
+  resolveProGuidance
+} from './userGuidance.js';
 
 installPageErrorReporter('options');
 
@@ -42,7 +48,11 @@ class OptionsPage {
     this.addRuleButton = document.getElementById('add-rule');
     this.quickAddRuleButton = document.getElementById('quick-add-rule');
     this.starterTips = document.getElementById('starter-tips');
+    this.starterTipsSection = document.getElementById('starter-tips-section');
     this.starterTipsList = document.getElementById('starter-tips-list');
+    this.proTipsSection = document.getElementById('pro-tips-section');
+    this.proTipsList = document.getElementById('pro-tips-list');
+    this.proTipsDismissButton = document.getElementById('pro-tips-dismiss');
     this.addWhitelistRuleButton = document.getElementById('add-whitelist-rule');
     this.statusElement = document.getElementById('status');
     this.searchInput = document.getElementById('search-input');
@@ -142,6 +152,7 @@ class OptionsPage {
       this.isPro = access.isPro;
       this.isLegacyUser = access.isLegacyUser;
       this.renderStarterTips(access.credentials.installationDate);
+      await this.renderProTips(access.isPro || access.isLegacyUser);
     } catch (error) {
       this.logger.error('Error initializing Pro/Legacy status:', error);
     }
@@ -199,6 +210,9 @@ class OptionsPage {
       });
     }
     if (this.addWhitelistRuleButton) this.addWhitelistRuleButton.addEventListener('click', () => this.showAddRuleForm(true));
+    if (this.proTipsDismissButton) {
+      this.proTipsDismissButton.addEventListener('click', () => void this.dismissProTips());
+    }
     if (this.searchInput) this.searchInput.addEventListener('input', () => this.refreshProfileView());
     if (this.categoryFilter) this.categoryFilter.addEventListener('change', () => this.refreshProfileView());
     if (this.addRuleListButton) this.addRuleListButton.addEventListener('click', () => this.handleRuleListCreate());
@@ -216,7 +230,7 @@ class OptionsPage {
   }
 
   renderStarterTips(installationDate, now = Date.now()) {
-    if (!this.starterTips || !this.starterTipsList) return;
+    if (!this.starterTipsSection || !this.starterTipsList) return;
 
     const tipKeys = getStarterTipKeys(installationDate, now);
     this.starterTipsList.replaceChildren();
@@ -227,7 +241,60 @@ class OptionsPage {
       this.starterTipsList.append(item);
     }
 
-    this.starterTips.classList.toggle('hidden', tipKeys.length === 0);
+    this.starterTipsSection.classList.toggle('hidden', tipKeys.length === 0);
+    this.updateGuidanceVisibility();
+  }
+
+  updateGuidanceVisibility() {
+    if (!this.starterTips) return;
+    const hasStarterTips = this.starterTipsSection && !this.starterTipsSection.classList.contains('hidden');
+    const hasProTips = this.proTipsSection && !this.proTipsSection.classList.contains('hidden');
+    this.starterTips.classList.toggle('hidden', !hasStarterTips && !hasProTips);
+  }
+
+  async renderProTips(hasPaidAccess, now = Date.now()) {
+    if (!this.proTipsSection || !this.proTipsList) return;
+
+    this.proTipsList.replaceChildren();
+    if (!hasPaidAccess) {
+      this.proTipsSection.classList.add('hidden');
+      this.updateGuidanceVisibility();
+      return;
+    }
+
+    try {
+      const result = await chrome.storage.local.get([PRO_GUIDANCE_STORAGE_KEY]);
+      const resolved = resolveProGuidance(result[PRO_GUIDANCE_STORAGE_KEY], now);
+      if (resolved.changed && resolved.state) {
+        await chrome.storage.local.set({ [PRO_GUIDANCE_STORAGE_KEY]: resolved.state });
+      }
+
+      if (resolved.tipKey) {
+        const item = document.createElement('li');
+        item.textContent = t(resolved.tipKey);
+        this.proTipsList.append(item);
+      }
+      this.proTipsSection.classList.toggle('hidden', !resolved.tipKey);
+    } catch (error) {
+      this.logger.info('Error loading Pro guidance:', error);
+      this.proTipsSection.classList.add('hidden');
+    }
+
+    this.updateGuidanceVisibility();
+  }
+
+  async dismissProTips() {
+    try {
+      const result = await chrome.storage.local.get([PRO_GUIDANCE_STORAGE_KEY]);
+      const state = dismissProGuidance(result[PRO_GUIDANCE_STORAGE_KEY]);
+      if (state) {
+        await chrome.storage.local.set({ [PRO_GUIDANCE_STORAGE_KEY]: state });
+      }
+      this.proTipsSection?.classList.add('hidden');
+      this.updateGuidanceVisibility();
+    } catch (error) {
+      this.logger.info('Error dismissing Pro guidance:', error);
+    }
   }
   
   setupStorageListeners() {
@@ -790,6 +857,7 @@ browser.runtime.onMessage.addListener((message) => {
     logger.log(`Pro status changed: ${message.isPro}`);
     ProManager.updateProFeaturesVisibility(message.isPro || optionsPage.isLegacyUser);
     optionsPage.isPro = message.isPro;
+    void optionsPage.renderProTips(message.isPro || optionsPage.isLegacyUser);
     optionsPage.updateWhitelistButtonState();
     optionsPage.refreshProfileView();
   }
@@ -797,6 +865,7 @@ browser.runtime.onMessage.addListener((message) => {
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
+    void optionsPage.renderProTips(optionsPage.isPro || optionsPage.isLegacyUser);
     optionsPage.refreshProfileView();
   }
 });

@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pausa sense eliminar: Desactiva una regla quan necessitis accés temporal i torna-la a activar més tard."
   },
+  "protips_title": { "message": "Aprofita millor Pro" },
+  "protips_dismiss": { "message": "Amaga els consells Pro" },
+  "protip_backup_transfer": { "message": "Fes una còpia i mou les regles: a Gestió de regles, Exporta regles desa les regles, les llistes de regles i els paràmetres compatibles en un fitxer JSON. Importa'l a BlockDistraction en un altre navegador. La importació substitueix les regles actuals d'aquell navegador, així que exporta-les primer si les vols conservar." },
+  "protip_blocking_modes": { "message": "Tria el mode de bloqueig adequat: l'Horari bloqueja durant els períodes seleccionats. El Límit diari només bloqueja després d'esgotar el temps de navegació permès." },
+  "protip_rule_lists": { "message": "Separa les configuracions amb Llistes de regles: fes servir llistes diferents per a la feina, els estudis o el lleure. Només la llista activa controla el bloqueig; canviar de llista no elimina les altres." },
+  "protip_category_pause": { "message": "Posa en pausa una categoria sense eliminar regles: desactiva-la per aturar les seves regles a la llista actual i torna-la a activar quan calgui." },
+  "protip_rule_protection": { "message": "Protegeix les regles importants: el Mode estricte afegeix un compte enrere abans de l'eliminació. La protecció amb contrasenya pot demanar la contrasenya abans d'editar o eliminar regles." },
+  "protip_focus_session": { "message": "Fes servir una Sessió de focus per a un bloqueig temporal: activa totes les regles de bloqueig durant el temps triat, ignorant els modes i horaris habituals, sense modificar les regles." },
+  "protip_rule_packs": { "message": "Comença més de pressa amb Paquets de regles: revisa un conjunt inicial verificat, tria només les adreces que vulguis i edita-les o elimina-les després d'afegir-les." },
+  "protip_statistics": { "message": "Consulta les estadístiques locals: revisa els bloquejos, les redireccions i les Sessions de focus completades durant els últims 30 dies. Esborrar les estadístiques no elimina les regles." },
   "userguide": {
     "message": "Guia de l’usuari"
   }

@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Jeda tanpa menghapus: Nonaktifkan aturan saat Anda memerlukan akses sementara, lalu aktifkan kembali nanti."
   },
+  "protips_title": { "message": "Manfaatkan Pro lebih maksimal" },
+  "protips_dismiss": { "message": "Sembunyikan tips Pro" },
+  "protip_backup_transfer": { "message": "Cadangkan dan pindahkan aturan: di Manajemen Aturan, Ekspor Aturan menyimpan aturan, Daftar Aturan, dan pengaturan yang kompatibel ke file JSON. Impor file tersebut ke BlockDistraction di browser lain. Impor menggantikan aturan browser itu saat ini, jadi ekspor terlebih dahulu jika perlu dipertahankan." },
+  "protip_blocking_modes": { "message": "Pilih mode pemblokiran yang tepat: Jadwal memblokir pada waktu yang dipilih. Batas harian baru memblokir setelah waktu penjelajahan yang diizinkan habis digunakan." },
+  "protip_rule_lists": { "message": "Pisahkan konfigurasi dengan Daftar Aturan: gunakan daftar berbeda untuk bekerja, belajar, atau bersantai. Hanya daftar aktif yang mengontrol pemblokiran; berpindah daftar tidak menghapus daftar lainnya." },
+  "protip_category_pause": { "message": "Jeda kategori tanpa menghapus aturan: matikan kategori untuk menjeda aturannya di daftar saat ini, lalu aktifkan lagi saat diperlukan." },
+  "protip_rule_protection": { "message": "Lindungi aturan penting: Mode Ketat menambahkan hitung mundur sebelum penghapusan. Perlindungan kata sandi dapat meminta kata sandi sebelum aturan diedit atau dihapus." },
+  "protip_focus_session": { "message": "Gunakan Sesi Fokus untuk pemblokiran sementara: fitur ini mengaktifkan semua aturan pemblokiran selama waktu yang dipilih, mengabaikan mode dan jadwal biasanya, tanpa mengubah aturan." },
+  "protip_rule_packs": { "message": "Mulai lebih cepat dengan Paket Aturan: pratinjau kumpulan awal yang telah ditinjau, pilih hanya alamat yang diinginkan, lalu edit atau hapus setelah ditambahkan." },
+  "protip_statistics": { "message": "Tinjau statistik lokal: lihat pemblokiran, pengalihan, dan Sesi Fokus yang selesai selama 30 hari terakhir. Menghapus statistik tidak menghapus aturan Anda." },
   "userguide": {
     "message": "Panduan Pengguna"
   }

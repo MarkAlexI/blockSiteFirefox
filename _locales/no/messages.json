@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Sett på pause uten å slette: Slå av en regel når du trenger midlertidig tilgang, og slå den på igjen senere."
   },
+  "protips_title": { "message": "Få mer ut av Pro" },
+  "protips_dismiss": { "message": "Skjul Pro-tips" },
+  "protip_backup_transfer": { "message": "Sikkerhetskopier og flytt regler: Under Regelhåndtering lagrer Eksporter regler reglene, regellistene og kompatible innstillinger i en JSON-fil. Importer den i BlockDistraction i en annen nettleser. Import erstatter de gjeldende reglene i den nettleseren, så eksporter dem først ved behov." },
+  "protip_blocking_modes": { "message": "Velg riktig blokkeringsmodus: Tidsplan blokkerer på valgte tidspunkter. Daglig grense blokkerer først etter at den tillatte nettlesertiden er brukt opp." },
+  "protip_rule_lists": { "message": "Hold oppsett atskilt med Regellister: bruk forskjellige lister for arbeid, studier eller fritid. Bare den aktive listen styrer blokkeringen; bytte av liste sletter ikke de andre." },
+  "protip_category_pause": { "message": "Sett en kategori på pause uten å slette regler: slå av kategorien for å pause reglene i den gjeldende listen, og slå den på igjen ved behov." },
+  "protip_rule_protection": { "message": "Beskytt viktige regler: Streng modus legger til en nedtelling før sletting. Passordbeskyttelse kan kreve passord før regler redigeres eller slettes." },
+  "protip_focus_session": { "message": "Bruk en Fokussession for midlertidig blokkering: den aktiverer alle blokkeringsregler i den valgte tiden, ignorerer vanlige moduser og tidsplaner og endrer ikke reglene." },
+  "protip_rule_packs": { "message": "Kom raskere i gang med Regelpakker: forhåndsvis et gjennomgått startsett, velg bare adressene du ønsker, og rediger eller fjern dem etter at de er lagt til." },
+  "protip_statistics": { "message": "Se lokal statistikk: vis blokkeringer, omdirigeringer og fullførte Fokussessioner fra de siste 30 dagene. Tømming av statistikken sletter ikke reglene dine." },
   "userguide": {
     "message": "Brukerveiledning"
   }

@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Szüneteltetés törlés nélkül: Kapcsoljon ki egy szabályt, ha ideiglenes hozzáférésre van szüksége, majd később kapcsolja vissza."
   },
+  "protips_title": { "message": "Használja ki jobban a Pro lehetőségeit" },
+  "protips_dismiss": { "message": "Pro-tippek elrejtése" },
+  "protip_backup_transfer": { "message": "Készítsen biztonsági másolatot és vigye át a szabályokat: a Szabályok kezelése részen a Szabályok exportálása JSON-fájlba menti a szabályokat, szabálylistákat és kompatibilis beállításokat. Importálja ezt a BlockDistractionbe egy másik böngészőben. Az importálás lecseréli az adott böngésző jelenlegi szabályait, ezért szükség esetén előbb exportálja őket." },
+  "protip_blocking_modes": { "message": "Válassza ki a megfelelő blokkolási módot: az Ütemezés a kiválasztott időszakokban blokkol. A Napi limit csak az engedélyezett böngészési idő felhasználása után blokkol." },
+  "protip_rule_lists": { "message": "Különítse el a beállításokat Szabálylistákkal: használjon külön listákat munkához, tanuláshoz vagy szabadidőhöz. Csak az aktív lista vezérli a blokkolást; a váltás nem törli a többit." },
+  "protip_category_pause": { "message": "Szüneteltessen egy kategóriát a szabályok törlése nélkül: kapcsolja ki a kategóriát, hogy szüneteltesse szabályait az aktuális listában, majd szükség esetén kapcsolja vissza." },
+  "protip_rule_protection": { "message": "Védje a fontos szabályokat: a Szigorú mód visszaszámlálást ad a törlés elé. A Jelszóvédelem jelszót kérhet a szabályok szerkesztése vagy törlése előtt." },
+  "protip_focus_session": { "message": "Használjon Fókusz menetet ideiglenes blokkoláshoz: a kiválasztott időre aktivál minden blokkolási szabályt, figyelmen kívül hagyva azok szokásos módjait és ütemezéseit, de nem módosítja a szabályokat." },
+  "protip_rule_packs": { "message": "Kezdjen gyorsabban Szabálycsomagokkal: tekintsen meg egy ellenőrzött kezdőkészletet, válassza ki csak a kívánt címeket, majd hozzáadás után szerkessze vagy távolítsa el őket." },
+  "protip_statistics": { "message": "Tekintse át a helyi statisztikákat: nézze meg az elmúlt 30 nap blokkolásait, átirányításait és befejezett Fókusz meneteit. A statisztikák törlése nem törli a szabályokat." },
   "userguide": {
     "message": "Felhasználói útmutató"
   }

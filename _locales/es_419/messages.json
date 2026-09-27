@@ -1121,6 +1121,16 @@
   "startertip_pause_rule": {
     "message": "Pausa sin eliminar: Desactiva una regla cuando necesites acceso temporal y vuelve a activarla más tarde."
   },
+  "protips_title": { "message": "Aprovecha mejor Pro" },
+  "protips_dismiss": { "message": "Ocultar consejos Pro" },
+  "protip_backup_transfer": { "message": "Crea una copia y mueve tus reglas: en Administración de reglas, Exportar reglas guarda tus reglas, listas de reglas y ajustes compatibles en un archivo JSON. Impórtalo en BlockDistraction en otro navegador. La importación reemplaza las reglas actuales de ese navegador, así que expórtalas primero si necesitas conservarlas." },
+  "protip_blocking_modes": { "message": "Elige el modo de bloqueo adecuado: el Horario bloquea durante los periodos elegidos. El Límite diario solo bloquea después de agotar el tiempo de navegación permitido." },
+  "protip_rule_lists": { "message": "Separa configuraciones con Listas de reglas: usa listas distintas para el trabajo, el estudio o el tiempo libre. Solo la lista activa controla el bloqueo; cambiar de lista no elimina las demás." },
+  "protip_category_pause": { "message": "Pausa una categoría sin eliminar reglas: desactívala para pausar sus reglas en la lista actual y vuelve a activarla cuando las necesites." },
+  "protip_rule_protection": { "message": "Protege las reglas importantes: el Modo estricto agrega una cuenta regresiva antes de eliminarlas. La protección con contraseña puede pedir una contraseña antes de editar o eliminar reglas." },
+  "protip_focus_session": { "message": "Usa una Sesión de enfoque para un bloqueo temporal: activa todas las reglas de bloqueo durante el tiempo elegido, ignorando sus modos y horarios normales, sin modificar las reglas." },
+  "protip_rule_packs": { "message": "Empieza más rápido con Paquetes de reglas: revisa un conjunto inicial verificado, elige solo las direcciones que quieras y edítalas o elimínalas después de agregarlas." },
+  "protip_statistics": { "message": "Consulta las estadísticas locales: revisa los bloqueos, las redirecciones y las Sesiones de enfoque completadas durante los últimos 30 días. Borrar las estadísticas no elimina tus reglas." },
   "userguide": {
     "message": "Guía del usuario"
   }

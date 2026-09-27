@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pozastavení bez odstranění: Když potřebujete dočasný přístup, pravidlo vypněte a později ho znovu zapněte."
   },
+  "protips_title": { "message": "Využijte Pro naplno" },
+  "protips_dismiss": { "message": "Skrýt tipy Pro" },
+  "protip_backup_transfer": { "message": "Zálohujte a přenášejte pravidla: ve Správě pravidel uloží Exportovat pravidla vaše pravidla, seznamy pravidel a kompatibilní nastavení do souboru JSON. Importujte jej do BlockDistraction v jiném prohlížeči. Import nahradí aktuální pravidla v daném prohlížeči, proto je v případě potřeby nejprve exportujte." },
+  "protip_blocking_modes": { "message": "Vyberte správný režim blokování: Plán blokuje ve vybraných časech. Denní limit začne blokovat až po vyčerpání povolené doby prohlížení." },
+  "protip_rule_lists": { "message": "Oddělte nastavení pomocí Seznamů pravidel: používejte různé seznamy pro práci, studium nebo volný čas. Blokování řídí pouze aktivní seznam; přepnutí ostatní seznamy nesmaže." },
+  "protip_category_pause": { "message": "Pozastavte kategorii bez mazání pravidel: vypnutím kategorie pozastavíte její pravidla v aktuálním seznamu a podle potřeby ji znovu zapnete." },
+  "protip_rule_protection": { "message": "Chraňte důležitá pravidla: Přísný režim přidá před odstraněním odpočet. Ochrana heslem může před úpravou nebo odstraněním pravidel vyžadovat heslo." },
+  "protip_focus_session": { "message": "Použijte Soustředění pro dočasné blokování: na zvolenou dobu aktivuje všechna blokovací pravidla, ignoruje jejich běžné režimy a plány a samotná pravidla nezmění." },
+  "protip_rule_packs": { "message": "Začněte rychleji s Balíčky pravidel: prohlédněte si ověřenou počáteční sadu, vyberte jen požadované adresy a po přidání je upravte nebo odeberte." },
+  "protip_statistics": { "message": "Prohlédněte si místní statistiky: uvidíte blokování, přesměrování a dokončená Soustředění za posledních 30 dní. Vymazání statistik neodstraní vaše pravidla." },
   "userguide": {
     "message": "Uživatelská příručka"
   }

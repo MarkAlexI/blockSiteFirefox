@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Peata kustutamata: Lülita reegel ajutise juurdepääsu vajadusel välja ja hiljem uuesti sisse."
   },
+  "protips_title": { "message": "Kasuta Pro võimalusi paremini" },
+  "protips_dismiss": { "message": "Peida Pro nõuanded" },
+  "protip_backup_transfer": { "message": "Varunda ja teisalda reegleid: jaotises Reeglite haldamine salvestab Ekspordi reeglid reeglid, reegliloendid ja ühilduvad seaded JSON-faili. Impordi see teise brauseri BlockDistractionisse. Import asendab selle brauseri praegused reeglid, seega ekspordi need vajaduse korral esmalt." },
+  "protip_blocking_modes": { "message": "Vali sobiv blokeerimisrežiim: Ajakava blokeerib valitud aegadel. Päevalimiit blokeerib alles pärast lubatud sirvimisaja kasutamist." },
+  "protip_rule_lists": { "message": "Hoia seadistused Reegliloenditega eraldi: kasuta töö, õppimise või vaba aja jaoks erinevaid loendeid. Blokeerimist juhib ainult aktiivne loend; loendi vahetamine ei kustuta teisi." },
+  "protip_category_pause": { "message": "Peata kategooria reegleid kustutamata: lülita kategooria välja, et peatada selle reeglid praeguses loendis, ja lülita see vajaduse korral uuesti sisse." },
+  "protip_rule_protection": { "message": "Kaitse olulisi reegleid: Range režiim lisab enne kustutamist pöördloenduse. Paroolikaitse võib enne reeglite muutmist või kustutamist nõuda parooli." },
+  "protip_focus_session": { "message": "Kasuta ajutiseks blokeerimiseks Fookusseanssi: see aktiveerib kõik blokeerimisreeglid valitud ajaks, eirates nende tavalisi režiime ja ajakavasid, kuid ei muuda reegleid." },
+  "protip_rule_packs": { "message": "Alusta kiiremini Reeglipakettidega: vaata üle kontrollitud algkomplekt, vali ainult soovitud aadressid ning muuda või eemalda need pärast lisamist." },
+  "protip_statistics": { "message": "Vaata kohalikku statistikat: näed viimase 30 päeva blokeerimisi, ümbersuunamisi ja lõpetatud Fookusseansse. Statistika kustutamine ei eemalda reegleid." },
   "userguide": {
     "message": "Kasutusjuhend"
   }

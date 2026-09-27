@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Apturiet, neizdzēšot: kad nepieciešama pagaidu piekļuve, izslēdziet kārtulu un vēlāk to atkal ieslēdziet."
   },
+  "protips_title": { "message": "Izmantojiet vairāk Pro iespēju" },
+  "protips_dismiss": { "message": "Paslēpt Pro padomus" },
+  "protip_backup_transfer": { "message": "Dublējiet un pārvietojiet noteikumus: sadaļā Noteikumu pārvaldība funkcija Eksportēt noteikumus saglabā noteikumus, noteikumu sarakstus un saderīgos iestatījumus JSON failā. Importējiet to BlockDistraction citā pārlūkā. Imports aizstāj attiecīgā pārlūka pašreizējos noteikumus, tāpēc vajadzības gadījumā vispirms tos eksportējiet." },
+  "protip_blocking_modes": { "message": "Izvēlieties pareizo bloķēšanas režīmu: Grafiks bloķē izvēlētajos laikos. Dienas limits bloķē tikai pēc atļautā pārlūkošanas laika izmantošanas." },
+  "protip_rule_lists": { "message": "Nodaliet konfigurācijas ar Noteikumu sarakstiem: izmantojiet atsevišķus sarakstus darbam, mācībām vai atpūtai. Bloķēšanu vada tikai aktīvais saraksts; pārslēgšana neizdzēš pārējos." },
+  "protip_category_pause": { "message": "Apturiet kategoriju, neizdzēšot noteikumus: izslēdziet kategoriju, lai apturētu tās noteikumus pašreizējā sarakstā, un vajadzības gadījumā ieslēdziet to vēlreiz." },
+  "protip_rule_protection": { "message": "Aizsargājiet svarīgus noteikumus: Stingrais režīms pirms dzēšanas pievieno atpakaļskaitīšanu. Paroles aizsardzība var pieprasīt paroli pirms noteikumu rediģēšanas vai dzēšanas." },
+  "protip_focus_session": { "message": "Izmantojiet Fokusa sesiju īslaicīgai bloķēšanai: tā uz izvēlēto laiku aktivizē visus bloķēšanas noteikumus, ignorējot to parastos režīmus un grafikus, bet nemaina pašus noteikumus." },
+  "protip_rule_packs": { "message": "Sāciet ātrāk ar Noteikumu pakotnēm: priekšskatiet pārbaudītu sākuma komplektu, izvēlieties tikai vajadzīgās adreses un pēc pievienošanas rediģējiet vai noņemiet tās." },
+  "protip_statistics": { "message": "Pārskatiet lokālo statistiku: skatiet pēdējo 30 dienu bloķēšanu, novirzīšanu un pabeigtās Fokusa sesijas. Statistikas dzēšana neizdzēš jūsu noteikumus." },
   "userguide": {
     "message": "Lietotāja rokasgrāmata"
   }

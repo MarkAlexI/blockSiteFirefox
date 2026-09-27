@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Tạm dừng mà không xóa: Tắt quy tắc khi bạn cần truy cập tạm thời, rồi bật lại sau."
   },
+  "protips_title": { "message": "Tận dụng Pro hiệu quả hơn" },
+  "protips_dismiss": { "message": "Ẩn mẹo Pro" },
+  "protip_backup_transfer": { "message": "Sao lưu và chuyển quy tắc: trong Quản lý Quy tắc, Xuất Quy tắc lưu các quy tắc, Danh sách quy tắc và cài đặt tương thích vào tệp JSON. Hãy nhập tệp này vào BlockDistraction trên trình duyệt khác. Việc nhập sẽ thay thế các quy tắc hiện tại của trình duyệt đó, vì vậy hãy xuất chúng trước nếu cần giữ lại." },
+  "protip_blocking_modes": { "message": "Chọn chế độ chặn phù hợp: Lịch trình chặn vào những thời điểm đã chọn. Giới hạn hằng ngày chỉ bắt đầu chặn sau khi thời gian duyệt web được phép đã hết." },
+  "protip_rule_lists": { "message": "Tách các cấu hình bằng Danh sách quy tắc: dùng các danh sách khác nhau cho công việc, học tập hoặc giải trí. Chỉ danh sách đang hoạt động kiểm soát việc chặn; chuyển danh sách không xóa các danh sách khác." },
+  "protip_category_pause": { "message": "Tạm dừng một danh mục mà không xóa quy tắc: tắt danh mục để tạm dừng các quy tắc của danh mục đó trong danh sách hiện tại và bật lại khi cần." },
+  "protip_rule_protection": { "message": "Bảo vệ các quy tắc quan trọng: Chế độ Nghiêm ngặt thêm đếm ngược trước khi xóa. Bảo vệ bằng mật khẩu có thể yêu cầu mật khẩu trước khi sửa hoặc xóa quy tắc." },
+  "protip_focus_session": { "message": "Dùng Phiên tập trung để chặn tạm thời: tính năng này kích hoạt mọi quy tắc chặn trong thời gian đã chọn, bỏ qua chế độ và lịch trình thông thường nhưng không thay đổi các quy tắc." },
+  "protip_rule_packs": { "message": "Bắt đầu nhanh hơn với Gói quy tắc: xem trước một bộ khởi đầu đã được kiểm tra, chỉ chọn các địa chỉ bạn muốn, rồi sửa hoặc xóa chúng sau khi thêm." },
+  "protip_statistics": { "message": "Xem thống kê cục bộ: kiểm tra các lượt chặn, chuyển hướng và Phiên tập trung đã hoàn tất trong 30 ngày qua. Xóa thống kê không xóa các quy tắc của bạn." },
   "userguide": {
     "message": "Hướng dẫn sử dụng"
   }

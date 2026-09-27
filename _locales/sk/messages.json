@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pozastavte bez odstránenia: Keď potrebujete dočasný prístup, pravidlo vypnite a neskôr ho znova zapnite."
   },
+  "protips_title": { "message": "Využite Pro naplno" },
+  "protips_dismiss": { "message": "Skryť tipy Pro" },
+  "protip_backup_transfer": { "message": "Zálohujte a prenášajte pravidlá: v Správe pravidiel uloží Exportovať pravidlá vaše pravidlá, zoznamy pravidiel a kompatibilné nastavenia do súboru JSON. Importujte ho do BlockDistraction v inom prehliadači. Import nahradí aktuálne pravidlá v danom prehliadači, preto ich v prípade potreby najprv exportujte." },
+  "protip_blocking_modes": { "message": "Vyberte správny režim blokovania: Plán blokuje vo vybraných časoch. Denný limit začne blokovať až po vyčerpaní povoleného času prehliadania." },
+  "protip_rule_lists": { "message": "Oddeľte nastavenia pomocou Zoznamov pravidiel: používajte rôzne zoznamy na prácu, štúdium alebo voľný čas. Blokovanie riadi iba aktívny zoznam; prepnutie ostatné zoznamy neodstráni." },
+  "protip_category_pause": { "message": "Pozastavte kategóriu bez odstránenia pravidiel: vypnutím kategórie pozastavíte jej pravidlá v aktuálnom zozname a podľa potreby ju znova zapnete." },
+  "protip_rule_protection": { "message": "Chráňte dôležité pravidlá: Prísny režim pridá pred odstránením odpočítavanie. Ochrana heslom môže pred úpravou alebo odstránením pravidiel vyžadovať heslo." },
+  "protip_focus_session": { "message": "Použite Reláciu sústredenia na dočasné blokovanie: na zvolený čas aktivuje všetky blokovacie pravidlá, ignoruje ich bežné režimy a plány a samotné pravidlá nezmení." },
+  "protip_rule_packs": { "message": "Začnite rýchlejšie s Balíkmi pravidiel: prezrite si overenú úvodnú súpravu, vyberte len požadované adresy a po pridaní ich upravte alebo odstráňte." },
+  "protip_statistics": { "message": "Prezrite si miestne štatistiky: uvidíte blokovania, presmerovania a dokončené Relácie sústredenia za posledných 30 dní. Vymazanie štatistík neodstráni vaše pravidlá." },
   "userguide": {
     "message": "Používateľská príručka"
   }

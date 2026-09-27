@@ -26,8 +26,17 @@
     </header>
 
     <aside id="starter-tips" class="starter-tips hidden" aria-live="polite">
-      <strong data-i18n="onboarding_welcome">Welcome to BlockDistraction!</strong>
-      <ul id="starter-tips-list"></ul>
+      <div id="starter-tips-section">
+        <strong data-i18n="onboarding_welcome">Welcome to BlockDistraction!</strong>
+        <ul id="starter-tips-list"></ul>
+      </div>
+      <div id="pro-tips-section" class="pro-tips-section hidden">
+        <div class="pro-tips-heading">
+          <strong data-i18n="protips_title">Get more from Pro</strong>
+          <button id="pro-tips-dismiss" type="button" data-i18n="protips_dismiss">Hide Pro tips</button>
+        </div>
+        <ul id="pro-tips-list"></ul>
+      </div>
     </aside>
     
     <div id="focus-session-banner" class="focus-banner hidden">

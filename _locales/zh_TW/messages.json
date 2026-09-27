@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "暫停而不刪除：需要暫時存取時關閉規則，之後再重新開啟。"
   },
+  "protips_title": { "message": "充分運用 Pro" },
+  "protips_dismiss": { "message": "隱藏 Pro 提示" },
+  "protip_backup_transfer": { "message": "備份並移轉規則：在規則管理中，匯出規則會將您的規則、規則清單和相容設定儲存為 JSON 檔案。您可以將其匯入另一個瀏覽器中的 BlockDistraction。匯入會取代該瀏覽器目前的規則，如需保留，請先將其匯出。" },
+  "protip_blocking_modes": { "message": "選擇合適的封鎖模式：行程會在選定時段封鎖。每日限制只會在允許的瀏覽時間用完後開始封鎖。" },
+  "protip_rule_lists": { "message": "使用規則清單分隔不同設定：為工作、學習或休閒使用不同清單。只有目前啟用的清單控制封鎖；切換清單不會刪除其他清單。" },
+  "protip_category_pause": { "message": "暫停類別而不刪除規則：關閉類別可暫停目前清單中的相關規則，需要時可再次開啟。" },
+  "protip_rule_protection": { "message": "保護重要規則：嚴格模式會在刪除前加入倒數計時。密碼保護可在編輯或刪除規則前要求輸入密碼。" },
+  "protip_focus_session": { "message": "使用專注時段進行暫時封鎖：它會在所選時間內啟用所有封鎖規則，忽略平常的模式和行程，但不會變更規則本身。" },
+  "protip_rule_packs": { "message": "使用規則套件快速開始：預覽經過審核的入門規則集，只選擇需要的網址，並可在加入後編輯或移除。" },
+  "protip_statistics": { "message": "查看本機統計：查看最近 30 天的封鎖、重新導向和已完成專注時段。清除統計不會刪除您的規則。" },
   "userguide": {
     "message": "使用者指南"
   }

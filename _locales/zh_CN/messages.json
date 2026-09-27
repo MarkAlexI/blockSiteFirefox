@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "暂停而不删除：需要临时访问时关闭规则，之后再重新开启。"
   },
+  "protips_title": { "message": "充分利用 Pro" },
+  "protips_dismiss": { "message": "隐藏 Pro 提示" },
+  "protip_backup_transfer": { "message": "备份并迁移规则：在规则管理中，导出规则会将您的规则、规则列表和兼容设置保存到 JSON 文件。您可以将其导入另一浏览器中的 BlockDistraction。导入会替换该浏览器的现有规则，如需保留，请先将其导出。" },
+  "protip_blocking_modes": { "message": "选择合适的屏蔽模式：日程会在选定时段屏蔽。每日限额只会在允许的浏览时间用完后开始屏蔽。" },
+  "protip_rule_lists": { "message": "使用规则列表分隔不同设置：为工作、学习或休闲使用不同列表。只有当前列表控制屏蔽；切换列表不会删除其他列表。" },
+  "protip_category_pause": { "message": "暂停类别而不删除规则：关闭类别可暂停当前列表中的相关规则，需要时可再次开启。" },
+  "protip_rule_protection": { "message": "保护重要规则：严格模式会在删除前添加倒计时。密码保护可在编辑或删除规则前要求输入密码。" },
+  "protip_focus_session": { "message": "使用专注时段进行临时屏蔽：它会在所选时间内启用所有屏蔽规则，忽略通常的模式和日程，但不会更改规则本身。" },
+  "protip_rule_packs": { "message": "使用规则包快速开始：预览经过审核的入门规则集，只选择所需地址，并可在添加后编辑或删除。" },
+  "protip_statistics": { "message": "查看本地统计：查看最近 30 天的屏蔽、重定向和已完成专注时段。清除统计不会删除您的规则。" },
   "userguide": {
     "message": "用户指南"
   }

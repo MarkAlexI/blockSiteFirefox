@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.21] - 2026-09-27
+
+### Added
+- Pro and Legacy users now receive one focused Pro tip on each returning day in Options, including existing users after their first Options visit on this version.
+- Eight localized tips explain rule backup and transfer between browsers, blocking modes, Rule Lists, category pauses, rule protection, Focus Session, Rule Packs, and local statistics.
+- Pro tips can be hidden permanently on the current browser.
+
+### Changed
+- Missed days no longer skip Pro guidance: the sequence advances by one tip only when Options is revisited on a later day and resumes after paid access returns.
+
+### Privacy
+- Pro guidance stores only its local sequence position and dismissal state. It adds no telemetry, network requests, browser permissions, or license API changes.
+
 ## [5.2.20] - 2026-09-26
 
 ### Added

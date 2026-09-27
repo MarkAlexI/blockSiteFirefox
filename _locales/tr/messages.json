@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Silmeden duraklatın: Geçici erişime ihtiyacınız olduğunda kuralı kapatın, daha sonra tekrar açın."
   },
+  "protips_title": { "message": "Pro'dan daha fazla yararlanın" },
+  "protips_dismiss": { "message": "Pro ipuçlarını gizle" },
+  "protip_backup_transfer": { "message": "Kuralları yedekleyin ve taşıyın: Kural Yönetimi bölümündeki Kuralları Dışa Aktar, kurallarınızı, Kural Listelerini ve uyumlu ayarları bir JSON dosyasına kaydeder. Dosyayı başka bir tarayıcıdaki BlockDistraction'a aktarın. İçe aktarma o tarayıcının mevcut kurallarını değiştirir; gerekirse önce onları dışa aktarın." },
+  "protip_blocking_modes": { "message": "Doğru engelleme modunu seçin: Zamanlama seçilen saatlerde engeller. Günlük sınır, yalnızca izin verilen gezinme süresi kullanıldıktan sonra engeller." },
+  "protip_rule_lists": { "message": "Kurulumları Kural Listeleriyle ayırın: iş, çalışma veya boş zaman için farklı listeler kullanın. Engellemeyi yalnızca etkin liste kontrol eder; liste değiştirmek diğerlerini silmez." },
+  "protip_category_pause": { "message": "Kuralları silmeden bir kategoriyi duraklatın: mevcut listedeki kurallarını duraklatmak için kategoriyi kapatın, gerektiğinde yeniden açın." },
+  "protip_rule_protection": { "message": "Önemli kuralları koruyun: Sıkı Mod, silme işleminden önce geri sayım ekler. Şifre koruması kurallar düzenlenmeden veya silinmeden önce şifre isteyebilir." },
+  "protip_focus_session": { "message": "Geçici engelleme için Odaklanma Seansı kullanın: seçilen süre boyunca tüm engelleme kurallarını etkinleştirir, normal modlarını ve zamanlamalarını yok sayar ve kuralları değiştirmez." },
+  "protip_rule_packs": { "message": "Kural Paketleriyle daha hızlı başlayın: incelenmiş bir başlangıç setini önizleyin, yalnızca istediğiniz adresleri seçin ve ekledikten sonra düzenleyin veya kaldırın." },
+  "protip_statistics": { "message": "Yerel istatistikleri inceleyin: son 30 gündeki engellemeleri, yönlendirmeleri ve tamamlanan Odaklanma Seanslarını görün. İstatistikleri temizlemek kurallarınızı silmez." },
   "userguide": {
     "message": "Kullanıcı Kılavuzu"
   }

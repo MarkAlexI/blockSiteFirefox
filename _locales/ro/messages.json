@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pauză fără ștergere: Dezactivați o regulă când aveți nevoie de acces temporar, apoi reactivați-o mai târziu."
   },
+  "protips_title": { "message": "Folosiți mai bine Pro" },
+  "protips_dismiss": { "message": "Ascunde sfaturile Pro" },
+  "protip_backup_transfer": { "message": "Creați copii de rezervă și mutați reguli: în Gestionarea regulilor, Exportă reguli salvează regulile, listele de reguli și setările compatibile într-un fișier JSON. Importați-l în BlockDistraction din alt browser. Importul înlocuiește regulile curente ale acelui browser, așa că exportați-le mai întâi dacă doriți să le păstrați." },
+  "protip_blocking_modes": { "message": "Alegeți modul potrivit de blocare: Programul blochează în intervalele selectate. Limita zilnică blochează numai după consumarea timpului de navigare permis." },
+  "protip_rule_lists": { "message": "Separați configurațiile cu Liste de reguli: folosiți liste diferite pentru lucru, studiu sau timp liber. Numai lista activă controlează blocarea; schimbarea listei nu le șterge pe celelalte." },
+  "protip_category_pause": { "message": "Întrerupeți o categorie fără a șterge reguli: dezactivați categoria pentru a-i întrerupe regulile din lista curentă și reactivați-o când aveți nevoie." },
+  "protip_rule_protection": { "message": "Protejați regulile importante: Modul strict adaugă o numărătoare inversă înainte de ștergere. Protecția prin parolă poate solicita parola înainte de editarea sau ștergerea regulilor." },
+  "protip_focus_session": { "message": "Folosiți o Sesiune de focus pentru o blocare temporară: aceasta activează toate regulile de blocare pentru perioada aleasă, ignorând modurile și programele lor obișnuite, fără a modifica regulile." },
+  "protip_rule_packs": { "message": "Începeți mai repede cu Pachete de reguli: examinați un set inițial verificat, alegeți numai adresele dorite și editați-le sau eliminați-le după adăugare." },
+  "protip_statistics": { "message": "Consultați statisticile locale: vedeți blocările, redirecționările și Sesiunile de focus finalizate din ultimele 30 de zile. Ștergerea statisticilor nu elimină regulile." },
   "userguide": {
     "message": "Ghid de utilizare"
   }

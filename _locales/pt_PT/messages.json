@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pause sem eliminar: desative uma regra quando precisar de acesso temporário e volte a ativá-la mais tarde."
   },
+  "protips_title": { "message": "Tire mais partido do Pro" },
+  "protips_dismiss": { "message": "Ocultar sugestões Pro" },
+  "protip_backup_transfer": { "message": "Crie uma cópia e transfira regras: em Gestão de Regras, Exportar Regras guarda as suas regras, listas de regras e definições compatíveis num ficheiro JSON. Importe-o no BlockDistraction noutro navegador. A importação substitui as regras atuais desse navegador, por isso exporte-as primeiro se precisar de as manter." },
+  "protip_blocking_modes": { "message": "Escolha o modo de bloqueio certo: o Agendamento bloqueia nos períodos selecionados. O Limite diário só bloqueia depois de esgotado o tempo de navegação permitido." },
+  "protip_rule_lists": { "message": "Separe configurações com Listas de regras: utilize listas diferentes para trabalho, estudo ou lazer. Só a lista ativa controla o bloqueio; mudar de lista não elimina as restantes." },
+  "protip_category_pause": { "message": "Pause uma categoria sem eliminar regras: desative a categoria para pausar as suas regras na lista atual e volte a ativá-la quando precisar." },
+  "protip_rule_protection": { "message": "Proteja regras importantes: o Modo Rigoroso acrescenta uma contagem decrescente antes da eliminação. A proteção por palavra-passe pode exigir uma palavra-passe antes de editar ou eliminar regras." },
+  "protip_focus_session": { "message": "Utilize uma Sessão de Foco para um bloqueio temporário: ativa todas as regras de bloqueio durante o tempo escolhido, ignorando os modos e agendamentos normais, sem alterar as regras." },
+  "protip_rule_packs": { "message": "Comece mais depressa com Pacotes de regras: pré-visualize um conjunto inicial revisto, escolha apenas os endereços desejados e edite-os ou remova-os depois de os adicionar." },
+  "protip_statistics": { "message": "Consulte as estatísticas locais: veja bloqueios, redirecionamentos e Sessões de Foco concluídas nos últimos 30 dias. Limpar as estatísticas não elimina as suas regras." },
   "userguide": {
     "message": "Guia do utilizador"
   }

@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pause uden at slette: Slå en regel fra, når du har brug for midlertidig adgang, og slå den til igen senere."
   },
+  "protips_title": { "message": "Få mere ud af Pro" },
+  "protips_dismiss": { "message": "Skjul Pro-tips" },
+  "protip_backup_transfer": { "message": "Sikkerhedskopiér og flyt regler: Under Regelhåndtering gemmer Eksportér regler dine regler, regellister og kompatible indstillinger i en JSON-fil. Importér den i BlockDistraction i en anden browser. Import erstatter browserens aktuelle regler, så eksportér dem først, hvis du vil beholde dem." },
+  "protip_blocking_modes": { "message": "Vælg den rette blokeringstilstand: Tidsplan blokerer på valgte tidspunkter. Daglig grænse blokerer først, når den tilladte browsertid er brugt." },
+  "protip_rule_lists": { "message": "Hold opsætninger adskilt med Regellister: brug forskellige lister til arbejde, studier eller fritid. Kun den aktive liste styrer blokeringen; skift af liste sletter ikke de andre." },
+  "protip_category_pause": { "message": "Sæt en kategori på pause uden at slette regler: slå kategorien fra for at sætte dens regler på pause i den aktuelle liste, og slå den til igen efter behov." },
+  "protip_rule_protection": { "message": "Beskyt vigtige regler: Streng tilstand tilføjer en nedtælling før sletning. Adgangskodebeskyttelse kan kræve en adgangskode, før regler redigeres eller slettes." },
+  "protip_focus_session": { "message": "Brug en Fokussession til en midlertidig blokering: den aktiverer alle blokeringsregler i det valgte tidsrum, tilsidesætter deres normale tilstande og tidsplaner og ændrer ikke reglerne." },
+  "protip_rule_packs": { "message": "Kom hurtigere i gang med Regelpakker: gennemse et kontrolleret startsæt, vælg kun de ønskede adresser, og rediger eller fjern dem efter tilføjelsen." },
+  "protip_statistics": { "message": "Se lokale statistikker: se blokeringer, omdirigeringer og fuldførte Fokussessioner fra de seneste 30 dage. Rydning af statistikker sletter ikke dine regler." },
   "userguide": {
     "message": "Brugervejledning"
   }

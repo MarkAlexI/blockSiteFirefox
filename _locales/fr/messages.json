@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Mettez en pause sans supprimer : désactivez une règle lorsque vous avez besoin d’un accès temporaire, puis réactivez-la plus tard."
   },
+  "protips_title": { "message": "Profitez davantage de Pro" },
+  "protips_dismiss": { "message": "Masquer les conseils Pro" },
+  "protip_backup_transfer": { "message": "Sauvegardez et transférez vos règles : dans Gestion des règles, Exporter les règles enregistre vos règles, listes de règles et paramètres compatibles dans un fichier JSON. Importez-le dans BlockDistraction sur un autre navigateur. L'importation remplace les règles actuelles de ce navigateur ; exportez-les donc d'abord si nécessaire." },
+  "protip_blocking_modes": { "message": "Choisissez le bon mode de blocage : la planification bloque pendant les périodes choisies. La limite quotidienne ne bloque qu'une fois le temps de navigation autorisé écoulé." },
+  "protip_rule_lists": { "message": "Séparez vos configurations avec les listes de règles : utilisez des listes différentes pour le travail, les études ou les loisirs. Seule la liste active contrôle le blocage ; changer de liste ne supprime pas les autres." },
+  "protip_category_pause": { "message": "Mettez une catégorie en pause sans supprimer de règles : désactivez-la pour suspendre ses règles dans la liste actuelle, puis réactivez-la lorsque nécessaire." },
+  "protip_rule_protection": { "message": "Protégez les règles importantes : le mode strict ajoute un compte à rebours avant la suppression. La protection par mot de passe peut exiger un mot de passe avant toute modification ou suppression." },
+  "protip_focus_session": { "message": "Utilisez une session de concentration pour un blocage temporaire : elle active toutes les règles de blocage pendant la durée choisie, sans tenir compte de leurs modes et planifications habituels, mais sans modifier les règles." },
+  "protip_rule_packs": { "message": "Démarrez plus vite avec les packs de règles : consultez un ensemble de départ vérifié, choisissez uniquement les adresses voulues, puis modifiez-les ou supprimez-les après leur ajout." },
+  "protip_statistics": { "message": "Consultez les statistiques locales : voyez les blocages, redirections et sessions de concentration terminées des 30 derniers jours. Effacer les statistiques ne supprime pas vos règles." },
   "userguide": {
     "message": "Guide d’utilisation"
   }

@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pauzeer zonder te verwijderen: Schakel een regel uit wanneer u tijdelijk toegang nodig hebt en schakel deze later weer in."
   },
+  "protips_title": { "message": "Haal meer uit Pro" },
+  "protips_dismiss": { "message": "Pro-tips verbergen" },
+  "protip_backup_transfer": { "message": "Maak een back-up en verplaats regels: onder Regelbeheer slaat Regels exporteren uw regels, regellijsten en compatibele instellingen op in een JSON-bestand. Importeer dit in BlockDistraction in een andere browser. Importeren vervangt de huidige regels van die browser, dus exporteer die indien nodig eerst." },
+  "protip_blocking_modes": { "message": "Kies de juiste blokkeermodus: Schema blokkeert op geselecteerde tijden. Daglimiet blokkeert pas nadat de toegestane browsertijd is gebruikt." },
+  "protip_rule_lists": { "message": "Houd configuraties gescheiden met Regellijsten: gebruik verschillende lijsten voor werk, studie of vrije tijd. Alleen de actieve lijst bepaalt de blokkering; wisselen verwijdert de andere lijsten niet." },
+  "protip_category_pause": { "message": "Pauzeer een categorie zonder regels te verwijderen: schakel een categorie uit om de regels in de huidige lijst te pauzeren en schakel deze weer in wanneer nodig." },
+  "protip_rule_protection": { "message": "Bescherm belangrijke regels: Strikte modus voegt vóór het verwijderen een aftelling toe. Wachtwoordbeveiliging kan een wachtwoord vereisen voordat regels worden bewerkt of verwijderd." },
+  "protip_focus_session": { "message": "Gebruik een Focussessie voor een tijdelijke blokkering: alle blokkeerregels worden voor de gekozen tijd geactiveerd, zonder rekening te houden met hun normale modi en schema's en zonder de regels te wijzigen." },
+  "protip_rule_packs": { "message": "Begin sneller met Regelpakketten: bekijk een gecontroleerde startset, kies alleen de gewenste adressen en bewerk of verwijder ze na het toevoegen." },
+  "protip_statistics": { "message": "Bekijk lokale statistieken: zie blokkeringen, omleidingen en voltooide Focussessies van de afgelopen 30 dagen. Het wissen van statistieken verwijdert uw regels niet." },
   "userguide": {
     "message": "Gebruikershandleiding"
   }

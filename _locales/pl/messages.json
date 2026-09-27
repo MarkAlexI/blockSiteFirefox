@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Wstrzymaj bez usuwania: Wyłącz regułę, gdy potrzebujesz tymczasowego dostępu, a później włącz ją ponownie."
   },
+  "protips_title": { "message": "Wykorzystaj więcej możliwości Pro" },
+  "protips_dismiss": { "message": "Ukryj wskazówki Pro" },
+  "protip_backup_transfer": { "message": "Tworzenie kopii i przenoszenie reguł: W sekcji Zarządzanie regułami opcja Eksportuj reguły zapisuje reguły, listy reguł i zgodne ustawienia w pliku JSON. Możesz go zaimportować do BlockDistraction w innej przeglądarce. Import zastępuje bieżące reguły w tej przeglądarce, więc w razie potrzeby najpierw je wyeksportuj." },
+  "protip_blocking_modes": { "message": "Wybierz odpowiedni tryb blokowania: Harmonogram blokuje w wybranych porach. Limit dzienny zaczyna blokować dopiero po wykorzystaniu dozwolonego czasu przeglądania." },
+  "protip_rule_lists": { "message": "Oddziel konfiguracje za pomocą list reguł: Używaj różnych list do pracy, nauki lub wypoczynku. Tylko aktywna lista steruje blokowaniem; przełączanie nie usuwa pozostałych." },
+  "protip_category_pause": { "message": "Wstrzymaj kategorię bez usuwania reguł: Wyłącz kategorię, aby wstrzymać jej reguły na bieżącej liście, a w razie potrzeby włącz ją ponownie." },
+  "protip_rule_protection": { "message": "Chroń ważne reguły: Tryb ścisły dodaje odliczanie przed usunięciem. Ochrona hasłem może wymagać hasła przed zmianą lub usunięciem reguł." },
+  "protip_focus_session": { "message": "Użyj sesji skupienia do tymczasowej blokady: Aktywuje ona wszystkie reguły blokowania na wybrany czas, ignorując ich zwykłe tryby i harmonogramy, bez zmiany samych reguł." },
+  "protip_rule_packs": { "message": "Zacznij szybciej z pakietami reguł: Przejrzyj sprawdzony zestaw początkowy, wybierz tylko potrzebne adresy, a po dodaniu edytuj je lub usuń." },
+  "protip_statistics": { "message": "Przeglądaj lokalne statystyki: Zobacz blokady, przekierowania i ukończone sesje skupienia z ostatnich 30 dni. Wyczyszczenie statystyk nie usuwa reguł." },
   "userguide": {
     "message": "Podręcznik użytkownika"
   }

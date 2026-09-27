@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Metti in pausa senza eliminare: disattiva una regola quando ti serve un accesso temporaneo, quindi riattivala in seguito."
   },
+  "protips_title": { "message": "Sfrutta al meglio Pro" },
+  "protips_dismiss": { "message": "Nascondi i suggerimenti Pro" },
+  "protip_backup_transfer": { "message": "Esegui il backup e trasferisci le regole: in Gestione Regole, Esporta Regole salva regole, elenchi di regole e impostazioni compatibili in un file JSON. Importalo in BlockDistraction su un altro browser. L'importazione sostituisce le regole presenti in quel browser, quindi esportale prima se vuoi conservarle." },
+  "protip_blocking_modes": { "message": "Scegli la modalità di blocco adatta: Programma blocca negli orari selezionati. Limite giornaliero blocca solo dopo che il tempo di navigazione consentito è stato utilizzato." },
+  "protip_rule_lists": { "message": "Separa le configurazioni con gli Elenchi di regole: usa elenchi diversi per lavoro, studio o tempo libero. Solo l'elenco attivo controlla il blocco; cambiare elenco non elimina gli altri." },
+  "protip_category_pause": { "message": "Metti in pausa una categoria senza eliminare regole: disattivala per sospendere le sue regole nell'elenco corrente e riattivala quando serve." },
+  "protip_rule_protection": { "message": "Proteggi le regole importanti: la Modalità Rigida aggiunge un conto alla rovescia prima dell'eliminazione. La protezione con password può richiedere una password prima di modificare o eliminare le regole." },
+  "protip_focus_session": { "message": "Usa una Sessione di focus per un blocco temporaneo: attiva tutte le regole di blocco per il tempo scelto, ignorando modalità e programmi normali, senza modificare le regole." },
+  "protip_rule_packs": { "message": "Inizia più rapidamente con i Pacchetti di regole: visualizza un set iniziale verificato, scegli solo gli indirizzi desiderati e modificali o rimuovili dopo l'aggiunta." },
+  "protip_statistics": { "message": "Consulta le statistiche locali: vedi blocchi, reindirizzamenti e Sessioni di focus completate negli ultimi 30 giorni. La cancellazione delle statistiche non elimina le regole." },
   "userguide": {
     "message": "Guida utente"
   }

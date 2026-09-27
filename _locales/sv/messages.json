@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pausa utan att radera: Stäng av en regel när du behöver tillfällig åtkomst och slå på den igen senare."
   },
+  "protips_title": { "message": "Få ut mer av Pro" },
+  "protips_dismiss": { "message": "Dölj Pro-tips" },
+  "protip_backup_transfer": { "message": "Säkerhetskopiera och flytta regler: Under Regelhantering sparar Exportera regler dina regler, regellistor och kompatibla inställningar i en JSON-fil. Importera den i BlockDistraction i en annan webbläsare. Importen ersätter den webbläsarens aktuella regler, så exportera dem först om de behöver sparas." },
+  "protip_blocking_modes": { "message": "Välj rätt blockeringsläge: Schema blockerar under valda tider. Daglig gräns blockerar först när den tillåtna webbläsartiden har använts." },
+  "protip_rule_lists": { "message": "Håll konfigurationer åtskilda med Regellistor: använd olika listor för arbete, studier eller fritid. Endast den aktiva listan styr blockeringen; byte av lista tar inte bort de andra." },
+  "protip_category_pause": { "message": "Pausa en kategori utan att ta bort regler: stäng av kategorin för att pausa dess regler i den aktuella listan och slå på den igen vid behov." },
+  "protip_rule_protection": { "message": "Skydda viktiga regler: Strikt läge lägger till en nedräkning före borttagning. Lösenordsskydd kan kräva ett lösenord innan regler redigeras eller tas bort." },
+  "protip_focus_session": { "message": "Använd en Fokussession för tillfällig blockering: den aktiverar alla blockeringsregler under den valda tiden, åsidosätter deras vanliga lägen och scheman och ändrar inte reglerna." },
+  "protip_rule_packs": { "message": "Kom igång snabbare med Regelpaket: förhandsgranska en granskad startuppsättning, välj bara önskade adresser och redigera eller ta bort dem efter att de lagts till." },
+  "protip_statistics": { "message": "Granska lokal statistik: se blockeringar, omdirigeringar och slutförda Fokussessioner från de senaste 30 dagarna. Att rensa statistiken tar inte bort dina regler." },
   "userguide": {
     "message": "Användarhandbok"
   }

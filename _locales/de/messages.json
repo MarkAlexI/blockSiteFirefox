@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pausieren ohne Löschen: Deaktivieren Sie eine Regel, wenn Sie vorübergehend Zugriff benötigen, und aktivieren Sie sie später wieder."
   },
+  "protips_title": { "message": "Mehr aus Pro herausholen" },
+  "protips_dismiss": { "message": "Pro-Tipps ausblenden" },
+  "protip_backup_transfer": { "message": "Regeln sichern und übertragen: Unter Regelverwaltung speichert Regeln exportieren Ihre Regeln, Regellisten und kompatiblen Einstellungen in einer JSON-Datei. Importieren Sie sie in BlockDistraction in einem anderen Browser. Beim Import werden die dortigen Regeln ersetzt; exportieren Sie sie daher bei Bedarf zuerst." },
+  "protip_blocking_modes": { "message": "Den passenden Blockierungsmodus wählen: Der Zeitplan blockiert zu ausgewählten Zeiten. Das Tageslimit blockiert erst, nachdem die erlaubte Nutzungszeit aufgebraucht ist." },
+  "protip_rule_lists": { "message": "Konfigurationen mit Regellisten trennen: Verwenden Sie verschiedene Listen für Arbeit, Lernen oder Freizeit. Nur die aktive Liste steuert die Blockierung; beim Wechseln werden die anderen nicht gelöscht." },
+  "protip_category_pause": { "message": "Eine Kategorie pausieren, ohne Regeln zu löschen: Deaktivieren Sie eine Kategorie, um ihre Regeln in der aktuellen Liste zu pausieren, und aktivieren Sie sie bei Bedarf wieder." },
+  "protip_rule_protection": { "message": "Wichtige Regeln schützen: Der strikte Modus fügt vor dem Löschen einen Countdown hinzu. Der Passwortschutz kann vor dem Bearbeiten oder Löschen von Regeln ein Passwort verlangen." },
+  "protip_focus_session": { "message": "Eine Fokus-Sitzung für eine vorübergehende Sperre verwenden: Sie aktiviert alle Blockierungsregeln für die gewählte Zeit und ignoriert deren normale Modi und Zeitpläne, ohne die Regeln zu verändern." },
+  "protip_rule_packs": { "message": "Mit Regelpaketen schneller starten: Sehen Sie sich ein geprüftes Startpaket an, wählen Sie nur die gewünschten Adressen und bearbeiten oder entfernen Sie sie nach dem Hinzufügen." },
+  "protip_statistics": { "message": "Lokale Statistiken ansehen: Prüfen Sie Blockierungen, Weiterleitungen und abgeschlossene Fokus-Sitzungen der letzten 30 Tage. Das Löschen der Statistik entfernt keine Regeln." },
   "userguide": {
     "message": "Benutzerhandbuch"
   }

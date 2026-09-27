@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pause sem excluir: desative uma regra quando precisar de acesso temporário e ative-a novamente mais tarde."
   },
+  "protips_title": { "message": "Aproveite melhor o Pro" },
+  "protips_dismiss": { "message": "Ocultar dicas do Pro" },
+  "protip_backup_transfer": { "message": "Faça backup e transfira regras: em Gerenciamento de Regras, Exportar Regras salva suas regras, listas de regras e configurações compatíveis em um arquivo JSON. Importe-o no BlockDistraction em outro navegador. A importação substitui as regras atuais desse navegador, então exporte-as antes se precisar mantê-las." },
+  "protip_blocking_modes": { "message": "Escolha o modo de bloqueio certo: o Agendamento bloqueia nos horários selecionados. O Limite diário bloqueia somente depois que o tempo de navegação permitido for usado." },
+  "protip_rule_lists": { "message": "Separe configurações com Listas de regras: use listas diferentes para trabalho, estudo ou lazer. Somente a lista ativa controla o bloqueio; trocar de lista não exclui as outras." },
+  "protip_category_pause": { "message": "Pause uma categoria sem excluir regras: desative a categoria para pausar suas regras na lista atual e ative-a novamente quando precisar." },
+  "protip_rule_protection": { "message": "Proteja regras importantes: o Modo Rigoroso adiciona uma contagem regressiva antes da exclusão. A proteção por senha pode exigir uma senha antes de editar ou excluir regras." },
+  "protip_focus_session": { "message": "Use uma Sessão de Foco para um bloqueio temporário: ela ativa todas as regras de bloqueio pelo tempo escolhido, ignorando os modos e agendamentos normais, sem alterar as regras." },
+  "protip_rule_packs": { "message": "Comece mais rápido com Pacotes de regras: visualize um conjunto inicial revisado, escolha apenas os endereços desejados e edite-os ou remova-os depois de adicionar." },
+  "protip_statistics": { "message": "Consulte as estatísticas locais: veja bloqueios, redirecionamentos e Sessões de Foco concluídas nos últimos 30 dias. Limpar as estatísticas não exclui suas regras." },
   "userguide": {
     "message": "Guia do usuário"
   }

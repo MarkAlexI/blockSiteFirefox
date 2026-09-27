@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Keskeytä poistamatta: Poista sääntö käytöstä, kun tarvitset tilapäisen pääsyn, ja ota se myöhemmin uudelleen käyttöön."
   },
+  "protips_title": { "message": "Hyödynnä Prota paremmin" },
+  "protips_dismiss": { "message": "Piilota Pro-vinkit" },
+  "protip_backup_transfer": { "message": "Varmuuskopioi ja siirrä sääntöjä: Sääntöjen hallinnan Vie säännöt tallentaa säännöt, sääntölistat ja yhteensopivat asetukset JSON-tiedostoon. Tuo se BlockDistractioniin toisessa selaimessa. Tuonti korvaa kyseisen selaimen nykyiset säännöt, joten vie ne ensin tarvittaessa." },
+  "protip_blocking_modes": { "message": "Valitse oikea estotila: Aikataulu estää valittuina aikoina. Päivittäinen raja estää vasta, kun sallittu selausaika on käytetty." },
+  "protip_rule_lists": { "message": "Pidä asetukset erillään Sääntölistoilla: käytä eri listoja työhön, opiskeluun tai vapaa-aikaan. Vain aktiivinen lista ohjaa estoa; listan vaihtaminen ei poista muita." },
+  "protip_category_pause": { "message": "Keskeytä luokka poistamatta sääntöjä: poista luokka käytöstä keskeyttääksesi sen säännöt nykyisessä listassa ja ota se tarvittaessa uudelleen käyttöön." },
+  "protip_rule_protection": { "message": "Suojaa tärkeät säännöt: Tiukka tila lisää lähtölaskennan ennen poistamista. Salasanasuojaus voi vaatia salasanan ennen sääntöjen muokkaamista tai poistamista." },
+  "protip_focus_session": { "message": "Käytä Keskittymisistuntoa tilapäiseen estoon: se aktivoi kaikki estosäännöt valituksi ajaksi, ohittaa niiden tavalliset tilat ja aikataulut eikä muuta sääntöjä." },
+  "protip_rule_packs": { "message": "Aloita nopeammin Sääntöpaketeilla: esikatsele tarkistettu aloituspaketti, valitse vain haluamasi osoitteet ja muokkaa tai poista niitä lisäämisen jälkeen." },
+  "protip_statistics": { "message": "Tarkastele paikallisia tilastoja: näet viimeisten 30 päivän estot, uudelleenohjaukset ja päättyneet Keskittymisistunnot. Tilastojen tyhjentäminen ei poista sääntöjä." },
   "userguide": {
     "message": "Käyttöopas"
   }

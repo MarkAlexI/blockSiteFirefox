@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "I-pause nang hindi binubura: I-off ang rule kapag kailangan mo ng pansamantalang access, pagkatapos ay i-on itong muli."
   },
+  "protips_title": { "message": "Masulit pa ang Pro" },
+  "protips_dismiss": { "message": "Itago ang mga tip sa Pro" },
+  "protip_backup_transfer": { "message": "I-backup at ilipat ang mga patakaran: sa Pamamahala ng Mga Patakaran, sine-save ng I-export ang Mga Patakaran ang iyong mga patakaran, Mga Listahan ng Rule, at mga katugmang setting sa isang JSON file. I-import ito sa BlockDistraction sa ibang browser. Papalitan ng pag-import ang kasalukuyang mga patakaran ng browser na iyon, kaya i-export muna ang mga ito kung kailangan mong panatilihin ang mga ito." },
+  "protip_blocking_modes": { "message": "Piliin ang tamang mode ng pag-block: nagba-block ang Iskedyul sa mga napiling oras. Nagba-block lang ang Pang-araw-araw na limit kapag nagamit na ang pinapayagang oras ng pag-browse." },
+  "protip_rule_lists": { "message": "Paghiwalayin ang mga setup gamit ang Mga Listahan ng Rule: gumamit ng iba't ibang listahan para sa trabaho, pag-aaral, o paglilibang. Ang aktibong listahan lang ang kumokontrol sa pag-block; hindi binubura ng paglipat ng listahan ang iba." },
+  "protip_category_pause": { "message": "I-pause ang isang kategorya nang hindi binubura ang mga patakaran: i-off ang kategorya para i-pause ang mga patakaran nito sa kasalukuyang listahan, at i-on itong muli kapag kailangan." },
+  "protip_rule_protection": { "message": "Protektahan ang mahahalagang patakaran: nagdaragdag ang Mahigpit na Mode ng countdown bago burahin. Maaaring humingi ng password ang Proteksyon ng password bago i-edit o burahin ang mga patakaran." },
+  "protip_focus_session": { "message": "Gamitin ang Focus Session para sa pansamantalang pag-block: ina-activate nito ang lahat ng patakaran sa pag-block sa napiling oras, binabalewala ang karaniwang mga mode at iskedyul, at hindi binabago ang mga patakaran." },
+  "protip_rule_packs": { "message": "Magsimula nang mas mabilis gamit ang Mga Pakete ng Panuntunan: tingnan ang isang nasuring panimulang set, piliin lang ang mga address na gusto mo, at i-edit o alisin ang mga ito pagkatapos idagdag." },
+  "protip_statistics": { "message": "Suriin ang lokal na estadistika: tingnan ang mga pag-block, pag-redirect, at natapos na Focus Session sa nakalipas na 30 araw. Hindi binubura ng pag-clear ng estadistika ang iyong mga patakaran." },
   "userguide": {
     "message": "Gabay sa Gumagamit"
   }

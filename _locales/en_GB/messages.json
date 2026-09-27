@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pause without deleting: Turn a rule off when you need temporary access, then turn it back on later."
   },
+  "protips_title": { "message": "Get more from Pro" },
+  "protips_dismiss": { "message": "Hide Pro tips" },
+  "protip_backup_transfer": { "message": "Backup and move rules: In Rules Management, Export Rules saves your rules, Rule Lists, and compatible settings to a JSON file. Import it into BlockDistraction in another browser. Import replaces that browser's current rules, so export them first if needed." },
+  "protip_blocking_modes": { "message": "Choose the right blocking mode: Schedule blocks during selected times. Daily Limit blocks only after the allowed browsing time is used." },
+  "protip_rule_lists": { "message": "Keep separate setups with Rule Lists: Use different lists for work, study, or leisure. Only the active list controls blocking; switching lists does not delete the others." },
+  "protip_category_pause": { "message": "Pause a category without deleting rules: Turn off a category to pause its rules in the current list, then turn it on again when needed." },
+  "protip_rule_protection": { "message": "Protect important rules: Strict Mode adds a countdown before deletion. Password protection can require a password before rules are edited or deleted." },
+  "protip_focus_session": { "message": "Use Focus Session for a temporary lock: It activates all blocking rules for the chosen time, ignoring their normal modes and schedules, without changing the rules." },
+  "protip_rule_packs": { "message": "Start faster with Rule Packs: Preview a reviewed starter set, choose only the addresses you want, and edit or remove them after adding." },
+  "protip_statistics": { "message": "Review local statistics: See blocks, redirects, and completed Focus Sessions from the last 30 days. Clearing statistics does not delete your rules." },
   "userguide": {
     "message": "User Guide"
   }

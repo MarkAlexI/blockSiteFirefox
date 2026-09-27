@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pauzirajte bez brisanja: Isključite pravilo kada trebate privremeni pristup, a kasnije ga ponovno uključite."
   },
+  "protips_title": { "message": "Iskoristite više mogućnosti Pro" },
+  "protips_dismiss": { "message": "Sakrij Pro savjete" },
+  "protip_backup_transfer": { "message": "Izradite sigurnosnu kopiju i prenesite pravila: u Upravljanju pravilima opcija Izvezi pravila sprema pravila, popise pravila i kompatibilne postavke u JSON datoteku. Uvezite je u BlockDistraction u drugom pregledniku. Uvoz zamjenjuje trenutna pravila tog preglednika, stoga ih po potrebi najprije izvezite." },
+  "protip_blocking_modes": { "message": "Odaberite odgovarajući način blokiranja: Raspored blokira u odabrano vrijeme. Dnevno ograničenje počinje blokirati tek nakon što se iskoristi dopušteno vrijeme pregledavanja." },
+  "protip_rule_lists": { "message": "Odvojite postavke pomoću Popisa pravila: koristite različite popise za posao, učenje ili slobodno vrijeme. Samo aktivni popis upravlja blokiranjem; prebacivanje ne briše ostale." },
+  "protip_category_pause": { "message": "Pauzirajte kategoriju bez brisanja pravila: isključite kategoriju kako biste pauzirali njezina pravila na trenutnom popisu, a zatim je ponovno uključite kada zatreba." },
+  "protip_rule_protection": { "message": "Zaštitite važna pravila: Strogi način dodaje odbrojavanje prije brisanja. Zaštita lozinkom može zahtijevati lozinku prije uređivanja ili brisanja pravila." },
+  "protip_focus_session": { "message": "Koristite Sesiju fokusiranja za privremeno blokiranje: aktivira sva pravila blokiranja tijekom odabranog vremena, zanemaruje njihove uobičajene načine i rasporede te ne mijenja pravila." },
+  "protip_rule_packs": { "message": "Počnite brže s Paketima pravila: pregledajte provjereni početni skup, odaberite samo željene adrese i uredite ih ili uklonite nakon dodavanja." },
+  "protip_statistics": { "message": "Pregledajte lokalnu statistiku: pogledajte blokiranja, preusmjeravanja i dovršene Sesije fokusiranja u posljednjih 30 dana. Brisanje statistike ne briše vaša pravila." },
   "userguide": {
     "message": "Korisnički vodič"
   }

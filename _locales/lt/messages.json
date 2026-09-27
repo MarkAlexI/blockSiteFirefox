@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Pristabdykite neištrindami: kai reikia laikinos prieigos, išjunkite taisyklę, o vėliau vėl ją įjunkite."
   },
+  "protips_title": { "message": "Išnaudokite daugiau Pro galimybių" },
+  "protips_dismiss": { "message": "Slėpti Pro patarimus" },
+  "protip_backup_transfer": { "message": "Kurkite atsarginę kopiją ir perkelkite taisykles: skiltyje Taisyklių valdymas komanda Eksportuoti taisykles išsaugo taisykles, taisyklių sąrašus ir suderinamus nustatymus JSON faile. Importuokite jį į BlockDistraction kitoje naršyklėje. Importuojant dabartinės tos naršyklės taisyklės pakeičiamos, todėl prireikus pirmiausia jas eksportuokite." },
+  "protip_blocking_modes": { "message": "Pasirinkite tinkamą blokavimo režimą: Tvarkaraštis blokuoja pasirinktu laiku. Dienos limitas pradeda blokuoti tik išnaudojus leidžiamą naršymo laiką." },
+  "protip_rule_lists": { "message": "Atskirkite konfigūracijas naudodami Taisyklių sąrašus: naudokite skirtingus sąrašus darbui, mokslams ar laisvalaikiui. Blokavimą valdo tik aktyvus sąrašas; perjungus kiti neištrinami." },
+  "protip_category_pause": { "message": "Pristabdykite kategoriją neištrindami taisyklių: išjunkite kategoriją, kad pristabdytumėte jos taisykles dabartiniame sąraše, o prireikus vėl ją įjunkite." },
+  "protip_rule_protection": { "message": "Apsaugokite svarbias taisykles: Griežtas režimas prieš ištrinant pradeda atgalinį skaičiavimą. Slaptažodžio apsauga gali reikalauti slaptažodžio prieš taisyklių keitimą ar ištrynimą." },
+  "protip_focus_session": { "message": "Laikinam blokavimui naudokite Fokusavimosi sesiją: ji pasirinktam laikui suaktyvina visas blokavimo taisykles, nepaisydama jų įprastų režimų ir tvarkaraščių, tačiau pačių taisyklių nekeičia." },
+  "protip_rule_packs": { "message": "Pradėkite greičiau su Taisyklių paketais: peržiūrėkite patikrintą pradinį rinkinį, pasirinkite tik norimus adresus, o pridėję juos redaguokite arba pašalinkite." },
+  "protip_statistics": { "message": "Peržiūrėkite vietinę statistiką: matykite paskutinių 30 dienų blokavimus, peradresavimus ir užbaigtas Fokusavimosi sesijas. Statistikos išvalymas taisyklių neištrina." },
   "userguide": {
     "message": "Naudotojo vadovas"
   }

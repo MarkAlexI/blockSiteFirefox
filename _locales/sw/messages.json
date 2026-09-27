@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Sitisha bila kufuta: Zima kanuni unapohitaji ufikiaji wa muda, kisha uiwashe tena baadaye."
   },
+  "protips_title": { "message": "Tumia Pro kwa ukamilifu zaidi" },
+  "protips_dismiss": { "message": "Ficha vidokezo vya Pro" },
+  "protip_backup_transfer": { "message": "Hifadhi nakala na uhamishe sheria: katika Usimamizi wa Sheria, Hamisha Sheria huhifadhi sheria, orodha za sheria na mipangilio inayooana katika faili ya JSON. Iingize kwenye BlockDistraction katika kivinjari kingine. Uingizaji hubadilisha sheria za sasa za kivinjari hicho, kwa hiyo zihamishe kwanza ikiwa unahitaji kuzihifadhi." },
+  "protip_blocking_modes": { "message": "Chagua hali sahihi ya kuzuia: Ratiba huzuia katika nyakati ulizochagua. Kikomo cha kila siku huanza kuzuia tu baada ya muda unaoruhusiwa wa kuvinjari kutumika." },
+  "protip_rule_lists": { "message": "Tenganisha mipangilio kwa Orodha za Kanuni: tumia orodha tofauti kwa kazi, masomo au burudani. Orodha inayotumika pekee ndiyo hudhibiti uzuiaji; kubadilisha orodha hakufuti nyingine." },
+  "protip_category_pause": { "message": "Sitisha kategoria bila kufuta sheria: zima kategoria ili kusitisha sheria zake katika orodha ya sasa, kisha uiwashe tena inapohitajika." },
+  "protip_rule_protection": { "message": "Linda sheria muhimu: Hali Mkali huongeza hesabu ya kurudi nyuma kabla ya kufuta. Ulinzi wa nenosiri unaweza kuhitaji nenosiri kabla ya kuhariri au kufuta sheria." },
+  "protip_focus_session": { "message": "Tumia Kipindi cha Kulenga kwa uzuiaji wa muda: huwasha sheria zote za kuzuia kwa muda uliochaguliwa, hupuuza hali na ratiba zake za kawaida, na haibadilishi sheria." },
+  "protip_rule_packs": { "message": "Anza haraka kwa Vifurushi vya Kanuni: kagua seti ya kuanzia iliyopitiwa, chagua anwani unazotaka tu, kisha uzihariri au kuziondoa baada ya kuziongeza." },
+  "protip_statistics": { "message": "Kagua takwimu za ndani: ona uzuiaji, uelekezaji upya na Vipindi vya Kulenga vilivyokamilika katika siku 30 zilizopita. Kufuta takwimu hakufuti sheria zako." },
   "userguide": {
     "message": "Mwongozo wa Mtumiaji"
   }

@@ -1103,6 +1103,16 @@
   "startertip_pause_rule": {
     "message": "Onderbreek sonder om te verwyder: Skakel 'n reël af wanneer jy tydelike toegang nodig het, en skakel dit later weer aan."
   },
+  "protips_title": { "message": "Kry meer uit Pro" },
+  "protips_dismiss": { "message": "Versteek Pro-wenke" },
+  "protip_backup_transfer": { "message": "Rugsteun en skuif reëls: In Reëlsbestuur stoor Voer reëls uit jou reëls, reëllyste en versoenbare instellings in 'n JSON-lêer. Voer dit in BlockDistraction in 'n ander blaaier in. Invoer vervang daardie blaaier se huidige reëls, so voer hulle eers uit indien nodig." },
+  "protip_blocking_modes": { "message": "Kies die regte blokkeermodus: Skedule blokkeer op gekose tye. Daaglikse limiet blokkeer eers nadat die toegelate blaaityd gebruik is." },
+  "protip_rule_lists": { "message": "Hou opstellings apart met Reëllyste: gebruik verskillende lyste vir werk, studie of ontspanning. Slegs die aktiewe lys beheer blokkering; om lyste te wissel, verwyder nie die ander nie." },
+  "protip_category_pause": { "message": "Onderbreek 'n kategorie sonder om reëls te verwyder: skakel die kategorie af om sy reëls in die huidige lys te onderbreek, en skakel dit weer aan wanneer nodig." },
+  "protip_rule_protection": { "message": "Beskerm belangrike reëls: Streng modus voeg 'n aftelling voor verwydering by. Wagwoordbeskerming kan 'n wagwoord vereis voordat reëls gewysig of verwyder word." },
+  "protip_focus_session": { "message": "Gebruik 'n Fokus-sessie vir tydelike blokkering: dit aktiveer alle blokkeerreëls vir die gekose tyd, ignoreer hul gewone modusse en skedules en verander nie die reëls nie." },
+  "protip_rule_packs": { "message": "Begin vinniger met Reëlpakke: bekyk 'n nagegane beginstel, kies net die adresse wat jy wil hê, en wysig of verwyder hulle nadat hulle bygevoeg is." },
+  "protip_statistics": { "message": "Bekyk plaaslike statistieke: sien blokkering, herleidings en voltooide Fokus-sessies van die afgelope 30 dae. Om statistieke skoon te maak, verwyder nie jou reëls nie." },
   "userguide": {
     "message": "Gebruikersgids"
   }
