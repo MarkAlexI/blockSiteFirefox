@@ -673,8 +673,11 @@ test('rule exports include Rule Lists while removing passwords and legacy disabl
       await manager.exportRules();
       const exported = JSON.parse(await exportedBlob.text());
       assert.equal(exported.version, '5.1.7');
+      assert.equal(exported.format, 'blockdistraction-backup');
+      assert.equal(exported.schemaVersion, 1);
       assert.equal(exported.activeRuleListId, 'list-1');
       assert.equal(exported.rules[0].blockURL, 'blocked.example');
+      assert.equal('id' in exported.rules[0], false);
       assert.equal(exported.ruleLists.length, 2);
       assert.equal('enablePassword' in exported.settings, false);
       assert.equal('passwordHash' in exported.settings, false);
@@ -714,7 +717,7 @@ test('rule imports reject null and primitive JSON roots without throwing a raw T
       });
       assert.match(
         document.getElementById('statusMessage').textContent,
-        /Invalid file format: missing rules array/
+        /Invalid backup: root must be an object/
       );
     }
 
@@ -733,9 +736,9 @@ test('Options preserves large inactive-profile imports without an invented total
       { id: 'list-1', name: 'Archive' }
     ];
     let imported;
-    manager.rulesClient.replaceAll = async (...args) => {
-      imported = args;
-      return { rules: args[0] };
+    manager.rulesClient.replaceAll = async (backup) => {
+      imported = backup;
+      return { rules: backup.rules };
     };
     manager.loadStatistics = async () => {};
 
@@ -746,9 +749,12 @@ test('Options preserves large inactive-profile imports without an invented total
       }
     });
 
-    assert.equal(imported[0].length, 1_500);
-    assert.deepEqual(imported[2], ruleLists);
-    assert.equal(imported[3], 'general');
+    assert.equal(imported.rules.length, 1_500);
+    assert.deepEqual(imported.ruleLists, [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Archive', disabledCategories: [] }
+    ]);
+    assert.equal(imported.activeRuleListId, 'general');
     assert.equal(document.getElementById('totalRules').textContent, 1_500);
     assert.equal(document.getElementById('statusMessage').textContent, 'importedrules:1500');
   });
@@ -763,21 +769,36 @@ test('confirmed rule imports preserve Rule Lists, activate the requested profile
       activeRuleListId: 'list-1'
     };
     const calls = [];
-    manager.rulesClient.replaceAll = async (...args) => {
-      calls.push(args);
-      return { rules: importData.rules, settings: importData.settings };
+    manager.rulesClient.replaceAll = async (backup) => {
+      calls.push(backup);
+      return { rules: backup.rules, settings: backup.settings };
     };
     let statisticsLoads = 0;
     manager.loadStatistics = async () => { statisticsLoads += 1; };
     document.getElementById('importFileInput').value = '/tmp/rules.json';
 
     await manager.importRules({ name: 'rules.json', async text() { return JSON.stringify(importData); } });
-    assert.deepEqual(calls, [[
-      importData.rules,
-      importData.settings,
-      importData.ruleLists,
-      'list-1'
-    ]]);
+    assert.equal(calls.length, 1);
+    assert.deepEqual(calls[0].rules, [{
+      blockURL: 'imported.example',
+      redirectURL: '',
+      category: 'uncategorized',
+      isWhitelist: false,
+      blockingMode: 'always',
+      schedule: null,
+      dailyLimit: null
+    }]);
+    assert.deepEqual(calls[0].settings, {
+      mode: 'strict',
+      confirmBeforeDelete: false,
+      showNotifications: true,
+      focusSessionSound: true
+    });
+    assert.deepEqual(calls[0].ruleLists, [
+      { id: 'general', disabledCategories: [] },
+      { id: 'list-1', name: 'Work', disabledCategories: [] }
+    ]);
+    assert.equal(calls[0].activeRuleListId, 'list-1');
     assert.equal(document.getElementById('mode-strict').checked, true);
     assert.equal(document.getElementById('totalRules').textContent, 1);
     assert.equal(document.getElementById('importFileInput').value, '');
@@ -811,7 +832,7 @@ test('rule imports require password authorization before replacing existing rule
 
 test('cancelled imports never replace existing rules, and validation errors expose their safe error codes', async () => {
   await withSettingsManager(async ({ document, manager, setConfirmation }) => {
-    const file = { name: 'rules.json', async text() { return '{"rules":[{"id":1}]}'; } };
+    const file = { name: 'rules.json', async text() { return '{"rules":[{"blockURL":"example.com"}]}'; } };
     let called = false;
     manager.rulesClient.replaceAll = async () => { called = true; };
     setConfirmation(false);
@@ -830,14 +851,14 @@ test('cancelled imports never replace existing rules, and validation errors expo
   });
 });
 
-test('import UI reports committed rules and optional settings failures without pretending settings were saved', async () => {
+test('import UI reports a transactional worker failure without applying imported state', async () => {
   await withSettingsManager(async ({ document, manager }) => {
     const importedRules = [{ id: 1, blockURL: 'imported.example' }];
-    manager.rulesClient.replaceAll = async () => ({
-      rules: importedRules,
-      settings: null,
-      settingsSyncPending: true
-    });
+    manager.rulesClient.replaceAll = async () => {
+      const error = new Error('sync storage unavailable');
+      error.code = 'import_failed';
+      throw error;
+    };
     manager.loadStatistics = async () => {};
     document.getElementById('importFileInput').value = '/tmp/rules.json';
 
@@ -852,10 +873,9 @@ test('import UI reports committed rules and optional settings failures without p
     });
 
     const status = document.getElementById('statusMessage');
-    assert.equal(status.textContent, 'importedrules:1 errorsavingsettings');
+    assert.equal(status.textContent, 'errorimportingrulessync storage unavailable');
     assert.equal(status.classList.contains('error'), true);
-    assert.equal(document.getElementById('totalRules').textContent, 1);
-    assert.equal(document.getElementById('importFileInput').value, '');
+    assert.notEqual(document.getElementById('totalRules').textContent, 1);
     assert.equal(document.getElementById('mode-strict').checked, false);
   });
 });

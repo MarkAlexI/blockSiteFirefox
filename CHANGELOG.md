@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.23] - 2026-09-28
+
+### Changed
+- Rule exports now use a versioned, portable backup schema containing only supported rules, Rule Lists, the active profile, and compatible preferences.
+- Imports validate the complete file and browser rule capacity before writing any state. Settings, local rules, Rule Lists, the selected profile, and browser blocking are committed together or restored to their previous values.
+- Existing backup files remain compatible after their supported fields are normalized into the current schema.
+
+### Security
+- Import accepts only allowlisted fields and strict value types. Unknown internal fields cannot enter extension storage.
+- Password protection and password hashes are never exported or replaced by an import. License, account, telemetry, Debug Mode, statistics, Daily Limit usage, and Focus Session state are excluded as well.
+- Malformed, unsupported, and oversized backup files fail before any extension state changes. No browser permissions or network requests were added.
+
 ## [5.2.22] - 2026-09-27
 
 ### Fixed

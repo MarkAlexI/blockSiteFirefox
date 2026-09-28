@@ -47,8 +47,11 @@ export class RulesClient {
     return sendRulesIntent('rules:toggle', { ruleId, listId });
   }
 
-  replaceAll(rules, settings = null, ruleLists = null, activeRuleListId = null) {
-    return sendRulesIntent('rules:replaceAll', { rules, settings, ruleLists, activeRuleListId });
+  replaceAll(backup, settings = null, ruleLists = null, activeRuleListId = null) {
+    const payload = Array.isArray(backup)
+      ? { rules: backup, settings, ruleLists, activeRuleListId }
+      : backup;
+    return sendRulesIntent('rules:replaceAll', payload);
   }
 
   clearRules() {

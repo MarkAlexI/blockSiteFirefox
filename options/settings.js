@@ -6,6 +6,11 @@ import { getFocusSessionState } from '../utils/focusSession.js';
 import Logger from '../utils/logger.js';
 import { RulesClient } from '../rules/rulesClient.js';
 import { renderStatisticsCharts } from './statisticsCharts.js';
+import {
+  MAX_BACKUP_FILE_BYTES,
+  createBackupDocument,
+  parseBackupText
+} from '../backup/backupFormat.js';
 
 export class SettingsManager {
   constructor() {
@@ -426,21 +431,14 @@ export class SettingsManager {
     try {
       const resultSync = await browser.storage.sync.get(['settings']);
       const resultLocal = await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId']);
-      const settingsToExport = {
-        ...(resultSync.settings || this.defaultSettings)
-      };
-      delete settingsToExport.enablePassword;
-      delete settingsToExport.passwordHash;
-      delete settingsToExport.disabledCategories;
-      
-      const exportData = {
+      const exportData = createBackupDocument({
         rules: resultLocal.rules || [],
         ruleLists: resultLocal.ruleLists || [{ id: 'general', name: 'General', disabledCategories: [] }],
         activeRuleListId: resultLocal.activeRuleListId || 'general',
-        settings: settingsToExport,
+        settings: resultSync.settings || this.defaultSettings,
         exportDate: new Date().toISOString(),
         version: browser.runtime.getManifest().version
-      };
+      });
       
       const blob = new Blob([JSON.stringify(exportData, null, 2)], {
         type: 'application/json'
@@ -469,25 +467,15 @@ export class SettingsManager {
       this.showStatus(t('errorinvalidfiletype'), 'error');
       return;
     }
+    if (Number.isFinite(file.size) && file.size > MAX_BACKUP_FILE_BYTES) {
+      this.showStatus(t('errorimportingrules') + 'Invalid backup: file is too large', 'error');
+      document.getElementById('importFileInput').value = '';
+      return;
+    }
     
     try {
       const text = await file.text();
-      
-      let importData;
-      try {
-        importData = JSON.parse(text);
-      } catch (error) {
-        throw new Error('File content is not valid JSON', { cause: error });
-      }
-      
-      if (
-        !importData ||
-        typeof importData !== 'object' ||
-        Array.isArray(importData) ||
-        !Array.isArray(importData.rules)
-      ) {
-        throw new Error('Invalid file format: missing rules array');
-      }
+      const importData = parseBackupText(text);
 
       const isAuthorized = await this.checkPasswordProtection();
       if (!isAuthorized) {
@@ -505,12 +493,7 @@ export class SettingsManager {
         return;
       }
       
-      const response = await this.rulesClient.replaceAll(
-        importData.rules,
-        importData.settings || null,
-        importData.ruleLists || null,
-        importData.activeRuleListId || null
-      );
+      const response = await this.rulesClient.replaceAll(importData);
       
       if (response.settings) {
         this.applySettingsToUI(response.settings);
@@ -519,13 +502,7 @@ export class SettingsManager {
       await this.loadRuleCount(response.rules || []);
       await this.loadStatistics();
       
-      const importedStatus = t('importedrules', `${importData.rules.length}`);
-      this.showStatus(
-        response.settingsSyncPending
-          ? `${importedStatus} ${t('errorsavingsettings')}`
-          : importedStatus,
-        response.settingsSyncPending ? 'error' : 'success'
-      );
+      this.showStatus(t('importedrules', `${importData.rules.length}`), 'success');
       document.getElementById('importFileInput').value = '';
     } catch (error) {
       this.logger.error('Error importing rules:', error);
@@ -533,6 +510,7 @@ export class SettingsManager {
         ` (${error.validationErrors.join(', ')})` :
         '';
       this.showStatus(t('errorimportingrules') + error.message + validationSuffix, 'error');
+      document.getElementById('importFileInput').value = '';
     }
   }
   

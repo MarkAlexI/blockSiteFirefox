@@ -17,8 +17,10 @@ function createHarness({
   initialRules = [],
   initialRuleLists = [{ id: 'general', name: 'General', disabledCategories: [] }],
   initialActiveRuleListId = 'general',
+  initialSettings = { disabledCategories: [], enablePassword: false, passwordHash: null },
   access = { isPro: true, isLegacyUser: false },
   syncResult = { success: true },
+  syncResults = null,
   validation = null,
   capacityValidation = null,
   combinedSaveError = null,
@@ -33,7 +35,7 @@ function createHarness({
   let rules = clone(initialRules);
   let ruleLists = clone(initialRuleLists);
   let activeRuleListId = initialActiveRuleListId;
-  let settings = { disabledCategories: [], enablePassword: false, passwordHash: null };
+  let settings = clone(initialSettings);
   const savedStates = [];
   const notifications = [];
   let syncCalls = 0;
@@ -112,8 +114,10 @@ function createHarness({
     },
     dnrSynchronizer: {
       async requestSync() {
-        syncCalls++;
-        return syncResult;
+        const callIndex = syncCalls++;
+        return Array.isArray(syncResults)
+          ? (syncResults[callIndex] ?? syncResults.at(-1))
+          : syncResult;
       },
       async validateRuleCapacity(nextRules, nextRuleListState = null) {
         capacityChecks.push({
@@ -428,7 +432,7 @@ test('invalid imported rule entries fail clearly without replacing rules or sett
         settings: { mode: 'strict' }
       }),
       error => error.code === 'invalid_import' &&
-        error.message === 'Invalid file format: rule 2 must be an object'
+        error.message === 'Invalid backup: rules[1] must be an object'
     );
 
     assert.deepEqual(harness.getRules(), [original]);
@@ -563,22 +567,116 @@ test('a rejected local import write cannot change independently stored settings'
   assert.equal(harness.getSyncCalls(), 0);
 });
 
-test('optional settings failure cannot hide or desynchronize a committed rule import', async () => {
+test('settings failure aborts an import before local rules or browser blocking change', async () => {
+  const original = makeCapacityRule(1);
   const harness = createHarness({
+    initialRules: [original],
+    initialSettings: {
+      mode: 'normal',
+      enablePassword: true,
+      passwordHash: 'private-hash'
+    },
     settingsSaveError: new Error('sync storage unavailable')
   });
 
-  const result = await harness.service.replaceAll({
-    rules: [{ blockURL: 'imported.example', redirectURL: '' }],
-    settings: { mode: 'strict' }
+  await assert.rejects(
+    harness.service.replaceAll({
+      rules: [{ blockURL: 'imported.example', redirectURL: '' }],
+      settings: { mode: 'strict' }
+    }),
+    /sync storage unavailable/
+  );
+
+  assert.deepEqual(harness.getRules(), [original]);
+  assert.deepEqual(harness.getSettings(), {
+    mode: 'normal',
+    enablePassword: true,
+    passwordHash: 'private-hash'
+  });
+  assert.equal(harness.getSyncCalls(), 0);
+  assert.equal(harness.savedStates.length, 0);
+});
+
+test('imports preserve current password protection and discard non-portable fields', async () => {
+  const harness = createHarness({
+    initialSettings: {
+      mode: 'normal',
+      enablePassword: true,
+      passwordHash: 'private-hash',
+      debugMode: true,
+      localOnlySetting: 'keep-current'
+    }
   });
 
-  assert.deepEqual(harness.getRules().map(rule => rule.blockURL), ['imported.example']);
-  assert.equal(result.settings, null);
-  assert.equal(result.settingsSyncPending, true);
-  assert.equal(harness.getSettings().mode, undefined);
-  assert.equal(harness.getSyncCalls(), 1);
-  assert.equal(harness.warnings.length, 1);
+  const result = await harness.service.replaceAll({
+    rules: [{
+      id: 900,
+      blockURL: 'imported.example',
+      redirectURL: '',
+      category: 'social',
+      injectedRuleState: 'drop-me'
+    }],
+    settings: {
+      mode: 'strict',
+      enablePassword: false,
+      passwordHash: 'attacker-hash',
+      debugMode: false,
+      licenseKey: 'attacker-license',
+      telemetryId: 'attacker-telemetry'
+    },
+    credentials: { isPro: true },
+    statistics: { totalBlocked: 999 }
+  });
+
+  assert.equal(result.rules[0].id, 1);
+  assert.equal(result.rules[0].injectedRuleState, undefined);
+  assert.deepEqual(harness.getSettings(), {
+    mode: 'strict',
+    enablePassword: true,
+    passwordHash: 'private-hash',
+    debugMode: true,
+    localOnlySetting: 'keep-current'
+  });
+});
+
+test('DNR failure rolls back rules, Rule Lists, selected profile, and settings', async () => {
+  const original = makeCapacityRule(7);
+  const harness = createHarness({
+    initialRules: [original],
+    initialSettings: {
+      mode: 'normal',
+      enablePassword: true,
+      passwordHash: 'private-hash'
+    },
+    syncResults: [
+      { success: false, error: 'DNR update failed' },
+      { success: true }
+    ]
+  });
+
+  await assert.rejects(
+    harness.service.replaceAll({
+      rules: [{ blockURL: 'replacement.example', redirectURL: '' }],
+      ruleLists: [
+        { id: 'general', name: 'General' },
+        { id: 'list-1', name: 'Study' }
+      ],
+      activeRuleListId: 'list-1',
+      settings: { mode: 'strict' }
+    }),
+    error => error.code === 'import_sync_failed'
+  );
+
+  assert.deepEqual(harness.getRules(), [original]);
+  assert.deepEqual(harness.getRuleLists().map(list => list.id), ['general']);
+  assert.equal(harness.getActiveRuleListId(), 'general');
+  assert.deepEqual(harness.getSettings(), {
+    mode: 'normal',
+    enablePassword: true,
+    passwordHash: 'private-hash'
+  });
+  assert.equal(harness.getSyncCalls(), 2);
+  assert.equal(harness.notifications.at(-1).extra.importRolledBack, true);
 });
 
 test('reactivating a rule validates DNR capacity but Free disabling always remains available', async () => {
@@ -984,7 +1082,7 @@ test('invalid replacement does not clear or overwrite existing rules', async () 
 
   await assert.rejects(
     harness.service.replaceAll({ rules: [{ blockURL: '', redirectURL: '' }] }),
-    error => error.code === 'validation_failed'
+    error => error.code === 'invalid_import'
   );
 
   assert.deepEqual(harness.getRules(), [originalRule]);

@@ -28,6 +28,7 @@ import {
   getRuleBlockingMode,
   normalizeDailyLimit
 } from './blockingMode.js';
+import { sanitizeBackupPayload } from '../backup/backupFormat.js';
 
 export class RulesMutationError extends Error {
   constructor(code, message = code, validationErrors = []) {
@@ -1071,57 +1072,122 @@ export function createRulesMutationService({
   async function replaceAll(payload = {}) {
     return mutationQueue.enqueue(async () => {
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
+      let sanitizedPayload;
+      try {
+        sanitizedPayload = sanitizeBackupPayload(payload);
+      } catch (error) {
+        throw new RulesMutationError('invalid_import', error.message);
+      }
       let importedLists;
       try {
         importedLists = prepareImportedRuleLists(
-          payload.ruleLists,
-          payload.settings?.disabledCategories || []
+          sanitizedPayload.ruleLists,
+          sanitizedPayload.settings?.disabledCategories || []
         );
       } catch (error) {
         throw new RulesMutationError('invalid_import', error.message);
       }
       const importedActiveRuleListId = normalizeActiveRuleListId(
         importedLists,
-        payload.activeRuleListId || GENERAL_RULE_LIST_ID
+        sanitizedPayload.activeRuleListId || GENERAL_RULE_LIST_ID
       );
-      const nextRules = prepareReplacementRules(payload.rules, importedLists);
+      const nextRules = prepareReplacementRules(sanitizedPayload.rules, importedLists);
       await ensureBrowserRuleCapacity(nextRules, {
         lists: importedLists,
         activeRuleListId: importedActiveRuleListId
       });
+      const [previousRules, previousRuleListState, currentSettings] = await Promise.all([
+        rulesManager.getRules(),
+        getRuleListState(),
+        getSettings()
+      ]);
       let importedSettings = null;
-      let settingsSyncPending = false;
-
-      if (payload.settings && typeof payload.settings === 'object' && !Array.isArray(payload.settings)) {
-        const currentSettings = await getSettings();
-        const sanitizedSettings = { ...payload.settings };
-        delete sanitizedSettings.enablePassword;
-        delete sanitizedSettings.passwordHash;
-        delete sanitizedSettings.disabledCategories;
+      if (sanitizedPayload.settings) {
+        const { disabledCategories: _legacyDisabledCategories, ...portableSettings } =
+          sanitizedPayload.settings;
         importedSettings = {
           ...currentSettings,
-          ...sanitizedSettings,
+          ...portableSettings,
           enablePassword: currentSettings.enablePassword,
           passwordHash: currentSettings.passwordHash
         };
       }
 
-      await saveCombinedState(nextRules, importedLists, importedActiveRuleListId);
-      if (importedSettings) {
-        try {
+      let settingsCommitted = false;
+      let localStateCommitted = false;
+      try {
+        if (importedSettings) {
           await saveSettings(importedSettings);
-        } catch (error) {
-          logger.warn('Imported rules were committed but optional settings could not be saved:', error);
-          importedSettings = null;
-          settingsSyncPending = true;
+          settingsCommitted = true;
         }
+        await saveCombinedState(nextRules, importedLists, importedActiveRuleListId);
+        localStateCommitted = true;
+        const syncResult = await dnrSynchronizer.requestSync();
+        if (syncResult?.success === false) {
+          throw new RulesMutationError(
+            'import_sync_failed',
+            'Browser blocking rules could not be updated'
+          );
+        }
+      } catch (error) {
+        const rollbackErrors = [];
+        if (localStateCommitted) {
+          try {
+            await saveCombinedState(
+              previousRules,
+              previousRuleListState.lists,
+              previousRuleListState.activeRuleListId
+            );
+          } catch (rollbackError) {
+            rollbackErrors.push(rollbackError);
+          }
+        }
+        if (settingsCommitted) {
+          try {
+            await saveSettings(currentSettings);
+          } catch (rollbackError) {
+            rollbackErrors.push(rollbackError);
+          }
+        }
+        if (localStateCommitted) {
+          try {
+            const rollbackSyncResult = await dnrSynchronizer.requestSync();
+            if (rollbackSyncResult?.success === false) {
+              throw new Error('Browser blocking rules could not be restored');
+            }
+          } catch (rollbackError) {
+            rollbackErrors.push(rollbackError);
+          }
+          notifyRulesChanged(previousRules, {
+            ruleLists: previousRuleListState.lists,
+            activeRuleListId: previousRuleListState.activeRuleListId,
+            importRolledBack: true
+          });
+        }
+        if (rollbackErrors.length > 0) {
+          const rollbackFailure = new RulesMutationError(
+            'import_rollback_failed',
+            `Import failed and the previous state could not be fully restored: ${rollbackErrors[0].message}`
+          );
+          rollbackFailure.cause = error;
+          throw rollbackFailure;
+        }
+        throw error;
       }
-      return syncAndNotify(nextRules, {
+
+      notifyRulesChanged(nextRules, {
         settings: importedSettings,
         ruleLists: importedLists,
         activeRuleListId: importedActiveRuleListId,
-        ...(settingsSyncPending ? { settingsSyncPending } : {})
+        syncPending: false
       });
+      return {
+        rules: nextRules,
+        settings: importedSettings,
+        ruleLists: importedLists,
+        activeRuleListId: importedActiveRuleListId,
+        syncPending: false
+      };
     });
   }
 

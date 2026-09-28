@@ -1899,7 +1899,7 @@ test('windowless worker rejects malformed imported rule entries without changing
 
     assert.equal(response.success, false);
     assert.equal(response.error.code, 'invalid_import');
-    assert.match(response.error.message, /rule 2 must be an object/);
+    assert.match(response.error.message, /rules\[1\] must be an object/);
     assert.deepEqual(api.storage.local.data.rules, [original]);
     assert.equal(api.storage.sync.data.settings.mode, 'normal');
     assert.deepEqual(api.dynamicRules, protectedRules);
@@ -2054,7 +2054,7 @@ test('worker rejects oversized imported profiles before changing sync settings o
   });
 });
 
-test('worker keeps imported DNR rules active when optional sync settings cannot be saved', async () => {
+test('worker aborts an import before changing local rules when sync settings cannot be saved', async () => {
   await withWorker(async ({ api, send }) => {
     const originalSet = api.storage.sync.set.bind(api.storage.sync);
     api.storage.sync.set = (values, callback) => Object.hasOwn(values, 'settings')
@@ -2069,12 +2069,11 @@ test('worker keeps imported DNR rules active when optional sync settings cannot 
       }
     });
 
-    assert.equal(response.success, true);
-    assert.equal(response.settingsSyncPending, true);
-    assert.equal(response.settings, null);
+    assert.equal(response.success, false);
+    assert.match(response.error.message, /sync settings unavailable/);
     assert.equal(api.storage.sync.data.settings.mode, 'normal');
-    assert.deepEqual(api.storage.local.data.rules.map(rule => rule.blockURL), ['imported.example']);
-    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+    assert.deepEqual(api.storage.local.data.rules || [], []);
+    assert.deepEqual(api.dynamicRules, []);
     assert.equal(api.windows, undefined);
   }, {
     local: { activeRuleListId: 'general' },
