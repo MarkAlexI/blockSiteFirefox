@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Peržiūrėkite vietinę statistiką: matykite paskutinių 30 dienų blokavimus, peradresavimus ir užbaigtas Fokusavimosi sesijas. Statistikos išvalymas taisyklių neištrina." },
   "userguide": {
     "message": "Naudotojo vadovas"
+  },
+  "focus_schedule_title": {
+    "message": "Suplanuotas susikaupimas"
+  },
+  "focus_schedule_description": {
+    "message": "Pro paleidžia įprastą susikaupimo seansą su dabartinėmis taisyklėmis pagal šio įrenginio vietinį laiką."
+  },
+  "focus_schedule_next": {
+    "message": "Kitas seansas: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Praleisti kitą seansą"
+  },
+  "focus_schedule_skipped": {
+    "message": "Praleista: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Tvarkaraštis išjungtas."
+  },
+  "focus_schedule_catchup": {
+    "message": "Mieganti ar uždaryta naršyklė gali pavėlinti pradžią. Naudojamas tik likęs laikas; rankiniu būdu pradėti seansai turi pirmenybę."
+  },
+  "focus_schedule_changed": {
+    "message": "Tvarkaraštis pakeistas kitame lange. Prieš redaguodami vėl pasirinkite Atšaukti, kad jį įkeltumėte."
   }
 }

@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Tinjau statistik lokal: lihat pemblokiran, pengalihan, dan Sesi Fokus yang selesai selama 30 hari terakhir. Menghapus statistik tidak menghapus aturan Anda." },
   "userguide": {
     "message": "Panduan Pengguna"
+  },
+  "focus_schedule_title": {
+    "message": "Fokus terjadwal"
+  },
+  "focus_schedule_description": {
+    "message": "Pro memulai sesi fokus biasa dengan aturan Anda saat ini, sesuai waktu lokal perangkat ini."
+  },
+  "focus_schedule_next": {
+    "message": "Sesi berikutnya: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Lewati sesi berikutnya"
+  },
+  "focus_schedule_skipped": {
+    "message": "Dilewati: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Jadwal dinonaktifkan."
+  },
+  "focus_schedule_catchup": {
+    "message": "Browser yang tidur atau ditutup dapat terlambat memulai. Hanya sisa waktu yang dijalankan; sesi manual diprioritaskan."
+  },
+  "focus_schedule_changed": {
+    "message": "Jadwal berubah di jendela lain. Pilih Batal untuk memuatnya sebelum mengedit lagi."
   }
 }

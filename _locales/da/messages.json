@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Se lokale statistikker: se blokeringer, omdirigeringer og fuldførte Fokussessioner fra de seneste 30 dage. Rydning af statistikker sletter ikke dine regler." },
   "userguide": {
     "message": "Brugervejledning"
+  },
+  "focus_schedule_title": {
+    "message": "Planlagt fokus"
+  },
+  "focus_schedule_description": {
+    "message": "Pro starter en normal fokussession med dine nuværende regler efter enhedens lokale tid."
+  },
+  "focus_schedule_next": {
+    "message": "Næste session: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Spring næste session over"
+  },
+  "focus_schedule_skipped": {
+    "message": "Sprunget over: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Tidsplanen er slået fra."
+  },
+  "focus_schedule_catchup": {
+    "message": "En sovende eller lukket browser kan forsinke starten. Kun den resterende tid bruges; manuelle sessioner har forrang."
+  },
+  "focus_schedule_changed": {
+    "message": "Tidsplanen er ændret i et andet vindue. Vælg Annuller for at indlæse den, før du redigerer igen."
   }
 }

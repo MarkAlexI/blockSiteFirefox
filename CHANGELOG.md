@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.0] - 2026-09-30
+
+### Added
+- Pro and Legacy users can schedule one recurring normal Focus Session: days of the week, device-local start time, and a duration of 1–240 minutes.
+- Options shows the schedule editor; Popup and Options show the next session and let users skip it without deleting the recurring schedule. All new controls are translated into 57 locales.
+- Browser startup and worker wake restore the next alarm. A minute watchdog handles delayed or missing alarms. Late starts keep the original end time, and fully missed windows are skipped.
+
+### Changed
+- Manual sessions take priority. A handled, stopped, or skipped occurrence is not started again after a worker restart. Scheduled sessions never enable Hardcore or Whitelist mode.
+- Popup and Options update their active-session display when an automatic session starts or ends.
+- The minor-release welcome page now introduces scheduled focus with warmer, user-focused messages and recalls safer backups and the User Guide.
+
+### Compatibility and privacy
+- Scheduling is off by default. Existing rules, manual sessions, license data, and backup formats are preserved.
+- Schedule settings stay in local browser storage and are excluded from rule backups. No permissions, network endpoints, or telemetry fields were added.
+- Browser alarms cannot wake a sleeping device or a closed browser; OS suspension can delay execution. Nonexistent daylight-saving start times are skipped, and repeated times run only once.
+
 ## [5.2.23] - 2026-09-28
 
 ### Changed

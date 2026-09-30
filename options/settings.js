@@ -177,12 +177,14 @@ export class SettingsManager {
   }
   
   async initFocusSessionBanner() {
+    const renderGeneration = this.focusRenderGeneration = (this.focusRenderGeneration || 0) + 1;
     if (this.focusTimerInterval) {
       clearInterval(this.focusTimerInterval);
       this.focusTimerInterval = null;
     }
     
     const { focusActive, focusEndTime } = await getFocusSessionState();
+    if (renderGeneration !== this.focusRenderGeneration) return;
     
     if (focusActive && focusEndTime > Date.now()) {
       this.focusBanner.classList.remove('hidden');

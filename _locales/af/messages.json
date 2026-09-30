@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Bekyk plaaslike statistieke: sien blokkering, herleidings en voltooide Fokus-sessies van die afgelope 30 dae. Om statistieke skoon te maak, verwyder nie jou reëls nie." },
   "userguide": {
     "message": "Gebruikersgids"
+  },
+  "focus_schedule_title": {
+    "message": "Geskeduleerde fokus"
+  },
+  "focus_schedule_description": {
+    "message": "Pro begin ’n gewone fokussessie met jou huidige reëls volgens hierdie toestel se plaaslike tyd."
+  },
+  "focus_schedule_next": {
+    "message": "Volgende sessie: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Slaan volgende sessie oor"
+  },
+  "focus_schedule_skipped": {
+    "message": "Oorgeslaan: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Skedule is af."
+  },
+  "focus_schedule_catchup": {
+    "message": "’n Slapende of geslote blaaier kan die begin vertraag. Net die oorblywende tyd word gebruik; handsessies kry voorkeur."
+  },
+  "focus_schedule_changed": {
+    "message": "Die skedule het in ’n ander venster verander. Kies Kanselleer om dit te laai voordat jy weer wysig."
   }
 }

@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Pregledajte lokalnu statistiku: pogledajte blokiranja, preusmjeravanja i dovršene Sesije fokusiranja u posljednjih 30 dana. Brisanje statistike ne briše vaša pravila." },
   "userguide": {
     "message": "Korisnički vodič"
+  },
+  "focus_schedule_title": {
+    "message": "Zakazani fokus"
+  },
+  "focus_schedule_description": {
+    "message": "Pro pokreće uobičajenu sesiju fokusa s trenutačnim pravilima prema lokalnom vremenu ovog uređaja."
+  },
+  "focus_schedule_next": {
+    "message": "Sljedeća sesija: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Preskoči sljedeću sesiju"
+  },
+  "focus_schedule_skipped": {
+    "message": "Preskočeno: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Raspored je isključen."
+  },
+  "focus_schedule_catchup": {
+    "message": "Uspavani ili zatvoreni preglednik može odgoditi početak. Koristi se samo preostalo vrijeme; ručne sesije imaju prednost."
+  },
+  "focus_schedule_changed": {
+    "message": "Raspored je promijenjen u drugom prozoru. Odaberite Odustani da biste ga učitali prije ponovnog uređivanja."
   }
 }

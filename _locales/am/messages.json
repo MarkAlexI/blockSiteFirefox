@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "አካባቢያዊ ስታቲስቲክስን ይመልከቱ፦ ያለፉትን 30 ቀናት እገዳዎች፣ ማዘዋወሪያዎች እና የተጠናቀቁ የትኩረት ክፍለ-ጊዜዎች ይመልከቱ። ስታቲስቲክስን ማጽዳት ደንቦችዎን አይሰርዝም።" },
   "userguide": {
     "message": "የተጠቃሚ መመሪያ"
+  },
+  "focus_schedule_title": {
+    "message": "የታቀደ ትኩረት"
+  },
+  "focus_schedule_description": {
+    "message": "Pro አሁን ባሉት ደንቦችዎ እና በዚህ መሣሪያ አካባቢያዊ ሰዓት መሠረት መደበኛ የትኩረት ክፍለ ጊዜ ይጀምራል።"
+  },
+  "focus_schedule_next": {
+    "message": "ቀጣይ ክፍለ ጊዜ፦ $1"
+  },
+  "focus_schedule_skip": {
+    "message": "ቀጣዩን ክፍለ ጊዜ ዝለል"
+  },
+  "focus_schedule_skipped": {
+    "message": "ተዘሏል፦ $1"
+  },
+  "focus_schedule_off": {
+    "message": "መርሐ ግብሩ ጠፍቷል።"
+  },
+  "focus_schedule_catchup": {
+    "message": "የተዘጋ ወይም በእንቅልፍ ሁኔታ ያለ አሳሽ ዘግይቶ ሊጀምር ይችላል። የቀረው ጊዜ ብቻ ይጠቀማል፤ በእጅ የተጀመሩ ክፍለ ጊዜዎች ቅድሚያ አላቸው።"
+  },
+  "focus_schedule_changed": {
+    "message": "መርሐ ግብሩ በሌላ መስኮት ተቀይሯል። እንደገና ከማርትዕዎ በፊት እሱን ለመጫን «ሰርዝ» ይምረጡ።"
   }
 }

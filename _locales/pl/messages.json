@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Przeglądaj lokalne statystyki: Zobacz blokady, przekierowania i ukończone sesje skupienia z ostatnich 30 dni. Wyczyszczenie statystyk nie usuwa reguł." },
   "userguide": {
     "message": "Podręcznik użytkownika"
+  },
+  "focus_schedule_title": {
+    "message": "Zaplanowane skupienie"
+  },
+  "focus_schedule_description": {
+    "message": "Pro uruchamia zwykłą sesję skupienia z bieżącymi regułami, według czasu lokalnego tego urządzenia."
+  },
+  "focus_schedule_next": {
+    "message": "Następna sesja: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Pomiń następną sesję"
+  },
+  "focus_schedule_skipped": {
+    "message": "Pominięto: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Harmonogram jest wyłączony."
+  },
+  "focus_schedule_catchup": {
+    "message": "Uśpiona lub zamknięta przeglądarka może opóźnić start. Wykorzystany zostanie tylko pozostały czas; sesje ręczne mają pierwszeństwo."
+  },
+  "focus_schedule_changed": {
+    "message": "Harmonogram zmieniono w innym oknie. Wybierz Anuluj, aby go wczytać przed ponowną edycją."
   }
 }

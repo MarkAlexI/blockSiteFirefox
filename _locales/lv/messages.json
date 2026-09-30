@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Pārskatiet lokālo statistiku: skatiet pēdējo 30 dienu bloķēšanu, novirzīšanu un pabeigtās Fokusa sesijas. Statistikas dzēšana neizdzēš jūsu noteikumus." },
   "userguide": {
     "message": "Lietotāja rokasgrāmata"
+  },
+  "focus_schedule_title": {
+    "message": "Ieplānota koncentrēšanās"
+  },
+  "focus_schedule_description": {
+    "message": "Pro sāk parastu koncentrēšanās sesiju ar pašreizējiem noteikumiem pēc šīs ierīces vietējā laika."
+  },
+  "focus_schedule_next": {
+    "message": "Nākamā sesija: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Izlaist nākamo sesiju"
+  },
+  "focus_schedule_skipped": {
+    "message": "Izlaista: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Grafiks ir izslēgts."
+  },
+  "focus_schedule_catchup": {
+    "message": "Aizmigusi vai aizvērta pārlūkprogramma var aizkavēt sākumu. Tiek izmantots tikai atlikušais laiks; manuālajām sesijām ir priekšroka."
+  },
+  "focus_schedule_changed": {
+    "message": "Grafiks mainīts citā logā. Izvēlieties Atcelt, lai to ielādētu pirms atkārtotas rediģēšanas."
   }
 }

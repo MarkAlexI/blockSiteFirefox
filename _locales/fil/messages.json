@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Suriin ang lokal na estadistika: tingnan ang mga pag-block, pag-redirect, at natapos na Focus Session sa nakalipas na 30 araw. Hindi binubura ng pag-clear ng estadistika ang iyong mga patakaran." },
   "userguide": {
     "message": "Gabay sa Gumagamit"
+  },
+  "focus_schedule_title": {
+    "message": "Naka-iskedyul na pagtuon"
+  },
+  "focus_schedule_description": {
+    "message": "Nagsisimula ang Pro ng karaniwang sesyon ng pagtuon gamit ang kasalukuyan mong mga tuntunin, ayon sa lokal na oras ng device na ito."
+  },
+  "focus_schedule_next": {
+    "message": "Susunod na sesyon: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Laktawan ang susunod na sesyon"
+  },
+  "focus_schedule_skipped": {
+    "message": "Nilaktawan: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Naka-off ang iskedyul."
+  },
+  "focus_schedule_catchup": {
+    "message": "Maaaring mahuli ang pagsisimula kung natutulog o sarado ang browser. Natitirang oras lang ang gagamitin; may priyoridad ang mga manwal na sesyon."
+  },
+  "focus_schedule_changed": {
+    "message": "Nabago ang iskedyul sa ibang window. Piliin ang Kanselahin upang i-load ito bago muling mag-edit."
   }
 }

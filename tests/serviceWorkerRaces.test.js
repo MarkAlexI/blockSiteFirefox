@@ -5751,3 +5751,113 @@ test('a rejected telemetry write cannot replace the Free rule limit response', a
     supportsWindows: false
   });
 });
+
+function scheduledFocusState(extra = {}) {
+  return { version: 1, enabled: true, days: [1, 2, 3, 4, 5], startTime: '09:00',
+    durationMinutes: 50, revision: 1, notBefore: 0, handledKeys: [], skippedKeys: [], ...extra };
+}
+
+test('scheduled focus recovers on worker wake, ends on time and does not restart after manual stop', async () => {
+  await withControlledClock(new Date(2026,8,28,9,20), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      // Queued after worker-wake recovery, also exercises the public status message.
+      await send({ type: 'focus_schedule_save', config: {
+        enabled: true, days: [1,2,3,4,5], startTime: '09:00', durationMinutes: 50
+      }, revision: 1 });
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+      assert.equal(api.storage.local.data.focusSession.focusEndTime, new Date(2026,8,28,9,50).getTime());
+      assert.equal(api.storage.local.data.focusSession.isHardcore, false);
+      assert.equal(api.storage.local.data.focusSession.focusMode, 'blacklist');
+      assert.ok(api.dynamicRules.length > 0);
+      await send({ type: 'stop_focus_session' });
+      await alarm({ name: 'start_scheduled_focus' });
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      clock.set(new Date(2026,8,29,9,10));
+      await alarm({ name: 'start_scheduled_focus' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+      assert.equal(api.storage.local.data.focusSession.focusEndTime, new Date(2026,8,29,9,50).getTime());
+      clock.set(new Date(2026,8,29,9,51));
+      await alarm({ name: 'end_focus_session' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    }, { local: { focusSchedule: scheduledFocusState(), rules: [makeFocusRule(1,'list-1')] } });
+  });
+});
+
+test('scheduled focus never replaces a running manual Hardcore session', async () => {
+  await withControlledClock(new Date(2026,8,28,9,20), async () => {
+    const session = { focusActive: true, focusEndTime: new Date(2026,8,28,10,30).getTime(), isHardcore: true, focusMode: 'blacklist' };
+    await withWorker(async ({ api, alarm }) => {
+      await alarm({ name: 'start_scheduled_focus' });
+      assert.deepEqual(api.storage.local.data.focusSession, session);
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+    }, { local: { focusSchedule: scheduledFocusState(), focusSession: session } });
+  });
+});
+
+test('scheduled focus honors runtime skip and does not enable itself for existing users', async () => {
+  await withControlledClock(new Date(2026,8,28,8), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      const initial = await send({ type: 'focus_schedule_get' });
+      assert.equal(initial.config.enabled, false);
+      assert.equal(api.storage.local.data.focusSchedule, undefined);
+      const saved = await send({ type: 'focus_schedule_save', config: {
+        enabled: true, days: [1], startTime: '09:00', durationMinutes: 50
+      }, revision: initial.revision });
+      assert.equal(saved.success, true);
+      const skipped = await send({ type: 'focus_schedule_skip', key: saved.next.key });
+      assert.equal(skipped.success, true);
+      clock.set(new Date(2026,8,28,9,20));
+      await alarm({ name: 'start_scheduled_focus' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.focusSchedule.enabled, true);
+    });
+  });
+});
+
+test('scheduled focus is rejected for free users, including forged scheduler options', async () => {
+  await withControlledClock(new Date(2026,8,28,9,20), async () => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await alarm({ name: 'start_scheduled_focus' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      const config = { enabled: true, days: [1], startTime: '10:00', durationMinutes: 25 };
+      assert.equal((await send({ type: 'focus_schedule_save', config, revision: 1 })).code, 'pro_required');
+      assert.equal((await send({ type: 'focus_schedule_save', config: { ...config, isPro: true }, revision: 1 })).code, 'invalid_focus_schedule');
+    }, { credentials: { isPro: false, isLegacyUser: false, licenseKey: null }, local: { focusSchedule: scheduledFocusState() } });
+  });
+});
+
+test('scheduled focus rolls back a failed DNR activation and does not retry the same window', async () => {
+  await withControlledClock(new Date(2026,8,28,8), async clock => {
+    await withWorker(async ({ api, alarm }) => {
+      const update = api.declarativeNetRequest.updateDynamicRules;
+      let fail = true;
+      api.declarativeNetRequest.updateDynamicRules = async details => {
+        if (fail) { fail = false; throw new Error('simulated DNR failure'); }
+        return update(details);
+      };
+      clock.set(new Date(2026,8,28,9,20));
+      await withMutedErrors(() => alarm({ name: 'start_scheduled_focus' }));
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.alarmValues.has('end_focus_session'), false);
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    }, { local: { focusSchedule: scheduledFocusState(), rules: [makeFocusRule(1,'list-1')] } });
+  });
+});
+
+test('scheduled focus rolls back if its completion alarm cannot be created', async () => {
+  await withControlledClock(new Date(2026,8,28,8), async clock => {
+    await withWorker(async ({ api, alarm }) => {
+      const create = api.alarms.create;
+      api.alarms.create = async (name, options) => {
+        if (name === 'end_focus_session') throw new Error('alarm unavailable');
+        return create(name, options);
+      };
+      clock.set(new Date(2026,8,28,9,20));
+      await withMutedErrors(() => alarm({ name: 'start_scheduled_focus' }));
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.alarmValues.has('end_focus_session'), false);
+    }, { local: { focusSchedule: scheduledFocusState(), rules: [makeFocusRule(1,'list-1')] } });
+  });
+});

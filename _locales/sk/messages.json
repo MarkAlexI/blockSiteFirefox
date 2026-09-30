@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Prezrite si miestne štatistiky: uvidíte blokovania, presmerovania a dokončené Relácie sústredenia za posledných 30 dní. Vymazanie štatistík neodstráni vaše pravidlá." },
   "userguide": {
     "message": "Používateľská príručka"
+  },
+  "focus_schedule_title": {
+    "message": "Naplánované sústredenie"
+  },
+  "focus_schedule_description": {
+    "message": "Pro spustí bežnú reláciu sústredenia s aktuálnymi pravidlami podľa miestneho času tohto zariadenia."
+  },
+  "focus_schedule_next": {
+    "message": "Ďalšia relácia: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Preskočiť ďalšiu reláciu"
+  },
+  "focus_schedule_skipped": {
+    "message": "Preskočené: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Plán je vypnutý."
+  },
+  "focus_schedule_catchup": {
+    "message": "Uspatý alebo zatvorený prehliadač môže odložiť začiatok. Využije sa len zostávajúci čas; ručne spustené relácie majú prednosť."
+  },
+  "focus_schedule_changed": {
+    "message": "Plán sa zmenil v inom okne. Vyberte Zrušiť a načítajte ho pred ďalšou úpravou."
   }
 }

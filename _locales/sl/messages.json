@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Oglejte si lokalno statistiko: preverite blokiranja, preusmeritve in zaključene Seje osredotočenosti zadnjih 30 dni. Brisanje statistike ne odstrani pravil." },
   "userguide": {
     "message": "Uporabniški priročnik"
+  },
+  "focus_schedule_title": {
+    "message": "Načrtovana osredotočenost"
+  },
+  "focus_schedule_description": {
+    "message": "Pro zažene običajno sejo osredotočenosti s trenutnimi pravili po lokalnem času te naprave."
+  },
+  "focus_schedule_next": {
+    "message": "Naslednja seja: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Preskoči naslednjo sejo"
+  },
+  "focus_schedule_skipped": {
+    "message": "Preskočeno: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Urnik je izklopljen."
+  },
+  "focus_schedule_catchup": {
+    "message": "Speči ali zaprti brskalnik lahko zamakne začetek. Uporabi se le preostali čas; ročne seje imajo prednost."
+  },
+  "focus_schedule_changed": {
+    "message": "Urnik je bil spremenjen v drugem oknu. Izberite Prekliči, da ga naložite pred ponovnim urejanjem."
   }
 }

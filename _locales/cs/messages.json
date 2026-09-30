@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Prohlédněte si místní statistiky: uvidíte blokování, přesměrování a dokončená Soustředění za posledních 30 dní. Vymazání statistik neodstraní vaše pravidla." },
   "userguide": {
     "message": "Uživatelská příručka"
+  },
+  "focus_schedule_title": {
+    "message": "Naplánované soustředění"
+  },
+  "focus_schedule_description": {
+    "message": "Pro spustí běžnou relaci soustředění s aktuálními pravidly podle místního času tohoto zařízení."
+  },
+  "focus_schedule_next": {
+    "message": "Další relace: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Přeskočit další relaci"
+  },
+  "focus_schedule_skipped": {
+    "message": "Přeskočeno: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Plán je vypnutý."
+  },
+  "focus_schedule_catchup": {
+    "message": "Uspaný nebo zavřený prohlížeč může odložit začátek. Využije se jen zbývající čas; ručně spuštěné relace mají přednost."
+  },
+  "focus_schedule_changed": {
+    "message": "Plán se změnil v jiném okně. Zvolte Zrušit a načtěte jej před další úpravou."
   }
 }

@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "查看本機統計：查看最近 30 天的封鎖、重新導向和已完成專注時段。清除統計不會刪除您的規則。" },
   "userguide": {
     "message": "使用者指南"
+  },
+  "focus_schedule_title": {
+    "message": "定時專注"
+  },
+  "focus_schedule_description": {
+    "message": "Pro 依照此裝置的本地時間，使用目前規則啟動一般專注工作階段。"
+  },
+  "focus_schedule_next": {
+    "message": "下次工作階段：$1"
+  },
+  "focus_schedule_skip": {
+    "message": "略過下次工作階段"
+  },
+  "focus_schedule_skipped": {
+    "message": "已略過：$1"
+  },
+  "focus_schedule_off": {
+    "message": "定時專注已關閉。"
+  },
+  "focus_schedule_catchup": {
+    "message": "瀏覽器休眠或關閉可能導致延遲啟動。只執行剩餘時段；手動工作階段優先。"
+  },
+  "focus_schedule_changed": {
+    "message": "定時設定已在另一個視窗中變更。請選擇「取消」重新載入後再編輯。"
   }
 }

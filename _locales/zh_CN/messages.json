@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "查看本地统计：查看最近 30 天的屏蔽、重定向和已完成专注时段。清除统计不会删除您的规则。" },
   "userguide": {
     "message": "用户指南"
+  },
+  "focus_schedule_title": {
+    "message": "定时专注"
+  },
+  "focus_schedule_description": {
+    "message": "Pro 按此设备的本地时间，使用当前规则启动普通专注会话。"
+  },
+  "focus_schedule_next": {
+    "message": "下次会话：$1"
+  },
+  "focus_schedule_skip": {
+    "message": "跳过下次会话"
+  },
+  "focus_schedule_skipped": {
+    "message": "已跳过：$1"
+  },
+  "focus_schedule_off": {
+    "message": "定时专注已关闭。"
+  },
+  "focus_schedule_catchup": {
+    "message": "浏览器休眠或关闭可能导致延迟启动。只运行剩余时段；手动会话优先。"
+  },
+  "focus_schedule_changed": {
+    "message": "定时设置已在另一个窗口中更改。请选择“取消”重新加载后再编辑。"
   }
 }

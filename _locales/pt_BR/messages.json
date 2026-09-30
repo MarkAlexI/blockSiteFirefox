@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Consulte as estatísticas locais: veja bloqueios, redirecionamentos e Sessões de Foco concluídas nos últimos 30 dias. Limpar as estatísticas não exclui suas regras." },
   "userguide": {
     "message": "Guia do usuário"
+  },
+  "focus_schedule_title": {
+    "message": "Foco programado"
+  },
+  "focus_schedule_description": {
+    "message": "O Pro inicia uma sessão de foco normal com suas regras atuais, no horário local deste dispositivo."
+  },
+  "focus_schedule_next": {
+    "message": "Próxima sessão: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Pular a próxima sessão"
+  },
+  "focus_schedule_skipped": {
+    "message": "Ignorada: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Programação desativada."
+  },
+  "focus_schedule_catchup": {
+    "message": "Um navegador suspenso ou fechado pode atrasar o início. Apenas o tempo restante será usado; sessões manuais têm prioridade."
+  },
+  "focus_schedule_changed": {
+    "message": "A programação mudou em outra janela. Selecione Cancelar para carregá-la antes de editar novamente."
   }
 }

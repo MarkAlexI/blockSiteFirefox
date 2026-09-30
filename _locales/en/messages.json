@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Review local statistics: See blocks, redirects, and completed Focus Sessions from the last 30 days. Clearing statistics does not delete your rules." },
   "userguide": {
     "message": "User Guide"
+  },
+  "focus_schedule_title": {
+    "message": "Scheduled focus"
+  },
+  "focus_schedule_description": {
+    "message": "Pro starts a normal Focus Session with your current rules, at this device’s local time."
+  },
+  "focus_schedule_next": {
+    "message": "Next session: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Skip next session"
+  },
+  "focus_schedule_skipped": {
+    "message": "Skipped: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Schedule is off."
+  },
+  "focus_schedule_catchup": {
+    "message": "A sleeping or closed browser may start late. Only the remaining time runs; manual sessions take priority."
+  },
+  "focus_schedule_changed": {
+    "message": "The schedule changed in another window. Select Cancel to load it before editing again."
   }
 }

@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Consulta les estadístiques locals: revisa els bloquejos, les redireccions i les Sessions de focus completades durant els últims 30 dies. Esborrar les estadístiques no elimina les regles." },
   "userguide": {
     "message": "Guia de l’usuari"
+  },
+  "focus_schedule_title": {
+    "message": "Concentració programada"
+  },
+  "focus_schedule_description": {
+    "message": "Pro inicia una sessió de concentració normal amb les regles actuals, a l’hora local d’aquest dispositiu."
+  },
+  "focus_schedule_next": {
+    "message": "Sessió següent: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Omet la sessió següent"
+  },
+  "focus_schedule_skipped": {
+    "message": "Omesa: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Programació desactivada."
+  },
+  "focus_schedule_catchup": {
+    "message": "Un navegador suspès o tancat pot retardar l’inici. Només s’utilitza el temps restant; les sessions manuals tenen prioritat."
+  },
+  "focus_schedule_changed": {
+    "message": "La programació ha canviat en una altra finestra. Selecciona Cancel·la per carregar-la abans de tornar-la a editar."
   }
 }

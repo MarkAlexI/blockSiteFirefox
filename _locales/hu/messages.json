@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Tekintse át a helyi statisztikákat: nézze meg az elmúlt 30 nap blokkolásait, átirányításait és befejezett Fókusz meneteit. A statisztikák törlése nem törli a szabályokat." },
   "userguide": {
     "message": "Felhasználói útmutató"
+  },
+  "focus_schedule_title": {
+    "message": "Ütemezett fókusz"
+  },
+  "focus_schedule_description": {
+    "message": "A Pro normál fókuszmunkamenetet indít az aktuális szabályokkal, az eszköz helyi ideje szerint."
+  },
+  "focus_schedule_next": {
+    "message": "Következő munkamenet: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Következő munkamenet kihagyása"
+  },
+  "focus_schedule_skipped": {
+    "message": "Kihagyva: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Az ütemezés ki van kapcsolva."
+  },
+  "focus_schedule_catchup": {
+    "message": "Az alvó vagy bezárt böngésző késleltetheti az indítást. Csak a hátralévő idő fut le; a kézi munkamenetek elsőbbséget élveznek."
+  },
+  "focus_schedule_changed": {
+    "message": "Az ütemezés egy másik ablakban megváltozott. Újabb szerkesztés előtt válaszd a Mégse gombot az újratöltéshez."
   }
 }

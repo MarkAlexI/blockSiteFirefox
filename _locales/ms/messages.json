@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Semak statistik setempat: lihat sekatan, ubah hala dan Sesi Fokus yang selesai dalam 30 hari lalu. Mengosongkan statistik tidak memadam peraturan anda." },
   "userguide": {
     "message": "Panduan Pengguna"
+  },
+  "focus_schedule_title": {
+    "message": "Fokus berjadual"
+  },
+  "focus_schedule_description": {
+    "message": "Pro memulakan sesi fokus biasa dengan peraturan semasa anda, mengikut waktu tempatan peranti ini."
+  },
+  "focus_schedule_next": {
+    "message": "Sesi seterusnya: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Langkau sesi seterusnya"
+  },
+  "focus_schedule_skipped": {
+    "message": "Dilangkau: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Jadual dimatikan."
+  },
+  "focus_schedule_catchup": {
+    "message": "Pelayar yang tidur atau ditutup mungkin bermula lewat. Hanya baki masa digunakan; sesi manual diberi keutamaan."
+  },
+  "focus_schedule_changed": {
+    "message": "Jadual telah berubah dalam tetingkap lain. Pilih Batal untuk memuatkannya sebelum menyunting lagi."
   }
 }

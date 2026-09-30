@@ -299,7 +299,9 @@ class OptionsPage {
   
   setupStorageListeners() {
     this.storageChangeHandler = (changes, areaName) => {
-      if (areaName !== 'local' || !changes?.dailyRuleUsage) return;
+      if (areaName !== 'local') return;
+      if (changes?.focusSession) void this.settingsManager.initFocusSessionBanner();
+      if (!changes?.dailyRuleUsage) return;
       const previousUsage = changes.dailyRuleUsage.oldValue?.usageSeconds || {};
       const nextUsage = changes.dailyRuleUsage.newValue?.usageSeconds || {};
       if (JSON.stringify(previousUsage) === JSON.stringify(nextUsage)) return;

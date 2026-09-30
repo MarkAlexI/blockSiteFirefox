@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "עיון בסטטיסטיקות מקומיות: הציגו חסימות, הפניות וסשני מיקוד שהושלמו ב-30 הימים האחרונים. ניקוי הסטטיסטיקות אינו מוחק את הכללים." },
   "userguide": {
     "message": "מדריך למשתמש"
+  },
+  "focus_schedule_title": {
+    "message": "מיקוד מתוזמן"
+  },
+  "focus_schedule_description": {
+    "message": "Pro מתחיל מפגש מיקוד רגיל עם הכללים הנוכחיים שלך, לפי השעה המקומית במכשיר הזה."
+  },
+  "focus_schedule_next": {
+    "message": "המפגש הבא: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "דילוג על המפגש הבא"
+  },
+  "focus_schedule_skipped": {
+    "message": "דולג: $1"
+  },
+  "focus_schedule_off": {
+    "message": "התזמון כבוי."
+  },
+  "focus_schedule_catchup": {
+    "message": "דפדפן סגור או במצב שינה עלול להתחיל באיחור. רק הזמן שנותר מנוצל; מפגשים ידניים מקבלים עדיפות."
+  },
+  "focus_schedule_changed": {
+    "message": "התזמון השתנה בחלון אחר. יש לבחור בביטול כדי לטעון אותו לפני עריכה נוספת."
   }
 }

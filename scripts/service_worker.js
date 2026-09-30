@@ -43,6 +43,8 @@ import {
   ASYNC_HANDLER_OPERATIONS,
   createAsyncHandlerBoundary
 } from '../telemetry/asyncHandlerBoundary.js';
+import { FOCUS_SCHEDULE_ALARM } from '../schedules/focusSchedule.js';
+import { createFocusScheduleController } from '../schedules/focusScheduleController.js';
 import { BUILD_ID } from '../utils/buildInfo.js';
 
 const logger = new Logger('Worker');
@@ -698,6 +700,149 @@ function normalizeFocusSessionRequest(message) {
   return { durationMinutes, focusMode, isHardcore };
 }
 
+async function activateFocusSession(request, transitionGeneration, scheduledEndTime = null) {
+  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+  await reconcileStoredFocusSession('focus_start', {
+    transitionGeneration,
+    rearmFuture: false,
+    invalidateGeneration: false
+  });
+  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+  const { durationMinutes, isHardcore, focusMode } = request;
+  const access = await getFocusAccess();
+  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  if (
+    !access.isPro &&
+    !access.isLegacyUser &&
+    (scheduledEndTime !== null || durationMinutes !== 25 || isHardcore || focusMode !== 'blacklist')
+  ) {
+    return { success: false, error: 'pro_required', code: 'pro_required' };
+  }
+
+  const endTime = scheduledEndTime ?? (Date.now() + durationMinutes * 60 * 1000);
+  if (Date.now() >= endTime) return false;
+  const nextFocusSession = {
+    focusActive: true,
+    focusEndTime: endTime,
+    isHardcore,
+    focusMode
+  };
+  const focusCapacity = await dnrSynchronizer.validateRuleCapacity(
+    null,
+    null,
+    nextFocusSession,
+    access
+  );
+  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  if (focusCapacity.withinCapacity === false) {
+    const unsafe = focusCapacity.limitType === 'unsafe_dynamic';
+    const expected = unsafe ? focusCapacity.expectedUnsafeCount : focusCapacity.expectedCount;
+    const maximum = unsafe ? focusCapacity.maxUnsafeDynamicRules : focusCapacity.maxDynamicRules;
+    return {
+      success: false,
+      error: `Browser ${unsafe ? 'unsafe dynamic' : 'dynamic'} rule limit reached (${expected}/${maximum})`,
+      code: 'dnr_rule_limit_reached'
+    };
+  }
+
+  const previousFocusSession = await getFocusSessionState();
+  const previousFocusAlarm = previousFocusSession.focusActive
+    ? { scheduledTime: previousFocusSession.focusEndTime }
+    : null;
+  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+  await dailyLimitTracker.sample('focus_start_before');
+  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+  if (Date.now() >= endTime) return false;
+  try {
+    await browser.storage.local.set({ focusSession: nextFocusSession });
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+    await browser.alarms.create('end_focus_session', { when: endTime });
+    await dailyLimitTracker.sample('focus_start_after');
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+    const syncResult = await dnrSynchronizer.requestSync();
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+    if (syncResult?.success === false) {
+      throw Object.assign(new Error(syncResult.error || 'Could not activate Focus Session protection'), {
+        code: syncResult.code || 'dnr_sync_failed'
+      });
+    }
+  } catch (error) {
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+    await browser.storage.local.set({ focusSession: previousFocusSession });
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+    if (previousFocusAlarm) {
+      const previousEndTime = Number(
+        previousFocusAlarm.scheduledTime ?? previousFocusAlarm.when ??
+        previousFocusSession.focusEndTime
+      );
+      if (Number.isFinite(previousEndTime) && previousEndTime > 0) {
+        await browser.alarms.create('end_focus_session', { when: previousEndTime });
+      }
+    } else {
+      await browser.alarms.clear('end_focus_session');
+    }
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+
+    await dailyLimitTracker.sample('focus_start_rollback');
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+    const restored = await dnrSynchronizer.requestSync();
+    if (restored?.success === false) {
+      logger.warn('Focus Session: Previous browser protection could not be restored:', restored.error);
+    }
+    throw error;
+  }
+
+  if (focusMode === 'whitelist') {
+    await checkAllTabsAgainstWhitelist(
+      () => transitionGeneration === focusSessionTransitionGeneration
+    );
+    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  }
+
+  logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
+  await Promise.allSettled([
+    diagnosticStore.recordEvent('info', 'focus', 'session_started', {
+      durationMinutes,
+      focusMode,
+      isHardcore
+    }),
+    telemetryStore.incrementCounter('focus_started')
+  ]);
+  return true;
+}
+
+const focusScheduleController = createFocusScheduleController({
+  storage: browser.storage.local,
+  alarms: browser.alarms,
+  getAccess: getFocusAccess,
+  getSession: getFocusSessionState,
+  runExclusive: enqueueFocusSessionTransition,
+  startSession: (occurrence, transitionGeneration) => activateFocusSession({
+    durationMinutes: (occurrence.endTime - occurrence.startTime) / 60_000,
+    isHardcore: false, focusMode: 'blacklist'
+  }, transitionGeneration, occurrence.endTime)
+});
+
+async function reconcileScheduledFocus() {
+  const generation = focusSessionTransitionGeneration;
+  try {
+    const result = await focusScheduleController.reconcile(generation);
+    if (result?.success === false) {
+      throw Object.assign(new Error(result.error), { code: result.code });
+    }
+  } catch (error) {
+    logger.error('Scheduled Focus Session failed:', error);
+    await reportFocusRecoveryFailure('scheduled_focus', error);
+  }
+}
+
 async function finishLicenseCheck(result) {
   const state = {
     timestamp: Date.now(),
@@ -1308,6 +1453,7 @@ async function initializeExtension(details) {
   await SettingsManager.getSettings();
   await StatisticsManager.getStatistics();
   await reconcileFocusSession(details.reason || 'initialize');
+  await reconcileScheduledFocus();
   await showUpdates(details);
   
   try {
@@ -1898,6 +2044,19 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
   
+  if (['focus_schedule_get', 'focus_schedule_save', 'focus_schedule_skip'].includes(message.type)) {
+    const operation = message.type === 'focus_schedule_save'
+      ? () => focusScheduleController.save(message.config, message.revision)
+      : message.type === 'focus_schedule_skip'
+        ? () => focusScheduleController.skip(message.key)
+        : () => focusScheduleController.status();
+    void operation().then(
+      state => sendResponse({ success: true, ...state }),
+      error => sendResponse({ success: false, code: error.code || 'focus_schedule_failed' })
+    );
+    return true;
+  }
+
   if (message.type === 'start_focus_session') {
     const request = normalizeFocusSessionRequest(message);
     if (request.error) {
@@ -1910,114 +2069,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       try {
         const completed = await enqueueFocusSessionTransition(async () => {
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-          await reconcileStoredFocusSession('focus_start', {
-            transitionGeneration,
-            rearmFuture: false,
-            invalidateGeneration: false
-          });
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-          const { durationMinutes, isHardcore, focusMode } = request;
-          const access = await getFocusAccess();
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-          if (
-            !access.isPro &&
-            !access.isLegacyUser &&
-            (durationMinutes !== 25 || isHardcore || focusMode !== 'blacklist')
-          ) {
-            return { success: false, error: 'pro_required', code: 'pro_required' };
-          }
-
-          const endTime = Date.now() + durationMinutes * 60 * 1000;
-          const nextFocusSession = {
-            focusActive: true,
-            focusEndTime: endTime,
-            isHardcore,
-            focusMode
-          };
-          const focusCapacity = await dnrSynchronizer.validateRuleCapacity(
-            null,
-            null,
-            nextFocusSession,
-            access
-          );
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-          if (focusCapacity.withinCapacity === false) {
-            const unsafe = focusCapacity.limitType === 'unsafe_dynamic';
-            const expected = unsafe ? focusCapacity.expectedUnsafeCount : focusCapacity.expectedCount;
-            const maximum = unsafe ? focusCapacity.maxUnsafeDynamicRules : focusCapacity.maxDynamicRules;
-            return {
-              success: false,
-              error: `Browser ${unsafe ? 'unsafe dynamic' : 'dynamic'} rule limit reached (${expected}/${maximum})`,
-              code: 'dnr_rule_limit_reached'
-            };
-          }
-
-          const previousFocusSession = await getFocusSessionState();
-          const previousFocusAlarm = previousFocusSession.focusActive
-            ? { scheduledTime: previousFocusSession.focusEndTime }
-            : null;
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-          await dailyLimitTracker.sample('focus_start_before');
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-          await browser.storage.local.set({ focusSession: nextFocusSession });
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-          await browser.alarms.create('end_focus_session', { when: endTime });
-          await dailyLimitTracker.sample('focus_start_after');
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-          const syncResult = await dnrSynchronizer.requestSync();
-          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-          if (syncResult?.success === false) {
-            await browser.storage.local.set({ focusSession: previousFocusSession });
-            if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-            if (previousFocusAlarm) {
-              const previousEndTime = Number(
-                previousFocusAlarm.scheduledTime ?? previousFocusAlarm.when ??
-                previousFocusSession.focusEndTime
-              );
-              if (Number.isFinite(previousEndTime) && previousEndTime > 0) {
-                await browser.alarms.create('end_focus_session', { when: previousEndTime });
-              }
-            } else {
-              await browser.alarms.clear('end_focus_session');
-            }
-            if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-
-            await dailyLimitTracker.sample('focus_start_rollback');
-            if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-            const restored = await dnrSynchronizer.requestSync();
-            if (restored?.success === false) {
-              logger.warn('Focus Session: Previous browser protection could not be restored:', restored.error);
-            }
-
-            const error = new Error(syncResult.error || 'Could not activate Focus Session protection');
-            error.code = syncResult.code || 'dnr_sync_failed';
-            throw error;
-          }
-
-          if (focusMode === 'whitelist') {
-            await checkAllTabsAgainstWhitelist(
-              () => transitionGeneration === focusSessionTransitionGeneration
-            );
-            if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-          }
-
-          logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
-          await Promise.all([
-            diagnosticStore.recordEvent('info', 'focus', 'session_started', {
-              durationMinutes,
-              focusMode,
-              isHardcore
-            }),
-            telemetryStore.incrementCounter('focus_started')
-          ]);
-          return true;
+          await focusScheduleController.suppressCurrent();
+          return activateFocusSession(request, transitionGeneration);
         });
         if (completed && typeof completed === 'object') {
           sendResponse(completed);
@@ -2054,6 +2107,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const completed = await enqueueFocusSessionTransition(async () => {
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
+          await focusScheduleController.suppressCurrent();
           await dailyLimitTracker.sample('focus_stop_before');
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
@@ -2172,6 +2226,11 @@ browser.alarms.onAlarm.addListener(alarm =>
     await telemetryClient.flush();
   }
   
+  if (alarm.name === FOCUS_SCHEDULE_ALARM) {
+    await reconcileFocusSession('scheduled_focus_alarm');
+    await reconcileScheduledFocus();
+  }
+
   if (alarm.name === 'end_focus_session') {
     await reconcileFocusSession('alarm', {
       expectedEndTime: alarm.scheduledTime,
@@ -2188,6 +2247,7 @@ browser.alarms.onAlarm.addListener(alarm =>
 
   if (alarm.name === 'update_scheduled_rules') {
     await reconcileFocusSession('minute_alarm');
+    await reconcileScheduledFocus();
     await runAsyncHandler(ASYNC_HANDLER_OPERATIONS.DAILY_LIMIT_ALARM, async () => {
       if (await recoverPendingDailyUsage('minute_alarm')) {
         await dailyLimitTracker.sample('minute_alarm');
@@ -2221,3 +2281,5 @@ function ensureAlarmsCreated() {
 }
 
 ensureAlarmsCreated();
+
+void reconcileScheduledFocus();

@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "راجع الإحصائيات المحلية: اطّلع على عمليات الحظر وإعادة التوجيه وجلسات التركيز المكتملة خلال آخر 30 يومًا. لا يؤدي مسح الإحصائيات إلى حذف قواعدك." },
   "userguide": {
     "message": "دليل المستخدم"
+  },
+  "focus_schedule_title": {
+    "message": "التركيز المجدول"
+  },
+  "focus_schedule_description": {
+    "message": "يبدأ Pro جلسة تركيز عادية بقواعدك الحالية، حسب التوقيت المحلي لهذا الجهاز."
+  },
+  "focus_schedule_next": {
+    "message": "الجلسة التالية: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "تخطي الجلسة التالية"
+  },
+  "focus_schedule_skipped": {
+    "message": "تم التخطي: $1"
+  },
+  "focus_schedule_off": {
+    "message": "الجدول متوقف."
+  },
+  "focus_schedule_catchup": {
+    "message": "قد يتأخر البدء إذا كان المتصفح مغلقًا أو في وضع السكون. يُستخدم الوقت المتبقي فقط؛ وللجلسات اليدوية الأولوية."
+  },
+  "focus_schedule_changed": {
+    "message": "تغير الجدول في نافذة أخرى. اختر إلغاء لتحميله قبل تعديله مجددًا."
   }
 }

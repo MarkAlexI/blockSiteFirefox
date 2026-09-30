@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Kagua takwimu za ndani: ona uzuiaji, uelekezaji upya na Vipindi vya Kulenga vilivyokamilika katika siku 30 zilizopita. Kufuta takwimu hakufuti sheria zako." },
   "userguide": {
     "message": "Mwongozo wa Mtumiaji"
+  },
+  "focus_schedule_title": {
+    "message": "Umakinifu ulioratibiwa"
+  },
+  "focus_schedule_description": {
+    "message": "Pro huanzisha kipindi cha kawaida cha umakinifu kwa sheria zako za sasa, kulingana na saa ya eneo la kifaa hiki."
+  },
+  "focus_schedule_next": {
+    "message": "Kipindi kijacho: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Ruka kipindi kijacho"
+  },
+  "focus_schedule_skipped": {
+    "message": "Kimerukwa: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Ratiba imezimwa."
+  },
+  "focus_schedule_catchup": {
+    "message": "Kivinjari kilicholala au kilichofungwa kinaweza kuchelewesha kuanza. Muda uliobaki pekee hutumika; vipindi vya kuanzishwa mwenyewe hupewa kipaumbele."
+  },
+  "focus_schedule_changed": {
+    "message": "Ratiba imebadilishwa kwenye dirisha jingine. Chagua Ghairi ili kuipakia kabla ya kuhariri tena."
   }
 }

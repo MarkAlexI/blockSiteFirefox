@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "📊 Optional Technical Analytics: Privacy-preserving usage counters and error reports can now be enabled from Settings.",
-    "🔒 Off by Default: No telemetry is collected until you explicitly opt in.",
-    "🧩 Error Fingerprints: Technical failures are aggregated without URLs, raw messages, or stack traces.",
-    "🩺 Better Diagnostics: Diagnostic reports now include telemetry queue and delivery status without exposing event contents."
+    "🕘 Make room for focus. Choose your days and times, and let Pro start your focus sessions for you. One less thing to remember.",
+    "🌿 Plans change. That’s okay. Skip your next scheduled session without losing the routine you’ve built.",
+    "🧳 Take your setup with you. Recent improvements make restoring your saved rules safer when you move to another browser or device.",
+    "💡 A little help, when you need it. Find the User Guide right from the extension, with practical tips to help you make it your own."
   ];
   
   const ul = document.getElementById('features');

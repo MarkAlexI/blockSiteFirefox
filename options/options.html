@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../styles/modal.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/offer.css" type="text/css" media="all" />
   <title id="options-title">Options page for BlockDistraction</title>
+  <link rel="stylesheet" href="../styles/focus-schedule.css">
 </head>
 
 <body>
@@ -110,6 +111,42 @@
     </div>
     
     <main class="settings-content">
+      <section id="focus-schedule" class="setting-section" data-focus-schedule dir="auto">
+        <h2 data-i18n="focus_schedule_title">Scheduled focus</h2>
+        <p class="focus-schedule-description" data-i18n="focus_schedule_description">Let Pro start a normal Focus Session using your current rules. Choose days and a start time in this device's local time.</p>
+        <p data-focus-access data-i18n="prorequired" hidden></p>
+        <form class="focus-schedule-form">
+          <label class="focus-schedule-toggle"><input type="checkbox" name="enabled" disabled><span data-i18n="enableschedule">Enable schedule</span></label>
+          <fieldset>
+            <legend data-i18n="days">Days</legend>
+            <div class="focus-schedule-days">
+              <label><input type="checkbox" name="day" value="1" disabled><span data-i18n="schedule_day_mon">Mon</span></label>
+              <label><input type="checkbox" name="day" value="2" disabled><span data-i18n="schedule_day_tue">Tue</span></label>
+              <label><input type="checkbox" name="day" value="3" disabled><span data-i18n="schedule_day_wed">Wed</span></label>
+              <label><input type="checkbox" name="day" value="4" disabled><span data-i18n="schedule_day_thu">Thu</span></label>
+              <label><input type="checkbox" name="day" value="5" disabled><span data-i18n="schedule_day_fri">Fri</span></label>
+              <label><input type="checkbox" name="day" value="6" disabled><span data-i18n="schedule_day_sat">Sat</span></label>
+              <label><input type="checkbox" name="day" value="0" disabled><span data-i18n="schedule_day_sun">Sun</span></label>
+            </div>
+          </fieldset>
+          <div class="focus-schedule-time">
+            <label><span data-i18n="starttime">Start time:</span><input type="time" name="startTime" value="09:00" required disabled></label>
+            <label><span data-i18n="focussessionduration">Duration (minutes)</span><input type="number" name="durationMinutes" min="1" max="240" step="1" value="25" required disabled></label>
+          </div>
+          <p class="focus-schedule-hint" data-i18n="focus_schedule_catchup">The browser must be running; sleep may delay the start. If you return late, only the remaining time runs. A manual session takes priority.</p>
+          <div class="focus-schedule-actions">
+            <button type="submit" data-i18n="savebtn" disabled>Save</button>
+            <button type="button" data-focus-reset data-i18n="cancelbtn" disabled>Cancel</button>
+          </div>
+        </form>
+        <div class="focus-schedule-summary">
+          <p data-focus-status aria-live="polite"></p>
+          <p data-focus-skipped></p>
+          <button type="button" data-focus-skip data-i18n="focus_schedule_skip" hidden>Skip next session</button>
+        </div>
+        <p data-focus-notice role="status" aria-live="polite"></p>
+      </section>
+
       <section class="setting-section collapsible-section">
         <h2 data-i18n="securitymodetitle" class="collapsible-header">Security Mode</h2>
         <div class="collapsible-content">
@@ -481,6 +518,7 @@
   <script type="module" src="../scripts/i18n.js"></script>
   <script type="module" src="./options.js"></script>
   <script type="module" src="./goPro.js"></script>
+  <script type="module" src="../schedules/focusScheduleUI.js"></script>
 </body>
 
 </html>

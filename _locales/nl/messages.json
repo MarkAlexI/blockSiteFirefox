@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Bekijk lokale statistieken: zie blokkeringen, omleidingen en voltooide Focussessies van de afgelopen 30 dagen. Het wissen van statistieken verwijdert uw regels niet." },
   "userguide": {
     "message": "Gebruikershandleiding"
+  },
+  "focus_schedule_title": {
+    "message": "Geplande focus"
+  },
+  "focus_schedule_description": {
+    "message": "Pro start een normale focussessie met je huidige regels, op de lokale tijd van dit apparaat."
+  },
+  "focus_schedule_next": {
+    "message": "Volgende sessie: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Volgende sessie overslaan"
+  },
+  "focus_schedule_skipped": {
+    "message": "Overgeslagen: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Schema staat uit."
+  },
+  "focus_schedule_catchup": {
+    "message": "Een slapende of gesloten browser kan de start vertragen. Alleen de resterende tijd wordt gebruikt; handmatige sessies hebben voorrang."
+  },
+  "focus_schedule_changed": {
+    "message": "Het schema is in een ander venster gewijzigd. Kies Annuleren om het opnieuw te laden voordat je het bewerkt."
   }
 }

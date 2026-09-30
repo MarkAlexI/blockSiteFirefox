@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Xem thống kê cục bộ: kiểm tra các lượt chặn, chuyển hướng và Phiên tập trung đã hoàn tất trong 30 ngày qua. Xóa thống kê không xóa các quy tắc của bạn." },
   "userguide": {
     "message": "Hướng dẫn sử dụng"
+  },
+  "focus_schedule_title": {
+    "message": "Tập trung theo lịch"
+  },
+  "focus_schedule_description": {
+    "message": "Pro bắt đầu phiên tập trung thông thường với các quy tắc hiện tại, theo giờ địa phương của thiết bị này."
+  },
+  "focus_schedule_next": {
+    "message": "Phiên tiếp theo: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Bỏ qua phiên tiếp theo"
+  },
+  "focus_schedule_skipped": {
+    "message": "Đã bỏ qua: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Lịch đã tắt."
+  },
+  "focus_schedule_catchup": {
+    "message": "Trình duyệt đang ngủ hoặc đã đóng có thể bắt đầu muộn. Chỉ thời gian còn lại được sử dụng; phiên bắt đầu thủ công được ưu tiên."
+  },
+  "focus_schedule_changed": {
+    "message": "Lịch đã thay đổi trong cửa sổ khác. Chọn Hủy để tải lại trước khi chỉnh sửa tiếp."
   }
 }

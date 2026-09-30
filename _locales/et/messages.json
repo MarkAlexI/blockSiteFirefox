@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Vaata kohalikku statistikat: näed viimase 30 päeva blokeerimisi, ümbersuunamisi ja lõpetatud Fookusseansse. Statistika kustutamine ei eemalda reegleid." },
   "userguide": {
     "message": "Kasutusjuhend"
+  },
+  "focus_schedule_title": {
+    "message": "Ajastatud keskendumine"
+  },
+  "focus_schedule_description": {
+    "message": "Pro alustab tavalist keskendumisseanssi praeguste reeglitega selle seadme kohaliku aja järgi."
+  },
+  "focus_schedule_next": {
+    "message": "Järgmine seanss: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Jäta järgmine seanss vahele"
+  },
+  "focus_schedule_skipped": {
+    "message": "Vahele jäetud: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Ajakava on välja lülitatud."
+  },
+  "focus_schedule_catchup": {
+    "message": "Unerežiimis või suletud brauser võib algust edasi lükata. Kasutatakse ainult järelejäänud aega; käsitsi alustatud seanssidel on eelis."
+  },
+  "focus_schedule_changed": {
+    "message": "Ajakava muudeti teises aknas. Enne uut muutmist vali selle laadimiseks Tühista."
   }
 }

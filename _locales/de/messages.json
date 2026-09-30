@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Lokale Statistiken ansehen: Prüfen Sie Blockierungen, Weiterleitungen und abgeschlossene Fokus-Sitzungen der letzten 30 Tage. Das Löschen der Statistik entfernt keine Regeln." },
   "userguide": {
     "message": "Benutzerhandbuch"
+  },
+  "focus_schedule_title": {
+    "message": "Geplante Fokuszeiten"
+  },
+  "focus_schedule_description": {
+    "message": "Pro startet eine normale Fokussitzung mit deinen aktuellen Regeln zur Ortszeit dieses Geräts."
+  },
+  "focus_schedule_next": {
+    "message": "Nächste Sitzung: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Nächste Sitzung überspringen"
+  },
+  "focus_schedule_skipped": {
+    "message": "Übersprungen: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Zeitplan ist ausgeschaltet."
+  },
+  "focus_schedule_catchup": {
+    "message": "Ein ruhender oder geschlossener Browser kann den Start verzögern. Es läuft nur die verbleibende Zeit; manuelle Sitzungen haben Vorrang."
+  },
+  "focus_schedule_changed": {
+    "message": "Der Zeitplan wurde in einem anderen Fenster geändert. Wähle Abbrechen, um ihn vor weiteren Änderungen neu zu laden."
   }
 }

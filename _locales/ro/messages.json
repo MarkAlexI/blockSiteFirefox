@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Consultați statisticile locale: vedeți blocările, redirecționările și Sesiunile de focus finalizate din ultimele 30 de zile. Ștergerea statisticilor nu elimină regulile." },
   "userguide": {
     "message": "Ghid de utilizare"
+  },
+  "focus_schedule_title": {
+    "message": "Concentrare programată"
+  },
+  "focus_schedule_description": {
+    "message": "Pro pornește o sesiune normală de concentrare cu regulile actuale, la ora locală a acestui dispozitiv."
+  },
+  "focus_schedule_next": {
+    "message": "Următoarea sesiune: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Omite următoarea sesiune"
+  },
+  "focus_schedule_skipped": {
+    "message": "Omisă: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Programarea este dezactivată."
+  },
+  "focus_schedule_catchup": {
+    "message": "Un browser în repaus sau închis poate întârzia pornirea. Se folosește doar timpul rămas; sesiunile manuale au prioritate."
+  },
+  "focus_schedule_changed": {
+    "message": "Programarea s-a schimbat în altă fereastră. Alege Anulează pentru a o încărca înainte de a o edita din nou."
   }
 }

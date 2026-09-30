@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="styles/modal.css" type="text/css" media="all" />
   <link rel="stylesheet" href="styles/feedback-modal.css" type="text/css" media="all" />
   <title data-i18n="defaulttitle"></title>
+  <link rel="stylesheet" href="styles/focus-schedule.css">
 </head>
 
 <body>
@@ -61,6 +62,13 @@
         <div id="focus-timer-display">00:00</div>
         <button id="stop-focus-btn" class="action-btn delete-btn" data-i18n="focussessionstop"></button>
       </div>
+    </div>
+    <div class="focus-schedule-summary" data-focus-schedule dir="auto">
+      <a class="focus-schedule-popup-link" href="options/options.html#focus-schedule" target="_blank" data-i18n="focus_schedule_title">Scheduled focus</a>
+      <p data-focus-status aria-live="polite"></p>
+      <p data-focus-skipped></p>
+      <button type="button" data-focus-skip data-i18n="focus_schedule_skip" hidden>Skip next session</button>
+      <p data-focus-notice role="status" aria-live="polite"></p>
     </div>
   </div>
   
@@ -120,6 +128,7 @@
   
   <script type="module" src="scripts/i18n.js"></script>
   <script type="module" src="popup.js"></script>
+  <script type="module" src="schedules/focusScheduleUI.js"></script>
 </body>
 
 </html>

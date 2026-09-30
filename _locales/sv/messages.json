@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Granska lokal statistik: se blockeringar, omdirigeringar och slutförda Fokussessioner från de senaste 30 dagarna. Att rensa statistiken tar inte bort dina regler." },
   "userguide": {
     "message": "Användarhandbok"
+  },
+  "focus_schedule_title": {
+    "message": "Schemalagt fokus"
+  },
+  "focus_schedule_description": {
+    "message": "Pro startar en vanlig fokussession med dina aktuella regler, enligt enhetens lokala tid."
+  },
+  "focus_schedule_next": {
+    "message": "Nästa session: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Hoppa över nästa session"
+  },
+  "focus_schedule_skipped": {
+    "message": "Överhoppad: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Schemat är avstängt."
+  },
+  "focus_schedule_catchup": {
+    "message": "En vilande eller stängd webbläsare kan fördröja starten. Bara återstående tid används; manuella sessioner har företräde."
+  },
+  "focus_schedule_changed": {
+    "message": "Schemat har ändrats i ett annat fönster. Välj Avbryt för att läsa in det innan du redigerar igen."
   }
 }

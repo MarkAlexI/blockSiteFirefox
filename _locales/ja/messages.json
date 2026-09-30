@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "ローカル統計を確認：過去30日間のブロック、リダイレクト、完了した集中セッションを確認できます。統計を消去してもルールは削除されません。" },
   "userguide": {
     "message": "ユーザーガイド"
+  },
+  "focus_schedule_title": {
+    "message": "集中セッションの予約"
+  },
+  "focus_schedule_description": {
+    "message": "Pro がこの端末の現地時刻に合わせ、現在のルールで通常の集中セッションを開始します。"
+  },
+  "focus_schedule_next": {
+    "message": "次のセッション：$1"
+  },
+  "focus_schedule_skip": {
+    "message": "次のセッションをスキップ"
+  },
+  "focus_schedule_skipped": {
+    "message": "スキップ済み：$1"
+  },
+  "focus_schedule_off": {
+    "message": "予約はオフです。"
+  },
+  "focus_schedule_catchup": {
+    "message": "ブラウザーのスリープや終了により開始が遅れることがあります。残り時間だけ実行され、手動のセッションが優先されます。"
+  },
+  "focus_schedule_changed": {
+    "message": "予約が別のウィンドウで変更されました。「キャンセル」で読み込み直してから編集してください。"
   }
 }

@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Yerel istatistikleri inceleyin: son 30 gündeki engellemeleri, yönlendirmeleri ve tamamlanan Odaklanma Seanslarını görün. İstatistikleri temizlemek kurallarınızı silmez." },
   "userguide": {
     "message": "Kullanıcı Kılavuzu"
+  },
+  "focus_schedule_title": {
+    "message": "Planlanmış odaklanma"
+  },
+  "focus_schedule_description": {
+    "message": "Pro, bu cihazın yerel saatine göre mevcut kurallarınızla normal bir odaklanma oturumu başlatır."
+  },
+  "focus_schedule_next": {
+    "message": "Sonraki oturum: $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Sonraki oturumu atla"
+  },
+  "focus_schedule_skipped": {
+    "message": "Atlandı: $1"
+  },
+  "focus_schedule_off": {
+    "message": "Plan kapalı."
+  },
+  "focus_schedule_catchup": {
+    "message": "Uyuyan veya kapalı bir tarayıcı başlangıcı geciktirebilir. Yalnızca kalan süre kullanılır; elle başlatılan oturumlar önceliklidir."
+  },
+  "focus_schedule_changed": {
+    "message": "Plan başka bir pencerede değişti. Yeniden düzenlemeden önce yüklemek için İptal’i seçin."
   }
 }

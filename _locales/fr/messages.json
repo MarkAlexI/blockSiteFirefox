@@ -1115,5 +1115,29 @@
   "protip_statistics": { "message": "Consultez les statistiques locales : voyez les blocages, redirections et sessions de concentration terminées des 30 derniers jours. Effacer les statistiques ne supprime pas vos règles." },
   "userguide": {
     "message": "Guide d’utilisation"
+  },
+  "focus_schedule_title": {
+    "message": "Concentration programmée"
+  },
+  "focus_schedule_description": {
+    "message": "Pro lance une session de concentration normale avec vos règles actuelles, à l’heure locale de cet appareil."
+  },
+  "focus_schedule_next": {
+    "message": "Prochaine session : $1"
+  },
+  "focus_schedule_skip": {
+    "message": "Ignorer la prochaine session"
+  },
+  "focus_schedule_skipped": {
+    "message": "Ignorée : $1"
+  },
+  "focus_schedule_off": {
+    "message": "Programmation désactivée."
+  },
+  "focus_schedule_catchup": {
+    "message": "Un navigateur en veille ou fermé peut retarder le démarrage. Seul le temps restant est utilisé ; les sessions manuelles sont prioritaires."
+  },
+  "focus_schedule_changed": {
+    "message": "La programmation a changé dans une autre fenêtre. Choisissez Annuler pour la recharger avant de la modifier."
   }
 }
