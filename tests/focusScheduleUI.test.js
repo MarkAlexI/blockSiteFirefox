@@ -1,11 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { FakeDocument } from './helpers/extensionTestHarness.js';
-import { FocusScheduleUI } from '../schedules/focusScheduleUI.js';
+import { FocusScheduleUI, revealFocusSchedule } from '../schedules/focusScheduleUI.js';
 
 function fixture() {
   const doc = new FakeDocument();
-  const root = doc.createElement('section');
+  const root = doc.createElement('details');
+  root.open = false;
+  const scrolls = [];
+  root.scrollIntoView = options => scrolls.push(options);
   const form = doc.createElement('form');
   root.appendChild(form);
   const field = (name, type = 'input') => {
@@ -36,7 +39,7 @@ function fixture() {
       return structuredClone(state);
     }
   });
-  return { ui, form, calls, setState: value => { state = { ...state, ...value }; }, fail: () => { fail = true; } };
+  return { root, scrolls, ui, form, calls, setState: value => { state = { ...state, ...value }; }, fail: () => { fail = true; } };
 }
 
 test('schedule form saves exact selected days/time/duration and original revision', async () => {
@@ -91,4 +94,37 @@ test('invalid duration or empty day selection never sends a save', async () => {
   await f.ui.save();
   assert.equal(f.ui.notice.textContent, 'invalidschedule');
   assert.equal(f.calls.length, count);
+});
+
+
+test('ordinary Options visits stay closed; the exact schedule fragment reveals and scrolls the editor', async () => {
+  const f = fixture();
+  await f.ui.init();
+  for (const hash of ['', '#privacy-settings', '#focus-schedule-other']) {
+    assert.equal(revealFocusSchedule(f.root, hash), false);
+    assert.equal(f.root.open, false);
+  }
+  assert.deepEqual(f.scrolls, []);
+  const requests = f.calls.length;
+  assert.equal(revealFocusSchedule(f.root, '#focus-schedule'), true);
+  assert.equal(f.root.open, true);
+  assert.deepEqual(f.scrolls, [{ block: 'start' }]);
+  assert.equal(f.calls.length, requests);
+  assert.equal(revealFocusSchedule(null, '#focus-schedule'), false);
+  assert.equal(revealFocusSchedule({ tagName: 'DIV' }, '#focus-schedule'), false);
+});
+
+test('refresh after manually closing a fragment-opened editor does not reopen it or reset a draft', async () => {
+  const f = fixture();
+  await f.ui.init();
+  revealFocusSchedule(f.root, '#focus-schedule');
+  f.form.elements.startTime.value = '11:15';
+  f.ui.dirty = true;
+  f.root.open = false;
+  f.setState({ revision: 2, config: { enabled: true, days: [2], startTime: '12:00', durationMinutes: 40 } });
+  await f.ui.refresh();
+  assert.equal(f.root.open, false);
+  assert.equal(f.form.elements.startTime.value, '11:15');
+  assert.equal(f.ui.formRevision, 1);
+  assert.equal(f.scrolls.length, 1);
 });

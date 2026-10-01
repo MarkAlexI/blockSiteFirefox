@@ -2,24 +2,38 @@
 [data-focus-schedule] [hidden] { display: none !important; }
 #focus-schedule { scroll-margin-top: 1rem; }
 #focus-schedule > summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr) 1.25rem;
   align-items: center;
-  justify-content: space-between;
   gap: .75rem;
   min-height: 2rem;
   cursor: pointer;
   list-style: none;
 }
 #focus-schedule > summary::-webkit-details-marker { display: none; }
-#focus-schedule > summary h2 { margin: 0; }
+#focus-schedule > summary::before {
+  content: '';
+  width: 4px;
+  height: 1.25rem;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+#focus-schedule > summary h2 {
+  margin: 0;
+  min-width: 0;
+  justify-content: center;
+  text-align: center;
+}
+#focus-schedule > summary h2::before { content: none; }
 #focus-schedule > summary::after {
   content: '';
   width: .5rem;
   height: .5rem;
-  flex-shrink: 0;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
+  justify-self: end;
+  border-right: 2px solid var(--text-primary);
+  border-bottom: 2px solid var(--text-primary);
   transform: rotate(45deg);
+  transition: transform .3s ease;
   margin-inline: .25rem .5rem;
 }
 #focus-schedule[open] > summary { margin-bottom: .5rem; }
@@ -47,4 +61,9 @@
 [data-focus-skipped]:empty, [data-focus-notice]:empty { display: none; }
 [data-focus-notice] { margin-top: .5rem; }
 .focus-schedule-popup-link { display: inline-block; margin-bottom: .35rem; }
+@media (max-width: 480px) {
+  #focus-schedule[open] { padding: .625rem; }
+  #focus-schedule:not([open]) > summary { min-height: 2.75rem; }
+  #focus-schedule:not([open]) > summary h2 { font-size: 1rem; }
+}
 @media (max-width: 420px) { .focus-schedule-time { grid-template-columns: 1fr; } }

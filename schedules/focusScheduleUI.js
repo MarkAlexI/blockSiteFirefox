@@ -136,6 +136,13 @@ export class FocusScheduleUI {
   }
 }
 
+export function revealFocusSchedule(root, hash) {
+  if (root?.tagName !== 'DETAILS' || hash !== '#focus-schedule') return false;
+  root.open = true;
+  root.scrollIntoView({ block: 'start' });
+  return true;
+}
+
 export async function mountFocusSchedule(root, storage) {
   if (!root) return;
   const ui = new FocusScheduleUI(root);
@@ -155,6 +162,10 @@ export async function mountFocusSchedule(root, storage) {
 
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
-    void mountFocusSchedule(document.querySelector('[data-focus-schedule]'), browser.storage);
+    const root = document.querySelector('[data-focus-schedule]');
+    const reveal = () => revealFocusSchedule(root, window.location.hash);
+    reveal();
+    window.addEventListener('hashchange', reveal);
+    void mountFocusSchedule(root, browser.storage);
   });
 }

@@ -50,14 +50,14 @@
     
     <div id="pro-section" class="go-pro">
       <div>
-        <button class="pro-toggle" id="proBtn">
+        <button class="pro-toggle" id="proBtn" aria-controls="proWrapper" aria-expanded="false">
           <span id="proBtnText" data-i18n="getpro">Get Pro</span>
           <i class="chevron"></i>
         </button>
         <p id="ext-version"></p>
       </div>
       
-      <div class="pro-wrapper" id="proWrapper">
+      <div class="pro-wrapper" id="proWrapper" inert>
         <div class="pro-content" id="proContent">
           <div id="pro-activate-view">
             <h2>BlockDistraction Pro</h2>

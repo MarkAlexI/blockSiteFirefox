@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.1] - 2026-10-01
+
+### Fixed
+- The Scheduled Focus heading is centered and matches the neighboring settings headers, including compact mobile sizing and RTL decoration.
+- Opening Scheduled Focus from Popup expands the editor and scrolls to it; ordinary Options visits remain collapsed by default.
+- Successful license activation collapses the Pro panel and returns focus to its toggle. Failed activation leaves the panel open, and interrupted animations cannot reopen it.
+
 ## [5.3.0] - 2026-09-30
 
 ### Added

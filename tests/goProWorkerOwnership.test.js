@@ -27,6 +27,8 @@ async function withGoProPage({
   const wrapper = document.addElement('proWrapper');
   const content = document.addElement('proContent');
   wrapper.appendChild(content);
+  wrapper.scrollHeight = 240;
+  content.scrollHeight = 220;
   document.addElement('proBtnText');
   const activateView = document.addElement('pro-activate-view');
   const activeView = document.addElement('pro-active-view');
@@ -156,6 +158,9 @@ async function withGoProPage({
     return originalSet(values);
   };
 
+  const previousAnimationFrame = Object.getOwnPropertyDescriptor(globalThis, 'requestAnimationFrame');
+  const animationFrames = [];
+  globalThis.requestAnimationFrame = callback => animationFrames.push(callback);
   const previousFetch = globalThis.fetch;
   const previousSetTimeout = globalThis.setTimeout;
   const previousClearTimeout = globalThis.clearTimeout;
@@ -195,6 +200,9 @@ async function withGoProPage({
       await callback({
         api,
         document,
+        wrapper,
+        chevron,
+        flushAnimationFrames: () => { for (const frame of animationFrames.splice(0)) frame(); },
         toggle,
         form,
         input,
@@ -220,6 +228,8 @@ async function withGoProPage({
       window: { location: { reload() { reloadCount += 1; } } }
     });
   } finally {
+    if (previousAnimationFrame) Object.defineProperty(globalThis, 'requestAnimationFrame', previousAnimationFrame);
+    else delete globalThis.requestAnimationFrame;
     globalThis.fetch = previousFetch;
     globalThis.setTimeout = previousSetTimeout;
     globalThis.clearTimeout = previousClearTimeout;
@@ -779,5 +789,62 @@ test('failed worker logout keeps an already-verified password and Pro access int
     } finally {
       PasswordUtils.showPasswordModal = original;
     }
+  });
+});
+
+
+test('successful activation collapses Pro, restores toggle focus and ignores a late opening transition', async () => {
+  await withGoProPage({}, async ({ document, toggle, wrapper, chevron, form, input, flushAnimationFrames }) => {
+    await toggle.dispatch('click');
+    assert.equal(wrapper.classList.contains('open'), true);
+    assert.equal(toggle.getAttribute('aria-expanded'), 'true');
+    input.value = 'BD-NEW-KEY';
+    input.focus();
+    await form.dispatch('submit');
+    assert.equal(wrapper.classList.contains('open'), false);
+    assert.equal(chevron.classList.contains('up'), false);
+    assert.equal(toggle.getAttribute('aria-expanded'), 'false');
+    assert.equal(wrapper.inert, true);
+    assert.equal(document.activeElement, toggle);
+    flushAnimationFrames();
+    assert.equal(wrapper.style.maxHeight, '0px');
+    await wrapper.dispatch('transitionend', { propertyName: 'max-height' });
+    assert.equal(wrapper.style.maxHeight, '0px');
+  });
+});
+
+test('invalid key or failed worker activation leaves the Pro panel open for retry', async () => {
+  for (const options of [
+    { fetchHandler: async () => ({ ok: true, status: 200, json: async () => ({ isPro: false }) }) },
+    { workerResponse: { success: false, error: 'Worker unavailable' } }
+  ]) {
+    await withGoProPage(options, async ({ toggle, wrapper, chevron, form, input, submit }) => {
+      await toggle.dispatch('click');
+      input.value = 'BD-RETRY-KEY';
+      await form.dispatch('submit');
+      assert.equal(wrapper.classList.contains('open'), true);
+      assert.equal(chevron.classList.contains('up'), true);
+      assert.equal(toggle.getAttribute('aria-expanded'), 'true');
+      assert.equal(wrapper.inert, false);
+      assert.equal(input.value, 'BD-RETRY-KEY');
+      assert.equal(submit.disabled, false);
+    });
+  }
+});
+
+test('quickly reopening Pro is not undone by a pending collapse frame or child transition', async () => {
+  await withGoProPage({}, async ({ toggle, wrapper, chevron, flushAnimationFrames }) => {
+    await toggle.dispatch('click');
+    await toggle.dispatch('click');
+    await toggle.dispatch('click');
+    flushAnimationFrames();
+    assert.equal(wrapper.classList.contains('open'), true);
+    assert.equal(chevron.classList.contains('up'), true);
+    assert.equal(wrapper.style.maxHeight, '220px');
+    assert.equal(wrapper.inert, false);
+    await wrapper.dispatch('transitionend', { target: chevron, propertyName: 'transform' });
+    assert.equal(wrapper.style.maxHeight, '220px');
+    await wrapper.dispatch('transitionend', { propertyName: 'max-height' });
+    assert.equal(wrapper.style.maxHeight, 'none');
   });
 });
