@@ -24,10 +24,8 @@ import { TelemetryUI } from './telemetryUI.js';
 import { requestTelemetryConsentFromUserAction } from '../telemetry/telemetryConsent.js';
 import {
   PRO_GUIDANCE_STORAGE_KEY,
-  dismissProGuidance,
   getStarterTipKeys,
-  getStarterTipText,
-  resolveProGuidance
+  getStarterTipText
 } from './userGuidance.js';
 
 installPageErrorReporter('options');
@@ -131,6 +129,10 @@ class OptionsPage {
     this.isPro = false;
     this.isLegacyUser = false;
     this.storageChangeHandler = null;
+    this.proGuidanceRenderId = 0;
+    this.proAccessRefreshId = 0;
+    this.proGuidanceDismissPending = false;
+    this.disposed = false;
     
     this.init();
     this.exposeDebugTools();
@@ -147,18 +149,8 @@ class OptionsPage {
     this.rulePacksUI.initialize();
     this.diagnosticsUI.initialize();
     await this.telemetryUI.initialize();
-    try {
-      const access = await ProManager.getAccess();
-      this.isPro = access.isPro;
-      this.isLegacyUser = access.isLegacyUser;
-      this.renderStarterTips(access.credentials.installationDate);
-      await this.renderProTips(access.isPro || access.isLegacyUser);
-    } catch (error) {
-      this.logger.error('Error initializing Pro/Legacy status:', error);
-    }
-    
-    this.updateWhitelistButtonState();
-    
+    await this.refreshProAccess();
+
     await ProManager.initializeProFeatures();
     await this.refreshProfileView();
   }
@@ -252,54 +244,98 @@ class OptionsPage {
     this.starterTips.classList.toggle('hidden', !hasStarterTips && !hasProTips);
   }
 
-  async renderProTips(hasPaidAccess, now = Date.now()) {
-    if (!this.proTipsSection || !this.proTipsList) return;
-
-    this.proTipsList.replaceChildren();
-    if (!hasPaidAccess) {
-      this.proTipsSection.classList.add('hidden');
-      this.updateGuidanceVisibility();
-      return;
-    }
-
-    try {
-      const result = await chrome.storage.local.get([PRO_GUIDANCE_STORAGE_KEY]);
-      const resolved = resolveProGuidance(result[PRO_GUIDANCE_STORAGE_KEY], now);
-      if (resolved.changed && resolved.state) {
-        await chrome.storage.local.set({ [PRO_GUIDANCE_STORAGE_KEY]: resolved.state });
-      }
-
-      if (resolved.tipKey) {
-        const item = document.createElement('li');
-        item.textContent = t(resolved.tipKey);
-        this.proTipsList.append(item);
-      }
-      this.proTipsSection.classList.toggle('hidden', !resolved.tipKey);
-    } catch (error) {
-      this.logger.info('Error loading Pro guidance:', error);
-      this.proTipsSection.classList.add('hidden');
-    }
-
+  invalidateProTips() {
+    this.proGuidanceRenderId = (this.proGuidanceRenderId || 0) + 1;
+    this.proTipsList?.replaceChildren();
+    this.proTipsSection?.classList.add('hidden');
     this.updateGuidanceVisibility();
   }
 
-  async dismissProTips() {
+  async refreshProAccess() {
+    const requestId = this.proAccessRefreshId = (this.proAccessRefreshId || 0) + 1;
+    this.invalidateProTips();
     try {
-      const result = await chrome.storage.local.get([PRO_GUIDANCE_STORAGE_KEY]);
-      const state = dismissProGuidance(result[PRO_GUIDANCE_STORAGE_KEY]);
-      if (state) {
-        await chrome.storage.local.set({ [PRO_GUIDANCE_STORAGE_KEY]: state });
+      const access = await ProManager.getAccess();
+      if (this.disposed || requestId !== this.proAccessRefreshId) return;
+      this.isPro = access.isPro;
+      this.isLegacyUser = access.isLegacyUser;
+      this.renderStarterTips(access.credentials.installationDate);
+      ProManager.updateProFeaturesVisibility(access.isPro || access.isLegacyUser);
+      this.updateWhitelistButtonState();
+      await this.renderProTips(access.isPro || access.isLegacyUser);
+      if (!this.disposed && requestId === this.proAccessRefreshId) await this.refreshProfileView();
+    } catch (error) {
+      if (requestId !== this.proAccessRefreshId || this.disposed) return;
+      this.isPro = false;
+      this.isLegacyUser = false;
+      this.invalidateProTips();
+      this.updateWhitelistButtonState();
+      this.logger.info('Error refreshing Pro/Legacy status:', error);
+    }
+  }
+
+  async renderProTips(hasPaidAccess) {
+    this.invalidateProTips();
+    if (!this.proTipsSection || !this.proTipsList || this.disposed || this.proGuidanceDismissPending ||
+        !hasPaidAccess || !(this.isPro || this.isLegacyUser) || document.visibilityState !== 'visible') return;
+
+    const requestId = this.proGuidanceRenderId;
+    const isCurrent = () => !this.disposed && !this.proGuidanceDismissPending &&
+      requestId === this.proGuidanceRenderId && document.visibilityState === 'visible' &&
+      (this.isPro || this.isLegacyUser);
+    try {
+      const preview = await sendRuntimeMessage({ type: 'pro_guidance:preview' });
+      if (!isCurrent()) return;
+      if (!preview?.success) throw new Error('Failed to preview Pro guidance');
+      if (!preview.hasPaidAccess) return;
+
+      if (preview.tipKey) {
+        const item = document.createElement('li');
+        item.textContent = t(preview.tipKey);
+        this.proTipsList.replaceChildren(item);
       }
-      this.proTipsSection?.classList.add('hidden');
+      this.proTipsSection.classList.toggle('hidden', !preview.tipKey);
       this.updateGuidanceVisibility();
+
+      // No storage write is requested by hidden/stale renders. The background
+      // re-reads state and access inside its shared queue before committing.
+      const result = await sendRuntimeMessage({ type: 'pro_guidance:shown',
+        snapshot: preview.snapshot, tipKey: preview.tipKey, lastShownDay: preview.lastShownDay });
+      if (!isCurrent()) return;
+      if (!result?.success) throw new Error('Failed to commit Pro guidance');
+      if (result.stale) return this.renderProTips(this.isPro || this.isLegacyUser);
+      if (!result.hasPaidAccess) this.invalidateProTips();
+    } catch (error) {
+      if (!isCurrent()) return;
+      this.logger.info('Error loading Pro guidance:', error);
+      this.invalidateProTips();
+    }
+  }
+
+  async dismissProTips() {
+    if (this.proGuidanceDismissPending || this.disposed) return;
+    this.proGuidanceDismissPending = true;
+    this.invalidateProTips();
+    try {
+      const result = await sendRuntimeMessage({ type: 'pro_guidance:dismiss' });
+      if (!result?.success) throw new Error('Failed to dismiss Pro guidance');
     } catch (error) {
       this.logger.info('Error dismissing Pro guidance:', error);
+    } finally {
+      this.proGuidanceDismissPending = false;
     }
   }
   
   setupStorageListeners() {
     this.storageChangeHandler = (changes, areaName) => {
+      if (areaName === 'sync' && changes?.credentials) {
+        void this.refreshProAccess();
+        return;
+      }
       if (areaName !== 'local') return;
+      if (changes?.[PRO_GUIDANCE_STORAGE_KEY]) {
+        void this.renderProTips(this.isPro || this.isLegacyUser);
+      }
       if (changes?.focusSession) void this.settingsManager.initFocusSessionBanner();
       if (!changes?.dailyRuleUsage) return;
       const previousUsage = changes.dailyRuleUsage.oldValue?.usageSeconds || {};
@@ -862,6 +898,9 @@ class OptionsPage {
   }
   
   cleanup() {
+    this.disposed = true;
+    this.proAccessRefreshId = (this.proAccessRefreshId || 0) + 1;
+    this.invalidateProTips();
     this.rulesUI.cleanup();
     if (this.storageChangeHandler) {
       browser.storage.onChanged.removeListener(this.storageChangeHandler);
@@ -888,18 +927,15 @@ browser.runtime.onMessage.addListener((message) => {
   
   if (message.type === 'pro_status_changed') {
     logger.log(`Pro status changed: ${message.isPro}`);
-    ProManager.updateProFeaturesVisibility(message.isPro || optionsPage.isLegacyUser);
-    optionsPage.isPro = message.isPro;
-    void optionsPage.renderProTips(message.isPro || optionsPage.isLegacyUser);
-    optionsPage.updateWhitelistButtonState();
-    optionsPage.refreshProfileView();
+    void optionsPage.refreshProAccess();
   }
 });
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
-    void optionsPage.renderProTips(optionsPage.isPro || optionsPage.isLegacyUser);
-    optionsPage.refreshProfileView();
+    void optionsPage.refreshProAccess();
+  } else {
+    optionsPage.invalidateProTips();
   }
 });
 

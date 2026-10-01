@@ -12,6 +12,18 @@ import {
   resolveProGuidance
 } from '../options/userGuidance.js';
 
+const PRO_MESSAGE_KEYS = ['protips_title', 'protips_dismiss', ...PRO_TIP_KEYS];
+const GUIDANCE_MESSAGE_KEYS = ['userguide', 'redirecturlheader', 'redirecturlhint',
+  'startertip_path_rule', 'startertip_pause_rule', 'strictmodedesc', 'focussessioninfo',
+  ...PRO_MESSAGE_KEYS];
+
+function assertGuidanceMessages(messages, locale) {
+  for (const key of GUIDANCE_MESSAGE_KEYS) {
+    assert.equal(typeof messages[key]?.message, 'string', locale + ': missing/string required ' + key);
+    assert.notEqual(messages[key].message.trim(), '', locale + ': empty ' + key);
+  }
+}
+
 const DAY_MS = 24 * 60 * 60 * 1000;
 const installedAt = Date.parse('2026-09-23T12:00:00.000Z');
 
@@ -142,17 +154,8 @@ test('all 57 locales provide User Guide and complete starter and Pro guidance', 
   assert.equal(localeNames.length, 57);
   for (const locale of localeNames) {
     const messages = JSON.parse(await readFile(new URL('../_locales/' + locale + '/messages.json', import.meta.url), 'utf8'));
-    assert.equal(typeof messages.userguide?.message, 'string', locale + ': missing userguide');
-    assert.notEqual(messages.userguide.message.trim(), '', locale + ': empty userguide');
-    assert.notEqual(messages.redirecturlheader?.message?.trim(), '', locale + ': missing redirect URL header');
-    assert.notEqual(messages.redirecturlhint?.message?.trim(), '', locale + ': missing redirect URL hint');
-    assert.match(messages.startertip_path_rule?.message || '', /example\.com\/videos/, locale + ': missing path tip');
-    assert.notEqual(messages.startertip_pause_rule?.message?.trim(), '', locale + ': missing pause tip');
-    assert.notEqual(messages.protips_title?.message?.trim(), '', locale + ': missing Pro tips title');
-    assert.notEqual(messages.protips_dismiss?.message?.trim(), '', locale + ': missing Pro tips dismiss action');
-    for (const key of PRO_TIP_KEYS) {
-      assert.notEqual(messages[key]?.message?.trim(), '', locale + ': missing ' + key);
-    }
+    assertGuidanceMessages(messages, locale);
+    assert.match(messages.startertip_path_rule.message, /example\.com\/videos/, locale + ': missing path tip');
     for (const [key, label] of [
       ['redirecturlhint', 'redirect'],
       ['strictmodedesc', 'Strict Mode'],
@@ -182,3 +185,30 @@ test('all 57 locales provide User Guide and complete starter and Pro guidance', 
     }
   }
 });
+
+for (const locale of ['en', 'en_CA', 'en_GB']) {
+  test(locale + ': removing any Pro guidance key fails locale validation', async () => {
+    const messages = JSON.parse(await readFile(new URL('../_locales/' + locale + '/messages.json', import.meta.url), 'utf8'));
+    for (const key of PRO_MESSAGE_KEYS) {
+      const broken = structuredClone(messages);
+      delete broken[key];
+      assert.throws(() => assertGuidanceMessages(broken, locale), { name: 'AssertionError' }, key);
+    }
+  });
+}
+
+for (const [label, entries] of [
+  ['missing message', [{}]],
+  ['wrong message type', [null, 0, true, {}, []].map(message => ({ message }))],
+  ['whitespace-only message', [{ message: '  \t\n  ' }]]
+]) {
+  test('locale validation rejects ' + label + ' for every Pro guidance key', async () => {
+    const messages = JSON.parse(await readFile(new URL('../_locales/en/messages.json', import.meta.url), 'utf8'));
+    for (const key of PRO_MESSAGE_KEYS) {
+      for (const entry of entries) {
+        const broken = { ...messages, [key]: entry };
+        assert.throws(() => assertGuidanceMessages(broken, 'en'), { name: 'AssertionError' }, key);
+      }
+    }
+  });
+}

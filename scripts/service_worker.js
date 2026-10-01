@@ -1,3 +1,4 @@
+import { createProGuidanceController } from '../options/proGuidanceController.js';
 import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
@@ -480,6 +481,12 @@ function enqueueStateTransition(task) {
   stateTransitionTail = result.catch(() => {});
   return result;
 }
+
+const proGuidanceController = createProGuidanceController({
+  storage: browser.storage.local,
+  getAccess: () => ProManager.getAccess(),
+  runExclusive: enqueueStateTransition
+});
 
 function enqueueProStatusTransition(task) {
   return enqueueStateTransition(task);
@@ -1751,6 +1758,15 @@ browser.runtime.onInstalled.addListener(details =>
 );
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (['pro_guidance:preview', 'pro_guidance:shown', 'pro_guidance:dismiss'].includes(message.type)) {
+    const operation = message.type.slice('pro_guidance:'.length);
+    proGuidanceController[operation](message).then(
+      result => sendResponse({ success: true, ...result }),
+      () => sendResponse({ success: false, error: { code: 'pro_guidance_failed' } })
+    );
+    return true;
+  }
+
   if (RULES_INTENT_TYPES.has(message.type)) {
     (async () => {
       try {

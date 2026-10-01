@@ -322,6 +322,72 @@ test('telemetry command failures return controlled responses', async () => {
   }, { supportsWindows: false });
 });
 
+test('Pro guidance runtime previews without writes and serializes shown/dismiss across clients', async () => {
+  await withWorker(async ({ api, send }) => {
+    const preview = await send({ type: 'pro_guidance:preview' });
+    assert.equal(preview.success,true);
+    assert.equal(preview.hasPaidAccess,true);
+    assert.equal(preview.tipKey,'protip_backup_transfer');
+    assert.equal(api.storage.local.data.proGuidance,undefined);
+    const shown = await send({ ...preview, type: 'pro_guidance:shown' });
+    assert.equal(shown.success,true);
+    assert.equal(api.storage.local.data.proGuidance.tipIndex,0);
+    const sameDay = await send({ type: 'pro_guidance:preview' });
+    const beforeDismiss = structuredClone(api.storage.local.data.proGuidance);
+    await Promise.all([
+      send({ ...sameDay, type: 'pro_guidance:shown' }),
+      send({ type: 'pro_guidance:dismiss' })
+    ]);
+    assert.deepEqual(api.storage.local.data.proGuidance,{ ...beforeDismiss, dismissed: true });
+    const stale = await send({ ...sameDay, type: 'pro_guidance:shown' });
+    assert.equal(stale.stale,true);
+    assert.equal(api.storage.local.data.proGuidance.dismissed,true);
+  });
+});
+
+test('Pro guidance worker rechecks real access after logout and keeps Free state absent', async () => {
+  await withWorker(async ({ api, send }) => {
+    const preview = await send({ type: 'pro_guidance:preview' });
+    await send({ type: 'logout_pro' });
+    const stale = await send({ ...preview, type: 'pro_guidance:shown' });
+    assert.equal(stale.hasPaidAccess,false);
+    await send({ type: 'pro_guidance:dismiss' });
+    assert.equal(api.storage.local.data.proGuidance,undefined);
+    assert.equal((await send({ type: 'pro_guidance:preview' })).hasPaidAccess,false);
+  });
+});
+
+test('Pro guidance shares the worker transition queue with an overlapping logout', async () => {
+  await withWorker(async ({ api, send }) => {
+    const preview = await send({ type: 'pro_guidance:preview' });
+    const read = api.storage.local.get.bind(api.storage.local);
+    const started = createDeferred();
+    const release = createDeferred();
+    let paused = false;
+    api.storage.local.get = async (...args) => {
+      const snapshot = await read(...args);
+      if (!paused && args[0]?.includes?.('proGuidance')) {
+        paused = true; started.resolve(); await release.promise;
+      }
+      return snapshot;
+    };
+    const shown = send({ ...preview, type: 'pro_guidance:shown' });
+    await started.promise;
+    let loggedOut = false;
+    const logout = send({ type: 'logout_pro' }).then(result => { loggedOut = true; return result; });
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(loggedOut,false);
+    release.resolve();
+    await Promise.all([shown,logout]);
+    assert.equal(api.storage.sync.data.credentials.isPro,false);
+    const history = structuredClone(api.storage.local.data.proGuidance);
+    assert.equal(history.tipIndex,0);
+    const rejected = await send({ ...preview, type: 'pro_guidance:shown' });
+    assert.equal(rejected.hasPaidAccess,false);
+    assert.deepEqual(api.storage.local.data.proGuidance,history);
+  });
+});
+
 for (const [label, claimedStatus] of [
   ['boolean Pro', true],
   ['string Pro', 'true'],

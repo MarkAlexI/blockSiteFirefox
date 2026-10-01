@@ -55,7 +55,7 @@ function getLocalDayKey(now) {
   return `${year}-${month}-${day}`;
 }
 
-function normalizeProGuidanceState(state) {
+export function normalizeProGuidanceState(state) {
   if (!state || typeof state !== 'object' || Array.isArray(state)) return null;
   if (state.version !== PRO_GUIDANCE_VERSION) return null;
   if (!Number.isInteger(state.tipIndex) || state.tipIndex < 0 || state.tipIndex >= PRO_TIP_KEYS.length) {

@@ -33,8 +33,9 @@ test('Options and Popup derive Pro and legacy state from one credential snapshot
   }
 });
 
-test('Options and Popup keep legacy-only features visible after a Pro status change', () => {
-  assert.match(source, /updateProFeaturesVisibility\(message\.isPro \|\| optionsPage\.isLegacyUser\)/);
+// Options legacy/status transitions are exercised against its actual methods
+// in proGuidanceOptions.test.js rather than a message-handler source fragment.
+test('Popup keeps legacy-only features visible after a Pro status change', () => {
   assert.match(popupSource, /updateProFeaturesVisibility\(message\.isPro \|\| popupPage\.isLegacyUser\)/);
 });
 
