@@ -111,8 +111,10 @@
     </div>
     
     <main class="settings-content">
-      <section id="focus-schedule" class="setting-section" data-focus-schedule dir="auto">
-        <h2 data-i18n="focus_schedule_title">Scheduled focus</h2>
+      <details id="focus-schedule" class="setting-section" data-focus-schedule dir="auto">
+        <summary>
+          <h2 data-i18n="focus_schedule_title">Scheduled focus</h2>
+        </summary>
         <p class="focus-schedule-description" data-i18n="focus_schedule_description">Let Pro start a normal Focus Session using your current rules. Choose days and a start time in this device's local time.</p>
         <p data-focus-access data-i18n="prorequired" hidden></p>
         <form class="focus-schedule-form">
@@ -145,7 +147,7 @@
           <button type="button" data-focus-skip data-i18n="focus_schedule_skip" hidden>Skip next session</button>
         </div>
         <p data-focus-notice role="status" aria-live="polite"></p>
-      </section>
+      </details>
 
       <section class="setting-section collapsible-section">
         <h2 data-i18n="securitymodetitle" class="collapsible-header">Security Mode</h2>

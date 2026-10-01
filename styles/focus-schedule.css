@@ -1,7 +1,33 @@
 [data-focus-schedule] { overflow-wrap: anywhere; }
 [data-focus-schedule] [hidden] { display: none !important; }
 #focus-schedule { scroll-margin-top: 1rem; }
-#focus-schedule h2 { margin-bottom: .5rem; }
+#focus-schedule > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  min-height: 2rem;
+  cursor: pointer;
+  list-style: none;
+}
+#focus-schedule > summary::-webkit-details-marker { display: none; }
+#focus-schedule > summary h2 { margin: 0; }
+#focus-schedule > summary::after {
+  content: '';
+  width: .5rem;
+  height: .5rem;
+  flex-shrink: 0;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-inline: .25rem .5rem;
+}
+#focus-schedule[open] > summary { margin-bottom: .5rem; }
+#focus-schedule[open] > summary::after { transform: rotate(-135deg); }
+#focus-schedule > summary:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+}
 .focus-schedule-description, .focus-schedule-hint { font-size: .9rem; color: var(--text-secondary); }
 .focus-schedule-form { display: grid; gap: 1rem; margin-top: 1rem; }
 .focus-schedule-form fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
