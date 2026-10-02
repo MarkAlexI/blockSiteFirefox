@@ -51,6 +51,7 @@ export function createDailyLimitTracker({
   getFocusSessionState,
   dailyLimitManager,
   dnrSynchronizer,
+  getStateGeneration = () => 0,
   logger
 }) {
   let operationTail = Promise.resolve();
@@ -354,6 +355,10 @@ export function createDailyLimitTracker({
   }
 
   async function sampleOnce(reason = 'event', now = new Date(), tabHint = null) {
+    const generation = getStateGeneration();
+    const shouldContinue = () => generation === getStateGeneration();
+    const superseded = () => ({ resolution: 'superseded', activeRuleId: null,
+      activeAssignmentListIds: [], accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} });
     let context = {
       rule: null,
       assignments: [],
@@ -373,14 +378,19 @@ export function createDailyLimitTracker({
       logger?.info?.(`Daily limit sampling could not resolve active tab (${reason}):`, error);
     }
 
+    // A rules/list/access change can complete while the visibility probe waits.
+    // Leave the remapped stored segment intact for the next current sample.
+    if (!shouldContinue()) return superseded();
     const activeKeys = context.status === 'matched' && context.rule
       ? context.assignments
           .map(item => getAssignmentUsageKey(context.rule.id, item.listId))
           .filter(Boolean)
       : [];
     const result = await dailyLimitManager.recordSample(activeKeys, now, {
-      closePreviousSegment: SEGMENT_BOUNDARY_REASONS.has(reason)
+      closePreviousSegment: SEGMENT_BOUNDARY_REASONS.has(reason),
+      shouldContinue
     });
+    if (result.superseded) return superseded();
 
     await syncCrossedLimits(result);
     await scheduleDeadlineAlarm(context, result, now);

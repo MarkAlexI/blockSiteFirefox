@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.4] - 2026-10-02
+
+### Fixed
+- Mixed legacy and assignment Daily Limit counters keep the larger elapsed time during migration and backward-compatible reads.
+- Accounting, pruning, and assignment remaps before startup migration preserve legacy usage and its active segment, including exhausted budgets transferred through the durable journal.
+- Delayed visibility and storage reads cannot overwrite a remapped active segment after rules, profiles, Focus, access, or usage change.
+
+### Tests and compatibility
+- Added real storage/browser-await cases for startup edits, concurrent Options remaps, recovery retries, deletion/import, activation/logout, and trusted Legacy access.
+- Existing transition queues, journal recovery, import rollback, permissions, privacy, UI, and Scheduled Focus behavior are preserved. No new update welcome messages.
+
 ## [5.3.3] - 2026-10-02
 
 ### Fixed

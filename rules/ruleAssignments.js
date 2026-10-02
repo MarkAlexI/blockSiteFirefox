@@ -201,11 +201,10 @@ export function parseAssignmentUsageKey(value) {
 export function getAssignmentUsageSeconds(usageSeconds = {}, ruleId, listId) {
   const key = getAssignmentUsageKey(ruleId, listId);
   if (!key) return 0;
-  if (Object.prototype.hasOwnProperty.call(usageSeconds, key)) {
-    return Math.max(0, Number(usageSeconds[key]) || 0);
-  }
-  // Backward-compatible read during the one-time v1 -> v2 usage migration.
-  return Math.max(0, Number(usageSeconds[String(ruleId)]) || 0);
+  // Accounting may already have written a scoped key before startup migrates
+  // the legacy map. Neither representation may grant back elapsed time.
+  return Math.max(0, Number(usageSeconds[key]) || 0,
+    Number(usageSeconds[String(ruleId)]) || 0);
 }
 
 export function areAssignmentsEqual(left, right) {

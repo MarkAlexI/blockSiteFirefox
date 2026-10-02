@@ -364,6 +364,7 @@ const dailyLimitTracker = createDailyLimitTracker({
   getFocusSessionState,
   dailyLimitManager,
   dnrSynchronizer,
+  getStateGeneration: () => blockingDecisionGeneration,
   logger
 });
 

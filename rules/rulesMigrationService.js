@@ -112,7 +112,7 @@ export function migrateDailyUsageSchema(rawState, rules) {
       const [ruleId, ...listParts] = key.split(':');
       const listId = listParts.join(':');
       if (validDailyAssignmentKeys.has(key)) {
-        nextUsage[key] = seconds;
+        nextUsage[key] = Math.max(nextUsage[key] || 0, seconds);
       } else {
         changed = true;
       }
@@ -137,7 +137,16 @@ export function migrateDailyUsageSchema(rawState, rules) {
   let nextLastSample = rawState.lastSample ?? null;
   if (nextLastSample && typeof nextLastSample === 'object' && !Array.isArray(nextLastSample)) {
     if (Array.isArray(nextLastSample.assignmentKeys)) {
-      const validKeys = nextLastSample.assignmentKeys.filter(key => validDailyAssignmentKeys.has(key));
+      // DailyLimitManager can normalize a v1 ruleId into a numeric key before
+      // this migration runs. Expand that active segment as well as raw v1 data.
+      const validKeys = [...new Set(nextLastSample.assignmentKeys.flatMap(key => {
+        if (validDailyAssignmentKeys.has(key)) return [key];
+        if (!/^\d+$/.test(String(key))) return [];
+        const rule = rulesById.get(String(key));
+        return rule ? getRuleAssignments(rule)
+          .filter(item => item.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
+          .map(item => getAssignmentUsageKey(rule.id, item.listId)).filter(Boolean) : [];
+      }))];
       if (!sameJson(validKeys, nextLastSample.assignmentKeys)) changed = true;
       nextLastSample = {
         timestamp: Number(nextLastSample.timestamp),

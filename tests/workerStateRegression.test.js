@@ -64,6 +64,7 @@ async function withWorker(callback, {
   settings = {},
   local = {},
   dnrLimits = {},
+  scripting = null,
   supportsWindows = !TEST_FIREFOX_ANDROID
 } = {}) {
   const api = createExtensionApi({
@@ -167,6 +168,7 @@ async function withWorker(callback, {
       api.dynamicRules.push(...structuredClone(update.addRules || []));
     }
   };
+  if (scripting) api.scripting = scripting;
   api.notificationsCreated = [];
   api.notifications = {
     create(id, details) {
@@ -694,4 +696,311 @@ test('a rule disabled during DNR safety creation cancels the old removal and ref
     assert.deepEqual(api.dynamicRules, []);
     assert.equal(api.tabs.values[0].url, url);
   }, { local: { activeRuleListId: 'general', rules: [makeFocusRule(21, 'general', { blockURL: 'stale.example' })] } });
+});
+
+async function withUsageClock(timestamp, callback) {
+  const OriginalDate = globalThis.Date;
+  let now = timestamp;
+  globalThis.Date = class extends OriginalDate {
+    constructor(...args) { super(...(args.length ? args : [now])); }
+    static now() { return now; }
+  };
+  try { await callback({ set: value => { now = value; } }); }
+  finally { globalThis.Date = OriginalDate; }
+}
+
+test('a delayed visibility probe cannot restore the old usage key after an assignment split', { timeout: 5000 }, async () => {
+  const startedAt = Math.floor(Date.now() / 1000) * 1000;
+  await withUsageClock(startedAt, async clock => {
+    const rule = makeDailyLimitRule(21, 'list-1', { blockURL: 'usage.example' });
+    rule.assignments.push({ ...rule.assignments[0], listId: 'general' });
+    const ready = createDeferred();
+    const release = createDeferred();
+    let first = true;
+    const scripting = { executeScript: async () => {
+      if (first) { first = false; ready.resolve(); await release.promise; }
+      return [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }];
+    } };
+    await withWorker(async ({ api, send, alarm }) => {
+      const tab = { id: 10, url: 'https://usage.example/page', active: true };
+      api.tabs.values = [tab];
+      const sample = api.tabs.onUpdated.listeners[0](10, { status: 'complete' }, tab);
+      await ready.promise;
+      const edit = send({ type: 'rules:update', payload: {
+        ruleId: 21, assignmentListId: 'list-1', blockURL: 'usage.example', redirectURL: 'https://safe.example/',
+        assignment: { listId: 'list-1', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
+      } });
+      await until(() => api.storage.local.data.rules.some(item => item.id !== 21) &&
+        api.storage.local.data.pendingDailyUsageRemaps?.length === 0, 'split usage recovery');
+      const newRule = api.storage.local.data.rules.find(item => item.id !== 21);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds[`${newRule.id}:list-1`], 100);
+      clock.set(startedAt + 20_000);
+      release.resolve();
+      const [, response] = await Promise.all([sample, edit]);
+      assert.equal(response.success, true);
+      assert.equal(response.targetSplit, true);
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds[`${newRule.id}:list-1`], 130);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:list-1'], undefined);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, [`${newRule.id}:list-1`]);
+      assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+      assert.deepEqual(api.dynamicRules, []);
+    }, { scripting, local: { activeRuleListId: 'list-1', rules: [rule],
+      dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:list-1': 100 },
+        lastSample: { timestamp: startedAt - 10_000, assignmentKeys: ['21:list-1'] } } } });
+  });
+});
+
+
+test('a rule edit during the startup alarm await preserves legacy daily usage until migration', { timeout: 5000 }, async () => {
+  const now = Date.now();
+  await withWorker(async ({ api, send, startup }) => {
+    const ready = createDeferred();
+    const release = createDeferred();
+    const originalClear = api.alarms.clear.bind(api.alarms);
+    let first = true;
+    api.alarms.clear = async name => {
+      if (first && name === 'telemetry_retry') {
+        first = false;
+        ready.resolve();
+        await release.promise;
+      }
+      return originalClear(name);
+    };
+    const starting = startup();
+    try {
+      await ready.promise;
+      const response = await send({ type: 'rules:add', payload: {
+        blockURL: 'basic.example', redirectURL: '', category: 'social',
+        assignment: { listId: 'general', blockingMode: 'always' }
+      } });
+      assert.equal(response.success, true);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21'], 840);
+    } finally {
+      release.resolve();
+      await starting;
+    }
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 840);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21'], undefined);
+    assert.ok(api.dynamicRules.some(rule => rule.id === 21));
+  }, { local: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'general')],
+    dailyRuleUsage: { version: 1, date: getLocalDateKey(new Date(now)), usageSeconds: { '21': 840 }, lastSample: null } } });
+});
+
+
+for (const delay of ['journal_commit', 'recovery_read', 'recovery_write', 'usage_read_1', 'usage_read_2', 'usage_read_3', 'dnr_read', 'dnr_write', 'retry_read', 'retry_write']) {
+  test(`two Options preserve remapped budgets while awaiting ${delay}`, { timeout: 5000 }, async () => {
+    const rule = makeDailyLimitRule(21, 'general', { blockURL: 'usage.example' });
+    rule.assignments.push({ ...rule.assignments[0], listId: 'list-1' });
+    await withWorker(async ({ api, send }) => {
+      api.dynamicRules = delay === 'dnr_write' ? [{ id: 999 }] : [];
+      const ready = createDeferred();
+      const release = createDeferred();
+      let held = false;
+      let usageReads = 0;
+      let recoveryFailed = false;
+      const hold = async matches => {
+        if (!held && matches) { held = true; ready.resolve(); await release.promise; }
+      };
+      const originalGet = api.storage.local.get.bind(api.storage.local);
+      api.storage.local.get = async (keys, callback) => {
+        const snapshot = await originalGet(keys, callback);
+        if (keys === 'dailyRuleUsage') usageReads++;
+        await hold((delay === 'recovery_read' && Array.isArray(keys) && keys.includes('pendingDailyUsageRemaps') && keys.includes('dailyRuleUsage')) ||
+          (delay === `usage_read_${usageReads}` && keys === 'dailyRuleUsage') ||
+          (delay === 'retry_read' && recoveryFailed && Array.isArray(keys) && keys.includes('pendingDailyUsageRemaps') && keys.includes('dailyRuleUsage')));
+        return snapshot;
+      };
+      const originalSet = api.storage.local.set.bind(api.storage.local);
+      api.storage.local.set = async (values, callback) => {
+        const recoveryWrite = values.dailyRuleUsage && values.pendingDailyUsageRemaps?.length === 0;
+        if (delay.startsWith('retry_') && recoveryWrite && !recoveryFailed) {
+          recoveryFailed = true;
+          throw new Error('temporary recovery write failure');
+        }
+        await hold((delay === 'journal_commit' && values.pendingDailyUsageRemaps?.length > 0) ||
+          (delay === 'recovery_write' && recoveryWrite) || (delay === 'retry_write' && recoveryFailed && recoveryWrite));
+        return originalSet(values, callback);
+      };
+      for (const [method, label] of [['getDynamicRules', 'dnr_read'], ['updateDynamicRules', 'dnr_write']]) {
+        const original = api.declarativeNetRequest[method].bind(api.declarativeNetRequest);
+        api.declarativeNetRequest[method] = async (...args) => { await hold(delay === label); return original(...args); };
+      }
+      const first = send({ type: 'rules:update', payload: {
+        ruleId: 21, assignmentListId: 'list-1', blockURL: 'usage.example', redirectURL: 'https://safe.example/study',
+        assignment: { listId: 'list-1', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
+      } });
+      let second;
+      try {
+        await Promise.race([ready.promise, first]);
+        assert.equal(held, true, `production await was reached: ${delay}`);
+        second = send({ type: 'rules:update', payload: {
+          ruleId: 21, assignmentListId: 'general', blockURL: 'usage.example', redirectURL: 'https://safe.example/work',
+          assignment: { listId: 'list-2', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
+        } });
+        await tick();
+      } finally { release.resolve(); }
+      const responses = await Promise.all([first, second]);
+      assert.ok(responses.every(response => response.success), JSON.stringify(responses));
+      const rules = api.storage.local.data.rules;
+      assert.equal(rules.length, 2);
+      const split = rules.find(item => item.id !== 21);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { [`${split.id}:list-1`]: 100, '21:list-2': 840 });
+      assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.deepEqual(api.dynamicRules.map(item => item.id), [21]);
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), 'https://safe.example/work');
+    }, { local: { activeRuleListId: 'list-2', rules: [rule],
+      ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }, { id: 'list-1', name: 'Study', disabledCategories: [] }, { id: 'list-2', name: 'Work', disabledCategories: [] }],
+      dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:general': 840, '21:list-1': 100 }, lastSample: null } } });
+  });
+}
+
+
+test('a split during startup preserves an exhausted legacy budget in both assignments', { timeout: 5000 }, async () => {
+  const rule = makeDailyLimitRule(21, 'general', { blockURL: 'usage.example' });
+  rule.assignments.push({ ...rule.assignments[0], listId: 'list-1' });
+  await withWorker(async ({ api, send, startup }) => {
+    const ready = createDeferred();
+    const release = createDeferred();
+    const originalClear = api.alarms.clear.bind(api.alarms);
+    let first = true;
+    api.alarms.clear = async name => {
+      if (first && name === 'telemetry_retry') { first = false; ready.resolve(); await release.promise; }
+      return originalClear(name);
+    };
+    const starting = startup();
+    let newId;
+    try {
+      await ready.promise;
+      const response = await send({ type: 'rules:update', payload: {
+        ruleId: 21, assignmentListId: 'list-1', blockURL: 'usage.example', redirectURL: 'https://safe.example/',
+        assignment: { listId: 'list-1', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
+      } });
+      assert.equal(response.success, true);
+      newId = api.storage.local.data.rules.find(item => item.id !== 21).id;
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds[`${newId}:list-1`], 840);
+      assert.ok(api.dynamicRules.some(item => item.id === newId));
+    } finally { release.resolve(); await starting; }
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:general': 840, [`${newId}:list-1`]: 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.dynamicRules.map(item => item.id), [newId]);
+  }, { local: { activeRuleListId: 'list-1', rules: [rule],
+    dailyRuleUsage: { version: 1, date: getLocalDateKey(), usageSeconds: { '21': 840 }, lastSample: null } } });
+});
+
+
+test('license network verification leaves Free actions available and grants paid access only after commit', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    const ready = createDeferred();
+    const release = createDeferred();
+    api.setFetchHandler(async () => {
+      ready.resolve();
+      await release.promise;
+      return { ok: true, status: 200, json: async () => ({ isPro: true }) };
+    });
+    const activation = send({ type: 'activate_pro_license', licenseKey: 'BD-NEW-VALID-KEY' });
+    const paidMessage = { type: 'rules:add', payload: {
+      blockURL: 'paid.example', redirectURL: '', category: 'social',
+      assignment: { listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
+    } };
+    try {
+      await ready.promise;
+      let basicResponse;
+      const basic = send({ type: 'rules:add', payload: { blockURL: 'basic.example', category: 'social' } })
+        .then(response => { basicResponse = response; return response; });
+      await until(() => basicResponse, 'Free action during license verification');
+      assert.equal((await basic).success, true);
+      const paid = await send(paidMessage);
+      assert.equal(paid.success, false);
+      assert.equal(paid.error.code, 'pro_required');
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+    } finally { release.resolve(); }
+    assert.equal((await activation).success, true);
+    const paid = await send(paidMessage);
+    assert.equal(paid.success, true);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-NEW-VALID-KEY');
+    assert.equal(api.storage.local.data.rules.length, 2);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+  }, { credentials: { isPro: false, licenseKey: null }, local: { activeRuleListId: 'general' } });
+});
+
+test('logout preserves trusted Legacy access for the next queued paid action', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    const responses = await Promise.all([
+      send({ type: 'logout_pro' }),
+      send({ type: 'rules:add', payload: { blockURL: 'legacy.example', category: 'social',
+        assignment: { listId: 'list-1', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } } } })
+    ]);
+    assert.ok(responses.every(response => response.success), JSON.stringify(responses));
+    assert.equal(api.storage.sync.data.credentials.isPro, false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(api.storage.sync.data.credentials.installationDate, '2024-01-01T00:00:00.000Z');
+    assert.equal(api.storage.local.data.rules[0].assignments[0].blockingMode, 'daily_limit');
+    assert.deepEqual(api.dynamicRules, []);
+  }, { credentials: { installationDate: '2024-01-01T00:00:00.000Z', isLegacyUser: false } });
+});
+
+test('an atomic remap storage failure preserves the old budget and releases the rules queue', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let fail = true;
+    api.storage.local.set = async (values, callback) => {
+      if (fail && values.pendingDailyUsageRemaps?.length > 0) { fail = false; throw new Error('temporary journal write failure'); }
+      return originalSet(values, callback);
+    };
+    const message = { type: 'rules:update', payload: {
+      ruleId: 21, assignmentListId: 'list-1', blockURL: 'usage.example',
+      assignment: { listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
+    } };
+    const failed = await send(message);
+    assert.equal(failed.success, false);
+    assert.equal(api.storage.local.data.rules[0].assignments[0].listId, 'list-1');
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:list-1': 840 });
+    const retry = await send(message);
+    assert.equal(retry.success, true);
+    assert.equal(api.storage.local.data.rules[0].assignments[0].listId, 'general');
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:general': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [21]);
+    assert.equal(api.storage.sync.data.credentials.isPro, true);
+  }, { local: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'list-1', { blockURL: 'usage.example' })],
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:list-1': 840 }, lastSample: null } } });
+});
+
+test('deleting after a recovered remap and importing afterward leave only current usage and DNR', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    const ready = createDeferred();
+    const release = createDeferred();
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let first = true;
+    api.storage.local.set = async (values, callback) => {
+      if (first && values.dailyRuleUsage && values.pendingDailyUsageRemaps?.length === 0) {
+        first = false; ready.resolve(); await release.promise;
+      }
+      return originalSet(values, callback);
+    };
+    const moving = send({ type: 'rules:update', payload: { ruleId: 21, assignmentListId: 'list-1', blockURL: 'usage.example',
+      assignment: { listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } } } });
+    let deleting;
+    try {
+      await ready.promise;
+      deleting = send({ type: 'rules:delete', payload: { ruleId: 21 } });
+      await tick();
+    } finally { release.resolve(); }
+    const responses = await Promise.all([moving, deleting]);
+    assert.ok(responses.every(response => response.success), JSON.stringify(responses));
+    assert.deepEqual(api.storage.local.data.rules, []);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.dynamicRules, []);
+    const importing = await send({ type: 'rules:replaceAll', payload: { rules: [makeFocusRule(22, 'general', { blockURL: 'imported.example' })] } });
+    assert.equal(importing.success, true);
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'imported.example');
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+    assert.match(api.dynamicRules[0].condition.urlFilter, /imported\.example/);
+  }, { local: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'list-1', { blockURL: 'usage.example' })],
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:list-1': 840 }, lastSample: null } } });
 });

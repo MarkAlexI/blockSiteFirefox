@@ -100,8 +100,10 @@ function normalizeAssignmentRemaps(remaps = []) {
 }
 
 function applyAssignmentRemaps(state, remaps) {
-  for (const { oldKey, newKey } of remaps) {
-    const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0);
+  for (const { oldRuleId, oldKey, newKey } of remaps) {
+    const legacyKey = String(oldRuleId);
+    const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0,
+      Number(state.usageSeconds[legacyKey]) || 0);
     const newUsage = Math.max(0, Number(state.usageSeconds[newKey]) || 0);
     if (oldUsage > 0 || newUsage > 0) {
       state.usageSeconds[newKey] = Math.max(oldUsage, newUsage);
@@ -109,7 +111,12 @@ function applyAssignmentRemaps(state, remaps) {
     delete state.usageSeconds[oldKey];
     if (state.lastSample) {
       state.lastSample.assignmentKeys = normalizeActiveKeys(
-        state.lastSample.assignmentKeys.map(key => key === oldKey ? newKey : key)
+        state.lastSample.assignmentKeys.flatMap(key => {
+          if (key === oldKey) return [newKey];
+          // Preserve the legacy segment for remaining source assignments while
+          // giving the moved assignment its own segment before migration.
+          return key === legacyKey ? [key, newKey] : [key];
+        })
       );
     }
   }
@@ -166,7 +173,9 @@ export class DailyLimitManager {
           const current = normalizeDailyRuleUsageState(storedUsage[DAILY_RULE_USAGE_KEY]);
           hasTrackedUsage = normalized.some(remap =>
             Number(current.usageSeconds[remap.oldKey]) > 0 ||
-            current.lastSample?.assignmentKeys.includes(remap.oldKey)
+            Number(current.usageSeconds[String(remap.oldRuleId)]) > 0 ||
+            current.lastSample?.assignmentKeys.includes(remap.oldKey) ||
+            current.lastSample?.assignmentKeys.includes(String(remap.oldRuleId))
           );
         } catch {
           // If usage cannot be inspected, fail safe by journaling the commit.
@@ -224,14 +233,34 @@ export class DailyLimitManager {
     });
   }
 
-  async recordSample(activeAssignmentKeys, now = new Date(), { closePreviousSegment = false } = {}) {
+  async recordSample(activeAssignmentKeys, now = new Date(), {
+    closePreviousSegment = false,
+    shouldContinue = () => true
+  } = {}) {
     return this.enqueue(async () => {
+      if (!shouldContinue()) return { superseded: true };
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
+      if (!shouldContinue()) return { superseded: true };
       const raw = result[DAILY_RULE_USAGE_KEY];
       const state = normalizeDailyRuleUsageState(raw, now);
       const timestamp = now.getTime();
       const currentKeys = normalizeActiveKeys(activeAssignmentKeys);
-      const previousKeys = state.lastSample?.assignmentKeys || [];
+      let previousKeys = state.lastSample?.assignmentKeys || [];
+      // Account tab events that arrive before startup finishes v1 migration.
+      // Seed scoped counters from legacy totals and retain a matching segment.
+      for (const key of currentKeys) {
+        if (!key.includes(':')) continue;
+        const legacyKey = key.split(':')[0];
+        const legacySeconds = Number(state.usageSeconds[legacyKey]) || 0;
+        if (legacySeconds > 0) {
+          state.usageSeconds[key] = Math.max(state.usageSeconds[key] || 0, legacySeconds);
+        }
+      }
+      previousKeys = normalizeActiveKeys(previousKeys.flatMap(key => {
+        if (key.includes(':')) return [key];
+        const scoped = currentKeys.filter(candidate => candidate.startsWith(`${key}:`));
+        return scoped.length ? scoped : [key];
+      }));
 
       if (currentKeys.length === 0 && previousKeys.length === 0) {
         if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
@@ -325,6 +354,11 @@ export class DailyLimitManager {
 
   async pruneAssignmentKeys(validAssignmentKeys, now = new Date()) {
     const valid = new Set(normalizeActiveKeys(validAssignmentKeys));
+    // A worker can handle an intent before startup migration finishes. Keep
+    // numeric v1 usage while that rule still has a daily-limit assignment.
+    for (const key of [...valid]) {
+      if (key.includes(':')) valid.add(key.split(':')[0]);
+    }
     for (const remap of this.pendingRemaps || []) valid.add(remap.oldKey);
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
