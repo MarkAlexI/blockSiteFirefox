@@ -179,7 +179,8 @@ export function createRulesMigrationService({
   ruleListsManager,
   localStorage,
   syncStorage,
-  logger
+  logger,
+  dailyLimitManager = null
 }) {
   async function migrateToLocalForDevice() {
     logger.log(
@@ -258,17 +259,22 @@ export function createRulesMigrationService({
   }
 
   async function migrateDailyUsage(rules) {
-    try {
-      const stored = await localStorage.get(DAILY_RULE_USAGE_KEY);
-      const result = migrateDailyUsageSchema(stored[DAILY_RULE_USAGE_KEY], rules);
-      if (result.migrated) {
-        await localStorage.set({ [DAILY_RULE_USAGE_KEY]: result.state });
+    const migrate = async () => {
+      try {
+        const stored = await localStorage.get(DAILY_RULE_USAGE_KEY);
+        const result = migrateDailyUsageSchema(stored[DAILY_RULE_USAGE_KEY], rules);
+        if (result.migrated) {
+          await localStorage.set({ [DAILY_RULE_USAGE_KEY]: result.state });
+        }
+        return result;
+      } catch (error) {
+        logger.error('Error migrating Daily Limit assignment usage:', error);
+        return { migrated: false, state: null, error };
       }
-      return result;
-    } catch (error) {
-      logger.error('Error migrating Daily Limit assignment usage:', error);
-      return { migrated: false, state: null, error };
-    }
+    };
+    // The tracker and remap recovery own the same key. Migration must join
+    // their queue rather than replace accounting with a pre-await snapshot.
+    return dailyLimitManager ? dailyLimitManager.enqueue(migrate) : migrate();
   }
 
   async function migrateAll({ skipDailyUsageMigration = false } = {}) {

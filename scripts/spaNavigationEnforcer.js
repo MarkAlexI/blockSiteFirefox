@@ -14,15 +14,21 @@ export function createSpaNavigationEnforcer({
   shouldSkipUrl = () => false,
   logger = NOOP_LOGGER
 }) {
-  const generations = new Map();
+  const pendingChecks = new Map();
+
+  function invalidate(tabId = null) {
+    if (tabId === null) pendingChecks.clear();
+    else pendingChecks.delete(tabId);
+  }
 
   async function enforce(tabId, observedUrl) {
     if (!Number.isInteger(tabId) || typeof observedUrl !== 'string' || observedUrl === '') {
       return { status: 'invalid_input' };
     }
 
-    const generation = (generations.get(tabId) || 0) + 1;
-    generations.set(tabId, generation);
+    // Identity cannot be reused after a newer completed check removes its entry.
+    const token = {};
+    pendingChecks.set(tabId, token);
     logger.log('SPA navigation: URL change observed.');
 
     try {
@@ -32,7 +38,7 @@ export function createSpaNavigationEnforcer({
       }
 
       const resolution = await resolveNavigation(observedUrl);
-      if (generations.get(tabId) !== generation) {
+      if (pendingChecks.get(tabId) !== token) {
         logger.log('SPA navigation: Superseded check ignored.');
         return { status: 'superseded' };
       }
@@ -50,7 +56,7 @@ export function createSpaNavigationEnforcer({
       }
 
       if (
-        generations.get(tabId) !== generation ||
+        pendingChecks.get(tabId) !== token ||
         currentTab?.url !== observedUrl
       ) {
         logger.log('SPA navigation: Stale URL ignored.');
@@ -65,9 +71,9 @@ export function createSpaNavigationEnforcer({
       logger.log('SPA navigation: Active rule applied.');
       return { status: 'redirected' };
     } finally {
-      if (generations.get(tabId) === generation) generations.delete(tabId);
+      if (pendingChecks.get(tabId) === token) pendingChecks.delete(tabId);
     }
   }
 
-  return { enforce };
+  return { enforce, invalidate };
 }

@@ -1596,7 +1596,7 @@ test('windowless watchdog repairs missing DNR protection and closes matching exi
     api.tabs.values.push({ id: 5, url: 'https://blocked.example/watch' });
     await alarm({ name: 'update_scheduled_rules' });
 
-    assert.equal(fullQueries(), 2);
+    assert.equal(fullQueries(), 3);
     assert.deepEqual(api.dynamicRules.map(item => item.id), [32]);
     assert.deepEqual(api.removedTabs, [5]);
     assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
@@ -1674,12 +1674,12 @@ test('windowless watchdog upgrades old DNR rules without closing the OAuth popup
       [...getProtectedRequestDomains()]
     );
     assert.deepEqual(api.removedTabs, [113]);
-    assert.equal(fullQueries(), 2);
+    assert.equal(fullQueries(), 3);
 
     await alarm({ name: 'update_scheduled_rules' });
 
     assert.equal(api.dnrUpdates.length, initialUpdates + 1);
-    assert.equal(fullQueries(), 2);
+    assert.equal(fullQueries(), 3);
     assert.equal(api.windows, undefined);
   }, {
     local: { rules: [rule], activeRuleListId: 'general' },
@@ -1772,7 +1772,7 @@ test('windowless watchdog enforces a newly exhausted Daily Limit instead of skip
     api.tabs.values.push({ id: 7, url: 'https://limited.example/watch' });
     await alarm({ name: 'update_scheduled_rules' });
 
-    assert.equal(fullQueries(), 1);
+    assert.equal(fullQueries(), 2);
     assert.deepEqual(api.dynamicRules.map(item => item.id), [33]);
     assert.deepEqual(api.removedTabs, [7]);
     assert.equal(api.windows, undefined);
@@ -1797,7 +1797,7 @@ test('windowless watchdog closes tabs when a previously disabled category become
     api.storage.local.data.ruleLists[0].disabledCategories = [];
     await alarm({ name: 'update_scheduled_rules' });
 
-    assert.equal(fullQueries(), 1);
+    assert.equal(fullQueries(), 2);
     assert.deepEqual(api.dynamicRules.map(item => item.id), [34]);
     assert.deepEqual(api.removedTabs, [9]);
     assert.equal(api.windows, undefined);
@@ -1827,7 +1827,7 @@ test('windowless watchdog enforces a newly selected Rule List before suppressing
     await alarm({ name: 'update_scheduled_rules' });
     await alarm({ name: 'update_scheduled_rules' });
 
-    assert.equal(fullQueries(), 1);
+    assert.equal(fullQueries(), 2);
     assert.deepEqual(api.dynamicRules.map(item => item.id), [37]);
     assert.deepEqual(api.removedTabs, [17]);
     assert.equal(api.windows, undefined);
@@ -1902,7 +1902,7 @@ test('windowless rule creation still immediately reconciles matching existing ta
     });
 
     assert.equal(response.success, true);
-    assert.equal(fullQueries(), 1);
+    assert.equal(fullQueries(), 2);
     assert.deepEqual(api.removedTabs, [15]);
     assert.deepEqual(api.dynamicRules.map(item => item.id), [response.rule.id]);
     assert.equal(api.windows, undefined);
@@ -5276,6 +5276,7 @@ test('worker Whitelist Focus closes lookalike sites and protected-name bypass UR
     assert.equal(response.success, true);
     assert.deepEqual(api.removedTabs, [2, 3]);
 
+    api.tabs.values.push({ id: 9, active: false, url: 'https://evil.example/?next=allowed.example' });
     await api.tabs.onUpdated.listeners[0](9, {
       url: 'https://evil.example/?next=allowed.example'
     }, { id: 9, active: false, url: 'https://evil.example/?next=allowed.example' });
@@ -5344,7 +5345,7 @@ test('windowless minute watchdog activates overnight rules, survives midnight, a
       await alarm({ name: 'update_scheduled_rules' });
       assert.deepEqual(api.dynamicRules.map(rule => rule.id), [401]);
       assert.deepEqual(api.removedTabs, [4012]);
-      assert.equal(fullQueries(), 1);
+      assert.equal(fullQueries(), 2);
 
       for (const now of [
         new Date(2026, 7, 3, 23, 59),
@@ -5355,7 +5356,7 @@ test('windowless minute watchdog activates overnight rules, survives midnight, a
         await alarm({ name: 'update_scheduled_rules' });
         assert.deepEqual(api.dynamicRules.map(rule => rule.id), [401]);
         assert.equal(api.dnrUpdates.length, 1);
-        assert.equal(fullQueries(), 1);
+        assert.equal(fullQueries(), 2);
       }
 
       clock.set(new Date(2026, 7, 4, 6, 0));

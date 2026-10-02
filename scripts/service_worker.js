@@ -337,10 +337,15 @@ const dnrSynchronizer = createDnrSynchronizer({
   getAccess: getFocusAccess,
   isRuleActiveNow,
   createDnrRule,
-  closeTabsMatchingRules,
+  closeTabsMatchingRules: (patterns, shouldContinue) => {
+    const generation = blockingDecisionGeneration;
+    return closeTabsMatchingRules(patterns,
+      () => shouldContinue() && generation === blockingDecisionGeneration);
+  },
   declarativeNetRequest: browser.declarativeNetRequest,
   logger,
-  onSyncResult: recordDnrSyncResult
+  onSyncResult: recordDnrSyncResult,
+  onSyncRequested: invalidateBlockingDecisions
 });
 
 const spaNavigationEnforcer = createSpaNavigationEnforcer({
@@ -367,6 +372,7 @@ const rulesMigrationService = createRulesMigrationService({
   ruleListsManager,
   localStorage: browser.storage.local,
   syncStorage: browser.storage.sync,
+  dailyLimitManager,
   logger
 });
 
@@ -414,7 +420,9 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
   }
 
   const transitionGeneration = focusSessionTransitionGeneration;
-  const shouldContinue = () => transitionGeneration === focusSessionTransitionGeneration;
+  const blockingGeneration = blockingDecisionGeneration;
+  const shouldContinue = () => transitionGeneration === focusSessionTransitionGeneration &&
+    blockingGeneration === blockingDecisionGeneration;
   
   const { focusActive, focusMode } = await getFocusSessionState();
   if (!shouldContinue() || !focusActive || focusMode !== 'whitelist') {
@@ -442,6 +450,14 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
     );
     if (isUrlInWhitelist(tabUrl, currentWhitelistRules)) return true;
 
+    let currentTab;
+    try {
+      currentTab = await browser.tabs.get(tabId);
+    } catch {
+      return false;
+    }
+    if (!shouldContinue() || currentTab?.url !== tabUrl) return false;
+
     logger.log(`Focus Whitelist: Closing non-whitelisted tab ${tabId} (${tabUrl})`);
     await browser.tabs.remove(tabId).catch(() => {});
   }
@@ -453,15 +469,40 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
  * Scans all currently open tabs and closes any tab that does not match active Whitelist rules.
  */
 async function checkAllTabsAgainstWhitelist(shouldContinue = () => true) {
-  if (!shouldContinue()) return;
+  const generation = blockingDecisionGeneration;
+  const isCurrent = () => shouldContinue() && generation === blockingDecisionGeneration;
+  if (!isCurrent()) return;
   const rules = await rulesManager.getRules();
-  if (!shouldContinue()) return;
+  if (!isCurrent()) return;
   const whitelistRules = rules.filter(r =>
     r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
   );
   
-  await closeNonWhitelistedTabs(whitelistRules, shouldContinue);
+  await closeNonWhitelistedTabs(whitelistRules, isCurrent);
 }
+
+let blockingDecisionGeneration = 0;
+function invalidateBlockingDecisions() {
+  blockingDecisionGeneration += 1;
+  spaNavigationEnforcer.invalidate();
+}
+
+// Storage events also cover changes originating in another extension page or
+// sync. They invalidate delayed decisions without adding background polling.
+browser.storage.onChanged.addListener((changes, areaName) => {
+  const keys = areaName === 'local'
+    ? ['rules', 'ruleLists', 'activeRuleListId', 'focusSession']
+    : areaName === 'sync' ? ['credentials'] : [];
+  const usageChange = areaName === 'local' ? changes.dailyRuleUsage : null;
+  // Sample timestamps and initializing an empty usage map do not change a
+  // blocking decision. Avoid invalidating a read that initialized that map.
+  const usageChanged = usageChange && JSON.stringify(usageChange.oldValue?.usageSeconds || {}) !==
+    JSON.stringify(usageChange.newValue?.usageSeconds || {});
+  if (usageChanged || keys.some(key => Object.hasOwn(changes, key))) {
+    invalidateBlockingDecisions();
+    dnrSynchronizer.invalidateState();
+  }
+});
 
 let stateTransitionTail = Promise.resolve();
 let proStatusTransitionGeneration = 0;
@@ -476,6 +517,8 @@ const INACTIVE_FOCUS_SESSION = Object.freeze({
   focusMode: 'blacklist'
 });
 
+// Lock order: state transition -> rules mutation -> daily usage. Network
+// license verification remains outside this queue; only its commit joins it.
 function enqueueStateTransition(task) {
   const result = stateTransitionTail.then(task, task);
   stateTransitionTail = result.catch(() => {});
@@ -494,6 +537,13 @@ function enqueueProStatusTransition(task) {
 
 function enqueueFocusSessionTransition(task) {
   return enqueueStateTransition(task);
+}
+
+function enqueueRulesTransition(task) {
+  return enqueueStateTransition(() => {
+    invalidateBlockingDecisions();
+    return task();
+  });
 }
 
 async function runFocusCompletionTask(name, operation) {
@@ -1171,13 +1221,19 @@ if (browser.contextMenus) {
     }
     
     try {
-      await rulesMutationService.addRule({
-        blockURL: decodeURIComponent(ruleValue),
-        redirectURL: '',
-        schedule: null,
-        category: 'social',
-        isWhitelist: false
+      const created = await enqueueRulesTransition(async () => {
+        // The initial UI check can precede a queued logout.
+        if (!await ProManager.hasPaidAccess()) return false;
+        await rulesMutationService.addRule({
+          blockURL: decodeURIComponent(ruleValue),
+          redirectURL: '',
+          schedule: null,
+          category: 'social',
+          isWhitelist: false
+        });
+        return true;
       });
+      if (!created) return;
       
       logger.log(
         `Blocked ${target.type} via Context Menu:`,
@@ -1311,6 +1367,7 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
         return ProManager.getCredentials();
       }
 
+      invalidateBlockingDecisions();
       logger.log(`Service worker received Pro status update: ${isPro}`);
       const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
       const shouldContinue = () => transitionGeneration === proStatusTransitionGeneration;
@@ -1464,26 +1521,28 @@ async function initializeExtension(details) {
   await showUpdates(details);
   
   try {
-    if (details.reason === 'install') {
-      const initialized = await ProManager.initializeInstallationMetadata({
-        fallbackInstallationDate: new Date().toISOString()
-      });
-      logger.log(`New install: isLegacyUser set to ${initialized.credentials.isLegacyUser}`);
-    } else if (details.reason === 'update') {
-      const migration = await ProManager.initializeInstallationMetadata({
-        fallbackInstallationDate: new Date(0).toISOString()
-      });
-      if (migration.changed) {
-        logger.log('Migrated existing installation metadata');
+    await enqueueProStatusTransition(async () => {
+      if (details.reason === 'install') {
+        const initialized = await ProManager.initializeInstallationMetadata({
+          fallbackInstallationDate: new Date().toISOString()
+        });
+        logger.log(`New install: isLegacyUser set to ${initialized.credentials.isLegacyUser}`);
+      } else if (details.reason === 'update') {
+        const migration = await ProManager.initializeInstallationMetadata({
+          fallbackInstallationDate: new Date(0).toISOString()
+        });
+        if (migration.changed) {
+          logger.log('Migrated existing installation metadata');
+        }
+      } else {
+        await ProManager.getCredentials({ throwOnError: true });
       }
-    } else {
-      await ProManager.getCredentials({ throwOnError: true });
-    }
-    
-    const ruleListRestored = await restoreFreeRuleListAccess();
-    await restoreFreeFocusAccess(() => true, { ruleListRestored });
-    const access = await ProManager.getAccess();
-    await updateContextMenu(access.isPro || access.isLegacyUser);
+
+      const ruleListRestored = await restoreFreeRuleListAccess();
+      await restoreFreeFocusAccess(() => true, { ruleListRestored, alreadySerialized: true });
+      const access = await ProManager.getAccess();
+      await updateContextMenu(access.isPro || access.isLegacyUser);
+    });
   } catch (error) {
     logger.info('Error handling install/update for legacy:', error);
   }
@@ -1770,12 +1829,14 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (RULES_INTENT_TYPES.has(message.type)) {
     (async () => {
       try {
-        const recovered = await recoverPendingDailyUsage('rules_intent');
-        const committed = await handleRulesIntent(message);
-        const result = recovered ? committed : {
-          ...committed,
-          dailyUsageSyncPending: true
-        };
+        const result = await enqueueRulesTransition(async () => {
+          const recovered = await recoverPendingDailyUsage('rules_intent');
+          const committed = await handleRulesIntent(message);
+          return recovered ? committed : {
+            ...committed,
+            dailyUsageSyncPending: true
+          };
+        });
         await settleRulesIntentPostCommitTasks(message.type, result);
         sendResponse({ success: true, ...result });
       } catch (error) {
@@ -2080,6 +2141,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return true;
     }
 
+    invalidateBlockingDecisions();
     const transitionGeneration = ++focusSessionTransitionGeneration;
     (async () => {
       try {
@@ -2117,6 +2179,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'stop_focus_session') {
+    invalidateBlockingDecisions();
     const transitionGeneration = ++focusSessionTransitionGeneration;
     (async () => {
       try {
@@ -2175,7 +2238,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'delete_all_rules') {
     (async () => {
       try {
-        const result = await rulesMutationService.clearRules();
+        const result = await enqueueRulesTransition(() => rulesMutationService.clearRules());
         sendResponse({ success: true, ...result });
       } catch (error) {
         sendResponse({

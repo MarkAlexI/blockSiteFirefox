@@ -142,7 +142,8 @@ export function createDnrSynchronizer({
   closeTabsMatchingRules,
   declarativeNetRequest,
   logger,
-  onSyncResult = async () => {}
+  onSyncResult = async () => {},
+  onSyncRequested = () => {}
 }) {
   let rulesSyncPromise = null;
   let syncRequestedAgain = false;
@@ -289,41 +290,46 @@ export function createDnrSynchronizer({
     };
 
     do {
-      syncRequestedAgain = false;
-      const generation = syncGeneration;
-      activeTabReconciliation = pendingTabReconciliation;
-      pendingTabReconciliation = false;
+      do {
+        syncRequestedAgain = false;
+        const generation = syncGeneration;
+        activeTabReconciliation = pendingTabReconciliation;
+        pendingTabReconciliation = false;
+
+        try {
+          lastResult = await syncActiveRulesOnce(generation, activeTabReconciliation);
+        } catch (error) {
+          logger.info('Error updating active rules:', error);
+          const code = getDnrErrorCode(error);
+          lastResult = {
+            success: false,
+            changed: false,
+            removed: 0,
+            added: 0,
+            error: error?.message || String(error),
+            errorName: error?.name || 'Error',
+            ...(code ? { code } : {}),
+            ...(error?.capacity ? { capacity: error.capacity } : {})
+          };
+        } finally {
+          activeTabReconciliation = false;
+        }
+      } while (syncRequestedAgain);
 
       try {
-        lastResult = await syncActiveRulesOnce(generation, activeTabReconciliation);
+        await onSyncResult(lastResult);
       } catch (error) {
-        logger.info('Error updating active rules:', error);
-        const code = getDnrErrorCode(error);
-        lastResult = {
-          success: false,
-          changed: false,
-          removed: 0,
-          added: 0,
-          error: error?.message || String(error),
-          errorName: error?.name || 'Error',
-          ...(code ? { code } : {}),
-          ...(error?.capacity ? { capacity: error.capacity } : {})
-        };
-      } finally {
-        activeTabReconciliation = false;
+        logger.warn('Failed to record DNR sync diagnostics:', error);
       }
+      // Reporting also awaits storage. Requests arriving there belong to this
+      // drain, and every caller must receive the final browser result.
     } while (syncRequestedAgain);
-
-    try {
-      await onSyncResult(lastResult);
-    } catch (error) {
-      logger.warn('Failed to record DNR sync diagnostics:', error);
-    }
 
     return lastResult;
   }
 
   function requestSync({ reconcileExistingTabs = true } = {}) {
+    onSyncRequested();
     pendingTabReconciliation ||= reconcileExistingTabs !== false;
     syncGeneration += 1;
     if (rulesSyncPromise) {
@@ -335,7 +341,7 @@ export function createDnrSynchronizer({
     }
 
     rulesSyncPromise = runRulesSyncLoop()
-      .finally(() => {
+      .then(result => {
         rulesSyncPromise = null;
 
         // Covers a request arriving after the loop's final condition check but
@@ -343,9 +349,23 @@ export function createDnrSynchronizer({
         if (syncRequestedAgain) {
           return requestSync({ reconcileExistingTabs: pendingTabReconciliation });
         }
+        return result;
+      }, error => {
+        rulesSyncPromise = null;
+        throw error;
       });
 
     return rulesSyncPromise;
+  }
+
+  function invalidateState() {
+    // A storage change during an active drain invalidates its tab snapshot and
+    // schedules a fresh pass. Idle changes do not start background work here.
+    syncGeneration += 1;
+    if (rulesSyncPromise) {
+      pendingTabReconciliation ||= activeTabReconciliation;
+      syncRequestedAgain = true;
+    }
   }
 
   async function inspectState() {
@@ -402,6 +422,7 @@ export function createDnrSynchronizer({
 
   return {
     requestSync,
+    invalidateState,
     validateIntegrity,
     inspectState,
     validateRuleCapacity,

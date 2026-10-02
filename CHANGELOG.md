@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.2] - 2026-10-01
+
+### Fixed
+- Concurrent DNR requests now receive the result of the final synchronization, including requests received while diagnostics are being saved. Failed imports restore the previous rules instead of reporting a stale success.
+- Installation metadata migration and rule mutations share the worker's Pro/Focus transition queue, preserving license activation and ordering paid actions with logout.
+- Daily Limit migration joins the accounting queue so concurrent tab events cannot lose recorded usage.
+- SPA checks use unique, non-reusable tokens and discard stale decisions after rules, profiles, Focus, access, or usage changes.
+- Tab cleanup checks current URLs again before removal, including Whitelist Focus, and abandons superseded blocking snapshots.
+
+### Tests and compatibility
+- Added controlled-delay worker regression tests, including native storage-change notifications and windowless Firefox Android behavior.
+- Existing rules, license and Legacy behavior, permissions, scheduled Focus, and telemetry privacy are preserved. This patch adds no new update welcome messages.
+
 ## [5.3.1] - 2026-10-01
 
 ### Fixed

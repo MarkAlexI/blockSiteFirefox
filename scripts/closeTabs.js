@@ -39,6 +39,21 @@ async function createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue) {
   return shouldContinue();
 }
 
+async function removeStillMatchingTabs(ids, matches, shouldContinue) {
+  if (!shouldContinue()) return 0;
+  // Safety-tab creation and other browser calls can yield to navigation. IDs
+  // alone do not prove that a tab still has the URL used by the first snapshot.
+  const currentTabs = await browser.tabs.query({});
+  if (!shouldContinue()) return 0;
+  const candidates = new Set(ids);
+  const currentIds = currentTabs
+    .filter(tab => candidates.has(tab.id) && tab.url && matches(tab.url))
+    .map(tab => tab.id);
+  if (currentIds.length === 0 || !shouldContinue()) return 0;
+  await browser.tabs.remove(currentIds);
+  return currentIds.length;
+}
+
 export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => true) {
   const validPatterns = blockURLs
     .map(url => url?.trim().toLowerCase())
@@ -64,8 +79,9 @@ export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => t
     if (tabsToRemoveIds.length === 0) return;
     
     if (!await createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue)) return;
-    await browser.tabs.remove(tabsToRemoveIds);
-    logger.log(`Tabs successfully closed: ${tabsToRemoveIds.length}`);
+    const removed = await removeStillMatchingTabs(tabsToRemoveIds,
+      url => validPatterns.some(pattern => doesUrlMatchBlockRule(url, pattern)), shouldContinue);
+    logger.log(`Tabs successfully closed: ${removed}`);
     
   } catch (e) {
     logger.warn("Error during batch tab closure:", e);
@@ -102,8 +118,9 @@ export async function closeNonWhitelistedTabs(whitelistRules, shouldContinue = (
     if (tabsToRemoveIds.length === 0) return;
 
     if (!await createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue)) return;
-    await browser.tabs.remove(tabsToRemoveIds);
-    logger.log(`Focus Whitelist: Batch closed non-whitelisted tabs: ${tabsToRemoveIds.length}`);
+    const removed = await removeStillMatchingTabs(tabsToRemoveIds,
+      url => !isBlockedURL([{ url }]) && !isUrlInWhitelist(url, whitelistRules), shouldContinue);
+    logger.log(`Focus Whitelist: Batch closed non-whitelisted tabs: ${removed}`);
 
   } catch (e) {
     logger.warn("Error during non-whitelisted tabs closure:", e);
