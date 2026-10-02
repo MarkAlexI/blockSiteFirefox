@@ -5,6 +5,7 @@ import { createExtensionApi, withExtensionEnvironment } from './helpers/extensio
 import { getLocalDateKey } from '../rules/dailyLimitManager.js';
 import { LICENSE_SYNC_TIMEOUT_MS, MAX_RULES_LIMIT, VERIFY_API_URL } from '../utils/constants.js';
 import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
+import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
@@ -119,9 +120,9 @@ async function withControlledClock(initial, callback) {
   }
 }
 
-function sendWorkerMessage(listener, message) {
+function sendWorkerMessage(listener, message, sender = {}) {
   return new Promise((resolve, reject) => {
-    if (listener(message, {}, resolve) !== true) {
+    if (listener(message, sender, resolve) !== true) {
       reject(new Error('Worker did not keep its response channel open: ' + message.type));
     }
   });
@@ -263,7 +264,7 @@ async function withWorker(callback, {
       if (!supportsWindows) assert.equal(api.windows, undefined);
       await callback({
         api,
-        send: message => sendWorkerMessage(api.runtime.onMessage.listeners[0], message),
+        send: (message, sender) => sendWorkerMessage(api.runtime.onMessage.listeners[0], message, sender),
         alarm: alarm => api.alarms.onAlarm.listeners[0](alarm),
         startup: () => api.runtime.onStartup.listeners[0]()
       });
@@ -5926,5 +5927,159 @@ test('scheduled focus rolls back if its completion alarm cannot be created', asy
       assert.equal(api.storage.local.data.focusSession.focusActive, false);
       assert.equal(api.alarmValues.has('end_focus_session'), false);
     }, { local: { focusSchedule: scheduledFocusState(), rules: [makeFocusRule(1,'list-1')] } });
+  });
+});
+
+async function withRedirectWorker(callback) {
+  await withWorker(async context => {
+    const { StatisticsManager } = await import('../pro/statisticsManager.js');
+    const originalRecord = StatisticsManager.recordRedirect;
+    const records = [];
+    StatisticsManager.recordRedirect = async (from, to) => { records.push({ from, to }); };
+    try {
+      const { api } = context;
+      const blockURL = 'example.com/пошук%20?q=a&b=1';
+      const target = 'https://destination.example/план?q=a%20b&next=%2Fhome#today';
+      const rule = createDnrRuleFactory(path => api.runtime.getURL(path))(7, blockURL, target);
+      api.dynamicRules = [rule];
+      const sender = { id: api.runtime.id, url: rule.action.redirect.url, frameId: 0, tab: { id: 4 } };
+      await callback({ ...context, rule, sender, blockURL, target: new URL(target).href, records, StatisticsManager });
+    } finally {
+      StatisticsManager.recordRedirect = originalRecord;
+    }
+  });
+}
+
+test('redirect authorization returns the installed HTTP(S) target with one DNR read and trusted statistics', async () => {
+  await withRedirectWorker(async ({ api, send, sender, rule, blockURL, target, records }) => {
+    let reads = 0;
+    api.declarativeNetRequest.getDynamicRules = async () => { reads += 1; return [rule]; };
+    for (const destination of [target, 'http://destination.example:8080/path?q=1#ok']) {
+      const url = new URL(rule.action.redirect.url);
+      url.searchParams.set('to', destination);
+      rule.action.redirect.url = url.href;
+      sender.url = url.href;
+      const response = await send({ type: 'record_redirect', from: 'fake.example', to: 'https://phishing.example' }, sender);
+      assert.deepEqual(response, { success: true, to: destination });
+      await Promise.resolve();
+      assert.deepEqual(records.at(-1), { from: blockURL, to: destination });
+    }
+    assert.equal(reads, 2, 'one native read per redirect');
+    assert.equal(records.length, 2);
+  });
+});
+
+test('redirect authorization rejects forged URLs and sender contexts without statistics', async () => {
+  await withRedirectWorker(async ({ api, send, sender, records }) => {
+    const changedTarget = new URL(sender.url);
+    changedTarget.searchParams.set('to', 'https://phishing.example');
+    const changedFrom = new URL(sender.url);
+    changedFrom.searchParams.set('from', 'another.example');
+    const duplicated = new URL(sender.url);
+    duplicated.searchParams.append('to', 'https://phishing.example');
+    const senders = [
+      {}, { ...sender, id: 'other-extension' }, { ...sender, frameId: 2 },
+      { ...sender, url: 'https://outside.example/redirect.html' },
+      { ...sender, url: api.runtime.getURL('options/options.html') },
+      { ...sender, url: api.runtime.getURL('redirect.html') },
+      { ...sender, url: 'not a URL' }, { ...sender, url: changedTarget.href },
+      { ...sender, url: changedFrom.href }, { ...sender, url: duplicated.href },
+      { ...sender, url: sender.url + '&extra=1' }, { ...sender, url: sender.url + '#changed' }
+    ];
+    for (const candidate of senders) {
+      assert.deepEqual(await send({ type: 'record_redirect', redirectUrl: sender.url, from: 'fake', to: 'https://phishing.example' }, candidate), { success: false });
+    }
+    assert.deepEqual(records, []);
+  });
+});
+
+test('redirect authorization uses native active DNR rules rather than stored or removed rules', async () => {
+  await withRedirectWorker(async ({ api, send, sender, rule, records }) => {
+    api.storage.local.data.rules = [{ id: 7, blockURL: 'example.com', redirectURL: 'https://destination.example', disabledByUser: true }];
+    for (const rules of [[], [{ ...rule, action: { type: 'allow' } }], [{ ...rule, condition: { resourceTypes: ['sub_frame'] } }]]) {
+      api.dynamicRules = rules;
+      assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false });
+    }
+    assert.deepEqual(records, []);
+  });
+});
+
+test('redirect authorization rejects unsupported or malformed installed destinations', async () => {
+  await withRedirectWorker(async ({ api, send, sender, rule, records }) => {
+    for (const to of ['javascript:alert(1)', 'data:text/html,test', 'ftp://example.com/file', 'file:///tmp/page', 'https://', 'destination.example', '']) {
+      const url = new URL(sender.url);
+      url.searchParams.set('to', to);
+      sender.url = url.href;
+      rule.action.redirect.url = url.href;
+      api.dynamicRules = [rule];
+      assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false }, to);
+    }
+    assert.deepEqual(records, []);
+  });
+});
+
+test('redirect authorization fails closed when the DNR read fails', async () => {
+  await withRedirectWorker(async ({ api, send, sender, records }) => {
+    api.declarativeNetRequest.getDynamicRules = async () => { throw new Error('DNR unavailable'); };
+    assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false });
+    assert.deepEqual(records, []);
+  });
+});
+
+test('redirect authorization rejects a rule snapshot invalidated during its DNR read', async () => {
+  await withRedirectWorker(async ({ api, send, sender, rule, records }) => {
+    const read = createDeferred();
+    let reads = 0;
+    api.declarativeNetRequest.getDynamicRules = () => { reads += 1; return read.promise; };
+    const response = send({ type: 'record_redirect' }, sender);
+    response.catch(() => {});
+    await Promise.resolve();
+    assert.equal(reads, 1);
+    api.dynamicRules = [];
+    api.storage.onChanged.emit({ rules: { oldValue: [{ id: rule.id }], newValue: [] } }, 'local');
+    read.resolve([rule]);
+    assert.deepEqual(await response, { success: false });
+    assert.deepEqual(records, []);
+    assert.equal(reads, 1, 'no retry or stale cache');
+  });
+});
+
+test('redirect authorization replies before a held statistics write and contains statistics failure', async () => {
+  await withRedirectWorker(async ({ api, send, sender, target, StatisticsManager }) => {
+    const statistics = createDeferred();
+    let started = 0;
+    StatisticsManager.recordRedirect = () => { started += 1; return statistics.promise; };
+    assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: true, to: target });
+    await Promise.resolve();
+    assert.equal(started, 1, 'statistics started while its write remains pending');
+    statistics.reject(new Error('Statistics unavailable'));
+    await new Promise(resolve => setImmediate(resolve));
+    api.dynamicRules = [];
+    assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false });
+    assert.equal(started, 1);
+  });
+});
+
+test('redirect authorization updates real statistics only for an authorized installed rule', async () => {
+  await withWorker(async ({ api, send }) => {
+    const rule = createDnrRuleFactory(path => api.runtime.getURL(path))(3, 'source.example', 'https://chosen.example/path');
+    api.dynamicRules = [rule];
+    const sender = { id: api.runtime.id, url: rule.action.redirect.url, frameId: 0 };
+    const forged = new URL(sender.url);
+    forged.searchParams.set('to', 'https://phishing.example');
+    assert.deepEqual(await send({ type: 'record_redirect' }, { ...sender, url: forged.href }), { success: false });
+    assert.equal(api.storage.local.data.statistics, undefined);
+    assert.deepEqual(await send({ type: 'record_redirect', from: 'fake', to: 'https://phishing.example' }, sender), {
+      success: true, to: 'https://chosen.example/path'
+    });
+    await Promise.resolve();
+    const { StatisticsManager } = await import('../pro/statisticsManager.js');
+    await StatisticsManager.mutationTail;
+    assert.equal(api.storage.local.data.statistics.totalRedirects, 1);
+    assert.equal(api.storage.local.data.statistics.redirectsToday, 1);
+    api.dynamicRules = [];
+    assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false });
+    await StatisticsManager.mutationTail;
+    assert.equal(api.storage.local.data.statistics.totalRedirects, 1);
   });
 });

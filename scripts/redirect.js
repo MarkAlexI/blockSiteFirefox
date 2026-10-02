@@ -2,35 +2,19 @@ import Logger from '../utils/logger.js';
 
 const logger = new Logger('Redirect');
 
-try {
-  const url = new URL(window.location.href);
-  const fromUrl = url.searchParams.get('from');
-  const toUrl = url.searchParams.get('to');
-  
-  if (fromUrl && toUrl) {
-    try {
-      const request = browser.runtime.sendMessage({
-        type: 'record_redirect',
-        from: decodeURIComponent(fromUrl),
-        to: toUrl
-      });
-      if (request && typeof request.catch === 'function') {
-        request.catch(error => {
-          logger.info('Redirect record message was not delivered:', error);
-        });
-      }
-    } catch (error) {
-      logger.info('Redirect record message was not delivered:', error);
+async function redirect() {
+  try {
+    const response = await browser.runtime.sendMessage({ type: 'record_redirect' });
+    const destination = response?.success === true && typeof response.to === 'string'
+      ? new URL(response.to) : null;
+    if (destination && (destination.protocol === 'http:' || destination.protocol === 'https:')) {
+      location.replace(destination.href);
+      return;
     }
-    
-    if (toUrl.startsWith('http://') || toUrl.startsWith('https://')) {
-      location.replace(toUrl);
-    } else {
-      location.replace('https://' + toUrl);
-    }
+  } catch {
+    logger.info('Redirect authorization was not available.');
   }
-  
-} catch (error) {
-  logger.error('Error in redirect script:', error);
-  location.replace(browser.runtime.getURL("blocked.html"));
+  location.replace(browser.runtime.getURL('blocked.html'));
 }
+
+redirect();

@@ -18,6 +18,7 @@ import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer } from './dnrSynchronizer.js';
 import { createSpaNavigationEnforcer } from './spaNavigationEnforcer.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
+import { authorizeRedirect } from '../utils/redirectAuthorization.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { BLOCKING_MODE_DAILY_LIMIT } from '../rules/blockingMode.js';
 import { getAssignmentUsageKey, getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
@@ -2016,11 +2017,22 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   if (message.type === 'record_redirect') {
-    void runAsyncHandler(
-      ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
-      () => StatisticsManager.recordRedirect(message.from, message.to)
-    );
-    return;
+    const generation = blockingDecisionGeneration;
+    const isCurrent = () => generation === blockingDecisionGeneration;
+    authorizeRedirect({ sender, runtimeApi: browser.runtime, dnrApi: browser.declarativeNetRequest, isCurrent })
+      .then(verified => {
+        if (!verified || !isCurrent()) {
+          sendResponse({ success: false });
+          return;
+        }
+        sendResponse({ success: true, to: verified.to });
+        // Statistics must not hold the redirect response open.
+        void runAsyncHandler(
+          ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
+          () => StatisticsManager.recordRedirect(verified.from, verified.to)
+        );
+      }, () => sendResponse({ success: false }));
+    return true;
   }
   
   if (message.type === 'activate_pro_license') {

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.5] - 2026-10-02
+
+### Fixed
+- Custom redirect pages accept only HTTP(S) destinations from an exact matching redirect action in the currently installed dynamic DNR rules.
+- Background validates the native message sender, rejects snapshots invalidated during the DNR read, and records statistics only from verified rule data.
+- Denied or unavailable authorization falls back to the packaged blocked page without redirect statistics.
+
+### Tests and compatibility
+- One background request and one DNR read per valid redirect; statistics persistence does not delay the reply. No polling or destination cache.
+- Added redirect authorization and controlled-delay regressions. Retained web-accessible redirect resources required by DNR and the existing Firefox error boundary.
+- Updated release metadata and E2E version defaults. Browser E2E failures and real browser timing are not addressed by this patch.
+
 ## [5.3.4] - 2026-10-02
 
 ### Fixed

@@ -89,6 +89,7 @@ async function exerciseRedirect(href, configureApi = null) {
     await withExtensionEnvironment(api, async () => {
       const suffix = redirectImportId++ === 0 ? '' : `?case=${redirectImportId}`;
       await import(`../scripts/redirect.js${suffix}`);
+      await new Promise(resolve => setImmediate(resolve));
     }, { window: { location } });
   } finally {
     console.error = previousError;
@@ -99,35 +100,38 @@ async function exerciseRedirect(href, configureApi = null) {
   return { api, redirected };
 }
 
-test('redirect pages record the source and add HTTPS to destinations without a scheme', async () => {
+test('redirect pages request authorization rather than trusting scheme-less query targets', async () => {
   const source = encodeURIComponent('https://source.example/team');
   const destination = encodeURIComponent('target.example/path');
   const result = await exerciseRedirect(`https://extension.example/redirect.html?from=${source}&to=${destination}`);
-  assert.deepEqual(result.api.messages, [{
-    type: 'record_redirect',
-    from: 'https://source.example/team',
-    to: 'target.example/path'
-  }]);
-  assert.deepEqual(result.redirected, ['https://target.example/path']);
+  assert.deepEqual(result.api.messages, [{ type: 'record_redirect' }]);
+  assert.deepEqual(result.redirected, ['extension://test-extension-id/blocked.html']);
 });
 
-test('redirect pages preserve explicit HTTPS destinations and skip incomplete requests', async () => {
+test('redirect pages use verified HTTPS destinations and reject incomplete requests', async () => {
   const valid = await exerciseRedirect(
-    'https://extension.example/redirect.html?from=https%3A%2F%2Fsource.example%2F&to=https%3A%2F%2Fsafe.example%2F'
+    'https://extension.example/redirect.html?from=https%3A%2F%2Fsource.example%2F&to=https%3A%2F%2Fsafe.example%2F',
+    api => {
+      api.runtime.sendMessage = message => {
+        api.messages.push(message);
+        return Promise.resolve({ success: true, to: 'https://safe.example/' });
+      };
+    }
   );
   assert.deepEqual(valid.redirected, ['https://safe.example/']);
+  assert.deepEqual(valid.api.messages, [{ type: 'record_redirect' }]);
 
   const incomplete = await exerciseRedirect('https://extension.example/redirect.html?from=https%3A%2F%2Fsource.example%2F');
-  assert.deepEqual(incomplete.redirected, []);
-  assert.deepEqual(incomplete.api.messages, []);
+  assert.deepEqual(incomplete.redirected, ['extension://test-extension-id/blocked.html']);
+  assert.deepEqual(incomplete.api.messages, [{ type: 'record_redirect' }]);
 });
 
-test('redirect delivery failures do not prevent navigation to the requested safe destination', async () => {
+test('redirect delivery failures fall back to the packaged blocked page', async () => {
   const result = await exerciseRedirect(
     'https://extension.example/redirect.html?from=https%3A%2F%2Fsource.example%2F&to=safe.example',
     api => { api.runtime.sendMessage = () => { throw new Error('worker unavailable'); }; }
   );
-  assert.deepEqual(result.redirected, ['https://safe.example']);
+  assert.deepEqual(result.redirected, ['extension://test-extension-id/blocked.html']);
 });
 
 test('an invalid redirect-page URL falls back to the packaged blocked page', async () => {
