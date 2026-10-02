@@ -537,3 +537,161 @@ test('a queued paid rule is rejected after logout, while a basic Free rule still
     assert.equal(api.storage.local.data.rules.length, 1);
   }, { local: { activeRuleListId: 'general' } });
 });
+
+for (const supportsWindows of [true, false]) {
+  test(`single-tab Whitelist preserves its last window with windows API ${supportsWindows}`, { timeout: 5000 }, async () => {
+    await withWorker(async ({ api }) => {
+      const url = 'https://blocked.example/new';
+      api.tabs.values = [{ id: 10, url, windowId: 1, active: false }];
+      await api.tabs.onUpdated.listeners[0](10, { url }, api.tabs.values[0]);
+      assert.deepEqual(api.removedTabs, [10]);
+      assert.deepEqual(api.createdTabs, [supportsWindows ? { windowId: 1 } : {}]);
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    }, { supportsWindows, local: {
+      activeRuleListId: 'general', rules: [makeFocusRule(21, 'general', { blockURL: 'allowed.example', isWhitelist: true })],
+      focusSession: { focusActive: true, focusEndTime: Date.now() + 600000, isHardcore: false, focusMode: 'whitelist' }
+    } });
+  });
+}
+
+test('single-tab Whitelist preserves a pending OAuth navigation', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api }) => {
+    const url = 'https://blocked.example/new';
+    api.tabs.values = [{ id: 10, url, pendingUrl: 'https://accounts.google.com/o/oauth2/auth', active: false }];
+    await api.tabs.onUpdated.listeners[0](10, { url }, api.tabs.values[0]);
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.updatedTabs, []);
+    assert.deepEqual(api.createdTabs, []);
+  }, { local: {
+    activeRuleListId: 'general', rules: [makeFocusRule(21, 'general', { blockURL: 'allowed.example', isWhitelist: true })],
+    focusSession: { focusActive: true, focusEndTime: Date.now() + 600000, isHardcore: false, focusMode: 'whitelist' }
+  } });
+});
+
+const staleSpaCases = [
+  { name: 'disable rule', change: { type: 'rules:toggle', payload: { ruleId: 21, listId: 'general' } },
+    check: api => assert.equal(api.storage.local.data.rules[0].assignments[0].disabledByUser, true) },
+  { name: 'edit target', change: { type: 'rules:update', payload: { ruleId: 21, assignmentListId: 'general', blockURL: 'new.example' } },
+    check: api => assert.equal(api.storage.local.data.rules[0].blockURL, 'new.example'), expectedIds: [21] },
+  { name: 'activate another Rule List', change: { type: 'rules:activateList', payload: { listId: 'list-1' } },
+    check: api => assert.equal(api.storage.local.data.activeRuleListId, 'list-1') },
+  { name: 'disable category', change: { type: 'rules:toggleCategory', payload: { listId: 'general', category: 'social' } },
+    check: api => assert.deepEqual(api.storage.local.data.ruleLists[0].disabledCategories, ['social']) },
+  { name: 'stop Focus', change: { type: 'stop_focus_session' },
+    initial: { activeRuleListId: 'general', rules: [makeFocusRule(21, 'list-1', { blockURL: 'stale.example' })],
+      focusSession: { focusActive: true, focusEndTime: Date.now() + 600000, isHardcore: false, focusMode: 'blacklist' } },
+    check: api => assert.equal(api.storage.local.data.focusSession.focusActive, false) },
+  { name: 'logout from a custom profile', change: { type: 'logout_pro' },
+    initial: { activeRuleListId: 'list-1', rules: [makeFocusRule(21, 'list-1', { blockURL: 'stale.example' })] },
+    check: api => { assert.equal(api.storage.sync.data.credentials.isPro, false); assert.equal(api.storage.local.data.activeRuleListId, 'general'); } },
+  { name: 'increase exhausted daily budget', change: { type: 'rules:update', payload: {
+      ruleId: 21, assignmentListId: 'general', assignment: { listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 20 } } } },
+    initial: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'general', { blockURL: 'stale.example' })],
+      dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:general': 600 }, lastSample: null } },
+    check: api => { assert.equal(api.storage.local.data.rules[0].assignments[0].dailyLimit.minutes, 20);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 600); } }
+];
+for (const scenario of staleSpaCases) {
+  for (const delay of ['rules read', 'tab read']) {
+    test(`worker cancels delayed SPA ${delay} when ${scenario.name}`, { timeout: 5000 }, async () => {
+      await withWorker(async ({ api, send, alarm }) => {
+        const url = 'https://stale.example/page';
+        api.tabs.values = [{ id: 10, url, active: false }, { id: 11, url: 'https://safe.example/', active: true }];
+        const ready = createDeferred();
+        const release = createDeferred();
+        const getRules = api.storage.local.get.bind(api.storage.local);
+        const getTab = api.tabs.get;
+        let first = true;
+        if (delay === 'rules read') {
+          api.storage.local.get = async (keys, callback) => {
+            const snapshot = await getRules(keys);
+            if (first && keys === 'rules') { first = false; ready.resolve(); await release.promise; }
+            callback?.(snapshot);
+            return snapshot;
+          };
+        } else {
+          api.tabs.get = async id => {
+            const snapshot = structuredClone(await getTab(id));
+            if (first) { first = false; ready.resolve(); await release.promise; }
+            return snapshot;
+          };
+        }
+        try {
+          const navigation = api.tabs.onUpdated.listeners[0](10, { url }, api.tabs.values[0]);
+          await ready.promise;
+          const response = await send(scenario.change);
+          assert.equal(response.success, true);
+          scenario.check(api);
+          release.resolve();
+          await navigation;
+          await alarm({ name: 'update_scheduled_rules' });
+          assert.deepEqual(api.updatedTabs, []);
+          assert.deepEqual(api.removedTabs, []);
+          assert.deepEqual(api.dynamicRules.map(rule => rule.id), scenario.expectedIds || []);
+          assert.equal(api.tabs.values[0].url, url);
+        } finally { release.resolve(); api.storage.local.get = getRules; api.tabs.get = getTab; }
+      }, { local: scenario.initial || { activeRuleListId: 'general', rules: [makeFocusRule(21, 'general', { blockURL: 'stale.example' })] } });
+    });
+  }
+}
+
+
+test('Daily Limit sample timestamp alone preserves a valid delayed SPA decision', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api }) => {
+    const url = 'https://stale.example/page';
+    api.tabs.values = [{ id: 10, url, active: false }];
+    const ready = createDeferred();
+    const release = createDeferred();
+    api.tabs.get = async id => { ready.resolve(); await release.promise; return { id, url }; };
+    const navigation = api.tabs.onUpdated.listeners[0](10, { url }, api.tabs.values[0]);
+    await ready.promise;
+    await api.storage.local.set({ dailyRuleUsage: { ...api.storage.local.data.dailyRuleUsage,
+      lastSample: { timestamp: Date.now() } } });
+    release.resolve();
+    await navigation;
+    assert.equal(api.updatedTabs.length, 1);
+    assert.match(api.tabs.values[0].url, /blocked.html/);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+  }, { local: { activeRuleListId: 'general', rules: [makeFocusRule(21, 'general', { blockURL: 'stale.example' })] } });
+});
+
+test('a Whitelist cleanup stopped during safety creation preserves the candidate tab', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    const url = 'https://blocked.example/new';
+    api.tabs.values = [{ id: 10, url, windowId: 1, active: false }];
+    const ready = createDeferred();
+    const release = createDeferred();
+    const create = api.tabs.create.bind(api.tabs);
+    api.tabs.create = async details => { const tab = await create(details); ready.resolve(); await release.promise; return tab; };
+    const navigation = api.tabs.onUpdated.listeners[0](10, { url }, api.tabs.values[0]);
+    await ready.promise;
+    assert.equal((await send({ type: 'stop_focus_session' })).success, true);
+    release.resolve();
+    await navigation;
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.dynamicRules, []);
+    assert.equal(api.tabs.values[0].url, url);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+  }, { local: { activeRuleListId: 'general', rules: [],
+    focusSession: { focusActive: true, focusEndTime: Date.now() + 600000, isHardcore: false, focusMode: 'whitelist' } } });
+});
+
+test('a rule disabled during DNR safety creation cancels the old removal and refreshes actual DNR', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    const url = 'https://stale.example/page';
+    api.tabs.values = [{ id: 10, url, windowId: 1, active: false }];
+    const ready = createDeferred();
+    const release = createDeferred();
+    const create = api.tabs.create.bind(api.tabs);
+    api.tabs.create = async details => { const tab = await create(details); ready.resolve(); await release.promise; return tab; };
+    api.runtime.onMessage.listeners[0]({ type: 'reload_rules' }, {}, () => {});
+    await ready.promise;
+    const toggle = send({ type: 'rules:toggle', payload: { ruleId: 21, listId: 'general' } });
+    await until(() => api.storage.local.data.rules[0].assignments[0].disabledByUser === true, 'disabled rule commit');
+    release.resolve();
+    assert.equal((await toggle).success, true);
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.dynamicRules, []);
+    assert.equal(api.tabs.values[0].url, url);
+  }, { local: { activeRuleListId: 'general', rules: [makeFocusRule(21, 'general', { blockURL: 'stale.example' })] } });
+});

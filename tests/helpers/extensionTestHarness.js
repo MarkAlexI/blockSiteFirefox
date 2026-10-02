@@ -384,7 +384,14 @@ export function createExtensionApi({ sync = {}, local = {}, tabs = [], version =
         return Promise.resolve(result);
       },
       async remove(ids) { removedTabs.push(...(Array.isArray(ids) ? ids : [ids])); },
-      async create(details) { createdTabs.push(details); return details; },
+      async create(details) {
+        createdTabs.push(structuredClone(details));
+        const id = Math.max(0, ...this.values.map(tab => tab.id || 0)) + 1;
+        const tab = { id, windowId: details.windowId ?? this.values[0]?.windowId,
+          url: details.url || 'about:blank', ...structuredClone(details) };
+        this.values.push(tab);
+        return structuredClone(tab);
+      },
       async update(tabId, details) {
         updatedTabs.push({ tabId, details: structuredClone(details) });
         const tab = this.values.find(candidate => candidate.id === tabId);

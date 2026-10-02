@@ -15,43 +15,81 @@ function getWindowKey(tab) {
   return Number.isInteger(tab.windowId) ? tab.windowId : null;
 }
 
-async function createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue) {
-  const removeIds = new Set(tabsToRemoveIds);
+function getWindowsNeedingSafety(tabs, ids) {
+  const removeIds = new Set(ids);
   const tabsByWindow = new Map();
-
   for (const tab of tabs) {
-    const windowKey = getWindowKey(tab);
-    const windowTabs = tabsByWindow.get(windowKey) || [];
+    const key = getWindowKey(tab);
+    const windowTabs = tabsByWindow.get(key) || [];
     windowTabs.push(tab);
-    tabsByWindow.set(windowKey, windowTabs);
+    tabsByWindow.set(key, windowTabs);
   }
+  return [...tabsByWindow]
+    .filter(([, windowTabs]) => windowTabs.every(tab => removeIds.has(tab.id)))
+    .map(([windowId]) => windowId);
+}
 
-  for (const [windowId, windowTabs] of tabsByWindow) {
-    const removesEntireWindow = windowTabs.length > 0 &&
-      windowTabs.every(tab => removeIds.has(tab.id));
-    if (!removesEntireWindow) continue;
-    if (!shouldContinue()) return false;
-
-    const canTargetWindow = windowId !== null && Boolean(browser.windows);
-    await browser.tabs.create(canTargetWindow ? { windowId } : {});
-  }
-
-  return shouldContinue();
+function matchesCurrentNavigation(tab, matchesUrl) {
+  return Boolean(tab.url && matchesUrl(tab.url)) &&
+    (!tab.pendingUrl || matchesUrl(tab.pendingUrl));
 }
 
 async function removeStillMatchingTabs(ids, matches, shouldContinue) {
-  if (!shouldContinue()) return 0;
-  // Safety-tab creation and other browser calls can yield to navigation. IDs
-  // alone do not prove that a tab still has the URL used by the first snapshot.
-  const currentTabs = await browser.tabs.query({});
-  if (!shouldContinue()) return 0;
   const candidates = new Set(ids);
-  const currentIds = currentTabs
-    .filter(tab => candidates.has(tab.id) && tab.url && matches(tab.url))
-    .map(tab => tab.id);
-  if (currentIds.length === 0 || !shouldContinue()) return 0;
-  await browser.tabs.remove(currentIds);
-  return currentIds.length;
+  const attemptedWindows = new Set();
+  // Each retry follows safety-tab creation, never a timer or idle polling.
+  // Bound retries if tabs keep moving between windows during browser awaits.
+  for (let pass = 0; pass <= candidates.size + 1; pass += 1) {
+    if (!shouldContinue()) return 0;
+    const tabs = await browser.tabs.query({});
+    if (!shouldContinue()) return 0;
+    let currentIds = tabs.filter(tab => candidates.has(tab.id) && matches(tab))
+      .map(tab => tab.id);
+    if (currentIds.length === 0) return 0;
+
+    const unsafeWindows = getWindowsNeedingSafety(tabs, currentIds);
+    const windowsToProtect = unsafeWindows.filter(id => !attemptedWindows.has(id));
+    if (windowsToProtect.length > 0) {
+      for (const windowId of windowsToProtect) {
+        if (!shouldContinue()) return 0;
+        attemptedWindows.add(windowId);
+        const canTargetWindow = windowId !== null && Boolean(browser.windows);
+        await browser.tabs.create(canTargetWindow ? { windowId } : {});
+      }
+      // Creation can yield to navigation, closure, or a move to another window.
+      continue;
+    }
+
+    // If a replacement disappeared before the fresh query, preserve that
+    // window rather than repeatedly creating tabs or closing its final tab.
+    const unprotected = new Set(unsafeWindows);
+    currentIds = currentIds.filter(id => !unprotected.has(
+      getWindowKey(tabs.find(tab => tab.id === id))
+    ));
+    if (currentIds.length === 0 || !shouldContinue()) return 0;
+    await browser.tabs.remove(currentIds);
+    return currentIds.length;
+  }
+  return 0;
+}
+
+function isNonWhitelistedTab(tab, whitelistRules) {
+  return matchesCurrentNavigation(tab,
+    url => !isBlockedURL([{ url }]) && !isUrlInWhitelist(url, whitelistRules));
+}
+
+/** Rechecks one Whitelist candidate and protects its window before removal. */
+export async function closeNonWhitelistedTab(tabId, observedUrl, whitelistRules, shouldContinue = () => true) {
+  if (!shouldContinue()) return;
+  try {
+    const tab = await browser.tabs.get(tabId);
+    if (!shouldContinue() || tab?.url !== observedUrl || !isNonWhitelistedTab(tab, whitelistRules)) return;
+    await removeStillMatchingTabs([tabId],
+      current => current.url === observedUrl && isNonWhitelistedTab(current, whitelistRules),
+      shouldContinue);
+  } catch (error) {
+    logger.warn('Error during single non-whitelisted tab closure:', error);
+  }
 }
 
 export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => true) {
@@ -78,9 +116,9 @@ export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => t
     
     if (tabsToRemoveIds.length === 0) return;
     
-    if (!await createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue)) return;
     const removed = await removeStillMatchingTabs(tabsToRemoveIds,
-      url => validPatterns.some(pattern => doesUrlMatchBlockRule(url, pattern)), shouldContinue);
+      tab => matchesCurrentNavigation(tab,
+        url => validPatterns.some(pattern => doesUrlMatchBlockRule(url, pattern))), shouldContinue);
     logger.log(`Tabs successfully closed: ${removed}`);
     
   } catch (e) {
@@ -117,9 +155,8 @@ export async function closeNonWhitelistedTabs(whitelistRules, shouldContinue = (
 
     if (tabsToRemoveIds.length === 0) return;
 
-    if (!await createSafetyTabs(tabs, tabsToRemoveIds, shouldContinue)) return;
     const removed = await removeStillMatchingTabs(tabsToRemoveIds,
-      url => !isBlockedURL([{ url }]) && !isUrlInWhitelist(url, whitelistRules), shouldContinue);
+      tab => isNonWhitelistedTab(tab, whitelistRules), shouldContinue);
     logger.log(`Focus Whitelist: Batch closed non-whitelisted tabs: ${removed}`);
 
   } catch (e) {

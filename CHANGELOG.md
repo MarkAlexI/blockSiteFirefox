@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.3] - 2026-10-02
+
+### Fixed
+- Single-tab Whitelist Focus cleanup now creates a safety tab before removing the last tab in a window, including platforms without the windows API.
+- Batch cleanup recalculates window safety from current tabs after browser awaits and preserves a window if its replacement tab disappears.
+- Cleanup preserves a tab navigating to an allowed or protected destination via pendingUrl. Delayed SPA redirects no longer replace a different pending navigation.
+
+### Tests and compatibility
+- Added browser-await regression cases for navigation, window changes, stale SPA state, and cancellation during safety-tab creation.
+- Stable watchdog behavior, permissions, licensing, Legacy access, Scheduled Focus, UI, and telemetry remain unchanged. No new update welcome messages.
+
 ## [5.3.2] - 2026-10-01
 
 ### Fixed

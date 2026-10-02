@@ -189,10 +189,20 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
         if (queryInfo?.active === true && queryInfo?.lastFocusedWindow === true && activeTabForQuery) {
           return [structuredClone(activeTabForQuery)];
         }
-        return [];
+        return structuredClone([...currentTabs.values()]);
       },
-      create: async options => { createdTabs.push(options); return options; },
-      remove: async ids => { removedTabs.push(...(Array.isArray(ids) ? ids : [ids])); },
+      create: async options => {
+        createdTabs.push(options);
+        const id = Math.max(1000, ...currentTabs.keys()) + 1;
+        const tab = { id, windowId: options.windowId, url: options.url || 'about:blank', ...options };
+        currentTabs.set(id, tab);
+        return structuredClone(tab);
+      },
+      remove: async ids => {
+        const values = Array.isArray(ids) ? ids : [ids];
+        removedTabs.push(...values);
+        values.forEach(id => currentTabs.delete(id));
+      },
       onUpdated: tabsOnUpdated,
       onCreated: tabsOnCreated,
       onActivated: tabsOnActivated

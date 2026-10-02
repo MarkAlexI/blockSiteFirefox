@@ -57,7 +57,8 @@ export function createSpaNavigationEnforcer({
 
       if (
         pendingChecks.get(tabId) !== token ||
-        currentTab?.url !== observedUrl
+        currentTab?.url !== observedUrl ||
+        (currentTab?.pendingUrl && currentTab.pendingUrl !== observedUrl)
       ) {
         logger.log('SPA navigation: Stale URL ignored.');
         return { status: 'stale_url' };

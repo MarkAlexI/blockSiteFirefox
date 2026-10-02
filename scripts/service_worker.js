@@ -3,7 +3,7 @@ import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
 import { ProManager, getLicenseDataConsent } from '../pro/proManager.js';
-import { closeTabsMatchingRules, closeNonWhitelistedTabs } from './closeTabs.js';
+import { closeTabsMatchingRules, closeNonWhitelistedTabs, closeNonWhitelistedTab } from './closeTabs.js';
 import { normalizeDomainRule } from '../rules/normalizeDomainRule.js';
 import { normalizePathRule } from '../rules/normalizePathRule.js';
 import Logger from '../utils/logger.js';
@@ -450,16 +450,7 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
     );
     if (isUrlInWhitelist(tabUrl, currentWhitelistRules)) return true;
 
-    let currentTab;
-    try {
-      currentTab = await browser.tabs.get(tabId);
-    } catch {
-      return false;
-    }
-    if (!shouldContinue() || currentTab?.url !== tabUrl) return false;
-
-    logger.log(`Focus Whitelist: Closing non-whitelisted tab ${tabId} (${tabUrl})`);
-    await browser.tabs.remove(tabId).catch(() => {});
+    await closeNonWhitelistedTab(tabId, tabUrl, currentWhitelistRules, shouldContinue);
   }
 
   return true;
