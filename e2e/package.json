@@ -1,0 +1,18 @@
+{
+  "name": "blockdistraction-firefox-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node runner.mjs",
+    "test:headed": "node runner.mjs --headed",
+    "test:list": "node runner.mjs --list"
+  },
+  "devDependencies": {
+    "selenium-webdriver": "4.50.0",
+    "fflate": "0.8.2"
+  }
+}

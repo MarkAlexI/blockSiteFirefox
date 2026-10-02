@@ -1,0 +1,64 @@
+name: Firefox Desktop extension E2E
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Install test dependencies
+        working-directory: e2e
+        run: npm ci
+      - name: Install Firefox Developer Edition and geckodriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1
+          mkdir -p "$RUNNER_TEMP/bd-firefox"
+          cd "$RUNNER_TEMP/bd-firefox"
+          curl --fail --location --retry 3 https://archive.mozilla.org/pub/devedition/releases/158.0b2/linux-x86_64/en-US/firefox-158.0b2.tar.xz -o firefox.tar.xz
+          curl --fail --location --retry 3 https://github.com/mozilla/geckodriver/releases/download/v0.37.1/geckodriver-v0.37.1-linux64.tar.gz -o geckodriver.tar.gz
+          sha256sum --check <<'SHA'
+          42168b597c329bb0066a9289ed33b25c520b365d301f7ef0674017a732d4a634  firefox.tar.xz
+          e815130ea95983e162ae91843b48d3a3ce991735635fce83a647afde21e09f7e  geckodriver.tar.gz
+          SHA
+          tar --no-same-owner -xJf firefox.tar.xz
+          tar --no-same-owner -xzf geckodriver.tar.gz
+          echo "BD_FIREFOX_BINARY=$RUNNER_TEMP/bd-firefox/firefox/firefox" >> "$GITHUB_ENV"
+          echo "BD_GECKODRIVER=$RUNNER_TEMP/bd-firefox/geckodriver" >> "$GITHUB_ENV"
+      - name: Build and unpack the AMO runtime package
+        run: |
+          git archive --format=zip -o "$RUNNER_TEMP/bd-amo.zip" HEAD _locales backup blocked.html diagnostics dom feedback images index.html manifest.json onboarding options popup.js pro redirect.html rules schedules scripts styles telemetry update utils
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, zipfile
+          root = Path(os.environ['RUNNER_TEMP'])
+          target = root / 'bd-e2e-extension'
+          with zipfile.ZipFile(root / 'bd-amo.zip') as package:
+              assert package.testzip() is None
+              package.extractall(target)
+          with Path(os.environ['GITHUB_ENV']).open('a') as env:
+              env.write(f'BD_EXTENSION_PATH={target}\n')
+          PY
+      - name: Run Firefox Desktop scenarios
+        working-directory: e2e
+        run: npm test
+      - name: Upload reports, screenshots and browser logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bd-firefox-e2e-${{ github.sha }}
+          path: |
+            e2e/test-results/
+            e2e/results.json
+          if-no-files-found: warn
+          retention-days: 14
