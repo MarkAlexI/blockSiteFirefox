@@ -8,6 +8,8 @@ import { resolveRulePackEntries } from '../rules/rulePacks.js';
 import { getRuleAssignment, getRuleListIds } from '../rules/ruleAssignments.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { MAX_RULES_LIMIT } from '../utils/constants.js';
+import { migrateRuleSchema } from '../rules/rulesMigrationService.js';
+import { createBackupDocument, parseBackupText } from '../backup/backupFormat.js';
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -468,37 +470,22 @@ test('indexed import collision checks preserve normalized same-profile rejection
   assert.equal(harness.savedStates.length, 0);
 });
 
-test('indexed import keys still reject duplicate exact targets across disjoint profiles', async () => {
+test('backup roundtrip merges exact targets across disjoint profiles using existing normalization', async () => {
   const harness = createHarness();
   const ruleLists = [
     { id: 'general', name: 'General', disabledCategories: [] },
     { id: 'list-1', name: 'Study', disabledCategories: [] }
   ];
-
-  await assert.rejects(
-    harness.service.replaceAll({
-      ruleLists,
-      rules: [
-        {
-          blockURL: 'Same.Example',
-          redirectURL: 'https://redirect.example/',
-          category: 'social',
-          listId: 'general'
-        },
-        {
-          blockURL: ' same.example ',
-          redirectURL: ' https://redirect.example/ ',
-          category: 'social',
-          listId: 'list-1'
-        }
-      ]
-    }),
-    error => error.code === 'rule_already_exists' &&
-      error.message === 'Rule already exists'
-  );
-
-  assert.deepEqual(harness.getRuleLists().map(list => list.id), ['general']);
-  assert.equal(harness.savedStates.length, 0);
+  const result = await harness.service.replaceAll({
+    ruleLists,
+    rules: [
+      { blockURL: 'Same.Example', redirectURL: 'https://redirect.example/', category: 'social', listId: 'general' },
+      { blockURL: ' same.example ', redirectURL: ' https://redirect.example/ ', category: 'social', listId: 'list-1' }
+    ]
+  });
+  assert.equal(result.rules.length, 1);
+  assert.deepEqual(getRuleListIds(result.rules[0]), ['general', 'list-1']);
+  assert.deepEqual(harness.getRuleLists(), ruleLists);
 });
 
 test('indexed imports preserve original whitelist and blacklist conflict precedence', async () => {
@@ -3594,4 +3581,212 @@ test('list deletion conflict leaves the original variants intact when the combin
   assert.deepEqual(harness.getRuleLists(), conflictLists);
   assert.equal(harness.getActiveRuleListId(), 'list-1');
   assert.equal(harness.getSyncCalls(), 0);
+});
+
+
+const ROUNDTRIP_LISTS = [
+  { id: 'general', name: 'General', disabledCategories: [] },
+  { id: 'list-1', name: 'Study', disabledCategories: ['news'] },
+  { id: 'list-2', name: 'Work', disabledCategories: [] }
+];
+
+function legacyRoundtripRules() {
+  const target = { blockURL: 'saved.example', redirectURL: 'https://chosen.example/', category: 'social', isWhitelist: false };
+  return [
+    { id: 41, ...target, listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 40 }, disabledByUser: false },
+    { id: 42, ...target, listId: 'list-1', blockingMode: 'schedule', schedule: { version: 2, periods: [{ days: [1, 3], startTime: '09:00', endTime: '17:00' }] }, disabledByUser: true },
+    { id: 43, ...target, listId: 'list-2', blockingMode: 'always', disabledByUser: false },
+    { id: 44, blockURL: 'separate.example', redirectURL: '', category: 'news', listId: 'general', disabledByUser: false },
+    { id: 45, ...target, redirectURL: 'https://other.example/', listId: 'list-1', blockingMode: 'daily_limit', dailyLimit: { minutes: 20 }, disabledByUser: false }
+  ];
+}
+
+function exportRoundtrip(harness) {
+  return createBackupDocument({
+    rules: harness.getRules(), ruleLists: harness.getRuleLists(),
+    activeRuleListId: harness.getActiveRuleListId(), settings: harness.getSettings(),
+    version: '5.3.8', exportDate: '2026-10-03T00:00:00.000Z'
+  });
+}
+
+for (const filled of [false, true]) {
+  for (const reverse of [false, true]) {
+    test(`backup roundtrip restores migrated exact targets and repeated exports (${filled ? 'filled' : 'empty'}, ${reverse ? 'reverse' : 'forward'})`, async () => {
+      const legacy = legacyRoundtripRules();
+      if (reverse) legacy.reverse();
+      const migrated = migrateRuleSchema(legacy);
+      assert.equal(migrated.migrated, true);
+      assert.equal(migrated.idsReset, false);
+      assert.equal(migrated.rules.length, 5);
+      const source = createHarness({ initialRules: migrated.rules, initialRuleLists: ROUNDTRIP_LISTS, initialActiveRuleListId: 'list-2' });
+      const backup = exportRoundtrip(source);
+      assert.equal(backup.rules.length, 5);
+      const original = makeCapacityRule(99);
+      const harness = createHarness({ initialRules: filled ? [original] : [], initialSettings: { mode: 'normal', enablePassword: true, passwordHash: 'current-hash' } });
+      const result = await harness.service.replaceAll(parseBackupText(JSON.stringify(backup)));
+      assert.equal(result.rules.length, 3);
+      assert.deepEqual(result.rules.map(rule => rule.id), [1, 2, 3]);
+      assert.equal(result.activeRuleListId, 'list-2');
+      assert.deepEqual(harness.getRuleLists(), ROUNDTRIP_LISTS);
+      const shared = result.rules.find(rule => rule.redirectURL === 'https://chosen.example/');
+      const expectedAssignments = migrated.rules.filter(rule => rule.redirectURL === shared.redirectURL).flatMap(rule => rule.assignments);
+      assert.deepEqual(shared.assignments, expectedAssignments);
+      assert.deepEqual(result.rules.find(rule => rule.blockURL === 'separate.example').assignments, migrated.rules.find(rule => rule.id === 44).assignments);
+      assert.deepEqual(result.rules.find(rule => rule.redirectURL === 'https://other.example/').assignments, migrated.rules.find(rule => rule.id === 45).assignments);
+      assert.equal(harness.getSettings().passwordHash, 'current-hash');
+      const firstExport = exportRoundtrip(harness);
+      await harness.service.replaceAll(parseBackupText(JSON.stringify(firstExport)));
+      assert.deepEqual(exportRoundtrip(harness), firstExport);
+      await harness.service.replaceAll(parseBackupText(JSON.stringify(backup)));
+      assert.deepEqual(exportRoundtrip(harness), firstExport);
+      assert.equal(harness.getRules().some(rule => rule.blockURL === original.blockURL), false);
+    });
+  }
+}
+
+function roundtripRow(listIds, { disabledByUser = false, redirectURL = 'https://chosen.example/', category = 'social' } = {}) {
+  return { blockURL: 'saved.example', redirectURL, category, isWhitelist: false,
+    assignments: listIds.map(listId => ({ listId, disabledByUser, blockingMode: 'daily_limit', dailyLimit: { minutes: listId === 'general' ? 10 : 20 }, schedule: null })) };
+}
+
+function assertRoundtripRejectedWithoutWrites(harness, before) {
+  assert.deepEqual(harness.getRules(), before.rules);
+  assert.deepEqual(harness.getRuleLists(), before.lists);
+  assert.equal(harness.getActiveRuleListId(), before.active);
+  assert.deepEqual(harness.getSettings(), before.settings);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+  assert.deepEqual(harness.getUsageRemaps(), []);
+  assert.deepEqual(harness.getUsageJournalStages(), []);
+}
+
+function roundtripBefore(harness) {
+  return { rules: harness.getRules(), lists: harness.getRuleLists(), active: harness.getActiveRuleListId(), settings: harness.getSettings() };
+}
+
+for (const generalDisabled of [false, true]) {
+  for (const studyDisabled of [false, true]) {
+    test(`backup roundtrip merges disjoint exact targets with disabled flags ${generalDisabled}/${studyDisabled}`, async () => {
+      const harness = createHarness();
+      const rows = [roundtripRow(['general'], { disabledByUser: generalDisabled }), roundtripRow(['list-1'], { disabledByUser: studyDisabled })];
+      const result = await harness.service.replaceAll({ rules: rows, ruleLists: ROUNDTRIP_LISTS });
+      assert.equal(result.rules.length, 1);
+      assert.deepEqual(result.rules[0].assignments, rows.flatMap(rule => rule.assignments));
+      assert.equal(harness.getUsageRemaps().length, 0);
+    });
+  }
+}
+
+for (const disabledByUser of [false, true]) {
+  for (const reverse of [false, true]) {
+    test(`backup roundtrip rejects overlapping exact target assignments atomically (${disabledByUser}, ${reverse})`, async () => {
+      const harness = createHarness({ initialRules: [makeCapacityRule(99)], initialSettings: { mode: 'normal', enablePassword: true, passwordHash: 'current-hash' } });
+      const before = roundtripBefore(harness);
+      const rows = [roundtripRow(['general', 'list-1'], { disabledByUser }), roundtripRow(['list-2', 'list-1'], { disabledByUser })];
+      if (reverse) rows.reverse();
+      await assert.rejects(harness.service.replaceAll({ rules: rows, ruleLists: ROUNDTRIP_LISTS, settings: { mode: 'strict' } }), error => error.code === 'rule_already_exists');
+      assertRoundtripRejectedWithoutWrites(harness, before);
+    });
+  }
+}
+
+for (const flags of [[false, false], [false, true], [true, true]]) {
+  test(`backup roundtrip rejects duplicate assignments within one row (${flags.join('/')})`, async () => {
+    for (const reverse of [false, true]) {
+      const harness = createHarness({ initialRules: [makeCapacityRule(99)] });
+      const before = roundtripBefore(harness);
+      const row = roundtripRow(['general']);
+      row.assignments = [
+        { ...row.assignments[0], disabledByUser: flags[0], dailyLimit: { minutes: 10 } },
+        { ...row.assignments[0], listId: ' general ', disabledByUser: flags[1], dailyLimit: { minutes: 40 } }
+      ];
+      if (reverse) row.assignments.reverse();
+      await assert.rejects(harness.service.replaceAll({ rules: [row], settings: { mode: 'strict' } }), error => error.code === 'rule_assignment_exists');
+      assertRoundtripRejectedWithoutWrites(harness, before);
+    }
+  });
+}
+
+for (const reverse of [false, true]) {
+  test(`backup roundtrip rejects another enabled target after a disjoint merge (${reverse})`, async () => {
+    const harness = createHarness({ initialRules: [makeCapacityRule(99)] });
+    const before = roundtripBefore(harness);
+    const rows = [roundtripRow(['general']), roundtripRow(['list-1']), roundtripRow(['list-1'], { redirectURL: 'https://other.example/' })];
+    if (reverse) rows.reverse();
+    await assert.rejects(harness.service.replaceAll({ rules: rows, ruleLists: ROUNDTRIP_LISTS }), error => error.code === 'rule_already_exists');
+    assertRoundtripRejectedWithoutWrites(harness, before);
+  });
+}
+
+test('backup roundtrip keeps distinct category and case-sensitive redirect targets separate', async () => {
+  const harness = createHarness();
+  const rows = [
+    roundtripRow(['general'], { redirectURL: 'https://chosen.example/Path' }),
+    roundtripRow(['list-1'], { redirectURL: 'https://chosen.example/Path' }),
+    roundtripRow(['general'], { redirectURL: 'https://chosen.example/path', disabledByUser: true }),
+    roundtripRow(['general'], { redirectURL: 'https://chosen.example/Path', category: 'news', disabledByUser: true })
+  ];
+  const result = await harness.service.replaceAll({ rules: rows, ruleLists: ROUNDTRIP_LISTS });
+  assert.equal(result.rules.length, 3);
+  assert.deepEqual(result.rules.map(rule => rule.assignments), [rows.slice(0, 2).flatMap(rule => rule.assignments), rows[2].assignments, rows[3].assignments]);
+  assert.deepEqual(result.rules.map(rule => [rule.redirectURL, rule.category]), [['https://chosen.example/Path', 'social'], ['https://chosen.example/path', 'social'], ['https://chosen.example/Path', 'news']]);
+});
+
+test('backup roundtrip validates merged canonical targets against the browser capacity', async () => {
+  const harness = createHarness({ capacityValidation: rules => rules.length === 1 ? { withinCapacity: true } : rejectDnrCapacity(rules.length, 1) });
+  const result = await harness.service.replaceAll({ rules: [roundtripRow(['general']), roundtripRow(['list-1'])], ruleLists: ROUNDTRIP_LISTS });
+  assert.equal(result.rules.length, 1);
+  assert.deepEqual(harness.getCapacityChecks()[0].rules, result.rules);
+  assert.equal(harness.getCapacityChecks().length, 1);
+});
+
+test('backup roundtrip rejects an unknown list in an otherwise mergeable target before writes', async () => {
+  const harness = createHarness({ initialRules: [makeCapacityRule(99)] });
+  const before = roundtripBefore(harness);
+  await assert.rejects(harness.service.replaceAll({ rules: [roundtripRow(['general']), roundtripRow(['list-999'])], ruleLists: ROUNDTRIP_LISTS }), error => error.code === 'rule_list_not_found');
+  assertRoundtripRejectedWithoutWrites(harness, before);
+});
+
+for (const failure of ['dnr', 'local', 'settings']) {
+  test(`backup roundtrip rolls merged imports back after ${failure} failure`, async () => {
+    const harness = createHarness({
+      initialRules: [makeCapacityRule(99)], initialRuleLists: ROUNDTRIP_LISTS, initialActiveRuleListId: 'list-2',
+      initialSettings: { mode: 'normal', enablePassword: true, passwordHash: 'current-hash' },
+      syncResults: failure === 'dnr' ? [{ success: false }, { success: true }] : null,
+      combinedSaveError: failure === 'local' ? new Error('local import unavailable') : null,
+      settingsSaveError: failure === 'settings' ? new Error('settings import unavailable') : null
+    });
+    const before = roundtripBefore(harness);
+    await assert.rejects(harness.service.replaceAll({ rules: [roundtripRow(['general']), roundtripRow(['list-1'])], ruleLists: ROUNDTRIP_LISTS, activeRuleListId: 'general', settings: { mode: 'strict' } }), failure === 'dnr' ? error => error.code === 'import_sync_failed' : new RegExp(`${failure} import unavailable`));
+    assert.deepEqual(roundtripBefore(harness), before);
+    assert.deepEqual(harness.getUsageRemaps(), []);
+    assert.equal(harness.getSyncCalls(), failure === 'dnr' ? 2 : 0);
+    if (failure === 'dnr') assert.equal(harness.notifications.at(-1).extra.importRolledBack, true);
+  });
+}
+
+test('backup roundtrip preserves Free rejection and trusted Legacy access for disjoint targets', async () => {
+  for (const isLegacyUser of [false, true]) {
+    const harness = createHarness({ access: { isPro: false, isLegacyUser }, initialRules: [makeCapacityRule(99)] });
+    const before = roundtripBefore(harness);
+    const payload = { rules: [roundtripRow(['general']), roundtripRow(['list-1'])], ruleLists: ROUNDTRIP_LISTS };
+    if (!isLegacyUser) {
+      await assert.rejects(harness.service.replaceAll(payload), error => error.code === 'pro_required');
+      assertRoundtripRejectedWithoutWrites(harness, before);
+    } else {
+      assert.equal((await harness.service.replaceAll(payload)).rules.length, 1);
+    }
+  }
+});
+
+test('backup roundtrip keeps whitelist conflicts in both import orders', async () => {
+  for (const firstWhitelist of [false, true]) {
+    const harness = createHarness({ initialRules: [makeCapacityRule(99)] });
+    const before = roundtripBefore(harness);
+    const rows = [roundtripRow(['general']), roundtripRow(['list-1'])];
+    const whitelist = { blockURL: 'saved.example', isWhitelist: true };
+    if (firstWhitelist) rows.unshift(whitelist); else rows.push(whitelist);
+    await assert.rejects(harness.service.replaceAll({ rules: rows, ruleLists: ROUNDTRIP_LISTS }), error => error.code === (firstWhitelist ? 'conflict_whitelist' : 'conflict_blacklist'));
+    assertRoundtripRejectedWithoutWrites(harness, before);
+  }
 });

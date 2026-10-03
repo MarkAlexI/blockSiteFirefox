@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.9] - 2026-10-03
+
+### Fixed
+- Restore migrated backups containing separate rows of one exact blacklist target in different Rule Lists. Import combines only disjoint list assignments, retaining each list's schedule, Daily Limit and enabled state.
+- Reject repeated assignments within an imported row before normalization can discard a configuration. Overlapping exact-target assignments, second enabled variants and whitelist conflicts still reject the entire import before writes.
+
+### Tests and compatibility
+- Added 30 regressions and updated one exact-target import regression: legacy migration/export/import/export, row order, empty and existing profiles, repeated restore, all enabled/disabled pairs, assignment overlap, redirect case/category distinction, access, capacity, storage/DNR rollback and worker restart with independent Daily Limit budgets.
+- Schema migration keeps live rule IDs and usage unchanged; combining targets occurs only while preparing replacement imports. Backup format, full replacement behavior, password/credentials protection and rollback remain unchanged.
+- Updated release metadata and E2E version defaults. No new permissions, telemetry fields, localization keys, polling or update welcome messages.
+- Stale Options commands after import remain the next planned conflict check.
+
 ## [5.3.8] - 2026-10-03
 
 ### Fixed

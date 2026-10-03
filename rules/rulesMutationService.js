@@ -1067,7 +1067,7 @@ export function createRulesMutationService({
     }
     const preparedRules = [];
     const preparedWhitelistRules = [];
-    const targetKeys = new Set();
+    const preparedTargets = new Map();
     const enabledAssignmentKeys = new Set();
 
     importedRules.forEach((rawRule, index) => {
@@ -1081,7 +1081,11 @@ export function createRulesMutationService({
       if (!target.isWhitelist && (!rawRule?.category || typeof rawRule.category !== 'string')) {
         target.category = 'uncategorized';
       }
-      const assignments = normalizeRuleAssignments(rawRule);
+      // Keep repeated list IDs visible to validation rather than silently
+      // taking the first configuration while normalizing a backup row.
+      const assignments = Array.isArray(rawRule.assignments)
+        ? rawRule.assignments.map(item => createRuleAssignment(item.listId, item))
+        : normalizeRuleAssignments(rawRule);
       // Import is a Pro-only operation, so custom list and Daily Limit access is
       // already established by replaceAll(). We still validate all references.
       validateAssignments(assignments, importedLists, true, target);
@@ -1106,23 +1110,30 @@ export function createRulesMutationService({
         throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
       }
       const targetKey = getRuleTargetKey(target);
-      if (targetKeys.has(targetKey)) {
-        throw new RulesMutationError('rule_already_exists', 'Rule already exists');
-      }
-
-      const preparedRule = {
-        id: index + 1,
-        blockURL: target.blockURL.trim(),
-        redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
-        category: target.isWhitelist ? 'whitelist' : (target.category || 'uncategorized'),
-        assignments,
-        isWhitelist: target.isWhitelist
-      };
-      preparedRules.push(preparedRule);
-      targetKeys.add(targetKey);
-      if (target.isWhitelist) {
-        preparedWhitelistRules.push(preparedRule);
+      const existingTarget = preparedTargets.get(targetKey);
+      if (existingTarget) {
+        // Migrated legacy storage may export separate rows of one exact
+        // blacklist target. Combine only disjoint assignments; never choose
+        // between two configurations for the same list, even if disabled.
+        const existingListIds = new Set(existingTarget.assignments.map(item => item.listId));
+        if (target.isWhitelist || assignments.some(item => existingListIds.has(item.listId))) {
+          throw new RulesMutationError('rule_already_exists', 'Rule already exists');
+        }
+        existingTarget.assignments.push(...assignments);
       } else {
+        const preparedRule = {
+          id: preparedRules.length + 1,
+          blockURL: target.blockURL.trim(),
+          redirectURL: target.isWhitelist ? '' : target.redirectURL.trim(),
+          category: target.isWhitelist ? 'whitelist' : (target.category || 'uncategorized'),
+          assignments,
+          isWhitelist: target.isWhitelist
+        };
+        preparedRules.push(preparedRule);
+        preparedTargets.set(targetKey, preparedRule);
+        if (target.isWhitelist) preparedWhitelistRules.push(preparedRule);
+      }
+      if (!target.isWhitelist) {
         for (const assignment of assignments) {
           if (assignment.disabledByUser !== true) {
             enabledAssignmentKeys.add(getAssignedBlockUrlKey(target.blockURL, assignment.listId));

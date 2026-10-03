@@ -6,6 +6,7 @@ import { getLocalDateKey } from '../rules/dailyLimitManager.js';
 import { LICENSE_SYNC_TIMEOUT_MS, MAX_RULES_LIMIT, VERIFY_API_URL } from '../utils/constants.js';
 import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
+import { createBackupDocument, parseBackupText } from '../backup/backupFormat.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
@@ -6326,4 +6327,174 @@ test('list deletion conflict worker serializes two list deletions without discar
     { id: 'list-1', name: 'Study', disabledCategories: [] },
     { id: 'list-2', name: 'Work', disabledCategories: [] }
   ] }, supportsWindows: false });
+});
+
+const WORKER_ROUNDTRIP_LISTS = [
+  { id: 'general', name: 'General', disabledCategories: [] },
+  { id: 'list-1', name: 'Study', disabledCategories: [] }
+];
+
+function workerRoundtripPayload() {
+  return {
+    rules: [
+      { blockURL: 'saved.example', redirectURL: 'https://chosen.example/', category: 'social', listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } },
+      { blockURL: 'saved.example', redirectURL: 'https://chosen.example/', category: 'social', listId: 'list-1', blockingMode: 'schedule', schedule: { version: 2, periods: [{ days: [1], startTime: '09:00', endTime: '17:00' }] } }
+    ],
+    ruleLists: WORKER_ROUNDTRIP_LISTS, activeRuleListId: 'list-1', settings: { mode: 'strict', showNotifications: false }
+  };
+}
+
+function workerRoundtripSnapshot(api) {
+  const local = api.storage.local.data;
+  return structuredClone({
+    rules: local.rules, lists: local.ruleLists, active: local.activeRuleListId,
+    usage: local.dailyRuleUsage, settings: api.storage.sync.data.settings,
+    credentials: api.storage.sync.data.credentials, dnr: api.dynamicRules
+  });
+}
+
+test('backup roundtrip worker migrates legacy rows and restores its own export twice with correct DNR', async () => {
+  await withControlledClock(new Date(2026, 9, 5, 12, 0, 0), async () => {
+    const payload = workerRoundtripPayload();
+    const legacy = payload.rules.map((rule, index) => ({ ...rule, id: 41 + index, isWhitelist: false, disabledByUser: false }));
+    legacy.push({ id: 43, blockURL: 'saved.example', redirectURL: 'https://disabled.example/', category: 'news', isWhitelist: false, listId: 'general', disabledByUser: true });
+    await withWorker(async ({ api, startup, send }) => {
+      await startup();
+      assert.equal(api.storage.local.data.rules.length, 3);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '41:general': 600 });
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [42]);
+      const exportCurrent = () => createBackupDocument({
+        rules: api.storage.local.data.rules, ruleLists: api.storage.local.data.ruleLists,
+        activeRuleListId: api.storage.local.data.activeRuleListId, settings: api.storage.sync.data.settings,
+        version: '5.3.8', exportDate: '2026-10-05T00:00:00.000Z'
+      });
+      const backup = exportCurrent();
+      assert.equal(backup.rules.length, 3);
+      assert.equal(Object.hasOwn(backup, 'dailyRuleUsage'), false);
+      const credentials = structuredClone(api.storage.sync.data.credentials);
+      const settings = structuredClone(api.storage.sync.data.settings);
+      const response = await send({ type: 'rules:replaceAll', payload: parseBackupText(JSON.stringify(backup)) });
+      assert.equal(response.success, true);
+      const stored = api.storage.local.data.rules;
+      assert.equal(stored.length, 2);
+      assert.deepEqual(stored.map(rule => rule.id), [1, 2]);
+      assert.deepEqual(stored[0].assignments, backup.rules.slice(0, 2).flatMap(rule => rule.assignments));
+      assert.equal(stored[1].assignments[0].disabledByUser, true);
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), 'https://chosen.example/');
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+      assert.deepEqual(api.storage.sync.data.credentials, credentials);
+      assert.deepEqual(api.storage.sync.data.settings, settings);
+      const normalizedBackup = exportCurrent();
+      assert.equal((await send({ type: 'rules:replaceAll', payload: parseBackupText(JSON.stringify(normalizedBackup)) })).success, true);
+      assert.deepEqual(exportCurrent(), normalizedBackup);
+      assert.equal((await send({ type: 'rules:replaceAll', payload: parseBackupText(JSON.stringify(backup)) })).success, true);
+      assert.deepEqual(exportCurrent(), normalizedBackup);
+      assert.equal((await send({ type: 'rules:activateList', payload: { listId: 'general' } })).success, true);
+      assert.deepEqual(api.dynamicRules, []);
+      assert.equal((await send({ type: 'rules:activateList', payload: { listId: 'list-1' } })).success, true);
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+    }, {
+      settings: { confirmBeforeDelete: false, showNotifications: true, enablePassword: true, passwordHash: 'current-hash' },
+      local: { rules: legacy, ruleLists: WORKER_ROUNDTRIP_LISTS, activeRuleListId: 'list-1', is_migrated_to_local: true, lastCheck: Date.now(), dailyRuleUsage: { version: 1, date: getLocalDateKey(), usageSeconds: { '41': 600 }, lastSample: null } },
+      supportsWindows: false
+    });
+  });
+});
+
+test('backup roundtrip worker rejects overlapping and repeated assignments without writes or private telemetry', async () => {
+  const original = makeDailyLimitRule(91, 'general', { blockURL: 'keep.example', minutes: 10 });
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const before = workerRoundtripSnapshot(api);
+    const base = { blockURL: 'saved.example', redirectURL: 'https://chosen.example/', category: 'social', isWhitelist: false };
+    const assignment = { listId: 'general', disabledByUser: true, blockingMode: 'daily_limit', dailyLimit: { minutes: 10 }, schedule: null };
+    const cases = [
+      { rules: [{ ...base, assignments: [assignment] }, { ...base, assignments: [{ ...assignment, dailyLimit: { minutes: 20 } }] }], code: 'rule_already_exists' },
+      { rules: [{ ...base, assignments: [assignment, { ...assignment, dailyLimit: { minutes: 20 } }] }], code: 'rule_assignment_exists' }
+    ];
+    for (const input of cases) {
+      const response = await send({ type: 'rules:replaceAll', payload: { rules: input.rules, ruleLists: WORKER_ROUNDTRIP_LISTS, activeRuleListId: 'list-1', settings: { mode: 'strict' } } });
+      assert.equal(response.success, false);
+      assert.equal(response.error.code, input.code);
+      assert.deepEqual(workerRoundtripSnapshot(api), before);
+    }
+    const telemetry = api.storage.local.data.telemetryBuckets || {};
+    assert.deepEqual(Object.values(telemetry).flatMap(bucket => bucket.errors || []), []);
+    assert.equal(JSON.stringify(telemetry).includes('saved.example'), false);
+    assert.equal(JSON.stringify(telemetry).includes('chosen.example'), false);
+  }, { local: { rules: [original], activeRuleListId: 'general', dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '91:general': 600 }, lastSample: null }, telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+});
+
+for (const failure of ['dnr', 'local']) {
+  test(`backup roundtrip worker restores rules lists settings usage and actual DNR after ${failure} failure`, async () => {
+    await withControlledClock(new Date(2026, 9, 5, 12, 0, 0), async () => {
+      const original = makeDailyLimitRule(91, 'general', { blockURL: 'keep.example', minutes: 10 });
+      await withWorker(async ({ api, alarm, send }) => {
+        await alarm({ name: 'update_scheduled_rules' });
+        const before = workerRoundtripSnapshot(api);
+        let rejected = false;
+        if (failure === 'dnr') {
+          const originalUpdate = api.declarativeNetRequest.updateDynamicRules;
+          api.declarativeNetRequest.updateDynamicRules = async update => {
+            if (!rejected) { rejected = true; throw new Error('DNR import unavailable'); }
+            return originalUpdate(update);
+          };
+        } else {
+          const originalSet = api.storage.local.set.bind(api.storage.local);
+          api.storage.local.set = (values, callback) => {
+            if (!rejected && Object.hasOwn(values, 'rules') && Object.hasOwn(values, 'ruleLists')) {
+              rejected = true; return Promise.reject(new Error('local import unavailable'));
+            }
+            return originalSet(values, callback);
+          };
+        }
+        const response = await send({ type: 'rules:replaceAll', payload: workerRoundtripPayload() });
+        assert.equal(response.success, false);
+        assert.equal(rejected, true);
+        if (failure === 'dnr') assert.equal(response.error.code, 'import_sync_failed');
+        else assert.match(response.error.message, /local import unavailable/);
+        assert.deepEqual(workerRoundtripSnapshot(api), before);
+        const retry = await send({ type: 'rules:replaceAll', payload: workerRoundtripPayload() });
+        assert.equal(retry.success, true);
+        assert.equal(api.storage.local.data.rules.length, 1);
+        assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+        assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+        assert.equal(api.storage.sync.data.settings.passwordHash, 'current-hash');
+      }, { settings: { confirmBeforeDelete: false, showNotifications: true, enablePassword: true, passwordHash: 'current-hash' }, local: { rules: [original], activeRuleListId: 'general', dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '91:general': 600 }, lastSample: null } }, supportsWindows: false });
+    });
+  });
+}
+
+test('backup roundtrip worker keeps merged Daily Limit budgets independent across lists and restart', async () => {
+  await withControlledClock(new Date(2026, 9, 5, 12, 0, 0), async () => {
+    let persisted;
+    await withWorker(async ({ api, send, alarm }) => {
+      const first = { blockURL: 'saved.example', redirectURL: 'https://chosen.example/', category: 'social', listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } };
+      const second = { ...first, listId: 'list-1', dailyLimit: { minutes: 20 } };
+      assert.equal((await send({ type: 'rules:replaceAll', payload: { rules: [first, second], ruleLists: WORKER_ROUNDTRIP_LISTS, activeRuleListId: 'general' } })).success, true);
+      assert.equal(api.storage.local.data.rules.length, 1);
+      await api.storage.local.set({ dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:general': 600, '1:list-1': 300 }, lastSample: null } });
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).pathname, '/redirect.html');
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), 'https://chosen.example/');
+      assert.equal((await send({ type: 'rules:activateList', payload: { listId: 'list-1' } })).success, true);
+      assert.deepEqual(api.dynamicRules, []);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '1:general': 600, '1:list-1': 300 });
+      await api.storage.local.set({ dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:general': 600, '1:list-1': 1200 }, lastSample: null } });
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+      persisted = structuredClone(api.storage.local.data);
+    }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+    await withWorker(async ({ api, startup }) => {
+      await startup();
+      assert.deepEqual(api.storage.local.data.rules, persisted.rules);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '1:general': 600, '1:list-1': 1200 });
+      assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).pathname, '/redirect.html');
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), 'https://chosen.example/');
+    }, { local: { ...persisted, lastCheck: Date.now() }, supportsWindows: false });
+  });
 });
