@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.6] - 2026-10-03
+
+### Fixed
+- Backups restore disabled historical target variants alongside an enabled target for the same URL and Rule List without discarding either configuration.
+- Imported enabled targets remain unique per URL/list; toggling a restored variant on is rejected while a competing variant is enabled. Disabling variants remains available.
+
+### Tests and compatibility
+- Added backup round-trip, per-assignment collision, toggle, rollback and worker/DNR regressions.
+- Existing full-replacement import, Pro/Legacy access checks, portable settings, password protection, duplicate/whitelist checks and DNR rollback are preserved.
+- Updated release metadata and E2E version defaults. No new permissions, telemetry fields, locales or update welcome messages.
+
 ## [5.3.5] - 2026-10-02
 
 ### Fixed

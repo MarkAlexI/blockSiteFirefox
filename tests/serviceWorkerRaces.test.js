@@ -6083,3 +6083,47 @@ test('redirect authorization updates real statistics only for an authorized inst
     assert.equal(api.storage.local.data.statistics.totalRedirects, 1);
   });
 });
+
+test('backup restore replaces an existing profile with disabled and scheduled variants and installs only the enabled DNR target', async () => {
+  await withControlledClock(new Date(2026, 9, 5, 12, 0, 0), async () => {
+    const oldRule = makeDailyLimitRule(90, 'list-1', { blockURL: 'old.example' });
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'schedule', schedule: { version: 2, periods: [{ days: [1], startTime: '09:00', endTime: '17:00' }] }, dailyLimit: null };
+    const rules = [
+      { blockURL: 'restored.example', redirectURL: 'https://chosen.example/', category: 'news', isWhitelist: false, assignments: [{ ...assignment, disabledByUser: true, blockingMode: 'always', schedule: null }] },
+      { blockURL: 'restored.example', redirectURL: '', category: 'social', isWhitelist: false, assignments: [assignment] }
+    ];
+    await withWorker(async ({ api, send }) => {
+      const credentials = structuredClone(api.storage.sync.data.credentials);
+      api.dynamicRules = [createDnrRuleFactory(path => api.runtime.getURL(path))(90, 'old.example', '')];
+      const response = await send({ type: 'rules:replaceAll', payload: {
+        rules, settings: { mode: 'normal', showNotifications: false },
+        ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }], activeRuleListId: 'general'
+      } });
+      assert.equal(response.success, true);
+      assert.deepEqual(api.storage.local.data.rules.map(({ id, ...rule }) => rule), rules);
+      assert.equal(api.storage.local.data.ruleLists.length, 1);
+      assert.equal(api.storage.local.data.activeRuleListId, 'general');
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+      assert.equal(api.dynamicRules.length, 1);
+      assert.equal(api.dynamicRules[0].id, 2);
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).pathname, '/blocked.html');
+      assert.equal(api.storage.sync.data.settings.passwordHash, 'current-test-hash');
+      assert.equal(api.storage.sync.data.settings.enablePassword, true);
+      assert.deepEqual(api.storage.sync.data.credentials, credentials);
+      const rejected = await send({ type: 'rules:toggle', payload: { ruleId: 1, listId: 'general' } });
+      assert.equal(rejected.success, false);
+      assert.equal(rejected.error.code, 'rule_already_exists');
+      assert.equal(api.dynamicRules[0].id, 2);
+      await send({ type: 'rules:toggle', payload: { ruleId: 2, listId: 'general' } });
+      assert.equal(api.dynamicRules.length, 0);
+      const enabled = await send({ type: 'rules:toggle', payload: { ruleId: 1, listId: 'general' } });
+      assert.equal(enabled.success, true);
+      assert.equal(api.dynamicRules.length, 1);
+      assert.equal(api.dynamicRules[0].id, 1);
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), 'https://chosen.example/');
+    }, {
+      settings: { enablePassword: true, passwordHash: 'current-test-hash' },
+      local: { rules: [oldRule], dailyRuleUsage: { version: 2, dateKey: '2026-10-05', usageSeconds: { '90:list-1': 60 }, lastSample: null } }
+    });
+  });
+});

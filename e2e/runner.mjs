@@ -21,7 +21,7 @@ if (args.includes('--list')) {
   const output = path.resolve(process.env.BD_E2E_RESULTS || 'test-results');
   const reportFile = path.resolve(process.env.BD_E2E_JSON || 'results.json');
   const report = { schemaVersion: 1, runner: 'Selenium WebDriver + native Firefox BiDi',
-    startedAt: new Date().toISOString(), expectedVersion: process.env.BD_EXPECTED_VERSION || '5.3.5',
+    startedAt: new Date().toISOString(), expectedVersion: process.env.BD_EXPECTED_VERSION || '5.3.6',
     platform: { platform: process.platform, architecture: process.arch, node: process.version },
     selected: selected.length, completeSuite: selected.length === scenarios.length, tests: [] };
   let failures = 0, setupBlocked = false;

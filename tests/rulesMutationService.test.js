@@ -3092,3 +3092,103 @@ test('Daily Limit mutation results ignore unrelated edits and removals', async (
   });
   assert.equal(ordinaryRule.dailyLimitConfigured, false);
 });
+
+function backupVariant(disabledByUser, { blockURL = 'saved.example', redirectURL = '', category = 'social', assignments = null } = {}) {
+  return {
+    blockURL, redirectURL, category, isWhitelist: false,
+    assignments: assignments || [{ listId: 'general', disabledByUser, blockingMode: 'always', schedule: null, dailyLimit: null }]
+  };
+}
+
+test('backup restore preserves a disabled historical target beside an enabled target in either export order', async () => {
+  const { createBackupDocument, parseBackupText } = await import('../backup/backupFormat.js');
+  const disabled = backupVariant(true, { redirectURL: 'https://chosen.example/', category: 'news' });
+  const enabled = backupVariant(false);
+  enabled.assignments[0] = { ...enabled.assignments[0], blockingMode: 'schedule', schedule: { version: 2, periods: [{ days: [1, 2, 3, 4, 5], startTime: '09:00', endTime: '17:00' }] } };
+  for (const rules of [[disabled, enabled], [enabled, disabled]]) {
+    const harness = createHarness({ initialRules: [makeCapacityRule(10)] });
+    const exported = createBackupDocument({ rules, ruleLists: harness.getRuleLists(), activeRuleListId: 'general', settings: { mode: 'normal' }, version: '5.3.5' });
+    const imported = parseBackupText(JSON.stringify(exported));
+    const result = await harness.service.replaceAll(imported);
+    assert.deepEqual(result.rules.map(({ id, ...rule }) => rule), imported.rules);
+    assert.equal(harness.getRules().length, 2);
+    assert.equal(harness.getSyncCalls(), 1);
+  }
+});
+
+test('backup restore counts enabled target collisions per assignment rather than per shared target', async () => {
+  const lists = [{ id: 'general', name: 'General', disabledCategories: [] }, { id: 'list-1', name: 'Study', disabledCategories: [] }];
+  const assignment = (listId, disabledByUser) => ({ listId, disabledByUser, blockingMode: 'always', schedule: null, dailyLimit: null });
+  const rules = [
+    backupVariant(true, { redirectURL: 'https://one.example/', assignments: [assignment('general', true), assignment('list-1', false)] }),
+    backupVariant(false, { redirectURL: 'https://two.example/', assignments: [assignment('general', false), assignment('list-1', true)] }),
+    backupVariant(true, { redirectURL: 'https://three.example/', assignments: [assignment('general', true), assignment('list-1', true)] })
+  ];
+  const harness = createHarness();
+  const result = await harness.service.replaceAll({ rules, ruleLists: lists, activeRuleListId: 'list-1' });
+  assert.deepEqual(result.rules.map(({ id, ...rule }) => rule), rules);
+  assert.equal(result.rules.length, 3);
+  assert.equal(harness.getActiveRuleListId(), 'list-1');
+});
+
+test('backup restore still rejects a late second enabled target atomically despite earlier disabled variants', async () => {
+  for (const reverse of [false, true]) {
+    const rules = [
+      backupVariant(true, { redirectURL: 'https://disabled.example/' }),
+      backupVariant(false, { redirectURL: 'https://first.example/' }),
+      backupVariant(false, { blockURL: ' SAVED.Example ', redirectURL: 'https://second.example/' })
+    ];
+    const original = makeCapacityRule(10);
+    const harness = createHarness({ initialRules: [original], initialSettings: { mode: 'normal' } });
+    await assert.rejects(harness.service.replaceAll({ rules: reverse ? rules.reverse() : rules, settings: { mode: 'strict' } }), error => error.code === 'rule_already_exists');
+    assert.deepEqual(harness.getRules(), [original]);
+    assert.equal(harness.getSettings().mode, 'normal');
+    assert.equal(harness.savedStates.length, 0);
+    assert.equal(harness.getSyncCalls(), 0);
+  }
+});
+
+test('backup restore keeps rejecting exact duplicate targets even when both are disabled', async () => {
+  const rules = [backupVariant(true), backupVariant(true)];
+  const harness = createHarness();
+  await assert.rejects(harness.service.replaceAll({ rules }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), []);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('backup restore rolls rules lists and settings back when DNR fails after accepting a disabled variant', async () => {
+  const original = makeCapacityRule(10);
+  const settings = { mode: 'strict', enablePassword: true, passwordHash: 'test-hash' };
+  const harness = createHarness({ initialRules: [original], initialSettings: settings, syncResults: [{ success: false }, { success: true }] });
+  await assert.rejects(harness.service.replaceAll({ rules: [backupVariant(true, { redirectURL: 'https://disabled.example/' }), backupVariant(false)], settings: { mode: 'normal' } }), error => error.code === 'import_sync_failed');
+  assert.deepEqual(harness.getRules(), [original]);
+  assert.deepEqual(harness.getSettings(), settings);
+  assert.equal(harness.getSyncCalls(), 2);
+  assert.equal(harness.notifications.at(-1).extra.importRolledBack, true);
+});
+
+test('backup variant enabling rejects an enabled sibling without writing or syncing', async () => {
+  const rules = [
+    { id: 1, ...backupVariant(true, { redirectURL: 'https://disabled.example/' }) },
+    { id: 2, ...backupVariant(false, { blockURL: 'SAVED.Example' }) }
+  ];
+  const harness = createHarness({ initialRules: rules });
+  await assert.rejects(harness.service.toggleRule({ ruleId: 1, listId: 'general' }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), rules);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('backup variant enabling scans past disabled siblings and succeeds after the enabled sibling is disabled', async () => {
+  const rules = [
+    { id: 1, ...backupVariant(true, { redirectURL: 'https://one.example/' }) },
+    { id: 2, ...backupVariant(true, { redirectURL: 'https://two.example/' }) },
+    { id: 3, ...backupVariant(false) }
+  ];
+  const harness = createHarness({ initialRules: rules });
+  await assert.rejects(harness.service.toggleRule({ ruleId: 2, listId: 'general' }), error => error.code === 'rule_already_exists');
+  await harness.service.toggleRule({ ruleId: 3, listId: 'general' });
+  await harness.service.toggleRule({ ruleId: 2, listId: 'general' });
+  assert.deepEqual(harness.getRules().map(rule => rule.assignments[0].disabledByUser), [true, false, true]);
+  assert.equal(harness.getSyncCalls(), 2);
+});

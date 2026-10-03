@@ -96,13 +96,14 @@ function findTargetRuleIndex(rules, target, excludeIndex = -1) {
   });
 }
 
-function findAssignedBlockUrlRuleIndex(rules, blockURL, listId, excludeIndex = -1) {
+function findAssignedBlockUrlRuleIndex(rules, blockURL, listId, excludeIndex = -1, enabledOnly = false) {
   const normalizedBlockURL = normalizeTargetBlockURL(blockURL);
   return rules.findIndex((rule, index) => {
     if (excludeIndex !== -1 && index === excludeIndex) return false;
     if (rule?.isWhitelist === true) return false;
     if (normalizeTargetBlockURL(rule?.blockURL) !== normalizedBlockURL) return false;
-    return Boolean(getRuleAssignment(rule, listId));
+    const assignment = getRuleAssignment(rule, listId);
+    return Boolean(assignment) && (!enabledOnly || assignment.disabledByUser !== true);
   });
 }
 
@@ -989,6 +990,12 @@ export function createRulesMutationService({
         ...currentAssignment,
         disabledByUser: currentAssignment.disabledByUser !== true
       });
+      // A restored disabled variant must not enable a competing target in the
+      // same list. Disabling a target always remains possible.
+      if (!nextAssignment.disabledByUser && !rule.isWhitelist &&
+          findAssignedBlockUrlRuleIndex(rules, rule.blockURL, listId, index, true) !== -1) {
+        throw new RulesMutationError('rule_already_exists', 'This URL already has an enabled target in this list');
+      }
       const nextAssignments = replaceRuleAssignment(rule, listId, nextAssignment);
       const updatedRule = canonicalizeRuleTarget(rule, nextAssignments);
       const nextRules = [...rules];
@@ -1010,7 +1017,7 @@ export function createRulesMutationService({
     const preparedRules = [];
     const preparedWhitelistRules = [];
     const targetKeys = new Set();
-    const assignmentKeys = new Set();
+    const enabledAssignmentKeys = new Set();
 
     importedRules.forEach((rawRule, index) => {
       if (!rawRule || typeof rawRule !== 'object' || Array.isArray(rawRule)) {
@@ -1038,8 +1045,12 @@ export function createRulesMutationService({
           target.isWhitelist
         ));
       }
+      // Older stored configurations can include disabled target variants.
+      // Restore them without dropping settings, but keep enabled targets unique
+      // per URL/list regardless of current category, schedule or Focus state.
       if (!target.isWhitelist && assignments.some(assignment =>
-        assignmentKeys.has(getAssignedBlockUrlKey(target.blockURL, assignment.listId))
+        assignment.disabledByUser !== true &&
+        enabledAssignmentKeys.has(getAssignedBlockUrlKey(target.blockURL, assignment.listId))
       )) {
         throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
       }
@@ -1062,7 +1073,9 @@ export function createRulesMutationService({
         preparedWhitelistRules.push(preparedRule);
       } else {
         for (const assignment of assignments) {
-          assignmentKeys.add(getAssignedBlockUrlKey(target.blockURL, assignment.listId));
+          if (assignment.disabledByUser !== true) {
+            enabledAssignmentKeys.add(getAssignedBlockUrlKey(target.blockURL, assignment.listId));
+          }
         }
       }
     });
