@@ -330,6 +330,18 @@ export function createRulesMutationService({
     }
   }
 
+  // Validate the lists selected by the captured form inside the mutation queue.
+  function ensureAssignmentListContext(payload, snapshot, listIds) {
+    const fail = () => { throw new RulesMutationError('rules_state_changed', 'Rules changed; refresh the rule view and try again'); };
+    if (snapshot.generation !== undefined && (payload.expectedGeneration ?? null) !== snapshot.generation) fail();
+    const expected = payload.expectedListRevisions;
+    if (expected != null && (typeof expected !== 'object' || Array.isArray(expected))) fail();
+    for (const listId of new Set(listIds)) {
+      if (snapshot.revisions !== undefined &&
+          (expected?.[listId] ?? null) !== (snapshot.revisions[listId] ?? null)) fail();
+    }
+  }
+
   async function getNextSafeRuleId(rules) {
     const dnrRules = await declarativeNetRequest.getDynamicRules();
     const occupiedIds = new Set([
@@ -535,16 +547,20 @@ export function createRulesMutationService({
   async function addRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
       const target = sanitizeTargetInput(payload);
-      const [rules, lists, hasProAccess] = await Promise.all([
-        rulesManager.getRules(), getRuleLists(), getProAccess()
+      const [rules, listSnapshot, hasProAccess] = await Promise.all([
+        rulesManager.getRules(), getRuleListSnapshot(), getProAccess()
       ]);
+      const { lists } = listSnapshot;
+      const assignmentInputs = createAssignmentInputs(payload);
+      ensureAssignmentListContext(payload, listSnapshot, target.isWhitelist
+        ? [GENERAL_RULE_LIST_ID] : assignmentInputs.map(item => item.listId));
 
       if (target.isWhitelist && !hasProAccess) {
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
 
       const assignments = validateAssignments(
-        createAssignmentInputs(payload), lists, hasProAccess, target
+        assignmentInputs, lists, hasProAccess, target
       );
       const dailyLimitConfigured = assignments.some(assignment =>
         didConfigureDailyLimit(null, assignment)
@@ -633,8 +649,10 @@ export function createRulesMutationService({
       const hasProAccess = await getProAccess();
       if (!hasProAccess) throw new RulesMutationError('pro_required', 'Pro access is required');
 
-      const lists = await getRuleLists();
+      const listSnapshot = await getRuleListSnapshot();
+      const { lists } = listSnapshot;
       const targetListId = payload.listId || GENERAL_RULE_LIST_ID;
+      ensureAssignmentListContext(payload, listSnapshot, [targetListId]);
       if (!isKnownRuleListId(lists, targetListId)) {
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
@@ -773,7 +791,8 @@ export function createRulesMutationService({
       const oldRule = rules[index];
       const target = sanitizeTargetInput(payload, oldRule.isWhitelist === true, oldRule);
       target.isWhitelist = oldRule.isWhitelist === true;
-      const [lists, hasProAccess] = await Promise.all([getRuleLists(), getProAccess()]);
+      const [listSnapshot, hasProAccess] = await Promise.all([getRuleListSnapshot(), getProAccess()]);
+      const { lists } = listSnapshot;
       if (target.isWhitelist && !hasProAccess) {
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
@@ -789,6 +808,7 @@ export function createRulesMutationService({
           schedule: null,
           dailyLimit: null
         });
+        ensureAssignmentListContext(payload, listSnapshot, [GENERAL_RULE_LIST_ID]);
         validateAssignment(nextAssignment, lists, hasProAccess, target);
         throwConflict(rulesManager.checkConflict(rules, target.blockURL, true, index));
         if (findTargetRuleIndex(rules, target, index) !== -1) {
@@ -813,8 +833,12 @@ export function createRulesMutationService({
       }
 
       if (!sourceListId) {
+        const inputs = createAssignmentInputs(payload, oldRule);
+        ensureAssignmentListContext(payload, listSnapshot, [
+          ...getRuleAssignments(oldRule).map(item => item.listId), ...inputs.map(item => item.listId)
+        ]);
         const nextAssignments = validateAssignments(
-          createAssignmentInputs(payload, oldRule),
+          inputs,
           lists,
           hasProAccess,
           target,
@@ -873,6 +897,7 @@ export function createRulesMutationService({
         assignmentPayload.listId || sourceListId,
         assignmentPayload
       );
+      ensureAssignmentListContext(payload, listSnapshot, [sourceListId, nextAssignment.listId]);
       validateAssignment(nextAssignment, lists, hasProAccess, target, 'validation_failed', currentAssignment);
       const dailyLimitConfigured = didConfigureDailyLimit(currentAssignment, nextAssignment);
       ensureFreeRuleCapacity(rules, hasProAccess, oldRule, [nextAssignment]);

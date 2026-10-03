@@ -414,7 +414,7 @@ test('Popup quick blocking can reuse a hidden Study target in the General profil
     handleRulesMutationError(error) { alerts.push(error.code || error.message); }
   });
 
-  await controller.blockCurrentSite('shared.example', { remove() { removed = true; } });
+  await controller.blockCurrentSite('shared.example', { remove() { removed = true; } }, { listId: 'general', generation: null, revisions: {} });
 
   assert.equal(requests.length, 1);
   assert.equal(requests[0].assignment.listId, GENERAL_RULE_LIST_ID);

@@ -53,13 +53,18 @@ function makeDailyLimitRule(id, listId, { blockURL = null, minutes = 10 } = {}) 
 
 async function sendWorkerMessage(listener, message) {
   // Default calls represent a fresh view; concurrent tests supply their captured revision.
-  if (['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type)) {
+  if (['rules:add', 'rules:addMany', 'rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type)) {
     const stored = await chrome.storage.local.get(['rulesGeneration', 'ruleRevisions']);
     message = { ...message, payload: {
       expectedGeneration: stored.rulesGeneration ?? null,
       expectedRevision: stored.ruleRevisions?.[message.payload?.ruleId] ?? null,
       ...message.payload
     } };
+  }
+  if (['rules:add', 'rules:addMany', 'rules:update'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedListRevisions')) {
+    const stored = await chrome.storage.local.get('ruleListRevisions');
+    message = { ...message, payload: { ...message.payload, expectedListRevisions: stored.ruleListRevisions || {} } };
   }
   return new Promise((resolve, reject) => {
     if (listener(message, {}, resolve) !== true) {

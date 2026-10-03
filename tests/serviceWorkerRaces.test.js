@@ -123,7 +123,7 @@ async function withControlledClock(initial, callback) {
 
 async function sendWorkerMessage(listener, message, sender = {}, bindCurrentSnapshot = true) {
   // Default calls model a freshly read view; race tests supply captured generations or sendRaw.
-  if (bindCurrentSnapshot && ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment',
+  if (bindCurrentSnapshot && ['rules:add', 'rules:addMany', 'rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment',
       'rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList'].includes(message.type) &&
       !Object.hasOwn(message.payload || {}, 'expectedGeneration')) {
     const stored = await chrome.storage.local.get('rulesGeneration');
@@ -138,6 +138,11 @@ async function sendWorkerMessage(listener, message, sender = {}, bindCurrentSnap
       !Object.hasOwn(message.payload || {}, 'expectedListRevision')) {
     const stored = await chrome.storage.local.get('ruleListRevisions');
     message = { ...message, payload: { ...message.payload, expectedListRevision: stored.ruleListRevisions?.[message.payload?.listId] ?? null } };
+  }
+  if (bindCurrentSnapshot && ['rules:add', 'rules:addMany', 'rules:update'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedListRevisions')) {
+    const stored = await chrome.storage.local.get('ruleListRevisions');
+    message = { ...message, payload: { ...message.payload, expectedListRevisions: stored.ruleListRevisions || {} } };
   }
   return new Promise((resolve, reject) => {
     if (listener(message, sender, resolve) !== true) {
@@ -7558,4 +7563,176 @@ test('list conflict import ignores externally supplied revision metadata and kee
     assert.equal(Object.hasOwn(backup, 'ruleListRevisions'), false);assert.equal(JSON.stringify(backup).includes(revision), false);
     assert.equal((await sendRaw(listConflictIntent(api, 'rules:activateList'))).success, true);
   }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+});
+
+function assignmentContextIntent(api, type, listId = 'list-2') {
+  const rule = api.storage.local.data.rules[0];
+  return { type, payload: {
+    blockURL: type === 'rules:update' ? rule.blockURL : 'new-context.example', redirectURL: '', category: 'social',
+    assignment: { listId, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 10 } },
+    ...(type === 'rules:update' ? { ruleId: rule.id, assignmentListId: 'list-1', expectedRevision: api.storage.local.data.ruleRevisions?.[rule.id] ?? null } : {}),
+    ...(type === 'rules:addMany' ? { packId: 'shopping', entryIds: ['amazon'], listId } : {}),
+    expectedGeneration: api.storage.local.data.rulesGeneration ?? null,
+    expectedListRevisions: structuredClone(api.storage.local.data.ruleListRevisions || {})
+  } };
+}
+
+const assignmentContextInitial = () => ({
+  ...staleListInitial(),
+  ruleLists: [
+    { id: 'general', name: 'General', disabledCategories: [] },
+    { id: 'list-1', name: 'Source', disabledCategories: [] },
+    { id: 'list-2', name: 'Destination', disabledCategories: [] }
+  ], activeRuleListId: 'list-1'
+});
+
+for (const type of ['rules:add', 'rules:addMany', 'rules:update']) {
+  for (const change of ['rename', 'identical ID reuse', 'bulk replacement']) {
+    test(`assignment context rejects ${type} after destination ${change}`, async () => {
+      await withWorker(async ({ api, sendRaw, send }) => {
+        const captured = assignmentContextIntent(api, type);
+        if (change === 'rename') {
+          const rename = listConflictIntent(api, 'rules:renameList', 'list-2');rename.payload.name = 'Changed destination';
+          assert.equal((await sendRaw(rename)).success, true);
+        } else if (change === 'identical ID reuse') {
+          assert.equal((await sendRaw(listConflictIntent(api, 'rules:deleteList', 'list-2'))).success, true);
+          const created = await send({ type: 'rules:createList', payload: { name: 'Destination' } });
+          assert.equal(created.success, true);assert.equal(created.list.id, 'list-2');
+        } else {
+          const replacement = createBackupDocument({ rules: api.storage.local.data.rules,
+            ruleLists: api.storage.local.data.ruleLists, activeRuleListId: api.storage.local.data.activeRuleListId });
+          assert.equal((await send({ type: 'rules:replaceAll', payload: replacement })).success, true);
+        }
+        const before = listConflictState(api);
+        const response = await sendRaw(captured);
+        assert.equal(response.success, false);
+        assert.equal(response.error.code, 'rules_state_changed');
+        assert.deepEqual(listConflictState(api), before);
+        assert.equal((await sendRaw(assignmentContextIntent(api, type))).success, true);
+      }, { local: assignmentContextInitial(), supportsWindows: false });
+    });
+  }
+}
+
+for (const type of ['rules:add', 'rules:addMany', 'rules:update']) {
+  test(`assignment context checks queued ${type} after a real destination write`, async () => {
+    await withWorker(async ({ api, sendRaw }) => {
+      const captured = assignmentContextIntent(api, type);
+      const rename = listConflictIntent(api, 'rules:renameList', 'list-2');rename.payload.name = 'Queued destination';
+      const entered = createDeferred();const release = createDeferred();
+      const set = api.storage.local.set.bind(api.storage.local);let paused = false;
+      api.storage.local.set = async (values, callback) => {
+        if (!paused && values.ruleLists) { paused = true;entered.resolve();await release.promise; }
+        return set(values, callback);
+      };
+      const committing = sendRaw(rename);await entered.promise;
+      const queued = sendRaw(captured);release.resolve();assert.equal((await committing).success, true);
+      const before = listConflictState(api);
+      assert.equal((await queued).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+      assert.equal((await sendRaw(assignmentContextIntent(api, type))).success, true);
+    }, { local: assignmentContextInitial(), supportsWindows: false });
+  });
+
+  test(`assignment context preserves ${type} after unrelated list edits and active selection changes`, async () => {
+    await withWorker(async ({ api, sendRaw, send }) => {
+      const captured = assignmentContextIntent(api, type);
+      const created = await send({ type: 'rules:createList', payload: { name: 'Unrelated' } });assert.equal(created.success, true);
+      const rename = listConflictIntent(api, 'rules:renameList', created.list.id);rename.payload.name = 'Different';
+      assert.equal((await sendRaw(rename)).success, true);
+      assert.equal((await sendRaw(listConflictIntent(api, 'rules:activateList', 'general'))).success, true);
+      const response = await sendRaw(captured);assert.equal(response.success, true);
+      assert.ok(response.rules.some(rule => rule.assignments.some(item => item.listId === 'list-2')));
+    }, { local: assignmentContextInitial(), supportsWindows: false });
+  });
+
+  test(`assignment context rejects missing and malformed destination markers for ${type}`, async () => {
+    await withWorker(async ({ api, sendRaw }) => {
+      const rename = listConflictIntent(api, 'rules:renameList', 'list-2');rename.payload.name = 'Fresh marker';
+      assert.equal((await sendRaw(rename)).success, true);const before = listConflictState(api);
+      for (const marker of [undefined, {}, [], 'incorrect', { 'list-2': 'incorrect' }]) {
+        const message = assignmentContextIntent(api, type);message.payload.expectedListRevisions = marker;
+        const response = await sendRaw(message);assert.equal(response.error.code, 'rules_state_changed');
+        assert.deepEqual(listConflictState(api), before);
+        assert.equal(JSON.stringify(response).includes(api.storage.local.data.ruleListRevisions['list-2']), false);
+      }
+      assert.equal((await sendRaw(assignmentContextIntent(api, type))).success, true);
+    }, { local: { ...assignmentContextInitial(), ...createPendingTelemetry() }, supportsWindows: false });
+  });
+}
+
+test('assignment context rejects source-only metadata changes for an otherwise unchanged rule', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = assignmentContextIntent(api, 'rules:update');
+    const rename = listConflictIntent(api, 'rules:renameList', 'list-1');rename.payload.name = 'Changed source';
+    assert.equal((await sendRaw(rename)).success, true);
+    assert.equal(api.storage.local.data.ruleRevisions?.[1] ?? null, captured.payload.expectedRevision);
+    const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+    assert.equal((await sendRaw(assignmentContextIntent(api, 'rules:update'))).success, true);
+  }, { local: assignmentContextInitial(), supportsWindows: false });
+});
+
+test('assignment context reads fail closed and release the existing mutation queue', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = assignmentContextIntent(api, 'rules:add');const before = listConflictState(api);
+    const get = api.storage.local.get.bind(api.storage.local);let failed = false;
+    api.storage.local.get = async (keys, callback) => {
+      if (!failed && Array.isArray(keys) && keys.includes('ruleListRevisions')) { failed = true;throw new Error('storage unavailable'); }
+      return get(keys, callback);
+    };
+    assert.equal((await sendRaw(captured)).success, false);assert.equal(failed, true);
+    // Unexpected storage failures may record the existing coarse reliability error.
+    const after = listConflictState(api);
+    assert.deepEqual({ ...after, telemetry: before.telemetry }, before);
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: assignmentContextInitial(), supportsWindows: false });
+});
+
+test('assignment context keeps legacy null snapshots usable for Free General additions', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const message = assignmentContextIntent(api, 'rules:add', 'general');
+    message.payload.assignment = { listId: 'general', blockingMode: 'always', schedule: null, dailyLimit: null };
+    assert.equal((await sendRaw(message)).success, true);
+  }, { local: assignmentContextInitial(), credentials: { isPro: false }, supportsWindows: false });
+});
+
+test('assignment context rejects stale moves without changing an exhausted budget then permits a fresh move', async () => {
+  await withWorker(async ({ api, sendRaw, alarm }) => {
+    await alarm('ruleScheduleCheck');const captured = assignmentContextIntent(api, 'rules:update');
+    const rename = listConflictIntent(api, 'rules:renameList', 'list-2');rename.payload.name = 'New destination';
+    assert.equal((await sendRaw(rename)).success, true);const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+    assert.equal((await sendRaw(assignmentContextIntent(api, 'rules:update'))).success, true);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:list-2'], 600);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:list-1'], undefined);
+    assert.equal(api.storage.local.data.pendingDailyUsageRemaps?.length || 0, 0);
+    assert.equal((await api.declarativeNetRequest.getDynamicRules()).length, 0);
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:activateList', 'list-2'))).success, true);
+    assert.equal((await api.declarativeNetRequest.getDynamicRules()).length, 1);
+  }, { local: { ...assignmentContextInitial(), dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:list-1': 600 }, lastSample: null } }, supportsWindows: false });
+});
+
+test('assignment context validates every destination of a full-assignment update', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = assignmentContextIntent(api, 'rules:update');delete captured.payload.assignmentListId;
+    captured.payload.assignments = [structuredClone(api.storage.local.data.rules[0].assignments[0]), captured.payload.assignment];
+    const rename = listConflictIntent(api, 'rules:renameList', 'list-2');rename.payload.name = 'Changed second target';
+    assert.equal((await sendRaw(rename)).success, true);const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+    captured.payload.expectedListRevisions = api.storage.local.data.ruleListRevisions;
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: assignmentContextInitial(), supportsWindows: false });
+});
+
+
+test('assignment context checks removed sources of full-assignment updates', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = assignmentContextIntent(api, 'rules:update');delete captured.payload.assignmentListId;
+    captured.payload.assignments = [captured.payload.assignment];
+    const rename = listConflictIntent(api, 'rules:renameList', 'list-1');rename.payload.name = 'Removed source changed';
+    assert.equal((await sendRaw(rename)).success, true);const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+    captured.payload.expectedListRevisions = api.storage.local.data.ruleListRevisions;
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: assignmentContextInitial(), supportsWindows: false });
 });

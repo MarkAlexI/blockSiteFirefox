@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.15] - 2026-10-03
+
+- Validate captured source and destination list revisions before queued rule additions, rule packs, and assignment updates, including bulk replacement and list ID reuse.
+- Keep the Popup form and current-site button tied to the list selected when displayed; reject stale actions without changing rules, daily usage, or DNR.
+- Reuse existing local metadata and error handling; add worker queue and form snapshot regressions without new permissions or telemetry fields.
+
 ## [5.3.14] - 2026-10-03
 
 ### Fixed

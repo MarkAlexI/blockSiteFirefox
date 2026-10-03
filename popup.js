@@ -271,7 +271,7 @@ class PopupPage {
     try {
       const [snapshot, ruleListState, dailyUsageSeconds] = await Promise.all([
         this.rulesManager.getRulesSnapshot(),
-        this.ruleListsManager.getState(),
+        this.ruleListsManager.getSnapshot(),
         this.dailyLimitManager.getUsageSeconds()
       ]);
       const { rules, generation, revisions = {} } = snapshot;
@@ -280,6 +280,7 @@ class PopupPage {
         ? ruleListState.lists
         : ruleListState.lists.filter(list => list.id === GENERAL_RULE_LIST_ID);
       this.ruleLists = ruleLists;
+      this.ruleListSnapshot = ruleListState;
       this.activeRuleListId = hasRuleListAccess
         ? ruleListState.activeRuleListId
         : GENERAL_RULE_LIST_ID;
@@ -368,6 +369,11 @@ class PopupPage {
       newButton.appendChild(domainDiv);
     }
     
+    const listContext = {
+      listId: this.isPro || this.isLegacyUser ? this.activeRuleListId : GENERAL_RULE_LIST_ID,
+      generation: this.ruleListSnapshot?.generation ?? null,
+      revisions: { ...this.ruleListSnapshot?.revisions }
+    };
     newButton.addEventListener('click', async () => {
       if (!this.isPro && !this.isLegacyUser) {
         const rules = await this.rulesManager.getRules();
@@ -376,7 +382,7 @@ class PopupPage {
           return;
         }
       }
-      await this.blockCurrentSite(url, newButton);
+      await this.blockCurrentSite(url, newButton, listContext);
     });
     
     this.addRuleButton.insertAdjacentElement('afterend', newButton);
@@ -398,11 +404,11 @@ class PopupPage {
     }
   }
   
-  async blockCurrentSite(url, button) {
+  async blockCurrentSite(url, button, listContext) {
     try {
       const rules = await this.rulesManager.getRules();
       const targetListId = this.isPro || this.isLegacyUser
-        ? this.activeRuleListId
+        ? listContext.listId
         : GENERAL_RULE_LIST_ID;
       const alreadyExists = rules.some(rule =>
         rule.blockURL === url && Boolean(getRuleAssignment(rule, targetListId))
@@ -417,6 +423,8 @@ class PopupPage {
         }
         
         await this.rulesClient.addRule({
+          expectedGeneration: listContext.generation,
+          expectedListRevisions: listContext.revisions,
           blockURL: url,
           redirectURL: '',
           category: 'social',
@@ -438,6 +446,11 @@ class PopupPage {
   }
   
   createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listIds = [GENERAL_RULE_LIST_ID], blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0, assignments = null, expectedGeneration = null, expectedRevision = null) {
+    const listContext = {
+      listId: isWhitelist || (!this.isPro && !this.isLegacyUser) ? GENERAL_RULE_LIST_ID : this.activeRuleListId,
+      generation: this.ruleListSnapshot?.generation ?? null,
+      revisions: { ...this.ruleListSnapshot?.revisions }
+    };
     const ruleDiv = document.createElement('div');
     const isCategoryMuted = this.activeDisabledCategories.includes(category);
     const normalizedListIds = isWhitelist ? [GENERAL_RULE_LIST_ID] : (Array.isArray(listIds) ? listIds : [listIds]);
@@ -511,7 +524,7 @@ class PopupPage {
       
       if (!blockURLValue) {
         if (showButtons) {
-          const saveButton = this.createSaveButton(blockURL, redirectURL, ruleDiv, isWhitelist);
+          const saveButton = this.createSaveButton(blockURL, redirectURL, ruleDiv, isWhitelist, listContext);
           ruleDiv.appendChild(saveButton);
         } else {
           const proMessage = document.createElement('span');
@@ -597,13 +610,13 @@ class PopupPage {
     }, 0);
   }
   
-  createSaveButton(blockURL, redirectURL, ruleDiv, isWhitelist = false) {
+  createSaveButton(blockURL, redirectURL, ruleDiv, isWhitelist = false, listContext = null) {
     const saveButton = document.createElement('button');
     saveButton.className = 'save-btn';
     saveButton.textContent = t('savebtn');
     
     saveButton.addEventListener('click', async () => {
-      await this.saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist);
+      await this.saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist, listContext);
     });
     
     return saveButton;
@@ -796,7 +809,11 @@ class PopupPage {
     }
   }
   
-  async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist = false) {
+  async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist = false, listContext = {
+    listId: this.activeRuleListId || GENERAL_RULE_LIST_ID,
+    generation: this.ruleListSnapshot?.generation ?? null,
+    revisions: { ...this.ruleListSnapshot?.revisions }
+  }) {
     try {
       if (!isWhitelist && !this.isPro && !this.isLegacyUser) {
         const currentRules = await this.rulesManager.getRules();
@@ -807,13 +824,15 @@ class PopupPage {
       }
       
       await this.rulesClient.addRule({
+        expectedGeneration: listContext?.generation ?? null,
+        expectedListRevisions: listContext?.revisions || {},
         blockURL: blockURL.value,
         redirectURL: isWhitelist ? '' : redirectURL.value,
         category: isWhitelist ? 'whitelist' : 'social',
         assignment: {
           listId: isWhitelist || (!this.isPro && !this.isLegacyUser)
             ? GENERAL_RULE_LIST_ID
-            : this.activeRuleListId,
+            : listContext?.listId,
           blockingMode: 'always',
           schedule: null,
           dailyLimit: null

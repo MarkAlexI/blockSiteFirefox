@@ -42,7 +42,7 @@ function createStorageArea(initial = {}) {
 }
 
 async function sendWorkerMessage(listener, message) {
-  if (['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type) &&
+  if (['rules:add', 'rules:addMany', 'rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type) &&
       !Object.hasOwn(message.payload || {}, 'expectedGeneration')) {
     const stored = await chrome.storage.local.get('rulesGeneration');
     message = { ...message, payload: { ...message.payload, expectedGeneration: stored.rulesGeneration ?? null } };
@@ -51,6 +51,11 @@ async function sendWorkerMessage(listener, message) {
       !Object.hasOwn(message.payload || {}, 'expectedRevision')) {
     const stored = await chrome.storage.local.get('ruleRevisions');
     message = { ...message, payload: { ...message.payload, expectedRevision: stored.ruleRevisions?.[message.payload?.ruleId] ?? null } };
+  }
+  if (['rules:add', 'rules:addMany', 'rules:update'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedListRevisions')) {
+    const stored = await chrome.storage.local.get('ruleListRevisions');
+    message = { ...message, payload: { ...message.payload, expectedListRevisions: stored.ruleListRevisions || {} } };
   }
   return new Promise((resolve, reject) => {
     const keepChannelOpen = listener(message, {}, resolve);

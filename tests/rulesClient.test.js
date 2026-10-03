@@ -68,7 +68,9 @@ test('rules client sends a structured addMany intent for a local rule pack', asy
         packId: 'shopping',
         entryIds: ['amazon', 'etsy'],
         schedule,
-        listId: 'list-1'
+        listId: 'list-1',
+        expectedGeneration: null,
+        expectedListRevisions: {}
       }
     });
     assert.equal(result.addedCount, 2);
@@ -299,4 +301,21 @@ test('list conflict client forwards displayed revision in rename activate toggle
     assert.deepEqual(messages.map(message => message.type), ['rules:renameList', 'rules:activateList', 'rules:activateList', 'rules:deleteList']);
     for (const message of messages) { assert.equal(message.payload.expectedGeneration, 'generation');assert.equal(message.payload.expectedListRevision, 'displayed-list-revision'); }
   } finally { globalThis.chrome = oldChrome;globalThis.browser = oldBrowser; }
+});
+
+test('assignment context client forwards captured list revisions for add pack and update intents', async () => {
+  const previousChrome = globalThis.chrome;const previousBrowser = globalThis.browser;const messages = [];
+  const api = { runtime: { lastError: null, sendMessage(message, callback) { messages.push(message);const result = { success: true };callback?.(result);return Promise.resolve(result); } } };
+  globalThis.chrome = api;globalThis.browser = api;
+  try {
+    const client = new RulesClient();const revisions = { general: 'captured-general', 'list-1': 'captured-list' };
+    await client.addRule({ blockURL: 'test.example', expectedGeneration: 'captured', expectedListRevisions: revisions });
+    await client.addMany('shopping', ['amazon'], null, 'list-1', 'captured', revisions);
+    await client.updateRule({ ruleId: 1, expectedGeneration: 'captured', expectedRevision: 'rule', expectedListRevisions: revisions });
+    assert.deepEqual(messages.map(message => message.type), ['rules:add', 'rules:addMany', 'rules:update']);
+    for (const message of messages) {
+      assert.equal(message.payload.expectedGeneration, 'captured');assert.deepEqual(message.payload.expectedListRevisions, revisions);
+    }
+    assert.equal(messages[2].payload.expectedRevision, 'rule');
+  } finally { globalThis.chrome = previousChrome;globalThis.browser = previousBrowser; }
 });

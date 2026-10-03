@@ -32,15 +32,15 @@ async function sendRulesIntent(type, payload = {}) {
 
 export class RulesClient {
   addRule(payload) {
-    return sendRulesIntent('rules:add', payload);
+    return sendRulesIntent('rules:add', { ...payload, expectedGeneration: payload.expectedGeneration ?? null, expectedListRevisions: payload.expectedListRevisions ?? {} });
   }
 
-  addMany(packId, entryIds, schedule = null, listId = 'general') {
-    return sendRulesIntent('rules:addMany', { packId, entryIds, schedule, listId });
+  addMany(packId, entryIds, schedule = null, listId = 'general', expectedGeneration = null, expectedListRevisions = {}) {
+    return sendRulesIntent('rules:addMany', { packId, entryIds, schedule, listId, expectedGeneration, expectedListRevisions });
   }
 
   updateRule(payload) {
-    return sendRulesIntent('rules:update', { ...payload, expectedGeneration: payload.expectedGeneration ?? null, expectedRevision: payload.expectedRevision ?? null });
+    return sendRulesIntent('rules:update', { ...payload, expectedGeneration: payload.expectedGeneration ?? null, expectedRevision: payload.expectedRevision ?? null, expectedListRevisions: payload.expectedListRevisions ?? {} });
   }
 
   removeAssignment(ruleId, listId, expectedGeneration = null, expectedRevision = null) {

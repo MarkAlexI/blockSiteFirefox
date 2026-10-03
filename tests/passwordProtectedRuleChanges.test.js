@@ -249,7 +249,7 @@ test('stale options row callbacks retain the generation of their displayed rule'
   const calls = [];
   Object.assign(controller, {
     rulesUI: { createRuleDisplayRow(...args) { callbacks = args.slice(3, 6); return {}; } },
-    toggleEditMode(...args) { calls.push(['edit', args.at(-2)]); },
+    toggleEditMode(...args) { calls.push(['edit', args.at(-3)]); },
     handleRuleAssignmentDeletion(...args) { calls.push(['remove', args.at(-2)]); },
     handleRuleToggle(...args) { calls.push(['toggle', args.at(-2)]); }
   });
@@ -439,7 +439,7 @@ test('rule conflict Options row callbacks keep both generation and revision from
   const controller = new Controller();let callbacks;const calls = [];
   Object.assign(controller, {
     rulesUI: { createRuleDisplayRow(...args) { callbacks = args.slice(3, 6);return {}; } },
-    toggleEditMode(...args) { calls.push(args.slice(-2)); },
+    toggleEditMode(...args) { calls.push(args.slice(-3, -1)); },
     handleRuleAssignmentDeletion(...args) { calls.push(args.slice(-2)); },
     handleRuleToggle(...args) { calls.push(args.slice(-2)); }
   });

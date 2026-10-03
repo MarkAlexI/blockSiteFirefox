@@ -1224,7 +1224,10 @@ if (browser.contextMenus) {
       const created = await enqueueRulesTransition(async () => {
         // The initial UI check can precede a queued logout.
         if (!await ProManager.hasPaidAccess()) return false;
+        const listSnapshot = await ruleListsManager.getSnapshot();
         await rulesMutationService.addRule({
+          expectedGeneration: listSnapshot.generation,
+          expectedListRevisions: listSnapshot.revisions,
           blockURL: decodeURIComponent(ruleValue),
           redirectURL: '',
           schedule: null,
