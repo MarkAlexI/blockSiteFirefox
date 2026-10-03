@@ -403,7 +403,12 @@ class OptionsPage {
     if (error.code === 'validation_failed') {
       this.rulesUI.showValidationErrors(error.validationErrors || []);
     } else if (error.code === 'rule_already_exists') {
-      this.rulesUI.showErrorMessage(t('alertruleexist'));
+      let message = t('alertruleexist');
+      if (error.conflict?.listId === GENERAL_RULE_LIST_ID &&
+          typeof error.conflict.blockURL === 'string') {
+        message += `\n${t('rulelist_general') || 'General'}: ${error.conflict.blockURL}`;
+      }
+      this.rulesUI.showErrorMessage(message);
     } else if (error.code === 'rule_assignment_exists') {
       this.rulesUI.showErrorMessage(t('rulelists_assignment_exists') || 'This rule already has settings for that list.');
     } else if (error.code === 'rule_assignment_not_found' || error.code === 'rule_assignment_locked') {

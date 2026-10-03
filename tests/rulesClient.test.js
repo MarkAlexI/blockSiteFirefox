@@ -207,3 +207,32 @@ test('deletion intents cross the client and worker router with stable IDs', asyn
     globalThis.browser = previousBrowser;
   }
 });
+
+
+test('list deletion conflict crosses serialization and RulesClient with only the local General context', async () => {
+  const { RulesMutationError, serializeRulesMutationError } = await import('../rules/rulesMutationService.js');
+  const error = new RulesMutationError('rule_already_exists', 'Resolve the General conflict');
+  error.conflict = { listId: 'general', blockURL: 'saved.example', licenseKey: 'synthetic-secret' };
+  const response = { success: false, error: serializeRulesMutationError(error) };
+  const previousChrome = globalThis.chrome;
+  const previousBrowser = globalThis.browser;
+  const sent = [];
+  const runtime = { lastError: null, sendMessage(message, callback) {
+    sent.push(message);
+    callback?.(response);
+    return Promise.resolve(response);
+  } };
+  globalThis.chrome = { runtime };
+  globalThis.browser = { runtime };
+  try {
+    await assert.rejects(new RulesClient().deleteRuleList('list-1'), rejected => {
+      assert.equal(rejected.code, 'rule_already_exists');
+      assert.deepEqual(rejected.conflict, { listId: 'general', blockURL: 'saved.example' });
+      return true;
+    });
+    assert.deepEqual(sent, [{ type: 'rules:deleteList', payload: { listId: 'list-1' } }]);
+  } finally {
+    globalThis.chrome = previousChrome;
+    globalThis.browser = previousBrowser;
+  }
+});

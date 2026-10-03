@@ -6222,3 +6222,108 @@ test('restored variants worker transfers exhausted usage when a target merges be
     dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '61:list-1': 840 }, lastSample: null }
   }, supportsWindows: false });
 });
+
+
+test('list deletion conflict worker rejects enabled collisions with unchanged rules usage settings and DNR', async () => {
+  const general = makeFocusRule(21, 'general', { blockURL: 'saved.example' });
+  general.redirectURL = 'https://general.example/';
+  const moved = makeDailyLimitRule(22, 'list-1', { blockURL: 'saved.example', minutes: 5 });
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:activateList', payload: { listId: 'list-1' } })).success, true);
+    const readState = () => structuredClone({ rules: api.storage.local.data.rules, lists: api.storage.local.data.ruleLists, active: api.storage.local.data.activeRuleListId, usage: api.storage.local.data.dailyRuleUsage, settings: api.storage.sync.data.settings, credentials: api.storage.sync.data.credentials, dnr: api.dynamicRules });
+    const before = readState();
+    const response = await send({ type: 'rules:deleteList', payload: { listId: 'list-1' } });
+    assert.equal(response.success, false);
+    assert.equal(response.error.code, 'rule_already_exists');
+    assert.deepEqual(response.error.conflict, { listId: 'general', blockURL: 'saved.example' });
+    assert.deepEqual(readState(), before);
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(bucket => bucket.errors || []);
+    assert.deepEqual(errors, []);
+    assert.equal(JSON.stringify(api.storage.local.data.telemetryBuckets || {}).includes('saved.example'), false);
+  }, { local: {
+    activeRuleListId: 'list-1', rules: [general, moved],
+    telemetryConsent: { version: 1, enabled: true, decidedAt: 1 },
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '22:list-1': 600 }, lastSample: null }
+  }, supportsWindows: false });
+});
+
+test('list deletion conflict worker moves an exhausted Daily Limit beside a disabled General target', async () => {
+  const general = makeFocusRule(31, 'general', { blockURL: 'saved.example' });
+  general.redirectURL = 'https://archived.example/';
+  general.assignments[0].disabledByUser = true;
+  const moved = makeDailyLimitRule(32, 'list-1', { blockURL: 'saved.example', minutes: 5 });
+  await withWorker(async ({ api, send }) => {
+    const settings = structuredClone(api.storage.sync.data.settings);
+    const credentials = structuredClone(api.storage.sync.data.credentials);
+    const response = await send({ type: 'rules:deleteList', payload: { listId: 'list-1' } });
+    assert.equal(response.success, true);
+    assert.equal(response.removedConflictingTargets, 0);
+    assert.equal(api.storage.local.data.rules.length, 2);
+    assert.deepEqual(api.storage.local.data.rules[0], general);
+    assert.deepEqual(api.storage.local.data.rules[1], { ...moved, assignments: [{ ...moved.assignments[0], listId: 'general' }] });
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '32:general': 600 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.deepEqual(api.storage.local.data.ruleLists.map(list => list.id), ['general']);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [32]);
+    assert.equal(new URL(api.dynamicRules[0].action.redirect.url).pathname, '/blocked.html');
+    assert.deepEqual(api.storage.sync.data.settings, settings);
+    assert.deepEqual(api.storage.sync.data.credentials, credentials);
+  }, { local: { activeRuleListId: 'list-1', rules: [general, moved], dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '32:list-1': 600 }, lastSample: null } }, supportsWindows: false });
+});
+
+test('list deletion conflict worker preserves pending exhausted usage through recovery and restart', async () => {
+  const general = makeFocusRule(41, 'general', { blockURL: 'saved.example' });
+  general.redirectURL = 'https://archived.example/';
+  general.assignments[0].disabledByUser = true;
+  const moved = makeDailyLimitRule(42, 'list-1', { blockURL: 'saved.example', minutes: 5 });
+  let persisted;
+  await withWorker(async ({ api, send }) => {
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => {
+      if (Array.isArray(values.pendingDailyUsageRemaps) && values.pendingDailyUsageRemaps.length === 0) {
+        return Promise.reject(new Error('temporary usage recovery failure'));
+      }
+      return originalSet(values, callback);
+    };
+    const response = await send({ type: 'rules:deleteList', payload: { listId: 'list-1' } });
+    assert.equal(response.success, true);
+    assert.equal(response.dailyUsageSyncPending, true);
+    assert.equal(api.storage.local.data.rules.length, 2);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '42:list-1': 600 });
+    assert.equal(api.storage.local.data.pendingDailyUsageRemaps.length, 1);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [42]);
+    persisted = structuredClone(api.storage.local.data);
+  }, { local: { activeRuleListId: 'list-1', rules: [general, moved], dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '42:list-1': 600 }, lastSample: null } }, supportsWindows: false });
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.rules.length, 2);
+    assert.deepEqual(api.storage.local.data.rules[0], general);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '42:general': 600 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [42]);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+  }, { local: persisted, supportsWindows: false });
+});
+
+test('list deletion conflict worker serializes two list deletions without discarding the second target', async () => {
+  const first = makeFocusRule(51, 'list-1', { blockURL: 'saved.example' });
+  first.redirectURL = 'https://first.example/';
+  const second = makeFocusRule(52, 'list-2', { blockURL: 'saved.example' });
+  second.redirectURL = 'https://second.example/';
+  await withWorker(async ({ api, send }) => {
+    const responses = await Promise.all(['list-1', 'list-2'].map(listId => send({ type: 'rules:deleteList', payload: { listId } })));
+    assert.equal(responses.filter(item => item.success).length, 1);
+    assert.equal(responses.find(item => !item.success).error.code, 'rule_already_exists');
+    assert.equal(api.storage.local.data.rules.length, 2);
+    assert.deepEqual(api.storage.local.data.rules.find(rule => rule.id === 52), second);
+    assert.deepEqual(api.storage.local.data.ruleLists.map(list => list.id), ['general', 'list-2']);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [51]);
+    assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), first.redirectURL);
+  }, { local: { activeRuleListId: 'list-1', rules: [first, second], ruleLists: [
+    { id: 'general', name: 'General', disabledCategories: [] },
+    { id: 'list-1', name: 'Study', disabledCategories: [] },
+    { id: 'list-2', name: 'Work', disabledCategories: [] }
+  ] }, supportsWindows: false });
+});

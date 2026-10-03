@@ -9,6 +9,14 @@ function createClientError(errorData = {}) {
   const error = new Error(errorData.message || errorData.code || 'Rules operation failed');
   error.code = errorData.code || 'rules_operation_failed';
   error.validationErrors = Array.isArray(errorData.validationErrors) ? errorData.validationErrors : [];
+  if (error.code === 'rule_already_exists' &&
+      errorData.conflict?.listId === GENERAL_RULE_LIST_ID &&
+      typeof errorData.conflict.blockURL === 'string') {
+    error.conflict = {
+      listId: GENERAL_RULE_LIST_ID,
+      blockURL: errorData.conflict.blockURL
+    };
+  }
   return error;
 }
 

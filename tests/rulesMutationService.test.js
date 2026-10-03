@@ -2620,7 +2620,7 @@ test('import rejects two target variants for the same block URL in one profile',
   );
 });
 
-test('deleting a profile does not move a conflicting target variant into General', async () => {
+test('list deletion conflict rejects two enabled targets without losing either configuration', async () => {
   const harness = createHarness({
     initialRuleLists: [
       { id: 'general', name: 'General', disabledCategories: [] },
@@ -2647,11 +2647,14 @@ test('deleting a profile does not move a conflicting target variant into General
     ]
   });
 
-  const result = await harness.service.deleteRuleList({ listId: 'list-1' });
-  assert.equal(result.removedConflictingTargets, 1);
-  assert.equal(result.activeRuleListId, 'general');
-  assert.equal(harness.getRules().length, 1);
-  assert.equal(harness.getRules()[0].id, 1);
+  const rules = harness.getRules();
+  const lists = harness.getRuleLists();
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), rules);
+  assert.deepEqual(harness.getRuleLists(), lists);
+  assert.equal(harness.getActiveRuleListId(), 'list-1');
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
   assert.deepEqual(harness.getUsageRemaps(), []);
 });
 
@@ -3440,4 +3443,155 @@ test('restored variants preserve Daily Limit remaps when an edit merges beside a
   assert.deepEqual(getRuleListIds(result.rule), ['general', 'list-1']);
   assert.deepEqual(harness.getRules().find(rule => rule.id === before[2].id), before[2]);
   assert.deepEqual(harness.getUsageRemaps(), [{ oldRuleId: before[0].id, oldListId: 'list-1', newRuleId: before[1].id, newListId: 'list-1' }]);
+});
+
+
+for (const [generalDisabled, movedDisabled] of [[true, false], [false, true], [true, true]]) {
+  test(`list deletion conflict preserves General/moved disabled states ${generalDisabled}/${movedDisabled} in either order`, async () => {
+    for (const reverse of [false, true]) {
+      const general = { id: 21, ...backupVariant(generalDisabled, { blockURL: 'SAVED.Example', redirectURL: 'https://general.example/' }) };
+      const moved = { id: 22, ...backupVariant(movedDisabled, { assignments: [conflictAssignment('list-1', movedDisabled, { blockingMode: 'daily_limit', dailyLimit: { minutes: 15 } })] }) };
+      const harness = createHarness({ initialRules: reverse ? [moved, general] : [general, moved], initialRuleLists: conflictLists, initialActiveRuleListId: 'list-1', durableUsageJournal: true });
+      const result = await harness.service.deleteRuleList({ listId: 'list-1' });
+      assert.equal(result.removedConflictingTargets, 0);
+      assert.equal(result.activeRuleListId, 'general');
+      assert.equal(result.rules.length, 2);
+      assert.deepEqual(result.rules.find(rule => rule.id === general.id), general);
+      assert.deepEqual(result.rules.find(rule => rule.id === moved.id), { ...moved, assignments: [{ ...moved.assignments[0], listId: 'general' }] });
+      assert.deepEqual(harness.getUsageRemaps(), [{ oldRuleId: 22, oldListId: 'list-1', newRuleId: 22, newListId: 'general' }]);
+      assert.equal(harness.getUsageJournalStages().length, 1);
+    }
+  });
+}
+
+test('list deletion conflict preserves an imported enabled/disabled pair moving together into empty General', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(true, { redirectURL: 'https://one.example/', assignments: [conflictAssignment('list-1', true)] }),
+    backupVariant(false, { assignments: [conflictAssignment('list-1', false, { blockingMode: 'daily_limit', dailyLimit: { minutes: 5 } })] }),
+    backupVariant(true, { redirectURL: 'https://two.example/', assignments: [conflictAssignment('list-1', true)] })
+  ]);
+  const before = harness.getRules();
+  const result = await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.equal(result.rules.length, 3);
+  assert.deepEqual(result.rules, before.map(rule => ({ ...rule, assignments: rule.assignments.map(item => ({ ...item, listId: 'general' })) })));
+  assert.equal(result.rules.filter(rule => !rule.assignments[0].disabledByUser).length, 1);
+  assert.equal(result.removedConflictingTargets, 0);
+});
+
+test('list deletion conflict rejects an entire batch before staged usage or unrelated rules change', async () => {
+  const general = { id: 21, ...backupVariant(false, { redirectURL: 'https://general.example/' }) };
+  const moved = { id: 22, ...backupVariant(false, { assignments: [conflictAssignment('list-1')] }) };
+  const unrelated = makeCapacityRule(23, 'list-1', { blockingMode: 'daily_limit' });
+  const rules = [unrelated, moved, general];
+  const harness = createHarness({ initialRules: rules, initialRuleLists: conflictLists, initialActiveRuleListId: 'list-1', durableUsageJournal: true });
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), error => {
+    assert.equal(error.code, 'rule_already_exists');
+    assert.deepEqual(serializeRulesMutationError(error).conflict, { listId: 'general', blockURL: 'saved.example' });
+    return true;
+  });
+  assert.deepEqual(harness.getRules(), rules);
+  assert.deepEqual(harness.getRuleLists(), conflictLists);
+  assert.equal(harness.getActiveRuleListId(), 'list-1');
+  assert.deepEqual(harness.getUsageJournalStages(), []);
+  assert.deepEqual(harness.getUsageRemaps(), []);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('list deletion conflict validates collisions between moved legacy targets before any commit', async () => {
+  const first = { id: 21, ...backupVariant(false, { assignments: [conflictAssignment('list-1')] }) };
+  const second = { id: 22, ...backupVariant(false, { blockURL: ' SAVED.Example ', redirectURL: 'https://other.example/', assignments: [conflictAssignment('list-1')] }) };
+  const harness = createHarness({ initialRules: [first, second], initialRuleLists: conflictLists });
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), [first, second]);
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('list deletion conflict rejects exact legacy target duplicates even if both assignments are disabled', async () => {
+  const general = { id: 21, ...backupVariant(true) };
+  const moved = { id: 22, ...backupVariant(true, { assignments: [conflictAssignment('list-1', true, { blockingMode: 'daily_limit', dailyLimit: { minutes: 5 } })] }) };
+  const harness = createHarness({ initialRules: [general, moved], initialRuleLists: conflictLists, durableUsageJournal: true });
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), [general, moved]);
+  assert.equal(harness.savedStates.length, 0);
+  assert.deepEqual(harness.getUsageRemaps(), []);
+});
+
+test('list deletion conflict preserves remaining shared assignments without replacing their General settings', async () => {
+  const shared = { id: 21, ...backupVariant(false, { assignments: [conflictAssignment('general', false, { blockingMode: 'daily_limit', dailyLimit: { minutes: 20 } }), conflictAssignment('list-1', true)] }) };
+  const disabled = { id: 22, ...backupVariant(true, { redirectURL: 'https://archived.example/' }) };
+  const harness = createHarness({ initialRules: [shared, disabled], initialRuleLists: conflictLists });
+  const result = await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.deepEqual(result.rules, [{ ...shared, assignments: [shared.assignments[0]] }, disabled]);
+  assert.deepEqual(harness.getUsageRemaps(), []);
+});
+
+test('list deletion conflict allows retry after the enabled General variant is explicitly disabled', async () => {
+  const general = { id: 21, ...backupVariant(false, { redirectURL: 'https://general.example/' }) };
+  const moved = { id: 22, ...backupVariant(false, { assignments: [conflictAssignment('list-1')] }) };
+  const harness = createHarness({ initialRules: [general, moved], initialRuleLists: conflictLists, initialActiveRuleListId: 'list-1' });
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), error => error.code === 'rule_already_exists');
+  await harness.service.toggleRule({ ruleId: 21, listId: 'general' });
+  const result = await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.equal(result.rules.length, 2);
+  assert.equal(result.rules.find(rule => rule.id === 21).assignments[0].disabledByUser, true);
+  assert.equal(result.rules.find(rule => rule.id === 22).assignments[0].disabledByUser, false);
+  assert.deepEqual(getRuleListIds(result.rules.find(rule => rule.id === 22)), ['general']);
+});
+
+test('list deletion conflict preserves all variants when its durable journal write fails', async () => {
+  const general = { id: 21, ...backupVariant(true, { redirectURL: 'https://general.example/' }) };
+  const moved = { id: 22, ...backupVariant(false, { assignments: [conflictAssignment('list-1', false, { blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } })] }) };
+  const harness = createHarness({ initialRules: [general, moved], initialRuleLists: conflictLists, initialActiveRuleListId: 'list-1', durableUsageJournal: true, usageStageError: new Error('journal write failed') });
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), /journal write failed/);
+  assert.deepEqual(harness.getRules(), [general, moved]);
+  assert.deepEqual(harness.getRuleLists(), conflictLists);
+  assert.equal(harness.getActiveRuleListId(), 'list-1');
+  assert.equal(harness.savedStates.length, 0);
+  assert.equal(harness.getSyncCalls(), 0);
+});
+
+test('list deletion conflict keeps a committed valid projection pending when DNR synchronization fails', async () => {
+  const general = { id: 21, ...backupVariant(true, { redirectURL: 'https://general.example/' }) };
+  const moved = { id: 22, ...backupVariant(false, { assignments: [conflictAssignment('list-1')] }) };
+  const harness = createHarness({ initialRules: [general, moved], initialRuleLists: conflictLists, initialActiveRuleListId: 'list-1', syncResult: { success: false } });
+  const result = await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.equal(result.syncPending, true);
+  assert.equal(result.rules.length, 2);
+  assert.deepEqual(harness.getRules(), result.rules);
+  assert.deepEqual(harness.getRuleLists().map(list => list.id), ['general']);
+  assert.equal(harness.getActiveRuleListId(), 'general');
+});
+
+
+test('list deletion conflict respects Free access before changing either list or rule', async () => {
+  const general = { id: 21, ...backupVariant(true, { redirectURL: 'https://general.example/' }) };
+  const moved = { id: 22, ...backupVariant(false, { assignments: [conflictAssignment('list-1')] }) };
+  const harness = createHarness({ initialRules: [general, moved], initialRuleLists: conflictLists, access: { isPro: false, isLegacyUser: false } });
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), error => error.code === 'pro_required');
+  assert.deepEqual(harness.getRules(), [general, moved]);
+  assert.deepEqual(harness.getRuleLists(), conflictLists);
+  assert.equal(harness.savedStates.length, 0);
+});
+
+test('list deletion conflict allows trusted Legacy access to preserve disabled variants', async () => {
+  const general = { id: 21, ...backupVariant(true, { redirectURL: 'https://general.example/' }) };
+  const moved = { id: 22, ...backupVariant(false, { assignments: [conflictAssignment('list-1')] }) };
+  const harness = createHarness({ initialRules: [general, moved], initialRuleLists: conflictLists, access: { isPro: false, isLegacyUser: true } });
+  const result = await harness.service.deleteRuleList({ listId: 'list-1' });
+  assert.equal(result.rules.length, 2);
+  assert.deepEqual(result.rules.find(rule => rule.id === 21), general);
+  assert.deepEqual(getRuleListIds(result.rules.find(rule => rule.id === 22)), ['general']);
+});
+
+test('list deletion conflict leaves the original variants intact when the combined state write fails', async () => {
+  const general = { id: 21, ...backupVariant(true, { redirectURL: 'https://general.example/' }) };
+  const moved = { id: 22, ...backupVariant(false, { assignments: [conflictAssignment('list-1')] }) };
+  const harness = createHarness({ initialRules: [general, moved], initialRuleLists: conflictLists, initialActiveRuleListId: 'list-1', combinedSaveError: new Error('local state write failed') });
+  await assert.rejects(harness.service.deleteRuleList({ listId: 'list-1' }), /local state write failed/);
+  assert.deepEqual(harness.getRules(), [general, moved]);
+  assert.deepEqual(harness.getRuleLists(), conflictLists);
+  assert.equal(harness.getActiveRuleListId(), 'list-1');
+  assert.equal(harness.getSyncCalls(), 0);
 });

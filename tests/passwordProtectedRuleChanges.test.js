@@ -221,3 +221,16 @@ test('the rendered rule toggles use the protected handlers on both pages', () =>
     /await this\.handleRuleToggle\([\s\S]*?disabledByUser,[\s\S]*?isMuted[\s\S]*?\);/
   );
 });
+
+
+test('list deletion conflict Options identifies the General address using existing localized labels', () => {
+  const method = getClassMember(optionsSource, 'handleRulesMutationError(', 'async handleRuleToggle(');
+  const messages = [];
+  const translations = { alertruleexist: 'Правило вже існує', rulelist_general: 'Загальний' };
+  const Controller = new Function('GENERAL_RULE_LIST_ID', 'MAX_RULES_LIMIT', 't', `return class ErrorPresentation {\n${method}\n};`)('general', 10, key => translations[key] || key);
+  const controller = new Controller();
+  controller.rulesUI = { showErrorMessage(message) { messages.push(message); } };
+  controller.handleRulesMutationError({ code: 'rule_already_exists', conflict: { listId: 'general', blockURL: 'saved.example' } });
+  controller.handleRulesMutationError({ code: 'rule_already_exists' });
+  assert.deepEqual(messages, ['Правило вже існує\nЗагальний: saved.example', 'Правило вже існує']);
+});

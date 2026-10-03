@@ -40,11 +40,21 @@ export class RulesMutationError extends Error {
 }
 
 export function serializeRulesMutationError(error) {
-  return {
+  const serialized = {
     code: error?.code || 'rules_operation_failed',
     message: error?.message || 'Rules operation failed',
     validationErrors: Array.isArray(error?.validationErrors) ? error.validationErrors : []
   };
+  // Conflict context stays in the local reply to Options, never telemetry.
+  if (error?.code === 'rule_already_exists' &&
+      error?.conflict?.listId === GENERAL_RULE_LIST_ID &&
+      typeof error.conflict.blockURL === 'string') {
+    serialized.conflict = {
+      listId: GENERAL_RULE_LIST_ID,
+      blockURL: error.conflict.blockURL
+    };
+  }
+  return serialized;
 }
 
 function createAsyncQueue() {
@@ -197,6 +207,40 @@ function createAssignmentInputs(payload = {}, fallbackRule = null, fallbackAssig
 
   return getLegacyListIds(payload, fallbackRule)
     .map(listId => createRuleAssignment(listId, config));
+}
+
+// Validate the full projected General state before any storage or usage write.
+// Index surviving targets first so collision handling does not depend on order.
+function ensureGeneralMovesHaveNoConflicts(nextRules, movedRules) {
+  if (movedRules.length === 0) return;
+  const moved = new Set(movedRules);
+  const targetKeys = new Set();
+  const enabledAssignmentKeys = new Set();
+  function remember(rule, assignment) {
+    targetKeys.add(getRuleTargetKey(rule));
+    if (assignment.disabledByUser !== true) {
+      enabledAssignmentKeys.add(getAssignedBlockUrlKey(rule.blockURL, GENERAL_RULE_LIST_ID));
+    }
+  }
+  for (const rule of nextRules) {
+    if (rule.isWhitelist === true || moved.has(rule)) continue;
+    const assignment = getRuleAssignment(rule, GENERAL_RULE_LIST_ID);
+    if (assignment) remember(rule, assignment);
+  }
+  for (const rule of movedRules) {
+    const assignment = getRuleAssignment(rule, GENERAL_RULE_LIST_ID);
+    if (targetKeys.has(getRuleTargetKey(rule)) ||
+        (assignment.disabledByUser !== true &&
+         enabledAssignmentKeys.has(getAssignedBlockUrlKey(rule.blockURL, GENERAL_RULE_LIST_ID)))) {
+      const error = new RulesMutationError(
+        'rule_already_exists',
+        'Resolve conflicting targets in General before deleting this list'
+      );
+      error.conflict = { listId: GENERAL_RULE_LIST_ID, blockURL: rule.blockURL };
+      throw error;
+    }
+    remember(rule, assignment);
+  }
 }
 
 export function createRulesMutationService({
@@ -1343,7 +1387,7 @@ export function createRulesMutationService({
       const nextLists = state.lists.filter(list => list.id !== listId);
       const nextRules = [];
       const usageRemaps = [];
-      let removedConflictingTargets = 0;
+      const movedToGeneral = [];
 
       for (let index = 0; index < rules.length; index++) {
         const rule = rules[index];
@@ -1363,19 +1407,10 @@ export function createRulesMutationService({
           continue;
         }
 
-        const generalVariantIndex = findAssignedBlockUrlRuleIndex(
-          rules,
-          rule.blockURL,
-          GENERAL_RULE_LIST_ID,
-          index
-        );
-        if (generalVariantIndex !== -1) {
-          removedConflictingTargets++;
-          continue;
-        }
-
         const generalAssignment = createRuleAssignment(GENERAL_RULE_LIST_ID, removedAssignment);
-        nextRules.push(canonicalizeRuleTarget(rule, [generalAssignment]));
+        const movedRule = canonicalizeRuleTarget(rule, [generalAssignment]);
+        nextRules.push(movedRule);
+        movedToGeneral.push(movedRule);
         if (removedAssignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
           usageRemaps.push({
             oldRuleId: rule.id,
@@ -1386,6 +1421,7 @@ export function createRulesMutationService({
         }
       }
 
+      ensureGeneralMovesHaveNoConflicts(nextRules, movedToGeneral);
       const activeRuleListId = state.activeRuleListId === listId
         ? GENERAL_RULE_LIST_ID
         : normalizeActiveRuleListId(nextLists, state.activeRuleListId);
@@ -1431,7 +1467,7 @@ export function createRulesMutationService({
         ruleLists: nextLists,
         activeRuleListId,
         deletedListId: listId,
-        removedConflictingTargets,
+        removedConflictingTargets: 0,
         ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {})
       });
     });

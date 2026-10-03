@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.8] - 2026-10-03
+
+### Fixed
+- Deleting a Rule List preserves disabled and enabled target variants moved to General instead of silently dropping targets with a matching URL.
+- Validate moved targets against the complete projected General state before storage or usage writes. A second enabled target or exact duplicate rejects the whole deletion, leaving the list and rules intact.
+- Options identifies the conflicting General address using existing localized labels. Conflict context is restricted to the local worker reply and remains excluded from telemetry.
+
+### Tests and compatibility
+- Added 20 regressions and updated one deletion regression for the safer rejection behavior: variant order, projected collisions, Free/Legacy access, storage and DNR failure, Daily Limit remaps, recovery/restart, concurrent deletions and client/UI error presentation.
+- Existing surviving shared assignments, durable usage journal, import rollback and syncPending behavior are preserved. The new checks index projected targets only during list deletion.
+- Updated release metadata and E2E version defaults. No new permissions, telemetry fields, localization keys, polling or update welcome messages.
+- Migrated exact-target backup round trips and stale Options commands after import remain separate planned checks.
+
 ## [5.3.7] - 2026-10-03
 
 ### Fixed
