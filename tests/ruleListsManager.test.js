@@ -127,3 +127,22 @@ test('strict import validation rejects more than seven Rule Lists', () => {
   assert.equal(lists.length, MAX_RULE_LISTS + 1);
   assert.throws(() => prepareImportedRuleLists(lists), /Rule List limit exceeded/);
 });
+
+
+test('stale lists snapshot binds normalized lists active ID and generation in one read', async () => {
+  const reads = [];
+  const manager = new RuleListsManager({ async get(keys) {
+    reads.push(keys);
+    return { ruleLists: [{ id: 'list-1', name: 'Imported' }], activeRuleListId: 'list-1', rulesGeneration: 'captured' };
+  } });
+  assert.deepEqual(await manager.getSnapshot(), { lists: [{ id: 'general', name: 'General', disabledCategories: [] }, { id: 'list-1', name: 'Imported', disabledCategories: [] }], activeRuleListId: 'list-1', generation: 'captured' });
+  assert.deepEqual(reads, [['ruleLists', 'activeRuleListId', 'rulesGeneration']]);
+});
+
+test('stale lists snapshot preserves legacy null generation and propagates read failure', async () => {
+  const legacy = new RuleListsManager(createStorage());
+  assert.equal((await legacy.getSnapshot()).generation, null);
+  const error = new Error('storage unavailable');
+  const failed = new RuleListsManager({ async get() { throw error; } });
+  await assert.rejects(failed.getSnapshot(), value => value === error);
+});

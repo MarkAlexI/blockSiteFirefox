@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.11] - 2026-10-03
+
+### Fixed
+- Bind Rule List rename, activation (including the toggle alias) and deletion to the generation captured with the displayed list snapshot. Validate it inside the existing mutation queue before any state changes, rejecting stale commands after import reuses list IDs.
+- Read normalized lists, active list ID and their generation in one storage request. Options callbacks retain the list snapshot generation through prompts, confirmation and password awaits; stale conflicts use the existing refresh behavior.
+
+### Tests and compatibility
+- Added 27 regressions for delayed and queued list commands, identical imports, fresh snapshots, rollback, restart, read failures, expected conflict telemetry, Pro/General restrictions and UI capture.
+- Reuse the local bulk-replacement marker from 5.3.10. No additional marker, polling, permissions, locale keys, backend changes or welcome messages.
+- Ordinary list mutations preserve the generation. Same-generation rename/rename and delete/create ID reuse, category toggles and adding new assignments remain separate checks. Native browser and Android E2E are not represented by these API-double tests.
+
 ## [5.3.10] - 2026-10-03
 
 ### Fixed

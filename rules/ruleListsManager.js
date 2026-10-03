@@ -145,6 +145,16 @@ export class RuleListsManager {
     };
   }
 
+  async getSnapshot() {
+    const result = await this.storageArea.get(['ruleLists', ACTIVE_RULE_LIST_KEY, 'rulesGeneration']);
+    const lists = normalizeRuleLists(result.ruleLists);
+    return {
+      lists,
+      activeRuleListId: normalizeActiveRuleListId(lists, result[ACTIVE_RULE_LIST_KEY]),
+      generation: result.rulesGeneration ?? null
+    };
+  }
+
   async getLists() {
     return (await this.getState()).lists;
   }

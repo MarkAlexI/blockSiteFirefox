@@ -138,7 +138,7 @@ for (const [label, source, args] of [
 test('Options protects destructive Rule List deletion and category disabling while allowing category restoration', async () => {
   const deleteMethod = getClassMember(
     optionsSource,
-    'async handleRuleListDelete(list)',
+    'async handleRuleListDelete(list',
     'async handleCategoryToggle(category)'
   );
   const categoryMethod = getClassMember(
@@ -390,3 +390,44 @@ for (const [label, source, next] of [['Options', optionsSource, 'updateWhitelist
     assert.equal(refreshes, 2);
   });
 }
+
+for (const [method, next, invoke, expected] of [
+  ['handleRuleListRename', 'handleRuleListDelete', controller => controller.handleRuleListRename({ id: 'list-1', name: 'Original' }, 'captured'), ['rename', 'list-1', 'Renamed', 'captured']],
+  ['handleRuleListSelect', 'handleRuleListRename', controller => controller.handleRuleListSelect('list-1', 'captured'), ['select', 'list-1', 'captured']]
+]) {
+  test(`stale lists Options ${method} keeps the displayed generation`, async () => {
+    const member = getClassMember(optionsSource, `async ${method}(`, `async ${next}(`);
+    let controller; const calls = [];
+    const Controller = new Function('GENERAL_RULE_LIST_ID', 'resolveRuleListContext', 't', 'prompt', `return class ListActions {${member}};`)(
+      'general', (_lists, id) => id, key => key, () => { controller.generation = 'replacement'; return 'Renamed'; });
+    controller = new Controller();
+    Object.assign(controller, {
+      ruleLists: [{ id: 'general' }, { id: 'list-1' }], generation: 'captured',
+      rulesClient: {
+        async renameRuleList(...args) { calls.push(['rename', ...args]); return {}; },
+        async activateRuleList(...args) { calls.push(['select', ...args]); return {}; }
+      },
+      async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
+    });
+    await invoke(controller);
+    assert.deepEqual(calls, [expected]);
+  });
+}
+
+test('stale lists Options deletion keeps its generation through confirmation and password awaits', async () => {
+  const member = getClassMember(optionsSource, 'async handleRuleListDelete(', 'async handleCategoryToggle(');
+  let controller; let release; const password = new Promise(resolve => { release = resolve; });
+  const calls = [];
+  const Controller = new Function('GENERAL_RULE_LIST_ID', 't', 'confirm', `return class DeleteList {${member}};`)(
+    'general', key => key, () => { controller.generation = 'replacement'; return true; });
+  controller = new Controller();
+  Object.assign(controller, {
+    generation: 'captured', activeRuleListId: 'general',
+    authorizePasswordProtectedRuleChange: () => password,
+    rulesClient: { async deleteRuleList(...args) { calls.push(args); } },
+    async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
+  });
+  const pending = controller.handleRuleListDelete({ id: 'list-1', name: 'Original' }, 'captured');
+  controller.generation = 'another-import'; release(true); await pending;
+  assert.deepEqual(calls, [['list-1', 'captured']]);
+});

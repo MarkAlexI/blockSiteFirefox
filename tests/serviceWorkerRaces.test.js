@@ -123,7 +123,8 @@ async function withControlledClock(initial, callback) {
 
 async function sendWorkerMessage(listener, message, sender = {}, bindCurrentSnapshot = true) {
   // Default calls model a freshly read view; race tests supply captured generations or sendRaw.
-  if (bindCurrentSnapshot && ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type) &&
+  if (bindCurrentSnapshot && ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment',
+      'rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList'].includes(message.type) &&
       !Object.hasOwn(message.payload || {}, 'expectedGeneration')) {
     const stored = await chrome.storage.local.get('rulesGeneration');
     message = { ...message, payload: { ...message.payload, expectedGeneration: stored.rulesGeneration ?? null } };
@@ -6767,4 +6768,213 @@ test('stale options allows an edit queued before import and then applies the rep
     assert.equal(api.storage.local.data.rules[0].blockURL, 'new.example');
     assert.equal(api.storage.local.data.rules[0].assignments[0].dailyLimit.minutes, 20);
   }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+function staleListReplacement(name = 'Imported') {
+  return { rules: [makeDailyLimitRule(1, 'list-1', { blockURL: 'new-list.example', minutes: 20 }), makeFocusRule(2, 'general', { blockURL: 'general.example' })],
+    ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }, { id: 'list-1', name, disabledCategories: ['news'] }], activeRuleListId: 'general' };
+}
+
+function staleListIntent(type, generation) {
+  return { type, payload: { listId: 'list-1', name: 'Old view rename', expectedGeneration: generation } };
+}
+
+const staleListInitial = () => ({ rules: [makeDailyLimitRule(1, 'list-1', { blockURL: 'old-list.example', minutes: 10 })],
+  ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }, { id: 'list-1', name: 'Original', disabledCategories: [] }], activeRuleListId: 'general' });
+
+for (const type of ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList']) {
+  test(`stale lists rejects ${type} after import reuses a list ID`, async () => {
+    await withWorker(async ({ api, send }) => {
+      const captured = staleListIntent(type, api.storage.local.data.rulesGeneration ?? null);
+      assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+      const before = staleOptionsState(api);
+      const response = await send(captured);
+      assert.equal(response.success, false);
+      assert.equal(response.error.code, 'rules_state_changed');
+      assert.deepEqual(staleOptionsState(api), before);
+    }, { local: staleListInitial(), supportsWindows: false });
+  });
+
+  test(`stale lists checks queued ${type} after import commits`, async () => {
+    await withWorker(async ({ api, send }) => {
+      const entered = createDeferred(); const release = createDeferred();
+      const originalSet = api.storage.local.set.bind(api.storage.local); let gated = false;
+      api.storage.local.set = async (values, callback) => {
+        if (!gated && Object.hasOwn(values, 'rules') && Object.hasOwn(values, 'ruleLists')) {
+          gated = true; entered.resolve(); await release.promise;
+        }
+        return originalSet(values, callback);
+      };
+      const captured = staleListIntent(type, api.storage.local.data.rulesGeneration ?? null);
+      const replacement = send({ type: 'rules:replaceAll', payload: staleListReplacement() });
+      await entered.promise;
+      const pending = send(captured);
+      release.resolve();
+      assert.equal((await replacement).success, true);
+      const before = staleOptionsState(api);
+      const response = await pending;
+      assert.equal(response.success, false);
+      assert.equal(response.error.code, 'rules_state_changed');
+      assert.deepEqual(staleOptionsState(api), before);
+    }, { local: staleListInitial(), supportsWindows: false });
+  });
+}
+
+test('stale lists rejects an older generation after identical repeated import', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+    const captured = staleListIntent('rules:deleteList', api.storage.local.data.rulesGeneration);
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+    const before = staleOptionsState(api);
+    const response = await send(captured);
+    assert.equal(response.success, false);
+    assert.equal(response.error.code, 'rules_state_changed');
+    assert.deepEqual(staleOptionsState(api), before);
+  }, { supportsWindows: false });
+});
+
+for (const type of ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList']) {
+  test(`stale lists accepts a fresh snapshot for ${type}`, async () => {
+    await withWorker(async ({ api, send }) => {
+      assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+      const generation = api.storage.local.data.rulesGeneration;
+      const response = await send(staleListIntent(type, generation));
+      assert.equal(response.success, true);
+      assert.equal(api.storage.local.data.rulesGeneration, generation);
+      if (type === 'rules:renameList') {
+        assert.equal(api.storage.local.data.ruleLists[1].name, 'Old view rename');
+        assert.equal(api.storage.local.data.activeRuleListId, 'general');
+      } else if (type === 'rules:deleteList') {
+        assert.equal(api.storage.local.data.ruleLists.some(list => list.id === 'list-1'), false);
+        assert.equal(api.storage.local.data.rules[0].assignments[0].listId, 'general');
+      } else {
+        assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+        assert.deepEqual(api.dynamicRules, []);
+      }
+    }, { supportsWindows: false });
+  });
+}
+
+test('stale lists failed DNR import restores the old snapshot and its list command', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement('Original') })).success, true);
+    const before = staleOptionsState(api);
+    const captured = staleListIntent('rules:renameList', before.generation);
+    const update = api.declarativeNetRequest.updateDynamicRules; let failed = false;
+    api.declarativeNetRequest.updateDynamicRules = async values => {
+      if (!failed) { failed = true; throw new Error('DNR unavailable'); }
+      return update(values);
+    };
+    const result = await send({ type: 'rules:replaceAll', payload: { ...staleListReplacement(), rules: [makeFocusRule(1, 'general', { blockURL: 'replacement.example' })] } });
+    assert.equal(result.success, false);
+    assert.equal(result.error.code, 'import_sync_failed');
+    assert.deepEqual(staleOptionsState(api), before);
+    assert.equal((await send(captured)).success, true);
+    assert.equal(api.storage.local.data.ruleLists[1].name, 'Old view rename');
+  }, { supportsWindows: false });
+});
+
+test('stale lists restart rejects the old view and accepts a fresh list selection', async () => {
+  let persisted;
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+    persisted = structuredClone(api.storage.local.data);
+  }, { supportsWindows: false });
+  await withWorker(async ({ api, startup, send }) => {
+    await startup();
+    const before = staleOptionsState(api);
+    const stale = await send(staleListIntent('rules:activateList', null));
+    assert.equal(stale.success, false);
+    assert.equal(stale.error.code, 'rules_state_changed');
+    assert.deepEqual(staleOptionsState(api), before);
+    assert.equal((await send(staleListIntent('rules:activateList', persisted.rulesGeneration))).success, true);
+    assert.equal(api.storage.local.data.activeRuleListId, 'list-1');
+  }, { local: { ...persisted, lastCheck: Date.now() }, supportsWindows: false });
+});
+
+test('stale lists generation read failure leaves rules lists usage and DNR unchanged', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+    const before = staleOptionsState(api); const read = api.storage.local.get.bind(api.storage.local);
+    api.storage.local.get = async (keys, callback) => {
+      if (keys === 'rulesGeneration') throw new Error('generation unavailable');
+      return read(keys, callback);
+    };
+    const response = await send(staleListIntent('rules:deleteList', before.generation));
+    assert.equal(response.success, false);
+    assert.deepEqual(staleOptionsState(api), before);
+  }, { supportsWindows: false });
+});
+
+test('stale lists missing malformed or old markers reject without reliability or URL telemetry', async () => {
+  await withWorker(async ({ api, send, sendRaw }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+    const before = staleOptionsState(api);
+    const counters = structuredClone(api.storage.local.data.telemetryBuckets || {});
+    for (const type of ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList']) {
+      for (const marker of [{}, { expectedGeneration: 42 }, { expectedGeneration: 'old-marker' }]) {
+        const response = await sendRaw({ type, payload: { listId: 'list-1', name: 'Stale', ...marker } });
+        assert.equal(response.success, false);
+        assert.equal(response.error.code, 'rules_state_changed');
+        assert.equal(JSON.stringify(response).includes(before.generation), false);
+        assert.deepEqual(staleOptionsState(api), before);
+      }
+    }
+    const telemetry = api.storage.local.data.telemetryBuckets || {};
+    assert.deepEqual(telemetry, counters);
+    assert.equal(JSON.stringify(telemetry).includes(before.generation), false);
+    assert.equal(JSON.stringify(telemetry).includes('new-list.example'), false);
+  }, { local: { telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+});
+
+test('stale lists unrelated list creation preserves captured commands and generation', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+    const generation = api.storage.local.data.rulesGeneration;
+    const captured = staleListIntent('rules:renameList', generation);
+    assert.equal((await send({ type: 'rules:createList', payload: { name: 'Unrelated' } })).success, true);
+    assert.equal(api.storage.local.data.rulesGeneration, generation);
+    assert.equal((await send(captured)).success, true);
+    assert.equal(api.storage.local.data.ruleLists.find(list => list.id === 'list-1').name, 'Old view rename');
+    assert.equal(api.storage.local.data.ruleLists.find(list => list.id === 'list-2').name, 'Unrelated');
+  }, { supportsWindows: false });
+});
+
+test('stale lists rename queued before import commits first and replacement then wins', async () => {
+  await withWorker(async ({ api, send }) => {
+    const entered = createDeferred(); const release = createDeferred();
+    const set = api.storage.local.set.bind(api.storage.local); let gated = false;
+    api.storage.local.set = async (values, callback) => {
+      if (!gated && Object.hasOwn(values, 'ruleLists') && !Object.hasOwn(values, 'rules')) {
+        gated = true; entered.resolve(); await release.promise;
+      }
+      return set(values, callback);
+    };
+    const rename = send(staleListIntent('rules:renameList', null));
+    await entered.promise;
+    const replacement = send({ type: 'rules:replaceAll', payload: staleListReplacement() });
+    release.resolve();
+    assert.equal((await rename).success, true);
+    assert.equal((await replacement).success, true);
+    assert.equal(api.storage.local.data.ruleLists[1].name, 'Imported');
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'new-list.example');
+  }, { local: staleListInitial(), supportsWindows: false });
+});
+
+test('stale lists fresh markers preserve Pro requirements and General list locks', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleListReplacement() })).success, true);
+    const generation = api.storage.local.data.rulesGeneration;
+    for (const type of ['rules:renameList', 'rules:deleteList']) {
+      const response = await send({ type, payload: { listId: 'general', name: 'Rename', expectedGeneration: generation } });
+      assert.equal(response.success, false); assert.equal(response.error.code, 'rule_list_locked');
+    }
+    assert.equal((await send({ type: 'logout_pro' })).success, true);
+    const before = staleOptionsState(api);
+    for (const type of ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList']) {
+      const response = await send(staleListIntent(type, generation));
+      assert.equal(response.success, false); assert.equal(response.error.code, 'pro_required');
+      assert.deepEqual(staleOptionsState(api), before);
+    }
+  }, { supportsWindows: false });
 });

@@ -1358,6 +1358,7 @@ export function createRulesMutationService({
 
   async function renameRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const listId = typeof payload.listId === 'string' ? payload.listId : '';
       if (listId === GENERAL_RULE_LIST_ID) {
@@ -1380,6 +1381,7 @@ export function createRulesMutationService({
 
   async function activateRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const listId = typeof payload.listId === 'string' ? payload.listId : '';
       const state = await getRuleListState();
@@ -1408,6 +1410,7 @@ export function createRulesMutationService({
 
   async function deleteRuleList(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const listId = typeof payload.listId === 'string' ? payload.listId : '';
       if (listId === GENERAL_RULE_LIST_ID) {

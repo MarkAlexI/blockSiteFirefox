@@ -81,7 +81,7 @@ function createOptionsProfileController({
   const state = { lists: clone(ruleLists), activeRuleListId };
   const RuleListsUI = {
     updateListGrid(_container, lists, _rules, handlers) {
-      gridCalls.push({ lists: clone(lists), activeRuleListId: handlers.activeRuleListId });
+      gridCalls.push({ lists: clone(lists), activeRuleListId: handlers.activeRuleListId, handlers });
     },
     getDisplayName(list) {
       return list.name;
@@ -104,7 +104,7 @@ function createOptionsProfileController({
     isLegacyUser,
     profileRefreshId: 0,
     rulesManager: { getRulesSnapshot: async () => ({ rules: clone(rules), generation: null }) },
-    ruleListsManager: { getState: async () => clone(state) },
+    ruleListsManager: { getState: async () => clone(state), getSnapshot: async () => ({ ...clone(state), generation: null }) },
     dailyLimitManager: { getUsageSeconds: async () => ({}) },
     ruleListsContainer: {},
     categoriesContainer: {},
@@ -189,7 +189,7 @@ function createPopupProfileController({
     isPro,
     isLegacyUser,
     rulesManager: { getRulesSnapshot: async () => ({ rules: clone(rules), generation: null }) },
-    ruleListsManager: { getState: async () => clone(state) },
+    ruleListsManager: { getState: async () => clone(state), getSnapshot: async () => ({ ...clone(state), generation: null }) },
     dailyLimitManager: { getUsageSeconds: async () => ({}) },
     rulesContainer: { innerHTML: '' },
     createRuleInputs(...args) {
@@ -420,4 +420,23 @@ test('Popup quick blocking can reuse a hidden Study target in the General profil
   assert.equal(requests[0].assignment.listId, GENERAL_RULE_LIST_ID);
   assert.equal(removed, true);
   assert.deepEqual(alerts, ['+ 1']);
+});
+
+
+test('stale lists Options callbacks retain the generation from their list snapshot', async () => {
+  const view = createOptionsProfileController({ rules: [], isPro: true });
+  const calls = [];
+  view.controller.rulesManager.getRulesSnapshot = async () => ({ rules: [], generation: 'rules-snapshot' });
+  view.controller.ruleListsManager.getSnapshot = async () => ({ ...clone(view.state), generation: 'list-snapshot' });
+  view.controller.handleRuleListSelect = (...args) => calls.push(['select', ...args]);
+  view.controller.handleRuleListRename = (...args) => calls.push(['rename', ...args]);
+  view.controller.handleRuleListDelete = (...args) => calls.push(['delete', ...args]);
+  await view.controller.refreshProfileView();
+  const captured = view.gridCalls[0].handlers;
+  view.controller.ruleListsManager.getSnapshot = async () => ({ ...clone(view.state), generation: 'replacement' });
+  await view.controller.refreshProfileView();
+  captured.onSelect('list-1');
+  captured.onRename({ id: 'list-1', name: 'Original' });
+  captured.onDelete({ id: 'list-1', name: 'Original' });
+  assert.deepEqual(calls.map(call => [call[0], call.at(-1)]), [['select', 'list-snapshot'], ['rename', 'list-snapshot'], ['delete', 'list-snapshot']]);
 });

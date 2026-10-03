@@ -100,9 +100,9 @@ test('rules client sends Rule List management intents', async () => {
 
     assert.deepEqual(sentMessages, [
       { type: 'rules:createList', payload: { name: 'Work' } },
-      { type: 'rules:renameList', payload: { listId: 'list-1', name: 'Study' } },
-      { type: 'rules:activateList', payload: { listId: 'list-1' } },
-      { type: 'rules:deleteList', payload: { listId: 'list-1' } }
+      { type: 'rules:renameList', payload: { listId: 'list-1', name: 'Study', expectedGeneration: null } },
+      { type: 'rules:activateList', payload: { listId: 'list-1', expectedGeneration: null } },
+      { type: 'rules:deleteList', payload: { listId: 'list-1', expectedGeneration: null } }
     ]);
   } finally {
     globalThis.browser = previousBrowser;
@@ -230,7 +230,7 @@ test('list deletion conflict crosses serialization and RulesClient with only the
       assert.deepEqual(rejected.conflict, { listId: 'general', blockURL: 'saved.example' });
       return true;
     });
-    assert.deepEqual(sent, [{ type: 'rules:deleteList', payload: { listId: 'list-1' } }]);
+    assert.deepEqual(sent, [{ type: 'rules:deleteList', payload: { listId: 'list-1', expectedGeneration: null } }]);
   } finally {
     globalThis.chrome = previousChrome;
     globalThis.browser = previousBrowser;
@@ -251,5 +251,22 @@ test('stale options RulesClient carries captured generations for every rule-ID i
     await client.removeAssignment(1, 'general', 'captured');
     assert.deepEqual(sent.map(message => message.payload.expectedGeneration), ['captured', 'captured', 'captured', 'captured']);
     assert.deepEqual(sent.map(message => message.type), ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment']);
+  } finally { globalThis.chrome = previousChrome; globalThis.browser = previousBrowser; }
+});
+
+
+test('stale lists RulesClient forwards captured generations including the toggle alias', async () => {
+  const previousChrome = globalThis.chrome; const previousBrowser = globalThis.browser;
+  const sent = [];
+  const runtime = { lastError: null, sendMessage(message, callback) { sent.push(message); const response = { success: true }; callback?.(response); return Promise.resolve(response); } };
+  globalThis.chrome = { runtime }; globalThis.browser = { runtime };
+  try {
+    const client = new RulesClient();
+    await client.renameRuleList('list-1', 'Renamed', 'captured');
+    await client.activateRuleList('list-1', 'captured');
+    await client.toggleRuleList('list-1', 'captured');
+    await client.deleteRuleList('list-1', 'captured');
+    assert.deepEqual(sent.map(message => message.payload.expectedGeneration), ['captured', 'captured', 'captured', 'captured']);
+    assert.deepEqual(sent.map(message => message.type), ['rules:renameList', 'rules:activateList', 'rules:activateList', 'rules:deleteList']);
   } finally { globalThis.chrome = previousChrome; globalThis.browser = previousBrowser; }
 });
