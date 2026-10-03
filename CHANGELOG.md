@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.14] - 2026-10-03
+
+### Fixed
+- Bind Rule List rename, activation (including the toggle alias) and deletion to a captured local per-list revision inside the existing mutation queue. Reject stale actions after ordinary rename/category changes, identical delete/create ID reuse and settings A-to-B-to-A.
+- Commit list revisions with lists and active ID, including combined rule writes and durable Daily Limit journals. Restore previous list and rule revisions during import rollback; prune deleted list metadata and preserve revisions for unrelated changes, active-only selection and no-op rename.
+- Retain the displayed list ID, generation and revision through Options callbacks, rename prompts, password waits and confirmations. A vanished list selection reaches background validation instead of falling back to General.
+
+### Tests and compatibility
+- Added 33 regressions covering all four list intents, queued commits, identical recreation, unrelated changes, no-op, restart, storage failures, import rollback, category changes, atomic Daily Limit deletion, client/UI capture, snapshot consistency and private metadata exclusion.
+- Local ruleListRevisions metadata stays outside portable backups, diagnostics and telemetry. UI snapshots include it in the existing read; list writes prepare one metadata snapshot. No polling, permissions, accounting changes, backend changes, locales or welcome messages. Pro/Free/Legacy/password access and Firefox native consent remain unchanged.
+- Production modules with API doubles were tested; native browsers and Android E2E were not run. Stale assignment-list selection in add/move forms and H1 prune reachability remain separate follow-up cases.
+
 ## [5.3.13] - 2026-10-03
 
 ### Fixed

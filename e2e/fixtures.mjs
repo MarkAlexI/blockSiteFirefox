@@ -159,7 +159,7 @@ export class ExtensionHarness {
     const files = process.env.BD_SIGNED_XPI ? unzipSync(new Uint8Array(await readFile(process.env.BD_SIGNED_XPI))) :
       await collectRuntime(source);
     this.manifest = JSON.parse(Buffer.from(files['manifest.json']).toString());
-    assert.equal(this.manifest.version, process.env.BD_EXPECTED_VERSION || '5.3.13', 'target version');
+    assert.equal(this.manifest.version, process.env.BD_EXPECTED_VERSION || '5.3.14', 'target version');
     assert.deepEqual(this.manifest.background, {
       scripts: ['scripts/service_worker.js'], persistent: false, type: 'module'
     }, 'Firefox event page manifest');

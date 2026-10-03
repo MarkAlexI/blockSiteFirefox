@@ -135,8 +135,8 @@ test('stale lists snapshot binds normalized lists active ID and generation in on
     reads.push(keys);
     return { ruleLists: [{ id: 'list-1', name: 'Imported' }], activeRuleListId: 'list-1', rulesGeneration: 'captured' };
   } });
-  assert.deepEqual(await manager.getSnapshot(), { lists: [{ id: 'general', name: 'General', disabledCategories: [] }, { id: 'list-1', name: 'Imported', disabledCategories: [] }], activeRuleListId: 'list-1', generation: 'captured' });
-  assert.deepEqual(reads, [['ruleLists', 'activeRuleListId', 'rulesGeneration']]);
+  assert.deepEqual(await manager.getSnapshot(), { lists: [{ id: 'general', name: 'General', disabledCategories: [] }, { id: 'list-1', name: 'Imported', disabledCategories: [] }], activeRuleListId: 'list-1', generation: 'captured', revisions: {} });
+  assert.deepEqual(reads, [['ruleLists', 'activeRuleListId', 'rulesGeneration', 'ruleListRevisions']]);
 });
 
 test('stale lists snapshot preserves legacy null generation and propagates read failure', async () => {
@@ -145,4 +145,18 @@ test('stale lists snapshot preserves legacy null generation and propagates read 
   const error = new Error('storage unavailable');
   const failed = new RuleListsManager({ async get() { throw error; } });
   await assert.rejects(failed.getSnapshot(), value => value === error);
+});
+
+test('list conflict snapshot binds revision and normalized list settings to a single storage read', async () => {
+  let state = { ruleLists: [{ id: 'list-1', name: 'Displayed' }], activeRuleListId: 'list-1', rulesGeneration: 'generation', ruleListRevisions: { 'list-1': 'displayed-revision' } };
+  const reads = [];
+  const manager = new RuleListsManager({ async get(keys) {
+    reads.push(keys);const snapshot = structuredClone(state);
+    state = { ...state, ruleLists: [{ id: 'list-1', name: 'Newer' }], ruleListRevisions: { 'list-1': 'newer-revision' } };
+    return snapshot;
+  } });
+  const snapshot = await manager.getSnapshot();
+  assert.equal(snapshot.lists[1].name, 'Displayed');assert.equal(snapshot.revisions['list-1'], 'displayed-revision');
+  assert.equal(snapshot.generation, 'generation');assert.equal(snapshot.activeRuleListId, 'list-1');
+  assert.deepEqual(reads, [['ruleLists', 'activeRuleListId', 'rulesGeneration', 'ruleListRevisions']]);
 });

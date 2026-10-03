@@ -393,8 +393,8 @@ for (const [label, source, next] of [['Options', optionsSource, 'updateWhitelist
 }
 
 for (const [method, next, invoke, expected] of [
-  ['handleRuleListRename', 'handleRuleListDelete', controller => controller.handleRuleListRename({ id: 'list-1', name: 'Original' }, 'captured'), ['rename', 'list-1', 'Renamed', 'captured']],
-  ['handleRuleListSelect', 'handleRuleListRename', controller => controller.handleRuleListSelect('list-1', 'captured'), ['select', 'list-1', 'captured']]
+  ['handleRuleListRename', 'handleRuleListDelete', controller => controller.handleRuleListRename({ id: 'list-1', name: 'Original' }, 'captured'), ['rename', 'list-1', 'Renamed', 'captured', null]],
+  ['handleRuleListSelect', 'handleRuleListRename', controller => controller.handleRuleListSelect('list-1', 'captured'), ['select', 'list-1', 'captured', null]]
 ]) {
   test(`stale lists Options ${method} keeps the displayed generation`, async () => {
     const member = getClassMember(optionsSource, `async ${method}(`, `async ${next}(`);
@@ -430,7 +430,7 @@ test('stale lists Options deletion keeps its generation through confirmation and
   });
   const pending = controller.handleRuleListDelete({ id: 'list-1', name: 'Original' }, 'captured');
   controller.generation = 'another-import'; release(true); await pending;
-  assert.deepEqual(calls, [['list-1', 'captured']]);
+  assert.deepEqual(calls, [['list-1', 'captured', null]]);
 });
 
 test('rule conflict Options row callbacks keep both generation and revision from the displayed snapshot', () => {
@@ -497,4 +497,45 @@ test('rule conflict Popup deletion confirmation keeps the displayed assignment g
   await controller.handleRuleDeletion({}, 1, 'shown.example', { dataset: { isWhitelist: 'false' } }, 'generation', 'list-1', 'displayed-revision');
   controller.revision = 'newer-revision';controller.activeRuleListId = 'list-2';await confirmation();
   assert.deepEqual(calls, [[1, 'list-1', 'generation', 'displayed-revision']]);
+});
+
+test('list conflict Options rename preserves its displayed revision while a prompt sees newer state', async () => {
+  const member = getClassMember(optionsSource, 'async handleRuleListRename(', 'async handleRuleListDelete(');
+  let controller;const calls = [];
+  const Controller = new Function('t', 'prompt', `return class RenameList {${member}};`)(key => key,
+    () => { controller.revision = 'newer-state';return 'New name'; });
+  controller = new Controller();Object.assign(controller, {
+    rulesClient: { async renameRuleList(...args) { calls.push(args); } },
+    async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
+  });
+  await controller.handleRuleListRename({ id: 'list-1', name: 'Displayed name' }, 'generation', 'displayed-revision');
+  assert.deepEqual(calls, [['list-1', 'New name', 'generation', 'displayed-revision']]);
+});
+
+test('list conflict Options deletion preserves its revision through confirmation and password waits', async () => {
+  const member = getClassMember(optionsSource, 'async handleRuleListDelete(', 'async handleCategoryToggle(');
+  let controller;const entered = staleOptionsDeferred();const release = staleOptionsDeferred();const calls = [];
+  const Controller = new Function('GENERAL_RULE_LIST_ID', 't', 'confirm', `return class DeleteList {${member}};`)(
+    'general', key => key, () => { controller.revision = 'newer-state';return true; });
+  controller = new Controller();Object.assign(controller, {
+    activeRuleListId: 'general', authorizePasswordProtectedRuleChange() { entered.resolve();return release.promise; },
+    rulesClient: { async deleteRuleList(...args) { calls.push(args); } },
+    async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
+  });
+  const pending = controller.handleRuleListDelete({ id: 'list-1', name: 'Displayed name' }, 'generation', 'displayed-revision');
+  await entered.promise;controller.revision = 'yet-newer-state';release.resolve(true);await pending;
+  assert.deepEqual(calls, [['list-1', 'generation', 'displayed-revision']]);
+});
+
+test('list conflict Options selection keeps a vanished displayed ID instead of replacing it with General', async () => {
+  const member = getClassMember(optionsSource, 'async handleRuleListSelect(', 'async handleRuleListRename(');
+  const calls = [];let refreshes = 0;const errors = [];
+  const Controller = new Function('GENERAL_RULE_LIST_ID', 'resolveRuleListContext', `return class SelectList {${member}};`)(
+    'general', () => 'general');
+  const controller = new Controller();Object.assign(controller, { ruleLists: [{ id: 'general' }], activeRuleListId: 'general',
+    rulesClient: { async activateRuleList(...args) { calls.push(args);throw Object.assign(new Error('stale list'), { code: 'rules_state_changed' }); } },
+    async refreshProfileView() { refreshes++; }, logRulesMutationFailure() {}, handleRulesMutationError(error) { errors.push(error.code); } });
+  await controller.handleRuleListSelect('list-1', 'generation', 'displayed-revision');
+  assert.deepEqual(calls, [['list-1', 'generation', 'displayed-revision']]);
+  assert.deepEqual(errors, ['rules_state_changed']);assert.equal(controller.activeRuleListId, 'general');assert.equal(refreshes, 0);
 });

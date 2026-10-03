@@ -404,7 +404,13 @@ const rulesMutationService = createRulesMutationService({
   getRulesGeneration: async () => (await browser.storage.local.get('rulesGeneration')).rulesGeneration ?? null,
   getSettings: () => SettingsManager.getSettings(),
   saveSettings: (settings) => browser.storage.sync.set({ settings }),
-  saveRulesAndLists: (rules, ruleLists, activeRuleListId, rulesGeneration, ruleRevisions) => rulesManager.saveRules(rules, { ruleLists, ...(activeRuleListId ? { activeRuleListId } : {}), ...(rulesGeneration !== undefined ? { rulesGeneration } : {}), ...(ruleRevisions !== undefined ? { ruleRevisions } : {}) }),
+  saveRulesAndLists: async (rules, ruleLists, activeRuleListId, rulesGeneration, ruleRevisions, ruleListRevisions) => {
+    const patch = await ruleListsManager.prepareState(ruleLists, activeRuleListId, {
+      ...(rulesGeneration !== undefined ? { rulesGeneration } : {}),
+      ...(ruleListRevisions !== undefined ? { ruleListRevisions } : {})
+    });
+    await rulesManager.saveRules(rules, { ...patch, ...(ruleRevisions !== undefined ? { ruleRevisions } : {}) });
+  },
   maxRulesLimit: MAX_RULES_LIMIT,
   notifyRulesChanged,
   resolveRulePackEntries,

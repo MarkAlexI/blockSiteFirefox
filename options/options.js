@@ -492,9 +492,9 @@ class OptionsPage {
       if (this.ruleListsContainer) {
         RuleListsUI.updateListGrid(this.ruleListsContainer, lists, rules, {
           activeRuleListId,
-          onSelect: listId => this.handleRuleListSelect(listId, state.generation),
-          onRename: list => this.handleRuleListRename(list, state.generation),
-          onDelete: list => this.handleRuleListDelete(list, state.generation)
+          onSelect: listId => this.handleRuleListSelect(listId, state.generation, state.revisions?.[listId] ?? null),
+          onRename: list => this.handleRuleListRename(list, state.generation, state.revisions?.[list.id] ?? null),
+          onDelete: list => this.handleRuleListDelete(list, state.generation, state.revisions?.[list.id] ?? null)
         });
       }
 
@@ -854,10 +854,10 @@ class OptionsPage {
     }
   }
 
-  async handleRuleListSelect(listId, expectedGeneration = null) {
-    const targetListId = resolveRuleListContext(this.ruleLists, listId || GENERAL_RULE_LIST_ID);
+  async handleRuleListSelect(listId, expectedGeneration = null, expectedListRevision = null) {
+    const targetListId = listId || GENERAL_RULE_LIST_ID;
     try {
-      const response = await this.rulesClient.activateRuleList(targetListId, expectedGeneration);
+      const response = await this.rulesClient.activateRuleList(targetListId, expectedGeneration, expectedListRevision);
       this.activeRuleListId = response.activeRuleListId || targetListId;
       await this.refreshProfileView();
     } catch (error) {
@@ -866,11 +866,11 @@ class OptionsPage {
     }
   }
 
-  async handleRuleListRename(list, expectedGeneration = null) {
+  async handleRuleListRename(list, expectedGeneration = null, expectedListRevision = null) {
     const name = prompt(`${t('editbtn')}: ${t('rulelists_title')}`, list.name);
     if (name === null) return;
     try {
-      await this.rulesClient.renameRuleList(list.id, name, expectedGeneration);
+      await this.rulesClient.renameRuleList(list.id, name, expectedGeneration, expectedListRevision);
       await this.refreshProfileView();
     } catch (error) {
       this.logRulesMutationFailure('Rename rule list error:', error);
@@ -878,12 +878,12 @@ class OptionsPage {
     }
   }
 
-  async handleRuleListDelete(list, expectedGeneration = null) {
+  async handleRuleListDelete(list, expectedGeneration = null, expectedListRevision = null) {
     if (!confirm(t('rulelists_delete_confirm', list.name))) return;
     if (!await this.authorizePasswordProtectedRuleChange()) return;
 
     try {
-      await this.rulesClient.deleteRuleList(list.id, expectedGeneration);
+      await this.rulesClient.deleteRuleList(list.id, expectedGeneration, expectedListRevision);
       if (this.activeRuleListId === list.id) {
         this.activeRuleListId = GENERAL_RULE_LIST_ID;
       }

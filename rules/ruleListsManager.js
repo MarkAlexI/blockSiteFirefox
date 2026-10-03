@@ -146,12 +146,13 @@ export class RuleListsManager {
   }
 
   async getSnapshot() {
-    const result = await this.storageArea.get(['ruleLists', ACTIVE_RULE_LIST_KEY, 'rulesGeneration']);
+    const result = await this.storageArea.get(['ruleLists', ACTIVE_RULE_LIST_KEY, 'rulesGeneration', 'ruleListRevisions']);
     const lists = normalizeRuleLists(result.ruleLists);
     return {
       lists,
       activeRuleListId: normalizeActiveRuleListId(lists, result[ACTIVE_RULE_LIST_KEY]),
-      generation: result.rulesGeneration ?? null
+      generation: result.rulesGeneration ?? null,
+      revisions: result.ruleListRevisions || {}
     };
   }
 
@@ -163,19 +164,32 @@ export class RuleListsManager {
     return (await this.getState()).activeRuleListId;
   }
 
-  async saveLists(lists) {
-    const current = await this.getState();
+  async prepareState(lists, activeRuleListId, extraState = {}, previous = null) {
+    // Production list writers join the worker's existing mutation queue.
+    const current = previous || await this.getSnapshot();
     const normalized = normalizeRuleLists(lists);
-    const activeRuleListId = normalizeActiveRuleListId(normalized, current.activeRuleListId);
-    await this.storageArea.set({ ruleLists: normalized, [ACTIVE_RULE_LIST_KEY]: activeRuleListId });
-    return normalized;
+    const active = normalizeActiveRuleListId(normalized,
+      activeRuleListId === undefined ? current.activeRuleListId : activeRuleListId);
+    const previousLists = new Map(current.lists.map(list => [list.id, list]));
+    const ruleListRevisions = {};
+    for (const list of normalized) {
+      const oldList = previousLists.get(list.id);
+      ruleListRevisions[list.id] = oldList && JSON.stringify(oldList) === JSON.stringify(list)
+        ? (current.revisions[list.id] ?? null)
+        : Array.from(crypto.getRandomValues(new Uint8Array(16)),
+            byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+    return { ruleLists: normalized, [ACTIVE_RULE_LIST_KEY]: active, ruleListRevisions, ...extraState };
   }
 
-  async saveState(lists, activeRuleListId) {
-    const normalized = normalizeRuleLists(lists);
-    const active = normalizeActiveRuleListId(normalized, activeRuleListId);
-    await this.storageArea.set({ ruleLists: normalized, [ACTIVE_RULE_LIST_KEY]: active });
-    return { lists: normalized, activeRuleListId: active };
+  async saveLists(lists) {
+    return (await this.saveState(lists)).lists;
+  }
+
+  async saveState(lists, activeRuleListId, extraState = {}) {
+    const patch = await this.prepareState(lists, activeRuleListId, extraState);
+    await this.storageArea.set(patch);
+    return { lists: patch.ruleLists, activeRuleListId: patch[ACTIVE_RULE_LIST_KEY] };
   }
 
   async setActiveListId(listId) {
@@ -187,7 +201,9 @@ export class RuleListsManager {
   }
 
   async ensureInitialized({ legacyDisabledCategories = [] } = {}) {
-    const result = await this.storageArea.get(['ruleLists', ACTIVE_RULE_LIST_KEY]);
+    const result = await this.storageArea.get(['ruleLists', ACTIVE_RULE_LIST_KEY, 'ruleListRevisions']);
+    const currentLists = normalizeRuleLists(result.ruleLists);
+    const current = { lists: currentLists, activeRuleListId: normalizeActiveRuleListId(currentLists, result[ACTIVE_RULE_LIST_KEY]), revisions: result.ruleListRevisions || {} };
     let normalized = normalizeRuleLists(result.ruleLists);
     if (normalizeDisabledCategories(legacyDisabledCategories).length > 0 &&
         normalized[0].disabledCategories.length === 0) {
@@ -202,7 +218,7 @@ export class RuleListsManager {
       result[ACTIVE_RULE_LIST_KEY] !== activeRuleListId;
 
     if (migrated) {
-      await this.storageArea.set({ ruleLists: normalized, [ACTIVE_RULE_LIST_KEY]: activeRuleListId });
+      await this.storageArea.set(await this.prepareState(normalized, activeRuleListId, {}, current));
     }
 
     return { migrated, lists: normalized, activeRuleListId };

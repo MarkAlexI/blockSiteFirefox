@@ -438,7 +438,7 @@ test('stale lists Options callbacks retain the generation from their list snapsh
   captured.onSelect('list-1');
   captured.onRename({ id: 'list-1', name: 'Original' });
   captured.onDelete({ id: 'list-1', name: 'Original' });
-  assert.deepEqual(calls.map(call => [call[0], call.at(-1)]), [['select', 'list-snapshot'], ['rename', 'list-snapshot'], ['delete', 'list-snapshot']]);
+  assert.deepEqual(calls.map(call => [call[0], call.at(-2)]), [['select', 'list-snapshot'], ['rename', 'list-snapshot'], ['delete', 'list-snapshot']]);
 });
 
 test('rule conflict Options binds each rendered rule revision to the same rules snapshot', async () => {
@@ -449,4 +449,15 @@ test('rule conflict Options binds each rendered rule revision to the same rules 
   assert.deepEqual(view.errors, []);
   assert.equal(view.renderCalls[0].items[0].generation, 'rules-generation');
   assert.equal(view.renderCalls[0].items[0].revision, 'displayed-revision');
+});
+
+test('list conflict Options grid callbacks bind revisions from their own displayed list snapshot', async () => {
+  const view = createOptionsProfileController({ rules: [], isPro: true });const calls = [];
+  view.controller.rulesManager.getRulesSnapshot = async () => ({ rules: [], generation: 'different-rules-generation', revisions: { 1: 'rule-revision' } });
+  view.controller.ruleListsManager.getSnapshot = async () => ({ ...clone(view.state), generation: 'list-generation', revisions: { 'list-1': 'displayed-list-revision' } });
+  for (const method of ['handleRuleListSelect', 'handleRuleListRename', 'handleRuleListDelete']) view.controller[method] = (...args) => calls.push(args.slice(-2));
+  await view.controller.refreshProfileView();const captured = view.gridCalls[0].handlers;
+  view.controller.ruleListsManager.getSnapshot = async () => ({ ...clone(view.state), generation: 'new-generation', revisions: { 'list-1': 'new-list-revision' } });
+  await view.controller.refreshProfileView();captured.onSelect('list-1');captured.onRename({ id: 'list-1' });captured.onDelete({ id: 'list-1' });
+  assert.deepEqual(view.errors, []);assert.deepEqual(calls, Array(3).fill(['list-generation', 'displayed-list-revision']));
 });

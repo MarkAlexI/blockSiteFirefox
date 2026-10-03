@@ -318,6 +318,18 @@ export function createRulesMutationService({
     return { lists, activeRuleListId: GENERAL_RULE_LIST_ID };
   }
 
+  async function getRuleListSnapshot() {
+    if (typeof ruleListsManager?.getSnapshot === 'function') return ruleListsManager.getSnapshot();
+    return getRuleListState();
+  }
+
+  function ensureRuleListRevision(payload, snapshot) {
+    if (snapshot.revisions !== undefined &&
+        (payload.expectedListRevision ?? null) !== (snapshot.revisions[payload.listId] ?? null)) {
+      throw new RulesMutationError('rules_state_changed', 'Rules changed; refresh the rule view and try again');
+    }
+  }
+
   async function getNextSafeRuleId(rules) {
     const dnrRules = await declarativeNetRequest.getDynamicRules();
     const occupiedIds = new Set([
@@ -494,14 +506,15 @@ export function createRulesMutationService({
     );
   }
 
-  async function saveCombinedState(rules, lists, activeRuleListId = null, rulesGeneration = undefined, ruleRevisions = undefined) {
+  async function saveCombinedState(rules, lists, activeRuleListId = null, rulesGeneration = undefined, ruleRevisions = undefined, ruleListRevisions = undefined) {
     if (typeof saveRulesAndLists === 'function') {
-      await saveRulesAndLists(rules, lists, activeRuleListId, rulesGeneration, ruleRevisions);
+      await saveRulesAndLists(rules, lists, activeRuleListId, rulesGeneration, ruleRevisions, ruleListRevisions);
       return;
     }
     await rulesManager.saveRules(rules);
     if (activeRuleListId) {
-      await ruleListsManager.saveState(lists, activeRuleListId);
+      await ruleListsManager.saveState(lists, activeRuleListId,
+        ruleListRevisions !== undefined ? { ruleListRevisions } : {});
     } else {
       await ruleListsManager.saveLists(lists);
     }
@@ -1218,7 +1231,7 @@ export function createRulesMutationService({
       });
       const [previousSnapshot, previousRuleListState, currentSettings, previousGeneration] = await Promise.all([
         getRulesSnapshot(),
-        getRuleListState(),
+        getRuleListSnapshot(),
         getSettings(),
         getRulesGeneration()
       ]);
@@ -1261,7 +1274,8 @@ export function createRulesMutationService({
               previousRuleListState.lists,
               previousRuleListState.activeRuleListId,
               previousGeneration,
-              previousSnapshot.revisions
+              previousSnapshot.revisions,
+              previousRuleListState.revisions
             );
           } catch (rollbackError) {
             rollbackErrors.push(rollbackError);
@@ -1393,7 +1407,8 @@ export function createRulesMutationService({
       if (listId === GENERAL_RULE_LIST_ID) {
         throw new RulesMutationError('rule_list_locked', 'General list cannot be renamed');
       }
-      const state = await getRuleListState();
+      const state = await getRuleListSnapshot();
+      ensureRuleListRevision(payload, state);
       const index = state.lists.findIndex(list => list.id === listId);
       if (index === -1) throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       const name = validateListName(payload.name, state.lists, listId);
@@ -1413,7 +1428,8 @@ export function createRulesMutationService({
       await ensureRulesGeneration(payload);
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const listId = typeof payload.listId === 'string' ? payload.listId : '';
-      const state = await getRuleListState();
+      const state = await getRuleListSnapshot();
+      ensureRuleListRevision(payload, state);
       if (!state.lists.some(list => list.id === listId)) {
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
@@ -1445,7 +1461,8 @@ export function createRulesMutationService({
       if (listId === GENERAL_RULE_LIST_ID) {
         throw new RulesMutationError('rule_list_locked', 'General list cannot be deleted');
       }
-      const [state, rules] = await Promise.all([getRuleListState(), rulesManager.getRules()]);
+      const [state, rules] = await Promise.all([getRuleListSnapshot(), rulesManager.getRules()]);
+      ensureRuleListRevision(payload, state);
       if (!state.lists.some(list => list.id === listId)) {
         throw new RulesMutationError('rule_list_not_found', 'Rule list not found');
       }
@@ -1498,7 +1515,9 @@ export function createRulesMutationService({
         typeof dailyLimitManager?.stagePendingRemaps === 'function' &&
         typeof dailyLimitManager?.recoverPendingRemaps === 'function';
       if (stagedUsageRemaps) {
-        const extraState = { ruleLists: nextLists, activeRuleListId };
+        const extraState = typeof ruleListsManager.prepareState === 'function'
+          ? await ruleListsManager.prepareState(nextLists, activeRuleListId)
+          : { ruleLists: nextLists, activeRuleListId };
         const patch = typeof rulesManager.prepareRulesState === 'function'
           ? await rulesManager.prepareRulesState(nextRules, extraState)
           : { rules: nextRules, ...extraState };

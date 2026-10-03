@@ -100,9 +100,9 @@ test('rules client sends Rule List management intents', async () => {
 
     assert.deepEqual(sentMessages, [
       { type: 'rules:createList', payload: { name: 'Work' } },
-      { type: 'rules:renameList', payload: { listId: 'list-1', name: 'Study', expectedGeneration: null } },
-      { type: 'rules:activateList', payload: { listId: 'list-1', expectedGeneration: null } },
-      { type: 'rules:deleteList', payload: { listId: 'list-1', expectedGeneration: null } }
+      { type: 'rules:renameList', payload: { listId: 'list-1', name: 'Study', expectedGeneration: null, expectedListRevision: null } },
+      { type: 'rules:activateList', payload: { listId: 'list-1', expectedGeneration: null, expectedListRevision: null } },
+      { type: 'rules:deleteList', payload: { listId: 'list-1', expectedGeneration: null, expectedListRevision: null } }
     ]);
   } finally {
     globalThis.browser = previousBrowser;
@@ -230,7 +230,7 @@ test('list deletion conflict crosses serialization and RulesClient with only the
       assert.deepEqual(rejected.conflict, { listId: 'general', blockURL: 'saved.example' });
       return true;
     });
-    assert.deepEqual(sent, [{ type: 'rules:deleteList', payload: { listId: 'list-1', expectedGeneration: null } }]);
+    assert.deepEqual(sent, [{ type: 'rules:deleteList', payload: { listId: 'list-1', expectedGeneration: null, expectedListRevision: null } }]);
   } finally {
     globalThis.chrome = previousChrome;
     globalThis.browser = previousBrowser;
@@ -284,4 +284,19 @@ test('rule conflict client preserves displayed revisions in all four rule ID int
     assert.deepEqual(messages.map(message => message.type), ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment']);
     for (const message of messages) { assert.equal(message.payload.expectedGeneration, 'generation');assert.equal(message.payload.expectedRevision, 'displayed-revision'); }
   } finally { globalThis.chrome = previousChrome;globalThis.browser = previousBrowser; }
+});
+
+test('list conflict client forwards displayed revision in rename activate toggle alias and deletion', async () => {
+  const oldChrome = globalThis.chrome;const oldBrowser = globalThis.browser;const messages = [];
+  const runtime = { lastError: null, sendMessage(message, callback) { messages.push(message);callback?.({ success: true });return Promise.resolve({ success: true }); } };
+  globalThis.chrome = { runtime };globalThis.browser = { runtime };
+  try {
+    const client = new RulesClient();
+    await client.renameRuleList('list-1', 'New name', 'generation', 'displayed-list-revision');
+    await client.activateRuleList('list-1', 'generation', 'displayed-list-revision');
+    await client.toggleRuleList('list-1', 'generation', 'displayed-list-revision');
+    await client.deleteRuleList('list-1', 'generation', 'displayed-list-revision');
+    assert.deepEqual(messages.map(message => message.type), ['rules:renameList', 'rules:activateList', 'rules:activateList', 'rules:deleteList']);
+    for (const message of messages) { assert.equal(message.payload.expectedGeneration, 'generation');assert.equal(message.payload.expectedListRevision, 'displayed-list-revision'); }
+  } finally { globalThis.chrome = oldChrome;globalThis.browser = oldBrowser; }
 });

@@ -74,19 +74,19 @@ export class RulesClient {
     return sendRulesIntent('rules:createList', { name });
   }
 
-  renameRuleList(listId, name, expectedGeneration = null) {
-    return sendRulesIntent('rules:renameList', { listId, name, expectedGeneration });
+  renameRuleList(listId, name, expectedGeneration = null, expectedListRevision = null) {
+    return sendRulesIntent('rules:renameList', { listId, name, expectedGeneration, expectedListRevision });
   }
 
-  activateRuleList(listId, expectedGeneration = null) {
-    return sendRulesIntent('rules:activateList', { listId, expectedGeneration });
+  activateRuleList(listId, expectedGeneration = null, expectedListRevision = null) {
+    return sendRulesIntent('rules:activateList', { listId, expectedGeneration, expectedListRevision });
   }
 
-  toggleRuleList(listId, expectedGeneration = null) {
-    return this.activateRuleList(listId, expectedGeneration);
+  toggleRuleList(listId, expectedGeneration = null, expectedListRevision = null) {
+    return this.activateRuleList(listId, expectedGeneration, expectedListRevision);
   }
 
-  deleteRuleList(listId, expectedGeneration = null) {
-    return sendRulesIntent('rules:deleteList', { listId, expectedGeneration });
+  deleteRuleList(listId, expectedGeneration = null, expectedListRevision = null) {
+    return sendRulesIntent('rules:deleteList', { listId, expectedGeneration, expectedListRevision });
   }
 }

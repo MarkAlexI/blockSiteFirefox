@@ -134,6 +134,11 @@ async function sendWorkerMessage(listener, message, sender = {}, bindCurrentSnap
     const stored = await chrome.storage.local.get('ruleRevisions');
     message = { ...message, payload: { ...message.payload, expectedRevision: stored.ruleRevisions?.[message.payload?.ruleId] ?? null } };
   }
+  if (bindCurrentSnapshot && ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedListRevision')) {
+    const stored = await chrome.storage.local.get('ruleListRevisions');
+    message = { ...message, payload: { ...message.payload, expectedListRevision: stored.ruleListRevisions?.[message.payload?.listId] ?? null } };
+  }
   return new Promise((resolve, reject) => {
     if (listener(message, sender, resolve) !== true) {
       reject(new Error('Worker did not keep its response channel open: ' + message.type));
@@ -7315,4 +7320,242 @@ test('rule conflict list deletion commits moved rule revisions with its Daily Li
     assert.deepEqual(ruleConflictState(api), before);
     assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:toggle'))).success, true);
   }, { local: { rules: [old], dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:list-1': 600 }, lastSample: null } }, supportsWindows: false });
+});
+
+function listConflictIntent(api, type, listId = 'list-1') {
+  return { type, payload: { listId, name: 'Name from old view',
+    expectedGeneration: api.storage.local.data.rulesGeneration ?? null,
+    expectedListRevision: api.storage.local.data.ruleListRevisions?.[listId] ?? null } };
+}
+
+function listConflictState(api) {
+  return structuredClone({ ...ruleConflictState(api), listRevisions: api.storage.local.data.ruleListRevisions });
+}
+
+for (const type of ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList']) {
+  test(`list conflict rejects a stale ${type} after an ordinary rename`, async () => {
+    await withWorker(async ({ api, sendRaw }) => {
+      const captured = listConflictIntent(api, type);
+      const first = listConflictIntent(api, 'rules:renameList');first.payload.name = 'Renamed in second Options';
+      assert.equal((await sendRaw(first)).success, true);
+      const before = listConflictState(api);
+      const response = await sendRaw(captured);
+      assert.equal(response.success, false);assert.equal(response.error.code, 'rules_state_changed');
+      assert.deepEqual(listConflictState(api), before);
+      assert.equal((await sendRaw(listConflictIntent(api, type))).success, true);
+    }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+  });
+
+  for (const identical of [false, true]) {
+    test(`list conflict rejects ${type} after delete/create reuses an ID with ${identical ? 'identical' : 'different'} settings`, async () => {
+      await withWorker(async ({ api, sendRaw, send }) => {
+        const captured = listConflictIntent(api, type);
+        assert.equal((await sendRaw(listConflictIntent(api, 'rules:deleteList'))).success, true);
+        const added = await send({ type: 'rules:createList', payload: { name: identical ? 'Original' : 'Replacement' } });
+        assert.equal(added.success, true);assert.equal(added.list.id, 'list-1');
+        assert.equal(api.storage.local.data.rulesGeneration ?? null, captured.payload.expectedGeneration);
+        const before = listConflictState(api);
+        const response = await sendRaw(captured);
+        assert.equal(response.success, false);assert.equal(response.error.code, 'rules_state_changed');
+        assert.deepEqual(listConflictState(api), before);
+        assert.equal((await sendRaw(listConflictIntent(api, type))).success, true);
+      }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+    });
+  }
+}
+
+for (const type of ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList']) {
+  test(`list conflict checks queued ${type} after the first rename commit`, async () => {
+    await withWorker(async ({ api, sendRaw }) => {
+      const captured = listConflictIntent(api, type);
+      const first = listConflictIntent(api, 'rules:renameList');first.payload.name = 'First queued rename';
+      const entered = createDeferred();const release = createDeferred();
+      const set = api.storage.local.set.bind(api.storage.local);let paused = false;
+      api.storage.local.set = async (values, callback) => {
+        if (!paused && values.ruleLists) { paused = true;entered.resolve(structuredClone(values));await release.promise; }
+        return set(values, callback);
+      };
+      const committing = sendRaw(first);const values = await entered.promise;
+      assert.match(values.ruleListRevisions['list-1'], /^[a-f0-9]{32}$/);
+      assert.equal(values.ruleLists[1].name, 'First queued rename');
+      const queued = sendRaw(captured);release.resolve();
+      assert.equal((await committing).success, true);
+      const before = listConflictState(api);const response = await queued;
+      assert.equal(response.success, false);assert.equal(response.error.code, 'rules_state_changed');
+      assert.deepEqual(listConflictState(api), before);
+    }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+  });
+}
+
+test('list conflict retains captured actions after other list edits creation and active-only changes', async () => {
+  await withWorker(async ({ api, sendRaw, send }) => {
+    const seed = listConflictIntent(api, 'rules:renameList');seed.payload.name = 'Current name';
+    assert.equal((await sendRaw(seed)).success, true);
+    const captured = listConflictIntent(api, 'rules:renameList');
+    const other = await send({ type: 'rules:createList', payload: { name: 'Another list' } });assert.equal(other.success, true);
+    const editOther = listConflictIntent(api, 'rules:renameList', other.list.id);editOther.payload.name = 'Another renamed';
+    assert.equal((await sendRaw(editOther)).success, true);
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:activateList', 'general'))).success, true);
+    assert.equal(api.storage.local.data.ruleListRevisions['list-1'], captured.payload.expectedListRevision);
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+});
+
+test('list conflict no-op rename keeps a revision and does not require refreshing another action', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const first = listConflictIntent(api, 'rules:renameList');first.payload.name = 'Same name';
+    assert.equal((await sendRaw(first)).success, true);
+    const captured = listConflictIntent(api, 'rules:deleteList');
+    const identical = listConflictIntent(api, 'rules:renameList');identical.payload.name = '  Same   name  ';
+    assert.equal((await sendRaw(identical)).success, true);
+    assert.equal(api.storage.local.data.ruleListRevisions['list-1'], captured.payload.expectedListRevision);
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+});
+
+test('list conflict rejects a captured form after rename away and back to identical settings', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = listConflictIntent(api, 'rules:deleteList');const original = structuredClone(api.storage.local.data.ruleLists);
+    const away = listConflictIntent(api, 'rules:renameList');away.payload.name = 'Temporary';
+    assert.equal((await sendRaw(away)).success, true);
+    const back = listConflictIntent(api, 'rules:renameList');back.payload.name = 'Original';
+    assert.equal((await sendRaw(back)).success, true);
+    assert.deepEqual(api.storage.local.data.ruleLists, original);
+    const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+  }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+});
+
+test('list conflict keeps lifetime revisions after a background restart and identical recreation', async () => {
+  let captured,persisted;
+  await withWorker(async ({ api, sendRaw, send }) => {
+    captured = listConflictIntent(api, 'rules:deleteList');
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:deleteList'))).success, true);
+    assert.equal((await send({ type: 'rules:createList', payload: { name: 'Original' } })).success, true);
+    persisted = structuredClone(api.storage.local.data);
+  }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+  await withWorker(async ({ api, sendRaw }) => {
+    const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:renameList'))).success, true);
+  }, { local: { ...persisted, lastCheck: Date.now() }, supportsWindows: false });
+});
+
+test('list conflict failed list write preserves the old snapshot and permits a retry', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const seed = listConflictIntent(api, 'rules:renameList');seed.payload.name = 'Seed name';assert.equal((await sendRaw(seed)).success, true);
+    const captured = listConflictIntent(api, 'rules:renameList');const before = listConflictState(api);
+    const set = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => { if (values.ruleLists) return Promise.reject(new Error('list write unavailable'));return set(values, callback); };
+    assert.equal((await sendRaw(captured)).success, false);
+    assert.deepEqual(api.storage.local.data.ruleLists, before.lists);
+    assert.deepEqual(api.storage.local.data.ruleListRevisions, before.listRevisions);
+    assert.deepEqual(api.dynamicRules, before.dnr);
+    api.storage.local.set = set;assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+});
+
+test('list conflict snapshot read failure fails closed and releases the mutation queue', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = listConflictIntent(api, 'rules:renameList');const before = listConflictState(api);
+    const get = api.storage.local.get.bind(api.storage.local);
+    api.storage.local.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.includes('ruleListRevisions')) return Promise.reject(new Error('list snapshot unavailable'));
+      return get(keys, callback);
+    };
+    assert.equal((await sendRaw(captured)).success, false);
+    assert.deepEqual(api.storage.local.data.ruleLists, before.lists);assert.deepEqual(api.dynamicRules, before.dnr);
+    assert.deepEqual(api.storage.local.data.ruleListRevisions, before.listRevisions);
+    api.storage.local.get = get;assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
+});
+
+test('list conflict failed import DNR restores captured list and rule revisions together', async () => {
+  const original = { ...staleListInitial(), activeRuleListId: 'list-1', ruleRevisions: { 1: 'a'.repeat(32) }, rulesGeneration: 'before-import',
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:list-1': 600 }, lastSample: null } };
+  await withWorker(async ({ api, sendRaw, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:renameList'))).success, true);
+    const captured = listConflictIntent(api, 'rules:deleteList');const before = listConflictState(api);
+    const update = api.declarativeNetRequest.updateDynamicRules.bind(api.declarativeNetRequest);let failed = false;
+    api.declarativeNetRequest.updateDynamicRules = async values => { if (!failed) { failed = true;throw new Error('import DNR unavailable'); }return update(values); };
+    const response = await send({ type: 'rules:replaceAll', payload: { rules: [makeFocusRule(1, 'general', { blockURL: 'replacement-list.example' })] } });
+    assert.equal(response.success, false);assert.equal(response.error.code, 'import_sync_failed');
+    assert.deepEqual(api.storage.local.data.ruleLists, before.lists);assert.deepEqual(api.storage.local.data.rules, before.rules);
+    assert.deepEqual(api.storage.local.data.ruleRevisions, before.revisions);assert.deepEqual(api.storage.local.data.ruleListRevisions, before.listRevisions);
+    assert.equal(api.storage.local.data.rulesGeneration, before.generation);assert.deepEqual(api.dynamicRules, before.dnr);
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: original, supportsWindows: false });
+});
+
+test('list conflict rejects missing malformed or incorrect markers without private values or telemetry', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:renameList'))).success, true);
+    const before = listConflictState(api);
+    for (const type of ['rules:renameList', 'rules:activateList', 'rules:toggleList', 'rules:deleteList']) {
+      for (const revision of [undefined, null, 42, {}, 'incorrect-marker']) {
+        const message = listConflictIntent(api, type);
+        if (revision === undefined) delete message.payload.expectedListRevision;else message.payload.expectedListRevision = revision;
+        const response = await sendRaw(message);
+        assert.equal(response.success, false);assert.equal(response.error.code, 'rules_state_changed');
+        assert.equal(JSON.stringify(response).includes(before.listRevisions['list-1']), false);
+        assert.equal(JSON.stringify(response).includes('Name from old view'), false);
+        assert.deepEqual(listConflictState(api), before);
+      }
+    }
+    const backup = createBackupDocument({ rules: api.storage.local.data.rules, ruleLists: api.storage.local.data.ruleLists, activeRuleListId: api.storage.local.data.activeRuleListId });
+    assert.equal(Object.hasOwn(backup, 'ruleListRevisions'), false);assert.equal(JSON.stringify(backup).includes(before.listRevisions['list-1']), false);
+    const diagnostics = await sendRaw({ type: 'diagnostics:getReport' });assert.equal(diagnostics.success, true);
+    assert.equal(JSON.stringify(diagnostics).includes(before.listRevisions['list-1']), false);
+  }, { local: { ...staleListInitial(), ...createPendingTelemetry() }, supportsWindows: false });
+});
+
+test('list conflict category changes invalidate old list commands while preserving daily usage', async () => {
+  await withWorker(async ({ api, sendRaw, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const captured = listConflictIntent(api, 'rules:deleteList');
+    assert.equal((await send({ type: 'rules:toggleCategory', payload: { category: 'social' } })).success, true);
+    const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:list-1'], 600);
+    assert.deepEqual(api.dynamicRules, []);
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:deleteList'))).success, true);
+  }, { local: { ...staleListInitial(), activeRuleListId: 'list-1', dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:list-1': 600 }, lastSample: null } }, supportsWindows: false });
+});
+
+test('list conflict deletion commits revisions with rules and journal and prunes deleted metadata', async () => {
+  await withWorker(async ({ api, sendRaw, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const seed = listConflictIntent(api, 'rules:renameList');seed.payload.name = 'Original';
+    assert.equal((await sendRaw(seed)).success, true);
+    const captured = listConflictIntent(api, 'rules:deleteList');
+    const set = api.storage.local.set.bind(api.storage.local);const commits = [];
+    api.storage.local.set = (values, callback) => { if (values.rules) commits.push(structuredClone(values));return set(values, callback); };
+    assert.equal((await sendRaw(captured)).success, true);
+    assert.equal(commits.length, 1);
+    assert.deepEqual(commits[0].pendingDailyUsageRemaps, [{ oldRuleId: 1, oldListId: 'list-1', newRuleId: 1, newListId: 'general' }]);
+    assert.equal(commits[0].rules[0].assignments[0].listId, 'general');
+    assert.match(commits[0].ruleRevisions[1], /^[a-f0-9]{32}$/);
+    assert.equal(Object.hasOwn(commits[0].ruleListRevisions, 'list-1'), false);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:general'], 600);
+    const recreated = await send({ type: 'rules:createList', payload: { name: 'Original' } });assert.equal(recreated.success, true);
+    assert.equal(recreated.list.id, 'list-1');
+    const before = listConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');assert.deepEqual(listConflictState(api), before);
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:deleteList'))).success, true);
+  }, { local: { ...staleListInitial(), activeRuleListId: 'list-1', dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:list-1': 600 }, lastSample: null } }, supportsWindows: false });
+});
+
+test('list conflict import ignores externally supplied revision metadata and keeps it outside backup', async () => {
+  await withWorker(async ({ api, sendRaw, send }) => {
+    const originalMarker = 'a'.repeat(32);
+    api.storage.local.data.ruleListRevisions = { 'list-1': originalMarker };
+    const replacement = staleListReplacement();
+    replacement.ruleListRevisions = { 'list-1': originalMarker };
+    const result = await send({ type: 'rules:replaceAll', payload: replacement });assert.equal(result.success, true);
+    const revision = api.storage.local.data.ruleListRevisions['list-1'];assert.match(revision, /^[a-f0-9]{32}$/);assert.notEqual(revision, originalMarker);
+    const backup = createBackupDocument({ rules: api.storage.local.data.rules, ruleLists: api.storage.local.data.ruleLists, activeRuleListId: api.storage.local.data.activeRuleListId });
+    assert.equal(Object.hasOwn(backup, 'ruleListRevisions'), false);assert.equal(JSON.stringify(backup).includes(revision), false);
+    assert.equal((await sendRaw(listConflictIntent(api, 'rules:activateList'))).success, true);
+  }, { local: { ...staleListInitial(), rules: [] }, supportsWindows: false });
 });
