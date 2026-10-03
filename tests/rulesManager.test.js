@@ -175,13 +175,13 @@ test('stale options rules snapshot binds rules and generation in one storage rea
   const previous = globalThis.chrome; let calls = 0;
   let state = { rules: [{ id: 1, blockURL: 'old.example' }], rulesGeneration: 'captured' };
   globalThis.chrome = { runtime: { lastError: null }, storage: { local: { get(keys, callback) {
-    calls++; assert.deepEqual(keys, ['rules', 'rulesGeneration']);
+    calls++; assert.deepEqual(keys, ['rules', 'rulesGeneration', 'ruleRevisions']);
     const snapshot = structuredClone(state);
     state = { rules: [{ id: 1, blockURL: 'new.example' }], rulesGeneration: 'replacement' };
     queueMicrotask(() => callback(snapshot));
   } } } };
   try {
-    assert.deepEqual(await manager.getRulesSnapshot(), { rules: [{ id: 1, blockURL: 'old.example' }], generation: 'captured' });
+    assert.deepEqual(await manager.getRulesSnapshot(), { rules: [{ id: 1, blockURL: 'old.example' }], generation: 'captured', revisions: {} });
     assert.equal(calls, 1);
   } finally { globalThis.chrome = previous; }
 });
@@ -192,6 +192,6 @@ test('stale options rules snapshot fails closed on storage error and supports le
   try {
     await assert.rejects(manager.getRulesSnapshot(), /snapshot unavailable/);
     globalThis.chrome.runtime.lastError = null;
-    assert.deepEqual(await manager.getRulesSnapshot(), { rules: [], generation: null });
+    assert.deepEqual(await manager.getRulesSnapshot(), { rules: [], generation: null, revisions: {} });
   } finally { globalThis.chrome = previous; }
 });

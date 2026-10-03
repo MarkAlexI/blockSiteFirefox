@@ -160,7 +160,7 @@ test('rules client scopes toggle intent to the selected Rule List assignment', a
     await client.toggleRule(17, 'study');
     assert.deepEqual(sentMessage, {
       type: 'rules:toggle',
-      payload: { ruleId: 17, listId: 'study', expectedGeneration: null }
+      payload: { ruleId: 17, listId: 'study', expectedGeneration: null, expectedRevision: null }
     });
   } finally {
     globalThis.browser = previousBrowser;
@@ -200,8 +200,8 @@ test('deletion intents cross the client and worker router with stable IDs', asyn
 
     assert.equal(assignmentResult.targetDeleted, true);
     assert.deepEqual(calls, [
-      ['removeAssignment', { ruleId: 23, listId: 'general', expectedGeneration: null }],
-      ['deleteRule', { ruleId: 41, expectedGeneration: null }]
+      ['removeAssignment', { ruleId: 23, listId: 'general', expectedGeneration: null, expectedRevision: null }],
+      ['deleteRule', { ruleId: 41, expectedGeneration: null, expectedRevision: null }]
     ]);
   } finally {
     globalThis.browser = previousBrowser;
@@ -269,4 +269,19 @@ test('stale lists RulesClient forwards captured generations including the toggle
     assert.deepEqual(sent.map(message => message.payload.expectedGeneration), ['captured', 'captured', 'captured', 'captured']);
     assert.deepEqual(sent.map(message => message.type), ['rules:renameList', 'rules:activateList', 'rules:activateList', 'rules:deleteList']);
   } finally { globalThis.chrome = previousChrome; globalThis.browser = previousBrowser; }
+});
+
+test('rule conflict client preserves displayed revisions in all four rule ID intents', async () => {
+  const previousChrome = globalThis.chrome;const previousBrowser = globalThis.browser;const messages = [];
+  const runtime = { lastError: null, sendMessage(message, callback) { messages.push(message);callback?.({ success: true });return Promise.resolve({ success: true }); } };
+  globalThis.chrome = { runtime };globalThis.browser = { runtime };
+  try {
+    const client = new RulesClient();
+    await client.updateRule({ ruleId: 1, blockURL: 'updated.example', expectedGeneration: 'generation', expectedRevision: 'displayed-revision' });
+    await client.toggleRule(1, 'general', 'generation', 'displayed-revision');
+    await client.deleteRule(1, 'generation', 'displayed-revision');
+    await client.removeAssignment(1, 'general', 'generation', 'displayed-revision');
+    assert.deepEqual(messages.map(message => message.type), ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment']);
+    for (const message of messages) { assert.equal(message.payload.expectedGeneration, 'generation');assert.equal(message.payload.expectedRevision, 'displayed-revision'); }
+  } finally { globalThis.chrome = previousChrome;globalThis.browser = previousBrowser; }
 });

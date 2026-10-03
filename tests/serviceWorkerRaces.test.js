@@ -129,6 +129,11 @@ async function sendWorkerMessage(listener, message, sender = {}, bindCurrentSnap
     const stored = await chrome.storage.local.get('rulesGeneration');
     message = { ...message, payload: { ...message.payload, expectedGeneration: stored.rulesGeneration ?? null } };
   }
+  if (bindCurrentSnapshot && ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedRevision')) {
+    const stored = await chrome.storage.local.get('ruleRevisions');
+    message = { ...message, payload: { ...message.payload, expectedRevision: stored.ruleRevisions?.[message.payload?.ruleId] ?? null } };
+  }
   return new Promise((resolve, reject) => {
     if (listener(message, sender, resolve) !== true) {
       reject(new Error('Worker did not keep its response channel open: ' + message.type));
@@ -7041,3 +7046,273 @@ for (const kind of ['move', 'split', 'merge']) {
 }
 
 }
+
+function ruleConflictSnapshot(api, type, ruleId = 1) {
+  const rule = structuredClone(api.storage.local.data.rules.find(rule => rule.id === ruleId));
+  return { type, payload: { ruleId, listId: 'general', assignmentListId: 'general',
+    blockURL: rule.blockURL, redirectURL: rule.redirectURL, category: rule.category,
+    assignment: { ...rule.assignments[0], dailyLimit: { minutes: 30 } },
+    expectedGeneration: api.storage.local.data.rulesGeneration ?? null,
+    expectedRevision: api.storage.local.data.ruleRevisions?.[ruleId] ?? null } };
+}
+
+function ruleConflictState(api) {
+  return structuredClone({ ...staleOptionsState(api), revisions: api.storage.local.data.ruleRevisions,
+    telemetry: api.storage.local.data.telemetryBuckets, pending: api.storage.local.data.pendingDailyUsageRemaps });
+}
+
+for (const type of ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment']) {
+  test(`rule conflict rejects a second Options ${type} after an ordinary edit`, async () => {
+    const old = makeDailyLimitRule(1, 'general', { blockURL: 'two-forms.example', minutes: 10 });
+    await withWorker(async ({ api, sendRaw }) => {
+      const first = ruleConflictSnapshot(api, 'rules:update');
+      const second = ruleConflictSnapshot(api, type);
+      first.payload.assignment.dailyLimit.minutes = 20;
+      assert.equal((await sendRaw(first)).success, true);
+      const before = ruleConflictState(api);
+      const response = await sendRaw(second);
+      assert.equal(response.success, false);
+      assert.equal(response.error.code, 'rules_state_changed');
+      assert.deepEqual(ruleConflictState(api), before);
+      assert.equal(api.storage.local.data.rules[0].assignments[0].dailyLimit.minutes, 20);
+      assert.equal((await sendRaw(ruleConflictSnapshot(api, type))).success, true);
+    }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+  });
+
+  for (const identical of [false, true]) {
+    test(`rule conflict rejects ${type} after delete/add reuses an ID with ${identical ? 'identical' : 'different'} settings`, async () => {
+      const old = makeDailyLimitRule(1, 'general', { blockURL: 'deleted.example', minutes: 10 });
+      await withWorker(async ({ api, sendRaw, send }) => {
+        const captured = ruleConflictSnapshot(api, type);
+        assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:delete'))).success, true);
+        const added = await send({ type: 'rules:add', payload: { blockURL: identical ? old.blockURL : 'replacement.example',
+          redirectURL: '', category: 'social', assignment: old.assignments[0] } });
+        assert.equal(added.success, true);
+        assert.equal(added.rule.id, old.id);
+        assert.equal(api.storage.local.data.rulesGeneration ?? null, captured.payload.expectedGeneration);
+        const before = ruleConflictState(api);
+        const response = await sendRaw(captured);
+        assert.equal(response.success, false);
+        assert.equal(response.error.code, 'rules_state_changed');
+        assert.deepEqual(ruleConflictState(api), before);
+        assert.equal((await sendRaw(ruleConflictSnapshot(api, type))).success, true);
+      }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+    });
+  }
+}
+
+test('rule conflict checks a queued second Options edit after the first atomic commit', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'queued-forms.example' });
+  await withWorker(async ({ api, sendRaw }) => {
+    const first = ruleConflictSnapshot(api, 'rules:update');
+    const second = ruleConflictSnapshot(api, 'rules:update');
+    first.payload.assignment.dailyLimit.minutes = 20;
+    const entered = createDeferred(); const release = createDeferred();
+    const set = api.storage.local.set.bind(api.storage.local);let paused = false;
+    api.storage.local.set = async (values, callback) => {
+      if (!paused && values.rules) { paused = true; entered.resolve(structuredClone(values)); await release.promise; }
+      return set(values, callback);
+    };
+    const committed = sendRaw(first);const values = await entered.promise;
+    assert.equal(values.rules[0].assignments[0].dailyLimit.minutes, 20);
+    assert.match(values.ruleRevisions[1], /^[a-f0-9]{32}$/);
+    const queued = sendRaw(second);release.resolve();
+    assert.equal((await committed).success, true);
+    const before = ruleConflictState(api);
+    const response = await queued;
+    assert.equal(response.success, false);assert.equal(response.error.code, 'rules_state_changed');
+    assert.deepEqual(ruleConflictState(api), before);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict retains a captured form through unrelated edits adds and list creation', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'unchanged-form.example' });
+  await withWorker(async ({ api, sendRaw, send }) => {
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:update'))).success, true);
+    const captured = ruleConflictSnapshot(api, 'rules:toggle');
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'other-form.example', redirectURL: '', category: 'news' } });
+    assert.equal(added.success, true);
+    assert.equal((await send({ type: 'rules:update', payload: { ruleId: added.rule.id, blockURL: 'other-updated.example' } })).success, true);
+    assert.equal((await send({ type: 'rules:createList', payload: { name: 'Unrelated list' } })).success, true);
+    assert.equal(api.storage.local.data.ruleRevisions[1], captured.payload.expectedRevision);
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict retains a captured form after a no-op save of the same rule', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'same-save.example' });
+  await withWorker(async ({ api, sendRaw }) => {
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:update'))).success, true);
+    const captured = ruleConflictSnapshot(api, 'rules:toggle');
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:update'))).success, true);
+    assert.equal(api.storage.local.data.ruleRevisions[1], captured.payload.expectedRevision);
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict rejects an old form after settings change away and back', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'settings-aba.example' });
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = ruleConflictSnapshot(api, 'rules:delete');
+    const change = ruleConflictSnapshot(api, 'rules:update');change.payload.blockURL = 'temporary-setting.example';
+    assert.equal((await sendRaw(change)).success, true);
+    const restore = ruleConflictSnapshot(api, 'rules:update');restore.payload.blockURL = old.blockURL;
+    restore.payload.assignment = old.assignments[0];
+    assert.equal((await sendRaw(restore)).success, true);
+    assert.deepEqual(api.storage.local.data.rules, [old]);
+    const before = ruleConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');
+    assert.deepEqual(ruleConflictState(api), before);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict persists revisions through background restart after identical delete/add', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'restarted-lifetime.example' });
+  let captured, persisted;
+  await withWorker(async ({ api, sendRaw, send }) => {
+    captured = ruleConflictSnapshot(api, 'rules:delete');
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:delete'))).success, true);
+    assert.equal((await send({ type: 'rules:add', payload: { blockURL: old.blockURL, redirectURL: '', category: old.category, assignment: old.assignments[0] } })).success, true);
+    persisted = structuredClone(api.storage.local.data);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+  await withWorker(async ({ api, sendRaw }) => {
+    const before = ruleConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');
+    assert.deepEqual(ruleConflictState(api), before);
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:toggle'))).success, true);
+  }, { local: { ...persisted, lastCheck: Date.now() }, supportsWindows: false });
+});
+
+test('rule conflict failed rule write preserves the old revision and permits retry', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'failed-save.example' });
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = ruleConflictSnapshot(api, 'rules:update');
+    const before = staleOptionsState(api);const set = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => { if (values.rules) throw new Error('rule commit unavailable'); return set(values, callback); };
+    assert.equal((await sendRaw(captured)).success, false);
+    assert.deepEqual(staleOptionsState(api), before);assert.equal(api.storage.local.data.ruleRevisions, undefined);
+    api.storage.local.set = set;
+    assert.equal((await sendRaw(captured)).success, true);
+    assert.match(api.storage.local.data.ruleRevisions[1], /^[a-f0-9]{32}$/);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict snapshot read failure fails closed and does not stall later mutations', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'failed-snapshot.example' });
+  await withWorker(async ({ api, sendRaw }) => {
+    const captured = ruleConflictSnapshot(api, 'rules:update');const before = staleOptionsState(api);
+    const get = api.storage.local.get.bind(api.storage.local);
+    api.storage.local.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.includes('ruleRevisions')) {
+        api.runtime.lastError = { message: 'rule snapshot unavailable' };
+        callback({});api.runtime.lastError = null;return Promise.resolve({});
+      }
+      return get(keys, callback);
+    };
+    assert.equal((await sendRaw(captured)).success, false);
+    assert.deepEqual(staleOptionsState(api), before);
+    api.storage.local.get = get;
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict local commit with pending DNR sync still invalidates the old form', async () => {
+  const old = makeFocusRule(1, 'general', { blockURL: 'pending-browser.example' });
+  await withWorker(async ({ api, sendRaw, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const captured = ruleConflictSnapshot(api, 'rules:delete');
+    const update = api.declarativeNetRequest.updateDynamicRules.bind(api.declarativeNetRequest);
+    api.declarativeNetRequest.updateDynamicRules = async () => { throw new Error('browser update unavailable'); };
+    const edit = ruleConflictSnapshot(api, 'rules:update');edit.payload.blockURL = 'pending-updated.example';
+    const response = await sendRaw(edit);
+    assert.equal(response.success, true);assert.equal(response.syncPending, true);
+    const before = ruleConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');
+    assert.deepEqual(ruleConflictState(api), before);
+    api.declarativeNetRequest.updateDynamicRules = update;
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:toggle'))).success, true);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict import DNR rollback restores per-rule revisions and an already captured form', async () => {
+  const old = makeFocusRule(1, 'general', { blockURL: 'rollback-revision.example' });
+  await withWorker(async ({ api, sendRaw, send }) => {
+    const edit = ruleConflictSnapshot(api, 'rules:update');edit.payload.blockURL = 'rollback-updated.example';
+    assert.equal((await sendRaw(edit)).success, true);
+    const captured = ruleConflictSnapshot(api, 'rules:toggle');const before = ruleConflictState(api);
+    const update = api.declarativeNetRequest.updateDynamicRules.bind(api.declarativeNetRequest);let failures = 1;
+    api.declarativeNetRequest.updateDynamicRules = async options => { if (failures-- > 0) throw new Error('import browser failure'); return update(options); };
+    const response = await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() });
+    assert.equal(response.success, false);assert.equal(response.error.code, 'import_sync_failed');
+    assert.deepEqual(api.storage.local.data.ruleRevisions, before.revisions);
+    assert.deepEqual(api.storage.local.data.rules, before.rules);
+    assert.equal(api.storage.local.data.rulesGeneration ?? null, before.generation);
+    assert.deepEqual(api.dynamicRules, before.dnr);
+    assert.equal((await sendRaw(captured)).success, true);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('rule conflict rejects omitted malformed or wrong revisions without reporting tokens or mutation telemetry', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'private-conflict.example' });
+  await withWorker(async ({ api, sendRaw }) => {
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:update'))).success, true);
+    const before = ruleConflictState(api);
+    for (const revision of [undefined, null, 42, {}, 'wrong-revision']) {
+      const message = ruleConflictSnapshot(api, 'rules:delete');
+      if (revision === undefined) delete message.payload.expectedRevision;else message.payload.expectedRevision = revision;
+      const response = await sendRaw(message);
+      assert.equal(response.success, false);assert.equal(response.error.code, 'rules_state_changed');
+      assert.equal(JSON.stringify(response).includes(old.blockURL), false);
+      assert.equal(JSON.stringify(response).includes(before.revisions[1]), false);
+      assert.deepEqual(ruleConflictState(api), before);
+    }
+    const backup = createBackupDocument({ rules: api.storage.local.data.rules, ruleLists: api.storage.local.data.ruleLists, activeRuleListId: 'general' });
+    assert.equal(Object.hasOwn(backup, 'ruleRevisions'), false);
+    assert.equal(JSON.stringify(backup).includes(before.revisions[1]), false);
+    const diagnostics = await sendRaw({ type: 'diagnostics:getReport' });
+    assert.equal(diagnostics.success, true);
+    assert.equal(JSON.stringify(diagnostics).includes(before.revisions[1]), false);
+  }, { local: { rules: [old], activeRuleListId: 'general', ...createPendingTelemetry() }, supportsWindows: false });
+});
+
+for (const transition of ['move', 'split', 'merge']) {
+  test(`rule conflict invalidates captured source or destination forms after an assignment ${transition}`, async () => {
+    const source = makeDailyLimitRule(1, 'general', { blockURL: 'assignment-source.example' });
+    if (transition === 'split') source.assignments.push({ ...source.assignments[0], listId: 'list-1' });
+    const destination = makeDailyLimitRule(2, 'list-1', { blockURL: 'assignment-destination.example' });
+    const rules = transition === 'merge' ? [source, destination] : [source];
+    await withWorker(async ({ api, sendRaw }) => {
+      const captured = ruleConflictSnapshot(api, 'rules:delete', transition === 'merge' ? 2 : 1);
+      const edit = ruleConflictSnapshot(api, 'rules:update');
+      edit.payload.assignment.dailyLimit.minutes = 10;
+      if (transition === 'move') edit.payload.assignment.listId = 'list-1';
+      else edit.payload.blockURL = transition === 'split' ? 'assignment-split.example' : destination.blockURL;
+      assert.equal((await sendRaw(edit)).success, true);
+      const before = ruleConflictState(api);
+      assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');
+      assert.deepEqual(ruleConflictState(api), before);
+      assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:delete', captured.payload.ruleId))).success, true);
+    }, { local: { rules, activeRuleListId: 'general' }, supportsWindows: false });
+  });
+}
+
+test('rule conflict list deletion commits moved rule revisions with its Daily Limit journal', async () => {
+  const old = makeDailyLimitRule(1, 'list-1', { blockURL: 'delete-list-form.example' });
+  await withWorker(async ({ api, send, sendRaw, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const captured = ruleConflictSnapshot(api, 'rules:delete');
+    const set = api.storage.local.set.bind(api.storage.local);const commits = [];
+    api.storage.local.set = (values, callback) => { if (values.rules) commits.push(structuredClone(values));return set(values, callback); };
+    assert.equal((await send({ type: 'rules:deleteList', payload: { listId: 'list-1' } })).success, true);
+    assert.equal(commits.length, 1);
+    assert.equal(commits[0].rules[0].assignments[0].listId, 'general');
+    assert.match(commits[0].ruleRevisions[1], /^[a-f0-9]{32}$/);
+    assert.deepEqual(commits[0].pendingDailyUsageRemaps, [{ oldRuleId: 1, oldListId: 'list-1', newRuleId: 1, newListId: 'general' }]);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:general'], 600);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+    const before = ruleConflictState(api);
+    assert.equal((await sendRaw(captured)).error.code, 'rules_state_changed');
+    assert.deepEqual(ruleConflictState(api), before);
+    assert.equal((await sendRaw(ruleConflictSnapshot(api, 'rules:toggle'))).success, true);
+  }, { local: { rules: [old], dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:list-1': 600 }, lastSample: null } }, supportsWindows: false });
+});

@@ -514,7 +514,7 @@ test('Popup Free deletion runs the real migrated-rule, worker, and DNR lifecycle
 
     assert.deepEqual(harness.messages, [{
       type: 'rules:removeAssignment',
-      payload: { ruleId: 17, listId: 'general', expectedGeneration: null }
+      payload: { ruleId: 17, listId: 'general', expectedGeneration: null, expectedRevision: null }
     }]);
     assert.deepEqual(harness.getRules(), []);
     assert.deepEqual(harness.getDynamicRules(), []);
@@ -548,7 +548,7 @@ test('Options Free deletion runs the real migrated-rule, worker, and DNR lifecyc
 
     assert.deepEqual(harness.messages, [{
       type: 'rules:removeAssignment',
-      payload: { ruleId: 23, listId: 'general', expectedGeneration: null }
+      payload: { ruleId: 23, listId: 'general', expectedGeneration: null, expectedRevision: null }
     }]);
     assert.deepEqual(harness.getRules(), []);
     assert.deepEqual(harness.dnrUpdates, [{ removeRuleIds: [23], addRules: [] }]);
@@ -616,7 +616,7 @@ test('Options can delete an inherited whitelist rule without Pro access', async 
 
     assert.deepEqual(harness.messages, [{
       type: 'rules:delete',
-      payload: { ruleId: 2, expectedGeneration: null }
+      payload: { ruleId: 2, expectedGeneration: null, expectedRevision: null }
     }]);
     assert.deepEqual(harness.getRules().map(rule => rule.id), [1]);
     assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [1]);

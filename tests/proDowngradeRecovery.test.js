@@ -440,3 +440,13 @@ test('stale lists Options callbacks retain the generation from their list snapsh
   captured.onDelete({ id: 'list-1', name: 'Original' });
   assert.deepEqual(calls.map(call => [call[0], call.at(-1)]), [['select', 'list-snapshot'], ['rename', 'list-snapshot'], ['delete', 'list-snapshot']]);
 });
+
+test('rule conflict Options binds each rendered rule revision to the same rules snapshot', async () => {
+  const rule = makeRule(1, 'list-1');
+  const view = createOptionsProfileController({ rules: [rule], isPro: true });
+  view.controller.rulesManager.getRulesSnapshot = async () => ({ rules: [rule], generation: 'rules-generation', revisions: { 1: 'displayed-revision' } });
+  await view.controller.refreshProfileView();
+  assert.deepEqual(view.errors, []);
+  assert.equal(view.renderCalls[0].items[0].generation, 'rules-generation');
+  assert.equal(view.renderCalls[0].items[0].revision, 'displayed-revision');
+});

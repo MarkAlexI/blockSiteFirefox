@@ -274,6 +274,21 @@ export function createRulesMutationService({
     }
   }
 
+  async function getRulesSnapshot() {
+    if (typeof rulesManager.getRulesSnapshot === 'function') {
+      return rulesManager.getRulesSnapshot();
+    }
+    // Storage-free service consumers supply only getRules; the worker uses snapshots.
+    return { rules: await rulesManager.getRules() };
+  }
+
+  function ensureRuleRevision(payload, snapshot) {
+    if (snapshot.revisions !== undefined &&
+        (payload.expectedRevision ?? null) !== (snapshot.revisions[toRuleId(payload.ruleId)] ?? null)) {
+      throw new RulesMutationError('rules_state_changed', 'Rules changed; refresh the rule view and try again');
+    }
+  }
+
   function throwValidation(validation) {
     if (!validation.isValid) {
       throw new RulesMutationError(
@@ -346,7 +361,11 @@ export function createRulesMutationService({
       typeof dailyLimitManager?.recoverPendingRemaps === 'function';
 
     if (protectUsage) {
-      await dailyLimitManager.stagePendingRemaps({ rules }, [remap]);
+      await dailyLimitManager.stagePendingRemaps(
+        typeof rulesManager.prepareRulesState === 'function'
+          ? await rulesManager.prepareRulesState(rules) : { rules },
+        [remap]
+      );
     } else {
       await rulesManager.saveRules(rules);
     }
@@ -475,9 +494,9 @@ export function createRulesMutationService({
     );
   }
 
-  async function saveCombinedState(rules, lists, activeRuleListId = null, rulesGeneration = undefined) {
+  async function saveCombinedState(rules, lists, activeRuleListId = null, rulesGeneration = undefined, ruleRevisions = undefined) {
     if (typeof saveRulesAndLists === 'function') {
-      await saveRulesAndLists(rules, lists, activeRuleListId, rulesGeneration);
+      await saveRulesAndLists(rules, lists, activeRuleListId, rulesGeneration, ruleRevisions);
       return;
     }
     await rulesManager.saveRules(rules);
@@ -732,7 +751,9 @@ export function createRulesMutationService({
   async function updateRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
       await ensureRulesGeneration(payload);
-      const rules = await rulesManager.getRules();
+      const snapshot = await getRulesSnapshot();
+      ensureRuleRevision(payload, snapshot);
+      const { rules } = snapshot;
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
 
@@ -996,7 +1017,9 @@ export function createRulesMutationService({
   async function removeAssignment(payload = {}) {
     return mutationQueue.enqueue(async () => {
       await ensureRulesGeneration(payload);
-      const rules = await rulesManager.getRules();
+      const snapshot = await getRulesSnapshot();
+      ensureRuleRevision(payload, snapshot);
+      const { rules } = snapshot;
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
       const rule = rules[index];
@@ -1031,7 +1054,9 @@ export function createRulesMutationService({
   async function deleteRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
       await ensureRulesGeneration(payload);
-      const rules = await rulesManager.getRules();
+      const snapshot = await getRulesSnapshot();
+      ensureRuleRevision(payload, snapshot);
+      const { rules } = snapshot;
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
       const deletedRule = rules[index];
@@ -1044,7 +1069,9 @@ export function createRulesMutationService({
   async function toggleRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
       await ensureRulesGeneration(payload);
-      const rules = await rulesManager.getRules();
+      const snapshot = await getRulesSnapshot();
+      ensureRuleRevision(payload, snapshot);
+      const { rules } = snapshot;
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
       const rule = rules[index];
@@ -1189,12 +1216,13 @@ export function createRulesMutationService({
         lists: importedLists,
         activeRuleListId: importedActiveRuleListId
       });
-      const [previousRules, previousRuleListState, currentSettings, previousGeneration] = await Promise.all([
-        rulesManager.getRules(),
+      const [previousSnapshot, previousRuleListState, currentSettings, previousGeneration] = await Promise.all([
+        getRulesSnapshot(),
         getRuleListState(),
         getSettings(),
         getRulesGeneration()
       ]);
+      const previousRules = previousSnapshot.rules;
       const nextGeneration = createRulesGeneration();
       let importedSettings = null;
       if (sanitizedPayload.settings) {
@@ -1232,7 +1260,8 @@ export function createRulesMutationService({
               previousRules,
               previousRuleListState.lists,
               previousRuleListState.activeRuleListId,
-              previousGeneration
+              previousGeneration,
+              previousSnapshot.revisions
             );
           } catch (rollbackError) {
             rollbackErrors.push(rollbackError);
@@ -1469,11 +1498,11 @@ export function createRulesMutationService({
         typeof dailyLimitManager?.stagePendingRemaps === 'function' &&
         typeof dailyLimitManager?.recoverPendingRemaps === 'function';
       if (stagedUsageRemaps) {
-        await dailyLimitManager.stagePendingRemaps({
-          rules: nextRules,
-          ruleLists: nextLists,
-          activeRuleListId
-        }, usageRemaps);
+        const extraState = { ruleLists: nextLists, activeRuleListId };
+        const patch = typeof rulesManager.prepareRulesState === 'function'
+          ? await rulesManager.prepareRulesState(nextRules, extraState)
+          : { rules: nextRules, ...extraState };
+        await dailyLimitManager.stagePendingRemaps(patch, usageRemaps);
       } else {
         await saveCombinedState(nextRules, nextLists, activeRuleListId);
       }

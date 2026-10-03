@@ -229,10 +229,7 @@ export function createRulesMigrationService({
         syncData.rules : [];
 
       if (syncRules.length > 0) {
-        await localStorage.set({
-          rules: syncRules,
-          is_migrated_to_local: true
-        });
+        await rulesManager.saveRules(syncRules, { is_migrated_to_local: true });
 
         logger.log(
           `Successfully migrated ${syncRules.length} rules to local storage.`

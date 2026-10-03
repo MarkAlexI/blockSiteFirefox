@@ -68,7 +68,7 @@ test('paid rule-change authorization prompts only when password protection is en
 
 for (const [label, source, args] of [
   ['Options', optionsSource, {
-    opening: 'async handleRuleToggle(ruleId, assignment, isMuted = false, expectedGeneration = null)',
+    opening: 'async handleRuleToggle(',
     next: 'async refreshProfileView()',
     call(controller, disabledByUser, isMuted = false) {
       return controller.handleRuleToggle(9, {
@@ -78,7 +78,7 @@ for (const [label, source, args] of [
     }
   }],
   ['Popup', popupSource, {
-    opening: 'async handleRuleToggle(ruleId, listId, disabledByUser, isMuted = false, expectedGeneration = null)',
+    opening: 'async handleRuleToggle(',
     next: 'handleRulesMutationError(',
     call(controller, disabledByUser, isMuted = false) {
       return controller.handleRuleToggle(9, 'general', disabledByUser, isMuted);
@@ -214,7 +214,7 @@ test('Options protects destructive Rule List deletion and category disabling whi
 test('the rendered rule toggles use the protected handlers on both pages', () => {
   assert.match(
     optionsSource,
-    /ruleId => this\.handleRuleToggle\(ruleId, assignment, isMuted, generation\)/
+    /ruleId => this\.handleRuleToggle\(ruleId, assignment, isMuted, generation, revision\)/
   );
   assert.match(
     popupSource,
@@ -249,9 +249,9 @@ test('stale options row callbacks retain the generation of their displayed rule'
   const calls = [];
   Object.assign(controller, {
     rulesUI: { createRuleDisplayRow(...args) { callbacks = args.slice(3, 6); return {}; } },
-    toggleEditMode(...args) { calls.push(['edit', args.at(-1)]); },
-    handleRuleAssignmentDeletion(...args) { calls.push(['remove', args.at(-1)]); },
-    handleRuleToggle(...args) { calls.push(['toggle', args.at(-1)]); }
+    toggleEditMode(...args) { calls.push(['edit', args.at(-2)]); },
+    handleRuleAssignmentDeletion(...args) { calls.push(['remove', args.at(-2)]); },
+    handleRuleToggle(...args) { calls.push(['toggle', args.at(-2)]); }
   });
   const rule = { id: 1, blockURL: 'old.example', category: 'social', isWhitelist: false };
   const assignment = { listId: 'general', disabledByUser: false };
@@ -285,7 +285,7 @@ for (const [label, source, call] of [
     controller.generation = 'replacement';
     authorized.resolve(true);
     await pending;
-    assert.deepEqual(calls, [[1, 'general', 'captured']]);
+    assert.deepEqual(calls, [[1, 'general', 'captured', null]]);
   });
 }
 
@@ -303,7 +303,7 @@ test('stale options edit form and assignment removal keep the captured generatio
     ruleListsManager: { async getState() { return { lists: [{ id: 'general', disabledCategories: [] }], activeRuleListId: 'general' }; } },
     rulesUI: { createRuleEditRow(...args) { callbacks = [args[3], args[5]]; return {}; } },
     rulesClient: { async updateRule(payload) { updates.push(payload); } },
-    handleRuleAssignmentDeletion(...args) { removals.push(args.at(-1)); },
+    handleRuleAssignmentDeletion(...args) { removals.push(args.at(-2)); },
     async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
   });
   const rule = { id: 1, blockURL: 'old.example', redirectURL: '', category: 'social', isWhitelist: false };
@@ -336,7 +336,8 @@ test('stale options destructive confirmation callbacks keep the original generat
     await invoke(controller);
     controller.generation = 'replacement';
     await confirmation();
-    assert.equal(calls[0].at(-1), 'captured');
+    assert.equal(calls[0].at(-2), 'captured');
+    assert.equal(calls[0].at(-1), null);
   }
 });
 
@@ -354,7 +355,7 @@ test('stale options Popup confirmation keeps both the displayed assignment and g
   await controller.handleRuleDeletion({}, 1, 'old.example', { dataset: { isWhitelist: 'false' } }, 'captured', 'list-1');
   controller.activeRuleListId = 'list-2';
   await confirmation();
-  assert.deepEqual(calls, [[1, 'list-1', 'captured']]);
+  assert.deepEqual(calls, [[1, 'list-1', 'captured', null]]);
 });
 
 for (const [label, source] of [['Options', optionsSource], ['Popup', popupSource]]) {
@@ -430,4 +431,70 @@ test('stale lists Options deletion keeps its generation through confirmation and
   const pending = controller.handleRuleListDelete({ id: 'list-1', name: 'Original' }, 'captured');
   controller.generation = 'another-import'; release(true); await pending;
   assert.deepEqual(calls, [['list-1', 'captured']]);
+});
+
+test('rule conflict Options row callbacks keep both generation and revision from the displayed snapshot', () => {
+  const method = getClassMember(optionsSource, 'createRuleRow(', 'async handleRuleAssignmentDeletion(');
+  const Controller = new Function('t', `return class Row {${method}};`)(key => key);
+  const controller = new Controller();let callbacks;const calls = [];
+  Object.assign(controller, {
+    rulesUI: { createRuleDisplayRow(...args) { callbacks = args.slice(3, 6);return {}; } },
+    toggleEditMode(...args) { calls.push(args.slice(-2)); },
+    handleRuleAssignmentDeletion(...args) { calls.push(args.slice(-2)); },
+    handleRuleToggle(...args) { calls.push(args.slice(-2)); }
+  });
+  const rule = { id: 1, category: 'social', isWhitelist: false };const assignment = { listId: 'general' };
+  controller.createRuleRow({ rule, assignment, generation: 'bulk-generation', revision: 'displayed-revision' }, 0, true);
+  controller.revision = 'latest-revision';
+  callbacks[0]({}, 1, rule, assignment);callbacks[1]({ target: {} }, 1, assignment);callbacks[2](1);
+  assert.deepEqual(calls, Array(3).fill(['bulk-generation', 'displayed-revision']));
+});
+
+for (const [label, source, invoke, next] of [
+  ['Options', optionsSource, controller => controller.handleRuleToggle(1, { listId: 'general' }, false, 'generation', 'displayed-revision'), 'async refreshProfileView('],
+  ['Popup', popupSource, controller => controller.handleRuleToggle(1, 'general', false, false, 'generation', 'displayed-revision'), 'handleRulesMutationError(']
+]) {
+  test(`rule conflict ${label} retains its revision while waiting for password authorization`, async () => {
+    const method = getClassMember(source, 'async handleRuleToggle(', next);
+    const Controller = new Function('GENERAL_RULE_LIST_ID', `return class Toggle {${method}};`)('general');
+    const controller = new Controller();const entered = staleOptionsDeferred();const release = staleOptionsDeferred();const calls = [];
+    Object.assign(controller, { authorizePasswordProtectedRuleChange() { entered.resolve();return release.promise; },
+      rulesClient: { async toggleRule(...args) { calls.push(args); } }, async refreshProfileView() {}, async loadRules() {},
+      logRulesMutationFailure() {}, handleRulesMutationError() {} });
+    const pending = invoke(controller);await entered.promise;controller.revision = 'newer-revision';release.resolve(true);await pending;
+    assert.deepEqual(calls, [[1, 'general', 'generation', 'displayed-revision']]);
+  });
+}
+
+test('rule conflict Options edit and removal preserve the original revision through password waits', async () => {
+  const edit = getClassMember(optionsSource, 'async toggleEditMode(', 'async saveEditedRule(');
+  const save = getClassMember(optionsSource, 'async saveEditedRule(', 'async showAddRuleForm(');
+  const entered = staleOptionsDeferred();const release = staleOptionsDeferred();
+  const SettingsManager = { async getSettings() { entered.resolve();return release.promise; } };
+  const Controller = new Function('SettingsManager', 't', 'GENERAL_RULE_LIST_ID', `return class Edit {${edit}\n${save}};`)(SettingsManager, key => key, 'general');
+  const controller = new Controller();let callbacks;const updates = [];const removals = [];
+  Object.assign(controller, { isPro: true, statusElement: {},
+    ruleListsManager: { async getState() { return { lists: [{ id: 'general', disabledCategories: [] }], activeRuleListId: 'general' }; } },
+    rulesUI: { createRuleEditRow(...args) { callbacks = [args[3], args[5]];return {}; } },
+    rulesClient: { async updateRule(payload) { updates.push(payload); } }, handleRuleAssignmentDeletion(...args) { removals.push(args); },
+    async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {} });
+  const rule = { id: 1, category: 'social', isWhitelist: false };const assignment = { listId: 'general' };
+  const pending = controller.toggleEditMode({ classList: { contains: () => false }, replaceWith() {} }, 1, rule, assignment, 'generation', 'displayed-revision');
+  await entered.promise;controller.revision = 'newer-revision';release.resolve({ enablePassword: false });await pending;
+  await callbacks[0](1, 'general', 'updated.example', '', 'social', { blockingMode: 'always' }, 'general');callbacks[1](1, 'general', {});
+  assert.equal(updates[0].expectedGeneration, 'generation');assert.equal(updates[0].expectedRevision, 'displayed-revision');
+  assert.deepEqual(removals[0].slice(-2), ['generation', 'displayed-revision']);
+});
+
+test('rule conflict Popup deletion confirmation keeps the displayed assignment generation and revision', async () => {
+  const method = getClassMember(popupSource, 'async handleRuleDeletion(', 'async promptForPassword(');
+  const SettingsManager = { async getSettings() { return { mode: 'normal', enablePassword: false }; } };
+  const Controller = new Function('SettingsManager', 't', 'customAlert', 'GENERAL_RULE_LIST_ID', `return class Delete {${method}};`)(SettingsManager, key => key, () => {}, 'general');
+  const controller = new Controller();let confirmation;const calls = [];
+  Object.assign(controller, { isPro: true, activeRuleListId: 'list-1',
+    rulesUI: { isDeleteConfirmationInProgress: () => false, handleRuleDeletion(_button, callback) { confirmation = callback; } },
+    rulesClient: { async removeAssignment(...args) { calls.push(args); } }, async loadRules() {}, logger: { info() {}, error() {} } });
+  await controller.handleRuleDeletion({}, 1, 'shown.example', { dataset: { isWhitelist: 'false' } }, 'generation', 'list-1', 'displayed-revision');
+  controller.revision = 'newer-revision';controller.activeRuleListId = 'list-2';await confirmation();
+  assert.deepEqual(calls, [[1, 'list-1', 'generation', 'displayed-revision']]);
 });

@@ -54,8 +54,8 @@ function createHarness({ local = {}, sync = {}, localOptions = {} } = {}) {
     async getRules() {
       return clone(localStorage.state.rules || []);
     },
-    async saveRules(rules) {
-      localStorage.state.rules = clone(rules);
+    async saveRules(rules, extraState = {}) {
+      await localStorage.set({ rules: clone(rules), ...extraState });
       savedRules.push(clone(rules));
     }
   };
@@ -342,7 +342,7 @@ test('combined migration copies legacy rules and then upgrades their schema', as
   }]);
   assert.deepEqual(harness.localStorage.state.ruleLists, [{ id: 'general', name: 'General', disabledCategories: [] }]);
   assert.equal(harness.localStorage.state.activeRuleListId, 'general');
-  assert.equal(harness.savedRules.length, 1);
+  assert.equal(harness.savedRules.length, 2);
 });
 
 test('startup can defer Daily Limit cleanup while a durable remap still needs recovery', async () => {

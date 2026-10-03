@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.13] - 2026-10-03
+
+### Fixed
+- Reject stale rule edits, toggles, deletions and assignment removals within the same bulk generation. Bind the displayed rule to a local per-rule revision checked inside the existing mutation queue; deleting and recreating identical settings with the same numeric ID creates a new revision.
+- Commit revisions with rules, combined Rule List state and durable Daily Limit remap journals. Import rollback restores the previous revisions, and unchanged rules retain their revisions through unrelated changes or no-op saves.
+- Preserve the displayed revision in Options and Popup callbacks through password waits and destructive confirmations; use the existing stale-state error and refresh behavior.
+
+### Tests and compatibility
+- Added 33 regressions for two Options, all four rule ID intents, identical ID reuse, queued writes, unrelated changes, no-op saves, settings A-to-B-to-A, restart, storage errors, pending DNR synchronization, import rollback, assignment move/split/merge, list deletion, UI capture, client payloads and metadata privacy.
+- Revisions are local metadata outside the portable rule schema, backup, diagnostics and telemetry. One extra storage snapshot when preparing a rule commit; no new permissions, polling, accounting reads, backend changes, locales or welcome messages. Pro/Legacy/password access and native Firefox consent are unchanged.
+- These are production-module tests with API doubles, not native Chrome/Firefox/Android or browser E2E. Same-generation Rule List edit/recreation conflicts and H1 prune reachability remain separate follow-up cases.
+
 ## [5.3.12] - 2026-10-03
 
 ### Fixed

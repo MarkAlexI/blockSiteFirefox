@@ -47,6 +47,11 @@ async function sendWorkerMessage(listener, message) {
     const stored = await chrome.storage.local.get('rulesGeneration');
     message = { ...message, payload: { ...message.payload, expectedGeneration: stored.rulesGeneration ?? null } };
   }
+  if (['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedRevision')) {
+    const stored = await chrome.storage.local.get('ruleRevisions');
+    message = { ...message, payload: { ...message.payload, expectedRevision: stored.ruleRevisions?.[message.payload?.ruleId] ?? null } };
+  }
   return new Promise((resolve, reject) => {
     const keepChannelOpen = listener(message, {}, resolve);
     if (keepChannelOpen !== true) {

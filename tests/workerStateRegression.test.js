@@ -51,7 +51,16 @@ function makeDailyLimitRule(id, listId, { blockURL = null, minutes = 10 } = {}) 
   return rule;
 }
 
-function sendWorkerMessage(listener, message) {
+async function sendWorkerMessage(listener, message) {
+  // Default calls represent a fresh view; concurrent tests supply their captured revision.
+  if (['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type)) {
+    const stored = await chrome.storage.local.get(['rulesGeneration', 'ruleRevisions']);
+    message = { ...message, payload: {
+      expectedGeneration: stored.rulesGeneration ?? null,
+      expectedRevision: stored.ruleRevisions?.[message.payload?.ruleId] ?? null,
+      ...message.payload
+    } };
+  }
   return new Promise((resolve, reject) => {
     if (listener(message, {}, resolve) !== true) {
       reject(new Error('Worker did not keep its response channel open: ' + message.type));
@@ -826,6 +835,7 @@ for (const delay of ['journal_commit', 'recovery_read', 'recovery_write', 'usage
         const original = api.declarativeNetRequest[method].bind(api.declarativeNetRequest);
         api.declarativeNetRequest[method] = async (...args) => { await hold(delay === label); return original(...args); };
       }
+      const capturedRevision = api.storage.local.data.ruleRevisions?.[21] ?? null;
       const first = send({ type: 'rules:update', payload: {
         ruleId: 21, assignmentListId: 'list-1', blockURL: 'usage.example', redirectURL: 'https://safe.example/study',
         assignment: { listId: 'list-1', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
@@ -835,13 +845,21 @@ for (const delay of ['journal_commit', 'recovery_read', 'recovery_write', 'usage
         await Promise.race([ready.promise, first]);
         assert.equal(held, true, `production await was reached: ${delay}`);
         second = send({ type: 'rules:update', payload: {
-          ruleId: 21, assignmentListId: 'general', blockURL: 'usage.example', redirectURL: 'https://safe.example/work',
+          ruleId: 21, expectedRevision: capturedRevision, assignmentListId: 'general', blockURL: 'usage.example', redirectURL: 'https://safe.example/work',
           assignment: { listId: 'list-2', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
         } });
         await tick();
       } finally { release.resolve(); }
       const responses = await Promise.all([first, second]);
-      assert.ok(responses.every(response => response.success), JSON.stringify(responses));
+      assert.equal(responses[0].success, true);
+      assert.equal(responses[1].success, false);
+      assert.equal(responses[1].error.code, 'rules_state_changed');
+      // A user refreshes the remaining rule before submitting the second edit again.
+      const retried = await send({ type: 'rules:update', payload: {
+        ruleId: 21, assignmentListId: 'general', blockURL: 'usage.example', redirectURL: 'https://safe.example/work',
+        assignment: { listId: 'list-2', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }
+      } });
+      assert.equal(retried.success, true);
       const rules = api.storage.local.data.rules;
       assert.equal(rules.length, 2);
       const split = rules.find(item => item.id !== 21);
@@ -981,16 +999,21 @@ test('deleting after a recovered remap and importing afterward leave only curren
       }
       return originalSet(values, callback);
     };
+    const capturedRevision = api.storage.local.data.ruleRevisions?.[21] ?? null;
     const moving = send({ type: 'rules:update', payload: { ruleId: 21, assignmentListId: 'list-1', blockURL: 'usage.example',
       assignment: { listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } } } });
     let deleting;
     try {
       await ready.promise;
-      deleting = send({ type: 'rules:delete', payload: { ruleId: 21 } });
+      deleting = send({ type: 'rules:delete', payload: { ruleId: 21, expectedRevision: capturedRevision } });
       await tick();
     } finally { release.resolve(); }
     const responses = await Promise.all([moving, deleting]);
-    assert.ok(responses.every(response => response.success), JSON.stringify(responses));
+    assert.equal(responses[0].success, true);
+    assert.equal(responses[1].success, false);
+    assert.equal(responses[1].error.code, 'rules_state_changed');
+    // Deletion is resubmitted only after a fresh rule snapshot.
+    assert.equal((await send({ type: 'rules:delete', payload: { ruleId: 21 } })).success, true);
     assert.deepEqual(api.storage.local.data.rules, []);
     assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
     assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);

@@ -274,7 +274,7 @@ class PopupPage {
         this.ruleListsManager.getState(),
         this.dailyLimitManager.getUsageSeconds()
       ]);
-      const { rules, generation } = snapshot;
+      const { rules, generation, revisions = {} } = snapshot;
       const hasRuleListAccess = this.isPro || this.isLegacyUser;
       const ruleLists = hasRuleListAccess
         ? ruleListState.lists
@@ -311,7 +311,8 @@ class PopupPage {
           assignment.dailyLimit,
           getAssignmentUsageSeconds(dailyUsageSeconds, rule.id, assignment.listId),
           [assignment],
-          generation
+          generation,
+          revisions[rule.id] ?? null
         );
       });
 
@@ -436,7 +437,7 @@ class PopupPage {
     }
   }
   
-  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listIds = [GENERAL_RULE_LIST_ID], blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0, assignments = null, expectedGeneration = null) {
+  createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listIds = [GENERAL_RULE_LIST_ID], blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0, assignments = null, expectedGeneration = null, expectedRevision = null) {
     const ruleDiv = document.createElement('div');
     const isCategoryMuted = this.activeDisabledCategories.includes(category);
     const normalizedListIds = isWhitelist ? [GENERAL_RULE_LIST_ID] : (Array.isArray(listIds) ? listIds : [listIds]);
@@ -571,7 +572,8 @@ class PopupPage {
               activeAssignment?.listId || this.activeRuleListId || GENERAL_RULE_LIST_ID,
               disabledByUser,
               isMuted,
-              expectedGeneration
+              expectedGeneration,
+              expectedRevision
             );
           });
           ruleDiv.appendChild(toggleElement);
@@ -585,7 +587,7 @@ class PopupPage {
         
         deleteButton.addEventListener('click', async () => {
           if (isMuted) return;
-          await this.handleRuleDeletion(deleteButton, ruleId, blockURL.value, ruleDiv, expectedGeneration, effectiveAssignments[0]?.listId || GENERAL_RULE_LIST_ID);
+          await this.handleRuleDeletion(deleteButton, ruleId, blockURL.value, ruleDiv, expectedGeneration, effectiveAssignments[0]?.listId || GENERAL_RULE_LIST_ID, expectedRevision);
         });
         
         ruleDiv.appendChild(deleteButton);
@@ -756,14 +758,14 @@ class PopupPage {
     }
   }
 
-  async handleRuleToggle(ruleId, listId, disabledByUser, isMuted = false, expectedGeneration = null) {
+  async handleRuleToggle(ruleId, listId, disabledByUser, isMuted = false, expectedGeneration = null, expectedRevision = null) {
     if (isMuted) return;
 
     const isDisablingRule = disabledByUser !== true;
     if (isDisablingRule && !await this.authorizePasswordProtectedRuleChange()) return;
 
     try {
-      await this.rulesClient.toggleRule(ruleId, listId || GENERAL_RULE_LIST_ID, expectedGeneration);
+      await this.rulesClient.toggleRule(ruleId, listId || GENERAL_RULE_LIST_ID, expectedGeneration, expectedRevision);
       await this.loadRules();
     } catch (error) {
       this.logRulesMutationFailure('Toggle rule error:', error);
@@ -832,7 +834,7 @@ class PopupPage {
     }
   }
   
-  async handleRuleDeletion(deleteButton, ruleId, blockURL, ruleDiv, expectedGeneration = null, assignmentListId = GENERAL_RULE_LIST_ID) {
+  async handleRuleDeletion(deleteButton, ruleId, blockURL, ruleDiv, expectedGeneration = null, assignmentListId = GENERAL_RULE_LIST_ID, expectedRevision = null) {
     try {
       if (!blockURL) {
         ruleDiv.remove();
@@ -860,9 +862,9 @@ class PopupPage {
             try {
               if (blockURL && ruleId !== null) {
                 if (ruleDiv.dataset.isWhitelist === 'true') {
-                  await this.rulesClient.deleteRule(ruleId, expectedGeneration);
+                  await this.rulesClient.deleteRule(ruleId, expectedGeneration, expectedRevision);
                 } else {
-                  await this.rulesClient.removeAssignment(ruleId, assignmentListId, expectedGeneration);
+                  await this.rulesClient.removeAssignment(ruleId, assignmentListId, expectedGeneration, expectedRevision);
                 }
                 customAlert('- 1');
               } else {

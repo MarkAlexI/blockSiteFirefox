@@ -34,21 +34,38 @@ export class RulesManager {
 
   async getRulesSnapshot() {
     return new Promise((resolve, reject) => {
-      // Bind the view's rule IDs to the same bulk-replacement generation.
-      chrome.storage.local.get(['rules', 'rulesGeneration'], result => {
+      // Read IDs, bulk generation and per-rule revisions from one storage snapshot.
+      chrome.storage.local.get(['rules', 'rulesGeneration', 'ruleRevisions'], result => {
         const error = chrome.runtime.lastError;
         if (error) {
           reject(new Error(error.message || 'Could not load rules from local storage'));
           return;
         }
-        resolve({ rules: result?.rules || [], generation: result?.rulesGeneration ?? null });
+        resolve({ rules: result?.rules || [], generation: result?.rulesGeneration ?? null, revisions: result?.ruleRevisions || {} });
       });
     });
   }
 
-  async saveRules(rules) {
+  async prepareRulesState(rules, extraState = {}) {
+    // All production rule writers join the worker's existing mutation queue.
+    // Persist revisions with the rules so no view can observe half a commit.
+    const previous = await this.getRulesSnapshot();
+    const previousRules = new Map(previous.rules.map(rule => [rule.id, rule]));
+    const ruleRevisions = {};
+    for (const rule of rules) {
+      const oldRule = previousRules.get(rule.id);
+      ruleRevisions[rule.id] = oldRule && JSON.stringify(oldRule) === JSON.stringify(rule)
+        ? (previous.revisions[rule.id] ?? null)
+        : Array.from(crypto.getRandomValues(new Uint8Array(16)),
+            byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+    return { rules, ruleRevisions, ...extraState };
+  }
+
+  async saveRules(rules, extraState = {}) {
+    const patch = await this.prepareRulesState(rules, extraState);
     await new Promise((resolve, reject) => {
-      chrome.storage.local.set({ rules }, () => {
+      const request = chrome.storage.local.set(patch, () => {
         const error = chrome.runtime.lastError;
         if (error) {
           reject(new Error(error.message || 'Could not save rules to local storage'));
@@ -56,6 +73,7 @@ export class RulesManager {
         }
         resolve();
       });
+      request?.catch(reject);
     });
   }
 
