@@ -1032,3 +1032,247 @@ test('deleting after a recovered remap and importing afterward leave only curren
   }, { local: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'list-1', { blockURL: 'usage.example' })],
     dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:list-1': 840 }, lastSample: null } } });
 });
+
+function h1InitialState() {
+  return {
+    activeRuleListId: 'list-1',
+    ruleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] },
+      { id: 'list-1', name: 'Study', disabledCategories: [] },
+      { id: 'list-2', name: 'Work', disabledCategories: [] }
+    ],
+    rules: [makeDailyLimitRule(21, 'list-1', { blockURL: 'first.example' }), makeDailyLimitRule(31, 'general', { blockURL: 'second.example' })],
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:list-1': 600, '31:general': 600 }, lastSample: null }
+  };
+}
+function h1Move(ruleId, source, target) {
+  return { type: 'rules:update', payload: { ruleId, assignmentListId: source,
+    assignment: { listId: target, blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } } } };
+}
+function h1AssertFinal(api, responses) {
+  assert.ok(responses.every(response => response.success), JSON.stringify(responses.map(r => ({ success: r.success, error: r.error?.code }))));
+  assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:list-2': 600, '31:list-1': 600 });
+  assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+  assert.deepEqual(api.storage.local.data.rules.map(rule => [rule.id, rule.assignments[0].listId]), [[21, 'list-2'], [31, 'list-1']]);
+  assert.equal(api.storage.sync.data.credentials.isPro, true);
+  assert.deepEqual(api.dynamicRules.map(rule => rule.id), [31]);
+}
+
+for (const delay of ['journal_read', 'journal_usage_read', 'journal_commit', 'recovery_read', 'recovery_write',
+  'dnr_read', 'dnr_write', 'dnr_usage_read', 'prune_usage_read', 'prune_usage_write', 'sample_read',
+  'retry_read', 'retry_write', 'failed_retry_pending_read']) {
+  test(`H1 actual API awaits preserve unrelated accepted moves at ${delay}`, { timeout: 5000 }, async () => {
+    await withWorker(async ({ api, send }) => {
+      api.dynamicRules = [{ id: 999 }];
+      const ready = createDeferred();const release = createDeferred();let held = false;
+      let usageReads = 0;let recoveryReads = 0;let journalReads = 0;let recoveryFailures = 0;
+      const hold = async matches => { if (!held && matches) { held = true;ready.resolve();await release.promise; } };
+      const get = api.storage.local.get.bind(api.storage.local);
+      api.storage.local.get = async (keys, callback) => {
+        if (keys === 'dailyRuleUsage') usageReads++;
+        if (Array.isArray(keys) && keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) recoveryReads++;
+        if (keys === 'pendingDailyUsageRemaps') journalReads++;
+        await hold((delay === 'journal_read' && keys === 'pendingDailyUsageRemaps' && journalReads === 1) ||
+          (delay === 'journal_usage_read' && keys === 'dailyRuleUsage' && usageReads === 1) ||
+          (delay === 'recovery_read' && recoveryReads === 2) ||
+          (delay === 'dnr_usage_read' && keys === 'dailyRuleUsage' && usageReads === 2) ||
+          (delay === 'prune_usage_read' && keys === 'dailyRuleUsage' && usageReads === 3) ||
+          (delay === 'sample_read' && recoveryReads === 3) ||
+          (delay === 'retry_read' && recoveryFailures === 1 && Array.isArray(keys) && keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) ||
+          (delay === 'failed_retry_pending_read' && recoveryFailures === 2 && keys === 'pendingDailyUsageRemaps'));
+        // Hold before get so callback and promise consumers await the same API response.
+        return get(keys, callback);
+      };
+      const set = api.storage.local.set.bind(api.storage.local);
+      api.storage.local.set = async (values, callback) => {
+        const recoveryWrite = values.dailyRuleUsage && values.pendingDailyUsageRemaps?.length === 0;
+        if ((delay.startsWith('retry_') || delay === 'failed_retry_pending_read') && recoveryWrite &&
+            recoveryFailures < (delay === 'failed_retry_pending_read' ? 2 : 1)) {
+          recoveryFailures++;throw new Error('temporary recovery write failure');
+        }
+        await hold((delay === 'journal_commit' && values.rules && values.pendingDailyUsageRemaps?.length > 0) ||
+          (delay === 'recovery_write' && recoveryWrite) ||
+          (delay === 'retry_write' && recoveryFailures === 1 && recoveryWrite) ||
+          (delay === 'prune_usage_write' && values.dailyRuleUsage && !Object.hasOwn(values, 'pendingDailyUsageRemaps') && !values.dailyRuleUsage.usageSeconds['99:general']));
+        return set(values, callback);
+      };
+      for (const [method, label] of [['getDynamicRules', 'dnr_read'], ['updateDynamicRules', 'dnr_write']]) {
+        const original = api.declarativeNetRequest[method].bind(api.declarativeNetRequest);
+        api.declarativeNetRequest[method] = async (...args) => { await hold(delay === label);return original(...args); };
+      }
+      const first = send(h1Move(21, 'list-1', 'list-2'));let second;
+      try {
+        await Promise.race([ready.promise, first]);assert.equal(held, true, `actual API await was reached: ${delay}`);
+        // Rule 31 is unchanged by the first intent; both views remain valid and both commits must succeed.
+        second = send(h1Move(31, 'general', 'list-1'));await tick();
+      } finally { release.resolve(); }
+      h1AssertFinal(api, await Promise.all([first, second]));
+    }, { local: { ...h1InitialState(), dailyRuleUsage: { ...h1InitialState().dailyRuleUsage,
+      usageSeconds: { '21:list-1': 600, '31:general': 600, '99:general': 40 } } }, supportsWindows: false });
+  });
+}
+
+for (const seed of [1, 7, 19, 41, 97, 251]) {
+  test(`H1 seeded API latency stress preserves every accepted budget with seed ${seed}`, { timeout: 15000 }, async () => {
+    for (let trial = 0;trial < 12;trial++) {
+      await withWorker(async ({ api, send }) => {
+        let random = seed + trial * 131;let second;let failures = trial % 3;let finished = false;
+        const yieldApi = async () => {
+          random = (Math.imul(random, 1664525) + 1013904223) >>> 0;
+          if (finished) return;
+          if (random % 5 === 0) await tick();else if (random % 3 === 0) await Promise.resolve();
+        };
+        for (const area of [api.storage.local, api.storage.sync]) {
+          const get = area.get.bind(area);const set = area.set.bind(area);
+          area.get = async (keys, callback) => { await yieldApi();return get(keys, callback); };
+          area.set = async (values, callback) => {
+            await yieldApi();
+            if (area === api.storage.local && failures && values.dailyRuleUsage && values.pendingDailyUsageRemaps?.length === 0) {
+              failures--;throw new Error('temporary recovery write failure');
+            }
+            const result = await set(values, callback);
+            if (area === api.storage.local && !second && values.rules?.find(rule => rule.id === 21)?.assignments[0].listId === 'list-2') {
+              second = send(h1Move(31, 'general', 'list-1'));
+            }
+            return result;
+          };
+        }
+        for (const method of ['getDynamicRules', 'updateDynamicRules']) {
+          const original = api.declarativeNetRequest[method].bind(api.declarativeNetRequest);
+          api.declarativeNetRequest[method] = async (...args) => { await yieldApi();return original(...args); };
+        }
+        const first = await send(h1Move(21, 'list-1', 'list-2'));
+        h1AssertFinal(api, [first, await second]);finished = true;
+      }, { local: h1InitialState(), supportsWindows: false });
+    }
+  });
+}
+
+for (const delay of ['recovery_read', 'dnr_usage_read', 'prune_usage_read', 'retry_read', 'retry_write', 'failed_retry_pending_read']) {
+  test(`H1 actual API awaits preserve a fresh same-rule move at ${delay}`, { timeout: 5000 }, async () => {
+    await withWorker(async ({ api, send }) => {
+      const ready = createDeferred();const release = createDeferred();let held = false;let usageReads = 0;let recoveryReads = 0;let failures = 0;
+      const get = api.storage.local.get.bind(api.storage.local);const set = api.storage.local.set.bind(api.storage.local);
+      api.storage.local.get = async (keys, callback) => {
+        if (keys === 'dailyRuleUsage') usageReads++;
+        if (Array.isArray(keys) && keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) recoveryReads++;
+        const matches = (delay === 'recovery_read' && recoveryReads === 2) ||
+          (delay === 'dnr_usage_read' && keys === 'dailyRuleUsage' && usageReads === 2) ||
+          (delay === 'prune_usage_read' && keys === 'dailyRuleUsage' && usageReads === 3) ||
+          (delay === 'retry_read' && failures === 1 && Array.isArray(keys) && keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) ||
+          (delay === 'failed_retry_pending_read' && failures === 2 && keys === 'pendingDailyUsageRemaps');
+        if (!held && matches) { held = true;ready.resolve();await release.promise; }
+        return get(keys, callback);
+      };
+      api.storage.local.set = async (values, callback) => {
+        const recovery = values.dailyRuleUsage && values.pendingDailyUsageRemaps?.length === 0;
+        if ((delay.startsWith('retry_') || delay === 'failed_retry_pending_read') && recovery && failures < (delay === 'failed_retry_pending_read' ? 2 : 1)) {
+          failures++;throw new Error('temporary recovery write failure');
+        }
+        if (!held && delay === 'retry_write' && recovery && failures === 1) { held = true;ready.resolve();await release.promise; }
+        return set(values, callback);
+      };
+      const first = send(h1Move(21, 'list-1', 'list-2'));let second;
+      try {
+        await Promise.race([ready.promise, first]);assert.equal(held, true);
+        assert.equal(api.storage.local.data.rules[0].assignments[0].listId, 'list-2');
+        second = send(h1Move(21, 'list-2', 'general'));await tick();
+      } finally { release.resolve(); }
+      const responses = await Promise.all([first, second]);assert.ok(responses.every(r => r.success));
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '31:general': 600, '21:general': 600 });
+      assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id).sort((a, b) => a - b), [21, 31]);
+    }, { local: { ...h1InitialState(), activeRuleListId: 'general' }, supportsWindows: false });
+  });
+}
+
+for (const change of ['split', 'merge']) {
+  for (const failedRecoveryWrites of [0, 1, 2]) {
+    test(`H1 latency stress preserves a concurrent ${change} after ${failedRecoveryWrites} recovery failures`, { timeout: 5000 }, async () => {
+      const local = h1InitialState();local.activeRuleListId = change === 'split' ? 'general' : 'list-2';
+      if (change === 'split') {
+        local.rules[1].assignments.push({ ...local.rules[1].assignments[0], listId: 'list-2' });
+        local.dailyRuleUsage.usageSeconds['31:list-2'] = 420;
+      } else {
+        const target = makeDailyLimitRule(41, 'list-1', { blockURL: 'second.example' });target.redirectURL = 'https://safe.example/';
+        local.rules.push(target);local.dailyRuleUsage.usageSeconds['41:list-1'] = 420;
+      }
+      await withWorker(async ({ api, send }) => {
+        let second;let failures = failedRecoveryWrites;
+        const get = api.storage.local.get.bind(api.storage.local);const set = api.storage.local.set.bind(api.storage.local);
+        api.storage.local.get = async (keys, callback) => { await tick();return get(keys, callback); };
+        api.storage.local.set = async (values, callback) => {
+          await tick();
+          if (failures && values.dailyRuleUsage && values.pendingDailyUsageRemaps?.length === 0) { failures--;throw new Error('temporary recovery write failure'); }
+          const result = await set(values, callback);
+          if (!second && values.rules?.find(rule => rule.id === 21)?.assignments[0].listId === 'list-2') {
+            second = send({ ...h1Move(31, 'general', change === 'split' ? 'general' : 'list-2'),
+              payload: { ...h1Move(31, 'general', change === 'split' ? 'general' : 'list-2').payload, redirectURL: 'https://safe.example/' } });
+          }
+          return result;
+        };
+        const first = await send(h1Move(21, 'list-1', 'list-2'));const responses = [first, await second];assert.ok(responses.every(r => r.success));
+        if (change === 'split') {
+          const split = api.storage.local.data.rules.find(rule => ![21, 31].includes(rule.id));assert.ok(split);
+          assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:list-2': 600, '31:list-2': 420, [`${split.id}:general`]: 600 });
+          assert.deepEqual(api.dynamicRules.map(rule => rule.id), [split.id]);
+        } else {
+          assert.equal(api.storage.local.data.rules.some(rule => rule.id === 31), false);
+          assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:list-2': 600, '41:list-1': 420, '41:list-2': 600 });
+          assert.deepEqual(api.dynamicRules.map(rule => rule.id), [21, 41]);
+        }
+        assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+      }, { local, supportsWindows: false });
+    });
+  }
+}
+
+for (const delay of ['migration_read', 'migration_write']) {
+  test(`H1 startup migration and queued moves preserve budgets at ${delay}`, { timeout: 5000 }, async () => {
+    const local = h1InitialState();local.dailyRuleUsage.version = 1;local.dailyRuleUsage.usageSeconds = { 21: 600, 31: 600 };
+    await withWorker(async ({ api, send, startup }) => {
+      const ready = createDeferred();const release = createDeferred();let held = false;
+      const get = api.storage.local.get.bind(api.storage.local);const set = api.storage.local.set.bind(api.storage.local);
+      api.storage.local.get = async (keys, callback) => {
+        if (!held && delay === 'migration_read' && keys === 'dailyRuleUsage') { held = true;ready.resolve();await release.promise; }
+        return get(keys, callback);
+      };
+      api.storage.local.set = async (values, callback) => {
+        if (!held && delay === 'migration_write' && values.dailyRuleUsage?.usageSeconds['21:list-1'] === 600) { held = true;ready.resolve();await release.promise; }
+        return set(values, callback);
+      };
+      const starting = startup();let first;let second;
+      try {
+        await Promise.race([ready.promise, starting]);assert.equal(held, true);
+        first = send(h1Move(21, 'list-1', 'list-2'));second = send(h1Move(31, 'general', 'list-1'));await tick();
+      } finally { release.resolve(); }
+      const responses = await Promise.all([first, second]);await starting;h1AssertFinal(api, responses);
+      assert.equal(api.storage.local.data.dailyRuleUsage.version, 2);
+    }, { local, supportsWindows: false });
+  });
+}
+
+for (const action of ['clear', 'replace']) {
+  test(`H1 pending cleanup cannot restore deleted budgets after queued ${action}`, { timeout: 5000 }, async () => {
+    const local = h1InitialState();
+    // Import reassigns IDs from 1; retain an existing ID deliberately for this preservation assertion.
+    local.rules[0].id = 1;local.dailyRuleUsage.usageSeconds['1:list-1'] = 600;delete local.dailyRuleUsage.usageSeconds['21:list-1'];
+    await withWorker(async ({ api, send }) => {
+      let second;const set = api.storage.local.set.bind(api.storage.local);
+      api.storage.local.set = async (values, callback) => {
+        await tick();const result = await set(values, callback);
+        if (!second && values.rules?.find(rule => rule.id === 1)?.assignments[0].listId === 'list-2') {
+          second = send(action === 'clear' ? { type: 'rules:clear' } : {
+            type: 'rules:replaceAll', payload: { rules: [makeDailyLimitRule(1, 'list-2', { blockURL: 'first.example' })],
+              ruleLists: h1InitialState().ruleLists, activeRuleListId: 'list-2' }
+          });
+        }
+        return result;
+      };
+      const first = await send(h1Move(1, 'list-1', 'list-2'));const responses = [first, await second];assert.ok(responses.every(r => r.success));
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, action === 'clear' ? {} : { '1:list-2': 600 });
+      assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+      assert.deepEqual(api.dynamicRules.map(rule => rule.id), action === 'clear' ? [] : [1]);
+    }, { local, supportsWindows: false });
+  });
+}
