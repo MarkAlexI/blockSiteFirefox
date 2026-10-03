@@ -121,7 +121,13 @@ async function withControlledClock(initial, callback) {
   }
 }
 
-function sendWorkerMessage(listener, message, sender = {}) {
+async function sendWorkerMessage(listener, message, sender = {}, bindCurrentSnapshot = true) {
+  // Default calls model a freshly read view; race tests supply captured generations or sendRaw.
+  if (bindCurrentSnapshot && ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedGeneration')) {
+    const stored = await chrome.storage.local.get('rulesGeneration');
+    message = { ...message, payload: { ...message.payload, expectedGeneration: stored.rulesGeneration ?? null } };
+  }
   return new Promise((resolve, reject) => {
     if (listener(message, sender, resolve) !== true) {
       reject(new Error('Worker did not keep its response channel open: ' + message.type));
@@ -266,6 +272,7 @@ async function withWorker(callback, {
       await callback({
         api,
         send: (message, sender) => sendWorkerMessage(api.runtime.onMessage.listeners[0], message, sender),
+        sendRaw: (message, sender) => sendWorkerMessage(api.runtime.onMessage.listeners[0], message, sender, false),
         alarm: alarm => api.alarms.onAlarm.listeners[0](alarm),
         startup: () => api.runtime.onStartup.listeners[0]()
       });
@@ -6497,4 +6504,267 @@ test('backup roundtrip worker keeps merged Daily Limit budgets independent acros
       assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), 'https://chosen.example/');
     }, { local: { ...persisted, lastCheck: Date.now() }, supportsWindows: false });
   });
+});
+
+function staleOptionsReplacement() {
+  return { rules: [makeDailyLimitRule(1, 'general', { blockURL: 'new.example', minutes: 20 })], ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }], activeRuleListId: 'general' };
+}
+
+function staleOptionsState(api) {
+  return structuredClone({ rules: api.storage.local.data.rules, lists: api.storage.local.data.ruleLists, active: api.storage.local.data.activeRuleListId,
+    generation: api.storage.local.data.rulesGeneration ?? null, usage: api.storage.local.data.dailyRuleUsage,
+    settings: api.storage.sync.data.settings, credentials: api.storage.sync.data.credentials, dnr: api.dynamicRules });
+}
+
+function staleOptionsIntent(type, rule, generation) {
+  return { type, payload: { ruleId: rule.id, listId: 'general', assignmentListId: 'general',
+    blockURL: rule.blockURL, redirectURL: rule.redirectURL, category: rule.category,
+    assignment: { ...rule.assignments[0], dailyLimit: { minutes: 30 } }, expectedGeneration: generation } };
+}
+
+for (const type of ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment']) {
+  test(`stale options rejects ${type} after import reuses a rule ID`, async () => {
+    const old = makeDailyLimitRule(1, 'general', { blockURL: 'old.example', minutes: 10 });
+    await withWorker(async ({ api, alarm, send }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      const captured = staleOptionsIntent(type, old, api.storage.local.data.rulesGeneration ?? null);
+      assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+      assert.equal(api.storage.local.data.rules[0].id, old.id);
+      const before = staleOptionsState(api);
+      const response = await send(captured);
+      assert.equal(response.success, false);
+      assert.equal(response.error.code, 'rules_state_changed');
+      assert.deepEqual(staleOptionsState(api), before);
+    }, { local: { rules: [old], activeRuleListId: 'general', dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:general': 600 }, lastSample: null } }, supportsWindows: false });
+  });
+}
+
+test('stale options rejects an old edit already queued while import waits on atomic storage', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'old.example', minutes: 10 });
+  await withWorker(async ({ api, send }) => {
+    const entered = createDeferred();
+    const release = createDeferred();
+    const originalSet = api.storage.local.set.bind(api.storage.local);
+    let gated = false;
+    api.storage.local.set = async (values, callback) => {
+      if (!gated && Object.hasOwn(values, 'rules') && Object.hasOwn(values, 'ruleLists')) {
+        gated = true; entered.resolve(); await release.promise;
+      }
+      return originalSet(values, callback);
+    };
+    const captured = staleOptionsIntent('rules:update', old, api.storage.local.data.rulesGeneration ?? null);
+    const imported = send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() });
+    await entered.promise;
+    const pendingEdit = send(captured);
+    release.resolve();
+    assert.equal((await imported).success, true);
+    const response = await pendingEdit;
+    assert.equal(response.success, false);
+    assert.equal(response.error.code, 'rules_state_changed');
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'new.example');
+    assert.equal(api.storage.local.data.rules[0].assignments[0].dailyLimit.minutes, 20);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('stale options rejects an old toggle even when import replaces a rule with identical portable settings', async () => {
+  const old = makeFocusRule(1, 'general', { blockURL: 'same.example' });
+  await withWorker(async ({ api, send }) => {
+    const captured = staleOptionsIntent('rules:toggle', old, api.storage.local.data.rulesGeneration ?? null);
+    assert.equal((await send({ type: 'rules:replaceAll', payload: { rules: [old] } })).success, true);
+    const before = staleOptionsState(api);
+    assert.equal((await send(captured)).success, false);
+    assert.deepEqual(staleOptionsState(api), before);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+for (const type of ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment']) {
+  test(`stale options accepts a fresh snapshot for ${type} after import`, async () => {
+    await withWorker(async ({ api, send }) => {
+      assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+      const current = api.storage.local.data.rules[0];
+      const generation = api.storage.local.data.rulesGeneration;
+      assert.equal(typeof generation, 'string');
+      const response = await send(staleOptionsIntent(type, current, generation));
+      assert.equal(response.success, true);
+      assert.equal(api.storage.local.data.rulesGeneration, generation);
+      if (type === 'rules:update') assert.equal(api.storage.local.data.rules[0].assignments[0].dailyLimit.minutes, 30);
+      else if (type === 'rules:toggle') assert.equal(api.storage.local.data.rules[0].assignments[0].disabledByUser, true);
+      else assert.deepEqual(api.storage.local.data.rules, []);
+    }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+  });
+}
+
+test('stale options keeps other views usable after unrelated ordinary rule changes', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    const captured = staleOptionsIntent('rules:toggle', api.storage.local.data.rules[0], api.storage.local.data.rulesGeneration);
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'other.example', redirectURL: '', category: 'news' } });
+    assert.equal(added.success, true);
+    assert.equal((await send({ type: 'rules:update', payload: { ruleId: added.rule.id, blockURL: 'updated-other.example', expectedGeneration: api.storage.local.data.rulesGeneration } })).success, true);
+    assert.equal((await send(captured)).success, true);
+    assert.equal(api.storage.local.data.rules.find(rule => rule.id === added.rule.id).blockURL, 'updated-other.example');
+    assert.equal(api.storage.local.data.rules[0].assignments[0].disabledByUser, true);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('stale options rejects a captured generation after repeating an identical import', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    const captured = staleOptionsIntent('rules:toggle', api.storage.local.data.rules[0], api.storage.local.data.rulesGeneration);
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    assert.notEqual(api.storage.local.data.rulesGeneration, captured.payload.expectedGeneration);
+    const before = staleOptionsState(api);
+    assert.equal((await send(captured)).success, false);
+    assert.deepEqual(staleOptionsState(api), before);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('stale options rejects missing and malformed generations without URL or generation telemetry', async () => {
+  await withWorker(async ({ api, send, sendRaw }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    const before = staleOptionsState(api);
+    for (const payload of [{ ruleId: 1, listId: 'general' }, { ruleId: 1, listId: 'general', expectedGeneration: 42 }]) {
+      const response = await sendRaw({ type: 'rules:toggle', payload });
+      assert.equal(response.success, false);
+      assert.equal(response.error.code, 'rules_state_changed');
+      assert.deepEqual(staleOptionsState(api), before);
+    }
+    const telemetry = api.storage.local.data.telemetryBuckets || {};
+    assert.deepEqual(Object.values(telemetry).flatMap(bucket => bucket.errors || []), []);
+    assert.equal(JSON.stringify(telemetry).includes('new.example'), false);
+    assert.equal(JSON.stringify(telemetry).includes(before.generation), false);
+    const diagnostics = await send({ type: 'diagnostics:getReport' });
+    assert.equal(diagnostics.success, true);
+    assert.equal(JSON.stringify(diagnostics.report).includes(before.generation), false);
+
+  }, { local: { activeRuleListId: 'general', telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+});
+
+test('stale options DNR import rollback restores the generation and keeps the old view usable', async () => {
+  await withWorker(async ({ api, send, alarm }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: { rules: [makeFocusRule(1, 'general', { blockURL: 'keep.example' })] } })).success, true);
+    await alarm({ name: 'update_scheduled_rules' });
+    const before = staleOptionsState(api);
+    const captured = staleOptionsIntent('rules:toggle', before.rules[0], before.generation);
+    const update = api.declarativeNetRequest.updateDynamicRules;
+    let failed = false;
+    api.declarativeNetRequest.updateDynamicRules = async values => {
+      if (!failed) { failed = true; throw new Error('DNR import unavailable'); }
+      return update(values);
+    };
+    const response = await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() });
+    assert.equal(response.success, false);
+    assert.equal(response.error.code, 'import_sync_failed');
+    assert.deepEqual(staleOptionsState(api), before);
+    assert.equal((await send(captured)).success, true);
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'keep.example');
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+for (const failure of ['local', 'settings']) {
+  test(`stale options ${failure} import failure leaves the generation and old view unchanged`, async () => {
+    await withWorker(async ({ api, send }) => {
+      assert.equal((await send({ type: 'rules:replaceAll', payload: { rules: [makeFocusRule(1, 'general', { blockURL: 'keep.example' })] } })).success, true);
+      const before = staleOptionsState(api);
+      const captured = staleOptionsIntent('rules:toggle', before.rules[0], before.generation);
+      const area = failure === 'local' ? api.storage.local : api.storage.sync;
+      const original = area.set.bind(area);let failed = false;
+      area.set = (values, callback) => {
+        const isImport = failure === 'local' ? Object.hasOwn(values, 'rules') && Object.hasOwn(values, 'ruleLists') : Object.hasOwn(values, 'settings');
+        if (!failed && isImport) { failed = true; return Promise.reject(new Error('import storage unavailable')); }
+        return original(values, callback);
+      };
+      const response = await send({ type: 'rules:replaceAll', payload: { ...staleOptionsReplacement(), settings: { mode: 'strict' } } });
+      assert.equal(response.success, false);
+      assert.match(response.error.message, /import storage unavailable/);
+      assert.deepEqual(staleOptionsState(api), before);
+      assert.equal((await send(captured)).success, true);
+    }, { settings: { confirmBeforeDelete: false, showNotifications: true, enablePassword: false, passwordHash: null }, local: { activeRuleListId: 'general' }, supportsWindows: false });
+  });
+}
+
+test('stale options generation survives worker restart and still distinguishes fresh and old views', async () => {
+  let persisted;
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    persisted = structuredClone(api.storage.local.data);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+  await withWorker(async ({ api, startup, send }) => {
+    await startup();
+    const before = staleOptionsState(api);
+    assert.equal((await send(staleOptionsIntent('rules:toggle', before.rules[0], null))).success, false);
+    assert.deepEqual(staleOptionsState(api), before);
+    assert.equal((await send(staleOptionsIntent('rules:toggle', before.rules[0], persisted.rulesGeneration))).success, true);
+  }, { local: { ...persisted, lastCheck: Date.now() }, supportsWindows: false });
+});
+
+test('stale options clear rotates the generation before an added rule reuses the old ID', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    const captured = staleOptionsIntent('rules:toggle', api.storage.local.data.rules[0], api.storage.local.data.rulesGeneration);
+    assert.equal((await send({ type: 'rules:clear' })).success, true);
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'after-clear.example', redirectURL: '', category: 'news' } });
+    assert.equal(added.success, true);
+    assert.equal(added.rule.id, captured.payload.ruleId);
+    const before = staleOptionsState(api);
+    assert.equal((await send(captured)).success, false);
+    assert.deepEqual(staleOptionsState(api), before);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('stale options fails closed when the worker cannot read the generation', async () => {
+  const old = makeFocusRule(1, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const before = staleOptionsState(api);
+    const get = api.storage.local.get.bind(api.storage.local);
+    api.storage.local.get = (keys, callback) => keys === 'rulesGeneration' ? Promise.reject(new Error('generation unavailable')) : get(keys, callback);
+    const response = await send(staleOptionsIntent('rules:toggle', old, null));
+    assert.equal(response.success, false);
+    assert.match(response.error.message, /generation unavailable/);
+    assert.deepEqual(staleOptionsState(api), before);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('stale options invalid imports preserve the current generation and fresh commands', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    const before = staleOptionsState(api);
+    assert.equal((await send({ type: 'rules:replaceAll', payload: { rules: [null] } })).success, false);
+    assert.deepEqual(staleOptionsState(api), before);
+    assert.equal((await send(staleOptionsIntent('rules:toggle', before.rules[0], before.generation))).success, true);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('stale options import generates its own local marker and excludes it from portable exports', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: { ...staleOptionsReplacement(), rulesGeneration: 'untrusted-backup-marker' } })).success, true);
+    const marker = api.storage.local.data.rulesGeneration;
+    assert.equal(typeof marker, 'string');assert.notEqual(marker, 'untrusted-backup-marker');
+    const backup = createBackupDocument({ rules: api.storage.local.data.rules, ruleLists: api.storage.local.data.ruleLists, activeRuleListId: api.storage.local.data.activeRuleListId, settings: api.storage.sync.data.settings, version: '5.3.9' });
+    assert.equal(JSON.stringify(backup).includes(marker), false);
+    assert.equal(Object.hasOwn(backup, 'rulesGeneration'), false);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('stale options allows an edit queued before import and then applies the replacement in order', async () => {
+  const old = makeDailyLimitRule(1, 'general', { blockURL: 'old.example', minutes: 10 });
+  await withWorker(async ({ api, send }) => {
+    const entered = createDeferred();const release = createDeferred();
+    const set = api.storage.local.set.bind(api.storage.local);let gated = false;
+    api.storage.local.set = async (values, callback) => {
+      if (!gated && Object.hasOwn(values, 'rules') && !Object.hasOwn(values, 'ruleLists')) {
+        gated = true;entered.resolve();await release.promise;
+      }
+      return set(values, callback);
+    };
+    const edit = send(staleOptionsIntent('rules:update', old, api.storage.local.data.rulesGeneration ?? null));
+    await entered.promise;
+    const replacement = send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() });
+    release.resolve();
+    assert.equal((await edit).success, true);
+    assert.equal((await replacement).success, true);
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'new.example');
+    assert.equal(api.storage.local.data.rules[0].assignments[0].dailyLimit.minutes, 20);
+  }, { local: { rules: [old], activeRuleListId: 'general' }, supportsWindows: false });
 });

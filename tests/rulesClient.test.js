@@ -160,7 +160,7 @@ test('rules client scopes toggle intent to the selected Rule List assignment', a
     await client.toggleRule(17, 'study');
     assert.deepEqual(sentMessage, {
       type: 'rules:toggle',
-      payload: { ruleId: 17, listId: 'study' }
+      payload: { ruleId: 17, listId: 'study', expectedGeneration: null }
     });
   } finally {
     globalThis.browser = previousBrowser;
@@ -200,8 +200,8 @@ test('deletion intents cross the client and worker router with stable IDs', asyn
 
     assert.equal(assignmentResult.targetDeleted, true);
     assert.deepEqual(calls, [
-      ['removeAssignment', { ruleId: 23, listId: 'general' }],
-      ['deleteRule', { ruleId: 41 }]
+      ['removeAssignment', { ruleId: 23, listId: 'general', expectedGeneration: null }],
+      ['deleteRule', { ruleId: 41, expectedGeneration: null }]
     ]);
   } finally {
     globalThis.browser = previousBrowser;
@@ -235,4 +235,21 @@ test('list deletion conflict crosses serialization and RulesClient with only the
     globalThis.chrome = previousChrome;
     globalThis.browser = previousBrowser;
   }
+});
+
+
+test('stale options RulesClient carries captured generations for every rule-ID intent', async () => {
+  const previousChrome = globalThis.chrome; const previousBrowser = globalThis.browser;
+  const sent = [];
+  const runtime = { lastError: null, sendMessage(message, callback) { sent.push(message); const response = { success: true }; callback?.(response); return Promise.resolve(response); } };
+  globalThis.chrome = { runtime }; globalThis.browser = { runtime };
+  try {
+    const client = new RulesClient();
+    await client.updateRule({ ruleId: 1, blockURL: 'edited.example', expectedGeneration: 'captured' });
+    await client.toggleRule(1, 'general', 'captured');
+    await client.deleteRule(1, 'captured');
+    await client.removeAssignment(1, 'general', 'captured');
+    assert.deepEqual(sent.map(message => message.payload.expectedGeneration), ['captured', 'captured', 'captured', 'captured']);
+    assert.deepEqual(sent.map(message => message.type), ['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment']);
+  } finally { globalThis.chrome = previousChrome; globalThis.browser = previousBrowser; }
 });

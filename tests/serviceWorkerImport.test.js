@@ -41,7 +41,12 @@ function createStorageArea(initial = {}) {
   };
 }
 
-function sendWorkerMessage(listener, message) {
+async function sendWorkerMessage(listener, message) {
+  if (['rules:update', 'rules:toggle', 'rules:delete', 'rules:removeAssignment'].includes(message.type) &&
+      !Object.hasOwn(message.payload || {}, 'expectedGeneration')) {
+    const stored = await chrome.storage.local.get('rulesGeneration');
+    message = { ...message, payload: { ...message.payload, expectedGeneration: stored.rulesGeneration ?? null } };
+  }
   return new Promise((resolve, reject) => {
     const keepChannelOpen = listener(message, {}, resolve);
     if (keepChannelOpen !== true) {

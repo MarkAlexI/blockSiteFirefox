@@ -68,6 +68,11 @@ function createAsyncQueue() {
   };
 }
 
+function createRulesGeneration() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(16)),
+    byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 function toRuleId(value) {
   const id = Math.floor(Number(value));
   return Number.isInteger(id) && id > 0 ? id : null;
@@ -250,6 +255,7 @@ export function createRulesMutationService({
   dailyLimitManager = null,
   declarativeNetRequest,
   getAccess,
+  getRulesGeneration = async () => undefined,
   getSettings,
   saveSettings,
   saveRulesAndLists,
@@ -259,6 +265,14 @@ export function createRulesMutationService({
   logger
 }) {
   const mutationQueue = createAsyncQueue();
+
+  async function ensureRulesGeneration(payload) {
+    const current = await getRulesGeneration();
+    // Optional for isolated service consumers; the worker always supplies it.
+    if (current !== undefined && (payload.expectedGeneration ?? null) !== current) {
+      throw new RulesMutationError('rules_state_changed', 'Rules changed; refresh the rule view and try again');
+    }
+  }
 
   function throwValidation(validation) {
     if (!validation.isValid) {
@@ -461,9 +475,9 @@ export function createRulesMutationService({
     );
   }
 
-  async function saveCombinedState(rules, lists, activeRuleListId = null) {
+  async function saveCombinedState(rules, lists, activeRuleListId = null, rulesGeneration = undefined) {
     if (typeof saveRulesAndLists === 'function') {
-      await saveRulesAndLists(rules, lists, activeRuleListId);
+      await saveRulesAndLists(rules, lists, activeRuleListId, rulesGeneration);
       return;
     }
     await rulesManager.saveRules(rules);
@@ -717,6 +731,7 @@ export function createRulesMutationService({
 
   async function updateRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
@@ -980,6 +995,7 @@ export function createRulesMutationService({
 
   async function removeAssignment(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
@@ -1014,6 +1030,7 @@ export function createRulesMutationService({
 
   async function deleteRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
@@ -1026,6 +1043,7 @@ export function createRulesMutationService({
 
   async function toggleRule(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       const rules = await rulesManager.getRules();
       const index = getRuleIndexById(rules, payload.ruleId);
       if (index === -1) throw new RulesMutationError('rule_not_found', 'Rule not found');
@@ -1171,11 +1189,13 @@ export function createRulesMutationService({
         lists: importedLists,
         activeRuleListId: importedActiveRuleListId
       });
-      const [previousRules, previousRuleListState, currentSettings] = await Promise.all([
+      const [previousRules, previousRuleListState, currentSettings, previousGeneration] = await Promise.all([
         rulesManager.getRules(),
         getRuleListState(),
-        getSettings()
+        getSettings(),
+        getRulesGeneration()
       ]);
+      const nextGeneration = createRulesGeneration();
       let importedSettings = null;
       if (sanitizedPayload.settings) {
         const { disabledCategories: _legacyDisabledCategories, ...portableSettings } =
@@ -1195,7 +1215,7 @@ export function createRulesMutationService({
           await saveSettings(importedSettings);
           settingsCommitted = true;
         }
-        await saveCombinedState(nextRules, importedLists, importedActiveRuleListId);
+        await saveCombinedState(nextRules, importedLists, importedActiveRuleListId, nextGeneration);
         localStateCommitted = true;
         const syncResult = await dnrSynchronizer.requestSync();
         if (syncResult?.success === false) {
@@ -1211,7 +1231,8 @@ export function createRulesMutationService({
             await saveCombinedState(
               previousRules,
               previousRuleListState.lists,
-              previousRuleListState.activeRuleListId
+              previousRuleListState.activeRuleListId,
+              previousGeneration
             );
           } catch (rollbackError) {
             rollbackErrors.push(rollbackError);
@@ -1270,7 +1291,8 @@ export function createRulesMutationService({
     return mutationQueue.enqueue(async () => {
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const nextRules = [];
-      await rulesManager.saveRules(nextRules);
+      const state = await getRuleListState();
+      await saveCombinedState(nextRules, state.lists, state.activeRuleListId, createRulesGeneration());
       return syncAndNotify(nextRules);
     });
   }

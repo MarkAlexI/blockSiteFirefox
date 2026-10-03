@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.10] - 2026-10-03
+
+### Fixed
+- Rule-ID commands from Options and Popup retain the bulk-replacement generation of their displayed rules. The worker validates it inside the mutation queue, rejecting old edit, toggle, delete and assignment-removal commands after import reuses numeric IDs.
+- Import commits a new local generation with rules and lists, and rollback restores the previous generation. Clear rotates it before subsequent rule-ID reuse. Ordinary edits and additions preserve it, allowing unrelated views to remain usable.
+- Read rules and their generation together for UI snapshots. Password and confirmation callbacks retain the captured generation; Popup removal also retains the displayed list assignment. A stale rejection or generation change refreshes the rule view using existing messages.
+
+### Tests and compatibility
+- Added 35 regressions for queued ordering, identical/repeated imports, fresh and stale clients, rollback/storage failure, restart, clear/add reuse, local snapshot reads, UI callbacks and generation-only refresh.
+- Existing worker tests explicitly model fresh UI snapshots; race tests send captured or raw generations. Legacy null generation remains valid until a bulk replacement. Missing generations after replacement are rejected.
+- The marker stays in local storage and is excluded from portable backups, diagnostics details and telemetry. No new permissions, localization keys, polling, backend changes or update welcome messages.
+- This protects rule-ID commands across import/clear. Per-rule concurrent edit conflicts and reused Rule List IDs remain separate checks.
+
 ## [5.3.9] - 2026-10-03
 
 ### Fixed

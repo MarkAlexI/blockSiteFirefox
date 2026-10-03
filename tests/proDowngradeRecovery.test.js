@@ -103,7 +103,7 @@ function createOptionsProfileController({
     isPro,
     isLegacyUser,
     profileRefreshId: 0,
-    rulesManager: { getRules: async () => clone(rules) },
+    rulesManager: { getRulesSnapshot: async () => ({ rules: clone(rules), generation: null }) },
     ruleListsManager: { getState: async () => clone(state) },
     dailyLimitManager: { getUsageSeconds: async () => ({}) },
     ruleListsContainer: {},
@@ -188,7 +188,7 @@ function createPopupProfileController({
   Object.assign(controller, {
     isPro,
     isLegacyUser,
-    rulesManager: { getRules: async () => clone(rules) },
+    rulesManager: { getRulesSnapshot: async () => ({ rules: clone(rules), generation: null }) },
     ruleListsManager: { getState: async () => clone(state) },
     dailyLimitManager: { getUsageSeconds: async () => ({}) },
     rulesContainer: { innerHTML: '' },

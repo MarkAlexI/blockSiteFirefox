@@ -40,19 +40,19 @@ export class RulesClient {
   }
 
   updateRule(payload) {
-    return sendRulesIntent('rules:update', payload);
+    return sendRulesIntent('rules:update', { ...payload, expectedGeneration: payload.expectedGeneration ?? null });
   }
 
-  removeAssignment(ruleId, listId) {
-    return sendRulesIntent('rules:removeAssignment', { ruleId, listId });
+  removeAssignment(ruleId, listId, expectedGeneration = null) {
+    return sendRulesIntent('rules:removeAssignment', { ruleId, listId, expectedGeneration });
   }
 
-  deleteRule(ruleId) {
-    return sendRulesIntent('rules:delete', { ruleId });
+  deleteRule(ruleId, expectedGeneration = null) {
+    return sendRulesIntent('rules:delete', { ruleId, expectedGeneration });
   }
 
-  toggleRule(ruleId, listId = GENERAL_RULE_LIST_ID) {
-    return sendRulesIntent('rules:toggle', { ruleId, listId });
+  toggleRule(ruleId, listId = GENERAL_RULE_LIST_ID, expectedGeneration = null) {
+    return sendRulesIntent('rules:toggle', { ruleId, listId, expectedGeneration });
   }
 
   replaceAll(backup, settings = null, ruleLists = null, activeRuleListId = null) {

@@ -68,7 +68,7 @@ test('paid rule-change authorization prompts only when password protection is en
 
 for (const [label, source, args] of [
   ['Options', optionsSource, {
-    opening: 'async handleRuleToggle(ruleId, assignment, isMuted = false)',
+    opening: 'async handleRuleToggle(ruleId, assignment, isMuted = false, expectedGeneration = null)',
     next: 'async refreshProfileView()',
     call(controller, disabledByUser, isMuted = false) {
       return controller.handleRuleToggle(9, {
@@ -78,7 +78,7 @@ for (const [label, source, args] of [
     }
   }],
   ['Popup', popupSource, {
-    opening: 'async handleRuleToggle(ruleId, listId, disabledByUser, isMuted = false)',
+    opening: 'async handleRuleToggle(ruleId, listId, disabledByUser, isMuted = false, expectedGeneration = null)',
     next: 'handleRulesMutationError(',
     call(controller, disabledByUser, isMuted = false) {
       return controller.handleRuleToggle(9, 'general', disabledByUser, isMuted);
@@ -214,7 +214,7 @@ test('Options protects destructive Rule List deletion and category disabling whi
 test('the rendered rule toggles use the protected handlers on both pages', () => {
   assert.match(
     optionsSource,
-    /ruleId => this\.handleRuleToggle\(ruleId, assignment, isMuted\)/
+    /ruleId => this\.handleRuleToggle\(ruleId, assignment, isMuted, generation\)/
   );
   assert.match(
     popupSource,
@@ -234,3 +234,159 @@ test('list deletion conflict Options identifies the General address using existi
   controller.handleRulesMutationError({ code: 'rule_already_exists' });
   assert.deepEqual(messages, ['Правило вже існує\nЗагальний: saved.example', 'Правило вже існує']);
 });
+
+function staleOptionsDeferred() {
+  let resolve;
+  const promise = new Promise(done => { resolve = done; });
+  return { promise, resolve };
+}
+
+test('stale options row callbacks retain the generation of their displayed rule', async () => {
+  const method = getClassMember(optionsSource, 'createRuleRow(', 'async handleRuleAssignmentDeletion(');
+  const Controller = new Function('t', `return class Row {${method}};`)(key => key);
+  const controller = new Controller();
+  let callbacks;
+  const calls = [];
+  Object.assign(controller, {
+    rulesUI: { createRuleDisplayRow(...args) { callbacks = args.slice(3, 6); return {}; } },
+    toggleEditMode(...args) { calls.push(['edit', args.at(-1)]); },
+    handleRuleAssignmentDeletion(...args) { calls.push(['remove', args.at(-1)]); },
+    handleRuleToggle(...args) { calls.push(['toggle', args.at(-1)]); }
+  });
+  const rule = { id: 1, blockURL: 'old.example', category: 'social', isWhitelist: false };
+  const assignment = { listId: 'general', disabledByUser: false };
+  controller.createRuleRow({ rule, assignment, generation: 'captured' }, 0, true);
+  controller.generation = 'replacement';
+  callbacks[0]({}, 1, rule, assignment);
+  callbacks[1]({ target: {} }, 1, assignment);
+  callbacks[2](1);
+  assert.deepEqual(calls, [['edit', 'captured'], ['remove', 'captured'], ['toggle', 'captured']]);
+});
+
+for (const [label, source, call] of [
+  ['Options', optionsSource, controller => controller.handleRuleToggle(1, { listId: 'general', disabledByUser: false }, false, 'captured')],
+  ['Popup', popupSource, controller => controller.handleRuleToggle(1, 'general', false, false, 'captured')]
+]) {
+  test(`stale options ${label} toggle keeps its captured generation while awaiting password`, async () => {
+    const next = label === 'Options' ? 'async refreshProfileView(' : 'handleRulesMutationError(';
+    const method = getClassMember(source, 'async handleRuleToggle(', next);
+    const Controller = new Function('GENERAL_RULE_LIST_ID', `return class Toggle {${method}};`)('general');
+    const controller = new Controller();
+    const authorized = staleOptionsDeferred();
+    const entered = staleOptionsDeferred();
+    const calls = [];
+    Object.assign(controller, {
+      authorizePasswordProtectedRuleChange() { entered.resolve(); return authorized.promise; },
+      rulesClient: { async toggleRule(...args) { calls.push(args); } },
+      async refreshProfileView() {}, async loadRules() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
+    });
+    const pending = call(controller);
+    await entered.promise;
+    controller.generation = 'replacement';
+    authorized.resolve(true);
+    await pending;
+    assert.deepEqual(calls, [[1, 'general', 'captured']]);
+  });
+}
+
+test('stale options edit form and assignment removal keep the captured generation after password awaits', async () => {
+  const edit = getClassMember(optionsSource, 'async toggleEditMode(', 'async saveEditedRule(');
+  const save = getClassMember(optionsSource, 'async saveEditedRule(', 'async showAddRuleForm(');
+  const entered = staleOptionsDeferred();
+  const release = staleOptionsDeferred();
+  const SettingsManager = { async getSettings() { entered.resolve(); return release.promise; } };
+  const Controller = new Function('SettingsManager', 't', 'GENERAL_RULE_LIST_ID', `return class Edit {${edit}\n${save}};`)(SettingsManager, key => key, 'general');
+  const controller = new Controller();
+  const updates = []; const removals = []; let callbacks;
+  Object.assign(controller, {
+    isPro: true, isLegacyUser: false, statusElement: {},
+    ruleListsManager: { async getState() { return { lists: [{ id: 'general', disabledCategories: [] }], activeRuleListId: 'general' }; } },
+    rulesUI: { createRuleEditRow(...args) { callbacks = [args[3], args[5]]; return {}; } },
+    rulesClient: { async updateRule(payload) { updates.push(payload); } },
+    handleRuleAssignmentDeletion(...args) { removals.push(args.at(-1)); },
+    async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
+  });
+  const rule = { id: 1, blockURL: 'old.example', redirectURL: '', category: 'social', isWhitelist: false };
+  const assignment = { listId: 'general', disabledByUser: false };
+  const pending = controller.toggleEditMode({ classList: { contains: () => false }, replaceWith() {} }, 1, rule, assignment, 'captured');
+  await entered.promise;
+  controller.generation = 'replacement';
+  release.resolve({ enablePassword: false });
+  await pending;
+  await callbacks[0](1, 'general', 'edited.example', '', 'social', { blockingMode: 'always', schedule: null, dailyLimit: null }, 'general');
+  callbacks[1](1, 'general', {});
+  assert.equal(updates[0].expectedGeneration, 'captured');
+  assert.deepEqual(removals, ['captured']);
+});
+
+test('stale options destructive confirmation callbacks keep the original generation', async () => {
+  for (const [opening, next, invoke, methodName] of [
+    ['async handleRuleAssignmentDeletion(', 'async handleRuleDeletion(', controller => controller.handleRuleAssignmentDeletion({ target: {} }, 1, 'general', 'captured'), 'removeAssignment'],
+    ['async handleRuleDeletion(', 'async toggleEditMode(', controller => controller.handleRuleDeletion({ target: {} }, 1, 'captured'), 'deleteRule']
+  ]) {
+    const method = getClassMember(optionsSource, opening, next);
+    const SettingsManager = { async getSettings() { return { mode: 'normal', enablePassword: false }; } };
+    const Controller = new Function('SettingsManager', 't', `return class Delete {${method}};`)(SettingsManager, key => key);
+    const controller = new Controller();let confirmation;const calls = [];
+    Object.assign(controller, {
+      isPro: true, rulesUI: { isDeleteConfirmationInProgress: () => false, handleRuleDeletion(_button, callback) { confirmation = callback; }, showSuccessMessage() {} },
+      rulesClient: { async [methodName](...args) { calls.push(args); } },
+      async refreshProfileView() {}, statusElement: {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
+    });
+    await invoke(controller);
+    controller.generation = 'replacement';
+    await confirmation();
+    assert.equal(calls[0].at(-1), 'captured');
+  }
+});
+
+test('stale options Popup confirmation keeps both the displayed assignment and generation', async () => {
+  const method = getClassMember(popupSource, 'async handleRuleDeletion(', 'async promptForPassword(');
+  const SettingsManager = { async getSettings() { return { mode: 'normal', enablePassword: false }; } };
+  const Controller = new Function('SettingsManager', 't', 'customAlert', 'GENERAL_RULE_LIST_ID', `return class Delete {${method}};`)(SettingsManager, key => key, () => {}, 'general');
+  const controller = new Controller();let confirmation;const calls = [];
+  Object.assign(controller, {
+    isPro: true, activeRuleListId: 'list-1',
+    rulesUI: { isDeleteConfirmationInProgress: () => false, handleRuleDeletion(_button, callback) { confirmation = callback; } },
+    rulesClient: { async removeAssignment(...args) { calls.push(args); } },
+    async loadRules() {}, logger: { info() {}, error() {} }
+  });
+  await controller.handleRuleDeletion({}, 1, 'old.example', { dataset: { isWhitelist: 'false' } }, 'captured', 'list-1');
+  controller.activeRuleListId = 'list-2';
+  await confirmation();
+  assert.deepEqual(calls, [[1, 'list-1', 'captured']]);
+});
+
+for (const [label, source] of [['Options', optionsSource], ['Popup', popupSource]]) {
+  test(`stale options ${label} refreshes its rule view after a stale rejection`, () => {
+    const next = label === 'Options' ? 'async handleRuleToggle(' : 'async saveNewRule(';
+    const method = getClassMember(source, 'handleRulesMutationError(', next);
+    let refreshes = 0;const errors = [];
+    const Controller = new Function('t', 'customAlert', `return class ErrorView {${method}};`)(key => key, message => errors.push(message));
+    const controller = new Controller();
+    Object.assign(controller, { rulesUI: { showErrorMessage(message) { errors.push(message); } }, async refreshProfileView() { refreshes++; }, async loadRules() { refreshes++; } });
+    controller.handleRulesMutationError({ code: 'rules_state_changed' }, 'errorremovingrule');
+    assert.equal(refreshes, 1);
+    assert.deepEqual(errors, ['errorupdatingrules']);
+  });
+}
+
+
+for (const [label, source, next] of [['Options', optionsSource, 'updateWhitelistButtonState('], ['Popup', popupSource, 'async loadStatisticsSummary(']]) {
+  test(`stale options ${label} refreshes once when only the local generation changes`, () => {
+    const method = getClassMember(source, 'setupStorageListeners(', next);
+    let listener;let refreshes = 0;
+    const api = { storage: { onChanged: { addListener(value) { listener = value; } } } };
+    const Controller = new Function('chrome', 'browser', 'PRO_GUIDANCE_STORAGE_KEY', `return class Listener {${method}};`)(api, api, 'proGuidance');
+    const controller = new Controller();
+    Object.assign(controller, { async refreshProfileView() { refreshes++; }, async loadRules() { refreshes++; } });
+    controller.setupStorageListeners();
+    listener({ rulesGeneration: { oldValue: 'before', newValue: 'after' } }, 'local');
+    assert.equal(refreshes, 1);
+    listener({ rulesGeneration: { oldValue: 'after', newValue: 'next' }, dailyRuleUsage: { oldValue: { usageSeconds: {} }, newValue: { usageSeconds: { '1:general': 1 } } } }, 'local');
+    assert.equal(refreshes, 2);
+    listener({ dailyRuleUsage: { oldValue: { usageSeconds: { '1:general': 1 }, lastSample: 1 }, newValue: { usageSeconds: { '1:general': 1 }, lastSample: 2 } } }, 'local');
+    listener({ rulesGeneration: { oldValue: 'before', newValue: 'after' } }, 'sync');
+    assert.equal(refreshes, 2);
+  });
+}

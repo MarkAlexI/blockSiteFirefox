@@ -265,9 +265,15 @@ function createDeletionController({
     'SettingsManager',
     'customAlert',
     't',
+    'GENERAL_RULE_LIST_ID',
     'return class DeletionEntryPoint {\n' + method + '\n};'
-  )(SettingsManager, customAlert, t);
+  )(SettingsManager, customAlert, t, 'general');
   const controller = new Controller();
+  if (source === popupSource) {
+    // Model the displayed row's captured list and legacy generation arguments.
+    const fromSnapshot = controller.handleRuleDeletion.bind(controller);
+    controller.handleRuleDeletion = (...args) => fromSnapshot(...args, null, listId);
+  }
 
   Object.assign(controller, {
     settings: { ...settings, enablePassword: cachedPasswordEnabled },
@@ -508,7 +514,7 @@ test('Popup Free deletion runs the real migrated-rule, worker, and DNR lifecycle
 
     assert.deepEqual(harness.messages, [{
       type: 'rules:removeAssignment',
-      payload: { ruleId: 17, listId: 'general' }
+      payload: { ruleId: 17, listId: 'general', expectedGeneration: null }
     }]);
     assert.deepEqual(harness.getRules(), []);
     assert.deepEqual(harness.getDynamicRules(), []);
@@ -542,7 +548,7 @@ test('Options Free deletion runs the real migrated-rule, worker, and DNR lifecyc
 
     assert.deepEqual(harness.messages, [{
       type: 'rules:removeAssignment',
-      payload: { ruleId: 23, listId: 'general' }
+      payload: { ruleId: 23, listId: 'general', expectedGeneration: null }
     }]);
     assert.deepEqual(harness.getRules(), []);
     assert.deepEqual(harness.dnrUpdates, [{ removeRuleIds: [23], addRules: [] }]);
@@ -610,7 +616,7 @@ test('Options can delete an inherited whitelist rule without Pro access', async 
 
     assert.deepEqual(harness.messages, [{
       type: 'rules:delete',
-      payload: { ruleId: 2 }
+      payload: { ruleId: 2, expectedGeneration: null }
     }]);
     assert.deepEqual(harness.getRules().map(rule => rule.id), [1]);
     assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [1]);

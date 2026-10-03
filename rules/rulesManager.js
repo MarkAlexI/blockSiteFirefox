@@ -32,6 +32,20 @@ export class RulesManager {
     });
   }
 
+  async getRulesSnapshot() {
+    return new Promise((resolve, reject) => {
+      // Bind the view's rule IDs to the same bulk-replacement generation.
+      chrome.storage.local.get(['rules', 'rulesGeneration'], result => {
+        const error = chrome.runtime.lastError;
+        if (error) {
+          reject(new Error(error.message || 'Could not load rules from local storage'));
+          return;
+        }
+        resolve({ rules: result?.rules || [], generation: result?.rulesGeneration ?? null });
+      });
+    });
+  }
+
   async saveRules(rules) {
     await new Promise((resolve, reject) => {
       chrome.storage.local.set({ rules }, () => {
