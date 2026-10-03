@@ -107,6 +107,13 @@ function findAssignedBlockUrlRuleIndex(rules, blockURL, listId, excludeIndex = -
   });
 }
 
+// Disabled variants preserve settings without competing for an enabled target.
+// Apply the same assignment policy to add, edit, move, packs and toggle.
+function findEnabledAssignmentConflictIndex(rules, blockURL, assignment, excludeIndex = -1) {
+  if (assignment.disabledByUser === true) return -1;
+  return findAssignedBlockUrlRuleIndex(rules, blockURL, assignment.listId, excludeIndex, true);
+}
+
 function getRuleTargetKey(target) {
   const isWhitelist = target?.isWhitelist === true;
   const key = [isWhitelist, normalizeTargetBlockURL(target?.blockURL)];
@@ -472,10 +479,10 @@ export function createRulesMutationService({
         let nextAssignments = getRuleAssignments(existingRule);
         let added = 0;
         for (const assignment of assignments) {
-          const assignedVariantIndex = findAssignedBlockUrlRuleIndex(
+          const assignedVariantIndex = findEnabledAssignmentConflictIndex(
             rules,
             target.blockURL,
-            assignment.listId,
+            assignment,
             existingIndex
           );
           if (assignedVariantIndex !== -1) {
@@ -504,7 +511,7 @@ export function createRulesMutationService({
 
       if (!target.isWhitelist) {
         for (const assignment of assignments) {
-          if (findAssignedBlockUrlRuleIndex(rules, target.blockURL, assignment.listId) !== -1) {
+          if (findEnabledAssignmentConflictIndex(rules, target.blockURL, assignment) !== -1) {
             throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
           }
         }
@@ -599,10 +606,10 @@ export function createRulesMutationService({
         }
 
         const existingIndex = findTargetRuleIndex(nextRules, target);
-        const assignedVariantIndex = findAssignedBlockUrlRuleIndex(
+        const assignedVariantIndex = findEnabledAssignmentConflictIndex(
           nextRules,
           target.blockURL,
-          targetListId,
+          assignmentConfig,
           existingIndex
         );
         if (assignedVariantIndex !== -1) {
@@ -727,7 +734,7 @@ export function createRulesMutationService({
         ensureFreeRuleCapacity(rules, hasProAccess, oldRule, nextAssignments);
         throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
         if (nextAssignments.some(assignment =>
-          findAssignedBlockUrlRuleIndex(rules, target.blockURL, assignment.listId, index) !== -1
+          findEnabledAssignmentConflictIndex(rules, target.blockURL, assignment, index) !== -1
         )) {
           throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
         }
@@ -781,7 +788,7 @@ export function createRulesMutationService({
       if (nextAssignment.listId !== sourceListId && getRuleAssignment(oldRule, nextAssignment.listId)) {
         throw new RulesMutationError('rule_assignment_exists', 'Rule already has settings for this list');
       }
-      if (findAssignedBlockUrlRuleIndex(rules, target.blockURL, nextAssignment.listId, index) !== -1) {
+      if (findEnabledAssignmentConflictIndex(rules, target.blockURL, nextAssignment, index) !== -1) {
         throw new RulesMutationError('rule_already_exists', 'This URL already has a target in this list');
       }
 
@@ -992,8 +999,8 @@ export function createRulesMutationService({
       });
       // A restored disabled variant must not enable a competing target in the
       // same list. Disabling a target always remains possible.
-      if (!nextAssignment.disabledByUser && !rule.isWhitelist &&
-          findAssignedBlockUrlRuleIndex(rules, rule.blockURL, listId, index, true) !== -1) {
+      if (!rule.isWhitelist &&
+          findEnabledAssignmentConflictIndex(rules, rule.blockURL, nextAssignment, index) !== -1) {
         throw new RulesMutationError('rule_already_exists', 'This URL already has an enabled target in this list');
       }
       const nextAssignments = replaceRuleAssignment(rule, listId, nextAssignment);

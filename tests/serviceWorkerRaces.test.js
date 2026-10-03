@@ -6127,3 +6127,98 @@ test('backup restore replaces an existing profile with disabled and scheduled va
     });
   });
 });
+
+
+test('restored variants worker edits a scheduled target without selecting the disabled redirect', async () => {
+  await withControlledClock(new Date(2026, 9, 5, 12, 0, 0), async () => {
+    await withWorker(async ({ api, send }) => {
+      const enabled = makeScheduledRule(1, 'general', { blockURL: 'restored.example', startTime: '09:00', endTime: '17:00' });
+      const disabled = makeFocusRule(2, 'general', { blockURL: 'restored.example' });
+      disabled.redirectURL = 'https://chosen.example/';
+      disabled.assignments[0].disabledByUser = true;
+      const restored = await send({ type: 'rules:replaceAll', payload: { rules: [disabled, enabled] } });
+      assert.equal(restored.success, true);
+      const before = structuredClone(api.storage.local.data.rules);
+      const credentials = structuredClone(api.storage.sync.data.credentials);
+      const settings = structuredClone(api.storage.sync.data.settings);
+      const payload = {
+        ...before[1], ruleId: before[1].id, assignmentListId: 'general',
+        assignment: { ...before[1].assignments[0], schedule: { version: 2, periods: [{ days: [1], startTime: '13:00', endTime: '14:00' }] } }
+      };
+      assert.equal((await send({ type: 'rules:update', payload })).success, true);
+      assert.equal(api.dynamicRules.length, 0);
+      payload.assignment.schedule.periods[0].startTime = '11:00';
+      assert.equal((await send({ type: 'rules:update', payload })).success, true);
+      assert.equal(api.dynamicRules.length, 1);
+      assert.equal(api.dynamicRules[0].id, before[1].id);
+      assert.equal(new URL(api.dynamicRules[0].action.redirect.url).pathname, '/blocked.html');
+      assert.deepEqual(api.storage.local.data.rules[0], before[0]);
+      assert.deepEqual(api.storage.sync.data.credentials, credentials);
+      assert.deepEqual(api.storage.sync.data.settings, settings);
+    }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+  });
+});
+
+test('restored variants worker keeps accumulated Daily Limit usage during an edit beside a disabled target', async () => {
+  const enabled = makeDailyLimitRule(42, 'general', { blockURL: 'restored.example', minutes: 10 });
+  const disabled = makeFocusRule(41, 'general', { blockURL: 'restored.example' });
+  disabled.redirectURL = 'https://chosen.example/';
+  disabled.assignments[0].disabledByUser = true;
+  await withWorker(async ({ api, send }) => {
+    const response = await send({ type: 'rules:update', payload: {
+      ...enabled, ruleId: enabled.id, assignmentListId: 'general',
+      assignment: { ...enabled.assignments[0], dailyLimit: { minutes: 5 } }
+    } });
+    assert.equal(response.success, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '42:general': 600 });
+    assert.deepEqual(api.storage.local.data.rules[0], disabled);
+    assert.equal(api.dynamicRules.length, 1);
+    assert.equal(api.dynamicRules[0].id, 42);
+    assert.equal(new URL(api.dynamicRules[0].action.redirect.url).pathname, '/blocked.html');
+  }, { local: {
+    activeRuleListId: 'general', rules: [disabled, enabled],
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '42:general': 600 }, lastSample: null }
+  }, supportsWindows: false });
+});
+
+test('restored variants worker serializes two enable intents and installs exactly one chosen target', async () => {
+  const rules = [makeFocusRule(51, 'general', { blockURL: 'restored.example' }), makeFocusRule(52, 'general', { blockURL: 'restored.example' })];
+  for (let index = 0; index < rules.length; index++) {
+    rules[index].redirectURL = `https://chosen-${index}.example/`;
+    rules[index].assignments[0].disabledByUser = true;
+  }
+  await withWorker(async ({ api, send }) => {
+    const responses = await Promise.all(rules.map(rule => send({ type: 'rules:toggle', payload: { ruleId: rule.id, listId: 'general' } })));
+    assert.equal(responses.filter(response => response.success).length, 1);
+    assert.equal(responses.find(response => !response.success).error.code, 'rule_already_exists');
+    const enabled = api.storage.local.data.rules.filter(rule => !rule.assignments[0].disabledByUser);
+    assert.equal(enabled.length, 1);
+    assert.equal(api.dynamicRules.length, 1);
+    assert.equal(api.dynamicRules[0].id, enabled[0].id);
+    assert.equal(new URL(api.dynamicRules[0].action.redirect.url).searchParams.get('to'), enabled[0].redirectURL);
+  }, { local: { activeRuleListId: 'general', rules }, supportsWindows: false });
+});
+
+test('restored variants worker transfers exhausted usage when a target merges beside a disabled sibling', async () => {
+  const source = makeDailyLimitRule(61, 'list-1', { blockURL: 'source.example', minutes: 10 });
+  const destination = makeFocusRule(62, 'general', { blockURL: 'destination.example' });
+  const disabled = makeFocusRule(63, 'list-1', { blockURL: 'destination.example' });
+  disabled.redirectURL = 'https://chosen.example/';
+  disabled.assignments[0].disabledByUser = true;
+  await withWorker(async ({ api, send }) => {
+    const response = await send({ type: 'rules:update', payload: {
+      ...source, ruleId: source.id, assignmentListId: 'list-1', blockURL: destination.blockURL,
+      assignment: source.assignments[0]
+    } });
+    assert.equal(response.success, true);
+    assert.equal(response.targetMerged, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '62:list-1': 840 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    assert.deepEqual(api.storage.local.data.rules.find(rule => rule.id === disabled.id), disabled);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [62]);
+    assert.equal(new URL(api.dynamicRules[0].action.redirect.url).pathname, '/blocked.html');
+  }, { local: {
+    activeRuleListId: 'list-1', rules: [source, destination, disabled],
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '61:list-1': 840 }, lastSample: null }
+  }, supportsWindows: false });
+});

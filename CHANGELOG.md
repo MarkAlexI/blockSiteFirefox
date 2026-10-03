@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.7] - 2026-10-03
+
+### Fixed
+- Rules restored with disabled target variants remain editable. Adding, editing, moving and applying Rule Packs use the same enabled-target collision policy as backup restore and toggle.
+- Disabled variants retain their settings beside an enabled variant; a second enabled target for the same URL/list is still rejected before writing.
+
+### Tests and compatibility
+- Added 23 regressions for assignment-only and target edits, shared memberships, split/merge, Rule Packs, late collisions, whitelist conflicts, schedules, concurrent enabling, Daily Limit usage and worker/DNR results.
+- Existing exact-duplicate handling, Pro/Legacy access, Free limits, import rollback and Daily Limit remap journal are preserved.
+- Updated release metadata and E2E version defaults. No new permissions, telemetry fields, locales, polling or update welcome messages.
+- This pass covers enabled/disabled target variants. List deletion, migrated exact-target backups and stale Options commands after import remain separate planned checks.
+
 ## [5.3.6] - 2026-10-03
 
 ### Fixed

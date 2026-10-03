@@ -3192,3 +3192,252 @@ test('backup variant enabling scans past disabled siblings and succeeds after th
   assert.deepEqual(harness.getRules().map(rule => rule.assignments[0].disabledByUser), [true, false, true]);
   assert.equal(harness.getSyncCalls(), 2);
 });
+
+
+function conflictAssignment(listId = 'general', disabledByUser = false, extra = {}) {
+  return { listId, disabledByUser, blockingMode: 'always', schedule: null, dailyLimit: null, ...extra };
+}
+
+const conflictLists = [
+  { id: 'general', name: 'General', disabledCategories: [] },
+  { id: 'list-1', name: 'Study', disabledCategories: [] }
+];
+
+async function restoreConflictVariants(rules) {
+  const harness = createHarness();
+  await harness.service.replaceAll({ rules, ruleLists: conflictLists });
+  return harness;
+}
+
+for (const disabledByUser of [false, true]) {
+  test(`restored variants allow assignment-only edits of the ${disabledByUser ? 'disabled' : 'enabled'} target`, async () => {
+    const harness = await restoreConflictVariants([
+      backupVariant(true, { redirectURL: 'https://saved-redirect.example/' }),
+      backupVariant(false)
+    ]);
+    const before = harness.getRules();
+    const rule = before.find(item => item.assignments[0].disabledByUser === disabledByUser);
+    const sibling = before.find(item => item.id !== rule.id);
+    const result = await harness.service.updateRule({
+      ruleId: rule.id, assignmentListId: 'general', ...rule,
+      assignment: conflictAssignment('general', disabledByUser, {
+        blockingMode: 'schedule',
+        schedule: { version: 2, periods: [{ days: [1, 2], startTime: '09:00', endTime: '12:00' }] }
+      })
+    });
+    assert.equal(result.rule.assignments[0].blockingMode, 'schedule');
+    assert.equal(result.rule.assignments[0].disabledByUser, disabledByUser);
+    assert.deepEqual(harness.getRules().find(item => item.id === sibling.id), sibling);
+  });
+}
+
+test('restored variants allow target edits while the edited assignment stays disabled', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(true, { redirectURL: 'https://saved-redirect.example/' }), backupVariant(false)
+  ]);
+  const before = harness.getRules();
+  const result = await harness.service.updateRule({
+    ruleId: before[0].id, assignmentListId: 'general', ...before[0],
+    redirectURL: 'https://new-redirect.example/', category: 'news',
+    assignment: conflictAssignment('general', true)
+  });
+  assert.equal(result.rule.redirectURL, 'https://new-redirect.example/');
+  assert.equal(result.rule.assignments[0].disabledByUser, true);
+  assert.deepEqual(harness.getRules()[1], before[1]);
+});
+
+test('restored variants allow whole-target updates without changing sibling assignments', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(true, { redirectURL: 'https://saved-redirect.example/' }), backupVariant(false)
+  ]);
+  const before = harness.getRules();
+  const result = await harness.service.updateRule({
+    ...before[1], ruleId: before[1].id,
+    assignments: [conflictAssignment('general', false, { blockingMode: 'daily_limit', dailyLimit: { minutes: 25 } })]
+  });
+  assert.equal(result.rule.assignments[0].dailyLimit.minutes, 25);
+  assert.deepEqual(harness.getRules()[0], before[0]);
+});
+
+for (const disabledByUser of [false, true]) {
+  test(`restored variants allow adding a ${disabledByUser ? 'disabled target beside an enabled' : 'new enabled target beside a disabled'} target`, async () => {
+    const harness = await restoreConflictVariants([backupVariant(!disabledByUser, { redirectURL: 'https://saved-redirect.example/' })]);
+    const before = harness.getRules()[0];
+    const result = await harness.service.addRule({
+      blockURL: ' SAVED.Example ', redirectURL: '', category: 'social',
+      assignments: [conflictAssignment('general', disabledByUser)]
+    });
+    assert.equal(result.created, true);
+    assert.equal(result.rule.assignments[0].disabledByUser, disabledByUser);
+    assert.deepEqual(harness.getRules()[0], before);
+  });
+}
+
+for (const disabledByUser of [false, true]) {
+  test(`restored variants allow moving a ${disabledByUser ? 'disabled target beside an enabled' : 'new enabled target beside a disabled'} target`, async () => {
+    const harness = await restoreConflictVariants([
+      backupVariant(!disabledByUser, { redirectURL: 'https://saved-redirect.example/' }),
+      backupVariant(disabledByUser, { assignments: [conflictAssignment('list-1', disabledByUser, { blockingMode: 'daily_limit', dailyLimit: { minutes: 20 } })] })
+    ]);
+    const before = harness.getRules();
+    const result = await harness.service.updateRule({
+      ...before[1], ruleId: before[1].id, assignmentListId: 'list-1',
+      assignment: { ...before[1].assignments[0], listId: 'general' }
+    });
+    assert.equal(result.rule.assignments[0].listId, 'general');
+    assert.equal(result.rule.assignments[0].disabledByUser, disabledByUser);
+    assert.deepEqual(harness.getRules()[0], before[0]);
+    assert.deepEqual(harness.getUsageRemaps(), [{ oldRuleId: before[1].id, oldListId: 'list-1', newRuleId: before[1].id, newListId: 'general' }]);
+  });
+}
+
+test('restored variants allow adding a shared membership beside a disabled different target', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(true, { redirectURL: 'https://saved-redirect.example/' }),
+    backupVariant(false, { assignments: [conflictAssignment('list-1')] })
+  ]);
+  const result = await harness.service.addRule({ blockURL: 'saved.example', redirectURL: '', category: 'social', assignments: [conflictAssignment()] });
+  assert.equal(result.assignmentAdded, true);
+  assert.deepEqual(getRuleListIds(result.rule), ['list-1', 'general']);
+  assert.equal(harness.getRules().length, 2);
+});
+
+test('restored variants allow Rule Packs to add an enabled target beside a disabled different target', async () => {
+  const harness = await restoreConflictVariants([backupVariant(true, { blockURL: 'facebook.com', redirectURL: 'https://saved-redirect.example/' })]);
+  const before = harness.getRules()[0];
+  const result = await harness.service.addMany({ packId: 'social', entryIds: ['facebook'], listId: 'general' });
+  assert.equal(result.addedCount, 1);
+  assert.deepEqual(result.duplicateEntries, []);
+  assert.equal(harness.getRules().length, 2);
+  assert.deepEqual(harness.getRules()[0], before);
+});
+
+test('restored variants reject an edit enabling a second target before any storage or DNR change', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(true, { redirectURL: 'https://saved-redirect.example/' }), backupVariant(false)
+  ]);
+  const before = harness.getRules();
+  const saves = harness.savedStates.length;
+  const syncs = harness.getSyncCalls();
+  await assert.rejects(harness.service.updateRule({
+    ...before[0], ruleId: before[0].id, assignmentListId: 'general', assignment: conflictAssignment()
+  }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), before);
+  assert.equal(harness.savedStates.length, saves);
+  assert.equal(harness.getSyncCalls(), syncs);
+});
+
+
+test('restored variants keep Rule Pack exact duplicates disabled instead of replacing their settings', async () => {
+  const harness = await restoreConflictVariants([backupVariant(true, { blockURL: 'facebook.com' })]);
+  const before = harness.getRules();
+  const saves = harness.savedStates.length;
+  const syncs = harness.getSyncCalls();
+  const result = await harness.service.addMany({ packId: 'social', entryIds: ['facebook'] });
+  assert.equal(result.addedCount, 0);
+  assert.equal(result.skippedDuplicates, 1);
+  assert.deepEqual(harness.getRules(), before);
+  assert.equal(harness.savedStates.length, saves);
+  assert.equal(harness.getSyncCalls(), syncs);
+});
+
+test('restored variants reject a late enabled sibling during add and Rule Pack application', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(true, { blockURL: 'facebook.com', redirectURL: 'https://one.example/' }),
+    backupVariant(true, { blockURL: 'facebook.com', redirectURL: 'https://two.example/' }),
+    backupVariant(false, { blockURL: 'FACEBOOK.com', redirectURL: 'https://enabled.example/' })
+  ]);
+  const before = harness.getRules();
+  const saves = harness.savedStates.length;
+  const syncs = harness.getSyncCalls();
+  await assert.rejects(harness.service.addRule({ blockURL: ' facebook.com ', redirectURL: '', category: 'social' }), error => error.code === 'rule_already_exists');
+  const result = await harness.service.addMany({ packId: 'social', entryIds: ['facebook'] });
+  assert.equal(result.addedCount, 0);
+  assert.equal(result.skippedDuplicates, 1);
+  assert.deepEqual(harness.getRules(), before);
+  assert.equal(harness.savedStates.length, saves);
+  assert.equal(harness.getSyncCalls(), syncs);
+});
+
+test('restored variants validate every assignment of a shared target before an update', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(false, { assignments: [conflictAssignment(), conflictAssignment('list-1', true)] }),
+    backupVariant(false, { redirectURL: 'https://enabled.example/', assignments: [conflictAssignment('list-1')] })
+  ]);
+  const before = harness.getRules();
+  const saves = harness.savedStates.length;
+  const syncs = harness.getSyncCalls();
+  await assert.rejects(harness.service.updateRule({
+    ...before[0], ruleId: before[0].id, assignments: [conflictAssignment(), conflictAssignment('list-1')]
+  }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), before);
+  assert.equal(harness.savedStates.length, saves);
+  assert.equal(harness.getSyncCalls(), syncs);
+});
+
+test('restored variants keep structurally enabled targets unique even for nonoverlapping schedules', async () => {
+  const schedule = (startTime, endTime) => ({ version: 2, periods: [{ days: [1], startTime, endTime }] });
+  const original = backupVariant(false, { redirectURL: 'https://morning.example/', assignments: [conflictAssignment('general', false, { blockingMode: 'schedule', schedule: schedule('08:00', '09:00') })] });
+  const harness = await restoreConflictVariants([original]);
+  const before = harness.getRules();
+  await assert.rejects(harness.service.addRule({
+    blockURL: 'saved.example', category: 'social', redirectURL: '',
+    assignments: [conflictAssignment('general', false, { blockingMode: 'schedule', schedule: schedule('20:00', '21:00') })]
+  }), error => error.code === 'rule_already_exists');
+  assert.deepEqual(harness.getRules(), before);
+});
+
+test('restored variants retain whitelist conflicts even when all blacklist assignments are disabled', async () => {
+  const harness = await restoreConflictVariants([backupVariant(true, { blockURL: 'video.example' })]);
+  const before = harness.getRules();
+  await assert.rejects(harness.service.addRule({ blockURL: 'video.example/watch', isWhitelist: true }), error => error.code === 'conflict_blacklist');
+  assert.deepEqual(harness.getRules(), before);
+});
+
+test('restored variants allow several disabled targets without changing the enabled target', async () => {
+  const harness = await restoreConflictVariants([backupVariant(false)]);
+  const enabled = harness.getRules()[0];
+  for (const redirectURL of ['https://one.example/', 'https://two.example/']) {
+    await harness.service.addRule({ blockURL: 'saved.example', redirectURL, category: 'social', assignments: [conflictAssignment('general', true)] });
+  }
+  assert.equal(harness.getRules().length, 3);
+  assert.deepEqual(harness.getRules()[0], enabled);
+  const saves = harness.savedStates.length;
+  await assert.rejects(harness.service.toggleRule({ ruleId: harness.getRules()[2].id }), error => error.code === 'rule_already_exists');
+  assert.equal(harness.savedStates.length, saves);
+});
+
+test('restored variants preserve shared assignments when an enabled edit splits beside a disabled target', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(false, { assignments: [conflictAssignment(), conflictAssignment('list-1')] }),
+    backupVariant(true, { category: 'news' })
+  ]);
+  const before = harness.getRules();
+  const result = await harness.service.updateRule({
+    ...before[0], ruleId: before[0].id, assignmentListId: 'general',
+    category: 'entertainment', assignment: conflictAssignment()
+  });
+  assert.equal(result.targetSplit, true);
+  assert.deepEqual(getRuleListIds(harness.getRules().find(rule => rule.id === before[0].id)), ['list-1']);
+  assert.deepEqual(harness.getRules().find(rule => rule.id === before[1].id), before[1]);
+  assert.deepEqual(getRuleListIds(result.rule), ['general']);
+  assert.equal(result.rule.assignments[0].disabledByUser, false);
+});
+
+test('restored variants preserve Daily Limit remaps when an edit merges beside a disabled sibling', async () => {
+  const harness = await restoreConflictVariants([
+    backupVariant(false, { blockURL: 'source.example', assignments: [conflictAssignment('list-1', false, { blockingMode: 'daily_limit', dailyLimit: { minutes: 15 } })] }),
+    backupVariant(false),
+    backupVariant(true, { redirectURL: 'https://saved-redirect.example/', assignments: [conflictAssignment('list-1', true)] })
+  ]);
+  const before = harness.getRules();
+  const result = await harness.service.updateRule({
+    ...before[0], ruleId: before[0].id, assignmentListId: 'list-1',
+    blockURL: 'saved.example', assignment: before[0].assignments[0]
+  });
+  assert.equal(result.targetMerged, true);
+  assert.equal(result.rule.id, before[1].id);
+  assert.deepEqual(getRuleListIds(result.rule), ['general', 'list-1']);
+  assert.deepEqual(harness.getRules().find(rule => rule.id === before[2].id), before[2]);
+  assert.deepEqual(harness.getUsageRemaps(), [{ oldRuleId: before[0].id, oldListId: 'list-1', newRuleId: before[1].id, newListId: 'list-1' }]);
+});
