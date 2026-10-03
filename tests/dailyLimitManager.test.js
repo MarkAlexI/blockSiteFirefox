@@ -548,3 +548,173 @@ test('an active segment is persisted when closed and subsequent idle samples do 
   assert.equal(storage.data.dailyRuleUsage.usageSeconds['7:general'], 30);
   assert.deepEqual(storage.data.dailyRuleUsage.lastSample.assignmentKeys, []);
 });
+
+
+test('usage continuity a fresh manager consumes a stored remap before accounting its first sample', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const remap = { oldRuleId: 1, oldListId: 'study', newRuleId: 2, newListId: 'study' };
+  const storage = createStorage({ dailyRuleUsage: { version: 2, date: getLocalDateKey(now), usageSeconds: { '1:study': 100, '1:general': 70 },
+    lastSample: { timestamp: now.getTime() - 20_000, assignmentKeys: ['1:study'] } }, [PENDING_DAILY_USAGE_REMAPS_KEY]: [remap] });
+  const writes = []; const set = storage.set.bind(storage);
+  storage.set = async values => { writes.push(structuredClone(values)); return set(values); };
+  const result = await new DailyLimitManager(storage).recordSample(['2:study'], now);
+  assert.deepEqual(result.state.usageSeconds, { '2:study': 120, '1:general': 70 });
+  assert.deepEqual(result.state.lastSample.assignmentKeys, ['2:study']);
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+  assert.equal(writes.length, 1);
+  assert.equal(Object.hasOwn(writes[0], 'dailyRuleUsage'), true);
+  assert.equal(Object.hasOwn(writes[0], PENDING_DAILY_USAGE_REMAPS_KEY), true);
+});
+
+function continuityStorage(now, { lastSample = true, date = getLocalDateKey(now) } = {}) {
+  return createStorage({ dailyRuleUsage: { version: 2, date, usageSeconds: { '1:study': 100, '1:general': 70 },
+    lastSample: lastSample ? { timestamp: now.getTime() - 20_000, assignmentKeys: ['1:study'] } : null },
+    [PENDING_DAILY_USAGE_REMAPS_KEY]: [{ oldRuleId: 1, oldListId: 'study', newRuleId: 2, newListId: 'study' }] });
+}
+
+test('usage continuity failed sample commit preserves the journal and retries without double accounting', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now); const original = structuredClone(storage.data);
+  const manager = new DailyLimitManager(storage); const set = storage.set.bind(storage);
+  storage.set = async () => { throw new Error('sample write unavailable'); };
+  await assert.rejects(manager.recordSample(['2:study'], now), /write unavailable/);
+  assert.deepEqual(storage.data, original);
+  assert.deepEqual(await manager.getUsageSeconds(now), { '2:study': 100, '1:general': 70 });
+  storage.set = set;
+  assert.equal((await manager.recordSample(['2:study'], now)).state.usageSeconds['2:study'], 120);
+  assert.equal((await manager.recordSample(['2:study'], now)).state.usageSeconds['2:study'], 120);
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+  assert.equal((await manager.recoverPendingRemaps(now)).recovered, false);
+});
+
+test('usage continuity journal read failure does not write a sample or erase source usage', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now); const before = structuredClone(storage.data);
+  const get = storage.get.bind(storage);
+  storage.get = async keys => {
+    if (Array.isArray(keys) && keys.includes(PENDING_DAILY_USAGE_REMAPS_KEY)) throw new Error('journal read unavailable');
+    return get(keys);
+  };
+  const manager = new DailyLimitManager(storage);
+  await assert.rejects(manager.recordSample(['2:study'], now), /read unavailable/);
+  assert.deepEqual(storage.data, before); assert.equal(storage.setCalls, 0);
+  storage.get = get;
+  assert.equal((await manager.recordSample(['2:study'], now)).state.usageSeconds['2:study'], 120);
+});
+
+test('usage continuity superseded sample preserves its stored remap and queued samples remain usable', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now); const before = structuredClone(storage.data);
+  let current = true; const get = storage.get.bind(storage);
+  storage.get = async keys => { const snapshot = await get(keys); current = false; return snapshot; };
+  const manager = new DailyLimitManager(storage);
+  assert.deepEqual(await manager.recordSample(['2:study'], now, { shouldContinue: () => current }), { superseded: true });
+  assert.deepEqual(storage.data, before); assert.equal(storage.setCalls, 0);
+  storage.get = get;
+  assert.equal((await manager.recordSample(['2:study'], now)).state.usageSeconds['2:study'], 120);
+});
+
+test('usage continuity empty sample still commits its stored remap atomically', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now, { lastSample: false });
+  const result = await new DailyLimitManager(storage).recordSample([], now);
+  assert.deepEqual(result.state.usageSeconds, { '2:study': 100, '1:general': 70 });
+  assert.equal(result.state.lastSample, null);
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+  assert.equal(storage.setCalls, 1);
+});
+
+test('usage continuity pause closes the remapped segment once before clearing its sample', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now); const manager = new DailyLimitManager(storage);
+  const result = await manager.resetSample(now);
+  assert.deepEqual(result.state.usageSeconds, { '2:study': 120, '1:general': 70 });
+  assert.deepEqual(result.state.lastSample.assignmentKeys, []);
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+  assert.equal((await manager.resetSample(now)).state.usageSeconds['2:study'], 120);
+});
+
+test('usage continuity chained move remaps preserve elapsed time through recovery and restart', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now);
+  storage.data[PENDING_DAILY_USAGE_REMAPS_KEY].push({ oldRuleId: 2, oldListId: 'study', newRuleId: 3, newListId: 'general' });
+  const manager = new DailyLimitManager(storage);
+  assert.deepEqual((await manager.recordSample(['3:general'], now)).state.usageSeconds, { '3:general': 120, '1:general': 70 });
+  const restarted = new DailyLimitManager(storage);
+  assert.equal((await restarted.recoverPendingRemaps(now)).recovered, false);
+  assert.equal((await restarted.recordSample(['3:general'], new Date(now.getTime() + 5_000))).state.usageSeconds['3:general'], 125);
+});
+
+test('usage continuity legacy numeric usage keeps its source baseline and the moved active segment', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now);
+  storage.data.dailyRuleUsage = { version: 1, date: getLocalDateKey(now), usageSeconds: { '1': 100 }, lastSample: { timestamp: now.getTime() - 20_000, ruleId: 1 } };
+  const result = await new DailyLimitManager(storage).recordSample(['2:study'], now);
+  assert.deepEqual(result.state.usageSeconds, { '1': 100, '2:study': 120 });
+  assert.deepEqual(result.state.lastSample.assignmentKeys, ['2:study']);
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+});
+
+test('usage continuity midnight resets the old day while consuming a pending journal', async () => {
+  const now = new Date(2026, 9, 4, 0, 0, 20);
+  const storage = continuityStorage(now, { date: '2026-10-03' }); const manager = new DailyLimitManager(storage);
+  assert.deepEqual((await manager.recordSample(['2:study'], now)).state.usageSeconds, {});
+  assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+  assert.equal((await manager.recordSample(['2:study'], new Date(now.getTime() + 20_000))).state.usageSeconds['2:study'], 20);
+});
+
+test('usage continuity the existing accounting gap cap survives a pending remap', async () => {
+  const now = new Date(2026, 9, 3, 12, 0, 20);
+  const storage = continuityStorage(now); storage.data.dailyRuleUsage.lastSample.timestamp = now.getTime() - 120_000;
+  const manager = new DailyLimitManager(storage);
+  assert.equal((await manager.recordSample(['2:study'], now)).state.usageSeconds['2:study'], 100);
+  assert.equal((await manager.recordSample(['2:study'], new Date(now.getTime() + 20_000))).state.usageSeconds['2:study'], 120);
+});
+
+function continuityPause() {
+  let release;
+  return { promise: new Promise(resolve => { release = resolve; }), resolve: () => release() };
+}
+
+for (const order of ['sample_before_stage', 'stage_before_sample']) {
+  test(`usage continuity real storage awaits preserve time with ${order}`, async () => {
+    const start = new Date(2026, 9, 3, 12, 0, 0); const at20 = new Date(start.getTime() + 20_000);
+    const storage = createStorage({ dailyRuleUsage: { version: 2, date: getLocalDateKey(start), usageSeconds: { '1:study': 100, '1:general': 70 },
+      lastSample: { timestamp: start.getTime(), assignmentKeys: ['1:study'] } } });
+    const manager = new DailyLimitManager(storage); const entered = continuityPause(); const release = continuityPause();
+    const get = storage.get.bind(storage); const set = storage.set.bind(storage); let gated = false;
+    if (order === 'sample_before_stage') {
+      storage.get = async keys => {
+        const snapshot = structuredClone(await get(keys));
+        if (!gated) { gated = true; entered.resolve(); await release.promise; }
+        return snapshot;
+      };
+    } else {
+      storage.set = async values => {
+        if (!gated && Object.hasOwn(values, PENDING_DAILY_USAGE_REMAPS_KEY)) {
+          gated = true; entered.resolve(); await release.promise;
+        }
+        return set(values);
+      };
+    }
+    const remap = { oldRuleId: 1, oldListId: 'study', newRuleId: 2, newListId: 'study' };
+    let sample; let stage;
+    if (order === 'sample_before_stage') {
+      sample = manager.recordSample(['1:study'], at20);
+      await entered.promise;
+      stage = manager.stagePendingRemaps({ rules: [{ id: 2 }] }, [remap]);
+    } else {
+      stage = manager.stagePendingRemaps({ rules: [{ id: 2 }] }, [remap]);
+      await entered.promise;
+      sample = manager.recordSample(['2:study'], at20);
+    }
+    release.resolve();
+    await Promise.all([sample, stage]);
+    const at25 = new Date(start.getTime() + 25_000);
+    const result = await manager.recordSample(['2:study'], at25);
+    assert.deepEqual(result.state.usageSeconds, { '2:study': 125, '1:general': 70 });
+    assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+    assert.equal((await manager.recoverPendingRemaps(at25)).recovered, false);
+    assert.deepEqual(storage.data.rules, [{ id: 2 }]);
+  });
+}

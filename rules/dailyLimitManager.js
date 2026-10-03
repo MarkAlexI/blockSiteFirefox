@@ -239,10 +239,23 @@ export class DailyLimitManager {
   } = {}) {
     return this.enqueue(async () => {
       if (!shouldContinue()) return { superseded: true };
-      const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
+      // A tab sample may arrive after a failed recovery and before the retry
+      // alarm. Apply the durable journal before calculating elapsed usage.
+      const result = await this.storageArea.get([
+        DAILY_RULE_USAGE_KEY,
+        PENDING_DAILY_USAGE_REMAPS_KEY
+      ]);
       if (!shouldContinue()) return { superseded: true };
       const raw = result[DAILY_RULE_USAGE_KEY];
-      const state = normalizeDailyRuleUsageState(raw, now);
+      const pending = normalizeAssignmentRemaps(result[PENDING_DAILY_USAGE_REMAPS_KEY]);
+      this.pendingRemaps = pending;
+      const state = applyAssignmentRemaps(normalizeDailyRuleUsageState(raw, now), pending);
+      const persistState = async () => {
+        const patch = { [DAILY_RULE_USAGE_KEY]: state };
+        if (pending.length > 0) patch[PENDING_DAILY_USAGE_REMAPS_KEY] = [];
+        await this.storageArea.set(patch);
+        if (pending.length > 0) this.pendingRemaps = [];
+      };
       const timestamp = now.getTime();
       const currentKeys = normalizeActiveKeys(activeAssignmentKeys);
       let previousKeys = state.lastSample?.assignmentKeys || [];
@@ -263,8 +276,8 @@ export class DailyLimitManager {
       }));
 
       if (currentKeys.length === 0 && previousKeys.length === 0) {
-        if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
-          await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+        if (pending.length > 0 || (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state))) {
+          await persistState();
         }
         return {
           state,
@@ -302,8 +315,8 @@ export class DailyLimitManager {
         assignmentKeys: currentKeys
       };
 
-      if (JSON.stringify(raw) !== JSON.stringify(state)) {
-        await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
+      if (pending.length > 0 || JSON.stringify(raw) !== JSON.stringify(state)) {
+        await persistState();
       }
       return {
         state,

@@ -151,7 +151,8 @@ async function withWorker(callback, {
   settings = {},
   local = {},
   dnrLimits = {},
-  supportsWindows = !TEST_FIREFOX_ANDROID
+  supportsWindows = !TEST_FIREFOX_ANDROID,
+  visibleTabs = false
 } = {}) {
   const api = createExtensionApi({
     sync: {
@@ -180,6 +181,8 @@ async function withWorker(callback, {
       ...local
     }
   });
+
+  if (visibleTabs) api.scripting = { executeScript: async () => [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] };
 
   api.runtime.onStartup = createEvent();
   api.runtime.onInstalled = createEvent();
@@ -2949,7 +2952,7 @@ test('Daily Limit cleanup failure cannot undo a committed rule or skip its follo
     let dailyReads = 0;
     let activeSamples = 0;
     api.storage.local.get = (keys, callback) => {
-      if (keys === 'dailyRuleUsage' && ++dailyReads === 2) {
+      if ((keys === 'dailyRuleUsage' || (dailyReads >= 2 && Array.isArray(keys) && keys.includes('dailyRuleUsage'))) && ++dailyReads === 2) {
         return Promise.reject(new Error('Daily Limit cleanup unavailable'));
       }
       return originalGet(keys, callback);
@@ -2983,7 +2986,7 @@ test('a failed Daily Limit sample cannot turn a committed rule into a failed mut
     const originalGet = api.storage.local.get.bind(api.storage.local);
     let dailyReads = 0;
     api.storage.local.get = (keys, callback) => {
-      if (keys === 'dailyRuleUsage' && ++dailyReads === 3) {
+      if ((keys === 'dailyRuleUsage' || (dailyReads >= 2 && Array.isArray(keys) && keys.includes('dailyRuleUsage'))) && ++dailyReads === 3) {
         return Promise.reject(new Error('Daily Limit sample unavailable'));
       }
       return originalGet(keys, callback);
@@ -3750,7 +3753,7 @@ test('an overlapping downgrade cannot overwrite a newer Pro upgrade or its activ
     const originalGet = api.storage.local.get.bind(api.storage.local);
     let pauseBlocked = false;
     api.storage.local.get = async (...args) => {
-      if (!pauseBlocked && args[0] === 'dailyRuleUsage') {
+      if (!pauseBlocked && (args[0] === 'dailyRuleUsage' || (Array.isArray(args[0]) && args[0].includes('dailyRuleUsage')))) {
         pauseBlocked = true;
         pauseStarted.resolve();
         await releasePause.promise;
@@ -6978,3 +6981,63 @@ test('stale lists fresh markers preserve Pro requirements and General list locks
     }
   }, { supportsWindows: false });
 });
+
+function usageTransitionFixture(kind, now) {
+  const source = makeDailyLimitRule(51, 'list-1', { blockURL: 'source-usage.example', minutes: 10 });
+  const sibling = makeDailyLimitRule(62, 'general', { blockURL: 'destination-usage.example', minutes: 10 });
+  let rules = [source, sibling];
+  let targetURL = source.blockURL; let targetListId = 'general';
+  const usageSeconds = { '51:list-1': 590, '62:general': 130 };
+  if (kind === 'split') {
+    source.assignments.unshift(makeDailyLimitRule(51, 'general', { minutes: 10 }).assignments[0]);
+    usageSeconds['51:general'] = 210;
+    targetURL = 'split-usage.example'; targetListId = 'list-1';
+  } else if (kind === 'merge') {
+    targetURL = sibling.blockURL; targetListId = 'list-1';
+  }
+  return { local: { rules, activeRuleListId: targetListId, dailyRuleUsage: { version: 2, date: getLocalDateKey(now), usageSeconds,
+    lastSample: { timestamp: now.getTime(), assignmentKeys: ['51:list-1'] } } },
+    targetURL, targetListId,
+    intent: { type: 'rules:update', payload: { ruleId: 51, assignmentListId: 'list-1', blockURL: targetURL,
+      redirectURL: '', category: 'social', assignment: { listId: targetListId, blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } } } } };
+}
+
+for (const kind of ['move', 'split', 'merge']) {
+  for (const checkpoint of ['foreground_sample', 'minute_recovery']) {
+  test(`usage continuity ${kind} preserves new time through ${checkpoint} after failed recovery`, async () => {
+    const start = new Date(2026, 9, 3, 12, 0, 0);
+    await withControlledClock(start, async clock => {
+      const fixture = usageTransitionFixture(kind, start);
+      await withWorker(async ({ api, send, alarm }) => {
+        const set = api.storage.local.set.bind(api.storage.local); let rejectRecovery = true;
+        api.storage.local.set = (values, callback) => {
+          if (rejectRecovery && Array.isArray(values.pendingDailyUsageRemaps) && values.pendingDailyUsageRemaps.length === 0)
+            return Promise.reject(new Error('temporary journal recovery write failure'));
+          return set(values, callback);
+        };
+        const response = await send(fixture.intent);
+        assert.equal(response.success, true);
+        assert.equal(response.dailyUsageSyncPending, true);
+        assert.equal(api.storage.local.data.pendingDailyUsageRemaps.length, 1);
+        rejectRecovery = false;
+        const tab = { id: 901, active: true, windowId: 1, url: `https://${fixture.targetURL}/watch` };
+        api.tabs.values.push(tab);
+        await api.tabs.onUpdated.listeners[0](tab.id, { status: 'complete' }, tab);
+        clock.set(new Date(start.getTime() + 20_000));
+        await api.tabs.onUpdated.listeners[0](tab.id, { status: 'complete' }, tab);
+        const key = `${response.rule.id}:${fixture.targetListId}`;
+        if (checkpoint === 'minute_recovery') await alarm({ name: 'update_scheduled_rules' });
+        assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds[key], 610);
+        assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['51:list-1'], undefined);
+        assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['62:general'], 130);
+        if (kind === 'split') assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['51:general'], 210);
+        assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds[key], 610);
+        assert.deepEqual(api.dynamicRules.map(rule => rule.id), [response.rule.id]);
+      }, { local: fixture.local, supportsWindows: false, visibleTabs: true });
+    });
+  });
+}
+
+}

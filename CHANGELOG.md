@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.12] - 2026-10-03
+
+### Fixed
+- Apply durable Daily Limit remaps before recording a foreground sample or closing its previous segment. Commit the updated usage and cleared journal together, preserving elapsed time after a failed move/split/merge recovery.
+- Read usage and its journal in one storage call inside the existing accounting queue. Failed reads, failed writes and superseded samples retain the stored source state and retry journal; a completed sample is not applied twice by later recovery.
+- Isolate startup sampling errors with the existing async handler boundary so a temporarily unavailable usage/journal read does not skip installation of effective DNR rules.
+
+### Tests and compatibility
+- Added 18 regressions for real worker move/split/merge, foreground time, final recovery and exhausted DNR; atomic writes, retries, cancellation, empty samples, pause, chained remaps, restart, legacy numeric counters, midnight, accounting gaps and storage-await ordering.
+- Retain existing max-usage merge semantics, the 90-second accounting gap cap, independent assignment budgets, rollback, Pro/Legacy/password access and native Firefox consent. No new storage keys, permissions, telemetry fields, polling, backend changes or welcome messages.
+- These are production-module tests with API doubles, not native Chrome/Firefox/Android or browser E2E. H1 postcommit-prune reachability remains a separate unconfirmed case.
+
 ## [5.3.11] - 2026-10-03
 
 ### Fixed

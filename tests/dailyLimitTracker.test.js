@@ -461,7 +461,7 @@ test('queued navigation samples preserve their boundary semantics instead of bei
 test('navigation preserves completed active segments while the next document is still loading', async () => {
   const data = {};
   const storage = {
-    async get(key) { return { [key]: data[key] }; },
+    async get(keys) { return Object.fromEntries((Array.isArray(keys) ? keys : [keys]).map(key => [key, data[key]])); },
     async set(values) { Object.assign(data, structuredClone(values)); }
   };
   const manager = new DailyLimitManager(storage);
