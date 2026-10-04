@@ -3790,3 +3790,27 @@ test('backup roundtrip keeps whitelist conflicts in both import orders', async (
     assertRoundtripRejectedWithoutWrites(harness, before);
   }
 });
+
+for (const fault of ['none', 'stage', 'recovery']) {
+  test(`full-assignment move uses the durable accounting path with ${fault} failure`, async () => {
+    const original = makeCapacityRule(1, 'study', { blockingMode: 'daily_limit' });
+    const harness = createHarness({ initialRules: [original], initialRuleLists: [
+      { id: 'general', name: 'General', disabledCategories: [] }, { id: 'study', name: 'Study', disabledCategories: [] }
+    ], durableUsageJournal: true,
+      usageStageError: fault === 'stage' ? new Error('journal stage rejected') : null,
+      usageRecoveryError: fault === 'recovery' ? new Error('journal recovery rejected') : null });
+    const intent = { ruleId: 1, blockURL: original.blockURL, redirectURL: '', category: 'social',
+      assignments: [{ listId: 'general', blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } }] };
+    if (fault === 'stage') {
+      await assert.rejects(harness.service.updateRule(intent), /journal stage rejected/);
+      assert.equal(harness.savedStates.length, 0); assert.equal(harness.getSyncCalls(), 0);
+    } else {
+      const result = await harness.service.updateRule(intent);
+      assert.equal(result.dailyUsageSyncPending, fault === 'recovery' ? true : undefined);
+      assert.equal(harness.getUsageJournalStages().length, 1);
+      assert.equal(harness.getSyncCalls(), 1);
+      if (fault === 'recovery') assert.equal(harness.getPendingUsageRemaps().length, 1);
+      else assert.deepEqual(harness.getUsageRemaps(), [{ oldRuleId: 1, oldListId: 'study', newRuleId: 1, newListId: 'general' }]);
+    }
+  });
+}

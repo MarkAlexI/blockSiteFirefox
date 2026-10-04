@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "다른 창에서 예약이 변경되었습니다. 취소를 눌러 다시 불러온 후 편집하세요."
+  },
+  "proaccessunavailable": {
+    "message": "현재 Pro를 이용할 수 없습니다"
+  },
+  "prolicensekept": {
+    "message": "라이선스가 저장되어 있습니다. 키를 다시 입력하지 않고 상태를 다시 확인하세요. 규칙은 계속 저장됩니다."
+  },
+  "proinactive": {
+    "message": "Pro (비활성)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro 이용이 복원되었습니다. 브라우저 차단 규칙은 아직 동기화를 기다리고 있습니다."
   }
 }

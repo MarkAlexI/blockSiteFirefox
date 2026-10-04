@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "予約が別のウィンドウで変更されました。「キャンセル」で読み込み直してから編集してください。"
+  },
+  "proaccessunavailable": {
+    "message": "現在、Pro は利用できません"
+  },
+  "prolicensekept": {
+    "message": "ライセンスは保存されています。キーを再入力せずに状態を再確認できます。ルールは保存されたままです。"
+  },
+  "proinactive": {
+    "message": "Pro（無効）"
+  },
+  "problockingsyncpending": {
+    "message": "Pro の利用が復元されました。ブラウザーのブロックルールはまだ同期を待っています。"
   }
 }

@@ -17,7 +17,8 @@ export class RulePacksUI {
     scheduleContainer,
     scheduleEditor,
     status,
-    onAdd
+    onAdd,
+    getListContext
   }) {
     this.dialog = dialog;
     this.openButton = openButton;
@@ -34,6 +35,9 @@ export class RulePacksUI {
     this.scheduleSection = null;
     this.status = status;
     this.onAdd = onAdd;
+    this.getListContext = getListContext;
+    this.listContext = null;
+    this.dialogGeneration = 0;
     this.packs = getRulePacks();
   }
 
@@ -158,6 +162,13 @@ export class RulePacksUI {
   }
 
   open() {
+    if (this.dialog.open) return;
+    this.dialogGeneration++;
+    const context = this.getListContext?.();
+    this.listContext = context ? {
+      listId: context.listId, generation: context.generation ?? null,
+      revisions: { ...context.revisions }
+    } : null;
     this.renderSelectedPack();
     this.resetScheduleSection();
     this.dialog.showModal();
@@ -165,8 +176,10 @@ export class RulePacksUI {
   }
 
   close() {
+    this.dialogGeneration++;
     this.scheduleEditor?.closeDialog?.();
     if (this.dialog.open) this.dialog.close();
+    this.listContext = null;
   }
 
   clearStatus() {
@@ -272,17 +285,19 @@ export class RulePacksUI {
     const entryIds = this.getSelectedEntryIds();
     if (!pack || entryIds.length === 0 || typeof this.onAdd !== 'function') return;
 
+    const generation = this.dialogGeneration;
     this.addButton.disabled = true;
     this.clearStatus();
 
     try {
       const schedule = this.getSelectedSchedule();
-      const result = await this.onAdd(pack.id, entryIds, schedule);
-      this.showResultReport(result);
+      const context = this.listContext;
+      const result = await this.onAdd(pack.id, entryIds, schedule, context);
+      if (generation === this.dialogGeneration) this.showResultReport(result);
     } catch (error) {
-      this.showStatus(t('rulepacks_error'), 'error');
+      if (generation === this.dialogGeneration) this.showStatus(t('rulepacks_error'), 'error');
     } finally {
-      this.updateSelectionState();
+      if (generation === this.dialogGeneration) this.updateSelectionState();
     }
   }
 }

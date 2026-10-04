@@ -407,9 +407,9 @@ class PopupPage {
   async blockCurrentSite(url, button, listContext) {
     try {
       const rules = await this.rulesManager.getRules();
-      const targetListId = this.isPro || this.isLegacyUser
-        ? listContext.listId
-        : GENERAL_RULE_LIST_ID;
+      // Preserve the displayed destination through waits/access changes. The
+      // worker validates whether that original intent is still permitted.
+      const targetListId = listContext.listId;
       const alreadyExists = rules.some(rule =>
         rule.blockURL === url && Boolean(getRuleAssignment(rule, targetListId))
       );
@@ -810,7 +810,7 @@ class PopupPage {
   }
   
   async saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist = false, listContext = {
-    listId: this.activeRuleListId || GENERAL_RULE_LIST_ID,
+    listId: !this.isPro && !this.isLegacyUser ? GENERAL_RULE_LIST_ID : (this.activeRuleListId || GENERAL_RULE_LIST_ID),
     generation: this.ruleListSnapshot?.generation ?? null,
     revisions: { ...this.ruleListSnapshot?.revisions }
   }) {
@@ -830,9 +830,7 @@ class PopupPage {
         redirectURL: isWhitelist ? '' : redirectURL.value,
         category: isWhitelist ? 'whitelist' : 'social',
         assignment: {
-          listId: isWhitelist || (!this.isPro && !this.isLegacyUser)
-            ? GENERAL_RULE_LIST_ID
-            : listContext?.listId,
+          listId: isWhitelist ? GENERAL_RULE_LIST_ID : listContext?.listId,
           blockingMode: 'always',
           schedule: null,
           dailyLimit: null

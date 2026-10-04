@@ -866,11 +866,28 @@ export function createRulesMutationService({
           assignments: nextAssignments,
           isWhitelist: false
         }, nextAssignments);
+        const previousAssignments = getRuleAssignments(oldRule);
+        const removed = previousAssignments.filter(item => !nextAssignments.some(next => next.listId === item.listId));
+        const added = nextAssignments.filter(item => !previousAssignments.some(previous => previous.listId === item.listId));
+        const hasDailyReplacement = removed.some(item => getRuleBlockingMode(item) === BLOCKING_MODE_DAILY_LIMIT) &&
+          added.some(item => getRuleBlockingMode(item) === BLOCKING_MODE_DAILY_LIMIT);
+        if (hasDailyReplacement && (removed.length !== 1 || added.length !== 1)) {
+          throw new RulesMutationError('assignment_move_requires_source',
+            'Move Daily Limit assignments individually so their spent time is preserved.');
+        }
         const nextRules = [...rules];
         nextRules[index] = updatedRule;
         await ensureBrowserRuleCapacity(nextRules);
-        await rulesManager.saveRules(nextRules);
-        return syncAndNotify(nextRules, { rule: updatedRule, dailyLimitConfigured });
+        let dailyUsageSyncPending = false;
+        if (removed.length === 1 && added.length === 1) {
+          dailyUsageSyncPending = await saveRulesAndRemapDailyUsage(
+            nextRules, oldRule.id, removed[0].listId, oldRule.id, added[0].listId, removed[0], added[0]
+          );
+        } else {
+          await rulesManager.saveRules(nextRules);
+        }
+        return syncAndNotify(nextRules, { rule: updatedRule, dailyLimitConfigured,
+          ...(dailyUsageSyncPending ? { dailyUsageSyncPending } : {}) });
       }
 
       const currentAssignment = getRuleAssignment(oldRule, sourceListId);

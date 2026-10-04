@@ -18,6 +18,8 @@ const proBtnText = document.getElementById('proBtnText');
 
 const activateView = document.getElementById('pro-activate-view');
 const activeView = document.getElementById('pro-active-view');
+const suspendedView = document.getElementById('pro-suspended-view');
+const accountActions = document.getElementById('pro-account-actions');
 
 const licenseForm = document.getElementById('license-form');
 const licenseInput = document.getElementById('license-key-input');
@@ -87,21 +89,23 @@ if (btn) {
   });
 }
 
+let proViewGeneration = 0;
 async function updateUI() {
-  const isPro = await ProManager.isPro();
-  
-  if (isPro) {
-    activateView.style.display = 'none';
-    activeView.classList.remove('hidden');
-    activeView.style.display = 'block';
-    proBtnText.textContent = 'Pro';
-  } else {
-    activateView.style.display = 'block';
-    activeView.style.display = 'none';
-    activeView.classList.add('hidden');
-    proBtnText.textContent = t('getpro') || 'Get Pro';
+  const generation = ++proViewGeneration;
+  const credentials = await ProManager.getCredentials();
+  if (generation !== proViewGeneration) return;
+  const isPro = credentials.isPro === true;
+  const hasKey = typeof credentials.licenseKey === 'string' && credentials.licenseKey.trim().length > 0;
+  for (const [view, visible] of [
+    [activateView, !isPro && !hasKey], [activeView, isPro],
+    [suspendedView, !isPro && hasKey], [accountActions, isPro || hasKey]
+  ]) {
+    if (!view) continue;
+    view.hidden = !visible;
+    view.classList.toggle('hidden', !visible);
+    view.style.display = visible ? 'block' : 'none';
   }
-  
+  proBtnText.textContent = isPro ? 'Pro' : hasKey ? t('proinactive') : t('getpro');
   if (wrapper && wrapper.classList.contains('open')) {
     wrapper.style.maxHeight = 'none';
     wrapper.style.maxHeight = content.scrollHeight + 'px';
@@ -199,6 +203,7 @@ if (licenseForm) {
 
 if (forceSyncBtn) {
   forceSyncBtn.addEventListener('click', async () => {
+    if (forceSyncBtn.disabled) return;
     const licenseConsentRequest = requestLicenseDataConsentFromUserAction(browser.permissions);
     forceSyncBtn.disabled = true;
     forceSyncBtn.textContent = t('syncing');
@@ -220,9 +225,10 @@ if (forceSyncBtn) {
     forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
     
     if (response && response.success) {
-      licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ' (Free)');
+      licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ` (${t('proaccessunavailable')})`) +
+        (response.syncPending ? ` ${t('problockingsyncpending')}` : '');
       licenseMessage.className = 'status-message success show';
-      updateUI();
+      await updateUI();
     } else {
       const errorMsg = (response && response.error) ? response.error : 'No response';
       licenseMessage.textContent = t('syncfailed') + `: ${errorMsg}`;

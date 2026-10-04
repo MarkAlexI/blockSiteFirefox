@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Grafiks mainīts citā logā. Izvēlieties Atcelt, lai to ielādētu pirms atkārtotas rediģēšanas."
+  },
+  "proaccessunavailable": {
+    "message": "Pro piekļuve pašlaik nav pieejama"
+  },
+  "prolicensekept": {
+    "message": "Jūsu licence ir saglabāta. Vēlreiz pārbaudiet tās statusu, neievadot atslēgu atkārtoti. Jūsu noteikumi paliek saglabāti."
+  },
+  "proinactive": {
+    "message": "Pro (neaktīvs)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro piekļuve ir atjaunota. Pārlūka bloķēšanas noteikumi vēl gaida sinhronizāciju."
   }
 }

@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "تغير الجدول في نافذة أخرى. اختر إلغاء لتحميله قبل تعديله مجددًا."
+  },
+  "proaccessunavailable": {
+    "message": "الوصول إلى Pro غير متاح حاليًا"
+  },
+  "prolicensekept": {
+    "message": "ترخيصك محفوظ. تحقق من حالته مجددًا دون إعادة إدخال المفتاح. تظل قواعدك محفوظة."
+  },
+  "proinactive": {
+    "message": "Pro (غير نشط)"
+  },
+  "problockingsyncpending": {
+    "message": "تمت استعادة الوصول إلى Pro. لا تزال قواعد الحظر في المتصفح تنتظر المزامنة."
   }
 }

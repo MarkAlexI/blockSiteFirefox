@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Tidsplanen er ændret i et andet vindue. Vælg Annuller for at indlæse den, før du redigerer igen."
+  },
+  "proaccessunavailable": {
+    "message": "Pro-adgang er ikke tilgængelig i øjeblikket"
+  },
+  "prolicensekept": {
+    "message": "Din licens er gemt. Tjek status igen uden at indtaste nøglen igen. Dine regler forbliver gemt."
+  },
+  "proinactive": {
+    "message": "Pro (inaktiv)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro-adgang er gendannet. Browserens blokeringsregler venter stadig på synkronisering."
   }
 }

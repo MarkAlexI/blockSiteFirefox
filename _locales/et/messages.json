@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Ajakava muudeti teises aknas. Enne uut muutmist vali selle laadimiseks Tühista."
+  },
+  "proaccessunavailable": {
+    "message": "Pro-juurdepääs pole praegu saadaval"
+  },
+  "prolicensekept": {
+    "message": "Sinu litsents on salvestatud. Kontrolli selle olekut uuesti võtit uuesti sisestamata. Sinu reeglid jäävad salvestatuks."
+  },
+  "proinactive": {
+    "message": "Pro (mitteaktiivne)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro-juurdepääs on taastatud. Brauseri blokeerimisreeglid ootavad veel sünkroonimist."
   }
 }

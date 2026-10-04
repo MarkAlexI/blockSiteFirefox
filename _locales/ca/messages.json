@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "La programació ha canviat en una altra finestra. Selecciona Cancel·la per carregar-la abans de tornar-la a editar."
+  },
+  "proaccessunavailable": {
+    "message": "L'accés Pro no està disponible ara"
+  },
+  "prolicensekept": {
+    "message": "La llicència està desada. Torneu a comprovar-ne l'estat sense tornar a introduir la clau. Les regles es mantenen desades."
+  },
+  "proinactive": {
+    "message": "Pro (inactiu)"
+  },
+  "problockingsyncpending": {
+    "message": "S'ha restaurat l'accés Pro. Les regles de bloqueig del navegador encara esperen la sincronització."
   }
 }

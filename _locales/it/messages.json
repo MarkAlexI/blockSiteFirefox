@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "La programmazione è cambiata in un’altra finestra. Seleziona Annulla per ricaricarla prima di modificarla."
+  },
+  "proaccessunavailable": {
+    "message": "L'accesso Pro non è disponibile al momento"
+  },
+  "prolicensekept": {
+    "message": "La licenza è salvata. Controlla di nuovo lo stato senza reinserire la chiave. Le regole rimangono salvate."
+  },
+  "proinactive": {
+    "message": "Pro (inattivo)"
+  },
+  "problockingsyncpending": {
+    "message": "L'accesso Pro è stato ripristinato. Le regole di blocco del browser sono ancora in attesa di sincronizzazione."
   }
 }

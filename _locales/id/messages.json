@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Jadwal berubah di jendela lain. Pilih Batal untuk memuatnya sebelum mengedit lagi."
+  },
+  "proaccessunavailable": {
+    "message": "Akses Pro saat ini tidak tersedia"
+  },
+  "prolicensekept": {
+    "message": "Lisensi Anda tersimpan. Periksa statusnya lagi tanpa memasukkan ulang kunci. Aturan Anda tetap tersimpan."
+  },
+  "proinactive": {
+    "message": "Pro (tidak aktif)"
+  },
+  "problockingsyncpending": {
+    "message": "Akses Pro telah dipulihkan. Aturan pemblokiran browser masih menunggu sinkronisasi."
   }
 }

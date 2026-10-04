@@ -7846,3 +7846,188 @@ test('a delayed recovery response cannot undo logout of a suspended key', async 
     assert.equal(api.storage.sync.data.credentials.licenseKey,null);
   },{credentials:{isPro:false},local:{activeRuleListId:'general'},supportsWindows:false});
 });
+
+function recoveryFocusState() {
+  return {
+    activeRuleListId: 'list-1',
+    rules: [makeFocusRule(901, 'general'), makeFocusRule(902, 'list-1'), makeDailyLimitRule(903, 'general')],
+    focusSession: { focusActive: true, focusEndTime: Date.now() + 3_600_000, isHardcore: false, focusMode: 'blacklist' },
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '903:general': 600 }, lastSample: null }
+  };
+}
+
+for (const recovery of ['force_sync', 'alarm']) {
+  test(`Pro recovery ${recovery} synchronizes active cross-list Focus before replying without a profile switch`, async () => {
+    await withWorker(async ({ api, send, alarm }) => {
+      const rules = structuredClone(api.storage.local.data.rules);
+      const lists = structuredClone(api.storage.local.data.ruleLists);
+      const settings = structuredClone(api.storage.sync.data.settings);
+      let paid = false;
+      api.setFetchHandler(async () => ({ ok: true, status: 200, json: async () => ({ isPro: paid, licenseValid: true }) }));
+      await send({ type: 'force_sync' });
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+      assert.equal(api.storage.local.data.activeRuleListId, 'general');
+      assert.equal(api.dynamicRules.some(rule => rule.id === 902), false);
+      paid = true;
+      if (recovery === 'alarm') await alarm({ name: 'check_pro_expiry' });
+      else assert.equal((await send({ type: 'force_sync' })).syncPending, undefined);
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+      assert.equal(api.storage.local.data.activeRuleListId, 'general');
+      assert.equal(api.dynamicRules.some(rule => rule.id === 902), true);
+      assert.deepEqual(api.storage.local.data.rules, rules);
+      assert.deepEqual(api.storage.local.data.ruleLists, lists);
+      assert.deepEqual(api.storage.sync.data.settings, settings);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['903:general'], 600);
+    }, { local: recoveryFocusState(), settings: { enablePassword: true, passwordHash: 'keep-hash' }, supportsWindows: false });
+  });
+}
+
+test('Pro recovery reports browser sync failure while retaining verified access and recovers on the next scheduled sync', async () => {
+  await withWorker(async ({ api, send, alarm }) => {
+    let paid = false;
+    api.setFetchHandler(async () => ({ ok: true, status: 200, json: async () => ({ isPro: paid }) }));
+    await send({ type: 'force_sync' }); paid = true;
+    const update = api.declarativeNetRequest.updateDynamicRules;
+    api.declarativeNetRequest.updateDynamicRules = async () => { throw new Error('injected DNR rejection'); };
+    const result = await withMutedErrors(() => send({ type: 'force_sync' }));
+    assert.equal(result.success, true); assert.equal(result.isPro, true); assert.equal(result.syncPending, true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+    assert.equal(api.dynamicRules.some(rule => rule.id === 902), false);
+    api.declarativeNetRequest.updateDynamicRules = update;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.dynamicRules.some(rule => rule.id === 902), true);
+  }, { local: recoveryFocusState(), supportsWindows: false });
+});
+
+test('logout during a real recovery DNR await supersedes the recovery reply and leaves Free blocking installed', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    let paid = false;
+    api.setFetchHandler(async () => ({ ok: true, status: 200, json: async () => ({ isPro: paid }) }));
+    await send({ type: 'force_sync' }); paid = true;
+    const entered = createDeferred(); const release = createDeferred();
+    const update = api.declarativeNetRequest.updateDynamicRules; let gated = false;
+    api.declarativeNetRequest.updateDynamicRules = async change => {
+      if (!gated && change.addRules?.some(rule => rule.id === 902)) {
+        gated = true; entered.resolve(); await release.promise;
+      }
+      return update(change);
+    };
+    const recovery = send({ type: 'force_sync' });
+    try {
+      await entered.promise;
+      const logout = send({ type: 'logout_pro' });
+      release.resolve();
+      assert.equal((await recovery).reason, 'superseded');
+      assert.equal((await logout).success, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.dynamicRules.some(rule => rule.id === 902), false);
+    } finally { release.resolve(); await recovery; }
+  }, { local: recoveryFocusState(), supportsWindows: false });
+});
+
+function fullAssignmentIntent(api, assignments) {
+  const message = assignmentContextIntent(api, 'rules:update');
+  delete message.payload.assignmentListId; delete message.payload.assignment;
+  message.payload.assignments = assignments;
+  return message;
+}
+const fullBudgetAssignment = listId => ({ listId, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 10 } });
+const fullBudgetState = () => ({ ...assignmentContextInitial(), rules: [makeDailyLimitRule(1, 'list-1')],
+  activeRuleListId: 'list-2',
+  dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:list-1': 600 }, lastSample: null } });
+
+test('full assignment one-for-one replacement preserves exhausted usage and the destination blocker', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const result = await sendRaw(fullAssignmentIntent(api, [fullBudgetAssignment('list-2')]));
+    assert.equal(result.success, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '1:list-2': 600 });
+    assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps || [], []);
+    assert.equal(api.dynamicRules.some(rule => rule.id === 1), true);
+  }, { local: fullBudgetState(), supportsWindows: false });
+});
+
+test('full assignment addition keeps existing spent time and gives the new list an independent budget', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const result = await sendRaw(fullAssignmentIntent(api, [fullBudgetAssignment('list-1'), fullBudgetAssignment('list-2')]));
+    assert.equal(result.success, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '1:list-1': 600 });
+    assert.equal(api.dynamicRules.some(rule => rule.id === 1), false);
+  }, { local: fullBudgetState(), supportsWindows: false });
+});
+
+for (const direction of ['split', 'merge']) {
+  test(`full assignment ambiguous Daily Limit ${direction} is rejected without changing usage or rules`, async () => {
+    const local = fullBudgetState();
+    if (direction === 'merge') {
+      local.rules[0].assignments.push(fullBudgetAssignment('general'));
+      local.dailyRuleUsage.usageSeconds['1:general'] = 300;
+    }
+    await withWorker(async ({ api, sendRaw }) => {
+      const before = listConflictState(api);
+      const next = direction === 'split' ? ['general', 'list-2'] : ['list-2'];
+      const result = await sendRaw(fullAssignmentIntent(api, next.map(fullBudgetAssignment)));
+      assert.equal(result.success, false); assert.equal(result.error.code, 'assignment_move_requires_source');
+      assert.deepEqual(listConflictState(api), before);
+    }, { local, supportsWindows: false });
+  });
+}
+
+test('full assignment journal-stage failure leaves exhausted usage and persisted rules intact', async () => {
+  await withWorker(async ({ api, sendRaw }) => {
+    const before = listConflictState(api);
+    const set = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = (values, callback) => values.rules && values.pendingDailyUsageRemaps
+      ? Promise.reject(new Error('injected journal stage failure')) : set(values, callback);
+    const result = await withMutedErrors(() => sendRaw(fullAssignmentIntent(api, [fullBudgetAssignment('list-2')])));
+    assert.equal(result.success, false);
+    const after = listConflictState(api);
+    // I/O failure may produce consented error diagnostics; persisted blocking
+    // state must remain untouched on both engines.
+    delete after.telemetry; delete before.telemetry;
+    assert.deepEqual(after, before);
+  }, { local: fullBudgetState(), supportsWindows: false });
+});
+
+test('a newer license check supersedes recovery while the older browser update is awaited', { timeout: 5000 }, async () => {
+  await withWorker(async ({ api, send }) => {
+    let paid = false;
+    api.setFetchHandler(async () => ({ ok: true, status: 200, json: async () => ({ isPro: paid }) }));
+    await send({ type: 'force_sync' }); paid = true;
+    const entered = createDeferred(); const release = createDeferred(); const nextRequest = createDeferred();
+    const update = api.declarativeNetRequest.updateDynamicRules; let gated = false;
+    api.declarativeNetRequest.updateDynamicRules = async change => {
+      if (!gated && change.addRules?.some(rule => rule.id === 902)) {
+        gated = true; entered.resolve(); await release.promise;
+      }
+      return update(change);
+    };
+    const older = send({ type: 'force_sync' });
+    try {
+      await entered.promise;
+      api.setFetchHandler(async () => {
+        nextRequest.resolve(); return { ok: true, status: 200, json: async () => ({ isPro: false, licenseValid: true }) };
+      });
+      const newer = send({ type: 'force_sync' }); await nextRequest.promise;
+      release.resolve();
+      assert.equal((await older).reason, 'superseded');
+      assert.equal((await newer).isPro, false);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
+      assert.equal(api.dynamicRules.some(rule => rule.id === 902), false);
+    } finally { release.resolve(); await older; }
+  }, { local: recoveryFocusState(), supportsWindows: false });
+});
+
+test('full assignment removal prunes only the removed budget and keeps the remaining independent assignment', async () => {
+  const local = fullBudgetState();
+  local.rules[0].assignments.push(fullBudgetAssignment('list-2'));
+  local.dailyRuleUsage.usageSeconds['1:list-2'] = 240;
+  await withWorker(async ({ api, sendRaw }) => {
+    const result = await sendRaw(fullAssignmentIntent(api, [fullBudgetAssignment('list-2')]));
+    assert.equal(result.success, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '1:list-2': 240 });
+    assert.equal(api.dynamicRules.some(rule => rule.id === 1), false);
+  }, { local, supportsWindows: false });
+});

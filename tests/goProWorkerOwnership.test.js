@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 
 import {
   FakeDocument,
@@ -12,6 +13,7 @@ let goProImportId = 0;
 
 async function withGoProPage({
   isPro = false,
+  licenseKey = isPro ? 'BD-EXISTING-KEY' : null,
   workerResponse = { success: true },
   settings = {},
   fetchHandler = null,
@@ -38,6 +40,8 @@ async function withGoProPage({
   const input = document.addElement('license-key-input', 'input');
   const submit = document.addElement('license-submit-btn', 'button');
   const message = document.addElement('license-message');
+  const suspendedView = document.addElement('pro-suspended-view');
+  const accountActions = document.addElement('pro-account-actions');
   const logout = document.addElement('log-out-btn', 'button');
   const forceSync = document.addElement('force-sync-btn', 'button');
   document.addElement('pro-section');
@@ -47,7 +51,7 @@ async function withGoProPage({
       settings: { enablePassword: false, debugMode: false, ...settings },
       credentials: {
         isPro,
-        licenseKey: isPro ? 'BD-EXISTING-KEY' : null,
+        licenseKey,
         installationDate: '2026-08-01T00:00:00.000Z'
       }
     }
@@ -144,6 +148,10 @@ async function withGoProPage({
           expiryDate: null
         };
       }
+      if (workerResponse?.success === true && request.type === 'force_sync' && typeof workerResponse.isPro === 'boolean') {
+        api.storage.sync.data.credentials.isPro = workerResponse.isPro;
+        if (workerResponse.reason === 'rejected') api.storage.sync.data.credentials.licenseKey = null;
+      }
       return workerResponse;
     })();
 
@@ -208,7 +216,7 @@ async function withGoProPage({
         input,
         submit,
         message,
-        logout,
+        logout, forceSync, suspendedView, accountActions,
         forceSync,
         statusMessages,
         workerRequests,
@@ -847,4 +855,84 @@ test('quickly reopening Pro is not undone by a pending collapse frame or child t
     await wrapper.dispatch('transitionend', { propertyName: 'max-height' });
     assert.equal(wrapper.style.maxHeight, 'none');
   });
+});
+
+test('retained inactive license exposes check/logout, hides activation and never displays the saved key', async () => {
+  await withGoProPage({ licenseKey: 'BD-RETAINED-SECRET' }, async ({ document, suspendedView, accountActions, input }) => {
+    assert.equal(suspendedView.hidden, false);
+    assert.equal(suspendedView.style.display, 'block');
+    assert.equal(accountActions.hidden, false);
+    assert.equal(document.getElementById('pro-active-view').hidden, true);
+    assert.equal(document.getElementById('pro-activate-view').hidden, true);
+    assert.equal(input.value, '');
+    assert.equal(suspendedView.textContent.includes('BD-RETAINED-SECRET'), false);
+  });
+});
+
+test('license action buttons and feedback are outside the active-only HTML container', () => {
+  const html = readFileSync(new URL('../options/options.html', import.meta.url), 'utf8');
+  const active = html.match(/id="pro-active-view"[\s\S]*?<\/div>/)[0];
+  const actions = html.match(/id="pro-account-actions"[\s\S]*?<\/div>/)[0];
+  assert.equal(active.includes('force-sync-btn'), false);
+  assert.equal(active.includes('log-out-btn'), false);
+  assert.match(actions, /force-sync-btn/);
+  assert.match(actions, /log-out-btn/);
+  const activation = html.match(/id="pro-activate-view"[\s\S]*?id="pro-active-view"/)[0];
+  assert.equal(activation.includes('license-message'), false);
+});
+
+test('suspended manual check recovers without activation or changing password protection', async () => {
+  await withGoProPage({ licenseKey: 'BD-RETAINED', settings: { enablePassword: true, passwordHash: 'keep-hash' },
+    workerResponse: { success: true, isPro: true } }, async ({ api, document, forceSync, workerRequests, accountActions, suspendedView }) => {
+    const settingsBefore = structuredClone(api.storage.sync.data.settings);
+    await forceSync.dispatch('click');
+    assert.deepEqual(workerRequests, [{ type: 'force_sync' }]);
+    assert.deepEqual(api.storage.sync.data.settings, settingsBefore);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-RETAINED');
+    assert.equal(document.getElementById('pro-active-view').hidden, false);
+    assert.equal(suspendedView.hidden, true);
+    assert.equal(accountActions.hidden, false);
+  });
+});
+
+test('suspended manual check reports pending DNR without pretending Pro verification failed', async () => {
+  await withGoProPage({ licenseKey: 'BD-RETAINED', workerResponse: { success: true, isPro: true, syncPending: true } },
+    async ({ forceSync, message, api }) => {
+      await forceSync.dispatch('click');
+      assert.match(message.textContent, /problockingsyncpending/);
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+    });
+});
+
+test('a rejected retained key returns to activation and removes license actions', async () => {
+  await withGoProPage({ licenseKey: 'BD-RETAINED', workerResponse: { success: true, isPro: false, reason: 'rejected' } },
+    async ({ forceSync, document, accountActions, suspendedView }) => {
+      await forceSync.dispatch('click');
+      assert.equal(suspendedView.hidden, true);
+      assert.equal(accountActions.hidden, true);
+      assert.equal(document.getElementById('pro-activate-view').hidden, false);
+    });
+});
+
+test('logout is available for a retained inactive key and stops its local recovery session', async () => {
+  await withGoProPage({ licenseKey: 'BD-RETAINED' }, async ({ api, logout, workerRequests, accountActions, document }) => {
+    assert.equal(accountActions.hidden, false);
+    await logout.dispatch('click');
+    assert.deepEqual(workerRequests, [{ type: 'logout_pro' }]);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(accountActions.hidden, true);
+    assert.equal(document.getElementById('pro-activate-view').hidden, false);
+  });
+});
+
+test('suspended check requests Firefox consent directly and retains the key when consent is denied', async () => {
+  await withGoProPage({ licenseKey: 'BD-RETAINED', licenseConsentRequestResult: false },
+    async ({ api, forceSync, workerRequests, permissionRequests, eventOrder, suspendedView }) => {
+      await forceSync.dispatch('click');
+      assert.deepEqual(permissionRequests, [{ data_collection: ['authenticationInfo'] }]);
+      assert.equal(eventOrder[0], 'license_consent_requested');
+      assert.deepEqual(workerRequests, []);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-RETAINED');
+      assert.equal(suspendedView.hidden, false);
+    });
 });

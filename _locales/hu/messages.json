@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Az ütemezés egy másik ablakban megváltozott. Újabb szerkesztés előtt válaszd a Mégse gombot az újratöltéshez."
+  },
+  "proaccessunavailable": {
+    "message": "A Pro hozzáférés jelenleg nem érhető el"
+  },
+  "prolicensekept": {
+    "message": "A licenc mentve van. Ellenőrizze újra az állapotát a kulcs ismételt megadása nélkül. A szabályok mentve maradnak."
+  },
+  "proinactive": {
+    "message": "Pro (inaktív)"
+  },
+  "problockingsyncpending": {
+    "message": "A Pro hozzáférés helyreállt. A böngésző blokkolási szabályai még szinkronizálásra várnak."
   }
 }

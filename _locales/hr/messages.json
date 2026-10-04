@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Raspored je promijenjen u drugom prozoru. Odaberite Odustani da biste ga učitali prije ponovnog uređivanja."
+  },
+  "proaccessunavailable": {
+    "message": "Pro pristup trenutačno nije dostupan"
+  },
+  "prolicensekept": {
+    "message": "Vaša je licenca spremljena. Ponovno provjerite status bez ponovnog unosa ključa. Vaša pravila ostaju spremljena."
+  },
+  "proinactive": {
+    "message": "Pro (neaktivan)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro pristup je obnovljen. Pravila blokiranja preglednika još čekaju sinkronizaciju."
   }
 }

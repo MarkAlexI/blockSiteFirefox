@@ -16,6 +16,7 @@ const EXPECTED_RULE_REJECTION_CODES = new Set([
   'rule_list_not_found',
   'rule_list_locked',
   'rule_assignment_exists',
+  'assignment_move_requires_source',
   'rule_assignment_not_found',
   'rule_assignment_locked',
   'rules_state_changed',

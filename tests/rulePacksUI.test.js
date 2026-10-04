@@ -81,7 +81,7 @@ class FakeElement {
   }
 }
 
-function createHarness({ resultFactory, schedule = null } = {}) {
+function createHarness({ resultFactory, schedule = null, getListContext = null } = {}) {
   const previousDocument = globalThis.document;
   const previousChrome = globalThis.browser;
   const telemetryMessages = [];
@@ -152,9 +152,9 @@ function createHarness({ resultFactory, schedule = null } = {}) {
 
   const ui = new RulePacksUI({
     ...elements,
-    scheduleEditor,
-    onAdd: async (packId, entryIds, selectedSchedule) => {
-      additions.push({ packId, entryIds, schedule: selectedSchedule });
+    scheduleEditor, getListContext,
+    onAdd: async (packId, entryIds, selectedSchedule, context) => {
+      additions.push({ packId, entryIds, schedule: selectedSchedule, ...(context ? { context: structuredClone(context) } : {}) });
       if (typeof resultFactory === 'function') {
         return resultFactory(packId, entryIds);
       }
@@ -363,4 +363,31 @@ test('rule pack UI sends one shared schedule with the selected entries', async (
   } finally {
     harness.restore();
   }
+});
+
+test('Rule Pack open captures destination/markers through replacement and recaptures only after closing', async () => {
+  let context = { listId: 'list-1', generation: 'shown', revisions: { 'list-1': 'revision' } };
+  const harness = createHarness({ getListContext: () => context });
+  try {
+    harness.ui.open();
+    context.revisions['list-1'] = 'changed-in-place';
+    context = { listId: 'list-2', generation: 'imported', revisions: { 'list-2': 'new' } };
+    harness.ui.open();
+    await harness.ui.addSelected();
+    assert.deepEqual(harness.additions[0].context, { listId: 'list-1', generation: 'shown', revisions: { 'list-1': 'revision' } });
+    harness.ui.close(); harness.ui.open(); await harness.ui.addSelected();
+    assert.deepEqual(harness.additions[1].context, context);
+  } finally { harness.restore(); }
+});
+
+test('completion from a closed Rule Pack dialog cannot overwrite a newly opened dialog', async () => {
+  let release; const gate = new Promise(resolve => { release = resolve; });
+  const harness = createHarness({ resultFactory: () => gate });
+  try {
+    harness.ui.open(); const pending = harness.ui.addSelected();
+    harness.ui.close(); harness.ui.open();
+    release({ addedCount: 1 }); await pending;
+    assert.equal(harness.elements.status.textContent, '');
+    assert.equal(harness.elements.status.classList.contains('hidden'), true);
+  } finally { harness.restore(); }
 });

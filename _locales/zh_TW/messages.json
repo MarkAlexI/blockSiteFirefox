@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "定時設定已在另一個視窗中變更。請選擇「取消」重新載入後再編輯。"
+  },
+  "proaccessunavailable": {
+    "message": "目前無法使用 Pro"
+  },
+  "prolicensekept": {
+    "message": "授權已儲存。無須重新輸入金鑰，即可再次檢查狀態。您的規則仍會保留。"
+  },
+  "proinactive": {
+    "message": "Pro（未啟用）"
+  },
+  "problockingsyncpending": {
+    "message": "已恢復 Pro 使用權限。瀏覽器封鎖規則仍在等待同步。"
   }
 }

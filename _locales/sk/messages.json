@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Plán sa zmenil v inom okne. Vyberte Zrušiť a načítajte ho pred ďalšou úpravou."
+  },
+  "proaccessunavailable": {
+    "message": "Prístup Pro je momentálne nedostupný"
+  },
+  "prolicensekept": {
+    "message": "Vaša licencia je uložená. Znova skontrolujte jej stav bez opätovného zadania kľúča. Vaše pravidlá zostávajú uložené."
+  },
+  "proinactive": {
+    "message": "Pro (neaktívny)"
+  },
+  "problockingsyncpending": {
+    "message": "Prístup Pro bol obnovený. Pravidlá blokovania prehliadača stále čakajú na synchronizáciu."
   }
 }

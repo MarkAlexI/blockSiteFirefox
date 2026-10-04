@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Ratiba imebadilishwa kwenye dirisha jingine. Chagua Ghairi ili kuipakia kabla ya kuhariri tena."
+  },
+  "proaccessunavailable": {
+    "message": "Ufikiaji wa Pro haupatikani kwa sasa"
+  },
+  "prolicensekept": {
+    "message": "Leseni yako imehifadhiwa. Angalia hali yake tena bila kuingiza ufunguo upya. Sheria zako zinabaki zimehifadhiwa."
+  },
+  "proinactive": {
+    "message": "Pro (haitumiki)"
+  },
+  "problockingsyncpending": {
+    "message": "Ufikiaji wa Pro umerejeshwa. Sheria za kuzuia za kivinjari bado zinasubiri kusawazishwa."
   }
 }

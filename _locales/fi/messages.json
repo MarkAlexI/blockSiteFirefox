@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Ajastusta muutettiin toisessa ikkunassa. Valitse Peruuta ladataksesi sen ennen uutta muokkausta."
+  },
+  "proaccessunavailable": {
+    "message": "Pro-käyttöoikeus ei ole tällä hetkellä käytettävissä"
+  },
+  "prolicensekept": {
+    "message": "Lisenssisi on tallennettu. Tarkista sen tila uudelleen syöttämättä avainta uudestaan. Sääntösi säilyvät tallennettuina."
+  },
+  "proinactive": {
+    "message": "Pro (ei aktiivinen)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro-käyttöoikeus palautettiin. Selaimen estosäännöt odottavat vielä synkronointia."
   }
 }

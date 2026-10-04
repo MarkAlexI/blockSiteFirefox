@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Jadual telah berubah dalam tetingkap lain. Pilih Batal untuk memuatkannya sebelum menyunting lagi."
+  },
+  "proaccessunavailable": {
+    "message": "Akses Pro tidak tersedia buat masa ini"
+  },
+  "prolicensekept": {
+    "message": "Lesen anda disimpan. Semak statusnya semula tanpa memasukkan kunci sekali lagi. Peraturan anda kekal disimpan."
+  },
+  "proinactive": {
+    "message": "Pro (tidak aktif)"
+  },
+  "problockingsyncpending": {
+    "message": "Akses Pro telah dipulihkan. Peraturan penyekatan pelayar masih menunggu penyegerakan."
   }
 }

@@ -1142,7 +1142,8 @@ async function syncLicenseKeyStatus() {
     if (!updated) return finishSupersededLicenseCheck();
     
     logger.log('License Sync: Status updated from server. isPro:', data.isPro);
-    return finishLicenseCheck({ success: true, isPro: data.isPro, reason: 'verified' });
+    return finishLicenseCheck({ success: true, isPro: data.isPro, reason: 'verified',
+      ...(updated.syncPending ? { syncPending: true } : {}) });
     
   } catch (error) {
     const latestCredentials = await ProManager.getCredentials();
@@ -1360,8 +1361,9 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
 
   return enqueueProStatusTransition(async () => {
     try {
+      const previousCredentials = await ProManager.getCredentials({ throwOnError: true });
       if (expectedVerification) {
-        const credentials = await ProManager.getCredentials();
+        const credentials = previousCredentials;
         if (
           expectedVerification.verificationGeneration !== licenseVerificationGeneration ||
           credentials.licenseKey !== expectedVerification.expectedLicenseKey ||
@@ -1376,23 +1378,39 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
       invalidateBlockingDecisions();
       logger.log(`Service worker received Pro status update: ${isPro}`);
       const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
-      const shouldContinue = () => transitionGeneration === proStatusTransitionGeneration;
-      if (!shouldContinue()) return updatedCredentials;
+      const shouldContinue = () => transitionGeneration === proStatusTransitionGeneration &&
+        (!expectedVerification || expectedVerification.verificationGeneration === licenseVerificationGeneration);
+      if (!shouldContinue()) return expectedVerification ? null : updatedCredentials;
 
       const ruleListRestored = await restoreFreeRuleListAccess(shouldContinue);
-      if (!shouldContinue()) return updatedCredentials;
+      if (!shouldContinue()) return expectedVerification ? null : updatedCredentials;
 
       await restoreFreeFocusAccess(shouldContinue, {
         ruleListRestored,
         alreadySerialized: true
       });
-      if (!shouldContinue()) return updatedCredentials;
+      if (!shouldContinue()) return expectedVerification ? null : updatedCredentials;
+
+      let syncPending = false;
+      if (previousCredentials.isPro !== true && updatedCredentials.isPro === true) {
+        // Returning paid access can expand an active Focus Session beyond
+        // General. Invalidating cached state alone does not start an idle sync.
+        try {
+          const syncResult = await dnrSynchronizer.requestSync();
+          syncPending = syncResult?.success === false;
+        } catch (error) {
+          logger.warn('Pro access restored; browser rule synchronization is pending:', error);
+          syncPending = true;
+        }
+        if (!shouldContinue()) return expectedVerification ? null : updatedCredentials;
+      }
 
       logger.log('Pro status updated successfully');
       await updateContextMenu(
         updatedCredentials.isPro === true || ProManager.resolveLegacyAccess(updatedCredentials)
       );
-      return updatedCredentials;
+      if (!shouldContinue()) return expectedVerification ? null : updatedCredentials;
+      return { ...updatedCredentials, ...(syncPending ? { syncPending: true } : {}) };
     } catch (error) {
       logger.error('Error handling Pro status update:', error);
       throw error;

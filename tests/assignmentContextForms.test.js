@@ -75,7 +75,7 @@ test('assignment context Popup current-site button retains the destination chose
 test('assignment context rule packs send the displayed list generation and revisions', async () => {
   const c = controller(optionsSource, [['async addRulePack(', 'async handleRuleListCreate(']], { resolveRuleListContext: (_lists, id) => id });
   const requests = [];c.rulesClient = { async addMany(...args) { requests.push(args);return {}; } };
-  await c.addRulePack('shopping', ['amazon']);
+  await c.addRulePack('shopping', ['amazon'], null, { listId: 'list-1', generation: 'captured-generation', revisions: { 'list-1': 'captured-list' } });
   assert.deepEqual(requests, [['shopping', ['amazon'], null, 'list-1', 'captured-generation', { 'list-1': 'captured-list' }]]);
 });
 
@@ -90,3 +90,47 @@ test('assignment context Options row binds edit revisions to the displayed snaps
   c.ruleListSnapshot = { generation: 'new', revisions: {} };callback({}, 1, rule, assignment);
   assert.deepEqual(calls[0].slice(-3), ['shown-generation', 'shown-rule', { 'list-1': 'shown-list' }]);
 });
+
+test('Rule Pack controller uses the dialog snapshot after replacement instead of current active selection', async () => {
+  const c = controller(optionsSource, [['async addRulePack(', 'async handleRuleListCreate(']]);
+  const requests = []; c.rulesClient = { async addMany(...args) { requests.push(args); return {}; } };
+  const context = { listId: 'list-1', generation: c.ruleListSnapshot.generation, revisions: { ...c.ruleListSnapshot.revisions } };
+  c.activeRuleListId = 'list-2'; c.ruleListSnapshot = { generation: 'replacement', revisions: { 'list-2': 'new' } };
+  await c.addRulePack('shopping', ['amazon'], null, context);
+  assert.deepEqual(requests[0].slice(3), ['list-1', 'captured-generation', { 'list-1': 'captured-list' }]);
+  await assert.rejects(c.addRulePack('shopping', ['amazon']), error => error.code === 'rules_state_changed');
+  assert.equal(requests.length, 1);
+});
+
+test('Popup current-site add cannot retarget during a delayed rules read and Pro-to-Free transition', async () => {
+  const c = controller(popupSource, [['async blockCurrentSite(', 'createRuleInputs(']], { getRuleAssignment: () => null });
+  let release; const gate = new Promise(resolve => { release = resolve; }); const requests = [];
+  c.rulesManager.getRules = () => gate; c.rulesClient = { async addRule(payload) { requests.push(payload); } };
+  const context = { listId: 'list-1', generation: 'shown', revisions: { 'list-1': 'shown-list' } };
+  const pending = c.blockCurrentSite('current.example', { remove() {} }, context);
+  c.isPro = false; c.activeRuleListId = 'general'; release([]); await pending;
+  assert.equal(requests[0].assignment.listId, 'list-1');
+  assert.equal(requests[0].expectedGeneration, 'shown');
+  assert.deepEqual(requests[0].expectedListRevisions, context.revisions);
+});
+
+test('an open Popup form cannot turn a paid destination into General during suspension', async () => {
+  const c = controller(popupSource, [['async saveNewRule(', 'async handleRuleDeletion(']]);
+  const requests = []; c.rulesClient = { async addRule(payload) { requests.push(payload); } }; c.isPro = false;
+  await c.saveNewRule({ value: 'typed.example' }, { value: '' }, { remove() {} }, {}, false,
+    { listId: 'list-1', generation: 'shown', revisions: { 'list-1': 'shown-list' } });
+  assert.equal(requests[0].assignment.listId, 'list-1');
+  assert.equal(requests[0].expectedGeneration, 'shown');
+});
+
+for (const legacy of [false, true]) {
+  test(`fresh Popup context still works for ${legacy ? 'Legacy custom' : 'Free General'}`, async () => {
+    const c = controller(popupSource, [['async saveNewRule(', 'async handleRuleDeletion(']]);
+    const requests = []; c.rulesClient = { async addRule(payload) { requests.push(payload); } };
+    c.isPro = false; c.isLegacyUser = legacy;
+    const listId = legacy ? 'list-1' : 'general';
+    await c.saveNewRule({ value: 'fresh.example' }, { value: '' }, { remove() {} }, {}, false,
+      { listId, generation: null, revisions: {} });
+    assert.equal(requests[0].assignment.listId, listId);
+  });
+}

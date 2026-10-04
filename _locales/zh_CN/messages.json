@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "定时设置已在另一个窗口中更改。请选择“取消”重新加载后再编辑。"
+  },
+  "proaccessunavailable": {
+    "message": "目前无法使用 Pro"
+  },
+  "prolicensekept": {
+    "message": "许可证已保存。无需重新输入密钥，即可再次检查状态。您的规则仍会保存。"
+  },
+  "proinactive": {
+    "message": "Pro（未启用）"
+  },
+  "problockingsyncpending": {
+    "message": "已恢复 Pro 使用权限。浏览器阻止规则仍在等待同步。"
   }
 }

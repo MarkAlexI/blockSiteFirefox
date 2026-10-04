@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Plan başka bir pencerede değişti. Yeniden düzenlemeden önce yüklemek için İptal’i seçin."
+  },
+  "proaccessunavailable": {
+    "message": "Pro erişimi şu anda kullanılamıyor"
+  },
+  "prolicensekept": {
+    "message": "Lisansınız kayıtlı. Anahtarı yeniden girmeden durumunu tekrar kontrol edin. Kurallarınız kayıtlı kalır."
+  },
+  "proinactive": {
+    "message": "Pro (etkin değil)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro erişimi geri yüklendi. Tarayıcının engelleme kuralları hâlâ eşitlenmeyi bekliyor."
   }
 }

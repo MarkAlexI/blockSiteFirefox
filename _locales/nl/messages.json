@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Het schema is in een ander venster gewijzigd. Kies Annuleren om het opnieuw te laden voordat je het bewerkt."
+  },
+  "proaccessunavailable": {
+    "message": "Pro-toegang is momenteel niet beschikbaar"
+  },
+  "prolicensekept": {
+    "message": "Je licentie is opgeslagen. Controleer de status opnieuw zonder de sleutel opnieuw in te voeren. Je regels blijven opgeslagen."
+  },
+  "proinactive": {
+    "message": "Pro (inactief)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro-toegang is hersteld. De blokkeerregels van de browser wachten nog op synchronisatie."
   }
 }

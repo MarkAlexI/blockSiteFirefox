@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Harmonogram zmieniono w innym oknie. Wybierz Anuluj, aby go wczytać przed ponowną edycją."
+  },
+  "proaccessunavailable": {
+    "message": "Dostęp Pro jest obecnie niedostępny"
+  },
+  "prolicensekept": {
+    "message": "Twoja licencja jest zapisana. Sprawdź jej status ponownie bez ponownego wpisywania klucza. Twoje reguły pozostają zapisane."
+  },
+  "proinactive": {
+    "message": "Pro (nieaktywny)"
+  },
+  "problockingsyncpending": {
+    "message": "Dostęp Pro został przywrócony. Reguły blokowania przeglądarki nadal czekają na synchronizację."
   }
 }

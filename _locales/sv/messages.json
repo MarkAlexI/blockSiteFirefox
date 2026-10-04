@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Schemat har ändrats i ett annat fönster. Välj Avbryt för att läsa in det innan du redigerar igen."
+  },
+  "proaccessunavailable": {
+    "message": "Pro-åtkomst är inte tillgänglig just nu"
+  },
+  "prolicensekept": {
+    "message": "Din licens är sparad. Kontrollera statusen igen utan att ange nyckeln på nytt. Dina regler förblir sparade."
+  },
+  "proinactive": {
+    "message": "Pro (inaktiv)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro-åtkomsten har återställts. Webbläsarens blockeringsregler väntar fortfarande på synkronisering."
   }
 }

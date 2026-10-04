@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "The schedule changed in another window. Select Cancel to load it before editing again."
+  },
+  "proaccessunavailable": {
+    "message": "Pro access is currently unavailable"
+  },
+  "prolicensekept": {
+    "message": "Your license is saved. Check its status again without re-entering the key. Your rules remain saved."
+  },
+  "proinactive": {
+    "message": "Pro (inactive)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro access is restored. Browser blocking rules are still waiting to synchronize."
   }
 }

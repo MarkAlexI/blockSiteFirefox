@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Programarea s-a schimbat în altă fereastră. Alege Anulează pentru a o încărca înainte de a o edita din nou."
+  },
+  "proaccessunavailable": {
+    "message": "Accesul Pro nu este disponibil momentan"
+  },
+  "prolicensekept": {
+    "message": "Licența este salvată. Verifică din nou starea fără să reintroduci cheia. Regulile tale rămân salvate."
+  },
+  "proinactive": {
+    "message": "Pro (inactiv)"
+  },
+  "problockingsyncpending": {
+    "message": "Accesul Pro a fost restabilit. Regulile de blocare ale browserului încă așteaptă sincronizarea."
   }
 }

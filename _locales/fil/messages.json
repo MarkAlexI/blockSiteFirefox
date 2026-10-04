@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Nabago ang iskedyul sa ibang window. Piliin ang Kanselahin upang i-load ito bago muling mag-edit."
+  },
+  "proaccessunavailable": {
+    "message": "Kasalukuyang hindi available ang Pro access"
+  },
+  "prolicensekept": {
+    "message": "Naka-save ang iyong lisensya. Tingnan muli ang status nito nang hindi muling inilalagay ang key. Mananatiling naka-save ang iyong mga rule."
+  },
+  "proinactive": {
+    "message": "Pro (hindi aktibo)"
+  },
+  "problockingsyncpending": {
+    "message": "Naibalik na ang Pro access. Naghihintay pa ng pag-sync ang mga rule sa pag-block ng browser."
   }
 }

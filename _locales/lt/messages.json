@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Tvarkaraštis pakeistas kitame lange. Prieš redaguodami vėl pasirinkite Atšaukti, kad jį įkeltumėte."
+  },
+  "proaccessunavailable": {
+    "message": "Pro prieiga šiuo metu nepasiekiama"
+  },
+  "prolicensekept": {
+    "message": "Jūsų licencija išsaugota. Patikrinkite jos būseną dar kartą neįvesdami rakto iš naujo. Jūsų taisyklės lieka išsaugotos."
+  },
+  "proinactive": {
+    "message": "Pro (neaktyvus)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro prieiga atkurta. Naršyklės blokavimo taisyklės vis dar laukia sinchronizavimo."
   }
 }

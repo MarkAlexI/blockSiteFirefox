@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Der Zeitplan wurde in einem anderen Fenster geändert. Wähle Abbrechen, um ihn vor weiteren Änderungen neu zu laden."
+  },
+  "proaccessunavailable": {
+    "message": "Pro-Zugriff ist derzeit nicht verfügbar"
+  },
+  "prolicensekept": {
+    "message": "Deine Lizenz ist gespeichert. Prüfe den Status erneut, ohne den Schlüssel erneut einzugeben. Deine Regeln bleiben gespeichert."
+  },
+  "proinactive": {
+    "message": "Pro (inaktiv)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro-Zugriff wurde wiederhergestellt. Die Blockierregeln des Browsers warten noch auf die Synchronisierung."
   }
 }

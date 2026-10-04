@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Urnik je bil spremenjen v drugem oknu. Izberite Prekliči, da ga naložite pred ponovnim urejanjem."
+  },
+  "proaccessunavailable": {
+    "message": "Dostop Pro trenutno ni na voljo"
+  },
+  "prolicensekept": {
+    "message": "Vaša licenca je shranjena. Znova preverite stanje brez ponovnega vnosa ključa. Vaša pravila ostajajo shranjena."
+  },
+  "proinactive": {
+    "message": "Pro (neaktiven)"
+  },
+  "problockingsyncpending": {
+    "message": "Dostop Pro je obnovljen. Pravila blokiranja brskalnika še čakajo na sinhronizacijo."
   }
 }

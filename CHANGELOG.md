@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.17] - 2026-10-04
+
+- Show Check Status and Log Out for a retained inactive license without re-entry or exposing the key. Keep verification feedback visible in all license views and preserve Firefox's user-action consent flow.
+- Synchronize browser rules when Pro access returns, including active cross-list Focus Sessions; report deferred synchronization explicitly and ignore recovery replies superseded during synchronization.
+- Capture Rule Pack destination and list markers when its dialog opens. Preserve Popup destinations through Pro-to-Free changes so the worker can reject the original stale or unauthorized intent.
+- Treat one-for-one full-assignment replacement as a move with durable Daily Limit accounting. Keep added assignments independent and require explicit source moves for ambiguous Daily Limit replacements.
+- Align the browser E2E target version with this package. Native E2E and live payment recovery remain separate release checks.
+
 ## [5.3.16] - 2026-10-04
 
 - Retain a stored license key when a successful server verification explicitly suspends Pro access. Existing startup, daily and manual checks can restore Pro after payment without another key activation.

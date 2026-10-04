@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Lịch đã thay đổi trong cửa sổ khác. Chọn Hủy để tải lại trước khi chỉnh sửa tiếp."
+  },
+  "proaccessunavailable": {
+    "message": "Hiện chưa thể truy cập Pro"
+  },
+  "prolicensekept": {
+    "message": "Giấy phép của bạn đã được lưu. Kiểm tra lại trạng thái mà không cần nhập lại khóa. Các quy tắc của bạn vẫn được lưu."
+  },
+  "proinactive": {
+    "message": "Pro (không hoạt động)"
+  },
+  "problockingsyncpending": {
+    "message": "Quyền truy cập Pro đã được khôi phục. Các quy tắc chặn của trình duyệt vẫn đang chờ đồng bộ."
   }
 }

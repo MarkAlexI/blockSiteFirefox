@@ -1139,5 +1139,17 @@
   },
   "focus_schedule_changed": {
     "message": "Die skedule het in ’n ander venster verander. Kies Kanselleer om dit te laai voordat jy weer wysig."
+  },
+  "proaccessunavailable": {
+    "message": "Pro-toegang is tans nie beskikbaar nie"
+  },
+  "prolicensekept": {
+    "message": "Jou lisensie is gestoor. Kontroleer die status weer sonder om die sleutel weer in te voer. Jou reëls bly gestoor."
+  },
+  "proinactive": {
+    "message": "Pro (onaktief)"
+  },
+  "problockingsyncpending": {
+    "message": "Pro-toegang is herstel. Die blaaier se blokkeerreëls wag nog om te sinchroniseer."
   }
 }

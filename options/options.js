@@ -76,7 +76,12 @@ class OptionsPage {
       scheduleContainer: document.getElementById('rule-packs-schedule-container'),
       scheduleEditor: this.rulesUI.scheduleEditor,
       status: document.getElementById('rule-packs-status'),
-      onAdd: (packId, entryIds, schedule) => this.addRulePack(packId, entryIds, schedule)
+      getListContext: () => ({
+        listId: resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID),
+        generation: this.ruleListSnapshot?.generation ?? null,
+        revisions: { ...this.ruleListSnapshot?.revisions }
+      }),
+      onAdd: (packId, entryIds, schedule, context) => this.addRulePack(packId, entryIds, schedule, context)
     });
     this.diagnosticsUI = new DiagnosticsUI({
       generateButton: document.getElementById('diagnostics-generate'),
@@ -830,10 +835,11 @@ class OptionsPage {
     }
   }
 
-  async addRulePack(packId, entryIds, schedule = null) {
+  async addRulePack(packId, entryIds, schedule = null, listContext = null) {
     try {
-      const targetListId = resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID);
-      const response = await this.rulesClient.addMany(packId, entryIds, schedule, targetListId, this.ruleListSnapshot?.generation ?? null, this.ruleListSnapshot?.revisions || {});
+      if (!listContext) throw Object.assign(new Error('Reopen Rule Packs to select the current list.'), { code: 'rules_state_changed' });
+      const response = await this.rulesClient.addMany(packId, entryIds, schedule, listContext.listId,
+        listContext.generation ?? null, listContext.revisions || {});
       await this.refreshProfileView();
       return response;
     } catch (error) {
