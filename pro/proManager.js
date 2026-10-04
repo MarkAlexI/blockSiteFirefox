@@ -209,7 +209,9 @@ export class ProManager {
         ...currentCredentials,
         isPro: isPro,
         expiryDate: isPro ? (subscriptionData.expiryDate || currentCredentials.expiryDate) : null,
-        licenseKey: isPro ? (subscriptionData.licenseKey || currentCredentials.licenseKey) : null,
+        licenseKey: (isPro || subscriptionData.preserveLicenseKey === true)
+          ? (subscriptionData.licenseKey || currentCredentials.licenseKey)
+          : null,
         
         isLegacyUser: currentCredentials.isLegacyUser,
         installationDate: currentCredentials.installationDate

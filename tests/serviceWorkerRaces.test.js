@@ -3326,7 +3326,7 @@ test('an explicit verified non-Pro license response still safely restores Free a
     assert.equal(response.success, true);
     assert.equal(response.reason, 'verified');
     assert.equal(response.isPro, false);
-    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-OLD-KEY');
     assert.equal(api.storage.local.data.activeRuleListId, 'general');
     assert.deepEqual(api.dynamicRules.map(rule => rule.id), [321]);
   }, { local: { rules: [general, study] }, supportsWindows: false });
@@ -7735,4 +7735,114 @@ test('assignment context checks removed sources of full-assignment updates', asy
     captured.payload.expectedListRevisions = api.storage.local.data.ruleListRevisions;
     assert.equal((await sendRaw(captured)).success, true);
   }, { local: assignmentContextInitial(), supportsWindows: false });
+});
+
+
+test('suspended Pro keeps its key and restores access from a later verified payment without changing stored rules', async () => {
+  const general=makeFocusRule(801,'general',{blockURL:'general-recovery.example'});
+  const study=makeFocusRule(802,'list-1',{blockURL:'study-recovery.example'});
+  const daily=makeDailyLimitRule(803,'list-1',{blockURL:'daily-recovery.example'});
+  const whitelist=makeFocusRule(804,'general',{blockURL:'allowed-recovery.example',isWhitelist:true});
+  const scheduled=makeFocusRule(805,'list-1',{blockURL:'schedule-recovery.example'});
+  scheduled.assignments[0].blockingMode='schedule';
+  scheduled.assignments[0].schedule={periods:[{days:[0,1,2,3,4,5,6],startTime:'23:59',endTime:'00:01'}]};
+  await withWorker(async ({api,send}) => {
+    const rulesBefore=structuredClone(api.storage.local.data.rules);
+    const listsBefore=structuredClone(api.storage.local.data.ruleLists);
+    let requests=0;
+    api.setFetchHandler(async (_url,options) => {
+      requests++;
+      assert.equal(JSON.parse(options.body).key,'BD-OLD-KEY');
+      return {ok:true,status:200,json:async()=>({isPro:requests>1,expiryDate:'2027-01-01'})};
+    });
+    const suspended=await send({type:'force_sync'});
+    assert.equal(suspended.isPro,false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey,'BD-OLD-KEY');
+    assert.equal(api.storage.sync.data.credentials.expiryDate,null);
+    assert.equal(api.storage.local.data.activeRuleListId,'general');
+    assert.deepEqual(api.storage.local.data.rules,rulesBefore);
+    assert.deepEqual(api.storage.local.data.ruleLists,listsBefore);
+    assert.deepEqual(api.dynamicRules.map(rule=>rule.id),[801]);
+    const denied=await send({type:'rules:createList',payload:{name:'Unavailable while suspended'}});
+    assert.equal(denied.success,false);
+    assert.equal(denied.error.code,'pro_required');
+    const recovered=await send({type:'force_sync'});
+    assert.equal(recovered.isPro,true);
+    assert.equal(requests,2);
+    assert.equal(api.storage.sync.data.credentials.expiryDate,'2027-01-01');
+    assert.equal(api.storage.local.data.activeRuleListId,'general');
+    assert.deepEqual(api.storage.local.data.rules,rulesBefore);
+    assert.deepEqual(api.storage.local.data.ruleLists,listsBefore);
+    assert.equal(api.contextMenuPresent,true);
+    const selected=await send({type:'rules:activateList',payload:{listId:'list-1'}});
+    assert.equal(selected.success,true);
+    assert.equal(api.dynamicRules.some(rule=>rule.id===802),true);
+    assert.equal(api.dynamicRules.some(rule=>rule.id===803||rule.id===804),false);
+  },{local:{rules:[general,study,daily,whitelist,scheduled]},supportsWindows:false});
+});
+
+test('daily maintenance rechecks a suspended key and restores Pro after payment', async () => {
+  await withWorker(async ({api,send,alarm}) => {
+    let paid=false;
+    let requests=0;
+    api.setFetchHandler(async () => {requests++;return {ok:true,status:200,json:async()=>({isPro:paid})};});
+    await send({type:'force_sync'});
+    assert.equal(api.storage.sync.data.credentials.isPro,false);
+    paid=true;
+    await alarm({name:'check_pro_expiry'});
+    assert.equal(requests,2);
+    assert.equal(api.storage.sync.data.credentials.isPro,true);
+    assert.equal(api.storage.sync.data.credentials.licenseKey,'BD-OLD-KEY');
+  },{supportsWindows:false});
+});
+
+test('logout after suspension clears the retained key and stops automatic recovery', async () => {
+  await withWorker(async ({api,send}) => {
+    api.setFetchHandler(async()=>({ok:true,status:200,json:async()=>({isPro:false})}));
+    await send({type:'force_sync'});
+    assert.equal(api.storage.sync.data.credentials.licenseKey,'BD-OLD-KEY');
+    assert.equal((await send({type:'logout_pro'})).success,true);
+    api.setFetchHandler(async()=>assert.fail('logged-out keys must never be rechecked'));
+    assert.equal((await send({type:'force_sync'})).reason,'no_key');
+    assert.equal(api.storage.sync.data.credentials.isPro,false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey,null);
+  },{supportsWindows:false});
+});
+
+test('an explicit invalid-key response clears a suspended key', async () => {
+  await withWorker(async ({api,send}) => {
+    api.setFetchHandler(async()=>({ok:true,status:200,json:async()=>({isPro:false,licenseValid:false})}));
+    const response=await send({type:'force_sync'});
+    assert.equal(response.isPro,false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey,null);
+    api.setFetchHandler(async()=>assert.fail('invalid keys must never be rechecked'));
+    assert.equal((await send({type:'force_sync'})).reason,'no_key');
+  },{credentials:{isPro:false},supportsWindows:false});
+});
+
+test('temporary errors while suspended keep access off and retain the recovery key', async () => {
+  await withWorker(async ({api,send}) => {
+    api.setFetchHandler(async()=>({ok:true,status:200,json:async()=>({isPro:false})}));
+    await send({type:'force_sync'});
+    api.setFetchHandler(async()=>({ok:false,status:503,json:async()=>({error:'unavailable'})}));
+    const response=await withMutedErrors(()=>send({type:'force_sync'}));
+    assert.equal(response.reason,'temporary_failure');
+    assert.equal(api.storage.sync.data.credentials.isPro,false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey,'BD-OLD-KEY');
+  },{supportsWindows:false});
+});
+
+test('a delayed recovery response cannot undo logout of a suspended key', async () => {
+  await withWorker(async ({api,send}) => {
+    const started=createDeferred();const reply=createDeferred();
+    api.setFetchHandler(async()=>{started.resolve();return reply.promise;});
+    const recovery=send({type:'force_sync'});
+    await started.promise;
+    await send({type:'logout_pro'});
+    reply.resolve({ok:true,status:200,json:async()=>({isPro:true})});
+    const response=await recovery;
+    assert.equal(response.reason,'superseded');
+    assert.equal(api.storage.sync.data.credentials.isPro,false);
+    assert.equal(api.storage.sync.data.credentials.licenseKey,null);
+  },{credentials:{isPro:false},local:{activeRuleListId:'general'},supportsWindows:false});
 });

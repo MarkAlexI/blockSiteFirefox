@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.16] - 2026-10-04
+
+- Retain a stored license key when a successful server verification explicitly suspends Pro access. Existing startup, daily and manual checks can restore Pro after payment without another key activation.
+- Keep access disabled while suspended. Explicit logout, HTTP 401/403 rejection and an explicit `licenseValid: false` response clear the key; temporary failures preserve the current access state.
+- Preserve stored rules and profiles through suspension and recovery. Free recovery selects General; Pro recovery makes custom profiles available without automatically changing the selected profile.
+- Add six worker regressions covering automatic recovery, daily maintenance, preserved rules, logout, invalid keys, temporary errors and delayed replies. Bind two existing Daily Limit interleaving tests to their fixture clock and give them a bounded timeout so a later calendar date cannot reset their counters or hang the suite. No new permissions, storage keys, locales or polling intervals. These use API doubles; native browser E2E was not run.
+
 ## [5.3.15] - 2026-10-03
 
 - Validate captured source and destination list revisions before queued rule additions, rule packs, and assignment updates, including bulk replacement and list ID reuse.

@@ -676,45 +676,57 @@ function continuityPause() {
   return { promise: new Promise(resolve => { release = resolve; }), resolve: () => release() };
 }
 
+async function withContinuityClock(now, callback) {
+  const NativeDate = globalThis.Date;
+  globalThis.Date = class extends NativeDate {
+    constructor(...args) { super(...(args.length ? args : [now.getTime()])); }
+    static now() { return now.getTime(); }
+  };
+  try { return await callback(); }
+  finally { globalThis.Date = NativeDate; }
+}
+
 for (const order of ['sample_before_stage', 'stage_before_sample']) {
-  test(`usage continuity real storage awaits preserve time with ${order}`, async () => {
+  test(`usage continuity real storage awaits preserve time with ${order}`, { timeout: 5000 }, async () => {
     const start = new Date(2026, 9, 3, 12, 0, 0); const at20 = new Date(start.getTime() + 20_000);
-    const storage = createStorage({ dailyRuleUsage: { version: 2, date: getLocalDateKey(start), usageSeconds: { '1:study': 100, '1:general': 70 },
-      lastSample: { timestamp: start.getTime(), assignmentKeys: ['1:study'] } } });
-    const manager = new DailyLimitManager(storage); const entered = continuityPause(); const release = continuityPause();
-    const get = storage.get.bind(storage); const set = storage.set.bind(storage); let gated = false;
-    if (order === 'sample_before_stage') {
-      storage.get = async keys => {
-        const snapshot = structuredClone(await get(keys));
-        if (!gated) { gated = true; entered.resolve(); await release.promise; }
-        return snapshot;
-      };
-    } else {
-      storage.set = async values => {
-        if (!gated && Object.hasOwn(values, PENDING_DAILY_USAGE_REMAPS_KEY)) {
-          gated = true; entered.resolve(); await release.promise;
-        }
-        return set(values);
-      };
-    }
-    const remap = { oldRuleId: 1, oldListId: 'study', newRuleId: 2, newListId: 'study' };
-    let sample; let stage;
-    if (order === 'sample_before_stage') {
-      sample = manager.recordSample(['1:study'], at20);
-      await entered.promise;
-      stage = manager.stagePendingRemaps({ rules: [{ id: 2 }] }, [remap]);
-    } else {
-      stage = manager.stagePendingRemaps({ rules: [{ id: 2 }] }, [remap]);
-      await entered.promise;
-      sample = manager.recordSample(['2:study'], at20);
-    }
-    release.resolve();
-    await Promise.all([sample, stage]);
-    const at25 = new Date(start.getTime() + 25_000);
-    const result = await manager.recordSample(['2:study'], at25);
-    assert.deepEqual(result.state.usageSeconds, { '2:study': 125, '1:general': 70 });
-    assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
-    assert.equal((await manager.recoverPendingRemaps(at25)).recovered, false);
-    assert.deepEqual(storage.data.rules, [{ id: 2 }]);
+    await withContinuityClock(start, async () => {
+      const storage = createStorage({ dailyRuleUsage: { version: 2, date: getLocalDateKey(start), usageSeconds: { '1:study': 100, '1:general': 70 },
+        lastSample: { timestamp: start.getTime(), assignmentKeys: ['1:study'] } } });
+      const manager = new DailyLimitManager(storage); const entered = continuityPause(); const release = continuityPause();
+      const get = storage.get.bind(storage); const set = storage.set.bind(storage); let gated = false;
+      if (order === 'sample_before_stage') {
+        storage.get = async keys => {
+          const snapshot = structuredClone(await get(keys));
+          if (!gated) { gated = true; entered.resolve(); await release.promise; }
+          return snapshot;
+        };
+      } else {
+        storage.set = async values => {
+          if (!gated && Object.hasOwn(values, PENDING_DAILY_USAGE_REMAPS_KEY)) {
+            gated = true; entered.resolve(); await release.promise;
+          }
+          return set(values);
+        };
+      }
+      const remap = { oldRuleId: 1, oldListId: 'study', newRuleId: 2, newListId: 'study' };
+      let sample; let stage;
+      if (order === 'sample_before_stage') {
+        sample = manager.recordSample(['1:study'], at20);
+        await entered.promise;
+        stage = manager.stagePendingRemaps({ rules: [{ id: 2 }] }, [remap]);
+      } else {
+        stage = manager.stagePendingRemaps({ rules: [{ id: 2 }] }, [remap]);
+        await entered.promise;
+        sample = manager.recordSample(['2:study'], at20);
+      }
+      release.resolve();
+      await Promise.all([sample, stage]);
+      const at25 = new Date(start.getTime() + 25_000);
+      const result = await manager.recordSample(['2:study'], at25);
+      assert.deepEqual(result.state.usageSeconds, { '2:study': 125, '1:general': 70 });
+      assert.deepEqual(storage.data[PENDING_DAILY_USAGE_REMAPS_KEY], []);
+      assert.equal((await manager.recoverPendingRemaps(at25)).recovered, false);
+      assert.deepEqual(storage.data.rules, [{ id: 2 }]);
+    });
   });
 }

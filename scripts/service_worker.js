@@ -1134,7 +1134,10 @@ async function syncLicenseKeyStatus() {
     
     const updated = await handleProStatusUpdate(data.isPro, {
       licenseKey: currentKey,
-      expiryDate: data.expiryDate
+      expiryDate: data.expiryDate,
+      // Payment suspension must remain verifiable after the customer pays.
+      // Explicit logout, HTTP rejection and revoked/unknown keys still clear it.
+      preserveLicenseKey: data.isPro === false && data.licenseValid !== false
     }, { expectedLicenseKey: currentKey, verificationGeneration });
     if (!updated) return finishSupersededLicenseCheck();
     
