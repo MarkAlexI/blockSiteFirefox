@@ -54,17 +54,28 @@ test('02', 'UI editing splits a shared Daily Limit target and preserves its exha
   await equalEventually(() => page.text('h1'), 'BD E2E fixture', 'redirect destination');
 });
 
-test('03', 'two Options split and move assignments before legacy migration without granting a new budget', async e => {
+test('03', 'two Options reject a stale shared-rule edit, then refresh and preserve the legacy budget on split and move', async e => {
   const rule = dailyRule(); rule.assignments.push(assignment('list-1'));
   await e.seed({ rules: [rule], active: 'list-2', rawUsage: { version: 1, usageSeconds: { '21': 840 }, lastSample: null } });
   const a = await e.openOptions(); const b = await e.openOptions();
-  const responses = await Promise.all([
-    send(a, 'rules:update', { ruleId: 21, assignmentListId: 'list-1', blockURL: rule.blockURL,
-      redirectURL: 'http://safe.bd-e2e.test/study', assignment: assignment('list-1') }),
-    send(b, 'rules:update', { ruleId: 21, assignmentListId: 'general', blockURL: rule.blockURL,
-      redirectURL: '', assignment: assignment('list-2') })
-  ]);
-  assert.equal(responses.every(response => response.success), true, JSON.stringify(responses));
+  const original = await e.state();
+  const revision = state => ({ expectedGeneration: state.rulesGeneration ?? null,
+    expectedRevision: state.ruleRevisions?.[21] ?? null, expectedListRevisions: state.ruleListRevisions || {} });
+  const edits = [
+    { ruleId: 21, assignmentListId: 'list-1', blockURL: rule.blockURL,
+      redirectURL: 'http://safe.bd-e2e.test/study', assignment: assignment('list-1') },
+    { ruleId: 21, assignmentListId: 'general', blockURL: rule.blockURL,
+      redirectURL: '', assignment: assignment('list-2') }
+  ];
+  const responses = await Promise.all(edits.map((edit, index) =>
+    send([a, b][index], 'rules:update', { ...edit, ...revision(original) })));
+  assert.equal(responses.filter(response => response.success).length, 1, JSON.stringify(responses));
+  const stale = responses.findIndex(response => !response.success);
+  assert.equal(responses[stale].error.code, 'rules_state_changed');
+  const committed = await e.state();
+  assert.deepEqual(Object.values(committed.dailyRuleUsage.usageSeconds), [840, 840]);
+  const retry = await send([a, b][stale], 'rules:update', { ...edits[stale], ...revision(committed) });
+  assert.equal(retry.success, true, JSON.stringify(retry));
   const state = await e.state(); assert.equal(state.rules.length, 2);
   const study = state.rules.find(item => item.assignments.some(a => a.listId === 'list-1'));
   const work = state.rules.find(item => item.assignments.some(a => a.listId === 'list-2'));

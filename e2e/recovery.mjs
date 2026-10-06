@@ -56,7 +56,10 @@ recoveryScenarios.push({
     const general = rule(901, 'general', 'general.bd-e2e.test');
     const overflow = Array.from({ length: maximum }, (_, i) => rule(10000 + i, 'list-1', `quota${i}.bd-e2e.test`));
     await e.seed({ pro: false, retainedKey: true, rules: [general, ...overflow], focus: focus() });
-    await e.reconcile(a); assert.deepEqual(ids(await e.state()), [901]); const before = await e.state();
+    // General still enforces Free rules, but list activation is a paid intent.
+    await e.probe.evaluate(() => browser.alarms.create('update_scheduled_rules', { when: Date.now() + 1000 }));
+    await equalEventually(async () => ids(await e.state()), [901], 'Free scheduled DNR', 75_000);
+    const before = await e.state();
     const response = await send(a, 'force_sync');
     assert.equal(response.success, true); assert.equal(response.isPro, true); assert.equal(response.syncPending, true);
     const pending = await e.state();

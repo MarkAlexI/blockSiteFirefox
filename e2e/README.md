@@ -73,7 +73,7 @@ npm test -- --max-failures=1
 | --- | --- | --- |
 | 01 | Два Options, одночасні додавання | Два нативні runtime callers, обидва UI, унікальні ID, DNR і redirect |
 | 02 | UI split спільного Daily Limit | 840 секунд збережено, старий scoped key прибрано, обидва UI, реальний redirect |
-| 03 | Split/move з v1 до migration | Одночасні Options messages, успадкування 840 секунд обома assignments |
+| 03 | Stale split/move з v1 до migration | Одна з двох дій з однаковою revision відхиляється; після refresh/retry обидва assignments успадковують 840 секунд |
 | 04 | UI delete та JSON import | Нативний file input, usage cleanup, обидва Options, DNR і navigation |
 | 05 | Durable remap journal після restart | Чистий restart того самого профілю, recovery й exhausted budget |
 | 06 | Mixed v1/scoped startup migration | max legacy/scoped після restart, DNR і blocked reason |
@@ -94,6 +94,9 @@ npm test -- --max-failures=1
 в інших сценаріях виконуються нативними WebDriver clicks/keys/select/file input.
 BiDi reads та runtime calls адресуються конкретній сторінці й не активують
 вкладку: accounting polls не забирають foreground у сторінки, що вимірюється.
+Для foreground та UI-кліків використовується classic WebDriver
+`switchTo().window()`: Firefox BiDi не підтримує activation для privileged
+`moz-extension:` сторінок.
 
 ## Межі перевірки
 

@@ -69,7 +69,11 @@ class Page {
     await this.harness.command('browsingContext.navigate', { context: this.context, url, wait: 'complete' });
   }
   async url() { return this.evaluate(() => location.href); }
-  async front() { await this.harness.command('browsingContext.activate', { context: this.context }); }
+  async front() {
+    // Firefox BiDi refuses activation of moz-extension: privileged contexts.
+    // Classic WebDriver selects the real tab, including extension pages.
+    await this.harness.driver.switchTo().window(this.context);
+  }
   async elements(css) {
     await this.harness.driver.switchTo().window(this.context);
     return this.harness.driver.findElements(By.css(css));
@@ -311,7 +315,7 @@ export class ExtensionHarness {
 
   async state() {
     return this.probe.evaluate(async () => ({
-      ...await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId', 'dailyRuleUsage', 'pendingDailyUsageRemaps', 'focusSession']),
+      ...await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId', 'dailyRuleUsage', 'pendingDailyUsageRemaps', 'focusSession', 'rulesGeneration', 'ruleRevisions', 'ruleListRevisions']),
       ...await browser.storage.sync.get(['credentials', 'settings']), dnr: await browser.declarativeNetRequest.getDynamicRules()
     }));
   }
