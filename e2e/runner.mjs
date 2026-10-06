@@ -21,7 +21,7 @@ if (args.includes('--list')) {
   assert.ok(maximum > 0 && (maximum === Infinity || Number.isInteger(maximum)), 'invalid --max-failures');
   const output = path.resolve(process.env.BD_E2E_RESULTS || 'test-results');
   const reportFile = path.resolve(process.env.BD_E2E_JSON || 'results.json');
-  const report = { schemaVersion: 1, runner: 'Selenium WebDriver + native Firefox BiDi',
+  const report = { schemaVersion: 1, runner: 'Selenium WebDriver + native Firefox BiDi + loopback HTTP/TLS fixture',
     startedAt: new Date().toISOString(), expectedVersion,
     platform: { platform: process.platform, architecture: process.arch, node: process.version },
     selected: selected.length, completeSuite: selected.length === scenarios.length, tests: [] };
@@ -44,7 +44,7 @@ if (args.includes('--list')) {
       result.bodyStarted = true; harness.phase = 'scenario';
       await scenario.run(harness);
       assert.deepEqual(harness.pageErrors, [], 'Unexpected JavaScript errors');
-      assert.deepEqual(harness.networkErrors, [], 'Network interception errors');
+      assert.deepEqual(harness.networkErrors, [], 'HTTP/TLS fixture errors');
       result.status = 'passed';
       console.log(`PASS ${scenario.id}: ${scenario.title}`);
     } catch (error) {

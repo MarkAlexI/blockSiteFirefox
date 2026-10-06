@@ -11,7 +11,10 @@
 
 ## Повний запуск
 
-Потрібні Node.js >=22, Firefox Developer Edition або Nightly і geckodriver.
+Потрібні Node.js >=22, Firefox Developer Edition або Nightly, geckodriver
+і OpenSSL 3 на PATH. `BD_OPENSSL` задає абсолютний шлях до OpenSSL, якщо
+його немає на PATH; для Git for Windows це може бути
+`C:\Program Files\Git\usr\bin\openssl.exe`.
 CI закріплено на Developer Edition 158.0b2 та geckodriver 0.37.1 із перевіркою
 SHA-256 офіційних завантажень. Selenium 4.50.0 і fflate 0.8.2 закріплені lockfile.
 
@@ -31,6 +34,7 @@ cd e2e
 npm ci
 $env:BD_FIREFOX_BINARY = 'C:\Program Files\Firefox Developer Edition\firefox.exe'
 $env:BD_GECKODRIVER = 'C:\Tools\geckodriver.exe'
+$env:BD_OPENSSL = 'C:\Program Files\Git\usr\bin\openssl.exe'
 npm run test:headed
 ```
 
@@ -127,15 +131,31 @@ BiDi-подія лише записується, без повторної ко�
 особистий браузер не підключається. Browser sandbox залишається увімкненим.
 09/13/14–16 приймають фактичний prompt; 17 перевіряє відмову та наступну згоду.
 Старі Firefox без native data-collection consent не є цільовим середовищем
-цього desktop набору; legacy fallback лишається в Node regression suite. Синтетичні `.bd-e2e.test` HTTP-сторінки
-й verification endpoint обслуговуються BiDi network interception. Для
-activation потрібне спостереження фактичного background HTTP request;
-невидимий або непідтримуваний interception не дає green result.
+цього desktop набору; legacy fallback лишається в Node regression suite.
 
-Створений локальний deny proxy блокує зовнішній трафік до підключення BiDi,
-зокрема при startup після restart. Він нічого не пересилає. Тестові профілі
-містять лише dummy key `BD-E2E-VALID-KEY`; BiDi RequestData не містить POST
-body, тому runner не заявляє перевірку вмісту цього body. Production backend,
+Синтетичні `.bd-e2e.test` HTTP-сторінки та незмінений verification URL
+`https://blockdistraction.com/api/verifyKey` обслуговує локальний HTTP/HTTPS
+проксі на `127.0.0.1`. HTTPS CONNECT допускається лише для
+`blockdistraction.com:443`; TLS-сервер приймає тільки точний verification
+path. Інші адреси відхиляються, пересилання назовні відсутнє, зокрема на
+startup і restart. Background `fetch`, DNR та HTTP/TLS залишаються нативними.
+
+OpenSSL створює окремі CA та server key/certificate для кожного тимчасового
+сценарію. Runner імпортує CA через Firefox chrome context лише до нового
+тестового профілю й перевіряє її SSL trust. `acceptInsecureCerts=false`;
+перевірка TLS hostname та certificate chain не вимикається. Профіль, ключі
+та CA видаляються після сценарію, у системне сховище CA не додається.
+
+Проксі читає фактичний JSON POST і перевіряє точні dummy key
+`BD-E2E-VALID-KEY` та target manifest version. `verificationCalls` записуються
+до відповіді сервера, тож hold/release перевіряє справжнє очікування HTTP.
+Відповіді 200/500 та recovery задає scenario handler. Невідповідний payload
+є помилкою набору. TLS handshake errors додаються до діагностики.
+
+BiDi використовується для читання сторінок, runtime calls та діагностики UI;
+network interception і підписка на network events відсутні. Firefox BiDi
+не забезпечує interception background WebExtension requests, а його
+`context is null` відомий у Mozilla bugs 2048133/2049350. Production backend,
 реальні ліцензії, Paddle та купівлі цим набором не перевіряються.
 
 05 починається із заданого durable post-commit/pre-recovery journal і
@@ -157,7 +177,7 @@ alarm delivery не замінено doubles. Наступний retry — фа�
 `results.json` містить `passed/failed/blocked/not-run`, `bodyStarted`, phase,
 помилку, target і browser capabilities. У `test-results/<ID>/` зберігаються
 geckodriver logs, screenshots Options, final state, HTTP mock events та
-JavaScript/interception errors. Після restart є артефакти до й після нього.
+JavaScript/fixture errors та фактичні verification POST payloads. Після restart є артефакти до й після нього.
 Це Selenium diagnostics, а не Playwright trace viewer archive.
 
 `BD_E2E_RESULTS` і `BD_E2E_JSON` задають інші місця результатів.
@@ -179,9 +199,12 @@ AMO upload ZIP, checksum і build metadata на 30 днів.
 Офіційні джерела:
 
 - https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html
-- https://www.selenium.dev/documentation/webdriver/bidi/w3c/network/
 - https://www.selenium.dev/selenium/docs/api/javascript/firefox.js.html
 - https://www.w3.org/TR/webdriver-bidi/
 - https://firefox-source-docs.mozilla.org/testing/geckodriver/Profiles.html
 - https://extensionworkshop.com/documentation/develop/testing-persistent-and-restart-features/
 - https://extensionworkshop.com/documentation/publish/signing-and-distribution-overview/
+
+- https://bugzilla.mozilla.org/show_bug.cgi?id=2049350
+- https://bugzilla.mozilla.org/show_bug.cgi?id=2048133
+- https://github.com/mozilla-firefox/firefox/blob/main/security/manager/ssl/nsIX509CertDB.idl

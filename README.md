@@ -28,7 +28,7 @@ npm run check
 - `npm run validate` checks JavaScript syntax, JSON files, manifest references, version consistency, and English localization keys referenced by the code.
 - `npm run check` runs the complete pre-release verification.
 
-Node.js 20 or newer is required.
+Node.js 20 or newer is required. The HTTP/TLS fixture regressions also require OpenSSL 3 on PATH (or set `BD_OPENSSL` to its executable). Firefox Desktop E2E requires Node.js 22+; see `e2e/README.md`.
 
 When payment suspends Pro access, stored rules and Rule List profiles are preserved. A suspended valid license remains stored and is checked on the existing startup, daily and manual verification paths, so payment can restore Pro without re-entering the key. Free access selects General; after Pro returns, select a custom profile again to activate its rules. Explicit logout or a definitive key rejection removes the stored key. Access changes take effect when the extension next verifies the license.
 

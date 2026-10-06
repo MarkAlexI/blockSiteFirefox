@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, writeFile, rm, readdir, open } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
-import { createServer } from 'node:http';
 import { createServer as createTcpServer } from 'node:net';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +10,7 @@ import firefox from 'selenium-webdriver/firefox.js';
 import { zipSync, unzipSync } from 'fflate';
 import { expectedVersion } from './target-version.mjs';
 import { selectLiveWindow } from './window-selection.mjs';
+import { createFixtureProxy } from './fixture-proxy.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const runtimeRoots = ['_locales', 'backup', 'blocked.html', 'diagnostics', 'dom', 'feedback', 'images',
@@ -208,12 +208,12 @@ export class ExtensionHarness {
     await writeFile(this.xpi, process.env.BD_SIGNED_XPI ? await readFile(process.env.BD_SIGNED_XPI) : zipSync(files));
     this.result.target = { version: this.manifest.version, id: this.id,
       installation: this.config.installation, signedInput: Boolean(process.env.BD_SIGNED_XPI) };
-    // Deny proxy covers startup traffic before BiDi interception is installed,
-    // including persisted credentials on restart. It never forwards a request.
-    this.proxy = createServer((request, response) => { response.writeHead(502); response.end('BD E2E offline'); });
-    this.proxy.on('connect', (_request, socket) => socket.end('HTTP/1.1 502 Bad Gateway\r\n\r\n'));
-    this.proxy.on('clientError', (_error, socket) => socket.destroy());
-    await new Promise((resolve, reject) => { this.proxy.once('error', reject); this.proxy.listen(0, '127.0.0.1', resolve); });
+    this.proxy = await createFixtureProxy({ root: this.root, html: HTML, verifyUrl: VERIFY_URL,
+      expectedPayload: { key: TEST_KEY, version: this.manifest.version },
+      verificationHandler: () => this.verificationHandler(),
+      onVerification: call => this.verificationCalls.push(call),
+      onEvent: event => this.events.push(event), onError: error => this.networkErrors.push(error.stack),
+      onTlsError: error => { this.result.fixtureTlsErrors ??= []; this.result.fixtureTlsErrors.push(error); } });
   }
 
   async command(method, params = {}) {
@@ -229,9 +229,10 @@ export class ExtensionHarness {
     if (this.config.headless) options.addArguments('-headless');
     if (process.env.BD_FIREFOX_BINARY) options.setBinary(process.env.BD_FIREFOX_BINARY);
     options.set('unhandledPromptBehavior', 'accept');
+    options.setAcceptInsecureCerts(false);
     options.setPreference('intl.accept_languages', 'en-US,en');
     options.setPreference('extensions.webextensions.uuids', JSON.stringify({ [this.id]: this.uuid }));
-    const port = this.proxy.address().port;
+    const port = this.proxy.port;
     options.setPreference('network.proxy.type', 1);
     options.setPreference('network.proxy.http', '127.0.0.1').setPreference('network.proxy.http_port', port);
     options.setPreference('network.proxy.ssl', '127.0.0.1').setPreference('network.proxy.ssl_port', port);
@@ -257,11 +258,24 @@ export class ExtensionHarness {
       if (!this.sessionReady) this.driver = null;
       throw error;
     } finally { await log.close(); }
+    this.phase = 'fixture-certificate';
+    assert.equal((await this.driver.getCapabilities()).get('acceptInsecureCerts'), false);
+    await this.driver.setContext(firefox.Context.CHROME);
+    try {
+      const trusted = await this.driver.executeScript(base64 => {
+        const interfaces = Components.interfaces;
+        const db = Components.classes['@mozilla.org/security/x509certdb;1']
+          .getService(interfaces.nsIX509CertDB);
+        const cert = db.addCertFromBase64(base64, 'C,,');
+        return db.isCertTrusted(cert, interfaces.nsIX509Cert.CA_CERT,
+          interfaces.nsIX509CertDB.TRUSTED_SSL);
+      }, this.proxy.ca.replace(/-----[^-]+-----|\s/g, ''));
+      assert.equal(trusted, true, 'loopback fixture CA trusted in the disposable profile');
+      this.result.networkFixture = { transport: 'loopback HTTP + HTTPS CONNECT',
+        certificateValidation: true, profileCaTrusted: trusted };
+    } finally { await this.driver.setContext(firefox.Context.CONTENT); }
     this.phase = 'network-setup';
     this.bidi = await this.driver.getBidi();
-    this.bidi.on('network.beforeRequestSent', event => {
-      if (event.isBlocked) this.route(event).catch(error => this.networkErrors.push(error.stack));
-    });
     this.bidi.on('log.entryAdded', event => {
       if (event.type === 'javascript' && event.level === 'error') this.pageErrors.push(event.text);
     });
@@ -274,10 +288,7 @@ export class ExtensionHarness {
         handler: event.handler, message: event.message });
     });
     await this.command('session.subscribe', { events: [
-      'network.beforeRequestSent', 'log.entryAdded', 'browsingContext.userPromptOpened'
-    ] });
-    await this.command('network.addIntercept', { phases: ['beforeRequestSent'], urlPatterns: [
-      { type: 'pattern', protocol: 'http' }, { type: 'pattern', protocol: 'https' }
+      'log.entryAdded', 'browsingContext.userPromptOpened'
     ] });
     this.phase = 'addon-install';
     if (!restarted || this.config.installation === 'temporary') {
@@ -299,33 +310,6 @@ export class ExtensionHarness {
     }
     await this.driver.switchTo().window(this.probe.context);
     this.phase = 'seed';
-  }
-
-  async route(event) {
-    const request = event.request;
-    const url = new URL(request.url);
-    let status = 200, contentType = 'text/html', body = HTML;
-    if (url.href === VERIFY_URL) {
-      if (request.method === 'OPTIONS') { status = 204; body = ''; }
-      else {
-        assert.equal(request.method, 'POST', 'license mock only accepts POST');
-        // All test profiles are isolated and contain only TEST_KEY. BiDi's
-        // RequestData does not expose the POST body; do not claim to inspect it.
-        this.verificationCalls.push({ method: request.method, context: event.context,
-          initiator: event.initiator?.type ?? null });
-        const response = await this.verificationHandler();
-        status = response.status; body = JSON.stringify(response.body); contentType = 'application/json';
-      }
-    } else if (!(url.protocol === 'http:' && url.hostname.endsWith('.bd-e2e.test'))) {
-      await this.command('network.failRequest', { request: request.request });
-      return;
-    }
-    this.events.push({ url: url.href, method: request.method, status, at: Date.now() });
-    await this.command('network.provideResponse', { request: request.request, statusCode: status,
-      headers: Object.entries({ 'content-type': contentType, 'access-control-allow-origin': '*',
-        'access-control-allow-methods': 'POST, OPTIONS', 'access-control-allow-headers': 'Content-Type' })
-        .map(([name, value]) => ({ name, value: { type: 'string', value } })),
-      body: { type: 'base64', value: Buffer.from(body).toString('base64') } });
   }
 
   async newPage(url = 'about:blank') {
@@ -466,12 +450,13 @@ export class ExtensionHarness {
     try {
       try { await this.capture('final'); } catch (error) { this.result.diagnosticError = error.stack; }
       await writeFile(path.join(this.config.output, 'errors.json'), JSON.stringify({
-        pageErrors: this.pageErrors, networkErrors: this.networkErrors
+        pageErrors: this.pageErrors, networkErrors: this.networkErrors,
+        verificationCalls: this.verificationCalls
       }, null, 2));
     } finally {
       try { if (this.driver) await this.driver.quit(); else if (this.service) await this.service.kill(); }
       finally {
-        if (this.proxy) { this.proxy.closeAllConnections(); await new Promise(resolve => this.proxy.close(resolve)); }
+        if (this.proxy) await this.proxy.close();
         if (this.root) await rm(this.root, { recursive: true, force: true });
       }
     }

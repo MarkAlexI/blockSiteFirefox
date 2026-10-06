@@ -22,6 +22,11 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
+      - name: Install HTTP/TLS fixture test dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssl
+
       - name: Run tests and validation
         run: npm run check
 

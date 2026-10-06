@@ -16,7 +16,8 @@ export const recoveryScenarios = ['manual', 'native alarm'].map((trigger, index)
     const a = await e.openOptions(); const b = await e.openOptions(); await e.reconcile(a);
     assert.deepEqual(ids(await e.state()), [901, 902]); const before = await e.state();
     e.verificationHandler = async () => ({ status: 200, body: { isPro: false, licenseValid: true } });
-    assert.equal((await send(a, 'force_sync')).success, true);
+    const suspensionReply = await send(a, 'force_sync');
+    assert.equal(suspensionReply.success, true, JSON.stringify(suspensionReply));
     const suspended = await e.state();
     assert.equal(suspended.credentials.isPro, false); assert.equal(suspended.credentials.licenseKey, TEST_KEY);
     assert.equal(suspended.activeRuleListId, 'general'); assert.deepEqual(ids(suspended), [901]);
@@ -61,7 +62,7 @@ recoveryScenarios.push({
     await equalEventually(async () => ids(await e.state()), [901], 'Free scheduled DNR', 75_000);
     const before = await e.state();
     const response = await send(a, 'force_sync');
-    assert.equal(response.success, true); assert.equal(response.isPro, true); assert.equal(response.syncPending, true);
+    assert.equal(response.success, true, JSON.stringify(response)); assert.equal(response.isPro, true); assert.equal(response.syncPending, true);
     const pending = await e.state();
     assert.equal(pending.credentials.isPro, true); assert.equal(pending.credentials.licenseKey, TEST_KEY);
     assert.deepEqual(pending.rules, before.rules); assert.deepEqual(pending.ruleLists, before.ruleLists);

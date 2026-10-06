@@ -29,7 +29,7 @@ jobs:
       - name: Install Firefox Developer Edition and geckodriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1 xvfb xauth
+          sudo apt-get install -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1 xvfb xauth openssl
           mkdir -p "$RUNNER_TEMP/bd-firefox"
           cd "$RUNNER_TEMP/bd-firefox"
           curl --fail --location --retry 3 https://archive.mozilla.org/pub/devedition/releases/158.0b2/linux-x86_64/en-US/firefox-158.0b2.tar.xz -o firefox.tar.xz
