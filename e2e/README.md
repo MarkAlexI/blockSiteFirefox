@@ -21,7 +21,7 @@ npm ci
 export BD_FIREFOX_BINARY=/absolute/path/to/firefox
 export BD_GECKODRIVER=/absolute/path/to/geckodriver
 npm run test:list
-npm test
+npm run test:headed
 ```
 
 Приклад PowerShell для Developer Edition:
@@ -31,7 +31,7 @@ cd e2e
 npm ci
 $env:BD_FIREFOX_BINARY = 'C:\Program Files\Firefox Developer Edition\firefox.exe'
 $env:BD_GECKODRIVER = 'C:\Tools\geckodriver.exe'
-npm test
+npm run test:headed
 ```
 
 Указуйте свої фактичні шляхи. Runner створює новий профіль для кожного
@@ -65,7 +65,10 @@ npm test -- --max-failures=1
 
 `--filter` приймає ID або частину назви. Відфільтрований запуск має
 `completeSuite=false`; його результат не підтверджує весь набір.
-У середовищах без GUI використовуйте headless або власний Xvfb display.
+Повний набір із нативним consent prompt запускайте у headed Firefox.
+CI використовує `xvfb-run -a npm run test:headed`; на Linux без GUI потрібні
+`xvfb` та `xauth`. Headless можна використовувати для окремих сценаріїв,
+але він не підтверджує взаємодію з видимим системним permission panel.
 
 ## Відповідність Chromium
 
@@ -97,6 +100,12 @@ BiDi reads та runtime calls адресуються конкретній сто
 Для foreground та UI-кліків використовується classic WebDriver
 `switchTo().window()`: Firefox BiDi не підтримує activation для privileged
 `moz-extension:` сторінок.
+Після активації Options runner чекає 500 мс без DOM-змін у таблиці та
+списку профілів: `visibilitychange` запускає асинхронний refresh. Observer
+лише читає зміни й не підміняє production callbacks. Повторне натискання
+дозволене тільки після `StaleElementReferenceError`, коли WebDriver відхилив
+дію до її виконання; максимум три спроби, кожна відображена у `uiRetries`.
+Успішні кліки та сценарії не повторюються.
 
 ## Межі перевірки
 
@@ -104,6 +113,8 @@ BiDi reads та runtime calls адресуються конкретній сто
 `browser.storage`. Нативні runtime, storage, DNR, tabs, scripting, alarms, permission API та
 реальний годинник не підмінюються. Для кнопок системного consent prompt runner
 використовує Firefox chrome context через geckodriver `--allow-system-access`.
+Натискання адресовано справжньому HTML `buttonEl` усередині `moz-button`,
+а не оболонці custom element; перед кліком перевіряються visibility та enabled.
 Це привілейований доступ лише до нового тестового профілю на loopback;
 особистий браузер не підключається. Browser sandbox залишається увімкненим.
 09/13/14–16 приймають фактичний prompt; 17 перевіряє відмову та наступну згоду.

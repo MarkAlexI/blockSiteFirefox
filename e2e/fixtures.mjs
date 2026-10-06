@@ -6,7 +6,7 @@ import { createServer } from 'node:http';
 import { createServer as createTcpServer } from 'node:net';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { By, Select } from 'selenium-webdriver';
+import { By, Select, error as webdriverError } from 'selenium-webdriver';
 import firefox from 'selenium-webdriver/firefox.js';
 import { zipSync, unzipSync } from 'fflate';
 import { expectedVersion } from './target-version.mjs';
@@ -72,16 +72,49 @@ class Page {
   async front() {
     // Firefox BiDi refuses activation of moz-extension: privileged contexts.
     // Classic WebDriver selects the real tab, including extension pages.
-    await this.harness.driver.switchTo().window(this.context);
+    if (await this.harness.driver.getWindowHandle() !== this.context) {
+      await this.harness.driver.switchTo().window(this.context);
+      // visibilitychange starts an asynchronous Options refresh. Do not click
+      // an old row while that refresh is replacing the table.
+      await this.settleOptions();
+    }
+  }
+  async settleOptions() {
+    await poll(() => this.evaluate(() => {
+      const roots = [...document.querySelectorAll('#rules-container, #rule-lists-container')];
+      if (!roots.length) return true;
+      if (!window.__bdE2eViewObserver) {
+        const view = { lastMutation: performance.now() };
+        view.observer = new MutationObserver(() => { view.lastMutation = performance.now(); });
+        for (const root of roots) view.observer.observe(root, {
+          childList: true, subtree: true, attributes: true, characterData: true
+        });
+        window.__bdE2eViewObserver = view;
+      }
+      return performance.now() - window.__bdE2eViewObserver.lastMutation >= 500;
+    }), Boolean, 'Options table settled');
   }
   async elements(css) {
-    await this.harness.driver.switchTo().window(this.context);
+    await this.front();
     return this.harness.driver.findElements(By.css(css));
   }
   async element(css) {
     return poll(async () => (await this.elements(css))[0], Boolean, `element ${css}`);
   }
-  async click(css) { await this.front(); await (await this.element(css)).click(); }
+  async click(css) {
+    await this.front();
+    for (let attempt = 1; ; attempt++) {
+      try { await (await this.element(css)).click(); return; }
+      catch (error) {
+        // A stale-element rejection means no click was dispatched. Reacquire
+        // only that case; never repeat a successful action or a failed test.
+        if (!(error instanceof webdriverError.StaleElementReferenceError) || attempt >= 3) throw error;
+        this.harness.result.uiRetries ??= [];
+        this.harness.result.uiRetries.push({ selector: css, attempt, reason: 'stale_element' });
+        await this.settleOptions();
+      }
+    }
+  }
   async fill(css, value) {
     const element = await this.element(css);
     await element.clear();
@@ -342,11 +375,16 @@ export class ExtensionHarness {
       const filename = `native-consent-${this.result.consentPrompts.length + 1}.png`;
       await writeFile(path.join(this.config.output, filename), Buffer.from(await this.driver.takeScreenshot(), 'base64'));
       this.result.consentPrompts.push({ granted, text: prompt, screenshot: filename });
-      const button = await this.driver.executeScript(accept => {
+      const button = await poll(() => this.driver.executeScript(accept => {
         const notification = document.getElementById('addon-webext-permissions-notification');
-        return accept ? notification.button : notification.secondaryButton;
-      }, granted);
-      assert.ok(button, 'native consent button exists');
+        const host = accept ? notification.button : notification.secondaryButton;
+        // Target the rendered HTML button in moz-button's shadow root rather
+        // than asking WebDriver to scroll/click the custom-element host.
+        const nativeButton = host?.buttonEl;
+        const rect = nativeButton?.getBoundingClientRect();
+        return rect?.width && rect?.height ? nativeButton : null;
+      }, granted), Boolean, 'rendered native consent button');
+      await poll(() => button.isDisplayed(), Boolean, 'native consent button visible');
       await poll(() => button.isEnabled(), Boolean, 'native consent button enabled');
       await button.click();
     } finally { await this.driver.setContext(firefox.Context.CONTENT); }
@@ -370,12 +408,14 @@ export class ExtensionHarness {
     const paid = credentials.isPro || Date.parse(credentials.installationDate) < Date.parse('2026-01-01T00:00:00Z');
     await page.enabled('#add-whitelist-rule', paid);
     if (paid) await equalEventually(() => page.count('#rule-lists-container .rule-list-card.active-profile'), 1, 'active profile');
+    await page.settleOptions();
     this.options.push(page);
     return page;
   }
   async reconcile(page) {
     const response = await send(page, 'rules:activateList', { listId: (await this.state()).activeRuleListId });
     assert.equal(response.success, true, JSON.stringify(response));
+    await page.settleOptions();
   }
   holdVerification() {
     const held = new Promise(resolve => { this.releaseVerification = resolve; });

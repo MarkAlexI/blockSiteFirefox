@@ -29,7 +29,7 @@ jobs:
       - name: Install Firefox Developer Edition and geckodriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1
+          sudo apt-get install -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1 xvfb xauth
           mkdir -p "$RUNNER_TEMP/bd-firefox"
           cd "$RUNNER_TEMP/bd-firefox"
           curl --fail --location --retry 3 https://archive.mozilla.org/pub/devedition/releases/158.0b2/linux-x86_64/en-US/firefox-158.0b2.tar.xz -o firefox.tar.xz
@@ -59,7 +59,7 @@ jobs:
           PY
       - name: Run Firefox Desktop scenarios
         working-directory: e2e
-        run: npm test
+        run: xvfb-run -a npm run test:headed
       - name: Upload reports, screenshots and browser logs
         if: always()
         uses: actions/upload-artifact@v4
