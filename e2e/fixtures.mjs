@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { By, Select } from 'selenium-webdriver';
 import firefox from 'selenium-webdriver/firefox.js';
 import { zipSync, unzipSync } from 'fflate';
+import { expectedVersion } from './target-version.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const runtimeRoots = ['_locales', 'backup', 'blocked.html', 'diagnostics', 'dom', 'feedback', 'images',
@@ -76,7 +77,7 @@ class Page {
   async element(css) {
     return poll(async () => (await this.elements(css))[0], Boolean, `element ${css}`);
   }
-  async click(css) { await (await this.element(css)).click(); }
+  async click(css) { await this.front(); await (await this.element(css)).click(); }
   async fill(css, value) {
     const element = await this.element(css);
     await element.clear();
@@ -159,7 +160,7 @@ export class ExtensionHarness {
     const files = process.env.BD_SIGNED_XPI ? unzipSync(new Uint8Array(await readFile(process.env.BD_SIGNED_XPI))) :
       await collectRuntime(source);
     this.manifest = JSON.parse(Buffer.from(files['manifest.json']).toString());
-    assert.equal(this.manifest.version, process.env.BD_EXPECTED_VERSION || '5.3.17', 'target version');
+    assert.equal(this.manifest.version, expectedVersion, 'target version');
     assert.deepEqual(this.manifest.background, {
       scripts: ['scripts/service_worker.js'], persistent: false, type: 'module'
     }, 'Firefox event page manifest');
@@ -205,7 +206,7 @@ export class ExtensionHarness {
     }
     const service = new firefox.ServiceBuilder(process.env.BD_GECKODRIVER || undefined)
       .setHostname('127.0.0.1')
-      .addArguments('--host', '127.0.0.1', '--marionette-port', String(marionettePort));
+      .addArguments('--host', '127.0.0.1', '--marionette-port', String(marionettePort), '--allow-system-access');
     const log = await open(path.join(this.config.output, restarted ? 'geckodriver-restart.log' : 'geckodriver.log'), 'w');
     service.setStdio(['ignore', log.fd, log.fd]);
     this.service = service.build();
@@ -293,28 +294,69 @@ export class ExtensionHarness {
     return page;
   }
 
-  async seed({ pro = true, legacy = false, rules = [], usage = {}, active = 'general', pending = [], rawUsage = null } = {}) {
+  async seed({ pro = true, legacy = false, rules = [], usage = {}, active = 'general', pending = [], rawUsage = null, retainedKey = false, focus = null } = {}) {
     await this.probe.evaluate(async input => {
       const now = new Date();
       const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-      await browser.storage.sync.set({ credentials: { isPro: input.pro, licenseKey: input.pro ? input.key : null,
+      await browser.storage.sync.set({ credentials: { isPro: input.pro, licenseKey: (input.pro || input.retainedKey) ? input.key : null,
         expiryDate: null, installationDate: input.legacy ? '2024-01-01T00:00:00.000Z' : '2026-08-01T00:00:00.000Z',
         isLegacyUser: input.legacy }, settings: { mode: 'normal', enablePassword: false, debugMode: false, focusSessionSound: false } });
       await browser.storage.local.set({ is_migrated_to_local: true, rules: input.rules, ruleLists: input.lists,
         activeRuleListId: input.active, pendingDailyUsageRemaps: input.pending,
         dailyRuleUsage: input.rawUsage ? { ...input.rawUsage, date } : { version: 2, date, usageSeconds: input.usage, lastSample: null },
-        focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' },
+        focusSession: input.focus || { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' },
         telemetryConsent: { version: 1, enabled: false, decidedAt: now.getTime() }, lastCheck: now.getTime() });
-    }, { pro, legacy, rules, usage, active, pending, rawUsage, key: TEST_KEY, lists: LISTS });
+    }, { pro, legacy, rules, usage, active, pending, rawUsage, retainedKey, focus, key: TEST_KEY, lists: LISTS });
   }
 
   async state() {
     return this.probe.evaluate(async () => ({
-      ...await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId', 'dailyRuleUsage', 'pendingDailyUsageRemaps']),
-      ...await browser.storage.sync.get('credentials'), dnr: await browser.declarativeNetRequest.getDynamicRules()
+      ...await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId', 'dailyRuleUsage', 'pendingDailyUsageRemaps', 'focusSession']),
+      ...await browser.storage.sync.get(['credentials', 'settings']), dnr: await browser.declarativeNetRequest.getDynamicRules()
     }));
   }
   async writeLocal(values) { await this.probe.evaluate(values => browser.storage.local.set(values), values); }
+  async licenseConsent() {
+    return this.probe.evaluate(async () => {
+      const permissions = await browser.permissions.getAll();
+      if (!Array.isArray(permissions.data_collection)) return null;
+      return permissions.data_collection.includes('authenticationInfo');
+    });
+  }
+  async respondToLicenseConsent(granted) {
+    // Native Firefox chrome UI, not a replacement permissions API or pre-grant.
+    await this.driver.setContext(firefox.Context.CHROME);
+    try {
+      await poll(() => this.driver.executeScript(() => {
+        const panel = document.getElementById('notification-popup');
+        const notification = document.getElementById('addon-webext-permissions-notification');
+        return panel?.state === 'open' && Boolean(notification?.getBoundingClientRect().height);
+      }), Boolean, 'native optional data-consent prompt');
+      const prompt = await this.driver.executeScript(() =>
+        document.getElementById('addon-webext-permissions-notification').textContent);
+      this.result.consentPrompts ??= [];
+      const filename = `native-consent-${this.result.consentPrompts.length + 1}.png`;
+      await writeFile(path.join(this.config.output, filename), Buffer.from(await this.driver.takeScreenshot(), 'base64'));
+      this.result.consentPrompts.push({ granted, text: prompt, screenshot: filename });
+      const button = await this.driver.executeScript(accept => {
+        const notification = document.getElementById('addon-webext-permissions-notification');
+        return accept ? notification.button : notification.secondaryButton;
+      }, granted);
+      assert.ok(button, 'native consent button exists');
+      await poll(() => button.isEnabled(), Boolean, 'native consent button enabled');
+      await button.click();
+    } finally { await this.driver.setContext(firefox.Context.CONTENT); }
+    await equalEventually(() => this.licenseConsent(), granted, 'native authenticationInfo permission');
+  }
+  async ensureLicenseConsent(page) {
+    const consent = await this.licenseConsent();
+    if (consent === null) throw new EnvironmentError('This suite requires Firefox native data_collection permissions.');
+    if (consent) return;
+    await page.click('#proBtn');
+    await page.click('#force-sync-btn');
+    await this.respondToLicenseConsent(true);
+    await page.enabled('#force-sync-btn');
+  }
   async openOptions() {
     const page = await this.newPage(`${this.baseUrl}/options/options.html`);
     await page.front();

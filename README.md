@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v5.3.4-brightgreen?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kfhgdgokgjmdboidlhphajinmgpcmmec?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![Firefox Source](https://img.shields.io/badge/Firefox%20Source-v5.3.17-orange?logo=firefox-browser)](https://github.com/MarkAlexI/blockSiteFirefox)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
@@ -34,9 +34,17 @@ When payment suspends Pro access, stored rules and Rule List profiles are preser
 
 ## Installation
 
-The `main` branch of this repository contains a ready-to-use package for installation in Google Chrome (Developer Mode) — simply click the "<> Code" button then click "Download ZIP" to download the package. No build or additional steps are required.
+This repository contains the Firefox Desktop and Android source. To load it temporarily, open `about:debugging#/runtime/this-firefox`, choose **Load Temporary Add-on**, and select `manifest.json`. For permanent installation, use the signed AMO release.
 
-Alternatively, you can use the release packages provided.
+### AMO upload package
+
+Run `npm run check`, commit runtime changes, then run `npm run package:amo`. Node.js 20+ and Git are sufficient for the packaging command; `web-ext` 10 lint requires Node.js 22+.
+
+The command creates `dist/BlockDistraction-5.3.17-amo.zip`, its SHA-256 checksum and build metadata (commit, manifest version, extension ID, runtime Git blobs). It includes only tracked runtime files from HEAD and rejects uncommitted runtime changes. Tests, E2E fixtures, documentation and development dependencies stay outside the upload package.
+
+GitHub **Actions → Extension CI → a successful run → Artifacts → blockdistraction-amo-<SHA>** provides the same files. Download the artifact, extract its outer ZIP, and upload the inner `BlockDistraction-5.3.17-amo.zip` to AMO. The ZIP is an unsigned submission package; Mozilla signs the accepted release. This workflow does not submit or publish it automatically and requires no AMO credentials.
+
+The CWS badge reads the published Chrome store version; the Firefox Source badge identifies this checkout. Store publication can lag source changes.
 
 For a more convenient installation, use the official stores:
 - [Chrome Web Store](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)

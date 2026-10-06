@@ -1,7 +1,7 @@
-# Firefox Desktop E2E — BlockDistraction 5.3.6
+# Firefox Desktop E2E — BlockDistraction **5.3.17**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
-13 сценаріям Chromium E2E, але використовує Firefox event page, `browser.*`,
+13 початковим сценаріям Chromium E2E, але використовує Firefox event page, `browser.*`,
 `moz-extension://` і WebDriver BiDi. Playwright Firefox не використовується
 для встановлення WebExtensions.
 
@@ -46,7 +46,7 @@ npm test
 ізоляція sandbox не вимикаються.
 
 Звичайний Firefox Release може виконати повний набір із підписаним AMO XPI
-саме версії 5.3.6: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
+саме версії 5.3.17: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
 Цей файл є фактичним target для всіх сценаріїв; `BD_EXTENSION_PATH` тоді
 не використовується. Runner перевіряє version, ID та event-page manifest,
 але підписаний XPI може мати інші runtime-байти. Саме його потрібно
@@ -84,6 +84,10 @@ npm test -- --max-failures=1
 | 11 | Paid commit перед logout | Нативний `storage.onChanged`, порядок rules→Free без штучного manager hook |
 | 12 | Trusted Legacy після logout | Збережена installationDate, paid controls і Daily Limit залишаються доступними |
 | 13 | Тимчасовий verification HTTP 500 | Pro/key збережено, наступний paid intent працює |
+| 14 | Payment suspension → manual recovery | Та сама збережена ліцензія; General лишається активним, cross-list Focus DNR відновлюється до відповіді, два Options стають Pro |
+| 15 | Payment suspension → native alarm | Справжній `check_pro_expiry` alarm і HTTP mock; key, rules, profiles, settings збережено, інший профіль знову блокується |
+| 16 | Deferred DNR sync → native retry | Oversized fixture перевищує фактичний browser capacity; `syncPending=true` і Pro/key збережено; після виправлення fixture нативний `update_scheduled_rules` відновлює DNR |
+| 17 | Native consent deny → grant | WebDriver натискає справжні кнопки Firefox prompt; denial не надсилає key і зберігає Pro, grant відкриває verification без telemetry consent |
 
 01/03 використовують одночасні runtime messages з двох справжніх Options,
 а не одночасні фізичні натискання. UI add/edit/delete/import та Pro actions
@@ -94,8 +98,14 @@ BiDi reads та runtime calls адресуються конкретній сто
 ## Межі перевірки
 
 Початкові rules/credentials/usage/journal задаються через справжній
-`browser.storage`. Нативні runtime, storage, DNR, tabs, scripting, alarms та
-реальний годинник не підмінюються. Синтетичні `.bd-e2e.test` HTTP-сторінки
+`browser.storage`. Нативні runtime, storage, DNR, tabs, scripting, alarms, permission API та
+реальний годинник не підмінюються. Для кнопок системного consent prompt runner
+використовує Firefox chrome context через geckodriver `--allow-system-access`.
+Це привілейований доступ лише до нового тестового профілю на loopback;
+особистий браузер не підключається. Browser sandbox залишається увімкненим.
+09/13/14–16 приймають фактичний prompt; 17 перевіряє відмову та наступну згоду.
+Старі Firefox без native data-collection consent не є цільовим середовищем
+цього desktop набору; legacy fallback лишається в Node regression suite. Синтетичні `.bd-e2e.test` HTTP-сторінки
 й verification endpoint обслуговуються BiDi network interception. Для
 activation потрібне спостереження фактичного background HTTP request;
 невидимий або непідтримуваний interception не дає green result.
@@ -115,6 +125,11 @@ body, тому runner не заявляє перевірку вмісту цьо
 Firefox Android потребує окремого ручного проходу. Desktop Firefox E2E
 не підтверджує Android, Chromium, Edge або Kiwi.
 
+Deferred-sync сценарій перевіряє реальний browser capacity через oversized
+fixture, а не всі можливі API rejection чи OS failure. Ані DNR methods, ані
+alarm delivery не замінено doubles. Наступний retry — фактичний native alarm,
+запланований у тимчасовому профілі, без виклику production listener вручну.
+
 ## Результати й CI
 
 `results.json` містить `passed/failed/blocked/not-run`, `bodyStarted`, phase,
@@ -125,16 +140,23 @@ JavaScript/interception errors. Після restart є артефакти до й
 
 `BD_E2E_RESULTS` і `BD_E2E_JSON` задають інші місця результатів.
 `BD_EXTENSION_PATH` вибирає unpacked AMO runtime target;
-`BD_EXPECTED_VERSION` за замовчуванням `5.3.6`.
+`BD_EXPECTED_VERSION` за замовчуванням береться з `manifest.json` поточного checkout.
+Runner і перевірка пакета використовують одне значення з `target-version.mjs`.
+Для підписаного XPI іншої версії override задають явно; це не підтверджує
+сумісність сценаріїв із тією версією.
 
 Помилка setup зупиняє решту набору як `not-run`. `blocked` чи `failed`
-повертає exit code 1. Повне green можливе лише коли всі 13 scenario bodies
+повертає exit code 1. Повне green можливе лише коли всі 17 scenario bodies
 виконані та пройшли. Запуск із `--filter` повертає результат тільки вибраних
-сценаріїв. GitHub workflow `e2e-firefox.yml` має тільки `workflow_dispatch`;
-він не запускається від цього локального патча і нічого не публікує.
+сценаріїв. GitHub workflow `e2e-firefox.yml` запускається для pull request, push у `main`
+та вручну через **Actions → Firefox Desktop extension E2E → Run workflow**.
+Він збирає й перевіряє AMO runtime через `npm run package:amo`, зберігає
+діагностику на 14 днів і нічого не публікує. Окремий **Extension CI** зберігає
+AMO upload ZIP, checksum і build metadata на 30 днів.
 
 Офіційні джерела:
 
+- https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html
 - https://www.selenium.dev/documentation/webdriver/bidi/w3c/network/
 - https://www.selenium.dev/selenium/docs/api/javascript/firefox.js.html
 - https://www.w3.org/TR/webdriver-bidi/

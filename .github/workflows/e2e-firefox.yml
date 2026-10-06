@@ -2,6 +2,13 @@ name: Firefox Desktop extension E2E
 
 on:
   workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: firefox-e2e-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -37,13 +44,14 @@ jobs:
           echo "BD_GECKODRIVER=$RUNNER_TEMP/bd-firefox/geckodriver" >> "$GITHUB_ENV"
       - name: Build and unpack the AMO runtime package
         run: |
-          git archive --format=zip -o "$RUNNER_TEMP/bd-amo.zip" HEAD _locales backup blocked.html diagnostics dom feedback images index.html manifest.json onboarding options popup.js pro redirect.html rules schedules scripts styles telemetry update utils
+          npm run package:amo
           python3 - <<'PY'
           from pathlib import Path
           import os, zipfile
           root = Path(os.environ['RUNNER_TEMP'])
           target = root / 'bd-e2e-extension'
-          with zipfile.ZipFile(root / 'bd-amo.zip') as package:
+          archive, = Path('dist').glob('*-amo.zip')
+          with zipfile.ZipFile(archive) as package:
               assert package.testzip() is None
               package.extractall(target)
           with Path(os.environ['GITHUB_ENV']).open('a') as env:

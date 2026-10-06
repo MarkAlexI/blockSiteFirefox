@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { recoveryScenarios } from './recovery.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
 
 export const scenarios = [];
 const test = (id, title, run, extra = {}) => scenarios.push({ id, title, run, ...extra });
+// Appended after the original thirteen scenarios below.
 const rows = '#rules-container tr[data-rule-id]';
 const ids = state => state.dnr.map(rule => rule.id).sort((a, b) => a - b);
 const waitRules = (e, length) => equalEventually(async () => (await e.state()).rules.length, length, 'rule count');
@@ -152,6 +154,7 @@ test('09', 'UI activation waits for verification while Free actions remain avail
   await e.seed({ pro: false }); const a = await e.openOptions(); const b = await e.openOptions();
   const calls = e.verificationCalls.length; e.holdVerification();
   await a.click('#proBtn'); await a.fill('#license-key-input', TEST_KEY); await a.click('#license-submit-btn');
+  await e.respondToLicenseConsent(true);
   try {
     await equalEventually(() => e.verificationCalls.length, calls + 1, 'native background verification observed', 5000);
     assert.equal((await send(b, 'rules:add', basicPayload('free.bd-e2e.test'))).success, true);
@@ -220,6 +223,7 @@ test('13', 'a temporary verification server error preserves Pro and subsequent p
   const a = await e.openOptions(); const b = await e.openOptions(); const calls = e.verificationCalls.length;
   e.verificationHandler = async () => ({ status: 500, body: { error: 'E2E temporary failure' } });
   await a.click('#proBtn'); await a.click('#force-sync-btn');
+  await e.respondToLicenseConsent(true);
   await poll(() => e.verificationCalls.length, count => count > calls, 'mock 500 observed');
   await a.enabled('#force-sync-btn');
   const state = await e.state(); assert.equal(state.credentials.isPro, true); assert.equal(state.credentials.licenseKey, TEST_KEY);
@@ -227,3 +231,5 @@ test('13', 'a temporary verification server error preserves Pro and subsequent p
   assert.equal((await send(b, 'rules:add', paidPayload('retained-pro.bd-e2e.test'))).success, true);
   await waitRules(e, 1); assert.deepEqual((await e.state()).dnr, []);
 });
+
+scenarios.push(...recoveryScenarios);

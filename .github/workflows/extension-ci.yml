@@ -5,6 +5,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -16,11 +19,36 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
           package-manager-cache: false
 
       - name: Run tests and validation
         run: npm run check
 
-      - name: Firefox lint
-        run: npx --yes web-ext@10.6.0 lint
+      - name: Build AMO upload package
+        run: npm run package:amo
+
+      - name: Unpack AMO package for lint
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, zipfile
+          archive, = Path('dist').glob('*-amo.zip')
+          with zipfile.ZipFile(archive) as package:
+              assert package.testzip() is None
+              package.extractall(Path(os.environ['RUNNER_TEMP']) / 'bd-amo-lint')
+          PY
+
+      - name: Firefox lint on the upload package
+        run: npx --yes web-ext@10.6.0 lint --source-dir "$RUNNER_TEMP/bd-amo-lint"
+
+      - name: Upload AMO package, checksum and build metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: blockdistraction-amo-${{ github.sha }}
+          path: |
+            dist/*-amo.zip
+            dist/*-amo.zip.sha256
+            dist/*-amo.zip.build.json
+          if-no-files-found: error
+          retention-days: 30
