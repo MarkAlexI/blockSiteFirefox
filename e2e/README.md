@@ -100,12 +100,17 @@ BiDi reads та runtime calls адресуються конкретній сто
 Для foreground та UI-кліків використовується classic WebDriver
 `switchTo().window()`: Firefox BiDi не підтримує activation для privileged
 `moz-extension:` сторінок.
+Після закриття початкових вкладок runner вибирає живу probe-вкладку.
+Якщо Classic WebDriver має discarded current context, `NoSuchWindowError`
+дозволяє перейти до цільової вкладки; інші driver errors не перехоплюються.
 Після активації Options runner чекає 500 мс без DOM-змін у таблиці та
 списку профілів: `visibilitychange` запускає асинхронний refresh. Observer
 лише читає зміни й не підміняє production callbacks. Повторне натискання
 дозволене тільки після `StaleElementReferenceError`, коли WebDriver відхилив
 дію до її виконання; максимум три спроби, кожна відображена у `uiRetries`.
 Успішні кліки та сценарії не повторюються.
+Delete/import перевіряє завершення usage cleanup окремим bounded poll:
+спостереження rules/DNR storage ще не означає завершення post-commit задач.
 
 ## Межі перевірки
 

@@ -10,6 +10,7 @@ import { By, Select, error as webdriverError } from 'selenium-webdriver';
 import firefox from 'selenium-webdriver/firefox.js';
 import { zipSync, unzipSync } from 'fflate';
 import { expectedVersion } from './target-version.mjs';
+import { selectLiveWindow } from './window-selection.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const runtimeRoots = ['_locales', 'backup', 'blocked.html', 'diagnostics', 'dom', 'feedback', 'images',
@@ -72,8 +73,7 @@ class Page {
   async front() {
     // Firefox BiDi refuses activation of moz-extension: privileged contexts.
     // Classic WebDriver selects the real tab, including extension pages.
-    if (await this.harness.driver.getWindowHandle() !== this.context) {
-      await this.harness.driver.switchTo().window(this.context);
+    if (await selectLiveWindow(this.harness.driver, this.context, webdriverError.NoSuchWindowError)) {
       // visibilitychange starts an asynchronous Options refresh. Do not click
       // an old row while that refresh is replacing the table.
       await this.settleOptions();
@@ -294,6 +294,7 @@ export class ExtensionHarness {
       await this.driver.switchTo().window(handle);
       await this.driver.close();
     }
+    await this.driver.switchTo().window(this.probe.context);
     this.phase = 'seed';
   }
 

@@ -91,7 +91,7 @@ test('04', 'UI deletion and JSON import update both Options, usage and actual na
   const a = await e.openOptions(); const b = await e.openOptions();
   await e.reconcile(a); await a.click('tr[data-rule-id="21"] .delete-btn');
   await waitRules(e, 0); await waitDnr(e, []); await waitRows(b, 0);
-  assert.deepEqual((await e.state()).dailyRuleUsage.usageSeconds, {});
+  await equalEventually(async () => (await e.state()).dailyRuleUsage.usageSeconds, {}, 'deleted rule usage cleaned');
   const { assignment: always, ...target } = basicPayload('imported.bd-e2e.test');
   const backup = { rules: [{ id: 99, ...target, isWhitelist: false, assignments: [always] }] };
   const file = path.join(e.root, 'bd-e2e-backup.json');
@@ -101,7 +101,7 @@ test('04', 'UI deletion and JSON import update both Options, usage and actual na
   await waitRules(e, 1); await waitDnr(e, [1]);
   await poll(() => a.text(rows), text => text?.includes('imported.bd-e2e.test'), 'import in first Options');
   await poll(() => b.text(rows), text => text?.includes('imported.bd-e2e.test'), 'import in second Options');
-  assert.deepEqual((await e.state()).dailyRuleUsage.usageSeconds, {});
+  await equalEventually(async () => (await e.state()).dailyRuleUsage.usageSeconds, {}, 'import usage cleaned');
   await e.assertBlocked('http://imported.bd-e2e.test/page');
 });
 
