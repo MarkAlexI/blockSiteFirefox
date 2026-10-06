@@ -20,7 +20,7 @@ function fixture(state = schedule(), time = instant(9, 20), access = { isPro: tr
     startSession: async occurrence => { starts.push(occurrence); session = { focusActive: true }; return true; },
     runExclusive: operation => { const next = tail.then(operation); tail = next.catch(() => {}); return next; },
     now: () => clock };
-  return { controller: createFocusScheduleController(dependencies), data, alarmMap, starts, access, storage,
+  return { controller: createFocusScheduleController(dependencies), data, alarmMap, starts, access, storage, dependencies,
     setTime: value => { clock = value; }, setSession: value => { session = value; },
     restart: () => createFocusScheduleController(dependencies) };
 }
@@ -118,7 +118,7 @@ test('manual session wins and manual stop suppresses the active scheduled window
 test('skip persists across restart but does not turn off the recurring schedule', async () => {
   const f = fixture(schedule(), instant(8));
   const state = await f.controller.status();
-  await f.controller.skip(state.next.key);
+  await f.controller.skip(state.next.key, state.revision, state.next.startTime);
   f.setTime(instant(9,20));
   await f.restart().reconcile();
   assert.equal(f.starts.length, 0);
@@ -168,3 +168,141 @@ test('failure to persist the occurrence claim must not start any blocking', asyn
   await assert.rejects(f.controller.reconcile(), /storage failed/);
   assert.equal(f.starts.length, 0);
 });
+
+test('stale intent: skip cannot consume a session edited in another Options window', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  await f.controller.save({ ...shown.config, durationMinutes: 60 }, shown.revision);
+  const before = structuredClone(f.data);
+  await assert.rejects(f.controller.skip(shown.next.key, shown.revision, shown.next.startTime), { code: 'schedule_changed' });
+  assert.deepEqual(f.data, before);
+  const fresh = await f.controller.status();
+  await f.controller.skip(fresh.next.key, fresh.revision, fresh.next.startTime);
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, [fresh.next.key]);
+});
+
+test('stale intent: skip rejects the same local key after a timezone change', async () => {
+  const previous = process.env.TZ;
+  try {
+    process.env.TZ = 'America/New_York';
+    const f = fixture(schedule(), Date.parse('2026-09-28T00:00:00Z'));
+    const shown = await f.controller.status();
+    process.env.TZ = 'Europe/London';
+    const fresh = await f.controller.status();
+    assert.equal(fresh.next.key, shown.next.key);
+    assert.notEqual(fresh.next.startTime, shown.next.startTime);
+    const before = structuredClone(f.data);
+    await assert.rejects(f.controller.skip(shown.next.key, shown.revision, shown.next.startTime), { code: 'schedule_changed' });
+    assert.deepEqual(f.data, before);
+    await f.controller.skip(fresh.next.key, fresh.revision, fresh.next.startTime);
+  } finally { if (previous === undefined) delete process.env.TZ; else process.env.TZ = previous; }
+});
+
+test('stale intent: automatic start rechecks a clock rollback across an awaited access read', { timeout: 2000 }, async () => {
+  const f = fixture();
+  let entered, release;
+  const ready = new Promise(resolve => { entered = resolve; });
+  const gate = new Promise(resolve => { release = resolve; });
+  f.dependencies.getAccess = async () => { entered(); await gate; return f.access; };
+  const pending = f.restart().reconcile();
+  try { await ready; f.setTime(instant(8)); }
+  finally { release(); }
+  await pending;
+  assert.equal(f.starts.length, 0);
+  assert.deepEqual(f.data.focusSchedule.handledKeys, []);
+  assert.equal(f.alarmMap.get('start_scheduled_focus').when, instant(9));
+});
+
+test('stale intent: a queued skip checks the committed revision after another window saves', { timeout: 2000 }, async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  let entered, release;
+  const ready = new Promise(resolve => { entered = resolve; });
+  const gate = new Promise(resolve => { release = resolve; });
+  const write = f.storage.set;
+  f.storage.set = async value => { entered(); await gate; return write(value); };
+  const saved = f.controller.save({ ...shown.config, durationMinutes: 60 }, shown.revision);
+  let rejected;
+  try {
+    await ready;
+    rejected = assert.rejects(f.controller.skip(shown.next.key, shown.revision, shown.next.startTime), { code: 'schedule_changed' });
+  } finally { release(); }
+  await saved;
+  await rejected;
+  assert.equal(f.data.focusSchedule.durationMinutes, 60);
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, []);
+});
+
+test('stale intent: schedule A-to-B-to-A and worker restart do not revive an old Skip', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const changed = await f.controller.save({ ...shown.config, durationMinutes: 60 }, shown.revision);
+  await f.controller.save(shown.config, changed.revision);
+  await assert.rejects(f.restart().skip(shown.next.key, shown.revision, shown.next.startTime), { code: 'schedule_changed' });
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, []);
+});
+
+test('stale intent: a timezone change during access lookup rearms without claiming the old local start', { timeout: 2000 }, async () => {
+  const previous = process.env.TZ;
+  let release;
+  try {
+    process.env.TZ = 'Europe/London';
+    const f = fixture(schedule(), Date.parse('2026-09-28T08:20:00Z'));
+    let entered;
+    const ready = new Promise(resolve => { entered = resolve; });
+    const gate = new Promise(resolve => { release = resolve; });
+    f.dependencies.getAccess = async () => { entered(); await gate; return f.access; };
+    const pending = f.restart().reconcile();
+    try { await ready; process.env.TZ = 'America/New_York'; }
+    finally { release(); }
+    await pending;
+    assert.equal(f.starts.length, 0);
+    assert.deepEqual(f.data.focusSchedule.handledKeys, []);
+    assert.equal(f.alarmMap.get('start_scheduled_focus').when, Date.parse('2026-09-28T13:00:00Z'));
+  } finally {
+    release?.();
+    if (previous === undefined) delete process.env.TZ; else process.env.TZ = previous;
+  }
+});
+
+test('stale intent: skip requires a complete displayed occurrence token', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  for (const args of [[shown.next.key], [shown.next.key, shown.revision],
+    [shown.next.key, shown.revision, String(shown.next.startTime)]]) {
+    await assert.rejects(f.controller.skip(...args), { code: 'schedule_changed' });
+  }
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, []);
+});
+
+for (const change of ['clock', 'timezone']) {
+  test(`stale intent: ${change} change during the durable claim prevents activation of the old window`, { timeout: 2000 }, async () => {
+    const previous = process.env.TZ;
+    let release;
+    try {
+      process.env.TZ = 'Europe/London';
+      const f = fixture(schedule(), Date.parse('2026-09-28T08:20:00Z'));
+      let entered;
+      const ready = new Promise(resolve => { entered = resolve; });
+      const gate = new Promise(resolve => { release = resolve; });
+      const write = f.storage.set;
+      f.storage.set = async value => { entered(); await gate; return write(value); };
+      const pending = f.controller.reconcile();
+      try {
+        await ready;
+        if (change === 'clock') f.setTime(Date.parse('2026-09-28T07:00:00Z'));
+        else process.env.TZ = 'America/New_York';
+      } finally { release(); }
+      await pending;
+      assert.equal(f.starts.length, 0);
+      // Keep the durable at-most-once claim, including after a worker restart.
+      assert.deepEqual(f.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+      f.setTime(Date.parse('2026-09-28T13:20:00Z'));
+      await f.restart().reconcile();
+      assert.equal(f.starts.length, 0);
+    } finally {
+      release?.();
+      if (previous === undefined) delete process.env.TZ; else process.env.TZ = previous;
+    }
+  });
+}

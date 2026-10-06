@@ -548,7 +548,10 @@ class OptionsPage {
           this.categoriesContainer,
           profileRules,
           disabledCategories,
-          category => this.handleCategoryToggle(category)
+          category => this.handleCategoryToggle(category, {
+            listId: activeRuleListId, generation: state.generation ?? null,
+            revision: state.revisions?.[activeRuleListId] ?? null
+          }, disabledCategories.includes(category))
         );
       }
       if (this.settingsManager) this.settingsManager.loadRuleCount(rules);
@@ -910,7 +913,11 @@ class OptionsPage {
     }
   }
 
-  async handleCategoryToggle(category) {
+  async handleCategoryToggle(category, listContext = null, wasDisabled = null) {
+    const captured = listContext || {
+      listId: this.activeRuleListId, generation: this.ruleListSnapshot?.generation ?? null,
+      revision: this.ruleListSnapshot?.revisions?.[this.activeRuleListId] ?? null
+    };
     try {
       if (!this.isPro && !this.isLegacyUser) {
         this.rulesUI.showErrorMessage(t('prorequired'));
@@ -918,19 +925,21 @@ class OptionsPage {
         return;
       }
 
-      const state = await this.ruleListsManager.getState();
-      const activeProfile = state.lists.find(list => list.id === state.activeRuleListId);
-      const isDisablingCategory = !activeProfile?.disabledCategories?.includes(category);
+      if (typeof wasDisabled !== 'boolean') {
+        const state = await this.ruleListsManager.getState();
+        wasDisabled = state.lists.find(list => list.id === captured.listId)?.disabledCategories?.includes(category) === true;
+      }
+      const isDisablingCategory = !wasDisabled;
       if (isDisablingCategory && !await this.authorizePasswordProtectedRuleChange()) {
         await this.refreshProfileView();
         return;
       }
 
-      await this.rulesClient.toggleCategory(category);
+      await this.rulesClient.toggleCategory(category, captured.listId, captured.generation, captured.revision);
       await this.refreshProfileView();
     } catch (error) {
       this.logRulesMutationFailure('Category toggle error:', error);
-      this.rulesUI.showErrorMessage(t('errorupdatingrules'));
+      this.handleRulesMutationError(error, 'errorupdatingrules');
     }
   }
   

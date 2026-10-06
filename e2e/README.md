@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.18**
+# Firefox Desktop E2E — BlockDistraction **5.3.19**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 13 початковим сценаріям Chromium E2E, але використовує Firefox event page, `browser.*`,
@@ -50,7 +50,7 @@ npm run test:headed
 ізоляція sandbox не вимикаються.
 
 Звичайний Firefox Release може виконати повний набір із підписаним AMO XPI
-саме версії 5.3.18: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
+саме версії 5.3.19: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
 Цей файл є фактичним target для всіх сценаріїв; `BD_EXTENSION_PATH` тоді
 не використовується. Runner перевіряє version, ID та event-page manifest,
 але підписаний XPI може мати інші runtime-байти. Саме його потрібно

@@ -11,6 +11,114 @@ import { createBackupDocument, parseBackupText } from '../backup/backupFormat.js
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
 
+function categoryViewIntent(api, category = 'social', listId = api.storage.local.data.activeRuleListId) {
+  return { category, listId, expectedGeneration: api.storage.local.data.rulesGeneration ?? null,
+    expectedListRevision: api.storage.local.data.ruleListRevisions?.[listId] ?? null };
+}
+
+for (const change of ['rename', 'rename_aba', 'import', 'delete_recreate']) {
+  test(`stale intent: category rejects ${change} without touching rules, usage, or browser blockers`, async () => {
+    await withWorker(async ({ api, send, sendRaw, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      const shown = categoryViewIntent(api);
+      if (change.startsWith('rename')) {
+        assert.equal((await send({ type: 'rules:renameList', payload: { listId: 'list-1', name: 'Renamed' } })).success, true);
+        if (change === 'rename_aba') assert.equal((await send({ type: 'rules:renameList', payload: { listId: 'list-1', name: 'Study' } })).success, true);
+      } else if (change === 'import') {
+        const stored = api.storage.local.data;
+        assert.equal((await send({ type: 'rules:replaceAll', payload: { rules: stored.rules,
+          ruleLists: stored.ruleLists, activeRuleListId: stored.activeRuleListId } })).success, true);
+      } else {
+        assert.equal((await send({ type: 'rules:deleteList', payload: { listId: 'list-1' } })).success, true);
+        assert.equal((await send({ type: 'rules:createList', payload: { name: 'Study' } })).success, true);
+      }
+      const before = listConflictState(api);
+      const result = await sendRaw({ type: 'rules:toggleCategory', payload: shown });
+      assert.equal(result.success, false);
+      assert.equal(result.error.code, 'rules_state_changed');
+      assert.deepEqual(listConflictState(api), before);
+      const fresh = categoryViewIntent(api, 'social', 'list-1');
+      assert.equal((await sendRaw({ type: 'rules:toggleCategory', payload: fresh })).success, true);
+    }, { local: { rules: [makeDailyLimitRule(1, 'list-1')] } });
+  });
+}
+
+test('stale intent: an unrelated profile rename does not invalidate a category click', async () => {
+  await withWorker(async ({ api, send, sendRaw, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const shown = categoryViewIntent(api);
+    assert.equal((await send({ type: 'rules:createList', payload: { name: 'Personal' } })).success, true);
+    assert.equal((await send({ type: 'rules:renameList', payload: { listId: 'list-2', name: 'Leisure' } })).success, true);
+    assert.equal((await sendRaw({ type: 'rules:toggleCategory', payload: shown })).success, true);
+    assert.deepEqual(api.storage.local.data.ruleLists.find(list => list.id === 'list-1').disabledCategories, ['social']);
+  });
+});
+
+test('stale intent: category checks its revision after entering the queue behind a pending list write', { timeout: 3000 }, async () => {
+  await withWorker(async ({ api, send, sendRaw, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const shown = categoryViewIntent(api);
+    const entered = createDeferred(), release = createDeferred();
+    const write = api.storage.local.set.bind(api.storage.local);
+    let paused = false;
+    api.storage.local.set = async values => {
+      if (!paused && values.ruleLists) { paused = true; entered.resolve(); await release.promise; }
+      return write(values);
+    };
+    const rename = send({ type: 'rules:renameList', payload: { listId: 'list-1', name: 'Renamed' } });
+    let pending;
+    try { await entered.promise; pending = sendRaw({ type: 'rules:toggleCategory', payload: shown }); }
+    finally { release.resolve(); }
+    assert.equal((await rename).success, true);
+    const before = listConflictState(api);
+    const result = await pending;
+    assert.equal(result.error.code, 'rules_state_changed');
+    assert.deepEqual(listConflictState(api), before);
+  });
+});
+
+test('stale intent: category without a displayed profile cannot mutate the worker state', async () => {
+  await withWorker(async ({ api, sendRaw, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const before = listConflictState(api);
+    const result = await sendRaw({ type: 'rules:toggleCategory', payload: { category: 'social' } });
+    assert.equal(result.error.code, 'rules_state_changed');
+    assert.deepEqual(listConflictState(api), before);
+  });
+});
+
+test('stale intent: runtime Skip rejects the same local start after an edit in another window', async () => {
+  await withControlledClock(new Date(2026,8,28,8), async () => {
+    await withWorker(async ({ api, send }) => {
+      const shown = await send({ type: 'focus_schedule_get' });
+      const changed = await send({ type: 'focus_schedule_save', config: { ...shown.config, durationMinutes: 60 }, revision: shown.revision });
+      assert.equal(changed.success, true);
+      assert.equal(changed.next.key, shown.next.key);
+      const before = structuredClone(api.storage.local.data.focusSchedule);
+      const result = await send({ type: 'focus_schedule_skip', key: shown.next.key, revision: shown.revision, startTime: shown.next.startTime });
+      assert.deepEqual(result, { success: false, code: 'schedule_changed' });
+      assert.deepEqual(api.storage.local.data.focusSchedule, before);
+      assert.equal((await send({ type: 'focus_schedule_skip', key: changed.next.key, revision: changed.revision, startTime: changed.next.startTime })).success, true);
+    }, { local: { focusSchedule: scheduledFocusState() } });
+  });
+});
+
+test('stale intent: a category click keeps its rendered profile after another window selects a different profile', async () => {
+  await withWorker(async ({ api, send, sendRaw }) => {
+    await alarmForFreshState();
+    async function alarmForFreshState() { await api.alarms.onAlarm.listeners[0]({ name: 'update_scheduled_rules' }); }
+    const state = await api.storage.local.get(['activeRuleListId', 'rulesGeneration', 'ruleListRevisions']);
+    const intent = { category: 'social', listId: state.activeRuleListId,
+      expectedGeneration: state.rulesGeneration ?? null,
+      expectedListRevision: state.ruleListRevisions?.[state.activeRuleListId] ?? null };
+    assert.equal((await send({ type: 'rules:activateList', payload: { listId: 'general' } })).success, true);
+    assert.equal((await sendRaw({ type: 'rules:toggleCategory', payload: intent })).success, true);
+    assert.deepEqual(api.storage.local.data.ruleLists.find(list => list.id === 'list-1').disabledCategories, ['social']);
+    assert.deepEqual(api.storage.local.data.ruleLists.find(list => list.id === 'general').disabledCategories, []);
+    assert.equal(api.storage.local.data.activeRuleListId, 'general');
+  });
+});
+
 function createEvent() {
   const listeners = [];
   return {
@@ -143,6 +251,12 @@ async function sendWorkerMessage(listener, message, sender = {}, bindCurrentSnap
       !Object.hasOwn(message.payload || {}, 'expectedListRevisions')) {
     const stored = await chrome.storage.local.get('ruleListRevisions');
     message = { ...message, payload: { ...message.payload, expectedListRevisions: stored.ruleListRevisions || {} } };
+  }
+  if (bindCurrentSnapshot && message.type === 'rules:toggleCategory') {
+    const stored = await chrome.storage.local.get(['activeRuleListId', 'rulesGeneration', 'ruleListRevisions']);
+    const listId = message.payload?.listId ?? stored.activeRuleListId ?? 'general';
+    message = { ...message, payload: { listId, expectedGeneration: stored.rulesGeneration ?? null,
+      expectedListRevision: stored.ruleListRevisions?.[listId] ?? null, ...message.payload } };
   }
   return new Promise((resolve, reject) => {
     if (listener(message, sender, resolve) !== true) {
@@ -5852,6 +5966,41 @@ function scheduledFocusState(extra = {}) {
     durationMinutes: 50, revision: 1, notBefore: 0, handledKeys: [], skippedKeys: [], ...extra };
 }
 
+for (const change of ['clock', 'timezone']) {
+  test(`stale intent: ${change} change inside worker activation cannot start the old scheduled window`, { timeout: 3000 }, async () => {
+    const previous = process.env.TZ;
+    try {
+      process.env.TZ = 'Europe/London';
+      await withControlledClock(new Date('2026-09-28T07:00:00Z'), async clock => {
+        await withWorker(async ({ api, send, alarm }) => {
+          await send({ type: 'focus_schedule_get' });
+          const entered = createDeferred(), release = createDeferred();
+          const read = api.storage.local.get.bind(api.storage.local);
+          let paused = false;
+          api.storage.local.get = async (keys, callback) => {
+            if (!paused && Array.isArray(keys) && keys.length === 1 && keys[0] === 'focusSession' &&
+                api.storage.local.data.focusSchedule.handledKeys.length) {
+              paused = true; entered.resolve(); await release.promise;
+            }
+            return read(keys, callback);
+          };
+          clock.set(new Date('2026-09-28T08:20:00Z'));
+          const pending = alarm({ name: 'start_scheduled_focus' });
+          try {
+            await entered.promise;
+            if (change === 'clock') clock.set(new Date('2026-09-28T07:00:00Z'));
+            else process.env.TZ = 'America/New_York';
+          } finally { release.resolve(); }
+          await pending;
+          assert.equal(api.storage.local.data.focusSession.focusActive, false);
+          assert.equal(api.alarmValues.has('end_focus_session'), false);
+          assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+        }, { local: { focusSchedule: scheduledFocusState(), rules: [makeFocusRule(1,'list-1')] } });
+      });
+    } finally { if (previous === undefined) delete process.env.TZ; else process.env.TZ = previous; }
+  });
+}
+
 test('scheduled focus recovers on worker wake, ends on time and does not restart after manual stop', async () => {
   await withControlledClock(new Date(2026,8,28,9,20), async clock => {
     await withWorker(async ({ api, send, alarm }) => {
@@ -5900,7 +6049,8 @@ test('scheduled focus honors runtime skip and does not enable itself for existin
         enabled: true, days: [1], startTime: '09:00', durationMinutes: 50
       }, revision: initial.revision });
       assert.equal(saved.success, true);
-      const skipped = await send({ type: 'focus_schedule_skip', key: saved.next.key });
+      const skipped = await send({ type: 'focus_schedule_skip', key: saved.next.key,
+        revision: saved.revision, startTime: saved.next.startTime });
       assert.equal(skipped.success, true);
       clock.set(new Date(2026,8,28,9,20));
       await alarm({ name: 'start_scheduled_focus' });

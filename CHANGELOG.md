@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.19] - 2026-10-06
+
+- Bind Skip next session to the displayed schedule revision and absolute occurrence start. Reject stale actions after schedule edits, timezone changes and A-to-B-to-A edits, including queued saves and worker restarts.
+- Recheck local occurrence identity and wall time after pending access/session reads and durable claim/alarm operations, before handing off scheduled activation and immediately before the worker writes active Focus. Retain the existing at-most-once claim if the time changes after it is written.
+- Preserve input typed while Cancel refresh is pending; keep its original revision so a later save cannot overwrite another window's changes.
+- Bind category toggles to the displayed profile, generation and list revision through password waits and the worker queue. Do not retarget the action when another Options window changes the active profile.
+- Add 24 regressions using production modules with controlled browser API waits. Update source and E2E target metadata; native browser and Android checks remain a separate release step. No new permissions, storage keys or polling.
+
 ## [5.3.18] - 2026-10-06
 
 - Keep Options and Popup Daily Limit reads free of storage writes, so a delayed read cannot restore counters removed or changed by the worker. Preserve in-memory normalization and worker-owned day rollover and migration.

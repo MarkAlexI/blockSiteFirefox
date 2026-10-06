@@ -31,7 +31,8 @@ export class FocusScheduleUI {
       void this.refresh(true);
     });
     this.skip.addEventListener('click', () => {
-      if (this.state?.next) void this.mutate({ type: 'focus_schedule_skip', key: this.state.next.key });
+      if (this.state?.next) void this.mutate({ type: 'focus_schedule_skip', key: this.state.next.key,
+        revision: this.state.revision, startTime: this.state.next.startTime });
     });
     await this.refresh(true);
   }
@@ -56,7 +57,8 @@ export class FocusScheduleUI {
     try {
       const state = await this.request({ type: 'focus_schedule_get' });
       if (generation !== this.loadGeneration || this.busy) return;
-      this.render(state, fill || !this.dirty);
+      // Cancel clears dirty before loading; new input during the read wins.
+      this.render(state, !this.dirty);
     } catch (error) {
       if (generation === this.loadGeneration) this.showError(error);
     }

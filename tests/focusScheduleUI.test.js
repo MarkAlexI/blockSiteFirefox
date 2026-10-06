@@ -128,3 +128,28 @@ test('refresh after manually closing a fragment-opened editor does not reopen it
   assert.equal(f.ui.formRevision, 1);
   assert.equal(f.scrolls.length, 1);
 });
+
+test('stale intent: a delayed Cancel refresh cannot overwrite a newly typed schedule draft', async () => {
+  const f = fixture();
+  await f.ui.init();
+  let release;
+  f.ui.send = () => new Promise(resolve => { release = resolve; });
+  const pending = f.ui.refresh(true);
+  f.form.elements.startTime.value = '11:15';
+  f.form.dispatchEvent({ type: 'input' });
+  release({ ...f.ui.state, revision: 2, config: { ...f.ui.state.config, startTime: '12:00' } });
+  await pending;
+  assert.equal(f.form.elements.startTime.value, '11:15');
+  assert.equal(f.ui.formRevision, 1);
+  assert.equal(f.ui.dirty, true);
+});
+
+test('stale intent: Skip click sends the revision and absolute start displayed in Options', async () => {
+  const f = fixture();
+  await f.ui.init();
+  const calls = [];
+  f.ui.mutate = async message => { calls.push(message); };
+  f.ui.skip.dispatchEvent({ type: 'click' });
+  assert.deepEqual(calls, [{ type: 'focus_schedule_skip', key: f.ui.state.next.key,
+    revision: 1, startTime: f.ui.state.next.startTime }]);
+});

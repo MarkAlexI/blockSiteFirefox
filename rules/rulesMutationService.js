@@ -1384,14 +1384,20 @@ export function createRulesMutationService({
 
   async function toggleCategory(payload = {}) {
     return mutationQueue.enqueue(async () => {
+      await ensureRulesGeneration(payload);
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
       const category = typeof payload.category === 'string' ? payload.category : '';
       if (!category) {
         throw new RulesMutationError('category_required', 'Category is required', ['category_required']);
       }
-      const state = await getRuleListState();
-      const index = state.lists.findIndex(list => list.id === state.activeRuleListId);
-      if (index === -1) throw new RulesMutationError('rule_list_not_found', 'Active Rule List not found');
+      const state = await getRuleListSnapshot();
+      // Snapshot-free service consumers retain their existing default; worker
+      // commands must carry the profile shown when the checkbox was rendered.
+      const listId = payload.listId || (state.revisions === undefined ? state.activeRuleListId : null);
+      if (!listId) throw new RulesMutationError('rules_state_changed', 'Refresh the category view and try again');
+      ensureRuleListRevision({ ...payload, listId }, state);
+      const index = state.lists.findIndex(list => list.id === listId);
+      if (index === -1) throw new RulesMutationError('rule_list_not_found', 'Rule List not found');
       const current = Array.isArray(state.lists[index].disabledCategories)
         ? state.lists[index].disabledCategories
         : [];

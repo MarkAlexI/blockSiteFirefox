@@ -66,8 +66,8 @@ export class RulesClient {
     return sendRulesIntent('rules:clear');
   }
 
-  toggleCategory(category) {
-    return sendRulesIntent('rules:toggleCategory', { category });
+  toggleCategory(category, listId, expectedGeneration = null, expectedListRevision = null) {
+    return sendRulesIntent('rules:toggleCategory', { category, listId, expectedGeneration, expectedListRevision });
   }
 
   createRuleList(name) {

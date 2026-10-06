@@ -52,11 +52,11 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
         return status();
       });
     },
-    skip(key) {
+    skip(key, expectedRevision, expectedStartTime) {
       return runExclusive(async () => {
         const state = await load();
         const next = nextFocusOccurrence(state, now());
-        if (!next || next.key !== key) {
+        if (state.revision !== expectedRevision || !next || next.key !== key || next.startTime !== expectedStartTime) {
           throw Object.assign(new Error('Schedule changed'), { code: 'schedule_changed' });
         }
         const updated = { ...state, skippedKeys: [...new Set([...state.skippedKeys, key])].slice(-32) };
@@ -85,6 +85,14 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
         }
         const access = await getAccess();
         const session = await getSession();
+        // Wall time and timezone can change while the browser APIs are pending.
+        const observedNow = now();
+        const latest = nextFocusOccurrence(state, observedNow);
+        if (!latest || latest.key !== current.key || latest.startTime !== current.startTime ||
+            latest.endTime !== current.endTime || latest.startTime > observedNow) {
+          await arm(state);
+          return { status: 'waiting' };
+        }
         // Claim durably BEFORE activation: a worker restart must not repeat it.
         // A manual session or missing paid access consumes this occurrence too.
         state = handled(state, current.key);
@@ -92,8 +100,18 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
         await arm(state);
         if (!paid(access)) return { status: 'pro_required' };
         if (session.focusActive) return { status: 'manual_priority' };
-        if (now() >= current.endTime) return { status: 'expired' };
-        return startSession(current, context);
+        const activationNow = now();
+        if (activationNow >= current.endTime) return { status: 'expired' };
+        // Recheck after the durable write and alarm calls too. Keep the claim:
+        // rolling it back could replay an occurrence after a worker restart.
+        const isCurrentWindow = () => {
+          const observed = now();
+          return focusOccurrences(state, observed).some(item =>
+            item.key === current.key && item.startTime === current.startTime &&
+            item.endTime === current.endTime && item.startTime <= observed);
+        };
+        if (!isCurrentWindow()) return { status: 'waiting' };
+        return startSession(current, context, isCurrentWindow);
       });
     }
   };

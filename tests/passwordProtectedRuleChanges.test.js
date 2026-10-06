@@ -139,11 +139,11 @@ test('Options protects destructive Rule List deletion and category disabling whi
   const deleteMethod = getClassMember(
     optionsSource,
     'async handleRuleListDelete(list',
-    'async handleCategoryToggle(category)'
+    'async handleCategoryToggle('
   );
   const categoryMethod = getClassMember(
     optionsSource,
-    'async handleCategoryToggle(category)',
+    'async handleCategoryToggle(',
     'cleanup()'
   );
   const Controller = new Function(

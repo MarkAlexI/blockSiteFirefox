@@ -66,6 +66,12 @@ async function sendWorkerMessage(listener, message) {
     const stored = await chrome.storage.local.get('ruleListRevisions');
     message = { ...message, payload: { ...message.payload, expectedListRevisions: stored.ruleListRevisions || {} } };
   }
+  if (message.type === 'rules:toggleCategory') {
+    const stored = await chrome.storage.local.get(['activeRuleListId', 'rulesGeneration', 'ruleListRevisions']);
+    const listId = message.payload?.listId ?? stored.activeRuleListId ?? 'general';
+    message = { ...message, payload: { listId, expectedGeneration: stored.rulesGeneration ?? null,
+      expectedListRevision: stored.ruleListRevisions?.[listId] ?? null, ...message.payload } };
+  }
   return new Promise((resolve, reject) => {
     if (listener(message, {}, resolve) !== true) {
       reject(new Error('Worker did not keep its response channel open: ' + message.type));

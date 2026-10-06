@@ -25,6 +25,25 @@ function element() {
     setAttribute() {}, remove() { this.removed = true; }, focus() {} };
 }
 
+test('stale intent: category password wait preserves the profile and markers shown by the rendered checkbox', async () => {
+  const c = controller(optionsSource, [['async handleCategoryToggle(', 'cleanup(']]);
+  let entered, release;
+  const ready = new Promise(resolve => { entered = resolve; });
+  const gate = new Promise(resolve => { release = resolve; });
+  const calls = [];
+  c.authorizePasswordProtectedRuleChange = async () => { entered(); return gate; };
+  c.rulesClient = { async toggleCategory(...args) { calls.push(args); } };
+  const shown = { listId: 'list-1', generation: 'shown-generation', revision: 'shown-list' };
+  const pending = c.handleCategoryToggle('social', shown, false);
+  try {
+    await ready;
+    c.activeRuleListId = 'general';
+    c.ruleListSnapshot = { generation: 'new-generation', revisions: { general: 'new-list' } };
+  } finally { release(true); }
+  await pending;
+  assert.deepEqual(calls, [['social', 'list-1', 'shown-generation', 'shown-list']]);
+});
+
 test('assignment context Options add form retains its displayed list snapshot until save', async () => {
   const c = controller(optionsSource, [['async showAddRuleForm(', 'async saveNewRule('], ['async saveNewRule(', 'async addRulePack(']], { resolveRuleListContext: (_lists, id) => id });
   let save;const requests = [];
