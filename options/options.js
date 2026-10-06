@@ -808,6 +808,8 @@ class OptionsPage {
         initialListId
       );
       this.rulesBody.insertBefore(newRow, this.rulesBody.firstChild);
+      // Focus only after insertion, before the user can choose another field.
+      newRow.querySelector?.('input')?.focus();
     } catch (error) {
       this.logger.info('Error checking rule limit:', error);
       this.rulesUI.showErrorMessage(t('erroraddingrule'));

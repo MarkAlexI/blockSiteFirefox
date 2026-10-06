@@ -415,3 +415,24 @@ test('timer cleanup removes countdown and confirmation state without changing th
     });
   });
 });
+
+
+test('an add-row callback cannot steal focus after the user selects Daily Limit minutes', async () => {
+  await withFakeTimers(async ({ timeouts }) => {
+    await withRulesUI(({ document, rulesUI }) => {
+      const saved = [];
+      const row = rulesUI.createAddRuleRow((...values) => saved.push(values), () => {}, true);
+      const block = row.querySelector('input');
+      block.value = 'usage.bd-e2e.test';
+      const minutes = row.querySelector('.daily-limit-minutes');
+      minutes.focus();
+      for (const timer of [...timeouts.values()]) timer.handler();
+      assert.equal(document.activeElement, minutes);
+      document.activeElement.value = '1';
+      row.querySelector('.blocking-mode-select').value = 'daily_limit';
+      row.querySelector('.save-btn').click();
+      assert.equal(saved[0][0], 'usage.bd-e2e.test');
+      assert.deepEqual(saved[0][3].dailyLimit, { minutes: 1 });
+    });
+  });
+});

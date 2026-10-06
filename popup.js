@@ -268,12 +268,14 @@ class PopupPage {
   }
   
   async loadRules() {
+    const refreshId = this.rulesRefreshId = (this.rulesRefreshId || 0) + 1;
     try {
       const [snapshot, ruleListState, dailyUsageSeconds] = await Promise.all([
         this.rulesManager.getRulesSnapshot(),
         this.ruleListsManager.getSnapshot(),
         this.dailyLimitManager.getUsageSeconds()
       ]);
+      if (refreshId !== this.rulesRefreshId) return;
       const { rules, generation, revisions = {} } = snapshot;
       const hasRuleListAccess = this.isPro || this.isLegacyUser;
       const ruleLists = hasRuleListAccess
@@ -321,6 +323,7 @@ class PopupPage {
       this.showBlockThisSiteButton(rules);
       
     } catch (error) {
+      if (refreshId !== this.rulesRefreshId) return;
       this.logger.error("Load rules error:", error);
       customAlert(t('errorupdatingrules'));
     }
@@ -446,6 +449,7 @@ class PopupPage {
   }
   
   createRuleInputs(blockURLValue = '', redirectURLValue = '', ruleId = null, disabledByUser = false, category = 'uncategorized', schedule = null, isWhitelist = false, listIds = [GENERAL_RULE_LIST_ID], blockingMode = null, dailyLimit = null, dailyUsageSeconds = 0, assignments = null, expectedGeneration = null, expectedRevision = null) {
+    const refreshId = this.rulesRefreshId;
     const listContext = {
       listId: isWhitelist || (!this.isPro && !this.isLegacyUser) ? GENERAL_RULE_LIST_ID : this.activeRuleListId,
       generation: this.ruleListSnapshot?.generation ?? null,
@@ -492,7 +496,9 @@ class PopupPage {
       mobileLinkHint.textContent = t('mobilecopylinkhint');
     }
     
-    requestAnimationFrame(() => blockURL.focus());
+    requestAnimationFrame(() => {
+      if (refreshId === this.rulesRefreshId && blockURL.isConnected) blockURL.focus();
+    });
     
     const redirectURL = document.createElement('input');
     redirectURL.type = 'text';
@@ -518,6 +524,8 @@ class PopupPage {
     }
     
     setTimeout(() => {
+      // A newer refresh may have cleared the container before this row inserts.
+      if (refreshId !== this.rulesRefreshId) return;
       ruleDiv.appendChild(blockURL);
       if (mobileLinkHint) ruleDiv.appendChild(mobileLinkHint);
       ruleDiv.appendChild(redirectURL);

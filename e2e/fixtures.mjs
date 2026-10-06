@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, writeFile, rm, readdir, open } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
-import { createServer as createTcpServer } from 'node:net';
+import { DriverService } from 'selenium-webdriver/remote/index.js';
+import { allocateLoopbackPorts } from './ports.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { By, Key, Select, error as webdriverError } from 'selenium-webdriver';
@@ -147,16 +148,16 @@ export async function addUi(page, blockURL, { dailyMinutes = null } = {}) {
     await page.select(`${row} .blocking-mode-select`, 'daily_limit');
     await page.fill(`${row} .daily-limit-minutes`, dailyMinutes);
   }
+  await equalEventually(() => page.evaluate(css => document.querySelector(css)?.value,
+    `${row} td:nth-child(1) input`), blockURL, 'exact rule URL before save');
+  if (dailyMinutes !== null) await equalEventually(() => page.evaluate(css => document.querySelector(css)?.value,
+    `${row} .daily-limit-minutes`), String(dailyMinutes), 'exact Daily Limit minutes before save');
   await page.click(`${row} .save-btn`);
   await poll(() => page.text('#rules-container'), text => text?.includes(blockURL), 'saved rule visible');
-}
-
-async function freePort() {
-  const server = createTcpServer();
-  await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
-  const port = server.address().port;
-  await new Promise(resolve => server.close(resolve));
-  return port;
+  await equalEventually(() => page.evaluate(async url =>
+    (await browser.storage.local.get('rules')).rules.find(rule => rule.blockURL === url)
+      ?.assignments?.find(item => item.listId === 'general')?.dailyLimit?.minutes ?? null, blockURL),
+    dailyMinutes, 'exact persisted Daily Limit minutes');
 }
 
 async function collectRuntime(root) {
@@ -224,7 +225,8 @@ export class ExtensionHarness {
 
   async launch({ restarted = false } = {}) {
     this.phase = 'browser-launch';
-    const marionettePort = await freePort();
+    const [webdriverPort, marionettePort, bidiPort] = await allocateLoopbackPorts(3);
+    this.result.driverPorts = { webdriver: webdriverPort, marionette: marionettePort, bidi: bidiPort };
     const options = new firefox.Options().enableBidi().addArguments('--profile', this.profile);
     if (this.config.headless) options.addArguments('-headless');
     if (process.env.BD_FIREFOX_BINARY) options.setBinary(process.env.BD_FIREFOX_BINARY);
@@ -242,12 +244,15 @@ export class ExtensionHarness {
     if (this.config.installation === 'persistent' && !process.env.BD_SIGNED_XPI) {
       options.setPreference('xpinstall.signatures.required', false);
     }
-    const service = new firefox.ServiceBuilder(process.env.BD_GECKODRIVER || undefined)
-      .setHostname('127.0.0.1')
-      .addArguments('--host', '127.0.0.1', '--marionette-port', String(marionettePort), '--allow-system-access');
     const log = await open(path.join(this.config.output, restarted ? 'geckodriver-restart.log' : 'geckodriver.log'), 'w');
-    service.setStdio(['ignore', log.fd, log.fd]);
-    this.service = service.build();
+    // Firefox ServiceBuilder selects HTTP and BiDi ports independently before
+    // either listener binds. Configure distinct ports via the public API.
+    this.service = new DriverService(process.env.BD_GECKODRIVER || undefined, {
+      hostname: '127.0.0.1', loopback: true, port: webdriverPort,
+      args: ['--host=127.0.0.1', `--port=${webdriverPort}`,
+        `--marionette-port=${marionettePort}`, `--websocket-port=${bidiPort}`, '--allow-system-access'],
+      stdio: ['ignore', log.fd, log.fd]
+    });
     this.sessionReady = false;
     try {
       this.driver = await firefox.Driver.createSession(options, this.service);
@@ -341,6 +346,14 @@ export class ExtensionHarness {
     }));
   }
   async writeLocal(values) { await this.probe.evaluate(values => browser.storage.local.set(values), values); }
+  get popupUrl() { return `${this.baseUrl}/index.html`; }
+  async openPopup() { return this.newPage(this.popupUrl); }
+  async deleteRule(page, id) { await page.click(`tr[data-rule-id="${id}"] .delete-btn`); }
+  async importBackup(page, backup) {
+    const filename = path.join(this.root, 'reader-backup.json');
+    await writeFile(filename, JSON.stringify(backup));
+    await (await page.element('#importFileInput')).sendKeys(filename);
+  }
   async licenseConsent() {
     return this.probe.evaluate(async () => {
       const permissions = await browser.permissions.getAll();
@@ -413,7 +426,11 @@ export class ExtensionHarness {
     return page;
   }
   async reconcile(page) {
-    const response = await send(page, 'rules:activateList', { listId: (await this.state()).activeRuleListId });
+    const state = await this.state();
+    const response = await send(page, 'rules:activateList', {
+      listId: state.activeRuleListId, expectedGeneration: state.rulesGeneration ?? null,
+      expectedListRevision: state.ruleListRevisions?.[state.activeRuleListId] ?? null
+    });
     assert.equal(response.success, true, JSON.stringify(response));
     await page.settleOptions();
   }

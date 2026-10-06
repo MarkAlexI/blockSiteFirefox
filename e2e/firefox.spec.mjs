@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { recoveryScenarios } from './recovery.mjs';
+import { readerScenarios } from './reader-scenarios.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
 
@@ -246,3 +247,4 @@ test('13', 'a temporary verification server error preserves Pro and subsequent p
 });
 
 scenarios.push(...recoveryScenarios);
+scenarios.push(...readerScenarios);

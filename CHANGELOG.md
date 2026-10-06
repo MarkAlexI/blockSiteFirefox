@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.20] - 2026-10-06
+
+- Focus the new Options rule URL synchronously after inserting its row. Remove the delayed callback that could steal keyboard input from Daily Limit minutes and save an unintended URL and default budget.
+- Assert exact form values and the persisted rule in browser add fixtures before testing accounting and deadline alarms.
+- Allocate distinct Firefox WebDriver, Marionette and BiDi ports together and pass them explicitly through the public DriverService API. Record the ports in each browser report; preserve scenario failures without whole-scenario retries.
+- Ignore older Popup snapshots and deferred row callbacks after a newer refresh, preventing duplicate or stale rules after import and moves.
+- Extend native browser coverage for Popup extension-page readers and expired-day cleanup; these are separate from toolbar Popup lifecycle and real midnight.
+
 ## [5.3.19] - 2026-10-06
 
 - Bind Skip next session to the displayed schedule revision and absolute occurrence start. Reject stale actions after schedule edits, timezone changes and A-to-B-to-A edits, including queued saves and worker restarts.

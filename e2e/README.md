@@ -1,12 +1,12 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.19**
+# Firefox Desktop E2E — BlockDistraction **5.3.20**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
-13 початковим сценаріям Chromium E2E, але використовує Firefox event page, `browser.*`,
+19 сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,
 `moz-extension://` і WebDriver BiDi. Playwright Firefox не використовується
 для встановлення WebExtensions.
 
-Версія розширення, runtime-файли, permissions і нативний Firefox data consent
-цим патчем не змінюються. Підготовлене покриття не означає успішного E2E:
+У 5.3.20 виправлено відкладений autofocus у Options і застарілі
+refresh/callback вставлення рядків у Popup. Підготовлене покриття не означає успішного E2E:
 фактичний результат кожного запуску міститься в `results.json`.
 
 ## Повний запуск
@@ -40,7 +40,7 @@ npm run test:headed
 
 Указуйте свої фактичні шляхи. Runner створює новий профіль для кожного
 сценарію й видаляє його після перевірки. Особистий Firefox-профіль не
-використовується. Для 05/06 зберігається той самий тестовий профіль між
+використовується. Для 05/06/20 зберігається той самий тестовий профіль між
 двома процесами браузера; додаток після restart не перевстановлюється.
 
 За замовчуванням `BD_INSTALLATION=persistent`. Для unsigned test XPI runner
@@ -50,14 +50,14 @@ npm run test:headed
 ізоляція sandbox не вимикаються.
 
 Звичайний Firefox Release може виконати повний набір із підписаним AMO XPI
-саме версії 5.3.19: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
+саме версії 5.3.20: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
 Цей файл є фактичним target для всіх сценаріїв; `BD_EXTENSION_PATH` тоді
 не використовується. Runner перевіряє version, ID та event-page manifest,
 але підписаний XPI може мати інші runtime-байти. Саме його потрібно
 зазначати як протестований артефакт.
 
 Для unsigned XPI у Release можливе `BD_INSTALLATION=temporary`, але
-05/06 отримають статус `blocked` і весь набір поверне exit code 1.
+05/06/20 отримають статус `blocked` і весь набір поверне exit code 1.
 Тимчасове встановлення не підміняє перевірку restart повторним встановленням
 додатка чи збереженням storage через спеціальні keep-on-uninstall prefs.
 
@@ -95,6 +95,9 @@ CI використовує `xvfb-run -a npm run test:headed`; на Linux без
 | 15 | Payment suspension → native alarm | Справжній `check_pro_expiry` alarm і HTTP mock; key, rules, profiles, settings збережено, інший профіль знову блокується |
 | 16 | Deferred DNR sync → native retry | Oversized fixture перевищує фактичний browser capacity; `syncPending=true` і Pro/key збережено; після виправлення fixture нативний `update_scheduled_rules` відновлює DNR |
 | 17 | Native consent deny → grant | WebDriver активує справжні кнопки Firefox prompt клавішею Space; denial не надсилає key і зберігає Pro, grant відкриває verification без telemetry consent |
+| 18 | Readers: delete/import × 3 | Три послідовні цикли без retry сценарію; два Options і Popup, usage/journal cleanup, DNR і navigation |
+| 19 | Readers: concurrent/chained move | Два незалежні move, потім fresh move; прийняті й сторонній бюджети збережено, усі три UI та DNR узгоджені |
+| 20 | Readers: expired-day restart | Учорашній usage + pending remap; чистий restart, сьогоднішній бюджет, UI/DNR та облік нового foreground segment |
 
 01/03 використовують одночасні runtime messages з двох справжніх Options,
 а не одночасні фізичні натискання. UI add/edit/delete/import та Pro actions
@@ -164,6 +167,10 @@ network interception і підписка на network events відсутні. F
 перевіряються. H1 stale post-commit prune у production залишається
 непідтвердженим; цей E2E-патч не є доказом його досяжності.
 
+Popup у 18–20 — справжня `index.html` сторінка розширення у вкладці. Це
+не перевірка lifecycle toolbar Popup. Expired-day fixture не замінює Date
+та не доводить реальний перехід через північ, зміну timezone чи DST.
+
 Firefox Android потребує окремого ручного проходу. Desktop Firefox E2E
 не підтверджує Android, Chromium, Edge або Kiwi.
 
@@ -177,7 +184,10 @@ alarm delivery не замінено doubles. Наступний retry — фа�
 `results.json` містить `passed/failed/blocked/not-run`, `bodyStarted`, phase,
 помилку, target і browser capabilities. У `test-results/<ID>/` зберігаються
 geckodriver logs, screenshots Options, final state, HTTP mock events та
-JavaScript/fixture errors та фактичні verification POST payloads. Після restart є артефакти до й після нього.
+JavaScript/fixture errors та фактичні verification POST payloads. `driverPorts`
+записує різні порти WebDriver, Marionette і BiDi. Вони виділяються одночасно
+на loopback перед запуском через публічний Selenium `DriverService`; це
+усуває вибір одного порту для HTTP geckodriver та BiDi WebSocket. Після restart є артефакти до й після нього.
 Це Selenium diagnostics, а не Playwright trace viewer archive.
 
 `BD_E2E_RESULTS` і `BD_E2E_JSON` задають інші місця результатів.
@@ -188,7 +198,7 @@ Runner і перевірка пакета використовують одне 
 сумісність сценаріїв із тією версією.
 
 Помилка setup зупиняє решту набору як `not-run`. `blocked` чи `failed`
-повертає exit code 1. Повне green можливе лише коли всі 17 scenario bodies
+повертає exit code 1. Повне green можливе лише коли всі 20 scenario bodies
 виконані та пройшли. Запуск із `--filter` повертає результат тільки вибраних
 сценаріїв. GitHub workflow `e2e-firefox.yml` запускається для pull request, push у `main`
 та вручну через **Actions → Firefox Desktop extension E2E → Run workflow**.
