@@ -24,6 +24,58 @@ function createStorage(initial = {}) {
   };
 }
 
+
+for (const raw of [
+  { date: '2026-10-06', lastSample: null, usageSeconds: { '21:general': 840 }, version: 2 },
+  { version: 1, date: '2026-10-06', usageSeconds: { '21:general': '840.9', invalid: 10 } },
+  { version: 2, date: '2026-10-05', usageSeconds: { '21:general': 840 }, lastSample: null },
+  undefined
+]) {
+  test(`usage getters normalize in memory without writing storage: ${JSON.stringify(raw)}`, async () => {
+    const now = new Date(2026, 9, 6, 12);
+    const storage = createStorage({ dailyRuleUsage: structuredClone(raw) });
+    const manager = new DailyLimitManager(storage);
+    const expected = normalizeDailyRuleUsageState(raw, now).usageSeconds;
+
+    const usage = await manager.getUsageSeconds(now);
+    assert.deepEqual(usage, expected);
+    usage['21:general'] = 9999;
+    assert.equal(storage.setCalls, 0);
+    assert.deepEqual(storage.data.dailyRuleUsage, raw);
+  });
+}
+
+test('a delayed Options usage read cannot restore counters deleted by the worker', async () => {
+  const now = new Date(2026, 9, 6, 12);
+  // Chrome storage reorders object properties, so stringify-based comparison
+  // treats this otherwise normalized snapshot as needing a write.
+  const storage = createStorage({ dailyRuleUsage: {
+    date: getLocalDateKey(now), lastSample: null, usageSeconds: { '21:general': 840 }, version: 2
+  } });
+  let releaseRead, readStarted;
+  const held = new Promise(resolve => { releaseRead = resolve; });
+  const captured = new Promise(resolve => { readStarted = resolve; });
+  let firstRead = true;
+  storage.get = async key => {
+    const snapshot = { [key]: structuredClone(storage.data[key]) };
+    if (firstRead) { firstRead = false; readStarted(); await held; }
+    return snapshot;
+  };
+  // Separate instances represent independent extension contexts and queues.
+  const options = new DailyLimitManager(storage);
+  const worker = new DailyLimitManager(storage);
+  const pendingRead = options.getUsageSeconds(now);
+  await captured;
+  try {
+    await worker.pruneAssignmentKeys([], now);
+    assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, {});
+  } finally { releaseRead(); }
+  await pendingRead;
+
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, {});
+  assert.equal(storage.setCalls, 1, 'only the worker writes the pruned state');
+});
+
 test('daily usage is scoped to the local calendar date', () => {
   const now = new Date(2026, 7, 15, 12, 0, 0);
   assert.equal(getLocalDateKey(now), '2026-08-15');

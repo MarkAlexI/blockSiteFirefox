@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.18] - 2026-10-06
+
+- Keep Options and Popup Daily Limit reads free of storage writes, so a delayed read cannot restore counters removed or changed by the worker. Preserve in-memory normalization and worker-owned day rollover and migration.
+- Add regressions for reordered Chrome storage properties, legacy/expired usage, and a delayed Options read racing worker cleanup.
+- Activate native Firefox consent buttons with WebDriver keyboard input. Let the configured native prompt handler accept import confirmations without an unsupported BiDi prompt command.
+- Update source and E2E target metadata to 5.3.18; browser E2E confirmation remains a separate release check.
+
 ## [5.3.17] - 2026-10-04
 
 - Show Check Status and Log Out for a retained inactive license without re-entry or exposing the key. Keep verification feedback visible in all license views and preserve Firefox's user-action consent flow.

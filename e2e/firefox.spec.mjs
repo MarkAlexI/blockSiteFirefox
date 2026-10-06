@@ -98,6 +98,8 @@ test('04', 'UI deletion and JSON import update both Options, usage and actual na
   await writeFile(file, JSON.stringify(backup));
   // Native WebDriver file selection; no synthetic change event or API double.
   await (await a.element('#importFileInput')).sendKeys(file);
+  await poll(() => e.result.userPrompts?.some(event => event.context === a.context &&
+    event.type === 'confirm' && event.handler === 'accept'), Boolean, 'native import confirmation accepted');
   await waitRules(e, 1); await waitDnr(e, [1]);
   await poll(() => a.text(rows), text => text?.includes('imported.bd-e2e.test'), 'import in first Options');
   await poll(() => b.text(rows), text => text?.includes('imported.bd-e2e.test'), 'import in second Options');

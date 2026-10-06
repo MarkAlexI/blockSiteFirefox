@@ -6,7 +6,7 @@ import { createServer } from 'node:http';
 import { createServer as createTcpServer } from 'node:net';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { By, Select, error as webdriverError } from 'selenium-webdriver';
+import { By, Key, Select, error as webdriverError } from 'selenium-webdriver';
 import firefox from 'selenium-webdriver/firefox.js';
 import { zipSync, unzipSync } from 'fflate';
 import { expectedVersion } from './target-version.mjs';
@@ -266,9 +266,12 @@ export class ExtensionHarness {
       if (event.type === 'javascript' && event.level === 'error') this.pageErrors.push(event.text);
     });
     this.bidi.on('browsingContext.userPromptOpened', event => {
-      this.command('browsingContext.handleUserPrompt', {
-        context: event.context, accept: event.type !== 'prompt'
-      }).catch(error => this.networkErrors.push(error.stack));
+      // unhandledPromptBehavior='accept' is handled natively by Firefox's
+      // UserPromptHandlerManager. BiDi handleUserPrompt rejects extension
+      // contexts and also races that automatic handler; observe it only.
+      this.result.userPrompts ??= [];
+      this.result.userPrompts.push({ context: event.context, type: event.type,
+        handler: event.handler, message: event.message });
     });
     await this.command('session.subscribe', { events: [
       'network.beforeRequestSent', 'log.entryAdded', 'browsingContext.userPromptOpened'
@@ -375,19 +378,31 @@ export class ExtensionHarness {
       this.result.consentPrompts ??= [];
       const filename = `native-consent-${this.result.consentPrompts.length + 1}.png`;
       await writeFile(path.join(this.config.output, filename), Buffer.from(await this.driver.takeScreenshot(), 'base64'));
-      this.result.consentPrompts.push({ granted, text: prompt, screenshot: filename });
+      const evidence = { granted, text: prompt, screenshot: filename, input: 'WebDriver Space' };
+      this.result.consentPrompts.push(evidence);
       const button = await poll(() => this.driver.executeScript(accept => {
         const notification = document.getElementById('addon-webext-permissions-notification');
         const host = accept ? notification.button : notification.secondaryButton;
-        // Target the rendered HTML button in moz-button's shadow root rather
-        // than asking WebDriver to scroll/click the custom-element host.
+        // Target the focusable HTML button in moz-button's shadow root.
         const nativeButton = host?.buttonEl;
         const rect = nativeButton?.getBoundingClientRect();
         return rect?.width && rect?.height ? nativeButton : null;
       }, granted), Boolean, 'rendered native consent button');
       await poll(() => button.isDisplayed(), Boolean, 'native consent button visible');
       await poll(() => button.isEnabled(), Boolean, 'native consent button enabled');
-      await button.click();
+      await this.driver.executeScript(element => {
+        window.__bdE2eConsentActivation = null;
+        element.addEventListener('click', event => {
+          window.__bdE2eConsentActivation = { trusted: event.isTrusted, detail: event.detail };
+        }, { once: true });
+      }, button);
+      // Native popups use a separate widget. WebDriver's pointer hit test
+      // against the browser document cannot scroll them into view. Keyboard
+      // input focuses the real button and uses Gecko's native event path.
+      await button.sendKeys(Key.SPACE);
+      evidence.activation = await this.driver.executeScript(() => window.__bdE2eConsentActivation);
+      assert.deepEqual(evidence.activation, { trusted: true, detail: 0 },
+        'consent must be activated by trusted keyboard input');
     } finally { await this.driver.setContext(firefox.Context.CONTENT); }
     await equalEventually(() => this.licenseConsent(), granted, 'native authenticationInfo permission');
   }

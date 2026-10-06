@@ -130,19 +130,23 @@ export class DailyLimitManager {
     this.pendingRemaps = null;
   }
 
-  async readState(now = new Date()) {
+  async readState(now = new Date(), { persistNormalization = true } = {}) {
     return this.enqueue(async () => {
       const result = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
       const normalized = normalizeDailyRuleUsageState(result[DAILY_RULE_USAGE_KEY], now);
       const raw = result[DAILY_RULE_USAGE_KEY];
       const needsSave = !raw || JSON.stringify(raw) !== JSON.stringify(normalized);
-      if (needsSave) await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: normalized });
+      if (persistNormalization && needsSave) {
+        await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: normalized });
+      }
       return normalized;
     });
   }
 
   async getUsageSeconds(now = new Date()) {
-    const state = await this.readState(now);
+    // Options and Popup have independent queues from the worker. A getter
+    // must not replay its snapshot over a concurrent prune, remap or sample.
+    const state = await this.readState(now, { persistNormalization: false });
     if (this.pendingRemaps?.length) {
       return applyAssignmentRemaps({
         ...state,

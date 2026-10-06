@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.17**
+# Firefox Desktop E2E — BlockDistraction **5.3.18**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 13 початковим сценаріям Chromium E2E, але використовує Firefox event page, `browser.*`,
@@ -46,7 +46,7 @@ npm run test:headed
 ізоляція sandbox не вимикаються.
 
 Звичайний Firefox Release може виконати повний набір із підписаним AMO XPI
-саме версії 5.3.17: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
+саме версії 5.3.18: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
 Цей файл є фактичним target для всіх сценаріїв; `BD_EXTENSION_PATH` тоді
 не використовується. Runner перевіряє version, ID та event-page manifest,
 але підписаний XPI може мати інші runtime-байти. Саме його потрібно
@@ -90,7 +90,7 @@ CI використовує `xvfb-run -a npm run test:headed`; на Linux без
 | 14 | Payment suspension → manual recovery | Та сама збережена ліцензія; General лишається активним, cross-list Focus DNR відновлюється до відповіді, два Options стають Pro |
 | 15 | Payment suspension → native alarm | Справжній `check_pro_expiry` alarm і HTTP mock; key, rules, profiles, settings збережено, інший профіль знову блокується |
 | 16 | Deferred DNR sync → native retry | Oversized fixture перевищує фактичний browser capacity; `syncPending=true` і Pro/key збережено; після виправлення fixture нативний `update_scheduled_rules` відновлює DNR |
-| 17 | Native consent deny → grant | WebDriver натискає справжні кнопки Firefox prompt; denial не надсилає key і зберігає Pro, grant відкриває verification без telemetry consent |
+| 17 | Native consent deny → grant | WebDriver активує справжні кнопки Firefox prompt клавішею Space; denial не надсилає key і зберігає Pro, grant відкриває verification без telemetry consent |
 
 01/03 використовують одночасні runtime messages з двох справжніх Options,
 а не одночасні фізичні натискання. UI add/edit/delete/import та Pro actions
@@ -118,8 +118,11 @@ Delete/import перевіряє завершення usage cleanup окреми
 `browser.storage`. Нативні runtime, storage, DNR, tabs, scripting, alarms, permission API та
 реальний годинник не підмінюються. Для кнопок системного consent prompt runner
 використовує Firefox chrome context через geckodriver `--allow-system-access`.
-Натискання адресовано справжньому HTML `buttonEl` усередині `moz-button`,
-а не оболонці custom element; перед кліком перевіряються visibility та enabled.
+Клавіша Space через WebDriver адресована справжньому HTML `buttonEl` усередині
+`moz-button`; перед введенням перевіряються visibility та enabled, після нього —
+trusted click від клавіатури. Pointer hit test не використовується для окремого
+віджета popup. Import confirm приймає нативний `unhandledPromptBehavior=accept`;
+BiDi-подія лише записується, без повторної команди `handleUserPrompt`.
 Це привілейований доступ лише до нового тестового профілю на loopback;
 особистий браузер не підключається. Browser sandbox залишається увімкненим.
 09/13/14–16 приймають фактичний prompt; 17 перевіряє відмову та наступну згоду.
