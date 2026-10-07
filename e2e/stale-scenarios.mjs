@@ -32,7 +32,7 @@ async function message(page, input) {
 }
 
 // Forwarding-only observer: no response substitution, artificial delay or API double.
-async function observe(page) {
+export async function observe(page) {
   await page.evaluate(() => {
     window.__bdStale = { calls: [], pendingGets: 0 };
     const events = window.__bdStale;
@@ -46,21 +46,31 @@ async function observe(page) {
       const get = input.type === 'focus_schedule_get';
       if (get) events.pendingGets++;
       const finish = response => {
+        if (event.completed) return response;
         event.response = response;
         event.completed = true;
         if (get) events.pendingGets--;
         return response;
       };
-      if (globalThis.browser) return original(input, ...args).then(finish, error => {
-        finish(null); throw error;
-      });
       const callback = args.at(-1);
-      if (typeof callback !== 'function') {
-        // All production Chromium callers use callbacks; keep other callers unchanged.
-        events.calls.pop(); if (get) events.pendingGets--;
-        return original(input, ...args);
-      } else {
-        return original(input, ...args.slice(0, -1), response => { finish(response); callback(response); });
+      try {
+        // Chrome also exposes browser.*. Select the calling convention by
+        // arguments, not namespace; callback calls return no Promise.
+        if (typeof callback === 'function') {
+          return original(input, ...args.slice(0, -1), response => {
+            finish(response);
+            callback(response);
+          });
+        }
+        const result = original(input, ...args);
+        if (result && typeof result.then === 'function') {
+          return result.then(finish, error => { finish(null); throw error; });
+        }
+        finish(result);
+        return result;
+      } catch (error) {
+        finish(null);
+        throw error;
       }
     };
   });
@@ -185,8 +195,8 @@ export const staleScenarios = [
       await listCommand(b, 'rules:activateList', 'general');
       const clickResult = await confirm(a);
       assert.equal(clickResult.message.payload.listId, 'list-1');
-      assert.equal(clickResult.message.payload.expectedGeneration, shown.rulesGeneration);
-      assert.equal(clickResult.message.payload.expectedListRevision, shown.ruleListRevisions['list-1']);
+      assert.equal(clickResult.message.payload.expectedGeneration, shown.rulesGeneration ?? null);
+      assert.equal(clickResult.message.payload.expectedListRevision, shown.ruleListRevisions?.['list-1'] ?? null);
       assert.equal(clickResult.response.success, true, JSON.stringify(clickResult));
       await equal(async () => {
         const state = await e.state();
@@ -212,8 +222,8 @@ export const staleScenarios = [
       await listCommand(b, 'rules:renameList', 'list-1', { name: 'Study' });
       const before = stable(await e.state());
       const clickResult = await confirm(a);
-      assert.equal(clickResult.message.payload.expectedGeneration, shown.rulesGeneration);
-      assert.equal(clickResult.message.payload.expectedListRevision, shown.ruleListRevisions['list-1']);
+      assert.equal(clickResult.message.payload.expectedGeneration, shown.rulesGeneration ?? null);
+      assert.equal(clickResult.message.payload.expectedListRevision, shown.ruleListRevisions?.['list-1'] ?? null);
       assert.equal(clickResult.response.success, false);
       assert.equal(clickResult.response.error.code, 'rules_state_changed');
       assert.deepEqual(stable(await e.state()), before);
