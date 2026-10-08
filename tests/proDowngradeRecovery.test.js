@@ -177,6 +177,8 @@ function createPopupProfileController({
   const state = { lists: clone(ruleLists), activeRuleListId };
   const controller = createController(popupSource, 'loadRules', 'showBlockThisSiteButton', {
     countFreeRules,
+    readRulesViewSnapshot: async () => ({ snapshot: { rules: clone(rules), generation: null },
+      ruleListState: { ...clone(state), generation: null }, dailyUsageSeconds: {} }),
     getAssignmentUsageSeconds,
     getRuleAssignment,
     getRuleAssignments,

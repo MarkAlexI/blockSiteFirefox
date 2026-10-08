@@ -172,6 +172,14 @@ export const readerScenarios = [
       if (foreground.front) await foreground.front(); else await foreground.bringToFront();
       await eventually(() => foreground.evaluate(() => document.querySelector('h1')?.textContent),
         'BD E2E fixture', 'new-day navigation is permitted');
+      await eventually(() => foreground.evaluate(() => ({ visible: document.visibilityState, focused: document.hasFocus() })),
+        { visible: 'visible', focused: true }, 'native visibility and document focus');
+      const active = await a.evaluate(async () => {
+        const api = globalThis.browser || chrome;
+        const tabs = await api.tabs.query({ active: true, currentWindow: true });
+        return tabs[0]?.url;
+      });
+      assert.equal(active, 'http://usage.bd-e2e.test/new-day', 'actual active browser tab');
       await eventually(async () => (await e.state()).dailyRuleUsage.lastSample?.assignmentKeys,
         ['21:general'], 'native foreground accounting started');
       await delay(2000);

@@ -1,10 +1,10 @@
 # Block Site Extension: Website Time Management
 
-![GitHub license](https://img.shields.io/github/license/MarkAlexI/blockSiteExtension)
-![GitHub stars](https://img.shields.io/github/stars/MarkAlexI/blockSiteExtension?style=social)
-![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteExtension?style=social)
-![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteExtension)
-![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteExtension)
+![GitHub license](https://img.shields.io/github/license/MarkAlexI/blockSiteFirefox)
+![GitHub stars](https://img.shields.io/github/stars/MarkAlexI/blockSiteFirefox?style=social)
+![GitHub forks](https://img.shields.io/github/forks/MarkAlexI/blockSiteFirefox?style=social)
+![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteFirefox)
+![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteFirefox)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kfhgdgokgjmdboidlhphajinmgpcmmec?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
 [![Firefox Source](https://img.shields.io/badge/Firefox%20Source-v5.3.20-orange?logo=firefox-browser)](https://github.com/MarkAlexI/blockSiteFirefox)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
@@ -176,3 +176,26 @@ Thank you for using this extension! I hope it helps you stay focused and product
 Pro and Legacy users can enable one recurring schedule in Settings: weekdays, local start time, and duration (1–240 minutes). Popup shows the next session and a skip button. Scheduling is off by default and stays on this device; rule backups do not transfer it.
 
 The schedule starts normal blacklist Focus mode with the current rules, without Hardcore. Manual sessions win. If the browser wakes during a window, only the remaining time runs; a fully missed window is skipped. Browser and Android background restrictions can delay alarms. Missing daylight-saving times are skipped, repeated times run once, and future starts follow the device’s current timezone.
+
+
+## Package provenance and runtime comparison
+
+Commit runtime changes before packaging. Store ZIPs are built from one captured
+HEAD commit; dirty runtime files are rejected. Keep the ZIP, `.sha256` and
+`.build.json` together. CWS/Edge metadata records the archive hash, commit, tree
+and runtime Git blobs; the Edge store-target override records both source and
+packaged blob hashes. CI retains the sidecars alongside the packages/reports.
+
+To compare an extracted archive or installed extension directory with the
+corresponding CI build metadata:
+
+```bash
+node tools/verify-runtime.js PATH_TO_PACKAGE.zip.build.json EXTRACTED_EXTENSION_DIRECTORY
+```
+
+Every runtime filename and Git blob must match, including the Edge override.
+Only `META-INF/` and `_metadata/` signature/integrity directories are excluded.
+This checks runtime bytes, not the cryptographic authenticity of a CRX/XPI or
+native browser behavior. A store-rewritten manifest is reported as a mismatch
+and must be reviewed rather than silently accepted. An unpacked development
+checkout contains extra files and is not the installed-runtime input.

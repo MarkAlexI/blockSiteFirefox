@@ -68,5 +68,7 @@ jobs:
           path: |
             e2e/test-results/
             e2e/results.json
+            dist/*-amo.zip.sha256
+            dist/*-amo.zip.build.json
           if-no-files-found: warn
           retention-days: 14

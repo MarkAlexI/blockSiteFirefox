@@ -3,7 +3,7 @@ import { mkdtemp, mkdir, readFile, writeFile, rm, readdir, open } from 'node:fs/
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
 import { DriverService } from 'selenium-webdriver/remote/index.js';
-import { allocateLoopbackPorts } from './ports.mjs';
+import { allocateLoopbackPorts, assertLoopbackPortsAvailable } from './ports.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { By, Key, Select, error as webdriverError } from 'selenium-webdriver';
@@ -102,6 +102,15 @@ class Page {
   async element(css) {
     return poll(async () => (await this.elements(css))[0], Boolean, `element ${css}`);
   }
+  // Focus race probes must not wait for the normal 500ms DOM-settle guard.
+  // Caller selects the page before Add; do not switch tabs mid-interaction.
+  async clickUnsettled(css) {
+    await this.harness.driver.findElement(By.css(css)).click();
+  }
+  async typeActive(text) {
+    await this.harness.driver.actions().sendKeys(String(text)).perform();
+  }
+
   async click(css) {
     await this.front();
     for (let attempt = 1; ; attempt++) {
@@ -154,10 +163,13 @@ export async function addUi(page, blockURL, { dailyMinutes = null } = {}) {
     `${row} .daily-limit-minutes`), String(dailyMinutes), 'exact Daily Limit minutes before save');
   await page.click(`${row} .save-btn`);
   await poll(() => page.text('#rules-container'), text => text?.includes(blockURL), 'saved rule visible');
-  await equalEventually(() => page.evaluate(async url =>
-    (await browser.storage.local.get('rules')).rules.find(rule => rule.blockURL === url)
-      ?.assignments?.find(item => item.listId === 'general')?.dailyLimit?.minutes ?? null, blockURL),
-    dailyMinutes, 'exact persisted Daily Limit minutes');
+  await equalEventually(() => page.evaluate(async url => {
+    const stored = (await browser.storage.local.get('rules')).rules.find(rule => rule.blockURL === url);
+    const assignment = stored?.assignments?.find(item => item.listId === 'general');
+    return { exists: Boolean(stored), url: stored?.blockURL, list: assignment?.listId,
+      mode: assignment?.blockingMode, minutes: assignment?.dailyLimit?.minutes ?? null };
+  }, blockURL), { exists: true, url: blockURL, list: 'general',
+    mode: dailyMinutes === null ? 'always' : 'daily_limit', minutes: dailyMinutes }, 'exact persisted assignment including rule existence');
 }
 
 async function collectRuntime(root) {
@@ -223,10 +235,14 @@ export class ExtensionHarness {
     return reply.result;
   }
 
-  async launch({ restarted = false } = {}) {
+  async launch({ restarted = false, ports = null } = {}) {
     this.phase = 'browser-launch';
-    const [webdriverPort, marionettePort, bidiPort] = await allocateLoopbackPorts(3);
+    const selectedPorts = ports || await allocateLoopbackPorts(3);
+    await assertLoopbackPortsAvailable(selectedPorts);
+    const [webdriverPort, marionettePort, bidiPort] = selectedPorts;
     this.result.driverPorts = { webdriver: webdriverPort, marionette: marionettePort, bidi: bidiPort };
+    const launchEvidence = { restarted, ports: { ...this.result.driverPorts }, startedAt: new Date().toISOString() };
+    (this.result.launches ||= []).push(launchEvidence);
     const options = new firefox.Options().enableBidi().addArguments('--profile', this.profile);
     if (this.config.headless) options.addArguments('-headless');
     if (process.env.BD_FIREFOX_BINARY) options.setBinary(process.env.BD_FIREFOX_BINARY);
@@ -259,6 +275,9 @@ export class ExtensionHarness {
       const capabilities = await this.driver.getCapabilities();
       this.sessionReady = true;
       this.result.browser = Object.fromEntries([...capabilities.keys()].map(key => [key, capabilities.get(key)]));
+      launchEvidence.webSocketUrl = capabilities.get('webSocketUrl');
+      assert.equal(new URL(launchEvidence.webSocketUrl).port, String(bidiPort), 'BiDi endpoint must use the assigned listener port');
+      launchEvidence.processId = capabilities.get('moz:processID');
     } catch (error) {
       if (!this.sessionReady) this.driver = null;
       throw error;

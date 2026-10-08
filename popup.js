@@ -4,6 +4,7 @@ import { getCurrentTabs } from './scripts/getCurrentTabs.js';
 import { normalizeDomainRule } from './rules/normalizeDomainRule.js';
 import { t } from './scripts/t.js';
 import { RulesManager } from './rules/rulesManager.js';
+import { readRulesViewSnapshot } from './rules/rulesViewSnapshot.js';
 import { RulesClient } from './rules/rulesClient.js';
 import { isExpectedRulesRejection } from './rules/rulesErrorClassification.js';
 import { RulesUI, formatDailyLimitUsageMinutes } from './rules/rulesUI.js';
@@ -127,7 +128,7 @@ class PopupPage {
         this.updateStatisticsSummary(changes.statistics.newValue);
       }
 
-      if (changes?.rulesGeneration) {
+      if (changes?.rulesGeneration && changes.rulesGeneration.oldValue !== changes.rulesGeneration.newValue) {
         void this.loadRules();
         return;
       }
@@ -270,11 +271,7 @@ class PopupPage {
   async loadRules() {
     const refreshId = this.rulesRefreshId = (this.rulesRefreshId || 0) + 1;
     try {
-      const [snapshot, ruleListState, dailyUsageSeconds] = await Promise.all([
-        this.rulesManager.getRulesSnapshot(),
-        this.ruleListsManager.getSnapshot(),
-        this.dailyLimitManager.getUsageSeconds()
-      ]);
+      const { snapshot, ruleListState, dailyUsageSeconds } = await readRulesViewSnapshot();
       if (refreshId !== this.rulesRefreshId) return;
       const { rules, generation, revisions = {} } = snapshot;
       const hasRuleListAccess = this.isPro || this.isLegacyUser;
@@ -496,9 +493,7 @@ class PopupPage {
       mobileLinkHint.textContent = t('mobilecopylinkhint');
     }
     
-    requestAnimationFrame(() => {
-      if (refreshId === this.rulesRefreshId && blockURL.isConnected) blockURL.focus();
-    });
+    const focusAtCreation = document.activeElement;
     
     const redirectURL = document.createElement('input');
     redirectURL.type = 'text';
@@ -615,6 +610,13 @@ class PopupPage {
       }
       
       this.rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
+      // Schedule only after insertion, and never steal a later user focus choice.
+      if (!ruleId && !blockURLValue) {
+        requestAnimationFrame(() => {
+          if (refreshId === this.rulesRefreshId && blockURL.isConnected &&
+              document.activeElement === focusAtCreation) blockURL.focus();
+        });
+      }
     }, 0);
   }
   

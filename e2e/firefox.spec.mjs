@@ -250,3 +250,6 @@ test('13', 'a temporary verification server error preserves Pro and subsequent p
 scenarios.push(...recoveryScenarios);
 scenarios.push(...readerScenarios);
 scenarios.push(...staleScenarios);
+
+// No pre-input DOM settling in the keyboard focus regression.
+for (const scenario of (await import('./focus-scenarios.mjs')).focusScenarios) scenarios.push(scenario);

@@ -123,6 +123,14 @@ function applyAssignmentRemaps(state, remaps) {
   return state;
 }
 
+// Project the durable journal without mutating storage or accounting a segment.
+export function projectDailyUsageSeconds(raw, pendingRemaps, now = new Date()) {
+  return applyAssignmentRemaps(
+    normalizeDailyRuleUsageState(raw, now),
+    normalizeAssignmentRemaps(pendingRemaps)
+  ).usageSeconds;
+}
+
 export class DailyLimitManager {
   constructor(storageArea = chrome.storage.local) {
     this.storageArea = storageArea;
