@@ -121,6 +121,19 @@ class Page {
 
   async click(css) {
     await this.front();
+    // Pro controls can exist while max-height still clips the opening panel.
+    // Wait for native layout/animations before the single WebDriver click.
+    await poll(() => this.evaluate(css => {
+      const node = document.querySelector(css);
+      if (!node) return false;
+      const panel = node.closest('#proWrapper');
+      if (!panel) return true;
+      const rect = node.getBoundingClientRect();
+      return !node.disabled && rect.width > 0 && rect.height > 0 &&
+        panel.classList.contains('open') && !panel.inert &&
+        panel.clientHeight >= panel.scrollHeight &&
+        panel.getAnimations().every(animation => animation.playState !== 'running' && !animation.pending);
+    }, css), Boolean, `Pro control ready ${css}`);
     for (let attempt = 1; ; attempt++) {
       try { await (await this.element(css)).click(); return; }
       catch (error) {
@@ -243,15 +256,22 @@ export class ExtensionHarness {
     return reply.result;
   }
 
-  async launch({ restarted = false, ports = null } = {}) {
+  async launch({ restarted = false, ports = null, timezone = this.timezone } = {}) {
+    this.timezone = timezone;
     this.phase = 'browser-launch';
     const selectedPorts = ports || await allocateLoopbackPorts(3);
     await assertLoopbackPortsAvailable(selectedPorts);
     const [webdriverPort, marionettePort, bidiPort] = selectedPorts;
     this.result.driverPorts = { webdriver: webdriverPort, marionette: marionettePort, bidi: bidiPort };
-    const launchEvidence = { restarted, ports: { ...this.result.driverPorts }, startedAt: new Date().toISOString() };
+    const launchEvidence = { restarted, ports: { ...this.result.driverPorts }, timezone,
+      startedAt: new Date().toISOString() };
     (this.result.launches ||= []).push(launchEvidence);
     const options = new firefox.Options().enableBidi().addArguments('--profile', this.profile);
+    if (timezone) {
+      // Documented moz:firefoxOptions.env sets the browser process environment.
+      const nativeOptions = options.get('moz:firefoxOptions');
+      options.set('moz:firefoxOptions', { ...nativeOptions, env: { ...nativeOptions.env, TZ: timezone } });
+    }
     if (this.config.headless) options.addArguments('-headless');
     if (process.env.BD_FIREFOX_BINARY) options.setBinary(process.env.BD_FIREFOX_BINARY);
     options.set('unhandledPromptBehavior', 'accept');
@@ -273,6 +293,8 @@ export class ExtensionHarness {
     // either listener binds. Configure distinct ports via the public API.
     this.service = new DriverService(process.env.BD_GECKODRIVER || undefined, {
       hostname: '127.0.0.1', loopback: true, port: webdriverPort,
+      // Inherit TZ through geckodriver too; verify the actual Firefox env below.
+      env: timezone ? { ...process.env, TZ: timezone } : undefined,
       args: ['--host=127.0.0.1', `--port=${webdriverPort}`,
         `--marionette-port=${marionettePort}`, `--websocket-port=${bidiPort}`, '--allow-system-access'],
       stdio: ['ignore', log.fd, log.fd]
@@ -294,6 +316,12 @@ export class ExtensionHarness {
     assert.equal((await this.driver.getCapabilities()).get('acceptInsecureCerts'), false);
     await this.driver.setContext(firefox.Context.CHROME);
     try {
+      if (timezone) {
+        launchEvidence.processTimezone = await this.driver.executeScript(() =>
+          Components.classes['@mozilla.org/process/environment;1']
+            .getService(Components.interfaces.nsIEnvironment).get('TZ'));
+        assert.equal(launchEvidence.processTimezone, timezone, 'Firefox process inherits requested TZ');
+      }
       const trusted = await this.driver.executeScript(base64 => {
         const interfaces = Components.interfaces;
         const db = Components.classes['@mozilla.org/security/x509certdb;1']
@@ -478,13 +506,23 @@ export class ExtensionHarness {
     if (reason) assert.equal(new URL(await page.url()).searchParams.get('reason'), reason);
     return page;
   }
-  async restart() {
+  async backgroundClock() {
+    return this.probe.evaluate(async () => {
+      const view = await browser.runtime.getBackgroundPage();
+      const now = view.Date.now(); const local = new view.Date(now);
+      return { now, timezone: view.Intl.DateTimeFormat().resolvedOptions().timeZone,
+        offset: local.getTimezoneOffset(), date: `${local.getFullYear()}-${String(local.getMonth() + 1).padStart(2, '0')}-${String(local.getDate()).padStart(2, '0')}`,
+        nativeDate: view.Date.toString().includes('[native code]') && view.Date.now.toString().includes('[native code]') };
+    });
+  }
+
+  async restart({ timezone = this.timezone } = {}) {
     if (this.config.installation !== 'persistent') throw new EnvironmentError('Restart requires a persistent add-on installation. Use Developer Edition/Nightly or BD_SIGNED_XPI.');
     await this.capture('before-restart');
     await this.driver.quit();
     this.driver = null;
     this.options = [];
-    await this.launch({ restarted: true });
+    await this.launch({ restarted: true, timezone });
   }
   async capture(label) {
     await writeFile(path.join(this.config.output, `${label}-network.json`), JSON.stringify(this.events, null, 2));

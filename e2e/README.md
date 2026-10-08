@@ -116,8 +116,40 @@ BiDi reads та runtime calls адресуються конкретній сто
 дозволене тільки після `StaleElementReferenceError`, коли WebDriver відхилив
 дію до її виконання; максимум три спроби, кожна відображена у `uiRetries`.
 Успішні кліки та сценарії не повторюються.
+Для controls усередині Pro-панелі native click також чекає завершення
+CSS-анімації `max-height` і повного розгортання контейнера. Наявність кнопки
+в DOM сама по собі не означає, що Firefox може прокрутити її у видиму область.
+Очікування читає geometry/animations, після нього виконується один native click.
+`clickUnsettled`/`activateUnsettled` keyboard-focus regression лишаються без цієї паузи.
 Delete/import перевіряє завершення usage cleanup окремим bounded poll:
 спостереження rules/DNR storage ще не означає завершення post-commit задач.
+
+## Календарний smoke (32–34)
+
+Повний CI-набір містить 33 Firefox Desktop сценарії. Окремий Linux запуск:
+
+```sh
+xvfb-run -a npm run test:headed -- --filter='calendar smoke'
+```
+
+32 змінює процесний `TZ` з UTC на UTC+1 через чистий restart того самого
+профілю: key та revision незмінні, absolute start інший. Старий Skip має
+повернути `schedule_changed`, storage не змінюється, alarm переозброєно.
+33 змінює UTC−12 на UTC+14: локальний occurrence key також змінюється.
+Обидва сценарії перевіряють свіжий Skip через UI і його збереження після
+наступного restart без повторного seed. TZ передається в середовищі
+geckodriver та `moz:firefoxOptions.env`; перевіряється фактичний TZ процесу
+Firefox. Date/Date.now та browser API залишаються нативними. Timezone
+і offset звіряються в Options та справжній Firefox event page.
+
+34 імпортує production `focusSchedule.js` у реальний браузер із процесним
+`TZ=America/New_York`. Фіксовані instants є аргументами календарного модуля:
+gap 02:30 пропускається, fold 01:30 має один key/start, handled і skipped
+key ведуть на наступний тиждень. Це native Date/Intl integration, а не
+очікування живого DST чи перевірка доставки alarm під час DST.
+Покриття процесного TZ наразі призначене для Linux CI; інші OS потребують
+окремого підтвердження. Невідповідність timezone в будь-якому realm є падінням.
+32–34 потребують persistent installation; temporary має статус blocked.
 
 ## Межі перевірки
 
@@ -169,7 +201,9 @@ network interception і підписка на network events відсутні. F
 
 Popup у 18–20 — справжня `index.html` сторінка розширення у вкладці. Це
 не перевірка lifecycle toolbar Popup. Expired-day fixture не замінює Date
-та не доводить реальний перехід через північ, зміну timezone чи DST.
+та не доводить живу північ чи timezone-зміну з активним usage/pending remap.
+32–34 перевіряють окремі календарні гарантії Scheduled Focus; зміна системного
+timezone всередині pending API wait не покрита.
 
 Firefox Android потребує окремого ручного проходу. Desktop Firefox E2E
 не підтверджує Android, Chromium, Edge або Kiwi.

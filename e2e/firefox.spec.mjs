@@ -4,6 +4,7 @@ import path from 'node:path';
 import { recoveryScenarios } from './recovery.mjs';
 import { readerScenarios } from './reader-scenarios.mjs';
 import { staleScenarios } from './stale-scenarios.mjs';
+import { calendarScenarios } from './calendar-scenarios.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
 
@@ -254,3 +255,4 @@ scenarios.push(...staleScenarios);
 // No pre-input DOM settling in the keyboard focus regression.
 for (const scenario of (await import('./focus-scenarios.mjs')).focusScenarios) scenarios.push(scenario);
 for (const scenario of (await import('./popup-native-scenarios.mjs')).popupNativeScenarios) scenarios.push(scenario);
+scenarios.push(...calendarScenarios);
