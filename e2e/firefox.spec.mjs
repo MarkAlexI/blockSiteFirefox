@@ -6,6 +6,7 @@ import { readerScenarios } from './reader-scenarios.mjs';
 import { staleScenarios } from './stale-scenarios.mjs';
 import { calendarScenarios } from './calendar-scenarios.mjs';
 import { dayBoundaryScenarios } from './day-boundary-scenarios.mjs';
+import { scheduledExpiryScenarios } from './scheduled-expiry-scenarios.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
 
@@ -258,3 +259,5 @@ for (const scenario of (await import('./focus-scenarios.mjs')).focusScenarios) s
 for (const scenario of (await import('./popup-native-scenarios.mjs')).popupNativeScenarios) scenarios.push(scenario);
 scenarios.push(...calendarScenarios);
 scenarios.push(...dayBoundaryScenarios);
+
+scenarios.push(...scheduledExpiryScenarios);

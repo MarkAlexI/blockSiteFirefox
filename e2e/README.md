@@ -126,7 +126,7 @@ Delete/import перевіряє завершення usage cleanup окреми
 
 ## Календарний smoke (32–34)
 
-Повний CI-набір містить 35 Firefox Desktop сценарії. Окремий Linux запуск:
+Повний CI-набір містить 37 Firefox Desktop сценаріїв. Окремий Linux запуск:
 
 ```sh
 xvfb-run -a npm run test:headed -- --filter='calendar smoke'
@@ -178,6 +178,41 @@ Pending journal — durable post-commit fixture, записаний через n
 process TZ при clean restart, без Date override чи ручного виклику listener.
 Жива північ, timezone change без restart, короткий suspend активного segment,
 automatic idle unload і Android suspend/resume залишаються окремими кроками.
+
+## Scheduled Focus expiry smoke (37–38)
+
+Ці два persistent сценарії затримують **повернення** одного справжнього API
+в background після його виконання. 37 утримує session read до durable claim;
+38 утримує завершений claim write. Нативний Scheduled Focus alarm доставляється
+у хвилинному occurrence; Date/Date.now/Intl та результати API не підміняються.
+Тест чекає фактичного endTime, звільняє delivery і ставить незмінений save у
+production transition queue як barrier завершення reconcile.
+
+| ID | Обов’язкова перевірка |
+| --- | --- |
+| 37 | Після expiry немає handled key, жодної transient Focus activation чи Focus DNR; наступний occurrence має точний native alarm. |
+| 38 | Claim уже збережений перед hold; після expiry немає transient Focus/DNR; той самий claim і schedule переживають restart профілю без reseed. |
+
+Спостерігач записує storage write/commit, справжні storage.onChanged, native
+DNR update arguments і rules після commit, доставлені alarms та час gate.
+Позитивний контроль через ручний Focus start/stop мусить показати activation
+обом спостерігачам до очищення history для основного сценарію. Перевіряється
+вся history, а не лише фінальний eventually. Browser API errors лишаються
+помилками; held delivery та observers відновлюються у finally.
+
+Background heartbeat читає справжній storage під час контрольованого wait.
+Це перевірка expiry всередині живого background, а не automatic idle unload,
+OS suspend/resume, зміна timezone під час wait або Android. Restart чистий;
+history стосується індукованого wait до закриття браузера. Після restart
+перевіряються durable claim, schedule, Focus state, DNR, alarm і navigation.
+Окремий timeout 240 секунд охоплює native запуск, до 75 секунд до start,
+хвилинний occurrence та restart; retries вимкнено.
+
+Окремий Linux запуск із каталогу `e2e`:
+
+```sh
+xvfb-run -a npm run test:headed -- --filter='scheduled expiry smoke'
+```
 
 ## Межі перевірки
 
