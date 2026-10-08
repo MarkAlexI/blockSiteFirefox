@@ -253,3 +253,4 @@ scenarios.push(...staleScenarios);
 
 // No pre-input DOM settling in the keyboard focus regression.
 for (const scenario of (await import('./focus-scenarios.mjs')).focusScenarios) scenarios.push(scenario);
+for (const scenario of (await import('./popup-native-scenarios.mjs')).popupNativeScenarios) scenarios.push(scenario);

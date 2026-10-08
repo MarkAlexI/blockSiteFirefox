@@ -367,6 +367,13 @@ export class ExtensionHarness {
   async writeLocal(values) { await this.probe.evaluate(values => browser.storage.local.set(values), values); }
   get popupUrl() { return `${this.baseUrl}/index.html`; }
   async openPopup() { return this.newPage(this.popupUrl); }
+  async dismissToolbarPopup() {
+    // The real action panel lives in Gecko's chrome widget, not in a tab.
+    // Escape follows native input handling; do not replace it with Window.close.
+    await this.driver.setContext(firefox.Context.CHROME);
+    try { await this.driver.findElement(By.css('#main-window')).sendKeys(Key.ESCAPE); }
+    finally { await this.driver.setContext(firefox.Context.CONTENT); }
+  }
   async deleteRule(page, id) { await page.click(`tr[data-rule-id="${id}"] .delete-btn`); }
   async importBackup(page, backup) {
     const filename = path.join(this.root, 'reader-backup.json');
