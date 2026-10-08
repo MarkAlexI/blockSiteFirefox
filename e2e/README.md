@@ -126,7 +126,7 @@ Delete/import перевіряє завершення usage cleanup окреми
 
 ## Календарний smoke (32–34)
 
-Повний CI-набір містить 33 Firefox Desktop сценарії. Окремий Linux запуск:
+Повний CI-набір містить 35 Firefox Desktop сценарії. Окремий Linux запуск:
 
 ```sh
 xvfb-run -a npm run test:headed -- --filter='calendar smoke'
@@ -150,6 +150,34 @@ key ведуть на наступний тиждень. Це native Date/Intl i
 Покриття процесного TZ наразі призначене для Linux CI; інші OS потребують
 окремого підтвердження. Невідповідність timezone в будь-якому realm є падінням.
 32–34 потребують persistent installation; temporary має статус blocked.
+
+## Daily Limit day-boundary smoke (35–36)
+
+Повний набір реєструє ще два persistent сценарії. Окремий Linux запуск із
+каталогу `e2e`:
+
+```sh
+xvfb-run -a npm run test:headed -- --filter='day-boundary smoke'
+```
+
+| ID | Native перевірка |
+| --- | --- |
+| 35 | Timezone змінюється, локальний day key залишається: journal одноразово переносить фактично накопичений foreground usage; exhausted budget і native DNR зберігаються після двох restart. |
+| 36 | Date-line A-to-B-to-A: старі counters та journal з активним lastSample очищуються при зміні дня; новий foreground segment обліковується окремо; повернення до попереднього дня не відновлює жоден старий бюджет. |
+
+В обох сценаріях Date/Intl перевіряються в Options і background. Один
+disposable profile та storage marker переживають кожний restart без reseed.
+Два Options і Popup reader показують committed assignments, точні budgets
+та exhausted state; справжня navigation перевіряє DNR. Native recovery alarm
+має бути відновлений. У 35 foreground segment завершено перед restart, тому
+usage після recovery мусить збігтися точно; це не перевірка suspend активного
+segment. У 36 збережений lastSample походить із фактичного активного segment.
+
+Pending journal — durable post-commit fixture, записаний через native storage,
+а не штучно індукований crash між production writes. Day key змінюється через
+process TZ при clean restart, без Date override чи ручного виклику listener.
+Жива північ, timezone change без restart, короткий suspend активного segment,
+automatic idle unload і Android suspend/resume залишаються окремими кроками.
 
 ## Межі перевірки
 
@@ -201,9 +229,9 @@ network interception і підписка на network events відсутні. F
 
 Popup у 18–20 — справжня `index.html` сторінка розширення у вкладці. Це
 не перевірка lifecycle toolbar Popup. Expired-day fixture не замінює Date
-та не доводить живу північ чи timezone-зміну з активним usage/pending remap.
-32–34 перевіряють окремі календарні гарантії Scheduled Focus; зміна системного
-timezone всередині pending API wait не покрита.
+та не доводить живу північ. 35–36 перевіряють process timezone restart із
+foreground usage/pending remap; live timezone change всередині pending API
+wait не покрита. 32–34 перевіряють календар Scheduled Focus.
 
 Firefox Android потребує окремого ручного проходу. Desktop Firefox E2E
 не підтверджує Android, Chromium, Edge або Kiwi.

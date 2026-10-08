@@ -217,3 +217,5 @@ export const calendarScenarios = [
     }
   }
 ];
+
+export { clock as assertNativeClock, evidence as recordCalendarEvidence };
