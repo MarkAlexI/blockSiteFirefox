@@ -126,7 +126,7 @@ Delete/import перевіряє завершення usage cleanup окреми
 
 ## Календарний smoke (32–34)
 
-Повний CI-набір містить 37 Firefox Desktop сценаріїв. Окремий Linux запуск:
+Повний CI-набір містить 38 Firefox Desktop сценаріїв. Окремий Linux запуск:
 
 ```sh
 xvfb-run -a npm run test:headed -- --filter='calendar smoke'
@@ -257,9 +257,9 @@ network interception і підписка на network events відсутні. F
 реальні ліцензії, Paddle та купівлі цим набором не перевіряються.
 
 05 починається із заданого durable post-commit/pre-recovery journal і
-перевіряє чистий restart, а не штучно викликаний crash. Автоматичне idle
-вивантаження Firefox event page та Scheduled Focus crash tradeoff не
-перевіряються. H1 stale post-commit prune у production залишається
+перевіряє чистий restart, а не штучно викликаний crash. Сценарій 39 окремо
+перевіряє автоматичне idle-вивантаження Firefox event page; Scheduled Focus
+crash tradeoff не перевіряється. H1 stale post-commit prune у production залишається
 непідтвердженим; цей E2E-патч не є доказом його досяжності.
 
 Popup у 18–20 — справжня `index.html` сторінка розширення у вкладці. Це
@@ -275,6 +275,66 @@ Deferred-sync сценарій перевіряє реальний browser capac
 fixture, а не всі можливі API rejection чи OS failure. Ані DNR methods, ані
 alarm delivery не замінено doubles. Наступний retry — фактичний native alarm,
 запланований у тимчасовому профілі, без виклику production listener вручну.
+
+## Автоматичне idle-вивантаження Firefox event page (39)
+
+Сценарій закриває всі extension views, включно зі службовим Popup reader,
+і залишає одну вкладку `about:blank`. Marionette читає лише браузерний
+parent process: `WebExtensionPolicy` та observer
+`extension:background-script-status`. Toolbox не під'єднується;
+`terminateBackground`, restart, heartbeat, extension API polling та зміна
+`extensions.background.idle.timeout` під час idle не використовуються.
+
+Focus починається через справжній UI за 6–10 секунд до native minute tick.
+Після tick лишається понад 45 секунд до `end_focus_session`, який має бути
+раніше кожного іншого native alarm. Потрібні natural unload через 25–45
+секунд, спостережуваний `stopped` без views щонайменше секунду та перший wake
+не раніше Focus alarm і до наступного конкурентного alarm. PID, справжній
+шлях профілю та keeper не змінюються. Несподіваний wake або відсутній unload
+падають, а не перетворюються на чистий restart.
+
+До відкриття UI read-only snapshot із native storage.local/session та DNR
+backend мусить показати завершений Focus, DNR `[21]`, незмінні 840 секунд,
+rules/profiles/revisions і порожній remap journal. Це перевірка eventual
+завершення cold handler; вона не доводить відсутності коротких stale-станів
+усередині handler. Після wake новий background global не містить sentinel,
+а native session storage його зберігає. Reopened Options/Popup reader,
+alarms, credentials та реальна blocked/allowed navigation теж перевіряються.
+Це Popup reader у вкладці; toolbar Popup покрито окремими сценаріями.
+
+`native-idle-wake.json` зберігає timestamp history, parent-state samples,
+native alarms, PID/profile, cold state та identity до/після wake; файл
+записується й при падінні. Observer прибирається у `finally`. Node-тести
+перевіряють protocol model для pinned background, раннього stop/wake,
+відсутнього wake, конкурентного alarm, заміни браузера/профілю/keeper та
+помилок спостереження. Вони не замінюють native сценарій.
+
+Запуск із каталогу `e2e`:
+
+```sh
+xvfb-run -a npm run test:headed -- --filter=39
+```
+
+Офіційний контракт і релевантна історія:
+
+- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Background_scripts
+- https://extensionworkshop.com/documentation/develop/debugging/
+- https://searchfox.org/firefox-main/source/toolkit/components/extensions/parent/ext-backgroundPage.js
+- https://bugzilla.mozilla.org/show_bug.cgi?id=1905505 — native wake/idle timer bug, виправлений у Firefox 129 та ESR 128.
+
+Новий сценарій не підтверджує Firefox minimum 113, Android 120, macOS,
+OS suspend/resume або живу зміну дня. Runtime та source version 5.3.20
+не змінено.
+
+Підготовлений патч до `fbed5432be3465747c0fedf409a36ddf5349099f` пройшов
+`npm run check`: 1560/1560 та extension validation. Новий сценарій пройшов
+окремо у headed Linux Firefox 158.0b2/geckodriver 0.37.1: unload через
+30 секунд, wake через 50.873 секунди, global очищено, session збережено.
+Native fault control із навмисно пропущеним durable завершенням Focus
+упав на cold-state assertion до відкриття UI. Під час підготовки виправлено
+десеріалізацію session holder у probe зі збереженням його native даних;
+початкові падіння probe не були runtime-регресією. Повні 38 native
+сценаріїв після цього патча локально не виконувалися; їх має перевірити CI.
 
 ## Результати й CI
 
@@ -295,7 +355,7 @@ Runner і перевірка пакета використовують одне 
 сумісність сценаріїв із тією версією.
 
 Помилка setup зупиняє решту набору як `not-run`. `blocked` чи `failed`
-повертає exit code 1. Повне green можливе лише коли всі 20 scenario bodies
+повертає exit code 1. Повне green можливе лише коли всі 38 scenario bodies
 виконані та пройшли. Запуск із `--filter` повертає результат тільки вибраних
 сценаріїв. GitHub workflow `e2e-firefox.yml` запускається для pull request, push у `main`
 та вручну через **Actions → Firefox Desktop extension E2E → Run workflow**.
