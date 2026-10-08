@@ -77,10 +77,15 @@ class Page {
     if (await selectLiveWindow(this.harness.driver, this.context, webdriverError.NoSuchWindowError)) {
       // visibilitychange starts an asynchronous Options refresh. Do not click
       // an old row while that refresh is replacing the table.
-      await this.settleOptions();
+      await this.settleOptions({ activated: true });
     }
   }
-  async settleOptions() {
+  async settleOptions({ activated = false } = {}) {
+    // A previous quiet interval cannot cover the visibility refresh that has
+    // just started. Begin a fresh interval before reacquiring/clicking rows.
+    if (activated) await this.evaluate(() => {
+      if (window.__bdE2eViewObserver) window.__bdE2eViewObserver.lastMutation = performance.now();
+    });
     await poll(() => this.evaluate(() => {
       const roots = [...document.querySelectorAll('#rules-container, #rule-lists-container')];
       if (!roots.length) return true;
@@ -106,6 +111,9 @@ class Page {
   // Caller selects the page before Add; do not switch tabs mid-interaction.
   async clickUnsettled(css) {
     await this.harness.driver.findElement(By.css(css)).click();
+  }
+  async activateUnsettled(css) {
+    await this.harness.driver.findElement(By.css(css)).sendKeys(Key.SPACE);
   }
   async typeActive(text) {
     await this.harness.driver.actions().sendKeys(String(text)).perform();

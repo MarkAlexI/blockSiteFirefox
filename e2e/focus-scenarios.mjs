@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { installOptionsFocusGate } from './options-focus-gate.mjs';
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 const click = (page, selector) => page.locator ? page.locator(selector).click() : page.clickUnsettled(selector);
 const type = (page, text) => page.keyboard ? page.keyboard.type(text) : page.typeActive(text);
@@ -9,14 +10,16 @@ export const focusScenarios = [{
   title: 'Options Add preserves native keyboard focus through the former 100ms callback in Basic and Daily Limit rules',
   async run(e) {
     const page = await e.openOptions();
+    await page.evaluate(installOptionsFocusGate);
     for (const mode of ['always', 'daily_limit']) {
       const url = `keyboard-${mode}.bd-e2e.test`;
       await page.evaluate(() => {
         document.querySelector('#add-rule').addEventListener('click', () => {
+          window.__bdOptionsFocusGate.begin();
           window.__bdFocusProbe = { addedAt: performance.now() };
         }, { capture: true, once: true });
       });
-      await click(page, '#add-rule');
+      await page.activateUnsettled('#add-rule');
       assert.equal(await page.evaluate(() => document.activeElement === document.querySelector('#rules-container tr:has(.save-btn) td:first-child input')), true,
         'Add must focus URL without fill() or an extra settle');
       await type(page, url);
@@ -31,9 +34,12 @@ export const focusScenarios = [{
         window.__bdFocusProbe.chosen = chosen;
         return performance.now() - window.__bdFocusProbe.addedAt;
       }, mode);
-      assert.ok(elapsed < 100, `Early field change was ${elapsed}ms after Add; the critical window was not exercised`);
+      assert.equal(await page.evaluate(() => window.__bdOptionsFocusGate.phase.released), false,
+        'chosen field precedes delivery of the old autofocus callback');
       await type(page, mode === 'daily_limit' ? '23' : 'https://redirect.bd-e2e.test');
-      await wait(150); // Observe beyond the old callback; no settle before input.
+      const timerEvidence = await page.evaluate(() => window.__bdOptionsFocusGate.releaseAfterDeadline());
+      assert.equal(timerEvidence.deadlinePassed, true, 'native 100ms boundary was crossed');
+      assert.equal(timerEvidence.delivered, timerEvidence.registered, 'every observed old autofocus timer delivered');
       assert.equal(await page.evaluate(() => document.activeElement === window.__bdFocusProbe.chosen), true, 'late callbacks must not reclaim URL focus');
       const actual = await page.evaluate(() => {
         const row = document.querySelector('#rules-container tr:has(.save-btn)');
@@ -54,13 +60,14 @@ export const focusScenarios = [{
       assert.equal(saved.redirectURL, mode === 'always' ? 'https://redirect.bd-e2e.test' : '');
       assert.equal(assignment.blockingMode, mode);
       assert.equal(assignment.dailyLimit?.minutes ?? null, mode === 'daily_limit' ? 23 : null);
-      const evidence = { mode, elapsedToChosenFieldMs: elapsed, url: saved.blockURL,
+      const evidence = { mode, elapsedToChosenFieldMs: elapsed, timerEvidence, url: saved.blockURL,
         redirect: saved.redirectURL, assignment };
       if (e.result) (e.result.focusEvidence ||= []).push(evidence);
       if (e.testInfo) await e.testInfo.attach(`keyboard-focus-${mode}`, {
         body: JSON.stringify(evidence, null, 2), contentType: 'application/json'
       });
     }
+    await page.evaluate(() => window.__bdOptionsFocusGate.restore());
   }
 }];
 

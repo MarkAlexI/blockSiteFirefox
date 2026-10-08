@@ -4,6 +4,7 @@ import path from 'node:path';
 import { scenarios } from './firefox.spec.mjs';
 import { ExtensionHarness, EnvironmentError } from './fixtures.mjs';
 import { expectedVersion } from './target-version.mjs';
+import { startNativeWindowManager } from './native-window-manager.mjs';
 
 const args = process.argv.slice(2);
 const known = args.every(arg => ['--list', '--headed'].includes(arg) || /^(--filter=|--max-failures=)/.test(arg));
@@ -39,8 +40,15 @@ if (args.includes('--list')) {
     const started = Date.now();
     const harness = new ExtensionHarness({ headless: !args.includes('--headed'), installation,
       output: path.join(output, scenario.id) }, result);
+    let desktop;
     try {
-      await harness.prepare(); await harness.launch(); await harness.seed();
+      await harness.prepare();
+      if (scenario.nativeToolbar && !harness.config.headless) {
+        harness.phase = 'native-desktop-setup';
+        desktop = await startNativeWindowManager(path.join(output, scenario.id));
+        result.nativeDesktop = desktop.evidence;
+      }
+      await harness.launch(); await harness.seed();
       result.bodyStarted = true; harness.phase = 'scenario';
       await scenario.run(harness);
       assert.deepEqual(harness.pageErrors, [], 'Unexpected JavaScript errors');
@@ -55,7 +63,10 @@ if (args.includes('--list')) {
       failures++;
       console.error(`${result.status.toUpperCase()} ${scenario.id} (${harness.phase}): ${error.message}`);
     } finally {
-      try { await harness.close(); }
+      try {
+        try { await harness.close(); }
+        finally { await desktop?.close(); }
+      }
       catch (error) {
         result.cleanupError = error.stack;
         if (result.status === 'passed') { result.status = 'failed'; failures++; }

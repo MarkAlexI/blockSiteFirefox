@@ -42,7 +42,8 @@ async function release(view, kind) { await view.evaluate((v, kind) => v.__bdPopu
 const held = (view, kind) => view.evaluate((v, kind) => v.__bdPopupProbe[`held${kind}`].length, kind);
 
 export const popupNativeScenarios = [{
-  id: '29', title: 'genuine toolbar Popup discards pending snapshots and row timers across close, reopen and Options navigation',
+  id: '29', nativeToolbar: true,
+  title: 'genuine toolbar Popup discards pending snapshots and row timers across close, reopen and Options navigation',
   async run(e) {
     await e.seed({ rules: [rule(21, 'toolbar-before.bd-e2e.test', [assignment('general')])] });
     const options = await e.openOptions();
