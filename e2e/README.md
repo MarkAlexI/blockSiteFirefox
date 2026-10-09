@@ -126,7 +126,7 @@ Delete/import перевіряє завершення usage cleanup окреми
 
 ## Календарний smoke (32–34)
 
-Повний CI-набір містить 39 Firefox Desktop сценаріїв. Окремий Linux запуск:
+Повний CI-набір містить 41 Firefox Desktop сценарій. Окремий Linux запуск:
 
 ```sh
 xvfb-run -a npm run test:headed -- --filter='calendar smoke'
@@ -389,7 +389,9 @@ xvfb-run -a npm run test:headed -- --filter=40
 в headed Linux Firefox 158.0b2/geckodriver 0.37.1. Native fault control,
 який навмисно зберігає old-day budget/sample у normalization, упав на
 `old exhausted budget is cleared after native journal recovery` (840 ≠ 0).
-Повний новий набір із 39 native сценаріїв ще потребує CI після коміту.
+Повний native CI `37907084798` на
+`21de3b61aaeff18bba763ae95318aa9ae36522c1` підтвердив 39/39,
+усі 39 bodies виконані.
 
 Офіційні джерела механізму та меж:
 
@@ -397,6 +399,72 @@ xvfb-run -a npm run test:headed -- --filter=40
 - https://bugzilla.mozilla.org/show_bug.cgi?id=1978027 — BiDi timezone override, Firefox 144.
 - https://github.com/mozilla-firefox/firefox/blob/main/remote/webdriver-bidi/modules/root/emulation.sys.mjs
 - https://github.com/mozilla-firefox/firefox/blob/main/remote/webdriver-bidi/modules/root/_configuration.sys.mjs
+
+## Кілька native alarms після idle unload (41–42)
+
+Два сценарії починають ручний Focus через UI, зберігають durable schedule
+fixture і через справжній `browser.alarms.create` призначають один timestamp
+для `end_focus_session`, `start_scheduled_focus` та `update_scheduled_rules`.
+Minute alarm залишається періодичним. У 41 timestamp збігається з реальним
+кінцем хвилинного Focus; у 42 це completion fixture зі старим timestamp,
+ранішим за кінець новішої трихвилинної Hardcore-сесії. Порядок створення
+alarms між сценаріями різний; assertion не вимагає певного порядку доставки.
+
+Усі extension views закриваються, залишається `about:blank`. Потрібні
+автоматичний unload із незмінним idle timeout 30 секунд, спостережуваний
+`stopped` без views та перший wake на timestamp batch до сторонніх alarms.
+PID, профіль і keeper незмінні. Немає restart, debugger, heartbeat,
+ручного виклику alarm listener чи extension API polling під час idle.
+
+Parent observer додається до вже кешованого native alarm API, а не до
+extension `onAlarm`. Він записує реальну послідовність native timer callbacks.
+Окремий parent storage observer десеріалізує справжні committed зміни.
+Observer native DNR manager викликає оригінальний `setDynamicRules` і
+синхронно записує кожний застосований ruleset, зберігаючи його return value;
+Promise delivery та timer dispatch не затримуються. До основного проходу
+обидва observers мусять побачити справжню UI activation і Focus DNR.
+Observers переживають unload та прибираються у `finally`; недоступний native
+backend чи втрачений observer — помилка, без fallback на mock events.
+
+| ID | Cold state та вся спостережувана history до відкриття UI |
+| --- | --- |
+| 41 | Прострочена schedule occurrence не активується й не отримує claim. Старий Focus durably завершується один раз; completion count збільшується на один, кожний cold DNR commit має лише exhausted Daily Limit `[21]`, наступна occurrence має точний alarm. |
+| 42 | Stale completion не записує нічого у новішу ручну Hardcore-сесію. Поточна schedule occurrence отримує один durable claim без activation; кожний cold DNR commit зберігає Focus `[21,22]`, completion count незмінний, справжній session end і наступна occurrence переозброєні. |
+
+В обох випадках 840 секунд, порожній journal, rules/profiles/revisions та
+native session token зберігаються. Новий background global втрачає memory
+sentinel. Після cold assertions reopened Options/Popup reader і справжня
+blocked/allowed navigation підтверджують стан; повторне читання UI не
+повторює claim чи activation. Popup тут — reader у вкладці.
+
+`native-alarm-wake.json` містить native delivery order, parent lifecycle
+samples, позитивний контроль, storage/DNR history, cold state та alarms.
+Він зберігається і при падінні. Protocol-model тести окремо відхиляють
+коротку activation, overwrite ручного Focus, неправильний DNR ruleset чи
+втрату budget, навіть якщо фінальний snapshot уже правильний.
+
+Запуск із каталогу `e2e`:
+
+```sh
+xvfb-run -a npm run test:headed -- --filter='native alarm batch'
+```
+
+Це справжні browser timers після автоматичного event-page idle, без зміни
+годинника чи навмисного утримання callback. OS sleep/resume та накопичення
+alarms під час сну цим не перевірені. Native сценарії записують фактичні
+три delivery; усі 24 перестановки чотирьох overdue alarms, включно з
+Daily Limit deadline, залишаються окремими production-module API-model
+тестами. Повний CI на базі `21de3b61aaeff18bba763ae95318aa9ae36522c1`
+підтвердив попередні 39/39; новий набір має 41 сценарій і потребує CI після
+коміту. Runtime і source version 5.3.20 не змінено.
+
+Первинні джерела для native observer та меж контракту:
+
+- https://github.com/w3c/webextensions/issues/1107 — порядок overdue delivery обговорюється; гарантія порядку для однакових timestamps не встановлена.
+- https://searchfox.org/firefox-main/source/toolkit/components/extensions/parent/ext-alarms.js
+- https://searchfox.org/firefox-main/source/toolkit/components/extensions/ExtensionCommon.sys.mjs
+- https://searchfox.org/firefox-main/source/toolkit/components/extensions/ExtensionStorageIDB.sys.mjs
+- https://searchfox.org/firefox-main/source/toolkit/components/extensions/ExtensionDNR.sys.mjs
 
 ## Результати й CI
 
@@ -417,7 +485,7 @@ Runner і перевірка пакета використовують одне 
 сумісність сценаріїв із тією версією.
 
 Помилка setup зупиняє решту набору як `not-run`. `blocked` чи `failed`
-повертає exit code 1. Повне green можливе лише коли всі 39 scenario bodies
+повертає exit code 1. Повне green можливе лише коли всі 41 scenario bodies
 виконані та пройшли. Запуск із `--filter` повертає результат тільки вибраних
 сценаріїв. GitHub workflow `e2e-firefox.yml` запускається для pull request, push у `main`
 та вручну через **Actions → Firefox Desktop extension E2E → Run workflow**.
