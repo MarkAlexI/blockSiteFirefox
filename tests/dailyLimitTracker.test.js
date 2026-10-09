@@ -247,14 +247,14 @@ test('Mark Digital Daily Limits protect the owned domain but count the competito
   }
 });
 
-test('direct tab hints avoid a second tabs.query race on activation and URL changes', async () => {
+test('a matching foreground hint preserves the event URL after the identity query', async () => {
   let queryCalls = 0;
   let sampled = null;
   const tracker = createTracker({
     tabsApiOverrides: {
       async query() {
         queryCalls++;
-        return [];
+        return [{ id: 11, windowId: 7, active: true, url: 'https://example.com/next-url' }];
       }
     },
     recordSample(keys) {
@@ -269,8 +269,56 @@ test('direct tab hints avoid a second tabs.query race on activation and URL chan
     { id: 11, windowId: 7, active: true, url: 'https://youtube.com/' }
   );
 
-  assert.equal(queryCalls, 0);
+  assert.equal(queryCalls, 1);
   assert.deepEqual(sampled, ['1:general']);
+});
+
+test('a visible active tab hint from an unfocused window cannot replace the foreground owner', async () => {
+  const samples = [];
+  const tracker = createTracker({
+    recordSample(keys) {
+      samples.push(keys);
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+  for (const reason of ['tab_created', 'tab_activated', 'tab_url_changed', 'tab_load_complete']) {
+    await tracker.sample(reason, new Date(), {
+      id: 22, windowId: 8, active: true, url: 'https://example.com/background'
+    });
+    assert.equal(tracker.getDebugState().tabId, 11);
+    assert.equal(tracker.getDebugState().windowId, 7);
+  }
+  assert.deepEqual(samples, Array(4).fill(['1:general']));
+});
+
+test('a queued activation hint for a different tab in the same window uses the current foreground', async () => {
+  let sampled;
+  const tracker = createTracker({
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+  await tracker.sample('tab_activated', new Date(), {
+    id: 22, windowId: 7, active: true, url: 'https://example.com/retired'
+  });
+  assert.deepEqual(sampled, ['1:general']);
+  assert.equal(tracker.getDebugState().tabId, 11);
+});
+
+test('a stale active hint cannot resurrect a foreground tab missing from the native query', async () => {
+  let sampled;
+  const tracker = createTracker({ tab: null,
+    recordSample(keys) {
+      sampled = keys;
+      return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+    }
+  });
+  await tracker.sample('tab_activated', new Date(), {
+    id: 11, windowId: 7, active: true, url: 'https://youtube.com/'
+  });
+  assert.deepEqual(sampled, []);
+  assert.equal(tracker.getDebugState().resolution, 'no_active_tab');
 });
 
 test('only the active profile Daily Limit assignment is sampled', async () => {
@@ -467,7 +515,7 @@ test('navigation preserves completed active segments while the next document is 
   const manager = new DailyLimitManager(storage);
   let probeMode = 'visible';
   const tracker = createDailyLimitTracker({
-    tabsApi: { async query() { return []; } },
+    tabsApi: { async query() { return [{ id: 11, windowId: 7, active: true, url: 'https://youtube.com/' }]; } },
     scriptingApi: {
       async executeScript() {
         if (probeMode === 'fail') throw new Error('Document not ready');

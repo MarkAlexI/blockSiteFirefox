@@ -139,18 +139,25 @@ export function createDailyLimitTracker({
   }
 
   async function resolveCandidateTab(tabHint = null) {
-    if (tabHint?.active === true && tabHint?.url) {
-      return tabHint;
-    }
-
+    // `active` is per-window: an unfocused normal window can also have a
+    // visible active document. Native tab events from it must not replace the
+    // foreground segment. Resolve foreground identity before accepting a hint.
     const tabs = await tabsApi.query({
       active: true,
       lastFocusedWindow: true
     });
-
-    return Array.isArray(tabs)
+    const current = Array.isArray(tabs)
       ? (tabs.find(tab => tab?.active === true && tab?.url) || null)
       : null;
+    if (
+      current && tabHint?.active === true && tabHint?.url &&
+      tabHint.id === current.id && tabHint.windowId === current.windowId
+    ) {
+      // Preserve the event URL for this same foreground tab; the async query
+      // may see a subsequent URL change while this sample is queued.
+      return tabHint;
+    }
+    return current;
   }
 
   async function probePageVisibility(tab) {

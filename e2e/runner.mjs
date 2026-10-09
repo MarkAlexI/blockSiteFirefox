@@ -43,7 +43,7 @@ if (args.includes('--list')) {
     let desktop;
     try {
       await harness.prepare();
-      if (scenario.nativeToolbar && !harness.config.headless) {
+      if ((scenario.nativeToolbar || scenario.nativeDesktop) && !harness.config.headless) {
         harness.phase = 'native-desktop-setup';
         desktop = await startNativeWindowManager(path.join(output, scenario.id));
         result.nativeDesktop = desktop.evidence;

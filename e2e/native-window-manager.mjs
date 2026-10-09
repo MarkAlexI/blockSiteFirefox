@@ -7,13 +7,13 @@ const execute = promisify(execFile);
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 const noop = async () => {};
 
-// A Linux/Xvfb action panel needs normal desktop window/focus handling.
-// The runner calls this only for the genuine toolbar scenario, before launch.
+// Linux/Xvfb native windows and action panels needs normal desktop window/focus handling.
+// The runner calls this for native desktop scenarios, before launch.
 export async function startNativeWindowManager(output) {
   if (process.platform !== 'linux' || (!process.env.DISPLAY && process.env.WAYLAND_DISPLAY)) {
     return { evidence: { source: 'system desktop' }, close: noop };
   }
-  if (!process.env.DISPLAY) throw new Error('Native toolbar setup requires DISPLAY (use xvfb-run)');
+  if (!process.env.DISPLAY) throw new Error('Native desktop setup requires DISPLAY (use xvfb-run)');
   const read = async () => {
     const { stdout } = await execute('xprop', ['-root', '_NET_SUPPORTING_WM_CHECK'], { timeout: 1000 });
     return /window id # 0x0*[1-9a-fA-F][0-9a-fA-F]*/.test(stdout) ? stdout.trim() : null;
@@ -47,7 +47,7 @@ export async function startNativeWindowManager(output) {
     let property;
     do {
       if (spawnError) throw spawnError;
-      if (finished) throw new Error(`Openbox exited during native toolbar setup (${wm.exitCode}); see window-manager.log`);
+      if (finished) throw new Error(`Openbox exited during native desktop setup (${wm.exitCode}); see window-manager.log`);
       property = await read();
       if (property) break;
       await wait(50);
