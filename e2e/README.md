@@ -126,7 +126,7 @@ Delete/import перевіряє завершення usage cleanup окреми
 
 ## Календарний smoke (32–34)
 
-Повний CI-набір містить 38 Firefox Desktop сценаріїв. Окремий Linux запуск:
+Повний CI-набір містить 39 Firefox Desktop сценаріїв. Окремий Linux запуск:
 
 ```sh
 xvfb-run -a npm run test:headed -- --filter='calendar smoke'
@@ -333,8 +333,70 @@ OS suspend/resume або живу зміну дня. Runtime та source version
 Native fault control із навмисно пропущеним durable завершенням Focus
 упав на cold-state assertion до відкриття UI. Під час підготовки виправлено
 десеріалізацію session holder у probe зі збереженням його native даних;
-початкові падіння probe не були runtime-регресією. Повні 38 native
-сценаріїв після цього патча локально не виконувалися; їх має перевірити CI.
+початкові падіння probe не були runtime-регресією. Після коміту
+`201ec6480645bb3efdf6140bda3b60b5b5f5378e` повний native CI
+`37848223306` підтвердив 38/38, усі 38 bodies виконані; Extension CI теж зелений.
+
+## Жива зміна локального дня під час durable remap wait (40)
+
+Один Firefox-сценарій змінює нативний Date/Intl timezone у живому background
+та reader views, поки delivery завершеної native journal write ще утримано.
+Delete Study — справжній runtime intent з Options: обидві Daily Limit
+assignments і active profile уже durably переміщено в General, journal
+містить дві remap-записи, а storage ще має старі 120/840 секунд і справжній
+активний `35:list-1` sample. Сам native `storage.local.set` виконується;
+wrapper затримує лише Promise completion, не підміняє дані чи API errors.
+
+Спочатку same-day позитивний контроль проходить той самий wait і зберігає
+840 секунд, remap та foreground usage. Основний прохід змінює timezone
+з GMT−12 на GMT+12: date key змінюється при тому самому `Date.now`, background
+global, BrowsingContext, PID і профілі. Native recovery мусить очистити
+старий exhausted budget; native foreground events починають і закривають
+новий короткий segment. A→B→A не відновлює старі counters/assignment keys.
+Перевіряються usage-write history, порожній journal, DNR, Options/Popup
+reader та справжня allowed navigation на раніше exhausted URL.
+
+Firefox BiDi `emulation.setTimezoneOverride` застосовується до reader tabs
+через `userContexts: ['default']`, але в перевіреному Firefox 158 не зачіпає
+приховану event page; її context ID через цей command повертає `no such frame`.
+Для event page Marionette у browser chrome встановлює Gecko
+`BrowsingContext.timezoneOverride` — те саме нативне поле, яке пише BiDi.
+Date/Date.now та Intl залишаються native; їхні фактичні offset/date key
+перевіряються до та після переходу. Override прибирається у `finally`.
+
+Це **native timezone emulation**, а не зміна OS timezone, рух системного
+годинника, жива північ, DST alarm delivery або OS suspend/resume. Extension
+views тримають event page живою; idle unload покрито сценарієм 39. Цей
+сценарій не перевіряє Scheduled Focus API wait, Android, macOS або minimum
+Firefox 113. Runtime та source version 5.3.20 не змінено. Читачі/DNR
+перевіряються після завершення recovery; короткий stale render під час
+самого переходу не виключено. Usage-write history окремо відхиляє replay
+старого дня або бюджету після переходу.
+
+`native-live-day.json` записує clocks, native context/PID, durable journal
+snapshot, API gate/stack, same-day control, usage writes та фінальні стани.
+Node-тести probe перевіряють commit до gate, native error propagation,
+passthrough інших writes та відновлення pending delivery у cleanup.
+
+Запуск із каталогу `e2e`:
+
+```sh
+xvfb-run -a npm run test:headed -- --filter=40
+```
+
+Підготовлений патч до `201ec6480645bb3efdf6140bda3b60b5b5f5378e`:
+1563/1563 та extension validation. Новий native сценарій пройшов окремо
+в headed Linux Firefox 158.0b2/geckodriver 0.37.1. Native fault control,
+який навмисно зберігає old-day budget/sample у normalization, упав на
+`old exhausted budget is cleared after native journal recovery` (840 ≠ 0).
+Повний новий набір із 39 native сценаріїв ще потребує CI після коміту.
+
+Офіційні джерела механізму та меж:
+
+- https://www.w3.org/TR/webdriver-bidi/#command-emulation-setTimezoneOverride
+- https://bugzilla.mozilla.org/show_bug.cgi?id=1978027 — BiDi timezone override, Firefox 144.
+- https://github.com/mozilla-firefox/firefox/blob/main/remote/webdriver-bidi/modules/root/emulation.sys.mjs
+- https://github.com/mozilla-firefox/firefox/blob/main/remote/webdriver-bidi/modules/root/_configuration.sys.mjs
 
 ## Результати й CI
 
@@ -355,7 +417,7 @@ Runner і перевірка пакета використовують одне 
 сумісність сценаріїв із тією версією.
 
 Помилка setup зупиняє решту набору як `not-run`. `blocked` чи `failed`
-повертає exit code 1. Повне green можливе лише коли всі 38 scenario bodies
+повертає exit code 1. Повне green можливе лише коли всі 39 scenario bodies
 виконані та пройшли. Запуск із `--filter` повертає результат тільки вибраних
 сценаріїв. GitHub workflow `e2e-firefox.yml` запускається для pull request, push у `main`
 та вручну через **Actions → Firefox Desktop extension E2E → Run workflow**.

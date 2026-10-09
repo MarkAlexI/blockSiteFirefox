@@ -8,6 +8,7 @@ import { calendarScenarios } from './calendar-scenarios.mjs';
 import { dayBoundaryScenarios } from './day-boundary-scenarios.mjs';
 import { scheduledExpiryScenarios } from './scheduled-expiry-scenarios.mjs';
 import { idleScenarios } from './idle-scenarios.mjs';
+import { liveDayScenarios } from './live-day-scenarios.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
 
@@ -263,3 +264,4 @@ scenarios.push(...dayBoundaryScenarios);
 
 scenarios.push(...scheduledExpiryScenarios);
 scenarios.push(...idleScenarios);
+scenarios.push(...liveDayScenarios);
