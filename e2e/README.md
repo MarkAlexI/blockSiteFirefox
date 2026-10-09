@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.20**
+# Firefox Desktop E2E — BlockDistraction **5.3.21**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 основним сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,
@@ -639,3 +639,18 @@ midnight або idle worker unload. Firefox macOS/Android та native Edge
 ```bash
 node runner.mjs --headed --filter=44 --max-failures=1
 ```
+
+
+## Release metadata 5.3.21
+
+На `1915faedaba52905e75c67607b446e3f3e395899`
+[run 37994018974](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/37994018974)
+підтвердив **43 passed, 0 failed/blocked/not-run**, усі 43 bodies started,
+включно з native двома вікнами (44). Це доказ для 5.3.20 на цьому SHA.
+
+Firefox-патч 5.3.21 узгоджує manifest version, package, source badge,
+changelog та поточну E2E ціль. `target-version.mjs` читає manifest, тому
+після застосування його default дорівнює 5.3.21. Історичні результати вище
+не перейменовуються на нову версію. Chromium NONE-focus виправлення не
+переноситься: відповідне Firefox native падіння не спостерігалося.
+Нативний набір залишається 43 tests; повний результат 5.3.21 потребує нового CI.
