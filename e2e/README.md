@@ -505,3 +505,68 @@ AMO upload ZIP, checksum і build metadata на 30 днів.
 - https://bugzilla.mozilla.org/show_bug.cgi?id=2049350
 - https://bugzilla.mozilla.org/show_bug.cgi?id=2048133
 - https://github.com/mozilla-firefox/firefox/blob/main/security/manager/ssl/nsIX509CertDB.idl
+
+
+## Перші content messages після event-page idle unload (43)
+
+Один новий native сценарій: загалом 42 tests, IDs не є кількістю тестів.
+
+
+Durable fixture: Daily Limit 21 із 840 seconds, правило 22 у неактивному Study,
+ручна 10-minute Hardcore Focus через справжній Popup reader UI, disabled
+Scheduled Focus revision 7 та явно збережені ненульові generation/rule/list
+revisions. Metadata і schedule записано справжнім storage.local API; це fixture,
+а не імпорт або crash між writes. Production runtime і version 5.3.20 незмінні.
+
+Після справжнього minute tick залишено лише HTTP producer із content script,
+інжектованим native scripting.executeScript. Він не викликає runtime API до
+явного trigger. Сценарій спочатку підтверджує automatic unload із native default
+idle interval та sustained stopped/absent стан щонайменше 1 second. Жодного
+readiness ping, reload, terminate або примусового restart перед cold request.
+
+П’ять повідомлень надсилаються одним synchronous burst, без await між sends,
+таймера або retry: check_pro_status, focus_schedule_get, валідний rename Study,
+rename Work із застарілою generation, rename Work із застарілою list revision.
+Усі перші callbacks мають завершитись до кожного native alarm. Перевіряються
+саме початкові packets: paid true, schedule config/revision 7, повні rules/list
+дані й успішний валідний intent, точний rules_state_changed для обох stale
+intents. Пізніший правильний state не може виправити неправильну першу відповідь.
+
+До відкриття читачів cold storage/DNR мають зберегти Focus, 840 seconds, порожній
+journal, generation/rule revisions і всі незмінені list revisions. Лише rename
+Study змінює name та його revision. JS global sentinel губиться, native session
+sentinel і той самий process/profile зберігаються. Потім reopened Options/Popup
+reader та реальна навігація перевіряють чинний Focus і exhausted budget. Це reader
+у вкладці; справжній toolbar Popup покрито іншими сценаріями.
+
+Node controls відхиляють pinned background, early/competing wake, відсутній
+producer, погані first replies, прийняті stale intents і retry. Окремі два
+production-worker тести (із контрольованими storage API waits) надсилають перший
+burst без warm-up intent і під час утриманого startup; listener мусить лишити
+канал відкритим, не відповідати default state до read completion і повернути
+правильні дані. Це production modules із model APIs, не native browser proof.
+
+Native cold wake перевіряє повторний module/context startup від message після
+idle, а не browser runtime.onStartup overlap, install/reload registration gap,
+OS suspend/resume, Android/macOS або весь проміжний state history. Для browser
+onStartup overlap окремо наведено контрольований production-module тест. Додані
+сценарії не підміняють Date, API results або browser alarm delivery; retries 0.
+
+Marionette browser-chrome observer стежить за extension:background-script-status,
+state/views і process/profile, без background toolbox чи extension API polling.
+Після stopped interval лише ordinary HTTP page отримує BiDi evaluation, що
+тригерить його content script. Native parent event мусить показати рівно один
+wake між trigger та останнім first reply. До reopened UI storage/session/DNR
+читаються безпосередньо з native parent backends. Worker-specific CDP helpers
+із Chromium сюди не переносяться.
+
+Артефакт: native-cold-message.json та coldMessage у results.json містять native
+samples/events, first replies, before/cold state й втрачений global sentinel.
+
+```sh
+cd e2e
+node runner.mjs --headed --filter=43 --max-failures=1
+```
+
+Офіційний опис event-page lifetime:
+https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Background_scripts

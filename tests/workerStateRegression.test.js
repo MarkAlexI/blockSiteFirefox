@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 import { getLocalDateKey } from '../rules/dailyLimitManager.js';
+import { COLD_SCHEDULE, coldRequests, assertColdReplies, assertColdState } from '../e2e/cold-message.mjs';
 
 const TEST_FIREFOX_ANDROID = true;
 let workerImportId = 0;
@@ -85,7 +86,8 @@ async function withWorker(callback, {
   local = {},
   dnrLimits = {},
   scripting = null,
-  supportsWindows = !TEST_FIREFOX_ANDROID
+  supportsWindows = !TEST_FIREFOX_ANDROID,
+  waitAfterImport = true
 } = {}) {
   const api = createExtensionApi({
     sync: {
@@ -223,7 +225,7 @@ async function withWorker(callback, {
       const closeTabsModule = await import('../scripts/closeTabs.js');
       closeTabsMatchingRules = closeTabsModule.closeTabsMatchingRules;
       closeNonWhitelistedTabs = closeTabsModule.closeNonWhitelistedTabs;
-      await new Promise(resolve=>setImmediate(resolve));
+      if (waitAfterImport) await new Promise(resolve=>setImmediate(resolve));
       await callback({
         api,
         send: message => sendWorkerMessage(api.runtime.onMessage.listeners[0], message),
@@ -242,6 +244,65 @@ let closeNonWhitelistedTabs;
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 async function until(predicate,label){for(let i=0;i<1000;i++){if(predicate())return;await tick();}throw new Error(label);}
 const inactive={focusActive:false,focusEndTime:0,isHardcore:false,focusMode:'blacklist'};
+for (const startupPending of [false, true]) {
+  test(`first worker messages await state reads${startupPending ? ' while startup is still pending' : ' without a warm-up intent'}`,
+    { timeout: 5000 }, async () => {
+      const rules = [makeDailyLimitRule(21, 'general'), makeFocusRule(22, 'list-1')];
+      const focusSession = { focusActive: true, focusEndTime: Date.now() + 600_000, isHardcore: true, focusMode: 'blacklist' };
+      await withWorker(async ({ api, send, startup }) => {
+        const startupHeld = createDeferred(), releaseStartup = createDeferred();
+        let initializing;
+        if (startupPending) {
+          const clear = api.alarms.clear.bind(api.alarms);
+          let hold = true;
+          api.alarms.clear = async name => {
+            if (hold && name === 'telemetry_retry') { hold = false; startupHeld.resolve(); await releaseStartup.promise; }
+            return clear(name);
+          };
+          initializing = startup(); await startupHeld.promise;
+        }
+        const before = { ...structuredClone(api.storage.local.data), dnr: [] };
+        const releaseReads = createDeferred(), captured = new Set(), replies = [];
+        for (const [areaName, names] of [['local', ['focusSchedule', 'rulesGeneration']], ['sync', ['credentials']]]) {
+          const area = api.storage[areaName], original = area.get.bind(area);
+          area.get = (keys, callback) => {
+            const selected = typeof keys === 'string' ? [keys] : Array.isArray(keys) ? keys : Object.keys(keys || {});
+            const held = names.find(name => selected.includes(name));
+            if (held) { captured.add(held); return releaseReads.promise.then(() => original(keys, callback)); }
+            return original(keys, callback);
+          };
+        }
+        const requests = coldRequests(before, 'controlled-first-burst');
+        const triggerAt = Date.now();
+        const sent = [];
+        const pending = requests.map(request => {
+          const sentAt = Date.now(); sent.push({ id: request.id, type: request.message.type, at: sentAt });
+          return send(request.message).then(response => {
+            replies.push({ id: request.id, sentAt, repliedAt: Date.now(), response, error: null });
+          });
+        });
+        try {
+          await until(() => captured.size === 3, 'first messages did not reach all controlled storage waits');
+          assert.deepEqual(replies, [], 'no response may report default or stale state before its read completes');
+          releaseReads.resolve();
+          await Promise.all(pending);
+          assertColdReplies({ triggerAt, completedAt: Date.now(), sent, replies, errors: [] }, before, Infinity);
+          assertColdState({ ...api.storage.local.data, dnr: [] }, before);
+        } finally {
+          releaseReads.resolve();
+          releaseStartup.resolve();
+          await Promise.allSettled(pending);
+          if (initializing) await initializing;
+        }
+      }, { waitAfterImport: false, local: { rules, activeRuleListId: 'general', focusSession,
+        rulesGeneration: 'persisted-generation', ruleRevisions: { 21: 'daily-revision', 22: 'study-revision' },
+        ruleListRevisions: { general: 'general-revision', 'list-1': 'study-list-revision', 'list-2': 'work-list-revision' },
+        ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] },
+          { id: 'list-1', name: 'Study', disabledCategories: [] }, { id: 'list-2', name: 'Work', disabledCategories: [] }],
+        focusSchedule: COLD_SCHEDULE, pendingDailyUsageRemaps: [],
+        dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:general': 840 }, lastSample: null } } });
+    });
+}
 import {createDnrSynchronizer} from '../scripts/dnrSynchronizer.js';
 import {createSpaNavigationEnforcer} from '../scripts/spaNavigationEnforcer.js';
 test('metadata migration preserves a concurrent successful license activation', {timeout:5000}, async () => {
