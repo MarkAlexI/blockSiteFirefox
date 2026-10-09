@@ -28,6 +28,9 @@ npm run check
 - `npm run validate` checks JavaScript syntax, JSON files, manifest references, version consistency, and English localization keys referenced by the code.
 - `npm run check` runs the complete pre-release verification.
 
+Alarm delivery regressions in `tests/serviceWorkerRaces.test.js` exercise the production worker's four alarm listeners in all 24 delivery orders, sequentially and with a Focus storage read held while the other listeners are dispatched. They cover expired Focus/occurrences, a still-current Scheduled Focus window, a newer manual Hardcore session, duplicate delivery, exact API-model DNR reasons, durable claims and budgets. Short foreground controls confirm accounting works around a long clock gap. These are controlled Date/API-model tests, not native alarm ordering, OS suspend/resume, Android, or UI verification. See [WECG #1107](https://github.com/w3c/webextensions/issues/1107).
+
+
 Node.js 20 or newer is required. The HTTP/TLS fixture regressions also require OpenSSL 3 on PATH (or set `BD_OPENSSL` to its executable). Firefox Desktop E2E requires Node.js 22+; see `e2e/README.md`.
 
 When payment suspends Pro access, stored rules and Rule List profiles are preserved. A suspended valid license remains stored and is checked on the existing startup, daily and manual verification paths, so payment can restore Pro without re-entering the key. Free access selects General; after Pro returns, select a custom profile again to activate its rules. Explicit logout or a definitive key rejection removes the stored key. Access changes take effect when the extension next verifies the license.

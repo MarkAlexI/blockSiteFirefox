@@ -8181,3 +8181,167 @@ test('full assignment removal prunes only the removed budget and keeps the remai
     assert.equal(api.dynamicRules.some(rule => rule.id === 1), false);
   }, { local, supportsWindows: false });
 });
+
+
+// WECG #1107: alarm delivery order is implementation-dependent after a long
+// device pause. Exercise production listeners with a controlled Date/API model;
+// this does not suspend an OS or prove native browser event delivery.
+function alarmDeliveryPermutations(values) {
+  return values.length === 0 ? [[]] : values.flatMap((value, index) =>
+    alarmDeliveryPermutations(values.filter((_, other) => other !== index))
+      .map(rest => [value, ...rest]));
+}
+
+function alarmDeliverySnapshot(api, writes) {
+  return structuredClone({
+    focus: api.storage.local.data.focusSession,
+    usage: api.storage.local.data.dailyRuleUsage,
+    schedule: api.storage.local.data.focusSchedule,
+    dnr: api.dynamicRules.map(rule => ({ id: rule.id,
+      reason: new URL(rule.action.redirect.url).searchParams.get('reason'),
+      types: rule.condition.resourceTypes })).sort((a, b) => a.id - b.id),
+    completed: api.storage.local.data.statistics?.successfulFocusSessions ?? 0,
+    notifications: api.notificationsCreated.length,
+    starts: writes.filter(value => value.focusActive).length,
+    completions: writes.filter(value => !value.focusActive).length,
+    completionAlarm: api.alarmValues.get('end_focus_session') ?? null,
+    scheduleAlarm: api.alarmValues.get('start_scheduled_focus') ?? null,
+    deadlineAlarm: api.alarmValues.get('daily_limit_deadline') ?? null
+  });
+}
+
+const alarmDeliveryOrders = alarmDeliveryPermutations(['finish', 'schedule', 'minute', 'deadline']);
+assert.equal(alarmDeliveryOrders.length, 24);
+assert.equal(new Set(alarmDeliveryOrders.map(order => order.join(','))).size, 24);
+for (const scenario of ['expired', 'current', 'manual']) {
+  for (const delivery of ['sequential', 'held-read']) {
+    for (const order of alarmDeliveryOrders) {
+      test('alarm delivery ' + scenario + ' ' + delivery + ' ' + order.join('>'), { timeout: 3000 }, async () => {
+        const beforeSleep = new Date(2026, 8, 28, 8, 55);
+        const oldEnd = new Date(2026, 8, 28, 8, 59).getTime();
+        const wake = new Date(2026, 8, 28, 9, scenario === 'current' ? 20 : 55);
+        const scheduledEnd = new Date(2026, 8, 28, 9, 50).getTime();
+        const manualEnd = new Date(2026, 8, 28, 10, 30).getTime();
+        const initialFocus = { focusActive: scenario !== 'current',
+          focusEndTime: scenario === 'current' ? 0 : scenario === 'manual' ? manualEnd : oldEnd,
+          isHardcore: scenario === 'manual', focusMode: 'blacklist' };
+        await withControlledClock(beforeSleep, async clock => {
+          await withWorker(async ({ api, send, alarm }) => {
+            api.tabs.values.push({ id: 71, windowId: 1, active: true,
+              url: 'https://general-4.example/' });
+            await alarm({ name: 'update_scheduled_rules' });
+            await send({ type: 'focus_schedule_get' });
+            assert.deepEqual(api.storage.local.data.focusSession, initialFocus,
+              'setup has not completed or started Focus before the clock gap');
+            assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, []);
+            assert.equal(api.storage.local.data.statistics?.successfulFocusSessions ?? 0, 0);
+            let expectedUsage = 120;
+            if (scenario === 'current') {
+              assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, ['4:general']);
+              clock.set(new Date(beforeSleep.getTime() + 2000));
+              await alarm({ name: 'daily_limit_deadline' });
+              expectedUsage = 122;
+              assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['4:general'], expectedUsage,
+                'positive control: real production sampling charges a short visible interval');
+            }
+            const writes = [];
+            const set = api.storage.local.set.bind(api.storage.local);
+            api.storage.local.set = async (values, callback) => {
+              const result = await set(values, callback);
+              if (values.focusSession) writes.push(structuredClone(values.focusSession));
+              return result;
+            };
+            const alarms = {
+              finish: { name: 'end_focus_session', scheduledTime: oldEnd },
+              schedule: { name: 'start_scheduled_focus', scheduledTime: new Date(2026, 8, 28, 9).getTime() },
+              minute: { name: 'update_scheduled_rules', scheduledTime: new Date(2026, 8, 28, 9, 1).getTime(), periodInMinutes: 1 },
+              deadline: { name: 'daily_limit_deadline', scheduledTime: new Date(2026, 8, 28, 9, 3).getTime() }
+            };
+            clock.set(wake);
+            if (delivery === 'sequential') {
+              for (const name of order) await alarm(alarms[name]);
+            } else {
+              // Read the real API-model snapshot first, then hold its Promise
+              // completion. No invented return values or corrective intent.
+              const get = api.storage.local.get.bind(api.storage.local);
+              const entered = createDeferred(), release = createDeferred();
+              let captured = false, firstFinished = false;
+              const pending = [];
+              api.storage.local.get = async (keys, callback) => {
+                const result = await get(keys, callback);
+                if (!captured && (keys === 'focusSession' ||
+                    (Array.isArray(keys) && keys.length === 1 && keys[0] === 'focusSession'))) {
+                  captured = true;
+                  assert.equal(callback, undefined, 'production Focus read uses Promise delivery');
+                  entered.resolve(structuredClone(result));
+                  await release.promise;
+                }
+                return result;
+              };
+              try {
+                pending.push(alarm(alarms[order[0]]).finally(() => { firstFinished = true; }));
+                const snapshot = await Promise.race([entered.promise,
+                  pending[0].then(() => { throw new Error('First alarm completed without the held Focus read'); })]);
+                assert.deepEqual(snapshot.focusSession, initialFocus, 'first listener captured the pre-recovery session');
+                assert.equal(firstFinished, false);
+                for (const name of order.slice(1)) pending.push(alarm(alarms[name]));
+                assert.equal(pending.length, 4, 'all listeners dispatched while the first read is pending');
+              } finally {
+                release.resolve();
+                await Promise.allSettled(pending);
+                api.storage.local.get = get;
+              }
+              await Promise.all(pending);
+            }
+            const focused = scenario !== 'expired';
+            const expectedFocus = focused
+              ? { focusActive: true, focusEndTime: scenario === 'current' ? scheduledEnd : manualEnd,
+                isHardcore: scenario === 'manual', focusMode: 'blacklist' }
+              : { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' };
+            const final = alarmDeliverySnapshot(api, writes);
+            assert.deepEqual(final.focus, expectedFocus, 'current time and session decide Focus, not old alarm payload');
+            assert.deepEqual(final.usage.usageSeconds, { '3:general': 720, '4:general': expectedUsage },
+              'long clock gap adds no sleep usage and loses no durable budget');
+            assert.equal(final.usage.date, getLocalDateKey(wake));
+            assert.deepEqual(final.usage.lastSample?.assignmentKeys ?? [], focused ? [] : ['4:general']);
+            const expectedIds = focused ? [1, 2, 3, 4, 5] : [1, 3];
+            assert.deepEqual(final.dnr, expectedIds.map(id => ({ id,
+              reason: focused ? 'focus' : id === 1 ? 'always' : 'daily_limit', types: ['main_frame'] })),
+              'actual API-model DNR contains exactly the current blocking rules and reasons');
+            assert.equal(final.completed, scenario === 'expired' ? 1 : 0);
+            assert.equal(final.notifications, scenario === 'expired' ? 1 : 0);
+            assert.equal(final.starts, scenario === 'current' ? 1 : 0);
+            assert.equal(final.completions, scenario === 'expired' ? 1 : 0);
+            assert.deepEqual(final.schedule.handledKeys, scenario === 'current' ? ['2026-09-28@09:00'] : []);
+            assert.equal(final.schedule.revision, 1);
+            assert.equal(final.schedule.enabled, true);
+            assert.equal(final.scheduleAlarm.when, new Date(2026, 8, 29, 9).getTime());
+            assert.equal(final.completionAlarm?.when ?? null, focused ? expectedFocus.focusEndTime : null);
+            assert.equal(final.deadlineAlarm?.when ?? null, focused ? null : wake.getTime() + (600 - expectedUsage) * 1000);
+
+            // Duplicate every already-delivered event in reverse order. Compare
+            // all observed effects, including claims, writes and completion counts.
+            for (const name of [...order].reverse()) await alarm(alarms[name]);
+            assert.deepEqual(alarmDeliverySnapshot(api, writes), final,
+              'repeat delivery is idempotent without a final repair/sync call');
+            if (!focused) {
+              clock.set(new Date(wake.getTime() + 2000));
+              await alarm(alarms.deadline);
+              assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['4:general'], expectedUsage + 2,
+                'positive control: resumed foreground accounting charges only the new short segment');
+            }
+          }, { supportsWindows: true, visibleTabs: true, local: {
+            activeRuleListId: 'general', focusSession: initialFocus,
+            focusSchedule: scheduledFocusState(),
+            rules: [makeFocusRule(1, 'general'),
+              makeScheduledRule(2, 'general', { startTime: '09:00', endTime: '09:30' }),
+              makeDailyLimitRule(3, 'general'), makeDailyLimitRule(4, 'general'),
+              makeFocusRule(5, 'list-1')],
+            dailyRuleUsage: { version: 2, date: getLocalDateKey(beforeSleep),
+              usageSeconds: { '3:general': 720, '4:general': 120 }, lastSample: null }
+          } });
+        });
+      });
+    }
+  }
+}
