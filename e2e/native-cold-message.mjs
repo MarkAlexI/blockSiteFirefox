@@ -39,3 +39,29 @@ export function assertMessageWake(sample, evidence, packet) {
     'native wake falls inside the first content-message burst');
   assert.ok(packet.triggerAt - evidence.idleAt >= 1000, 'sustained stopped interval before the content request');
 }
+
+export function assertMessageActivity(observation, { extensionId, producerUrl, token, requests, activityMarker }, packet) {
+  assert.deepEqual(observation.errors, [], 'native cold activity did not lose history');
+  assert.ok(Number.isInteger(activityMarker) && activityMarker >= 0, 'known native cold history boundary');
+  const history = observation.events.filter(event => event.sequence > activityMarker);
+  const messages = history.filter(event => event.type === 'message' && event.sender?.url === producerUrl);
+  assert.equal(messages.length, 5, 'exactly five native callbacks from the original content producer');
+  const expected = new Map(requests.map(request => [request.id, request.message]));
+  assert.equal(expected.size, 5, 'five distinct expected content requests');
+  assert.deepEqual(messages.map(event => event.payload?.__bdColdRequest).sort(), [...expected.keys()].sort(),
+    'each original request has one native callback');
+  for (const event of messages) {
+    assert.equal(event.extensionId, extensionId, 'native receiving extension');
+    assert.equal(event.viewType, 'background', 'native background callback');
+    assert.equal(event.sender.id, extensionId, 'native sender extension');
+    assert.equal(event.sender.frameId, 0, 'native main-frame content sender');
+    assert.equal(event.payload.__bdColdToken, token, 'native callback belongs to this cold burst');
+    assert.deepEqual(event.payload, expected.get(event.payload.__bdColdRequest), 'exact native request payload');
+    const sent = packet.sent.find(request => request.id === event.payload.__bdColdRequest);
+    assert.ok(sent && Number.isFinite(event.at) && event.at >= sent.at && event.at <= packet.completedAt,
+      'native callback timestamp falls inside its first request/reply interval');
+  }
+  const alarms = history.filter(event => event.type === 'alarm' && event.at <= packet.completedAt);
+  assert.deepEqual(alarms, [], 'no native alarm competes with the first content-message wake');
+  return { messages, alarms };
+}

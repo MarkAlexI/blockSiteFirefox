@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { observeColdEventPage, assertMessageWake } from '../e2e/native-cold-message.mjs';
+import { observeColdEventPage, assertMessageWake, assertMessageActivity } from '../e2e/native-cold-message.mjs';
+import { coldRequests } from '../e2e/cold-message.mjs';
 
 function model(change = value => value) {
   let at = 0;
@@ -51,5 +52,56 @@ test('parent wake evidence requires exactly one native wake during the first-mes
   for (const events of [[], [{ at: 31_000, running: true }], [{ at: 32_000, running: true }],
     [{ at: 31_300, running: true }, { at: 31_500, running: true }]]) {
     assert.throws(() => assertMessageWake({ ...sample, events }, evidence, packet));
+  }
+});
+
+function activityModel() {
+  const evidence = { extensionId: 'native-addon@test', producerUrl: 'http://cold.bd-e2e.test/producer',
+    token: 'cold-token', activityMarker: 10 };
+  evidence.requests = coldRequests({ rulesGeneration: 'generation',
+    ruleListRevisions: { 'list-1': 'study-revision', 'list-2': 'work-revision' } }, evidence.token);
+  const packet = { completedAt: 31_900, sent: evidence.requests.map(request =>
+    ({ id: request.id, at: 31_200 })) };
+  const observation = { errors: [], events: evidence.requests.map((request, i) => ({ sequence: 11 + i,
+    at: 31_300 + i, receivedAt: 40_000, type: 'message', extensionId: evidence.extensionId, viewType: 'background',
+    payload: structuredClone(request.message), sender: { id: evidence.extensionId, url: evidence.producerUrl, frameId: 0 } })) };
+  return { evidence, packet, observation };
+}
+
+test('Firefox native activity model uses five exact payload/sender callbacks and native source timestamps', () => {
+  const { evidence, packet, observation } = activityModel();
+  observation.events.unshift({ sequence: 10, at: 30_000, type: 'alarm', alarm: { name: 'warm-minute' } });
+  observation.events.push({ sequence: 16, at: 32_000, type: 'alarm', alarm: { name: 'later-minute' } });
+  const result = assertMessageActivity(observation, evidence, packet);
+  assert.equal(result.messages.length, 5); assert.deepEqual(result.alarms, []);
+});
+
+test('Firefox native activity model rejects missing, duplicate, unrelated or altered cold message callbacks', () => {
+  for (const change of [
+    value => value.events.pop(), value => value.events.push(structuredClone(value.events[0])),
+    value => { value.events[0].payload.__bdColdRequest = value.events[1].payload.__bdColdRequest; },
+    value => { value.events[0].payload.__bdColdToken = 'another-cycle'; },
+    value => { value.events[0].payload.type = 'wrong-intent'; },
+    value => { value.events[0].extensionId = 'another-addon@test'; },
+    value => { value.events[0].sender.id = 'another-addon@test'; },
+    value => { value.events[0].sender.url += '?replacement'; },
+    value => { value.events[0].sender.frameId = 1; },
+    value => { value.events[0].viewType = 'popup'; },
+    value => { value.events[0].sequence = 10; },
+    value => { value.events[0].at = 31_199; }, value => { value.events[0].at = 31_901; }
+  ]) {
+    const { evidence, packet, observation } = activityModel(); change(observation);
+    assert.throws(() => assertMessageActivity(observation, evidence, packet), assert.AssertionError);
+  }
+});
+
+test('Firefox native activity model rejects competing alarms, observation loss and missing history boundaries', () => {
+  for (const change of [
+    value => { value.observation.events.push({ sequence: 16, at: 31_250, type: 'alarm', alarm: { name: 'update_scheduled_rules' } }); },
+    value => { value.observation.errors.push('lost native event'); },
+    value => { value.evidence.activityMarker = null; }
+  ]) {
+    const value = activityModel(); change(value);
+    assert.throws(() => assertMessageActivity(value.observation, value.evidence, value.packet), assert.AssertionError);
   }
 });

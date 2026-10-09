@@ -485,7 +485,7 @@ Runner і перевірка пакета використовують одне 
 сумісність сценаріїв із тією версією.
 
 Помилка setup зупиняє решту набору як `not-run`. `blocked` чи `failed`
-повертає exit code 1. Повне green можливе лише коли всі 41 scenario bodies
+повертає exit code 1. Повне green можливе лише коли всі 42 scenario bodies
 виконані та пройшли. Запуск із `--filter` повертає результат тільки вибраних
 сценаріїв. GitHub workflow `e2e-firefox.yml` запускається для pull request, push у `main`
 та вручну через **Actions → Firefox Desktop extension E2E → Run workflow**.
@@ -510,6 +510,17 @@ AMO upload ZIP, checksum і build metadata на 30 днів.
 ## Перші content messages після event-page idle unload (43)
 
 Один новий native сценарій: загалом 42 tests, IDs не є кількістю тестів.
+
+Сценарій також читає native Firefox ExtensionActivityLog у parent process:
+рівно п’ять background runtime.onMessage callbacks із точними payload, sender
+extension ID, producer URL і main-frame ID. Firefox передає payload/MessageSender;
+Chromium ActivityLog має інший формат, тому його selector тут не використовується.
+Parent callback із кешованого native alarms API записує всі фактичні deliveries.
+Warm message та справжній minute alarm — позитивні controls перед idle; жоден
+alarm після native history marker не має передувати завершенню first replies.
+Timestamp message-події походить із native log, а не часу пізнішого читання Node.
+Читання журналу не викликає extension API та не будить event page; observers
+видаляються у finally, повна історія зберігається й при падінні assertion.
 
 
 Durable fixture: Daily Limit 21 із 840 seconds, правило 22 у неактивному Study,
