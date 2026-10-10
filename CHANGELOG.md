@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.22] - 2026-10-10
+
+- Add a native Linux/X11 undo-close tab scenario using real browser Ctrl+W and Ctrl+Shift+T shortcuts. Verify retained Daily Limit budgets, foreground accounting, alarms, expiry cleanup, Options/Popup reader values and DNR navigation.
+- Check the native keyboard backend before launch and reject input if the fixture title or active desktop window no longer matches. Keep zero retries; no sessions permission or runtime workaround is added.
+- Align release metadata and the default E2E target to 5.3.22. Startup session restore and other platforms remain separate checks.
+
 ## [5.3.21] - 2026-10-10
 
 - Keep Daily Limit accounting tied to the active tab in the last focused window; preserve event URLs only for matching native tab/window identity.

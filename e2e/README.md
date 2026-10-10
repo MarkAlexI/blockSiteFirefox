@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.21**
+# Firefox Desktop E2E — BlockDistraction **5.3.22**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 основним сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,
@@ -654,3 +654,40 @@ changelog та поточну E2E ціль. `target-version.mjs` читає mani
 не перейменовуються на нову версію. Chromium NONE-focus виправлення не
 переноситься: відповідне Firefox native падіння не спостерігалося.
 Нативний набір залишається 43 tests; повний результат 5.3.21 потребує нового CI.
+
+
+## Native undo-close tab (45), release 5.3.22
+
+Поточна закомічена база `09cb7d36a366f162e1ee931613cf597846a6c72e`,
+[run 37998917091](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/37998917091),
+має **43 native passed** на 5.3.21. Цей доказ не переноситься на 5.3.22.
+
+Новий Linux/X11 сценарій використовує XTEST через `xdotool`: справжні
+Ctrl+W та Ctrl+Shift+T. Перед вводом desktop title має містити унікальний
+nonce вибраного fixture document, а active window перевіряється повторно.
+Відновлення не викликає tabs.create, sessions API або corrective intent.
+Єдина runtime reconciliation — початкова підготовка fixture.
+
+Перевірки: новий native tab ID та document timeOrigin, один observed created
+event; spent budget не зникає в жодному observed storage write; вкладка
+не витрачає budget, поки закрита; foreground відновлюється; сумарний usage
+не перевищує одну native elapsed timeline. Deadline відповідає збереженому
+budget, реально завершує його, встановлює DNR і закриває restored tab.
+Options/Popup reader показують точний остаточний usage; exhausted навігація
+блокується, друге правило залишається allowed, revisions/Focus не змінюються.
+Popup тут — reader tab, не додаткова toolbar-перевірка.
+
+Це undo-close у тому самому browser process, **не startup session restore**,
+OS sleep, mobile чи macOS/Windows. `nativeTabShortcutBackend` перевіряє
+Linux DISPLAY, xdotool та XTEST до launch/body; backend failure — setup
+blocker. Native API delivery/час/foreground не підміняються. Keyboard
+delivery виконується один раз без retries. Unit protocol models перевіряють
+відмову на чужому desktop title, зміні active window та недоступному backend;
+вони не є доказом native browser restore.
+
+CI встановлює xdotool поряд з Openbox/x11-utils. Native список після патча
+має 44 tests; повний 5.3.22 CI залишається потрібним.
+
+```bash
+node runner.mjs --headed --filter=45 --max-failures=1
+```

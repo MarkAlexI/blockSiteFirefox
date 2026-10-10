@@ -11,6 +11,7 @@ import { idleScenarios } from './idle-scenarios.mjs';
 import { liveDayScenarios } from './live-day-scenarios.mjs';
 import { alarmWakeScenarios } from './alarm-wake-scenarios.mjs';
 import { multiWindowScenarios } from './multi-window-scenarios.mjs';
+import { sessionRestoreScenarios } from './session-restore-scenarios.mjs';
 import { coldMessageScenarios } from './cold-message-scenarios.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
@@ -272,3 +273,5 @@ scenarios.push(...alarmWakeScenarios);
 scenarios.push(...coldMessageScenarios);
 
 scenarios.push(...multiWindowScenarios);
+
+scenarios.push(...sessionRestoreScenarios);

@@ -5,6 +5,7 @@ import { scenarios } from './firefox.spec.mjs';
 import { ExtensionHarness, EnvironmentError } from './fixtures.mjs';
 import { expectedVersion } from './target-version.mjs';
 import { startNativeWindowManager } from './native-window-manager.mjs';
+import { nativeTabShortcutBackend } from './native-tab-shortcut.mjs';
 
 const args = process.argv.slice(2);
 const known = args.every(arg => ['--list', '--headed'].includes(arg) || /^(--filter=|--max-failures=)/.test(arg));
@@ -47,6 +48,10 @@ if (args.includes('--list')) {
         harness.phase = 'native-desktop-setup';
         desktop = await startNativeWindowManager(path.join(output, scenario.id));
         result.nativeDesktop = desktop.evidence;
+      }
+      if (scenario.nativeKeyboard) {
+        harness.phase = 'native-keyboard-setup';
+        result.nativeKeyboard = await nativeTabShortcutBackend();
       }
       await harness.launch(); await harness.seed();
       result.bodyStarted = true; harness.phase = 'scenario';
