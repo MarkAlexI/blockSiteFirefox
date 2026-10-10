@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { isDeepStrictEqual } from 'node:util';
 
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 import { getLocalDateKey } from '../rules/dailyLimitManager.js';
@@ -81,6 +82,7 @@ async function sendWorkerMessage(listener, message) {
 }
 
 async function withWorker(callback, {
+  syncChangeDelivery = 'changed-only',
   credentials = {},
   settings = {},
   local = {},
@@ -118,6 +120,8 @@ async function withWorker(callback, {
     }
   });
 
+  // Compare values structurally. The focused regressions also model Firefox
+  // delivering an equal-value sync event immediately or after the DNR drain.
   for (const areaName of ['local', 'sync']) {
     const area = api.storage[areaName];
     const originalSet = area.set.bind(area);
@@ -125,9 +129,14 @@ async function withWorker(callback, {
       const previous = structuredClone(area.data);
       await originalSet(values, callback);
       const changes = Object.fromEntries(Object.keys(values)
-        .filter(key => JSON.stringify(previous[key]) !== JSON.stringify(area.data[key]))
+        .filter(key => (areaName === 'sync' && syncChangeDelivery !== 'changed-only') ||
+          !isDeepStrictEqual(previous[key], area.data[key]))
         .map(key => [key, { oldValue: previous[key], newValue: structuredClone(area.data[key]) }]));
-      if (Object.keys(changes).length) api.storage.onChanged.emit(changes, areaName);
+      if (Object.keys(changes).length) {
+        if (areaName === 'sync' && syncChangeDelivery === 'deferred-written') {
+          (api.deferredSyncChanges ??= []).push(() => api.storage.onChanged.emit(changes, areaName));
+        } else api.storage.onChanged.emit(changes, areaName);
+      }
     };
   }
 
@@ -244,6 +253,85 @@ let closeNonWhitelistedTabs;
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 async function until(predicate,label){for(let i=0;i<1000;i++){if(predicate())return;await tick();}throw new Error(label);}
 const inactive={focusActive:false,focusEndTime:0,isHardcore:false,focusMode:'blacklist'};
+const unchangedVerificationDeliveries = [
+  { mode: 'changed-only', label: 'without a replacement storage event', beforeRelease: 0 },
+  { mode: 'written', label: 'with a repeated sync event before cleanup completes', beforeRelease: 1 },
+  { mode: 'deferred-written', label: 'with a repeated sync event after cleanup completes', beforeRelease: 0 }
+];
+for (const delivery of unchangedVerificationDeliveries) for (const access of [
+  { name: 'Pro', isPro: true, isLegacyUser: false, installationDate: '2026-08-01T00:00:00.000Z' },
+  { name: 'Free', isPro: false, isLegacyUser: false, installationDate: '2026-08-01T00:00:00.000Z' },
+  { name: 'Legacy', isPro: false, isLegacyUser: true, installationDate: '2024-01-01T00:00:00.000Z' }
+]) {
+  test(`unchanged ${access.name} verification preserves Daily Limit cleanup ${delivery.label}`,
+    { timeout: 5000 }, async () => {
+      await withUsageClock(Date.now(), async () => {
+        const rule = makeDailyLimitRule(21, 'general', { blockURL: 'deadline.example', minutes: 1 });
+        await withWorker(async ({ api, alarm, send }) => {
+          let verificationCalls = 0;
+          api.setFetchHandler(async () => {
+            verificationCalls += 1;
+            return { ok: true, status: 200, json: async () => ({ isPro: access.isPro }) };
+          });
+          api.tabs.values = [
+            { id: 10, windowId: 1, active: true, url: 'https://deadline.example/' },
+            { id: 11, windowId: 1, active: false, url: 'https://safe.example/' }
+          ];
+          const ready = createDeferred(), release = createDeferred();
+          const query = api.tabs.query.bind(api.tabs);
+          let hold = true;
+          api.tabs.query = async details => {
+            // The API executes first; only completion delivery is delayed.
+            const snapshot = await query(details);
+            if (hold && Object.keys(details).length === 0 && api.dynamicRules.some(item => item.id === 21)) {
+              hold = false; ready.resolve(); await release.promise;
+            }
+            return snapshot;
+          };
+          const credentials = structuredClone(api.storage.sync.data.credentials);
+          let credentialEvents = 0;
+          api.storage.onChanged.addListener((changes, area) => {
+            if (area === 'sync' && changes.credentials) {
+              assert.deepEqual(changes.credentials.oldValue, changes.credentials.newValue,
+                'the repeated event represents unchanged credentials');
+              credentialEvents += 1;
+            }
+          });
+          const deadline = alarm({ name: 'daily_limit_deadline' });
+          try {
+            await ready.promise;
+            assert.deepEqual(api.dynamicRules.map(item => item.id), [21]);
+            const reply = await send({ type: 'force_sync' });
+            assert.equal(reply.success, true, 'license verification succeeds');
+            assert.equal(reply.isPro, access.isPro);
+            assert.equal(verificationCalls, 1, 'the production verification path executes');
+            assert.deepEqual(api.storage.sync.data.credentials, credentials, 'verification writes identical credentials');
+            assert.equal(credentialEvents, delivery.beforeRelease, 'the selected delivery order is exercised');
+          } finally { release.resolve(); }
+          await deadline;
+          assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 60);
+          assert.deepEqual(api.dynamicRules.map(item => item.id), [21]);
+          const removedAtDrainEnd = [...api.removedTabs];
+          if (delivery.mode === 'deferred-written') {
+            for (const emit of api.deferredSyncChanges.splice(0)) emit();
+            await tick(); await tick();
+            assert.equal(credentialEvents, 1, 'the repeated event arrives after the DNR drain finishes');
+          }
+          assert.deepEqual(removedAtDrainEnd, [10], 'cleanup completes before any late replacement event');
+          assert.deepEqual(api.removedTabs, [10], 'late delivery neither loses nor repeats native-model cleanup');
+        }, { syncChangeDelivery: delivery.mode, credentials: {
+          isPro: access.isPro, isLegacyUser: access.isLegacyUser,
+          installationDate: access.installationDate, expiryDate: null
+        }, local: {
+          rules: [rule], activeRuleListId: 'general', lastCheck: Date.now(),
+          dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:general': 59 },
+            lastSample: { timestamp: Date.now() - 1000, assignmentKeys: ['21:general'] } }
+        }, scripting: { executeScript: async () => [{ frameId: 0, result: {
+          visibilityState: 'visible', hidden: false, hasFocus: true } }] } });
+      });
+    });
+}
+
 for (const startupPending of [false, true]) {
   test(`first worker messages await state reads${startupPending ? ' while startup is still pending' : ' without a warm-up intent'}`,
     { timeout: 5000 }, async () => {

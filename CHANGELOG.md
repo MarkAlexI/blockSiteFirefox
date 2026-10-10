@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.23] - 2026-10-10
+
+- Preserve in-flight Daily Limit tab cleanup when verification confirms unchanged access. Keep early cancellation for actual Pro transitions and storage invalidation for changed credentials.
+- Add nine production-worker regressions for Pro, Free and Legacy with no replacement credentials event, a repeated event before cleanup completes, and a repeated event after the DNR drain finishes. Compare storage values structurally so object key order cannot invent a change event.
+- Align runtime release metadata to 5.3.23. Keep the existing 44 native Firefox scenarios and harness unchanged; minimum desktop, Android and other platforms remain separate checks.
+
 ## [5.3.22] - 2026-10-10
 
 - Add a native Linux/X11 undo-close tab scenario using real browser Ctrl+W and Ctrl+Shift+T shortcuts. Verify retained Daily Limit budgets, foreground accounting, alarms, expiry cleanup, Options/Popup reader values and DNR navigation.

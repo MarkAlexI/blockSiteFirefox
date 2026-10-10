@@ -1375,7 +1375,10 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
         return ProManager.getCredentials();
       }
 
-      invalidateBlockingDecisions();
+      // Keep cleanup live when verification confirms unchanged access. Firefox
+      // may deliver an equal-value storage event later; do not depend on it.
+      // Other credential changes invalidate through storage.onChanged.
+      if (previousCredentials.isPro !== isPro) invalidateBlockingDecisions();
       logger.log(`Service worker received Pro status update: ${isPro}`);
       const updatedCredentials = await ProManager.setProStatusFromWorker(isPro, subscriptionData);
       const shouldContinue = () => transitionGeneration === proStatusTransitionGeneration &&

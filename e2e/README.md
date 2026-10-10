@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.22**
+# Firefox Desktop E2E — BlockDistraction **5.3.23**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 основним сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,
@@ -691,3 +691,45 @@ CI встановлює xdotool поряд з Openbox/x11-utils. Native спис
 ```bash
 node runner.mjs --headed --filter=45 --max-failures=1
 ```
+
+
+## Unchanged license verification during Daily Limit cleanup, release 5.3.23
+
+`handleProStatusUpdate` no longer invalidates an in-flight blocking decision
+when verification confirms the same `isPro`. Actual Pro transitions retain
+early cancellation; other credential changes retain storage-event invalidation.
+Firefox may deliver an equal-value `storage.sync` event, but correctness must
+not depend on its presence or timing.
+
+Nine production-worker/API-model regressions cover Pro, Free and Legacy with
+no replacement event, a repeated credentials event before cleanup completes,
+and that event after the DNR drain finishes. The API query executes before its
+Promise completion is held. The tests verify successful license verification,
+identical credentials, exact usage 60, DNR [21], and closure of only the exhausted
+tab. The late branch captures closure before event delivery as well as after it.
+Six absence/late cases fail on the original runtime; all nine pass with the fix.
+These are module regressions, not a proof that native Firefox delivered the
+failing ordering.
+
+A separate headed Firefox 158.0/Linux audit on base
+`280529d3c9933ed10b1fd771f1ebee782c214a74` observed a repeated equal-value
+credentials event and successful native cleanup for Pro, Free and Legacy.
+It used genuine data consent, a native Daily Limit deadline, DNR, tabs and a
+loopback verifyKey response; only `tabs.query` completion delivery was held.
+That audit explains why Firefox can pass the current ordering despite the
+shared module weakness. It does not prove minimum desktop, Android, macOS,
+OS sleep/resume, automatic event-page unload or every event ordering.
+
+The existing 44 native scenarios, assertions, deadlines and fixtures are
+unchanged. The complete native 5.3.23 CI result must be checked for its own SHA.
+
+On the prepared 5.3.23 runtime, a separate headed Firefox 158.0/Linux invocation
+passed all three targeted unchanged-verification cases (Pro, Free, Legacy).
+Each delivered a genuine Daily Limit alarm, installed DNR [21], held a completed
+native tabs query, executed one successful verifyKey request with native
+consent, observed one equal-value credentials event, closed the exhausted tab
+and retained a safe tab. This is three focused native probes, not execution of
+the complete 44-scenario suite or native proof of absent/late event delivery.
+The prepared source passed `npm run check`: 1759/1759 tests, no skips or failures,
+and extension validation at 5.3.23. The patch still requires its own complete
+native CI run after commit.
