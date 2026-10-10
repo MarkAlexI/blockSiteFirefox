@@ -12,6 +12,7 @@ import { zipSync, unzipSync } from 'fflate';
 import { expectedVersion } from './target-version.mjs';
 import { selectLiveWindow } from './window-selection.mjs';
 import { createFixtureProxy } from './fixture-proxy.mjs';
+import { frameFixtureHtml } from './frame-fixture.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const runtimeRoots = ['_locales', 'backup', 'blocked.html', 'diagnostics', 'dom', 'feedback', 'images',
@@ -242,7 +243,7 @@ export class ExtensionHarness {
     await writeFile(this.xpi, process.env.BD_SIGNED_XPI ? await readFile(process.env.BD_SIGNED_XPI) : zipSync(files));
     this.result.target = { version: this.manifest.version, id: this.id,
       installation: this.config.installation, signedInput: Boolean(process.env.BD_SIGNED_XPI) };
-    this.proxy = await createFixtureProxy({ root: this.root, html: HTML, verifyUrl: VERIFY_URL,
+    this.proxy = await createFixtureProxy({ root: this.root, html: url => frameFixtureHtml(url.href) || HTML, verifyUrl: VERIFY_URL,
       expectedPayload: { key: TEST_KEY, version: this.manifest.version },
       verificationHandler: () => this.verificationHandler(),
       onVerification: call => this.verificationCalls.push(call),

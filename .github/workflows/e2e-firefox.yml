@@ -16,7 +16,9 @@ permissions:
 jobs:
   e2e:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # Includes browser setup and 45 scenarios with real clock/alarm waits.
+    # Individual scenario deadlines and retries remain unchanged.
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6

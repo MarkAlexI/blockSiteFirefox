@@ -6,6 +6,7 @@ import path from 'node:path';
 import test from 'node:test';
 import tls from 'node:tls';
 import { createFixtureProxy } from '../e2e/fixture-proxy.mjs';
+import { frameFixtureHtml, frameUrls } from '../e2e/frame-fixture.mjs';
 
 const payload = { key: 'BD-E2E-VALID-KEY', version: '5.3.18' };
 const verifyUrl = 'https://blockdistraction.com/api/verifyKey';
@@ -65,7 +66,7 @@ test('Firefox E2E proxy serves native HTTP/TLS without external forwarding', asy
   let handler = async () => ({ status: 200, body: { isPro: true } });
   let proxy;
   try {
-    proxy = await createFixtureProxy({ root, html: '<h1>Local fixture</h1>', verifyUrl,
+    proxy = await createFixtureProxy({ root, html: url => frameFixtureHtml(url.href) || '<h1>Local fixture</h1>', verifyUrl,
       expectedPayload: payload, verificationHandler: () => handler(),
       onVerification: call => calls.push(call), onEvent: event => events.push(event),
       onError: error => errors.push(error) });
@@ -76,6 +77,16 @@ test('Firefox E2E proxy serves native HTTP/TLS without external forwarding', asy
       assert.equal((await httpRequest(proxy.port, 'http://blockdistraction.com/api/verifyKey')).status, 502);
       assert.equal((await httpRequest(proxy.port, 'http://example.com/')).status, 502);
       assert.equal((await httpRequest(proxy.port, 'http://evil.bd-e2e.test.example.com/')).status, 502);
+    });
+
+    await t.test('native HTTP serves the three distinct frame documents without extending the origin allowlist', async () => {
+      const urls = frameUrls('proxy-token');
+      for (const role of ['main', 'middle', 'leaf']) {
+        const reply = await httpRequest(proxy.port, urls[role]);
+        assert.equal(reply.status, 200);
+        assert.match(reply.body, new RegExp(`data-frame-role="${role}"`));
+      }
+      assert.equal((await httpRequest(proxy.port, urls.main.replace('.test/', '.test.example.com/'))).status, 502);
     });
 
     await t.test('only the exact verification TLS authority can open a tunnel', async () => {

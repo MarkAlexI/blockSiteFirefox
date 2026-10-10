@@ -733,3 +733,48 @@ the complete 44-scenario suite or native proof of absent/late event delivery.
 The prepared source passed `npm run check`: 1759/1759 tests, no skips or failures,
 and extension validation at 5.3.23. The patch still requires its own complete
 native CI run after commit.
+
+
+## Native nested frames (46), test-only addition at 5.3.23
+
+A genuine HTTP parent embeds a Basic-blocked cross-origin document, which in
+turn embeds a Daily Limit document. Native `scripting.executeScript` results
+prove three distinct frame IDs, main frame 0, actual document URLs, DOM parent
+relationships and parent referrer origins. Child result order and specific
+child IDs are browser-dependent. Default referrer policy is retained; full
+cross-origin referrer paths are not required.
+
+A real child navigation preserves its frame ID and the parent's document.
+Initial load, child navigation and a parent reload preserve usage 40 in every
+observed usage write and the final snapshot, without a foreground deadline.
+The identical Daily Limit URL then becomes top-level: real foreground time is
+charged, its native deadline alarm is observed, DNR installs the exhausted rule
+and cleanup removes the top-level tab. No corrective intent, synthetic event,
+Date shim, alarm override or API hold is used after initial fixture reconciliation.
+With Basic and exhausted Daily Limit DNR active, all three embedded HTTP
+documents still load, while the two top-level navigations reach blocked.html
+with exact reasons. The parent survives, usage and revisions are retained,
+and Options/Popup readers show the exhausted budget. Popup is a reader tab.
+
+This checks DNR main/sub-frame behavior and tab accounting, not
+`webRequest.type`, `webRequest.parentFrameId`, worker idle, OS sleep, startup
+session restore, minimum versions, mobile, macOS or native Edge. Production
+modules, permissions, version, existing assertions, deadlines and retries are
+unchanged. This new deadline phase starts with 20 seconds remaining and has
+its own 35-second observation bound, as in the existing native window coverage.
+The only additional HTTP responses are local synthetic documents.
+
+Current native list: **45 scenarios**; listing is not execution.
+
+```bash
+cd e2e
+node runner.mjs --headed --filter=46 --max-failures=1
+```
+
+The Firefox job budget is 25 minutes, including browser/package setup and all
+45 scenarios. Base run 38042123433 on c92168ec1b494b37d79669b2c408641cc5823bb0
+was cancelled after about 20 minutes, with 43 PASS lines and no FAILED line;
+the workflow had a 20-minute job limit. Its log does not identify the exact
+cancellation reason, and it is not a complete 44-scenario result. Increasing
+only the aggregate CI budget lets the enlarged suite finish within its own
+unchanged scenario bounds; it does not turn that cancelled run green.

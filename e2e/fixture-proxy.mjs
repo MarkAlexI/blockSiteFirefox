@@ -104,7 +104,7 @@ export async function createFixtureProxy({ root, html, verifyUrl, expectedPayloa
       deny(response); return;
     }
     onEvent({ url: url.href, method: request.method, status: 200, at: Date.now() });
-    respond(response, 200, request.method === 'HEAD' ? '' : html, 'text/html');
+    respond(response, 200, request.method === 'HEAD' ? '' : typeof html === 'function' ? html(url) : html, 'text/html');
   });
   server.on('connection', track);
   server.on('connect', (request, socket, head) => {
