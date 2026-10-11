@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.25] - 2026-10-11
+
+- Keep the open Pro section at its natural height after a license-status refresh or feedback update, including feedback received during the opening animation. Prevent long error text from overflowing narrow layouts.
+- Preserve collapsed/inert state, retry input, successful activation focus return and Firefox's synchronous user-action consent flow. Use one transition listener across cancelled and repeated openings.
+- Add seven production Options regressions for status refresh, pending/failed activation, empty keys, manual checks, logout and replies after collapse. Add native scenario 47 for observed feedback geometry after background status refresh and column resizing; align runtime release metadata to 5.3.25.
+
 ## [5.3.24] - 2026-10-11
 
 - Separate failed install/update preparation, state initialization, host permission checks, DNR integrity and install-page opening in telemetry using fixed lifecycle codes and existing event reasons.

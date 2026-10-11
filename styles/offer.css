@@ -213,6 +213,7 @@ p#ext-version {
 }
 
 #license-message {
+  overflow-wrap: anywhere;
   margin-top: 15px;
   font-weight: 500;
   padding: 10px;

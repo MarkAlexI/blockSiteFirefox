@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.24**
+# Firefox Desktop E2E — BlockDistraction **5.3.25**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 основним сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,
@@ -778,3 +778,7 @@ the workflow had a 20-minute job limit. Its log does not identify the exact
 cancellation reason, and it is not a complete 44-scenario result. Increasing
 only the aggregate CI budget lets the enlarged suite finish within its own
 unchanged scenario bounds; it does not turn that cancelled run green.
+
+## Pro feedback geometry (scenario 47)
+
+The native Options scenario opens Pro, switches the fixture through Pro and Free and broadcasts the status from the actual background context. It then rejects one native verification request through the existing isolated HTTP fixture and checks message geometry in 340 px and 640 px Pro columns. A MutationObserver and every rendered animation frame retain the full observed history; a later successful layout cannot erase an earlier clipped message. Rules, usage, credentials, retry input and collapsed/inert state are also checked. Firefox grants its real authentication-info consent first. Column resizing is a desktop layout check, not Firefox Android or a mobile platform run.

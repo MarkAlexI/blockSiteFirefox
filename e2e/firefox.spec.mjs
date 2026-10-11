@@ -14,6 +14,7 @@ import { multiWindowScenarios } from './multi-window-scenarios.mjs';
 import { sessionRestoreScenarios } from './session-restore-scenarios.mjs';
 import { frameScenarios } from './frame-scenarios.mjs';
 import { coldMessageScenarios } from './cold-message-scenarios.mjs';
+import { proFeedbackScenarios } from './pro-feedback-scenarios.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
 
@@ -277,3 +278,5 @@ scenarios.push(...multiWindowScenarios);
 
 scenarios.push(...sessionRestoreScenarios);
 scenarios.push(...frameScenarios);
+
+scenarios.push(...proFeedbackScenarios);

@@ -50,6 +50,18 @@ if (wrapper) {
   wrapper.inert = true;
 }
 
+// Content changes can cancel the opening transition. Release its height cap
+// synchronously so feedback never depends on a later transitionend event.
+function releaseOpenProHeight() {
+  if (wrapper?.classList.contains('open')) wrapper.style.maxHeight = 'none';
+}
+
+function showLicenseMessage(text, className) {
+  licenseMessage.textContent = text;
+  licenseMessage.className = className;
+  releaseOpenProHeight();
+}
+
 function collapseProSection({ focusToggle = false } = {}) {
   if (!wrapper?.classList.contains('open')) return;
   wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
@@ -77,17 +89,16 @@ if (btn) {
       if (activateView?.style.display !== 'none') {
         recordTelemetryCounter('pro_activation_notice_shown');
       }
-      
-      wrapper.addEventListener('transitionend', function handler(event) {
-        if (event.target !== wrapper || event.propertyName !== 'max-height') return;
-        if (wrapper.classList.contains('open')) wrapper.style.maxHeight = 'none';
-        wrapper.removeEventListener('transitionend', handler);
-      });
     } else {
       collapseProSection();
     }
   });
 }
+
+// One listener also covers rapid close/reopen and cancelled opening transitions.
+wrapper?.addEventListener('transitionend', (event) => {
+  if (event.target === wrapper && event.propertyName === 'max-height') releaseOpenProHeight();
+});
 
 let proViewGeneration = 0;
 async function updateUI() {
@@ -106,10 +117,7 @@ async function updateUI() {
     view.style.display = visible ? 'block' : 'none';
   }
   proBtnText.textContent = isPro ? 'Pro' : hasKey ? t('proinactive') : t('getpro');
-  if (wrapper && wrapper.classList.contains('open')) {
-    wrapper.style.maxHeight = 'none';
-    wrapper.style.maxHeight = content.scrollHeight + 'px';
-  }
+  releaseOpenProHeight();
 }
 
 if (licenseForm) {
@@ -119,8 +127,7 @@ if (licenseForm) {
     const key = licenseInput.value.trim();
     
     if (!key) {
-      licenseMessage.textContent = t('pleaseenterkey') || 'Please enter a key.';
-      licenseMessage.className = 'error-message show';
+      showLicenseMessage(t('pleaseenterkey') || 'Please enter a key.', 'error-message show');
       return;
     }
 
@@ -128,8 +135,7 @@ if (licenseForm) {
     const licenseConsentRequest = requestLicenseDataConsentFromUserAction(browser.permissions);
     recordTelemetryCounter('pro_activation_consent_requested');
     
-    licenseMessage.textContent = t('checking') || 'Checking...';
-    licenseMessage.className = 'status-message success show';
+    showLicenseMessage(t('checking') || 'Checking...', 'status-message success show');
     licenseSubmitBtn.disabled = true;
     
     try {
@@ -174,23 +180,21 @@ if (licenseForm) {
         logger.error("Failed to reset password during re-activation:", err);
       }
       
-      licenseMessage.textContent = t('proactivated') || 'Pro activated!';
-      licenseMessage.className = 'status-message success show';
+      showLicenseMessage(t('proactivated') || 'Pro activated!', 'status-message success show');
       await updateUI();
       collapseProSection({ focusToggle: true });
       
     } catch (error) {
       logger.error('Activation Error:', error);
       if (error.code === 'invalid_license') {
-        licenseMessage.textContent = t('subscriptionnotfound') ||
-          'Subscription not found or key is invalid.';
+        showLicenseMessage(t('subscriptionnotfound') ||
+          'Subscription not found or key is invalid.', 'error-message show');
       } else if (error.code === 'license_consent_required') {
-        licenseMessage.textContent = t('onboarding_status_error') ||
-          'Please grant permission from extension settings.';
+        showLicenseMessage(t('onboarding_status_error') ||
+          'Please grant permission from extension settings.', 'error-message show');
       } else {
-        licenseMessage.textContent = t('servererror') || 'Server error. Please try again.';
+        showLicenseMessage(t('servererror') || 'Server error. Please try again.', 'error-message show');
       }
-      licenseMessage.className = 'error-message show';
     } finally {
       licenseSubmitBtn.disabled = false;
       
@@ -208,8 +212,7 @@ if (forceSyncBtn) {
     forceSyncBtn.disabled = true;
     forceSyncBtn.textContent = t('syncing');
     
-    licenseMessage.textContent = t('syncing');
-    licenseMessage.className = 'status-message success show';
+    showLicenseMessage(t('syncing'), 'status-message success show');
     
     const consentGranted = await licenseConsentRequest;
     const response = consentGranted
@@ -225,14 +228,12 @@ if (forceSyncBtn) {
     forceSyncBtn.textContent = t('forcesync') || 'Force Sync / Check Status';
     
     if (response && response.success) {
-      licenseMessage.textContent = t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ` (${t('proaccessunavailable')})`) +
-        (response.syncPending ? ` ${t('problockingsyncpending')}` : '');
-      licenseMessage.className = 'status-message success show';
+      showLicenseMessage(t('syncsuccess') + (response.isPro ? ' (Pro Active)' : ` (${t('proaccessunavailable')})`) +
+        (response.syncPending ? ` ${t('problockingsyncpending')}` : ''), 'status-message success show');
       await updateUI();
     } else {
       const errorMsg = (response && response.error) ? response.error : 'No response';
-      licenseMessage.textContent = t('syncfailed') + `: ${errorMsg}`;
-      licenseMessage.className = 'error-message show';
+      showLicenseMessage(t('syncfailed') + `: ${errorMsg}`, 'error-message show');
     }
     
     setTimeout(() => {
@@ -259,8 +260,7 @@ if (logOutBtn) {
       }
     } catch (error) {
       logger.error("Error checking settings before logout:", error);
-      licenseMessage.textContent = t('loggedouterror');
-      licenseMessage.className = 'error-message show';
+      showLicenseMessage(t('loggedouterror'), 'error-message show');
       return;
     }
     
@@ -288,12 +288,10 @@ if (logOutBtn) {
       }
       
       licenseInput.value = '';
-      licenseMessage.textContent = t('loggedoutsuccess');
-      licenseMessage.className = 'status-message success show';
+      showLicenseMessage(t('loggedoutsuccess'), 'status-message success show');
     } catch (error) {
       logger.error('Log out error:', error);
-      licenseMessage.textContent = t('loggedouterror');
-      licenseMessage.className = 'error-message show';
+      showLicenseMessage(t('loggedouterror'), 'error-message show');
     } finally {
       setTimeout(() => {
         licenseMessage.className = 'hidden';
