@@ -93,14 +93,12 @@ test('service worker event listeners do not expose rejected async handlers', asy
   const source = await readFile(new URL('../scripts/service_worker.js', import.meta.url), 'utf8');
 
   assert.doesNotMatch(source, /\.addListener\(\s*async\b/);
+  assert.match(source, /browser\.runtime\.onInstalled\.addListener\(details =>\s*runInstalledEvent\(details\?\.reason/);
   for (const operation of [
     'CONTEXT_MENU_ADD',
-    'INSTALL',
-    'UPDATE',
     'PERMISSION_REMOVED',
     'PERMISSION_ADDED',
-    'SCHEDULED_ALARM',
-    'SERVICE_WORKER'
+    'SCHEDULED_ALARM'
   ]) {
     assert.match(source, new RegExp(`ASYNC_HANDLER_OPERATIONS\\.${operation}`));
   }

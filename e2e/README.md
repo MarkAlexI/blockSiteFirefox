@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.23**
+# Firefox Desktop E2E — BlockDistraction **5.3.24**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 основним сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,

@@ -45,6 +45,7 @@ import {
   ASYNC_HANDLER_OPERATIONS,
   createAsyncHandlerBoundary
 } from '../telemetry/asyncHandlerBoundary.js';
+import { createInstalledEventBoundary } from '../telemetry/installedEventBoundary.js';
 import { FOCUS_SCHEDULE_ALARM } from '../schedules/focusSchedule.js';
 import { createFocusScheduleController } from '../schedules/focusScheduleController.js';
 import { BUILD_ID } from '../utils/buildInfo.js';
@@ -146,6 +147,13 @@ const telemetryStore = createTelemetryStore({
 
 const runAsyncHandler = createAsyncHandlerBoundary({
   recordError: error => telemetryStore.recordError(error),
+  logger
+});
+
+const runInstalledEvent = createInstalledEventBoundary({
+  recordError: error => telemetryStore.recordError(error),
+  recordDiagnostic: ({ code, ...details }) =>
+    diagnosticStore.recordEvent('error', 'worker', code, details),
   logger
 });
 
@@ -1791,57 +1799,50 @@ async function createDiagnosticReport() {
   });
 }
 
-const INSTALL_HANDLER_OPERATIONS = Object.freeze({
-  install: ASYNC_HANDLER_OPERATIONS.INSTALL,
-  update: ASYNC_HANDLER_OPERATIONS.UPDATE,
-  chrome_update: ASYNC_HANDLER_OPERATIONS.CHROME_UPDATE,
-  browser_update: ASYNC_HANDLER_OPERATIONS.BROWSER_UPDATE,
-  shared_module_update: ASYNC_HANDLER_OPERATIONS.SHARED_MODULE_UPDATE
-});
-
 browser.runtime.onInstalled.addListener(details =>
-  runAsyncHandler(
-    INSTALL_HANDLER_OPERATIONS[details?.reason] || ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
-    async () => {
-  logger.log(`Extension event: ${details.reason}`);
+  runInstalledEvent(details?.reason, async step => {
+    logger.log(`Extension event: ${details.reason}`);
 
-  try {
-    await browser.runtime.setUninstallURL("https://blockdistraction.com/uninstall.html");
-  } catch (error) {
-    logger.info('Uninstall URL could not be set:', error);
-  }
-  
-  ensureAlarmsCreated();
-  try {
-    await telemetryClient.restoreRetry();
-  } catch (error) {
-    logger.info('Could not restore the telemetry retry after an extension event:', error);
-  }
-  
-  if (details.reason === 'install') {
-    logger.log("This is a fresh install. Checking permissions...");
-    await initializeExtension(details);
-    await checkAndRequestPermissions(details, { notifyIfMissing: true });
-    
-    const installUrl = createInstallURL();
-    await browser.tabs.create({
-      url: installUrl,
-      active: true
-    });
-  } else if (details.reason === 'update') {
-    logger.log("This is an update. Checking permissions...");
-    await initializeExtension(details);
-    await checkAndRequestPermissions(details, { notifyIfMissing: true });
-  } else if (details.reason === 'chrome_update' || details.reason === 'browser_update') {
-    logger.log("Browser updated.");
-    await initializeExtension(details);
-    await dnrSynchronizer.validateIntegrity();
-    await checkAndRequestPermissions(details, { notifyIfMissing: true });
-  } else if (details.reason === 'shared_module_update') {
-    logger.log("Shared module updated.");
-  }
+    try {
+      await browser.runtime.setUninstallURL("https://blockdistraction.com/uninstall.html");
+    } catch (error) {
+      logger.info('Uninstall URL could not be set:', error);
     }
-  )
+
+    ensureAlarmsCreated();
+    try {
+      await telemetryClient.restoreRetry();
+    } catch (error) {
+      logger.info('Could not restore the telemetry retry after an extension event:', error);
+    }
+
+    if (details.reason === 'install') {
+      logger.log("This is a fresh install. Checking permissions...");
+      await step('initialize', () => initializeExtension(details));
+      await step('permissions', () =>
+        checkAndRequestPermissions(details, { notifyIfMissing: true })
+      );
+      await step('open_install_page', () => browser.tabs.create({
+        url: createInstallURL(),
+        active: true
+      }));
+    } else if (details.reason === 'update') {
+      logger.log("This is an update. Checking permissions...");
+      await step('initialize', () => initializeExtension(details));
+      await step('permissions', () =>
+        checkAndRequestPermissions(details, { notifyIfMissing: true })
+      );
+    } else if (details.reason === 'chrome_update' || details.reason === 'browser_update') {
+      logger.log("Browser updated.");
+      await step('initialize', () => initializeExtension(details));
+      await step('dnr_integrity', () => dnrSynchronizer.validateIntegrity());
+      await step('permissions', () =>
+        checkAndRequestPermissions(details, { notifyIfMissing: true })
+      );
+    } else if (details.reason === 'shared_module_update') {
+      logger.log("Shared module updated.");
+    }
+  })
 );
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {

@@ -1431,3 +1431,118 @@ for (const action of ['clear', 'replace']) {
     }, { local, supportsWindows: false });
   });
 }
+
+function recordedWorkerErrors(api) {
+  return Object.values(api.storage.local.data.telemetryBuckets || {})
+    .flatMap(bucket => bucket.errors || []);
+}
+
+const installedTelemetryFixture = {
+  settings: { debugMode: true },
+  local: {
+    is_migrated_to_local: true,
+    telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }
+  }
+};
+
+for (const reason of ['install', 'update', 'browser_update']) {
+  test(`installed event ${reason}: initialization failure is distinct and never opens the install page`, async () => {
+    await withWorker(async ({ api }) => {
+      const get = api.storage.local.get.bind(api.storage.local);
+      let failures = 0;
+      api.storage.local.get = (keys, callback) => {
+        if (keys === 'rules' && failures === 0) {
+          failures++;
+          throw new TypeError('https://private.example/ secret@example.com');
+        }
+        return get(keys, callback);
+      };
+      const created = api.createdTabs.length;
+      await assert.doesNotReject(() => api.runtime.onInstalled.listeners[0]({ reason }));
+      assert.equal(failures, 1, 'the production storage boundary must actually fail');
+      assert.equal(api.createdTabs.length, created);
+      const errors = recordedWorkerErrors(api).filter(error => error.source === 'worker');
+      assert.deepEqual(errors.map(error => [error.code, error.operation, error.errorName, error.count]), [
+        ['lifecycle_initialize_failed', reason, 'typeerror', 1]
+      ]);
+      const failure = api.storage.local.data.diagnosticEvents
+        .find(event => event.code === 'lifecycle_initialize_failed');
+      assert.equal(failure.details.phase, 'initialize');
+      assert.deepEqual(failure.details.completedPhases, []);
+      assert.doesNotMatch(JSON.stringify({ errors, failure }), /private\.example|secret@example/);
+    }, installedTelemetryFixture);
+  });
+}
+
+test('installed event: rejected page API waits for settlement and reports after initialization', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const entered = createDeferred();
+    const completion = createDeferred();
+    await until(() => api.dynamicRules.some(rule => rule.id === 21), 'seeded Daily Limit DNR did not apply');
+    const beforeDnr = structuredClone(api.dynamicRules);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:list-1'], 840);
+    api.tabs.create = () => { entered.resolve(); return completion.promise; };
+    let settled = false;
+    const event = api.runtime.onInstalled.listeners[0]({ reason: 'install' })
+      .then(() => { settled = true; });
+    await entered.promise;
+    assert.equal(settled, false);
+    assert.equal(api.storage.local.data.is_migrated_to_local, true);
+    assert.equal(recordedWorkerErrors(api).filter(error => error.source === 'worker').length, 0);
+    completion.reject(new TypeError('failed opening https://private.example/'));
+    await assert.doesNotReject(() => event);
+    assert.equal(settled, true);
+    assert.deepEqual(api.dynamicRules, beforeDnr);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:list-1'], 840);
+    const errors = recordedWorkerErrors(api).filter(error => error.source === 'worker');
+    assert.deepEqual(errors.map(error => [error.code, error.operation, error.errorName, error.count]), [
+      ['lifecycle_open_install_page_failed', 'install', 'typeerror', 1]
+    ]);
+    const failure = api.storage.local.data.diagnosticEvents
+      .find(item => item.code === 'lifecycle_open_install_page_failed');
+    assert.deepEqual(failure.details.completedPhases, ['initialize', 'permissions']);
+    assert.doesNotMatch(JSON.stringify({ errors, failure }), /private\.example/);
+  }, {
+    ...installedTelemetryFixture,
+    local: {
+      ...installedTelemetryFixture.local,
+      rules: [makeDailyLimitRule(21, 'list-1')],
+      dailyRuleUsage: {
+        version: 2, date: getLocalDateKey(), usageSeconds: { '21:list-1': 840 }, lastSample: null
+      }
+    }
+  });
+});
+
+test('installed event: native permission check failure retains its existing distinct report', async () => {
+  await withWorker(async ({ api }) => {
+    let checks = 0;
+    api.permissions.contains = async () => { checks++; throw new TypeError('permission API failed'); };
+    const before = api.createdTabs.length;
+    await api.runtime.onInstalled.listeners[0]({ reason: 'install' });
+    assert.ok(checks > 0, 'the real permission monitor must call the controlled API');
+    const errors = recordedWorkerErrors(api);
+    assert.deepEqual(errors.filter(error => error.source === 'permissions')
+      .map(error => [error.code, error.operation, error.errorName, error.count]), [
+        ['check_failed', 'install', 'typeerror', 1]
+      ]);
+    assert.equal(errors.filter(error => error.source === 'worker').length, 0);
+    assert.equal(api.createdTabs.length, before + 1, 'permission fallback still opens the install page');
+  }, installedTelemetryFixture);
+});
+
+for (const reason of ['install', 'update']) {
+  test(`installed event ${reason}: successful initialization keeps the original page policy`, async () => {
+    await withWorker(async ({ api }) => {
+      const before = api.createdTabs.length;
+      await api.runtime.onInstalled.listeners[0]({ reason });
+      assert.equal(api.createdTabs.length, before + (reason === 'install' ? 1 : 0));
+      if (reason === 'install') {
+        assert.equal(api.createdTabs.at(-1).url, api.runtime.getURL('options/options.html'));
+        assert.equal(api.createdTabs.at(-1).active, true);
+      }
+      assert.equal(recordedWorkerErrors(api).filter(error => error.source === 'worker').length, 0);
+    }, installedTelemetryFixture);
+  });
+}

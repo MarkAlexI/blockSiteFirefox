@@ -425,9 +425,11 @@ test('top-level install failures are contained and recorded with a fixed operati
 
     const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
       .flatMap(bucket => bucket.errors || []);
-    assert.equal(errors.some(error =>
-      error.fingerprint === 'worker:async_handler_failed:install:typeerror'
-    ), true);
+    const lifecycleFailures = errors.filter(error => error.source === 'worker');
+    assert.equal(lifecycleFailures.length, 1);
+    assert.equal(lifecycleFailures[0].fingerprint,
+      'worker:lifecycle_open_install_page_failed:install:typeerror');
+    assert.equal(lifecycleFailures[0].count, 1);
     assert.equal(JSON.stringify(errors).includes('private URL'), false);
     assert.equal(JSON.stringify(errors).includes('rule contents'), false);
     assert.deepEqual(api.uninstallUrls, ['https://blockdistraction.com/uninstall.html']);

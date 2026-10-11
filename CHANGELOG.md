@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.24] - 2026-10-11
+
+- Separate failed install/update preparation, state initialization, host permission checks, DNR integrity and install-page opening in telemetry using fixed lifecycle codes and existing event reasons.
+- Keep lifecycle diagnostic context local and free of raw messages, URLs, keys and stacks. Preserve independent telemetry consent and debug-history controls; reporting failures cannot reject the browser listener.
+- Await install-page creation and add production-worker regressions for failed initialization, API permission checks and page opening. Keep browser-specific retry handling and native E2E assertions unchanged.
+
 ## [5.3.23] - 2026-10-10
 
 - Preserve in-flight Daily Limit tab cleanup when verification confirms unchanged access. Keep early cancellation for actual Pro transitions and storage invalidation for changed credentials.
