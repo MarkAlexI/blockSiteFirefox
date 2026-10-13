@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.25**
+# Firefox Desktop E2E — BlockDistraction **5.3.26**
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 основним сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,
@@ -782,3 +782,22 @@ unchanged scenario bounds; it does not turn that cancelled run green.
 ## Pro feedback geometry (scenario 47)
 
 The native Options scenario opens Pro, switches the fixture through Pro and Free and broadcasts the status from the actual background context. It then rejects one native verification request through the existing isolated HTTP fixture and checks message geometry in 340 px and 640 px Pro columns. A MutationObserver and every rendered animation frame retain the full observed history; a later successful layout cannot erase an earlier clipped message. Rules, usage, credentials, retry input and collapsed/inert state are also checked. Firefox grants its real authentication-info consent first. Column resizing is a desktop layout check, not Firefox Android or a mobile platform run.
+
+
+## Browser lifetime accounting 5.3.26 (2026-10-13)
+
+Base: `38383860f95f76dd8197287356abc4f38abf80ce`. The runtime now retains
+spent Daily Limit budgets but discards a foreground segment belonging to the
+previous browser lifetime. A storage.session marker is checked before elapsed
+accounting, including a tab event preceding onStartup; ordinary background
+replacement keeps the marker and the live segment. Boundary writes retain v1
+counters and the durable remap journal. Firefox 113/114 without storage.session
+uses an explicit queued onStartup boundary.
+
+Migration ignores dictionary field order, preventing unchanged rules from
+receiving new revisions merely because native storage reordered their fields.
+No minimum version, permissions, telemetry or existing native assertions,
+timeouts and retry policy change. Root checks passed 1810/1810; the previous
+Chromium CI plus failing old-code controls identify the shared defects. The
+Firefox native suite still requires the owner's CI, and native Firefox startup
+session restoration has not been added or accepted in this iteration.

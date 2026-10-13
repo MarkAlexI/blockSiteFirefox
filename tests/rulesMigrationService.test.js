@@ -139,6 +139,26 @@ test('current assignment schema is returned without a storage rewrite', () => {
   assert.deepEqual(result.rules, rules);
 });
 
+test('native storage dictionary order cannot invent a rule or usage migration', async () => {
+  const ordered = value => Array.isArray(value) ? value.map(ordered)
+    : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(key => [key, ordered(value[key])])) : value;
+  const rule = ordered({ id: 21, blockURL: 'current.example', redirectURL: '', category: 'social', isWhitelist: false,
+    assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 3 } }] });
+  const usage = ordered({ version: 2, date: '2026-10-13', usageSeconds: { '21:general': 40 },
+    lastSample: { timestamp: 1791895203299, assignmentKeys: ['21:general'] } });
+  assert.equal(migrateRuleSchema([rule]).migrated, false);
+  assert.equal(migrateDailyUsageSchema(usage, [rule]).migrated, false);
+  const harness = createHarness({ local: { is_migrated_to_local: true, rules: [rule], dailyRuleUsage: usage,
+    ruleRevisions: { 21: 'original-rule-revision' }, ruleLists: [{ id: 'general', name: 'General', disabledCategories: [] }],
+    activeRuleListId: 'general', ruleListRevisions: { general: 'original-list-revision' } } });
+  const before = clone(harness.localStorage.state);
+  const result = await harness.service.migrateAll();
+  assert.equal(result.migrated, false);
+  assert.deepEqual(harness.savedRules, []);
+  assert.deepEqual(harness.localStorage.setCalls, []);
+  assert.deepEqual(harness.localStorage.state, before);
+});
+
 test('RC4 multi-membership clones the shared blocking config into each assignment', () => {
   const legacy = [{
     id: 4,

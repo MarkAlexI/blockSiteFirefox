@@ -343,7 +343,7 @@ function createStorageArea(initial = {}) {
   };
 }
 
-export function createExtensionApi({ sync = {}, local = {}, tabs = [], version = '5.1.7' } = {}) {
+export function createExtensionApi({ sync = {}, local = {}, session = null, tabs = [], version = '5.1.7' } = {}) {
   const messages = [];
   const removedTabs = [];
   const createdTabs = [];
@@ -360,6 +360,7 @@ export function createExtensionApi({ sync = {}, local = {}, tabs = [], version =
     storage: {
       sync: createStorageArea(sync),
       local: createStorageArea(local),
+      ...(session === null ? {} : { session: createStorageArea(session) }),
       onChanged: {
         addListener(listener) { storageListeners.push(listener); },
         emit(changes, namespace) { storageListeners.forEach(listener => listener(changes, namespace)); }

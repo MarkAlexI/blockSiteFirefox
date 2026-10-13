@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
-import { getLocalDateKey } from '../rules/dailyLimitManager.js';
+import { DAILY_LIMIT_SESSION_KEY, getLocalDateKey } from '../rules/dailyLimitManager.js';
 import { COLD_SCHEDULE, coldRequests, assertColdReplies, assertColdState } from '../e2e/cold-message.mjs';
 
 const TEST_FIREFOX_ANDROID = true;
@@ -86,12 +86,15 @@ async function withWorker(callback, {
   credentials = {},
   settings = {},
   local = {},
+  // Most fixtures model a live browser. Startup controls use {} or null.
+  session = { [DAILY_LIMIT_SESSION_KEY]: 1 },
   dnrLimits = {},
   scripting = null,
   supportsWindows = !TEST_FIREFOX_ANDROID,
   waitAfterImport = true
 } = {}) {
   const api = createExtensionApi({
+    session,
     sync: {
       settings: { mode: 'normal', debugMode: false, focusSessionSound: false, ...settings },
       credentials: {
@@ -455,6 +458,37 @@ test('startup usage migration preserves accounting from a concurrent tab event',
     assert.ok(after['21:general']>=849,JSON.stringify(after));
 
   },{local:{activeRuleListId:'general',lastCheck:Date.now(),rules:[rule],dailyRuleUsage:{version:1,date:getLocalDateKey(),usageSeconds:{'21':840},lastSample:{timestamp:Date.now()-10000,ruleId:21}}}});
+});
+
+test('a restored tab before onStartup retains spent budget without charging the closed browser interval', async () => {
+  const rule = makeDailyLimitRule(21, 'general', { blockURL: 'restore.example', minutes: 3 });
+  await withWorker(async ({ api, startup }) => {
+    api.tabs.values = [{ id: 10, url: 'https://restore.example/page', active: true }];
+    await api.tabs.onUpdated.listeners[0](10, { status: 'complete' }, api.tabs.values[0]);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:general': 40 });
+    assert.equal(api.storage.session.data[DAILY_LIMIT_SESSION_KEY], 1);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, ['21:general']);
+    assert.ok(api.alarmValues.has('daily_limit_deadline'));
+    await startup();
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:general': 40 });
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, ['21:general']);
+  }, { session: {}, scripting: { executeScript: async () => [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] },
+    local: { activeRuleListId: 'general', lastCheck: Date.now(), rules: [rule], dailyRuleUsage: { version: 2,
+      date: getLocalDateKey(), usageSeconds: { '21:general': 40 }, lastSample: { timestamp: Date.now() - 11128, assignmentKeys: ['21:general'] } } } });
+});
+
+test('startup without storage.session clears only the prior foreground segment before migration', async () => {
+  const rule = makeDailyLimitRule(21, 'general', { blockURL: 'legacy-restore.example', minutes: 20 });
+  await withWorker(async ({ api, startup }) => {
+    api.tabs.values = [{ id: 10, url: 'https://legacy-restore.example/page', active: true }];
+    await startup();
+    assert.equal(api.storage.session, undefined);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:general': 840 });
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, ['21:general']);
+    assert.ok(api.alarmValues.has('daily_limit_deadline'));
+  }, { session: null, scripting: { executeScript: async () => [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] },
+    local: { activeRuleListId: 'general', lastCheck: Date.now(), rules: [rule], dailyRuleUsage: { version: 1,
+      date: getLocalDateKey(), usageSeconds: { '21': 840 }, lastSample: { timestamp: Date.now() - 11128, ruleId: 21 } } } });
 });
 
 test('deleting a rule invalidates its pending SPA redirect', {timeout:5000}, async () => {

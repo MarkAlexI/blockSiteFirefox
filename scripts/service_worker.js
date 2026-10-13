@@ -55,7 +55,7 @@ const IS_RELEASE_CANDIDATE = /^RC\d+$/i.test(BUILD_ID);
 const MANUAL_LICENSE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);
 const rulesManager = new RulesManager();
 const ruleListsManager = new RuleListsManager(browser.storage.local);
-const dailyLimitManager = new DailyLimitManager(browser.storage.local);
+const dailyLimitManager = new DailyLimitManager(browser.storage.local, { sessionStorage: browser.storage.session });
 let pendingDailyUsageRecovery = null;
 
 async function getFocusAccess() {
@@ -1480,6 +1480,7 @@ browser.tabs.onCreated.addListener((tab) =>
 
 browser.runtime.onStartup.addListener(() =>
   runAsyncHandler(ASYNC_HANDLER_OPERATIONS.STARTUP, async () => {
+    if (!browser.storage.session) await dailyLimitManager.discardLastSample();
     try {
       await telemetryClient.restoreRetry();
     } catch (error) {

@@ -8,7 +8,12 @@ import { BLOCKING_MODE_DAILY_LIMIT } from './blockingMode.js';
 import { DAILY_RULE_USAGE_KEY, DAILY_LIMIT_STATE_VERSION } from './dailyLimitManager.js';
 
 function sameJson(left, right) {
-  return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
+  // Native storage may reorder dictionary keys. Arrays retain their order;
+  // field order alone must not rewrite rules or allocate fresh revisions.
+  const ordered = (_key, value) => value && typeof value === 'object' && !Array.isArray(value)
+    ? Object.fromEntries(Object.keys(value).sort().map(key => [key, value[key]]))
+    : value;
+  return JSON.stringify(left ?? null, ordered) === JSON.stringify(right ?? null, ordered);
 }
 
 /**

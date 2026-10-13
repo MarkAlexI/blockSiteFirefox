@@ -2,6 +2,7 @@ export const DAILY_RULE_USAGE_KEY = 'dailyRuleUsage';
 export const PENDING_DAILY_USAGE_REMAPS_KEY = 'pendingDailyUsageRemaps';
 export const DAILY_LIMIT_STATE_VERSION = 2;
 export const MAX_ACCOUNTING_GAP_MS = 90 * 1000;
+export const DAILY_LIMIT_SESSION_KEY = 'dailyLimitSession';
 
 export function getLocalDateKey(date = new Date()) {
   const year = date.getFullYear();
@@ -132,8 +133,9 @@ export function projectDailyUsageSeconds(raw, pendingRemaps, now = new Date()) {
 }
 
 export class DailyLimitManager {
-  constructor(storageArea = chrome.storage.local) {
+  constructor(storageArea = chrome.storage.local, { sessionStorage = null } = {}) {
     this.storageArea = storageArea;
+    this.sessionStorage = sessionStorage;
     this.enqueue = createAsyncQueue();
     this.pendingRemaps = null;
   }
@@ -268,6 +270,23 @@ export class DailyLimitManager {
         await this.storageArea.set(patch);
         if (pending.length > 0) this.pendingRemaps = [];
       };
+      if (this.sessionStorage) {
+        const session = await this.sessionStorage.get(DAILY_LIMIT_SESSION_KEY);
+        if (!shouldContinue()) return { superseded: true };
+        if (session[DAILY_LIMIT_SESSION_KEY] !== 1) {
+          // Durable usage survives browser exit; the foreground segment does
+          // not. A tab/alarm event may precede runtime.onStartup. Check the
+          // browser-owned session boundary before any elapsed-time charge.
+          if (state.lastSample) {
+            state.lastSample = null;
+            await persistState();
+          }
+          // Commit the disk boundary first. A failed write or worker exit
+          // cannot let a later worker revive the old browser's segment.
+          await this.sessionStorage.set({ [DAILY_LIMIT_SESSION_KEY]: 1 });
+          if (!shouldContinue()) return { superseded: true };
+        }
+      }
       const timestamp = now.getTime();
       const currentKeys = normalizeActiveKeys(activeAssignmentKeys);
       let previousKeys = state.lastSample?.assignmentKeys || [];
@@ -341,6 +360,18 @@ export class DailyLimitManager {
 
   async resetSample(now = new Date()) {
     return this.recordSample([], now, { closePreviousSegment: true });
+  }
+
+  async discardLastSample() {
+    // Firefox 113/114 have no storage.session. Their explicit onStartup
+    // boundary joins the same queue, retaining v1 counters and pending remaps.
+    return this.enqueue(async () => {
+      const stored = await this.storageArea.get(DAILY_RULE_USAGE_KEY);
+      const raw = stored[DAILY_RULE_USAGE_KEY];
+      if (raw?.lastSample) {
+        await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: { ...raw, lastSample: null } });
+      }
+    });
   }
 
   async remapAssignmentKey(oldRuleId, oldListId, newRuleId, newListId, now = new Date()) {
