@@ -1,4 +1,14 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.26**
+# Firefox Desktop E2E — BlockDistraction **5.3.27**
+
+Ітерація 5.3.27 синхронізує DNR після завершення install/update initialization,
+включно з внутрішнім відновленням денних бюджетів при canonical rules. Шість
+нових production-worker регресій перевіряють durable remaps, mixed-v1 counters
+і expired-day cleanup на обох lifecycle events. Загальна логіка відповідає
+Chromium. Firefox-specific startup/consent та native assertions збережені.
+
+Попередній native E2E на commit `cf39b229a1ebbdada2226665454653b70353449b`
+[38409810175](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/38409810175)
+був зеленим. Для 5.3.27 потрібен новий прогін після коміту.
 
 Окремий Selenium/WebDriver runner для нативного Firefox. Він відповідає
 основним сценаріям Chromium E2E та окремій перевірці Firefox consent. Використовує Firefox event page, `browser.*`,

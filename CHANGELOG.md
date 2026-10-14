@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.27] - 2026-10-14
+
+- Reconcile native blocking rules after install/update initialization finishes restoring Daily Limit usage, Focus and access state. Apply exhausted recovered budgets and remove expired-day blocking even when rule/profile data needs no visible migration.
+- Add production-worker regressions for durable remaps, mixed legacy counters and expired-day cleanup on both install and update, including blocking state before the install page opens.
+- Align source release metadata to 5.3.27. Native browser CI remains the next verification step.
+
 ## [5.3.26] - 2026-10-13
 
 - Retain spent Daily Limit budgets while discarding a foreground segment from a previous browser session. Check a small storage.session marker before accounting, including restored-tab events that precede onStartup; keep accounting across ordinary background-worker replacement.

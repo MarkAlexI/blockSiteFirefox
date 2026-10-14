@@ -1583,6 +1583,14 @@ async function initializeExtension(details) {
   } catch (error) {
     logger.info('Error handling install/update for legacy:', error);
   }
+
+  // Internal usage recovery can change blocking with already canonical rules.
+  // A visible migration already synced above; startup and browser updates
+  // have their own sync/integrity step. Complete canonical install/update
+  // with one explicit sync before an install page can observe the new state.
+  if (!migrationResult.userVisibleMigration && ['install', 'update'].includes(details.reason)) {
+    await dnrSynchronizer.requestSync();
+  }
 }
 
 async function checkAndRequestPermissions(details, options = {}) {

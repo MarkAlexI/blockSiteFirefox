@@ -1580,3 +1580,53 @@ for (const reason of ['install', 'update']) {
     }, installedTelemetryFixture);
   });
 }
+const installedDailyUsageCases = [
+  {
+    name: 'a durable remap with an exhausted budget',
+    usage: { version: 2, date: getLocalDateKey(), usageSeconds: { '21:list-1': 840 }, lastSample: null },
+    pending: [{ oldRuleId: 21, oldListId: 'list-1', newRuleId: 21, newListId: 'general' }],
+    expectedUsage: { '21:general': 840 }, expectedDnr: [21]
+  },
+  {
+    name: 'mixed v1 counters with no visible rule migration',
+    usage: { version: 1, date: getLocalDateKey(), usageSeconds: { '21': 840, '21:general': 10 }, lastSample: null },
+    pending: [], expectedUsage: { '21:general': 840 }, expectedDnr: [21]
+  },
+  {
+    name: 'an expired budget and journal with a persisted blocking rule',
+    usage: { version: 2, date: getLocalDateKey(new Date(Date.now() - 86400000)),
+      usageSeconds: { '21:list-1': 840 }, lastSample: null },
+    pending: [{ oldRuleId: 21, oldListId: 'list-1', newRuleId: 21, newListId: 'general' }],
+    expectedUsage: {}, expectedDnr: [], staleDnr: true
+  }
+];
+
+for (const reason of ['install', 'update']) {
+  for (const scenario of installedDailyUsageCases) {
+    test('installed event ' + reason + ': canonical rules reconcile DNR after ' + scenario.name, async () => {
+      await withWorker(async ({ api }) => {
+        if (scenario.staleDnr) {
+          const { createDnrRuleFactory } = await import('../rules/dnrRuleFactory.js');
+          const factory = createDnrRuleFactory(path => api.runtime.getURL(path));
+          api.dynamicRules = [await factory(21, 'installed-daily.example', '', 'daily_limit')];
+        }
+        const created = api.createdTabs.length;
+        const createTab = api.tabs.create.bind(api.tabs);
+        api.tabs.create = async details => {
+          assert.deepEqual(api.dynamicRules.map(rule => rule.id), scenario.expectedDnr,
+            'the install page must observe reconciled blocking rules');
+          return createTab(details);
+        };
+        await api.runtime.onInstalled.listeners[0]({ reason });
+        assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, scenario.expectedUsage);
+        assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+        assert.deepEqual(api.dynamicRules.map(rule => rule.id), scenario.expectedDnr,
+          'lifecycle completion must reconcile actual DNR after internal usage recovery');
+        assert.equal(api.createdTabs.length, created + (reason === 'install' ? 1 : 0));
+        assert.deepEqual(api.notificationsCreated, [], 'internal recovery is not a user-visible schema migration');
+      }, { local: { is_migrated_to_local: true, activeRuleListId: 'general', lastCheck: Date.now(),
+        rules: [makeDailyLimitRule(21, 'general', { blockURL: 'installed-daily.example' })],
+        pendingDailyUsageRemaps: structuredClone(scenario.pending), dailyRuleUsage: structuredClone(scenario.usage) } });
+    });
+  }
+}
