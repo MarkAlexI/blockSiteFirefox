@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.28] - 2026-10-18
+
+- Report pending browser-rule synchronization after Focus Stop and show failures in Popup while preserving the saved stop intent.
+- Count only saved active-to-inactive Focus transitions. Repeated Stop still performs cleanup and suppresses the current scheduled occurrence without adding another stopped session.
+- Contain diagnostic and telemetry write failures so they cannot break Stop responses. Finish committed cleanup before a queued Start, including a Start that is later rejected.
+- Add 19 worker and Popup regressions covering duplicate Stop, natural completion, scheduled starts, DNR recovery, reporting failures and concurrent Start. Align release metadata to 5.3.28.
+
 ## [5.3.27] - 2026-10-14
 
 - Reconcile native blocking rules after install/update initialization finishes restoring Daily Limit usage, Focus and access state. Apply exhausted recovered budgets and remove expired-day blocking even when rule/profile data needs no visible migration.
