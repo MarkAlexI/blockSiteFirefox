@@ -2239,23 +2239,39 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           await dailyLimitTracker.sample('focus_stop_before');
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
-          await browser.storage.local.set({
-            focusSession: { focusActive: false, focusEndTime: 0, isHardcore: false, focusMode: 'blacklist' }
-          });
+          const { focusSession: previousFocusSession } = await browser.storage.local.get(['focusSession']);
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
-          await dailyLimitTracker.sample('focus_stop_after');
-          await browser.alarms.clear('end_focus_session');
-          await dnrSynchronizer.requestSync();
-          logger.log('Focus Session: Stopped by user.');
-          await Promise.all([
-            diagnosticStore.recordEvent('info', 'focus', 'session_stopped', {
-              reason: 'user'
-            }),
-            telemetryStore.incrementCounter('focus_stopped')
-          ]);
-          return true;
+          await browser.storage.local.set({ focusSession: { ...INACTIVE_FOCUS_SESSION } });
+          let syncResult;
+          try {
+            // Finish a committed Stop before the next queued Start can write its state.
+            await dailyLimitTracker.sample('focus_stop_after');
+            await browser.alarms.clear('end_focus_session');
+            syncResult = await dnrSynchronizer.requestSync();
+          } finally {
+            // Count the stored active -> inactive transition, including a pending DNR sync.
+            // Repeated Stop still performs cleanup without recording another stopped session.
+            if (previousFocusSession?.focusActive === true) {
+              logger.log('Focus Session: Stopped by user.');
+              const outcomes = await Promise.allSettled([
+                diagnosticStore.recordEvent('info', 'focus', 'session_stopped', { reason: 'user' }),
+                telemetryStore.incrementCounter('focus_stopped')
+              ]);
+              for (const outcome of outcomes) {
+                if (outcome.status === 'rejected') {
+                  logger.info('Focus stop reporting could not be persisted:', outcome.reason);
+                }
+              }
+            }
+          }
+          if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+          return { success: true, ...(syncResult?.success === false ? { syncPending: true } : {}) };
         });
+        if (completed && typeof completed === 'object') {
+          sendResponse(completed);
+          return;
+        }
         sendResponse({ success: true, ...(completed ? {} : { superseded: true }) });
       } catch (error) {
         logger.error('Focus Session: Error stopping session:', error);

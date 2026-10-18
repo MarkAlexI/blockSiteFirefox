@@ -755,8 +755,21 @@ class PopupPage {
   }
   
   async stopFocusSession() {
-    await browser.runtime.sendMessage({ type: 'stop_focus_session' });
-    await this.updateFocusUI();
+    let failed = false;
+    try {
+      const response = await browser.runtime.sendMessage({ type: 'stop_focus_session' });
+      failed = response?.success !== true || response.syncPending === true;
+    } catch (error) {
+      this.logger.error('Error stopping Focus Session:', error);
+      failed = true;
+    }
+    try {
+      await this.updateFocusUI();
+    } catch (error) {
+      this.logger.error('Error refreshing Focus Session:', error);
+      failed = true;
+    }
+    if (failed) customAlert(t('errorupdatingrules'));
   }
   
   logRulesMutationFailure(label, error) {

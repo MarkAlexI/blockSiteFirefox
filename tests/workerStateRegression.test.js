@@ -255,6 +255,211 @@ let closeTabsMatchingRules;
 let closeNonWhitelistedTabs;
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 async function until(predicate,label){for(let i=0;i<1000;i++){if(predicate())return;await tick();}throw new Error(label);}
+
+function focusStopCounter(api, name) {
+  return Object.values(api.storage.local.data.telemetryBuckets || {})
+    .reduce((sum, bucket) => sum + (bucket.counters?.[name] || 0), 0);
+}
+const focusStopConsent = { version: 1, enabled: true, decidedAt: 1 };
+
+test('Focus Stop does not count an inactive session and still clears a stale alarm', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.alarmValues.set('end_focus_session', { scheduledTime: Date.now() + 60000 });
+    assert.deepEqual(await send({ type: 'stop_focus_session' }), { success: true });
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.equal(focusStopCounter(api, 'focus_stopped'), 0);
+  }, { local: { telemetryConsent: focusStopConsent } });
+});
+
+test('Focus Stop counts one transition across sequential duplicate requests', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+    assert.deepEqual(await send({ type: 'stop_focus_session' }), { success: true });
+    assert.deepEqual(await send({ type: 'stop_focus_session' }), { success: true });
+    assert.equal(focusStopCounter(api, 'focus_started'), 1);
+    assert.equal(focusStopCounter(api, 'focus_stopped'), 1);
+  }, { local: { telemetryConsent: focusStopConsent } });
+});
+
+test('Focus Stop counts a committed transition once when another Stop overlaps its write',
+  { timeout: 5000 }, async () => {
+    await withWorker(async ({ api, send }) => {
+      assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+      const entered = createDeferred(), release = createDeferred();
+      const set = api.storage.local.set.bind(api.storage.local);
+      let held = false;
+      api.storage.local.set = async values => {
+        if (!held && values.focusSession?.focusActive === false) {
+          held = true; entered.resolve(); await release.promise;
+        }
+        return set(values);
+      };
+      const first = send({ type: 'stop_focus_session' });
+      let second;
+      try {
+        await entered.promise;
+        second = send({ type: 'stop_focus_session' });
+      } finally { release.resolve(); }
+      assert.deepEqual(await first, { success: true, superseded: true });
+      assert.deepEqual(await second, { success: true });
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.alarmValues.has('end_focus_session'), false);
+      assert.equal(focusStopCounter(api, 'focus_stopped'), 1);
+    }, { local: { telemetryConsent: focusStopConsent } });
+  });
+
+test('Focus Stop after natural completion does not count the session a second time', async () => {
+  await withUsageClock(Date.now(), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      assert.equal((await send({ type: 'start_focus_session', duration: 1 })).success, true);
+      const endTime = api.storage.local.data.focusSession.focusEndTime;
+      clock.set(endTime + 10);
+      await alarm({ name: 'end_focus_session', scheduledTime: endTime });
+      assert.equal(focusStopCounter(api, 'focus_completed'), 1);
+      assert.deepEqual(await send({ type: 'stop_focus_session' }), { success: true });
+      assert.equal(focusStopCounter(api, 'focus_stopped'), 0);
+    }, { local: { telemetryConsent: focusStopConsent } });
+  });
+});
+
+test('Focus Stop while inactive suppresses a scheduled occurrence before its pending alarm', async () => {
+  await withUsageClock(new Date(2026, 8, 28, 8, 59).getTime(), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      clock.set(new Date(2026, 8, 28, 9, 20).getTime());
+      const stopped = send({ type: 'stop_focus_session' });
+      const scheduled = alarm({ name: 'start_scheduled_focus' });
+      assert.equal((await stopped).success, true);
+      await scheduled;
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(focusStopCounter(api, 'focus_stopped'), 0);
+      assert.equal(focusStopCounter(api, 'focus_started'), 0);
+    }, { local: {
+      telemetryConsent: focusStopConsent,
+      focusSchedule: { version: 1, enabled: true, days: [1, 2, 3, 4, 5], startTime: '09:00',
+        durationMinutes: 50, revision: 1, notBefore: 0, handledKeys: [], skippedKeys: [] }
+    } });
+  });
+});
+
+test('Focus Stop succeeds when its optional diagnostics and telemetry writes both reject', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+    const set = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = values => (
+      Object.hasOwn(values, 'diagnosticState') || Object.hasOwn(values, 'telemetryBuckets')
+        ? Promise.reject(new Error('optional reporting unavailable')) : set(values)
+    );
+    assert.deepEqual(await send({ type: 'stop_focus_session' }), { success: true });
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+  }, { local: { telemetryConsent: focusStopConsent } });
+});
+
+test('Focus Stop returns a controlled core failure when error reporting also rejects', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+    const session = structuredClone(api.storage.local.data.focusSession);
+    const set = api.storage.local.set.bind(api.storage.local);
+    api.storage.local.set = values => (
+      ['focusSession', 'diagnosticState', 'telemetryBuckets'].some(key => Object.hasOwn(values, key))
+        ? Promise.reject(new Error('storage unavailable')) : set(values)
+    );
+    assert.deepEqual(await send({ type: 'stop_focus_session' }),
+      { success: false, error: 'storage unavailable' });
+    assert.deepEqual(api.storage.local.data.focusSession, session);
+    assert.equal(api.alarmValues.has('end_focus_session'), true);
+  }, { local: { telemetryConsent: focusStopConsent } });
+});
+
+test('Focus Stop reports pending native DNR removal and retries it without counting twice', async () => {
+  const rule = makeFocusRule(197, 'general'); rule.assignments[0].disabledByUser = true;
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+    assert.ok(api.dynamicRules.some(item => item.id === 197));
+    const update = api.declarativeNetRequest.updateDynamicRules;
+    api.declarativeNetRequest.updateDynamicRules = async () => { throw new Error('native removal failed'); };
+    assert.deepEqual(await send({ type: 'stop_focus_session' }), { success: true, syncPending: true });
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.ok(api.dynamicRules.some(item => item.id === 197));
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.success, false);
+    assert.equal(focusStopCounter(api, 'focus_stopped'), 1);
+
+    api.declarativeNetRequest.updateDynamicRules = update;
+    assert.deepEqual(await send({ type: 'stop_focus_session' }), { success: true });
+    assert.deepEqual(api.dynamicRules, []);
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.success, true);
+    assert.equal(focusStopCounter(api, 'focus_stopped'), 1);
+  }, { local: { rules: [rule], activeRuleListId: 'general', telemetryConsent: focusStopConsent } });
+});
+
+test('Focus Stop finishing a failed DNR removal cannot undo a newer queued Start',
+  { timeout: 5000 }, async () => {
+    const rule = makeFocusRule(197, 'general'); rule.assignments[0].disabledByUser = true;
+    await withWorker(async ({ api, send }) => {
+      assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+      const entered = createDeferred(), release = createDeferred();
+      const update = api.declarativeNetRequest.updateDynamicRules;
+      let held = false;
+      api.declarativeNetRequest.updateDynamicRules = async change => {
+        if (!held && change.removeRuleIds.includes(197) && !change.addRules.length) {
+          held = true; entered.resolve(); await release.promise;
+          throw new Error('late native removal failed');
+        }
+        return update(change);
+      };
+      const stopping = send({ type: 'stop_focus_session' });
+      let starting;
+      try {
+        await entered.promise;
+        starting = send({ type: 'start_focus_session', duration: 45 });
+      } finally { release.resolve(); }
+      assert.deepEqual(await stopping, { success: true, superseded: true });
+      assert.equal((await starting).success, true);
+      const session = api.storage.local.data.focusSession;
+      assert.equal(session.focusActive, true);
+      assert.ok(session.focusEndTime > Date.now() + 44 * 60000);
+      assert.equal(api.alarmValues.get('end_focus_session').when, session.focusEndTime);
+      assert.ok(api.dynamicRules.some(item => item.id === 197));
+      assert.equal(focusStopCounter(api, 'focus_started'), 2);
+      assert.equal(focusStopCounter(api, 'focus_stopped'), 1);
+    }, { local: { rules: [rule], activeRuleListId: 'general', telemetryConsent: focusStopConsent } });
+  });
+
+test('Focus Stop finishes committed cleanup even when a newer queued Start is rejected',
+  { timeout: 5000 }, async () => {
+    const rule = makeFocusRule(197, 'general'); rule.assignments[0].disabledByUser = true;
+    await withWorker(async ({ api, send }) => {
+      assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+      const entered = createDeferred(), release = createDeferred();
+      const set = api.storage.local.set.bind(api.storage.local);
+      let held = false;
+      api.storage.local.set = async values => {
+        if (!held && values.focusSession?.focusActive === false) {
+          held = true; entered.resolve(); await release.promise;
+        }
+        return set(values);
+      };
+      const stopping = send({ type: 'stop_focus_session' });
+      let starting;
+      try {
+        await entered.promise;
+        starting = send({ type: 'start_focus_session', duration: 45 });
+      } finally { release.resolve(); }
+      assert.deepEqual(await stopping, { success: true, superseded: true });
+      assert.equal((await starting).code, 'pro_required');
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.alarmValues.has('end_focus_session'), false);
+      assert.deepEqual(api.dynamicRules, []);
+      assert.equal(focusStopCounter(api, 'focus_stopped'), 1);
+    }, {
+      credentials: { isPro: false, isLegacyUser: false, licenseKey: null },
+      local: { rules: [rule], activeRuleListId: 'general', telemetryConsent: focusStopConsent }
+    });
+  });
 const inactive={focusActive:false,focusEndTime:0,isHardcore:false,focusMode:'blacklist'};
 const unchangedVerificationDeliveries = [
   { mode: 'changed-only', label: 'without a replacement storage event', beforeRelease: 0 },
