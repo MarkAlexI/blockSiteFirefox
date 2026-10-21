@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro access is restored. Browser blocking rules are still waiting to synchronize."
+  },
+  "ruleschangessavedpending": {
+    "message": "Changes saved. Blocking rules are not fully applied yet."
   }
 }

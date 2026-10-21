@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro-toegang is hersteld. De blokkeerregels van de browser wachten nog op synchronisatie."
+  },
+  "ruleschangessavedpending": {
+    "message": "Wijzigingen opgeslagen. De blokkeerregels zijn nog niet volledig toegepast."
   }
 }

@@ -10,6 +10,7 @@ import {
 } from '../rules/ruleAssignments.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 import { MAX_RULES_LIMIT } from '../utils/constants.js';
+import { getRulesMutationFeedback } from '../rules/rulesMutationFeedback.js';
 
 const optionsSource = readFileSync(new URL('../options/options.js', import.meta.url), 'utf8');
 const popupSource = readFileSync(new URL('../popup.js', import.meta.url), 'utf8');
@@ -60,11 +61,18 @@ function createController(source, methodName, nextMethodName, dependencies) {
   assert.notEqual(start, -1, methodName + ' was not found in its real UI source');
   assert.equal(Number.isFinite(end), true, nextMethodName + ' was not found after ' + methodName);
 
-  const method = source.slice(start, end);
+  let method = source.slice(start, end);
+  if (method.includes('this.showRulesMutationResult(') && !method.includes('  showRulesMutationResult(')) {
+    const feedbackStart = source.indexOf('  showRulesMutationResult(');
+    const following = /\n  (?:async )?[A-Za-z_$][\w$]*\(/.exec(source.slice(feedbackStart + 1));
+    assert.ok(feedbackStart >= 0 && following);
+    method += '\n' + source.slice(feedbackStart, feedbackStart + 1 + following.index);
+  }
   const Controller = new Function(
     ...Object.keys(dependencies),
+    'getRulesMutationFeedback',
     'return class ProductionEntryPoint {\n' + method + '\n};'
-  )(...Object.values(dependencies));
+  )(...Object.values(dependencies), getRulesMutationFeedback);
 
   return new Controller();
 }

@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Akses Pro telah dipulihkan. Aturan pemblokiran browser masih menunggu sinkronisasi."
+  },
+  "ruleschangessavedpending": {
+    "message": "Perubahan tersimpan. Aturan pemblokiran belum sepenuhnya diterapkan."
   }
 }

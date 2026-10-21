@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro prieiga atkurta. Naršyklės blokavimo taisyklės vis dar laukia sinchronizavimo."
+  },
+  "ruleschangessavedpending": {
+    "message": "Pakeitimai išsaugoti. Blokavimo taisyklės dar nėra visiškai pritaikytos."
   }
 }

@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "已恢复 Pro 使用权限。浏览器阻止规则仍在等待同步。"
+  },
+  "ruleschangessavedpending": {
+    "message": "更改已保存。拦截规则尚未完全应用。"
   }
 }

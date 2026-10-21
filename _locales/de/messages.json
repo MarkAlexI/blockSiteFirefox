@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro-Zugriff wurde wiederhergestellt. Die Blockierregeln des Browsers warten noch auf die Synchronisierung."
+  },
+  "ruleschangessavedpending": {
+    "message": "Änderungen gespeichert. Die Blockierregeln sind noch nicht vollständig angewendet."
   }
 }

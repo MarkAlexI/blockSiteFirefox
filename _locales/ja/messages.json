@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro の利用が復元されました。ブラウザーのブロックルールはまだ同期を待っています。"
+  },
+  "ruleschangessavedpending": {
+    "message": "変更を保存しました。ブロックルールはまだ完全には適用されていません。"
   }
 }

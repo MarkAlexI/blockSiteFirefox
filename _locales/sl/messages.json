@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Dostop Pro je obnovljen. Pravila blokiranja brskalnika še čakajo na sinhronizacijo."
+  },
+  "ruleschangessavedpending": {
+    "message": "Spremembe so shranjene. Pravila blokiranja še niso v celoti uveljavljena."
   }
 }

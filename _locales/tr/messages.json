@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro erişimi geri yüklendi. Tarayıcının engelleme kuralları hâlâ eşitlenmeyi bekliyor."
+  },
+  "ruleschangessavedpending": {
+    "message": "Değişiklikler kaydedildi. Engelleme kuralları henüz tam olarak uygulanmadı."
   }
 }

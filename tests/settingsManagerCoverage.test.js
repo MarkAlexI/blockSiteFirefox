@@ -963,3 +963,44 @@ test('full settings initialization wires controls, loads counts and statistics, 
     assert.deepEqual(calls, ['settings', 'listeners', 'rules', 'statistics', 'focus']);
   });
 });
+
+
+for (const flag of ['syncPending', 'dailyUsageSyncPending']) {
+  test(`clear-all keeps its committed empty view and warns about ${flag}`, async () => {
+    await withSettingsManager({ local: { rules: [{ id: 1, blockURL: 'saved.example' }] } }, async ({ api, document, manager }) => {
+      let writes = 0;
+      manager.rulesClient.clearRules = async () => {
+        writes++;
+        await api.storage.local.set({ rules: [] });
+        return { success: true, rules: [], [flag]: true };
+      };
+      await manager.clearAllRules();
+      assert.equal(writes, 1, 'pending synchronization never replays Clear');
+      assert.deepEqual(api.storage.local.data.rules, []);
+      assert.equal(Number(document.getElementById('totalRules').textContent), 0);
+      const status = document.getElementById('statusMessage');
+      assert.equal(status.textContent, 'ruleschangessavedpending');
+      assert.equal(status.classList.contains('error'), true);
+      assert.equal(status.classList.contains('success'), false);
+    });
+  });
+}
+
+test('a committed import with pending usage recovery clears the input and warns instead of claiming full application', async () => {
+  await withSettingsManager(async ({ document, manager }) => {
+    const rules = [{ id: 1, blockURL: 'saved.example', redirectURL: '', category: 'social' }];
+    let imports = 0;
+    manager.checkPasswordProtection = async () => true;
+    manager.loadStatistics = async () => {};
+    manager.rulesClient.replaceAll = async () => {
+      imports++;
+      return { success: true, rules, dailyUsageSyncPending: true };
+    };
+    document.getElementById('importFileInput').value = 'selected.json';
+    await manager.importRules({ name: 'selected.json', async text() { return JSON.stringify({ rules }); } });
+    assert.equal(imports, 1);
+    assert.equal(Number(document.getElementById('totalRules').textContent), 1);
+    assert.equal(document.getElementById('importFileInput').value, '');
+    assert.equal(document.getElementById('statusMessage').textContent, 'ruleschangessavedpending');
+  });
+});

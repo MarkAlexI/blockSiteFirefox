@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro-käyttöoikeus palautettiin. Selaimen estosäännöt odottavat vielä synkronointia."
+  },
+  "ruleschangessavedpending": {
+    "message": "Muutokset tallennettu. Estosääntöjä ei ole vielä otettu kokonaan käyttöön."
   }
 }

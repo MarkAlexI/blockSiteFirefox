@@ -15,6 +15,7 @@ function controller(source, methods, deps = {}) {
   const c = new C();Object.assign(c, { isPro: true, isLegacyUser: false, activeRuleListId: 'list-1',
     ruleLists: [{ id: 'general' }, { id: 'list-1' }], ruleListSnapshot: { generation: 'captured-generation', revisions: { 'list-1': 'captured-list' } },
     rulesManager: { async getRules() { return []; } }, async refreshProfileView() {}, statusElement: {},
+    showRulesMutationResult() {}, // Feedback is exercised through production methods in rulesMutationFeedback.test.js.
     logRulesMutationFailure() {}, handleRulesMutationError(error) { throw error; } });
   return c;
 }

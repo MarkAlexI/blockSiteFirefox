@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "S'ha restaurat l'accés Pro. Les regles de bloqueig del navegador encara esperen la sincronització."
+  },
+  "ruleschangessavedpending": {
+    "message": "Canvis desats. Les regles de bloqueig encara no s'han aplicat del tot."
   }
 }

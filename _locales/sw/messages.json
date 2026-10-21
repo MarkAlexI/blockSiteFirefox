@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Ufikiaji wa Pro umerejeshwa. Sheria za kuzuia za kivinjari bado zinasubiri kusawazishwa."
+  },
+  "ruleschangessavedpending": {
+    "message": "Mabadiliko yamehifadhiwa. Sheria za kuzuia bado hazijatumika kikamilifu."
   }
 }

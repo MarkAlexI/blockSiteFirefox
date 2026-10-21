@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro pristup je obnovljen. Pravila blokiranja preglednika još čekaju sinkronizaciju."
+  },
+  "ruleschangessavedpending": {
+    "message": "Promjene su spremljene. Pravila blokiranja još nisu u potpunosti primijenjena."
   }
 }

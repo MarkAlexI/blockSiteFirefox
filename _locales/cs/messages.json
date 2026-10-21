@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Přístup Pro byl obnoven. Pravidla blokování prohlížeče stále čekají na synchronizaci."
+  },
+  "ruleschangessavedpending": {
+    "message": "Změny byly uloženy. Pravidla blokování ještě nejsou plně použita."
   }
 }

@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "הגישה ל-Pro שוחזרה. כללי החסימה של הדפדפן עדיין ממתינים לסנכרון."
+  },
+  "ruleschangessavedpending": {
+    "message": "השינויים נשמרו. כללי החסימה עדיין לא הוחלו במלואם."
   }
 }

@@ -7,6 +7,7 @@ import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { RulesClient } from '../rules/rulesClient.js';
+import { getRulesMutationFeedback } from '../rules/rulesMutationFeedback.js';
 import { createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
 import { migrateRuleSchema } from '../rules/rulesMigrationService.js';
 import {
@@ -62,6 +63,7 @@ function createLifecycleHarness({
   let currentAccess = copy(access);
   let dynamicRules = [];
   const dnrUpdates = [];
+  let dnrError = null;
   const messages = [];
   const notifications = [];
   const previousBrowser = globalThis.browser;
@@ -73,6 +75,7 @@ function createLifecycleHarness({
       return copy(dynamicRules);
     },
     async updateDynamicRules(update) {
+      if (dnrError) throw dnrError;
       const nextUpdate = copy(update);
       dnrUpdates.push(nextUpdate);
       const removedIds = new Set(nextUpdate.removeRuleIds || []);
@@ -165,6 +168,7 @@ function createLifecycleHarness({
   });
   const handler = createRulesIntentHandler(service);
   const extensionApi = {
+    i18n: { getMessage: key => key },
     runtime: {
       lastError: null,
       sendMessage(message, callback) {
@@ -193,6 +197,7 @@ function createLifecycleHarness({
   return {
     client: new RulesClient(),
     synchronizer,
+    setDnrError(error) { dnrError = error; },
     messages,
     notifications,
     dnrUpdates,
@@ -260,14 +265,21 @@ function createDeletionController({
   };
   const customAlert = message => alerts.push(message);
   const t = key => key;
-  const method = getClassMethod(source, methodName, nextMethodName);
+  let method = getClassMethod(source, methodName, nextMethodName);
+  if (!method.includes('  showRulesMutationResult(')) {
+    const start = source.indexOf('  showRulesMutationResult(');
+    const end = source.indexOf('\n  cleanup(', start);
+    assert.ok(start >= 0 && end > start);
+    method += '\n' + source.slice(start, end);
+  }
   const Controller = new Function(
     'SettingsManager',
     'customAlert',
     't',
     'GENERAL_RULE_LIST_ID',
+    'getRulesMutationFeedback',
     'return class DeletionEntryPoint {\n' + method + '\n};'
-  )(SettingsManager, customAlert, t, 'general');
+  )(SettingsManager, customAlert, t, 'general', getRulesMutationFeedback);
   const controller = new Controller();
   if (source === popupSource) {
     // Model the displayed row's captured list and legacy generation arguments.
@@ -1201,3 +1213,34 @@ test('Options ignores assignment deletion when the Rule List ID is missing', asy
     assert.equal(view.getRefreshCount(), 0);
   });
 });
+
+
+for (const source of [popupSource, optionsSource]) {
+  const label = source === popupSource ? 'Popup' : 'Options';
+  test(`${label} reports a real DNR failure after deletion and recovery never replays the saved mutation`, async () => {
+    await withLifecycle({ rules: [makeRule(69, 'pending.example')] }, async harness => {
+      const view = createDeletionController({ source, methodName: 'handleRuleDeletion',
+        nextMethodName: source === popupSource ? 'promptForPassword' : 'toggleEditMode', harness });
+      harness.setDnrError(new Error('browser update unavailable'));
+      if (source === popupSource) {
+        await view.controller.handleRuleDeletion({}, 69, 'pending.example', {
+          dataset: { isWhitelist: 'false' }, remove() { assert.fail('saved rules go through the worker'); }
+        });
+      } else {
+        await view.controller.handleRuleDeletion({ target: {} }, 69);
+      }
+      await view.settle();
+      assert.deepEqual(harness.getRules(), [], 'the deletion remains committed');
+      assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [69], 'the failed browser update is observable');
+      assert.equal(harness.notifications.at(-1).extra.syncPending, true);
+      assert.deepEqual(view.alerts, ['ruleschangessavedpending']);
+      assert.equal(harness.messages.length, 1);
+
+      harness.setDnrError(null);
+      assert.equal((await harness.synchronizer.requestSync()).success, true);
+      assert.deepEqual(harness.getRules(), []);
+      assert.deepEqual(harness.getDynamicRules(), []);
+      assert.equal(harness.messages.length, 1, 'recovery synchronizes the saved state without resending Delete');
+    });
+  });
+}

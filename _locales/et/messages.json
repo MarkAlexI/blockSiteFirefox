@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro-juurdepääs on taastatud. Brauseri blokeerimisreeglid ootavad veel sünkroonimist."
+  },
+  "ruleschangessavedpending": {
+    "message": "Muudatused on salvestatud. Blokeerimisreeglid pole veel täielikult rakendatud."
   }
 }

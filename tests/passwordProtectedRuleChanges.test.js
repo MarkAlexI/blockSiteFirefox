@@ -13,6 +13,13 @@ function getClassMember(source, opening, nextOpening) {
   return source.slice(start, end);
 }
 
+// These extracted controllers isolate authorization/revisions; feedback has its own UI regressions.
+function createPartialController(Controller) {
+  const controller = new Controller();
+  controller.showRulesMutationResult = () => {};
+  return controller;
+}
+
 test('paid rule-change authorization prompts only when password protection is enabled and fails closed', async () => {
   const method = getClassMember(
     optionsSource,
@@ -37,7 +44,7 @@ test('paid rule-change authorization prompts only when password protection is en
     't',
     `return class PasswordGate {\n${method}\n};`
   )(SettingsManager, key => key);
-  const controller = new Controller();
+  const controller = createPartialController(Controller);
   Object.assign(controller, {
     isPro: true,
     isLegacyUser: false,
@@ -91,7 +98,7 @@ for (const [label, source, args] of [
       'GENERAL_RULE_LIST_ID',
       `return class RuleToggle {\n${method}\n};`
     )('general');
-    const controller = new Controller();
+    const controller = createPartialController(Controller);
     const toggles = [];
     let authorizations = 0;
     let refreshes = 0;
@@ -151,7 +158,7 @@ test('Options protects destructive Rule List deletion and category disabling whi
     't',
     `return class ProtectedMutations {\n${deleteMethod}\n${categoryMethod}\n};`
   )('general', key => key);
-  const controller = new Controller();
+  const controller = createPartialController(Controller);
   const mutations = [];
   let authorized = false;
   let authorizationCalls = 0;
@@ -228,7 +235,7 @@ test('list deletion conflict Options identifies the General address using existi
   const messages = [];
   const translations = { alertruleexist: 'Правило вже існує', rulelist_general: 'Загальний' };
   const Controller = new Function('GENERAL_RULE_LIST_ID', 'MAX_RULES_LIMIT', 't', `return class ErrorPresentation {\n${method}\n};`)('general', 10, key => translations[key] || key);
-  const controller = new Controller();
+  const controller = createPartialController(Controller);
   controller.rulesUI = { showErrorMessage(message) { messages.push(message); } };
   controller.handleRulesMutationError({ code: 'rule_already_exists', conflict: { listId: 'general', blockURL: 'saved.example' } });
   controller.handleRulesMutationError({ code: 'rule_already_exists' });
@@ -244,7 +251,7 @@ function staleOptionsDeferred() {
 test('stale options row callbacks retain the generation of their displayed rule', async () => {
   const method = getClassMember(optionsSource, 'createRuleRow(', 'async handleRuleAssignmentDeletion(');
   const Controller = new Function('t', `return class Row {${method}};`)(key => key);
-  const controller = new Controller();
+  const controller = createPartialController(Controller);
   let callbacks;
   const calls = [];
   Object.assign(controller, {
@@ -271,7 +278,7 @@ for (const [label, source, call] of [
     const next = label === 'Options' ? 'async refreshProfileView(' : 'handleRulesMutationError(';
     const method = getClassMember(source, 'async handleRuleToggle(', next);
     const Controller = new Function('GENERAL_RULE_LIST_ID', `return class Toggle {${method}};`)('general');
-    const controller = new Controller();
+    const controller = createPartialController(Controller);
     const authorized = staleOptionsDeferred();
     const entered = staleOptionsDeferred();
     const calls = [];
@@ -296,7 +303,7 @@ test('stale options edit form and assignment removal keep the captured generatio
   const release = staleOptionsDeferred();
   const SettingsManager = { async getSettings() { entered.resolve(); return release.promise; } };
   const Controller = new Function('SettingsManager', 't', 'GENERAL_RULE_LIST_ID', `return class Edit {${edit}\n${save}};`)(SettingsManager, key => key, 'general');
-  const controller = new Controller();
+  const controller = createPartialController(Controller);
   const updates = []; const removals = []; let callbacks;
   Object.assign(controller, {
     isPro: true, isLegacyUser: false, statusElement: {},
@@ -327,7 +334,7 @@ test('stale options destructive confirmation callbacks keep the original generat
     const method = getClassMember(optionsSource, opening, next);
     const SettingsManager = { async getSettings() { return { mode: 'normal', enablePassword: false }; } };
     const Controller = new Function('SettingsManager', 't', `return class Delete {${method}};`)(SettingsManager, key => key);
-    const controller = new Controller();let confirmation;const calls = [];
+    const controller = createPartialController(Controller);let confirmation;const calls = [];
     Object.assign(controller, {
       isPro: true, rulesUI: { isDeleteConfirmationInProgress: () => false, handleRuleDeletion(_button, callback) { confirmation = callback; }, showSuccessMessage() {} },
       rulesClient: { async [methodName](...args) { calls.push(args); } },
@@ -345,7 +352,7 @@ test('stale options Popup confirmation keeps both the displayed assignment and g
   const method = getClassMember(popupSource, 'async handleRuleDeletion(', 'async promptForPassword(');
   const SettingsManager = { async getSettings() { return { mode: 'normal', enablePassword: false }; } };
   const Controller = new Function('SettingsManager', 't', 'customAlert', 'GENERAL_RULE_LIST_ID', `return class Delete {${method}};`)(SettingsManager, key => key, () => {}, 'general');
-  const controller = new Controller();let confirmation;const calls = [];
+  const controller = createPartialController(Controller);let confirmation;const calls = [];
   Object.assign(controller, {
     isPro: true, activeRuleListId: 'list-1',
     rulesUI: { isDeleteConfirmationInProgress: () => false, handleRuleDeletion(_button, callback) { confirmation = callback; } },
@@ -364,7 +371,7 @@ for (const [label, source] of [['Options', optionsSource], ['Popup', popupSource
     const method = getClassMember(source, 'handleRulesMutationError(', next);
     let refreshes = 0;const errors = [];
     const Controller = new Function('t', 'customAlert', `return class ErrorView {${method}};`)(key => key, message => errors.push(message));
-    const controller = new Controller();
+    const controller = createPartialController(Controller);
     Object.assign(controller, { rulesUI: { showErrorMessage(message) { errors.push(message); } }, async refreshProfileView() { refreshes++; }, async loadRules() { refreshes++; } });
     controller.handleRulesMutationError({ code: 'rules_state_changed' }, 'errorremovingrule');
     assert.equal(refreshes, 1);
@@ -379,7 +386,7 @@ for (const [label, source, next] of [['Options', optionsSource, 'updateWhitelist
     let listener;let refreshes = 0;
     const api = { storage: { onChanged: { addListener(value) { listener = value; } } } };
     const Controller = new Function('chrome', 'browser', 'PRO_GUIDANCE_STORAGE_KEY', `return class Listener {${method}};`)(api, api, 'proGuidance');
-    const controller = new Controller();
+    const controller = createPartialController(Controller);
     Object.assign(controller, { async refreshProfileView() { refreshes++; }, async loadRules() { refreshes++; } });
     controller.setupStorageListeners();
     listener({ rulesGeneration: { oldValue: 'before', newValue: 'after' } }, 'local');
@@ -401,7 +408,7 @@ for (const [method, next, invoke, expected] of [
     let controller; const calls = [];
     const Controller = new Function('GENERAL_RULE_LIST_ID', 'resolveRuleListContext', 't', 'prompt', `return class ListActions {${member}};`)(
       'general', (_lists, id) => id, key => key, () => { controller.generation = 'replacement'; return 'Renamed'; });
-    controller = new Controller();
+    controller = createPartialController(Controller);
     Object.assign(controller, {
       ruleLists: [{ id: 'general' }, { id: 'list-1' }], generation: 'captured',
       rulesClient: {
@@ -421,7 +428,7 @@ test('stale lists Options deletion keeps its generation through confirmation and
   const calls = [];
   const Controller = new Function('GENERAL_RULE_LIST_ID', 't', 'confirm', `return class DeleteList {${member}};`)(
     'general', key => key, () => { controller.generation = 'replacement'; return true; });
-  controller = new Controller();
+  controller = createPartialController(Controller);
   Object.assign(controller, {
     generation: 'captured', activeRuleListId: 'general',
     authorizePasswordProtectedRuleChange: () => password,
@@ -436,7 +443,7 @@ test('stale lists Options deletion keeps its generation through confirmation and
 test('rule conflict Options row callbacks keep both generation and revision from the displayed snapshot', () => {
   const method = getClassMember(optionsSource, 'createRuleRow(', 'async handleRuleAssignmentDeletion(');
   const Controller = new Function('t', `return class Row {${method}};`)(key => key);
-  const controller = new Controller();let callbacks;const calls = [];
+  const controller = createPartialController(Controller);let callbacks;const calls = [];
   Object.assign(controller, {
     rulesUI: { createRuleDisplayRow(...args) { callbacks = args.slice(3, 6);return {}; } },
     toggleEditMode(...args) { calls.push(args.slice(-3, -1)); },
@@ -457,7 +464,7 @@ for (const [label, source, invoke, next] of [
   test(`rule conflict ${label} retains its revision while waiting for password authorization`, async () => {
     const method = getClassMember(source, 'async handleRuleToggle(', next);
     const Controller = new Function('GENERAL_RULE_LIST_ID', `return class Toggle {${method}};`)('general');
-    const controller = new Controller();const entered = staleOptionsDeferred();const release = staleOptionsDeferred();const calls = [];
+    const controller = createPartialController(Controller);const entered = staleOptionsDeferred();const release = staleOptionsDeferred();const calls = [];
     Object.assign(controller, { authorizePasswordProtectedRuleChange() { entered.resolve();return release.promise; },
       rulesClient: { async toggleRule(...args) { calls.push(args); } }, async refreshProfileView() {}, async loadRules() {},
       logRulesMutationFailure() {}, handleRulesMutationError() {} });
@@ -472,7 +479,7 @@ test('rule conflict Options edit and removal preserve the original revision thro
   const entered = staleOptionsDeferred();const release = staleOptionsDeferred();
   const SettingsManager = { async getSettings() { entered.resolve();return release.promise; } };
   const Controller = new Function('SettingsManager', 't', 'GENERAL_RULE_LIST_ID', `return class Edit {${edit}\n${save}};`)(SettingsManager, key => key, 'general');
-  const controller = new Controller();let callbacks;const updates = [];const removals = [];
+  const controller = createPartialController(Controller);let callbacks;const updates = [];const removals = [];
   Object.assign(controller, { isPro: true, statusElement: {},
     ruleListsManager: { async getState() { return { lists: [{ id: 'general', disabledCategories: [] }], activeRuleListId: 'general' }; } },
     rulesUI: { createRuleEditRow(...args) { callbacks = [args[3], args[5]];return {}; } },
@@ -490,7 +497,7 @@ test('rule conflict Popup deletion confirmation keeps the displayed assignment g
   const method = getClassMember(popupSource, 'async handleRuleDeletion(', 'async promptForPassword(');
   const SettingsManager = { async getSettings() { return { mode: 'normal', enablePassword: false }; } };
   const Controller = new Function('SettingsManager', 't', 'customAlert', 'GENERAL_RULE_LIST_ID', `return class Delete {${method}};`)(SettingsManager, key => key, () => {}, 'general');
-  const controller = new Controller();let confirmation;const calls = [];
+  const controller = createPartialController(Controller);let confirmation;const calls = [];
   Object.assign(controller, { isPro: true, activeRuleListId: 'list-1',
     rulesUI: { isDeleteConfirmationInProgress: () => false, handleRuleDeletion(_button, callback) { confirmation = callback; } },
     rulesClient: { async removeAssignment(...args) { calls.push(args); } }, async loadRules() {}, logger: { info() {}, error() {} } });
@@ -504,7 +511,7 @@ test('list conflict Options rename preserves its displayed revision while a prom
   let controller;const calls = [];
   const Controller = new Function('t', 'prompt', `return class RenameList {${member}};`)(key => key,
     () => { controller.revision = 'newer-state';return 'New name'; });
-  controller = new Controller();Object.assign(controller, {
+  controller = createPartialController(Controller);Object.assign(controller, {
     rulesClient: { async renameRuleList(...args) { calls.push(args); } },
     async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
   });
@@ -517,7 +524,7 @@ test('list conflict Options deletion preserves its revision through confirmation
   let controller;const entered = staleOptionsDeferred();const release = staleOptionsDeferred();const calls = [];
   const Controller = new Function('GENERAL_RULE_LIST_ID', 't', 'confirm', `return class DeleteList {${member}};`)(
     'general', key => key, () => { controller.revision = 'newer-state';return true; });
-  controller = new Controller();Object.assign(controller, {
+  controller = createPartialController(Controller);Object.assign(controller, {
     activeRuleListId: 'general', authorizePasswordProtectedRuleChange() { entered.resolve();return release.promise; },
     rulesClient: { async deleteRuleList(...args) { calls.push(args); } },
     async refreshProfileView() {}, logRulesMutationFailure() {}, handleRulesMutationError() {}
@@ -532,7 +539,7 @@ test('list conflict Options selection keeps a vanished displayed ID instead of r
   const calls = [];let refreshes = 0;const errors = [];
   const Controller = new Function('GENERAL_RULE_LIST_ID', 'resolveRuleListContext', `return class SelectList {${member}};`)(
     'general', () => 'general');
-  const controller = new Controller();Object.assign(controller, { ruleLists: [{ id: 'general' }], activeRuleListId: 'general',
+  const controller = createPartialController(Controller);Object.assign(controller, { ruleLists: [{ id: 'general' }], activeRuleListId: 'general',
     rulesClient: { async activateRuleList(...args) { calls.push(args);throw Object.assign(new Error('stale list'), { code: 'rules_state_changed' }); } },
     async refreshProfileView() { refreshes++; }, logRulesMutationFailure() {}, handleRulesMutationError(error) { errors.push(error.code); } });
   await controller.handleRuleListSelect('list-1', 'generation', 'displayed-revision');

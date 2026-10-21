@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Accesul Pro a fost restabilit. Regulile de blocare ale browserului încă așteaptă sincronizarea."
+  },
+  "ruleschangessavedpending": {
+    "message": "Modificările au fost salvate. Regulile de blocare nu au fost încă aplicate complet."
   }
 }

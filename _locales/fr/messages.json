@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "L'accès Pro est rétabli. Les règles de blocage du navigateur attendent encore leur synchronisation."
+  },
+  "ruleschangessavedpending": {
+    "message": "Modifications enregistrées. Les règles de blocage ne sont pas encore entièrement appliquées."
   }
 }

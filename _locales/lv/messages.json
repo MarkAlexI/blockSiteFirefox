@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro piekļuve ir atjaunota. Pārlūka bloķēšanas noteikumi vēl gaida sinhronizāciju."
+  },
+  "ruleschangessavedpending": {
+    "message": "Izmaiņas saglabātas. Bloķēšanas noteikumi vēl nav pilnībā piemēroti."
   }
 }

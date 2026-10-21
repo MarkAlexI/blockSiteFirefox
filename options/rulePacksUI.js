@@ -1,4 +1,5 @@
 import { t } from '../scripts/t.js';
+import { getRulesMutationFeedback } from '../rules/rulesMutationFeedback.js';
 import { getRulePacks } from '../rules/rulePacks.js';
 import { recordTelemetryCounter } from '../telemetry/telemetryCounterReporter.js';
 
@@ -240,6 +241,7 @@ export class RulePacksUI {
     const duplicateCount = duplicateEntries.length || Number(result.skippedDuplicates || 0);
     const conflictCount = conflicts.length;
 
+    const feedback = getRulesMutationFeedback(result);
     const summary = document.createElement('p');
     summary.className = 'rule-packs-result-summary';
     summary.textContent = addedCount === 0
@@ -273,11 +275,17 @@ export class RulePacksUI {
     }
 
     this.status.replaceChildren(summary, counts);
+    if (feedback.pending) {
+      const warning = document.createElement('p');
+      warning.textContent = feedback.message;
+      warning.setAttribute('role', 'status');
+      this.status.appendChild(warning);
+    }
     if (details.children.length > 0) {
       this.status.appendChild(details);
     }
     this.status.classList.remove('hidden', 'success', 'error');
-    this.status.classList.add('success');
+    this.status.classList.add(feedback.pending ? 'error' : 'success');
   }
 
   async addSelected() {

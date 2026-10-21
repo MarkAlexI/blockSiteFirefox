@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro-åtkomsten har återställts. Webbläsarens blockeringsregler väntar fortfarande på synkronisering."
+  },
+  "ruleschangessavedpending": {
+    "message": "Ändringarna har sparats. Blockeringsreglerna har ännu inte tillämpats fullt ut."
   }
 }

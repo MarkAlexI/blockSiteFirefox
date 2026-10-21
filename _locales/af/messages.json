@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro-toegang is herstel. Die blaaier se blokkeerreëls wag nog om te sinchroniseer."
+  },
+  "ruleschangessavedpending": {
+    "message": "Veranderinge gestoor. Blokkeerreëls is nog nie volledig toegepas nie."
   }
 }

@@ -5,6 +5,7 @@ import { StatisticsManager } from '../pro/statisticsManager.js';
 import { getFocusSessionState } from '../utils/focusSession.js';
 import Logger from '../utils/logger.js';
 import { RulesClient } from '../rules/rulesClient.js';
+import { getRulesMutationFeedback } from '../rules/rulesMutationFeedback.js';
 import { renderStatisticsCharts } from './statisticsCharts.js';
 import {
   MAX_BACKUP_FILE_BYTES,
@@ -504,7 +505,8 @@ export class SettingsManager {
       await this.loadRuleCount(response.rules || []);
       await this.loadStatistics();
       
-      this.showStatus(t('importedrules', `${importData.rules.length}`), 'success');
+      const feedback = getRulesMutationFeedback(response, t('importedrules', `${importData.rules.length}`));
+      this.showStatus(feedback.message, feedback.pending ? 'error' : 'success');
       document.getElementById('importFileInput').value = '';
     } catch (error) {
       this.logger.error('Error importing rules:', error);
@@ -535,7 +537,8 @@ export class SettingsManager {
     try {
       const response = await this.rulesClient.clearRules();
       await this.loadRuleCount(response.rules || []);
-      this.showStatus(t('allrulescleared'), 'success');
+      const feedback = getRulesMutationFeedback(response, t('allrulescleared'));
+      this.showStatus(feedback.message, feedback.pending ? 'error' : 'success');
     } catch (error) {
       this.logger.error('Error clearing rules:', error);
       this.showStatus(t('errorclearingrules'), 'error');

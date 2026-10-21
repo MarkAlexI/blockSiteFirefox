@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Naibalik na ang Pro access. Naghihintay pa ng pag-sync ang mga rule sa pag-block ng browser."
+  },
+  "ruleschangessavedpending": {
+    "message": "Na-save ang mga pagbabago. Hindi pa ganap na nailalapat ang mga panuntunan sa pag-block."
   }
 }

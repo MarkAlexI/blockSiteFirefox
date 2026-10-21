@@ -1,4 +1,17 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.28**
+# Firefox Desktop E2E — BlockDistraction **5.3.29**
+
+## Ітерація 5.3.29: повідомлення про збережені зміни
+
+Popup, Options і Settings показують `ruleschangessavedpending`, якщо committed
+mutation повертає `syncPending` або `dailyUsageSyncPending`. Rule Packs зберігає
+лічильники й деталі результату разом із попередженням. Повторна мутація не
+надсилається; persisted intent, password/revision guards і worker retry не змінені.
+Додано 41 Node-регресію, включно з real production client/router/mutation/DNR
+pipeline із контрольованою відмовою browser API та подальшим відновленням.
+Це не native browser API execution. Native CI для 5.3.29 ще має пройти.
+У browser smoke перевірити читабельність повідомлення в Popup і Settings та
+звичайне підтвердження успіху без pending flags. Відмову DNR перевіряти лише
+в ізольованому тестовому профілі.
 
 ## Ітерація 5.3.28: Focus Stop
 
@@ -9,7 +22,7 @@ Stop повертає явний pending status за відмови DNR, а Popu
 помилок звітування, відновлення DNR та конкурентного Start.
 
 E2E target автоматично читається з manifest.json і тепер дорівнює 5.3.28.
-Повний native Desktop E2E для цього релізного коміту ще має пройти окремо.
+Підтверджено native CI для 5.3.28 (Firefox Desktop 46/46: https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/39152969094).
 
 Попередня ітерація 5.3.27 синхронізує DNR після завершення install/update initialization,
 включно з внутрішнім відновленням денних бюджетів при canonical rules. Шість

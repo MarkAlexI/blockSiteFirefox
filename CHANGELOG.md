@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.29] - 2026-10-21
+
+- Show a saved-but-pending warning when rule mutations cannot fully update browser blocking or still need Daily Limit recovery. Cover Popup, Options, Rule Lists, categories, import/clear and Rule Pack reports while preserving committed edits and existing error handling.
+- Keep Rule Pack counts and details visible alongside the warning. Localize the new feedback in all 57 locales.
+- Add 41 regressions for applied, pending and rejected outcomes, saved-state refresh, real DNR failure/recovery and avoiding mutation replay. Align release metadata; native browser CI remains a separate verification step.
+
 ## [5.3.28] - 2026-10-18
 
 - Report pending browser-rule synchronization after Focus Stop and show failures in Popup while preserving the saved stop intent.

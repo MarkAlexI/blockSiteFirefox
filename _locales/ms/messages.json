@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Akses Pro telah dipulihkan. Peraturan penyekatan pelayar masih menunggu penyegerakan."
+  },
+  "ruleschangessavedpending": {
+    "message": "Perubahan disimpan. Peraturan penyekatan belum digunakan sepenuhnya."
   }
 }

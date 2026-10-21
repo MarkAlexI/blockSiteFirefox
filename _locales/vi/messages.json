@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Quyền truy cập Pro đã được khôi phục. Các quy tắc chặn của trình duyệt vẫn đang chờ đồng bộ."
+  },
+  "ruleschangessavedpending": {
+    "message": "Đã lưu thay đổi. Các quy tắc chặn chưa được áp dụng đầy đủ."
   }
 }

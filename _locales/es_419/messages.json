@@ -1169,5 +1169,8 @@
   },
   "problockingsyncpending": {
     "message": "Se ha restaurado el acceso Pro. Las reglas de bloqueo del navegador siguen pendientes de sincronización."
+  },
+  "ruleschangessavedpending": {
+    "message": "Cambios guardados. Las reglas de bloqueo aún no se han aplicado por completo."
   }
 }

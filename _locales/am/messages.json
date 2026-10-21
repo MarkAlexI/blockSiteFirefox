@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "የPro መዳረሻ ተመልሷል። የአሳሹ የማገጃ ደንቦች ለመመሳሰል እየጠበቁ ናቸው።"
+  },
+  "ruleschangessavedpending": {
+    "message": "ለውጦች ተቀምጠዋል። የማገድ ደንቦች ገና ሙሉ በሙሉ አልተተገበሩም።"
   }
 }

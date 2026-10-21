@@ -1151,5 +1151,8 @@
   },
   "problockingsyncpending": {
     "message": "Pro-adgang er gendannet. Browserens blokeringsregler venter stadig på synkronisering."
+  },
+  "ruleschangessavedpending": {
+    "message": "Ændringerne er gemt. Blokeringsreglerne er endnu ikke anvendt fuldt ud."
   }
 }
