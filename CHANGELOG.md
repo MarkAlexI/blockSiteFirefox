@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.4.0] - 2026-10-22
+## [5.4.1] - 2026-10-22
 
-- Add localized accessible names to rule controls, keyboard-operated Options sections, a native Options button and a named Back to top action. Hide collapsed panel controls from Tab while preserving drafts, and return focus when the scroll action hides. Add focused regression checks and native accessibility scenario 48 without changing the version.
+- Add localized accessible names to rule controls, keyboard-operated Options sections, a native Options button and a named Back to top action. Hide collapsed panel controls from Tab while preserving drafts, and return focus when the scroll action hides.
+- Add focused regression checks and native accessibility scenario 48. Align source and package metadata and update-page highlights for the 5.4.1 store release.
+
+## [5.4.0] - 2026-10-22
 
 - Refresh the familiar blue/purple interface with darker action colors, readable helper text, clearer form boundaries and visible keyboard focus across Popup, Options, dialogs, onboarding and the update page.
 - Use a restrained glass surface in Settings with an opaque fallback. Honor supported reduced-transparency, increased-contrast, forced-color and reduced-motion preferences. Keep deletion countdown/ready colors stable instead of pulsing or flashing between red and green.
