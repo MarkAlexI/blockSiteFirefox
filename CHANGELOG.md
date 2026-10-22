@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.2] - 2026-10-22
+
+- Use a named native password dialog with visible localized field labels, keyboard navigation, Escape/Cancel and focus return. Announce validation errors while preserving drafts, and name the license-key recovery field.
+- Prevent duplicate confirmation and late verification results from authorizing a cancelled or replaced prompt. Keep recovery writes single-flight and report storage errors without exposing private details.
+- Add password lifecycle regressions and native keyboard scenario 49. Keep update-page content unchanged for this patch release.
+
 ## [5.4.1] - 2026-10-22
 
 - Add localized accessible names to rule controls, keyboard-operated Options sections, a native Options button and a named Back to top action. Hide collapsed panel controls from Tab while preserving drafts, and return focus when the scroll action hides.

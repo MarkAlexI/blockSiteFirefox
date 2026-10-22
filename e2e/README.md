@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.1**
+# Firefox Desktop E2E — BlockDistraction **5.4.2**
 
 ## Ітерація 5.3.29: повідомлення про збережені зміни
 
@@ -845,3 +845,11 @@ accessible names списків і фокус кнопки прокручува�
 запуск блокується до тіла тесту через ProcessSingleton socket. Firefox 153
 із тимчасовим встановленням пройшов до підвищення релізної версії (5.4.0 + A11Y-02).
 Native E2E для фінальних метаданих 5.4.1 ще має пройти CI. Подробиці — `docs/accessibility-roadmap.md`.
+
+## Парольний діалог / 5.4.2: сценарій 49
+
+`npm test -- --filter=49` перевіряє встановлене розширення: native dialog/AX names,
+Enter з другого поля, Tab/Shift+Tab, Escape, невірний пароль, cancel,
+відновлення й дозволене видалення після правильної перевірки.
+Локально Firefox 153: 49 і наявний 22 пройшли; native Chromium очікує CI.
+Див. `docs/accessibility-roadmap.md`. `update.js` для 5.4.2 не змінено.

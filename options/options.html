@@ -512,17 +512,19 @@
 
 
   
-  <div id="passwordModal" class="modal hidden">
+  <dialog id="passwordModal" class="modal hidden" aria-labelledby="modalTitle" aria-modal="true">
     <div class="modal-content">
       <h3 id="modalTitle">Set Password</h3>
-      <input type="password" id="passwordInput1" placeholder="Enter password" data-i18n="enterpassword">
-      <input type="password" id="passwordInput2" placeholder="Confirm password" data-i18n="confirmpassword">
-      <button id="confirmPassword" data-i18n="modalconfirm">Confirm</button>
-      <button id="cancelPassword" data-i18n="modalcancel">Cancel</button>
-      <p id="passwordError" class="error hidden"></p>
-      <a id="forgotPassword" class="hidden" href="#" data-i18n="forgotpassword">Forgot password? Reset (will clear protection)</a>
+      <label id="passwordInput1Label" for="passwordInput1" data-i18n="enterpassword">Enter password</label>
+      <input type="password" id="passwordInput1" aria-describedby="passwordError" autocomplete="current-password" autofocus>
+      <label id="passwordInput2Label" for="passwordInput2" data-i18n="confirmpassword" hidden>Confirm password</label>
+      <input type="password" id="passwordInput2" aria-describedby="passwordError" autocomplete="new-password" hidden>
+      <button type="button" id="confirmPassword" data-i18n="modalconfirm">Confirm</button>
+      <button type="button" id="cancelPassword" data-i18n="modalcancel">Cancel</button>
+      <p id="passwordError" class="error password-error" role="alert" aria-atomic="true"></p>
+      <button type="button" id="forgotPassword" class="hidden" data-i18n="forgotpassword" hidden>Forgot password? Reset (will clear protection)</button>
     </div>
-  </div>
+  </dialog>
   
   <script type="module" src="../scripts/i18n.js"></script>
   <script type="module" src="./options.js"></script>

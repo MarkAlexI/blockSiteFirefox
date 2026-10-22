@@ -2,22 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { PasswordUtils } from '../pro/password.js';
-import { FakeDocument, createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
+import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 
-function createPasswordDocument() {
-  const document = new FakeDocument();
-  const modal = document.addElement('passwordModal');
-  modal.classList.add('hidden');
-  document.addElement('modalTitle');
-  document.addElement('passwordInput1', 'input');
-  document.addElement('passwordInput2', 'input');
-  const error = document.addElement('passwordError');
-  error.classList.add('hidden');
-  document.addElement('forgotPassword', 'button');
-  document.addElement('confirmPassword', 'button');
-  document.addElement('cancelPassword', 'button');
-  return document;
-}
+import { createPasswordDocument } from './helpers/passwordTestDocument.js';
 
 const translate = key => key;
 
@@ -47,8 +34,8 @@ test('setting a password rejects mismatches and passwords shorter than six chara
     const confirm = document.getElementById('confirmPassword');
 
     assert.equal(document.getElementById('passwordModal').classList.contains('hidden'), false);
-    assert.equal(second.style.display, 'block');
-    assert.equal(document.getElementById('forgotPassword').style.display, 'none');
+    assert.equal(second.hidden, false);
+    assert.equal(document.getElementById('forgotPassword').hidden, true);
 
     first.value = 'password';
     second.value = 'different';
@@ -95,8 +82,8 @@ test('verifying the stored password succeeds without exposing a second input', a
     const completed = [];
     PasswordUtils.showPasswordModal('verify', result => completed.push(result), translate);
     document.getElementById('passwordInput1').value = 'existing-password';
-    assert.equal(document.getElementById('passwordInput2').style.display, 'none');
-    assert.equal(document.getElementById('forgotPassword').style.display, 'block');
+    assert.equal(document.getElementById('passwordInput2').hidden, true);
+    assert.equal(document.getElementById('forgotPassword').hidden, false);
     await document.getElementById('confirmPassword').dispatch('click');
     assert.deepEqual(completed, [true]);
   }, { document });
@@ -137,7 +124,7 @@ test('cancelling verification resolves false exactly once, including keyboard Es
       if (method === 'button') {
         await document.getElementById('cancelPassword').dispatch('click');
       } else {
-        await document.getElementById('passwordInput1').dispatch('keydown', { key: 'Escape' });
+        await document.getElementById('passwordModal').dispatch('keydown', { key: 'Escape', stopPropagation() {} });
       }
       assert.deepEqual(completed, [false]);
       assert.equal(document.getElementById('passwordModal').classList.contains('hidden'), true);

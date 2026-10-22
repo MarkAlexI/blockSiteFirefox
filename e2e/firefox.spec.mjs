@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { passwordDialogScenarios } from './password-dialog-scenarios.mjs';
 import { accessibilityScenarios } from './accessibility-scenarios.mjs';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -283,3 +284,5 @@ scenarios.push(...frameScenarios);
 scenarios.push(...proFeedbackScenarios);
 
 scenarios.push(...accessibilityScenarios);
+
+scenarios.push(...passwordDialogScenarios);

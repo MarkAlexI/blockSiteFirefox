@@ -6,7 +6,7 @@
 ![Last commit](https://img.shields.io/github/last-commit/MarkAlexI/blockSiteFirefox)
 ![Issues](https://img.shields.io/github/issues/MarkAlexI/blockSiteFirefox)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kfhgdgokgjmdboidlhphajinmgpcmmec?logo=google-chrome)](https://chromewebstore.google.com/detail/kfhgdgokgjmdboidlhphajinmgpcmmec)
-[![Firefox Source](https://img.shields.io/badge/Firefox%20Source-v5.4.1-orange?logo=firefox-browser)](https://github.com/MarkAlexI/blockSiteFirefox)
+[![Firefox Source](https://img.shields.io/badge/Firefox%20Source-v5.4.2-orange?logo=firefox-browser)](https://github.com/MarkAlexI/blockSiteFirefox)
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
@@ -14,7 +14,7 @@ An extension that blocks or redirects HTTP and HTTPS website requests using `dec
 
 ## Accessibility work
 
-Version 5.4.1 continues the accessibility work with named controls, keyboard-operated Settings sections and improved focus when scrolling back to the top. Version 5.4.0 introduced shared contrast colors, restrained glass surfaces and visible keyboard focus. See [the accessibility roadmap](docs/accessibility-roadmap.md) for completed checks, known semantic issues and the next patches.
+Version 5.4.2 adds named native password dialogs, keyboard focus management and cancellation-safe verification. Version 5.4.1 continues the accessibility work with named controls, keyboard-operated Settings sections and improved focus when scrolling back to the top. Version 5.4.0 introduced shared contrast colors, restrained glass surfaces and visible keyboard focus. See [the accessibility roadmap](docs/accessibility-roadmap.md) for completed checks, known semantic issues and the next patches.
 
 ## Development checks
 
