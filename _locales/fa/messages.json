@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "بازگشت به بالا"
+  },
+  "feedback_action_error": {
+    "message": "انجام این کار ممکن نشد. لطفاً دوباره تلاش کنید."
   }
 }

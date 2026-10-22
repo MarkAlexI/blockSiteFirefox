@@ -1,3 +1,4 @@
+import { keepDialogFocus, restoreDialogFocus } from '../dom/dialogFocus.js';
 import { t } from '../scripts/t.js';
 import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
 import {
@@ -7,6 +8,8 @@ import {
 } from './scheduleNormalizer.js';
 import { applySchedulePreset } from './schedulePresets.js';
 import { validateSchedule } from './scheduleValidator.js';
+
+let nextDialogId = 0;
 
 function cloneSchedule(schedule) {
   const normalized = normalizeSchedule(schedule) || createDefaultSchedule();
@@ -147,15 +150,11 @@ export class ScheduleEditor {
     this.closeDialog();
     let draft = cloneSchedule(initialSchedule);
 
-    const backdrop = document.createElement('div');
-    backdrop.className = 'schedule-dialog-backdrop';
-
-    const dialog = document.createElement('div');
+    const opener = document.activeElement;
+    const dialog = document.createElement('dialog');
     dialog.className = 'schedule-dialog';
-    dialog.setAttribute('role', 'dialog');
     dialog.setAttribute('aria-modal', 'true');
     dialog.setAttribute('aria-label', t('schedule_edit') || 'Edit schedule');
-    backdrop.appendChild(dialog);
 
     const title = document.createElement('h3');
     title.textContent = t('schedule_edit') || 'Edit schedule';
@@ -171,7 +170,9 @@ export class ScheduleEditor {
 
     const errorElement = document.createElement('p');
     errorElement.className = 'schedule-dialog-error';
-    errorElement.hidden = true;
+    errorElement.id = `schedule-dialog-error-${++nextDialogId}`;
+    errorElement.setAttribute('role', 'alert');
+    errorElement.setAttribute('aria-atomic', 'true');
     dialog.appendChild(errorElement);
 
     const footer = document.createElement('div');
@@ -233,7 +234,10 @@ export class ScheduleEditor {
           removeButton.addEventListener('click', () => {
             draft = collectDraftFromDialog();
             draft.periods.splice(periodIndex, 1);
+            clearError();
             render();
+            periodsContainer.children[Math.min(periodIndex, draft.periods.length - 1)]
+              ?.querySelector('input')?.focus();
           });
           card.appendChild(removeButton);
         }
@@ -284,7 +288,7 @@ export class ScheduleEditor {
       const button = createButton(t(labelKey) || fallback);
       button.addEventListener('click', () => {
         draft = applySchedulePreset(collectDraftFromDialog(), presetName);
-        errorElement.hidden = true;
+        clearError();
         render();
       });
       presetContainer.appendChild(button);
@@ -305,41 +309,85 @@ export class ScheduleEditor {
         startTime: '09:00',
         endTime: '17:00'
       });
+      clearError();
       render();
+      periodsContainer.children[draft.periods.length - 1]?.querySelector('input')?.focus();
     });
+
+    const clearError = () => {
+      errorElement.textContent = '';
+      for (const input of periodsContainer.querySelectorAll('input')) {
+        input.setAttribute('aria-invalid', 'false');
+        input.setAttribute('aria-describedby', '');
+      }
+    };
 
     let closed = false;
     const close = () => {
       if (closed) return;
       closed = true;
-      document.removeEventListener('keydown', onKeyDown);
-      backdrop.remove();
+      if (dialog.open) dialog.close();
+      dialog.remove();
       if (this.activeDialogClose === close) {
         this.activeDialogClose = null;
       }
+      restoreDialogFocus(opener, document.getElementById('open-rule-packs'),
+        document.getElementById('add-rule'));
     };
 
     this.activeDialogClose = close;
 
-    const onKeyDown = (event) => {
-      if (event.key !== 'Escape') return;
-      event.preventDefault?.();
-      event.stopPropagation?.();
+    dialog.addEventListener('keydown', event => keepDialogFocus(event, dialog));
+    dialog.addEventListener('cancel', event => {
+      event.preventDefault();
+      event.stopPropagation();
       close();
-    };
-
+    });
+    dialog.addEventListener('close', () => {
+      if (!dialog.open) close();
+    });
+    dialog.addEventListener('input', clearError);
     cancelButton.addEventListener('click', close);
-    backdrop.addEventListener('click', (event) => {
-      if (event.target === backdrop) close();
+    dialog.addEventListener('click', event => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right ||
+          event.clientY < rect.top || event.clientY > rect.bottom) close();
     });
 
     saveButton.addEventListener('click', () => {
+      clearError();
       const candidate = collectDraftFromDialog();
       const validation = validateSchedule(candidate);
 
       if (!validation.isValid) {
         errorElement.textContent = validationMessage(validation.errors[0]);
-        errorElement.hidden = false;
+        const code = validation.errors[0];
+        const usedDays = new Set();
+        const index = candidate.periods.findIndex(period => {
+          if (code !== 'schedule_day_overlap') {
+            return validateSchedule({ version: SCHEDULE_VERSION, periods: [period] }).errors.includes(code);
+          }
+          const overlap = period.days.some(day => usedDays.has(day));
+          period.days.forEach(day => usedDays.add(day));
+          return overlap;
+        });
+        const card = periodsContainer.children[Math.max(0, index)];
+        let selector = 'input';
+        if (code === 'invalid_time_format') {
+          selector = /^([01]\d|2[0-3]):[0-5]\d$/.test(candidate.periods[index]?.startTime || '')
+            ? '.schedule-period-end' : '.schedule-period-start';
+        } else if (code === 'start_after_end') {
+          selector = '.schedule-period-start';
+        } else if (code === 'schedule_day_overlap') {
+          const previousDays = new Set(candidate.periods.slice(0, index).flatMap(period => period.days));
+          const duplicate = candidate.periods[index]?.days.find(day => previousDays.has(day));
+          selector = `.schedule-period-days input[value="${duplicate}"]`;
+        }
+        const input = card?.querySelector(selector);
+        input?.setAttribute('aria-invalid', 'true');
+        input?.setAttribute('aria-describedby', errorElement.id);
+        input?.focus();
         return;
       }
 
@@ -347,11 +395,15 @@ export class ScheduleEditor {
       close();
     });
 
-    document.addEventListener('keydown', onKeyDown);
     const mountTarget = dialogHost?.appendChild ? dialogHost : document.body;
-    mountTarget.appendChild(backdrop);
+    mountTarget.appendChild(dialog);
     render();
-
-    periodsContainer.querySelector('input')?.focus();
+    try {
+      dialog.showModal();
+      periodsContainer.querySelector('input')?.focus();
+    } catch (error) {
+      close();
+      throw error;
+    }
   }
 }

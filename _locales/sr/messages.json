@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Назад на врх"
+  },
+  "feedback_action_error": {
+    "message": "Није могуће довршити радњу. Покушајте поново."
   }
 }

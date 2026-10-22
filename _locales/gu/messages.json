@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "ઉપર પાછા જાઓ"
+  },
+  "feedback_action_error": {
+    "message": "ક્રિયા પૂર્ણ કરી શકાઈ નથી. કૃપા કરીને ફરી પ્રયાસ કરો."
   }
 }

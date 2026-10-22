@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "返回顶部"
+  },
+  "feedback_action_error": {
+    "message": "无法完成操作，请重试。"
   }
 }

@@ -2,107 +2,37 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { RulePacksUI } from '../options/rulePacksUI.js';
 
-class FakeClassList {
-  constructor() {
-    this.values = new Set();
-  }
-  add(...values) {
-    values.forEach(value => this.values.add(value));
-  }
-  remove(...values) {
-    values.forEach(value => this.values.delete(value));
-  }
-  contains(value) {
-    return this.values.has(value);
-  }
-}
-
-class FakeElement {
-  constructor(tagName = 'div') {
-    this.tagName = tagName.toUpperCase();
-    this.children = [];
-    this.listeners = new Map();
-    this.classList = new FakeClassList();
-    this.className = '';
-    this.value = '';
-    this.textContent = '';
-    this.type = '';
-    this.checked = false;
-    this.indeterminate = false;
-    this.disabled = false;
-    this.open = false;
-  }
-
-  addEventListener(type, listener) {
-    const listeners = this.listeners.get(type) || [];
-    listeners.push(listener);
-    this.listeners.set(type, listeners);
-  }
-
-  dispatch(type) {
-    for (const listener of this.listeners.get(type) || []) {
-      listener({ target: this, preventDefault() {} });
-    }
-  }
-
-  appendChild(child) {
-    this.children.push(child);
-    if (this.tagName === 'SELECT' && !this.value) this.value = child.value;
-    return child;
-  }
-
-  append(...children) {
-    children.forEach(child => this.appendChild(child));
-  }
-
-  replaceChildren(...children) {
-    this.children = [...children];
-    if (this.tagName === 'SELECT') this.value = children[0]?.value || '';
-  }
-
-  querySelectorAll(selector) {
-    const matches = [];
-    const visit = element => {
-      if (selector === 'input[type="checkbox"]' && element.tagName === 'INPUT' && element.type === 'checkbox') {
-        matches.push(element);
-      }
-      element.children.forEach(visit);
-    };
-    this.children.forEach(visit);
-    return matches;
-  }
-
-  showModal() {
-    this.open = true;
-  }
-
-  close() {
-    this.open = false;
-  }
-}
+import { DialogTestDocument } from './helpers/dialogTestDocument.js';
 
 function createHarness({ resultFactory, schedule = null, getListContext = null } = {}) {
   const previousDocument = globalThis.document;
   const previousChrome = globalThis.browser;
   const telemetryMessages = [];
+  const document = new DialogTestDocument();
   const elements = {
-    dialog: new FakeElement('dialog'),
-    openButton: new FakeElement('button'),
-    closeButton: new FakeElement('button'),
-    cancelButton: new FakeElement('button'),
-    addButton: new FakeElement('button'),
-    packSelect: new FakeElement('select'),
-    description: new FakeElement('p'),
-    category: new FakeElement('span'),
-    selectAll: new FakeElement('input'),
-    entriesContainer: new FakeElement('div'),
-    scheduleContainer: new FakeElement('div'),
-    status: new FakeElement('p')
+    dialog: document.createElement('dialog'),
+    openButton: document.createElement('button'),
+    closeButton: document.createElement('button'),
+    cancelButton: document.createElement('button'),
+    addButton: document.createElement('button'),
+    packSelect: document.createElement('select'),
+    description: document.createElement('p'),
+    category: document.createElement('span'),
+    selectAll: document.createElement('input'),
+    entriesContainer: document.createElement('div'),
+    scheduleContainer: document.createElement('div'),
+    status: document.createElement('p'),
+    announcement: document.createElement('p')
   };
+  document.body.append(elements.openButton, elements.dialog);
+  for (const [key, element] of Object.entries(elements)) {
+    element.id = key;
+    if (key !== 'openButton' && key !== 'dialog') elements.dialog.appendChild(element);
+  }
   elements.selectAll.type = 'checkbox';
   elements.status.classList.add('hidden');
   const additions = [];
-  const scheduleSection = new FakeElement('div');
+  const scheduleSection = document.createElement('div');
   const scheduleCreateCalls = [];
   let scheduleDialogOpen = false;
   let scheduleCloseCalls = 0;
@@ -124,11 +54,7 @@ function createHarness({ resultFactory, schedule = null, getListContext = null }
     }
   };
 
-  globalThis.document = {
-    createElement(tagName) {
-      return new FakeElement(tagName);
-    }
-  };
+  globalThis.document = document;
   globalThis.browser = {
     runtime: {
       sendMessage(message) {
@@ -171,6 +97,7 @@ function createHarness({ resultFactory, schedule = null, getListContext = null }
 
   return {
     ui,
+    document,
     elements,
     additions,
     telemetryMessages,
@@ -390,4 +317,61 @@ test('completion from a closed Rule Pack dialog cannot overwrite a newly opened 
     assert.equal(harness.elements.status.textContent, '');
     assert.equal(harness.elements.status.classList.contains('hidden'), true);
   } finally { harness.restore(); }
+});
+
+test('Rule Packs focuses its named selection and restores the opener after external close', async () => {
+  const h = createHarness();
+  try {
+    h.elements.openButton.focus();
+    h.ui.open();
+    assert.equal(h.document.activeElement.id, 'packSelect');
+    h.elements.dialog.close();
+    await Promise.resolve();
+    assert.equal(h.document.activeElement.id, 'openButton');
+    assert.equal(h.ui.listContext, null);
+    h.ui.open();
+    await Promise.resolve();
+    assert.equal(h.elements.dialog.open, true);
+    h.ui.close();
+  } finally { h.restore(); }
+});
+
+test('changing selection and reopening cannot submit a second Rule Pack while the first is pending', async () => {
+  let release;
+  const gate = new Promise(resolve => { release = resolve; });
+  const h = createHarness({ resultFactory: () => gate });
+  try {
+    h.ui.open();
+    h.elements.addButton.focus();
+    const pending = h.ui.addSelected();
+    assert.equal(h.document.activeElement.id, 'cancelButton');
+    h.ui.toggleAllEntries();
+    assert.equal(h.elements.addButton.disabled, true);
+    await h.ui.addSelected();
+    h.ui.close(); h.ui.open();
+    await h.ui.addSelected();
+    assert.equal(h.additions.length, 1);
+    assert.equal(h.elements.addButton.disabled, true);
+    release({ addedCount: 1, syncPending: true });
+    await pending;
+    assert.equal(h.elements.announcement.textContent, '');
+    assert.equal(h.elements.status.classList.contains('hidden'), true);
+    assert.equal(h.elements.addButton.disabled, false);
+    h.ui.close();
+  } finally { h.restore(); }
+});
+
+test('Rule Pack announces a concise saved/pending summary once and retains its detailed counts', async () => {
+  const h = createHarness({ resultFactory: () => ({ addedCount: 1, syncPending: true,
+    addedEntries: [{ blockURL: 'saved.example' }], skippedDuplicates: 2 }) });
+  try {
+    h.ui.open();
+    await h.ui.addSelected();
+    assert.match(h.elements.announcement.textContent, /1\|2\|0/);
+    assert.match(h.elements.announcement.textContent, /ruleschangessavedpending/);
+    assert.doesNotMatch(h.elements.announcement.textContent, /saved\.example/);
+    assert.equal(h.elements.status.children[1].children[0].children[1].textContent, '1');
+    assert.equal(h.additions.length, 1);
+    h.ui.close();
+  } finally { h.restore(); }
 });

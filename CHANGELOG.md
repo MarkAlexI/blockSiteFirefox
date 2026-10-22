@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.3] - 2026-10-22
+
+- Name Feedback and Rule Packs dialogs, localize their cancel buttons and manage initial, boundary and return focus.
+- Use native modal schedule editing, including nested Rule Packs editing; preserve drafts, focus after group edits and associate announced validation with the invalid control.
+- Announce concise Rule Pack results, retain saved/pending details and prevent duplicate submissions while a request is pending, including across close/reopen.
+- Keep Feedback dismissal responsive during slow storage operations and support retry after action failure with localized errors.
+- Add lifecycle regressions and native keyboard scenarios 50–51. Keep the patch-release update page unchanged.
+
 ## [5.4.2] - 2026-10-22
 
 - Use a named native password dialog with visible localized field labels, keyboard navigation, Escape/Cancel and focus return. Announce validation errors while preserving drafts, and name the license-key recovery field.

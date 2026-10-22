@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "先頭に戻る"
+  },
+  "feedback_action_error": {
+    "message": "操作を完了できませんでした。もう一度お試しください。"
   }
 }

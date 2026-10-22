@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "맨 위로 이동"
+  },
+  "feedback_action_error": {
+    "message": "작업을 완료할 수 없습니다. 다시 시도해 주세요."
   }
 }

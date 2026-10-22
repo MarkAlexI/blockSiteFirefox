@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Tagasi üles"
+  },
+  "feedback_action_error": {
+    "message": "Toimingut ei saanud lõpule viia. Palun proovi uuesti."
   }
 }

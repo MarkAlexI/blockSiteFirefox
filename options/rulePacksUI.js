@@ -1,3 +1,4 @@
+import { keepDialogFocus, restoreDialogFocus } from '../dom/dialogFocus.js';
 import { t } from '../scripts/t.js';
 import { getRulesMutationFeedback } from '../rules/rulesMutationFeedback.js';
 import { getRulePacks } from '../rules/rulePacks.js';
@@ -18,6 +19,7 @@ export class RulePacksUI {
     scheduleContainer,
     scheduleEditor,
     status,
+    announcement,
     onAdd,
     getListContext
   }) {
@@ -35,6 +37,10 @@ export class RulePacksUI {
     this.scheduleEditor = scheduleEditor;
     this.scheduleSection = null;
     this.status = status;
+    this.announcement = announcement;
+    this.isAdding = false;
+    this.opened = false;
+    this.returnFocus = null;
     this.onAdd = onAdd;
     this.getListContext = getListContext;
     this.listContext = null;
@@ -55,7 +61,12 @@ export class RulePacksUI {
     this.packSelect.addEventListener('change', () => this.renderSelectedPack());
     this.selectAll?.addEventListener('change', () => this.toggleAllEntries());
     this.addButton?.addEventListener('click', () => this.addSelected());
+    this.dialog.addEventListener('keydown', event => keepDialogFocus(event, this.dialog));
+    this.dialog.addEventListener('close', () => {
+      if (!this.dialog.open && this.opened) this.close();
+    });
     this.dialog.addEventListener('cancel', event => {
+      if (event.target !== this.dialog) return;
       event.preventDefault();
       if (this.scheduleEditor?.isDialogOpen?.()) {
         this.scheduleEditor.closeDialog();
@@ -150,7 +161,7 @@ export class RulePacksUI {
     }
 
     if (this.addButton) {
-      this.addButton.disabled = selectedCount === 0;
+      this.addButton.disabled = this.isAdding || selectedCount === 0;
     }
   }
 
@@ -165,6 +176,7 @@ export class RulePacksUI {
   open() {
     if (this.dialog.open) return;
     this.dialogGeneration++;
+    this.returnFocus = document.activeElement;
     const context = this.getListContext?.();
     this.listContext = context ? {
       listId: context.listId, generation: context.generation ?? null,
@@ -173,17 +185,24 @@ export class RulePacksUI {
     this.renderSelectedPack();
     this.resetScheduleSection();
     this.dialog.showModal();
+    this.opened = true;
+    this.packSelect.focus();
     recordTelemetryCounter('rule_pack_dialog_opened');
   }
 
   close() {
+    const wasOpen = this.opened;
+    this.opened = false;
     this.dialogGeneration++;
     this.scheduleEditor?.closeDialog?.();
     if (this.dialog.open) this.dialog.close();
     this.listContext = null;
+    if (wasOpen) restoreDialogFocus(this.returnFocus, this.openButton, document.getElementById('add-rule'));
+    this.returnFocus = null;
   }
 
   clearStatus() {
+    if (this.announcement) this.announcement.textContent = '';
     if (!this.status) return;
     this.status.replaceChildren();
     this.status.textContent = '';
@@ -192,6 +211,7 @@ export class RulePacksUI {
   }
 
   showStatus(message, type) {
+    if (this.announcement) this.announcement.textContent = message;
     if (!this.status) return;
     this.status.replaceChildren();
     this.status.textContent = message;
@@ -278,7 +298,6 @@ export class RulePacksUI {
     if (feedback.pending) {
       const warning = document.createElement('p');
       warning.textContent = feedback.message;
-      warning.setAttribute('role', 'status');
       this.status.appendChild(warning);
     }
     if (details.children.length > 0) {
@@ -286,15 +305,21 @@ export class RulePacksUI {
     }
     this.status.classList.remove('hidden', 'success', 'error');
     this.status.classList.add(feedback.pending ? 'error' : 'success');
+    if (this.announcement) {
+      this.announcement.textContent = [summary.textContent, feedback.pending ? feedback.message : ''].filter(Boolean).join(' ');
+    }
   }
 
   async addSelected() {
     const pack = this.getSelectedPack();
     const entryIds = this.getSelectedEntryIds();
-    if (!pack || entryIds.length === 0 || typeof this.onAdd !== 'function') return;
+    if (this.isAdding || !pack || entryIds.length === 0 || typeof this.onAdd !== 'function') return;
 
     const generation = this.dialogGeneration;
+    this.isAdding = true;
+    if (document.activeElement === this.addButton) this.cancelButton?.focus();
     this.addButton.disabled = true;
+    this.addButton.setAttribute('aria-busy', 'true');
     this.clearStatus();
 
     try {
@@ -305,7 +330,9 @@ export class RulePacksUI {
     } catch (error) {
       if (generation === this.dialogGeneration) this.showStatus(t('rulepacks_error'), 'error');
     } finally {
-      if (generation === this.dialogGeneration) this.updateSelectionState();
+      this.isAdding = false;
+      this.addButton.setAttribute('aria-busy', 'false');
+      this.updateSelectionState();
     }
   }
 }

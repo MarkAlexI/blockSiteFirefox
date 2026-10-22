@@ -78,6 +78,7 @@ class OptionsPage {
       scheduleContainer: document.getElementById('rule-packs-schedule-container'),
       scheduleEditor: this.rulesUI.scheduleEditor,
       status: document.getElementById('rule-packs-status'),
+      announcement: document.getElementById('rule-packs-announcement'),
       getListContext: () => ({
         listId: resolveRuleListContext(this.ruleLists, this.activeRuleListId || GENERAL_RULE_LIST_ID),
         generation: this.ruleListSnapshot?.generation ?? null,

@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Tillbaka till toppen"
+  },
+  "feedback_action_error": {
+    "message": "Åtgärden kunde inte slutföras. Försök igen."
   }
 }

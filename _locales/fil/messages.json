@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Bumalik sa itaas"
+  },
+  "feedback_action_error": {
+    "message": "Hindi makumpleto ang aksyon. Pakisubukang muli."
   }
 }

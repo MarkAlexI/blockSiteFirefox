@@ -88,11 +88,11 @@
   <output id="status"></output>
   <div id="rules-container"></div>
   
-  <dialog id="feedback-dialog" class="native-dialog">
+  <dialog id="feedback-dialog" class="native-dialog" aria-labelledby="feedback-title" aria-describedby="feedback-description" aria-modal="true">
     <div class="dialog-content">
-      <button id="feedback-close-btn" class="dialog-close-btn" aria-label="Close" title="Close">&times;</button>
-      <h3>BlockDistraction</h3>
-      <p data-i18n="feedback_desc">Your feedback really helps us improve the extension.</p>
+      <button id="feedback-close-btn" class="dialog-close-btn" type="button" aria-label="Cancel" data-i18n-aria-label="cancelbtn" autofocus>&times;</button>
+      <h3 id="feedback-title" data-i18n="sendfeedbackbutton">Send Feedback</h3>
+      <p id="feedback-description" data-i18n="feedback_desc">Your feedback really helps us improve the extension.</p>
       <div class="dialog-actions">
         <button id="feedback-review-btn" class="action-btn primary" type="button">
           <span class="feedback-finger" aria-hidden="true">⭐</span>
@@ -103,6 +103,7 @@
           <span data-i18n="sendfeedbackbutton">Send Feedback</span>
         </button>
       </div>
+      <p id="feedback-error" role="alert" aria-atomic="true"></p>
     </div>
   </dialog>
   

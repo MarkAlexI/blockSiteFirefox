@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Tilbage til toppen"
+  },
+  "feedback_action_error": {
+    "message": "Handlingen kunne ikke fuldføres. Prøv igen."
   }
 }

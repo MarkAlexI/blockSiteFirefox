@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "العودة إلى الأعلى"
+  },
+  "feedback_action_error": {
+    "message": "تعذّر إكمال الإجراء. يُرجى المحاولة مرة أخرى."
   }
 }

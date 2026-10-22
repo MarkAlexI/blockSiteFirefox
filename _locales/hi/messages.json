@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "ऊपर वापस जाएँ"
+  },
+  "feedback_action_error": {
+    "message": "कार्रवाई पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।"
   }
 }

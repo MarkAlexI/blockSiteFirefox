@@ -100,3 +100,12 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+#feedback-error {
+  color: var(--bd-danger);
+  overflow-wrap: anywhere;
+}
+
+#feedback-error:empty {
+  margin: 0;
+}

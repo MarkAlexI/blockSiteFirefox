@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Başa dön"
+  },
+  "feedback_action_error": {
+    "message": "İşlem tamamlanamadı. Lütfen tekrar deneyin."
   }
 }

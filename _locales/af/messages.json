@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Terug na bo"
+  },
+  "feedback_action_error": {
+    "message": "Kon nie die aksie voltooi nie. Probeer asseblief weer."
   }
 }

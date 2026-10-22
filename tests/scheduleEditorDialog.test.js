@@ -3,10 +3,12 @@ import assert from 'node:assert/strict';
 
 import { ScheduleEditor } from '../schedules/scheduleEditor.js';
 import { createDefaultSchedule } from '../schedules/scheduleNormalizer.js';
-import { FakeDocument, createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
+import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
+
+import { DialogTestDocument } from './helpers/dialogTestDocument.js';
 
 async function withScheduleEditor(callback) {
-  const document = new FakeDocument();
+  const document = new DialogTestDocument();
   await withExtensionEnvironment(createExtensionApi(), async () => {
     await callback({ document, editor: new ScheduleEditor() });
   }, { document });
@@ -30,7 +32,9 @@ test('schedule dialogs render the existing weekdays, times, presets, and accessi
     editor.openDialog(createDefaultSchedule(), () => {});
     const dialog = getDialog(document);
     assert.equal(editor.isDialogOpen(), true);
-    assert.equal(dialog.getAttribute('role'), 'dialog');
+    assert.equal(dialog.tagName, 'DIALOG');
+    assert.equal(dialog.open, true);
+    assert.equal(dialog.getAttribute('aria-label'), 'schedule_edit');
     assert.equal(dialog.getAttribute('aria-modal'), 'true');
     assert.equal(dialog.querySelectorAll('.schedule-period-card').length, 1);
     assert.equal(dialog.querySelectorAll('.schedule-period-days input:checked').length, 5);
@@ -150,7 +154,7 @@ test('weekday, weekend, and every-day presets replace the selected days and hide
     assert.deepEqual(selectedDays(), [0, 1, 2, 3, 4, 5, 6]);
     await weekdays.dispatch('click');
     assert.deepEqual(selectedDays(), [1, 2, 3, 4, 5]);
-    assert.equal(dialog.querySelector('.schedule-dialog-error').hidden, true);
+    assert.equal(dialog.querySelector('.schedule-dialog-error').textContent, '');
     editor.closeDialog();
   });
 });
@@ -207,10 +211,10 @@ test('schedule dialogs cap the number of independent periods at seven', async ()
   });
 });
 
-test('Escape closes an open dialog and removes its global keydown listener', async () => {
+test('native cancellation closes the dialog without a global keydown listener', async () => {
   await withScheduleEditor(async ({ document, editor }) => {
     editor.openDialog(createDefaultSchedule(), () => {});
-    const event = await document.dispatch('keydown', { key: 'Escape' });
+    const event = await getDialog(document).dispatch('cancel');
     assert.equal(event.defaultPrevented, true);
     assert.equal(event.propagationStopped, true);
     assert.equal(editor.isDialogOpen(), false);
@@ -218,13 +222,13 @@ test('Escape closes an open dialog and removes its global keydown listener', asy
   });
 });
 
-test('backdrop clicks close the dialog while clicks inside the dialog keep it open', async () => {
+test('backdrop clicks close the dialog while clicks in its padding keep it open', async () => {
   await withScheduleEditor(async ({ document, editor }) => {
     editor.openDialog(createDefaultSchedule(), () => {});
-    let backdrop = document.querySelector('.schedule-dialog-backdrop');
-    await backdrop.dispatch('click', { target: getDialog(document) });
+    const dialog = getDialog(document);
+    await dialog.dispatch('click', { clientX: 40, clientY: 40 });
     assert.equal(editor.isDialogOpen(), true);
-    await backdrop.dispatch('click', { target: backdrop });
+    await dialog.dispatch('click', { clientX: 0, clientY: 0 });
     assert.equal(editor.isDialogOpen(), false);
 
     editor.openDialog(createDefaultSchedule(), () => {});
@@ -238,10 +242,10 @@ test('opening a second dialog closes the first and mounts the replacement in its
   await withScheduleEditor(({ document, editor }) => {
     const host = document.addElement('host');
     editor.openDialog(createDefaultSchedule(), () => {});
-    assert.equal(document.body.querySelectorAll('.schedule-dialog-backdrop').length, 1);
+    assert.equal(document.body.querySelectorAll('.schedule-dialog').length, 1);
     editor.openDialog(createDefaultSchedule(), () => {}, { dialogHost: host });
-    assert.equal(host.querySelectorAll('.schedule-dialog-backdrop').length, 1);
-    assert.equal(document.body.querySelectorAll('.schedule-dialog-backdrop').length, 1);
+    assert.equal(host.querySelectorAll('.schedule-dialog').length, 1);
+    assert.equal(document.body.querySelectorAll('.schedule-dialog').length, 1);
     editor.closeDialog();
   });
 });
@@ -273,5 +277,83 @@ test('disabled or invalid schedule sections cannot produce a usable schedule', a
       periods: [{ days: [], startTime: '09:00', endTime: '17:00' }]
     });
     assert.throws(() => editor.getSchedule(section), /invalid_days/);
+  });
+});
+
+test('schedule cancellation, save and external close restore the invoking control exactly once', async () => {
+  await withScheduleEditor(async ({ document, editor }) => {
+    const opener = document.addElement('edit-schedule', 'button');
+    for (const action of ['cancel', 'save', 'external']) {
+      opener.focus();
+      editor.openDialog(createDefaultSchedule(), () => {});
+      const dialog = getDialog(document);
+      if (action === 'external') dialog.close();
+      else if (action === 'save') await dialog.querySelector('.save-btn').dispatch('click');
+      else await dialog.dispatch('cancel');
+      await Promise.resolve();
+      assert.equal(document.activeElement.id, opener.id);
+      assert.equal(editor.isDialogOpen(), false);
+      assert.equal(dialog.closeCount, 1);
+      assert.equal(getDialog(document), null);
+    }
+  });
+});
+
+test('adding and removing time groups leaves keyboard focus in the relevant surviving group', async () => {
+  await withScheduleEditor(async ({ document, editor }) => {
+    editor.openDialog(createDefaultSchedule(), () => {});
+    const dialog = getDialog(document);
+    await dialog.querySelector('.schedule-add-period').dispatch('click');
+    let cards = dialog.querySelectorAll('.schedule-period-card');
+    assert.equal(document.activeElement, cards[1].querySelector('input'));
+    await cards[1].querySelector('.schedule-remove-period').dispatch('click');
+    cards = dialog.querySelectorAll('.schedule-period-card');
+    assert.equal(document.activeElement, cards[0].querySelector('input'));
+    assert.equal(dialog.querySelector('.schedule-period-start').value, '09:00');
+    editor.closeDialog();
+  });
+});
+
+test('schedule errors identify the invalid group without resetting its edited times', async () => {
+  await withScheduleEditor(async ({ document, editor }) => {
+    editor.openDialog(createDefaultSchedule(), () => {});
+    const dialog = getDialog(document);
+    const start = dialog.querySelector('.schedule-period-start');
+    start.value = '22:30';
+    dialog.querySelector('.schedule-period-end').value = '05:15';
+    dialog.querySelectorAll('.schedule-period-days input').forEach(input => { input.checked = false; });
+    await dialog.querySelector('.save-btn').dispatch('click');
+    const error = dialog.querySelector('.schedule-dialog-error');
+    assert.equal(error.getAttribute('role'), 'alert');
+    assert.equal(document.activeElement.getAttribute('aria-invalid'), 'true');
+    assert.equal(document.activeElement.getAttribute('aria-describedby'), error.id);
+    assert.equal(start.value, '22:30');
+    await dialog.dispatch('input');
+    assert.equal(error.textContent, '');
+    assert.equal(document.activeElement.getAttribute('aria-invalid'), 'false');
+    editor.closeDialog();
+  });
+});
+
+
+test('schedule validation focuses an empty end time and the duplicated day in a later group', async () => {
+  await withScheduleEditor(async ({ document, editor }) => {
+    editor.openDialog(createDefaultSchedule(), () => {});
+    const dialog = getDialog(document);
+    const end = dialog.querySelector('.schedule-period-end');
+    end.value = '';
+    await dialog.querySelector('.save-btn').dispatch('click');
+    assert.equal(document.activeElement, end);
+    assert.equal(end.getAttribute('aria-invalid'), 'true');
+    end.value = '17:00';
+    await dialog.querySelector('.schedule-add-period').dispatch('click');
+    const second = dialog.querySelectorAll('.schedule-period-card')[1];
+    const monday = second.querySelector('input[value="1"]');
+    monday.checked = true;
+    await dialog.querySelector('.save-btn').dispatch('click');
+    assert.equal(document.activeElement, monday);
+    assert.equal(monday.getAttribute('aria-invalid'), 'true');
+    assert.equal(dialog.querySelector('.schedule-dialog-error').textContent, 'schedule_day_overlap');
+    editor.closeDialog();
   });
 });

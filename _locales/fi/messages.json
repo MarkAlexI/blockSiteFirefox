@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Takaisin ylös"
+  },
+  "feedback_action_error": {
+    "message": "Toimintoa ei voitu suorittaa. Yritä uudelleen."
   }
 }

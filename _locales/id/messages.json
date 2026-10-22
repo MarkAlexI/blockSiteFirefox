@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Kembali ke atas"
+  },
+  "feedback_action_error": {
+    "message": "Tindakan tidak dapat diselesaikan. Silakan coba lagi."
   }
 }

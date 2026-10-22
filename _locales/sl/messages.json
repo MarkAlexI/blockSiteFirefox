@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Nazaj na vrh"
+  },
+  "feedback_action_error": {
+    "message": "Dejanja ni bilo mogoče dokončati. Poskusite znova."
   }
 }

@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Vissza a tetejére"
+  },
+  "feedback_action_error": {
+    "message": "A műveletet nem sikerült befejezni. Kérjük, próbálja újra."
   }
 }

@@ -1,5 +1,9 @@
+import { keepDialogFocus, restoreDialogFocus } from '../dom/dialogFocus.js';
+import { t } from '../scripts/t.js';
 import { REVIEWS_LINK, SUPPORT_LINK } from '../utils/constants.js';
 import { recordTelemetryCounter } from '../telemetry/telemetryCounterReporter.js';
+
+const feedbackPrompts = new WeakSet();
 
 export const FEEDBACK_STATE_KEY = 'feedbackPromptState';
 export const FEEDBACK_INITIAL_DELAY_MS = 14 * 24 * 60 * 60 * 1000;
@@ -157,14 +161,16 @@ export function createFeedbackPromptController({
     });
   }
 
-  async function openReview(state) {
+  async function openReview(state, onStateSaved = () => {}) {
     const nextState = await complete(state, 'review');
+    onStateSaved(nextState);
     await tabsApi.create({ url: reviewUrl });
     return nextState;
   }
 
-  async function openSupport(state) {
+  async function openSupport(state, onStateSaved = () => {}) {
     const nextState = await complete(state, 'support');
+    onStateSaved(nextState);
     await tabsApi.create({ url: supportUrl });
     return nextState;
   }
@@ -188,70 +194,111 @@ export async function initFeedbackPrompt({
   recordCounter = recordTelemetryCounter
 } = {}) {
   const dialog = documentRef?.getElementById('feedback-dialog');
-  if (!dialog || !localStorage || !syncStorage || !tabsApi) return false;
+  if (!dialog || !localStorage || !syncStorage || !tabsApi || feedbackPrompts.has(dialog) || dialog.open) return false;
+  feedbackPrompts.add(dialog);
 
   const controller = createFeedbackPromptController({
-    localStorage,
-    syncStorage,
-    tabsApi,
-    now,
-    reviewUrl
+    localStorage, syncStorage, tabsApi, now, reviewUrl
   });
+  let state;
+  try {
+    const evaluation = await controller.evaluate();
+    if (!evaluation.shouldShow) {
+      feedbackPrompts.delete(dialog);
+      return false;
+    }
+    state = await controller.markShown(evaluation.state);
+  } catch {
+    feedbackPrompts.delete(dialog);
+    return false;
+  }
 
-  const evaluation = await controller.evaluate();
-  if (!evaluation.shouldShow) return false;
-
-  let state = await controller.markShown(evaluation.state);
-  let finalized = false;
-
+  const opener = documentRef.activeElement;
   const closeButton = documentRef.getElementById('feedback-close-btn');
   const reviewButton = documentRef.getElementById('feedback-review-btn');
   const supportButton = documentRef.getElementById('feedback-support-btn');
+  const errorElement = documentRef.getElementById('feedback-error');
 
-  async function dismiss() {
+  let finalized = false;
+  let busy = false;
+  const listeners = [];
+  const listen = (element, type, listener) => {
+    if (!element) return;
+    element.addEventListener(type, listener);
+    listeners.push(() => element.removeEventListener(type, listener));
+  };
+  const setBusy = value => {
+    busy = value;
+    dialog.setAttribute('aria-busy', String(value));
+    if (value && [reviewButton, supportButton].includes(documentRef.activeElement)) closeButton?.focus();
+    if (reviewButton) reviewButton.disabled = value;
+    if (supportButton) supportButton.disabled = value;
+  };
+  const finish = () => {
     if (finalized) return;
     finalized = true;
+    listeners.forEach(remove => remove());
+    feedbackPrompts.delete(dialog);
+    setBusy(false);
+    if (dialog.open) dialog.close();
+    restoreDialogFocus(opener, documentRef.getElementById('options-link'), documentRef.getElementById('add-rule'));
+  };
+
+  const dismiss = async () => {
+    if (finalized) return;
+    // An already-started action owns its completion write. Dismiss immediately,
+    // without racing it with a second write or waiting for storage to respond.
+    const actionPending = busy;
+    finish();
     recordCounter('feedback_dismissed');
-    state = await controller.markDismissed(state);
-    dialog.close();
-  }
+    if (!actionPending) {
+      try { state = await controller.markDismissed(state); } catch { /* Closing remains available offline. */ }
+    }
+  };
+  const runAction = async (action, counter) => {
+    if (finalized || busy) return;
+    if (errorElement) errorElement.textContent = '';
+    setBusy(true);
+    recordCounter(counter);
+    try {
+      // Retain a committed state even if opening the external page fails.
+      state = await controller[action](state, saved => { state = saved; });
+      if (!finalized) finish();
+    } catch {
+      if (finalized) return;
+      setBusy(false);
+      if (errorElement) errorElement.textContent = t('feedback_action_error');
+      // A disabled action may have held focus when the request started.
+      closeButton?.focus();
+    }
+  };
 
-  closeButton?.addEventListener('click', () => {
-    void dismiss();
-  }, { once: true });
-
-  dialog.addEventListener('cancel', event => {
+  listen(closeButton, 'click', dismiss);
+  listen(dialog, 'cancel', event => {
     event.preventDefault();
-    void dismiss();
-  }, { once: true });
-
-  dialog.addEventListener('click', event => {
-    const rect = dialog.getBoundingClientRect();
-    const outside =
-      event.clientX < rect.left ||
-      event.clientX > rect.right ||
-      event.clientY < rect.top ||
-      event.clientY > rect.bottom;
-    if (outside) void dismiss();
+    return dismiss();
   });
+  listen(dialog, 'close', () => {
+    if (!dialog.open) return dismiss();
+  });
+  listen(dialog, 'keydown', event => keepDialogFocus(event, dialog));
+  listen(dialog, 'click', event => {
+    if (event.target !== dialog) return;
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right ||
+        event.clientY < rect.top || event.clientY > rect.bottom) return dismiss();
+  });
+  listen(reviewButton, 'click', () => runAction('openReview', 'feedback_review_clicked'));
+  listen(supportButton, 'click', () => runAction('openSupport', 'feedback_support_clicked'));
 
-  reviewButton?.addEventListener('click', async () => {
-    if (finalized) return;
-    finalized = true;
-    recordCounter('feedback_review_clicked');
-    state = await controller.openReview(state);
-    dialog.close();
-  }, { once: true });
-
-  supportButton?.addEventListener('click', async () => {
-    if (finalized) return;
-    finalized = true;
-    recordCounter('feedback_support_clicked');
-    state = await controller.openSupport(state);
-    dialog.close();
-  }, { once: true });
-
-  dialog.showModal();
+  if (errorElement) errorElement.textContent = '';
+  try {
+    dialog.showModal();
+    closeButton?.focus();
+  } catch {
+    finish();
+    return false;
+  }
   recordCounter('feedback_prompt_shown');
   return true;
 }

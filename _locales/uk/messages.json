@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Повернутися вгору"
+  },
+  "feedback_action_error": {
+    "message": "Не вдалося завершити дію. Спробуйте ще раз."
   }
 }

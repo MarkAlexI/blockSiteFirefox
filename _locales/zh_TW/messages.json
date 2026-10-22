@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "回到頂端"
+  },
+  "feedback_action_error": {
+    "message": "無法完成操作，請再試一次。"
   }
 }

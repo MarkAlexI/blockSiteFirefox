@@ -1,3 +1,4 @@
+import { DialogTestDocument } from './helpers/dialogTestDocument.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
@@ -228,57 +229,23 @@ test('review and support actions complete the prompt and open the correct Firefo
 
 
 function createFeedbackDocument() {
-  class Element {
-    constructor() {
-      this.listeners = new Map();
-      this.open = false;
-      this.closeCount = 0;
-    }
-
-    addEventListener(type, listener, options = {}) {
-      const listeners = this.listeners.get(type) || [];
-      listeners.push({ listener, once: options?.once === true });
-      this.listeners.set(type, listeners);
-    }
-
-    async emit(type, event = {}) {
-      const listeners = [...(this.listeners.get(type) || [])];
-      for (const entry of listeners) {
-        await entry.listener(event);
-        if (entry.once) {
-          const current = this.listeners.get(type) || [];
-          this.listeners.set(type, current.filter(item => item !== entry));
-        }
-      }
-    }
-
-    showModal() {
-      this.open = true;
-    }
-
-    close() {
-      this.open = false;
-      this.closeCount += 1;
-    }
-
-    getBoundingClientRect() {
-      return { left: 0, right: 100, top: 0, bottom: 100 };
-    }
+  const document = new DialogTestDocument();
+  document.elements = {};
+  for (const [id, tag] of Object.entries({
+    'feedback-dialog': 'dialog', 'feedback-close-btn': 'button',
+    'feedback-review-btn': 'button', 'feedback-support-btn': 'button',
+    'feedback-store-label': 'span', 'feedback-error': 'p', 'options-link': 'button'
+  })) {
+    const element = document.addElement(id, tag);
+    document.elements[id] = element;
+    element.emit = (type, event) => element.dispatch(type, event);
   }
-
-  const elements = {
-    'feedback-dialog': new Element(),
-    'feedback-close-btn': new Element(),
-    'feedback-review-btn': new Element(),
-    'feedback-support-btn': new Element()
-  };
-
-  return {
-    elements,
-    getElementById(id) {
-      return elements[id] || null;
-    }
-  };
+  const dialog = document.elements['feedback-dialog'];
+  for (const [id, element] of Object.entries(document.elements)) {
+    if (id !== 'feedback-dialog' && id !== 'options-link') dialog.appendChild(element);
+  }
+  document.elements['options-link'].focus();
+  return document;
 }
 
 function createEligibleFeedbackStorage() {
@@ -368,4 +335,107 @@ test('feedback prompt reports support clicks and dismissals without duplicate fi
   ]);
   assert.equal(dismissStorage.localStorage.data[FEEDBACK_STATE_KEY].lastAction, 'dismissed');
   assert.equal(dismissDocument.elements['feedback-dialog'].closeCount, 1);
+});
+
+async function openEligiblePrompt(documentRef, overrides = {}) {
+  const storage = createEligibleFeedbackStorage();
+  const options = { documentRef, ...storage, tabsApi: { async create() {} },
+    now: () => Date.parse('2026-08-11T08:00:00Z'),
+    reviewUrl: 'https://store.example/reviews',
+    recordCounter() {}, ...overrides };
+  const shown = await initFeedbackPrompt(options);
+  return { shown, ...storage, options };
+}
+
+test('Feedback dismisses and returns focus before a slow storage write finishes', async () => {
+  const document = createFeedbackDocument();
+  const h = await openEligiblePrompt(document);
+  let release;
+  const gate = new Promise(resolve => { release = resolve; });
+  const set = h.localStorage.set.bind(h.localStorage);
+  h.localStorage.set = async data => { await gate; return set(data); };
+  assert.equal(document.activeElement.id, 'feedback-close-btn');
+  const closing = document.elements['feedback-close-btn'].emit('click');
+  assert.equal(document.elements['feedback-dialog'].open, false);
+  assert.equal(document.activeElement.id, 'options-link');
+  release(); await closing;
+  assert.equal(h.localStorage.data[FEEDBACK_STATE_KEY].lastAction, 'dismissed');
+});
+
+test('Feedback can retry a failed page opening and keeps Cancel available throughout', async () => {
+  const document = createFeedbackDocument();
+  const previousChrome = globalThis.chrome;
+  const previousBrowser = globalThis.browser;
+  globalThis.browser = globalThis.chrome = { i18n: { getMessage: key => key } };
+  try {
+    let attempts = 0;
+    const h = await openEligiblePrompt(document, { tabsApi: { async create() {
+      if (++attempts === 1) throw new Error('private API details');
+    } } });
+    await document.elements['feedback-review-btn'].emit('click');
+    assert.equal(document.elements['feedback-dialog'].open, true);
+    assert.equal(document.elements['feedback-error'].textContent, 'feedback_action_error');
+    assert.equal(document.elements['feedback-review-btn'].disabled, false);
+    assert.equal(document.activeElement.id, 'feedback-close-btn');
+    await document.elements['feedback-review-btn'].emit('click');
+    assert.equal(attempts, 2);
+    assert.equal(document.elements['feedback-dialog'].open, false);
+    assert.equal(h.localStorage.data[FEEDBACK_STATE_KEY].completed, true);
+  } finally { globalThis.chrome = previousChrome; globalThis.browser = previousBrowser; }
+});
+
+test('cancelling pending Feedback does not overwrite completion, repeat the action or steal late focus', async () => {
+  const document = createFeedbackDocument();
+  const h = await openEligiblePrompt(document);
+  let release;
+  const gate = new Promise(resolve => { release = resolve; });
+  const set = h.localStorage.set.bind(h.localStorage);
+  const writes = [];
+  h.localStorage.set = async data => { writes.push(data); await gate; return set(data); };
+  let opened = 0;
+  h.options.tabsApi.create = async () => { opened++; };
+  document.elements['feedback-review-btn'].focus();
+  const action = document.elements['feedback-review-btn'].emit('click');
+  await document.elements['feedback-support-btn'].emit('click');
+  assert.equal(document.activeElement.id, 'feedback-close-btn');
+  await document.elements['feedback-dialog'].emit('cancel');
+  assert.equal(document.elements['feedback-dialog'].open, false);
+  const other = document.addElement('next-action', 'button'); other.focus();
+  release(); await action;
+  assert.equal(writes.length, 1);
+  assert.equal(opened, 1);
+  assert.equal(h.localStorage.data[FEEDBACK_STATE_KEY].lastAction, 'review');
+  assert.equal(h.localStorage.data[FEEDBACK_STATE_KEY].completed, true);
+  assert.equal(document.activeElement.id, 'next-action');
+});
+
+test('concurrent Feedback initialization installs only one set of listeners and one shown counter', async () => {
+  const document = createFeedbackDocument();
+  const counters = [];
+  const first = openEligiblePrompt(document, { recordCounter: name => counters.push(name) });
+  const second = await openEligiblePrompt(document, { recordCounter: name => counters.push(name) });
+  const result = await first;
+  assert.equal(result.shown, true);
+  assert.equal(second.shown, false);
+  assert.deepEqual(counters, ['feedback_prompt_shown']);
+  document.elements['feedback-dialog'].close();
+  await Promise.resolve(); await Promise.resolve();
+  assert.equal(document.elements['feedback-dialog'].closeCount, 1);
+  assert.equal(document.elements['feedback-review-btn'].listeners.get('click').length, 0);
+  assert.equal(document.activeElement.id, 'options-link');
+});
+
+
+test('dismissing Feedback after a failed page opening preserves its already saved completion', async () => {
+  const document = createFeedbackDocument();
+  const previousChrome = globalThis.chrome;
+  const previousBrowser = globalThis.browser;
+  globalThis.browser = globalThis.chrome = { i18n: { getMessage: key => key } };
+  try {
+    const h = await openEligiblePrompt(document, { tabsApi: { async create() { throw Error('page unavailable'); } } });
+    await document.elements['feedback-support-btn'].emit('click');
+    await document.elements['feedback-close-btn'].emit('click');
+    assert.equal(h.localStorage.data[FEEDBACK_STATE_KEY].completed, true);
+    assert.equal(h.localStorage.data[FEEDBACK_STATE_KEY].lastAction, 'dismissed');
+  } finally { globalThis.chrome = previousChrome; globalThis.browser = previousBrowser; }
 });

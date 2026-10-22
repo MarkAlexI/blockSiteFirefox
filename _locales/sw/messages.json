@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Rudi juu"
+  },
+  "feedback_action_error": {
+    "message": "Haikuwezekana kukamilisha kitendo. Tafadhali jaribu tena."
   }
 }

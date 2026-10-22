@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Retour en haut"
+  },
+  "feedback_action_error": {
+    "message": "Impossible de terminer l’action. Veuillez réessayer."
   }
 }

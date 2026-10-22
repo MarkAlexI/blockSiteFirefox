@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Grįžti į viršų"
+  },
+  "feedback_action_error": {
+    "message": "Nepavyko užbaigti veiksmo. Bandykite dar kartą."
   }
 }

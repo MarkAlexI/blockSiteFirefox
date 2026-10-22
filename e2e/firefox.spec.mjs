@@ -1,3 +1,4 @@
+import { dialogScenarios } from './dialog-scenarios.mjs';
 import assert from 'node:assert/strict';
 import { passwordDialogScenarios } from './password-dialog-scenarios.mjs';
 import { accessibilityScenarios } from './accessibility-scenarios.mjs';
@@ -286,3 +287,5 @@ scenarios.push(...proFeedbackScenarios);
 scenarios.push(...accessibilityScenarios);
 
 scenarios.push(...passwordDialogScenarios);
+
+scenarios.push(...dialogScenarios);

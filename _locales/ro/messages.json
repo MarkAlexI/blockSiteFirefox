@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "Înapoi sus"
+  },
+  "feedback_action_error": {
+    "message": "Acțiunea nu a putut fi finalizată. Încearcă din nou."
   }
 }

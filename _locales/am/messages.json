@@ -1157,5 +1157,8 @@
   },
   "scrolltotop": {
     "message": "ወደ ላይ ተመለስ"
+  },
+  "feedback_action_error": {
+    "message": "እርምጃውን ማጠናቀቅ አልተቻለም። እባክዎ እንደገና ይሞክሩ።"
   }
 }
