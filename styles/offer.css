@@ -1,14 +1,14 @@
 .go-pro {
   margin-bottom: 0;
-  --pro-color-primary: #1e3a8a;
-  --pro-color-primary-hover: #274bb5;
-  --pro-color-accent: #007aff;
-  --pro-color-success: #28a745;
-  --pro-color-error: #dc3545;
-  --pro-border-color: #dfe1e5;
-  --pro-bg-color: #f8f9fa;
-  --pro-text-primary: #202124;
-  --pro-text-secondary: #5f6368;
+  --pro-color-primary: var(--bd-secondary);
+  --pro-color-primary-hover: var(--bd-secondary-hover);
+  --pro-color-accent: var(--bd-primary);
+  --pro-color-success: var(--bd-success);
+  --pro-color-error: var(--bd-danger);
+  --pro-border-color: var(--bd-control-border);
+  --pro-bg-color: var(--bd-surface-soft);
+  --pro-text-primary: var(--bd-text);
+  --pro-text-secondary: var(--bd-muted);
   
 }
 
@@ -110,9 +110,10 @@ p#ext-version {
   border: 1px solid var(--pro-border-color);
 }
 
-.badge-text {
+.pro-content .badge-text {
   display: inline-block;
-  background-color: color-mix(in oklab, var(--pro-color-success), white 70%);
+  background-color: var(--bd-success-soft);
+  color: var(--bd-success);
   font-size: 0.9rem;
   font-weight: bold;
   padding: 4px 8px;
@@ -132,7 +133,7 @@ p#ext-version {
 }
 
 #pro-activate-view .pro-locked a:hover {
-  background-color: #0056b3;
+  background-color: var(--bd-primary-hover);
 }
 
 #license-form {
@@ -181,7 +182,7 @@ p#ext-version {
 }
 
 #license-submit-btn:hover {
-  background-color: #218838;
+  background-color: var(--bd-success-hover);
 }
 
 #pro-active-view h2 {
@@ -247,5 +248,5 @@ p#ext-version {
 }
 
 #log-out-btn:hover {
-  background-color: #dd3555;
+  background-color: var(--bd-danger-hover);
 }

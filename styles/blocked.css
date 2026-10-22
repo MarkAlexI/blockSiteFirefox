@@ -1,10 +1,10 @@
 :root {
-  --bg-primary: #f3f4f6;
-  --bg-container: white;
-  --text-primary: #111827;
-  --text-secondary: #374151;
-  --btn-bg: #2563eb;
-  --btn-hover: #1d4ed8;
+  --bg-primary: var(--bd-canvas);
+  --bg-container: var(--bd-surface);
+  --text-primary: var(--bd-text);
+  --text-secondary: var(--bd-muted);
+  --btn-bg: var(--bd-primary);
+  --btn-hover: var(--bd-primary-hover);
   --shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   --border-radius: 12px;
   --transition: background-color 0.3s ease;

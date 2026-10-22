@@ -2,6 +2,111 @@
   display: none !important;
 }
 
+/* Shared, light surfaces. Decorative blur never supplies the text contrast. */
+:root {
+  color-scheme: light;
+  --bd-primary: #2457ad;
+  --bd-primary-hover: #1c4388;
+  --bd-secondary: #6241a5;
+  --bd-secondary-hover: #4d3185;
+  --bd-success: #21723a;
+  --bd-success-hover: #195b2e;
+  --bd-danger: #b42332;
+  --bd-danger-hover: #921c2a;
+  --bd-warning: #8a4b08;
+  --bd-text: #1f2937;
+  --bd-muted: #4b5d73;
+  --bd-canvas: #eef3fa;
+  --bd-surface: #ffffff;
+  --bd-surface-soft: #f1f5fa;
+  --bd-control-border: #77859a;
+  --bd-divider: #d6deea;
+  --bd-focus: #163e7a;
+  --bd-success-soft: #eaf6ee;
+  --bd-danger-soft: #fff0f2;
+  --bd-warning-soft: #fff4d6;
+  --bd-warning-text: #714005;
+  --bd-gradient: linear-gradient(135deg, #315aa8 0%, #67449a 100%);
+  --bd-gradient-hover: linear-gradient(135deg, #244788 0%, #503276 100%);
+  --bd-panel: var(--bd-surface);
+  --bd-panel-blur: none;
+  accent-color: var(--bd-primary);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  :root {
+    --bd-panel: rgb(255 255 255 / 96%);
+    --bd-panel-blur: blur(8px);
+  }
+}
+
+/* These preferences keep the same solid, readable fallback. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  :root {
+    --bd-panel: var(--bd-surface);
+    --bd-panel-blur: none;
+  }
+}
+
+/* An outline survives high contrast mode, unlike a shadow-only indicator. */
+:focus-visible {
+  outline: 3px solid var(--bd-focus) !important;
+  outline-offset: 3px !important;
+}
+
+::placeholder {
+  color: var(--bd-muted);
+  opacity: 1;
+}
+
+a {
+  color: var(--bd-primary);
+}
+
+@media (forced-colors: active) {
+  :root { --bd-focus: Highlight; }
+
+  button, input, select, textarea, .footer-btn {
+    border: 1px solid ButtonText !important;
+  }
+
+  .toggle-label {
+    border: 1px solid ButtonText !important;
+    background: Canvas;
+  }
+
+  .toggle-slider {
+    border: 1px solid ButtonText;
+  }
+
+  .rule-list-card.selected,
+  .stats-chart-column[data-selected="true"] {
+    outline: 2px solid Highlight;
+  }
+
+  .toggle-input:checked + .toggle-label {
+    outline: 2px solid Highlight;
+  }
+
+  .radio-option input:checked + label::before {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .stats-chart-bar {
+    border: 1px solid CanvasText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .focus-lock-active {
   pointer-events: none;
   opacity: 0.5;

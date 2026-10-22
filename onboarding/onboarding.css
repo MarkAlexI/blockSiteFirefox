@@ -31,7 +31,7 @@ p {
   font-size: 1.2em;
   font-weight: bold;
   padding: 15px 30px;
-  background-color: #28a745;
+  background-color: var(--bd-success);
   color: white;
   border: none;
   border-radius: 5px;
@@ -41,11 +41,11 @@ p {
 }
 
 .permission-btn:hover {
-  background-color: #218838;
+  background-color: var(--bd-success-hover);
 }
 
 .permission-btn:disabled {
-  background-color: #aaa;
+  background-color: var(--bd-control-border);
   cursor: not-allowed;
 }
 
@@ -55,8 +55,8 @@ p {
   margin-top: 15px;
 }
 #status-message.success {
-  color: #28a745;
+  color: var(--bd-success);
 }
 #status-message.error {
-  color: #dc3545;
+  color: var(--bd-danger);
 }

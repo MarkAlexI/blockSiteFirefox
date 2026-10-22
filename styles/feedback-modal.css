@@ -12,7 +12,6 @@
 
 .native-dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
 }
 
 .dialog-content {
@@ -71,13 +70,13 @@
 }
 
 .dialog-actions .primary {
-  background: var(--primary-gradient, var(--primary-color, #0073e6));
+  background: var(--primary-gradient, var(--primary-color, var(--bd-primary)));
   color: white;
   border: none;
 }
 
 .dialog-actions .primary:hover {
-  background: var(--secondary-gradient, var(--primary-hover, #005bb5));
+  background: var(--secondary-gradient, var(--primary-hover, var(--bd-primary-hover)));
   transform: translateY(-1px);
 }
 
@@ -86,13 +85,13 @@
   margin-right: .5rem;
 }
 .dialog-actions .secondary {
-  background: var(--secondary-color, #6f42c1);
+  background: var(--secondary-color, var(--bd-secondary));
   color: #fff;
   border: none;
 }
 
 .dialog-actions .secondary:hover {
-  background: var(--secondary-hover, #5936a7);
+  background: var(--secondary-hover, var(--bd-secondary-hover));
 }
 
 #feedback-review-btn,

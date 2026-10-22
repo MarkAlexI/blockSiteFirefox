@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.3.29**
+# Firefox Desktop E2E — BlockDistraction **5.4.0**
 
 ## Ітерація 5.3.29: повідомлення про збережені зміни
 

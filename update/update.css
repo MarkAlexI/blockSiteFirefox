@@ -105,3 +105,9 @@ a:hover {
   border-radius: 0.75em;
   background: #f9fcff;
 }
+
+/* Inline links remain identifiable without relying on blue alone. */
+main a {
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}

@@ -28,7 +28,7 @@
 }
 
 .modal .error {
-  color: #dc2626;
+  color: var(--bd-danger);
 }
 
 #forgotPassword {
@@ -46,5 +46,5 @@
 
 .shake {
   animation: shake 0.4s ease-in-out;
-  border-color: #ff4444 !important;
+  border-color: var(--bd-danger) !important;
 }

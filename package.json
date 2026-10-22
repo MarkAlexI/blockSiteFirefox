@@ -1,6 +1,6 @@
 {
   "name": "blockdistraction-extension",
-  "version": "5.3.29",
+  "version": "5.4.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage --test-coverage-exclude=**/tests/** --test-coverage-exclude=**/tools/**",
-    "validate": "node tools/validate-extension.js",
+    "validate": "node tools/validate-extension.js && node tools/check-contrast.js",
     "check": "npm run test && npm run validate",
     "package:amo": "node tools/package-amo.js"
   }

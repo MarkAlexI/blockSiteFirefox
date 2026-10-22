@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.0] - 2026-10-22
+
+- Refresh the familiar blue/purple interface with darker action colors, readable helper text, clearer form boundaries and visible keyboard focus across Popup, Options, dialogs, onboarding and the update page.
+- Use a restrained glass surface in Settings with an opaque fallback. Honor supported reduced-transparency, increased-contrast, forced-color and reduced-motion preferences. Keep deletion countdown/ready colors stable instead of pulsing or flashing between red and green.
+- Add a palette contrast guard for text, controls, focus, gradient stops and the glass fallback. Document the remaining accessibility work; this release does not claim complete WCAG conformance.
+- Update the minor-release highlights and version metadata. Preserve saved preferences, rules, schedules, Pro access and browser-specific extension behavior.
+
 ## [5.3.29] - 2026-10-21
 
 - Show a saved-but-pending warning when rule mutations cannot fully update browser blocking or still need Daily Limit recovery. Cover Popup, Options, Rule Lists, categories, import/clear and Rule Pack reports while preserving committed edits and existing error handling.
