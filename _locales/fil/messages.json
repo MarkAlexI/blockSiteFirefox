@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Na-save ang mga pagbabago. Hindi pa ganap na nailalapat ang mga panuntunan sa pag-block."
+  },
+  "scrolltotop": {
+    "message": "Bumalik sa itaas"
   }
 }

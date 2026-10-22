@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Değişiklikler kaydedildi. Engelleme kuralları henüz tam olarak uygulanmadı."
+  },
+  "scrolltotop": {
+    "message": "Başa dön"
   }
 }

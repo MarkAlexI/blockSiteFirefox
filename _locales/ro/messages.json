@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Modificările au fost salvate. Regulile de blocare nu au fost încă aplicate complet."
+  },
+  "scrolltotop": {
+    "message": "Înapoi sus"
   }
 }

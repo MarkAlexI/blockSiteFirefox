@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Änderungen gespeichert. Die Blockierregeln sind noch nicht vollständig angewendet."
+  },
+  "scrolltotop": {
+    "message": "Nach oben"
   }
 }

@@ -18,3 +18,9 @@ for (let i = 0; i < placeholders.length; i++) {
   const translation = t(key);
   if (translation) placeholders[i].placeholder = translation;
 }
+
+// Attribute-only translations preserve icons and nested controls.
+for (const element of document.querySelectorAll('[data-i18n-aria-label]')) {
+  const translation = t(element.getAttribute('data-i18n-aria-label'));
+  if (translation) element.setAttribute('aria-label', translation);
+}

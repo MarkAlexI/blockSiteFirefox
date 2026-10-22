@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "変更を保存しました。ブロックルールはまだ完全には適用されていません。"
+  },
+  "scrolltotop": {
+    "message": "先頭に戻る"
   }
 }

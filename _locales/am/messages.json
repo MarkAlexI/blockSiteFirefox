@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "ለውጦች ተቀምጠዋል። የማገድ ደንቦች ገና ሙሉ በሙሉ አልተተገበሩም።"
+  },
+  "scrolltotop": {
+    "message": "ወደ ላይ ተመለስ"
   }
 }

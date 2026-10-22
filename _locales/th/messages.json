@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "บันทึกการเปลี่ยนแปลงแล้ว กฎการบล็อกยังมีผลไม่ครบถ้วน"
+  },
+  "scrolltotop": {
+    "message": "กลับไปด้านบน"
   }
 }

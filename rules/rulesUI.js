@@ -257,6 +257,7 @@ export class RulesUI {
     configureUrlInput(blockInput);
     blockInput.value = rule.blockURL;
     blockInput.placeholder = t('blockurl');
+    blockInput.setAttribute('aria-label', t('blockurl'));
     const blockCell = document.createElement('td');
     blockCell.className = 'edit-mode';
     blockCell.appendChild(blockInput);
@@ -283,6 +284,7 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
+    categorySelect.setAttribute('aria-label', t('category_header'));
     if (isWhitelist) {
       const option = document.createElement('option');
       option.value = 'whitelist';
@@ -378,6 +380,7 @@ export class RulesUI {
     blockInput.type = 'text';
     configureUrlInput(blockInput);
     blockInput.placeholder = t('blockurl');
+    blockInput.setAttribute('aria-label', t('blockurl'));
     const blockCell = document.createElement('td');
     blockCell.className = 'edit-mode';
     blockCell.appendChild(blockInput);
@@ -408,6 +411,7 @@ export class RulesUI {
     categoryCell.className = 'edit-mode';
     const categorySelect = document.createElement('select');
     categorySelect.className = 'category-select';
+    categorySelect.setAttribute('aria-label', t('category_header'));
     if (isWhitelist) {
       const option = document.createElement('option');
       option.value = 'whitelist';
@@ -513,6 +517,7 @@ export class RulesUI {
 
     const modeSelect = document.createElement('select');
     modeSelect.className = 'category-select blocking-mode-select';
+    modeSelect.setAttribute('aria-label', t('blockingmode_header'));
     const modeOptions = [
       [BLOCKING_MODE_ALWAYS, t('blocking_mode_always') || 'Always'],
       [BLOCKING_MODE_SCHEDULE, t('blocking_mode_schedule') || 'Schedule'],

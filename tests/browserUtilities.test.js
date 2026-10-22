@@ -328,8 +328,15 @@ test('scroll controls smoothly return to the top and track intersection visibili
       assert.deepEqual(observed, [target]);
       intersectionCallback([{ isIntersecting: false }]);
       assert.equal(button.classList.contains('showBtn'), true);
+      assert.equal(button.hidden, false);
+      button.focus();
       intersectionCallback([{ isIntersecting: true }]);
       assert.equal(button.classList.contains('showBtn'), false);
+      assert.equal(button.hidden, true);
+      assert.equal(document.activeElement, target);
+      window.matchMedia = () => ({ matches: true });
+      scrollToTop(target);
+      assert.deepEqual(scrollOptions, { top: 0, behavior: 'auto' });
     }, { document, window: { document } });
   } finally {
     if (previousObserver) globalThis.IntersectionObserver = previousObserver;

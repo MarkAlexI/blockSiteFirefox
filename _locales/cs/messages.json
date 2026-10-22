@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Změny byly uloženy. Pravidla blokování ještě nejsou plně použita."
+  },
+  "scrolltotop": {
+    "message": "Zpět nahoru"
   }
 }

@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "A módosítások mentve. A blokkolási szabályok még nem léptek teljesen érvénybe."
+  },
+  "scrolltotop": {
+    "message": "Vissza a tetejére"
   }
 }

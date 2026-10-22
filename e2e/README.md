@@ -835,3 +835,12 @@ timeouts and retry policy change. Root checks passed 1810/1810; the previous
 Chromium CI plus failing old-code controls identify the shared defects. The
 Firefox native suite still requires the owner's CI, and native Firefox startup
 session restoration has not been added or accepted in this iteration.
+
+## A11Y-02 / 5.4.0: сценарій 48
+
+`npm test -- --filter=48` перевіряє нативні Enter/Space/Tab/Shift+Tab у семи секціях,
+виключення hidden-панелей із Tab, збереження чернетки після згортання,
+accessible names списків і фокус кнопки прокручування. Сценарій не змінює
+збережені правила. Для Chromium тут перевірено Blink-рендеринг; native
+запуск блокується до тіла тесту через ProcessSingleton socket. Firefox 153
+із тимчасовим встановленням пройшов. Подробиці — `docs/accessibility-roadmap.md`.

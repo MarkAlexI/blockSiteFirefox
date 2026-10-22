@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Modifications enregistrées. Les règles de blocage ne sont pas encore entièrement appliquées."
+  },
+  "scrolltotop": {
+    "message": "Retour en haut"
   }
 }

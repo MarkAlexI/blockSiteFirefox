@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "बदल जतन केले. अवरोधित करण्याचे नियम अद्याप पूर्णपणे लागू झालेले नाहीत."
+  },
+  "scrolltotop": {
+    "message": "वर परत जा"
   }
 }

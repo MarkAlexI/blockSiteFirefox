@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Zmiany zapisane. Reguły blokowania nie zostały jeszcze w pełni zastosowane."
+  },
+  "scrolltotop": {
+    "message": "Powrót na górę"
   }
 }

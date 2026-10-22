@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Cambios guardados. Las reglas de bloqueo aún no se han aplicado por completo."
+  },
+  "scrolltotop": {
+    "message": "Volver arriba"
   }
 }

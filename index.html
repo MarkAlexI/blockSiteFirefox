@@ -25,7 +25,7 @@
       <strong id="popup-blocked-today">0</strong>
     </div>
     <div class="header-links">
-      <a id="options-link" data-i18n="gotooptions" data-action="open-options">Go to options page ⚙️</a>
+      <button type="button" id="options-link" data-i18n="gotooptions" data-action="open-options">Go to options page ⚙️</button>
       <a href="https://blockdistraction.com/user-guide.html" target="_blank" rel="noopener noreferrer" data-i18n="userguide">User Guide</a>
     </div>
     <p data-i18n="paragraph"></p>
@@ -124,7 +124,7 @@
     </div>
   </div>
   
-  <button id="scrollToTopBtn" class="scrollToTopBtn">↑</button>
+  <button type="button" id="scrollToTopBtn" class="scrollToTopBtn" aria-label="Back to top" data-i18n-aria-label="scrolltotop" hidden><span aria-hidden="true">↑</span></button>
   
   <script type="module" src="scripts/i18n.js"></script>
   <script type="module" src="popup.js"></script>

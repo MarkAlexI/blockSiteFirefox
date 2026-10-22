@@ -1,4 +1,5 @@
 import { t } from '../scripts/t.js';
+import { initializeCollapsibleSections } from '../dom/collapsibleSections.js';
 import { SettingsManager } from './settings.js';
 import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
@@ -222,9 +223,7 @@ class OptionsPage {
       this.updateRuleListCreationState();
     }
     
-    document.querySelectorAll('.collapsible-header').forEach(header => {
-      header.addEventListener('click', () => header.parentElement.classList.toggle('expanded'));
-    });
+    initializeCollapsibleSections(document);
   }
 
   renderStarterTips(installationDate, now = Date.now()) {

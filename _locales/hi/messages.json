@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "बदलाव सहेजे गए। ब्लॉक करने के नियम अभी पूरी तरह लागू नहीं हुए हैं।"
+  },
+  "scrolltotop": {
+    "message": "ऊपर वापस जाएँ"
   }
 }

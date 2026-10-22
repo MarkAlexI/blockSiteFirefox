@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Modifiche salvate. Le regole di blocco non sono ancora state applicate completamente."
+  },
+  "scrolltotop": {
+    "message": "Torna in alto"
   }
 }

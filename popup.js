@@ -88,7 +88,7 @@ class PopupPage {
     this.setupStorageListeners();
     await this.loadSettings();
     await this.loadCurrentTabs();
-    mountScroll(this.currentModeElement, this.scrollToTopBtn);
+    mountScroll(this.currentModeElement, this.scrollToTopBtn, document.getElementById('options-link'));
     
     try {
       const access = await ProManager.getAccess();
@@ -214,7 +214,7 @@ class PopupPage {
       });
     }
     
-    this.scrollToTopBtn.addEventListener('click', () => scrollToTop());
+    this.scrollToTopBtn.addEventListener('click', () => scrollToTop(document.getElementById('options-link')));
   }
   
   updateWhitelistButtonState() {

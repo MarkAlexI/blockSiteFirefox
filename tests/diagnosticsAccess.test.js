@@ -38,7 +38,7 @@ test('Options uses five compact sections and a shared return link', async () => 
     sectionTitles.length
   );
   for (const key of sectionTitles) {
-    assert.match(html, new RegExp(`<h2 data-${'i18n'}="${key}" class="collapsible-header">`));
+    assert.match(html, new RegExp(`<h2 class="collapsible-header"><button[^>]*data-${'i18n'}="${key}"[^>]*aria-expanded="false"`));
   }
   assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1">/);
   assert.match(html, /<nav class="options-navigation"[\s\S]*?<a href="\.\.\/index\.html" class="footer-btn options-back-link" data-i18n="backtopopup">/);
@@ -49,7 +49,7 @@ test('Options uses five compact sections and a shared return link', async () => 
 
 test('Statistics is a collapsed Pro section by default', async () => {
   const html = await readFile(path.join(root, 'options/options.html'), 'utf8');
-  const match = html.match(/<section class="([^"]*)">\s*<h2[^>]*data-i18n="statisticstitle"[^>]*class="([^"]*)"[^>]*>[\s\S]*?<div class="([^"]*collapsible-content[^"]*)">/);
+  const match = html.match(/<section class="([^"]*)">\s*<h2 class="([^"]*)"><button[^>]*data-i18n="statisticstitle"[^>]*aria-expanded="false"[^>]*>[\s\S]*?<div id="statistics-panel" class="([^"]*collapsible-content[^"]*)" hidden>/);
 
   assert.ok(match, 'Statistics section should use the collapsible markup');
   assert.match(match[1], /pro-feature/);

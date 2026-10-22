@@ -157,8 +157,8 @@
       </details>
 
       <section class="setting-section collapsible-section">
-        <h2 data-i18n="securitymodetitle" class="collapsible-header">Security Mode</h2>
-        <div class="collapsible-content">
+        <h2 class="collapsible-header"><button type="button" class="collapsible-toggle" data-i18n="securitymodetitle" aria-expanded="false" aria-controls="security-settings-panel">Security Mode</button></h2>
+        <div id="security-settings-panel" class="collapsible-content" hidden>
           <div class="setting-group">
             <div class="radio-group">
               <div class="radio-option">
@@ -209,8 +209,8 @@
       </section>
       
       <section class="setting-section collapsible-section">
-        <h2 data-i18n="basicsettingstitle" class="collapsible-header">Basic Settings</h2>
-        <div class="collapsible-content">
+        <h2 class="collapsible-header"><button type="button" class="collapsible-toggle" data-i18n="basicsettingstitle" aria-expanded="false" aria-controls="basic-settings-panel">Basic Settings</button></h2>
+        <div id="basic-settings-panel" class="collapsible-content" hidden>
           <div class="setting-item">
             <div class="setting-info">
               <label for="showNotifications" data-i18n="notificationstitle">Show notifications</label>
@@ -239,8 +239,8 @@
       </section>
       
       <section id="privacy-settings" class="setting-section collapsible-section">
-        <h2 data-i18n="privacysettingstitle" class="collapsible-header">Privacy & Technical Data</h2>
-        <div class="collapsible-content">
+        <h2 class="collapsible-header"><button type="button" class="collapsible-toggle" data-i18n="privacysettingstitle" aria-expanded="false" aria-controls="privacy-settings-panel">Privacy & Technical Data</button></h2>
+        <div id="privacy-settings-panel" class="collapsible-content" hidden>
           <div class="setting-item">
             <div class="setting-info">
               <label for="telemetryConsent" data-i18n="telemetryconsenttitle">Share technical analytics and error reports</label>
@@ -291,8 +291,8 @@
       </section>
       
       <section class="setting-section hidden pro-feature collapsible-section">
-        <h2 data-i18n="rulesmanagementtitle" class="collapsible-header">Rules Management</h2>
-        <div class="collapsible-content">
+        <h2 class="collapsible-header"><button type="button" class="collapsible-toggle" data-i18n="rulesmanagementtitle" aria-expanded="false" aria-controls="rules-management-panel">Rules Management</button></h2>
+        <div id="rules-management-panel" class="collapsible-content" hidden>
           <div class="action-buttons">
             <button id="exportRules" class="action-btn secondary">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -321,8 +321,8 @@
       </section>
       
       <section class="setting-section hidden pro-feature collapsible-section">
-        <h2 data-i18n="statisticstitle" class="collapsible-header">Statistics</h2>
-        <div class="stats-grid collapsible-content">
+        <h2 class="collapsible-header"><button type="button" class="collapsible-toggle" data-i18n="statisticstitle" aria-expanded="false" aria-controls="statistics-panel">Statistics</button></h2>
+        <div id="statistics-panel" class="stats-grid collapsible-content" hidden>
           <div class="stat-item">
             <span class="stat-number" id="totalRules">-</span>
             <span class="stat-label" data-i18n="totalruleslabel">Total Rules</span>
@@ -407,10 +407,10 @@
       </section>
       <hr class="divider">
       <section class="rule-list-management-mini collapsible-section expanded">
-        <h3 class="collapsible-header" data-i18n="rulelists_title">Rule Lists</h3>
-        <div class="collapsible-content">
+        <h3 class="collapsible-header"><button type="button" class="collapsible-toggle" data-i18n="rulelists_title" aria-expanded="true" aria-controls="rule-lists-panel">Rule Lists</button></h3>
+        <div id="rule-lists-panel" class="collapsible-content">
           <div class="rule-list-create">
-            <input id="rule-list-name-input" type="text" maxlength="40" data-i18n-placeholder="rulelists_name_placeholder" placeholder="New list name">
+            <input id="rule-list-name-input" aria-label="New list name" data-i18n-aria-label="rulelists_name_placeholder" type="text" maxlength="40" data-i18n-placeholder="rulelists_name_placeholder" placeholder="New list name">
             <button id="add-rule-list" type="button" data-i18n="rulelists_add">Add List</button>
           </div>
           <div id="rule-lists-container" class="rule-list-grid"></div>
@@ -421,8 +421,8 @@
       </section>
       <hr class="divider">
       <section class="category-management-mini collapsible-section expanded">
-        <h3 id="category-management-title" class="collapsible-header" data-i18n="categorymanagementtitle">Category Blocking</h3>
-        <div class="collapsible-content">
+        <h3 class="collapsible-header"><button id="category-management-title" type="button" class="collapsible-toggle" data-i18n="categorymanagementtitle" aria-expanded="true" aria-controls="category-management-panel">Category Blocking</button></h3>
+        <div id="category-management-panel" class="collapsible-content">
           <div id="categories-container" class="category-grid">
           </div>
           <div class="setting-info">
@@ -431,8 +431,8 @@
         </div>
       </section>
       <hr class="divider">
-      <input type="text" id="search-input" data-i18n-placeholder="searchblockurl">
-      <select id="category-filter" class="category-select">
+      <input type="text" id="search-input" aria-label="Search for domain name" data-i18n-aria-label="searchfordomain" data-i18n-placeholder="searchblockurl">
+      <select id="category-filter" class="category-select" aria-label="Category" data-i18n-aria-label="category_header">
         <option value="all" data-i18n="allcategories">All Categories</option>
         <option value="social" data-i18n="category_social">Social Media</option>
         <option value="news" data-i18n="category_news">News</option>

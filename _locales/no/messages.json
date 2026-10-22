@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Endringene er lagret. Blokkeringsreglene er ennå ikke tatt i bruk fullt ut."
+  },
+  "scrolltotop": {
+    "message": "Tilbake til toppen"
   }
 }

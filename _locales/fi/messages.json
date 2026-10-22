@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Muutokset tallennettu. Estosääntöjä ei ole vielä otettu kokonaan käyttöön."
+  },
+  "scrolltotop": {
+    "message": "Takaisin ylös"
   }
 }

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { accessibilityScenarios } from './accessibility-scenarios.mjs';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { recoveryScenarios } from './recovery.mjs';
@@ -280,3 +281,5 @@ scenarios.push(...sessionRestoreScenarios);
 scenarios.push(...frameScenarios);
 
 scenarios.push(...proFeedbackScenarios);
+
+scenarios.push(...accessibilityScenarios);

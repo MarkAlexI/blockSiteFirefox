@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Changes saved. Blocking rules are not fully applied yet."
+  },
+  "scrolltotop": {
+    "message": "Back to top"
   }
 }

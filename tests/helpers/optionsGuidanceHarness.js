@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { initializeCollapsibleSections } from '../../dom/collapsibleSections.js';
 import { FakeDocument, createExtensionApi, withExtensionEnvironment } from './extensionTestHarness.js';
 import * as guidance from '../../options/userGuidance.js';
 
@@ -105,7 +106,7 @@ export function createGuidanceHub({ state, isPro = true, installationDate = '202
       class ClockDate extends Date { constructor(...args) { super(...(args.length ? args : [clock])); } static now() { return clock; } }
       const proManager = { getAccess, initializeProFeatures: async () => {}, updateProFeaturesVisibility: () => {} };
       const context = vm.createContext({ document: doc, window: { addEventListener() {} }, chrome: api, browser: api,
-        Date: ClockDate, console, ...guidance, ProManager: proManager, sendRuntimeMessage: send,
+        Date: ClockDate, console, initializeCollapsibleSections, ...guidance, ProManager: proManager, sendRuntimeMessage: send,
         t: key => key, logger: { info() {}, log() {}, error() {} }, initializeNoSpaceInputs() {},
         setTimeout, clearTimeout, queueMicrotask });
       vm.runInContext(classSource+'\nglobalThis.PageClass = OptionsPage;', context);

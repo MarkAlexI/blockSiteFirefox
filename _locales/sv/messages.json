@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Ändringarna har sparats. Blockeringsreglerna har ännu inte tillämpats fullt ut."
+  },
+  "scrolltotop": {
+    "message": "Tillbaka till toppen"
   }
 }

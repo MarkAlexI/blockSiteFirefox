@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "تم حفظ التغييرات. لم تُطبّق قواعد الحظر بالكامل بعد."
+  },
+  "scrolltotop": {
+    "message": "العودة إلى الأعلى"
   }
 }

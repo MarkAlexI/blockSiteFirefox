@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Ændringerne er gemt. Blokeringsreglerne er endnu ikke anvendt fuldt ud."
+  },
+  "scrolltotop": {
+    "message": "Tilbage til toppen"
   }
 }

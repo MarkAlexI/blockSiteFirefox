@@ -1154,5 +1154,8 @@
   },
   "ruleschangessavedpending": {
     "message": "Muudatused on salvestatud. Blokeerimisreeglid pole veel täielikult rakendatud."
+  },
+  "scrolltotop": {
+    "message": "Tagasi üles"
   }
 }
