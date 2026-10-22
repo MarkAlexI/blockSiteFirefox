@@ -1,5 +1,27 @@
 # Firefox Desktop E2E — BlockDistraction **5.4.3**
 
+## CI preparation budget (2026-10-23, tests only)
+
+На `cb6c053b38374f21d83b95aeb2709c394c7cd635`
+[run 39855086581](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/39855086581)
+завершився як **cancelled** приблизно через 25 хвилин. Лог містить **40 PASS**,
+без FAILED/BLOCKED; останній завершений сценарій — 41. Повного результату немає,
+зокрема нові сценарії 50–51 не встигли виконатися. Звичайний Extension CI пройшов.
+
+Підготовка apt/browser тривала від 21:10:44 до 21:21:08 UTC — понад 10 хвилин;
+сам набір стартував о 21:21:08, а cancellation сталася о 21:35:56. Workflow мав
+25-minute limit на весь job, включно з підготовкою. Час зупинки узгоджується з
+цією межею, хоча лог не називає окрему причину cancellation. Це не свідчення
+провалу assertion або зависання розширення.
+
+Job тепер має 40 хвилин, а повний test step — окрему межу 25 хвилин. Це лишає
+15 хвилин для setup/report overhead. Браузер, SHA-256 checks, усі 50 scenarios,
+їхні внутрішні deadlines, assertions і retry policy збережені; fallback або
+повторний запуск не додається. Семантика окремих job/step limits описана в
+[GitHub workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax).
+Потрібен новий headed CI: скасований run не став зеленим від зміни workflow.
+Runtime, версія 5.4.3 і `update/update.js` не змінюються.
+
 ## Ітерація 5.3.29: повідомлення про збережені зміни
 
 Popup, Options і Settings показують `ruleschangessavedpending`, якщо committed

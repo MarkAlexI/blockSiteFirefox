@@ -16,9 +16,10 @@ permissions:
 jobs:
   e2e:
     runs-on: ubuntu-24.04
-    # Includes browser setup and 45 scenarios with real clock/alarm waits.
+    # Slow apt/browser setup consumed over 10 minutes in run 39855086581.
+    # Reserve setup/report time separately from the 50-scenario step below.
     # Individual scenario deadlines and retries remain unchanged.
-    timeout-minutes: 25
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -60,6 +61,7 @@ jobs:
               env.write(f'BD_EXTENSION_PATH={target}\n')
           PY
       - name: Run Firefox Desktop scenarios
+        timeout-minutes: 25
         working-directory: e2e
         run: xvfb-run -a npm run test:headed
       - name: Upload reports, screenshots and browser logs
