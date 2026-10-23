@@ -409,9 +409,13 @@ class OptionsPage {
     }
   }
 
-  handleRulesMutationError(error, fallbackKey = 'errorupdatingrules') {
+  handleRulesMutationError(error, fallbackKey = 'errorupdatingrules', editorRow = null) {
+    const showURLConflict = (code, message) => {
+      if (editorRow?._ruleEditorFeedback) this.rulesUI.showValidationErrors([code], editorRow, { [code]: message });
+      else this.rulesUI.showErrorMessage(message);
+    };
     if (error.code === 'validation_failed') {
-      this.rulesUI.showValidationErrors(error.validationErrors || []);
+      this.rulesUI.showValidationErrors(error.validationErrors || [], editorRow);
     } else if (error.code === 'rules_state_changed') {
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
       void this.refreshProfileView();
@@ -421,17 +425,17 @@ class OptionsPage {
           typeof error.conflict.blockURL === 'string') {
         message += `\n${t('rulelist_general') || 'General'}: ${error.conflict.blockURL}`;
       }
-      this.rulesUI.showErrorMessage(message);
+      showURLConflict('rule_already_exists', message);
     } else if (error.code === 'rule_assignment_exists') {
       this.rulesUI.showErrorMessage(t('rulelists_assignment_exists') || 'This rule already has settings for that list.');
     } else if (error.code === 'rule_assignment_not_found' || error.code === 'rule_assignment_locked') {
       this.rulesUI.showErrorMessage(t('rulelists_assignment_error') || 'The selected list assignment could not be changed.');
     } else if (error.code === 'conflict_blacklist') {
-      this.rulesUI.showErrorMessage(t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
+      showURLConflict('conflict_blacklist', t('conflict_blacklist_err') || 'This site is already in your Blacklist. Remove it first.');
     } else if (error.code === 'conflict_whitelist') {
-      this.rulesUI.showErrorMessage(t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
+      showURLConflict('conflict_whitelist', t('conflict_whitelist_err') || 'This site is already in your Whitelist. Remove it first.');
     } else if (error.code === 'redundant_whitelist') {
-      this.rulesUI.showErrorMessage(t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
+      showURLConflict('redundant_whitelist', t('redundant_whitelist_err') || 'This rule is already covered by another whitelist rule.');
     } else if (error.code === 'rule_limit_reached') {
       this.rulesUI.showErrorMessage(t('rulelimitreached', MAX_RULES_LIMIT));
     } else if (error.code === 'pro_required') {
@@ -740,7 +744,8 @@ class OptionsPage {
         isWhitelist,
         expectedGeneration,
         expectedRevision,
-        expectedListRevisions
+        expectedListRevisions,
+        editRow
       ),
       () => this.refreshProfileView(),
       (targetRuleId, listId, button) => this.handleRuleAssignmentDeletion(
@@ -762,7 +767,7 @@ class OptionsPage {
     row.replaceWith(editRow);
   }
 
-  async saveEditedRule(ruleId, sourceListId, newBlock, newRedirect, newCategory, blockingConfig, targetListId, disabledByUser, isWhitelist = false, expectedGeneration = null, expectedRevision = null, expectedListRevisions = {}) {
+  async saveEditedRule(ruleId, sourceListId, newBlock, newRedirect, newCategory, blockingConfig, targetListId, disabledByUser, isWhitelist = false, expectedGeneration = null, expectedRevision = null, expectedListRevisions = {}, editorRow = null) {
     try {
       const response = await this.rulesClient.updateRule({
         ruleId,
@@ -781,11 +786,17 @@ class OptionsPage {
           dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit
         }
       });
+      editorRow?._ruleEditorFeedback?.focusAfterSave(() => {
+        const savedRow = [...this.rulesBody.children].find(candidate =>
+          candidate.dataset.ruleId === String(response?.rule?.id ?? ruleId) &&
+          candidate.dataset.assignmentListId === (isWhitelist ? GENERAL_RULE_LIST_ID : targetListId));
+        return savedRow?.querySelector('.rule-edit') || this.addRuleButton;
+      });
       await this.refreshProfileView();
       this.showRulesMutationResult(response, t('ruleupdated'));
     } catch (error) {
       this.logRulesMutationFailure('Save edited rule error:', error);
-      this.handleRulesMutationError(error, 'errorupdatingrules');
+      this.handleRulesMutationError(error, 'errorupdatingrules', editorRow);
     }
   }
 
@@ -850,11 +861,12 @@ class OptionsPage {
         },
         isWhitelist
       });
+      row?._ruleEditorFeedback?.focusAfterSave(() => this.addRuleButton);
       await this.refreshProfileView();
       this.showRulesMutationResult(response, response?.assignmentAdded ? t('ruleupdated') : t('rulenewadded'));
     } catch (error) {
       this.logRulesMutationFailure('Save new rule error:', error);
-      this.handleRulesMutationError(error, 'errorupdatingrules');
+      this.handleRulesMutationError(error, 'errorupdatingrules', row);
     }
   }
 
@@ -969,10 +981,9 @@ class OptionsPage {
   }
   
   showRulesMutationResult(response, successMessage = '') {
-    const { message, pending } = getRulesMutationFeedback(response, successMessage);
+    const { message } = getRulesMutationFeedback(response, successMessage);
     if (!message) return;
     this.rulesUI.showSuccessMessage(message, this.statusElement);
-    if (pending) this.rulesUI.showErrorMessage(message);
   }
 
   cleanup() {

@@ -166,3 +166,34 @@ a {
     border-color: CanvasText;
   }
 }
+
+/* Feedback spans the existing columns without widening saved rules. */
+.rule-field-error {
+  max-inline-size: 100%;
+  margin: 0.4rem 0 0;
+  color: var(--bd-danger);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.rule-editor-row [aria-invalid="true"] {
+  border-color: var(--bd-danger);
+}
+
+.rule-editor-row .save-btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media (forced-colors: active) {
+  .rule-field-error { color: CanvasText; }
+  .rule-editor-row [aria-invalid="true"] { border-color: CanvasText; }
+}
+
+.rule-editor-feedback-row > td {
+  padding: 0.5rem 0.75rem;
+  text-align: start;
+}
+.rule-field-error a { font-weight: 600; }

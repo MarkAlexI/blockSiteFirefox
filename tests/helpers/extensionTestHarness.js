@@ -173,6 +173,20 @@ export class FakeElement {
     return selector.split(',').some(part => matchesSelectorChain(this, part));
   }
 
+  contains(node) {
+    for (let current = node; current; current = current.parentNode) if (current === this) return true;
+    return false;
+  }
+
+  after(node) {
+    if (!this.parentNode) return;
+    const parent = this.parentNode;
+    node.parentNode?.removeChild(node);
+    parent.children.splice(parent.children.indexOf(this) + 1, 0, node);
+    node.parentNode = parent;
+    node.ownerDocument ||= this.ownerDocument;
+  }
+
   querySelectorAll(selector) {
     const expressions = selector.split(',').map(part => part.trim());
     const found = [];

@@ -1,4 +1,6 @@
 import { t } from '../scripts/t.js';
+import { customAlert } from '../scripts/customAlert.js';
+import { RuleEditorFeedback } from './ruleEditorFeedback.js';
 import Logger from '../utils/logger.js';
 import { CATEGORIES } from './categoryManager.js';
 import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
@@ -231,6 +233,7 @@ export class RulesUI {
 
     if (showEditButtons) {
       const editBtn = document.createElement('button');
+      editBtn.className = 'rule-edit';
       editBtn.textContent = t('editbtn');
       editBtn.addEventListener('click', () => onEdit(row, rule.id, rule, assignment));
       actionsCell.appendChild(editBtn);
@@ -336,24 +339,15 @@ export class RulesUI {
     const saveBtn = document.createElement('button');
     saveBtn.className = 'save-btn';
     saveBtn.textContent = t('savebtn');
-    saveBtn.addEventListener('click', () => {
-      try {
-        const blockingConfig = isWhitelist
-          ? { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null }
-          : this.getBlockingConfigFromSection(blockingSection);
-        onSave(
-          rule.id,
-          sourceListId,
-          blockInput.value,
-          isWhitelist ? '' : redirectInput.value,
-          isWhitelist ? 'whitelist' : categorySelect.value,
-          blockingConfig,
-          isWhitelist ? GENERAL_RULE_LIST_ID : sourceListId
-        );
-      } catch (error) {
-        this.logger.info('Edit: Schedule error:', error.message);
-        this.showErrorMessage(this.getValidationMessage(error.message));
-      }
+    this.bindRuleSave(row, saveBtn, blockInput, redirectInput, categorySelect, blockingSection, () => {
+      const blockingConfig = isWhitelist
+        ? { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null }
+        : this.getBlockingConfigFromSection(blockingSection);
+      return onSave(
+        rule.id, sourceListId, blockInput.value, isWhitelist ? '' : redirectInput.value,
+        isWhitelist ? 'whitelist' : categorySelect.value, blockingConfig,
+        isWhitelist ? GENERAL_RULE_LIST_ID : sourceListId
+      );
     });
     actionsCell.appendChild(saveBtn);
 
@@ -465,32 +459,44 @@ export class RulesUI {
     const saveBtn = document.createElement('button');
     saveBtn.className = 'save-btn';
     saveBtn.textContent = t('savebtn');
-    saveBtn.addEventListener('click', () => {
-      try {
-        const blockingConfig = isWhitelist
-          ? { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null }
-          : this.getBlockingConfigFromSection(blockingSection);
-        onSave(
-          blockInput.value,
-          isWhitelist ? '' : redirectInput.value,
-          isWhitelist ? 'whitelist' : categorySelect.value,
-          blockingConfig,
-          selectedListId,
-          row
-        );
-      } catch (error) {
-        this.logger.info('Add: Schedule error:', error.message);
-        this.showErrorMessage(this.getValidationMessage(error.message));
-      }
+    this.bindRuleSave(row, saveBtn, blockInput, redirectInput, categorySelect, blockingSection, () => {
+      const blockingConfig = isWhitelist
+        ? { blockingMode: BLOCKING_MODE_ALWAYS, schedule: null, dailyLimit: null }
+        : this.getBlockingConfigFromSection(blockingSection);
+      return onSave(
+        blockInput.value, isWhitelist ? '' : redirectInput.value,
+        isWhitelist ? 'whitelist' : categorySelect.value, blockingConfig, selectedListId, row
+      );
     });
     actionsCell.appendChild(saveBtn);
 
     const cancelBtn = document.createElement('button');
     cancelBtn.textContent = t('cancelbtn');
-    cancelBtn.addEventListener('click', () => onCancel(row));
+    cancelBtn.addEventListener('click', () => { row._ruleEditorFeedback.clearErrors(); onCancel(row); });
     actionsCell.appendChild(cancelBtn);
     row.appendChild(actionsCell);
     return row;
+  }
+
+  bindRuleSave(row, saveButton, block, redirect, category, blockingSection, save) {
+    const controls = blockingSection?._blockingModeControls;
+    saveButton.type = 'button';
+    const field = (control, label) => control ? { control, label } : null;
+    const feedback = new RuleEditorFeedback(row, saveButton, {
+      block: field(block, t('blockurl')), redirect: field(redirect, t('redirecturlheader')),
+      category: field(category, t('category_header')), mode: field(controls?.modeSelect, t('blockingmode_header')),
+      schedule: field(controls?.scheduleSection.querySelector('.schedule-edit-button'), t('schedule_edit')),
+      daily: field(controls?.dailyInput, t('daily_limit_minutes_label'))
+    }, {
+      translate: code => this.getValidationMessage(code),
+      notify: message => this.showAlert(message),
+      unexpected: error => {
+        this.logger.info('Rule editor save error:', error?.message);
+        this.showErrorMessage(t('errorupdatingrules'));
+      }
+    });
+    row._ruleEditorFeedback = feedback;
+    saveButton.addEventListener('click', () => feedback.submit(save));
   }
 
   createEmptyRow(message, colSpan = 6) {
@@ -514,11 +520,7 @@ export class RulesUI {
   }
 
   showAlert(message) {
-    if (typeof customAlert !== 'undefined') {
-      customAlert(message);
-    } else {
-      alert(message);
-    }
+    customAlert(message);
   }
 
   createBlockingModeSection(blockingConfig, enableAdvancedModes) {
@@ -671,9 +673,13 @@ export class RulesUI {
     return messages[errorType] || errorType;
   }
 
-  showValidationErrors(errors) {
-    const messages = errors.map(error => this.getValidationMessage(error));
-    this.showAlert(messages.join('\n'));
+  showValidationErrors(errors, row = null, overrides = {}) {
+    const translate = code => overrides[code] || this.getValidationMessage(code);
+    if (row?._ruleEditorFeedback) {
+      row._ruleEditorFeedback.report(errors, translate);
+      return;
+    }
+    this.showAlert(errors.map(translate).join('\n'));
   }
 
   showSuccessMessage(message, statusElement = null) {
@@ -684,6 +690,7 @@ export class RulesUI {
         statusElement.textContent = message;
       }
     }
+    this.showAlert(message);
   }
 
   showErrorMessage(message) {

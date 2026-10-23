@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.8] - 2026-10-23
+
+- Show accessible, nonblocking notifications for rule changes in Settings, including saved changes awaiting browser synchronization.
+- Associate persistent validation messages with rule fields and focus the first invalid field after Save.
+- Preserve rule drafts after validation errors, prevent repeated saves while a request is pending and restore useful keyboard focus after saving.
+
 ## [5.4.7] - 2026-10-23
 
 - Expose Popup notifications through a persistent polite, atomic status region without moving focus.

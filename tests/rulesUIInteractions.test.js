@@ -307,6 +307,8 @@ test('status helpers update both inputs and ordinary text nodes without changing
   await withRulesUI(({ document, rulesUI }) => {
     const input = document.addElement('status-input', 'input');
     const label = document.addElement('status-label');
+    const notices = [];
+    rulesUI.showAlert = message => notices.push(message);
     rulesUI.updateStatus(input, 10);
     rulesUI.updateStatus(label, 3);
     assert.equal(input.value, 'savedrules:10');
@@ -316,6 +318,7 @@ test('status helpers update both inputs and ordinary text nodes without changing
     rulesUI.showSuccessMessage('Updated', label);
     assert.equal(input.value, 'Saved');
     assert.equal(label.textContent, 'Updated');
+    assert.deepEqual(notices, ['Saved', 'Updated']);
     const empty = rulesUI.createEmptyRow('Nothing to display', 5);
     assert.equal(empty.children[0].colSpan, 5);
     assert.equal(empty.children[0].textContent, 'Nothing to display');

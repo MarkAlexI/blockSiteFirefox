@@ -479,5 +479,103 @@ export const accessibilityScenarios = [{
       return [status.textContent, status.hasAttribute('tabindex')];
     }), ['', false], 'a new page has no stale notification or empty Tab stop');
   }
+}, {
+  id: '56',
+  title: 'Settings validation retains drafts, protects pending saves and restores keyboard focus with nonblocking status',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    if (page.front) await page.front(); else await page.bringToFront();
+    const nativeDialogs = [];
+    if (page.on) page.on('dialog', dialog => nativeDialogs.push(dialog.type()));
+    assert.deepEqual(await page.evaluate(() => {
+      const status = document.getElementById('custom-alert');
+      return status ? [status.getAttribute('role'), status.getAttribute('aria-live'), status.textContent] : null;
+    }), ['status', 'polite', ''], 'Options has a persistent empty status before feedback');
+    // Real RPCs are forwarded once. A gate delays dispatch; a controlled pending
+    // flag exercises UI feedback, not a native DNR synchronization failure.
+    await page.evaluate(() => {
+      window.__bdRuleWrites = [];
+      const originals = [...new Set([globalThis.chrome?.runtime, globalThis.browser?.runtime].filter(Boolean))]
+        .map(runtime => [runtime, runtime.sendMessage.bind(runtime)]);
+      for (const [runtime, original] of originals) runtime.sendMessage = function(input, ...args) {
+        if (!['rules:add', 'rules:update'].includes(input?.type)) return original(input, ...args);
+        window.__bdRuleWrites.push({ type: input.type, payload: structuredClone(input.payload) });
+        const hold = window.__bdHoldRuleWrite?.type === input.type ? window.__bdHoldRuleWrite : null;
+        if (hold) window.__bdHoldRuleWrite = null;
+        const gate = hold ? new Promise(resolve => { window.__bdReleaseRuleWrite = resolve; }) : Promise.resolve();
+        const finish = response => hold?.pending && response?.success ? { ...response, syncPending: true } : response;
+        const callback = args.at(-1);
+        if (typeof callback === 'function') {
+          if (!hold) return original(input, ...args.slice(0, -1), response => callback(finish(response)));
+          gate.then(() => original(input, ...args.slice(0, -1), response => callback(finish(response))));
+          return;
+        }
+        if (!hold) return Promise.resolve(original(input, ...args)).then(finish);
+        return gate.then(() => original(input, ...args)).then(finish);
+      };
+    });
+    const editor = '#rules-container .rule-editor-row';
+    const block = `${editor} td:nth-child(1) input`, redirect = `${editor} td:nth-child(2) input`;
+    const save = `${editor} .save-btn`, daily = `${editor} .daily-limit-minutes`;
+    const fill = (selector, value) => page.locator ? page.locator(selector).fill(value) : page.fill(selector, value);
+    const activate = async selector => { await focus(page, selector); await press(page, 'Enter'); };
+    await activate('#add-rule');
+    await fill(redirect, 'ftp://invalid.example'); await activate(save);
+    await poll(() => page.evaluate(({ block, redirect }) => {
+      const first = document.querySelector(block), second = document.querySelector(redirect);
+      return first?.getAttribute('aria-invalid') === 'true' && second?.getAttribute('aria-invalid') === 'true' && document.activeElement === first;
+    }, { block, redirect }), Boolean, 'invalid fields are described and the first receives focus');
+    const errors = await page.evaluate(({ block, redirect }) => [block, redirect].map(selector => {
+      const input = document.querySelector(selector), id = input.getAttribute('aria-describedby');
+      return { id, text: document.getElementById(id)?.textContent, value: input.value };
+    }), { block, redirect });
+    assert.ok(errors.every(field => field.id && field.text)); assert.notEqual(errors[0].id, errors[1].id);
+    assert.equal(errors[1].value, 'ftp://invalid.example');
+    assert.equal(await page.evaluate(() => document.getElementById('custom-alert').textContent), '', 'focused field errors have no duplicate status');
+    await fill(block, 'settings-feedback.bd-e2e.test'); await fill(redirect, '');
+    assert.equal(await page.evaluate(selector => document.querySelector(selector).getAttribute('aria-invalid'), redirect), null);
+    if (page.select) await page.select(`${editor} .blocking-mode-select`, 'daily_limit');
+    else await page.locator(`${editor} .blocking-mode-select`).selectOption('daily_limit');
+    await fill(daily, '0'); await activate(save);
+    await poll(() => page.evaluate(selector => document.activeElement === document.querySelector(selector) &&
+      document.activeElement.getAttribute('aria-invalid') === 'true', daily), Boolean, 'Daily Limit error focuses minutes');
+    assert.equal(await page.evaluate(() => window.__bdRuleWrites.length), 1, 'local invalid limit sends no mutation');
+    await fill(daily, '15');
+    await page.evaluate(() => { window.__bdHoldRuleWrite = { type: 'rules:add', pending: true }; });
+    await activate(save); await press(page, 'Enter');
+    assert.deepEqual(await page.evaluate(({ editor, block, save }) => [document.querySelector(editor).getAttribute('aria-busy'),
+      document.querySelector(save).getAttribute('aria-disabled'), document.querySelector(block).disabled,
+      window.__bdRuleWrites.length], { editor, block, save }), ['true', 'true', true, 2]);
+    await page.evaluate(() => window.__bdReleaseRuleWrite());
+    await poll(async () => (await e.state()).rules.length, count => count === 1, 'one committed rule');
+    const pending = await page.evaluate(() => (globalThis.browser || chrome).i18n.getMessage('ruleschangessavedpending'));
+    await poll(() => page.evaluate(() => document.getElementById('custom-alert').textContent), text => text === pending, 'successful pending notice');
+    await poll(() => page.evaluate(() => document.activeElement.id), id => id === 'add-rule', 'Add regains focus after adding');
+    assert.equal(await page.evaluate(() => window.__bdRuleWrites.length), 2, 'pending success sends no retry');
+    const rule = (await e.state()).rules[0]; assert.equal(rule.assignments[0].dailyLimit.minutes, 15);
+    const saved = `#rules-container tr[data-rule-id="${rule.id}"][data-assignment-list-id="general"]`;
+    await activate(`${saved} .rule-edit`);
+    await fill(redirect, 'ftp://still-invalid.example'); await activate(save);
+    await poll(() => page.evaluate(selector => document.activeElement === document.querySelector(selector) &&
+      document.activeElement.getAttribute('aria-invalid') === 'true', redirect), Boolean, 'Edit retains its draft and focuses invalid redirect');
+    assert.equal(await page.evaluate(selector => document.querySelector(selector).value, block), 'settings-feedback.bd-e2e.test');
+    await fill(redirect, 'https://redirect.example/');
+    await page.evaluate(() => { window.__bdHoldRuleWrite = { type: 'rules:update' }; });
+    await activate(save); await press(page, 'Enter');
+    assert.equal(await page.evaluate(() => window.__bdRuleWrites.filter(entry => entry.type === 'rules:update').length), 2,
+      'one rejected Edit and one pending Edit, without duplicate dispatch');
+    await focus(page, '#search-input'); await page.evaluate(() => window.__bdReleaseRuleWrite());
+    await poll(async () => (await e.state()).rules[0].redirectURL, value => value === 'https://redirect.example/', 'edited rule committed');
+    await poll(() => page.evaluate(() => !document.querySelector('.rule-editor-row')), Boolean, 'Edit refresh finished');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'search-input', 'later focus choice survives the response and refresh');
+    // A normal applied edit returns to the matching Edit action.
+    await activate(`${saved} .rule-edit`); await fill(redirect, ''); await activate(save);
+    await poll(() => page.evaluate(selector => document.activeElement === document.querySelector(`${selector} .rule-edit`), saved),
+      Boolean, 'Edit regains focus after an applied update');
+    assert.equal(await page.evaluate(() => window.__bdRuleWrites.length), 5, 'each Save dispatches at most once');
+    assert.deepEqual(nativeDialogs, []);
+    if (e.result) assert.equal((e.result.userPrompts || []).filter(event => event.context === page.context && event.type === 'alert').length, 0);
+  }
 }
 ];

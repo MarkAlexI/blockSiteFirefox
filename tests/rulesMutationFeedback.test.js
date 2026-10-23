@@ -53,8 +53,8 @@ async function withView(label, method, response, callback) {
       rulesUI: {
         isDeleteConfirmationInProgress() { return false; },
         handleRuleDeletion(_button, onDelete) { jobs.push(onDelete()); },
-        showSuccessMessage(message, element) { element.textContent = message; },
-        showErrorMessage(message) { alerts.push(message); }
+        showSuccessMessage(message, element) { element.textContent = message; alerts.push(message); },
+        showErrorMessage(message) { errors.push(new Error('Unexpected error feedback: ' + message)); }
       }
     });
     await callback({ controller, requests, alerts, errors, status, jobs, get refreshes() { return refreshes; } });
@@ -86,7 +86,7 @@ for (const [method, type, act] of optionsActions) {
         assert.equal(view.requests.length, 1, 'no mutation retry is sent');
         assert.equal(view.requests[0].type, type);
         if ('expectedGeneration' in view.requests[0].payload) assert.equal(view.requests[0].payload.expectedGeneration, 'captured');
-        assert.deepEqual(view.alerts, pending ? ['ruleschangessavedpending'] : []);
+        assert.deepEqual(view.alerts, pending ? ['ruleschangessavedpending'] : view.status.textContent ? [view.status.textContent] : []);
         if (pending) assert.equal(view.status.textContent, 'ruleschangessavedpending');
       });
     });
