@@ -678,3 +678,15 @@ button:disabled {
 .rule .rule-toggle-popup[aria-disabled="true"] {
   cursor: progress;
 }
+
+/* Focus Session feedback and pending actions. */
+.focus-field-error { color: var(--bd-danger); font-size: 0.875rem; overflow-wrap: anywhere; }
+#focus-duration[aria-invalid="true"] { border-color: var(--bd-danger); }
+#focus-controls button[aria-disabled="true"] { cursor: wait; }
+#focus-active-label, #focus-hardcore-description { overflow-wrap: anywhere; }
+@media (forced-colors: active) {
+  .focus-field-error { color: CanvasText; }
+  #focus-duration[aria-invalid="true"] { border-color: CanvasText; }
+}
+
+#focus-active-label:focus { outline: 3px solid var(--bd-focus); outline-offset: 3px; }

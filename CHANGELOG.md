@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.10] - 2026-10-23
+
+- Associate Focus Session duration errors with the input and retain the entered value for correction.
+- Prevent repeated Start and Stop requests while an action is pending and show safe, localized errors.
+- Restore useful keyboard focus after starting, stopping or completing a session, including Hardcore mode.
+- Announce observed session transitions and saved changes awaiting browser synchronization while keeping timer updates quiet.
+- Preserve the displayed Focus state when reading the saved session fails.
+
 ## [5.4.9] - 2026-10-23
 
 - Associate Popup rule errors with the affected address fields and focus the first invalid field after Save.

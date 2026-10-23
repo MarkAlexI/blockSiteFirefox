@@ -9,7 +9,7 @@ const DEFAULT_FOCUS_SESSION = {
   focusMode: 'blacklist'
 };
 
-export async function getFocusSessionState() {
+export async function getFocusSessionState({ throwOnError = false } = {}) {
   try {
     const result = await browser.storage.local.get(['focusSession']);
     const stored = result.focusSession;
@@ -28,6 +28,7 @@ export async function getFocusSessionState() {
       focusMode: stored.focusMode === 'whitelist' ? 'whitelist' : 'blacklist'
     };
   } catch (error) {
+    if (throwOnError) throw error;
     logger.error('Error getting state:', error);
     return { ...DEFAULT_FOCUS_SESSION };
   }

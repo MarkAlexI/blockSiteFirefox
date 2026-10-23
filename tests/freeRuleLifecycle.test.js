@@ -14,6 +14,7 @@ import {
   createRulesMutationService,
   serializeRulesMutationError
 } from '../rules/rulesMutationService.js';
+import { popupFocusFixture } from './helpers/popupFocusFixture.js';
 import { MAX_RULES_LIMIT } from '../utils/constants.js';
 
 const popupSource = readFileSync(new URL('../popup.js', import.meta.url), 'utf8');
@@ -415,46 +416,12 @@ function createRuleEditController({
 }
 
 function createFocusController(response, { isPro = true, duration = '25' } = {}) {
-  const alerts = [];
-  const messages = [];
-  let refreshCount = 0;
-  const api = {
-    runtime: {
-      async sendMessage(message) {
-        messages.push(copy(message));
-        return copy(response);
-      }
-    }
-  };
-  const method = getClassMethod(popupSource, 'startFocusSession', 'stopFocusSession');
-  const Controller = new Function(
-    'browser',
-    'chrome',
-    'customAlert',
-    't',
-    'return class FocusEntryPoint {\n' + method + '\n};'
-  )(api, api, message => alerts.push(message), key => key);
-  const controller = new Controller();
-  Object.assign(controller, {
-    isPro,
-    isLegacyUser: false,
-    focusDurationInput: { value: duration },
-    hardcoreModeCheckbox: { checked: false },
-    focusModeSelect: { value: 'blacklist' },
-    async updateFocusUI() {
-      refreshCount++;
-    }
-  });
-
-  return {
-    controller,
-    alerts,
-    messages,
-    getRefreshCount: () => refreshCount
-  };
+  const view = popupFocusFixture({ response });
+  view.controller.isPro = isPro; view.controller.focusDurationInput.value = duration;
+  return { ...view, getRefreshCount: () => view.reads };
 }
 
-test('Popup shows the real browser quota failure instead of silently pretending Focus started', async () => {
+test('Popup safely reports a browser quota failure instead of pretending Focus started', async () => {
   const view = createFocusController({
     success: false,
     code: 'dnr_rule_limit_reached',
@@ -469,16 +436,16 @@ test('Popup shows the real browser quota failure instead of silently pretending 
     isHardcore: false,
     focusMode: 'blacklist'
   }]);
-  assert.deepEqual(view.alerts, ['Browser unsafe dynamic rule limit reached (2/1)']);
+  assert.deepEqual(view.alerts, ['errorupdatingrules']);
   assert.equal(view.getRefreshCount(), 1);
 });
 
-test('Popup keeps successful Focus starts silent while refreshing their actual state', async () => {
+test('Popup announces successful Focus starts after refreshing their actual state', async () => {
   const view = createFocusController({ success: true });
 
   await view.controller.startFocusSession();
 
-  assert.deepEqual(view.alerts, []);
+  assert.equal(view.alerts.length, 1); assert.ok(view.alerts[0].startsWith('focussessionactivebanner'));
   assert.equal(view.getRefreshCount(), 1);
 });
 

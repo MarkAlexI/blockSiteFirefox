@@ -1,33 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { popupFocusFixture } from './helpers/popupFocusFixture.js';
 
-const source = readFileSync(new URL('../popup.js', import.meta.url), 'utf8');
-const start = source.indexOf('  async stopFocusSession() {');
-const end = source.indexOf('\n  logRulesMutationFailure(', start);
-assert.ok(start >= 0 && end > start);
-const method = source.slice(start, end);
-
-function createPopup({ response = { success: true }, messageError, refreshError } = {}) {
-  const messages = [];
-  const alerts = [];
-  const errors = [];
-  let refreshes = 0;
-  const api = { runtime: { async sendMessage(message) {
-    messages.push(message);
-    if (messageError) throw messageError;
-    return response;
-  } } };
-  const Controller = new Function('browser', 'chrome', 'customAlert', 't',
-    'return class PopupStop {\n' + method + '\n};'
-  )(api, api, text => alerts.push(text), key => key);
-  const controller = new Controller();
-  controller.logger = { error: (...args) => errors.push(args) };
-  controller.updateFocusUI = async () => {
-    refreshes++;
-    if (refreshError) throw refreshError;
-  };
-  return { controller, messages, alerts, errors, get refreshes() { return refreshes; } };
+function createPopup(options = {}) {
+  const view = popupFocusFixture(options);
+  const state = { focusActive: true, focusEndTime: Date.now() + 60000, isHardcore: false, focusMode: 'blacklist' };
+  view.state(state); view.controller.focusViewState = state; return view;
 }
 
 for (const [label, response, warning] of [
@@ -43,7 +21,7 @@ for (const [label, response, warning] of [
     await view.controller.stopFocusSession();
     assert.deepEqual(view.messages, [{ type: 'stop_focus_session' }]);
     assert.equal(view.refreshes, 1);
-    assert.deepEqual(view.alerts, warning ? ['errorupdatingrules'] : []);
+    assert.deepEqual(view.alerts, response?.syncPending ? ['ruleschangessavedpending'] : warning ? ['errorupdatingrules'] : response?.superseded ? [] : ['focussessionended']);
   });
 }
 

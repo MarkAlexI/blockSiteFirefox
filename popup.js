@@ -59,6 +59,10 @@ class PopupPage {
     this.startFocusBtn = document.getElementById('start-focus-btn');
     this.stopFocusBtn = document.getElementById('stop-focus-btn');
     this.focusDurationInput = document.getElementById('focus-duration');
+    this.focusDurationError = document.getElementById('focus-duration-error');
+    this.focusControls = document.getElementById('focus-controls');
+    this.focusActiveLabel = document.getElementById('focus-active-label');
+    this.focusHardcoreDescription = document.getElementById('focus-hardcore-description');
     this.focusTimerDisplay = document.getElementById('focus-timer-display');
     this.focusStartView = document.getElementById('focus-start-view');
     this.focusActiveView = document.getElementById('focus-active-view');
@@ -696,6 +700,7 @@ class PopupPage {
   async initFocusSession() {
     this.startFocusBtn.addEventListener('click', () => this.startFocusSession());
     this.stopFocusBtn.addEventListener('click', () => this.stopFocusSession());
+    this.focusDurationInput.addEventListener('input', () => this.clearFocusDurationError());
     await this.updateFocusUI();
   }
   
@@ -719,126 +724,182 @@ class PopupPage {
   }
   
   async updateFocusUI() {
-    const renderGeneration = this.focusRenderGeneration = (this.focusRenderGeneration || 0) + 1;
-    if (this.focusTimerInterval) {
-      clearInterval(this.focusTimerInterval);
-      this.focusTimerInterval = null;
-    }
-    
-    const { focusActive, focusEndTime, isHardcore, focusMode } = await getFocusSessionState();
-    if (renderGeneration !== this.focusRenderGeneration) return;
-    
-    if (focusActive && focusEndTime > Date.now()) {
-      this.focusStartView.classList.add('hidden');
-      this.focusActiveView.classList.remove('hidden');
-      this.toggleUIAccessibility(true);
-      
-      this.stopFocusBtn.classList.toggle('hidden', isHardcore);
-      
-      this.updateTimerDisplay(focusEndTime);
-      this.focusTimerInterval = setInterval(() => this.updateTimerDisplay(focusEndTime), 1000);
-    } else {
-      this.focusStartView.classList.remove('hidden');
-      this.focusActiveView.classList.add('hidden');
-      this.toggleUIAccessibility(false);
-      
-      if (this.isPro || this.isLegacyUser) {
-        this.focusDurationInput.disabled = false;
-        this.focusProNote.classList.add('hidden');
-        this.hardcoreModeControl.classList.remove('hidden');
-        if (this.focusModeControl) {
-          this.focusModeControl.classList.remove('hidden');
-        }
-        if (this.focusModeSelect && focusMode) {
-          this.focusModeSelect.value = focusMode;
-        }
-      } else {
-        this.focusDurationInput.disabled = true;
-        this.focusDurationInput.value = 25;
-        this.focusProNote.classList.remove('hidden');
-        this.hardcoreModeControl.classList.add('hidden');
-        if (this.focusModeControl) {
-          this.focusModeControl.classList.add('hidden');
-        }
-        if (this.focusModeSelect) {
-          this.focusModeSelect.value = 'blacklist';
-        }
+    if (this.focusDisposed) return false;
+    const generation = this.focusRenderGeneration = (this.focusRenderGeneration || 0) + 1;
+    const refresh = (async () => {
+      let state;
+      try { state = await getFocusSessionState({ throwOnError: true }); }
+      catch (error) {
+        if (this.focusDisposed) return false;
+        if (generation !== this.focusRenderGeneration) return this.focusRefresh;
+        this.logger.error('Error refreshing Focus Session:', error);
+        if (!this.focusAction) customAlert(t('errorupdatingrules'));
+        return false;
       }
-    }
+      if (this.focusDisposed) return false;
+      if (generation !== this.focusRenderGeneration) return this.focusRefresh;
+      if (this.focusTimerInterval) clearInterval(this.focusTimerInterval);
+      if (this.focusExpiryTimeout) clearTimeout(this.focusExpiryTimeout);
+      this.focusTimerInterval = this.focusExpiryTimeout = null;
+      const { focusActive, focusEndTime, isHardcore, focusMode } = state;
+      const active = Boolean(focusActive && focusEndTime > Date.now());
+      const previous = this.focusViewState, focused = document.activeElement;
+      const disappearing = active ? this.focusStartView : this.focusActiveView;
+      const losesPaidControl = !active && !this.isPro && !this.isLegacyUser &&
+        (focused === this.focusDurationInput || this.focusModeControl?.contains(focused) || this.hardcoreModeControl.contains(focused));
+      const needsFocus = disappearing.contains(focused) || losesPaidControl || (active && isHardcore && focused === this.stopFocusBtn);
+      this.focusViewState = { ...state, focusActive: active };
+      this.focusStartView.hidden = active;
+      this.focusActiveView.hidden = !active;
+      this.focusStartView.classList.toggle('hidden', active);
+      this.focusActiveView.classList.toggle('hidden', !active);
+      this.toggleUIAccessibility(active);
+      if (active) {
+        this.stopFocusBtn.classList.toggle('hidden', isHardcore);
+        this.stopFocusBtn.hidden = isHardcore;
+        this.focusHardcoreDescription.hidden = !isHardcore;
+        if (isHardcore) this.focusActiveLabel.setAttribute('aria-describedby', 'focus-hardcore-description');
+        else this.focusActiveLabel.removeAttribute('aria-describedby');
+        this.updateTimerDisplay(focusEndTime);
+        if (Date.now() < focusEndTime) this.focusTimerInterval = setInterval(() => this.updateTimerDisplay(focusEndTime), 1000);
+      } else {
+        const paid = this.isPro || this.isLegacyUser;
+        this.focusProNote.classList.toggle('hidden', paid);
+        this.hardcoreModeControl.classList.toggle('hidden', !paid);
+        this.focusModeControl?.classList.toggle('hidden', !paid);
+        if (!paid) this.focusDurationInput.value = 25;
+        if (this.focusModeSelect) this.focusModeSelect.value = paid && focusMode ? focusMode : 'blacklist';
+      }
+      this.syncFocusPending();
+      const action = this.focusAction;
+      if (needsFocus || (action?.ownsFocus && !action.moved && (focused === action.anchor || focused === document.body))) {
+        this.restoreFocusSessionFocus(active ? (isHardcore ? this.focusActiveLabel : this.stopFocusBtn) : this.startFocusBtn);
+      }
+      if (!action && previous) this.announceFocusTransition(previous);
+      return true;
+    })();
+    this.focusRefresh = refresh;
+    return refresh;
   }
-  
+
+  syncFocusPending() {
+    const pending = Boolean(this.focusAction);
+    if (pending) this.focusControls.setAttribute('aria-busy', 'true');
+    else this.focusControls.removeAttribute('aria-busy');
+    for (const button of [this.startFocusBtn, this.stopFocusBtn]) {
+      if (pending) button.setAttribute('aria-disabled', 'true');
+      else button.removeAttribute('aria-disabled');
+    }
+    this.focusDurationInput.disabled = pending || (!this.isPro && !this.isLegacyUser);
+    this.focusModeSelect.disabled = pending;
+    this.hardcoreModeCheckbox.disabled = pending;
+  }
+
+  restoreFocusSessionFocus(target) {
+    if (this.focusDisposed || document.hidden || !target || target.disabled ||
+        !document.documentElement.contains(target) || document.querySelector('dialog[open]')) return;
+    for (let node = target; node; node = node.parentNode) {
+      if (node.hidden || node.inert || node.classList?.contains('hidden')) return;
+    }
+    if (this.focusAction) this.focusAction.anchor = target;
+    target.focus();
+  }
+
+  clearFocusDurationError() {
+    if (this.focusDurationError.hidden) return;
+    const ids = (this.focusDurationInput.getAttribute('aria-describedby') || '').split(/\s+/).filter(id => id && id !== 'focus-duration-error');
+    if (ids.length) this.focusDurationInput.setAttribute('aria-describedby', ids.join(' '));
+    else this.focusDurationInput.removeAttribute('aria-describedby');
+    if (this.focusPreviousInvalid === null) this.focusDurationInput.removeAttribute('aria-invalid');
+    else this.focusDurationInput.setAttribute('aria-invalid', this.focusPreviousInvalid);
+    this.focusDurationError.hidden = true;
+    this.focusDurationError.textContent = '';
+  }
+
+  reportFocusDurationError() {
+    const message = t('focussessioninvalidduration');
+    if (this.focusDurationError.hidden) this.focusPreviousInvalid = this.focusDurationInput.getAttribute('aria-invalid');
+    this.focusDurationError.textContent = message;
+    this.focusDurationError.hidden = false;
+    this.focusDurationInput.setAttribute('aria-invalid', 'true');
+    const ids = new Set((this.focusDurationInput.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
+    ids.add('focus-duration-error'); this.focusDurationInput.setAttribute('aria-describedby', [...ids].join(' '));
+    if (!this.focusDurationInput.disabled && this.focusStartView.contains(document.activeElement) && !document.hidden && !document.querySelector('dialog[open]')) {
+      this.restoreFocusSessionFocus(this.focusDurationInput);
+    } else customAlert(message);
+  }
+
+  announceFocusTransition(previous) {
+    const state = this.focusViewState;
+    if (!state || (previous?.focusActive === state.focusActive && previous?.focusEndTime === state.focusEndTime && previous?.isHardcore === state.isHardcore)) return;
+    if (state.focusActive) {
+      // The focused Hardcore description already conveys this transition.
+      if (state.isHardcore && document.activeElement === this.focusActiveLabel) return;
+      customAlert([t('focussessionactivebanner'), this.focusTimerDisplay.textContent,
+        state.isHardcore ? t('focussessionhardcore') : ''].filter(Boolean).join(' '));
+    } else if (previous?.focusActive) customAlert(t('focussessionended'));
+  }
+
   updateTimerDisplay(endTime) {
-    const now = Date.now();
-    const remaining = endTime - now;
-    
+    const remaining = endTime - Date.now();
     if (remaining <= 0) {
       this.focusTimerDisplay.textContent = '00:00';
       clearInterval(this.focusTimerInterval);
       this.focusTimerInterval = null;
-      this.toggleUIAccessibility(false);
-      setTimeout(() => this.updateFocusUI(), 1000);
+      if (!this.focusExpiryTimeout) this.focusExpiryTimeout = setTimeout(() => {
+        this.focusExpiryTimeout = null;
+        if (!this.focusDisposed) void this.updateFocusUI();
+      }, 1000);
       return;
     }
-    
-    const totalSeconds = Math.floor(remaining / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
-    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
-    this.focusTimerDisplay.textContent = hours > 0 ?
-      `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}` :
-      `${minutes}:${seconds}`;
+    const total = Math.floor(remaining / 1000);
+    const hours = Math.floor(total / 3600), minutes = Math.floor(total % 3600 / 60).toString().padStart(2, '0'), seconds = (total % 60).toString().padStart(2, '0');
+    this.focusTimerDisplay.textContent = hours > 0 ? `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
   }
-  
-  async startFocusSession() {
-    const duration = parseInt(this.focusDurationInput.value, 10);
-    if (isNaN(duration) || duration < 1 || duration > 240) {
-      customAlert(t('focussessioninvalidduration'));
-      return;
-    }
-    
-    const hasProAccess = this.isPro || this.isLegacyUser;
-    const isHardcore = hasProAccess && this.hardcoreModeCheckbox.checked;
-    const focusMode = hasProAccess && this.focusModeSelect ? this.focusModeSelect.value : 'blacklist';
-    
-    const response = await browser.runtime.sendMessage({
-      type: 'start_focus_session',
-      duration,
-      isHardcore,
-      focusMode
-    });
 
-    if (response?.success === false) {
-      const errorMessage = response.code === 'pro_required'
-        ? t('prorequired')
-        : typeof response.error === 'string' && response.error
-          ? response.error
-          : t('errorupdatingrules');
-      customAlert(errorMessage);
-      await this.updateFocusUI();
-      return;
+  async startFocusSession() {
+    if (this.focusAction || this.focusDisposed) return;
+    const duration = Number(this.focusDurationInput.value);
+    if (!Number.isInteger(duration) || duration < 1 || duration > 240) {
+      this.reportFocusDurationError(); return;
     }
-    
-    await this.updateFocusUI();
+    this.clearFocusDurationError();
+    const paid = this.isPro || this.isLegacyUser;
+    await this.runFocusAction('start', { type: 'start_focus_session', duration,
+      isHardcore: Boolean(paid && this.hardcoreModeCheckbox.checked),
+      focusMode: paid && this.focusModeSelect ? this.focusModeSelect.value : 'blacklist' });
   }
-  
+
   async stopFocusSession() {
-    let failed = false;
-    try {
-      const response = await browser.runtime.sendMessage({ type: 'stop_focus_session' });
-      failed = response?.success !== true || response.syncPending === true;
-    } catch (error) {
-      this.logger.error('Error stopping Focus Session:', error);
-      failed = true;
-    }
-    try {
-      await this.updateFocusUI();
-    } catch (error) {
-      this.logger.error('Error refreshing Focus Session:', error);
-      failed = true;
-    }
-    if (failed) customAlert(t('errorupdatingrules'));
+    await this.runFocusAction('stop', { type: 'stop_focus_session' });
   }
-  
+
+  async runFocusAction(kind, message) {
+    if (this.focusAction || this.focusDisposed) return;
+    const anchor = document.activeElement, sourceView = kind === 'start' ? this.focusStartView : this.focusActiveView;
+    const action = { anchor, ownsFocus: sourceView.contains(anchor), moved: false };
+    const previous = this.focusViewState || { focusActive: kind === 'stop' };
+    const onFocus = event => { if (event.target !== action.anchor && event.target !== document.body) action.moved = true; };
+    document.addEventListener('focusin', onFocus);
+    this.focusAction = action;
+    this.syncFocusPending();
+    let response, refreshed = false;
+    try { response = await browser.runtime.sendMessage(message); }
+    catch (error) { this.logger.error('Error changing Focus Session:', error); }
+    try { if (!this.focusDisposed) refreshed = await this.updateFocusUI(); }
+    catch (error) { this.logger.error('Error refreshing Focus Session:', error); }
+    finally {
+      document.removeEventListener('focusin', onFocus);
+      this.focusAction = null;
+      if (!this.focusDisposed) this.syncFocusPending();
+    }
+    if (this.focusDisposed) return;
+    if (response?.success !== true || !refreshed) {
+      customAlert(t(response?.code === 'pro_required' ? 'prorequired' : response?.code === 'invalid_focus_duration' ? 'focussessioninvalidduration' : 'errorupdatingrules'));
+    } else if (response.syncPending === true) customAlert(t('ruleschangessavedpending'));
+    else this.announceFocusTransition(previous);
+  }
+
   logRulesMutationFailure(label, error) {
     if (isExpectedRulesRejection(error)) {
       this.logger.info(label, error?.code || 'rejected');
@@ -1023,6 +1084,9 @@ class PopupPage {
   }
   
   cleanup() {
+    this.focusDisposed = true;
+    this.focusRenderGeneration = (this.focusRenderGeneration || 0) + 1;
+    if (this.focusExpiryTimeout) clearTimeout(this.focusExpiryTimeout);
     this.rulesUI.cleanup();
     if (this.storageChangeHandler) {
       browser.storage.onChanged.removeListener(this.storageChangeHandler);
@@ -1057,6 +1121,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     ProManager.updateProFeaturesVisibility(message.isPro || popupPage.isLegacyUser);
     popupPage.isPro = message.isPro;
     popupPage.updateWhitelistButtonState();
+    void popupPage.updateFocusUI();
     popupPage.loadRules();
     
     sendResponse({ received: true });

@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.9**
+# Firefox Desktop E2E — BlockDistraction **5.4.10**
 
 ## CI preparation budget (2026-10-23, tests only)
 

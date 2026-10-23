@@ -395,8 +395,7 @@ export const accessibilityScenarios = [{
   id: '55',
   title: 'Popup status notifications announce ordered repeats without moving focus and wait for modal dismissal',
   async run(e) {
-    await e.seed({ pro: true, rules: [{ id: 55, blockURL: 'status.bd-e2e.test', redirectURL: '', category: 'social',
-      isWhitelist: false, assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] }] });
+    await e.seed({ pro: false, rules: Array.from({ length: 10 }, (_, index) => ({ id: 550 + index, blockURL: `status-${index}.bd-e2e.test`, redirectURL: '', category: 'social', isWhitelist: false, assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] })) });
     const page = await e.openPopup();
     if (page.front) await page.front(); else await page.bringToFront();
     await poll(() => page.evaluate(() => document.body.classList.contains('ready')), Boolean, 'Popup ready');
@@ -413,18 +412,16 @@ export const accessibilityScenarios = [{
       new MutationObserver(() => window.__bdNotices.push(status.textContent))
         .observe(status, { childList: true, characterData: true, subtree: true });
       document.addEventListener('focusin', event => window.__bdNoticeFocus.push(event.target.id));
-      return { invalid: api.i18n.getMessage('focussessioninvalidduration'), pending: api.i18n.getMessage('ruleschangessavedpending') };
+      return { invalid: api.i18n.getMessage('rulelimitreached', ['10']), pending: api.i18n.getMessage('ruleschangessavedpending') };
     });
-    const duration = '#focus-duration';
-    if (page.locator) await page.locator(duration).fill('0'); else await page.fill(duration, '0');
-    await focus(page, '#start-focus-btn');
+    await focus(page, '#add-rule');
     await page.evaluate(() => {
       window.__bdNoticeFocus = []; window.__bdNoticeClicks = [];
-      document.getElementById('start-focus-btn').addEventListener('click', event => window.__bdNoticeClicks.push(event.isTrusted));
+      document.getElementById('add-rule').addEventListener('click', event => window.__bdNoticeClicks.push(event.isTrusted));
     });
     await press(page, 'Enter');
     await press(page, 'Enter');
-    // The real validation path above queues identical localized errors. Exercise
+    // The real Free-limit path above queues identical localized notices. Exercise
     // the existing committed/pending formatter too, without fabricating a save.
     await page.evaluate(async () => {
       const { customAlert } = await import('./scripts/customAlert.js');
@@ -442,17 +439,17 @@ export const accessibilityScenarios = [{
     assert.equal(await page.evaluate(() => document.querySelectorAll('#custom-alert').length), 1);
     assert.deepEqual(await page.evaluate(() => window.__bdNoticeFocus), []);
     assert.deepEqual(await page.evaluate(() => window.__bdNoticeClicks), [true, true]);
-    assert.equal(await page.evaluate(() => document.activeElement.id), 'start-focus-btn');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'add-rule');
     assert.equal(await page.evaluate(async () => {
       const api = typeof browser === 'undefined' ? chrome : browser;
       return !!(await api.storage.local.get('focusSession')).focusSession?.active;
-    }), false, 'invalid duration does not start Focus');
+    }), false, 'limit notices do not start Focus');
 
     await focus(page, '#options-link'); await press(page, 'Shift+Tab');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'custom-alert', 'visible notification is keyboard reachable');
     await press(page, 'Tab');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'options-link');
-    await focus(page, '#start-focus-btn');
+    await focus(page, '#add-rule');
 
     // Use the production prompt controller with real eligible storage. The
     // manual Feedback button opens email and is not the prompt entry point.
@@ -463,7 +460,7 @@ export const accessibilityScenarios = [{
     await poll(() => page.evaluate(() => document.getElementById('custom-alert').textContent), value => value === '', 'background status waits outside modal');
     await press(page, 'Escape');
     await poll(() => page.evaluate(() => document.getElementById('custom-alert').textContent), value => value === messages.pending, 'pending result resumes after modal');
-    assert.equal(await page.evaluate(() => document.activeElement.id), 'start-focus-btn');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'add-rule');
     const geometry = await page.evaluate(() => {
       const status = document.getElementById('custom-alert');
       const box = status.getBoundingClientRect();
@@ -702,6 +699,78 @@ export const accessibilityScenarios = [{
     const state = await e.state();
     assert.equal(state.rules.length, 3); assert.equal(state.rules.filter(rule => rule.isWhitelist).length, 1);
     assert.equal(await page.evaluate(() => window.__bdPopupWrites.length), 6, 'each Save dispatches once');
+  }
+}, {
+  id: '58',
+  title: 'Focus controls retain field errors, guard pending actions and restore safe keyboard focus',
+  async run(e) {
+    await e.seed({pro:true,rules:[{id:58,blockURL:'focus-controls.bd-e2e.test',redirectURL:'',category:'social',isWhitelist:false,
+      assignments:[{listId:'general',disabledByUser:false,blockingMode:'always',schedule:null,dailyLimit:null}]}]});
+    const page=await e.openPopup(); if(page.front)await page.front();else await page.bringToFront();
+    await poll(()=>page.evaluate(()=>document.body.classList.contains('ready')&&!document.getElementById('focus-duration').disabled),Boolean,'Focus ready');
+    assert.deepEqual(await page.evaluate(()=>[document.getElementById('focus-duration-error')?.hidden,
+      document.getElementById('focus-timer-display').getAttribute('role'),document.getElementById('focus-timer-display').getAttribute('aria-live'),
+      document.getElementById('custom-alert').textContent]),[true,'timer','off','']);
+    await page.evaluate(()=>{
+      window.__bdFocusWrites=[];window.__bdFocusNotices=[];
+      const status=document.getElementById('custom-alert');
+      new MutationObserver(()=>{if(status.textContent)window.__bdFocusNotices.push(status.textContent);}).observe(status,{childList:true,characterData:true,subtree:true});
+      for(const runtime of new Set([globalThis.chrome?.runtime,globalThis.browser?.runtime].filter(Boolean))){
+        const original=runtime.sendMessage.bind(runtime);
+        runtime.sendMessage=function(input,...args){
+          if(!['start_focus_session','stop_focus_session'].includes(input?.type))return original(input,...args);
+          window.__bdFocusWrites.push(structuredClone(input));
+          const hold=window.__bdHoldFocus?.type===input.type?window.__bdHoldFocus:null;if(hold)window.__bdHoldFocus=null;
+          const gate=hold?new Promise(resolve=>{window.__bdReleaseFocus=resolve;}):Promise.resolve();
+          const finish=response=>hold?.pending&&response?.success?{...response,syncPending:true}:response;
+          const callback=args.at(-1);
+          if(typeof callback==='function'){
+            if(!hold)return original(input,...args.slice(0,-1),response=>callback(finish(response)));
+            gate.then(()=>original(input,...args.slice(0,-1),response=>callback(finish(response))));return;
+          }
+          return gate.then(()=>original(input,...args)).then(finish);
+        };
+      }
+    });
+    const fill=value=>page.locator?page.locator('#focus-duration').fill(value):page.fill('#focus-duration',value);
+    const activate=async selector=>{await focus(page,selector);await press(page,'Enter');};
+    await fill('1.5');await activate('#start-focus-btn');
+    await poll(()=>page.evaluate(()=>document.activeElement.id==='focus-duration'&&document.activeElement.getAttribute('aria-invalid')==='true'),Boolean,'duration error focus');
+    assert.deepEqual(await page.evaluate(()=>[document.activeElement.value,document.activeElement.getAttribute('aria-describedby'),window.__bdFocusWrites.length,
+      document.getElementById('custom-alert').textContent]),['1.5','focus-duration-error',0,'']);
+    await fill('25');assert.equal(await page.evaluate(()=>document.getElementById('focus-duration').getAttribute('aria-invalid')),null);
+    await page.evaluate(()=>{window.__bdHoldFocus={type:'start_focus_session'};});
+    await activate('#start-focus-btn');await press(page,'Enter');
+    assert.deepEqual(await page.evaluate(()=>[window.__bdFocusWrites.length,document.activeElement.id,document.activeElement.getAttribute('aria-disabled'),
+      document.getElementById('focus-controls').getAttribute('aria-busy'),document.getElementById('focus-duration').disabled]),[1,'start-focus-btn','true','true',true]);
+    await page.evaluate(()=>window.__bdReleaseFocus());
+    await poll(async()=>(await e.state()).focusSession.focusActive,Boolean,'native Focus start');
+    await poll(()=>page.evaluate(()=>document.activeElement.id==='stop-focus-btn'&&!document.activeElement.hasAttribute('aria-disabled')),Boolean,'available Stop focus');
+    await poll(()=>page.evaluate(()=>window.__bdFocusNotices.length),n=>n===1,'one start notice');
+    const time=await page.evaluate(()=>document.getElementById('focus-timer-display').textContent);
+    await poll(()=>page.evaluate(()=>document.getElementById('focus-timer-display').textContent),value=>value!==time,'native timer tick');
+    assert.equal(await page.evaluate(()=>window.__bdFocusNotices.length),1,'ticks do not add live notices');
+    await page.evaluate(()=>{window.__bdHoldFocus={type:'stop_focus_session',pending:true};});
+    await activate('#stop-focus-btn');await press(page,'Enter');assert.equal(await page.evaluate(()=>window.__bdFocusWrites.length),2);
+    await focus(page,'#options-link');await page.evaluate(()=>window.__bdReleaseFocus());
+    await poll(async()=>(await e.state()).focusSession.focusActive,value=>value===false,'native Stop commit');
+    await poll(()=>page.evaluate(()=>document.getElementById('focus-active-view').hidden),Boolean,'inactive view');
+    assert.equal(await page.evaluate(()=>document.activeElement.id),'options-link');
+    await poll(()=>page.evaluate(()=>document.getElementById('custom-alert').textContent),text=>text.length>0&&text!=='', 'status available');
+    const pending=await page.evaluate(()=>(globalThis.browser||chrome).i18n.getMessage('ruleschangessavedpending'));
+    await poll(()=>page.evaluate(()=>document.getElementById('custom-alert').textContent),text=>text===pending,'saved pending Stop');
+    assert.equal(await page.evaluate(()=>window.__bdFocusWrites.length),2);
+    await focus(page,'#focus-hardcore-mode');await press(page,'Space');await activate('#start-focus-btn');
+    await poll(()=>page.evaluate(()=>document.activeElement.id==='focus-active-label'&&document.getElementById('stop-focus-btn').hidden),Boolean,'Hardcore static focus');
+    assert.deepEqual(await page.evaluate(()=>[document.activeElement.getAttribute('aria-describedby'),document.getElementById('focus-hardcore-description').hidden]),['focus-hardcore-description',false]);
+    const name=await page.evaluate(()=>(globalThis.browser||chrome).i18n.getMessage('focussessionactivebanner'));
+    if(page.getByRole)assert.equal(await page.getByRole('timer',{name,exact:true}).count(),1);
+    else{assert.equal(await(await page.element('#focus-timer-display')).getAriaRole(),'timer');await poll(async()=>(await page.element('#focus-timer-display')).getAccessibleName(),value=>value===name,'computed timer name');}
+    // Only this isolated stored deadline is shortened: native UI expiry, not an alarms or OS-resume test.
+    const state=(await e.state()).focusSession;await e.writeLocal({focusSession:{...state,focusEndTime:Date.now()+250}});
+    await poll(()=>page.evaluate(()=>document.activeElement.id==='start-focus-btn'&&document.getElementById('focus-active-view').hidden),Boolean,'observed completion focus');
+    await poll(()=>page.evaluate(()=>window.__bdFocusNotices.filter(text=>text===(globalThis.browser||chrome).i18n.getMessage('focussessionended')).length),n=>n===1,'one completion notice');
+    assert.equal(await page.evaluate(()=>window.__bdFocusWrites.length),3,'no duplicate requests or implicit expiry Stop');
   }
 }
 ];

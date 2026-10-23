@@ -46,6 +46,7 @@
           <input type="number" id="focus-duration" value="25" min="1" max="240">
           <small id="focus-pro-note" class="pro-note hidden" data-i18n="focussessionprofeature"></small>
         </div>
+        <p id="focus-duration-error" class="focus-field-error" hidden></p>
         <div id="focus-mode-control" class="focus-mode-control hidden">
           <label for="focus-mode-select" data-i18n="focussessionmode">Mode:</label>
           <select id="focus-mode-select">
@@ -57,11 +58,13 @@
           <input type="checkbox" id="focus-hardcore-mode">
           <label for="focus-hardcore-mode" data-i18n="focussessionhardcore"></label>
         </div>
-        <button id="start-focus-btn" class="action-btn" data-i18n="focussessionstart"></button>
+        <button type="button" id="start-focus-btn" class="action-btn" data-i18n="focussessionstart"></button>
       </div>
       <div id="focus-active-view" class="hidden">
-        <div id="focus-timer-display">00:00</div>
-        <button id="stop-focus-btn" class="action-btn delete-btn" data-i18n="focussessionstop"></button>
+        <p id="focus-active-label" tabindex="-1" data-i18n="focussessionactivebanner"></p>
+        <div id="focus-timer-display" role="timer" aria-live="off" aria-labelledby="focus-active-label">00:00</div>
+        <p id="focus-hardcore-description" data-i18n="focussessionhardcore" hidden></p>
+        <button type="button" id="stop-focus-btn" class="action-btn delete-btn" data-i18n="focussessionstop"></button>
       </div>
     </div>
     <div class="focus-schedule-summary" data-focus-schedule dir="auto">
