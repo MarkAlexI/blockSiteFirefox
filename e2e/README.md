@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.5**
+# Firefox Desktop E2E — BlockDistraction **5.4.6**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -916,3 +916,28 @@ wrapping remain unchanged by request. New full native CI, actual screen reader,
 Android/macOS and minimum-version checks remain required. Baseline 5.4.4 Firefox
 CI passed 51/51; the Chromium run was cancelled after 20 passes.
 See `docs/accessibility-roadmap.md` for exact scope, sources and limitations.
+
+
+## A11Y-04 / 5.4.6: Popup keyboard state and focus (54)
+
+Scenario 54 checks computed names for Popup URL fields and native rule buttons,
+trusted Space/Enter, saved pressed state, focus after deferred replacements,
+password cancellation/authorization, real Focus start/stop availability, and
+background refresh/removal focus. It reads actual storage and uses production
+handlers; the final background changes seed isolated test data. Node regressions
+separately control pending authorization, duplicate activation and read races.
+The registered totals are 52 Chromium and 53 Firefox scenarios.
+
+Firefox 153 temporary-install scenario 54 passes; baseline 5.4.5 fails at the
+old SPAN. Loopback Blink/Firefox rendering is separate from installed Chrome
+and actual screen-reader speech. See `docs/accessibility-roadmap.md`.
+
+Base 5.4.5 CI: Chromium 51/51; Firefox 50/52 (27 and 49 failed). Firefox 27 now
+waits for the previous Save/visibility refresh before Add using the existing
+DOM-settle guard. There is still no settle between Add and the early field
+transition, and the native former-100ms callback gate remains in place.
+Scenario 49 waits for the exact computed AX names after the trusted key event;
+no user action is replayed and no deadline is increased. New scenario 54 also
+reacquires a stale WebDriver name read while real refreshes replace its row.
+Local Firefox 153 scenarios 27/49 pass. Exact CI Firefox 158.0b2 cannot launch
+locally (SIGBUS before --version), so a new full headed CI remains necessary.

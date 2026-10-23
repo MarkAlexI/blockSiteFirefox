@@ -634,3 +634,27 @@ button:disabled {
   text-decoration: underline;
   transform: none;
 }
+
+
+.rule .rule-toggle-popup {
+  flex: 0 0 auto;
+  align-self: center;
+  width: auto;
+  min-width: 2rem;
+  min-height: 2rem;
+  margin: 0;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--bd-control-border);
+  background: var(--bd-surface-soft);
+  color: var(--bd-text);
+  line-height: 1;
+}
+
+.rule .rule-toggle-popup:hover {
+  background: var(--bd-surface);
+  transform: none;
+}
+
+.rule .rule-toggle-popup[aria-disabled="true"] {
+  cursor: progress;
+}

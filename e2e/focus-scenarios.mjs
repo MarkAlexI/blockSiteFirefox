@@ -12,6 +12,9 @@ export const focusScenarios = [{
     const page = await e.openOptions();
     await page.evaluate(installOptionsFocusGate);
     for (const mode of ['always', 'daily_limit']) {
+      // Finish the previous Save/visibility refresh before measuring this Add.
+      // There is still no settle between Add and the field transition below.
+      await page.settleOptions();
       const url = `keyboard-${mode}.bd-e2e.test`;
       await page.evaluate(() => {
         document.querySelector('#add-rule').addEventListener('click', () => {

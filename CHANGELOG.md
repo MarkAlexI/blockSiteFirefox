@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.6] - 2026-10-23
+
+- Make Popup manual rule states named native toggle buttons with keyboard activation and committed pressed state.
+- Preserve rule-assignment focus across deferred and overlapping Popup refreshes, respect later focus choices and fall back to Add when the action disappears.
+- Ignore duplicate activation while password authorization or a mutation is pending; keep muted categories and Focus-locked toggles unavailable.
+- Keep localized URL field names after saved-rule placeholders are cleared. Add focused regressions and native Popup keyboard scenario 54.
+- Synchronize focus-test setup with the preceding save and wait for native password-dialog accessibility names without replaying actions or increasing deadlines.
+
 ## [5.4.5] - 2026-10-23
 
 - Set document language and direction from native extension locale metadata; keep URL editing left-to-right in RTL layouts.

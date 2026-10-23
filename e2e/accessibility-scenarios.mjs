@@ -287,4 +287,109 @@ export const accessibilityScenarios = [{
       }, initial);
     }
   }
-}];
+}, {
+  id: '54',
+  title: 'Popup rule toggles expose committed keyboard state, retain assignment focus and respect password and Focus locks',
+  async run(e) {
+    const rule = id => ({ id, blockURL: `popup-toggle-${id}.bd-e2e.test`, redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] });
+    await e.seed({ pro: true, rules: [rule(54), rule(55)] });
+    const page = await e.openPopup();
+    const front = async target => { if (target.front) await target.front(); else await target.bringToFront(); };
+    await front(page);
+    const toggle = '#rules-container .rule[data-rule-id="54"][data-assignment-list-id="general"] .rule-toggle-popup';
+    await poll(() => page.evaluate(() => document.querySelectorAll('#rules-container .rule-toggle-popup').length),
+      count => count === 2, 'two Popup rule controls');
+    assert.equal(await page.evaluate(() => document.querySelector('#rules-container .rule-toggle-popup').tagName), 'BUTTON');
+    const name = await page.evaluate(() => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      return `${api.i18n.getMessage('blockingmode_header')}: popup-toggle-54.bd-e2e.test`;
+    });
+    const assertAccessibleName = async (selector, expected, role = 'button') => {
+      if (page.getByRole) {
+        await poll(() => page.locator(selector).and(page.getByRole(role, { name: expected, exact: true })).count(), count => count === 1, 'Popup AX name');
+      } else {
+        await poll(async () => {
+          try { return await (await page.element(selector)).getAccessibleName(); }
+          catch (error) {
+            // The read spans two WebDriver commands while real refreshes replace rows.
+            if (error.name === 'StaleElementReferenceError') return null;
+            throw error;
+          }
+        }, actual => actual === expected, 'Popup computed AX name');
+      }
+    };
+    const assertName = () => assertAccessibleName(toggle, name);
+    const assertState = async disabled => {
+      await poll(() => page.evaluate(async ({ selector, disabled }) => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        const stored = (await api.storage.local.get('rules')).rules.find(rule => rule.id === 54);
+        const button = document.querySelector(selector);
+        return stored.assignments[0].disabledByUser === disabled && button?.getAttribute('aria-pressed') === String(!disabled) &&
+          document.activeElement === button;
+      }, { selector: toggle, disabled }), Boolean, 'Popup committed state and replacement focus');
+      await assertName();
+    };
+    await assertName();
+    const labels = await page.evaluate(() => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      return [api.i18n.getMessage('blockurl'), api.i18n.getMessage('redirecturl')];
+    });
+    const rowSelector = '#rules-container .rule[data-rule-id="54"]';
+    await assertAccessibleName(`${rowSelector} input:nth-of-type(1)`, labels[0], 'textbox');
+    await assertAccessibleName(`${rowSelector} input:nth-of-type(2)`, labels[1], 'textbox');
+    await page.evaluate(() => {
+      window.__bdPopupToggleClicks = [];
+      document.getElementById('rules-container').addEventListener('click', event => {
+        if (event.target.closest('.rule-toggle-popup')) window.__bdPopupToggleClicks.push(event.isTrusted);
+      });
+    });
+    await focus(page, toggle); await press(page, 'Space'); await assertState(true);
+    await press(page, 'Enter'); await assertState(false);
+    assert.deepEqual(await page.evaluate(() => window.__bdPopupToggleClicks), [true, true]);
+
+    const options = await e.openOptions(); await front(options);
+    await focus(options, '[aria-controls="security-settings-panel"]'); await press(options, 'Enter');
+    await focus(options, '#enablePassword'); await press(options, 'Space');
+    await poll(() => options.evaluate(() => document.getElementById('passwordModal').open), Boolean, 'password setup');
+    const fill = (target, selector, value) => target.locator ? target.locator(selector).fill(value) : target.fill(selector, value);
+    const password = 'BD-popup-toggle-54';
+    await fill(options, '#passwordInput1', password); await fill(options, '#passwordInput2', password);
+    await press(options, 'Enter');
+    await poll(() => options.evaluate(() => !document.getElementById('passwordModal').open), Boolean, 'password saved');
+    await front(page); await focus(page, toggle); await press(page, 'Space');
+    await poll(() => page.evaluate(() => document.getElementById('passwordModal').open), Boolean, 'Popup password gate');
+    await press(page, 'Escape'); await assertState(false);
+    await press(page, 'Enter');
+    await poll(() => page.evaluate(() => document.getElementById('passwordModal').open), Boolean, 'Popup password retry');
+    await fill(page, '#passwordInput1', password); await press(page, 'Enter'); await assertState(true);
+
+    // The newly keyboard-reachable action still follows the real Focus lock.
+    await focus(page, '#start-focus-btn'); await press(page, 'Enter');
+    await poll(() => page.evaluate(() => document.getElementById('rules-container').classList.contains('focus-lock-active') &&
+      [...document.querySelectorAll('.rule-toggle-popup')].every(button => button.disabled)), Boolean, 'Focus locks Popup toggles');
+    await focus(page, '#stop-focus-btn'); await press(page, 'Enter');
+    await poll(() => page.evaluate(() => !document.getElementById('rules-container').classList.contains('focus-lock-active') &&
+      [...document.querySelectorAll('.rule-toggle-popup')].every(button => !button.disabled)), Boolean, 'Focus unlocks Popup toggles');
+
+    // A background refresh respects a later choice of a permanent control.
+    await focus(page, '#options-link');
+    await page.evaluate(async () => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      const saved = await api.storage.local.get(['rules', 'rulesGeneration']);
+      await api.storage.local.set({ rules: saved.rules.map(rule => rule.id === 54 ? { ...rule,
+        assignments: rule.assignments.map(a => ({ ...a, disabledByUser: false })) } : rule), rulesGeneration: `${saved.rulesGeneration}-54-external` });
+    });
+    await poll(() => page.evaluate(selector => document.querySelector(selector)?.getAttribute('aria-pressed') === 'true', toggle),
+      Boolean, 'background rule refresh');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'options-link');
+    await focus(page, toggle);
+    await page.evaluate(async () => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      const saved = await api.storage.local.get(['rules', 'rulesGeneration']);
+      await api.storage.local.set({ rules: saved.rules.filter(rule => rule.id !== 54), rulesGeneration: `${saved.rulesGeneration}-removed` });
+    });
+    await poll(() => page.evaluate(() => document.activeElement.id === 'add-rule'), Boolean, 'removed focused rule falls back to Add');
+  }
+}
+];

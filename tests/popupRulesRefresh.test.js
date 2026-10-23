@@ -18,7 +18,7 @@ const rules = id => [{ id, blockURL: `rule${id}.example`, assignments: [
 const snapshot = id => ({ rules: rules(id), generation: `generation-${id}`, revisions: {} });
 const lists = { lists: [{ id: 'general', disabledCategories: [] }], activeRuleListId: 'general' };
 function element() {
-  return { style: {}, dataset: {}, children: [], classList: { add() {} },
+  return { style: {}, dataset: {}, children: [], classList: { add() {} }, setAttribute() {},
     appendChild(child) { this.children.push(child); }, addEventListener() {}, focus() {} };
 }
 function controller(deps = {}) {

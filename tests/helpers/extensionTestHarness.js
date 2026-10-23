@@ -165,6 +165,10 @@ export class FakeElement {
     return this.attributes.get(name) ?? null;
   }
 
+  removeAttribute(name) {
+    this.attributes.delete(name);
+  }
+
   matches(selector) {
     return selector.split(',').some(part => matchesSelectorChain(this, part));
   }

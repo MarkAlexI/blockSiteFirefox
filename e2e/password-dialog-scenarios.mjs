@@ -22,11 +22,13 @@ async function assertNames(page, mode) {
       input: api.i18n.getMessage(mode === 'recover' ? 'pastekeylabel' : 'enterpassword') };
   }, mode);
   if (page.getByRole) {
-    assert.equal(await page.getByRole('dialog', { name: names.dialog, exact: true }).count(), 1);
-    assert.equal(await page.locator('#passwordModal').getByLabel(names.input, { exact: true }).count(), 1);
+    await poll(() => page.getByRole('dialog', { name: names.dialog, exact: true }).count(), count => count === 1, 'password dialog AX name');
+    await poll(() => page.locator('#passwordModal').getByLabel(names.input, { exact: true }).count(), count => count === 1, 'password input AX name');
   } else {
-    assert.equal(await (await page.element('#passwordModal')).getAccessibleName(), names.dialog);
-    assert.equal(await (await page.element('#passwordInput1')).getAccessibleName(), names.input);
+    // Native AX names may settle after the trusted key action and DOM title.
+    // Keep checking the computed name, without replaying the action.
+    await poll(async () => (await page.element('#passwordModal')).getAccessibleName(), actual => actual === names.dialog, 'password dialog computed AX name');
+    await poll(async () => (await page.element('#passwordInput1')).getAccessibleName(), actual => actual === names.input, 'password input computed AX name');
   }
 }
 

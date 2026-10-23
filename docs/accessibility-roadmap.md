@@ -420,3 +420,88 @@ wOxxOm для цього сценарію не знайдено. Нативна 
 [Mozilla 1015482](https://bugzilla.mozilla.org/show_bug.cgi?id=1015482)
 про intrinsic minimum flex items виправлено у Firefox 32; поточний патч
 не вважає це відкритим дефектом Firefox.
+
+
+## A11Y-04, частина 3: клавіатура й назви в Popup, 5.4.6
+
+- Ручний стан правила в Popup використовує нативну кнопку замість clickable
+  span. Space/Enter працюють через стандартну активацію; назва містить
+  локалізоване призначення та адресу, `aria-pressed` відображає збережений
+  стан. Символи ✓/✗ залишено. Whitelist, Schedule і Daily Limit зберігають
+  статичне представлення без додаткової ручної дії.
+- На час пароля/мутації `aria-disabled` і guard блокують повторний запит,
+  зберігаючи фокус; скасування й помилка не створюють оптимістичного стану.
+  Чинні перевірки пароля та generation/revision передаються без змін.
+  Muted category і Focus Session роблять нові кнопки недоступними, зокрема
+  коли рядок з'явився вже після початку Focus. Завершення Focus не вмикає
+  кнопку приглушеної категорії.
+- Після відкладеного refresh фокус повертається до того самого rule/list,
+  навіть за перекриття refresh і зміни порядку. Якщо дія зникла або стала
+  недоступною, fallback — Add. Вибір іншого контрола під час читання чи
+  після видалення старого рядка має пріоритет над автоматичним поверненням.
+- Поля block URL / redirect URL отримують сталі локалізовані назви із чинних
+  перекладів. Вони зберігаються після очищення placeholder у readonly-рядку;
+  адреси та значення полів не змінюються. Нова кнопка має область 32×32 CSS px.
+- Версія manifest/package/README/E2E — 5.4.6. `update/update.js` і весь
+  `styles/options.css`, включно зі стовпцями таблиці та перенесенням адрес,
+  побайтово незмінні. Нових дозволів, endpoint чи форматів даних немає.
+
+Перевірки 23 жовтня 2026 року:
+
+- `npm run check`: Chromium **1961/1961**, Firefox **1940/1940**; validator
+  і 70 пар контрасту проходять. Додано 16 Node-регресій на варіант: pending,
+  відмова/скасування, контекст призначення, накладені refresh, ручний вибір
+  фокуса, fallback, категорії, Focus lock і сталі назви полів.
+- Native Firefox 153, Linux headless, тимчасове встановлення в ізольованому
+  профілі: scenario 54 перевіряє обчислені AX names, trusted Space/Enter,
+  committed state/фокус, реальний пароль і Escape, початок/завершення Focus,
+  фонове оновлення та fallback після видалення правила. На чистій 5.4.5
+  сценарій падає на `SPAN !== BUTTON`. Це Popup у вкладці, не toolbar popup.
+- Blink 151 і Firefox 153: 12 loopback DOM/CSS станів із API-моделлю:
+  en/1280, uk/ar/360, en/de/320, en/640 із базовим текстом 200%. Нативні
+  клавіші, повернення фокуса, геометрія та назви проходять. axe-core 4.14.0
+  не виявив WCAG A/AA violations у перевірених картках; `color-contrast`
+  і `label-content-name-mismatch` мають incomplete results. До додавання
+  назв той самий аудит показував `label` для обох readonly-полів кожного
+  правила. Зміна базового тексту не підміняє browser zoom; installed Chrome
+  тут не перевірено через відомий ProcessSingleton blocker.
+
+CI бази 5.4.5 та виправлення перевірок:
+
+- Chromium `6ce5f0e`: [51/51](https://github.com/MarkAlexI/blockSiteExtension/actions/runs/39923322051),
+  включно з native zoom. Firefox `02eb7e7`:
+  [50/52](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/39923610943);
+  пройшов zoom, впали 27 і 49. Вивчено results.json, стек, кінцевий стан
+  і screenshots обох падінь; page/network errors відсутні.
+- У 27 перша дія вже збережена, а другий editor зникає до вибору поля.
+  З коду та знімка випливає ризик перекриття з попереднім Save/refresh.
+  Перед кожним Add fixture тепер чекає стабільного попереднього UI через
+  чинний `settleOptions`. Після Add немає додаткового settle: ранній фокус,
+  справжній ввід і доставка старого 100ms callback усе ще перевіряються.
+- У 49 screenshot показує відкритий Restore Access, але миттєвий WebDriver
+  AX read повернув порожню назву. Перевірка тепер очікує точну computed AX
+  name діалогу й поля в межах чинного deadline. Це узгодження перевірки
+  з асинхронним AX-оновленням; постійно порожня/хибна назва далі провалює тест.
+  Дії й мутації не повторюються, timeout suite/scenario не збільшувався.
+- Локальні native 27 і 49 проходять у Firefox 153 після змін. Точний
+  Firefox Developer Edition 158.0b2 із CI завантажено, але його executable
+  локально завершується SIGBUS навіть на `--version`; жодне тіло тесту на
+  ньому не запущено. Падіння CI 158 не вважаються остаточно закритими без
+  нового headed CI. Зареєстровані totals 5.4.6: Chromium 52, Firefox 53.
+
+Реальні screen reader/TalkBack, Android/macOS, toolbar popup і мінімальні
+версії потребують окремого проходу. Наступний борг у коді — доступне
+озвучування коротких повідомлень `customAlert`; зараз вони лише візуальні.
+Цей патч не оголошує весь аудит завершеним.
+
+Основа: [APG Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/),
+[APG keyboard interface](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/),
+[WAI ARIA14](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14).
+Історичну [Mozilla 452307](https://bugzilla.mozilla.org/show_bug.cgi?id=452307)
+закрито INVALID: `activeElement` під час blur не можна трактувати як уже
+сфокусований наступний контрол. Тут стан перевіряється після вставлення,
+без залежності від blur. [APG #2318](https://github.com/w3c/aria-practices/issues/2318)
+обговорює різні disabled-патерни; поточна реалізація зберігає фокус лише
+на час очікування, а дії недоступної категорії/Focus використовують native
+`disabled`. Релевантного пояснення wOxxOm для цього конкретного випадку
+не знайдено; пошук сам по собі не є доказом браузерної поведінки.

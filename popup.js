@@ -288,6 +288,16 @@ class PopupPage {
       
       this.currentRuleCount = countFreeRules(rules);
       
+      const active = document.activeElement;
+      const focusedRow = active?.classList?.contains('rule-toggle-popup')
+        ? [...this.rulesContainer.children].find(row => row.querySelector('.rule-toggle-popup') === active)
+        : null;
+      if (focusedRow) {
+        this.ruleToggleFocus = { ruleId: String(focusedRow.dataset.ruleId),
+          listId: focusedRow.dataset.assignmentListId, previous: active };
+      } else if (this.ruleToggleFocus && active !== document.body && active !== this.ruleToggleFocus.previous) {
+        this.ruleToggleFocus = null;
+      }
       this.rulesContainer.innerHTML = '';
       
       const visibleRules = rules.filter(rule =>
@@ -317,6 +327,11 @@ class PopupPage {
         );
       });
 
+      if (this.ruleToggleFocus && !visibleRules.some(rule =>
+        String(rule.id) === this.ruleToggleFocus.ruleId &&
+        getRuleAssignment(rule, this.ruleToggleFocus.listId)?.listId === this.activeRuleListId)) {
+        this.restoreRuleToggleFocus(null, refreshId);
+      }
       this.updateStatus(visibleRules.length);
       this.showBlockThisSiteButton(rules);
       
@@ -327,6 +342,21 @@ class PopupPage {
     }
   }
   
+  restoreRuleToggleFocus(row, refreshId) {
+    const pending = this.ruleToggleFocus;
+    if (!pending || refreshId !== this.rulesRefreshId) return;
+    if (row && (String(row.dataset.ruleId) !== pending.ruleId ||
+        row.dataset.assignmentListId !== pending.listId)) return;
+    this.ruleToggleFocus = null;
+    // Deferred row insertion must respect a later keyboard or pointer choice.
+    const active = document.activeElement;
+    if (active !== document.body && active !== pending.previous) return;
+    if (this.rulesContainer.classList.contains('focus-lock-active')) return;
+    const toggle = row?.querySelector('.rule-toggle-popup');
+    const target = toggle && !toggle.disabled ? toggle : this.addRuleButton;
+    target?.focus({ preventScroll: true });
+  }
+
   showBlockThisSiteButton(rules) {
     const existingButton = document.getElementById('block-that');
     if (existingButton) {
@@ -474,6 +504,7 @@ class PopupPage {
     ruleDiv.className = className;
     ruleDiv.dataset.ruleId = ruleId;
     ruleDiv.dataset.isWhitelist = isWhitelist;
+    ruleDiv.dataset.assignmentListId = effectiveAssignments[0]?.listId || GENERAL_RULE_LIST_ID;
     
     if (isMuted) {
       ruleDiv.title = t('category_muted_no_edit');
@@ -483,6 +514,7 @@ class PopupPage {
     blockURL.type = 'text';
     configureUrlInput(blockURL);
     blockURL.placeholder = t('blockurl');
+    blockURL.setAttribute('aria-label', t('blockurl'));
     blockURL.value = blockURLValue;
 
     const mobileLinkHint = !blockURLValue && !isWhitelist
@@ -499,6 +531,7 @@ class PopupPage {
     const redirectURL = document.createElement('input');
     redirectURL.type = 'text';
     configureUrlInput(redirectURL);
+    redirectURL.setAttribute('aria-label', t('redirecturl'));
     
     if (isWhitelist) {
       redirectURL.placeholder = 'N/A';
@@ -577,21 +610,34 @@ class PopupPage {
           }
           ruleDiv.appendChild(limitElement);
         } else {
-          const toggleElement = document.createElement('span');
+          const toggleElement = document.createElement('button');
+          toggleElement.type = 'button';
           toggleElement.className = 'rule-toggle-popup';
           toggleElement.textContent = disabledByUser ? '✗' : '✓';
+          toggleElement.setAttribute('aria-label', `${t('blockingmode_header')}: ${blockURLValue}`);
+          toggleElement.setAttribute('aria-pressed', String(!disabledByUser));
+          toggleElement.disabled = isMuted || Boolean(this.rulesContainer.classList?.contains('focus-lock-active'));
           toggleElement.title = disabledByUser ? t('rule_disabled') || 'Disabled' : t('rule_enabled') || 'Enabled';
-          toggleElement.style.cursor = 'pointer';
-          toggleElement.style.marginLeft = '10px';
+          let pending = false;
           toggleElement.addEventListener('click', async () => {
-            await this.handleRuleToggle(
-              ruleId,
-              activeAssignment?.listId || this.activeRuleListId || GENERAL_RULE_LIST_ID,
-              disabledByUser,
-              isMuted,
-              expectedGeneration,
-              expectedRevision
-            );
+            if (pending || toggleElement.disabled) return;
+            pending = true;
+            toggleElement.setAttribute('aria-disabled', 'true');
+            try {
+              await this.handleRuleToggle(
+                ruleId,
+                activeAssignment?.listId || this.activeRuleListId || GENERAL_RULE_LIST_ID,
+                disabledByUser,
+                isMuted,
+                expectedGeneration,
+                expectedRevision
+              );
+            } catch (error) {
+              this.logger.error('Toggle rule error:', error);
+            } finally {
+              pending = false;
+              toggleElement.removeAttribute('aria-disabled');
+            }
           });
           ruleDiv.appendChild(toggleElement);
         }
@@ -611,6 +657,7 @@ class PopupPage {
       }
       
       this.rulesContainer.insertAdjacentElement('afterbegin', ruleDiv);
+      if (this.ruleToggleFocus) this.restoreRuleToggleFocus(ruleDiv, refreshId);
       // Schedule only after insertion, and never steal a later user focus choice.
       if (!ruleId && !blockURLValue) {
         requestAnimationFrame(() => {
@@ -648,6 +695,12 @@ class PopupPage {
     elementsToLock.forEach(el => {
       if (el) {
         el.classList.toggle('focus-lock-active', locked);
+        if (el === this.rulesContainer) {
+          for (const row of el.children) {
+            const toggle = row.querySelector('.rule-toggle-popup');
+            if (toggle) toggle.disabled = locked || row.classList.contains('category-muted');
+          }
+        }
       }
     });
   }
