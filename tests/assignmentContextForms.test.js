@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { FakeDocument } from './helpers/extensionTestHarness.js';
+import { RuleEditorFeedback } from '../rules/ruleEditorFeedback.js';
 
 const optionsSource = readFileSync(new URL('../options/options.js', import.meta.url), 'utf8');
 const popupSource = readFileSync(new URL('../popup.js', import.meta.url), 'utf8');
@@ -71,15 +73,17 @@ test('assignment context Options edit retains source and target revisions throug
 
 test('assignment context Popup captures destination before delayed rendering and later active changes', async () => {
   let render;const requests = [];
+  const document = new FakeDocument(); document.activeElement = document.body;
   const c = controller(popupSource, [['createRuleInputs(', 'createSaveButton('], ['createSaveButton(', 'async initFocusSession('], ['async saveNewRule(', 'async handleRuleDeletion(']], {
-    document: { createElement: element }, configureUrlInput() {}, requestAnimationFrame() {}, setTimeout(fn) { render = fn; }
+    document, RuleEditorFeedback, configureUrlInput() {}, requestAnimationFrame() {}, setTimeout(fn) { render = fn; }
   });
   let row;Object.assign(c, { activeDisabledCategories: [], currentRuleCount: 0,
-    rulesContainer: { insertAdjacentElement(_position, el) { row = el; } }, rulesClient: { async addRule(payload) { requests.push(payload); } } });
+    rulesUI: { getValidationMessage: code => code },
+    rulesContainer: { insertAdjacentElement(_position, el) { row = el; document.body.appendChild(el); } }, rulesClient: { async addRule(payload) { requests.push(payload); } } });
   c.createRuleInputs();c.activeRuleListId = 'general';c.ruleListSnapshot = { generation: 'new', revisions: {} };render();
-  row.children[0].value = 'typed.example';const button = row.children.find(el => el.className === 'save-btn');await button.listeners.click();
+  row.children[0].value = 'typed.example';const button = row.querySelector('.save-btn');await button.dispatch('click');
   assert.equal(requests[0].assignment.listId, 'list-1');assert.equal(requests[0].expectedGeneration, 'captured-generation');
-  assert.deepEqual(requests[0].expectedListRevisions, { 'list-1': 'captured-list' });assert.equal(row.removed, true);
+  assert.deepEqual(requests[0].expectedListRevisions, { 'list-1': 'captured-list' });assert.equal(row.parentNode, null);
 });
 
 test('assignment context Popup current-site button retains the destination chosen when displayed', async () => {

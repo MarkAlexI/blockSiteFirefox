@@ -577,5 +577,131 @@ export const accessibilityScenarios = [{
     assert.deepEqual(nativeDialogs, []);
     if (e.result) assert.equal((e.result.userPrompts || []).filter(event => event.context === page.context && event.type === 'alert').length, 0);
   }
+}, {
+  id: '57',
+  title: 'Popup rule errors retain drafts, guard duplicate Save and preserve useful keyboard focus',
+  nativeViewport: true,
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openPopup();
+    if (page.front) await page.front(); else await page.bringToFront();
+    await poll(() => page.evaluate(() => document.body.classList.contains('ready')), Boolean, 'Popup ready');
+    // Delay each chosen real RPC once; a successful reply's controlled pending
+    // flag tests feedback without claiming a native browser synchronization fault.
+    await page.evaluate(() => {
+      window.__bdPopupWrites = []; window.__bdPopupReplies = [];
+      for (const runtime of new Set([globalThis.chrome?.runtime, globalThis.browser?.runtime].filter(Boolean))) {
+        const original = runtime.sendMessage.bind(runtime);
+        runtime.sendMessage = function(input, ...args) {
+          if (input?.type !== 'rules:add') return original(input, ...args);
+          window.__bdPopupWrites.push(structuredClone(input.payload));
+          const hold = window.__bdHoldPopupWrite; window.__bdHoldPopupWrite = null;
+          const gate = hold ? new Promise(resolve => { window.__bdReleasePopupWrite = resolve; }) : Promise.resolve();
+          const finish = response => {
+            window.__bdPopupReplies.push(structuredClone(response));
+            return hold?.pending && response?.success ? { ...response, syncPending: true } : response;
+          };
+          const callback = args.at(-1);
+          if (typeof callback === 'function') {
+            if (!hold) return original(input, ...args.slice(0, -1), response => callback(finish(response)));
+            gate.then(() => original(input, ...args.slice(0, -1), response => callback(finish(response))));
+            return;
+          }
+          return gate.then(() => original(input, ...args)).then(finish);
+        };
+      }
+    });
+    const editor = '#rules-container .rule:has(.save-btn)';
+    const block = `${editor} input:nth-of-type(1)`, redirect = `${editor} input:nth-of-type(2)`, save = `${editor} .save-btn`;
+    const fill = (selector, value) => page.locator ? page.locator(selector).fill(value) : page.fill(selector, value);
+    const activate = async selector => { await focus(page, selector); await press(page, 'Enter'); };
+    const add = async (whitelist = false) => {
+      await activate(whitelist ? '#add-whitelist-rule' : '#add-rule');
+      await poll(() => page.evaluate(selector => Boolean(document.querySelector(selector)), save), Boolean, 'Popup draft inserted');
+    };
+    const settled = () => poll(() => page.evaluate(() => ({ saved: !document.querySelector('#rules-container .save-btn'),
+      draft: document.querySelector('#rules-container .rule:has(.save-btn)')?.textContent,
+      lastWrite: window.__bdPopupWrites.at(-1), lastReply: window.__bdPopupReplies.at(-1) })), value => value.saved, 'Popup draft saved');
+    await add(); await fill(redirect, 'ftp://invalid.example'); await activate(save);
+    await poll(() => page.evaluate(({ block, redirect }) => {
+      const a = document.querySelector(block), b = document.querySelector(redirect);
+      return a?.getAttribute('aria-invalid') === 'true' && b?.getAttribute('aria-invalid') === 'true' && document.activeElement === a;
+    }, { block, redirect }), Boolean, 'Popup validation focuses the first invalid field');
+    assert.deepEqual(await page.evaluate(({ block, redirect }) => [block, redirect].map(selector => {
+      const input = document.querySelector(selector);
+      return [Boolean(document.getElementById(input.getAttribute('aria-describedby'))?.textContent), input.value];
+    }), { block, redirect }), [[true, ''], [true, 'ftp://invalid.example']]);
+    assert.equal(await page.evaluate(() => document.querySelector('#rules-container .rule-editor-feedback').querySelectorAll('tr,td').length), 0);
+    assert.equal(await page.evaluate(() => document.getElementById('custom-alert').textContent), '', 'field descriptions have no duplicate status');
+    const initial = await page.evaluate(async () => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      const tab = await api.tabs.getCurrent(), window = await api.windows.get(tab.windowId);
+      return { tabId: tab.id, windowId: tab.windowId, zoom: await api.tabs.getZoom(tab.id), width: window.width, height: window.height, dpr: devicePixelRatio };
+    });
+    try {
+      await page.evaluate(async initial => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        await api.windows.update(initial.windowId, { state: 'normal', width: 640, height: 960 });
+        await api.tabs.setZoom(initial.tabId, 2);
+      }, initial);
+      await poll(() => page.evaluate(() => innerWidth), width => width >= 280 && width <= 340, 'Popup at real 200% zoom');
+      // Resize changes the existing button transitions too. Wait for the same
+      // final geometry within the scenario's existing deadline, without retrying Save.
+      const zoom = await poll(() => page.evaluate(async tabId => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        const row = document.querySelector('#rules-container .rule:has(.save-btn)'), feedback = row.querySelector('.rule-editor-feedback');
+        const boxes = [row, feedback, ...row.querySelectorAll('input,button')].map(el => {
+          const rect = el.getBoundingClientRect();
+          return { tag: el.tagName, className: el.className, left: rect.left, right: rect.right,
+            scroll: el.scrollWidth, client: el.clientWidth,
+            fits: rect.left >= -1 && rect.right <= innerWidth + 1 && el.scrollWidth <= el.clientWidth + 1 };
+        });
+        return { factor: await api.tabs.getZoom(tabId), dpr: devicePixelRatio, innerWidth, boxes, fits: boxes.every(box => box.fits) };
+      }, initial.tabId), value => value.factor === 2 && value.fits, 'Popup errors fit after native zoom and resize');
+      assert.equal(zoom.factor, 2); assert.ok(Math.abs(zoom.dpr - initial.dpr * 2) < 0.05);
+      assert.equal(zoom.fits, true, `Popup field errors and actions fit the native zoomed viewport: ${JSON.stringify(zoom)}`);
+    } finally {
+      await page.evaluate(async initial => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        await api.tabs.setZoom(initial.tabId, initial.zoom);
+        await api.windows.update(initial.windowId, { width: initial.width, height: initial.height });
+      }, initial);
+    }
+    await fill(block, 'popup-feedback.bd-e2e.test'); await fill(redirect, '');
+    await page.evaluate(() => { window.__bdHoldPopupWrite = { pending: true }; });
+    await activate(save); await press(page, 'Enter');
+    assert.deepEqual(await page.evaluate(({ editor, block, save }) => [document.querySelector(editor).getAttribute('aria-busy'),
+      document.querySelector(save).getAttribute('aria-disabled'), document.querySelector(block).disabled, window.__bdPopupWrites.length],
+    { editor, block, save }), ['true', 'true', true, 2]);
+    await page.evaluate(() => window.__bdReleasePopupWrite()); await settled();
+    await poll(async () => (await e.state()).rules.length, count => count === 1, 'one committed Popup rule');
+    await poll(() => page.evaluate(() => document.activeElement.id), id => id === 'add-rule', 'Add regains focus');
+    const pending = await page.evaluate(() => (globalThis.browser || chrome).i18n.getMessage('ruleschangessavedpending'));
+    await poll(() => page.evaluate(() => document.getElementById('custom-alert').textContent), text => text === pending, 'Popup pending feedback');
+    assert.equal(await page.evaluate(() => window.__bdPopupWrites.length), 2, 'pending feedback never retries a mutation');
+
+    await add(); await fill(block, 'popup-feedback.bd-e2e.test'); await fill(redirect, 'https://retained.example/'); await activate(save);
+    await poll(() => page.evaluate(selector => document.querySelector(selector)?.getAttribute('aria-invalid') === 'true', block), Boolean, 'duplicate address field error');
+    assert.deepEqual(await page.evaluate(({ block, redirect }) => [document.querySelector(block).value, document.querySelector(redirect).value],
+      { block, redirect }), ['popup-feedback.bd-e2e.test', 'https://retained.example/'], 'duplicate rejection keeps both addresses');
+    assert.equal((await e.state()).rules.length, 1);
+    await fill(block, 'popup-feedback-second.bd-e2e.test'); await fill(redirect, 'ftp://invalid.example');
+    await page.evaluate(() => { window.__bdHoldPopupWrite = {}; }); await activate(save);
+    await focus(page, '#options-link'); await page.evaluate(() => window.__bdReleasePopupWrite());
+    await poll(() => page.evaluate(selector => document.querySelector(selector)?.getAttribute('aria-invalid') === 'true', redirect), Boolean, 'delayed redirect rejection');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'options-link', 'a delayed error respects later focus');
+    await fill(redirect, ''); await page.evaluate(() => { window.__bdHoldPopupWrite = {}; }); await activate(save);
+    await focus(page, '#options-link'); await page.evaluate(() => window.__bdReleasePopupWrite()); await settled();
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'options-link', 'a delayed success respects later focus');
+    await poll(async () => (await e.state()).rules.length, count => count === 2, 'second Popup rule committed');
+
+    await add(true);
+    assert.equal(await page.evaluate(selector => document.querySelector(selector).disabled, redirect), true);
+    await fill(block, 'allowed-independent.bd-e2e.test'); await activate(save); await settled();
+    await poll(() => page.evaluate(() => document.activeElement.id), id => id === 'add-whitelist-rule', 'Add Whitelist regains focus');
+    const state = await e.state();
+    assert.equal(state.rules.length, 3); assert.equal(state.rules.filter(rule => rule.isWhitelist).length, 1);
+    assert.equal(await page.evaluate(() => window.__bdPopupWrites.length), 6, 'each Save dispatches once');
+  }
 }
 ];

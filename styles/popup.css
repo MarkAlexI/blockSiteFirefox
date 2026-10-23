@@ -164,6 +164,26 @@ a:hover {
   color: var(--bd-muted);
 }
 
+.rule.rule-editor-row {
+  flex-wrap: wrap;
+}
+
+.rule.rule-editor-row input {
+  box-sizing: border-box;
+  min-inline-size: 0;
+}
+
+.rule.rule-editor-row button {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+.rule-editor-feedback {
+  flex-basis: 100%;
+  min-inline-size: 0;
+}
+
 .rule.category-muted input,
 .rule.category-muted button,
 .rule.category-muted .site-domain {

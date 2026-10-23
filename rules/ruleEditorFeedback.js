@@ -52,15 +52,22 @@ export class RuleEditorFeedback {
   }
 
   errorContainer() {
+    const tableRow = this.row.tagName === 'TR';
     if (!this.errorRow) {
-      this.errorRow = this.row.ownerDocument.createElement('tr');
-      this.errorRow.className = 'rule-editor-feedback-row';
-      const cell = this.row.ownerDocument.createElement('td');
-      cell.colSpan = this.row.children.length;
-      this.errorRow.appendChild(cell);
+      this.errorRow = this.row.ownerDocument.createElement(tableRow ? 'tr' : 'div');
+      this.errorRow.className = tableRow ? 'rule-editor-feedback-row' : 'rule-editor-feedback';
+      if (tableRow) {
+        const cell = this.row.ownerDocument.createElement('td');
+        cell.colSpan = this.row.children.length;
+        this.errorRow.appendChild(cell);
+      }
     }
-    if (this.row.parentNode) this.row.after(this.errorRow);
-    return this.errorRow.querySelector('td');
+    if (tableRow) {
+      if (this.row.parentNode) this.row.after(this.errorRow);
+      return this.errorRow.querySelector('td');
+    }
+    this.row.appendChild(this.errorRow);
+    return this.errorRow;
   }
 
   report(codes, translate = this.translate) {

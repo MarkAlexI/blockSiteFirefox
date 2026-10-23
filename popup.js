@@ -9,6 +9,7 @@ import { RulesClient } from './rules/rulesClient.js';
 import { getRulesMutationFeedback } from './rules/rulesMutationFeedback.js';
 import { isExpectedRulesRejection } from './rules/rulesErrorClassification.js';
 import { RulesUI, formatDailyLimitUsageMinutes } from './rules/rulesUI.js';
+import { RuleEditorFeedback } from './rules/ruleEditorFeedback.js';
 import { ProManager } from './pro/proManager.js';
 import { PasswordUtils } from './pro/password.js';
 import { initializeNoSpaceInputs } from './utils/noSpaces.js';
@@ -670,12 +671,24 @@ class PopupPage {
   
   createSaveButton(blockURL, redirectURL, ruleDiv, isWhitelist = false, listContext = null) {
     const saveButton = document.createElement('button');
+    saveButton.type = 'button';
     saveButton.className = 'save-btn';
     saveButton.textContent = t('savebtn');
-    
-    saveButton.addEventListener('click', async () => {
-      await this.saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist, listContext);
+    ruleDiv.classList.add('rule-editor-row');
+    const feedback = new RuleEditorFeedback(ruleDiv, saveButton, {
+      block: { control: blockURL, label: t('blockurl') },
+      redirect: { control: redirectURL, label: t('redirecturl') }
+    }, {
+      translate: code => this.rulesUI.getValidationMessage(code),
+      notify: customAlert,
+      unexpected: error => {
+        this.logRulesMutationFailure('Save new rule error:', error);
+        customAlert(t('erroraddingrule'));
+      }
     });
+    ruleDiv._ruleEditorFeedback = feedback;
+    saveButton.addEventListener('click', () => feedback.submit(() =>
+      this.saveNewRule(blockURL, redirectURL, ruleDiv, saveButton, isWhitelist, listContext)));
     
     return saveButton;
   }
@@ -864,9 +877,11 @@ class PopupPage {
     }
   }
 
-  handleRulesMutationError(error, fallbackKey = 'erroraddingrule') {
+  handleRulesMutationError(error, fallbackKey = 'erroraddingrule', row = null) {
     if (error.code === 'validation_failed') {
-      this.rulesUI.showValidationErrors(error.validationErrors || []);
+      this.rulesUI.showValidationErrors(error.validationErrors || [], row);
+    } else if (row?._ruleEditorFeedback && ['rule_already_exists', 'conflict_blacklist', 'conflict_whitelist', 'redundant_whitelist'].includes(error.code)) {
+      this.rulesUI.showValidationErrors([error.code], row, { rule_already_exists: t('alertruleexist') });
     } else if (error.code === 'rules_state_changed') {
       customAlert(t('errorupdatingrules'));
       void this.loadRules();
@@ -916,16 +931,14 @@ class PopupPage {
         isWhitelist
       });
       
+      ruleDiv._ruleEditorFeedback?.focusAfterSave(() =>
+        isWhitelist && this.addWhitelistRuleButton && !this.addWhitelistRuleButton.disabled
+          ? this.addWhitelistRuleButton : this.addRuleButton);
       ruleDiv.remove();
       this.showRulesMutationResult(response, '+ 1');
     } catch (error) {
       this.logRulesMutationFailure('Save new rule error:', error);
-      this.handleRulesMutationError(error, 'erroraddingrule');
-      
-      if (error.code === 'rule_already_exists') {
-        blockURL.value = '';
-        redirectURL.value = '';
-      }
+      this.handleRulesMutationError(error, 'erroraddingrule', ruleDiv);
     }
   }
   

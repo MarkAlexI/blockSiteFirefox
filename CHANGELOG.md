@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.9] - 2026-10-23
+
+- Associate Popup rule errors with the affected address fields and focus the first invalid field after Save.
+- Keep entered addresses after validation and duplicate-rule errors, and prevent repeated saves while a request is pending.
+- Return keyboard focus to Add Rule or Add Whitelist after saving and respect later focus choices.
+- Keep Popup draft actions and field messages readable on narrow screens and with enlarged text.
+
 ## [5.4.8] - 2026-10-23
 
 - Show accessible, nonblocking notifications for rule changes in Settings, including saved changes awaiting browser synchronization.
