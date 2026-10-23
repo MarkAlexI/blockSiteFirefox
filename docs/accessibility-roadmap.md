@@ -505,3 +505,73 @@ CI бази 5.4.5 та виправлення перевірок:
 на час очікування, а дії недоступної категорії/Focus використовують native
 `disabled`. Релевантного пояснення wOxxOm для цього конкретного випадку
 не знайдено; пошук сам по собі не є доказом браузерної поведінки.
+
+## A11Y-04, частина 4: доступні повідомлення Popup, 5.4.7
+
+- `customAlert` оновлює одну сталу порожню область `role=status`, `aria-live=polite`,
+  `aria-atomic=true`, яка вже є в HTML Popup. Текст додається окремим завданням;
+  між повідомленнями область очищається. Повторні однакові й різні виклики
+  проходять послідовно, без накладення. Фокус автоматично не переміщується.
+- Поточне й наступні повідомлення зберігаються, поки вкладку приховано або
+  відкрито native dialog. Після повернення/закриття поточне повідомлення має
+  новий повний час читання. Observer враховує також відкриття без зміни фокуса
+  й видалення відкритого діалогу. На `pagehide` таймери, черга й слухачі очищаються;
+  запізнілий callback не може змінити наступне повідомлення.
+- Час показу — щонайменше 5 секунд, довгим текстам надається більше часу.
+  Hover і ручний фокус призупиняють таймер; вихід повертає повний час читання.
+  Видиме повідомлення доступне через Tab, тому його можна прокрутити клавішами.
+  Порожня область не має Tab stop. Це не автоматичне перенесення фокуса.
+- Перенесення рядків і довгих нерозривних значень працює в межах повідомлення.
+  Ширина обмежена вікном і 36rem, висота — половиною viewport з відступом;
+  передбачено внутрішнє прокручування, `dir=auto`, непрозорий контрастний фон
+  і системні кольори forced-colors. Текст записується через `textContent`.
+- Версії manifest/package/README/E2E — 5.4.7. `update/update.js`, збережені
+  стовпці таблиці й перенесення адрес правил побайтово незмінні. Дозволи,
+  storage/RPC, DNR і логіка committed/pending synchronization не змінюються.
+
+Перевірки 23 жовтня 2026 року:
+
+- `npm run check`: Chromium **1969/1969**, Firefox **1948/1948**; validator
+  і 70 пар контрасту проходять. Дев'ять окремих lifecycle-тестів замінюють
+  одну стару перевірку тимчасового div: черга/повтори, stale callback, прихована
+  вкладка, модальність, hover/keyboard pause, pagehide, focus/draft і plain text.
+  Початкові вісім регресій падають на старому `customAlert` до виправлення.
+- Native scenario 55: Firefox 153, Linux headless, тимчасове встановлення
+  реального розширення. Справжні Enter двічі запускають локалізовану перевірку
+  невалідної тривалості; далі production formatter передає committed/pending
+  повідомлення без штучного запису правила. Перевіряються порядок, порожній
+  проміжок між однаковими текстами, AX role=status, збереження фокуса, Tab,
+  production Feedback controller із реальною eligible storage, Escape,
+  відновлення повідомлення й чистий стан після navigation. Це Popup у вкладці.
+  На чистій 5.4.6 сценарій падає через відсутню область status. Нові totals:
+  Chromium **53**, Firefox **54**; повний native CI 5.4.7 ще потрібен.
+- Blink 151 і Firefox 153: **16** loopback станів із реальними HTML/CSS і
+  production `customAlert`, без extension API: en/1280×900, uk/ar/360×740,
+  de/320×640, en/320×240, en/640×480 із текстом 200%, forced-colors і
+  reduced-motion. Довгі перекладені повідомлення й нерозривний текст не
+  виходять за viewport і не мають горизонтального overflow; у короткому
+  вікні справжні Shift+Tab/End/Tab досягають і прокручують повідомлення.
+  Native MutationObserver перевіряє open/remove діалогу, lifecycle — pagehide.
+  axe-core 4.14.0 не виявив WCAG A/AA violations або incomplete results у цих
+  фрагментах. Початковий варіант із прокручуванням без Tab stop мав
+  `scrollable-region-focusable`; після виправлення та сама перевірка проходить.
+  Зміна базового шрифту не є browser zoom; loopback не є installed Chromium.
+- База 5.4.6 підтверджена повним native CI:
+  Chromium `ca11610` — [52/52](https://github.com/MarkAlexI/blockSiteExtension/actions/runs/39930252787),
+  Firefox `4b8437a` — [53/53](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/39929856345),
+  включно з раніше виправленими 27 і 49. Це результати бази, не нового патча.
+
+AX/DOM тести не підтверджують фактичне озвучування NVDA/JAWS/VoiceOver/TalkBack.
+Реальні screen reader, toolbar popup, Android/macOS і мінімальні версії
+лишаються окремими перевірками. `RulesUI.showAlert` має давній native-alert
+fallback: узгодження цього окремого шляху з повідомленнями Options не входить
+у цей патч. Повний WCAG-аудит не оголошується завершеним.
+
+Основа: [WAI status messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html),
+[ARIA22: status before the update, atomic output](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA22),
+[MDN live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Guides/Live_regions).
+Відкрита [W3C ARIA #2154](https://github.com/w3c/aria/issues/2154) описує проблему
+додавання вже заповненої live region; це дискусія про interop, а не обіцянка
+однакового озвучування кожним reader. Використано порожню область до зміни
+тексту й окреме завдання для оновлення. Релевантного пояснення wOxxOm/woxxom
+для цього конкретного сценарію не знайдено.

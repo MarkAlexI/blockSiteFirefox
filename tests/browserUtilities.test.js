@@ -18,7 +18,6 @@ import { updateUninstallURL } from '../utils/updateUninstallURL.js';
 import { shouldSkipSync } from '../utils/shouldSkipSync.js';
 import { getTelemetryExtensionVersion } from '../utils/buildInfo.js';
 import { getCurrentTabs } from '../scripts/getCurrentTabs.js';
-import { customAlert } from '../scripts/customAlert.js';
 import { scrollToTop, mountScroll } from '../dom/scrollToTop.js';
 import { initializeNoSpaceInputs } from '../utils/noSpaces.js';
 import { checkDNR } from '../utils/dnrDebug.js';
@@ -432,32 +431,6 @@ test('space filtering handles existing inputs, newly inserted inputs, and nested
     else delete globalThis.MutationObserver;
     if (previousNode) globalThis.Node = previousNode;
     else delete globalThis.Node;
-  }
-});
-
-test('custom alerts display the message, fade out, and remove their temporary node', async () => {
-  const document = new FakeDocument();
-  const scheduled = [];
-  const previousSetTimeout = globalThis.setTimeout;
-  globalThis.setTimeout = (callback, delay) => {
-    scheduled.push({ callback, delay });
-    return scheduled.length;
-  };
-
-  try {
-    await withExtensionEnvironment(createExtensionApi(), () => {
-      customAlert('Rule saved');
-      const alertElement = document.body.children[0];
-      assert.equal(alertElement.textContent, 'Rule saved');
-      assert.equal(scheduled[0].delay, 3000);
-      scheduled[0].callback();
-      assert.equal(alertElement.style.opacity, '0');
-      assert.equal(scheduled[1].delay, 500);
-      scheduled[1].callback();
-      assert.equal(document.body.children.length, 0);
-    }, { document });
-  } finally {
-    globalThis.setTimeout = previousSetTimeout;
   }
 });
 

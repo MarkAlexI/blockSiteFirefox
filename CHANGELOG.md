@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.7] - 2026-10-23
+
+- Expose Popup notifications through a persistent polite, atomic status region without moving focus.
+- Queue rapid and repeated messages with separate live-region updates; retain them while the page is hidden or a modal dialog is open and cancel stale work on pagehide.
+- Fit long translated messages and unbroken text within the viewport, allow more reading time and pause expiry while hovered or keyboard-focused.
+- Add notification lifecycle regressions and native scenario 55. Keep the patch-release update page and saved-rule table layout unchanged.
+
 ## [5.4.6] - 2026-10-23
 
 - Make Popup manual rule states named native toggle buttons with keyboard activation and committed pressed state.

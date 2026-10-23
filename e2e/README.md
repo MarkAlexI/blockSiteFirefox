@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.6**
+# Firefox Desktop E2E — BlockDistraction **5.4.7**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -941,3 +941,26 @@ no user action is replayed and no deadline is increased. New scenario 54 also
 reacquires a stale WebDriver name read while real refreshes replace its row.
 Local Firefox 153 scenarios 27/49 pass. Exact CI Firefox 158.0b2 cannot launch
 locally (SIGBUS before --version), so a new full headed CI remains necessary.
+
+## A11Y-04 / 5.4.7: Popup notification lifecycle (55)
+
+Scenario 55 checks a pre-existing empty polite/atomic status, two trusted Enter
+activations of the real invalid-Focus-duration path and an ordered pending
+message from the production mutation formatter. It verifies repeated text with
+an empty update between notices, computed status role, unchanged focus, no Focus
+start, native Tab reachability, the production Feedback prompt controller with
+real eligible storage, Escape/resume and a clean status after navigation.
+The pending message is a formatter probe, not a simulated committed mutation.
+The manual Feedback email button is not used to open the prompt.
+
+Registered totals: **53 Chromium / 54 Firefox**. Local temporary-install native
+Firefox 153 passes; baseline 5.4.6 fails because the persistent status is absent.
+This is a Popup tab, not the toolbar window. Blink 151 / Firefox 153 loopback
+checks cover 16 narrow/RTL/large-text/preference states and actual keyboard
+scrolling; they do not replace installed Chromium or screen-reader speech.
+`npm run check`: Chromium 1969/1969, Firefox 1948/1948; validation and 70 contrast
+pairs pass. No suite deadline or retry policy changes.
+
+Base 5.4.6 native CI is green: [Chromium 52/52](https://github.com/MarkAlexI/blockSiteExtension/actions/runs/39930252787)
+and [Firefox 53/53](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/39929856345).
+The new 5.4.7 full headed CI still needs to run after applying the patch.

@@ -391,5 +391,93 @@ export const accessibilityScenarios = [{
     });
     await poll(() => page.evaluate(() => document.activeElement.id === 'add-rule'), Boolean, 'removed focused rule falls back to Add');
   }
+}, {
+  id: '55',
+  title: 'Popup status notifications announce ordered repeats without moving focus and wait for modal dismissal',
+  async run(e) {
+    await e.seed({ pro: true, rules: [{ id: 55, blockURL: 'status.bd-e2e.test', redirectURL: '', category: 'social',
+      isWhitelist: false, assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] }] });
+    const page = await e.openPopup();
+    if (page.front) await page.front(); else await page.bringToFront();
+    await poll(() => page.evaluate(() => document.body.classList.contains('ready')), Boolean, 'Popup ready');
+    assert.deepEqual(await page.evaluate(() => {
+      const status = document.getElementById('custom-alert');
+      return status ? [status.getAttribute('role'), status.getAttribute('aria-live'),
+        status.getAttribute('aria-atomic'), status.textContent, status.hasAttribute('tabindex')] : null;
+    }), ['status', 'polite', 'true', '', false], 'an empty status exists before the first message');
+    const messages = await page.evaluate(() => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      window.__bdNotices = [];
+      window.__bdNoticeFocus = [];
+      const status = document.getElementById('custom-alert');
+      new MutationObserver(() => window.__bdNotices.push(status.textContent))
+        .observe(status, { childList: true, characterData: true, subtree: true });
+      document.addEventListener('focusin', event => window.__bdNoticeFocus.push(event.target.id));
+      return { invalid: api.i18n.getMessage('focussessioninvalidduration'), pending: api.i18n.getMessage('ruleschangessavedpending') };
+    });
+    const duration = '#focus-duration';
+    if (page.locator) await page.locator(duration).fill('0'); else await page.fill(duration, '0');
+    await focus(page, '#start-focus-btn');
+    await page.evaluate(() => {
+      window.__bdNoticeFocus = []; window.__bdNoticeClicks = [];
+      document.getElementById('start-focus-btn').addEventListener('click', event => window.__bdNoticeClicks.push(event.isTrusted));
+    });
+    await press(page, 'Enter');
+    await press(page, 'Enter');
+    // The real validation path above queues identical localized errors. Exercise
+    // the existing committed/pending formatter too, without fabricating a save.
+    await page.evaluate(async () => {
+      const { customAlert } = await import('./scripts/customAlert.js');
+      const { getRulesMutationFeedback } = await import('./rules/rulesMutationFeedback.js');
+      customAlert(getRulesMutationFeedback({ syncPending: true }, '+ 1').message);
+    });
+    await poll(() => page.evaluate(() => window.__bdNotices.filter(Boolean).length), count => count >= 1, 'first notification');
+    assert.equal(await page.evaluate(() => document.getElementById('custom-alert').textContent), messages.invalid);
+    if (page.getByRole) assert.equal(await page.getByRole('status').filter({ hasText: messages.invalid }).count(), 1);
+    else assert.equal(await (await page.element('#custom-alert')).getAriaRole(), 'status');
+    await poll(() => page.evaluate(() => window.__bdNotices.filter(Boolean).length), count => count >= 2, 'repeated notification');
+    assert.deepEqual(await page.evaluate(() => window.__bdNotices.slice(0, 3)), [messages.invalid, '', messages.invalid]);
+    await poll(() => page.evaluate(() => document.getElementById('custom-alert').textContent), value => value === messages.pending, 'queued pending result');
+    assert.deepEqual(await page.evaluate(() => window.__bdNotices.filter(Boolean)), [messages.invalid, messages.invalid, messages.pending]);
+    assert.equal(await page.evaluate(() => document.querySelectorAll('#custom-alert').length), 1);
+    assert.deepEqual(await page.evaluate(() => window.__bdNoticeFocus), []);
+    assert.deepEqual(await page.evaluate(() => window.__bdNoticeClicks), [true, true]);
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'start-focus-btn');
+    assert.equal(await page.evaluate(async () => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      return !!(await api.storage.local.get('focusSession')).focusSession?.active;
+    }), false, 'invalid duration does not start Focus');
+
+    await focus(page, '#options-link'); await press(page, 'Shift+Tab');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'custom-alert', 'visible notification is keyboard reachable');
+    await press(page, 'Tab');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'options-link');
+    await focus(page, '#start-focus-btn');
+
+    // Use the production prompt controller with real eligible storage. The
+    // manual Feedback button opens email and is not the prompt entry point.
+    await e.writeLocal({ feedbackPromptState: {}, statistics: { totalBlocked: 25, dailyHistory:
+      Object.fromEntries([1, 2, 3].map(day => [new Date(Date.now() - day * 86_400_000).toISOString().slice(0, 10), { blocked: 1 }])) } });
+    assert.equal(await page.evaluate(async () => (await import('./feedback/feedbackPrompt.js')).initFeedbackPrompt()), true);
+    await poll(() => page.evaluate(() => document.getElementById('feedback-dialog').open), Boolean, 'Feedback opens');
+    await poll(() => page.evaluate(() => document.getElementById('custom-alert').textContent), value => value === '', 'background status waits outside modal');
+    await press(page, 'Escape');
+    await poll(() => page.evaluate(() => document.getElementById('custom-alert').textContent), value => value === messages.pending, 'pending result resumes after modal');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'start-focus-btn');
+    const geometry = await page.evaluate(() => {
+      const status = document.getElementById('custom-alert');
+      const box = status.getBoundingClientRect();
+      return { inside: box.left >= 0 && box.right <= innerWidth && box.top >= 0 && box.bottom <= innerHeight,
+        overflow: status.scrollWidth > status.clientWidth + 1 };
+    });
+    assert.deepEqual(geometry, { inside: true, overflow: false });
+    await page.goto(await page.url());
+    if (page.front) await page.front(); else await page.bringToFront();
+    await poll(() => page.evaluate(() => document.body.classList.contains('ready')), Boolean, 'reopened Popup ready');
+    assert.deepEqual(await page.evaluate(() => {
+      const status = document.getElementById('custom-alert');
+      return [status.textContent, status.hasAttribute('tabindex')];
+    }), ['', false], 'a new page has no stale notification or empty Tab stop');
+  }
 }
 ];
