@@ -174,7 +174,8 @@ for (const file of files.filter(file => file.endsWith('.js'))) {
 }
 
 if (englishMessages) {
-  const knownKeys = new Set(Object.keys(englishMessages));
+  // These predefined messages are supplied by the browser, not messages.json.
+  const knownKeys = new Set([...Object.keys(englishMessages), '@@ui_locale', '@@bidi_dir']);
   const referencedKeys = new Set();
 
   for (const file of files.filter(file => /\.(?:js|html)$/.test(file))) {

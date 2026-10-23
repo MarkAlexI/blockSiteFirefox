@@ -15,6 +15,7 @@ function assertUrlInputConfiguration(input) {
   assert.equal(input.getAttribute('autocapitalize'), 'none');
   assert.equal(input.spellcheck, false);
   assert.equal(input.inputMode, 'url');
+  assert.equal(input.dir, 'ltr');
 }
 
 test('URL input configuration preserves text semantics and disables writing assistance', () => {

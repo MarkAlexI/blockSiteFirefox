@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.5] - 2026-10-23
+
+- Set document language and direction from native extension locale metadata; keep URL editing left-to-right in RTL layouts.
+- Fit Options to narrow viewports and reflow inline editor actions and Daily Limit fields without widening saved-rule columns or changing address wrapping.
+- Make schedule day grids, group controls and dialog actions adapt to narrow and zoomed layouts. Position close controls and select arrows according to text direction.
+- Add native 200% browser zoom coverage for editing, retained drafts, one explicit save and modal geometry. Keep the patch-release update page unchanged.
+
 ## [5.4.4] - 2026-10-23
 
 - Make the manual rule state a named native toggle button with committed pressed state, keyboard activation and an unavailable state for muted categories. Ignore repeated activation while authorization or a mutation is pending.

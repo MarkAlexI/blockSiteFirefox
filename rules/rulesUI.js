@@ -259,7 +259,7 @@ export class RulesUI {
     currentDisabledByUser = false
   ) {
     const row = document.createElement('tr');
-    row.className = 'rule-row';
+    row.className = 'rule-row rule-editor-row';
     const isWhitelist = rule.isWhitelist || false;
     if (isWhitelist) row.classList.add('rule-whitelist');
 
@@ -384,7 +384,7 @@ export class RulesUI {
     initialListId = GENERAL_RULE_LIST_ID
   ) {
     const row = document.createElement('tr');
-    row.className = 'rule-row';
+    row.className = 'rule-row rule-editor-row';
     if (isWhitelist) row.classList.add('rule-whitelist');
 
     const blockInput = document.createElement('input');

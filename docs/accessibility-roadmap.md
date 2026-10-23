@@ -353,3 +353,70 @@ wOxxOm для цього сценарію не знайдено. Нативна 
 Для вибору одного дня застосовано radio group. Релевантного коментаря wOxxOm
 для цього конкретного сценарію не знайдено. AX assertions не підтверджують
 фактичне озвучування допоміжними технологіями.
+
+
+## A11Y-04, частина 2: browser zoom, вузькі редактори та RTL, 5.4.5
+
+- За рішенням користувача збережено компактні стовпці таблиці правил і чинне
+  перенесення довгих адрес на мобільному та десктопі. Патч не розширює їх.
+  Новий клас `rule-editor-row` обмежує зміни полів і Save/Cancel рядками
+  додавання/редагування; збережені рядки не отримують ці стилі.
+- Options більше не нав'язує body мінімум 340px; мінімум заголовка Popup
+  також прибрано. У вузькому редакторі Daily Limit поля й дії можуть
+  переноситися, а підписи Save/Cancel вміщуються у власній комірці.
+- Сітка днів Schedule підбирає кількість стовпців за доступним місцем.
+  На вузькому екрані Remove займає окремий рядок; довгі підписи часу,
+  заголовки й дії діалогів переносяться. Feedback має обмеження висоти
+  з внутрішнім вертикальним прокручуванням.
+- `scripts/i18n.js` встановлює `lang` і `dir` з нативних `@@ui_locale` та
+  `@@bidi_dir`. Відсутні/невалідні metadata не перезаписують чинні атрибути.
+  URL inputs зберігають LTR-напрямок редагування в RTL-документі. Відступи
+  select, його стрілка й кнопки закриття враховують напрямок локалі.
+- Manifest/package/README/E2E узгоджені як 5.4.5. `update/update.js`
+  побайтово незмінний; дозволи, формат правил і мінімальні версії збережені.
+  Валідатор розрізняє два використані службові ключі браузера та ключі
+  власного каталогу; невідомі ключі продовжують спричиняти помилку.
+
+Перевірки 23 жовтня 2026 року:
+
+- Node: Chromium **1945/1945**, Firefox **1924/1924**; validator і 70 пар
+  контрасту проходять. Чотири нові регресії на варіант перевіряють мову,
+  напрямок, збереження іконки/доступної назви та значення URL у RTL.
+- Native Firefox 153, headless, тимчасове встановлення в окремому профілі:
+  scenario 53 проходить. Справжній `tabs.setZoom(..., 2)` підтверджено через
+  `tabs.getZoom`, CSS viewport і DPR. Перевірено додавання Daily Limit,
+  збереження чернетки після Schedule/Escape, один явний запис правила,
+  фокус нової групи й геометрію Schedule, Rule Packs та password dialog.
+  На чистій 5.4.4 цей сценарій падає на завеликій ширині body Options.
+- Blink 151 і Firefox 153: **98** loopback станів із реальними HTML/CSS/
+  модулями та API-моделлю: en/uk/de/ar 320px, de/ar 360px, en 1280px.
+  Редакторні кнопки не виходять за власну комірку; перевірені діалоги та
+  їхні контроли не мають горизонтального переповнення. Ширина збереженої
+  таблиці до/після однакова в усіх 14 порівняних випадках, зокрема 720px
+  на десктопі. axe-core 4.14.0 не виявив WCAG A/AA violations у перевірених
+  фрагментах; `color-contrast`, `duplicate-id-aria` та
+  `label-content-name-mismatch` мають incomplete results.
+- База 5.4.4: Firefox native CI
+  [51/51](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/39878758770).
+  Chromium [run 39878569220](https://github.com/MarkAlexI/blockSiteExtension/actions/runs/39878569220)
+  скасовано після 20 пройдених тестів; це не повний успішний результат.
+- Новий native сценарій зареєстровано в обох suite: Chromium — 51,
+  Firefox — 52. Chromium запускає його з нативним viewport без Playwright
+  emulation. Firefox headed run піднімає window manager для зміни розміру.
+  Повний native CI 5.4.5 ще потрібен. Локальний installed Chromium
+  недоступний через ProcessSingleton socket; loopback цього не підміняє.
+  Реальні screen reader/TalkBack, Android, macOS і мінімальні версії
+  потребують окремого проходу; повний WCAG-аудит не оголошується завершеним.
+
+Джерела: [WAI Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html),
+[WAI Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html),
+[MDN predefined messages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#predefined_messages),
+[MDN tabs.setZoom](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/setZoom),
+[Chrome tabs.setZoom](https://developer.chrome.com/docs/extensions/reference/api/tabs#method-setZoom),
+[MDN minmax](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax).
+Історичний [new-tab case з коментарем wOxxOm](https://stackoverflow.com/questions/42453943/calling-setzoom-in-webextension-page)
+стосувався `chrome://newtab`, а не явної extension URL Options. Запропонований
+там CSS zoom не використовується як доказ browser zoom. Історичну
+[Mozilla 1015482](https://bugzilla.mozilla.org/show_bug.cgi?id=1015482)
+про intrinsic minimum flex items виправлено у Firefox 32; поточний патч
+не вважає це відкритим дефектом Firefox.

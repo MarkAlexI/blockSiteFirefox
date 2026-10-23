@@ -5,6 +5,8 @@
   padding: 0;
   width: 90%;
   max-width: 380px;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
   background: var(--bg-primary, var(--bg-white, #fff));
   color: var(--text-primary);
   margin: auto;
@@ -18,12 +20,13 @@
   padding: 2rem 1.5rem;
   position: relative;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .dialog-close-btn {
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
+  inset-inline-end: 0.5rem;
   background: transparent;
   border: none;
   font-size: 1.5rem;
@@ -41,6 +44,7 @@
 }
 
 .dialog-content h3 {
+  padding-inline: 1rem;
   margin-bottom: 0.5rem;
   font-size: 1.25rem;
   font-weight: 700;

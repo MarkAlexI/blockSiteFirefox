@@ -19,6 +19,7 @@ test('i18n module translates data-i18n-placeholder attributes', async () => {
     }
   };
   globalThis.document = {
+    documentElement: {},
     querySelectorAll(selector) {
       if (selector === '[data-i18n-placeholder]') return [input];
       return [];

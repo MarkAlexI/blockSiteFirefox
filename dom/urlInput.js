@@ -3,5 +3,6 @@ export function configureUrlInput(input) {
   input.setAttribute('autocapitalize', 'none');
   input.spellcheck = false;
   input.inputMode = 'url';
+  input.dir = 'ltr';
   return input;
 }

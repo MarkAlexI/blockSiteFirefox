@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.4**
+# Firefox Desktop E2E — BlockDistraction **5.4.5**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -895,3 +895,24 @@ activation, exact daily text, one Tab stop, wrapping arrows, Home/End and visual
 RTL direction. Local Firefox 153 temporary-install run passed; baseline 5.4.3
 fails at its mouse-only SPAN. New full headed CI remains required.
 See `docs/accessibility-roadmap.md` for evidence and platform limits.
+
+
+## A11Y-04 / 5.4.5: native 200% browser zoom (53)
+
+Scenario 53 resizes the isolated native browser window and calls the real
+`tabs.setZoom(tabId, 2)`. It checks `tabs.getZoom`, CSS viewport and doubled DPR;
+CSS zoom and Playwright viewport emulation do not stand in for browser zoom.
+It checks compact editor action labels, a retained Daily Limit draft, Schedule
+geometry/group focus/Escape, one explicit saved rule, and Rule Packs/password
+modal geometry. It restores zoom and window size in `finally`. Chromium uses
+`@native-visibility` for its existing native viewport fixture; Firefox headed
+runs start a window manager. The registered totals are 51 Chromium and 52 Firefox.
+
+Local Firefox 153 temporary-install run passed. On baseline 5.4.4 the same
+scenario fails because the Options body exceeds the real zoomed viewport.
+Focused loopback DOM/CSS checks cover en/uk/de/ar at 320px, de/ar at 360px and
+en at 1280px in Blink 151 and Firefox 153. Saved-rule table widths and address
+wrapping remain unchanged by request. New full native CI, actual screen reader,
+Android/macOS and minimum-version checks remain required. Baseline 5.4.4 Firefox
+CI passed 51/51; the Chromium run was cancelled after 20 passes.
+See `docs/accessibility-roadmap.md` for exact scope, sources and limitations.

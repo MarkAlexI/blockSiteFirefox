@@ -1,5 +1,15 @@
 import { t } from "./t.js";
 
+// Native locale metadata also guides pronunciation and logical layout.
+const locale = t('@@ui_locale');
+const direction = t('@@bidi_dir');
+if (/^[a-z]{2,3}(?:[-_][a-z0-9]{2,8})*$/i.test(locale)) {
+  document.documentElement.lang = locale.replace(/_/g, '-');
+}
+if (direction === 'rtl' || direction === 'ltr') {
+  document.documentElement.dir = direction;
+}
+
 const words = document.querySelectorAll("[data-i18n]");
 
 for (let i = 0; i < words.length; i++) {

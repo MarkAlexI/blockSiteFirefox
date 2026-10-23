@@ -195,4 +195,96 @@ export const accessibilityScenarios = [{
     } finally { await page.evaluate(dir => { document.documentElement.dir = dir; }, originalDirection); }
     assert.equal(await page.evaluate(() => document.querySelectorAll('#statsActivityChart .stats-chart-column[tabindex="0"]').length), 1);
   }
+}, {
+  id: '53',
+  nativeViewport: true,
+  nativeDesktop: true,
+  title: 'Browser zoom at 200 percent preserves compact rule editing, schedule geometry and dialog actions',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    const initial = await page.evaluate(async () => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      const tab = await api.tabs.getCurrent();
+      const window = await api.windows.get(tab.windowId);
+      return { tabId: tab.id, windowId: tab.windowId, zoom: await api.tabs.getZoom(tab.id),
+        width: window.width, height: window.height, dpr: devicePixelRatio };
+    });
+    const fill = (selector, value) => page.locator ? page.locator(selector).fill(value) : page.fill(selector, value);
+    const select = value => page.locator ? page.locator('#rules-container .blocking-mode-select').selectOption(value)
+      : page.select('#rules-container .blocking-mode-select', value);
+    const activate = async selector => { await focus(page, selector); await press(page, 'Enter'); };
+    const dialogFits = selector => page.evaluate(selector => {
+      const dialog = document.querySelector(selector), r = dialog.getBoundingClientRect();
+      return r.left >= -1 && r.right <= innerWidth + 1 && r.top >= -1 && r.bottom <= innerHeight + 1 &&
+        dialog.scrollWidth <= dialog.clientWidth + 1;
+    }, selector);
+    try {
+      await page.evaluate(async initial => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        await api.windows.update(initial.windowId, { state: 'normal', width: 640, height: 960 });
+        await api.tabs.setZoom(initial.tabId, 2);
+      }, initial);
+      await poll(() => page.evaluate(() => innerWidth), width => width >= 280 && width <= 340, 'real zoomed narrow viewport');
+      const zoom = await page.evaluate(async tabId => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        return { factor: await api.tabs.getZoom(tabId), dpr: devicePixelRatio, innerWidth,
+          bodyWidth: document.body.getBoundingClientRect().width,
+          lang: document.documentElement.lang, dir: document.documentElement.dir,
+          nativeLocale: api.i18n.getMessage('@@ui_locale').replace(/_/g, '-'), nativeDirection: api.i18n.getMessage('@@bidi_dir') };
+      }, initial.tabId);
+      assert.equal(zoom.factor, 2);
+      assert.ok(Math.abs(zoom.dpr - initial.dpr * 2) < 0.05);
+      assert.ok(zoom.bodyWidth <= zoom.innerWidth + 1, 'Options body fits the real zoomed viewport');
+      assert.equal(zoom.lang, zoom.nativeLocale);
+      assert.equal(zoom.dir, zoom.nativeDirection);
+
+      await activate('#add-rule');
+      await poll(() => page.evaluate(() => !!document.querySelector('#rules-container .blocking-mode-select')), Boolean, 'rule editor');
+      await fill('#rules-container td:nth-child(1) input', 'zoom-layout.bd-e2e.test/path');
+      assert.equal(await page.evaluate(() => document.querySelector('#rules-container td:nth-child(1) input').dir), 'ltr');
+      await select('daily_limit');
+      await fill('#rules-container .daily-limit-minutes', '1440');
+      assert.equal(await page.evaluate(() => document.querySelector('#rules-container .daily-limit-minutes').value), '1440');
+      assert.equal(await page.evaluate(() => [...document.querySelectorAll('#rules-container .actions button')].every(button => {
+        const r = button.getBoundingClientRect(), cell = button.closest('td').getBoundingClientRect();
+        return r.left >= cell.left - 1 && r.right <= cell.right + 1 && button.scrollWidth <= button.clientWidth + 1;
+      })), true, 'editor action labels fit their own compact cell');
+
+      await select('schedule');
+      await activate('#rules-container .schedule-edit-button');
+      await poll(() => page.evaluate(() => !!document.querySelector('.schedule-dialog[open]')), Boolean, 'zoomed schedule');
+      await activate('.schedule-add-period');
+      assert.equal(await dialogFits('.schedule-dialog'), true);
+      assert.equal(await page.evaluate(() => [...document.querySelectorAll('.schedule-period-days')]
+        .every(grid => grid.scrollWidth <= grid.clientWidth + 1)), true, 'all day groups fit their cards');
+      assert.equal(await page.evaluate(() => document.activeElement.closest('fieldset') === document.querySelectorAll('.schedule-period-card')[1]), true);
+      await press(page, 'Escape');
+      assert.equal(await page.evaluate(() => document.activeElement.matches('.schedule-edit-button')), true);
+      assert.equal(await page.evaluate(() => document.querySelector('#rules-container td:nth-child(1) input').value), 'zoom-layout.bd-e2e.test/path');
+      await select('daily_limit');
+      await activate('#rules-container .save-btn');
+      await poll(() => page.evaluate(async () => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        const rules = (await api.storage.local.get('rules')).rules;
+        const saved = rules.filter(rule => rule.blockURL === 'zoom-layout.bd-e2e.test/path');
+        return saved.length === 1 && saved[0].assignments[0].blockingMode === 'daily_limit' && saved[0].assignments[0].dailyLimit.minutes === 1440;
+      }), Boolean, 'one explicit rule commit with retained daily limit');
+
+      await activate('#open-rule-packs');
+      assert.equal(await dialogFits('#rule-packs-dialog'), true);
+      await press(page, 'Escape');
+      await activate('[aria-controls="security-settings-panel"]');
+      await focus(page, '#enablePassword'); await press(page, 'Space');
+      await poll(() => page.evaluate(() => document.getElementById('passwordModal').open), Boolean, 'zoomed password dialog');
+      assert.equal(await dialogFits('#passwordModal'), true);
+      await press(page, 'Escape');
+    } finally {
+      await page.evaluate(async initial => {
+        const api = typeof browser === 'undefined' ? chrome : browser;
+        await api.tabs.setZoom(initial.tabId, initial.zoom);
+        await api.windows.update(initial.windowId, { width: initial.width, height: initial.height });
+      }, initial);
+    }
+  }
 }];

@@ -30,7 +30,7 @@ body {
   min-height: 100vh;
   margin: 0 auto;
   max-width: 800px;
-  min-width: 340px;
+  min-width: 0;
 }
 
 .container {
@@ -732,7 +732,8 @@ footer {
 
 .category-select {
   width: 100%;
-  padding: 0.375rem 2rem 0.375rem 0.75rem;
+  padding-block: 0.375rem;
+  padding-inline: 0.75rem 2rem;
   border: 1px solid var(--bd-control-border);
   border-radius: 4px;
   background-color: var(--bg-secondary);
@@ -743,6 +744,10 @@ footer {
   background-size: 0.75rem;
   cursor: pointer;
   appearance: none;
+}
+
+[dir="rtl"] .category-select {
+  background-position: left 0.5rem center;
 }
 
 .category-select:focus {
@@ -1175,6 +1180,8 @@ tr.rule-whitelist td:first-child::before {
 }
 
 .schedule-period-card legend {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   padding: 0 0.35rem;
   font-weight: 700;
 }
@@ -1182,14 +1189,14 @@ tr.rule-whitelist td:first-child::before {
 .schedule-remove-period {
   position: absolute;
   top: -0.9rem;
-  right: 0.65rem;
+  inset-inline-end: 0.65rem;
   padding: 0.3rem 0.55rem;
   font-size: 0.75rem;
 }
 
 .schedule-period-days {
   display: grid;
-  grid-template-columns: repeat(7, minmax(54px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(3.4rem, 1fr));
   gap: 0.4rem;
   margin-bottom: 0.8rem;
 }
@@ -1220,6 +1227,8 @@ tr.rule-whitelist td:first-child::before {
 .schedule-period-times label {
   display: flex;
   flex: 1 1 180px;
+  min-width: 0;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
@@ -1257,10 +1266,6 @@ tr.rule-whitelist td:first-child::before {
 }
 
 @media (max-width: 700px) {
-  .schedule-period-days {
-    grid-template-columns: repeat(4, minmax(54px, 1fr));
-  }
-
   .schedule-dialog-actions {
     flex-wrap: wrap;
   }
@@ -1322,7 +1327,8 @@ tr.rule-whitelist td:first-child::before {
 }
 
 .rule-packs-dialog-content h3 {
-  margin: 0 2rem 0.35rem 0;
+  margin: 0 0 0.35rem;
+  padding-inline-end: 2rem;
 }
 
 .rule-packs-dialog-content > p {
@@ -2128,4 +2134,69 @@ tr.rule-whitelist td:first-child::before {
 
 .schedule-dialog-error:empty {
   margin: 0;
+}
+
+/* Narrow layouts keep saved-rule columns compact; only editors can reflow. */
+.options-navigation .footer-btn,
+.schedule-dialog button,
+.rule-packs-dialog button {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.rule-packs-dialog-content > .dialog-close-btn {
+  position: absolute;
+  inset-block-start: 0.5rem;
+  inset-inline-end: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  line-height: 1;
+  font-size: 1.5rem;
+}
+
+.rule-packs-select-label,
+.rule-packs-select-label select {
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .schedule-remove-period {
+    position: static;
+    display: block;
+    margin-block: 0.25rem 0.75rem;
+  }
+
+  .rule-editor-row input,
+  .rule-editor-row select,
+  .rule-editor-row .blocking-mode-section,
+  .rule-editor-row .daily-limit-minutes {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .rule-editor-row .daily-limit-editor {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rule-editor-row .schedule-section {
+    width: 100%;
+    min-width: 0;
+    padding: 0.4rem;
+  }
+
+  .rule-editor-row .actions {
+    display: table-cell;
+    min-width: 6rem;
+    white-space: normal;
+  }
+
+  .rule-editor-row .actions button {
+    display: block;
+    width: 100%;
+    margin-block: 0.25rem;
+    padding-inline: 0.35rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
 }
