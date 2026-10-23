@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "ไม่สามารถดำเนินการให้เสร็จสิ้นได้ โปรดลองอีกครั้ง"
+  },
+  "rule_delete_wait": {
+    "message": "รอ $seconds$ วินาที กด Escape หรือยกเลิกเพื่อยกเลิก",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "พร้อม: $action$ กดปุ่มอีกครั้งเพื่อยืนยัน หรือยกเลิก",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "ยกเลิกการลบแล้ว"
   }
 }

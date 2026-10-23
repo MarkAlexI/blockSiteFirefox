@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "ક્રિયા પૂર્ણ કરી શકાઈ નથી. કૃપા કરીને ફરી પ્રયાસ કરો."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ સેકન્ડ રાહ જુઓ. રદ કરવા Escape અથવા રદ કરો બટન દબાવો.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "તૈયાર: $action$. પુષ્ટિ કરવા બટન ફરી દબાવો, અથવા રદ કરો.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "કાઢી નાખવાનું રદ કર્યું."
   }
 }

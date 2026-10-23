@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Não foi possível concluir a ação. Tente novamente."
+  },
+  "rule_delete_wait": {
+    "message": "Aguarde $seconds$ segundos. Pressione Escape ou Cancelar para cancelar.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Pronto: $action$. Ative o botão novamente para confirmar ou cancele.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Exclusão cancelada."
   }
 }

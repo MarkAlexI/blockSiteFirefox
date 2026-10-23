@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Impossible de terminer l’action. Veuillez réessayer."
+  },
+  "rule_delete_wait": {
+    "message": "Patientez $seconds$ secondes. Appuyez sur Escape ou Annuler pour annuler.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Prêt : $action$. Activez à nouveau le bouton pour confirmer, ou annulez.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Suppression annulée."
   }
 }

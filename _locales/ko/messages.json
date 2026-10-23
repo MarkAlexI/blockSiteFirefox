@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "작업을 완료할 수 없습니다. 다시 시도해 주세요."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$초 기다려 주세요. 취소하려면 Escape 또는 취소를 누르세요.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "준비됨: $action$. 확인하려면 버튼을 다시 누르거나 취소하세요.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "삭제가 취소되었습니다."
   }
 }

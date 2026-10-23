@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Acțiunea nu a putut fi finalizată. Încearcă din nou."
+  },
+  "rule_delete_wait": {
+    "message": "Așteptați $seconds$ secunde. Pentru anulare, apăsați Escape sau Anulare.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Gata: $action$. Activați din nou butonul pentru confirmare sau anulați.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Ștergerea a fost anulată."
   }
 }

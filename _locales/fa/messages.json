@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "انجام این کار ممکن نشد. لطفاً دوباره تلاش کنید."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ ثانیه صبر کنید. برای لغو، Escape یا دکمهٔ لغو را فشار دهید.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "آماده: $action$. برای تأیید، دکمه را دوباره فعال کنید یا لغو کنید.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "حذف لغو شد."
   }
 }

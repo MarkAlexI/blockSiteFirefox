@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "მოქმედება ვერ დასრულდა. გთხოვთ, სცადოთ ხელახლა."
+  },
+  "rule_delete_wait": {
+    "message": "დაელოდეთ $seconds$ წამს. გასაუქმებლად დააჭირეთ Escape-ს ან გაუქმების ღილაკს.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "მზადაა: $action$. დასადასტურებლად კვლავ დააჭირეთ ღილაკს ან გააუქმეთ.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "წაშლა გაუქმდა."
   }
 }

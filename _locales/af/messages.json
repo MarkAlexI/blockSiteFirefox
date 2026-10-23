@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Kon nie die aksie voltooi nie. Probeer asseblief weer."
+  },
+  "rule_delete_wait": {
+    "message": "Wag $seconds$ sekondes. Druk Escape of Kanselleer om te kanselleer.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Gereed: $action$. Aktiveer die knoppie weer om te bevestig, of kanselleer.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Uitvee gekanselleer."
   }
 }

@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Toimintoa ei voitu suorittaa. Yritä uudelleen."
+  },
+  "rule_delete_wait": {
+    "message": "Odota $seconds$ sekuntia. Peruuta painamalla Escape tai Peruuta.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Valmis: $action$. Vahvista painamalla painiketta uudelleen tai peruuta.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Poistaminen peruutettu."
   }
 }

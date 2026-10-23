@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Die Aktion konnte nicht abgeschlossen werden. Bitte versuche es erneut."
+  },
+  "rule_delete_wait": {
+    "message": "Warten Sie $seconds$ Sekunden. Drücken Sie zum Abbrechen Escape oder Abbrechen.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Bereit: $action$. Betätigen Sie die Schaltfläche erneut zum Bestätigen oder brechen Sie ab.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Löschen abgebrochen."
   }
 }

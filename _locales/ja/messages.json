@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "操作を完了できませんでした。もう一度お試しください。"
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ 秒お待ちください。中止するには Escape またはキャンセルを押してください。",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "準備完了：$action$。確認するにはボタンをもう一度押すか、キャンセルしてください。",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "削除をキャンセルしました。"
   }
 }

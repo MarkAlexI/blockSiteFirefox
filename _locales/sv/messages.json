@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Åtgärden kunde inte slutföras. Försök igen."
+  },
+  "rule_delete_wait": {
+    "message": "Vänta $seconds$ sekunder. Tryck på Escape eller Avbryt för att avbryta.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Klart: $action$. Aktivera knappen igen för att bekräfta eller avbryt.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Borttagning avbruten."
   }
 }

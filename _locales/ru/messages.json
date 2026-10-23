@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Не удалось завершить действие. Попробуйте ещё раз."
+  },
+  "rule_delete_wait": {
+    "message": "Подождите $seconds$ секунд. Для отмены нажмите Escape или «Отмена».",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Готово: $action$. Нажмите кнопку ещё раз для подтверждения или отмените действие.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Удаление отменено."
   }
 }

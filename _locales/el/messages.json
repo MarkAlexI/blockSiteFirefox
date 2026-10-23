@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Δεν ήταν δυνατή η ολοκλήρωση της ενέργειας. Δοκιμάστε ξανά."
+  },
+  "rule_delete_wait": {
+    "message": "Περιμένετε $seconds$ δευτερόλεπτα. Για ακύρωση, πατήστε Escape ή Ακύρωση.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Έτοιμο: $action$. Πατήστε ξανά το κουμπί για επιβεβαίωση ή ακυρώστε.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Η διαγραφή ακυρώθηκε."
   }
 }

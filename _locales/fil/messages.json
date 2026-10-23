@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Hindi makumpleto ang aksyon. Pakisubukang muli."
+  },
+  "rule_delete_wait": {
+    "message": "Maghintay ng $seconds$ segundo. Pindutin ang Escape o Kanselahin para kanselahin.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Handa na: $action$. Pindutin muli ang button upang kumpirmahin, o kanselahin.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Kinansela ang pagtanggal."
   }
 }

@@ -204,6 +204,8 @@ a:hover {
 }
 
 .rule input {
+  min-inline-size: 0;
+  box-sizing: border-box;
   max-width: 180px;
   padding: 0.5rem;
   border: 1px solid var(--bd-control-border);
@@ -291,11 +293,17 @@ button:disabled {
 }
 
 .rule button {
+  min-inline-size: 0;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  white-space: normal;
   max-width: 22%;
   padding: 0.5rem 0.75rem;
   margin-left: 0.3125rem;
   flex-shrink: 0;
 }
+
+.rule.rule-deletion-active { flex-wrap: wrap; }
 
 #status {
   display: block;

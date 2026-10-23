@@ -1178,5 +1178,24 @@
   },
   "feedback_action_error": {
     "message": "No se pudo completar la acción. Inténtalo de nuevo."
+  },
+  "rule_delete_wait": {
+    "message": "Espera $seconds$ segundos. Pulsa Escape o Cancelar para cancelar.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Listo: $action$. Activa el botón de nuevo para confirmar o cancela.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Eliminación cancelada."
   }
 }

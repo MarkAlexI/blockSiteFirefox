@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "क्रिया पूर्ण करता आली नाही. कृपया पुन्हा प्रयत्न करा."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ सेकंद थांबा. रद्द करण्यासाठी Escape किंवा रद्द करा दाबा.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "तयार: $action$. पुष्टी करण्यासाठी बटण पुन्हा दाबा किंवा रद्द करा.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "हटवणे रद्द केले."
   }
 }

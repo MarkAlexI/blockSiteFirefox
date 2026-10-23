@@ -773,4 +773,117 @@ export const accessibilityScenarios = [{
     assert.equal(await page.evaluate(()=>window.__bdFocusWrites.length),3,'no duplicate requests or implicit expiry Stop');
   }
 }
+,{
+  id: '59',
+  title: 'Rule deletion retains keyboard focus, supports Strict cancellation and guards pending native mutations',
+  async run(e) {
+    const rule = (id, whitelist = false) => ({ id, blockURL: `delete-${id}.bd-e2e.test`, redirectURL: '',
+      category: whitelist ? 'whitelist' : 'social', isWhitelist: whitelist,
+      assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] });
+    await e.seed({ pro: true, rules: [rule(591), rule(592), rule(593), rule(594, true)] });
+    const setup = page => page.evaluate(() => {
+      window.__bdDeleteWrites = []; window.__bdDeleteEvents = [];
+      for (const type of ['focusin', 'keydown', 'click']) document.addEventListener(type, event => {
+        __bdDeleteEvents.push([type, event.key || '', event.target.className, event.target.id, event.target.parentNode?.dataset.ruleId]);
+      }, true);
+      for (const runtime of new Set([globalThis.chrome?.runtime, globalThis.browser?.runtime].filter(Boolean))) {
+        const original = runtime.sendMessage.bind(runtime);
+        runtime.sendMessage = function(input, ...args) {
+          if (!['rules:delete', 'rules:removeAssignment'].includes(input?.type)) return original(input, ...args);
+          window.__bdDeleteWrites.push(structuredClone(input));
+          const hold = window.__bdHoldDelete; window.__bdHoldDelete = false;
+          const gate = hold ? new Promise(resolve => { window.__bdReleaseDelete = resolve; }) : Promise.resolve();
+          // A controlled failed reply exercises UI retry; successful requests reach the real worker.
+          const reject = window.__bdRejectDelete; window.__bdRejectDelete = false;
+          const callback = args.at(-1);
+          if (typeof callback === 'function') {
+            gate.then(() => reject ? callback({ success: false, error: { code: 'rules_operation_failed' } }) : original(input, ...args));
+            return;
+          }
+          return gate.then(() => reject ? { success: false, error: { code: 'rules_operation_failed' } } : original(input, ...args));
+        };
+      }
+    });
+    const mode = (page, value) => page.evaluate(async value => {
+      const api = globalThis.browser || chrome, { settings } = await api.storage.sync.get('settings');
+      await api.storage.sync.set({ settings: { ...settings, mode: value } });
+    }, value);
+    const selector = id => `[data-rule-id="${id}"] .delete-btn`;
+    const activate = async (page, target) => {
+      if (page.harness?.driver) await page.harness.driver.switchTo().window(page.context);
+      else await page.bringToFront();
+      if (page.settleOptions) await page.settleOptions();
+      const proof = await page.evaluate(target => { const before = document.hasFocus(); const node = document.querySelector(target);
+        node.focus(); return { before, after: document.hasFocus(), hidden: document.hidden, same: document.activeElement === node, active: document.activeElement.outerHTML }; }, target);
+      assert.equal(proof.same, true, `native focus ${target}: ${JSON.stringify(proof)}`);
+      await press(page, 'Enter');
+    };
+    const ready = async page => {
+      if (page.front) await page.front(); else await page.bringToFront();
+      await poll(() => page.evaluate(() => !!document.querySelector('[data-rule-id="591"] .delete-btn')), Boolean, 'saved deletion controls');
+      await setup(page);
+    };
+    const page = await e.openOptions(); await ready(page); await mode(page, 'strict');
+    const expectedName = await page.evaluate(() => `${(globalThis.browser || chrome).i18n.getMessage('deletebtn')}: delete-592.bd-e2e.test`);
+    await activate(page, selector(592));
+    await poll(() => page.evaluate(() => !!document.querySelector('.rule-deletion-row .delete-cancel')), Boolean, 'Strict cancel control');
+    const waiting = await page.evaluate(() => {
+      const row = document.querySelector('[data-rule-id="592"]'), button = row.querySelector('.delete-btn');
+      return [button.disabled, button.getAttribute('aria-disabled'), button.getAttribute('aria-label'),
+        document.querySelector('.rule-deletion-row [role="timer"]')?.getAttribute('aria-live'), document.activeElement === button];
+    });
+    assert.deepEqual(waiting, [false, 'true', expectedName, 'off', true]);
+    if (page.getByRole) assert.equal(await page.getByRole('button', { name: expectedName, exact: true }).count(), 1);
+    else assert.equal(await (await page.element(selector(592))).getAccessibleName(), expectedName);
+    await press(page, 'Enter'); assert.equal(await page.evaluate(() => __bdDeleteWrites.length), 0);
+    await press(page, 'Escape');
+    await poll(() => page.evaluate(() => !document.querySelector('.delete-cancel')), Boolean, 'Escape cancellation');
+    assert.equal((await e.state()).rules.length, 4);
+    await activate(page, selector(592)); await press(page, 'Tab');
+    assert.equal(await page.evaluate(() => document.activeElement.classList.contains('delete-cancel')), true);
+    await press(page, 'Enter');
+    assert.equal(await page.evaluate(() => document.activeElement.matches('[data-rule-id="592"] .delete-btn')), true);
+    await page.evaluate(() => { window.__bdDeleteStarted = performance.now(); });
+    await activate(page, selector(592));
+    await poll(() => page.evaluate(() => !!document.querySelector('[data-rule-id="592"] .delete-ready')), Boolean, 'ten-second Strict countdown');
+    assert.ok(await page.evaluate(() => performance.now() - __bdDeleteStarted) >= 9900, 'the real countdown is not shortened');
+    await new Promise(resolve => setTimeout(resolve, 5200));
+    assert.equal(await page.evaluate(() => document.activeElement.classList.contains('delete-ready')), true, 'focused confirmation survives inactivity timeout');
+    await page.evaluate(() => { window.__bdHoldDelete = true; });
+    await press(page, 'Enter'); await press(page, 'Enter');
+    await poll(() => page.evaluate(() => __bdDeleteWrites.length), count => count === 1, 'one pending deletion');
+    assert.equal(await page.evaluate(() => document.activeElement.getAttribute('aria-busy')), 'true');
+    await page.evaluate(() => __bdReleaseDelete());
+    await poll(async () => (await e.state()).rules.some(rule => rule.id === 592), present => !present, 'native assignment deletion');
+    await poll(() => page.evaluate(() => document.activeElement.matches('[data-rule-id="591"] .delete-btn')), Boolean, 'next visible rule focus');
+
+    const popup = await e.openPopup(); await ready(popup); await mode(popup, 'normal');
+    await popup.evaluate(() => { window.__bdRejectDelete = true; });
+    await activate(popup, selector(593));
+    await poll(() => popup.evaluate(() => __bdDeleteWrites.length === 1 && !!document.querySelector('[data-rule-id="593"] .delete-btn:not([aria-disabled="true"])')), Boolean, 'failed deletion remains retryable');
+    assert.equal((await e.state()).rules.some(rule => rule.id === 593), true);
+    await popup.evaluate(() => { window.__bdHoldDelete = true; });
+    await activate(popup, selector(593)); await press(popup, 'Enter');
+    assert.equal(await popup.evaluate(() => __bdDeleteWrites.length), 2, 'retry issues one request');
+    await focus(popup, '#options-link'); await popup.evaluate(() => __bdReleaseDelete());
+    await poll(async () => (await e.state()).rules.some(rule => rule.id === 593), present => !present, 'native Popup assignment deletion');
+    await poll(() => popup.evaluate(() => !document.querySelector('[data-rule-id="593"]')), Boolean, 'Popup refresh');
+    assert.equal(await popup.evaluate(() => document.activeElement.id), 'options-link', 'later focus choice wins');
+    // Continue with native Tab from the user's later focus choice. Reacquire
+    // via keyboard instead of relying on a new script focus in this state.
+    for (let step = 0; step < 30 && !await popup.evaluate(() => document.activeElement.matches('[data-rule-id="594"] .delete-btn')); step++) await press(popup, 'Tab');
+    assert.equal(await popup.evaluate(() => document.activeElement.matches('[data-rule-id="594"] .delete-btn')), true, 'Tab reaches whitelist deletion');
+    await press(popup, 'Enter');
+    await poll(() => popup.evaluate(() => ({ writes: __bdDeleteWrites,
+      active: document.activeElement.outerHTML, events: __bdDeleteEvents.slice(-15), buttons: [...document.querySelectorAll('.delete-btn')].map(button => [button.parentNode.dataset.ruleId, button.getAttribute('aria-disabled'), button.className]) })),
+      value => value.writes.length === 3, 'whitelist intent dispatch');
+    await poll(async () => (await e.state()).rules.some(rule => rule.id === 594), present => !present, 'native whitelist deletion');
+    await poll(() => popup.evaluate(() => document.activeElement.matches('[data-rule-id="591"] .delete-btn')), Boolean, 'whitelist deletion focus');
+    await press(popup, 'Enter');
+    await poll(async () => (await e.state()).rules.length, count => count === 0, 'last native rule deletion');
+    await poll(() => popup.evaluate(() => document.activeElement.id), id => id === 'add-rule', 'empty Popup Add focus');
+    const writes = await popup.evaluate(() => __bdDeleteWrites.map(message => [message.type, message.payload.ruleId]));
+    assert.deepEqual(writes, [['rules:removeAssignment', 593], ['rules:removeAssignment', 593], ['rules:delete', 594], ['rules:removeAssignment', 591]]);
+  }
+}
 ];

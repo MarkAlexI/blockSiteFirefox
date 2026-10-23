@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Не вдалося завершити дію. Спробуйте ще раз."
+  },
+  "rule_delete_wait": {
+    "message": "Зачекайте $seconds$ секунд. Для скасування натисніть Escape або «Скасувати».",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Готово: $action$. Натисніть кнопку ще раз для підтвердження або скасуйте дію.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Видалення скасовано."
   }
 }

@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "İşlem tamamlanamadı. Lütfen tekrar deneyin."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ saniye bekleyin. Vazgeçmek için Escape veya İptal düğmesine basın.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Hazır: $action$. Onaylamak için düğmeye yeniden basın veya iptal edin.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Silme iptal edildi."
   }
 }

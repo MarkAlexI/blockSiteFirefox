@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "ಕ್ರಿಯೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ ಸೆಕೆಂಡು ಕಾಯಿರಿ. ರದ್ದುಪಡಿಸಲು Escape ಅಥವಾ ರದ್ದು ಬಟನ್ ಒತ್ತಿ.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "ಸಿದ್ಧ: $action$. ದೃಢೀಕರಿಸಲು ಬಟನ್ ಮತ್ತೆ ಒತ್ತಿ ಅಥವಾ ರದ್ದುಪಡಿಸಿ.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "ಅಳಿಸುವಿಕೆಯನ್ನು ರದ್ದುಪಡಿಸಲಾಗಿದೆ."
   }
 }

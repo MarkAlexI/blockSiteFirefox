@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.11] - 2026-10-23
+
+- Keep rule deletion controls keyboard accessible throughout the Strict Mode countdown and support Escape and Cancel.
+- Announce confirmation readiness and keep the confirmation available while its controls are focused or hovered.
+- Prevent duplicate deletion requests during settings checks, password verification and pending changes.
+- Give deletion buttons site-specific names and restore focus to a nearby rule or Add Rule after list updates.
+- Keep Strict Mode confirmation readable without widening rule-table columns and keep focused deletion controls clear of notifications.
+- Preserve later focus choices and keep failed deletions available for an explicit retry.
+
 ## [5.4.10] - 2026-10-23
 
 - Associate Focus Session duration errors with the input and retain the entered value for correction.

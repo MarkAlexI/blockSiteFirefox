@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "No s’ha pogut completar l’acció. Torna-ho a provar."
+  },
+  "rule_delete_wait": {
+    "message": "Espereu $seconds$ segons. Per cancel·lar, premeu Escape o Cancel·la.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "A punt: $action$. Torneu a activar el botó per confirmar o cancel·leu.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "S'ha cancel·lat la supressió."
   }
 }

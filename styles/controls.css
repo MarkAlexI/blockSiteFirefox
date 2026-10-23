@@ -39,6 +39,39 @@
   transform: scale(1.05);
 }
 
+/* Extra controls wrap inside the existing rule action area. */
+.rule .delete-btn.countdown-active,
+.rule .delete-btn.delete-ready,
+.delete-cancel {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+
+.delete-cancel {
+  background-color: var(--bd-primary);
+}
+
+.delete-cancel:hover { background-color: var(--bd-primary-hover); }
+
+.rule-delete-controls { display: flex; min-inline-size: 0; }
+.rule > .rule-delete-controls { flex: 0 0 100%; inline-size: 100%; }
+
+.delete-btn[aria-disabled="true"] { cursor: wait; }
+
+#rules-container .delete-btn,
+.delete-cancel { scroll-margin-block-end: calc(50vh + 2rem); }
+
+.rule-delete-help {
+  position: absolute !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .scrollToTopBtn {
   background-color: color-mix(in srgb, teal   70%, black);
   border: none;
@@ -85,3 +118,12 @@
 .scrollToTopBtn[hidden] {
   display: none !important;
 }
+
+.rule-deletion-row > td {
+  max-width: none !important;
+  white-space: normal !important;
+  text-align: start !important;
+}
+.rule-deletion-panel { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; inline-size: 0; min-inline-size: 100%; }
+.rule-delete-description { flex: 1 1 100%; min-inline-size: 0; overflow-wrap: anywhere; }
+.rule-delete-timer { font-variant-numeric: tabular-nums; }

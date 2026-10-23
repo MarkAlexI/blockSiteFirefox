@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Handlingen kunne ikke fullføres. Prøv igjen."
+  },
+  "rule_delete_wait": {
+    "message": "Vent $seconds$ sekunder. Trykk Escape eller Avbryt for å avbryte.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Klar: $action$. Aktiver knappen igjen for å bekrefte, eller avbryt.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Sletting avbrutt."
   }
 }

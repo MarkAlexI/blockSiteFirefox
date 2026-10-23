@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Haikuwezekana kukamilisha kitendo. Tafadhali jaribu tena."
+  },
+  "rule_delete_wait": {
+    "message": "Subiri sekunde $seconds$. Bonyeza Escape au Ghairi ili kughairi.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Tayari: $action$. Bonyeza kitufe tena kuthibitisha, au ghairi.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Ufutaji umeghairiwa."
   }
 }

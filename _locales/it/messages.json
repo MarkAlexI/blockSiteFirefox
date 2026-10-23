@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Impossibile completare l’azione. Riprova."
+  },
+  "rule_delete_wait": {
+    "message": "Attendi $seconds$ secondi. Premi Escape o Annulla per annullare.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Pronto: $action$. Attiva nuovamente il pulsante per confermare, oppure annulla.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Eliminazione annullata."
   }
 }

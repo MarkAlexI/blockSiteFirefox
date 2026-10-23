@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Akciu sa nepodarilo dokončiť. Skúste to znova."
+  },
+  "rule_delete_wait": {
+    "message": "Počkajte $seconds$ sekúnd. Na zrušenie stlačte Escape alebo Zrušiť.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Pripravené: $action$. Potvrďte opätovným stlačením tlačidla alebo akciu zrušte.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Odstránenie bolo zrušené."
   }
 }

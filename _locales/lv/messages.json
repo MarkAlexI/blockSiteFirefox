@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Neizdevās pabeigt darbību. Lūdzu, mēģiniet vēlreiz."
+  },
+  "rule_delete_wait": {
+    "message": "Uzgaidiet $seconds$ sekundes. Lai atceltu, nospiediet Escape vai Atcelt.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Gatavs: $action$. Vēlreiz aktivizējiet pogu, lai apstiprinātu, vai atceliet.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Dzēšana atcelta."
   }
 }

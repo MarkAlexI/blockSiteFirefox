@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "কাজটি সম্পূর্ণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ সেকেন্ড অপেক্ষা করুন। বাতিল করতে Escape বা বাতিল বোতাম চাপুন।",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "প্রস্তুত: $action$। নিশ্চিত করতে বোতামটি আবার চাপুন, অথবা বাতিল করুন।",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "মুছে ফেলা বাতিল করা হয়েছে।"
   }
 }

@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "De actie kon niet worden voltooid. Probeer het opnieuw."
+  },
+  "rule_delete_wait": {
+    "message": "Wacht $seconds$ seconden. Druk op Escape of Annuleren om te annuleren.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Gereed: $action$. Activeer de knop opnieuw om te bevestigen of annuleer.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Verwijderen geannuleerd."
   }
 }

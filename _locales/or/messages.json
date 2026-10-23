@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "କାର୍ଯ୍ୟ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ ସେକେଣ୍ଡ ଅପେକ୍ଷା କରନ୍ତୁ। ବାତିଲ କରିବାକୁ Escape କିମ୍ବା ବାତିଲ ବଟନ୍ ଦବାନ୍ତୁ।",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "ପ୍ରସ୍ତୁତ: $action$। ନିଶ୍ଚିତ କରିବାକୁ ବଟନ୍ ପୁଣି ଦବାନ୍ତୁ, କିମ୍ବା ବାତିଲ କରନ୍ତୁ।",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "ବିଲୋପ ବାତିଲ ହୋଇଛି।"
   }
 }

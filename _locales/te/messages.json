@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "చర్యను పూర్తి చేయలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ సెకన్లు వేచి ఉండండి. రద్దు చేయడానికి Escape లేదా రద్దు బటన్ నొక్కండి.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "సిద్ధం: $action$. నిర్ధారించడానికి బటన్‌ను మళ్లీ నొక్కండి లేదా రద్దు చేయండి.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "తొలగింపు రద్దు చేయబడింది."
   }
 }

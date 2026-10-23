@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.10**
+# Firefox Desktop E2E — BlockDistraction **5.4.11**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -989,3 +989,22 @@ Scenario 55 passes in both. Chromium startup restore fails in setup while
 waiting for install Options. The artifact confirms enabled persistent unpacked
 5.4.7 and a live worker/process, with no Options target observed. The missing
 page's cause is not established by these artifacts; its assertion is retained.
+
+
+## A11Y-04 / 5.4.11: keyboard-accessible rule deletion (59)
+
+Scenario 59 exercises Options and Popup with trusted keyboard input. The Strict
+Mode countdown uses the real ten seconds, requires a second activation and
+supports Escape and native Cancel. A focused confirmation survives the normal
+five-second inactivity window. The test verifies a computed site-specific name,
+a quiet timer, pending duplicate guards, real assignment/whitelist commits,
+explicit retry and neighboring/empty-list focus. Native Tab continues from a
+later user focus choice. A forwarding RPC gate controls dispatch timing; one
+failed reply is deliberately modeled for the UI retry, not a real worker error.
+
+Local Firefox 153 temporary installation passes scenario 59. Loopback Blink 151
+and Firefox 153 cover 48 configurations / 144 idle, waiting and ready states:
+Popup and Options in both variants, narrow screens, RTL, enlarged base text and
+forced-colors. Saved-column widths match idle. Axe reports no A/AA violations;
+color-contrast and label-content-name-mismatch have incomplete results. These
+checks distinguish native Firefox tab behavior from API-model layout tests.

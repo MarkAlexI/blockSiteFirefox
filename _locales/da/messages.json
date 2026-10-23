@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Handlingen kunne ikke fuldføres. Prøv igen."
+  },
+  "rule_delete_wait": {
+    "message": "Vent $seconds$ sekunder. Tryk på Escape eller Annuller for at annullere.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Klar: $action$. Aktivér knappen igen for at bekræfte, eller annuller.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Sletning annulleret."
   }
 }

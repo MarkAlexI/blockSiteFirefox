@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Nepavyko užbaigti veiksmo. Bandykite dar kartą."
+  },
+  "rule_delete_wait": {
+    "message": "Palaukite $seconds$ sekundžių. Norėdami atšaukti, paspauskite Escape arba Atšaukti.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Paruošta: $action$. Patvirtinkite dar kartą paspausdami mygtuką arba atšaukite.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Ištrynimas atšauktas."
   }
 }

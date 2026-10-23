@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "无法完成操作，请重试。"
+  },
+  "rule_delete_wait": {
+    "message": "请等待 $seconds$ 秒。按 Escape 或取消按钮可取消。",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "已就绪：$action$。再次激活按钮以确认，或取消。",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "已取消删除。"
   }
 }

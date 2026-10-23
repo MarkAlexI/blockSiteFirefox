@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "לא ניתן להשלים את הפעולה. יש לנסות שוב."
+  },
+  "rule_delete_wait": {
+    "message": "יש להמתין $seconds$ שניות. לביטול, יש ללחוץ על Escape או על ביטול.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "מוכן: $action$. יש להפעיל שוב את הכפתור לאישור, או לבטל.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "המחיקה בוטלה."
   }
 }

@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Nie udało się ukończyć działania. Spróbuj ponownie."
+  },
+  "rule_delete_wait": {
+    "message": "Poczekaj $seconds$ sekund. Aby anulować, naciśnij Escape lub Anuluj.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Gotowe: $action$. Naciśnij przycisk ponownie, aby potwierdzić, lub anuluj.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Usuwanie anulowane."
   }
 }

@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "A műveletet nem sikerült befejezni. Kérjük, próbálja újra."
+  },
+  "rule_delete_wait": {
+    "message": "Várjon $seconds$ másodpercet. A megszakításhoz nyomja meg az Escape vagy a Mégse gombot.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Kész: $action$. A megerősítéshez nyomja meg újra a gombot, vagy szakítsa meg.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "A törlés megszakítva."
   }
 }

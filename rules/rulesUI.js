@@ -1,6 +1,7 @@
 import { t } from '../scripts/t.js';
 import { customAlert } from '../scripts/customAlert.js';
 import { RuleEditorFeedback } from './ruleEditorFeedback.js';
+import { RuleDeletionController } from './ruleDeletion.js';
 import Logger from '../utils/logger.js';
 import { CATEGORIES } from './categoryManager.js';
 import { ScheduleFormatter } from '../utils/scheduleFormatter.js';
@@ -32,103 +33,27 @@ export function formatDailyLimitUsageMinutes(usedSeconds, limitMinutes) {
 export class RulesUI {
   constructor() {
     this.logger = new Logger('RulesUI');
-    this.countdownTimers = new Map();
+    this.deletion = new RuleDeletionController(t, customAlert);
+    this.countdownTimers = this.deletion.timers;
     this.scheduleFormatter = new ScheduleFormatter();
     this.scheduleEditor = new ScheduleEditor({ logger: this.logger });
   }
 
-  isDeleteConfirmationInProgress(deleteButton) {
-    const classList = deleteButton?.classList;
-    return Boolean(
-      classList?.contains('countdown-active') ||
-      classList?.contains('delete-ready')
-    );
+  isDeleteConfirmationInProgress(button) {
+    return this.deletion.states.has(button) || Boolean(
+      button?.classList?.contains('countdown-active') || button?.classList?.contains('delete-ready'));
   }
 
-  handleRuleDeletion(deleteButton, onDelete, isStrictMode = false, buttonText = null) {
-    if (isStrictMode) {
-      this.startDeleteCountdown(deleteButton, onDelete, buttonText);
-    } else {
-      onDelete();
-    }
+  handleRuleDeletion(button, onDelete, isStrictMode = false, buttonText = null, options = {}) {
+    return this.deletion.run(button, onDelete, isStrictMode, buttonText, options);
   }
 
-  startDeleteCountdown(deleteButton, onDelete, buttonText = null, countdownSeconds = 10, confirmSeconds = 5) {
-    let countdown = countdownSeconds;
-    const originalText = buttonText || deleteButton.textContent;
-    const timerId = Date.now() + Math.random();
-
-    deleteButton.disabled = true;
-    deleteButton.classList.add('countdown-active');
-
-    const updateButton = () => {
-      deleteButton.textContent = `${originalText} (${countdown})`;
-    };
-
-    updateButton();
-
-    const countdownInterval = setInterval(() => {
-      countdown--;
-
-      if (countdown > 0) {
-        updateButton();
-      } else {
-        clearInterval(countdownInterval);
-        this.countdownTimers.delete(timerId);
-
-        deleteButton.disabled = false;
-        deleteButton.classList.remove('countdown-active');
-        deleteButton.classList.add('delete-ready');
-        deleteButton.textContent = `${originalText} ✓`;
-
-        const deleteHandler = () => {
-          onDelete();
-          deleteButton.removeEventListener('click', deleteHandler);
-          deleteButton.removeEventListener('click', cancelHandler);
-        };
-
-        const cancelHandler = (e) => {
-          if (e.detail === 2) {
-            deleteButton.disabled = false;
-            deleteButton.classList.remove('delete-ready');
-            deleteButton.textContent = originalText;
-            deleteButton.removeEventListener('click', deleteHandler);
-            deleteButton.removeEventListener('click', cancelHandler);
-          }
-        };
-
-        deleteButton.addEventListener('click', deleteHandler);
-        deleteButton.addEventListener('click', cancelHandler);
-
-        const resetTimeout = setTimeout(() => {
-          if (deleteButton.parentNode) {
-            deleteButton.disabled = false;
-            deleteButton.classList.remove('delete-ready');
-            deleteButton.textContent = originalText;
-            deleteButton.removeEventListener('click', deleteHandler);
-            deleteButton.removeEventListener('click', cancelHandler);
-          }
-        }, confirmSeconds * 1000);
-
-        this.countdownTimers.set(`reset_${timerId}`, resetTimeout);
-      }
-    }, 1000);
-
-    this.countdownTimers.set(timerId, countdownInterval);
-
-    const cancelHandler = (e) => {
-      if (e.detail === 2) {
-        clearInterval(countdownInterval);
-        this.countdownTimers.delete(timerId);
-        deleteButton.disabled = false;
-        deleteButton.classList.remove('countdown-active');
-        deleteButton.textContent = originalText;
-        deleteButton.removeEventListener('click', cancelHandler);
-      }
-    };
-
-    deleteButton.addEventListener('click', cancelHandler);
+  startDeleteCountdown(button, onDelete, buttonText = null, countdownSeconds = 10, confirmSeconds = 5) {
+    return this.deletion.run(button, onDelete, true, buttonText, { countdownSeconds, confirmSeconds });
   }
+
+  rememberDeletionFocus(container, fallback) { this.deletion.rememberFocus(container, fallback); }
+  restoreDeletionFocus(container) { this.deletion.restoreFocus(container); }
 
   createRuleDisplayRow(
     rule,
@@ -240,10 +165,12 @@ export class RulesUI {
     }
 
     const deleteBtn = document.createElement('button');
+    deleteBtn.type = 'button';
     deleteBtn.className = 'delete-btn';
     deleteBtn.textContent = assignmentScopedDelete && getRuleAssignments(rule).length > 1
       ? (t('rulelists_remove_assignment') || 'Remove from list')
       : t('deletebtn');
+    deleteBtn.setAttribute('aria-label', `${deleteBtn.textContent}: ${rule.blockURL}`);
     deleteBtn.addEventListener('click', event => onDelete(event, rule.id, assignment));
     actionsCell.appendChild(deleteBtn);
 
@@ -697,22 +624,7 @@ export class RulesUI {
     this.showAlert(message);
   }
 
-  clearCountdownTimer(button) {
-    for (const [timerId, timer] of this.countdownTimers.entries()) {
-      clearInterval(timer);
-      clearTimeout(timer);
-    }
-    this.countdownTimers.clear();
+  clearCountdownTimer(button) { this.deletion.cancel(button); }
 
-    button.disabled = false;
-    button.classList.remove('countdown-active', 'delete-ready');
-  }
-
-  cleanup() {
-    for (const [timerId, timer] of this.countdownTimers.entries()) {
-      clearInterval(timer);
-      clearTimeout(timer);
-    }
-    this.countdownTimers.clear();
-  }
+  cleanup() { this.deletion.cleanup(); }
 }

@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "कार्रवाई पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।"
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ सेकंड प्रतीक्षा करें। रद्द करने के लिए Escape या रद्द करें दबाएँ।",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "तैयार: $action$। पुष्टि करने के लिए बटन फिर दबाएँ, या रद्द करें।",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "हटाना रद्द कर दिया गया।"
   }
 }

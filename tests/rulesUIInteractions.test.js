@@ -16,7 +16,9 @@ async function withRulesUI(callback) {
   const api = createExtensionApi();
   await withExtensionEnvironment(api, async () => {
     const { RulesUI } = await import('../rules/rulesUI.js');
-    await callback({ document, api, rulesUI: new RulesUI() });
+    const rulesUI = new RulesUI();
+    rulesUI.deletion.notify = () => {};
+    await callback({ document, api, rulesUI });
   }, { document });
 }
 
@@ -340,27 +342,28 @@ test('validation helpers translate known errors and preserve unknown validation 
 });
 
 test('ordinary deletion runs immediately while strict deletion starts its confirmation timer', async () => {
-  await withRulesUI(({ document, rulesUI }) => {
+  await withRulesUI(async ({ document, rulesUI }) => {
     const button = document.addElement('delete', 'button');
     let deleted = 0;
     let started = 0;
-    rulesUI.handleRuleDeletion(button, () => { deleted += 1; }, false);
+    await rulesUI.handleRuleDeletion(button, () => { deleted += 1; }, false);
     assert.equal(deleted, 1);
-    rulesUI.startDeleteCountdown = () => { started += 1; };
+    rulesUI.deletion.run = (_button, _remove, strict) => { if (strict) started += 1; };
     rulesUI.handleRuleDeletion(button, () => { deleted += 1; }, true);
     assert.equal(started, 1);
     assert.equal(deleted, 1);
   });
 });
 
-test('strict deletion intentionally enters the blinking delete-ready state before confirmation', async () => {
+test('strict deletion keeps keyboard focus while entering the explicit confirmation state', async () => {
   await withFakeTimers(async ({ intervals, timeouts }) => {
     await withRulesUI(async ({ document, rulesUI }) => {
       const button = document.addElement('delete', 'button');
       button.textContent = 'Delete';
       let deleted = 0;
       rulesUI.startDeleteCountdown(button, () => { deleted += 1; }, null, 2, 5);
-      assert.equal(button.disabled, true);
+      assert.equal(button.disabled, false);
+      assert.equal(button.getAttribute('aria-disabled'), 'true');
       assert.equal(button.classList.contains('countdown-active'), true);
       assert.equal(button.textContent, 'Delete (2)');
 
@@ -393,7 +396,7 @@ test('strict deletion resets an expired confirmation and can cancel an active co
       assert.equal(button.textContent, 'Delete');
 
       rulesUI.startDeleteCountdown(button, () => assert.fail('Countdown cancelled'), null, 3, 5);
-      await button.dispatch('click', { detail: 2 });
+      await button.dispatch('keydown', { key: 'Escape' });
       assert.equal(button.classList.contains('countdown-active'), false);
       assert.equal(button.disabled, false);
       assert.equal(button.textContent, 'Delete');

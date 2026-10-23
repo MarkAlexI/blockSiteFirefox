@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Could not complete the action. Please try again."
+  },
+  "rule_delete_wait": {
+    "message": "Wait $seconds$ seconds. Press Escape or Cancel to cancel.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Ready: $action$. Activate the button again to confirm, or cancel.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Deletion cancelled."
   }
 }

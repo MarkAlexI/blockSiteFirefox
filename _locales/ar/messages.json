@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "تعذّر إكمال الإجراء. يُرجى المحاولة مرة أخرى."
+  },
+  "rule_delete_wait": {
+    "message": "انتظر $seconds$ ثانية. للإلغاء، اضغط Escape أو زر الإلغاء.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "جاهز: $action$. فعّل الزر مرة أخرى للتأكيد، أو ألغِ العملية.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "أُلغي الحذف."
   }
 }

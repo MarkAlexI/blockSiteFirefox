@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "പ്രവർത്തനം പൂർത്തിയാക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ സെക്കൻഡ് കാത്തിരിക്കുക. റദ്ദാക്കാൻ Escape അല്ലെങ്കിൽ റദ്ദാക്കുക അമർത്തുക.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "തയ്യാർ: $action$. സ്ഥിരീകരിക്കാൻ ബട്ടൺ വീണ്ടും അമർത്തുക, അല്ലെങ്കിൽ റദ്ദാക്കുക.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "ഇല്ലാതാക്കൽ റദ്ദാക്കി."
   }
 }

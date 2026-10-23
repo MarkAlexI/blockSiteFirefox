@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "செயலை முடிக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ வினாடிகள் காத்திருக்கவும். ரத்துசெய்ய Escape அல்லது ரத்துசெய் பொத்தானை அழுத்தவும்.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "தயார்: $action$. உறுதிப்படுத்த பொத்தானை மீண்டும் அழுத்தவும் அல்லது ரத்துசெய்யவும்.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "நீக்குதல் ரத்துசெய்யப்பட்டது."
   }
 }

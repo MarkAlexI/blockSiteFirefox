@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Radnju nije moguće dovršiti. Pokušajte ponovno."
+  },
+  "rule_delete_wait": {
+    "message": "Pričekajte $seconds$ sekundi. Za odustajanje pritisnite Escape ili Odustani.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Spremno: $action$. Ponovno aktivirajte gumb za potvrdu ili odustanite.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Brisanje je otkazano."
   }
 }

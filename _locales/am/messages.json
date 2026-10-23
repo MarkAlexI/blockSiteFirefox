@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "እርምጃውን ማጠናቀቅ አልተቻለም። እባክዎ እንደገና ይሞክሩ።"
+  },
+  "rule_delete_wait": {
+    "message": "$seconds$ ሰከንዶች ይጠብቁ። ለመሰረዝ Escape ወይም ሰርዝ ይጫኑ።",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "ዝግጁ፦ $action$። ለማረጋገጥ አዝራሩን እንደገና ይጫኑ፣ ወይም ይሰርዙ።",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "መሰረዙ ተቋርጧል።"
   }
 }

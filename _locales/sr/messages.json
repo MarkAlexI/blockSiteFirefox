@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Није могуће довршити радњу. Покушајте поново."
+  },
+  "rule_delete_wait": {
+    "message": "Сачекајте $seconds$ секунди. За отказивање притисните Escape или Откажи.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Спремно: $action$. Поново активирајте дугме за потврду или откажите.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Брисање је отказано."
   }
 }

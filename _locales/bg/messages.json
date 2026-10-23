@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Действието не можа да бъде завършено. Моля, опитайте отново."
+  },
+  "rule_delete_wait": {
+    "message": "Изчакайте $seconds$ секунди. За отказ натиснете Escape или Отказ.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Готово: $action$. Натиснете бутона отново за потвърждение или откажете.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Изтриването е отменено."
   }
 }

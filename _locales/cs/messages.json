@@ -1160,5 +1160,24 @@
   },
   "feedback_action_error": {
     "message": "Akci se nepodařilo dokončit. Zkuste to prosím znovu."
+  },
+  "rule_delete_wait": {
+    "message": "Počkejte $seconds$ sekund. Pro zrušení stiskněte Escape nebo Zrušit.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_ready": {
+    "message": "Připraveno: $action$. Potvrďte opětovným stisknutím tlačítka, nebo akci zrušte.",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      }
+    }
+  },
+  "rule_delete_cancelled": {
+    "message": "Smazání bylo zrušeno."
   }
 }
