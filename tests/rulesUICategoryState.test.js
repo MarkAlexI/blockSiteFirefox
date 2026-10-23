@@ -22,6 +22,7 @@ class FakeElement {
     this.tagName = tagName.toUpperCase();
     this.children = [];
     this.listeners = new Map();
+    this.attributes = new Map();
     this.className = '';
     this.classList = new FakeClassList(this);
     this.dataset = {};
@@ -29,6 +30,10 @@ class FakeElement {
     this.textContent = '';
     this.title = '';
   }
+
+  setAttribute(name, value) { this.attributes.set(name, String(value)); }
+
+  getAttribute(name) { return this.attributes.get(name) ?? null; }
 
   appendChild(child) {
     this.children.push(child);

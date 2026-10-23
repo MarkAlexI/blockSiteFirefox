@@ -564,10 +564,24 @@ class OptionsPage {
   }
 
   renderRules(viewItems, canEdit, isFiltered = false, disabledCategories = [], dailyUsageSeconds = {}) {
+    const active = document.activeElement;
+    const focusedRow = active?.classList.contains('rule-toggle')
+      ? [...this.rulesBody.children].find(row => row.querySelector('.rule-toggle') === active)
+      : null;
+    const restoreToggleFocus = () => {
+      if (!focusedRow) return;
+      const row = [...this.rulesBody.children].find(candidate =>
+        candidate.dataset.ruleId === focusedRow.dataset.ruleId &&
+        candidate.dataset.assignmentListId === focusedRow.dataset.assignmentListId);
+      const toggle = row?.querySelector('.rule-toggle');
+      const target = toggle && !toggle.disabled ? toggle : this.addRuleButton;
+      target?.focus({ preventScroll: true });
+    };
     this.rulesBody.innerHTML = '';
     const noRulesMessage = isFiltered ? t('norulesforcategory') : t('norules');
     if (viewItems.length === 0) {
       this.rulesBody.appendChild(this.rulesUI.createEmptyRow(noRulesMessage, 5));
+      restoreToggleFocus();
       return;
     }
 
@@ -585,6 +599,7 @@ class OptionsPage {
       }
       this.rulesBody.appendChild(row);
     });
+    restoreToggleFocus();
   }
 
   createRuleRow(item, index, canEdit, disabledCategories = [], dailyUsageSeconds = {}) {

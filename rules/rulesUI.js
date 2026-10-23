@@ -197,18 +197,29 @@ export class RulesUI {
       }
       blockingCell.appendChild(status);
     } else {
-      const toggleElement = document.createElement('span');
+      const toggleElement = document.createElement('button');
+      toggleElement.type = 'button';
       toggleElement.className = 'rule-toggle';
       toggleElement.textContent = assignment?.disabledByUser === true ? '✗' : '✓';
+      toggleElement.setAttribute('aria-label', `${t('blockingmode_header')}: ${rule.blockURL}`);
+      toggleElement.setAttribute('aria-pressed', String(assignment?.disabledByUser !== true));
+      toggleElement.disabled = disabledCategories.includes(rule.category);
       toggleElement.title = assignment?.disabledByUser === true
         ? t('rule_disabled') || 'Disabled'
         : t('rule_enabled') || 'Enabled';
-      toggleElement.style.cursor = 'pointer';
+      let pending = false;
       toggleElement.addEventListener('click', async () => {
+        if (pending || toggleElement.disabled) return;
+        pending = true;
+        // Keep the active button focusable while its password/mutation awaits.
+        toggleElement.setAttribute('aria-disabled', 'true');
         try {
           await onToggle(rule.id);
         } catch (error) {
           this.logger.error('Toggle rule error:', error);
+        } finally {
+          pending = false;
+          toggleElement.setAttribute('aria-disabled', 'false');
         }
       });
       blockingCell.appendChild(toggleElement);

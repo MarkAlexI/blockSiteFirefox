@@ -121,7 +121,9 @@ class Page {
     const actions = this.harness.driver.actions();
     if (key === 'Shift+Tab') await actions.keyDown(Key.SHIFT).sendKeys(Key.TAB).keyUp(Key.SHIFT).perform();
     else {
-      const keys = { Enter: Key.ENTER, Space: Key.SPACE, Tab: Key.TAB, Escape: Key.ESCAPE };
+      const keys = { Enter: Key.ENTER, Space: Key.SPACE, Tab: Key.TAB, Escape: Key.ESCAPE,
+        ArrowLeft: Key.ARROW_LEFT, ArrowRight: Key.ARROW_RIGHT, ArrowUp: Key.ARROW_UP, ArrowDown: Key.ARROW_DOWN,
+        Home: Key.HOME, End: Key.END };
       assert.ok(keys[key], `Unsupported page key: ${key}`);
       await actions.sendKeys(keys[key]).perform();
     }

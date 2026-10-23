@@ -447,6 +447,26 @@ button:disabled {
   transform: none;
 }
 
+.rule-toggle {
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--bd-control-border);
+  background: var(--bd-surface-soft);
+  color: var(--bd-text);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.rule-toggle:hover {
+  background: var(--bd-surface);
+  transform: none;
+}
+
+.rule-toggle[aria-disabled="true"] {
+  cursor: progress;
+}
+
 .action-buttons {
   display: flex;
   gap: 1rem;
@@ -2005,10 +2025,22 @@ tr.rule-whitelist td:first-child::before {
 
 .stats-chart-column {
   min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+  transition: none;
   display: flex;
   align-items: flex-end;
   outline: none;
   cursor: crosshair;
+}
+
+.stats-chart-column:hover {
+  background: rgba(102, 126, 234, 0.08);
+  transform: none;
 }
 
 .stats-chart-column[data-selected="true"] {

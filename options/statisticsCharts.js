@@ -152,6 +152,8 @@ function renderBars(container, series, definitions) {
 
   plot.style.setProperty('--stats-chart-columns', String(series.length));
   plot.style.setProperty('--stats-chart-grid-size', `${100 / Math.max(1, ticks.length - 1)}%`);
+  plot.setAttribute('role', 'radiogroup');
+  plot.setAttribute('aria-label', definitions.map(definition => definition.label).join(' / '));
 
   const updateDetail = index => {
     const day = series[index];
@@ -167,7 +169,7 @@ function renderBars(container, series, definitions) {
     columns.forEach((item, itemIndex) => {
       const selected = itemIndex === index;
       item.dataset.selected = selected ? 'true' : 'false';
-      item.setAttribute('aria-pressed', String(selected));
+      item.setAttribute('aria-checked', String(selected));
       item.tabIndex = selected ? 0 : -1;
     });
     updateDetail(index);
@@ -175,14 +177,17 @@ function renderBars(container, series, definitions) {
   };
 
   series.forEach((day, index) => {
-    const column = createElement('div', 'stats-chart-column');
+    const column = createElement('button', 'stats-chart-column');
+    column.type = 'button';
     const bars = createElement('div', 'stats-chart-bars');
     const summary = formatDaySummary(day, definitions);
 
     column.dataset.selected = 'false';
     column.tabIndex = index === selectedIndex ? 0 : -1;
-    column.setAttribute('role', 'button');
-    column.setAttribute('aria-pressed', 'false');
+    // Exactly one day is selected; expose a named radio group rather than
+    // independent toggle buttons that imply the selected day can be unpressed.
+    column.setAttribute('role', 'radio');
+    column.setAttribute('aria-checked', 'false');
     column.setAttribute('aria-label', summary);
     column.title = summary;
 
@@ -201,13 +206,18 @@ function renderBars(container, series, definitions) {
     column.addEventListener('focus', () => selectColumn(index));
     column.addEventListener('keydown', event => {
       let nextIndex = null;
-      if (event.key === 'ArrowLeft') nextIndex = Math.max(0, index - 1);
-      if (event.key === 'ArrowRight') nextIndex = Math.min(series.length - 1, index + 1);
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        const rtl = column.ownerDocument.defaultView?.getComputedStyle(column).direction === 'rtl';
+        const step = (event.key === 'ArrowRight' ? 1 : -1) * (rtl ? -1 : 1);
+        nextIndex = (index + step + series.length) % series.length;
+      }
+      if (event.key === 'ArrowUp') nextIndex = (index - 1 + series.length) % series.length;
+      if (event.key === 'ArrowDown') nextIndex = (index + 1) % series.length;
       if (event.key === 'Home') nextIndex = 0;
       if (event.key === 'End') nextIndex = series.length - 1;
-      if (nextIndex === null || nextIndex === index) return;
+      if (nextIndex === null) return;
       event.preventDefault();
-      selectColumn(nextIndex, { focus: true });
+      if (nextIndex !== index) selectColumn(nextIndex, { focus: true });
     });
 
     columns.push(column);

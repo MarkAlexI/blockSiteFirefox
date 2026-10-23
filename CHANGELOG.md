@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.4] - 2026-10-23
+
+- Make the manual rule state a named native toggle button with committed pressed state, keyboard activation and an unavailable state for muted categories. Ignore repeated activation while authorization or a mutation is pending.
+- Keep focus on the same rule/list toggle after table refresh, fall back to Add if it disappears and respect focus moved to another control.
+- Expose chart days as a named single-selection radio group using native button activation, exact textual values, one Tab stop and wrapping arrows that follow visual direction in RTL.
+- Add focused regressions and native keyboard scenario 52, including password cancellation and authorized toggling. Keep the patch-release update page unchanged.
+
 ## [5.4.3] - 2026-10-22
 
 - Name Feedback and Rule Packs dialogs, localize their cancel buttons and manage initial, boundary and return focus.

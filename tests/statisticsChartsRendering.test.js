@@ -40,8 +40,12 @@ test('statistics charts render exact totals, accessible columns, bars, and numer
 
     const columns = activityContainer.querySelectorAll('.stats-chart-column');
     assert.equal(columns.length, 7);
-    assert.equal(columns.at(-1).getAttribute('role'), 'button');
-    assert.equal(columns.at(-1).getAttribute('aria-pressed'), 'true');
+    assert.equal(columns.at(-1).tagName, 'BUTTON');
+    assert.equal(columns.at(-1).type, 'button');
+    assert.equal(columns.at(-1).getAttribute('role'), 'radio');
+    assert.equal(activityContainer.querySelector('.stats-chart-plot').getAttribute('role'), 'radiogroup');
+    assert.equal(activityContainer.querySelector('.stats-chart-plot').getAttribute('aria-label'), 'Blocked / Redirected');
+    assert.equal(columns.at(-1).getAttribute('aria-checked'), 'true');
     assert.equal(columns.at(-1).tabIndex, 0);
     assert.match(columns.at(-1).getAttribute('aria-label'), /Blocked: 5/);
     assert.deepEqual(
@@ -95,7 +99,7 @@ test('click and focus keep exactly one chart day selected and keyboard-accessibl
     await columns[1].dispatch('click');
     assert.equal(columns[1].dataset.selected, 'true');
     assert.equal(columns[1].tabIndex, 0);
-    assert.equal(columns.at(-1).getAttribute('aria-pressed'), 'false');
+    assert.equal(columns.at(-1).getAttribute('aria-checked'), 'false');
     assert.equal(columns.at(-1).tabIndex, -1);
 
     await columns[4].dispatch('focus');
@@ -104,7 +108,7 @@ test('click and focus keep exactly one chart day selected and keyboard-accessibl
   }, { document });
 });
 
-test('keyboard arrows, Home, and End move selection without stepping outside the available days', async () => {
+test('chart radio arrows wrap within their group and Home/End reach chronological endpoints', async () => {
   const { document, activityContainer, options } = createChartFixture();
   await withExtensionEnvironment(createExtensionApi(), async () => {
     renderStatisticsCharts(options);
@@ -125,9 +129,45 @@ test('keyboard arrows, Home, and End move selection without stepping outside the
     assert.equal(columns[6].dataset.selected, 'true');
 
     event = await columns[0].dispatch('keydown', { key: 'ArrowLeft' });
-    assert.equal(event.defaultPrevented, undefined);
+    assert.equal(event.defaultPrevented, true);
+    assert.equal(document.activeElement, columns[6]);
+    await columns[6].dispatch('keydown', { key: 'ArrowDown' });
+    assert.equal(document.activeElement, columns[0]);
+    await columns[0].dispatch('keydown', { key: 'ArrowUp' });
+    assert.equal(document.activeElement, columns[6]);
     event = await columns[0].dispatch('keydown', { key: 'Tab' });
     assert.equal(event.defaultPrevented, undefined);
+  }, { document });
+});
+
+test('RTL chart arrows follow visual direction while Home/End retain chronological endpoints', async () => {
+  const { document, activityContainer, options } = createChartFixture();
+  document.defaultView = { getComputedStyle: () => ({ direction: 'rtl' }) };
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    renderStatisticsCharts(options);
+    const columns = activityContainer.querySelectorAll('.stats-chart-column');
+    await columns[6].dispatch('keydown', { key: 'ArrowRight' });
+    assert.equal(document.activeElement, columns[5]);
+    await columns[5].dispatch('keydown', { key: 'ArrowLeft' });
+    assert.equal(document.activeElement, columns[6]);
+    await columns[6].dispatch('keydown', { key: 'Home' });
+    assert.equal(document.activeElement, columns[0]);
+    await columns[0].dispatch('keydown', { key: 'End' });
+    assert.equal(document.activeElement, columns[6]);
+    assert.equal(columns.filter(column => column.tabIndex === 0).length, 1);
+  }, { document });
+});
+
+test('native chart activation restores exact selected-day text after hover preview', async () => {
+  const { document, activityContainer, options } = createChartFixture();
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    renderStatisticsCharts(options);
+    const columns = activityContainer.querySelectorAll('.stats-chart-column');
+    await columns[5].dispatch('mouseenter');
+    assert.match(activityContainer.querySelector('.stats-chart-detail').textContent, /Blocked: 3/);
+    await columns[6].dispatch('click');
+    assert.match(activityContainer.querySelector('.stats-chart-detail').textContent, /Blocked: 5/);
+    assert.equal(columns[6].getAttribute('aria-checked'), 'true');
   }, { document });
 });
 

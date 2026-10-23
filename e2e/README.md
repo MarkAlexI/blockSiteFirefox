@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.3**
+# Firefox Desktop E2E — BlockDistraction **5.4.4**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -884,3 +884,14 @@ inertness, nested and standalone Schedule focus, validation, group editing,
 one explicit Rule Pack save and Feedback dismissal. Node tests separately
 cover controlled storage/tab failures, duplicate submissions and stale results.
 Patch releases leave `update/update.js` unchanged.
+
+
+## A11Y-04 / 5.4.4: keyboard rule state and chart day (52)
+
+Scenario 52 checks native Space/Enter rule toggles, saved pressed state and
+replacement focus; protected disabling still requires the real password gate,
+including Escape cancellation. It checks chart radio names/roles, trusted
+activation, exact daily text, one Tab stop, wrapping arrows, Home/End and visual
+RTL direction. Local Firefox 153 temporary-install run passed; baseline 5.4.3
+fails at its mouse-only SPAN. New full headed CI remains required.
+See `docs/accessibility-roadmap.md` for evidence and platform limits.
