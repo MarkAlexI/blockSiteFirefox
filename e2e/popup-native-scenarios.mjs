@@ -77,8 +77,7 @@ export const popupNativeScenarios = [{
       }
       await until(() => toolbarCount(options), count => count === 0, 'real toolbar document destroyed');
       if (e.dismissToolbarPopup) {
-        const focus = await focusOptionsForImport(options);
-        await evidence(e, `toolbar-import-focus-${kind}`, focus);
+        await focusOptionsForImport(options, focus => evidence(e, `toolbar-import-focus-${kind}`, focus));
       }
       const domain = `toolbar-after-${kind.toLowerCase()}.bd-e2e.test`;
       await options.evaluate(() => {

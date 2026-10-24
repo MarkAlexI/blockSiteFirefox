@@ -56,10 +56,11 @@ export async function toolbarCount(host) {
 // WebDriver's hidden-file upload does not perform the content click that a
 // user makes before choosing a backup. Escape closes Gecko's chrome panel;
 // establish content focus explicitly before starting that separate action.
-export async function focusOptionsForImport(host) {
+export async function focusOptionsForImport(host, record = async () => {}) {
   const before = await host.evaluate(() => ({ focused: document.hasFocus(),
     visibility: document.visibilityState, active: document.activeElement?.id || null }));
   await host.front();
+  const desktop = await host.activateNativeWindow();
   await host.evaluate(() => {
     window.__bdToolbarImportPointer = null;
     document.getElementById('search-input').addEventListener('pointerdown', event => {
@@ -72,12 +73,14 @@ export async function focusOptionsForImport(host) {
   const after = await host.evaluate(() => ({ focused: document.hasFocus(),
     visibility: document.visibilityState, active: document.activeElement?.id || null,
     pointer: window.__bdToolbarImportPointer, draft: document.getElementById('search-input').value }));
-  const detail = JSON.stringify({ before, after });
+  const focus = { before, desktop, after };
+  await record(focus);
+  const detail = JSON.stringify(focus);
   assert.equal(after.pointer?.trusted, true, `Options import requires native pointer input: ${detail}`);
   assert.equal(after.visibility, 'visible', `Options import requires a visible document: ${detail}`);
   assert.equal(after.focused, true, `Options import requires content focus: ${detail}`);
   assert.equal(after.active, 'search-input', `Options import focus target changed: ${detail}`);
-  return { before, after };
+  return focus;
 }
 
 // Only delivery is gated. Native storage.get, timers and animation frames run;

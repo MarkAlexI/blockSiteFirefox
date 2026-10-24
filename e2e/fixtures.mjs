@@ -11,6 +11,7 @@ import firefox from 'selenium-webdriver/firefox.js';
 import { zipSync, unzipSync } from 'fflate';
 import { expectedVersion } from './target-version.mjs';
 import { selectLiveWindow } from './window-selection.mjs';
+import { activateNativeWindow } from './native-window-focus.mjs';
 import { createFixtureProxy } from './fixture-proxy.mjs';
 import { frameFixtureHtml } from './frame-fixture.mjs';
 
@@ -80,6 +81,12 @@ class Page {
       // an old row while that refresh is replacing the table.
       await this.settleOptions({ activated: true });
     }
+  }
+  async activateNativeWindow() {
+    // Only the headed Linux/X11 fixture needs a separate desktop backend.
+    // Other platforms retain their existing WebDriver/content-focus checks.
+    if (process.platform !== 'linux' || this.harness.config.headless) return { backend: 'WebDriver' };
+    return activateNativeWindow({ processId: this.harness.result.browser['moz:processID'] });
   }
   async settleOptions({ activated = false } = {}) {
     // A previous quiet interval cannot cover the visibility refresh that has

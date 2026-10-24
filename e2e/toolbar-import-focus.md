@@ -1,76 +1,99 @@
 # Toolbar import focus — 2026-10-24
 
-## Observed failure and hypothesis
+## Observed CI failure
 
-At base `d866a982340e72cd756b69973adc3b24c90297b7`,
-[run 40073052134](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/40073052134)
-reported **61 passed / 1 failed / 0 blocked**, with 62 scenario bodies started.
-Scenario 29 failed waiting for an Options import while the toolbar was closed:
-the stored rule remained `toolbar-before.bd-e2e.test`. Its artifact has no page
-or network errors. The run used headed Developer Edition **158.0b2** and
-geckodriver **0.37.1**, with persistent unsigned installation.
+Base `71b5775b390e4e0d9de8055f8309692ffa111c6a`,
+[run 40091514151](https://github.com/MarkAlexI/blockSiteFirefox/actions/runs/40091514151),
+reported **61 passed / 1 failed / 0 blocked**, with all 62 bodies started.
+The first pointer-only correction did not resolve scenario 29. Developer
+Edition **158.0b2**, geckodriver **0.37.1**, persistent unsigned installation
+and Openbox produced this actual preflight state after closing the toolbar:
 
-The test previously closed Gecko's chrome panel with native Escape, selected
-the existing Options handle, then uploaded directly to the hidden file input.
-Selecting an already-current handle need not produce a new content interaction.
-With `strictFileInteractability: false`, the
-[WebDriver file-upload algorithm](https://w3c.github.io/webdriver/#element-send-keys)
-skips the normal keyboard-interactability/focus path before setting files and
-dispatching input/change. This leaves a gap between the test's automation and
-the content interaction preceding a user's backup selection.
+```json
+{
+  "before": { "focused": false, "visibility": "visible", "active": "__bdOpenToolbar" },
+  "after": {
+    "focused": false, "visibility": "visible", "active": "search-input",
+    "pointer": { "trusted": true, "type": "mouse" }
+  }
+}
+```
 
-Focus is therefore a plausible missing test precondition, **not an established
-root cause of the 158 CI failure**. That artifact did not record focus at file
-selection, and the exact failure has not been reproduced locally.
+The guard failed before file selection. An active Search element and a trusted
+WebDriver pointer event did not establish document focus. The artifact had no
+native active-window measurement, so it does not establish which OS window was
+active or whether Gecko retained a stale internal focus state.
 
-## Test change and evidence
+[WebDriver contexts](https://w3c.github.io/webdriver/#contexts) explicitly allow
+commands regardless of OS window focus. Selecting a current handle is not a
+desktop activation. [MDN hasFocus](https://developer.mozilla.org/en-US/docs/Web/API/Document/hasFocus)
+also distinguishes the active element from actual document focus. Missing
+desktop activation is a demonstrated harness gap; its causal connection to
+the exact Firefox 158 failure remains to be confirmed by CI.
 
-After asserting that the genuine toolbar document was destroyed, the Firefox
-branch selects Options and performs exactly one WebDriver pointer click on
-the existing Search input. It verifies a trusted pointer event, visible and
-focused content, and that Search is the active element before importing.
-The click does not type into Search or alter its draft.
+## Correction
 
-Each file selection records its trusted change event, selected filename,
-document focus, active element and import status. An unfocused or synthetic
-selection fails explicitly. Evidence appears in `popupNativeEvidence` as:
+After the genuine toolbar document is destroyed, the headed Linux fixture:
 
-- `toolbar-import-focus-Reads` and `toolbar-import-focus-Rows`: before/after
-  focus, visibility, active element, pointer trust/type and Search draft.
-- `toolbar-import-selection-Reads` and `toolbar-import-selection-Rows`: native
-  file-change details and immediate import status.
+1. Selects the existing Options tab using the existing WebDriver path.
+2. Resolves exactly one normal X11 client owned by the session's
+   `moz:processID`. A foreign client, popup, missing owner or multiple matching
+   browser windows cannot be selected implicitly.
+3. Rechecks ownership, requests one `xdotool windowactivate --sync` EWMH
+   activation, then verifies `_NET_ACTIVE_WINDOW` and ownership again.
+4. Performs the existing single WebDriver click on Search and requires its
+   trusted pointer event, visible/focused document and correct active element.
+5. Runs the existing file selection, trusted change-event checks, import and
+   toolbar close/reopen assertions.
 
-The original import-commit deadline, real toolbar close/reopen, distinct Popup
-documents, stale snapshot/row callback checks and DNR assertions remain in
-place. There is no retry, programmatic focus override or synthetic DOM click.
-The production prompt/focus guard and all runtime files are unchanged.
+Commands use the existing native backend's 3-second command budget. Activation
+is not retried. Headed Linux requires X11; other platforms and headless runs
+retain their prior WebDriver path and content-focus checks. This correction
+does not establish native acceptance on Windows, macOS, Wayland or Android.
+CI already installs `xdotool`, `xprop` and Openbox, so no workflow or dependency
+change is needed. [xdotool documentation](https://github.com/jordansissel/xdotool/blob/main/xdotool.pod)
+describes EWMH activation and waiting for completion.
 
-## Local verification and limits
+`popupNativeEvidence.toolbar-import-focus-Reads` and `-Rows` now include a
+`desktop` object with backend, process ID, X11 window ID and native active IDs
+before/after activation. Focus evidence is recorded **before assertions**, so
+an unfocused document still leaves structured diagnostics. Existing
+`toolbar-import-selection-Reads` and `-Rows` retain native file-event details.
 
-- `npm run check`: **2181/2181** Node tests, extension validation and all 70
+Runtime prompt guards, Search drafts, original scenario deadlines, DNR checks,
+distinct Popup documents and stale callback assertions are unchanged. There
+is no DOM focus override, synthetic event, fallback activation or scenario
+retry. Extension version remains **5.4.14**.
+
+## Verification and limits
+
+- `npm run check`: **2192/2192** Node tests, extension validation and all 70
   palette contrast checks passed.
-- Six helper model tests cover one pointer action, Search draft preservation,
-  untrusted input, hidden/unfocused/wrong-target content and click failure.
-  These tests validate helper behavior; they do not reproduce the CI failure.
-- The standard headed runner passed scenarios **29, 30 and 61** using native
-  Firefox **153.0**, geckodriver **0.37.1**, Xvfb/Openbox and **temporary**
-  installation. Scenario 29 observed both trusted mouse clicks, both trusted
-  file changes, both committed imports and fresh toolbar documents.
-- Unmodified scenario 29 also passed on that local Firefox. Thus this is not
-  a native red/green reproduction of the 158 failure.
-- Scenario 31 failed at the same `actual background visibility` assertion in
-  both the pristine base and patched tree: the document remained visible and
-  focused on local Firefox 153. Its assertions were not weakened. The base CI
-  on Firefox 158 passed that scenario.
+- **17/17** focused helper tests passed. They cover ownership, ambiguity,
+  replaced clients, refused activation, invalid native state, one action,
+  failure propagation, preserved drafts and evidence on rejected focus.
+- The standard headed Selenium runner passed scenarios **29, 30 and 61** on
+  Firefox **153.0** with geckodriver **0.37.1**, Xvfb/Openbox and temporary
+  installation. The local binary is Playwright's Ubuntu 22.04 Firefox build;
+  Selenium, not Playwright, drives the installed extension.
+- A separate controlled native run activated another owned test application's
+  window after each toolbar dismissal. On the pristine base, both imports
+  completed while that other application was still the native active window.
+  With this patch, both imports ran with the Firefox-owned X11 client active;
+  trusted pointer/file events, fresh Popup documents and both commits passed.
 
-The exact pinned Firefox 158 binary terminated with SIGBUS even for `--version`
-in this environment. Firefox 153 rejected persistent unsigned installation;
-the passing runs above used temporary installation instead. They establish
-native Gecko interaction for the selected cases, not full equivalence with CI
-or a passing full suite. The WebDriver file adapter is exercised, not the
-operating system file chooser.
+The controlled run proves the missing OS activation and its correction. It
+does **not** reproduce the CI `hasFocus() === false`: local Firefox 153 returned
+true even with the other application active. Both complete scenario bodies
+passed locally, so this is not a red/green reproduction of the full CI failure.
 
-After applying and pushing, the full pinned Firefox 158 CI must pass. If 29
-still fails, the new focus/selection evidence should distinguish an invalid
-interaction context from a later import/prompt failure. Extension version
-**5.4.14**, dependencies and scenario deadlines are unchanged.
+The exact official Firefox 158.0b2 archive was downloaded and its workflow
+SHA-256 verified, but its launcher terminated with SIGBUS (return code -7)
+even for `--version`. Thus neither full Firefox 158 acceptance nor persistent
+unsigned installation was verified locally. The full suite was not run here;
+the earlier local Firefox 153 limitation in scenario 31 is not changed.
+
+After applying and pushing, require **62/62** in the pinned headed Firefox CI.
+If document focus still fails with a verified native foreground window, the
+recorded desktop/content states narrow the remaining investigation to Gecko's
+focus handling rather than hiding the failure with weaker assertions.
