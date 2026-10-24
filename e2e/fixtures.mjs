@@ -424,9 +424,9 @@ export class ExtensionHarness {
     finally { await this.driver.setContext(firefox.Context.CONTENT); }
   }
   async deleteRule(page, id) { await page.click(`tr[data-rule-id="${id}"] .delete-btn`); }
-  async importBackup(page, backup) {
-    const filename = path.join(this.root, 'reader-backup.json');
-    await writeFile(filename, JSON.stringify(backup));
+  async importBackup(page, backup, { filename: name = 'reader-backup.json', reuse = false } = {}) {
+    const filename = path.join(this.root, name);
+    if (!reuse) await writeFile(filename, JSON.stringify(backup));
     await (await page.element('#importFileInput')).sendKeys(filename);
   }
   async licenseConsent() {
