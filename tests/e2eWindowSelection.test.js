@@ -20,6 +20,14 @@ test('E2E does not reactivate the already selected tab', async () => {
   assert.equal(await selectLiveWindow(driver, 'options-tab', NoSuchWindowError), false);
 });
 
+test('E2E explicitly reselects a protocol-current tab after native chrome changed UI focus', async () => {
+  const selections = [];
+  const driver = { getWindowHandle: async () => 'options-tab',
+    switchTo: () => ({ window: async target => { selections.push(target); } }) };
+  assert.equal(await selectLiveWindow(driver, 'options-tab', NoSuchWindowError, { reselect: true }), true);
+  assert.deepEqual(selections, ['options-tab']);
+});
+
 test('E2E switches from a different live tab', async () => {
   let selected;
   const driver = { getWindowHandle: async () => 'browsing-tab',

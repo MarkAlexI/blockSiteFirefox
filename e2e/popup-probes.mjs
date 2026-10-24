@@ -16,7 +16,9 @@ export function readerView(page) {
 }
 
 export async function openToolbarPopup(host) {
-  if (host.front) await host.front(); else await host.bringToFront();
+  // Native openOptionsPage can select another real tab without updating the
+  // Classic current handle. Re-establish the host before the user action.
+  if (host.front) await host.front({ reselect: true }); else await host.bringToFront();
   await host.evaluate(() => {
     let button = document.getElementById('__bdOpenToolbar');
     if (!button) { button = document.createElement('button'); button.id = '__bdOpenToolbar';
@@ -59,7 +61,8 @@ export async function toolbarCount(host) {
 export async function focusOptionsForImport(host, record = async () => {}) {
   const before = await host.evaluate(() => ({ focused: document.hasFocus(),
     visibility: document.visibilityState, active: document.activeElement?.id || null }));
-  await host.front();
+  // Escape can leave chrome focused even when this is the protocol target.
+  await host.front({ reselect: true });
   const desktop = await host.activateNativeWindow();
   await host.evaluate(() => {
     window.__bdToolbarImportPointer = null;

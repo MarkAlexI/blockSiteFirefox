@@ -14,7 +14,10 @@ function host({ trusted = true, focused = true, visibility = 'visible', active =
       const value = vm.runInNewContext(`(${fn})()`, { window, document });
       return value === undefined ? null : JSON.parse(JSON.stringify(value));
     },
-    async front() { events.push('front'); },
+    async front(options) {
+      assert.deepEqual(options, { reselect: true });
+      events.push('front');
+    },
     async activateNativeWindow() {
       events.push('desktop');
       if (activationError) throw activationError;

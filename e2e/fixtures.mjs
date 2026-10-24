@@ -73,10 +73,10 @@ class Page {
     await this.harness.command('browsingContext.navigate', { context: this.context, url, wait: 'complete' });
   }
   async url() { return this.evaluate(() => location.href); }
-  async front() {
+  async front({ reselect = false } = {}) {
     // Firefox BiDi refuses activation of moz-extension: privileged contexts.
     // Classic WebDriver selects the real tab, including extension pages.
-    if (await selectLiveWindow(this.harness.driver, this.context, webdriverError.NoSuchWindowError)) {
+    if (await selectLiveWindow(this.harness.driver, this.context, webdriverError.NoSuchWindowError, { reselect })) {
       // visibilitychange starts an asynchronous Options refresh. Do not click
       // an old row while that refresh is replacing the table.
       await this.settleOptions({ activated: true });
