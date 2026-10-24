@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "መሰረዙ ተቋርጧል።"
+  },
+  "statisticsrange": {
+    "message": "የስታቲስቲክስ ጊዜ ክልል"
+  },
+  "statisticsloadfailed": {
+    "message": "ስታቲስቲክስን መጫን አልተቻለም። እንደገና ለመሞከር 7 ወይም 30 ቀናትን ይምረጡ።"
+  },
+  "statisticsclearfailed": {
+    "message": "ስታቲስቲክስን ማጽዳት አልተቻለም። እንደገና ይሞክሩ።"
   }
 }

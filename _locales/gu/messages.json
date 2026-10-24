@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "કાઢી નાખવાનું રદ કર્યું."
+  },
+  "statisticsrange": {
+    "message": "આંકડાઓનો સમયગાળો"
+  },
+  "statisticsloadfailed": {
+    "message": "આંકડા લોડ કરી શકાયા નથી. ફરી પ્રયાસ કરવા માટે 7 અથવા 30 દિવસ પસંદ કરો."
+  },
+  "statisticsclearfailed": {
+    "message": "આંકડા સાફ કરી શકાયા નથી. ફરી પ્રયાસ કરો."
   }
 }

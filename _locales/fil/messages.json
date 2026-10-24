@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Kinansela ang pagtanggal."
+  },
+  "statisticsrange": {
+    "message": "Saklaw ng mga istatistika"
+  },
+  "statisticsloadfailed": {
+    "message": "Hindi ma-load ang mga istatistika. Pumili ng 7 o 30 araw upang subukang muli."
+  },
+  "statisticsclearfailed": {
+    "message": "Hindi mabura ang mga istatistika. Subukang muli."
   }
 }

@@ -18,6 +18,7 @@ function createSettingsDocument() {
   document.addElement('focus-session-banner').classList.add('hidden');
   document.addElement('focus-banner-timer');
   document.addElement('statusMessage');
+  document.addElement('statisticsStatus');
   document.addElement('totalRules');
 
   for (const id of [
@@ -455,7 +456,7 @@ test('genuine legacy users can use paid Options actions without an active Pro su
       assert.deepEqual(invoked, [
         'export', 'import', 'clear', 'reset', 'statistics-reset', 'statistics-loaded'
       ]);
-      assert.equal(document.getElementById('statusMessage').textContent, 'statscleared');
+      assert.equal(document.getElementById('statisticsStatus').textContent, 'statscleared');
     } finally {
       StatisticsManager.reset = originalReset;
     }
@@ -592,7 +593,8 @@ test('legacy users can enable password protection without restoring a Pro licens
 test('statistics range controls accept seven and thirty days while ignoring unsupported ranges', async () => {
   await withSettingsManager(async ({ document, manager }) => {
     let loads = 0;
-    manager.loadStatistics = async () => { loads += 1; };
+    const load = manager.loadStatistics.bind(manager);
+    manager.loadStatistics = async () => { loads += 1; return load(); };
     manager.setupEventListeners();
     const seven = document.getElementById('range-7');
     const thirty = document.getElementById('range-30');

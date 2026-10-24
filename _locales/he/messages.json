@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "המחיקה בוטלה."
+  },
+  "statisticsrange": {
+    "message": "טווח הסטטיסטיקה"
+  },
+  "statisticsloadfailed": {
+    "message": "לא ניתן לטעון את הסטטיסטיקה. יש לבחור 7 או 30 ימים כדי לנסות שוב."
+  },
+  "statisticsclearfailed": {
+    "message": "לא ניתן לנקות את הסטטיסטיקה. יש לנסות שוב."
   }
 }

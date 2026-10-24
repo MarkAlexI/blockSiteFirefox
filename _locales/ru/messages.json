@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Удаление отменено."
+  },
+  "statisticsrange": {
+    "message": "Период статистики"
+  },
+  "statisticsloadfailed": {
+    "message": "Не удалось загрузить статистику. Выберите 7 или 30 дней, чтобы повторить попытку."
+  },
+  "statisticsclearfailed": {
+    "message": "Не удалось очистить статистику. Попробуйте ещё раз."
   }
 }

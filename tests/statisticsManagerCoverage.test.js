@@ -161,6 +161,46 @@ test('statistics reads and writes fail safely without escaping background event 
   });
 });
 
+test('strict UI reads reject storage failures while ordinary background reads retain their fallback', async () => {
+  await withStatistics({ statistics: createExistingStatistics() }, async ({ api, StatisticsManager }) => {
+    await withoutExpectedStorageErrors(async () => {
+      api.storage.local.getError = new Error('strict read failure');
+      await assert.rejects(StatisticsManager.getStatistics({ throwOnError: true }), /strict read failure/);
+      assert.equal((await StatisticsManager.getStatistics()).totalBlocked, 0);
+      api.storage.local.getError = null;
+      assert.equal((await StatisticsManager.getStatistics({ throwOnError: true })).totalBlocked, 41,
+        'a failed read does not poison the mutation queue');
+    });
+  });
+});
+
+test('strict UI reads reject a failed normalization write instead of claiming an empty history', async () => {
+  await withStatistics({ statistics: { totalBlocked: 4 } }, async ({ api, StatisticsManager }) => {
+    await withoutExpectedStorageErrors(async () => {
+      api.storage.local.setError = new Error('normalization failed');
+      await assert.rejects(StatisticsManager.getStatistics({ throwOnError: true }), /normalization failed/);
+      assert.deepEqual(api.storage.local.data.statistics, { totalBlocked: 4 });
+    });
+  });
+});
+
+for (const phase of ['get', 'set']) {
+  test('strict UI reset rejects a failed ' + phase + ' without poisoning later mutations', async () => {
+    const original = createExistingStatistics();
+    await withStatistics({ statistics: original }, async ({ api, StatisticsManager }) => {
+      await withoutExpectedStorageErrors(async () => {
+        api.storage.local[phase + 'Error'] = new Error('strict reset failure');
+        await assert.rejects(StatisticsManager.reset({ throwOnError: true }), /strict reset failure/);
+        assert.deepEqual(api.storage.local.data.statistics, original);
+        api.storage.local[phase + 'Error'] = null;
+        await StatisticsManager.reset({ throwOnError: true });
+        assert.equal(api.storage.local.data.statistics.totalBlocked, 0);
+        assert.equal(api.storage.local.data.statistics.creationDate, original.creationDate);
+      });
+    });
+  });
+}
+
 for (const [eventName, recordEvent] of [
   ['blocked-page', manager => manager.recordBlock('https://blocked.example/')],
   ['redirect', manager => manager.recordRedirect('from', 'to')],

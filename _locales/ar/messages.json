@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "أُلغي الحذف."
+  },
+  "statisticsrange": {
+    "message": "نطاق الإحصاءات"
+  },
+  "statisticsloadfailed": {
+    "message": "تعذر تحميل الإحصاءات. اختر 7 أو 30 يومًا للمحاولة مجددًا."
+  },
+  "statisticsclearfailed": {
+    "message": "تعذر مسح الإحصاءات. حاول مجددًا."
   }
 }

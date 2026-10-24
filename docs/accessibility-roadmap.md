@@ -827,3 +827,46 @@ Native покриття стосується Firefox-вкладок із пак�
 звіт не доводить поточну поведінку всіх Firefox. Коментар woxxom у
 [дискусії 2018 року](https://stackoverflow.com/questions/48666167/)
 стосується віконних confirm у Firefox popup; такий діалог тут не додається.
+
+## A11Y-04, частина 9: статистика та фокус, 5.4.12
+
+Обидва графіки зберігають власну вибрану дату за локальним date key. Storage
+refresh не скидає вибір на сьогодні; зміна 7/30 днів зберігає видимі дати, а
+дата поза вікном переходить на найближчу його межу. Hover залишається тимчасовим
+preview і не стає новим вибором. Відновлюється лише radio, яке мало фокус у
+момент DOM commit; Search, інший контроль, modal, hidden/inert panel, unfocused
+window та Focus lock мають пріоритет. Синхронний focus handler теж може обрати
+інший контроль без подальшого перехоплення фокуса.
+
+Generation guard відкидає старі reads та їхні помилки. Range controls, числові
+підсумки й обидва графіки змінюються разом після прийнятого read. Невдале
+читання зберігає попередній вигляд і показує безпечне локалізоване повідомлення;
+натискання 7/30 днів дозволяє повторити читання. Справжня порожня історія
+показує нулі. Нова назва range group і два повідомлення додані в усі 57 локалей.
+
+Clear guard береться до Pro/password checks і тримається до завершення дії.
+Кнопка лишається фокусованою з aria-disabled. Підтвердження та правила доступу
+збережені. UI використовує strict get/reset, які явно повертають помилки;
+звичайні background callers зберігають попередній безпечний fallback. Старі
+reads інвалідуються перед reset. Persistent polite status не повідомляє про
+успіх після невдалого reset; підтверджене очищення з невдалим наступним read
+повідомляє про обидва результати. Async completion не переміщує пізніший фокус.
+
+Перевірки production-методів охоплюють overlapping reads, stale errors, реальні
+storage read/write failures, range retry, обидві межі дня, independent selection,
+focus boundaries і Clear guard/cancel/failure/retry. Ті самі 60 focused checks
+на точній базі 5.4.11 дають 29 passed / 31 failed в обох варіантах.
+
+Native Firefox 153, Linux headless, temporary installation: scenario 60 passed,
+1 body started, 0 failed/blocked. Реальна клавіатура перевіряє Tab, radio arrows,
+Home, збереження двох дат і фокуса після storage write, later Search choice,
+range fallback та retry. Gate затримує повернення справжнього storage snapshot;
+окрема навмисна method error перевіряє UI failure і не є нативною відмовою API.
+
+Layout/API-model probes у Blink 151 та Firefox 153: 24 конфігурації обох
+варіантів, 72 стани normal/load-error/clear-error; en/1280, uk/360, de/ar/320,
+en/640 з базовим шрифтом 200% і forced colors. Нові статуси й контроли
+вміщуються в доступну ширину; mobile/RTL переглянуто візуально. axe-core 4.14.0:
+0 WCAG A/AA violations; color-contrast і target-size мають incomplete results.
+Це не повний WCAG acceptance, browser zoom або screen-reader speech. Installed
+Chromium/Edge, Android/macOS та мінімальні версії лишаються окремими перевірками.

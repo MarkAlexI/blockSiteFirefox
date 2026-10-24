@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Брисање је отказано."
+  },
+  "statisticsrange": {
+    "message": "Период статистике"
+  },
+  "statisticsloadfailed": {
+    "message": "Није могуће учитати статистику. Изаберите 7 или 30 дана да бисте покушали поново."
+  },
+  "statisticsclearfailed": {
+    "message": "Није могуће обрисати статистику. Покушајте поново."
   }
 }

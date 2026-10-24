@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "已取消删除。"
+  },
+  "statisticsrange": {
+    "message": "统计时间范围"
+  },
+  "statisticsloadfailed": {
+    "message": "无法加载统计数据。请选择7天或30天重试。"
+  },
+  "statisticsclearfailed": {
+    "message": "无法清除统计数据。请重试。"
   }
 }

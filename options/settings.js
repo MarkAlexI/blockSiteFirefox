@@ -31,6 +31,12 @@ export class SettingsManager {
     this.focusBannerTimer = document.getElementById('focus-banner-timer');
     this.focusTimerInterval = null;
     this.statisticsRangeDays = 30;
+    this.statisticsRequestedRangeDays = this.statisticsRangeDays;
+    this.statisticsLoadGeneration = 0;
+    this.statisticsLoading = false;
+    this.statisticsClearPending = false;
+    this.statisticsReadFailed = false;
+    this.statisticsActionFeedback = null;
     
     this.init();
   }
@@ -330,18 +336,7 @@ export class SettingsManager {
     
     const clearStatsBtn = document.getElementById('clearStatistics');
     if (clearStatsBtn) {
-      clearStatsBtn.addEventListener('click', async () => {
-        if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
-        
-        const isAuthorized = await this.checkPasswordProtection();
-        if (!isAuthorized) return;
-        
-        if (confirm(t('confirmclearstats'))) {
-          await StatisticsManager.reset();
-          await this.loadStatistics();
-          this.showStatus(t('statscleared'), 'success');
-        }
-      });
+      clearStatsBtn.addEventListener('click', () => this.clearStatistics());
     }
     
     document.querySelectorAll('[data-stat-range]').forEach(button => {
@@ -349,9 +344,10 @@ export class SettingsManager {
       button.textContent = `${days} ${t('days')}`;
       button.addEventListener('click', () => {
         if (days !== 7 && days !== 30) return;
-        this.statisticsRangeDays = days;
-        this.updateStatisticsRangeControls();
-        void this.loadStatistics();
+        this.statisticsRequestedRangeDays = days;
+        this.statisticsActionFeedback = null;
+        this.updateStatisticsStatus();
+        return this.loadStatistics();
       });
     });
     this.updateStatisticsRangeControls();
@@ -396,8 +392,13 @@ export class SettingsManager {
   }
   
   async loadStatistics() {
+    const generation = this.statisticsLoadGeneration = (this.statisticsLoadGeneration || 0) + 1;
+    const days = this.statisticsRequestedRangeDays ?? this.statisticsRangeDays ?? 30;
+    this.statisticsLoading = true;
+    this.updateStatisticsBusyState();
     try {
-      const stats = await StatisticsManager.getStatistics();
+      const stats = await StatisticsManager.getStatistics({ throwOnError: true });
+      if (generation !== this.statisticsLoadGeneration) return false;
       
       const setStatsText = (id, val) => {
         const el = document.getElementById(id);
@@ -412,7 +413,7 @@ export class SettingsManager {
 
       const { totals } = renderStatisticsCharts({
         stats,
-        days: this.statisticsRangeDays,
+        days,
         activityContainer: document.getElementById('statsActivityChart'),
         focusContainer: document.getElementById('statsFocusChart'),
         labels: {
@@ -425,8 +426,75 @@ export class SettingsManager {
       setStatsText('statsBlockedRangeTotal', totals.blocked);
       setStatsText('statsRedirectedRangeTotal', totals.redirected);
       setStatsText('statsFocusRangeTotal', totals.focusSessions);
+      this.statisticsRangeDays = days;
+      this.updateStatisticsRangeControls();
+      this.statisticsReadFailed = false;
+      this.updateStatisticsStatus();
+      return true;
     } catch (error) {
+      if (generation !== this.statisticsLoadGeneration) return false;
       this.logger.error('Error loading statistics:', error);
+      this.statisticsRequestedRangeDays = this.statisticsRangeDays;
+      this.statisticsReadFailed = true;
+      this.updateStatisticsStatus();
+      return false;
+    } finally {
+      if (generation === this.statisticsLoadGeneration) {
+        this.statisticsLoading = false;
+        this.updateStatisticsBusyState();
+      }
+    }
+  }
+
+  updateStatisticsBusyState() {
+    document.getElementById('statistics-panel')?.setAttribute('aria-busy',
+      String(Boolean(this.statisticsLoading || this.statisticsClearPending)));
+  }
+
+  updateStatisticsStatus() {
+    const element = document.getElementById('statisticsStatus');
+    if (!element) return;
+    const messages = [this.statisticsActionFeedback?.message,
+      this.statisticsReadFailed ? t('statisticsloadfailed') : null].filter(Boolean);
+    const message = messages.join(' ');
+    if (element.textContent !== message) element.textContent = message;
+    element.classList.toggle('error', Boolean(this.statisticsReadFailed || this.statisticsActionFeedback?.error));
+  }
+
+  async clearStatistics() {
+    // Acquire the guard before Pro/password reads, not just before the write.
+    if (this.statisticsClearPending) return false;
+    this.statisticsClearPending = true;
+    this.statisticsActionFeedback = null;
+    this.updateStatisticsStatus();
+    const button = document.getElementById('clearStatistics');
+    const previousDisabled = button?.getAttribute('aria-disabled');
+    button?.setAttribute('aria-disabled', 'true');
+    this.updateStatisticsBusyState();
+    try {
+      if (!await ProManager.hasPaidAccess()) {
+        this.statisticsActionFeedback = { message: t('prorequired'), error: true };
+        return false;
+      }
+      if (!await this.checkPasswordProtection() || !confirm(t('confirmclearstats'))) return false;
+      // A read begun before this mutation cannot repaint the cleared history,
+      // including if reset fails and there is no following refresh to replace it.
+      this.statisticsLoadGeneration = (this.statisticsLoadGeneration || 0) + 1;
+      this.statisticsLoading = false;
+      await StatisticsManager.reset({ throwOnError: true });
+      this.statisticsActionFeedback = { message: t('statscleared'), error: false };
+      await this.loadStatistics();
+      return true;
+    } catch (error) {
+      this.logger.error('Error clearing statistics:', error);
+      this.statisticsActionFeedback = { message: t('statisticsclearfailed'), error: true };
+      return false;
+    } finally {
+      this.statisticsClearPending = false;
+      if (previousDisabled === null || previousDisabled === undefined) button?.removeAttribute('aria-disabled');
+      else button?.setAttribute('aria-disabled', previousDisabled);
+      this.updateStatisticsBusyState();
+      this.updateStatisticsStatus();
     }
   }
   

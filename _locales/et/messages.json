@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Kustutamine tühistatud."
+  },
+  "statisticsrange": {
+    "message": "Statistika ajavahemik"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistikat ei saanud laadida. Uuesti proovimiseks vali 7 või 30 päeva."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistikat ei saanud kustutada. Proovi uuesti."
   }
 }

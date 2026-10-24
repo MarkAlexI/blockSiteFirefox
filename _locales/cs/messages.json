@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Smazání bylo zrušeno."
+  },
+  "statisticsrange": {
+    "message": "Období statistik"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistiky se nepodařilo načíst. Vyberte 7 nebo 30 dní a zkuste to znovu."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistiky se nepodařilo vymazat. Zkuste to znovu."
   }
 }

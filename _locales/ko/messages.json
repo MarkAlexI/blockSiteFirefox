@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "삭제가 취소되었습니다."
+  },
+  "statisticsrange": {
+    "message": "통계 기간"
+  },
+  "statisticsloadfailed": {
+    "message": "통계를 불러오지 못했습니다. 7일 또는 30일을 선택하여 다시 시도하세요."
+  },
+  "statisticsclearfailed": {
+    "message": "통계를 삭제하지 못했습니다. 다시 시도하세요."
   }
 }

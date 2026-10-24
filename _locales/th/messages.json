@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "ยกเลิกการลบแล้ว"
+  },
+  "statisticsrange": {
+    "message": "ช่วงเวลาสถิติ"
+  },
+  "statisticsloadfailed": {
+    "message": "ไม่สามารถโหลดสถิติได้ เลือก 7 หรือ 30 วันเพื่อลองอีกครั้ง"
+  },
+  "statisticsclearfailed": {
+    "message": "ไม่สามารถล้างสถิติได้ โปรดลองอีกครั้ง"
   }
 }

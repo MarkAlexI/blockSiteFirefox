@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "A törlés megszakítva."
+  },
+  "statisticsrange": {
+    "message": "Statisztikai időszak"
+  },
+  "statisticsloadfailed": {
+    "message": "A statisztika nem tölthető be. Az újrapróbálkozáshoz válasszon 7 vagy 30 napot."
+  },
+  "statisticsclearfailed": {
+    "message": "A statisztika nem törölhető. Próbálja újra."
   }
 }

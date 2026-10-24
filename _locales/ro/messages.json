@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Ștergerea a fost anulată."
+  },
+  "statisticsrange": {
+    "message": "Perioada statisticilor"
+  },
+  "statisticsloadfailed": {
+    "message": "Statisticile nu au putut fi încărcate. Selectați 7 sau 30 de zile pentru a încerca din nou."
+  },
+  "statisticsclearfailed": {
+    "message": "Statisticile nu au putut fi șterse. Încercați din nou."
   }
 }

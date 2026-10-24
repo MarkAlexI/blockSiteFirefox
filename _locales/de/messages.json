@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Löschen abgebrochen."
+  },
+  "statisticsrange": {
+    "message": "Statistikzeitraum"
+  },
+  "statisticsloadfailed": {
+    "message": "Die Statistik konnte nicht geladen werden. Wählen Sie 7 oder 30 Tage, um es erneut zu versuchen."
+  },
+  "statisticsclearfailed": {
+    "message": "Die Statistik konnte nicht gelöscht werden. Versuchen Sie es erneut."
   }
 }

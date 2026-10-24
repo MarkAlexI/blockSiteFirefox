@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Sletning annulleret."
+  },
+  "statisticsrange": {
+    "message": "Statistikperiode"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistikken kunne ikke indlæses. Vælg 7 eller 30 dage for at prøve igen."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistikken kunne ikke ryddes. Prøv igen."
   }
 }

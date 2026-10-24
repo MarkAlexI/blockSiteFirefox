@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "S'ha cancel·lat la supressió."
+  },
+  "statisticsrange": {
+    "message": "Període de les estadístiques"
+  },
+  "statisticsloadfailed": {
+    "message": "No s’han pogut carregar les estadístiques. Seleccioneu 7 o 30 dies per tornar-ho a provar."
+  },
+  "statisticsclearfailed": {
+    "message": "No s’han pogut esborrar les estadístiques. Torneu-ho a provar."
   }
 }

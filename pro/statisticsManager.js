@@ -37,8 +37,8 @@ export class StatisticsManager {
     }
   }
 
-  static async getStatistics() {
-    return this.enqueueMutation(() => this.readStatistics());
+  static async getStatistics({ throwOnError = false } = {}) {
+    return this.enqueueMutation(() => this.readStatistics({ throwOnError }));
   }
 
   static async _updateStats(updateFn) {
@@ -86,7 +86,7 @@ export class StatisticsManager {
     });
   }
 
-  static async reset() {
+  static async reset({ throwOnError = false } = {}) {
     return this.enqueueMutation(async () => {
       try {
         const stats = await this.readStatistics({ throwOnError: true });
@@ -96,6 +96,7 @@ export class StatisticsManager {
         this.logger.log('Statistics reset.');
       } catch (error) {
         this.logger.error('Error resetting statistics:', error);
+        if (throwOnError) throw error;
       }
     });
   }

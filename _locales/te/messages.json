@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "తొలగింపు రద్దు చేయబడింది."
+  },
+  "statisticsrange": {
+    "message": "గణాంకాల వ్యవధి"
+  },
+  "statisticsloadfailed": {
+    "message": "గణాంకాలను లోడ్ చేయలేకపోయాము. మళ్లీ ప్రయత్నించడానికి 7 లేదా 30 రోజులను ఎంచుకోండి."
+  },
+  "statisticsclearfailed": {
+    "message": "గణాంకాలను తొలగించలేకపోయాము. మళ్లీ ప్రయత్నించండి."
   }
 }

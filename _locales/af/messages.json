@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Uitvee gekanselleer."
+  },
+  "statisticsrange": {
+    "message": "Statistiektydperk"
+  },
+  "statisticsloadfailed": {
+    "message": "Kon nie statistiek laai nie. Kies 7 of 30 dae om weer te probeer."
+  },
+  "statisticsclearfailed": {
+    "message": "Kon nie statistiek uitvee nie. Probeer weer."
   }
 }

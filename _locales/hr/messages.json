@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Brisanje je otkazano."
+  },
+  "statisticsrange": {
+    "message": "Razdoblje statistike"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistika se nije mogla učitati. Odaberite 7 ili 30 dana za ponovni pokušaj."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistika se nije mogla izbrisati. Pokušajte ponovno."
   }
 }

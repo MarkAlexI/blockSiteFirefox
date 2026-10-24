@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Eliminazione annullata."
+  },
+  "statisticsrange": {
+    "message": "Periodo delle statistiche"
+  },
+  "statisticsloadfailed": {
+    "message": "Impossibile caricare le statistiche. Seleziona 7 o 30 giorni per riprovare."
+  },
+  "statisticsclearfailed": {
+    "message": "Impossibile cancellare le statistiche. Riprova."
   }
 }

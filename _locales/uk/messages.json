@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Видалення скасовано."
+  },
+  "statisticsrange": {
+    "message": "Діапазон статистики"
+  },
+  "statisticsloadfailed": {
+    "message": "Не вдалося завантажити статистику. Виберіть 7 або 30 днів, щоб повторити спробу."
+  },
+  "statisticsclearfailed": {
+    "message": "Не вдалося очистити статистику. Спробуйте ще раз."
   }
 }

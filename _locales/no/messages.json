@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Sletting avbrutt."
+  },
+  "statisticsrange": {
+    "message": "Statistikkperiode"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistikken kunne ikke lastes inn. Velg 7 eller 30 dager for å prøve igjen."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistikken kunne ikke slettes. Prøv igjen."
   }
 }

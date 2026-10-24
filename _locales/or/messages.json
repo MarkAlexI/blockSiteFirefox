@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "ବିଲୋପ ବାତିଲ ହୋଇଛି।"
+  },
+  "statisticsrange": {
+    "message": "ପରିସଂଖ୍ୟାନର ସମୟସୀମା"
+  },
+  "statisticsloadfailed": {
+    "message": "ପରିସଂଖ୍ୟାନ ଲୋଡ୍ ହୋଇପାରିଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରିବାକୁ 7 କିମ୍ବା 30 ଦିନ ବାଛନ୍ତୁ।"
+  },
+  "statisticsclearfailed": {
+    "message": "ପରିସଂଖ୍ୟାନ ସଫା ହୋଇପାରିଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
   }
 }

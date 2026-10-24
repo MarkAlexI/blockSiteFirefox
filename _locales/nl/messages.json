@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Verwijderen geannuleerd."
+  },
+  "statisticsrange": {
+    "message": "Statistiekperiode"
+  },
+  "statisticsloadfailed": {
+    "message": "De statistieken konden niet worden geladen. Kies 7 of 30 dagen om het opnieuw te proberen."
+  },
+  "statisticsclearfailed": {
+    "message": "De statistieken konden niet worden gewist. Probeer het opnieuw."
   }
 }

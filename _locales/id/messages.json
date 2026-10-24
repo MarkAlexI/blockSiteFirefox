@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Penghapusan dibatalkan."
+  },
+  "statisticsrange": {
+    "message": "Rentang statistik"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistik tidak dapat dimuat. Pilih 7 atau 30 hari untuk mencoba lagi."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistik tidak dapat dihapus. Coba lagi."
   }
 }

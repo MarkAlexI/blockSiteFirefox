@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Pemadaman dibatalkan."
+  },
+  "statisticsrange": {
+    "message": "Julat statistik"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistik tidak dapat dimuatkan. Pilih 7 atau 30 hari untuk mencuba lagi."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistik tidak dapat dipadamkan. Cuba lagi."
   }
 }

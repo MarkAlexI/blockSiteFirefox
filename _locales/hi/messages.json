@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "हटाना रद्द कर दिया गया।"
+  },
+  "statisticsrange": {
+    "message": "आँकड़ों की अवधि"
+  },
+  "statisticsloadfailed": {
+    "message": "आँकड़े लोड नहीं हो सके। फिर से प्रयास करने के लिए 7 या 30 दिन चुनें।"
+  },
+  "statisticsclearfailed": {
+    "message": "आँकड़े साफ़ नहीं हो सके। फिर से प्रयास करें।"
   }
 }

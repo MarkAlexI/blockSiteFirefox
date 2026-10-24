@@ -140,6 +140,18 @@ function createValueAxis(ticks) {
 
 function renderBars(container, series, definitions) {
   if (!container) return;
+  const document = container.ownerDocument;
+  const previousDay = container.querySelector('.stats-chart-column[aria-checked="true"]')?.dataset.statsDate;
+  const previousFocus = document.activeElement;
+  const ownsFocus = container.contains(previousFocus) && previousFocus?.classList?.contains('stats-chart-column');
+  const canRestoreFocus = () => {
+    if (document.hidden || document.hasFocus?.() === false || document.querySelector('dialog[open]')) return false;
+    for (let element = container; element; element = element.parentNode) {
+      if (element.hidden || element.inert || element.classList?.contains('hidden') ||
+          element.classList?.contains('focus-lock-active')) return false;
+    }
+    return document.documentElement.contains(container);
+  };
   container.replaceChildren();
 
   const { maximum, ticks } = buildChartScale(series, definitions);
@@ -148,7 +160,10 @@ function renderBars(container, series, definitions) {
   const plot = createElement('div', 'stats-chart-plot');
   const detail = createElement('div', 'stats-chart-detail');
   const columns = [];
-  let selectedIndex = Math.max(0, series.length - 1);
+  // Dates, not positions, survive storage refreshes, range changes and a new
+  // local day. A date outside the window falls back to its nearest boundary.
+  let selectedIndex = series.findIndex(day => day.dateKey === previousDay);
+  if (selectedIndex < 0) selectedIndex = previousDay && previousDay < series[0]?.dateKey ? 0 : Math.max(0, series.length - 1);
 
   plot.style.setProperty('--stats-chart-columns', String(series.length));
   plot.style.setProperty('--stats-chart-grid-size', `${100 / Math.max(1, ticks.length - 1)}%`);
@@ -183,6 +198,7 @@ function renderBars(container, series, definitions) {
     const summary = formatDaySummary(day, definitions);
 
     column.dataset.selected = 'false';
+    column.dataset.statsDate = day.dateKey;
     column.tabIndex = index === selectedIndex ? 0 : -1;
     // Exactly one day is selected; expose a named radio group rather than
     // independent toggle buttons that imply the selected day can be unpressed.
@@ -230,6 +246,12 @@ function renderBars(container, series, definitions) {
   layout.append(createValueAxis(ticks), main);
   container.append(layout, detail);
   selectColumn(selectedIndex);
+  // Replacing a focused radio can leave focus on body. Read ownership at
+  // commit time, and respect any focus change caused by synchronous listeners.
+  if (ownsFocus && canRestoreFocus() &&
+      (!document.activeElement || document.activeElement === document.body || document.activeElement === previousFocus)) {
+    columns[selectedIndex]?.focus({ preventScroll: true });
+  }
 }
 
 export function renderStatisticsCharts({

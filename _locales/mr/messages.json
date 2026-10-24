@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "हटवणे रद्द केले."
+  },
+  "statisticsrange": {
+    "message": "आकडेवारीचा कालावधी"
+  },
+  "statisticsloadfailed": {
+    "message": "आकडेवारी लोड करता आली नाही. पुन्हा प्रयत्न करण्यासाठी 7 किंवा 30 दिवस निवडा."
+  },
+  "statisticsclearfailed": {
+    "message": "आकडेवारी साफ करता आली नाही. पुन्हा प्रयत्न करा."
   }
 }

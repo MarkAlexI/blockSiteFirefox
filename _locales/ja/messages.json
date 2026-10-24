@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "削除をキャンセルしました。"
+  },
+  "statisticsrange": {
+    "message": "統計の期間"
+  },
+  "statisticsloadfailed": {
+    "message": "統計を読み込めませんでした。7日または30日を選択して再試行してください。"
+  },
+  "statisticsclearfailed": {
+    "message": "統計を消去できませんでした。もう一度お試しください。"
   }
 }

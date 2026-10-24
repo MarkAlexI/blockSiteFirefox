@@ -1878,6 +1878,17 @@ tr.rule-whitelist td:first-child::before {
 }
 
 /* Statistics history */
+.stats-status {
+  grid-column: 1 / -1;
+  min-inline-size: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.stats-status.error {
+  color: var(--danger-color, var(--bd-danger));
+}
+
 .stats-history {
   grid-column: 1 / -1;
   display: flex;

@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "წაშლა გაუქმდა."
+  },
+  "statisticsrange": {
+    "message": "სტატისტიკის პერიოდი"
+  },
+  "statisticsloadfailed": {
+    "message": "სტატისტიკა ვერ ჩაიტვირთა. ხელახლა საცდელად აირჩიეთ 7 ან 30 დღე."
+  },
+  "statisticsclearfailed": {
+    "message": "სტატისტიკა ვერ გასუფთავდა. სცადეთ ხელახლა."
   }
 }

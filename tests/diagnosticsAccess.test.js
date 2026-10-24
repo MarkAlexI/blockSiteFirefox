@@ -49,7 +49,7 @@ test('Options uses five compact sections and a shared return link', async () => 
 
 test('Statistics is a collapsed Pro section by default', async () => {
   const html = await readFile(path.join(root, 'options/options.html'), 'utf8');
-  const match = html.match(/<section class="([^"]*)">\s*<h2 class="([^"]*)"><button[^>]*data-i18n="statisticstitle"[^>]*aria-expanded="false"[^>]*>[\s\S]*?<div id="statistics-panel" class="([^"]*collapsible-content[^"]*)" hidden>/);
+  const match = html.match(/<section class="([^"]*)">\s*<h2 class="([^"]*)"><button[^>]*data-i18n="statisticstitle"[^>]*aria-expanded="false"[^>]*>[\s\S]*?<div id="statistics-panel" class="([^"]*collapsible-content[^"]*)"[^>]*\shidden(?:\s[^>]*)?>/);
 
   assert.ok(match, 'Statistics section should use the collapsible markup');
   assert.match(match[1], /pro-feature/);

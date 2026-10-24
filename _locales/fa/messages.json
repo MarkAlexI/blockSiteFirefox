@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "حذف لغو شد."
+  },
+  "statisticsrange": {
+    "message": "بازهٔ آمار"
+  },
+  "statisticsloadfailed": {
+    "message": "بارگیری آمار ممکن نشد. برای تلاش دوباره، 7 یا 30 روز را انتخاب کنید."
+  },
+  "statisticsclearfailed": {
+    "message": "پاک کردن آمار ممکن نشد. دوباره تلاش کنید."
   }
 }

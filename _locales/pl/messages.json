@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Usuwanie anulowane."
+  },
+  "statisticsrange": {
+    "message": "Zakres statystyk"
+  },
+  "statisticsloadfailed": {
+    "message": "Nie udało się wczytać statystyk. Wybierz 7 lub 30 dni, aby spróbować ponownie."
+  },
+  "statisticsclearfailed": {
+    "message": "Nie udało się wyczyścić statystyk. Spróbuj ponownie."
   }
 }

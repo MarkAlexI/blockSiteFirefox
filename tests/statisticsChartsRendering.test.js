@@ -199,3 +199,110 @@ test('chart totals remain available when one or both chart containers are missin
     assert.equal(withoutContainers.series.length, 7);
   }, { document });
 });
+
+test('chart refresh retains independent selected dates and updates their exact values', async () => {
+  const { document, activityContainer, focusContainer, options } = createChartFixture();
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    renderStatisticsCharts(options);
+    await activityContainer.querySelectorAll('.stats-chart-column')[5].dispatch('click');
+    await focusContainer.querySelectorAll('.stats-chart-column')[2].dispatch('click');
+    options.stats.dailyHistory[getLocalDateKey(new Date(2026, 7, 19))].blocked = 19;
+    renderStatisticsCharts(options);
+    assert.equal(activityContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-19');
+    assert.equal(focusContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-16');
+    assert.match(activityContainer.querySelector('.stats-chart-detail').textContent, /Blocked: 19/);
+    assert.equal(activityContainer.querySelectorAll('.stats-chart-column').filter(button => button.tabIndex === 0).length, 1);
+  }, { document });
+});
+
+test('refresh of a focused day restores its replacement radio without changing the selected date', async () => {
+  const { document, activityContainer, options } = createChartFixture();
+  await withExtensionEnvironment(createExtensionApi(), () => {
+    renderStatisticsCharts(options);
+    const old = activityContainer.querySelectorAll('.stats-chart-column')[3];
+    old.focus();
+    renderStatisticsCharts(options);
+    assert.notEqual(document.activeElement, old);
+    assert.equal(document.activeElement, activityContainer.querySelector('[aria-checked="true"]'));
+    assert.equal(document.activeElement.dataset.statsDate, '2026-08-17');
+  }, { document });
+});
+
+test('range changes preserve visible dates and clamp an older selection to the earliest remaining date', async () => {
+  const { document, activityContainer, focusContainer, options } = createChartFixture(30);
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    renderStatisticsCharts(options);
+    await activityContainer.querySelectorAll('.stats-chart-column')[27].dispatch('click');
+    await focusContainer.querySelectorAll('.stats-chart-column')[0].dispatch('click');
+    const range = document.addElement('range', 'button'); range.focus();
+    renderStatisticsCharts({ ...options, days: 7 });
+    assert.equal(activityContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-18');
+    assert.equal(focusContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-14');
+    assert.equal(document.activeElement, range, 'changing range does not move focus into either graph');
+    renderStatisticsCharts(options);
+    assert.equal(focusContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-14');
+  }, { document });
+});
+
+test('the next local day shifts positions while retaining a date and clamps an expired oldest day', async () => {
+  const { document, activityContainer, focusContainer, options } = createChartFixture();
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    renderStatisticsCharts(options);
+    await activityContainer.querySelectorAll('.stats-chart-column')[5].dispatch('click');
+    await focusContainer.querySelectorAll('.stats-chart-column')[0].dispatch('click');
+    renderStatisticsCharts({ ...options, now: new Date(2026, 7, 21, 12) });
+    assert.equal(activityContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-19');
+    assert.equal(focusContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-15');
+    renderStatisticsCharts({ ...options, now: new Date(2026, 7, 15, 12) });
+    assert.equal(activityContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-15',
+      'a date beyond a backwards-shifted window uses the latest visible boundary');
+  }, { document });
+});
+
+for (const boundary of ['search', 'hidden document', 'unfocused window', 'hidden panel', 'inert panel', 'modal', 'Focus lock']) {
+  test('chart refresh preserves selection without moving focus across ' + boundary, async () => {
+    const { document, activityContainer, options } = createChartFixture();
+    await withExtensionEnvironment(createExtensionApi(), () => {
+      renderStatisticsCharts(options);
+      const old = activityContainer.querySelectorAll('.stats-chart-column')[4]; old.focus();
+      let expected = old;
+      if (boundary === 'search') { expected = document.addElement('search', 'input'); expected.focus(); }
+      if (boundary === 'hidden document') document.hidden = true;
+      if (boundary === 'unfocused window') document.hasFocus = () => false;
+      if (boundary === 'hidden panel') activityContainer.hidden = true;
+      if (boundary === 'inert panel') activityContainer.inert = true;
+      if (boundary === 'Focus lock') activityContainer.classList.add('focus-lock-active');
+      if (boundary === 'modal') document.addElement('modal', 'dialog').setAttribute('open', '');
+      renderStatisticsCharts(options);
+      assert.equal(document.activeElement, expected);
+      assert.equal(activityContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-18');
+      assert.equal(activityContainer.querySelector('[aria-checked="true"]').focusCount, 0);
+    }, { document });
+  });
+}
+
+test('a synchronous focus choice during DOM replacement takes priority over chart restoration', async () => {
+  const { document, activityContainer, options } = createChartFixture();
+  await withExtensionEnvironment(createExtensionApi(), () => {
+    renderStatisticsCharts(options);
+    activityContainer.querySelectorAll('.stats-chart-column')[2].focus();
+    const search = document.addElement('search', 'input');
+    const replace = activityContainer.replaceChildren.bind(activityContainer);
+    activityContainer.replaceChildren = (...children) => { replace(...children); search.focus(); };
+    renderStatisticsCharts(options);
+    assert.equal(document.activeElement, search);
+    assert.equal(activityContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-16');
+  }, { document });
+});
+
+test('a hover preview never replaces the retained selected date on refresh', async () => {
+  const { document, activityContainer, options } = createChartFixture();
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    renderStatisticsCharts(options);
+    const columns = activityContainer.querySelectorAll('.stats-chart-column');
+    await columns[4].dispatch('click'); await columns[5].dispatch('mouseenter');
+    renderStatisticsCharts(options);
+    assert.equal(activityContainer.querySelector('[aria-checked="true"]').dataset.statsDate, '2026-08-18');
+    assert.match(activityContainer.querySelector('.stats-chart-detail').textContent, /Blocked: 0/);
+  }, { document });
+});

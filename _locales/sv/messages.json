@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Borttagning avbruten."
+  },
+  "statisticsrange": {
+    "message": "Statistikperiod"
+  },
+  "statisticsloadfailed": {
+    "message": "Statistiken kunde inte läsas in. Välj 7 eller 30 dagar för att försöka igen."
+  },
+  "statisticsclearfailed": {
+    "message": "Statistiken kunde inte rensas. Försök igen."
   }
 }

@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Ištrynimas atšauktas."
+  },
+  "statisticsrange": {
+    "message": "Statistikos laikotarpis"
+  },
+  "statisticsloadfailed": {
+    "message": "Nepavyko įkelti statistikos. Pasirinkite 7 arba 30 dienų ir bandykite dar kartą."
+  },
+  "statisticsclearfailed": {
+    "message": "Nepavyko išvalyti statistikos. Bandykite dar kartą."
   }
 }

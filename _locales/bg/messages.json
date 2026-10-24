@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Изтриването е отменено."
+  },
+  "statisticsrange": {
+    "message": "Период на статистиката"
+  },
+  "statisticsloadfailed": {
+    "message": "Статистиката не може да се зареди. Изберете 7 или 30 дни, за да опитате отново."
+  },
+  "statisticsclearfailed": {
+    "message": "Статистиката не може да се изчисти. Опитайте отново."
   }
 }

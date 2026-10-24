@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Đã hủy xóa."
+  },
+  "statisticsrange": {
+    "message": "Khoảng thời gian thống kê"
+  },
+  "statisticsloadfailed": {
+    "message": "Không thể tải số liệu thống kê. Chọn 7 hoặc 30 ngày để thử lại."
+  },
+  "statisticsclearfailed": {
+    "message": "Không thể xóa số liệu thống kê. Vui lòng thử lại."
   }
 }

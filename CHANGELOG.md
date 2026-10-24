@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.12] - 2026-10-24
+
+- Keep independently selected chart dates and keyboard focus when statistics refresh.
+- Preserve visible dates across range changes and select the nearest available boundary when a date leaves the displayed window.
+- Name the 7/30-day range controls and keep charts, totals and the selected range consistent during overlapping updates.
+- Retain the last displayed statistics when loading fails and show localized feedback with a way to retry.
+- Prevent repeated clearing requests and report clearing failures without claiming success.
+
 ## [5.4.11] - 2026-10-23
 
 - Keep rule deletion controls keyboard accessible throughout the Strict Mode countdown and support Escape and Cancel.

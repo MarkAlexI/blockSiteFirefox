@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.11**
+# Firefox Desktop E2E — BlockDistraction **5.4.12**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -1008,3 +1008,14 @@ Popup and Options in both variants, narrow screens, RTL, enlarged base text and
 forced-colors. Saved-column widths match idle. Axe reports no A/AA violations;
 color-contrast and label-content-name-mismatch have incomplete results. These
 checks distinguish native Firefox tab behavior from API-model layout tests.
+
+
+## Statistics refresh і keyboard focus, 5.4.12
+
+Спільний scenario 60 у `statistics-scenarios.mjs` перевіряє named range group,
+нативні Tab/Arrow/Home, незалежні вибрані дати, storage refresh сфокусованого
+radio, later Search choice, 7/30-day fallback, overlapping reads і safe retry.
+Gate затримує доставлення справжнього snapshot; окрема method error є UI fixture,
+а не відтворенням нативної API-відмови. Firefox 153 Linux headless temporary
+installation проходить цей focused scenario з 1 body started, 0 failed/blocked.
+Цей результат не є повним suite або доказом Chromium/Edge/Android/macOS.

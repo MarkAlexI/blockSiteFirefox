@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Silme iptal edildi."
+  },
+  "statisticsrange": {
+    "message": "İstatistik aralığı"
+  },
+  "statisticsloadfailed": {
+    "message": "İstatistikler yüklenemedi. Tekrar denemek için 7 veya 30 günü seçin."
+  },
+  "statisticsclearfailed": {
+    "message": "İstatistikler temizlenemedi. Tekrar deneyin."
   }
 }

@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Dzēšana atcelta."
+  },
+  "statisticsrange": {
+    "message": "Statistikas periods"
+  },
+  "statisticsloadfailed": {
+    "message": "Neizdevās ielādēt statistiku. Atlasiet 7 vai 30 dienas, lai mēģinātu vēlreiz."
+  },
+  "statisticsclearfailed": {
+    "message": "Neizdevās notīrīt statistiku. Mēģiniet vēlreiz."
   }
 }

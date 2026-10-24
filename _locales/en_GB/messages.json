@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Deletion cancelled."
+  },
+  "statisticsrange": {
+    "message": "Statistics range"
+  },
+  "statisticsloadfailed": {
+    "message": "Could not load statistics. Select 7 or 30 days to try again."
+  },
+  "statisticsclearfailed": {
+    "message": "Could not clear statistics. Try again."
   }
 }

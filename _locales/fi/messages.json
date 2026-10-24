@@ -1179,5 +1179,14 @@
   },
   "rule_delete_cancelled": {
     "message": "Poistaminen peruutettu."
+  },
+  "statisticsrange": {
+    "message": "Tilastojen ajanjakso"
+  },
+  "statisticsloadfailed": {
+    "message": "Tilastoja ei voitu ladata. Valitse 7 tai 30 päivää ja yritä uudelleen."
+  },
+  "statisticsclearfailed": {
+    "message": "Tilastoja ei voitu tyhjentää. Yritä uudelleen."
   }
 }
