@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "आकडेवारी साफ करता आली नाही. पुन्हा प्रयत्न करा."
+  },
+  "importinprogress": {
+    "message": "बॅकअप आयात होत आहे…"
+  },
+  "importfiletoolarge": {
+    "message": "बॅकअपचा आकार 5 MiB किंवा त्यापेक्षा लहान असणे आवश्यक आहे."
+  },
+  "importinvalidbackup": {
+    "message": "अवैध बॅकअप. BlockDistraction चा JSON बॅकअप निवडा."
+  },
+  "importfailed": {
+    "message": "बॅकअप आयात करता आला नाही. पुन्हा प्रयत्न करण्यासाठी फाइल पुन्हा निवडा."
+  },
+  "importcancelled": {
+    "message": "आयात रद्द केली."
+  },
+  "importrefreshfailed": {
+    "message": "दिसणारा डेटा अद्ययावत करण्यासाठी सेटिंग्ज पुन्हा उघडा."
   }
 }

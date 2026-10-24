@@ -37,6 +37,8 @@ export class SettingsManager {
     this.statisticsClearPending = false;
     this.statisticsReadFailed = false;
     this.statisticsActionFeedback = null;
+    this.importPending = false;
+    this.importPickerPending = false;
     
     this.init();
   }
@@ -226,9 +228,10 @@ export class SettingsManager {
       `${minutes}:${seconds}`;
   }
   
-  async checkPasswordProtection() {
+  async checkPasswordProtection({ throwOnError = false, canPrompt = () => true } = {}) {
     try {
       const settings = await SettingsManager.getSettings({ throwOnError: true });
+      if (!canPrompt()) return false;
       if (settings.enablePassword) {
         return await new Promise((resolve) => {
           PasswordUtils.showPasswordModal('verify', (isValid) => {
@@ -239,6 +242,7 @@ export class SettingsManager {
       return true;
     } catch (error) {
       this.logger.error('Error checking password protection:', error);
+      if (throwOnError) throw error;
       this.showStatus(t('errorloadingsettings'), 'error');
       return false;
     }
@@ -307,13 +311,10 @@ export class SettingsManager {
       this.exportRules();
     });
     
-    document.getElementById('importRules').addEventListener('click', async () => {
-      if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
-      document.getElementById('importFileInput').click();
-    });
+    document.getElementById('importRules').addEventListener('click', () => this.chooseImportFile());
     
     document.getElementById('importFileInput').addEventListener('change', (e) => {
-      this.importRules(e.target.files[0]);
+      return this.importRules(e.target.files?.[0]);
     });
     
     document.getElementById('clearAllRules').addEventListener('click', async () => {
@@ -531,58 +532,126 @@ export class SettingsManager {
     }
   }
   
-  async importRules(file) {
-    if (!file) return;
-    
-    if (!file.name.toLowerCase().endsWith('.json')) {
-      this.showStatus(t('errorinvalidfiletype'), 'error');
-      return;
-    }
-    if (Number.isFinite(file.size) && file.size > MAX_BACKUP_FILE_BYTES) {
-      this.showStatus(t('errorimportingrules') + 'Invalid backup: file is too large', 'error');
-      document.getElementById('importFileInput').value = '';
-      return;
-    }
-    
-    try {
-      const text = await file.text();
-      const importData = parseBackupText(text);
+  updateImportBusyState() {
+    const button = document.getElementById('importRules');
+    const busy = Boolean(this.importPending || this.importPickerPending);
+    // Keep the keyboard's current position while rejecting repeated activation.
+    button?.setAttribute('aria-disabled', String(busy));
+    button?.setAttribute('aria-busy', String(busy));
+  }
 
-      const isAuthorized = await this.checkPasswordProtection();
-      if (!isAuthorized) {
-        document.getElementById('importFileInput').value = '';
-        return;
+  setImportStatus(message, type = '') {
+    const status = document.getElementById('importStatus');
+    if (!status) return;
+    if (status.textContent !== message) status.textContent = message;
+    status.classList.toggle('error', type === 'error');
+  }
+
+  isImportPromptCurrent(opener) {
+    return document.visibilityState !== 'hidden' &&
+      (typeof document.hasFocus !== 'function' || document.hasFocus()) &&
+      (!opener || (document.activeElement === opener && opener.isConnected !== false &&
+        !opener.closest('[hidden], .hidden, [inert], .focus-lock-active'))) &&
+      !document.querySelector('dialog[open]');
+  }
+
+  async chooseImportFile() {
+    if (this.importPending || this.importPickerPending) return false;
+    this.importPickerPending = true;
+    const opener = document.activeElement;
+    this.updateImportBusyState();
+    try {
+      if (!await ProManager.hasPaidAccess()) {
+        this.setImportStatus(t('prorequired'), 'error');
+        return false;
       }
-      
+      if (!this.isImportPromptCurrent(opener)) {
+        this.setImportStatus(t('importcancelled'));
+        return false;
+      }
+      const input = document.getElementById('importFileInput');
+      input.value = '';
+      input.click();
+      return true;
+    } catch (error) {
+      this.logger.error('Error choosing import file:', error);
+      this.setImportStatus(t('importfailed'), 'error');
+      return false;
+    } finally {
+      // The browser owns the picker. Do not leave a lock waiting for a cancel
+      // event: older browsers may not emit it, or may emit an empty change.
+      this.importPickerPending = false;
+      this.updateImportBusyState();
+    }
+  }
+
+  async importRules(file) {
+    if (!file || this.importPending || this.importPickerPending) return false;
+    // Acquire before access checks and file reads. A second selection cannot
+    // begin another password prompt, confirmation or replacement.
+    this.importPending = true;
+    const opener = document.activeElement;
+    this.updateImportBusyState();
+    this.setImportStatus(t('importinprogress'));
+    // Release this selection synchronously, never from a late continuation.
+    // This also permits an explicit retry with the very same file.
+    const input = document.getElementById('importFileInput');
+    if (input) input.value = '';
+    try {
+      if (!await ProManager.hasPaidAccess()) {
+        this.setImportStatus(t('prorequired'), 'error');
+        return false;
+      }
+      if (!file.name.toLowerCase().endsWith('.json')) {
+        this.setImportStatus(t('errorinvalidfiletype'), 'error');
+        return false;
+      }
+      if (Number.isFinite(file.size) && file.size > MAX_BACKUP_FILE_BYTES) {
+        this.setImportStatus(t('importfiletoolarge'), 'error');
+        return false;
+      }
+      const text = await file.text();
+      if (text.length > MAX_BACKUP_FILE_BYTES) {
+        this.setImportStatus(t('importfiletoolarge'), 'error');
+        return false;
+      }
+      const importData = parseBackupText(text);
+      const canPrompt = () => this.isImportPromptCurrent(opener);
+      if (!canPrompt() || !await this.checkPasswordProtection({ throwOnError: true, canPrompt }) || !canPrompt()) {
+        this.setImportStatus(t('importcancelled'));
+        return false;
+      }
       const confirmImport = confirm(
         t('willimportrules', `${importData.rules.length}`) +
         t('ruleswillbereplaced')
       );
-      
       if (!confirmImport) {
-        document.getElementById('importFileInput').value = '';
-        return;
+        this.setImportStatus(t('importcancelled'));
+        return false;
       }
-      
       const response = await this.rulesClient.replaceAll(importData);
-      
-      if (response.settings) {
-        this.applySettingsToUI(response.settings);
-      }
-      
-      await this.loadRuleCount(response.rules || []);
-      await this.loadStatistics();
-      
       const feedback = getRulesMutationFeedback(response, t('importedrules', `${importData.rules.length}`));
-      this.showStatus(feedback.message, feedback.pending ? 'error' : 'success');
-      document.getElementById('importFileInput').value = '';
+      // The worker has committed. A subsequent UI failure must not suggest
+      // replaying the mutation, especially when browser synchronization waits.
+      try {
+        if (response.settings) this.applySettingsToUI(response.settings);
+        await this.loadRuleCount(response.rules || []);
+        await this.loadStatistics();
+      } catch (error) {
+        this.logger.error('Error refreshing imported state:', error);
+        this.setImportStatus(`${feedback.message} ${t('importrefreshfailed')}`, 'error');
+        return true;
+      }
+      this.setImportStatus(feedback.message, feedback.pending ? 'error' : '');
+      return true;
     } catch (error) {
       this.logger.error('Error importing rules:', error);
-      const validationSuffix = error.code === 'validation_failed' && error.validationErrors?.length ?
-        ` (${error.validationErrors.join(', ')})` :
-        '';
-      this.showStatus(t('errorimportingrules') + error.message + validationSuffix, 'error');
-      document.getElementById('importFileInput').value = '';
+      const invalidBackup = error.code === 'invalid_import' || error.code === 'validation_failed';
+      this.setImportStatus(t(invalidBackup ? 'importinvalidbackup' : 'importfailed'), 'error');
+      return false;
+    } finally {
+      this.importPending = false;
+      this.updateImportBusyState();
     }
   }
   

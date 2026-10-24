@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Neizdevās notīrīt statistiku. Mēģiniet vēlreiz."
+  },
+  "importinprogress": {
+    "message": "Importē dublējumkopiju…"
+  },
+  "importfiletoolarge": {
+    "message": "Dublējumkopijas lielums nedrīkst pārsniegt 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Nederīga dublējumkopija. Izvēlieties BlockDistraction JSON dublējumkopiju."
+  },
+  "importfailed": {
+    "message": "Neizdevās importēt dublējumkopiju. Lai mēģinātu vēlreiz, atlasiet failu atkārtoti."
+  },
+  "importcancelled": {
+    "message": "Importēšana atcelta."
+  },
+  "importrefreshfailed": {
+    "message": "Atkārtoti atveriet Iestatījumus, lai atsvaidzinātu parādītos datus."
   }
 }

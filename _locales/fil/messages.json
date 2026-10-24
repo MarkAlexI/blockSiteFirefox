@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Hindi mabura ang mga istatistika. Subukang muli."
+  },
+  "importinprogress": {
+    "message": "Ini-import ang backup…"
+  },
+  "importfiletoolarge": {
+    "message": "Dapat 5 MiB o mas maliit ang backup."
+  },
+  "importinvalidbackup": {
+    "message": "Hindi wastong backup. Pumili ng JSON backup ng BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Hindi ma-import ang backup. Piliin muli ang file para subukang muli."
+  },
+  "importcancelled": {
+    "message": "Kinansela ang pag-import."
+  },
+  "importrefreshfailed": {
+    "message": "Buksang muli ang Mga Setting upang i-refresh ang ipinapakitang data."
   }
 }

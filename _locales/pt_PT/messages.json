@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Não foi possível limpar as estatísticas. Tente novamente."
+  },
+  "importinprogress": {
+    "message": "A importar cópia de segurança…"
+  },
+  "importfiletoolarge": {
+    "message": "A cópia de segurança deve ter, no máximo, 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Cópia de segurança inválida. Escolha uma cópia JSON do BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Não foi possível importar a cópia de segurança. Selecione novamente o ficheiro para voltar a tentar."
+  },
+  "importcancelled": {
+    "message": "Importação cancelada."
+  },
+  "importrefreshfailed": {
+    "message": "Volte a abrir as Definições para atualizar os dados apresentados."
   }
 }

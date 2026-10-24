@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistik tidak dapat dipadamkan. Cuba lagi."
+  },
+  "importinprogress": {
+    "message": "Mengimport sandaran…"
+  },
+  "importfiletoolarge": {
+    "message": "Saiz sandaran mestilah 5 MiB atau kurang."
+  },
+  "importinvalidbackup": {
+    "message": "Sandaran tidak sah. Pilih sandaran JSON BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Sandaran tidak dapat diimport. Pilih fail sekali lagi untuk mencuba semula."
+  },
+  "importcancelled": {
+    "message": "Import dibatalkan."
+  },
+  "importrefreshfailed": {
+    "message": "Buka semula Tetapan untuk menyegarkan data yang dipaparkan."
   }
 }

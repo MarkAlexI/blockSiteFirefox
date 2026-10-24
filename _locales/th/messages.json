@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "ไม่สามารถล้างสถิติได้ โปรดลองอีกครั้ง"
+  },
+  "importinprogress": {
+    "message": "กำลังนำเข้าข้อมูลสำรอง…"
+  },
+  "importfiletoolarge": {
+    "message": "ข้อมูลสำรองต้องมีขนาดไม่เกิน 5 MiB"
+  },
+  "importinvalidbackup": {
+    "message": "ข้อมูลสำรองไม่ถูกต้อง เลือกข้อมูลสำรอง JSON ของ BlockDistraction"
+  },
+  "importfailed": {
+    "message": "ไม่สามารถนำเข้าข้อมูลสำรองได้ เลือกไฟล์อีกครั้งเพื่อลองใหม่"
+  },
+  "importcancelled": {
+    "message": "ยกเลิกการนำเข้าแล้ว"
+  },
+  "importrefreshfailed": {
+    "message": "เปิดการตั้งค่าอีกครั้งเพื่อรีเฟรชข้อมูลที่แสดง"
   }
 }

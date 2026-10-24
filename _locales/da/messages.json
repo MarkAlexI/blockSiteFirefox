@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistikken kunne ikke ryddes. Prøv igen."
+  },
+  "importinprogress": {
+    "message": "Importerer sikkerhedskopi…"
+  },
+  "importfiletoolarge": {
+    "message": "Sikkerhedskopien må højst være 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Ugyldig sikkerhedskopi. Vælg en BlockDistraction-sikkerhedskopi i JSON-format."
+  },
+  "importfailed": {
+    "message": "Sikkerhedskopien kunne ikke importeres. Vælg filen igen for at prøve igen."
+  },
+  "importcancelled": {
+    "message": "Import annulleret."
+  },
+  "importrefreshfailed": {
+    "message": "Åbn Indstillinger igen for at opdatere de viste data."
   }
 }

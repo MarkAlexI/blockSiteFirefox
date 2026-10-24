@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistika se nije mogla izbrisati. Pokušajte ponovno."
+  },
+  "importinprogress": {
+    "message": "Uvoz sigurnosne kopije…"
+  },
+  "importfiletoolarge": {
+    "message": "Sigurnosna kopija mora biti veličine do 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Nevaljana sigurnosna kopija. Odaberite JSON sigurnosnu kopiju BlockDistractiona."
+  },
+  "importfailed": {
+    "message": "Sigurnosnu kopiju nije moguće uvesti. Ponovno odaberite datoteku da biste pokušali opet."
+  },
+  "importcancelled": {
+    "message": "Uvoz je otkazan."
+  },
+  "importrefreshfailed": {
+    "message": "Ponovno otvorite Postavke da biste osvježili prikazane podatke."
   }
 }

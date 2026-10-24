@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "پاک کردن آمار ممکن نشد. دوباره تلاش کنید."
+  },
+  "importinprogress": {
+    "message": "در حال وارد کردن نسخهٔ پشتیبان…"
+  },
+  "importfiletoolarge": {
+    "message": "حجم نسخهٔ پشتیبان باید 5 MiB یا کمتر باشد."
+  },
+  "importinvalidbackup": {
+    "message": "نسخهٔ پشتیبان نامعتبر است. یک نسخهٔ پشتیبان JSON از BlockDistraction انتخاب کنید."
+  },
+  "importfailed": {
+    "message": "وارد کردن نسخهٔ پشتیبان ممکن نشد. برای تلاش دوباره، فایل را دوباره انتخاب کنید."
+  },
+  "importcancelled": {
+    "message": "وارد کردن لغو شد."
+  },
+  "importrefreshfailed": {
+    "message": "برای به‌روزرسانی داده‌های نمایش‌داده‌شده، تنظیمات را دوباره باز کنید."
   }
 }

@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Kon nie statistiek uitvee nie. Probeer weer."
+  },
+  "importinprogress": {
+    "message": "Rugsteun word ingevoer…"
+  },
+  "importfiletoolarge": {
+    "message": "Die rugsteun moet 5 MiB of kleiner wees."
+  },
+  "importinvalidbackup": {
+    "message": "Ongeldige rugsteun. Kies ’n BlockDistraction JSON-rugsteun."
+  },
+  "importfailed": {
+    "message": "Kon nie die rugsteun invoer nie. Kies die lêer weer om te herprobeer."
+  },
+  "importcancelled": {
+    "message": "Invoer gekanselleer."
+  },
+  "importrefreshfailed": {
+    "message": "Maak Instellings weer oop om die vertoonde data te verfris."
   }
 }

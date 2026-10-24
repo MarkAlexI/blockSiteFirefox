@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "De statistieken konden niet worden gewist. Probeer het opnieuw."
+  },
+  "importinprogress": {
+    "message": "Back-up importeren…"
+  },
+  "importfiletoolarge": {
+    "message": "De back-up mag maximaal 5 MiB groot zijn."
+  },
+  "importinvalidbackup": {
+    "message": "Ongeldige back-up. Kies een JSON-back-up van BlockDistraction."
+  },
+  "importfailed": {
+    "message": "De back-up kon niet worden geïmporteerd. Kies het bestand opnieuw om het nogmaals te proberen."
+  },
+  "importcancelled": {
+    "message": "Import geannuleerd."
+  },
+  "importrefreshfailed": {
+    "message": "Open Instellingen opnieuw om de weergegeven gegevens te vernieuwen."
   }
 }

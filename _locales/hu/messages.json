@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "A statisztika nem törölhető. Próbálja újra."
+  },
+  "importinprogress": {
+    "message": "Biztonsági mentés importálása…"
+  },
+  "importfiletoolarge": {
+    "message": "A biztonsági mentés mérete legfeljebb 5 MiB lehet."
+  },
+  "importinvalidbackup": {
+    "message": "Érvénytelen biztonsági mentés. Válasszon egy BlockDistraction JSON-mentést."
+  },
+  "importfailed": {
+    "message": "Nem sikerült importálni a biztonsági mentést. Újrapróbálkozáshoz válassza ki ismét a fájlt."
+  },
+  "importcancelled": {
+    "message": "Importálás megszakítva."
+  },
+  "importrefreshfailed": {
+    "message": "A megjelenített adatok frissítéséhez nyissa meg újra a Beállításokat."
   }
 }

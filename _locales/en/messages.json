@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Could not clear statistics. Try again."
+  },
+  "importinprogress": {
+    "message": "Importing backup…"
+  },
+  "importfiletoolarge": {
+    "message": "The backup must be 5 MiB or smaller."
+  },
+  "importinvalidbackup": {
+    "message": "Invalid backup. Choose a BlockDistraction JSON backup."
+  },
+  "importfailed": {
+    "message": "Could not import the backup. Choose the file again to retry."
+  },
+  "importcancelled": {
+    "message": "Import cancelled."
+  },
+  "importrefreshfailed": {
+    "message": "Reopen Settings to refresh the displayed data."
   }
 }

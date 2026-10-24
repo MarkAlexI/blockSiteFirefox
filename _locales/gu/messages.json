@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "આંકડા સાફ કરી શકાયા નથી. ફરી પ્રયાસ કરો."
+  },
+  "importinprogress": {
+    "message": "બેકઅપ આયાત થઈ રહ્યો છે…"
+  },
+  "importfiletoolarge": {
+    "message": "બેકઅપ 5 MiB કે તેનાથી નાનો હોવો જોઈએ."
+  },
+  "importinvalidbackup": {
+    "message": "અમાન્ય બેકઅપ. BlockDistraction નો JSON બેકઅપ પસંદ કરો."
+  },
+  "importfailed": {
+    "message": "બેકઅપ આયાત કરી શકાયો નથી. ફરી પ્રયાસ કરવા માટે ફાઇલ ફરી પસંદ કરો."
+  },
+  "importcancelled": {
+    "message": "આયાત રદ કરી."
+  },
+  "importrefreshfailed": {
+    "message": "દર્શાવેલો ડેટા તાજો કરવા સેટિંગ્સ ફરી ખોલો."
   }
 }

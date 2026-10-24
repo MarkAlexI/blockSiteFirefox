@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Nie udało się wyczyścić statystyk. Spróbuj ponownie."
+  },
+  "importinprogress": {
+    "message": "Importowanie kopii zapasowej…"
+  },
+  "importfiletoolarge": {
+    "message": "Kopia zapasowa nie może być większa niż 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Nieprawidłowa kopia zapasowa. Wybierz kopię BlockDistraction w formacie JSON."
+  },
+  "importfailed": {
+    "message": "Nie udało się zaimportować kopii zapasowej. Wybierz plik ponownie, aby ponowić próbę."
+  },
+  "importcancelled": {
+    "message": "Import anulowany."
+  },
+  "importrefreshfailed": {
+    "message": "Otwórz ponownie Ustawienia, aby odświeżyć wyświetlane dane."
   }
 }

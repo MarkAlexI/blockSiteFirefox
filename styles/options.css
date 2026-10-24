@@ -492,6 +492,20 @@ button:disabled {
   border: 1px solid var(--bd-control-border);
 }
 
+#importRules[aria-disabled="true"] {
+  cursor: progress;
+}
+
+.import-status {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  color: var(--bd-text);
+}
+
+.import-status.error {
+  color: var(--bd-danger);
+}
+
 .action-btn.secondary:hover {
   background: #e9ecef;
   color: #495057;

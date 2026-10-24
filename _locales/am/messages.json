@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "ስታቲስቲክስን ማጽዳት አልተቻለም። እንደገና ይሞክሩ።"
+  },
+  "importinprogress": {
+    "message": "ምትኬ በማስመጣት ላይ…"
+  },
+  "importfiletoolarge": {
+    "message": "ምትኬው 5 MiB ወይም ከዚያ ያነሰ መሆን አለበት።"
+  },
+  "importinvalidbackup": {
+    "message": "ልክ ያልሆነ ምትኬ። የBlockDistraction JSON ምትኬ ይምረጡ።"
+  },
+  "importfailed": {
+    "message": "ምትኬውን ማስመጣት አልተቻለም። እንደገና ለመሞከር ፋይሉን እንደገና ይምረጡ።"
+  },
+  "importcancelled": {
+    "message": "ማስመጣቱ ተሰርዟል።"
+  },
+  "importrefreshfailed": {
+    "message": "የሚታየውን ውሂብ ለማደስ ቅንብሮችን እንደገና ይክፈቱ።"
   }
 }

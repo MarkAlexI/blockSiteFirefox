@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistiky se nepodařilo vymazat. Zkuste to znovu."
+  },
+  "importinprogress": {
+    "message": "Importuje se záloha…"
+  },
+  "importfiletoolarge": {
+    "message": "Záloha musí mít nejvýše 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Neplatná záloha. Vyberte zálohu BlockDistraction ve formátu JSON."
+  },
+  "importfailed": {
+    "message": "Zálohu se nepodařilo importovat. Vyberte soubor znovu a opakujte pokus."
+  },
+  "importcancelled": {
+    "message": "Import zrušen."
+  },
+  "importrefreshfailed": {
+    "message": "Znovu otevřete Nastavení a obnovte zobrazená data."
   }
 }

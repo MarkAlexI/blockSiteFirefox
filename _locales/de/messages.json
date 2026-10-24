@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Die Statistik konnte nicht gelöscht werden. Versuchen Sie es erneut."
+  },
+  "importinprogress": {
+    "message": "Sicherung wird importiert…"
+  },
+  "importfiletoolarge": {
+    "message": "Die Sicherung darf höchstens 5 MiB groß sein."
+  },
+  "importinvalidbackup": {
+    "message": "Ungültige Sicherung. Wählen Sie eine JSON-Sicherung von BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Die Sicherung konnte nicht importiert werden. Wählen Sie die Datei erneut aus, um es noch einmal zu versuchen."
+  },
+  "importcancelled": {
+    "message": "Import abgebrochen."
+  },
+  "importrefreshfailed": {
+    "message": "Öffnen Sie die Einstellungen erneut, um die angezeigten Daten zu aktualisieren."
   }
 }

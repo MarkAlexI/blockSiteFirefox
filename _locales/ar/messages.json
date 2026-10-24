@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "تعذر مسح الإحصاءات. حاول مجددًا."
+  },
+  "importinprogress": {
+    "message": "جارٍ استيراد النسخة الاحتياطية…"
+  },
+  "importfiletoolarge": {
+    "message": "يجب ألا يتجاوز حجم النسخة الاحتياطية 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "نسخة احتياطية غير صالحة. اختر نسخة احتياطية بصيغة JSON من BlockDistraction."
+  },
+  "importfailed": {
+    "message": "تعذّر استيراد النسخة الاحتياطية. اختر الملف مجددًا لإعادة المحاولة."
+  },
+  "importcancelled": {
+    "message": "تم إلغاء الاستيراد."
+  },
+  "importrefreshfailed": {
+    "message": "أعد فتح الإعدادات لتحديث البيانات المعروضة."
   }
 }

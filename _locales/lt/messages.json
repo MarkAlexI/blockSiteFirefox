@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Nepavyko išvalyti statistikos. Bandykite dar kartą."
+  },
+  "importinprogress": {
+    "message": "Importuojama atsarginė kopija…"
+  },
+  "importfiletoolarge": {
+    "message": "Atsarginė kopija turi būti ne didesnė kaip 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Netinkama atsarginė kopija. Pasirinkite „BlockDistraction“ JSON atsarginę kopiją."
+  },
+  "importfailed": {
+    "message": "Nepavyko importuoti atsarginės kopijos. Norėdami bandyti dar kartą, iš naujo pasirinkite failą."
+  },
+  "importcancelled": {
+    "message": "Importavimas atšauktas."
+  },
+  "importrefreshfailed": {
+    "message": "Iš naujo atverkite Nustatymus, kad atnaujintumėte rodomus duomenis."
   }
 }

@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "无法清除统计数据。请重试。"
+  },
+  "importinprogress": {
+    "message": "正在导入备份…"
+  },
+  "importfiletoolarge": {
+    "message": "备份大小不得超过5 MiB。"
+  },
+  "importinvalidbackup": {
+    "message": "备份无效。请选择BlockDistraction JSON备份。"
+  },
+  "importfailed": {
+    "message": "无法导入备份。请重新选择文件以重试。"
+  },
+  "importcancelled": {
+    "message": "已取消导入。"
+  },
+  "importrefreshfailed": {
+    "message": "请重新打开设置以刷新显示的数据。"
   }
 }

@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "No s’han pogut esborrar les estadístiques. Torneu-ho a provar."
+  },
+  "importinprogress": {
+    "message": "S’està important la còpia de seguretat…"
+  },
+  "importfiletoolarge": {
+    "message": "La còpia de seguretat ha de ser de 5 MiB o menys."
+  },
+  "importinvalidbackup": {
+    "message": "Còpia de seguretat no vàlida. Trieu una còpia JSON de BlockDistraction."
+  },
+  "importfailed": {
+    "message": "No s’ha pogut importar la còpia de seguretat. Torneu a triar el fitxer per reintentar-ho."
+  },
+  "importcancelled": {
+    "message": "Importació cancel·lada."
+  },
+  "importrefreshfailed": {
+    "message": "Torneu a obrir la configuració per actualitzar les dades mostrades."
   }
 }

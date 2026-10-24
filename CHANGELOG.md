@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.13] - 2026-10-24
+
+- Prevent overlapping backup imports during access checks, file reads, password verification and saving.
+- Keep import results available in a dedicated accessible status region, with localized format, size and failure messages.
+- Allow an explicit retry with the same backup after cancellation or failure.
+- Preserve later keyboard focus and cancel delayed prompts when another control or dialog takes priority.
+- Report saved imports awaiting synchronization without asking users to repeat the import.
+
 ## [5.4.12] - 2026-10-24
 
 - Keep independently selected chart dates and keyboard focus when statistics refresh.

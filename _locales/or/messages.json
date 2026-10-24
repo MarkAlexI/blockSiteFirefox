@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "ପରିସଂଖ୍ୟାନ ସଫା ହୋଇପାରିଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
+  "importinprogress": {
+    "message": "ବ୍ୟାକଅପ୍ ଆମଦାନି ହେଉଛି…"
+  },
+  "importfiletoolarge": {
+    "message": "ବ୍ୟାକଅପ୍ 5 MiB କିମ୍ବା ତାଠାରୁ ଛୋଟ ହେବା ଆବଶ୍ୟକ।"
+  },
+  "importinvalidbackup": {
+    "message": "ଅବୈଧ ବ୍ୟାକଅପ୍। ଏକ BlockDistraction JSON ବ୍ୟାକଅପ୍ ବାଛନ୍ତୁ।"
+  },
+  "importfailed": {
+    "message": "ବ୍ୟାକଅପ୍ ଆମଦାନି ହୋଇପାରିଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରିବାକୁ ଫାଇଲ୍‌ଟି ପୁଣି ବାଛନ୍ତୁ।"
+  },
+  "importcancelled": {
+    "message": "ଆମଦାନି ବାତିଲ୍ ହୋଇଛି।"
+  },
+  "importrefreshfailed": {
+    "message": "ଦେଖାଯାଉଥିବା ତଥ୍ୟ ସତେଜ କରିବାକୁ ସେଟିଂସ୍ ପୁଣି ଖୋଲନ୍ତୁ।"
   }
 }

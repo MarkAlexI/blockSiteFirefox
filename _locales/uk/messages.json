@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Не вдалося очистити статистику. Спробуйте ще раз."
+  },
+  "importinprogress": {
+    "message": "Імпортування резервної копії…"
+  },
+  "importfiletoolarge": {
+    "message": "Розмір резервної копії має бути не більшим за 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Некоректна резервна копія. Виберіть резервну копію BlockDistraction у форматі JSON."
+  },
+  "importfailed": {
+    "message": "Не вдалося імпортувати резервну копію. Виберіть файл ще раз, щоб повторити спробу."
+  },
+  "importcancelled": {
+    "message": "Імпорт скасовано."
+  },
+  "importrefreshfailed": {
+    "message": "Відкрийте Налаштування знову, щоб оновити відображені дані."
   }
 }

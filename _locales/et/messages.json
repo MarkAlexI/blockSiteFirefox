@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistikat ei saanud kustutada. Proovi uuesti."
+  },
+  "importinprogress": {
+    "message": "Varukoopia importimine…"
+  },
+  "importfiletoolarge": {
+    "message": "Varukoopia suurus peab olema kuni 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Vigane varukoopia. Valige BlockDistractioni JSON-varukoopia."
+  },
+  "importfailed": {
+    "message": "Varukoopia importimine ebaõnnestus. Uuesti proovimiseks valige fail uuesti."
+  },
+  "importcancelled": {
+    "message": "Importimine tühistati."
+  },
+  "importrefreshfailed": {
+    "message": "Kuvatavate andmete värskendamiseks avage seaded uuesti."
   }
 }

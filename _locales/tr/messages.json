@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "İstatistikler temizlenemedi. Tekrar deneyin."
+  },
+  "importinprogress": {
+    "message": "Yedek içe aktarılıyor…"
+  },
+  "importfiletoolarge": {
+    "message": "Yedek en fazla 5 MiB boyutunda olmalıdır."
+  },
+  "importinvalidbackup": {
+    "message": "Geçersiz yedek. Bir BlockDistraction JSON yedeği seçin."
+  },
+  "importfailed": {
+    "message": "Yedek içe aktarılamadı. Yeniden denemek için dosyayı tekrar seçin."
+  },
+  "importcancelled": {
+    "message": "İçe aktarma iptal edildi."
+  },
+  "importrefreshfailed": {
+    "message": "Görüntülenen verileri yenilemek için Ayarlar’ı yeniden açın."
   }
 }

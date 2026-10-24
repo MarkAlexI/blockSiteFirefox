@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistikken kunne ikke slettes. Prøv igjen."
+  },
+  "importinprogress": {
+    "message": "Importerer sikkerhetskopi…"
+  },
+  "importfiletoolarge": {
+    "message": "Sikkerhetskopien må være på høyst 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Ugyldig sikkerhetskopi. Velg en JSON-sikkerhetskopi fra BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Kunne ikke importere sikkerhetskopien. Velg filen på nytt for å prøve igjen."
+  },
+  "importcancelled": {
+    "message": "Import avbrutt."
+  },
+  "importrefreshfailed": {
+    "message": "Åpne Innstillinger på nytt for å oppdatere dataene som vises."
   }
 }

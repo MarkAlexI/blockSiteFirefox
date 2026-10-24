@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Impossible d’effacer les statistiques. Réessayez."
+  },
+  "importinprogress": {
+    "message": "Importation de la sauvegarde…"
+  },
+  "importfiletoolarge": {
+    "message": "La sauvegarde ne doit pas dépasser 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Sauvegarde non valide. Choisissez une sauvegarde JSON de BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Impossible d’importer la sauvegarde. Sélectionnez à nouveau le fichier pour réessayer."
+  },
+  "importcancelled": {
+    "message": "Importation annulée."
+  },
+  "importrefreshfailed": {
+    "message": "Rouvrez les paramètres pour actualiser les données affichées."
   }
 }

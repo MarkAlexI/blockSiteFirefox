@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "ಅಂಕಿಅಂಶಗಳನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "importinprogress": {
+    "message": "ಬ್ಯಾಕಪ್ ಆಮದು ಮಾಡಲಾಗುತ್ತಿದೆ…"
+  },
+  "importfiletoolarge": {
+    "message": "ಬ್ಯಾಕಪ್ 5 MiB ಅಥವಾ ಅದಕ್ಕಿಂತ ಚಿಕ್ಕದಾಗಿರಬೇಕು."
+  },
+  "importinvalidbackup": {
+    "message": "ಅಮಾನ್ಯ ಬ್ಯಾಕಪ್. BlockDistraction JSON ಬ್ಯಾಕಪ್ ಆಯ್ಕೆಮಾಡಿ."
+  },
+  "importfailed": {
+    "message": "ಬ್ಯಾಕಪ್ ಆಮದು ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲು ಫೈಲ್ ಅನ್ನು ಮತ್ತೊಮ್ಮೆ ಆಯ್ಕೆಮಾಡಿ."
+  },
+  "importcancelled": {
+    "message": "ಆಮದು ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ."
+  },
+  "importrefreshfailed": {
+    "message": "ಪ್ರದರ್ಶಿತ ಡೇಟಾವನ್ನು ನವೀಕರಿಸಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ."
   }
 }

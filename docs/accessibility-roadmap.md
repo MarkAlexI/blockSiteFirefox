@@ -870,3 +870,69 @@ en/640 з базовим шрифтом 200% і forced colors. Нові стат
 0 WCAG A/AA violations; color-contrast і target-size мають incomplete results.
 Це не повний WCAG acceptance, browser zoom або screen-reader speech. Installed
 Chromium/Edge, Android/macOS та мінімальні версії лишаються окремими перевірками.
+
+## A11Y-04, частина 10: імпорт резервної копії, 5.4.13
+
+Import має early guards до Pro checks, читання File, password verification,
+native confirm і worker replacement. Кнопка залишається фокусованою з
+aria-disabled та aria-busy. Guard picker launch завжди звільняється після
+запиту до браузера; скасування chooser не залежить від cancel event або таймера.
+Selection guard тримається до завершення UI refresh. File input очищується
+синхронно після прийняття File snapshot; старий continuation не очищує пізніший
+вибір. Той самий файл можна явно вибрати повторно після невдачі чи скасування.
+
+Окремий persistent polite atomic status пов'язаний із кнопкою через
+aria-describedby. Нові повідомлення progress, size, invalid backup, failure,
+cancel і refresh додані в усі 57 локалей. UI не додає error.message або worker
+validation codes. Existing backup schema, ліміт 5 MiB, password/Pro restrictions,
+portable settings і transactional worker logic збережені. Доступ перевіряється
+також після фактичного вибору файлу. Strict password settings read не дозволяє
+імпорт у разі помилки читання.
+
+Перед відкладеним chooser, password prompt і confirm перевіряються актуальний
+focus owner, visibility, document focus, open dialog, detached opener і
+hidden/inert/Focus-locked ancestors. Пізніший вибір іншого контролю скасовує
+операцію до mutation. Після відправленого replacement завершення не рухає фокус
+і не змінює Search draft. Підтверджений committed response із syncPending або
+dailyUsageSyncPending завершує імпорт один раз із попередженням, без replay.
+Неочікуваний UI refresh exception після commit зберігає saved outcome і пропонує
+відкрити Settings знову, а не повторити запис.
+
+44 нові Node/API-model checks охоплюють guard interleavings, password/cancel,
+format/size boundaries, safe failures, explicit retry, pending sync, post-commit
+refresh errors і later focus. Окремі 21 deterministic checks на точній базі
+5.4.12 дають 0 passed / 21 failed в обох варіантах; після змін 21/21 passed.
+
+Native Firefox 153.0 (Ubuntu 22.04 browser build), geckodriver 0.37.0, Linux
+headless, temporary installation: scenarios 61 і 18 passed, 2 bodies started,
+0 failed/blocked у фінальних focused invocations. Scenario 61 використовує
+справжні File reads, file-input upload, native password dialog, keyboard Enter,
+native confirm і worker/storage mutation. Delivery gates затримують лише
+повернення справжніх результатів. Перевіряються duplicate activation, one intent,
+opaque generation change, later Search choice до confirm, explicit same-file
+retry, keyboard focus/draft після commit і статус після попереднього toast
+expiry. Scenario 18 зберігає три delete/import cycles із кількома readers та
+реальним enforcement. OS chooser cancellation тут не автоматизовано; немає
+screen-reader speech, injected native API failure або Android acceptance.
+Chromium upload fixtures явно активують Options tab перед вибором файлу;
+background upload не використовується як заміна користувацької import дії.
+
+Layout/API-model probes: Blink 151.0.7922.34 і Firefox 153.0, обидва варіанти,
+24 конфігурації / 144 states (progress, invalid, size, failure, pending, refresh).
+Перевірено en/1280, uk/360, de/ar/320, en/640 із базовим шрифтом 200% і
+forced colors. Нові controls/status вміщуються в ширину; RTL та довгий combined
+status переглянуті візуально. axe-core 4.14.0: 0 WCAG A/AA violations у Rules
+Management panel; color-contrast incomplete у 108 states. Palette validator
+окремо проходить 70 checks. Це не browser zoom або повний WCAG acceptance.
+Native Chromium/Edge запуск локально обмежений AF_UNIX EPERM; Blink layout probe
+не замінює installed-extension acceptance. Android/macOS і minimum browser
+versions лишаються окремими перевірками.
+
+[HTML Standard, file picker](https://html.spec.whatwg.org/multipage/input.html#file-upload-state-(type=file))
+визначає activation і альтернативні cancel/empty-change outcomes;
+[MDN cancel event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/cancel_event)
+та [WHATWG issue 4061](https://github.com/whatwg/html/issues/4061) дають контекст
+старих cancellation gaps. Новий guard не залежить від цих різних outcomes.
+
+Фінальний `npm run check`: 2104/2104 passed, no skips/failures;
+validator 383 files, extension version 5.4.13.

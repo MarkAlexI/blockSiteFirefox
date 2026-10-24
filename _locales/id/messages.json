@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistik tidak dapat dihapus. Coba lagi."
+  },
+  "importinprogress": {
+    "message": "Mengimpor cadangan…"
+  },
+  "importfiletoolarge": {
+    "message": "Ukuran cadangan harus 5 MiB atau kurang."
+  },
+  "importinvalidbackup": {
+    "message": "Cadangan tidak valid. Pilih cadangan JSON BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Tidak dapat mengimpor cadangan. Pilih kembali file untuk mencoba lagi."
+  },
+  "importcancelled": {
+    "message": "Impor dibatalkan."
+  },
+  "importrefreshfailed": {
+    "message": "Buka kembali Pengaturan untuk memperbarui data yang ditampilkan."
   }
 }

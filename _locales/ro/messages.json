@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statisticile nu au putut fi șterse. Încercați din nou."
+  },
+  "importinprogress": {
+    "message": "Se importă copia de rezervă…"
+  },
+  "importfiletoolarge": {
+    "message": "Copia de rezervă trebuie să aibă cel mult 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Copie de rezervă nevalidă. Alegeți o copie de rezervă JSON BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Copia de rezervă nu a putut fi importată. Selectați din nou fișierul pentru a reîncerca."
+  },
+  "importcancelled": {
+    "message": "Import anulat."
+  },
+  "importrefreshfailed": {
+    "message": "Redeschideți Setările pentru a actualiza datele afișate."
   }
 }

@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "לא ניתן לנקות את הסטטיסטיקה. יש לנסות שוב."
+  },
+  "importinprogress": {
+    "message": "מייבא גיבוי…"
+  },
+  "importfiletoolarge": {
+    "message": "גודל הגיבוי חייב להיות 5 MiB או פחות."
+  },
+  "importinvalidbackup": {
+    "message": "גיבוי לא תקין. יש לבחור גיבוי JSON של BlockDistraction."
+  },
+  "importfailed": {
+    "message": "לא ניתן לייבא את הגיבוי. יש לבחור שוב את הקובץ כדי לנסות שוב."
+  },
+  "importcancelled": {
+    "message": "הייבוא בוטל."
+  },
+  "importrefreshfailed": {
+    "message": "יש לפתוח שוב את ההגדרות כדי לרענן את הנתונים המוצגים."
   }
 }

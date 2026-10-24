@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Статистиката не може да се изчисти. Опитайте отново."
+  },
+  "importinprogress": {
+    "message": "Импортиране на резервното копие…"
+  },
+  "importfiletoolarge": {
+    "message": "Резервното копие трябва да е до 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Невалидно резервно копие. Изберете JSON резервно копие на BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Резервното копие не можа да бъде импортирано. Изберете файла отново, за да опитате пак."
+  },
+  "importcancelled": {
+    "message": "Импортирането е отменено."
+  },
+  "importrefreshfailed": {
+    "message": "Отворете отново Настройки, за да обновите показаните данни."
   }
 }

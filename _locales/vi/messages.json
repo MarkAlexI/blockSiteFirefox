@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Không thể xóa số liệu thống kê. Vui lòng thử lại."
+  },
+  "importinprogress": {
+    "message": "Đang nhập bản sao lưu…"
+  },
+  "importfiletoolarge": {
+    "message": "Bản sao lưu phải có kích thước không quá 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Bản sao lưu không hợp lệ. Hãy chọn bản sao lưu JSON của BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Không thể nhập bản sao lưu. Chọn lại tệp để thử lại."
+  },
+  "importcancelled": {
+    "message": "Đã hủy nhập."
+  },
+  "importrefreshfailed": {
+    "message": "Mở lại Cài đặt để làm mới dữ liệu đang hiển thị."
   }
 }

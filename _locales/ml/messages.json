@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "സ്ഥിതിവിവരക്കണക്കുകൾ മായ്ക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+  },
+  "importinprogress": {
+    "message": "ബാക്കപ്പ് ഇറക്കുമതി ചെയ്യുന്നു…"
+  },
+  "importfiletoolarge": {
+    "message": "ബാക്കപ്പിന്റെ വലുപ്പം 5 MiB അല്ലെങ്കിൽ അതിൽ കുറവായിരിക്കണം."
+  },
+  "importinvalidbackup": {
+    "message": "അസാധുവായ ബാക്കപ്പ്. ഒരു BlockDistraction JSON ബാക്കപ്പ് തിരഞ്ഞെടുക്കുക."
+  },
+  "importfailed": {
+    "message": "ബാക്കപ്പ് ഇറക്കുമതി ചെയ്യാനായില്ല. വീണ്ടും ശ്രമിക്കാൻ ഫയൽ വീണ്ടും തിരഞ്ഞെടുക്കുക."
+  },
+  "importcancelled": {
+    "message": "ഇറക്കുമതി റദ്ദാക്കി."
+  },
+  "importrefreshfailed": {
+    "message": "പ്രദർശിപ്പിച്ച ഡാറ്റ പുതുക്കാൻ ക്രമീകരണങ്ങൾ വീണ്ടും തുറക്കുക."
   }
 }

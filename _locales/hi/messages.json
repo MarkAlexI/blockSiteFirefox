@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "आँकड़े साफ़ नहीं हो सके। फिर से प्रयास करें।"
+  },
+  "importinprogress": {
+    "message": "बैकअप आयात हो रहा है…"
+  },
+  "importfiletoolarge": {
+    "message": "बैकअप का आकार 5 MiB या उससे कम होना चाहिए।"
+  },
+  "importinvalidbackup": {
+    "message": "अमान्य बैकअप। BlockDistraction का JSON बैकअप चुनें।"
+  },
+  "importfailed": {
+    "message": "बैकअप आयात नहीं हो सका। फिर से कोशिश करने के लिए फ़ाइल दोबारा चुनें।"
+  },
+  "importcancelled": {
+    "message": "आयात रद्द किया गया।"
+  },
+  "importrefreshfailed": {
+    "message": "दिखाए गए डेटा को ताज़ा करने के लिए सेटिंग फिर से खोलें।"
   }
 }

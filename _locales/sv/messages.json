@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Statistiken kunde inte rensas. Försök igen."
+  },
+  "importinprogress": {
+    "message": "Importerar säkerhetskopia…"
+  },
+  "importfiletoolarge": {
+    "message": "Säkerhetskopian får vara högst 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Ogiltig säkerhetskopia. Välj en JSON-säkerhetskopia från BlockDistraction."
+  },
+  "importfailed": {
+    "message": "Det gick inte att importera säkerhetskopian. Välj filen igen för att försöka på nytt."
+  },
+  "importcancelled": {
+    "message": "Importen avbröts."
+  },
+  "importrefreshfailed": {
+    "message": "Öppna Inställningar igen för att uppdatera de data som visas."
   }
 }

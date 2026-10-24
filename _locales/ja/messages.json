@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "統計を消去できませんでした。もう一度お試しください。"
+  },
+  "importinprogress": {
+    "message": "バックアップをインポート中…"
+  },
+  "importfiletoolarge": {
+    "message": "バックアップのサイズは5 MiB以下である必要があります。"
+  },
+  "importinvalidbackup": {
+    "message": "無効なバックアップです。BlockDistractionのJSONバックアップを選択してください。"
+  },
+  "importfailed": {
+    "message": "バックアップをインポートできませんでした。ファイルを選び直して再試行してください。"
+  },
+  "importcancelled": {
+    "message": "インポートをキャンセルしました。"
+  },
+  "importrefreshfailed": {
+    "message": "表示データを更新するには、設定を開き直してください。"
   }
 }

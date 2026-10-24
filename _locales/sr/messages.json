@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Није могуће обрисати статистику. Покушајте поново."
+  },
+  "importinprogress": {
+    "message": "Увоз резервне копије…"
+  },
+  "importfiletoolarge": {
+    "message": "Резервна копија не сме бити већа од 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Неважећа резервна копија. Изаберите JSON резервну копију BlockDistraction-а."
+  },
+  "importfailed": {
+    "message": "Није могуће увести резервну копију. Поново изаберите датотеку да бисте покушали опет."
+  },
+  "importcancelled": {
+    "message": "Увоз је отказан."
+  },
+  "importrefreshfailed": {
+    "message": "Поново отворите Подешавања да бисте освежили приказане податке."
   }
 }

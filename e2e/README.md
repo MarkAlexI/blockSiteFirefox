@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.12**
+# Firefox Desktop E2E — BlockDistraction **5.4.13**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -1019,3 +1019,20 @@ Gate затримує доставлення справжнього snapshot; о
 а не відтворенням нативної API-відмови. Firefox 153 Linux headless temporary
 installation проходить цей focused scenario з 1 body started, 0 failed/blocked.
 Цей результат не є повним suite або доказом Chromium/Edge/Android/macOS.
+
+## Backup import і keyboard focus, 5.4.13
+
+Спільний scenario 61 у `import-scenarios.mjs` перевіряє persistent localized
+status, реальний File read із затриманою delivery, duplicate keyboard activation,
+ignored second selection і один worker replacement. Пізніший Search choice
+скасовує ще не підтверджений import. Explicit retry проходить справжній password
+dialog і native confirm; gate утримує відповідь після реального worker commit,
+щоб перевірити збереження Search focus/draft і результат після toast expiry.
+Generation є opaque token; кількість intents спостерігається окремо.
+
+Local Firefox 153.0 / geckodriver 0.37.0 / Linux headless temporary installation:
+61 і наявний reader scenario 18 passed. File-input upload не є автоматизацією
+OS chooser cancellation. Pending sync і failure interleavings перевірені Node
+API-model tests. Native Chromium/Edge, screen-reader speech, Android і minimum
+browser acceptance не випливають із цих результатів. Поточна реєстрація:
+59 Chromium tests / 60 Firefox scenarios; listing не означає execution.

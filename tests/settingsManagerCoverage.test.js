@@ -19,6 +19,7 @@ function createSettingsDocument() {
   document.addElement('focus-banner-timer');
   document.addElement('statusMessage');
   document.addElement('statisticsStatus');
+  document.addElement('importStatus');
   document.addElement('totalRules');
 
   for (const id of [
@@ -72,7 +73,7 @@ async function withSettingsManager(options, callback) {
 
   const document = createSettingsDocument();
   const api = createExtensionApi({
-    sync: options.sync || {},
+    sync: { credentials: { isPro: true }, ...(options.sync || {}) },
     local: options.local || {},
     version: '5.1.7'
   });
@@ -425,7 +426,7 @@ test('Free users cannot activate password protection or Pro-only bulk settings a
 
     for (const id of ['enablePassword', 'exportRules', 'importRules', 'clearAllRules', 'resetSettings', 'clearStatistics']) {
       await document.getElementById(id).dispatch('click');
-      assert.equal(document.getElementById('statusMessage').textContent, 'prorequired');
+      assert.equal(document.getElementById(id === 'importRules' ? 'importStatus' : 'statusMessage').textContent, 'prorequired');
     }
     assert.deepEqual(invoked, []);
   });
@@ -481,7 +482,7 @@ test('Options paid actions fail closed when credentials cannot be read', async (
     try {
       for (const id of ['enablePassword', 'exportRules', 'importRules', 'clearAllRules', 'resetSettings', 'clearStatistics']) {
         await document.getElementById(id).dispatch('click');
-        assert.equal(document.getElementById('statusMessage').textContent, 'prorequired');
+        assert.equal(document.getElementById(id === 'importRules' ? 'importStatus' : 'statusMessage').textContent, 'prorequired');
       }
       assert.deepEqual(invoked, []);
     } finally {
@@ -696,13 +697,13 @@ test('rule exports include Rule Lists while removing passwords and legacy disabl
 test('rule imports reject unsupported files, malformed JSON, and payloads without a rules array', async () => {
   await withSettingsManager(async ({ document, manager }) => {
     await manager.importRules({ name: 'rules.txt', async text() { return ''; } });
-    assert.equal(document.getElementById('statusMessage').textContent, 'errorinvalidfiletype');
+    assert.equal(document.getElementById('importStatus').textContent, 'errorinvalidfiletype');
 
     await manager.importRules({ name: 'rules.json', async text() { return '{ broken'; } });
-    assert.match(document.getElementById('statusMessage').textContent, /not valid JSON/);
+    assert.match(document.getElementById('importStatus').textContent, /^importinvalidbackup$/);
 
     await manager.importRules({ name: 'rules.JSON', async text() { return '{}'; } });
-    assert.match(document.getElementById('statusMessage').textContent, /missing rules array/);
+    assert.match(document.getElementById('importStatus').textContent, /^importinvalidbackup$/);
     await manager.importRules(null);
   });
 });
@@ -718,8 +719,8 @@ test('rule imports reject null and primitive JSON roots without throwing a raw T
         async text() { return content; }
       });
       assert.match(
-        document.getElementById('statusMessage').textContent,
-        /Invalid backup: root must be an object/
+        document.getElementById('importStatus').textContent,
+        /^importinvalidbackup$/
       );
     }
 
@@ -758,7 +759,7 @@ test('Options preserves large inactive-profile imports without an invented total
     ]);
     assert.equal(imported.activeRuleListId, 'general');
     assert.equal(document.getElementById('totalRules').textContent, 1_500);
-    assert.equal(document.getElementById('statusMessage').textContent, 'importedrules:1500');
+    assert.equal(document.getElementById('importStatus').textContent, 'importedrules:1500');
   });
 });
 
@@ -805,7 +806,7 @@ test('confirmed rule imports preserve Rule Lists, activate the requested profile
     assert.equal(document.getElementById('totalRules').textContent, 1);
     assert.equal(document.getElementById('importFileInput').value, '');
     assert.equal(statisticsLoads, 1);
-    assert.equal(document.getElementById('statusMessage').textContent, 'importedrules:1');
+    assert.equal(document.getElementById('importStatus').textContent, 'importedrules:1');
   });
 });
 
@@ -832,7 +833,7 @@ test('rule imports require password authorization before replacing existing rule
   });
 });
 
-test('cancelled imports never replace existing rules, and validation errors expose their safe error codes', async () => {
+test('cancelled imports never replace existing rules, and validation errors have safe localized feedback', async () => {
   await withSettingsManager(async ({ document, manager, setConfirmation }) => {
     const file = { name: 'rules.json', async text() { return '{"rules":[{"blockURL":"example.com"}]}'; } };
     let called = false;
@@ -849,7 +850,7 @@ test('cancelled imports never replace existing rules, and validation errors expo
       throw error;
     };
     await manager.importRules(file);
-    assert.match(document.getElementById('statusMessage').textContent, /redirect_invalid/);
+    assert.match(document.getElementById('importStatus').textContent, /^importinvalidbackup$/);
   });
 });
 
@@ -874,8 +875,8 @@ test('import UI reports a transactional worker failure without applying imported
       }
     });
 
-    const status = document.getElementById('statusMessage');
-    assert.equal(status.textContent, 'errorimportingrulessync storage unavailable');
+    const status = document.getElementById('importStatus');
+    assert.equal(status.textContent, 'importfailed');
     assert.equal(status.classList.contains('error'), true);
     assert.notEqual(document.getElementById('totalRules').textContent, 1);
     assert.equal(document.getElementById('mode-strict').checked, false);
@@ -1003,6 +1004,6 @@ test('a committed import with pending usage recovery clears the input and warns 
     assert.equal(imports, 1);
     assert.equal(Number(document.getElementById('totalRules').textContent), 1);
     assert.equal(document.getElementById('importFileInput').value, '');
-    assert.equal(document.getElementById('statusMessage').textContent, 'ruleschangessavedpending');
+    assert.equal(document.getElementById('importStatus').textContent, 'ruleschangessavedpending');
   });
 });

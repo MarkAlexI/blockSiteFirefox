@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "గణాంకాలను తొలగించలేకపోయాము. మళ్లీ ప్రయత్నించండి."
+  },
+  "importinprogress": {
+    "message": "బ్యాకప్ దిగుమతి అవుతోంది…"
+  },
+  "importfiletoolarge": {
+    "message": "బ్యాకప్ పరిమాణం 5 MiB లేదా అంతకంటే తక్కువగా ఉండాలి."
+  },
+  "importinvalidbackup": {
+    "message": "చెల్లని బ్యాకప్. BlockDistraction JSON బ్యాకప్‌ను ఎంచుకోండి."
+  },
+  "importfailed": {
+    "message": "బ్యాకప్‌ను దిగుమతి చేయలేకపోయాము. మళ్లీ ప్రయత్నించడానికి ఫైల్‌ను మరోసారి ఎంచుకోండి."
+  },
+  "importcancelled": {
+    "message": "దిగుమతి రద్దయింది."
+  },
+  "importrefreshfailed": {
+    "message": "ప్రదర్శిత డేటాను నవీకరించడానికి సెట్టింగ్‌లను మళ్లీ తెరవండి."
   }
 }

@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Не удалось очистить статистику. Попробуйте ещё раз."
+  },
+  "importinprogress": {
+    "message": "Импорт резервной копии…"
+  },
+  "importfiletoolarge": {
+    "message": "Размер резервной копии не должен превышать 5 MiB."
+  },
+  "importinvalidbackup": {
+    "message": "Некорректная резервная копия. Выберите резервную копию BlockDistraction в формате JSON."
+  },
+  "importfailed": {
+    "message": "Не удалось импортировать резервную копию. Выберите файл ещё раз, чтобы повторить попытку."
+  },
+  "importcancelled": {
+    "message": "Импорт отменён."
+  },
+  "importrefreshfailed": {
+    "message": "Откройте Настройки заново, чтобы обновить отображаемые данные."
   }
 }

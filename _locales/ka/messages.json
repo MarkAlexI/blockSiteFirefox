@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "სტატისტიკა ვერ გასუფთავდა. სცადეთ ხელახლა."
+  },
+  "importinprogress": {
+    "message": "მიმდინარეობს სარეზერვო ასლის იმპორტი…"
+  },
+  "importfiletoolarge": {
+    "message": "სარეზერვო ასლის ზომა არ უნდა აღემატებოდეს 5 MiB-ს."
+  },
+  "importinvalidbackup": {
+    "message": "არასწორი სარეზერვო ასლი. აირჩიეთ BlockDistraction-ის JSON სარეზერვო ასლი."
+  },
+  "importfailed": {
+    "message": "სარეზერვო ასლის იმპორტი ვერ მოხერხდა. ხელახლა საცდელად ფაილი თავიდან აირჩიეთ."
+  },
+  "importcancelled": {
+    "message": "იმპორტი გაუქმდა."
+  },
+  "importrefreshfailed": {
+    "message": "ნაჩვენები მონაცემების გასაახლებლად ხელახლა გახსენით პარამეტრები."
   }
 }

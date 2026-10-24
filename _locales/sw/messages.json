@@ -1188,5 +1188,23 @@
   },
   "statisticsclearfailed": {
     "message": "Imeshindikana kufuta takwimu. Jaribu tena."
+  },
+  "importinprogress": {
+    "message": "Inaleta nakala rudufu…"
+  },
+  "importfiletoolarge": {
+    "message": "Nakala rudufu lazima iwe na ukubwa wa 5 MiB au chini."
+  },
+  "importinvalidbackup": {
+    "message": "Nakala rudufu si halali. Chagua nakala rudufu ya BlockDistraction ya JSON."
+  },
+  "importfailed": {
+    "message": "Imeshindikana kuleta nakala rudufu. Chagua faili tena ili ujaribu upya."
+  },
+  "importcancelled": {
+    "message": "Uletaji umeghairiwa."
+  },
+  "importrefreshfailed": {
+    "message": "Fungua Mipangilio tena ili kuonyesha data iliyosasishwa."
   }
 }
