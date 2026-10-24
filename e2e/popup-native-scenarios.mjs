@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { until, pause, readerView, openToolbarPopup, toolbarCount, installPopupProbe,
-  expectedPopupRows, assertRenderTrace } from './popup-probes.mjs';
+  expectedPopupRows, assertRenderTrace, focusOptionsForImport } from './popup-probes.mjs';
 
 const click = (page, selector) => page.locator ? page.locator(selector).click() : page.clickUnsettled(selector);
 const front = page => page.front ? page.front() : page.bringToFront();
@@ -76,8 +76,25 @@ export const popupNativeScenarios = [{
         closeInput = 'Options tab: native pointer click';
       }
       await until(() => toolbarCount(options), count => count === 0, 'real toolbar document destroyed');
+      if (e.dismissToolbarPopup) {
+        const focus = await focusOptionsForImport(options);
+        await evidence(e, `toolbar-import-focus-${kind}`, focus);
+      }
       const domain = `toolbar-after-${kind.toLowerCase()}.bd-e2e.test`;
+      await options.evaluate(() => {
+        window.__bdToolbarImportFileChange = null;
+        document.getElementById('importFileInput').addEventListener('change', event => {
+          window.__bdToolbarImportFileChange = { trusted: event.isTrusted, focused: document.hasFocus(),
+            active: document.activeElement?.id || null, files: [...event.target.files].map(file => file.name) };
+        }, { capture: true, once: true });
+      });
       await e.importBackup(options, { rules: [rule(99, domain, [assignment('general')])] });
+      const selection = await options.evaluate(() => ({ change: window.__bdToolbarImportFileChange,
+        status: document.getElementById('importStatus')?.textContent,
+        focused: document.hasFocus(), active: document.activeElement?.id || null }));
+      await evidence(e, `toolbar-import-selection-${kind}`, selection);
+      assert.equal(selection.change?.trusted, true, 'native file selection dispatched change');
+      assert.equal(selection.change?.focused, true, 'file selection starts in focused Options content');
       await until(async () => (await e.state()).rules.map(item => item.blockURL),
         urls => urls.length === 1 && urls[0] === domain, 'Options import committed while toolbar is closed');
 

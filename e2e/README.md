@@ -1,5 +1,9 @@
 # Firefox Desktop E2E — BlockDistraction **5.4.14**
 
+Для сценарію 29 після закриття справжнього toolbar Popup тест явно повертає
+фокус у Options перед вибором файла. Діагностика, спостереження CI та межі
+локальної перевірки описані в [Toolbar import focus](toolbar-import-focus.md).
+
 ## CI preparation budget (2026-10-23, tests only)
 
 На `cb6c053b38374f21d83b95aeb2709c394c7cd635`

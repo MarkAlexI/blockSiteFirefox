@@ -53,6 +53,33 @@ export async function toolbarCount(host) {
   return host.evaluate(() => (globalThis.browser || chrome).extension.getViews({ type: 'popup' }).length);
 }
 
+// WebDriver's hidden-file upload does not perform the content click that a
+// user makes before choosing a backup. Escape closes Gecko's chrome panel;
+// establish content focus explicitly before starting that separate action.
+export async function focusOptionsForImport(host) {
+  const before = await host.evaluate(() => ({ focused: document.hasFocus(),
+    visibility: document.visibilityState, active: document.activeElement?.id || null }));
+  await host.front();
+  await host.evaluate(() => {
+    window.__bdToolbarImportPointer = null;
+    document.getElementById('search-input').addEventListener('pointerdown', event => {
+      window.__bdToolbarImportPointer = { trusted: event.isTrusted, type: event.pointerType };
+    }, { capture: true, once: true });
+  });
+  // One native pointer action on a stable, existing Options control. It does
+  // not open/cancel a file picker, change the draft or dispatch a DOM event.
+  await host.clickUnsettled('#search-input');
+  const after = await host.evaluate(() => ({ focused: document.hasFocus(),
+    visibility: document.visibilityState, active: document.activeElement?.id || null,
+    pointer: window.__bdToolbarImportPointer, draft: document.getElementById('search-input').value }));
+  const detail = JSON.stringify({ before, after });
+  assert.equal(after.pointer?.trusted, true, `Options import requires native pointer input: ${detail}`);
+  assert.equal(after.visibility, 'visible', `Options import requires a visible document: ${detail}`);
+  assert.equal(after.focused, true, `Options import requires content focus: ${detail}`);
+  assert.equal(after.active, 'search-input', `Options import focus target changed: ${detail}`);
+  return { before, after };
+}
+
 // Only delivery is gated. Native storage.get, timers and animation frames run;
 // return values, frame timestamps and production callbacks are never invented.
 export function installPopupProbe(view) {
