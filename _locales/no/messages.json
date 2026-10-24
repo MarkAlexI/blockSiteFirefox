@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Åpne Innstillinger på nytt for å oppdatere dataene som vises."
+  },
+  "clearingallrules": {
+    "message": "Sletter alle regler…"
+  },
+  "resettingsettings": {
+    "message": "Gjenoppretter standardinnstillinger…"
+  },
+  "settingsactioncancelled": {
+    "message": "Handlingen ble avbrutt."
+  },
+  "clearruleschanged": {
+    "message": "Reglene er endret. Se gjennom dem og prøv igjen."
   }
 }

@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Iš naujo atverkite Nustatymus, kad atnaujintumėte rodomus duomenis."
+  },
+  "clearingallrules": {
+    "message": "Šalinamos visos taisyklės…"
+  },
+  "resettingsettings": {
+    "message": "Atkuriami numatytieji nustatymai…"
+  },
+  "settingsactioncancelled": {
+    "message": "Veiksmas atšauktas."
+  },
+  "clearruleschanged": {
+    "message": "Taisyklės pasikeitė. Peržiūrėkite jas ir bandykite dar kartą."
   }
 }

@@ -936,3 +936,85 @@ versions лишаються окремими перевірками.
 
 Фінальний `npm run check`: 2104/2104 passed, no skips/failures;
 validator 383 files, extension version 5.4.13.
+
+## A11Y-04, частина 11: Clear All і Reset Settings, 5.4.14
+
+Import, chooser launch, Clear All і Reset Settings використовують одного owner
+в межах Options document. Guard береться до Pro reads, file/rule reads,
+password verification і native confirm та тримається до завершення UI refresh.
+Усі три кнопки лишаються фокусованими з aria-disabled; aria-busy має поточний
+owner. Відхилена повторна або конфліктна дія не відкриває новий modal, не пише
+storage й не переписує feedback активної дії. Browser-owned chooser, як і в
+5.4.13, не залишає lock в очікуванні cancel event.
+
+Clear і Reset мають окремі persistent polite atomic status regions, пов'язані з
+кнопками через aria-describedby. Чотири нові тексти progress/cancel/stale додані
+в усі 57 локалей; existing safe success/failure/pending/reopen messages повторно
+використані. Error messages і технічні коди не додаються до UI. Збережений Clear
+із syncPending/dailyUsageSyncPending завершується без replay. Post-commit count
+read або UI exception зберігає saved outcome з повідомленням про refresh.
+Rule-count generation guard відкидає старе читання та його пізню помилку.
+
+Clear читає rules і rulesGeneration одним storage get до password/confirm.
+Captured opaque generation проходить через client/router до worker. Mutation
+queue перевіряє його після входу в чергу; stale або відсутнє покоління не може
+видалити набір, замінений іншим вікном. Service consumers без generation provider
+зберігають попередню поведінку; production worker provider обов'язковий.
+Positive worker regression fixtures тепер передають актуальне покоління; їхні
+перевірки budget cleanup, DNR removal і нового generation не послаблено.
+Pro check у worker і правила доступу збережені.
+
+Reset записує ті самі default settings та оновлює відповідні controls без
+відкладеного reload. Disclosure state, Search draft і пізніший keyboard focus
+зберігаються. Individual setting saves впорядковані в межах SettingsManager:
+старі saves завершуються до reset, пізніші чекають його завершення та читають
+вже збережений стан перед merge. Per-field edit versions не дозволяють reset
+перемалювати пізніший вибір, навіть якщо користувач повернув попереднє значення.
+Failed reset теж звільняє pending saves. Це не distributed lock між вікнами
+для довільних settings writes. Перед відкладеним prompt перевіряються focus
+owner, visibility, open dialog, detached opener та hidden/inert/Focus lock.
+
+Три додаткові API-model reproduction checks спочатку відтворили reset/write/UI
+races (0/3), після виправлення проходять. Нові focused checks: 59 bulk UI,
+7 client/router/service generation і 1 worker-source/API-model regression. 40
+однакових deterministic UI checks на точній базі 5.4.13 дають 1 passed /
+39 failed в обох варіантах; після змін 40/40. Окремі 7 generation checks на
+Chromium base дають 1 passed / 6 failed; після змін 7/7 в обох варіантах.
+Password fixture чекає фактичного completion callback замість кількості microtasks.
+
+Native Firefox 153.0 (Ubuntu 22.04 browser build), geckodriver 0.37.0, Linux
+headless, temporary installation: фінальні focused scenarios 49, 61, 62, 63
+passed, 4 bodies started, 0 failed/blocked. 62 відкриває Clear/password у першому
+Options, реально імпортує інший набір у другому та перевіряє відмову stale Clear,
+збережені rules/generation/DNR. Fresh retry виконує один Clear; повторні Enter,
+Reset та Import не додають intents, reply після native commit не забирає Search
+focus/draft, очищений target відкривається звичайною HTTP navigation.
+63 затримує лише acknowledgement справжнього storage write, перевіряє exact
+saved defaults, двічі змінює notification checkbox справжнім Space, після release
+перевіряє збереження пізнішого поля, інших defaults, disclosure і Search draft.
+Reset write один; два явні наступні checkbox saves рахуються окремо. Document
+identity не змінюється після попереднього 1s reload deadline. 49/61 підтверджують
+попередні password та import flows після shared-owner/save-queue changes.
+Native confirm автоматично приймає harness; OS chooser, screen-reader speech,
+cloud-sync completion і native API failures не доведені цими scenarios.
+
+Layout/API-model probes: Blink 151.0.7922.34 і Firefox 153.0, обидва варіанти,
+24 конфігурації / 240 states: clear progress/stale/error/pending/refresh/success,
+reset progress/error/refresh/success. en/1280, uk/360, de/ar/320, en/640 із
+базовим шрифтом 200%, forced colors; обидва нові status і button вміщуються в
+ширину. RTL і довгі combined outcomes переглянуті візуально. axe-core 4.14.0:
+0 WCAG A/AA violations у Rules Management і footer; color-contrast incomplete
+у 184 states. Palette validator окремо перевіряє 70 pairs. Це не browser zoom
+або повний WCAG acceptance. Native Chromium/Edge локально блокує AF_UNIX EPERM;
+Blink probe є layout/API-model, не installed-extension acceptance. Android,
+macOS і minimum browser versions лишаються окремими перевірками.
+
+[Chrome storage](https://developer.chrome.com/docs/extensions/reference/api/storage)
+і [Mozilla StorageArea.set](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea/set)
+описують async persistence та помилки запису. Feedback спирається на результат
+операції. [Mozilla onChanged](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/onChanged)
+і [bug 1833153](https://bugzilla.mozilla.org/show_bug.cgi?id=1833153) описують
+Firefox notifications без фактичної зміни; їхня кількість не є commit receipt.
+
+Фінальний `npm run check`: 2171/2171 passed, no skips/failures;
+validator 386 files, extension version 5.4.14, palette 70/70.

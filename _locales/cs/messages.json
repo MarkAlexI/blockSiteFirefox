@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Znovu otevřete Nastavení a obnovte zobrazená data."
+  },
+  "clearingallrules": {
+    "message": "Odstraňují se všechna pravidla…"
+  },
+  "resettingsettings": {
+    "message": "Obnovuje se výchozí nastavení…"
+  },
+  "settingsactioncancelled": {
+    "message": "Akce zrušena."
+  },
+  "clearruleschanged": {
+    "message": "Pravidla se změnila. Zkontrolujte je a zkuste to znovu."
   }
 }

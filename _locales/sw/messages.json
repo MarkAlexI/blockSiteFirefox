@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Fungua Mipangilio tena ili kuonyesha data iliyosasishwa."
+  },
+  "clearingallrules": {
+    "message": "Inafuta sheria zote…"
+  },
+  "resettingsettings": {
+    "message": "Inarejesha mipangilio chaguomsingi…"
+  },
+  "settingsactioncancelled": {
+    "message": "Kitendo kimeghairiwa."
+  },
+  "clearruleschanged": {
+    "message": "Sheria zimebadilika. Zikague na ujaribu tena."
   }
 }

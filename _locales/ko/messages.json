@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "표시된 데이터를 새로 고치려면 설정을 다시 여세요."
+  },
+  "clearingallrules": {
+    "message": "모든 규칙을 삭제하는 중…"
+  },
+  "resettingsettings": {
+    "message": "기본 설정을 복원하는 중…"
+  },
+  "settingsactioncancelled": {
+    "message": "작업이 취소되었습니다."
+  },
+  "clearruleschanged": {
+    "message": "규칙이 변경되었습니다. 확인한 후 다시 시도하세요."
   }
 }

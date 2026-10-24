@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "أعد فتح الإعدادات لتحديث البيانات المعروضة."
+  },
+  "clearingallrules": {
+    "message": "جارٍ حذف جميع القواعد…"
+  },
+  "resettingsettings": {
+    "message": "جارٍ استعادة الإعدادات الافتراضية…"
+  },
+  "settingsactioncancelled": {
+    "message": "تم إلغاء الإجراء."
+  },
+  "clearruleschanged": {
+    "message": "تغيّرت القواعد. راجعها وحاول مجددًا."
   }
 }

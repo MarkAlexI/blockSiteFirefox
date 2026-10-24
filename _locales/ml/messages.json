@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "പ്രദർശിപ്പിച്ച ഡാറ്റ പുതുക്കാൻ ക്രമീകരണങ്ങൾ വീണ്ടും തുറക്കുക."
+  },
+  "clearingallrules": {
+    "message": "എല്ലാ നിയമങ്ങളും ഇല്ലാതാക്കുന്നു…"
+  },
+  "resettingsettings": {
+    "message": "സ്ഥിര ക്രമീകരണങ്ങൾ പുനഃസ്ഥാപിക്കുന്നു…"
+  },
+  "settingsactioncancelled": {
+    "message": "പ്രവർത്തനം റദ്ദാക്കി."
+  },
+  "clearruleschanged": {
+    "message": "നിയമങ്ങൾ മാറിയിരിക്കുന്നു. അവ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
   }
 }

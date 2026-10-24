@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "เปิดการตั้งค่าอีกครั้งเพื่อรีเฟรชข้อมูลที่แสดง"
+  },
+  "clearingallrules": {
+    "message": "กำลังลบกฎทั้งหมด…"
+  },
+  "resettingsettings": {
+    "message": "กำลังกู้คืนการตั้งค่าเริ่มต้น…"
+  },
+  "settingsactioncancelled": {
+    "message": "ยกเลิกการดำเนินการแล้ว"
+  },
+  "clearruleschanged": {
+    "message": "กฎมีการเปลี่ยนแปลง ตรวจสอบกฎแล้วลองอีกครั้ง"
   }
 }

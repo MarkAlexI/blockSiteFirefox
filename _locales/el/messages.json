@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Ανοίξτε ξανά τις Ρυθμίσεις για ανανέωση των εμφανιζόμενων δεδομένων."
+  },
+  "clearingallrules": {
+    "message": "Διαγραφή όλων των κανόνων…"
+  },
+  "resettingsettings": {
+    "message": "Επαναφορά προεπιλεγμένων ρυθμίσεων…"
+  },
+  "settingsactioncancelled": {
+    "message": "Η ενέργεια ακυρώθηκε."
+  },
+  "clearruleschanged": {
+    "message": "Οι κανόνες άλλαξαν. Ελέγξτε τους και δοκιμάστε ξανά."
   }
 }

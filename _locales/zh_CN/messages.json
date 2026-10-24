@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "请重新打开设置以刷新显示的数据。"
+  },
+  "clearingallrules": {
+    "message": "正在删除所有规则…"
+  },
+  "resettingsettings": {
+    "message": "正在恢复默认设置…"
+  },
+  "settingsactioncancelled": {
+    "message": "已取消操作。"
+  },
+  "clearruleschanged": {
+    "message": "规则已更改。请检查后重试。"
   }
 }

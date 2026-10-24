@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "ಪ್ರದರ್ಶಿತ ಡೇಟಾವನ್ನು ನವೀಕರಿಸಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ."
+  },
+  "clearingallrules": {
+    "message": "ಎಲ್ಲ ನಿಯಮಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತಿದೆ…"
+  },
+  "resettingsettings": {
+    "message": "ಡೀಫಾಲ್ಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಸ್ಥಾಪಿಸಲಾಗುತ್ತಿದೆ…"
+  },
+  "settingsactioncancelled": {
+    "message": "ಕ್ರಿಯೆ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ."
+  },
+  "clearruleschanged": {
+    "message": "ನಿಯಮಗಳು ಬದಲಾಗಿವೆ. ಅವುಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
   }
 }

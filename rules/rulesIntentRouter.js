@@ -38,7 +38,7 @@ export function createRulesIntentHandler(rulesMutationService) {
       case 'rules:replaceAll':
         return rulesMutationService.replaceAll(message.payload);
       case 'rules:clear':
-        return rulesMutationService.clearRules();
+        return rulesMutationService.clearRules(message.payload);
       case 'rules:toggleCategory':
         return rulesMutationService.toggleCategory(message.payload);
       case 'rules:createList':

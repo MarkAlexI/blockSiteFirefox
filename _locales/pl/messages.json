@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Otwórz ponownie Ustawienia, aby odświeżyć wyświetlane dane."
+  },
+  "clearingallrules": {
+    "message": "Usuwanie wszystkich reguł…"
+  },
+  "resettingsettings": {
+    "message": "Przywracanie ustawień domyślnych…"
+  },
+  "settingsactioncancelled": {
+    "message": "Działanie anulowane."
+  },
+  "clearruleschanged": {
+    "message": "Reguły się zmieniły. Sprawdź je i spróbuj ponownie."
   }
 }

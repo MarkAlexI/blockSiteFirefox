@@ -6873,7 +6873,7 @@ test('stale options clear rotates the generation before an added rule reuses the
   await withWorker(async ({ api, send }) => {
     assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
     const captured = staleOptionsIntent('rules:toggle', api.storage.local.data.rules[0], api.storage.local.data.rulesGeneration);
-    assert.equal((await send({ type: 'rules:clear' })).success, true);
+    assert.equal((await send({ type: 'rules:clear', payload: { expectedGeneration: api.storage.local.data.rulesGeneration ?? null } })).success, true);
     const added = await send({ type: 'rules:add', payload: { blockURL: 'after-clear.example', redirectURL: '', category: 'news' } });
     assert.equal(added.success, true);
     assert.equal(added.rule.id, captured.payload.ruleId);
@@ -8347,3 +8347,19 @@ for (const scenario of ['expired', 'current', 'manual']) {
     }
   }
 }
+
+test('bulk clear rejects the generation confirmed before another window imports and preserves the new rules', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    const confirmed = api.storage.local.data.rulesGeneration;
+    assert.equal((await send({ type: 'rules:replaceAll', payload: staleOptionsReplacement() })).success, true);
+    const current = staleOptionsState(api);
+    assert.notEqual(current.generation, confirmed);
+    const stale = await send({ type: 'rules:clear', payload: { expectedGeneration: confirmed } });
+    assert.equal(stale.success, false); assert.equal(stale.error.code, 'rules_state_changed');
+    assert.deepEqual(staleOptionsState(api), current);
+    const fresh = await send({ type: 'rules:clear', payload: { expectedGeneration: current.generation } });
+    assert.equal(fresh.success, true); assert.deepEqual(api.storage.local.data.rules, []);
+    assert.notEqual(api.storage.local.data.rulesGeneration, current.generation);
+  }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
+});

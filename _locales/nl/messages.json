@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Open Instellingen opnieuw om de weergegeven gegevens te vernieuwen."
+  },
+  "clearingallrules": {
+    "message": "Alle regels verwijderen…"
+  },
+  "resettingsettings": {
+    "message": "Standaardinstellingen herstellen…"
+  },
+  "settingsactioncancelled": {
+    "message": "Actie geannuleerd."
+  },
+  "clearruleschanged": {
+    "message": "De regels zijn gewijzigd. Controleer ze en probeer het opnieuw."
   }
 }

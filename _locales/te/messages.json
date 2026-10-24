@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "ప్రదర్శిత డేటాను నవీకరించడానికి సెట్టింగ్‌లను మళ్లీ తెరవండి."
+  },
+  "clearingallrules": {
+    "message": "అన్ని నియమాలు తొలగించబడుతున్నాయి…"
+  },
+  "resettingsettings": {
+    "message": "డిఫాల్ట్ సెట్టింగ్‌లు పునరుద్ధరించబడుతున్నాయి…"
+  },
+  "settingsactioncancelled": {
+    "message": "చర్య రద్దయింది."
+  },
+  "clearruleschanged": {
+    "message": "నియమాలు మారాయి. వాటిని సమీక్షించి మళ్లీ ప్రయత్నించండి."
   }
 }

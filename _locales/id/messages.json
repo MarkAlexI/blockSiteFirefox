@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Buka kembali Pengaturan untuk memperbarui data yang ditampilkan."
+  },
+  "clearingallrules": {
+    "message": "Menghapus semua aturan…"
+  },
+  "resettingsettings": {
+    "message": "Memulihkan pengaturan default…"
+  },
+  "settingsactioncancelled": {
+    "message": "Tindakan dibatalkan."
+  },
+  "clearruleschanged": {
+    "message": "Aturan telah berubah. Tinjau aturan dan coba lagi."
   }
 }

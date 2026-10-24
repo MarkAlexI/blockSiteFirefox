@@ -492,17 +492,21 @@ button:disabled {
   border: 1px solid var(--bd-control-border);
 }
 
-#importRules[aria-disabled="true"] {
+#importRules[aria-disabled="true"],
+#clearAllRules[aria-disabled="true"],
+#resetSettings[aria-disabled="true"] {
   cursor: progress;
 }
 
-.import-status {
+.import-status,
+.settings-action-status {
   min-inline-size: 0;
   overflow-wrap: anywhere;
   color: var(--bd-text);
 }
 
-.import-status.error {
+.import-status.error,
+.settings-action-status.error {
   color: var(--bd-danger);
 }
 

@@ -1656,7 +1656,7 @@ for (const action of ['clear', 'replace']) {
       api.storage.local.set = async (values, callback) => {
         await tick();const result = await set(values, callback);
         if (!second && values.rules?.find(rule => rule.id === 1)?.assignments[0].listId === 'list-2') {
-          second = send(action === 'clear' ? { type: 'rules:clear' } : {
+          second = send(action === 'clear' ? { type: 'rules:clear', payload: { expectedGeneration: api.storage.local.data.rulesGeneration ?? null } } : {
             type: 'rules:replaceAll', payload: { rules: [makeDailyLimitRule(1, 'list-2', { blockURL: 'first.example' })],
               ruleLists: h1InitialState().ruleLists, activeRuleListId: 'list-2' }
           });

@@ -1224,5 +1224,17 @@
   },
   "importrefreshfailed": {
     "message": "Vuelve a abrir Configuración para actualizar los datos mostrados."
+  },
+  "clearingallrules": {
+    "message": "Eliminando todas las reglas…"
+  },
+  "resettingsettings": {
+    "message": "Restaurando la configuración predeterminada…"
+  },
+  "settingsactioncancelled": {
+    "message": "Acción cancelada."
+  },
+  "clearruleschanged": {
+    "message": "Las reglas han cambiado. Revísalas e inténtalo de nuevo."
   }
 }

@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Reopen Settings to refresh the displayed data."
+  },
+  "clearingallrules": {
+    "message": "Deleting all rules…"
+  },
+  "resettingsettings": {
+    "message": "Restoring default settings…"
+  },
+  "settingsactioncancelled": {
+    "message": "Action cancelled."
+  },
+  "clearruleschanged": {
+    "message": "Rules changed. Review them and try again."
   }
 }

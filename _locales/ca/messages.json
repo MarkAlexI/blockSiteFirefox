@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Torneu a obrir la configuració per actualitzar les dades mostrades."
+  },
+  "clearingallrules": {
+    "message": "S’estan suprimint totes les regles…"
+  },
+  "resettingsettings": {
+    "message": "S’està restaurant la configuració predeterminada…"
+  },
+  "settingsactioncancelled": {
+    "message": "Acció cancel·lada."
+  },
+  "clearruleschanged": {
+    "message": "Les regles han canviat. Reviseu-les i torneu-ho a provar."
   }
 }

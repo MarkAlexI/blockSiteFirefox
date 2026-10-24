@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Znova odprite Nastavitve, da osvežite prikazane podatke."
+  },
+  "clearingallrules": {
+    "message": "Brisanje vseh pravil…"
+  },
+  "resettingsettings": {
+    "message": "Obnavljanje privzetih nastavitev…"
+  },
+  "settingsactioncancelled": {
+    "message": "Dejanje preklicano."
+  },
+  "clearruleschanged": {
+    "message": "Pravila so se spremenila. Preglejte jih in poskusite znova."
   }
 }

@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.13**
+# Firefox Desktop E2E — BlockDistraction **5.4.14**
 
 ## CI preparation budget (2026-10-23, tests only)
 
@@ -1036,3 +1036,22 @@ OS chooser cancellation. Pending sync і failure interleavings перевіре�
 API-model tests. Native Chromium/Edge, screen-reader speech, Android і minimum
 browser acceptance не випливають із цих результатів. Поточна реєстрація:
 59 Chromium tests / 60 Firefox scenarios; listing не означає execution.
+
+## Clear All / Reset Settings, 5.4.14
+
+Спільні scenarios 62/63 у `bulk-settings-scenarios.mjs` перевіряють shared
+Import/Clear/Reset guard, native keyboard/password/confirm і persistent results.
+62 затримує пароль у першому Options, імпортує нові rules в іншому та перевіряє
+worker stale-generation rejection. Fresh Clear з delayed real reply зберігає
+пізніший Search focus/draft; repeated/conflicting Enter не додає mutations.
+63 затримує acknowledgement реального reset write, перевіряє exact defaults,
+пізніший notification field choice через Space двічі та Search draft/disclosure,
+окремо рахує reset і наступні setting saves, перевіряє document identity після
+попереднього reload deadline. Delivery gates не замінюють native write results.
+
+Firefox 153.0 / geckodriver 0.37.0 / Linux headless temporary installation:
+49/61/62/63 passed у фінальних focused invocations. Native Chromium/Edge локально
+обмежений AF_UNIX EPERM; screen-reader speech, OS chooser cancellation,
+cloud-sync completion, native API failures, Android і minimum browser acceptance
+не випливають із цих результатів. Поточна реєстрація: 61 Chromium tests /
+62 Firefox scenarios; listing не є execution. Таймаути та retries не збільшено.

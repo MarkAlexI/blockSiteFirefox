@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Mở lại Cài đặt để làm mới dữ liệu đang hiển thị."
+  },
+  "clearingallrules": {
+    "message": "Đang xóa tất cả quy tắc…"
+  },
+  "resettingsettings": {
+    "message": "Đang khôi phục cài đặt mặc định…"
+  },
+  "settingsactioncancelled": {
+    "message": "Đã hủy thao tác."
+  },
+  "clearruleschanged": {
+    "message": "Quy tắc đã thay đổi. Hãy xem lại và thử lại."
   }
 }

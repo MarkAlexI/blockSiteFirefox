@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Kuvatavate andmete värskendamiseks avage seaded uuesti."
+  },
+  "clearingallrules": {
+    "message": "Kõigi reeglite kustutamine…"
+  },
+  "resettingsettings": {
+    "message": "Vaikeseadete taastamine…"
+  },
+  "settingsactioncancelled": {
+    "message": "Toiming tühistati."
+  },
+  "clearruleschanged": {
+    "message": "Reeglid on muutunud. Vaadake need üle ja proovige uuesti."
   }
 }

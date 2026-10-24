@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Redeschideți Setările pentru a actualiza datele afișate."
+  },
+  "clearingallrules": {
+    "message": "Se șterg toate regulile…"
+  },
+  "resettingsettings": {
+    "message": "Se restabilesc setările implicite…"
+  },
+  "settingsactioncancelled": {
+    "message": "Acțiune anulată."
+  },
+  "clearruleschanged": {
+    "message": "Regulile s-au schimbat. Verificați-le și încercați din nou."
   }
 }

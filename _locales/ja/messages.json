@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "表示データを更新するには、設定を開き直してください。"
+  },
+  "clearingallrules": {
+    "message": "すべてのルールを削除中…"
+  },
+  "resettingsettings": {
+    "message": "既定の設定を復元中…"
+  },
+  "settingsactioncancelled": {
+    "message": "操作をキャンセルしました。"
+  },
+  "clearruleschanged": {
+    "message": "ルールが変更されました。内容を確認して再試行してください。"
   }
 }

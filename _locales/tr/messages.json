@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Görüntülenen verileri yenilemek için Ayarlar’ı yeniden açın."
+  },
+  "clearingallrules": {
+    "message": "Tüm kurallar siliniyor…"
+  },
+  "resettingsettings": {
+    "message": "Varsayılan ayarlar geri yükleniyor…"
+  },
+  "settingsactioncancelled": {
+    "message": "İşlem iptal edildi."
+  },
+  "clearruleschanged": {
+    "message": "Kurallar değişti. Kuralları gözden geçirip tekrar deneyin."
   }
 }

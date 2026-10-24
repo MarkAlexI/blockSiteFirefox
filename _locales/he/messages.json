@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "יש לפתוח שוב את ההגדרות כדי לרענן את הנתונים המוצגים."
+  },
+  "clearingallrules": {
+    "message": "מוחק את כל הכללים…"
+  },
+  "resettingsettings": {
+    "message": "משחזר את הגדרות ברירת המחדל…"
+  },
+  "settingsactioncancelled": {
+    "message": "הפעולה בוטלה."
+  },
+  "clearruleschanged": {
+    "message": "הכללים השתנו. יש לבדוק אותם ולנסות שוב."
   }
 }

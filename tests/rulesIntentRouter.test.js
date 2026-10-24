@@ -48,7 +48,7 @@ test('all declared rules intents route to the expected mutation method', async (
     ['rules:delete', 'deleteRule', payload],
     ['rules:toggle', 'toggleRule', payload],
     ['rules:replaceAll', 'replaceAll', payload],
-    ['rules:clear', 'clearRules', undefined],
+    ['rules:clear', 'clearRules', payload],
     ['rules:toggleCategory', 'toggleCategory', payload],
     ['rules:createList', 'createRuleList', payload],
     ['rules:renameList', 'renameRuleList', payload],

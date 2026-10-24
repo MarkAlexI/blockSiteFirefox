@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "દર્શાવેલો ડેટા તાજો કરવા સેટિંગ્સ ફરી ખોલો."
+  },
+  "clearingallrules": {
+    "message": "બધા નિયમો કાઢી નાખવામાં આવી રહ્યા છે…"
+  },
+  "resettingsettings": {
+    "message": "ડિફૉલ્ટ સેટિંગ્સ પુનઃસ્થાપિત થઈ રહી છે…"
+  },
+  "settingsactioncancelled": {
+    "message": "ક્રિયા રદ કરી."
+  },
+  "clearruleschanged": {
+    "message": "નિયમો બદલાયા છે. તેમની સમીક્ષા કરો અને ફરી પ્રયાસ કરો."
   }
 }

@@ -37,8 +37,9 @@ export class SettingsManager {
     this.statisticsClearPending = false;
     this.statisticsReadFailed = false;
     this.statisticsActionFeedback = null;
-    this.importPending = false;
-    this.importPickerPending = false;
+    this.settingsAction = null;
+    this.settingsEditVersions = {};
+    this.settingsSavePromise = Promise.resolve();
     
     this.init();
   }
@@ -115,42 +116,50 @@ export class SettingsManager {
     }
   }
   
-  applySettingsToUI(settings) {
-    const modeRadios = document.querySelectorAll('input[name="securityMode"]');
-    modeRadios.forEach(radio => {
-      radio.checked = radio.value === settings.mode;
-    });
-    
-    const confirmBox = document.getElementById('confirmBeforeDelete');
-    if (confirmBox) confirmBox.checked = settings.confirmBeforeDelete;
-    
-    const notifBox = document.getElementById('showNotifications');
-    if (notifBox) notifBox.checked = settings.showNotifications;
-    
-    const passBox = document.getElementById('enablePassword');
-    if (passBox) passBox.checked = settings.enablePassword;
-    
-    const debugBox = document.getElementById('enableDebug');
-    if (debugBox) debugBox.checked = settings.debugMode;
-    
-    const focusSoundBox = document.getElementById('focusSessionSound');
-    if (focusSoundBox) focusSoundBox.checked = settings.focusSessionSound;
-  }
-  
-  async saveSettings(settingsToSave) {
-    try {
-      const result = await browser.storage.sync.get(['settings']);
-      const currentSettings = result.settings || this.defaultSettings;
-      const newSettings = { ...currentSettings, ...settingsToSave };
-      
-      await browser.storage.sync.set({ settings: newSettings });
-      this.showStatus(t('settingssaved'), 'success');
-    } catch (error) {
-      this.logger.error('Error saving settings:', error);
-      this.showStatus(t('errorsavingsettings'), 'error');
+  applySettingsToUI(settings, { preserveEdits = null } = {}) {
+    const canApply = key => !preserveEdits ||
+      (this.settingsEditVersions?.[key] || 0) === (preserveEdits[key] || 0);
+    if (canApply('mode')) {
+      document.querySelectorAll('input[name="securityMode"]').forEach(radio => {
+        radio.checked = radio.value === settings.mode;
+      });
+    }
+    for (const [id, key] of [
+      ['confirmBeforeDelete', 'confirmBeforeDelete'], ['showNotifications', 'showNotifications'],
+      ['enablePassword', 'enablePassword'], ['enableDebug', 'debugMode'],
+      ['focusSessionSound', 'focusSessionSound']
+    ]) {
+      const input = document.getElementById(id);
+      if (input && canApply(key)) input.checked = settings[key];
     }
   }
-  
+
+  async saveSettings(settingsToSave) {
+    // A reset must not repaint a newer field choice. Mark the intent before any
+    // await, even when its value happens to match the old displayed value.
+    this.settingsEditVersions ||= {};
+    for (const key of Object.keys(settingsToSave || {})) {
+      this.settingsEditVersions[key] = (this.settingsEditVersions[key] || 0) + 1;
+    }
+    const reset = this.settingsAction?.buttonId === 'resetSettings' ? this.settingsAction.finished : null;
+    const previous = this.settingsSavePromise || Promise.resolve();
+    const saving = previous.catch(() => {}).then(async () => {
+      if (reset) await reset;
+      try {
+        const result = await browser.storage.sync.get(['settings']);
+        const currentSettings = result.settings || this.defaultSettings;
+        const newSettings = { ...currentSettings, ...settingsToSave };
+        await browser.storage.sync.set({ settings: newSettings });
+        this.showStatus(t('settingssaved'), 'success');
+      } catch (error) {
+        this.logger.error('Error saving settings:', error);
+        this.showStatus(t('errorsavingsettings'), 'error');
+      }
+    });
+    this.settingsSavePromise = saving;
+    return saving;
+  }
+
   getSettingsFromUI() {
     const mode = document.querySelector('input[name="securityMode"]:checked')?.value || 'normal';
     const confirmBeforeDelete = document.getElementById('confirmBeforeDelete').checked;
@@ -317,23 +326,8 @@ export class SettingsManager {
       return this.importRules(e.target.files?.[0]);
     });
     
-    document.getElementById('clearAllRules').addEventListener('click', async () => {
-      if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
-      
-      const isAuthorized = await this.checkPasswordProtection();
-      if (!isAuthorized) return;
-      
-      this.clearAllRules();
-    });
-    
-    document.getElementById('resetSettings').addEventListener('click', async () => {
-      if (!await ProManager.hasPaidAccess()) { this.showStatus(t('prorequired'), 'error'); return; }
-      
-      const isAuthorized = await this.checkPasswordProtection();
-      if (!isAuthorized) return;
-      
-      this.resetSettings();
-    });
+    document.getElementById('clearAllRules').addEventListener('click', () => this.clearAllRules());
+    document.getElementById('resetSettings').addEventListener('click', () => this.resetSettings());
     
     const clearStatsBtn = document.getElementById('clearStatistics');
     if (clearStatsBtn) {
@@ -376,7 +370,8 @@ export class SettingsManager {
     }
   }
   
-  async loadRuleCount(rules_from_message = null) {
+  async loadRuleCount(rules_from_message = null, { throwOnError = false } = {}) {
+    const generation = this.ruleCountGeneration = (this.ruleCountGeneration || 0) + 1;
     try {
       let rules;
       if (rules_from_message) {
@@ -385,10 +380,15 @@ export class SettingsManager {
         const rulesResult = await browser.storage.local.get(['rules']);
         rules = rulesResult.rules || [];
       }
+      if (generation !== this.ruleCountGeneration) return false;
       const el = document.getElementById('totalRules');
       if (el) el.textContent = rules.length;
+      return true;
     } catch (error) {
+      if (generation !== this.ruleCountGeneration) return false;
       this.logger.error('Error loading rule count:', error);
+      if (throwOnError) throw error;
+      return false;
     }
   }
   
@@ -532,22 +532,43 @@ export class SettingsManager {
     }
   }
   
-  updateImportBusyState() {
-    const button = document.getElementById('importRules');
-    const busy = Boolean(this.importPending || this.importPickerPending);
-    // Keep the keyboard's current position while rejecting repeated activation.
-    button?.setAttribute('aria-disabled', String(busy));
-    button?.setAttribute('aria-busy', String(busy));
+  beginSettingsAction(buttonId) {
+    if (this.settingsAction) return null;
+    const action = { buttonId, editVersions: { ...this.settingsEditVersions } };
+    action.finished = new Promise(resolve => { action.resolveFinished = resolve; });
+    this.settingsAction = action;
+    this.updateSettingsActionState();
+    return action;
   }
 
-  setImportStatus(message, type = '') {
-    const status = document.getElementById('importStatus');
+  finishSettingsAction(action) {
+    if (this.settingsAction !== action) return;
+    this.settingsAction = null;
+    this.updateSettingsActionState();
+    action.resolveFinished();
+  }
+
+  updateSettingsActionState() {
+    for (const id of ['importRules', 'clearAllRules', 'resetSettings']) {
+      const button = document.getElementById(id);
+      // Retain keyboard position while rejecting conflicting activation.
+      button?.setAttribute('aria-disabled', String(Boolean(this.settingsAction)));
+      button?.setAttribute('aria-busy', String(this.settingsAction?.buttonId === id));
+    }
+  }
+
+  setSettingsActionStatus(id, message, type = '') {
+    const status = document.getElementById(id);
     if (!status) return;
     if (status.textContent !== message) status.textContent = message;
     status.classList.toggle('error', type === 'error');
   }
 
-  isImportPromptCurrent(opener) {
+  setImportStatus(message, type = '') {
+    this.setSettingsActionStatus('importStatus', message, type);
+  }
+
+  isSettingsPromptCurrent(opener) {
     return document.visibilityState !== 'hidden' &&
       (typeof document.hasFocus !== 'function' || document.hasFocus()) &&
       (!opener || (document.activeElement === opener && opener.isConnected !== false &&
@@ -556,16 +577,15 @@ export class SettingsManager {
   }
 
   async chooseImportFile() {
-    if (this.importPending || this.importPickerPending) return false;
-    this.importPickerPending = true;
+    const action = this.beginSettingsAction('importRules');
+    if (!action) return false;
     const opener = document.activeElement;
-    this.updateImportBusyState();
     try {
       if (!await ProManager.hasPaidAccess()) {
         this.setImportStatus(t('prorequired'), 'error');
         return false;
       }
-      if (!this.isImportPromptCurrent(opener)) {
+      if (!this.isSettingsPromptCurrent(opener)) {
         this.setImportStatus(t('importcancelled'));
         return false;
       }
@@ -580,18 +600,17 @@ export class SettingsManager {
     } finally {
       // The browser owns the picker. Do not leave a lock waiting for a cancel
       // event: older browsers may not emit it, or may emit an empty change.
-      this.importPickerPending = false;
-      this.updateImportBusyState();
+      this.finishSettingsAction(action);
     }
   }
 
   async importRules(file) {
-    if (!file || this.importPending || this.importPickerPending) return false;
+    if (!file) return false;
+    const action = this.beginSettingsAction('importRules');
+    if (!action) return false;
     // Acquire before access checks and file reads. A second selection cannot
     // begin another password prompt, confirmation or replacement.
-    this.importPending = true;
     const opener = document.activeElement;
-    this.updateImportBusyState();
     this.setImportStatus(t('importinprogress'));
     // Release this selection synchronously, never from a late continuation.
     // This also permits an explicit retry with the very same file.
@@ -616,7 +635,7 @@ export class SettingsManager {
         return false;
       }
       const importData = parseBackupText(text);
-      const canPrompt = () => this.isImportPromptCurrent(opener);
+      const canPrompt = () => this.isSettingsPromptCurrent(opener);
       if (!canPrompt() || !await this.checkPasswordProtection({ throwOnError: true, canPrompt }) || !canPrompt()) {
         this.setImportStatus(t('importcancelled'));
         return false;
@@ -650,55 +669,97 @@ export class SettingsManager {
       this.setImportStatus(t(invalidBackup ? 'importinvalidbackup' : 'importfailed'), 'error');
       return false;
     } finally {
-      this.importPending = false;
-      this.updateImportBusyState();
+      this.finishSettingsAction(action);
     }
   }
   
   async clearAllRules() {
-    const result = await browser.storage.local.get('rules');
-    const rulesCount = result.rules?.length || 0;
-    
-    if (rulesCount === 0) {
-      this.showStatus(t('norulestoclear'), 'error');
-      return;
-    }
-    
-    const confirmClear = confirm(
-      t('willdeleteallrules', `${rulesCount}`) +
-      t('cannotbeundone')
-    );
-    
-    if (!confirmClear) return;
-    
+    const action = this.beginSettingsAction('clearAllRules');
+    if (!action) return false;
+    const opener = document.activeElement;
+    const status = (message, type = '') => this.setSettingsActionStatus('clearRulesStatus', message, type);
+    status(t('clearingallrules'));
     try {
-      const response = await this.rulesClient.clearRules();
-      await this.loadRuleCount(response.rules || []);
+      if (!await ProManager.hasPaidAccess()) {
+        status(t('prorequired'), 'error');
+        return false;
+      }
+      // Capture the confirmed set before password/confirm; the worker checks
+      // its generation again inside the same queue as imports and deletions.
+      const result = await browser.storage.local.get(['rules', 'rulesGeneration']);
+      const rules = result.rules ?? [];
+      if (!Array.isArray(rules)) throw new Error('Invalid stored rules');
+      if (rules.length === 0) {
+        status(t('norulestoclear'));
+        return false;
+      }
+      const canPrompt = () => this.isSettingsPromptCurrent(opener);
+      if (!canPrompt() || !await this.checkPasswordProtection({ throwOnError: true, canPrompt }) ||
+          !canPrompt() || !confirm(t('willdeleteallrules', `${rules.length}`) + t('cannotbeundone'))) {
+        status(t('settingsactioncancelled'));
+        return false;
+      }
+      const response = await this.rulesClient.clearRules(result.rulesGeneration ?? null);
       const feedback = getRulesMutationFeedback(response, t('allrulescleared'));
-      this.showStatus(feedback.message, feedback.pending ? 'error' : 'success');
+      try {
+        await this.loadRuleCount(null, { throwOnError: true });
+      } catch (error) {
+        this.logger.error('Error refreshing cleared rules:', error);
+        status(`${feedback.message} ${t('importrefreshfailed')}`, 'error');
+        return true;
+      }
+      status(feedback.message, feedback.pending ? 'error' : '');
+      return true;
     } catch (error) {
       this.logger.error('Error clearing rules:', error);
-      this.showStatus(t('errorclearingrules'), 'error');
+      status(t(error.code === 'rules_state_changed' ? 'clearruleschanged' : 'errorclearingrules'), 'error');
+      return false;
+    } finally {
+      this.finishSettingsAction(action);
     }
   }
-  
+
   async resetSettings() {
-    const confirmReset = confirm(t('willreset'));
-    
-    if (!confirmReset) return;
-    
+    const action = this.beginSettingsAction('resetSettings');
+    if (!action) return false;
+    const opener = document.activeElement;
+    const previousSave = this.settingsSavePromise;
+    const status = (message, type = '') => this.setSettingsActionStatus('resetSettingsStatus', message, type);
+    status(t('resettingsettings'));
     try {
-      await browser.storage.sync.set({ settings: this.defaultSettings });
-      this.applySettingsToUI(this.defaultSettings);
-      this.showStatus(t('resettodefaults'), 'success');
-      
-      setTimeout(() => window.location.reload(), 1000);
+      if (!await ProManager.hasPaidAccess()) {
+        status(t('prorequired'), 'error');
+        return false;
+      }
+      await previousSave;
+      const canPrompt = () => this.isSettingsPromptCurrent(opener);
+      if (!canPrompt() || !await this.checkPasswordProtection({ throwOnError: true, canPrompt }) ||
+          !canPrompt() || !confirm(t('willreset'))) {
+        status(t('settingsactioncancelled'));
+        return false;
+      }
+      const defaults = { ...this.defaultSettings };
+      await browser.storage.sync.set({ settings: defaults });
+      // Storage listeners already update runtime behavior. Keep this document,
+      // disclosures, Search draft and the user's later focus choice intact.
+      try {
+        this.applySettingsToUI(defaults, { preserveEdits: action.editVersions });
+      } catch (error) {
+        this.logger.error('Error displaying reset settings:', error);
+        status(`${t('resettodefaults')} ${t('importrefreshfailed')}`, 'error');
+        return true;
+      }
+      status(t('resettodefaults'));
+      return true;
     } catch (error) {
       this.logger.error('Error resetting settings:', error);
-      this.showStatus(t('errorresettingsettings'), 'error');
+      status(t('errorresettingsettings'), 'error');
+      return false;
+    } finally {
+      this.finishSettingsAction(action);
     }
   }
-  
+
   showStatus(message, type = 'success') {
     const statusElement = document.getElementById('statusMessage');
     if (!statusElement) return;

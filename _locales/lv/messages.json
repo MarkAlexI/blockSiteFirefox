@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Atkārtoti atveriet Iestatījumus, lai atsvaidzinātu parādītos datus."
+  },
+  "clearingallrules": {
+    "message": "Dzēš visus noteikumus…"
+  },
+  "resettingsettings": {
+    "message": "Atjauno noklusējuma iestatījumus…"
+  },
+  "settingsactioncancelled": {
+    "message": "Darbība atcelta."
+  },
+  "clearruleschanged": {
+    "message": "Noteikumi ir mainīti. Pārskatiet tos un mēģiniet vēlreiz."
   }
 }

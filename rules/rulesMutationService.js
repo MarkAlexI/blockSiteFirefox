@@ -1372,9 +1372,10 @@ export function createRulesMutationService({
     });
   }
 
-  async function clearRules() {
+  async function clearRules(payload = {}) {
     return mutationQueue.enqueue(async () => {
       if (!await getProAccess()) throw new RulesMutationError('pro_required', 'Pro access is required');
+      await ensureRulesGeneration(payload);
       const nextRules = [];
       const state = await getRuleListState();
       await saveCombinedState(nextRules, state.lists, state.activeRuleListId, createRulesGeneration());

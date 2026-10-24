@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "請重新開啟設定以重新整理顯示的資料。"
+  },
+  "clearingallrules": {
+    "message": "正在刪除所有規則…"
+  },
+  "resettingsettings": {
+    "message": "正在還原預設設定…"
+  },
+  "settingsactioncancelled": {
+    "message": "已取消操作。"
+  },
+  "clearruleschanged": {
+    "message": "規則已變更。請檢查後重試。"
   }
 }

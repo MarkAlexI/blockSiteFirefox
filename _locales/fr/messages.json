@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Rouvrez les paramètres pour actualiser les données affichées."
+  },
+  "clearingallrules": {
+    "message": "Suppression de toutes les règles…"
+  },
+  "resettingsettings": {
+    "message": "Rétablissement des paramètres par défaut…"
+  },
+  "settingsactioncancelled": {
+    "message": "Action annulée."
+  },
+  "clearruleschanged": {
+    "message": "Les règles ont changé. Vérifiez-les et réessayez."
   }
 }

@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Avaa Asetukset uudelleen päivittääksesi näytetyt tiedot."
+  },
+  "clearingallrules": {
+    "message": "Poistetaan kaikki säännöt…"
+  },
+  "resettingsettings": {
+    "message": "Palautetaan oletusasetukset…"
+  },
+  "settingsactioncancelled": {
+    "message": "Toiminto peruutettu."
+  },
+  "clearruleschanged": {
+    "message": "Säännöt ovat muuttuneet. Tarkista ne ja yritä uudelleen."
   }
 }

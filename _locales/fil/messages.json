@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Buksang muli ang Mga Setting upang i-refresh ang ipinapakitang data."
+  },
+  "clearingallrules": {
+    "message": "Tinatanggal ang lahat ng panuntunan…"
+  },
+  "resettingsettings": {
+    "message": "Ibinabalik ang mga default na setting…"
+  },
+  "settingsactioncancelled": {
+    "message": "Kinansela ang aksyon."
+  },
+  "clearruleschanged": {
+    "message": "Nagbago ang mga panuntunan. Suriin ang mga ito at subukang muli."
   }
 }

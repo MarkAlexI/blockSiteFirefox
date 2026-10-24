@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Maak Instellings weer oop om die vertoonde data te verfris."
+  },
+  "clearingallrules": {
+    "message": "Alle reëls word uitgevee…"
+  },
+  "resettingsettings": {
+    "message": "Verstekinstellings word herstel…"
+  },
+  "settingsactioncancelled": {
+    "message": "Aksie gekanselleer."
+  },
+  "clearruleschanged": {
+    "message": "Reëls het verander. Gaan hulle na en probeer weer."
   }
 }

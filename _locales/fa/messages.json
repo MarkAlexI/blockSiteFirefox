@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "برای به‌روزرسانی داده‌های نمایش‌داده‌شده، تنظیمات را دوباره باز کنید."
+  },
+  "clearingallrules": {
+    "message": "در حال حذف همهٔ قوانین…"
+  },
+  "resettingsettings": {
+    "message": "در حال بازیابی تنظیمات پیش‌فرض…"
+  },
+  "settingsactioncancelled": {
+    "message": "عملیات لغو شد."
+  },
+  "clearruleschanged": {
+    "message": "قوانین تغییر کرده‌اند. آن‌ها را بررسی کنید و دوباره تلاش کنید."
   }
 }

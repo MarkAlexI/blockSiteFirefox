@@ -20,6 +20,8 @@ function createSettingsDocument() {
   document.addElement('statusMessage');
   document.addElement('statisticsStatus');
   document.addElement('importStatus');
+  document.addElement('clearRulesStatus');
+  document.addElement('resetSettingsStatus');
   document.addElement('totalRules');
 
   for (const id of [
@@ -415,32 +417,32 @@ test('Free users cannot activate password protection or Pro-only bulk settings a
     credentials: { isPro: false, installationDate: '2026-08-01T00:00:00.000Z' },
     settings: { ...defaultSettings }
   } }, async ({
-    document, manager
+    api, document, manager
   }) => {
     const invoked = [];
     manager.exportRules = () => invoked.push('export');
-    manager.clearAllRules = () => invoked.push('clear');
-    manager.resetSettings = () => invoked.push('reset');
+    manager.rulesClient.clearRules = async () => { invoked.push('clear'); api.storage.local.data.rules = []; return { rules: [] }; };
+    api.storage.sync.set = async values => { invoked.push('reset'); Object.assign(api.storage.sync.data, structuredClone(values)); };
     manager.loadStatistics = async () => {};
     manager.setupEventListeners();
 
     for (const id of ['enablePassword', 'exportRules', 'importRules', 'clearAllRules', 'resetSettings', 'clearStatistics']) {
       await document.getElementById(id).dispatch('click');
-      assert.equal(document.getElementById(id === 'importRules' ? 'importStatus' : 'statusMessage').textContent, 'prorequired');
+      assert.equal(document.getElementById(({ importRules: 'importStatus', clearAllRules: 'clearRulesStatus', resetSettings: 'resetSettingsStatus', clearStatistics: 'statisticsStatus' })[id] || 'statusMessage').textContent, 'prorequired');
     }
     assert.deepEqual(invoked, []);
   });
 });
 
 test('genuine legacy users can use paid Options actions without an active Pro subscription', async () => {
-  await withSettingsManager({ sync: {
+  await withSettingsManager({ local: { rules: [{ id: 1 }] }, sync: {
     credentials: { isPro: false, installationDate: '2025-12-01T00:00:00.000Z' },
     settings: { ...defaultSettings }
-  } }, async ({ document, manager }) => {
+  } }, async ({ api, document, manager }) => {
     const invoked = [];
     manager.exportRules = () => invoked.push('export');
-    manager.clearAllRules = () => invoked.push('clear');
-    manager.resetSettings = () => invoked.push('reset');
+    manager.rulesClient.clearRules = async () => { invoked.push('clear'); api.storage.local.data.rules = []; return { rules: [] }; };
+    api.storage.sync.set = async values => { invoked.push('reset'); Object.assign(api.storage.sync.data, structuredClone(values)); };
     manager.checkPasswordProtection = async () => true;
     manager.loadStatistics = async () => invoked.push('statistics-loaded');
     document.getElementById('importFileInput').click = () => invoked.push('import');
@@ -471,8 +473,8 @@ test('Options paid actions fail closed when credentials cannot be read', async (
   } }, async ({ api, document, manager }) => {
     const invoked = [];
     manager.exportRules = () => invoked.push('export');
-    manager.clearAllRules = () => invoked.push('clear');
-    manager.resetSettings = () => invoked.push('reset');
+    manager.rulesClient.clearRules = async () => { invoked.push('clear'); api.storage.local.data.rules = []; return { rules: [] }; };
+    api.storage.sync.set = async values => { invoked.push('reset'); Object.assign(api.storage.sync.data, structuredClone(values)); };
     manager.loadStatistics = async () => {};
     manager.setupEventListeners();
     api.storage.sync.getError = new Error('sync storage unavailable');
@@ -482,7 +484,7 @@ test('Options paid actions fail closed when credentials cannot be read', async (
     try {
       for (const id of ['enablePassword', 'exportRules', 'importRules', 'clearAllRules', 'resetSettings', 'clearStatistics']) {
         await document.getElementById(id).dispatch('click');
-        assert.equal(document.getElementById(id === 'importRules' ? 'importStatus' : 'statusMessage').textContent, 'prorequired');
+        assert.equal(document.getElementById(({ importRules: 'importStatus', clearAllRules: 'clearRulesStatus', resetSettings: 'resetSettingsStatus', clearStatistics: 'statisticsStatus' })[id] || 'statusMessage').textContent, 'prorequired');
       }
       assert.deepEqual(invoked, []);
     } finally {
@@ -496,13 +498,13 @@ for (const [accountType, credentials] of [
   ['legacy', { isPro: false, installationDate: '2025-12-01T00:00:00.000Z' }]
 ]) {
   test(accountType + ' bulk actions stop if credentials load but protected settings fail', async () => {
-    await withSettingsManager({ sync: {
+    await withSettingsManager({ local: { rules: [{ id: 1 }] }, sync: {
       credentials,
       settings: { ...defaultSettings, enablePassword: true, passwordHash: 'salt:hash' }
     } }, async ({ api, document, manager }) => {
       const invoked = [];
-      manager.clearAllRules = () => invoked.push('clear');
-      manager.resetSettings = () => invoked.push('reset');
+      manager.rulesClient.clearRules = async () => { invoked.push('clear'); api.storage.local.data.rules = []; return { rules: [] }; };
+      api.storage.sync.set = async values => { invoked.push('reset'); Object.assign(api.storage.sync.data, structuredClone(values)); };
       manager.loadStatistics = async () => {};
       manager.setupEventListeners();
 
@@ -522,7 +524,8 @@ for (const [accountType, credentials] of [
       try {
         for (const id of ['clearAllRules', 'resetSettings', 'clearStatistics']) {
           await document.getElementById(id).dispatch('click');
-          assert.equal(document.getElementById('statusMessage').textContent, 'errorloadingsettings');
+          assert.equal(document.getElementById(id === 'clearAllRules' ? 'clearRulesStatus' : id === 'resetSettings' ? 'resetSettingsStatus' : 'statusMessage').textContent,
+            id === 'clearAllRules' ? 'errorclearingrules' : id === 'resetSettings' ? 'errorresettingsettings' : 'errorloadingsettings');
         }
         assert.deepEqual(invoked, []);
         assert.equal(api.storage.sync.data.settings.enablePassword, true);
@@ -541,21 +544,22 @@ test('Pro users can configure and remove password protection through the intende
     manager.loadStatistics = async () => {};
     const { PasswordUtils } = await import('../pro/password.js');
     const original = PasswordUtils.showPasswordModal;
+    let completion;
     try {
       PasswordUtils.showPasswordModal = (type, callback) => {
-        callback(type === 'set' ? 'salt:hash' : true);
+        completion = callback(type === 'set' ? 'salt:hash' : true);
       };
       manager.setupEventListeners();
       const toggle = document.getElementById('enablePassword');
 
       await toggle.dispatch('click');
-      await new Promise(resolve => queueMicrotask(resolve));
+      await completion;
       assert.equal(api.storage.sync.data.settings.enablePassword, true);
       assert.equal(api.storage.sync.data.settings.passwordHash, 'salt:hash');
       assert.equal(toggle.checked, true);
 
       await toggle.dispatch('click');
-      await new Promise(resolve => queueMicrotask(resolve));
+      await completion;
       assert.equal(api.storage.sync.data.settings.enablePassword, false);
       assert.equal(api.storage.sync.data.settings.passwordHash, null);
       assert.equal(toggle.checked, false);
@@ -573,14 +577,15 @@ test('legacy users can enable password protection without restoring a Pro licens
     manager.loadStatistics = async () => {};
     const { PasswordUtils } = await import('../pro/password.js');
     const original = PasswordUtils.showPasswordModal;
+    let completion;
     try {
       PasswordUtils.showPasswordModal = (type, callback) => {
         assert.equal(type, 'set');
-        callback('legacy:hash');
+        completion = callback('legacy:hash');
       };
       manager.setupEventListeners();
       await document.getElementById('enablePassword').dispatch('click');
-      await new Promise(resolve => queueMicrotask(resolve));
+      await completion;
 
       assert.equal(api.storage.sync.data.credentials.isPro, false);
       assert.equal(api.storage.sync.data.settings.enablePassword, true);
@@ -886,11 +891,11 @@ test('import UI reports a transactional worker failure without applying imported
 test('bulk rule clearing handles empty lists, cancellation, success, and worker failures', async () => {
   await withSettingsManager({ local: { rules: [] } }, async ({ api, document, manager, setConfirmation }) => {
     await manager.clearAllRules();
-    assert.equal(document.getElementById('statusMessage').textContent, 'norulestoclear');
+    assert.equal(document.getElementById('clearRulesStatus').textContent, 'norulestoclear');
 
     api.storage.local.data.rules = [{ id: 1 }, { id: 2 }];
     let calls = 0;
-    manager.rulesClient.clearRules = async () => { calls += 1; return { rules: [] }; };
+    manager.rulesClient.clearRules = async () => { calls += 1; api.storage.local.data.rules = []; return { rules: [] }; };
     setConfirmation(false);
     await manager.clearAllRules();
     assert.equal(calls, 0);
@@ -899,15 +904,16 @@ test('bulk rule clearing handles empty lists, cancellation, success, and worker 
     await manager.clearAllRules();
     assert.equal(calls, 1);
     assert.equal(document.getElementById('totalRules').textContent, 0);
-    assert.equal(document.getElementById('statusMessage').textContent, 'allrulescleared');
+    assert.equal(document.getElementById('clearRulesStatus').textContent, 'allrulescleared');
 
+    api.storage.local.data.rules = [{ id: 3 }];
     manager.rulesClient.clearRules = async () => { throw new Error('bulk clear rejected'); };
     await manager.clearAllRules();
-    assert.equal(document.getElementById('statusMessage').textContent, 'errorclearingrules');
+    assert.equal(document.getElementById('clearRulesStatus').textContent, 'errorclearingrules');
   });
 });
 
-test('settings reset requires confirmation, restores defaults, and schedules one page reload', async () => {
+test('settings reset requires confirmation, restores saved defaults in place, and schedules no reload', async () => {
   await withSettingsManager({ sync: { settings: { mode: 'strict' } } }, async ({
     api, document, manager, setConfirmation, timeouts, getReloadCount
   }) => {
@@ -918,14 +924,13 @@ test('settings reset requires confirmation, restores defaults, and schedules one
     setConfirmation(true);
     await manager.resetSettings();
     assert.deepEqual(api.storage.sync.data.settings, defaultSettings);
-    assert.equal(document.getElementById('statusMessage').textContent, 'resettodefaults');
-    const reload = timeouts.find(timer => timer.delay === 1000);
-    reload.handler();
-    assert.equal(getReloadCount(), 1);
+    assert.equal(document.getElementById('resetSettingsStatus').textContent, 'resettodefaults');
+    assert.equal(timeouts.length, 0);
+    assert.equal(getReloadCount(), 0);
 
     api.storage.sync.setError = new Error('reset rejected');
     await manager.resetSettings();
-    assert.equal(document.getElementById('statusMessage').textContent, 'errorresettingsettings');
+    assert.equal(document.getElementById('resetSettingsStatus').textContent, 'errorresettingsettings');
   });
 });
 
@@ -981,7 +986,7 @@ for (const flag of ['syncPending', 'dailyUsageSyncPending']) {
       assert.equal(writes, 1, 'pending synchronization never replays Clear');
       assert.deepEqual(api.storage.local.data.rules, []);
       assert.equal(Number(document.getElementById('totalRules').textContent), 0);
-      const status = document.getElementById('statusMessage');
+      const status = document.getElementById('clearRulesStatus');
       assert.equal(status.textContent, 'ruleschangessavedpending');
       assert.equal(status.classList.contains('error'), true);
       assert.equal(status.classList.contains('success'), false);

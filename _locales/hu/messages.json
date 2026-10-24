@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "A megjelenített adatok frissítéséhez nyissa meg újra a Beállításokat."
+  },
+  "clearingallrules": {
+    "message": "Összes szabály törlése…"
+  },
+  "resettingsettings": {
+    "message": "Alapértelmezett beállítások visszaállítása…"
+  },
+  "settingsactioncancelled": {
+    "message": "Művelet megszakítva."
+  },
+  "clearruleschanged": {
+    "message": "A szabályok megváltoztak. Ellenőrizze őket, és próbálja újra."
   }
 }

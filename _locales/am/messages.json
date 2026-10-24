@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "የሚታየውን ውሂብ ለማደስ ቅንብሮችን እንደገና ይክፈቱ።"
+  },
+  "clearingallrules": {
+    "message": "ሁሉንም ደንቦች በመሰረዝ ላይ…"
+  },
+  "resettingsettings": {
+    "message": "ነባሪ ቅንብሮችን በመመለስ ላይ…"
+  },
+  "settingsactioncancelled": {
+    "message": "እርምጃው ተሰርዟል።"
+  },
+  "clearruleschanged": {
+    "message": "ደንቦች ተቀይረዋል። ይገምግሟቸው እና እንደገና ይሞክሩ።"
   }
 }

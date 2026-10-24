@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Відкрийте Налаштування знову, щоб оновити відображені дані."
+  },
+  "clearingallrules": {
+    "message": "Видалення всіх правил…"
+  },
+  "resettingsettings": {
+    "message": "Відновлення типових налаштувань…"
+  },
+  "settingsactioncancelled": {
+    "message": "Дію скасовано."
+  },
+  "clearruleschanged": {
+    "message": "Правила змінилися. Перегляньте їх і спробуйте ще раз."
   }
 }

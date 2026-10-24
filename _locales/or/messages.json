@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "ଦେଖାଯାଉଥିବା ତଥ୍ୟ ସତେଜ କରିବାକୁ ସେଟିଂସ୍ ପୁଣି ଖୋଲନ୍ତୁ।"
+  },
+  "clearingallrules": {
+    "message": "ସମସ୍ତ ନିୟମ ବିଲୋପ ହେଉଛି…"
+  },
+  "resettingsettings": {
+    "message": "ଡିଫଲ୍ଟ ସେଟିଂସ୍ ପୁନଃସ୍ଥାପନ ହେଉଛି…"
+  },
+  "settingsactioncancelled": {
+    "message": "କାର୍ଯ୍ୟ ବାତିଲ୍ ହୋଇଛି।"
+  },
+  "clearruleschanged": {
+    "message": "ନିୟମଗୁଡ଼ିକ ବଦଳିଛି। ସେଗୁଡ଼ିକୁ ସମୀକ୍ଷା କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
   }
 }

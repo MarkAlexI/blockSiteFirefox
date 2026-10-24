@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.14] - 2026-10-24
+
+- Prevent overlapping backup imports, bulk rule deletion and settings resets during checks and saving.
+- Reject outdated bulk deletion confirmations when another window has replaced the rules.
+- Keep localized results, failures and pending synchronization feedback available in accessible status regions.
+- Restore saved default settings in place while preserving disclosures, Search drafts and later keyboard focus.
+- Serialize individual settings saves around reset and preserve later field choices.
+- Preserve saved outcomes when a subsequent display refresh fails and allow explicit retries after failed writes.
+
 ## [5.4.13] - 2026-10-24
 
 - Prevent overlapping backup imports during access checks, file reads, password verification and saving.

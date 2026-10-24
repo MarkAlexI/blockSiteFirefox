@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "दिसणारा डेटा अद्ययावत करण्यासाठी सेटिंग्ज पुन्हा उघडा."
+  },
+  "clearingallrules": {
+    "message": "सर्व नियम हटवले जात आहेत…"
+  },
+  "resettingsettings": {
+    "message": "डीफॉल्ट सेटिंग्ज पुनर्संचयित होत आहेत…"
+  },
+  "settingsactioncancelled": {
+    "message": "कृती रद्द केली."
+  },
+  "clearruleschanged": {
+    "message": "नियम बदलले आहेत. त्यांचा आढावा घ्या आणि पुन्हा प्रयत्न करा."
   }
 }

@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "Volte a abrir as Definições para atualizar os dados apresentados."
+  },
+  "clearingallrules": {
+    "message": "A eliminar todas as regras…"
+  },
+  "resettingsettings": {
+    "message": "A repor as definições predefinidas…"
+  },
+  "settingsactioncancelled": {
+    "message": "Ação cancelada."
+  },
+  "clearruleschanged": {
+    "message": "As regras foram alteradas. Reveja-as e tente novamente."
   }
 }

@@ -62,8 +62,8 @@ export class RulesClient {
     return sendRulesIntent('rules:replaceAll', payload);
   }
 
-  clearRules() {
-    return sendRulesIntent('rules:clear');
+  clearRules(expectedGeneration = null) {
+    return sendRulesIntent('rules:clear', { expectedGeneration });
   }
 
   toggleCategory(category, listId, expectedGeneration = null, expectedListRevision = null) {

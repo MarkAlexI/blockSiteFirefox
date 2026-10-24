@@ -1206,5 +1206,17 @@
   },
   "importrefreshfailed": {
     "message": "ნაჩვენები მონაცემების გასაახლებლად ხელახლა გახსენით პარამეტრები."
+  },
+  "clearingallrules": {
+    "message": "ყველა წესის წაშლა…"
+  },
+  "resettingsettings": {
+    "message": "ნაგულისხმევი პარამეტრების აღდგენა…"
+  },
+  "settingsactioncancelled": {
+    "message": "მოქმედება გაუქმდა."
+  },
+  "clearruleschanged": {
+    "message": "წესები შეიცვალა. გადახედეთ მათ და სცადეთ ხელახლა."
   }
 }
