@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "በማዘዋወር ላይ" },
   "redirectpending": { "message": "ወደ ሌላ ገጽ እየተዛወሩ ነው…" },
   "blockedclosepending": { "message": "ይህ ትር እየተዘጋ ነው…" },
-  "blockedclosefailed": { "message": "ይህን ትር መዝጋት አልተቻለም። እንደገና ይሞክሩ ወይም በአሳሽዎ ይዝጉት።" }
+  "blockedclosefailed": { "message": "ይህን ትር መዝጋት አልተቻለም። እንደገና ይሞክሩ ወይም በአሳሽዎ ይዝጉት።" },
+  "previewsound": {
+    "message": "አዳምጥ"
+  },
+  "soundpreviewcomplete": {
+    "message": "ቅድመ ማዳመጥ ተጠናቋል።"
+  },
+  "soundpreviewfailed": {
+    "message": "ድምፁን ማጫወት አልተቻለም። እንደገና ይሞክሩ።"
+  },
+  "soundvolumenotice": {
+    "message": "የመሣሪያዎን የሚዲያ ድምፅ መጠን ይጠቀማል።"
+  }
 }

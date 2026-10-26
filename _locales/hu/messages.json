@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Átirányítás" },
   "redirectpending": { "message": "Átirányítás folyamatban…" },
   "blockedclosepending": { "message": "Lap bezárása…" },
-  "blockedclosefailed": { "message": "Nem sikerült bezárni ezt a lapot. Próbálja újra, vagy zárja be a böngészőben." }
+  "blockedclosefailed": { "message": "Nem sikerült bezárni ezt a lapot. Próbálja újra, vagy zárja be a böngészőben." },
+  "previewsound": {
+    "message": "Meghallgatás"
+  },
+  "soundpreviewcomplete": {
+    "message": "Az előnézet véget ért."
+  },
+  "soundpreviewfailed": {
+    "message": "A hangot nem sikerült lejátszani. Próbálja újra."
+  },
+  "soundvolumenotice": {
+    "message": "Az eszköz médiahangerejét használja."
+  }
 }

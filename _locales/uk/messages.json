@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Перенаправлення" },
   "redirectpending": { "message": "Виконується перенаправлення…" },
   "blockedclosepending": { "message": "Закриття цієї вкладки…" },
-  "blockedclosefailed": { "message": "Не вдалося закрити цю вкладку. Спробуйте ще раз або закрийте її засобами браузера." }
+  "blockedclosefailed": { "message": "Не вдалося закрити цю вкладку. Спробуйте ще раз або закрийте її засобами браузера." },
+  "previewsound": {
+    "message": "Прослухати"
+  },
+  "soundpreviewcomplete": {
+    "message": "Прослуховування завершено."
+  },
+  "soundpreviewfailed": {
+    "message": "Не вдалося відтворити звук. Спробуйте ще раз."
+  },
+  "soundvolumenotice": {
+    "message": "Використовується гучність мультимедіа вашого пристрою."
+  }
 }

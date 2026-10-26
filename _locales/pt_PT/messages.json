@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Redirecionamento" },
   "redirectpending": { "message": "A redirecionar…" },
   "blockedclosepending": { "message": "A fechar este separador…" },
-  "blockedclosefailed": { "message": "Não foi possível fechar este separador. Tente novamente ou feche-o no navegador." }
+  "blockedclosefailed": { "message": "Não foi possível fechar este separador. Tente novamente ou feche-o no navegador." },
+  "previewsound": {
+    "message": "Ouvir"
+  },
+  "soundpreviewcomplete": {
+    "message": "A pré-visualização terminou."
+  },
+  "soundpreviewfailed": {
+    "message": "Não foi possível reproduzir o som. Tente novamente."
+  },
+  "soundvolumenotice": {
+    "message": "Utiliza o volume multimédia do dispositivo."
+  }
 }

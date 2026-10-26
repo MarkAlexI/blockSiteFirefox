@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Doorsturen" },
   "redirectpending": { "message": "Je wordt doorgestuurd…" },
   "blockedclosepending": { "message": "Dit tabblad wordt gesloten…" },
-  "blockedclosefailed": { "message": "Dit tabblad kon niet worden gesloten. Probeer het opnieuw of sluit het via je browser." }
+  "blockedclosefailed": { "message": "Dit tabblad kon niet worden gesloten. Probeer het opnieuw of sluit het via je browser." },
+  "previewsound": {
+    "message": "Luisteren"
+  },
+  "soundpreviewcomplete": {
+    "message": "Het voorbeeld is afgelopen."
+  },
+  "soundpreviewfailed": {
+    "message": "Het geluid kon niet worden afgespeeld. Probeer het opnieuw."
+  },
+  "soundvolumenotice": {
+    "message": "Gebruikt het mediavolume van je apparaat."
+  }
 }

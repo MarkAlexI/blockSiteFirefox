@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Herleiding" },
   "redirectpending": { "message": "Jy word herlei…" },
   "blockedclosepending": { "message": "Hierdie oortjie word gesluit…" },
-  "blockedclosefailed": { "message": "Kon nie hierdie oortjie sluit nie. Probeer weer of sluit dit in jou blaaier." }
+  "blockedclosefailed": { "message": "Kon nie hierdie oortjie sluit nie. Probeer weer of sluit dit in jou blaaier." },
+  "previewsound": {
+    "message": "Luister"
+  },
+  "soundpreviewcomplete": {
+    "message": "Voorskou voltooi."
+  },
+  "soundpreviewfailed": {
+    "message": "Die klank kon nie gespeel word nie. Probeer weer."
+  },
+  "soundvolumenotice": {
+    "message": "Gebruik jou toestel se mediavolume."
+  }
 }

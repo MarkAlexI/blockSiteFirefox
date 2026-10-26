@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "გადამისამართება" },
   "redirectpending": { "message": "მიმდინარეობს გადამისამართება…" },
   "blockedclosepending": { "message": "ეს ჩანართი იხურება…" },
-  "blockedclosefailed": { "message": "ამ ჩანართის დახურვა ვერ მოხერხდა. სცადეთ ხელახლა ან დახურეთ ის ბრაუზერიდან." }
+  "blockedclosefailed": { "message": "ამ ჩანართის დახურვა ვერ მოხერხდა. სცადეთ ხელახლა ან დახურეთ ის ბრაუზერიდან." },
+  "previewsound": {
+    "message": "მოსმენა"
+  },
+  "soundpreviewcomplete": {
+    "message": "წინასწარი მოსმენა დასრულდა."
+  },
+  "soundpreviewfailed": {
+    "message": "ხმის დაკვრა ვერ მოხერხდა. სცადეთ ხელახლა."
+  },
+  "soundvolumenotice": {
+    "message": "იყენებს თქვენი მოწყობილობის მედიის ხმის დონეს."
+  }
 }

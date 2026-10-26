@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "⌨️ Navigate Settings with your keyboard. Expand sections with Enter or Space and move through their controls with Tab.",
-    "🔎 Clearer names for controls. Rule categories, blocking modes and search fields are easier to identify with assistive technology.",
-    "⬆️ Return to the top. A named scroll button brings you back to a visible action, with a clear keyboard focus.",
-    "💾 Keep your entries. Collapsing a Settings section preserves your unsaved entries when you open it again."
+    "🔔 A built-in Focus completion sound. The Focus Session sound setting now plays a short chime using your device's media volume.",
+    "▶️ Listen before your next session. Open Settings → Basic Settings and use Listen to preview the sound.",
+    "🎛️ Your sound preference stays yours. Turning the Focus sound off keeps the visual completion notification.",
+    "⏰ Quiet recovery. Reopening the browser after an old session has expired won't play a stale sound."
   ];
   
   const ul = document.getElementById('features');

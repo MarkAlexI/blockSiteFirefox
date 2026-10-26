@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "正在重定向" },
   "redirectpending": { "message": "正在为您跳转…" },
   "blockedclosepending": { "message": "正在关闭此标签页…" },
-  "blockedclosefailed": { "message": "无法关闭此标签页。请重试或使用浏览器关闭它。" }
+  "blockedclosefailed": { "message": "无法关闭此标签页。请重试或使用浏览器关闭它。" },
+  "previewsound": {
+    "message": "试听"
+  },
+  "soundpreviewcomplete": {
+    "message": "试听已结束。"
+  },
+  "soundpreviewfailed": {
+    "message": "无法播放声音，请重试。"
+  },
+  "soundvolumenotice": {
+    "message": "使用设备的媒体音量。"
+  }
 }

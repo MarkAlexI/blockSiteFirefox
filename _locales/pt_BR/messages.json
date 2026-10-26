@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Redirecionando" },
   "redirectpending": { "message": "Redirecionando você…" },
   "blockedclosepending": { "message": "Fechando esta aba…" },
-  "blockedclosefailed": { "message": "Não foi possível fechar esta aba. Tente novamente ou feche-a pelo navegador." }
+  "blockedclosefailed": { "message": "Não foi possível fechar esta aba. Tente novamente ou feche-a pelo navegador." },
+  "previewsound": {
+    "message": "Ouvir"
+  },
+  "soundpreviewcomplete": {
+    "message": "A prévia terminou."
+  },
+  "soundpreviewfailed": {
+    "message": "Não foi possível reproduzir o som. Tente novamente."
+  },
+  "soundvolumenotice": {
+    "message": "Usa o volume de mídia do seu dispositivo."
+  }
 }

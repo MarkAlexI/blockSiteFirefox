@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "திருப்பிவிடப்படுகிறது" },
   "redirectpending": { "message": "வேறொரு பக்கத்திற்குத் திருப்பிவிடப்படுகிறது…" },
   "blockedclosepending": { "message": "இந்தத் தாவல் மூடப்படுகிறது…" },
-  "blockedclosefailed": { "message": "இந்தத் தாவலை மூட முடியவில்லை. மீண்டும் முயற்சிக்கவும் அல்லது உலாவி மூலம் மூடவும்." }
+  "blockedclosefailed": { "message": "இந்தத் தாவலை மூட முடியவில்லை. மீண்டும் முயற்சிக்கவும் அல்லது உலாவி மூலம் மூடவும்." },
+  "previewsound": {
+    "message": "கேளுங்கள்"
+  },
+  "soundpreviewcomplete": {
+    "message": "முன்னோட்டம் முடிந்தது."
+  },
+  "soundpreviewfailed": {
+    "message": "ஒலியை இயக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
+  },
+  "soundvolumenotice": {
+    "message": "உங்கள் சாதனத்தின் மீடியா ஒலியளவைப் பயன்படுத்துகிறது."
+  }
 }

@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "กำลังเปลี่ยนเส้นทาง" },
   "redirectpending": { "message": "กำลังนำคุณไปยังหน้าอื่น…" },
   "blockedclosepending": { "message": "กำลังปิดแท็บนี้…" },
-  "blockedclosefailed": { "message": "ไม่สามารถปิดแท็บนี้ได้ ลองอีกครั้งหรือปิดแท็บผ่านเบราว์เซอร์ของคุณ" }
+  "blockedclosefailed": { "message": "ไม่สามารถปิดแท็บนี้ได้ ลองอีกครั้งหรือปิดแท็บผ่านเบราว์เซอร์ของคุณ" },
+  "previewsound": {
+    "message": "ฟังเสียง"
+  },
+  "soundpreviewcomplete": {
+    "message": "เล่นตัวอย่างเสร็จแล้ว"
+  },
+  "soundpreviewfailed": {
+    "message": "ไม่สามารถเล่นเสียงได้ โปรดลองอีกครั้ง"
+  },
+  "soundvolumenotice": {
+    "message": "ใช้ระดับเสียงสื่อของอุปกรณ์ของคุณ"
+  }
 }

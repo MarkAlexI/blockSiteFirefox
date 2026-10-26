@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Nire-redirect" },
   "redirectpending": { "message": "Nire-redirect ka…" },
   "blockedclosepending": { "message": "Isinasara ang tab na ito…" },
-  "blockedclosefailed": { "message": "Hindi maisara ang tab na ito. Subukan muli o isara ito gamit ang iyong browser." }
+  "blockedclosefailed": { "message": "Hindi maisara ang tab na ito. Subukan muli o isara ito gamit ang iyong browser." },
+  "previewsound": {
+    "message": "Pakinggan"
+  },
+  "soundpreviewcomplete": {
+    "message": "Tapos na ang preview."
+  },
+  "soundpreviewfailed": {
+    "message": "Hindi ma-play ang tunog. Subukan muli."
+  },
+  "soundvolumenotice": {
+    "message": "Ginagamit ang lakas ng tunog ng media ng iyong device."
+  }
 }

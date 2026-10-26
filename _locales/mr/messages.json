@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "रीडायरेक्ट होत आहे" },
   "redirectpending": { "message": "तुम्हाला दुसऱ्या पृष्ठावर नेले जात आहे…" },
   "blockedclosepending": { "message": "हा टॅब बंद होत आहे…" },
-  "blockedclosefailed": { "message": "हा टॅब बंद करता आला नाही. पुन्हा प्रयत्न करा किंवा तुमच्या ब्राउझरमधून तो बंद करा." }
+  "blockedclosefailed": { "message": "हा टॅब बंद करता आला नाही. पुन्हा प्रयत्न करा किंवा तुमच्या ब्राउझरमधून तो बंद करा." },
+  "previewsound": {
+    "message": "ऐका"
+  },
+  "soundpreviewcomplete": {
+    "message": "पूर्वावलोकन पूर्ण झाले."
+  },
+  "soundpreviewfailed": {
+    "message": "आवाज वाजवता आला नाही. पुन्हा प्रयत्न करा."
+  },
+  "soundvolumenotice": {
+    "message": "तुमच्या डिव्हाइसचा मीडिया व्हॉल्यूम वापरते."
+  }
 }

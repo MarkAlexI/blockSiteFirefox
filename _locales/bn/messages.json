@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "পুনর্নির্দেশ করা হচ্ছে" },
   "redirectpending": { "message": "আপনাকে অন্য পৃষ্ঠায় পাঠানো হচ্ছে…" },
   "blockedclosepending": { "message": "এই ট্যাবটি বন্ধ করা হচ্ছে…" },
-  "blockedclosefailed": { "message": "এই ট্যাবটি বন্ধ করা যায়নি। আবার চেষ্টা করুন অথবা ব্রাউজার দিয়ে এটি বন্ধ করুন।" }
+  "blockedclosefailed": { "message": "এই ট্যাবটি বন্ধ করা যায়নি। আবার চেষ্টা করুন অথবা ব্রাউজার দিয়ে এটি বন্ধ করুন।" },
+  "previewsound": {
+    "message": "শুনুন"
+  },
+  "soundpreviewcomplete": {
+    "message": "প্রিভিউ শেষ হয়েছে।"
+  },
+  "soundpreviewfailed": {
+    "message": "শব্দ চালানো যায়নি। আবার চেষ্টা করুন।"
+  },
+  "soundvolumenotice": {
+    "message": "আপনার ডিভাইসের মিডিয়া ভলিউম ব্যবহার করে।"
+  }
 }

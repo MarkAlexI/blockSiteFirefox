@@ -228,6 +228,11 @@
             <div class="setting-info">
               <label for="focusSessionSound" data-i18n="focussessionsoundtitle">Focus Session Sound Notification</label>
               <span class="setting-description" data-i18n="focussessionsounddesc">Play a sound when the focus session ends.</span>
+              <div class="setting-description" id="focusSoundVolume" data-i18n="soundvolumenotice">Uses your device's media volume.</div>
+              <div class="focus-sound-preview">
+                <button type="button" id="previewFocusSound" aria-describedby="focusSoundVolume" aria-busy="false" aria-disabled="false" data-i18n="previewsound">Listen</button>
+                <span id="focusSoundStatus" class="setting-description" role="status" aria-live="polite" aria-atomic="true"></span>
+              </div>
             </div>
             <div class="toggle-switch">
               <input type="checkbox" id="focusSessionSound" class="toggle-input">

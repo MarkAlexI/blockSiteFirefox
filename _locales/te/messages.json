@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "దారి మళ్లిస్తోంది" },
   "redirectpending": { "message": "మిమ్మల్ని మరో పేజీకి తీసుకెళ్తోంది…" },
   "blockedclosepending": { "message": "ఈ ట్యాబ్ మూసివేయబడుతోంది…" },
-  "blockedclosefailed": { "message": "ఈ ట్యాబ్‌ను మూసివేయలేకపోయాము. మళ్లీ ప్రయత్నించండి లేదా మీ బ్రౌజర్ ద్వారా మూసివేయండి." }
+  "blockedclosefailed": { "message": "ఈ ట్యాబ్‌ను మూసివేయలేకపోయాము. మళ్లీ ప్రయత్నించండి లేదా మీ బ్రౌజర్ ద్వారా మూసివేయండి." },
+  "previewsound": {
+    "message": "వినండి"
+  },
+  "soundpreviewcomplete": {
+    "message": "ముందస్తు వినికిడి పూర్తయింది."
+  },
+  "soundpreviewfailed": {
+    "message": "శబ్దాన్ని ప్లే చేయలేకపోయాము. మళ్లీ ప్రయత్నించండి."
+  },
+  "soundvolumenotice": {
+    "message": "మీ పరికరంలోని మీడియా వాల్యూమ్‌ను ఉపయోగిస్తుంది."
+  }
 }

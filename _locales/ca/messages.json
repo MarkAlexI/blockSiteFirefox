@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Redirecció" },
   "redirectpending": { "message": "S’està redirigint…" },
   "blockedclosepending": { "message": "S’està tancant aquesta pestanya…" },
-  "blockedclosefailed": { "message": "No s’ha pogut tancar aquesta pestanya. Torna-ho a provar o tanca-la des del navegador." }
+  "blockedclosefailed": { "message": "No s’ha pogut tancar aquesta pestanya. Torna-ho a provar o tanca-la des del navegador." },
+  "previewsound": {
+    "message": "Escolta"
+  },
+  "soundpreviewcomplete": {
+    "message": "La previsualització ha acabat."
+  },
+  "soundpreviewfailed": {
+    "message": "No s’ha pogut reproduir el so. Torna-ho a provar."
+  },
+  "soundvolumenotice": {
+    "message": "Utilitza el volum multimèdia del dispositiu."
+  }
 }

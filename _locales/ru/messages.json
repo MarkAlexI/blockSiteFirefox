@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Перенаправление" },
   "redirectpending": { "message": "Выполняется перенаправление…" },
   "blockedclosepending": { "message": "Закрытие этой вкладки…" },
-  "blockedclosefailed": { "message": "Не удалось закрыть эту вкладку. Повторите попытку или закройте её средствами браузера." }
+  "blockedclosefailed": { "message": "Не удалось закрыть эту вкладку. Повторите попытку или закройте её средствами браузера." },
+  "previewsound": {
+    "message": "Прослушать"
+  },
+  "soundpreviewcomplete": {
+    "message": "Прослушивание завершено."
+  },
+  "soundpreviewfailed": {
+    "message": "Не удалось воспроизвести звук. Попробуйте ещё раз."
+  },
+  "soundvolumenotice": {
+    "message": "Используется громкость мультимедиа вашего устройства."
+  }
 }

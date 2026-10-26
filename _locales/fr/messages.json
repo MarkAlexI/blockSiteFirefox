@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Redirection" },
   "redirectpending": { "message": "Redirection en cours…" },
   "blockedclosepending": { "message": "Fermeture de cet onglet…" },
-  "blockedclosefailed": { "message": "Impossible de fermer cet onglet. Réessayez ou fermez-le depuis votre navigateur." }
+  "blockedclosefailed": { "message": "Impossible de fermer cet onglet. Réessayez ou fermez-le depuis votre navigateur." },
+  "previewsound": {
+    "message": "Écouter"
+  },
+  "soundpreviewcomplete": {
+    "message": "L’aperçu est terminé."
+  },
+  "soundpreviewfailed": {
+    "message": "Impossible de lire le son. Réessayez."
+  },
+  "soundvolumenotice": {
+    "message": "Utilise le volume multimédia de votre appareil."
+  }
 }

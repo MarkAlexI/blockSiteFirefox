@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Mengalihkan" },
   "redirectpending": { "message": "Anda sedang dialihkan…" },
   "blockedclosepending": { "message": "Menutup tab ini…" },
-  "blockedclosefailed": { "message": "Tab ini tidak dapat ditutup. Coba lagi atau tutup melalui browser Anda." }
+  "blockedclosefailed": { "message": "Tab ini tidak dapat ditutup. Coba lagi atau tutup melalui browser Anda." },
+  "previewsound": {
+    "message": "Dengarkan"
+  },
+  "soundpreviewcomplete": {
+    "message": "Pratinjau selesai."
+  },
+  "soundpreviewfailed": {
+    "message": "Suara tidak dapat diputar. Coba lagi."
+  },
+  "soundvolumenotice": {
+    "message": "Menggunakan volume media perangkat Anda."
+  }
 }

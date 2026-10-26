@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Ümbersuunamine" },
   "redirectpending": { "message": "Sind suunatakse ümber…" },
   "blockedclosepending": { "message": "Selle vahelehe sulgemine…" },
-  "blockedclosefailed": { "message": "Seda vahelehte ei saanud sulgeda. Proovi uuesti või sulge see brauseris." }
+  "blockedclosefailed": { "message": "Seda vahelehte ei saanud sulgeda. Proovi uuesti või sulge see brauseris." },
+  "previewsound": {
+    "message": "Kuula"
+  },
+  "soundpreviewcomplete": {
+    "message": "Eelkuulamine lõppes."
+  },
+  "soundpreviewfailed": {
+    "message": "Heli ei saanud esitada. Proovi uuesti."
+  },
+  "soundvolumenotice": {
+    "message": "Kasutab seadme meedia helitugevust."
+  }
 }

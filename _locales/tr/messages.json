@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Yönlendiriliyor" },
   "redirectpending": { "message": "Yönlendiriliyorsunuz…" },
   "blockedclosepending": { "message": "Bu sekme kapatılıyor…" },
-  "blockedclosefailed": { "message": "Bu sekme kapatılamadı. Yeniden deneyin veya tarayıcınızdan kapatın." }
+  "blockedclosefailed": { "message": "Bu sekme kapatılamadı. Yeniden deneyin veya tarayıcınızdan kapatın." },
+  "previewsound": {
+    "message": "Dinle"
+  },
+  "soundpreviewcomplete": {
+    "message": "Önizleme sona erdi."
+  },
+  "soundpreviewfailed": {
+    "message": "Ses çalınamadı. Tekrar deneyin."
+  },
+  "soundvolumenotice": {
+    "message": "Cihazınızın medya ses düzeyini kullanır."
+  }
 }

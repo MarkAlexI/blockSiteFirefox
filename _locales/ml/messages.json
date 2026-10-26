@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "റീഡയറക്‌ട് ചെയ്യുന്നു" },
   "redirectpending": { "message": "മറ്റൊരു പേജിലേക്ക് കൊണ്ടുപോകുന്നു…" },
   "blockedclosepending": { "message": "ഈ ടാബ് അടയ്ക്കുന്നു…" },
-  "blockedclosefailed": { "message": "ഈ ടാബ് അടയ്ക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ ബ്രൗസർ ഉപയോഗിച്ച് അടയ്ക്കുക." }
+  "blockedclosefailed": { "message": "ഈ ടാബ് അടയ്ക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ ബ്രൗസർ ഉപയോഗിച്ച് അടയ്ക്കുക." },
+  "previewsound": {
+    "message": "കേൾക്കുക"
+  },
+  "soundpreviewcomplete": {
+    "message": "പ്രിവ്യൂ പൂർത്തിയായി."
+  },
+  "soundpreviewfailed": {
+    "message": "ശബ്ദം പ്ലേ ചെയ്യാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+  },
+  "soundvolumenotice": {
+    "message": "നിങ്ങളുടെ ഉപകരണത്തിന്റെ മീഡിയ വോള്യം ഉപയോഗിക്കുന്നു."
+  }
 }

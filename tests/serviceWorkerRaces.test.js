@@ -8363,3 +8363,82 @@ test('bulk clear rejects the generation confirmed before another window imports 
     assert.notEqual(api.storage.local.data.rulesGeneration, current.generation);
   }, { local: { activeRuleListId: 'general' }, supportsWindows: false });
 });
+
+
+// Sound platform calls below are controlled API models; native playback is
+// covered separately by browser scenario 68.
+async function withSoundWorker(callback, { enabled = true, endTime = Date.now() - 1000, notificationsFail = false } = {}) {
+  const { audioFixture } = await import('./helpers/soundFixture.js');
+  const { playFocusChime } = await import('../utils/soundPlayer.js');
+  const audio = audioFixture();
+  const prior = globalThis.AudioContext; globalThis.AudioContext = audio.AudioContext;
+  try {
+    await withWorker(async context => {
+      const { api } = context;
+      let creates = 0, closes = 0;
+      api.runtime.getContexts = async () => [];
+      api.offscreen = { async createDocument() { creates++; }, async closeDocument() { closes++; } };
+      api.runtime.sendMessage = async message => {
+        if (message.target === 'sound-offscreen') return playFocusChime({ AudioContextCtor: audio.AudioContext });
+        return { success: true };
+      };
+      if (notificationsFail) api.notifications.create = async () => { throw new Error('notification rejected'); };
+      await callback({ ...context, audio, creates: () => creates, closes: () => closes });
+    }, { settings: { focusSessionSound: enabled }, local: { activeRuleListId: 'general', focusSession: {
+      focusActive: true, focusEndTime: endTime, isHardcore: false, focusMode: 'blacklist'
+    } }, supportsWindows: false });
+  } finally {
+    if (prior === undefined) delete globalThis.AudioContext; else globalThis.AudioContext = prior;
+  }
+}
+async function settleSound() { for (let i = 0; i < 12; i++) await new Promise(resolve => setImmediate(resolve)); }
+
+for (const enabled of [true, false]) test(`Focus sound ${enabled}: duplicate completion and minute alarms play at most once after durable recovery`, async () => {
+  await withSoundWorker(async ({ api, alarm, audio, closes }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    await settleSound();
+    await alarm({ name: 'update_scheduled_rules' });
+    await settleSound();
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    assert.equal(api.notificationsCreated.length, 1);
+    assert.equal(audio.contexts.length, enabled ? 1 : 0);
+    assert.ok(audio.contexts.every(context => context.closed === 1));
+    const details = api.notificationsCreated[0].details;
+    if (TEST_FIREFOX_ANDROID) assert.equal(Object.hasOwn(details, 'silent'), false);
+    else { assert.equal(details.silent, true); assert.equal(closes(), enabled ? 1 : 0); }
+  }, { enabled });
+});
+
+test('Focus sound: stale startup recovery retains visual notification without a late chime', async () => {
+  await withSoundWorker(async ({ api, alarm, audio }) => {
+    await alarm({ name: 'update_scheduled_rules' }); await settleSound();
+    assert.equal(api.notificationsCreated.length, 1); assert.equal(audio.contexts.length, 0);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+  }, { endTime: Date.now() - 120_000 });
+});
+
+test('Focus sound: asynchronous notification rejection does not prevent playback or completion', async () => {
+  await withSoundWorker(async ({ api, alarm, audio }) => {
+    await withMutedErrors(async () => { await alarm({ name: 'update_scheduled_rules' }); await settleSound(); });
+    assert.equal(audio.contexts.length, 1); assert.equal(audio.contexts[0].closed, 1);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+  }, { notificationsFail: true });
+});
+
+test('Focus sound: manual Stop stays silent and Options-only preview preserves the preference', async () => {
+  await withSoundWorker(async ({ api, send, audio }) => {
+    assert.equal((await send({ type: 'stop_focus_session' })).success, true); await settleSound();
+    assert.equal(audio.contexts.length, 0);
+    const listener = api.runtime.onMessage.listeners[0];
+    for (const sender of [{}, { id: api.runtime.id, url: 'https://example.test/' }]) {
+      let response; assert.equal(listener({ type: 'sound:preview' }, sender, r => { response = r; }), false);
+      assert.equal(response.code, 'sound_preview_forbidden');
+    }
+    const response = await send({ type: 'sound:preview' }, { id: api.runtime.id, url: api.runtime.getURL('options/options.html') });
+    assert.equal(response.success, true); assert.equal(audio.contexts.length, 1);
+    assert.equal(api.storage.sync.data.settings.focusSessionSound, false);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+  }, { enabled: false, endTime: Date.now() + 120_000 });
+});

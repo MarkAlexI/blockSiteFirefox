@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Omdirigering" },
   "redirectpending": { "message": "Du omdirigeras…" },
   "blockedclosepending": { "message": "Stänger den här fliken…" },
-  "blockedclosefailed": { "message": "Det gick inte att stänga den här fliken. Försök igen eller stäng den i webbläsaren." }
+  "blockedclosefailed": { "message": "Det gick inte att stänga den här fliken. Försök igen eller stäng den i webbläsaren." },
+  "previewsound": {
+    "message": "Lyssna"
+  },
+  "soundpreviewcomplete": {
+    "message": "Förhandslyssningen är klar."
+  },
+  "soundpreviewfailed": {
+    "message": "Det gick inte att spela upp ljudet. Försök igen."
+  },
+  "soundvolumenotice": {
+    "message": "Använder enhetens medievolym."
+  }
 }

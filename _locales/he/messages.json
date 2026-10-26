@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "הפניה מחדש" },
   "redirectpending": { "message": "מתבצעת הפניה מחדש…" },
   "blockedclosepending": { "message": "הכרטיסייה הזו נסגרת…" },
-  "blockedclosefailed": { "message": "לא ניתן לסגור את הכרטיסייה הזו. נסו שוב או סגרו אותה דרך הדפדפן." }
+  "blockedclosefailed": { "message": "לא ניתן לסגור את הכרטיסייה הזו. נסו שוב או סגרו אותה דרך הדפדפן." },
+  "previewsound": {
+    "message": "האזנה"
+  },
+  "soundpreviewcomplete": {
+    "message": "התצוגה המקדימה הסתיימה."
+  },
+  "soundpreviewfailed": {
+    "message": "לא ניתן להשמיע את הצליל. נסו שוב."
+  },
+  "soundvolumenotice": {
+    "message": "משתמש בעוצמת המדיה של המכשיר."
+  }
 }

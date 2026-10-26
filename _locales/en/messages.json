@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Redirecting" },
   "redirectpending": { "message": "Redirecting you…" },
   "blockedclosepending": { "message": "Closing this tab…" },
-  "blockedclosefailed": { "message": "Could not close this tab. Try again or close it using your browser." }
+  "blockedclosefailed": { "message": "Could not close this tab. Try again or close it using your browser." },
+  "previewsound": {
+    "message": "Listen"
+  },
+  "soundpreviewcomplete": {
+    "message": "Preview finished."
+  },
+  "soundpreviewfailed": {
+    "message": "Unable to play the sound. Try again."
+  },
+  "soundvolumenotice": {
+    "message": "Uses your device's media volume."
+  }
 }

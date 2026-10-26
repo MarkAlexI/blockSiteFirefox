@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "ପୁନଃନିର୍ଦ୍ଦେଶ କରାଯାଉଛି" },
   "redirectpending": { "message": "ଆପଣଙ୍କୁ ଅନ୍ୟ ପୃଷ୍ଠାକୁ ନିଆଯାଉଛି…" },
   "blockedclosepending": { "message": "ଏହି ଟ୍ୟାବ୍ ବନ୍ଦ କରାଯାଉଛି…" },
-  "blockedclosefailed": { "message": "ଏହି ଟ୍ୟାବ୍ ବନ୍ଦ କରିହେଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ବ୍ରାଉଜର୍‌ରୁ ଏହାକୁ ବନ୍ଦ କରନ୍ତୁ।" }
+  "blockedclosefailed": { "message": "ଏହି ଟ୍ୟାବ୍ ବନ୍ଦ କରିହେଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ବ୍ରାଉଜର୍‌ରୁ ଏହାକୁ ବନ୍ଦ କରନ୍ତୁ।" },
+  "previewsound": {
+    "message": "ଶୁଣନ୍ତୁ"
+  },
+  "soundpreviewcomplete": {
+    "message": "ପୂର୍ବାବଲୋକନ ଶେଷ ହୋଇଛି।"
+  },
+  "soundpreviewfailed": {
+    "message": "ଶବ୍ଦ ବଜାଇ ହେଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
+  "soundvolumenotice": {
+    "message": "ଆପଣଙ୍କ ଡିଭାଇସର ମିଡିଆ ଭଲ୍ୟୁମ ବ୍ୟବହାର କରେ।"
+  }
 }

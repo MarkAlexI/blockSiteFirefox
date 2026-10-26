@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "ಮರುನಿರ್ದೇಶಿಸಲಾಗುತ್ತಿದೆ" },
   "redirectpending": { "message": "ನಿಮ್ಮನ್ನು ಬೇರೆ ಪುಟಕ್ಕೆ ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ…" },
   "blockedclosepending": { "message": "ಈ ಟ್ಯಾಬ್ ಮುಚ್ಚಲಾಗುತ್ತಿದೆ…" },
-  "blockedclosefailed": { "message": "ಈ ಟ್ಯಾಬ್ ಮುಚ್ಚಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ನಿಮ್ಮ ಬ್ರೌಸರ್ ಮೂಲಕ ಮುಚ್ಚಿ." }
+  "blockedclosefailed": { "message": "ಈ ಟ್ಯಾಬ್ ಮುಚ್ಚಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ನಿಮ್ಮ ಬ್ರೌಸರ್ ಮೂಲಕ ಮುಚ್ಚಿ." },
+  "previewsound": {
+    "message": "ಆಲಿಸಿ"
+  },
+  "soundpreviewcomplete": {
+    "message": "ಮುನ್ನೋಟ ಪೂರ್ಣಗೊಂಡಿದೆ."
+  },
+  "soundpreviewfailed": {
+    "message": "ಧ್ವನಿಯನ್ನು ಪ್ಲೇ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "soundvolumenotice": {
+    "message": "ನಿಮ್ಮ ಸಾಧನದ ಮಾಧ್ಯಮ ಧ್ವನಿಮಟ್ಟವನ್ನು ಬಳಸುತ್ತದೆ."
+  }
 }

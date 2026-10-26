@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Peradresuojama" },
   "redirectpending": { "message": "Vykdomas peradresavimas…" },
   "blockedclosepending": { "message": "Uždaromas šis skirtukas…" },
-  "blockedclosefailed": { "message": "Nepavyko uždaryti šio skirtuko. Bandykite dar kartą arba uždarykite jį naršyklėje." }
+  "blockedclosefailed": { "message": "Nepavyko uždaryti šio skirtuko. Bandykite dar kartą arba uždarykite jį naršyklėje." },
+  "previewsound": {
+    "message": "Išklausyti"
+  },
+  "soundpreviewcomplete": {
+    "message": "Perklausa baigta."
+  },
+  "soundpreviewfailed": {
+    "message": "Nepavyko paleisti garso. Bandykite dar kartą."
+  },
+  "soundvolumenotice": {
+    "message": "Naudoja įrenginio medijos garsumą."
+  }
 }

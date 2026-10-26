@@ -1,4 +1,11 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.15**
+# Firefox Desktop E2E — BlockDistraction **5.5.0**
+
+## Focus sound 5.5.0
+
+Scenario 68 covers native audio for activation-free preview, one trusted Listen
+click and real-alarm completion. Current inventory: **66 = 64 core + 1 overdue + 1 upgrade**.
+See [behavior, verification limits and device acceptance](../docs/focus-sound.md).
+
 
 ## Native version update (tests only, 2026-10-26)
 

@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "تغییر مسیر" },
   "redirectpending": { "message": "در حال انتقال شما…" },
   "blockedclosepending": { "message": "در حال بستن این زبانه…" },
-  "blockedclosefailed": { "message": "این زبانه بسته نشد. دوباره تلاش کنید یا آن را از طریق مرورگر ببندید." }
+  "blockedclosefailed": { "message": "این زبانه بسته نشد. دوباره تلاش کنید یا آن را از طریق مرورگر ببندید." },
+  "previewsound": {
+    "message": "گوش دادن"
+  },
+  "soundpreviewcomplete": {
+    "message": "پیش‌نمایش پایان یافت."
+  },
+  "soundpreviewfailed": {
+    "message": "پخش صدا ممکن نشد. دوباره تلاش کنید."
+  },
+  "soundvolumenotice": {
+    "message": "از میزان صدای رسانهٔ دستگاه شما استفاده می‌کند."
+  }
 }

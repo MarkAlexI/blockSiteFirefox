@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Preusmjeravanje" },
   "redirectpending": { "message": "Preusmjeravanje u tijeku…" },
   "blockedclosepending": { "message": "Zatvaranje ove kartice…" },
-  "blockedclosefailed": { "message": "Ovu karticu nije moguće zatvoriti. Pokušajte ponovno ili je zatvorite u pregledniku." }
+  "blockedclosefailed": { "message": "Ovu karticu nije moguće zatvoriti. Pokušajte ponovno ili je zatvorite u pregledniku." },
+  "previewsound": {
+    "message": "Poslušaj"
+  },
+  "soundpreviewcomplete": {
+    "message": "Pretpregled je završen."
+  },
+  "soundpreviewfailed": {
+    "message": "Zvuk se nije mogao reproducirati. Pokušajte ponovno."
+  },
+  "soundvolumenotice": {
+    "message": "Koristi glasnoću medija na vašem uređaju."
+  }
 }

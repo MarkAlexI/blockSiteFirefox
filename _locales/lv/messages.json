@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Pārvirzīšana" },
   "redirectpending": { "message": "Notiek pārvirzīšana…" },
   "blockedclosepending": { "message": "Šī cilne tiek aizvērta…" },
-  "blockedclosefailed": { "message": "Šo cilni neizdevās aizvērt. Mēģiniet vēlreiz vai aizveriet to pārlūkprogrammā." }
+  "blockedclosefailed": { "message": "Šo cilni neizdevās aizvērt. Mēģiniet vēlreiz vai aizveriet to pārlūkprogrammā." },
+  "previewsound": {
+    "message": "Noklausīties"
+  },
+  "soundpreviewcomplete": {
+    "message": "Priekšskatījums beidzies."
+  },
+  "soundpreviewfailed": {
+    "message": "Skaņu neizdevās atskaņot. Mēģiniet vēlreiz."
+  },
+  "soundvolumenotice": {
+    "message": "Izmanto ierīces multivides skaļumu."
+  }
 }

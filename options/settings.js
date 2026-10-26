@@ -257,7 +257,29 @@ export class SettingsManager {
     }
   }
   
+  async previewFocusSound() {
+    if (this.focusSoundPreviewPending) return;
+    const button = document.getElementById('previewFocusSound');
+    const status = document.getElementById('focusSoundStatus');
+    if (!button || !status) return;
+    this.focusSoundPreviewPending = true;
+    button.setAttribute('aria-disabled', 'true');
+    button.setAttribute('aria-busy', 'true');
+    status.textContent = '';
+    try {
+      const result = await browser.runtime.sendMessage({ type: 'sound:preview' });
+      status.textContent = t(result?.success === true ? 'soundpreviewcomplete' : 'soundpreviewfailed');
+    } catch {
+      status.textContent = t('soundpreviewfailed');
+    } finally {
+      this.focusSoundPreviewPending = false;
+      button.setAttribute('aria-disabled', 'false');
+      button.setAttribute('aria-busy', 'false');
+    }
+  }
+
   setupEventListeners() {
+    document.getElementById('previewFocusSound')?.addEventListener('click', () => this.previewFocusSound());
     const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]:not(#enablePassword):not(#focusSessionSound):not(#telemetryConsent)');
     
     inputs.forEach(input => {

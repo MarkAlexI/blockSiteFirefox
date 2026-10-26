@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Đang chuyển hướng" },
   "redirectpending": { "message": "Đang chuyển hướng bạn…" },
   "blockedclosepending": { "message": "Đang đóng thẻ này…" },
-  "blockedclosefailed": { "message": "Không thể đóng thẻ này. Hãy thử lại hoặc đóng bằng trình duyệt." }
+  "blockedclosefailed": { "message": "Không thể đóng thẻ này. Hãy thử lại hoặc đóng bằng trình duyệt." },
+  "previewsound": {
+    "message": "Nghe thử"
+  },
+  "soundpreviewcomplete": {
+    "message": "Đã nghe thử xong."
+  },
+  "soundpreviewfailed": {
+    "message": "Không thể phát âm thanh. Hãy thử lại."
+  },
+  "soundvolumenotice": {
+    "message": "Sử dụng âm lượng nội dung nghe nhìn của thiết bị."
+  }
 }

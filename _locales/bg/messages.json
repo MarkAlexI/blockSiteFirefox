@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Пренасочване" },
   "redirectpending": { "message": "Пренасочване към друга страница…" },
   "blockedclosepending": { "message": "Затваряне на този раздел…" },
-  "blockedclosefailed": { "message": "Този раздел не може да бъде затворен. Опитайте отново или го затворете чрез браузъра." }
+  "blockedclosefailed": { "message": "Този раздел не може да бъде затворен. Опитайте отново или го затворете чрез браузъра." },
+  "previewsound": {
+    "message": "Прослушване"
+  },
+  "soundpreviewcomplete": {
+    "message": "Прослушването приключи."
+  },
+  "soundpreviewfailed": {
+    "message": "Звукът не можа да се възпроизведе. Опитайте отново."
+  },
+  "soundvolumenotice": {
+    "message": "Използва силата на звука за мултимедия на устройството ви."
+  }
 }

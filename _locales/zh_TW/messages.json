@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "正在重新導向" },
   "redirectpending": { "message": "正在為您跳轉…" },
   "blockedclosepending": { "message": "正在關閉此分頁…" },
-  "blockedclosefailed": { "message": "無法關閉此分頁。請重試或使用瀏覽器關閉它。" }
+  "blockedclosefailed": { "message": "無法關閉此分頁。請重試或使用瀏覽器關閉它。" },
+  "previewsound": {
+    "message": "試聽"
+  },
+  "soundpreviewcomplete": {
+    "message": "試聽已結束。"
+  },
+  "soundpreviewfailed": {
+    "message": "無法播放聲音，請再試一次。"
+  },
+  "soundvolumenotice": {
+    "message": "使用裝置的媒體音量。"
+  }
 }

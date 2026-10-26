@@ -49,8 +49,14 @@ import { createInstalledEventBoundary } from '../telemetry/installedEventBoundar
 import { FOCUS_SCHEDULE_ALARM } from '../schedules/focusSchedule.js';
 import { createFocusScheduleController } from '../schedules/focusScheduleController.js';
 import { BUILD_ID } from '../utils/buildInfo.js';
+import { createSoundService } from '../utils/soundService.js';
+import { createFocusSoundController, isSoundPreviewSender } from '../utils/focusSound.js';
 
 const logger = new Logger('Worker');
+const focusSound = createFocusSoundController({
+  service: createSoundService({ api: browser }),
+  getSettings: options => SettingsManager.getSettings(options)
+});
 const IS_RELEASE_CANDIDATE = /^RC\d+$/i.test(BUILD_ID);
 const MANUAL_LICENSE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);
 const rulesManager = new RulesManager();
@@ -622,14 +628,12 @@ async function ensureFocusCompletionAlarm(endTime, shouldContinue) {
 
 async function showFocusCompletionNotification() {
   if (!browser.notifications) return;
-  const settings = await SettingsManager.getSettings();
-  browser.notifications.create('focus_session_ended', {
+  await browser.notifications.create('focus_session_ended', {
     type: 'basic',
     iconUrl: browser.runtime.getURL('images/icon-192.png'),
     title: browser.i18n.getMessage('focussessionheader'),
     message: browser.i18n.getMessage('focussessionended'),
-    priority: 2,
-    silent: !settings.focusSessionSound
+    priority: 2
   });
 }
 
@@ -727,7 +731,10 @@ async function reconcileStoredFocusSession(reason, {
       logger.info('Focus completion reporting could not be persisted:', outcome.reason);
     }
   }
-  await runFocusCompletionTask('completion notification', showFocusCompletionNotification);
+  // Feedback is best effort after the durable completion. Audio/notification
+  // failures and slow platform replies must not hold the state mutation queue.
+  void runFocusCompletionTask('completion notification', showFocusCompletionNotification);
+  void runFocusCompletionTask('completion sound', () => focusSound.complete(endTime));
   return { status: 'completed' };
 }
 
@@ -1855,6 +1862,18 @@ browser.runtime.onInstalled.addListener(details =>
 );
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // Leave addressed playback messages to the offscreen document's listener.
+  if (message?.target === 'sound-offscreen') return false;
+  if (message?.type === 'sound:preview') {
+    if (!isSoundPreviewSender(sender, browser.runtime)) {
+      sendResponse({ success: false, code: 'sound_preview_forbidden' });
+      return false;
+    }
+    focusSound.preview().then(sendResponse,
+      () => sendResponse({ success: false, code: 'audio_unavailable' }));
+    return true;
+  }
+
   if (['pro_guidance:preview', 'pro_guidance:shown', 'pro_guidance:dismiss'].includes(message.type)) {
     const operation = message.type.slice('pro_guidance:'.length);
     proGuidanceController[operation](message).then(

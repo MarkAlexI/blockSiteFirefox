@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Kuelekeza upya" },
   "redirectpending": { "message": "Unaelekezwa upya…" },
   "blockedclosepending": { "message": "Kichupo hiki kinafungwa…" },
-  "blockedclosefailed": { "message": "Imeshindikana kufunga kichupo hiki. Jaribu tena au ukifunge kupitia kivinjari chako." }
+  "blockedclosefailed": { "message": "Imeshindikana kufunga kichupo hiki. Jaribu tena au ukifunge kupitia kivinjari chako." },
+  "previewsound": {
+    "message": "Sikiliza"
+  },
+  "soundpreviewcomplete": {
+    "message": "Onyesho la sauti limekamilika."
+  },
+  "soundpreviewfailed": {
+    "message": "Sauti haikuweza kuchezwa. Jaribu tena."
+  },
+  "soundvolumenotice": {
+    "message": "Hutumia kiwango cha sauti cha midia cha kifaa chako."
+  }
 }

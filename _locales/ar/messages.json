@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "إعادة التوجيه" },
   "redirectpending": { "message": "جارٍ إعادة توجيهك…" },
   "blockedclosepending": { "message": "جارٍ إغلاق علامة التبويب هذه…" },
-  "blockedclosefailed": { "message": "تعذّر إغلاق علامة التبويب هذه. حاول مجددًا أو أغلقها باستخدام المتصفح." }
+  "blockedclosefailed": { "message": "تعذّر إغلاق علامة التبويب هذه. حاول مجددًا أو أغلقها باستخدام المتصفح." },
+  "previewsound": {
+    "message": "استماع"
+  },
+  "soundpreviewcomplete": {
+    "message": "انتهت المعاينة."
+  },
+  "soundpreviewfailed": {
+    "message": "تعذّر تشغيل الصوت. حاول مرة أخرى."
+  },
+  "soundvolumenotice": {
+    "message": "يستخدم مستوى صوت الوسائط في جهازك."
+  }
 }

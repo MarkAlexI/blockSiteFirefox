@@ -1,3 +1,4 @@
+import { focusSoundScenarios } from './focus-sound-scenarios.mjs';
 import { dialogScenarios } from './dialog-scenarios.mjs';
 import assert from 'node:assert/strict';
 import { passwordDialogScenarios } from './password-dialog-scenarios.mjs';
@@ -292,3 +293,5 @@ scenarios.push(...passwordDialogScenarios);
 scenarios.push(...dialogScenarios);
 scenarios.push(...overdueScenarios);
 scenarios.push(...(await import('./upgrade-scenarios.mjs')).upgradeScenarios);
+
+for (const scenario of focusSoundScenarios) test(scenario.id, scenario.title, scenario.run);

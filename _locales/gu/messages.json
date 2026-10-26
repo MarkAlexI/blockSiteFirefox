@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "રીડાયરેક્ટ થઈ રહ્યું છે" },
   "redirectpending": { "message": "તમને બીજા પૃષ્ઠ પર લઈ જવાઈ રહ્યા છે…" },
   "blockedclosepending": { "message": "આ ટૅબ બંધ થઈ રહી છે…" },
-  "blockedclosefailed": { "message": "આ ટૅબ બંધ કરી શકાઈ નથી. ફરી પ્રયાસ કરો અથવા તમારા બ્રાઉઝરથી તેને બંધ કરો." }
+  "blockedclosefailed": { "message": "આ ટૅબ બંધ કરી શકાઈ નથી. ફરી પ્રયાસ કરો અથવા તમારા બ્રાઉઝરથી તેને બંધ કરો." },
+  "previewsound": {
+    "message": "સાંભળો"
+  },
+  "soundpreviewcomplete": {
+    "message": "પૂર્વાવલોકન પૂર્ણ થયું."
+  },
+  "soundpreviewfailed": {
+    "message": "અવાજ વગાડી શકાયો નહીં. ફરી પ્રયાસ કરો."
+  },
+  "soundvolumenotice": {
+    "message": "તમારા ઉપકરણના મીડિયા વોલ્યુમનો ઉપયોગ કરે છે."
+  }
 }

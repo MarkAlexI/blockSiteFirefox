@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.0] - 2026-10-26
+
+### Added
+- A built-in sound when a Focus Session finishes, controlled by the existing sound preference.
+- A Listen button in Settings to preview the Focus sound using your device's media volume.
+
+### Fixed
+- Focus completion sound now plays independently of system notification sound support.
+- Recovering an old expired Focus Session keeps its completion notification without playing a late sound.
+- Focus completion notifications use options supported by Firefox.
+
 ## [5.4.15] - 2026-10-26
 
 - Localize the redirect screen and set its document language and text direction.

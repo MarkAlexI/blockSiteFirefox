@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Redirección" },
   "redirectpending": { "message": "Redirigiendo…" },
   "blockedclosepending": { "message": "Cerrando esta pestaña…" },
-  "blockedclosefailed": { "message": "No se pudo cerrar esta pestaña. Inténtalo de nuevo o ciérrala desde el navegador." }
+  "blockedclosefailed": { "message": "No se pudo cerrar esta pestaña. Inténtalo de nuevo o ciérrala desde el navegador." },
+  "previewsound": {
+    "message": "Escuchar"
+  },
+  "soundpreviewcomplete": {
+    "message": "La vista previa ha terminado."
+  },
+  "soundpreviewfailed": {
+    "message": "No se pudo reproducir el sonido. Inténtalo de nuevo."
+  },
+  "soundvolumenotice": {
+    "message": "Usa el volumen multimedia de tu dispositivo."
+  }
 }

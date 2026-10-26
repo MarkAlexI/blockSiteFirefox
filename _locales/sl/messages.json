@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Preusmerjanje" },
   "redirectpending": { "message": "Preusmerjanje v teku…" },
   "blockedclosepending": { "message": "Zapiranje tega zavihka…" },
-  "blockedclosefailed": { "message": "Tega zavihka ni bilo mogoče zapreti. Poskusite znova ali ga zaprite v brskalniku." }
+  "blockedclosefailed": { "message": "Tega zavihka ni bilo mogoče zapreti. Poskusite znova ali ga zaprite v brskalniku." },
+  "previewsound": {
+    "message": "Poslušaj"
+  },
+  "soundpreviewcomplete": {
+    "message": "Predogled je končan."
+  },
+  "soundpreviewfailed": {
+    "message": "Zvoka ni bilo mogoče predvajati. Poskusite znova."
+  },
+  "soundvolumenotice": {
+    "message": "Uporablja glasnost predstavnosti vaše naprave."
+  }
 }

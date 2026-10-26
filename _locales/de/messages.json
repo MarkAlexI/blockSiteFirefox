@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Weiterleitung" },
   "redirectpending": { "message": "Du wirst weitergeleitet…" },
   "blockedclosepending": { "message": "Dieser Tab wird geschlossen…" },
-  "blockedclosefailed": { "message": "Dieser Tab konnte nicht geschlossen werden. Versuche es erneut oder schließe ihn über deinen Browser." }
+  "blockedclosefailed": { "message": "Dieser Tab konnte nicht geschlossen werden. Versuche es erneut oder schließe ihn über deinen Browser." },
+  "previewsound": {
+    "message": "Anhören"
+  },
+  "soundpreviewcomplete": {
+    "message": "Die Vorschau ist beendet."
+  },
+  "soundpreviewfailed": {
+    "message": "Der Ton konnte nicht abgespielt werden. Versuche es erneut."
+  },
+  "soundvolumenotice": {
+    "message": "Verwendet die Medienlautstärke deines Geräts."
+  }
 }

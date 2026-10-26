@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Mengubah hala" },
   "redirectpending": { "message": "Anda sedang diubah hala…" },
   "blockedclosepending": { "message": "Menutup tab ini…" },
-  "blockedclosefailed": { "message": "Tab ini tidak dapat ditutup. Cuba lagi atau tutup melalui pelayar anda." }
+  "blockedclosefailed": { "message": "Tab ini tidak dapat ditutup. Cuba lagi atau tutup melalui pelayar anda." },
+  "previewsound": {
+    "message": "Dengar"
+  },
+  "soundpreviewcomplete": {
+    "message": "Pratonton selesai."
+  },
+  "soundpreviewfailed": {
+    "message": "Bunyi tidak dapat dimainkan. Cuba lagi."
+  },
+  "soundvolumenotice": {
+    "message": "Menggunakan kelantangan media peranti anda."
+  }
 }

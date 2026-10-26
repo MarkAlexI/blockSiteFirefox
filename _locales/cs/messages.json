@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Přesměrování" },
   "redirectpending": { "message": "Probíhá přesměrování…" },
   "blockedclosepending": { "message": "Zavírání této karty…" },
-  "blockedclosefailed": { "message": "Tuto kartu se nepodařilo zavřít. Zkuste to znovu nebo ji zavřete v prohlížeči." }
+  "blockedclosefailed": { "message": "Tuto kartu se nepodařilo zavřít. Zkuste to znovu nebo ji zavřete v prohlížeči." },
+  "previewsound": {
+    "message": "Poslechnout"
+  },
+  "soundpreviewcomplete": {
+    "message": "Ukázka skončila."
+  },
+  "soundpreviewfailed": {
+    "message": "Zvuk se nepodařilo přehrát. Zkuste to znovu."
+  },
+  "soundvolumenotice": {
+    "message": "Používá hlasitost médií vašeho zařízení."
+  }
 }

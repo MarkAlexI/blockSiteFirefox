@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Uudelleenohjaus" },
   "redirectpending": { "message": "Sinut ohjataan toiselle sivulle…" },
   "blockedclosepending": { "message": "Suljetaan tätä välilehteä…" },
-  "blockedclosefailed": { "message": "Tätä välilehteä ei voitu sulkea. Yritä uudelleen tai sulje se selaimessa." }
+  "blockedclosefailed": { "message": "Tätä välilehteä ei voitu sulkea. Yritä uudelleen tai sulje se selaimessa." },
+  "previewsound": {
+    "message": "Kuuntele"
+  },
+  "soundpreviewcomplete": {
+    "message": "Esikuuntelu päättyi."
+  },
+  "soundpreviewfailed": {
+    "message": "Ääntä ei voitu toistaa. Yritä uudelleen."
+  },
+  "soundvolumenotice": {
+    "message": "Käyttää laitteesi median äänenvoimakkuutta."
+  }
 }

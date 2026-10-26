@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Redirecționare" },
   "redirectpending": { "message": "Redirecționare în curs…" },
   "blockedclosepending": { "message": "Se închide această filă…" },
-  "blockedclosefailed": { "message": "Această filă nu a putut fi închisă. Încercați din nou sau închideți-o din browser." }
+  "blockedclosefailed": { "message": "Această filă nu a putut fi închisă. Încercați din nou sau închideți-o din browser." },
+  "previewsound": {
+    "message": "Ascultă"
+  },
+  "soundpreviewcomplete": {
+    "message": "Previzualizarea s-a încheiat."
+  },
+  "soundpreviewfailed": {
+    "message": "Sunetul nu a putut fi redat. Încearcă din nou."
+  },
+  "soundvolumenotice": {
+    "message": "Folosește volumul media al dispozitivului."
+  }
 }

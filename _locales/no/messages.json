@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Videresending" },
   "redirectpending": { "message": "Du blir videresendt…" },
   "blockedclosepending": { "message": "Lukker denne fanen…" },
-  "blockedclosefailed": { "message": "Denne fanen kunne ikke lukkes. Prøv igjen, eller lukk den i nettleseren." }
+  "blockedclosefailed": { "message": "Denne fanen kunne ikke lukkes. Prøv igjen, eller lukk den i nettleseren." },
+  "previewsound": {
+    "message": "Lytt"
+  },
+  "soundpreviewcomplete": {
+    "message": "Forhåndsvisningen er ferdig."
+  },
+  "soundpreviewfailed": {
+    "message": "Lyden kunne ikke spilles av. Prøv igjen."
+  },
+  "soundvolumenotice": {
+    "message": "Bruker enhetens medievolum."
+  }
 }

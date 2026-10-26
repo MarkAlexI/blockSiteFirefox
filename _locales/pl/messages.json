@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Przekierowanie" },
   "redirectpending": { "message": "Trwa przekierowanie…" },
   "blockedclosepending": { "message": "Zamykanie tej karty…" },
-  "blockedclosefailed": { "message": "Nie udało się zamknąć tej karty. Spróbuj ponownie lub zamknij ją w przeglądarce." }
+  "blockedclosefailed": { "message": "Nie udało się zamknąć tej karty. Spróbuj ponownie lub zamknij ją w przeglądarce." },
+  "previewsound": {
+    "message": "Odsłuchaj"
+  },
+  "soundpreviewcomplete": {
+    "message": "Odsłuchiwanie zakończone."
+  },
+  "soundpreviewfailed": {
+    "message": "Nie udało się odtworzyć dźwięku. Spróbuj ponownie."
+  },
+  "soundvolumenotice": {
+    "message": "Korzysta z głośności multimediów urządzenia."
+  }
 }

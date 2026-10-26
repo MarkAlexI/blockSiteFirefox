@@ -1222,5 +1222,17 @@
   "redirecttitle": { "message": "Presmerovanie" },
   "redirectpending": { "message": "Prebieha presmerovanie…" },
   "blockedclosepending": { "message": "Zatváranie tejto karty…" },
-  "blockedclosefailed": { "message": "Túto kartu sa nepodarilo zavrieť. Skúste to znova alebo ju zavrite v prehliadači." }
+  "blockedclosefailed": { "message": "Túto kartu sa nepodarilo zavrieť. Skúste to znova alebo ju zavrite v prehliadači." },
+  "previewsound": {
+    "message": "Vypočuť"
+  },
+  "soundpreviewcomplete": {
+    "message": "Ukážka sa skončila."
+  },
+  "soundpreviewfailed": {
+    "message": "Zvuk sa nepodarilo prehrať. Skúste to znova."
+  },
+  "soundvolumenotice": {
+    "message": "Používa hlasitosť médií vášho zariadenia."
+  }
 }
