@@ -1,5 +1,9 @@
 # Firefox Desktop E2E — BlockDistraction **5.4.15**
 
+## CI readiness correction (tests only, 2026-10-26)
+
+[Trace diagnosis and verification](ci-readiness-2026-10-26.md) cover the guarded Start/Stop transition. Runtime version remains 5.4.15.
+
 ## Overdue timers (tests only)
 
 [Scenario 65](overdue-alarms.md) covers real process pause and native overdue alarms.

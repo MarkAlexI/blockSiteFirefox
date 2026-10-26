@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { statisticsScenarios } from './statistics-scenarios.mjs';
 import { importScenarios } from './import-scenarios.mjs';
 import { bulkSettingsScenarios } from './bulk-settings-scenarios.mjs';
+import { readFocusActionReadiness } from './focus-action-readiness.mjs';
 async function poll(read, check, label) {
   const deadline = Date.now() + 15_000;
   let value;
@@ -369,12 +370,21 @@ export const accessibilityScenarios = [{
     await fill(page, '#passwordInput1', password); await press(page, 'Enter'); await assertState(true);
 
     // The newly keyboard-reachable action still follows the real Focus lock.
+    await poll(() => page.evaluate(readFocusActionReadiness, 'start'), state => state.ready, 'Focus Start is ready');
     await focus(page, '#start-focus-btn'); await press(page, 'Enter');
     await poll(() => page.evaluate(() => document.getElementById('rules-container').classList.contains('focus-lock-active') &&
       [...document.querySelectorAll('.rule-toggle-popup')].every(button => button.disabled)), Boolean, 'Focus locks Popup toggles');
+    // Storage can lock the rows before Start's runtime reply is delivered.
+    // Wait for the real pending guard to clear, then send ONE Stop activation.
+    await poll(() => page.evaluate(readFocusActionReadiness, 'stop'), state => state.ready, 'Focus Start completes before Stop');
     await focus(page, '#stop-focus-btn'); await press(page, 'Enter');
-    await poll(() => page.evaluate(() => !document.getElementById('rules-container').classList.contains('focus-lock-active') &&
-      [...document.querySelectorAll('.rule-toggle-popup')].every(button => !button.disabled)), Boolean, 'Focus unlocks Popup toggles');
+    await poll(() => page.evaluate(async () => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      const { focusSession } = await api.storage.local.get('focusSession');
+      return focusSession?.focusActive === false &&
+        !document.getElementById('rules-container').classList.contains('focus-lock-active') &&
+        [...document.querySelectorAll('.rule-toggle-popup')].every(button => !button.disabled);
+    }), Boolean, 'Focus unlocks Popup toggles');
 
     // A background refresh respects a later choice of a permanent control.
     await focus(page, '#options-link');
