@@ -14,12 +14,17 @@ permissions:
   contents: read
 
 jobs:
-  e2e:
+  scenarios:
+    name: scenarios (${{ matrix.group }})
     runs-on: ubuntu-24.04
     # Slow apt/browser setup consumed over 10 minutes in run 39855086581.
-    # Reserve setup/report time separately from the 50-scenario step below.
+    # Reserve setup/report time separately from the core-scenario step below.
     # Individual scenario deadlines and retries remain unchanged.
     timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [core, overdue]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -63,12 +68,14 @@ jobs:
       - name: Run Firefox Desktop scenarios
         timeout-minutes: 25
         working-directory: e2e
+        env:
+          BD_E2E_GROUP: ${{ matrix.group }}
         run: xvfb-run -a npm run test:headed
       - name: Upload reports, screenshots and browser logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bd-firefox-e2e-${{ github.sha }}
+          name: bd-firefox-e2e-${{ github.sha }}-${{ matrix.group }}
           path: |
             e2e/test-results/
             e2e/results.json
@@ -76,3 +83,15 @@ jobs:
             dist/*-amo.zip.build.json
           if-no-files-found: warn
           retention-days: 14
+
+  # Keep the existing required check; a missing/failed group cannot pass it.
+  e2e:
+    if: ${{ always() }}
+    needs: scenarios
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require all scenario groups
+        env:
+          SCENARIO_RESULT: ${{ needs.scenarios.result }}
+        run: test "$SCENARIO_RESULT" = success

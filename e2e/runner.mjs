@@ -6,12 +6,14 @@ import { ExtensionHarness, EnvironmentError } from './fixtures.mjs';
 import { expectedVersion } from './target-version.mjs';
 import { startNativeWindowManager } from './native-window-manager.mjs';
 import { nativeTabShortcutBackend } from './native-tab-shortcut.mjs';
+import { selectScenarioGroup } from './scenario-groups.mjs';
 
 const args = process.argv.slice(2);
 const known = args.every(arg => ['--list', '--headed'].includes(arg) || /^(--filter=|--max-failures=)/.test(arg));
 if (!known) throw new Error('Usage: node runner.mjs [--list] [--headed] [--filter=ID-or-title] [--max-failures=N]');
 const filter = args.find(arg => arg.startsWith('--filter='))?.slice(9);
-const selected = scenarios.filter(test => !filter || test.id === filter || test.title.includes(filter));
+const group = process.env.BD_E2E_GROUP ?? 'all';
+const selected = selectScenarioGroup(scenarios, group).filter(test => !filter || test.id === filter || test.title.includes(filter));
 assert.ok(selected.length, 'No scenarios selected');
 if (args.includes('--list')) {
   for (const test of selected) console.log(`${test.id} ${test.title}${test.persistent ? ' [persistent installation]' : ''}`);
@@ -26,7 +28,7 @@ if (args.includes('--list')) {
   const report = { schemaVersion: 1, runner: 'Selenium WebDriver + native Firefox BiDi + loopback HTTP/TLS fixture',
     startedAt: new Date().toISOString(), expectedVersion,
     platform: { platform: process.platform, architecture: process.arch, node: process.version },
-    selected: selected.length, completeSuite: selected.length === scenarios.length, tests: [] };
+    group, selected: selected.length, completeSuite: selected.length === scenarios.length, tests: [] };
   let failures = 0, setupBlocked = false;
   await mkdir(output, { recursive: true });
   await mkdir(path.dirname(reportFile), { recursive: true });

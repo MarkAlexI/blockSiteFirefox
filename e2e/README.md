@@ -1,10 +1,16 @@
 # Firefox Desktop E2E — BlockDistraction **5.4.15**
 
+## Overdue timers (tests only)
+
+[Scenario 65](overdue-alarms.md) covers real process pause and native overdue alarms.
+CI runs `core` and `overdue` separately; required check `e2e` requires both.
+Runtime version remains 5.4.15.
+
 ## Blocking screens 5.4.15
 
 [Scenario 64 and verification notes](blocking-pages.md) cover localized
 blocking/redirect screens, pending/failed close requests, native keyboard retry,
-real DNR navigation and safe fallback. Current inventory: **63** Firefox Desktop scenarios.
+real DNR navigation and safe fallback. Current inventory: **64 = 63 core + 1 overdue** Firefox Desktop scenarios.
 
 
 Для сценарію 29 тест явно вибирає потрібну вкладку Options після дій native

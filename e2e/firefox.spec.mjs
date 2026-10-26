@@ -10,6 +10,7 @@ import { staleScenarios } from './stale-scenarios.mjs';
 import { calendarScenarios } from './calendar-scenarios.mjs';
 import { dayBoundaryScenarios } from './day-boundary-scenarios.mjs';
 import { scheduledExpiryScenarios } from './scheduled-expiry-scenarios.mjs';
+import { overdueScenarios } from './overdue-scenarios.mjs';
 import { idleScenarios } from './idle-scenarios.mjs';
 import { liveDayScenarios } from './live-day-scenarios.mjs';
 import { alarmWakeScenarios } from './alarm-wake-scenarios.mjs';
@@ -289,3 +290,4 @@ scenarios.push(...accessibilityScenarios);
 scenarios.push(...passwordDialogScenarios);
 
 scenarios.push(...dialogScenarios);
+scenarios.push(...overdueScenarios);
