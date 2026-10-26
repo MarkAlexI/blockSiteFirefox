@@ -247,11 +247,11 @@ export class ExtensionHarness {
     this.profile = path.join(this.root, 'profile');
     await mkdir(this.profile);
     await mkdir(this.config.output, { recursive: true });
-    const source = path.resolve(process.env.BD_EXTENSION_PATH || path.join(directory, '..'));
+    const source = path.resolve(this.config.extensionSource || process.env.BD_EXTENSION_PATH || path.join(directory, '..'));
     const files = process.env.BD_SIGNED_XPI ? unzipSync(new Uint8Array(await readFile(process.env.BD_SIGNED_XPI))) :
       await collectRuntime(source);
     this.manifest = JSON.parse(Buffer.from(files['manifest.json']).toString());
-    assert.equal(this.manifest.version, expectedVersion, 'target version');
+    assert.equal(this.manifest.version, this.config.expectedVersion || expectedVersion, 'target version');
     assert.deepEqual(this.manifest.background, {
       scripts: ['scripts/service_worker.js'], persistent: false, type: 'module'
     }, 'Firefox event page manifest');
@@ -264,6 +264,8 @@ export class ExtensionHarness {
       installation: this.config.installation, signedInput: Boolean(process.env.BD_SIGNED_XPI) };
     this.proxy = await createFixtureProxy({ root: this.root, html: url => frameFixtureHtml(url.href) || HTML, verifyUrl: VERIFY_URL,
       expectedPayload: { key: TEST_KEY, version: this.manifest.version },
+      additionalExpectedPayloads: (this.config.verificationVersions || []).filter(v=>v!==this.manifest.version)
+        .map(version=>({key:TEST_KEY,version})),
       verificationHandler: () => this.verificationHandler(),
       onVerification: call => this.verificationCalls.push(call),
       onEvent: event => this.events.push(event), onError: error => this.networkErrors.push(error.stack),
@@ -397,6 +399,19 @@ export class ExtensionHarness {
     const page = new Page(this, context);
     await page.goto(url);
     return page;
+  }
+
+  async installUpdatedRuntime(source) {
+    assert.equal(this.config.installation,'persistent','version update requires a persistent installation');
+    const files=await collectRuntime(source);
+    const manifest=JSON.parse(Buffer.from(files['manifest.json']).toString());
+    assert.equal(manifest.version,expectedVersion);
+    assert.equal(manifest.browser_specific_settings.gecko.id,this.id);
+    const filename=path.join(this.root,'update.xpi');
+    await writeFile(filename,zipSync(files));
+    assert.equal(await this.driver.installAddon(filename,false),this.id);
+    this.manifest=manifest;this.options=[];
+    this.probe=await this.newPage(`${this.baseUrl}/index.html`);
   }
 
   async seed({ pro = true, legacy = false, rules = [], usage = {}, active = 'general', pending = [], rawUsage = null, retainedKey = false, focus = null } = {}) {

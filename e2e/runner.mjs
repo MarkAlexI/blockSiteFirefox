@@ -45,6 +45,7 @@ if (args.includes('--list')) {
       output: path.join(output, scenario.id) }, result);
     let desktop;
     try {
+      await scenario.prepare?.(harness);
       await harness.prepare();
       if ((scenario.nativeToolbar || scenario.nativeDesktop) && !harness.config.headless) {
         harness.phase = 'native-desktop-setup';

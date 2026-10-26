@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { createServer as createHttpsServer } from 'node:https';
 import path from 'node:path';
-import { promisify } from 'node:util';
+import { promisify, isDeepStrictEqual } from 'node:util';
 
 const execute = promisify(execFile);
 const MAX_BODY_BYTES = 4096;
@@ -48,7 +48,7 @@ async function jsonBody(request) {
 
 // Real HTTP/TLS at the unchanged production URL, served only on loopback.
 // There is no outbound connection or forwarding path in this proxy.
-export async function createFixtureProxy({ root, html, verifyUrl, expectedPayload,
+export async function createFixtureProxy({ root, html, verifyUrl, expectedPayload, additionalExpectedPayloads = [],
   verificationHandler, onVerification = () => {}, onEvent = () => {}, onError = () => {}, onTlsError = () => {} }) {
   const target = new URL(verifyUrl);
   assert.equal(target.protocol, 'https:');
@@ -79,7 +79,8 @@ export async function createFixtureProxy({ root, html, verifyUrl, expectedPayloa
     (async () => {
       assert.equal(request.method, 'POST', 'license mock only accepts POST');
       const payload = await jsonBody(request);
-      assert.deepEqual(payload, expectedPayload, 'native verification key and manifest version');
+      assert.ok([expectedPayload,...additionalExpectedPayloads].some(expected=>isDeepStrictEqual(payload,expected)),
+        'native verification key and manifest version');
       onVerification({ method: request.method, payload, transport: 'https-proxy' });
       const reply = await verificationHandler();
       onEvent({ url: url.href, method: request.method, status: reply.status, at: Date.now() });

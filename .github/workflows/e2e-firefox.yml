@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [core, overdue]
+        group: [core, overdue, upgrade]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -65,6 +65,10 @@ jobs:
           with Path(os.environ['GITHUB_ENV']).open('a') as env:
               env.write(f'BD_EXTENSION_PATH={target}\n')
           PY
+      - name: Prepare pinned previous-version runtime
+        if: matrix.group == 'upgrade'
+        timeout-minutes: 2
+        run: node e2e/prepare-upgrade-baseline.mjs
       - name: Run Firefox Desktop scenarios
         timeout-minutes: 25
         working-directory: e2e

@@ -1,5 +1,15 @@
 # Firefox Desktop E2E — BlockDistraction **5.4.15**
 
+## Native version update (tests only, 2026-10-26)
+
+[Scenario 67](version-upgrade.md) installs the actual pinned 5.4.14 package and
+updates it to the current package in the same persistent native profile. It
+checks Focus, Pro, settings and spent Daily Limit. Current inventory:
+**65 = 63 core + 1 overdue + 1 upgrade**. Before a complete local run, prepare
+the previous package with `node e2e/prepare-upgrade-baseline.mjs` from the
+repository root. The upgrade group requires Developer Edition/Nightly and
+unsigned development packages; signed-XPI runs select `core` or `overdue`.
+
 ## CI readiness correction (tests only, 2026-10-26)
 
 [Trace diagnosis and verification](ci-readiness-2026-10-26.md) cover the guarded Start/Stop transition. Runtime version remains 5.4.15.
@@ -7,14 +17,14 @@
 ## Overdue timers (tests only)
 
 [Scenario 65](overdue-alarms.md) covers real process pause and native overdue alarms.
-CI runs `core` and `overdue` separately; required check `e2e` requires both.
+CI runs `core`, `overdue` and `upgrade` separately; required check `e2e` requires all three.
 Runtime version remains 5.4.15.
 
 ## Blocking screens 5.4.15
 
 [Scenario 64 and verification notes](blocking-pages.md) cover localized
 blocking/redirect screens, pending/failed close requests, native keyboard retry,
-real DNR navigation and safe fallback. Current inventory: **64 = 63 core + 1 overdue** Firefox Desktop scenarios.
+real DNR navigation and safe fallback. That change covered **64 = 63 core + 1 overdue** Firefox Desktop scenarios.
 
 
 Для сценарію 29 тест явно вибирає потрібну вкладку Options після дій native
@@ -127,8 +137,9 @@ npm run test:headed
 звичайний Release Firefox його не підтримує. Захист процесів браузера й
 ізоляція sandbox не вимикаються.
 
-Звичайний Firefox Release може виконати повний набір із підписаним AMO XPI
-саме версії 5.3.20: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`.
+Звичайний Firefox Release може виконати `core` та `overdue` із підписаним AMO XPI
+поточної цільової версії: установіть `BD_SIGNED_XPI=/absolute/path/to/target.xpi`
+та виберіть відповідний `BD_E2E_GROUP`.
 Цей файл є фактичним target для всіх сценаріїв; `BD_EXTENSION_PATH` тоді
 не використовується. Runner перевіряє version, ID та event-page manifest,
 але підписаний XPI може мати інші runtime-байти. Саме його потрібно

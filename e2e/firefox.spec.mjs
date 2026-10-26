@@ -291,3 +291,4 @@ scenarios.push(...passwordDialogScenarios);
 
 scenarios.push(...dialogScenarios);
 scenarios.push(...overdueScenarios);
+scenarios.push(...(await import('./upgrade-scenarios.mjs')).upgradeScenarios);

@@ -11,6 +11,24 @@ import { frameFixtureHtml, frameUrls } from '../e2e/frame-fixture.mjs';
 const payload = { key: 'BD-E2E-VALID-KEY', version: '5.3.18' };
 const verifyUrl = 'https://blockdistraction.com/api/verifyKey';
 
+test('upgrade TLS fixture accepts only the explicit old/current payload pair', async()=>{
+  const root=await mkdtemp(path.join(tmpdir(),'bd-upgrade-proxy-'));
+  const errors=[],calls=[];
+  let proxy;
+  try{
+    proxy=await createFixtureProxy({root,html:()=>'',verifyUrl,
+      expectedPayload:{key:payload.key,version:'5.4.14'},
+      additionalExpectedPayloads:[{key:payload.key,version:'5.4.15'}],
+      verificationHandler:async()=>({status:200,body:{isPro:true}}),
+      onError:error=>errors.push(error),onVerification:call=>calls.push(call)});
+    for(const version of ['5.4.14','5.4.15'])assert.equal((await httpsRequest(proxy,
+      {body:{key:payload.key,version}})).status,200);
+    for(const body of [{key:payload.key,version:'5.4.16'},{key:'other',version:'5.4.15'},
+      {key:payload.key,version:'5.4.15',extra:true}])assert.equal((await httpsRequest(proxy,{body})).status,502);
+    assert.equal(calls.length,2);assert.equal(errors.length,3);
+  }finally{await proxy?.close();await rm(root,{recursive:true,force:true});}
+});
+
 function httpRequest(port, target) {
   return new Promise((resolve, reject) => {
     const request = http.get({ hostname: '127.0.0.1', port, path: target }, response => {
