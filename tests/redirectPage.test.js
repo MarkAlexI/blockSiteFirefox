@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
 const source = readFileSync(new URL('../scripts/redirect.js', import.meta.url), 'utf8')
-  .replace(/^import Logger from .*;\r?\n/m, '');
+  .replace(/^import .*;\r?\n/gm, '');
 const extensionURL = 'extension://test-extension-id/';
 
 function runPage(sendMessage, href = extensionURL + 'redirect.html?from=example.com&to=https%3A%2F%2Fphishing.example') {

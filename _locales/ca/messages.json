@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Les regles han canviat. Reviseu-les i torneu-ho a provar."
-  }
+  },
+  "redirecttitle": { "message": "Redirecció" },
+  "redirectpending": { "message": "S’està redirigint…" },
+  "blockedclosepending": { "message": "S’està tancant aquesta pestanya…" },
+  "blockedclosefailed": { "message": "No s’ha pogut tancar aquesta pestanya. Torna-ho a provar o tanca-la des del navegador." }
 }

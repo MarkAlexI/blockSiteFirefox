@@ -1236,5 +1236,9 @@
   },
   "clearruleschanged": {
     "message": "Las reglas han cambiado. Revísalas e inténtalo de nuevo."
-  }
+  },
+  "redirecttitle": { "message": "Redirección" },
+  "redirectpending": { "message": "Redirigiendo…" },
+  "blockedclosepending": { "message": "Cerrando esta pestaña…" },
+  "blockedclosefailed": { "message": "No se pudo cerrar esta pestaña. Inténtalo de nuevo o ciérrala desde el navegador." }
 }

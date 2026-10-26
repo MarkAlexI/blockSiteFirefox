@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Reguły się zmieniły. Sprawdź je i spróbuj ponownie."
-  }
+  },
+  "redirecttitle": { "message": "Przekierowanie" },
+  "redirectpending": { "message": "Trwa przekierowanie…" },
+  "blockedclosepending": { "message": "Zamykanie tej karty…" },
+  "blockedclosefailed": { "message": "Nie udało się zamknąć tej karty. Spróbuj ponownie lub zamknij ją w przeglądarce." }
 }

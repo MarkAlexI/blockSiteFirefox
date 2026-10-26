@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "As regras foram alteradas. Reveja-as e tente novamente."
-  }
+  },
+  "redirecttitle": { "message": "Redirecionamento" },
+  "redirectpending": { "message": "A redirecionar…" },
+  "blockedclosepending": { "message": "A fechar este separador…" },
+  "blockedclosefailed": { "message": "Não foi possível fechar este separador. Tente novamente ou feche-o no navegador." }
 }

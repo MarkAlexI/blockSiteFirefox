@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Les règles ont changé. Vérifiez-les et réessayez."
-  }
+  },
+  "redirecttitle": { "message": "Redirection" },
+  "redirectpending": { "message": "Redirection en cours…" },
+  "blockedclosepending": { "message": "Fermeture de cet onglet…" },
+  "blockedclosefailed": { "message": "Impossible de fermer cet onglet. Réessayez ou fermez-le depuis votre navigateur." }
 }

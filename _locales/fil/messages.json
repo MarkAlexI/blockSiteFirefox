@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Nagbago ang mga panuntunan. Suriin ang mga ito at subukang muli."
-  }
+  },
+  "redirecttitle": { "message": "Nire-redirect" },
+  "redirectpending": { "message": "Nire-redirect ka…" },
+  "blockedclosepending": { "message": "Isinasara ang tab na ito…" },
+  "blockedclosefailed": { "message": "Hindi maisara ang tab na ito. Subukan muli o isara ito gamit ang iyong browser." }
 }

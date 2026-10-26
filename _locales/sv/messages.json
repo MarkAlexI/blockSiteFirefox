@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Reglerna har ändrats. Granska dem och försök igen."
-  }
+  },
+  "redirecttitle": { "message": "Omdirigering" },
+  "redirectpending": { "message": "Du omdirigeras…" },
+  "blockedclosepending": { "message": "Stänger den här fliken…" },
+  "blockedclosefailed": { "message": "Det gick inte att stänga den här fliken. Försök igen eller stäng den i webbläsaren." }
 }

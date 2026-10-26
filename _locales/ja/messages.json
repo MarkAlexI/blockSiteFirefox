@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "ルールが変更されました。内容を確認して再試行してください。"
-  }
+  },
+  "redirecttitle": { "message": "リダイレクト中" },
+  "redirectpending": { "message": "リダイレクトしています…" },
+  "blockedclosepending": { "message": "このタブを閉じています…" },
+  "blockedclosefailed": { "message": "このタブを閉じられませんでした。もう一度試すか、ブラウザーから閉じてください。" }
 }

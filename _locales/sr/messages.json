@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Правила су промењена. Прегледајте их и покушајте поново."
-  }
+  },
+  "redirecttitle": { "message": "Преусмеравање" },
+  "redirectpending": { "message": "Преусмеравање је у току…" },
+  "blockedclosepending": { "message": "Затварање ове картице…" },
+  "blockedclosefailed": { "message": "Није могуће затворити ову картицу. Покушајте поново или је затворите у прегледачу." }
 }

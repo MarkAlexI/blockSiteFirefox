@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "הכללים השתנו. יש לבדוק אותם ולנסות שוב."
-  }
+  },
+  "redirecttitle": { "message": "הפניה מחדש" },
+  "redirectpending": { "message": "מתבצעת הפניה מחדש…" },
+  "blockedclosepending": { "message": "הכרטיסייה הזו נסגרת…" },
+  "blockedclosefailed": { "message": "לא ניתן לסגור את הכרטיסייה הזו. נסו שוב או סגרו אותה דרך הדפדפן." }
 }

@@ -1,3 +1,4 @@
+import './i18n.js';
 import Logger from '../utils/logger.js';
 
 const logger = new Logger('Redirect');

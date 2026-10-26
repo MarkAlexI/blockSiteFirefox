@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Kurallar değişti. Kuralları gözden geçirip tekrar deneyin."
-  }
+  },
+  "redirecttitle": { "message": "Yönlendiriliyor" },
+  "redirectpending": { "message": "Yönlendiriliyorsunuz…" },
+  "blockedclosepending": { "message": "Bu sekme kapatılıyor…" },
+  "blockedclosefailed": { "message": "Bu sekme kapatılamadı. Yeniden deneyin veya tarayıcınızdan kapatın." }
 }

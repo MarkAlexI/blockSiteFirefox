@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "De regels zijn gewijzigd. Controleer ze en probeer het opnieuw."
-  }
+  },
+  "redirecttitle": { "message": "Doorsturen" },
+  "redirectpending": { "message": "Je wordt doorgestuurd…" },
+  "blockedclosepending": { "message": "Dit tabblad wordt gesloten…" },
+  "blockedclosefailed": { "message": "Dit tabblad kon niet worden gesloten. Probeer het opnieuw of sluit het via je browser." }
 }

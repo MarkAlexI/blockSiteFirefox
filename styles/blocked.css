@@ -21,7 +21,8 @@ body {
   background: var(--bg-primary);
   font-family: var(--font-primary);
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
+  padding: clamp(1rem, 4vw, 2rem);
   align-items: center;
   justify-content: center;
   line-height: 1.5;
@@ -33,7 +34,10 @@ body {
   border-radius: var(--border-radius);
   background: var(--bg-container);
   box-shadow: var(--shadow);
-  max-width: 90vw;
+  width: 100%;
+  max-width: 40rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 h1 {
@@ -49,6 +53,10 @@ p {
 }
 
 button {
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
   background-color: var(--btn-bg);
   color: white;
   border: none;
@@ -70,9 +78,11 @@ button:focus {
   outline-offset: 2px;
 }
 
-@media (max-width: 480px) {
-  .container {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
+.page-status {
+  margin: 1rem 0 0;
+  white-space: pre-line;
 }
+
+.page-status:empty { margin: 0; }
+
+button[aria-disabled="true"] { cursor: wait; }

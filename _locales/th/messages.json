@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "กฎมีการเปลี่ยนแปลง ตรวจสอบกฎแล้วลองอีกครั้ง"
-  }
+  },
+  "redirecttitle": { "message": "กำลังเปลี่ยนเส้นทาง" },
+  "redirectpending": { "message": "กำลังนำคุณไปยังหน้าอื่น…" },
+  "blockedclosepending": { "message": "กำลังปิดแท็บนี้…" },
+  "blockedclosefailed": { "message": "ไม่สามารถปิดแท็บนี้ได้ ลองอีกครั้งหรือปิดแท็บผ่านเบราว์เซอร์ของคุณ" }
 }

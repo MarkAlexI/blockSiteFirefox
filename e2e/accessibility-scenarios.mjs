@@ -1,3 +1,4 @@
+import { blockingPageScenarios } from './blocking-page-scenarios.mjs';
 import assert from 'node:assert/strict';
 import { statisticsScenarios } from './statistics-scenarios.mjs';
 import { importScenarios } from './import-scenarios.mjs';
@@ -888,5 +889,5 @@ export const accessibilityScenarios = [{
     const writes = await popup.evaluate(() => __bdDeleteWrites.map(message => [message.type, message.payload.ruleId]));
     assert.deepEqual(writes, [['rules:removeAssignment', 593], ['rules:removeAssignment', 593], ['rules:delete', 594], ['rules:removeAssignment', 591]]);
   }
-}, ...statisticsScenarios, ...importScenarios, ...bulkSettingsScenarios
+}, ...statisticsScenarios, ...importScenarios, ...bulkSettingsScenarios, ...blockingPageScenarios
 ];

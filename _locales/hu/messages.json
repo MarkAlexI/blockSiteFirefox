@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "A szabályok megváltoztak. Ellenőrizze őket, és próbálja újra."
-  }
+  },
+  "redirecttitle": { "message": "Átirányítás" },
+  "redirectpending": { "message": "Átirányítás folyamatban…" },
+  "blockedclosepending": { "message": "Lap bezárása…" },
+  "blockedclosefailed": { "message": "Nem sikerült bezárni ezt a lapot. Próbálja újra, vagy zárja be a böngészőben." }
 }

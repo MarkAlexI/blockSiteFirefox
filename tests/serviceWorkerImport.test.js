@@ -708,6 +708,31 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     messageListener({ type: 'close_current_tab' }, { tab: { id: 95 } }, () => {});
     assert.equal(removedTabs.includes(95), true);
 
+    // The real worker must acknowledge completion, not only receive the command.
+    const removeOriginal = browser.tabs.remove;
+    let releaseClose;
+    browser.tabs.remove = () => new Promise(resolve => { releaseClose = resolve; });
+    const closeReplies = [];
+    assert.equal(messageListener({ type: 'close_current_tab', tabId: 999 }, { tab: { id: 0 } }, value => closeReplies.push(value)), true);
+    assert.deepEqual(closeReplies, []);
+    releaseClose(); await new Promise(resolve => setImmediate(resolve));
+    assert.deepEqual(closeReplies, [{ success: true }]);
+    browser.tabs.remove = async () => { throw new Error('synthetic close rejection'); };
+    const failedClose = await new Promise(resolve => {
+      assert.equal(messageListener({ type: 'close_current_tab' }, { tab: { id: 95 } }, resolve), true);
+    });
+    assert.deepEqual(failedClose, { success: false });
+    await new Promise(resolve => setImmediate(resolve));
+    browser.tabs.remove = removeOriginal;
+    const invalidCloseReplies = [];
+    for (const sender of [{}, { tab: {} }, { tab: { id: -1 } }, { tab: { id: '95' } }]) {
+      assert.equal(messageListener({ type: 'close_current_tab' }, sender, value => invalidCloseReplies.push(value)), undefined);
+    }
+    assert.deepEqual(invalidCloseReplies, Array.from({ length: 4 }, () => ({ success: false })));
+    assert.equal(messageListener({ type: 'close_current_tab' }, { tab: { id: 95 } }, () => { throw new Error('receiver closed'); }), true);
+    await new Promise(resolve => setImmediate(resolve));
+
+
     localStorage.data.ruleLists = [
       { id: 'general', name: 'General', disabledCategories: [] },
       { id: 'list-1', name: 'Study', disabledCategories: [] }

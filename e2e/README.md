@@ -1,4 +1,11 @@
-# Firefox Desktop E2E — BlockDistraction **5.4.14**
+# Firefox Desktop E2E — BlockDistraction **5.4.15**
+
+## Blocking screens 5.4.15
+
+[Scenario 64 and verification notes](blocking-pages.md) cover localized
+blocking/redirect screens, pending/failed close requests, native keyboard retry,
+real DNR navigation and safe fallback. Current inventory: **63** Firefox Desktop scenarios.
+
 
 Для сценарію 29 тест явно вибирає потрібну вкладку Options після дій native
 toolbar, навіть якщо WebDriver уже зберігає її handle. Відтворення збою та

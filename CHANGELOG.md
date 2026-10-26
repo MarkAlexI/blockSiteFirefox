@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.15] - 2026-10-26
+
+- Localize the redirect screen and set its document language and text direction.
+- Show accessible close-tab progress and failure feedback, prevent repeated requests and allow explicit retries.
+- Keep later keyboard focus and ignore delayed close results after leaving the page.
+- Fit blocking and redirect screens to narrow viewports and enlarged text while preserving reduced-motion and high-contrast preferences.
+- Keep unknown blocking reasons on the generic localized explanation.
+
 ## [5.4.14] - 2026-10-24
 
 - Prevent overlapping backup imports, bulk rule deletion and settings resets during checks and saving.

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Regulile s-au schimbat. Verificați-le și încercați din nou."
-  }
+  },
+  "redirecttitle": { "message": "Redirecționare" },
+  "redirectpending": { "message": "Redirecționare în curs…" },
+  "blockedclosepending": { "message": "Se închide această filă…" },
+  "blockedclosefailed": { "message": "Această filă nu a putut fi închisă. Încercați din nou sau închideți-o din browser." }
 }

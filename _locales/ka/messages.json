@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "წესები შეიცვალა. გადახედეთ მათ და სცადეთ ხელახლა."
-  }
+  },
+  "redirecttitle": { "message": "გადამისამართება" },
+  "redirectpending": { "message": "მიმდინარეობს გადამისამართება…" },
+  "blockedclosepending": { "message": "ეს ჩანართი იხურება…" },
+  "blockedclosefailed": { "message": "ამ ჩანართის დახურვა ვერ მოხერხდა. სცადეთ ხელახლა ან დახურეთ ის ბრაუზერიდან." }
 }

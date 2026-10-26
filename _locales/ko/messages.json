@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "규칙이 변경되었습니다. 확인한 후 다시 시도하세요."
-  }
+  },
+  "redirecttitle": { "message": "리디렉션 중" },
+  "redirectpending": { "message": "다른 페이지로 이동 중…" },
+  "blockedclosepending": { "message": "이 탭을 닫는 중…" },
+  "blockedclosefailed": { "message": "이 탭을 닫을 수 없습니다. 다시 시도하거나 브라우저에서 닫아 주세요." }
 }

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Noteikumi ir mainīti. Pārskatiet tos un mēģiniet vēlreiz."
-  }
+  },
+  "redirecttitle": { "message": "Pārvirzīšana" },
+  "redirectpending": { "message": "Notiek pārvirzīšana…" },
+  "blockedclosepending": { "message": "Šī cilne tiek aizvērta…" },
+  "blockedclosefailed": { "message": "Šo cilni neizdevās aizvērt. Mēģiniet vēlreiz vai aizveriet to pārlūkprogrammā." }
 }

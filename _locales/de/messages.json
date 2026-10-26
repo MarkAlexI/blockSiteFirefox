@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Die Regeln wurden geändert. Prüfen Sie sie und versuchen Sie es erneut."
-  }
+  },
+  "redirecttitle": { "message": "Weiterleitung" },
+  "redirectpending": { "message": "Du wirst weitergeleitet…" },
+  "blockedclosepending": { "message": "Dieser Tab wird geschlossen…" },
+  "blockedclosefailed": { "message": "Dieser Tab konnte nicht geschlossen werden. Versuche es erneut oder schließe ihn über deinen Browser." }
 }

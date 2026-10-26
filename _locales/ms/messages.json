@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Peraturan telah berubah. Semak peraturan dan cuba lagi."
-  }
+  },
+  "redirecttitle": { "message": "Mengubah hala" },
+  "redirectpending": { "message": "Anda sedang diubah hala…" },
+  "blockedclosepending": { "message": "Menutup tab ini…" },
+  "blockedclosefailed": { "message": "Tab ini tidak dapat ditutup. Cuba lagi atau tutup melalui pelayar anda." }
 }

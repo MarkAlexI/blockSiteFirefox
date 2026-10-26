@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Pravila so se spremenila. Preglejte jih in poskusite znova."
-  }
+  },
+  "redirecttitle": { "message": "Preusmerjanje" },
+  "redirectpending": { "message": "Preusmerjanje v teku…" },
+  "blockedclosepending": { "message": "Zapiranje tega zavihka…" },
+  "blockedclosefailed": { "message": "Tega zavihka ni bilo mogoče zapreti. Poskusite znova ali ga zaprite v brskalniku." }
 }

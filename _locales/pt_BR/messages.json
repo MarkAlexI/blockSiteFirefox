@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "As regras mudaram. Revise-as e tente novamente."
-  }
+  },
+  "redirecttitle": { "message": "Redirecionando" },
+  "redirectpending": { "message": "Redirecionando você…" },
+  "blockedclosepending": { "message": "Fechando esta aba…" },
+  "blockedclosefailed": { "message": "Não foi possível fechar esta aba. Tente novamente ou feche-a pelo navegador." }
 }

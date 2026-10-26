@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "規則已變更。請檢查後重試。"
-  }
+  },
+  "redirecttitle": { "message": "正在重新導向" },
+  "redirectpending": { "message": "正在為您跳轉…" },
+  "blockedclosepending": { "message": "正在關閉此分頁…" },
+  "blockedclosefailed": { "message": "無法關閉此分頁。請重試或使用瀏覽器關閉它。" }
 }

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Pravidlá sa zmenili. Skontrolujte ich a skúste to znova."
-  }
+  },
+  "redirecttitle": { "message": "Presmerovanie" },
+  "redirectpending": { "message": "Prebieha presmerovanie…" },
+  "blockedclosepending": { "message": "Zatváranie tejto karty…" },
+  "blockedclosefailed": { "message": "Túto kartu sa nepodarilo zavrieť. Skúste to znova alebo ju zavrite v prehliadači." }
 }

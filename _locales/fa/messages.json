@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "قوانین تغییر کرده‌اند. آن‌ها را بررسی کنید و دوباره تلاش کنید."
-  }
+  },
+  "redirecttitle": { "message": "تغییر مسیر" },
+  "redirectpending": { "message": "در حال انتقال شما…" },
+  "blockedclosepending": { "message": "در حال بستن این زبانه…" },
+  "blockedclosefailed": { "message": "این زبانه بسته نشد. دوباره تلاش کنید یا آن را از طریق مرورگر ببندید." }
 }

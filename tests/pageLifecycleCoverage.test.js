@@ -9,10 +9,12 @@ test('the blocked page closes through the platform-appropriate browser mechanism
   const closeButton = document.addElement('closeBtn', 'button');
   const api = createExtensionApi();
   let closed = 0;
+  api.tabs.getCurrent = async () => ({ id: 73 });
 
   await withExtensionEnvironment(api, async () => {
     await import('../scripts/blocked.js');
     await closeButton.dispatch('click');
+    await new Promise(resolve => setImmediate(resolve));
 
     if (IS_FIREFOX) {
       assert.deepEqual(api.messages, [{ type: 'close_current_tab' }]);
@@ -20,7 +22,8 @@ test('the blocked page closes through the platform-appropriate browser mechanism
       api.runtime.sendMessage = () => { throw new Error('worker unavailable'); };
       await assert.doesNotReject(closeButton.dispatch('click'));
     } else {
-      assert.equal(closed, 1);
+      assert.equal(closed, 0);
+      assert.deepEqual(api.removedTabs, [73]);
       assert.deepEqual(api.messages, []);
     }
   }, {

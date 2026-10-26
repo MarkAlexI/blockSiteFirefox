@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Säännöt ovat muuttuneet. Tarkista ne ja yritä uudelleen."
-  }
+  },
+  "redirecttitle": { "message": "Uudelleenohjaus" },
+  "redirectpending": { "message": "Sinut ohjataan toiselle sivulle…" },
+  "blockedclosepending": { "message": "Suljetaan tätä välilehteä…" },
+  "blockedclosefailed": { "message": "Tätä välilehteä ei voitu sulkea. Yritä uudelleen tai sulje se selaimessa." }
 }

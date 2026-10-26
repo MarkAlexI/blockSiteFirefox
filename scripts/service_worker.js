@@ -2034,13 +2034,21 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === 'close_current_tab') {
-    if (sender.tab && sender.tab.id) {
-      void runAsyncHandler(
-        ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
-        () => browser.tabs.remove(sender.tab.id)
-      );
+    const tabId = sender.tab?.id;
+    const reply = success => {
+      // A successful close normally destroys the page receiving the reply.
+      try { sendResponse({ success }); } catch { /* Receiver already closed. */ }
+    };
+    if (!Number.isInteger(tabId) || tabId < 0) {
+      reply(false);
+      return;
     }
-    return;
+    void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER, async () => {
+      try { await browser.tabs.remove(tabId); }
+      catch (error) { reply(false); throw error; }
+      reply(true);
+    });
+    return true;
   }
   
   if (message.type === 'CLOSE_MATCHING_TABS') {

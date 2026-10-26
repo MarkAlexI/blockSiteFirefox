@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Taisyklės pasikeitė. Peržiūrėkite jas ir bandykite dar kartą."
-  }
+  },
+  "redirecttitle": { "message": "Peradresuojama" },
+  "redirectpending": { "message": "Vykdomas peradresavimas…" },
+  "blockedclosepending": { "message": "Uždaromas šis skirtukas…" },
+  "blockedclosefailed": { "message": "Nepavyko uždaryti šio skirtuko. Bandykite dar kartą arba uždarykite jį naršyklėje." }
 }

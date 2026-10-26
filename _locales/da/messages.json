@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Reglerne er ændret. Gennemgå dem, og prøv igen."
-  }
+  },
+  "redirecttitle": { "message": "Omdirigering" },
+  "redirectpending": { "message": "Du bliver omdirigeret…" },
+  "blockedclosepending": { "message": "Lukker denne fane…" },
+  "blockedclosefailed": { "message": "Denne fane kunne ikke lukkes. Prøv igen, eller luk den i browseren." }
 }

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Правилата са променени. Прегледайте ги и опитайте отново."
-  }
+  },
+  "redirecttitle": { "message": "Пренасочване" },
+  "redirectpending": { "message": "Пренасочване към друга страница…" },
+  "blockedclosepending": { "message": "Затваряне на този раздел…" },
+  "blockedclosefailed": { "message": "Този раздел не може да бъде затворен. Опитайте отново или го затворете чрез браузъра." }
 }

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "تغيّرت القواعد. راجعها وحاول مجددًا."
-  }
+  },
+  "redirecttitle": { "message": "إعادة التوجيه" },
+  "redirectpending": { "message": "جارٍ إعادة توجيهك…" },
+  "blockedclosepending": { "message": "جارٍ إغلاق علامة التبويب هذه…" },
+  "blockedclosefailed": { "message": "تعذّر إغلاق علامة التبويب هذه. حاول مجددًا أو أغلقها باستخدام المتصفح." }
 }

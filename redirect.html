@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Redirecting...</title>
+  <title data-i18n="redirecttitle">Redirecting</title>
   <link rel="stylesheet" href="styles/redirect.css" />
-  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/common.css" />
 </head>
 <body>
-  <div class="container">
-    <div class="loader"></div>
-    <p>Redirecting you...</p>
-  </div>
+  <main class="container" aria-labelledby="redirectPending">
+    <div class="loader" aria-hidden="true"></div>
+    <p id="redirectPending" data-i18n="redirectpending">Redirecting you…</p>
+  </main>
   <script src="scripts/redirect.js" type="module"></script>
 </body>
 </html>

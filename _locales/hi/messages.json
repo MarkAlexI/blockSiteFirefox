@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "नियम बदल गए हैं। उनकी समीक्षा करें और फिर से कोशिश करें।"
-  }
+  },
+  "redirecttitle": { "message": "रीडायरेक्ट हो रहा है" },
+  "redirectpending": { "message": "आपको दूसरे पेज पर भेजा जा रहा है…" },
+  "blockedclosepending": { "message": "यह टैब बंद हो रहा है…" },
+  "blockedclosefailed": { "message": "यह टैब बंद नहीं हो सका। फिर से कोशिश करें या इसे अपने ब्राउज़र से बंद करें।" }
 }

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "规则已更改。请检查后重试。"
-  }
+  },
+  "redirecttitle": { "message": "正在重定向" },
+  "redirectpending": { "message": "正在为您跳转…" },
+  "blockedclosepending": { "message": "正在关闭此标签页…" },
+  "blockedclosefailed": { "message": "无法关闭此标签页。请重试或使用浏览器关闭它。" }
 }

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Quy tắc đã thay đổi. Hãy xem lại và thử lại."
-  }
+  },
+  "redirecttitle": { "message": "Đang chuyển hướng" },
+  "redirectpending": { "message": "Đang chuyển hướng bạn…" },
+  "blockedclosepending": { "message": "Đang đóng thẻ này…" },
+  "blockedclosefailed": { "message": "Không thể đóng thẻ này. Hãy thử lại hoặc đóng bằng trình duyệt." }
 }

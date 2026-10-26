@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Sheria zimebadilika. Zikague na ujaribu tena."
-  }
+  },
+  "redirecttitle": { "message": "Kuelekeza upya" },
+  "redirectpending": { "message": "Unaelekezwa upya…" },
+  "blockedclosepending": { "message": "Kichupo hiki kinafungwa…" },
+  "blockedclosefailed": { "message": "Imeshindikana kufunga kichupo hiki. Jaribu tena au ukifunge kupitia kivinjari chako." }
 }

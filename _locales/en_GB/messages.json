@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Rules changed. Review them and try again."
-  }
+  },
+  "redirecttitle": { "message": "Redirecting" },
+  "redirectpending": { "message": "Redirecting you…" },
+  "blockedclosepending": { "message": "Closing this tab…" },
+  "blockedclosefailed": { "message": "Could not close this tab. Try again or close it using your browser." }
 }

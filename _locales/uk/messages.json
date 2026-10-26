@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Правила змінилися. Перегляньте їх і спробуйте ще раз."
-  }
+  },
+  "redirecttitle": { "message": "Перенаправлення" },
+  "redirectpending": { "message": "Виконується перенаправлення…" },
+  "blockedclosepending": { "message": "Закриття цієї вкладки…" },
+  "blockedclosefailed": { "message": "Не вдалося закрити цю вкладку. Спробуйте ще раз або закрийте її засобами браузера." }
 }

@@ -1218,5 +1218,9 @@
   },
   "clearruleschanged": {
     "message": "Reëls het verander. Gaan hulle na en probeer weer."
-  }
+  },
+  "redirecttitle": { "message": "Herleiding" },
+  "redirectpending": { "message": "Jy word herlei…" },
+  "blockedclosepending": { "message": "Hierdie oortjie word gesluit…" },
+  "blockedclosefailed": { "message": "Kon nie hierdie oortjie sluit nie. Probeer weer of sluit dit in jou blaaier." }
 }
