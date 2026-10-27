@@ -15,7 +15,7 @@
     "message": "Kizuizi cha Tovuti"
   },
   "paragraph": {
-    "message": "Ili kuzuia tovuti au rasilimali, andika sehemu ya jina lake kwenye kisanduku chenye maandishi 'Andika URL ya kuzuia' – mfano, 'facebook' itazuia subdomains zote zinazohusiana. Katika kisanduku cha 'Andika URL ya kuelekeza', andika URL kamili ya kuelekeza pamoja na itifaki, mfano 'https://google.com'. Ikiwa kisanduku kitabaki tupu, tovuti itazuia bila kuelekeza. Bonyeza Hifadhi ili kutekeleza kanuni. Ili kusasisha kanuni, futa ile ya zamani na uongeze mpya."
+    "message": "Ili kuzuia tovuti au rasilimali, andika sehemu ya jina lake kwenye kisanduku chenye maandishi 'Andika URL ya kuzuia' – mfano, 'facebook' itazuia subdomains zote zinazohusiana. Katika kisanduku cha 'Andika URL ya kuelekeza', andika URL kamili ya kuelekeza pamoja na itifaki, mfano 'https://google.com'. Ikiwa kisanduku kitabaki tupu, tovuti itazuia bila kuelekeza. Bonyeza Hifadhi ili kutekeleza kanuni."
   },
   "addrule": {
     "message": "Ongeza kanuni mpya"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Hutumia kiwango cha sauti cha midia cha kifaa chako."
+  },
+  "rulehelp_title": {
+    "message": "Jinsi ya kuongeza au kuhariri kanuni"
+  },
+  "rulehelp_edit": {
+    "message": "Hariri kanuni zilizopo kwenye ukurasa wa mipangilio. Unaweza pia kufuta kanuni katika dirisha hili ibukizi na kuiongeza tena."
+  },
+  "rulelists_limit_reached": {
+    "message": "Idadi ya juu ya orodha za kanuni: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@
     "message": "网站屏蔽器"
   },
   "paragraph": {
-    "message": "要屏蔽网站或资源，请在“输入要屏蔽的URL”输入框中输入其名称的一部分––例如，“facebook”将屏蔽所有相关子域。在“输入重定向URL”字段中输入完整的重定向地址，包括协议，例如“https://google.com”。如果重定向字段为空，网站将仅被屏蔽而不重定向。点击“保存”应用规则。要更新规则，请删除旧规则并创建新规则。"
+    "message": "要屏蔽网站或资源，请在“输入要屏蔽的URL”输入框中输入其名称的一部分––例如，“facebook”将屏蔽所有相关子域。在“输入重定向URL”字段中输入完整的重定向地址，包括协议，例如“https://google.com”。如果重定向字段为空，网站将仅被屏蔽而不重定向。点击“保存”应用规则。"
   },
   "addrule": {
     "message": "添加新规则"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "使用设备的媒体音量。"
+  },
+  "rulehelp_title": {
+    "message": "如何添加或编辑规则"
+  },
+  "rulehelp_edit": {
+    "message": "您可以在设置页面编辑现有规则，也可以在此弹出窗口中删除规则后重新添加。"
+  },
+  "rulelists_limit_reached": {
+    "message": "规则列表数量上限：$LIMIT$。",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

@@ -83,6 +83,24 @@ export const accessibilityScenarios = [{
       const scroll = document.getElementById('scrollToTopBtn');
       return [button.tagName, button.type, scroll.hidden, scroll.getAttribute('aria-label').length > 1];
     }), ['BUTTON', 'button', true, true]);
+    // Native disclosure: trusted keys retain focus and collapsed content leaves Tab order.
+    assert.equal(await popup.evaluate(() => document.getElementById('rule-help').open), false);
+    const helpSummary = '#rule-help > summary';
+    await focus(popup, helpSummary);
+    await press(popup, 'Tab');
+    assert.equal(await popup.evaluate(() => document.activeElement.id), 'add-rule');
+    await focus(popup, helpSummary);
+    await press(popup, 'Enter');
+    assert.equal(await popup.evaluate(() => document.getElementById('rule-help').open), true);
+    await press(popup, 'Tab');
+    assert.equal(await popup.evaluate(() => document.activeElement.id), 'rule-help-options');
+    await press(popup, 'Shift+Tab');
+    await press(popup, 'Space');
+    assert.equal(await popup.evaluate(() => document.getElementById('rule-help').open), false);
+    assert.equal(await popup.evaluate(() => document.activeElement.matches('#rule-help > summary')), true);
+    await press(popup, 'Tab');
+    assert.equal(await popup.evaluate(() => document.activeElement.id), 'add-rule');
+
     // Real scroll + observer + trusted keyboard activation, without adding rules.
     await popup.evaluate(() => { document.body.style.minHeight = '2200px'; window.scrollTo(0, 1500); });
     await poll(() => popup.evaluate(() => !document.getElementById('scrollToTopBtn').hidden), Boolean, 'scroll button visible');

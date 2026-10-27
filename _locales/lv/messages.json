@@ -15,7 +15,7 @@
     "message": "Vietņu Bloķētājs"
   },
   "paragraph": {
-    "message": "Lai bloķētu vietni vai resursus, ievadiet tās nosaukuma daļu laukā ar vietturī 'Ievadiet bloķējamo URL' – piemēram, 'facebook' bloķēs visus saistītos apakšdomēnus. Laukā ar vietturī 'Ievadiet pāradresācijas URL' ievadiet pilnu pāradresācijas adresi ar protokolu, piemēram, 'https://google.com'. Ja pāradresācijas lauks ir tukšs, vietne tiks bloķēta bez pāradresācijas. Lai piemērotu noteikumu, noklikšķiniet uz Saglabāt. Lai atjauninātu noteikumu, izdzēsiet veco un izveidojiet jaunu."
+    "message": "Lai bloķētu vietni vai resursus, ievadiet tās nosaukuma daļu laukā ar vietturī 'Ievadiet bloķējamo URL' – piemēram, 'facebook' bloķēs visus saistītos apakšdomēnus. Laukā ar vietturī 'Ievadiet pāradresācijas URL' ievadiet pilnu pāradresācijas adresi ar protokolu, piemēram, 'https://google.com'. Ja pāradresācijas lauks ir tukšs, vietne tiks bloķēta bez pāradresācijas. Lai piemērotu noteikumu, noklikšķiniet uz Saglabāt."
   },
   "addrule": {
     "message": "Pievienot jaunu noteikumu"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Izmanto ierīces multivides skaļumu."
+  },
+  "rulehelp_title": {
+    "message": "Kā pievienot vai rediģēt noteikumus"
+  },
+  "rulehelp_edit": {
+    "message": "Rediģējiet esošos noteikumus iestatījumu lapā. Varat arī izdzēst noteikumu šajā uznirstošajā logā un pievienot to no jauna."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maksimālais noteikumu sarakstu skaits: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

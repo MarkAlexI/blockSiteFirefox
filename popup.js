@@ -189,11 +189,12 @@ class PopupPage {
   }
   
   setupEventListeners() {
-    const optionsLink = document.getElementById('options-link');
-    optionsLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.openOptionsPage();
-    });
+    for (const id of ['options-link', 'rule-help-options']) {
+      document.getElementById(id)?.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.openOptionsPage();
+      });
+    }
     
     const feedbackButton = document.getElementById('feedback-btn');
     feedbackButton.addEventListener('click', () => {

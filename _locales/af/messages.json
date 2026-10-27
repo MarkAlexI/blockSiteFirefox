@@ -15,7 +15,7 @@
     "message": "Werf Blokker"
   },
   "paragraph": {
-    "message": "Om ’n webwerf of hulpbron te blokkeer, tik ’n deel van sy naam in die veld met die plekhouer \"Tik Blok URL\" – byvoorbeeld, \"facebook\" sal alle verwante subdomeine blokkeer. In die veld met die plekhouer \"Tik Herlei URL\", voer die volle herlei-adres in, insluitend die protokol, soos \"https://google.com\". As die herlei-veld leeg gelaat word, sal die werf sonder herleiding geblokkeer word. Klik Stoor om die reël toe te pas. Om ’n reël op te dateer, skrap die oue en skep ’n nuwe inskrywing."
+    "message": "Om ’n webwerf of hulpbron te blokkeer, tik ’n deel van sy naam in die veld met die plekhouer \"Tik Blok URL\" – byvoorbeeld, \"facebook\" sal alle verwante subdomeine blokkeer. In die veld met die plekhouer \"Tik Herlei URL\", voer die volle herlei-adres in, insluitend die protokol, soos \"https://google.com\". As die herlei-veld leeg gelaat word, sal die werf sonder herleiding geblokkeer word. Klik Stoor om die reël toe te pas."
   },
   "addrule": {
     "message": "Voeg nuwe reël by"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Gebruik jou toestel se mediavolume."
+  },
+  "rulehelp_title": {
+    "message": "Hoe om reëls by te voeg of te wysig"
+  },
+  "rulehelp_edit": {
+    "message": "Wysig bestaande reëls op die instellingsbladsy. Jy kan ook 'n reël in hierdie opspringvenster uitvee en dit weer byvoeg."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maksimum aantal reëllyste: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

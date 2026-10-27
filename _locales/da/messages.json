@@ -15,7 +15,7 @@
     "message": "Webstedsblokering"
   },
   "paragraph": {
-    "message": "For at blokere et websted eller en ressource, indtast en del af navnet i feltet med pladsholderen \"Indtast URL til blokering\" – f.eks. \"facebook\" vil blokere alle relaterede underdomæner. I feltet med pladsholderen \"Indtast URL til omdirigering\" indtast den fulde adresse inklusive protokol, f.eks. \"https://google.com\". Hvis omdirigeringsfeltet er tomt, blokeres webstedet uden omdirigering. Klik på knappen Gem for at anvende reglen. For at opdatere en regel, slet den gamle og opret en ny."
+    "message": "For at blokere et websted eller en ressource, indtast en del af navnet i feltet med pladsholderen \"Indtast URL til blokering\" – f.eks. \"facebook\" vil blokere alle relaterede underdomæner. I feltet med pladsholderen \"Indtast URL til omdirigering\" indtast den fulde adresse inklusive protokol, f.eks. \"https://google.com\". Hvis omdirigeringsfeltet er tomt, blokeres webstedet uden omdirigering. Klik på knappen Gem for at anvende reglen."
   },
   "addrule": {
     "message": "Tilføj ny regel"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Bruger enhedens medielydstyrke."
+  },
+  "rulehelp_title": {
+    "message": "Sådan tilføjer eller redigerer du regler"
+  },
+  "rulehelp_edit": {
+    "message": "Rediger eksisterende regler på indstillingssiden. Du kan også slette en regel i dette pop op-vindue og tilføje den igen."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maksimalt antal regellister: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

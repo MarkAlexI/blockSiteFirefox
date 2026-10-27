@@ -15,7 +15,7 @@
     "message": "Blokovač stránok"
   },
   "paragraph": {
-    "message": "Ak chcete zablokovať web alebo zdroj, zadajte časť jeho názvu do poľa s nápovedou 'Zadajte URL na blokovanie' – napríklad 'facebook' zablokuje všetky súvisiace subdomény. Do poľa 'Zadajte URL presmerovania' zadajte úplnú adresu presmerovania s protokolom, napríklad 'https://google.com'. Ak ponecháte pole prázdne, stránka sa iba zablokuje bez presmerovania. Kliknite na Uložiť, aby sa pravidlo použilo. Ak chcete pravidlo aktualizovať, odstráňte staré a pridajte nové."
+    "message": "Ak chcete zablokovať web alebo zdroj, zadajte časť jeho názvu do poľa s nápovedou 'Zadajte URL na blokovanie' – napríklad 'facebook' zablokuje všetky súvisiace subdomény. Do poľa 'Zadajte URL presmerovania' zadajte úplnú adresu presmerovania s protokolom, napríklad 'https://google.com'. Ak ponecháte pole prázdne, stránka sa iba zablokuje bez presmerovania. Kliknite na Uložiť, aby sa pravidlo použilo."
   },
   "addrule": {
     "message": "Pridať nové pravidlo"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Používa hlasitosť médií vášho zariadenia."
+  },
+  "rulehelp_title": {
+    "message": "Ako pridávať alebo upravovať pravidlá"
+  },
+  "rulehelp_edit": {
+    "message": "Existujúce pravidlá upravte na stránke nastavení. Pravidlo môžete aj odstrániť v tomto vyskakovacom okne a znova ho pridať."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maximálny počet zoznamov pravidiel: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

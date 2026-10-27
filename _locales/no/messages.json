@@ -15,7 +15,7 @@
     "message": "Nettstedsblokkerer"
   },
   "paragraph": {
-    "message": "For å blokkere et nettsted eller en ressurs, skriv inn en del av navnet i feltet med plassholderen 'Type Block URL' – for eksempel vil 'facebook' blokkere alle relaterte underdomener. I feltet med plassholderen 'Type Redirect URL' skriver du inn hele omdirigeringsadressen inkludert protokollen, som 'https://google.com'. Hvis omdirigeringsfeltet er tomt, blir nettstedet blokkert uten omdirigering. Klikk på Lagre for å bruke regelen. For å oppdatere en regel, slett den gamle og opprett en ny."
+    "message": "For å blokkere et nettsted eller en ressurs, skriv inn en del av navnet i feltet med plassholderen 'Type Block URL' – for eksempel vil 'facebook' blokkere alle relaterte underdomener. I feltet med plassholderen 'Type Redirect URL' skriver du inn hele omdirigeringsadressen inkludert protokollen, som 'https://google.com'. Hvis omdirigeringsfeltet er tomt, blir nettstedet blokkert uten omdirigering. Klikk på Lagre for å bruke regelen."
   },
   "addrule": {
     "message": "Legg til ny regel"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Bruker enhetens medievolum."
+  },
+  "rulehelp_title": {
+    "message": "Slik legger du til eller redigerer regler"
+  },
+  "rulehelp_edit": {
+    "message": "Rediger eksisterende regler på innstillingssiden. Du kan også slette en regel i dette sprettoppvinduet og legge den til igjen."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maksimalt antall regellister: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

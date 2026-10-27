@@ -15,7 +15,7 @@
     "message": "Webhelyblokkoló"
   },
   "paragraph": {
-    "message": "Egy weboldal vagy erőforrás blokkolásához írja be a nevét a \"Írja be a blokkolni kívánt URL-t\" mezőbe – például a \"facebook\" blokkol minden kapcsolódó aldomain-t. A \"Írja be az átirányítási URL-t\" mezőbe írja be a teljes átirányítási címet protokollal együtt, pl. \"https://google.com\". Ha az átirányítási mező üres, az oldal blokkolva lesz átirányítás nélkül. Kattintson a Mentés gombra a szabály alkalmazásához. Egy szabály frissítéséhez törölje a régit és hozzon létre újat."
+    "message": "Egy weboldal vagy erőforrás blokkolásához írja be a nevét a \"Írja be a blokkolni kívánt URL-t\" mezőbe – például a \"facebook\" blokkol minden kapcsolódó aldomain-t. A \"Írja be az átirányítási URL-t\" mezőbe írja be a teljes átirányítási címet protokollal együtt, pl. \"https://google.com\". Ha az átirányítási mező üres, az oldal blokkolva lesz átirányítás nélkül. Kattintson a Mentés gombra a szabály alkalmazásához."
   },
   "addrule": {
     "message": "Új szabály hozzáadása"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Az eszköz médiahangerejét használja."
+  },
+  "rulehelp_title": {
+    "message": "Szabályok hozzáadása és szerkesztése"
+  },
+  "rulehelp_edit": {
+    "message": "A meglévő szabályokat a beállítások oldalán szerkesztheti. Ebben a felugró ablakban törölhet is egy szabályt, majd újra hozzáadhatja."
+  },
+  "rulelists_limit_reached": {
+    "message": "A szabálylisták maximális száma: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

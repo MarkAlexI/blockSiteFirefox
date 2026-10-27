@@ -15,7 +15,7 @@
     "message": "Webbplatsblockerare"
   },
   "paragraph": {
-    "message": "För att blockera en webbplats eller resurs, skriv in en del av dess adress i fältet 'Ange blockerad URL' – till exempel kommer 'facebook' att blockera alla underdomäner. I fältet 'Ange omdirigerings-URL' anger du hela adressen med protokoll, t.ex. 'https://google.com'. Om det lämnas tomt kommer webbplatsen bara att blockeras utan omdirigering. Klicka på Spara för att tillämpa regeln. För att uppdatera en regel, ta bort den gamla och lägg till en ny."
+    "message": "För att blockera en webbplats eller resurs, skriv in en del av dess adress i fältet 'Ange blockerad URL' – till exempel kommer 'facebook' att blockera alla underdomäner. I fältet 'Ange omdirigerings-URL' anger du hela adressen med protokoll, t.ex. 'https://google.com'. Om det lämnas tomt kommer webbplatsen bara att blockeras utan omdirigering. Klicka på Spara för att tillämpa regeln."
   },
   "addrule": {
     "message": "Lägg till ny regel"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Använder enhetens medievolym."
+  },
+  "rulehelp_title": {
+    "message": "Så lägger du till eller redigerar regler"
+  },
+  "rulehelp_edit": {
+    "message": "Redigera befintliga regler på inställningssidan. Du kan också ta bort en regel i det här popupfönstret och lägga till den igen."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maximalt antal regellistor: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

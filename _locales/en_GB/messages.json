@@ -15,7 +15,7 @@
     "message": "Site Blocker"
   },
   "paragraph": {
-    "message": "To block a website or resource, type part of its name in the field with the placeholder \"Type Block URL\" – for example, \"facebook\" will block all related subdomains. In the field with the placeholder \"Type Redirect URL\", enter the full redirect address including the protocol, such as \"https://google.com\". If the redirect field is left empty, the site will be blocked without redirection. Click Save to apply the rule. To update a rule, delete the old one and create a new entry."
+    "message": "To block a website or resource, type part of its name in the field with the placeholder \"Type Block URL\" – for example, \"facebook\" will block all related subdomains. In the field with the placeholder \"Type Redirect URL\", enter the full redirect address including the protocol, such as \"https://google.com\". If the redirect field is left empty, the site will be blocked without redirection. Click Save to apply the rule."
   },
   "addrule": {
     "message": "Add new rule"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Uses your device's media volume."
+  },
+  "rulehelp_title": {
+    "message": "How to add or edit rules"
+  },
+  "rulehelp_edit": {
+    "message": "Edit existing rules on the options page. You can also delete a rule in this popup and add it again."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maximum number of rule lists: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

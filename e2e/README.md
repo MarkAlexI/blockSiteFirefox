@@ -1,4 +1,8 @@
-# Firefox Desktop E2E — BlockDistraction **5.5.3**
+# Firefox Desktop E2E — BlockDistraction **5.5.4**
+
+## Rule help and locales 5.5.4
+
+Scenario 48 also exercises the native Popup help disclosure with Enter/Space and checks that its Settings action leaves Tab order when collapsed. Help starts collapsed on each new Popup. The Settings action uses the same navigation path as the header action.
 
 ## Focus sound timing 5.5.3
 

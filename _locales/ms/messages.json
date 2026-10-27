@@ -15,7 +15,7 @@
     "message": "Pemblokir Laman"
   },
   "paragraph": {
-    "message": "Untuk menyekat laman web atau sumber, masukkan sebahagian nama ke dalam medan input dengan tempat letak 'Taip URL untuk disekat' – contohnya, 'facebook' akan menyekat semua subdomain berkaitan. Dalam medan dengan tempat letak 'Taip URL pengalihan', masukkan alamat pengalihan penuh termasuk protokol, contohnya 'https://google.com'. Jika medan pengalihan dibiarkan kosong, laman akan disekat tanpa pengalihan. Klik butang Simpan untuk menerapkan peraturan. Untuk mengemas kini peraturan, padamkan yang lama dan buat yang baru."
+    "message": "Untuk menyekat laman web atau sumber, masukkan sebahagian nama ke dalam medan input dengan tempat letak 'Taip URL untuk disekat' – contohnya, 'facebook' akan menyekat semua subdomain berkaitan. Dalam medan dengan tempat letak 'Taip URL pengalihan', masukkan alamat pengalihan penuh termasuk protokol, contohnya 'https://google.com'. Jika medan pengalihan dibiarkan kosong, laman akan disekat tanpa pengalihan. Klik butang Simpan untuk menerapkan peraturan."
   },
   "addrule": {
     "message": "Tambah peraturan baru"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Menggunakan kelantangan media peranti anda."
+  },
+  "rulehelp_title": {
+    "message": "Cara menambah atau menyunting peraturan"
+  },
+  "rulehelp_edit": {
+    "message": "Sunting peraturan sedia ada pada halaman tetapan. Anda juga boleh memadamkan peraturan dalam tetingkap timbul ini dan menambahkannya semula."
+  },
+  "rulelists_limit_reached": {
+    "message": "Bilangan maksimum senarai peraturan: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

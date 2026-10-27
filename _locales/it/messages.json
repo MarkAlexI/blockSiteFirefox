@@ -15,7 +15,7 @@
     "message": "Blocco Siti"
   },
   "paragraph": {
-    "message": "Per bloccare un sito o una risorsa, inserisci parte del suo nome nel campo con il placeholder 'Inserisci URL da bloccare' – ad esempio, 'facebook' bloccherà tutti i sottodomini correlati. Nel campo con il placeholder 'Inserisci URL di reindirizzamento', inserisci l'indirizzo completo di reindirizzamento incluso il protocollo, come 'https://google.com'. Se il campo redirect è vuoto, il sito verrà bloccato senza reindirizzamento. Clicca il pulsante Salva per applicare la regola. Per aggiornare una regola, elimina quella vecchia e crea una nuova."
+    "message": "Per bloccare un sito o una risorsa, inserisci parte del suo nome nel campo con il placeholder 'Inserisci URL da bloccare' – ad esempio, 'facebook' bloccherà tutti i sottodomini correlati. Nel campo con il placeholder 'Inserisci URL di reindirizzamento', inserisci l'indirizzo completo di reindirizzamento incluso il protocollo, come 'https://google.com'. Se il campo redirect è vuoto, il sito verrà bloccato senza reindirizzamento. Clicca il pulsante Salva per applicare la regola."
   },
   "addrule": {
     "message": "Aggiungi nuova regola"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Usa il volume multimediale del dispositivo."
+  },
+  "rulehelp_title": {
+    "message": "Come aggiungere o modificare le regole"
+  },
+  "rulehelp_edit": {
+    "message": "Modifica le regole esistenti nella pagina delle impostazioni. Puoi anche eliminare una regola in questa finestra e aggiungerla di nuovo."
+  },
+  "rulelists_limit_reached": {
+    "message": "Numero massimo di elenchi di regole: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

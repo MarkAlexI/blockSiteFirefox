@@ -15,7 +15,7 @@
     "message": "Blocator de site-uri"
   },
   "paragraph": {
-    "message": "Pentru a bloca un site sau o resursă, introduceți o parte din numele acestuia în câmpul cu indiciul 'Introduceți URL-ul de blocat' – de exemplu, 'facebook' va bloca toate subdomeniile asociate. În câmpul cu indiciul 'Introduceți URL-ul de redirecționare', introduceți adresa completă de redirecționare cu protocol, cum ar fi 'https://google.com'. Dacă lăsați câmpul de redirecționare gol, site-ul va fi blocat fără redirecționare. Faceți clic pe Salvare pentru a aplica regula. Pentru a actualiza o regulă, ștergeți-o pe cea veche și adăugați una nouă."
+    "message": "Pentru a bloca un site sau o resursă, introduceți o parte din numele acestuia în câmpul cu indiciul 'Introduceți URL-ul de blocat' – de exemplu, 'facebook' va bloca toate subdomeniile asociate. În câmpul cu indiciul 'Introduceți URL-ul de redirecționare', introduceți adresa completă de redirecționare cu protocol, cum ar fi 'https://google.com'. Dacă lăsați câmpul de redirecționare gol, site-ul va fi blocat fără redirecționare. Faceți clic pe Salvare pentru a aplica regula."
   },
   "addrule": {
     "message": "Adăugați regulă nouă"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Folosește volumul media al dispozitivului."
+  },
+  "rulehelp_title": {
+    "message": "Cum să adăugați sau să editați reguli"
+  },
+  "rulehelp_edit": {
+    "message": "Editați regulile existente pe pagina de setări. De asemenea, puteți șterge o regulă în această fereastră și o puteți adăuga din nou."
+  },
+  "rulelists_limit_reached": {
+    "message": "Numărul maxim de liste de reguli: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

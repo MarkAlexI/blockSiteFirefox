@@ -15,7 +15,7 @@
     "message": "Site Blocker"
   },
   "paragraph": {
-    "message": "Upang harangan ang isang website o resource, ilagay ang bahagi ng pangalan nito sa input field na may placeholder na \"I-type ang Block URL\" – halimbawa, ang \"facebook\" ay haharang sa lahat ng kaugnay na subdomains. Sa field na may placeholder na \"I-type ang Redirect URL\", ilagay ang buong redirect address kasama ang protocol, tulad ng \"https://google.com\". Kung walang laman ang redirect field, haharangin ang site nang walang redirect. I-click ang Save button upang ilapat ang rule. Upang i-update ang rule, tanggalin ang lumang entry at gumawa ng bago."
+    "message": "Upang harangan ang isang website o resource, ilagay ang bahagi ng pangalan nito sa input field na may placeholder na \"I-type ang Block URL\" – halimbawa, ang \"facebook\" ay haharang sa lahat ng kaugnay na subdomains. Sa field na may placeholder na \"I-type ang Redirect URL\", ilagay ang buong redirect address kasama ang protocol, tulad ng \"https://google.com\". Kung walang laman ang redirect field, haharangin ang site nang walang redirect. I-click ang Save button upang ilapat ang rule."
   },
   "addrule": {
     "message": "Magdagdag ng bagong rule"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Ginagamit ang lakas ng tunog ng media ng iyong device."
+  },
+  "rulehelp_title": {
+    "message": "Paano magdagdag o mag-edit ng mga panuntunan"
+  },
+  "rulehelp_edit": {
+    "message": "I-edit ang mga kasalukuyang panuntunan sa pahina ng mga setting. Maaari mo ring tanggalin ang isang panuntunan sa popup na ito at idagdag itong muli."
+  },
+  "rulelists_limit_reached": {
+    "message": "Pinakamaraming listahan ng panuntunan: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

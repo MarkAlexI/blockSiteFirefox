@@ -15,7 +15,7 @@
     "message": "Webseiten-Blocker"
   },
   "paragraph": {
-    "message": "Um eine Webseite oder Ressource zu blockieren, geben Sie einen Teil des Namens in das Eingabefeld mit dem Platzhalter \"Block-URL eingeben\" ein – z. B. blockiert \"facebook\" alle zugehörigen Subdomains. Im Feld mit dem Platzhalter \"Weiterleitungs-URL eingeben\" geben Sie die vollständige Adresse inklusive Protokoll ein, z. B. \"https://google.com\". Wird das Weiterleitungsfeld leer gelassen, wird die Seite ohne Weiterleitung blockiert. Klicken Sie auf die Schaltfläche Speichern, um die Regel anzuwenden. Zum Aktualisieren einer Regel löschen Sie die alte und erstellen eine neue."
+    "message": "Um eine Webseite oder Ressource zu blockieren, geben Sie einen Teil des Namens in das Eingabefeld mit dem Platzhalter \"Block-URL eingeben\" ein – z. B. blockiert \"facebook\" alle zugehörigen Subdomains. Im Feld mit dem Platzhalter \"Weiterleitungs-URL eingeben\" geben Sie die vollständige Adresse inklusive Protokoll ein, z. B. \"https://google.com\". Wird das Weiterleitungsfeld leer gelassen, wird die Seite ohne Weiterleitung blockiert. Klicken Sie auf die Schaltfläche Speichern, um die Regel anzuwenden."
   },
   "addrule": {
     "message": "Neue Regel hinzufügen"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Verwendet die Medienlautstärke deines Geräts."
+  },
+  "rulehelp_title": {
+    "message": "Regeln hinzufügen oder bearbeiten"
+  },
+  "rulehelp_edit": {
+    "message": "Bearbeiten Sie bestehende Regeln auf der Einstellungsseite. Sie können eine Regel auch in diesem Popup löschen und erneut hinzufügen."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maximale Anzahl an Regellisten: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

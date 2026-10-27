@@ -15,7 +15,7 @@
     "message": "Svetainių Blokatorius"
   },
   "paragraph": {
-    "message": "Norėdami užblokuoti svetainę ar išteklius, įveskite jos pavadinimo dalį į laukelį su vietos ženklu 'Įveskite blokuojamą URL' – pvz., 'facebook' užblokuos visus susijusius subdomenus. Lauke su vietos ženklu 'Įveskite peradresavimo URL' įveskite pilną peradresavimo adresą su protokolu, pvz., 'https://google.com'. Jei peradresavimo laukas tuščias, svetainė bus užblokuota be peradresavimo. Norėdami pritaikyti taisyklę, spustelėkite mygtuką Išsaugoti. Norėdami atnaujinti taisyklę, ištrinkite seną ir sukurkite naują."
+    "message": "Norėdami užblokuoti svetainę ar išteklius, įveskite jos pavadinimo dalį į laukelį su vietos ženklu 'Įveskite blokuojamą URL' – pvz., 'facebook' užblokuos visus susijusius subdomenus. Lauke su vietos ženklu 'Įveskite peradresavimo URL' įveskite pilną peradresavimo adresą su protokolu, pvz., 'https://google.com'. Jei peradresavimo laukas tuščias, svetainė bus užblokuota be peradresavimo. Norėdami pritaikyti taisyklę, spustelėkite mygtuką Išsaugoti."
   },
   "addrule": {
     "message": "Pridėti naują taisyklę"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Naudoja įrenginio medijos garsumą."
+  },
+  "rulehelp_title": {
+    "message": "Kaip pridėti ar redaguoti taisykles"
+  },
+  "rulehelp_edit": {
+    "message": "Esamas taisykles redaguokite nustatymų puslapyje. Taip pat galite ištrinti taisyklę šiame iškylančiajame lange ir pridėti ją iš naujo."
+  },
+  "rulelists_limit_reached": {
+    "message": "Didžiausias taisyklių sąrašų skaičius: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

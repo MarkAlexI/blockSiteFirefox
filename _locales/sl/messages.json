@@ -15,7 +15,7 @@
     "message": "Blokator spletnih mest"
   },
   "paragraph": {
-    "message": "Če želite blokirati spletno mesto ali vir, vnesite del njegovega naslova v polje »Vnesite blokiran URL« – na primer »facebook« bo blokiral vse povezane poddomene. V polje »Vnesite preusmeritveni URL« vnesite celoten naslov s protokolom, na primer »https://google.com«. Če polje pustite prazno, bo spletno mesto le blokirano brez preusmeritve. Kliknite Shrani, da se pravilo uporabi. Če želite posodobiti pravilo, odstranite staro in dodajte novo."
+    "message": "Če želite blokirati spletno mesto ali vir, vnesite del njegovega naslova v polje »Vnesite blokiran URL« – na primer »facebook« bo blokiral vse povezane poddomene. V polje »Vnesite preusmeritveni URL« vnesite celoten naslov s protokolom, na primer »https://google.com«. Če polje pustite prazno, bo spletno mesto le blokirano brez preusmeritve. Kliknite Shrani, da se pravilo uporabi."
   },
   "addrule": {
     "message": "Dodaj novo pravilo"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Uporablja glasnost predstavnosti vaše naprave."
+  },
+  "rulehelp_title": {
+    "message": "Kako dodajati ali urejati pravila"
+  },
+  "rulehelp_edit": {
+    "message": "Obstoječa pravila uredite na strani z nastavitvami. Pravilo lahko tudi izbrišete v tem pojavnem oknu in ga znova dodate."
+  },
+  "rulelists_limit_reached": {
+    "message": "Največje število seznamov pravil: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@
     "message": "Bloquejador de llocs web"
   },
   "paragraph": {
-    "message": "Per bloquejar un lloc web o recurs, introdueix part del seu nom al camp d'entrada amb el placeholder \"Escriu URL de bloqueig\" – per exemple, \"facebook\" bloquejarà tots els subdominis relacionats. Al camp amb el placeholder \"Escriu URL de redirecció\", introdueix l'adreça completa inclòs el protocol, com \"https://google.com\". Si el camp de redirecció queda buit, el lloc es bloquejarà sense redirecció. Fes clic al botó Guardar per aplicar la regla. Per actualitzar una regla, elimina l'antiga i crea una nova entrada."
+    "message": "Per bloquejar un lloc web o recurs, introdueix part del seu nom al camp d'entrada amb el placeholder \"Escriu URL de bloqueig\" – per exemple, \"facebook\" bloquejarà tots els subdominis relacionats. Al camp amb el placeholder \"Escriu URL de redirecció\", introdueix l'adreça completa inclòs el protocol, com \"https://google.com\". Si el camp de redirecció queda buit, el lloc es bloquejarà sense redirecció. Fes clic al botó Guardar per aplicar la regla."
   },
   "addrule": {
     "message": "Afegeix una nova regla"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Utilitza el volum multimèdia del dispositiu."
+  },
+  "rulehelp_title": {
+    "message": "Com afegir o editar regles"
+  },
+  "rulehelp_edit": {
+    "message": "Edita les regles existents a la pàgina de configuració. També pots suprimir una regla en aquesta finestra emergent i tornar-la a afegir."
+  },
+  "rulelists_limit_reached": {
+    "message": "Nombre màxim de llistes de regles: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

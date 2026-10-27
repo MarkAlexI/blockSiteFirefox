@@ -15,7 +15,7 @@
     "message": "Trình chặn trang"
   },
   "paragraph": {
-    "message": "Để chặn một trang web hoặc tài nguyên, nhập một phần tên của nó vào ô 'Nhập URL cần chặn' – ví dụ, 'facebook' sẽ chặn tất cả các tên miền phụ liên quan. Trong ô 'Nhập URL chuyển hướng', nhập địa chỉ chuyển hướng đầy đủ bao gồm giao thức, ví dụ 'https://google.com'. Nếu ô chuyển hướng để trống, trang sẽ chỉ bị chặn mà không chuyển hướng. Nhấn Lưu để áp dụng quy tắc. Để cập nhật quy tắc, xóa quy tắc cũ và tạo quy tắc mới."
+    "message": "Để chặn một trang web hoặc tài nguyên, nhập một phần tên của nó vào ô 'Nhập URL cần chặn' – ví dụ, 'facebook' sẽ chặn tất cả các tên miền phụ liên quan. Trong ô 'Nhập URL chuyển hướng', nhập địa chỉ chuyển hướng đầy đủ bao gồm giao thức, ví dụ 'https://google.com'. Nếu ô chuyển hướng để trống, trang sẽ chỉ bị chặn mà không chuyển hướng. Nhấn Lưu để áp dụng quy tắc."
   },
   "addrule": {
     "message": "Thêm quy tắc mới"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Sử dụng âm lượng nội dung nghe nhìn của thiết bị."
+  },
+  "rulehelp_title": {
+    "message": "Cách thêm hoặc chỉnh sửa quy tắc"
+  },
+  "rulehelp_edit": {
+    "message": "Chỉnh sửa các quy tắc hiện có trên trang cài đặt. Bạn cũng có thể xóa quy tắc trong cửa sổ bật lên này rồi thêm lại."
+  },
+  "rulelists_limit_reached": {
+    "message": "Số danh sách quy tắc tối đa: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@
     "message": "Blokátor webů"
   },
   "paragraph": {
-    "message": "Chcete-li blokovat web nebo zdroj, zadejte část jeho názvu do pole s nápovědou \"Zadejte URL pro blokování\" – například \"facebook\" zablokuje všechny související subdomény. Do pole s nápovědou \"Zadejte URL pro přesměrování\" zadejte celou adresu včetně protokolu, například \"https://google.com\". Pokud pole pro přesměrování zůstane prázdné, web bude zablokován bez přesměrování. Klikněte na tlačítko Uložit pro použití pravidla. Chcete-li aktualizovat pravidlo, smažte staré a vytvořte nové."
+    "message": "Chcete-li blokovat web nebo zdroj, zadejte část jeho názvu do pole s nápovědou \"Zadejte URL pro blokování\" – například \"facebook\" zablokuje všechny související subdomény. Do pole s nápovědou \"Zadejte URL pro přesměrování\" zadejte celou adresu včetně protokolu, například \"https://google.com\". Pokud pole pro přesměrování zůstane prázdné, web bude zablokován bez přesměrování. Klikněte na tlačítko Uložit pro použití pravidla."
   },
   "addrule": {
     "message": "Přidat nové pravidlo"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Používá hlasitost médií vašeho zařízení."
+  },
+  "rulehelp_title": {
+    "message": "Jak přidávat nebo upravovat pravidla"
+  },
+  "rulehelp_edit": {
+    "message": "Stávající pravidla můžete upravit na stránce nastavení. Pravidlo můžete také v tomto vyskakovacím okně smazat a znovu přidat."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maximální počet seznamů pravidel: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@
     "message": "Bloqueador de sites"
   },
   "paragraph": {
-    "message": "Para bloquear um site ou recurso, digite parte do nome no campo com a dica 'Digite o URL para bloquear' – por exemplo, 'facebook' bloqueará todos os subdomínios relacionados. No campo com a dica 'Digite o URL de redirecionamento', insira o endereço completo de redirecionamento com o protocolo, como 'https://google.com'. Se o campo de redirecionamento for deixado vazio, o site será bloqueado sem redirecionamento. Clique em Salvar para aplicar a regra. Para atualizar uma regra, exclua a antiga e adicione uma nova."
+    "message": "Para bloquear um site ou recurso, digite parte do nome no campo com a dica 'Digite o URL para bloquear' – por exemplo, 'facebook' bloqueará todos os subdomínios relacionados. No campo com a dica 'Digite o URL de redirecionamento', insira o endereço completo de redirecionamento com o protocolo, como 'https://google.com'. Se o campo de redirecionamento for deixado vazio, o site será bloqueado sem redirecionamento. Clique em Salvar para aplicar a regra."
   },
   "addrule": {
     "message": "Adicionar nova regra"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Usa o volume de mídia do seu dispositivo."
+  },
+  "rulehelp_title": {
+    "message": "Como adicionar ou editar regras"
+  },
+  "rulehelp_edit": {
+    "message": "Edite as regras existentes na página de configurações. Você também pode excluir uma regra neste pop-up e adicioná-la novamente."
+  },
+  "rulelists_limit_reached": {
+    "message": "Número máximo de listas de regras: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

@@ -401,11 +401,11 @@ class OptionsPage {
     const hasName = Boolean(this.ruleListNameInput?.value?.trim());
     if (this.addRuleListButton) {
       this.addRuleListButton.disabled = limitReached || !hasName;
-      this.addRuleListButton.title = limitReached ? `Maximum ${MAX_RULE_LISTS} Rule Lists` : '';
+      this.addRuleListButton.title = limitReached ? t('rulelists_limit_reached', MAX_RULE_LISTS) : '';
     }
     if (this.ruleListNameInput) {
       this.ruleListNameInput.disabled = limitReached;
-      this.ruleListNameInput.title = limitReached ? `Maximum ${MAX_RULE_LISTS} Rule Lists` : '';
+      this.ruleListNameInput.title = limitReached ? t('rulelists_limit_reached', MAX_RULE_LISTS) : '';
     }
   }
 
@@ -445,7 +445,7 @@ class OptionsPage {
     } else if (error.code === 'rule_list_name_exists') {
       this.rulesUI.showErrorMessage(t('rulelists_name_exists'));
     } else if (error.code === 'rule_list_limit_reached') {
-      this.rulesUI.showErrorMessage(`Maximum ${MAX_RULE_LISTS} Rule Lists`);
+      this.rulesUI.showErrorMessage(t('rulelists_limit_reached', MAX_RULE_LISTS));
     } else if (['rule_list_not_found', 'rule_list_locked'].includes(error.code)) {
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     } else {

@@ -1,3 +1,4 @@
+import { collectReferencedLocaleKeys } from './localization-references.js';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
@@ -80,25 +81,6 @@ function collectManifestFiles(manifest) {
   }
 
   return [...files];
-}
-
-function collectReferencedLocaleKeys(content) {
-  const keys = new Set();
-  const patterns = [
-    /data-i18n=["']([^"']+)["']/g,
-    /\bt\(\s*["']([^"']+)["']/g,
-    /getMessage\(\s*["']([^"']+)["']/g,
-    /setContent\([^,]+,\s*["']([^"']+)["']/g,
-    /setAttribute\(\s*["']data-i18n["']\s*,\s*["']([^"']+)["']/g
-  ];
-
-  for (const pattern of patterns) {
-    for (const match of content.matchAll(pattern)) {
-      keys.add(match[1]);
-    }
-  }
-
-  return keys;
 }
 
 const manifest = await readJson('manifest.json');

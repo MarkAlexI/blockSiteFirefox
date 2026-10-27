@@ -15,7 +15,7 @@
     "message": "Veebisaidi blokeerija"
   },
   "paragraph": {
-    "message": "Veebisaidi või ressursi blokeerimiseks sisesta osa nime sisestusvälja, mille kohatäide on \"Sisesta blokeeritav URL\" – näiteks \"facebook\" blokeerib kõik seotud alamdomeenid. Kohatäitja \"Sisesta suunamise URL\" väljale sisesta kogu aadress koos protokolliga, näiteks \"https://google.com\". Kui suunamise väli jääb tühjaks, blokeeritakse sait ilma suunamiseta. Rakenda reegel, klõpsates Salvesta. Reegli uuendamiseks kustuta vana ja loo uus."
+    "message": "Veebisaidi või ressursi blokeerimiseks sisesta osa nime sisestusvälja, mille kohatäide on \"Sisesta blokeeritav URL\" – näiteks \"facebook\" blokeerib kõik seotud alamdomeenid. Kohatäitja \"Sisesta suunamise URL\" väljale sisesta kogu aadress koos protokolliga, näiteks \"https://google.com\". Kui suunamise väli jääb tühjaks, blokeeritakse sait ilma suunamiseta. Rakenda reegel, klõpsates Salvesta."
   },
   "addrule": {
     "message": "Lisa uus reegel"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Kasutab seadme meedia helitugevust."
+  },
+  "rulehelp_title": {
+    "message": "Reeglite lisamine ja muutmine"
+  },
+  "rulehelp_edit": {
+    "message": "Muuda olemasolevaid reegleid seadete lehel. Võid reegli ka selles hüpikaknas kustutada ja uuesti lisada."
+  },
+  "rulelists_limit_reached": {
+    "message": "Reegliloendite maksimaalne arv: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

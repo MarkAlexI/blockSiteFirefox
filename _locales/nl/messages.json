@@ -15,7 +15,7 @@
     "message": "Siteblokker"
   },
   "paragraph": {
-    "message": "Om een website of bron te blokkeren, voer een deel van de naam in het invoerveld met de placeholder 'Typ te blokkeren URL' in – bijvoorbeeld 'facebook' blokkeert alle gerelateerde subdomeinen. In het veld met de placeholder 'Typ doorstuur-URL' voer je het volledige doorstuuradres in inclusief het protocol, zoals 'https://google.com'. Als het doorstuurveld leeg blijft, wordt de site geblokkeerd zonder doorsturing. Klik op de knop Opslaan om de regel toe te passen. Om een regel bij te werken, verwijder je de oude en maak je een nieuwe aan."
+    "message": "Om een website of bron te blokkeren, voer een deel van de naam in het invoerveld met de placeholder 'Typ te blokkeren URL' in – bijvoorbeeld 'facebook' blokkeert alle gerelateerde subdomeinen. In het veld met de placeholder 'Typ doorstuur-URL' voer je het volledige doorstuuradres in inclusief het protocol, zoals 'https://google.com'. Als het doorstuurveld leeg blijft, wordt de site geblokkeerd zonder doorsturing. Klik op de knop Opslaan om de regel toe te passen."
   },
   "addrule": {
     "message": "Nieuwe regel toevoegen"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Gebruikt het mediavolume van je apparaat."
+  },
+  "rulehelp_title": {
+    "message": "Regels toevoegen of bewerken"
+  },
+  "rulehelp_edit": {
+    "message": "Bewerk bestaande regels op de instellingenpagina. Je kunt een regel ook in deze pop-up verwijderen en opnieuw toevoegen."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maximumaantal regellijsten: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

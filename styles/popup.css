@@ -81,6 +81,54 @@ a:hover {
   color: var(--primary-hover);
 }
 
+.rule-help {
+  min-inline-size: 0;
+  margin-block-end: 0.75rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius);
+  background: var(--bg-white);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.rule-help > summary {
+  box-sizing: border-box;
+  min-block-size: 2.75rem;
+  padding: 0.625rem 0.75rem;
+  list-style-position: inside;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rule-help-content {
+  padding: 0 0.75rem 0.75rem;
+}
+
+.rule-help-content p {
+  margin-block: 0.75rem 0;
+}
+
+.rule-help-content p:first-child {
+  margin-block: 0 0.75rem;
+}
+
+.rule-help-content button {
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  min-block-size: 2.75rem;
+  background: var(--primary-color);
+  color: white;
+  font-size: inherit;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.rule-help-content button:hover {
+  background: var(--primary-hover);
+}
+
 #security-mode-display {
   background-color: var(--bg-white);
   border: 1px solid var(--border-light);

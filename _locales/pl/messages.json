@@ -15,7 +15,7 @@
     "message": "Blokada stron"
   },
   "paragraph": {
-    "message": "Aby zablokować stronę lub zasób, wpisz fragment nazwy w polu z podpowiedzią 'Wpisz blokowany URL' – np. 'facebook' zablokuje wszystkie powiązane subdomeny. W polu z podpowiedzią 'Wpisz URL przekierowania' wpisz pełny adres przekierowania z protokołem, np. 'https://google.com'. Jeśli pole przekierowania pozostanie puste, strona zostanie zablokowana bez przekierowania. Kliknij Zapisz, aby zastosować regułę. Aby zaktualizować regułę, usuń starą i dodaj nową."
+    "message": "Aby zablokować stronę lub zasób, wpisz fragment nazwy w polu z podpowiedzią 'Wpisz blokowany URL' – np. 'facebook' zablokuje wszystkie powiązane subdomeny. W polu z podpowiedzią 'Wpisz URL przekierowania' wpisz pełny adres przekierowania z protokołem, np. 'https://google.com'. Jeśli pole przekierowania pozostanie puste, strona zostanie zablokowana bez przekierowania. Kliknij Zapisz, aby zastosować regułę."
   },
   "addrule": {
     "message": "Dodaj nową regułę"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Korzysta z głośności multimediów urządzenia."
+  },
+  "rulehelp_title": {
+    "message": "Jak dodawać lub edytować reguły"
+  },
+  "rulehelp_edit": {
+    "message": "Edytuj istniejące reguły na stronie ustawień. Możesz też usunąć regułę w tym oknie i dodać ją ponownie."
+  },
+  "rulelists_limit_reached": {
+    "message": "Maksymalna liczba list reguł: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

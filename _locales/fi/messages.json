@@ -15,7 +15,7 @@
     "message": "Sivuston esto"
   },
   "paragraph": {
-    "message": "Sivuston tai resurssin estämiseksi kirjoita osa sen nimestä kenttään, jossa on paikkamerkki \"Kirjoita estettävä URL\" – esimerkiksi \"facebook\" estää kaikki siihen liittyvät aliverkkotunnukset. Kenttään, jossa on paikkamerkki \"Kirjoita uudelleenohjauksen URL\", kirjoita koko osoite protokollineen, kuten \"https://google.com\". Jos uudelleenohjauskenttä jätetään tyhjäksi, sivusto estetään ilman uudelleenohjausta. Klikkaa Tallenna-painiketta soveltaaksesi sääntöä. Päivittääksesi säännön, poista vanha ja luo uusi."
+    "message": "Sivuston tai resurssin estämiseksi kirjoita osa sen nimestä kenttään, jossa on paikkamerkki \"Kirjoita estettävä URL\" – esimerkiksi \"facebook\" estää kaikki siihen liittyvät aliverkkotunnukset. Kenttään, jossa on paikkamerkki \"Kirjoita uudelleenohjauksen URL\", kirjoita koko osoite protokollineen, kuten \"https://google.com\". Jos uudelleenohjauskenttä jätetään tyhjäksi, sivusto estetään ilman uudelleenohjausta. Klikkaa Tallenna-painiketta soveltaaksesi sääntöä."
   },
   "addrule": {
     "message": "Lisää uusi sääntö"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Käyttää laitteesi median äänenvoimakkuutta."
+  },
+  "rulehelp_title": {
+    "message": "Sääntöjen lisääminen ja muokkaaminen"
+  },
+  "rulehelp_edit": {
+    "message": "Muokkaa olemassa olevia sääntöjä asetussivulla. Voit myös poistaa säännön tässä ponnahdusikkunassa ja lisätä sen uudelleen."
+  },
+  "rulelists_limit_reached": {
+    "message": "Sääntöluetteloiden enimmäismäärä: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }

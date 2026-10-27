@@ -15,7 +15,7 @@
     "message": "Bloqueador de sitios"
   },
   "paragraph": {
-    "message": "Para bloquear un sitio web o recurso, introduce parte de su nombre en el campo con el placeholder \"Escribe URL de bloqueo\" – por ejemplo, \"facebook\" bloqueará todos los subdominios relacionados. En el campo con el placeholder \"Escribe URL de redirección\", introduce la dirección completa incluyendo el protocolo, como \"https://google.com\". Si el campo de redirección queda vacío, el sitio se bloqueará sin redirección. Haz clic en el botón Guardar para aplicar la regla. Para actualizar una regla, elimina la anterior y crea una nueva entrada."
+    "message": "Para bloquear un sitio web o recurso, introduce parte de su nombre en el campo con el placeholder \"Escribe URL de bloqueo\" – por ejemplo, \"facebook\" bloqueará todos los subdominios relacionados. En el campo con el placeholder \"Escribe URL de redirección\", introduce la dirección completa incluyendo el protocolo, como \"https://google.com\". Si el campo de redirección queda vacío, el sitio se bloqueará sin redirección. Haz clic en el botón Guardar para aplicar la regla."
   },
   "addrule": {
     "message": "Añadir nueva regla"
@@ -1234,5 +1234,20 @@
   },
   "soundvolumenotice": {
     "message": "Usa el volumen multimedia de tu dispositivo."
+  },
+  "rulehelp_title": {
+    "message": "Cómo añadir o editar reglas"
+  },
+  "rulehelp_edit": {
+    "message": "Edita las reglas existentes en la página de opciones. También puedes eliminar una regla en esta ventana emergente y volver a añadirla."
+  },
+  "rulelists_limit_reached": {
+    "message": "Número máximo de listas de reglas: $LIMIT$.",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   }
 }
