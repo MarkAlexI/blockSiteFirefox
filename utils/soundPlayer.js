@@ -81,8 +81,12 @@ export async function playFocusChime({
         oscillator.type = 'sine';
         oscillator.frequency.setValueAtTime(frequency, start + offset);
         gain.gain.setValueAtTime(0, start + offset);
-        gain.gain.linearRampToValueAtTime(0.14, start + offset + 0.015);
+        // Hold a useful level before fading: an immediate exponential decay
+        // made the original chime much quieter than ordinary notifications.
+        gain.gain.linearRampToValueAtTime(0.6, start + offset + 0.015);
+        gain.gain.setValueAtTime(0.6, start + offset + duration * 0.4);
         gain.gain.exponentialRampToValueAtTime(0.0001, start + offset + duration);
+        gain.gain.linearRampToValueAtTime(0, start + offset + duration + 0.015);
         oscillator.connect(gain);
         gain.connect(context.destination);
         if (index === 1) oscillator.onended = resolve;

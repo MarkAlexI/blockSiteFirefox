@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.1] - 2026-10-26
+
+### Fixed
+- Focus completion and preview sounds are louder and sustain briefly before fading.
+- The instant-block action in the Popup uses readable gold text, including its mobile domain label.
+- Decorative site icons no longer add redundant text to the instant-block button's accessible name.
+
 ## [5.5.0] - 2026-10-26
 
 ### Added

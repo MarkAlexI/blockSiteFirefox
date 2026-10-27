@@ -395,7 +395,8 @@ class PopupPage {
     
     const icon = document.createElement('img');
     icon.src = favIconUrl;
-    icon.alt = 'favicon';
+    icon.alt = '';
+    icon.setAttribute('aria-hidden', 'true');
     icon.style.width = '16px';
     icon.style.height = '16px';
     icon.style.marginLeft = '16px';

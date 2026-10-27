@@ -13,7 +13,7 @@ test('the release palette meets text and control contrast including gradient sto
 });
 
 test('faint helper text, light buttons and invisible control borders fail the palette guard', () => {
-  for (const [name, value] of [['muted','#9ca3af'],['success','#28a745'],['danger','#ff4d4d'],['control-border','#dddddd']]) {
+  for (const [name, value] of [['muted','#9ca3af'],['success','#28a745'],['danger','#ff4d4d'],['control-border','#dddddd'],['accent-gold','#5b4b00']]) {
     assert.throws(() => checkPalette(css.replace(new RegExp(`(--bd-${name}: )#[\\da-f]{6};`), '$1' + value + ';')), /below/);
   }
 });

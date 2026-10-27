@@ -50,6 +50,12 @@ jobs:
           tar --no-same-owner -xzf geckodriver.tar.gz
           echo "BD_FIREFOX_BINARY=$RUNNER_TEMP/bd-firefox/firefox/firefox" >> "$GITHUB_ENV"
           echo "BD_GECKODRIVER=$RUNNER_TEMP/bd-firefox/geckodriver" >> "$GITHUB_ENV"
+      - name: Prepare native audio output
+        if: matrix.group == 'core'
+        timeout-minutes: 2
+        run: |
+          sudo apt-get install -y pulseaudio
+          bash e2e/start-audio.sh
       - name: Build and unpack the AMO runtime package
         run: |
           npm run package:amo

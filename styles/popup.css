@@ -274,7 +274,11 @@ button:disabled {
 
 #block-that {
   background-color: var(--secondary-color);
+  color: var(--bd-accent-gold);
 }
+
+/* The mobile domain is part of this action, not a dark rule-row label. */
+#block-that .site-domain { color: inherit; }
 
 #block-that:hover {
   background-color: var(--secondary-hover);
@@ -698,3 +702,7 @@ button:disabled {
 }
 
 #focus-active-label:focus { outline: 3px solid var(--bd-focus); outline-offset: 3px; }
+
+@media (forced-colors: active) {
+  #block-that, #block-that .site-domain { color: ButtonText; }
+}

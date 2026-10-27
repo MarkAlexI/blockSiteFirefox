@@ -81,3 +81,37 @@ References: [Chrome offscreen](https://developer.chrome.com/docs/extensions/refe
 [Firefox background environment](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Background_scripts),
 [Firefox autoplay preferences](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay#browser_configuration_options),
 [Firefox notification schema](https://github.com/mozilla-firefox/firefox/blob/main/toolkit/components/extensions/schemas/notifications.json).
+
+## 5.5.1 sound level and Popup follow-up
+
+The owner confirmed actual Chrome and Firefox playback on desktop/mobile, then
+reported that 5.5.0 was much quieter than system notifications. The chime now
+holds each note briefly before fading and returns exactly to zero before stop.
+Its frequencies, duration, preference, playback ownership and cleanup stay the
+same. An explicit PCM model of production-scheduled Web Audio events at 44.1 and
+48 kHz measures about +19.9 dB RMS over the original one-second signal, with a
+combined peak around 0.604 (below full scale). This is a digital signal model,
+not a claim of equal physical loudness across OS notification/media volumes.
+
+The Popup instant-block action and its mobile domain label use gold with
+5.58:1 normal and 7.52:1 hover contrast; forced-colors uses system ButtonText.
+Its decorative favicon is excluded from the accessible name.
+
+Related CI evidence from the accepted 5.5.0 source:
+- Chromium Extension CI run40387054228: 2315passed/1failed; interrupted-pause
+  heartbeat sampled after resume then assumed another update within40ms.
+  The test now samples while fully stopped and observes the existing hold.
+- Chromium E2E run40387054189: core53passed/1failed; Playwright page.evaluate
+  itself supplied userGesture:true before the supposedly activation-free check.
+  Scenario68 now uses a fresh document and explicit native CDP userGesture:false.
+- Firefox E2E run40387322882: core63passed/1failed; first preview returned
+  audio_unavailable, with no observed gain context. The exact cause remains
+  unconfirmed. Core CI now explicitly prepares a PulseAudio null output sink;
+  Web Audio, responses, ended events and the signal observer are not mocked.
+- That Chromium run's upgrade job failed before the journey: native installation
+  never matched within15seconds, no addon worker/Options target was present,
+  and stderr contained GTK WIDGET_REALIZED_FOR_EVENT assertions. This separate
+  native folder-dialog failure is not repaired by a sound/color workaround.
+
+New hosted CI is required. No existing assertion/job deadline or retry policy
+was increased. The new audio setup has its own bounded two-minute step.

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { audioFixture } from './helpers/soundFixture.js';
+import { renderSoundGraph } from './helpers/renderSoundGraph.js';
 import { createSoundGate, FOCUS_COMPLETE_SOUND, playFocusChime } from '../utils/soundPlayer.js';
 
 const deferred = () => { let resolve, reject; const promise = new Promise((a, b) => { resolve = a; reject = b; }); return { promise, resolve, reject }; };
@@ -11,7 +12,7 @@ function clock() {
     fire() { for (const [id, fn] of [...timers]) { timers.delete(id); fn(); } } };
 }
 
-test('chime schedules two finite quiet notes and releases the actual connected graph', async () => {
+test('chime schedules two finite notes and releases the actual connected graph', async () => {
   const f = audioFixture(), timer = clock();
   assert.deepEqual(await playFocusChime({ AudioContextCtor: f.AudioContext, ...timer }), { success: true });
   assert.equal(f.contexts.length, 1);
@@ -21,11 +22,23 @@ test('chime schedules two finite quiet notes and releases the actual connected g
   for (const node of context.nodes) {
     assert.equal(node.type, 'sine'); assert.ok(node.stopAt > node.startAt && node.stopAt - node.startAt < 1);
     assert.equal(node.target.target, context.destination);
-    assert.deepEqual(node.target.envelope.map(e => e.value), [0, 0.14, 0.0001]);
+    assert.equal(node.target.envelope[0].value, 0, 'attack starts at silence');
+    assert.equal(node.target.envelope.at(-1).value, 0, 'release reaches silence before stopping');
     assert.ok(node.target.envelope.every(e => Number.isFinite(e.at)));
     assert.equal(node.disconnected, true); assert.equal(node.target.disconnected, true); assert.equal(node.onended, null);
   }
   assert.equal(timer.timers.size, 0);
+});
+
+for (const rate of [44100, 48000]) test(`the ${rate}Hz PCM model has clear notification-level energy with clipping headroom`, async () => {
+  const f = audioFixture();
+  assert.equal((await playFocusChime({ AudioContextCtor: f.AudioContext })).success, true);
+  const result = renderSoundGraph(f.contexts[0].nodes, rate);
+  assert.ok(result.rms > 0.2 && result.rms < 0.35, `one-second signal RMS=${result.rms}`);
+  assert.ok(result.peak < 0.9, `combined-note peak=${result.peak}`);
+  assert.ok(result.headroomDb > 1, `headroom=${result.headroomDb}`);
+  assert.ok(result.samples.every(Number.isFinite));
+  assert.equal(result.samples[0], 0); assert.equal(result.samples.at(-1), 0);
 });
 
 test('missing Web Audio and a cancelled request allocate no context', async () => {

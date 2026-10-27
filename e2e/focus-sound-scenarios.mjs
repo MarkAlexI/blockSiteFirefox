@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { openSoundOptions } from './sound-options.mjs';
 
 const until = async (read, check, label) => {
   const deadline = Date.now() + 15000;
@@ -22,7 +23,9 @@ async function installSoundObservation() {
     const original = prototype.createGain;
     const records = new Map();
     prototype.createGain = function (...args) {
-      const gain = original.apply(this, args);
+      let gain;
+      try { gain = original.apply(this, args); }
+      catch (error) { state.errors.push({ stage: 'createGain', name: error.name, message: error.message }); throw error; }
       let record = records.get(this);
       if (!record) {
         record = { gains: 0, peak: 0, closed: false, startedAt: Date.now() };
@@ -76,7 +79,8 @@ async function readSoundObservation() {
 export const focusSoundScenarios = [{
   id: '68', title: 'Focus sound uses native audio for preview and completion and releases playback resources',
   async run(e) {
-    const options = await e.openOptions();
+    const soundView = await openSoundOptions(e);
+    const options = soundView.page;
     const observation = await options.evaluate(installSoundObservation);
     const evidence = { scope: 'native extension audio execution; not physical speaker or Android acceptance', ...observation };
     const observed = async count => until(() => options.evaluate(readSoundObservation), state =>
@@ -136,6 +140,7 @@ export const focusSoundScenarios = [{
       await options.evaluate(() => { window.__bdSoundObservation.restore(); delete window.__bdSoundObservation; });
       if (e.result) e.result.focusSoundEvidence = evidence;
       if (e.testInfo) await e.testInfo.attach('focus-sound', { body: JSON.stringify(evidence, null, 2), contentType: 'application/json' });
+      await soundView.close();
     }
   }
 }];

@@ -29,6 +29,9 @@ export function checkPalette(css) {
   for (const color of ['primary','primary-hover','secondary','secondary-hover','success','success-hover','danger','danger-hover','warning']) {
     check(`white text on ${color}`, required('surface'), required(color), 4.5);
   }
+  for (const background of ['secondary', 'secondary-hover']) {
+    check(`instant-block gold on ${background}`, required('accent-gold'), required(background), 4.5);
+  }
   for (const surface of ['surface','surface-soft','canvas','success-soft','danger-soft','warning-soft']) {
     for (const color of ['text','muted','primary','secondary','success','danger','warning-text']) {
       check(`${color} text on ${surface}`, required(color), required(surface), 4.5);

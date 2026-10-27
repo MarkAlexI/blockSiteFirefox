@@ -80,13 +80,14 @@ test('an interrupted stop fails the proof and still resumes every pinned process
     // Attach rejection handling before this deliberately broken interleaving.
     const result = pending.then(value => ({ value }), error => ({ error }));
     await Promise.race([entered, pending.then(() => { throw new Error('Pause completed before its stop receipt'); })]);
+    // Capture while fully stopped. A sample after watchdog cleanup races
+    // with already-resumed heartbeats and a fixed 40ms sleep under CI load.
+    const before = await heartbeat();
     process.kill(pid, 'SIGCONT');
     const { error } = await result;
     assert.match(error?.message || '', /ran or changed identity/);
     assert.equal(error.report.status, 'failed');
     assert.ok(error.report.resumed.includes(pid));
-    const before = await heartbeat();
-    await sleep(40);
-    assert.ok((await heartbeat()).sequence > before.sequence);
+    assert.ok((await heartbeat()).sequence > before.sequence, 'heartbeat advanced after the deliberate early resume');
   });
 });
