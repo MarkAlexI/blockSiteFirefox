@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { openSoundOptions } from './sound-options.mjs';
+import { openSoundOptions, requestSoundPreview } from './sound-options.mjs';
+import { installSoundObservation, readSoundObservation } from './sound-observation.mjs';
 
 const until = async (read, check, label) => {
   const deadline = Date.now() + 15000;
@@ -9,94 +10,35 @@ const until = async (read, check, label) => {
 };
 const click = (page, selector) => page.locator ? page.locator(selector).click() : page.click(selector);
 
-// Observe real browser Web Audio without replacing playback, clocks, responses
-// or native ended events. A parallel analyser measures generated signal energy;
-// it cannot establish physical speaker audibility or Android device behavior.
-async function installSoundObservation() {
-  const api = globalThis.browser || globalThis.chrome;
-  const state = { backend: '', contexts: [], samples: [], errors: [], restore: null };
-  window.__bdSoundObservation = state;
-  if (api.runtime.getManifest().background.scripts) {
-    state.backend = 'Firefox native Web Audio graph';
-    const view = await api.runtime.getBackgroundPage();
-    const prototype = view.AudioContext.prototype;
-    const original = prototype.createGain;
-    const records = new Map();
-    prototype.createGain = function (...args) {
-      let gain;
-      try { gain = original.apply(this, args); }
-      catch (error) { state.errors.push({ stage: 'createGain', name: error.name, message: error.message }); throw error; }
-      let record = records.get(this);
-      if (!record) {
-        record = { gains: 0, peak: 0, closed: false, startedAt: Date.now() };
-        records.set(this, record); state.contexts.push(record);
-        const context = this;
-        context.addEventListener('statechange', () => {
-          if (context.state === 'closed') { record.closed = true; view.clearInterval(record.timer); }
-        });
-      }
-      record.gains++;
-      const analyser = this.createAnalyser(); gain.connect(analyser);
-      const values = new Float32Array(analyser.fftSize);
-      // The first analyser sees one actual note; the second gain still goes
-      // through production's native destination connection unchanged.
-      if (!record.timer) record.timer = view.setInterval(() => {
-        analyser.getFloatTimeDomainData(values);
-        for (const value of values) record.peak = Math.max(record.peak, Math.abs(value));
-      }, 10);
-      return gain;
-    };
-    state.restore = () => { prototype.createGain = original; for (const r of records.values()) view.clearInterval(r.timer); };
-  } else {
-    state.backend = 'Chromium native offscreen contexts';
-    let reading = false;
-    const seen = new Set();
-    const timer = setInterval(async () => {
-      if (reading) return;
-      reading = true;
-      try {
-        const contexts = await api.runtime.getContexts({ contextTypes: ['OFFSCREEN_DOCUMENT'],
-          documentUrls: [api.runtime.getURL('scripts/sound-offscreen.html')] });
-        for (const context of contexts) if (!seen.has(context.contextId)) {
-          seen.add(context.contextId); state.contexts.push({ contextId: context.contextId, documentUrl: context.documentUrl });
-        }
-        state.samples.push({ at: Date.now(), open: contexts.length });
-      } catch (error) { state.errors.push(String(error)); }
-      finally { reading = false; }
-    }, 25);
-    state.restore = () => clearInterval(timer);
-  }
-  return { backend: state.backend };
-}
-
-async function readSoundObservation() {
-  const s = window.__bdSoundObservation;
-  return { backend: s.backend, errors: s.errors,
-    contexts: s.contexts.map(({ timer: _timer, ...record }) => record),
-    offscreenOpen: s.samples.at(-1)?.open ?? null };
-}
-
 export const focusSoundScenarios = [{
   id: '68', title: 'Focus sound uses native audio for preview and completion and releases playback resources',
   async run(e) {
     const soundView = await openSoundOptions(e);
     const options = soundView.page;
-    const observation = await options.evaluate(installSoundObservation);
-    const evidence = { scope: 'native extension audio execution; not physical speaker or Android acceptance', ...observation };
+    const evidence = { scope: 'native extension audio execution; not physical speaker or Android acceptance',
+      activation: soundView.activation };
+    let observing = false;
     const observed = async count => until(() => options.evaluate(readSoundObservation), state =>
       state.contexts.length === count && (state.backend.startsWith('Firefox') ?
-        state.contexts.every(context => context.closed && context.gains === 2 && context.peak > 0.001) : state.offscreenOpen === 0),
+        state.contexts.every(context => context.closed && context.gains === 2 && context.ended === 2 && context.peak > 0.001) : state.offscreenOpen === 0),
     `${count} completed native sound contexts`);
     try {
+      const initial = await soundView.captureActivation('before-observation');
+      assert.equal(initial.sticky, false, JSON.stringify(evidence.activation));
+      Object.assign(evidence, await options.evaluate(installSoundObservation));
+      observing = true;
+      await soundView.captureActivation('after-observation');
       const before = await options.evaluate(async () => {
         const api = globalThis.browser || chrome;
         const { settings = {} } = await api.storage.sync.get('settings');
-        await api.storage.sync.set({ settings: { ...settings, focusSessionSound: false } });
-        return { focus: (await api.storage.local.get('focusSession')).focusSession,
+        return { enabled: settings.focusSessionSound, focus: (await api.storage.local.get('focusSession')).focusSession,
           activated: navigator.userActivation.hasBeenActive };
       });
-      assert.equal(before.activated, false, 'first preview has no prior content user activation');
-      evidence.firstPreview = await options.evaluate(() => (globalThis.browser || chrome).runtime.sendMessage({ type: 'sound:preview' }));
+      const prepared = await soundView.captureActivation('after-read-only-fixture');
+      assert.equal(before.enabled, false);
+      assert.equal(prepared.sticky, false, JSON.stringify(evidence.activation));
+      assert.equal(before.activated, false, JSON.stringify(evidence.activation));
+      evidence.firstPreview = await options.evaluate(requestSoundPreview);
       assert.equal(evidence.firstPreview.success, true, JSON.stringify(evidence.firstPreview));
       await observed(1);
 
@@ -136,10 +78,48 @@ export const focusSoundScenarios = [{
       evidence.completed = await observed(3);
       assert.deepEqual(evidence.completed.errors, []);
     } finally {
-      evidence.final = await options.evaluate(readSoundObservation);
-      await options.evaluate(() => { window.__bdSoundObservation.restore(); delete window.__bdSoundObservation; });
+      if (observing) {
+        try { evidence.final = await options.evaluate(readSoundObservation); }
+        finally {
+          await options.evaluate(() => { window.__bdSoundObservation.restore(); delete window.__bdSoundObservation; });
+        }
+      }
       if (e.result) e.result.focusSoundEvidence = evidence;
       if (e.testInfo) await e.testInfo.attach('focus-sound', { body: JSON.stringify(evidence, null, 2), contentType: 'application/json' });
+      await soundView.close();
+    }
+  }
+}, {
+  id: '69', title: 'Cold Focus preview succeeds without Web Audio observation or content activation',
+  async run(e) {
+    const soundView = await openSoundOptions(e);
+    const evidence = { scope: 'fresh-profile production preview without prototype observation',
+      activation: soundView.activation };
+    try {
+      const options = soundView.page;
+      const initial = await soundView.captureActivation('before-preview');
+      assert.equal(initial.sticky, false, JSON.stringify(evidence.activation));
+      const before = await options.evaluate(async () => {
+        const api = globalThis.browser || chrome;
+        return { focus: (await api.storage.local.get('focusSession')).focusSession,
+          enabled: (await api.storage.sync.get('settings')).settings.focusSessionSound };
+      });
+      assert.equal(before.enabled, false);
+      const ready = await soundView.captureActivation('after-read-only-fixture');
+      assert.equal(ready.sticky, false, JSON.stringify(evidence.activation));
+      const started = Date.now();
+      evidence.preview = await options.evaluate(requestSoundPreview);
+      evidence.elapsedMs = Date.now() - started;
+      assert.equal(evidence.preview.success, true, JSON.stringify(evidence.preview));
+      assert.deepEqual(await options.evaluate(async () => {
+        const api = globalThis.browser || chrome;
+        return { focus: (await api.storage.local.get('focusSession')).focusSession,
+          enabled: (await api.storage.sync.get('settings')).settings.focusSessionSound };
+      }), before);
+    } finally {
+      if (e.result) e.result.focusSoundEvidence = evidence;
+      if (e.testInfo) await e.testInfo.attach('focus-sound-unobserved', {
+        body: JSON.stringify(evidence, null, 2), contentType: 'application/json' });
       await soundView.close();
     }
   }

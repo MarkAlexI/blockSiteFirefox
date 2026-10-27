@@ -115,3 +115,47 @@ Related CI evidence from the accepted 5.5.0 source:
 
 New hosted CI is required. No existing assertion/job deadline or retry policy
 was increased. The new audio setup has its own bounded two-minute step.
+
+
+## 5.5.3 cold audio and native evidence
+
+Audio initialization and playback now have separate 2500ms phase deadlines. A
+slow but successful resume no longer consumes the finite 840ms chime's playback
+budget. The existing 4000ms request-owner deadline is unchanged; a timed-out
+caller does not release ownership before playback/document cleanup finishes.
+Cancellation and freshness are checked before scheduling audio as before.
+
+Known phase timeouts return audio_resume_timeout or audio_playback_timeout.
+The total owner limit remains audio_timeout. Native/API errors remain the coarse
+audio_unavailable; no raw error messages or stacks are added to runtime results
+or telemetry. No telemetry schema or server change is required for this patch.
+
+The actual 5.5.2 player failed a deterministic slow-resume regression: with
+2000ms spent resuming, its shared 2500ms deadline interrupted the scheduled
+840ms chime. The corrected player completes that case at 2840ms, also completes
+a 2499ms resume at 3339ms, bounds stalled phases and retains ownership after the
+4000ms caller deadline until cleanup. These are Web API/time models, not proof
+of the actual resume duration in hosted Firefox. The waveform and media volume
+are unchanged.
+
+Native scenario 68 now records activation before/after preparation and Firefox
+resume/gain/ended/close events. Its observer returns the original native nodes
+and promises and removes its own listeners on restoration. It requires both
+real ended events, nonzero signal and native context closure. Scenario 69 runs a
+cold preview in another fresh profile without any Web Audio prototype observer.
+Both retain the no-content-activation condition and preserve Focus/preference.
+Chromium uses direct CDP navigation rather than mixing Playwright navigation
+with gesture-free evaluation. If activation is still present, the test fails
+with the actual stage snapshots; activation is never reset or spoofed.
+
+Latest baseline 5.5.2 native runs: Chromium 40472467843/core 53 pass / 1 fail and
+Firefox 40472631289/core 63 pass / 1 fail, both at 68; basic CI and other groups pass.
+The exact Chromium activation source and Firefox native failure remain subject
+to the new hosted evidence. No claim is made that a local model proves either
+hosted failure fixed. Local native launch remains blocked in this environment
+(Chromium process-singleton socket EPERM; Firefox exits before scenario entry).
+Existing CI job deadlines and zero-retry policy stay unchanged.
+
+Run both native sound scenarios from e2e/: Chromium npm test -- focus-sound.spec.mjs;
+Firefox node runner.mjs --filter=68, then --filter=69. Physical Android/macOS/Edge
+and speaker-volume acceptance remain separate.

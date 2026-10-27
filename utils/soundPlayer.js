@@ -1,6 +1,25 @@
 export const FOCUS_COMPLETE_SOUND = 'focus-complete';
 export const SOUND_TIMEOUT_MS = 4000;
 
+class AudioPhaseTimeoutError extends Error {
+  constructor(phase) {
+    super(`Audio ${phase} timed out`);
+    this.code = `audio_${phase}_timeout`;
+  }
+}
+
+async function waitForAudioPhase(operation, phase, setTimer, clearTimer) {
+  let timer;
+  try {
+    const deadline = new Promise((_, reject) => {
+      timer = setTimer(() => reject(new AudioPhaseTimeoutError(phase)), 2500);
+    });
+    return await Promise.race([operation(), deadline]);
+  } finally {
+    clearTimer(timer);
+  }
+}
+
 export function isSupportedSound(sound) {
   return sound === FOCUS_COMPLETE_SOUND;
 }
@@ -38,7 +57,8 @@ export function createSoundGate(operation, {
     const work = Promise.resolve().then(() => operation(sound, requestId,
       async () => !expired && await canPlay() && !expired))
       .then(result => result || { success: false, code: 'audio_unavailable' },
-        () => ({ success: false, code: 'audio_unavailable' }))
+        error => ({ success: false,
+          code: error instanceof AudioPhaseTimeoutError ? error.code : 'audio_unavailable' }))
       .then(result => {
         if (!expired) recent.set(requestId, result);
         return result;
@@ -65,12 +85,10 @@ export async function playFocusChime({
   }
   const context = new AudioContextCtor({ latencyHint: 'interactive' });
   const nodes = [];
-  let timer;
-  const deadline = new Promise((_, reject) => {
-    timer = setTimer(() => reject(new Error('Audio playback timed out')), 2500);
-  });
   try {
-    await Promise.race([context.resume(), deadline]);
+    // A cold audio backend must not spend the chime's playback budget.
+    // The request owner still bounds the caller's entire attempt to 4 seconds.
+    await waitForAudioPhase(() => context.resume(), 'resume', setTimer, clearTimer);
     if (context.state !== 'running' || !await canPlay()) return { success: false, code: 'audio_unavailable' };
     const start = context.currentTime + 0.025;
     const ended = new Promise(resolve => {
@@ -94,10 +112,9 @@ export async function playFocusChime({
         oscillator.stop(start + offset + duration + 0.015);
       }
     });
-    await Promise.race([ended, deadline]);
+    await waitForAudioPhase(() => ended, 'playback', setTimer, clearTimer);
     return { success: true };
   } finally {
-    clearTimer(timer);
     for (const { oscillator, gain } of nodes) {
       oscillator.onended = null;
       try { oscillator.stop(); } catch { /* Already stopped. */ }
