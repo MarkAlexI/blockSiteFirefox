@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.2] - 2026-10-27
+
+### Fixed
+- Worker telemetry distinguishes tab-close, blocked-page statistics and redirect statistics failures.
+- Global worker errors can identify an allowlisted extension module and source line without collecting URLs, messages or stacks.
+- Location-aware error fingerprints and retry-safe schema-v3 deliveries preserve separate failure sites.
+
 ## [5.5.1] - 2026-10-26
 
 ### Fixed

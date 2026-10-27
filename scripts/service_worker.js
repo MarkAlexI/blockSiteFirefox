@@ -1,3 +1,4 @@
+import { installWorkerErrorReporting } from '../telemetry/workerErrorReporter.js';
 import { createProGuidanceController } from '../options/proGuidanceController.js';
 import { RulesManager } from '../rules/rulesManager.js';
 import { SettingsManager } from '../options/settings.js';
@@ -2062,7 +2063,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       reply(false);
       return;
     }
-    void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER, async () => {
+    void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.CLOSE_CURRENT_TAB, async () => {
       try { await browser.tabs.remove(tabId); }
       catch (error) { reply(false); throw error; }
       reply(true);
@@ -2082,7 +2083,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   if (message.type === 'record_block') {
     void runAsyncHandler(
-      ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
+      ASYNC_HANDLER_OPERATIONS.RECORD_BLOCK,
       () => StatisticsManager.recordBlock(message.url)
     );
     return;
@@ -2100,7 +2101,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: true, to: verified.to });
         // Statistics must not hold the redirect response open.
         void runAsyncHandler(
-          ASYNC_HANDLER_OPERATIONS.SERVICE_WORKER,
+          ASYNC_HANDLER_OPERATIONS.RECORD_REDIRECT,
           () => StatisticsManager.recordRedirect(verified.from, verified.to)
         );
       }, () => sendResponse({ success: false }));
@@ -2343,32 +2344,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
-function recordGlobalWorkerError(error) {
-  void telemetryStore.recordError(error)
-    .catch(reportingError => {
-      logger.info('Global worker error could not be recorded:', reportingError);
-    });
-}
-
-if (globalThis.addEventListener) {
-  globalThis.addEventListener('error', event => {
-    recordGlobalWorkerError({
-      source: 'worker',
-      code: 'uncaught_error',
-      operation: 'service_worker',
-      errorName: event?.error?.name || 'Error'
-    });
-  });
-
-  globalThis.addEventListener('unhandledrejection', event => {
-    recordGlobalWorkerError({
-      source: 'worker',
-      code: 'unhandled_rejection',
-      operation: 'service_worker',
-      errorName: event?.reason?.name || 'Error'
-    });
-  });
-}
+installWorkerErrorReporting({
+  runtime: browser.runtime,
+  recordError: error => telemetryStore.recordError(error),
+  logger
+});
 
 async function runDailyMaintenanceStep(name, operation) {
   try {

@@ -481,7 +481,7 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     assert.equal(telemetryRequests.length, 1);
     assert.equal(telemetryRequests[0].url, 'https://blockdistraction.com/api/telemetry');
     const telemetryPayload = JSON.parse(telemetryRequests[0].options.body);
-    assert.equal(telemetryPayload.schemaVersion, 2);
+    assert.equal(telemetryPayload.schemaVersion, 3);
     assert.match(telemetryPayload.batches[0].deliveryId, /^[0-9a-f-]{36}$/);
     assert.equal(telemetryPayload.batches[0].counters.rule_deleted, 2);
     assert.equal(telemetryPayload.batches[0].counters.feedback_prompt_shown, 1);
@@ -494,6 +494,24 @@ async function exerciseFirefoxWorker({ supportsWindows }) {
     assert.equal('installationId' in telemetryPayload.context, false);
     assert.equal(JSON.stringify(telemetryPayload).includes('private.example'), false);
 
+    // Exercise the real message handler, not just the boundary in isolation.
+    const originalTabRemove = globalThis.browser.tabs.remove;
+    try {
+      globalThis.browser.tabs.remove = async () => { throw new Error('synthetic close refusal'); };
+      messageListener({ type: 'close_current_tab' }, { tab: { id: 73 } }, () => {});
+      const deadline = Date.now() + 1000;
+      let failure;
+      do {
+        await new Promise(resolve => setImmediate(resolve));
+        failure = Object.values(localStorage.data.telemetryBuckets || {}).flatMap(bucket => bucket.errors || [])
+          .find(error => error.operation === 'close_current_tab');
+      } while (!failure && Date.now() < deadline);
+      assert.equal(failure?.fingerprint, 'worker:async_handler_failed:close_current_tab:error');
+      assert.equal(JSON.stringify(failure).includes('synthetic close refusal'), false);
+    } finally { globalThis.browser.tabs.remove = originalTabRemove; }
+
+    // Firefox's native permission is authoritative, just as in Options.
+    await globalThis.browser.permissions.remove({ data_collection: ['technicalAndInteraction'] });
     const disabledConsent = await sendWorkerMessage(messageListener, {
       type: 'telemetry:setConsent',
       enabled: false

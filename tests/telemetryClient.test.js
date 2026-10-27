@@ -80,7 +80,7 @@ test('telemetry client sends the versioned batch contract and clears accepted da
   assert.equal(result.sent, true);
   assert.equal(request.url, 'https://blockdistraction.com/api/telemetry');
   const payload = JSON.parse(request.options.body);
-  assert.equal(payload.schemaVersion, 2);
+  assert.equal(payload.schemaVersion, 3);
   assert.equal(payload.sentAt, '2026-08-07T12:00:00.000Z');
   assert.deepEqual(payload.context, {
     extensionVersion: '4.8.0',

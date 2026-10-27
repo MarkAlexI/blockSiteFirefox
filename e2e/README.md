@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.5.1**
+# Firefox Desktop E2E — BlockDistraction **5.5.2**
 
 ## Focus sound 5.5.0
 

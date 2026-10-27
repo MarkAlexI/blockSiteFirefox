@@ -1,7 +1,7 @@
 import { getTelemetryConsent, setTelemetryConsent } from './telemetryConsent.js';
 import { sanitizeTelemetryContext } from './telemetrySanitizer.js';
 
-export const TELEMETRY_SCHEMA_VERSION = 2;
+export const TELEMETRY_SCHEMA_VERSION = 3;
 export const TELEMETRY_ENDPOINT = 'https://blockdistraction.com/api/telemetry';
 export const TELEMETRY_TIMEOUT_MS = 10000;
 const BASE_BACKOFF_MS = 60 * 60 * 1000;

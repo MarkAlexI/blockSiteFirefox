@@ -1,5 +1,6 @@
 import { RULE_PACK_TELEMETRY_COUNTERS } from './telemetryRulePack.js';
 import { ASYNC_HANDLER_OPERATIONS } from './asyncHandlerBoundary.js';
+import { sanitizeErrorLocation, errorLocationSuffix } from './errorLocation.js';
 
 const SAFE_IDENTIFIER = /^[a-z0-9][a-z0-9:_-]{0,63}$/;
 
@@ -130,7 +131,8 @@ export function sanitizeTelemetryError({
   source,
   code,
   operation = 'unknown',
-  errorName = 'Error'
+  errorName = 'Error',
+  location
 } = {}) {
   const safeSource = normalizeTelemetryIdentifier(source);
   const safeCode = normalizeTelemetryIdentifier(code);
@@ -138,12 +140,15 @@ export function sanitizeTelemetryError({
   const safeErrorName = normalizeTelemetryIdentifier(errorName, 'error');
 
   if (!TELEMETRY_ERROR_SOURCES.has(safeSource)) return null;
+  const safeLocation = safeSource === 'worker' && safeCode === 'uncaught_error' && safeOperation === 'service_worker' ?
+    sanitizeErrorLocation(location) : undefined;
 
   return {
     source: safeSource,
     code: safeCode,
     operation: safeOperation,
     errorName: safeErrorName,
-    fingerprint: `${safeSource}:${safeCode}:${safeOperation}:${safeErrorName}`
+    ...(safeLocation ? { location: safeLocation } : {}),
+    fingerprint: `${safeSource}:${safeCode}:${safeOperation}:${safeErrorName}${errorLocationSuffix(safeLocation)}`
   };
 }
