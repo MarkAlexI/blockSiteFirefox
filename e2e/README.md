@@ -1,5 +1,13 @@
 # Firefox Desktop E2E — BlockDistraction **5.5.4**
 
+## DNR startup measurement (tests only, 2026-10-28)
+
+New scenario 66 measures a real main-frame DNR navigation after persistent
+browser restart, before opening the first extension UI. The observation starts
+after WebDriver attachment; it does not cover earliest restored-tab traffic.
+Current inventory: **68 = 66 core + 1 overdue + 1 upgrade**.
+See [scope, HTTP evidence and timing bounds](dnr-readiness.md).
+
 ## Rule help and locales 5.5.4
 
 Scenario 48 also exercises the native Popup help disclosure with Enter/Space and checks that its Settings action leaves Tab order when collapsed. Help starts collapsed on each new Popup. The Settings action uses the same navigation path as the header action.

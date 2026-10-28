@@ -292,6 +292,7 @@ scenarios.push(...passwordDialogScenarios);
 
 scenarios.push(...dialogScenarios);
 scenarios.push(...overdueScenarios);
+scenarios.push(...(await import('./dnr-readiness-scenarios.mjs')).dnrReadinessScenarios);
 scenarios.push(...(await import('./upgrade-scenarios.mjs')).upgradeScenarios);
 
 for (const scenario of focusSoundScenarios) test(scenario.id, scenario.title, scenario.run);

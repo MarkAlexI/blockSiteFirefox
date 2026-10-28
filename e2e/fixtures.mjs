@@ -262,7 +262,8 @@ export class ExtensionHarness {
     await writeFile(this.xpi, process.env.BD_SIGNED_XPI ? await readFile(process.env.BD_SIGNED_XPI) : zipSync(files));
     this.result.target = { version: this.manifest.version, id: this.id,
       installation: this.config.installation, signedInput: Boolean(process.env.BD_SIGNED_XPI) };
-    this.proxy = await createFixtureProxy({ root: this.root, html: url => frameFixtureHtml(url.href) || HTML, verifyUrl: VERIFY_URL,
+    this.proxy = await createFixtureProxy({ root: this.root,
+      html: url => this.config.fixtureHtml?.(url) ?? (frameFixtureHtml(url.href) || HTML), verifyUrl: VERIFY_URL,
       expectedPayload: { key: TEST_KEY, version: this.manifest.version },
       additionalExpectedPayloads: (this.config.verificationVersions || []).filter(v=>v!==this.manifest.version)
         .map(version=>({key:TEST_KEY,version})),
@@ -278,7 +279,7 @@ export class ExtensionHarness {
     return reply.result;
   }
 
-  async launch({ restarted = false, ports = null, timezone = this.timezone } = {}) {
+  async launch({ restarted = false, ports = null, timezone = this.timezone, beforeExtensionProbe = null } = {}) {
     this.timezone = timezone;
     this.phase = 'browser-launch';
     const selectedPorts = ports || await allocateLoopbackPorts(3);
@@ -323,6 +324,7 @@ export class ExtensionHarness {
     });
     this.sessionReady = false;
     try {
+      launchEvidence.launchedAt = Date.now();
       this.driver = await firefox.Driver.createSession(options, this.service);
       const capabilities = await this.driver.getCapabilities();
       this.sessionReady = true;
@@ -376,6 +378,11 @@ export class ExtensionHarness {
     if (!restarted || this.config.installation === 'temporary') {
       const id = await this.driver.installAddon(this.xpi, this.config.installation === 'temporary');
       assert.equal(id, this.id);
+    }
+    if (beforeExtensionProbe) {
+      assert.ok(restarted && this.config.installation === 'persistent', 'pre-UI observation needs a persistent restart');
+      this.phase = 'pre-ui-native-observation';
+      await beforeExtensionProbe(launchEvidence);
     }
     // Opening a packaged popup gives access to real browser.* APIs. It is kept
     // in a background tab for storage reads; accounting polls never focus it.
@@ -551,13 +558,13 @@ export class ExtensionHarness {
     });
   }
 
-  async restart({ timezone = this.timezone } = {}) {
+  async restart({ timezone = this.timezone, beforeExtensionProbe = null } = {}) {
     if (this.config.installation !== 'persistent') throw new EnvironmentError('Restart requires a persistent add-on installation. Use Developer Edition/Nightly or BD_SIGNED_XPI.');
     await this.capture('before-restart');
     await this.driver.quit();
     this.driver = null;
     this.options = [];
-    await this.launch({ restarted: true, timezone });
+    await this.launch({ restarted: true, timezone, beforeExtensionProbe });
   }
   async capture(label) {
     await writeFile(path.join(this.config.output, `${label}-network.json`), JSON.stringify(this.events, null, 2));

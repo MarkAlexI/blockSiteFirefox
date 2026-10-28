@@ -63,7 +63,7 @@ export async function createFixtureProxy({ root, html, verifyUrl, expectedPayloa
     if (response.destroyed) return;
     response.writeHead(status, { 'content-type': contentType, 'content-length': Buffer.byteLength(body), connection: 'close',
       'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, OPTIONS',
-      'access-control-allow-headers': 'Content-Type' });
+      'access-control-allow-headers': 'Content-Type', 'cache-control': 'no-store' });
     response.end(body);
   };
   const deny = response => respond(response, 502, 'BD E2E offline', 'text/plain');

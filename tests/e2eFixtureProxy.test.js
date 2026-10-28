@@ -35,7 +35,7 @@ function httpRequest(port, target) {
       const chunks = [];
       response.on('data', chunk => chunks.push(chunk));
       response.on('end', () => resolve({ status: response.statusCode,
-        body: Buffer.concat(chunks).toString() }));
+        body: Buffer.concat(chunks).toString(), cacheControl: response.headers['cache-control'] }));
     });
     request.on('error', reject);
     request.setTimeout(3000, () => request.destroy(new Error('HTTP fixture test timed out')));
@@ -91,7 +91,7 @@ test('Firefox E2E proxy serves native HTTP/TLS without external forwarding', asy
 
     await t.test('synthetic HTTP pages are local and other HTTP origins are denied', async () => {
       assert.deepEqual(await httpRequest(proxy.port, 'http://usage.bd-e2e.test/page'),
-        { status: 200, body: '<h1>Local fixture</h1>' });
+        { status: 200, body: '<h1>Local fixture</h1>', cacheControl: 'no-store' });
       assert.equal((await httpRequest(proxy.port, 'http://blockdistraction.com/api/verifyKey')).status, 502);
       assert.equal((await httpRequest(proxy.port, 'http://example.com/')).status, 502);
       assert.equal((await httpRequest(proxy.port, 'http://evil.bd-e2e.test.example.com/')).status, 502);
