@@ -14,6 +14,7 @@ import { selectLiveWindow } from './window-selection.mjs';
 import { activateNativeWindow } from './native-window-focus.mjs';
 import { createFixtureProxy } from './fixture-proxy.mjs';
 import { frameFixtureHtml } from './frame-fixture.mjs';
+import { interruptProfileBrowser } from './native-process-interruption.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const runtimeRoots = ['_locales', 'backup', 'blocked.html', 'diagnostics', 'dom', 'feedback', 'images',
@@ -556,6 +557,26 @@ export class ExtensionHarness {
         offset: local.getTimezoneOffset(), date: `${local.getFullYear()}-${String(local.getMonth() + 1).padStart(2, '0')}-${String(local.getDate()).padStart(2, '0')}`,
         nativeDate: view.Date.toString().includes('[native code]') && view.Date.now.toString().includes('[native code]') };
     });
+  }
+
+  async interruptAndRestart() {
+    if (this.config.installation !== 'persistent' || !this.driver || !this.sessionReady) {
+      throw new EnvironmentError('Process interruption requires this fixture\'s persistent Firefox session');
+    }
+    const beforePid = this.result.browser['moz:processID'];
+    const evidence = await interruptProfileBrowser({ pid: beforePid, profile: this.profile });
+    this.interruptionEvidence = { ...evidence, beforePid };
+    // The owned Firefox parent is already dead. Close its automation service,
+    // not driver.quit(), which would be a normal browser shutdown request.
+    await this.bidi?.close();
+    await this.service.kill();
+    this.driver = this.service = this.probe = this.bidi = null;
+    this.sessionReady = false; this.options = [];
+    await this.launch({ restarted: true });
+    const afterPid = this.result.browser['moz:processID'];
+    assert.notEqual(afterPid, beforePid, 'recovery uses a new native Firefox process');
+    this.interruptionEvidence.afterPid = afterPid;
+    return this.interruptionEvidence;
   }
 
   async restart({ timezone = this.timezone, beforeExtensionProbe = null } = {}) {

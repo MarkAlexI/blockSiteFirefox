@@ -296,3 +296,11 @@ scenarios.push(...(await import('./dnr-readiness-scenarios.mjs')).dnrReadinessSc
 scenarios.push(...(await import('./upgrade-scenarios.mjs')).upgradeScenarios);
 
 for (const scenario of focusSoundScenarios) test(scenario.id, scenario.title, scenario.run);
+
+const { interruptedMutationScenarios, mutationContinuityScenario } = await import('./mutation-recovery-scenarios.mjs');
+const { createMutationNavigationProbe } = await import('./mutation-navigation.mjs');
+scenarios.push(...interruptedMutationScenarios);
+scenarios.push({ ...mutationContinuityScenario, async prepare(e) {
+  e.mutationNavigation = createMutationNavigationProbe();
+  e.config.fixtureHtml = url => e.mutationNavigation.htmlFor(url);
+} });

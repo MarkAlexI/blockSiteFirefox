@@ -1,5 +1,12 @@
 # Firefox Desktop E2E — BlockDistraction **5.5.4**
 
+## Interrupted mutations and native DNR continuity (tests only, 2026-10-28)
+
+Scenarios 70–72 add two persistent owned-process SIGKILL/recovery checkpoints
+and real HTTP main-frame navigation controls during edit, import and profile activation.
+Inventory: **71 = 69 core + 1 overdue + 1 upgrade**.
+See [scope, controls and remaining acceptance](mutation-recovery.md).
+
 ## DNR startup measurement (tests only, 2026-10-28)
 
 New scenario 66 measures a real main-frame DNR navigation after persistent
