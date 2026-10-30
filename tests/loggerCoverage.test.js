@@ -53,13 +53,13 @@ test('debug logging obeys synchronized settings while errors remain visible and 
       assert.equal(calls.some(call => call.name === 'group'), true);
       assert.equal(calls.some(call => call.name === 'groupEnd'), true);
 
-      globalThis.DebugController.disable();
+      await globalThis.DebugController.disable();
       assert.equal(api.storage.sync.data.settings.debugMode, false);
       assert.equal(api.storage.sync.data.settings.mode, 'strict');
       api.storage.onChanged.emit({ settings: { newValue: { debugMode: false } } }, 'sync');
       assert.equal(globalThis.DebugController.status(), false);
 
-      globalThis.DebugController.enable();
+      await globalThis.DebugController.enable();
       assert.equal(api.storage.sync.data.settings.debugMode, true);
       api.storage.onChanged.emit({ settings: { newValue: null } }, 'sync');
       assert.equal(globalThis.DebugController.status(), false);

@@ -67,6 +67,25 @@ function getDnrErrorCode(error) {
     : null;
 }
 
+const DNR_SYNC_FAILURE_CODES = Object.freeze({
+  read_state: 'sync_state_read_failed',
+  build_rules: 'sync_rule_build_failed',
+  read_dynamic_rules: 'sync_rules_read_failed',
+  build_diff: 'sync_diff_failed',
+  check_capacity: 'sync_capacity_check_failed',
+  apply_rules: 'sync_apply_failed',
+  reconcile_tabs: 'sync_tab_reconcile_failed'
+});
+
+export function getDnrSyncFailureCode(result = {}) {
+  if (result?.code === 'dnr_rule_limit_reached' ||
+    result?.errorCode === 'dnr_rule_limit_reached') return 'rule_limit_reached';
+  const stage = result?.errorStage;
+  return typeof stage === 'string' && Object.hasOwn(DNR_SYNC_FAILURE_CODES, stage)
+    ? DNR_SYNC_FAILURE_CODES[stage]
+    : 'sync_failed';
+}
+
 /**
  * Builds a stable signature from the DNR fields that define rule behavior.
  * This does not normalize or reinterpret user-entered block patterns.
@@ -151,7 +170,8 @@ export function createDnrSynchronizer({
   let pendingTabReconciliation = false;
   let activeTabReconciliation = false;
 
-  async function buildExpectedDnrState(candidate = {}) {
+  async function buildExpectedDnrState(candidate = {}, onStage = () => {}) {
+    onStage('read_state');
     const rules = Array.isArray(candidate.rules) ? candidate.rules : await getRules();
     const [ruleListState, dailyUsage, focusState] = await Promise.all([
       candidate.ruleListState || getRuleListState(),
@@ -160,6 +180,7 @@ export function createDnrSynchronizer({
     ]);
     const { focusActive } = focusState;
     const access = focusActive ? (candidate.access || await getAccess()) : null;
+    onStage('build_rules');
     const limitFocusToGeneral = focusActive && !access?.isPro && !access?.isLegacyUser;
     const activeRuleListId = limitFocusToGeneral
       ? GENERAL_RULE_LIST_ID
@@ -232,22 +253,26 @@ export function createDnrSynchronizer({
       : null;
   }
 
-  async function syncActiveRulesOnce(generation, reconcileExistingTabs) {
+  async function syncActiveRulesOnce(generation, reconcileExistingTabs, attempt) {
     const { activeRules, dnrRules: expectedRules } =
-      await buildExpectedDnrState();
+      await buildExpectedDnrState({}, stage => { attempt.stage = stage; });
+    attempt.stage = 'read_dynamic_rules';
     const currentRules = await declarativeNetRequest.getDynamicRules();
+    attempt.stage = 'build_diff';
     const { removeRuleIds, addRules } =
       buildDnrDiff(currentRules, expectedRules);
     const changed = removeRuleIds.length > 0 || addRules.length > 0;
 
     if (changed) {
       if (addRules.length > 0) {
+        attempt.stage = 'check_capacity';
         const capacity = inspectDnrRuleCapacity(expectedRules, declarativeNetRequest);
         if (!capacity.withinCapacity) throw createDnrCapacityError(capacity);
       }
 
       // Always pass both arrays. In particular, clearing all rules requires the
       // complete removeRuleIds array together with addRules: [].
+      attempt.stage = 'apply_rules';
       await declarativeNetRequest.updateDynamicRules({
         removeRuleIds,
         addRules
@@ -261,6 +286,7 @@ export function createDnrSynchronizer({
     const shouldReconcileTabs = changed || reconcileExistingTabs;
 
     if (shouldReconcileTabs && activeRules.length > 0 && generation === syncGeneration) {
+      attempt.stage = 'reconcile_tabs';
       await closeTabsMatchingRules(
         activeRules.map(rule => rule.blockURL),
         () => generation === syncGeneration
@@ -295,9 +321,10 @@ export function createDnrSynchronizer({
         const generation = syncGeneration;
         activeTabReconciliation = pendingTabReconciliation;
         pendingTabReconciliation = false;
+        const attempt = { stage: 'read_state' };
 
         try {
-          lastResult = await syncActiveRulesOnce(generation, activeTabReconciliation);
+          lastResult = await syncActiveRulesOnce(generation, activeTabReconciliation, attempt);
         } catch (error) {
           logger.info('Error updating active rules:', error);
           const code = getDnrErrorCode(error);
@@ -308,6 +335,7 @@ export function createDnrSynchronizer({
             added: 0,
             error: error?.message || String(error),
             errorName: error?.name || 'Error',
+            errorStage: attempt.stage,
             ...(code ? { code } : {}),
             ...(error?.capacity ? { capacity: error.capacity } : {})
           };

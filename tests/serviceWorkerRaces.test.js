@@ -2791,6 +2791,89 @@ test('failed atomic local imports never modify sync settings or existing browser
   });
 });
 
+test('DNR read and apply failures with identical messages remain distinct and deduplicate by stage', async () => {
+  const original = makeFocusRule(1, 'general', { blockURL: 'stage.example' });
+  await withWorker(async ({ api, alarm }) => {
+    const get = api.declarativeNetRequest.getDynamicRules;
+    const update = api.declarativeNetRequest.updateDynamicRules;
+    const refuse = async () => { throw new Error('private@example.invalid https://private.invalid/path'); };
+    const failures = () => Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []).filter(error => error.source === 'dnr');
+
+    api.declarativeNetRequest.getDynamicRules = refuse;
+    await alarm({ name: 'update_scheduled_rules' });
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(failures().length, 1);
+    assert.equal(failures()[0].fingerprint, 'dnr:sync_rules_read_failed:update_dynamic_rules:error');
+    assert.equal(failures()[0].count, 1);
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.errorStage, 'read_dynamic_rules');
+
+    api.declarativeNetRequest.getDynamicRules = get;
+    api.declarativeNetRequest.updateDynamicRules = refuse;
+    await alarm({ name: 'update_scheduled_rules' });
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(failures().length, 2);
+    assert.equal(failures()[1].fingerprint, 'dnr:sync_apply_failed:update_dynamic_rules:error');
+    assert.equal(failures()[1].count, 1);
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.errorStage, 'apply_rules');
+    assert.deepEqual(api.dynamicRules, []);
+    assert.equal(JSON.stringify(failures()).includes('private'), false);
+
+    api.declarativeNetRequest.updateDynamicRules = update;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.success, true);
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.errorStage, null);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1]);
+
+    api.dynamicRules = [];
+    api.declarativeNetRequest.updateDynamicRules = refuse;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(failures()[1].count, 2);
+  }, { local: { activeRuleListId: 'general', rules: [original],
+    telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+});
+
+test('durable DNR deduplication preserves stage separation after a worker restart', async () => {
+  const original = makeFocusRule(1, 'general', { blockURL: 'restart-stage.example' });
+  const refuse = async () => { throw new Error('same refusal'); };
+  let persisted;
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.getDynamicRules = refuse;
+    await alarm({ name: 'update_scheduled_rules' });
+    persisted = structuredClone(api.storage.local.data);
+  }, { local: { activeRuleListId: 'general', rules: [original],
+    telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.getDynamicRules = refuse;
+    await alarm({ name: 'update_scheduled_rules' });
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []).filter(error => error.source === 'dnr');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].count, 1);
+    persisted = structuredClone(api.storage.local.data);
+  }, { local: persisted, supportsWindows: false });
+
+  await withWorker(async ({ api, alarm }) => {
+    api.declarativeNetRequest.updateDynamicRules = refuse;
+    await alarm({ name: 'update_scheduled_rules' });
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {})
+      .flatMap(bucket => bucket.errors || []).filter(error => error.source === 'dnr');
+    assert.deepEqual(errors.map(error => error.code), ['sync_rules_read_failed', 'sync_apply_failed']);
+    assert.deepEqual(errors.map(error => error.count), [1, 1]);
+  }, { local: persisted, supportsWindows: false });
+});
+
+test('DNR stage failures do not create telemetry when consent is disabled', async () => {
+  await withWorker(async ({ api, alarm }) => {
+    api.permissions.getAll = async () => ({ data_collection: ['authenticationInfo'] });
+    api.declarativeNetRequest.getDynamicRules = async () => { throw new Error('synthetic refusal'); };
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.errorStage, 'read_dynamic_rules');
+    assert.deepEqual(api.storage.local.data.telemetryBuckets || {}, {});
+  }, { supportsWindows: false });
+});
+
 test('repeated identical DNR quota failures do not rewrite diagnostics or analytics every minute', async () => {
   const original = makeFocusRule(1, 'general', { blockURL: 'quota.example' });
   await withWorker(async ({ api, alarm }) => {

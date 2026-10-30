@@ -1,22 +1,51 @@
 let isDebug = false;
+let settingsRevision = 0;
 
-browser.storage.sync.get(['settings'], (result) => {
-  if (result.settings && result.settings.debugMode) {
-    isDebug = true;
+function isSettingsObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function getStoredSettings(result) {
+  if (!isSettingsObject(result)) return null;
+  if (result.settings === undefined) return {};
+  return isSettingsObject(result.settings) ? result.settings : null;
+}
+
+async function initializeDebugMode() {
+  const revision = settingsRevision;
+  try {
+    const settings = getStoredSettings(await browser.storage.sync.get(['settings']));
+    // A delayed initial snapshot must not undo a newer storage change.
+    if (revision === settingsRevision) isDebug = settings?.debugMode === true;
+  } catch {
+    // Logging remains available with debug disabled when the initial read fails.
   }
-});
+}
+
+async function setDebugMode(debugMode) {
+  try {
+    const settings = getStoredSettings(await browser.storage.sync.get(['settings']));
+    // A failed or malformed read must never replace unrelated saved settings.
+    if (settings === null) return false;
+    await browser.storage.sync.set({ settings: { ...settings, debugMode } });
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 browser.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === 'sync' && changes.settings) {
-    const newSettings = changes.settings.newValue;
-    if (newSettings && typeof newSettings.debugMode !== 'undefined') {
-      isDebug = newSettings.debugMode;
-      if (isDebug) {
-        console.log('%c Debug Mode Enabled via Settings ', 'background: green; color: white;');
-      }
+    settingsRevision += 1;
+    const settings = changes.settings.newValue;
+    isDebug = isSettingsObject(settings) && settings.debugMode === true;
+    if (isDebug) {
+      console.log('%c Debug Mode Enabled via Settings ', 'background: green; color: white;');
     }
   }
 });
+
+void initializeDebugMode();
 
 const stringToColor = (str) => {
   let hash = 0;
@@ -76,20 +105,8 @@ class Logger {
 }
 
 globalThis.DebugController = {
-  enable: () => {
-    browser.storage.sync.get(['settings'], (result) => {
-      const settings = result.settings || {};
-      settings.debugMode = true;
-      browser.storage.sync.set({ settings });
-    });
-  },
-  disable: () => {
-    browser.storage.sync.get(['settings'], (result) => {
-      const settings = result.settings || {};
-      settings.debugMode = false;
-      browser.storage.sync.set({ settings });
-    });
-  },
+  enable: () => setDebugMode(true),
+  disable: () => setDebugMode(false),
   status: () => isDebug
 };
 

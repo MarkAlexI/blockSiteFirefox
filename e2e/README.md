@@ -1,4 +1,4 @@
-# Firefox Desktop E2E — BlockDistraction **5.5.4**
+# Firefox Desktop E2E — BlockDistraction **5.5.5**
 
 ## Interrupted mutations and native DNR continuity (tests only, 2026-10-28)
 
@@ -14,6 +14,13 @@ browser restart, before opening the first extension UI. The observation starts
 after WebDriver attachment; it does not cover earliest restored-tab traffic.
 Current inventory: **68 = 66 core + 1 overdue + 1 upgrade**.
 See [scope, HTTP evidence and timing bounds](dnr-readiness.md).
+
+## Logger and DNR diagnostics 5.5.5
+
+`npm run check` includes logger storage-failure and stale-read regressions,
+bounded DNR failure-stage fingerprints, recovery, consent and durable deduplication.
+These are controlled Node/API-model checks. Native Firefox Android acceptance
+and storage-failure reproduction remain separate device checks.
 
 ## Rule help and locales 5.5.4
 

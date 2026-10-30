@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.5] - 2026-10-30
+
+### Fixed
+- Keep logging available after failed or missing synchronized-settings reads, and contain debug-control read and write failures without overwriting saved preferences.
+- Reset debug logging after settings removal and ignore stale initial reads after a newer storage change.
+- Distinguish DNR synchronization failure stages with fixed privacy-safe codes, including durable deduplication, while preserving the existing telemetry schema and quota fingerprints.
+
 ## [5.5.4] - 2026-10-27
 
 ### Fixed
