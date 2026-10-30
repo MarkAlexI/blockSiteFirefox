@@ -10,7 +10,17 @@
 [![AMO](https://img.shields.io/amo/v/blockersite)](https://addons.mozilla.org/uk/firefox/addon/blockersite/)
 
 ## About
-An extension that blocks or redirects HTTP and HTTPS website requests using `declarativeNetRequest` dynamic rules.
+BlockDistraction is a privacy-first website blocker for Firefox on desktop and Android. Start with 10 free blocking rules without an account.
+
+The extension blocks or redirects HTTP and HTTPS website requests using `declarativeNetRequest` dynamic rules.
+
+## Features and Android guides
+
+- [Compare Free and Pro features](https://blockdistraction.com/features.html): blocking rules, Focus Sessions, schedules, Daily Limits and Rule List profiles.
+- [Firefox Android website blocker](https://blockdistraction.com/firefox-android-website-blocker.html): mobile features, browser limits and common questions.
+- [Install BlockDistraction in Firefox for Android](https://blockdistraction.com/blog/how-to-block-websites-on-firefox-android.html): illustrated installation, Popup and Settings walkthrough, and your first rule.
+- [Block websites in Microsoft Edge on Android](https://blockdistraction.com/edge-android-website-blocker.html): installation, your first blocking rule and Android link handling.
+- [BlockDistraction User Guide](https://blockdistraction.com/user-guide.html): rule matching, profiles, schedules, Daily Limits and focus controls.
 
 ## Accessibility work
 
@@ -67,7 +77,7 @@ Both versions work on mobile browsers:
 
 ![blocker.png](/images/blocker.png "blocker")
 ## How to work with extension
-To block a website, enter an HTTP or HTTPS URL, a domain and path, or part of a domain into the input field with the placeholder "Type Block URL". For example, "facebook" will block related subdomains. Browser-internal and non-web schemes such as `file:`, `data:`, and `ftp:` cannot be blocked. In the field with the placeholder "Type Redirect URL", enter a complete HTTP or HTTPS address such as "https://google.com". If the redirect field is left empty, the site will be blocked without redirection. Click the Save button to apply the rule. To update a rule, delete the old one and create a new entry.
+To block a website, enter an HTTP or HTTPS URL, a domain and path, or part of a domain into the input field with the placeholder "Type Block URL". For example, "facebook" will block related subdomains. Browser-internal and non-web schemes such as `file:`, `data:`, and `ftp:` cannot be blocked. In the field with the placeholder "Type Redirect URL", enter a complete HTTP or HTTPS address such as "https://google.com". If the redirect field is left empty, the site will be blocked without redirection. Click the Save button to apply the rule. To edit an existing rule, open the full extension Settings page. See [how to edit and manage blocking rules](https://blockdistraction.com/user-guide.html#managing-rules).
 ## Video Demo: [Block Site Extension](https://youtu.be/-z3pXiM_yv8?si=vEEBruG6XABppWQs)
 ### Project Description
 
