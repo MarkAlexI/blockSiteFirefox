@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Szabályok betöltése…"
+  },
+  "options_rules_unavailable": {
+    "message": "A szabályokat nem sikerült betölteni. Töltsd újra ezt az oldalt. Ha a probléma továbbra is fennáll, zárd be teljesen, majd indítsd újra a böngészőt, és nyisd meg ismét a beállításokat."
+  },
+  "options_reload_page": {
+    "message": "Oldal újratöltése"
   }
 }

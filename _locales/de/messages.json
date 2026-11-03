@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Regeln werden geladen…"
+  },
+  "options_rules_unavailable": {
+    "message": "Die Regeln konnten nicht geladen werden. Lade diese Seite neu. Falls das Problem weiterhin besteht, schließe den Browser vollständig und starte ihn neu. Öffne anschließend die Einstellungen erneut."
+  },
+  "options_reload_page": {
+    "message": "Seite neu laden"
   }
 }

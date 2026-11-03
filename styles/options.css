@@ -2249,3 +2249,13 @@ tr.rule-whitelist td:first-child::before {
 }
 .focus-sound-preview button[aria-disabled="true"] { cursor: wait; }
 #focusSoundStatus { overflow-wrap: anywhere; }
+
+/* Persistent recovery feedback uses the existing readable surface palette. */
+.options-recovery {
+  margin-block: 1rem;
+  padding: 1rem;
+  border: 2px solid currentColor;
+  border-radius: 0.5rem;
+  overflow-wrap: anywhere;
+}
+.options-recovery p { margin-block: 0 0.75rem; }

@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "규칙을 불러오는 중…"
+  },
+  "options_rules_unavailable": {
+    "message": "규칙을 불러오지 못했습니다. 이 페이지를 새로고침하세요. 문제가 계속되면 브라우저를 완전히 종료한 후 다시 시작하고 설정을 다시 여세요."
+  },
+  "options_reload_page": {
+    "message": "페이지 새로고침"
   }
 }

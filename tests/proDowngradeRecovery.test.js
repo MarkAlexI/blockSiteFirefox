@@ -104,6 +104,7 @@ function createOptionsProfileController({
     GENERAL_RULE_LIST_ID,
     MAX_RULES_LIMIT,
     document: { getElementById: () => null },
+    window: {}, checkRulesConnection: async () => {},
     t: key => key
   });
 

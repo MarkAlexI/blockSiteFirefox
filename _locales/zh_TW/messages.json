@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "正在載入規則…"
+  },
+  "options_rules_unavailable": {
+    "message": "無法載入規則。請重新載入此頁面。如問題持續，請完全關閉並重新啟動瀏覽器，再開啟設定。"
+  },
+  "options_reload_page": {
+    "message": "重新載入頁面"
   }
 }

@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Įkeliamos taisyklės…"
+  },
+  "options_rules_unavailable": {
+    "message": "Nepavyko įkelti taisyklių. Įkelkite šį puslapį iš naujo. Jei problema išlieka, visiškai uždarykite ir iš naujo paleiskite naršyklę, tada vėl atverkite nustatymus."
+  },
+  "options_reload_page": {
+    "message": "Įkelti puslapį iš naujo"
   }
 }

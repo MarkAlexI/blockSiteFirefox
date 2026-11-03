@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "A carregar regras…"
+  },
+  "options_rules_unavailable": {
+    "message": "Não foi possível carregar as regras. Recarregue esta página. Se o problema persistir, feche completamente o navegador e volte a abri-lo. Depois, abra novamente as definições."
+  },
+  "options_reload_page": {
+    "message": "Recarregar página"
   }
 }

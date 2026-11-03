@@ -1,4 +1,19 @@
-# Firefox Desktop E2E — BlockDistraction **5.5.7**
+# Firefox Desktop E2E — BlockDistraction **5.5.8**
+
+## Options recovery candidate **5.5.8** (2026-11-03)
+
+Node/API-model tests reproduce an initial rules view blocked by unanswered
+telemetry or Pro guidance. They exercise the real independent bootstrap guard,
+missing module startup, unavailable extension APIs, stalled reads, empty-list
+controls, read-only connection checks, stale refreshes and cleanup. They do not
+reproduce the reported Chromium update failure in a native browser.
+
+Native acceptance remains required: leave Options open during a real extension
+update, reload it, open it again through Popup, and check rule rendering and a
+normal edit. If the browser leaves the page unavailable, expect persistent
+recovery feedback rather than an empty rules section. Reload is user initiated;
+restart advice is a fallback, not a diagnosis of the browser's internal cause.
+The recovery script must remain a separate classic script in the store package.
 
 ## Daily Limit mode retention candidate **5.5.7** (2026-11-03)
 

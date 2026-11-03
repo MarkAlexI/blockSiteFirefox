@@ -5,6 +5,27 @@ export function sendRuntimeMessage(message) {
   return browser.runtime.sendMessage(message);
 }
 
+// Read-only, bounded liveness check. A timeout never retries a mutation or
+// claims an unanswered save failed; the Options view stays blocked until read again.
+export function checkRulesConnection({ timeoutMs = 8000 } = {}) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      const error = new Error('Rules connection did not respond');
+      error.code = 'rules_connection_timeout';
+      reject(error);
+    }, timeoutMs);
+    Promise.resolve().then(() => sendRuntimeMessage({ type: 'rules:health' })).then(response => {
+      clearTimeout(timer);
+      if (response?.success === true && response.protocol === 1) resolve();
+      else {
+        const error = new Error('Rules connection is unavailable');
+        error.code = 'rules_connection_unavailable';
+        reject(error);
+      }
+    }, error => { clearTimeout(timer); reject(error); });
+  });
+}
+
 function createClientError(errorData = {}) {
   const error = new Error(errorData.message || errorData.code || 'Rules operation failed');
   error.code = errorData.code || 'rules_operation_failed';

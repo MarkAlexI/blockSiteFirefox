@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Nalaganje pravil…"
+  },
+  "options_rules_unavailable": {
+    "message": "Pravil ni bilo mogoče naložiti. Znova naložite to stran. Če težava ostaja, popolnoma zaprite in znova zaženite brskalnik, nato odprite nastavitve."
+  },
+  "options_reload_page": {
+    "message": "Znova naloži stran"
   }
 }

@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Načítavajú sa pravidlá…"
+  },
+  "options_rules_unavailable": {
+    "message": "Pravidlá sa nepodarilo načítať. Obnovte túto stránku. Ak problém pretrváva, úplne zatvorte a znova spustite prehliadač a potom otvorte nastavenia."
+  },
+  "options_reload_page": {
+    "message": "Obnoviť stránku"
   }
 }

@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Ielādē noteikumus…"
+  },
+  "options_rules_unavailable": {
+    "message": "Noteikumus neizdevās ielādēt. Pārlādējiet šo lapu. Ja problēma turpinās, pilnībā aizveriet un no jauna palaidiet pārlūku, pēc tam atveriet iestatījumus."
+  },
+  "options_reload_page": {
+    "message": "Pārlādēt lapu"
   }
 }

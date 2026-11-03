@@ -3,7 +3,7 @@ import { initializeCollapsibleSections } from '../dom/collapsibleSections.js';
 import { SettingsManager } from './settings.js';
 import { ProManager } from '../pro/proManager.js';
 import { RulesManager } from '../rules/rulesManager.js';
-import { RulesClient, sendRuntimeMessage } from '../rules/rulesClient.js';
+import { RulesClient, sendRuntimeMessage, checkRulesConnection } from '../rules/rulesClient.js';
 import { getRulesMutationFeedback } from '../rules/rulesMutationFeedback.js';
 import { isExpectedRulesRejection } from '../rules/rulesErrorClassification.js';
 import { RulesUI } from '../rules/rulesUI.js';
@@ -142,7 +142,10 @@ class OptionsPage {
     this.proGuidanceDismissPending = false;
     this.disposed = false;
     
-    this.init();
+    this.init().catch(error => {
+      window.bdOptionsRecovery?.fail();
+      this.logger.info('Options initialization failed:', error);
+    });
     this.exposeDebugTools();
   }
   
@@ -156,7 +159,8 @@ class OptionsPage {
     this.setupStorageListeners();
     this.rulePacksUI.initialize();
     this.diagnosticsUI.initialize();
-    await this.telemetryUI.initialize();
+    // Optional consent UI must not hold the rules view behind an unanswered message.
+    void this.telemetryUI.initialize().catch(error => this.logger.info('Telemetry UI initialization failed:', error));
     await this.refreshProAccess();
 
     await ProManager.initializeProFeatures();
@@ -258,6 +262,7 @@ class OptionsPage {
   }
 
   async refreshProAccess() {
+    window.bdOptionsRecovery?.begin();
     const requestId = this.proAccessRefreshId = (this.proAccessRefreshId || 0) + 1;
     this.invalidateProTips();
     try {
@@ -268,14 +273,16 @@ class OptionsPage {
       this.renderStarterTips(access.credentials.installationDate);
       ProManager.updateProFeaturesVisibility(access.isPro || access.isLegacyUser);
       this.updateWhitelistButtonState();
-      await this.renderProTips(access.isPro || access.isLegacyUser);
+      // Guidance can use runtime messages; load the actual rules first.
       if (!this.disposed && requestId === this.proAccessRefreshId) await this.refreshProfileView();
+      if (!this.disposed && requestId === this.proAccessRefreshId) await this.renderProTips(access.isPro || access.isLegacyUser);
     } catch (error) {
       if (requestId !== this.proAccessRefreshId || this.disposed) return;
       this.isPro = false;
       this.isLegacyUser = false;
       this.invalidateProTips();
       this.updateWhitelistButtonState();
+      window.bdOptionsRecovery?.fail();
       this.logger.info('Error refreshing Pro/Legacy status:', error);
     }
   }
@@ -476,13 +483,15 @@ class OptionsPage {
   
   async refreshProfileView() {
     const refreshId = ++this.profileRefreshId;
+    window.bdOptionsRecovery?.begin();
     try {
       const [snapshot, state, dailyUsageSeconds] = await Promise.all([
         this.rulesManager.getRulesSnapshot(),
         this.ruleListsManager.getSnapshot(),
-        this.dailyLimitManager.getUsageSeconds()
+        this.dailyLimitManager.getUsageSeconds(),
+        checkRulesConnection()
       ]);
-      if (refreshId !== this.profileRefreshId) return;
+      if (this.disposed || refreshId !== this.profileRefreshId) return;
       const { rules, generation, revisions = {} } = snapshot;
 
       const hasRuleListAccess = this.isPro || this.isLegacyUser;
@@ -561,7 +570,10 @@ class OptionsPage {
         );
       }
       if (this.settingsManager) this.settingsManager.loadRuleCount(rules);
+      window.bdOptionsRecovery?.ready();
     } catch (error) {
+      if (this.disposed || refreshId !== this.profileRefreshId) return;
+      window.bdOptionsRecovery?.fail();
       this.logger.error('Refresh profile view error:', error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     }
@@ -1015,6 +1027,7 @@ class OptionsPage {
 
   cleanup() {
     this.disposed = true;
+    window.bdOptionsRecovery?.dispose();
     this.proAccessRefreshId = (this.proAccessRefreshId || 0) + 1;
     this.invalidateProTips();
     this.rulesUI.cleanup();

@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Ladataan sääntöjä…"
+  },
+  "options_rules_unavailable": {
+    "message": "Sääntöjä ei voitu ladata. Lataa tämä sivu uudelleen. Jos ongelma jatkuu, sulje selain kokonaan ja käynnistä se uudelleen. Avaa sitten asetukset uudelleen."
+  },
+  "options_reload_page": {
+    "message": "Lataa sivu uudelleen"
   }
 }

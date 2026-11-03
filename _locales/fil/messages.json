@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Kinakarga ang mga panuntunan…"
+  },
+  "options_rules_unavailable": {
+    "message": "Hindi ma-load ang mga panuntunan. I-reload ang pahinang ito. Kung magpatuloy ang problema, ganap na isara at muling buksan ang browser, pagkatapos ay buksan muli ang Mga Setting."
+  },
+  "options_reload_page": {
+    "message": "I-reload ang pahina"
   }
 }

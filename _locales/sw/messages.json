@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Inapakia kanuni…"
+  },
+  "options_rules_unavailable": {
+    "message": "Kanuni hazikuweza kupakiwa. Pakia upya ukurasa huu. Tatizo likiendelea, funga kivinjari kabisa na ukifungue tena, kisha ufungue Mipangilio."
+  },
+  "options_reload_page": {
+    "message": "Pakia upya ukurasa"
   }
 }

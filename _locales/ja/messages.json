@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "ルールを読み込み中…"
+  },
+  "options_rules_unavailable": {
+    "message": "ルールを読み込めませんでした。このページを再読み込みしてください。問題が続く場合は、ブラウザーを完全に終了して再起動し、設定を開き直してください。"
+  },
+  "options_reload_page": {
+    "message": "ページを再読み込み"
   }
 }

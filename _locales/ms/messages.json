@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Memuatkan peraturan…"
+  },
+  "options_rules_unavailable": {
+    "message": "Peraturan tidak dapat dimuatkan. Muat semula halaman ini. Jika masalah berterusan, tutup pelayar sepenuhnya dan mulakannya semula, kemudian buka Tetapan sekali lagi."
+  },
+  "options_reload_page": {
+    "message": "Muat semula halaman"
   }
 }

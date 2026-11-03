@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Chargement des règles…"
+  },
+  "options_rules_unavailable": {
+    "message": "Impossible de charger les règles. Rechargez cette page. Si le problème persiste, fermez complètement le navigateur et redémarrez-le, puis rouvrez les paramètres."
+  },
+  "options_reload_page": {
+    "message": "Recharger la page"
   }
 }

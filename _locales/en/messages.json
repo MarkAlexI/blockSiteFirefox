@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Loading rules…"
+  },
+  "options_rules_unavailable": {
+    "message": "Rules could not be loaded. Reload this page. If the problem continues, fully close and restart your browser, then reopen Settings."
+  },
+  "options_reload_page": {
+    "message": "Reload page"
   }
 }

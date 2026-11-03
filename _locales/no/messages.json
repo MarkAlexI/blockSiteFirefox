@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Laster inn regler…"
+  },
+  "options_rules_unavailable": {
+    "message": "Reglene kunne ikke lastes inn. Last inn siden på nytt. Hvis problemet fortsetter, lukk nettleseren helt og start den på nytt. Åpne deretter innstillingene igjen."
+  },
+  "options_reload_page": {
+    "message": "Last inn siden på nytt"
   }
 }

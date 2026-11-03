@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Wczytywanie reguł…"
+  },
+  "options_rules_unavailable": {
+    "message": "Nie udało się wczytać reguł. Odśwież tę stronę. Jeśli problem nadal występuje, całkowicie zamknij i ponownie uruchom przeglądarkę, a następnie otwórz ustawienia."
+  },
+  "options_reload_page": {
+    "message": "Odśwież stronę"
   }
 }

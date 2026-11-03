@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.8] - 2026-11-03
+
+### Fixed
+- Load the Options rules view before optional telemetry and Pro guidance can stall it.
+- Distinguish an unavailable rules view from a genuinely empty list. Independent recovery feedback offers a page reload and browser restart advice after initialization or connection failures.
+- Keep rule editing unavailable until the saved view and its background connection are ready, without automatically replaying mutations or reloading the extension.
+
 ## [5.5.7] - 2026-11-03
 
 ### Fixed

@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "ደንቦችን በመጫን ላይ…"
+  },
+  "options_rules_unavailable": {
+    "message": "ደንቦችን መጫን አልተቻለም። ይህን ገጽ እንደገና ይጫኑ። ችግሩ ከቀጠለ፣ አሳሹን ሙሉ በሙሉ ዘግተው እንደገና ያስጀምሩ፣ ከዚያ ቅንብሮችን ይክፈቱ።"
+  },
+  "options_reload_page": {
+    "message": "ገጹን እንደገና ጫን"
   }
 }

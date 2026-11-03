@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Se încarcă regulile…"
+  },
+  "options_rules_unavailable": {
+    "message": "Regulile nu au putut fi încărcate. Reîncărcați această pagină. Dacă problema persistă, închideți complet și reporniți browserul, apoi redeschideți setările."
+  },
+  "options_reload_page": {
+    "message": "Reîncarcă pagina"
   }
 }

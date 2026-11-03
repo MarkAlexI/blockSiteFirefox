@@ -2065,3 +2065,28 @@ test('a failed mode-boundary sample cannot later charge time spent outside Daily
       scripting: { executeScript: async () => [{ frameId: 0, result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] } });
   });
 });
+
+
+test('Options health replies only to the owned Options document without reading or changing saved state', async () => {
+  await withWorker(async ({ api }) => {
+    const listener = api.runtime.onMessage.listeners[0];
+    const before = structuredClone(api.storage.local.data);
+    for (const [sender, allowed] of [
+      [{ id: api.runtime.id, url: api.runtime.getURL('options/options.html'), frameId: 0 }, true],
+      [{ id: api.runtime.id, url: api.runtime.getURL('options/options.html'), frameId: 1 }, true],
+      [{ id: api.runtime.id, url: api.runtime.getURL('options/options.html') + '?section=rules#rules-table' }, true],
+      [{ id: api.runtime.id, url: 'chrome-extension://other/options/options.html' }, false],
+      [{ id: api.runtime.id, url: api.runtime.getURL('index.html') }, false],
+      [{ id: 'another-extension', url: api.runtime.getURL('options/options.html') }, false],
+      [{ id: api.runtime.id, url: 'https://example.com/' }, false],
+      [{}, false]
+    ]) {
+      let response;
+      assert.equal(listener({ type: 'rules:health' }, sender, value => { response = value; }), false);
+      assert.deepEqual(response, allowed ? { success: true, protocol: 1 }
+        : { success: false, code: 'rules_health_forbidden' });
+    }
+    assert.deepEqual(api.storage.local.data, before);
+    assert.deepEqual(api.dynamicRules, []);
+  });
+});

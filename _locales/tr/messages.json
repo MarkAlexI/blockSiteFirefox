@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Kurallar yükleniyor…"
+  },
+  "options_rules_unavailable": {
+    "message": "Kurallar yüklenemedi. Bu sayfayı yenileyin. Sorun devam ederse tarayıcınızı tamamen kapatıp yeniden başlatın, ardından Ayarlar’ı tekrar açın."
+  },
+  "options_reload_page": {
+    "message": "Sayfayı yenile"
   }
 }

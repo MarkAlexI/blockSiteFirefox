@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "S’estan carregant les regles…"
+  },
+  "options_rules_unavailable": {
+    "message": "No s’han pogut carregar les regles. Torneu a carregar aquesta pàgina. Si el problema continua, tanqueu completament el navegador i torneu-lo a iniciar; després obriu la configuració."
+  },
+  "options_reload_page": {
+    "message": "Torna a carregar la pàgina"
   }
 }

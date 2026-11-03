@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../styles/controls.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/modal.css" type="text/css" media="all" />
   <link rel="stylesheet" href="../styles/offer.css" type="text/css" media="all" />
+  <script src="./optionsRecovery.js" defer></script>
   <title id="options-title">Options page for BlockDistraction</title>
   <link rel="stylesheet" href="../styles/focus-schedule.css">
 </head>
@@ -26,6 +27,11 @@
       <h2 data-i18n="optionsheader">Extension Settings</h2>
       <p data-i18n="optionsdescription">Configure your extension behavior and security settings</p>
     </header>
+
+    <aside id="options-recovery" class="options-recovery" role="alert" aria-live="assertive" aria-atomic="true" hidden>
+      <p id="options-recovery-message" data-i18n="options_rules_unavailable">Rules could not be loaded. Reload this page. If the problem continues, fully close and restart your browser, then reopen Settings.</p>
+      <button id="options-recovery-reload" type="button" class="footer-btn" data-i18n="options_reload_page">Reload page</button>
+    </aside>
 
     <aside id="starter-tips" class="starter-tips hidden" aria-live="polite">
       <div id="starter-tips-section">
@@ -472,7 +478,7 @@
             <th id="actions-header" scope="col">Actions</th>
           </tr>
         </thead>
-        <tbody id="rules-container"></tbody>
+        <tbody id="rules-container"><tr><td id="rules-loading-message" colspan="6" role="status" data-i18n="options_rules_loading">Loading rules…</td></tr></tbody>
       </table>
     </div>
     

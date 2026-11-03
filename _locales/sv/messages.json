@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Läser in regler…"
+  },
+  "options_rules_unavailable": {
+    "message": "Reglerna kunde inte läsas in. Ladda om sidan. Om problemet kvarstår, stäng webbläsaren helt och starta den igen. Öppna sedan inställningarna på nytt."
+  },
+  "options_reload_page": {
+    "message": "Ladda om sidan"
   }
 }

@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Đang tải quy tắc…"
+  },
+  "options_rules_unavailable": {
+    "message": "Không thể tải quy tắc. Hãy tải lại trang này. Nếu sự cố vẫn tiếp diễn, hãy đóng hoàn toàn rồi khởi động lại trình duyệt, sau đó mở lại phần Cài đặt."
+  },
+  "options_reload_page": {
+    "message": "Tải lại trang"
   }
 }

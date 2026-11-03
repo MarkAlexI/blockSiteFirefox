@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Učitavanje pravila…"
+  },
+  "options_rules_unavailable": {
+    "message": "Pravila se nisu mogla učitati. Ponovno učitajte ovu stranicu. Ako problem potraje, potpuno zatvorite i ponovno pokrenite preglednik, a zatim otvorite postavke."
+  },
+  "options_reload_page": {
+    "message": "Ponovno učitaj stranicu"
   }
 }

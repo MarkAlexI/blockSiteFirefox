@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Regels laden…"
+  },
+  "options_rules_unavailable": {
+    "message": "De regels konden niet worden geladen. Vernieuw deze pagina. Als het probleem aanhoudt, sluit de browser dan volledig en start deze opnieuw. Open daarna de instellingen opnieuw."
+  },
+  "options_reload_page": {
+    "message": "Pagina vernieuwen"
   }
 }

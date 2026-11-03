@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Reeglite laadimine…"
+  },
+  "options_rules_unavailable": {
+    "message": "Reegleid ei saanud laadida. Laadi see leht uuesti. Kui probleem püsib, sulge brauser täielikult ja käivita see uuesti ning ava siis seaded."
+  },
+  "options_reload_page": {
+    "message": "Laadi leht uuesti"
   }
 }

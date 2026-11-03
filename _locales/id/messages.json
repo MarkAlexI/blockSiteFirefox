@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Memuat aturan…"
+  },
+  "options_rules_unavailable": {
+    "message": "Aturan tidak dapat dimuat. Muat ulang halaman ini. Jika masalah berlanjut, tutup browser sepenuhnya dan jalankan kembali, lalu buka Pengaturan lagi."
+  },
+  "options_reload_page": {
+    "message": "Muat ulang halaman"
   }
 }

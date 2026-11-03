@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Laai reëls…"
+  },
+  "options_rules_unavailable": {
+    "message": "Reëls kon nie gelaai word nie. Herlaai hierdie bladsy. As die probleem voortduur, sluit die blaaier heeltemal en begin dit weer. Maak dan Instellings oop."
+  },
+  "options_reload_page": {
+    "message": "Herlaai bladsy"
   }
 }

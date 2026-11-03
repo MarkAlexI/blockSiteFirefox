@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "正在加载规则…"
+  },
+  "options_rules_unavailable": {
+    "message": "无法加载规则。请重新加载此页面。如果问题仍然存在，请完全关闭并重新启动浏览器，然后重新打开设置。"
+  },
+  "options_reload_page": {
+    "message": "重新加载页面"
   }
 }

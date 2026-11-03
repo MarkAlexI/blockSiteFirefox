@@ -1249,5 +1249,14 @@
         "example": "7"
       }
     }
+  },
+  "options_rules_loading": {
+    "message": "Indlæser regler…"
+  },
+  "options_rules_unavailable": {
+    "message": "Reglerne kunne ikke indlæses. Genindlæs siden. Hvis problemet fortsætter, skal du lukke browseren helt og starte den igen. Åbn derefter indstillingerne."
+  },
+  "options_reload_page": {
+    "message": "Genindlæs siden"
   }
 }
