@@ -34,7 +34,20 @@ function matchesCurrentNavigation(tab, matchesUrl) {
     (!tab.pendingUrl || matchesUrl(tab.pendingUrl));
 }
 
+async function protectDesktopWindows() {
+  try {
+    // Android exposes tab-backed virtual windows. A replacement belongs to a
+    // different virtual window, so desktop last-window protection cannot work.
+    return (await browser.runtime?.getPlatformInfo?.())?.os !== 'android';
+  } catch (error) {
+    logger.info('Could not determine tab-cleanup platform:', error);
+    return true;
+  }
+}
+
 async function removeStillMatchingTabs(ids, matches, shouldContinue) {
+  if (!shouldContinue()) return 0;
+  const preserveWindows = await protectDesktopWindows();
   const candidates = new Set(ids);
   const attemptedWindows = new Set();
   // Each retry follows safety-tab creation, never a timer or idle polling.
@@ -47,7 +60,7 @@ async function removeStillMatchingTabs(ids, matches, shouldContinue) {
       .map(tab => tab.id);
     if (currentIds.length === 0) return 0;
 
-    const unsafeWindows = getWindowsNeedingSafety(tabs, currentIds);
+    const unsafeWindows = preserveWindows ? getWindowsNeedingSafety(tabs, currentIds) : [];
     const windowsToProtect = unsafeWindows.filter(id => !attemptedWindows.has(id));
     if (windowsToProtect.length > 0) {
       for (const windowId of windowsToProtect) {

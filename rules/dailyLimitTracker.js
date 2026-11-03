@@ -6,6 +6,43 @@ import {
 } from './ruleAssignments.js';
 import { getDailyLimitSeconds } from './blockingMode.js';
 import { getTrackableDailyLimitAssignments } from './ruleActivation.js';
+import { getLocalDateKey, MAX_ACCOUNTING_GAP_MS } from './dailyLimitManager.js';
+
+export const DAILY_LIMIT_VISIBILITY_MESSAGE = 'daily-limit:visibility';
+
+// Runs in the extension's isolated top-frame world. Observe only native page
+// transitions; no timer, page URL, content, or remote telemetry is involved.
+export function readAndObserveDailyLimitVisibility() {
+  const read = () => ({ visibilityState: document.visibilityState,
+    hidden: document.hidden === true,
+    hasFocus: typeof document.hasFocus === 'function' ? document.hasFocus() : null });
+  const api = globalThis.browser || globalThis.chrome;
+  const key = '__blockDistractionDailyLimitVisibilityV1';
+  if (!globalThis[key] && typeof api?.runtime?.sendMessage === 'function' &&
+      typeof document.addEventListener === 'function') {
+    const changed = event => {
+      const state = document.visibilityState;
+      if (!event.isTrusted || !['visible', 'hidden'].includes(state)) return;
+      try {
+        void Promise.resolve(api.runtime.sendMessage({ type: 'daily-limit:visibility',
+          visibilityState: state, observedAt: Date.now() })).catch(() => {});
+      } catch { /* The extension may have been reloaded while this page stayed open. */ }
+    };
+    document.addEventListener('visibilitychange', changed);
+    globalThis[key] = { changed };
+  }
+  return read();
+}
+
+export function isDailyLimitVisibilitySender(message, sender, runtimeApi) {
+  if (message?.type !== DAILY_LIMIT_VISIBILITY_MESSAGE ||
+      !['visible', 'hidden'].includes(message.visibilityState) ||
+      !Number.isSafeInteger(message.observedAt) || message.observedAt <= 0 ||
+      !runtimeApi?.id || sender?.id !== runtimeApi.id || sender?.frameId !== 0 ||
+      !Number.isInteger(sender?.tab?.id) || sender.tab.id < 0) return false;
+  try { return ['http:', 'https:'].includes(new URL(sender.url).protocol); }
+  catch { return false; }
+}
 
 export const DAILY_LIMIT_DEADLINE_ALARM = 'daily_limit_deadline';
 
@@ -13,7 +50,8 @@ const SEGMENT_BOUNDARY_REASONS = new Set([
   'tab_url_changed',
   'tab_activated',
   'tab_created',
-  'rules_intent'
+  'rules_intent',
+  'visibility_hidden'
 ]);
 
 
@@ -52,6 +90,7 @@ export function createDailyLimitTracker({
   dailyLimitManager,
   dnrSynchronizer,
   getStateGeneration = () => 0,
+  getNow = () => new Date(),
   logger
 }) {
   let operationTail = Promise.resolve();
@@ -186,11 +225,7 @@ export function createDailyLimitTracker({
     try {
       const results = await scriptingApi.executeScript({
         target: { tabId: tab.id },
-        func: () => ({
-          visibilityState: document.visibilityState,
-          hidden: document.hidden === true,
-          hasFocus: typeof document.hasFocus === 'function' ? document.hasFocus() : null
-        })
+        func: readAndObserveDailyLimitVisibility
       });
       const probe = normalizeVisibilityProbeResult(results);
       if (!probe || typeof probe.visibilityState !== 'string') {
@@ -226,8 +261,12 @@ export function createDailyLimitTracker({
     }
   }
 
-  async function resolveActiveDailyLimitContext(tabHint = null, now = new Date()) {
-    const tab = await resolveCandidateTab(tabHint);
+  async function resolveActiveDailyLimitContext(tabHint = null, now = new Date(), transition = null) {
+    // A hidden event may follow a switch into Options. Only the last sampled
+    // foreground owner can close its existing segment after losing selection.
+    const tab = transition?.visibilityState === 'hidden' && debugState.tabId === transition.tabId
+      ? await tabsApi.get(transition.tabId)
+      : await resolveCandidateTab(tabHint);
     if (!tab) {
       return {
         rule: null,
@@ -361,7 +400,14 @@ export function createDailyLimitTracker({
     return values.length > 0 ? Math.max(...values) : 0;
   }
 
-  async function sampleOnce(reason = 'event', now = new Date(), tabHint = null) {
+  function currentVisibilityTimestamp(timestamp) {
+    const receivedAt = getNow();
+    return Number.isSafeInteger(timestamp) && timestamp > 0 &&
+      timestamp <= receivedAt.getTime() && receivedAt.getTime() - timestamp <= MAX_ACCOUNTING_GAP_MS &&
+      getLocalDateKey(new Date(timestamp)) === getLocalDateKey(receivedAt);
+  }
+
+  async function sampleOnce(reason = 'event', now = new Date(), tabHint = null, transition = null) {
     const generation = getStateGeneration();
     const shouldContinue = () => generation === getStateGeneration();
     const superseded = () => ({ resolution: 'superseded', activeRuleId: null,
@@ -379,10 +425,30 @@ export function createDailyLimitTracker({
     };
 
     try {
-      context = await resolveActiveDailyLimitContext(tabHint, now);
+      context = await resolveActiveDailyLimitContext(tabHint, now, transition);
     } catch (error) {
       context.errorName = error?.name || 'Error';
       logger?.info?.(`Daily limit sampling could not resolve active tab (${reason}):`, error);
+    }
+
+    if (transition) {
+      const ignored = () => ({ resolution: 'visibility_ignored', accountedAssignmentKeys: [],
+        addedSeconds: 0, usageUpdates: {} });
+      // A content event can arrive after navigation, activation, a newer sample,
+      // or midnight. Never let its captured native timestamp rewind accounting.
+      if (!currentVisibilityTimestamp(now.getTime()) || !context.rule ||
+          context.tab?.id !== transition.tabId || context.tab.url !== transition.url ||
+          context.visibilityState !== transition.visibilityState ||
+          !['matched', 'page_hidden'].includes(context.status)) return ignored();
+      const stored = await dailyLimitManager.readState(getNow(), { persistNormalization: false });
+      if (stored.lastSample?.timestamp > now.getTime() || !currentVisibilityTimestamp(now.getTime())) return ignored();
+      if (!shouldContinue()) return superseded();
+      if (transition.visibilityState === 'visible') {
+        // A missing/delayed hidden event must not turn screen-off time into
+        // foreground usage. Begin this visible segment without charging that gap.
+        const reset = await dailyLimitManager.recordSample([], now, { shouldContinue });
+        if (reset.superseded) return superseded();
+      }
     }
 
     // A rules/list/access change can complete while the visibility probe waits.
@@ -462,6 +528,40 @@ export function createDailyLimitTracker({
     return enqueueOperation(() => pauseOnce(reason, now));
   }
 
+  function visibilityChanged({ tabId, url, visibilityState, observedAt }) {
+    if (!Number.isInteger(tabId) || !['visible', 'hidden'].includes(visibilityState) ||
+        !currentVisibilityTimestamp(observedAt)) return Promise.resolve({ resolution: 'visibility_ignored' });
+    return enqueueOperation(() => sampleOnce(`visibility_${visibilityState}`, new Date(observedAt), null,
+      { tabId, url, visibilityState }));
+  }
+
+  function observeMatchingPages() {
+    return enqueueOperation(async () => {
+      const generation = getStateGeneration();
+      const current = () => generation === getStateGeneration();
+      const now = getNow();
+      try {
+        const [rules, listState, focus, usage] = await Promise.all([
+          getRules(), getRuleListState(), getFocusSessionState(), dailyLimitManager.getUsageSeconds(now)
+        ]);
+        if (!current() || focus?.focusActive) return;
+        const listId = listState?.activeRuleListId || 'general';
+        const disabled = new Set((listState?.lists || []).find(list => list.id === listId)?.disabledCategories || []);
+        const eligible = (rules || []).filter(rule => !rule.isWhitelist && !disabled.has(rule.category) &&
+          getTrackableDailyLimitAssignments(rule, listId, now, usage).length > 0);
+        if (!eligible.length) return;
+        const tabs = await tabsApi.query({});
+        if (!current()) return;
+        // Settings can itself be the current tab. Install the observer in
+        // matching background pages before the user returns to one of them.
+        await Promise.allSettled((tabs || [])
+          .filter(tab => Number.isInteger(tab.id) && tab.discarded !== true && tab.status !== 'loading' &&
+            tab.url && findBestMatchingRule(tab.url, eligible))
+          .map(tab => current() ? probePageVisibility(tab) : null));
+      } catch (error) { logger?.info?.('Daily limit visibility observers could not be prepared:', error); }
+    });
+  }
+
   function getDebugState() {
     return { ...debugState };
   }
@@ -469,6 +569,8 @@ export function createDailyLimitTracker({
   return {
     sample,
     pause,
+    visibilityChanged,
+    observeMatchingPages,
     resolveActiveDailyLimitRule,
     getDebugState
   };

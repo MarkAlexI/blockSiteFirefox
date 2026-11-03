@@ -1835,3 +1835,25 @@ for (const reason of ['install', 'update']) {
     });
   }
 }
+
+
+test('native page visibility messages use a restricted content path instead of privileged view messages', async () => {
+  await withWorker(async ({ api }) => {
+    const listener = api.runtime.onMessage.listeners[0];
+    const message = { type: 'daily-limit:visibility', visibilityState: 'visible', observedAt: Date.now() };
+    const sender = { id: api.runtime.id, frameId: 0, tab: { id: 11 }, url: 'https://tracked.example/' };
+    for (const invalid of [{ ...sender, id: 'another-extension' }, { ...sender, frameId: 1 },
+      { ...sender, url: api.runtime.getURL('options/options.html') }, {}]) {
+      let response;
+      assert.equal(listener(message, invalid, value => { response = value; }), false);
+      assert.equal(response.success, false);
+      assert.equal(response.code, 'daily_limit_visibility_forbidden');
+    }
+    const before = structuredClone(api.storage.local.data.dailyRuleUsage);
+    const response = await new Promise(resolve => {
+      assert.equal(listener(message, sender, resolve), true);
+    });
+    assert.equal(response.success, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, before, 'an untracked page cannot begin a usage segment');
+  });
+});

@@ -272,3 +272,42 @@ test('tab-query failures do not escape either cleanup path', async () => {
     await assert.doesNotReject(closeNonWhitelistedTabs([allowedRule('example.com')]));
   });
 });
+
+for (const whitelist of [false, true]) test(`Android virtual windows ${whitelist ? 'whitelist' : 'blacklist'} cleanup creates no safety tabs`, async () => {
+  await withTabCleanup([
+    { id: 1, windowId: 101, url: 'https://blocked.example/' },
+    { id: 2, windowId: 102, url: 'https://allowed.example/' }
+  ], async ({ api, closeTabsMatchingRules, closeNonWhitelistedTabs }) => {
+    api.runtime.getPlatformInfo = async () => ({ os: 'android' });
+    api.tabs.create = async details => {
+      api.createdTabs.push(details);
+      const tab = { id: 99, windowId: 199, url: 'about:blank' };
+      api.tabs.values.push(tab);return tab;
+    };
+    if (whitelist) await closeNonWhitelistedTabs([allowedRule('allowed.example')]);
+    else await closeTabsMatchingRules(['blocked.example']);
+    assert.deepEqual(api.createdTabs, []);
+    assert.deepEqual(api.removedTabs, [1]);
+  }, { supportsWindows: false });
+});
+
+
+test('unknown platform keeps desktop last-window protection', async () => {
+  await withTabCleanup([{ id: 1, windowId: 10, url: 'https://blocked.example/' }], async ({ api, closeTabsMatchingRules }) => {
+    api.runtime.getPlatformInfo = async () => { throw new Error('platform lookup failed'); };
+    await closeTabsMatchingRules(['blocked.example']);
+    assert.deepEqual(api.createdTabs, [{ windowId: 10 }]);
+    assert.deepEqual(api.removedTabs, [1]);
+  });
+});
+
+test('cleanup invalidated during platform lookup neither creates nor closes a tab', async () => {
+  await withTabCleanup([{ id: 1, windowId: 10, url: 'https://blocked.example/' }], async ({ api, closeTabsMatchingRules }) => {
+    let release, entered, current = true;
+    const started = new Promise(resolve => { entered = resolve; });
+    api.runtime.getPlatformInfo = () => { entered();return new Promise(resolve => { release = resolve; }); };
+    const pending = closeTabsMatchingRules(['blocked.example'], () => current);
+    await started;current = false;release({ os: 'android' });await pending;
+    assert.deepEqual(api.createdTabs, []);assert.deepEqual(api.removedTabs, []);
+  });
+});

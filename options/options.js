@@ -805,7 +805,9 @@ class OptionsPage {
         category: isWhitelist ? 'whitelist' : newCategory,
         assignment: {
           listId: isWhitelist ? GENERAL_RULE_LIST_ID : targetListId,
-          disabledByUser,
+          // The manual off-toggle belongs to Always mode. Applying an
+          // advanced mode must not retain an invisible disabled assignment.
+          disabledByUser: !isWhitelist && blockingConfig.blockingMode !== 'always' ? false : disabledByUser,
           blockingMode: isWhitelist ? 'always' : blockingConfig.blockingMode,
           schedule: isWhitelist ? null : blockingConfig.schedule,
           dailyLimit: isWhitelist ? null : blockingConfig.dailyLimit

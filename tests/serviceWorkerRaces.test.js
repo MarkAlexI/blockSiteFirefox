@@ -3197,10 +3197,18 @@ test('Daily Limit cleanup failure cannot undo a committed rule or skip its follo
 
 test('a failed Daily Limit sample cannot turn a committed rule into a failed mutation', async () => {
   await withWorker(async ({ api, send }) => {
+    const originalQuery = api.tabs.query.bind(api.tabs);
     const originalGet = api.storage.local.get.bind(api.storage.local);
-    let dailyReads = 0;
+    let sampleQueries = 0;
+    let sampleReadFailures = 0;
+    api.tabs.query = (query, callback) => {
+      if (query?.active === true) sampleQueries++;
+      return originalQuery(query, callback);
+    };
     api.storage.local.get = (keys, callback) => {
-      if ((keys === 'dailyRuleUsage' || (dailyReads >= 2 && Array.isArray(keys) && keys.includes('dailyRuleUsage'))) && ++dailyReads === 3) {
+      if (sampleQueries > 0 && Array.isArray(keys) &&
+          keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) {
+        sampleReadFailures++;
         return Promise.reject(new Error('Daily Limit sample unavailable'));
       }
       return originalGet(keys, callback);
@@ -3212,7 +3220,8 @@ test('a failed Daily Limit sample cannot turn a committed rule into a failed mut
     });
 
     assert.equal(response.success, true);
-    assert.equal(dailyReads, 3);
+    assert.equal(sampleQueries, 1);
+    assert.equal(sampleReadFailures, 1);
     assert.equal(api.storage.local.data.rules[0].blockURL, 'sample-failure.example');
     assert.deepEqual(api.dynamicRules.map(rule => rule.id), [response.rule.id]);
   }, { local: { activeRuleListId: 'general' }, supportsWindows: false });

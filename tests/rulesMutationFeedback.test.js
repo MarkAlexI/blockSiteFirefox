@@ -153,3 +153,17 @@ for (const pending of [false, true]) {
     }, { document });
   });
 }
+
+for (const mode of ['always', 'daily_limit', 'schedule']) {
+  test(`Options applies ${mode} without retaining an invisible Always-disable flag`, async () => {
+    const config = { blockingMode: mode, schedule: mode === 'schedule'
+      ? { version: 2, periods: [{ days: [1], startTime: '09:00', endTime: '17:00' }] } : null,
+      dailyLimit: mode === 'daily_limit' ? { minutes: 2 } : null };
+    await withView('Options', 'saveEditedRule', { success: true, rules: [] }, async view => {
+      await view.controller.saveEditedRule(1, 'general', 'saved.example', '', 'social', config,
+        'general', true, false, 'captured', 3, context.revisions);
+      assert.deepEqual(view.errors, []);
+      assert.equal(view.requests[0].payload.assignment.disabledByUser, mode === 'always');
+    });
+  });
+}
