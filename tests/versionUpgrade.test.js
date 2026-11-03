@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { assertVersionUpgrade, upgradeTimezone } from '../e2e/version-upgrade.mjs';
+import { assertVersionUpgrade, assertUpgradeOptionsView, upgradeTimezone } from '../e2e/version-upgrade.mjs';
 import { expectedVersion } from '../e2e/target-version.mjs';
 
 function sample(){
@@ -47,4 +47,16 @@ for(const [name,change] of [
 test('the preservation fixture avoids midnight without changing the host clock',()=>{
   for(const hour of [0,23])assert.equal(upgradeTimezone(Date.UTC(2026,9,26,hour)),'Etc/GMT+12');
   for(const hour of [1,12,22])assert.equal(upgradeTimezone(Date.UTC(2026,9,26,hour)),'UTC');
+});
+
+test('update acceptance requires rendered, interactive current Options rather than preserved storage alone', () => {
+  const view = { versionText: `v${expectedVersion}`, state: 'ready', bannerHidden: true,
+    ruleIds: [901, 902], addLocked: false, tableLocked: false };
+  assertUpgradeOptionsView(view);
+  for (const change of [v=>v.versionText='v5.4.14', v=>v.state='failed', v=>v.state='missing',
+    v=>v.bannerHidden=false, v=>v.ruleIds=[], v=>v.ruleIds=[901],
+    v=>v.addLocked=true, v=>v.tableLocked=true]) {
+    const broken = structuredClone(view);change(broken);
+    assert.throws(() => assertUpgradeOptionsView(broken));
+  }
 });

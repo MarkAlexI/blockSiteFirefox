@@ -23,6 +23,31 @@ export async function upgradeSnapshot() {
     alarms:await api.alarms.getAll(),dnr:(await api.declarativeNetRequest.getDynamicRules()).sort((a,b)=>a.id-b.id),now:Date.now()};
 }
 
+// Read the rendered view, not just storage: a preserved database can coexist
+// with an unusable Options tab after an update.
+export function readUpgradeOptionsView() {
+  return {
+    versionText: document.getElementById('ext-version')?.textContent || '',
+    state: window.bdOptionsRecovery?.state || 'missing',
+    bannerHidden: document.getElementById('options-recovery')?.hidden === true,
+    ruleIds: [...document.querySelectorAll('#rules-container tr[data-rule-id]')]
+      .map(row => Number(row.dataset.ruleId)).sort((a, b) => a - b),
+    addLocked: !document.getElementById('add-rule') ||
+      document.getElementById('add-rule').inert === true || document.getElementById('add-rule').disabled === true,
+    tableLocked: !document.getElementById('rules-table') || document.getElementById('rules-table').inert === true,
+    recovery: window.bdOptionsRecovery?.getReport?.() || null
+  };
+}
+
+export function assertUpgradeOptionsView(view) {
+  assert.ok(view.versionText.includes(expectedVersion), 'current Options version is rendered');
+  assert.equal(view.state, 'ready', 'Options bootstrap and its reads are ready');
+  assert.equal(view.bannerHidden, true, 'no recovery warning remains');
+  assert.deepEqual(view.ruleIds, [901, 902], 'both saved General rules are actually rendered');
+  assert.equal(view.addLocked, false, 'adding a rule is available');
+  assert.equal(view.tableLocked, false, 'rendered rules are interactive');
+}
+
 export function assertVersionUpgrade(before,after,receipt) {
   assert.equal(before.version,'5.4.14');assert.equal(after.version,expectedVersion);
   assert.notEqual(before.version,after.version);
@@ -102,12 +127,43 @@ export async function runVersionUpgrade(e,backend) {
     await backend.installObserver();
     await backend.update();
     evidence.events=await upgradeUntil(backend.events,events=>events.length>0,'native version-update event');
+    evidence.optionsViews = {};
+    const inspectOptions = async (page, label) => {
+      let last;
+      try {
+        return await upgradeUntil(async () => (last = await page.evaluate(readUpgradeOptionsView)), view => {
+          try { assertUpgradeOptionsView(view);return true; } catch { return false; }
+        }, label);
+      } finally { evidence.optionsViews[label] = last; }
+    };
+    evidence.stage='reload the retained Options tab';
+    // Native browsers may close an extension view on replacement. Record that
+    // branch explicitly; never call a newly opened tab a retained-tab reload.
+    evidence.retainedOptions = await backend.reloadRetainedOptions(options);
+    assert.ok(['reloaded', 'closed_by_browser'].includes(evidence.retainedOptions));
+    if (evidence.retainedOptions === 'reloaded') await inspectOptions(options, 'retained tab after reload');
+    evidence.stage='open current Options';
     const current=await e.openOptions();
+    await inspectOptions(current, 'fresh Options');
     evidence.after=await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>v.version===expectedVersion&&
       v.focusSession.focusActive&&v.dnr.length===2&&v.alarms.some(a=>a.name==='end_focus_session'&&
         a.scheduledTime===v.focusSession.focusEndTime),'updated version restores native Focus protection');
     evidence.native.after=await backend.identity();
     assertVersionUpgrade(evidence.before,evidence.after,{...evidence.native,events:evidence.events});
+    evidence.stage='save a real rule action after update';
+    const toggle = '#rules-container tr[data-rule-id="901"] .rule-toggle';
+    const editPage = evidence.retainedOptions === 'reloaded' ? options : current;
+    await front(editPage);
+    await click(editPage, toggle);
+    await upgradeUntil(()=>e.state(), value=>value.rules.find(rule=>rule.id===901)?.assignments[0]?.disabledByUser===true,
+      'post-update Options toggle is committed');
+    await inspectOptions(editPage, 'after disabling a rule');
+    await click(editPage, toggle);
+    await upgradeUntil(()=>e.state(), value=>value.rules.find(rule=>rule.id===901)?.assignments[0]?.disabledByUser===false,
+      'post-update Options toggle is restored');
+    await inspectOptions(editPage, 'after restoring a rule');
+    await inspectOptions(current, 'fresh Options sees restored rule');
+    assert.deepEqual((await e.state()).rules, evidence.before.rules, 'the UI control restores the original rules');
     const currentPopup=await e.openPopup();
     await upgradeUntil(()=>currentPopup.evaluate(readFocusActionReadiness,'stop'),v=>v.ready,'updated Focus Stop ready');
     await click(currentPopup,'#stop-focus-btn');

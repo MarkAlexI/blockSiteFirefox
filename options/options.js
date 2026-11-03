@@ -36,6 +36,8 @@ const logger = new Logger('OptionsPage');
 
 class OptionsPage {
   constructor() {
+    window.bdOptionsRecovery?.mark?.('module', 'ok');
+    window.bdOptionsRecovery?.mark?.('setup', 'pending');
     this.logger = logger;
     this.settingsManager = new SettingsManager();
     this.rulesManager = new RulesManager();
@@ -100,7 +102,7 @@ class OptionsPage {
           error.code = response?.error?.code || 'diagnostics_failed';
           throw error;
         }
-        return response.report;
+        return { ...response.report, optionsRecovery: window.bdOptionsRecovery?.getReport?.() };
       },
       onClear: async () => {
         const response = await sendRuntimeMessage({ type: 'diagnostics:clearHistory' });
@@ -109,6 +111,7 @@ class OptionsPage {
           error.code = response?.error?.code || 'diagnostics_failed';
           throw error;
         }
+        window.bdOptionsRecovery?.clearFailure?.();
         return true;
       }
     });
@@ -143,7 +146,7 @@ class OptionsPage {
     this.disposed = false;
     
     this.init().catch(error => {
-      window.bdOptionsRecovery?.fail();
+      window.bdOptionsRecovery?.fail(error);
       this.logger.info('Options initialization failed:', error);
     });
     this.exposeDebugTools();
@@ -161,6 +164,7 @@ class OptionsPage {
     this.diagnosticsUI.initialize();
     // Optional consent UI must not hold the rules view behind an unanswered message.
     void this.telemetryUI.initialize().catch(error => this.logger.info('Telemetry UI initialization failed:', error));
+    window.bdOptionsRecovery?.mark?.('setup', 'ok');
     await this.refreshProAccess();
 
     await ProManager.initializeProFeatures();
@@ -266,7 +270,8 @@ class OptionsPage {
     const requestId = this.proAccessRefreshId = (this.proAccessRefreshId || 0) + 1;
     this.invalidateProTips();
     try {
-      const access = await ProManager.getAccess();
+      const access = await this.observeOptionsRead('access', () => ProManager.getAccess(),
+        () => !this.disposed && requestId === this.proAccessRefreshId);
       if (this.disposed || requestId !== this.proAccessRefreshId) return;
       this.isPro = access.isPro;
       this.isLegacyUser = access.isLegacyUser;
@@ -282,7 +287,7 @@ class OptionsPage {
       this.isLegacyUser = false;
       this.invalidateProTips();
       this.updateWhitelistButtonState();
-      window.bdOptionsRecovery?.fail();
+      window.bdOptionsRecovery?.fail(error);
       this.logger.info('Error refreshing Pro/Legacy status:', error);
     }
   }
@@ -481,17 +486,27 @@ class OptionsPage {
     }
   }
   
+  observeOptionsRead(stage, read, isCurrent) {
+    const recovery = window.bdOptionsRecovery;
+    return recovery?.track ? recovery.track(stage, read, isCurrent) : read();
+  }
+
   async refreshProfileView() {
     const refreshId = ++this.profileRefreshId;
     window.bdOptionsRecovery?.begin();
+    const isCurrent = () => !this.disposed && refreshId === this.profileRefreshId;
+    let rendering = false;
+    window.bdOptionsRecovery?.mark?.('render', 'idle');
     try {
       const [snapshot, state, dailyUsageSeconds] = await Promise.all([
-        this.rulesManager.getRulesSnapshot(),
-        this.ruleListsManager.getSnapshot(),
-        this.dailyLimitManager.getUsageSeconds(),
-        checkRulesConnection()
+        this.observeOptionsRead('rules', () => this.rulesManager.getRulesSnapshot(), isCurrent),
+        this.observeOptionsRead('lists', () => this.ruleListsManager.getSnapshot(), isCurrent),
+        this.observeOptionsRead('usage', () => this.dailyLimitManager.getUsageSeconds(), isCurrent),
+        this.observeOptionsRead('connection', () => checkRulesConnection(), isCurrent)
       ]);
       if (this.disposed || refreshId !== this.profileRefreshId) return;
+      rendering = true;
+      window.bdOptionsRecovery?.mark?.('render', 'pending');
       const { rules, generation, revisions = {} } = snapshot;
 
       const hasRuleListAccess = this.isPro || this.isLegacyUser;
@@ -570,10 +585,12 @@ class OptionsPage {
         );
       }
       if (this.settingsManager) this.settingsManager.loadRuleCount(rules);
+      window.bdOptionsRecovery?.mark?.('render', 'ok');
       window.bdOptionsRecovery?.ready();
     } catch (error) {
       if (this.disposed || refreshId !== this.profileRefreshId) return;
-      window.bdOptionsRecovery?.fail();
+      if (rendering) window.bdOptionsRecovery?.mark?.('render', 'error', error);
+      window.bdOptionsRecovery?.fail(error);
       this.logger.error('Refresh profile view error:', error);
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));
     }

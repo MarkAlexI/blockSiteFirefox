@@ -113,6 +113,19 @@ test('diagnostics UI generates and copies a readable report', async () => {
   }
 });
 
+test('normal diagnostics copy includes the local Options failure after recovery', async () => {
+  const harness = createHarness();
+  try {
+    const report = await harness.ui.onGenerate();
+    report.optionsRecovery = { schemaVersion: 1, current: { state: 'ready' },
+      lastFailure: { stages: { usage: { state: 'pending' } }, reason: 'deadline' } };
+    await harness.ui.generate();await harness.ui.copy();
+    assert.match(harness.copied[0], /\[Options recovery\]/);
+    assert.match(harness.copied[0], /"lastFailure"/);
+    assert.match(harness.copied[0], /"pending"/);
+  } finally { harness.restore(); }
+});
+
 test('diagnostics UI exports JSON and clears event history', async () => {
   const harness = createHarness();
   try {

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.9] - 2026-11-03
+
+### Added
+- Copy a bounded, local Options recovery report even when the background connection or module startup is unavailable. Keep one privacy-safe failure snapshot across page and browser restarts, and include it in normal diagnostics.
+- Identify stalled access, rules, lists, usage and connection reads separately, without changing saved rules or replaying writes.
+- Extend native version-update acceptance to inspect the rendered Options view, reload a retained tab when the browser keeps it open, and commit and restore one real rule action.
+
+The reported post-update failure is still under investigation; this release adds evidence collection and test coverage, not a confirmed cure.
+
 ## [5.5.8] - 2026-11-03
 
 ### Fixed

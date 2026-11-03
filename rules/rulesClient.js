@@ -19,7 +19,7 @@ export function checkRulesConnection({ timeoutMs = 8000 } = {}) {
       if (response?.success === true && response.protocol === 1) resolve();
       else {
         const error = new Error('Rules connection is unavailable');
-        error.code = 'rules_connection_unavailable';
+        error.code = response?.code === 'rules_health_forbidden' ? 'rules_health_forbidden' : 'rules_connection_unavailable';
         reject(error);
       }
     }, error => { clearTimeout(timer); reject(error); });

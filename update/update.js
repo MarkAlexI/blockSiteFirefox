@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "Settings now shows a recovery message if rules cannot be loaded, with a page reload button and browser restart advice.",
+    "If Settings cannot load rules, Copy Report now provides troubleshooting details that remain available after restarting the browser.",
     "Optional telemetry and Pro tips no longer delay the initial rules view.",
     "Switching between Always, Schedule and Daily Limit keeps today's used time, including after a browser restart."
   ];

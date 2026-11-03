@@ -29,6 +29,13 @@ export const upgradeScenarios=[{id:'67',persistent:true,nativeDesktop:true,timeo
       installObserver:()=>parent(e,installUpgradeObserver,e.id),
       update:()=>e.installUpdatedRuntime(current),
       events:()=>parent(e,readUpgradeObserver),
+      reloadRetainedOptions:async page=>{
+        const handles=await e.driver.getAllWindowHandles();
+        if(!handles.includes(page.context))return 'closed_by_browser';
+        await e.command('browsingContext.reload',{context:page.context,wait:'complete'});
+        e.options.push(page);
+        return 'reloaded';
+      },
       removeObserver:()=>parent(e,removeUpgradeObserver),
       evidence:async value=>{
         e.result.upgrade=value;

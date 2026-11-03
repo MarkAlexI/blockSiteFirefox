@@ -179,5 +179,6 @@ export function formatDiagnosticReportText(report) {
     );
   }
 
+  if (report.optionsRecovery) lines.push('', '[Options recovery]', JSON.stringify(report.optionsRecovery, null, 2));
   return lines.join('\n');
 }

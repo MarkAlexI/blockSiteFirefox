@@ -1,4 +1,19 @@
-# Firefox Desktop E2E — BlockDistraction **5.5.8**
+# Firefox Desktop E2E — BlockDistraction **5.5.9**
+
+## Options update investigation **5.5.9** (2026-11-03)
+
+The real Kiwi update failure recurred on 5.5.8 and required a browser restart.
+Detection worked; the native cause is not established. The independent recovery
+panel can now copy a local, fixed-schema report without a worker or module
+imports. One sanitized failure snapshot survives restart and is also included in
+normal diagnostics. It contains stage states and fixed error codes, not saved
+rules, hostnames, extension IDs, license values, raw messages or stacks.
+
+Scenario 67 now verifies actual rendered rules and unlocked controls, reloads the
+old Options tab if the browser retains it, and commits then restores a real rule
+toggle. A browser-closed old tab is recorded explicitly, not counted as a retained
+tab reload. Native CI for this extension of the scenario is pending.
+See [diagnosis and device acceptance](options-update-recovery.md).
 
 ## Options recovery candidate **5.5.8** (2026-11-03)
 

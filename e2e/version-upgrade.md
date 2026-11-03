@@ -1,5 +1,19 @@
 # Native version-update preservation — scenario 67
 
+## Current acceptance extension — 5.5.9
+
+Scenario 67 additionally reads the rendered current Options view, verifies both
+saved rules and usable controls, reloads the pre-update tab if the browser retains
+it, and saves then restores an actual rule toggle. The report records
+`retainedOptions: reloaded` or `closed_by_browser`; the latter does not establish
+coverage for a stale retained tab. Failed view probes attach their local recovery
+report. This adds assertions to the existing scenario; inventory, deadlines and
+retry policy are unchanged. Native execution of the new assertions is pending.
+
+The sections below describe the original preservation fixture and its historical
+validation, not acceptance of the 5.5.9 investigation candidate.
+
+
 Tests only, based on `8cef9a19114cd8e521d7e111f0faa6ff825a783c`. Runtime remains **5.4.15**.
 Current inventory: **65 = 63 core + 1 overdue + 1 upgrade**. CI runs the new
 `upgrade` group separately, and the existing required `e2e` check requires all

@@ -62,11 +62,12 @@ function createController(source, methodName, nextMethodName, dependencies) {
   assert.equal(Number.isFinite(end), true, nextMethodName + ' was not found after ' + methodName);
 
   let method = source.slice(start, end);
-  if (method.includes('this.showRulesMutationResult(') && !method.includes('  showRulesMutationResult(')) {
-    const feedbackStart = source.indexOf('  showRulesMutationResult(');
-    const following = /\n  (?:async )?[A-Za-z_$][\w$]*\(/.exec(source.slice(feedbackStart + 1));
-    assert.ok(feedbackStart >= 0 && following);
-    method += '\n' + source.slice(feedbackStart, feedbackStart + 1 + following.index);
+  for (const helper of ['showRulesMutationResult', 'observeOptionsRead']) {
+    if (!method.includes(`this.${helper}(`) || method.includes(`  ${helper}(`)) continue;
+    const helperStart = source.indexOf(`  ${helper}(`);
+    const following = /\n  (?:async )?[A-Za-z_$][\w$]*\(/.exec(source.slice(helperStart + 1));
+    assert.ok(helperStart >= 0 && following);
+    method += '\n' + source.slice(helperStart, helperStart + 1 + following.index);
   }
   const Controller = new Function(
     ...Object.keys(dependencies),

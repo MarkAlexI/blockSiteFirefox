@@ -25,7 +25,7 @@ test('rules:changed broadcast requests one coherent refresh', () => {
 
 test('Options and Popup derive Pro and legacy state from one credential snapshot', () => {
   for (const pageSource of [source, popupSource]) {
-    assert.match(pageSource, /const access = await ProManager\.getAccess\(\)/);
+    assert.match(pageSource, /const access = await (?:this\.observeOptionsRead\('access', \(\) => )?ProManager\.getAccess\(\)/);
     assert.match(pageSource, /this\.isPro = access\.isPro/);
     assert.match(pageSource, /this\.isLegacyUser = access\.isLegacyUser/);
     assert.doesNotMatch(pageSource, /this\.isPro = await ProManager\.isPro\(\)/);

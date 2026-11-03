@@ -53,6 +53,15 @@ test('an unanswered connection check times out without retrying requests or muta
   });
 });
 
+test('a sender rejected by the health router stays distinguishable from a missing reply', async () => {
+  await fixture(async f => {
+    const request = checkRulesConnection();await settle();
+    f.respond({ success: false, code: 'rules_health_forbidden', message: 'private data' });
+    await assert.rejects(request, { code: 'rules_health_forbidden' });
+    assert.equal(f.requests.length, 1);
+  });
+});
+
 test('an invalidated extension context rejects the check and releases its timer', async () => {
   await fixture(async f => {
     await assert.rejects(checkRulesConnection(), /Extension context invalidated/);
