@@ -98,7 +98,7 @@ for (const phase of ['queued', 'reading']) {
   });
 }
 
-test('pruning retains legacy usage only for rules with a surviving daily assignment', async () => {
+test('pruning retains legacy usage only for rules with a surviving assignment', async () => {
   const local = storage({ dailyRuleUsage: { ...legacy(840), usageSeconds: { '21': 840, '22': 900, '22:study': 900 } } });
   await new DailyLimitManager(local).pruneAssignmentKeys(['21:general'], start);
   assert.deepEqual(local.data.dailyRuleUsage.usageSeconds, { '21': 840 });

@@ -2297,7 +2297,9 @@ test('windowless workers synchronize committed assignment edits after Daily Limi
     const originalGet = api.storage.local.get.bind(api.storage.local);
     let rejectedRemap = false;
     api.storage.local.get = (keys, callback) => {
-      if (keys === 'dailyRuleUsage' && !rejectedRemap) {
+      if (!rejectedRemap && api.storage.local.data.rules[0].assignments[0].listId === 'general' &&
+          Array.isArray(keys) &&
+          keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) {
         rejectedRemap = true;
         return Promise.reject(new Error('Daily Limit remap unavailable'));
       }
@@ -2322,8 +2324,11 @@ test('windowless workers synchronize committed assignment edits after Daily Limi
     assert.equal(api.storage.local.data.rules[0].assignments[0].listId, 'general');
     assert.deepEqual(api.dynamicRules.map(rule => rule.id), [21]);
     assert.equal(api.windows, undefined);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 90);
   }, {
-    local: { activeRuleListId: 'general', rules: [original] },
+    local: { activeRuleListId: 'general', rules: [original],
+      dailyRuleUsage: { version: 2, date: getLocalDateKey(),
+        usageSeconds: { '21:list-1': 90 }, lastSample: null } },
     supportsWindows: false
   });
 });
@@ -2592,7 +2597,7 @@ test('merging a Daily Limit target into another rule preserves the old rule usag
   });
 });
 
-test('deleting a Rule List journals every Daily Limit remap with its atomic local commit', async () => {
+test('deleting a Rule List journals every surviving assignment remap with its atomic local commit', async () => {
   const rules = [
     makeDailyLimitRule(31, 'list-1', { blockURL: 'one.example' }),
     makeDailyLimitRule(32, 'list-1', { blockURL: 'two.example' }),
@@ -2620,18 +2625,18 @@ test('deleting a Rule List journals every Daily Limit remap with its atomic loca
 
     assert.equal(response.success, true);
     assert.equal(response.dailyUsageSyncPending, true);
-    assert.deepEqual(commit.pendingDailyUsageRemaps.map(remap => remap.oldRuleId), [31, 32]);
+    assert.deepEqual(commit.pendingDailyUsageRemaps.map(remap => remap.oldRuleId), [31, 32, 33]);
     assert.equal(commit.activeRuleListId, 'general');
     assert.deepEqual(api.storage.local.data.ruleLists.map(list => list.id), ['general']);
     assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
-      { '31:list-1': 840, '32:list-1': 960 });
+      { '31:list-1': 840, '32:list-1': 960, '33:list-1': 15 });
     assert.deepEqual(api.dynamicRules.map(rule => rule.id), [31, 32, 33]);
 
     rejectRecovery = false;
     await alarm({ name: 'update_scheduled_rules' });
 
     assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds,
-      { '31:general': 840, '32:general': 960 });
+      { '31:general': 840, '32:general': 960, '33:general': 15 });
     assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
     assert.equal(api.windows, undefined);
   }, {
@@ -2641,7 +2646,7 @@ test('deleting a Rule List journals every Daily Limit remap with its atomic loca
       dailyRuleUsage: {
         version: 2,
         date: getLocalDateKey(),
-        usageSeconds: { '31:list-1': 840, '32:list-1': 960 },
+        usageSeconds: { '31:list-1': 840, '32:list-1': 960, '33:list-1': 15 },
         lastSample: null
       }
     },

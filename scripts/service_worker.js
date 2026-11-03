@@ -22,7 +22,7 @@ import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { authorizeRedirect } from '../utils/redirectAuthorization.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { BLOCKING_MODE_DAILY_LIMIT } from '../rules/blockingMode.js';
-import { getAssignmentUsageKey, getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
+import { getDailyUsageAssignmentKeys, getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
 import { createRulesMigrationService } from '../rules/rulesMigrationService.js';
 import { claimRulesMigrationNotice } from '../rules/rulesMigrationNotice.js';
 import { GENERAL_RULE_LIST_ID, RuleListsManager } from '../rules/ruleListsManager.js';
@@ -70,15 +70,6 @@ async function getFocusAccess() {
   return ProManager.getAccess();
 }
 
-
-function getDailyLimitAssignmentKeys(rules = []) {
-  return (rules || []).flatMap(rule =>
-    getRuleAssignments(rule)
-      .filter(assignment => assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
-      .map(assignment => getAssignmentUsageKey(rule.id, assignment.listId))
-      .filter(Boolean)
-  );
-}
 
 async function recoverPendingDailyUsage(reason, force = false) {
   if (!force && pendingDailyUsageRecovery === false) return true;
@@ -228,14 +219,21 @@ async function settleRulesIntentPostCommitTasks(type, result) {
 
     try {
       await dailyLimitManager.pruneAssignmentKeys(
-        getDailyLimitAssignmentKeys(result.rules || [])
+        getDailyUsageAssignmentKeys(result.rules || [])
       );
     } catch (error) {
       logger.info('Rules post-commit Daily Limit cleanup failed:', error);
     }
 
     await dailyLimitTracker.observeMatchingPages();
-    await dailyLimitTracker.sample('rules_intent');
+    try {
+      await dailyLimitTracker.sample('rules_intent');
+    } catch (error) {
+      // Keep spent counters, but never revive a pre-edit foreground segment
+      // after an unrecorded mode boundary and charge time in another mode.
+      await dailyLimitManager.discardLastSample();
+      throw error;
+    }
   })();
 
   const outcomes = await Promise.allSettled([
@@ -1534,7 +1532,7 @@ async function initializeExtension(details) {
 
   if (dailyUsageRecovered) {
     await dailyLimitManager.pruneAssignmentKeys(
-      getDailyLimitAssignmentKeys(migrationResult.rules || [])
+      getDailyUsageAssignmentKeys(migrationResult.rules || [])
     );
   }
 

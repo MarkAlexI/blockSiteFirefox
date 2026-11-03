@@ -926,7 +926,7 @@ test('failed durable recovery leaves its remap pending after a successful commit
   assert.equal(harness.warnings.length, 1);
 });
 
-test('ordinary assignment moves never create unnecessary durable usage journal writes', async () => {
+test('assignment moves offer retained usage to the durable journal regardless of the current mode', async () => {
   const harness = createHarness({
     initialRules: [makeCapacityRule(1, 'study')],
     initialRuleLists: [
@@ -946,10 +946,13 @@ test('ordinary assignment moves never create unnecessary durable usage journal w
   });
 
   assert.equal(harness.savedStates.length, 1);
-  assert.deepEqual(harness.getUsageJournalStages(), []);
+  assert.equal(harness.getUsageJournalStages().length, 1);
+  assert.deepEqual(harness.getUsageRemaps(), [{
+    oldRuleId: 1, oldListId: 'study', newRuleId: 1, newListId: 'general'
+  }]);
 });
 
-test('Rule List deletion stages all paid usage moves with its one local state commit', async () => {
+test('Rule List deletion stages usage moves in every mode with its one local state commit', async () => {
   const harness = createHarness({
     initialRules: [
       makeCapacityRule(1, 'study', { blockingMode: 'daily_limit' }),
@@ -970,7 +973,7 @@ test('Rule List deletion stages all paid usage moves with its one local state co
   assert.equal(result.dailyUsageSyncPending, true);
   assert.equal(harness.savedStates.length, 1);
   assert.equal(harness.getUsageJournalStages().length, 1);
-  assert.deepEqual(harness.getPendingUsageRemaps().map(remap => remap.oldRuleId), [1, 2]);
+  assert.deepEqual(harness.getPendingUsageRemaps().map(remap => remap.oldRuleId), [1, 2, 3]);
   assert.equal(harness.getUsageJournalStages()[0].statePatch.activeRuleListId, 'general');
   assert.deepEqual(harness.getRuleLists().map(list => list.id), ['general']);
   assert.equal(harness.getSyncCalls(), 1);
@@ -2673,7 +2676,7 @@ test('deleting a profile remaps Daily Limit usage when its sole target moves to 
   assert.equal(harness.getUsageRemapBatches().length, 1);
 });
 
-test('deleting a profile with ordinary rules never remaps Daily Limit usage', async () => {
+test('deleting a profile batches usage moves for surviving non-daily assignments', async () => {
   const harness = createHarness({
     initialRuleLists: [
       { id: 'general', name: 'General', disabledCategories: [] },
@@ -2700,11 +2703,13 @@ test('deleting a profile with ordinary rules never remaps Daily Limit usage', as
 
   assert.equal(harness.getRules().length, 100);
   assert.equal(harness.savedStates.length, 1);
-  assert.deepEqual(harness.getUsageRemaps(), []);
-  assert.deepEqual(harness.getUsageRemapBatches(), []);
+  assert.equal(harness.getUsageRemapBatches().length, 1);
+  assert.deepEqual(harness.getUsageRemaps(), Array.from({ length: 100 }, (_, index) => ({
+    oldRuleId: index + 1, oldListId: 'study', newRuleId: index + 1, newListId: 'general'
+  })));
 });
 
-test('deleting a mixed profile batches only Daily Limit assignment remaps', async () => {
+test('deleting a mixed profile batches all surviving assignment usage moves', async () => {
   const harness = createHarness({
     initialRuleLists: [
       { id: 'general', name: 'General', disabledCategories: [] },
@@ -2734,10 +2739,10 @@ test('deleting a mixed profile batches only Daily Limit assignment remaps', asyn
 
   assert.equal(harness.savedStates.length, 1);
   assert.equal(harness.getUsageRemapBatches().length, 1);
-  assert.equal(harness.getUsageRemapBatches()[0].length, 10);
+  assert.equal(harness.getUsageRemapBatches()[0].length, 30);
   assert.deepEqual(
     harness.getUsageRemaps().map(remap => remap.oldRuleId),
-    [1, 4, 7, 10, 13, 16, 19, 22, 25, 28]
+    Array.from({ length: 30 }, (_, index) => index + 1)
   );
 });
 

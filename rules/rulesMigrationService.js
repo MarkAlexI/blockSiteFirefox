@@ -1,6 +1,7 @@
 import { GENERAL_RULE_LIST_ID } from './ruleListsManager.js';
 import {
   getAssignmentUsageKey,
+  getDailyUsageAssignmentKeys,
   getRuleAssignments,
   normalizeRuleAssignments
 } from './ruleAssignments.js';
@@ -84,7 +85,7 @@ function normalizeUsageSeconds(value) {
 
 /**
  * Converts the v1 rule-level daily usage map into assignment-scoped keys.
- * Existing elapsed time is cloned to each migrated daily-limit assignment so
+ * Existing elapsed time is cloned to each surviving blacklist assignment so
  * the update never grants extra budget merely because a rule belonged to more
  * than one list before the assignment migration.
  */
@@ -99,7 +100,9 @@ export function migrateDailyUsageSchema(rawState, rules) {
   const nextUsage = {};
   let changed = Number(rawState.version) !== DAILY_LIMIT_STATE_VERSION;
 
-  const rulesById = new Map((rules || []).map(rule => [String(rule.id), rule]));
+  const rulesById = new Map((rules || []).filter(rule => rule && rule.isWhitelist !== true)
+    .map(rule => [String(rule.id), rule]));
+  const validUsageAssignmentKeys = new Set(getDailyUsageAssignmentKeys(rules));
   const validDailyAssignmentKeys = new Set(
     (rules || []).flatMap(rule => getRuleAssignments(rule)
       .filter(item => item.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
@@ -108,7 +111,8 @@ export function migrateDailyUsageSchema(rawState, rules) {
   );
 
   // Preserve already assignment-scoped entries when they still point to a
-  // real Daily Limit assignment. Numeric v1 keys are expanded below.
+  // real assignment, even while Daily Limit is not selected. Numeric v1 keys
+  // are expanded below. Only active Daily Limit assignments retain a segment.
   for (const [key, value] of Object.entries(usageSeconds)) {
     const seconds = normalizeUsageSeconds(value);
     if (!seconds) continue;
@@ -116,7 +120,7 @@ export function migrateDailyUsageSchema(rawState, rules) {
     if (key.includes(':')) {
       const [ruleId, ...listParts] = key.split(':');
       const listId = listParts.join(':');
-      if (validDailyAssignmentKeys.has(key)) {
+      if (validUsageAssignmentKeys.has(key)) {
         nextUsage[key] = Math.max(nextUsage[key] || 0, seconds);
       } else {
         changed = true;
@@ -130,9 +134,7 @@ export function migrateDailyUsageSchema(rawState, rules) {
       continue;
     }
 
-    const dailyAssignments = getRuleAssignments(rule)
-      .filter(item => item.blockingMode === BLOCKING_MODE_DAILY_LIMIT);
-    for (const assignment of dailyAssignments) {
+    for (const assignment of getRuleAssignments(rule)) {
       const assignmentKey = getAssignmentUsageKey(rule.id, assignment.listId);
       if (assignmentKey) nextUsage[assignmentKey] = Math.max(nextUsage[assignmentKey] || 0, seconds);
     }

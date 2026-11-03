@@ -182,6 +182,15 @@ export function removeRuleAssignment(rule, listId, { fallbackToGeneral = true } 
   return [createRuleAssignment(GENERAL_RULE_LIST_ID, fallbackConfig)];
 }
 
+// Spent time belongs to an existing assignment for the whole local day,
+// including periods when it uses Always/Schedule or is manually disabled.
+export function getDailyUsageAssignmentKeys(rules = []) {
+  return (rules || []).filter(rule => rule && rule.isWhitelist !== true)
+    .flatMap(rule => getRuleAssignments(rule)
+      .map(assignment => getAssignmentUsageKey(rule.id, assignment.listId))
+      .filter(Boolean));
+}
+
 export function getAssignmentUsageKey(ruleId, listId) {
   const id = Math.floor(Number(ruleId));
   if (!Number.isInteger(id) || id <= 0) return null;

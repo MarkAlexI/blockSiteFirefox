@@ -411,7 +411,7 @@ export class DailyLimitManager {
   async pruneAssignmentKeys(validAssignmentKeys, now = new Date()) {
     const valid = new Set(normalizeActiveKeys(validAssignmentKeys));
     // A worker can handle an intent before startup migration finishes. Keep
-    // numeric v1 usage while that rule still has a daily-limit assignment.
+    // numeric v1 usage while that rule still has a surviving assignment.
     for (const key of [...valid]) {
       if (key.includes(':')) valid.add(key.split(':')[0]);
     }

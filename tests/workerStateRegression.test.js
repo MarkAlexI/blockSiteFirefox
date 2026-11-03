@@ -1857,3 +1857,211 @@ test('native page visibility messages use a restricted content path instead of p
     assert.deepEqual(api.storage.local.data.dailyRuleUsage, before, 'an untracked page cannot begin a usage segment');
   });
 });
+
+
+const modeRetentionConfig = (mode, extra = {}) => ({
+  listId: 'general', disabledByUser: false, blockingMode: mode,
+  schedule: mode === 'schedule'
+    ? { version: 2, periods: [{ days: [0, 1, 2, 3, 4, 5, 6], startTime: '09:00', endTime: '17:00' }] }
+    : null,
+  dailyLimit: mode === 'daily_limit' ? { minutes: 10 } : null,
+  ...extra
+});
+
+function retainedUsageState(seconds = 120) {
+  return { version: 2, date: getLocalDateKey(), usageSeconds: { '21:general': seconds }, lastSample: null };
+}
+
+function updateRetainedMode(mode, extra = {}) {
+  return { type: 'rules:update', payload: { ruleId: 21, assignmentListId: 'general',
+    assignment: modeRetentionConfig(mode, extra) } };
+}
+
+test('mode round trips retain spent time and enforce the newly selected daily allowance', async () => {
+  const rule = makeDailyLimitRule(21, 'general');
+  rule.assignments.push({ ...rule.assignments[0], listId: 'list-1' });
+  await withWorker(async ({ api, send }) => {
+    for (const [mode, extra] of [
+      ['always', {}], ['always', { disabledByUser: true }], ['schedule', {}],
+      ['daily_limit', { dailyLimit: { minutes: 1 } }],
+      ['always', { disabledByUser: true }], ['daily_limit', {}]
+    ]) {
+      const response = await send(updateRetainedMode(mode, extra));
+      assert.equal(response.success, true);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 120,
+        `changing to ${mode} must retain the same day's spent time`);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:list-1'], 33);
+      if (mode === 'daily_limit') {
+        assert.equal(api.dynamicRules.some(item => item.id === 21), extra.dailyLimit?.minutes === 1,
+          'a lower allowance is exhausted; increasing it preserves spent time and grants only the difference');
+      }
+    }
+  }, { local: { activeRuleListId: 'general', rules: [rule],
+    dailyRuleUsage: { ...retainedUsageState(), usageSeconds: { '21:general': 120, '21:list-1': 33 } } },
+    supportsWindows: false });
+});
+
+for (const mode of ['always', 'schedule']) {
+  for (const phase of ['startup', 'update']) {
+    test(`spent time survives ${phase} while the rule uses ${mode}`, async () => {
+      const rule = makeFocusRule(21, 'general');
+      rule.assignments = [modeRetentionConfig(mode, { disabledByUser: mode === 'always' })];
+      await withWorker(async ({ api, send, startup }) => {
+        if (phase === 'startup') await startup();
+        else await api.runtime.onInstalled.listeners[0]({ reason: 'update', previousVersion: '5.5.5' });
+        assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 120);
+        assert.equal((await send(updateRetainedMode('daily_limit', { dailyLimit: { minutes: 1 } }))).success, true);
+        assert.ok(api.dynamicRules.some(item => item.id === 21), 'the old spent budget still exhausts the limit');
+      }, { local: { activeRuleListId: 'general', rules: [rule], dailyRuleUsage: retainedUsageState(),
+        lastCheck: Date.now() }, supportsWindows: false });
+    });
+  }
+}
+
+test('mode changes retain elapsed daily time without charging intervals spent in other modes', async () => {
+  const start = new Date(2026, 10, 3, 12, 0).getTime();
+  await withUsageClock(start, async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      api.tabs.values = [{ id: 11, windowId: 1, active: true, url: 'https://usage.example/' }];
+      await alarm({ name: 'update_scheduled_rules' });
+      clock.set(start + 30_000);
+      assert.equal((await send(updateRetainedMode('always', { disabledByUser: true }))).success, true);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 150);
+      clock.set(start + 60_000);
+      await alarm({ name: 'update_scheduled_rules' });
+      clock.set(start + 90_000);
+      assert.equal((await send(updateRetainedMode('schedule'))).success, true);
+      clock.set(start + 120_000);
+      assert.equal((await send(updateRetainedMode('daily_limit'))).success, true);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 150);
+      clock.set(start + 150_000);
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 180);
+    }, { local: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'general', { blockURL: 'usage.example' })],
+      dailyRuleUsage: retainedUsageState() }, supportsWindows: false,
+      scripting: { executeScript: async () => [{ frameId: 0, result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] } });
+  });
+});
+
+for (const action of ['delete_rule', 'next_day']) {
+  test(`dormant spent time is still cleared after ${action}`, async () => {
+    const start = new Date(2026, 10, 3, 12, 0).getTime();
+    await withUsageClock(start, async clock => {
+      const rule = makeFocusRule(21, 'general');rule.assignments[0].disabledByUser = true;
+      await withWorker(async ({ api, send, alarm }) => {
+        if (action === 'delete_rule') {
+          assert.equal((await send({ type: 'rules:delete', payload: { ruleId: 21 } })).success, true);
+        } else {
+          const nextDay = new Date(start);nextDay.setDate(nextDay.getDate() + 1);
+          clock.set(nextDay.getTime());await alarm({ name: 'update_scheduled_rules' });
+          assert.equal((await send(updateRetainedMode('daily_limit'))).success, true);
+        }
+        assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+      }, { local: { activeRuleListId: 'general', rules: [rule], dailyRuleUsage: retainedUsageState() },
+        supportsWindows: false });
+    });
+  });
+}
+
+
+for (const mode of ['always', 'schedule']) {
+  test(`a failed ${mode} assignment move keeps dormant spent time recoverable`, async () => {
+    const rule = makeFocusRule(21, 'general');
+    rule.assignments = [modeRetentionConfig(mode, { disabledByUser: mode === 'always' })];
+    await withWorker(async ({ api, send, startup }) => {
+      const originalSet = api.storage.local.set.bind(api.storage.local);
+      let recoveryFailures = 0;
+      api.storage.local.set = async (values, callback) => {
+        if (values.dailyRuleUsage?.usageSeconds?.['21:list-1'] === 120) {
+          recoveryFailures++;
+          throw new Error('usage transfer temporarily unavailable');
+        }
+        return originalSet(values, callback);
+      };
+      const moved = await send(updateRetainedMode(mode, { listId: 'list-1', disabledByUser: mode === 'always' }));
+      assert.equal(moved.success, true);
+      assert.equal(moved.dailyUsageSyncPending, true);
+      assert.ok(recoveryFailures > 0);
+      assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, [
+        { oldRuleId: 21, oldListId: 'general', newRuleId: 21, newListId: 'list-1' }
+      ], 'the committed move must preserve a durable recovery journal in every mode');
+      api.storage.local.set = originalSet;
+      await startup();
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:list-1'], 120);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], undefined);
+      assert.deepEqual(api.storage.local.data.pendingDailyUsageRemaps, []);
+    }, { local: { activeRuleListId: 'general', rules: [rule], dailyRuleUsage: retainedUsageState(),
+      lastCheck: Date.now() }, supportsWindows: false });
+  });
+
+  test(`deleting a list moves dormant ${mode} spent time with its surviving rule`, async () => {
+    const rule = makeFocusRule(21, 'list-1');
+    rule.assignments = [modeRetentionConfig(mode, { listId: 'list-1', disabledByUser: mode === 'always' })];
+    await withWorker(async ({ api, send }) => {
+      const deleted = await send({ type: 'rules:deleteList', payload: { listId: 'list-1' } });
+      assert.equal(deleted.success, true);
+      assert.equal(api.storage.local.data.rules[0].assignments[0].listId, 'general');
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 120);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:list-1'], undefined);
+    }, { local: { activeRuleListId: 'list-1', rules: [rule],
+      dailyRuleUsage: { ...retainedUsageState(), usageSeconds: { '21:list-1': 120 } } },
+      supportsWindows: false });
+  });
+}
+
+
+for (const action of ['move', 'delete_list']) {
+  test(`an unused Always rule ${action} commits once without storing a usage journal`, async () => {
+    const rule = makeFocusRule(21, 'list-1');rule.assignments[0].disabledByUser = true;
+    await withWorker(async ({ api, send }) => {
+      const set = api.storage.local.set.bind(api.storage.local);
+      let ruleCommits = 0, journalWrites = 0;
+      api.storage.local.set = async (values, callback) => {
+        if (values.rules) ruleCommits++;
+        if (values.pendingDailyUsageRemaps?.length) journalWrites++;
+        return set(values, callback);
+      };
+      const response = await send(action === 'move'
+        ? { type: 'rules:update', payload: { ruleId: 21, assignmentListId: 'list-1',
+            assignment: modeRetentionConfig('always', { disabledByUser: true }) } }
+        : { type: 'rules:deleteList', payload: { listId: 'list-1' } });
+      assert.equal(response.success, true);
+      assert.equal(ruleCommits, 1);
+      assert.equal(journalWrites, 0, 'no journal is persisted when no spent time needs to move');
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, {});
+    }, { local: { activeRuleListId: 'general', rules: [rule] }, supportsWindows: false });
+  });
+}
+
+
+test('a failed mode-boundary sample cannot later charge time spent outside Daily Limit', async () => {
+  const start = new Date(2026, 10, 3, 12, 0).getTime();
+  await withUsageClock(start, async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      api.tabs.values = [{ id: 11, windowId: 1, active: true, url: 'https://usage.example/' }];
+      await alarm({ name: 'update_scheduled_rules' });
+      const get = api.storage.local.get.bind(api.storage.local);
+      let boundaryFailures = 0;
+      api.storage.local.get = async (keys, callback) => {
+        if (boundaryFailures === 0 && Array.isArray(keys) &&
+            keys.includes('dailyRuleUsage') && keys.includes('pendingDailyUsageRemaps')) {
+          boundaryFailures++;
+          throw new Error('mode-boundary sample unavailable');
+        }
+        return get(keys, callback);
+      };
+      clock.set(start + 30_000);
+      assert.equal((await send(updateRetainedMode('always', { disabledByUser: true }))).success, true);
+      assert.equal(boundaryFailures, 1);
+      clock.set(start + 90_000);
+      assert.equal((await send(updateRetainedMode('daily_limit'))).success, true);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 120,
+        'the uncertain segment must not become ninety seconds of daily usage');
+      clock.set(start + 120_000);
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 150);
+    }, { local: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'general', { blockURL: 'usage.example' })],
+      dailyRuleUsage: retainedUsageState() }, supportsWindows: false,
+      scripting: { executeScript: async () => [{ frameId: 0, result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] } });
+  });
+});

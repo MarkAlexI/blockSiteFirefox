@@ -374,14 +374,12 @@ export function createRulesMutationService({
     oldRuleId,
     oldListId,
     newRuleId,
-    newListId,
-    sourceAssignment,
-    nextAssignment
+    newListId
   ) {
     const remap = { oldRuleId, oldListId, newRuleId, newListId };
-    const protectUsage = getRuleBlockingMode(sourceAssignment) === BLOCKING_MODE_DAILY_LIMIT &&
-      getRuleBlockingMode(nextAssignment) === BLOCKING_MODE_DAILY_LIMIT &&
-      typeof dailyLimitManager?.stagePendingRemaps === 'function' &&
+    // A non-daily assignment can still own spent time from earlier today.
+    // Commit its move with the same durable usage journal as a Daily Limit.
+    const protectUsage = typeof dailyLimitManager?.stagePendingRemaps === 'function' &&
       typeof dailyLimitManager?.recoverPendingRemaps === 'function';
 
     if (protectUsage) {
@@ -881,7 +879,7 @@ export function createRulesMutationService({
         let dailyUsageSyncPending = false;
         if (removed.length === 1 && added.length === 1) {
           dailyUsageSyncPending = await saveRulesAndRemapDailyUsage(
-            nextRules, oldRule.id, removed[0].listId, oldRule.id, added[0].listId, removed[0], added[0]
+            nextRules, oldRule.id, removed[0].listId, oldRule.id, added[0].listId
           );
         } else {
           await rulesManager.saveRules(nextRules);
@@ -949,9 +947,7 @@ export function createRulesMutationService({
             oldRule.id,
             sourceListId,
             oldRule.id,
-            nextAssignment.listId,
-            currentAssignment,
-            nextAssignment
+            nextAssignment.listId
           );
         } else {
           await rulesManager.saveRules(nextRules);
@@ -991,9 +987,7 @@ export function createRulesMutationService({
           oldRule.id,
           sourceListId,
           mergedTarget.id,
-          nextAssignment.listId,
-          currentAssignment,
-          nextAssignment
+          nextAssignment.listId
         );
         return syncAndNotify(nextRules, {
           rule: mergedTarget,
@@ -1023,9 +1017,7 @@ export function createRulesMutationService({
             oldRule.id,
             sourceListId,
             oldRule.id,
-            nextAssignment.listId,
-            currentAssignment,
-            nextAssignment
+            nextAssignment.listId
           );
         } else {
           await rulesManager.saveRules(nextRules);
@@ -1055,9 +1047,7 @@ export function createRulesMutationService({
         oldRule.id,
         sourceListId,
         splitRule.id,
-        nextAssignment.listId,
-        currentAssignment,
-        nextAssignment
+        nextAssignment.listId
       );
       return syncAndNotify(nextRules, {
         rule: splitRule,
@@ -1542,14 +1532,12 @@ export function createRulesMutationService({
         const movedRule = canonicalizeRuleTarget(rule, [generalAssignment]);
         nextRules.push(movedRule);
         movedToGeneral.push(movedRule);
-        if (removedAssignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT) {
-          usageRemaps.push({
-            oldRuleId: rule.id,
-            oldListId: listId,
-            newRuleId: rule.id,
-            newListId: GENERAL_RULE_LIST_ID
-          });
-        }
+        usageRemaps.push({
+          oldRuleId: rule.id,
+          oldListId: listId,
+          newRuleId: rule.id,
+          newListId: GENERAL_RULE_LIST_ID
+        });
       }
 
       ensureGeneralMovesHaveNoConflicts(nextRules, movedToGeneral);

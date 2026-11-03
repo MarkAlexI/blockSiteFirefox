@@ -445,3 +445,25 @@ test('v2 Daily Limit migration keeps a zero-usage active assignment sample', () 
     assignmentKeys: ['7:general']
   });
 });
+
+
+for (const mode of ['always', 'schedule']) {
+  for (const version of [1, 2]) {
+    test(`usage migration retains v${version} spent time for a surviving ${mode} assignment`, () => {
+      const assignment = { listId: 'general', blockingMode: mode, disabledByUser: true,
+        schedule: mode === 'schedule'
+          ? { version: 2, periods: [{ days: [1], startTime: '09:00', endTime: '17:00' }] } : null,
+        dailyLimit: null };
+      const rule = { id: 21, blockURL: 'usage.example', category: 'social', isWhitelist: false,
+        assignments: [assignment] };
+      const raw = { version, date: '2026-11-03', usageSeconds: {
+        [version === 1 ? '21' : '21:general']: 120,
+        '21:removed': 300, '99:general': 400
+      }, lastSample: { timestamp: 123456, assignmentKeys: [version === 1 ? '21' : '21:general'] } };
+      const migrated = migrateDailyUsageSchema(raw, [rule]);
+      assert.deepEqual(migrated.state.usageSeconds, { '21:general': 120 });
+      assert.deepEqual(migrated.state.lastSample.assignmentKeys, [], 'retained counters do not revive non-daily tracking');
+      assert.equal(migrateDailyUsageSchema(migrated.state, [rule]).migrated, false);
+    });
+  }
+}

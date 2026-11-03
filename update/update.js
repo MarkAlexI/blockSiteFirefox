@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
+    "Switching between Always, Schedule and Daily Limit now keeps today's used time, including after a browser restart.",
     "Daily Limits start when you return to a tracked site from Settings, and pause when the page is hidden.",
     "Switching a disabled Always rule to a Daily Limit or schedule now applies the selected mode.",
     "Rule changes on Firefox for Android close matching tabs without opening extra blank tabs."
