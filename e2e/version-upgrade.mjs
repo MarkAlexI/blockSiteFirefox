@@ -35,6 +35,7 @@ export function readUpgradeOptionsView() {
     addLocked: !document.getElementById('add-rule') ||
       document.getElementById('add-rule').inert === true || document.getElementById('add-rule').disabled === true,
     tableLocked: !document.getElementById('rules-table') || document.getElementById('rules-table').inert === true,
+    focusLocked: Boolean(document.getElementById('rules-table')?.closest('.focus-lock-active')),
     recovery: window.bdOptionsRecovery?.getReport?.() || null
   };
 }
@@ -44,8 +45,13 @@ export function assertUpgradeOptionsView(view) {
   assert.equal(view.state, 'ready', 'Options bootstrap and its reads are ready');
   assert.equal(view.bannerHidden, true, 'no recovery warning remains');
   assert.deepEqual(view.ruleIds, [901, 902], 'both saved General rules are actually rendered');
-  assert.equal(view.addLocked, false, 'adding a rule is available');
-  assert.equal(view.tableLocked, false, 'rendered rules are interactive');
+  assert.equal(view.addLocked, false, 'recovery releases its Add rule lock');
+  assert.equal(view.tableLocked, false, 'recovery releases its table lock');
+}
+
+export function assertUpgradeOptionsEditing(view) {
+  assertUpgradeOptionsView(view);
+  assert.equal(view.focusLocked, false, 'Focus must release its editing lock before a native rule action');
 }
 
 export function assertVersionUpgrade(before,after,receipt) {
@@ -128,11 +134,14 @@ export async function runVersionUpgrade(e,backend) {
     await backend.update();
     evidence.events=await upgradeUntil(backend.events,events=>events.length>0,'native version-update event');
     evidence.optionsViews = {};
-    const inspectOptions = async (page, label) => {
+    const inspectOptions = async (page, label, editable = false) => {
       let last;
       try {
         return await upgradeUntil(async () => (last = await page.evaluate(readUpgradeOptionsView)), view => {
-          try { assertUpgradeOptionsView(view);return true; } catch { return false; }
+          try {
+            (editable ? assertUpgradeOptionsEditing : assertUpgradeOptionsView)(view);
+            return true;
+          } catch { return false; }
         }, label);
       } finally { evidence.optionsViews[label] = last; }
     };
@@ -150,10 +159,18 @@ export async function runVersionUpgrade(e,backend) {
         a.scheduledTime===v.focusSession.focusEndTime),'updated version restores native Focus protection');
     evidence.native.after=await backend.identity();
     assertVersionUpgrade(evidence.before,evidence.after,{...evidence.native,events:evidence.events});
+    // The preservation assertions above deliberately require active Focus.
+    // Stop it through the real Popup before testing edits blocked by Focus.
+    const currentPopup=await e.openPopup();
+    await upgradeUntil(()=>currentPopup.evaluate(readFocusActionReadiness,'stop'),v=>v.ready,'updated Focus Stop ready');
+    await click(currentPopup,'#stop-focus-btn');
+    await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>!v.focusSession.focusActive&&
+      v.dnr.length===1&&v.dnr[0].id===901,'native UI Stop retains Basic protection');
     evidence.stage='save a real rule action after update';
     const toggle = '#rules-container tr[data-rule-id="901"] .rule-toggle';
     const editPage = evidence.retainedOptions === 'reloaded' ? options : current;
     await front(editPage);
+    await inspectOptions(editPage, 'Focus editing lock released', true);
     await click(editPage, toggle);
     await upgradeUntil(()=>e.state(), value=>value.rules.find(rule=>rule.id===901)?.assignments[0]?.disabledByUser===true,
       'post-update Options toggle is committed');
@@ -164,11 +181,6 @@ export async function runVersionUpgrade(e,backend) {
     await inspectOptions(editPage, 'after restoring a rule');
     await inspectOptions(current, 'fresh Options sees restored rule');
     assert.deepEqual((await e.state()).rules, evidence.before.rules, 'the UI control restores the original rules');
-    const currentPopup=await e.openPopup();
-    await upgradeUntil(()=>currentPopup.evaluate(readFocusActionReadiness,'stop'),v=>v.ready,'updated Focus Stop ready');
-    await click(currentPopup,'#stop-focus-btn');
-    await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>!v.focusSession.focusActive&&
-      v.dnr.length===1&&v.dnr[0].id===901,'native UI Stop retains Basic protection');
     evidence.stage='native remaining-budget control';
     const foreground=await e.newPage('http://upgrade-daily.bd-e2e.test/remaining');await front(foreground);
     evidence.foreground=await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>

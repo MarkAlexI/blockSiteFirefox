@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pauseOwnedBrowser } from './browser-pause.mjs';
+import { overdueFocusSettled } from './overdue-observation.mjs';
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function until(read, check, label, timeout = 15_000) {
@@ -101,9 +102,7 @@ async function focusAfterPause(e) {
   const receipt = await freeze(e, 'focus-pause', Math.ceil(occurrence.endTime - Date.now()) + 3_000);
   assert.ok(receipt.fullyStoppedAt < occurrence.startTime);
   assert.ok(receipt.beforeResumeAt > occurrence.endTime);
-  const after = await until(() => snapshot(page), s => s.focusSession.focusActive === false && !s.dnr.length &&
-    s.events.some(v => v.type === 'alarm' && v.value.name === 'end_focus_session') &&
-    s.events.some(v => v.type === 'alarm' && v.value.name === 'start_scheduled_focus'), 'native overdue Focus alarms settle');
+  const after = await until(() => snapshot(page), overdueFocusSettled, 'native overdue Focus alarms and next occurrence settle');
   const completions = after.events.filter(v => v.type === 'focusSession' &&
     v.value.oldValue?.focusActive === true && v.value.newValue?.focusActive === false);
   assert.equal(completions.length, 1, 'one natural completion');

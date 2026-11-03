@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { assertVersionUpgrade, assertUpgradeOptionsView, upgradeTimezone } from '../e2e/version-upgrade.mjs';
+import { assertVersionUpgrade, assertUpgradeOptionsView, assertUpgradeOptionsEditing, upgradeTimezone } from '../e2e/version-upgrade.mjs';
 import { expectedVersion } from '../e2e/target-version.mjs';
 
 function sample(){
@@ -59,4 +59,13 @@ test('update acceptance requires rendered, interactive current Options rather th
     const broken = structuredClone(view);change(broken);
     assert.throws(() => assertUpgradeOptionsView(broken));
   }
+});
+
+test('a healthy Options view remains read-only during Focus and must unlock before native editing', () => {
+  const view = { versionText: `v${expectedVersion}`, state: 'ready', bannerHidden: true,
+    ruleIds: [901, 902], addLocked: false, tableLocked: false, focusLocked: true };
+  assertUpgradeOptionsView(view);
+  assert.throws(() => assertUpgradeOptionsEditing(view), /Focus/);
+  assertUpgradeOptionsEditing({ ...view, focusLocked: false });
+  assert.throws(() => assertUpgradeOptionsEditing({ ...view, focusLocked: false, state: 'failed' }));
 });

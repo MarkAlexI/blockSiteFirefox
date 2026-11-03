@@ -1,5 +1,22 @@
 # Firefox Desktop E2E — BlockDistraction **5.5.9**
 
+## 5.5.9 CI follow-up (2026-11-03)
+
+The new upgrade rule-action control attempted editing during the intentionally
+preserved active Focus session. Stop Focus through the real Popup first, then
+wait for the native Options Focus lock to clear before clicking. Recovery
+readiness and permission to edit during Focus are distinct conditions. Keep the
+same update-preservation assertions, native clicks, deadlines and retry policy.
+
+Firefox overdue acceptance now uses the already-tested Chromium observation:
+alarm delivery and an inactive Focus session can precede completion of the queued
+next-occurrence rearm. Require the future next alarm in the bounded observation,
+with all preservation and no-replay assertions retained.
+
+These are test-only corrections on 5.5.9. They do not fix or reproduce the reported
+Android `rules_connection_timeout`; that report needs live worker registration
+state from the affected browser. Native CI acceptance of this follow-up is pending.
+
 ## Options update investigation **5.5.9** (2026-11-03)
 
 The real Kiwi update failure recurred on 5.5.8 and required a browser restart.
