@@ -1,4 +1,5 @@
 node_modules/
 test-results/
 results.json
+macos-environment.json
 upgrade-baseline.local.json

@@ -94,14 +94,102 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-  # Keep the existing required check; a missing/failed group cannot pass it.
+  macos:
+    name: macos-smoke (${{ matrix.architecture }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            architecture: arm64
+          - runner: macos-15-intel
+            architecture: x64
+    env:
+      BD_E2E_GROUP: macos-smoke
+      BD_EXPECTED_ARCH: ${{ matrix.architecture }}
+      BD_INSTALLATION: persistent
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Record and validate native macOS runner
+        run: |
+          node --input-type=module - <<'JS'
+          import assert from 'node:assert/strict';
+          import { writeFile } from 'node:fs/promises';
+          import os from 'node:os';
+          const evidence = { platform: process.platform, architecture: process.arch,
+            expectedArchitecture: process.env.BD_EXPECTED_ARCH, node: process.version,
+            osVersion: os.version(), osRelease: os.release(), imageVersion: process.env.ImageVersion,
+            group: process.env.BD_E2E_GROUP };
+          await writeFile('e2e/macos-environment.json', JSON.stringify(evidence, null, 2) + '\n');
+          console.log(evidence);
+          assert.equal(evidence.platform, 'darwin');
+          assert.equal(evidence.architecture, evidence.expectedArchitecture);
+          JS
+      - name: Install test dependencies
+        timeout-minutes: 3
+        working-directory: e2e
+        run: npm ci
+      - name: Install pinned macOS Firefox Developer Edition and geckodriver
+        timeout-minutes: 7
+        run: bash e2e/setup-macos-firefox.sh
+      - name: Build and unpack the AMO runtime package
+        run: |
+          npm run package:amo
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, zipfile
+          target = Path(os.environ['RUNNER_TEMP']) / 'bd-e2e-extension'
+          archive, = Path('dist').glob('*-amo.zip')
+          with zipfile.ZipFile(archive) as package:
+              assert package.testzip() is None
+              package.extractall(target)
+          with Path(os.environ['GITHUB_ENV']).open('a') as env:
+              env.write(f'BD_EXTENSION_PATH={target}\n')
+          PY
+      - name: Run 24 headed macOS acceptance scenarios
+        timeout-minutes: 15
+        working-directory: e2e
+        run: npm run test:headed
+      - name: Require all 24 native scenario bodies to pass
+        run: node e2e/verify-macos-result.mjs
+      - name: Upload macOS result and runtime provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bd-firefox-macos-${{ github.sha }}-${{ matrix.architecture }}
+          path: |
+            e2e/results.json
+            e2e/macos-environment.json
+            dist/*-amo.zip.sha256
+            dist/*-amo.zip.build.json
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Upload macOS failure evidence
+        if: failure() || cancelled()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bd-firefox-macos-failure-${{ github.sha }}-${{ matrix.architecture }}
+          path: e2e/test-results/
+          if-no-files-found: ignore
+          retention-days: 3
+
+  # Keep the existing required check; Linux and both macOS architectures must pass.
   e2e:
     if: ${{ always() }}
-    needs: scenarios
+    needs: [scenarios, macos]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
-      - name: Require all scenario groups
+      - name: Require Linux groups and both macOS smoke jobs
         env:
           SCENARIO_RESULT: ${{ needs.scenarios.result }}
-        run: test "$SCENARIO_RESULT" = success
+          MACOS_RESULT: ${{ needs.macos.result }}
+        run: |
+          test "$SCENARIO_RESULT" = success
+          test "$MACOS_RESULT" = success

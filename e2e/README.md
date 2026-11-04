@@ -1,5 +1,12 @@
 # Firefox Desktop E2E — BlockDistraction **5.5.9**
 
+## macOS smoke CI
+
+The workflow additionally runs 24 existing acceptance scenarios on Apple Silicon
+and Intel macOS. Linux and both Mac jobs must pass the final `e2e` check.
+See [browser setup, coverage and evidence limits](macos-smoke.md).
+The first native macOS run still needs GitHub acceptance.
+
 ## 5.5.9 CI follow-up (2026-11-03)
 
 The new upgrade rule-action control attempted editing during the intentionally
