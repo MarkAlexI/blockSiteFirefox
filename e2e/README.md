@@ -5,7 +5,8 @@
 The workflow additionally runs 24 existing acceptance scenarios on Apple Silicon
 and Intel macOS. Linux and both Mac jobs must pass the final `e2e` check.
 See [browser setup, coverage and evidence limits](macos-smoke.md).
-The first native macOS run still needs GitHub acceptance.
+The initial native macOS jobs passed 24/24 on both architectures in run
+41916846967. See the [Linux dependency setup follow-up](ci-follow-up-2026-11-05.md).
 
 ## 5.5.9 CI follow-up (2026-11-03)
 

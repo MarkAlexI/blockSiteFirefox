@@ -60,8 +60,9 @@ and runtime provenance are retained for seven days. On failure/cancellation,
 screenshots, browser/network logs and state evidence are retained for three days;
 successful jobs do not upload their large screenshot directories.
 
-The initial macOS run must still be executed and inspected on GitHub. Local
-unit checks and `--list` only verify the harness/selection, not macOS behavior.
+The initial macOS run 41916846967 was inspected: both arm64 and x64 reports
+passed 24/24 with all bodies started. See the [CI follow-up](ci-follow-up-2026-11-05.md).
+Local unit checks and `--list` verify the harness/selection, not macOS behavior.
 Extension version **5.5.9** is unchanged because this change affects only CI,
 test selection, acceptance checks and developer documentation.
 

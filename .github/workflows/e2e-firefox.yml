@@ -35,9 +35,25 @@ jobs:
         working-directory: e2e
         run: npm ci
       - name: Install Firefox Developer Edition and geckodriver
+        env:
+          BD_E2E_GROUP: ${{ matrix.group }}
         run: |
+          # The default Azure mirror stalled while installing PulseAudio in
+          # run 41916846967. Keep signed APT packages and bound mirror transport.
+          test -f /etc/apt/apt-mirrors.txt
+          printf 'https://archive.ubuntu.com/ubuntu/\tpriority:1\nhttps://security.ubuntu.com/ubuntu/\tpriority:2\n' |
+            sudo tee /etc/apt/apt-mirrors.txt
+          sudo tee /etc/apt/apt.conf.d/80blockdistraction-ci <<'APT'
+          Acquire::Retries "2";
+          Acquire::http::Timeout "20";
+          Acquire::https::Timeout "20";
+          APT::Update::Error-Mode "any";
+          APT
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1 xvfb xauth openssl openbox x11-utils xdotool
+          sudo apt-get install --no-install-recommends -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1 xvfb xauth openssl openbox x11-utils xdotool
+          if [ "$BD_E2E_GROUP" = core ]; then
+            sudo apt-get install --no-install-recommends -y pulseaudio
+          fi
           mkdir -p "$RUNNER_TEMP/bd-firefox"
           cd "$RUNNER_TEMP/bd-firefox"
           curl --fail --location --retry 3 https://archive.mozilla.org/pub/devedition/releases/158.0b2/linux-x86_64/en-US/firefox-158.0b2.tar.xz -o firefox.tar.xz
@@ -53,9 +69,7 @@ jobs:
       - name: Prepare native audio output
         if: matrix.group == 'core'
         timeout-minutes: 2
-        run: |
-          sudo apt-get install -y pulseaudio
-          bash e2e/start-audio.sh
+        run: bash e2e/start-audio.sh
       - name: Build and unpack the AMO runtime package
         run: |
           npm run package:amo
