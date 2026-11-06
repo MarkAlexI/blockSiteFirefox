@@ -7,7 +7,12 @@ import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { baselineConfig,readUpgradeBaseline,withPreviousCheckout } from '../e2e/prepare-upgrade-baseline.mjs';
+import { baselineConfig,baselineConfigs,readUpgradeBaseline,withPreviousCheckout } from '../e2e/prepare-upgrade-baseline.mjs';
+
+test('the Firefox upgrade matrix retains 5.4.14 and adds the actual preceding 5.5.8 runtime',()=>{
+  assert.deepEqual(baselineConfigs.map(config=>config.fromVersion),['5.4.14','5.5.8']);
+  assert.equal(baselineConfig,baselineConfigs[0]);
+});
 
 test('local previous-package discovery survives removal of the runner output directory',async()=>{
   const root=await mkdtemp(path.join(tmpdir(),'bd-upgrade-pointer-'));
@@ -75,5 +80,35 @@ test('previous-package reader checks the pinned commit, version and extracted ru
     await assert.rejects(readUpgradeBaseline(runtime),/previous runtime bytes/);
     await writeFile(path.join(runtime,'manifest.json'),JSON.stringify({version:'5.4.15'}));
     await assert.rejects(readUpgradeBaseline(runtime),/previous runtime package/);
+  }finally{await rm(root,{recursive:true,force:true});}
+});
+
+test('both Firefox source packages resolve independently and cannot substitute for each other',async()=>{
+  const root=await mkdtemp(path.join(tmpdir(),'bd-firefox-upgrade-matrix-'));
+  const runtimes={};
+  try{
+    for(const config of baselineConfigs) {
+      const parent=path.join(root,config.fromVersion),runtime=path.join(parent,'runtime');
+      await mkdir(runtime,{recursive:true});runtimes[config.fromVersion]=runtime;
+      const bytes=Buffer.from(JSON.stringify({version:config.fromVersion}));
+      await writeFile(path.join(runtime,'manifest.json'),bytes);
+      await writeFile(path.join(parent,'receipt.json'),JSON.stringify({commit:config.commit,
+        version:config.fromVersion,runtimeFiles:1,files:[{path:'manifest.json',
+          sha256:createHash('sha256').update(bytes).digest('hex')}]}));
+    }
+    const pointerFile=path.join(root,'pointer.json');
+    await writeFile(pointerFile,JSON.stringify({runtime:runtimes['5.4.14'],runtimes}));
+    for(const config of baselineConfigs) {
+      assert.equal((await readUpgradeBaseline(undefined,config,{env:{},pointerFile})).manifest.version,config.fromVersion);
+      assert.equal((await readUpgradeBaseline(undefined,config,{env:{BD_PREVIOUS_EXTENSION_PATHS:JSON.stringify(runtimes)}})).runtime,
+        runtimes[config.fromVersion]);
+      const other=baselineConfigs.find(entry=>entry!==config);
+      await assert.rejects(readUpgradeBaseline(runtimes[other.fromVersion],config),/pinned commit/);
+    }
+    const recent=baselineConfigs[1];
+    await assert.rejects(readUpgradeBaseline(undefined,recent,{env:{BD_PREVIOUS_EXTENSION_PATH:runtimes['5.4.14'],
+      BD_PREVIOUS_EXTENSION_PATHS:JSON.stringify({'5.4.14':runtimes['5.4.14']})}}),/missing prepared baseline 5\.5\.8/);
+    await writeFile(pointerFile,JSON.stringify({runtime:runtimes['5.4.14']}));
+    await assert.rejects(readUpgradeBaseline(undefined,recent,{env:{},pointerFile}),/prepare the pinned baseline 5\.5\.8/);
   }finally{await rm(root,{recursive:true,force:true});}
 });

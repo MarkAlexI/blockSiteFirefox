@@ -1,5 +1,41 @@
 # Native version-update preservation — scenario 67
 
+## Upgrade matrix — 5.5.9
+
+| Case | Actual source package | Source commit | Focus completion control |
+| --- | --- | --- | --- |
+| `67` | 5.4.14 | `fd72823d413a588d9d345575e07b2d5d3e3b3bcc` | Existing five-minute session and real Popup Stop |
+| `67-5.5.8` | 5.5.8 | `8fcf94e392b9587fbbfd7b4426da2b169a53db06` | One-minute session reaches its original native alarm deadline |
+
+The preparation command below builds both packages with their historical AMO
+packagers and verifies each archive, commit, manifest and extracted runtime.
+Each case owns a separate persistent profile. A missing source-version entry
+cannot silently use the other package. Current inventory is **73 = 70 core +
+1 overdue + 2 upgrade**; both macOS smoke sets remain 24 cases.
+
+Both transitions require fresh current Options to work before any retained old
+Options document is reloaded. The recent case opens that new document through
+the actual Popup Scheduled focus link (`target="_blank"`); the ordinary Options
+button may focus an existing tab. Reports preserve the retained/closed branch,
+paid state, exact Focus deadline, spent limits, real rule edits and native DNR
+navigation controls.
+
+The recent case also preserves sound=true. A passive parent-process
+ExtensionActivityLog listener observes the real completion alarm across the
+update. The existing Firefox sound observer is installed on the current event
+page from the fresh Options view before the old tab reload. It requires one
+AudioContext, two native ended events, a non-silent analyser signal, advancing
+native audio time and successful context closure. Original audio promises,
+nodes, timers and event delivery remain intact. The observer stays installed
+through subsequent rule and budget controls to reject duplicate playback.
+
+This is an open-Options upgrade test, separate from native idle-wake coverage;
+it does not establish physical speaker output or Android store-update behavior.
+Upgrade now receives the same native PulseAudio backend as core. Scenario/job
+deadlines, zero-retry policy, production files and extension version stay as
+before. The new matrix requires native CI acceptance. Earlier sections below
+retain the historical fixture and its then-current validation counts.
+
 ## Current acceptance extension — 5.5.9
 
 Scenario 67 additionally reads the rendered current Options view, verifies both

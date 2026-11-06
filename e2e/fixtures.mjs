@@ -409,6 +409,11 @@ export class ExtensionHarness {
     return page;
   }
 
+  pageForContext(context) {
+    assert.ok(typeof context==='string'&&context,'an owned native browsing context is required');
+    return new Page(this,context);
+  }
+
   async installUpdatedRuntime(source) {
     assert.equal(this.config.installation,'persistent','version update requires a persistent installation');
     const files=await collectRuntime(source);

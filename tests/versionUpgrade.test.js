@@ -1,10 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { assertVersionUpgrade, assertUpgradeOptionsView, assertUpgradeOptionsEditing, upgradeTimezone } from '../e2e/version-upgrade.mjs';
+import { assertVersionUpgrade, assertUpgradeOptionsView, assertUpgradeOptionsEditing, upgradeTimezone,
+  openUpgradeOptionsFromPopup } from '../e2e/version-upgrade.mjs';
 import { expectedVersion } from '../e2e/target-version.mjs';
 
-function sample(){
-  const before={id:'fixture-id',version:'5.4.14',now:1000,__bdUpgradeToken:'durable-marker',rules:[{id:901},{id:902}],
+function sample(version='5.4.14'){
+  const before={id:'fixture-id',version,now:1000,__bdUpgradeToken:'durable-marker',rules:[{id:901},{id:902}],
     ruleLists:[{id:'general'},{id:'list-1'}],activeRuleListId:'general',rulesGeneration:'generation',
     ruleRevisions:{901:'r1',902:'r2'},ruleListRevisions:{general:'g1'},
     credentials:{isPro:true,isLegacyUser:false,installationDate:'2026-08-01',licenseKey:'BD-E2E-VALID-KEY'},
@@ -19,13 +20,14 @@ function sample(){
   return {before,after,receipt};
 }
 
-test('upgrade acceptance requires a native version transition and preserved old state',()=>{
-  const s=sample();assertVersionUpgrade(s.before,s.after,s.receipt);
+for(const version of ['5.4.14','5.5.8']) {
+test(`upgrade acceptance requires the actual ${version} transition and preserved old state`,()=>{
+  const s=sample(version);assertVersionUpgrade(s.before,s.after,s.receipt,version);
 });
 for(const [name,change] of [
   ['fresh installation',s=>s.receipt.events[0].details.reason='install'],
   ['wrong previous version',s=>s.receipt.events[0].details.previousVersion='5.4.13'],
-  ['same-version reload',s=>s.after.version='5.4.14'],
+  ['same-version reload',s=>s.after.version=s.before.version],
   ['different extension',s=>s.after.id='another-id'],
   ['another profile',s=>s.receipt.after.profile='/other/profile'],
   ['browser restart',s=>s.receipt.after.pid=456],
@@ -40,8 +42,14 @@ for(const [name,change] of [
   ['missing completion alarm',s=>s.after.alarms.shift()],
   ['lost schedule alarm',s=>s.after.alarms.pop()],
   ['lost browser blocking',s=>s.after.dnr=[]]
-])test(`upgrade acceptance rejects ${name}`,()=>{
-  const s=sample();change(s);assert.throws(()=>assertVersionUpgrade(s.before,s.after,s.receipt));
+])test(`${version} upgrade acceptance rejects ${name}`,()=>{
+  const s=sample(version);change(s);assert.throws(()=>assertVersionUpgrade(s.before,s.after,s.receipt,version));
+});
+}
+
+test('a consistent but wrong source version cannot replace the selected pinned baseline',()=>{
+  const s=sample('5.4.14');
+  assert.throws(()=>assertVersionUpgrade(s.before,s.after,s.receipt,'5.5.8'));
 });
 
 test('the preservation fixture avoids midnight without changing the host clock',()=>{
@@ -68,4 +76,21 @@ test('a healthy Options view remains read-only during Focus and must unlock befo
   assert.throws(() => assertUpgradeOptionsEditing(view), /Focus/);
   assertUpgradeOptionsEditing({ ...view, focusLocked: false });
   assert.throws(() => assertUpgradeOptionsEditing({ ...view, focusLocked: false, state: 'failed' }));
+});
+
+test('a single native Popup link opens a new Options context without navigating the retained tab',async()=>{
+  const calls=[],existing=['retained','other'],expected='moz-extension://fixture/options/options.html#focus-schedule';
+  const retained={context:'retained'};
+  const page={async front(options){calls.push(['front',options]);}};
+  let clicked=false;
+  const popup={async evaluate(){return {ready:true};},async click(selector){
+    calls.push(['click',selector]);clicked=true;
+  }};
+  const e={baseUrl:'moz-extension://fixture',options:[retained],driver:{async getAllWindowHandles(){return existing;}},
+    async openPopup(){return popup;},async command(method){assert.equal(method,'browsingContext.getTree');assert.equal(clicked,true);
+      return {contexts:[{context:'retained',url:expected},{context:'unrelated',url:'about:blank'},
+        {context:'new-options',url:expected}]};},pageForContext(context){assert.equal(context,'new-options');return page;}};
+  assert.equal(await openUpgradeOptionsFromPopup(e),page);
+  assert.deepEqual(e.options,[retained,page]);
+  assert.deepEqual(calls,[['click','a.focus-schedule-popup-link'],['front',{reselect:true}]]);
 });

@@ -51,7 +51,7 @@ jobs:
           APT
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1 xvfb xauth openssl openbox x11-utils xdotool
-          if [ "$BD_E2E_GROUP" = core ]; then
+          if [ "$BD_E2E_GROUP" = core ] || [ "$BD_E2E_GROUP" = upgrade ]; then
             sudo apt-get install --no-install-recommends -y pulseaudio
           fi
           mkdir -p "$RUNNER_TEMP/bd-firefox"
@@ -67,7 +67,7 @@ jobs:
           echo "BD_FIREFOX_BINARY=$RUNNER_TEMP/bd-firefox/firefox/firefox" >> "$GITHUB_ENV"
           echo "BD_GECKODRIVER=$RUNNER_TEMP/bd-firefox/geckodriver" >> "$GITHUB_ENV"
       - name: Prepare native audio output
-        if: matrix.group == 'core'
+        if: matrix.group == 'core' || matrix.group == 'upgrade'
         timeout-minutes: 2
         run: bash e2e/start-audio.sh
       - name: Build and unpack the AMO runtime package
@@ -85,7 +85,7 @@ jobs:
           with Path(os.environ['GITHUB_ENV']).open('a') as env:
               env.write(f'BD_EXTENSION_PATH={target}\n')
           PY
-      - name: Prepare pinned previous-version runtime
+      - name: Prepare both pinned previous-version runtimes
         if: matrix.group == 'upgrade'
         timeout-minutes: 2
         run: node e2e/prepare-upgrade-baseline.mjs

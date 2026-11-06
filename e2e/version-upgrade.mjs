@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFocusActionReadiness } from './focus-action-readiness.mjs';
 import { expectedVersion } from './target-version.mjs';
+import { assertUpgradeFocusCompletion } from './upgrade-focus-completion.mjs';
 
 // Keep this preservation scenario away from a legitimate local-day rollover.
 export const upgradeTimezone = (at=Date.now()) => [0,23].includes(new Date(at).getUTCHours()) ? 'Etc/GMT+12' : 'UTC';
@@ -54,8 +55,8 @@ export function assertUpgradeOptionsEditing(view) {
   assert.equal(view.focusLocked, false, 'Focus must release its editing lock before a native rule action');
 }
 
-export function assertVersionUpgrade(before,after,receipt) {
-  assert.equal(before.version,'5.4.14');assert.equal(after.version,expectedVersion);
+export function assertVersionUpgrade(before,after,receipt,fromVersion='5.4.14') {
+  assert.equal(before.version,fromVersion);assert.equal(after.version,expectedVersion);
   assert.notEqual(before.version,after.version);
   assert.equal(after.id,before.id,'same installed extension');
   assert.equal(receipt.before.profile,receipt.after.profile,'same native profile');
@@ -67,7 +68,7 @@ export function assertVersionUpgrade(before,after,receipt) {
   if(receipt.before.installDate!==undefined)assert.equal(receipt.after.installDate,receipt.before.installDate);
   if(receipt.after.temporary!==undefined)assert.equal(receipt.after.temporary,false);
   assert.ok(before.__bdUpgradeToken);assert.equal(after.__bdUpgradeToken,before.__bdUpgradeToken,'old durable state survives');
-  assert.deepEqual(receipt.events.map(event=>event.details),[{reason:'update',previousVersion:'5.4.14'}],
+  assert.deepEqual(receipt.events.map(event=>event.details),[{reason:'update',previousVersion:fromVersion}],
     'exactly one native update event with the real previous version');
   assert.ok(receipt.events.every(event=>event.extensionId===after.id&&Number.isFinite(event.at)));
   for(const key of ['rules','ruleLists','activeRuleListId','rulesGeneration','ruleRevisions','ruleListRevisions',
@@ -93,24 +94,45 @@ const click=(page,selector)=>page.locator?page.locator(selector).click():page.cl
 const fill=(page,selector,value)=>page.locator?page.locator(selector).fill(value):page.fill(selector,value);
 const front=page=>page.bringToFront?page.bringToFront():page.front();
 
-export async function runVersionUpgrade(e,backend) {
+export async function openUpgradeOptionsFromPopup(e) {
+  const popup=await e.openPopup();
+  await upgradeUntil(()=>popup.evaluate(readFocusActionReadiness,'stop'),v=>v.ready,'updated Popup is ready');
+  const existing=new Set(await e.driver.getAllWindowHandles());
+  await click(popup,'a.focus-schedule-popup-link');
+  const expected=e.baseUrl+'/options/options.html#focus-schedule';
+  const context=await upgradeUntil(async()=>{
+    const tree=await e.command('browsingContext.getTree',{maxDepth:0});
+    const candidates=tree.contexts.filter(view=>!existing.has(view.context)&&view.url===expected);
+    assert.ok(candidates.length<=1,'one new Options document comes from the Popup link');
+    return candidates[0]?.context;
+  },Boolean,'the Popup opens a fresh Options document');
+  const page=e.pageForContext(context);
+  await page.front({reselect:true});
+  e.options.push(page);
+  return page;
+}
+
+export async function runVersionUpgrade(e,backend,{completion='stop'}={}) {
+  assert.ok(['stop','alarm'].includes(completion));
+  const natural=completion==='alarm', minutes=natural?1:5;
+  const fromVersion=e.upgradeBaseline.receipt.version;
   const token=randomUUID();
   const rules=[{id:901,blockURL:'upgrade-basic.bd-e2e.test',redirectURL:'',category:'social',isWhitelist:false,
     assignments:[{listId:'general',disabledByUser:false,blockingMode:'always',schedule:null,dailyLimit:null}]},
   {id:902,blockURL:'upgrade-daily.bd-e2e.test',redirectURL:'',category:'social',isWhitelist:false,
     assignments:['general','list-1'].map(listId=>({listId,disabledByUser:false,blockingMode:'daily_limit',schedule:null,
       dailyLimit:{minutes:listId==='general'?1:20}}))}];
-  const evidence={scenario:'67',scope:'native development-package version upgrade in the same profile',
+  const evidence={scenario:natural?`67-${fromVersion}`:'67',completion,scope:'native development-package version upgrade in the same profile',
     baseline:e.upgradeBaseline.receipt,stage:'seed previous version'};
   try {
     await e.seed({rules,usage:{'902:general':45,'902:list-1':840}});
     const options=await e.openOptions();await e.reconcile(options);
-    await options.evaluate(async token=>{
+    await options.evaluate(async ({token,sound})=>{
       const api=globalThis.browser||globalThis.chrome;
       const {settings}=await api.storage.sync.get('settings');
-      await api.storage.sync.set({settings:{...settings,debugMode:true}});
+      await api.storage.sync.set({settings:{...settings,debugMode:true,focusSessionSound:sound}});
       await api.storage.local.set({__bdUpgradeToken:token});
-    },token);
+    },{token,sound:natural});
     const config=await options.evaluate(()=>{
       const start=new Date(Date.now()+3600000);
       return {enabled:true,days:[0,1,2,3,4,5,6],durationMinutes:5,
@@ -120,12 +142,12 @@ export async function runVersionUpgrade(e,backend) {
     assert.equal((await message(options,{type:'focus_schedule_save',config,revision:shown.revision})).success,true);
     const popup=await e.openPopup();
     await upgradeUntil(()=>popup.evaluate(readFocusActionReadiness,'start'),v=>v.ready,'old Focus Start ready');
-    await fill(popup,'#focus-duration','5');await click(popup,'#start-focus-btn');
+    await fill(popup,'#focus-duration',String(minutes));await click(popup,'#start-focus-btn');
     evidence.before=await upgradeUntil(()=>options.evaluate(upgradeSnapshot),v=>v.focusSession.focusActive&&
       v.dnr.length===2&&v.alarms.some(a=>a.name==='end_focus_session'&&a.scheduledTime===v.focusSession.focusEndTime),
     'previous version has committed Focus and native blocking');
-    assert.ok(evidence.before.focusSession.focusEndTime-evidence.before.now>240000&&
-      evidence.before.focusSession.focusEndTime-evidence.before.now<=300000,'real Pro custom duration was started');
+    assert.ok(evidence.before.focusSession.focusEndTime-evidence.before.now>minutes*60000-(natural?15000:60000)&&
+      evidence.before.focusSession.focusEndTime-evidence.before.now<=minutes*60000,'real Pro custom duration was started');
     // Keep a non-extension document alive through replacement of old views.
     const keeper=await e.newPage('http://upgrade-control.bd-e2e.test/keeper');await front(keeper);
     evidence.native={before:await backend.identity()};
@@ -145,27 +167,49 @@ export async function runVersionUpgrade(e,backend) {
         }, label);
       } finally { evidence.optionsViews[label] = last; }
     };
+    evidence.stage='open fresh Options before reloading the retained tab';
+    evidence.retainedOptionsBeforeFresh = await backend.retainedOptionsState(options);
+    assert.ok(['open', 'closed_by_browser'].includes(evidence.retainedOptionsBeforeFresh));
+    // Readiness includes the real background health reply. Do this before
+    // navigating the old document: its reload could otherwise release a
+    // waiting worker and hide the reported update failure.
+    const current=natural?await openUpgradeOptionsFromPopup(e):await e.openOptions();
+    evidence.freshOptionsSource=natural?'Popup Scheduled focus link (_blank)':'direct current Options';
+    await inspectOptions(current, 'fresh Options before retained-tab reload');
+    if(natural) evidence.audioObservation=await backend.startAudioObservation(current);
     evidence.stage='reload the retained Options tab';
     // Native browsers may close an extension view on replacement. Record that
     // branch explicitly; never call a newly opened tab a retained-tab reload.
     evidence.retainedOptions = await backend.reloadRetainedOptions(options);
     assert.ok(['reloaded', 'closed_by_browser'].includes(evidence.retainedOptions));
     if (evidence.retainedOptions === 'reloaded') await inspectOptions(options, 'retained tab after reload');
-    evidence.stage='open current Options';
-    const current=await e.openOptions();
-    await inspectOptions(current, 'fresh Options');
     evidence.after=await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>v.version===expectedVersion&&
       v.focusSession.focusActive&&v.dnr.length===2&&v.alarms.some(a=>a.name==='end_focus_session'&&
         a.scheduledTime===v.focusSession.focusEndTime),'updated version restores native Focus protection');
     evidence.native.after=await backend.identity();
-    assertVersionUpgrade(evidence.before,evidence.after,{...evidence.native,events:evidence.events});
-    // The preservation assertions above deliberately require active Focus.
-    // Stop it through the real Popup before testing edits blocked by Focus.
-    const currentPopup=await e.openPopup();
-    await upgradeUntil(()=>currentPopup.evaluate(readFocusActionReadiness,'stop'),v=>v.ready,'updated Focus Stop ready');
-    await click(currentPopup,'#stop-focus-btn');
-    await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>!v.focusSession.focusActive&&
-      v.dnr.length===1&&v.dnr[0].id===901,'native UI Stop retains Basic protection');
+    assertVersionUpgrade(evidence.before,evidence.after,{...evidence.native,events:evidence.events},fromVersion);
+    // Preservation requires active Focus. Test edits only after the inherited
+    // alarm completes it, or after the older baseline's real Popup Stop click.
+    if(natural) {
+      evidence.stage='natural completion at the preserved Focus deadline';
+      await upgradeUntil(()=>current.evaluate(async()=>({now:Date.now(),
+        focus:(await (globalThis.browser||chrome).storage.local.get('focusSession')).focusSession})),
+      value=>value.now>=evidence.before.focusSession.focusEndTime&&!value.focus.focusActive,
+      'the inherited Focus deadline expires naturally',
+      Math.max(15000,evidence.before.focusSession.focusEndTime-Date.now()+15000));
+      evidence.completed=await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>!v.focusSession.focusActive&&
+        v.now>=evidence.before.focusSession.focusEndTime&&v.dnr.length===1&&v.dnr[0].id===901,
+      'the original native Focus deadline restores Basic protection');
+      evidence.completionAudio=await upgradeUntil(backend.readCompletionAudio,audio=>{
+        try {assertUpgradeFocusCompletion(evidence.before,evidence.completed,audio);return true;}catch{return false;}
+      },'one completed native Focus sound after the update');
+    } else {
+      const currentPopup=await e.openPopup();
+      await upgradeUntil(()=>currentPopup.evaluate(readFocusActionReadiness,'stop'),v=>v.ready,'updated Focus Stop ready');
+      await click(currentPopup,'#stop-focus-btn');
+      await upgradeUntil(()=>current.evaluate(upgradeSnapshot),v=>!v.focusSession.focusActive&&
+        v.dnr.length===1&&v.dnr[0].id===901,'native UI Stop retains Basic protection');
+    }
     evidence.stage='save a real rule action after update';
     const toggle = '#rules-container tr[data-rule-id="901"] .rule-toggle';
     const editPage = evidence.retainedOptions === 'reloaded' ? options : current;
@@ -195,7 +239,11 @@ export async function runVersionUpgrade(e,backend) {
     await e.assertBlocked('http://upgrade-daily.bd-e2e.test/blocked','daily_limit');
     await e.assertBlocked('http://upgrade-basic.bd-e2e.test/blocked');
     evidence.events=await backend.events();
-    assertVersionUpgrade(evidence.before,evidence.after,{...evidence.native,events:evidence.events});
+    assertVersionUpgrade(evidence.before,evidence.after,{...evidence.native,events:evidence.events},fromVersion);
+    if(natural) {
+      evidence.completionAudio=await backend.readCompletionAudio();
+      assertUpgradeFocusCompletion(evidence.before,evidence.completed,evidence.completionAudio);
+    }
     evidence.stage='complete';
   } finally {try{await backend.evidence(evidence);}finally{await backend.removeObserver?.();}}
 }

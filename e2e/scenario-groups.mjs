@@ -17,5 +17,5 @@ export function selectScenarioGroup(scenarios, group = 'all') {
     return selected;
   }
   return scenarios.filter(scenario => group === 'all' ||
-    (scenario.id === '67' ? group === 'upgrade' : scenario.id === '65' ? group === 'overdue' : group === 'core'));
+    (scenario.id === '67' || scenario.upgrade === true ? group === 'upgrade' : scenario.id === '65' ? group === 'overdue' : group === 'core'));
 }
