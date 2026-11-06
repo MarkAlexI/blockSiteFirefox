@@ -9,8 +9,8 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { baselineConfig,baselineConfigs,readUpgradeBaseline,withPreviousCheckout } from '../e2e/prepare-upgrade-baseline.mjs';
 
-test('the Firefox upgrade matrix retains 5.4.14 and adds the actual preceding 5.5.8 runtime',()=>{
-  assert.deepEqual(baselineConfigs.map(config=>config.fromVersion),['5.4.14','5.5.8']);
+test('the Firefox upgrade matrix retains 5.4.14 and adds the actual preceding 5.5.9 runtime',()=>{
+  assert.deepEqual(baselineConfigs.map(config=>config.fromVersion),['5.4.14','5.5.9']);
   assert.equal(baselineConfig,baselineConfigs[0]);
 });
 
@@ -107,8 +107,8 @@ test('both Firefox source packages resolve independently and cannot substitute f
     }
     const recent=baselineConfigs[1];
     await assert.rejects(readUpgradeBaseline(undefined,recent,{env:{BD_PREVIOUS_EXTENSION_PATH:runtimes['5.4.14'],
-      BD_PREVIOUS_EXTENSION_PATHS:JSON.stringify({'5.4.14':runtimes['5.4.14']})}}),/missing prepared baseline 5\.5\.8/);
+      BD_PREVIOUS_EXTENSION_PATHS:JSON.stringify({'5.4.14':runtimes['5.4.14']})}}),/missing prepared baseline 5\.5\.9/);
     await writeFile(pointerFile,JSON.stringify({runtime:runtimes['5.4.14']}));
-    await assert.rejects(readUpgradeBaseline(undefined,recent,{env:{},pointerFile}),/prepare the pinned baseline 5\.5\.8/);
+    await assert.rejects(readUpgradeBaseline(undefined,recent,{env:{},pointerFile}),/prepare the pinned baseline 5\.5\.9/);
   }finally{await rm(root,{recursive:true,force:true});}
 });

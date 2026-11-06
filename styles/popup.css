@@ -459,8 +459,9 @@ button:disabled {
 .focus-section {
   background-color: var(--bg-white);
   border: 1px solid var(--border-light);
-  border-radius: var(--border-radius);
-  padding: 1rem;
+  border-block-start: 3px solid var(--secondary-color);
+  border-radius: 12px;
+  padding: clamp(0.875rem, 3vw, 1.25rem);
   margin: 1.25rem 0;
   box-shadow: var(--shadow-small);
   text-align: center;
@@ -481,6 +482,7 @@ button:disabled {
 
 #focus-controls .duration-control {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -488,12 +490,16 @@ button:disabled {
 }
 
 #focus-controls label {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
   font-size: 0.9rem;
   font-weight: bold;
 }
 
 #focus-mode-control {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -501,7 +507,7 @@ button:disabled {
 }
 
 #focus-mode-control label {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -512,9 +518,11 @@ button:disabled {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  box-sizing: border-box;
   width: auto;
-  min-width: 140px;
-  max-width: none;
+  min-width: 0;
+  max-width: 100%;
+  min-block-size: 2.75rem;
   padding: 0.45rem 2rem 0.45rem 0.6rem;
   border-radius: 8px;
   border: 1px solid var(--bd-control-border);
@@ -526,7 +534,7 @@ button:disabled {
   font-size: 0.95rem;
   color: var(--text-primary);
   cursor: pointer;
-  flex: 0 1 auto;
+  flex: 1 1 12rem;
   transition: var(--transition);
   box-shadow: none;
   white-space: normal;
@@ -565,7 +573,11 @@ button:disabled {
 }
 
 #focus-controls input[type="number"] {
-  width: 60px;
+  box-sizing: border-box;
+  width: 5rem;
+  max-inline-size: 100%;
+  min-block-size: 2.75rem;
+  flex: 0 0 auto;
   padding: 0.5rem;
   border: 1px solid var(--bd-control-border);
   border-radius: 4px;
@@ -583,6 +595,11 @@ button:disabled {
   color: var(--secondary-color);
 }
 
+#focus-controls .duration-control .pro-note {
+  flex-basis: 100%;
+  overflow-wrap: anywhere;
+}
+
 #focus-active-view {
   display: flex;
   flex-direction: column;
@@ -591,15 +608,29 @@ button:disabled {
 }
 
 #focus-timer-display {
-  font-size: 2.5rem;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: 0.75rem 0.25rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background-color: var(--bd-surface-soft);
+  font-size: clamp(1rem, 10vw, 3rem);
+  line-height: 1.2;
   font-weight: bold;
   color: var(--primary-color);
   font-family: 'Courier New', Courier, monospace;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 #start-focus-btn,
 #stop-focus-btn {
+  box-sizing: border-box;
   width: 100%;
+  min-block-size: 2.75rem;
+  overflow-wrap: anywhere;
 }
 
 #start-focus-btn {

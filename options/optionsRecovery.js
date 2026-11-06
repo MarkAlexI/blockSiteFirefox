@@ -14,7 +14,7 @@
     'rules-management-panel'].map(id => document.getElementById(id)).filter(Boolean);
   const originalInert = new Map(targets.map(element => [element, element.inert === true]));
   let state = 'loading', timer = null, disposed = false;
-  const pageVersion = '5.5.9';
+  const pageVersion = '5.5.10';
   const failureKey = 'bdOptionsRecoveryFailureV1';
   const stageNames = ['module', 'setup', 'access', 'rules', 'lists', 'usage', 'connection', 'render'];
   const states = ['idle', 'pending', 'ok', 'error'];

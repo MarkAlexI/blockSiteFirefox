@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.10] - 2026-11-06
+
+### Improved
+- Give the Popup Focus card a clearer visual hierarchy and a dedicated, responsive countdown panel.
+- Keep duration, Pro hints and blocking-mode controls inside the Focus card on narrow screens with enlarged text and long translations, including right-to-left layouts.
+- Provide at least 44-pixel-tall duration, mode and Start/Stop controls at the default text size.
+
+### Tests
+- Target the native upgrade matrix at 5.5.9 → 5.5.10 while retaining the 5.4.14 baseline, spent Daily Limits, fresh Options before retained-tab reload, and natural Focus completion with one sound.
+- Include the expanded navigation, cache/prefetch and extension-context regression coverage.
+
 ## [5.5.9] - 2026-11-03
 
 ### Added
