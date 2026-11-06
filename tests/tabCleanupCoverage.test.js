@@ -273,22 +273,23 @@ test('tab-query failures do not escape either cleanup path', async () => {
   });
 });
 
-for (const whitelist of [false, true]) test(`Android virtual windows ${whitelist ? 'whitelist' : 'blacklist'} cleanup creates no safety tabs`, async () => {
+for (const os of ['android', 'mac']) for (const arch of ['aarch64', 'arm64']) for (const whitelist of [false, true])
+test(`${os}/${arch} ${whitelist ? 'whitelist' : 'blacklist'} cleanup retains OS-specific window protection`, async () => {
   await withTabCleanup([
     { id: 1, windowId: 101, url: 'https://blocked.example/' },
     { id: 2, windowId: 102, url: 'https://allowed.example/' }
   ], async ({ api, closeTabsMatchingRules, closeNonWhitelistedTabs }) => {
-    api.runtime.getPlatformInfo = async () => ({ os: 'android' });
-    api.tabs.create = async details => {
+    api.runtime.getPlatformInfo = async () => ({ os, arch });
+    if (os === 'android') api.tabs.create = async details => {
       api.createdTabs.push(details);
       const tab = { id: 99, windowId: 199, url: 'about:blank' };
       api.tabs.values.push(tab);return tab;
     };
     if (whitelist) await closeNonWhitelistedTabs([allowedRule('allowed.example')]);
     else await closeTabsMatchingRules(['blocked.example']);
-    assert.deepEqual(api.createdTabs, []);
+    assert.deepEqual(api.createdTabs, os === 'android' ? [] : [{ windowId: 101 }]);
     assert.deepEqual(api.removedTabs, [1]);
-  }, { supportsWindows: false });
+  }, { supportsWindows: os !== 'android' });
 });
 
 
