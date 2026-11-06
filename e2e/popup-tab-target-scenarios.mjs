@@ -13,6 +13,20 @@ function popupView(host, url) {
   } };
 }
 
+export async function reloadPopupDocument(view, expectedRows) {
+  const previousToken = await view.evaluate(v =>
+    v.__bdTabTargetDocumentToken ||= v.crypto.randomUUID());
+  assert.ok(previousToken, 'the Popup document exists before reload');
+  await view.evaluate(v => v.location.reload());
+  return until(() => view.evaluate(v => ({
+    token: v.__bdTabTargetDocumentToken ||= v.crypto.randomUUID(),
+    ready: v.document.readyState === 'complete',
+    rows: [...v.document.querySelectorAll('.rule[data-rule-id]')].filter(row => row.dataset.ruleId !== 'null').length,
+    button: Boolean(v.document.getElementById('block-that'))
+  })), value => value?.token !== previousToken && value?.ready && value.rows === expectedRows,
+  'a new Popup document finished rendering the saved rules');
+}
+
 export const popupTabTargetScenarios = [{
   id: '75', nativeDesktop: true, nativeToolbar: true,
   title: 'Popup preserves its displayed target across two windows and never offers to block its own extension tab',
@@ -72,12 +86,8 @@ export const popupTabTargetScenarios = [{
         await api.tabs.update(tabId, { active: true });
         await api.windows.update(windowId, { focused: true });
       }, { tabId: popupId, windowId: created.target.windowId });
-      await view.evaluate(v => v.location.reload());
-      await until(() => view.evaluate(v => ({ ready: v.document.readyState === 'complete',
-        rows: [...v.document.querySelectorAll('.rule[data-rule-id]')].filter(row => row.dataset.ruleId !== 'null').length,
-        button: Boolean(v.document.getElementById('block-that')) })), value => value?.ready && value.rows === 1,
-      'active full-page Popup finished rendering the saved rule');
-      assert.equal(await view.evaluate(v => Boolean(v.document.getElementById('block-that'))), false,
+      const reloaded = await reloadPopupDocument(view, 1);
+      assert.equal(reloaded.button, false,
         'an extension tab is protected, without falling back to B');
       observed.phases.push({ kind: 'active extension tab', blockThisSite: false });
 
