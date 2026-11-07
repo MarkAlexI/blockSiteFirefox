@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "ข้ามเซสชันถัดไป"
   },
+  "focus_schedule_restore": {
+    "message": "ยกเลิกการข้าม: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "กำหนดการเปลี่ยนแปลงแล้ว ตรวจสอบเวลาเซสชันล่าสุดแล้วลองอีกครั้ง"
+  },
   "focus_schedule_skipped": {
     "message": "ข้ามแล้ว: $1"
   },

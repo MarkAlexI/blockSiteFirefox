@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "رد کردن جلسهٔ بعدی"
   },
+  "focus_schedule_restore": {
+    "message": "لغو رد کردن جلسه: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "برنامه تغییر کرده است. زمان به‌روز‌شدهٔ جلسه را بررسی کنید و دوباره تلاش کنید."
+  },
   "focus_schedule_skipped": {
     "message": "رد شد: $1"
   },

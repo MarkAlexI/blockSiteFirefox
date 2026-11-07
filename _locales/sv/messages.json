@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Hoppa över nästa session"
   },
+  "focus_schedule_restore": {
+    "message": "Ångra överhoppning: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Schemat har ändrats. Kontrollera sessionens uppdaterade tid och försök igen."
+  },
   "focus_schedule_skipped": {
     "message": "Överhoppad: $1"
   },

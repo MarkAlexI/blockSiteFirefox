@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "შემდეგი სესიის გამოტოვება"
   },
+  "focus_schedule_restore": {
+    "message": "გამოტოვების გაუქმება: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "განრიგი შეიცვალა. შეამოწმეთ სესიის განახლებული დრო და სცადეთ ხელახლა."
+  },
   "focus_schedule_skipped": {
     "message": "გამოტოვებულია: $1"
   },

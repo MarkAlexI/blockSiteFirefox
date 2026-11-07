@@ -26,10 +26,13 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
   async function status() {
     const [state, access] = await Promise.all([load(), getAccess()]);
     const { enabled, days, startTime, durationMinutes, revision } = state;
-    const upcoming = focusOccurrences(state, now());
+    const at = now();
+    const upcoming = focusOccurrences(state, at);
     return { config: { enabled, days, startTime, durationMinutes }, revision,
-      hasAccess: paid(access), next: nextFocusOccurrence(state, now()),
-      skipped: upcoming.find(item => state.skippedKeys.includes(item.key)) || null };
+      hasAccess: paid(access), next: nextFocusOccurrence(state, at),
+      skipped: upcoming.find(item => state.skippedKeys.includes(item.key)) || null,
+      restorable: upcoming.find(item => item.startTime > at && state.skippedKeys.includes(item.key) &&
+        !state.handledKeys.includes(item.key)) || null };
   }
 
   return {
@@ -59,7 +62,30 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
         if (state.revision !== expectedRevision || !next || next.key !== key || next.startTime !== expectedStartTime) {
           throw Object.assign(new Error('Schedule changed'), { code: 'schedule_changed' });
         }
-        const updated = { ...state, skippedKeys: [...new Set([...state.skippedKeys, key])].slice(-32) };
+        const updated = { ...state, revision: state.revision + 1,
+          skippedKeys: [...new Set([...state.skippedKeys, key])].slice(-32) };
+        await write(updated);
+        await arm(updated);
+        return status();
+      });
+    },
+    restore(key, expectedRevision, expectedStartTime) {
+      return runExclusive(async () => {
+        const state = await load();
+        if (!paid(await getAccess())) {
+          throw Object.assign(new Error('Pro required'), { code: 'pro_required' });
+        }
+        // Recompute after access lookup: a deadline or timezone may have changed
+        // while the request waited. Never revive a handled or ongoing window.
+        const at = now();
+        const target = focusOccurrences(state, at).find(item => item.key === key &&
+          item.startTime === expectedStartTime && item.startTime > at);
+        if (state.revision !== expectedRevision || !target ||
+            !state.skippedKeys.includes(key) || state.handledKeys.includes(key)) {
+          throw Object.assign(new Error('Schedule changed'), { code: 'schedule_changed' });
+        }
+        const updated = { ...state, revision: state.revision + 1,
+          skippedKeys: state.skippedKeys.filter(item => item !== key) };
         await write(updated);
         await arm(updated);
         return status();

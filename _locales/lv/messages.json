@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Izlaist nākamo sesiju"
   },
+  "focus_schedule_restore": {
+    "message": "Atcelt izlaišanu: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Grafiks ir mainījies. Pārbaudiet atjaunināto sesijas laiku un mēģiniet vēlreiz."
+  },
   "focus_schedule_skipped": {
     "message": "Izlaista: $1"
   },

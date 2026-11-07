@@ -161,7 +161,10 @@
         <div class="focus-schedule-summary">
           <p data-focus-status aria-live="polite"></p>
           <p data-focus-skipped></p>
-          <button type="button" data-focus-skip data-i18n="focus_schedule_skip" hidden>Skip next session</button>
+          <div class="focus-schedule-actions focus-schedule-summary-actions">
+            <button type="button" data-focus-skip data-i18n="focus_schedule_skip" hidden>Skip next session</button>
+            <button type="button" data-focus-restore data-i18n="focus_schedule_restore" hidden>Undo skip</button>
+          </div>
         </div>
         <p data-focus-notice role="status" aria-live="polite"></p>
       </details>

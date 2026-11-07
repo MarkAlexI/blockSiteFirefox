@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "ಮುಂದಿನ ಅವಧಿಯನ್ನು ಬಿಟ್ಟುಬಿಡಿ"
   },
+  "focus_schedule_restore": {
+    "message": "ಸೆಷನ್ ಮರುಸ್ಥಾಪಿಸಿ: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "ವೇಳಾಪಟ್ಟಿ ಬದಲಾಗಿದೆ. ಸೆಷನ್‌ನ ನವೀಕರಿಸಿದ ಸಮಯವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  },
   "focus_schedule_skipped": {
     "message": "ಬಿಟ್ಟುಬಿಡಲಾಗಿದೆ: $1"
   },

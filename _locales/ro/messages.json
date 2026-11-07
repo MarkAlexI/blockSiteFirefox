@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Omite următoarea sesiune"
   },
+  "focus_schedule_restore": {
+    "message": "Anulează omiterea: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Programul s-a schimbat. Verifică ora actualizată a sesiunii și încearcă din nou."
+  },
   "focus_schedule_skipped": {
     "message": "Omisă: $1"
   },

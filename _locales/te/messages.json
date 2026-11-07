@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "తదుపరి సెషన్‌ను దాటవేయి"
   },
+  "focus_schedule_restore": {
+    "message": "సెషన్‌ను పునరుద్ధరించండి: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "షెడ్యూల్ మారింది. సెషన్ కొత్త సమయాన్ని తనిఖీ చేసి మళ్లీ ప్రయత్నించండి."
+  },
   "focus_schedule_skipped": {
     "message": "దాటవేయబడింది: $1"
   },

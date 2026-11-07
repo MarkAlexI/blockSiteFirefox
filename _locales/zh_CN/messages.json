@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "跳过下次会话"
   },
+  "focus_schedule_restore": {
+    "message": "撤销跳过：$1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "计划已更改。请检查更新后的专注时段时间，然后重试。"
+  },
   "focus_schedule_skipped": {
     "message": "已跳过：$1"
   },

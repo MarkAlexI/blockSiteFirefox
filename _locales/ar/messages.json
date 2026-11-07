@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "تخطي الجلسة التالية"
   },
+  "focus_schedule_restore": {
+    "message": "التراجع عن التخطي: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "تغيّر الجدول. تحقق من وقت الجلسة المحدّث وحاول مجددًا."
+  },
   "focus_schedule_skipped": {
     "message": "تم التخطي: $1"
   },

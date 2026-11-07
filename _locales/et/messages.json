@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Jäta järgmine seanss vahele"
   },
+  "focus_schedule_restore": {
+    "message": "Tühista vahelejätmine: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Ajakava on muutunud. Kontrolli seansi uut kellaaega ja proovi uuesti."
+  },
   "focus_schedule_skipped": {
     "message": "Vahele jäetud: $1"
   },

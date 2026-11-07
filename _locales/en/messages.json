@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Skip next session"
   },
+  "focus_schedule_restore": {
+    "message": "Undo skip: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "The schedule changed. Check the updated session time and try again."
+  },
   "focus_schedule_skipped": {
     "message": "Skipped: $1"
   },

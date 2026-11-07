@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Пропустить следующую сессию"
   },
+  "focus_schedule_restore": {
+    "message": "Отменить пропуск: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Расписание изменилось. Проверьте обновлённое время сессии и попробуйте снова."
+  },
   "focus_schedule_skipped": {
     "message": "Пропущено: $1"
   },

@@ -14,7 +14,7 @@ function proof() {
   const responses = {
     pro: { isPro: true },
     schedule: { success: true, config: { enabled: false, days: [1, 3, 5], startTime: '11:37', durationMinutes: 5 },
-      revision: 7, hasAccess: true, next: null, skipped: null },
+      revision: 7, hasAccess: true, next: null, skipped: null, restorable: null },
     rename: { success: true, rules: before.rules, ruleLists: after.ruleLists, activeRuleListId: 'general', list: after.ruleLists[1] },
     'stale-generation': { success: false, error: { code: 'rules_state_changed' } },
     'stale-revision': { success: false, error: { code: 'rules_state_changed' } }

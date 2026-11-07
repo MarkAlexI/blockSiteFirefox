@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Praleisti kitą seansą"
   },
+  "focus_schedule_restore": {
+    "message": "Atšaukti praleidimą: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Tvarkaraštis pasikeitė. Patikrinkite atnaujintą seanso laiką ir bandykite dar kartą."
+  },
   "focus_schedule_skipped": {
     "message": "Praleista: $1"
   },

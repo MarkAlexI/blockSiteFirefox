@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "次のセッションをスキップ"
   },
+  "focus_schedule_restore": {
+    "message": "スキップを取り消す: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "スケジュールが変更されました。更新されたセッションの時刻を確認して、もう一度お試しください。"
+  },
   "focus_schedule_skipped": {
     "message": "スキップ済み：$1"
   },

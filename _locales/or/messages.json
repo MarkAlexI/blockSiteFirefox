@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "ପରବର୍ତ୍ତୀ ସେସନ୍ ଛାଡ଼ନ୍ତୁ"
   },
+  "focus_schedule_restore": {
+    "message": "ଅଧିବେଶନ ପୁନଃସ୍ଥାପନ କରନ୍ତୁ: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "ସମୟସୂଚୀ ବଦଳିଛି। ଅଧିବେଶନର ନୂଆ ସମୟ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
   "focus_schedule_skipped": {
     "message": "ଛାଡ଼ି ଦିଆଗଲା: $1"
   },

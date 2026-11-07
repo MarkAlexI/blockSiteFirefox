@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Ohita seuraava istunto"
   },
+  "focus_schedule_restore": {
+    "message": "Kumoa ohitus: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Aikataulu muuttui. Tarkista istunnon päivitetty aika ja yritä uudelleen."
+  },
   "focus_schedule_skipped": {
     "message": "Ohitettu: $1"
   },

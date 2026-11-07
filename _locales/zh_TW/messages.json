@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "略過下次工作階段"
   },
+  "focus_schedule_restore": {
+    "message": "復原略過：$1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "排程已變更。請確認更新後的專注時段時間，然後再試一次。"
+  },
   "focus_schedule_skipped": {
     "message": "已略過：$1"
   },

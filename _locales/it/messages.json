@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Salta la prossima sessione"
   },
+  "focus_schedule_restore": {
+    "message": "Ripristina sessione: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "La pianificazione è cambiata. Controlla l’orario aggiornato della sessione e riprova."
+  },
   "focus_schedule_skipped": {
     "message": "Saltata: $1"
   },

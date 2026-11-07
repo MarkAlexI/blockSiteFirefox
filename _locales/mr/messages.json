@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "पुढील सत्र वगळा"
   },
+  "focus_schedule_restore": {
+    "message": "सत्र पूर्ववत करा: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "वेळापत्रक बदलले आहे. सत्राची नवीन वेळ तपासा आणि पुन्हा प्रयत्न करा."
+  },
   "focus_schedule_skipped": {
     "message": "वगळले: $1"
   },

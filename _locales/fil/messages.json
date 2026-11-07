@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Laktawan ang susunod na sesyon"
   },
+  "focus_schedule_restore": {
+    "message": "Ibalik ang session: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Nagbago ang iskedyul. Tingnan ang bagong oras ng session at subukan muli."
+  },
   "focus_schedule_skipped": {
     "message": "Nilaktawan: $1"
   },

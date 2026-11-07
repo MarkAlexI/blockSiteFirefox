@@ -110,7 +110,7 @@ export function assertColdReplies(packet, before, earliestAlarm) {
   assert.deepEqual(replies.pro, { isPro: true }, 'first response reads the persisted paid state');
   assert.deepEqual(replies.schedule, { success: true,
     config: { enabled: false, days: [1, 3, 5], startTime: '11:37', durationMinutes: 5 },
-    revision: 7, hasAccess: true, next: null, skipped: null }, 'first schedule response reads its persisted revision/config');
+    revision: 7, hasAccess: true, next: null, skipped: null, restorable: null }, 'first schedule response reads its persisted revision/config');
   assert.equal(replies.rename?.success, true, 'first valid intent accepts the persisted generation and list revision');
   assert.deepEqual(replies.rename.rules, before.rules, 'first intent responds with the complete stored rules');
   assert.deepEqual(replies.rename.ruleLists, before.ruleLists.map(list => list.id === 'list-1' ? { ...list, name: 'Cold Study' } : list));

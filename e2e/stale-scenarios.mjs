@@ -157,8 +157,16 @@ function stable(state) {
 export const staleScenarios = [
   {
     id: '21', persistent: true,
-    title: 'stale smoke: native Skip token rejects edit and A-B-A across restart; fresh UI Skip succeeds',
+    title: 'stale smoke: Skip and Undo preserve original session time across views, A-B-A and restart',
     async run(e) {
+      // Popup exposes Focus only when there are saved rules. Keep real Basic
+      // protection and a spent Daily Limit as preservation controls for Undo.
+      await e.seed({ rules: [
+        { id: 21, blockURL: 'undo-basic.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
+          assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] },
+        { id: 22, blockURL: 'undo-daily.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
+          assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'daily_limit', schedule: null, dailyLimit: { minutes: 10 } }] }
+      ], usage: { '22:general': 45 } });
       const a = await e.openOptions(); const b = await e.openOptions();
       const config = await futureConfig(b);
       const shown = await save(b, config);
@@ -184,7 +192,41 @@ export const staleScenarios = [
         revision: fresh.revision, startTime: fresh.next.startTime });
       assert.equal(clicked.response.success, true);
       assert.deepEqual((await scheduleState(reopened)).focusSchedule.skippedKeys, [fresh.next.key]);
-      await save(reopened, { ...config, enabled: false });
+      const original = fresh.next;
+      const oldUndo = { type: 'focus_schedule_restore', key: original.key,
+        revision: clicked.response.revision, startTime: original.startTime };
+      const unchanged = stable(await e.state());
+      await e.restart();
+      const options = await e.openOptions();await openSchedule(options);
+      const popup = await e.openPopup();await observe(popup);
+      await equal(() => popup.evaluate(() => document.querySelector('[data-focus-restore]').hidden), false, 'Popup Undo after restart');
+      await click(popup, '[data-focus-restore]');
+      const undo = await lastCall(popup, 'focus_schedule_restore');
+      assert.deepEqual(undo.message, oldUndo);
+      assert.equal(undo.response.success, true, JSON.stringify(undo.response));
+      assert.deepEqual(undo.response.next, original, 'Undo keeps the exact original native occurrence');
+      await equal(() => options.evaluate(() => document.querySelector('[data-focus-restore]').hidden), true, 'Options observes Popup Undo');
+      const again = await message(options, { type: 'focus_schedule_skip', key: original.key,
+        revision: undo.response.revision, startTime: original.startTime });
+      assert.equal(again.success, true);
+      const beforeOldUndo = (await scheduleState(options)).focusSchedule;
+      assert.deepEqual(await message(popup, oldUndo), { success: false, code: 'schedule_changed' });
+      assert.deepEqual((await scheduleState(options)).focusSchedule, beforeOldUndo);
+      await equal(() => options.evaluate(() => document.querySelector('[data-focus-restore]').hidden), false, 'fresh Options Undo');
+      await observe(options);await click(options, '[data-focus-restore]');
+      const freshUndo = await lastCall(options, 'focus_schedule_restore');
+      assert.equal(freshUndo.response.success, true);
+      assert.deepEqual(freshUndo.response.next, original);
+      assert.deepEqual(stable(await e.state()), unchanged, 'Undo preserves rules, budgets and blocking');
+      await e.restart();
+      const final = await e.openOptions();
+      const persisted = await message(final, { type: 'focus_schedule_get' });
+      assert.deepEqual(persisted.next, original);
+      assert.equal(persisted.restorable, null);
+      assert.deepEqual((await scheduleState(final)).focusSchedule.skippedKeys, []);
+      assert.ok((await scheduleState(final)).alarms.some(alarm => alarm.name === 'start_scheduled_focus' &&
+        alarm.scheduledTime === original.startTime), 'restored original alarm survives restart');
+      await save(final, { ...config, enabled: false });
     }
   },
   {
@@ -283,7 +325,7 @@ export const staleScenarios = [
   },
   {
     id: '25', persistent: true, timeout: 210_000,
-    title: 'stale smoke: real scheduled alarm starts once, survives restart and ends with native blocking cleanup',
+    title: 'stale smoke: an undone skip starts once at its original native alarm and completes across restart',
     async run(e) {
       await e.seed({ rules: [{ id: 21, blockURL: 'scheduled.bd-e2e.test', redirectURL: '', category: 'social',
         isWhitelist: false, assignments: [{ listId: 'list-1', disabledByUser: false,
@@ -294,8 +336,15 @@ export const staleScenarios = [
       const saved = await save(a, config);
       const occurrence = saved.next;
       assert.ok(occurrence && occurrence.startTime > Date.now());
+      const skipped = await message(a, { type: 'focus_schedule_skip', key: occurrence.key,
+        revision: saved.revision, startTime: occurrence.startTime });
+      assert.equal(skipped.success, true);
+      const undone = await message(a, { type: 'focus_schedule_restore', key: occurrence.key,
+        revision: skipped.revision, startTime: occurrence.startTime });
+      assert.equal(undone.success, true, JSON.stringify(undone));
+      assert.deepEqual(undone.next, occurrence);
       const initial = await scheduleState(a);
-      assert.ok(initial.alarms.some(alarm => alarm.name === 'start_scheduled_focus'));
+      assert.ok(initial.alarms.some(alarm => alarm.name === 'start_scheduled_focus' && alarm.scheduledTime === occurrence.startTime));
       assert.equal(initial.dnr.some(rule => rule.id === 21), false, 'inactive profile must not block before Focus');
       await eventually(() => scheduleState(a), state => state.focusSession.focusActive && state.dnr.some(rule => rule.id === 21),
         'real alarm activation and DNR', 100_000);

@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Preskoči sljedeću sesiju"
   },
+  "focus_schedule_restore": {
+    "message": "Poništi preskakanje: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Raspored je promijenjen. Provjerite novo vrijeme sesije i pokušajte ponovno."
+  },
   "focus_schedule_skipped": {
     "message": "Preskočeno: $1"
   },

@@ -1146,6 +1146,12 @@
   "focus_schedule_skip": {
     "message": "Omitir la próxima sesión"
   },
+  "focus_schedule_restore": {
+    "message": "Restaurar sesión: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "La programación cambió. Revisa la hora actualizada de la sesión e inténtalo de nuevo."
+  },
   "focus_schedule_skipped": {
     "message": "Omitida: $1"
   },

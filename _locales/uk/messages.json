@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Пропустити наступну сесію"
   },
+  "focus_schedule_restore": {
+    "message": "Скасувати пропуск: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Розклад змінився. Перевірте оновлений час сесії та спробуйте ще раз."
+  },
   "focus_schedule_skipped": {
     "message": "Пропущено: $1"
   },

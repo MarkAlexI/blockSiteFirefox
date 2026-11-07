@@ -25,6 +25,167 @@ function fixture(state = schedule(), time = instant(9, 20), access = { isPro: tr
     restart: () => createFocusScheduleController(dependencies) };
 }
 
+test('restore returns only the selected future session to its original alarm and survives restart', async () => {
+  const f = fixture(schedule(), instant(8));
+  const original = await f.controller.status();
+  const skipped = await f.controller.skip(original.next.key, original.revision, original.next.startTime);
+  assert.equal(skipped.revision, original.revision + 1);
+  assert.deepEqual(skipped.restorable, original.next);
+  const restored = await f.restart().restore(skipped.restorable.key, skipped.revision, skipped.restorable.startTime);
+  assert.equal(restored.revision, skipped.revision + 1);
+  assert.deepEqual(restored.next, original.next);
+  assert.equal(restored.restorable, null);
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, []);
+  assert.deepEqual(restored.config, original.config);
+  assert.equal(f.alarmMap.get('start_scheduled_focus').when, original.next.startTime);
+  await f.restart().reconcile();
+  assert.equal(f.starts.length, 0);
+  f.setTime(instant(9,20));
+  await Promise.all([f.restart().reconcile(), f.restart().reconcile()]);
+  assert.equal(f.starts.length, 1);
+  assert.equal(f.starts[0].endTime, original.next.endTime);
+});
+
+test('restore preserves other skips and the recurring configuration', async () => {
+  const f = fixture(schedule(), instant(8));
+  const initial = await f.controller.status();
+  const first = await f.controller.skip(initial.next.key, initial.revision, initial.next.startTime);
+  const second = await f.controller.skip(first.next.key, first.revision, first.next.startTime);
+  const result = await f.controller.restore(initial.next.key, second.revision, initial.next.startTime);
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, [first.next.key]);
+  assert.deepEqual(result.next, initial.next);
+  assert.equal(result.restorable.key, first.next.key);
+  assert.deepEqual(result.config, initial.config);
+});
+
+for (const at of [instant(9), instant(9,20), instant(10)]) {
+  test(`restore cannot revive a session at or after its start: ${at}`, async () => {
+    const f = fixture(schedule(), instant(8));
+    const shown = await f.controller.status();
+    const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+    f.setTime(at);
+    const before = structuredClone(f.data);
+    assert.equal((await f.controller.status()).restorable, null);
+    await assert.rejects(f.controller.restore(shown.next.key, skipped.revision, shown.next.startTime), { code: 'schedule_changed' });
+    assert.deepEqual(f.data, before);
+    assert.equal(f.starts.length, 0);
+  });
+}
+
+test('restore rejects incomplete or stale displayed tokens without writing', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+  const before = structuredClone(f.data);
+  for (const args of [[], [shown.next.key], [shown.next.key, skipped.revision],
+    [shown.next.key, skipped.revision, String(shown.next.startTime)],
+    [shown.next.key, shown.revision, shown.next.startTime],
+    ['another-key', skipped.revision, shown.next.startTime]]) {
+    await assert.rejects(f.controller.restore(...args), { code: 'schedule_changed' });
+  }
+  assert.deepEqual(f.data, before);
+});
+
+test('restore serializes duplicate requests and rejects an older Undo after restore and reskip', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+  const token = [shown.next.key, skipped.revision, shown.next.startTime];
+  const results = await Promise.allSettled([f.controller.restore(...token), f.controller.restore(...token)]);
+  assert.equal(results.filter(result => result.status === 'fulfilled').length, 1);
+  assert.equal(results.find(result => result.status === 'rejected').reason.code, 'schedule_changed');
+  const restored = await f.controller.status();
+  await f.controller.skip(shown.next.key, restored.revision, shown.next.startTime);
+  const before = structuredClone(f.data);
+  await assert.rejects(f.restart().restore(...token), { code: 'schedule_changed' });
+  assert.deepEqual(f.data, before);
+});
+
+test('restore rejects an occurrence removed by a settings edit', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+  await f.controller.save({ ...skipped.config, startTime: '10:00' }, skipped.revision);
+  const before = structuredClone(f.data);
+  await assert.rejects(f.controller.restore(shown.next.key, skipped.revision, shown.next.startTime), { code: 'schedule_changed' });
+  assert.deepEqual(f.data, before);
+});
+
+test('restore requires current paid access and accepts Legacy access', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+  f.access.isPro = false;
+  const before = structuredClone(f.data);
+  await assert.rejects(f.controller.restore(shown.next.key, skipped.revision, shown.next.startTime), { code: 'pro_required' });
+  assert.deepEqual(f.data, before);
+  f.access.isLegacyUser = true;
+  assert.deepEqual((await f.controller.restore(shown.next.key, skipped.revision, shown.next.startTime)).next, shown.next);
+});
+
+for (const change of ['clock', 'timezone']) {
+  test(`restore revalidates the ${change} after an asynchronous access lookup`, async () => {
+    const previous = process.env.TZ;
+    let release;
+    try {
+      process.env.TZ = 'Europe/London';
+      const f = fixture(schedule(), Date.parse('2026-09-28T07:00:00Z'));
+      const shown = await f.controller.status();
+      const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+      const before = structuredClone(f.data);
+      let entered;
+      const ready = new Promise(resolve => { entered = resolve; });
+      const gate = new Promise(resolve => { release = resolve; });
+      f.dependencies.getAccess = async () => { entered(); await gate; return f.access; };
+      const rejected = assert.rejects(f.restart().restore(shown.next.key, skipped.revision, shown.next.startTime), { code: 'schedule_changed' });
+      await ready;
+      if (change === 'clock') f.setTime(shown.next.startTime);
+      else process.env.TZ = 'America/New_York';
+      release();await rejected;
+      assert.deepEqual(f.data, before);
+    } finally { release?.(); if (previous === undefined) delete process.env.TZ; else process.env.TZ = previous; }
+  });
+}
+
+test('restore storage failure leaves the original skip durable and permits a later retry', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+  const before = structuredClone(f.data);
+  const write = f.storage.set;
+  f.storage.set = async () => { throw new Error('storage failed'); };
+  await assert.rejects(f.controller.restore(shown.next.key, skipped.revision, shown.next.startTime), /storage failed/);
+  assert.deepEqual(f.data, before);
+  f.storage.set = write;
+  await f.restart().restore(shown.next.key, skipped.revision, shown.next.startTime);
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, []);
+});
+
+test('restore never resurrects a handled occurrence after a clock rollback', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+  f.data.focusSchedule.handledKeys = [shown.next.key];
+  assert.equal((await f.controller.status()).restorable, null);
+  await assert.rejects(f.controller.restore(shown.next.key, skipped.revision, shown.next.startTime), { code: 'schedule_changed' });
+});
+
+test('restore keeps its durable result after alarm failure and restart repairs the original deadline', async () => {
+  const f = fixture(schedule(), instant(8));
+  const shown = await f.controller.status();
+  const skipped = await f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+  const create = f.dependencies.alarms.create;
+  f.dependencies.alarms.create = async () => { throw new Error('alarm failed'); };
+  await assert.rejects(f.controller.restore(shown.next.key, skipped.revision, shown.next.startTime), /alarm failed/);
+  assert.deepEqual(f.data.focusSchedule.skippedKeys, []);
+  assert.equal(f.data.focusSchedule.revision, skipped.revision + 1);
+  f.dependencies.alarms.create = create;
+  await f.restart().reconcile();
+  assert.equal(f.alarmMap.get('start_scheduled_focus').when, shown.next.startTime);
+  assert.equal(f.starts.length, 0);
+  await assert.rejects(f.restart().restore(shown.next.key, skipped.revision, shown.next.startTime), { code: 'schedule_changed' });
+});
+
 test('existing installations and corrupt/future schedules stay disabled', () => {
   for (const input of [undefined, null, {}, { version: 2, enabled: true }, { ...schedule(), days: [] }]) {
     assert.equal(readFocusSchedule(input).enabled, false);

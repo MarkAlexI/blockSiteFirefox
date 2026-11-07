@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Preskoči naslednjo sejo"
   },
+  "focus_schedule_restore": {
+    "message": "Razveljavi preskok: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Urnik se je spremenil. Preverite posodobljeni čas seje in poskusite znova."
+  },
   "focus_schedule_skipped": {
     "message": "Preskočeno: $1"
   },

@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Пропускане на следващата сесия"
   },
+  "focus_schedule_restore": {
+    "message": "Отмяна на пропускането: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Графикът е променен. Проверете новия час на сесията и опитайте отново."
+  },
   "focus_schedule_skipped": {
     "message": "Пропусната: $1"
   },

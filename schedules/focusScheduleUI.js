@@ -12,6 +12,7 @@ export class FocusScheduleUI {
     this.skipped = root.querySelector('[data-focus-skipped]');
     this.notice = root.querySelector('[data-focus-notice]');
     this.skip = root.querySelector('[data-focus-skip]');
+    this.restore = root.querySelector('[data-focus-restore]');
     this.accessNote = root.querySelector('[data-focus-access]');
     this.busy = false;
     this.state = null;
@@ -33,6 +34,12 @@ export class FocusScheduleUI {
     this.skip.addEventListener('click', () => {
       if (this.state?.next) void this.mutate({ type: 'focus_schedule_skip', key: this.state.next.key,
         revision: this.state.revision, startTime: this.state.next.startTime });
+    });
+    this.restore?.addEventListener('click', () => {
+      const target = this.state?.restorable;
+      if (target && target.startTime > Date.now()) void this.mutate({ type: 'focus_schedule_restore',
+        key: target.key, revision: this.state.revision, startTime: target.startTime });
+      else void this.refresh();
     });
     await this.refresh(true);
   }
@@ -85,6 +92,10 @@ export class FocusScheduleUI {
     this.skipped.textContent = state.skipped
       ? this.t('focus_schedule_skipped', format(state.skipped.startTime)) : '';
     this.skip.hidden = !state.next || !state.hasAccess;
+    if (this.restore) {
+      this.restore.hidden = !state.hasAccess || !state.restorable || state.restorable.startTime <= Date.now();
+      if (!this.restore.hidden) this.restore.textContent = this.t('focus_schedule_restore', format(state.restorable.startTime));
+    }
     if (this.accessNote) this.accessNote.hidden = state.hasAccess;
     this.setBusy(this.busy);
   }
@@ -92,6 +103,7 @@ export class FocusScheduleUI {
   setBusy(busy) {
     this.busy = busy;
     this.skip.disabled = busy || !this.state;
+    if (this.restore) this.restore.disabled = busy || !this.state;
     if (!this.form) return;
     for (const input of this.form.querySelectorAll('input')) {
       // An expired subscriber can still turn an existing schedule off.
@@ -122,18 +134,40 @@ export class FocusScheduleUI {
 
   async mutate(message, fill = false) {
     if (this.busy) return;
+    const doc = this.root.ownerDocument;
+    let returnFocus = Boolean(this.restore && doc?.activeElement === this.restore);
+    const changedFocus = event => { if (event.target !== this.restore) returnFocus = false; };
+    if (returnFocus) {
+      doc.addEventListener('focusin', changedFocus);
+      doc.addEventListener('pointerdown', changedFocus);
+    }
+    let refresh = false;
     ++this.loadGeneration;
     this.setBusy(true);
     this.notice.textContent = '';
     try {
       const state = await this.request(message);
+      // An accepted own Skip/Undo proves its exact source revision was current
+      // and did not edit config. A passive refresh cannot prove this (A-B-A).
+      if (!fill && this.form && this.formRevision === message.revision &&
+          this.state?.revision === message.revision && state.revision === message.revision + 1 &&
+          JSON.stringify(this.state.config) === JSON.stringify(state.config)) {
+        this.formRevision = state.revision;
+      }
       if (fill) this.dirty = false;
       this.render(state, fill);
       if (fill) this.notice.textContent = this.t('settingssaved');
     } catch (error) {
-      this.showError(error);
+      if (!fill && error?.code === 'schedule_changed') {
+        this.notice.textContent = this.t('focus_schedule_action_changed');
+        refresh = true;
+      } else this.showError(error);
     } finally {
       this.setBusy(false);
+      doc?.removeEventListener('focusin', changedFocus);
+      doc?.removeEventListener('pointerdown', changedFocus);
+      if (refresh) await this.refresh();
+      if (returnFocus && this.restore.hidden && !this.skip.hidden && !this.skip.disabled) this.skip.focus();
     }
   }
 }
@@ -168,6 +202,6 @@ if (typeof document !== 'undefined') {
     const reveal = () => revealFocusSchedule(root, window.location.hash);
     reveal();
     window.addEventListener('hashchange', reveal);
-    void mountFocusSchedule(root, browser.storage);
+    void mountFocusSchedule(root, chrome.storage);
   });
 }

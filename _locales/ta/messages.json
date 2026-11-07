@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "அடுத்த அமர்வைத் தவிர்"
   },
+  "focus_schedule_restore": {
+    "message": "அமர்வை மீட்டமை: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "அட்டவணை மாறிவிட்டது. அமர்வின் புதுப்பிக்கப்பட்ட நேரத்தைப் பார்த்து மீண்டும் முயற்சிக்கவும்."
+  },
   "focus_schedule_skipped": {
     "message": "தவிர்க்கப்பட்டது: $1"
   },

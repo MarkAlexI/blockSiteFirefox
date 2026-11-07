@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "다음 세션 건너뛰기"
   },
+  "focus_schedule_restore": {
+    "message": "건너뛰기 취소: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "일정이 변경되었습니다. 변경된 세션 시간을 확인하고 다시 시도하세요."
+  },
   "focus_schedule_skipped": {
     "message": "건너뜀: $1"
   },

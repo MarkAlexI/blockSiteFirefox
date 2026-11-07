@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "આગલું સત્ર છોડો"
   },
+  "focus_schedule_restore": {
+    "message": "સત્ર પુનઃસ્થાપિત કરો: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "સમયપત્રક બદલાયું છે. સત્રનો નવો સમય તપાસો અને ફરી પ્રયાસ કરો."
+  },
   "focus_schedule_skipped": {
     "message": "છોડ્યું: $1"
   },

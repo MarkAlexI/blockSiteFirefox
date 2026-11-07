@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { FakeDocument } from './helpers/extensionTestHarness.js';
 import { FocusScheduleUI, revealFocusSchedule } from '../schedules/focusScheduleUI.js';
 
-function fixture() {
+function fixture({ withRestore = true } = {}) {
   const doc = new FakeDocument();
   const root = doc.createElement('details');
   root.open = false;
@@ -20,8 +20,9 @@ function fixture() {
   form.elements = { enabled: field('enabled'), startTime: field('startTime'), durationMinutes: field('durationMinutes') };
   for (let i = 0; i < 7; i++) field('day').value = String(i);
   field('save', 'button');
-  for (const name of ['status','skipped','notice','skip','access','reset']) {
-    const el = doc.createElement(name === 'skip' || name === 'reset' ? 'button' : 'p');
+  for (const name of ['status','skipped','notice','skip','restore','access','reset']) {
+    if (name === 'restore' && !withRestore) continue;
+    const el = doc.createElement(['skip','restore','reset'].includes(name) ? 'button' : 'p');
     el.setAttribute('data-focus-' + name, '');
     root.appendChild(el);
   }
@@ -152,4 +153,91 @@ test('stale intent: Skip click sends the revision and absolute start displayed i
   f.ui.skip.dispatchEvent({ type: 'click' });
   assert.deepEqual(calls, [{ type: 'focus_schedule_skip', key: f.ui.state.next.key,
     revision: 1, startTime: f.ui.state.next.startTime }]);
+});
+
+function undoFixture() {
+  const f = fixture();
+  const occurrence = { key: 'future-local-key', startTime: Date.now() + 3600000 };
+  f.setState({ restorable: occurrence, skipped: occurrence });
+  return { ...f, occurrence };
+}
+const settle = () => new Promise(resolve => setImmediate(resolve));
+
+test('Undo shows the exact future occurrence and sends its displayed revision and absolute start', async () => {
+  const f = undoFixture();await f.ui.init();
+  assert.equal(f.ui.restore.hidden, false);
+  assert.match(f.ui.restore.textContent, /^focus_schedule_restore: /);
+  const calls = [];f.ui.mutate = async input => calls.push(input);
+  f.ui.restore.dispatchEvent({ type: 'click' });
+  assert.deepEqual(calls, [{ type: 'focus_schedule_restore', key: f.occurrence.key,
+    revision: 1, startTime: f.occurrence.startTime }]);
+});
+
+test('Undo is hidden without access, without a skipped future session, or at its start', async () => {
+  const f = undoFixture();await f.ui.init();
+  for (const change of [{ hasAccess: false }, { restorable: null },
+    { restorable: { ...f.occurrence, startTime: Date.now() } }]) {
+    f.ui.render({ ...f.ui.state, hasAccess: true, restorable: f.occurrence, ...change });
+    assert.equal(f.ui.restore.hidden, true);
+  }
+});
+
+test('Undo blocks duplicate pending actions and returns keyboard focus when its button disappears', async () => {
+  const f = undoFixture();await f.ui.init();
+  f.ui.restore.focus();let release;const calls = [];
+  f.ui.send = input => { calls.push(input);return new Promise(resolve => { release = resolve; }); };
+  f.ui.restore.dispatchEvent({ type: 'click' });f.ui.restore.dispatchEvent({ type: 'click' });
+  assert.equal(calls.length, 1);
+  assert.equal(f.ui.skip.disabled, true);assert.equal(f.ui.restore.disabled, true);
+  release({ ...f.ui.state, success: true, revision: 2, restorable: null, skipped: null });
+  await settle();
+  assert.equal(f.ui.busy, false);assert.equal(f.ui.restore.hidden, true);
+  assert.equal(f.root.ownerDocument.activeElement, f.ui.skip);
+  assert.deepEqual(f.root.ownerDocument.listeners.get('focusin'), []);
+});
+
+test('a later focus choice is preserved after Undo completes', async () => {
+  const f = undoFixture();await f.ui.init();f.ui.restore.focus();
+  let release;f.ui.send = () => new Promise(resolve => { release = resolve; });
+  f.ui.restore.dispatchEvent({ type: 'click' });
+  const later = f.form.elements.startTime;later.focus();
+  await f.root.ownerDocument.dispatch('focusin', { target: later });
+  release({ ...f.ui.state, success: true, revision: 2, restorable: null });await settle();
+  assert.equal(f.root.ownerDocument.activeElement, later);
+});
+
+test('Skip/Undo revision changes retain drafts without stranding their save token', async () => {
+  const f = undoFixture();await f.ui.init();
+  f.ui.dirty = true;f.form.elements.startTime.value = '11:15';
+  f.ui.send = async () => ({ ...f.ui.state, success: true, revision: 2 });
+  await f.ui.mutate({ type: 'focus_schedule_restore', revision: 1 });
+  assert.equal(f.form.elements.startTime.value, '11:15');assert.equal(f.ui.formRevision, 2);
+  f.ui.render({ ...f.ui.state, revision: 3, config: { ...f.ui.state.config, startTime: '12:00' } }, false);
+  assert.equal(f.ui.formRevision, 2);
+  f.ui.render({ ...f.ui.state, revision: 4 }, false);
+  assert.equal(f.ui.formRevision, 2, 'a subsequent skip cannot legitimize the old config draft');
+});
+
+test('a passive A-B-A refresh cannot legitimize an old schedule draft even if config matches again', async () => {
+  const f = undoFixture();await f.ui.init();
+  f.ui.dirty = true;f.form.elements.startTime.value = '11:15';
+  f.ui.render({ ...f.ui.state, revision: 3 }, false);
+  assert.equal(f.ui.formRevision, 1);
+  assert.equal(f.form.elements.startTime.value, '11:15');
+});
+
+test('a stale Undo refreshes the displayed occurrence without replaying the action', async () => {
+  const f = undoFixture();await f.ui.init();const calls = [];
+  const fresh = { ...f.ui.state, revision: 2, restorable: null };
+  f.ui.send = async input => { calls.push(input);return input.type === 'focus_schedule_get'
+    ? { success: true, ...fresh } : { success: false, code: 'schedule_changed' }; };
+  await f.ui.mutate({ type: 'focus_schedule_restore', key: f.occurrence.key, revision: 1, startTime: f.occurrence.startTime });
+  assert.deepEqual(calls.map(input => input.type), ['focus_schedule_restore','focus_schedule_get']);
+  assert.equal(f.ui.restore.hidden, true);
+  assert.equal(f.ui.notice.textContent, 'focus_schedule_action_changed');
+});
+
+test('a retained pre-update document without Undo markup can still mount the schedule reader', async () => {
+  const f = fixture({ withRestore: false });await f.ui.init();
+  assert.equal(f.ui.restore, null);assert.equal(f.ui.skip.hidden, false);
 });

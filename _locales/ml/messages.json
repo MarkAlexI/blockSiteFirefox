@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "അടുത്ത സെഷൻ ഒഴിവാക്കുക"
   },
+  "focus_schedule_restore": {
+    "message": "സെഷൻ പുനഃസ്ഥാപിക്കുക: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "സമയക്രമം മാറി. സെഷന്റെ പുതുക്കിയ സമയം പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
   "focus_schedule_skipped": {
     "message": "ഒഴിവാക്കി: $1"
   },

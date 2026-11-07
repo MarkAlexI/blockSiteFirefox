@@ -8539,3 +8539,41 @@ test('Focus sound: manual Stop stays silent and Options-only preview preserves t
     assert.equal(api.storage.local.data.focusSession.focusActive, false);
   }, { enabled: false, endTime: Date.now() + 120_000 });
 });
+
+
+test('runtime Undo restores the skipped native alarm once and rejects an old restore after reskip', async () => {
+  await withControlledClock(new Date(2026,8,28,8), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      const initial = await send({ type: 'focus_schedule_get' });
+      const saved = await send({ type: 'focus_schedule_save', config: {
+        enabled: true, days: [1], startTime: '09:00', durationMinutes: 50
+      }, revision: initial.revision });
+      assert.equal(saved.success, true);
+      const skipped = await send({ type: 'focus_schedule_skip', key: saved.next.key,
+        revision: saved.revision, startTime: saved.next.startTime });
+      assert.equal(skipped.success, true);
+      assert.deepEqual(skipped.restorable, saved.next);
+      const input = { type: 'focus_schedule_restore', key: skipped.restorable.key,
+        revision: skipped.revision, startTime: skipped.restorable.startTime };
+      const restored = await send(input);
+      assert.equal(restored.success, true);
+      assert.deepEqual(restored.next, saved.next);
+      assert.deepEqual(api.storage.local.data.focusSchedule.skippedKeys, []);
+      const reskipped = await send({ type: 'focus_schedule_skip', key: restored.next.key,
+        revision: restored.revision, startTime: restored.next.startTime });
+      const before = structuredClone(api.storage.local.data.focusSchedule);
+      assert.deepEqual(await send(input), { success: false, code: 'schedule_changed' });
+      assert.deepEqual(api.storage.local.data.focusSchedule, before);
+      const fresh = await send({ type: 'focus_schedule_restore', key: reskipped.restorable.key,
+        revision: reskipped.revision, startTime: reskipped.restorable.startTime });
+      assert.equal(fresh.success, true);
+      clock.set(new Date(2026,8,28,9,20));
+      await alarm({ name: 'start_scheduled_focus' });
+      const end = api.storage.local.data.focusSession.focusEndTime;
+      assert.equal(end, saved.next.endTime);
+      await alarm({ name: 'start_scheduled_focus' });
+      assert.equal(api.storage.local.data.focusSession.focusEndTime, end);
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, [saved.next.key]);
+    });
+  });
+});

@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Lewati sesi berikutnya"
   },
+  "focus_schedule_restore": {
+    "message": "Pulihkan sesi: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Jadwal telah berubah. Periksa waktu sesi yang diperbarui dan coba lagi."
+  },
   "focus_schedule_skipped": {
     "message": "Dilewati: $1"
   },

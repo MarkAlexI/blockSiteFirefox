@@ -380,6 +380,8 @@ button:disabled {
 }
 
 .privacy-badge {
+  box-sizing: border-box;
+  max-inline-size: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -395,9 +397,11 @@ button:disabled {
   font-weight: 600;
   cursor: default;
   user-select: none;
-  white-space: nowrap;
+  white-space: normal;
   transition: all 0.2s ease;
 }
+
+.privacy-badge > span:last-child { min-inline-size: 0; overflow-wrap: anywhere; }
 
 .privacy-badge:hover {
   background-color: #c8e6c9;

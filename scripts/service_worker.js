@@ -2226,12 +2226,14 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
   
-  if (['focus_schedule_get', 'focus_schedule_save', 'focus_schedule_skip'].includes(message.type)) {
+  if (['focus_schedule_get', 'focus_schedule_save', 'focus_schedule_skip', 'focus_schedule_restore'].includes(message.type)) {
     const operation = message.type === 'focus_schedule_save'
       ? () => focusScheduleController.save(message.config, message.revision)
       : message.type === 'focus_schedule_skip'
         ? () => focusScheduleController.skip(message.key, message.revision, message.startTime)
-        : () => focusScheduleController.status();
+        : message.type === 'focus_schedule_restore'
+          ? () => focusScheduleController.restore(message.key, message.revision, message.startTime)
+          : () => focusScheduleController.status();
     void operation().then(
       state => sendResponse({ success: true, ...state }),
       error => sendResponse({ success: false, code: error.code || 'focus_schedule_failed' })

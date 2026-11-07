@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Slaan volgende sessie oor"
   },
+  "focus_schedule_restore": {
+    "message": "Maak oorslaan ongedaan: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Die skedule het verander. Gaan die bygewerkte sessietyd na en probeer weer."
+  },
   "focus_schedule_skipped": {
     "message": "Oorgeslaan: $1"
   },

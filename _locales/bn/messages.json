@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "পরবর্তী সেশন এড়িয়ে যান"
   },
+  "focus_schedule_restore": {
+    "message": "সেশন ফিরিয়ে আনুন: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "সময়সূচি বদলে গেছে। সেশনের নতুন সময় দেখে আবার চেষ্টা করুন।"
+  },
   "focus_schedule_skipped": {
     "message": "এড়িয়ে যাওয়া হয়েছে: $1"
   },

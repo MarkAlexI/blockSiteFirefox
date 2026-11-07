@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "ቀጣዩን ክፍለ ጊዜ ዝለል"
   },
+  "focus_schedule_restore": {
+    "message": "መዝለሉን ሰርዝ፦ $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "መርሃ ግብሩ ተቀይሯል። የተዘመነውን የክፍለ ጊዜ ሰዓት ያረጋግጡና እንደገና ይሞክሩ።"
+  },
   "focus_schedule_skipped": {
     "message": "ተዘሏል፦ $1"
   },

@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "अगला सत्र छोड़ें"
   },
+  "focus_schedule_restore": {
+    "message": "सत्र बहाल करें: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "समय-सारणी बदल गई है। सत्र का नया समय जाँचें और फिर से कोशिश करें।"
+  },
   "focus_schedule_skipped": {
     "message": "छोड़ा गया: $1"
   },

@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Sonraki oturumu atla"
   },
+  "focus_schedule_restore": {
+    "message": "Atlamayı geri al: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Program değişti. Güncel oturum saatini kontrol edip tekrar deneyin."
+  },
   "focus_schedule_skipped": {
     "message": "Atlandı: $1"
   },

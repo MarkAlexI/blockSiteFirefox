@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Přeskočit další relaci"
   },
+  "focus_schedule_restore": {
+    "message": "Vrátit přeskočení: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Plán se změnil. Zkontrolujte nový čas relace a zkuste to znovu."
+  },
   "focus_schedule_skipped": {
     "message": "Přeskočeno: $1"
   },

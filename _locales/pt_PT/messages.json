@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Saltar a próxima sessão"
   },
+  "focus_schedule_restore": {
+    "message": "Restaurar sessão: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "O agendamento foi alterado. Verifique a hora atualizada da sessão e tente novamente."
+  },
   "focus_schedule_skipped": {
     "message": "Ignorada: $1"
   },

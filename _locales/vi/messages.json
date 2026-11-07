@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Bỏ qua phiên tiếp theo"
   },
+  "focus_schedule_restore": {
+    "message": "Hoàn tác bỏ qua: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Lịch đã thay đổi. Hãy kiểm tra thời gian phiên đã cập nhật rồi thử lại."
+  },
   "focus_schedule_skipped": {
     "message": "Đã bỏ qua: $1"
   },

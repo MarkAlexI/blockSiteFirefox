@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "דילוג על המפגש הבא"
   },
+  "focus_schedule_restore": {
+    "message": "ביטול דילוג: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "לוח הזמנים השתנה. יש לבדוק את שעת המפגש המעודכנת ולנסות שוב."
+  },
   "focus_schedule_skipped": {
     "message": "דולג: $1"
   },

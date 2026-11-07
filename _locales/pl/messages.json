@@ -1128,6 +1128,12 @@
   "focus_schedule_skip": {
     "message": "Pomiń następną sesję"
   },
+  "focus_schedule_restore": {
+    "message": "Cofnij pominięcie: $1"
+  },
+  "focus_schedule_action_changed": {
+    "message": "Harmonogram się zmienił. Sprawdź zaktualizowaną godzinę sesji i spróbuj ponownie."
+  },
   "focus_schedule_skipped": {
     "message": "Pominięto: $1"
   },

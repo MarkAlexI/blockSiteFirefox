@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.0] - 2026-11-07
+
+### Added
+- Undo a skipped scheduled Focus session from Popup or Settings before its original start, with the exact session time shown on the action.
+- Translate the new action and stale-schedule feedback in all 57 locales.
+
+### Improved
+- Refresh the update page with responsive headings, clear section cards, readable links and comfortable Privacy Settings and Close buttons.
+
+### Fixed
+- Reject stale Skip/Undo actions across multiple views and restore/reskip cycles, including browser restarts.
+- Preserve unsaved schedule drafts, other skipped sessions, original alarm deadlines, saved rules and spent Daily Limits.
+
 ## [5.5.11] - 2026-11-07
 
 ### Fixed
