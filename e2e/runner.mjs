@@ -42,7 +42,9 @@ if (args.includes('--list')) {
     }
     const started = Date.now();
     const harness = new ExtensionHarness({ headless: !args.includes('--headed'), installation,
-      referenceContextForTabs: group === 'compatibility',
+      referenceContextForTabs: ['compatibility', 'esr115'].includes(group),
+      observeUserPrompts: group !== 'esr115',
+      grantHostAccess: group === 'esr115',
       output: path.join(output, scenario.id) }, result);
     let desktop;
     try {

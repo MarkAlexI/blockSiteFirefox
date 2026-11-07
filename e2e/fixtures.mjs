@@ -192,7 +192,7 @@ export const send = (page, type, payload = {}) => page.evaluate(
 
 export async function addUi(page, blockURL, { dailyMinutes = null } = {}) {
   await page.click('#add-rule');
-  const row = '#rules-container tr:has(.save-btn)';
+  const row = '#rules-container tr.rule-editor-row';
   await equalEventually(() => page.count(row), 1, 'single editing row');
   await page.fill(`${row} td:nth-child(1) input`, blockURL);
   if (dailyMinutes !== null) {
@@ -374,9 +374,10 @@ export class ExtensionHarness {
       this.result.userPrompts.push({ context: event.context, type: event.type,
         handler: event.handler, message: event.message });
     });
-    await this.command('session.subscribe', { events: [
-      'log.entryAdded', 'browsingContext.userPromptOpened'
-    ] });
+    const observedEvents = ['log.entryAdded'];
+    if (this.config.observeUserPrompts !== false) observedEvents.push('browsingContext.userPromptOpened');
+    this.result.observedEvents = observedEvents;
+    await this.command('session.subscribe', { events: observedEvents });
     this.phase = 'addon-install';
     if (!restarted || this.config.installation === 'temporary') {
       const id = await this.driver.installAddon(this.xpi, this.config.installation === 'temporary');
@@ -401,6 +402,7 @@ export class ExtensionHarness {
       await this.driver.close();
     }
     await this.driver.switchTo().window(this.probe.context);
+    if (this.config.grantHostAccess) await this.grantHostAccess();
     this.phase = 'seed';
   }
 
@@ -521,6 +523,48 @@ export class ExtensionHarness {
     } finally { await this.driver.setContext(firefox.Context.CONTENT); }
     await equalEventually(() => this.licenseConsent(), granted, 'native authenticationInfo permission');
   }
+  async grantHostAccess() {
+    const hasAccess = () => this.probe.evaluate(() => browser.permissions.contains({ origins: ['*://*/*'] }));
+    const before = await hasAccess();
+    const evidence = { before, granted: before, restarted: this.result.launches.at(-1).restarted };
+    (this.result.hostAccess ||= []).push(evidence);
+    if (evidence.restarted) assert.equal(before, true, 'native host access must survive restart without another grant');
+    if (before) return;
+    this.phase = 'host-permission';
+    const onboarding = await this.newPage(`${this.baseUrl}/onboarding/onboarding.html`);
+    // Reselect the real owned tab. A still-open install page must not leave
+    // permissions.request queued against a background browser.
+    await onboarding.click('#grant-permission-btn');
+    await this.driver.setContext(firefox.Context.CHROME);
+    try {
+      await poll(() => this.driver.executeScript(() =>
+        document.getElementById('notification-popup')?.state === 'open'), Boolean, 'native host permission panel');
+      const button = await this.driver.executeScript(() => {
+        const notification = document.getElementById('addon-webext-permissions-notification');
+        return notification?.button?.buttonEl || notification?.button ||
+          document.querySelector('.popup-notification-primary-button');
+      });
+      assert.ok(button, 'native host permission button');
+      await poll(() => button.isEnabled(), Boolean, 'native host permission button enabled');
+      await this.driver.executeScript(element => {
+        window.__bdHostGrantActivation = null;
+        const observe = event => {
+          window.__bdHostGrantActivation = { type: event.type, trusted: event.isTrusted, detail: event.detail ?? 0 };
+        };
+        element.addEventListener('click', observe, { once: true });
+        element.addEventListener('command', observe, { once: true });
+      }, button);
+      await button.sendKeys(Key.SPACE);
+      evidence.activation = await this.driver.executeScript(() => window.__bdHostGrantActivation);
+      assert.ok(['click', 'command'].includes(evidence.activation?.type), 'native HTML or XUL activation');
+      assert.equal(evidence.activation.trusted, true, 'host access needs trusted native input');
+      assert.equal(evidence.activation.detail, 0, 'host access uses keyboard activation');
+    } finally { await this.driver.setContext(firefox.Context.CONTENT); }
+    await poll(hasAccess, Boolean, 'native host access granted');
+    evidence.granted = true;
+    await this.probe.front();
+  }
+
   async ensureLicenseConsent(page) {
     const consent = await this.licenseConsent();
     if (consent === null) throw new EnvironmentError('This suite requires Firefox native data_collection permissions.');

@@ -13,9 +13,43 @@ const evidence = () => ({ platform: { platform: 'linux' }, group: 'compatibility
 
 test('compatibility selection retains native bodies and rejects partial or duplicate inventory', () => {
   const scenarios = compatibilityScenarioIds.toReversed().map(id => ({ id }));
-  assert.deepEqual(selectScenarioGroup([...scenarios, { id: '65' }], 'compatibility'), scenarios);
-  assert.throws(() => selectScenarioGroup(scenarios.slice(1), 'compatibility'), /Incomplete/);
-  assert.throws(() => selectScenarioGroup([...scenarios, scenarios[0]], 'compatibility'), /duplicate/);
+  for (const group of ['compatibility', 'esr115']) {
+    assert.deepEqual(selectScenarioGroup([...scenarios, { id: '65' }], group), scenarios);
+    assert.throws(() => selectScenarioGroup(scenarios.slice(1), group), /Incomplete/);
+    assert.throws(() => selectScenarioGroup([...scenarios, scenarios[0]], group), /duplicate/);
+  }
+});
+
+const esrEvidence = () => {
+  const report = evidence(); report.group = 'esr115';
+  for (const item of report.tests) {
+    item.browser.browserVersion = '115.31.0'; item.observedEvents = ['log.entryAdded'];
+    item.hostAccess = [{ before: false, granted: true, restarted: false,
+      activation: { type: 'command', trusted: true, detail: 0 } },
+      { before: true, granted: true, restarted: true }];
+  }
+  return report;
+};
+
+test('ESR 115 gate accepts trusted native onboarding and persisted permission after restart', () => {
+  assert.equal(verifyCompatibilityResult(esrEvidence(), 'esr115').passed, 7);
+  assert.throws(() => verifyCompatibilityResult(evidence(), 'esr115'));
+  assert.throws(() => verifyCompatibilityResult(esrEvidence(), 'compatibility'));
+});
+
+test('ESR 115 gate rejects absent or synthetic grants and permission loss hidden by re-grant', () => {
+  const changes = [r => delete r.tests[0].hostAccess,
+    r => r.tests[0].hostAccess[0].before = true,
+    r => r.tests[0].hostAccess[0].granted = false,
+    r => r.tests[0].hostAccess[0].activation.trusted = false,
+    r => r.tests[0].hostAccess[0].activation.type = 'custom',
+    r => r.tests[0].hostAccess[1].before = false,
+    r => r.tests[0].hostAccess[1].activation = { type: 'command', trusted: true, detail: 0 },
+    r => r.tests[0].observedEvents.push('browsingContext.userPromptOpened')];
+  for (const change of changes) {
+    const report = esrEvidence(); change(report);
+    assert.throws(() => verifyCompatibilityResult(report, 'esr115'));
+  }
 });
 
 test('compatibility gate accepts complete Firefox 128 native evidence', () => {

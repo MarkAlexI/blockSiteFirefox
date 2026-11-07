@@ -10,8 +10,8 @@ export const macosSmokeScenarioIds = Object.freeze([
 export const compatibilityScenarioIds = Object.freeze(['01', '05', '06', '07', '21', '25', '46']);
 
 export function selectScenarioGroup(scenarios, group = 'all') {
-  if (!['all', 'core', 'overdue', 'upgrade', 'macos-smoke', 'compatibility'].includes(group)) throw new Error(`Unknown BD_E2E_GROUP: ${group}`);
-  if (group === 'compatibility') {
+  if (!['all', 'core', 'overdue', 'upgrade', 'macos-smoke', 'compatibility', 'esr115'].includes(group)) throw new Error(`Unknown BD_E2E_GROUP: ${group}`);
+  if (group === 'compatibility' || group === 'esr115') {
     const selected = scenarios.filter(scenario => compatibilityScenarioIds.includes(scenario.id));
     const ids = selected.map(scenario => scenario.id);
     if (ids.length !== compatibilityScenarioIds.length || new Set(ids).size !== ids.length ||

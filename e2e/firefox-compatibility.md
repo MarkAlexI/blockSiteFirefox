@@ -1,6 +1,6 @@
 # Firefox Desktop compatibility, 2026-11-07
 
-This group adds native coverage for Firefox 128.0 ESR. It does not certify the
+These groups add native coverage for Firefox 128.0 ESR and ESR 115.31.0. They do not certify the
 manifest's declared Firefox Desktop 113 or Firefox Android 120 minimums.
 
 ## Observed installation boundary
@@ -19,20 +19,23 @@ test package and call the result acceptance of the production package.
 
 Mozilla bug 1757293 changed unknown Gecko manifest properties from errors to
 warnings in Firefox 128. Bug 1996829 later backported this to ESR 115.31.0.
-A separate stock ESR 115.31.0 probe installs the signed 5.6.0 XPI and opens the
-Popup; that limited result does not establish DNR, permission onboarding or
-restart acceptance. The existing modern BiDi runner cannot execute unchanged
-on ESR 115 because `browsingContext.userPromptOpened` is unavailable there.
+A separate stock ESR 115.31.0 probe installs the signed 5.6.0 XPI, grants host
+access through the native prompt and checks real blocking before and after a
+browser restart. The `esr115` group additionally reuses all seven native bodies
+below. ESR 115 cannot observe `browsingContext.userPromptOpened`; the group
+subscribes to `log.entryAdded` and does not include scenarios that require the
+unavailable event. Modern groups keep both subscriptions.
 
 The declared minimums are deliberately unchanged by this tests-only patch.
-Raising Desktop to 128 would also exclude the ESR 115.31 branch. Keeping ESR
-needs a separate compatibility decision and native coverage. Android 120 has
+Raising Desktop to 128 would also exclude the ESR 115.31 branch. Declaring a new
+minimum still needs a compatibility decision: regular Firefox 116–127 does not
+contain ESR 115.31's backported fix. Android 120 has
 not been executed here. Do not treat the new green job as release acceptance
 of either declared minimum.
 
 ## Target and scope
 
-- Firefox **128.0 ESR**, Linux x64, real headed browser under Xvfb.
+- Firefox **128.0 ESR** and **115.31.0 ESR**, Linux x64, real headed browsers under Xvfb.
 - geckodriver **0.35.0**, pinned Selenium and fflate from `e2e/package-lock.json`.
 - Disposable native profile, persistent unsigned AMO runtime, the normal ESR
   developer preference for signature enforcement in that profile only.
@@ -63,12 +66,25 @@ In a native probe, geckodriver 0.37.1 / Firefox 128 rejected the add-on install
 command; the pinned 0.35 pair executes it. A documented version range alone
 does not establish compatibility of every driver command.
 
-Only the compatibility group supplies the live probe as BiDi
+Only the compatibility groups supply the live probe as BiDi
 `browsingContext.create.referenceContext`. Without this explicit target, the
 native Firefox 128 run failed after Focus cleanup (`tabBrowser is undefined`). The
 reference is reset when a new browser process launches. This chooses the owned
 test window; it does not change the extension, repeat an action, move a deadline
 or alter multi-window targeting in the modern suite.
+
+For ESR 115, the fixture opens the real onboarding page, selects its owned tab,
+clicks Activate Full Protection with WebDriver and accepts the browser's native
+host-permission button with Space. A background tab can leave a native request
+queued; selecting the sender tab resolves the exploratory probe's earlier stall.
+Old XUL buttons dispatch a trusted `command` event for keyboard activation;
+HTML buttons dispatch `click`. Both require `isTrusted=true` and keyboard detail 0.
+The fixture never pre-grants access and fails if permission is missing after a
+restart, rather than requesting it again. This flow is isolated to `esr115`.
+
+The shared Add-rule helper selects the existing `tr.rule-editor-row` class.
+Firefox 115 cannot parse the previous `:has(.save-btn)` test selector. This is
+a selector for the same production editor row, without a runtime DOM change.
 
 ## Local run
 
@@ -82,9 +98,12 @@ BD_E2E_GROUP=compatibility BD_GECKODRIVER_LEGACY=1 xvfb-run -a npm run test:head
 node verify-compatibility-result.mjs
 ```
 
-The workflow downloads pinned official archives, checks both SHA-256 hashes,
+For ESR 115.31, point `BD_FIREFOX_BINARY` to that ESR binary, keep geckodriver
+0.35.0, and use `BD_E2E_GROUP=esr115` for both the run and verifier.
+
+The workflow downloads pinned official archives, checks browser and driver SHA-256 hashes,
 builds and unpacks the tracked AMO package, runs all seven scenarios and
-verifies `results.json`. The final `e2e` job requires this job alongside all
+verifies `results.json`. The final `e2e` job requires both compatibility matrix jobs alongside all
 existing Linux groups and both macOS architectures. A new GitHub run is still
 required after committing the patch.
 
@@ -92,6 +111,8 @@ The verifier rejects wrong browser/driver/release, headless or temporary
 installation, missing/duplicate IDs, unstarted bodies, failed cleanup and
 unfinished or partially passing reports. Node tests include negative controls
 for those cases.
+The ESR 115 verifier also rejects absent/pre-granted access, synthetic activation,
+incorrect observation metadata and permission loss hidden by another grant.
 
 ## Primary references
 
