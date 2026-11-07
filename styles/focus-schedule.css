@@ -69,13 +69,15 @@
   white-space: normal;
   overflow-wrap: anywhere;
 }
-[data-focus-schedule] [data-focus-skip]:hover:not(:disabled),
-[data-focus-schedule] [data-focus-restore]:hover:not(:disabled) {
+[data-focus-schedule] [data-focus-skip]:hover:not(:disabled):not([aria-disabled="true"]),
+[data-focus-schedule] [data-focus-restore]:hover:not(:disabled):not([aria-disabled="true"]) {
   background-color: var(--bd-primary-hover);
   border-color: var(--bd-primary-hover);
 }
 [data-focus-schedule] [data-focus-skip]:disabled,
-[data-focus-schedule] [data-focus-restore]:disabled {
+[data-focus-schedule] [data-focus-restore]:disabled,
+[data-focus-schedule] [data-focus-skip][aria-disabled="true"],
+[data-focus-schedule] [data-focus-restore][aria-disabled="true"] {
   background-color: var(--bd-surface-soft);
   border-color: var(--bd-control-border);
   color: var(--bd-muted);
@@ -87,7 +89,7 @@
   background-color: var(--bd-surface);
   color: var(--bd-primary);
 }
-[data-focus-schedule] [data-focus-restore]:hover:not(:disabled) {
+[data-focus-schedule] [data-focus-restore]:hover:not(:disabled):not([aria-disabled="true"]) {
   background-color: var(--bd-surface-soft);
   color: var(--bd-primary-hover);
 }
@@ -100,13 +102,15 @@
     border-color: ButtonText;
     color: ButtonText;
   }
-  [data-focus-schedule] [data-focus-skip]:hover:not(:disabled),
-  [data-focus-schedule] [data-focus-restore]:hover:not(:disabled) {
+  [data-focus-schedule] [data-focus-skip]:hover:not(:disabled):not([aria-disabled="true"]),
+  [data-focus-schedule] [data-focus-restore]:hover:not(:disabled):not([aria-disabled="true"]) {
     background-color: Highlight;
     color: HighlightText;
   }
   [data-focus-schedule] [data-focus-skip]:disabled,
-  [data-focus-schedule] [data-focus-restore]:disabled { color: GrayText; }
+  [data-focus-schedule] [data-focus-restore]:disabled,
+  [data-focus-schedule] [data-focus-skip][aria-disabled="true"],
+  [data-focus-schedule] [data-focus-restore][aria-disabled="true"] { color: GrayText; }
 }
 [data-focus-schedule] input:focus-visible, [data-focus-schedule] button:focus-visible, [data-focus-schedule] a:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 3px; }
 .focus-schedule-summary { margin-top: 1rem; padding-top: .75rem; border-top: 1px solid var(--border-light); font-size: .875rem; }

@@ -20,6 +20,12 @@ const equal = (read, expected, label, timeout) => eventually(read, value => {
 const click = (page, css) => page.locator ? page.locator(css).click() : page.click(css);
 const fill = (page, css, value) => page.locator ? page.locator(css).fill(value) : page.fill(css, value);
 
+async function keyboardActivate(page, css) {
+  if (page.front) await page.front(); else await page.bringToFront();
+  await page.evaluate(css => document.querySelector(css).focus(), css);
+  if (page.keyboard) await page.keyboard.press('Enter'); else await page.press('Enter');
+}
+
 // Native message transport, not the RulesClient helper (schedule fields are top-level).
 async function message(page, input) {
   return page.evaluate(async input => {
@@ -186,11 +192,15 @@ export const staleScenarios = [
       await openSchedule(reopened);
       await observe(reopened);
       const fresh = await message(reopened, { type: 'focus_schedule_get' });
-      await click(reopened, `${root} [data-focus-skip]`);
+      await keyboardActivate(reopened, `${root} [data-focus-skip]`);
       const clicked = await lastCall(reopened, 'focus_schedule_skip');
       assert.deepEqual(clicked.message, { type: 'focus_schedule_skip', key: fresh.next.key,
         revision: fresh.revision, startTime: fresh.next.startTime });
       assert.equal(clicked.response.success, true);
+      await equal(() => reopened.evaluate(() => {
+        const button=document.querySelector('[data-focus-skip]');
+        return document.activeElement===button&&!button.disabled&&!button.hasAttribute('aria-disabled');
+      }), true, 'Options Skip retains native keyboard focus');
       assert.deepEqual((await scheduleState(reopened)).focusSchedule.skippedKeys, [fresh.next.key]);
       const original = fresh.next;
       const oldUndo = { type: 'focus_schedule_restore', key: original.key,
@@ -200,15 +210,24 @@ export const staleScenarios = [
       const options = await e.openOptions();await openSchedule(options);
       const popup = await e.openPopup();await observe(popup);
       await equal(() => popup.evaluate(() => document.querySelector('[data-focus-restore]').hidden), false, 'Popup Undo after restart');
-      await click(popup, '[data-focus-restore]');
+      await keyboardActivate(popup, '[data-focus-restore]');
       const undo = await lastCall(popup, 'focus_schedule_restore');
       assert.deepEqual(undo.message, oldUndo);
       assert.equal(undo.response.success, true, JSON.stringify(undo.response));
       assert.deepEqual(undo.response.next, original, 'Undo keeps the exact original native occurrence');
+      await equal(() => popup.evaluate(() => document.activeElement===document.querySelector('[data-focus-skip]')),
+        true, 'disappearing Popup Undo returns native keyboard focus to Skip');
       await equal(() => options.evaluate(() => document.querySelector('[data-focus-restore]').hidden), true, 'Options observes Popup Undo');
-      const again = await message(options, { type: 'focus_schedule_skip', key: original.key,
+      await keyboardActivate(popup, '[data-focus-skip]');
+      const againCall = await lastCall(popup, 'focus_schedule_skip');
+      assert.deepEqual(againCall.message, { type: 'focus_schedule_skip', key: original.key,
         revision: undo.response.revision, startTime: original.startTime });
+      const again = againCall.response;
       assert.equal(again.success, true);
+      await equal(() => popup.evaluate(() => {
+        const button=document.querySelector('[data-focus-skip]');
+        return document.activeElement===button&&!button.disabled&&!button.hasAttribute('aria-disabled');
+      }), true, 'Popup Skip retains native keyboard focus');
       const beforeOldUndo = (await scheduleState(options)).focusSchedule;
       assert.deepEqual(await message(popup, oldUndo), { success: false, code: 'schedule_changed' });
       assert.deepEqual((await scheduleState(options)).focusSchedule, beforeOldUndo);

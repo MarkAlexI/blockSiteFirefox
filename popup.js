@@ -714,6 +714,8 @@ class PopupPage {
   }
   
   toggleUIAccessibility(locked) {
+    const editingControls = document.getElementById('rule-editing-controls');
+    if (editingControls) editingControls.disabled = locked;
     const elementsToLock = [
       document.querySelector('.controls'),
       this.rulesContainer

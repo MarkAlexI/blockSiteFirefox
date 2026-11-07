@@ -6,11 +6,11 @@
   "author": "MarkAlexI",
   "homepage_url": "https://blockdistraction.com",
   "default_locale": "en",
-  "version": "5.6.0",
+  "version": "5.6.1",
   "browser_specific_settings": {
     "gecko": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",
-      "strict_min_version": "113.0",
+      "strict_min_version": "115.31.0",
       "data_collection_permissions": {
         "required": [
           "none"
@@ -23,7 +23,7 @@
     },
     "gecko_android": {
       "id": "{397e704c-6038-4647-8d15-35040d68b032}",
-      "strict_min_version": "120.0"
+      "strict_min_version": "128.0"
     }
   },
   "icons": {

@@ -163,6 +163,103 @@ function undoFixture() {
 }
 const settle = () => new Promise(resolve => setImmediate(resolve));
 
+function nativeActionFocus(button) {
+  const doc = button.ownerDocument;
+  let disabled = button.disabled;
+  // Model native focus loss on disabling; FakeElement keeps focus otherwise.
+  Object.defineProperty(button, 'disabled', {
+    get: () => disabled,
+    set(value) { disabled = value; if (value && doc.activeElement === button) doc.activeElement = doc.body; }
+  });
+}
+
+test('Skip and Undo remain focusable when the Options form contains their action buttons', async () => {
+  const f = undoFixture();await f.ui.init();
+  for (const button of [f.ui.skip, f.ui.restore]) { button.remove();f.form.appendChild(button); }
+  nativeActionFocus(f.ui.restore);f.ui.restore.focus();
+  let release;
+  f.ui.send = () => new Promise(resolve => { release = resolve; });
+  const pending = f.ui.mutate({ type: 'focus_schedule_restore', revision: 1 });
+  try {
+    assert.equal(f.ui.restore.disabled, false);
+    assert.equal(f.ui.skip.disabled, false);
+    assert.equal(f.ui.restore.getAttribute('aria-disabled'), 'true');
+    assert.equal(f.root.ownerDocument.activeElement, f.ui.restore);
+    assert.equal(f.form.elements.startTime.disabled, true);
+  } finally {
+    release({ success: false, code: 'focus_schedule_failed' });
+    await pending;
+  }
+  assert.equal(f.root.ownerDocument.activeElement, f.ui.restore);
+});
+
+test('pending Skip retains its native focus and guards both schedule actions', async () => {
+  const f = undoFixture();await f.ui.init();nativeActionFocus(f.ui.skip);f.ui.skip.focus();
+  let release;const calls = [];
+  f.ui.send = input => { calls.push(input);return new Promise(resolve => { release = resolve; }); };
+  const first = f.ui.mutate({ type: 'focus_schedule_skip', revision: 1 });
+  try {
+    await f.ui.mutate({ type: 'focus_schedule_skip', revision: 1 });
+    await f.ui.mutate({ type: 'focus_schedule_restore', revision: 1 });
+    assert.equal(calls.length, 1);
+    assert.equal(f.ui.skip.disabled, false);
+    assert.equal(f.ui.skip.getAttribute('aria-disabled'), 'true');
+    assert.equal(f.ui.restore.getAttribute('aria-disabled'), 'true');
+    assert.equal(f.root.getAttribute('aria-busy'), 'true');
+    assert.equal(f.root.ownerDocument.activeElement, f.ui.skip);
+  } finally {
+    release({ ...f.ui.state, success: true, revision: 2 });
+    await first;
+  }
+  assert.equal(f.root.ownerDocument.activeElement, f.ui.skip);
+  assert.equal(f.ui.skip.getAttribute('aria-disabled'), null);
+  assert.equal(f.ui.restore.getAttribute('aria-disabled'), null);
+  assert.equal(f.root.getAttribute('aria-busy'), null);
+});
+
+for (const failure of ['schedule_changed', 'focus_schedule_failed', 'transport']) {
+  test(`failed Undo keeps its native focus and permits retry after ${failure}`, async () => {
+    const f = undoFixture();await f.ui.init();nativeActionFocus(f.ui.restore);f.ui.restore.focus();
+    const state = { ...f.ui.state, success: true };
+    const calls = [];
+    f.ui.send = async input => {
+      calls.push(input.type);
+      if (input.type === 'focus_schedule_get') return state;
+      if (failure === 'transport') throw new Error('transport unavailable');
+      return { success: false, code: failure };
+    };
+    await f.ui.mutate({ type: 'focus_schedule_restore', revision: 1 });
+    assert.equal(f.ui.restore.hidden, false);
+    assert.equal(f.root.ownerDocument.activeElement, f.ui.restore);
+    assert.equal(f.ui.restore.disabled, false);
+    assert.equal(f.ui.restore.getAttribute('aria-disabled'), null);
+    assert.equal(f.root.getAttribute('aria-busy'), null);
+    assert.equal(calls.length, failure === 'schedule_changed' ? 2 : 1);
+    f.ui.send = async () => ({ ...state, revision: 2, restorable: null, skipped: null });
+    await f.ui.mutate({ type: 'focus_schedule_restore', revision: 1 });
+    assert.equal(f.ui.restore.hidden, true);
+    assert.equal(f.root.ownerDocument.activeElement, f.ui.skip);
+  });
+}
+
+for (const suspended of ['hidden', 'dialog']) {
+  test(`Undo never moves focus into a ${suspended} document context`, async () => {
+    const f = undoFixture();await f.ui.init();f.ui.restore.focus();
+    let release;
+    f.ui.send = () => new Promise(resolve => { release = resolve; });
+    const pending = f.ui.mutate({ type: 'focus_schedule_restore', revision: 1 });
+    const doc = f.root.ownerDocument;
+    if (suspended === 'hidden') doc.hidden = true;
+    else { const dialog = doc.createElement('dialog');dialog.setAttribute('open', '');doc.body.appendChild(dialog); }
+    // Hiding the old control moves native focus to the body.
+    f.ui.restore.hidden = true;doc.activeElement = doc.body;
+    release({ ...f.ui.state, success: true, revision: 2, restorable: null, skipped: null });
+    await pending;
+    assert.equal(doc.activeElement, doc.body);
+  });
+}
+
+
 test('Undo shows the exact future occurrence and sends its displayed revision and absolute start', async () => {
   const f = undoFixture();await f.ui.init();
   assert.equal(f.ui.restore.hidden, false);
@@ -188,7 +285,9 @@ test('Undo blocks duplicate pending actions and returns keyboard focus when its 
   f.ui.send = input => { calls.push(input);return new Promise(resolve => { release = resolve; }); };
   f.ui.restore.dispatchEvent({ type: 'click' });f.ui.restore.dispatchEvent({ type: 'click' });
   assert.equal(calls.length, 1);
-  assert.equal(f.ui.skip.disabled, true);assert.equal(f.ui.restore.disabled, true);
+  assert.equal(f.ui.skip.disabled, false);assert.equal(f.ui.restore.disabled, false);
+  assert.equal(f.ui.skip.getAttribute('aria-disabled'), 'true');
+  assert.equal(f.ui.restore.getAttribute('aria-disabled'), 'true');
   release({ ...f.ui.state, success: true, revision: 2, restorable: null, skipped: null });
   await settle();
   assert.equal(f.ui.busy, false);assert.equal(f.ui.restore.hidden, true);

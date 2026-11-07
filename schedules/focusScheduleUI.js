@@ -102,8 +102,15 @@ export class FocusScheduleUI {
 
   setBusy(busy) {
     this.busy = busy;
-    this.skip.disabled = busy || !this.state;
-    if (this.restore) this.restore.disabled = busy || !this.state;
+    if (busy) this.root.setAttribute('aria-busy', 'true');
+    else this.root.removeAttribute('aria-busy');
+    // Keep pending actions focusable. mutate() guards keyboard and pointer
+    // repeats; native disabled would blur the action before its reply.
+    for (const button of [this.skip, this.restore].filter(Boolean)) {
+      button.disabled = !this.state;
+      if (busy) button.setAttribute('aria-disabled', 'true');
+      else button.removeAttribute('aria-disabled');
+    }
     if (!this.form) return;
     for (const input of this.form.querySelectorAll('input')) {
       // An expired subscriber can still turn an existing schedule off.
@@ -111,6 +118,7 @@ export class FocusScheduleUI {
       input.disabled = busy || !this.state || (!this.state.hasAccess && !canDisable);
     }
     for (const button of this.form.querySelectorAll('button')) {
+      if (button === this.skip || button === this.restore) continue;
       button.disabled = busy || !this.state;
     }
   }
@@ -167,7 +175,8 @@ export class FocusScheduleUI {
       doc?.removeEventListener('focusin', changedFocus);
       doc?.removeEventListener('pointerdown', changedFocus);
       if (refresh) await this.refresh();
-      if (returnFocus && this.restore.hidden && !this.skip.hidden && !this.skip.disabled) this.skip.focus();
+      if (returnFocus && this.restore.hidden && !this.skip.hidden && !this.skip.disabled &&
+          !doc.hidden && !doc.querySelector('dialog[open]')) this.skip.focus();
     }
   }
 }

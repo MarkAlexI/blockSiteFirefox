@@ -20,7 +20,7 @@ function sample(version='5.4.14'){
   return {before,after,receipt};
 }
 
-for(const version of ['5.4.14','5.5.11']) {
+for(const version of ['5.4.14','5.6.0']) {
 test(`upgrade acceptance requires the actual ${version} transition and preserved old state`,()=>{
   const s=sample(version);assertVersionUpgrade(s.before,s.after,s.receipt,version);
 });
@@ -49,7 +49,7 @@ for(const [name,change] of [
 
 test('a consistent but wrong source version cannot replace the selected pinned baseline',()=>{
   const s=sample('5.4.14');
-  assert.throws(()=>assertVersionUpgrade(s.before,s.after,s.receipt,'5.5.11'));
+  assert.throws(()=>assertVersionUpgrade(s.before,s.after,s.receipt,'5.6.0'));
 });
 
 test('the preservation fixture avoids midnight without changing the host clock',()=>{

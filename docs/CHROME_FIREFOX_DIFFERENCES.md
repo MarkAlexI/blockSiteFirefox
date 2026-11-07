@@ -72,7 +72,7 @@ Current Firefox-specific declaration:
 "browser_specific_settings": {
   "gecko": {
     "id": "{397e704c-6038-4647-8d15-35040d68b032}",
-    "strict_min_version": "113.0",
+    "strict_min_version": "115.31.0",
     "data_collection_permissions": {
       "required": ["none"],
       "optional": ["authenticationInfo", "technicalAndInteraction"]
@@ -80,10 +80,12 @@ Current Firefox-specific declaration:
   },
   "gecko_android": {
     "id": "{397e704c-6038-4647-8d15-35040d68b032}",
-    "strict_min_version": "120.0"
+    "strict_min_version": "128.0"
   }
 }
 ```
+
+Desktop support is ESR 115.31+ or Firefox 128+. Regular Firefox 116–127 lacks the backported manifest-parser fix and is not supported, even though a single minimum-version field cannot express that gap. Android requires Firefox 128+.
 
 Do not copy the Chromium background declaration over the Firefox one during a port.
 

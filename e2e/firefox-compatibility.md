@@ -1,7 +1,14 @@
 # Firefox Desktop compatibility, 2026-11-07
 
-These groups add native coverage for Firefox 128.0 ESR and ESR 115.31.0. They do not certify the
-manifest's declared Firefox Desktop 113 or Firefox Android 120 minimums.
+For 5.6.1, the manifest minimum is Desktop **115.31.0** and Android **128.0**.
+Desktop support preserves ESR 115.31+ and Firefox 128+. Regular Firefox 116–127
+remains unsupported: it lacks ESR 115.31's backported manifest-parser fix, and
+one minimum-version field cannot express that gap.
+
+The existing groups exercise Firefox 128.0 ESR and ESR 115.31.0 on Linux.
+The 5.6.0 Android audit established a manifest-parser failure on 120 and loading
+on 128; full Android 128 functional acceptance remains separate. New 5.6.1
+runtime changes, including native keyboard scenarios 21 and 58, require fresh CI.
 
 ## Observed installation boundary
 
@@ -26,12 +33,9 @@ below. ESR 115 cannot observe `browsingContext.userPromptOpened`; the group
 subscribes to `log.entryAdded` and does not include scenarios that require the
 unavailable event. Modern groups keep both subscriptions.
 
-The declared minimums are deliberately unchanged by this tests-only patch.
-Raising Desktop to 128 would also exclude the ESR 115.31 branch. Declaring a new
-minimum still needs a compatibility decision: regular Firefox 116–127 does not
-contain ESR 115.31's backported fix. Android 120 has
-not been executed here. Do not treat the new green job as release acceptance
-of either declared minimum.
+The compatibility decision for 5.6.1 keeps the tested ESR branch and raises
+the Android minimum. Historical installation observations below still refer to
+the actual signed 5.6.0 package, not a signed 5.6.1 release.
 
 ## Target and scope
 

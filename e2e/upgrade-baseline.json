@@ -1,18 +1,18 @@
 [
-{
-  "repository": "MarkAlexI/blockSiteFirefox",
-  "commit": "fd72823d413a588d9d345575e07b2d5d3e3b3bcc",
-  "fromVersion": "5.4.14",
-  "packageTool": "tools/package-amo.js",
-  "packageArgs": [],
-  "archiveSuffix": "-amo.zip"
-},
-{
-  "repository": "MarkAlexI/blockSiteFirefox",
-  "commit": "3d041190d9ee2284ec632dba7528f8e7e546717b",
-  "fromVersion": "5.5.11",
-  "packageTool": "tools/package-amo.js",
-  "packageArgs": [],
-  "archiveSuffix": "-amo.zip"
-}
+  {
+    "repository": "MarkAlexI/blockSiteFirefox",
+    "commit": "fd72823d413a588d9d345575e07b2d5d3e3b3bcc",
+    "fromVersion": "5.4.14",
+    "packageTool": "tools/package-amo.js",
+    "packageArgs": [],
+    "archiveSuffix": "-amo.zip"
+  },
+  {
+    "repository": "MarkAlexI/blockSiteFirefox",
+    "commit": "a1e0dbee957eea7c8d252a93fa203e37e4307b73",
+    "fromVersion": "5.6.0",
+    "packageTool": "tools/package-amo.js",
+    "packageArgs": [],
+    "archiveSuffix": "-amo.zip"
+  }
 ]

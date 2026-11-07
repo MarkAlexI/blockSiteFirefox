@@ -778,6 +778,18 @@ export const accessibilityScenarios = [{
     await page.evaluate(()=>window.__bdReleaseFocus());
     await poll(async()=>(await e.state()).focusSession.focusActive,Boolean,'native Focus start');
     await poll(()=>page.evaluate(()=>document.activeElement.id==='stop-focus-btn'&&!document.activeElement.hasAttribute('aria-disabled')),Boolean,'available Stop focus');
+    assert.deepEqual(await page.evaluate(async()=>{
+      const group=document.getElementById('rule-editing-controls');
+      const add=document.getElementById('add-rule');
+      const controls=[...group.querySelectorAll('button,input,select,textarea')];
+      const count=document.querySelectorAll('#rules-container .rule').length;
+      add.focus();add.click();
+      // An incorrectly enabled Add inserts its editor in a zero-delay task.
+      await new Promise(resolve=>setTimeout(resolve,0));
+      return [group.disabled,controls.length>0,controls.every(control=>control.matches(':disabled')),
+        document.activeElement.id,document.querySelectorAll('#rules-container .rule').length===count,
+        document.getElementById('stop-focus-btn').matches(':disabled')];
+    }),[true,true,true,'stop-focus-btn',true,false],'native fieldset blocks editing while Stop remains operable');
     await poll(()=>page.evaluate(()=>window.__bdFocusNotices.length),n=>n===1,'one start notice');
     const time=await page.evaluate(()=>document.getElementById('focus-timer-display').textContent);
     await poll(()=>page.evaluate(()=>document.getElementById('focus-timer-display').textContent),value=>value!==time,'native timer tick');
@@ -787,6 +799,8 @@ export const accessibilityScenarios = [{
     await focus(page,'#options-link');await page.evaluate(()=>window.__bdReleaseFocus());
     await poll(async()=>(await e.state()).focusSession.focusActive,value=>value===false,'native Stop commit');
     await poll(()=>page.evaluate(()=>document.getElementById('focus-active-view').hidden),Boolean,'inactive view');
+    assert.deepEqual(await page.evaluate(()=>[document.getElementById('rule-editing-controls').disabled,
+      document.getElementById('add-rule').matches(':disabled')]),[false,false],'verified Stop unlocks editing');
     assert.equal(await page.evaluate(()=>document.activeElement.id),'options-link');
     await poll(()=>page.evaluate(()=>document.getElementById('custom-alert').textContent),text=>text.length>0&&text!=='', 'status available');
     const pending=await page.evaluate(()=>(globalThis.browser||chrome).i18n.getMessage('ruleschangessavedpending'));
