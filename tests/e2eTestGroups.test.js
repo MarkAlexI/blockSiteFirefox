@@ -12,9 +12,10 @@ test('Firefox CI groups preserve original order, include overdue once and reject
   for (const group of ['typo', '', null]) assert.throws(() => selectScenarioGroup(scenarios, group), /Unknown/);
   const workflow = await readFile(new URL('../.github/workflows/e2e-firefox.yml', import.meta.url), 'utf8');
   assert.match(workflow, /group: \[core, overdue, upgrade\]/);
-  assert.match(workflow, /needs: \[scenarios, macos\]/);
+  assert.match(workflow, /needs: \[scenarios, macos, compatibility\]/);
   assert.match(workflow, /SCENARIO_RESULT.*success/);
   assert.match(workflow, /MACOS_RESULT.*success/);
+  assert.match(workflow, /COMPATIBILITY_RESULT.*success/);
 });
 
 test('macOS smoke covers rules, accounting, paid access, readers and scheduled Focus in original order', () => {

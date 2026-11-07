@@ -193,17 +193,100 @@ jobs:
           if-no-files-found: ignore
           retention-days: 3
 
-  # Keep the existing required check; Linux and both macOS architectures must pass.
+  compatibility:
+    name: Firefox 128 ESR compatibility
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      BD_E2E_GROUP: compatibility
+      # geckodriver 0.35 predates --allow-system-access; Firefox 128 does not
+      # require that newer driver flag for chrome-context test automation.
+      BD_GECKODRIVER_LEGACY: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Install test dependencies
+        timeout-minutes: 2
+        working-directory: e2e
+        run: npm ci
+      - name: Install Linux browser dependencies
+        timeout-minutes: 5
+        run: |
+          test -f /etc/apt/apt-mirrors.txt
+          printf 'https://archive.ubuntu.com/ubuntu/\tpriority:1\nhttps://security.ubuntu.com/ubuntu/\tpriority:2\n' |
+            sudo tee /etc/apt/apt-mirrors.txt
+          sudo tee /etc/apt/apt.conf.d/80blockdistraction-ci <<'APT'
+          Acquire::Retries "2";
+          Acquire::http::Timeout "20";
+          Acquire::https::Timeout "20";
+          APT::Update::Error-Mode "any";
+          APT
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y libgtk-3-0 libdbus-glib-1-2 libasound2t64 libxt6t64 libnss3 libgbm1 openssl xvfb xauth openbox x11-utils xdotool
+      - name: Install pinned Firefox 128.0 ESR and geckodriver 0.35.0
+        timeout-minutes: 3
+        run: |
+          mkdir -p "$RUNNER_TEMP/bd-firefox-compatibility"
+          cd "$RUNNER_TEMP/bd-firefox-compatibility"
+          curl --fail --location --retry 3 https://archive.mozilla.org/pub/firefox/releases/128.0esr/linux-x86_64/en-US/firefox-128.0esr.tar.bz2 -o firefox.tar.bz2
+          curl --fail --location --retry 3 https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-linux64.tar.gz -o geckodriver.tar.gz
+          sha256sum --check <<'SHA'
+          4f16334b814d7852a0e52d6f7c4c78623c98c0521bafd7192107a24694e14a3e  firefox.tar.bz2
+          ac26e9ba8f3b8ce0fbf7339b9c9020192f6dcfcbf04a2bcd2af80dfe6bb24260  geckodriver.tar.gz
+          SHA
+          tar --no-same-owner -xjf firefox.tar.bz2
+          tar --no-same-owner -xzf geckodriver.tar.gz
+          echo "BD_FIREFOX_BINARY=$RUNNER_TEMP/bd-firefox-compatibility/firefox/firefox" >> "$GITHUB_ENV"
+          echo "BD_GECKODRIVER=$RUNNER_TEMP/bd-firefox-compatibility/geckodriver" >> "$GITHUB_ENV"
+      - name: Build and unpack the AMO runtime package
+        run: |
+          npm run package:amo
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, zipfile
+          target = Path(os.environ['RUNNER_TEMP']) / 'bd-compatibility-extension'
+          archive, = Path('dist').glob('*-amo.zip')
+          with zipfile.ZipFile(archive) as package:
+              assert package.testzip() is None
+              package.extractall(target)
+          with Path(os.environ['GITHUB_ENV']).open('a') as env:
+              env.write(f'BD_EXTENSION_PATH={target}\n')
+          PY
+      - name: Run seven native compatibility scenarios
+        timeout-minutes: 6
+        working-directory: e2e
+        run: xvfb-run -a npm run test:headed
+      - name: Require Firefox 128 and all seven scenario bodies
+        run: node e2e/verify-compatibility-result.mjs
+      - name: Upload compatibility results and runtime provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bd-firefox-compatibility-${{ github.sha }}
+          path: |
+            e2e/results.json
+            e2e/test-results/
+            dist/*-amo.zip.sha256
+            dist/*-amo.zip.build.json
+          if-no-files-found: error
+          retention-days: 14
+
+  # Linux, both macOS architectures and Firefox 128 compatibility must pass.
   e2e:
     if: ${{ always() }}
-    needs: [scenarios, macos]
+    needs: [scenarios, macos, compatibility]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
-      - name: Require Linux groups and both macOS smoke jobs
+      - name: Require Linux groups, both macOS jobs and Firefox 128
         env:
           SCENARIO_RESULT: ${{ needs.scenarios.result }}
           MACOS_RESULT: ${{ needs.macos.result }}
+          COMPATIBILITY_RESULT: ${{ needs.compatibility.result }}
         run: |
           test "$SCENARIO_RESULT" = success
           test "$MACOS_RESULT" = success
+          test "$COMPATIBILITY_RESULT" = success

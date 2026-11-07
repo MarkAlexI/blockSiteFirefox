@@ -42,6 +42,7 @@ if (args.includes('--list')) {
     }
     const started = Date.now();
     const harness = new ExtensionHarness({ headless: !args.includes('--headed'), installation,
+      referenceContextForTabs: group === 'compatibility',
       output: path.join(output, scenario.id) }, result);
     let desktop;
     try {

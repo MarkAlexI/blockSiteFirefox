@@ -282,6 +282,7 @@ export class ExtensionHarness {
 
   async launch({ restarted = false, ports = null, timezone = this.timezone, beforeExtensionProbe = null } = {}) {
     this.timezone = timezone;
+    if (this.config.referenceContextForTabs) this.probe = null;
     this.phase = 'browser-launch';
     const selectedPorts = ports || await allocateLoopbackPorts(3);
     await assertLoopbackPortsAvailable(selectedPorts);
@@ -320,7 +321,8 @@ export class ExtensionHarness {
       // Inherit TZ through geckodriver too; verify the actual Firefox env below.
       env: timezone ? { ...process.env, TZ: timezone } : undefined,
       args: ['--host=127.0.0.1', `--port=${webdriverPort}`,
-        `--marionette-port=${marionettePort}`, `--websocket-port=${bidiPort}`, '--allow-system-access'],
+        `--marionette-port=${marionettePort}`, `--websocket-port=${bidiPort}`,
+        ...(process.env.BD_GECKODRIVER_LEGACY === '1' ? [] : ['--allow-system-access'])],
       stdio: ['ignore', log.fd, log.fd]
     });
     this.sessionReady = false;
@@ -403,7 +405,13 @@ export class ExtensionHarness {
   }
 
   async newPage(url = 'about:blank') {
-    const { context } = await this.command('browsingContext.create', { type: 'tab', background: true });
+    // Firefox 128 BiDi can fail creating a tab after Focus cleanup without
+    // an explicit window reference.
+    // Keep compatibility tabs in the live probe's owned window. This is a
+    // BiDi fixture target, not a production navigation or timing workaround.
+    const parameters = { type: 'tab', background: true };
+    if (this.config.referenceContextForTabs && this.probe) parameters.referenceContext = this.probe.context;
+    const { context } = await this.command('browsingContext.create', parameters);
     const page = new Page(this, context);
     await page.goto(url);
     return page;
