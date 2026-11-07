@@ -11,7 +11,7 @@ remains 24 per architecture. See [preparation and acceptance limits](version-upg
 ## macOS smoke CI
 
 The workflow additionally runs 24 existing acceptance scenarios on Apple Silicon
-and Intel macOS. Linux, both Mac jobs and both Firefox ESR compatibility jobs must
+and Intel macOS. Linux, both Mac jobs and the Firefox 128 ESR compatibility job must
 pass the final `e2e` check.
 See [browser setup, coverage and evidence limits](macos-smoke.md).
 The initial native macOS jobs passed 24/24 on both architectures in run
@@ -19,11 +19,11 @@ The initial native macOS jobs passed 24/24 on both architectures in run
 
 ## Firefox ESR compatibility CI
 
-The additional `compatibility` and `esr115` groups each execute seven existing
-native scenarios on pinned Firefox 128.0 ESR and 115.31.0 ESR / geckodriver 0.35.0.
-They check actual browser identity, persistent installation and every scenario
-body before accepting the report. ESR 115 additionally requires a trusted native
-host-permission grant and retention of that permission through restart.
+The additional `compatibility` group executes seven existing native scenarios
+on pinned Firefox 128.0 ESR / geckodriver 0.35.0. It checks actual browser identity,
+persistent installation and every scenario body before accepting the report.
+The `esr115` harness and its trusted native host-permission controls remain for
+historical packages only; the current manifest requires Firefox 128 or newer.
 The inventory remains 73; these are repeated on another browser, not new cases.
 See [setup, observed Firefox 113 failure and evidence limits](firefox-compatibility.md).
 

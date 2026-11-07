@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Localization
 - Translate the restored-session confirmation in all 57 locales.
 
+### Compatibility
+- Require Firefox 128 or newer on Desktop and Android, aligning the shared minimum with AMO's Android API compatibility check.
+
 ### Tests
 - Add 13 schedule feedback regressions and extend native scenario 21 for unchanged DOM text and one status update per accepted action.
 - Target native upgrades from the actual previously packaged 5.6.1 runtime to 5.6.2 while retaining the 5.4.14 baseline.

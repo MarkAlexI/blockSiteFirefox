@@ -1,11 +1,12 @@
 # Firefox Desktop compatibility, 2026-11-07
 
-For 5.6.2, the manifest minimum is Desktop **115.31.0** and Android **128.0**.
-Desktop support preserves ESR 115.31+ and Firefox 128+. Regular Firefox 116–127
-remains unsupported: it lacks ESR 115.31's backported manifest-parser fix, and
-one minimum-version field cannot express that gap.
+For 5.6.2, the manifest minimum is **128.0** on both Desktop and Android.
+The shared minimum also avoids AMO's `permissions.request` Android warning,
+whose API check reads the Desktop minimum instead of `gecko_android`.
+ESR 115.31 is no longer supported by the current package.
 
-The existing groups exercise Firefox 128.0 ESR and ESR 115.31.0 on Linux.
+The current compatibility job exercises Firefox 128.0 ESR on Linux. Historical
+ESR 115.31 observations below apply only to the earlier compatible packages.
 The 5.6.0 Android audit established a manifest-parser failure on 120 and loading
 on 128; full Android 128 functional acceptance remains separate. New 5.6.2
 runtime changes, including native keyboard scenarios 21 and 58, require fresh CI.
@@ -28,8 +29,8 @@ Mozilla bug 1757293 changed unknown Gecko manifest properties from errors to
 warnings in Firefox 128. Bug 1996829 later backported this to ESR 115.31.0.
 A separate stock ESR 115.31.0 probe installs the signed 5.6.0 XPI, grants host
 access through the native prompt and checks real blocking before and after a
-browser restart. The `esr115` group additionally reuses all seven native bodies
-below. ESR 115 cannot observe `browsingContext.userPromptOpened`; the group
+browser restart. The historical `esr115` harness reuses all seven native bodies
+below. ESR 115 cannot observe `browsingContext.userPromptOpened`; that group
 subscribes to `log.entryAdded` and does not include scenarios that require the
 unavailable event. Modern groups keep both subscriptions.
 
@@ -39,7 +40,7 @@ the actual signed 5.6.0 package, not a signed 5.6.1 release.
 
 ## Target and scope
 
-- Firefox **128.0 ESR** and **115.31.0 ESR**, Linux x64, real headed browsers under Xvfb.
+- Current package: Firefox **128.0 ESR**, Linux x64, real headed browser under Xvfb. ESR **115.31.0** results are historical.
 - geckodriver **0.35.0**, pinned Selenium and fflate from `e2e/package-lock.json`.
 - Disposable native profile, persistent unsigned AMO runtime, the normal ESR
   developer preference for signature enforcement in that profile only.
@@ -102,12 +103,13 @@ BD_E2E_GROUP=compatibility BD_GECKODRIVER_LEGACY=1 xvfb-run -a npm run test:head
 node verify-compatibility-result.mjs
 ```
 
-For ESR 115.31, point `BD_FIREFOX_BINARY` to that ESR binary, keep geckodriver
-0.35.0, and use `BD_E2E_GROUP=esr115` for both the run and verifier.
+Historical ESR 115.31 reruns require an earlier checkout/package whose manifest
+permits that browser. Point `BD_FIREFOX_BINARY` to that ESR binary, keep
+geckodriver 0.35.0, and use `BD_E2E_GROUP=esr115` for both the run and verifier.
 
 The workflow downloads pinned official archives, checks browser and driver SHA-256 hashes,
 builds and unpacks the tracked AMO package, runs all seven scenarios and
-verifies `results.json`. The final `e2e` job requires both compatibility matrix jobs alongside all
+verifies `results.json`. The final `e2e` job requires the Firefox 128 compatibility job alongside all
 existing Linux groups and both macOS architectures. A new GitHub run is still
 required after committing the patch.
 

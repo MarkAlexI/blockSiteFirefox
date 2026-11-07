@@ -205,10 +205,6 @@ jobs:
             archive: 128.0esr
             group: compatibility
             sha256: 4f16334b814d7852a0e52d6f7c4c78623c98c0521bafd7192107a24694e14a3e
-          - label: 115.31 ESR
-            archive: 115.31.0esr
-            group: esr115
-            sha256: ce75c262696d77e20d4087cf3a5bbd70efd15cf3d82d83bc2b8f4e751b2ccbe5
     env:
       BD_E2E_GROUP: ${{ matrix.group }}
       # geckodriver 0.35 predates --allow-system-access; Firefox 128 does not
@@ -286,14 +282,14 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-  # Linux, both macOS architectures and both pinned Firefox jobs must pass.
+  # Linux, both macOS architectures and the pinned Firefox 128 job must pass.
   e2e:
     if: ${{ always() }}
     needs: [scenarios, macos, compatibility]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
-      - name: Require Linux groups, both macOS jobs and both pinned Firefox versions
+      - name: Require Linux groups, both macOS jobs and pinned Firefox 128
         env:
           SCENARIO_RESULT: ${{ needs.scenarios.result }}
           MACOS_RESULT: ${{ needs.macos.result }}
