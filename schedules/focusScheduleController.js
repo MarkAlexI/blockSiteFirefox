@@ -123,21 +123,31 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
         // A manual session or missing paid access consumes this occurrence too.
         state = handled(state, current.key);
         await write(state);
-        await arm(state);
-        if (!paid(access)) return { status: 'pro_required' };
-        if (session.focusActive) return { status: 'manual_priority' };
-        const activationNow = now();
-        if (activationNow >= current.endTime) return { status: 'expired' };
-        // Recheck after the durable write and alarm calls too. Keep the claim:
-        // rolling it back could replay an occurrence after a worker restart.
-        const isCurrentWindow = () => {
-          const observed = now();
-          return focusOccurrences(state, observed).some(item =>
-            item.key === current.key && item.startTime === current.startTime &&
-            item.endTime === current.endTime && item.startTime <= observed);
-        };
-        if (!isCurrentWindow()) return { status: 'waiting' };
-        return startSession(current, context, isCurrentWindow);
+        let activationFailed = false;
+        try {
+          if (!paid(access)) return { status: 'pro_required' };
+          if (session.focusActive) return { status: 'manual_priority' };
+          const activationNow = now();
+          if (activationNow >= current.endTime) return { status: 'expired' };
+          // Recheck after the durable write. Keep the claim: rolling it back
+          // could replay an occurrence after a worker restart.
+          const isCurrentWindow = () => {
+            const observed = now();
+            return focusOccurrences(state, observed).some(item =>
+              item.key === current.key && item.startTime === current.startTime &&
+              item.endTime === current.endTime && item.startTime <= observed);
+          };
+          if (!isCurrentWindow()) return { status: 'waiting' };
+          return await startSession(current, context, isCurrentWindow);
+        } catch (error) {
+          activationFailed = true;
+          throw error;
+        } finally {
+          // Rearming the next occurrence must not delay or prevent this start.
+          // Still surface rearm failures, without hiding an activation failure.
+          try { await arm(state); }
+          catch (error) { if (!activationFailed) throw error; }
+        }
       });
     }
   };

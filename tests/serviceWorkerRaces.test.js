@@ -6171,6 +6171,75 @@ test('scheduled focus is rejected for free users, including forged scheduler opt
   });
 });
 
+for (const method of ['get', 'create']) {
+  test(`scheduled focus starts despite next alarm ${method} failure and later repairs it without restarting`, async () => {
+    await withControlledClock(new Date(2026,8,28,8), async clock => {
+      await withWorker(async ({ api, alarm }) => {
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.equal(api.dynamicRules.some(rule => rule.id === 1), false);
+        const original = api.alarms[method].bind(api.alarms);
+        const write = api.storage.local.set.bind(api.storage.local);
+        let starts = 0, failures = 0;
+        api.storage.local.set = async values => {
+          if (values.focusSession?.focusActive) starts++;
+          return write(values);
+        };
+        api.alarms[method] = (...args) => {
+          if (args[0] === 'start_scheduled_focus') {
+            failures++;
+            return Promise.reject(new Error(`next alarm ${method} failed`));
+          }
+          return original(...args);
+        };
+        clock.set(new Date(2026,8,28,9,20));
+        await withMutedErrors(() => alarm({ name: 'start_scheduled_focus' }));
+        assert.equal(failures, 1);
+        assert.equal(api.storage.local.data.focusSession.focusActive, true);
+        const endTime = new Date(2026,8,28,9,50).getTime();
+        assert.equal(api.storage.local.data.focusSession.focusEndTime, endTime);
+        assert.equal(api.alarmValues.get('end_focus_session').when, endTime);
+        assert.equal(api.dynamicRules.some(rule => rule.id === 1), true);
+        assert.equal(starts, 1);
+        assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+        api.alarms[method] = original;
+        await alarm({ name: 'update_scheduled_rules' });
+        await alarm({ name: 'start_scheduled_focus' });
+        assert.equal(starts, 1);
+        assert.equal(api.alarmValues.get('start_scheduled_focus').when, new Date(2026,8,29,9).getTime());
+        clock.set(new Date(2026,8,28,9,51));
+        await alarm({ name: 'end_focus_session', scheduledTime: endTime });
+        assert.equal(api.storage.local.data.focusSession.focusActive, false);
+        assert.equal(api.dynamicRules.some(rule => rule.id === 1), false);
+      }, { local: { activeRuleListId: 'general', focusSchedule: scheduledFocusState(), rules: [makeFocusRule(1,'list-1')] } });
+    });
+  });
+}
+
+test('scheduled focus installs its protection before a delayed next alarm finishes', { timeout: 3000 }, async () => {
+  await withControlledClock(new Date(2026,8,28,8), async clock => {
+    await withWorker(async ({ api, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      const entered = createDeferred(), release = createDeferred();
+      const create = api.alarms.create.bind(api.alarms);
+      api.alarms.create = async (name, options) => {
+        if (name === 'start_scheduled_focus') { entered.resolve(); await release.promise; }
+        return create(name, options);
+      };
+      clock.set(new Date(2026,8,28,9,20));
+      const pending = alarm({ name: 'start_scheduled_focus' });
+      try {
+        await entered.promise;
+        assert.equal(api.storage.local.data.focusSession.focusActive, true);
+        assert.equal(api.storage.local.data.focusSession.focusEndTime, new Date(2026,8,28,9,50).getTime());
+        assert.equal(api.dynamicRules.some(rule => rule.id === 1), true);
+        assert.ok(api.alarmValues.has('end_focus_session'));
+      } finally { release.resolve(); await pending; }
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+    }, { local: { activeRuleListId: 'general', focusSchedule: scheduledFocusState(), rules: [makeFocusRule(1,'list-1')] } });
+  });
+});
+
+
 test('scheduled focus rolls back a failed DNR activation and does not retry the same window', async () => {
   await withControlledClock(new Date(2026,8,28,8), async clock => {
     await withWorker(async ({ api, alarm }) => {

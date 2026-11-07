@@ -323,6 +323,107 @@ test('Legacy access can save and start a schedule', async () => {
   assert.equal(f.starts.length, 1);
 });
 
+for (const method of ['get', 'create']) {
+  test(`next schedule alarm ${method} failure cannot consume the current Focus start`, async () => {
+    const f = fixture();
+    const alarmError = new Error(`next alarm ${method} failed`);
+    const original = f.dependencies.alarms[method];
+    f.dependencies.alarms[method] = async () => { throw alarmError; };
+    await assert.rejects(f.controller.reconcile(), error => error === alarmError);
+    assert.equal(f.starts.length, 1);
+    assert.equal(f.starts[0].endTime, instant(9,50));
+    assert.deepEqual(f.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+    f.dependencies.alarms[method] = original;
+    await Promise.all([f.restart().reconcile(), f.restart().reconcile()]);
+    assert.equal(f.starts.length, 1);
+    assert.equal(f.alarmMap.get('start_scheduled_focus').when, instant(9,0,29));
+  });
+}
+
+test('a delayed next alarm cannot hold activation until the current window expires', { timeout: 2000 }, async () => {
+  const f = fixture();
+  let entered, release;
+  const ready = new Promise(resolve => { entered = resolve; });
+  const gate = new Promise(resolve => { release = resolve; });
+  const create = f.dependencies.alarms.create;
+  f.dependencies.alarms.create = async (...args) => { entered(); await gate; return create(...args); };
+  const pending = f.controller.reconcile();
+  try {
+    await ready;
+    assert.equal(f.starts.length, 1);
+    assert.equal(f.starts[0].endTime, instant(9,50));
+  } finally {
+    f.setTime(instant(10));
+    release();
+    await pending;
+  }
+  assert.equal(f.starts.length, 1);
+});
+
+test('a next alarm failure cannot replace the original activation error', async () => {
+  const f = fixture();
+  const activationError = new Error('activation failed');
+  const alarmError = new Error('next alarm failed');
+  let activations = 0, arms = 0;
+  f.dependencies.startSession = async () => { activations++; throw activationError; };
+  f.dependencies.alarms.create = async () => { arms++; throw alarmError; };
+  await assert.rejects(f.restart().reconcile(), error => error === activationError);
+  assert.equal(activations, 1);
+  assert.equal(arms, 1);
+  assert.deepEqual(f.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+});
+
+for (const guard of ['pro_required', 'manual_priority']) {
+  test(`next alarm failure preserves the ${guard} activation guard`, async () => {
+    const f = fixture();
+    if (guard === 'pro_required') f.access.isPro = false;
+    else f.setSession({ focusActive: true });
+    const alarmError = new Error('next alarm failed');
+    const create = f.dependencies.alarms.create;
+    f.dependencies.alarms.create = async () => { throw alarmError; };
+    await assert.rejects(f.controller.reconcile(), error => error === alarmError);
+    assert.equal(f.starts.length, 0);
+    assert.deepEqual(f.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+    f.dependencies.alarms.create = create;
+    f.access.isPro = true;
+    f.setSession({ focusActive: false });
+    await f.restart().reconcile();
+    assert.equal(f.starts.length, 0);
+    assert.equal(f.alarmMap.get('start_scheduled_focus').when, instant(9,0,29));
+  });
+}
+
+for (const first of ['skip', 'alarm']) {
+  test(`Skip and a due alarm serialize when ${first} holds the durable write`, { timeout: 2000 }, async () => {
+    const f = fixture(schedule(), instant(8));
+    const shown = await f.controller.status();
+    f.setTime(instant(9,20));
+    let entered, release;
+    const ready = new Promise(resolve => { entered = resolve; });
+    const gate = new Promise(resolve => { release = resolve; });
+    const write = f.storage.set;
+    let paused = false;
+    f.storage.set = async value => {
+      if (!paused) { paused = true; entered(); await gate; }
+      return write(value);
+    };
+    const skip = () => f.controller.skip(shown.next.key, shown.revision, shown.next.startTime);
+    const pending = first === 'skip' ? skip() : f.controller.reconcile();
+    let second;
+    try {
+      await ready;
+      second = first === 'skip' ? f.controller.reconcile()
+        : assert.rejects(skip(), { code: 'schedule_changed' });
+    } finally { release(); }
+    await Promise.all([pending, second]);
+    assert.equal(f.starts.length, first === 'skip' ? 0 : 1);
+    assert.deepEqual(f.data.focusSchedule.skippedKeys, first === 'skip' ? [shown.next.key] : []);
+    assert.deepEqual(f.data.focusSchedule.handledKeys, first === 'alarm' ? [shown.next.key] : []);
+    await f.restart().reconcile();
+    assert.equal(f.starts.length, first === 'skip' ? 0 : 1);
+  });
+}
+
 test('failure to persist the occurrence claim must not start any blocking', async () => {
   const f = fixture();
   f.storage.set = async () => { throw new Error('storage failed'); };
