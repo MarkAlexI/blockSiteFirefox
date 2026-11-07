@@ -9,8 +9,8 @@
 },
 {
   "repository": "MarkAlexI/blockSiteFirefox",
-  "commit": "bfa5727459bd028fb91620d625357f8f95ab0300",
-  "fromVersion": "5.5.9",
+  "commit": "81570473bd149ab78956dba880d584ae93199592",
+  "fromVersion": "5.5.10",
   "packageTool": "tools/package-amo.js",
   "packageArgs": [],
   "archiveSuffix": "-amo.zip"

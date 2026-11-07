@@ -35,7 +35,7 @@ function fixture({ brokenI18n = false, storage = new Map(), storageDenied = fals
       if (clipboardDenied) throw new Error('Denied');copied.push(text);
     } } },
     URL,
-    chrome: { runtime: { getManifest: () => ({ version: '5.5.10' }),
+    chrome: { runtime: { getManifest: () => ({ version: '5.5.11' }),
       getURL: path => `chrome-extension://private-extension-id/${path}` },
       i18n: { getMessage(key) { if (brokenI18n) throw new Error('Extension context invalidated.'); return key; } } },
     setTimeout(fn, ms) { const id = ++serial;timers.set(id, { fn, ms });return id; },

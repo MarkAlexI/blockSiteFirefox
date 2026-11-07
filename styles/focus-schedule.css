@@ -56,6 +56,42 @@
 .focus-schedule-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
 [data-focus-schedule] button { font: inherit; padding: .5rem .75rem; min-height: 40px; width: auto; cursor: pointer; }
 [data-focus-schedule] button:disabled { opacity: .55; cursor: default; }
+[data-focus-schedule] [data-focus-skip] {
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  min-block-size: 2.75rem;
+  border: 1px solid var(--bd-primary);
+  border-radius: 8px;
+  background-color: var(--bd-primary);
+  color: var(--bd-surface);
+  font-weight: 600;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+[data-focus-schedule] [data-focus-skip]:hover:not(:disabled) {
+  background-color: var(--bd-primary-hover);
+  border-color: var(--bd-primary-hover);
+}
+[data-focus-schedule] [data-focus-skip]:disabled {
+  background-color: var(--bd-surface-soft);
+  border-color: var(--bd-control-border);
+  color: var(--bd-muted);
+  opacity: 1;
+  cursor: wait;
+  transform: none;
+}
+@media (forced-colors: active) {
+  [data-focus-schedule] [data-focus-skip] {
+    background-color: ButtonFace;
+    border-color: ButtonText;
+    color: ButtonText;
+  }
+  [data-focus-schedule] [data-focus-skip]:hover:not(:disabled) {
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  [data-focus-schedule] [data-focus-skip]:disabled { color: GrayText; }
+}
 [data-focus-schedule] input:focus-visible, [data-focus-schedule] button:focus-visible, [data-focus-schedule] a:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 3px; }
 .focus-schedule-summary { margin-top: 1rem; padding-top: .75rem; border-top: 1px solid var(--border-light); font-size: .875rem; }
 [data-focus-skipped]:empty, [data-focus-notice]:empty { display: none; }

@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { macosSmokeScenarioIds, selectScenarioGroup } from '../e2e/scenario-groups.mjs';
 
 test('Firefox CI groups preserve original order, include overdue once and reject unknown groups', async () => {
-  const scenarios = [{ id: '01' }, { id: '64' }, { id: '65' }, { id: '67' }, { id: '67-5.5.9', upgrade: true }];
+  const scenarios = [{ id: '01' }, { id: '64' }, { id: '65' }, { id: '67' }, { id: '67-5.5.10', upgrade: true }];
   assert.deepEqual(selectScenarioGroup(scenarios), scenarios);
   assert.deepEqual(selectScenarioGroup(scenarios, 'core'), scenarios.slice(0,2));
   assert.deepEqual(selectScenarioGroup(scenarios, 'overdue'), scenarios.slice(2,3));
