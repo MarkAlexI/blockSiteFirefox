@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "건너뛰기 취소: $1"
   },
+  "focus_schedule_restored": {
+    "message": "예약된 세션이 복원되었습니다: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "일정이 변경되었습니다. 변경된 세션 시간을 확인하고 다시 시도하세요."
   },

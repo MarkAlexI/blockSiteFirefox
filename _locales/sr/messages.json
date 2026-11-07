@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Поништи прескакање: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Заказана сесија је враћена: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Распоред је промењен. Проверите ново време сесије и покушајте поново."
   },

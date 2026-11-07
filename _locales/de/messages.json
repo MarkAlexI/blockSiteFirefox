@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Überspringen rückgängig machen: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Geplante Sitzung wiederhergestellt: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Der Zeitplan wurde geändert. Prüfe die aktualisierte Sitzungszeit und versuche es erneut."
   },

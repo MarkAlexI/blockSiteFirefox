@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Overslaan ongedaan maken: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Geplande sessie hersteld: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Het schema is gewijzigd. Controleer de bijgewerkte sessietijd en probeer het opnieuw."
   },

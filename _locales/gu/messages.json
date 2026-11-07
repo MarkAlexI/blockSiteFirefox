@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "સત્ર પુનઃસ્થાપિત કરો: $1"
   },
+  "focus_schedule_restored": {
+    "message": "નિર્ધારિત સત્ર પુનઃસ્થાપિત થયું: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "સમયપત્રક બદલાયું છે. સત્રનો નવો સમય તપાસો અને ફરી પ્રયાસ કરો."
   },

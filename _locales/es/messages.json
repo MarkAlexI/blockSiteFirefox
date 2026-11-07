@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Restaurar sesión: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Sesión programada restaurada: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "La programación ha cambiado. Comprueba la hora actualizada de la sesión e inténtalo de nuevo."
   },

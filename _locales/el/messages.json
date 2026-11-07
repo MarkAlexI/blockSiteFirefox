@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Αναίρεση παράλειψης: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Η προγραμματισμένη συνεδρία αποκαταστάθηκε: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Το πρόγραμμα άλλαξε. Ελέγξτε τη νέα ώρα της συνεδρίας και δοκιμάστε ξανά."
   },

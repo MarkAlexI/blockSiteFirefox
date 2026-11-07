@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Отменить пропуск: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Запланированная сессия восстановлена: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Расписание изменилось. Проверьте обновлённое время сессии и попробуйте снова."
   },

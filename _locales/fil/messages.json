@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Ibalik ang session: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Naibalik ang naka-iskedyul na session: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Nagbago ang iskedyul. Tingnan ang bagong oras ng session at subukan muli."
   },

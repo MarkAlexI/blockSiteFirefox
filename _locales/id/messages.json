@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Pulihkan sesi: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Sesi terjadwal dipulihkan: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Jadwal telah berubah. Periksa waktu sesi yang diperbarui dan coba lagi."
   },

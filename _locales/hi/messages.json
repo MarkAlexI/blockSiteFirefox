@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "सत्र बहाल करें: $1"
   },
+  "focus_schedule_restored": {
+    "message": "निर्धारित सत्र बहाल किया गया: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "समय-सारणी बदल गई है। सत्र का नया समय जाँचें और फिर से कोशिश करें।"
   },

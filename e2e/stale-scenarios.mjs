@@ -26,6 +26,46 @@ async function keyboardActivate(page, css) {
   if (page.keyboard) await page.keyboard.press('Enter'); else await page.press('Enter');
 }
 
+async function watchScheduleFeedback(page) {
+  const mounted = await page.evaluate(() => {
+    const panel = document.querySelector('[data-focus-schedule]');
+    const region = document.querySelector('[data-focus-announcer]');
+    const events = window.__bdScheduleFeedback = { deliveries: [], summaryWrites: 0 };
+    if (!region) return null;
+    const observer = new MutationObserver(records => {
+      for (const record of records) {
+        if (record.target === region || region.contains(record.target)) {
+          if (region.textContent) events.deliveries.push(region.textContent);
+        } else events.summaryWrites++;
+      }
+    });
+    const options = { childList: true, characterData: true, subtree: true };
+    observer.observe(region, options);
+    panel.querySelectorAll('[data-focus-status], [data-focus-skipped], [data-focus-restore]')
+      .forEach(node => observer.observe(node, options));
+    return { count: document.querySelectorAll('[data-focus-announcer]').length,
+      role: region.getAttribute('role'), live: region.getAttribute('aria-live'),
+      atomic: region.getAttribute('aria-atomic'), tabindex: region.getAttribute('tabindex'),
+      text: region.textContent, outsidePanel: !panel.contains(region),
+      exposed: getComputedStyle(region).display !== 'none' && !region.closest('[hidden], dialog, details, fieldset'),
+      otherScheduleChannels: panel.querySelectorAll('[aria-live], [role="status"], [role="alert"]').length };
+  });
+  assert.deepEqual(mounted, { count: 1, role: 'status', live: 'polite', atomic: 'true', tabindex: null,
+    text: '', outsidePanel: true, exposed: true, otherScheduleChannels: 0 });
+}
+
+async function scheduleAnnouncement(page, key, timestamp, count) {
+  await equal(() => page.evaluate(({ key, timestamp, count }) => {
+    const time = new Intl.DateTimeFormat(undefined, {
+      weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    }).format(new Date(timestamp));
+    const expected = chrome.i18n.getMessage(key, [time]);
+    const deliveries = window.__bdScheduleFeedback.deliveries;
+    return Boolean(expected && document.querySelector('[data-focus-announcer]').textContent === expected &&
+      deliveries.length === count && deliveries.at(-1) === expected);
+  }, { key, timestamp, count }), true, `${key}: one native DOM update per accepted action`);
+}
+
 // Native message transport, not the RulesClient helper (schedule fields are top-level).
 async function message(page, input) {
   return page.evaluate(async input => {
@@ -191,7 +231,17 @@ export const staleScenarios = [
       assert.deepEqual((await scheduleState(reopened)).focusSchedule, restored);
       await openSchedule(reopened);
       await observe(reopened);
-      const fresh = await message(reopened, { type: 'focus_schedule_get' });
+      await watchScheduleFeedback(reopened);
+      const beforeRead = await message(reopened, { type: 'focus_schedule_get' });
+      // A real worker write and storage event refresh the mounted production UI.
+      // Saving identical config changes its revision, while all visible text stays equal.
+      const fresh = await message(reopened, { type: 'focus_schedule_save', config, revision: beforeRead.revision });
+      assert.equal(fresh.success, true);
+      assert.deepEqual(fresh.next, beforeRead.next);
+      await equal(() => reopened.evaluate(revision => window.__bdStale.calls.some(item =>
+        item.message.type === 'focus_schedule_get' && item.completed && item.response?.revision === revision), fresh.revision),
+      true, 'unchanged summary refresh observed through native storage event');
+      assert.deepEqual(await reopened.evaluate(() => window.__bdScheduleFeedback), { deliveries: [], summaryWrites: 0 });
       await keyboardActivate(reopened, `${root} [data-focus-skip]`);
       const clicked = await lastCall(reopened, 'focus_schedule_skip');
       assert.deepEqual(clicked.message, { type: 'focus_schedule_skip', key: fresh.next.key,
@@ -201,6 +251,7 @@ export const staleScenarios = [
         const button=document.querySelector('[data-focus-skip]');
         return document.activeElement===button&&!button.disabled&&!button.hasAttribute('aria-disabled');
       }), true, 'Options Skip retains native keyboard focus');
+      await scheduleAnnouncement(reopened, 'focus_schedule_skipped', fresh.next.startTime, 1);
       assert.deepEqual((await scheduleState(reopened)).focusSchedule.skippedKeys, [fresh.next.key]);
       const original = fresh.next;
       const oldUndo = { type: 'focus_schedule_restore', key: original.key,
@@ -210,6 +261,7 @@ export const staleScenarios = [
       const options = await e.openOptions();await openSchedule(options);
       const popup = await e.openPopup();await observe(popup);
       await equal(() => popup.evaluate(() => document.querySelector('[data-focus-restore]').hidden), false, 'Popup Undo after restart');
+      await watchScheduleFeedback(options);await watchScheduleFeedback(popup);
       await keyboardActivate(popup, '[data-focus-restore]');
       const undo = await lastCall(popup, 'focus_schedule_restore');
       assert.deepEqual(undo.message, oldUndo);
@@ -218,6 +270,8 @@ export const staleScenarios = [
       await equal(() => popup.evaluate(() => document.activeElement===document.querySelector('[data-focus-skip]')),
         true, 'disappearing Popup Undo returns native keyboard focus to Skip');
       await equal(() => options.evaluate(() => document.querySelector('[data-focus-restore]').hidden), true, 'Options observes Popup Undo');
+      await scheduleAnnouncement(popup, 'focus_schedule_restored', original.startTime, 1);
+      assert.deepEqual(await options.evaluate(() => window.__bdScheduleFeedback.deliveries), [], 'passive Options refresh stays quiet');
       await keyboardActivate(popup, '[data-focus-skip]');
       const againCall = await lastCall(popup, 'focus_schedule_skip');
       assert.deepEqual(againCall.message, { type: 'focus_schedule_skip', key: original.key,
@@ -228,6 +282,7 @@ export const staleScenarios = [
         const button=document.querySelector('[data-focus-skip]');
         return document.activeElement===button&&!button.disabled&&!button.hasAttribute('aria-disabled');
       }), true, 'Popup Skip retains native keyboard focus');
+      await scheduleAnnouncement(popup, 'focus_schedule_skipped', original.startTime, 2);
       const beforeOldUndo = (await scheduleState(options)).focusSchedule;
       assert.deepEqual(await message(popup, oldUndo), { success: false, code: 'schedule_changed' });
       assert.deepEqual((await scheduleState(options)).focusSchedule, beforeOldUndo);
@@ -236,6 +291,7 @@ export const staleScenarios = [
       const freshUndo = await lastCall(options, 'focus_schedule_restore');
       assert.equal(freshUndo.response.success, true);
       assert.deepEqual(freshUndo.response.next, original);
+      await scheduleAnnouncement(options, 'focus_schedule_restored', original.startTime, 1);
       assert.deepEqual(stable(await e.state()), unchanged, 'Undo preserves rules, budgets and blocking');
       await e.restart();
       const final = await e.openOptions();

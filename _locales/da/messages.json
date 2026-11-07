@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Fortryd overspring: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Planlagt session gendannet: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Tidsplanen er ændret. Kontrollér sessionens opdaterede tidspunkt, og prøv igen."
   },

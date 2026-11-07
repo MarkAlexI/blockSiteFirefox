@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Rétablir la session : $1"
   },
+  "focus_schedule_restored": {
+    "message": "Séance programmée rétablie : $1"
+  },
   "focus_schedule_action_changed": {
     "message": "La planification a changé. Vérifiez l’heure mise à jour de la session et réessayez."
   },

@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "सत्र पूर्ववत करा: $1"
   },
+  "focus_schedule_restored": {
+    "message": "नियोजित सत्र पुनर्संचयित केले: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "वेळापत्रक बदलले आहे. सत्राची नवीन वेळ तपासा आणि पुन्हा प्रयत्न करा."
   },

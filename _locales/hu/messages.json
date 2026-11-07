@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Kihagyás visszavonása: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Ütemezett munkamenet visszaállítva: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Az ütemezés megváltozott. Ellenőrizd a munkamenet új időpontját, majd próbáld újra."
   },

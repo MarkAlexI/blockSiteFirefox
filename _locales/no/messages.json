@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Gjenopprett økten: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Planlagt økt gjenopprettet: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Tidsplanen er endret. Kontroller øktens oppdaterte tidspunkt og prøv igjen."
   },

@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Vrátit přeskočení: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Naplánovaná relace obnovena: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Plán se změnil. Zkontrolujte nový čas relace a zkuste to znovu."
   },

@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "復原略過：$1"
   },
+  "focus_schedule_restored": {
+    "message": "已還原排程的專注時段：$1"
+  },
   "focus_schedule_action_changed": {
     "message": "排程已變更。請確認更新後的專注時段時間，然後再試一次。"
   },

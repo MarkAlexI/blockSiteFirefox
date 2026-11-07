@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Отмяна на пропускането: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Планираната сесия е възстановена: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Графикът е променен. Проверете новия час на сесията и опитайте отново."
   },

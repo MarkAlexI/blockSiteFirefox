@@ -1,6 +1,17 @@
 import { t } from '../scripts/t.js';
 import { sendRuntimeMessage } from '../rules/rulesClient.js';
 import { validateFocusSchedule } from './focusSchedule.js';
+import { createFocusScheduleAnnouncer } from './focusScheduleAnnouncer.js';
+
+function setText(element, text) {
+  if (element.textContent === text) return false;
+  element.textContent = text;
+  return true;
+}
+
+const formatTime = timestamp => new Intl.DateTimeFormat(undefined, {
+  weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+}).format(new Date(timestamp));
 
 export class FocusScheduleUI {
   constructor(root, { send = sendRuntimeMessage, translate = t } = {}) {
@@ -11,6 +22,11 @@ export class FocusScheduleUI {
     this.status = root.querySelector('[data-focus-status]');
     this.skipped = root.querySelector('[data-focus-skipped]');
     this.notice = root.querySelector('[data-focus-notice]');
+    this.announcements = createFocusScheduleAnnouncer(root.ownerDocument);
+    // Upgrade retained markup to the same single action-feedback channel.
+    this.status.removeAttribute('aria-live');
+    this.notice.removeAttribute('aria-live');
+    this.notice.removeAttribute('role');
     this.skip = root.querySelector('[data-focus-skip]');
     this.restore = root.querySelector('[data-focus-restore]');
     this.accessNote = root.querySelector('[data-focus-access]');
@@ -28,7 +44,8 @@ export class FocusScheduleUI {
     });
     this.root.querySelector('[data-focus-reset]')?.addEventListener('click', () => {
       this.dirty = false;
-      this.notice.textContent = '';
+      this.announcements.clear();
+      setText(this.notice, '');
       void this.refresh(true);
     });
     this.skip.addEventListener('click', () => {
@@ -50,12 +67,17 @@ export class FocusScheduleUI {
     return response;
   }
 
-  showError(error) {
+  showNotice(text, repeat = true) {
+    const changed = setText(this.notice, text);
+    if (changed || repeat) this.announcements.announce(text);
+  }
+
+  showError(error, repeat = true) {
     const key = error?.code === 'pro_required' ? 'prorequired'
       : error?.code === 'schedule_changed' ? 'focus_schedule_changed'
         : error?.code === 'invalid_focus_schedule' ? 'invalidschedule'
           : 'errorsavingsettings';
-    this.notice.textContent = this.t(key);
+    this.showNotice(this.t(key), repeat);
   }
 
   async refresh(fill = false) {
@@ -67,7 +89,7 @@ export class FocusScheduleUI {
       // Cancel clears dirty before loading; new input during the read wins.
       this.render(state, !this.dirty);
     } catch (error) {
-      if (generation === this.loadGeneration) this.showError(error);
+      if (generation === this.loadGeneration) this.showError(error, false);
     }
   }
 
@@ -83,18 +105,15 @@ export class FocusScheduleUI {
         input.checked = state.config.days.includes(Number(input.value));
       }
     }
-    const format = timestamp => new Intl.DateTimeFormat(undefined, {
-      weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-    }).format(new Date(timestamp));
-    this.status.textContent = !state.hasAccess ? this.t('prorequired')
-      : state.next ? this.t('focus_schedule_next', format(state.next.startTime))
-        : this.t('focus_schedule_off');
-    this.skipped.textContent = state.skipped
-      ? this.t('focus_schedule_skipped', format(state.skipped.startTime)) : '';
+    setText(this.status, !state.hasAccess ? this.t('prorequired')
+      : state.next ? this.t('focus_schedule_next', formatTime(state.next.startTime))
+        : this.t('focus_schedule_off'));
+    setText(this.skipped, state.skipped
+      ? this.t('focus_schedule_skipped', formatTime(state.skipped.startTime)) : '');
     this.skip.hidden = !state.next || !state.hasAccess;
     if (this.restore) {
       this.restore.hidden = !state.hasAccess || !state.restorable || state.restorable.startTime <= Date.now();
-      if (!this.restore.hidden) this.restore.textContent = this.t('focus_schedule_restore', format(state.restorable.startTime));
+      if (!this.restore.hidden) setText(this.restore, this.t('focus_schedule_restore', formatTime(state.restorable.startTime)));
     }
     if (this.accessNote) this.accessNote.hidden = state.hasAccess;
     this.setBusy(this.busy);
@@ -127,7 +146,7 @@ export class FocusScheduleUI {
     if (this.busy || !this.state) return;
     const durationMinutes = Number(this.form.elements.durationMinutes.value);
     if (!Number.isInteger(durationMinutes) || durationMinutes < 1 || durationMinutes > 240) {
-      this.notice.textContent = this.t('focussessioninvalidduration');
+      this.showNotice(this.t('focussessioninvalidduration'));
       return;
     }
     const config = {
@@ -150,9 +169,12 @@ export class FocusScheduleUI {
       doc.addEventListener('pointerdown', changedFocus);
     }
     let refresh = false;
+    const actionTime = message.startTime ?? (message.type === 'focus_schedule_restore'
+      ? this.state?.restorable?.startTime : this.state?.next?.startTime);
     ++this.loadGeneration;
     this.setBusy(true);
-    this.notice.textContent = '';
+    this.announcements.clear();
+    setText(this.notice, '');
     try {
       const state = await this.request(message);
       // An accepted own Skip/Undo proves its exact source revision was current
@@ -164,10 +186,17 @@ export class FocusScheduleUI {
       }
       if (fill) this.dirty = false;
       this.render(state, fill);
-      if (fill) this.notice.textContent = this.t('settingssaved');
+      if (fill) this.showNotice(this.t('settingssaved'));
+      else if (Number.isFinite(actionTime)) {
+        if (message.type === 'focus_schedule_skip') {
+          this.announcements.announce(this.t('focus_schedule_skipped', formatTime(actionTime)));
+        } else if (message.type === 'focus_schedule_restore') {
+          this.announcements.announce(this.t('focus_schedule_restored', formatTime(actionTime)));
+        }
+      }
     } catch (error) {
       if (!fill && error?.code === 'schedule_changed') {
-        this.notice.textContent = this.t('focus_schedule_action_changed');
+        this.showNotice(this.t('focus_schedule_action_changed'));
         refresh = true;
       } else this.showError(error);
     } finally {

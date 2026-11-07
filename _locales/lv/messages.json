@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Atcelt izlaišanu: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Ieplānotā sesija atjaunota: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Grafiks ir mainījies. Pārbaudiet atjaunināto sesijas laiku un mēģiniet vēlreiz."
   },

@@ -5,7 +5,9 @@ import { FocusScheduleUI, revealFocusSchedule } from '../schedules/focusSchedule
 
 function fixture({ withRestore = true } = {}) {
   const doc = new FakeDocument();
+  doc.defaultView = new FakeDocument();
   const root = doc.createElement('details');
+  doc.body.appendChild(root);
   root.open = false;
   const scrolls = [];
   root.scrollIntoView = options => scrolls.push(options);
@@ -24,6 +26,8 @@ function fixture({ withRestore = true } = {}) {
     if (name === 'restore' && !withRestore) continue;
     const el = doc.createElement(['skip','restore','reset'].includes(name) ? 'button' : 'p');
     el.setAttribute('data-focus-' + name, '');
+    if (name === 'status' || name === 'notice') el.setAttribute('aria-live', 'polite');
+    if (name === 'notice') el.setAttribute('role', 'status');
     root.appendChild(el);
   }
   let state = { success: true, hasAccess: true, revision: 1, config: {
@@ -281,6 +285,7 @@ test('Undo is hidden without access, without a skipped future session, or at its
 
 test('Undo blocks duplicate pending actions and returns keyboard focus when its button disappears', async () => {
   const f = undoFixture();await f.ui.init();
+  const focusListeners = [...(f.root.ownerDocument.listeners.get('focusin') || [])];
   f.ui.restore.focus();let release;const calls = [];
   f.ui.send = input => { calls.push(input);return new Promise(resolve => { release = resolve; }); };
   f.ui.restore.dispatchEvent({ type: 'click' });f.ui.restore.dispatchEvent({ type: 'click' });
@@ -292,7 +297,8 @@ test('Undo blocks duplicate pending actions and returns keyboard focus when its 
   await settle();
   assert.equal(f.ui.busy, false);assert.equal(f.ui.restore.hidden, true);
   assert.equal(f.root.ownerDocument.activeElement, f.ui.skip);
-  assert.deepEqual(f.root.ownerDocument.listeners.get('focusin'), []);
+  assert.deepEqual(f.root.ownerDocument.listeners.get('focusin'), focusListeners);
+  assert.deepEqual(f.root.ownerDocument.listeners.get('pointerdown'), []);
 });
 
 test('a later focus choice is preserved after Undo completes', async () => {
@@ -340,3 +346,190 @@ test('a retained pre-update document without Undo markup can still mount the sch
   const f = fixture({ withRestore: false });await f.ui.init();
   assert.equal(f.ui.restore, null);assert.equal(f.ui.skip.hidden, false);
 });
+
+// Model DOM writes and event ordering here; native scenarios verify the mounted
+// live region. These tests make no claim about any screen reader's speech.
+function recordTextWrites(element) {
+  const writes = [];
+  let value = element.textContent;
+  Object.defineProperty(element, 'textContent', {
+    get: () => value,
+    set(text) { value = text; writes.push(text); }
+  });
+  return writes;
+}
+
+async function scheduleClock(run) {
+  const original = { setTimeout: globalThis.setTimeout, clearTimeout: globalThis.clearTimeout };
+  const tasks = new Map(), callbacks = [];
+  let nextId = 0;
+  globalThis.setTimeout = callback => { callbacks.push(callback);tasks.set(++nextId, callback);return nextId; };
+  globalThis.clearTimeout = id => tasks.delete(id);
+  const flush = () => { const due = [...tasks];for (const [id, callback] of due) { tasks.delete(id);callback(); } };
+  const f = undoFixture();
+  const doc = f.root.ownerDocument;
+  try {
+    await f.ui.init();
+    await run({ ...f, doc, region: doc.querySelector('[data-focus-announcer]'), flush, tasks, callbacks });
+  } finally {
+    await doc.defaultView.dispatch('pagehide');
+    Object.assign(globalThis, original);
+  }
+}
+
+const occurrenceTime = timestamp => new Intl.DateTimeFormat(undefined, {
+  weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+}).format(new Date(timestamp));
+
+test('unchanged polling preserves text nodes and the focused Undo accessible name', async () => {
+  const f = undoFixture();await f.ui.init();f.ui.restore.focus();
+  const writes = [f.ui.status, f.ui.skipped, f.ui.restore].map(recordTextWrites);
+  await f.ui.refresh();await f.ui.refresh();
+  assert.deepEqual(writes, [[], [], []]);
+  assert.equal(f.root.ownerDocument.activeElement, f.ui.restore);
+});
+
+test('retained markup gains one empty atomic status outside the collapsed schedule and pending subtree', () => scheduleClock(({ ui, doc, region, flush }) => {
+  assert.ok(region, 'an empty live region must exist before action results');
+  assert.equal(region.getAttribute('role'), 'status');
+  assert.equal(region.getAttribute('aria-live'), 'polite');
+  assert.equal(region.getAttribute('aria-atomic'), 'true');
+  assert.equal(ui.root.contains(region), false);
+  assert.equal(region.getAttribute('tabindex'), null);
+  assert.equal(ui.status.getAttribute('aria-live'), null);
+  assert.equal(ui.notice.getAttribute('role'), null);
+  flush();
+  assert.equal(region.textContent, '', 'initial and passive reads stay quiet');
+  assert.equal(doc.querySelectorAll('[data-focus-announcer]').length, 1);
+}));
+
+test('successful Skip announces the skipped occurrence once after pending ends; refresh stays quiet', () => scheduleClock(async ({ ui, doc, region, flush, tasks }) => {
+  const target = ui.state.next;
+  ui.skip.focus();
+  ui.send = async () => ({ ...ui.state, revision: 2, skipped: target, restorable: target,
+    next: { key: 'later', startTime: target.startTime + 86400000 } });
+  await ui.mutate({ type: 'focus_schedule_skip', revision: 1, key: target.key, startTime: target.startTime });
+  assert.ok(region, 'the action needs a dedicated status');
+  assert.equal(region.textContent, '');
+  assert.equal(ui.root.getAttribute('aria-busy'), null);
+  flush();
+  assert.equal(region.textContent, 'focus_schedule_skipped: ' + occurrenceTime(target.startTime));
+  const writes = recordTextWrites(region);
+  await ui.refresh();flush();
+  assert.deepEqual(writes, []);
+  assert.equal(tasks.size, 0);
+  assert.equal(doc.activeElement, ui.skip);
+}));
+
+test('Undo announces its restored occurrence even when a different session is next', () => scheduleClock(async ({ ui, occurrence, region, flush }) => {
+  ui.send = async () => ({ ...ui.state, revision: 2, skipped: null, restorable: null,
+    next: { key: 'earlier', startTime: occurrence.startTime - 60000 } });
+  await ui.mutate({ type: 'focus_schedule_restore', revision: 1, key: occurrence.key, startTime: occurrence.startTime });
+  flush();
+  assert.equal(region?.textContent, 'focus_schedule_restored: ' + occurrenceTime(occurrence.startTime));
+}));
+
+test('a new action cancels an obsolete pending result, including an already queued callback', () => scheduleClock(async ({ ui, occurrence, region, flush, callbacks }) => {
+  ui.send = async () => ({ ...ui.state, revision: ui.state.revision + 1 });
+  await ui.mutate({ type: 'focus_schedule_skip', revision: 1, startTime: occurrence.startTime });
+  const obsolete = callbacks.at(-1);
+  let release;
+  ui.send = () => new Promise(resolve => { release = resolve; });
+  const pending = ui.mutate({ type: 'focus_schedule_restore', revision: 2, startTime: occurrence.startTime });
+  obsolete?.();
+  assert.equal(region?.textContent, '', 'do not report Skip after Undo has started');
+  release({ ...ui.state, revision: 3, skipped: null, restorable: null });await pending;
+  flush();
+  assert.equal(region.textContent, 'focus_schedule_restored: ' + occurrenceTime(occurrence.startTime));
+}));
+
+test('repeated validation errors remain visible and produce separate polite updates without sending a save', () => scheduleClock(async ({ ui, form, region, flush, calls, doc }) => {
+  form.elements.durationMinutes.focus();
+  form.elements.durationMinutes.value = '0';
+  const count = calls.length;
+  await ui.save();
+  assert.equal(ui.notice.textContent, 'focussessioninvalidduration');
+  assert.equal(region?.textContent, '');
+  flush();assert.equal(region.textContent, 'focussessioninvalidduration');
+  await ui.save();
+  assert.equal(region.textContent, '', 'clear before repeating identical text in a later task');
+  flush();assert.equal(region.textContent, 'focussessioninvalidduration');
+  assert.equal(calls.length, count);
+  assert.equal(doc.activeElement, form.elements.durationMinutes);
+}));
+
+test('stale Undo announces the conflict after refreshing, never a success or a replayed mutation', () => scheduleClock(async ({ ui, occurrence, region, flush }) => {
+  const calls = [];
+  ui.send = async input => { calls.push(input);return input.type === 'focus_schedule_get'
+    ? { ...ui.state, revision: 2, skipped: null, restorable: null }
+    : { success: false, code: 'schedule_changed' }; };
+  await ui.mutate({ type: 'focus_schedule_restore', key: occurrence.key, revision: 1, startTime: occurrence.startTime });
+  flush();
+  assert.equal(region?.textContent, 'focus_schedule_action_changed');
+  assert.deepEqual(calls.map(input => input.type), ['focus_schedule_restore', 'focus_schedule_get']);
+}));
+
+test('repeated background read errors do not interrupt again, but an explicit retry is announced', () => scheduleClock(async ({ ui, region, flush }) => {
+  ui.send = async () => ({ success: false, code: 'unavailable' });
+  await ui.refresh();flush();
+  assert.equal(region?.textContent, 'errorsavingsettings');
+  const writes = recordTextWrites(region);
+  await ui.refresh();flush();
+  assert.deepEqual(writes, []);
+  await ui.save();
+  assert.equal(region.textContent, '');
+  flush();assert.equal(region.textContent, 'errorsavingsettings');
+}));
+
+test('passive state changes update readable summaries without unsolicited announcements', () => scheduleClock(async ({ ui, setState, occurrence, region, flush, tasks }) => {
+  setState({ revision: 2, next: { key: 'new', startTime: occurrence.startTime + 86400000 } });
+  await ui.refresh();flush();
+  assert.equal(ui.status.textContent, 'focus_schedule_next: ' + occurrenceTime(occurrence.startTime + 86400000));
+  assert.equal(region.textContent, '');
+  assert.equal(tasks.size, 0);
+}));
+
+test('hidden and modal contexts retain only the latest result until they can expose the live region', () => scheduleClock(async ({ ui, doc, region, flush, tasks }) => {
+  const dialog = doc.addElement('schedule-gate', 'dialog');
+  const password = doc.createElement('input');dialog.appendChild(password);password.focus();
+  doc.hidden = true;
+  ui.showError({ code: 'invalid_focus_schedule' });flush();
+  assert.equal(region.textContent, '');assert.equal(tasks.size, 0);
+  dialog.setAttribute('open', '');doc.hidden = false;
+  await doc.dispatch('visibilitychange');flush();
+  assert.equal(region.textContent, '');assert.equal(tasks.size, 0);
+  ui.showError({ code: 'schedule_changed' });
+  dialog.removeAttribute('open');await doc.dispatch('close', { target: dialog });flush();
+  assert.equal(region.textContent, 'focus_schedule_changed');
+  assert.equal(doc.activeElement, password);
+  const writes = recordTextWrites(region);
+  await doc.dispatch('focusin');flush();
+  assert.deepEqual(writes, [], 'visibility/focus changes do not replay a delivered message');
+}));
+
+test('a dialog appearing during the announcement delay defers delivery until it is removed', () => scheduleClock(async ({ ui, doc, region, flush, tasks }) => {
+  ui.showError({ code: 'invalid_focus_schedule' });
+  const dialog = doc.addElement('late-gate', 'dialog');dialog.setAttribute('open', '');
+  flush();assert.equal(region.textContent, '');assert.equal(tasks.size, 0);
+  dialog.remove();await doc.dispatch('focusin');flush();
+  assert.equal(region.textContent, 'invalidschedule');
+}));
+
+test('Cancel clears pending validation feedback without modifying the schedule', () => scheduleClock(async ({ ui, form, root, region, flush, calls }) => {
+  form.elements.durationMinutes.value = '0';await ui.save();
+  root.querySelector('[data-focus-reset]').dispatchEvent({ type: 'click' });
+  await settle();flush();
+  assert.equal(region.textContent, '');assert.equal(ui.notice.textContent, '');
+  assert.deepEqual(calls.map(input => input.type), ['focus_schedule_get', 'focus_schedule_get']);
+}));
+
+test('pagehide cancels pending announcements and removes listeners, including stale timer callbacks', () => scheduleClock(async ({ ui, doc, region, flush, tasks, callbacks }) => {
+  ui.showError({ code: 'invalid_focus_schedule' });
+  const obsolete = callbacks.at(-1);
+  await doc.defaultView.dispatch('pagehide');
+  assert.equal(tasks.size, 0);
+  obsolete();ui.showError({ code: 'schedule_changed' });flush();
+  assert.equal(region.textContent, '');
+  for (const type of ['visibilitychange', 'focusin', 'close']) assert.deepEqual(doc.listeners.get(type), []);
+  assert.deepEqual(doc.defaultView.listeners.get('pagehide'), []);
+}));

@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "സെഷൻ പുനഃസ്ഥാപിക്കുക: $1"
   },
+  "focus_schedule_restored": {
+    "message": "ഷെഡ്യൂൾ ചെയ്ത സെഷൻ പുനഃസ്ഥാപിച്ചു: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "സമയക്രമം മാറി. സെഷന്റെ പുതുക്കിയ സമയം പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
   },

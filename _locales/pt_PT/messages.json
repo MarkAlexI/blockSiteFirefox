@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Restaurar sessão: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Sessão agendada restaurada: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "O agendamento foi alterado. Verifique a hora atualizada da sessão e tente novamente."
   },

@@ -68,16 +68,17 @@
     </div>
     <div class="focus-schedule-summary" data-focus-schedule dir="auto">
       <a class="focus-schedule-popup-link" href="options/options.html#focus-schedule" target="_blank" data-i18n="focus_schedule_title">Scheduled focus</a>
-      <p data-focus-status aria-live="polite"></p>
+      <p data-focus-status></p>
       <p data-focus-skipped></p>
       <div class="focus-schedule-actions focus-schedule-summary-actions">
         <button type="button" data-focus-skip data-i18n="focus_schedule_skip" hidden>Skip next session</button>
         <button type="button" data-focus-restore data-i18n="focus_schedule_restore" hidden>Undo skip</button>
       </div>
-      <p data-focus-notice role="status" aria-live="polite"></p>
+      <p data-focus-notice></p>
     </div>
   </div>
-  
+  <p data-focus-announcer class="dialog-announcement" role="status" aria-live="polite" aria-atomic="true" dir="auto"></p>
+
   <details id="rule-help" class="rule-help">
     <summary data-i18n="rulehelp_title">How to add or edit rules</summary>
     <div class="rule-help-content">

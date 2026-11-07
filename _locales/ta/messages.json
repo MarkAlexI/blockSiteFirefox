@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "அமர்வை மீட்டமை: $1"
   },
+  "focus_schedule_restored": {
+    "message": "திட்டமிட்ட அமர்வு மீட்டமைக்கப்பட்டது: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "அட்டவணை மாறிவிட்டது. அமர்வின் புதுப்பிக்கப்பட்ட நேரத்தைப் பார்த்து மீண்டும் முயற்சிக்கவும்."
   },

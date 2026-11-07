@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "Rejesha kipindi: $1"
   },
+  "focus_schedule_restored": {
+    "message": "Kipindi kilichoratibiwa kimerejeshwa: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "Ratiba imebadilika. Angalia muda mpya wa kipindi kisha ujaribu tena."
   },

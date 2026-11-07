@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "ביטול דילוג: $1"
   },
+  "focus_schedule_restored": {
+    "message": "המפגש המתוזמן שוחזר: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "לוח הזמנים השתנה. יש לבדוק את שעת המפגש המעודכנת ולנסות שוב."
   },

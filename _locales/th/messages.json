@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "ยกเลิกการข้าม: $1"
   },
+  "focus_schedule_restored": {
+    "message": "คืนค่าเซสชันที่กำหนดเวลาแล้ว: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "กำหนดการเปลี่ยนแปลงแล้ว ตรวจสอบเวลาเซสชันล่าสุดแล้วลองอีกครั้ง"
   },

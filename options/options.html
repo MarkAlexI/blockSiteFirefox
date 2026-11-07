@@ -159,15 +159,16 @@
           </div>
         </form>
         <div class="focus-schedule-summary">
-          <p data-focus-status aria-live="polite"></p>
+          <p data-focus-status></p>
           <p data-focus-skipped></p>
           <div class="focus-schedule-actions focus-schedule-summary-actions">
             <button type="button" data-focus-skip data-i18n="focus_schedule_skip" hidden>Skip next session</button>
             <button type="button" data-focus-restore data-i18n="focus_schedule_restore" hidden>Undo skip</button>
           </div>
         </div>
-        <p data-focus-notice role="status" aria-live="polite"></p>
+        <p data-focus-notice></p>
       </details>
+      <p data-focus-announcer class="dialog-announcement" role="status" aria-live="polite" aria-atomic="true" dir="auto"></p>
 
       <section class="setting-section collapsible-section">
         <h2 class="collapsible-header"><button type="button" class="collapsible-toggle" data-i18n="securitymodetitle" aria-expanded="false" aria-controls="security-settings-panel">Security Mode</button></h2>

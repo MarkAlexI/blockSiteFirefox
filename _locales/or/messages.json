@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "ଅଧିବେଶନ ପୁନଃସ୍ଥାପନ କରନ୍ତୁ: $1"
   },
+  "focus_schedule_restored": {
+    "message": "ନିର୍ଦ୍ଧାରିତ ଅଧିବେଶନ ପୁନଃସ୍ଥାପିତ ହୋଇଛି: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "ସମୟସୂଚୀ ବଦଳିଛି। ଅଧିବେଶନର ନୂଆ ସମୟ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
   },

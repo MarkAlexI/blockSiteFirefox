@@ -1131,6 +1131,9 @@
   "focus_schedule_restore": {
     "message": "لغو رد کردن جلسه: $1"
   },
+  "focus_schedule_restored": {
+    "message": "جلسهٔ زمان‌بندی‌شده بازیابی شد: $1"
+  },
   "focus_schedule_action_changed": {
     "message": "برنامه تغییر کرده است. زمان به‌روز‌شدهٔ جلسه را بررسی کنید و دوباره تلاش کنید."
   },
