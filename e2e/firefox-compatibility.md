@@ -1,13 +1,13 @@
 # Firefox Desktop compatibility, 2026-11-07
 
-For 5.6.1, the manifest minimum is Desktop **115.31.0** and Android **128.0**.
+For 5.6.2, the manifest minimum is Desktop **115.31.0** and Android **128.0**.
 Desktop support preserves ESR 115.31+ and Firefox 128+. Regular Firefox 116–127
 remains unsupported: it lacks ESR 115.31's backported manifest-parser fix, and
 one minimum-version field cannot express that gap.
 
 The existing groups exercise Firefox 128.0 ESR and ESR 115.31.0 on Linux.
 The 5.6.0 Android audit established a manifest-parser failure on 120 and loading
-on 128; full Android 128 functional acceptance remains separate. New 5.6.1
+on 128; full Android 128 functional acceptance remains separate. New 5.6.2
 runtime changes, including native keyboard scenarios 21 and 58, require fresh CI.
 
 ## Observed installation boundary

@@ -1,11 +1,11 @@
 # Native version-update preservation — scenario 67
 
-## Upgrade matrix — 5.6.1
+## Upgrade matrix — 5.6.2
 
 | Case | Actual source package | Source commit | Focus completion control |
 | --- | --- | --- | --- |
 | `67` | 5.4.14 | `fd72823d413a588d9d345575e07b2d5d3e3b3bcc` | Existing five-minute session and real Popup Stop |
-| `67-5.6.0` | 5.6.0 | `a1e0dbee957eea7c8d252a93fa203e37e4307b73` | One-minute session reaches its original native alarm deadline |
+| `67-5.6.1` | 5.6.1 | `252f9dec64e4ab41862f9ad4276cbc529f24b626` | One-minute session reaches its original native alarm deadline |
 
 The preparation command below builds both packages with their historical AMO
 packagers and verifies each archive, commit, manifest and extracted runtime.
@@ -32,7 +32,7 @@ through subsequent rule and budget controls to reject duplicate playback.
 This is an open-Options upgrade test, separate from native idle-wake coverage;
 it does not establish physical speaker output or Android store-update behavior.
 Upgrade now receives the same native PulseAudio backend as core. Scenario/job
-deadlines and the zero-retry policy remain unchanged. The 5.6.1 target
+deadlines and the zero-retry policy remain unchanged. The 5.6.2 target
 requires a fresh native CI run after this release metadata update. Earlier
 sections below retain the historical fixture and its then-current validation counts.
 

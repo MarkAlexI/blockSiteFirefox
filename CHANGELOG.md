@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.2] - 2026-11-07
+
+### Fixed
+- Announce scheduled Focus Skip, Undo, save results and errors through one persistent polite status without repeating unchanged background refreshes.
+- Announce the exact skipped or restored occurrence, cancel obsolete pending feedback after a new action, and defer pending feedback while the page is hidden or a modal is open.
+- Keep repeated validation errors announceable without moving keyboard focus; cancel pending announcements when the page closes.
+
+### Localization
+- Translate the restored-session confirmation in all 57 locales.
+
+### Tests
+- Add 13 schedule feedback regressions and extend native scenario 21 for unchanged DOM text and one status update per accepted action.
+- Target native upgrades from the actual previously packaged 5.6.1 runtime to 5.6.2 while retaining the 5.4.14 baseline.
+
 ## [5.6.1] - 2026-11-07
 
 ### Fixed
