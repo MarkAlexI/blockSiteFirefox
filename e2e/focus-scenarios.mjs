@@ -12,18 +12,42 @@ export const focusScenarios = [{
     const page = await e.openOptions();
     await page.evaluate(installOptionsFocusGate);
     for (const mode of ['always', 'daily_limit']) {
+      const readiness = { mode, before: await page.evaluate(() => ({
+        focused: document.hasFocus(), visibility: document.visibilityState,
+        active: document.activeElement?.id || document.activeElement?.tagName || null
+      })) };
+      if (e.result) (e.result.focusReadiness ||= []).push(readiness);
+      // Save can leave Add as activeElement while focus belongs to chrome.
+      // Reselect the real tab before the keyboard action, including when the
+      // Classic protocol handle is unchanged. Never settle after Add.
+      await page.front({ reselect: true });
       // Finish the previous Save/visibility refresh before measuring this Add.
       // There is still no settle between Add and the field transition below.
       await page.settleOptions();
+      readiness.ready = await page.evaluate(() => ({
+        focused: document.hasFocus(), visibility: document.visibilityState,
+        active: document.activeElement?.id || document.activeElement?.tagName || null
+      }));
+      assert.equal(readiness.ready.visibility, 'visible', 'Options must be visible before native keyboard input');
+      assert.equal(readiness.ready.focused, true, 'Options must own content focus before native keyboard input');
       const url = `keyboard-${mode}.bd-e2e.test`;
       await page.evaluate(() => {
-        document.querySelector('#add-rule').addEventListener('click', () => {
+        window.__bdFocusProbe = null;
+        document.querySelector('#add-rule').addEventListener('click', event => {
           window.__bdOptionsFocusGate.begin();
-          window.__bdFocusProbe = { addedAt: performance.now() };
+          window.__bdFocusProbe = { addedAt: performance.now(), trusted: event.isTrusted, detail: event.detail };
         }, { capture: true, once: true });
       });
       await page.activateUnsettled('#add-rule');
-      assert.equal(await page.evaluate(() => document.activeElement === document.querySelector('#rules-container tr:has(.save-btn) td:first-child input')), true,
+      readiness.activation = await page.evaluate(() => ({
+        trusted: window.__bdFocusProbe?.trusted ?? null, detail: window.__bdFocusProbe?.detail ?? null,
+        focused: document.hasFocus(), active: document.activeElement?.id || document.activeElement?.tagName || null,
+        editorCount: document.querySelectorAll('#rules-container tr:has(.save-btn)').length,
+        urlFocused: document.activeElement === document.querySelector('#rules-container tr:has(.save-btn) td:first-child input')
+      }));
+      assert.equal(readiness.activation.trusted, true, 'Add must receive a trusted native activation');
+      assert.equal(readiness.activation.detail, 0, 'Add must receive keyboard activation');
+      assert.equal(readiness.activation.urlFocused, true,
         'Add must focus URL without fill() or an extra settle');
       await type(page, url);
       const elapsed = await page.evaluate(mode => {
