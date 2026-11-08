@@ -1,8 +1,8 @@
-# Firefox Desktop E2E — BlockDistraction **5.6.2**
+# Firefox Desktop E2E — BlockDistraction **5.6.3**
 
 ## Current upgrade matrix
 
-The upgrade group retains 5.4.14 and adds the actual 5.6.1 → 5.6.2 transition.
+The upgrade group retains 5.4.14 and adds the actual 5.6.2 → 5.6.3 transition.
 The new case checks fresh Options through Popup before retained-tab reload,
 preserved spent limits and natural Focus completion with one native Web Audio
 playback. Inventory is **73 = 70 core + 1 overdue + 2 upgrade**; macOS smoke

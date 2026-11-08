@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.3] - 2026-11-08
+
+### Fixed
+- Await telemetry retry alarm creation so consent revocation cannot be followed by a late retry alarm.
+- Isolate periodic alarm lookup and creation failures, preserve existing deadlines, and share pending setup across startup and installation.
+
+### Tests
+- Cover worker API failures, consent revocation, preserved alarm deadlines, and Rule Pack counters from the UI through delivery and retry.
+- Add native Rule Pack telemetry scenarios with offline request capture.
+- Target native upgrades from the actual previously packaged 5.6.2 runtime to 5.6.3 while retaining the 5.4.14 baseline.
+
 ## [5.6.2] - 2026-11-07
 
 ### Fixed
