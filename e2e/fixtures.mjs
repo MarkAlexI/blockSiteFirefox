@@ -21,6 +21,7 @@ const runtimeRoots = ['_locales', 'backup', 'blocked.html', 'diagnostics', 'dom'
   'index.html', 'manifest.json', 'onboarding', 'options', 'popup.js', 'pro', 'redirect.html', 'rules',
   'schedules', 'scripts', 'styles', 'telemetry', 'update', 'utils'];
 const VERIFY_URL = 'https://blockdistraction.com/api/verifyKey';
+const TELEMETRY_URL = 'https://blockdistraction.com/api/telemetry';
 const HTML = '<!doctype html><html><head><title>BD E2E fixture</title></head><body><h1>BD E2E fixture</h1><p>Local synthetic page.</p></body></html>';
 export const TEST_KEY = 'BD-E2E-VALID-KEY';
 export const SITE = 'http://usage.bd-e2e.test';
@@ -239,6 +240,8 @@ export class ExtensionHarness {
     this.networkErrors = [];
     this.events = [];
     this.verificationCalls = [];
+    this.telemetryCalls = [];
+    this.telemetryHandler = async () => ({ status: 202, body: { ok: true } });
     this.verificationHandler = async () => ({ status: 200, body: { isPro: true } });
     this.phase = 'prepare';
   }
@@ -269,6 +272,8 @@ export class ExtensionHarness {
       additionalExpectedPayloads: (this.config.verificationVersions || []).filter(v=>v!==this.manifest.version)
         .map(version=>({key:TEST_KEY,version})),
       verificationHandler: () => this.verificationHandler(),
+      telemetryUrl: TELEMETRY_URL, telemetryHandler: payload => this.telemetryHandler(payload),
+      onTelemetry: call => this.telemetryCalls.push(call),
       onVerification: call => this.verificationCalls.push(call),
       onEvent: event => this.events.push(event), onError: error => this.networkErrors.push(error.stack),
       onTlsError: error => { this.result.fixtureTlsErrors ??= []; this.result.fixtureTlsErrors.push(error); } });
@@ -452,11 +457,11 @@ export class ExtensionHarness {
     }, { pro, legacy, rules, usage, active, pending, rawUsage, retainedKey, focus, key: TEST_KEY, lists: LISTS });
   }
 
-  async state() {
-    return this.probe.evaluate(async () => ({
-      ...await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId', 'dailyRuleUsage', 'pendingDailyUsageRemaps', 'focusSession', 'rulesGeneration', 'ruleRevisions', 'ruleListRevisions']),
+  async state(extraLocalKeys = []) {
+    return this.probe.evaluate(async extraLocalKeys => ({
+      ...await browser.storage.local.get(['rules', 'ruleLists', 'activeRuleListId', 'dailyRuleUsage', 'pendingDailyUsageRemaps', 'focusSession', 'rulesGeneration', 'ruleRevisions', 'ruleListRevisions', ...extraLocalKeys]),
       ...await browser.storage.sync.get(['credentials', 'settings']), dnr: await browser.declarativeNetRequest.getDynamicRules()
-    }));
+    }), extraLocalKeys);
   }
   async writeLocal(values) { await this.probe.evaluate(values => browser.storage.local.set(values), values); }
   get popupUrl() { return `${this.baseUrl}/index.html`; }
@@ -474,14 +479,14 @@ export class ExtensionHarness {
     if (!reuse) await writeFile(filename, JSON.stringify(backup));
     await (await page.element('#importFileInput')).sendKeys(filename);
   }
-  async licenseConsent() {
-    return this.probe.evaluate(async () => {
+  async licenseConsent(permission = 'authenticationInfo') {
+    return this.probe.evaluate(async permission => {
       const permissions = await browser.permissions.getAll();
       if (!Array.isArray(permissions.data_collection)) return null;
-      return permissions.data_collection.includes('authenticationInfo');
-    });
+      return permissions.data_collection.includes(permission);
+    }, permission);
   }
-  async respondToLicenseConsent(granted) {
+  async respondToLicenseConsent(granted, permission = 'authenticationInfo') {
     // Native Firefox chrome UI, not a replacement permissions API or pre-grant.
     await this.driver.setContext(firefox.Context.CHROME);
     try {
@@ -495,7 +500,7 @@ export class ExtensionHarness {
       this.result.consentPrompts ??= [];
       const filename = `native-consent-${this.result.consentPrompts.length + 1}.png`;
       await writeFile(path.join(this.config.output, filename), Buffer.from(await this.driver.takeScreenshot(), 'base64'));
-      const evidence = { granted, text: prompt, screenshot: filename, input: 'WebDriver Space' };
+      const evidence = { granted, permission, text: prompt, screenshot: filename, input: 'WebDriver Space' };
       this.result.consentPrompts.push(evidence);
       const button = await poll(() => this.driver.executeScript(accept => {
         const notification = document.getElementById('addon-webext-permissions-notification');
@@ -521,7 +526,7 @@ export class ExtensionHarness {
       assert.deepEqual(evidence.activation, { trusted: true, detail: 0 },
         'consent must be activated by trusted keyboard input');
     } finally { await this.driver.setContext(firefox.Context.CONTENT); }
-    await equalEventually(() => this.licenseConsent(), granted, 'native authenticationInfo permission');
+    await equalEventually(() => this.licenseConsent(permission), granted, `native ${permission} permission`);
   }
   async grantHostAccess() {
     const hasAccess = () => this.probe.evaluate(() => browser.permissions.contains({ origins: ['*://*/*'] }));

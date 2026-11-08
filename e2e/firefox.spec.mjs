@@ -1,5 +1,6 @@
 import { focusSoundScenarios } from './focus-sound-scenarios.mjs';
 import { dialogScenarios } from './dialog-scenarios.mjs';
+import { rulePackTelemetryScenarios } from './rule-pack-telemetry-scenarios.mjs';
 import assert from 'node:assert/strict';
 import { passwordDialogScenarios } from './password-dialog-scenarios.mjs';
 import { accessibilityScenarios } from './accessibility-scenarios.mjs';
@@ -292,7 +293,7 @@ scenarios.push(...accessibilityScenarios);
 
 scenarios.push(...passwordDialogScenarios);
 
-scenarios.push(...dialogScenarios);
+scenarios.push(...dialogScenarios, ...rulePackTelemetryScenarios);
 scenarios.push(...overdueScenarios);
 scenarios.push(...(await import('./dnr-readiness-scenarios.mjs')).dnrReadinessScenarios);
 scenarios.push(...(await import('./upgrade-scenarios.mjs')).upgradeScenarios);

@@ -7,6 +7,7 @@ import { LICENSE_SYNC_TIMEOUT_MS, MAX_RULES_LIMIT, VERIFY_API_URL } from '../uti
 import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { createBackupDocument, parseBackupText } from '../backup/backupFormat.js';
+import { withRulePackTelemetryFlow } from './helpers/rulePackTelemetryFlow.js';
 
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
@@ -8865,3 +8866,141 @@ for (const [event, operation] of [['onAdded','permission_added'],['onRemoved','p
     }, { local: createPendingTelemetry() }));
   });
 }
+
+
+function rulePackFlowCounters(payload) {
+  const result = {};
+  for (const batch of payload.batches) {
+    for (const [name, count] of Object.entries(batch.counters)) {
+      if (name.startsWith('rule_pack_')) result[name] = (result[name] || 0) + count;
+    }
+  }
+  return result;
+}
+
+function captureRulePackDelivery(api, status = 202) {
+  const requests = [];
+  api.setFetchHandler(async (url, options) => {
+    assert.equal(url, 'https://blockdistraction.com/api/telemetry');
+    assert.equal(options.method, 'POST');
+    assert.notEqual(options.credentials, 'include');
+    assert.deepEqual(options.headers, { 'Content-Type': 'application/json' });
+    requests.push(JSON.parse(options.body));
+    return { ok: status < 400, status, json: async () => ({ ok: status < 400 }) };
+  });
+  return requests;
+}
+
+test('Rule Pack telemetry flow: real UI and worker serialize imports and duplicate-only attempts without private rule data', async () => {
+  await withWorker(async context => {
+    const { api, send } = context;
+    const requests = captureRulePackDelivery(api);
+    await withRulePackTelemetryFlow(context, async flow => {
+      await flow.open();
+      await flow.add();
+      const committed = structuredClone(api.storage.local.data.rules);
+      assert.deepEqual(committed.map(rule => rule.blockURL).sort(), ['vimeo.com', 'youtube.com']);
+      await flow.add();
+      assert.deepEqual(api.storage.local.data.rules, committed);
+      assert.equal((await send({ type: 'telemetry:flush', force: true })).result.success, true);
+      assert.equal(requests.length, 1);
+      const payload = requests[0];
+      assert.deepEqual(Object.keys(payload).sort(), ['batches', 'context', 'schemaVersion', 'sentAt']);
+      assert.equal(payload.schemaVersion, 3);
+      assert.deepEqual(Object.keys(payload.context).sort(), [
+        'access', 'browser', 'browserMajor', 'extensionVersion', 'installationAge', 'locale', 'os', 'platform'
+      ]);
+      assert.deepEqual(rulePackFlowCounters(payload), {
+        rule_pack_dialog_opened: 1, rule_pack_attempt_video: 2, rule_pack_imported: 1,
+        rule_pack_rules_added: 2, rule_pack_duplicates_skipped: 2, rule_pack_no_change: 1
+      });
+      for (const batch of payload.batches) {
+        assert.deepEqual(Object.keys(batch).sort(), ['counters', 'date', 'deliveryId', 'errors']);
+        assert.match(batch.deliveryId, /^[0-9a-f-]{36}$/i);
+        assert.deepEqual(batch.errors, []);
+      }
+      for (const privateValue of ['youtube.com', 'vimeo.com', 'BD-PRIVATE-TELEMETRY-KEY', 'private-profile-name']) {
+        assert.equal(JSON.stringify(payload).includes(privateValue), false);
+      }
+      assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+    });
+  }, { credentials: { licenseKey: 'BD-PRIVATE-TELEMETRY-KEY' }, local: {
+    activeRuleListId: 'general', telemetryConsent: { version: 1, enabled: true, decidedAt: 1 },
+    ruleLists: [{ id: 'general', name: 'private-profile-name', disabledCategories: [] }]
+  } });
+});
+
+test('Rule Pack telemetry flow: opt-out keeps working rules without recording or sending their counters', async () => {
+  await withWorker(async context => {
+    const { api, send } = context;
+    const requests = captureRulePackDelivery(api);
+    await withRulePackTelemetryFlow(context, async flow => {
+      await flow.open();
+      await flow.add();
+      assert.equal(api.storage.local.data.rules.length, 2);
+      assert.deepEqual(api.storage.local.data.telemetryBuckets || {}, {});
+      const reply = await send({ type: 'telemetry:flush', force: true });
+      assert.equal(reply.result.reason, 'disabled');
+      assert.equal(requests.length, 0);
+    });
+  }, { local: {
+    activeRuleListId: 'general', telemetryConsent: { version: 1, enabled: false, decidedAt: 1 }
+  }, configureApi(api) { api.permissions.getAll = async () => ({ data_collection: [] }); } });
+});
+
+test('Rule Pack telemetry flow: an existing target assignment and a whitelist conflict retain distinct counts through HTTP', async () => {
+  await withWorker(async context => {
+    const { api, send } = context;
+    const requests = captureRulePackDelivery(api);
+    await withRulePackTelemetryFlow(context, async flow => {
+      await flow.open();
+      await flow.add();
+      assert.equal(api.storage.local.data.rules.length, 2, 'no new target for an assignment or a whitelist conflict');
+      assert.deepEqual(api.storage.local.data.rules.find(rule => rule.id === 21).assignments.map(a => a.listId).sort(),
+        ['general', 'list-1']);
+      assert.equal(api.storage.local.data.rules.find(rule => rule.id === 22).isWhitelist, true);
+      assert.equal((await send({ type: 'telemetry:flush', force: true })).result.success, true);
+      assert.equal(requests.length, 1);
+      assert.deepEqual(rulePackFlowCounters(requests[0]), {
+        rule_pack_dialog_opened: 1, rule_pack_attempt_video: 1, rule_pack_imported: 1,
+        rule_pack_assignments_added: 1, rule_pack_conflicts: 1
+      });
+    });
+  }, { local: {
+    activeRuleListId: 'general', telemetryConsent: { version: 1, enabled: true, decidedAt: 1 }, rules: [
+      { id: 21, blockURL: 'youtube.com', redirectURL: '', category: 'entertainment', isWhitelist: false,
+        assignments: [{ listId: 'list-1', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] },
+      { id: 22, blockURL: 'vimeo.com', redirectURL: '', category: 'entertainment', isWhitelist: true,
+        assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null }] }
+    ]
+  } });
+});
+
+test('Rule Pack telemetry flow: failed delivery retries the same snapshot and revocation discards later UI counters', async () => {
+  await withWorker(async context => {
+    const { api, send } = context;
+    const failed = captureRulePackDelivery(api, 503);
+    await withRulePackTelemetryFlow(context, async flow => {
+      await flow.open();
+      await flow.add();
+      const committed = structuredClone(api.storage.local.data.rules);
+      assert.equal((await send({ type: 'telemetry:flush', force: true })).result.success, false);
+      assert.equal(failed.length, 1);
+      const recovered = captureRulePackDelivery(api);
+      assert.equal((await send({ type: 'telemetry:flush', force: true })).result.success, true);
+      assert.equal(recovered.length, 1);
+      assert.deepEqual(recovered[0].batches, failed[0].batches, 'retry preserves deliveryId and counter values');
+      assert.deepEqual(recovered[0].context, failed[0].context);
+      assert.deepEqual(api.storage.local.data.rules, committed, 'delivery does not replay the mutation');
+      api.permissions.getAll = async () => ({ data_collection: [] });
+      assert.equal((await send({ type: 'telemetry:setConsent', enabled: false })).consent.enabled, false);
+      flow.ui.close();
+      await flow.open(['twitch']);
+      await flow.add();
+      assert.equal(api.storage.local.data.rules.length, 3);
+      assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+      assert.equal((await send({ type: 'telemetry:flush', force: true })).result.reason, 'disabled');
+      assert.equal(recovered.length, 1);
+    });
+  }, { local: { activeRuleListId: 'general', telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } } });
+});

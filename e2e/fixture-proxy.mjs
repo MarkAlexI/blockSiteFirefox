@@ -49,10 +49,13 @@ async function jsonBody(request) {
 // Real HTTP/TLS at the unchanged production URL, served only on loopback.
 // There is no outbound connection or forwarding path in this proxy.
 export async function createFixtureProxy({ root, html, verifyUrl, expectedPayload, additionalExpectedPayloads = [],
-  verificationHandler, onVerification = () => {}, onEvent = () => {}, onError = () => {}, onTlsError = () => {} }) {
+  verificationHandler, onVerification = () => {}, telemetryUrl = null,
+  telemetryHandler = async () => ({ status: 202, body: { ok: true } }), onTelemetry = () => {}, onEvent = () => {}, onError = () => {}, onTlsError = () => {} }) {
   const target = new URL(verifyUrl);
   assert.equal(target.protocol, 'https:');
   assert.equal(target.port, '');
+  const telemetryTarget = telemetryUrl ? new URL(telemetryUrl) : null;
+  if (telemetryTarget) assert.equal(telemetryTarget.origin, target.origin, 'telemetry remains on the same offline TLS authority');
   const tls = await certificates(root, target.hostname);
   const sockets = new Set();
   const track = socket => {
@@ -69,7 +72,7 @@ export async function createFixtureProxy({ root, html, verifyUrl, expectedPayloa
   const deny = response => respond(response, 502, 'BD E2E offline', 'text/plain');
   const secure = createHttpsServer({ key: tls.key, cert: tls.cert }, (request, response) => {
     const url = new URL(request.url, target.origin);
-    if (request.headers.host !== target.host || url.href !== target.href) {
+    if (request.headers.host !== target.host || (url.href !== target.href && url.href !== telemetryTarget?.href)) {
       deny(response); return;
     }
     if (request.method === 'OPTIONS') {
@@ -77,8 +80,15 @@ export async function createFixtureProxy({ root, html, verifyUrl, expectedPayloa
       respond(response, 204, '', 'application/json'); return;
     }
     (async () => {
-      assert.equal(request.method, 'POST', 'license mock only accepts POST');
+      assert.equal(request.method, 'POST', 'JSON fixtures only accept POST');
       const payload = await jsonBody(request);
+      if (url.href === telemetryTarget?.href) {
+        onTelemetry({ method: request.method, payload, transport: 'https-proxy' });
+        const reply = await telemetryHandler(payload);
+        onEvent({ url: url.href, method: request.method, status: reply.status, at: Date.now() });
+        respond(response, reply.status, JSON.stringify(reply.body), 'application/json');
+        return;
+      }
       assert.ok([expectedPayload,...additionalExpectedPayloads].some(expected=>isDeepStrictEqual(payload,expected)),
         'native verification key and manifest version');
       onVerification({ method: request.method, payload, transport: 'https-proxy' });

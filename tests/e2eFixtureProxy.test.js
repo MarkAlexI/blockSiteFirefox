@@ -125,6 +125,7 @@ test('Firefox E2E proxy serves native HTTP/TLS without external forwarding', asy
     await t.test('preflight does not count as verification and other HTTPS paths are denied', async () => {
       assert.equal((await httpsRequest(proxy, { method: 'OPTIONS' })).status, 204);
       assert.equal((await httpsRequest(proxy, { url: '/not-verification' })).status, 502);
+      assert.equal((await httpsRequest(proxy, { url: '/api/telemetry' })).status, 502);
       assert.equal(calls.length, 0);
     });
 
@@ -165,6 +166,42 @@ test('Firefox E2E proxy serves native HTTP/TLS without external forwarding', asy
     });
   } finally {
     if (proxy) await proxy.close();
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+
+test('telemetry TLS fixture captures only its explicit endpoint and returns retryable and accepted responses without forwarding', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'bd-telemetry-proxy-'));
+  const calls = [], errors = [];
+  const telemetry = { schemaVersion: 3, sentAt: '2026-11-08T00:00:00.000Z',
+    context: { extensionVersion: '5.6.2' }, batches: [{ date: '2026-11-08',
+      deliveryId: '12345678-1234-4234-8234-123456789abc',
+      counters: { rule_pack_attempt_video: 1 }, errors: [] }] };
+  let status = 503;
+  let proxy;
+  try {
+    proxy = await createFixtureProxy({ root, html: '', verifyUrl, expectedPayload: payload,
+      verificationHandler: async () => ({ status: 200, body: { isPro: true } }),
+      telemetryUrl: 'https://blockdistraction.com/api/telemetry',
+      telemetryHandler: async () => ({ status, body: { ok: status === 202 } }),
+      onTelemetry: call => calls.push(call), onError: error => errors.push(error) });
+    assert.equal((await httpsRequest(proxy, { url: '/api/telemetry', body: telemetry })).status, 503);
+    status = 202;
+    const accepted = await httpsRequest(proxy, { url: '/api/telemetry', body: telemetry });
+    assert.equal(accepted.status, 202);
+    assert.deepEqual(JSON.parse(accepted.body), { ok: true });
+    assert.deepEqual(calls.map(call => call.payload), [telemetry, telemetry]);
+    assert.ok(calls.every(call => call.transport === 'https-proxy' && call.method === 'POST'));
+    assert.equal((await httpsRequest(proxy, { url: '/api/telemetry', method: 'OPTIONS' })).status, 204);
+    for (const url of ['/api/telemetry?extra=1', '/api/telemetry/extra', '/api/other']) {
+      assert.equal((await httpsRequest(proxy, { url, body: telemetry })).status, 502);
+    }
+    assert.equal(calls.length, 2);
+    assert.equal((await httpsRequest(proxy)).status, 200, 'license verification retains its own contract');
+    assert.deepEqual(errors, []);
+  } finally {
+    await proxy?.close();
     await rm(root, { recursive: true, force: true });
   }
 });
