@@ -9,6 +9,70 @@ import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 import { createBackupDocument, parseBackupText } from '../backup/backupFormat.js';
 import { withRulePackTelemetryFlow } from './helpers/rulePackTelemetryFlow.js';
 
+for (const type of ['rules:add', 'rules:update', 'rules:replaceAll']) {
+  test(`DNR filter validation rejects ${type} before changing saved rules or browser blockers`, async () => {
+    const original = makeFocusRule(1, 'general', { blockURL: 'keep.example' });
+    await withWorker(async ({ api, send, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      const before = structuredClone({ rules: api.storage.local.data.rules,
+        usage: api.storage.local.data.dailyRuleUsage, generation: api.storage.local.data.rulesGeneration,
+        dynamic: api.dynamicRules, settings: api.storage.sync.data.settings });
+      const invalid = { ...original, blockURL: '*.private.example' };
+      const payload = type === 'rules:replaceAll'
+        ? { rules: [makeFocusRule(2, 'general', { blockURL: 'valid.example' }), invalid], settings: { mode: 'strict' } }
+        : { ruleId: original.id, blockURL: invalid.blockURL, redirectURL: '', category: 'social' };
+      const result = await send({ type, payload });
+      assert.equal(result.success, false);
+      assert.deepEqual(result.error.validationErrors, ['blockurl_invalid']);
+      assert.deepEqual({ rules: api.storage.local.data.rules,
+        usage: api.storage.local.data.dailyRuleUsage, generation: api.storage.local.data.rulesGeneration,
+        dynamic: api.dynamicRules, settings: api.storage.sync.data.settings }, before);
+    }, { local: { rules: [original], activeRuleListId: 'general' }, supportsWindows: false });
+  });
+}
+
+test('worker applies valid additions and removals beside an invalid legacy filter without losing its daily budget', async () => {
+  const invalid = makeDailyLimitRule(1, 'general', { blockURL: '*.private.example', minutes: 1 });
+  const original = makeFocusRule(2, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const usage = structuredClone(api.storage.local.data.dailyRuleUsage);
+    assert.deepEqual(api.storage.local.data.rules, [invalid, original]);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [2]);
+
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'yout', redirectURL: '', category: 'social' } });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, true);
+    assert.equal(api.dynamicRules.some(rule => rule.condition.urlFilter === '||yout'), true);
+    assert.deepEqual(api.storage.local.data.rules[0], invalid);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+
+    assert.equal((await send({ type: 'rules:delete', payload: { ruleId: original.id } })).success, true);
+    assert.equal(api.dynamicRules.some(rule => rule.id === original.id), false);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+    const repaired = await send({ type: 'rules:update', payload: { ruleId: invalid.id,
+      blockURL: 'repaired.example', redirectURL: '', category: invalid.category, assignment: invalid.assignments[0] } });
+    assert.equal(repaired.success, true);
+    assert.notEqual(repaired.syncPending, true);
+    assert.equal(api.dynamicRules.some(rule => rule.condition.urlFilter === '||repaired.example'), true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+  }, {
+    local: { rules: [invalid, original], activeRuleListId: 'general',
+      dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:general': 60 } } },
+    dnrLimits: { MAX_NUMBER_OF_DYNAMIC_RULES: 3 }, supportsWindows: false,
+    configureApi(api) {
+      const update = api.declarativeNetRequest.updateDynamicRules;
+      api.declarativeNetRequest.updateDynamicRules = async change => {
+        // Model the browser's atomic rejection; the production builder must keep invalid filters out.
+        if (change.addRules.some(rule => rule.condition.urlFilter.startsWith('||*'))) {
+          throw new Error('Invalid native URL filter');
+        }
+        return update(change);
+      };
+    }
+  });
+});
+
 const TEST_FIREFOX_ANDROID = /firefox/i.test(process.cwd());
 let workerImportId = 0;
 

@@ -1,5 +1,6 @@
 import { isValidURL } from '../scripts/isValidURL.js';
 import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
+import { createDnrUrlFilter, InvalidDnrUrlFilterError } from './dnrRuleFactory.js';
 import {
   hasUnsupportedExplicitScheme,
   isBlockedURL
@@ -104,6 +105,13 @@ export class RulesManager {
 
     if (blockURL && !isValidPathSegment(blockURL)) {
       errors.push('blockurl_invalid');
+    } else if (!isWhitelist && blockURL?.trim()) {
+      try {
+        createDnrUrlFilter(blockURL);
+      } catch (error) {
+        if (!(error instanceof InvalidDnrUrlFilterError)) throw error;
+        errors.push('blockurl_invalid');
+      }
     }
 
     if (!isWhitelist && redirectURL && !isValidURL(redirectURL)) {

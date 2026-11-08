@@ -5,6 +5,30 @@ import { isValidURL } from '../scripts/isValidURL.js';
 
 const BLOCK_REASONS = new Set(['always', 'schedule', 'daily_limit', 'focus']);
 
+export class InvalidDnrUrlFilterError extends TypeError {
+  constructor() {
+    super('Invalid DNR URL filter.');
+  }
+}
+
+/**
+ * Validate the compiled filter, not URL completeness: short fragments remain
+ * supported, and valid Unicode URLs are serialized before the ASCII check.
+ */
+export function createDnrUrlFilter(blockURL) {
+  const trimmedBlock = typeof blockURL === 'string' ? blockURL.trim() : '';
+  if (!trimmedBlock) throw new InvalidDnrUrlFilterError();
+  const urlFilter = `||${normalizePathRule(trimmedBlock)}`;
+
+  // DNR forbids non-ASCII filters and a wildcard immediately after ||.
+  // Other supported filter constructs retain their existing behavior.
+  if (/[^\x00-\x7F]/.test(urlFilter) || urlFilter.startsWith('||*')) {
+    throw new InvalidDnrUrlFilterError();
+  }
+
+  return urlFilter;
+}
+
 /**
  * Builds one dynamic DNR rule from an already validated stored rule.
  * User-entered matching semantics are preserved exactly as before.
@@ -18,8 +42,7 @@ export function createDnrRule({
   intermediaryRedirectURL
 }) {
   const trimmedBlock = blockURL.trim();
-  const filter = normalizePathRule(trimmedBlock);
-  const urlFilter = `||${filter}`;
+  const urlFilter = createDnrUrlFilter(trimmedBlock);
   const normalizedBlockURL = normalizePathSegment(trimmedBlock);
 
   let action;

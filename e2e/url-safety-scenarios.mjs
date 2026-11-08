@@ -91,4 +91,47 @@ export const urlSafetyScenarios = [{
     await e.assertBlocked('http://encoded.bd-e2e.test/a%2Fb', 'always');
     await e.assertBlocked('http://partial.bd-e2e.test/page', 'always');
   }
+}, {
+  id: '78', title: 'Invalid legacy filters preserve valid native blockers, removals, and daily budgets until repaired',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const invalid = { id: 781, blockURL: '*.private.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
+    const old = { id: 782, blockURL: 'removed.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [assignment] };
+    await e.seed({ pro: true, rules: [invalid, old], usage: { '781:general': 60 } });
+    const page = await e.openOptions();
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const added = await mutate('rules:add', { blockURL: 'partialnext', redirectURL: '', category: 'social', assignment });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, true, 'the invalid saved row remains a reported synchronization failure');
+    const partial = await e.state();
+    assert.deepEqual(partial.rules.find(rule => rule.id === invalid.id), invalid);
+    assert.equal(partial.dailyRuleUsage.usageSeconds['781:general'], 60);
+    assert.ok(partial.dnr.some(rule => rule.condition.urlFilter === '||partialnext'));
+    assert.ok(partial.dnr.some(rule => rule.id === old.id));
+    assert.ok(partial.dnr.every(rule => !rule.condition.urlFilter.startsWith('||*')));
+    await e.assertBlocked('http://partialnext.bd-e2e.test/page', 'always');
+
+    const removed = await mutate('rules:delete', { ruleId: old.id });
+    assert.equal(removed.success, true);
+    assert.equal(removed.syncPending, true);
+    const control = await e.newPage('http://removed.bd-e2e.test/page');
+    assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    assert.equal((await e.state()).dnr.some(rule => rule.id === old.id), false);
+
+    const repaired = await mutate('rules:update', { ruleId: invalid.id, blockURL: 'repaired.bd-e2e.test',
+      redirectURL: '', category: invalid.category, assignment: invalid.assignments[0] });
+    assert.equal(repaired.success, true);
+    assert.equal(repaired.syncPending, false);
+    assert.equal((await e.state()).dailyRuleUsage.usageSeconds['781:general'], 60);
+    await e.assertBlocked('http://repaired.bd-e2e.test/page', 'daily_limit');
+  }
 }];

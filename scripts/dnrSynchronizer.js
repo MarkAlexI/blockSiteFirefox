@@ -1,4 +1,5 @@
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
+import { InvalidDnrUrlFilterError } from '../rules/dnrRuleFactory.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 import { findBestMatchingRule } from '../rules/urlRuleMatcher.js';
 import { hasUnsupportedExplicitScheme } from './isBlockedURL.js';
@@ -217,17 +218,29 @@ export function createDnrSynchronizer({
 
     const dnrRules = [];
     const activeEntries = [];
+    const validActiveRules = [];
+    let invalidRuleCount = 0;
 
     for (const rule of activeRules) {
       const blockReason = focusActive
         ? 'focus'
         : getRuleAssignment(rule, activeRuleListId)?.blockingMode;
-      const dnrRule = await createDnrRule(
-        rule.id,
-        rule.blockURL,
-        rule.redirectURL,
-        blockReason
-      );
+      let dnrRule;
+      try {
+        dnrRule = await createDnrRule(
+          rule.id,
+          rule.blockURL,
+          rule.redirectURL,
+          blockReason
+        );
+      } catch (error) {
+        if (!(error instanceof InvalidDnrUrlFilterError)) throw error;
+        // Keep the saved row available for repair, but do not let its invalid
+        // native filter reject the entire atomic DNR update or close tabs.
+        invalidRuleCount += 1;
+        continue;
+      }
+      validActiveRules.push(rule);
 
       if (dnrRule) {
         dnrRules.push(dnrRule);
@@ -235,7 +248,7 @@ export function createDnrSynchronizer({
       }
     }
 
-    return { activeRules, dnrRules, activeEntries };
+    return { activeRules: validActiveRules, dnrRules, activeEntries, invalidRuleCount };
   }
 
   async function resolveNavigation(url) {
@@ -254,7 +267,7 @@ export function createDnrSynchronizer({
   }
 
   async function syncActiveRulesOnce(generation, reconcileExistingTabs, attempt) {
-    const { activeRules, dnrRules: expectedRules } =
+    const { activeRules, dnrRules: expectedRules, invalidRuleCount } =
       await buildExpectedDnrState({}, stage => { attempt.stage = stage; });
     attempt.stage = 'read_dynamic_rules';
     const currentRules = await declarativeNetRequest.getDynamicRules();
@@ -300,10 +313,16 @@ export function createDnrSynchronizer({
     }
 
     return {
-      success: true,
+      success: invalidRuleCount === 0,
       changed,
       removed: removeRuleIds.length,
-      added: addRules.length
+      added: addRules.length,
+      ...(invalidRuleCount > 0 ? {
+        invalidRuleCount,
+        error: 'Stored rules contain invalid DNR URL filters.',
+        errorName: 'TypeError',
+        errorStage: 'build_rules'
+      } : {})
     };
   }
 
@@ -397,7 +416,7 @@ export function createDnrSynchronizer({
   }
 
   async function inspectState() {
-    const { activeRules, dnrRules: expectedRules } = await buildExpectedDnrState();
+    const { activeRules, dnrRules: expectedRules, invalidRuleCount } = await buildExpectedDnrState();
     const currentRules = await declarativeNetRequest.getDynamicRules();
     const { removeRuleIds, addRules } =
       buildDnrDiff(currentRules, expectedRules);
@@ -408,12 +427,13 @@ export function createDnrSynchronizer({
       expectedCount: expectedRules.length,
       expectedUnsafeCount: capacity.expectedUnsafeCount,
       currentCount: currentRules.length,
-      inSync: removeRuleIds.length === 0 && addRules.length === 0,
+      inSync: removeRuleIds.length === 0 && addRules.length === 0 && invalidRuleCount === 0,
       removeCount: removeRuleIds.length,
       addCount: addRules.length,
       maxDynamicRules: capacity.maxDynamicRules,
       maxUnsafeDynamicRules: capacity.maxUnsafeDynamicRules,
-      withinCapacity: capacity.withinCapacity
+      withinCapacity: capacity.withinCapacity,
+      ...(invalidRuleCount > 0 ? { invalidRuleCount } : {})
     };
   }
 
