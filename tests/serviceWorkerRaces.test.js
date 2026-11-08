@@ -281,7 +281,8 @@ async function withWorker(callback, {
   local = {},
   dnrLimits = {},
   supportsWindows = !TEST_FIREFOX_ANDROID,
-  visibleTabs = false
+  visibleTabs = false,
+  configureApi = null
 } = {}) {
   const api = createExtensionApi({
     sync: {
@@ -393,6 +394,8 @@ async function withWorker(callback, {
   api.setFetchHandler = handler => {
     fetchHandler = handler;
   };
+
+  configureApi?.(api);
 
   const previousFetch = globalThis.fetch;
   globalThis.fetch = (...args) => fetchHandler(...args);
@@ -8646,3 +8649,219 @@ test('runtime Undo restores the skipped native alarm once and rejects an old res
     });
   });
 });
+
+// Fault the real worker's API dependencies; observe native-listener promises,
+// durable retry snapshots and existing alarm deadlines, without global replays.
+const settlePromiseBoundary = () => new Promise(resolve => setImmediate(resolve));
+const workerBoundaryErrors = api => Object.values(api.storage.local.data.telemetryBuckets || {})
+  .flatMap(bucket => bucket.errors || []).filter(error => error.code === 'async_handler_failed');
+
+for (const failedName of ['check_pro_expiry', 'update_scheduled_rules']) {
+  for (const stage of ['lookup', 'creation']) {
+    for (const failure of ['sync', 'async']) {
+      test(`promise boundary: ${failedName} ${stage} ${failure} failure is contained and the other alarm survives`, async () => {
+        const refusal = new Error('private alarm refusal https://private.invalid/ secret@example.invalid');
+        const rejected = Promise.reject(refusal);rejected.catch(() => {});
+        let fail = true;
+        await withMutedErrors(() => withWorker(async ({ api, startup }) => {
+          await settlePromiseBoundary();
+          const errors = workerBoundaryErrors(api);
+          assert.equal(errors.length, 1);
+          assert.equal(errors[0].operation, 'startup');
+          assert.equal(errors[0].count, 1);
+          assert.equal(JSON.stringify(errors).includes('private'), false);
+          const other = failedName === 'check_pro_expiry' ? 'update_scheduled_rules' : 'check_pro_expiry';
+          const retained = structuredClone(api.alarmValues.get(other));
+          assert.ok(retained, 'independent alarm creation must complete after the other failure');
+          assert.equal(api.alarmValues.has(failedName), false);
+          fail = false;
+          await startup();
+          assert.equal(api.alarmValues.has(failedName), true, 'a later lifecycle pass can retry setup');
+          assert.deepEqual(api.alarmValues.get(other), retained, 'the existing independent alarm is preserved');
+        }, { local: createPendingTelemetry(), configureApi(api) {
+          const method = stage === 'lookup' ? 'get' : 'create';
+          const original = api.alarms[method].bind(api.alarms);
+          api.alarms[method] = (name, ...args) => {
+            if (fail && name === failedName) {
+              if (failure === 'sync') throw refusal;
+              return rejected;
+            }
+            return original(name, ...args);
+          };
+        } }));
+      });
+    }
+  }
+}
+
+test('promise boundary: a Promise-only alarm lookup and overlapping startup share one setup', async () => {
+  const gates = new Map(['check_pro_expiry','update_scheduled_rules'].map(name => [name, createDeferred()]));
+  const lookups = [], creates = [];
+  await withWorker(async ({ api, startup }) => {
+    let first, second;
+    try {
+      first = startup();second = startup();
+      await settlePromiseBoundary();
+      assert.deepEqual(lookups.slice().sort(), [...gates.keys()].sort());
+      assert.equal(api.runtime.onMessage.listeners.length, 1, 'setup never delays message listener registration');
+    } finally {
+      for (const gate of gates.values()) gate.resolve(undefined);
+      await Promise.all([first, second].filter(Boolean));
+      await settlePromiseBoundary();
+    }
+    assert.deepEqual(creates.slice().sort(), [...gates.keys()].sort());
+    assert.equal(api.alarmValues.get('check_pro_expiry').periodInMinutes, 1440);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+  }, { configureApi(api) {
+    const create = api.alarms.create.bind(api.alarms);
+    api.alarms.get = name => { lookups.push(name);return gates.get(name)?.promise ?? Promise.resolve(); };
+    api.alarms.create = (name, details) => { creates.push(name);return create(name, details); };
+  } });
+});
+
+test('promise boundary: existing periodic alarms retain their exact deadlines on import and startup', async () => {
+  const expected = [
+    { name: 'check_pro_expiry', scheduledTime: Date.now() + 120000, periodInMinutes: 1440 },
+    { name: 'update_scheduled_rules', scheduledTime: Date.now() + 30000, periodInMinutes: 1 }
+  ];
+  let periodicWrites = 0;
+  await withWorker(async ({ api, startup }) => {
+    await startup();
+    assert.equal(periodicWrites, 0);
+    for (const alarm of expected) assert.deepEqual(api.alarmValues.get(alarm.name), alarm);
+  }, { configureApi(api) {
+    for (const alarm of expected) api.alarmValues.set(alarm.name, structuredClone(alarm));
+    const create = api.alarms.create.bind(api.alarms);
+    api.alarms.create = (name, details) => {
+      if (expected.some(alarm => alarm.name === name)) periodicWrites++;
+      return create(name, details);
+    };
+  } });
+});
+
+test('promise boundary: callback-only alarm lookups still initialize both periodic alarms', async () => {
+  await withWorker(async ({ api, startup }) => {
+    await startup();
+    assert.equal(api.alarmValues.get('check_pro_expiry').periodInMinutes, 1440);
+    assert.equal(api.alarmValues.get('update_scheduled_rules').periodInMinutes, 1);
+  }, { configureApi(api) {
+    api.alarms.get = (name, callback) => { callback?.(api.alarmValues.get(name)); };
+  } });
+});
+
+test('promise boundary: telemetry flush waits for asynchronous retry alarm creation', async () => {
+  await withWorker(async ({ api, send }) => {
+    const entered = createDeferred(), release = createDeferred();
+    const create = api.alarms.create.bind(api.alarms);
+    api.alarms.create = (name, details) => {
+      if (name !== 'telemetry_retry') return create(name, details);
+      entered.resolve();return release.promise.then(() => create(name, details));
+    };
+    api.setFetchHandler(async () => ({ ok: false, status: 503, json: async () => ({ ok: false }) }));
+    let settled = false;
+    const flush = send({ type: 'telemetry:flush', force: true }).then(value => { settled = true;return value; });
+    try {
+      await entered.promise;await settlePromiseBoundary();
+      assert.equal(settled, false, 'completion must include retry alarm settlement');
+    } finally { release.resolve();await flush; }
+    assert.equal(api.alarmValues.has('telemetry_retry'), true);
+    assert.equal(getTelemetryCounter(api, 'rule_created'), 1);
+  }, { local: createPendingTelemetry() });
+});
+
+test('promise boundary: rejected retry creation preserves the original delivery snapshot for a later attempt', async () => {
+  await withWorker(async ({ api, send }) => {
+    const requests = [];
+    const rejected = Promise.reject(new Error('retry creation unavailable'));rejected.catch(() => {});
+    const create = api.alarms.create.bind(api.alarms);
+    api.alarms.create = (name, details) => name === 'telemetry_retry' ? rejected : create(name, details);
+    api.setFetchHandler(async (_url, options) => {
+      requests.push(JSON.parse(options.body));
+      return { ok: false, status: 503, json: async () => ({ ok: false }) };
+    });
+    const result = await send({ type: 'telemetry:flush', force: true });
+    await settlePromiseBoundary();
+    assert.equal(result.result.success, false);
+    assert.equal(getTelemetryCounter(api, 'rule_created'), 1);
+    assert.equal(api.alarmValues.has('telemetry_retry'), false);
+    api.alarms.create = create;
+    api.setFetchHandler(async (_url, options) => {
+      requests.push(JSON.parse(options.body));return { ok: true, status: 202, json: async () => ({ ok: true }) };
+    });
+    assert.equal((await send({ type: 'telemetry:flush', force: true })).result.success, true);
+    assert.deepEqual(requests[1].batches, requests[0].batches, 'no batch regeneration or replay of user operations');
+    assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+  }, { local: createPendingTelemetry() });
+});
+
+test('promise boundary: consent revocation cannot be followed by a late retry alarm resurrection', async () => {
+  await withWorker(async ({ api, send }) => {
+    const entered = createDeferred(), release = createDeferred();
+    const create = api.alarms.create.bind(api.alarms);
+    let requests = 0;
+    api.alarms.create = (name, details) => {
+      if (name !== 'telemetry_retry') return create(name, details);
+      entered.resolve();return release.promise.then(() => create(name, details));
+    };
+    api.setFetchHandler(async () => { requests++;return { ok: false, status: 503, json: async () => ({ ok: false }) }; });
+    const flush = send({ type: 'telemetry:flush', force: true });
+    let revoke;
+    try {
+      await entered.promise;
+      // Firefox's native permission is authoritative; model its actual revocation.
+      api.permissions.getAll = async () => ({ data_collection: [] });
+      revoke = send({ type: 'telemetry:setConsent', enabled: false });
+      await settlePromiseBoundary();
+    } finally { release.resolve();await Promise.all([flush, revoke].filter(Boolean));await settlePromiseBoundary(); }
+    assert.equal(api.storage.local.data.telemetryConsent.enabled, false);
+    assert.deepEqual(api.storage.local.data.telemetryBuckets, {});
+    assert.equal(api.alarmValues.has('telemetry_retry'), false);
+    assert.equal(requests, 1);
+  }, { local: createPendingTelemetry() });
+});
+
+test('promise boundary: a rejected retry alarm handler is classified and leaves Focus and budgets intact', async () => {
+  await withMutedErrors(() => withWorker(async ({ api, alarm, send }) => {
+    await settlePromiseBoundary();
+    const focus = structuredClone(api.storage.local.data.focusSession);
+    const usage = structuredClone(api.storage.local.data.dailyRuleUsage);
+    const get = api.storage.local.get.bind(api.storage.local);
+    let fail = true, requests = 0;
+    api.setFetchHandler(async () => { requests++;return { ok: true, status: 202, json: async () => ({ ok: true }) }; });
+    api.storage.local.get = (keys, ...args) => {
+      if (fail && (Array.isArray(keys) ? keys : [keys]).includes('telemetryConsent')) {
+        fail = false;return Promise.reject(new Error('consent storage unavailable'));
+      }
+      return get(keys, ...args);
+    };
+    try { await assert.doesNotReject(() => alarm({ name: 'telemetry_retry' })); }
+    finally { api.storage.local.get = get; }
+    assert.equal(fail, false);
+    assert.equal(requests, 0, 'a failed event is not replayed');
+    assert.deepEqual(api.storage.local.data.focusSession, focus);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+    assert.equal(workerBoundaryErrors(api).at(-1)?.operation, 'scheduled_alarm');
+    assert.equal((await send({ type: 'focus_schedule_get' })).success, true);
+  }, { local: createPendingTelemetry() }));
+});
+
+for (const [event, operation] of [['onAdded','permission_added'],['onRemoved','permission_removed']]) {
+  test(`promise boundary: ${event} contains a failed diagnostic write with its fixed operation`, async () => {
+    await withMutedErrors(() => withWorker(async ({ api }) => {
+      await settlePromiseBoundary();
+      const get = api.storage.local.get.bind(api.storage.local);
+      let fail = true;
+      api.permissions.contains = async () => { throw new Error('host permission API unavailable'); };
+      api.storage.local.get = (keys, ...args) => {
+        if (fail && (Array.isArray(keys) ? keys : [keys]).includes('telemetryConsent')) {
+          fail = false;return Promise.reject(new Error('consent storage temporarily unavailable'));
+        }
+        return get(keys, ...args);
+      };
+      try { await assert.doesNotReject(() => api.permissions[event].listeners[0]({ origins: ['*://*/*'] })); }
+      finally { api.storage.local.get = get; }
+      assert.equal(fail, false, 'the injected storage refusal must be exercised');
+      assert.equal(workerBoundaryErrors(api).at(-1)?.operation, operation);
+    }, { local: createPendingTelemetry() }));
+  });
+}

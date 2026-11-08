@@ -163,7 +163,7 @@ const telemetryClient = createTelemetryClient({
   getContext: getCurrentTelemetryContext,
   scheduleRetry: async (when) => {
     await browser.alarms.clear(TELEMETRY_RETRY_ALARM);
-    browser.alarms.create(TELEMETRY_RETRY_ALARM, { when });
+    await browser.alarms.create(TELEMETRY_RETRY_ALARM, { when });
   },
   cancelRetry: () => browser.alarms.clear(TELEMETRY_RETRY_ALARM)
 });
@@ -584,10 +584,10 @@ async function reportFocusRecoveryFailure(reason, error) {
   }
 }
 
-function getFocusCompletionAlarm() {
+function getAlarm(name) {
   let result;
   try {
-    result = browser.alarms.get(FOCUS_COMPLETION_ALARM);
+    result = browser.alarms.get(name);
   } catch (_) {
     result = undefined;
   }
@@ -597,7 +597,7 @@ function getFocusCompletionAlarm() {
 
   return new Promise((resolve, reject) => {
     try {
-      browser.alarms.get(FOCUS_COMPLETION_ALARM, alarm => {
+      browser.alarms.get(name, alarm => {
         const runtimeError = browser.runtime.lastError;
         if (runtimeError) {
           reject(new Error(runtimeError.message || String(runtimeError)));
@@ -612,7 +612,7 @@ function getFocusCompletionAlarm() {
 }
 
 async function ensureFocusCompletionAlarm(endTime, shouldContinue) {
-  const existing = await getFocusCompletionAlarm();
+  const existing = await getAlarm(FOCUS_COMPLETION_ALARM);
   if (!shouldContinue()) return false;
 
   const scheduledTime = Number(existing?.scheduledTime ?? existing?.when);
@@ -1492,7 +1492,7 @@ browser.runtime.onStartup.addListener(() =>
       logger.info('Could not restore the telemetry retry on startup:', error);
     }
 
-    ensureAlarmsCreated();
+    await ensureAlarmsCreated();
 
     await initializeExtension({ reason: 'startup' });
     await checkAndRequestPermissions({ reason: 'startup' }, { notifyIfMissing: true });
@@ -1826,7 +1826,7 @@ browser.runtime.onInstalled.addListener(details =>
       logger.info('Uninstall URL could not be set:', error);
     }
 
-    ensureAlarmsCreated();
+    await ensureAlarmsCreated();
     try {
       await telemetryClient.restoreRetry();
     } catch (error) {
@@ -2442,25 +2442,24 @@ browser.alarms.onAlarm.addListener(alarm =>
   })
 );
 
+let alarmSetupPromise = null;
+
 function ensureAlarmsCreated() {
-  browser.alarms.get('check_pro_expiry', (alarm) => {
-    if (!alarm) {
-      browser.alarms.create('check_pro_expiry', {
-        delayInMinutes: 0.5,
-        periodInMinutes: 1440
-      });
-    }
-  });
-  
-  browser.alarms.get('update_scheduled_rules', (alarm) => {
-    if (!alarm) {
-      browser.alarms.create('update_scheduled_rules', {
-        periodInMinutes: 1
-      });
-    }
-  });
+  if (alarmSetupPromise) return alarmSetupPromise;
+  // One failed alarm must not stop the other one. Share a pending setup across
+  // cold import, startup and install so existing deadlines are not reset twice.
+  const alarms = [
+    ['check_pro_expiry', { delayInMinutes: 0.5, periodInMinutes: 1440 }],
+    ['update_scheduled_rules', { periodInMinutes: 1 }]
+  ];
+  alarmSetupPromise = Promise.all(alarms.map(([name, details]) =>
+    runAsyncHandler(ASYNC_HANDLER_OPERATIONS.STARTUP, async () => {
+      if (!await getAlarm(name)) await browser.alarms.create(name, details);
+    })
+  )).finally(() => { alarmSetupPromise = null; });
+  return alarmSetupPromise;
 }
 
-ensureAlarmsCreated();
+void ensureAlarmsCreated();
 
 void reconcileScheduledFocus();
