@@ -69,3 +69,16 @@ test('protected authentication tabs never select a Daily Limit rule', () => {
   assert.equal(findBestMatchingRule('https://accounts.youtube.com/accounts/SetSID', rules), null);
   assert.equal(findBestMatchingRule('https://m.youtube.com/watch?v=1', rules).id, 1);
 });
+
+
+test('URL safety: encoded path delimiters match their own URLs without becoming path or query separators', () => {
+  for (const path of ['/a%2Fb', '/a%3Fb', '/a%23b', '/a%252Fb', '/a%25b']) {
+    for (const prefix of ['', 'https://']) {
+      assert.equal(doesUrlMatchBlockRule(`https://example.test${path}`, `${prefix}example.test${path}`), true);
+      assert.equal(doesUrlMatchBlockRule('https://example.test/a/b', `${prefix}example.test${path}`), false);
+    }
+  }
+  assert.equal(doesUrlMatchBlockRule('https://m.youtube.com/watch', 'yout'), true);
+  assert.equal(doesUrlMatchBlockRule('https://notyoutube.com/watch', 'yout'), false);
+  assert.equal(doesUrlMatchBlockRule('https://youtube.com/shorts/abc', 'youtube.com/short'), true);
+});

@@ -475,3 +475,35 @@ test('DNR inspection reports empty rules, readable rules, and API failures', asy
     console.error = previousError;
   }
 });
+
+
+test('URL safety: web addresses containing browser-page names are not privileged URLs', () => {
+  for (const url of [
+    'https://unlisted.test/chrome-extension://open',
+    'https://unlisted.test/moz-extension://open',
+    'https://unlisted.test//newtab/page',
+    'https://newtab.unlisted.test/',
+    'https://newtab/',
+    'unlisted.test//newtab/page',
+    'https://unlisted.test/?next=chrome-extension://open'
+  ]) {
+    assert.equal(isBlockedURL([{ url }]), false, url);
+  }
+  for (const url of [
+    'chrome://newtab/', 'edge://newtab/', 'kiwi://newtab/', 'about:newtab',
+    'chrome-extension://owned/options.html', 'moz-extension://owned/index.html'
+  ]) {
+    assert.equal(isBlockedURL([{ url }]), true, url);
+  }
+});
+
+test('URL safety: pasted and full URLs preserve encoded delimiters and literal percent signs equally', () => {
+  for (const path of ['/a%2Fb', '/a%3Fb', '/a%23b', '/a%252Fb', '/a%25b', '/100%', '/a%20b']) {
+    const expected = `example.test${path}`;
+    assert.equal(normalizePathRule(expected), expected, expected);
+    assert.equal(normalizePathRule(`https://${expected}`), expected, `https://${expected}`);
+  }
+  assert.equal(normalizePathRule('yout'), 'yout');
+  assert.equal(normalizePathRule('youtube.com/short'), 'youtube.com/short');
+  assert.equal(normalizePathRule('example.test/a b'), 'example.test/a%20b');
+});

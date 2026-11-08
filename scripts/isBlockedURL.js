@@ -62,13 +62,13 @@ export function isBlockedURL(tabs) {
 
   if (hasUnsupportedExplicitScheme(url)) return true;
 
+  // Internal schemes are rejected above. Their names inside an HTTP(S)
+  // host or path do not make an ordinary web page privileged.
   const blockedPatterns = [
     /^about:/,
-    /extension:\/\//,
     /^https:\/\/addons\.mozilla\.org(?:\/|$)/,
     /^devtools:/,
     /^view-source:/,
-    /\/\/newtab/
   ];
   const protectedProjectPatterns = [/blockdistraction/i, /markdigital\.cc/i, /ext\.pp\.ua/i];
 

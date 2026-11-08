@@ -9004,3 +9004,72 @@ test('Rule Pack telemetry flow: failed delivery retries the same snapshot and re
     });
   }, { local: { activeRuleListId: 'general', telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } } });
 });
+
+
+test('URL safety: Whitelist Focus enforces web navigations containing browser-page names', async () => {
+  await withWorker(async ({ api }) => {
+    await new Promise(resolve => setImmediate(resolve));
+    api.storage.local.data.focusSession = {
+      focusActive: true, focusEndTime: Date.now() + 600000, isHardcore: false, focusMode: 'whitelist'
+    };
+    for (const [url, closed] of [
+      ['https://unlisted.test/ordinary', true],
+      ['https://unlisted.test/chrome-extension://open', true],
+      ['https://unlisted.test/moz-extension://open', true],
+      ['https://unlisted.test//newtab/page', true],
+      ['https://newtab.unlisted.test/', true],
+      ['https://allowed.test/ordinary', false],
+      ['about:blank', false],
+      [api.runtime.getURL('options/options.html'), false]
+    ]) {
+      api.removedTabs.length = 0;
+      api.tabs.values = [
+        { id: 1, windowId: 7, url },
+        { id: 2, windowId: 7, url: 'https://allowed.test/' }
+      ];
+      await api.tabs.onUpdated.listeners[0](1, { url, status: 'complete' }, api.tabs.values[0]);
+      assert.deepEqual(api.removedTabs, closed ? [1] : [], url);
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    }
+  }, { local: {
+    activeRuleListId: 'general',
+    rules: [makeFocusRule(71, 'general', { blockURL: 'allowed.test', isWhitelist: true })]
+  } });
+});
+
+test('URL safety: starting Whitelist Focus closes existing false-privileged web tabs and preserves allowed and internal tabs', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [
+      { id: 1, windowId: 7, url: 'https://unlisted.test/chrome-extension://open' },
+      { id: 2, windowId: 7, url: 'https://unlisted.test//newtab/page' },
+      { id: 3, windowId: 7, url: 'https://newtab.unlisted.test/' },
+      { id: 4, windowId: 7, url: 'https://allowed.test/' },
+      { id: 5, windowId: 7, url: 'about:blank' }
+    ];
+    const result = await send({ type: 'start_focus_session', duration: 5, focusMode: 'whitelist' });
+    assert.equal(result.success, true);
+    assert.deepEqual([...api.removedTabs].sort((a, b) => a - b), [1, 2, 3]);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.focusSession.focusMode, 'whitelist');
+  }, { local: {
+    activeRuleListId: 'general',
+    rules: [makeFocusRule(71, 'general', { blockURL: 'allowed.test', isWhitelist: true })]
+  } });
+});
+
+for (const path of ['/a%2Fb', '/a%252Fb', '/a%3Fb', '/100%', '/a%20b']) {
+  test(`URL safety: the context-menu worker handler preserves the link path ${path}`, async () => {
+    await withWorker(async ({ api }) => {
+      await api.contextMenus.onClicked.listeners[0]({
+        menuItemId: 'blockDistraction', linkUrl: `https://encoded.test${path}`
+      }, {});
+      const stored = api.storage.local.data.rules;
+      assert.equal(stored.length, 1);
+      assert.equal(stored[0].blockURL, `encoded.test${path}`);
+      assert.equal(api.dynamicRules.length, 1);
+      assert.equal(api.dynamicRules[0].condition.urlFilter, `||encoded.test${path}`);
+      assert.equal(api.dynamicRules[0].priority, 100);
+      assert.equal(stored[0].assignments[0].listId, 'general');
+    }, { local: { activeRuleListId: 'general', lastCheck: Date.now() } });
+  });
+}

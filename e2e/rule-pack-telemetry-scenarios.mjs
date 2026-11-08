@@ -72,7 +72,7 @@ const packCounters = payload => Object.fromEntries(Object.entries(payload.batche
 }, {})).filter(([name]) => name.startsWith('rule_pack_')));
 
 export const rulePackTelemetryScenarios = [{
-  id: '70', title: 'Rule Packs work without telemetry consent and a forced flush sends no request',
+  id: '73', title: 'Rule Packs work without telemetry consent and a forced flush sends no request',
   async run(e) {
     await e.seed({ pro: true });
     const page = await e.openOptions();
@@ -87,7 +87,7 @@ export const rulePackTelemetryScenarios = [{
     assert.deepEqual(stored.telemetryBuckets || {}, {});
   }
 }, {
-  id: '71', title: 'Rule Pack UI counters reach a private retry-stable HTTP payload and stop after consent revocation',
+  id: '74', title: 'Rule Pack UI counters reach a private retry-stable HTTP payload and stop after consent revocation',
   async run(e) {
     await e.seed({ pro: true });
     const page = await e.openOptions();

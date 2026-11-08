@@ -1245,7 +1245,7 @@ if (browser.contextMenus) {
         await rulesMutationService.addRule({
           expectedGeneration: listSnapshot.generation,
           expectedListRevisions: listSnapshot.revisions,
-          blockURL: decodeURIComponent(ruleValue),
+          blockURL: ruleValue,
           redirectURL: '',
           schedule: null,
           category: 'social',
