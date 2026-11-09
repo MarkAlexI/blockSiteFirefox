@@ -11,11 +11,30 @@ test('Firefox CI groups preserve original order, include overdue once and reject
   assert.deepEqual(selectScenarioGroup(scenarios, 'upgrade'), scenarios.slice(3));
   for (const group of ['typo', '', null]) assert.throws(() => selectScenarioGroup(scenarios, group), /Unknown/);
   const workflow = await readFile(new URL('../.github/workflows/e2e-firefox.yml', import.meta.url), 'utf8');
-  assert.match(workflow, /group: \[core, overdue, upgrade\]/);
+  assert.match(workflow, /group: \[core, lifecycle, overdue, upgrade\]/);
   assert.match(workflow, /needs: \[scenarios, macos, compatibility\]/);
   assert.match(workflow, /SCENARIO_RESULT.*success/);
   assert.match(workflow, /MACOS_RESULT.*success/);
   assert.match(workflow, /COMPATIBILITY_RESULT.*success/);
+});
+
+test('Firefox lifecycle split retains every slow native scenario once and keeps future coverage in core', () => {
+  const lifecycle = ['32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43']
+    .toReversed().map(id => ({ id }));
+  const core = [{ id: '31' }, { id: '44' }, { id: '81' }, { id: '82' }];
+  const overdue = { id: '65' };
+  const upgrade = [{ id: '67' }, { id: '67-5.5.11', upgrade: true }, { id: '83', upgrade: true }];
+  const scenarios = [core[0], ...lifecycle, core[1], overdue, core[2], ...upgrade, core[3]];
+  const groups = Object.fromEntries(['core', 'lifecycle', 'overdue', 'upgrade']
+    .map(group => [group, selectScenarioGroup(scenarios, group)]));
+  assert.deepEqual(groups.lifecycle, lifecycle, 'slow native bodies retain their original order');
+  assert.deepEqual(groups.core, core, 'URL safety and future scenarios remain required');
+  assert.deepEqual(groups.overdue, [overdue]);
+  assert.deepEqual(groups.upgrade, upgrade);
+  const partition = Object.values(groups).flat();
+  assert.equal(partition.length, scenarios.length, 'no scenario runs in two Linux groups');
+  assert.deepEqual(new Set(partition), new Set(scenarios), 'no scenario is omitted');
+  assert.deepEqual(selectScenarioGroup(scenarios), scenarios, 'the full local suite remains intact');
 });
 
 test('macOS smoke covers rules, accounting, paid access, readers and scheduled Focus in original order', () => {

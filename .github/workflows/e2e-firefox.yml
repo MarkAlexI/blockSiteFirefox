@@ -18,13 +18,13 @@ jobs:
     name: scenarios (${{ matrix.group }})
     runs-on: ubuntu-24.04
     # Slow apt/browser setup consumed over 10 minutes in run 39855086581.
-    # Reserve setup/report time separately from the core-scenario step below.
+    # Reserve setup/report time separately from the scenario step below.
     # Individual scenario deadlines and retries remain unchanged.
     timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
-        group: [core, overdue, upgrade]
+        group: [core, lifecycle, overdue, upgrade]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6

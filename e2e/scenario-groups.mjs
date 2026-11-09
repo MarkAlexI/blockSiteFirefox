@@ -9,8 +9,14 @@ export const macosSmokeScenarioIds = Object.freeze([
 // Firefox 113 minimum or Firefox Android. Reuse the native scenario bodies.
 export const compatibilityScenarioIds = Object.freeze(['01', '05', '06', '07', '21', '25', '46']);
 
+// Calendar boundaries, scheduled expiry and native idle/alarm wake deliberately
+// wait for real browser time. Keep them out of the growing core CI lane.
+const lifecycleScenarioIds = new Set([
+  '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43'
+]);
+
 export function selectScenarioGroup(scenarios, group = 'all') {
-  if (!['all', 'core', 'overdue', 'upgrade', 'macos-smoke', 'compatibility', 'esr115'].includes(group)) throw new Error(`Unknown BD_E2E_GROUP: ${group}`);
+  if (!['all', 'core', 'lifecycle', 'overdue', 'upgrade', 'macos-smoke', 'compatibility', 'esr115'].includes(group)) throw new Error(`Unknown BD_E2E_GROUP: ${group}`);
   if (group === 'compatibility' || group === 'esr115') {
     const selected = scenarios.filter(scenario => compatibilityScenarioIds.includes(scenario.id));
     const ids = selected.map(scenario => scenario.id);
@@ -29,6 +35,10 @@ export function selectScenarioGroup(scenarios, group = 'all') {
     }
     return selected;
   }
-  return scenarios.filter(scenario => group === 'all' ||
-    (scenario.id === '67' || scenario.upgrade === true ? group === 'upgrade' : scenario.id === '65' ? group === 'overdue' : group === 'core'));
+  return scenarios.filter(scenario => {
+    if (group === 'all') return true;
+    if (scenario.id === '67' || scenario.upgrade === true) return group === 'upgrade';
+    if (scenario.id === '65') return group === 'overdue';
+    return group === (lifecycleScenarioIds.has(scenario.id) ? 'lifecycle' : 'core');
+  });
 }
