@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.4] - 2026-11-09
+
+### Fixed
+- Preserve encoded path separators, non-default ports and supported filter operators in URL matching, Daily Limit attribution and tab cleanup while retaining short URL fragments.
+- Distinguish an explicit empty query from a URL without a query when matching end-anchored filters.
+- Isolate malformed saved block targets without interrupting valid rule synchronization or resetting spent Daily Limits.
+- Use the local blocked page for malformed redirect targets and ignore non-string whitelist targets.
+- Ignore empty saved targets in whitelist and blacklist conflict checks so valid rules remain editable.
+
+### Tests
+- Expand native URL, Whitelist Focus and malformed-storage regression coverage.
+- Target native upgrades from the actual previously packaged 5.6.3 runtime to 5.6.4 while retaining the 5.4.14 baseline.
+
 ## [5.6.3] - 2026-11-08
 
 ### Fixed
