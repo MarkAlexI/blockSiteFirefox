@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { setNativeZoomedViewport } from '../e2e/native-zoom-viewport.mjs';
 
-function model({ scale = 1, forcedZoom, clamp = Infinity, widths = [], rejectResize = false } = {}) {
+function model({ scale = 1, forcedZoom, clamp = Infinity, widths = [], rejectResize = false, reportedState } = {}) {
   let width = 1280, height = 960, factor = 1, state = 'maximized', clock = 0, reads = 0;
   const updates = [], zooms = [];
-  const nativeWindow = () => ({ width, height, state });
+  const nativeWindow = () => ({ width, height, state: reportedState ?? state });
   const api = {
     windows: {
       async update(_id, info) {
@@ -60,6 +60,21 @@ test('native zoom viewport corrects the observed 255px setup with real window re
   assert.equal(result.dpr, 2.5);
   assert.deepEqual(m.updates, [{ state: 'normal' }, { width: 640, height: 960 }, { width: 803 }]);
   assert.deepEqual(m.zooms, [2]);
+});
+
+test('native zoom viewport uses measured geometry when the platform still reports maximized', async () => {
+  const m = model({ reportedState: 'maximized', widths: [320, 320] });
+  const result = await m.run();
+  assert.equal(result.innerWidth, 320);
+  assert.equal(result.factor, 2);
+  assert.equal(result.dpr, 2);
+  assert.equal(result.state, 'maximized');
+  assert.deepEqual(m.updates, [{ state: 'normal' }, { width: 640, height: 960 }]);
+  assert.deepEqual(m.zooms, [2]);
+
+  const clamped = model({ reportedState: 'maximized', clamp: 500 });
+  await assert.rejects(clamped.run(), /Native 200% narrow viewport not reached/);
+  assert.equal(clamped.updates.filter(info => info.width !== undefined).length, 4);
 });
 
 test('native zoom viewport waits for stable measurements before correcting a transient width', async () => {

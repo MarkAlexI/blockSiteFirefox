@@ -30,7 +30,9 @@ export async function setNativeZoomedViewport(page, initial, {
     const signature = JSON.stringify(last);
     stableReads = signature === previous ? stableReads + 1 : 0;
     previous = signature;
-    if (stableReads >= 1 && last.factor === 2 && last.state === 'normal') {
+    // The reflow test depends on actual zoom and CSS geometry. The platform
+    // can keep reporting 'maximized' even after the requested resize succeeds.
+    if (stableReads >= 1 && last.factor === 2) {
       if (last.innerWidth >= 280 && last.innerWidth <= 340) {
         evidence.push({ requestedWidth, ...last });
         return last;
