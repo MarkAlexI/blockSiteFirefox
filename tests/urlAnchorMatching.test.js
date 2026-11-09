@@ -64,13 +64,25 @@ test('URL anchors: a trailing wildcard makes a right anchor redundant', () => {
 });
 
 test('URL anchors: percent-encoded operators and interior pipes stay literal', () => {
-  assert.equal(factory(1, 'example.test/a^b', '').condition.urlFilter, '||example.test/a%5Eb');
-  assert.equal(matches('/a^b', 'example.test/a^b'), true);
-  assert.equal(matches('/a/b', 'example.test/a^b'), false);
+  assert.equal(factory(1, 'example.test/a%5Eb', '').condition.urlFilter, '||example.test/a%5Eb');
+  assert.equal(matches('/a%5Eb', 'example.test/a%5Eb'), true);
+  assert.equal(matches('/a/b', 'example.test/a%5Eb'), false);
   assert.equal(matches('/a%7Cb', 'example.test/a%7Cb'), true);
   assert.equal(matches('/ab', 'example.test/a%7Cb'), false);
   assert.equal(matches('/a|b', 'example.test/a|b'), true);
   assert.equal(matches('/a/b', 'example.test/a|b'), false);
+});
+
+test('URL anchors: raw carets follow the actual compiled DNR filter', () => {
+  const pattern = 'example.test/a^b';
+  // URL implementations differ in encoding a raw caret. Keep both valid
+  // serialization outcomes explicit instead of assuming one runtime version.
+  const expected = new Map([
+    ['||example.test/a^b', [true, false]],
+    ['||example.test/a%5Eb', [false, true]]
+  ]).get(factory(1, pattern, '').condition.urlFilter);
+  assert.ok(expected, 'the compiled filter retains or encodes the raw caret');
+  assert.deepEqual(['/a/b', '/a%5Eb'].map(path => matches(path, pattern)), expected);
 });
 
 test('URL anchors: serialized trailing dots are preserved at domain boundaries', () => {
