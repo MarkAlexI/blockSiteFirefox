@@ -9341,3 +9341,54 @@ test('Redirect types: Focus closes matching tabs with a blocked-page fallback fo
     assert.deepEqual(api.storage.local.data.rules[0], rule);
   }, { local: { activeRuleListId: 'general', rules: [rule] }, supportsWindows: false });
 });
+
+
+test('Whitelist target types: Focus closes tabs covered only by coerced JSON targets and preserves saved rows', async () => {
+  const rules = [
+    makeFocusRule(861, 'general', { blockURL: ['coerced.example'], isWhitelist: true }),
+    makeFocusRule(862, 'general', { blockURL: true, isWhitelist: true }),
+    makeFocusRule(863, 'general', { blockURL: 42, isWhitelist: true }),
+    makeFocusRule(864, 'general', { blockURL: 'permitted', isWhitelist: true })
+  ];
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [
+      { id: 11, url: 'https://coerced.example/page', active: false },
+      { id: 12, url: 'https://true.example/page', active: false },
+      { id: 13, url: 'https://0.0.0.42/page', active: false },
+      { id: 14, url: 'https://unlisted.example/page', active: false },
+      { id: 15, url: 'https://permitted.example/page', active: true },
+      { id: 16, url: 'about:blank', active: false }
+    ];
+    const response = await send({ type: 'start_focus_session', duration: 5, focusMode: 'whitelist' });
+    assert.equal(response.success, true);
+    assert.deepEqual(api.removedTabs, [11, 12, 13, 14]);
+    assert.deepEqual(api.storage.local.data.rules, rules, 'malformed values remain available for explicit repair');
+    api.tabs.values.push({ id: 17, url: 'https://coerced.example/next', active: false });
+    await api.tabs.onUpdated.listeners[0](17, { url: 'https://coerced.example/next' },
+      { id: 17, url: 'https://coerced.example/next', active: false });
+    assert.deepEqual(api.removedTabs, [11, 12, 13, 14, 17]);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+  }, { local: { rules, activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('Whitelist target types: an unstringifiable target cannot interrupt initial or navigation enforcement', async () => {
+  const rules = [
+    makeFocusRule(865, 'general', { blockURL: { toString: null }, isWhitelist: true }),
+    makeFocusRule(866, 'general', { blockURL: 'permitted.example', isWhitelist: true })
+  ];
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [
+      { id: 11, url: 'https://unlisted.example/page', active: false },
+      { id: 12, url: 'https://permitted.example/page', active: true },
+      { id: 13, url: 'about:blank', active: false }
+    ];
+    const response = await send({ type: 'start_focus_session', duration: 5, focusMode: 'whitelist' });
+    assert.equal(response.success, true);
+    assert.deepEqual(api.removedTabs, [11]);
+    api.tabs.values.push({ id: 14, url: 'https://unlisted.example/next', active: false });
+    await api.tabs.onUpdated.listeners[0](14, { url: 'https://unlisted.example/next' },
+      { id: 14, url: 'https://unlisted.example/next', active: false });
+    assert.deepEqual(api.removedTabs, [11, 14]);
+    assert.deepEqual(api.storage.local.data.rules, rules);
+  }, { local: { rules, activeRuleListId: 'general' }, supportsWindows: false });
+});

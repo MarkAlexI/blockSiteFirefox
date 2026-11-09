@@ -547,3 +547,63 @@ urlSafetyScenarios.push({
     }
   }
 });
+
+
+urlSafetyScenarios.push({
+  id: '86', title: 'Whitelist Focus ignores non-string saved targets while retaining valid fragments and enforcing real tabs',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const rule = (id, blockURL) => ({ id, blockURL, redirectURL: '', category: 'whitelist',
+      isWhitelist: true, assignments: [{ ...assignment }] });
+    const rules = [rule(861, ['coerced-whitelist.bd-e2e.test']), rule(862, true), rule(863, 'permitted')];
+    await e.seed({ pro: true, rules });
+    const page = await e.openOptions();
+    const classification = await page.evaluate(async () => {
+      const api = globalThis.browser || chrome;
+      const { isUrlInWhitelist } = await import(api.runtime.getURL('pro/isUrlInWhitelist.js'));
+      const entry = blockURL => ({ blockURL, isWhitelist: true,
+        assignments: [{ listId: 'general', disabledByUser: false, blockingMode: 'always' }] });
+      return {
+        array: isUrlInWhitelist('http://coerced-whitelist.bd-e2e.test/page', [entry(['coerced-whitelist.bd-e2e.test'])]),
+        boolean: isUrlInWhitelist('http://true.bd-e2e.test/page', [entry(true)]),
+        object: isUrlInWhitelist('http://unlisted.bd-e2e.test/page', [entry({ toString: null })]),
+        fragment: isUrlInWhitelist('http://m.youtube.com/watch', [entry('tube')])
+      };
+    });
+    assert.deepEqual(classification, { array: false, boolean: false, object: false, fragment: true });
+    const inputs = [
+      ['coerced', 'http://coerced-whitelist.bd-e2e.test/page'],
+      ['boolean', 'http://true.bd-e2e.test/page'],
+      ['unlisted', 'http://unlisted-whitelist.bd-e2e.test/page'],
+      ['allowed', 'http://permitted.bd-e2e.test/page'],
+      ['internal', 'about:blank']
+    ];
+    const ids = {};
+    for (const [name, url] of inputs) ids[name] = await createTab(page, url);
+    assert.ok(Object.values(ids).every(Number.isInteger));
+    await poll(() => page.evaluate(async ids => {
+      const api = globalThis.browser || chrome;
+      return Promise.all(Object.values(ids).map(id => api.tabs.get(id)));
+    }, ids), tabs => tabs.every(tab => tab.status === 'complete' && !tab.pendingUrl),
+    'all observed tabs finish their native navigation before Focus starts');
+    assert.equal((await message(page, { type: 'start_focus_session', duration: 5, focusMode: 'whitelist' })).success, true);
+    try {
+      await poll(() => tabIds(page), tabs => ['coerced', 'boolean', 'unlisted'].every(name => !tabs.includes(ids[name])),
+        'only valid string targets can retain real web tabs');
+      let retained = await tabIds(page);
+      assert.ok(retained.includes(ids.allowed), 'the valid short whitelist fragment remains effective');
+      assert.ok(retained.includes(ids.internal), 'the internal tab remains open');
+      const next = await createTab(page, 'http://coerced-whitelist.bd-e2e.test/next');
+      await poll(() => tabIds(page), tabs => !tabs.includes(next), 'later navigation cannot use a malformed whitelist target');
+      retained = await tabIds(page);
+      assert.ok(retained.includes(ids.allowed));
+      assert.ok(retained.includes(ids.internal));
+      const state = await e.state();
+      assert.deepEqual(state.rules, rules, 'saved malformed targets remain available for explicit repair');
+      assert.equal(state.focusSession.focusActive, true);
+      assert.equal(state.focusSession.focusMode, 'whitelist');
+    } finally {
+      assert.equal((await message(page, { type: 'stop_focus_session' })).success, true);
+    }
+  }
+});

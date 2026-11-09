@@ -22,11 +22,13 @@ export function isUrlInWhitelist(url, whitelistRules) {
   }
 
   return whitelistRules.some((rule) => {
+    if (typeof rule?.blockURL !== 'string') return false;
+
     if (getRuleAssignment(rule, GENERAL_RULE_LIST_ID)?.disabledByUser === true) {
       return false;
     }
 
-    const pattern = String(rule.blockURL || '').trim();
+    const pattern = rule.blockURL.trim();
     if (!pattern) {
       return false;
     }
