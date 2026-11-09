@@ -45,8 +45,8 @@ export function createDnrRule({
   defaultRedirectURL,
   intermediaryRedirectURL
 }) {
+  const urlFilter = createDnrUrlFilter(blockURL);
   const trimmedBlock = blockURL.trim();
-  const urlFilter = createDnrUrlFilter(trimmedBlock);
   const normalizedBlockURL = normalizePathSegment(trimmedBlock);
 
   let action;

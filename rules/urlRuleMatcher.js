@@ -3,7 +3,7 @@ import { isProtectedRequestHostname } from '../utils/protectedDomains.js';
 
 function normalizeFilter(blockURL) {
   try {
-    return createDnrUrlFilter(String(blockURL || '').trim()).slice(2).toLowerCase();
+    return createDnrUrlFilter(blockURL).slice(2).toLowerCase();
   } catch (error) {
     if (!(error instanceof InvalidDnrUrlFilterError)) throw error;
     return '';

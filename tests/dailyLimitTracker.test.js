@@ -605,3 +605,14 @@ test('URL anchors: Daily Limit accounting excludes extensions of an end-anchored
     assert.deepEqual(sampled, expected, path);
   }
 });
+
+
+test('Target types: foreground accounting does not charge a coerced array target', async () => {
+  let sampled;
+  const tracker = createTracker({ rules: [makeRule({ blockURL: ['broken'] })],
+    tab: { id: 11, windowId: 7, active: true, url: 'https://broken.example/page' },
+    recordSample(keys) { sampled = keys; return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} }; }
+  });
+  await tracker.sample('tab_load_complete');
+  assert.deepEqual(sampled, []);
+});

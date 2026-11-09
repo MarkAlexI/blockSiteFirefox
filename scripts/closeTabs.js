@@ -107,7 +107,7 @@ export async function closeNonWhitelistedTab(tabId, observedUrl, whitelistRules,
 
 export async function closeTabsMatchingRules(blockURLs, shouldContinue = () => true) {
   const validPatterns = blockURLs
-    .map(url => url?.trim().toLowerCase())
+    .map(url => typeof url === 'string' ? url.trim().toLowerCase() : '')
     .filter(url => url && url !== '');
   
   if (validPatterns.length === 0 || !shouldContinue()) return;

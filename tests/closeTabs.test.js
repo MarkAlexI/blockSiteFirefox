@@ -85,3 +85,19 @@ test('URL anchors: cleanup preserves tabs beyond an end-anchored match', async (
     assert.deepEqual(api.removedTabs, [1]);
   });
 });
+
+
+test('Target types: tab cleanup skips malformed patterns and retains valid fragments', async () => {
+  const api = createExtensionApi();
+  api.tabs.values = [
+    { id: 1, windowId: 1, url: 'https://broken.example/page' },
+    { id: 2, windowId: 1, url: 'https://true.example/page' },
+    { id: 3, windowId: 1, url: 'https://safe-target.example/page' },
+    { id: 4, windowId: 1, url: 'about:blank' }
+  ];
+  await withExtensionEnvironment(api, async () => {
+    const { closeTabsMatchingRules } = await import('../scripts/closeTabs.js');
+    await closeTabsMatchingRules([['broken'], true, 42, { toString: null }, 'safe-target']);
+    assert.deepEqual(api.removedTabs, [3]);
+  });
+});

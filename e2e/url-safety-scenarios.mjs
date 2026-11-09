@@ -383,4 +383,57 @@ export const urlSafetyScenarios = [{
     assert.equal((await e.state()).dailyRuleUsage.usageSeconds['821:general'], 60);
     await e.assertBlocked('http://empty-repaired.bd-e2e.test/page', 'daily_limit');
   }
+}, {
+  id: '83', title: 'Non-string saved targets preserve valid native blockers and their spent budget through repair',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const invalid = { id: 831, blockURL: ['broken'], redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
+    const valid = { id: 832, blockURL: 'valid-type.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [assignment] };
+    await e.seed({ pro: true, rules: [invalid, valid], usage: { '831:general': 60 } });
+    const page = await e.openOptions();
+    const classification = await page.evaluate(async () => {
+      const api = globalThis.browser || chrome;
+      const { createDnrRuleFactory, InvalidDnrUrlFilterError } = await import(api.runtime.getURL('rules/dnrRuleFactory.js'));
+      const { doesUrlMatchBlockRule } = await import(api.runtime.getURL('rules/urlRuleMatcher.js'));
+      const factory = createDnrRuleFactory(path => api.runtime.getURL(path));
+      return {
+        invalid: [null, 42, ['broken'], { toString: null }].map(value => {
+          try { factory(1, value, ''); return false; }
+          catch (error) { return error instanceof InvalidDnrUrlFilterError; }
+        }),
+        array: doesUrlMatchBlockRule('http://broken.bd-e2e.test/page', ['broken']),
+        object: doesUrlMatchBlockRule('http://broken.bd-e2e.test/page', { toString: null }),
+        fragment: doesUrlMatchBlockRule('http://broken.bd-e2e.test/page', 'broken')
+      };
+    });
+    assert.deepEqual(classification, { invalid: [true, true, true, true], array: false, object: false, fragment: true });
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const added = await mutate('rules:add', { blockURL: 'type-safe', redirectURL: '', category: 'social', assignment });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, true, 'the corrupt stored row remains reported for repair');
+    const state = await e.state();
+    assert.deepEqual(state.rules.find(rule => rule.id === invalid.id), invalid);
+    assert.equal(state.dailyRuleUsage.usageSeconds['831:general'], 60);
+    assert.equal(state.dnr.some(rule => rule.id === invalid.id), false);
+    const control = await e.newPage('http://broken.bd-e2e.test/page');
+    assert.equal(await control.url(), 'http://broken.bd-e2e.test/page');
+    assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    await e.assertBlocked('http://valid-type.bd-e2e.test/page', 'always');
+    await e.assertBlocked('http://type-safe.bd-e2e.test/page', 'always');
+    const repaired = await mutate('rules:update', { ruleId: invalid.id, blockURL: 'broken',
+      redirectURL: '', category: invalid.category, assignment: invalid.assignments[0] });
+    assert.equal(repaired.success, true);
+    assert.equal(repaired.syncPending, false);
+    assert.equal((await e.state()).dailyRuleUsage.usageSeconds['831:general'], 60);
+    await e.assertBlocked('http://broken.bd-e2e.test/page', 'daily_limit');
+  }
 }];

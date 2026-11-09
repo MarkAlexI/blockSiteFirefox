@@ -1551,3 +1551,26 @@ test('Empty targets: sync removes a stale broad blocker while retaining valid na
   assert.deepEqual(harness.closedUrlBatches, [['keep.example']]);
   assert.equal(await harness.synchronizer.resolveNavigation('https://other.example/page'), null);
 });
+
+
+for (const focusActive of [false, true]) {
+  test('Target types: sync isolates malformed targets with Focus ' + focusActive, async () => {
+    const factory = createDnrRuleFactory(path => 'https://extension.invalid/' + path);
+    const harness = createHarness({
+      storedRules: [
+        makeStoredRule({ id: 1, blockURL: null }),
+        makeStoredRule({ id: 2, blockURL: ['broken'] }),
+        makeStoredRule({ id: 3, blockURL: { toString: null } }),
+        makeStoredRule({ id: 4, blockURL: 'keep.example' })
+      ],
+      createRule: factory, focusActive
+    });
+    const result = await harness.synchronizer.requestSync();
+    assert.equal(result.success, false);
+    assert.equal(result.invalidRuleCount, 3);
+    assert.equal(result.errorStage, 'build_rules');
+    assert.deepEqual(harness.getDynamicRules(), [factory(4, 'keep.example', '', focusActive ? 'focus' : 'always')]);
+    assert.deepEqual(harness.closedUrlBatches, [['keep.example']]);
+    assert.equal(await harness.synchronizer.resolveNavigation('https://broken.example/page'), null);
+  });
+}

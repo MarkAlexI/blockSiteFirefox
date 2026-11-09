@@ -199,8 +199,15 @@ export function createDnrSynchronizer({
 
     if (focusActive) {
       const byBlockURL = new Map();
+      const invalidTargets = [];
       for (const rule of activeRules) {
-        const key = String(rule.blockURL || '').trim().toLowerCase();
+        // Retain corrupt rows for the factory's normal error reporting.
+        // Deduplication must not stringify an invalid saved target.
+        if (typeof rule.blockURL !== 'string') {
+          invalidTargets.push(rule);
+          continue;
+        }
+        const key = rule.blockURL.trim().toLowerCase();
         if (!key) continue;
         const current = byBlockURL.get(key);
         if (!current) {
@@ -213,7 +220,7 @@ export function createDnrSynchronizer({
           byBlockURL.set(key, rule);
         }
       }
-      activeRules = [...byBlockURL.values()];
+      activeRules = [...byBlockURL.values(), ...invalidTargets];
     }
 
     const dnrRules = [];
