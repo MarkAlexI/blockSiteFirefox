@@ -154,4 +154,58 @@ export const urlSafetyScenarios = [{
     assert.equal((await e.state()).dailyRuleUsage.usageSeconds['781:general'], 60);
     await e.assertBlocked('http://repaired.bd-e2e.test/page', 'daily_limit');
   }
+}, {
+  id: '79', title: 'Native DNR and runtime matching retain non-default ports and short URL fragments',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    const portTarget = 'portcase.bd-e2e.test:18080/blocked';
+    const defaultTarget = 'defaultpath.bd-e2e.test/blocked';
+    const patterns = [portTarget, defaultTarget, 'portpartial'];
+    // Prove the fixture transport accepts both ports before installing rules.
+    for (const port of [18080, 18081]) {
+      const control = await e.newPage(`http://portcase.bd-e2e.test:${port}/open`);
+      assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    }
+    for (const blockURL of patterns) {
+      const state = await e.state();
+      const result = await message(page, { type: 'rules:add', payload: {
+        blockURL, redirectURL: '', category: 'social',
+        assignment: { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+      assert.equal(result.success, true);
+      assert.equal(result.syncPending, false, 'the native DNR update completed');
+    }
+    const state = await e.state();
+    assert.deepEqual(state.rules.map(rule => rule.blockURL).sort(), [...patterns].sort());
+    assert.deepEqual(state.dnr.map(rule => rule.condition.urlFilter).sort(), patterns.map(pattern => `||${pattern}`).sort());
+
+    const cases = [
+      { url: 'http://portcase.bd-e2e.test:18080/blocked/one', pattern: portTarget, blocked: true },
+      { url: 'http://sub.portcase.bd-e2e.test:18080/blocked/one', pattern: portTarget, blocked: true },
+      { url: 'http://portcase.bd-e2e.test:18081/blocked/one', pattern: portTarget, blocked: false },
+      { url: 'http://portcase.bd-e2e.test/blocked/one', pattern: portTarget, blocked: false },
+      { url: 'http://defaultpath.bd-e2e.test:18080/blocked/one', pattern: defaultTarget, blocked: false },
+      { url: 'http://defaultpath.bd-e2e.test/blocked/one', pattern: defaultTarget, blocked: true },
+      { url: 'http://m.portpartial.bd-e2e.test:18081/open', pattern: 'portpartial', blocked: true },
+      { url: 'http://notportpartial.bd-e2e.test:18081/open', pattern: 'portpartial', blocked: false }
+    ];
+    const matched = await page.evaluate(async cases => {
+      const api = globalThis.browser || chrome;
+      const { doesUrlMatchBlockRule } = await import(api.runtime.getURL('rules/urlRuleMatcher.js'));
+      return cases.map(input => doesUrlMatchBlockRule(input.url, input.pattern));
+    }, cases);
+    assert.deepEqual(matched, cases.map(input => input.blocked), 'the runtime matcher observes serialized request ports');
+    for (const input of cases) {
+      if (input.blocked) {
+        await e.assertBlocked(input.url, 'always');
+      } else {
+        const control = await e.newPage(input.url);
+        assert.equal(await control.url(), input.url);
+        assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+      }
+    }
+  }
 }];

@@ -10,7 +10,8 @@ function buildDomainAnchoredCandidates(url) {
     const parsed = new URL(url);
     const hostname = parsed.hostname.toLowerCase();
     if (isProtectedRequestHostname(hostname)) return [];
-    const tail = `${parsed.pathname || '/'}${parsed.search || ''}${parsed.hash || ''}`.toLowerCase();
+    const port = parsed.port ? `:${parsed.port}` : '';
+    const tail = `${port}${parsed.pathname || '/'}${parsed.search || ''}${parsed.hash || ''}`.toLowerCase();
     const labels = hostname.split('.').filter(Boolean);
     const candidates = [];
     for (let index = 0; index < labels.length; index++) {

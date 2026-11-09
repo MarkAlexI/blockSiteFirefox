@@ -557,3 +557,24 @@ test('navigation preserves completed active segments while the next document is 
   assert.equal(data.dailyRuleUsage.usageSeconds['1:general'], 40);
   assert.deepEqual(data.dailyRuleUsage.lastSample.assignmentKeys, []);
 });
+
+
+test('URL ports: the tracker attributes foreground time only to the matching port', async () => {
+  const rules = [
+    makeRule({ id: 1, blockURL: 'example.test:8080/path' }),
+    makeRule({ id: 2, blockURL: 'example.test:8081/path' })
+  ];
+  for (const [url, expected] of [
+    ['https://example.test:8081/path/one', ['2:general']],
+    ['https://example.test:8080/path/one', ['1:general']],
+    ['https://example.test:8082/path/one', []],
+    ['https://example.test/path/one', []]
+  ]) {
+    let sampled;
+    const tracker = createTracker({ rules, tab: { id: 11, windowId: 7, active: true, url },
+      recordSample(keys) { sampled = keys; return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} }; }
+    });
+    await tracker.sample('tab_load_complete');
+    assert.deepEqual(sampled, expected, url);
+  }
+});

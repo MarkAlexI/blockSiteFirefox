@@ -8,6 +8,7 @@ import {
   getDnrSignature
 } from '../scripts/dnrSynchronizer.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
+import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
 
 function makeDnrRule({
   id = 1,
@@ -1492,4 +1493,17 @@ test('zero-duration scheduled assignments never create browser DNR rules', async
 
   assert.deepEqual(harness.getDynamicRules(), []);
   assert.deepEqual(harness.updates, []);
+});
+
+
+test('URL ports: SPA navigation resolves the same target that the production DNR factory builds', async () => {
+  const harness = createHarness({
+    storedRules: [makeStoredRule({ id: 1, blockURL: 'example.test:8080/path' })],
+    createRule: createDnrRuleFactory(path => `https://extension.invalid/${path}`)
+  });
+  assert.equal((await harness.synchronizer.requestSync()).success, true);
+  assert.equal(harness.getDynamicRules()[0].condition.urlFilter, '||example.test:8080/path');
+  assert.ok(await harness.synchronizer.resolveNavigation('https://example.test:8080/path/one'));
+  assert.equal(await harness.synchronizer.resolveNavigation('https://example.test:8081/path/one'), null);
+  assert.equal(await harness.synchronizer.resolveNavigation('https://example.test/path/one'), null);
 });

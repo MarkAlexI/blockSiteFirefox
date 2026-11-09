@@ -9137,3 +9137,14 @@ for (const path of ['/a%2Fb', '/a%252Fb', '/a%3Fb', '/100%', '/a%20b']) {
     }, { local: { activeRuleListId: 'general', lastCheck: Date.now() } });
   });
 }
+
+
+test('URL ports: the context-menu worker retains the link port and encoded path', async () => {
+  await withWorker(async ({ api }) => {
+    await api.contextMenus.onClicked.listeners[0]({
+      menuItemId: 'blockDistraction', linkUrl: 'https://example.test:8080/a%2Fb'
+    }, {});
+    assert.equal(api.storage.local.data.rules[0].blockURL, 'example.test:8080/a%2Fb');
+    assert.equal(api.dynamicRules[0].condition.urlFilter, '||example.test:8080/a%2Fb');
+  }, { local: { activeRuleListId: 'general', lastCheck: Date.now() } });
+});

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 
 test('tab cleanup uses the same partial domain-label matching contract as DNR', async () => {
   const previousBrowser = globalThis.browser;
@@ -36,4 +37,19 @@ test('tab cleanup uses the same partial domain-label matching contract as DNR', 
   } finally {
     globalThis.browser = previousBrowser;
   }
+});
+
+test('URL ports: tab cleanup preserves matching paths on a different port', async () => {
+  const api = createExtensionApi();
+  api.tabs.values = [
+    { id: 1, windowId: 1, url: 'https://example.test:8080/path/one' },
+    { id: 2, windowId: 1, url: 'https://example.test:8081/path/one' },
+    { id: 3, windowId: 1, url: 'https://example.test/path/one' },
+    { id: 4, windowId: 1, url: 'about:blank' }
+  ];
+  await withExtensionEnvironment(api, async () => {
+    const { closeTabsMatchingRules } = await import('../scripts/closeTabs.js');
+    await closeTabsMatchingRules(['example.test:8080/path']);
+    assert.deepEqual(api.removedTabs, [1]);
+  });
 });
