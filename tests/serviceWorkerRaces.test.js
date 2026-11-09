@@ -9292,3 +9292,52 @@ test('Target types: Focus reports an invalid JSON target without closing unrelat
   }, { local: { activeRuleListId: 'general',
     rules: [makeFocusRule(1, 'general', { blockURL: { toString: null } })] }, supportsWindows: false });
 });
+
+
+test('Redirect types: valid mutations and redirect repair preserve the spent Daily Limit', async () => {
+  const malformed = { ...makeDailyLimitRule(1, 'general', { blockURL: 'redirect.example', minutes: 1 }),
+    redirectURL: ['https://unexpected.example/'] };
+  const valid = makeFocusRule(2, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [1, 2]);
+    const target = new URL(api.dynamicRules.find(rule => rule.id === 1).action.redirect.url);
+    assert.equal(target.pathname, '/blocked.html');
+    assert.equal(target.searchParams.get('reason'), 'daily_limit');
+    const usage = structuredClone(api.storage.local.data.dailyRuleUsage);
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'yout', redirectURL: '', category: 'social' } });
+    assert.equal(added.success, true);
+    assert.notEqual(added.syncPending, true);
+    assert.deepEqual(api.storage.local.data.rules[0], malformed);
+    assert.equal((await send({ type: 'rules:delete', payload: { ruleId: valid.id } })).success, true);
+    assert.equal(api.dynamicRules.some(rule => rule.id === valid.id), false);
+    const repaired = await send({ type: 'rules:update', payload: { ruleId: malformed.id, blockURL: malformed.blockURL,
+      redirectURL: 'https://safe.example/target', category: malformed.category, assignment: malformed.assignments[0] } });
+    assert.equal(repaired.success, true);
+    assert.notEqual(repaired.syncPending, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+    assert.equal(new URL(api.dynamicRules.find(rule => rule.id === 1).action.redirect.url)
+      .searchParams.get('to'), 'https://safe.example/target');
+  }, { local: { rules: [malformed, valid], activeRuleListId: 'general',
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:general': 60 } } },
+    supportsWindows: false });
+});
+
+test('Redirect types: Focus closes matching tabs with a blocked-page fallback for a malformed destination', async () => {
+  const rule = { ...makeDailyLimitRule(1, 'general', { blockURL: 'redirect.example', minutes: 10 }),
+    redirectURL: ['https://unexpected.example/'] };
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [
+      { id: 11, url: 'https://redirect.example/page', active: false },
+      { id: 12, url: 'https://safe.example/page', active: true }
+    ];
+    const result = await send({ type: 'start_focus_session', duration: 5 });
+    assert.equal(result.success, true);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.deepEqual(api.removedTabs, [11]);
+    const target = new URL(api.dynamicRules[0].action.redirect.url);
+    assert.equal(target.pathname, '/blocked.html');
+    assert.equal(target.searchParams.get('reason'), 'focus');
+    assert.deepEqual(api.storage.local.data.rules[0], rule);
+  }, { local: { activeRuleListId: 'general', rules: [rule] }, supportsWindows: false });
+});

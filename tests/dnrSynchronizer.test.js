@@ -1574,3 +1574,32 @@ for (const focusActive of [false, true]) {
     assert.equal(await harness.synchronizer.resolveNavigation('https://broken.example/page'), null);
   });
 }
+
+
+for (const focusActive of [false, true]) {
+  test('Redirect types: native sync and SPA decisions retain blockers with Focus ' + focusActive, async () => {
+    const factory = createDnrRuleFactory(path => 'https://extension.invalid/' + path);
+    const harness = createHarness({
+      storedRules: [
+        makeStoredRule({ id: 1, blockURL: 'array.example', redirectURL: ['https://unexpected.example/'] }),
+        makeStoredRule({ id: 2, blockURL: 'object.example', redirectURL: { toString: null } }),
+        makeStoredRule({ id: 3, blockURL: 'custom.example', redirectURL: 'https://safe.example/target' })
+      ],
+      currentDnrRules: [factory(99, 'removed.example', '')], createRule: factory, focusActive
+    });
+    const result = await harness.synchronizer.requestSync();
+    assert.equal(result.success, true);
+    assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [1, 2, 3]);
+    assert.deepEqual(harness.updates[0].removeRuleIds, [99]);
+    for (const host of ['array.example', 'object.example']) {
+      const resolution = await harness.synchronizer.resolveNavigation('https://' + host + '/page');
+      const target = new URL(resolution.redirectUrl);
+      assert.equal(target.pathname, '/blocked.html');
+      assert.equal(target.searchParams.get('reason'), focusActive ? 'focus' : 'always');
+      assert.equal(target.searchParams.has('to'), false);
+    }
+    const custom = await harness.synchronizer.resolveNavigation('https://custom.example/page');
+    assert.equal(new URL(custom.redirectUrl).searchParams.get('to'), 'https://safe.example/target');
+    assert.equal(await harness.synchronizer.resolveNavigation('https://removed.example/page'), null);
+  });
+}

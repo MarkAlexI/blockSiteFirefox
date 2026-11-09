@@ -436,4 +436,55 @@ export const urlSafetyScenarios = [{
     assert.equal((await e.state()).dailyRuleUsage.usageSeconds['831:general'], 60);
     await e.assertBlocked('http://broken.bd-e2e.test/page', 'daily_limit');
   }
+}, {
+  id: '84', title: 'Malformed saved redirects retain native blocking and spent budgets until a valid destination is saved',
+  async run(e) {
+    const destination = 'http://redirect-target.bd-e2e.test/repaired';
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const malformed = { id: 841, blockURL: 'legacy-redirect.bd-e2e.test', redirectURL: [destination],
+      category: 'social', isWhitelist: false,
+      assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
+    const valid = { id: 842, blockURL: 'valid-redirect.bd-e2e.test', redirectURL: '',
+      category: 'social', isWhitelist: false, assignments: [assignment] };
+    await e.seed({ pro: true, rules: [malformed, valid], usage: { '841:general': 60 } });
+    const page = await e.openOptions();
+    const classification = await page.evaluate(async destination => {
+      const api = globalThis.browser || chrome;
+      const { createDnrRuleFactory } = await import(api.runtime.getURL('rules/dnrRuleFactory.js'));
+      const factory = createDnrRuleFactory(path => api.runtime.getURL(path));
+      return [true, 42, [destination], { toString: null }].map(redirectURL => {
+        const target = new URL(factory(1, 'yout', redirectURL, 'always').action.redirect.url);
+        return { path: target.pathname, reason: target.searchParams.get('reason'), external: target.searchParams.has('to') };
+      });
+    }, destination);
+    assert.deepEqual(classification, Array.from({ length: 4 }, () => ({ path: '/blocked.html', reason: 'always', external: false })));
+    const reachable = await e.newPage(destination);
+    assert.equal(await reachable.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const added = await mutate('rules:add', { blockURL: 'redirect-safe', redirectURL: '', category: 'social', assignment });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, false, 'the malformed destination does not interrupt valid native synchronization');
+    const state = await e.state();
+    assert.deepEqual(state.rules.find(rule => rule.id === malformed.id), malformed, 'the saved value remains available for repair');
+    assert.equal(state.dailyRuleUsage.usageSeconds['841:general'], 60);
+    assert.equal(new URL(state.dnr.find(rule => rule.id === malformed.id).action.redirect.url).pathname, '/blocked.html');
+    await e.assertBlocked('http://legacy-redirect.bd-e2e.test/page', 'daily_limit');
+    await e.assertBlocked('http://valid-redirect.bd-e2e.test/page', 'always');
+    await e.assertBlocked('http://redirect-safe.bd-e2e.test/page', 'always');
+    const repaired = await mutate('rules:update', { ruleId: malformed.id, blockURL: malformed.blockURL,
+      redirectURL: destination, category: malformed.category, assignment: malformed.assignments[0] });
+    assert.equal(repaired.success, true);
+    assert.equal(repaired.syncPending, false);
+    assert.equal((await e.state()).dailyRuleUsage.usageSeconds['841:general'], 60);
+    const redirected = await e.newPage('http://legacy-redirect.bd-e2e.test/after-repair');
+    await poll(() => redirected.url(), url => url === destination, 'the repaired destination receives a real native redirect');
+    assert.equal(await (redirected.locator ? redirected.locator('h1').textContent() : redirected.text('h1')), 'BD E2E fixture');
+  }
 }];

@@ -48,18 +48,19 @@ export function createDnrRule({
   const urlFilter = createDnrUrlFilter(blockURL);
   const trimmedBlock = blockURL.trim();
   const normalizedBlockURL = normalizePathSegment(trimmedBlock);
+  const trimmedRedirect = typeof redirectURL === 'string' ? redirectURL.trim() : '';
 
   let action;
 
-  if (redirectURL && isValidURL(redirectURL.trim())) {
+  if (trimmedRedirect && isValidURL(trimmedRedirect)) {
     const finalRedirectUrl = new URL(intermediaryRedirectURL);
     finalRedirectUrl.searchParams.set('from', normalizedBlockURL);
 
     try {
-      const parsedRedirect = new URL(redirectURL.trim());
+      const parsedRedirect = new URL(trimmedRedirect);
       finalRedirectUrl.searchParams.set('to', parsedRedirect.href);
     } catch {
-      finalRedirectUrl.searchParams.set('to', redirectURL.trim());
+      finalRedirectUrl.searchParams.set('to', trimmedRedirect);
     }
 
     action = {
