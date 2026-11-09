@@ -328,4 +328,59 @@ export const urlSafetyScenarios = [{
       }
     }
   }
+}, {
+  id: '82', title: 'Targets normalized to empty never become native match-all blockers and remain repairable',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const invalid = { id: 821, blockURL: 'www.', redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
+    const valid = { id: 822, blockURL: 'empty-valid.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [assignment] };
+    await e.seed({ pro: true, rules: [invalid, valid], usage: { '821:general': 60 } });
+    const page = await e.openOptions();
+    const classification = await page.evaluate(async targets => {
+      const api = globalThis.browser || chrome;
+      const { createDnrUrlFilter, InvalidDnrUrlFilterError } = await import(api.runtime.getURL('rules/dnrRuleFactory.js'));
+      const { normalizePathRule } = await import(api.runtime.getURL('rules/normalizePathRule.js'));
+      return targets.map(target => {
+        const normalized = normalizePathRule(target);
+        try { return { normalized, urlFilter: createDnrUrlFilter(target) }; }
+        catch (error) { return { normalized, invalid: error instanceof InvalidDnrUrlFilterError }; }
+      });
+    }, ['www.', 'https://www./']);
+    assert.deepEqual(classification, [{ normalized: '', invalid: true }, { normalized: '', invalid: true }],
+      'the actual browser serializer and production factory classify the fault fixtures');
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const before = await e.state();
+    const rejected = await mutate('rules:add', { blockURL: 'https://www./', redirectURL: '', category: 'social', assignment });
+    assert.equal(rejected.success, false);
+    assert.deepEqual(rejected.error.validationErrors, ['blockurl_invalid']);
+    assert.deepEqual((await e.state()).rules, before.rules, 'invalid additions do not modify saved rows');
+    const added = await mutate('rules:add', { blockURL: 'z', redirectURL: '', category: 'social', assignment });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, true, 'the legacy row is still reported for repair');
+    const state = await e.state();
+    assert.deepEqual(state.rules.find(rule => rule.id === invalid.id), invalid);
+    assert.equal(state.dailyRuleUsage.usageSeconds['821:general'], 60);
+    assert.equal(state.dnr.some(rule => rule.id === invalid.id || rule.condition.urlFilter === '||'), false);
+    assert.ok(state.dnr.some(rule => rule.condition.urlFilter === '||z'), 'one-character fragments remain supported');
+    const control = await e.newPage('http://empty-control.bd-e2e.test/page');
+    assert.equal(await control.url(), 'http://empty-control.bd-e2e.test/page');
+    assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    await e.assertBlocked('http://empty-valid.bd-e2e.test/page', 'always');
+    await e.assertBlocked('http://z.bd-e2e.test/page', 'always');
+    const repaired = await mutate('rules:update', { ruleId: invalid.id, blockURL: 'empty-repaired.bd-e2e.test',
+      redirectURL: '', category: invalid.category, assignment: invalid.assignments[0] });
+    assert.equal(repaired.success, true);
+    assert.equal(repaired.syncPending, false);
+    assert.equal((await e.state()).dailyRuleUsage.usageSeconds['821:general'], 60);
+    await e.assertBlocked('http://empty-repaired.bd-e2e.test/page', 'daily_limit');
+  }
 }];

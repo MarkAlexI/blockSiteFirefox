@@ -1531,3 +1531,23 @@ test('URL anchors: SPA resolution follows the anchored production DNR filter', a
   assert.ok(await harness.synchronizer.resolveNavigation('https://example.test/p:one:end'));
   assert.equal(await harness.synchronizer.resolveNavigation('https://example.test/p:one:end/more'), null);
 });
+
+
+test('Empty targets: sync removes a stale broad blocker while retaining valid native rules', async () => {
+  const factory = createDnrRuleFactory(path => 'https://extension.invalid/' + path);
+  const valid = factory(2, 'keep.example', '', 'always');
+  const stale = { ...structuredClone(valid), id: 1,
+    condition: { ...structuredClone(valid.condition), urlFilter: '||' } };
+  const harness = createHarness({
+    storedRules: [makeStoredRule({ id: 1, blockURL: 'www.' }), makeStoredRule({ id: 2, blockURL: 'keep.example' })],
+    currentDnrRules: [stale, valid], createRule: factory
+  });
+  const result = await harness.synchronizer.requestSync();
+  assert.equal(result.success, false);
+  assert.equal(result.invalidRuleCount, 1);
+  assert.equal(result.errorStage, 'build_rules');
+  assert.deepEqual(harness.getDynamicRules(), [valid]);
+  assert.deepEqual(harness.updates, [{ removeRuleIds: [1], addRules: [] }]);
+  assert.deepEqual(harness.closedUrlBatches, [['keep.example']]);
+  assert.equal(await harness.synchronizer.resolveNavigation('https://other.example/page'), null);
+});

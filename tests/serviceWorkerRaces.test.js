@@ -9195,3 +9195,63 @@ test('URL anchors: Focus closes only tabs selected by the composed anchored targ
     assert.equal(api.dynamicRules[0].condition.urlFilter, `||${pattern}`);
   }, { local: { activeRuleListId: 'general', rules: [rule] }, supportsWindows: false });
 });
+
+
+for (const type of ['rules:add', 'rules:update', 'rules:replaceAll']) {
+  test('Empty targets: worker rejects ' + type + ' before changing saved rules or native blockers', async () => {
+    const original = makeFocusRule(1, 'general', { blockURL: 'keep.example' });
+    await withWorker(async ({ api, send, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      const snapshot = () => structuredClone({ rules: api.storage.local.data.rules,
+        usage: api.storage.local.data.dailyRuleUsage, generation: api.storage.local.data.rulesGeneration,
+        dynamic: api.dynamicRules, settings: api.storage.sync.data.settings });
+      const before = snapshot();
+      const invalid = { ...original, blockURL: 'https://www./' };
+      const payload = type === 'rules:replaceAll'
+        ? { rules: [makeFocusRule(2, 'general', { blockURL: 'valid.example' }), invalid], settings: { mode: 'strict' } }
+        : { ruleId: original.id, blockURL: invalid.blockURL, redirectURL: '', category: 'social' };
+      const result = await send({ type, payload });
+      assert.equal(result.success, false);
+      assert.deepEqual(result.error.validationErrors, ['blockurl_invalid']);
+      assert.deepEqual(snapshot(), before);
+    }, { local: { rules: [original], activeRuleListId: 'general' }, supportsWindows: false });
+  });
+}
+
+test('Empty targets: legacy repair preserves the spent Daily Limit and unrelated rule changes', async () => {
+  const invalid = makeDailyLimitRule(1, 'general', { blockURL: 'www.', minutes: 1 });
+  const valid = makeFocusRule(2, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const usage = structuredClone(api.storage.local.data.dailyRuleUsage);
+    assert.deepEqual(api.dynamicRules.map(rule => rule.id), [2]);
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'yout', redirectURL: '', category: 'social' } });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, true);
+    assert.deepEqual(api.storage.local.data.rules[0], invalid);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+    assert.equal(api.dynamicRules.some(rule => rule.condition.urlFilter === '||yout'), true);
+    assert.equal((await send({ type: 'rules:delete', payload: { ruleId: valid.id } })).success, true);
+    assert.equal(api.dynamicRules.some(rule => rule.id === valid.id), false);
+    const repaired = await send({ type: 'rules:update', payload: { ruleId: invalid.id,
+      blockURL: 'repaired.example', redirectURL: '', category: invalid.category, assignment: invalid.assignments[0] } });
+    assert.equal(repaired.success, true);
+    assert.notEqual(repaired.syncPending, true);
+    assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+    assert.equal(api.dynamicRules.some(rule => rule.condition.urlFilter === '||repaired.example'), true);
+  }, { local: { rules: [invalid, valid], activeRuleListId: 'general',
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '1:general': 60 } } },
+    supportsWindows: false });
+});
+
+test('Empty targets: Focus rejects a collapsed saved target without closing unrelated tabs', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [{ id: 11, url: 'https://safe.example/page', active: true }];
+    const result = await send({ type: 'start_focus_session', duration: 5 });
+    assert.equal(result.success, false);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.dynamicRules, []);
+  }, { local: { activeRuleListId: 'general', rules: [makeFocusRule(1, 'general', { blockURL: 'www.' })] },
+    supportsWindows: false });
+});

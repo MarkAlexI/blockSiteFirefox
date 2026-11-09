@@ -18,7 +18,11 @@ export class InvalidDnrUrlFilterError extends TypeError {
 export function createDnrUrlFilter(blockURL) {
   const trimmedBlock = typeof blockURL === 'string' ? blockURL.trim() : '';
   if (!trimmedBlock) throw new InvalidDnrUrlFilterError();
-  const urlFilter = `||${normalizePathRule(trimmedBlock)}`;
+  const normalizedBlock = normalizePathRule(trimmedBlock);
+  // A target such as 'www.' disappears during normalization. A bare domain
+  // anchor would match unrelated sites instead of the user's URL fragment.
+  if (!normalizedBlock) throw new InvalidDnrUrlFilterError();
+  const urlFilter = `||${normalizedBlock}`;
 
   // DNR forbids non-ASCII filters and a wildcard immediately after ||.
   // Other supported filter constructs retain their existing behavior.
