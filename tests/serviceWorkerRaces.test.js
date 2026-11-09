@@ -9148,3 +9148,34 @@ test('URL ports: the context-menu worker retains the link port and encoded path'
     assert.equal(api.dynamicRules[0].condition.urlFilter, '||example.test:8080/a%2Fb');
   }, { local: { activeRuleListId: 'general', lastCheck: Date.now() } });
 });
+
+
+test('URL wildcards: Focus does not close web tabs for an invalid saved match-all filter', async () => {
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [
+      { id: 11, url: 'https://safe.example/page', active: true },
+      { id: 12, url: 'about:blank', active: false }
+    ];
+    const result = await send({ type: 'start_focus_session', duration: 5 });
+    assert.equal(result.success, false);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.deepEqual(api.removedTabs, []);
+    assert.deepEqual(api.dynamicRules, []);
+  }, { local: { activeRuleListId: 'general', rules: [makeFocusRule(1, 'general', { blockURL: '*' })] }, supportsWindows: false });
+});
+
+
+test('URL wildcards: Focus activates a wildcard Daily Limit target and closes only matching tabs', async () => {
+  const rule = makeDailyLimitRule(1, 'general', { blockURL: 'example.test/feed*/watch', minutes: 10 });
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [
+      { id: 11, url: 'https://example.test/feeds/one/watch', active: false },
+      { id: 12, url: 'https://example.test/feeds/one/read', active: true }
+    ];
+    const result = await send({ type: 'start_focus_session', duration: 5 });
+    assert.equal(result.success, true);
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.deepEqual(api.removedTabs, [11]);
+    assert.equal(api.dynamicRules[0].condition.urlFilter, '||example.test/feed*/watch');
+  }, { local: { activeRuleListId: 'general', rules: [rule] }, supportsWindows: false });
+});

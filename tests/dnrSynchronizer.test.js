@@ -1507,3 +1507,16 @@ test('URL ports: SPA navigation resolves the same target that the production DNR
   assert.equal(await harness.synchronizer.resolveNavigation('https://example.test:8081/path/one'), null);
   assert.equal(await harness.synchronizer.resolveNavigation('https://example.test/path/one'), null);
 });
+
+
+test('URL wildcards: SPA decisions resolve the production wildcard filter', async () => {
+  const harness = createHarness({
+    storedRules: [makeStoredRule({ id: 1, blockURL: 'example.test/feed*/watch' })],
+    createRule: createDnrRuleFactory(path => `https://extension.invalid/${path}`)
+  });
+  assert.equal((await harness.synchronizer.requestSync()).success, true);
+  assert.equal(harness.getDynamicRules()[0].condition.urlFilter, '||example.test/feed*/watch');
+  assert.ok(await harness.synchronizer.resolveNavigation('https://example.test/feeds/one/watch'));
+  assert.equal(await harness.synchronizer.resolveNavigation('https://example.test/feeds/one/read'), null);
+  assert.equal(await harness.synchronizer.resolveNavigation('chrome://example.test/feeds/one/watch'), null);
+});

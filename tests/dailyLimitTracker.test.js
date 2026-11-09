@@ -578,3 +578,17 @@ test('URL ports: the tracker attributes foreground time only to the matching por
     assert.deepEqual(sampled, expected, url);
   }
 });
+
+
+test('URL wildcards: the tracker attributes only matching foreground paths', async () => {
+  for (const [path, expected] of [['/feeds/one/watch', ['1:general']], ['/feeds/one/read', []]]) {
+    let sampled;
+    const tracker = createTracker({
+      rules: [makeRule({ blockURL: 'example.test/feed*/watch' })],
+      tab: { id: 11, windowId: 7, active: true, url: `https://example.test${path}` },
+      recordSample(keys) { sampled = keys; return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} }; }
+    });
+    await tracker.sample('tab_load_complete');
+    assert.deepEqual(sampled, expected, path);
+  }
+});

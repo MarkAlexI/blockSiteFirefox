@@ -53,3 +53,19 @@ test('URL ports: tab cleanup preserves matching paths on a different port', asyn
     assert.deepEqual(api.removedTabs, [1]);
   });
 });
+
+
+test('URL wildcards: cleanup closes matching web tabs and preserves browser pages', async () => {
+  const api = createExtensionApi();
+  api.tabs.values = [
+    { id: 1, windowId: 1, url: 'https://example.test/feeds/one/watch' },
+    { id: 2, windowId: 1, url: 'https://example.test/feeds/one/read' },
+    { id: 3, windowId: 1, url: 'chrome://components/' },
+    { id: 4, windowId: 1, url: 'about:blank' }
+  ];
+  await withExtensionEnvironment(api, async () => {
+    const { closeTabsMatchingRules } = await import('../scripts/closeTabs.js');
+    await closeTabsMatchingRules(['example.test/feed*/watch', 'com']);
+    assert.deepEqual(api.removedTabs, [1]);
+  });
+});

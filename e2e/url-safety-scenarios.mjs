@@ -208,4 +208,59 @@ export const urlSafetyScenarios = [{
       }
     }
   }
+}, {
+  id: '80', title: 'Native wildcard filters agree with runtime matching while internal pages remain excluded',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    const pathPattern = 'wild.bd-e2e.test/feed*/watch';
+    const portPattern = 'portwild.bd-e2e.test:18080/a*b';
+    for (const url of ['http://wild.bd-e2e.test/open', 'http://portwild.bd-e2e.test:18080/open']) {
+      const control = await e.newPage(url);
+      assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    }
+    for (const blockURL of [pathPattern, portPattern]) {
+      const state = await e.state();
+      const result = await message(page, { type: 'rules:add', payload: {
+        blockURL, redirectURL: '', category: 'social',
+        assignment: { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+      assert.equal(result.success, true);
+      assert.equal(result.syncPending, false, 'the native DNR update completed');
+    }
+    assert.deepEqual((await e.state()).dnr.map(rule => rule.condition.urlFilter).sort(),
+      [`||${pathPattern}`, `||${portPattern}`].sort(), 'the production factory retained native wildcard tokens');
+    const cases = [
+      { url: 'http://wild.bd-e2e.test/feed/watch', pattern: pathPattern, blocked: true },
+      { url: 'http://m.wild.bd-e2e.test/feeds/one/two/watch-more', pattern: pathPattern, blocked: true },
+      { url: 'http://wild.bd-e2e.test/feed?next=/watch', pattern: pathPattern, blocked: true },
+      { url: 'http://wild.bd-e2e.test/feeds/one/read', pattern: pathPattern, blocked: false },
+      { url: 'http://notwild.bd-e2e.test/feeds/one/watch', pattern: pathPattern, blocked: false },
+      { url: 'http://portwild.bd-e2e.test:18080/ab', pattern: portPattern, blocked: true },
+      { url: 'http://portwild.bd-e2e.test:18080/a/one/b/more', pattern: portPattern, blocked: true },
+      { url: 'http://portwild.bd-e2e.test:18081/ab', pattern: portPattern, blocked: false },
+      { url: 'http://portwild.bd-e2e.test/ab', pattern: portPattern, blocked: false }
+    ];
+    const observed = await page.evaluate(async cases => {
+      const api = globalThis.browser || chrome;
+      const { doesUrlMatchBlockRule } = await import(api.runtime.getURL('rules/urlRuleMatcher.js'));
+      return {
+        matched: cases.map(input => doesUrlMatchBlockRule(input.url, input.pattern)),
+        internal: doesUrlMatchBlockRule('chrome://components/', 'com'),
+        invalid: doesUrlMatchBlockRule('http://wild.bd-e2e.test/open', '*'),
+        protected: doesUrlMatchBlockRule('https://accounts.google.com/one/watch', 'accounts.google.com/*/watch')
+      };
+    }, cases);
+    assert.deepEqual(observed, { matched: cases.map(input => input.blocked), internal: false, invalid: false, protected: false });
+    for (const input of cases) {
+      if (input.blocked) await e.assertBlocked(input.url, 'always');
+      else {
+        const control = await e.newPage(input.url);
+        assert.equal(await control.url(), input.url);
+        assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+      }
+    }
+  }
 }];
