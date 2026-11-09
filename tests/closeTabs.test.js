@@ -2,6 +2,24 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 
+test('Empty query: tab cleanup retains the other query form of each anchored target', async () => {
+  const api = createExtensionApi();
+  api.tabs.values = [
+    { id: 1, windowId: 1, url: 'https://exact.example/p:item' },
+    { id: 2, windowId: 1, url: 'https://exact.example/p:item?' },
+    { id: 3, windowId: 1, url: 'https://query.example/p:item' },
+    { id: 4, windowId: 1, url: 'https://query.example/p:item?' },
+    { id: 5, windowId: 1, url: 'https://query.example/p:item?q=1' },
+    { id: 6, windowId: 1, url: 'about:blank' }
+  ];
+  await withExtensionEnvironment(api, async () => {
+    const { closeTabsMatchingRules } = await import('../scripts/closeTabs.js');
+    await closeTabsMatchingRules(['exact.example/p:item|', 'query.example^p:item?|']);
+    assert.deepEqual(api.removedTabs, [1, 4]);
+  });
+});
+
+
 test('tab cleanup uses the same partial domain-label matching contract as DNR', async () => {
   const previousBrowser = globalThis.browser;
   const removed = [];

@@ -488,3 +488,60 @@ export const urlSafetyScenarios = [{
     assert.equal(await (redirected.locator ? redirected.locator('h1').textContent() : redirected.text('h1')), 'BD E2E fixture');
   }
 }];
+
+
+urlSafetyScenarios.push({
+  id: '85', title: 'Native right anchors distinguish an explicit empty query from an absent query',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    const exact = 'empty-query-exact.bd-e2e.test/p:item|';
+    const query = 'empty-query-only.bd-e2e.test^p:item?|';
+    const patterns = [exact, query];
+    const compiled = await page.evaluate(async patterns => {
+      const api = globalThis.browser || chrome;
+      const { createDnrUrlFilter } = await import(api.runtime.getURL('rules/dnrRuleFactory.js'));
+      return patterns.map(createDnrUrlFilter);
+    }, patterns);
+    assert.deepEqual(compiled, patterns.map(pattern => `||${pattern}`), 'the native filters retain the literal query marker and anchors');
+    const reachable = await e.newPage('http://empty-query-exact.bd-e2e.test/open?');
+    assert.equal(await reachable.url(), 'http://empty-query-exact.bd-e2e.test/open?');
+    assert.equal(await reachable.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    for (const blockURL of patterns) {
+      const snapshot = await e.state();
+      const response = await message(page, { type: 'rules:add', payload: {
+        blockURL, redirectURL: '', category: 'social',
+        assignment: { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        expectedGeneration: snapshot.rulesGeneration ?? null,
+        expectedListRevisions: snapshot.ruleListRevisions || {}
+      } });
+      assert.equal(response.success, true);
+      assert.equal(response.syncPending, false, 'the browser accepts both production filters');
+    }
+    assert.deepEqual((await e.state()).dnr.map(rule => rule.condition.urlFilter).sort(), [...compiled].sort());
+    const cases = [
+      { url: 'http://empty-query-exact.bd-e2e.test/p:item', pattern: exact, blocked: true },
+      { url: 'http://empty-query-exact.bd-e2e.test/p:item?', pattern: exact, blocked: false },
+      { url: 'http://empty-query-exact.bd-e2e.test/p:item?q=1', pattern: exact, blocked: false },
+      { url: 'http://empty-query-exact.bd-e2e.test/p:item%3F', pattern: exact, blocked: false },
+      { url: 'http://empty-query-only.bd-e2e.test/p:item?', pattern: query, blocked: true },
+      { url: 'http://empty-query-only.bd-e2e.test/p:item', pattern: query, blocked: false },
+      { url: 'http://empty-query-only.bd-e2e.test/p:item?q=1', pattern: query, blocked: false },
+      { url: 'http://empty-query-only.bd-e2e.test/p:item%3F', pattern: query, blocked: false }
+    ];
+    const observed = await page.evaluate(async cases => {
+      const api = globalThis.browser || chrome;
+      const { doesUrlMatchBlockRule } = await import(api.runtime.getURL('rules/urlRuleMatcher.js'));
+      return cases.map(input => doesUrlMatchBlockRule(input.url, input.pattern));
+    }, cases);
+    assert.deepEqual(observed, cases.map(input => input.blocked));
+    for (const input of cases) {
+      if (input.blocked) await e.assertBlocked(input.url, 'always');
+      else {
+        const control = await e.newPage(input.url);
+        assert.equal(await control.url(), input.url);
+        assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+      }
+    }
+  }
+});

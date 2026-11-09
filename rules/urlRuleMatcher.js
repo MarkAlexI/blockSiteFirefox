@@ -75,7 +75,10 @@ function buildDomainAnchoredCandidates(url) {
     const hostname = parsed.hostname.toLowerCase();
     if (isProtectedRequestHostname(hostname)) return [];
     const port = parsed.port ? `:${parsed.port}` : '';
-    const tail = `${port}${parsed.pathname || '/'}${parsed.search || ''}${parsed.hash || ''}`.toLowerCase();
+    // URL.search is empty for both an absent query and an explicit final '?'.
+    // Keep that delimiter for DNR right anchors; '?' inside a hash is not query.
+    const search = parsed.search || (parsed.href.split('#', 1)[0].includes('?') ? '?' : '');
+    const tail = `${port}${parsed.pathname || '/'}${search}${parsed.hash || ''}`.toLowerCase();
     const labels = hostname.split('.');
     const candidates = [];
     for (let index = 0; index < labels.length; index++) {
