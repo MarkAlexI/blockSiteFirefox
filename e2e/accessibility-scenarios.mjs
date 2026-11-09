@@ -1,3 +1,4 @@
+import { setNativeZoomedViewport } from './native-zoom-viewport.mjs';
 import { blockingPageScenarios } from './blocking-page-scenarios.mjs';
 import assert from 'node:assert/strict';
 import { statisticsScenarios } from './statistics-scenarios.mjs';
@@ -243,12 +244,9 @@ export const accessibilityScenarios = [{
         dialog.scrollWidth <= dialog.clientWidth + 1;
     }, selector);
     try {
-      await page.evaluate(async initial => {
-        const api = typeof browser === 'undefined' ? chrome : browser;
-        await api.windows.update(initial.windowId, { state: 'normal', width: 640, height: 960 });
-        await api.tabs.setZoom(initial.tabId, 2);
-      }, initial);
-      await poll(() => page.evaluate(() => innerWidth), width => width >= 280 && width <= 340, 'real zoomed narrow viewport');
+      const viewportEvidence = [];
+      e.result.zoomViewport = viewportEvidence;
+      await setNativeZoomedViewport(page, initial, { evidence: viewportEvidence });
       const zoom = await page.evaluate(async tabId => {
         const api = typeof browser === 'undefined' ? chrome : browser;
         return { factor: await api.tabs.getZoom(tabId), dpr: devicePixelRatio, innerWidth,
@@ -668,12 +666,9 @@ export const accessibilityScenarios = [{
       return { tabId: tab.id, windowId: tab.windowId, zoom: await api.tabs.getZoom(tab.id), width: window.width, height: window.height, dpr: devicePixelRatio };
     });
     try {
-      await page.evaluate(async initial => {
-        const api = typeof browser === 'undefined' ? chrome : browser;
-        await api.windows.update(initial.windowId, { state: 'normal', width: 640, height: 960 });
-        await api.tabs.setZoom(initial.tabId, 2);
-      }, initial);
-      await poll(() => page.evaluate(() => innerWidth), width => width >= 280 && width <= 340, 'Popup at real 200% zoom');
+      const viewportEvidence = [];
+      e.result.zoomViewport = viewportEvidence;
+      await setNativeZoomedViewport(page, initial, { evidence: viewportEvidence });
       // Resize changes the existing button transitions too. Wait for the same
       // final geometry within the scenario's existing deadline, without retrying Save.
       const zoom = await poll(() => page.evaluate(async tabId => {
