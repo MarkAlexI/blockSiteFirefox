@@ -84,12 +84,42 @@ export async function nativeWindowSnapshot(input) {
 
 // Stable focus phases only. Focus transitions may include WINDOW_ID_NONE and
 // per-window activation events in a browser-dependent order.
-export function assertWindowPhase({ before, after, events, owner, inactive, windowId }) {
+export function assertWindowPhase({ before, after, events, owner, inactive, windowId, foregroundNavigation = null }) {
   assert.deepEqual(before.dailyRuleUsage.lastSample.assignmentKeys, [owner], 'foreground owner at phase entry');
   const samples = events.filter(event => event.kind === 'usage');
   assert.ok(samples.length > 0, 'native page events produced observable durable samples');
-  for (const event of [...samples, { value: after.dailyRuleUsage }]) {
-    assert.deepEqual(event.value.lastSample?.assignmentKeys, [owner], 'background event must not steal the foreground segment');
+  let resumedAt = null;
+  if (foregroundNavigation) {
+    const previous = before.tabs?.find(tab => tab.id === foregroundNavigation.tabId);
+    const current = after.tabs?.find(tab => tab.id === foregroundNavigation.tabId);
+    assert.ok(previous?.active && previous.windowId === windowId, 'the navigating tab owned the foreground');
+    assert.ok(current?.active && current.windowId === windowId && current.status === 'complete' &&
+      current.document?.focused && current.document.visible === 'visible' && !current.document.hidden &&
+      current.document.url === foregroundNavigation.url, 'the same tab loaded a focused destination');
+    assert.ok(Number.isFinite(foregroundNavigation.startedAt) &&
+      current.document.timeOrigin >= foregroundNavigation.startedAt &&
+      current.document.timeOrigin > previous.document?.timeOrigin, 'native navigation created a new document');
+    assert.ok(events.some(event => event.kind === 'updated' && event.tabId === current.id &&
+      event.change.status === 'complete' && event.at >= foregroundNavigation.startedAt), 'native load completion was observed');
+    const resumed = samples.filter(event => {
+      const sample = event.value.lastSample;
+      return sample?.assignmentKeys?.length === 1 && sample.assignmentKeys[0] === owner &&
+        sample.timestamp >= current.document.timeOrigin;
+    });
+    assert.ok(resumed.length > 0, 'the new document resumed its own foreground accounting');
+    resumedAt = Math.min(...resumed.map(event => event.value.lastSample.timestamp));
+  }
+  const finalSample = { value: after.dailyRuleUsage };
+  for (const event of [...samples, finalSample]) {
+    const sample = event.value.lastSample;
+    if (foregroundNavigation && event !== finalSample && sample?.assignmentKeys?.length === 0) {
+      // Storage delivery may follow onUpdated complete. Bound an unbilled
+      // navigation gap by sample time, before the first resumed owner sample.
+      assert.ok(sample.timestamp >= foregroundNavigation.startedAt && sample.timestamp < resumedAt,
+        'an empty segment is confined to the observed foreground document transition');
+    } else {
+      assert.deepEqual(sample?.assignmentKeys, [owner], 'background event must not steal the foreground segment');
+    }
     assert.equal(event.value.usageSeconds[inactive], before.dailyRuleUsage.usageSeconds[inactive], 'unfocused window budget is unchanged in every observed write');
   }
   for (const event of events.filter(value => value.kind === 'window-focus')) {

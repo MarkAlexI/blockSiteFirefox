@@ -32,7 +32,7 @@ for (const type of ['rules:add', 'rules:update', 'rules:replaceAll']) {
 }
 
 test('worker applies valid additions and removals beside an invalid legacy filter without losing its daily budget', async () => {
-  const invalid = makeDailyLimitRule(1, 'general', { blockURL: '*.private.example', minutes: 1 });
+  const invalid = makeDailyLimitRule(1, 'general', { blockURL: 'bad host/приватне', minutes: 1 });
   const original = makeFocusRule(2, 'general', { blockURL: 'keep.example' });
   await withWorker(async ({ api, send, alarm }) => {
     await alarm({ name: 'update_scheduled_rules' });

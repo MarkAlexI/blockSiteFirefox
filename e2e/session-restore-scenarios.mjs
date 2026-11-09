@@ -99,6 +99,7 @@ export const sessionRestoreScenarios = [{
         const from = (await observation()).history.length;
         const record = { label, before }; evidence.phases.push(record);
         await delay(2200); // Real elapsed foreground time.
+        if (navigateId === id) record.foregroundNavigation = { tabId: id, url, startedAt: Date.now() };
         await op({ op: 'navigate', tabId: navigateId, url });
         const result = await eventually(async () => ({ state: await snapshot(), history: await observation() }), value => {
           const tab = value.state.tabs.find(item => item.id === navigateId);

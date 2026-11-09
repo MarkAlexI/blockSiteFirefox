@@ -95,7 +95,10 @@ export const urlSafetyScenarios = [{
   id: '78', title: 'Invalid legacy filters preserve valid native blockers, removals, and daily budgets until repaired',
   async run(e) {
     const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
-    const invalid = { id: 781, blockURL: '*.private.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
+    // A space in the host makes URL parsing fail in both browsers; the Unicode
+    // fallback then violates DNR's ASCII requirement. Chromium may serialize
+    // a leading hostname wildcard as %2A, so it is not a portable invalid filter.
+    const invalid = { id: 781, blockURL: 'bad host/приватне', redirectURL: '', category: 'social', isWhitelist: false,
       assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
     const old = { id: 782, blockURL: 'removed.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
       assignments: [assignment] };
@@ -115,6 +118,7 @@ export const urlSafetyScenarios = [{
     const partial = await e.state();
     assert.deepEqual(partial.rules.find(rule => rule.id === invalid.id), invalid);
     assert.equal(partial.dailyRuleUsage.usageSeconds['781:general'], 60);
+    assert.equal(partial.dnr.some(rule => rule.id === invalid.id), false, 'the invalid saved filter was excluded');
     assert.ok(partial.dnr.some(rule => rule.condition.urlFilter === '||partialnext'));
     assert.ok(partial.dnr.some(rule => rule.id === old.id));
     assert.ok(partial.dnr.every(rule => !rule.condition.urlFilter.startsWith('||*')));

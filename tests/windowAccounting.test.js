@@ -23,6 +23,63 @@ test('native window oracle rejects a transient wrong owner followed by a correct
   assert.throws(() => assertWindowPhase(input), /steal the foreground segment/);
 });
 
+function foregroundNavigationPhase() {
+  const input = phase();
+  const tab = (url, timeOrigin) => ({ id: 11, windowId: 7, active: true, status: 'complete',
+    document: { url, timeOrigin, focused: true, hidden: false, visible: 'visible' } });
+  input.before.tabs = [tab('http://fixture.test/before', 500)];
+  input.after.tabs = [tab('http://fixture.test/after', 3290)];
+  input.foregroundNavigation = { tabId: 11, url: 'http://fixture.test/after', startedAt: 3200 };
+  const gap = usage(3306, 42, 60); gap.lastSample.assignmentKeys = [];
+  input.events = [
+    { kind: 'updated', at: 3300, tabId: 11, change: { status: 'loading', url: 'http://fixture.test/after' } },
+    { kind: 'updated', at: 3315, tabId: 11, change: { status: 'complete' } },
+    { kind: 'usage', at: 3323, value: gap },
+    { kind: 'usage', at: 3330, value: usage(3318, 42, 60) }
+  ];
+  return input;
+}
+
+test('native foreground navigation may pause its own segment before accounting resumes', () => {
+  // CI delivered the loading pause after onUpdated complete; the persisted
+  // sample timestamp still precedes the resumed foreground segment.
+  assert.deepEqual(assertWindowPhase(foregroundNavigationPhase()), { gain: 2, elapsed: 2400, writes: 2 });
+});
+
+test('native background navigation still rejects an empty foreground segment', () => {
+  const input = foregroundNavigationPhase(); delete input.foregroundNavigation;
+  assert.throws(() => assertWindowPhase(input), /steal the foreground segment/);
+});
+
+test('native navigation gaps require a real same-tab load and a new focused document', () => {
+  for (const change of [
+    input => { input.events[1].tabId = 12; },
+    input => { input.after.tabs[0].document.timeOrigin = 500; },
+    input => { input.after.tabs[0].document.focused = false; }
+  ]) {
+    const input = foregroundNavigationPhase(); change(input);
+    assert.throws(() => assertWindowPhase(input));
+  }
+});
+
+test('native navigation cannot hide a gap outside the observed document transition', () => {
+  for (const timestamp of [3199, 3319]) {
+    const input = foregroundNavigationPhase(); input.events[2].value.lastSample.timestamp = timestamp;
+    assert.throws(() => assertWindowPhase(input));
+  }
+});
+
+test('native navigation still rejects the wrong owner, inactive spending, and a missing final owner', () => {
+  for (const change of [
+    input => { input.events[2].value.lastSample.assignmentKeys = ['22:general']; },
+    input => { input.events[2].value.usageSeconds['22:general']++; },
+    input => { input.after.dailyRuleUsage.lastSample.assignmentKeys = []; }
+  ]) {
+    const input = foregroundNavigationPhase(); change(input);
+    assert.throws(() => assertWindowPhase(input));
+  }
+});
+
 test('native window oracle requires actual foreground progress and native storage delivery', () => {
   const input = phase(); input.after.dailyRuleUsage.usageSeconds['21:general'] = 40;
   assert.throws(() => assertWindowPhase(input), /genuine foreground time/);
