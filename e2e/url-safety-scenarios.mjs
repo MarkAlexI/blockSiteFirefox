@@ -95,15 +95,31 @@ export const urlSafetyScenarios = [{
   id: '78', title: 'Invalid legacy filters preserve valid native blockers, removals, and daily budgets until repaired',
   async run(e) {
     const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
-    // A space in the host makes URL parsing fail in both browsers; the Unicode
-    // fallback then violates DNR's ASCII requirement. Chromium may serialize
-    // a leading hostname wildcard as %2A, so it is not a portable invalid filter.
-    const invalid = { id: 781, blockURL: 'bad host/приватне', redirectURL: '', category: 'social', isWhitelist: false,
+    // An empty stored target is rejected before URL parsing. Host wildcards,
+    // spaces, and Unicode can serialize differently across browser engines.
+    const invalid = { id: 781, blockURL: '', redirectURL: '', category: 'social', isWhitelist: false,
       assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
     const old = { id: 782, blockURL: 'removed.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
       assignments: [assignment] };
     await e.seed({ pro: true, rules: [invalid, old], usage: { '781:general': 60 } });
     const page = await e.openOptions();
+    const initial = await e.state();
+    assert.deepEqual(initial.rules.find(rule => rule.id === invalid.id), invalid, 'the malformed saved row is present');
+    assert.equal(initial.dailyRuleUsage.usageSeconds['781:general'], 60, 'its daily budget is exhausted');
+    const precondition = await page.evaluate(async input => {
+      const api = globalThis.browser || chrome;
+      const { createDnrRuleFactory, InvalidDnrUrlFilterError } = await import(api.runtime.getURL('rules/dnrRuleFactory.js'));
+      try {
+        const rule = createDnrRuleFactory(path => api.runtime.getURL(path))(
+          input.id, input.blockURL, input.redirectURL, 'daily_limit'
+        );
+        return { urlFilter: rule.condition.urlFilter };
+      } catch (error) {
+        return { invalidFilter: error instanceof InvalidDnrUrlFilterError, errorName: error.name };
+      }
+    }, invalid);
+    assert.deepEqual(precondition, { invalidFilter: true, errorName: 'TypeError' },
+      'the production factory in the native browser rejects the fault fixture');
     const mutate = async (type, payload) => {
       const state = await e.state();
       return message(page, { type, payload: { ...payload,

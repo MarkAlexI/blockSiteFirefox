@@ -2,12 +2,33 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { RulesManager } from '../rules/rulesManager.js';
-import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
+import { createDnrRuleFactory, InvalidDnrUrlFilterError } from '../rules/dnrRuleFactory.js';
 import { createDnrSynchronizer, getDnrSyncFailureCode } from '../scripts/dnrSynchronizer.js';
+import { urlSafetyScenarios } from '../e2e/url-safety-scenarios.mjs';
 
 const manager = new RulesManager();
 const factory = createDnrRuleFactory(path => `https://extension.invalid/${path}`);
 const invalidPatterns = ['*', '*.example.com', 'https://*.example.com/private?key=secret', 'bad host/приватне'];
+
+test('native legacy fixture is rejected before platform URL serialization can change its validity', async () => {
+  let seed;
+  const stop = new Error('seed captured');
+  await assert.rejects(urlSafetyScenarios.find(scenario => scenario.id === '78').run({
+    async seed(input) { seed = input; throw stop; }
+  }), error => error === stop);
+  const rule = seed.rules.find(rule => rule.id === 781);
+  const OriginalURL = globalThis.URL;
+  let urlCalls = 0;
+  globalThis.URL = class {
+    constructor() { urlCalls += 1; throw new Error('platform URL parser invoked'); }
+  };
+  try {
+    assert.throws(() => factory(rule.id, rule.blockURL, rule.redirectURL, 'daily_limit'), InvalidDnrUrlFilterError);
+    assert.equal(urlCalls, 0, 'the native fault fixture must not depend on platform URL parsing');
+  } finally {
+    globalThis.URL = OriginalURL;
+  }
+});
 
 for (const pattern of invalidPatterns) {
   test(`blacklist rejects an invalid compiled DNR filter: ${pattern}`, () => {
