@@ -592,3 +592,16 @@ test('URL wildcards: the tracker attributes only matching foreground paths', asy
     assert.deepEqual(sampled, expected, path);
   }
 });
+
+
+test('URL anchors: Daily Limit accounting excludes extensions of an end-anchored path', async () => {
+  for (const [path, expected] of [['/p:one:end', ['1:general']], ['/p:one:end/more', []]]) {
+    let sampled;
+    const tracker = createTracker({ rules: [makeRule({ blockURL: 'example.test^p:*:end^|' })],
+      tab: { id: 11, windowId: 7, active: true, url: `https://example.test${path}` },
+      recordSample(keys) { sampled = keys; return { accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} }; }
+    });
+    await tracker.sample('tab_load_complete');
+    assert.deepEqual(sampled, expected, path);
+  }
+});

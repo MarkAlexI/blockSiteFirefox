@@ -263,4 +263,69 @@ export const urlSafetyScenarios = [{
       }
     }
   }
+}, {
+  id: '81', title: 'Native separator and end anchors agree with runtime decisions and keep escaped operators literal',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    // These supported partial patterns keep the DNR operators after URL
+    // normalization. A literal '^' in an ordinary path can become %5E.
+    const separator = 'sep-anchor.bd-e2e.test^s:item^';
+    const end = 'end-anchor.bd-e2e.test^e:item|';
+    const mixed = 'mix-anchor.bd-e2e.test^p:*:end^|';
+    const patterns = [separator, end, mixed];
+    const compiled = await page.evaluate(async patterns => {
+      const api = globalThis.browser || chrome;
+      const { createDnrRuleFactory } = await import(api.runtime.getURL('rules/dnrRuleFactory.js'));
+      const factory = createDnrRuleFactory(path => api.runtime.getURL(path));
+      return patterns.map((pattern, index) => factory(index + 1, pattern, '').condition.urlFilter);
+    }, patterns);
+    assert.deepEqual(compiled, patterns.map(pattern => `||${pattern}`), 'native fixtures contain the intended operators');
+    const reachable = await e.newPage('http://sep-anchor.bd-e2e.test/open');
+    assert.equal(await reachable.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+    for (const blockURL of patterns) {
+      const state = await e.state();
+      const result = await message(page, { type: 'rules:add', payload: {
+        blockURL, redirectURL: '', category: 'social',
+        assignment: { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+      assert.equal(result.success, true);
+      assert.equal(result.syncPending, false, 'native DNR accepted the generated rules');
+    }
+    assert.deepEqual((await e.state()).dnr.map(rule => rule.condition.urlFilter).sort(), [...compiled].sort());
+    const cases = [
+      { url: 'http://sep-anchor.bd-e2e.test/s:item', pattern: separator, blocked: true },
+      { url: 'http://sep-anchor.bd-e2e.test/s:item/next', pattern: separator, blocked: true },
+      { url: 'http://sep-anchor.bd-e2e.test/s:item?q=1', pattern: separator, blocked: true },
+      { url: 'http://sep-anchor.bd-e2e.test/s:items', pattern: separator, blocked: false },
+      { url: 'http://sep-anchor.bd-e2e.test/s:item-extra', pattern: separator, blocked: false },
+      { url: 'http://end-anchor.bd-e2e.test/e:item', pattern: end, blocked: true },
+      { url: 'http://end-anchor.bd-e2e.test/e:item/next', pattern: end, blocked: false },
+      { url: 'http://end-anchor.bd-e2e.test/e:item?q=1', pattern: end, blocked: false },
+      { url: 'http://mix-anchor.bd-e2e.test/p:one/two:end', pattern: mixed, blocked: true },
+      { url: 'http://mix-anchor.bd-e2e.test/p::end/', pattern: mixed, blocked: true },
+      { url: 'http://mix-anchor.bd-e2e.test/p:one:end/more', pattern: mixed, blocked: false },
+      { url: 'http://mix-anchor.bd-e2e.test/p:one:ended', pattern: mixed, blocked: false }
+    ];
+    const observed = await page.evaluate(async cases => {
+      const api = globalThis.browser || chrome;
+      const { doesUrlMatchBlockRule } = await import(api.runtime.getURL('rules/urlRuleMatcher.js'));
+      return {
+        matched: cases.map(input => doesUrlMatchBlockRule(input.url, input.pattern)),
+        escaped: doesUrlMatchBlockRule('http://literal.bd-e2e.test/a%5Eb', 'literal.bd-e2e.test/a%5Eb'),
+        separator: doesUrlMatchBlockRule('http://literal.bd-e2e.test/a/b', 'literal.bd-e2e.test/a%5Eb')
+      };
+    }, cases);
+    assert.deepEqual(observed, { matched: cases.map(input => input.blocked), escaped: true, separator: false });
+    for (const input of cases) {
+      if (input.blocked) await e.assertBlocked(input.url, 'always');
+      else {
+        const control = await e.newPage(input.url);
+        assert.equal(await control.url(), input.url);
+        assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+      }
+    }
+  }
 }];

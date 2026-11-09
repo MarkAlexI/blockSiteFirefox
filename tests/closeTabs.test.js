@@ -69,3 +69,19 @@ test('URL wildcards: cleanup closes matching web tabs and preserves browser page
     assert.deepEqual(api.removedTabs, [1]);
   });
 });
+
+
+test('URL anchors: cleanup preserves tabs beyond an end-anchored match', async () => {
+  const api = createExtensionApi();
+  api.tabs.values = [
+    { id: 1, windowId: 1, url: 'https://example.test/p:one:end' },
+    { id: 2, windowId: 1, url: 'https://example.test/p:one:end/more' },
+    { id: 3, windowId: 1, url: 'https://example.test/p:one:end%5E' },
+    { id: 4, windowId: 1, url: 'about:blank' }
+  ];
+  await withExtensionEnvironment(api, async () => {
+    const { closeTabsMatchingRules } = await import('../scripts/closeTabs.js');
+    await closeTabsMatchingRules(['example.test^p:*:end^|']);
+    assert.deepEqual(api.removedTabs, [1]);
+  });
+});

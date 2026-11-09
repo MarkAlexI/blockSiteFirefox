@@ -9179,3 +9179,19 @@ test('URL wildcards: Focus activates a wildcard Daily Limit target and closes on
     assert.equal(api.dynamicRules[0].condition.urlFilter, '||example.test/feed*/watch');
   }, { local: { activeRuleListId: 'general', rules: [rule] }, supportsWindows: false });
 });
+
+
+test('URL anchors: Focus closes only tabs selected by the composed anchored target', async () => {
+  const pattern = 'example.test^p:*:end^|';
+  const rule = makeDailyLimitRule(1, 'general', { blockURL: pattern, minutes: 10 });
+  await withWorker(async ({ api, send }) => {
+    api.tabs.values = [
+      { id: 11, url: 'https://example.test/p:one:end', active: false },
+      { id: 12, url: 'https://example.test/p:one:end/more', active: true }
+    ];
+    const result = await send({ type: 'start_focus_session', duration: 5 });
+    assert.equal(result.success, true);
+    assert.deepEqual(api.removedTabs, [11]);
+    assert.equal(api.dynamicRules[0].condition.urlFilter, `||${pattern}`);
+  }, { local: { activeRuleListId: 'general', rules: [rule] }, supportsWindows: false });
+});
