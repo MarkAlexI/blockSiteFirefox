@@ -179,6 +179,7 @@ export class RulesManager {
       if (typeof rule.blockURL !== 'string') continue;
       const ruleIsWhitelist = rule.isWhitelist || false;
       const cleanExisting = rule.blockURL.trim().toLowerCase();
+      if (!cleanExisting) continue;
 
       if (ruleIsWhitelist !== isWhitelist) {
         if (

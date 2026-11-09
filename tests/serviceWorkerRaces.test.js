@@ -9392,3 +9392,52 @@ test('Whitelist target types: an unstringifiable target cannot interrupt initial
     assert.deepEqual(api.storage.local.data.rules, rules);
   }, { local: { rules, activeRuleListId: 'general' }, supportsWindows: false });
 });
+
+
+test('Empty conflicts: a saved blank whitelist cannot block valid add or update requests', async () => {
+  const empty = { ...makeFocusRule(871, 'general', { isWhitelist: true }), blockURL: '   ' };
+  const keep = makeFocusRule(872, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, send }) => {
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'new.example', redirectURL: '', category: 'social' } });
+    assert.equal(added.success, true);
+    assert.notEqual(added.syncPending, true);
+    const allowed = await send({ type: 'rules:add', payload: { blockURL: 'allowed.example', redirectURL: '',
+      category: 'whitelist', isWhitelist: true } });
+    assert.equal(allowed.success, true);
+    const updated = await send({ type: 'rules:update', payload: { ruleId: keep.id,
+      blockURL: 'changed.example', redirectURL: '', category: 'social' } });
+    assert.equal(updated.success, true);
+    assert.deepEqual(api.storage.local.data.rules.find(rule => rule.id === empty.id), empty);
+    assert.ok(api.dynamicRules.some(rule => rule.condition.urlFilter === '||new.example'));
+    assert.ok(api.dynamicRules.some(rule => rule.condition.urlFilter === '||changed.example'));
+    const before = structuredClone({ rules: api.storage.local.data.rules, dnr: api.dynamicRules });
+    for (const [blockURL, isWhitelist, code] of [['allow', false, 'conflict_whitelist'],
+      ['changed', true, 'conflict_blacklist']]) {
+      const rejected = await send({ type: 'rules:add', payload: { blockURL, redirectURL: '', category: 'social', isWhitelist } });
+      assert.equal(rejected.success, false);
+      assert.equal(rejected.error.code, code);
+      assert.deepEqual({ rules: api.storage.local.data.rules, dnr: api.dynamicRules }, before);
+    }
+  }, { local: { rules: [empty, keep], activeRuleListId: 'general' }, supportsWindows: false });
+});
+
+test('Empty conflicts: whitelist additions and explicit blacklist repair retain an exhausted Daily Limit', async () => {
+  const empty = { ...makeDailyLimitRule(873, 'general', { minutes: 1 }), blockURL: '' };
+  const keep = makeFocusRule(874, 'general', { blockURL: 'keep.example' });
+  await withWorker(async ({ api, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const added = await send({ type: 'rules:add', payload: { blockURL: 'allowed.example', redirectURL: '',
+      category: 'whitelist', isWhitelist: true } });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, true, 'the invalid saved blacklist is still reported by DNR synchronization');
+    assert.deepEqual(api.storage.local.data.rules.find(rule => rule.id === empty.id), empty);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['873:general'], 60);
+    const repaired = await send({ type: 'rules:update', payload: { ruleId: empty.id,
+      blockURL: 'repaired.example', redirectURL: '', category: empty.category, assignment: empty.assignments[0] } });
+    assert.equal(repaired.success, true);
+    assert.notEqual(repaired.syncPending, true);
+    assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['873:general'], 60);
+    assert.ok(api.dynamicRules.some(rule => rule.condition.urlFilter === '||repaired.example'));
+  }, { local: { rules: [empty, keep], activeRuleListId: 'general',
+    dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '873:general': 60 } } }, supportsWindows: false });
+});

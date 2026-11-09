@@ -607,3 +607,64 @@ urlSafetyScenarios.push({
     }
   }
 });
+
+
+urlSafetyScenarios.push({
+  id: '87', title: 'Blank saved targets cannot prevent valid native rule changes or repair of an exhausted budget',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const row = (id, blockURL, isWhitelist = false) => ({ id, blockURL, redirectURL: '',
+      category: isWhitelist ? 'whitelist' : 'social', isWhitelist, assignments: [{ ...assignment }] });
+    const emptyWhite = row(871, '   ', true);
+    const emptyBlack = { ...row(872, ''),
+      assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
+    const keep = row(873, 'keep-conflict.bd-e2e.test');
+    await e.seed({ pro: true, rules: [emptyWhite, emptyBlack, keep], usage: { '872:general': 60 } });
+    const page = await e.openOptions();
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const added = await mutate('rules:add', { blockURL: 'fresh-conflict', redirectURL: '', category: 'social', assignment });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, true, 'the invalid blacklist still reports pending DNR synchronization');
+    const allowed = await mutate('rules:add', { blockURL: 'permitted-conflict.bd-e2e.test', redirectURL: '',
+      category: 'whitelist', isWhitelist: true, assignment });
+    assert.equal(allowed.success, true);
+    const updated = await mutate('rules:update', { ruleId: keep.id, blockURL: 'changed-conflict.bd-e2e.test',
+      redirectURL: '', category: 'social', assignment });
+    assert.equal(updated.success, true);
+    const pending = await e.state();
+    assert.deepEqual(pending.rules.find(rule => rule.id === emptyWhite.id), emptyWhite);
+    assert.deepEqual(pending.rules.find(rule => rule.id === emptyBlack.id), emptyBlack);
+    assert.equal(pending.dailyRuleUsage.usageSeconds['872:general'], 60);
+    assert.equal(pending.dnr.some(rule => rule.id === emptyBlack.id), false);
+    assert.ok(pending.dnr.some(rule => rule.condition.urlFilter === '||fresh-conflict'));
+    const repaired = await mutate('rules:update', { ruleId: emptyBlack.id, blockURL: 'repaired-conflict.bd-e2e.test',
+      redirectURL: '', category: emptyBlack.category, assignment: emptyBlack.assignments[0] });
+    assert.equal(repaired.success, true);
+    assert.equal(repaired.syncPending, false);
+    const saved = await e.state();
+    for (const [blockURL, isWhitelist, code] of [
+      ['permitted-conflict', false, 'conflict_whitelist'], ['changed-conflict', true, 'conflict_blacklist']
+    ]) {
+      const result = await mutate('rules:add', { blockURL, redirectURL: '', category: 'social', isWhitelist, assignment });
+      assert.equal(result.success, false);
+      assert.equal(result.error.code, code, 'real substring conflicts remain protected');
+    }
+    const after = await e.state();
+    assert.deepEqual(after.rules, saved.rules);
+    assert.deepEqual([...after.dnr].sort((a, b) => a.id - b.id), [...saved.dnr].sort((a, b) => a.id - b.id));
+    assert.equal(after.dailyRuleUsage.usageSeconds['872:general'], 60);
+    assert.deepEqual(after.rules.find(rule => rule.id === emptyWhite.id), emptyWhite);
+    await e.assertBlocked('http://fresh-conflict.bd-e2e.test/page', 'always');
+    await e.assertBlocked('http://changed-conflict.bd-e2e.test/page', 'always');
+    await e.assertBlocked('http://repaired-conflict.bd-e2e.test/page', 'daily_limit');
+    const control = await e.newPage('http://keep-conflict.bd-e2e.test/page');
+    assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+  }
+});
