@@ -495,7 +495,9 @@ urlSafetyScenarios.push({
   async run(e) {
     await e.seed({ pro: true });
     const page = await e.openOptions();
-    const exact = 'empty-query-exact.bd-e2e.test/p:item|';
+    // Preserve both patterns as filter syntax: Chromium may serialize a path
+    // pipe as %7C before the native DNR compiler can interpret the anchor.
+    const exact = 'empty-query-exact.bd-e2e.test^p:item|';
     const query = 'empty-query-only.bd-e2e.test^p:item?|';
     const patterns = [exact, query];
     const compiled = await page.evaluate(async patterns => {
