@@ -29,6 +29,7 @@ import {
   normalizeDailyLimit
 } from './blockingMode.js';
 import { sanitizeBackupPayload } from '../backup/backupFormat.js';
+import { getBlacklistTargetKey } from './dnrRuleFactory.js';
 
 export class RulesMutationError extends Error {
   constructor(code, message = code, validationErrors = []) {
@@ -84,8 +85,12 @@ function getRuleIndexById(rules, ruleId) {
   return rules.findIndex(rule => toRuleId(rule.id) === normalizedId);
 }
 
-function normalizeTargetBlockURL(value) {
-  return typeof value === 'string' ? value.trim().toLowerCase() : '';
+function normalizeTargetBlockURL(value, isWhitelist = false) {
+  const rawKey = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  if (isWhitelist) return rawKey;
+  // Retain the old identity for corrupt stored rows, in a separate namespace
+  // from valid filters. Never stringify an invalid non-string target.
+  return getBlacklistTargetKey(value) ?? `invalid:${rawKey}`;
 }
 
 function normalizeTargetRedirectURL(value) {
@@ -96,7 +101,8 @@ function isSameRuleTarget(rule, target) {
   const ruleIsWhitelist = rule?.isWhitelist === true;
   const targetIsWhitelist = target?.isWhitelist === true;
   if (ruleIsWhitelist !== targetIsWhitelist) return false;
-  if (normalizeTargetBlockURL(rule?.blockURL) !== normalizeTargetBlockURL(target?.blockURL)) return false;
+  if (normalizeTargetBlockURL(rule?.blockURL, ruleIsWhitelist) !==
+      normalizeTargetBlockURL(target?.blockURL, targetIsWhitelist)) return false;
   if (ruleIsWhitelist) return true;
   return (
     normalizeTargetRedirectURL(rule?.redirectURL) === normalizeTargetRedirectURL(target?.redirectURL) &&
@@ -131,7 +137,7 @@ function findEnabledAssignmentConflictIndex(rules, blockURL, assignment, exclude
 
 function getRuleTargetKey(target) {
   const isWhitelist = target?.isWhitelist === true;
-  const key = [isWhitelist, normalizeTargetBlockURL(target?.blockURL)];
+  const key = [isWhitelist, normalizeTargetBlockURL(target?.blockURL, isWhitelist)];
   if (!isWhitelist) {
     key.push(
       normalizeTargetRedirectURL(target?.redirectURL),

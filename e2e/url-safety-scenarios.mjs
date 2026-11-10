@@ -668,3 +668,80 @@ urlSafetyScenarios.push({
     assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
   }
 });
+
+urlSafetyScenarios.push({
+  id: '88', title: 'Compiled blacklist aliases reject competing mutations and share one native Focus target without losing budgets',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'daily_limit',
+      schedule: null, dailyLimit: { minutes: 1 } };
+    const row = (id, blockURL, config = {}, category = 'social') => ({ id, blockURL,
+      redirectURL: '', category, isWhitelist: false, assignments: [{ ...assignment, ...config }] });
+    const plain = 'identity.bd-e2e.test/team';
+    const alias = 'https://www.identity.bd-e2e.test:443/team/';
+    const rules = [row(881, plain), row(882, alias, { disabledByUser: true }, 'work'),
+      row(883, 'http://www.identity.bd-e2e.test:80/team/', {
+        listId: 'list-1', blockingMode: 'always', dailyLimit: null
+      }, 'news')];
+    const usage = { '881:general': 120, '882:general': 180 };
+    await e.seed({ pro: true, rules, usage, active: 'list-1' });
+    const page = await e.openOptions();
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const compiled = await page.evaluate(async targets => {
+      const api = globalThis.browser || chrome;
+      const { createDnrUrlFilter } = await import(api.runtime.getURL('rules/dnrRuleFactory.js'));
+      return targets.map(target => createDnrUrlFilter(target));
+    }, rules.map(rule => rule.blockURL));
+    assert.deepEqual(compiled, Array(3).fill('||identity.bd-e2e.test/team'), 'prove native URL serialization before testing identity');
+    const before = await e.state();
+    for (const [type, payload] of [
+      ['rules:add', { blockURL: alias, redirectURL: 'https://destination.bd-e2e.test/', category: 'social', assignment }],
+      ['rules:toggle', { ruleId: 882, listId: 'general' }]
+    ]) {
+      const result = await mutate(type, payload);
+      assert.equal(result.success, false);
+      assert.equal(result.error.code, 'rule_already_exists');
+    }
+    const rejected = await e.state();
+    assert.deepEqual(rejected.rules, before.rules);
+    assert.deepEqual(rejected.ruleRevisions, before.ruleRevisions);
+    assert.equal(rejected.rulesGeneration, before.rulesGeneration);
+    assert.deepEqual(rejected.dailyRuleUsage.usageSeconds, usage);
+
+    // A saved disabled alternative remains usable after disabling its rival.
+    for (const ruleId of [881, 882]) {
+      const result = await mutate('rules:toggle', { ruleId, listId: 'general' });
+      assert.equal(result.success, true);
+      assert.equal(result.syncPending, false);
+    }
+    const afterToggle = await e.state();
+    assert.deepEqual(afterToggle.dailyRuleUsage.usageSeconds, usage);
+    assert.equal(afterToggle.rules[0].assignments[0].disabledByUser, true);
+    assert.equal(afterToggle.rules[1].assignments[0].disabledByUser, false);
+    assert.equal((await message(page, { type: 'start_focus_session', duration: 5, focusMode: 'blacklist' })).success, true);
+    try {
+      const focused = await poll(() => e.state(), state => state.dnr.length === 1 && state.dnr[0].id === 883,
+        'Focus installs the active profile target for all compiled aliases');
+      assert.equal(focused.dnr[0].condition.urlFilter, compiled[0]);
+      assert.equal(new URL(focused.dnr[0].action.redirect.url).searchParams.get('reason'), 'focus');
+      assert.deepEqual(focused.rules, afterToggle.rules, 'Focus does not merge saved rows');
+      assert.deepEqual(focused.dailyRuleUsage.usageSeconds, usage);
+      await e.assertBlocked('http://identity.bd-e2e.test/team/item', 'focus');
+    } finally {
+      assert.equal((await message(page, { type: 'stop_focus_session' })).success, true);
+    }
+    await poll(() => e.state(), state => state.dnr.length === 1 && state.dnr[0].id === 883 &&
+      new URL(state.dnr[0].action.redirect.url).searchParams.get('reason') === 'always',
+    'stopping Focus restores the selected profile');
+    await e.assertBlocked('http://identity.bd-e2e.test/team/item', 'always');
+    const after = await e.state();
+    assert.deepEqual(after.rules, afterToggle.rules);
+    assert.deepEqual(after.dailyRuleUsage.usageSeconds, usage);
+  }
+});

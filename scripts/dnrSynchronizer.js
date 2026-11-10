@@ -1,5 +1,5 @@
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
-import { InvalidDnrUrlFilterError } from '../rules/dnrRuleFactory.js';
+import { getBlacklistTargetKey, InvalidDnrUrlFilterError } from '../rules/dnrRuleFactory.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 import { findBestMatchingRule } from '../rules/urlRuleMatcher.js';
 import { hasUnsupportedExplicitScheme } from './isBlockedURL.js';
@@ -201,14 +201,13 @@ export function createDnrSynchronizer({
       const byBlockURL = new Map();
       const invalidTargets = [];
       for (const rule of activeRules) {
+        const key = getBlacklistTargetKey(rule.blockURL);
         // Retain corrupt rows for the factory's normal error reporting.
-        // Deduplication must not stringify an invalid saved target.
-        if (typeof rule.blockURL !== 'string') {
+        // A missing key must never collapse unrelated invalid saved targets.
+        if (key === null) {
           invalidTargets.push(rule);
           continue;
         }
-        const key = rule.blockURL.trim().toLowerCase();
-        if (!key) continue;
         const current = byBlockURL.get(key);
         if (!current) {
           byBlockURL.set(key, rule);

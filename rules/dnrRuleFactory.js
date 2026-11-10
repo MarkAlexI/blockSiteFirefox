@@ -34,6 +34,20 @@ export function createDnrUrlFilter(blockURL) {
 }
 
 /**
+ * Blacklist identity follows the existing case-insensitive compiled filter.
+ * Invalid saved targets have no effective key and remain available for repair.
+ * This does not migrate stored values or canonicalize whitelist patterns.
+ */
+export function getBlacklistTargetKey(blockURL) {
+  try {
+    return createDnrUrlFilter(blockURL).toLowerCase();
+  } catch (error) {
+    if (!(error instanceof InvalidDnrUrlFilterError)) throw error;
+    return null;
+  }
+}
+
+/**
  * Builds one dynamic DNR rule from an already validated stored rule.
  * User-entered matching semantics are preserved exactly as before.
  */
