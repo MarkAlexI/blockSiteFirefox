@@ -1,12 +1,17 @@
-# Firefox Desktop E2E — BlockDistraction **5.6.4**
+# Firefox Desktop E2E - BlockDistraction **5.6.5**
 
 ## Current upgrade matrix
 
-The upgrade group retains 5.4.14 and adds the actual 5.6.3 → 5.6.4 transition.
-The new case checks fresh Options through Popup before retained-tab reload,
-preserved spent limits and natural Focus completion with one native Web Audio
-playback. Inventory is **87 = 72 core + 12 lifecycle + 1 overdue + 2 upgrade**; macOS smoke
-remains 24 per architecture. See [preparation and acceptance limits](version-upgrade.md).
+The upgrade group retains 5.4.14 and targets the actual 5.6.4 → 5.6.5
+transition. The recent source is release commit `e5b253c60a7157ed569133aacc63391b05df64e0`,
+which matches the previously packaged 5.6.4 runtime, before the new URL identity changes.
+Both cases retain saved budgets, fresh Options before retained-tab reload,
+and their original Focus and completion-sound controls.
+
+Inventory is **88 = 73 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+macOS smoke remains 24 per architecture. Native URL scenario 88 belongs to core.
+The URL identity base passed native CI; the new 5.6.5 upgrade target still requires
+a fresh native run. See [preparation and acceptance limits](version-upgrade.md).
 
 ## macOS smoke CI
 

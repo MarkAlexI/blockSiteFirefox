@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "Undo a skipped scheduled Focus session before its original start, from the popup or Settings.",
-    "Restoring a session keeps its original start time without changing your other scheduled sessions.",
-    "A refreshed update page and scheduled Focus actions fit small screens and enlarged text."
+    "Different spellings of the same blocked site now share consistent duplicate checks.",
+    "Disabled alternatives and time already spent on Daily Limits stay preserved.",
+    "Focus sessions consistently use the matching rule from your selected Rule List."
   ];
   
   const ul = document.getElementById('features');

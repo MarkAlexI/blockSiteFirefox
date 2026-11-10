@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.5] - 2026-11-10
+
+### Fixed
+- Compare blacklist targets by their compiled filter so equivalent URL spellings cannot create competing enabled assignments during add, edit, move, toggle, import, Rule Packs or list deletion.
+- Deduplicate equivalent targets during Focus while keeping the selected Rule List's target preferred, without rewriting saved rows or spent Daily Limits.
+- Keep distinct encoded Unicode paths separate, and preserve short fragments, non-default ports, filter operators and disabled alternatives.
+
+### Tests
+- Add 48 regressions using production rule, assignment, synchronization and usage-remapping modules.
+- Add native scenario 88 for equivalent-target mutation conflicts, disabled alternatives, Focus selection and preserved budgets.
+- Target native upgrades from the actual previously packaged 5.6.4 runtime to 5.6.5 while retaining the 5.4.14 baseline.
+
 ## [5.6.4] - 2026-11-09
 
 ### Fixed

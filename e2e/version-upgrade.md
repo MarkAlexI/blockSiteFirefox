@@ -1,5 +1,20 @@
 # Native version-update preservation — scenario 67
 
+## Current upgrade matrix - 5.6.5
+
+The historical 5.4.14 case is retained. The recent case now upgrades the actual
+5.6.4 release at `e5b253c60a7157ed569133aacc63391b05df64e0` to 5.6.5.
+This pin uses the previously packaged release, not the later URL identity commit
+that still carried the 5.6.4 version string.
+
+Fresh Options readiness before retained-tab reload, exact Focus deadlines,
+spent Daily Limits, native blocking, real rule edits and one natural completion
+sound remain required. Both cases use their historical packagers and separate
+profiles. Inventory is **88 = 73 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+macOS smoke remains 24 per architecture. This metadata update requires fresh
+native CI; the sections below describe earlier matrices and evidence.
+
+
 ## Upgrade matrix — 5.6.2
 
 | Case | Actual source package | Source commit | Focus completion control |
