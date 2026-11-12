@@ -745,3 +745,88 @@ urlSafetyScenarios.push({
     assert.deepEqual(after.dailyRuleUsage.usageSeconds, usage);
   }
 });
+
+urlSafetyScenarios.push({
+  id: '89', persistent: true,
+  title: 'Native network and SPA redirects share explicit overlap priorities through reorder, restart and Focus',
+  async run(e) {
+    const assignment = listId => ({ listId, disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null });
+    const row = (id, blockURL, destination, listId = 'general') => ({ id, blockURL,
+      redirectURL: `http://destination.bd-e2e.test/${destination}`, category: 'social',
+      isWhitelist: false, assignments: [assignment(listId)] });
+    const broad = row(899, 'precedence.bd-e2e.test/team', 'broad');
+    const narrow = row(891, 'precedence.bd-e2e.test/team/item', 'narrow');
+    const first = row(898, 'precedence.bd-e2e.test/a*b', 'first');
+    const second = row(892, 'precedence.bd-e2e.test/ab*', 'second');
+    const aliases = [row(895, 'precedence.bd-e2e.test/team', 'general'),
+      row(896, 'https://www.precedence.bd-e2e.test:443/team/', 'profile', 'list-1'),
+      row(897, 'precedence.bd-e2e.test/team/item', 'focused-narrow', 'list-2')];
+    let page;
+    const prove = async (target, winnerId, overlapping = true) => {
+      const snapshot = await e.state();
+      const matches = await page.evaluate(async ({ target, snapshot }) => {
+        const api = globalThis.browser || chrome;
+        const { doesUrlMatchBlockRule } = await import(api.runtime.getURL('rules/urlRuleMatcher.js'));
+        return snapshot.dnr.filter(dnr => doesUrlMatchBlockRule(target,
+          snapshot.rules.find(rule => rule.id === dnr.id).blockURL));
+      }, { target, snapshot });
+      assert.ok(matches.length >= (overlapping ? 2 : 1), 'prove native-serialized filters overlap before navigation');
+      assert.equal(new Set(snapshot.dnr.map(rule => rule.priority)).size, snapshot.dnr.length);
+      assert.ok(snapshot.dnr.every(rule => Number.isSafeInteger(rule.priority) && rule.priority >= 100));
+      const highest = Math.max(...matches.map(rule => rule.priority));
+      assert.deepEqual(matches.filter(rule => rule.priority === highest).map(rule => rule.id), [winnerId]);
+      const destination = snapshot.rules.find(rule => rule.id === winnerId).redirectURL;
+      const network = await e.newPage(target);
+      await poll(() => network.url(), url => url === destination, 'native network redirect chooses the intended destination');
+      const spa = await e.newPage('http://precedence.bd-e2e.test/open');
+      assert.equal(await spa.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
+      await spa.evaluate(path => history.pushState({}, '', path), new URL(target).pathname);
+      await poll(() => spa.url(), url => url === destination, 'same-document SPA navigation chooses the same destination');
+    };
+    for (const phase of [
+      { rules: [broad, narrow], target: '/team/item/next', winner: narrow.id },
+      { rules: [narrow, broad], target: '/team/item/next', winner: narrow.id },
+      { rules: [first, second], target: '/ab/next', winner: first.id },
+      { rules: [second, first], target: '/ab/next', winner: second.id, restart: true }
+    ]) {
+      const usage = Object.fromEntries(phase.rules.map(rule => [`${rule.id}:general`, 40]));
+      await e.seed({ pro: true, rules: phase.rules, usage });
+      page = await e.openOptions();
+      await e.reconcile(page);
+      const before = await e.state();
+      assert.deepEqual(before.rules, phase.rules);
+      await prove('http://precedence.bd-e2e.test' + phase.target, phase.winner);
+      if (phase.restart) {
+        const signature = rules => [...rules].sort((left, right) => left.id - right.id);
+        await e.restart();
+        page = await e.openOptions();
+        await poll(() => e.state(), state => JSON.stringify(signature(state.dnr)) === JSON.stringify(signature(before.dnr)),
+          'a real browser restart preserves the installed priorities without a corrective intent');
+        await prove('http://precedence.bd-e2e.test' + phase.target, phase.winner);
+      }
+      const after = await e.state();
+      assert.deepEqual(after.rules, before.rules);
+      assert.deepEqual(after.dailyRuleUsage.usageSeconds, usage);
+    }
+    const usage = { '895:general': 40, '896:list-1': 80, '897:list-2': 20 };
+    await e.seed({ pro: true, rules: aliases, usage, active: 'list-1' });
+    page = await e.openOptions();
+    await e.reconcile(page);
+    assert.equal((await message(page, { type: 'start_focus_session', duration: 5, focusMode: 'blacklist' })).success, true);
+    try {
+      await poll(() => e.state(), state => state.dnr.length === 2 &&
+        state.dnr.some(rule => rule.id === 896) && state.dnr.some(rule => rule.id === 897),
+      'Focus deduplicates aliases before assigning priorities');
+      await prove('http://precedence.bd-e2e.test/team/item/next', 897);
+      await prove('http://precedence.bd-e2e.test/team/other', 896, false);
+    } finally {
+      assert.equal((await message(page, { type: 'stop_focus_session' })).success, true);
+    }
+    await poll(() => e.state(), state => state.dnr.length === 1 && state.dnr[0].id === 896 && state.dnr[0].priority === 100,
+      'stopping Focus restores only the active profile');
+    await prove('http://precedence.bd-e2e.test/team/item/next', 896, false);
+    const after = await e.state();
+    assert.deepEqual(after.rules, aliases);
+    assert.deepEqual(after.dailyRuleUsage.usageSeconds, usage);
+  }
+});

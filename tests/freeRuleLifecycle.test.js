@@ -1125,11 +1125,14 @@ test('migration ID repair preserves stable deletion and remaining DNR integrity'
   assert.deepEqual(migrated.rules.map(rule => rule.id), [1, 2]);
 
   await withLifecycle({ rules: migrated.rules }, async harness => {
+    const retained = harness.getDynamicRules().find(rule => rule.id === 1);
     await harness.client.removeAssignment(2, 'general');
 
     assert.deepEqual(harness.getRules().map(rule => rule.blockURL), ['retained.example']);
     assert.deepEqual(harness.getDynamicRules().map(rule => rule.id), [1]);
-    assert.deepEqual(harness.dnrUpdates, [{ removeRuleIds: [2], addRules: [] }]);
+    assert.deepEqual(harness.dnrUpdates, [{ removeRuleIds: [1, 2], addRules: [{ ...retained, priority: 100 }] }]);
+    assert.deepEqual(harness.getDynamicRules(), [{ ...retained, priority: 100 }],
+      'only precedence changes on the retained rule; its ID, filter and action survive');
     assert.equal((await harness.synchronizer.inspectState()).inSync, true);
   });
 });

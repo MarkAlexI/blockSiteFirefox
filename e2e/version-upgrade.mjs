@@ -55,6 +55,40 @@ export function assertUpgradeOptionsEditing(view) {
   assert.equal(view.focusLocked, false, 'Focus must release its editing lock before a native rule action');
 }
 
+export function readUpgradeRuleToggle() {
+  const button = document.querySelector('#rules-container tr[data-rule-id="901"] .rule-toggle');
+  let disabled = button?.disabled === true;
+  for (let node = button; node; node = node.parentNode) {
+    if (node.inert === true) disabled = true;
+  }
+  return {
+    present: Boolean(button),
+    pressed: button?.getAttribute('aria-pressed') ?? null,
+    pending: button?.getAttribute('aria-disabled') === 'true',
+    disabled
+  };
+}
+
+export function assertUpgradeRuleToggle(state, enabled) {
+  assert.equal(state.present, true, 'the current rule toggle is rendered');
+  assert.equal(state.pressed, String(enabled), 'the rendered toggle reflects the committed state');
+  assert.equal(state.pending, false, 'the previous rule action has finished');
+  assert.equal(state.disabled, false, 'the native rule action is available');
+}
+
+export function assertUpgradeDnrRules(before, after) {
+  const definitions = rules => rules.map(({ priority, ...definition }) => definition);
+  assert.deepEqual(definitions(after.dnr), definitions(before.dnr), 'native blocking definitions survive the update');
+  // Priorities intentionally change from the old all-100 batch. Verify the
+  // new policy instead of treating that deliberate field change as data loss.
+  const positions = new Map(after.rules.map((rule, index) => [rule.id, index]));
+  const ranked = [...after.dnr].sort((left, right) =>
+    right.condition.urlFilter.length - left.condition.urlFilter.length ||
+    positions.get(left.id) - positions.get(right.id));
+  assert.deepEqual(ranked.map(rule => rule.priority), ranked.map((_, index) => 100 + ranked.length - index - 1),
+    'updated native priorities follow longest compiled filter then first stored rule');
+}
+
 export function assertVersionUpgrade(before,after,receipt,fromVersion='5.4.14') {
   assert.equal(before.version,fromVersion);assert.equal(after.version,expectedVersion);
   assert.notEqual(before.version,after.version);
@@ -72,9 +106,10 @@ export function assertVersionUpgrade(before,after,receipt,fromVersion='5.4.14') 
     'exactly one native update event with the real previous version');
   assert.ok(receipt.events.every(event=>event.extensionId===after.id&&Number.isFinite(event.at)));
   for(const key of ['rules','ruleLists','activeRuleListId','rulesGeneration','ruleRevisions','ruleListRevisions',
-    'credentials','settings','focusSession','focusSchedule','pendingDailyUsageRemaps','dnr']) {
+    'credentials','settings','focusSession','focusSchedule','pendingDailyUsageRemaps']) {
     assert.deepEqual(after[key],before[key],key+' survives the version update');
   }
+  assertUpgradeDnrRules(before, after);
   assert.equal(before.credentials.isPro,true);assert.equal(before.credentials.isLegacyUser,false);
   assert.equal(before.settings.debugMode,true,'non-default setting distinguishes preservation from reset');
   assert.equal(before.focusSession.focusActive,true);
@@ -213,16 +248,28 @@ export async function runVersionUpgrade(e,backend,{completion='stop'}={}) {
     evidence.stage='save a real rule action after update';
     const toggle = '#rules-container tr[data-rule-id="901"] .rule-toggle';
     const editPage = evidence.retainedOptions === 'reloaded' ? options : current;
+    const readyToggle = async (enabled, label) => {
+      evidence.ruleToggles ||= {};
+      let last;
+      try {
+        return await upgradeUntil(async () => (last = await editPage.evaluate(readUpgradeRuleToggle)), value => {
+          try { assertUpgradeRuleToggle(value, enabled); return true; } catch { return false; }
+        }, label);
+      } finally { evidence.ruleToggles[label] = last; }
+    };
     await front(editPage);
     await inspectOptions(editPage, 'Focus editing lock released', true);
+    await readyToggle(true, 'enabled rule toggle ready');
     await click(editPage, toggle);
     await upgradeUntil(()=>e.state(), value=>value.rules.find(rule=>rule.id===901)?.assignments[0]?.disabledByUser===true,
       'post-update Options toggle is committed');
     await inspectOptions(editPage, 'after disabling a rule');
+    await readyToggle(false, 'disabled rule toggle ready before restoring');
     await click(editPage, toggle);
     await upgradeUntil(()=>e.state(), value=>value.rules.find(rule=>rule.id===901)?.assignments[0]?.disabledByUser===false,
       'post-update Options toggle is restored');
     await inspectOptions(editPage, 'after restoring a rule');
+    await readyToggle(true, 'restored rule toggle is rendered');
     await inspectOptions(current, 'fresh Options sees restored rule');
     assert.deepEqual((await e.state()).rules, evidence.before.rules, 'the UI control restores the original rules');
     evidence.stage='native remaining-budget control';

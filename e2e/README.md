@@ -1,5 +1,18 @@
 # Firefox Desktop E2E - BlockDistraction **5.6.5**
 
+## URL precedence follow-up
+
+Scenario 89 checks different redirect destinations for overlapping filters via
+native network and SPA navigation, both stored orders, a real browser restart,
+and Focus profile preference. The existing runtime order is retained: longer
+compiled filter, then first in the effective set. Native priorities now express
+that order explicitly. Stored rules and spent budgets are not rewritten.
+Upgrade acceptance preserves native rule definitions and verifies the new
+priorities rather than requiring the old all-100 priorities. New native CI is pending.
+The upgrade control also waits for the rendered toggle's committed pressed
+state and completion of its pending action before the next single native click.
+
+
 ## Current upgrade matrix
 
 The upgrade group retains 5.4.14 and targets the actual 5.6.4 → 5.6.5
@@ -8,7 +21,7 @@ which matches the previously packaged 5.6.4 runtime, before the new URL identity
 Both cases retain saved budgets, fresh Options before retained-tab reload,
 and their original Focus and completion-sound controls.
 
-Inventory is **88 = 73 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+Inventory is **89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
 macOS smoke remains 24 per architecture. Native URL scenario 88 belongs to core.
 The URL identity base passed native CI; the new 5.6.5 upgrade target still requires
 a fresh native run. See [preparation and acceptance limits](version-upgrade.md).

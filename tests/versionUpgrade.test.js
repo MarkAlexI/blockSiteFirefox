@@ -1,8 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { assertVersionUpgrade, assertUpgradeOptionsView, assertUpgradeOptionsEditing, upgradeTimezone,
-  openUpgradeOptionsFromPopup } from '../e2e/version-upgrade.mjs';
+  openUpgradeOptionsFromPopup, readUpgradeRuleToggle, assertUpgradeRuleToggle } from '../e2e/version-upgrade.mjs';
 import { expectedVersion } from '../e2e/target-version.mjs';
+import { assignDnrRulePriorities, createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
+import { FakeDocument, createExtensionApi, withExtensionEnvironment } from './helpers/extensionTestHarness.js';
 
 function sample(version='5.4.14'){
   const before={id:'fixture-id',version,now:1000,__bdUpgradeToken:'durable-marker',rules:[{id:901},{id:902}],
@@ -13,7 +15,10 @@ function sample(version='5.4.14'){
     pendingDailyUsageRemaps:[],dailyRuleUsage:{date:'2026-10-26',usageSeconds:{'902:general':45,'902:list-1':840}},
     dnr:[{id:901},{id:902}],alarms:[{name:'end_focus_session',scheduledTime:301000},
       {name:'start_scheduled_focus',scheduledTime:3601000}]};
+  const factory = createDnrRuleFactory(path => `https://extension.invalid/${path}`);
+  before.dnr = [factory(901, 'upgrade-basic.test', '', 'focus'), factory(902, 'upgrade-daily.test', '', 'focus')];
   const after={...structuredClone(before),version:expectedVersion,now:1100};
+  after.dnr = assignDnrRulePriorities(after.dnr);
   const receipt={before:{id:before.id,version:before.version,pid:123,profile:'/owned/profile'},
     after:{id:after.id,version:after.version,pid:123,profile:'/owned/profile'},
     events:[{at:1050,extensionId:before.id,details:{reason:'update',previousVersion:before.version}}]};
@@ -41,7 +46,12 @@ for(const [name,change] of [
   ['extended Focus deadline',s=>s.after.focusSession.focusEndTime+=60000],
   ['missing completion alarm',s=>s.after.alarms.shift()],
   ['lost schedule alarm',s=>s.after.alarms.pop()],
-  ['lost browser blocking',s=>s.after.dnr=[]]
+  ['lost browser blocking',s=>s.after.dnr=[]],
+  ['changed native URL condition',s=>s.after.dnr[0].condition.urlFilter='||other.test'],
+  ['changed native redirect',s=>s.after.dnr[0].action.redirect.url='https://other.test/'],
+  ['changed native resource type',s=>s.after.dnr[0].condition.resourceTypes=['sub_frame']],
+  ['equal native priorities',s=>s.after.dnr[0].priority=s.after.dnr[1].priority],
+  ['reversed native precedence',s=>[s.after.dnr[0].priority,s.after.dnr[1].priority]=[100,101]]
 ])test(`${version} upgrade acceptance rejects ${name}`,()=>{
   const s=sample(version);change(s);assert.throws(()=>assertVersionUpgrade(s.before,s.after,s.receipt,version));
 });
@@ -93,4 +103,35 @@ test('a single native Popup link opens a new Options context without navigating 
   assert.equal(await openUpgradeOptionsFromPopup(e),page);
   assert.deepEqual(e.options,[retained,page]);
   assert.deepEqual(calls,[['click','a.focus-schedule-popup-link'],['front',{reselect:true}]]);
+});
+
+test('upgrade native-action readiness rejects a storage commit before the actual toggle finishes rendering', async () => {
+  const document = new FakeDocument();
+  await withExtensionEnvironment(createExtensionApi(), async () => {
+    const { RulesUI } = await import('../rules/rulesUI.js');
+    const ui = new RulesUI(), container = document.addElement('rules-container', 'tbody');
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const rule = { id: 901, blockURL: 'upgrade-basic.test', category: 'social', isWhitelist: false };
+    let committed = false, release;
+    const response = new Promise(resolve => { release = resolve; });
+    const create = (config, onToggle = () => {}) => ui.createRuleDisplayRow(rule, config, 0, () => {}, () => {}, onToggle);
+    try {
+      const row = create(assignment, async () => { committed = true; await response; });
+      container.appendChild(row);
+      assertUpgradeRuleToggle(readUpgradeRuleToggle(), true);
+      const first = row.querySelector('.rule-toggle').dispatch('click');
+      assert.equal(committed, true, 'the modeled storage commit precedes the pending response');
+      assert.throws(() => assertUpgradeRuleToggle(readUpgradeRuleToggle(), true), /previous rule action/);
+      assert.throws(() => assertUpgradeRuleToggle(readUpgradeRuleToggle(), false), /committed state/);
+      release(); await first;
+      assert.throws(() => assertUpgradeRuleToggle(readUpgradeRuleToggle(), false), /committed state/);
+      container.replaceChildren(create({ ...assignment, disabledByUser: true }));
+      assertUpgradeRuleToggle(readUpgradeRuleToggle(), false);
+      const button = container.querySelector('.rule-toggle');
+      button.disabled = true;
+      assert.throws(() => assertUpgradeRuleToggle(readUpgradeRuleToggle(), false), /available/);
+      container.replaceChildren();
+      assert.throws(() => assertUpgradeRuleToggle(readUpgradeRuleToggle(), false), /rendered/);
+    } finally { release(); ui.cleanup(); }
+  }, { document });
 });

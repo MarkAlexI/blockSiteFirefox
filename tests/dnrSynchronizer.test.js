@@ -14,7 +14,7 @@ function makeDnrRule({
   id = 1,
   urlFilter = '||example.com',
   redirectUrl = 'blocked.html',
-  priority = 1,
+  priority = 100,
   resourceTypes = ['main_frame']
 } = {}) {
   return {
@@ -571,9 +571,9 @@ test('disabled rules and disabled categories do not consume active DNR capacity'
 
 test('removal-only DNR repairs remain available even above a changed browser limit', async () => {
   const current = [
-    makeDnrRule({ id: 1, urlFilter: '||one.example' }),
+    makeDnrRule({ id: 1, urlFilter: '||one.example', priority: 101 }),
     makeDnrRule({ id: 2, urlFilter: '||two.example' }),
-    makeDnrRule({ id: 3, urlFilter: '||three.example' })
+    makeDnrRule({ id: 3, urlFilter: '||three.example', priority: 102 })
   ];
   const harness = createHarness({
     storedRules: [

@@ -4,6 +4,8 @@ import { getProtectedRequestDomains } from '../utils/protectedDomains.js';
 import { isValidURL } from '../scripts/isValidURL.js';
 
 const BLOCK_REASONS = new Set(['always', 'schedule', 'daily_limit', 'focus']);
+export const BASE_DNR_RULE_PRIORITY = 100;
+const MAX_DNR_RULE_PRIORITY = 2_147_483_647;
 
 export class InvalidDnrUrlFilterError extends TypeError {
   constructor() {
@@ -45,6 +47,22 @@ export function getBlacklistTargetKey(blockURL) {
     if (!(error instanceof InvalidDnrUrlFilterError)) throw error;
     return null;
   }
+}
+
+/**
+ * Express the runtime's existing longest-compiled-filter / first-in-set order
+ * as unique native priorities. Keep the input order and stored rows intact;
+ * Do not rely on IDs or the browser's insertion/equal-action tie breaking.
+ */
+export function assignDnrRulePriorities(rules) {
+  if (rules.length > MAX_DNR_RULE_PRIORITY - BASE_DNR_RULE_PRIORITY + 1) {
+    throw new RangeError('Too many DNR rules to assign distinct priorities.');
+  }
+  const ranked = rules.map((rule, index) => ({ index, length: rule.condition.urlFilter.length }))
+    .sort((left, right) => right.length - left.length || left.index - right.index);
+  const priorities = new Map(ranked.map(({ index }, rank) =>
+    [index, BASE_DNR_RULE_PRIORITY + rules.length - rank - 1]));
+  return rules.map((rule, index) => ({ ...rule, priority: priorities.get(index) }));
 }
 
 /**
@@ -100,7 +118,7 @@ export function createDnrRule({
       excludedRequestDomains: [...getProtectedRequestDomains()],
       resourceTypes: ['main_frame']
     },
-    priority: 100,
+    priority: BASE_DNR_RULE_PRIORITY,
     action
   };
 }

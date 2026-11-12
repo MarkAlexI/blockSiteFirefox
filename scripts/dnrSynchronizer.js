@@ -1,5 +1,5 @@
 import { getRuleAssignment } from '../rules/ruleAssignments.js';
-import { getBlacklistTargetKey, InvalidDnrUrlFilterError } from '../rules/dnrRuleFactory.js';
+import { assignDnrRulePriorities, getBlacklistTargetKey, InvalidDnrUrlFilterError } from '../rules/dnrRuleFactory.js';
 import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 import { findBestMatchingRule } from '../rules/urlRuleMatcher.js';
 import { hasUnsupportedExplicitScheme } from './isBlockedURL.js';
@@ -254,7 +254,9 @@ export function createDnrSynchronizer({
       }
     }
 
-    return { activeRules: validActiveRules, dnrRules, activeEntries, invalidRuleCount };
+    const prioritizedRules = assignDnrRulePriorities(dnrRules);
+    activeEntries.forEach((entry, index) => { entry.dnrRule = prioritizedRules[index]; });
+    return { activeRules: validActiveRules, dnrRules: prioritizedRules, activeEntries, invalidRuleCount };
   }
 
   async function resolveNavigation(url) {
