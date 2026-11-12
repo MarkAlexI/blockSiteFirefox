@@ -237,6 +237,8 @@ export async function mountFocusSchedule(root, storage) {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('[data-focus-schedule]');
+    // Reset the initial disclosure state before handling an explicit deep link.
+    if (root?.tagName === 'DETAILS') root.open = false;
     const reveal = () => revealFocusSchedule(root, window.location.hash);
     reveal();
     window.addEventListener('hashchange', reveal);

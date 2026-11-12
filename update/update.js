@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "Different spellings of the same blocked site now share consistent duplicate checks.",
-    "Disabled alternatives and time already spent on Daily Limits stay preserved.",
-    "Focus sessions consistently use the matching rule from your selected Rule List."
+    "More consistent redirects when several website rules match the same page.",
+    "Scheduled focus starts collapsed in Settings. Open it when you need to edit your schedule."
   ];
   
   const ul = document.getElementById('features');

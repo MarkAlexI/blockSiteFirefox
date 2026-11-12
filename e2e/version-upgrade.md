@@ -1,22 +1,19 @@
 # Native version-update preservation — scenario 67
 
-## Current upgrade matrix - 5.6.5
+## Current upgrade matrix - 5.6.6
 
-Native rule definitions must survive; current priorities are checked against
-the explicit longest-filter / first-in-set policy introduced by the URL follow-up.
-
-The historical 5.4.14 case is retained. The recent case now upgrades the actual
-5.6.4 release at `e5b253c60a7157ed569133aacc63391b05df64e0` to 5.6.5.
-This pin uses the previously packaged release, not the later URL identity commit
-that still carried the 5.6.4 version string.
+The historical 5.4.14 case is retained. The recent case upgrades the actual
+5.6.5 release at `00fdd78f106e78f3f0d59f5777ccaafcead0ad1a` to 5.6.6.
+The pin matches the previously packaged runtime, before the later URL precedence
+commit that still carried the 5.6.5 version string.
 
 Fresh Options readiness before retained-tab reload, exact Focus deadlines,
 spent Daily Limits, native blocking, real rule edits and one natural completion
-sound remain required. Both cases use their historical packagers and separate
-profiles. Inventory is **89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
-macOS smoke remains 24 per architecture. This metadata update requires fresh
-native CI; the sections below describe earlier matrices and evidence.
-
+sound remain required. Native rule definitions are preserved and new priorities
+are checked against longest compiled filter, then first in the effective set.
+Both cases use their historical packagers and separate profiles.
+Inventory is **89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+macOS smoke remains 24 per architecture. Sections below retain earlier matrices.
 
 ## Upgrade matrix — 5.6.2
 

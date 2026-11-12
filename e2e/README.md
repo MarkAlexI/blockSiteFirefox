@@ -1,30 +1,19 @@
-# Firefox Desktop E2E - BlockDistraction **5.6.5**
-
-## URL precedence follow-up
-
-Scenario 89 checks different redirect destinations for overlapping filters via
-native network and SPA navigation, both stored orders, a real browser restart,
-and Focus profile preference. The existing runtime order is retained: longer
-compiled filter, then first in the effective set. Native priorities now express
-that order explicitly. Stored rules and spent budgets are not rewritten.
-Upgrade acceptance preserves native rule definitions and verifies the new
-priorities rather than requiring the old all-100 priorities. New native CI is pending.
-The upgrade control also waits for the rendered toggle's committed pressed
-state and completion of its pending action before the next single native click.
-
+# Firefox Desktop E2E - BlockDistraction **5.6.6**
 
 ## Current upgrade matrix
 
-The upgrade group retains 5.4.14 and targets the actual 5.6.4 → 5.6.5
-transition. The recent source is release commit `e5b253c60a7157ed569133aacc63391b05df64e0`,
-which matches the previously packaged 5.6.4 runtime, before the new URL identity changes.
-Both cases retain saved budgets, fresh Options before retained-tab reload,
-and their original Focus and completion-sound controls.
+The upgrade group retains 5.4.14 and targets actual 5.6.5 → 5.6.6.
+The recent source is release commit `00fdd78f106e78f3f0d59f5777ccaafcead0ad1a`,
+matching the previously packaged 5.6.5 runtime before the URL precedence follow-up.
+Both cases check saved budgets, fresh Options before retained-tab reload,
+the original Focus deadline and their existing Stop/completion-sound controls.
+Native rule definitions are preserved while current priorities follow the
+explicit longest-filter / first-in-set policy.
 
-Inventory is **89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
-macOS smoke remains 24 per architecture. Native URL scenario 88 belongs to core.
-The URL identity base passed native CI; the new 5.6.5 upgrade target still requires
-a fresh native run. See [preparation and acceptance limits](version-upgrade.md).
+Scenario 89 checks native network and SPA redirects, both stored orders,
+a real browser restart and Focus profile preference. Inventory remains
+**89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+macOS smoke remains 24 per architecture. See [preparation and acceptance](version-upgrade.md).
 
 ## macOS smoke CI
 
