@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "More consistent redirects when several website rules match the same page.",
-    "Scheduled focus starts collapsed in Settings. Open it when you need to edit your schedule."
+    "Scheduled focus stays collapsed when you reload Settings, including after opening it from the popup shortcut."
   ];
   
   const ul = document.getElementById('features');

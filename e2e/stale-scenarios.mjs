@@ -137,6 +137,27 @@ async function openSchedule(page) {
   await equal(() => page.evaluate(() => document.querySelector('[data-focus-schedule]').open), true, 'schedule editor open');
   await equal(() => page.evaluate(() => document.querySelector('[data-focus-schedule] [name="startTime"]').disabled), false, 'schedule editor ready');
 }
+async function assertScheduleReload(page) {
+  const url = new URL(await page.url());
+  url.hash = 'focus-schedule';
+  await page.goto(url.href);
+  await equal(() => page.evaluate(() => document.querySelector('[data-focus-schedule]')?.open),
+    true, 'a fresh schedule deep link opens the editor');
+
+  await page.reload();
+  await equal(() => page.evaluate(() => ({
+    type: performance.getEntriesByType('navigation')[0]?.type,
+    hash: location.hash,
+    ready: document.readyState,
+    open: document.querySelector('[data-focus-schedule]')?.open
+  })), { type: 'reload', hash: '#focus-schedule', ready: 'complete', open: false },
+  'real reload keeps the schedule collapsed despite the retained fragment');
+
+  await click(page, root + ' > summary');
+  await equal(() => page.evaluate(() => document.querySelector('[data-focus-schedule]')?.open),
+    true, 'the editor can still be opened manually after reload');
+}
+
 async function futureConfig(page, minutes = 5, duration = 2) {
   return page.evaluate(({ minutes, duration }) => {
     const current = new Date();
@@ -362,7 +383,7 @@ export const staleScenarios = [
       const a = await e.openOptions(); const b = await e.openOptions();
       const config = await futureConfig(b);
       const initial = await save(b, config);
-      await a.goto(await a.url());
+      await assertScheduleReload(a);
       await openSchedule(a);
       await equal(() => a.evaluate(() => document.querySelector('[data-focus-schedule] [name="startTime"]').value),
         config.startTime, 'initial form values');

@@ -134,6 +134,27 @@ test('refresh after manually closing a fragment-opened editor does not reopen it
   assert.equal(f.scrolls.length, 1);
 });
 
+test('reloading Settings keeps the editor closed even when its schedule fragment remains in the URL', async () => {
+  const first = fixture();
+  await first.ui.init();
+  assert.equal(revealFocusSchedule(first.root, '#focus-schedule', { navigationType: 'navigate' }), true);
+  assert.equal(first.root.open, true);
+
+  const reloaded = fixture();
+  await reloaded.ui.init();
+  const state = structuredClone(reloaded.ui.state);
+  const requests = reloaded.calls.length;
+  assert.equal(revealFocusSchedule(reloaded.root, '#focus-schedule', { navigationType: 'reload' }), false);
+  assert.equal(reloaded.root.open, false);
+  assert.deepEqual(reloaded.scrolls, []);
+  assert.deepEqual(reloaded.ui.state, state);
+  assert.equal(reloaded.calls.length, requests);
+
+  // A later explicit fragment navigation in that same document still works.
+  assert.equal(revealFocusSchedule(reloaded.root, '#focus-schedule'), true);
+  assert.equal(reloaded.root.open, true);
+});
+
 test('stale intent: a delayed Cancel refresh cannot overwrite a newly typed schedule draft', async () => {
   const f = fixture();
   await f.ui.init();

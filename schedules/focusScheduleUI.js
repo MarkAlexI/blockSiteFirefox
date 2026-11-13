@@ -210,8 +210,8 @@ export class FocusScheduleUI {
   }
 }
 
-export function revealFocusSchedule(root, hash) {
-  if (root?.tagName !== 'DETAILS' || hash !== '#focus-schedule') return false;
+export function revealFocusSchedule(root, hash, { navigationType } = {}) {
+  if (root?.tagName !== 'DETAILS' || hash !== '#focus-schedule' || navigationType === 'reload') return false;
   root.open = true;
   root.scrollIntoView({ block: 'start' });
   return true;
@@ -239,8 +239,10 @@ if (typeof document !== 'undefined') {
     const root = document.querySelector('[data-focus-schedule]');
     // Reset the initial disclosure state before handling an explicit deep link.
     if (root?.tagName === 'DETAILS') root.open = false;
+    const navigationType = window.performance?.getEntriesByType?.('navigation')?.[0]?.type;
+    // A retained fragment is not a new request to open the editor on reload.
+    revealFocusSchedule(root, window.location.hash, { navigationType });
     const reveal = () => revealFocusSchedule(root, window.location.hash);
-    reveal();
     window.addEventListener('hashchange', reveal);
     void mountFocusSchedule(root, chrome.storage);
   });

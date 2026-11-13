@@ -1,10 +1,10 @@
-# Firefox Desktop E2E - BlockDistraction **5.6.6**
+# Firefox Desktop E2E - BlockDistraction **5.6.7**
 
 ## Current upgrade matrix
 
-The upgrade group retains 5.4.14 and targets actual 5.6.5 → 5.6.6.
-The recent source is release commit `00fdd78f106e78f3f0d59f5777ccaafcead0ad1a`,
-matching the previously packaged 5.6.5 runtime before the URL precedence follow-up.
+The upgrade group retains 5.4.14 and targets actual 5.6.6 → 5.6.7.
+The recent source is release commit `ecadfba6ea3b0821ee2dcf0e2dd7c9900ef77002`,
+matching the previously packaged 5.6.6 runtime.
 Both cases check saved budgets, fresh Options before retained-tab reload,
 the original Focus deadline and their existing Stop/completion-sound controls.
 Native rule definitions are preserved while current priorities follow the
@@ -14,6 +14,9 @@ Scenario 89 checks native network and SPA redirects, both stored orders,
 a real browser restart and Focus profile preference. Inventory remains
 **89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
 macOS smoke remains 24 per architecture. See [preparation and acceptance](version-upgrade.md).
+
+Scenario 24 also covers the real Settings reload with a retained schedule fragment,
+followed by manual disclosure. The scenario inventory is unchanged.
 
 ## macOS smoke CI
 

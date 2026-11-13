@@ -1,11 +1,10 @@
 # Native version-update preservation — scenario 67
 
-## Current upgrade matrix - 5.6.6
+## Current upgrade matrix - 5.6.7
 
 The historical 5.4.14 case is retained. The recent case upgrades the actual
-5.6.5 release at `00fdd78f106e78f3f0d59f5777ccaafcead0ad1a` to 5.6.6.
-The pin matches the previously packaged runtime, before the later URL precedence
-commit that still carried the 5.6.5 version string.
+5.6.6 release at `ecadfba6ea3b0821ee2dcf0e2dd7c9900ef77002` to 5.6.7.
+The pin matches the previously packaged 5.6.6 runtime.
 
 Fresh Options readiness before retained-tab reload, exact Focus deadlines,
 spent Daily Limits, native blocking, real rule edits and one natural completion
@@ -14,6 +13,9 @@ are checked against longest compiled filter, then first in the effective set.
 Both cases use their historical packagers and separate profiles.
 Inventory is **89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
 macOS smoke remains 24 per architecture. Sections below retain earlier matrices.
+
+Scenario 24 also covers the real Settings reload with a retained schedule fragment,
+followed by manual disclosure. The scenario inventory is unchanged.
 
 ## Upgrade matrix — 5.6.2
 

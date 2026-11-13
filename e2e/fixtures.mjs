@@ -74,6 +74,9 @@ class Page {
   async goto(url) {
     await this.harness.command('browsingContext.navigate', { context: this.context, url, wait: 'complete' });
   }
+  async reload() {
+    await this.harness.command('browsingContext.reload', { context: this.context, wait: 'complete' });
+  }
   async url() { return this.evaluate(() => location.href); }
   async front({ reselect = false } = {}) {
     // Firefox BiDi refuses activation of moz-extension: privileged contexts.
