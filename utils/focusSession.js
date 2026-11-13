@@ -33,3 +33,29 @@ export async function getFocusSessionState({ throwOnError = false } = {}) {
     return { ...DEFAULT_FOCUS_SESSION };
   }
 }
+
+// Per-operation metadata only: retain original exception identities, including
+// when a later rearm failure must not hide the original activation failure.
+const FOCUS_RECOVERY_PHASES = new Set([
+  'state_read', 'state_write', 'alarm_read', 'alarm_create', 'alarm_clear',
+  'access_read', 'session_read', 'activation'
+]);
+
+export function createFocusRecoveryTrace() {
+  const failures = [];
+  return {
+    async step(phase, operation) {
+      if (!FOCUS_RECOVERY_PHASES.has(phase) || typeof operation !== 'function') {
+        throw new TypeError('Unsupported Focus recovery step');
+      }
+      try { return await operation(); }
+      catch (error) {
+        failures.push({ error, phase });
+        throw error;
+      }
+    },
+    getPhase(error) {
+      return failures.find(failure => Object.is(failure.error, error))?.phase || 'unknown';
+    }
+  };
+}

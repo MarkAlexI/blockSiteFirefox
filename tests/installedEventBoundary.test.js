@@ -7,7 +7,7 @@ import { createDiagnosticStore } from '../diagnostics/diagnosticStore.js';
 import { createExtensionApi } from './helpers/extensionTestHarness.js';
 
 const logger = { error() {}, info() {} };
-const phases = ['prepare', 'initialize', 'permissions', 'dnr_integrity', 'open_install_page'];
+const phases = ['prepare', 'initialize', 'permissions', 'dnr_integrity', 'install_url', 'open_install_options', 'open_install_page'];
 
 for (const reason of ['install', 'update', 'browser_update']) {
   for (const failedPhase of phases) {

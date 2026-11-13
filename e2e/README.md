@@ -1,10 +1,10 @@
-# Firefox Desktop E2E - BlockDistraction **5.6.7**
+# Firefox Desktop E2E - BlockDistraction **5.6.8**
 
 ## Current upgrade matrix
 
-The upgrade group retains 5.4.14 and targets actual 5.6.6 → 5.6.7.
-The recent source is release commit `ecadfba6ea3b0821ee2dcf0e2dd7c9900ef77002`,
-matching the previously packaged 5.6.6 runtime.
+The upgrade group retains 5.4.14 and targets actual 5.6.7 → 5.6.8.
+The recent source is release commit `4e85fe25c133f2d6ae79d2cfba6de958ac2ce3b9`,
+matching the previously packaged 5.6.7 runtime.
 Both cases check saved budgets, fresh Options before retained-tab reload,
 the original Focus deadline and their existing Stop/completion-sound controls.
 Native rule definitions are preserved while current priorities follow the
@@ -17,6 +17,10 @@ macOS smoke remains 24 per architecture. See [preparation and acceptance](versio
 
 Scenario 24 also covers the real Settings reload with a retained schedule fragment,
 followed by manual disclosure. The scenario inventory is unchanged.
+
+Focus protection reads now fail without publishing an inactive session. Worker
+regressions cover retained DNR, manual Hardcore priority, rollback snapshots and
+fixed recovery failure phases. The native scenario inventory remains unchanged.
 
 ## macOS smoke CI
 

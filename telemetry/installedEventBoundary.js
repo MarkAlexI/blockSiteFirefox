@@ -3,7 +3,7 @@ const REASONS = new Set([
 ]);
 
 const PHASES = new Set([
-  'prepare', 'initialize', 'permissions', 'dnr_integrity', 'open_install_page'
+  'prepare', 'initialize', 'permissions', 'dnr_integrity', 'install_url', 'open_install_options', 'open_install_page'
 ]);
 
 const ERROR_NAMES = new Set([

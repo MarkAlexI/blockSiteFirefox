@@ -6195,6 +6195,259 @@ test('scheduled focus recovers on worker wake, ends on time and does not restart
   });
 });
 
+
+test('telemetry priority: a failed Focus read cannot replace native Focus protection with inactive rules', async () => {
+  const session = { focusActive: true, focusEndTime: Date.now() + 20 * 60_000,
+    isHardcore: true, focusMode: 'blacklist' };
+  await withWorker(async ({ api, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const before = structuredClone(api.dynamicRules);
+    assert.ok(before.some(rule => rule.id === 21), 'selected Focus list is protected');
+    const read = api.storage.local.get.bind(api.storage.local);
+    let rejected = false;
+    api.storage.local.get = (keys, callback) => {
+      if (!rejected && Array.isArray(keys) && keys.length === 1 && keys[0] === 'focusSession') {
+        rejected = true;
+        return Promise.reject(new Error('temporary Focus read failure'));
+      }
+      return read(keys, callback);
+    };
+    api.runtime.onMessage.listeners[0]({ type: 'reload_rules' }, {}, () => {});
+    const settled = () => rejected && (!api.dynamicRules.some(rule => rule.id === 21) ||
+      Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(b => b.errors || [])
+        .some(error => error.source === 'dnr'));
+    const deadline = Date.now() + 2000;
+    while (!settled()) {
+      assert.ok(Date.now() < deadline, 'Focus read failure was not settled');
+      await new Promise(resolve => setImmediate(resolve));
+    }
+    assert.deepEqual(api.dynamicRules, before, 'an unknown session cannot disable existing protection');
+    assert.deepEqual(api.storage.local.data.focusSession, session);
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.deepEqual(api.dynamicRules, before, 'a later successful read retains the same protection');
+  }, {
+    local: { focusSession: session, activeRuleListId: 'list-1',
+      rules: [makeFocusRule(20, 'general'), makeDailyLimitRule(21, 'list-1')],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } },
+    supportsWindows: false
+  });
+});
+
+
+for (const phase of ['state_read', 'alarm_read', 'alarm_create', 'state_write']) {
+  test(`telemetry priority: session recovery identifies ${phase} and safely retries`, async () => {
+    await withControlledClock(new Date(2026,8,28,8), async clock => {
+      const endTime = new Date(2026,8,28,8,30).getTime();
+      const session = { focusActive: true, focusEndTime: endTime, isHardcore: true, focusMode: 'blacklist' };
+      await withWorker(async ({ api, alarm }) => {
+        await alarm({ name: 'update_scheduled_rules' });
+        const read = api.storage.local.get.bind(api.storage.local);
+        const write = api.storage.local.set.bind(api.storage.local);
+        const getAlarm = api.alarms.get.bind(api.alarms);
+        const createAlarm = api.alarms.create.bind(api.alarms);
+        let failed = false;
+        const reject = () => { failed = true; return Promise.reject(new Error('https://private.example/ secret@example.com')); };
+        api.storage.local.get = (keys, callback) => !failed && phase === 'state_read' &&
+          Array.isArray(keys) && keys.length === 1 && keys[0] === 'focusSession' ? reject() : read(keys, callback);
+        api.storage.local.set = (values, callback) => !failed && phase === 'state_write' &&
+          values.focusSession?.focusActive === false ? reject() : write(values, callback);
+        api.alarms.get = (name, ...args) => !failed && phase === 'alarm_read' && name === 'end_focus_session' ?
+          reject() : getAlarm(name, ...args);
+        api.alarms.create = (name, ...args) => !failed && phase === 'alarm_create' && name === 'end_focus_session' ?
+          reject() : createAlarm(name, ...args);
+        if (phase === 'alarm_create') api.alarmValues.delete('end_focus_session');
+        if (phase === 'state_write') clock.set(new Date(2026,8,28,8,31));
+        await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+        assert.equal(failed, true);
+        assert.deepEqual(api.storage.local.data.focusSession, session, 'failed recovery does not fabricate an inactive state');
+        const errors = Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(b => b.errors || [])
+          .filter(error => error.source === 'focus');
+        assert.deepEqual(errors.map(error => [error.code, error.operation]), [[`recovery_${phase}_failed`, 'recover_session']]);
+        assert.doesNotMatch(JSON.stringify(errors), /private|secret|example/);
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.equal(api.storage.local.data.focusSession.focusActive, phase !== 'state_write');
+        assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, phase === 'state_write' ? 1 : 0);
+      }, { local: { focusSession: session, telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } },
+        supportsWindows: false });
+    });
+  });
+}
+
+for (const phase of ['state_read', 'alarm_clear', 'alarm_read', 'alarm_create']) {
+  test(`telemetry priority: schedule recovery identifies ${phase} without consuming an occurrence`, async () => {
+    await withControlledClock(new Date(2026,8,28,8), async () => {
+      await withWorker(async ({ api, alarm }) => {
+        await alarm({ name: 'update_scheduled_rules' });
+        const before = structuredClone(api.storage.local.data.focusSchedule);
+        const read = api.storage.local.get.bind(api.storage.local);
+        let failed = false;
+        const reject = () => { failed = true; return Promise.reject(new Error('https://private.example/ secret@example.com')); };
+        api.storage.local.get = (keys, callback) => !failed && phase === 'state_read' && keys === 'focusSchedule' ?
+          reject() : read(keys, callback);
+        for (const [name, expected] of [['clear', 'alarm_clear'], ['get', 'alarm_read'], ['create', 'alarm_create']]) {
+          const original = api.alarms[name].bind(api.alarms);
+          api.alarms[name] = (key, ...args) => !failed && phase === expected && key === 'start_scheduled_focus' ?
+            reject() : original(key, ...args);
+        }
+        if (phase === 'alarm_create') api.alarmValues.delete('start_scheduled_focus');
+        await withMutedErrors(() => alarm({ name: 'update_scheduled_rules' }));
+        assert.equal(failed, true);
+        assert.deepEqual(api.storage.local.data.focusSchedule, before);
+        assert.equal(api.storage.local.data.focusSession.focusActive, false);
+        const errors = Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(b => b.errors || [])
+          .filter(error => error.source === 'focus');
+        assert.deepEqual(errors.map(error => [error.code, error.operation]), [[`schedule_${phase}_failed`, 'scheduled_alarm']]);
+        assert.doesNotMatch(JSON.stringify(errors), /private|secret|example/);
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.deepEqual(api.storage.local.data.focusSchedule, before);
+        if (phase !== 'alarm_clear') assert.equal(api.alarmValues.get('start_scheduled_focus').when,
+          new Date(2026,8,28,9).getTime());
+      }, { local: { focusSchedule: scheduledFocusState({ enabled: phase !== 'alarm_clear' }),
+          telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+    });
+  });
+}
+
+test('telemetry priority: an unreadable manual session cannot be replaced or consume a scheduled occurrence', async () => {
+  await withControlledClock(new Date(2026,8,28,8), async clock => {
+    const session = { focusActive: true, focusEndTime: new Date(2026,8,28,10,30).getTime(),
+      isHardcore: true, focusMode: 'blacklist' };
+    await withWorker(async ({ api, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      const before = structuredClone(api.dynamicRules);
+      clock.set(new Date(2026,8,28,9,20));
+      const read = api.storage.local.get.bind(api.storage.local);
+      let reads = 0, rejected = false;
+      api.storage.local.get = (keys, callback) => {
+        if (Array.isArray(keys) && keys.length === 1 && keys[0] === 'focusSession' && ++reads === 2) {
+          rejected = true;
+          return Promise.reject(new Error('scheduled manual-priority read unavailable'));
+        }
+        return read(keys, callback);
+      };
+      await withMutedErrors(() => alarm({ name: 'start_scheduled_focus' }));
+      assert.equal(rejected, true);
+      assert.deepEqual(api.storage.local.data.focusSession, session, 'manual Hardcore session survives the unknown state');
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, [], 'unknown state cannot claim the occurrence');
+      assert.deepEqual(api.dynamicRules, before);
+      const errors = Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(bucket => bucket.errors || [])
+        .filter(error => error.source === 'focus');
+      assert.deepEqual(errors.map(error => error.code), ['schedule_session_read_failed']);
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.deepEqual(api.storage.local.data.focusSession, session);
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00'],
+        'retry observes the real manual session and consumes the occurrence without starting Focus');
+    }, { local: { focusSchedule: scheduledFocusState(), focusSession: session,
+      rules: [makeFocusRule(21, 'list-1')], telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: true });
+  });
+});
+
+
+test('telemetry priority: activation snapshot read failure cannot erase the previous session during rollback', async () => {
+  const session = { focusActive: true, focusEndTime: Date.now() + 20 * 60_000,
+    isHardcore: true, focusMode: 'blacklist' };
+  await withWorker(async ({ api, alarm, send }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    const before = structuredClone(api.dynamicRules);
+    const read = api.storage.local.get.bind(api.storage.local);
+    const create = api.alarms.create.bind(api.alarms);
+    let reads = 0, rejected = false;
+    api.storage.local.get = (keys, callback) => {
+      if (Array.isArray(keys) && keys.length === 1 && keys[0] === 'focusSession' && ++reads === 2) {
+        rejected = true;
+        return Promise.reject(new Error('rollback snapshot unavailable'));
+      }
+      return read(keys, callback);
+    };
+    api.alarms.create = (name, details) => name === 'end_focus_session' && details.when !== session.focusEndTime ?
+      Promise.reject(new Error('new completion alarm unavailable')) : create(name, details);
+    const response = await withMutedErrors(() => send({ type: 'start_focus_session', duration: 5 }));
+    assert.equal(rejected, true);
+    assert.equal(response.success, false);
+    assert.deepEqual(api.storage.local.data.focusSession, session, 'unknown rollback state cannot replace the real session');
+    assert.equal(api.alarmValues.get('end_focus_session').when, session.focusEndTime);
+    assert.deepEqual(api.dynamicRules, before);
+  }, { local: { focusSession: session, rules: [makeFocusRule(21, 'list-1')] }, supportsWindows: true });
+});
+
+test('telemetry priority: install URL construction failure has its own lifecycle phase', async () => {
+  await withWorker(async ({ api }) => {
+    const getURL = api.runtime.getURL.bind(api.runtime);
+    api.runtime.getURL = path => {
+      if (path === 'options/options.html') throw new Error('private@example.com');
+      return getURL(path);
+    };
+    await withMutedErrors(() => api.runtime.onInstalled.listeners[0]({ reason: 'install' }));
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(b => b.errors || [])
+      .filter(error => error.source === 'worker');
+    assert.deepEqual(errors.map(error => error.code), ['lifecycle_install_url_failed']);
+    assert.doesNotMatch(JSON.stringify(errors), /private|example/);
+  }, { local: { telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+});
+
+test('telemetry priority: Firefox first install uses the native Options API when direct tab creation is unavailable', async () => {
+  await withWorker(async ({ api }) => {
+    let opened = 0, tabAttempts = 0;
+    api.runtime.openOptionsPage = async () => { opened++; };
+    api.tabs.create = async () => { tabAttempts++; throw new Error('tab creation unavailable'); };
+    await withMutedErrors(() => api.runtime.onInstalled.listeners[0]({ reason: 'install' }));
+    assert.equal(opened, 1);
+    assert.equal(tabAttempts, 0);
+    const errors = Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(b => b.errors || [])
+      .filter(error => error.source === 'worker');
+    assert.deepEqual(errors, []);
+  }, { local: { telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+});
+
+test('telemetry priority: Firefox Options API rejection falls back once to the packaged tab and preserves failure diagnostics', async () => {
+  await withWorker(async ({ api }) => {
+    let attempted = 0;
+    api.runtime.openOptionsPage = async () => { attempted++; throw new Error('private@example.com'); };
+    const before = api.createdTabs.length;
+    await withMutedErrors(() => api.runtime.onInstalled.listeners[0]({ reason: 'install' }));
+    assert.equal(attempted, 1);
+    assert.equal(api.createdTabs.length, before + 1);
+    assert.equal(api.createdTabs.at(-1).url, api.runtime.getURL('options/options.html'));
+    const diagnostics = api.storage.local.data.diagnosticEvents || [];
+    assert.equal(diagnostics.filter(event => event.code === 'install_options_fallback').length, 1);
+    assert.doesNotMatch(JSON.stringify(diagnostics), /private@example/);
+    const count = attempted;
+    await api.runtime.onInstalled.listeners[0]({ reason: 'update' });
+    assert.equal(attempted, count, 'updates do not reopen Settings');
+  }, { settings: { debugMode: true }, local: {
+    telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: true });
+});
+
+
+test('telemetry priority: activation failure is not relabeled by a later scheduled-alarm failure', async () => {
+  await withControlledClock(new Date(2026,8,28,8), async clock => {
+    await withWorker(async ({ api, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      clock.set(new Date(2026,8,28,9,20));
+      const update = api.declarativeNetRequest.updateDynamicRules.bind(api.declarativeNetRequest);
+      const create = api.alarms.create.bind(api.alarms);
+      let failedActivation = false, failedRearm = false;
+      api.declarativeNetRequest.updateDynamicRules = change => {
+        if (!failedActivation) { failedActivation = true; return Promise.reject(new Error('activation unavailable')); }
+        return update(change);
+      };
+      api.alarms.create = (name, details) => {
+        if (name === 'start_scheduled_focus') { failedRearm = true; return Promise.reject(new Error('rearm unavailable')); }
+        return create(name, details);
+      };
+      await withMutedErrors(() => alarm({ name: 'start_scheduled_focus' }));
+      assert.equal(failedActivation, true);
+      assert.equal(failedRearm, true);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+      const errors = Object.values(api.storage.local.data.telemetryBuckets || {}).flatMap(b => b.errors || [])
+        .filter(error => error.source === 'focus');
+      assert.deepEqual(errors.map(error => [error.code, error.operation]), [['schedule_activation_failed', 'scheduled_alarm']]);
+    }, { local: { focusSchedule: scheduledFocusState(), rules: [makeFocusRule(21, 'list-1')],
+      telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+  });
+});
+
 test('scheduled focus never replaces a running manual Hardcore session', async () => {
   await withControlledClock(new Date(2026,8,28,9,20), async () => {
     const session = { focusActive: true, focusEndTime: new Date(2026,8,28,10,30).getTime(), isHardcore: true, focusMode: 'blacklist' };

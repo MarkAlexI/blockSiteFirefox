@@ -9,17 +9,19 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
   const paid = access => access.isPro === true || access.isLegacyUser === true;
   const handled = (state, key) => ({ ...state, handledKeys: [...new Set([...state.handledKeys, key])].slice(-32) });
 
-  async function arm(state) {
+  const directStep = (_phase, operation) => operation();
+
+  async function arm(state, step = directStep) {
     const next = nextFocusOccurrence(state, now());
     if (!next) {
-      await alarms.clear(FOCUS_SCHEDULE_ALARM);
+      await step('alarm_clear', () => alarms.clear(FOCUS_SCHEDULE_ALARM));
       return;
     }
     const when = Math.max(now() + 1000, next.startTime);
-    const existing = await alarms.get(FOCUS_SCHEDULE_ALARM);
+    const existing = await step('alarm_read', () => alarms.get(FOCUS_SCHEDULE_ALARM));
     const scheduledTime = Number(existing?.scheduledTime ?? existing?.when);
     if (!Number.isFinite(scheduledTime) || Math.abs(scheduledTime - when) > 1000) {
-      await alarms.create(FOCUS_SCHEDULE_ALARM, { when });
+      await step('alarm_create', () => alarms.create(FOCUS_SCHEDULE_ALARM, { when }));
     }
   }
 
@@ -101,28 +103,28 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
         await arm(updated);
       }
     },
-    reconcile(context) {
+    reconcile(context, step = directStep) {
       return runExclusive(async () => {
-        let state = await load();
+        let state = await step('state_read', load);
         const current = nextFocusOccurrence(state, now());
         if (!current || current.startTime > now()) {
-          await arm(state);
+          await arm(state, step);
           return { status: 'waiting' };
         }
-        const access = await getAccess();
-        const session = await getSession();
+        const access = await step('access_read', getAccess);
+        const session = await step('session_read', getSession);
         // Wall time and timezone can change while the browser APIs are pending.
         const observedNow = now();
         const latest = nextFocusOccurrence(state, observedNow);
         if (!latest || latest.key !== current.key || latest.startTime !== current.startTime ||
             latest.endTime !== current.endTime || latest.startTime > observedNow) {
-          await arm(state);
+          await arm(state, step);
           return { status: 'waiting' };
         }
         // Claim durably BEFORE activation: a worker restart must not repeat it.
         // A manual session or missing paid access consumes this occurrence too.
         state = handled(state, current.key);
-        await write(state);
+        await step('state_write', () => write(state));
         let activationFailed = false;
         try {
           if (!paid(access)) return { status: 'pro_required' };
@@ -138,14 +140,14 @@ export function createFocusScheduleController({ storage, alarms, getAccess, getS
               item.endTime === current.endTime && item.startTime <= observed);
           };
           if (!isCurrentWindow()) return { status: 'waiting' };
-          return await startSession(current, context, isCurrentWindow);
+          return await step('activation', () => startSession(current, context, isCurrentWindow));
         } catch (error) {
           activationFailed = true;
           throw error;
         } finally {
           // Rearming the next occurrence must not delay or prevent this start.
           // Still surface rearm failures, without hiding an activation failure.
-          try { await arm(state); }
+          try { await arm(state, step); }
           catch (error) { if (!activationFailed) throw error; }
         }
       });

@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('version').textContent = version;
   
   const features = [
-    "Scheduled focus stays collapsed when you reload Settings, including after opening it from the popup shortcut."
+    "Focus protection stays in place if the browser temporarily cannot read saved session state.",
+    "More reliable Settings opening after installation in Firefox."
   ];
   
   const ul = document.getElementById('features');

@@ -1,10 +1,10 @@
 # Native version-update preservation — scenario 67
 
-## Current upgrade matrix - 5.6.7
+## Current upgrade matrix - 5.6.8
 
 The historical 5.4.14 case is retained. The recent case upgrades the actual
-5.6.6 release at `ecadfba6ea3b0821ee2dcf0e2dd7c9900ef77002` to 5.6.7.
-The pin matches the previously packaged 5.6.6 runtime.
+5.6.7 release at `4e85fe25c133f2d6ae79d2cfba6de958ac2ce3b9` to 5.6.8.
+The pin matches the previously packaged 5.6.7 runtime.
 
 Fresh Options readiness before retained-tab reload, exact Focus deadlines,
 spent Daily Limits, native blocking, real rule edits and one natural completion
@@ -16,6 +16,10 @@ macOS smoke remains 24 per architecture. Sections below retain earlier matrices.
 
 Scenario 24 also covers the real Settings reload with a retained schedule fragment,
 followed by manual disclosure. The scenario inventory is unchanged.
+
+Focus protection reads now fail without publishing an inactive session. Worker
+regressions cover retained DNR, manual Hardcore priority, rollback snapshots and
+fixed recovery failure phases. The native scenario inventory remains unchanged.
 
 ## Upgrade matrix — 5.6.2
 

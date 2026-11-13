@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.8] - 2026-11-13
+
+### Fixed
+- Preserve existing Focus and Hardcore protection when saved session state is temporarily unavailable.
+- Improve opening Settings after installation in Firefox.
+
+### Improved
+- Provide more precise diagnostic reports for Focus recovery and initial setup.
+
 ## [5.6.7] - 2026-11-13
 
 ### Fixed

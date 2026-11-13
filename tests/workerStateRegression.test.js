@@ -1740,7 +1740,7 @@ test('installed event: rejected page API waits for settlement and reports after 
     ]);
     const failure = api.storage.local.data.diagnosticEvents
       .find(item => item.code === 'lifecycle_open_install_page_failed');
-    assert.deepEqual(failure.details.completedPhases, ['initialize', 'permissions']);
+    assert.deepEqual(failure.details.completedPhases, ['initialize', 'permissions', 'install_url']);
     assert.doesNotMatch(JSON.stringify({ errors, failure }), /private\.example/);
   }, {
     ...installedTelemetryFixture,
