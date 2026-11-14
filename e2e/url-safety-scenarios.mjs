@@ -489,7 +489,6 @@ export const urlSafetyScenarios = [{
   }
 }];
 
-
 urlSafetyScenarios.push({
   id: '85', title: 'Native right anchors distinguish an explicit empty query from an absent query',
   async run(e) {
@@ -828,5 +827,68 @@ urlSafetyScenarios.push({
     const after = await e.state();
     assert.deepEqual(after.rules, aliases);
     assert.deepEqual(after.dailyRuleUsage.usageSeconds, usage);
+  }
+});
+
+urlSafetyScenarios.push({
+  id: '90', title: 'Whitelist validation and aliases preserve native blocking and existing Focus scope',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const target = 'allowed.bd-e2e.test/team';
+    assert.equal((await mutate('rules:add', { blockURL: target, isWhitelist: true, assignment })).success, true);
+    const saved = await e.state();
+    for (const blockURL of ['www.', 'https://[bad', '*.allowed.bd-e2e.test']) {
+      const reply = await mutate('rules:add', { blockURL, isWhitelist: true, assignment });
+      assert.equal(reply.success, false); assert.equal(reply.error.code, 'validation_failed');
+    }
+    const duplicate = await mutate('rules:add', {
+      blockURL: 'HTTPS://WWW.allowed.bd-e2e.test:18080/TEAM/?q=1#part', isWhitelist: true, assignment
+    });
+    assert.equal(duplicate.success, false);
+    assert.ok(['redundant_whitelist', 'rule_already_exists'].includes(duplicate.error.code));
+    const unchanged = await e.state();
+    assert.deepEqual(unchanged.rules, saved.rules);
+    assert.deepEqual(unchanged.ruleRevisions, saved.ruleRevisions);
+    assert.equal(unchanged.rulesGeneration, saved.rulesGeneration);
+
+    const added = await mutate('rules:add', { blockURL: `other.bd-e2e.test/?next=${target}`,
+      redirectURL: '', category: 'social', assignment });
+    assert.equal(added.success, true); assert.equal(added.syncPending, false);
+    const state = await e.state();
+    assert.equal(state.rules.length, 2);
+    assert.ok(state.dnr.some(rule => rule.condition.urlFilter === '||other.bd-e2e.test'));
+    assert.equal(state.rules.find(rule => rule.isWhitelist).blockURL, target);
+    const blocked = await e.newPage('http://other.bd-e2e.test/check');
+    await poll(() => blocked.url(), url => url.includes('blocked.html'), 'unrelated query text does not stop native blocking');
+
+    const ids = {};
+    for (const [name, url] of [
+      ['defaultPort', 'http://allowed.bd-e2e.test/team'],
+      ['otherPort', 'http://allowed.bd-e2e.test:18081/team/project'],
+      ['outsidePath', 'http://allowed.bd-e2e.test/teamwork']
+    ]) ids[name] = await createTab(page, url);
+    await poll(() => page.evaluate(async ids => {
+      const api = globalThis.browser || chrome;
+      return Promise.all(Object.values(ids).map(id => api.tabs.get(id)));
+    }, ids), tabs => tabs.every(tab => tab.status === 'complete' && !tab.pendingUrl), 'native control pages are loaded');
+    assert.equal((await message(page, { type: 'start_focus_session', duration: 5, focusMode: 'whitelist' })).success, true);
+    try {
+      await poll(() => tabIds(page), retained => !retained.includes(ids.outsidePath), 'Whitelist keeps its path boundary');
+      const retained = await tabIds(page);
+      assert.ok(retained.includes(ids.defaultPort));
+      assert.ok(retained.includes(ids.otherPort), 'Whitelist port policy remains unchanged');
+    } finally {
+      assert.equal((await message(page, { type: 'stop_focus_session' })).success, true);
+    }
   }
 });

@@ -30,6 +30,7 @@ import {
 } from './blockingMode.js';
 import { sanitizeBackupPayload } from '../backup/backupFormat.js';
 import { getBlacklistTargetKey } from './dnrRuleFactory.js';
+import { getWhitelistTargetKey } from '../pro/isUrlInWhitelist.js';
 
 export class RulesMutationError extends Error {
   constructor(code, message = code, validationErrors = []) {
@@ -87,7 +88,7 @@ function getRuleIndexById(rules, ruleId) {
 
 function normalizeTargetBlockURL(value, isWhitelist = false) {
   const rawKey = typeof value === 'string' ? value.trim().toLowerCase() : '';
-  if (isWhitelist) return rawKey;
+  if (isWhitelist) return getWhitelistTargetKey(value) ?? `invalid:${rawKey}`;
   // Retain the old identity for corrupt stored rows, in a separate namespace
   // from valid filters. Never stringify an invalid non-string target.
   return getBlacklistTargetKey(value) ?? `invalid:${rawKey}`;

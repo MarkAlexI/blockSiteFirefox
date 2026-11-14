@@ -306,11 +306,13 @@ test('Focus reports invalid stored targets separately while deduplicating valid 
   assert.deepEqual(h.state, before);
 });
 
-test('whitelist retains its own target language and raw conflict checks', async t => {
+test('whitelist retains its own target language while rejecting serialized domain aliases', async t => {
   const h = createHarness(t);
   await h.mutate('addRule', { blockURL: 'bücher.test/team', isWhitelist: true });
-  await h.mutate('addRule', { blockURL: 'xn--bcher-kva.test/team', isWhitelist: true });
-  assert.equal(h.state.rules.length, 2);
+  await assert.rejects(h.mutate('addRule', { blockURL: 'xn--bcher-kva.test/team', isWhitelist: true }),
+    error => error.code === 'redundant_whitelist');
+  assert.equal(h.state.rules.length, 1);
+  assert.equal(h.state.rules[0].blockURL, 'bücher.test/team');
   assert.equal(h.dynamicRules().length, 0);
 });
 

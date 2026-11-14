@@ -1,6 +1,9 @@
 import { isValidURL } from '../scripts/isValidURL.js';
 import { isValidPathSegment } from '../scripts/isValidPathSegment.js';
-import { createDnrUrlFilter, InvalidDnrUrlFilterError } from './dnrRuleFactory.js';
+import { createDnrUrlFilter, getBlacklistTargetKey, InvalidDnrUrlFilterError } from './dnrRuleFactory.js';
+import { normalizeWhitelistTarget, isValidWhitelistTarget, getWhitelistTargetKey,
+  areWhitelistTargetsRedundant, matchesWhitelistHostname, matchesWhitelistTarget } from '../pro/isUrlInWhitelist.js';
+import { doesUrlMatchBlockRule } from './urlRuleMatcher.js';
 import {
   hasUnsupportedExplicitScheme,
   isBlockedURL
@@ -11,6 +14,47 @@ import {
   BLOCKING_MODE_SCHEDULE,
   validateBlockingConfig
 } from './blockingMode.js';
+
+/** Check the explicit host/path scopes named by the two rules. Do not treat
+ * text in a query, fragment or unrelated path as a hostname. This preserves
+ * the existing partial-target policy rather than inventing hostnames by
+ * concatenating unrelated fragments or adding arbitrary new subdomains.
+ */
+function hasBlacklistWhitelistConflict(blockURL, whitelist) {
+  const key = getBlacklistTargetKey(blockURL);
+  if (!key || !whitelist) return false;
+  const filter = key.slice(2);
+  let parsed;
+  try { parsed = new URL(`https://${filter}`); } catch { /* Advanced DNR syntax may not be a URL. */ }
+
+  if (parsed) {
+    const path = parsed.pathname.replace(/\/+$/, '').toLowerCase();
+    const hosts = new Set([parsed.hostname, whitelist.hostname]);
+    const paths = new Set([path || '/', whitelist.path || '/']);
+    const port = parsed.port ? `:${parsed.port}` : '';
+    for (const hostname of hosts) for (const pathname of paths) {
+      let url;
+      try {
+        url = new URL(`https://${hostname}${port}${pathname}`);
+      } catch { continue; /* A literal filter token need not form a request URL. */ }
+      if (matchesWhitelistTarget(url, whitelist) && doesUrlMatchBlockRule(url.href, blockURL)) return true;
+    }
+    if (!/[*^|]/.test(filter)) return false;
+
+    // Path operators cannot make an unrelated literal hostname match. Keep
+    // the legacy advanced-pattern check only when the explicit hosts overlap.
+    if (path && !/[*^|]/.test(parsed.hostname)) {
+      const hostOverlap = [...hosts].some(hostname => matchesWhitelistHostname(hostname, whitelist)
+        && (hostname === parsed.hostname || hostname.endsWith(`.${parsed.hostname}`)));
+      if (!hostOverlap) return false;
+    }
+  }
+
+  // Preserve the existing checks for advanced filter syntax. Its tokens are
+  // not parsed as Whitelist operators or expanded into a different grammar.
+  const allowed = whitelist.hostname + whitelist.path;
+  return filter.includes(allowed) || allowed.includes(filter);
+}
 
 /**
  * Provides current rule storage and domain validation helpers.
@@ -105,6 +149,9 @@ export class RulesManager {
 
     if (blockURL && !isValidPathSegment(blockURL)) {
       errors.push('blockurl_invalid');
+    } else if (isWhitelist && blockURL?.trim() && !hasUnsupportedExplicitScheme(blockURL)
+        && !isValidWhitelistTarget(blockURL)) {
+      errors.push('blockurl_invalid');
     } else if (!isWhitelist && blockURL?.trim()) {
       try {
         createDnrUrlFilter(blockURL);
@@ -161,7 +208,8 @@ export class RulesManager {
       }
 
       if (isWhitelist) {
-        return rule.blockURL === blockURL.trim();
+        const key = getWhitelistTargetKey(blockURL);
+        return key !== null && getWhitelistTargetKey(rule.blockURL) === key;
       }
 
       return rule.blockURL === blockURL.trim() &&
@@ -170,7 +218,7 @@ export class RulesManager {
   }
 
   checkConflict(rules, blockURL, isWhitelist, excludeIndex = -1) {
-    const cleanNew = blockURL.trim().toLowerCase();
+    const newWhitelist = isWhitelist ? normalizeWhitelistTarget(blockURL) : null;
 
     for (let index = 0; index < rules.length; index++) {
       if (excludeIndex !== -1 && index === excludeIndex) continue;
@@ -178,21 +226,14 @@ export class RulesManager {
       const rule = rules[index];
       if (typeof rule.blockURL !== 'string') continue;
       const ruleIsWhitelist = rule.isWhitelist || false;
-      const cleanExisting = rule.blockURL.trim().toLowerCase();
-      if (!cleanExisting) continue;
-
       if (ruleIsWhitelist !== isWhitelist) {
-        if (
-          cleanNew.includes(cleanExisting) ||
-          cleanExisting.includes(cleanNew)
-        ) {
+        const whitelist = isWhitelist ? newWhitelist : normalizeWhitelistTarget(rule.blockURL);
+        const blacklist = isWhitelist ? rule.blockURL : blockURL;
+        if (hasBlacklistWhitelistConflict(blacklist, whitelist)) {
           return isWhitelist ? 'conflict_blacklist' : 'conflict_whitelist';
         }
       } else if (isWhitelist) {
-        if (
-          cleanNew.includes(cleanExisting) ||
-          cleanExisting.includes(cleanNew)
-        ) {
+        if (areWhitelistTargetsRedundant(newWhitelist, normalizeWhitelistTarget(rule.blockURL))) {
           return 'redundant_whitelist';
         }
       }

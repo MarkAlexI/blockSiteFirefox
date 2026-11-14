@@ -1,26 +1,17 @@
-# Firefox Desktop E2E - BlockDistraction **5.6.8**
+# Firefox Desktop E2E - BlockDistraction **5.6.9**
 
-## Current upgrade matrix
+## Current release and upgrade matrix
 
-The upgrade group retains 5.4.14 and targets actual 5.6.7 → 5.6.8.
-The recent source is release commit `4e85fe25c133f2d6ae79d2cfba6de958ac2ce3b9`,
-matching the previously packaged 5.6.7 runtime.
-Both cases check saved budgets, fresh Options before retained-tab reload,
-the original Focus deadline and their existing Stop/completion-sound controls.
-Native rule definitions are preserved while current priorities follow the
-explicit longest-filter / first-in-set policy.
+Scenario 90 checks production Whitelist validation, canonical duplicate rejection,
+unrelated query text, native blocking and unchanged Focus path/port scope.
+Inventory is **90 = 75 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+macOS smoke remains 24 per architecture.
 
-Scenario 89 checks native network and SPA redirects, both stored orders,
-a real browser restart and Focus profile preference. Inventory remains
-**89 = 74 core + 12 lifecycle + 1 overdue + 2 upgrade**;
-macOS smoke remains 24 per architecture. See [preparation and acceptance](version-upgrade.md).
-
-Scenario 24 also covers the real Settings reload with a retained schedule fragment,
-followed by manual disclosure. The scenario inventory is unchanged.
-
-Focus protection reads now fail without publishing an inactive session. Worker
-regressions cover retained DNR, manual Hardcore priority, rollback snapshots and
-fixed recovery failure phases. The native scenario inventory remains unchanged.
+The upgrade group retains 5.4.14 and targets actual 5.6.8 → 5.6.9.
+The recent source is release commit `c2c49b5c3b50d9170424f856023a48193b401576`.
+Both cases retain saved budgets, fresh Options readiness, the original Focus
+session deadline and their Stop/completion-sound controls. Existing saved
+Whitelist rows are not rewritten. See [preparation and acceptance](version-upgrade.md).
 
 ## macOS smoke CI
 

@@ -58,8 +58,8 @@ test('DNR validation preserves fragments, serialized Unicode paths, and other ac
   }
 });
 
-test('DNR-only restrictions do not change whitelist validation or duplicate existing input errors', () => {
-  assert.deepEqual(manager.validateRule('*.example.com', '', null, '', true), { isValid: true, errors: [] });
+test('Whitelist rejects unsupported host wildcards without duplicating existing input errors', () => {
+  assert.deepEqual(manager.validateRule('*.example.com', '', null, '', true), { isValid: false, errors: ['blockurl_invalid'] });
   for (const pattern of ['', '   ']) {
     assert.deepEqual(manager.validateRule(pattern, '', null, 'social'), { isValid: false, errors: ['blockurl_empty'] });
   }
