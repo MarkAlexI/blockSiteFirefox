@@ -483,6 +483,53 @@ async function withWorker(callback, {
   }
 }
 
+test('window focus changes invalidate an in-flight Daily Limit read before its queued pause', { timeout: 3000 }, async () => {
+  await withControlledClock(new Date(2026, 10, 14, 12), async clock => {
+    let focused = true;
+    await withWorker(async ({ api, alarm }) => {
+      const tab = { id: 11, windowId: 7, active: true, url: 'https://limited.example/start' };
+      api.tabs.values = [tab];
+      const changed = api.windows.onFocusChanged.listeners[0];
+      await changed(7);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, ['1:general']);
+
+      const entered = createDeferred(), release = createDeferred(), writes = [];
+      const write = api.storage.local.set.bind(api.storage.local);
+      api.storage.local.set = async values => {
+        if (values.dailyRuleUsage) writes.push(structuredClone(values.dailyRuleUsage));
+        return write(values);
+      };
+      api.windows.get = async id => {
+        const snapshot = { id, focused };
+        entered.resolve();await release.promise;
+        return snapshot;
+      };
+      clock.set(new Date(2026, 10, 14, 12, 0, 10));
+      const pending = alarm({ name: 'update_scheduled_rules' });
+      let paused;
+      try {
+        await entered.promise;
+        focused = false;paused = changed(api.windows.WINDOW_ID_NONE);
+      } finally { release.resolve(); }
+      await Promise.all([pending, paused]);
+      assert.ok(writes.length > 0);
+      assert.ok(writes.every(value => value.lastSample?.assignmentKeys.length === 0),
+        'a stale focused result must not commit an active segment after the native focus event');
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:general'], 10);
+      assert.equal(api.alarmValues.has('daily_limit_deadline'), false);
+
+      focused = true;clock.set(new Date(2026, 10, 14, 12, 0, 40));await changed(7);
+      clock.set(new Date(2026, 10, 14, 12, 0, 50));await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:general'], 20);
+    }, {
+      supportsWindows: true, visibleTabs: true,
+      local: { rules: [makeDailyLimitRule(1, 'general', { blockURL: 'limited.example', minutes: 10 })],
+        activeRuleListId: 'general' },
+      configureApi(api) { api.windows.get = async id => ({ id, focused }); }
+    });
+  });
+});
+
 test('top-level install failures are contained and recorded with a fixed operation', async () => {
   await withWorker(async ({ api }) => {
     api.tabs.create = async () => {

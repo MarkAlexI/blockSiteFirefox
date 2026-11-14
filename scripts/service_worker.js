@@ -373,6 +373,7 @@ const spaNavigationEnforcer = createSpaNavigationEnforcer({
 
 const dailyLimitTracker = createDailyLimitTracker({
   tabsApi: browser.tabs,
+  windowsApi: browser.windows,
   scriptingApi: browser.scripting,
   alarmsApi: browser.alarms,
   getRules: () => rulesManager.getRules(),
@@ -380,7 +381,7 @@ const dailyLimitTracker = createDailyLimitTracker({
   getFocusSessionState: getFocusSessionForProtection,
   dailyLimitManager,
   dnrSynchronizer,
-  getStateGeneration: () => blockingDecisionGeneration,
+  getStateGeneration: () => `${blockingDecisionGeneration}:${windowFocusGeneration}`,
   logger
 });
 
@@ -497,6 +498,7 @@ async function checkAllTabsAgainstWhitelist(shouldContinue = () => true) {
 }
 
 let blockingDecisionGeneration = 0;
+let windowFocusGeneration = 0;
 function invalidateBlockingDecisions() {
   blockingDecisionGeneration += 1;
   spaNavigationEnforcer.invalidate();
@@ -1471,15 +1473,18 @@ browser.tabs.onActivated.addListener((activeInfo) => {
     .catch(error => logger.info('Daily limit tab activation sample failed:', error));
 });
 
-browser.windows?.onFocusChanged?.addListener((windowId) =>
-  runAsyncHandler(ASYNC_HANDLER_OPERATIONS.WINDOW_FOCUS_CHANGED, async () => {
+browser.windows?.onFocusChanged?.addListener((windowId) => {
+  // Invalidate an in-flight visibility/focus read before its queued pause or
+  // resume runs; an old native result must not reopen the previous segment.
+  windowFocusGeneration += 1;
+  return runAsyncHandler(ASYNC_HANDLER_OPERATIONS.WINDOW_FOCUS_CHANGED, async () => {
     if (windowId === browser.windows.WINDOW_ID_NONE) {
       await dailyLimitTracker.pause('window_focus_lost');
       return;
     }
     await dailyLimitTracker.sample('window_focus_gained');
-  })
-);
+  });
+});
 
 browser.tabs.onCreated.addListener((tab) =>
   runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_CREATED, async () => {

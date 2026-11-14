@@ -82,6 +82,7 @@ function normalizeVisibilityProbeResult(results) {
 
 export function createDailyLimitTracker({
   tabsApi,
+  windowsApi,
   scriptingApi,
   alarmsApi,
   getRules,
@@ -343,16 +344,34 @@ export function createDailyLimitTracker({
 
     const assignments = assignmentsByRuleId.get(Number(rule.id)) || [];
     const visibility = await probePageVisibility(tab);
+    let status = visibility.visible ? 'matched' : visibility.status;
+    let errorName = visibility.errorName;
+    // lastFocusedWindow also finds a browser window while another application
+    // owns focus. Mini Window can even retain document.hasFocus() in that state.
+    // Verify native window focus after the asynchronous visibility probe.
+    // Firefox Android has no Windows API and keeps its visibility-based path.
+    if (visibility.visible && typeof windowsApi?.get === 'function') {
+      try {
+        const window = await windowsApi.get(tab.windowId);
+        if (window?.id !== tab.windowId || window.focused !== true) {
+          status = 'window_unfocused';
+        }
+      } catch (error) {
+        status = 'window_focus_unavailable';
+        errorName = error?.name || 'Error';
+        logger?.info?.('Daily limit window focus could not be verified:', error);
+      }
+    }
     return {
       rule,
       assignments,
       usageSeconds,
       tab,
-      status: visibility.visible ? 'matched' : visibility.status,
+      status,
       visibilityState: visibility.visibilityState,
       visibilitySource: visibility.visibilitySource,
       documentHasFocus: visibility.documentHasFocus,
-      errorName: visibility.errorName
+      errorName
     };
   }
 
@@ -460,7 +479,10 @@ export function createDailyLimitTracker({
           .filter(Boolean)
       : [];
     const result = await dailyLimitManager.recordSample(activeKeys, now, {
-      closePreviousSegment: SEGMENT_BOUNDARY_REASONS.has(reason),
+      // If a native focus event was missed, the old segment's end is unknown.
+      // Preserve spent time but do not charge an unverified background gap.
+      closePreviousSegment: SEGMENT_BOUNDARY_REASONS.has(reason) &&
+        context.status !== 'window_unfocused' && context.status !== 'window_focus_unavailable',
       shouldContinue
     });
     if (result.superseded) return superseded();
