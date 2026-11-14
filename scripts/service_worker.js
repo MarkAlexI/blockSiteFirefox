@@ -53,6 +53,7 @@ import { createFocusScheduleController } from '../schedules/focusScheduleControl
 import { BUILD_ID } from '../utils/buildInfo.js';
 import { createSoundService } from '../utils/soundService.js';
 import { createFocusSoundController, isSoundPreviewSender } from '../utils/focusSound.js';
+import { createDailyLimitFocusPolicy } from '../utils/dailyLimitFocusPolicy.js';
 
 const logger = new Logger('Worker');
 const focusSound = createFocusSoundController({
@@ -371,9 +372,15 @@ const spaNavigationEnforcer = createSpaNavigationEnforcer({
   logger
 });
 
+const requiresDailyLimitWindowFocus = createDailyLimitFocusPolicy({
+  runtimeApi: browser.runtime, navigatorRef: globalThis.navigator || {}
+});
+
 const dailyLimitTracker = createDailyLimitTracker({
   tabsApi: browser.tabs,
   windowsApi: browser.windows,
+  requiresWindowFocus: requiresDailyLimitWindowFocus,
+  sessionStorage: browser.storage.session,
   scriptingApi: browser.scripting,
   alarmsApi: browser.alarms,
   getRules: () => rulesManager.getRules(),
@@ -1473,17 +1480,22 @@ browser.tabs.onActivated.addListener((activeInfo) => {
     .catch(error => logger.info('Daily limit tab activation sample failed:', error));
 });
 
-browser.windows?.onFocusChanged?.addListener((windowId) => {
-  // Invalidate an in-flight visibility/focus read before its queued pause or
-  // resume runs; an old native result must not reopen the previous segment.
-  windowFocusGeneration += 1;
-  return runAsyncHandler(ASYNC_HANDLER_OPERATIONS.WINDOW_FOCUS_CHANGED, async () => {
-    if (windowId === browser.windows.WINDOW_ID_NONE) {
-      await dailyLimitTracker.pause('window_focus_lost');
-      return;
-    }
-    await dailyLimitTracker.sample('window_focus_gained');
-  });
+browser.windows?.onFocusChanged?.addListener(windowId => {
+  const handleNativeFocus = () => {
+    // Invalidate an in-flight visibility/focus read before its queued pause or
+    // resume runs; an old native result must not reopen the previous segment.
+    windowFocusGeneration += 1;
+    return runAsyncHandler(ASYNC_HANDLER_OPERATIONS.WINDOW_FOCUS_CHANGED, async () => {
+      if (windowId === browser.windows.WINDOW_ID_NONE) {
+        await dailyLimitTracker.pause('window_focus_lost');
+        return;
+      }
+      await dailyLimitTracker.sample('window_focus_gained');
+    });
+  };
+  const required = requiresDailyLimitWindowFocus();
+  if (typeof required === 'boolean') return required ? handleNativeFocus() : undefined;
+  return required.then(value => value ? handleNativeFocus() : undefined);
 });
 
 browser.tabs.onCreated.addListener((tab) =>
@@ -1820,7 +1832,8 @@ async function createDiagnosticReport() {
         !rule.isWhitelist && getRuleAssignments(rule).some(assignment => assignment.blockingMode === BLOCKING_MODE_DAILY_LIMIT)
       ).length,
       usageEntries: Object.keys(dailyUsage || {}).length,
-      tracker: dailyLimitTracker.getDebugState()
+      tracker: { ...dailyLimitTracker.getDebugState(),
+        lastVisibleSample: await dailyLimitTracker.getLastVisibleSample() }
     },
     license: {
       isPro: credentials.isPro === true,

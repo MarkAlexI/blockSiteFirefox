@@ -1,4 +1,4 @@
-# Firefox Desktop E2E - BlockDistraction **5.6.11**
+# Firefox Desktop E2E - BlockDistraction **5.6.12**
 
 ## Current release and upgrade matrix
 
@@ -7,7 +7,7 @@ unrelated query text, native blocking and unchanged Focus path/port scope.
 Inventory is **91 = 76 core + 12 lifecycle + 1 overdue + 2 upgrade**;
 macOS smoke remains 24 per architecture.
 
-The upgrade group retains 5.4.14 and targets actual 5.6.9 → 5.6.11.
+The upgrade group retains 5.4.14 and targets actual 5.6.9 → 5.6.12.
 The recent source is release commit `91031a020ee4ef166fd86dcf07115670a8475b42`.
 Both cases retain saved budgets, fresh Options readiness, the original Focus
 session deadline and their Stop/completion-sound controls. Existing saved

@@ -1,9 +1,9 @@
 # Native version-update preservation — scenario 67
 
-## Current upgrade matrix - 5.6.11
+## Current upgrade matrix - 5.6.12
 
 The historical 5.4.14 case is retained. The recent case upgrades the actual
-5.6.9 release at `91031a020ee4ef166fd86dcf07115670a8475b42` to 5.6.11.
+5.6.9 release at `91031a020ee4ef166fd86dcf07115670a8475b42` to 5.6.12.
 The pin matches the previously packaged 5.6.9 runtime.
 
 Fresh Options readiness, original Focus deadlines, spent Daily Limits, native

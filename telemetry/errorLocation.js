@@ -62,6 +62,7 @@ const WORKER_ERROR_MODULES = Object.freeze({
   "utils/createInstallURL.js": "utils_create_install_url",
   "utils/focusSession.js": "utils_focus_session",
   "utils/focusSound.js": "utils_focus_sound",
+  "utils/dailyLimitFocusPolicy.js": "utils_daily_limit_focus_policy",
   "utils/hostPermissionMonitor.js": "utils_host_permission_monitor",
   "utils/logger.js": "utils_logger",
   "utils/protectedDomains.js": "utils_protected_domains",

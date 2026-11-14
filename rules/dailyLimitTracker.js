@@ -45,6 +45,7 @@ export function isDailyLimitVisibilitySender(message, sender, runtimeApi) {
 }
 
 export const DAILY_LIMIT_DEADLINE_ALARM = 'daily_limit_deadline';
+const LAST_VISIBLE_SAMPLE_KEY = 'dailyLimitLastVisibleSampleV1';
 
 const SEGMENT_BOUNDARY_REASONS = new Set([
   'tab_url_changed',
@@ -83,6 +84,8 @@ function normalizeVisibilityProbeResult(results) {
 export function createDailyLimitTracker({
   tabsApi,
   windowsApi,
+  requiresWindowFocus = () => true,
+  sessionStorage,
   scriptingApi,
   alarmsApi,
   getRules,
@@ -96,6 +99,7 @@ export function createDailyLimitTracker({
 }) {
   let operationTail = Promise.resolve();
   let scheduledDeadlineAt = null;
+  let lastVisibleSample = null;
 
   let debugState = {
     lastReason: null,
@@ -346,13 +350,18 @@ export function createDailyLimitTracker({
     const visibility = await probePageVisibility(tab);
     let status = visibility.visible ? 'matched' : visibility.status;
     let errorName = visibility.errorName;
+    const windowFocusRequired = visibility.visible
+      ? typeof windowsApi?.get === 'function' && await requiresWindowFocus()
+      : null;
+    let windowFocused = null;
     // lastFocusedWindow also finds a browser window while another application
     // owns focus. Mini Window can even retain document.hasFocus() in that state.
     // Verify native window focus after the asynchronous visibility probe.
-    // Firefox Android has no Windows API and keeps its visibility-based path.
-    if (visibility.visible && typeof windowsApi?.get === 'function') {
+    // Android keeps its visibility-based path even when Windows API exists.
+    if (windowFocusRequired) {
       try {
         const window = await windowsApi.get(tab.windowId);
+        windowFocused = typeof window?.focused === 'boolean' ? window.focused : null;
         if (window?.id !== tab.windowId || window.focused !== true) {
           status = 'window_unfocused';
         }
@@ -371,6 +380,8 @@ export function createDailyLimitTracker({
       visibilityState: visibility.visibilityState,
       visibilitySource: visibility.visibilitySource,
       documentHasFocus: visibility.documentHasFocus,
+      windowFocusRequired,
+      windowFocused,
       errorName
     };
   }
@@ -505,6 +516,16 @@ export function createDailyLimitTracker({
       currentUsageSeconds: getActiveUsageSeconds(context, result),
       errorName: context.errorName
     };
+    if (context.visibilityState === 'visible') {
+      lastVisibleSample = { ...debugState,
+        windowFocusRequired: context.windowFocusRequired,
+        windowFocused: context.windowFocused };
+      // Session storage survives an idle worker restart, stays on this device,
+      // and is cleared by the browser on exit. No URL or page content is saved.
+      try {
+        await sessionStorage?.set?.({ [LAST_VISIBLE_SAMPLE_KEY]: lastVisibleSample });
+      } catch (error) { logger?.info?.('Daily limit visible sample could not be retained:', error); }
+    }
 
     return {
       ...result,
@@ -588,12 +609,25 @@ export function createDailyLimitTracker({
     return { ...debugState };
   }
 
+  async function getLastVisibleSample() {
+    if (!lastVisibleSample) {
+      try {
+        const saved = await sessionStorage?.get?.(LAST_VISIBLE_SAMPLE_KEY);
+        const sample = saved?.[LAST_VISIBLE_SAMPLE_KEY];
+        if (!lastVisibleSample && sample?.visibilityState === 'visible') lastVisibleSample = sample;
+      } catch (error) { logger?.info?.('Daily limit visible sample could not be read:', error); }
+    }
+    return lastVisibleSample ? { ...lastVisibleSample,
+      activeAssignmentListIds: [...lastVisibleSample.activeAssignmentListIds] } : null;
+  }
+
   return {
     sample,
     pause,
     visibilityChanged,
     observeMatchingPages,
     resolveActiveDailyLimitRule,
-    getDebugState
+    getDebugState,
+    getLastVisibleSample
   };
 }

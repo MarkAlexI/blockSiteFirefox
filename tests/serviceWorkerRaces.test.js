@@ -483,6 +483,53 @@ async function withWorker(callback, {
   }
 }
 
+test('Android worker counts visible pages with a Windows API and ignores misleading window-focus events', async () => {
+  await withControlledClock(new Date(2026, 10, 14, 12), async clock => {
+    let visibility = 'visible', windowReads = 0;
+    await withWorker(async ({ api, alarm, send }) => {
+      const tab = { id: 11, windowId: 7, active: true, url: 'https://limited.example/start' };
+      api.tabs.values = [tab];
+      const changed = api.windows.onFocusChanged.listeners[0];
+      const pageVisibility = state => send({ type: 'daily-limit:visibility',
+        visibilityState: state, observedAt: Date.now() },
+      { id: api.runtime.id, frameId: 0, tab, url: tab.url });
+      await alarm({ name: 'update_scheduled_rules' });
+      clock.set(new Date(2026, 10, 14, 12, 0, 30));await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:general'], 30);
+
+      clock.set(new Date(2026, 10, 14, 12, 0, 40));visibility = 'hidden';
+      await changed(api.windows.WINDOW_ID_NONE); // Can precede the page's native hidden event.
+      assert.equal((await pageVisibility('hidden')).success, true);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:general'], 40);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, []);
+      assert.equal(api.alarmValues.has('daily_limit_deadline'), false);
+
+      const report = (await send({ type: 'diagnostics:getReport' })).report;
+      assert.equal(report.dailyLimits.tracker.resolution, 'page_hidden');
+      assert.equal(report.dailyLimits.tracker.lastVisibleSample.resolution, 'matched');
+      assert.equal(report.dailyLimits.tracker.lastVisibleSample.windowFocusRequired, false);
+      assert.equal(report.dailyLimits.tracker.lastVisibleSample.currentUsageSeconds, 30);
+
+      clock.set(new Date(2026, 10, 14, 12, 1, 10));visibility = 'visible';
+      await changed(7);assert.equal((await pageVisibility('visible')).success, true);
+      clock.set(new Date(2026, 10, 14, 12, 1, 40));await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['1:general'], 70);
+      assert.equal(windowReads, 0, 'Android accounting does not depend on the unreliable Windows API');
+    }, {
+      supportsWindows: true, visibleTabs: true,
+      local: { rules: [makeDailyLimitRule(1, 'general', { blockURL: 'limited.example', minutes: 10 })],
+        activeRuleListId: 'general' },
+      configureApi(api) {
+        api.runtime.getPlatformInfo = async () => ({ os: 'android' });
+        api.windows.get = async id => { windowReads++;return { id, focused: false }; };
+        api.windows.getAll = async () => { windowReads++;return [{ id: 7, focused: false }]; };
+        api.scripting.executeScript = async () => [{ frameId: 0,
+          result: { visibilityState: visibility, hidden: visibility === 'hidden', hasFocus: false } }];
+      }
+    });
+  });
+});
+
 test('window focus changes invalidate an in-flight Daily Limit read before its queued pause', { timeout: 3000 }, async () => {
   await withControlledClock(new Date(2026, 10, 14, 12), async clock => {
     let focused = true;
