@@ -117,7 +117,7 @@ const equivalentPairs = [
   ['bücher.test/team', 'https://xn--bcher-kva.test/team/'],
   ['example.test/тест', 'example.test/%D1%82%D0%B5%D1%81%D1%82'],
   ['[::1]:8443/team', 'https://[0:0:0:0:0:0:0:1]:8443/team/'],
-  ['w', 'https://www.w:443/'],
+  ['wiki', 'https://www.wiki:443/'],
   ['yout', 'YOUT/'],
   ['example.test^p:item|', 'EXAMPLE.TEST^P:ITEM|']
 ];
@@ -153,9 +153,8 @@ for (const [left, right] of [
   });
 }
 
-test('short fragments retain domain-anchored runtime matching', async t => {
-  const h = createHarness(t);
-  await h.mutate('addRule', { blockURL: 'w' });
+test('saved one-character fragments retain domain-anchored runtime matching', async t => {
+  const h = createHarness(t, [row(1, 'w')]);
   await h.mutate('addRule', { blockURL: 'yout' });
   assert.equal(doesUrlMatchBlockRule('https://m.youtube.com/watch', 'yout'), true);
   assert.equal(doesUrlMatchBlockRule('https://other.test/path/yout', 'yout'), false);

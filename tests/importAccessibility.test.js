@@ -375,3 +375,17 @@ test('the actual file change listener observes the early guard and leaves the bu
     assert.equal(button.disabled, false); assert.equal(button.getAttribute('aria-busy'), 'false');
   });
 });
+
+
+test('an import rejected for a new short target explains the minimum without exposing addresses', async t => {
+  await withImport(t, async ({ manager, status, replacements }) => {
+    manager.rulesClient.replaceAll = async () => {
+      throw Object.assign(new Error('private.example/secret'), { code: 'validation_failed',
+        validationErrors: ['blockurl_too_short'] });
+    };
+    manager.applySettingsToUI = () => assert.fail('uncommitted settings applied');
+    await manager.importRules(file());
+    assert.equal(status.textContent, 'importinvalidbackup blockurl_minlength');
+    assert.equal(replacements.length, 0);
+  });
+});

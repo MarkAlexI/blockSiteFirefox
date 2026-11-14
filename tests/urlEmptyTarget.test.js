@@ -28,7 +28,7 @@ test('Empty targets: validation rejects collapsed targets before they can be sav
   }
 });
 
-test('Empty targets: one-character fragments and nonempty normalized paths remain supported', () => {
+test('Empty targets: saved one-character fragments and nonempty normalized paths remain supported', () => {
   for (const [pattern, filter] of [
     ['w', '||w'], ['www', '||www'], ['yout', '||yout'],
     ['https://www.youtube.com/shorts/', '||youtube.com/shorts'],
@@ -38,7 +38,7 @@ test('Empty targets: one-character fragments and nonempty normalized paths remai
     ['example.test^p:*:end^|', '||example.test^p:*:end^|']
   ]) {
     assert.equal(factory(1, pattern, '').condition.urlFilter, filter, pattern);
-    assert.deepEqual(manager.validateRule(pattern, '', null, 'social'), { isValid: true, errors: [] }, pattern);
+    assert.deepEqual(manager.validateRule(pattern, '', null, 'social', false, null, null, { blockURL: pattern }), { isValid: true, errors: [] }, pattern);
   }
   assert.equal(doesUrlMatchBlockRule('https://m.wikipedia.org/article', 'w'), true);
   assert.equal(doesUrlMatchBlockRule('https://m.youtube.com/watch', 'yout'), true);

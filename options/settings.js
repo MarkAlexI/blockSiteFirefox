@@ -688,7 +688,10 @@ export class SettingsManager {
     } catch (error) {
       this.logger.error('Error importing rules:', error);
       const invalidBackup = error.code === 'invalid_import' || error.code === 'validation_failed';
-      this.setImportStatus(t(invalidBackup ? 'importinvalidbackup' : 'importfailed'), 'error');
+      const shortTarget = error.code === 'validation_failed'
+        && Array.isArray(error.validationErrors) && error.validationErrors.includes('blockurl_too_short');
+      const message = t(invalidBackup ? 'importinvalidbackup' : 'importfailed');
+      this.setImportStatus(shortTarget ? `${message} ${t('blockurl_minlength')}` : message, 'error');
       return false;
     } finally {
       this.finishSettingsAction(action);

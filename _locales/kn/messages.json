@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "ನಿರ್ಬಂಧಿಸಲು ಅಮಾನ್ಯವಾದ URL"
   },
+  "blockurl_minlength": {
+    "message": "ಸೈಟ್ ಹೆಸರು ಅಥವಾ ಪಥದಲ್ಲಿ ಕನಿಷ್ಠ 4 ಅಕ್ಷರಗಳನ್ನು ನಮೂದಿಸಿ."
+  },
   "wrongredirecturl": {
     "message": "ಅಮಾನ್ಯ ರೀಡೈರೆಕ್ಟ್ URL"
   },

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "عنوان URL غير صالح للحظر"
   },
+  "blockurl_minlength": {
+    "message": "أدخل 4 أحرف على الأقل في اسم الموقع أو المسار."
+  },
   "wrongredirecturl": {
     "message": "رابط إعادة التوجيه غير صالح"
   },

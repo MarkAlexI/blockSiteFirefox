@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "כתובת URL לא חוקית לחסימה"
   },
+  "blockurl_minlength": {
+    "message": "יש להזין לפחות 4 תווים בשם האתר או בנתיב."
+  },
   "wrongredirecturl": {
     "message": "כתובת הפנייה לא חוקית"
   },

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL de blocage invalide"
   },
+  "blockurl_minlength": {
+    "message": "Saisissez au moins 4 caractères dans le nom du site ou le chemin."
+  },
   "wrongredirecturl": {
     "message": "URL de redirection invalide"
   },

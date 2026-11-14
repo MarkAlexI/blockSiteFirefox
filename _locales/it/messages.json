@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL di blocco non valido"
   },
+  "blockurl_minlength": {
+    "message": "Inserisci almeno 4 caratteri nel nome del sito o nel percorso."
+  },
   "wrongredirecturl": {
     "message": "URL di reindirizzamento non valido"
   },

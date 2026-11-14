@@ -222,3 +222,19 @@ test('cancelling an invalid Add removes its messages with the draft', () => edit
   assert.equal(document.querySelector('.rule-editor-row'), null);
   assert.equal(document.querySelector('.rule-editor-feedback-row'), null);
 }));
+
+test('the minimum target error stays on the address field and clears after correction', () => editorTest(async ({ document, ui, make }) => {
+  const { RulesManager } = await import('../rules/rulesManager.js');
+  const manager = new RulesManager();
+  let form;
+  form = make(() => ui.showValidationErrors(manager.validateRule(form.block.value, '', null, 'social').errors, form.row));
+  form.block.value = 'abc'; form.save.focus();
+  await form.save.dispatch('click');
+  assert.equal(form.block.value, 'abc');
+  assert.equal(form.block.getAttribute('aria-invalid'), 'true');
+  assert.equal(document.activeElement, form.block);
+  const id = form.block.getAttribute('aria-describedby');
+  assert.equal(document.getElementById(id).textContent, 'blockurl_minlength');
+  form.block.value = 'news'; await form.block.dispatch('input');
+  assert.equal(form.block.getAttribute('aria-invalid'), null);
+}));

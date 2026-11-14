@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL de bloqueig no vàlida"
   },
+  "blockurl_minlength": {
+    "message": "Introduïu almenys 4 caràcters al nom del lloc o al camí."
+  },
   "wrongredirecturl": {
     "message": "URL de redirecció no vàlid"
   },

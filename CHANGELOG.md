@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.10] - 2026-11-14
+
+### Changed
+- Require at least 4 characters in new rule targets while preserving existing short rules.
+
 ## [5.6.9] - 2026-11-14
 
 ### Fixed

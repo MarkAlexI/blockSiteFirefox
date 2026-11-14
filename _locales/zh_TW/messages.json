@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "無效的封鎖網址"
   },
+  "blockurl_minlength": {
+    "message": "網站名稱或路徑至少需要輸入 4 個字元。"
+  },
   "wrongredirecturl": {
     "message": "無效的重新導向 URL"
   },

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL สำหรับบล็อกไม่ถูกต้อง"
   },
+  "blockurl_minlength": {
+    "message": "ป้อนชื่อเว็บไซต์หรือเส้นทางอย่างน้อย 4 อักขระ"
+  },
   "wrongredirecturl": {
     "message": "URL สำหรับเปลี่ยนเส้นทางไม่ถูกต้อง"
   },

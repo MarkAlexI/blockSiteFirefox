@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Невалиден URL адрес за блокиране"
   },
+  "blockurl_minlength": {
+    "message": "Въведете поне 4 знака в името на сайта или пътя."
+  },
   "wrongredirecturl": {
     "message": "Невалиден URL за пренасочване"
   },

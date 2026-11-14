@@ -15,6 +15,38 @@ import {
   validateBlockingConfig
 } from './blockingMode.js';
 
+export const MIN_RULE_TARGET_LENGTH = 4;
+
+// Measure the target, not decorations that do not make a short rule narrower.
+// Cap by the entered length too: URL serialization can expand numbers or IDNs.
+function targetTextLength(value, stripWww, stripOperators) {
+  const text = value.trim().replace(/^https?:\/\//i, '').split(/[?#]/, 1)[0];
+  const slash = text.indexOf('/');
+  const authority = slash === -1 ? text : text.slice(0, slash);
+  let host = authority.slice(authority.lastIndexOf('@') + 1).replace(/:\d+$/, '');
+  if (stripWww) host = host.replace(/^www\./i, '');
+  const path = slash === -1 ? '' : text.slice(slash).replace(/\/+$/, '');
+  const target = host + path;
+  return Array.from(stripOperators ? target.replace(/[*^|]/g, '') : target).length;
+}
+
+export function getRuleTargetLength(value, isWhitelist = false) {
+  if (typeof value !== 'string' || !value.trim()) return 0;
+  const whitelist = isWhitelist ? normalizeWhitelistTarget(value) : null;
+  const normalized = isWhitelist
+    ? whitelist && whitelist.hostname + whitelist.path
+    : getBlacklistTargetKey(value)?.slice(2);
+  return normalized ? Math.min(targetTextLength(value, true, !isWhitelist),
+    targetTextLength(normalized, false, !isWhitelist)) : 0;
+}
+
+function preservesExistingTarget(value, isWhitelist, existingRule) {
+  if (!existingRule || (existingRule.isWhitelist === true) !== isWhitelist) return false;
+  const keyFor = isWhitelist ? getWhitelistTargetKey : getBlacklistTargetKey;
+  const key = keyFor(value);
+  return key !== null && key === keyFor(existingRule.blockURL);
+}
+
 /** Check the explicit host/path scopes named by the two rules. Do not treat
  * text in a query, fragment or unrelated path as a hostname. This preserves
  * the existing partial-target policy rather than inventing hostnames by
@@ -129,7 +161,8 @@ export class RulesManager {
     category,
     isWhitelist = false,
     blockingMode = null,
-    dailyLimit = null
+    dailyLimit = null,
+    existingRule = null
   ) {
     const errors = [];
     const effectiveBlockingMode = isWhitelist ?
@@ -159,6 +192,12 @@ export class RulesManager {
         if (!(error instanceof InvalidDnrUrlFilterError)) throw error;
         errors.push('blockurl_invalid');
       }
+    }
+
+    if (!errors.some(error => error.startsWith('blockurl_'))
+        && getRuleTargetLength(blockURL, isWhitelist) < MIN_RULE_TARGET_LENGTH
+        && !preservesExistingTarget(blockURL, isWhitelist, existingRule)) {
+      errors.push('blockurl_too_short');
     }
 
     if (!isWhitelist && redirectURL && !isValidURL(redirectURL)) {

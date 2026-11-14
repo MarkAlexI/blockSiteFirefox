@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Ugyldig blokerings-URL"
   },
+  "blockurl_minlength": {
+    "message": "Indtast mindst 4 tegn i webstedets navn eller sti."
+  },
   "wrongredirecturl": {
     "message": "Ugyldig omdirigerings-URL"
   },

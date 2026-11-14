@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Ungültige URL zum Blockieren"
   },
+  "blockurl_minlength": {
+    "message": "Gib mindestens 4 Zeichen im Websitenamen oder Pfad ein."
+  },
   "wrongredirecturl": {
     "message": "Ungültige Weiterleitungs-URL"
   },

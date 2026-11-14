@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "బ్లాక్ చేయడానికి చెల్లని URL"
   },
+  "blockurl_minlength": {
+    "message": "సైట్ పేరు లేదా మార్గంలో కనీసం 4 అక్షరాలను నమోదు చేయండి."
+  },
   "wrongredirecturl": {
     "message": "తప్పుడు రీడైరెక్ట్ URL"
   },

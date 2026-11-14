@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Neteisingas blokavimo URL"
   },
+  "blockurl_minlength": {
+    "message": "Svetainės pavadinime arba kelyje įveskite bent 4 simbolius."
+  },
   "wrongredirecturl": {
     "message": "Neteisingas peradresavimo URL"
   },

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Недійсна URL-адреса для блокування"
   },
+  "blockurl_minlength": {
+    "message": "Введіть щонайменше 4 символи в назві сайту або шляху."
+  },
   "wrongredirecturl": {
     "message": "Неправильний URL перенаправлення"
   },

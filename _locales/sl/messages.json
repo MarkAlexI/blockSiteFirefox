@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Neveljaven URL za blokiranje"
   },
+  "blockurl_minlength": {
+    "message": "V ime spletnega mesta ali pot vnesite vsaj 4 znake."
+  },
   "wrongredirecturl": {
     "message": "Napačen preusmeritveni URL"
   },

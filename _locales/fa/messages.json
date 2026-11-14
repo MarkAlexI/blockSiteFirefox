@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "نشانی اینترنتی نامعتبر برای مسدودسازی"
   },
+  "blockurl_minlength": {
+    "message": "حداقل 4 نویسه در نام سایت یا مسیر وارد کنید."
+  },
   "wrongredirecturl": {
     "message": "آدرس هدایت مجدد نامعتبر است"
   },

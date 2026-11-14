@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "തെറ്റായ block URL"
   },
+  "blockurl_minlength": {
+    "message": "സൈറ്റിന്റെ പേരിലോ പാതയിലോ കുറഞ്ഞത് 4 പ്രതീകങ്ങൾ നൽകുക."
+  },
   "wrongredirecturl": {
     "message": "തെറ്റായ redirect URL"
   },

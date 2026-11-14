@@ -428,7 +428,8 @@ export function createRulesMutationService({
     hasProAccess,
     target,
     validationCode = 'validation_failed',
-    existingAssignment = null
+    existingAssignment = null,
+    existingRule = null
   ) {
     const listId = assignment?.listId || GENERAL_RULE_LIST_ID;
     if (!isKnownRuleListId(lists, listId)) {
@@ -457,7 +458,8 @@ export function createRulesMutationService({
       target.category,
       target.isWhitelist,
       assignment.blockingMode,
-      assignment.dailyLimit
+      assignment.dailyLimit,
+      existingRule
     );
     if (!validation.isValid) {
       throw new RulesMutationError(
@@ -492,7 +494,8 @@ export function createRulesMutationService({
         hasProAccess,
         target,
         validationCode,
-        existingRule ? getRuleAssignment(existingRule, assignment.listId) : null
+        existingRule ? getRuleAssignment(existingRule, assignment.listId) : null,
+        existingRule
       );
     }
     return normalized;
@@ -564,15 +567,16 @@ export function createRulesMutationService({
         throw new RulesMutationError('pro_required', 'Pro access is required');
       }
 
+      const existingIndex = findTargetRuleIndex(rules, target);
       const assignments = validateAssignments(
-        assignmentInputs, lists, hasProAccess, target
+        assignmentInputs, lists, hasProAccess, target, 'validation_failed',
+        existingIndex === -1 ? null : rules[existingIndex]
       );
       const dailyLimitConfigured = assignments.some(assignment =>
         didConfigureDailyLimit(null, assignment)
       );
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, target.isWhitelist));
 
-      const existingIndex = findTargetRuleIndex(rules, target);
       if (!target.isWhitelist) {
         ensureFreeRuleCapacity(
           rules,
@@ -710,7 +714,9 @@ export function createRulesMutationService({
           category: selection.pack.category,
           isWhitelist: false
         });
-        validateAssignment(assignmentConfig, lists, hasProAccess, target, 'rule_pack_invalid');
+        const existingIndex = findTargetRuleIndex(nextRules, target);
+        validateAssignment(assignmentConfig, lists, hasProAccess, target, 'rule_pack_invalid',
+          null, existingIndex === -1 ? null : nextRules[existingIndex]);
 
         const conflict = rulesManager.checkConflict(nextRules, target.blockURL, false);
         if (conflict) {
@@ -718,7 +724,6 @@ export function createRulesMutationService({
           continue;
         }
 
-        const existingIndex = findTargetRuleIndex(nextRules, target);
         const assignedVariantIndex = findEnabledAssignmentConflictIndex(
           nextRules,
           target.blockURL,
@@ -814,7 +819,8 @@ export function createRulesMutationService({
           dailyLimit: null
         });
         ensureAssignmentListContext(payload, listSnapshot, [GENERAL_RULE_LIST_ID]);
-        validateAssignment(nextAssignment, lists, hasProAccess, target);
+        validateAssignment(nextAssignment, lists, hasProAccess, target, 'validation_failed',
+          currentAssignment, oldRule);
         throwConflict(rulesManager.checkConflict(rules, target.blockURL, true, index));
         if (findTargetRuleIndex(rules, target, index) !== -1) {
           throw new RulesMutationError('rule_already_exists', 'Rule already exists');
@@ -920,7 +926,7 @@ export function createRulesMutationService({
         assignmentPayload
       );
       ensureAssignmentListContext(payload, listSnapshot, [sourceListId, nextAssignment.listId]);
-      validateAssignment(nextAssignment, lists, hasProAccess, target, 'validation_failed', currentAssignment);
+      validateAssignment(nextAssignment, lists, hasProAccess, target, 'validation_failed', currentAssignment, oldRule);
       const dailyLimitConfigured = didConfigureDailyLimit(currentAssignment, nextAssignment);
       ensureFreeRuleCapacity(rules, hasProAccess, oldRule, [nextAssignment]);
       throwConflict(rulesManager.checkConflict(rules, target.blockURL, false, index));
@@ -1158,10 +1164,15 @@ export function createRulesMutationService({
     });
   }
 
-  function prepareReplacementRules(importedRules, importedLists) {
+  function prepareReplacementRules(importedRules, importedLists, existingRules) {
     if (!Array.isArray(importedRules)) {
       throw new RulesMutationError('invalid_import', 'Invalid file format: missing rules array');
     }
+    // Only targets already saved on this installation are grandfathered.
+    // An import cannot introduce a new short target or erase data on rejection.
+    const existingTargets = new Map(existingRules.map(rule => [
+      JSON.stringify([rule?.isWhitelist === true, normalizeTargetBlockURL(rule?.blockURL, rule?.isWhitelist === true)]), rule
+    ]));
     const preparedRules = [];
     const preparedWhitelistRules = [];
     const preparedTargets = new Map();
@@ -1185,7 +1196,10 @@ export function createRulesMutationService({
         : normalizeRuleAssignments(rawRule);
       // Import is a Pro-only operation, so custom list and Daily Limit access is
       // already established by replaceAll(). We still validate all references.
-      validateAssignments(assignments, importedLists, true, target);
+      const existingRule = existingTargets.get(JSON.stringify([
+        target.isWhitelist, normalizeTargetBlockURL(target.blockURL, target.isWhitelist)
+      ]));
+      validateAssignments(assignments, importedLists, true, target, 'validation_failed', existingRule);
       // Blacklist entries can conflict only with existing whitelist patterns.
       // Keep their candidate set small while preserving full insertion order
       // and the original conflict semantics for imported whitelist entries.
@@ -1263,13 +1277,13 @@ export function createRulesMutationService({
         importedLists,
         sanitizedPayload.activeRuleListId || GENERAL_RULE_LIST_ID
       );
-      const nextRules = prepareReplacementRules(sanitizedPayload.rules, importedLists);
+      const previousSnapshot = await getRulesSnapshot();
+      const nextRules = prepareReplacementRules(sanitizedPayload.rules, importedLists, previousSnapshot.rules);
       await ensureBrowserRuleCapacity(nextRules, {
         lists: importedLists,
         activeRuleListId: importedActiveRuleListId
       });
-      const [previousSnapshot, previousRuleListState, currentSettings, previousGeneration] = await Promise.all([
-        getRulesSnapshot(),
+      const [previousRuleListState, currentSettings, previousGeneration] = await Promise.all([
         getRuleListSnapshot(),
         getSettings(),
         getRulesGeneration()

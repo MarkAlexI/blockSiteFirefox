@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL pemblokiran tidak valid"
   },
+  "blockurl_minlength": {
+    "message": "Masukkan setidaknya 4 karakter pada nama situs atau jalur."
+  },
   "wrongredirecturl": {
     "message": "URL redirect tidak valid"
   },

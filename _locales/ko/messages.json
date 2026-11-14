@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "차단할 URL이 올바르지 않습니다."
   },
+  "blockurl_minlength": {
+    "message": "사이트 이름이나 경로에 4자 이상 입력하세요."
+  },
   "wrongredirecturl": {
     "message": "잘못된 리디렉션 URL"
   },

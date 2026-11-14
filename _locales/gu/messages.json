@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "બ્લોક કરવા માટે અમાન્ય URL"
   },
+  "blockurl_minlength": {
+    "message": "સાઇટના નામ અથવા પાથમાં ઓછામાં ઓછા 4 અક્ષરો દાખલ કરો."
+  },
   "wrongredirecturl": {
     "message": "અમાન્ય રીડાયરેક્ટ URL"
   },

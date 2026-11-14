@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "ブロック用のURLが無効です。"
   },
+  "blockurl_minlength": {
+    "message": "サイト名またはパスに4文字以上入力してください。"
+  },
   "wrongredirecturl": {
     "message": "無効なリダイレクトURL"
   },

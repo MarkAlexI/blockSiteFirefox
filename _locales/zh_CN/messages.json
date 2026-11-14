@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "无效的屏蔽网址"
   },
+  "blockurl_minlength": {
+    "message": "网站名称或路径至少需要输入 4 个字符。"
+  },
   "wrongredirecturl": {
     "message": "无效的重定向URL"
   },

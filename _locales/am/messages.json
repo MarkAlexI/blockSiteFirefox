@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "ልክ ያልሆነ የማገጃ URL"
   },
+  "blockurl_minlength": {
+    "message": "በድረ ገጹ ስም ወይም መንገድ ውስጥ ቢያንስ 4 ቁምፊዎችን ያስገቡ።"
+  },
   "wrongredirecturl": {
     "message": "የተሳሳተ የመልሶ መምሪያ URL"
   },

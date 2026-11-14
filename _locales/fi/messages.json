@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Virheellinen eston URL-osoite"
   },
+  "blockurl_minlength": {
+    "message": "Kirjoita sivuston nimeen tai polkuun vähintään 4 merkkiä."
+  },
   "wrongredirecturl": {
     "message": "Virheellinen uudelleenohjaus-URL"
   },

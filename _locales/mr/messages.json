@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "ब्लॉक करण्यासाठी अवैध URL"
   },
+  "blockurl_minlength": {
+    "message": "साइटच्या नावात किंवा मार्गात किमान 4 अक्षरे प्रविष्ट करा."
+  },
   "wrongredirecturl": {
     "message": "अवैध रीडायरेक्ट URL"
   },

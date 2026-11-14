@@ -37,7 +37,7 @@ for (const input of ['www.', '.', '..', 'https://[bad', '*.allowed.example', 'fo
   });
 }
 
-test('Whitelist retains short fragments, literal path tokens, encoded separators and IPv6', () => {
+test('Whitelist retains saved short fragments, literal path tokens, encoded separators and IPv6', () => {
   for (const [pattern, url, expected] of [
     ['tube', 'https://m.youtube.com/watch', true],
     ['w', 'https://m.wikipedia.org/article', true],
@@ -49,7 +49,7 @@ test('Whitelist retains short fragments, literal path tokens, encoded separators
     ['allowed.example/team', 'https://allowed.example/teamwork', false],
     ['allowed.example/a%2Fb', 'https://allowed.example/a/b', false]
   ]) {
-    assert.equal(manager.validateRule(pattern, '', null, '', true).isValid, true, pattern);
+    assert.equal(manager.validateRule(pattern, '', null, '', true, null, null, allow(pattern)).isValid, true, pattern);
     assert.equal(isUrlInWhitelist(url, [allow(pattern)]), expected, `${pattern}: ${url}`);
   }
   assert.equal(doesUrlMatchBlockRule('https://m.youtube.com/watch', 'yout'), true);

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Neplatná adresa URL na blokovanie"
   },
+  "blockurl_minlength": {
+    "message": "Zadajte aspoň 4 znaky názvu webu alebo cesty."
+  },
   "wrongredirecturl": {
     "message": "Nesprávna URL adresa presmerovania"
   },

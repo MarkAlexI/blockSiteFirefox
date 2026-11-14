@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Nederīgs bloķēšanas URL"
   },
+  "blockurl_minlength": {
+    "message": "Vietnes nosaukumā vai ceļā ievadiet vismaz 4 rakstzīmes."
+  },
   "wrongredirecturl": {
     "message": "Nederīgs pāradresācijas URL"
   },

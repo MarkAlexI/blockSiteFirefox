@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Nevažeći URL za blokiranje"
   },
+  "blockurl_minlength": {
+    "message": "Unesite najmanje 4 znaka u naziv web-mjesta ili putanju."
+  },
   "wrongredirecturl": {
     "message": "Nevažeći URL preusmjeravanja"
   },

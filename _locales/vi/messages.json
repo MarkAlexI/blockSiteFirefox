@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL chặn không hợp lệ"
   },
+  "blockurl_minlength": {
+    "message": "Nhập ít nhất 4 ký tự trong tên trang web hoặc đường dẫn."
+  },
   "wrongredirecturl": {
     "message": "URL chuyển hướng không hợp lệ"
   },

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Nieprawidłowy adres URL blokowania"
   },
+  "blockurl_minlength": {
+    "message": "Wpisz co najmniej 4 znaki w nazwie witryny lub ścieżce."
+  },
   "wrongredirecturl": {
     "message": "Nieprawidłowy URL przekierowania"
   },

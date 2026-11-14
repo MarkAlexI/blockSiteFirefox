@@ -578,6 +578,7 @@ export class RulesUI {
       'blockurl_empty': t('blockurl'),
       'blockurl_restrict': t('restrictedblockurl'),
       'blockurl_invalid': t('wrongblockurl'),
+      'blockurl_too_short': t('blockurl_minlength'),
       'redirect_invalid': invalidRedirectMessage,
       'invalid_days': t('invaliddays') || 'Invalid days selected',
       'invalid_time_format': t('invalidtimeformat') || 'Invalid time format (HH:MM)',

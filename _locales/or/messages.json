@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "ଅବରୋଧ ପାଇଁ ଅବୈଧ URL"
   },
+  "blockurl_minlength": {
+    "message": "ସାଇଟ୍ ନାମ କିମ୍ବା ପଥରେ ଅତି କମରେ 4ଟି ଅକ୍ଷର ଲେଖନ୍ତୁ।"
+  },
   "wrongredirecturl": {
     "message": "ଅବୈଧ ପୁନଃନିର୍ଦେଶନ URL"
   },

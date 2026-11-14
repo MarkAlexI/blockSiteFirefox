@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL batili ya kuzuia"
   },
+  "blockurl_minlength": {
+    "message": "Weka angalau vibambo 4 katika jina la tovuti au njia."
+  },
   "wrongredirecturl": {
     "message": "URL ya kuelekeza si sahihi"
   },

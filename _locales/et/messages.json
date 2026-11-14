@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Kehtetu blokeerimise URL"
   },
+  "blockurl_minlength": {
+    "message": "Sisesta saidi nimesse või teesse vähemalt 4 märki."
+  },
   "wrongredirecturl": {
     "message": "Vale suunamise URL"
   },

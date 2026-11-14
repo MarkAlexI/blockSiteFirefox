@@ -892,3 +892,75 @@ urlSafetyScenarios.push({
     }
   }
 });
+
+urlSafetyScenarios.push({
+  id: '91', title: 'Four-character minimum rejects new short targets while keeping saved rules and budgets usable',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const shortBlack = { id: 911, blockURL: 'ab', redirectURL: '', category: 'social', isWhitelist: false,
+      assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
+    const shortWhite = { id: 912, blockURL: 'cd', redirectURL: '', category: 'whitelist', isWhitelist: true,
+      assignments: [{ ...assignment }] };
+    await e.seed({ pro: true, rules: [shortBlack, shortWhite], usage: { '911:general': 60 } });
+    const page = await e.openOptions();
+    const mutate = async (type, payload) => {
+      const state = await e.state();
+      return message(page, { type, payload: { ...payload,
+        expectedGeneration: state.rulesGeneration ?? null,
+        expectedRevision: state.ruleRevisions?.[payload.ruleId] ?? null,
+        expectedListRevisions: state.ruleListRevisions || {}
+      } });
+    };
+    const initial = await e.state();
+    for (const isWhitelist of [false, true]) for (const blockURL of [
+      'a', 'abx', 'https://www.abc/', 'abc:8080', 'https://name:password@abc/?long=query#fragment'
+    ]) {
+      const reply = await mutate('rules:add', { blockURL, isWhitelist, assignment, category: 'social' });
+      assert.equal(reply.success, false, blockURL);
+      assert.equal(reply.error.code, 'validation_failed');
+      assert.ok(reply.error.validationErrors.includes('blockurl_too_short'));
+    }
+    const rejected = await e.state();
+    assert.deepEqual(rejected.rules, initial.rules);
+    assert.deepEqual(rejected.ruleRevisions, initial.ruleRevisions);
+    assert.equal(rejected.rulesGeneration, initial.rulesGeneration);
+    assert.deepEqual(rejected.dnr, initial.dnr);
+    assert.equal(rejected.dailyRuleUsage.usageSeconds['911:general'], 60);
+
+    const editor = '#rules-container tr:has(.save-btn)';
+    const address = `${editor} td:first-child input`;
+    for (const [button, target, isWhitelist] of [
+      ['#add-rule', 'news', false], ['#add-whitelist-rule', 'safe', true]
+    ]) {
+      await page.click(button); await page.fill(address, 'abc');
+      await page.click(`${editor} .save-btn`);
+      const feedback = await poll(() => page.evaluate(selector => {
+        const input = document.querySelector(selector), api = globalThis.browser || chrome;
+        return { invalid: input?.getAttribute('aria-invalid'), value: input?.value,
+          message: input && document.getElementById(input.getAttribute('aria-describedby'))?.textContent,
+          expected: api.i18n.getMessage('blockurl_minlength') };
+      }, address), value => value.invalid === 'true', 'minimum feedback reaches the actual Options field');
+      assert.equal(feedback.value, 'abc'); assert.equal(feedback.message, feedback.expected);
+      assert.equal((await e.state()).rules.some(rule => rule.blockURL === 'abc'), false);
+      await page.fill(address, target); await page.click(`${editor} .save-btn`);
+      await poll(() => e.state(), state => state.rules.some(rule => rule.blockURL === target
+        && rule.isWhitelist === isWhitelist), 'four-character target is saved');
+      await poll(() => page.evaluate(selector => !document.querySelector(selector), editor), Boolean, 'saved editor settles');
+    }
+    const edit = await mutate('rules:update', { ruleId: shortBlack.id, blockURL: shortBlack.blockURL,
+      category: 'news', assignment: shortBlack.assignments[0] });
+    assert.equal(edit.success, true); assert.equal(edit.syncPending, false);
+    for (const rule of [shortBlack, shortWhite]) {
+      const changed = await mutate('rules:update', { ruleId: rule.id, blockURL: 'xyz', assignment });
+      assert.equal(changed.success, false);
+      assert.ok(changed.error.validationErrors.includes('blockurl_too_short'));
+    }
+    const final = await e.state();
+    assert.equal(final.rules.find(rule => rule.id === shortBlack.id).blockURL, 'ab');
+    assert.deepEqual(final.rules.find(rule => rule.id === shortBlack.id).assignments, shortBlack.assignments);
+    assert.deepEqual(final.rules.find(rule => rule.id === shortWhite.id), shortWhite);
+    assert.equal(final.dailyRuleUsage.usageSeconds['911:general'], 60);
+    await e.assertBlocked('http://ab-legacy.bd-e2e.test/page', 'daily_limit');
+    await e.assertBlocked('http://news-minimum.bd-e2e.test/page', 'always');
+  }
+});

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Adresă URL de blocare nevalidă"
   },
+  "blockurl_minlength": {
+    "message": "Introdu cel puțin 4 caractere în numele site-ului sau în cale."
+  },
   "wrongredirecturl": {
     "message": "URL de redirecționare invalid"
   },

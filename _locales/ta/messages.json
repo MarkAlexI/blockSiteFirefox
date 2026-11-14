@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "தடுப்பதற்கான தவறான URL"
   },
+  "blockurl_minlength": {
+    "message": "தளத்தின் பெயர் அல்லது பாதையில் குறைந்தது 4 எழுத்துகளை உள்ளிடவும்."
+  },
   "wrongredirecturl": {
     "message": "தவறான மாற்ற URL"
   },

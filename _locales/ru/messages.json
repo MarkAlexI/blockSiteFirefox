@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Недействительный URL для блокировки"
   },
+  "blockurl_minlength": {
+    "message": "Введите не менее 4 символов в названии сайта или пути."
+  },
   "wrongredirecturl": {
     "message": "Неверный URL перенаправления"
   },

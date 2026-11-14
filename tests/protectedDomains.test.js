@@ -97,7 +97,6 @@ test('blacklist validation rejects direct OAuth hosts but preserves useful parti
 
   for (const target of [
     'yout',
-    'yo',
     'youtube.com',
     'goog',
     'google.com',
@@ -107,6 +106,9 @@ test('blacklist validation rejects direct OAuth hosts but preserves useful parti
   ]) {
     assert.equal(manager.validateRule(target, '', null, 'social').isValid, true, target);
   }
+  assert.deepEqual(manager.validateRule('yo', '', null, 'social').errors, ['blockurl_too_short']);
+  assert.equal(manager.validateRule('yo', '', null, 'social', false, null, null,
+    { blockURL: 'yo' }).isValid, true, 'saved short targets still exclude protected hosts at runtime');
 });
 
 test('OAuth and project host protection cannot be spoofed by unrelated URL text', () => {

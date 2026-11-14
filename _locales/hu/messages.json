@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Érvénytelen blokkolási URL"
   },
+  "blockurl_minlength": {
+    "message": "Adjon meg legalább 4 karaktert a webhely nevében vagy az elérési útban."
+  },
   "wrongredirecturl": {
     "message": "Érvénytelen átirányítási URL"
   },

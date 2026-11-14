@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Geçersiz engelleme URL'si"
   },
+  "blockurl_minlength": {
+    "message": "Site adına veya yola en az 4 karakter girin."
+  },
   "wrongredirecturl": {
     "message": "Geçersiz yönlendirme URL'si"
   },

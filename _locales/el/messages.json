@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Μη έγκυρη διεύθυνση URL αποκλεισμού"
   },
+  "blockurl_minlength": {
+    "message": "Εισαγάγετε τουλάχιστον 4 χαρακτήρες στο όνομα του ιστοτόπου ή στη διαδρομή."
+  },
   "wrongredirecturl": {
     "message": "Μη έγκυρο URL ανακατεύθυνσης"
   },

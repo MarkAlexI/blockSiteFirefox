@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "ব্লক করার জন্য অবৈধ URL"
   },
+  "blockurl_minlength": {
+    "message": "সাইটের নাম বা পাথে অন্তত 4টি অক্ষর লিখুন।"
+  },
   "wrongredirecturl": {
     "message": "অবৈধ রিডাইরেক্ট URL"
   },

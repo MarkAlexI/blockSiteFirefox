@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Di-wastong URL para sa pag-block"
   },
+  "blockurl_minlength": {
+    "message": "Maglagay ng hindi bababa sa 4 na character sa pangalan o path ng site."
+  },
   "wrongredirecturl": {
     "message": "Invalid na Redirect URL"
   },

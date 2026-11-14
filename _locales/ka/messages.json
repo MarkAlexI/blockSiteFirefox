@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "დასაბლოკი URL არასწორია"
   },
+  "blockurl_minlength": {
+    "message": "საიტის სახელში ან მისამართის გზაში შეიყვანეთ სულ მცირე 4 სიმბოლო."
+  },
   "wrongredirecturl": {
     "message": "გადამისამართების URL არასწორია"
   },

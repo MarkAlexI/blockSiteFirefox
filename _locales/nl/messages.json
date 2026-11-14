@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Ongeldige blokkeer-URL"
   },
+  "blockurl_minlength": {
+    "message": "Voer minimaal 4 tekens in de sitenaam of het pad in."
+  },
   "wrongredirecturl": {
     "message": "Ongeldige doorstuur-URL"
   },

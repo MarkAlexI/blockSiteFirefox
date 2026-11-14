@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "URL sekatan tidak sah"
   },
+  "blockurl_minlength": {
+    "message": "Masukkan sekurang-kurangnya 4 aksara dalam nama laman atau laluan."
+  },
   "wrongredirecturl": {
     "message": "URL pengalihan tidak sah"
   },

@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Ogiltig blockerings-URL"
   },
+  "blockurl_minlength": {
+    "message": "Ange minst 4 tecken i webbplatsens namn eller sökväg."
+  },
   "wrongredirecturl": {
     "message": "Felaktig omdirigerings-URL"
   },

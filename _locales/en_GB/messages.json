@@ -62,6 +62,9 @@
   "wrongblockurl": {
     "message": "Invalid block URL"
   },
+  "blockurl_minlength": {
+    "message": "Enter at least 4 characters in the site name or path."
+  },
   "wrongredirecturl": {
     "message": "Invalid redirect URL"
   },
