@@ -25,8 +25,9 @@ export function normalizeWhitelistTarget(value) {
 
 export function isValidWhitelistTarget(value) {
   const target = normalizeWhitelistTarget(value);
+  // Host stars may be serialized literally or as %2A; neither is a Whitelist operator.
   return Boolean(target && ['http:', 'https:'].includes(target.protocol)
-    && target.hostname.replace(/\./g, '') && !target.hostname.includes('*'));
+    && target.hostname.replace(/\./g, '') && !/(?:\*|%2a)/i.test(target.hostname));
 }
 
 export function getWhitelistTargetKey(value) {

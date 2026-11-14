@@ -336,7 +336,9 @@ export const urlSafetyScenarios = [{
       assignments: [{ ...assignment, blockingMode: 'daily_limit', dailyLimit: { minutes: 1 } }] };
     const valid = { id: 822, blockURL: 'empty-valid.bd-e2e.test', redirectURL: '', category: 'social', isWhitelist: false,
       assignments: [assignment] };
-    await e.seed({ pro: true, rules: [invalid, valid], usage: { '821:general': 60 } });
+    // Existing short targets remain usable, but new targets need four characters.
+    const savedShort = { ...valid, id: 823, blockURL: 'z' };
+    await e.seed({ pro: true, rules: [invalid, valid, savedShort], usage: { '821:general': 60 } });
     const page = await e.openOptions();
     const classification = await page.evaluate(async targets => {
       const api = globalThis.browser || chrome;
@@ -363,19 +365,26 @@ export const urlSafetyScenarios = [{
     assert.equal(rejected.success, false);
     assert.deepEqual(rejected.error.validationErrors, ['blockurl_invalid']);
     assert.deepEqual((await e.state()).rules, before.rules, 'invalid additions do not modify saved rows');
-    const added = await mutate('rules:add', { blockURL: 'z', redirectURL: '', category: 'social', assignment });
+    const shortAdd = await mutate('rules:add', { blockURL: 'q', redirectURL: '', category: 'social', assignment });
+    assert.equal(shortAdd.success, false);
+    assert.deepEqual(shortAdd.error.validationErrors, ['blockurl_too_short']);
+    assert.deepEqual((await e.state()).rules, before.rules, 'short additions cannot change saved rules');
+    const added = await mutate('rules:add', { blockURL: 'zone', redirectURL: '', category: 'social', assignment });
     assert.equal(added.success, true);
     assert.equal(added.syncPending, true, 'the legacy row is still reported for repair');
     const state = await e.state();
     assert.deepEqual(state.rules.find(rule => rule.id === invalid.id), invalid);
     assert.equal(state.dailyRuleUsage.usageSeconds['821:general'], 60);
     assert.equal(state.dnr.some(rule => rule.id === invalid.id || rule.condition.urlFilter === '||'), false);
-    assert.ok(state.dnr.some(rule => rule.condition.urlFilter === '||z'), 'one-character fragments remain supported');
+    assert.deepEqual(state.rules.find(rule => rule.id === savedShort.id), savedShort);
+    assert.ok(state.dnr.some(rule => rule.condition.urlFilter === '||z'), 'saved one-character fragments remain supported');
+    assert.ok(state.dnr.some(rule => rule.condition.urlFilter === '||zone'), 'new four-character targets remain supported');
     const control = await e.newPage('http://empty-control.bd-e2e.test/page');
     assert.equal(await control.url(), 'http://empty-control.bd-e2e.test/page');
     assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture');
     await e.assertBlocked('http://empty-valid.bd-e2e.test/page', 'always');
     await e.assertBlocked('http://z.bd-e2e.test/page', 'always');
+    await e.assertBlocked('http://zone.bd-e2e.test/page', 'always');
     const repaired = await mutate('rules:update', { ruleId: invalid.id, blockURL: 'empty-repaired.bd-e2e.test',
       redirectURL: '', category: invalid.category, assignment: invalid.assignments[0] });
     assert.equal(repaired.success, true);
@@ -847,9 +856,17 @@ urlSafetyScenarios.push({
     const target = 'allowed.bd-e2e.test/team';
     assert.equal((await mutate('rules:add', { blockURL: target, isWhitelist: true, assignment })).success, true);
     const saved = await e.state();
-    for (const blockURL of ['www.', 'https://[bad', '*.allowed.bd-e2e.test']) {
+    const invalidTargets = ['www.', 'https://[bad', '*.allowed.bd-e2e.test',
+      '%2A.allowed.bd-e2e.test', 'allow%2aed.bd-e2e.test'];
+    const hostnames = await page.evaluate(targets => targets.map(target => {
+      try { return new URL(/^https?:\/\//i.test(target) ? target : `https://${target}`).hostname; }
+      catch { return null; }
+    }), invalidTargets);
+    for (const [index, blockURL] of invalidTargets.entries()) {
       const reply = await mutate('rules:add', { blockURL, isWhitelist: true, assignment });
-      assert.equal(reply.success, false); assert.equal(reply.error.code, 'validation_failed');
+      assert.equal(reply.success, false, `reject ${blockURL}; native hostname=${hostnames[index]}`);
+      assert.equal(reply.error.code, 'validation_failed');
+      assert.deepEqual(reply.error.validationErrors, ['blockurl_invalid']);
     }
     const duplicate = await mutate('rules:add', {
       blockURL: 'HTTPS://WWW.allowed.bd-e2e.test:18080/TEAM/?q=1#part', isWhitelist: true, assignment

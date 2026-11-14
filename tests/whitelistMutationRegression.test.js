@@ -131,3 +131,26 @@ test('Rule Packs use production conflict checks without rejecting unrelated quer
   assert.equal(result.conflicts.length, 1); assert.equal(result.conflicts[0].entryId, 'overlap');
   assert.equal(f.syncs.length, 1);
 });
+
+
+for (const target of ['*.allowed.example', '%2A.allowed.example', 'allow%2aed.example']) {
+  test(`Whitelist rejects a wildcard host when the browser serializes stars as percent escapes: ${target}`, async () => {
+    const NativeURL = globalThis.URL;
+    globalThis.URL = class extends NativeURL {
+      get hostname() { return super.hostname.replace(/\*/g, '%2A'); }
+    };
+    try {
+      const original = allow('allowed.example'), f = fixture([original]);
+      await assert.rejects(f.service.addRule(allow(target)), error => error.code === 'validation_failed'
+        && error.validationErrors.includes('blockurl_invalid'));
+      assert.deepEqual(f.rows(), [original]);
+      assert.equal(f.writes.length, 0); assert.equal(f.syncs.length, 0);
+      assert.equal(f.notifications.length, 0);
+      const control = fixture();
+      await control.service.addRule(allow('allowed.example/team*?query=*#part*'));
+      assert.equal(control.rows().length, 1, 'path, query and hash stars are not host wildcards');
+      assert.equal(isUrlInWhitelist('https://allowed.example/team*/page', control.rows()), true);
+      assert.equal(isUrlInWhitelist('https://allowed.example/teamwork', control.rows()), false);
+    } finally { globalThis.URL = NativeURL; }
+  });
+}
