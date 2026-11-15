@@ -95,6 +95,18 @@ jobs:
         env:
           BD_E2E_GROUP: ${{ matrix.group }}
         run: xvfb-run -a npm run test:headed
+      - name: Check retained document after native extension update
+        if: matrix.group == 'upgrade'
+        timeout-minutes: 2
+        env:
+          BD_WECG_CASE: '617'
+        run: xvfb-run -a node e2e/wecg-native-probe.mjs
+      - name: Check native iframe link menu without frame script access
+        if: matrix.group == 'core'
+        timeout-minutes: 2
+        env:
+          BD_WECG_CASE: '1195'
+        run: xvfb-run -a node e2e/wecg-native-probe.mjs
       - name: Upload reports, screenshots and browser logs
         if: always()
         uses: actions/upload-artifact@v4

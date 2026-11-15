@@ -3591,6 +3591,39 @@ test('a failed telemetry retry restoration cannot prevent startup DNR reconcilia
   });
 });
 
+for (const [linkUrl, expected] of [
+  ['https://target.example/chosen/path?query=1#fragment', 'target.example/chosen/path'],
+  ['https://target.example/a%2Fb', 'target.example/a%2Fb']
+]) test(`cross-origin iframe context menu blocks its link without frame scripting: ${linkUrl}`, async () => {
+  let injections = 0, permissionRequests = 0;
+  await withWorker(async ({ api }) => {
+    const top = { id: 11, windowId: 7, active: true, url: 'https://parent.example/page' };
+    api.tabs.values = [top];
+    assert.equal(await api.permissions.contains({ origins: ['https://frame.example/*'] }), false);
+    await api.contextMenus.onClicked.listeners[0]({
+      menuItemId: 'blockDistraction', frameId: 17,
+      pageUrl: top.url, frameUrl: 'https://frame.example/embedded', linkUrl,
+      selectionText: 'https://unrelated.example/not-the-target'
+    }, top);
+    const rules = api.storage.local.data.rules;
+    assert.equal(rules.length, 1);
+    assert.equal(rules[0].blockURL, expected);
+    assert.equal(api.dynamicRules.length, 1);
+    assert.equal(api.dynamicRules[0].condition.urlFilter, `||${expected}`);
+    assert.deepEqual(api.removedTabs, [], 'the parent page remains open');
+    assert.equal(injections, 0, 'the production menu action does not inspect the iframe DOM');
+    assert.equal(permissionRequests, 0, 'link metadata needs no additional scripting grant');
+  }, {
+    local: { activeRuleListId: 'general', lastCheck: Date.now() },
+    supportsWindows: false, visibleTabs: true,
+    configureApi(api) {
+      api.permissions.contains = async () => false;
+      api.permissions.request = async () => { permissionRequests++;throw new Error('No frame scripting grant'); };
+      api.scripting.executeScript = async () => { injections++;throw new Error('Cross-origin frame access denied'); };
+    }
+  });
+});
+
 test('legacy access creates and authorizes the browser context menu without a Pro license', async () => {
   await withWorker(async ({ api, startup }) => {
     await startup();
