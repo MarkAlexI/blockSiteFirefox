@@ -1,15 +1,15 @@
 # Native version-update preservation — scenario 67
 
-## Current upgrade matrix - 5.6.12
+## Current upgrade matrix - 5.6.13
 
 The historical 5.4.14 case is retained. The recent case upgrades the actual
-5.6.9 release at `91031a020ee4ef166fd86dcf07115670a8475b42` to 5.6.12.
+5.6.9 release at `91031a020ee4ef166fd86dcf07115670a8475b42` to 5.6.13.
 The pin matches the previously packaged 5.6.9 runtime.
 
 Fresh Options readiness, original Focus deadlines, spent Daily Limits, native
 blocking and the existing Stop/completion-sound controls remain required.
 Existing saved Whitelist rows and their IDs are not rewritten.
-Inventory is **91 = 76 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+Inventory is **92 = 77 core + 12 lifecycle + 1 overdue + 2 upgrade**;
 macOS smoke remains 24 per architecture. Scenario 90 checks new Whitelist
 validation and aliases plus native blocking and retained Focus scope.
 Sections below retain historical matrices.

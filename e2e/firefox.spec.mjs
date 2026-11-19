@@ -23,6 +23,7 @@ import { frameScenarios } from './frame-scenarios.mjs';
 import { coldMessageScenarios } from './cold-message-scenarios.mjs';
 import { proFeedbackScenarios } from './pro-feedback-scenarios.mjs';
 import { popupTabTargetScenarios } from './popup-tab-target-scenarios.mjs';
+import { webAccessibleResourceScenarios } from './web-accessible-resources-scenarios.mjs';
 import { send, addUi, assignment, dailyRule, basicPayload, paidPayload,
   TEST_KEY, SITE, delay, poll, equalEventually } from './fixtures.mjs';
 
@@ -289,6 +290,7 @@ scenarios.push(...frameScenarios);
 
 scenarios.push(...proFeedbackScenarios);
 scenarios.push(...popupTabTargetScenarios);
+scenarios.push(...webAccessibleResourceScenarios);
 
 scenarios.push(...accessibilityScenarios);
 
