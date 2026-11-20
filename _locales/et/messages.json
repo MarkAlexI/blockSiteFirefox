@@ -1296,10 +1296,10 @@
     "message": "Valmis järgmiseks seansiks"
   },
   "pomodoro_next": {
-    "message": "Alusta järgmist seanssi"
+    "message": "Alusta järgmist tööperioodi"
   },
   "pomodoro_stop": {
-    "message": "Lõpeta tsükkel"
+    "message": "Lõpeta Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro tsükkel lõpetatud"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Tsükkel muutus. Proovi uuesti."
+  },
+  "pomodoro_skip_break": {
+    "message": "Jäta paus vahele ja alusta tööd"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Kas lõpetada Pomodoro ja tühistada ülejäänud tööperioodid?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Alusta järgmist tööperioodi, kui oled valmis."
+  },
+  "pomodoro_auto_note": {
+    "message": "Järgmine tööperiood algab pärast pausi automaatselt."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore lukustab kogu Pomodoro koos pausidega. Automaatne jätkamine on kohustuslik."
+  },
+  "pomodoro_until": {
+    "message": "Lukustatud kuni $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

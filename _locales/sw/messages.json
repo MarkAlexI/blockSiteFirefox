@@ -1296,10 +1296,10 @@
     "message": "Tayari kwa kipindi kinachofuata"
   },
   "pomodoro_next": {
-    "message": "Anza kipindi kinachofuata"
+    "message": "Anza kipindi kinachofuata cha kazi"
   },
   "pomodoro_stop": {
-    "message": "Maliza mzunguko"
+    "message": "Maliza Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Mzunguko wa Pomodoro umekamilika"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Mzunguko umebadilika. Jaribu tena."
+  },
+  "pomodoro_skip_break": {
+    "message": "Ruka mapumziko na uanze kazi"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Maliza Pomodoro na ughairi vipindi vya kazi vilivyobaki?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Anza kipindi kinachofuata cha kazi ukiwa tayari."
+  },
+  "pomodoro_auto_note": {
+    "message": "Kipindi kinachofuata cha kazi huanza kiotomatiki baada ya mapumziko."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore hufunga Pomodoro nzima, pamoja na mapumziko. Kuendelea kiotomatiki ni lazima."
+  },
+  "pomodoro_until": {
+    "message": "Imefungwa hadi $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

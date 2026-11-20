@@ -1296,10 +1296,10 @@
     "message": "جاهز للجلسة التالية"
   },
   "pomodoro_next": {
-    "message": "بدء الجلسة التالية"
+    "message": "بدء فترة العمل التالية"
   },
   "pomodoro_stop": {
-    "message": "إنهاء الدورة"
+    "message": "إنهاء Pomodoro"
   },
   "pomodoro_complete": {
     "message": "اكتملت دورة Pomodoro"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "تغيرت الدورة. حاول مرة أخرى."
+  },
+  "pomodoro_skip_break": {
+    "message": "تخطي الاستراحة وبدء العمل"
+  },
+  "pomodoro_end_confirm": {
+    "message": "هل تريد إنهاء Pomodoro وإلغاء فترات العمل المتبقية؟"
+  },
+  "pomodoro_manual_note": {
+    "message": "ابدأ فترة العمل التالية عندما تكون مستعدًا."
+  },
+  "pomodoro_auto_note": {
+    "message": "تبدأ فترة العمل التالية تلقائيًا بعد الاستراحة."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "يقفل Hardcore برنامج Pomodoro بأكمله، بما في ذلك الاستراحات. الاستمرار التلقائي إلزامي."
+  },
+  "pomodoro_until": {
+    "message": "مقفل حتى $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

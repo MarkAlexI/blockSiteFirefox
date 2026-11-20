@@ -1296,10 +1296,10 @@
     "message": "Készen áll a következő munkamenetre"
   },
   "pomodoro_next": {
-    "message": "Következő munkamenet indítása"
+    "message": "Következő munkaszakasz indítása"
   },
   "pomodoro_stop": {
-    "message": "Ciklus befejezése"
+    "message": "Pomodoro befejezése"
   },
   "pomodoro_complete": {
     "message": "Pomodoro-ciklus befejezve"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "A ciklus megváltozott. Próbálja újra."
+  },
+  "pomodoro_skip_break": {
+    "message": "Szünet átugrása és munka indítása"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Befejezed a Pomodorót, és törlöd a hátralévő munkaszakaszokat?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Indítsd el a következő munkaszakaszt, amikor készen állsz."
+  },
+  "pomodoro_auto_note": {
+    "message": "A következő munkaszakasz a szünet után automatikusan elindul."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "A Hardcore az egész Pomodorót zárolja, a szüneteket is. Az automatikus folytatás kötelező."
+  },
+  "pomodoro_until": {
+    "message": "Zárolva eddig: $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

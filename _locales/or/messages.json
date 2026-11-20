@@ -1296,10 +1296,10 @@
     "message": "ପରବର୍ତ୍ତୀ ସେସନ୍ ପାଇଁ ପ୍ରସ୍ତୁତ"
   },
   "pomodoro_next": {
-    "message": "ପରବର୍ତ୍ତୀ ସେସନ୍ ଆରମ୍ଭ କରନ୍ତୁ"
+    "message": "ପରବର୍ତ୍ତୀ କାର୍ଯ୍ୟ ଅବଧି ଆରମ୍ଭ କରନ୍ତୁ"
   },
   "pomodoro_stop": {
-    "message": "ଚକ୍ର ସମାପ୍ତ କରନ୍ତୁ"
+    "message": "Pomodoro ସମାପ୍ତ କରନ୍ତୁ"
   },
   "pomodoro_complete": {
     "message": "Pomodoro ଚକ୍ର ସମ୍ପୂର୍ଣ୍ଣ ହେଲା"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "ଚକ୍ର ବଦଳିଛି। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
+  "pomodoro_skip_break": {
+    "message": "ବିରତି ଛାଡ଼ି କାମ ଆରମ୍ଭ କରନ୍ତୁ"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro ସମାପ୍ତ କରି ଅବଶିଷ୍ଟ କାର୍ଯ୍ୟ ଅବଧିଗୁଡ଼ିକ ବାତିଲ କରିବେ କି?"
+  },
+  "pomodoro_manual_note": {
+    "message": "ପ୍ରସ୍ତୁତ ହେଲେ ପରବର୍ତ୍ତୀ କାର୍ଯ୍ୟ ଅବଧି ଆରମ୍ଭ କରନ୍ତୁ।"
+  },
+  "pomodoro_auto_note": {
+    "message": "ବିରତି ପରେ ପରବର୍ତ୍ତୀ କାର୍ଯ୍ୟ ଅବଧି ଆପେ ଆରମ୍ଭ ହୁଏ।"
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore ବିରତି ସହ ସମ୍ପୂର୍ଣ୍ଣ Pomodoro ଲକ୍ କରେ। ସ୍ୱୟଂଚାଳିତ ଭାବେ ଚାଲୁ ରଖିବା ଆବଶ୍ୟକ।"
+  },
+  "pomodoro_until": {
+    "message": "$TIME$ ପର୍ଯ୍ୟନ୍ତ ଲକ୍ ଅଛି।",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

@@ -21,7 +21,7 @@ private resources, extension-owned access to those dependencies, native host
 permission setup, an exhausted Daily Limit, the blocked-page close button and
 a custom redirect with encoded query parameters and a fragment.
 
-Scenarios 93–96 cover Pomodoro work/break transitions, Hardcore, automatic
+Scenarios 93–100 cover Pomodoro work/break transitions, Hardcore, automatic
 continuation, stale actions, native overdue recovery, Free controls and restart.
 Scenario 95 requires a persistent add-on installation on Firefox.
 
@@ -1258,3 +1258,22 @@ Firefox 153.0 / geckodriver 0.37.0 / Linux headless temporary installation:
 cloud-sync completion, native API failures, Android і minimum browser acceptance
 не випливають із цих результатів. Поточна реєстрація: 61 Chromium tests /
 62 Firefox scenarios; listing не є execution. Таймаути та retries не збільшено.
+
+
+### Pomodoro 5.7.0: cycle protection and controls
+
+Hardcore protects the entire Pomodoro, including breaks, and requires automatic
+continuation. The saved end time survives recovery; explicitly skipping a break
+can shorten it. Overdue recovery never invents work intervals. A partial recovery
+interval clipped by the end time is not counted as a completed work session.
+
+Cases 97–100 exercise responsive fields at 320/360/768 CSS pixels, 200% text,
+RTL labels, visible active buttons, modal cancellation/keyboard focus, protected
+breaks and popup reopening, fixed-deadline recovery, and confirmation racing an
+automatic work transition. Small iframe viewports exercise real layout without
+claiming Android API coverage. Transition tests alter saved fixture deadlines;
+production alarms and clock APIs remain native.
+
+Firefox case 95 requires persistent installation. A temporary unsigned add-on
+cannot establish preservation across a full browser restart. Keep that result
+separate from popup reopening, native alarm recovery and API-model startup tests.

@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Pomodoro work and break cycles: Free 25/5 sessions with manual continuation, plus automatic continuation and custom intervals for Pro.
 - Keep cycle progress across browser restarts and preserve regular blocking rules during breaks.
+- Protect the entire Hardcore Pomodoro, including breaks, with automatic continuation and a visible end time.
+- Make Pomodoro controls clearer on mobile and confirm before cancelling remaining work sessions.
 
 ## [5.6.13] - 2026-11-19
 

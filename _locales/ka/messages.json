@@ -1296,10 +1296,10 @@
     "message": "მზადაა შემდეგი სესიისთვის"
   },
   "pomodoro_next": {
-    "message": "შემდეგი სესიის დაწყება"
+    "message": "შემდეგი სამუშაო მონაკვეთის დაწყება"
   },
   "pomodoro_stop": {
-    "message": "ციკლის დასრულება"
+    "message": "Pomodoro-ს დასრულება"
   },
   "pomodoro_complete": {
     "message": "Pomodoro-ს ციკლი დასრულდა"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "ციკლი შეიცვალა. სცადეთ ხელახლა."
+  },
+  "pomodoro_skip_break": {
+    "message": "შესვენების გამოტოვება და მუშაობის დაწყება"
+  },
+  "pomodoro_end_confirm": {
+    "message": "დასრულდეს Pomodoro და გაუქმდეს დარჩენილი სამუშაო მონაკვეთები?"
+  },
+  "pomodoro_manual_note": {
+    "message": "როცა მზად იქნებით, დაიწყეთ შემდეგი სამუშაო მონაკვეთი."
+  },
+  "pomodoro_auto_note": {
+    "message": "შესვენების შემდეგ სამუშაოს შემდეგი მონაკვეთი ავტომატურად იწყება."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore კეტავს მთელ Pomodoro-ს, შესვენებების ჩათვლით. ავტომატური გაგრძელება სავალდებულოა."
+  },
+  "pomodoro_until": {
+    "message": "დაბლოკილია $TIME$-მდე.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

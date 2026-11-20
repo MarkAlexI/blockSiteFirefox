@@ -1296,10 +1296,10 @@
     "message": "Pripravené na ďalšiu reláciu"
   },
   "pomodoro_next": {
-    "message": "Spustiť ďalšiu reláciu"
+    "message": "Spustiť ďalší pracovný úsek"
   },
   "pomodoro_stop": {
-    "message": "Ukončiť cyklus"
+    "message": "Ukončiť Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Cyklus Pomodoro dokončený"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Cyklus sa zmenil. Skúste to znova."
+  },
+  "pomodoro_skip_break": {
+    "message": "Preskočiť prestávku a začať pracovať"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Ukončiť Pomodoro a zrušiť zostávajúce pracovné úseky?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Keď budete pripravení, spustite ďalší pracovný úsek."
+  },
+  "pomodoro_auto_note": {
+    "message": "Ďalší pracovný úsek sa automaticky začne po prestávke."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore uzamkne celé Pomodoro vrátane prestávok. Automatické pokračovanie je povinné."
+  },
+  "pomodoro_until": {
+    "message": "Uzamknuté do $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

@@ -1296,10 +1296,10 @@
     "message": "Valmis seuraavaan istuntoon"
   },
   "pomodoro_next": {
-    "message": "Aloita seuraava istunto"
+    "message": "Aloita seuraava työjakso"
   },
   "pomodoro_stop": {
-    "message": "Lopeta jakso"
+    "message": "Lopeta Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro-jakso valmis"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Jakso muuttui. Yritä uudelleen."
+  },
+  "pomodoro_skip_break": {
+    "message": "Ohita tauko ja aloita työ"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Lopetetaanko Pomodoro ja perutaanko jäljellä olevat työjaksot?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Aloita seuraava työjakso, kun olet valmis."
+  },
+  "pomodoro_auto_note": {
+    "message": "Seuraava työjakso alkaa automaattisesti tauon jälkeen."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore lukitsee koko Pomodoron taukoineen. Automaattinen jatkaminen on pakollista."
+  },
+  "pomodoro_until": {
+    "message": "Lukittu ajankohtaan $TIME$ asti.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

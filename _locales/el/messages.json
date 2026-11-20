@@ -1296,10 +1296,10 @@
     "message": "Έτοιμο για την επόμενη συνεδρία"
   },
   "pomodoro_next": {
-    "message": "Έναρξη επόμενης συνεδρίας"
+    "message": "Έναρξη επόμενης περιόδου εργασίας"
   },
   "pomodoro_stop": {
-    "message": "Τερματισμός κύκλου"
+    "message": "Τερματισμός Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Ο κύκλος Pomodoro ολοκληρώθηκε"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Ο κύκλος άλλαξε. Δοκιμάστε ξανά."
+  },
+  "pomodoro_skip_break": {
+    "message": "Παράλειψη διαλείμματος και έναρξη εργασίας"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Να τερματιστεί το Pomodoro και να ακυρωθούν οι υπόλοιπες περίοδοι εργασίας;"
+  },
+  "pomodoro_manual_note": {
+    "message": "Ξεκινήστε την επόμενη περίοδο εργασίας όταν είστε έτοιμοι."
+  },
+  "pomodoro_auto_note": {
+    "message": "Η επόμενη περίοδος εργασίας ξεκινά αυτόματα μετά το διάλειμμα."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Το Hardcore κλειδώνει ολόκληρο το Pomodoro, μαζί με τα διαλείμματα. Απαιτείται αυτόματη συνέχεια."
+  },
+  "pomodoro_until": {
+    "message": "Κλειδωμένο έως $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

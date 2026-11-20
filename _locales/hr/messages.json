@@ -1296,10 +1296,10 @@
     "message": "Spremno za sljedeću sesiju"
   },
   "pomodoro_next": {
-    "message": "Pokreni sljedeću sesiju"
+    "message": "Pokreni sljedeće razdoblje rada"
   },
   "pomodoro_stop": {
-    "message": "Završi ciklus"
+    "message": "Završi Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro ciklus završen"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Ciklus se promijenio. Pokušajte ponovno."
+  },
+  "pomodoro_skip_break": {
+    "message": "Preskoči stanku i počni raditi"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Završiti Pomodoro i otkazati preostala razdoblja rada?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Pokrenite sljedeće razdoblje rada kada budete spremni."
+  },
+  "pomodoro_auto_note": {
+    "message": "Sljedeće razdoblje rada automatski počinje nakon stanke."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore zaključava cijeli Pomodoro, uključujući stanke. Automatski nastavak je obavezan."
+  },
+  "pomodoro_until": {
+    "message": "Zaključano do $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

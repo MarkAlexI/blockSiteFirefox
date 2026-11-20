@@ -1,5 +1,6 @@
 const EXPECTED_RULE_REJECTION_CODES = new Set([
   'pro_required',
+  'hardcore_active',
   'rule_limit_reached',
   'dnr_rule_limit_reached',
   'validation_failed',

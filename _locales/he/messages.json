@@ -1296,10 +1296,10 @@
     "message": "מוכן להפעלה הבאה"
   },
   "pomodoro_next": {
-    "message": "התחלת ההפעלה הבאה"
+    "message": "התחלת פרק העבודה הבא"
   },
   "pomodoro_stop": {
-    "message": "סיום המחזור"
+    "message": "סיום Pomodoro"
   },
   "pomodoro_complete": {
     "message": "מחזור Pomodoro הושלם"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "המחזור השתנה. יש לנסות שוב."
+  },
+  "pomodoro_skip_break": {
+    "message": "דילוג על ההפסקה והתחלת העבודה"
+  },
+  "pomodoro_end_confirm": {
+    "message": "לסיים את Pomodoro ולבטל את פרקי העבודה שנותרו?"
+  },
+  "pomodoro_manual_note": {
+    "message": "אפשר להתחיל את פרק העבודה הבא כשמוכנים."
+  },
+  "pomodoro_auto_note": {
+    "message": "פרק העבודה הבא מתחיל אוטומטית לאחר ההפסקה."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore נועל את כל ה-Pomodoro, כולל ההפסקות. המשך אוטומטי הוא חובה."
+  },
+  "pomodoro_until": {
+    "message": "נעול עד $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

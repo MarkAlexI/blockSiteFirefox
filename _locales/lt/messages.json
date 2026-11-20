@@ -1296,10 +1296,10 @@
     "message": "Pasiruošta kitam seansui"
   },
   "pomodoro_next": {
-    "message": "Pradėti kitą seansą"
+    "message": "Pradėti kitą darbo atkarpą"
   },
   "pomodoro_stop": {
-    "message": "Baigti ciklą"
+    "message": "Baigti Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro ciklas baigtas"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Ciklas pasikeitė. Bandykite dar kartą."
+  },
+  "pomodoro_skip_break": {
+    "message": "Praleisti pertrauką ir pradėti dirbti"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Baigti Pomodoro ir atšaukti likusias darbo atkarpas?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Pradėkite kitą darbo atkarpą, kai būsite pasiruošę."
+  },
+  "pomodoro_auto_note": {
+    "message": "Kita darbo atkarpa prasideda automatiškai po pertraukos."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore užrakina visą Pomodoro, įskaitant pertraukas. Automatinis tęsimas privalomas."
+  },
+  "pomodoro_until": {
+    "message": "Užrakinta iki $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

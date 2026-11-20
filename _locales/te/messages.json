@@ -1296,10 +1296,10 @@
     "message": "తదుపరి సెషన్‌కు సిద్ధంగా ఉంది"
   },
   "pomodoro_next": {
-    "message": "తదుపరి సెషన్‌ను ప్రారంభించు"
+    "message": "తదుపరి పని వ్యవధిని ప్రారంభించండి"
   },
   "pomodoro_stop": {
-    "message": "చక్రాన్ని ముగించు"
+    "message": "Pomodoro ముగించండి"
   },
   "pomodoro_complete": {
     "message": "Pomodoro చక్రం పూర్తయింది"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "చక్రం మారింది. మళ్లీ ప్రయత్నించండి."
+  },
+  "pomodoro_skip_break": {
+    "message": "విరామాన్ని దాటవేసి పని ప్రారంభించండి"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro ముగించి మిగిలిన పని వ్యవధులను రద్దు చేయాలా?"
+  },
+  "pomodoro_manual_note": {
+    "message": "సిద్ధమైనప్పుడు తదుపరి పని వ్యవధిని ప్రారంభించండి."
+  },
+  "pomodoro_auto_note": {
+    "message": "విరామం తర్వాత తదుపరి పని వ్యవధి స్వయంచాలకంగా ప్రారంభమవుతుంది."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore విరామాలతో సహా మొత్తం Pomodoroను లాక్ చేస్తుంది. స్వయంచాలక కొనసాగింపు తప్పనిసరి."
+  },
+  "pomodoro_until": {
+    "message": "$TIME$ వరకు లాక్ చేయబడింది.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

@@ -1296,10 +1296,10 @@
     "message": "Redo för nästa session"
   },
   "pomodoro_next": {
-    "message": "Starta nästa session"
+    "message": "Starta nästa arbetspass"
   },
   "pomodoro_stop": {
-    "message": "Avsluta cykeln"
+    "message": "Avsluta Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro-cykeln är klar"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Cykeln har ändrats. Försök igen."
+  },
+  "pomodoro_skip_break": {
+    "message": "Hoppa över pausen och börja arbeta"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Avsluta Pomodoro och avbryt återstående arbetspass?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Starta nästa arbetspass när du är redo."
+  },
+  "pomodoro_auto_note": {
+    "message": "Nästa arbetspass börjar automatiskt efter pausen."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore låser hela Pomodoro, inklusive pauserna. Automatisk fortsättning krävs."
+  },
+  "pomodoro_until": {
+    "message": "Låst till $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

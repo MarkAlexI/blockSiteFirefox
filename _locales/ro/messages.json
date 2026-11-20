@@ -1296,10 +1296,10 @@
     "message": "Pregătit pentru următoarea sesiune"
   },
   "pomodoro_next": {
-    "message": "Pornește următoarea sesiune"
+    "message": "Începe următoarea perioadă de lucru"
   },
   "pomodoro_stop": {
-    "message": "Încheie ciclul"
+    "message": "Încheie Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Ciclu Pomodoro încheiat"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Ciclul s-a schimbat. Încearcă din nou."
+  },
+  "pomodoro_skip_break": {
+    "message": "Sari peste pauză și începe lucrul"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Închei Pomodoro și anulezi perioadele de lucru rămase?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Începe următoarea perioadă de lucru când ești pregătit."
+  },
+  "pomodoro_auto_note": {
+    "message": "Următoarea perioadă de lucru începe automat după pauză."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore blochează întregul Pomodoro, inclusiv pauzele. Continuarea automată este obligatorie."
+  },
+  "pomodoro_until": {
+    "message": "Blocat până la $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

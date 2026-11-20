@@ -1296,10 +1296,10 @@
     "message": "Sẵn sàng cho phiên tiếp theo"
   },
   "pomodoro_next": {
-    "message": "Bắt đầu phiên tiếp theo"
+    "message": "Bắt đầu phiên làm việc tiếp theo"
   },
   "pomodoro_stop": {
-    "message": "Kết thúc chu kỳ"
+    "message": "Kết thúc Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Đã hoàn thành chu kỳ Pomodoro"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Chu kỳ đã thay đổi. Hãy thử lại."
+  },
+  "pomodoro_skip_break": {
+    "message": "Bỏ qua nghỉ và bắt đầu làm việc"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Kết thúc Pomodoro và hủy các phiên làm việc còn lại?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Bắt đầu phiên làm việc tiếp theo khi bạn sẵn sàng."
+  },
+  "pomodoro_auto_note": {
+    "message": "Phiên làm việc tiếp theo tự động bắt đầu sau giờ nghỉ."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore khóa toàn bộ Pomodoro, kể cả giờ nghỉ. Bắt buộc tiếp tục tự động."
+  },
+  "pomodoro_until": {
+    "message": "Đã khóa đến $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

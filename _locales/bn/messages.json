@@ -1296,10 +1296,10 @@
     "message": "পরবর্তী সেশনের জন্য প্রস্তুত"
   },
   "pomodoro_next": {
-    "message": "পরবর্তী সেশন শুরু করুন"
+    "message": "পরের কাজের পর্ব শুরু করুন"
   },
   "pomodoro_stop": {
-    "message": "চক্র শেষ করুন"
+    "message": "Pomodoro শেষ করুন"
   },
   "pomodoro_complete": {
     "message": "Pomodoro চক্র সম্পন্ন"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "চক্র পরিবর্তিত হয়েছে। আবার চেষ্টা করুন।"
+  },
+  "pomodoro_skip_break": {
+    "message": "বিরতি বাদ দিয়ে কাজ শুরু করুন"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro শেষ করে বাকি কাজের পর্বগুলো বাতিল করবেন?"
+  },
+  "pomodoro_manual_note": {
+    "message": "প্রস্তুত হলে পরের কাজের পর্ব শুরু করুন।"
+  },
+  "pomodoro_auto_note": {
+    "message": "বিরতির পরে পরের কাজের পর্ব স্বয়ংক্রিয়ভাবে শুরু হবে।"
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore বিরতিসহ সম্পূর্ণ Pomodoro লক করে। স্বয়ংক্রিয়ভাবে চালিয়ে যাওয়া আবশ্যক।"
+  },
+  "pomodoro_until": {
+    "message": "$TIME$ পর্যন্ত লক করা আছে।",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

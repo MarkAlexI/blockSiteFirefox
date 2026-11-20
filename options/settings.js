@@ -2,7 +2,7 @@ import { t } from '../scripts/t.js';
 import { ProManager } from '../pro/proManager.js';
 import { PasswordUtils } from '../pro/password.js';
 import { StatisticsManager } from '../pro/statisticsManager.js';
-import { getFocusSessionState } from '../utils/focusSession.js';
+import { getFocusSessionLockState as getFocusSessionState } from '../utils/focusSession.js';
 import Logger from '../utils/logger.js';
 import { RulesClient } from '../rules/rulesClient.js';
 import { getRulesMutationFeedback } from '../rules/rulesMutationFeedback.js';

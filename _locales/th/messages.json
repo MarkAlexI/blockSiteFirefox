@@ -1296,10 +1296,10 @@
     "message": "พร้อมสำหรับเซสชันถัดไป"
   },
   "pomodoro_next": {
-    "message": "เริ่มเซสชันถัดไป"
+    "message": "เริ่มช่วงทำงานถัดไป"
   },
   "pomodoro_stop": {
-    "message": "จบรอบ"
+    "message": "จบ Pomodoro"
   },
   "pomodoro_complete": {
     "message": "จบรอบ Pomodoro แล้ว"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "รอบมีการเปลี่ยนแปลง โปรดลองอีกครั้ง"
+  },
+  "pomodoro_skip_break": {
+    "message": "ข้ามเวลาพักและเริ่มทำงาน"
+  },
+  "pomodoro_end_confirm": {
+    "message": "จบ Pomodoro และยกเลิกช่วงทำงานที่เหลือหรือไม่?"
+  },
+  "pomodoro_manual_note": {
+    "message": "เริ่มช่วงทำงานถัดไปเมื่อคุณพร้อม"
+  },
+  "pomodoro_auto_note": {
+    "message": "ช่วงทำงานถัดไปจะเริ่มโดยอัตโนมัติหลังพัก"
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore ล็อก Pomodoro ทั้งหมดรวมเวลาพัก โดยต้องดำเนินต่อโดยอัตโนมัติ"
+  },
+  "pomodoro_until": {
+    "message": "ล็อกจนถึง $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

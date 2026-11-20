@@ -9886,7 +9886,7 @@ test('Pomodoro automatic continuation happens once and stale alarms cannot resta
   });
 });
 
-test('Pomodoro recovery after a long suspension waits without inventing rounds or starting Hardcore', async () => {
+test('Pomodoro recovery after a long suspension expires Hardcore without inventing rounds', async () => {
   await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
     await withWorker(async ({ api, send, alarm, startup }) => {
       assert.equal((await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, isHardcore: true, autoContinue: true } })).success, true);
@@ -9895,16 +9895,16 @@ test('Pomodoro recovery after a long suspension waits without inventing rounds o
       assert.equal((await send({ type: 'pomodoro_status' })).success, true);
       await startup();
       await alarm({ name: 'update_scheduled_rules' });
-      assert.equal(api.storage.local.data.pomodoroSession.phase, 'ready');
-      assert.equal(api.storage.local.data.pomodoroSession.completedRounds, 1);
+      assert.equal(api.storage.local.data.pomodoroSession, null);
       assert.equal(api.storage.local.data.focusSession.focusActive, false);
       assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
-      assert.equal((await send({ type: 'stop_pomodoro', id: initial.id })).success, true);
+      assert.equal(api.alarmValues.has('pomodoro_hardcore_end'), false);
+      assert.equal((await send({ type: 'stop_pomodoro', id: initial.id })).code, 'pomodoro_changed');
     });
   });
 });
 
-test('Hardcore Pomodoro rejects Stop, replacement and restart until its work interval ends', async () => {
+test('Hardcore Pomodoro rejects Stop, replacement and restart across work and break', async () => {
   await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
     await withWorker(async ({ api, send, alarm }) => {
       assert.equal((await send({ type: 'start_pomodoro', config: { workMinutes: 1, isHardcore: true } })).success, true);
@@ -9919,7 +9919,9 @@ test('Hardcore Pomodoro rejects Stop, replacement and restart until its work int
       }
       clock.set(new Date(focus.focusEndTime));
       await alarm({ name: 'end_focus_session', scheduledTime: focus.focusEndTime });
-      assert.equal((await send({ type: 'stop_pomodoro', id: cycle.id })).success, true);
+      assert.equal((await send({ type: 'stop_pomodoro', id: cycle.id })).code, 'hardcore_active');
+      clock.set(new Date(cycle.hardcoreEndTime));
+      await alarm({ name: 'pomodoro_hardcore_end', scheduledTime: cycle.hardcoreEndTime });
       assert.equal(api.storage.local.data.pomodoroSession, null);
     });
   });
@@ -10044,5 +10046,227 @@ test('a restored Free cycle cannot use a saved automatic-continuation flag to st
       rounds: 4, autoContinue: true, isHardcore: false, focusMode: 'blacklist',
       phase: 'break', completedRounds: 1, phaseEndTime: now.getTime() - 1000
     } } });
+  });
+});
+
+test('Hardcore cycle cannot be ended during a break through Stop, replacement, logout or rule deletion', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 3, isHardcore: true } });
+      const work = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(work.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: work.phaseEndTime });
+      const rest = structuredClone(api.storage.local.data.pomodoroSession);
+      assert.equal(rest.phase, 'break');
+      for (const message of [{ type: 'stop_focus_session' }, { type: 'stop_pomodoro', id: rest.id },
+        { type: 'start_focus_session', duration: 25 }, { type: 'start_pomodoro', config: {} }, { type: 'logout_pro' }]) {
+        assert.equal((await send(message)).code, 'hardcore_active', message.type);
+        assert.deepEqual(api.storage.local.data.pomodoroSession, rest);
+        assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      }
+      const clear = await send({ type: 'rules:clear', payload: {} });
+      assert.equal(clear.success, false);
+      assert.equal(clear.error.code, 'hardcore_active');
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.alarmValues.get('pomodoro_hardcore_end').when, work.hardcoreEndTime);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    });
+  });
+});
+
+test('Hardcore fixed deadline survives recovery and the final alarm finishes exactly once', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm, startup }) => {
+      await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 3, isHardcore: true } });
+      const deadline = api.storage.local.data.pomodoroSession.hardcoreEndTime;
+      for (let round = 0; round < 3; round++) {
+        let cycle = structuredClone(api.storage.local.data.pomodoroSession);
+        assert.equal(cycle.hardcoreEndTime, deadline);
+        assert.equal(cycle.autoContinue, true);
+        clock.set(new Date(cycle.phaseEndTime));
+        await alarm({ name: 'end_focus_session', scheduledTime: cycle.phaseEndTime });
+        if (round === 2) break;
+        cycle = structuredClone(api.storage.local.data.pomodoroSession);
+        await startup();
+        assert.equal(api.storage.local.data.pomodoroSession.hardcoreEndTime, deadline);
+        clock.set(new Date(cycle.phaseEndTime + 500));
+        await alarm({ name: 'pomodoro_break_end', scheduledTime: cycle.phaseEndTime });
+        assert.equal(api.storage.local.data.pomodoroSession.phase, 'work');
+        assert.equal(api.storage.local.data.pomodoroSession.workStartedAt, cycle.phaseEndTime);
+      }
+      await alarm({ name: 'pomodoro_hardcore_end', scheduledTime: deadline });
+      assert.equal(api.storage.local.data.pomodoroSession, null);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 3);
+      assert.equal(api.alarmValues.has('pomodoro_hardcore_end'), false);
+      assert.equal(api.alarmValues.has('pomodoro_break_end'), false);
+    });
+  });
+});
+
+test('a Hardcore recovery interval clipped by the deadline is not credited as a full interval', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 2, isHardcore: true } });
+      const work = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(work.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: work.phaseEndTime });
+      const rest = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(rest.phaseEndTime + 30_000));
+      assert.equal((await send({ type: 'continue_pomodoro', id: rest.id, completedRounds: 1 })).success, true);
+      assert.equal(api.storage.local.data.focusSession.focusEndTime, work.hardcoreEndTime);
+      clock.set(new Date(work.hardcoreEndTime));
+      await alarm({ name: 'pomodoro_hardcore_end', scheduledTime: work.hardcoreEndTime });
+      assert.equal(api.storage.local.data.pomodoroSession, null);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    });
+  });
+});
+
+test('a stale confirmation cannot stop a normal automatic interval that has already begun', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 3, autoContinue: true } });
+      let cycle = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(cycle.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: cycle.phaseEndTime });
+      cycle = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(cycle.phaseEndTime));
+      await alarm({ name: 'pomodoro_break_end', scheduledTime: cycle.phaseEndTime });
+      const focus = structuredClone(api.storage.local.data.focusSession);
+      assert.equal((await send({ type: 'stop_pomodoro', id: cycle.id, completedRounds: cycle.completedRounds, phase: 'break' })).code, 'pomodoro_changed');
+      assert.deepEqual(api.storage.local.data.focusSession, focus);
+      await alarm({ name: 'pomodoro_hardcore_end', scheduledTime: Date.now() - 1000 });
+      assert.deepEqual(api.storage.local.data.focusSession, focus);
+    });
+  });
+});
+
+test('Hardcore deadline releases overdue waiting without replaying any later work', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm, startup }) => {
+      await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 3, isHardcore: true } });
+      const work = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(work.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: work.phaseEndTime });
+      const rest = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(rest.phaseEndTime + 61_000));
+      await send({ type: 'pomodoro_status' });
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'ready');
+      assert.equal((await send({ type: 'stop_focus_session' })).code, 'hardcore_active');
+      clock.set(new Date(work.hardcoreEndTime));
+      await Promise.all([alarm({ name: 'pomodoro_hardcore_end', scheduledTime: work.hardcoreEndTime }), send({ type: 'pomodoro_status' })]);
+      await startup();
+      assert.equal(api.storage.local.data.pomodoroSession, null);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+      assert.equal(api.alarmValues.has('pomodoro_hardcore_end'), false);
+    });
+  });
+});
+
+test('Hardcore alarm creation failure rolls back Focus and the cycle together', async () => {
+  await withWorker(async ({ api, send }) => {
+    const create = api.alarms.create;
+    api.alarms.create = (name, info) => {
+      if (name === 'pomodoro_hardcore_end') throw new Error('deadline alarm unavailable');
+      return create(name, info);
+    };
+    const response = await send({ type: 'start_pomodoro', config: { isHardcore: true } });
+    assert.equal(response.success, false);
+    assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    assert.equal(api.storage.local.data.pomodoroSession, null);
+    assert.equal(api.alarmValues.has('end_focus_session'), false);
+    assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+  });
+});
+
+test('Stop racing a durable automatic Hardcore continuation preserves both alarms and native blocking', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 3, isHardcore: true } });
+      const first = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(first.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: first.phaseEndTime });
+      const rest = structuredClone(api.storage.local.data.pomodoroSession);
+      const entered = createDeferred(), release = createDeferred();
+      const write = api.storage.local.set.bind(api.storage.local);
+      let held = false;
+      api.storage.local.set = async (values, callback) => {
+        const result = await write(values, callback);
+        if (!held && values.focusSession?.focusActive && values.pomodoroSession?.completedRounds === 1) {
+          held = true; entered.resolve(); await release.promise;
+        }
+        return result;
+      };
+      clock.set(new Date(rest.phaseEndTime));
+      const continuing = alarm({ name: 'pomodoro_break_end', scheduledTime: rest.phaseEndTime });
+      await entered.promise;
+      const stopping = send({ type: 'stop_pomodoro', id: first.id });
+      release.resolve();
+      const [, response] = await Promise.all([continuing, stopping]);
+      assert.equal(response.code, 'hardcore_active');
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'work');
+      assert.equal(api.storage.local.data.pomodoroSession.hardcoreEndTime, first.hardcoreEndTime);
+      assert.equal(api.alarmValues.get('end_focus_session').when, api.storage.local.data.focusSession.focusEndTime);
+      assert.equal(api.alarmValues.get('pomodoro_hardcore_end').when, first.hardcoreEndTime);
+      assert.ok(api.dynamicRules.length > 0);
+    }, { local: { rules: [makeFocusRule(411, 'general', { blockURL: 'guarded.example' })], activeRuleListId: 'general' } });
+  });
+});
+
+test('a definitive license expiry releases Hardcore on a break while a manual logout cannot', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 3, isHardcore: true } });
+      const first = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(first.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: first.phaseEndTime });
+      assert.equal((await send({ type: 'logout_pro' })).code, 'hardcore_active');
+      api.setFetchHandler(async () => ({ ok: true, status: 200, json: async () => ({ isPro: false, expiryDate: '2026-11-19' }) }));
+      await send({ type: 'force_sync' });
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      assert.equal(api.storage.local.data.pomodoroSession.isHardcore, false);
+      assert.equal(api.storage.local.data.pomodoroSession.autoContinue, false);
+      assert.equal(api.alarmValues.has('pomodoro_hardcore_end'), false);
+      assert.equal((await send({ type: 'stop_pomodoro', id: first.id })).success, true);
+    });
+  });
+});
+
+test('a new worker recreates the saved Hardcore deadline without extending the cycle', async () => {
+  let saved, credentials, deadline;
+  await withWorker(async ({ api, send }) => {
+    await send({ type: 'start_pomodoro', config: { isHardcore: true } });
+    saved = structuredClone(api.storage.local.data);
+    credentials = structuredClone(api.storage.sync.data.credentials);
+    deadline = saved.pomodoroSession.hardcoreEndTime;
+  });
+  await withWorker(async ({ api, send, alarm }) => {
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.pomodoroSession.hardcoreEndTime, deadline);
+    assert.equal(api.alarmValues.get('pomodoro_hardcore_end').when, deadline);
+    assert.equal((await send({ type: 'stop_focus_session' })).code, 'hardcore_active');
+  }, { local: saved, credentials });
+});
+
+test('explicitly skipping a Hardcore break shortens the saved end time and rearms its alarm', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await send({ type: 'start_pomodoro', config: { isHardcore: true } });
+      const first = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(first.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: first.phaseEndTime });
+      const rest = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(rest.phaseEndTime - 3 * 60_000));
+      assert.equal((await send({ type: 'continue_pomodoro', id: rest.id, completedRounds: 1 })).success, true);
+      const next = api.storage.local.data.pomodoroSession;
+      assert.equal(next.hardcoreEndTime, first.hardcoreEndTime - 3 * 60_000);
+      assert.equal(api.alarmValues.get('pomodoro_hardcore_end').when, next.hardcoreEndTime);
+      assert.equal(api.storage.local.data.focusSession.focusEndTime, Date.now() + 25 * 60_000);
+      assert.equal((await send({ type: 'stop_focus_session' })).code, 'hardcore_active');
+    });
   });
 });

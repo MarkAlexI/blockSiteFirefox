@@ -1296,10 +1296,10 @@
     "message": "Gatavs nākamajai sesijai"
   },
   "pomodoro_next": {
-    "message": "Sākt nākamo sesiju"
+    "message": "Sākt nākamo darba posmu"
   },
   "pomodoro_stop": {
-    "message": "Beigt ciklu"
+    "message": "Beigt Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro cikls pabeigts"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Cikls ir mainījies. Mēģiniet vēlreiz."
+  },
+  "pomodoro_skip_break": {
+    "message": "Izlaist pārtraukumu un sākt darbu"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Beigt Pomodoro un atcelt atlikušos darba posmus?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Sāciet nākamo darba posmu, kad esat gatavs."
+  },
+  "pomodoro_auto_note": {
+    "message": "Nākamais darba posms sākas automātiski pēc pārtraukuma."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore bloķē visu Pomodoro, arī pārtraukumus. Automātiska turpināšana ir obligāta."
+  },
+  "pomodoro_until": {
+    "message": "Bloķēts līdz $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

@@ -1296,10 +1296,10 @@
     "message": "Sedia untuk sesi seterusnya"
   },
   "pomodoro_next": {
-    "message": "Mulakan sesi seterusnya"
+    "message": "Mulakan sesi kerja seterusnya"
   },
   "pomodoro_stop": {
-    "message": "Tamatkan kitaran"
+    "message": "Tamatkan Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Kitaran Pomodoro selesai"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Kitaran telah berubah. Cuba lagi."
+  },
+  "pomodoro_skip_break": {
+    "message": "Langkau rehat dan mula bekerja"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Tamatkan Pomodoro dan batalkan baki sesi kerja?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Mulakan sesi kerja seterusnya apabila anda bersedia."
+  },
+  "pomodoro_auto_note": {
+    "message": "Sesi kerja seterusnya bermula secara automatik selepas rehat."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore mengunci keseluruhan Pomodoro, termasuk rehat. Sambungan automatik diwajibkan."
+  },
+  "pomodoro_until": {
+    "message": "Dikunci sehingga $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

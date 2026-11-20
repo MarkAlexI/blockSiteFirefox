@@ -1296,10 +1296,10 @@
     "message": "Handa na sa susunod na sesyon"
   },
   "pomodoro_next": {
-    "message": "Simulan ang susunod na sesyon"
+    "message": "Simulan ang susunod na yugto ng trabaho"
   },
   "pomodoro_stop": {
-    "message": "Tapusin ang siklo"
+    "message": "Tapusin ang Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Tapos na ang siklong Pomodoro"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Nagbago ang siklo. Subukan muli."
+  },
+  "pomodoro_skip_break": {
+    "message": "Laktawan ang pahinga at magsimulang magtrabaho"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Tapusin ang Pomodoro at kanselahin ang natitirang mga yugto ng trabaho?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Simulan ang susunod na yugto ng trabaho kapag handa ka na."
+  },
+  "pomodoro_auto_note": {
+    "message": "Awtomatikong magsisimula ang susunod na yugto ng trabaho pagkatapos ng pahinga."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Nila-lock ng Hardcore ang buong Pomodoro, kasama ang mga pahinga. Kailangan ang awtomatikong pagpapatuloy."
+  },
+  "pomodoro_until": {
+    "message": "Naka-lock hanggang $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

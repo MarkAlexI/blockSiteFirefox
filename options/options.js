@@ -354,7 +354,7 @@ class OptionsPage {
       if (changes?.[PRO_GUIDANCE_STORAGE_KEY]) {
         void this.renderProTips(this.isPro || this.isLegacyUser);
       }
-      if (changes?.focusSession) void this.settingsManager.initFocusSessionBanner();
+      if (changes?.focusSession || changes?.pomodoroSession) void this.settingsManager.initFocusSessionBanner();
       if (changes?.rulesGeneration) {
         void this.refreshProfileView();
         return;
@@ -426,7 +426,9 @@ class OptionsPage {
       if (editorRow?._ruleEditorFeedback) this.rulesUI.showValidationErrors([code], editorRow, { [code]: message });
       else this.rulesUI.showErrorMessage(message);
     };
-    if (error.code === 'validation_failed') {
+    if (error.code === 'hardcore_active') {
+      this.rulesUI.showErrorMessage(t('pomodoro_hardcore_note'));
+    } else if (error.code === 'validation_failed') {
       this.rulesUI.showValidationErrors(error.validationErrors || [], editorRow);
     } else if (error.code === 'rules_state_changed') {
       this.rulesUI.showErrorMessage(t('errorupdatingrules'));

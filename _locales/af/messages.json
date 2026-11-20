@@ -1296,10 +1296,10 @@
     "message": "Gereed vir die volgende sessie"
   },
   "pomodoro_next": {
-    "message": "Begin volgende sessie"
+    "message": "Begin die volgende werksessie"
   },
   "pomodoro_stop": {
-    "message": "Beëindig siklus"
+    "message": "Beëindig Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro-siklus voltooi"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Die siklus het verander. Probeer weer."
+  },
+  "pomodoro_skip_break": {
+    "message": "Slaan die pouse oor en begin werk"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Beëindig Pomodoro en kanselleer die oorblywende werksessies?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Begin die volgende werksessie wanneer jy gereed is."
+  },
+  "pomodoro_auto_note": {
+    "message": "Die volgende werksessie begin outomaties ná die pouse."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore sluit die hele Pomodoro, insluitend pouses. Outomatiese voortsetting is verpligtend."
+  },
+  "pomodoro_until": {
+    "message": "Gesluit tot $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

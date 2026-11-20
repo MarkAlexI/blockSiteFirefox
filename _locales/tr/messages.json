@@ -1296,10 +1296,10 @@
     "message": "Sonraki oturuma hazır"
   },
   "pomodoro_next": {
-    "message": "Sonraki oturumu başlat"
+    "message": "Sonraki çalışma bölümünü başlat"
   },
   "pomodoro_stop": {
-    "message": "Döngüyü bitir"
+    "message": "Pomodoro'yu bitir"
   },
   "pomodoro_complete": {
     "message": "Pomodoro döngüsü tamamlandı"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Döngü değişti. Tekrar deneyin."
+  },
+  "pomodoro_skip_break": {
+    "message": "Molayı atla ve çalışmaya başla"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro bitirilsin ve kalan çalışma bölümleri iptal edilsin mi?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Hazır olduğunuzda sonraki çalışma bölümünü başlatın."
+  },
+  "pomodoro_auto_note": {
+    "message": "Sonraki çalışma bölümü moladan sonra otomatik başlar."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore, molalar dahil tüm Pomodoro'yu kilitler. Otomatik devam zorunludur."
+  },
+  "pomodoro_until": {
+    "message": "$TIME$ zamanına kadar kilitli.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

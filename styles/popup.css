@@ -508,7 +508,7 @@ button:disabled {
   font-weight: bold;
 }
 
-#focus-mode-control {
+.focus-mode-control {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -517,7 +517,7 @@ button:disabled {
   margin-bottom: 1rem;
 }
 
-#focus-mode-control label {
+.focus-mode-control label {
   flex: 0 1 auto;
   font-size: 0.95rem;
   font-weight: 600;
@@ -525,7 +525,7 @@ button:disabled {
   margin-right: 0.25rem;
 }
 
-#focus-mode-select {
+:is(#focus-mode-select, #focus-cycle-type) {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -552,34 +552,34 @@ button:disabled {
   text-overflow: clip;
 }
 
-#focus-mode-select:hover {
+:is(#focus-mode-select, #focus-cycle-type):hover {
   border-color: var(--primary-color);
 }
 
-#focus-mode-select:focus {
+:is(#focus-mode-select, #focus-cycle-type):focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 4px rgba(0,115,230,0.08);
 }
 
-#focus-mode-select:disabled {
+:is(#focus-mode-select, #focus-cycle-type):disabled {
   background-color: #f5f7fa;
   color: #94a3b8;
   cursor: not-allowed;
   opacity: 0.9;
 }
 
-#focus-mode-select option[value="blacklist"] {
+:is(#focus-mode-select, #focus-cycle-type) option[value="blacklist"] {
   background-color: #fff7f0;
   color: #6b2b1a;
 }
 
-#focus-mode-select option[value="whitelist"] {
+:is(#focus-mode-select, #focus-cycle-type) option[value="whitelist"] {
   background-color: #f0fdf4;
   color: #064e3b;
 }
 
-#focus-mode-select option:checked {
+:is(#focus-mode-select, #focus-cycle-type) option:checked {
   background-color: rgba(0,0,0,0.04);
 }
 
@@ -807,3 +807,36 @@ button:disabled {
 .pomodoro-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 #pomodoro-timer { font-size: 1.6rem; font-variant-numeric: tabular-nums; margin-block: 8px; }
 #pomodoro-panel[hidden], #pomodoro-options[hidden] { display: none; }
+
+/* Shared Focus fields and explicit Pomodoro action states on desktop and mobile. */
+#focus-start-view > .focus-mode-control { margin-block-end: 1rem; }
+#pomodoro-next, .pomodoro-cancel {
+  background-color: var(--secondary-color);
+  color: white;
+  min-block-size: 2.75rem;
+}
+#pomodoro-next:hover:not(:disabled), .pomodoro-cancel:hover:not(:disabled) { background-color: var(--secondary-hover); }
+.pomodoro-actions { align-items: stretch; }
+.pomodoro-actions button { min-inline-size: 0; overflow-wrap: anywhere; min-block-size: 2.75rem; }
+#pomodoro-stop.pomodoro-end, #stop-focus-btn.pomodoro-end {
+  background: var(--bg-white);
+  color: var(--bd-danger);
+  border: 1px solid var(--bd-danger);
+}
+#pomodoro-stop.pomodoro-end:hover:not(:disabled), #stop-focus-btn.pomodoro-end:hover:not(:disabled) { background: var(--bd-surface-soft); }
+.pomodoro-actions button:disabled { background: #e6e8eb; color: #555; opacity: 1; transform: none; cursor: wait; }
+.pomodoro-actions button[hidden] { display: none; }
+#pomodoro-preview, #pomodoro-lock-note { color: var(--secondary-color); }
+@media (max-width: 420px) {
+  .focus-mode-control { align-items: stretch; flex-direction: column; }
+  :is(#focus-mode-select, #focus-cycle-type) { flex: none; inline-size: 100%; }
+  .pomodoro-actions { flex-direction: column; }
+  .pomodoro-settings { grid-template-columns: minmax(0, 1fr); }
+}
+@media (forced-colors: active) {
+  #pomodoro-next, #pomodoro-stop.pomodoro-end, .pomodoro-cancel { border: 1px solid ButtonText; }
+}
+
+#pomodoro-end-dialog .pomodoro-cancel { background-color: var(--secondary-color); }
+#pomodoro-end-dialog .delete-btn { background-color: var(--bd-danger); }
+#pomodoro-end-dialog .delete-btn:hover { background-color: var(--bd-danger-hover); }

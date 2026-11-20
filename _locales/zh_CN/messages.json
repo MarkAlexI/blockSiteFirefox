@@ -1296,10 +1296,10 @@
     "message": "可以开始下次会话"
   },
   "pomodoro_next": {
-    "message": "开始下次会话"
+    "message": "开始下一段工作"
   },
   "pomodoro_stop": {
-    "message": "结束循环"
+    "message": "结束 Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro 循环已完成"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "循环已更改，请重试。"
+  },
+  "pomodoro_skip_break": {
+    "message": "跳过休息并开始工作"
+  },
+  "pomodoro_end_confirm": {
+    "message": "结束 Pomodoro 并取消剩余的工作时段吗？"
+  },
+  "pomodoro_manual_note": {
+    "message": "准备好后开始下一段工作。"
+  },
+  "pomodoro_auto_note": {
+    "message": "休息后将自动开始下一段工作。"
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore 会锁定整个 Pomodoro，包括休息时间。必须启用自动继续。"
+  },
+  "pomodoro_until": {
+    "message": "锁定至 $TIME$。",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

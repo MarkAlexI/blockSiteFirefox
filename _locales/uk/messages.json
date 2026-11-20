@@ -1296,10 +1296,10 @@
     "message": "Можна починати наступну сесію"
   },
   "pomodoro_next": {
-    "message": "Почати наступну сесію"
+    "message": "Почати наступний робочий відрізок"
   },
   "pomodoro_stop": {
-    "message": "Завершити цикл"
+    "message": "Завершити Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Цикл Pomodoro завершено"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Цикл змінився. Спробуйте ще раз."
+  },
+  "pomodoro_skip_break": {
+    "message": "Пропустити перерву й почати роботу"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Завершити Pomodoro та скасувати решту робочих відрізків?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Почніть наступний робочий відрізок, коли будете готові."
+  },
+  "pomodoro_auto_note": {
+    "message": "Наступний робочий відрізок почнеться автоматично після перерви."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore захищає весь Pomodoro, включно з перервами. Автоматичне продовження обов’язкове."
+  },
+  "pomodoro_until": {
+    "message": "Заблоковано до $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

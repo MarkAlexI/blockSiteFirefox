@@ -73,6 +73,7 @@
           <label class="pomodoro-auto"><input type="checkbox" id="pomodoro-autoContinue"><span data-i18n="pomodoro_auto">Start the next session automatically</span><span class="pro-note">Pro</span></label>
           <p class="pomodoro-note" data-i18n="pomodoro_break_note">Regular rules and daily limits remain active during breaks.</p>
         </div>
+        <p id="pomodoro-preview" class="pomodoro-note" hidden></p>
         <button type="button" id="start-focus-btn" class="action-btn" data-i18n="focussessionstart"></button>
       </div>
       <div id="focus-active-view" class="hidden">
@@ -84,9 +85,11 @@
       <div id="pomodoro-panel" hidden>
         <p id="pomodoro-label" role="status" aria-live="polite" aria-atomic="true" dir="auto"></p>
         <div id="pomodoro-timer" role="timer" aria-live="off" aria-labelledby="pomodoro-label"></div>
+        <p id="pomodoro-lock-note" class="pomodoro-note" hidden></p>
+        <p id="pomodoro-action-note" class="pomodoro-note"></p>
         <div class="pomodoro-actions">
-          <button type="button" id="pomodoro-next" class="action-btn" data-i18n="pomodoro_next">Start next session</button>
-          <button type="button" id="pomodoro-stop" class="action-btn delete-btn" data-i18n="pomodoro_stop">End cycle</button>
+          <button type="button" id="pomodoro-next" class="action-btn" data-i18n="pomodoro_next">Start next work interval</button>
+          <button type="button" id="pomodoro-stop" class="action-btn pomodoro-end" data-i18n="pomodoro_stop">End Pomodoro</button>
         </div>
         <p class="pomodoro-note" data-i18n="pomodoro_break_note">Regular rules and daily limits remain active during breaks.</p>
       </div>
@@ -102,6 +105,16 @@
       <p data-focus-notice></p>
     </div>
   </div>
+  <dialog id="pomodoro-end-dialog" class="modal" aria-labelledby="pomodoro-end-title" aria-describedby="pomodoro-end-question">
+    <form method="dialog" class="modal-content">
+      <h3 id="pomodoro-end-title" data-i18n="pomodoro_stop">End Pomodoro</h3>
+      <p id="pomodoro-end-question" data-i18n="pomodoro_end_confirm">End Pomodoro and cancel all remaining work intervals?</p>
+      <div class="pomodoro-actions">
+        <button type="submit" id="pomodoro-end-cancel" value="cancel" class="pomodoro-cancel" data-i18n="modalcancel" autofocus>Cancel</button>
+        <button type="submit" value="end" class="delete-btn" data-i18n="pomodoro_stop">End Pomodoro</button>
+      </div>
+    </form>
+  </dialog>
   <p data-focus-announcer class="dialog-announcement" role="status" aria-live="polite" aria-atomic="true" dir="auto"></p>
 
   <details id="rule-help" class="rule-help">
@@ -139,7 +152,7 @@
       <div class="dialog-actions">
         <button id="feedback-review-btn" class="action-btn primary" type="button">
           <span class="feedback-finger" aria-hidden="true">⭐</span>
-          <span id="feedback-store-label">Mozilla Add-ons</span>
+          <span id="feedback-store-label">Chrome Web Store</span>
         </button>
         <button id="feedback-support-btn" class="action-btn secondary" type="button">
           <span aria-hidden="true">✉</span>

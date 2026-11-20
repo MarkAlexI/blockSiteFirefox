@@ -1296,10 +1296,10 @@
     "message": "ለቀጣዩ ክፍለ ጊዜ ዝግጁ"
   },
   "pomodoro_next": {
-    "message": "ቀጣዩን ክፍለ ጊዜ ጀምር"
+    "message": "ቀጣዩን የሥራ ክፍለ ጊዜ ጀምር"
   },
   "pomodoro_stop": {
-    "message": "ዑደቱን ጨርስ"
+    "message": "Pomodoroን ጨርስ"
   },
   "pomodoro_complete": {
     "message": "የPomodoro ዑደት ተጠናቋል"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "ዑደቱ ተቀይሯል። እንደገና ይሞክሩ።"
+  },
+  "pomodoro_skip_break": {
+    "message": "እረፍቱን ዝለልና ሥራ ጀምር"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoroን ጨርሰህ የቀሩትን የሥራ ክፍለ ጊዜዎች መሰረዝ ትፈልጋለህ?"
+  },
+  "pomodoro_manual_note": {
+    "message": "ዝግጁ ስትሆን ቀጣዩን የሥራ ክፍለ ጊዜ ጀምር።"
+  },
+  "pomodoro_auto_note": {
+    "message": "ከእረፍቱ በኋላ ቀጣዩ የሥራ ክፍለ ጊዜ በራስ-ሰር ይጀምራል።"
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore እረፍቶችን ጨምሮ ሙሉውን Pomodoro ይቆልፋል። በራስ-ሰር መቀጠል ያስፈልጋል።"
+  },
+  "pomodoro_until": {
+    "message": "እስከ $TIME$ ተቆልፏል።",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

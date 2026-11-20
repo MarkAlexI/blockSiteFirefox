@@ -1296,10 +1296,10 @@
     "message": "آماده برای جلسه بعدی"
   },
   "pomodoro_next": {
-    "message": "شروع جلسه بعدی"
+    "message": "شروع نوبت کاری بعدی"
   },
   "pomodoro_stop": {
-    "message": "پایان چرخه"
+    "message": "پایان Pomodoro"
   },
   "pomodoro_complete": {
     "message": "چرخه Pomodoro کامل شد"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "چرخه تغییر کرده است. دوباره تلاش کنید."
+  },
+  "pomodoro_skip_break": {
+    "message": "رد کردن استراحت و شروع کار"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro پایان یابد و نوبت‌های کاری باقی‌مانده لغو شوند؟"
+  },
+  "pomodoro_manual_note": {
+    "message": "وقتی آماده بودید، نوبت کاری بعدی را شروع کنید."
+  },
+  "pomodoro_auto_note": {
+    "message": "نوبت کاری بعدی پس از استراحت به‌طور خودکار شروع می‌شود."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore کل Pomodoro، از جمله استراحت‌ها را قفل می‌کند. ادامهٔ خودکار الزامی است."
+  },
+  "pomodoro_until": {
+    "message": "تا $TIME$ قفل است.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

@@ -1296,10 +1296,10 @@
     "message": "ಮುಂದಿನ ಸೆಷನ್‌ಗೆ ಸಿದ್ಧವಾಗಿದೆ"
   },
   "pomodoro_next": {
-    "message": "ಮುಂದಿನ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಿ"
+    "message": "ಮುಂದಿನ ಕೆಲಸದ ಅವಧಿಯನ್ನು ಪ್ರಾರಂಭಿಸಿ"
   },
   "pomodoro_stop": {
-    "message": "ಚಕ್ರವನ್ನು ಮುಗಿಸಿ"
+    "message": "Pomodoro ಮುಗಿಸಿ"
   },
   "pomodoro_complete": {
     "message": "Pomodoro ಚಕ್ರ ಪೂರ್ಣಗೊಂಡಿದೆ"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "ಚಕ್ರ ಬದಲಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "pomodoro_skip_break": {
+    "message": "ವಿರಾಮವನ್ನು ಬಿಟ್ಟು ಕೆಲಸ ಪ್ರಾರಂಭಿಸಿ"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro ಮುಗಿಸಿ ಉಳಿದ ಕೆಲಸದ ಅವಧಿಗಳನ್ನು ರದ್ದುಗೊಳಿಸಬೇಕೇ?"
+  },
+  "pomodoro_manual_note": {
+    "message": "ಸಿದ್ಧರಾದಾಗ ಮುಂದಿನ ಕೆಲಸದ ಅವಧಿಯನ್ನು ಪ್ರಾರಂಭಿಸಿ."
+  },
+  "pomodoro_auto_note": {
+    "message": "ವಿರಾಮದ ನಂತರ ಮುಂದಿನ ಕೆಲಸದ ಅವಧಿ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore ವಿರಾಮಗಳನ್ನೂ ಒಳಗೊಂಡಂತೆ ಸಂಪೂರ್ಣ Pomodoro ಅನ್ನು ಲಾಕ್ ಮಾಡುತ್ತದೆ. ಸ್ವಯಂಚಾಲಿತ ಮುಂದುವರಿಕೆ ಅಗತ್ಯ."
+  },
+  "pomodoro_until": {
+    "message": "$TIME$ ವರೆಗೆ ಲಾಕ್ ಆಗಿದೆ.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

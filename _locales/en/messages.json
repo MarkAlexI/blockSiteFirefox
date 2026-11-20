@@ -1296,10 +1296,10 @@
     "message": "Ready for the next session"
   },
   "pomodoro_next": {
-    "message": "Start next session"
+    "message": "Start next work session"
   },
   "pomodoro_stop": {
-    "message": "End cycle"
+    "message": "End Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro cycle complete"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "The cycle changed. Try again."
+  },
+  "pomodoro_skip_break": {
+    "message": "Skip break and start work"
+  },
+  "pomodoro_end_confirm": {
+    "message": "End Pomodoro and cancel the remaining work sessions?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Start the next work session when you are ready."
+  },
+  "pomodoro_auto_note": {
+    "message": "The next work session starts automatically after the break."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore locks the entire Pomodoro, including breaks. Automatic continuation is required."
+  },
+  "pomodoro_until": {
+    "message": "Locked until $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

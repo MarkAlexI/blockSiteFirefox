@@ -63,6 +63,7 @@ export function createFocusRecoveryTrace() {
 
 export const POMODORO_KEY = 'pomodoroSession';
 export const POMODORO_ALARM = 'pomodoro_break_end';
+export const POMODORO_LOCK_ALARM = 'pomodoro_hardcore_end';
 export const POMODORO_AUTO_GRACE_MS = 60_000;
 
 export const DEFAULT_POMODORO = Object.freeze({
@@ -89,7 +90,44 @@ export function normalizePomodoroConfig(input = {}, access = { isPro: true }) {
     config[key] !== value)) {
     throw Object.assign(new Error('Pro required'), { code: 'pro_required' });
   }
+  if (config.isHardcore) config.autoContinue = true;
   return config;
+}
+
+export function getPomodoroDurationMs(config, completedRounds = 0) {
+  let minutes = (config.rounds - completedRounds) * config.workMinutes;
+  for (let round = completedRounds + 1; round < config.rounds; round++) {
+    minutes += round % 4 === 0 ? config.longBreakMinutes : config.breakMinutes;
+  }
+  return minutes * 60_000;
+}
+
+export function isPomodoroHardcoreLocked(cycle, now = Date.now()) {
+  return cycle?.isHardcore === true && Number.isFinite(cycle.hardcoreEndTime) && cycle.hardcoreEndTime > now;
+}
+
+// Upgrade the unpublished interval-only format once, then persist this deadline.
+// Never recompute an existing deadline from the time of a popup or worker reload.
+export function hardenPomodoro(cycle, now = Date.now()) {
+  if (!cycle?.isHardcore || Number.isFinite(cycle.hardcoreEndTime)) return cycle;
+  const start = cycle.phase === 'work' ? cycle.phaseEndTime - cycle.workMinutes * 60_000 :
+    cycle.phase === 'break' ? cycle.phaseEndTime : now;
+  return { ...cycle, autoContinue: true,
+    hardcoreEndTime: start + getPomodoroDurationMs(cycle, cycle.completedRounds),
+    ...(cycle.phase === 'work' ? { workStartedAt: start } : {}) };
+}
+
+export async function getFocusSessionLockState(options = {}) {
+  const focus = await getFocusSessionState(options);
+  try {
+    const stored = await browser.storage.local.get(POMODORO_KEY);
+    const cycle = readPomodoro(stored[POMODORO_KEY]);
+    return isPomodoroHardcoreLocked(cycle) ? { ...focus, focusActive: true,
+      isHardcore: true, focusEndTime: cycle.hardcoreEndTime } : focus;
+  } catch (error) {
+    if (options.throwOnError) throw error;
+    return focus;
+  }
 }
 
 export function readPomodoro(stored) {
@@ -104,13 +142,17 @@ export function readPomodoro(stored) {
       (stored.phase !== 'work' && stored.completedRounds === 0) ||
       !Number.isFinite(stored.phaseEndTime) ||
       (stored.phase === 'ready' ? stored.phaseEndTime !== 0 : stored.phaseEndTime <= 0)) return null;
+  if (stored.hardcoreEndTime !== undefined && (!Number.isSafeInteger(stored.hardcoreEndTime) || stored.hardcoreEndTime <= 0 || stored.hardcoreEndTime > 8.64e15)) return null;
+  if (stored.workStartedAt !== undefined && (!Number.isSafeInteger(stored.workStartedAt) || stored.workStartedAt <= 0 || stored.workStartedAt > 8.64e15)) return null;
   return { schemaVersion: 1, id: stored.id, ...config, phase: stored.phase,
-    completedRounds: stored.completedRounds, phaseEndTime: stored.phaseEndTime };
+    completedRounds: stored.completedRounds, phaseEndTime: stored.phaseEndTime,
+    ...(config.isHardcore && stored.hardcoreEndTime !== undefined ? { hardcoreEndTime: stored.hardcoreEndTime } : {}),
+    ...(config.isHardcore && stored.workStartedAt !== undefined ? { workStartedAt: stored.workStartedAt } : {}) };
 }
 
 export function startPomodoro(config, now, id) {
-  return { schemaVersion: 1, id, ...config, phase: 'work', completedRounds: 0,
-    phaseEndTime: now + config.workMinutes * 60_000 };
+  return hardenPomodoro({ schemaVersion: 1, id, ...config, phase: 'work', completedRounds: 0,
+    phaseEndTime: now + config.workMinutes * 60_000 }, now);
 }
 
 export function matchesPomodoroWork(cycle, focus) {
@@ -121,7 +163,7 @@ export function matchesPomodoroWork(cycle, focus) {
 // Advance exactly one real work interval. Never invent completed work after sleep.
 export function completePomodoroWork(cycle, now) {
   const completedRounds = cycle.completedRounds + 1;
-  if (completedRounds >= cycle.rounds) return null;
+  if (completedRounds >= cycle.rounds || (cycle.isHardcore && now >= cycle.hardcoreEndTime)) return null;
   const minutes = completedRounds % 4 === 0 ? cycle.longBreakMinutes : cycle.breakMinutes;
   const phaseEndTime = cycle.phaseEndTime + minutes * 60_000;
   return { ...cycle, completedRounds,
@@ -129,7 +171,12 @@ export function completePomodoroWork(cycle, now) {
 }
 
 export function nextPomodoroWork(cycle, now) {
-  return { ...cycle, phase: 'work', phaseEndTime: now + cycle.workMinutes * 60_000 };
+  const deadline = cycle.isHardcore ?
+    (cycle.phase === 'break' && now < cycle.phaseEndTime ?
+      Math.min(cycle.hardcoreEndTime, now + getPomodoroDurationMs(cycle, cycle.completedRounds)) : cycle.hardcoreEndTime) : Infinity;
+  return { ...cycle, phase: 'work',
+    phaseEndTime: Math.min(now + cycle.workMinutes * 60_000, deadline),
+    ...(cycle.isHardcore ? { workStartedAt: now, hardcoreEndTime: deadline } : {}) };
 }
 
 export function readyPomodoro(cycle) {

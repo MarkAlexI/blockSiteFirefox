@@ -1296,10 +1296,10 @@
     "message": "अगले सत्र के लिए तैयार"
   },
   "pomodoro_next": {
-    "message": "अगला सत्र शुरू करें"
+    "message": "अगला कार्य सत्र शुरू करें"
   },
   "pomodoro_stop": {
-    "message": "चक्र समाप्त करें"
+    "message": "Pomodoro समाप्त करें"
   },
   "pomodoro_complete": {
     "message": "Pomodoro चक्र पूरा हुआ"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "चक्र बदल गया है। फिर से कोशिश करें।"
+  },
+  "pomodoro_skip_break": {
+    "message": "विराम छोड़ें और काम शुरू करें"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro समाप्त करके शेष कार्य सत्र रद्द करें?"
+  },
+  "pomodoro_manual_note": {
+    "message": "तैयार होने पर अगला कार्य सत्र शुरू करें।"
+  },
+  "pomodoro_auto_note": {
+    "message": "विराम के बाद अगला कार्य सत्र अपने आप शुरू होगा।"
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore विराम सहित पूरे Pomodoro को लॉक करता है। अपने आप जारी रखना आवश्यक है।"
+  },
+  "pomodoro_until": {
+    "message": "$TIME$ तक लॉक है।",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

@@ -1296,10 +1296,10 @@
     "message": "அடுத்த அமர்வுக்குத் தயார்"
   },
   "pomodoro_next": {
-    "message": "அடுத்த அமர்வைத் தொடங்கு"
+    "message": "அடுத்த வேலைப் பகுதியைத் தொடங்கு"
   },
   "pomodoro_stop": {
-    "message": "சுழற்சியை முடி"
+    "message": "Pomodoro முடி"
   },
   "pomodoro_complete": {
     "message": "Pomodoro சுழற்சி முடிந்தது"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "சுழற்சி மாறிவிட்டது. மீண்டும் முயலவும்."
+  },
+  "pomodoro_skip_break": {
+    "message": "இடைவேளையைத் தவிர்த்து வேலையைத் தொடங்கு"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Pomodoro முடித்து மீதமுள்ள வேலைப் பகுதிகளை ரத்து செய்யவா?"
+  },
+  "pomodoro_manual_note": {
+    "message": "தயாரானதும் அடுத்த வேலைப் பகுதியைத் தொடங்கவும்."
+  },
+  "pomodoro_auto_note": {
+    "message": "இடைவேளைக்குப் பிறகு அடுத்த வேலைப் பகுதி தானாகத் தொடங்கும்."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore இடைவேளைகள் உட்பட முழு Pomodoroவையும் பூட்டும். தானாகத் தொடர்வது கட்டாயம்."
+  },
+  "pomodoro_until": {
+    "message": "$TIME$ வரை பூட்டப்பட்டுள்ளது.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

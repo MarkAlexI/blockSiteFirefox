@@ -1296,10 +1296,10 @@
     "message": "Готово за следващата сесия"
   },
   "pomodoro_next": {
-    "message": "Стартиране на следващата сесия"
+    "message": "Започни следващия работен период"
   },
   "pomodoro_stop": {
-    "message": "Край на цикъла"
+    "message": "Завърши Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Цикълът Pomodoro завърши"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Цикълът е променен. Опитайте отново."
+  },
+  "pomodoro_skip_break": {
+    "message": "Пропусни почивката и започни работа"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Да завърши ли Pomodoro и да се отменят останалите работни периоди?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Започнете следващия работен период, когато сте готови."
+  },
+  "pomodoro_auto_note": {
+    "message": "Следващият работен период започва автоматично след почивката."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore заключва целия Pomodoro, включително почивките. Автоматичното продължаване е задължително."
+  },
+  "pomodoro_until": {
+    "message": "Заключено до $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

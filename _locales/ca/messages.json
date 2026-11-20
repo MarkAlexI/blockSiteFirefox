@@ -1296,10 +1296,10 @@
     "message": "A punt per a la sessió següent"
   },
   "pomodoro_next": {
-    "message": "Inicia la sessió següent"
+    "message": "Inicia el període de treball següent"
   },
   "pomodoro_stop": {
-    "message": "Finalitza el cicle"
+    "message": "Finalitza Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Cicle Pomodoro completat"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "El cicle ha canviat. Torna-ho a provar."
+  },
+  "pomodoro_skip_break": {
+    "message": "Omet la pausa i comença a treballar"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Vols finalitzar Pomodoro i cancel·lar els períodes de treball restants?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Inicia el període de treball següent quan estiguis a punt."
+  },
+  "pomodoro_auto_note": {
+    "message": "El període de treball següent comença automàticament després de la pausa."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore bloqueja tot el Pomodoro, incloses les pauses. La continuació automàtica és obligatòria."
+  },
+  "pomodoro_until": {
+    "message": "Bloquejat fins a $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }

@@ -1296,10 +1296,10 @@
     "message": "Klar til næste session"
   },
   "pomodoro_next": {
-    "message": "Start næste session"
+    "message": "Start næste arbejdsperiode"
   },
   "pomodoro_stop": {
-    "message": "Afslut cyklus"
+    "message": "Afslut Pomodoro"
   },
   "pomodoro_complete": {
     "message": "Pomodoro-cyklus fuldført"
@@ -1309,5 +1309,29 @@
   },
   "pomodoro_changed": {
     "message": "Cyklussen er ændret. Prøv igen."
+  },
+  "pomodoro_skip_break": {
+    "message": "Spring pausen over og begynd arbejdet"
+  },
+  "pomodoro_end_confirm": {
+    "message": "Afslut Pomodoro og annuller de resterende arbejdsperioder?"
+  },
+  "pomodoro_manual_note": {
+    "message": "Start næste arbejdsperiode, når du er klar."
+  },
+  "pomodoro_auto_note": {
+    "message": "Næste arbejdsperiode starter automatisk efter pausen."
+  },
+  "pomodoro_hardcore_note": {
+    "message": "Hardcore låser hele Pomodoro, inklusive pauser. Automatisk fortsættelse er påkrævet."
+  },
+  "pomodoro_until": {
+    "message": "Låst indtil $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "20/11/2026, 18:00"
+      }
+    }
   }
 }
