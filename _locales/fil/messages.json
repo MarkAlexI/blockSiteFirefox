@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "I-reload ang pahina"
+  },
+  "pomodoro_type": {
+    "message": "Uri ng sesyon"
+  },
+  "pomodoro_short_break": {
+    "message": "Pahinga (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Mga sesyon"
+  },
+  "pomodoro_long_break": {
+    "message": "Mahabang pahinga pagkatapos ng 4 na sesyon (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Awtomatikong simulan ang susunod na sesyon"
+  },
+  "pomodoro_break_note": {
+    "message": "Aktibo pa rin ang karaniwang mga patakaran at pang-araw-araw na limitasyon habang nagpapahinga."
+  },
+  "pomodoro_break": {
+    "message": "Pahinga"
+  },
+  "pomodoro_ready": {
+    "message": "Handa na sa susunod na sesyon"
+  },
+  "pomodoro_next": {
+    "message": "Simulan ang susunod na sesyon"
+  },
+  "pomodoro_stop": {
+    "message": "Tapusin ang siklo"
+  },
+  "pomodoro_complete": {
+    "message": "Tapos na ang siklong Pomodoro"
+  },
+  "pomodoro_invalid": {
+    "message": "Suriin ang mga setting ng Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Nagbago ang siklo. Subukan muli."
   }
 }

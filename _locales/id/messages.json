@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Muat ulang halaman"
+  },
+  "pomodoro_type": {
+    "message": "Jenis sesi"
+  },
+  "pomodoro_short_break": {
+    "message": "Istirahat (menit)"
+  },
+  "pomodoro_rounds": {
+    "message": "Jumlah sesi"
+  },
+  "pomodoro_long_break": {
+    "message": "Istirahat panjang setelah 4 sesi (menit)"
+  },
+  "pomodoro_auto": {
+    "message": "Mulai sesi berikutnya secara otomatis"
+  },
+  "pomodoro_break_note": {
+    "message": "Aturan biasa dan batas harian tetap aktif saat istirahat."
+  },
+  "pomodoro_break": {
+    "message": "Istirahat"
+  },
+  "pomodoro_ready": {
+    "message": "Siap untuk sesi berikutnya"
+  },
+  "pomodoro_next": {
+    "message": "Mulai sesi berikutnya"
+  },
+  "pomodoro_stop": {
+    "message": "Akhiri siklus"
+  },
+  "pomodoro_complete": {
+    "message": "Siklus Pomodoro selesai"
+  },
+  "pomodoro_invalid": {
+    "message": "Periksa pengaturan Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Siklus berubah. Coba lagi."
   }
 }

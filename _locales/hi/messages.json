@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "पेज दोबारा लोड करें"
+  },
+  "pomodoro_type": {
+    "message": "सत्र का प्रकार"
+  },
+  "pomodoro_short_break": {
+    "message": "विराम (मिनट)"
+  },
+  "pomodoro_rounds": {
+    "message": "सत्रों की संख्या"
+  },
+  "pomodoro_long_break": {
+    "message": "4 सत्रों के बाद लंबा विराम (मिनट)"
+  },
+  "pomodoro_auto": {
+    "message": "अगला सत्र अपने आप शुरू करें"
+  },
+  "pomodoro_break_note": {
+    "message": "विराम के दौरान सामान्य नियम और दैनिक सीमाएँ लागू रहती हैं।"
+  },
+  "pomodoro_break": {
+    "message": "विराम"
+  },
+  "pomodoro_ready": {
+    "message": "अगले सत्र के लिए तैयार"
+  },
+  "pomodoro_next": {
+    "message": "अगला सत्र शुरू करें"
+  },
+  "pomodoro_stop": {
+    "message": "चक्र समाप्त करें"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro चक्र पूरा हुआ"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro सेटिंग जाँचें।"
+  },
+  "pomodoro_changed": {
+    "message": "चक्र बदल गया है। फिर से कोशिश करें।"
   }
 }

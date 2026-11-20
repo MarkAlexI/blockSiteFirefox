@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Ανανέωση σελίδας"
+  },
+  "pomodoro_type": {
+    "message": "Τύπος συνεδρίας"
+  },
+  "pomodoro_short_break": {
+    "message": "Διάλειμμα (λεπτά)"
+  },
+  "pomodoro_rounds": {
+    "message": "Συνεδρίες"
+  },
+  "pomodoro_long_break": {
+    "message": "Μεγάλο διάλειμμα μετά από 4 συνεδρίες (λεπτά)"
+  },
+  "pomodoro_auto": {
+    "message": "Αυτόματη έναρξη επόμενης συνεδρίας"
+  },
+  "pomodoro_break_note": {
+    "message": "Οι κανονικοί κανόνες και τα ημερήσια όρια ισχύουν και στα διαλείμματα."
+  },
+  "pomodoro_break": {
+    "message": "Διάλειμμα"
+  },
+  "pomodoro_ready": {
+    "message": "Έτοιμο για την επόμενη συνεδρία"
+  },
+  "pomodoro_next": {
+    "message": "Έναρξη επόμενης συνεδρίας"
+  },
+  "pomodoro_stop": {
+    "message": "Τερματισμός κύκλου"
+  },
+  "pomodoro_complete": {
+    "message": "Ο κύκλος Pomodoro ολοκληρώθηκε"
+  },
+  "pomodoro_invalid": {
+    "message": "Ελέγξτε τις ρυθμίσεις Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Ο κύκλος άλλαξε. Δοκιμάστε ξανά."
   }
 }

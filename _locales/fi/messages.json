@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Lataa sivu uudelleen"
+  },
+  "pomodoro_type": {
+    "message": "Istunnon tyyppi"
+  },
+  "pomodoro_short_break": {
+    "message": "Tauko (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Istunnot"
+  },
+  "pomodoro_long_break": {
+    "message": "Pitkä tauko 4 istunnon jälkeen (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Aloita seuraava istunto automaattisesti"
+  },
+  "pomodoro_break_note": {
+    "message": "Tavalliset säännöt ja päivärajat ovat voimassa myös tauoilla."
+  },
+  "pomodoro_break": {
+    "message": "Tauko"
+  },
+  "pomodoro_ready": {
+    "message": "Valmis seuraavaan istuntoon"
+  },
+  "pomodoro_next": {
+    "message": "Aloita seuraava istunto"
+  },
+  "pomodoro_stop": {
+    "message": "Lopeta jakso"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-jakso valmis"
+  },
+  "pomodoro_invalid": {
+    "message": "Tarkista Pomodoro-asetukset."
+  },
+  "pomodoro_changed": {
+    "message": "Jakso muuttui. Yritä uudelleen."
   }
 }

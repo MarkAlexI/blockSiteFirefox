@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Muat semula halaman"
+  },
+  "pomodoro_type": {
+    "message": "Jenis sesi"
+  },
+  "pomodoro_short_break": {
+    "message": "Rehat (minit)"
+  },
+  "pomodoro_rounds": {
+    "message": "Bilangan sesi"
+  },
+  "pomodoro_long_break": {
+    "message": "Rehat panjang selepas 4 sesi (minit)"
+  },
+  "pomodoro_auto": {
+    "message": "Mulakan sesi seterusnya secara automatik"
+  },
+  "pomodoro_break_note": {
+    "message": "Peraturan biasa dan had harian kekal aktif semasa rehat."
+  },
+  "pomodoro_break": {
+    "message": "Rehat"
+  },
+  "pomodoro_ready": {
+    "message": "Sedia untuk sesi seterusnya"
+  },
+  "pomodoro_next": {
+    "message": "Mulakan sesi seterusnya"
+  },
+  "pomodoro_stop": {
+    "message": "Tamatkan kitaran"
+  },
+  "pomodoro_complete": {
+    "message": "Kitaran Pomodoro selesai"
+  },
+  "pomodoro_invalid": {
+    "message": "Semak tetapan Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Kitaran telah berubah. Cuba lagi."
   }
 }

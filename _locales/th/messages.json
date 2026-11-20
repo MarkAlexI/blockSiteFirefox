@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "โหลดหน้าใหม่"
+  },
+  "pomodoro_type": {
+    "message": "ประเภทเซสชัน"
+  },
+  "pomodoro_short_break": {
+    "message": "พัก (นาที)"
+  },
+  "pomodoro_rounds": {
+    "message": "จำนวนเซสชัน"
+  },
+  "pomodoro_long_break": {
+    "message": "พักยาวหลังครบ 4 เซสชัน (นาที)"
+  },
+  "pomodoro_auto": {
+    "message": "เริ่มเซสชันถัดไปโดยอัตโนมัติ"
+  },
+  "pomodoro_break_note": {
+    "message": "กฎปกติและขีดจำกัดรายวันยังมีผลระหว่างพัก"
+  },
+  "pomodoro_break": {
+    "message": "พัก"
+  },
+  "pomodoro_ready": {
+    "message": "พร้อมสำหรับเซสชันถัดไป"
+  },
+  "pomodoro_next": {
+    "message": "เริ่มเซสชันถัดไป"
+  },
+  "pomodoro_stop": {
+    "message": "จบรอบ"
+  },
+  "pomodoro_complete": {
+    "message": "จบรอบ Pomodoro แล้ว"
+  },
+  "pomodoro_invalid": {
+    "message": "ตรวจสอบการตั้งค่า Pomodoro"
+  },
+  "pomodoro_changed": {
+    "message": "รอบมีการเปลี่ยนแปลง โปรดลองอีกครั้ง"
   }
 }

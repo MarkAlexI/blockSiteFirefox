@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Оновити сторінку"
+  },
+  "pomodoro_type": {
+    "message": "Тип сесії"
+  },
+  "pomodoro_short_break": {
+    "message": "Перерва (хв)"
+  },
+  "pomodoro_rounds": {
+    "message": "Кількість сесій"
+  },
+  "pomodoro_long_break": {
+    "message": "Довга перерва після 4 сесій (хв)"
+  },
+  "pomodoro_auto": {
+    "message": "Автоматично починати наступну сесію"
+  },
+  "pomodoro_break_note": {
+    "message": "Під час перерв діють звичайні правила та денні ліміти."
+  },
+  "pomodoro_break": {
+    "message": "Перерва"
+  },
+  "pomodoro_ready": {
+    "message": "Можна починати наступну сесію"
+  },
+  "pomodoro_next": {
+    "message": "Почати наступну сесію"
+  },
+  "pomodoro_stop": {
+    "message": "Завершити цикл"
+  },
+  "pomodoro_complete": {
+    "message": "Цикл Pomodoro завершено"
+  },
+  "pomodoro_invalid": {
+    "message": "Перевірте налаштування Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Цикл змінився. Спробуйте ще раз."
   }
 }

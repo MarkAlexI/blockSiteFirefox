@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Презареждане на страницата"
+  },
+  "pomodoro_type": {
+    "message": "Тип сесия"
+  },
+  "pomodoro_short_break": {
+    "message": "Почивка (мин)"
+  },
+  "pomodoro_rounds": {
+    "message": "Сесии"
+  },
+  "pomodoro_long_break": {
+    "message": "Дълга почивка след 4 сесии (мин)"
+  },
+  "pomodoro_auto": {
+    "message": "Автоматично стартиране на следващата сесия"
+  },
+  "pomodoro_break_note": {
+    "message": "Обичайните правила и дневните лимити важат и през почивките."
+  },
+  "pomodoro_break": {
+    "message": "Почивка"
+  },
+  "pomodoro_ready": {
+    "message": "Готово за следващата сесия"
+  },
+  "pomodoro_next": {
+    "message": "Стартиране на следващата сесия"
+  },
+  "pomodoro_stop": {
+    "message": "Край на цикъла"
+  },
+  "pomodoro_complete": {
+    "message": "Цикълът Pomodoro завърши"
+  },
+  "pomodoro_invalid": {
+    "message": "Проверете настройките на Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Цикълът е променен. Опитайте отново."
   }
 }

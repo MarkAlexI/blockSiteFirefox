@@ -1,13 +1,13 @@
-# Firefox Desktop E2E - BlockDistraction **5.6.13**
+# Firefox Desktop E2E - BlockDistraction **5.7.0**
 
 ## Current release and upgrade matrix
 
 Scenario 90 checks production Whitelist validation, canonical duplicate rejection,
 unrelated query text, native blocking and unchanged Focus path/port scope.
-Inventory is **92 = 77 core + 12 lifecycle + 1 overdue + 2 upgrade**;
+Inventory is **96 = 81 core + 12 lifecycle + 1 overdue + 2 upgrade**;
 macOS smoke remains 24 per architecture.
 
-The upgrade group retains 5.4.14 and targets actual 5.6.9 → 5.6.13.
+The upgrade group retains 5.4.14 and targets actual 5.6.9 → 5.7.0.
 The recent source is release commit `91031a020ee4ef166fd86dcf07115670a8475b42`.
 Both cases retain saved budgets, fresh Options readiness, the original Focus
 session deadline and their Stop/completion-sound controls. Existing saved
@@ -20,6 +20,10 @@ Scenario 92 checks website access to both public entry pages and denial of seven
 private resources, extension-owned access to those dependencies, native host
 permission setup, an exhausted Daily Limit, the blocked-page close button and
 a custom redirect with encoded query parameters and a fragment.
+
+Scenarios 93–96 cover Pomodoro work/break transitions, Hardcore, automatic
+continuation, stale actions, native overdue recovery, Free controls and restart.
+Scenario 95 requires a persistent add-on installation on Firefox.
 
 ## macOS smoke CI
 

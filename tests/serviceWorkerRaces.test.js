@@ -468,6 +468,8 @@ async function withWorker(callback, {
     await withExtensionEnvironment(api, async () => {
       workerImportId += 1;
       await import('../scripts/service_worker.js?workerRace=' + workerImportId);
+      // Let module-load recovery finish before exercising a separate transition.
+      await new Promise(resolve => setImmediate(resolve));
       assert.equal(api.runtime.onMessage.listeners.length, 1);
       if (!supportsWindows) assert.equal(api.windows, undefined);
       await callback({
@@ -4337,7 +4339,7 @@ test('a stop request is not lost when a Pro downgrade overlaps Whitelist cleanup
     const starting = send({
       type: 'start_focus_session',
       duration: 5,
-      isHardcore: true,
+      isHardcore: false,
       focusMode: 'whitelist'
     });
     await queryStarted.promise;
@@ -6472,7 +6474,7 @@ test('telemetry priority: an unreadable manual session cannot be replaced or con
 
 test('telemetry priority: activation snapshot read failure cannot erase the previous session during rollback', async () => {
   const session = { focusActive: true, focusEndTime: Date.now() + 20 * 60_000,
-    isHardcore: true, focusMode: 'blacklist' };
+    isHardcore: false, focusMode: 'blacklist' };
   await withWorker(async ({ api, alarm, send }) => {
     await alarm({ name: 'update_scheduled_rules' });
     const before = structuredClone(api.dynamicRules);
@@ -9820,4 +9822,227 @@ test('Empty conflicts: whitelist additions and explicit blacklist repair retain 
     assert.ok(api.dynamicRules.some(rule => rule.condition.urlFilter === '||repaired.example'));
   }, { local: { rules: [empty, keep], activeRuleListId: 'general',
     dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '873:general': 60 } } }, supportsWindows: false });
+});
+
+// Pomodoro runs through the real worker, its shared mutation queue and DNR builder.
+test('Pomodoro work, break and continuation preserve ordinary rules and spent Daily Limits', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    const basic = makeFocusRule(1, 'general', { blockURL: 'always.example' });
+    const limit = makeDailyLimitRule(2, 'general', { minutes: 1 });
+    await withWorker(async ({ api, send, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      const before = structuredClone(api.storage.local.data.rules);
+      const response = await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 2 } });
+      assert.equal(response.success, true);
+      const first = structuredClone(api.storage.local.data.pomodoroSession);
+      assert.equal(first.phase, 'work');
+      assert.equal(api.storage.local.data.focusSession.pomodoroId, first.id);
+      clock.set(new Date(first.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: first.phaseEndTime });
+      const rest = structuredClone(api.storage.local.data.pomodoroSession);
+      assert.equal(rest.phase, 'break');
+      assert.equal(rest.completedRounds, 1);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+      assert.deepEqual(api.storage.local.data.rules, before);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['2:general'], 60);
+      assert.deepEqual(api.dynamicRules.map(r => r.id).sort(), [1, 2]);
+      clock.set(new Date(rest.phaseEndTime));
+      await alarm({ name: 'pomodoro_break_end', scheduledTime: rest.phaseEndTime });
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'ready');
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal((await send({ type: 'continue_pomodoro', id: first.id, completedRounds: 1 })).success, true);
+      const second = structuredClone(api.storage.local.data.focusSession);
+      assert.equal(api.storage.local.data.pomodoroSession.completedRounds, 1);
+      clock.set(new Date(second.focusEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: second.focusEndTime });
+      assert.equal(api.storage.local.data.pomodoroSession, null);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 2);
+      assert.equal(api.alarmValues.has('pomodoro_break_end'), false);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['2:general'], 60);
+    }, { local: { rules: [basic, limit], activeRuleListId: 'general',
+      dailyRuleUsage: { version: 2, date: getLocalDateKey(), usageSeconds: { '2:general': 60 } } } });
+  });
+});
+
+test('Pomodoro automatic continuation happens once and stale alarms cannot restart work', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      assert.equal((await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, rounds: 3, autoContinue: true } })).success, true);
+      let cycle = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(cycle.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: cycle.phaseEndTime });
+      cycle = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(cycle.phaseEndTime + 500));
+      await Promise.all([alarm({ name: 'pomodoro_break_end', scheduledTime: cycle.phaseEndTime }),
+        alarm({ name: 'pomodoro_break_end', scheduledTime: cycle.phaseEndTime })]);
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'work');
+      assert.equal(api.storage.local.data.pomodoroSession.completedRounds, 1);
+      const deadline = api.storage.local.data.focusSession.focusEndTime;
+      await alarm({ name: 'pomodoro_break_end', scheduledTime: cycle.phaseEndTime - 3600_000 });
+      assert.equal(api.storage.local.data.focusSession.focusEndTime, deadline);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+    });
+  });
+});
+
+test('Pomodoro recovery after a long suspension waits without inventing rounds or starting Hardcore', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm, startup }) => {
+      assert.equal((await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 1, isHardcore: true, autoContinue: true } })).success, true);
+      const initial = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(initial.phaseEndTime + 8 * 3600_000));
+      assert.equal((await send({ type: 'pomodoro_status' })).success, true);
+      await startup();
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'ready');
+      assert.equal(api.storage.local.data.pomodoroSession.completedRounds, 1);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+      assert.equal((await send({ type: 'stop_pomodoro', id: initial.id })).success, true);
+    });
+  });
+});
+
+test('Hardcore Pomodoro rejects Stop, replacement and restart until its work interval ends', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      assert.equal((await send({ type: 'start_pomodoro', config: { workMinutes: 1, isHardcore: true } })).success, true);
+      const cycle = structuredClone(api.storage.local.data.pomodoroSession);
+      const focus = structuredClone(api.storage.local.data.focusSession);
+      for (const message of [{ type: 'stop_focus_session' }, { type: 'stop_pomodoro', id: cycle.id },
+        { type: 'continue_pomodoro', id: cycle.id }, { type: 'start_focus_session', duration: 25 },
+        { type: 'start_pomodoro', config: {} }]) {
+        assert.equal((await send(message)).success, false);
+        assert.deepEqual(api.storage.local.data.focusSession, focus);
+        assert.deepEqual(api.storage.local.data.pomodoroSession, cycle);
+      }
+      clock.set(new Date(focus.focusEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: focus.focusEndTime });
+      assert.equal((await send({ type: 'stop_pomodoro', id: cycle.id })).success, true);
+      assert.equal(api.storage.local.data.pomodoroSession, null);
+    });
+  });
+});
+
+test('Free Pomodoro allows 25/5 but rejects custom or forged paid configurations before storage changes', async () => {
+  await withWorker(async ({ api, send }) => {
+    for (const config of [{ workMinutes: 1 }, { breakMinutes: 7 }, { rounds: 8 }, { isHardcore: true }, { focusMode: 'whitelist' }, { autoContinue: true }]) {
+      const result = await send({ type: 'start_pomodoro', config });
+      assert.equal(result.code, 'pro_required');
+      assert.equal(api.storage.local.data.pomodoroSession, undefined);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+    }
+    assert.equal((await send({ type: 'start_pomodoro', config: { autoContinue: false } })).success, true);
+    const cycle = api.storage.local.data.pomodoroSession;
+    assert.equal(cycle.workMinutes, 25);
+    assert.equal(cycle.breakMinutes, 5);
+    assert.equal((await send({ type: 'stop_pomodoro', id: cycle.id })).success, true);
+  }, { credentials: { isPro: false, licenseKey: null } });
+});
+
+test('a scheduled Focus occurrence cannot interrupt a Pomodoro break or waiting phase', async () => {
+  await withControlledClock(new Date(2026, 8, 28, 8, 58), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      assert.equal((await send({ type: 'start_pomodoro', config: { workMinutes: 1, breakMinutes: 5 } })).success, true);
+      const cycle = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(cycle.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: cycle.phaseEndTime });
+      clock.set(new Date(2026, 8, 28, 9));
+      await alarm({ name: 'start_scheduled_focus' });
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'break');
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.deepEqual(api.storage.local.data.focusSchedule.handledKeys, ['2026-09-28@09:00']);
+      assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, false);
+      assert.equal((await send({ type: 'stop_pomodoro', id: 'stale-cycle' })).success, false);
+      assert.equal((await send({ type: 'stop_pomodoro', id: cycle.id })).success, true);
+      assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+    }, { local: { focusSchedule: scheduledFocusState() } });
+  });
+});
+
+test('a rejected Stop racing the durable Hardcore Pomodoro start still finishes native protection', async () => {
+  const rule = makeFocusRule(301, 'general', { blockURL: 'hardcore.example' });
+  await withWorker(async ({ api, send }) => {
+    const entered = createDeferred(), release = createDeferred();
+    const original = api.storage.local.set.bind(api.storage.local);
+    let held = false;
+    api.storage.local.set = async (values, callback) => {
+      const result = await original(values, callback);
+      if (!held && values.focusSession?.focusActive && values.pomodoroSession) {
+        held = true; entered.resolve(); await release.promise;
+      }
+      return result;
+    };
+    const starting = send({ type: 'start_pomodoro', config: { isHardcore: true } });
+    await entered.promise;
+    const stopping = send({ type: 'stop_focus_session' });
+    release.resolve();
+    const [, stopped] = await Promise.all([starting, stopping]);
+    assert.equal(stopped.code, 'hardcore_active');
+    assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    assert.equal(api.storage.local.data.pomodoroSession.phase, 'work');
+    assert.equal(api.alarmValues.get('end_focus_session').when, api.storage.local.data.focusSession.focusEndTime);
+    assert.equal(api.dynamicRules.some(r => r.id === 301), true);
+  }, { local: { rules: [rule], activeRuleListId: 'general' } });
+});
+
+test('invalid Pomodoro and stale continuation requests never consume a scheduled occurrence', async () => {
+  await withControlledClock(new Date(2026, 8, 28, 8), async clock => {
+    await withWorker(async ({ api, send }) => {
+      const before = structuredClone(api.storage.local.data.focusSchedule);
+      clock.set(new Date(2026, 8, 28, 9, 20));
+      assert.equal((await send({ type: 'start_pomodoro', config: { rounds: 0 } })).code, 'invalid_pomodoro');
+      assert.equal((await send({ type: 'continue_pomodoro', id: 'stale', completedRounds: 0 })).code, 'pomodoro_changed');
+      assert.deepEqual(api.storage.local.data.focusSchedule, before);
+    }, { local: { focusSchedule: scheduledFocusState() } });
+  });
+});
+
+test('Pomodoro loses automatic continuation after Pro logout but retains Free manual continuation', async () => {
+  await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+    await withWorker(async ({ api, send, alarm }) => {
+      assert.equal((await send({ type: 'start_pomodoro', config: { autoContinue: true } })).success, true);
+      const work = structuredClone(api.storage.local.data.pomodoroSession);
+      clock.set(new Date(work.phaseEndTime));
+      await alarm({ name: 'end_focus_session', scheduledTime: work.phaseEndTime });
+      const rest = structuredClone(api.storage.local.data.pomodoroSession);
+      assert.equal(rest.phase, 'break');
+      assert.equal((await send({ type: 'logout_pro' })).success, true);
+      assert.equal(api.storage.sync.data.credentials.isPro, false);
+      clock.set(new Date(rest.phaseEndTime));
+      await alarm({ name: 'pomodoro_break_end', scheduledTime: rest.phaseEndTime });
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'ready');
+      assert.equal(api.storage.local.data.pomodoroSession.autoContinue, false);
+      assert.equal(api.storage.local.data.pomodoroSession.completedRounds, 1);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+      assert.equal(api.alarmValues.has('end_focus_session'), false);
+      assert.equal((await send({ type: 'continue_pomodoro', id: work.id, completedRounds: 1 })).success, true);
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'work');
+      assert.equal(api.storage.local.data.pomodoroSession.autoContinue, false);
+      assert.equal(api.storage.local.data.focusSession.focusEndTime, rest.phaseEndTime + 25 * 60_000);
+    });
+  });
+});
+
+test('a restored Free cycle cannot use a saved automatic-continuation flag to start work', async () => {
+  const now = new Date(2026, 10, 20, 9);
+  const id = '00000000-0000-4000-8000-000000000099';
+  await withControlledClock(now, async () => {
+    await withWorker(async ({ api, send, alarm }) => {
+      await alarm({ name: 'update_scheduled_rules' });
+      assert.equal(api.storage.local.data.pomodoroSession.phase, 'ready');
+      assert.equal(api.storage.local.data.pomodoroSession.autoContinue, false);
+      assert.equal(api.storage.local.data.pomodoroSession.completedRounds, 1);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.storage.local.data.statistics?.successfulFocusSessions || 0, 0);
+      assert.equal((await send({ type: 'continue_pomodoro', id, completedRounds: 1 })).success, true);
+      assert.equal(api.storage.local.data.pomodoroSession.autoContinue, false);
+    }, { credentials: { isPro: false, licenseKey: null }, local: { pomodoroSession: {
+      schemaVersion: 1, id, workMinutes: 25, breakMinutes: 5, longBreakMinutes: 15,
+      rounds: 4, autoContinue: true, isHardcore: false, focusMode: 'blacklist',
+      phase: 'break', completedRounds: 1, phaseEndTime: now.getTime() - 1000
+    } } });
+  });
 });

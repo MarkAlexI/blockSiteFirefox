@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "ಪುಟವನ್ನು ಮರುಲೋಡ್ ಮಾಡಿ"
+  },
+  "pomodoro_type": {
+    "message": "ಸೆಷನ್ ಪ್ರಕಾರ"
+  },
+  "pomodoro_short_break": {
+    "message": "ವಿರಾಮ (ನಿಮಿಷ)"
+  },
+  "pomodoro_rounds": {
+    "message": "ಸೆಷನ್‌ಗಳು"
+  },
+  "pomodoro_long_break": {
+    "message": "4 ಸೆಷನ್‌ಗಳ ನಂತರ ದೀರ್ಘ ವಿರಾಮ (ನಿಮಿಷ)"
+  },
+  "pomodoro_auto": {
+    "message": "ಮುಂದಿನ ಸೆಷನ್ ಅನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಪ್ರಾರಂಭಿಸಿ"
+  },
+  "pomodoro_break_note": {
+    "message": "ವಿರಾಮಗಳಲ್ಲಿಯೂ ಸಾಮಾನ್ಯ ನಿಯಮಗಳು ಮತ್ತು ದೈನಂದಿನ ಮಿತಿಗಳು ಅನ್ವಯಿಸುತ್ತವೆ."
+  },
+  "pomodoro_break": {
+    "message": "ವಿರಾಮ"
+  },
+  "pomodoro_ready": {
+    "message": "ಮುಂದಿನ ಸೆಷನ್‌ಗೆ ಸಿದ್ಧವಾಗಿದೆ"
+  },
+  "pomodoro_next": {
+    "message": "ಮುಂದಿನ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಿ"
+  },
+  "pomodoro_stop": {
+    "message": "ಚಕ್ರವನ್ನು ಮುಗಿಸಿ"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro ಚಕ್ರ ಪೂರ್ಣಗೊಂಡಿದೆ"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."
+  },
+  "pomodoro_changed": {
+    "message": "ಚಕ್ರ ಬದಲಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
   }
 }

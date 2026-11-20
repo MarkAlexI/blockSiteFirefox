@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Seite neu laden"
+  },
+  "pomodoro_type": {
+    "message": "Sitzungstyp"
+  },
+  "pomodoro_short_break": {
+    "message": "Pause (Min.)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sitzungen"
+  },
+  "pomodoro_long_break": {
+    "message": "Lange Pause nach 4 Sitzungen (Min.)"
+  },
+  "pomodoro_auto": {
+    "message": "Nächste Sitzung automatisch starten"
+  },
+  "pomodoro_break_note": {
+    "message": "Normale Regeln und Tageslimits gelten auch in Pausen."
+  },
+  "pomodoro_break": {
+    "message": "Pause"
+  },
+  "pomodoro_ready": {
+    "message": "Bereit für die nächste Sitzung"
+  },
+  "pomodoro_next": {
+    "message": "Nächste Sitzung starten"
+  },
+  "pomodoro_stop": {
+    "message": "Zyklus beenden"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-Zyklus abgeschlossen"
+  },
+  "pomodoro_invalid": {
+    "message": "Prüfe die Pomodoro-Einstellungen."
+  },
+  "pomodoro_changed": {
+    "message": "Der Zyklus wurde geändert. Versuche es erneut."
   }
 }

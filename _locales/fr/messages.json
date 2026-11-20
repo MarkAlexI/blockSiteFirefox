@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Recharger la page"
+  },
+  "pomodoro_type": {
+    "message": "Type de session"
+  },
+  "pomodoro_short_break": {
+    "message": "Pause (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sessions"
+  },
+  "pomodoro_long_break": {
+    "message": "Pause longue après 4 sessions (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Démarrer automatiquement la session suivante"
+  },
+  "pomodoro_break_note": {
+    "message": "Les règles habituelles et les limites quotidiennes restent actives pendant les pauses."
+  },
+  "pomodoro_break": {
+    "message": "Pause"
+  },
+  "pomodoro_ready": {
+    "message": "Prêt pour la session suivante"
+  },
+  "pomodoro_next": {
+    "message": "Démarrer la session suivante"
+  },
+  "pomodoro_stop": {
+    "message": "Terminer le cycle"
+  },
+  "pomodoro_complete": {
+    "message": "Cycle Pomodoro terminé"
+  },
+  "pomodoro_invalid": {
+    "message": "Vérifiez les paramètres Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Le cycle a changé. Réessayez."
   }
 }

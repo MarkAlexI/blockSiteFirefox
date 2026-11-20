@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Herlaai bladsy"
+  },
+  "pomodoro_type": {
+    "message": "Sessietipe"
+  },
+  "pomodoro_short_break": {
+    "message": "Pouse (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sessies"
+  },
+  "pomodoro_long_break": {
+    "message": "Lang pouse ná 4 sessies (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Begin die volgende sessie outomaties"
+  },
+  "pomodoro_break_note": {
+    "message": "Gewone reëls en daaglikse perke bly aktief tydens pouses."
+  },
+  "pomodoro_break": {
+    "message": "Pouse"
+  },
+  "pomodoro_ready": {
+    "message": "Gereed vir die volgende sessie"
+  },
+  "pomodoro_next": {
+    "message": "Begin volgende sessie"
+  },
+  "pomodoro_stop": {
+    "message": "Beëindig siklus"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-siklus voltooi"
+  },
+  "pomodoro_invalid": {
+    "message": "Gaan die Pomodoro-instellings na."
+  },
+  "pomodoro_changed": {
+    "message": "Die siklus het verander. Probeer weer."
   }
 }

@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Pakia upya ukurasa"
+  },
+  "pomodoro_type": {
+    "message": "Aina ya kipindi"
+  },
+  "pomodoro_short_break": {
+    "message": "Mapumziko (dakika)"
+  },
+  "pomodoro_rounds": {
+    "message": "Vipindi"
+  },
+  "pomodoro_long_break": {
+    "message": "Mapumziko marefu baada ya vipindi 4 (dakika)"
+  },
+  "pomodoro_auto": {
+    "message": "Anza kipindi kinachofuata kiotomatiki"
+  },
+  "pomodoro_break_note": {
+    "message": "Sheria za kawaida na vikomo vya kila siku vinaendelea kutumika wakati wa mapumziko."
+  },
+  "pomodoro_break": {
+    "message": "Mapumziko"
+  },
+  "pomodoro_ready": {
+    "message": "Tayari kwa kipindi kinachofuata"
+  },
+  "pomodoro_next": {
+    "message": "Anza kipindi kinachofuata"
+  },
+  "pomodoro_stop": {
+    "message": "Maliza mzunguko"
+  },
+  "pomodoro_complete": {
+    "message": "Mzunguko wa Pomodoro umekamilika"
+  },
+  "pomodoro_invalid": {
+    "message": "Angalia mipangilio ya Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Mzunguko umebadilika. Jaribu tena."
   }
 }

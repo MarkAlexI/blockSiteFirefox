@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "પૃષ્ઠ ફરી લોડ કરો"
+  },
+  "pomodoro_type": {
+    "message": "સત્રનો પ્રકાર"
+  },
+  "pomodoro_short_break": {
+    "message": "વિરામ (મિનિટ)"
+  },
+  "pomodoro_rounds": {
+    "message": "સત્રોની સંખ્યા"
+  },
+  "pomodoro_long_break": {
+    "message": "4 સત્રો પછી લાંબો વિરામ (મિનિટ)"
+  },
+  "pomodoro_auto": {
+    "message": "આગલું સત્ર આપમેળે શરૂ કરો"
+  },
+  "pomodoro_break_note": {
+    "message": "વિરામ દરમિયાન પણ સામાન્ય નિયમો અને દૈનિક મર્યાદાઓ લાગુ રહે છે."
+  },
+  "pomodoro_break": {
+    "message": "વિરામ"
+  },
+  "pomodoro_ready": {
+    "message": "આગલા સત્ર માટે તૈયાર"
+  },
+  "pomodoro_next": {
+    "message": "આગલું સત્ર શરૂ કરો"
+  },
+  "pomodoro_stop": {
+    "message": "ચક્ર સમાપ્ત કરો"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro ચક્ર પૂર્ણ થયું"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro સેટિંગ્સ તપાસો."
+  },
+  "pomodoro_changed": {
+    "message": "ચક્ર બદલાયું છે. ફરી પ્રયાસ કરો."
   }
 }

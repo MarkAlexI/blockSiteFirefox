@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "重新載入頁面"
+  },
+  "pomodoro_type": {
+    "message": "工作階段類型"
+  },
+  "pomodoro_short_break": {
+    "message": "休息（分鐘）"
+  },
+  "pomodoro_rounds": {
+    "message": "工作階段數"
+  },
+  "pomodoro_long_break": {
+    "message": "每4次工作階段後的長休息（分鐘）"
+  },
+  "pomodoro_auto": {
+    "message": "自動開始下個工作階段"
+  },
+  "pomodoro_break_note": {
+    "message": "休息期間，一般規則和每日限額仍然生效。"
+  },
+  "pomodoro_break": {
+    "message": "休息"
+  },
+  "pomodoro_ready": {
+    "message": "可以開始下個工作階段"
+  },
+  "pomodoro_next": {
+    "message": "開始下個工作階段"
+  },
+  "pomodoro_stop": {
+    "message": "結束循環"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro 循環已完成"
+  },
+  "pomodoro_invalid": {
+    "message": "請檢查 Pomodoro 設定。"
+  },
+  "pomodoro_changed": {
+    "message": "循環已變更，請重試。"
   }
 }

@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Поново учитај страницу"
+  },
+  "pomodoro_type": {
+    "message": "Тип сесије"
+  },
+  "pomodoro_short_break": {
+    "message": "Пауза (мин)"
+  },
+  "pomodoro_rounds": {
+    "message": "Сесије"
+  },
+  "pomodoro_long_break": {
+    "message": "Дуга пауза после 4 сесије (мин)"
+  },
+  "pomodoro_auto": {
+    "message": "Аутоматски покрени следећу сесију"
+  },
+  "pomodoro_break_note": {
+    "message": "Уобичајена правила и дневна ограничења важе и током пауза."
+  },
+  "pomodoro_break": {
+    "message": "Пауза"
+  },
+  "pomodoro_ready": {
+    "message": "Спремно за следећу сесију"
+  },
+  "pomodoro_next": {
+    "message": "Покрени следећу сесију"
+  },
+  "pomodoro_stop": {
+    "message": "Заврши циклус"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro циклус завршен"
+  },
+  "pomodoro_invalid": {
+    "message": "Проверите Pomodoro подешавања."
+  },
+  "pomodoro_changed": {
+    "message": "Циклус је промењен. Покушајте поново."
   }
 }

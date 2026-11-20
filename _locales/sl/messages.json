@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Znova naloži stran"
+  },
+  "pomodoro_type": {
+    "message": "Vrsta seje"
+  },
+  "pomodoro_short_break": {
+    "message": "Odmor (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Seje"
+  },
+  "pomodoro_long_break": {
+    "message": "Dolg odmor po 4 sejah (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Samodejno začni naslednjo sejo"
+  },
+  "pomodoro_break_note": {
+    "message": "Običajna pravila in dnevne omejitve veljajo tudi med odmori."
+  },
+  "pomodoro_break": {
+    "message": "Odmor"
+  },
+  "pomodoro_ready": {
+    "message": "Pripravljeno na naslednjo sejo"
+  },
+  "pomodoro_next": {
+    "message": "Začni naslednjo sejo"
+  },
+  "pomodoro_stop": {
+    "message": "Končaj cikel"
+  },
+  "pomodoro_complete": {
+    "message": "Cikel Pomodoro je končan"
+  },
+  "pomodoro_invalid": {
+    "message": "Preverite nastavitve Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Cikel se je spremenil. Poskusite znova."
   }
 }

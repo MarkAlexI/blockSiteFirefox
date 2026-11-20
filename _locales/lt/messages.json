@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Įkelti puslapį iš naujo"
+  },
+  "pomodoro_type": {
+    "message": "Seanso tipas"
+  },
+  "pomodoro_short_break": {
+    "message": "Pertrauka (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Seansai"
+  },
+  "pomodoro_long_break": {
+    "message": "Ilga pertrauka po 4 seansų (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Automatiškai pradėti kitą seansą"
+  },
+  "pomodoro_break_note": {
+    "message": "Įprastos taisyklės ir dienos limitai galioja ir per pertraukas."
+  },
+  "pomodoro_break": {
+    "message": "Pertrauka"
+  },
+  "pomodoro_ready": {
+    "message": "Pasiruošta kitam seansui"
+  },
+  "pomodoro_next": {
+    "message": "Pradėti kitą seansą"
+  },
+  "pomodoro_stop": {
+    "message": "Baigti ciklą"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro ciklas baigtas"
+  },
+  "pomodoro_invalid": {
+    "message": "Patikrinkite Pomodoro nustatymus."
+  },
+  "pomodoro_changed": {
+    "message": "Ciklas pasikeitė. Bandykite dar kartą."
   }
 }

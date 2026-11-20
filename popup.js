@@ -16,6 +16,7 @@ import { initializeNoSpaceInputs } from './utils/noSpaces.js';
 import { configureUrlInput } from './dom/urlInput.js';
 import Logger from './utils/logger.js';
 import { getFocusSessionState } from './utils/focusSession.js';
+import { PomodoroUI } from './utils/pomodoroUI.js';
 import { MAX_RULES_LIMIT } from './utils/constants.js';
 import { scrollToTop, mountScroll } from './dom/scrollToTop.js';
 import { ScheduleFormatter } from './utils/scheduleFormatter.js';
@@ -72,6 +73,7 @@ class PopupPage {
     this.hardcoreModeControl = document.getElementById('hardcore-mode-control');
     this.hardcoreModeCheckbox = document.getElementById('focus-hardcore-mode');
     this.focusTimerInterval = null;
+    this.pomodoro = new PomodoroUI(this, browser);
     
     this.thisTabs = [];
     this.settings = {};
@@ -128,7 +130,7 @@ class PopupPage {
     this.storageChangeHandler = (changes, areaName) => {
       if (areaName !== 'local') return;
 
-      if (changes?.focusSession) void this.updateFocusUI();
+      if (changes?.focusSession || changes?.pomodoroSession) void this.updateFocusUI();
 
       if (changes?.statistics) {
         this.updateStatisticsSummary(changes.statistics.newValue);
@@ -739,7 +741,10 @@ class PopupPage {
     const generation = this.focusRenderGeneration = (this.focusRenderGeneration || 0) + 1;
     const refresh = (async () => {
       let state;
-      try { state = await getFocusSessionState({ throwOnError: true }); }
+      try {
+        await this.pomodoro?.recoverIfNeeded();
+        state = await getFocusSessionState({ throwOnError: true });
+      }
       catch (error) {
         if (this.focusDisposed) return false;
         if (generation !== this.focusRenderGeneration) return this.focusRefresh;
@@ -781,6 +786,8 @@ class PopupPage {
         if (!paid) this.focusDurationInput.value = 25;
         if (this.focusModeSelect) this.focusModeSelect.value = paid && focusMode ? focusMode : 'blacklist';
       }
+      await this.pomodoro?.render(state);
+      if (generation !== this.focusRenderGeneration) return this.focusRefresh;
       this.syncFocusPending();
       const action = this.focusAction;
       if (needsFocus || (action?.ownsFocus && !action.moved && (focused === action.anchor || focused === document.body))) {
@@ -875,6 +882,7 @@ class PopupPage {
       this.reportFocusDurationError(); return;
     }
     this.clearFocusDurationError();
+    if (this.pomodoro?.selected) return this.pomodoro.start();
     const paid = this.isPro || this.isLegacyUser;
     await this.runFocusAction('start', { type: 'start_focus_session', duration,
       isHardcore: Boolean(paid && this.hardcoreModeCheckbox.checked),
@@ -906,7 +914,7 @@ class PopupPage {
     }
     if (this.focusDisposed) return;
     if (response?.success !== true || !refreshed) {
-      customAlert(t(response?.code === 'pro_required' ? 'prorequired' : response?.code === 'invalid_focus_duration' ? 'focussessioninvalidduration' : 'errorupdatingrules'));
+      customAlert(t(response?.code === 'pro_required' ? 'prorequired' : response?.code === 'invalid_focus_duration' ? 'focussessioninvalidduration' : response?.code === 'invalid_pomodoro' ? 'pomodoro_invalid' : response?.code === 'pomodoro_changed' ? 'pomodoro_changed' : 'errorupdatingrules'));
     } else if (response.syncPending === true) customAlert(t('ruleschangessavedpending'));
     else this.announceFocusTransition(previous);
   }
@@ -1108,6 +1116,7 @@ class PopupPage {
   
   cleanup() {
     this.focusDisposed = true;
+    this.pomodoro?.dispose();
     this.focusRenderGeneration = (this.focusRenderGeneration || 0) + 1;
     if (this.focusExpiryTimeout) clearTimeout(this.focusExpiryTimeout);
     this.rulesUI.cleanup();

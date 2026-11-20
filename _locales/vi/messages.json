@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Tải lại trang"
+  },
+  "pomodoro_type": {
+    "message": "Loại phiên"
+  },
+  "pomodoro_short_break": {
+    "message": "Nghỉ (phút)"
+  },
+  "pomodoro_rounds": {
+    "message": "Số phiên"
+  },
+  "pomodoro_long_break": {
+    "message": "Nghỉ dài sau 4 phiên (phút)"
+  },
+  "pomodoro_auto": {
+    "message": "Tự động bắt đầu phiên tiếp theo"
+  },
+  "pomodoro_break_note": {
+    "message": "Các quy tắc thông thường và giới hạn hằng ngày vẫn có hiệu lực khi nghỉ."
+  },
+  "pomodoro_break": {
+    "message": "Nghỉ"
+  },
+  "pomodoro_ready": {
+    "message": "Sẵn sàng cho phiên tiếp theo"
+  },
+  "pomodoro_next": {
+    "message": "Bắt đầu phiên tiếp theo"
+  },
+  "pomodoro_stop": {
+    "message": "Kết thúc chu kỳ"
+  },
+  "pomodoro_complete": {
+    "message": "Đã hoàn thành chu kỳ Pomodoro"
+  },
+  "pomodoro_invalid": {
+    "message": "Kiểm tra cài đặt Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Chu kỳ đã thay đổi. Hãy thử lại."
   }
 }

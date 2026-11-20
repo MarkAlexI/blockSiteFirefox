@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Obnoviť stránku"
+  },
+  "pomodoro_type": {
+    "message": "Typ relácie"
+  },
+  "pomodoro_short_break": {
+    "message": "Prestávka (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Relácie"
+  },
+  "pomodoro_long_break": {
+    "message": "Dlhá prestávka po 4 reláciách (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Automaticky spustiť ďalšiu reláciu"
+  },
+  "pomodoro_break_note": {
+    "message": "Bežné pravidlá a denné limity platia aj počas prestávok."
+  },
+  "pomodoro_break": {
+    "message": "Prestávka"
+  },
+  "pomodoro_ready": {
+    "message": "Pripravené na ďalšiu reláciu"
+  },
+  "pomodoro_next": {
+    "message": "Spustiť ďalšiu reláciu"
+  },
+  "pomodoro_stop": {
+    "message": "Ukončiť cyklus"
+  },
+  "pomodoro_complete": {
+    "message": "Cyklus Pomodoro dokončený"
+  },
+  "pomodoro_invalid": {
+    "message": "Skontrolujte nastavenia Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Cyklus sa zmenil. Skúste to znova."
   }
 }

@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Laadi leht uuesti"
+  },
+  "pomodoro_type": {
+    "message": "Seansi tüüp"
+  },
+  "pomodoro_short_break": {
+    "message": "Paus (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Seansid"
+  },
+  "pomodoro_long_break": {
+    "message": "Pikk paus pärast 4 seanssi (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Alusta järgmist seanssi automaatselt"
+  },
+  "pomodoro_break_note": {
+    "message": "Tavalised reeglid ja päevapiirangud kehtivad ka pausidel."
+  },
+  "pomodoro_break": {
+    "message": "Paus"
+  },
+  "pomodoro_ready": {
+    "message": "Valmis järgmiseks seansiks"
+  },
+  "pomodoro_next": {
+    "message": "Alusta järgmist seanssi"
+  },
+  "pomodoro_stop": {
+    "message": "Lõpeta tsükkel"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro tsükkel lõpetatud"
+  },
+  "pomodoro_invalid": {
+    "message": "Kontrolli Pomodoro seadeid."
+  },
+  "pomodoro_changed": {
+    "message": "Tsükkel muutus. Proovi uuesti."
   }
 }

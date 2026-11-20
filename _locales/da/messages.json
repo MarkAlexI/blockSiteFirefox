@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Genindlæs siden"
+  },
+  "pomodoro_type": {
+    "message": "Sessionstype"
+  },
+  "pomodoro_short_break": {
+    "message": "Pause (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sessioner"
+  },
+  "pomodoro_long_break": {
+    "message": "Lang pause efter 4 sessioner (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Start næste session automatisk"
+  },
+  "pomodoro_break_note": {
+    "message": "Almindelige regler og daglige grænser gælder også i pauserne."
+  },
+  "pomodoro_break": {
+    "message": "Pause"
+  },
+  "pomodoro_ready": {
+    "message": "Klar til næste session"
+  },
+  "pomodoro_next": {
+    "message": "Start næste session"
+  },
+  "pomodoro_stop": {
+    "message": "Afslut cyklus"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-cyklus fuldført"
+  },
+  "pomodoro_invalid": {
+    "message": "Kontrollér Pomodoro-indstillingerne."
+  },
+  "pomodoro_changed": {
+    "message": "Cyklussen er ændret. Prøv igen."
   }
 }

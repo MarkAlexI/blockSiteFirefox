@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "ページを再読み込み"
+  },
+  "pomodoro_type": {
+    "message": "セッションの種類"
+  },
+  "pomodoro_short_break": {
+    "message": "休憩（分）"
+  },
+  "pomodoro_rounds": {
+    "message": "セッション数"
+  },
+  "pomodoro_long_break": {
+    "message": "4セッション後の長い休憩（分）"
+  },
+  "pomodoro_auto": {
+    "message": "次のセッションを自動的に開始"
+  },
+  "pomodoro_break_note": {
+    "message": "休憩中も通常のルールと1日の制限は有効です。"
+  },
+  "pomodoro_break": {
+    "message": "休憩"
+  },
+  "pomodoro_ready": {
+    "message": "次のセッションを開始できます"
+  },
+  "pomodoro_next": {
+    "message": "次のセッションを開始"
+  },
+  "pomodoro_stop": {
+    "message": "サイクルを終了"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro サイクルが完了しました"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro の設定を確認してください。"
+  },
+  "pomodoro_changed": {
+    "message": "サイクルが変更されました。もう一度お試しください。"
   }
 }

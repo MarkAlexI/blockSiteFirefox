@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "பக்கத்தை மீண்டும் ஏற்று"
+  },
+  "pomodoro_type": {
+    "message": "அமர்வு வகை"
+  },
+  "pomodoro_short_break": {
+    "message": "இடைவேளை (நிமிடம்)"
+  },
+  "pomodoro_rounds": {
+    "message": "அமர்வுகள்"
+  },
+  "pomodoro_long_break": {
+    "message": "4 அமர்வுகளுக்குப் பின் நீண்ட இடைவேளை (நிமிடம்)"
+  },
+  "pomodoro_auto": {
+    "message": "அடுத்த அமர்வைத் தானாகத் தொடங்கு"
+  },
+  "pomodoro_break_note": {
+    "message": "இடைவேளையிலும் வழக்கமான விதிகளும் தினசரி வரம்புகளும் செயல்படும்."
+  },
+  "pomodoro_break": {
+    "message": "இடைவேளை"
+  },
+  "pomodoro_ready": {
+    "message": "அடுத்த அமர்வுக்குத் தயார்"
+  },
+  "pomodoro_next": {
+    "message": "அடுத்த அமர்வைத் தொடங்கு"
+  },
+  "pomodoro_stop": {
+    "message": "சுழற்சியை முடி"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro சுழற்சி முடிந்தது"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro அமைப்புகளைச் சரிபார்க்கவும்."
+  },
+  "pomodoro_changed": {
+    "message": "சுழற்சி மாறிவிட்டது. மீண்டும் முயலவும்."
   }
 }

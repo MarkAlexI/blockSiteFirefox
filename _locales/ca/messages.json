@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Torna a carregar la pàgina"
+  },
+  "pomodoro_type": {
+    "message": "Tipus de sessió"
+  },
+  "pomodoro_short_break": {
+    "message": "Descans (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sessions"
+  },
+  "pomodoro_long_break": {
+    "message": "Descans llarg després de 4 sessions (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Inicia automàticament la sessió següent"
+  },
+  "pomodoro_break_note": {
+    "message": "Les regles habituals i els límits diaris continuen actius durant els descansos."
+  },
+  "pomodoro_break": {
+    "message": "Descans"
+  },
+  "pomodoro_ready": {
+    "message": "A punt per a la sessió següent"
+  },
+  "pomodoro_next": {
+    "message": "Inicia la sessió següent"
+  },
+  "pomodoro_stop": {
+    "message": "Finalitza el cicle"
+  },
+  "pomodoro_complete": {
+    "message": "Cicle Pomodoro completat"
+  },
+  "pomodoro_invalid": {
+    "message": "Revisa la configuració de Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "El cicle ha canviat. Torna-ho a provar."
   }
 }

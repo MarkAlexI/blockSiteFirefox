@@ -40,6 +40,13 @@
     </div>
     <div id="focus-controls">
       <div id="focus-start-view">
+        <div class="focus-mode-control">
+          <label for="focus-cycle-type" data-i18n="pomodoro_type">Session type</label>
+          <select id="focus-cycle-type">
+            <option value="single" data-i18n="focussessionheader">Focus Session</option>
+            <option value="pomodoro">Pomodoro</option>
+          </select>
+        </div>
         <div class="duration-control">
           <label for="focus-duration" data-i18n="focussessionduration"></label>
           <input type="number" id="focus-duration" value="25" min="1" max="240">
@@ -57,6 +64,15 @@
           <input type="checkbox" id="focus-hardcore-mode">
           <label for="focus-hardcore-mode" data-i18n="focussessionhardcore"></label>
         </div>
+        <div id="pomodoro-options" hidden>
+          <div class="pomodoro-settings">
+            <label><span data-i18n="pomodoro_short_break">Break (min)</span><input type="number" id="pomodoro-breakMinutes" min="1" max="240" value="5"></label>
+            <label><span data-i18n="pomodoro_rounds">Sessions</span><input type="number" id="pomodoro-rounds" min="1" max="12" value="4"></label>
+            <label><span data-i18n="pomodoro_long_break">Long break after 4 sessions (min)</span><input type="number" id="pomodoro-longBreakMinutes" min="1" max="240" value="15"></label>
+          </div>
+          <label class="pomodoro-auto"><input type="checkbox" id="pomodoro-autoContinue"><span data-i18n="pomodoro_auto">Start the next session automatically</span><span class="pro-note">Pro</span></label>
+          <p class="pomodoro-note" data-i18n="pomodoro_break_note">Regular rules and daily limits remain active during breaks.</p>
+        </div>
         <button type="button" id="start-focus-btn" class="action-btn" data-i18n="focussessionstart"></button>
       </div>
       <div id="focus-active-view" class="hidden">
@@ -64,6 +80,15 @@
         <div id="focus-timer-display" role="timer" aria-live="off" aria-labelledby="focus-active-label">00:00</div>
         <p id="focus-hardcore-description" data-i18n="focussessionhardcore" hidden></p>
         <button type="button" id="stop-focus-btn" class="action-btn delete-btn" data-i18n="focussessionstop"></button>
+      </div>
+      <div id="pomodoro-panel" hidden>
+        <p id="pomodoro-label" role="status" aria-live="polite" aria-atomic="true" dir="auto"></p>
+        <div id="pomodoro-timer" role="timer" aria-live="off" aria-labelledby="pomodoro-label"></div>
+        <div class="pomodoro-actions">
+          <button type="button" id="pomodoro-next" class="action-btn" data-i18n="pomodoro_next">Start next session</button>
+          <button type="button" id="pomodoro-stop" class="action-btn delete-btn" data-i18n="pomodoro_stop">End cycle</button>
+        </div>
+        <p class="pomodoro-note" data-i18n="pomodoro_break_note">Regular rules and daily limits remain active during breaks.</p>
       </div>
     </div>
     <div class="focus-schedule-summary" data-focus-schedule dir="auto">

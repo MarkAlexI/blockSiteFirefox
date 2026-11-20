@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "重新加载页面"
+  },
+  "pomodoro_type": {
+    "message": "会话类型"
+  },
+  "pomodoro_short_break": {
+    "message": "休息（分钟）"
+  },
+  "pomodoro_rounds": {
+    "message": "会话数"
+  },
+  "pomodoro_long_break": {
+    "message": "每4次会话后的长休息（分钟）"
+  },
+  "pomodoro_auto": {
+    "message": "自动开始下次会话"
+  },
+  "pomodoro_break_note": {
+    "message": "休息期间，常规规则和每日限额仍然生效。"
+  },
+  "pomodoro_break": {
+    "message": "休息"
+  },
+  "pomodoro_ready": {
+    "message": "可以开始下次会话"
+  },
+  "pomodoro_next": {
+    "message": "开始下次会话"
+  },
+  "pomodoro_stop": {
+    "message": "结束循环"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro 循环已完成"
+  },
+  "pomodoro_invalid": {
+    "message": "请检查 Pomodoro 设置。"
+  },
+  "pomodoro_changed": {
+    "message": "循环已更改，请重试。"
   }
 }

@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Ladda om sidan"
+  },
+  "pomodoro_type": {
+    "message": "Sessionstyp"
+  },
+  "pomodoro_short_break": {
+    "message": "Paus (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sessioner"
+  },
+  "pomodoro_long_break": {
+    "message": "Lång paus efter 4 sessioner (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Starta nästa session automatiskt"
+  },
+  "pomodoro_break_note": {
+    "message": "Vanliga regler och dagliga gränser gäller även under pauser."
+  },
+  "pomodoro_break": {
+    "message": "Paus"
+  },
+  "pomodoro_ready": {
+    "message": "Redo för nästa session"
+  },
+  "pomodoro_next": {
+    "message": "Starta nästa session"
+  },
+  "pomodoro_stop": {
+    "message": "Avsluta cykeln"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-cykeln är klar"
+  },
+  "pomodoro_invalid": {
+    "message": "Kontrollera Pomodoro-inställningarna."
+  },
+  "pomodoro_changed": {
+    "message": "Cykeln har ändrats. Försök igen."
   }
 }

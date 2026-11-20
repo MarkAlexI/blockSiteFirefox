@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "പേജ് വീണ്ടും ലോഡ് ചെയ്യുക"
+  },
+  "pomodoro_type": {
+    "message": "സെഷൻ തരം"
+  },
+  "pomodoro_short_break": {
+    "message": "ഇടവേള (മിനിറ്റ്)"
+  },
+  "pomodoro_rounds": {
+    "message": "സെഷനുകൾ"
+  },
+  "pomodoro_long_break": {
+    "message": "4 സെഷനുകൾക്ക് ശേഷം നീണ്ട ഇടവേള (മിനിറ്റ്)"
+  },
+  "pomodoro_auto": {
+    "message": "അടുത്ത സെഷൻ സ്വയമേവ ആരംഭിക്കുക"
+  },
+  "pomodoro_break_note": {
+    "message": "ഇടവേളകളിലും സാധാരണ നിയമങ്ങളും ദൈനംദിന പരിധികളും ബാധകമാണ്."
+  },
+  "pomodoro_break": {
+    "message": "ഇടവേള"
+  },
+  "pomodoro_ready": {
+    "message": "അടുത്ത സെഷന് തയ്യാറാണ്"
+  },
+  "pomodoro_next": {
+    "message": "അടുത്ത സെഷൻ ആരംഭിക്കുക"
+  },
+  "pomodoro_stop": {
+    "message": "ചക്രം അവസാനിപ്പിക്കുക"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro ചക്രം പൂർത്തിയായി"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro ക്രമീകരണങ്ങൾ പരിശോധിക്കുക."
+  },
+  "pomodoro_changed": {
+    "message": "ചക്രം മാറി. വീണ്ടും ശ്രമിക്കുക."
   }
 }

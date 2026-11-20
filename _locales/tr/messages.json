@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Sayfayı yenile"
+  },
+  "pomodoro_type": {
+    "message": "Oturum türü"
+  },
+  "pomodoro_short_break": {
+    "message": "Mola (dk)"
+  },
+  "pomodoro_rounds": {
+    "message": "Oturumlar"
+  },
+  "pomodoro_long_break": {
+    "message": "4 oturumdan sonra uzun mola (dk)"
+  },
+  "pomodoro_auto": {
+    "message": "Sonraki oturumu otomatik başlat"
+  },
+  "pomodoro_break_note": {
+    "message": "Normal kurallar ve günlük sınırlar molalarda da geçerlidir."
+  },
+  "pomodoro_break": {
+    "message": "Mola"
+  },
+  "pomodoro_ready": {
+    "message": "Sonraki oturuma hazır"
+  },
+  "pomodoro_next": {
+    "message": "Sonraki oturumu başlat"
+  },
+  "pomodoro_stop": {
+    "message": "Döngüyü bitir"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro döngüsü tamamlandı"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro ayarlarını kontrol edin."
+  },
+  "pomodoro_changed": {
+    "message": "Döngü değişti. Tekrar deneyin."
   }
 }

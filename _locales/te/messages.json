@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "పేజీని మళ్లీ లోడ్ చేయండి"
+  },
+  "pomodoro_type": {
+    "message": "సెషన్ రకం"
+  },
+  "pomodoro_short_break": {
+    "message": "విరామం (నిమిషాలు)"
+  },
+  "pomodoro_rounds": {
+    "message": "సెషన్లు"
+  },
+  "pomodoro_long_break": {
+    "message": "4 సెషన్ల తర్వాత సుదీర్ఘ విరామం (నిమిషాలు)"
+  },
+  "pomodoro_auto": {
+    "message": "తదుపరి సెషన్‌ను స్వయంచాలకంగా ప్రారంభించు"
+  },
+  "pomodoro_break_note": {
+    "message": "విరామాల్లో కూడా సాధారణ నియమాలు మరియు రోజువారీ పరిమితులు అమలులో ఉంటాయి."
+  },
+  "pomodoro_break": {
+    "message": "విరామం"
+  },
+  "pomodoro_ready": {
+    "message": "తదుపరి సెషన్‌కు సిద్ధంగా ఉంది"
+  },
+  "pomodoro_next": {
+    "message": "తదుపరి సెషన్‌ను ప్రారంభించు"
+  },
+  "pomodoro_stop": {
+    "message": "చక్రాన్ని ముగించు"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro చక్రం పూర్తయింది"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro సెట్టింగ్‌లను తనిఖీ చేయండి."
+  },
+  "pomodoro_changed": {
+    "message": "చక్రం మారింది. మళ్లీ ప్రయత్నించండి."
   }
 }

@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "ገጹን እንደገና ጫን"
+  },
+  "pomodoro_type": {
+    "message": "የክፍለ ጊዜ አይነት"
+  },
+  "pomodoro_short_break": {
+    "message": "እረፍት (ደቂቃ)"
+  },
+  "pomodoro_rounds": {
+    "message": "የክፍለ ጊዜ ብዛት"
+  },
+  "pomodoro_long_break": {
+    "message": "ከ4 ክፍለ ጊዜዎች በኋላ ረጅም እረፍት (ደቂቃ)"
+  },
+  "pomodoro_auto": {
+    "message": "ቀጣዩን ክፍለ ጊዜ በራስ-ሰር ጀምር"
+  },
+  "pomodoro_break_note": {
+    "message": "በእረፍት ጊዜም መደበኛ ደንቦች እና የቀን ገደቦች ንቁ ናቸው።"
+  },
+  "pomodoro_break": {
+    "message": "እረፍት"
+  },
+  "pomodoro_ready": {
+    "message": "ለቀጣዩ ክፍለ ጊዜ ዝግጁ"
+  },
+  "pomodoro_next": {
+    "message": "ቀጣዩን ክፍለ ጊዜ ጀምር"
+  },
+  "pomodoro_stop": {
+    "message": "ዑደቱን ጨርስ"
+  },
+  "pomodoro_complete": {
+    "message": "የPomodoro ዑደት ተጠናቋል"
+  },
+  "pomodoro_invalid": {
+    "message": "የPomodoro ቅንብሮችን ያረጋግጡ።"
+  },
+  "pomodoro_changed": {
+    "message": "ዑደቱ ተቀይሯል። እንደገና ይሞክሩ።"
   }
 }

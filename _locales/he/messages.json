@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "טעינת הדף מחדש"
+  },
+  "pomodoro_type": {
+    "message": "סוג הפעלה"
+  },
+  "pomodoro_short_break": {
+    "message": "הפסקה (דקות)"
+  },
+  "pomodoro_rounds": {
+    "message": "מספר הפעלות"
+  },
+  "pomodoro_long_break": {
+    "message": "הפסקה ארוכה אחרי 4 הפעלות (דקות)"
+  },
+  "pomodoro_auto": {
+    "message": "התחלת ההפעלה הבאה אוטומטית"
+  },
+  "pomodoro_break_note": {
+    "message": "הכללים הרגילים והמגבלות היומיות חלים גם בהפסקות."
+  },
+  "pomodoro_break": {
+    "message": "הפסקה"
+  },
+  "pomodoro_ready": {
+    "message": "מוכן להפעלה הבאה"
+  },
+  "pomodoro_next": {
+    "message": "התחלת ההפעלה הבאה"
+  },
+  "pomodoro_stop": {
+    "message": "סיום המחזור"
+  },
+  "pomodoro_complete": {
+    "message": "מחזור Pomodoro הושלם"
+  },
+  "pomodoro_invalid": {
+    "message": "יש לבדוק את הגדרות Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "המחזור השתנה. יש לנסות שוב."
   }
 }

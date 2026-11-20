@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Reîncarcă pagina"
+  },
+  "pomodoro_type": {
+    "message": "Tip de sesiune"
+  },
+  "pomodoro_short_break": {
+    "message": "Pauză (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sesiuni"
+  },
+  "pomodoro_long_break": {
+    "message": "Pauză lungă după 4 sesiuni (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Pornește automat următoarea sesiune"
+  },
+  "pomodoro_break_note": {
+    "message": "Regulile obișnuite și limitele zilnice rămân active în pauze."
+  },
+  "pomodoro_break": {
+    "message": "Pauză"
+  },
+  "pomodoro_ready": {
+    "message": "Pregătit pentru următoarea sesiune"
+  },
+  "pomodoro_next": {
+    "message": "Pornește următoarea sesiune"
+  },
+  "pomodoro_stop": {
+    "message": "Încheie ciclul"
+  },
+  "pomodoro_complete": {
+    "message": "Ciclu Pomodoro încheiat"
+  },
+  "pomodoro_invalid": {
+    "message": "Verifică setările Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Ciclul s-a schimbat. Încearcă din nou."
   }
 }

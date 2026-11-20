@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Обновить страницу"
+  },
+  "pomodoro_type": {
+    "message": "Тип сессии"
+  },
+  "pomodoro_short_break": {
+    "message": "Перерыв (мин)"
+  },
+  "pomodoro_rounds": {
+    "message": "Количество сессий"
+  },
+  "pomodoro_long_break": {
+    "message": "Длинный перерыв после 4 сессий (мин)"
+  },
+  "pomodoro_auto": {
+    "message": "Автоматически начинать следующую сессию"
+  },
+  "pomodoro_break_note": {
+    "message": "Во время перерывов действуют обычные правила и дневные лимиты."
+  },
+  "pomodoro_break": {
+    "message": "Перерыв"
+  },
+  "pomodoro_ready": {
+    "message": "Можно начинать следующую сессию"
+  },
+  "pomodoro_next": {
+    "message": "Начать следующую сессию"
+  },
+  "pomodoro_stop": {
+    "message": "Завершить цикл"
+  },
+  "pomodoro_complete": {
+    "message": "Цикл Pomodoro завершён"
+  },
+  "pomodoro_invalid": {
+    "message": "Проверьте настройки Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "Цикл изменился. Попробуйте ещё раз."
   }
 }

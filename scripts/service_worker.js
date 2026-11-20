@@ -15,6 +15,7 @@ import { openInstallPage } from '../utils/createInstallURL.js';
 import { shouldSkipSync } from '../utils/shouldSkipSync.js';
 import { isBlockedURL } from './isBlockedURL.js';
 import { getFocusSessionState, createFocusRecoveryTrace } from '../utils/focusSession.js';
+import { POMODORO_KEY, POMODORO_ALARM, POMODORO_AUTO_GRACE_MS, normalizePomodoroConfig, readPomodoro, startPomodoro, matchesPomodoroWork, completePomodoroWork, nextPomodoroWork, readyPomodoro } from '../utils/focusSession.js';
 import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer, getDnrSyncFailureCode } from './dnrSynchronizer.js';
 import { createSpaNavigationEnforcer } from './spaNavigationEnforcer.js';
@@ -638,13 +639,13 @@ async function ensureFocusCompletionAlarm(endTime, shouldContinue, step) {
   return true;
 }
 
-async function showFocusCompletionNotification() {
+async function showFocusCompletionNotification(messageKey = 'focussessionended') {
   if (!browser.notifications) return;
   await browser.notifications.create('focus_session_ended', {
     type: 'basic',
     iconUrl: browser.runtime.getURL('images/icon-192.png'),
     title: browser.i18n.getMessage('focussessionheader'),
-    message: browser.i18n.getMessage('focussessionended'),
+    message: browser.i18n.getMessage(messageKey),
     priority: 2
   });
 }
@@ -697,7 +698,13 @@ async function reconcileStoredFocusSession(reason, {
   );
   if (!shouldContinue()) return { status: 'superseded' };
 
-  await step('state_write', () => browser.storage.local.set({ focusSession: { ...INACTIVE_FOCUS_SESSION } }));
+  const cycle = readPomodoro((await browser.storage.local.get(POMODORO_KEY))[POMODORO_KEY]);
+  if (!shouldContinue()) return { status: 'superseded' };
+  const cycleWork = hasValidEndTime && matchesPomodoroWork(cycle, focusSession);
+  const nextCycle = cycleWork ? completePomodoroWork(cycle, now) : null;
+  await step('state_write', () => browser.storage.local.set({ focusSession: { ...INACTIVE_FOCUS_SESSION },
+    ...(cycleWork ? { [POMODORO_KEY]: nextCycle } : {}) }));
+  if (cycleWork) await runFocusCompletionTask('Pomodoro break alarm', () => armPomodoro(nextCycle));
   if (invalidateGeneration && shouldContinue()) {
     focusSessionTransitionGeneration += 1;
   }
@@ -746,7 +753,8 @@ async function reconcileStoredFocusSession(reason, {
   }
   // Feedback is best effort after the durable completion. Audio/notification
   // failures and slow platform replies must not hold the state mutation queue.
-  void runFocusCompletionTask('completion notification', showFocusCompletionNotification);
+  void runFocusCompletionTask('completion notification', () => showFocusCompletionNotification(
+    cycleWork ? (nextCycle ? 'pomodoro_break' : 'pomodoro_complete') : 'focussessionended'));
   void runFocusCompletionTask('completion sound', () => focusSound.complete(endTime));
   return { status: 'completed' };
 }
@@ -787,7 +795,7 @@ function normalizeFocusSessionRequest(message) {
   return { durationMinutes, focusMode, isHardcore };
 }
 
-async function activateFocusSession(request, transitionGeneration, scheduledEndTime = null, isScheduledWindowCurrent = null) {
+async function activateFocusSession(request, transitionGeneration, scheduledEndTime = null, isScheduledWindowCurrent = null, cycle = undefined) {
   if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
   await reconcileStoredFocusSession('focus_start', {
@@ -814,8 +822,10 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
     focusActive: true,
     focusEndTime: endTime,
     isHardcore,
-    focusMode
+    focusMode,
+    ...(cycle ? { pomodoroId: cycle.id } : {})
   };
+  if (cycle) cycle = { ...cycle, phaseEndTime: endTime };
   const focusCapacity = await dnrSynchronizer.validateRuleCapacity(
     null,
     null,
@@ -834,6 +844,7 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
     };
   }
 
+  const previousCycle = cycle === undefined ? undefined : (await browser.storage.local.get(POMODORO_KEY))[POMODORO_KEY] ?? null;
   const previousFocusSession = await getFocusSessionForProtection();
   const previousFocusAlarm = previousFocusSession.focusActive
     ? { scheduledTime: previousFocusSession.focusEndTime }
@@ -845,7 +856,8 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
 
   if (Date.now() >= endTime || (isScheduledWindowCurrent && !isScheduledWindowCurrent())) return false;
   try {
-    await browser.storage.local.set({ focusSession: nextFocusSession });
+    await browser.storage.local.set({ focusSession: nextFocusSession,
+      ...(cycle === undefined ? {} : { [POMODORO_KEY]: cycle }) });
     if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
     await browser.alarms.create('end_focus_session', { when: endTime });
@@ -861,7 +873,8 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
     }
   } catch (error) {
     if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-    await browser.storage.local.set({ focusSession: previousFocusSession });
+    await browser.storage.local.set({ focusSession: previousFocusSession,
+      ...(cycle === undefined ? {} : { [POMODORO_KEY]: previousCycle }) });
     if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
     if (previousFocusAlarm) {
@@ -905,11 +918,90 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
   return true;
 }
 
+// A rejected intent may have superseded activation after its durable write.
+// Finish protection for that saved session before returning the rejection.
+async function preserveActiveFocus(focus, generation) {
+  const current = () => generation === focusSessionTransitionGeneration;
+  await ensureFocusCompletionAlarm(focus.focusEndTime, current, (_phase, operation) => operation());
+  if (!current()) return;
+  await dnrSynchronizer.requestSync();
+  if (focus.focusMode === 'whitelist' && current()) await checkAllTabsAgainstWhitelist(current);
+}
+
+async function armPomodoro(cycle) {
+  if (cycle?.phase !== 'break') {
+    await browser.alarms.clear(POMODORO_ALARM);
+    return;
+  }
+  const alarm = await getAlarm(POMODORO_ALARM);
+  if (!Number.isFinite(Number(alarm?.scheduledTime ?? alarm?.when)) || Math.abs(Number(alarm?.scheduledTime ?? alarm?.when) - cycle.phaseEndTime) > 1000) {
+    await browser.alarms.create(POMODORO_ALARM, { when: cycle.phaseEndTime });
+  }
+}
+
+async function continuePomodoroStored(cycle, generation) {
+  const next = nextPomodoroWork(cycle, Date.now());
+  const result = await activateFocusSession({ durationMinutes: next.workMinutes,
+    isHardcore: next.isHardcore, focusMode: next.focusMode }, generation, null, null, next);
+  if (result === true) await browser.alarms.clear(POMODORO_ALARM);
+  return result;
+}
+
+async function reconcilePomodoro(reason, expectedEndTime = null) {
+  const generation = focusSessionTransitionGeneration;
+  try {
+    return await enqueueFocusSessionTransition(async () => {
+      if (generation !== focusSessionTransitionGeneration) return;
+      const stored = await browser.storage.local.get([POMODORO_KEY, 'focusSession']);
+      if (generation !== focusSessionTransitionGeneration) return;
+      const cycle = readPomodoro(stored[POMODORO_KEY]);
+      if (!cycle) { await armPomodoro(null); return; }
+      if (cycle.phase === 'work') {
+        // A partial or corrupted state must not strand an invisible cycle.
+        if (!matchesPomodoroWork(cycle, stored.focusSession)) {
+          await browser.storage.local.set({ [POMODORO_KEY]: null });
+        }
+        await armPomodoro(null);
+        return;
+      }
+      if (cycle.phase !== 'break' || Date.now() < cycle.phaseEndTime) {
+        await armPomodoro(cycle);
+        return;
+      }
+      if (expectedEndTime !== null && Math.abs(expectedEndTime - cycle.phaseEndTime) > 1000) return;
+      const ready = readyPomodoro(cycle);
+      // Commit the waiting state BEFORE activation: a crash cannot replay an auto-start.
+      await browser.storage.local.set({ [POMODORO_KEY]: ready });
+      await armPomodoro(ready);
+      if (generation !== focusSessionTransitionGeneration) return;
+      if (cycle.autoContinue) {
+        // Recheck at every automatic transition, including restored cycles.
+        const access = await getFocusAccess();
+        if (generation !== focusSessionTransitionGeneration) return;
+        if (!access.isPro && !access.isLegacyUser) {
+          await browser.storage.local.set({ [POMODORO_KEY]: { ...ready, autoContinue: false } });
+        } else if (Date.now() - cycle.phaseEndTime <= POMODORO_AUTO_GRACE_MS) {
+          await continuePomodoroStored(ready, generation);
+          return;
+        }
+      }
+      void runFocusCompletionTask('Pomodoro break notification', () => showFocusCompletionNotification('pomodoro_ready'));
+    });
+  } catch (error) {
+    logger.error('Pomodoro recovery failed:', error);
+    await diagnosticStore.recordEvent('error', 'focus', 'pomodoro_recovery_failed', { reason, error });
+    return { status: 'failed' };
+  }
+}
+
 const focusScheduleController = createFocusScheduleController({
   storage: browser.storage.local,
   alarms: browser.alarms,
   getAccess: getFocusAccess,
-  getSession: getFocusSessionForProtection,
+  getSession: async () => {
+    const [session, stored] = await Promise.all([getFocusSessionForProtection(), browser.storage.local.get(POMODORO_KEY)]);
+    return { ...session, focusActive: session.focusActive || Boolean(readPomodoro(stored[POMODORO_KEY])) };
+  },
   runExclusive: enqueueFocusSessionTransition,
   startSession: (occurrence, transitionGeneration, isCurrentWindow) => activateFocusSession({
     durationMinutes: (occurrence.endTime - occurrence.startTime) / 60_000,
@@ -918,6 +1010,7 @@ const focusScheduleController = createFocusScheduleController({
 });
 
 async function reconcileScheduledFocus(reason = 'worker_load') {
+  await reconcilePomodoro(reason);
   const trace = createFocusRecoveryTrace();
   const generation = focusSessionTransitionGeneration;
   let failurePhase;
@@ -2274,6 +2367,53 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
+  if (message.type === 'pomodoro_status') {
+    (async () => {
+      const focus = await reconcileFocusSession('popup');
+      const cycle = await reconcilePomodoro('popup');
+      sendResponse({ success: focus?.status !== 'failed' && cycle?.status !== 'failed' });
+    })().catch(() => sendResponse({ success: false }));
+    return true;
+  }
+
+  if (message.type === 'start_pomodoro' || message.type === 'continue_pomodoro') {
+    invalidateBlockingDecisions();
+    const generation = ++focusSessionTransitionGeneration;
+    (async () => {
+      try {
+        const result = await enqueueFocusSessionTransition(async () => {
+          if (generation !== focusSessionTransitionGeneration) return false;
+          const stored = await browser.storage.local.get([POMODORO_KEY, 'focusSession']);
+          const cycle = readPomodoro(stored[POMODORO_KEY]);
+          const focus = stored.focusSession;
+          if (focus?.focusActive && focus.focusEndTime > Date.now()) {
+            await preserveActiveFocus(focus, generation);
+            return { success: false, code: focus.isHardcore ? 'hardcore_active' : 'focus_active' };
+          }
+          if (generation !== focusSessionTransitionGeneration) return false;
+          if (message.type === 'continue_pomodoro') {
+            if (!cycle || cycle.phase === 'work' || cycle.id !== message.id || cycle.completedRounds !== message.completedRounds) return { success: false, code: 'pomodoro_changed' };
+            await focusScheduleController.suppressCurrent();
+            return continuePomodoroStored(cycle, generation);
+          }
+          if (cycle) return { success: false, code: 'pomodoro_changed' };
+          const config = normalizePomodoroConfig(message.config, await getFocusAccess());
+          if (generation !== focusSessionTransitionGeneration) return false;
+          await focusScheduleController.suppressCurrent();
+          const next = startPomodoro(config, Date.now(), crypto.randomUUID());
+          return activateFocusSession({ durationMinutes: config.workMinutes,
+            isHardcore: config.isHardcore, focusMode: config.focusMode }, generation, null, null, next);
+        });
+        sendResponse(typeof result === 'object' ? result : { success: true, ...(!result ? { superseded: true } : {}) });
+      } catch (error) {
+        if (['pro_required', 'invalid_pomodoro'].includes(error.code)) logger.info('Pomodoro action rejected:', error.code);
+        else logger.error('Pomodoro action failed:', error);
+        sendResponse({ success: false, code: error.code || 'pomodoro_failed' });
+      }
+    })();
+    return true;
+  }
+
   if (message.type === 'start_focus_session') {
     const request = normalizeFocusSessionRequest(message);
     if (request.error) {
@@ -2287,6 +2427,12 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       try {
         const completed = await enqueueFocusSessionTransition(async () => {
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+          const stored = await browser.storage.local.get([POMODORO_KEY, 'focusSession']);
+          if (stored.focusSession?.focusActive && stored.focusSession.isHardcore && stored.focusSession.focusEndTime > Date.now()) {
+            await preserveActiveFocus(stored.focusSession, transitionGeneration);
+            return { success: false, code: 'hardcore_active' };
+          }
+          if (readPomodoro(stored[POMODORO_KEY])) return { success: false, code: 'pomodoro_changed' };
           await focusScheduleController.suppressCurrent();
           return activateFocusSession(request, transitionGeneration);
         });
@@ -2318,7 +2464,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
   
-  if (message.type === 'stop_focus_session') {
+  if (message.type === 'stop_focus_session' || message.type === 'stop_pomodoro') {
     invalidateBlockingDecisions();
     const transitionGeneration = ++focusSessionTransitionGeneration;
     (async () => {
@@ -2326,6 +2472,16 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const completed = await enqueueFocusSessionTransition(async () => {
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
+          const before = await browser.storage.local.get([POMODORO_KEY, 'focusSession']);
+          const cycle = readPomodoro(before[POMODORO_KEY]);
+          if (message.type === 'stop_pomodoro' && (!cycle || cycle.id !== message.id)) return { success: false, code: 'pomodoro_changed' };
+          if (before.focusSession?.focusActive && before.focusSession.isHardcore && before.focusSession.focusEndTime > Date.now()) {
+            const access = await getFocusAccess();
+            if (access.isPro || access.isLegacyUser) {
+              await preserveActiveFocus(before.focusSession, transitionGeneration);
+              return { success: false, code: 'hardcore_active' };
+            }
+          }
           await focusScheduleController.suppressCurrent();
           await dailyLimitTracker.sample('focus_stop_before');
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
@@ -2333,12 +2489,13 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
           const { focusSession: previousFocusSession } = await browser.storage.local.get(['focusSession']);
           if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
-          await browser.storage.local.set({ focusSession: { ...INACTIVE_FOCUS_SESSION } });
+          await browser.storage.local.set({ focusSession: { ...INACTIVE_FOCUS_SESSION }, [POMODORO_KEY]: null });
           let syncResult;
           try {
             // Finish a committed Stop before the next queued Start can write its state.
             await dailyLimitTracker.sample('focus_stop_after');
             await browser.alarms.clear('end_focus_session');
+            await browser.alarms.clear(POMODORO_ALARM);
             syncResult = await dnrSynchronizer.requestSync();
           } finally {
             // Count the stored active -> inactive transition, including a pending DNR sync.
@@ -2445,6 +2602,10 @@ browser.alarms.onAlarm.addListener(alarm =>
     await reconcileScheduledFocus('scheduled_focus_alarm');
   }
 
+  if (alarm.name === POMODORO_ALARM) {
+    await reconcilePomodoro('alarm', alarm.scheduledTime);
+    return;
+  }
   if (alarm.name === 'end_focus_session') {
     await reconcileFocusSession('alarm', {
       expectedEndTime: alarm.scheduledTime,

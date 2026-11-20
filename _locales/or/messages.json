@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "ପୃଷ୍ଠା ପୁଣି ଲୋଡ୍ କରନ୍ତୁ"
+  },
+  "pomodoro_type": {
+    "message": "ସେସନ୍ ପ୍ରକାର"
+  },
+  "pomodoro_short_break": {
+    "message": "ବିରତି (ମିନିଟ୍)"
+  },
+  "pomodoro_rounds": {
+    "message": "ସେସନ୍ ସଂଖ୍ୟା"
+  },
+  "pomodoro_long_break": {
+    "message": "4ଟି ସେସନ୍ ପରେ ଲମ୍ବା ବିରତି (ମିନିଟ୍)"
+  },
+  "pomodoro_auto": {
+    "message": "ପରବର୍ତ୍ତୀ ସେସନ୍ ସ୍ୱୟଂଚାଳିତ ଭାବେ ଆରମ୍ଭ କରନ୍ତୁ"
+  },
+  "pomodoro_break_note": {
+    "message": "ବିରତି ସମୟରେ ମଧ୍ୟ ସାଧାରଣ ନିୟମ ଓ ଦୈନିକ ସୀମା ଲାଗୁ ରହେ।"
+  },
+  "pomodoro_break": {
+    "message": "ବିରତି"
+  },
+  "pomodoro_ready": {
+    "message": "ପରବର୍ତ୍ତୀ ସେସନ୍ ପାଇଁ ପ୍ରସ୍ତୁତ"
+  },
+  "pomodoro_next": {
+    "message": "ପରବର୍ତ୍ତୀ ସେସନ୍ ଆରମ୍ଭ କରନ୍ତୁ"
+  },
+  "pomodoro_stop": {
+    "message": "ଚକ୍ର ସମାପ୍ତ କରନ୍ତୁ"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro ଚକ୍ର ସମ୍ପୂର୍ଣ୍ଣ ହେଲା"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro ସେଟିଂସ୍ ଯାଞ୍ଚ କରନ୍ତୁ।"
+  },
+  "pomodoro_changed": {
+    "message": "ଚକ୍ର ବଦଳିଛି। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
   }
 }

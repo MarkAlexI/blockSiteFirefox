@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "페이지 새로고침"
+  },
+  "pomodoro_type": {
+    "message": "세션 유형"
+  },
+  "pomodoro_short_break": {
+    "message": "휴식(분)"
+  },
+  "pomodoro_rounds": {
+    "message": "세션 수"
+  },
+  "pomodoro_long_break": {
+    "message": "4회 세션 후 긴 휴식(분)"
+  },
+  "pomodoro_auto": {
+    "message": "다음 세션 자동 시작"
+  },
+  "pomodoro_break_note": {
+    "message": "휴식 중에도 일반 규칙과 일일 제한이 적용됩니다."
+  },
+  "pomodoro_break": {
+    "message": "휴식"
+  },
+  "pomodoro_ready": {
+    "message": "다음 세션을 시작할 수 있습니다"
+  },
+  "pomodoro_next": {
+    "message": "다음 세션 시작"
+  },
+  "pomodoro_stop": {
+    "message": "주기 종료"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro 주기 완료"
+  },
+  "pomodoro_invalid": {
+    "message": "Pomodoro 설정을 확인하세요."
+  },
+  "pomodoro_changed": {
+    "message": "주기가 변경되었습니다. 다시 시도하세요."
   }
 }

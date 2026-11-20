@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "بارگذاری دوبارهٔ صفحه"
+  },
+  "pomodoro_type": {
+    "message": "نوع جلسه"
+  },
+  "pomodoro_short_break": {
+    "message": "استراحت (دقیقه)"
+  },
+  "pomodoro_rounds": {
+    "message": "تعداد جلسات"
+  },
+  "pomodoro_long_break": {
+    "message": "استراحت طولانی پس از ۴ جلسه (دقیقه)"
+  },
+  "pomodoro_auto": {
+    "message": "شروع خودکار جلسه بعدی"
+  },
+  "pomodoro_break_note": {
+    "message": "قوانین معمول و محدودیت‌های روزانه در زمان استراحت هم فعال می‌مانند."
+  },
+  "pomodoro_break": {
+    "message": "استراحت"
+  },
+  "pomodoro_ready": {
+    "message": "آماده برای جلسه بعدی"
+  },
+  "pomodoro_next": {
+    "message": "شروع جلسه بعدی"
+  },
+  "pomodoro_stop": {
+    "message": "پایان چرخه"
+  },
+  "pomodoro_complete": {
+    "message": "چرخه Pomodoro کامل شد"
+  },
+  "pomodoro_invalid": {
+    "message": "تنظیمات Pomodoro را بررسی کنید."
+  },
+  "pomodoro_changed": {
+    "message": "چرخه تغییر کرده است. دوباره تلاش کنید."
   }
 }

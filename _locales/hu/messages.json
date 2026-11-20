@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Oldal újratöltése"
+  },
+  "pomodoro_type": {
+    "message": "Munkamenet típusa"
+  },
+  "pomodoro_short_break": {
+    "message": "Szünet (perc)"
+  },
+  "pomodoro_rounds": {
+    "message": "Munkamenetek"
+  },
+  "pomodoro_long_break": {
+    "message": "Hosszú szünet 4 munkamenet után (perc)"
+  },
+  "pomodoro_auto": {
+    "message": "Következő munkamenet automatikus indítása"
+  },
+  "pomodoro_break_note": {
+    "message": "A szokásos szabályok és napi korlátok a szünetekben is érvényesek."
+  },
+  "pomodoro_break": {
+    "message": "Szünet"
+  },
+  "pomodoro_ready": {
+    "message": "Készen áll a következő munkamenetre"
+  },
+  "pomodoro_next": {
+    "message": "Következő munkamenet indítása"
+  },
+  "pomodoro_stop": {
+    "message": "Ciklus befejezése"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-ciklus befejezve"
+  },
+  "pomodoro_invalid": {
+    "message": "Ellenőrizze a Pomodoro beállításait."
+  },
+  "pomodoro_changed": {
+    "message": "A ciklus megváltozott. Próbálja újra."
   }
 }

@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "إعادة تحميل الصفحة"
+  },
+  "pomodoro_type": {
+    "message": "نوع الجلسة"
+  },
+  "pomodoro_short_break": {
+    "message": "استراحة (دقائق)"
+  },
+  "pomodoro_rounds": {
+    "message": "عدد الجلسات"
+  },
+  "pomodoro_long_break": {
+    "message": "استراحة طويلة بعد 4 جلسات (دقائق)"
+  },
+  "pomodoro_auto": {
+    "message": "بدء الجلسة التالية تلقائيًا"
+  },
+  "pomodoro_break_note": {
+    "message": "تظل القواعد المعتادة والحدود اليومية سارية أثناء الاستراحات."
+  },
+  "pomodoro_break": {
+    "message": "استراحة"
+  },
+  "pomodoro_ready": {
+    "message": "جاهز للجلسة التالية"
+  },
+  "pomodoro_next": {
+    "message": "بدء الجلسة التالية"
+  },
+  "pomodoro_stop": {
+    "message": "إنهاء الدورة"
+  },
+  "pomodoro_complete": {
+    "message": "اكتملت دورة Pomodoro"
+  },
+  "pomodoro_invalid": {
+    "message": "تحقق من إعدادات Pomodoro."
+  },
+  "pomodoro_changed": {
+    "message": "تغيرت الدورة. حاول مرة أخرى."
   }
 }

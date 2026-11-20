@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "გვერდის ხელახლა ჩატვირთვა"
+  },
+  "pomodoro_type": {
+    "message": "სესიის ტიპი"
+  },
+  "pomodoro_short_break": {
+    "message": "შესვენება (წთ)"
+  },
+  "pomodoro_rounds": {
+    "message": "სესიების რაოდენობა"
+  },
+  "pomodoro_long_break": {
+    "message": "ხანგრძლივი შესვენება 4 სესიის შემდეგ (წთ)"
+  },
+  "pomodoro_auto": {
+    "message": "შემდეგი სესიის ავტომატურად დაწყება"
+  },
+  "pomodoro_break_note": {
+    "message": "შესვენების დროს ჩვეულებრივი წესები და დღიური ლიმიტები კვლავ მოქმედებს."
+  },
+  "pomodoro_break": {
+    "message": "შესვენება"
+  },
+  "pomodoro_ready": {
+    "message": "მზადაა შემდეგი სესიისთვის"
+  },
+  "pomodoro_next": {
+    "message": "შემდეგი სესიის დაწყება"
+  },
+  "pomodoro_stop": {
+    "message": "ციკლის დასრულება"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-ს ციკლი დასრულდა"
+  },
+  "pomodoro_invalid": {
+    "message": "შეამოწმეთ Pomodoro-ს პარამეტრები."
+  },
+  "pomodoro_changed": {
+    "message": "ციკლი შეიცვალა. სცადეთ ხელახლა."
   }
 }

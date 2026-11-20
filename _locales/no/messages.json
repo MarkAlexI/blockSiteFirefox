@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Last inn siden på nytt"
+  },
+  "pomodoro_type": {
+    "message": "Økttype"
+  },
+  "pomodoro_short_break": {
+    "message": "Pause (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Økter"
+  },
+  "pomodoro_long_break": {
+    "message": "Lang pause etter 4 økter (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Start neste økt automatisk"
+  },
+  "pomodoro_break_note": {
+    "message": "Vanlige regler og daglige grenser gjelder også i pausene."
+  },
+  "pomodoro_break": {
+    "message": "Pause"
+  },
+  "pomodoro_ready": {
+    "message": "Klar for neste økt"
+  },
+  "pomodoro_next": {
+    "message": "Start neste økt"
+  },
+  "pomodoro_stop": {
+    "message": "Avslutt syklusen"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro-syklusen er fullført"
+  },
+  "pomodoro_invalid": {
+    "message": "Kontroller Pomodoro-innstillingene."
+  },
+  "pomodoro_changed": {
+    "message": "Syklusen er endret. Prøv igjen."
   }
 }

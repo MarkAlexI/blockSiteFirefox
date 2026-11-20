@@ -1270,5 +1270,44 @@
   },
   "options_reload_page": {
     "message": "Pārlādēt lapu"
+  },
+  "pomodoro_type": {
+    "message": "Sesijas veids"
+  },
+  "pomodoro_short_break": {
+    "message": "Pārtraukums (min)"
+  },
+  "pomodoro_rounds": {
+    "message": "Sesijas"
+  },
+  "pomodoro_long_break": {
+    "message": "Garš pārtraukums pēc 4 sesijām (min)"
+  },
+  "pomodoro_auto": {
+    "message": "Automātiski sākt nākamo sesiju"
+  },
+  "pomodoro_break_note": {
+    "message": "Parastie noteikumi un dienas limiti darbojas arī pārtraukumos."
+  },
+  "pomodoro_break": {
+    "message": "Pārtraukums"
+  },
+  "pomodoro_ready": {
+    "message": "Gatavs nākamajai sesijai"
+  },
+  "pomodoro_next": {
+    "message": "Sākt nākamo sesiju"
+  },
+  "pomodoro_stop": {
+    "message": "Beigt ciklu"
+  },
+  "pomodoro_complete": {
+    "message": "Pomodoro cikls pabeigts"
+  },
+  "pomodoro_invalid": {
+    "message": "Pārbaudiet Pomodoro iestatījumus."
+  },
+  "pomodoro_changed": {
+    "message": "Cikls ir mainījies. Mēģiniet vēlreiz."
   }
 }

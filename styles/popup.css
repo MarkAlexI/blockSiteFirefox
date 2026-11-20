@@ -796,3 +796,14 @@ button:disabled {
 @media (forced-colors: active) {
   #block-that, #block-that .site-domain { color: ButtonText; }
 }
+
+
+.pomodoro-settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-block: 12px; }
+.pomodoro-settings label { display: flex; flex-direction: column; gap: 5px; }
+.pomodoro-settings label:last-child { grid-column: 1 / -1; }
+.pomodoro-settings input { width: 100%; box-sizing: border-box; }
+.pomodoro-auto { display: flex; align-items: flex-start; gap: 8px; }
+.pomodoro-note { font-size: 0.85rem; line-height: 1.45; color: #555; }
+.pomodoro-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#pomodoro-timer { font-size: 1.6rem; font-variant-numeric: tabular-nums; margin-block: 8px; }
+#pomodoro-panel[hidden], #pomodoro-options[hidden] { display: none; }

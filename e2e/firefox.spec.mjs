@@ -311,3 +311,5 @@ scenarios.push({ ...mutationContinuityScenario, async prepare(e) {
   e.mutationNavigation = createMutationNavigationProbe();
   e.config.fixtureHtml = url => e.mutationNavigation.htmlFor(url);
 } });
+
+scenarios.push(...(await import('./pomodoro-scenarios.mjs')).pomodoroScenarios);
