@@ -30,6 +30,14 @@ body {
   transition: opacity 0.1s ease-in-out;
 }
 
+/* Keep native toolbar sizing unchanged; only menu pages get the width cap. */
+body[data-popup-surface="page"] {
+  box-sizing: border-box;
+  max-inline-size: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2.5vw, 1.25rem);
+}
+
 body.ready {
   opacity: 1;
   overflow-y: auto;
