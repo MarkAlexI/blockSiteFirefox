@@ -981,3 +981,85 @@ urlSafetyScenarios.push({
     await e.assertBlocked('http://news-minimum.bd-e2e.test/page', 'always');
   }
 });
+
+urlSafetyScenarios.push({
+  id: '103', title: 'URL safety retains empty hashes, bare target aliases, short fragments and protected absolute domains',
+  async run(e) {
+    await e.seed({ pro: true });
+    const page = await e.openOptions();
+    const add = async (blockURL, redirectURL = '') => {
+      const state = await e.state();
+      return message(page, { type: 'rules:add', payload: { blockURL, redirectURL, category: 'social',
+        assignment: { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null },
+        expectedGeneration: state.rulesGeneration ?? null, expectedListRevisions: state.ruleListRevisions || {} } });
+    };
+    assert.equal((await add('docs.bd-e2e.test/blockdistraction')).success, true);
+    const alias = await add('https://docs.bd-e2e.test/blockdistraction');
+    assert.equal(alias.success, false);
+    assert.equal(alias.error.code, 'rule_already_exists');
+    for (const target of ['hash.bd-e2e.test/p:item|', 'yout', 'block']) {
+      const added = await add(target);
+      assert.equal(added.success, true); assert.equal(added.syncPending, false);
+    }
+    const rules = (await e.state()).dnr;
+    assert.ok(rules.every(rule => rule.condition.excludedRequestDomains.includes('blockdistraction.com.')));
+    await e.assertBlocked('http://hash.bd-e2e.test/p:item', 'always');
+    await e.assertBlocked('http://m.youtube.bd-e2e.test/watch', 'always');
+    for (const url of ['http://hash.bd-e2e.test/p:item#', 'http://hash.bd-e2e.test/p:item?#',
+      'http://notyoutube.bd-e2e.test/yout']) {
+      const control = await e.newPage(url);
+      assert.equal(await control.url(), url);
+      assert.equal(await control.evaluate(() => document.querySelector('h1')?.textContent), 'BD E2E fixture', url);
+    }
+  }
+});
+
+urlSafetyScenarios.push({
+  id: '104', title: 'URL safety stops legacy redirect cycles and preserves safe chains, blockers and overlap priorities',
+  async run(e) {
+    const assignment = { listId: 'general', disabledByUser: false, blockingMode: 'always', schedule: null, dailyLimit: null };
+    const row = (id, blockURL, redirectURL = '') => ({ id, blockURL, redirectURL, category: 'social',
+      isWhitelist: false, assignments: [assignment] });
+    const rules = [
+      row(1041, 'loop.bd-e2e.test', 'http://loop.bd-e2e.test/landing'),
+      row(1042, 'cycle-a.bd-e2e.test', 'http://cycle-b.bd-e2e.test/'),
+      row(1043, 'cycle-b.bd-e2e.test', 'http://cycle-a.bd-e2e.test/'),
+      row(1044, 'chain-a.bd-e2e.test', 'http://chain-b.bd-e2e.test/'),
+      row(1045, 'chain-b.bd-e2e.test', 'http://clean.bd-e2e.test/landing'),
+      row(1046, 'terminal-a.bd-e2e.test', 'http://terminal-b.bd-e2e.test/'),
+      row(1047, 'terminal-b.bd-e2e.test'),
+      row(1048, 'overlap-a.bd-e2e.test', 'http://overlap-b.bd-e2e.test/team'),
+      row(1049, 'overlap-b.bd-e2e.test', 'http://overlap-a.bd-e2e.test/'),
+      row(1050, 'overlap-b.bd-e2e.test/team'),
+      row(1051, 'same.bd-e2e.test', 'http://same.bd-e2e.test/team'),
+      row(1052, 'same.bd-e2e.test/team')
+    ];
+    await e.seed({ pro: true, rules });
+    const page = await e.openOptions();
+    await e.reconcile(page);
+    const before = await e.state(['statistics']);
+    const added = await message(page, { type: 'rules:add', payload: { blockURL: 'new-loop.bd-e2e.test',
+      redirectURL: 'http://new-loop.bd-e2e.test/landing', category: 'social', assignment,
+      expectedGeneration: before.rulesGeneration ?? null, expectedListRevisions: before.ruleListRevisions || {} } });
+    assert.equal(added.success, true);
+    assert.equal(added.syncPending, false);
+    const stored = (await e.state()).rules;
+    for (const url of ['http://loop.bd-e2e.test/start', 'http://cycle-a.bd-e2e.test/start', 'http://new-loop.bd-e2e.test/start']) {
+      const blocked = await e.assertBlocked(url);
+      assert.equal(await blocked.url(), `${e.baseUrl}/blocked.html`, 'cyclic custom redirects use the safe fallback');
+    }
+    const afterCycles = await e.state(['statistics']);
+    assert.equal(afterCycles.statistics.totalRedirects, before.statistics.totalRedirects, 'denied cycles do not add redirects');
+    const safe = await e.newPage('http://chain-a.bd-e2e.test/start');
+    await poll(() => safe.url(), url => url === 'http://clean.bd-e2e.test/landing', 'safe native redirect chain');
+    await poll(() => e.state(['statistics']), state => state.statistics.totalRedirects === before.statistics.totalRedirects + 2,
+      'safe chain records each actual redirect once');
+    // A normal terminal blocker and a higher-priority path blocker are not cycles.
+    await e.assertBlocked('http://terminal-a.bd-e2e.test/start', 'always');
+    await e.assertBlocked('http://overlap-a.bd-e2e.test/start', 'always');
+    await e.assertBlocked('http://same.bd-e2e.test/start', 'always');
+    await poll(() => e.state(['statistics']), state => state.statistics.totalRedirects === before.statistics.totalRedirects + 5,
+      'terminal and overlap redirects remain authorized');
+    assert.deepEqual((await e.state()).rules, stored, 'saved rules remain available for repair');
+  }
+});

@@ -7,8 +7,13 @@ const PROTECTED_REQUEST_DOMAINS = Object.freeze([
   'markdigital.cc'
 ]);
 
+// DNR preserves a domain's final DNS root dot when checking exclusions.
+const PROTECTED_DOMAIN_VARIANTS = Object.freeze(
+  PROTECTED_REQUEST_DOMAINS.flatMap(domain => [domain, `${domain}.`])
+);
+
 export function getProtectedRequestDomains() {
-  return PROTECTED_REQUEST_DOMAINS;
+  return PROTECTED_DOMAIN_VARIANTS;
 }
 
 export function isProtectedRequestHostname(hostname) {
@@ -16,7 +21,7 @@ export function isProtectedRequestHostname(hostname) {
     ? hostname.trim().toLowerCase()
     : '';
 
-  return normalized !== '' && PROTECTED_REQUEST_DOMAINS.some(domain =>
+  return normalized !== '' && PROTECTED_DOMAIN_VARIANTS.some(domain =>
     normalized === domain || normalized.endsWith(`.${domain}`)
   );
 }

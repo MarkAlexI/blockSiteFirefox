@@ -38,12 +38,16 @@ function findPart(candidate, part, from, allowEndSeparator = false) {
   return -1;
 }
 
-function matchesUrlFilter(candidate, filter) {
+function compileFilter(filter) {
   let endAnchored = filter.endsWith('|');
   const pattern = endAnchored ? filter.slice(0, -1) : filter;
   // A final wildcard can consume the remaining URL, even before a final '|'.
   if (pattern.endsWith('*')) endAnchored = false;
   const parts = pattern.split('*').filter(Boolean);
+  return { endAnchored, parts };
+}
+
+function matchesUrlFilter(candidate, { endAnchored, parts }) {
   if (parts.length === 0) return !endAnchored;
   if (parts.length === 1) {
     const part = parts[0];
@@ -78,7 +82,10 @@ function buildDomainAnchoredCandidates(url) {
     // URL.search is empty for both an absent query and an explicit final '?'.
     // Keep that delimiter for DNR right anchors; '?' inside a hash is not query.
     const search = parsed.search || (parsed.href.split('#', 1)[0].includes('?') ? '?' : '');
-    const tail = `${port}${parsed.pathname || '/'}${search}${parsed.hash || ''}`.toLowerCase();
+    // URL.hash also hides an explicitly empty fragment. DNR end anchors
+    // distinguish /path from /path# and /path? from /path?#.
+    const hash = parsed.hash || (parsed.href.includes('#') ? '#' : '');
+    const tail = `${port}${parsed.pathname || '/'}${search}${hash}`.toLowerCase();
     const labels = hostname.split('.');
     const candidates = [];
     for (let index = 0; index < labels.length; index++) {
@@ -99,7 +106,26 @@ function buildDomainAnchoredCandidates(url) {
 export function doesUrlMatchBlockRule(url, blockURL) {
   const filter = normalizeFilter(blockURL);
   if (!filter || !url) return false;
-  return buildDomainAnchoredCandidates(url).some(candidate => matchesUrlFilter(candidate, filter));
+  const compiled = compileFilter(filter);
+  return buildDomainAnchoredCandidates(url).some(candidate => matchesUrlFilter(candidate, compiled));
+}
+
+/** Selects from this extension's installed main-frame domain filters. Compile
+ * each native filter once and parse each destination once while tracing a
+ * redirect chain; never reinterpret a compiled filter as a user-entered URL. */
+export function createDnrRuleMatcher(rules) {
+  const entries = rules.filter(rule => rule.condition?.resourceTypes?.includes('main_frame'))
+    .flatMap(rule => {
+      const filter = rule.condition.urlFilter;
+      if (typeof filter !== 'string' || !filter.startsWith('||') || filter.length <= 2 ||
+          filter.startsWith('||*') || /[^\x00-\x7F]/.test(filter)) return [];
+      return [{ rule, filter: compileFilter(filter.slice(2).toLowerCase()) }];
+    })
+    .sort((left, right) => (right.rule.priority || 1) - (left.rule.priority || 1));
+  return url => {
+    const candidates = buildDomainAnchoredCandidates(url);
+    return entries.find(entry => candidates.some(candidate => matchesUrlFilter(candidate, entry.filter)))?.rule || null;
+  };
 }
 
 export function findBestMatchingRule(url, rules) {

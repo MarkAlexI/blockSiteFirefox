@@ -28,7 +28,7 @@ const BARE_HOST_PORT_PATTERN = /^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?:\d{1,5}(?:[/?#
 /**
  * Distinguishes explicit URL schemes from the extension's flexible bare
  * domain, path, and partial-target syntax. Common host:port input remains
- * available even though its port is not part of the DNR matching contract.
+ * available as part of the DNR matching contract.
  */
 export function hasUnsupportedExplicitScheme(value) {
   const target = typeof value === 'string' ? value.trim() : '';
@@ -80,27 +80,20 @@ export function isBlockedURL(tabs) {
   }
 
   if (!parsed || (parsed.protocol !== 'http:' && parsed.protocol !== 'https:')) {
-    let pastedHostname = '';
     try {
-      pastedHostname = new URL(`https://${url}`).hostname;
+      parsed = new URL(`https://${url}`);
     } catch {
-      // Invalid inputs retain the existing browser and project pattern checks.
+      // Advanced patterns that are not URLs keep their existing guard.
+      return [...blockedPatterns, ...protectedProjectPatterns]
+        .some(pattern => pattern.test(url));
     }
-
-    if (isProtectedRequestHostname(pastedHostname)) return true;
-    return [...blockedPatterns, ...protectedProjectPatterns]
-      .some(pattern => pattern.test(url));
+    // Retain the existing reserved project-name fragment. Other successfully
+    // parsed bare targets use the same hostname checks as their full URLs.
+    if (typeof url === 'string' && /^blockdistraction$/i.test(url)) return true;
   }
 
   const safeUrl = `${parsed.protocol}//${parsed.host}${parsed.pathname}`;
   const hostname = parsed.hostname.toLowerCase();
-  const isProtectedProjectHost = [
-    /(?:^|\.)blockdistraction\.com$/i,
-    /(?:^|\.)markdigital\.cc$/i,
-    /(?:^|\.)ext\.pp\.ua$/i
-  ].some(pattern => pattern.test(hostname));
-
   return blockedPatterns.some(pattern => pattern.test(safeUrl)) ||
-    isProtectedRequestHostname(hostname) ||
-    isProtectedProjectHost;
+    isProtectedRequestHostname(hostname);
 }

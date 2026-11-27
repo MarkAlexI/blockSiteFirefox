@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.7.3] - 2026-11-27
+
+### Fixed
+- Prevent redirect rules from repeatedly sending a website back to itself or into a cycle.
+- Keep exact URL matching consistent for addresses ending in an empty fragment.
+- Accept equivalent website targets with or without a protocol.
+- Preserve protected website access when a domain ends in a DNS root dot.
+
 ## [5.7.2] - 2026-11-27
 
 ### Fixed
