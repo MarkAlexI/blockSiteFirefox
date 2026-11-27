@@ -78,7 +78,12 @@ export function assertUpgradeRuleToggle(state, enabled) {
 
 export function assertUpgradeDnrRules(before, after) {
   const definitions = rules => rules.map(({ priority, ...definition }) => definition);
-  assert.deepEqual(definitions(after.dnr), definitions(before.dnr), 'native blocking definitions survive the update');
+  // 5.7.3 adds only the absolute DNS form of each existing exclusion. Keep
+  // comparing every other native field, including the original exclusions.
+  const expected = before.dnr.map(rule => ({ ...rule, condition: { ...rule.condition,
+    excludedRequestDomains: [...new Set(rule.condition.excludedRequestDomains.flatMap(domain =>
+      domain.endsWith('.') ? [domain] : [domain, `${domain}.`]))] } }));
+  assert.deepEqual(definitions(after.dnr), definitions(expected), 'native blocking definitions survive the update');
   // Priorities intentionally change from the old all-100 batch. Verify the
   // new policy instead of treating that deliberate field change as data loss.
   const positions = new Map(after.rules.map((rule, index) => [rule.id, index]));

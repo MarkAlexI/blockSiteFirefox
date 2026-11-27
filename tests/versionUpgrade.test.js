@@ -16,9 +16,11 @@ function sample(version='5.4.14'){
     dnr:[{id:901},{id:902}],alarms:[{name:'end_focus_session',scheduledTime:301000},
       {name:'start_scheduled_focus',scheduledTime:3601000}]};
   const factory = createDnrRuleFactory(path => `https://extension.invalid/${path}`);
-  before.dnr = [factory(901, 'upgrade-basic.test', '', 'focus'), factory(902, 'upgrade-daily.test', '', 'focus')];
+  const currentDnr = [factory(901, 'upgrade-basic.test', '', 'focus'), factory(902, 'upgrade-daily.test', '', 'focus')];
+  before.dnr = currentDnr.map(rule => ({ ...rule, condition: { ...rule.condition,
+    excludedRequestDomains: rule.condition.excludedRequestDomains.filter(domain => !domain.endsWith('.')) } }));
   const after={...structuredClone(before),version:expectedVersion,now:1100};
-  after.dnr = assignDnrRulePriorities(after.dnr);
+  after.dnr = assignDnrRulePriorities(structuredClone(currentDnr));
   const receipt={before:{id:before.id,version:before.version,pid:123,profile:'/owned/profile'},
     after:{id:after.id,version:after.version,pid:123,profile:'/owned/profile'},
     events:[{at:1050,extensionId:before.id,details:{reason:'update',previousVersion:before.version}}]};
@@ -50,6 +52,10 @@ for(const [name,change] of [
   ['changed native URL condition',s=>s.after.dnr[0].condition.urlFilter='||other.test'],
   ['changed native redirect',s=>s.after.dnr[0].action.redirect.url='https://other.test/'],
   ['changed native resource type',s=>s.after.dnr[0].condition.resourceTypes=['sub_frame']],
+  ['removed protected domain',s=>s.after.dnr[0].condition.excludedRequestDomains.shift()],
+  ['missing absolute protected domains',s=>s.after.dnr[0].condition.excludedRequestDomains=
+    s.after.dnr[0].condition.excludedRequestDomains.filter(domain=>!domain.endsWith('.'))],
+  ['unexpected domain exemption',s=>s.after.dnr[0].condition.excludedRequestDomains.push('unrelated.example')],
   ['equal native priorities',s=>s.after.dnr[0].priority=s.after.dnr[1].priority],
   ['reversed native precedence',s=>[s.after.dnr[0].priority,s.after.dnr[1].priority]=[100,101]]
 ])test(`${version} upgrade acceptance rejects ${name}`,()=>{

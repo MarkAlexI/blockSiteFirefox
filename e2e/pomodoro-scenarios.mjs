@@ -298,13 +298,22 @@ pomodoroScenarios.push({
     await until(() => state(e), s => s.pomodoroSession?.phase === 'work', 'Free work started');
     await finishPhase(page, 'work');
     await until(() => state(e), s => s.pomodoroSession?.phase === 'break', 'Free break');
-    const appearance = await page.evaluate(() => {
+    const appearance = await until(() => page.evaluate(() => {
       const next = document.getElementById('pomodoro-next');
       const css = getComputedStyle(next);
+      // The hidden Start button can retain :hover after native pointer input.
+      // Resolve this action's theme color for its own current pointer state.
+      const token = next.matches(':hover') ? '--secondary-hover' : '--secondary-color';
+      const reference = document.createElement('span');
+      reference.hidden = true;
+      reference.style.backgroundColor = css.getPropertyValue(token).trim();
+      document.body.append(reference);
+      const expected = getComputedStyle(reference).backgroundColor;
+      reference.remove();
       return { disabled: next.disabled, background: css.backgroundColor, color: css.color,
-        expected: getComputedStyle(document.getElementById('start-focus-btn')).backgroundColor, text: next.textContent,
+        expected, text: next.textContent,
         skip: (globalThis.browser || chrome).i18n.getMessage('pomodoro_skip_break') };
-    });
+    }), value => !value.disabled && value.background === value.expected, 'enabled primary action theme settled');
     assert.equal(appearance.disabled, false);
     assert.equal(appearance.background, appearance.expected);
     assert.notEqual(appearance.background, appearance.color);
