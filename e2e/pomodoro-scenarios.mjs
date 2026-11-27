@@ -54,8 +54,23 @@ async function finishPhase(page, phase) {
 
 async function press(page, key) { return page.keyboard ? page.keyboard.press(key) : page.press(key); }
 async function endPomodoro(page) {
-  const selector = await page.evaluate(() => !document.getElementById('stop-focus-btn').hidden &&
-    !document.getElementById('focus-active-view').hidden ? '#stop-focus-btn' : '#pomodoro-stop');
+  // Storage can commit before the popup renders the new phase. Click only the
+  // control for that phase, after the previous action and recovery have settled.
+  const selector = await until(() => page.evaluate(async () => {
+    const api = globalThis.browser || chrome;
+    const { pomodoroSession: cycle, focusSession: focus } = await api.storage.local.get(['pomodoroSession', 'focusSession']);
+    if (!cycle || (cycle.phase === 'break' && cycle.phaseEndTime <= Date.now())) return false;
+    const active = cycle.phase === 'work';
+    if (Boolean(focus?.focusActive) !== active || document.getElementById('focus-active-view').hidden === active) return false;
+    for (const id of ['focus-controls', 'pomodoro-panel']) {
+      if (document.getElementById(id).hasAttribute('aria-busy')) return false;
+    }
+    const selector = active ? '#stop-focus-btn' : '#pomodoro-stop';
+    const button = document.querySelector(selector);
+    if (cycle.phase === 'ready' && document.getElementById('pomodoro-next').textContent !== api.i18n.getMessage('pomodoro_next')) return false;
+    return !button.hidden && !button.disabled && button.getAttribute('aria-disabled') !== 'true' &&
+      button.getClientRects().length > 0 ? selector : false;
+  }), Boolean, 'End control matches the settled Pomodoro phase');
   await click(page, selector);
   await until(() => page.evaluate(() => document.getElementById('pomodoro-end-dialog').open), Boolean, 'End confirmation open');
   await click(page, '#pomodoro-end-dialog button[value="end"]');

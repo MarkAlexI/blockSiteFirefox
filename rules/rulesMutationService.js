@@ -546,7 +546,7 @@ export function createRulesMutationService({
   }
 
   async function syncAndNotify(rules, extra = {}) {
-    const syncResult = await dnrSynchronizer.requestSync();
+    const syncResult = await dnrSynchronizer.requestSync({ trigger: 'rules_change' });
     const syncPending = syncResult?.success === false;
     notifyRulesChanged(rules, { ...extra, syncPending });
     return { rules, syncPending, ...extra };
@@ -1311,7 +1311,7 @@ export function createRulesMutationService({
         }
         await saveCombinedState(nextRules, importedLists, importedActiveRuleListId, nextGeneration);
         localStateCommitted = true;
-        const syncResult = await dnrSynchronizer.requestSync();
+        const syncResult = await dnrSynchronizer.requestSync({ trigger: 'rules_change' });
         if (syncResult?.success === false) {
           throw new RulesMutationError(
             'import_sync_failed',
@@ -1343,7 +1343,7 @@ export function createRulesMutationService({
         }
         if (localStateCommitted) {
           try {
-            const rollbackSyncResult = await dnrSynchronizer.requestSync();
+            const rollbackSyncResult = await dnrSynchronizer.requestSync({ trigger: 'rules_rollback' });
             if (rollbackSyncResult?.success === false) {
               throw new Error('Browser blocking rules could not be restored');
             }

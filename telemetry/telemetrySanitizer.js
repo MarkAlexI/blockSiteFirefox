@@ -52,6 +52,8 @@ export const TELEMETRY_COUNTERS = new Set([
   'focus_started',
   'focus_stopped',
   'focus_completed',
+  'dnr_sync_failure_observed',
+  'dnr_sync_recovered',
   'diagnostic_report_generated',
   'pro_activation_notice_shown',
   'pro_activation_consent_requested',

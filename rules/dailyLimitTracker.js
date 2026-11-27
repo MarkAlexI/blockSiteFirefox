@@ -411,7 +411,7 @@ export function createDailyLimitTracker({
     }
 
     if (crossedLimit) {
-      await dnrSynchronizer.requestSync();
+      await dnrSynchronizer.requestSync({ trigger: 'daily_limit' });
     }
     return crossedLimit;
   }

@@ -4,6 +4,14 @@ import { GENERAL_RULE_LIST_ID } from '../rules/ruleListsManager.js';
 import { findBestMatchingRule } from '../rules/urlRuleMatcher.js';
 import { hasUnsupportedExplicitScheme } from './isBlockedURL.js';
 
+const DNR_SYNC_TRIGGERS = new Set(['unknown', 'minute_alarm', 'startup', 'initialize',
+  'focus_start', 'focus_rollback', 'focus_stop', 'focus_complete', 'focus_preserve',
+  'rules_change', 'rules_rollback', 'daily_limit', 'license_change', 'permissions', 'integrity']);
+
+export function normalizeDnrSyncTrigger(value) {
+  return DNR_SYNC_TRIGGERS.has(value) ? value : 'unknown';
+}
+
 const SAFE_DYNAMIC_RULE_ACTIONS = new Set([
   'block',
   'allow',
@@ -169,6 +177,7 @@ export function createDnrSynchronizer({
   let syncRequestedAgain = false;
   let syncGeneration = 0;
   let pendingTabReconciliation = false;
+  const pendingTriggers = new Set();
   let activeTabReconciliation = false;
 
   async function buildExpectedDnrState(candidate = {}, onStage = () => {}) {
@@ -343,7 +352,10 @@ export function createDnrSynchronizer({
     };
 
     do {
+      const observedTriggers = new Set();
       do {
+        for (const trigger of pendingTriggers) observedTriggers.add(trigger);
+        pendingTriggers.clear();
         syncRequestedAgain = false;
         const generation = syncGeneration;
         activeTabReconciliation = pendingTabReconciliation;
@@ -372,7 +384,7 @@ export function createDnrSynchronizer({
       } while (syncRequestedAgain);
 
       try {
-        await onSyncResult(lastResult);
+        await onSyncResult(lastResult, { triggers: [...observedTriggers].sort() });
       } catch (error) {
         logger.warn('Failed to record DNR sync diagnostics:', error);
       }
@@ -383,7 +395,8 @@ export function createDnrSynchronizer({
     return lastResult;
   }
 
-  function requestSync({ reconcileExistingTabs = true } = {}) {
+  function requestSync({ reconcileExistingTabs = true, trigger = 'unknown' } = {}) {
+    pendingTriggers.add(normalizeDnrSyncTrigger(trigger));
     onSyncRequested();
     pendingTabReconciliation ||= reconcileExistingTabs !== false;
     syncGeneration += 1;
@@ -466,7 +479,7 @@ export function createDnrSynchronizer({
 
       if (!state.inSync) {
         logger.warn('DNR rules out of sync, triggering sync...');
-        await requestSync();
+        await requestSync({ trigger: 'integrity' });
       }
 
       return state.inSync;

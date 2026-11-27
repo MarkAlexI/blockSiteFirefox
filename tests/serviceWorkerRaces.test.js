@@ -3036,9 +3036,14 @@ test('durable DNR deduplication preserves stage separation after a worker restar
 test('DNR stage failures do not create telemetry when consent is disabled', async () => {
   await withWorker(async ({ api, alarm }) => {
     api.permissions.getAll = async () => ({ data_collection: ['authenticationInfo'] });
+    const get = api.declarativeNetRequest.getDynamicRules;
     api.declarativeNetRequest.getDynamicRules = async () => { throw new Error('synthetic refusal'); };
     await alarm({ name: 'update_scheduled_rules' });
     assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.errorStage, 'read_dynamic_rules');
+    assert.deepEqual(api.storage.local.data.telemetryBuckets || {}, {});
+    api.declarativeNetRequest.getDynamicRules = get;
+    await alarm({ name: 'update_scheduled_rules' });
+    assert.equal(api.storage.local.data.diagnosticState.dnrSyncHealth.active, false);
     assert.deepEqual(api.storage.local.data.telemetryBuckets || {}, {});
   }, { supportsWindows: false });
 });
@@ -10270,3 +10275,156 @@ test('explicitly skipping a Hardcore break shortens the saved end time and rearm
     });
   });
 });
+for (const hardcore of [false, true]) {
+  test(`Pomodoro committed auto-continuation survives a rejected stale End (Hardcore: ${hardcore})`,
+    { timeout: 5000 }, async () => {
+      await withControlledClock(new Date(2026, 10, 20, 9), async clock => {
+        await withWorker(async ({ api, send, alarm }) => {
+          assert.equal((await send({ type: 'start_pomodoro', config: {
+            workMinutes: 1, breakMinutes: 1, rounds: 3, autoContinue: true, isHardcore: hardcore
+          } })).success, true);
+          const first = structuredClone(api.storage.local.data.pomodoroSession);
+          clock.set(new Date(first.phaseEndTime));
+          await alarm({ name: 'end_focus_session', scheduledTime: first.phaseEndTime });
+          const rest = structuredClone(api.storage.local.data.pomodoroSession);
+          const entered = createDeferred(), release = createDeferred();
+          const set = api.storage.local.set.bind(api.storage.local);
+          let held = false;
+          api.storage.local.set = async values => {
+            const result = await set(values);
+            if (!held && values.pomodoroSession?.phase === 'ready') {
+              held = true; entered.resolve(); await release.promise;
+            }
+            return result;
+          };
+          clock.set(new Date(rest.phaseEndTime));
+          const advancing = alarm({ name: 'pomodoro_break_end', scheduledTime: rest.phaseEndTime });
+          let stopping;
+          try {
+            await entered.promise;
+            stopping = send({ type: 'stop_pomodoro', id: rest.id, phase: 'break',
+              completedRounds: rest.completedRounds });
+          } finally { release.resolve(); }
+          await advancing;
+          assert.equal((await stopping).code, hardcore ? 'hardcore_active' : 'pomodoro_changed');
+          const next = api.storage.local.data.pomodoroSession;
+          assert.equal(next.phase, 'work');
+          assert.equal(next.completedRounds, 1);
+          assert.equal(next.hardcoreEndTime, first.hardcoreEndTime);
+          assert.equal(api.storage.local.data.focusSession.focusActive, true);
+          assert.equal(api.alarmValues.get('end_focus_session').when, next.phaseEndTime);
+          assert.equal(api.alarmValues.has('pomodoro_break_end'), false);
+          await send({ type: 'pomodoro_status' });
+          await alarm({ name: 'update_scheduled_rules' });
+          assert.equal(api.storage.local.data.pomodoroSession.phase, 'work');
+          assert.equal(api.storage.local.data.statistics.successfulFocusSessions, 1);
+        });
+      });
+    });
+}
+
+for (const interrupt of ['stale_end', 'normal_focus_start', 'valid_stop']) {
+  for (const rejectDnr of [false, true]) {
+    test(`Pomodoro committed activation finishes or rolls back before ${interrupt} (DNR failure: ${rejectDnr})`,
+      { timeout: 5000 }, async () => {
+        const rule = makeFocusRule(41, 'general', { blockURL: 'focus-only.example' });
+        rule.assignments[0].disabledByUser = true;
+        await withWorker(async ({ api, send, alarm }) => {
+          await alarm({ name: 'update_scheduled_rules' });
+          assert.deepEqual(api.dynamicRules, []);
+          const entered = createDeferred(), release = createDeferred();
+          const set = api.storage.local.set.bind(api.storage.local);
+          let held = false;
+          api.storage.local.set = async values => {
+            const result = await set(values);
+            if (!held && values.focusSession?.focusActive && values.pomodoroSession) {
+              held = true; entered.resolve(); await release.promise;
+            }
+            return result;
+          };
+          if (rejectDnr) {
+            const update = api.declarativeNetRequest.updateDynamicRules;
+            api.declarativeNetRequest.updateDynamicRules = async change => {
+              if (change.addRules.some(item => item.id === 41)) throw new Error('synthetic activation refusal');
+              return update(change);
+            };
+          }
+          const starting = send({ type: 'start_pomodoro', config: {} });
+          let queued;
+          try {
+            await entered.promise;
+            queued = send(interrupt === 'stale_end'
+              ? { type: 'stop_pomodoro', id: '00000000-0000-4000-8000-000000000099',
+                phase: 'work', completedRounds: 0 }
+              : interrupt === 'valid_stop' ? { type: 'stop_focus_session' }
+                : { type: 'start_focus_session', duration: 25 });
+          } finally { release.resolve(); }
+          const startResult = await starting;
+          const later = await queued;
+          if (rejectDnr) {
+            assert.equal(startResult.success, false);
+            assert.equal(api.storage.local.data.focusSession.focusActive, false);
+            assert.equal(api.storage.local.data.pomodoroSession ?? null, null);
+            assert.equal(api.alarmValues.has('end_focus_session'), false);
+            assert.deepEqual(api.dynamicRules, []);
+          } else if (interrupt === 'valid_stop') {
+            assert.equal(startResult.success, true);
+            assert.equal(later.success, true);
+            assert.equal(api.storage.local.data.focusSession.focusActive, false);
+            assert.equal(api.alarmValues.has('end_focus_session'), false);
+            assert.deepEqual(api.dynamicRules, []);
+          } else {
+            assert.equal(startResult.success, true);
+            assert.equal(later.code, 'pomodoro_changed');
+            const cycle = api.storage.local.data.pomodoroSession;
+            assert.equal(cycle.phase, 'work');
+            assert.equal(api.storage.local.data.focusSession.focusActive, true);
+            assert.equal(api.alarmValues.get('end_focus_session').when, cycle.phaseEndTime);
+            assert.deepEqual(api.dynamicRules.map(item => item.id), [41]);
+          }
+        }, { local: { rules: [rule], activeRuleListId: 'general' } });
+      });
+  }
+}
+
+test('DNR health records bounded repeat observations and recovery across a worker restart',
+  { timeout: 5000 }, async () => {
+    await withControlledClock(new Date(2026, 10, 27, 9), async clock => {
+      let persisted;
+      await withWorker(async ({ api, alarm, send }) => {
+        api.declarativeNetRequest.getDynamicRules = async () => { throw new Error('synthetic DNR read refusal'); };
+        await alarm({ name: 'update_scheduled_rules' });
+        const count = name => Object.values(api.storage.local.data.telemetryBuckets || {})
+          .reduce((sum, bucket) => sum + (bucket.counters?.[name] || 0), 0);
+        assert.equal(count('dnr_sync_failure_observed'), 1);
+        const first = structuredClone(api.storage.local.data.diagnosticState.dnrSyncHealth);
+        assert.equal(first.active, true);
+        assert.deepEqual(first.lastFailureTriggers, ['minute_alarm']);
+        clock.set(new Date(clock.now().getTime() + 60_000));
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.equal(count('dnr_sync_failure_observed'), 1);
+        assert.deepEqual(api.storage.local.data.diagnosticState.dnrSyncHealth, first);
+        clock.set(new Date(clock.now().getTime() + 14 * 60_000));
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.equal(count('dnr_sync_failure_observed'), 2);
+        const report = await send({ type: 'diagnostics:getReport' });
+        assert.equal(report.report.dnr.health.observations, 2);
+        persisted = structuredClone(api.storage.local.data);
+      }, { local: { telemetryConsent: { version: 1, enabled: true, decidedAt: 1 } }, supportsWindows: false });
+      await withWorker(async ({ api, alarm }) => {
+        clock.set(new Date(clock.now().getTime() + 60_000));
+        await alarm({ name: 'update_scheduled_rules' });
+        const health = api.storage.local.data.diagnosticState.dnrSyncHealth;
+        assert.equal(health.active, false);
+        assert.equal(health.observations, 2);
+        assert.equal(health.lastRecoveryDurationMs, 16 * 60_000);
+        assert.deepEqual(health.recoveryTriggers, ['minute_alarm']);
+        const count = name => Object.values(api.storage.local.data.telemetryBuckets || {})
+          .reduce((sum, bucket) => sum + (bucket.counters?.[name] || 0), 0);
+        assert.equal(count('dnr_sync_recovered'), 1);
+        await alarm({ name: 'update_scheduled_rules' });
+        assert.equal(count('dnr_sync_recovered'), 1);
+        assert.equal(api.storage.local.data.diagnosticState.lastDnrSync.success, true);
+      }, { local: persisted, supportsWindows: false });
+    });
+  });

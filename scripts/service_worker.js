@@ -33,6 +33,7 @@ import { createDailyLimitTracker, DAILY_LIMIT_DEADLINE_ALARM, DAILY_LIMIT_VISIBI
 import { createRulesMutationService, serializeRulesMutationError } from '../rules/rulesMutationService.js';
 import { RULES_INTENT_TYPES, createRulesIntentHandler } from '../rules/rulesIntentRouter.js';
 import { resolveRulePackEntries } from '../rules/rulePacks.js';
+import { createDnrSyncHealth } from '../diagnostics/dnrSyncHealth.js';
 import { createDiagnosticStore } from '../diagnostics/diagnosticStore.js';
 import { buildDiagnosticReport, detectBrowserSummary } from '../diagnostics/diagnosticReport.js';
 import { createHostPermissionMonitor, affectsRequiredHostAccess } from '../utils/hostPermissionMonitor.js';
@@ -250,6 +251,7 @@ async function settleRulesIntentPostCommitTasks(type, result) {
   }
 }
 
+const dnrSyncHealth = createDnrSyncHealth({ diagnosticStore, telemetryStore });
 let lastRecordedDnrFailureSignature = null;
 
 function getDnrFailureSignature(result) {
@@ -269,7 +271,13 @@ function getDnrFailureSignature(result) {
   ]);
 }
 
-async function recordDnrSyncResult(result) {
+async function recordDnrSyncResult(result, metadata) {
+  let recoveredHealth = false;
+  try {
+    recoveredHealth = (await dnrSyncHealth.record(result, metadata)).recovered;
+  } catch (error) {
+    logger.warn('DNR health observation could not be persisted:', error);
+  }
   const failureCode = getDnrSyncFailureCode(result);
   const failureSignature = !result.success
     ? getDnrFailureSignature(result)
@@ -290,7 +298,7 @@ async function recordDnrSyncResult(result) {
       logger.warn('Previous DNR synchronization failure could not be inspected:', error);
     }
   }
-  const recoveredFromFailure = result.success && lastRecordedDnrFailureSignature !== null;
+  const recoveredFromFailure = result.success && (recoveredHealth || lastRecordedDnrFailureSignature !== null);
   if (result.success) lastRecordedDnrFailureSignature = null;
 
   const persistenceTasks = [];
@@ -660,9 +668,9 @@ async function reconcileStoredFocusSession(reason, {
   allowEarlyCompletion = false,
   rearmFuture = true,
   invalidateGeneration = true,
-  step = (_phase, operation) => operation()
+  step = (_phase, operation) => operation(),
+  shouldContinue = () => transitionGeneration === focusSessionTransitionGeneration
 } = {}) {
-  const shouldContinue = () => transitionGeneration === focusSessionTransitionGeneration;
   if (!shouldContinue()) return { status: 'superseded' };
 
   const result = await step('state_read', () => browser.storage.local.get(['focusSession']));
@@ -722,7 +730,7 @@ async function reconcileStoredFocusSession(reason, {
       'post-completion Daily Limit sample',
       () => dailyLimitTracker.sample('focus_complete_after')
     ),
-    runFocusCompletionTask('DNR synchronization', () => dnrSynchronizer.requestSync())
+    runFocusCompletionTask('DNR synchronization', () => dnrSynchronizer.requestSync({ trigger: 'focus_complete' }))
   ]);
 
   if (!hasValidEndTime) {
@@ -805,19 +813,21 @@ function normalizeFocusSessionRequest(message) {
   return { durationMinutes, focusMode, isHardcore };
 }
 
-async function activateFocusSession(request, transitionGeneration, scheduledEndTime = null, isScheduledWindowCurrent = null, cycle = undefined) {
-  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+async function activateFocusSession(request, transitionGeneration, scheduledEndTime = null, isScheduledWindowCurrent = null, cycle = undefined, canBeSuperseded = true) {
+  const shouldContinue = () => !canBeSuperseded || transitionGeneration === focusSessionTransitionGeneration;
+  if (!shouldContinue()) return false;
 
   await reconcileStoredFocusSession('focus_start', {
     transitionGeneration,
+    shouldContinue,
     rearmFuture: false,
     invalidateGeneration: false
   });
-  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  if (!shouldContinue()) return false;
 
   const { durationMinutes, isHardcore, focusMode } = request;
   const access = await getFocusAccess();
-  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  if (!shouldContinue()) return false;
   if (
     !access.isPro &&
     !access.isLegacyUser &&
@@ -843,7 +853,7 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
     nextFocusSession,
     access
   );
-  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  if (!shouldContinue()) return false;
   if (focusCapacity.withinCapacity === false) {
     const unsafe = focusCapacity.limitType === 'unsafe_dynamic';
     const expected = unsafe ? focusCapacity.expectedUnsafeCount : focusCapacity.expectedCount;
@@ -860,34 +870,31 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
   const previousFocusAlarm = previousFocusSession.focusActive
     ? { scheduledTime: previousFocusSession.focusEndTime }
     : null;
-  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  if (!shouldContinue()) return false;
 
   await dailyLimitTracker.sample('focus_start_before');
-  if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+  if (!shouldContinue()) return false;
 
   if (Date.now() >= endTime || (isScheduledWindowCurrent && !isScheduledWindowCurrent())) return false;
+  // Once this write starts, finish protection or rollback while holding the state queue.
+  // A later request may still be rejected and cannot own a partially saved session.
   try {
     await browser.storage.local.set({ focusSession: nextFocusSession,
       ...(cycle === undefined ? {} : { [POMODORO_KEY]: cycle }) });
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
     await browser.alarms.create('end_focus_session', { when: endTime });
     if (cycle) await armPomodoro(cycle);
     await dailyLimitTracker.sample('focus_start_after');
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
-    const syncResult = await dnrSynchronizer.requestSync();
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+    const syncResult = await dnrSynchronizer.requestSync({ trigger: 'focus_start' });
     if (syncResult?.success === false) {
       throw Object.assign(new Error(syncResult.error || 'Could not activate Focus Session protection'), {
         code: syncResult.code || 'dnr_sync_failed'
       });
     }
   } catch (error) {
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
     await browser.storage.local.set({ focusSession: previousFocusSession,
       ...(cycle === undefined ? {} : { [POMODORO_KEY]: previousCycle }) });
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
     if (previousFocusAlarm) {
       const previousEndTime = Number(
@@ -900,12 +907,10 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
     } else {
       await browser.alarms.clear('end_focus_session');
     }
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
 
     if (cycle !== undefined) await armPomodoro(readPomodoro(previousCycle));
     await dailyLimitTracker.sample('focus_start_rollback');
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
-    const restored = await dnrSynchronizer.requestSync();
+    const restored = await dnrSynchronizer.requestSync({ trigger: 'focus_rollback' });
     if (restored?.success === false) {
       logger.warn('Focus Session: Previous browser protection could not be restored:', restored.error);
     }
@@ -913,10 +918,7 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
   }
 
   if (focusMode === 'whitelist') {
-    await checkAllTabsAgainstWhitelist(
-      () => transitionGeneration === focusSessionTransitionGeneration
-    );
-    if (transitionGeneration !== focusSessionTransitionGeneration) return false;
+    await checkAllTabsAgainstWhitelist();
   }
 
   logger.log(`Focus Session: Started for ${durationMinutes} minutes (mode: ${focusMode}).`);
@@ -928,7 +930,7 @@ async function activateFocusSession(request, transitionGeneration, scheduledEndT
     }),
     telemetryStore.incrementCounter('focus_started')
   ]);
-  return true;
+  return shouldContinue();
 }
 
 // A rejected intent may have superseded activation after its durable write.
@@ -938,7 +940,7 @@ async function preserveActiveFocus(focus, generation) {
   await ensureFocusCompletionAlarm(focus.focusEndTime, current, (_phase, operation) => operation());
   if (current()) await armPomodoro(await readCurrentPomodoro());
   if (!current()) return;
-  await dnrSynchronizer.requestSync();
+  await dnrSynchronizer.requestSync({ trigger: 'focus_preserve' });
   if (focus.focusMode === 'whitelist' && current()) await checkAllTabsAgainstWhitelist(current);
 }
 
@@ -969,11 +971,11 @@ async function armPomodoro(cycle) {
   }
 }
 
-async function continuePomodoroStored(cycle, generation, scheduledStart = null) {
+async function continuePomodoroStored(cycle, generation, scheduledStart = null, canBeSuperseded = true) {
   if (cycle.isHardcore && Date.now() >= cycle.hardcoreEndTime) return { success: false, code: 'pomodoro_changed' };
   const next = nextPomodoroWork(cycle, cycle.isHardcore && scheduledStart !== null ? scheduledStart : Date.now());
   const result = await activateFocusSession({ durationMinutes: next.workMinutes,
-    isHardcore: next.isHardcore, focusMode: next.focusMode }, generation, null, null, next);
+    isHardcore: next.isHardcore, focusMode: next.focusMode }, generation, null, null, next, canBeSuperseded);
   if (result === true) await browser.alarms.clear(POMODORO_ALARM);
   return result;
 }
@@ -1017,15 +1019,15 @@ async function reconcilePomodoro(reason, expectedEndTime = null) {
       // Commit the waiting state BEFORE activation: a crash cannot replay an auto-start.
       await browser.storage.local.set({ [POMODORO_KEY]: ready });
       await armPomodoro(ready);
-      if (generation !== focusSessionTransitionGeneration) return;
+      // Finish this claimed transition before evaluating queued manual intents.
+      // Rejecting a stale End must not leave an auto cycle stranded in ready.
       if (cycle.autoContinue) {
         // Recheck at every automatic transition, including restored cycles.
         const access = await getFocusAccess();
-        if (generation !== focusSessionTransitionGeneration) return;
         if (!access.isPro && !access.isLegacyUser) {
           await browser.storage.local.set({ [POMODORO_KEY]: { ...ready, autoContinue: false } });
         } else if (Date.now() - cycle.phaseEndTime <= POMODORO_AUTO_GRACE_MS) {
-          await continuePomodoroStored(ready, generation, cycle.phaseEndTime);
+          await continuePomodoroStored(ready, generation, cycle.phaseEndTime, false);
           return;
         }
       }
@@ -1481,7 +1483,7 @@ async function restoreFreeRuleListAccess(shouldContinue = () => true) {
     await ruleListsManager.setActiveListId(GENERAL_RULE_LIST_ID);
 
     const rules = await rulesManager.getRules();
-    const syncResult = await dnrSynchronizer.requestSync();
+    const syncResult = await dnrSynchronizer.requestSync({ trigger: 'license_change' });
     notifyRulesChanged(rules, {
       ruleLists: state.lists,
       activeRuleListId: GENERAL_RULE_LIST_ID,
@@ -1512,7 +1514,7 @@ async function restoreFreeFocusAccess(
     if (!focusSession.focusActive || !shouldContinue()) return false;
 
     if (focusSession.focusMode === 'blacklist' && focusSession.isHardcore !== true) {
-      if (!ruleListRestored && shouldContinue()) await dnrSynchronizer.requestSync();
+      if (!ruleListRestored && shouldContinue()) await dnrSynchronizer.requestSync({ trigger: 'license_change' });
       return false;
     }
 
@@ -1521,7 +1523,7 @@ async function restoreFreeFocusAccess(
     });
     if (!shouldContinue()) return false;
 
-    await dnrSynchronizer.requestSync();
+    await dnrSynchronizer.requestSync({ trigger: 'license_change' });
     logger.log('Free access restored to the standard Focus Session');
     return true;
   };
@@ -1579,7 +1581,7 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
         // Returning paid access can expand an active Focus Session beyond
         // General. Invalidating cached state alone does not start an idle sync.
         try {
-          const syncResult = await dnrSynchronizer.requestSync();
+          const syncResult = await dnrSynchronizer.requestSync({ trigger: 'license_change' });
           syncPending = syncResult?.success === false;
         } catch (error) {
           logger.warn('Pro access restored; browser rule synchronization is pending:', error);
@@ -1678,7 +1680,7 @@ browser.runtime.onStartup.addListener(() =>
         return dailyLimitTracker.sample('startup');
       });
     logger.log("Extension startup - syncing DNR rules");
-    await dnrSynchronizer.requestSync();
+    await dnrSynchronizer.requestSync({ trigger: 'startup' });
 
     try {
       if (!await shouldSkipSync()) {
@@ -1712,7 +1714,7 @@ async function initializeExtension(details) {
   }
 
   if (migrationResult.userVisibleMigration) {
-    await dnrSynchronizer.requestSync();
+    await dnrSynchronizer.requestSync({ trigger: 'initialize' });
 
     let showMigrationNotice = false;
     try {
@@ -1772,7 +1774,7 @@ async function initializeExtension(details) {
   // have their own sync/integrity step. Complete canonical install/update
   // with one explicit sync before an install page can observe the new state.
   if (!migrationResult.userVisibleMigration && ['install', 'update'].includes(details.reason)) {
-    await dnrSynchronizer.requestSync();
+    await dnrSynchronizer.requestSync({ trigger: 'initialize' });
   }
 }
 
@@ -1962,7 +1964,8 @@ async function createDiagnosticReport() {
     },
     dnr: {
       ...dnrState,
-      lastResult: snapshot.state.lastDnrSync || null
+      lastResult: snapshot.state.lastDnrSync || null,
+      health: snapshot.state.dnrSyncHealth || null
     },
     permissions: {
       hostAccess,
@@ -2379,7 +2382,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.type === 'reload_rules') {
     void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.DNR_RELOAD_MESSAGE, async () => {
-      await dnrSynchronizer.requestSync();
+      await dnrSynchronizer.requestSync({ trigger: 'rules_change' });
       logger.log('Legacy rules reload completed.');
     });
     return;
@@ -2567,7 +2570,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
             await dailyLimitTracker.sample('focus_stop_after');
             await browser.alarms.clear('end_focus_session');
             await browser.alarms.clear(POMODORO_ALARM);
-            syncResult = await dnrSynchronizer.requestSync();
+            syncResult = await dnrSynchronizer.requestSync({ trigger: 'focus_stop' });
           } finally {
             // Count the stored active -> inactive transition, including a pending DNR sync.
             // Repeated Stop still performs cleanup without recording another stopped session.
@@ -2615,7 +2618,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     logger.log("Permissions granted via onboarding.");
     void runAsyncHandler(
       ASYNC_HANDLER_OPERATIONS.DNR_RELOAD_MESSAGE,
-      () => dnrSynchronizer.requestSync()
+      () => dnrSynchronizer.requestSync({ trigger: 'permissions' })
     );
   }
   
@@ -2704,7 +2707,7 @@ browser.alarms.onAlarm.addListener(alarm =>
       }
     });
     await Promise.all([
-      dnrSynchronizer.requestSync({ reconcileExistingTabs: false }),
+      dnrSynchronizer.requestSync({ reconcileExistingTabs: false, trigger: 'minute_alarm' }),
       checkAndRequestPermissions({ reason: 'scheduled_alarm' })
     ]);
   }

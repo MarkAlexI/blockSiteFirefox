@@ -3,6 +3,7 @@ const WORKER_ERROR_MODULES = Object.freeze({
   "backup/backupFormat.js": "backup_backup_format",
   "diagnostics/diagnosticReport.js": "diagnostics_diagnostic_report",
   "diagnostics/diagnosticStore.js": "diagnostics_diagnostic_store",
+  "diagnostics/dnrSyncHealth.js": "diagnostics_dnr_sync_health",
   "options/proGuidanceController.js": "options_pro_guidance_controller",
   "options/settings.js": "options_settings",
   "options/statisticsCharts.js": "options_statistics_charts",

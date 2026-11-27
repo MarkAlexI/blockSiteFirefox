@@ -9,7 +9,7 @@ const dnrRule = { id: 1, priority: 1, action: { type: 'block' },
   condition: { urlFilter: '||example.invalid', resourceTypes: ['main_frame'] } };
 const privateMessage = 'private@example.invalid https://private.invalid/path?key=secret';
 
-function harness(fault = null, { capacity = false, browserQuota = false } = {}) {
+function harness(fault = null, { capacity = false, browserQuota = false, observe = async () => {} } = {}) {
   const calls = { get: 0, update: 0, reconcile: 0 }, recorded = [];
   const fail = point => { if (fault === point) throw new Error(privateMessage); };
   const synchronizer = createDnrSynchronizer({
@@ -31,7 +31,7 @@ function harness(fault = null, { capacity = false, browserQuota = false } = {}) 
       }
     },
     logger: { log() {}, info() {}, warn() {} },
-    onSyncResult: async result => { recorded.push(result); }
+    onSyncResult: async (result, metadata) => { recorded.push(result); await observe(result, metadata); }
   });
   return { synchronizer, calls, recorded };
 }
@@ -112,4 +112,52 @@ test('legacy and unrecognized stages retain the generic code instead of sending 
     'rule_limit_reached');
   assert.equal(getDnrSyncFailureCode({ errorStage: 'build_diff' }), 'sync_diff_failed');
   assert.equal(getDnrSyncFailureCode({ errorStage: 'check_capacity' }), 'sync_capacity_check_failed');
+});
+
+test('DNR coalescing retains bounded initiators without changing the public result shape', async () => {
+  let release, entered;
+  const gate = new Promise(resolve => { release = resolve; });
+  const reached = new Promise(resolve => { entered = resolve; });
+  const reports = [];
+  // Hold a real browser API await inside the production drain.
+  let first = true;
+  const synchronizer = createDnrSynchronizer({
+    getRules: async () => [], getFocusSessionState: async () => ({ focusActive: false }),
+    declarativeNetRequest: {
+      async getDynamicRules() { if (first) { first = false; entered(); await gate; } return []; },
+      async updateDynamicRules() {}
+    },
+    logger: { log() {}, info() {}, warn() {} },
+    onSyncResult: async (result, metadata) => reports.push({ result, metadata })
+  });
+  const running = synchronizer.requestSync({ trigger: 'minute_alarm' });
+  let joined, privateRequest;
+  try {
+    await reached;
+    joined = synchronizer.requestSync({ trigger: 'daily_limit' });
+    privateRequest = synchronizer.requestSync({ trigger: 'https://private.invalid/secret' });
+  } finally { release(); }
+  const results = await Promise.all([running, joined, privateRequest]);
+  assert.equal(reports.length, 1);
+  assert.deepEqual(reports[0].metadata, { triggers: ['daily_limit', 'minute_alarm', 'unknown'] });
+  assert.deepEqual(results[0], { success: true, changed: false, removed: 0, added: 0 });
+  assert.equal(results.every(result => result === results[0]), true);
+  assert.doesNotMatch(JSON.stringify(reports), /private|secret/);
+});
+
+test('a sync requested during reporting keeps its own trigger in the next report', async () => {
+  let release, entered;
+  const gate = new Promise(resolve => { release = resolve; });
+  const reached = new Promise(resolve => { entered = resolve; });
+  const reports = [];
+  const h = harness('get', { observe: async (_result, metadata) => {
+    reports.push(metadata);
+    if (reports.length === 1) { entered(); await gate; }
+  } });
+  const first = h.synchronizer.requestSync({ trigger: 'startup' });
+  let later;
+  try { await reached; later = h.synchronizer.requestSync({ trigger: 'focus_start' }); }
+  finally { release(); }
+  await Promise.all([first, later]);
+  assert.deepEqual(reports, [{ triggers: ['startup'] }, { triggers: ['focus_start'] }]);
 });

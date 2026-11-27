@@ -811,6 +811,7 @@ class PopupPage {
     this.focusDurationInput.disabled = pending || (!this.isPro && !this.isLegacyUser);
     this.focusModeSelect.disabled = pending;
     this.hardcoreModeCheckbox.disabled = pending;
+    this.pomodoro?.syncActions();
   }
 
   restoreFocusSessionFocus(target) {
