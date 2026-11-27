@@ -131,11 +131,10 @@ export class ProManager {
     try {
       const result = await browser.storage.sync.get(['credentials']);
       
-      if (!result.credentials) {
-        const newCredentials = { ...this.defaultCredentials, installationDate: new Date().toISOString() };
-        newCredentials.isLegacyUser = new Date() < new Date(this.RESTRICTION_START_DATE);
-        await browser.storage.sync.set({ credentials: newCredentials });
-        return newCredentials;
+      // Readers in Popup/Options may finish after a newer worker write.
+      // Missing data is an in-memory Free snapshot, never a write of defaults.
+      if (!result.credentials || typeof result.credentials !== 'object' || Array.isArray(result.credentials)) {
+        return { ...this.defaultCredentials };
       }
       
       return {
@@ -154,7 +153,7 @@ export class ProManager {
    * License and runtime-message payloads must continue using updateProStatus(),
    * which deliberately cannot change these fields.
    */
-  static async initializeInstallationMetadata({ fallbackInstallationDate } = {}) {
+  static async initializeInstallationMetadata({ fallbackInstallationDate, onlyIfMissing = false } = {}) {
     if (
       typeof fallbackInstallationDate !== 'string' ||
       !Number.isFinite(Date.parse(fallbackInstallationDate))
@@ -170,8 +169,14 @@ export class ProManager {
       typeof storedCredentials !== 'object' ||
       Array.isArray(storedCredentials)
     ) {
-      const credentials = await this.getCredentials({ throwOnError: true });
+      const credentials = { ...this.defaultCredentials, installationDate: new Date().toISOString() };
+      credentials.isLegacyUser = this.resolveLegacyAccess(credentials);
+      await browser.storage.sync.set({ credentials });
       return { credentials, changed: true };
+    }
+
+    if (onlyIfMissing) {
+      return { credentials: { ...this.defaultCredentials, ...this.stripObsoleteCredentials(storedCredentials) }, changed: false };
     }
 
     const cleanedStoredCredentials = this.stripObsoleteCredentials(storedCredentials);

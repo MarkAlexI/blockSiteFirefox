@@ -94,6 +94,7 @@ export function createDailyLimitTracker({
   dailyLimitManager,
   dnrSynchronizer,
   getStateGeneration = () => 0,
+  ensureStateReady = null,
   getNow = () => new Date(),
   logger
 }) {
@@ -438,6 +439,7 @@ export function createDailyLimitTracker({
   }
 
   async function sampleOnce(reason = 'event', now = new Date(), tabHint = null, transition = null) {
+    if (ensureStateReady) await ensureStateReady();
     const generation = getStateGeneration();
     const shouldContinue = () => generation === getStateGeneration();
     const superseded = () => ({ resolution: 'superseded', activeRuleId: null,
@@ -536,6 +538,7 @@ export function createDailyLimitTracker({
   }
 
   async function pauseOnce(reason = 'pause', now = new Date()) {
+    if (ensureStateReady) await ensureStateReady();
     const result = await dailyLimitManager.resetSample(now);
     await syncCrossedLimits(result);
     await clearDeadlineAlarm();

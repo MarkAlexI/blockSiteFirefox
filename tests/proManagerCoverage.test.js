@@ -109,18 +109,18 @@ test('native denial fails closed while unsupported old Firefox falls back to exp
   });
 });
 
-test('missing Pro credentials initialize as Free rather than granting access', async () => {
+test('missing Pro credential reads stay Free without writing initial state', async () => {
   await withProManager({}, async ({ api, ProManager }) => {
     assert.equal(await ProManager.isPro(), false);
-    assert.equal(api.storage.sync.data.credentials.isPro, false);
-    assert.equal(api.storage.sync.data.credentials.licenseKey, null);
+    assert.equal(api.storage.sync.data.credentials, undefined);
+    assert.deepEqual(await ProManager.getCredentials(), ProManager.defaultCredentials);
   });
 });
 
 test('checking Pro status first cannot accidentally classify a new installation as legacy', async () => {
   await withProManager({}, async ({ api, ProManager }) => {
     assert.equal(await ProManager.isPro(), false);
-    assert.equal(Number.isNaN(Date.parse(api.storage.sync.data.credentials.installationDate)), false);
+    assert.equal(api.storage.sync.data.credentials, undefined);
     assert.equal(await ProManager.isLegacyUser(), false);
   });
 });
@@ -135,7 +135,9 @@ test('Pro access accepts only the explicit boolean true', async () => {
 
 test('credential initialization records an installation date and applies all defaults', async () => {
   await withProManager({}, async ({ api, ProManager }) => {
-    const credentials = await ProManager.getCredentials();
+    const initialized = await ProManager.initializeInstallationMetadata({ fallbackInstallationDate: new Date().toISOString() });
+    const credentials = initialized.credentials;
+    assert.equal(initialized.changed, true);
     assert.equal(credentials.isPro, false);
     assert.equal(Number.isNaN(Date.parse(credentials.installationDate)), false);
     assert.equal(typeof credentials.isLegacyUser, 'boolean');
@@ -471,7 +473,10 @@ test('failed first-install credential persistence cannot grant legacy access', a
   await withProManager({}, async ({ api, ProManager }) => {
     api.storage.sync.setError = new Error('sync storage read-only');
     await suppressConsoleError(async () => {
-      await assert.rejects(ProManager.getAccess(), /read-only/);
+      await assert.rejects(ProManager.initializeInstallationMetadata({
+        fallbackInstallationDate: new Date().toISOString()
+      }), /read-only/);
+      assert.equal((await ProManager.getAccess()).isPro, false);
       assert.equal(await ProManager.isLegacyUser(), false);
       assert.equal(await ProManager.hasPaidAccess(), false);
     });
@@ -495,5 +500,43 @@ test('failed status notifications do not revert a successful credential update',
     const result = await ProManager.updateProStatus(true, { licenseKey: 'BD-PRO-789' });
     assert.equal(result.isPro, true);
     assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-PRO-789');
+  });
+});
+for (const context of ['worker', 'page']) {
+  test(`missing credentials remain a read-only Free snapshot in a ${context}`, async () => {
+    await withProManager({ document: context === 'page' ? new FakeDocument() : null },
+      async ({ api, ProManager }) => {
+        api.storage.sync.setError = new Error('readers cannot write credentials');
+        const first = await ProManager.getCredentials({ throwOnError: true });
+        first.isPro = true;
+        assert.equal((await ProManager.getAccess()).isPro, false);
+        assert.equal(await ProManager.isLegacyUser(), false);
+        assert.equal(api.storage.sync.data.credentials, undefined);
+      });
+  });
+}
+
+test('worker initialization of absent credentials never infers a historical installation date', async () => {
+  await withProManager({}, async ({ api, ProManager }) => {
+    const initialized = await ProManager.initializeInstallationMetadata({
+      fallbackInstallationDate: '1970-01-01T00:00:00.000Z'
+    });
+    assert.equal(initialized.changed, true);
+    assert.equal(initialized.credentials.isLegacyUser, false);
+    assert.equal(Date.parse(initialized.credentials.installationDate) >= Date.parse(ProManager.RESTRICTION_START_DATE), true);
+    assert.deepEqual(api.storage.sync.data.credentials, initialized.credentials);
+  });
+});
+
+test('missing-only initialization preserves partial trusted metadata until lifecycle migration', async () => {
+  const credentials = { isPro: true, licenseKey: 'BD-KEEP-KEY', installationDate: null, isLegacyUser: false };
+  await withProManager({ sync: { credentials } }, async ({ api, ProManager }) => {
+    const initialized = await ProManager.initializeInstallationMetadata({
+      fallbackInstallationDate: '1970-01-01T00:00:00.000Z', onlyIfMissing: true
+    });
+    assert.equal(initialized.changed, false);
+    assert.deepEqual(api.storage.sync.data.credentials, credentials);
+    assert.equal(initialized.credentials.licenseKey, credentials.licenseKey);
+    assert.equal(initialized.credentials.installationDate, null);
   });
 });

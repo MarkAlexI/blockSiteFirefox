@@ -10428,3 +10428,166 @@ test('DNR health records bounded repeat observations and recovery across a worke
       }, { local: persisted, supportsWindows: false });
     });
   });
+test('a delayed missing-credentials read cannot overwrite a committed Pro activation',
+  { timeout: 5000 }, async () => {
+    await withWorker(async ({ api, send }) => {
+      delete api.storage.sync.data.credentials;
+      const entered = createDeferred(), release = createDeferred();
+      const get = api.storage.sync.get.bind(api.storage.sync);
+      let paused = false;
+      api.storage.sync.get = async (keys, callback) => {
+        const snapshot = await get(keys, callback);
+        if (!paused && Array.isArray(keys) && keys.includes('credentials')) {
+          paused = true; entered.resolve(); await release.promise;
+        }
+        return snapshot;
+      };
+      const reading = send({ type: 'check_pro_status' });
+      try {
+        await entered.promise;
+        assert.equal((await send({ type: 'activate_pro_license', licenseKey: 'BD-NEW-VALID-KEY' })).success, true);
+        assert.equal(api.storage.sync.data.credentials.isPro, true);
+      } finally { release.resolve(); }
+      await reading;
+      assert.equal(api.storage.sync.data.credentials.isPro, true);
+      assert.equal(api.storage.sync.data.credentials.licenseKey, 'BD-NEW-VALID-KEY');
+      assert.equal(Number.isNaN(Date.parse(api.storage.sync.data.credentials.installationDate)), false);
+    });
+  });
+
+for (const type of ['start_focus_session', 'start_pomodoro']) {
+  test(`early ${type} preserves browser protection until sync rules are prepared`,
+    { timeout: 5000 }, async () => {
+      const entered = createDeferred(), release = createDeferred();
+      const rule = makeFocusRule(41, 'general', { blockURL: 'legacy-focus.example' });
+      let reads = 0;
+      await withWorker(async ({ api, send, startup }) => {
+        const initializing = startup();
+        await entered.promise;
+        let settled = false;
+        const starting = send(type === 'start_pomodoro' ? { type, config: {} } : { type, duration: 25 });
+        starting.then(() => { settled = true; });
+        try {
+          for (let i = 0; i < 5; i++) await new Promise(resolve => setImmediate(resolve));
+          assert.equal(settled, false, 'Start must not acknowledge an empty pre-migration rule snapshot');
+          assert.equal(api.storage.local.data.focusSession.focusActive, false);
+          assert.deepEqual(api.dynamicRules.map(item => item.id), [41]);
+        } finally { release.resolve(); await initializing; }
+        assert.equal((await starting).success, true);
+        assert.equal(reads, 1, 'concurrent startup and Start share the prepared rule state');
+        assert.equal(api.storage.local.data.focusSession.focusActive, true);
+        assert.deepEqual(api.dynamicRules.map(item => item.id), [41]);
+        assert.equal(api.alarmValues.has('end_focus_session'), true);
+      }, {
+        local: { rules: [], activeRuleListId: 'general', is_migrated_to_local: false, lastCheck: Date.now() },
+        configureApi(api) {
+          api.storage.sync.data.rules = [rule];
+          api.dynamicRules = [{ id: 41, priority: 1, action: { type: 'block' },
+            condition: { urlFilter: '||legacy-focus.example', resourceTypes: ['main_frame'] } }];
+          const get = api.storage.sync.get.bind(api.storage.sync);
+          api.storage.sync.get = (keys, callback) => {
+            if (keys === 'rules') { reads++; entered.resolve(); return release.promise.then(() => get(keys, callback)); }
+            return get(keys, callback);
+          };
+        }
+      });
+    });
+}
+
+test('failed initial rule preparation preserves DNR and permits the next Start to retry',
+  { timeout: 5000 }, async () => {
+    let unavailable = true;
+    const rule = makeFocusRule(41, 'general', { blockURL: 'legacy-retry.example' });
+    await withWorker(async ({ api, send }) => {
+      const failed = await send({ type: 'start_focus_session', duration: 25 });
+      assert.equal(failed.success, false);
+      assert.equal(api.storage.local.data.focusSession.focusActive, false);
+      assert.equal(api.alarmValues.has('end_focus_session'), false);
+      assert.deepEqual(api.dynamicRules.map(item => item.id), [41]);
+      unavailable = false;
+      assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+      assert.deepEqual(api.dynamicRules.map(item => item.id), [41]);
+      assert.equal(api.storage.local.data.focusSession.focusActive, true);
+    }, {
+      local: { rules: [], activeRuleListId: 'general', is_migrated_to_local: false },
+      configureApi(api) {
+        api.storage.sync.data.rules = [rule];
+        api.dynamicRules = [{ id: 41, priority: 1, action: { type: 'block' },
+          condition: { urlFilter: '||legacy-retry.example', resourceTypes: ['main_frame'] } }];
+        const get = api.storage.sync.get.bind(api.storage.sync);
+        api.storage.sync.get = (keys, callback) => {
+          if (keys === 'rules' && unavailable) return Promise.reject(new Error('synthetic rules migration read failure'));
+          return get(keys, callback);
+        };
+      }
+    });
+  });
+test('a permitted Whitelist tab waits for initial rules without being closed',
+  { timeout: 5000 }, async () => {
+    const entered = createDeferred(), release = createDeferred();
+    const rule = makeFocusRule(41, 'general', { blockURL: 'allowed-startup.example', isWhitelist: true });
+    await withWorker(async ({ api, startup }) => {
+      const initializing = startup(); await entered.promise;
+      const tab = { id: 77, active: true, url: 'https://allowed-startup.example/page' };
+      api.tabs.values.push(tab);
+      const updating = api.tabs.onUpdated.listeners[0](tab.id, { url: tab.url }, tab);
+      try {
+        await new Promise(resolve => setImmediate(resolve));
+        assert.deepEqual(api.removedTabs, []);
+      } finally { release.resolve(); await initializing; }
+      await updating;
+      assert.deepEqual(api.removedTabs, []);
+      assert.equal(api.storage.local.data.rules[0].isWhitelist, true);
+    }, {
+      local: { rules: [], is_migrated_to_local: false, activeRuleListId: 'general', lastCheck: Date.now(),
+        focusSession: { focusActive: true, focusEndTime: Date.now() + 600_000,
+          isHardcore: true, focusMode: 'whitelist' } },
+      configureApi(api) {
+        api.storage.sync.data.rules = [rule];
+        const get = api.storage.sync.get.bind(api.storage.sync);
+        api.storage.sync.get = (keys, callback) => {
+          if (keys === 'rules') { entered.resolve(); return release.promise.then(() => get(keys, callback)); }
+          return get(keys, callback);
+        };
+      }
+    });
+  });
+
+test('a deliberately empty migrated rule set does not restore old sync rules', async () => {
+  await withWorker(async ({ api, send }) => {
+    assert.equal((await send({ type: 'start_focus_session', duration: 25 })).success, true);
+    assert.deepEqual(api.storage.local.data.rules, []);
+    assert.deepEqual(api.dynamicRules, []);
+  }, {
+    local: { rules: [], activeRuleListId: 'general', is_migrated_to_local: true },
+    configureApi(api) { api.storage.sync.data.rules = [makeFocusRule(41, 'general')]; }
+  });
+});
+test('startup rule preparation failure preserves spent usage until migration can retry',
+  { timeout: 5000 }, async () => {
+    let unavailable = true;
+    const rule = makeDailyLimitRule(41, 'general', { blockURL: 'legacy-budget.example', minutes: 1 });
+    const usage = { version: 1, date: getLocalDateKey(), usageSeconds: { '41': 60 }, lastSample: null };
+    await withWorker(async ({ api, startup }) => {
+      await startup();
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage, usage);
+      assert.deepEqual(api.dynamicRules.map(item => item.id), [41]);
+      unavailable = false;
+      await startup();
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['41:general'], 60);
+      assert.deepEqual(api.dynamicRules.map(item => item.id), [41]);
+    }, {
+      local: { rules: [], activeRuleListId: 'general', is_migrated_to_local: false,
+        dailyRuleUsage: usage, lastCheck: Date.now() },
+      configureApi(api) {
+        api.storage.sync.data.rules = [rule];
+        api.dynamicRules = [{ id: 41, priority: 1, action: { type: 'block' },
+          condition: { urlFilter: '||legacy-budget.example', resourceTypes: ['main_frame'] } }];
+        const get = api.storage.sync.get.bind(api.storage.sync);
+        api.storage.sync.get = (keys, callback) => {
+          if (keys === 'rules' && unavailable) return Promise.reject(new Error('synthetic initial rules read failure'));
+          return get(keys, callback);
+        };
+      }
+    });
+  });

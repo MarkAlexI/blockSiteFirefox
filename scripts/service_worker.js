@@ -356,7 +356,7 @@ const createDnrRule = createDnrRuleFactory(
 const getFocusSessionForProtection = () => getFocusSessionState({ throwOnError: true });
 
 const dnrSynchronizer = createDnrSynchronizer({
-  getRules: () => rulesManager.getRules(),
+  getRules: getPreparedRules,
   getRuleListState: () => ruleListsManager.getState(),
   getDailyUsage: () => dailyLimitManager.getUsageSeconds(),
   getFocusSessionState: getFocusSessionForProtection,
@@ -392,12 +392,13 @@ const dailyLimitTracker = createDailyLimitTracker({
   sessionStorage: browser.storage.session,
   scriptingApi: browser.scripting,
   alarmsApi: browser.alarms,
-  getRules: () => rulesManager.getRules(),
+  getRules: getPreparedRules,
   getRuleListState: () => ruleListsManager.getState(),
   getFocusSessionState: getFocusSessionForProtection,
   dailyLimitManager,
   dnrSynchronizer,
   getStateGeneration: () => `${blockingDecisionGeneration}:${windowFocusGeneration}`,
+  ensureStateReady: ensureRulesReady,
   logger
 });
 
@@ -451,6 +452,32 @@ const rulesMutationService = createRulesMutationService({
 
 const handleRulesIntent = createRulesIntentHandler(rulesMutationService);
 
+// Only local rule preparation joins this promise. Network/license checks and
+// optional maintenance must not hold early event handlers behind startup.
+let preparedRules = false;
+let preparedRulesMigrated = false;
+let rulesPreparationPromise = null;
+function ensureRulesReady() {
+  if (preparedRules) return Promise.resolve();
+  if (!rulesPreparationPromise) {
+    rulesPreparationPromise = rulesMutationService.runExclusive(async () => {
+      const stored = await browser.storage.local.get(['rules', 'is_migrated_to_local']);
+      if (!stored.is_migrated_to_local && !(Array.isArray(stored.rules) && stored.rules.length)) {
+        preparedRulesMigrated = await rulesMigrationService.migrateToLocalForDevice({ throwOnError: true });
+      }
+      preparedRules = true;
+    }).catch(error => {
+      throw Object.assign(new Error('Local rules are not ready'), { code: 'rules_not_ready', cause: error });
+    }).finally(() => { rulesPreparationPromise = null; });
+  }
+  return rulesPreparationPromise;
+}
+
+async function getPreparedRules() {
+  await ensureRulesReady();
+  return rulesManager.getRules();
+}
+
 /**
  * Checks a single tab URL against active Whitelist rules during 'whitelist' Focus Session.
  * Closes the tab if the URL is not whitelisted and is not a system/extension page.
@@ -460,6 +487,7 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
     return false;
   }
 
+  await ensureRulesReady();
   const transitionGeneration = focusSessionTransitionGeneration;
   const blockingGeneration = blockingDecisionGeneration;
   const shouldContinue = () => transitionGeneration === focusSessionTransitionGeneration &&
@@ -470,7 +498,7 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
     return false;
   }
   
-  const rules = await rulesManager.getRules();
+  const rules = await getPreparedRules();
   if (!shouldContinue()) return false;
   const whitelistRules = rules.filter(r =>
     r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
@@ -484,7 +512,7 @@ async function enforceFocusWhitelist(tabId, tabUrl) {
       currentSession.focusMode !== 'whitelist'
     ) return false;
 
-    const currentRules = await rulesManager.getRules();
+    const currentRules = await getPreparedRules();
     if (!shouldContinue()) return false;
     const currentWhitelistRules = currentRules.filter(r =>
       r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
@@ -504,7 +532,7 @@ async function checkAllTabsAgainstWhitelist(shouldContinue = () => true) {
   const generation = blockingDecisionGeneration;
   const isCurrent = () => shouldContinue() && generation === blockingDecisionGeneration;
   if (!isCurrent()) return;
-  const rules = await rulesManager.getRules();
+  const rules = await getPreparedRules();
   if (!isCurrent()) return;
   const whitelistRules = rules.filter(r =>
     r.isWhitelist && getRuleAssignment(r, GENERAL_RULE_LIST_ID)?.disabledByUser !== true
@@ -553,7 +581,11 @@ const INACTIVE_FOCUS_SESSION = Object.freeze({
 // Lock order: state transition -> rules mutation -> daily usage. Network
 // license verification remains outside this queue; only its commit joins it.
 function enqueueStateTransition(task) {
-  const result = stateTransitionTail.then(task, task);
+  const run = async () => {
+    await ensureRulesReady();
+    return task();
+  };
+  const result = stateTransitionTail.then(run, run);
   stateTransitionTail = result.catch(() => {});
   return result;
 }
@@ -1482,7 +1514,7 @@ async function restoreFreeRuleListAccess(shouldContinue = () => true) {
     if (!shouldContinue() || currentAccess.isPro || currentAccess.isLegacyUser) return false;
     await ruleListsManager.setActiveListId(GENERAL_RULE_LIST_ID);
 
-    const rules = await rulesManager.getRules();
+    const rules = await getPreparedRules();
     const syncResult = await dnrSynchronizer.requestSync({ trigger: 'license_change' });
     notifyRulesChanged(rules, {
       ruleLists: state.lists,
@@ -1543,6 +1575,9 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
       if (manual && isPomodoroHardcoreLocked(await readCurrentPomodoro())) {
         throw Object.assign(new Error('Hardcore Pomodoro is locked'), { code: 'hardcore_active' });
       }
+      await ProManager.initializeInstallationMetadata({
+        fallbackInstallationDate: new Date().toISOString(), onlyIfMissing: true
+      });
       const previousCredentials = await ProManager.getCredentials({ throwOnError: true });
       if (expectedVerification) {
         const credentials = previousCredentials;
@@ -1699,6 +1734,8 @@ browser.runtime.onStartup.addListener(() =>
 );
 
 async function initializeExtension(details) {
+  // A failed device migration must not turn an empty snapshot into usage cleanup.
+  await ensureRulesReady();
   logger.log("Initializing extension state (rules, settings, legacy status)...");
   const dailyUsageRecovered = await recoverPendingDailyUsage('startup', true);
   const migrationResult = await rulesMutationService.runExclusive(
@@ -1706,6 +1743,12 @@ async function initializeExtension(details) {
       skipDailyUsageMigration: !dailyUsageRecovered
     })
   );
+
+  // Keep the lifecycle migration notice when early protection prepared rules first.
+  if (preparedRulesMigrated) {
+    migrationResult.migrated = migrationResult.userVisibleMigration = migrationResult.migratedFromSync = true;
+    preparedRulesMigrated = false;
+  }
 
   if (dailyUsageRecovered) {
     await dailyLimitManager.pruneAssignmentKeys(
@@ -1757,7 +1800,9 @@ async function initializeExtension(details) {
           logger.log('Migrated existing installation metadata');
         }
       } else {
-        await ProManager.getCredentials({ throwOnError: true });
+        await ProManager.initializeInstallationMetadata({
+          fallbackInstallationDate: new Date().toISOString(), onlyIfMissing: true
+        });
       }
 
       const ruleListRestored = await restoreFreeRuleListAccess();

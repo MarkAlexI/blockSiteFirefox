@@ -198,7 +198,7 @@ export function createRulesMigrationService({
   logger,
   dailyLimitManager = null
 }) {
-  async function migrateToLocalForDevice() {
+  async function migrateToLocalForDevice({ throwOnError = false } = {}) {
     logger.log(
       'Attempting device-specific rules migration from sync to local storage...'
     );
@@ -256,6 +256,7 @@ export function createRulesMigrationService({
         'Error during device-specific rules migration:',
         error
       );
+      if (throwOnError) throw error;
       return false;
     }
   }
