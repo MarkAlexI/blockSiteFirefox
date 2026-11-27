@@ -1648,13 +1648,16 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   const eventToken = {};
   if (changeInfo.url) navigationEventTokens.set(tabId, eventToken);
   return runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED, async () => {
+    // Queue the captured boundary before any asynchronous navigation checks.
+    // A later load-complete event must not replace its owner while Whitelist
+    // inspection waits. The tracker itself waits for initialized rule state.
+    const accounting = tab.active && (changeInfo.url || (changeInfo.status === 'complete' && tab.url))
+      ? runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED, () => dailyLimitTracker.sample(
+        changeInfo.url ? 'tab_url_changed' : 'tab_load_complete', observedAt, { ...tab, url: changeInfo.url || tab.url }))
+      : Promise.resolve();
     if (changeInfo.status === 'complete' && tab.url) await redirectNavigationGuard.completed(tabId, tab.url);
     if (changeInfo.url) {
       const handledByWhitelistFocus = await enforceFocusWhitelist(tabId, changeInfo.url);
-      // Retain local initialization/Whitelist ordering, then queue accounting
-      // before the potentially delayed SPA decision. Keep the native event time.
-      const accounting = tab.active ? runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED,
-        () => dailyLimitTracker.sample('tab_url_changed', observedAt, { ...tab, url: changeInfo.url })) : Promise.resolve();
       let spaOutcome = 'whitelist_focus';
       if (!handledByWhitelistFocus) {
         const result = await spaNavigationEnforcer.enforce(tabId, changeInfo.url);
@@ -1670,7 +1673,7 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       }
     }
     if (changeInfo.status === 'complete' && tab.url) {
-      if (tab.active) await dailyLimitTracker.sample('tab_load_complete', observedAt, tab);
+      await accounting;
       await trackBlockedPage(tab.url);
     }
   });

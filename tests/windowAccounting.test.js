@@ -115,3 +115,42 @@ test('native history oracle rejects budget erasure during a tab move', () => {
     { kind: 'usage', value: usage(3400, 0, 60) }
   ], { '21:general': 40, '22:general': 60 }), /never erase/);
 });
+
+test('native window oracle includes carried milliseconds when a counter crosses three seconds', () => {
+  const input = phase();
+  input.before.dailyRuleUsage.usageRemaindersMs = { '21:general': 475 };
+  input.after.dailyRuleUsage = usage(3583, 43, 60);
+  input.after.dailyRuleUsage.usageRemaindersMs = { '21:general': 58 };
+  input.events = [{ kind: 'usage', value: structuredClone(input.after.dailyRuleUsage) }];
+  assert.deepEqual(assertWindowPhase(input), { gain: 3, elapsed: 2583, writes: 1 });
+});
+
+test('native window oracle rejects even one millisecond charged to an inactive budget', () => {
+  const input = phase();
+  input.events[0].value.usageRemaindersMs = { '22:general': 1 };
+  assert.throws(() => assertWindowPhase(input), /unfocused window budget/);
+});
+
+test('native window oracle rejects a one-millisecond excess hidden by integer seconds', () => {
+  const input = phase();
+  input.after.dailyRuleUsage.usageRemaindersMs = { '21:general': 401 };
+  assert.throws(() => assertWindowPhase(input), /duplicate charge/);
+});
+
+test('native history oracle accepts the CI undo-close carry across two budgets', () => {
+  const before = usage(1000, 42, 62, '22:general');
+  before.usageRemaindersMs = { '21:general': 498, '22:general': 826 };
+  const after = usage(1616, 42, 63);
+  after.usageRemaindersMs = { '21:general': 522, '22:general': 406 };
+  assertWindowAccounting([{ kind: 'usage', value: before }, { kind: 'usage', value: after }],
+    { '21:general': 40, '22:general': 60 });
+});
+
+test('native history oracle rejects remainder erasure without an integer-counter change', () => {
+  const before = usage(1000, 40, 60);
+  before.usageRemaindersMs = { '21:general': 500 };
+  const after = usage(1500, 40, 60);
+  after.usageRemaindersMs = { '21:general': 499 };
+  assert.throws(() => assertWindowAccounting([{ kind: 'usage', value: before }, { kind: 'usage', value: after }],
+    { '21:general': 40, '22:general': 60 }), /never erase/);
+});

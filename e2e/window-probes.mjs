@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
 
+export function usageMilliseconds(state, key) {
+  return (state.usageSeconds[key] || 0) * 1000 + (state.usageRemaindersMs?.[key] || 0);
+}
+
 // Passive listeners in an extension reader. Native APIs and delivery are untouched.
 export function installWindowObserver() {
   const api = globalThis.browser || chrome;
@@ -120,35 +124,36 @@ export function assertWindowPhase({ before, after, events, owner, inactive, wind
     } else {
       assert.deepEqual(sample?.assignmentKeys, [owner], 'background event must not steal the foreground segment');
     }
-    assert.equal(event.value.usageSeconds[inactive], before.dailyRuleUsage.usageSeconds[inactive], 'unfocused window budget is unchanged in every observed write');
+    assert.equal(usageMilliseconds(event.value, inactive), usageMilliseconds(before.dailyRuleUsage, inactive), 'unfocused window budget is unchanged in every observed write');
   }
   for (const event of events.filter(value => value.kind === 'window-focus')) {
     assert.equal(event.windowId, windowId, 'focus remained in the measured window');
   }
   const gain = after.dailyRuleUsage.usageSeconds[owner] - before.dailyRuleUsage.usageSeconds[owner];
   const elapsed = after.dailyRuleUsage.lastSample.timestamp - before.dailyRuleUsage.lastSample.timestamp;
-  assert.ok(gain >= 1, 'positive control: genuine foreground time was charged');
-  assert.ok(gain <= Math.floor(elapsed / 1000), 'no duplicate charge within a stable foreground phase');
+  const gainMs = usageMilliseconds(after.dailyRuleUsage, owner) - usageMilliseconds(before.dailyRuleUsage, owner);
+  assert.ok(gainMs >= 1000, 'positive control: genuine foreground time was charged');
+  assert.ok(gainMs <= elapsed, 'no duplicate charge within a stable foreground phase');
   assert.deepEqual(after.pendingDailyUsageRemaps, []);
   return { gain, elapsed, writes: samples.length };
 }
 
 export function assertWindowAccounting(history, initialUsage) {
-  let previous = initialUsage;
+  let previous = { usageSeconds: initialUsage };
   let firstTimestamp = null;
   let firstUsage = null;
   for (const event of history.filter(value => value.kind === 'usage')) {
     const state = event.value;
     for (const key of Object.keys(initialUsage)) {
-      assert.ok(state.usageSeconds[key] >= previous[key], 'window changes never erase spent budget');
+      assert.ok(usageMilliseconds(state, key) >= usageMilliseconds(previous, key), 'window changes never erase spent budget');
     }
     if (firstTimestamp === null && state.lastSample) {
       firstTimestamp = state.lastSample.timestamp;
-      firstUsage = { ...state.usageSeconds };
+      firstUsage = Object.fromEntries(Object.keys(initialUsage).map(key => [key, usageMilliseconds(state, key)]));
     } else if (state.lastSample && firstTimestamp !== null) {
-      const total = Object.keys(initialUsage).reduce((sum, key) => sum + state.usageSeconds[key] - firstUsage[key], 0);
-      assert.ok(total <= Math.floor((state.lastSample.timestamp - firstTimestamp) / 1000), 'two windows never spend more than one elapsed timeline');
+      const total = Object.keys(initialUsage).reduce((sum, key) => sum + usageMilliseconds(state, key) - firstUsage[key], 0);
+      assert.ok(total <= state.lastSample.timestamp - firstTimestamp, 'two windows never spend more than one elapsed timeline');
     }
-    previous = state.usageSeconds;
+    previous = state;
   }
 }

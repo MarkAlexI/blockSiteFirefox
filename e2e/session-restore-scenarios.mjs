@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { nativeTabShortcut, nativeTabWindow } from './native-tab-shortcut.mjs';
 import { installWindowObserver, readWindowObserver, removeWindowObserver,
-  windowOperation, nativeWindowSnapshot, assertWindowPhase, assertWindowAccounting } from './window-probes.mjs';
+  windowOperation, nativeWindowSnapshot, assertWindowPhase, assertWindowAccounting, usageMilliseconds } from './window-probes.mjs';
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const initialUsage = { '21:general': 40, '22:general': 60 };
@@ -41,7 +41,7 @@ export function assertRestoreDeadline(value, key, limitSeconds) {
   assert.ok(value.deadline, 'a real current foreground deadline exists');
   assert.equal(value.deadline.name, 'daily_limit_deadline');
   assert.deepEqual(value.dailyRuleUsage.lastSample.assignmentKeys, [key]);
-  const expected = value.dailyRuleUsage.lastSample.timestamp + (limitSeconds - value.dailyRuleUsage.usageSeconds[key]) * 1000;
+  const expected = value.dailyRuleUsage.lastSample.timestamp + limitSeconds * 1000 - usageMilliseconds(value.dailyRuleUsage, key);
   assert.ok(Math.abs(value.deadline.scheduledTime - expected) < 1000,
     'deadline follows the retained current budget, including native alarm deduplication');
 }
@@ -140,11 +140,11 @@ export const sessionRestoreScenarios = [{
       const elapsed = evidence.restored.dailyRuleUsage.lastSample.timestamp - evidence.absent.dailyRuleUsage.lastSample.timestamp;
       let gain = 0;
       for (const key of Object.keys(initialUsage)) {
-        const delta = evidence.restored.dailyRuleUsage.usageSeconds[key] - evidence.absent.dailyRuleUsage.usageSeconds[key];
+        const delta = usageMilliseconds(evidence.restored.dailyRuleUsage, key) - usageMilliseconds(evidence.absent.dailyRuleUsage, key);
         assert.ok(delta >= 0, 'undo-close cannot reset either spent budget');
         gain += delta;
       }
-      assert.ok(gain <= Math.floor(elapsed / 1000), 'native transition can charge at most its genuine elapsed foreground time');
+      assert.ok(gain <= elapsed, 'native transition can charge at most its genuine elapsed foreground time');
       assertRestoreDeadline(evidence.restored, '21:general', 60);
       evidence.afterRestore = await phase('restored-foreground', restoredId, '21:general', '22:general', restoredId,
         'http://restore-21.bd-e2e.test/after-restore');

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stop custom redirects that loop back through server redirects and prevent duplicate redirect counts.
 - Prevent delayed redirects from replacing a newer navigation.
 - Preserve Daily Limit usage across rapid website and SPA navigation, pauses, and rule moves.
+- Preserve elapsed Daily Limit time when URL changes overlap with page-load completion.
 - Remove obsolete Spanish (Latin America) translation entries.
 
 ## [5.7.3] - 2026-11-27

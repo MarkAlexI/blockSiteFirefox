@@ -2092,6 +2092,76 @@ test('Options health replies only to the owned Options document without reading 
 });
 
 
+test('Daily Limit worker restarts visibility accounting after navigation completes', { timeout: 5000 }, async () => {
+  const start = new Date(2026, 10, 27, 12).getTime();
+  let loading = false;
+  await withUsageClock(start, async clock => {
+    await withWorker(async ({ api }) => {
+      const tab = { id: 10, windowId: 1, active: true, url: 'https://time-a.example/next' };
+      api.tabs.values = [tab];
+      api.storage.local.data.dailyRuleUsage = { version: 2, date: getLocalDateKey(new Date(start)),
+        usageSeconds: { '21:general': 40 },
+        lastSample: { timestamp: start, assignmentKeys: ['21:general'] } };
+      loading = true; clock.set(start + 1500);
+      await api.tabs.onUpdated.listeners[0](10, { url: tab.url }, tab);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, []);
+      loading = false; clock.set(start + 2500);
+      await api.tabs.onUpdated.listeners[0](10, { status: 'complete' }, tab);
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample,
+        { timestamp: start + 2500, assignmentKeys: ['21:general'] });
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 41);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageRemaindersMs['21:general'], 500);
+      clock.set(start + 3000);
+      await api.tabs.onUpdated.listeners[0](10, { status: 'complete' }, tab);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageSeconds['21:general'], 42);
+      assert.equal(api.storage.local.data.dailyRuleUsage.usageRemaindersMs, undefined);
+    }, { local: { activeRuleListId: 'general', rules: [makeDailyLimitRule(21, 'general', { blockURL: 'time-a.example' })] },
+      scripting: { executeScript: async () => {
+        if (loading) throw new Error('Document is still loading');
+        return [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }];
+      } } });
+  });
+});
+
+test('URL accounting stays ahead of a load-complete event while Whitelist inspection waits', { timeout: 5000 }, async () => {
+  const start = new Date(2026, 10, 27, 12).getTime();
+  await withUsageClock(start, async clock => {
+    await withWorker(async ({ api }) => {
+      const a = { id: 10, windowId: 1, active: true, url: 'https://time-a.example/page' };
+      const b = { ...a, url: 'https://time-b.example/page' };
+      api.tabs.values = [a];
+      api.storage.local.data.dailyRuleUsage = { version: 2, date: getLocalDateKey(new Date(start)),
+        usageSeconds: { '21:general': 40, '22:general': 35 },
+        lastSample: { timestamp: start, assignmentKeys: ['21:general'] } };
+      const captured = createDeferred(), release = createDeferred();
+      const original = api.storage.local.get;
+      let hold = true;
+      api.storage.local.get = async function(...args) {
+        const whitelistRead = hold && new Error().stack.includes('enforceFocusWhitelist');
+        if (whitelistRead) hold = false;
+        const snapshot = await original.apply(this, args);
+        if (whitelistRead) { captured.resolve(); await release.promise; }
+        return snapshot;
+      };
+      try {
+        clock.set(start + 208); api.tabs.values = [b];
+        const changed = api.tabs.onUpdated.listeners[0](10, { url: b.url }, b);
+        await Promise.race([captured.promise, changed.then(() => { throw Error('expected held Whitelist inspection'); })]);
+        clock.set(start + 209);
+        await api.tabs.onUpdated.listeners[0](10, { status: 'complete' }, b);
+        release.resolve(); await changed;
+        const state = api.storage.local.data.dailyRuleUsage;
+        assert.deepEqual(state.usageSeconds, { '21:general': 40, '22:general': 35 });
+        assert.deepEqual(state.usageRemaindersMs, { '21:general': 208, '22:general': 1 });
+        assert.deepEqual(state.lastSample, { timestamp: start + 209, assignmentKeys: ['22:general'] });
+      } finally { release.resolve(); api.storage.local.get = original; }
+    }, { local: { activeRuleListId: 'general', rules: [
+      makeDailyLimitRule(21, 'general', { blockURL: 'time-a.example' }),
+      makeDailyLimitRule(22, 'general', { blockURL: 'time-b.example' })
+    ] }, scripting: { executeScript: async () => [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] } });
+  });
+});
+
 test('navigation accounting keeps captured boundaries while an older SPA decision waits', { timeout: 5000 }, async () => {
   const start = new Date(2026, 10, 27, 12).getTime();
   await withUsageClock(start, async clock => {
