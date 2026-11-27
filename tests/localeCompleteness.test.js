@@ -11,7 +11,7 @@ async function readMessages(locale) {
   return JSON.parse(await readFile(join(localesRoot, locale, 'messages.json'), 'utf8'));
 }
 
-test('all 57 locales include every default English message key', async () => {
+test('all 57 locales have exactly the default English message keys', async () => {
   const entries = await readdir(localesRoot, { withFileTypes: true });
   const locales = entries
     .filter(entry => entry.isDirectory())
@@ -23,10 +23,16 @@ test('all 57 locales include every default English message key', async () => {
   const defaultMessages = await readMessages('en');
   const requiredKeys = Object.keys(defaultMessages).sort();
   const missing = [];
+  const unexpected = [];
   const empty = [];
 
   for (const locale of locales) {
     const messages = await readMessages(locale);
+    for (const key of Object.keys(messages)) {
+      if (!Object.hasOwn(defaultMessages, key)) {
+        unexpected.push(`${locale}:${key}`);
+      }
+    }
     for (const key of requiredKeys) {
       if (!Object.hasOwn(messages, key)) {
         missing.push(`${locale}:${key}`);
@@ -44,5 +50,6 @@ test('all 57 locales include every default English message key', async () => {
   }
 
   assert.deepEqual(missing, []);
+  assert.deepEqual(unexpected, []);
   assert.deepEqual(empty, []);
 });

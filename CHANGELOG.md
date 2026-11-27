@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.7.4] - 2026-11-27
+
+### Fixed
+- Stop custom redirects that loop back through server redirects and prevent duplicate redirect counts.
+- Prevent delayed redirects from replacing a newer navigation.
+- Preserve Daily Limit usage across rapid website and SPA navigation, pauses, and rule moves.
+- Remove obsolete Spanish (Latin America) translation entries.
+
 ## [5.7.3] - 2026-11-27
 
 ### Fixed
