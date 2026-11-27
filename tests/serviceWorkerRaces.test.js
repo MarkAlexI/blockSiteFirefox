@@ -6743,6 +6743,7 @@ async function withRedirectWorker(callback) {
       const rule = createDnrRuleFactory(path => api.runtime.getURL(path))(7, blockURL, target);
       api.dynamicRules = [rule];
       const sender = { id: api.runtime.id, url: rule.action.redirect.url, frameId: 0, tab: { id: 4 } };
+      api.tabs.values = [{ id: 4, url: sender.url }];
       await callback({ ...context, rule, sender, blockURL, target: new URL(target).href, records, StatisticsManager });
     } finally {
       StatisticsManager.recordRedirect = originalRecord;
@@ -6759,6 +6760,7 @@ test('redirect authorization returns the installed HTTP(S) target with one DNR r
       url.searchParams.set('to', destination);
       rule.action.redirect.url = url.href;
       sender.url = url.href;
+      api.tabs.values[0].url = sender.url;
       const response = await send({ type: 'record_redirect', from: 'fake.example', to: 'https://phishing.example' }, sender);
       assert.deepEqual(response, { success: true, to: destination });
       await Promise.resolve();
@@ -6864,7 +6866,8 @@ test('redirect authorization updates real statistics only for an authorized inst
   await withWorker(async ({ api, send }) => {
     const rule = createDnrRuleFactory(path => api.runtime.getURL(path))(3, 'source.example', 'https://chosen.example/path');
     api.dynamicRules = [rule];
-    const sender = { id: api.runtime.id, url: rule.action.redirect.url, frameId: 0 };
+    const sender = { id: api.runtime.id, url: rule.action.redirect.url, frameId: 0, tab: { id: 4 } };
+    api.tabs.values = [{ id: 4, url: sender.url }];
     const forged = new URL(sender.url);
     forged.searchParams.set('to', 'https://phishing.example');
     assert.deepEqual(await send({ type: 'record_redirect' }, { ...sender, url: forged.href }), { success: false });
@@ -10591,3 +10594,45 @@ test('startup rule preparation failure preserves spent usage until migration can
       }
     });
   });
+
+
+test('redirect worker counts one hop per document and one terminal server-cycle block', async () => {
+  await withRedirectWorker(async ({ api, send, sender, records, StatisticsManager }) => {
+    sender.documentId = 'document-initial';
+    const initialBlocked = api.storage.local.data.statistics?.totalBlocked || 0;
+    const [first, duplicate] = await Promise.all([send({ type: 'record_redirect' }, sender), send({ type: 'record_redirect' }, sender)]);
+    assert.equal(first.success, true); assert.equal(duplicate.success, true);
+    assert.equal(records.length, 1);
+    sender.documentId = 'server-return';
+    assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false });
+    assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false });
+    await StatisticsManager.mutationTail;
+    assert.equal(records.length, 1);
+    assert.equal(api.storage.local.data.statistics.totalBlocked, initialBlocked + 1);
+    const blocked = api.runtime.getURL('blocked.html');
+    api.tabs.values = [{ id: 4, url: blocked, status: 'complete' }];
+    await api.tabs.onUpdated.listeners[0](4, { status: 'complete' }, api.tabs.values[0]);
+    api.tabs.values[0].url = sender.url; sender.documentId = 'manual-retry';
+    assert.equal((await send({ type: 'record_redirect' }, sender)).success, true);
+    assert.equal(records.length, 2);
+  });
+});
+
+
+test('redirect worker cancels an obsolete request without replacing a newer pending navigation', async () => {
+  await withRedirectWorker(async ({ api, send, sender, records }) => {
+    api.tabs.values[0].pendingUrl = 'https://newer.example/';
+    assert.deepEqual(await send({ type: 'record_redirect' }, sender), { success: false, obsolete: true });
+    assert.deepEqual(records, []);
+    assert.equal(api.storage.local.data.statistics?.totalBlocked || 0, 0);
+  });
+});
+
+
+test('a closed redirect response channel cannot cause an unhandled failure or count an undelivered redirect', async () => {
+  await withRedirectWorker(async ({ api, sender, records }) => {
+    api.runtime.onMessage.listeners[0]({ type: 'record_redirect' }, sender, () => { throw Error('Response channel closed'); });
+    for (let i = 0; i < 5; i++) await new Promise(resolve => setImmediate(resolve));
+    assert.deepEqual(records, []);
+  });
+});

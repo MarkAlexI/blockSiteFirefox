@@ -315,7 +315,8 @@ export class ExtensionHarness {
     options.setPreference('network.proxy.type', 1);
     options.setPreference('network.proxy.http', '127.0.0.1').setPreference('network.proxy.http_port', port);
     options.setPreference('network.proxy.ssl', '127.0.0.1').setPreference('network.proxy.ssl_port', port);
-    options.setPreference('network.proxy.no_proxies_on', '');
+    // Dedicated navigation scenarios use a real, owned loopback HTTP server.
+    options.setPreference('network.proxy.no_proxies_on', '127.0.0.1');
     // Documented extension-development mode, only in a newly created profile.
     // Release Firefox needs BD_SIGNED_XPI for a persistent installation.
     if (this.config.installation === 'persistent' && !process.env.BD_SIGNED_XPI) {

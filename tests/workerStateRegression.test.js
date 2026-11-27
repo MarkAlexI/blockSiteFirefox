@@ -2090,3 +2090,43 @@ test('Options health replies only to the owned Options document without reading 
     assert.deepEqual(api.dynamicRules, []);
   });
 });
+
+
+test('navigation accounting keeps captured boundaries while an older SPA decision waits', { timeout: 5000 }, async () => {
+  const start = new Date(2026, 10, 27, 12).getTime();
+  await withUsageClock(start, async clock => {
+    await withWorker(async ({ api }) => {
+      const a = { id: 10, windowId: 1, active: true, url: 'https://time-a.example/page' };
+      const b = { ...a, url: 'https://time-b.example/page' };
+      api.tabs.values = [a];
+      api.storage.local.data.dailyRuleUsage = { version: 2, date: getLocalDateKey(new Date(start)),
+        usageSeconds: { '21:general': 40, '22:general': 35 },
+        lastSample: { timestamp: start, assignmentKeys: ['21:general'] } };
+      const captured = createDeferred(), release = createDeferred();
+      const original = api.storage.local.get;
+      let hold = true;
+      api.storage.local.get = async function(...args) {
+        const snapshot = await original.apply(this, args);
+        if (hold && new Error().stack.includes('buildExpectedDnrState')) {
+          hold = false; captured.resolve(); await release.promise;
+        }
+        return snapshot;
+      };
+      try {
+        clock.set(start + 5000); api.tabs.values = [b];
+        const older = api.tabs.onUpdated.listeners[0](10, { url: b.url }, b);
+        await Promise.race([captured.promise, older.then(() => { throw Error('expected a held production DNR state read'); })]);
+        clock.set(start + 10000); api.tabs.values = [a];
+        await api.tabs.onUpdated.listeners[0](10, { url: a.url }, a);
+        clock.set(start + 15000); release.resolve(); await older;
+        clock.set(start + 20000);
+        await api.tabs.onUpdated.listeners[0](10, { status: 'complete' }, a);
+        assert.deepEqual(api.storage.local.data.dailyRuleUsage.usageSeconds, { '21:general': 55, '22:general': 40 });
+        assert.deepEqual(api.storage.local.data.dailyRuleUsage.lastSample.assignmentKeys, ['21:general']);
+      } finally { release.resolve(); api.storage.local.get = original; }
+    }, { local: { activeRuleListId: 'general', rules: [
+      makeDailyLimitRule(21, 'general', { blockURL: 'time-a.example' }),
+      makeDailyLimitRule(22, 'general', { blockURL: 'time-b.example' })
+    ] }, scripting: { executeScript: async () => [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }] } });
+  });
+});

@@ -156,7 +156,8 @@ export function createDailyLimitTracker({
         result.usageUpdates?.[key]?.currentUsageSeconds,
         context.usageSeconds?.[key]
       );
-      const remainingSeconds = limitSeconds - usageSeconds;
+      const remainderMs = Number(result.state?.usageRemaindersMs?.[key]) || 0;
+      const remainingSeconds = limitSeconds - usageSeconds - remainderMs / 1000;
       if (remainingSeconds <= 0) continue;
 
       const deadline = now.getTime() + remainingSeconds * 1000;
@@ -499,6 +500,7 @@ export function createDailyLimitTracker({
       shouldContinue
     });
     if (result.superseded) return superseded();
+    if (result.stale) return { ...result, resolution: 'stale_sample', activeRuleId: null, activeAssignmentListIds: [] };
 
     await syncCrossedLimits(result);
     await scheduleDeadlineAlarm(context, result, now);

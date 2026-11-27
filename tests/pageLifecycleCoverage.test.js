@@ -89,6 +89,7 @@ async function exerciseRedirect(href, configureApi = null) {
   console.error = () => {};
 
   try {
+    api.tabs.getCurrent = async () => ({ id: 1, url: location.href });
     await withExtensionEnvironment(api, async () => {
       const suffix = redirectImportId++ === 0 ? '' : `?case=${redirectImportId}`;
       await import(`../scripts/redirect.js${suffix}`);
@@ -103,11 +104,18 @@ async function exerciseRedirect(href, configureApi = null) {
   return { api, redirected };
 }
 
+function assertAuthorizationRequest(messages) {
+  assert.equal(messages.length, 1);
+  const { documentToken, ...request } = messages[0];
+  assert.deepEqual(request, { type: 'record_redirect' });
+  assert.match(documentToken, /^[0-9a-f]{8}-[0-9a-f-]{27}$/i);
+}
+
 test('redirect pages request authorization rather than trusting scheme-less query targets', async () => {
   const source = encodeURIComponent('https://source.example/team');
   const destination = encodeURIComponent('target.example/path');
   const result = await exerciseRedirect(`https://extension.example/redirect.html?from=${source}&to=${destination}`);
-  assert.deepEqual(result.api.messages, [{ type: 'record_redirect' }]);
+  assertAuthorizationRequest(result.api.messages);
   assert.deepEqual(result.redirected, ['extension://test-extension-id/blocked.html']);
 });
 
@@ -122,11 +130,11 @@ test('redirect pages use verified HTTPS destinations and reject incomplete reque
     }
   );
   assert.deepEqual(valid.redirected, ['https://safe.example/']);
-  assert.deepEqual(valid.api.messages, [{ type: 'record_redirect' }]);
+  assertAuthorizationRequest(valid.api.messages);
 
   const incomplete = await exerciseRedirect('https://extension.example/redirect.html?from=https%3A%2F%2Fsource.example%2F');
   assert.deepEqual(incomplete.redirected, ['extension://test-extension-id/blocked.html']);
-  assert.deepEqual(incomplete.api.messages, [{ type: 'record_redirect' }]);
+  assertAuthorizationRequest(incomplete.api.messages);
 });
 
 test('redirect delivery failures fall back to the packaged blocked page', async () => {

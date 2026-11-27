@@ -1,3 +1,4 @@
+import { migrateDailyUsageSchema } from '../rules/rulesMigrationService.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -7,6 +8,71 @@ import {
   normalizeDailyRuleUsageState,
   PENDING_DAILY_USAGE_REMAPS_KEY
 } from '../rules/dailyLimitManager.js';
+
+test('subsecond carry never rewinds the actual observation timestamp', async () => {
+  const storage = createStorage(), manager = new DailyLimitManager(storage);
+  const start = new Date(2026, 10, 27, 12);
+  await manager.recordSample(['1:general'], start);
+  await manager.recordSample(['1:general'], new Date(+start + 500));
+  assert.equal(storage.data.dailyRuleUsage.lastSample.timestamp, +start + 500);
+  const before = structuredClone(storage.data);
+  assert.equal((await manager.recordSample(['2:general'], new Date(+start + 250), { closePreviousSegment: true })).stale, true);
+  assert.deepEqual(storage.data, before);
+});
+
+test('subsecond carry does not change the native continuity gap limit', async () => {
+  const storage = createStorage(), manager = new DailyLimitManager(storage);
+  const start = new Date(2026, 10, 27, 12);
+  await manager.recordSample(['1:general'], start);
+  await manager.recordSample(['1:general'], new Date(+start + 500));
+  await manager.recordSample(['1:general'], new Date(+start + 90400));
+  assert.equal(storage.data.dailyRuleUsage.usageSeconds['1:general'], 90);
+  await manager.recordSample(['1:general'], new Date(+start + 180401));
+  assert.equal(storage.data.dailyRuleUsage.usageSeconds['1:general'], 90, 'a genuine gap over 90 seconds is still uncharged');
+});
+
+test('normalization retains only valid fractional daily budgets, including paused assignments', () => {
+  const now = new Date(2026, 10, 27, 12);
+  const raw = { date: getLocalDateKey(now), usageSeconds: {}, lastSample: null, usageRemaindersMs: { '1:general': 500 } };
+  assert.deepEqual(normalizeDailyRuleUsageState(raw, now).usageRemaindersMs, { '1:general': 500 });
+  for (const remainder of [-1, 0, 1000, 0.5, Infinity, 'private-url']) {
+    assert.equal(normalizeDailyRuleUsageState({ ...raw, usageRemaindersMs: { '1:general': remainder } }, now).usageRemaindersMs, undefined);
+  }
+});
+
+
+test('out-of-order navigation samples cannot rewind ownership or double-charge a later segment', async () => {
+  const storage = createStorage(), manager = new DailyLimitManager(storage);
+  const start = new Date(2026, 10, 27, 12);
+  const at = seconds => new Date(+start + seconds * 1000);
+  await manager.recordSample(['1:general'], at(0));
+  await manager.recordSample(['2:general'], at(10), { closePreviousSegment: true });
+  const before = structuredClone(storage.data);
+  assert.equal((await manager.recordSample(['1:general'], at(5), { closePreviousSegment: true })).stale, true);
+  assert.deepEqual(storage.data, before);
+  await manager.recordSample(['2:general'], at(15));
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '1:general': 10, '2:general': 5 });
+});
+
+test('a delayed previous-day sample cannot erase the new day budget', async () => {
+  const storage = createStorage(), manager = new DailyLimitManager(storage);
+  const midnight = new Date(2026, 10, 28);
+  await manager.recordSample(['1:general'], new Date(+midnight + 1000));
+  await manager.recordSample(['1:general'], new Date(+midnight + 11000));
+  const before = structuredClone(storage.data);
+  assert.equal((await manager.recordSample(['2:general'], new Date(+midnight - 1000))).stale, true);
+  assert.deepEqual(storage.data, before);
+});
+
+test('frequent same-rule SPA observations retain whole seconds across worker instances', async () => {
+  const storage = createStorage(), start = new Date(2026, 10, 27, 12);
+  await new DailyLimitManager(storage).recordSample(['1:general'], start);
+  for (let i = 1; i <= 20; i++) {
+    await new DailyLimitManager(storage).recordSample(['1:general'], new Date(+start + i * 500), { closePreviousSegment: true });
+  }
+  assert.equal(storage.data.dailyRuleUsage.usageSeconds['1:general'], 10);
+  assert.equal(storage.data.dailyRuleUsage.lastSample.timestamp, +start + 10000);
+});
 
 function createStorage(initial = {}) {
   const data = { ...initial };
@@ -782,3 +848,58 @@ for (const order of ['sample_before_stage', 'stage_before_sample']) {
     });
   });
 }
+
+
+test('rapid alternation of two Daily Limit assignments preserves both fractional budgets', async () => {
+  const storage = createStorage(), start = new Date(2026, 10, 27, 12);
+  await new DailyLimitManager(storage).recordSample(['1:general'], start);
+  for (let i = 1; i <= 100; i++) await new DailyLimitManager(storage).recordSample(
+    [i % 2 ? '2:general' : '1:general'], new Date(+start + i * 100), { closePreviousSegment: true });
+  assert.deepEqual(storage.data.dailyRuleUsage.usageSeconds, { '1:general': 5, '2:general': 5 });
+  assert.equal(storage.data.dailyRuleUsage.usageRemaindersMs, undefined);
+});
+
+test('a paused fractional budget survives a new manager without charging the inactive interval', async () => {
+  const storage = createStorage(), start = new Date(2026, 10, 27, 12);
+  const first = new DailyLimitManager(storage);
+  await first.recordSample(['1:general'], start); await first.resetSample(new Date(+start + 500));
+  assert.deepEqual(storage.data.dailyRuleUsage.usageRemaindersMs, { '1:general': 500 });
+  const next = new DailyLimitManager(storage);
+  await next.recordSample(['1:general'], new Date(+start + 60000));
+  await next.recordSample(['1:general'], new Date(+start + 60500));
+  assert.equal(storage.data.dailyRuleUsage.usageSeconds['1:general'], 1);
+});
+
+test('moving an active fractional budget and pruning its deleted assignment preserve canonical state', async () => {
+  const storage = createStorage(), start = new Date(2026, 10, 27, 12);
+  const manager = new DailyLimitManager(storage);
+  await manager.recordSample(['1:general'], start); await manager.recordSample(['1:general'], new Date(+start + 500));
+  await manager.remapAssignmentKey(1, 'general', 2, 'study', new Date(+start + 500));
+  assert.deepEqual(storage.data.dailyRuleUsage.usageRemaindersMs, { '2:study': 500 });
+  await manager.recordSample(['2:study'], new Date(+start + 1000));
+  assert.equal(storage.data.dailyRuleUsage.usageSeconds['2:study'], 1);
+  await manager.recordSample(['2:study'], new Date(+start + 1500));
+  await manager.pruneAssignmentKeys([], new Date(+start + 1500));
+  assert.equal(storage.data.dailyRuleUsage.usageRemaindersMs, undefined);
+});
+
+test('an inactive subsecond budget still stages and recovers the durable move journal', async () => {
+  const now = new Date();
+  const storage = createStorage({ dailyRuleUsage: { version: 2, date: getLocalDateKey(now), usageSeconds: {},
+    lastSample: null, usageRemaindersMs: { '1:general': 500 } } });
+  const manager = new DailyLimitManager(storage);
+  const remap = { oldRuleId: 1, oldListId: 'general', newRuleId: 2, newListId: 'study' };
+  assert.deepEqual(await manager.stagePendingRemaps({ rules: [] }, [remap]), [remap]);
+  await new DailyLimitManager(storage).recoverPendingRemaps(now);
+  assert.deepEqual(storage.data.dailyRuleUsage.usageRemaindersMs, { '2:study': 500 });
+});
+
+test('legacy migration expands fractions only from the winning whole budget', () => {
+  const rules = [{ id: 1, blockURL: 'fraction.example', assignments: ['general', 'study'].map(listId =>
+    ({ listId, blockingMode: 'daily_limit', dailyLimit: { minutes: 10 } })) }];
+  const raw = { version: 1, date: getLocalDateKey(), usageSeconds: { '1': 10, '1:general': 11 },
+    lastSample: null, usageRemaindersMs: { '1': 900, '1:general': 100 } };
+  const migrated = migrateDailyUsageSchema(raw, rules);
+  assert.deepEqual(migrated.state.usageSeconds, { '1:general': 11, '1:study': 10 });
+  assert.deepEqual(migrated.state.usageRemaindersMs, { '1:general': 100, '1:study': 900 });
+});

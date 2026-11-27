@@ -141,6 +141,23 @@ export function migrateDailyUsageSchema(rawState, rules) {
     changed = true;
   }
 
+  const nextRemainders = {};
+  const fractions = rawState.usageRemaindersMs;
+  if (fractions && typeof fractions === 'object' && !Array.isArray(fractions)) {
+    for (const [key, value] of Object.entries(fractions)) {
+      const remainder = Number(value);
+      if (!Number.isInteger(remainder) || remainder <= 0 || remainder >= 1000) continue;
+      const legacyRule = rulesById.get(key);
+      const keys = key.includes(':') ? (validUsageAssignmentKeys.has(key) ? [key] : [])
+        : legacyRule ? getRuleAssignments(legacyRule).map(item => getAssignmentUsageKey(key, item.listId)).filter(Boolean) : [];
+      for (const scoped of keys) {
+        if (normalizeUsageSeconds(usageSeconds[key]) === (nextUsage[scoped] || 0)) {
+          nextRemainders[scoped] = Math.max(nextRemainders[scoped] || 0, remainder);
+        }
+      }
+    }
+  }
+
   let nextLastSample = rawState.lastSample ?? null;
   if (nextLastSample && typeof nextLastSample === 'object' && !Array.isArray(nextLastSample)) {
     if (Array.isArray(nextLastSample.assignmentKeys)) {
@@ -181,6 +198,9 @@ export function migrateDailyUsageSchema(rawState, rules) {
     usageSeconds: nextUsage,
     lastSample: nextLastSample
   };
+
+  if (Object.keys(nextRemainders).length) state.usageRemaindersMs = nextRemainders;
+  else delete state.usageRemaindersMs;
 
   if (!sameJson(state, rawState)) changed = true;
   return { migrated: changed, state };

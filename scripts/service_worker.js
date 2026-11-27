@@ -20,7 +20,7 @@ import { isUrlInWhitelist } from '../pro/isUrlInWhitelist.js';
 import { createDnrSynchronizer, getDnrSyncFailureCode } from './dnrSynchronizer.js';
 import { createSpaNavigationEnforcer } from './spaNavigationEnforcer.js';
 import { createDnrRuleFactory } from '../rules/dnrRuleFactory.js';
-import { authorizeRedirect } from '../utils/redirectAuthorization.js';
+import { authorizeRedirect, createRedirectNavigationGuard } from '../utils/redirectAuthorization.js';
 import { isRuleActiveNow } from '../rules/ruleActivation.js';
 import { BLOCKING_MODE_DAILY_LIMIT } from '../rules/blockingMode.js';
 import { getDailyUsageAssignmentKeys, getRuleAssignment, getRuleAssignments } from '../rules/ruleAssignments.js';
@@ -379,6 +379,10 @@ const spaNavigationEnforcer = createSpaNavigationEnforcer({
   resolveNavigation: url => dnrSynchronizer.resolveNavigation(url),
   shouldSkipUrl: url => isBlockedURL([{ url }]),
   logger
+});
+
+const redirectNavigationGuard = createRedirectNavigationGuard({
+  tabsApi: browser.tabs, runtimeApi: browser.runtime, sessionStorage: browser.storage.session
 });
 
 const requiresDailyLimitWindowFocus = createDailyLimitFocusPolicy({
@@ -1638,25 +1642,44 @@ function handleProStatusUpdate(isPro, subscriptionData = {}, expectedVerificatio
   });
 }
 
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>
-  runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED, async () => {
+const navigationEventTokens = new Map();
+browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  const observedAt = new Date();
+  const eventToken = {};
+  if (changeInfo.url) navigationEventTokens.set(tabId, eventToken);
+  return runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED, async () => {
+    if (changeInfo.status === 'complete' && tab.url) await redirectNavigationGuard.completed(tabId, tab.url);
     if (changeInfo.url) {
       const handledByWhitelistFocus = await enforceFocusWhitelist(tabId, changeInfo.url);
+      // Retain local initialization/Whitelist ordering, then queue accounting
+      // before the potentially delayed SPA decision. Keep the native event time.
+      const accounting = tab.active ? runAsyncHandler(ASYNC_HANDLER_OPERATIONS.TAB_UPDATED,
+        () => dailyLimitTracker.sample('tab_url_changed', observedAt, { ...tab, url: changeInfo.url })) : Promise.resolve();
       let spaOutcome = 'whitelist_focus';
       if (!handledByWhitelistFocus) {
         const result = await spaNavigationEnforcer.enforce(tabId, changeInfo.url);
         spaOutcome = result.status;
       }
       await recordSpaNavigationDiagnostic(spaOutcome);
-      if (tab.active) await dailyLimitTracker.sample('tab_url_changed', new Date(), tab);
+      const sample = await accounting;
+      // Startup migration can invalidate the first context while resolving
+      // this event. Retry that boundary once after reconciliation, retaining
+      // its timestamp; the manager rejects it if a newer sample already won.
+      if (sample?.resolution === 'superseded' && navigationEventTokens.get(tabId) === eventToken) {
+        await dailyLimitTracker.sample('tab_url_changed', observedAt, { ...tab, url: changeInfo.url });
+      }
     }
-
     if (changeInfo.status === 'complete' && tab.url) {
+      if (tab.active) await dailyLimitTracker.sample('tab_load_complete', observedAt, tab);
       await trackBlockedPage(tab.url);
-      if (tab.active) await dailyLimitTracker.sample('tab_load_complete', new Date(), tab);
     }
-  })
-);
+  });
+});
+
+browser.tabs.onRemoved?.addListener(tabId => {
+  navigationEventTokens.delete(tabId);
+  void redirectNavigationGuard.removed(tabId).catch(error => logger.info('Redirect tab cleanup failed:', error));
+});
 
 browser.tabs.onActivated.addListener((activeInfo) => {
   void browser.tabs.get(activeInfo.tabId)
@@ -2348,19 +2371,28 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'record_redirect') {
     const generation = blockingDecisionGeneration;
     const isCurrent = () => generation === blockingDecisionGeneration;
-    authorizeRedirect({ sender, runtimeApi: browser.runtime, dnrApi: browser.declarativeNetRequest, isCurrent })
-      .then(verified => {
-        if (!verified || !isCurrent()) {
-          sendResponse({ success: false });
+    const reply = response => { try { return sendResponse(response) !== false; } catch { return false; } };
+    void (async () => {
+      try {
+        const verified = await authorizeRedirect({ sender, runtimeApi: browser.runtime,
+          dnrApi: browser.declarativeNetRequest, isCurrent });
+        if (!verified || !isCurrent()) { reply({ success: false }); return; }
+        const decision = await redirectNavigationGuard.authorize(sender, verified, {
+          documentToken: message.documentToken, isCurrent
+        });
+        if (!isCurrent() || !decision.allowed) {
+          const delivered = reply({ success: false, ...(decision.obsolete ? { obsolete: true } : {}) });
+          if (delivered && isCurrent() && decision.recordBlock) void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.RECORD_BLOCK,
+            () => StatisticsManager.recordBlock(verified.from));
           return;
         }
-        sendResponse({ success: true, to: verified.to });
+        if (!reply({ success: true, to: verified.to })) return;
+        // The same document's repeated message cannot inflate statistics.
         // Statistics must not hold the redirect response open.
-        void runAsyncHandler(
-          ASYNC_HANDLER_OPERATIONS.RECORD_REDIRECT,
-          () => StatisticsManager.recordRedirect(verified.from, verified.to)
-        );
-      }, () => sendResponse({ success: false }));
+        if (decision.recordRedirect) void runAsyncHandler(ASYNC_HANDLER_OPERATIONS.RECORD_REDIRECT,
+          () => StatisticsManager.recordRedirect(verified.from, verified.to));
+      } catch { reply({ success: false }); }
+    })();
     return true;
   }
   

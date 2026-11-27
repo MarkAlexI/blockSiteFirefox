@@ -28,6 +28,7 @@ function createTracker({
   recordSample,
   requestSync = async () => {},
   usageSeconds = {},
+  alarmsApi,
   tabsApiOverrides = {},
   scriptingApiOverrides = {},
   rules = [makeRule()],
@@ -68,9 +69,22 @@ function createTracker({
       }
     },
     dnrSynchronizer: { requestSync },
+    alarmsApi,
     logger: { info() {}, log() {} }
   });
 }
+
+test('the Daily Limit deadline includes an already verified fractional second', async () => {
+  const now = new Date(2026, 10, 27, 12), created = [];
+  const tracker = createTracker({
+    alarmsApi: { async create(name, options) { created.push({ name, options }); }, async clear() {} },
+    recordSample: () => ({ addedSeconds: 0, usageUpdates: {}, state: {
+      usageSeconds: { '1:general': 10 }, usageRemaindersMs: { '1:general': 500 }
+    } })
+  });
+  await tracker.sample('tab_url_changed', now);
+  assert.deepEqual(created, [{ name: 'daily_limit_deadline', options: { when: +now + 49500 } }]);
+});
 
 test('tracker counts a matching Daily Limit assignment only when the page is visible', async () => {
   let sampled = null;

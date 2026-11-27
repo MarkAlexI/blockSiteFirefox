@@ -58,3 +58,91 @@ export async function authorizeRedirect({ sender, runtimeApi, dnrApi, isCurrent 
   if (!rule || hasRedirectCycle(rule, verified.to, rules, runtimeApi)) return null;
   return { from: verified.from, to: verified.to };
 }
+
+export const REDIRECT_NAVIGATION_STATE_KEY = 'redirectNavigationChainsV1';
+
+// A server redirect is outside the DNR rule graph. Retain only this tab's
+// unfinished sequence of already authorized rule targets, until a web document
+// or the local blocked page actually finishes. storage.session survives an
+// idle worker restart and is cleared on browser exit; old Firefox event pages
+// without that API keep the same state in memory.
+export function createRedirectNavigationGuard({ tabsApi, runtimeApi, sessionStorage }) {
+  let loaded = false, chains = {}, tail = Promise.resolve();
+  const enqueue = task => {
+    const result = tail.then(task, task);
+    tail = result.catch(() => {});
+    return result;
+  };
+  async function load() {
+    if (loaded) return;
+    const saved = sessionStorage ? (await sessionStorage.get(REDIRECT_NAVIGATION_STATE_KEY))[REDIRECT_NAVIGATION_STATE_KEY] : null;
+    if (saved && typeof saved === 'object' && !Array.isArray(saved)) {
+      for (const [id, value] of Object.entries(saved)) {
+        if (!/^\d+$/.test(id) || !Array.isArray(value?.hops) ||
+            !value.hops.every(hop => typeof hop === 'string')) continue;
+        chains[id] = { hops: value.hops, document: typeof value.document === 'string' ? value.document : null,
+          fingerprint: typeof value.fingerprint === 'string' ? value.fingerprint : null, blocked: value.blocked === true };
+      }
+    }
+    loaded = true;
+  }
+  const save = () => sessionStorage?.set({ [REDIRECT_NAVIGATION_STATE_KEY]: chains });
+  const current = (tab, url) => tab?.url === url && (!tab.pendingUrl || tab.pendingUrl === url);
+
+  function authorize(sender, verified, { documentToken, isCurrent = () => true } = {}) {
+    return enqueue(async () => {
+      await load();
+      const id = sender.tab?.id;
+      if (!Number.isInteger(id) || id < 0 || !isCurrent()) return { allowed: false };
+      let tab;
+      try { tab = await tabsApi.get(id); } catch { return { allowed: false, obsolete: true }; }
+      if (!isCurrent()) return { allowed: false };
+      if (!current(tab, sender.url)) return { allowed: false, obsolete: true };
+      const fingerprint = JSON.stringify([verified.from, verified.to]);
+      const document = sender.documentId ||
+        (typeof documentToken === 'string' && /^[\w-]{16,128}$/.test(documentToken) ? documentToken : null);
+      const previous = chains[id];
+      if (previous?.blocked) return { allowed: false };
+      if (document && previous?.document === document && previous.fingerprint === fingerprint) {
+        return { allowed: true, recordRedirect: false };
+      }
+      if (previous?.hops.includes(fingerprint)) {
+        chains[id] = { ...previous, blocked: true };
+        await save();
+        return { allowed: false, recordBlock: isCurrent() };
+      }
+      chains[id] = { hops: [...(previous?.hops || []), fingerprint], document, fingerprint, blocked: false };
+      await save();
+      return { allowed: isCurrent(), recordRedirect: isCurrent() };
+    });
+  }
+
+  function completed(tabId, url) {
+    // Completion of redirect.html is an intermediary, not a successful web
+    // visit. Re-read native completion as a landing page can already have
+    // changed its URL through SPA history before this observer resumes.
+    const terminal = value => {
+      try {
+        const parsed = new URL(value);
+        return ['http:', 'https:'].includes(parsed.protocol) ||
+          parsed.href.split(/[?#]/, 1)[0] === runtimeApi.getURL('blocked.html');
+      } catch { return false; }
+    };
+    if (!terminal(url)) return Promise.resolve();
+    return enqueue(async () => {
+      await load();
+      if (!chains[tabId]) return;
+      let tab;
+      try { tab = await tabsApi.get(tabId); } catch { return; }
+      if (tab?.status !== 'complete' || !terminal(tab.url) ||
+          (tab.pendingUrl && tab.pendingUrl !== tab.url)) return;
+      delete chains[tabId];
+      await save();
+    });
+  }
+
+  function removed(tabId) {
+    return enqueue(async () => { await load(); if (!chains[tabId]) return; delete chains[tabId]; await save(); });
+  }
+  return { authorize, completed, removed };
+}

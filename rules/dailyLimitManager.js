@@ -36,6 +36,7 @@ export function normalizeDailyRuleUsageState(raw, now = new Date()) {
   const today = getLocalDateKey(now);
   const sameDay = raw?.date === today;
   const usageSeconds = {};
+  const usageRemaindersMs = {};
 
   if (sameDay && raw?.usageSeconds && typeof raw.usageSeconds === 'object' && !Array.isArray(raw.usageSeconds)) {
     for (const [key, value] of Object.entries(raw.usageSeconds)) {
@@ -44,6 +45,13 @@ export function normalizeDailyRuleUsageState(raw, now = new Date()) {
       if (normalizedKey && Number.isFinite(seconds) && seconds > 0) {
         usageSeconds[normalizedKey] = seconds;
       }
+    }
+  }
+
+  if (sameDay && raw?.usageRemaindersMs && typeof raw.usageRemaindersMs === 'object' && !Array.isArray(raw.usageRemaindersMs)) {
+    for (const [key, value] of Object.entries(raw.usageRemaindersMs)) {
+      const normalizedKey = normalizeUsageKey(key), remainder = Number(value);
+      if (normalizedKey && Number.isInteger(remainder) && remainder > 0 && remainder < 1000) usageRemaindersMs[normalizedKey] = remainder;
     }
   }
 
@@ -67,7 +75,8 @@ export function normalizeDailyRuleUsageState(raw, now = new Date()) {
     version: DAILY_LIMIT_STATE_VERSION,
     date: today,
     usageSeconds,
-    lastSample
+    lastSample,
+    ...(Object.keys(usageRemaindersMs).length ? { usageRemaindersMs } : {})
   };
 }
 
@@ -101,26 +110,29 @@ function normalizeAssignmentRemaps(remaps = []) {
 }
 
 function applyAssignmentRemaps(state, remaps) {
+  const remainders = state.usageRemaindersMs || {};
   for (const { oldRuleId, oldKey, newKey } of remaps) {
     const legacyKey = String(oldRuleId);
-    const oldUsage = Math.max(0, Number(state.usageSeconds[oldKey]) || 0,
-      Number(state.usageSeconds[legacyKey]) || 0);
-    const newUsage = Math.max(0, Number(state.usageSeconds[newKey]) || 0);
-    if (oldUsage > 0 || newUsage > 0) {
-      state.usageSeconds[newKey] = Math.max(oldUsage, newUsage);
-    }
-    delete state.usageSeconds[oldKey];
+    // Compare full budgets without converting large persisted counters to ms.
+    const winner = [oldKey, legacyKey, newKey].reduce((best, key) => {
+      const seconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
+      const bestSeconds = Math.max(0, Number(state.usageSeconds[best]) || 0);
+      return seconds > bestSeconds || (seconds === bestSeconds && (remainders[key] || 0) > (remainders[best] || 0)) ? key : best;
+    }, newKey);
+    const seconds = Math.max(0, Number(state.usageSeconds[winner]) || 0), remainder = remainders[winner] || 0;
+    if (seconds > 0) state.usageSeconds[newKey] = seconds;
+    if (remainder) remainders[newKey] = remainder; else delete remainders[newKey];
+    delete state.usageSeconds[oldKey]; delete remainders[oldKey];
     if (state.lastSample) {
       state.lastSample.assignmentKeys = normalizeActiveKeys(
         state.lastSample.assignmentKeys.flatMap(key => {
           if (key === oldKey) return [newKey];
-          // Preserve the legacy segment for remaining source assignments while
-          // giving the moved assignment its own segment before migration.
           return key === legacyKey ? [key, newKey] : [key];
         })
       );
     }
   }
+  if (Object.keys(remainders).length) state.usageRemaindersMs = remainders; else delete state.usageRemaindersMs;
   return state;
 }
 
@@ -188,6 +200,8 @@ export class DailyLimitManager {
           hasTrackedUsage = normalized.some(remap =>
             Number(current.usageSeconds[remap.oldKey]) > 0 ||
             Number(current.usageSeconds[String(remap.oldRuleId)]) > 0 ||
+            Number(current.usageRemaindersMs?.[remap.oldKey]) > 0 ||
+            Number(current.usageRemaindersMs?.[String(remap.oldRuleId)]) > 0 ||
             current.lastSample?.assignmentKeys.includes(remap.oldKey) ||
             current.lastSample?.assignmentKeys.includes(String(remap.oldRuleId))
           );
@@ -270,10 +284,12 @@ export class DailyLimitManager {
         await this.storageArea.set(patch);
         if (pending.length > 0) this.pendingRemaps = [];
       };
+      let newBrowserSession = false;
       if (this.sessionStorage) {
         const session = await this.sessionStorage.get(DAILY_LIMIT_SESSION_KEY);
         if (!shouldContinue()) return { superseded: true };
         if (session[DAILY_LIMIT_SESSION_KEY] !== 1) {
+          newBrowserSession = true;
           // Durable usage survives browser exit; the foreground segment does
           // not. A tab/alarm event may precede runtime.onStartup. Check the
           // browser-owned session boundary before any elapsed-time charge.
@@ -288,6 +304,14 @@ export class DailyLimitManager {
         }
       }
       const timestamp = now.getTime();
+      const storedTimestamp = Number(raw?.lastSample?.timestamp);
+      // A delayed tab event cannot rewind the segment, including across local
+      // midnight. Leave both today's budget and the current owner intact.
+      if (!newBrowserSession && Number.isFinite(storedTimestamp) && storedTimestamp > timestamp) {
+        return { stale: true,
+          state: applyAssignmentRemaps(normalizeDailyRuleUsageState(raw, new Date(storedTimestamp)), pending),
+          accountedAssignmentKeys: [], addedSeconds: 0, usageUpdates: {} };
+      }
       const currentKeys = normalizeActiveKeys(activeAssignmentKeys);
       let previousKeys = state.lastSample?.assignmentKeys || [];
       // Account tab events that arrive before startup finishes v1 migration.
@@ -320,31 +344,30 @@ export class DailyLimitManager {
 
       const sharedKeys = previousKeys.filter(key => currentKeys.includes(key));
       const accountingKeys = closePreviousSegment ? previousKeys : sharedKeys;
-      let addedSeconds = 0;
-
+      let addedSeconds = 0, elapsedMs = 0;
       const previous = state.lastSample;
       if (previous) {
-        const elapsedMs = timestamp - previous.timestamp;
-        const elapsedSeconds = Math.floor(elapsedMs / 1000);
-        if (elapsedMs > 0 && elapsedMs <= MAX_ACCOUNTING_GAP_MS) {
-          addedSeconds = elapsedSeconds;
-        }
+        const gap = timestamp - previous.timestamp;
+        if (gap > 0 && gap <= MAX_ACCOUNTING_GAP_MS) elapsedMs = gap;
       }
-
-      const usageUpdates = {};
-      if (addedSeconds > 0) {
-        for (const key of accountingKeys) {
-          const previousUsageSeconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
-          const currentUsageSeconds = previousUsageSeconds + addedSeconds;
-          state.usageSeconds[key] = currentUsageSeconds;
-          usageUpdates[key] = { previousUsageSeconds, currentUsageSeconds };
-        }
+      addedSeconds = Math.floor(elapsedMs / 1000);
+      const usageUpdates = {}, remainders = { ...(state.usageRemaindersMs || {}) };
+      for (const key of accountingKeys) {
+        const accountedMs = elapsedMs + (remainders[key] || 0);
+        const delta = Math.floor(accountedMs / 1000), remainder = accountedMs % 1000;
+        if (remainder) remainders[key] = remainder; else delete remainders[key];
+        if (!delta) continue;
+        const previousUsageSeconds = Math.max(0, Number(state.usageSeconds[key]) || 0);
+        const currentUsageSeconds = previousUsageSeconds + delta;
+        state.usageSeconds[key] = currentUsageSeconds;
+        usageUpdates[key] = { previousUsageSeconds, currentUsageSeconds };
+        addedSeconds = Math.max(addedSeconds, delta);
       }
-
-      state.lastSample = {
-        timestamp,
-        assignmentKeys: currentKeys
-      };
+      if (Object.keys(remainders).length) state.usageRemaindersMs = remainders; else delete state.usageRemaindersMs;
+      // Keep both the actual observation time and each assignment's already
+      // spent fraction. Rapid SPA transitions, pauses and worker restarts must
+      // not erase budget; integer counters and the v2 format remain compatible.
+      state.lastSample = { timestamp, assignmentKeys: currentKeys };
 
       if (pending.length > 0 || JSON.stringify(raw) !== JSON.stringify(state)) {
         await persistState();
@@ -425,6 +448,10 @@ export class DailyLimitManager {
       }
       if (state.lastSample) {
         state.lastSample.assignmentKeys = state.lastSample.assignmentKeys.filter(key => valid.has(key));
+      }
+      if (state.usageRemaindersMs) {
+        for (const key of Object.keys(state.usageRemaindersMs)) if (!valid.has(key)) delete state.usageRemaindersMs[key];
+        if (!Object.keys(state.usageRemaindersMs).length) delete state.usageRemaindersMs;
       }
       if (raw !== undefined && JSON.stringify(raw) !== JSON.stringify(state)) {
         await this.storageArea.set({ [DAILY_RULE_USAGE_KEY]: state });
