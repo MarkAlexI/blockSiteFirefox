@@ -275,11 +275,11 @@ jobs:
           with Path(os.environ['GITHUB_ENV']).open('a') as env:
               env.write(f'BD_EXTENSION_PATH={target}\n')
           PY
-      - name: Run seven native compatibility scenarios
+      - name: Run eight native compatibility scenarios
         timeout-minutes: 6
         working-directory: e2e
         run: xvfb-run -a npm run test:headed
-      - name: Require the pinned browser and all seven scenario bodies
+      - name: Require the pinned browser and all eight scenario bodies
         run: node e2e/verify-compatibility-result.mjs
       - name: Upload compatibility results and runtime provenance
         if: always()

@@ -1,4 +1,5 @@
 import { navigationChainScenarios } from './navigation-chain-scenarios.mjs';
+import { navigationBoundaryScenarios, warmRedirectScenarios } from './navigation-boundary-scenarios.mjs';
 import { focusSoundScenarios } from './focus-sound-scenarios.mjs';
 import { dialogScenarios } from './dialog-scenarios.mjs';
 import { rulePackTelemetryScenarios } from './rule-pack-telemetry-scenarios.mjs';
@@ -317,3 +318,4 @@ scenarios.push(...(await import('./pomodoro-scenarios.mjs')).pomodoroScenarios);
 scenarios.push(...(await import('./popup-layout-scenarios.mjs')).popupLayoutScenarios);
 
 scenarios.push(...navigationChainScenarios);
+scenarios.push(...navigationBoundaryScenarios, ...warmRedirectScenarios);

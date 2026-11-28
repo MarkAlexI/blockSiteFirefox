@@ -5,9 +5,11 @@ export const macosSmokeScenarioIds = Object.freeze([
   '18', '19', '20', '21', '22', '23', '24', '25', '27', '28', '46'
 ]);
 
-// This is a Firefox 128 compatibility check, not acceptance of the declared
-// Firefox 113 minimum or Firefox Android. Reuse the native scenario bodies.
+// Keep the historical ESR 115 inventory separate from current Firefox 128
+// acceptance. Cold DNR must also work before opening extension UI on 128.
 export const compatibilityScenarioIds = Object.freeze(['01', '05', '06', '07', '21', '25', '46']);
+export const desktop128ScenarioIds = Object.freeze([...compatibilityScenarioIds, '66']);
+export const compatibilityIdsFor = group => group === 'esr115' ? compatibilityScenarioIds : desktop128ScenarioIds;
 
 // Calendar boundaries, scheduled expiry and native idle/alarm wake deliberately
 // wait for real browser time. Keep them out of the growing core CI lane.
@@ -18,10 +20,11 @@ const lifecycleScenarioIds = new Set([
 export function selectScenarioGroup(scenarios, group = 'all') {
   if (!['all', 'core', 'lifecycle', 'overdue', 'upgrade', 'macos-smoke', 'compatibility', 'esr115'].includes(group)) throw new Error(`Unknown BD_E2E_GROUP: ${group}`);
   if (group === 'compatibility' || group === 'esr115') {
-    const selected = scenarios.filter(scenario => compatibilityScenarioIds.includes(scenario.id));
+    const expected = compatibilityIdsFor(group);
+    const selected = scenarios.filter(scenario => expected.includes(scenario.id));
     const ids = selected.map(scenario => scenario.id);
-    if (ids.length !== compatibilityScenarioIds.length || new Set(ids).size !== ids.length ||
-        compatibilityScenarioIds.some(id => !ids.includes(id))) {
+    if (ids.length !== expected.length || new Set(ids).size !== ids.length ||
+        expected.some(id => !ids.includes(id))) {
       throw new Error('Incomplete or duplicate Firefox compatibility scenarios');
     }
     return selected;

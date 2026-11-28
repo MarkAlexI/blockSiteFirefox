@@ -103,17 +103,30 @@ export function createRedirectNavigationGuard({ tabsApi, runtimeApi, sessionStor
         (typeof documentToken === 'string' && /^[\w-]{16,128}$/.test(documentToken) ? documentToken : null);
       const previous = chains[id];
       if (previous?.blocked) return { allowed: false };
+      const checkpoint = async (next, decision) => {
+        chains[id] = next;
+        await save();
+        // The first tab read, or the session checkpoint itself, can finish
+        // after its redirect document has been replaced. Validate the live
+        // tab again before authorizing an effect or recording statistics.
+        let latest;
+        try { latest = await tabsApi.get(id); } catch { /* The tab was closed. */ }
+        if (!isCurrent()) return { allowed: false };
+        if (!current(latest, sender.url)) {
+          delete chains[id];
+          await save();
+          return { allowed: false, obsolete: true };
+        }
+        return decision;
+      };
       if (document && previous?.document === document && previous.fingerprint === fingerprint) {
         return { allowed: true, recordRedirect: false };
       }
       if (previous?.hops.includes(fingerprint)) {
-        chains[id] = { ...previous, blocked: true };
-        await save();
-        return { allowed: false, recordBlock: isCurrent() };
+        return checkpoint({ ...previous, blocked: true }, { allowed: false, recordBlock: true });
       }
-      chains[id] = { hops: [...(previous?.hops || []), fingerprint], document, fingerprint, blocked: false };
-      await save();
-      return { allowed: isCurrent(), recordRedirect: isCurrent() };
+      return checkpoint({ hops: [...(previous?.hops || []), fingerprint], document, fingerprint, blocked: false },
+        { allowed: true, recordRedirect: true });
     });
   }
 

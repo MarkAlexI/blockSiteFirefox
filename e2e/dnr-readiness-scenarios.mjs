@@ -3,6 +3,7 @@ import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createDnrStartupProbe, dnrReadinessReport, assertDnrReadiness, measurementEnvironment } from './dnr-readiness.mjs';
 import { poll } from './fixtures.mjs';
+import { readDnrDocument } from './dnr-document-observation.mjs';
 
 export const dnrReadinessScenarios = [{
   id: '66', persistent: true,
@@ -36,12 +37,14 @@ export const dnrReadinessScenarios = [{
         const observationFloorAt = Date.now();
         const page = await e.newPage();
         await e.command('browsingContext.navigate', { context: page.context, url: probe.urls.control, wait: 'none' });
-        await poll(() => page.url(), value => {
-          const url = new URL(value);
-          return value.startsWith(e.baseUrl + '/blocked.html') && url.searchParams.get('url') === probe.host &&
+        const document = await poll(() => readDnrDocument(() => page.evaluate(() => ({
+          url: location.href, documentOrigin: performance.timeOrigin
+        }))), value => {
+          if (!value) return false;
+          const url = new URL(value.url);
+          return value.url.startsWith(e.baseUrl + '/blocked.html') && url.searchParams.get('url') === probe.host &&
             url.searchParams.get('reason') === 'always';
         }, 'actual DNR main-frame redirect before extension probe');
-        const document = await page.evaluate(() => ({ url: location.href, documentOrigin: performance.timeOrigin }));
         report.dnr = dnrReadinessReport(probe, { ...document, at: Date.now() }, {
           extensionOrigin: e.baseUrl, observationFloorAt });
         assertDnrReadiness(report.dnr);

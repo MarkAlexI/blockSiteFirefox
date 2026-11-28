@@ -94,6 +94,39 @@ test('page tokens provide idempotence when native document IDs or session storag
   assert.equal((await guard.authorize(sender, target, { documentToken: 'native-page-token-0002' })).recordBlock, true);
 });
 
+
+for (const decision of ['redirect', 'loop block']) for (const change of ['replaced document', 'pending navigation', 'closed tab']) {
+  test(`a ${decision} checkpoint cannot authorize or count a ${change}, and a fresh visit is independent`, async () => {
+    const f = fixture(), guard = f.create(), sender = f.sender(1);
+    f.put(1, sender.url); f.put(2, f.sender(2).url);
+    await guard.authorize(f.sender(2), target);
+    if (decision === 'loop block') await guard.authorize(sender, target);
+    const original = f.sessionStorage.set;
+    let entered, release;
+    const captured = new Promise(resolve => { entered = resolve; });
+    const gate = new Promise(resolve => { release = resolve; });
+    let hold = true;
+    f.sessionStorage.set = async patch => {
+      await original(patch);
+      if (hold) { hold = false; entered(); await gate; }
+    };
+    const pending = guard.authorize(f.sender(1, 'replacement-redirect-document'), target);
+    try {
+      await captured;
+      if (change === 'closed tab') f.tabs.delete(1);
+      else if (change === 'pending navigation') f.tabs.get(1).pendingUrl = 'https://new.example/';
+      else f.put(1, 'https://new.example/');
+      release();
+      assert.deepEqual(await pending, { allowed: false, obsolete: true });
+      const saved = f.data.redirectNavigationChainsV1;
+      assert.equal(saved[1], undefined, 'the abandoned checkpoint cannot poison a new visit');
+      assert.ok(saved[2], 'an unrelated tab retains its independent unfinished chain');
+      f.put(1, sender.url);
+      assert.deepEqual(await guard.authorize(f.sender(1, 'fresh-visit'), target), { allowed: true, recordRedirect: true });
+    } finally { release(); await pending; f.sessionStorage.set = original; }
+  });
+}
+
 test('a failed checkpoint cannot authorize a navigation, and revoked decisions never authorize', async () => {
   const f = fixture(); f.put(1, f.sender(1).url);
   f.sessionStorage.set = async () => { throw Error('checkpoint failed'); };

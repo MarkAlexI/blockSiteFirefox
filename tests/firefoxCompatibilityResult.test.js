@@ -1,19 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compatibilityScenarioIds, selectScenarioGroup } from '../e2e/scenario-groups.mjs';
+import { compatibilityIdsFor, selectScenarioGroup } from '../e2e/scenario-groups.mjs';
 import { verifyCompatibilityResult } from '../e2e/verify-compatibility-result.mjs';
 import { expectedVersion } from '../e2e/target-version.mjs';
 
-const evidence = () => ({ platform: { platform: 'linux' }, group: 'compatibility', status: 'passed',
-  finishedAt: '2026-11-07T00:00:00Z', expectedVersion, selected: 7,
-  tests: compatibilityScenarioIds.map(id => ({ id, status: 'passed', bodyStarted: true,
+const evidence = (group = 'compatibility') => ({ platform: { platform: 'linux' }, group, status: 'passed',
+  finishedAt: '2026-11-07T00:00:00Z', expectedVersion, selected: compatibilityIdsFor(group).length,
+  tests: compatibilityIdsFor(group).map(id => ({ id, status: 'passed', bodyStarted: true,
     browser: { browserName: 'firefox', browserVersion: '128.0', 'moz:geckodriverVersion': '0.35.0', 'moz:headless': false },
     target: { installation: 'persistent', version: expectedVersion } })),
-  stats: { passed: 7, failed: 0, blocked: 0, 'not-run': 0, bodiesStarted: 7 } });
+  stats: { passed: compatibilityIdsFor(group).length, failed: 0, blocked: 0, 'not-run': 0, bodiesStarted: compatibilityIdsFor(group).length } });
 
 test('compatibility selection retains native bodies and rejects partial or duplicate inventory', () => {
-  const scenarios = compatibilityScenarioIds.toReversed().map(id => ({ id }));
   for (const group of ['compatibility', 'esr115']) {
+    const scenarios = compatibilityIdsFor(group).toReversed().map(id => ({ id }));
     assert.deepEqual(selectScenarioGroup([...scenarios, { id: '65' }], group), scenarios);
     assert.throws(() => selectScenarioGroup(scenarios.slice(1), group), /Incomplete/);
     assert.throws(() => selectScenarioGroup([...scenarios, scenarios[0]], group), /duplicate/);
@@ -21,7 +21,7 @@ test('compatibility selection retains native bodies and rejects partial or dupli
 });
 
 const esrEvidence = () => {
-  const report = evidence(); report.group = 'esr115';
+  const report = evidence('esr115');
   for (const item of report.tests) {
     item.browser.browserVersion = '115.31.0'; item.observedEvents = ['log.entryAdded'];
     item.hostAccess = [{ before: false, granted: true, restarted: false,
@@ -53,7 +53,7 @@ test('ESR 115 gate rejects absent or synthetic grants and permission loss hidden
 });
 
 test('compatibility gate accepts complete Firefox 128 native evidence', () => {
-  assert.equal(verifyCompatibilityResult(evidence()).passed, 7);
+  assert.equal(verifyCompatibilityResult(evidence()).passed, 8);
 });
 
 test('compatibility gate rejects another browser, driver or release and temporary installation', () => {

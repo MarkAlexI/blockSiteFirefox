@@ -2,10 +2,11 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { compatibilityScenarioIds } from './scenario-groups.mjs';
+import { compatibilityIdsFor } from './scenario-groups.mjs';
 import { expectedVersion } from './target-version.mjs';
 
 export function verifyCompatibilityResult(report, group = 'compatibility') {
+  const compatibilityScenarioIds = compatibilityIdsFor(group);
   const browserVersion = { compatibility: '128.0', esr115: '115.31.0' }[group];
   assert.ok(browserVersion, 'known compatibility target required');
   assert.equal(report.platform?.platform, 'linux', 'compatibility evidence must come from Linux');
@@ -48,7 +49,7 @@ export function verifyCompatibilityResult(report, group = 'compatibility') {
   assert.equal(report.stats?.bodiesStarted, compatibilityScenarioIds.length);
   for (const status of ['failed', 'blocked', 'not-run']) assert.equal(report.stats?.[status], 0);
   return { browser: `Firefox ${browserVersion} ESR`, driver: '0.35.0', passed: report.tests.length,
-    scope: 'Desktop compatibility only; minimum 113 and Android are not accepted' };
+    scope: 'Pinned Desktop browser compatibility only; Android requires separate acceptance' };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

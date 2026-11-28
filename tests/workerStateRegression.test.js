@@ -2123,6 +2123,65 @@ test('Daily Limit worker restarts visibility accounting after navigation complet
   });
 });
 
+test('combined URL and complete event captures one active accounting boundary before delayed visibility', { timeout: 5000 }, async () => {
+  const start = new Date(2026, 10, 28, 12).getTime();
+  const captured = createDeferred(), release = createDeferred();
+  let armed = false, probes = 0;
+  await withUsageClock(start, async clock => {
+    await withWorker(async ({ api }) => {
+      const a = { id: 10, windowId: 1, active: true, url: 'https://time-a.example/page' };
+      const b = { ...a, url: 'https://time-b.example/page' };
+      api.tabs.values = [b];
+      api.storage.local.data.dailyRuleUsage = { version: 2, date: getLocalDateKey(new Date(start)),
+        usageSeconds: { '21:general': 40, '22:general': 35 },
+        lastSample: { timestamp: start, assignmentKeys: ['21:general'] } };
+      clock.set(start + 1357); armed = true;
+      const pending = api.tabs.onUpdated.listeners[0](10, { url: b.url, status: 'complete' }, b);
+      try {
+        await Promise.race([captured.promise, pending.then(() => { throw Error('expected held visibility probe'); })]);
+        clock.set(start + 2901); release.resolve(); await pending;
+        const state = api.storage.local.data.dailyRuleUsage;
+        assert.equal(probes, 1, 'one native event requests one visibility/accounting sample');
+        assert.deepEqual(state.usageSeconds, { '21:general': 41, '22:general': 35 });
+        assert.deepEqual(state.usageRemaindersMs, { '21:general': 357 });
+        assert.deepEqual(state.lastSample, { timestamp: start + 1357, assignmentKeys: ['22:general'] });
+      } finally { release.resolve(); await pending; }
+    }, { local: { activeRuleListId: 'general', rules: [
+      makeDailyLimitRule(21, 'general', { blockURL: 'time-a.example' }),
+      makeDailyLimitRule(22, 'general', { blockURL: 'time-b.example' })
+    ] }, scripting: { executeScript: async () => {
+      if (armed) { probes++; captured.resolve(); await release.promise; }
+      return [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }];
+    } } });
+  });
+});
+
+test('combined URL and complete event from an inactive tab cannot change the foreground budget', { timeout: 5000 }, async () => {
+  const start = new Date(2026, 10, 28, 12).getTime();
+  let probes = 0;
+  await withUsageClock(start, async clock => {
+    await withWorker(async ({ api }) => {
+      const active = { id: 10, windowId: 1, active: true, url: 'https://time-a.example/page' };
+      const inactive = { id: 11, windowId: 1, active: false, url: 'https://time-b.example/page' };
+      api.tabs.values = [active, inactive];
+      const original = { version: 2, date: getLocalDateKey(new Date(start)),
+        usageSeconds: { '21:general': 40, '22:general': 35 },
+        usageRemaindersMs: { '21:general': 357 },
+        lastSample: { timestamp: start, assignmentKeys: ['21:general'] } };
+      api.storage.local.data.dailyRuleUsage = structuredClone(original); probes = 0;
+      clock.set(start + 1357);
+      await api.tabs.onUpdated.listeners[0](11, { url: inactive.url, status: 'complete' }, inactive);
+      assert.equal(probes, 0, 'an inactive navigation does not inspect or replace the foreground segment');
+      assert.deepEqual(api.storage.local.data.dailyRuleUsage, original);
+    }, { local: { activeRuleListId: 'general', rules: [
+      makeDailyLimitRule(21, 'general', { blockURL: 'time-a.example' }),
+      makeDailyLimitRule(22, 'general', { blockURL: 'time-b.example' })
+    ] }, scripting: { executeScript: async () => {
+      probes++; return [{ result: { visibilityState: 'visible', hidden: false, hasFocus: true } }];
+    } } });
+  });
+});
+
 test('URL accounting stays ahead of a load-complete event while Whitelist inspection waits', { timeout: 5000 }, async () => {
   const start = new Date(2026, 10, 27, 12).getTime();
   await withUsageClock(start, async clock => {
